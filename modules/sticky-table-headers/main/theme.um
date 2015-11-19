@@ -1,0 +1,7 @@
+@module sticky-table-headers
+  
+  @option scroll-indicator-shadow-color
+    @type color
+    @description: The box shadow color for the scroll indicators that show when scrollbars aren't always visible.
+    @default: rgba(0,0,0,0.5)
+  

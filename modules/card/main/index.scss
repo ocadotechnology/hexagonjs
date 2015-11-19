@@ -1,0 +1,154 @@
+.hx-card {
+  border: 1px solid transparent;
+  margin-bottom: 0.5em;
+
+  > {
+    .hx-card-group,
+    .hx-card-section {
+      &:not(.hx-card-joint) {
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
+}
+
+.hx-card-group {
+  display: flex;
+  flex-direction: row;
+
+  > {
+    .hx-card-group,
+    .hx-card-section {
+      border-bottom: none;
+      flex: 1 1 auto;
+
+      &.hx-card-fixed {
+        flex: 0 0 auto;
+      }
+    }
+  }
+
+  &.hx-card-vertical {
+    > {
+      .hx-card-group,
+      .hx-card-section {
+        &:not(.hx-card-joint) {
+          border-bottom: 1px solid transparent;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  &:not(.hx-card-vertical) {
+    > {
+      .hx-card-group,
+      .hx-card-section {
+        &:not(.hx-card-joint) {
+          border-right: 1px solid transparent;
+        }
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+}
+
+.hx-card-vertical {
+  flex-direction: column;
+}
+
+.hx-card-text.hx-card-large {
+  font-size: 32px;
+  font-weight: 100;
+  padding-left: 0;
+  padding-right: 0.25em;
+}
+
+.hx-card-icon {
+  padding: 0 0.5em;
+}
+
+.hx-card-header.hx-card-section.hx-card-small {
+  padding: 7px 14px;
+}
+
+.hx-card-small > .hx-section {
+  padding: 7px 14px;
+}
+
+.hx-card-slim.hx-card-section {
+  padding: 0;
+}
+
+.hx-card-action {
+  text-align: right;
+  padding: 1em;
+  margin: -1em;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}
+
+.hx-card-action:hover {
+  text-decoration: none;
+}
+
+.hx-card-action.hx-card-small {
+  padding: 0.5em;
+  margin: -0.5em;
+}
+
+.hx-card-small > .hx-card-sparkline {
+  height: 16px;
+}
+
+.hx-card-progress {
+  top: 4px;
+}
+
+.hx-card-header {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.hx-card-aligned {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hx-card-aligned > .hx-card-group {
+  display: table-row;
+}
+
+.hx-card-aligned > .hx-card-group > .hx-card-section {
+  display: table-cell;
+  width: 100%;
+}
+
+.hx-card-aligned > .hx-card-group > .hx-card-section.hx-card-fixed {
+  display: table-cell;
+  width: 0;
+  white-space: nowrap;
+}
+
+// these have to be this specific as the rules at the top are quite specific.
+.hx-card > .hx-card-group:not(.hx-card-joint),
+.hx-card > .hx-card-section:not(.hx-card-joint),
+.hx-card-aligned > .hx-card-group:not(.hx-card-joint),
+.hx-card-aligned > .hx-card-section:not(.hx-card-joint) {
+  border-bottom: 1px solid transparent;
+}
+
+.hx-card > .hx-card-group:not(.hx-card-joint),
+.hx-card > .hx-card-section:not(.hx-card-joint),
+.hx-card-aligned > .hx-card-group:not(.hx-card-joint),
+.hx-card-aligned > .hx-card-section:not(.hx-card-joint) {
+  border-color: #E4E4E4;
+}

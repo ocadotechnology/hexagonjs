@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "animate",
+    "morphs",
+    "icon"
+  ],
+  "keywords": [
+    "tree"
+  ]
+}

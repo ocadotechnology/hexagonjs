@@ -1,0 +1,51 @@
+@module label
+
+  @option default-col
+    @type color
+    @description: The base default label color
+    @default: #E6E6E6
+
+  @option action-col
+    @type color
+    @description: The base action label color
+    @default: #6582A6
+
+  @option positive-col
+    @type color
+    @description: The base positive label color
+    @default: #6FB365
+
+  @option warning-col
+    @type color
+    @description: The base warning label color
+    @default: #CB9856
+
+  @option negative-col
+    @type color
+    @description: The base negative label color
+    @default: #C74967
+
+  @option info-col
+    @type color
+    @description: The base info label color
+    @default: #A36FA9
+
+  @option compliment-col
+    @type color
+    @description: The base compliment label color
+    @default: #FDFDFD
+
+  @option contrast-col
+    @type color
+    @description: The base contrast label color
+    @default: #3D3D3D
+
+  @option light-text-col
+    @type color
+    @description: The text color to use on dark label backgrounds
+    @default: #F3F3F3
+
+  @option dark-text-col
+    @type color
+    @description: The text color to use on dark label backgrounds
+    @default: #3D3D3D

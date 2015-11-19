@@ -1,0 +1,13 @@
+{
+  "dependencies": [
+    "component",
+    "util",
+    "selection",
+    "input-group",
+    "event-emitter",
+    "icon"
+  ],
+  "keywords": [
+    "paginator"
+  ]
+}

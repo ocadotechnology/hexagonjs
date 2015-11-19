@@ -1,0 +1,21 @@
+.hx-collapsible-heading {
+  background: $heading-background-col;
+  color: $heading-text-col;
+}
+
+.hx-collapsible-toggle:hover,
+.hx-collapsible-heading:not(.hx-collapsible-heading-no-hover):hover {
+  background: $toggle-hover-background-col;
+  color: $toggle-hover-text-col;
+}
+
+.hx-collapsible-toggle {
+  background: $toggle-background-col;
+  color: $toggle-text-col;
+}
+
+.hx-collapsible-content {
+  border-color: $content-border-col;
+  background: $content-background-col;
+  color: $content-text-col;
+}

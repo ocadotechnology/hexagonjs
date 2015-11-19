@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "map",
+    "util",
+    "selection",
+    "event-emitter",
+    "tag-input"
+  ],
+  "keywords": [
+    "form",
+    "builder"
+  ]
+}

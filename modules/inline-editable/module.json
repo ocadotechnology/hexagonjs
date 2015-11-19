@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "component",
+    "morph-section",
+    "input-group",
+    "icon"
+  ],
+  "keywords": [
+    "inline",
+    "editable"
+  ]
+}

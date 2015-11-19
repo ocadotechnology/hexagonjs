@@ -1,0 +1,41 @@
+@module toggle-button
+
+  @option default-col
+    @type color
+    @description: The base default toggle button color
+    @default: #E6E6E6
+
+  @option action-col
+    @type color
+    @description: The base action toggle button color
+    @default: #6582A6
+
+  @option positive-col
+    @type color
+    @description: The base positive toggle button color
+    @default: #6FB365
+
+  @option warning-col
+    @type color
+    @description: The base warning toggle button color
+    @default: #CB9856
+
+  @option negative-col
+    @type color
+    @description: The base negative toggle button color
+    @default: #C74967
+
+  @option info-col
+    @type color
+    @description: The base info toggle button color
+    @default: #A36FA9
+
+  @option compliment-col
+    @type color
+    @description: The base complimentary toggle button color
+    @default: #FDFDFD
+
+  @option contrast-col
+    @type color
+    @description: The base contrasting toggle button color
+    @default: #3D3D3D

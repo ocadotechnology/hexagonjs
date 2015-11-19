@@ -1,0 +1,65 @@
+.hx-tag-input {
+  display: flex;
+  flex-flow: row wrap;
+  margin-right: 1px;
+
+  .hx-tags-container {
+    flex-flow: row wrap;
+    display: flex;
+    flex-grow: 0;
+    margin: 0 -1px 0 0;
+    padding: 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  form {
+    flex-flow: row wrap;
+    flex-grow: 1;
+    display: flex;
+
+    input {
+      margin: 0 -1px 0 0;
+      flex-grow: 1;
+      padding-top: 0.55em;
+      padding-bottom: 0.55em;
+      min-width: 150px;
+    }
+  }
+}
+
+.hx-tag {
+  display: flex;
+  flex-grow: 0;
+  margin: 0.25em;
+  border-radius: 0.15em;
+  border: 1px solid;
+
+  .hx-tag-text {
+    padding: 0.2em 0.2em 0.2em 0.5em;
+  }
+
+  .hx-tag-remove {
+    font-size: 0.9em;
+    padding: 0.2em 0.5em 0.2em 0.3em;
+    cursor: pointer;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    > i {
+      vertical-align: middle;
+    }
+  }
+
+  &.hx-disabled {
+    .hx-tag-text,
+    .hx-tag-remove {
+      cursor: not-allowed;
+    }
+  }
+}

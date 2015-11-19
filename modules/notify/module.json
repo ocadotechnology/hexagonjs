@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "selection",
+    "animate",
+    "spinner",
+    "view",
+    "icon"
+  ],
+  "keywords": [
+    "notify"
+  ]
+}

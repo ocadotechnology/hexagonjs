@@ -1,0 +1,130 @@
+.hx-drawing {
+  position: relative;
+
+  canvas {
+    margin-bottom: -5px;
+    // prevents the resize events causing the container to resize endlessly
+
+  }
+}
+
+.hx-drawing-overlay {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  pointer-events: none;
+}
+
+.hx-drawing-sidebar-toggle {
+  position: absolute;
+  pointer-events: initial;
+}
+
+// Positioning, evaluates to hx-drawing-sidebar-toggle-t etc.
+.hx-drawing-sidebar-toggle-t {
+  top: 0;
+}
+
+.hx-drawing-sidebar-toggle-r {
+  right: 0;
+}
+
+.hx-drawing-sidebar-toggle-b {
+  bottom: 0;
+}
+
+.hx-drawing-sidebar-toggle-l {
+  left: 0;
+}
+
+
+.hx-drawing-sidebar {
+  position: absolute;
+  opacity: 0;
+  pointer-events: initial;
+
+  .hx-drawing-sidebar-title,
+  .hx-drawing-sidebar-content {
+    padding: 0.4em;
+  }
+}
+
+// Positioning, evaluates to hx-drawing-sidebar-t etc.
+.hx-drawing-sidebar-t, .hx-drawing-sidebar-b {
+  width: 100%;
+}
+
+.hx-drawing-sidebar-l, .hx-drawing-sidebar-r {
+  height: 100%;
+}
+
+.hx-drawing-sidebar-t {
+  top: 0;
+}
+
+.hx-drawing-sidebar-r {
+  right: 0;
+}
+
+.hx-drawing-sidebar-b {
+  bottom: 0;
+}
+
+.hx-drawing-sidebar-l {
+  left: 0;
+}
+
+.hx-drawing-searchbox {
+  opacity: 0.95;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  input {
+    pointer-events: initial;
+  }
+}
+
+// pending api
+
+// .hx-drawing-sidebar {
+//   height: 100%;
+//   width: 250px;
+//   top: 0px;
+//   position: absolute;
+//   right: 0px;
+//   background: $drawingSidebarBackground;
+//   opacity: 0.9;
+//   color: black;
+//   display: none;
+// }
+
+// .hx-sidebar-section-title {
+//   padding: 0.5em;
+//   font-size: 1em;
+//   background: $drawingSidebarTitleBackground;
+//   color: white;
+// }
+
+// .hx-sidebar-section-content {
+//   padding: 0.5em;
+// }
+
+// .hx-sidebar-component {
+//   padding: 0.15em;
+
+//   button {
+//     width: 100%
+//   }
+// }
+
+// .hx-drawing-searchbox {
+//   opacity: 0.95;
+//   position: absolute;
+//   top: 0px;
+//   right: 0px;
+
+//   input {
+//     background: $drawingSearchInputBackground;
+//   }
+// }

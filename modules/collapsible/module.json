@@ -1,0 +1,13 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "animate",
+    "morphs",
+    "event-emitter",
+    "icon"
+  ],
+  "keywords": [
+    "collapsible"
+  ]
+}

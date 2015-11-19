@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "set",
+    "map",
+    "list"
+  ],
+  "keywords": [
+    "util"
+  ]
+}

@@ -1,0 +1,42 @@
+@function getColFromBG($col) {
+  @if lightness($col) > 60 {
+    @return $dark-text-col;
+  }
+
+  @else {
+    @return $light-text-col;
+  }
+}
+
+@mixin tag($class, $col) {
+  &#{if($class, "." + $class, "")} {
+    background: $col;
+    color: getColFromBG($col);
+    border-color: darken($col, 10%);
+  }
+}
+
+.hx-tag-input {
+  .hx-tags-container {
+    background: $tag-container-background-col;
+    border: 1px solid $tag-container-border-col;
+  }
+}
+
+.hx-tag {
+  @include tag(false, $default-col);
+  @include tag(hx-action, $action-col);
+  @include tag(hx-positive, $positive-col);
+  @include tag(hx-warning, $warning-col);
+  @include tag(hx-negative, $negative-col);
+  @include tag(hx-info, $info-col);
+  @include tag(hx-compliment, $compliment-col);
+  @include tag(hx-contrast, $contrast-col);
+
+  &.hx-disabled {
+    & {
+      background: $disabled-col;
+      color: $disabled-text-col;
+    }
+  }
+}

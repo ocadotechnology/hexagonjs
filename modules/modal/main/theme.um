@@ -1,0 +1,41 @@
+@module modal
+
+  @option shade-col
+    @type color
+    @description: The color of the overlay shown above the content when a modal is shown.
+    @default: rgba(0,0,0,0.5)
+
+  @option background-col
+    @type color
+    @description: The background color of the modal
+    @default: #F7F7F7
+
+  @option title-background-col
+    @type color
+    @description: The background color for the modal titlebar
+    @default: #E6E6E6
+
+  @option title-text-col
+    @type color
+    @description: The text color for the modal titlebar
+    @default: #3D3D3D
+
+  @option title-font-size
+    @type size
+    @description: The font size for the modal titlebar
+    @default 1.17em
+
+  @option box-shadow
+    @type color
+    @description: The box shadow for the modal
+    @default [0 5px 15px rgba(0, 0, 0, 0.5)]
+
+  @option border-radius
+    @type size
+    @description: The border radius for the modal
+    @default 3px
+
+  @option border-color
+    @type color
+    @description: The border color for the divider line between the titlebar and the content
+    @default #E6E6E6

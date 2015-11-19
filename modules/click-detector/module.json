@@ -1,0 +1,13 @@
+{
+  "dependencies": [
+    "pointer-events",
+    "list",
+    "event-emitter",
+    "selection",
+    "util"
+  ],
+  "keywords": [
+    "click",
+    "detector"
+  ]
+}

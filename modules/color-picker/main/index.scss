@@ -1,0 +1,133 @@
+.hx-colorpicker {
+  user-select: none;
+  padding: 10px;
+
+  .hx-colorpicker-fields {
+    width: 240px;
+    height: 200px;
+    font-size: 0;
+    padding: 5px;
+  }
+
+  .hx-colorpicker-picker {
+    position: absolute;
+  }
+
+  .hx-colorpicker-fields,
+  .hx-colorpicker-inputs {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+  }
+
+  .hx-colorpicker-grid,
+  .hx-colorpicker-slider {
+    display: inline-block;
+    position: absolute;
+    border: 1px solid grey;
+    box-sizing: border-box;
+  }
+
+  .hx-colorpicker-quick-color,
+  .hx-colorpicker-static-color {
+    width: 40px;
+    height: 20px;
+    display: inline-block;
+    width: 49%;
+    border: 1px solid grey;
+    box-sizing: border-box;
+  }
+
+  .hx-colorpicker-static-color {
+    margin-left: 2%;
+  }
+
+  .hx-colorpicker-grid {
+    width: 200px;
+    height: 200px;
+    cursor: crosshair;
+    background: linear-gradient(hsl(0, 0%, 100%) 0%, hsla(0, 0%, 100%, 0) 50%, hsla(0, 0%, 0%, 0) 50%, hsl(0, 0%, 0%) 100%), linear-gradient(to right, hsl(0, 0%, 50%) 0%, hsla(0, 0%, 50%, 0) 100%);
+
+    .hx-colorpicker-picker {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid #444;
+
+      &:after {
+        display: block;
+        content: " ";
+        width: 6px;
+        height: 6px;
+        margin: auto;
+        border-radius: 50%;
+        border: 2px solid white;
+      }
+    }
+  }
+
+  .hx-colorpicker-slider {
+    height: 200px;
+    width: 20px;
+    left: 220px;
+    cursor: pointer;
+    background: linear-gradient(to top, #F00, #FF0, #0F0, #0FF, #00F, #F0F, #F00);
+
+    .hx-colorpicker-picker {
+      width: 100%;
+      height: 2px;
+      background: black;
+      left: 0;
+
+      &:after {
+        position: absolute;
+        content: " ";
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 5px 10px 5px 0;
+        top: -4px;
+        left: 100%;
+        border-color: transparent black transparent transparent;
+      }
+
+      &:before {
+        position: absolute;
+        content: " ";
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 5px 0 5px 10px;
+        top: -4px;
+        right: 100%;
+        border-color: transparent transparent transparent black;
+      }
+    }
+  }
+
+  .hx-colorpicker-inputs {
+    font-size: 0.75em;
+    margin: 0;
+    padding: 0 0 0 1em;
+  }
+
+  .hx-colorpicker-input {
+    margin: 0.25em 0;
+
+    input {
+      margin: 0;
+      padding: 2px;
+      width: 58px;
+      font-size: 1.2em;
+    }
+
+    label {
+      display: inline-block;
+      width: 30px;
+    }
+  }
+
+  .hx-colorpicker-input-quick {
+    font-size: 0;
+  }
+}

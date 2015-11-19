@@ -1,0 +1,59 @@
+{
+  "name": "hexagon-js",
+  "version": "1.0.0",
+  "author": "James Smyth <james.smyth@ocado.com>",
+  "contributors": [
+    "Charlie Frater <charlie.frater@ocado.com>"
+  ],
+  "publishConfig": {
+    "registry": "http://maven.ocado.com/nexus/content/repositories/Hexagon_Releases"
+  },
+  "license": "MIT",
+  "main": "build/main/index.js",
+  "scripts": {
+    "test": "npm run test-build; npm run test-library",
+    "test-build": "./node_modules/istanbul/lib/cli.js cover --dir target/test-build/coverage ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec build/test",
+    "test-library": "node build/main/test.js",
+    "build": "node build/main/tasks.js build",
+    "demo": "node build/main/tasks.js demo"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.0.3",
+    "bluebird": "^2.10.2",
+    "coffee-script": "^1.10.0",
+    "flatten": "0.0.1",
+    "fs-extra": "^0.24.0",
+    "gaze": "^0.5.2",
+    "live-server": "^0.8.2",
+    "node-sass": "3.3.0",
+    "postcss": "^5.0.9",
+    "quantum-js": "^0.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "chai-as-promised": "^5.1.0",
+    "istanbul": "^0.3.21",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.10",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-coffee-preprocessor": "^0.3.0",
+    "karma-coverage": "^0.5.2",
+    "karma-detect-browsers": "^2.0.1",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-html-reporter": "^0.2.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-jasmine-ajax": "^0.1.13",
+    "karma-json-reporter": "^1.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-opera-launcher": "^0.3.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sinon": "^1.0.4",
+    "karma-slimerjs-launcher": "^0.2.0",
+    "mocha": "^2.3.3",
+    "phantomjs": "^1.9.18",
+    "sinon": "^1.17.1"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "component",
+    "event-emitter",
+    "menu",
+    "filter",
+    "sort",
+    "util"
+  ]
+}

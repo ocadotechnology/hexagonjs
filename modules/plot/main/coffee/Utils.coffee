@@ -1,0 +1,278 @@
+
+# encodes the data into an svg path string
+svgCurve = (data, close) ->
+  if data.length > 1
+    #OPTIM: it might actually be faster to do standard string concatination here. need to test...
+    segments = new Array(data.length)
+    segments[0] = 'M' + data[0].x + ',' + data[0].y
+    l = data.length-1
+    for i in [1..l]
+      segments[i] = 'L' + data[i].x + ',' + data[i].y
+    if close then segments.join('') + 'z' else segments.join('')
+  else ''
+
+arcCurveMinimumRadius = (startRadians, endRadians, padding) ->
+  radians = endRadians - startRadians
+  theta = if radians < Math.PI then radians / 2 else Math.PI - radians / 2
+
+  padding / 2 / Math.sin(theta)
+
+arcCurve = (x, y, innerRadius, outerRadius, startRadians, endRadians, padding, dontCurveCenter) ->
+
+  radians = endRadians - startRadians
+
+  #convert padding (in pixels) into radians (for a radius r)
+  pixelsToRadians = (pixels, radius) -> pixels / radius
+
+  pushPoints = (startPoint, endPoint, radius) ->
+    radpad = pixelsToRadians(padding, radius)
+    max = Math.abs(endPoint - startPoint)
+    for i in [startPoint..endPoint]
+      r = (radians - radpad)
+      theta = if r > 0
+        startRadians + (radpad / 2) + ((i / max) * r)
+      else
+        endRadians - (radpad / 2) - ((i / max) * r)
+
+      theta = hx.clamp(startRadians, endRadians, theta)
+      points.push {
+        x: x + radius * Math.cos(theta)
+        y: y + radius * Math.sin(theta)
+      }
+
+  pointsRequired = Math.min(100, Math.max(3, Math.floor(radians * Math.sqrt(outerRadius))-1))
+  points = []
+
+  # if there is no inner radius set, then we only need one point at the middle
+  if innerRadius is 0 or dontCurveCenter
+    points.push {
+      x: x + innerRadius * Math.cos((startRadians + endRadians) / 2)
+      y: y + innerRadius * Math.sin((startRadians + endRadians) / 2)
+    }
+  else
+    pushPoints(0, pointsRequired, innerRadius)
+
+  pushPoints(pointsRequired, 0, outerRadius)
+
+  svgCurve(points, true)
+
+# calculates the min and max of some data using an accessor function to select the value to use
+extent = (data, f) ->
+  if data.length > 0
+    min = f(data[0])
+    max = f(data[0])
+    for d in data
+      min = hx.min([min, f(d)])
+      max = hx.max([max, f(d)])
+    [min, max]
+  else
+    undefined
+
+extent2 = (data, f, g) ->
+  if data.length > 0
+    min = f(data[0])
+    max = f(data[0])
+    for d in data
+      min = hx.min([min, f(d), g(d)])
+      max = hx.max([max, f(d), g(d)])
+    [min, max]
+  else
+    undefined
+
+# creates a new 'lightweight' version of an array by only taking every nth value, where n is
+# chosen so that the maximum number of values returned in the new array doesn't exceed maxSize
+feather = (array, maxSize=200) ->
+  if maxSize > 1
+    originalLength = array.length
+    if originalLength > maxSize
+      newData = new Array(maxSize)
+      for i in [0...maxSize] by 1
+        newData[i] = array[Math.floor(i * (originalLength-1) / (maxSize-1))]
+      newData
+    else
+      array.slice(0)
+  else if maxSize == 1 and array.length > 0
+    [array[Math.floor(array.length/2)]]
+  else []
+
+splitData = (data, defined = ->) ->
+  l = data.length
+  datas = []
+  current = undefined
+  awaitingReal = true
+
+  for d in data
+    if defined(d)
+      if awaitingReal
+        current = []
+        datas.push(current)
+        awaitingReal = false
+      current.push d
+    else
+      awaitingReal = true
+
+  datas.filter((d) -> d.length > 0)
+
+splitAndFeather = (data, maxSize, defined = ->) ->
+  if maxSize
+    featherFactor = maxSize / data.length
+    feather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
+  else
+    splitData(data, defined)
+
+# prepares an array for plotting as a bar chart
+stackSegments = (array, arrayNames, xvalue) ->
+  result = []
+  sum = 0
+  for y, i in array
+    result.push
+      y0: sum
+      y1: sum + y.value
+      yname: arrayNames[i]
+      y: y.value
+      data: y
+      x: xvalue
+    sum += y.value
+  result
+
+# XXX: make this use binary search (since array should be sorted)
+inefficientSearch = (array, find, nearest, v) ->
+  for i in [0...array.length-1] by 1
+    if v(array[i]) <= find <= v(array[i+1])
+      if nearest
+        if Math.abs(v(array[i]) - find) < Math.abs(v(array[i+1]) - find)
+          return i
+        else
+          return i+1
+      else return i
+  return -1
+
+# performs a binary search for the closest value
+search = (array, find, lookup) ->
+  if array.length < 2 then return array.length - 1
+  imin = 0
+  imax = array.length - 1
+  ibest = imin
+  while imin <= imax
+    imid = Math.floor((imax + imin) / 2)
+    if lookup(array[imid]) < find
+      imin = imid + 1
+    else if lookup(array[imid]) > find
+      imax = imid - 1
+    else return imid
+    if Math.abs(lookup(array[imid]) - find) < Math.abs(lookup(array[ibest]) - find)
+      ibest = imid
+  return ibest
+
+# works out the label to show given the x value
+findLabel = (array, find, interpolate, interpolateValues) ->
+  i = search(array, find, (d) -> d.x)
+  if i > -1
+    atEdge = i is 0 or i is array.length - 1
+    if interpolate
+      closest = array[i]
+      dist = find - closest.x
+      inLower = (dist < 0 and i > 0)
+      inUpper = (dist > 0 and i < array.length - 1)
+      if inLower or inUpper
+        nextClosest = array[if inLower then i-1 else i+1]
+        interpolated = interpolateValues find, closest, nextClosest, (yClosest, yNextClosest) ->
+          yClosest + (yClosest - yNextClosest) * dist / (closest.x - nextClosest.x)
+        if interpolated? then interpolated else if not atEdge then array[i]
+      else if not atEdge then array[i]
+    else if not atEdge then array[i]
+
+# creates label canditate label points for all the sections of data in a series, then picks the
+# one that is closest to the mouse
+createLabelPoint = (series, x, y, interpolator) ->
+  if series.labelsEnabled()
+    bestPoint = undefined
+    bestDist = -1
+    xx = series.axis.xScale.inverse(x)
+    for data in series._.featheredData
+      point = findLabel(series.data(), xx, series.labelInterpolated(), interpolator)
+      if point
+        dist = Math.abs(point.x - xx)
+        if dist < bestDist or not bestPoint?
+          bestDist = dist
+          bestPoint = point
+    bestPoint
+
+makeLabelDetails = (series, point, yAccessor, xProperty='x', yProperty='y') ->
+  {
+    series: series,
+    title: series.title(),
+    x: series.axis.xScale.apply(point.x),
+    y: series.axis.yScale.apply(yAccessor(point)),
+    color: series.legendColor(),
+    values: series.labelValuesExtractor()(series, point, undefined, yAccessor, xProperty, yProperty)
+  }
+
+
+boundLabel = (label, graph) ->
+  label.bounding = graph.plotArea
+  label
+
+createLinearGradient = (parent, values, series) ->
+  gradientId = hx.randomId()
+
+  hx.select(parent).select('.hx-linear-gradient').remove()
+  linearGradient = hx.select(parent).append('linearGradient')
+    .attr('class', 'hx-linear-gradient')
+    .attr('id', gradientId)
+    .attr('gradientUnits', "userSpaceOnUse")
+    .attr('x1', 0)
+    .attr('x2', 0)
+    .attr('y1', series.axis.yScale.rangeMin)
+    .attr('y2', series.axis.yScale.rangeMax)
+
+  values.forEach (value) ->
+    linearGradient.append('stop')
+      .attr('offset', ((value.yValue - series.axis.yScale.domainMin) / (series.axis.yScale.domainMax - series.axis.yScale.domainMin) * 100) + '%')
+      .attr('stop-color', hx.color(value.color).alpha(1).toString())
+      .attr('stop-opacity', hx.color(value.color).alpha())
+
+  gradientId
+
+populateLegendSeries = (selection, series) ->
+  background = selection.select('.hx-legend-box')
+  if background.size() is 0
+    background = selection.append('rect').class('hx-legend-box')
+
+  selection.view('.hx-legend-entry', 'g')
+    .enter ->
+      selection = @append('g').class('hx-legend-entry')
+      selection.append('text')
+      selection.append('rect')
+      selection.node()
+    .update (s, e, i) ->
+      @select('text')
+        .text(if hx.isFunction(s.title) then s.title() else s.name)
+        .attr('y', i*20 + 10)
+        .attr('x', 15)
+
+      @select('rect')
+        .text(if hx.isFunction(s.title) then s.title() else s.name)
+        .attr('y', i*20)
+        .attr('x', 0)
+        .attr('width', 10)
+        .attr('height', 10)
+        .attr('fill', if s.legendColor then s.legendColor() else s.color) # XXX: the else s.color is there for PieCharts... which should be fixed when pie charts are refactored
+    .apply(series)
+
+  width = hx.max(selection.selectAll('text').nodes.map((node) -> node.getComputedTextLength()))
+
+  background.attr('width', width + 6 + 20)
+  background.attr('x', -5)
+  background.attr('height', series.length*20)
+  background.attr('y', -5)
+
+  selection
+
+optionSetterGetter = (name) ->
+  (value) ->
+    if arguments.length > 0
+      @_.options[name] = value
+      this
+    else
+      @_.options[name]

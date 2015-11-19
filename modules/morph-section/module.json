@@ -1,0 +1,13 @@
+{
+  "dependencies": [
+    "event-emitter",
+    "selection",
+    "animate",
+    "click-detector",
+    "morphs"
+  ],
+  "keywords": [
+    "morph",
+    "section"
+  ]
+}

@@ -1,0 +1,26 @@
+@mixin button($class, $color) {
+  &#{if($class, "." + $class, "")} {
+    $desaturatedColor: desaturate(darken($color, 5), 10);
+    $desaturatedColorHover: darken($color, 10);
+
+    &.hx-btn-toggle-off {
+      background: $desaturatedColor;
+
+      &:active,
+      &:hover {
+        background: $desaturatedColorHover;
+      }
+    }
+  }
+}
+
+.hx-btn-toggle {
+  @include button(false, $default-col);
+  @include button(hx-action, $action-col);
+  @include button(hx-positive, $positive-col);
+  @include button(hx-negative, $negative-col);
+  @include button(hx-warning, $warning-col);
+  @include button(hx-info, $info-col);
+  @include button(hx-compliment, $compliment-col);
+  @include button(hx-contrast, $contrast-col);
+}

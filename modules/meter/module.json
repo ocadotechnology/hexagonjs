@@ -1,0 +1,13 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "palette",
+    "plot",
+    "util",
+    "color"
+  ],
+  "keywords": [
+    "meter"
+  ]
+}

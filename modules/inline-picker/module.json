@@ -1,0 +1,13 @@
+{
+  "dependencies": [
+    "component",
+    "animate",
+    "morph-section",
+    "input-group",
+    "icon"
+  ],
+  "keywords": [
+    "inline",
+    "picker"
+  ]
+}

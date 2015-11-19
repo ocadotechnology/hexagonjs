@@ -1,0 +1,42 @@
+@module side-collapsible
+  
+  @option heading-background-col
+    @type color
+    @description: The background color for the heading section of the collapsible.
+    @default: #FFF
+  
+  @option heading-text-col
+    @type color
+    @description: The text color for the heading section of the collapsible.
+    @default: #4A536F
+  
+  @option toggle-background-col
+    @type color
+    @description: The background color of the part of the collapsible that can be clicked on to open and close it.
+    @default: #DDD
+  
+  @option toggle-text-col
+    @type color
+    @description: The text color of the part of the collapsible that can be clicked on to open and close it.
+    @default: #3D3D3D
+  
+  @option toggle-hover-background-col
+    @type color
+    @description: The hover background color of the part of the collapsible that can be clicked on to open and close it.
+    @default: #698BB5
+  
+  @option toggle-hover-text-col
+    @type color
+    @description: The hover text color of the part of the collapsible that can be clicked on to open and close it.
+    @default: #F3F3F3
+  
+  @option content-border-col
+    @type color
+    @description: The color of the border of the content section.
+    @default: ''
+  
+  @option content-background-col
+    @type color
+    @description: The color of the background of the content section.
+    @default: #F7F7F7
+  

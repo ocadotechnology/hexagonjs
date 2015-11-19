@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "view",
+    "util"
+  ],
+  "keywords": [
+    "crumbtrail"
+  ]
+}

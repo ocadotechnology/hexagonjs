@@ -1,0 +1,29 @@
+.hx-tabs-content {
+  background: $background-col;
+  color: $text-col;
+  border-color: $default-col;
+}
+
+@mixin tab($class, $col) {
+  &#{".hx-" + $class} {
+    border-color: $col;
+  }
+}
+
+.hx-tab {
+  background: $tab-background-col;
+  color: $tab-text-col;
+  opacity: $tab-inactive-opacity;
+  border-color: $default-col;
+
+  &.hx-tab-active {
+    opacity: $tab-active-opacity;
+  }
+  @include tab(action, $action-col);
+  @include tab(positive, $positive-col);
+  @include tab(negative, $negative-col);
+  @include tab(warning, $warning-col);
+  @include tab(info, $info-col);
+  @include tab(compliment, $compliment-col);
+  @include tab(contrast, $contrast-col);
+}

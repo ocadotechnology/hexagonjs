@@ -1,0 +1,62 @@
+.hx-sticky-table-headers {
+  position: relative;
+  overflow: hidden;
+
+  .hx-sticky-table-header-left,
+  .hx-sticky-table-header-top {
+    position: absolute;
+    overflow: hidden;
+
+    .hx-table {
+      position: relative;
+      overflow: visible;
+    }
+  }
+
+  .hx-sticky-table-header-top-left {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .hx-sticky-table-wrapper {
+    overflow: auto;
+
+    .hx-table {
+      overflow: visible;
+    }
+  }
+
+  .hx-sticky-table-scroll-left,
+  .hx-sticky-table-scroll-right,
+  .hx-sticky-table-scroll-top,
+  .hx-sticky-table-scroll-bottom {
+    position: absolute;
+    display: none;
+  }
+
+  .hx-sticky-table-scroll-left,
+  .hx-sticky-table-scroll-right {
+    width: 1px;
+    bottom: -1px;
+    top: -1px;
+  }
+
+  .hx-sticky-table-scroll-top,
+  .hx-sticky-table-scroll-bottom {
+    height: 1px;
+    right: -1px;
+    left: -1px;
+  }
+
+  .hx-sticky-table-scroll-right {
+    right: -1px;
+  }
+
+  .hx-sticky-table-scroll-bottom {
+    bottom: -1px;
+  }
+
+  &.hx-sticky-table-centered {
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "button",
+    "event-emitter",
+    "util",
+    "icon"
+  ],
+  "keywords": [
+    "number",
+    "picker"
+  ]
+}

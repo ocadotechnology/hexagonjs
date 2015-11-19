@@ -1,0 +1,111 @@
+$background-col: white;
+$border-col: #ECECEC;
+$shadow-col: rgba(0, 0, 0, 0.05);
+$header-text-col: black;
+$header-background-col: rgba(162, 162, 162, 0.1);
+$section-border-col: #E4E4E4;
+$text-col: dimgrey;
+$icon-col: #8E8D8D;
+$action-hover-background-col: #F3F3F3;
+$normal-padding: 14px;
+$small-padding: 7px;
+
+.hx-card {
+  border-color: $border-col;
+  background: $background-col;
+  box-shadow: 1px 1px 3px $shadow-col;
+
+  > {
+    .hx-card-group,
+    .hx-card-section {
+      &:not(.hx-card-joint) {
+        border-color: $section-border-col;
+      }
+    }
+  }
+}
+
+.hx-card-header {
+  color: $header-text-col;
+  background: $header-background-col;
+}
+
+.hx-card-text {
+  color: $text-col;
+}
+
+@mixin cardSectionPad($padding) {
+  &.hx-card-section {
+    padding: $padding $normal-padding;
+
+    &.hx-card-joint {
+      padding-right: 0;
+    }
+  }
+
+  .hx-card-section:not(.hx-card-small):not(.hx-card-normal) {
+    padding: $padding $normal-padding;
+  }
+}
+
+.hx-card-section {
+  padding: $normal-padding;
+
+  &.hx-card-joint {
+    padding-right: 0;
+  }
+}
+
+.hx-card-small {
+  @include cardSectionPad($small-padding);
+}
+
+.hx-card-normal {
+  @include cardSectionPad($normal-padding);
+}
+
+.hx-card-group {
+  &.hx-card-vertical {
+    > {
+      .hx-card-group,
+      .hx-card-section {
+        &:not(.hx-card-joint) {
+          border-color: $section-border-col;
+        }
+      }
+    }
+  }
+
+  &:not(.hx-card-vertical) {
+    > {
+      .hx-card-group,
+      .hx-card-section {
+        &:not(.hx-card-joint) {
+          border-color: $section-border-col;
+        }
+      }
+    }
+  }
+}
+
+.hx-card-action:hover {
+  background: $action-hover-background-col;
+}
+
+.hx-card-icon {
+  color: $icon-col;
+}
+
+.hx-background-positive .hx-card-title,
+.hx-background-warning .hx-card-title,
+.hx-background-negative .hx-card-title,
+.hx-background-info .hx-card-title {
+  color: $background-section-text-col;
+}
+
+.hx-background-positive .hx-card-icon,
+.hx-background-warning .hx-card-icon,
+.hx-background-negative .hx-card-icon,
+.hx-background-info .hx-card-icon {
+  color: $background-section-text-col;
+}

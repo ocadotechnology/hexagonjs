@@ -1,0 +1,16 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "number-picker",
+    "event-emitter",
+    "dropdown",
+    "util",
+    "format",
+    "icon"
+  ],
+  "keywords": [
+    "time",
+    "picker"
+  ]
+}

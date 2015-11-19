@@ -1,0 +1,21 @@
+.hx-progress-bar {
+  position: relative;
+  height: 10px;
+  border-radius: 3px;
+  border: solid 1px transparent;
+  z-index: 1;
+
+  &.hx-animate {
+    .hx-progress-bar-inner {
+      transition: width ease 0.25s;
+    }
+  }
+}
+
+.hx-progress-bar-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 1px;
+}

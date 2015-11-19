@@ -1,0 +1,26 @@
+.hx-input-group {
+  > {
+    input {
+      border-color: $input-border-col;
+      background-color: $input-background-col;
+
+      &:invalid {
+        border-color: $input-invalid-outline-col;
+      }
+
+      &:focus {
+        border-color: $input-focus-border-col;
+      }
+    }
+
+    div, span, a {
+      border-color: $div-border-col;
+      background: $div-background-col;
+    }
+
+    i {
+      border-color: $icon-border-col;
+      background: $icon-background-col;
+    }
+  }
+}

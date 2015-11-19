@@ -1,0 +1,87 @@
+@module data-table
+  
+  @option header-cell-hover-background-col
+    @type color
+    @description: The background color for header cells on hover
+    @default: #F5F5F5
+  
+  @option cell-border-col
+    @type color
+    @description: The border color for cells
+    @default: #E4E4E4
+  
+  @option disabled-row-background-col
+    @type color
+    @description: The background color for disabled rows
+    @default: white
+  
+  @option disabled-row-text-col
+    @type color
+    @description: The text color for disabled rows
+    @default: grey
+  
+  @option no-data-row-background-col
+    @type color
+    @description: The background color for the 'no data' row
+    @default: transparent
+  
+  @option no-data-row-text-col
+    @type color
+    @description: The text color for the 'no data' row
+    @default: black
+  
+  @option selected-row-background-col
+    @type color
+    @description: The background color for selected rows
+    @default: #F7F6B8
+  
+  @option status-bar-background-col
+    @type color
+    @description: The background color for the status bar
+    @default: #FFB800
+  
+  @option status-bar-text-col
+    @type color
+    @description: The text color for the status bar
+    @default: white
+  
+  @option row-collapsible-background-col
+    @type color
+    @description: The background color for collapsible rows
+    @default: white
+  
+  @option row-collapsible-text-col
+    @type color
+    @description: The text color for collapsible rows
+    @default: black
+  
+  @option compact-row-shadow-col
+    @type color
+    @description: The shadow color for rows in compact mode
+    @default: rgba(128, 128, 128, 0.25)
+  
+  @option compact-row-hover-background-col
+    @type color
+    @description: The background color for rows in compact mode when hovering
+    @default: #FAFAFA
+  
+  @option compact-row-hover-text-col
+    @type color
+    @description: The text color for rows in compact mode when hovering
+    @default: black
+  
+  @option compact-row-background-col
+    @type color
+    @description: The background color for rows in compact mode
+    @default: white
+  
+  @option compact-row-text-col
+    @type color
+    @description: The text color for rows in compact mode
+    @default: black
+  
+  @option loading-background-col
+    @type color
+    @description: The background color for the loading div
+    @default: rgba(255, 255, 255, 0.4)
+  

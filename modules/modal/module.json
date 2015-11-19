@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    "event-emitter",
+    "selection",
+    "animate",
+    "icon"
+  ],
+  "keywords": [
+    "modal"
+  ]
+}

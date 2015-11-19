@@ -1,0 +1,65 @@
+.hx-sidebar {
+  background: $background-col;
+
+  &.hx-animate {
+    transition: opacity $animation-duration, width $animation-duration;
+  }
+
+  .hx-sidebar-section,
+  > div,
+  > a,
+  .hx-sidebar-indent > div,
+  .hx-sidebar-indent > a,
+  .hx-collapsible-content > div,
+  .hx-collapsible-content > a,
+  .hx-collapsible-heading {
+    &:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent) {
+      color: $section-text-col;
+
+      &.hx-selected {
+        background: $selected-background-col;
+        color: $selected-text-col;
+      }
+
+      &:hover {
+        background: $section-hover-background-col;
+        color: $section-hover-text-col;
+      }
+    }
+  }
+
+  .hx-sidebar-indent > div,
+  .hx-sidebar-indent > a,
+  .hx-collapsible-content > div,
+  .hx-collapsible-content > a,
+  > .hx-collapsible > .hx-collapsible-content > .hx-collapsible {
+    border-left: solid 1px $collapsible-border-col;
+  }
+
+  .hx-sidebar-title {
+    color: $title-text-col;
+    font-family: $title-font;
+    background: $title-background-col;
+  }
+}
+
+.hx-sidebar-page {
+  .hx-titlebar-sidebar-button {
+    background: $titlebar-button-background-col;
+    color: $titlebar-button-text-col;
+
+    &:hover {
+      color: $titlebar-button-hover-text-col;
+    }
+  }
+
+  .hx-content {
+    &.hx-animate {
+      transition: left $animation-duration;
+    }
+  }
+
+  .hx-titlebar-icon {
+    background: $titlebar-icon-background-col;
+  }
+}

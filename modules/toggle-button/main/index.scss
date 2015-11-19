@@ -1,0 +1,26 @@
+.hx-btn-toggle {
+  &:after {
+    font: normal normal normal 14px 'hexagon-icons';
+    display: inline-block;
+    padding-left: 0.4em;
+    content: "\f205";
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+
+  &.hx-btn-toggle-off {
+    &:after {
+      content: "\f204";
+    }
+
+    &.hx-btn-invisible {
+      background: transparent;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
+}

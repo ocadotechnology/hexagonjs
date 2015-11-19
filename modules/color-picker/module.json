@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "util",
+    "event-emitter",
+    "selection",
+    "color",
+    "dropdown"
+  ],
+  "keywords": [
+    "color",
+    "picker"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "util",
+    "event-emitter",
+    "resize-events"
+  ],
+  "keywords": [
+    "sticky",
+    "table",
+    "headers"
+  ]
+}

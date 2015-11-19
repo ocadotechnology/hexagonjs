@@ -1,0 +1,17 @@
+@module time-picker
+  
+  @option error-background-col
+    @type color
+    @description: The background to use in the time picker when there is an error with the input
+    @default: #FCBFBF
+  
+  @option error-outline-col
+    @type color
+    @description: The color to outline the timepicker input with when there is an error with the input
+    @default: #DE1A4A
+  
+  @option input-background-col
+    @type color
+    @description: The background color of the input
+    @default: #FFF
+  

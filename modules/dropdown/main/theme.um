@@ -1,0 +1,13 @@
+@module dropdown
+  
+  @option spacing
+    @type size
+    @description: The default spacing for dropdowns
+    @default: 0
+    @includeWithJs 0
+  
+  @option background-col
+    @type color
+    @description: The default background color for dropdowns
+    @default: #FAFAFA
+  

@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "selection",
+    "util"
+  ],
+  "keywords": [
+    "fast",
+    "click"
+  ]
+}

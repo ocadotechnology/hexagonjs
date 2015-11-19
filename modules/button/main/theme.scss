@@ -1,0 +1,88 @@
+@function getTextColFromBG($col) {
+  @if lightness($col) > 60 {
+    @return $dark-text-col;
+  }
+
+  @else {
+    @return $light-text-col;
+  }
+}
+
+@mixin button($class, $color) {
+  &#{if($class, "." + $class, "")} {
+    background: $color;
+    color: getTextColFromBG($color);
+    border-color: darken($color, 10%);
+
+    &:active,
+    &:hover {
+      @if lightness($color) > 60 {
+        background: darken($color, 5%);
+      }
+
+      @else {
+        background: lighten($color, 10%);
+      }
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 1px darken($color, 10%);
+    }
+
+    &.hx-btn-invert {
+      background: $invert-col;
+      color: $invert-text-col;
+      border-color: darken($invert-col, 10%);
+
+      &:hover {
+        background: $invert-hover-col;
+        color: $color;
+
+        @if lightness($invert-hover-col) - lightness($color) < 30 {
+          @if lightness($invert-hover-col) - lightness($color) > -30 {
+            color: getTextColFromBG($invert-hover-col);
+          }
+        }
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 1px transparentize(darken($color, 10%), 0.5);
+      }
+    }
+  }
+}
+
+.hx-btn {
+  @include button(false, $default-col);
+  @include button(hx-action, $action-col);
+  @include button(hx-positive, $positive-col);
+  @include button(hx-negative, $negative-col);
+  @include button(hx-warning, $warning-col);
+  @include button(hx-info, $info-col);
+  @include button(hx-compliment, $compliment-col);
+  @include button(hx-contrast, $contrast-col);
+
+  &.hx-btn-invisible {
+    color: $invisible-text-col;
+    border: none;
+    background: transparent;
+
+
+    &:hover,
+    &:active {
+      background: transparent;
+    }
+  }
+
+  &:disabled,
+  &.hx-disabled {
+    background: $disabled-col;
+    color: $disabled-text-col;
+    border: 1px solid darken($disabled-col, 10%);
+
+    &:hover,
+    &:active {
+      @extend .hx-btn.hx-disabled;
+    }
+  }
+}

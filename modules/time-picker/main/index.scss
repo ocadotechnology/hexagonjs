@@ -1,0 +1,35 @@
+.hx-time-picker {
+  position: relative;
+  display: inline-block;
+  padding: 0.4em;
+  vertical-align: middle;
+
+  .hx-time-input-container {
+    line-height: 1.5em;
+  }
+}
+
+.hx-time-input {
+  outline: none;
+  border: none;
+  border-radius: 0;
+  font-size: 0.9em;
+  margin: 0;
+  padding: 0;
+  width: 5em;
+  line-height: 1.3em;
+  background: none;
+  text-align: center;
+  -webkit-appearance: none;
+
+  &.hx-short-time {
+    width: 3.5em;
+  }
+
+  &:focus,
+  &:active {
+    border: none;
+    outline: none;
+    background: none;
+  }
+}

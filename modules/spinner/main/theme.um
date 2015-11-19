@@ -1,0 +1,6 @@
+@module spinner
+
+  @option spinner-col
+    @type color
+    @description: The color to use for the spinner
+    @default: #6582A6

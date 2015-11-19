@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    "progress-bar",
+    "plot",
+    "util",
+    "selection"
+  ],
+  "keywords": [
+    "card"
+  ]
+}

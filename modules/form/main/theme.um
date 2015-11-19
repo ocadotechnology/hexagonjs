@@ -1,0 +1,12 @@
+@module form
+  
+  @option error-text-col
+    @type color
+    @description: The color of the text in the error message.
+    @default: white
+  
+  @option error-background-col
+    @type color
+    @description: The background color of the error message.
+    @default: rgba(0,0,0,0.7)
+  

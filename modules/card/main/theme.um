@@ -1,0 +1,61 @@
+@module card
+
+  @option background-col
+    @description: The background color of the card
+    @type color
+    @default white
+
+  @option border-col
+    @description: The border color of the card
+    @type color
+    @default #ECECEC
+
+  @option shadow-col
+    @description: The shadow color of the card
+    @type color
+    @default rgba(0, 0, 0, 0.05)
+
+  @option header-text-col
+    @description: The color of the header section text
+    @type color
+    @default black
+
+  @option header-background-col
+    @description: The background color of the header sections
+    @type color
+    @default rgba(162, 162, 162, 0.1)
+
+  @option section-border-col
+    @description: The color of the borders between sections
+    @type color
+    @default #E4E4E4
+
+  @option text-col
+    @description: The text color for text inside the card
+    @type color
+    @default dimgrey
+
+  @option icon-col
+    @description: The default icon color for hx.card.icons
+    @type color
+    @default #8E8D8D
+
+  @option action-hover-background-col
+    @description: The background color of the action sections on hover
+    @type color
+    @default #F3F3F3
+
+  @option normal-padding
+    @description: The padding for normal card sections
+    @type size
+    @default 14px
+
+  @option small-padding
+    @description: The padding for small card sections
+    @type size
+    @default 7px
+
+  @option background-section-text-col
+    @description: The text color for sections that use the hx-background- context classes
+    @type color
+    @default white

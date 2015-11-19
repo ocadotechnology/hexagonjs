@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "event-emitter",
+    "util",
+    "layout",
+    "drag-container"
+  ],
+  "keywords": [
+    "tag",
+    "input"
+  ]
+}

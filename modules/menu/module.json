@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "dropdown",
+    "collapsible",
+    "util",
+    "icon",
+    "palette"
+  ],
+  "keywords": [
+    "menu"
+  ]
+}

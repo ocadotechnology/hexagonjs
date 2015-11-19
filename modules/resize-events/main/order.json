@@ -1,0 +1,6 @@
+{
+  "coffee": [
+    "detect-element-resize.coffee",
+    "index.coffee"
+  ]
+}

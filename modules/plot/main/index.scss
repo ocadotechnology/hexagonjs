@@ -1,0 +1,133 @@
+.hx-graph {
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+}
+
+.hx-tick {
+  line {
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+  }
+}
+
+.hx-tick-line, .hx-axis-line {
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.hx-tick-text-x {
+  dominant-baseline: central;
+}
+
+.hx-tick-text-y {
+  text-anchor: end;
+  dominant-baseline: middle;
+}
+
+.hx-series-line-stroke {
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.hx-axis-title {
+  text-anchor: middle;
+  dominant-baseline: middle;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.hx-series-line {
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.hx-pie-segment-text {
+  text-anchor: middle;
+  dominant-baseline: middle;
+  fill: #3d3d3d;
+}
+
+.hx-legend-box {
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+  opacity: 0.95;
+}
+
+.hx-plot-label-container {
+  position: absolute;
+  z-index: 200;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
+
+.hx-plot-label {
+  position: relative;
+}
+
+// XXXL theme variables
+.hx-plot-label-details {
+  transform: translate(10px, -50%);
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 10px;
+}
+
+.hx-plot-label-details-basic {
+  transform: translate(10px, -50%);
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 10px;
+  font-weight: bold;
+  margin-left: 0.5em;
+  padding: 0.5em;
+}
+
+.hx-plot-label-details-header {
+  border-bottom: solid 1px transparent;
+  padding: 0.5em;
+  font-weight: bold;
+}
+
+.hx-plot-label-details-entry {
+  padding: 0.5em;
+}
+
+.hx-plot-label-details-entry-key {}
+
+.hx-plot-label-details-entry-value {
+  font-weight: bold;
+  margin-left: 0.5em;
+}
+
+.hx-plot-label-details {
+  transform: translateX(10px);
+}
+
+.hx-plot-label-details-bottom {
+  transform: translate(10px, -100%);
+}
+
+.hx-plot-label-details-left {
+  transform: translateX(-100%) translateX(-10px);
+
+  &.hx-plot-label-details-bottom {
+    transform: translateX(-100%) translate(-10px, -100%);
+  }
+}
+
+.hx-plot-label-marker {
+  position: absolute;
+  border: solid 3px transparent;
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+}
+
+.hx-sparkline {
+  height: 1em;
+}

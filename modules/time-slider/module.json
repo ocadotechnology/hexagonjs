@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "slider",
+    "selection",
+    "format",
+    "util"
+  ],
+  "keywords": [
+    "time",
+    "slider"
+  ]
+}

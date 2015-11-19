@@ -1,0 +1,21 @@
+{
+  "dependencies": [
+    "util",
+    "sticky-table-headers",
+    "event-emitter",
+    "set",
+    "sort",
+    "filter",
+    "picker",
+    "selection",
+    "button",
+    "button-group",
+    "request",
+    "table",
+    "icon"
+  ],
+  "keywords": [
+    "data",
+    "table"
+  ]
+}

@@ -1,0 +1,96 @@
+@module menu
+
+  @option default-col
+    @type color
+    @description: The default menu background color
+    @default: #F8F8F8
+
+  @option default-hover-col
+    @type color
+    @description: The default menu hover color
+    @default: #F2F2F2
+
+  @option action-col
+    @type color
+    @description: The base action menu color
+    @default: #6582A6
+
+  @option positive-col
+    @type color
+    @description: The base positive menu color
+    @default: #6FB365
+
+  @option warning-col
+    @type color
+    @description: The base warning menu color
+    @default: #CB9856
+
+  @option negative-col
+    @type color
+    @description: The base negative menu color
+    @default: #C74967
+
+  @option info-col
+    @type color
+    @description: The base info menu color
+    @default: #A36FA9
+
+  @option compliment-col
+    @type color
+    @description: The base complimentary menu color
+    @default: #FDFDFD
+
+  @option contrast-col
+    @type color
+    @description: The base contrasting menu color
+    @default: #3D3D3D
+
+  @option disabled-col
+    @type color
+    @description: The base color for disabled menus
+    @default: #FAFAFA
+
+  @option disabled-text-col
+    @type color
+    @description: The text color for disabled menus
+    @default: #939393
+
+  @option light-text-col
+    @type color
+    @description: The text color to use on dark menu backgrounds
+    @default: #F3F3F3
+
+  @option dark-text-col
+    @type color
+    @description: The text color to use on dark menu backgrounds
+    @default: #3D3D3D
+
+  @option default-text-col
+    @type color
+    @description: The default text color that items in the menu are given
+    @default: #3D3D3D
+
+  @option collapsible-background-col
+    @type color
+    @description: The color of the collapsible heading for nested menus
+    @default: #F8F8F8
+
+  @option collapsible-text-col
+    @type color
+    @description: The color of the collapsible heading for nested menus
+    @default: #3D3D3D
+
+  @option default-hover-border-col
+    @type color
+    @description: The color of the border to the left of items in the menu
+    @default: transparent
+
+  @option default-border-col
+    @type color
+    @description: The color of the border to the left of items in the menu when hovering
+    @default: transparent
+
+  @option border-width
+    @type size
+    @description: The width of the border to the left of items in the menu
+    @default: 2px

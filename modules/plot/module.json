@@ -1,0 +1,20 @@
+{
+  "dependencies": [
+    "component",
+    "util",
+    "list",
+    "map",
+    "color",
+    "selection",
+    "format",
+    "resize-events",
+    "view"
+  ],
+  "keywords": [
+    "plot",
+    "sparkline",
+    "pie",
+    "chart",
+    "graph"
+  ]
+}

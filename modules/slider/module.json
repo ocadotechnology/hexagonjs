@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "component",
+    "event-emitter",
+    "selection",
+    "util",
+    "format"
+  ],
+  "keywords": [
+    "slider"
+  ]
+}

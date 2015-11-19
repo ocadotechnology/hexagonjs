@@ -1,0 +1,25 @@
+.hx-number-picker {
+  display: inline-block;
+  width: 3.5em;
+  margin: 0.2em;
+
+  + .hx-number-picker {
+    margin-left: 0;
+  }
+
+  button,
+  input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+  }
+
+  input {
+    text-align: center;
+    margin: 0.2em 0;
+    padding: 0.4em;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+  }
+}

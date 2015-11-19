@@ -1,0 +1,384 @@
+.hx-data-table {
+  display: flex;
+  flex-direction: column;
+  // Position relative is so the loading div covers the whole table
+  position: relative;
+  min-height: 3em;
+
+  // Containers within hx-data-table
+  .hx-data-table-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hx-data-table-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+
+    .hx-data-table-loading-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100px;
+      text-align: center;
+      height: 20px;
+      line-height: 20px;
+      margin: -10px 0 0 -50px;
+    }
+  }
+
+  .hx-data-table-status-bar {
+    position: relative;
+    padding: 0.4em;
+    color: white;
+    text-align: right;
+    display: none;
+
+    .hx-data-table-status-bar-clear {
+      cursor: pointer;
+    }
+  }
+
+  .hx-data-table-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .hx-data-table-sort-control,
+    .hx-data-table-paginator,
+    .hx-data-table-page-size {
+      padding: 0.4em;
+      display: none;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    .hx-data-table-paginator.hx-data-table-multi-page {
+      display: flex;
+    }
+
+    .hx-data-table-page-size.hx-data-table-select-page-size {
+      display: flex;
+    }
+
+    .hx-data-table-footer-spacer {
+      flex-grow: 1;
+    }
+
+    .hx-data-table-btn-disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .hx-data-table-filter-control:not(.hx-data-table-filter-visible) {
+      display: none;
+    }
+
+    // Make the buttons take up less space as they're all invisible
+    .hx-btn-invisible {
+      padding: 0.4em;
+      margin: 0 0.4em;
+      white-space: nowrap;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .hx-data-table-pagination-block {
+    display: flex;
+    flex-wrap: nowrap;
+
+    &.hx-data-table-pagination-block-hidden {
+      display: none;
+    }
+  }
+
+  // Cell Styles
+  thead {
+    .hx-data-table-cell {}
+
+    .hx-data-table-cell-inner {
+      display: flex;
+      align-items: center;
+
+      .hx-data-table-title {
+        flex: 1;
+      }
+    }
+
+    .hx-data-table-cell-sort-enabled {
+      cursor: pointer;
+    }
+
+    .hx-data-table-cell-grouped {
+      border-bottom: solid 1px transparent;
+    }
+
+    .hx-data-table-cell,
+    .hx-data-table-cell-grouped {
+      border-right: solid 1px transparent;
+
+      &:last-child:not(:first-child) {
+        border-right-color: transparent;
+      }
+    }
+
+    .hx-data-table-sort-icon {
+      opacity: 0.15;
+      margin-left: 0.4em;
+
+      &.hx-data-table-sort-on {
+        opacity: 1;
+      }
+    }
+  }
+
+  .hx-data-table-control {
+    padding: 0;
+    width: 1px;
+    min-width: 2.5em;
+    border-right: solid 1px transparent;
+
+    div {
+      padding: 0.4em;
+      display: inline-block;
+    }
+  }
+
+  .hx-data-table-collapsible-toggle {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .hx-data-table-collapsible-disabled {
+    cursor: not-allowed;
+    opacity: 0.1;
+  }
+
+  .hx-data-table-checkbox {
+    cursor: pointer;
+
+    i {
+      opacity: 0.15;
+    }
+  }
+
+  .hx-data-table-cell-key {
+    display: none;
+  }
+
+  // Row styles
+  .hx-data-table-row {
+    &:nth-child(odd),
+    &:nth-child(even) {
+      &.hx-data-table-row-disabled {
+        .hx-data-table-checkbox {
+          cursor: default;
+
+          i {
+            opacity: 0;
+          }
+        }
+      }
+
+      &.hx-data-table-row-selected {
+        .hx-data-table-checkbox {
+          i {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .hx-data-table-row-no-data {
+    text-align: center;
+  }
+
+  .hx-data-table-collapsible-content-row {
+    display: none;
+  }
+
+  .hx-data-table-collapsible-row-visible {
+    display: table-row;
+  }
+
+  &:not(.hx-data-table-compact) {
+    .hx-data-table-collapsible-content-row {
+      .hx-data-table-collapsible-cell {
+        padding: 0.4em 1em;
+        border-top: 1px dashed transparent;
+        border-bottom: 1px dashed transparent;
+      }
+
+      .hx-data-table-collapsible-content {
+        padding: 0.4em 0.4em 0.4em 1em;
+        border-left: 1px dashed transparent;
+      }
+    }
+  }
+
+  .hx-data-table-collapsible-row-spacer {
+    display: none;
+    height: 0;
+
+    td, th {
+      padding: 0;
+      height: 0;
+    }
+  }
+
+  // Classes added to hx-data-table
+  &.hx-data-table-has-page-selection {
+    .hx-sticky-table-header-top-left .hx-data-table-checkbox i {
+      opacity: 1;
+    }
+  }
+
+  &.hx-data-table-has-selection {
+    .hx-data-table-status-bar {
+      display: block;
+    }
+  }
+
+  &.hx-data-table-disable-text-selection {
+    // Class used to disable text selection when shift-selecting (added when shift key is pressed)
+    user-select: none;
+  }
+
+  // Compact Mode
+  &.hx-data-table-compact {
+    // hide the sticky stuff
+    .hx-sticky-table-header-top,
+    .hx-sticky-table-header-left,
+    .hx-sticky-table-header-top-left {
+      display: none;
+    }
+
+    .hx-sticky-table-wrapper {
+      margin: 0 !important;
+    }
+
+    .hx-data-table-content {
+      max-height: 400px !important;
+    }
+
+    // undo some of the sticky styles
+    .hx-data-table-table {
+      margin: 0 !important;
+      width: auto !important;
+    }
+
+    // Re-order the contents so the controls are above the data
+    .hx-data-table-footer {
+      order: 1;
+      flex-shrink: 1;
+      flex-grow: 1;
+
+      .hx-data-table-sort-control {
+        display: flex;
+
+        &:not(.hx-data-table-sort-visible) {
+          display: none;
+        }
+      }
+    }
+
+    .hx-data-table-status-bar {
+      order: 2;
+    }
+
+    .hx-data-table-content {
+      order: 3;
+    }
+
+    .hx-data-table-checkbox,
+    .hx-data-table-head {
+      display: none;
+    }
+
+    .hx-data-table-table,
+    .hx-data-table-body {
+      display: block;
+    }
+
+    .hx-data-table-row {
+      display: block;
+      margin: 0.4em;
+      padding: 0.4em;
+      position: relative;
+
+      .hx-data-table-checkbox {
+        display: block;
+      }
+
+      .hx-data-table-control {
+        display: flex;
+        flex-direction: row-reverse;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        background: transparent;
+        font-size: 1.5em;
+        border: none;
+      }
+    }
+
+    .hx-data-table-collapsible-row-visible {
+      display: block;
+    }
+
+    .hx-data-table-collapsible-content-row {
+      position: relative;
+      margin: -0.4em 0.4em 0.4em;
+      padding: 0.4em;
+      border-top: 1px dashed transparent;
+
+      .hx-data-table-collapsible-cell-empty {
+        display: none;
+      }
+    }
+
+    .hx-data-table-collapsible-row-spacer {
+      display: none;
+    }
+
+    .hx-data-table-cell {
+      display: table-row;
+      padding: 0.4em;
+      border-left: none;
+    }
+
+    .hx-data-table-cell-key {
+      display: table-cell;
+      padding: 0.15em;
+      padding-right: 0.4em;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .hx-data-table-cell-value {
+      display: table-cell;
+      padding: 0.15em;
+    }
+  }
+
+  &.hx-data-table-infinite {
+    .hx-data-table-pagination-picker {
+      display: none;
+    }
+  }
+}

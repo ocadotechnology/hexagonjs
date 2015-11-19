@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "util",
+    "selection",
+    "transition",
+    "event-emitter",
+    "interpolate"
+  ],
+  "keywords": [
+    "animate"
+  ]
+}

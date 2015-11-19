@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "util",
+    "view",
+    "event-emitter",
+    "sticky-table-headers"
+  ],
+  "keywords": [
+    "pivot",
+    "table"
+  ]
+}

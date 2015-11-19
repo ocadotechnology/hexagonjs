@@ -1,0 +1,91 @@
+.hx-form {
+  margin-bottom: 0;
+  text-align: right;
+  display: inline-block;
+
+  > div {
+    text-align: left;
+    display: table-row;
+
+    > * {
+      display: table-cell;
+    }
+
+    > *:not(input) {
+      padding-top: 8px;
+    }
+
+    // Padding top doesn't look right for inputs and select and the other margins make the boxes difficult to align
+    > input,
+    > select,
+    > textarea {
+      margin: 8px 0 0 0;
+    }
+
+    > input:not([type="checkbox"]):not([type="radio"]),
+    > select,
+    > textarea {
+      min-width: 20em;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    > label {
+      text-align: right;
+      vertical-align: middle;
+      padding-right: 16px;
+      padding-top: 8px;
+      height: 2em;
+    }
+
+    > input[type="radio"],
+    > input[type="checkbox"] {
+      margin-top: 1em;
+    }
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    margin-top: 0em;
+    display: inline-block;
+  }
+
+  > button[type="submit"] {
+    display: table-row;
+    margin-top: 8px;
+    margin-right: 0;
+  }
+}
+
+.hx-form-error {
+  color: red;
+
+  > div {
+    padding-top: 0 !important;
+  }
+
+  .hx-form-error-text-container {
+    position: relative;
+    z-index: 1000;
+
+    .hx-form-error-text {
+      display: block;
+      position: absolute;
+      padding: 0.4em;
+      margin-top: 0.2em;
+      border-radius: 5px;
+
+      &:before {
+        border: solid transparent;
+        border-color: rgba(136, 183, 213, 0);
+        border-width: 5px;
+        bottom: 100%;
+        content: ' ';
+        height: 0;
+        left: 1em;
+        pointer-events: none;
+        position: absolute;
+        width: 0;
+      }
+    }
+  }
+}

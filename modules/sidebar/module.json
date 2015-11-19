@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "component",
+    "event-emitter",
+    "selection",
+    "titlebar",
+    "icon"
+  ],
+  "keywords": [
+    "sidebar"
+  ]
+}

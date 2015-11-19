@@ -1,0 +1,172 @@
+// for apps that should use the full width of the screen (the default is to centre the content)
+.hx-full-width {
+  .hx-content {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+}
+
+// for apps that should be fixed to the size of the screen
+.hx-full-screen {
+  .hx-content {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-width: 100%;
+  }
+}
+
+.hx-content {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+}
+
+.hx-group,
+.hx-compact-group {
+  display: flex;
+  flex-grow: 1;
+  align-items: stretch;
+  max-width: 100%;
+}
+
+.hx-horizontal {
+  flex-direction: row;
+  flex-flow: row wrap;
+}
+
+.hx-vertical {
+  flex-direction: column;
+}
+
+.hx-section {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.hx-fixed {
+  flex-grow: 0;
+}
+
+.hx-margin {
+  margin: 0.4em !important;
+}
+
+.hx-no-margin {
+  margin: 0 !important;
+}
+
+.hx-no-margin-top {
+  margin-top: 0 !important;
+}
+
+.hx-no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.hx-no-margin-left {
+  margin-left: 0 !important;
+}
+
+.hx-no-margin-right {
+  margin-right: 0 !important;
+}
+
+.hx-pad {
+  padding: 0.4em !important;
+}
+
+.hx-no-pad {
+  padding: 0 !important;
+}
+
+.hx-pad-left {
+  padding-left: 0.4em !important;
+}
+
+.hx-pad-top {
+  padding-top: 0.4em !important;
+}
+
+.hx-pad-right {
+  padding-right: 0.4em !important;
+}
+
+.hx-pad-bottom {
+  padding-bottom: 0.4em !important;
+}
+
+.hx-no-pad-left {
+  padding-left: 0 !important;
+}
+
+.hx-no-pad-top {
+  padding-top: 0 !important;
+}
+
+.hx-no-pad-right {
+  padding-right: 0 !important;
+}
+
+.hx-no-pad-bottom {
+  padding-bottom: 0 !important;
+}
+
+.hx-no-border {
+  border: none !important;
+}
+
+.hx-no-border-top {
+  border-top: none !important;
+}
+
+.hx-no-border-right {
+  border-right: none !important;
+}
+
+.hx-no-border-bottom {
+  border-bottom: none !important;
+}
+
+.hx-no-border-left {
+  border-left: none !important;
+}
+
+// classes for hiding and showing content on mobile devices
+@media (min-width: 480px) {
+  .hx-phone {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hx-phone-hide {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hx-tablet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hx-tablet-hide {
+    display: none !important;
+  }
+}
+
+// content breakpoint
+@media (max-width: 1300px) {
+  .hx-content {
+    max-width: 900px;
+  }
+}

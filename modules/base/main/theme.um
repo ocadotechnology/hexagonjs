@@ -1,0 +1,101 @@
+@module base
+
+  @option default-font-family
+    @type string
+    @description: The default font to use
+    @default: 'Open Sans', sans-serif
+
+  @option heading-font-family
+    @type string
+    @description: The heading font
+    @default: 'Roboto Slab', sans-serif
+
+  @option body-background-col
+    @type color
+    @description: The background color of the body
+    @default: #F0F0F0
+
+  @option default-text-col
+    @type color
+    @description: The default color text should be given
+    @default: #3D3D3D
+
+  @option heading-text-col
+    @type color
+    @description: The text color for the h1-h6 tags
+    @default: #4A536F
+
+  @option input-background-col
+    @type color
+    @description: The background color for input and textarea elements
+    @default: #FAFAFA
+
+  @option input-border-col
+    @type color
+    @description: The border color for input and textarea elements
+    @default: #D8D8D8
+
+  @option input-text-col
+    @type color
+    @description: The text color for input and textarea elements
+    @default: #3D3D3D
+
+  @option input-focus-border-col
+    @type color
+    @description: The border color for input and textarea elements when focused
+    @default: #B5B5B5
+
+  @option input-invalid-border-col
+    @type color
+    @description: The border color for input and textarea elements when in an invalid state
+    @default: #DE1A4A
+
+  @option input-border-radius
+    @type size
+    @description: The border radius for input boxes
+    @default: 2px
+
+  @option select-background-col
+    @type color
+    @description: The background color for select elements
+    @default: #FAFAFA
+
+  @option select-border-col
+    @type color
+    @description: The border color for select elements
+    @default: #D8D8D8
+
+  @option select-text-col
+    @type color
+    @description: The text color for select elements
+    @default: #3D3D3D
+
+  @option select-focus-border-col
+    @type color
+    @description: The border color for select elements when focused
+    @default: #B5B5B5
+
+  @option text-select-col
+    @type color
+    @description: The color of the selection area, when selecting text.
+    @default: #B4B1B5
+
+  @option link-col
+    @type color
+    @description: The text color given to anchor elements
+    @default: #4E78A0
+
+  @option divider-col
+    @type color
+    @description: The color to use for dividers (e.g. hr elements)
+    @default: #E2E1E1
+
+  @option divider-style
+    @type string
+    @description: The style to use for dividers. This is applied as a border style (e.g. solid, dashed etc.)
+    @default: solid
+
+  @option default-font-size
+    @type string
+    @description: The global default font size
+    @default: 14px

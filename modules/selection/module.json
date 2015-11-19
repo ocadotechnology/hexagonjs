@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "util",
+    "event-emitter",
+    "map",
+    "set",
+    "list"
+  ],
+  "keywords": [
+    "selection"
+  ]
+}

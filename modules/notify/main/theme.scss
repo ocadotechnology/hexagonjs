@@ -1,0 +1,45 @@
+.hx-notification-container {
+  background: $container-background-col;
+  border: solid 1px $container-border-col;
+  border-top: none;
+  box-shadow: 0 6px 10px 0 $shadow-col;
+}
+
+@mixin notification($class, $col) {
+  &.#{$class} {
+
+    .hx-notification-icon {
+      color: $col;
+    }
+  }
+}
+
+.hx-notification {
+  background-color: $background-col;
+  color: $text-col;
+  border-color: $border-col;
+
+  .hx-notification-icon {
+    color: $default-col;
+  }
+  @include notification(hx-positive, $positive-col);
+  @include notification(hx-warning, $warning-col);
+  @include notification(hx-negative, $negative-col);
+  @include notification(hx-info, $info-col);
+}
+
+@mixin icon($class, $col, $hov) {
+  &.hx-notification-#{$class} {
+    color: $col;
+
+    &:hover {
+      color: $hov;
+    }
+  }
+}
+
+@include icon(close, $close-col, $close-hover-col);
+
+@include icon(pin, $unpinned-col, $unpinned-hover-col);
+
+@include icon(pin-pinned, $pinned-col, $pinned-hover-col);

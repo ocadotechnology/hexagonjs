@@ -1,0 +1,52 @@
+.hx-table,
+.hx-table > table {
+  th {
+    background: $header-background-col;
+    color: $header-text-col;
+  }
+
+  tbody {
+    tr {
+      background: $row-background-col;
+      color: $row-text-col;
+
+      &:hover {
+        background: $row-hover-background-col;
+      }
+
+      &:nth-child(2n) {
+        background: $row-alt-background-col;
+        color: $row-alt-text-col;
+
+        &:hover {
+          background: $row-alt-hover-background-col;
+        }
+      }
+
+      td {
+        border-right-color: $inner-border-col;
+      }
+
+      td:first-child {
+        border-left-color: $outer-border-col;
+      }
+
+      td:last-child {
+        border-right-color: $outer-border-col;
+      }
+
+      &:first-child {
+        td {
+          border-top-color: $outer-border-col;
+        }
+      }
+
+      &:last-child,
+      &.hx-lastrow {
+        td {
+          border-bottom-color: $outer-border-col;
+        }
+      }
+    }
+  }
+}

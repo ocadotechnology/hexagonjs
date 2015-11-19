@@ -1,0 +1,15 @@
+{
+  "dependencies": [
+    "component",
+    "event-emitter",
+    "selection",
+    "date-picker",
+    "time-picker",
+    "util"
+  ],
+  "keywords": [
+    "date",
+    "time",
+    "picker"
+  ]
+}

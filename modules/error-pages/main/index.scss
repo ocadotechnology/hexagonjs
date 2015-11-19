@@ -1,0 +1,15 @@
+.hx-error-message {
+  text-align: center;
+  width: auto;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.hx-error-message-heading {
+  font-size: 15em;
+  line-height: 1.2em;
+  font-weight: 100;
+}

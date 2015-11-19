@@ -1,0 +1,15 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "animate",
+    "morphs",
+    "event-emitter",
+    "click-detector",
+    "util",
+    "base"
+  ],
+  "keywords": [
+    "dropdown"
+  ]
+}

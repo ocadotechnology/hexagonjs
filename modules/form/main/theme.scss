@@ -1,0 +1,13 @@
+.hx-form-error {
+  color: $error-text-col;
+
+  .hx-form-error-text-container {
+    .hx-form-error-text {
+      background: $error-background-col;
+
+      &:before {
+        border-bottom-color: $error-background-col;
+      }
+    }
+  }
+}

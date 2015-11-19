@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    "component",
+    "event-emitter",
+    "selection",
+    "palette"
+  ],
+  "keywords": [
+    "tabs"
+  ]
+}

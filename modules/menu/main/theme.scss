@@ -1,0 +1,99 @@
+@function getTextColFromBG($col) {
+  @if lightness($col) > 60 {
+    @return $dark-text-col;
+  }
+
+  @else {
+    @return $light-text-col;
+  }
+}
+
+.hx-menu-item {
+  color: $default-text-col;
+  background: $default-col;
+
+  > .hx-collapsible > .hx-menu-collapsible {
+    background: $collapsible-background-col;
+    color: $collapsible-text-col;
+  }
+
+  &.hx-menu-link,
+  > .hx-collapsible > .hx-menu-collapsible {
+    &:hover {
+      background: $default-hover-col;
+      color: $default-text-col;
+      border-color: $default-border-col;
+      border-width: $border-width;
+    }
+  }
+
+  &.hx-menu-item-disabled {
+    background: $disabled-col;
+    color: $disabled-text-col;
+  }
+}
+
+.hx-menu:not(:hover) {
+  .hx-menu-active {
+    &.hx-menu-link,
+    > .hx-collapsible > .hx-menu-collapsible {
+      background: $default-hover-col;
+      border-color: $default-hover-border-col;
+    }
+  }
+}
+
+@function getCollapsibleCol($col) {
+  @if lightness($col) > 60 {
+    @return darken(desaturate($col, 10%), 15%);
+  }
+
+  @else {
+    @return lighten(desaturate($col, 10%), 35%);
+  }
+}
+
+@mixin menu($class, $col) {
+  &.#{$class} {
+
+    .hx-menu-item {
+      &.hx-menu-link,
+      > .hx-collapsible > .hx-menu-collapsible {
+        &:hover {
+          border-color: $col;
+        }
+      }
+
+      > .hx-collapsible > .hx-menu-collapsible {
+        &:hover {
+          background: getCollapsibleCol($col);
+          color: getTextColFromBG(getCollapsibleCol($col));
+        }
+      }
+    }
+
+    &:not(:hover) {
+      .hx-menu-active {
+        &.hx-menu-link,
+        > .hx-collapsible > .hx-menu-collapsible {
+          border-color: $col;
+        }
+
+        > .hx-collapsible > .hx-menu-collapsible {
+          background: getCollapsibleCol($col);
+          color: getTextColFromBG(getCollapsibleCol($col));
+        }
+      }
+    }
+  }
+}
+
+.hx-menu {
+  @include menu(hx-action, $action-col);
+  @include menu(hx-positive, $positive-col);
+  @include menu(hx-negative, $negative-col);
+  @include menu(hx-warning, $warning-col);
+  @include menu(hx-info, $info-col);
+  @include menu(hx-compliment, $compliment-col);
+  @include menu(hx-contrast, $contrast-col);
+}

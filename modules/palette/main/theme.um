@@ -1,0 +1,73 @@
+@module palette
+
+  @option default-col
+    @type color
+    @description: The default color
+    @default: #E6E6E6
+    @includeWithJs #E6E6E6
+
+  @option action-col
+    @type color
+    @description: The action color
+    @default: #6582A6
+    @includeWithJs #6582A6
+
+  @option positive-col
+    @type color
+    @description: The positive color
+    @default: #6FB365
+    @includeWithJs #6FB365
+
+  @option warning-col
+    @type color
+    @description: The warning color
+    @default: #CB9856
+    @includeWithJs #CB9856
+
+  @option negative-col
+    @type color
+    @description: The negative color
+    @default: #C74967
+    @includeWithJs #C74967
+
+  @option info-col
+    @type color
+    @description: The info color
+    @default: #A36FA9
+    @includeWithJs #A36FA9
+
+  @option compliment-col
+    @type color
+    @description: The compliment color
+    @default: #FDFDFD
+    @includeWithJs #FDFDFD
+
+  @option contrast-col
+    @type color
+    @description: The contrast color
+    @default: #3D3D3D
+    @includeWithJs #3D3D3D
+
+  @option light-text-col
+    @type color
+    @description: The text color to use on dark backgrounds
+    @default: #F3F3F3
+    @includeWithJs #F3F3F3
+
+  @option dark-text-col
+    @type color
+    @description: The text color to use on dark backgrounds
+    @default: #3D3D3D
+    @includeWithJs #3D3D3D
+
+  @option disabled-col
+    @type color
+    @description: The disabled color
+    @default: #FAFAFA
+    @includeWithJs #FAFAFA
+
+  @option disabled-text-col
+    @type color
+    @description: The disabled text color
+    @default: #939393
+    @includeWithJs #939393

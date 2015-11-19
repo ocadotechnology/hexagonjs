@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "component",
+    "event-emitter",
+    "selection",
+    "util",
+    "event-emitter",
+    "resize-events"
+  ],
+  "keywords": [
+    "drag",
+    "container"
+  ]
+}

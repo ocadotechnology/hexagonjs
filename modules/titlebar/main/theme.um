@@ -1,0 +1,172 @@
+@module titlebar
+
+  @option default-background-col
+    @type color
+    @description: The background color of the titlebar (the top section of the header)
+    @default: #373D45
+
+  @option action-background-col
+    @type color
+    @description: The action titlebar background color
+    @default: #6582A6
+
+  @option positive-background-col
+    @type color
+    @description: The positive titlebar background color
+    @default: #6FB365
+
+  @option warning-background-col
+    @type color
+    @description: The warning titlebar background color
+    @default: #CB9856
+
+  @option negative-background-col
+    @type color
+    @description: The negative titlebar background color
+    @default: #C74967
+
+  @option info-background-col
+    @type color
+    @description: The info titlebar background color
+    @default: #A36FA9
+
+  @option title-font-family
+    @type text
+    @description: The shadow color for shadow under the heading
+    @default: 'Roboto Slab', sans-serif
+
+  @option heading-shadow-col
+    @type color
+    @description: The shadow color for shadow under the heading
+    @default: transparent
+
+  @option heading-border-bottom-col
+    @type color
+    @description: The color of the border at the bottom of the heading
+    @default: #DDDDDD
+
+  @option heading-border-bottom-width
+    @type size
+    @description: The width of the bottom border for the heading
+    @default: 0
+
+  @option titlebar-text-col
+    @type color
+    @description: The text color used in the titlebar (the top section of the header)
+    @default: #F4F4F4
+
+  @option titlebar-icon-col
+    @type color
+    @description: The text color used in the titlebar (the top section of the header)
+    @default: rgba(255,255,255,0.5)
+
+  @option titlebar-icon-hover-col
+    @type color
+    @description: The text color used in the titlebar (the top section of the header)
+    @default: rgba(255,255,255,0.75)
+
+  @option linkbar-background-col
+    @type color
+    @description: The text color used in the titlebar (the top section of the header)
+    @default: #F2F2F2
+
+  @option link-text-col
+    @type color
+    @description: The color of the link text
+    @default: #3D3D3D
+
+  @option link-text-hover-col
+    @type color
+    @description: The color of the link text on hover
+    @default: #3D3D3D
+
+  @option link-border-hover-col
+    @type color
+    @description: The color of the link border on hover
+    @default: #777
+
+  @option link-border-selected-col
+    @type color
+    @description: The color of the link border when selected
+    @default: #373D45
+
+  @option mobile-view-icons-background-col
+    @type color
+    @description: The background color used for the icons section when in mobile view
+    @default: #424A54
+
+  @option mobile-view-icons-text-col
+    @type color
+    @description: The color of the titlebar icons and their text when in mobile view
+    @default: #DADADA
+
+  @option mobile-view-icons-text-hover-col
+    @type color
+    @description: The color of the titlebar icons and their text when in mobile view
+    @default: #EEEEEE
+
+  @option title-font-size
+    @type size
+    @description: The size of the title text
+    @default: 1.7em
+
+  @option titlebar-height
+    @type size
+    @description: The height of the top section of the heading
+    @default: 46px
+
+  @option linkbar-height
+    @type size
+    @description: The height of the top section of the heading
+    @default: 40px
+
+  @option titlebar-menu-context-text-col
+    @type color
+    @description: The color of text within the menu context section
+    @default: #FFF
+
+  @option icon-tooltip-background-col
+    @type color
+    @description: The background color for the tooltips that are shown on hover for the menu icons.
+    @default: #000
+
+  @option icon-tooltip-text-col
+    @type color
+    @description: The text color for the tooltips that are shown on hover for the menu icons.
+    @default: #FFF
+
+  @option font-weight
+    @type number
+    @description: The weight of the font used in the titlebar header
+    @default: 100
+
+  @option icon-vertical-offset
+    @type size
+    @description: The vertical offset for the main titlebar icon
+    @default: 12px
+
+  @option icon
+    @type string
+    @description: The default icon to use in the titlebar (with failovers)
+    @default: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="71.958" height="12"><g><path d="M3.954 12c-.38 0-.85-.27-1.04-.6L.143 6.6c-.192-.332-.192-.87 0-1.2L2.912.598C3.104.27 3.572 0 3.954 0h5.542c.384 0 .85.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6H3.954" fill="%2380cc28"/><path d="M3.954 12c-.38 0-.85-.27-1.04-.6L.143 6.6c-.192-.332-.192-.87 0-1.2L2.912.598C3.104.27 3.572 0 3.954 0h5.542c.384 0 .85.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6H3.954" fill="%2380cc28"/><path d="M18.58 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2L17.54.598C17.732.27 18.2 0 18.58 0h5.544c.38 0 .848.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.192.33-.66.6-1.04.6H18.58" fill="%23fbbf16"/><path d="M18.58 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2L17.54.598C17.732.27 18.2 0 18.58 0h5.544c.38 0 .848.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.192.33-.66.6-1.04.6H18.58" fill="%23fbbf16"/><path d="M33.207 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2l2.77-4.803C32.36.27 32.828 0 33.208 0h5.543c.383 0 .85.27 1.04.597L42.56 5.4c.193.33.193.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6h-5.543" fill="%23d27f12"/><path d="M33.207 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2l2.77-4.803C32.36.27 32.828 0 33.208 0h5.543c.383 0 .85.27 1.04.597L42.56 5.4c.193.33.193.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6h-5.543" fill="%23d27f12"/><path d="M47.835 12c-.382 0-.848-.27-1.038-.6l-2.772-4.8c-.19-.332-.19-.87 0-1.2L46.797.598C46.987.27 47.453 0 47.835 0h5.542c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.542" fill="%23d2103e"/><path d="M47.835 12c-.382 0-.848-.27-1.038-.6l-2.772-4.8c-.19-.332-.19-.87 0-1.2L46.797.598C46.987.27 47.453 0 47.835 0h5.542c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.542" fill="%23d2103e"/><path d="M62.464 12c-.383 0-.85-.27-1.04-.6l-2.77-4.8c-.193-.332-.193-.87 0-1.2l2.77-4.803C61.614.27 62.08 0 62.464 0h5.54c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.54" fill="%23732185"/><path d="M62.464 12c-.383 0-.85-.27-1.04-.6l-2.77-4.8c-.193-.332-.193-.87 0-1.2l2.77-4.803C61.614.27 62.08 0 62.464 0h5.54c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.54" fill="%23732185"/></g></svg>')
+
+  @option icon-background-col
+    @type color
+    @description: The background color of the logo section
+    @default: transparent
+
+
+  @option context-text-col
+    @type color
+    @description: The text color used when a context class is present
+    @default: #F3F3F3
+
+  @option context-icon-background
+    @type color
+    @description: The background color for the main icon when a context class is present
+    @default: #373D45
+
+  @option titlebar-menu-context-border-col
+    @type color
+    @description: The border color for menu icons
+    @default: rgba(255,255,255,0.1)
