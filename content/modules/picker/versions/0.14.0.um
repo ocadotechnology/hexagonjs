@@ -1,0 +1,128 @@
+@version 0.14.0
+
+  @description
+    An alternative to the @code(html)[<select>] element. Essentially a button and a menu glued together with useful functions for setting and getting the currently selected value.
+
+  @examples
+    @example
+      @html html
+        <button id="example" class="hx-btn hx-positive"></button>
+      @js
+        select = new hx.Picker('#example')
+        select.items(['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other'])
+        select.value('Option 1')
+
+  @api Picker
+    @prototype hx.Picker
+      @description
+      @added
+
+      @constructor
+        @param selector [String/HTMLElement]: The target button to set the select up in.
+        @param? options [Object]
+          @property ddClass [String]: The additional class to add to the dropdown when creating it.
+          @property items [Array/Function]
+            @description:
+              @p: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+              @p: This can also be set after the select has been constructed using the @code[items] method.
+          @property renderer [Function]
+            @description:
+              @p: A function that renders the data in the dropdown and the select button. The default value is:
+              @codeblock js
+                function (node, data) {
+                  hx.select(node).text(data);
+                }
+              @p: This can also be set after the select has been constructed using the @code[renderer] method.
+          @property startValue [String]: The value to use when initialising the select.
+          @property noValueText [String]: The text to use when no value is selected.
+            @default('Choose a value...')
+
+      @method items
+        @description: Set the items for the select using a function that returns the data.
+        @param dataFetcher [Function]
+          @description:
+            @p: The function to call to get the data. This will be called whenever the value is set or the select is opened, allowing the data to be changed easily.
+            @p: It is recommended that the data for a select be cached where possible when using the function to set the data.
+          @param callback [Function]: The function to call when the data has loaded
+            @param data [Array[String/Object]]: The items to add to the select.
+        @returns Picker
+
+      @method items
+        @description: Sets the list of items that will be shown in the select dropdown.
+        @param items [Array[Any]]: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+        @returns Picker: This Picker
+
+      @method items
+        @description: Gets the list of items that will be shown in the select dropdown, or if a function has been set it will return that.
+        @returns [Array[Any]/Function]: The currently set items.
+
+      @method value
+        @description: Sets the currently selected item.
+        @param value [String]: The value of the item to select.
+        @returns Picker: This Picker.
+
+      @method value
+        @description: Gets the currently selected item.
+        @returns Any: The currently selected item.
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event highlight
+          @description: The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
+          @data Object
+            @property eventType [String]
+              @description:
+                The type of event that caused the selection:
+                @list:
+                  'click' - User clicked
+                  'arrow' - User used the arrow keys
+            @property item [String/Object]: The item as it was passed into the select.
+
+        @event change [Object]
+          @description: Emitted when the selected value is changed.
+          @data Object: The item that was selected.
+
+        @event dropdown.showstart
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation starts. No data is sent with this event.
+
+        @event dropdown.showend
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation finishes. No data is sent with this event.
+
+        @event dropdown.hidestart
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation starts. No data is sent with this event.
+
+        @event dropdown.hideend
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation ends. No data is sent with this event.
+
+        @event dropdown.change [Boolean]
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown is shown or hidden
+          @data [Boolean]: A boolean indicating whether or not the dropdown is hidden.
+
+        @returns Picker: This Picker
+
+      @method renderer
+        @description: Gets the current item renderer function.
+        @returns Function: The current renderer if no arguments are provided.
+
+      @method renderer
+        @description: Sets the item renderer function.
+        @param render [Function]
+          @param node [HTMLElement]
+          @param data [Any]
+        @returns Picker: This Picker
+
+  @theme
+
+  @seeAlso
+
+  @changelog

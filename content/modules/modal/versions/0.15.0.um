@@ -1,0 +1,6 @@
+@version 0.15.0
+
+  @api Modal
+    @prototype hx.Modal
+      @method close
+        @removed: Use modal.hide instead.

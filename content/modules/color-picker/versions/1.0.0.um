@@ -1,0 +1,7 @@
+@version 1.0.0
+  @api Color Picker
+    @function hx.colorPicker
+      @added: Fluid api version of ColorPicker
+      @description: Creates a new ColorPicker set up on a detached element, wrapped in a selection
+      @param options [Object]: See the options object for constructing ColorPicker
+      @returns Selection: A selection containing an element with an ColorPicker initialised on it

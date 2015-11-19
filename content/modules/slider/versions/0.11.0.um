@@ -1,0 +1,70 @@
+@version 0.11.0
+  @api Slider
+    @prototype hx.Slider
+      @constructor
+        @param selection [String/HTMLElement]
+        @param? type [String]
+        @param? render [Function]
+          @param slider [Slider]
+          @param elem [HTMLElement]
+          @param value [Number]
+          @param update [Boolean]
+          @param rangeStart [Boolean]
+        @removed
+          @issue 384
+
+      @method setRangeStartValue
+        @param value [Number]
+        @removed
+          @issue 384
+
+
+      @method setRangeEndValue
+        @param value [Number]
+        @removed
+          @issue 384
+
+      @method getRangeStartValue
+        @removed
+          @issue 384
+
+      @method getRangeEndValue
+        @removed
+          @issue 384
+
+
+      @method setValue
+        @param value [Number]
+        @deprecated
+          @issue 375
+          Use @code[value(value)] instead.
+
+      @method setValue
+        @param value [Object]
+        @deprecated
+          @issue 375
+          Use @code[value(value)] instead.
+
+      @method getValue
+        @deprecated
+          @issue 375
+          Use @code[value()] instead.
+
+      @method value
+        @description: Sets the value / position of the slider. Returns this slider for chaining.
+        @param value [Number]: A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
+        @returns Slider
+
+      @method value
+        @description: Sets the values for a range slider.
+        @param value [Object]
+          @property? startValue [Number]: A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
+          @property? endValue [Number]: A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
+        @returns Slider
+
+      @method value
+        @description: Returns the current value of the slider.
+        @returns [Number/Object]
+          For standard sliders, this will be a number. For range sliders, this will be an object with the below properties
+          @property startValue [Number]: The start value of the selected range slider
+          @property endValue [Number]: The end value of the selected range slider

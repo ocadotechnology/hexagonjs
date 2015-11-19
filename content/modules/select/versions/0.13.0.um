@@ -1,0 +1,86 @@
+@version 0.13.0
+  @api Select
+    @prototype hx.Select
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property ddClass [String]
+          @property items [Array/Function]
+          @property renderer [Function]
+            @description:
+              @p: A function that renders the data in the dropdown and the select button. The default value is:
+              @codeblock js
+                function (node, data) {
+                  hx.select(node).text(data);
+                }
+              @p: This can also be set after the select has been constructed using the @code[renderer] method.
+          @property startValue [String]: The value to use when initialising the select.
+
+      @method items
+        @removed
+          @issue 378
+        @description: Sets the list of items that will be shown in the select dropdown.
+        @param items [Array[Any]]: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+        @returns Select: Returns this select for chaining
+
+      @method items
+        @added: Made the items parameter optional. If it is not passed in, the currently set items are returned.
+          @issue 378
+        @description: Sets the list of items that will be shown in the select dropdown.
+        @param items [Array[Any]]: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+        @returns Select: This Select
+
+      @method items
+        @added: Made the items parameter optional. If it is not passed in, the currently set items are returned.
+          @issue 378
+        @description: Gets the list of items that will be shown in the select dropdown, or if a function has been set it will return that.
+        @returns [Array[Any]/Function]: The currently set items.
+
+      @method renderer
+        @description: Gets the current item renderer function.
+        @returns Function: The current renderer if no arguments are provided.
+
+      @method renderer
+        @description: Sets the item renderer function.
+        @param render [Function]
+          @param node [HTMLElement]
+          @param data [Any]
+        @returns Select: This Select
+
+
+      @method on
+        @param name [String]
+        @param callback [Function]
+          @param data [Any]
+
+        @event highlight
+          @description: The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
+          @data Object
+            @property eventType [String]
+              @description:
+                The type of event that caused the selection:
+                @list:
+                  'click' - User clicked
+                  'arrow' - User used the arrow keys
+            @property item [String/Object]: The item as it was passed into the select.
+
+        @event dropdown.showstart
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation starts. No data is sent with this event.
+
+        @event dropdown.showend
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation finishes. No data is sent with this event.
+
+        @event dropdown.hidestart
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation starts. No data is sent with this event.
+
+        @event dropdown.hideend
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation ends. No data is sent with this event.
+
+        @event dropdown.change [Boolean]
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown is shown or hidden
+          @data [Boolean]: A boolean indicating whether or not the dropdown is hidden.

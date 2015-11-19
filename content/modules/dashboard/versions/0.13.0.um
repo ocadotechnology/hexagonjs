@@ -1,0 +1,22 @@
+@version 0.13.0
+  @examples
+    @example
+      @html: <div id="example"></div>
+      @js: @inline 0.13.0/example.js
+      @css: @inline 0.13.0/example.css
+
+  @api Dashboard
+    @prototype DashboardWidget
+      @method title
+        @description: Gets the widget's title
+        @returns String: The current title value.
+
+      @method title
+        @param title [String]
+        @returns DashboardWidget: This DashboardWidget
+
+      @method remove
+        @param? callback [Function]
+        @returns DashboardWidget: This DashboardWidget
+
+      @property selection Selection: The dashboard widget node, wrapped in a Selection

@@ -1,0 +1,11 @@
+@version 1.0.0
+  @api Button
+    @class hx-btn
+      @extraclass hx-action
+        @description: Styles the button with action colors
+        @added: Added new action context class and updated default styles.
+          @issue 652
+
+      @extraclass hx-btn-invert
+        @enhancement: Updated the invert styles for buttons to work nicer across different themes
+          @issue 704

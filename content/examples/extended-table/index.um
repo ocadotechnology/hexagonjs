@@ -1,0 +1,4 @@
+@examplePage Extended Table
+  @example
+    @html: @inline table.html
+    @coffee: @inline table.coffee

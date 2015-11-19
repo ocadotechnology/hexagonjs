@@ -1,0 +1,66 @@
+@version 0.13.0
+  @api Side Collapsible
+    @prototype hx.SideCollapsible
+      @method show
+        @removed
+          Additional optional callback parameter added for executing code when the animation finishes.
+        @param? animate [Boolean]
+
+      @method hide
+        @removed
+          Additional optional callback parameter added for executing code when the animation finishes.
+        @param? animate [Boolean]
+
+      @method toggle
+        @removed:
+          Additional optional callback parameter added for executing code when the animation finishes.
+        @param? animate [Boolean]
+
+      @method show
+        @description: Show the collapsible content
+        @param? animate [Boolean]: Whether or not to animate the open action. Defaults to the animate option passed in when constructing the collapsible.
+        @param? callback [Function]
+          @description: Called when the animation finishes. The callback will only be run if the state changes.
+        @returns SideCollapsible: This SideCollapsible
+
+      @method hide
+        @description: Hide the collapsible content
+        @param? animate [Boolean]: Whether or not to animate the close action. Defaults to the animate option passed in when constructing the collapsible.
+        @param? callback [Function]
+          @description: Called when the animation finishes. The callback will only be run if the state changes.
+        @returns SideCollapsible: This SideCollapsible
+
+      @method toggle
+        @description: Toggles the visiblity of the collapsible content.
+        @param? animate [Boolean]: Whether or not to animate the action. Defaults to the animate option passed in when constructing the collapsible.
+        @param? callback [Function]
+          @description: Called when the animation finishes. The callback will only be run if the state changes.
+        @returns SideCollapsible: This SideCollapsible
+
+
+      @method on
+        @added: Added events to side collapsible
+          @issue 391
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event showstart
+          @description: Emitted when the collapsible is opened. No extra data with this event type
+
+        @event hidestart
+          @description: Emitted when the collapsible is hidden. No extra data with this event type
+
+        @event change [Boolean]
+          @description: Emitted when the collapsible's state changes. The data that comes with this event is a boolean.
+          @data [Boolean]: True means that the collapsible has just been opened, false means it has just been closed.
+
+        @event showend
+          @description: Emitted when the collapsible is opened and animations have finished. No extra data with this event type
+
+        @event hideend
+          @description: Emitted when the collapsible is closed and animations have finished. No extra data with this event type
+
+        @returns SideCollapsible: This SideCollapsible

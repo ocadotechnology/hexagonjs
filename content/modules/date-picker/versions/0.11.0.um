@@ -1,0 +1,148 @@
+@version 0.11.0
+  @api Date Picker
+    @prototype hx.DatePicker
+      @updated: All instances of supressCallback have been converted to suppressCallback.
+      @bugfix: Fixed an issue where setting the values for the date picker and then getting the value would result in the wrong value being returned.
+        @issue 435
+      @method getDate
+        @deprecated
+          @issue 375
+          Use @code[date()] instead.
+
+      @method getRange
+        @deprecated
+          @issue 375
+          Use @code[range()] instead.
+
+      @method setDate
+        @param date [Date]
+        @param dontSetupInput [Boolean]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[date(date, dontSetupInput, suppressCallback)] instead.
+
+      @method setDay
+        @param day [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[day(day, suppressCallback)] instead.
+
+      @method setMonth
+        @param month [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[month(month, suppressCallback)] instead.
+
+      @method setYear
+        @param year [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[year(year, suppressCallback)] instead.
+
+      @method setRange
+        @param date1 [Date]
+        @param date2 [Date]
+        @param dontSetupInput [Boolean]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[range(date1, date2, dontSetupInput, suppressCallback)] instead.
+
+      @method date
+        @description: A function to return the current date
+        @returns Date
+
+      @method date
+        @description: A function used to set the currently selected date.
+        @param date [Date]: The date to set.
+        @param? dontSetupInput [Boolean]: A value used to prevent the input being changed.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DatePicker: This DatePicker
+
+      @method day
+        @description: A function to return the currently selected day of the month.
+        @returns Number
+
+      @method day
+        @description: A function used to set the currently selected day.
+        @param day [Number]: The day to set.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DatePicker: This DatePicker
+
+      @method month
+        @description: A function to return the currently selected month.
+        @returns Number
+
+      @method month
+        @description: A function to set the currently selected month.
+        @param month [Number]: The month to set. The value is 1-based (e.g. 1 = January).
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DatePicker: This DatePicker
+
+      @method year
+        @description: A function to return the currently selected year.
+        @returns Number
+
+      @method year
+        @description: A function to set the currently selected year.
+        @param year [Number]: The year to set.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DatePicker: This DatePicker
+
+      @method range
+        @description: A function to return the selected date range when the @code[selectRange] argument was passed into the constructor.
+        @returns Object
+          @property start [Date]: The start date of the range
+          @property end [Date]: The end date of the range
+          @property count [Number]: The total number of selected days, including the start and end day.
+
+      @method range
+        @description
+          @p: A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
+          @p: When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
+        @param date1 [Date]: The first date of the range
+        @param date2 [Date]: The second date of the range
+        @param? dontSetupInput [Boolean]: A value used to prevent the input being changed
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DatePicker: This DatePicker
+
+      @method validRange
+        @added: Added the ability to specify a valid range for date pickers.
+          @issue 400
+        @description:
+          @p: A method for setting the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
+          @p: To clear a valid range, this method can be called with no parameters.
+          @p: To set an end date without setting a start date, this method can be called with @code[undefined] as the first parameter
+          @codeblock js
+            datepicker.validRange(new Date()); // User can select any date after today
+            datepicker.validRange(undefined, new Date()); // User can select any date before today
+            datepicker.validRange(new Date(), new Date()); // User can only select today
+            datepicker.validRange(); // Clear valid range (all dates are valid)
+
+        @param? start [Date]: The start date of the valid range. Any dates before this date are not valid and cannot be selected.
+        @param? end [Date]: The start date of the valid range. Any dates after this date are not valid and cannot be selected.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DatePicker: This DatePicker
+
+      @method showMonth
+        @updated: Converted the month property to be 1-based instead of 0-based.
+        @description: A function used to show the month specified without affecting the date selection
+        @param month [Number]: The month to set. The value is 1-based (e.g. 1 = January).
+        @param year [Number]: The year to show
+        @returns DatePicker: This DatePicker
+
+  @theme
+    @option out-of-range-col
+      @type color
+      @description: The text col to use for dates that are out of the valid range in the calendar date picker.
+      @default #999

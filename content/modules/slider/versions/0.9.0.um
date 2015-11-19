@@ -1,0 +1,151 @@
+@version 0.9.0
+
+  @description
+    A slider component for picking a number from a range.
+
+  @examples
+    @example
+      @html
+        <div id="slider" class="hx-slider"></div>
+
+      @js
+        var slider = new hx.Slider('#slider');
+
+    @example
+      @html
+        <div id="slider2" class="hx-slider"></div>
+
+      @js
+        var slider = new hx.Slider('#slider2', 'range');
+
+    @example
+      @html
+        <div id="sliderRender"></div>
+
+      @js
+        var renderSlider = function(slider, elem, value, update, rangeStart){
+          formatter = hx.format.fixed(4);
+          hx.select(elem).text(formatter(value));
+        }
+        var slider = new hx.Slider('#sliderRender', 'slider', renderSlider);
+
+    @example
+      @html
+        <div id="sliderRenderColor"></div>
+
+      @js
+        var renderSlider = function(slider, elem, value, update, rangeStart){
+          var col = hx.color('#C40030').mix(hx.color('#7BBE31'), value);
+          var value = hx.format.fixed(2)(value);
+          hx.select(elem)
+            .style('background', col)
+            .style('color', col.getTextCol())
+            .text(value);
+        }
+        var slider = new hx.Slider('#sliderRenderColor', 'slider', renderSlider);
+
+  @api Slider
+    @prototype hx.Slider
+      @description: A widget type for selecting a value from a range, or a range of values from a range.
+
+      @constructor
+        @description: Sets up a slider.
+        @param selection [String/HTMLElement]: A unique css selector or a HTMLElement that identifies your slider.
+        @param? type [String]: The type slider. Can be 'slider' for a normal slider or 'range' for a range slider.
+        @param? render [Function]
+          @description
+            A function used to render the sliders
+            @codeblock js
+              render = function(slider, elem, value, update, rangeStart){
+                formatter = hx.format.fixed(2)
+                hx.select(elem).text(formatter(value))
+              }
+
+          @param slider [Slider]: The current hx.Slider
+          @param elem [HTMLElement]: The node of the selected slider
+          @param value [Number]: The value of the slider. Will always be a number between 0 and 1.
+          @param update [Boolean]
+            @description
+              Whether the renderer is being called by dragging the slider or when it created the slider.
+              The value is @code[true] when dragging, @code[false] when building
+          @param rangeStart [Boolean]
+            @description
+              Whether the selected slider is the start node in the slider.
+              @code[true] if it's the start node, @code[false] if it's the end node, @code[undefined] if the slider isn't a range slider.
+
+      @method setValue
+        @description: Sets the value / position of the slider. This should be a value between 0 and 1. Returns this slider for chaining.
+        @param value [Number]: A value between 0 and 1.
+        @returns Slider
+
+      @method getValue
+        @description: Gets the value of the slider. Returns a value between 0 and 1.
+        @returns Number
+
+      @method setRangeStartValue
+        @description: Sets the value / position of the start point of a range slider. This should be a value between 0 and 1. Returns this slider for chaining.
+        @param value [Number]: A value between 0 and 1.
+        @returns Slider
+
+      @method setRangeEndValue
+        @description: Sets the value / position of the end point of a range slider. This should be a value between 0 and 1. Returns this slider for chaining.
+        @param value [Number]: A value between 0 and 1.
+        @returns Slider
+
+      @method getRangeStartValue
+        @description: Gets the value / position of the start point of a range slider. This will be a value between 0 and 1.
+        @returns Number
+
+      @method getRangeEndValue
+        @description: Gets the value / position of the end point of a range slider. This will be a value between 0 and 1.
+        @returns Number
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event slide: Emitted when the slider is moved.
+          @data value: The current value (or range value) of the slider.
+        @event slidestart: Emitted when the slider finishes moving.
+          @data value: The current value (or range value) of the slider.
+        @event slideend: Emitted when the slider finishes moving.
+          @data value: The current value (or range value) of the slider.
+        @event change: Emitted when the slider value is changed.
+          @data value: The current value (or range value) of the slider.
+        @returns Slider: This Slider
+
+  @theme
+    @option background-col
+      @type color
+      @description: The background of the slider container element
+      @default #F7F7F7
+
+    @option slider-background-col
+      @type color
+      @description: The background of the draggable slider element(s)
+      @default #E2E2E2
+
+    @option range-background-col
+      @type color
+      @description: The background of the range between draggable sliders.
+      @default #98719D
+
+    @option border-radius
+      @type size
+      @description: The border radius of the slider background and slider slider.
+      @default 2px
+
+    @option text-col
+      @type color
+      @description: The color of the text in the sliders
+      @default #F3F3F3
+
+    @option range-height
+      @type size
+      @description: The height of the slider range block - best specified in percent.
+      @default 50%
+
+  @seeAlso

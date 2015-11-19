@@ -1,0 +1,6 @@
+#table1, #table2, #table3, .a-class {
+  width: 500px;
+  max-width: 100%;
+  height: 300px;
+  overflow: hidden;
+}

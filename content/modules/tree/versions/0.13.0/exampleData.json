@@ -1,0 +1,49 @@
+[
+  {
+    "name": "parent 1",
+    "children": [
+      {
+        "name": "parent 2",
+        "children": [
+          {
+            "name": "item 1",
+            "color": 1
+          },
+          {
+            "name": "item 2",
+            "color": 2
+          }
+        ]
+      },
+      {
+        "name": "parent 3",
+        "children": [
+          {
+            "name": "item 3",
+            "color": 3
+          },
+          {
+            "name": "item 4",
+            "color": 4
+          }
+        ]
+      },
+      {
+        "name": "parent 4",
+        "children": [
+          {
+            "name": "item 5",
+            "color": 5
+          },
+          {
+            "name": "item 6",
+            "color": 6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "item 7"
+  }
+]

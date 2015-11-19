@@ -1,0 +1,7 @@
+#graph {
+  height: 500px;
+}
+
+.dashed-line {
+  stroke-dasharray: 5,5;
+}

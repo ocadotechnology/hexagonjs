@@ -1,0 +1,12 @@
+@version 0.10.0
+
+  @api Notify
+    @function hx.notify.setDefaultTimeout
+      @description: A function for changing the default time out for notifications
+      @param timeout [Number]: The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
+
+    @function hx.getNotificationManager.setDefaultTimeout
+      @description: A function for changing the default time out for notifications
+      @param timeout [Number]: The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
+
+  @seeAlso

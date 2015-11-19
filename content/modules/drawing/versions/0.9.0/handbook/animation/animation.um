@@ -1,0 +1,44 @@
+@section Animation
+
+  @section Animating properties
+
+    @p: Animations are a useful way to convey changing state to a user. Animated drawings don't just make a page more engaging; an animated drawing contains more information than a static one.
+
+    @p: Almost every property of a drawing object can be animated. This means you can animate positions, sizes, colors, and even text containing numbers. There are a couple of properties where it does not make sense to be able to animate, and these are outlined in the api docs.
+
+# namespacing needs to work before this can be done
+#  @hx.layout
+#    @hx.section hx-medium
+
+    <div class="hx-layout hx-group hx-horizontal">
+    <div class="hx-section hx-medium">
+    @section Static
+      @example
+        @html: <div id="basic-drawing"></div>
+        @js: @inline examples/basic-drawing.js
+    </div>
+
+    <div class="hx-section hx-medium">
+    @section Animated
+      @example
+        @html: <div id="animated-drawing"></div>
+        @js: @inline examples/animated-drawing.js
+    </div>
+    </div>
+
+    @p: The same method used to set property values is used to animate them. The third parameter to the set method is the duration in milliseconds that the transition should take. The animation will always start from it's current value and end at the value provided.
+
+    @codeblock js
+      obj.set('property', value, duration);
+
+    @p: If a property is set half way through an animation, the animation will be discarded, and the property value will be set. If another animation is applied whilst another animation is running, the current animation will stop, and the new one will start from the current state.
+
+  @section End of animation callback
+
+    @codeblock js
+      obj.set('property', value, duration, function(){
+        // gets called when the animation finishes
+      });
+
+    @p: An optional callback can be supplied to be called at the end of a property animation. This callback will also be called if the animation is interrupted. See the api section for more details.
+

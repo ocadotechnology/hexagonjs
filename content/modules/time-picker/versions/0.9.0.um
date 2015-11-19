@@ -1,0 +1,138 @@
+@version 0.9.0
+
+  @description
+    A time picker component for picking a time of day.
+
+  @installation
+
+  @examples
+    @example
+      @html
+        <div id="timepicker"></div>
+        <div id="timepickerseconds"></div>
+      @js
+        new hx.TimePicker('#timepicker')
+        new hx.TimePicker('#timepickerseconds', true)
+
+  @api Time Picker
+    @prototype hx.TimePicker
+      @description: Used to create a timepicker from a selection.
+      @constructor
+        @description: Creates a timepicker with the current time
+        @param selector [String/HTMLElement]: The selector of the div to turn into a timepicker.
+        @param? showSeconds [Boolean]
+          @description
+            Whether to show the seconds in the timepicker.
+          @default false
+        @param? buttonClass [String]: The class to add to the buttons.
+
+      @method setDate
+        @description: Sets the entire date for the timepicker.
+        @param date [Date]: The date to set the timepicker to.
+        @param? setTime [Boolean]
+          @description
+            Whether to set the time as well as the date. Only the day/month/year will be updated unless this is passed in as true.
+          @default false
+
+        @param? suppressCallback [Boolean]
+          @description
+            A value used to prevent the change event being emitted
+          @default false
+
+      @method setHour
+        @description
+          Set the hour to display in the timepicker
+        @param hour [Number]: The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the timepicker to cycle into the next/previous day.
+        @param? suppressCallback [Boolean]
+          @description
+            A value used to prevent the change event being emitted
+          @default false
+
+      @method setMinute
+        @description
+          Set the minute to display in the timepicker.
+        @param minute [Number]: The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous hour.
+        @param? suppressCallback [Boolean]
+          @description
+            A value used to prevent the change event being emitted
+          @default false
+
+      @method setSecond
+        @description
+          Set the second to display in the timepicker.
+        @param second [Number]: The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous minute.
+        @param? suppressCallback [Boolean]
+          @description
+            A value used to prevent the change event being emitted
+          @default false
+
+      @method addHours
+        @description
+          Add hours to the currently selected time.
+        @param hours [Number]: The number of hours to add. Can be a negative number and will cycle to the next/previous day if the resulting value is not in the range of 0 - 23.
+
+      @method addMinutes
+        @description
+          Add minutes to the currently selected time.
+        @param minutes [Number]: The number of hours to add. Can be a negative number and will cycle to the next/previous hour if the resulting value is not in the range of 0 - 59.
+
+      @method addSeconds
+        @description
+          Add seconds to the currently selected time.
+        @param seconds [Number]: The number of hours to add. Can be a negative number and will cycle to the next/previous minute if the resulting value is not in the range of 0 - 59.
+
+      @method getDate
+        @description
+          Gets the current date object that the timepicker is set to.
+        @returns Date
+
+      @method getHour
+        @description
+          Get the currently selected hour
+        @returns Number
+
+      @method getMinute
+        @description
+          Get the currently selected minute
+        @returns Number
+
+      @method getSecond
+        @description
+          Get the currently selected second
+        @returns Number
+
+      @method getScreenTime
+        @description: Get the time as it is displayed in the input box. When using moment.js, this will include localised characters.
+        @returns String: The the time as it is displayed in the input box.
+
+      @method update
+        @descroption: Used to refresh the timepicker if the locale has been updated and moment.js is being used.
+        @returns TimePicker: This TimePicker
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event change: Emitted when the time is changed.
+        @returns TimePicker: This TimePicker
+
+  @theme
+    @option error-background-col
+      @description: The background to use in the time picker when there is an error with the input
+      @type color
+      @default #FCBFBF
+
+    @option error-outline-col
+      @description: The color to outline the timepicker input with when there is an error with the input
+      @type color
+      @default #DE1A4A
+
+    @option input-background-col
+      @description: The background color of the input
+      @type color
+      @default #FFF
+
+  @seeAlso

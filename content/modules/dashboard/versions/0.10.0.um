@@ -1,0 +1,14 @@
+@version 0.10.0
+  @examples
+    @example
+      @html: <div id="example"></div>
+      @js: @inline 0.10.0/example.js
+      @css: @inline 0.10.0/example.css
+
+  @api Dashboard
+    @prototype hx.Dashboard
+      @method createWidget
+        @param? options [Object]
+          @property height [Number]: The height to set the body of the widget to. By default, no height will be set and the widget will resize to the content.
+            @added: Added a height option to allow sizing of widgets to account for the removal of the static height.
+              @issue 346

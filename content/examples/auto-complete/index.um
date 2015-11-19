@@ -1,0 +1,8 @@
+@examplePage Auto Complete
+  @example
+    @html: @inline auto-complete.html
+    @coffee: @inline auto-complete.coffee
+    @css
+      span {
+        color:#999;
+      }

@@ -1,0 +1,4 @@
+@version 0.15.2
+  @api Notify
+    @prototype hx.NotificationManager
+      @bugfix: Updated so that the notification containers have unique ID's so they don't cause the inbuilt notifications to display inside custom notification mangers

@@ -1,0 +1,57 @@
+@version 0.14.0
+  @api Time Picker
+    @prototype hx.TimePicker
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? showSeconds [Boolean]
+        @param? buttonClass [String]
+        @removed
+          Use @code[hx.TimePicker(selector, options)] instead.
+
+      @method addHours
+        @param hours [Number]
+        @removed: Use tp.hour(tp.hour() + hours) instead
+        @returns TimePicker: This TimePicker
+
+      @method addMinutes
+        @param minutes [Number]
+        @removed: Use tp.minute(tp.minute() + minutes) instead
+        @returns TimePicker: This TimePicker
+
+      @method addSeconds
+        @param seconds [Number]
+        @removed: Use tp.second(tp.second() + seconds) instead
+        @returns TimePicker: This TimePicker
+
+      @method date
+        @param date [Date]
+        @param? retainTime [Boolean]
+        @param? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+      @method hour
+        @param hour [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+
+      @method minute
+        @param minute [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+
+      @method second
+        @param second [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+
+      @method update
+        @param? locale [String/Boolean]
+        @removed
+          Use @code[locale(locale)] instead.

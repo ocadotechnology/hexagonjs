@@ -1,0 +1,33 @@
+@example
+  @html
+    <button id="show-modal" class="hx-btn hx-positive">Show Modal</button>
+  @js: @inline example-default.js
+
+
+@example
+  @html
+    <button id="show-modal-dialog" class="hx-btn hx-positive">Show Dialog</button>
+  @js: @inline example-dialog.js
+
+
+@example
+  @html
+    <button id="show-modal-dialog-buttons" class="hx-btn hx-positive">Show Dialog with Buttons</button>
+  @js: @inline example-dialog-buttons.js
+
+
+@example
+  @html
+    <button id="show-modal-input" class="hx-btn hx-positive">Show input dialog</button>
+  @js: @inline example-input.js
+
+
+
+@example
+  @html
+    <button id="show-modal-positive" class="hx-btn hx-positive">Show positive dialog</button>
+    <button id="show-modal-warning" class="hx-btn hx-warning">Show warning dialog</button>
+    <button id="show-modal-negative" class="hx-btn hx-negative">Show negative dialog</button>
+    <button id="show-modal-info" class="hx-btn hx-info">Show info dialog</button>
+  @js: @inline example-type.js
+

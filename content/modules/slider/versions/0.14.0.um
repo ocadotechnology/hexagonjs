@@ -1,0 +1,37 @@
+@version 0.14.0
+  @api Slider
+    @prototype hx.Slider
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property render [Function]
+            @param slider [Slider]
+            @param elem [HTMLElement]
+            @param value [Number]
+            @removed
+              Use @code[options.renderer] instead.
+
+      @method setDiscreteValues
+        @param array [Array]
+        @param? render [Boolean]
+          @default true
+        @removed
+          Use @code[discreteValues] instead
+
+
+      @method value
+        @param value [Object]
+          @property? startValue [Number]: A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
+            @removed: Use start instead
+          @property? endValue [Number]: A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
+            @removed: Use end instead
+
+      @method value
+        @returns [Number/Object]
+          For standard sliders, this will be a number. For range sliders, this will be an object with the below properties
+          @property? startValue [Number]: The start value of the selected range slider
+            @removed: Use start instead
+          @property? endValue [Number]: The end value of the selected range slider
+            @removed: Use end instead
+          @property? start [Number]: The start value of the selected range slider
+          @property? end [Number]: The end value of the selected range slider

@@ -1,0 +1,552 @@
+@version 0.9.0
+
+  @description
+    A library for creating interactive drawings.
+
+  @examples
+    @example
+      @html
+        <div id="drawing" class="drawing-example"></div>
+      @css
+        .drawing-example {
+          height: 300px;
+        }
+      @coffee: @inline 0.9.0/hexagonal-game-of-life.coffee
+
+  @api Drawing
+    @prototype hx.Drawing
+      @description
+        Used to create interactive drawings.
+
+      # constructors
+
+      @constructor
+        @description: Creates a new Drawing.
+        @param selector [String]: A CSS selector which uniquely identifies the element to create the drawing in.
+
+      @constructor
+        @description: Creates a new Drawing.
+        @param selector [HTMLElement]: The HTMLElement where the drawing should be created.
+
+      # properties
+
+      @property camera [Camera]: The camera object used by this drawing. See the Camera class docs for more details.
+
+      # methods
+
+      @method resume
+        @description: Resumes the drawing after stop has been called.
+
+      @method stop
+        @description: Stops the drawing from updating (until resume is called). This should be also be called when removing a drawing from the page, as could happen in single page apps.
+
+      @method find
+        @description: Find a drawing object by id. This is an O(1) lookup.
+        @param id [String]: The id of the object to find. This will be the random id that gets generated automatically for an object, or the custom id that was supplied when it was created. See the create method for more details.
+        @returns DrawingObject: the drawing object with the id provided, or undefined if no object with that id was found.
+
+      @method findBy
+        @description: Find an object using an indicator function. This will loop through all objects in the drawing and find the first that satisfies the condition. This is an O(n) (where n is the number of objects in the drawing)
+        @param indicator [Function]
+          @param obj [DrawingObject]
+          @returns Boolean: true if the object satisfies the conditions being searched for.
+        @returns DrawingObject: the first drawing object that satisfied the indicator function, or undefined if none was found.
+
+      @method createLayer
+        @description: Creates a new layer in this drawing.
+        @returns Layer: The newly created layer
+
+      @method showLayer
+        @description: Shows the layer supplied, and hides all other layers.
+
+      @method follow
+        @description: Make the camera follow an object as it moves around the drawing. If the user pans with the mouse, then this follow instruction is cancelled.
+        @param obj [DrawingObject]: The drawing object to follow.
+        @param? zoomOut [Number]: How much to zoom the camera out by when following the object.
+          @defaultValue 1
+        @param? continuallyEvaluateZoom: Whether or not the zoom level should be re-evaluated every update when following an object.
+          @defaultValue false
+
+      @method show
+        @description: Make the camera show an object. This is the same as follow, except that the camera will not continue to follow the object after showing it in view.
+        @param obj [DrawingObject]: The drawing object to show.
+        @param? zoomOut [Number]: How much to zoom the camera out by when showing the object.
+          @defaultValue 1
+
+      @method enablePan
+        @description: Enables mouse/touch control for panning around the drawing.
+
+      @method enableZoom
+        @description: Enables mouse wheel/pinch-to-zoom control for zooming in on drawings.
+
+      @method enableSelection
+        @description: Allows objects to be selected by clicking on them. Selection is disabled by default as there is a performance penalty when clicking drawings with many (hundreds of thousands) of objects. Individual objects must also have selection enabled using .set('selectable', true) in order to be selectable.
+
+      @method enablePerformanceGauge
+        @description: Shows a performance gauge in the corner of the drawing, displaying how many frames per second the drawing is achieving, and how long a frame takes to render in milliseconds.
+
+      @method enableSearchbox
+        @description: Shows a search box in the corner of the drawing, and causes the drawing to emit 'search' events when the user performs a search.
+
+      @method create
+        @description: Creates a new object in the default layer.
+        @param type [String]:
+          The type of primitive to create, should be one of:
+          @list
+            rectangle
+            circle
+            line
+            text
+            grid
+            shape
+            composite
+
+        @param? id [String]: By default a random id is created for each new object. To override this behaviour, supply an id here.
+          @defaultValue hx.randomId()
+
+        @returns DrawingObject: Returns one of Rectangle, Circle, Line, Text, Grid, Shape or Composite, depending on the type given.
+
+      @method delete
+        @description: Removes an object from the drawing
+        @param obj [DrawingObject]: The object to remove
+
+      @method select
+        @param obj [DrawingObject]: The object to select
+        @description: Select an object in the drawing. This requires that enableSelection has been called in order to work.
+
+      @method unselect
+        @description: Unselects an object in the drawing.
+
+      @method unselectAll
+        @description: Unselects all selected objects in the drawing.
+
+      @method selected
+        @description: Returns the list of selected drawing objects.
+        @returns Array[DrawingObject]
+
+      @method on
+        @description
+          Register a function that should be called every time an event of the given name happens.
+
+          The types of events that may be emitted are:
+
+          @eventlist
+            @event click
+              Emitted when the the drawing is clicked, or tapped. The position of the click is sent along with this event. wx and wy is the position of the of the click in world coordinates.
+            @event longpress
+              Emitted when a longclick occurs
+            @event zoom
+              Emitted when the zoom is changed. The zoom level is included with this event.
+            @event pointerdown
+              Emitted when a mouse button is pressed down or touch starts. The position of the pointer is included with this event.
+            @event pointerup
+              Emitted when a mouse button is released or touch ends. The position of the pointer is included with this event.
+            @event move
+              Emitted when a the position of the mouse or a touch changes. The position included with the event.
+
+        @param name [String]: The event type to listen out for
+        @param callback [Function]: The function to call when an event occurs.
+          @param data [Object]: The data sent along with the event.
+
+      @method deleteAll
+        @description: Removes all objects from the drawing
+
+    @prototype Camera
+      @description
+        Every drawing has one of these camera instances accessible at drawing.camera.
+      @property zoom [Number]
+        The zoom level of the camera. 1 shows everything at normal scale, 0.5 shows everything at 50% scale (zoomed out), 150% shows things at 150% scale (zoomed in).
+      @property position [Object]
+        An object with x and y properties that contain the position of the camera.
+      @property zoomMin [Number]
+        The minimum zoom level allowed. zoom cannot be set to a value smaller than this.
+      @property zoomMax [Number]
+        The maximum zoom level allowed. zoom cannot be set to a value larger than this.
+      @property xMin [Number]
+        The minimum x level allowed. position.x cannot be set to a value smaller than this.
+      @property yMin [Number]
+        The minimum y level allowed. position.y cannot be set to a value smaller than this.
+      @property xMax [Number]
+        The maximum x level allowed. position.x cannot be set to a value larger than this.
+      @property yMax [Number]
+        The maximum y level allowed. position.y cannot be set to a value larger than this.
+
+      @method setupBounds
+        @description: A helper method for setting up the bounds for camera position and zoom levels (xMin, xMax, ..., zoomMin, zoomMax)
+        @param zoomMin [Number]
+        @param zoomMax [Number]
+        @param xMin [Number]
+        @param yMin [Number]
+        @param xMax [Number]
+        @param yMax [Number]
+
+    @prototype Layer
+      @description
+        Returned from Drawing.createLayer
+
+      @property visible [Boolean]: Whether or not this layer is visible. The default is true (visible).
+      @property alpha [Number]: The opacity of the layer. A value between 0 and 1.
+
+      @method create
+        @description: Creates a new object in this layer.
+        @param type [String]:
+          The type of primitive to create, should be one of:
+          @list
+            rectangle
+            circle
+            line
+            text
+            grid
+            shape
+            composite
+
+        @param? id [String]: By default a random id is created for each new object. To override this behaviour, supply an id here.
+          @defaultValue hx.randomId()
+
+        @returns DrawingObject: Returns one of Rectangle, Circle, Line, Text, Grid, Shape or Composite, depending on the type given.
+
+      @method delete
+        @description: Removes an object from the layer
+        @param obj [DrawingObject]: The object to remove
+
+      @method find
+        @description: Find a drawing object by id within this layer. This is an O(1) lookup.
+        @param id [String]: The id of the object to find. This will be the random id that gets generated automatically for an object, or the custom id that was supplied when it was created. See the create method for more details.
+        @returns DrawingObject: the drawing object with the id provided, or undefined if no object with that id was found.
+
+      @method findBy
+        @description: Find an object using an indicator function within this layer. This will loop through all objects in the layer and find the first that satisfies the condition. This is an O(n) (where n is the number of objects in the layer)
+        @param indicator [Function]
+          @param obj [DrawingObject]
+          @returns Boolean: true if the object satisfies the conditions being searched for.
+        @returns DrawingObject: the first drawing object that satisfied the indicator function, or undefined if none was found.
+
+      @method setAlphaCurve
+        @description: Links the alpha value of this layer to the zoom level of the drawing.
+        @param type [String]: The type of curve to use, currently the available types are <a href="http://en.wikipedia.org/wiki/Triangular_function">'triangle'</a> and <a href="http://en.wikipedia.org/wiki/Ramp_function">'ramp'</a>.
+        @param start [Number]: The start point of the ramp or triangle.
+        @param end [Number]: The end point of the ramp or triangle.
+
+      @method deleteAll
+        @description: Removes all objects from the layer
+
+
+    @prototype DrawingObject
+      @description: The base class for all primitives
+
+
+    @prototype Rectangle
+      @description: A primitive type for drawing a rectangle. Create with drawing.create('rectangle') or layer.create('rectangle').
+      @method set
+        @description: Sets the value of one of the properties of this object, optionally animating the change.
+        @param name [String]: The name of the property to set. The available properties are:
+          Properties that can be animated:
+          @list
+            position.x
+            position.y
+            width
+            height
+            fill.color
+            outline.color
+            outline.width
+
+          Properties that can't be animated:
+          @list
+            fill.enabled
+            outline.enabled
+
+        @param value [Any]: The value to set the property to.
+        @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
+        @param? animationEnd [Function]: A function to call at the end of the animation.
+          @param complete [Boolean]: true if the animation completed
+          @param? valueAtInterrupt [Any]: If complete is false, then this will contain the value of the property when the animation was interrupted.
+
+      @method get
+        @description: Gets the current value of one of the properties of this object.
+        @param name [String]: The name of the property to get. The available properties are:
+          @list
+            position.x
+            position.y
+            width
+            height
+            fill.enabled
+            fill.color
+            outline.enabled
+            outline.color
+            outline.width
+        @returns Any: The value of the property
+
+    @prototype Circle
+      @description: A primitive type for drawing a circle. Create with drawing.create('circle') or layer.create('circle').
+
+      @method set
+        @description: Sets the value of one of the properties of this object, optionally animating the change.
+        @param name [String]: The name of the property to set. The available properties are:
+          Properties that can be animated:
+          @list
+            position.x
+            position.y
+            radius
+            fill.color
+            outline.color
+            outline.width
+
+          Properties that can't be animated:
+          @list
+            fill.enabled
+            outline.enabled
+
+        @param value [Any]: The value to set the property to.
+        @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
+        @param? animationEnd [Function]: A function to call at the end of the animation.
+          @param complete [Boolean]: true if the animation completed
+          @param? valueAtInterrupt [Any]: If complete is false, then this will contain the value of the property when the animation was interrupted.
+
+      @method get
+        @description: Gets the current value of one of the properties of this object.
+        @param name [String]: The name of the property to get. The available properties are:
+          @list
+            position.x
+            position.y
+            radius
+            fill.enabled
+            fill.color
+            outline.enabled
+            outline.color
+            outline.width
+
+        @returns Any: The value of the property
+
+    @prototype Line
+      @description: A primitive type for drawing a line. Create with drawing.create('line') or layer.create('line').
+
+      @method set
+        @description: Sets the value of one of the properties of this object, optionally animating the change.
+        @param name [String]: The name of the property to set. The available properties are:
+          Properties that can be animated:
+          @list
+            start.x
+            start.y
+            end.x
+            end.y
+            color
+            width
+
+        @param value [Any]: The value to set the property to.
+        @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
+        @param? animationEnd [Function]: A function to call at the end of the animation.
+          @param complete [Boolean]: true if the animation completed
+          @param? valueAtInterrupt [Any]: If complete is false, then this will contain the value of the property when the animation was interrupted.
+
+      @method get
+        @description: Gets the current value of one of the properties of this object.
+        @param name [String]: The name of the property to get. The available properties are:
+          @list
+            start.x
+            start.y
+            end.x
+            end.y
+            color
+            width
+
+        @returns Any: The value of the property
+
+    @prototype Text
+      @description:  A primitive type for drawing text. Create with drawing.create('text') or layer.create('text').
+
+      @method set
+        @description: Sets the value of one of the properties of this object, optionally animating the change.
+        @param name [String]: The name of the property to set. The available properties are:
+          Properties that can be animated:
+          @list
+            position.x
+            position.y
+            color
+            size
+            text
+
+          Properties that can't be animated:
+          @list
+            font
+            align.x
+            align.y
+
+        @param value [Any]: The value to set the property to.
+        @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
+        @param? animationEnd [Function]: A function to call at the end of the animation.
+          @param complete [Boolean]: true if the animation completed
+          @param? valueAtInterrupt [Any]: If complete is false, then this will contain the value of the property when the animation was interrupted.
+
+      @method get
+        @description: Gets the current value of one of the properties of this object.
+        @param name [String]: The name of the property to get. The available properties are:
+          @list
+            position.x
+            position.y
+            color
+            font
+            size
+            text
+            align.x
+            align.y
+
+        @returns Any: The value of the property
+
+
+    @prototype Grid
+      @description: A primitive type for drawing a grid. Create with drawing.create('grid') or layer.create('grid').
+
+      @method set
+        @description: Sets the value of one of the properties of this object, optionally animating the change.
+        @param name [String]: The name of the property to set. The available properties are:
+          Properties that can be animated:
+          @list
+            position.x
+            position.y
+            cellSize.x
+            cellSize.y
+            gridLines.color
+            gridLines.width
+
+          Properties that can't be animated:
+          @list
+            gridLines.enabled
+            cells.enabled
+            cells.states
+            cells.palette
+            gridSize.x
+            gridSize.y
+
+        @param value [Any]: The value to set the property to.
+        @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
+        @param? animationEnd [Function]: A function to call at the end of the animation.
+          @param complete [Boolean]: true if the animation completed
+          @param? valueAtInterrupt [Any]: If complete is false, then this will contain the value of the property when the animation was interrupted.
+
+      @method get
+        @description: Gets the current value of one of the properties of this object.
+        @param name [String]: The name of the property to get. The available properties are:
+          @list
+            position.x
+            position.y
+            cellSize.x
+            cellSize.y
+            gridSize.x
+            gridSize.y
+            gridLines.color
+            gridLines.width
+            gridLines.enabled
+            cells.enabled
+            cells.states
+            cells.palette
+
+        @returns Any: The value of the property
+
+    @prototype Shape
+      @description: A primitive type for drawing an arbitrary shape. Create with drawing.create('shape') or layer.create('shape').
+
+      @method set
+        @description: Sets the value of one of the properties of this object, optionally animating the change.
+        @param name [String]: The name of the property to set. The available properties are:
+          Properties that can be animated:
+          @list
+            position.x
+            position.y
+            fill.color
+            outline.width
+            outline.color
+
+          Properties that can't be animated:
+          @list
+            fill.enabled
+            outline.enabled
+            curve
+            polygon
+
+
+        @param value [Any]: The value to set the property to.
+        @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
+        @param? animationEnd [Function]: A function to call at the end of the animation.
+          @param complete [Boolean]: true if the animation completed
+          @param? valueAtInterrupt [Any]: If complete is false, then this will contain the value of the property when the animation was interrupted.
+
+      @method get
+        @description: Gets the current value of one of the properties of this object.
+        @param name [String]: The name of the property to get. The available properties are:
+          @list
+            position.x
+            position.y
+            fill.enabled
+            fill.color
+            outline.enabled
+            outline.width
+            outline.color
+            curve
+            polygon
+
+        @returns Any: The value of the property
+
+    @prototype Composite
+      @description: A primitive type for grouping other primitives together. Create with drawing.create('composite') or layer.create('composite').
+
+      @method set
+        @description: Sets the value of one of the properties of this object, optionally animating the change.
+        @param name [String]: The name of the property to set. The available properties are:
+
+          Properties that can be animated:
+          @list
+            position.x
+            position.y
+            angle
+            scale
+            objectName._ (these properties can only be animated if the property of the nested object being referred to supports animation)
+
+        @param value [Any]: The value to set the property to.
+        @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
+        @param? animationEnd [Function]: A function to call at the end of the animation.
+          @param complete [Boolean]: true if the animation completed
+          @param? valueAtInterrupt [Any]: If complete is false, then this will contain the value of the property when the animation was interrupted.
+
+      @method get
+        @description: Gets the current value of one of the properties of this object, or one of the nested objects.
+        @param name [String]: The name of the property to get. The available properties are:
+          @list
+            position.x
+            position.y
+            angle
+            scale
+            objectName._
+
+        @returns Any: The value of the property
+
+      @method create
+        @description: Creates a new object in this composite object.
+        @param type [String]:
+          The type of primitive to create, should be one of:
+          @list
+            rectangle
+            circle
+            line
+            text
+            grid
+            shape
+            composite
+
+        @param name [String]: The name which can be used to access the object.
+
+        @returns DrawingObject: Returns one of Rectangle, Circle, Line, Text, Grid, Shape or Composite, depending on the type given.
+
+      @method delete
+        @description: Removes an object from this composite object.
+        @param name [String]: The name of the object to remove.
+
+  @extra
+    @inline 0.9.0/handbook/getting-started/getting-started.um
+    @inline 0.9.0/handbook/primitives/primitives.um
+    @inline 0.9.0/handbook/camera-manipulation/camera-manipulation.um
+    @inline 0.9.0/handbook/animation/animation.um
+    @inline 0.9.0/handbook/interactivity/interactivity.um
+    @inline 0.9.0/handbook/layers/layers.um
+    @inline 0.9.0/handbook/overlays/overlays.um
+
+  @seeAlso

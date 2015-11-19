@@ -1,0 +1,60 @@
+@version 1.0.0
+  @examples
+    @example
+      @html html
+        <div class="hx-notice">
+          <div class="hx-notice-header">Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-positive">
+          <div class="hx-notice-header">Positive Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-action">
+          <div class="hx-notice-header">Action Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-warning">
+          <div class="hx-notice-header">Warning Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-negative">
+          <div class="hx-notice-header">Negative Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-info">
+          <div class="hx-notice-header">Info Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-compliment">
+          <div class="hx-notice-header">Compliment Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-contrast">
+          <div class="hx-notice-header">Contrast Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice">
+          <span class="hx-notice-header hx-group hx-horizontal hx-no-margin">
+            <div class="hx-section hx-no-margin">Notice with icon</div>
+            <div>
+              <i class="fa fa-rocket"></i>
+            </div>
+          </span>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+  @api Notice
+    @class hx-notice
+      @extraclass hx-action
+        @description: Styles the notice with action colors
+        @added: Added new action context class and updated default styles.
+          @issue 652

@@ -1,0 +1,2 @@
+@module Event Emitter
+  @inline versions/*.um

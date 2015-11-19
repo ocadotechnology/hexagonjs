@@ -1,0 +1,1 @@
+var drawing = new hx.Drawing('#empty-drawing');

@@ -1,0 +1,6 @@
+@inline ../../shared/common.um
+
+@titlebar
+
+@div .dx-content
+  @h1: Examples

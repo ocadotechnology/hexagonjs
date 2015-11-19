@@ -1,0 +1,44 @@
+@version 0.14.0
+  @examples
+
+    Titlebars are created using the following structure:
+
+    @example
+      @html: @inline 0.9.0/titlebarFull.html
+
+    Titlebars are designed to collapse and hide content automatically for small screens (if you resize the browser window, you will be able to see what it would look like on a mobile).
+
+    The above definition is a full example of what a titlebar can contain. You can drop certain components of the titlebar if they are not needed. Here is a much simpler titlebar with just a title:
+
+    @example
+      @html html: @inline 0.9.0/titlebarSuperSimple.html
+
+    @example
+      @html html: @inline 0.9.0/titlebarSimple.html
+
+    @example
+      @html html: @inline 0.9.0/titlebarNoLinks.html
+
+    @example
+      @html html: @inline 0.9.0/titlebarTextAndIcons.html
+
+    @example
+      @html html: @inline 0.9.0/titlebarNoIcons.html
+
+
+    @js
+      hx.selectAll('.example-heading').forEach(function(node){
+        new hx.TitleBar(node.node());
+      })
+
+  @api Titlebar
+    @prototype hx.TitleBar
+      @method setContextClass
+        @removed
+          Use @code[contextClass(class)] instead.
+        @param class [String]
+
+      @method setActive
+        @removed
+          Use @code[active(selector)] instead.
+        @param selector [String/HTMLElement]

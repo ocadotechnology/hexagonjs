@@ -1,0 +1,12 @@
+application: causal-galaxy-939
+module: www
+version: 2
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: server.app
+  login: required
+  secure: always

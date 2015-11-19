@@ -1,0 +1,14 @@
+@version 0.10.0
+  @api Tree
+    @class hx-tree
+      @updated: Removed module-specific classes in favor of generic classes
+        @issue 349
+
+      @extraclass [hx-tree-[n]]
+        @removed
+
+  @theme
+    @option icon-background-hover-colors
+      @removed
+    @option icon-text-hover-colors
+      @removed

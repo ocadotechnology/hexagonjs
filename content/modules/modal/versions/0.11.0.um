@@ -1,0 +1,50 @@
+@version 0.11.0
+  @examples
+    @inline 0.11.0/examples.um
+
+  @api Modal
+    @object hx.modal
+      @function dialog
+        @param title [String]
+        @param message [String]
+        @param callback [Function]
+          @param value [String/Boolean]
+        @param? buttons [Array]
+        @param? isClosable [Boolean]
+        @removed
+
+      @function dialog
+        @added: Added extra parameters to the dialog function to enable a class and icon to be passed to the titlebar.
+          @issue 399
+        @description: A function for creating a simple modal popup with a title, a message and some buttons.
+        @param title [String]: The title for the modal.
+        @param message [String]: The message for the modal.
+        @param callback [Function]: The function that gets called when a button is clicked.
+          @param value [String/Boolean]: The value of the button clicked. Default values are true/false but can be set to anything using the buttons parameter.
+        @param? buttons [Array]
+          @description
+            <p>The array of buttons to show in the modal.</p>
+            <p>The default buttons that are used if the buttons parameter is passed in as null or undefined is as follows:</p>
+            @codeblock js
+              [
+                {
+                  text: "Confirm"
+                  icon: "hx-icon hx-icon-check"
+                  value: true
+                  classes: "hx-btn hx-positive"
+                },{
+                  text: "Cancel"
+                  icon: "hx-icon hx-icon-close"
+                  value: false
+                  classes: "hx-btn hx-negative"
+                }
+              ]
+
+        @param? isClosable [Boolean]: Whether or not the modal should show a close button.
+          @default false
+        @param? titleClass [String]
+          @description:
+            @p: The class to use when rendering the titlebar.
+            @p: This should be one of the @code['hx-background-'] classes but without the prefix, e.g. @code['positive'] or @code['negative']
+        @param? icon [String]
+          @description: The icon to add to the modal heading.

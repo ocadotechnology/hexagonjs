@@ -1,0 +1,5 @@
+@version 0.15.2
+  @api Extended Table
+    @prototype hx.Table
+      @bugfix: Fix for issue when setting sorts/filters before setting the data for a table
+        @issue 703

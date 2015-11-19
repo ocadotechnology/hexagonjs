@@ -1,0 +1,4 @@
+@version 0.12.10
+  @api Pointer Events
+    @bugfix: Correct the return statement for pointer events to prevent selection.off falling over
+      @issue 582

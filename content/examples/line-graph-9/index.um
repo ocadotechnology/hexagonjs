@@ -1,0 +1,5 @@
+@examplePage Line Graph 9
+  @example
+    @html: @inline index.html
+    @coffee: @inline index.coffee
+    @css: @inline index.css

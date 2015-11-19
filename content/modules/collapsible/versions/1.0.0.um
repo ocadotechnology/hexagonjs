@@ -1,0 +1,6 @@
+@version 1.0.0
+  @theme
+    @option content-text-col
+      @type color
+      @description: The text-color of the content section
+      @default: #3D3D3D

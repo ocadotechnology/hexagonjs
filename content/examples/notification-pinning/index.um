@@ -1,0 +1,3 @@
+@examplePage Notification
+  @example
+    @coffee: @inline notification-pinning.coffee

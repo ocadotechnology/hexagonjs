@@ -1,0 +1,21 @@
+@version 0.15.2
+  @examples
+    @example
+      @html: @inline 0.15.2/example.html
+
+  @api Base
+    @condensed
+    @added: Added classes for applying header styles to elements other than header elements (h1/h2 etc.)
+      @issue 724
+    @class hx-header
+      @added
+      @description: A class for applying the base header font and text color to an element.
+    @class hx-header-small
+      @added
+      @description: A class for applying the base header font and text color to an element as well as giving the element a font size equivalent to a @code[<h3>] element.
+    @class hx-header-medium
+      @added
+      @description: A class for applying the base header font and text color to an element as well as giving the element a font size equivalent to a @code[<h2>] element.
+    @class hx-header-large
+      @added
+      @description: A class for applying the base header font and text color to an element as well as giving the element a font size equivalent to a @code[<h1>] element.

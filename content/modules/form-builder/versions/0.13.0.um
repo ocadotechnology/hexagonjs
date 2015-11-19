@@ -1,0 +1,86 @@
+@version 0.13.0
+  @api Form Builder
+    @prototype hx.Form
+      @method addDatePicker
+        @param name [String]
+        @param? options [Object]
+          @property type [String]
+            @deprecated
+              @issue 391
+              Use @code[datePickerOptions] instead.
+          @property closeOnSelect [Boolean]
+            @deprecated
+              @issue 391
+              Use @code[datePickerOptions] instead.
+          @property selectRange [Boolean]
+            @deprecated
+              @issue 391
+              Use @code[datePickerOptions] instead.
+          @property datePickerOptions [Object
+            @description: The options to use for the date picker component. See the @link(../date-picker/)[Date Picker] constructor for the available options.
+
+
+      @method addTimePicker
+        @param name [String]
+        @param? options [Object]
+          @property showSeconds [Boolean]
+            @deprecated
+              @issue 391
+              Use @code[timePickerOptions] instead.
+          @property buttonClass [String]
+            @deprecated
+              @issue 391
+              Use @code[timePickerOptions] instead.
+          @property timePickerOptions [Object]
+            @description: The options to use for the time picker component. See the @link(../time-picker/)[Time Picker] constructor for the available options.
+
+      @method addDateTimePicker
+        @param name [String]
+        @param? options [Object]
+          @property type [String]
+            @deprecated
+              @issue 391
+              Use @code[dateTimePickerOptions] instead.
+          @property showSeconds [Boolean]
+            @deprecated
+              @issue 391
+              Use @code[dateTimePickerOptions] instead.
+          @property dateTimePickerOptions [Object]
+            @description: The options to use for the time picker component. See the @link(../date-time-picker/)[Date Time Picker] constructor for the available options.
+
+      @method addSelect
+        @param name [String]
+        @param values [Array[String]]
+        @param? options [Object]
+          @property selectOptions [Object]
+            @description: The options to use for the select component. See the @link(../select/)[select] constructor for the available options.
+            @added
+              @issue 391
+
+      @method addSelect
+        @param name [String]
+        @param values [Array[Object]]
+        @param? options [Object]
+          @property selectOptions [Object]
+            @description: The options to use for the select component. See the @link(../select/)[select] constructor for the available options.
+            @added
+              @issue 391
+
+      @method addTagInput
+        @param name [String]
+        @param? options [Object]
+          @property classifier [Function]
+            @deprecated
+              @issue 391
+              Use @code[tagInputOptions] instead.
+          @property validator [Function]
+            @deprecated
+              @issue 391
+              Use @code[tagInputOptions] instead.
+          @property tagInputOptions [Object]
+            @description: The options to use for the tg input component. See the @link(../tag-input/)[tag input] constructor for the available options.
+            @added
+              @issue 391
+
+      @method submit
+        @returns Form: This Form

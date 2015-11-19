@@ -1,0 +1,15 @@
+#my-table {
+  width: 100%;
+}
+
+.clicky {
+  cursor: pointer;
+}
+
+.table-container {
+  padding-left: 1.5em;
+  padding-top: 1em;
+  margin-left: 0.5em;
+  padding-bottom: 2em;
+  border-left: dashed 1px #CFCDCD;
+}

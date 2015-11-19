@@ -1,0 +1,71 @@
+@version 0.12.6
+  @description: A module for giving tables sticky headers that stay in place when scrolling on the table.
+
+  @examples
+    @example
+      @js
+        new hx.StickyTableHeaders('#table')
+
+      @html: @inline 0.12.6/example.html
+
+      @css
+        .example-table {
+          max-height: 300px;
+          overflow: hidden;
+        }
+
+  @api Sticky Table Headers
+    @prototype hx.StickyTableHeaders
+      @added: Added a module for giving html tables sticky headers.
+        @issue 360
+      @description: A module for applying sticky headers to a html table by restructuring it. The headers can be sticky to the left or the top of the table and will remain in place when scrolling.
+
+      @constructor
+        @description: Creates a table with sticky headers.
+
+        @param selector [String/HTMLElement]:
+          @description:
+            @p: The selector of the table or table container to use when creating the sticky headers.
+            @p: Whilst this can be a table element, it's recommended to use a container for the table element as the selector as it reduces the potential issues:
+            @codeblock html
+              <div id="table"> <!-- Use this container as the selector -->
+                <table class="hx-table">
+                  <thead>
+                    ...
+                  </thead>
+                  <tbody>
+                    ...
+                  </tbody>
+                </table>
+              </div>
+
+        @param? options [Object]: The options to use when creating the sticky headers.
+
+          @property stickTableHead [Boolean]: Whether or not to stick the @code[<thead>] element of the table. This will stick all rows that are inside the @code[<thead>] element to the top of the table.
+            @default true
+
+          @property stickFirstColumn [Boolean]: Whether or not to stick the first column to the left side of the table.
+            @default false
+
+          @property useResponsive [Boolean]: Whether to add a listener to the table when the container is resized to re-render the sticky headers so that the header sizes always match the table sizes correctly.
+            @default true
+
+          @property containerClass [String]: An additional class to add to the container to allow styling. This is mostly useful when the root element passed into the constructor is a table as the table element will no longer be the root element.
+
+      @method render
+        @description: A method for rendering the table headers when required.
+
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event render: The event called when the sticky table headers are rendered.
+  @theme
+    @option scroll-indicator-shadow-color
+      @description: The box shadow color for the scroll indicators that show when scrollbars aren't always visible.
+      @type color
+      @default rgba(0,0,0,0.5)

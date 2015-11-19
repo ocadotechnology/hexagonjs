@@ -1,0 +1,123 @@
+@version 0.9.0
+
+  @description
+    A tab layout component.
+
+  @examples
+    @inline 0.9.0/examples.um
+
+  @api Tabs
+    @prototype hx.Tabs
+      @description: A layout type for displaying multiple pieces of content in the same area of the page.
+      @constructor
+        @description: Sets up a tabs layout.
+        @param selection [String/HTMLElement]: A unique css selector or a HTMLElement that identifies the tabs section.
+
+      @property selected [Number]
+        @description: The index of the selected tab.
+
+      @method select
+        @description: Selects a tab by index.
+        @param index [Number]: The index of the tab to select. This will reveal the content for that tab.
+        @param? force [Boolean]: By default selections that do not actually change the selected tab will be ignored. Supply true here to force the selection to be updated even if it is the same (and thus cause a 'change' event to be emitted).
+        @returns Tabs: This Tabs
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+        @event change
+          @description: Emitted when the selected tab is changed.
+          @data Number: The index of the selected tab.
+        @returns Tabs: This Tabs
+
+    @function hx.initialiseTabs
+      @description: Initialises all the tabs that match a css selector in a page and returns the Tab objects as an array.
+      @param selector [String]: A css selector that selects the tab groups you wish to initialise.
+
+    @class hx-tabs
+      @description: The class to give to the tabs container
+
+      @class hx-tab
+        @description: The class to give to each tab in the tabs container
+
+        @extraclass hx-positive
+          @added
+          Colors the tab with the positive color.
+        @extraclass hx-negative
+          @added
+          Colors the tab with the negative color.
+        @extraclass hx-warning
+          @added
+          Colors the tab with the warning color.
+        @extraclass hx-compliment
+          @added
+          Colors the tab with the compliment color.
+        @extraclass hx-contrast
+          @added
+          Colors the tab with the contrast color.
+        @extraclass hx-info
+          @added
+          Colors the tab with the info color.
+
+        @extraclass [hx-tab-color-[n]]: The color class to give to a tab.
+          @deprecated: All numbered color classes will be removed in a later version. Use the context classes instead.
+
+
+  @theme
+
+    @option background-col
+      @type color
+      @description: The background color for the tabs and the tab content
+      @default #F7F7F7
+
+    @option tab-background-col
+      @type color
+      @description: The background color for the tabs and the tab content
+      @default #F7F7F7
+
+    @option default-col
+      @type color
+      @description: The default tab color
+      @default #6582A6
+
+    @option positive-col
+      @type color
+      @description: The positive tab color
+      @default #6FB365
+
+    @option warning-col
+      @type color
+      @description: The warning tab color
+      @default #CB9856
+
+    @option negative-col
+      @type color
+      @description: The negative tab color
+      @default #C74967
+
+    @option info-col
+      @type color
+      @description: The info tab color
+      @default #A36FA9
+
+    @option compliment-col
+      @type color
+      @description: The complimentary tab color
+      @default #FDFDFD
+
+    @option contrast-col
+      @type color
+      @description: The contrasting tab color
+      @default #3D3D3D
+
+    @option colors
+      @description: The list of colors to give the numbered tab classes
+      @type color list
+      @default #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
+      @deprecated: All numbered color classes will be removed in a later version.
+
+
+  @seeAlso

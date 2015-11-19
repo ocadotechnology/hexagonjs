@@ -1,0 +1,7 @@
+@stylesheet /resources/hexagon/__version__/hexagon.css
+@script /resources/hexagon/__version__/hexagon.js
+@inline ../../../shared/common.um
+@titlebar Favicon
+
+@div .dx-content
+  @inline ../../../modules/favicon/index.um

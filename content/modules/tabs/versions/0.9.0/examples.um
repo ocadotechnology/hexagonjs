@@ -1,0 +1,37 @@
+@example
+  @html
+    <div id="tabs" class="hx-tabs">
+      <div id="tab1" class="hx-tab hx-positive" data-content="tab-content-1">Tab 1</div>
+      <div id="tab2" class="hx-tab hx-warning" data-content="tab-content-2">Tab 2</div>
+      <div id="tab3" class="hx-tab hx-negative" data-content="tab-content-3">Tab 3</div>
+      <div class="hx-tabs-content demo-tabs-content-padded">
+        <div id="tab-content-1" class="hx-tab-content" style="padding: 1em;">Stuff goes here 1</div>
+        <div id="tab-content-2" class="hx-tab-content" style="padding: 1em;">Stuff goes here 2</div>
+        <div id="tab-content-3" class="hx-tab-content" style="padding: 1em;">Stuff goes here 3</div>
+      </div>
+    </div>
+  @js
+    var tabs = new hx.Tabs('#tabs');
+
+@example
+  @html
+    <div id="tabs2" class="hx-tabs">
+      <div id="tab1" class="hx-tab">Tab 1</div>
+      <div id="tab2" class="hx-tab hx-positive">Tab 2</div>
+      <div id="tab3" class="hx-tab hx-warning">Tab 3</div>
+      <div id="tab4" class="hx-tab hx-negative">Tab 4</div>
+      <div id="tab5" class="hx-tab hx-info">Tab 5</div>
+      <div id="tab6" class="hx-tab hx-contrast">Tab 7</div>
+      <div class="hx-tabs-content" style="padding: 1em;"></div>
+    </div>
+
+  @js
+    var tabs = new hx.Tabs('#tabs2');
+
+    tabs.on('change', function(data){
+      hx.select('#tabs2')
+        .select('.hx-tabs-content')
+        .text('Tab ' + (data.id+1) + ' selected')
+    });
+
+    tabs.select(0, true);

@@ -1,0 +1,77 @@
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
+@inline ../shared/common.um
+
+@titlebar
+
+@coffee: @inline index.coffee
+@css: @inline index.css
+
+@div .title-section
+  @div .background
+    @div #background
+
+  @div .dx-group.dx-vertical.container
+    @div .header-container.dx-group.dx-horizontal
+      @div .logo
+      @div .title
+        @div .text
+          @span: HEXAGON@span(.js)[.js]
+          @div .version: {{version}}
+
+  @div .what-it-is: A modular, themable collection of components for modern browsers
+
+@div .description
+
+  @div .dx-content.dx-pad-top
+    @div .docs-statement: Components.
+    @inline ../shared/examples.um
+
+  @div .docs-selling-point
+    @div .dx-content.docs-selling-point-wrapper
+      @div .docs-statement: Themable.
+      @div .docs-explanation
+        @p: Create custom themes with variable driven theme files.
+        @p: Quickly create new themes by extending existing ones, or create something more bespoke by entirely replacing the default theme css on a per module basis.
+
+  @div .docs-selling-point
+    @div .dx-content.docs-selling-point-wrapper
+      @div .docs-statement: Modular.
+      @div .docs-explanation: Include just the parts you need, throw away everything else. For faster load times.
+
+  @div .docs-selling-point
+    @div .dx-content.docs-selling-point-wrapper
+      @div .docs-statement: Locale & Timezone enabled.
+      @div .docs-explanation
+        @p: Hexagon can be configured to use a certain locale and timezone globally, or on a per component basis.
+        @p: Powered by the internationalization api, or moment.js - you choose.
+
+  @div .docs-selling-point
+    @div .dx-content.docs-selling-point-wrapper
+      @div .docs-statement: Preprocessor friendly.
+      @div .docs-explanation: Export theme variables to sass, less and stylus to share your color palette.
+
+      @div .dx-group
+        @div .dx-section
+        @div .docs-preprocessor-logo
+          @img
+            @attr src: /resources/sass.svg
+            @attr style: width:100px;height:auto;
+
+        @div .docs-preprocessor-logo
+          @img
+            @attr src: /resources/less.svg
+            @attr style: width:100px;height:auto;
+
+        @div .docs-preprocessor-logo
+          @img
+            @attr src: /resources/stylus.svg
+            @attr style: width:100px;height:auto;
+
+        @div .dx-section
+
+
+
+@footer
+
+

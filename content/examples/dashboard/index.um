@@ -1,0 +1,4 @@
+@examplePage Dashboard
+  @example
+    @html: @inline dashboard.html
+    @coffee: @inline dashboard.coffee

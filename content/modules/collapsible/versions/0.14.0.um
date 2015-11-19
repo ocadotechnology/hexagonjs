@@ -1,0 +1,35 @@
+@version 0.14.0
+  @api Collapsible
+    @prototype hx.Collapsible
+      @constructor
+        @param selector [String]
+        @param? lazyContent [Function]
+          @param content [HTMLElement]
+        @param? visible [Boolean]
+        @param? addIcon [Boolean]
+        @removed
+          Use @code[hx.Collapsible(selector, options)] instead.
+
+      @method on
+        @param name [String]
+        @param callback [Function]
+          @param data [Any]
+
+        @event show
+          @removed
+            Use @code[showstart] instead.
+
+        @event hide
+          @removed
+            Use @code[hidestart] instead.
+
+        @event changeend [Boolean]
+          @removed
+            Use @code[showend] or @code[hideend] to listen for when the animations have finished on show/hide.
+
+    @function hx.initialiseCollapsibles
+      @param selector [String]
+      @param? lazyContent [Function]
+        @param content [HTMLElement]
+      @removed
+        Use @code[hx.initializeCollapsibles] instead.

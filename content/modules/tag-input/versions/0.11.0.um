@@ -1,0 +1,24 @@
+@version 0.11.0
+  @api Tag Input
+    @prototype hx.TagInput
+      @bugfix: Removed the dependency on input groups and made the styles tag-input specific.
+        @issue 405
+      @method removeAll
+        @deprecated
+          @issue 375
+          Use @code[remove()] instead.
+
+      @method remove
+        @description: Removes all tags from the input. Returns an array of the tags removed.
+        @returns [Array[String]]
+
+  @theme
+    @option tag-container-background-col
+      @type color
+      @description: The background color for the tag container.
+      @default white
+
+    @option tag-container-border-col
+      @type color
+      @description: The border color for the tag container.
+      @default #D8D8D8

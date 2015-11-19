@@ -1,0 +1,281 @@
+
+@css
+  .example {
+    width: 46%;
+    padding: 1em;
+    min-width: 320px;
+    background: rgba(249, 249, 249, 0.91);
+    border: solid 1px #E6E6E6;
+  }
+
+  .example h3 {
+    margin-top: 0;
+  }
+
+@div .hx-group.hx-horizontal
+
+  @div .hx-section.example
+    @h3: Buttons
+    @button .hx-btn: Default
+    @button .hx-btn.hx-positive: Positive
+    @button .hx-btn.hx-warning: Warning
+    @button .hx-btn.hx-negative: Negative
+    @button .hx-btn.hx-info: Info
+    @button .hx-btn.hx-compliment: Compliment
+    @button .hx-btn.hx-contrast: Contrast
+    @button .hx-btn: Disabled @attr(disabled, disabled)
+
+  @div .hx-section.example
+    @h3: Inverted Buttons
+    @button .hx-btn.hx-btn-invert: Default
+    @button .hx-btn.hx-positive.hx-btn-invert: Positive
+    @button .hx-btn.hx-warning.hx-btn-invert: Warning
+    @button .hx-btn.hx-negative.hx-btn-invert: Negative
+    @button .hx-btn.hx-info.hx-btn-invert: Info
+    @button .hx-btn: Disabled @attr(disabled, disabled)
+
+  @div .hx-section.example
+    @h3: Grouped Buttons
+    @div .hx-input-group
+      @button .hx-btn.hx-compliment: One
+      @button .hx-btn.hx-compliment: Two
+      @button .hx-btn.hx-compliment: Three
+
+  @div .hx-section.example
+    @h3: Labels
+    @span .hx-label: Default
+    @span .hx-label.hx-positive: Positive
+    @span .hx-label.hx-warning: Warning
+    @span .hx-label.hx-negative: Negative
+    @span .hx-label.hx-info: Info
+
+  @div .hx-section.example
+    @h3: Input Groups
+    @div .hx-input-group
+      @input: @attr placeholder: Search...
+      @button .hx-btn.hx-info: @i .fa.fa-search
+
+    @div .hx-input-group
+      @i .fa.fa-user
+      @input: @attr placeholder: Your Name...
+
+  @div .hx-section.example
+    @h3: Button Group
+    @div #button-group
+    @js
+      // Full width example with individual active classes per-button
+      var buttonGroup = new hx.ButtonGroup('#button-group')
+      buttonGroup.items([
+        {
+          value: 'Positive',
+          activeClass: 'hx-positive'
+        }, {
+          value: 'Warning',
+          activeClass: 'hx-warning'
+        }, {
+          value: 'Negative',
+          activeClass: 'hx-negative'
+        }, {
+          value: 'Info',
+          activeClass: 'hx-info'
+        },
+        'Other'
+      ]);
+      buttonGroup.value('Positive');
+
+  @div .hx-section.example
+    @h3: Auto Complete
+    @input #autocomplete
+      @attr placeholder: Name...
+    @js
+      new hx.AutoComplete('#autocomplete', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
+
+  @div .hx-section.example
+    @h3: Color Picker
+    @button #colorpicker.hx-btn.hx-compliment: Pick Color...
+    @js
+      new hx.ColorPicker('#colorpicker')
+        .on('change', function(d) {
+          hx.select('#colorpicker')
+            .style('background', d.toString())
+            .style('color', d.getTextCol())
+        })
+
+  @div .hx-section.example
+    @h3: Crumb Trail
+    @div #crumbtrail
+    @js
+      new hx.Crumbtrail('#crumbtrail')
+        .items(['Docs', '1.0.5', 'buttons'], function(node, d) {
+          hx.select(node).text(d)
+        })
+
+  @div .hx-section.example
+    @h3: Time & Date Pickers
+    @span .hx-pad: @div #time-picker
+    @span .hx-pad: @div #date-picker
+    @span .hx-pad: @div #date-time-picker
+    @js
+      new hx.TimePicker('#time-picker')
+      new hx.DatePicker('#date-picker')
+      new hx.DateTimePicker('#date-time-picker')
+
+  @div .hx-section.example
+    @h3: Sliders
+
+    @h4: Single Value
+    @div #slider
+
+    @h4: Range
+    @div #slider-range
+
+    @h4: Discrete values
+    @div #slider-discrete
+    @js
+      console.log('slider.renderer should be slider.options.renderer')
+
+      new hx.Slider('#slider', {
+        render: function(slider, element, value) {
+          hx.select(element).text(Math.round(value*100) + '%')
+        }
+      })
+
+      new hx.Slider('#slider-range', {
+        render: function(slider, element, value) {
+          hx.select(element).text(Math.round(value*100) + '%')
+        },
+        type: 'range'
+      })
+
+      new hx.Slider('#slider-discrete', {
+        discreteValues: ['1 star. Whatever I am rating, it was terrible. I would give it no stars if I could.', '2 stars', '3 stars', '4 stars', '5 stars']
+      }).value('2 stars')
+
+  @div .hx-section.example
+    @h3: Paginator
+    @div #paginator
+    @js
+      new hx.Paginator('#paginator')
+
+  @div .hx-section.example
+    @h3: Progress Bars
+    @div .hx-pad: @div #progress-bar-1
+    @div .hx-pad: @div #progress-bar-2.hx-positive
+    @div .hx-pad: @div #progress-bar-3.hx-negative
+    @div .hx-pad: @div #progress-bar-4.hx-warning
+    @div .hx-pad: @div #progress-bar-5.hx-info
+    @div .hx-pad: @div #progress-bar-6.hx-compliment
+    @div .hx-pad: @div #progress-bar-7.hx-contrast
+
+    @js
+      new hx.ProgressBar('#progress-bar-1').value(0.2)
+      new hx.ProgressBar('#progress-bar-2').value(0.3)
+      new hx.ProgressBar('#progress-bar-3').value(0.4)
+      new hx.ProgressBar('#progress-bar-4').value(0.5)
+      new hx.ProgressBar('#progress-bar-5').value(0.6)
+      new hx.ProgressBar('#progress-bar-6').value(0.7)
+      new hx.ProgressBar('#progress-bar-7').value(0.8)
+
+
+  @div .hx-section.example
+    @h3: Morph Section
+    @html
+      <div id="morph-section" class="hx-morph-section hx-margin">
+        <button class="hx-btn hx-info hx-morph-toggle">Register</button>
+        <div class="hx-morph-content hx-pad hx-border">
+          <form id="morph-form" class="hx-form"></form>
+        </div>
+      </div>
+    @js
+      new hx.Form('#morph-form')
+        .addEmail('Email')
+        .addPassword('Password')
+        .addSubmit('Sign up!')
+
+      new hx.MorphSection('#morph-section')
+
+  @div .hx-section.example
+    @h3: Tabs
+    @html
+      <div id="tabs2" class="hx-tabs">
+        <div id="tab1" class="hx-tab">Tab 1</div>
+        <div id="tab2" class="hx-tab hx-positive">Tab 2</div>
+        <div id="tab3" class="hx-tab hx-warning">Tab 3</div>
+        <div id="tab4" class="hx-tab hx-negative">Tab 4</div>
+        <div id="tab5" class="hx-tab hx-info">Tab 5</div>
+        <div id="tab6" class="hx-tab hx-contrast">Tab 7</div>
+        <div class="hx-tabs-content" style="padding: 1em;"></div>
+      </div>
+    @js
+      var tabs = new hx.Tabs('#tabs2');
+
+      tabs.on('change', function(data){
+        hx.select('#tabs2')
+          .select('.hx-tabs-content')
+          .text('Tab ' + (data.id+1) + ' selected')
+      });
+
+      tabs.select(0, true);
+
+  @div .hx-section.example
+    @h3: Toggle Button
+    @html
+      <button id="toggle1" class="hx-btn">Toggle Button</button>
+      <button id="toggle2" class="hx-btn hx-positive">Toggle Button</button>
+    @js
+      var toggle1 = new hx.ToggleButton('#toggle1')
+      var toggle2 = new hx.ToggleButton('#toggle2', {value: false})
+
+
+  @div .hx-section.example
+    @h3: Typography
+    @h1: Heading 1
+    @h2: Heading 2
+    @h3: Heading 3
+    @h4: Heading 4
+    @h5: Heading 5
+    @h6: Heading 6
+
+  @div .hx-section.example
+    @h3: Form
+    @html:
+      <form class="hx-form">
+        <div>
+          <label>Text</label>
+          <input type="text">
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email">
+        </div>
+        <div>
+          <label>Number</label>
+          <input type="number">
+        </div>
+        <div>
+          <label>Url</label>
+          <input type="url">
+        </div>
+        <div>
+          <label>Radio</label>
+          <div id="group-1">
+            <div>
+              <input type="radio" value="One" name="group-1">
+              <label>One</label>
+            </div>
+            <div>
+              <input type="radio" value="Two" name="group-1">
+              <label>Two</label>
+            </div>
+            <div>
+              <input type="radio" value="Three" name="group-1">
+              <label>Three</label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label>Checkbox</label>
+          <input type="checkbox">
+        </div>
+        <button type="submit" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
+      </form>

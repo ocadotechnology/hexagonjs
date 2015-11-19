@@ -1,0 +1,9 @@
+{
+  "id": "extended-table",
+  "category": "component",
+  "keywords": [
+    "extended",
+    "table"
+  ],
+  "removed": "1.0.0"
+}

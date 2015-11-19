@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar Search Dom Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: Search Dom Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/search-dom/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/search-dom/

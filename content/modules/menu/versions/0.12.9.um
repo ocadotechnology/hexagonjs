@@ -1,0 +1,44 @@
+@version 0.12.9
+  @api Menu
+    @prototype hx.Menu
+      @bugfix: Fix an issue with the dropdown content not being set correctly.
+        @issue 574
+
+      @constructor
+        @param selector [String]: The element that will call the menu when clicked or hovered over
+        @param? align [String]: The alignment to use for the menu - see the dropdowns for the values that can be set here.
+        @param? mode [String]: The mode to use for showing the dropdown ('click' or 'hover')
+        @param? ddClass [String]: The additional class to add to the dropdown when creating it.
+
+      @method on
+        @added: Added the on method and clarified the events that are emitted by menus
+          @issue 551
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event select
+          @description: The event called when a menu item is selected.
+          @data Object
+            @property eventType [String]
+              @description:
+                The type of event that caused the selection:
+                @list:
+                  'click' - User clicked
+                  'enter' - User pressed the enter key
+                  'tab'   - User pressed the tab key
+            @property item [String/Object]: The menu item as it was passed into the menu.
+        @event activeset
+          @description: The event called when a menu item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
+          @data Object
+            @property eventType [String]
+              @description:
+                The type of event that caused the selection:
+                @list:
+                  'click' - User clicked
+                  'arrow' - User used the arrow keys
+            @property item [String/Object]: The menu item as it was passed into the menu.
+
+        @returns Menu: This Menu

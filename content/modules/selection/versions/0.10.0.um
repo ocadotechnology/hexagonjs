@@ -1,0 +1,68 @@
+@version 0.10.0
+
+  @api Selection
+
+    @prototype Selection
+
+      @method contains
+        @description
+          Checks if an element is contained by the current selection
+        @param element [Element]: The element to check is contained by one of the selected nodes.
+        @returns Boolean
+
+      @method add
+        @description
+          Appends an element to all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code(html)[<div>] element for example.
+        @param element [String/Element/Selection]: The element type to append, or the element to append, or a selection containing a element to append.
+        @returns Selection: This Selection
+
+      @method clear
+        @added
+        @description
+          Removes all child elements from the selected node(s)
+        @returns Selection: This Selection
+
+      @method on
+        @removed: Use selection.on(name, [namespace], handler, [retain]) instead.
+        @param name [String]
+        @param callback [Function[Event]]
+        @param? retain [Boolean]
+        @returns Selection: This Selection
+
+      @method off
+        @removed: Use selection.off([name], [namespace], [handler]) instead
+        @param name [String]: The event type to remove the handler(s) for
+        @param? callback [Function[Event]]: A specific callback to remove
+        @returns Selection: This Selection
+
+      @method on
+        @added
+        @description
+          Registers a callback for an event type.
+          @codeblock js
+
+            hx.select('#button').on('click', function() {
+              // click handling code here
+            })
+
+        @param name [String]: The event type to listen for
+        @param? namespace [String]: The namespace to register the handler under.
+        @param callback [Function[Event]]: The callback that will be called every time this event happens.
+        @param? retain [Boolean]: Pass true to keep all existing callbacks. If not specified or false is given, the existing handlers will be removed.
+        @returns Selection: This Selection
+
+      @method off
+        @added
+        @description
+          Deregisters a callback for an event type.
+          @codeblock js
+
+            hx.select('#button').off('click')
+            hx.select('#button').off('click', 'my-namespace')
+            hx.select('#button').off('click', handler)
+            hx.select('#button').off('click', 'my-namespace', handler)
+
+        @param? name [String]: The event type to remove the handler(s) for
+        @param? namespace [String]: The namespace to remove the handler from.
+        @param? callback [Function[Event]]: A specific callback to remove
+        @returns Selection: This Selection

@@ -1,0 +1,4 @@
+@version 0.12.2
+  @api Modal
+    @object hx.modal
+      @bugfix: Clicking on an element that subsequently gets detached will no longer cause the modal to close.

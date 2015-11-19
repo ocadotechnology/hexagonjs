@@ -1,0 +1,182 @@
+@version 0.9.0
+
+  @description
+    Container for hiding and showing content.
+
+  @installation
+
+  @examples
+    @example
+      @html html
+        <div class="hx-well">
+          <div id="example">
+            <div class="hx-collapsible-heading">Header</div>
+            <div class="hx-collapsible-content"><div style="padding:1em;font-size:2em">
+              Content
+            </div>
+            </div>
+          </div>
+        </div>
+      @js js
+        var collapsible = new hx.Collapsible('#example')
+
+  @api Collapsible
+    @prototype hx.Collapseable
+      @deprecated: This has been replaced with @code[hx.Collapsible]
+
+    @function hx.initialiseCollapseables
+      @deprecated: This has been replaced with @code[hx.initialiseCollapsibles]
+
+    @prototype hx.Collapsible
+      @description: Create one of these for each collapsible in your page to make it respond to mouse clicks. This object also provides ways to open and close the collapsible programmatically, listen for changes in the state of the collapsible and check the state at any time.
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event show
+          @description: Emitted when the collapsible is opened. No extra data with this event type
+
+        @event hide
+          @description: Emitted when the collapsible is hidden. No extra data with this event type
+
+        @event change [Boolean]
+          @description: Emitted when the collapsible's state changes. The data that comes with this event is a boolean.
+          @data [Boolean]: True means that the collapsible has just been opened, false means it has just been closed.
+
+        @returns Collapsible: This Collapsible
+
+
+      @method isOpen
+        @description: Returns true if the collapsible is currently open. False if not.
+        @returns Boolean
+
+      @constructor
+        @description:
+        @param selector [String]: A css selector that uniquely identifies the collapsible in the DOM.
+        @param? lazyContent [Function]
+          @description
+
+            An optional parameter that lets you populate the collapsible at the moment that it is first expanded. This is useful when you want to delay the loading of some data until it is needed by the user, or not load it at all if they never open the collapsible.
+            This could also be achieved by listening for a 'show' event, however using the lazyContent method has the advantage that the content will be added to the collapsible before the opening animation happens, rather than after, as would be the case if on('show', ...) was used.
+            This function will only be called once, when the collapsible is first opened.
+
+          @param content [HTMLElement]: The content div of the collapsible as a html node. The function should append any content to this div.
+
+        @param? visible [Boolean]
+          @description
+            Whether or not the collapsible should start expanded. The default is false - collapsed.
+          @default false
+        @param? addIcon [Boolean]
+          @description
+            Supply false to prevent the arrow icon being added to the start of the collapsable header.
+          @default true
+
+      @method show
+        @description: Causes the collapsible to open, revealing its contents.
+        @param? animate [Boolean]
+          @description
+            Whether or not to animate the collapsible state transition. The default is true - which means animation will be used.
+          @default true
+        @returns Collapsible: This Collapsible
+
+      @method hide
+        @description: Causes the collapsible to collapse, hiding its contents.
+        @param? animate [Boolean]
+          @description
+            Whether or not to animate the collapsible state transition. The default is true - which means animation will be used.
+          @default true
+        @returns Collapsible: This Collapsible
+
+      @method toggle
+        @description: Causes the collapsible to open or close, depending on its current state.
+        @param? animate [Boolean]
+          @description
+            Whether or not to animate the collapsible state transition. The default is true - which means animation will be used.
+          @default true
+        @returns Collapsible: This Collapsible
+
+
+    @function hx.initialiseCollapsibles
+      @description: Initialises all the collapsibles that match a css selector in a page and returns the Collapsible objects as an array.
+      @param selector [String]: A css selector that selects the collapsible elements you wish to initialise.
+      @param? lazyContent [Function]
+        @description
+          An optional parameter that lets you populate the collapsible at the moment that it is first expanded.
+          This is useful when you want to delay the loading of some data until it is needed by the user, or not load it at all if they never open the collapsible.
+          This could also be achieved by listening for a 'show' event, however using the addLazyContent method has the advantage that the content will be added to the collapsible before the opening animation happens, rather than after, as would be the case if on('show', ...) was used.
+          This function will only be called once, when the collapsible is first opened.
+
+        @param content [HTMLElement]: The content div of the collapsible as a html node. The function should append any content to this div.
+
+    @class hx-collapseable
+      @deprecated: Use hx-collapsible instead.
+
+    @class hx-collapsible
+      @description: Given to the container element for a collapsible
+
+      @childclass hx-collapsible-heading
+        @description: Given to the header section of a collapsible
+
+        @childclass hx-collapsible-toggle
+          @description: Given to an element to make it the clickable toggle for the collapsible. By default, without this class, the hx-collapsible-heading classed element will be the toggle.
+
+      @childclass hx-collapsible-body
+        @description: Given to the header section of a collapsible
+
+      @extraclass [hx-collapsible-[n]]
+        @deprecated: All numbered color classes will be removed in a later version. There will be no alternative - all collapsible should look the same.
+        @description: Used to color the collapsible with one of the theme variables.
+
+  @theme
+    @option colors
+      @description: The list of colors to give the numbered collapsible classes
+      @type color list
+      @default #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
+      @deprecated: All numbered color classes will be removed in a later version.
+
+    @option heading-background-col
+      @description: The background color for the heading section of the collapsible.
+      @type color
+      @default #FFF
+
+    @option heading-text-col
+      @description: The text color for the heading section of the collapsible.
+      @type color
+      @default #4A536F
+
+    @option toggle-background-col
+      @description: The background color of the part of the collapsible that can be clicked on to open and close it.
+      @type color
+      @default #DDD
+
+    @option toggle-text-col
+      @description: The text color of the part of the collapsible that can be clicked on to open and close it.
+      @type color
+      @default #3D3D3D
+
+    @option toggle-hover-background-col
+      @description: The hover background color of the part of the collapsible that can be clicked on to open and close it.
+      @type color
+      @default #698BB5
+
+    @option toggle-hover-text-col
+      @description: The hover text color of the part of the collapsible that can be clicked on to open and close it.
+      @type color
+      @default #F3F3F3
+
+    @option content-border-col
+      @description: The color of the border of the content section.
+      @type color
+      @default ''
+
+    @option content-background-col
+      @description: The color of the background of the content section.
+      @type color
+      @default #F7F7F7
+
+
+  @seeAlso

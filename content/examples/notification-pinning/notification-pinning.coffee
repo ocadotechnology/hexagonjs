@@ -1,0 +1,6 @@
+msgMgr = hx.notify()
+msgMgr.error("ERROR: I'm sorry, Dave. I'm afraid I can't do that.", 2)
+msgMgr.warning("WARNING: Banana supplies at < 10% max", 3)
+msgMgr.info("INFO: Weather forecast for 1st Smarch - snow ", 4)
+l = msgMgr.loading("LOADING")
+window.setTimeout((-> l.close(); msgMgr.permanent("LOADED", 'fa fa-check')), 5*1000)

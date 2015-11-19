@@ -1,0 +1,37 @@
+@stylesheet /resources/hexagon/docs/hexagon.css
+@script /resources/hexagon/docs/hexagon.js
+@script /resources/titlebar.js
+@stylesheet /resources/font-awesome/css/font-awesome.min.css
+@stylesheet /resources/docs.css
+@stylesheet /resources/hexagon-overrides.css
+@stylesheet /resources/fonts/fonts.css
+
+@define titlebar
+  @title {{ps}} | HexagonJS
+  @bodyClass dx-titlebar-fixed
+
+  @div .dx-heading
+    @div .dx-titlebar
+      @div .dx-titlebar-container
+        @div .docs-titlebar-header
+          @a .docs-titlebar-logo.docs-visible
+            @img .docs-logo
+              @attr src: /resources/logo-mono-v1.svg
+          @div .docs-search
+            @i .docs-search-icon.fa.fa-search
+            @input #docs-search-box.docs-search-box
+              @attr placeholder: Search the docs
+          @div .docs-version
+            @button .docs-version-button
+
+
+@define footer
+  @css
+    .docs-footer {
+      padding: 1em;
+      background: #373D45;
+      color: white;
+    }
+
+  @div .docs-footer:
+    @div .dx-content: Put some footer info here (licence, made by ocado, social media links, other products (quantum, graphite), contributing guide link, etc)

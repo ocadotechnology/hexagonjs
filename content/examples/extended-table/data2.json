@@ -1,0 +1,44 @@
+{
+  "head":{
+    "columns":[
+      { "value":"Name" },
+      { "value":"Age" },
+      { "value":"Gender" },
+      { "value":"Date of Birth" },
+      { "value":"Salary (£)" }
+    ]
+  },
+  "body":[
+    {
+      "columns": [
+        "Bob",
+        "23",
+        "Male",
+        "1970-01-01",
+        "20001"
+      ],
+      "children": [1, 2, 3]
+    },
+    {
+      "unselectable": true,
+      "columns": [
+        "Steve",
+        "21",
+        "Male",
+        "1999-10-12",
+        "19000"
+      ],
+      "children": [2, 3, 4]
+    },
+    {
+      "columns": [
+        "Kate",
+        "23",
+        "Female",
+        "2001-05-16",
+        "100000"
+      ],
+      "children": [5, 6, 7]
+  }
+  ]
+}

@@ -1,0 +1,50 @@
+@section Primitives
+
+  @section Available Types
+
+    @p: There are currently 7 different primitives drawing types in the api:
+
+    @list
+      Circle
+      Rectangle
+      Text
+      Line
+      Grid
+      Shape
+      Composite
+
+    @p: These can all be created through the 'create' method on the drawing object. Each primitive type has it's own class which is described in the api section.
+
+  @section Example
+
+    @p: This example shows how each primitive can be created, and shows use of some of the properties.
+
+    @example
+      @js: @inline examples/primitives.js
+      @html: <div id="drawing-example" class="docs-drawing"></div>
+      @css:
+        .docs-drawing {
+          height: 200px;
+        }
+
+  @section Setting Properties
+
+    @p: The primitives each have a separate set of properties that can be set. However, the method for setting the properties is always the same: using the set method:
+
+    @codeblock js
+      obj.set('property', value);
+
+    @p: The properties that are available to set are described in the api section - they differ for each primitive type.
+
+
+  @section Composite Objects
+
+    @p: Objects can be grouped together using composite objects. This makes it possible to create more detailed objects in the scene (rather than having just a simple rectangle for displaying something, for example). Composite objects are intended to be used for small, reusable drawing objects.
+
+    @p: The objects contained in the composite object can be referenced through the composite objects set and get methods.
+
+    @example
+      @js: @inline examples/composite.js
+      @html: <div id="composite-example" class="docs-drawing"></div>
+
+

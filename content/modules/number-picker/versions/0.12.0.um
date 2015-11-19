@@ -1,0 +1,13 @@
+@version 0.12.0
+  @api Number Picker
+    @prototype hx.NumberPicker
+
+      @method setValue
+        @param value [Number]
+        @param? screenValue [Number/String]
+        @removed
+          @issue 494
+
+      @method getValue
+        @removed
+          @issue 494

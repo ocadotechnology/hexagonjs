@@ -1,0 +1,33 @@
+@version 0.15.2
+  @api Date Time Picker
+    @prototype hx.DateTimePicker
+      @method disable
+        @deprecated
+          Use @code[disabled(true)] instead.
+          @issue 685
+
+      @method enable
+        @deprecated
+          Use @code[disabled(false)] instead.
+          @issue 685
+
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property disabled [Boolean]: Whether the date time picker should be disabled
+            @added: Added the ability to disable a date time picker in the options
+              @issue 685
+            @default false
+
+      @method disabled
+        @added: Added the ability to disable/enable a date time picker
+          @issue 685
+        @description: A method for disabling or enabling a date time picker
+        @param value [Boolean]: Whether the date time picker should be disabled
+        @returns DateTimePicker: This date time picker
+
+      @method disabled
+        @added: Added the ability to get the disabled state of a date time picker
+          @issue 685
+        @description: A method for getting the disabled state of a date time picker
+        @returns Boolean: Whether the button group is disabled

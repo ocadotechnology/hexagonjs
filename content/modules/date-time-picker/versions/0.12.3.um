@@ -1,0 +1,5 @@
+@version 0.12.3
+  @api Date Time Picker
+    @prototype hx.DateTimePicker
+      @bugfix: Update the datepicker constructor to use the options object.
+        @issue 516

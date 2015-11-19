@@ -1,0 +1,218 @@
+@version 0.9.0
+
+  @description
+    A module for manipulating colors.
+
+  @examples
+    @codeblock js
+      @inline 0.9.0/example.js
+
+  @api Color
+
+    @function hx.color
+      @added
+      @condensed
+      @description: Constructs a new Color instance.
+      @returns Color
+
+    @function hx.color
+      @added
+      @condensed
+      @description: Constructs a Color instance from a string. If the string passed in is not valid then this function will return undefined.
+      @param str [String]: A css color string, accepts "hex", "hsl", "hsla", "rgb", "rgba".
+      @returns Color
+
+    @function hx.color
+      @added
+      @condensed
+      @description: Constructs a Color instance from an array.
+      @param array [Array[Number]]: An array containing the rgb or rgba values
+        @codeblock
+          hx.color([255, 255, 255])
+        @codeblock
+          hx.color([255, 255, 255, 1])
+      @returns Color
+
+    @function hx.color
+      @added
+      @condensed
+      @description:
+        Constructs a Color instance from a list of rgb values.
+
+        @codeblock
+          hx.color(255, 255, 255)
+        @codeblock
+          hx.color(255, 255, 255, 1)
+
+      @param r [Number]: The red component of the color, given in the range [0, 255]
+      @param g [Number]: The green component of the color, given in the range [0, 255]
+      @param b [Number]: The blue component of the color, given in the range [0, 255]
+      @param? a [Number]: The alpha component of the color, given in the range [0, 1]
+
+      @returns Color
+
+    @object hx.color
+      @function isColorString
+        @description: Checks if a string is a css color string.
+        @param str [String]: A css color string, accepts "hex", "hsl", "hsla", "rgb", "rgba".
+        @returns Boolean: True if the string is a valid css string.
+
+      @function isColor
+        @description: Checks if an object is a Color instance.
+        @param obj [Any]: The object to check.
+        @returns Boolean: True if the object is a Color instance.
+
+    @prototype Color
+      @description
+        This class should be created through the hx.color function.
+        A class that can be used to create a color object with methods to manipulate the color such as changing the lightness, saturation and mixing with other colors.
+        The object consists of multiple methods and also has r, g, b, h, s, l and a properties that correspond to the color value.
+
+      @constructor
+        @removed: Use one of the hx.color functions to create Color instances.
+        @description: Create a color using an rgba array or a hex, rgb, rgba, hsl or hsla string.
+        @param color [Array or String]
+          @description
+            A color in one of multiple formats, expand the tree to see the available formats.
+            RGB Array ([r,g,b,a]) e.g. @code[ [255,255,255] ] or @code[ [255,255,255,1] ]
+            Hex String e.g. @code["#FFFFFF"] or @code["#FFF"]
+            RGB String e.g. @code["rgb(255,255,255)"]
+            RGBA String e.g. @code["rgba(255,255,255,1)"]
+            HSL String e.g. @code["hsl(0,100%,100%)"]
+            HSLA String e.g. @code["hsla(0,100%,100%,1)"]
+
+      @property r [Number]
+        @description: The red value for the created color in the 0-255 range.
+
+      @property g [Number]
+        @description: The green value for the current color in the 0-255 range.
+
+      @property b [Number]
+        @description: The blue value for the current color in the 0-255 range.
+
+      @property h [Number]
+        @description: The hue value for the current color in the 0-1 range. This value is a float with no rounding on decimals.
+
+      @property s [Number]
+        @description: The saturation value for the current color in then 0-1 range. This value is a float with no rounding on decimals.
+
+      @property l [Number]
+        @description: The lightness value for the current color in the 0-1 range. This value is a float with no rounding on decimals.
+
+      @property a [Number]
+        @description: The alpha value for the current color in the 0-1 range. This value is a float with no rounding on decimals.
+
+      @method getTextCol
+        @description: A method to return the best text color (either black or white) when using the current color as a background.
+        @returns String: 'black' or 'white' depending on the color.
+
+      @method setRGB
+        @description: A method to set the red green, blue and alpha of a color object. Passing in undefined for part of the array will use the previously set value.
+        @param arr [Array[Number]]: An array in the form of r,g,b or r,g,b,a
+        @returns Color: This Color
+
+      @method setHSL
+        @description: A method to set the hue, saturation, value and alpha of a color object. Passing in undefined for part of the array will use the previously set value.
+        @param arr [Array[Number]]: An array in the form of h,s,l or h,s,l,a
+        @returns Color: This Color
+
+      @method toString
+        @description: Output the color object as a hex, hsl, hsla, rgb or rgba CSS string.
+        @param type [String]
+          @description
+            A css color string. The default is to output a hex string if the alpha is 1, and rgba string if the alpha value is less than 1.
+            Accepted types are:
+            @list
+              hex
+              rgb
+              rgba
+              hsl
+              hsla
+
+        @returns String: A css color string of the type passed in.
+
+      @method toArray
+        @description: Output the color object a [r,g,b,a] array.
+        @returns [Array[Number]]
+
+      @method clone
+        @description: Returns a duplicate object. Useful for creating new colors based on a palette without modifying the originals.
+        @returns Color: A duplicate color object.
+
+      @method mix
+        @description: Modify the color by mixing it with another color object by a given ratio amount.
+        @param col [Color]: The color object to mix with the selected color.
+        @param amount [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method range
+        @description
+          Returns an array of colors based on the input color. The number of colors in the array will be the total of the numLight and numDark plus the original color.
+          The function can also return an array of hex strings instead of an array of Color objects using the outputHex parameter. Defaults to 3.
+        @param numLight [Number]: The number of lighter color steps in the range. Defaults to 3.
+        @param numDark [Number]: The number of darker color steps in the range. Defaults to 0.5.
+        @param maxRange [Number]: The maximum percentage increase/decrease in lightness.
+        @param? outputFormat [String]
+          @description:
+            The output format for the array. If left undefined, a Color object will be returned.
+            Accepted values are:
+            @list
+              hex
+              rgb
+              rgba
+              hsl
+              hsla
+              array
+
+        @returns Array: An array of colors in the specified output format. If no output format is specified, an array of Color objects is returned.
+
+      @method saturate
+        @description: Increase the saturation of a color by a given percentage amount.
+        @param amount [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method desaturate
+        @description: Decrease the saturation of a color by a given percentage amount.
+        @param amount [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method saturation
+        @description: Set the saturation of a color to a given percentage value.
+        @param saturation [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method lighten
+        @description: Increase the lightness of a color by a given percentage amount.
+        @param amount [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method darken
+        @description: Decrease the lightness of a color by a given percentage amount.
+        @param amount [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method lightness
+        @description: Set the lightness of a color to a given percentage value.
+        @param lightness [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method fadeIn
+        @description: Increase the alpha of a color by a given percentage amount.
+        @param amount [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method fadeOut
+        @description: Decrease the alpha of a color by a given percentage amount.
+        @param amount [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+      @method alpha
+        @description: Set the alpha of a color to a given percentage value.
+        @param value [Number]: A value from 0-1 as a percentage.
+        @returns Color: This Color
+
+  @theme
+
+  @seeAlso
+
+  @extra: @inline 0.9.0/extra.um

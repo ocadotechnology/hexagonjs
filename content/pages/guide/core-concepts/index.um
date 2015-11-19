@@ -1,0 +1,70 @@
+@inline ../../../shared/common.um
+@titlebar Core Concepts
+
+@div .dx-content
+  @h1: How Hexagon.js is structured
+  @card
+
+    @p: Hexagon is comprised of many modules, each of which aim to cover one particular situation. The types of modules are grouped into three categories:
+
+    @h2: CSS only
+
+    @p: These modules are mostly concerned with styling items on the page that can already be created with standard html (buttons, inputs, static structures like labels and notices). For these modules only hexagon.css needs to be included on the page.
+
+    @h2: Javascript + CSS components
+
+    @p: These modules are components that have a JavaScript api, and require JavaScript to function. As a result, the JavaScript of hexagon.js must be included on the page for these to work. The types of modules included in this group are dropdowns, menus, graphs, sliders, etc.
+
+    @h2: Utils
+
+    @p: These are JavaScript utility methods for performing common actions such as selecting and modifying parts of the dom, working with arrays and various collection types (Set, Map, List).
+
+  @h1: Common patterns in Hexagon.js
+  @card
+
+    @h2: Constructors
+
+    @p: Almost all components in hexagon are constructed using this pattern:
+
+    @codeblock js
+      var instance = new ComponentName(selector, options)
+
+    @p: @code(js)[selector] can be an Element, or an css selector string
+    @p: @code(js)[options] is an object where all the options for an object can be configured. To use the default behaviour the options parameter may be left off.
+
+  @card
+    @h2: Setter/Getters + chaining
+
+    @p: Throughout the api, most methods can be used to both set and get properties:
+
+    @codeblock js
+      menu.value()      // this will get the value of the menu
+      menu.value('one') // this will set the value of the menu to 'one'
+
+    @p: When setting values, the instance will be returned so that you can perform further chaining:
+
+    @codeblock js
+      menu
+        .items(['one', 'two', 'three'])  // returns the menu
+        .value('one')                    // also returns the menu since we are setting a value
+
+    @p: Sometimes an argument is required when getting a value. Here is an example from the selection api:
+
+    @codeblock js
+      hx.select('#bob').attr('disabled')  // this returns the value of the disabled attribute
+      hx.select('#bob').attr('disabled', 'disabled') // sets the value of the disabled attribute
+
+    @p: The same idea applies when multiple arguments are involved; leaving off the last argument will cause a value to be retrieved, and including the last argument will set the value.
+
+  @card
+    @h2: Renderer functions
+
+    @p: Renderer functions provide a way to extend the default behaviour of hexagon. Often multiple items have to be displayed to the user - this is the case for menus, pickers, trees, tables and several other components. When this happens an array of data has to be converted into a dom structure. Hexagon provides customisation in this process by letting you provide a "renderer" function, which knows how to populate a dom element for a single piece of data.
+
+    @codeblock js
+      Example here
+
+  @card
+    @h2: Events
+
+

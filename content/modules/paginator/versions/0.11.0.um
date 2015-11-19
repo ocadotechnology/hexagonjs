@@ -1,0 +1,26 @@
+@version 0.11.0
+  @api Paginator
+    @prototype hx.Paginator
+      @enhancement: Added resize listener to make paginators re-render when the container is resized.
+        @issue 53
+      @enhancement: Updated the paginator so that it detects the size of its container and changes the number of visible buttons accordingly. Also changed it so that the button widths resize depending on their character length to prevent paginators wrapping onto multiple lines.
+        @issue 359
+      @method setPage
+        @param index [Number]
+        @deprecated
+          @issue 375
+          Use @code[page(index)] instead.
+
+      @method getPage
+        @deprecated
+          @issue 375
+          Use @code[page()] instead.
+
+      @method page
+        @description: Sets the currently selected page. Uses 1 based indexing.
+        @param index [Number]: The page index to set. This index is 1 based.
+        @returns Paginator: this paginator
+
+      @method page
+        @description: Gets the currently selected page index.
+        @returns Number: The 1-based index of the currently selected page.

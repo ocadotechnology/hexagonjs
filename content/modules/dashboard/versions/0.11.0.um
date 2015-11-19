@@ -1,0 +1,62 @@
+@version 0.11.0
+  @examples
+    @example
+      @html: <div id="example"></div>
+      @js: @inline 0.11.0/example.js
+      @css: @inline 0.11.0/example.css
+
+  @api Dashboard
+    @prototype DashboardWidget
+      @updated: Added drag options to the widget and events for dragstart, dragend and drag and added the ability to get/set the order of widgets after they have been added to a dashboard.
+        @issue 347
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event dragstart: Emitted when the drag control is selected.
+        @event drag: Emitted whilst dragging when the element's position is changed (when the placeholder moves)
+        @event dragend: Emitted when the widget is dropped into a location.
+
+        @returns DashboardWidget: This DashboardWidget
+
+    @prototype hx.Dashboard
+      @method createWidget
+        @param? options [Object]
+          @property draggable [Boolean]
+            @description: A boolean that determines whether the element is draggable. If the @code[showDragControl] option is true, this option does not need to be set.
+            @default false
+          @property showDragControl [Boolean]: A boolean that determines whether the drag control is visible on load.
+            @default false
+          @property resizeOnDrag [Boolean]: A boolean that determines whether the element being dragged should resize to match the width of the placeholder on the page.
+            @default false
+          @property id [String]: A unique id for the widget to use when getting/setting the order of widgets in a dashboard.
+          @property height [String]: The height to set the body of the widget to as a css size (200px, 100%, etc). By default, no height will be set and the widget will resize to the content.
+          @property width [String]: The target width of the widget - it may grow or shrink a bit depending on the device.
+            @default "500px"
+          @property height [Number]:
+            @removed: This should now be specified as a css size string.
+          @property width [Number]:
+            @removed: This should now be specified as a css size string.
+        @returns DashboardWidget: The newly constructed DashboardWidget
+
+      @method order
+        @description:
+          @p: A method for organising the widgets in a dashboard after they have been added.
+          @p: Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
+        @param order [Array]: An array containing the widget id's for the current dashboard in the desired order.
+        @returns Dashboard: This dashboard
+
+      @method order
+        @description:
+          @p: A method for getting the order of widgets in a dashboard.
+          @p: Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
+        @returns Array: An array of the widget id's in the order they are currently displayed in the dashboard.
+
+  @theme
+    @option drag-placeholder-border-col
+      @type color
+      @description: The color of the placeholder border shown when dragging a dashboard widget.
+      @default grey

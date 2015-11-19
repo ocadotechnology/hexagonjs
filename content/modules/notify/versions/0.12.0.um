@@ -1,0 +1,15 @@
+@version 0.12.0
+  @api Notify
+    @function hx.notify.setDefaultTimeout
+      @param timeout [Number]
+      @removed
+        @issue 494
+
+    @function hx.getNotificationManager
+      @removed
+        @issue 494
+
+    @function hx.getNotificationManager.setDefaultTimeout
+      @param timeout [Number]
+      @removed
+        @issue 494

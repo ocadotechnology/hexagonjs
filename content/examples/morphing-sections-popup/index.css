@@ -1,0 +1,38 @@
+.morphSection {
+  /* Styles applied to the morph section containers */
+  position: fixed;
+  bottom: 0;
+  display: block;
+  z-index: 1; /* So the morph sections show above the sidebar */
+}
+
+#morphSectionLeft {
+  left: 0;
+}
+
+#morphSectionCenter {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#morphSectionRight {
+  right: 0;
+}
+
+.morphButton {
+  width: auto; /* Clear the width from the button to prevent it expanding with the content */
+}
+
+.hx-morph-section > .morphContent {
+  overflow-y: auto; /* allow the content to scroll */
+  max-height: 70vh; /* Prevent the content growing larger than 70% of the screen height */
+  max-width: 400px; /* Max width for content */
+}
+
+.buttonWrapRight {
+  text-align: right; /* Make the button align to the right of the page */
+}
+
+.buttonWrapCenter {
+  text-align: center; /* Make the button align to the center of the page */
+}

@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar Form Builder Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: Form Builder Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/form-builder/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/form-builder/

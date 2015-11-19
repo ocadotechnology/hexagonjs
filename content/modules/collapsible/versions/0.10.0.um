@@ -1,0 +1,23 @@
+@version 0.10.0
+  @api Collapsible
+    @prototype hx.Collapseable
+      @removed
+
+    @function hx.initialiseCollapseables
+      @removed
+
+    @class hx-collapseable
+      @removed
+
+    @class hx-collapsible
+      @updated: Removed module-specific classes in favor of generic classes
+        @issue 349
+
+      @extraclass [hx-collapsible-[n]]
+        @removed
+
+  @theme
+    @option colors
+      @removed
+
+

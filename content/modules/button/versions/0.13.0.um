@@ -1,0 +1,6 @@
+@version 0.13.0
+  @api Button
+    @info: Removed default call to hx.initializeToggleButtons. Toggle buttons must now be explicitly created with the @code[hx.ToggleButton] class.
+    @function hx.initializeToggleButtons
+      @deprecated: This function no longer makes sense as the state of a toggle button matters and is managed by the ToggleButton class.
+      @param selector [String]

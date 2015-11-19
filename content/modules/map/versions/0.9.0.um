@@ -1,0 +1,81 @@
+@version 0.9.0
+
+  @description
+    A map collection type. Proper maps are coming in ECMAScript 6 (which at time of writing has a scheduled release date of June 2015). This map object tries to keep as close as possible to the currently planned spec for maps, which should make it easier to swap out for the native implementation when it arrives and is well supported enough in browsers.
+
+  @examples
+    @codeblock js
+      @inline 0.9.0/example.js
+
+  @api Map
+    @prototype hx.Map
+      @description: A map collection type.
+
+      @constructor
+        @param? array [Array]: An array of 2-element arrays containing the values to initialise the map with
+
+      @property size [Number]: The current size of the map
+
+      @method clear
+        @description
+          Removes all entries from the Map, resulting in an empty map with size 0. Returns this Map for chaining.
+        @returns Map
+
+      @method delete
+        @description: Removes an entry from the map by key.
+        @param key [String]: The key to remove
+        @returns Map
+
+      @method entries
+        @description
+          Returns the items in the map as an array of 2-element arrays. The first entry in each of these arrays is the key, the second entry is the value.
+        @returns Array
+
+      @method forEach
+        @description
+          Calls the function supplied for each entry in the map. Returns this map for chaining.
+        @param f [Function]
+          @description
+            The function that should be called for each entry. First parameter is the key, second is the value.
+          @param key [String]: The key the entry was stored under
+          @param value [Object]: The value stored against the key
+        @param? thisArg [Object]
+          @description
+            A parameter which lets you supply the 'this' context to be used when calling f. The default is to use this Map.
+        @returns Map
+
+      @method get
+        @description
+          Gets an item by key. Returns undefined if there is no entry for the key supplied.
+        @param key [String]: The key to use.
+        @returns Object
+
+      @method has
+        @description
+          Checks if the map contains a key. Returns true if the value is in the map, false otherwise.
+        @param key [String]: The key to use
+        @returns Boolean
+
+      @method keys
+        @description
+          Returns an array of the keys in this Map.
+        @returns Array
+
+      @method set
+        @description
+          Stores the value for the given key. Returns this Map for chaining.
+        @param key [String]: The key to use.
+        @param value [Any]: The value to store.
+        @returns Map
+
+      @method values
+        @description
+          Returns an array of the values in this Map.
+        @returns Array
+
+  @seeAlso
+    @hxModuleLink(hx-list)
+    @hxModuleLink(hx-set)
+
+
+

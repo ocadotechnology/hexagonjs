@@ -1,0 +1,15 @@
+@version 0.14.0
+  @api Selection
+    @prototype Selection
+      @method each
+        @param f [Function[Element]]
+        @removed:
+          The each method for selections has been replaced to use a method that provides a selection as the argument to the @code[f] function. Use @code[Selection.forEach(f)] instead.
+
+      @method on
+        @param name [String]
+        @param? namespace [String]
+        @param callback [Function[Event]]
+        @param? retain [Boolean]
+        @removed
+          The retain parameter has been deprecated use @code[on(name, namespace, callback)] with different namespaces to add multiple listeners to a selection instead.

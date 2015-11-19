@@ -1,0 +1,17 @@
+@version 0.12.10
+  @api Selection
+    @prototype Selection
+      @method off
+        @description
+          Deregisters a callback for an event type.
+          @codeblock js
+
+            hx.select('#button').off('click')
+            hx.select('#button').off('click', 'my-namespace')
+            hx.select('#button').off('click', handler)
+            hx.select('#button').off('click', 'my-namespace', handler)
+
+        @param? name [String]: The event type to remove the handler(s) for
+        @param? namespace [String]: The namespace to remove the handler from. 'default' may be supplied to remove just the non namespaced handler. Without this, all namespaces will be removed
+        @param? callback [Function[Event]]: A specific callback to remove
+        @returns Selection: This Selection

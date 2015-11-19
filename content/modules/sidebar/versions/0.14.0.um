@@ -1,0 +1,10 @@
+@version 0.14.0
+  @api Sidebar
+    @prototype hx.Sidebar
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? headerSelector [String/HTMLElement]
+        @param? contentSelector [String/HTMLElement]
+        @param? addSidebarClass [Boolean]
+        @removed
+          Use @code[hx.Sidebar(selector, options)] instead.

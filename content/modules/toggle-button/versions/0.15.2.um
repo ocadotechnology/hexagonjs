@@ -1,0 +1,54 @@
+@version 0.15.2
+
+  @description: A module for creating toggle buttons
+
+  @examples
+    @example
+      @html
+        <button id="toggle1" class="hx-btn">Toggle Button</button>
+        <button id="toggle2" class="hx-btn">Toggle Button Off</button>
+
+      @js
+        var toggle1 = new hx.ToggleButton("#toggle1")
+        new hx.ToggleButton("#toggle2", {value: false})
+
+        toggle1.on('change', function(value) {
+          hx.notify.info("Toggle value set to " + value)
+        })
+
+  @api Toggle Button
+    @prototype hx.ToggleButton
+      @added: Moved the toggle button prototype to it's own module.
+        @issue 719
+      @description: Creates a toggle button component
+      @constructor
+        @description
+        @param selector [String/HTMLElement]: A css selector or element to use when constructing the toggle button
+        @param? options [Object]
+          @description: The options to use when intialising the toggle buttons
+          @property value [Boolean]: The value to initialise the toggle button with. The default value depends on whether the element has the 'hx-btn-toggle-off' class. If it does, the default is false.
+
+      @method value
+        @description: A method for setting the value of a toggle button.
+        @param value [Boolean]: The state to give the toggle button.
+        @returns ToggleButton: This toggle button
+
+      @method value
+        @description: A method for getting the value of a toggle button.
+        @returns Boolean: The current state of the toggle button
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event change
+          @description: The event emitted when a toggle button is changed.
+          @data Boolean: The state of the currently selected button.
+
+        @returns ToggleButton: This toggle button
+
+    @class hx-btn-toggle: The class given to a toggle button
+      @extraclass hx-btn-toggle-off: Sets the button to the off state when initialising.

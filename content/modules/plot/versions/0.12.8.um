@@ -1,0 +1,15 @@
+@version 0.12.8
+  @api Plot
+    @prototype hx.Axis
+
+      @property xAxisTickLabelPosition [String]
+        @added
+          An option for choosing where the x axis tick labels should be positioned
+        @description: Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis (at y=0), 'bottom' will cause the labels to stay at the bottom of the graph area.
+        @default 'bottom'
+
+      @property yAxisTickLabelPosition [String]
+        @added
+          An option for choosing where the y axis tick labels should be positioned
+        @description: Allows positioning of the tick labels. The options are 'axis' or 'left'. 'axis' will cause the labels to stick to the axis (at x=0), 'left' will cause the labels to stay at the bottom of the graph area.
+        @default 'left'

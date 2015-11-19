@@ -1,0 +1,76 @@
+@version 0.15.2
+  @api Form Builder
+    @prototype hx.Form
+
+      @method value
+        @description: A method for getting the value for a single property in a form.
+        @param property [String]: The property/key to use.
+        @returns Any: The property value.
+
+      @method value
+        @description: A method for setting the value for a single property in a form.
+        @param property [String]: The property/key to use.
+        @param value [Any]: The value to set.
+        @returns Form: This Form
+
+
+      @method hidden
+        @description: A method getting the hidden state for a form property. Hidden properties will be visually hidden and their values will not be present in the form data.
+        @param property [String]: The property/key to use.
+        @returns Boolean: Whether the property is hidden.
+
+      @method hidden
+        @description: A method setting the hidden state for a form property. Hidden properties will be visually hidden and their values will not be present in the form data.
+        @param property [String]: The property/key to use.
+        @param hidden [Boolean]: Whether the property is hidden.
+        @returns Form: This Form
+
+
+      @method hidden
+        @description: A method getting the hidden state for a set of form properties. Hidden properties will be visually hidden and their values will not be present in the form data.
+        @param properties [Array[String]]: The array of properties/keys to use.
+        @returns [Array[Boolean]]: Whether each property is hidden.
+
+      @method hidden
+        @description: A method setting the hidden state for a set of form properties. Hidden properties will be visually hidden and their values will not be present in the form data.
+        @param properties [Array[String]]: The array of properties/keys to use.
+        @param hidden [Boolean]: Whether each property is hidden.
+        @returns Form: This Form
+
+
+      @method node
+        @description: A method for getting the node for a form property
+        @param property [String]: The property/key to use.
+        @returns HTMLElement: The selected node
+
+
+      @method errorMessage
+        @description:
+          @p: A method for setting custom error messages for form fields. If the message is set to anything other than an empty string, the form input will be classed as invalid and show a validation message.
+          @codeblock js
+            form.errorMessage('Text', 'Please enter something sensible') // Form will not validate with message 'Please enter something sensible'
+            form.errorMessage('Text', undefined) // Clears validation message.
+        @param property [String]: The property/key to use.
+        @param message [String]: The message to set.
+        @returns Form: This Form
+
+      @method errorMessage
+        @description: A method for getting the error message for a form field. This will include messages set with the @code[errorMessage] method as well as inbuilt errors, such as those shown for required fields.
+        @param property [String]: The property/key to use.
+        @returns String: The error message for the property.
+
+
+      @method addSubmit
+        @param text [String]
+        @param icon [String]
+        @removed: Replaced with @code[addSubmit(text, icon, submitAction)]
+
+      @method addSubmit
+        @description: Adds a submit button to the form
+        @param text [String]: The text to give the button
+        @param icon [String]: The icon class for the button's icon
+        @param? submitAction [Function]
+          @description: The function to call when the form is submitted instead of calling @code[form.submit()]. Useful for setting custom error messages for properties before submitting the form.
+          @param form [Form]: The form being submitted
+        @returns Form: This Form
+

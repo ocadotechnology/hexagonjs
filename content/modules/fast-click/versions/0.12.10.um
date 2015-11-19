@@ -1,0 +1,4 @@
+@version 0.12.10
+  @api Fast Click
+    @bugfix: Resolve an issue where inputs are not selectable in modals due to event interception.
+      @issue 579

@@ -1,0 +1,11 @@
+@version 1.0.0
+  @examples
+    @inline 1.0.0/examples.um
+
+  @api Tabs
+    @class hx-tabs
+      @class hx-tab
+        @extraclass hx-action
+          @description: Colors the tab with the action color.
+          @added: Added new action context class and updated default styles.
+            @issue 652

@@ -1,0 +1,5 @@
+@examplePage Hexagonal Game of Life
+  @example
+    @html: @inline hexagonal-game-of-life.html
+    @coffee: @inline hexagonal-game-of-life.coffee
+    @css: @inline hexagonal-game-of-life.css

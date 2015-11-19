@@ -1,0 +1,8 @@
+{
+  "id": "select",
+  "category": "component",
+  "keywords": [
+    "select"
+  ],
+  "removed": "0.15.0"
+}

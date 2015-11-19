@@ -1,0 +1,4 @@
+@examplePage Tag Input
+  @example
+    @html: @inline taginput.html
+    @coffee: @inline taginput.coffee

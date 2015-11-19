@@ -1,0 +1,224 @@
+@version 0.9.0
+
+  @description
+    Provides typeahead / suggestions for input fields.
+
+  @examples
+    @example
+      @html
+        <div class="hx-well">
+          <label for="auto-complete">Auto Complete:</label>
+          <input id="auto-complete" type="text">
+        </div>
+      @js
+        var data = [
+          "Bob",
+          "Dave",
+          "Steve",
+          "Kate",
+          "Bill",
+          "Alejandro"
+        ]
+        new hx.AutoComplete("#auto-complete", data)
+
+  @api Autocomplete
+    @prototype hx.AutoComplete
+      @description: The AutoComplete class can be used to add an auto complete suggestion dropdown to any input field.
+      @constructor
+        @description: Add an auto complete suggestions dropdown to an input box
+        @param selector [String/HTMLElement]: The selector of the input box to add an auto complete to.
+        @param data [Array/Function]
+          @description
+            @p: The data to use as suggestions for the input field. Data can be specified as an array of items or as a function that returns an array of items.
+            @p: The data must be in one of the following formats:
+            @collapsible Array
+              @content
+                @codeblock json
+                  [
+                    "Bob",
+                    "Steve",
+                    ...
+                  ]
+
+                By default, the data is expected as an array of string values. If object based data is passed in, an @code[inputMap] must be provided in the options:
+                @codeblock js
+                  data = [
+                    {
+                      name "Bob",
+                      age: 21
+                    },
+                    {
+                      name: "Steve",
+                      age: 25
+                    }
+                  ]
+                  options = {
+                    inputMap: function(item){
+                      return item.name + ', ' + item.age;
+                    }
+                  };
+
+                A @code[renderer] and @code[filterOptions.searchValues] can also be specified to change how the text is displayed and what data is searchable, independent of the @code[inputMap].
+
+            @collapsible Function
+              @content
+                @codeblock js
+                  var data = function(term, callback){
+                    hx.json('path/to/data.json?search='+term, function(e, r){
+                      callback(r.responseText)
+                    });
+                  }
+
+                @p: A 'Loading...' message will be shown whilst the AutoComplete waits for a response from this function.
+                @p: It can be used in conjunction with the internal matching or be used to match externally when setting the @code(js)[matchType] to 'external':
+                @codeblock js
+                  var data = function(term, callback) {
+                    if (term.length > 0) {
+                      var a, county, d, name, _i, _len;
+                      a = [];
+                      for (_i = 0, _len = townAndCountyData.length; _i < _len; _i++) {
+                        d = townAndCountyData[_i];
+                        name = d.name.toLowerCase();
+                        county = d.county.toLowerCase();
+                        term = term.toLowerCase();
+                        if (name.indexOf(term) > -1 || county.indexOf(term) > -1) {
+                          a.push(d);
+                        }
+                      }
+                      return callback(a);
+                    } else {
+                      return callback([]);
+                    }
+                  };
+                  options.matchType = 'external'
+
+                @p: The term passed in is the current value of the input field (for use as a search term).
+                @p: The callback is the function that should be called to pass the data back to the AutoComplete to display.
+                @p: The callback must be called for the AutoComplete to show.
+
+        @param? options [Object]
+          @description: The options to use when building an auto complete box
+          @property matchType [String]
+            @description
+              @p: The type of filtering the AutoComplete should use when filtering internally
+              @p: The internal filter uses the @code[hx.filter] functions. All the filter types can be specified as the match type (e.g. 'startsWith', 'exact' or 'fuzzy') and the default value is 'contains'
+              @p: In addition to the internal filter, external matching can be used (where the data returned from the callback is used directly and not sorted/filtered internally) by setting the match type to 'external'
+            @default 'contains'
+
+          @property minLength [Number]
+            @description
+              The minimum length of text input before suggestions will be shown.
+            @default 0
+
+          @property placeholder [String]
+            @description
+              @p: The placeholder text for the input.
+              @p: If the placeholder is undefiend and a min-length is specified, a placeholder of 'Min length {x} characters' is used.
+
+          @property mustMatch [Boolean]
+            @description
+              @p: Whether the final value in the input field must match a value from the suggestions.
+              @p: If set to true, the input field will be updated to the first result of the filtered data when the user changes focus. If no matches are found, the input field is cleared.
+            @default false
+
+          @property showAll [Boolean]
+            @description
+              Determines whether all the data will be shown when no text is present and the user clicks on the input.
+            @default true
+
+          @property renderer [Function]
+            @description
+              @p: A function used to render the items in the dropdown.
+              @p: The default renderer sets the html to the item value and the onclick sets the input value to the same value:
+              @codeblock js
+                renderer = function(elem, item){
+                  hx.select(elem)
+                    .text(item)
+                };
+            @param elem [HTMLElement]: The HTMLElement to populate
+            @param item [Object]: The data item to populate the element with.
+
+          @property showOtherResults [Boolean]
+            @description
+              @p: Determines whether to show results under an 'other results' heading that are in the data but don't match the input text.
+              @p: Only used when not using external matching.
+            @default false
+
+          @property filter [Function]
+            @description: The function to use when filtering internally. Should only be used when one of the @code[hx.filter] methods isn't suitable for filtering the data.
+            @param array [Array]: The array from the AutoComplete cache or data source
+            @param term [String]: The search term to use when filtering
+            @returns Array: The filtered data
+
+          @property filterOptions [Object]
+            @description
+              The options to use when filtering internally. The available options can be found on the @moduleLink(hx-filter) page.
+              The default @code[searchValues] option uses the passed in input map to search on.
+
+          @property inputMap [Function]
+            @description
+              @p: A function used to convert objects or nested arrays passed to the AutoComplete data into searchable strings.
+              @p: Setting the inputMap defines what data should be shown in the dropdown and what should be searchable.
+              @codeblock js
+                data = [
+                  {
+                    name: 'Bob'
+                    age: 12
+                  },
+                  ...
+                ]
+                inputMap = function(item){
+                  return item.name + ', ' + item.age;
+                };
+
+              @p: The above inputMap would return 'Bob, 12' which would then be searchable and display as the text in the dropdown.
+              @p: A custom renderer can also be defined to change what displays in the dropdown.
+
+            @param item [Any]: The data item passed from the AutoComplete data.
+            @returns String: The text string to display in the input field, the dropdown and to be searchable
+
+          @property noResultsMessage [String]
+            @description
+              The text to display when no results are found. If this is not defined or set to '' then the dropdown will not be shown when there are no results.
+            @default ['No results found...']
+
+          @property otherResultsMessage [String]
+            @description
+              @p: The text to display at the top of the other results when the @code[showOtherResults] option is true.
+              @p: The text must be set to a valid string, setting this option to undefined or '' will not prevent the heading from showing as it acts as a divider between matching and non-matching results.
+            @default ['Other Results']
+
+      @method clearCache
+        @description
+          @p: A method to clear the cached data in the auto complete.
+          @p: It is called internally when the user changes focus (either by clicking outside the input box or by tabbing out of the box) but can be called manually if the data needs to be cleared more frequently (i.e. as the user types)
+        @returns AutoComplete: This AutoComplete
+
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event change
+          @description: The event called whenever the input text is updated by the auto complete object.
+          @data [String]: The value of the input field
+
+        @event hide
+          @description: The event called when the auto complete is hidden, either by changing focus or by manually calling the 'hide' method.
+          @data [String]: The value of the input field
+
+        @returns AutoComplete: This AutoComplete
+
+      @method hide
+        @description: A method to hide the autocomplete menu.
+        @param? suppressEvents [Boolean]: Whether to emit events when hiding the autocomplete.
+        @returns AutoComplete: This AutoComplete
+
+  @theme
+
+  @seeAlso
+    @hxModuleLink(hx-sort)
+    @hxModuleLink(hx-filter)

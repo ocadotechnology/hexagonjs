@@ -1,0 +1,23 @@
+@version 1.0.0
+
+  @examples
+    @example
+      @html html
+        <div id="card-container"></div>
+      @js
+        @inline 1.0.0/example.js
+
+  @api Card
+    @function hx.card
+      @description: Creates a detached card element wrapped in a selection
+      @returns Selection: The element wrapped in a hexagon selection
+
+    @function hx.card.section
+      @description: Creates a detached card section element wrapped in a selection
+      @param options [Object]
+        @property context [String]: One of the context classes (action, positive, warning, negative, info)
+      @returns Selection: The element wrapped in a hexagon selection
+
+    @function hx.card.group
+      @description: Creates a detached card group element wrapped in a selection
+      @returns Selection: The element wrapped in a hexagon selection

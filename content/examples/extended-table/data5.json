@@ -1,0 +1,11 @@
+{
+  "head":{
+    "columns":[
+      {"value":"Name"},
+      {"value":"Age"},
+      {"value":"Gender"},
+      {"value":"Locale"}
+    ]
+  },
+  "body":[]
+}

@@ -1,0 +1,133 @@
+@version 0.9.0
+
+  @description
+    An extension of the standard slider, customised for time selection.
+
+  @examples
+    @example
+      @html
+        <div id="slider" class="hx-slider"></div>
+
+      @js
+        slider = new hx.TimeSlider('#slider')
+
+    @example
+      @html
+        <div id="slider2" class="hx-slider"></div>
+
+      @js
+        slider = new hx.TimeSlider('#slider2', 'range')
+
+  @api Time Slider
+
+    @prototype hx.TimeSlider
+      @description: A widget type for selecting a value from a range of dates, or a date range from a range of date.
+      @property start [Number]
+        @description: The start date set for this time slider (in milliseconds). This value should only be read, and not set. Use setRange to change the start and end properties.
+
+      @property end [Number]
+        @description: The end date set for this time slider (in milliseconds). This value should only be read, and not set. Use setRange to change the start and end properties.
+
+      @method setValue
+        @description: Sets the value / position of the slider. Returns this slider for chaining.
+        @param value [Number/Date]: A value between 0 and 1 or a date between the start and end dates set.
+        @returns TimeSlider
+
+      @method getValue
+        @description: Gets the value of the slider. Returns a date between the start and end dates specified.
+        @returns Date
+
+      @method setRangeStartValue
+        @description: Sets the value / position of the start point of a range slider. Returns this slider for chaining.
+        @param value [Number/Date]: A value between 0 and 1 or a date between the start and end dates set.
+        @returns TimeSlider
+
+      @method setRangeEndValue
+        @description: Sets the value / position of the start point of a range slider. Returns this slider for chaining.
+        @param value [Number/Date]: A value between 0 and 1 or a date between the start and end dates set.
+        @returns TimeSlider
+
+      @method getRangeStartValue
+        @description: Gets the start value of a range slider. Returns a date between the start and end dates specified.
+        @returns Date
+
+      @method getRangeEndValue
+        @description: Gets the end value of a range slider. Returns a date between the start and end dates specified.
+        @returns Date
+
+      @method setRange
+        @description: Sets the range of values that the time slider can slide between.
+        @param start [Date]: The start date for this TimeSlider
+        @param end [Date]: The start date for this TimeSlider
+        @returns TimeSlider
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event slide: Emitted when the slider is moved.
+          @data value: The current value (or range value) of the slider.
+        @event slidestart: Emitted when the slider finishes moving.
+          @data value: The current value (or range value) of the slider.
+        @event slideend: Emitted when the slider finishes moving.
+          @data value: The current value (or range value) of the slider.
+        @event change: Emitted when the slider value is changed.
+          @data value: The current value (or range value) of the slider.
+
+        @returns TimeSlider: This TimeSlider
+
+      @method valueToDate
+        @description
+          This function can be used in the render function to easily convert the @code[value] returned from the time slider into a date object. This function takes into account the start and end values to calculate the time.
+          @codeblock js
+            var render = function(slider, elem, value, update, rangeStart){
+              hx.select(elem).text(slider.valueToDate(value));
+            }
+        @param value [Number]: The number (between 0 and 1) to convert to a date for the selected slider.
+        @returns Date
+
+      @method formatter
+        @description
+          This function can be used in the render function to format a date object for display on the time slider. In most cases, it should be used with the valueToDate method.
+          @codeblock js
+            var render = function(slider, elem, value, update, rangeStart){
+              hx.select(elem).text(slider.formatter(slider.valueToDate(value)))
+            }
+          By default, this function will use moment.js (if available) with the 'HH:mm' format or will convert the date to 24 hour 'HH:mm' if moment.js is not available.
+        @param date [Date]: The date to format.
+        @returns String: A formatted string.
+
+      @constructor
+        @description: Sets up a slider.
+        @param selection [String/HTMLElement]: A unique css selector or a HTMLElement that identifies your slider.
+        @param? type [String]: The type slider. Can be 'slider' for a normal slider or 'range' for a range slider.
+        @param? render [Function]
+          @description
+            A function used to render the sliders
+            @codeblock js
+              render = function(slider, elem, value, update, rangeStart){
+                formatter = hx.format.fixed(2)
+                hx.select(elem).text(formatter(value))
+              }
+
+
+          @param slider [Slider]: The current hx.TimeSlider
+          @param elem [HTMLElement]: The node of the selected slider
+          @param value [Number]: The value of the slider. Will always be a number between 0 and 1.
+          @param update [Boolean]
+            @description
+              Whether the renderer is being called by dragging the slider or when it created the slider.
+              The value is <span class="pill">true</span> when dragging, <span class="pill">false</span> when building
+          @param rangeStart [Boolean]
+            @description
+              Whether the selected slider is the start node in the slider.
+              <span class="pill">true</span> if it's the start node, <span class="pill">false</span> if it's the end node, <span class="pill">undefined</span> if the slider isn't a range slider.
+
+  @theme
+
+
+  @seeAlso
+    @hxModuleLink(slider)

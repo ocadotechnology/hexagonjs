@@ -1,0 +1,35 @@
+
+#graph-1 {
+  height: 300px;
+}
+
+#graph-2 {
+  height: 300px;
+}
+
+#graph-3 {
+  height: 300px;
+}
+
+#graph-4 {
+  height: 300px;
+}
+
+.big-number {
+  font-size: 40px;
+}
+
+.text-status-widget {
+  text-align: center;
+}
+
+#picks-remaining-graph {
+  height: 100px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+#picks-completed-section {
+  height: 210px;
+}
+

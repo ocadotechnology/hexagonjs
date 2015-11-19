@@ -1,0 +1,5 @@
+@examplePage Area Graph
+  @example
+    @html: @inline areagraph.html
+    @coffee: @inline areagraph.coffee
+    @css: @inline areagraph.css

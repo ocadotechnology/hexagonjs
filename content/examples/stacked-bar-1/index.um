@@ -1,0 +1,5 @@
+@examplePage Stacked Bar 1
+  @example
+    @html: @inline stacked-bar-1.html
+    @coffee: @inline stacked-bar-1.coffee
+    @css: @inline stacked-bar-1.css

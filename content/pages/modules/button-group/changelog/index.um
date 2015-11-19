@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar Button Group Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: Button Group Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/button-group/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/button-group/

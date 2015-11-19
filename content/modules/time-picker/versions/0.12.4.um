@@ -1,0 +1,11 @@
+@version 0.12.4
+  @api Time Picker
+    @prototype hx.TimePicker
+      @method on
+        @param name [String]
+        @param callback [Function]
+          @param data [Any]
+
+        @event change: Emitted when the time is changed.
+        @event show: Emitted when the time picker is shown.
+        @event hide: Emitted when the time picker is hidden.

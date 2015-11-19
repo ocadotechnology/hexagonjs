@@ -1,0 +1,4 @@
+@inline ../../../shared/common.um
+@titlebar Getting Started
+
+@div .dx-content

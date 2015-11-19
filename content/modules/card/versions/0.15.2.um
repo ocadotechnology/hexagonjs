@@ -1,0 +1,119 @@
+@version 0.15.2
+
+  @description
+    A set of styles for creating cards. An api for creating cards will be added in a later version.
+
+  @examples
+#    @example
+#      @html html
+#        <div id="card-container"></div>
+#      @js
+#        @inline 0.15.2/example.js
+
+    @example
+      @html
+        <div class="cardExample hx-group hx-horizontal">
+          <div class="hx-card hx-section">
+            <div class="hx-card-section hx-card-header">
+              <span class="hx-header">Card Header</span>
+            </div>
+            <div class="hx-card-section">
+              <div class="hx-card-text">Card Content</div>
+            </div>
+          </div>
+          <div class="hx-card hx-section">
+            <div class="hx-card-section hx-card-header hx-card-small">
+              <span class="hx-header">Card Header</span>
+            </div>
+            <div class="hx-card-section">
+              <div class="hx-card-text">Card Content</div>
+            </div>
+          </div>
+          <div class="hx-card hx-section">
+            <div class="hx-card-header hx-card-group">
+              <div class="hx-card-section">
+                <span class="hx-header">Card Header Section</span>
+              </div>
+              <div class="hx-card-section">
+                <span class="hx-header">Card Header Section</span>
+              </div>
+            </div>
+            <div class="hx-card-section">
+              <div class="hx-card-text">Card Content</div>
+            </div>
+          </div>
+        </div>
+
+      @css
+        .cardExample {
+          /* Make the cards only take up as much height as they need */
+          align-items: flex-start;
+        }
+
+  @api Card
+    @class hx-card
+      @added
+      @description: The class to give to a card. A card should only contain @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements.
+
+      @extraclass hx-card-small
+        @description
+          @p: A class given to a @code(css)[.hx-card] to make all child @code(css)[.hx-card-section] elements have less padding.
+          @p: This can be overriden for individual @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements by giving them the @code(css)[.hx-card-normal] class.
+
+
+      @childclass hx-card-section
+        @description:
+          @p: The class to give to elements within a card that will contain content, such as text or icons. All content within a card must be within a @code(css)[.hx-card-section]
+
+        @extraclass hx-card-joint
+          @description:
+            @p: A class for joining a @code(css)[.hx-card-section] with the next @code(css)[.hx-card-section] or @code(css)[.hx-card-group] element and removing the border between them.
+
+        @extraclass hx-card-header
+          @description: A class for styling a @code(css)[.hx-card-section] as a card header.
+
+        @extraclass hx-card-small
+          @description
+            @p: A class that can be given to @code(css)[.hx-card-section] elements to make them have less padding.
+
+        @extraclass hx-card-normal
+          @description
+            @p: A class that can be given to @code(css)[.hx-card-section] elements to make them have the default padding.
+
+        @extraclass hx-card-fixed
+          @description
+            @p: A class that can be given to a @code(css)[.hx-card-section] element within a @code(css)[.hx-card-group] to prevent it from stretching to fill the available space.
+
+
+      @childclass hx-card-group
+        @description:
+          @p: The class to give to elements to create a group of @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements.
+          @p: By default, the group will be displayed horizontally and card sections within a group will be stretched to fill the available space, depending on their content.
+          @p: Depending on the content and the available space in a card, children of a card group may be displayed on top of each other.
+
+        @extraclass hx-card-vertical
+          @description:
+            @p: The class used to turn a @code(css)[.hx-card-group] into a vertical group.
+            @p: Children will be displayed stacked on top of each other instead of next to each other.
+
+        @extraclass hx-card-joint
+          @description:
+            @p: A class for joining a @code(css)[.hx-card-group] with the next @code(css)[.hx-card-section] or @code(css)[.hx-card-group] element and removing the border between them.
+
+        @extraclass hx-card-header
+          @description: A class for styling a @code(css)[.hx-card-group] as a card header.
+
+        @extraclass hx-card-small
+          @description
+            @p: A class given to a @code(css)[.hx-card-group] element to give all the child @code(css)[.hx-card-section] elements less padding.
+            @p: This can be overriden for individual @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements by giving them the @code(css)[.hx-card-normal] class.
+
+        @extraclass hx-card-normal
+          @description
+            @p: A class given to a @code(css)[.hx-card-group] element to give all the child @code(css)[.hx-card-section] elements the default padding.
+
+        @extraclass hx-card-fixed
+          @description
+            @p: A class that can be given to a @code(css)[.hx-card-group] element within a @code(css)[.hx-card-group] to prevent it from stretching to fill the available space.
+
+

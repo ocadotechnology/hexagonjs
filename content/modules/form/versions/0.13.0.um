@@ -1,0 +1,35 @@
+@version 0.13.0
+  @api Form
+    @function hx.validateForm
+      @condensed
+      @param form [String/HTMLElement]
+      @param? showMessage [Boolean]
+      @deprecated
+        @issue 391
+        Use @code[hx.validateForm(selector, options)] instead.
+
+    @function hx.validateForm
+      @description:
+        @p: A helper function for validating forms. By default, it will show a message below the first error in the form but will return an array with all the errors.
+        @p: An example use of this function could be:
+        @codeblock js
+          hx.select('#form').select('button').on('click', function (event){
+            event.preventDefault(); // Stops the form from submitting natively
+            var validObj = hx.validateForm('#form');
+            if(validObj.valid){
+              // Do something on success
+            }
+            // Do nothing if the form isn't valid (as the validateForm function will show a message)
+          });
+      @param form [String/HTMLElement]: A css selector that selects the form to validate, or the form element itself to validate
+      @param? options [Object]: The options to use when validating the form
+        @property showMessage [Boolean]: Whether to show the message when validating. When set to false, the validate function will only return the errors without modifying the form.
+          @default true
+
+      @returns Object
+        @property valid [Boolean]: Whether or not the form is valid
+        @property errors [Array[Object]]:
+          @description: An array of error objects with a message, node and validity property. The node returned will be the div element containing the error that is directly inside the form element.
+          @property message: The error message
+          @property node: The element with the error
+          @property validity: The @link(https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)[validity state] that the element is in.

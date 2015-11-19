@@ -1,0 +1,69 @@
+@version 0.12.0
+  @api Date Time Picker
+    @prototype hx.DateTimePicker
+      @method disable
+        @description: A method for disabling a date/time picker so the user can't enter values.
+        @returns DateTimePicker: This DateTimePicker
+
+      @method enable
+        @description: A method for enabling a date/time picker so the user can enter values.
+        @returns DateTimePicker: This DateTimePicker
+
+      @method getDate
+        @removed
+          @issue 494
+
+      @method setDate
+        @param date [Date]
+        @param? setTime [Boolean]
+        @param? suppressCallback [Boolean]
+        @removed
+          @issue 494
+
+      @method setDay
+        @param day [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          @issue 494
+
+      @method setMonth
+        @param month [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          @issue 494
+
+      @method setYear
+        @param year [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          @issue 494
+
+      @method getHour
+        @removed
+          @issue 494
+
+      @method setHour
+        @param hour [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          @issue 494
+
+      @method getMinute
+        @removed
+          @issue 494
+
+      @method setMinute
+        @param minute [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          @issue 494
+
+      @method getSecond
+        @removed
+          @issue 494
+
+      @method setSecond
+        @param second [Number]
+        @param? suppressCallback [Boolean]
+        @removed
+          @issue 494

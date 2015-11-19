@@ -1,0 +1,34 @@
+@version 0.11.0
+
+  @description
+    A module for adding a resize event to the selection api.
+
+  @examples
+    @codeblock js
+      hx.select('#body').on('resize', function(event){
+        // do something when the element is resized.
+      });
+
+  @api Resize Events
+    @prototype Selection
+      @description: The resize event extends selection events using the 'on' method
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event resize
+          @added: Added a resize event for listening for when elements are resized.
+          @description: Emitted on resize events.
+          @data Object: An object containing event data.
+            @property clientRect: The clientRect of the resized element.
+            @property event: The entire event object.
+
+        @returns Selection: This Selection
+
+
+  @theme
+
+  @seeAlso

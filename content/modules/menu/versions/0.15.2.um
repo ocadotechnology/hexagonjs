@@ -1,0 +1,44 @@
+@version 0.15.2
+  @api Menu
+    @prototype hx.Menu
+      @method on
+        @param name [String]
+        @param callback [Function]
+          @param data [Any]
+
+        @event change
+          @data Object
+            @property eventType [String]
+            @property item [String/Object]
+            @property menu [Menu]: This Menu.
+              @added: Added the parent menu to the event data
+                @issue 691
+
+        @event highlight
+          @data Object
+            @property eventType [String]
+            @property item [String/Object]
+            @property menu [Menu]: This Menu.
+              @added: Added the parent menu to the event data
+                @issue 691
+
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property disabled [Boolean]: Whether the menu should be disabled
+            @added: Added the ability to disable a menu in the options
+              @issue 660
+            @default false
+
+      @method disabled
+        @added: Added the ability to disable/enable a menu
+          @issue 660
+        @description: A method for disabling or enabling a menu
+        @param value [Boolean]: Whether the menu should be disabled
+        @returns Menu: This menu
+
+      @method disabled
+        @added: Added the ability to get the disabled state of a menu
+          @issue 660
+        @description: A method for getting the disabled state of a menu
+        @returns Boolean: Whether the menu is disabled

@@ -1,0 +1,4 @@
+@examplePage Slider
+  @example
+    @html: @inline slider.html
+    @coffee: @inline slider.coffee

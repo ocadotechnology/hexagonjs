@@ -1,0 +1,9 @@
+@inline ../../shared/common.um
+
+@titlebar Examples
+
+@div .hx-content
+  @h1: Examples
+
+  @for-each-example
+    @div: @link example.link: example.name

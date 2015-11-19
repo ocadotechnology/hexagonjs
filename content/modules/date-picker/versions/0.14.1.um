@@ -1,0 +1,4 @@
+@version 0.14.1
+  @api Date Picker
+    @bugfix: Fixed an issue where the events were firing out of order.
+      @issue 657

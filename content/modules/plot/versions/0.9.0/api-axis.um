@@ -1,0 +1,148 @@
+@prototype hx.Axis
+  @description
+    Typically this object will be created via graph.addAxis() or graph.addAxis(xScaleType, yScaleType).
+
+  @constructor
+    @description
+      Creates a new Axis instance. Prefer using graph.addAxis(xScaleType, yScaleType) over using this directly.
+
+    @param? xScaleType [String]
+      @description
+        The scale type to use for the x axis. Can currently be 'linear', 'discrete' or 'date'. When 'linear' and 'date' are used the data should be specified as a number. When 'discrete' is used, the data can be a number or a string. 'date' and 'linear' do the same thing, with the exception that 'date' will choose the tick values on the graph so that they align with common time intervals (1 min, 5 min, 30 min etc). 'date' scales expect the values to be specified in milliseconds.
+      @default 'linear'
+
+    @param? yScaleType [String]
+      @description
+        The scale type to use for the x axis. Can currently be 'linear', 'discrete' or 'date'. When 'linear' and 'date' are used the data should be specified as a number. When 'discrete' is used, the data can be a number or a string. 'date' and 'linear' do the same thing, with the exception that 'date' will choose the tick values on the graph so that they align with common time intervals (1 min, 5 min, 30 min etc). 'date' scales expect the values to be specified in milliseconds.
+      @default 'linear'
+
+
+  @property xVisible [Boolean]
+    Whether or not the x axis should be visible. The default is true.
+
+
+  @property xFormatter [Function]
+    @description
+      A function that formats the strings that are displayed at the ticks of the x axis. It is a function with first argument that will typically be a number (although it depends on the type of the x values of your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+    @param input [Any]
+    @returns String: The formatted string
+
+
+  @property xMin [Number]
+    The minimum value the x axis should show. If set to 'auto' the minimum value will calculated from the data in the series. The default is 'auto'.
+
+
+  @property xMax [Number]
+    The maximum value the x axis should show. If set to 'auto' the maximum value will calculated from the data in the series. The default is 'auto'.
+
+
+  @property xDiscretePadding [Number]
+    The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+
+
+  @property xDiscreteLabels [Array]
+    The set of labels to use for a discrete x axis. This is similar to setting the xMin and xMax in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+
+
+  @property xTickSpacing [Number]
+    The preferred spacing (in pixels) between ticks on the x axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the xMin, xMax and having 'nice' vales at the ticks. The default is 50.
+
+
+  @property xTitle [String]
+    The title to give the x axis.
+
+
+  @property xScalePaddingMin [Number]
+    Padding to apply to the start of the x axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the start of the x domain. The default value is 0, which applies no padding. It typically makes more sense to apply this to the y axis than the x axis.
+
+
+  @property xScalePaddingMax [Number]
+    Padding to apply to the end of the x axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the x domain. The default value is 0, which applies no padding. It typically makes more sense to apply this to the y axis than the x axis.
+
+  @property xGridLines [Boolean]
+    @added
+    Whether or not to show grid lines for the x axis ticks. True means the grid lines will be shown.
+    @default true
+
+  @property xNthTickVisible [Number]
+    @added
+    Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
+    @default 1
+
+  @property yVisible [Boolean]
+    Whether or not the y axis should be visible. The default is true.
+
+
+  @property yFormatter [Function]
+    @description
+      A function that formats the strings that are displayed at the ticks of the y axis. It is a function with first argument that will typically be a number (although it depends on the type of the y values of your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+    @param input [Any]
+    @returns String: The formatted string
+
+
+  @property yMin [Number]
+    The minimum value the y axis should show. If set to 'auto' the minimum value will calculated from the data in the series. The default is 'auto'.
+
+
+  @property yMax [Number]
+    The maximum value the y axis should show. If set to 'auto' the maximum value will calculated from the data in the series. The default is 'auto'.
+
+
+  @property yDiscretePadding [Number]
+    The padding between discrete values on the y axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+
+
+  @property yDiscreteLabels [Array]
+    The set of labels to use for a discrete y axis. This is similar to setting the yMin and yMax in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+
+
+  @property yTickSpacing [Number]
+    The preferred spacing (in pixels) between ticks on the y axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the yMin, yMax and having 'nice' vales at the ticks. The default is 50.
+
+
+  @property yTitle [String]
+    The title to give the y axis.
+
+  @property yScalePaddingMin [Number]
+    Padding to apply to the start of the y axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the start of the y domain. The default value is 0, which applies no padding.
+
+
+  @property yScalePaddingMax [Number]
+    Padding to apply to the end of the y axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the y domain. The default value is 0, which applies no padding.
+
+  @property yGridLines [Boolean]
+    @added
+    Whether or not to show grid lines for the y axis ticks. True means the grid lines will be shown.
+    @default true
+
+  @property yNthTickVisible [Number]
+    @added
+    Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
+    @default 1
+
+  @method addSeries
+    @description: Creates a new Series with the given type, and adds it to the axis. The new Series instance is returned.
+
+    @param type [String]: The type of series to add. Can be one of 'line', 'bar', 'band', 'scatter' and 'straight-line'
+
+    @param? name [String]: The name to give the series. This will be displayed on the graph, and so should be nicely formatted if possible.
+
+    @returns Series
+
+
+  @method addSeries
+    @description
+      Adds a Series instance to the axis.
+
+    @param series [Series]
+      @description
+        The Series instance to add. Prefer the addSeries(type, name) method if possible.
+
+    @returns Series
+
+
+  @method removeSeries
+    @description
+      Removes a Series from this axis.
+
+    @param series [Series]: The Series to remove.

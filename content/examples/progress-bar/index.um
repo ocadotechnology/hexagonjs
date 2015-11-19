@@ -1,0 +1,4 @@
+@examplePage Progress Bars
+  @example
+    @html: @inline progress-bar.html
+    @coffee: @inline progress-bar.coffee

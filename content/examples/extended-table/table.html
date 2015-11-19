@@ -1,0 +1,67 @@
+<h1>Tables</h1>
+
+<p>Below are toggles for enabling/disabling features that affect how the tables are rendered.</p>
+<button id="toggleSort" class="hx-btn hx-positive hx-btn-toggle">Show Sorts</button>
+<button id="toggleFilter" class="hx-btn hx-positive hx-btn-toggle">Show Filters</button>
+<button id="toggleSelection" class="hx-btn hx-positive hx-btn-toggle">Show Selection</button>
+<button id="toggleRowSelect" class="hx-btn hx-positive hx-btn-toggle">Rows Selectable</button>
+<button id="toggleHeaderWrap" class="hx-btn hx-positive hx-btn-toggle hx-btn-toggle-off">Wrap Header Text</button>
+<button id="toggleSelectRowsPerPage" class="hx-btn hx-positive hx-btn-toggle hx-btn-toggle-off">Select Rows Per Page</button>
+<br>
+<button id="toggleMobileView" class="hx-btn hx-positive hx-btn-toggle hx-btn-toggle-off">Mobile View</button>
+<button id="toggleResponsiveView" class="hx-btn hx-positive hx-btn-toggle">Responsive Mode</button>
+<br>
+<p><i class="hx-text-info fa fa-info-circle"></i> Responsive mode detects if the table is less than 480px wide and switches to mobile mode. Resize the screen to see changes</p>
+
+<h4>Select Dataset: </h4>
+<div class="hx-input-group">
+  <button id="data1" class="hx-btn datasetBtn">1</button>
+  <button id="data2" class="hx-btn datasetBtn">2</button>
+  <button id="data3" class="hx-btn datasetBtn">3</button>
+  <button id="data4" class="hx-btn datasetBtn">4</button>
+  <button id="data5" class="hx-btn datasetBtn">5</button>
+  <button id="data6" class="hx-btn datasetBtn">6</button>
+  <button id="data7" class="hx-btn datasetBtn">7</button>
+  <button id="data8" class="hx-btn datasetBtn">8</button>
+  <button id="data9" class="hx-btn datasetBtn">9</button>
+  <button id="data10" class="hx-btn datasetBtn">10</button>
+</div>
+<p>Selecting a dataset will reload the tables on the page. Each dataset illustrates different features of the table api</p>
+<div class="datasetInfo">
+  <div class="hx-collapsible-heading">Dataset Info</div>
+  <div class="hx-collapsible-content">
+    <ol>
+      <li>Standard data w/ grouped headings</li>
+      <li>Standard data w/ additional row data</li>
+      <li>Data w/ vertical scrollbar</li>
+      <li>Data w/ horizontal scrollbar</li>
+      <li>No Data</li>
+      <li>Data with pagination/large number of rows</li>
+      <li>Data with objects for values</li>
+      <li>Data from a function source (fixed length)</li>
+      <li>Data from a function source (unknown length)</li>
+      <li>Data from a function source (infinite length)</li>
+      </ol>
+  </div>
+</div>
+<br>
+<div class="hx-well">
+  <h2>Table with events emitted to console</h2>
+  <div id="testTable1" class="hx-table-centered"></div>
+</div>
+<br>
+<div class="hx-well">
+  <h2>Table with collapsible rows</h2>
+  <div id="testTable2" class="hx-table-alt-header"></div>
+</div>
+<br>
+<div class="hx-well">
+  <h2>Table with cell renderers defined</h2>
+  <div id="testTable3" class="hx-table-borderless"></div>
+</div>
+<br>
+<div class="hx-well">
+  <h2>Table with all filters enabled</h2>
+  <div id="testTable4" class="hx-table-outer-borderless"></div>
+</div>
+<br>

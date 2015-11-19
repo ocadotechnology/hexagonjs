@@ -1,0 +1,11 @@
+@version 0.12.4
+
+  @api Dashboard
+    @prototype DashboardWidget
+      @method remove
+        @removed: Remove now has an optional callback which gets called when the widget has been removed.
+
+      @method remove
+        @description: Removes the widget from the dashboard.
+        @param? callback [Function]
+          @description: Called when the widget has been removed.

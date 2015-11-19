@@ -1,0 +1,11 @@
+/config.json
+*.sublime-project
+*.sublime-workspace
+*.swp
+.DS_Store
+.npmrc
+.sass-cache
+/debug
+/npm-debug.log
+node_modules
+target

@@ -1,0 +1,12 @@
+@version 0.12.0
+  @api Menu
+    @prototype hx.Menu
+      @method addItem
+        @param item [String]
+        @removed
+          @issue 494
+
+      @method addItems
+        @param items [Array]
+        @removed
+          @issue 494

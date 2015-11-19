@@ -1,0 +1,5 @@
+@examplePage Line Graph 2
+  @example
+    @html: @inline linegraph2.html
+    @coffee: @inline linegraph2.coffee
+    @css: @inline linegraph2.css

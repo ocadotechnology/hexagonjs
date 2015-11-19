@@ -1,0 +1,87 @@
+@version 1.0.0
+  @examples
+    @example
+      @html: @inline 1.0.0/example.html
+      @js: @inline 1.0.0/example.js
+
+  @api Inline Picker
+    @added: Renamed the inline select module to be inline-picker
+      @issue 758
+
+    @prototype hx.InlinePicker
+      @constructor
+        @description
+        @param selector [String/HTMLElement]: A CSS selector that uniquely identifies the element, or an HTMLElement.
+        @param? options [Object]: The options to use when constructing the inline picker
+          @property contextClass [String]: The class to use for the button when the picker is active.
+          @property ddClass [String]: The additional class to add to the dropdown when creating it.
+          @property startValue [String]
+            @removed: The startValue option has been renamed to value
+              @issue 757
+          @property value [String]: The value to use when initialising the select.
+            @added: @issue 757
+          @property noValueText [String]: The text to use when no value is selected.
+            @default('Choose a value...')
+          @property items [Array/Function]
+            @description:
+              @p: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+              @p: This can also be set after the picker has been constructed using the @code[items] method.
+          @property renderer
+            @description:
+              @p: A function that renders the data in the dropdown and the picker button.
+              @p: This can also be set after the picker has been constructed using the @code[renderer] method.
+            @default
+              @codeblock js
+                function (node, data) {
+                  hx.select(node).text(data);
+                }
+
+
+      @method renderer
+        @returns Function: Returns the currently set renderer function.
+
+      @method renderer
+        @description: Sets the renderer function for the underlying picker.
+        @param render [Function]
+          @param node [HTMLElement]: The element to populate
+          @param data [Any]: The data to populate the element with
+        @returns InlinePicker: Returns this picker for chaining.
+
+
+      @method items
+        @description: Sets the list of items that will be shown in the picker dropdown.
+        @returns Array: The currently set items
+
+      @method items
+        @description: Sets the list of items that will be shown in the picker dropdown.
+        @param items [Array[String]]: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+        @returns InlinePicker: Returns this InlinePicker for chaining
+
+
+      @method value
+        @description: Sets the value of the element.
+        @param value [String]: The value to give the element. If not specified the current value will be returned.
+        @returns InlinePicker: This InlinePicker is returned for chaining.
+
+      @method value
+        @description: Gets the value of the element.
+        @returns String: Returns the current value in the editable.
+
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+
+        @event change
+          @description: Emitted when the value is changed.
+          @object data
+            @property api [Boolean]: True if a call to the value method caused this change. False if it was a result of a user change.
+            @property value [String]: The new value.
+
+        @returns InlinePicker: This InlinePicker
+
+  @seeAlso
+    @moduleLink(inline-editable)

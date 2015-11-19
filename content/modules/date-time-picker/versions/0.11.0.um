@@ -1,0 +1,172 @@
+@version 0.11.0
+  @api Date Time Picker
+    @prototype hx.DateTimePicker
+      @updated: All instances of supressCallback have been converted to suppressCallback.
+      @method getDate
+        @deprecated
+          @issue 375
+          Use @code[date()] instead.
+
+      @method setDate
+        @param date [Date]
+        @param? setTime [Boolean]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[date(date, setTime, suppressCallback)] instead.
+
+      @method setDay
+        @param day [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[day(day, suppressCallback)] instead.
+
+      @method setMonth
+        @param month [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[month(month, suppressCallback)] instead.
+
+      @method setYear
+        @param year [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[year(year, suppressCallback)] instead.
+
+      @method getHour
+        @deprecated
+          @issue 375
+          Use @code[hour()] instead.
+
+      @method setHour
+        @param hour [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[hour(hour, suppressCallback)] instead.
+
+      @method getMinute
+        @deprecated
+          @issue 375
+          Use @code[minute()] instead.
+
+      @method setMinute
+        @param minute [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[minute(minute, suppressCallback)] instead.
+
+      @method getSecond
+        @deprecated
+          @issue 375
+          Use @code[second()] instead.
+
+      @method setSecond
+        @param second [Number]
+        @param? suppressCallback [Boolean]
+        @deprecated
+          @issue 375
+          Use @code[second(second, suppressCallback)] instead.
+
+      @method date
+        @description: A function to return the currently selected date.
+        @returns Date
+
+      @method date
+        @description: A function to set the currently selected date.
+        @param date [Date]: The date to set.
+        @param? setTime [Boolean]: Whether to set the time as well as the date. Only the day/month/year will be updated unless this value is true.
+          @default false
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DateTimePicker: This DateTimePicker
+
+      @method day
+        @description: A function to return the currently selected day of the month.
+        @returns Number
+
+      @method day
+        @description: A function used to set the currently selected day.
+        @param day [Number]: The day to set.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DateTimePicker: This DateTimePicker
+
+      @method month
+        @description: A function to return the currently selected month.
+        @returns Number
+
+      @method month
+        @description: A function to set the currently selected month.
+        @param month [Number]: The month to set.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DateTimePicker: This DateTimePicker
+
+      @method year
+        @description: A function to return the currently selected year.
+        @returns Number
+
+      @method year
+        @description: A function to set the currently selected year.
+        @param year [Number]: The year to set.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DateTimePicker: This DateTimePicker
+
+      @method hour
+        @description: A function to return the currently selected hour.
+        @returns Number
+
+      @method hour
+        @description: A function to set the currently selected hour.
+        @param hour [Number]: The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the TimePicker to cycle into the next/previous day.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DateTimePicker: This DateTimePicker
+
+      @method minute
+        @description: A function to return the currently selected minute.
+        @returns Number
+
+      @method minute
+        @description: A function to set the currently selected minute.
+        @param minute [Number]: The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous hour.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DateTimePicker: This DateTimePicker
+
+      @method second
+        @description: A function to return the currently selected second.
+        @returns Number
+
+      @method second
+        @description: A function to set the currently selected second.
+        @param second [Number]: The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous minute.
+        @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
+          @default false
+        @returns DateTimePicker: This DateTimePicker
+
+
+      @method update
+        @removed
+
+      @method update
+        @description
+          @p: A function for updating the display of the DateTimePicker when moment.js is present on the page.
+          @p: The DateTimePicker now looks for moment.js on the page and shows a localised DateTimePicker based on moment's current locale setting.
+          @p: To update the locale setting, a locale can either be passed in or the function can be called with no arguments to pick up the currently set @code[moment.locale].
+          @codeblock js: DateTimePicker.update('pl') // sets the DateTimePicker's locale to Poland without affecting the rest of the page.
+          @codeblock js
+            moment.locale('pl') // sets the page locale to Poland
+            DateTimePicker.update() // refreshes the display of the selected DateTimePicker using moment.locale() of 'pl'
+        @param? locale [String/Boolean]
+          @description
+            @p: The locale string to update the DateTimePicker with.
+            @p: If a value is not passed in, the currently set moment.locale() will be used.
+            @p: If @code[true] is passed in, the picker will be updated using it's currently set locale.
+        @returns DateTimePicker: This DateTimePicker

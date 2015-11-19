@@ -1,0 +1,9 @@
+{
+  "id": "inline-select",
+  "category": "component",
+  "keywords": [
+    "inline",
+    "select"
+  ],
+  "removed": "1.0.0"
+}

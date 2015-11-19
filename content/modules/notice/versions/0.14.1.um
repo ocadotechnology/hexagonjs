@@ -1,0 +1,159 @@
+@version 0.14.1
+
+  @description
+    Provides the @class(hx-notice) class for  styled containers.
+
+  @examples
+    @example
+      @html html
+        <div class="hx-notice">
+          <div class="hx-notice-header">Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-positive">
+          <div class="hx-notice-header">Positive Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-warning">
+          <div class="hx-notice-header">Warning Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-negative">
+          <div class="hx-notice-header">Negative Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-info">
+          <div class="hx-notice-header">Info Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-compliment">
+          <div class="hx-notice-header">Compliment Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-contrast">
+          <div class="hx-notice-header">Contrast Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice">
+          <span class="hx-notice-header hx-group hx-horizontal hx-no-margin">
+            <div class="hx-section hx-no-margin">Notice with icon</div>
+            <div>
+              <i class="fa fa-rocket"></i>
+            </div>
+          </span>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+  @api Notice
+    @class hx-notice
+      @added
+      @description
+        Styles a div with styles for
+
+      @extraclass hx-positive: Adds styling indicative of success, confirmation or something positive
+      @extraclass hx-negative: Adds styling indicative of failure, danger or something negative
+      @extraclass hx-warning: Adds styling indicative of warning, to suggest the user should use caution
+      @extraclass hx-compliment: Styles the notice with compliment colors
+      @extraclass hx-contrast: Styles the notice with contrast colors
+      @extraclass hx-info: Styles the notice to indicate that clicking it will lead to some form of documentation / information.
+
+      @childclass hx-notice-header: The header section of the notice
+      @childclass hx-notice-body: The body section of the notice
+
+  @theme
+    @condensed
+
+    @option default-col
+      @type color
+      @description: The base default notice header color
+      @default #6582A6
+
+    @option positive-col
+      @type color
+      @description: The base positive notice header color
+      @default #6FB365
+
+    @option warning-col
+      @type color
+      @description: The base warning notice header color
+      @default #CB9856
+
+    @option negative-col
+      @type color
+      @description: The base negative notice header color
+      @default #C74967
+
+    @option info-col
+      @type color
+      @description: The base info notice header color
+      @default #A36FA9
+
+    @option compliment-col
+      @type color
+      @description: The base compliment notice header color
+      @default #FDFDFD
+
+    @option contrast-col
+      @type color
+      @description: The base contrast notice body color
+      @default #3D3D3D
+
+    @option default-body-col
+      @type color
+      @description: The base default notice body color
+      @default #d0ddee
+
+    @option positive-body-col
+      @type color
+      @description: The base positive notice body color
+      @default #CEEACA
+
+    @option warning-body-col
+      @type color
+      @description: The base warning notice body color
+      @default #EFDEC7
+
+    @option negative-body-col
+      @type color
+      @description: The base negative notice body color
+      @default #F1C0CB
+
+    @option info-body-col
+      @type color
+      @description: The base info notice body color
+      @default #E7D0EA
+
+    @option compliment-body-col
+      @type color
+      @description: The base compliment notice body color
+      @default rgba(255,255,255,0)
+
+    @option contrast-body-col
+      @type color
+      @description: The base contrast notice body color
+      @default #D0D0D0
+
+    @option light-text-col
+      @type color
+      @description: The text color to use on dark label backgrounds
+      @default #F3F3F3
+
+    @option dark-text-col
+      @type color
+      @description: The text color to use on dark label backgrounds
+      @default #3D3D3D
+
+  @seeAlso
+
+  @changelog
+
+
+
+

@@ -1,0 +1,22 @@
+@version 0.15.0
+  @api Menu
+    @prototype hx.Menu
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property align [String]
+            @deprecated
+              Use @code[dropdownOptions.align] instead.
+              @issue 655
+          @property mode [String]
+            @deprecated
+              Use @code[dropdownOptions.mode] instead.
+              @issue 655
+          @property ddClass [String]
+            @deprecated
+              Use @code[dropdownOptions.ddClass] instead.
+              @issue 655
+          @property dropdownOptions
+            @description: The options to use for the dropdown. See the  See the @link(../dropdown/)[dropdown] constructor for the available options.
+            @added: Added a dropdownOptions object to the menu options to allow the setting of all the dropdown options.
+              @issue 655

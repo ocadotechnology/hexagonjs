@@ -1,0 +1,5 @@
+@examplePage Morph Section Popup
+  @example
+    @html: @inline index.html
+    @coffee: @inline index.coffee
+    @css: @inline index.css
