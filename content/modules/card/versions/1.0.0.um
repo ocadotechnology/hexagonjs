@@ -186,8 +186,7 @@
 
       @function hx.card.action.icon.section
         @description
-          Creates an action section with an icon after the text
-          Action sections are for defining links/buttons within cards.
+          Creates an action section with an icon after the text. Action sections are for defining links/buttons within cards.
         @param? options [Object]
           @property context [String]: The context of the action section
           @property text [String]: The text of the action section
@@ -196,8 +195,7 @@
 
       @function hx.card.icon.action.section
         @description
-          Creates an action section with an icon before the text
-          Action sections are for defining links/buttons within cards.
+          Creates an action section with an icon before the text. Action sections are for defining links/buttons within cards.
         @param? options [Object]
           @property context [String]: The context of the action section
           @property text [String]: The text of the action section
@@ -206,8 +204,7 @@
 
       @function hx.card.action.section
         @description
-          Creates an action section without an icon
-          Action sections are for defining links/buttons within cards.
+          Creates an action section without an icon. Action sections are for defining links/buttons within cards.
         @param? options [Object]
           @property context [String]: The context of the action section
           @property text [String]: The text of the action section
