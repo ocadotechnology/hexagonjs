@@ -260,14 +260,6 @@ a.qm-changelog-link {
   color: #545454 !important;
 }
 
-.qm-changelog-item > .hx-tree-node > .hx-tree-node-parent > .hx-tree-node-parent-icon {
-  background: #00ADA8 !important;
-}
-
-.qm-changelog-item {
-  border-left-color: #00ADA8 !important;
-}
-
 .docs-list-bullet {
   font-size: 0.4em;
   margin: 1em;

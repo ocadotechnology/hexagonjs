@@ -13,6 +13,8 @@
     "area",
     "scatter",
     "axis",
-    "axes"
+    "axes",
+    "sparkline",
+    "spark"
   ]
 }
