@@ -64,7 +64,7 @@ function createBuilds () {
 
 function buildHexagon (force) { // XXX: do this in the postinstall npm script
   if (force) return createBuilds()
-  return fs.accessAsync('target/resources/hexagon/' + latestVersion + 'hexagon.css', fs.F_OK)
+  return fs.accessAsync('target/resources/hexagon/' + latestVersion + '/hexagon.css', fs.F_OK)
     .then(function () {
       console.log(chalk.cyan('Skipping Hexagon Build (Already Exists)'))
     })
@@ -144,7 +144,6 @@ function buildPages () {
     return path.join('docs', version, moduleName, baseName)
   }
 
-  // return watch('content/pages/modules/picker/**/index.um', { base: 'content/pages'}, function (objs) {
   return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {
     var start = Date.now()
     return getTemplateVariables().then(function (templateVariables) {
