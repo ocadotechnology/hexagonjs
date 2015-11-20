@@ -7,7 +7,11 @@
 @stylesheet /resources/fonts/fonts.css
 
 @define titlebar
-  @title {{ps}} | HexagonJS
+  @if ps
+    @title {{ps}} | HexagonJS
+  @ifnot ps
+    @title HexagonJS
+
   @bodyClass dx-titlebar-fixed
 
   @div .dx-heading
