@@ -245,3 +245,7 @@
       @iconLikeComponent hx.card.small.icon: Creates a small icon
       @iconLikeComponent hx.card.large.icon: Creates a large icon
 
+    @class hx-card
+      @childclass hx-card-aligned
+        @description: A container that aligns sections inside groups. This should contain groups that contain sections in order to work.
+
