@@ -167,6 +167,28 @@
       @cardComponent hx.card.slim.fixed.joint.header.group: group
       @cardComponent hx.card.slim.fixed.joint.vertical.header.group: group
 
+      @function hx.card.aligned
+        @description: Creates a container that aligns sections inside groups. This should contain groups that contain sections in order to work.
+        @extra example
+          @p: The structure should look something like this
+
+          @codeblock js
+            hx.card.aligned()
+              .add(hx.card.group()
+                .add(hx.card.section())
+                .add(hx.card.section())
+                .add(hx.card.section()))
+              .add(hx.card.group()
+                .add(hx.card.section())
+                .add(hx.card.section())
+                .add(hx.card.section()))
+              .add(hx.card.group()
+                .add(hx.card.section())
+                .add(hx.card.section())
+                .add(hx.card.section()))
+
+        @returns Selection: The container wrapped in a selection
+
 
     @group Prebuild Cards
       @description
