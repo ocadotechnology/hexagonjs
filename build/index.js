@@ -103,10 +103,15 @@ function progressSequence (desc, completeStyle, list, func) {
     }, {concurrency: 5})
 }
 
-// builds an individual page
-function buildPages () {
-  var apiOptions = {
-    types: {
+function getOptions () {
+  function filenameModifier (filename, version) {
+    var baseName = path.basename(filename)
+    var moduleName = path.basename(path.dirname(filename))
+    return path.join('docs', version, moduleName, baseName)
+  }
+
+  var apiOptions = util.moduleList().then(function (modules) {
+    var types = {
       'String': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String',
       'Number': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number',
       'Boolean': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
@@ -116,7 +121,18 @@ function buildPages () {
       'SVGElement': 'https://developer.mozilla.org/en/docs/Web/API/SVGElement',
       'Date': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date'
     }
-  }
+
+    modules.forEach(function (moduleId) {
+      var moduleType = moduleId.split('-').map(function (part) {
+        return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+      }).join('')
+      types[moduleType] = '../' + moduleId
+    })
+
+    return {
+      types: types
+    }
+  })
 
   var changelogOptions = {
     targetVersions: versions,
@@ -131,27 +147,29 @@ function buildPages () {
     taggable: ['prototype', 'constructor', 'function', 'method', 'property', 'returns', 'class', 'extraclass', 'childclass']
   }
 
-  var htmlTransforms = {
+  var htmlTransforms = Promise.props({
     html: html.transforms,
-    api: api(apiOptions),
+    api: apiOptions.then(api),
     changelog: changelog(changelogOptions).transforms,
     docs: require('../transforms/transforms')
-  }
+  })
 
-  function filenameModifier (filename, version) {
-    var baseName = path.basename(filename)
-    var moduleName = path.basename(path.dirname(filename))
-    return path.join('docs', version, moduleName, baseName)
-  }
+  return Promise.props({
+    changelogOptions: changelogOptions,
+    versionOptions: versionOptions,
+    htmlTransforms: htmlTransforms
+  })
+}
 
+function buildPages () {
   return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {
     var start = Date.now()
-    return getTemplateVariables().then(function (templateVariables) {
+    return Promise.all([getTemplateVariables(), getOptions()]).spread(function (templateVariables, options) {
       return progressSequence('Building pages', chalk.green('='), objs, function (obj) {
         return Promise.resolve(obj)
-          .then(template({variables: templateVariables}))
-          .then(changelog(changelogOptions))
-          .then(version(versionOptions))
+          .then(template({variables: options.templateVariables}))
+          .then(changelog(options.changelogOptions))
+          .then(version(options.versionOptions))
           .then(function (res) { return Array.isArray(res) ? res : [res] })
           .then(flatten)
           .map(function (file) {
@@ -160,7 +178,7 @@ function buildPages () {
             }
             return file
           })
-          .map(html(htmlTransforms))
+          .map(html(options.htmlTransforms))
           .map(html.stringify())
           .map(function (file) {
             if (file.filename.indexOf('docs') === 0) {
