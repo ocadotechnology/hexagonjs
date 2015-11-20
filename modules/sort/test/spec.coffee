@@ -1,5 +1,61 @@
 describe 'hx-sort tests', ->
 
+  describe "sort", ->
+    it "should work", ->
+      a = [3, 1, 2]
+      b = hx.sort a
+      expect b
+        .toEqual [1, 2, 3]
+
+      c = ['c', 'a', 'b']
+      d = hx.sort c
+      expect d
+        .toEqual ['a', 'b', 'c']
+
+   it "should not modify the original array", ->
+     a = [3, 2, 1]
+     b = hx.sort a
+     expect a[0]
+       .toEqual 3
+     expect b[0]
+       .toEqual 1
+
+  describe "sortBy", ->
+    people = [
+      {
+        name: 'Bob'
+        ageYears: 20
+      }
+      {
+        name: 'Ganesh'
+        ageYears: 19
+      }
+      {
+        name: 'Kate'
+        ageYears: 39
+      }
+      {
+        name: 'Lazlo'
+        ageYears: 18
+      }
+    ]
+    it "should not modify the original array", ->
+      peopleCopy = [people...]
+      peopleCopySorted = hx.sortBy peopleCopy, (x) -> x.ageYears
+      expect peopleCopy[0].name
+        .toEqual 'Bob'
+      expect peopleCopySorted[0].name
+        .toEqual 'Lazlo'
+
+    it "should work", ->
+      byName = hx.sortBy people, (x) -> x.name
+      byAge = hx.sortBy people, (x) -> x.ageYears
+      expect byName.map (x) -> x.name
+        .toEqual ['Bob', 'Ganesh', 'Kate', 'Lazlo']
+      expect byAge.map (x) -> x.name
+        .toEqual ['Lazlo', 'Ganesh', 'Bob', 'Kate']
+
+
   describe 'using standard compare. ', ->
     it 'Strings should return the right value', ->
       expect(hx.sort.compare('a','b')).toEqual(-1)

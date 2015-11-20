@@ -32,6 +32,14 @@ localeCompare = (locale, options) ->
     else localeCollator(a, b)
 
 
-hx.sort =
-  compare: compare
-  localeCompare: localeCompare
+hx.sortBy = (arr, f) ->
+  newArr = [arr...]
+  newArr.sort (left, right) ->
+    fLeft = f left
+    fRight = f right
+    compare fLeft, fRight
+  newArr
+
+hx.sort = (arr) -> hx.sortBy arr, (x) -> x
+hx.sort.compare = compare
+hx.sort.localeCompare = localeCompare
