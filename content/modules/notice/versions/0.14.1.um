@@ -1,7 +1,7 @@
 @version 0.14.1
 
   @description
-    Provides the @class(hx-notice) class for  styled containers.
+    Provides the @code(css)[hx-notice] class for  styled containers.
 
   @examples
     @example
