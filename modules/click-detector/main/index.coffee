@@ -35,6 +35,10 @@ class ClickDetector extends hx.EventEmitter
     @exceptions.add(element)
     this
 
+  removeException: (element) ->
+    @exceptions.remove(element)
+    this
+
   removeAllExceptions: ->
     @exceptions.clear()
     this

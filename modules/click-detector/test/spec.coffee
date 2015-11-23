@@ -26,6 +26,17 @@ describe 'ClickDetector', ->
     expect(cd.exceptions.size).toEqual(1)
     expect(cd.exceptions.entries()).toEqual([document.getElementById('exception')])
 
+  it 'should correctly remove exceptions', ->
+    cd.addException(document.getElementById('exception'))
+
+    expect(cd.exceptions.size).toEqual(1)
+    expect(cd.exceptions.entries()).toEqual([document.getElementById('exception')])
+    cd.removeException(document.getElementById('exception'))
+    expect(cd.exceptions.size).toEqual(0)
+
+    cd.removeException(document.getElementById('elem'))
+    expect(cd.exceptions.size).toEqual(0)
+
   it 'should correctly clear exceptions', ->
     cd.addException(document.getElementById('exception'))
 
