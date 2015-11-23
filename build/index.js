@@ -112,14 +112,17 @@ function getOptions () {
 
   var apiOptions = util.moduleList().then(function (modules) {
     var types = {
-      'String': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String',
-      'Number': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number',
+      'Array': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array',
       'Boolean': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
-      'Node': 'https://developer.mozilla.org/en/docs/Web/API/Node',
+      'Date': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date',
       'Element': 'https://developer.mozilla.org/en/docs/Web/API/Element',
+      'Function': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function',
       'HTMLElement': 'https://developer.mozilla.org/en/docs/Web/API/HTMLElement',
-      'SVGElement': 'https://developer.mozilla.org/en/docs/Web/API/SVGElement',
-      'Date': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date'
+      'Node': 'https://developer.mozilla.org/en/docs/Web/API/Node',
+      'Number': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number',
+      'Object': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object',
+      'String': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String',
+      'SVGElement': 'https://developer.mozilla.org/en/docs/Web/API/SVGElement'
     }
 
     modules.forEach(function (moduleId) {
