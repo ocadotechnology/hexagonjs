@@ -1,0 +1,16 @@
+@version 1.0.0
+
+  @api Dropdown
+    @prototype hx.Dropdown
+
+      @method addException
+        @added: A method for adding exceptions to dropdowns - this means if the element provided is clicked, it will not cause the dropdown to close.
+        @description: Adds an exception to the click detector for this dropdown.
+        @param element [Element]: The element to add as an exception
+        @returns Dropdown: This Dropdown
+
+      @method removeException
+        @added: A method for removing exceptions from dropdowns.
+        @description: Removes an exception from the click detector for this dropdown.
+        @param element [Element]: The element to remove as an exception
+        @returns Dropdown: This Dropdown
