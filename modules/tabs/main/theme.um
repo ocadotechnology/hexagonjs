@@ -66,9 +66,9 @@
     @description: The info tab color
     @default: #A36FA9
 
-  @option compliment-col
+  @option complement-col
     @type color
-    @description: The complimentary tab color
+    @description: The complementary tab color
     @default: #FDFDFD
 
   @option contrast-col

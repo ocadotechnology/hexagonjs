@@ -15,7 +15,7 @@ class InlinePicker extends hx.InlineMorphSection
     options = hx.merge {
       renderer: undefined
       items: []
-      contextClass: 'hx-compliment'
+      contextClass: 'hx-complement'
       ddClass: undefined
       noValueText: undefined
       value: undefined

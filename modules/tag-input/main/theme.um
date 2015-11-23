@@ -40,9 +40,9 @@
     @description: The text color to use on dark tag backgrounds
     @default: #3D3D3D
 
-  @option compliment-col
+  @option complement-col
     @type color
-    @description: The base compliment color.
+    @description: The base complement color.
     @default: #FDFDFD
 
   @option contrast-col

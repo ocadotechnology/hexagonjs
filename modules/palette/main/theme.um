@@ -36,9 +36,9 @@
     @default: #A36FA9
     @includeWithJs #A36FA9
 
-  @option compliment-col
+  @option complement-col
     @type color
-    @description: The compliment color
+    @description: The complement color
     @default: #FDFDFD
     @includeWithJs #FDFDFD
 

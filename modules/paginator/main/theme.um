@@ -1,20 +1,19 @@
 @module paginator
-  
+
   @option arrow-button
     @type string
     @description: The button class to give the arrow buttons
-    @default: 
-    @includeWithJs 
-  
+    @default:
+    @includeWithJs
+
   @option default-button
     @type string
     @description: The button class to give the number buttons
-    @default: hx-compliment
-    @includeWithJs hx-compliment
-  
+    @default: hx-complement
+    @includeWithJs hx-complement
+
   @option selected-button
     @type string
     @description: The button class to give the selected item in the paginator
     @default: hx-positive
     @includeWithJs hx-positive
-  

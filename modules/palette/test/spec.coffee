@@ -11,7 +11,7 @@ describe 'palette', ->
     it 'negative', -> testContext('negative')
     it 'info', -> testContext('info')
     it 'action', -> testContext('action')
-    it 'compliment', -> testContext('compliment')
+    it 'complement', -> testContext('complement')
     it 'contrast', -> testContext('contrast')
 
     it 'should return undefined if there is no context', ->
@@ -42,7 +42,7 @@ describe 'palette', ->
     it 'negative', -> testContext('negative')
     it 'info', -> testContext('info')
     it 'action', -> testContext('action')
-    it 'compliment', -> testContext('compliment')
+    it 'complement', -> testContext('complement')
     it 'contrast', -> testContext('contrast')
 
     it 'should return undefined if there is no context', ->
@@ -74,7 +74,7 @@ describe 'palette', ->
     it 'negative', -> testContext('negative')
     it 'info', -> testContext('info')
     it 'action', -> testContext('action')
-    it 'compliment', -> testContext('compliment')
+    it 'complement', -> testContext('complement')
     it 'contrast', -> testContext('contrast')
 
     it 'should return undefined if there is no context', ->

@@ -1,5 +1,5 @@
-contexts = ['action', 'positive', 'negative', 'warning', 'info', 'compliment', 'contrast']
-paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'compliment', 'contrast']
+contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
+paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
 
 hx.palette = {}
 

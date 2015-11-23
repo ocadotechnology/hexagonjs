@@ -30,9 +30,9 @@
     @description: The base info notice header color
     @default: #A36FA9
 
-  @option compliment-col
+  @option complement-col
     @type color
-    @description: The base compliment notice header color
+    @description: The base complement notice header color
     @default: #FDFDFD
 
   @option contrast-col
@@ -70,9 +70,9 @@
     @description: The base info notice body color
     @default: #E7D0EA
 
-  @option compliment-body-col
+  @option complement-body-col
     @type color
-    @description: The base compliment notice body color
+    @description: The base complement notice body color
     @default: #F7F7F7
 
   @option contrast-body-col

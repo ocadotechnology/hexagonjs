@@ -31,6 +31,6 @@
   @include notice(hx-negative, $negative-col, $negative-body-col);
   @include notice(hx-warning, $warning-col, $warning-body-col);
   @include notice(hx-info, $info-col, $info-body-col);
-  @include notice(hx-compliment, $compliment-col, $compliment-body-col);
+  @include notice(hx-complement, $complement-col, $complement-body-col);
   @include notice(hx-contrast, $contrast-col, $contrast-body-col);
 }

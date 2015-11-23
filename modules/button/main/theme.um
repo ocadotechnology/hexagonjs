@@ -30,9 +30,9 @@
     @description: The base info button color
     @default: #A36FA9
 
-  @option compliment-col
+  @option complement-col
     @type color
-    @description: The base complimentary button color
+    @description: The base complementary button color
     @default: #FDFDFD
 
   @option contrast-col

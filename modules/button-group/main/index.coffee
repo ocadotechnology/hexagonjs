@@ -6,7 +6,7 @@ class ButtonGroup extends hx.EventEmitter
     hx.component.register(selector, this)
 
     @options = hx.merge.defined({
-      buttonClass: 'hx-compliment'
+      buttonClass: 'hx-complement'
       activeClass: 'hx-contrast'
       fullWidth: false
       renderer: (node, data, current) ->

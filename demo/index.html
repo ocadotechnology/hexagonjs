@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="index.css">
   <script type="text/javascript" src="hexagon.js"></script>
   <script>
-    window.contextNames = ['action', 'positive', 'warning', 'negative', 'info', 'compliment', 'contrast']
+    window.contextNames = ['action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
   </script>
 </head>
 <body class="hx-titlebar-fixed">
@@ -39,7 +39,7 @@
           <button class="hx-btn hx-warning ">Warning</button>
           <button class="hx-btn hx-negative">Negative</button>
           <button class="hx-btn hx-info">Info</button>
-          <button class="hx-btn hx-compliment">Compliment</button>
+          <button class="hx-btn hx-complement">Compliment</button>
           <button class="hx-btn hx-contrast">Contrast</button>
           <button class="hx-btn hx-btn-invisible">Invisible</button>
           <button class="hx-btn" disabled>Disabled</button>
@@ -57,7 +57,7 @@
           <button class="hx-btn hx-btn-invert hx-warning ">Warning</button>
           <button class="hx-btn hx-btn-invert hx-negative">Negative</button>
           <button class="hx-btn hx-btn-invert hx-info">Info</button>
-          <button class="hx-btn hx-btn-invert hx-compliment">Compliment</button>
+          <button class="hx-btn hx-btn-invert hx-complement">Compliment</button>
           <button class="hx-btn hx-btn-invert hx-contrast">Contrast</button>
           <button class="hx-btn hx-btn-invert" disabled>Disabled</button>
         </div>
@@ -74,7 +74,7 @@
           <span class="hx-label hx-warning ">Warning</span>
           <span class="hx-label hx-negative">Negative</span>
           <span class="hx-label hx-info">Info</span>
-          <span class="hx-label hx-compliment">Compliment</span>
+          <span class="hx-label hx-complement">Compliment</span>
           <span class="hx-label hx-contrast">Contrast</span>
         </div>
       </div>
@@ -90,7 +90,7 @@
           <button class="contextMenu hx-btn hx-warning">Warning</button>
           <button class="contextMenu hx-btn hx-negative">Negative</button>
           <button class="contextMenu hx-btn hx-info">Info</button>
-          <button class="contextMenu hx-btn hx-compliment">Compliment</button>
+          <button class="contextMenu hx-btn hx-complement">Compliment</button>
           <button class="contextMenu hx-btn hx-contrast">Contrast</button>
           <button class="contextMenu hx-btn" disabled>Disabled</button>
           <script>
@@ -296,7 +296,7 @@
             <div class="hx-tab hx-warning" data-content="tab-content-4">Tab 4</div>
             <div class="hx-tab hx-negative" data-content="tab-content-5">Tab 5</div>
             <div class="hx-tab hx-info" data-content="tab-content-6">Tab 6</div>
-            <div class="hx-tab hx-compliment" data-content="tab-content-7">Tab 7</div>
+            <div class="hx-tab hx-complement" data-content="tab-content-7">Tab 7</div>
             <div class="hx-tab hx-contrast" data-content="tab-content-8">Tab 8</div>
             <div class="hx-tabs-content demo-tabs-content-padded">
               <div id="tab-content-1" class="hx-tab-content" style="padding: 1em;">Stuff goes here 1</div>
@@ -326,7 +326,7 @@
           <div class="hx-pad"><div class="progress-bar hx-warning"></div></div>
           <div class="hx-pad"><div class="progress-bar hx-negative"></div></div>
           <div class="hx-pad"><div class="progress-bar hx-info"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-compliment"></div></div>
+          <div class="hx-pad"><div class="progress-bar hx-complement"></div></div>
           <div class="hx-pad"><div class="progress-bar hx-contrast"></div></div>
           <script>
             var progressNodes = hx.selectAll('.progress-bar').nodes
@@ -349,7 +349,7 @@
               classifier: function (value) {
                 return (value.length !== 'default' ? 'hx-' + value : '')
               },
-              items: ['default', 'action', 'positive', 'warning', 'negative', 'info', 'compliment', 'contrast']
+              items: ['default', 'action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
             })
           </script>
         </div>
@@ -999,8 +999,8 @@
             <button class="toggleBtnFalse hx-info">Toggle Button Off</button>
           </div>
           <div>
-            <button class="toggleBtn hx-compliment">Toggle Button</button>
-            <button class="toggleBtnFalse hx-compliment">Toggle Button Off</button>
+            <button class="toggleBtn hx-complement">Toggle Button</button>
+            <button class="toggleBtnFalse hx-complement">Toggle Button Off</button>
           </div>
           <div>
             <button class="toggleBtn hx-contrast">Toggle Button</button>
@@ -1231,7 +1231,7 @@
             <button class="modalButton hx-btn hx-warning ">Warning</button>
             <button class="modalButton hx-btn hx-negative">Negative</button>
             <button class="modalButton hx-btn hx-info">Info</button>
-            <button class="modalButton hx-btn hx-compliment">Compliment</button>
+            <button class="modalButton hx-btn hx-complement">Compliment</button>
             <button class="modalButton hx-btn hx-contrast">Contrast</button>
           </div>
           <br>
@@ -1373,7 +1373,7 @@
             <div class="hx-section palette hx-text-warning">hx-text-warning</div>
             <div class="hx-section palette hx-text-negative">hx-text-negative</div>
             <div class="hx-section palette hx-text-info">hx-text-info</div>
-            <div class="hx-section palette hx-text-compliment">hx-text-compliment</div>
+            <div class="hx-section palette hx-text-complement">hx-text-complement</div>
             <div class="hx-section palette hx-text-contrast">hx-text-contrast</div>
             <div class="hx-section palette hx-text-disabled">hx-text-disabled</div>
           </div>
@@ -1385,7 +1385,7 @@
             <div class="hx-section palette hx-background-warning">hx-background-warning</div>
             <div class="hx-section palette hx-background-negative">hx-background-negative</div>
             <div class="hx-section palette hx-background-info">hx-background-info</div>
-            <div class="hx-section palette hx-background-compliment">hx-background-compliment</div>
+            <div class="hx-section palette hx-background-complement">hx-background-complement</div>
             <div class="hx-section palette hx-background-contrast">hx-background-contrast</div>
             <div class="hx-section palette hx-background-disabled">hx-background-disabled</div>
           </div>
@@ -1397,7 +1397,7 @@
             <div class="hx-section palette palette-border hx-border-warning">hx-border-warning</div>
             <div class="hx-section palette palette-border hx-border-negative">hx-border-negative</div>
             <div class="hx-section palette palette-border hx-border-info">hx-border-info</div>
-            <div class="hx-section palette palette-border hx-border-compliment">hx-border-compliment</div>
+            <div class="hx-section palette palette-border hx-border-complement">hx-border-complement</div>
             <div class="hx-section palette palette-border hx-border-contrast">hx-border-contrast</div>
             <div class="hx-section palette palette-border hx-border-disabled">hx-border-disabled</div>
           </div>
@@ -1439,7 +1439,7 @@
             <div class="hx-notice-body">Body Content</div>
           </div>
 
-          <div class="hx-notice hx-compliment">
+          <div class="hx-notice hx-complement">
             <div class="hx-notice-header">Compliment Notice</div>
             <div class="hx-notice-body">Body Content</div>
           </div>
@@ -1556,7 +1556,7 @@
     @div .hx-pad: @div #progress-bar-3.hx-negative
     @div .hx-pad: @div #progress-bar-4.hx-warning
     @div .hx-pad: @div #progress-bar-5.hx-info
-    @div .hx-pad: @div #progress-bar-6.hx-compliment
+    @div .hx-pad: @div #progress-bar-6.hx-complement
     @div .hx-pad: @div #progress-bar-7.hx-contrast
 
     @js

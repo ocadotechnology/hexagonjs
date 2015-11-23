@@ -35,9 +35,9 @@
     @description: The base info menu color
     @default: #A36FA9
 
-  @option compliment-col
+  @option complement-col
     @type color
-    @description: The base complimentary menu color
+    @description: The base complementary menu color
     @default: #FDFDFD
 
   @option contrast-col

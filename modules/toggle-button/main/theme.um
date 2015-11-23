@@ -30,9 +30,9 @@
     @description: The base info toggle button color
     @default: #A36FA9
 
-  @option compliment-col
+  @option complement-col
     @type color
-    @description: The base complimentary toggle button color
+    @description: The base complementary toggle button color
     @default: #FDFDFD
 
   @option contrast-col

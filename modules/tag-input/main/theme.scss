@@ -30,7 +30,7 @@
   @include tag(hx-warning, $warning-col);
   @include tag(hx-negative, $negative-col);
   @include tag(hx-info, $info-col);
-  @include tag(hx-compliment, $compliment-col);
+  @include tag(hx-complement, $complement-col);
   @include tag(hx-contrast, $contrast-col);
 
   &.hx-disabled {

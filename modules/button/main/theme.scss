@@ -59,14 +59,13 @@
   @include button(hx-negative, $negative-col);
   @include button(hx-warning, $warning-col);
   @include button(hx-info, $info-col);
-  @include button(hx-compliment, $compliment-col);
+  @include button(hx-complement, $complement-col);
   @include button(hx-contrast, $contrast-col);
 
   &.hx-btn-invisible {
     color: $invisible-text-col;
     border: none;
     background: transparent;
-
 
     &:hover,
     &:active {

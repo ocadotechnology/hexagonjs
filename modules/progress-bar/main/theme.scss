@@ -24,7 +24,7 @@
   @include progress-bar-outer(hx-negative, $negative-col);
   @include progress-bar-outer(hx-warning, $warning-col);
   @include progress-bar-outer(hx-info, $info-col);
-  @include progress-bar-outer(hx-compliment, $compliment-col);
+  @include progress-bar-outer(hx-complement, $complement-col);
   @include progress-bar-outer(hx-contrast, $contrast-col);
 
   .hx-progress-bar-inner {
@@ -34,7 +34,7 @@
     @include progress-bar-inner(hx-negative, $negative-col);
     @include progress-bar-inner(hx-warning, $warning-col);
     @include progress-bar-inner(hx-info, $info-col);
-    @include progress-bar-inner(hx-compliment, $compliment-col);
+    @include progress-bar-inner(hx-complement, $complement-col);
     @include progress-bar-inner(hx-contrast, $contrast-col);
   }
 }
