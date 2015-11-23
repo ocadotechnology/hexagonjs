@@ -36,13 +36,15 @@ describe "Util", ->
     expect(hx.transpose false) .toEqual undefined
 
   it "transpose: work with strings", ->
-    expect(hx.transpose ["one", "two"]) .toEqual [['o', 't'], ['n', 'w'], ['e', 'o']]
+    expect(hx.transpose ["one", "two"])
+      .toEqual [['o', 't'], ['n', 'w'], ['e', 'o']]
 
   it "unique: work with numbers", ->
     expect(hx.unique([1, 2, 3, 1, 2, 3, 4])) .toEqual [1, 2, 3, 4]
 
   it "unique: work with strings", ->
-    expect(hx.unique(['1', '2', '3', '1', '2', '3', '4'])) .toEqual ['1', '2', '3', '4']
+    expect(hx.unique(['1', '2', '3', '1', '2', '3', '4']))
+      .toEqual ['1', '2', '3', '4']
 
   it "unique: work with booleans", ->
     expect(hx.unique([true, false, true])) .toEqual [true, false]
@@ -173,7 +175,8 @@ describe "Util", ->
     expect(hx.cycle([0, 1, 2], 0)).toEqual(0)
 
   it "hashList: should work", ->
-    expect(hx.hashList([0, 1, 2], "thing-1")).toEqual(hx.hashList([0, 1, 2], "thing-1"))
+    expect(hx.hashList([0, 1, 2], "thing-1"))
+      .toEqual(hx.hashList([0, 1, 2], "thing-1"))
     expect(hx.hashList([0, 1, 2], "thing-2")).toEqual(jasmine.any(Number))
     expect(hx.hashList([0, 1, 2], "thing-3")).toEqual(jasmine.any(Number))
     expect(hx.hashList([0, 1, 2], "thing-4")).toEqual(jasmine.any(Number))
@@ -301,10 +304,12 @@ describe "Util", ->
       expect(hx.merge({a: {b: 2, c: {d: 3}}}))
         .toEqual({a: {b: 2, c: {d: 3}}})
 
-      expect(hx.merge({a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: 'value'}}}))
+      expect(hx.merge({a: {b: 2, c: {d: 3}}},
+                      {a: {b: 'hello', c: {d: 4, e: 'value'}}}))
         .toEqual({a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
-      expect(hx.merge({a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: new A}}}))
+      expect(hx.merge({a: {b: 2, c: {d: 3}}},
+                      {a: {b: 'hello', c: {d: 4, e: new A}}}))
         .toEqual({a: {b: 'hello', c: {d: 4, e: {}}}})
 
       expect(hx.merge({a: {b: 2}}, {a: {c: 3}}))
@@ -329,10 +334,12 @@ describe "Util", ->
       expect(hx.merge.defined({a: {b: 2, c: {d: 3}}}))
         .toEqual({a: {b: 2, c: {d: 3}}})
 
-      expect(hx.merge.defined({a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: 'value'}}}))
+      expect(hx.merge.defined({a: {b: 2, c: {d: 3}}},
+                              {a: {b: 'hello', c: {d: 4, e: 'value'}}}))
         .toEqual({a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
-      expect(hx.merge.defined({a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: new A}}}))
+      expect(hx.merge.defined({a: {b: 2, c: {d: 3}}},
+                              {a: {b: 'hello', c: {d: 4, e: new A}}}))
         .toEqual({a: {b: 'hello', c: {d: 4, e: {}}}})
 
       expect(hx.merge.defined({a: {b: 2}}, {a: {c: 3}}))
@@ -351,7 +358,8 @@ describe "Util", ->
         .toEqual({a: {b: 2}})
 
     it 'should retain undefined values', ->
-      expect(hx.merge({'a': {'b': 5}}, {'a': {'b': undefined}}, {'b': 3})).toEqual({'a': {'b': undefined}, 'b': 3})
+      expect(hx.merge({'a': {'b': 5}}, {'a': {'b': undefined}}, {'b': 3}))
+        .toEqual({'a': {'b': undefined}, 'b': 3})
 
     it 'bug check - should not throw an error when null is present', ->
       expect( -> hx.merge({}, {a: null}) ).not.toThrow()
@@ -360,13 +368,16 @@ describe "Util", ->
       expect(hx.merge({a: '5'}, {a: null})).toEqual({a: null})
 
     it 'merge.defined should not retain undefined values', ->
-      expect(hx.merge.defined({'a': {'b': 5}}, {'a': {'b': undefined}}, {'b': 3})).toEqual({'a': {'b': 5}, 'b': 3})
+      expect(hx.merge.defined({'a': {'b': 5}},
+                              {'a': {'b': undefined}}, {'b': 3}))
+        .toEqual({'a': {'b': 5}, 'b': 3})
 
-    it 'shalloMerge should work', ->
+    it 'shallowMerge should work', ->
 
       expect(hx.shallowMerge({'a': 1})).toEqual({'a': 1})
       expect(hx.shallowMerge({'a': 1}, {'a': 2})).toEqual({'a': 2})
-      expect(hx.shallowMerge({'a': 1}, {'a': 2}, {'b': 3})).toEqual({'a': 2, 'b': 3})
+      expect(hx.shallowMerge({'a': 1}, {'a': 2}, {'b': 3}))
+        .toEqual({'a': 2, 'b': 3})
 
       src = {'a': 1}
       expect(hx.shallowMerge(src)).not.toBe(src)
@@ -386,8 +397,10 @@ describe "Util", ->
 
       expect(hx.shallowMerge.defined({'a': 1})).toEqual({'a': 1})
       expect(hx.shallowMerge.defined({'a': 1}, {'a': 2})).toEqual({'a': 2})
-      expect(hx.shallowMerge.defined({'a': 1}, {'a': 2}, {'b': 3})).toEqual({'a': 2, 'b': 3})
-      expect(hx.shallowMerge.defined({'a': 1}, {'a': [1, 2, 3]}, {'b': 3})).toEqual({'a': [1, 2, 3], 'b': 3})
+      expect(hx.shallowMerge.defined({'a': 1}, {'a': 2}, {'b': 3}))
+        .toEqual({'a': 2, 'b': 3})
+      expect(hx.shallowMerge.defined({'a': 1}, {'a': [1, 2, 3]}, {'b': 3}))
+        .toEqual({'a': [1, 2, 3], 'b': 3})
 
       src = {'a': 1}
       expect(hx.shallowMerge.defined(src)).not.toBe(src)
@@ -403,10 +416,12 @@ describe "Util", ->
       expect(hx.shallowMerge.defined({'a': 1, 'b': a})).toEqual({'a': 1, b: a})
 
     it 'shallowMerge: should retain undefined values', ->
-      expect(hx.shallowMerge({'a': 1}, {'a': undefined}, {'b': 3})).toEqual({'a': undefined, 'b': 3})
+      expect(hx.shallowMerge({'a': 1}, {'a': undefined}, {'b': 3}))
+        .toEqual({'a': undefined, 'b': 3})
 
     it 'shallowMerge.defined: shallow merge should ignore undefined values', ->
-      expect(hx.shallowMerge.defined({'a': 1}, {'a': undefined}, {'b': 3})).toEqual({'a': 1, 'b': 3})
+      expect(hx.shallowMerge.defined({'a': 1}, {'a': undefined}, {'b': 3}))
+        .toEqual({'a': 1, 'b': 3})
 
   it 'shallowClone should work', ->
     expect(hx.shallowClone(1)).toEqual(1)
@@ -423,6 +438,14 @@ describe "Util", ->
 
     expect(hx.shallowClone([1, 2, 3])).toEqual([1, 2, 3])
 
+    l = new hx.List [1, "a", {}]
+    s = new hx.Set [1, "a", {}]
+    m = new hx.Map [["a", 5], [6, {}]]
+
+    expect(hx.shallowClone(l).entries()).toEqual(l.entries())
+    expect(hx.shallowClone(s).entries()).toEqual(s.entries())
+    expect(hx.shallowClone(m).entries()).toEqual(m.entries())
+
   it '(deep) clone should work', ->
     expect(hx.clone(1)).toEqual(1)
     expect(hx.clone('string')).toEqual('string')
@@ -437,55 +460,16 @@ describe "Util", ->
     expect(hx.clone({a: 5, b: obj}).b).not.toBe(obj)
 
     expect(hx.clone([1, 2, 3])).toEqual([1, 2, 3])
-
-  # it 'parseHTML: should work', ->
-  #   html1 = """
-  #     <div class="outer">
-  #       <div class="inner"><span class="text">Bob</span></div>
-  #     </div>
-  #   """
-
-  #   docFrag1 = hx.parseHTML html1
-
-  #   expect(docFrag1.toString()).toEqual('[object DocumentFragment]')
-  #   expect(docFrag1.childNodes.length).toEqual(1)
-  #   expect(hx.select(docFrag1.childNodes[0]).classed('outer')).toEqual(true)
-  #   expect(hx.select(docFrag1.childNodes[0]).select('div').size()).toEqual(1)
-  #   expect(hx.select(docFrag1.childNodes[0]).select('div').node().childNodes.length).toEqual(1)
-  #   expect(hx.select(docFrag1.childNodes[0]).select('div').classed('inner')).toEqual(true)
-  #   expect(hx.select(docFrag1.childNodes[0]).select('div').select('span').size()).toEqual(1)
-  #   expect(hx.select(docFrag1.childNodes[0]).select('div').select('span').node().childNodes.length).toEqual(1)
-  #   expect(hx.select(docFrag1.childNodes[0]).select('div').select('span').classed('text')).toEqual(true)
-  #   expect(hx.select(docFrag1.childNodes[0]).select('div').select('span').node().innerHTML).toEqual('Bob')
+    l = new hx.List [1, "a", {}]
+    s = new hx.Set [1, "a", {}]
+    m = new hx.Map [["a", 5], [6, {}]]
 
 
-  #   html2 = """
-  #     <div class="outer1">
-  #       <div class="inner1">Dave</div>
-  #     </div>
-  #     <div class="outer2">
-  #       <div class="inner2">Steve</div>
-  #     </div>
-  #   """
+    expect(hx.clone(l).entries()).toEqual(l.entries())
+    expect(hx.clone(s).entries()).toEqual(s.entries())
+    expect(hx.clone(m).entries()).toEqual(m.entries())
 
-  #   docFrag2 = hx.parseHTML html2
 
-  #   expect(docFrag2.toString()).toEqual('[object DocumentFragment]')
-  #   expect(docFrag2.childNodes.length).toEqual(3)
-  #   expect(hx.select(docFrag2.childNodes[0]).classed('outer1')).toEqual(true)
-  #   expect(hx.select(docFrag2.childNodes[0]).select('div').size()).toEqual(1)
-  #   expect(hx.select(docFrag2.childNodes[0]).select('div').classed('inner1')).toEqual(true)
-  #   expect(hx.select(docFrag2.childNodes[0]).select('div').node().childNodes.length).toEqual(1)
-  #   expect(hx.select(docFrag2.childNodes[0]).select('div').node().innerHTML).toEqual('Dave')
-
-  #   expect(docFrag2.childNodes[1].nodeType).toEqual(3)
-  #   expect(/\s/.test docFrag2.childNodes[1].nodeValue).toEqual(true)
-
-  #   expect(hx.select(docFrag2.childNodes[2]).classed('outer2')).toEqual(true)
-  #   expect(hx.select(docFrag2.childNodes[2]).select('div').size()).toEqual(1)
-  #   expect(hx.select(docFrag2.childNodes[2]).select('div').classed('inner2')).toEqual(true)
-  #   expect(hx.select(docFrag2.childNodes[2]).select('div').node().childNodes.length).toEqual(1)
-  #   expect(hx.select(docFrag2.childNodes[2]).select('div').node().innerHTML).toEqual('Steve')
 
   it 'cleanNode: should remove all whitespace nodes', ->
     container = document.createElement('div')
