@@ -49,6 +49,13 @@ class Dropdown extends hx.EventEmitter
       @selection.on 'mouseover', 'hx.dropdown', => @show()
       @selection.on 'mouseout', 'hx.dropdown', => @hide()
 
+  addException: (node) ->
+    @clickDetector.addException(node)
+    this
+
+  removeException: (node) ->
+    @clickDetector.removeException(node)
+    this
 
   toggle: (cb) ->
     if @isOpen() then @hide(cb) else @show(cb)
