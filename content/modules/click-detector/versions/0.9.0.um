@@ -23,13 +23,13 @@
 
       @method addException
         @description: Adds an exception to the click detector so that the element (or any of it's children) do not fire the on click event.
-        @param element [HTMLElement]: The element to add as an exception
+        @param element [Element]: The element to add as an exception
 
       @method removeAllExceptions
-        @description: Removes all of the exceptions from the current ClickDetector
+        @description: Removes all exceptions from this ClickDetector
 
       @method cleanUp
-        @description: Deregisters the listeners that were added when the ClickDetector was created.
+        @description: Deregisters the listeners that were added when the ClickDetector was created. After calling this the click detector should not be used any more.
 
       @method on
         @description: Register a function that should be called every time an event of the given name happens.

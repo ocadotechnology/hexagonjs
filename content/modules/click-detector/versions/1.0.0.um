@@ -1,0 +1,9 @@
+@version 1.0.0
+
+  @api Click Detector
+    @prototype hx.ClickDetector
+
+      @method removeException
+        @description: Removes an exception from the click detector.
+        @param element [Element]: The element to remove as an exception
+        @returns ClickDetector: This ClickDetector

@@ -3,7 +3,7 @@
     @prototype hx.ClickDetector
       @updated: Added return values to functions to return this ClickDetector and allow chaining of methods.
       @method addException
-        @param element [HTMLElement]
+        @param element [Element]
         @returns ClickDetector: This ClickDetector
 
       @method removeAllExceptions
