@@ -230,7 +230,6 @@ hx.clone = (obj) ->
   else if obj instanceof hx.List
     new hx.List(obj.entries().map(hx.clone))
   else if obj instanceof hx.Map
-    new hx.Map obj.entries()
     new hx.Map(obj.entries().map(([k, v]) -> [hx.clone(k), hx.clone(v)]))
   else if obj instanceof hx.Set
     new hx.Set(obj.keys().map(hx.clone))
