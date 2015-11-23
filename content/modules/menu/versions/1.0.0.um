@@ -10,3 +10,12 @@
       @description: Creates a new Menu set up on a detached element, wrapped in a selection
       @param options [Object]: See the options object for constructing Menu
       @returns Selection: A selection containing an element with an Menu initialised on it
+
+  @theme
+    @option compliment-col
+      @removed: Use complement-col
+
+    @option complement-col
+      @type color
+      @description: The base complimentary menu color
+      @default #FDFDFD

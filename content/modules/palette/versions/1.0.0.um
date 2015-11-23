@@ -18,7 +18,7 @@
         <div class="hx-section example hx-text-warning">hx-text-warning</div>
         <div class="hx-section example hx-text-negative">hx-text-negative</div>
         <div class="hx-section example hx-text-info">hx-text-info</div>
-        <div class="hx-section example hx-text-compliment">hx-text-compliment</div>
+        <div class="hx-section example hx-text-complement">hx-text-complement</div>
         <div class="hx-section example hx-text-contrast">hx-text-contrast</div>
         <div class="hx-section example hx-text-disabled">hx-text-disabled</div>
       </div>
@@ -31,7 +31,7 @@
         <div class="hx-section example hx-background-warning">hx-background-warning</div>
         <div class="hx-section example hx-background-negative">hx-background-negative</div>
         <div class="hx-section example hx-background-info">hx-background-info</div>
-        <div class="hx-section example hx-background-compliment">hx-background-compliment</div>
+        <div class="hx-section example hx-background-complement">hx-background-complement</div>
         <div class="hx-section example hx-background-contrast">hx-background-contrast</div>
         <div class="hx-section example hx-background-disabled">hx-background-disabled</div>
       </div>
@@ -44,12 +44,30 @@
         <div class="hx-section example example-border hx-border-warning">hx-border-warning</div>
         <div class="hx-section example example-border hx-border-negative">hx-border-negative</div>
         <div class="hx-section example example-border hx-border-info">hx-border-info</div>
-        <div class="hx-section example example-border hx-border-compliment">hx-border-compliment</div>
+        <div class="hx-section example example-border hx-border-complement">hx-border-complement</div>
         <div class="hx-section example example-border hx-border-contrast">hx-border-contrast</div>
         <div class="hx-section example example-border hx-border-disabled">hx-border-disabled</div>
       </div>
 
   @api Palette
+
+    @class hx-text-compliment
+      @removed: Use hx-text-complement instead
+
+    @class hx-text-complement
+      @description: Applies the complement color to the text in the element.
+
+    @class hx-background-compliment
+      @removed: Use hx-background-complement instead
+
+    @class hx-background-complement
+      @description: Applies the complementary color to the background of the element. The text color will also be set so that it works well with the background color.
+
+    @object hx.theme.palette
+      @property complimentCol [String]
+        @removed: Use hx.theme.palette.complementCol instead
+      @property complementCol [String] The complementary color used by the current theme
+
 
     @class hx-text-action
       @description: Applies the action color to the text in the element.
@@ -85,7 +103,7 @@
             hx.palette.context('.my-element', 'negative')
             hx.palette.context('.my-element', 'info')
             hx.palette.context('.my-element', 'action')
-            hx.palette.context('.my-element', 'compliment')
+            hx.palette.context('.my-element', 'complement')
             hx.palette.context('.my-element', 'contrast')
 
     @function hx.palette.context
@@ -108,7 +126,7 @@
             @item: @bold['negative'] - the element has the 'hx-negatibe' class
             @item: @bold['info'] - the element has the 'hx-info' class
             @item: @bold['action'] - the element has the 'hx-action' class
-            @item: @bold['compliment'] - the element has the 'hx-compliment' class
+            @item: @bold['complement'] - the element has the 'hx-complement' class
             @item: @bold['contrast'] - the element has the 'hx-positive' class
 
     @function hx.palette.textContext
@@ -132,7 +150,7 @@
             hx.palette.textContext('.my-element', 'negative')
             hx.palette.textContext('.my-element', 'info')
             hx.palette.textContext('.my-element', 'action')
-            hx.palette.textContext('.my-element', 'compliment')
+            hx.palette.textContext('.my-element', 'complement')
             hx.palette.textContext('.my-element', 'contrast')
 
     @function hx.palette.textContext
@@ -156,7 +174,7 @@
             @item: @bold['negative'] - the element has the 'hx-text-negatibe' class
             @item: @bold['info'] - the element has the 'hx-text-info' class
             @item: @bold['action'] - the element has the 'hx-text-action' class
-            @item: @bold['compliment'] - the element has the 'hx-text-compliment' class
+            @item: @bold['complement'] - the element has the 'hx-text-complement' class
             @item: @bold['contrast'] - the element has the 'hx-text-positive' class
 
     @function hx.palette.backgroundContext
@@ -180,7 +198,7 @@
             hx.palette.backgroundContext('.my-element', 'negative')
             hx.palette.backgroundContext('.my-element', 'info')
             hx.palette.backgroundContext('.my-element', 'action')
-            hx.palette.backgroundContext('.my-element', 'compliment')
+            hx.palette.backgroundContext('.my-element', 'complement')
             hx.palette.backgroundContext('.my-element', 'contrast')
 
     @function hx.palette.backgroundContext
@@ -204,7 +222,7 @@
             @item: @bold['negative'] - the element has the 'hx-background-negatibe' class
             @item: @bold['info'] - the element has the 'hx-background-info' class
             @item: @bold['action'] - the element has the 'hx-background-action' class
-            @item: @bold['compliment'] - the element has the 'hx-background-compliment' class
+            @item: @bold['complement'] - the element has the 'hx-background-complement' class
             @item: @bold['contrast'] - the element has the 'hx-background-positive' class
 
   @theme
@@ -218,4 +236,13 @@
       @type color
       @description: The action color
       @default #6582A6
+      @includeWithJs true
+
+    @option compliment-col
+      @remove: Use complement-col instead
+
+    @option complement-col
+      @type color
+      @description: The complement color
+      @default #FDFDFD
       @includeWithJs true

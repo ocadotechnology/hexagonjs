@@ -5,3 +5,10 @@
       @description: Creates a new Paginator set up on a detached element, wrapped in a selection
       @param options [Object]: See the options object for constructing Paginator
       @returns Selection: A selection containing an element with an Paginator initialised on it
+
+  @theme
+    @option default-button
+      @description: The button class to give the number buttons
+      @type string
+      @default hx-complement
+      @includeWithJs true

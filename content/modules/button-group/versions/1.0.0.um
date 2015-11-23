@@ -5,3 +5,10 @@
       @description: Creates a new ButtonGroup set up on a detached element, wrapped in a selection
       @param options [Object]: See the options object for constructing ButtonGroup
       @returns Selection: A selection containing an element with an ButtonGroup initialised on it
+
+    @prototype hx.ButtonGroup
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property buttonClass [String]
+            @default 'hx-complement'

@@ -58,3 +58,21 @@
         @description: Styles the notice with action colors
         @added: Added new action context class and updated default styles.
           @issue 652
+
+  @theme
+
+    @option compliment-col
+      @removed: Use complement-col
+
+    @option complement-col
+      @type color
+      @description: The base complement notice header color
+      @default #FDFDFD
+
+    @option compliment-body-col
+      @removed: Use complement-body-col instead
+
+    @option complement-body-col
+      @type color
+      @description: The base complement notice body color
+      @default rgba(255,255,255,0)

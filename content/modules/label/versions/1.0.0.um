@@ -5,3 +5,12 @@
         @description: Styles the label with action colors
         @added: Added new action context class and updated default styles.
           @issue 652
+
+  @theme
+    @option compliment-col
+      @removed: Use complement-col instead
+
+    @option complement-col
+      @type color
+      @description: The base compliment label color
+      @default #FDFDFD
