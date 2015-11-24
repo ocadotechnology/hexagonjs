@@ -72,7 +72,9 @@ exports.scss = function (src) {
 
 function convertSpinalToCamel (value) {
   if (value) {
-    var pascalCase = value.split('-').map(function (d) {return d[0].toUpperCase() + d.slice(1)}).join('')
+    var pascalCase = value.split('-').map(function (d) {
+      return d[0].toUpperCase() + d.slice(1)
+    }).join('')
     return pascalCase[0].toLowerCase() + pascalCase.slice(1)
   }
 }

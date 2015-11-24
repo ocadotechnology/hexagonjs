@@ -62,7 +62,8 @@ hx.clampUnit = (value) -> hx.clamp(0, 1, value)
 hx.randomId = (size=16, alphabet='ABCEDEF0123456789') ->
   chars = alphabet.split('')
   alphabetSize = chars.length
-  (chars[Math.floor(Math.random()*alphabetSize)] for _ in [0...size] by 1).join('')
+  v = (chars[Math.floor(Math.random() * alphabetSize)] for _ in [0...size] by 1)
+  v.join('')
 
 hx.min = (values) -> Math.min.apply(null, values?.filter(hx.defined))
 
@@ -133,7 +134,8 @@ hx.isFunction = (x) -> typeof x == "function"
 hx.isArray = (x) -> x instanceof Array
 
 # returns true if the thing passed in is an object, except for arrays
-# which technically are objects, but in the eyes of this function are not objects
+# which technically are objects, but in the eyes of this function are not
+# objects
 hx.isObject = (obj) -> typeof obj is 'object' and not hx.isArray(obj)
 
 hx.isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
@@ -161,7 +163,8 @@ hx.groupBy = (arr, f) ->
 
 hx.unique = (list) -> new hx.Set(list).values()
 
-hx.endsWith  = (string, suffix) -> string.indexOf(suffix, string.length - suffix.length) != -1
+hx.endsWith  = (string, suffix) ->
+  string.indexOf(suffix, string.length - suffix.length) != -1
 
 hx.startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
 
@@ -224,7 +227,16 @@ hx.clone = (obj) ->
     obj.map(hx.clone)
   else if hx.isPlainObject(obj)
     hx.merge({}, obj)
+  else if obj instanceof hx.List
+    new hx.List(obj.entries().map(hx.clone))
+  else if obj instanceof hx.Map
+    new hx.Map(obj.entries().map(([k, v]) -> [hx.clone(k), hx.clone(v)]))
+  else if obj instanceof hx.Set
+    new hx.Set(obj.keys().map(hx.clone))
   else if hx.isObject(obj) and obj isnt null
+    hx.consoleWarning("Trying to clone #{obj} with constructor
+                       #{obj?.constructor?.name},
+                       it isn't really cloneable! Carrying on anyway.")
     {}
   else obj
 
@@ -233,7 +245,16 @@ hx.shallowClone = (obj) ->
     obj.slice()
   else if hx.isPlainObject(obj)
     hx.shallowMerge({}, obj)
+  else if obj instanceof hx.List
+    new hx.List obj.entries()
+  else if obj instanceof hx.Map
+    new hx.Map obj.entries()
+  else if obj instanceof hx.Set
+    new hx.Set obj.keys()
   else if hx.isObject(obj) and obj isnt null
+    hx.consoleWarning("Trying to shallow clone #{obj} with constructor
+                       #{obj?.constructor?.name},
+                       it isn't really cloneable! Carrying on anyway.")
     {}
   else obj
 
@@ -242,14 +263,20 @@ vendorPrefixes = ["webkit", "ms", "moz", "Moz", "o", "O"]
 hx.vendor = (obj, prop) ->
   if prop of obj then return obj[prop]
   for p in vendorPrefixes
-    if (prefixedProp = p + prop.charAt(0) + prop.slice(1)) of obj then return obj[prefixedProp]
+    if (prefixedProp = p + prop.charAt(0) + prop.slice(1)) of obj
+      return obj[prefixedProp]
 
 hx.identity = (d) -> d
 
 hx_parseHTML = null
 hx.parseHTML = (html) ->
   if not hx_parseHTML
-    ### istanbul ignore next: phantom/safari dont support create contextual fragment so use a slower method. ###
+    ###
+    istanbul ignore next:
+    phantom/safari dont support create contextual fragment so use a slower
+    method.
+    ###
+    
     # This try/catch is only run once, the first time hx.parseHTML is called.
     # Subsequent calls use the cached hx_parseHTML function
     try
