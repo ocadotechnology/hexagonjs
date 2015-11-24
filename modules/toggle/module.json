@@ -1,5 +1,8 @@
 {
   "dependencies": [
+    "component",
+    "selection",
+    "util"
   ],
   "keywords": [
     "toggle"
