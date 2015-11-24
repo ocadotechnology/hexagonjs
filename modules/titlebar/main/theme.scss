@@ -64,12 +64,8 @@ body.hx-titlebar-link-padding {
   background: $icon-background-col;
 
   img {
-    top: $icon-vertical-offset;
+    max-height: $titlebar-height;
   }
-}
-
-.hx-titlebar-icon img, .hx-titlebar-icon img:after {
-  content: $icon;
 }
 
 .hx-titlebar-menu-icon-mobile {

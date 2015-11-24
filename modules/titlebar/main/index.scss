@@ -132,12 +132,11 @@ body.hx-full-screen {
 }
 
 .hx-titlebar-icon {
-  height: 46px;
-  padding-left: 0.4em;
-  padding-right: 0.4em;
+  line-height: 0;
+  vertical-align: middle;
 
   img {
-    position: relative;
+    vertical-align: middle;
   }
 }
 

@@ -1,0 +1,5 @@
+img.hx-logo {
+  &, &:after {
+    content: $logo;
+  }
+}
