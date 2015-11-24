@@ -170,7 +170,7 @@ function buildPages () {
     return Promise.all([getTemplateVariables(), getOptions()]).spread(function (templateVariables, options) {
       return progressSequence('Building pages', chalk.green('='), objs, function (obj) {
         return Promise.resolve(obj)
-          .then(template({variables: options.templateVariables}))
+          .then(template({variables: templateVariables}))
           .then(changelog(options.changelogOptions))
           .then(version(options.versionOptions))
           .then(function (res) { return Array.isArray(res) ? res : [res] })
