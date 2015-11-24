@@ -170,7 +170,7 @@ button.button:focus, button.button:active {
 }
 
 .docs-titlebar-logo.docs-visible {
-  width: 36px;
+  width: 30px;
   pointer-events: auto;
 }
 

@@ -8,17 +8,17 @@
 
 @define titlebar
   @if ps
-    @title {{ps}} | HexagonJS
+    @title {{ps}} | Hexagon.js
   @ifnot ps
-    @title HexagonJS
+    @title Hexagon.js
 
   @bodyClass dx-titlebar-fixed
 
   @div .dx-heading
     @div .dx-titlebar
       @div .dx-titlebar-container
-        @div .docs-titlebar-header
-          @a .docs-titlebar-logo.docs-visible
+        @div .dx-titlebar-header.docs-titlebar-header
+          @a .dx-titlebar-icon.docs-titlebar-logo.docs-visible
             @img .docs-logo
               @attr src: /resources/logo-mono-v1.svg
           @div .docs-search
