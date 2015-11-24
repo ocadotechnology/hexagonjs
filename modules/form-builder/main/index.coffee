@@ -276,8 +276,9 @@ class Form extends hx.EventEmitter
   addTagInput: (name, options = {}) ->
     self = this
     @add name, 'tagInput', 'div', ->
-      new hx.TagInput(@node(), options.tagInputOptions)
-      {key: options.key}
+      elem = @append('div').node()
+      new hx.TagInput(elem, options.tagInputOptions)
+      {key: options.key, componentNode: elem}
     this
 
   submit: ->
