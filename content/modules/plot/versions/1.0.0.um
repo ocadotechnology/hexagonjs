@@ -11,3 +11,41 @@
       @description: Creates a new Sparkline set up on a detached element, wrapped in a selection
       @param options [Object]: See the options object for constructing Sparkline
       @returns Selection: A selection containing an element with an Sparkline initialised on it
+
+    @prototype hx.Sparkline
+      @constructor
+        @description
+        @param selector [HTMLElement/String]
+        @param? options [Object]
+          @property labelRenderer [Function]: The label renderer for this series.
+            @param element [HTMLElement]: The container populated
+            @param data [Object]: The data provided for rendering the label
+          @property data [Object]:  An array of {x, y} objects.
+
+      @method labelRenderer
+        @description: Gets the label renderer for this sparkline
+        @returns Function: The label renderer for this sparkline.
+          @param element [HTMLElement]: The container populated
+          @param data [Object]: The data provided for rendering the label
+
+      @method labelRenderer
+        @description: Sets the label renderer for this sparkline
+        @param labelRenderer [Function]: The label renderer for for this sparkline.
+          @param element [HTMLElement]: The container populated
+          @param data [Object]: The data provided for rendering the label
+        @returns Sparkline: This Sparkline
+
+      @method data
+        @returns [Array[Object]]: The currently set data
+        @returns [Array[Number]]
+          @removed: Now returns an array of objects
+
+      @method data
+        @removed: The data should now be supplied as an array of {x, y} objects
+        @param value [Array[Object]]: An array of {x, y} objects.
+        @returns Sparkline: This Sparkline
+
+      @method data
+        @description: Sets the data
+        @param value [Array[Object]]: An array of {x, y} objects.
+        @returns Sparkline: This Sparkline
