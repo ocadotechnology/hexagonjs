@@ -1,8 +1,6 @@
 
 class Sparkline
 
-
-
   constructor: (selector, options) ->
     opts = hx.merge.defined({
       strokeColor: hx.theme.plot.colors[0],
