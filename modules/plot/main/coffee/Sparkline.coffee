@@ -41,13 +41,13 @@ class Sparkline
   data: optionSetterGetter('data')
   fillColor: optionSetterGetter('fillColor')
   strokeColor: optionSetterGetter('strokeColor')
+  labelRenderer: optionSetterGetter('labelRenderer')
 
   render: ->
     self = this
     @_.series.data(@data().map((d, i) -> {x: i, y: d}))
+    @_.series.fillColor(@fillColor())
+    @_.series.labelRenderer(@labelRenderer())
     if @_.options.type is 'line'
       @_.series.strokeColor(@strokeColor())
-      @_.series.fillColor(@fillColor())
-    else
-      @_.series.fillColor(@fillColor())
     @_.graph.render()
