@@ -183,8 +183,10 @@ class Graph extends hx.EventEmitter
       axis
 
   render: ->
-    @width = Number(@svgTarget.width())
-    @height = Number(@svgTarget.height())
+
+    selection = hx.select(@selector)
+    @width = Number(selection.width())
+    @height = Number(selection.height())
 
     if @width <= 0 or @height <= 0 then return
 

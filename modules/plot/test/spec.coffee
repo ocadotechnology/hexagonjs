@@ -209,6 +209,16 @@ describe "plot", ->
       checkOptionAndSetterGetter(hx.BarSeries, 'fillColor', ['rgba(1, 2, 3, 0.5)', 'red', undefined])
       checkOptionAndSetterGetter(hx.BarSeries, 'group', ['group1', 'group2'])
 
+    describe "render", ->
+      it 'should display when the height is positive', ->
+        selection = hx.detached('div').style('height', '400px')
+        hx.select('body').add(selection)
+        graph = new hx.Graph(selection.node())
+        axis = graph.addAxis('linear', 'linear')
+        a1 = axis.addSeries()
+        graph.render()
+        selection.selectAll('.hx-series').size().should.equal(2)
+        selection.remove()
 
   describe "hx.PieChart", ->
 
