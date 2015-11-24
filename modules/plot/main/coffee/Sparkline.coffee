@@ -4,7 +4,8 @@ class Sparkline
     opts = hx.merge.defined({
       strokeColor: hx.theme.plot.colors[0],
       data: [],
-      type: 'line'
+      type: 'line',
+      labelRenderer: hx.plot.label.basic
     }, options)
 
     hx.components.clear(selector)
@@ -28,7 +29,7 @@ class Sparkline
     })
     series =  axis.addSeries(opts.type, {
       fillEnabled: true
-      labelRenderer: hx.plot.label.basic
+      labelRenderer: options.labelRenderer
     })
 
     @_ = {
