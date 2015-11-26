@@ -1,6 +1,7 @@
 div = (clasz) -> hx.detached('div').class(clasz)
 span = (clasz) -> hx.detached('span').class(clasz)
 
+#XXX: use the palette context functions instead
 classContext = (selection, context) -> if context then selection.classed('hx-' + context, true) else selection
 textContext = (selection, context) -> if context then selection.classed('hx-text-' + context, true) else selection
 backgroundContext = (selection, context) -> if context then selection.classed('hx-background-' + context, true) else selection
@@ -181,9 +182,7 @@ hx.card.icon.action.section = (options) ->
 # Complete cards
 
 hx.card.notice = (options = {}) ->
-  card = hx.card().classed('hx-card-small', true)
+  hx.card().classed('hx-card-small', true)
     .add(hx.card.header.section({sectionContext: options.context or 'info'})
-      .add(hx.card.title({titleText: 'Note'})))
+      .add(hx.card.title({titleText: options.title or 'Note'})))
     .add(hx.card.section().add(hx.card.text({text: options.message})))
-    .add(hx.card.action.section({text: 'Ok. Got it.', icon: 'fa fa-check'}).on('click', -> card.remove() ))
-  card
