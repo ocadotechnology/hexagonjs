@@ -34,5 +34,9 @@ module.exports = builder.assets({
   'hexagon-icons.svg': {
     filepath: path.join(assetDir, 'hexagon-icons.svg'),
     allowEmbed: true
+  },
+  'logo.svg': {
+    filepath: path.join(assetDir, 'hexagon-logo.svg'),
+    allowEmbed: true
   }
 })
