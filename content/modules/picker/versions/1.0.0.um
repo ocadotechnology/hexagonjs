@@ -10,6 +10,9 @@
           @property startValue [String]: The value to use when initialising the select.
             @removed: Use @code(js)[value] instead.
             @issue 757
+          @property ddClass [String]
+            @removed
+              Use @code[dropdownOptions.ddClass] instead.
           @property value [String]: The value to use when initialising the select.
             @added: @issue 757
 

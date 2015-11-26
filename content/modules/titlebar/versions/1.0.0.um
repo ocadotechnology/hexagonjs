@@ -31,6 +31,10 @@
       })
 
   @api Titlebar
+    @class hx-titlebar-fixed
+      @removed: Use hx-heading-fixed instead.
+
+
     @class hx-heading
       @childclass hx-titlebar
         @childclass hx-titlebar-container

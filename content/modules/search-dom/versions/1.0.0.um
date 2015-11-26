@@ -1,0 +1,23 @@
+@version 1.0.0
+  @description: This module was removed in version 1.0.0.
+
+  @examples
+
+  @api Search Dom
+    @removed: This module was removed in this version
+
+    @function hx.searchDOM
+      @param selector [String/HTMLElement]
+      @param term [String]
+      @param? callback [Function]
+        @param count [Number]
+      @param? options [Object]
+        @property minLength [Number]
+        @property elemMatch [Function]
+          @param elem [HTMLElement]
+          @param match [Boolean]
+      @removed
+
+    @function hx.clearSearch
+      @param? selector [String/HTMLElement]
+      @removed

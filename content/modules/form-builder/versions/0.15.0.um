@@ -27,5 +27,5 @@
         @param name [String]
         @param values [Array[Object]]
         @param? options [Object]
-        @deprecated: Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.
+        @removed: Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.
 
