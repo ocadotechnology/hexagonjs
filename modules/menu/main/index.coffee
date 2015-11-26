@@ -196,19 +196,6 @@ class Menu extends hx.EventEmitter
   constructor: (@selector, options = {}) ->
     super
 
-    if options.align? or options.mode? or options.ddClass?
-      hx.deprecatedWarning 'Setting the dropdown options using options.align, options.mode and options.ddClass in the hx.Menu constructor has been deprecated',
-        'Use options.dropdownOptions to specify the dropdown options for the menu.'
-
-      options.dropdownOptions = {
-        align: options.align
-        mode: options.mode
-        ddClass: options.ddClass
-      }
-      delete options.align
-      delete options.mode
-      delete options.ddClass
-
     @options = hx.merge.defined {
       dropdownOptions: {
         align: undefined

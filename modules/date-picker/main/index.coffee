@@ -728,13 +728,6 @@ class DatePicker extends hx.EventEmitter
     setupInput this
     if _.disable then @disabled(_.disabled)
 
-  disable: ->
-    hx.deprecatedWarning 'hx.DatePicker.disable()', 'Use disabled(true) instead.'
-    @disabled true
-
-  enable: ->
-    hx.deprecatedWarning 'hx.DatePicker.enable()', 'Use disabled(false) instead.'
-    @disabled false
 
   disabled: (disable) ->
     _ = @_

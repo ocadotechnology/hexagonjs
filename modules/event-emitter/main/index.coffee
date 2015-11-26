@@ -103,10 +103,10 @@ class EventEmitter
   # register a callback against the name given
   on: (name, namespace, callback) ->
 
-    # XXX: Deprecated event check
-    if (dep = @deprecatedEvents?[name])?
-      deprecatedEventWarning(dep.module, name, dep.event)
-      name = dep.event
+    # XXX: Deprecated event check - This is useful to have if we need to deprecated events in the future
+    # if (dep = @deprecatedEvents?[name])?
+    #   deprecatedEventWarning(dep.module, name, dep.event)
+    #   name = dep.event
 
     if namespace is 'default'
       hx.consoleWarning('"default" is a reserved namespace. It can not be used as a namespace name.')
@@ -143,10 +143,10 @@ class EventEmitter
 
 hx.EventEmitter = EventEmitter
 
-deprecatedEventWarning = (module, deprecatedEvent, newEvent) ->
-  message = if deprecatedEvent is newEvent
-    'Check the docs for alternatives.'
-  else
-    'Use ' + newEvent + ' instead.'
+# deprecatedEventWarning = (module, deprecatedEvent, newEvent) ->
+#   message = if deprecatedEvent is newEvent
+#     'Check the docs for alternatives.'
+#   else
+#     'Use ' + newEvent + ' instead.'
 
-  hx.deprecatedWarning module + ': ' + deprecatedEvent, message
+#   hx.deprecatedWarning module + ': ' + deprecatedEvent, message

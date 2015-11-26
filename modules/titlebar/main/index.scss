@@ -13,7 +13,6 @@ body.hx-full-screen {
 }
 
 // to fix the titlebar at the top of the screen (so it is always visible) when the content can be scrolled
-body.hx-titlebar-fixed,
 body.hx-heading-fixed,
 body.hx-full-screen {
   &:before {
