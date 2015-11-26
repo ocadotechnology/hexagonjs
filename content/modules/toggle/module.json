@@ -1,8 +1,7 @@
 {
-  "id": "pivot-table",
+  "id": "toggle",
   "category": "component",
   "keywords": [
-    "pivot",
-    "table"
+    "toggle"
   ]
 }

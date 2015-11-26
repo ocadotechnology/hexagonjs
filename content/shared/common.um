@@ -12,7 +12,7 @@
   @ifnot ps
     @title Hexagon.js
 
-  @bodyClass dx-titlebar-fixed
+  @bodyClass dx-heading-fixed
 
   @div .dx-heading
     @div .dx-titlebar

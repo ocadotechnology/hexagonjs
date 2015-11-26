@@ -218,14 +218,14 @@
       tabs.select(0, true);
 
   @div .hx-section.example
-    @h3: Toggle Button
+    @h3: Toggle
     @html
-      <button id="toggle1" class="hx-btn">Toggle Button</button>
-      <button id="toggle2" class="hx-btn hx-positive">Toggle Button</button>
-    @js
-      var toggle1 = new hx.ToggleButton('#toggle1')
-      var toggle2 = new hx.ToggleButton('#toggle2', {value: false})
+      <div id="toggle1"></div>
+      <button id="toggle2" class="hx-btn">Toggle Button</button>
 
+    @js
+      new hx.Toggle("#toggle1")
+      new hx.Toggle("#toggle2")
 
   @div .hx-section.example
     @h3: Typography

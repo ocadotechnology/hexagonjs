@@ -4,6 +4,9 @@
       @bugfix: Updated the compact sort picker to use the @code[headerCellRenderer] for each column
         @issue 754
 
+      @bugfix: Updated the styles to make the compact mode more compact
+        @issue 750
+
       @method suppressRender
         @removed
           @issue 715

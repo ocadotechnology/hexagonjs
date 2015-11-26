@@ -150,7 +150,6 @@
 
       @method zoomRangeEnd
         @description: Gets the end of the zoomed region - specified on the 0 to 1 scale where 0 is the left-most value on the x axis, and 1 means the right-most value of the x axis (setting it to 1 will always result in the graph showing nothing).
-        @description: Gets the value of the zoomRangeEnd value.
         @returns Number
 
       @method zoomEnabled
