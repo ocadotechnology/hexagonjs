@@ -14,7 +14,7 @@
     <div class="hx-titlebar">
       <div class="hx-titlebar-container">
         <div class="hx-titlebar-header">
-          <a class="hx-titlebar-icon" href="/"><img /></a>
+          <a class="hx-titlebar-icon" href="/"><img class="hx-logo"/></a>
           <div class="hx-titlebar-title">HexagonJS</div>
           <div class="hx-titlebar-subtitle"></div>
         </div>
@@ -378,7 +378,7 @@
             <div class="hx-titlebar">
               <div class="hx-titlebar-container">
                 <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img></img></a>
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
                   <div class="hx-titlebar-title">Title</div>
                   <div class="hx-titlebar-subtitle">Subtitle</div>
                   <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
@@ -412,7 +412,7 @@
             <div class="hx-titlebar hx-action">
               <div class="hx-titlebar-container">
                 <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img></img></a>
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
                   <div class="hx-titlebar-title">Title</div>
                   <div class="hx-titlebar-subtitle">Subtitle</div>
                   <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
@@ -445,7 +445,7 @@
             <div class="hx-titlebar hx-positive">
               <div class="hx-titlebar-container">
                 <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img></img></a>
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
                   <div class="hx-titlebar-title">Title</div>
                   <div class="hx-titlebar-subtitle">Subtitle</div>
                   <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
@@ -478,7 +478,7 @@
             <div class="hx-titlebar hx-warning">
               <div class="hx-titlebar-container">
                 <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img></img></a>
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
                   <div class="hx-titlebar-title">Title</div>
                   <div class="hx-titlebar-subtitle">Subtitle</div>
                   <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
@@ -511,7 +511,7 @@
             <div class="hx-titlebar hx-negative">
               <div class="hx-titlebar-container">
                 <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img></img></a>
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
                   <div class="hx-titlebar-title">Title</div>
                   <div class="hx-titlebar-subtitle">Subtitle</div>
                   <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
@@ -544,7 +544,7 @@
             <div class="hx-titlebar hx-info">
               <div class="hx-titlebar-container">
                 <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img></img></a>
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
                   <div class="hx-titlebar-title">Title</div>
                   <div class="hx-titlebar-subtitle">Subtitle</div>
                   <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
@@ -928,7 +928,7 @@
               <div class="hx-titlebar">
                 <div class="hx-titlebar-container">
                   <div class="hx-titlebar-header example-titlebar">
-                    <a class="hx-titlebar-icon" href="#"><img></img></a>
+                    <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
                     <div class="hx-titlebar-title">Title</div>
                     <div class="hx-titlebar-subtitle">Subtitle</div>
                   </div>
@@ -975,43 +975,15 @@
         <div class="example">
           <h3>Toggle Button</h3>
           <div>
-            <button class="toggleBtn">Toggle Button</button>
-            <button class="toggleBtnFalse">Toggle Button Off</button>
-          </div>
-          <div>
-            <button class="toggleBtn hx-action">Toggle Button</button>
-            <button class="toggleBtnFalse hx-action">Toggle Button Off</button>
-          </div>
-          <div>
-            <button class="toggleBtn hx-positive">Toggle Button</button>
-            <button class="toggleBtnFalse hx-positive">Toggle Button Off</button>
-          </div>
-          <div>
-            <button class="toggleBtn hx-warning">Toggle Button</button>
-            <button class="toggleBtnFalse hx-warning">Toggle Button Off</button>
-          </div>
-          <div>
-            <button class="toggleBtn hx-negative">Toggle Button</button>
-            <button class="toggleBtnFalse hx-negative">Toggle Button Off</button>
-          </div>
-          <div>
-            <button class="toggleBtn hx-info">Toggle Button</button>
-            <button class="toggleBtnFalse hx-info">Toggle Button Off</button>
-          </div>
-          <div>
-            <button class="toggleBtn hx-complement">Toggle Button</button>
-            <button class="toggleBtnFalse hx-complement">Toggle Button Off</button>
-          </div>
-          <div>
-            <button class="toggleBtn hx-contrast">Toggle Button</button>
-            <button class="toggleBtnFalse hx-contrast">Toggle Button Off</button>
+            <span class="toggleBtn"></span>
+            <span class="toggleBtnFalse"></span>
           </div>
           <script>
             hx.selectAll('.toggleBtn').nodes.forEach(function (node) {
-              new hx.ToggleButton(node)
+              new hx.Toggle(node, {value: true})
             })
             hx.selectAll('.toggleBtnFalse').nodes.forEach(function (node) {
-              new hx.ToggleButton(node, {value: false})
+              new hx.Toggle(node, {value: false})
             })
           </script>
         </div>
@@ -1615,8 +1587,8 @@
       <button id="toggle1" class="hx-btn">Toggle Button</button>
       <button id="toggle2" class="hx-btn hx-positive">Toggle Button</button>
     @js
-      var toggle1 = new hx.ToggleButton('#toggle1')
-      var toggle2 = new hx.ToggleButton('#toggle2', {value: false})
+      var toggle1 = new hx.Toggle('#toggle1')
+      var toggle2 = new hx.Toggle('#toggle2', {value: false})
 
 
   @div .hx-section.example
