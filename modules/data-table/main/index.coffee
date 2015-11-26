@@ -76,16 +76,8 @@ class DataTable extends hx.EventEmitter
       .classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled)
     sortDiv.append('span').text('Sort By: ')
     sortColPicker = new hx.Picker(sortDiv.append('button').class('hx-btn hx-btn-invisible').node())
-    sortDirPicker = new hx.ButtonGroup(sortDiv.append('div').node(), {items: ['asc', 'desc']})
-
-    sortColPicker.on 'change', (d) =>
-      if d.cause is 'user'
-        sortDirPicker.value('asc')
-        @sort({column: sortColPicker.value().value, direction: if sortColPicker.value().value? then sortDirPicker.value().toLowerCase() else undefined})
-
-    sortDirPicker.on 'change', (d) =>
-      if d.cause is 'user'
-        @sort({column: sortColPicker.value().value, direction: d.value})
+    sortColPicker.on 'change', 'hx.data-table', (d) =>
+      if d.cause is 'user' then @sort({column: sortColPicker.value().column, direction: sortColPicker.value().direction})
 
     # spacer to push other content to the right hand side of the footer
     footer.append('div').class('hx-data-table-footer-spacer')
@@ -135,7 +127,6 @@ class DataTable extends hx.EventEmitter
       pagePicker: pagePicker
       pageSizePicker: pageSizePicker
       sortColPicker: sortColPicker
-      sortDirPicker: sortDirPicker
       selectedRows: new hx.Set   # holds the ids of the selected rows
       expandedRows: new hx.Set
       renderedCollapsibles: {}
@@ -363,25 +354,29 @@ class DataTable extends hx.EventEmitter
             currentSort = (@sort() or {})
 
             # filter out columns that are not sortable so they don't show in the list for compact mode
-            sortColumns = headers
-              .map((header) -> if getColumnOption('sortEnabled', header.id) then {text: header.name, value: header.id, cell: header})
-              .filter(hx.defined)
+            sortColumns = hx.flatten(headers
+              .map((header) -> if getColumnOption('sortEnabled', header.id)
+                [
+                  {text: header.name, value: header.id + 'asc', column: header.id, direction: 'asc', cell: header}
+                  {text: header.name, value: header.id + 'desc', column: header.id, direction: 'desc',  cell: header}
+                ])
+              .filter(hx.defined))
+
 
             # set the values for the compact sort control
             @_.sortColPicker
               .renderer((element, option) ->
                 if option.value
                   getColumnOption('headerCellRenderer', option.cell.id)(element, option.cell, headers)
+                  hx.select(element).append('i')
+                    .class('hx-data-table-compact-sort-arrow hx-icon hx-icon-chevron-' + (if option.direction is 'asc' then 'up' else 'down'))
                 else
                   hx.select(element).text(option.text)
               )
               .items([{text: 'No Sort', value: undefined}].concat sortColumns)
-              .value(currentSort.column)
 
-            @_.sortDirPicker.value(currentSort.direction)
-
-            selection.select('.hx-data-table-sort-control .hx-input-group')
-              .selectAll('.hx-btn').attr('disabled', if @_.sortColPicker.value().value then undefined else true)
+            if currentSort.column and @_.sortColPicker.value().value isnt (currentSort.column + currentSort.direction)
+              @_.sortColPicker.value({value: currentSort.column + currentSort.direction})
 
           # populate the page size picker if there are options set
           if filteredCount isnt undefined and filteredCount > 0
