@@ -25,8 +25,8 @@ class ScatterSeries extends Series
         @class('hx-series-data hx-series-scatter ' + self.class())
         .attr('cx', d.x)
         .attr('cy', d.y)
-        .attr('r', Math.max(d.radius or self.radius(), 0)) # DEPRECATED: d.size
-        .style('fill', d.fillColor or self.fillColor()) # DEPRECATED: d.color
+        .attr('r', Math.max(d.radius or self.radius(), 0))
+        .style('fill', d.fillColor or self.fillColor())
       .apply(scale(filter(@data()), @axis))
 
   getLabelDetails: (x, y) ->

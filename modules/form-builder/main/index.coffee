@@ -82,55 +82,6 @@ class Form extends hx.EventEmitter
     options.type = "password"
     @addText(name, options)
 
-  addSelect: (name, values, options = {}) ->
-    hx.deprecatedWarning('Form.addSelect', 'use Form.addPicker instead')
-    @add name, 'select', 'div', ->
-      c = 'hx-btn'
-
-      elem = @append('button')
-
-      if options.disabled then elem.attr('disabled', '')
-      else
-        if options.buttonClass?
-          c += ' ' + options.buttonClass
-
-      selectOptions = hx.merge({}, options.selectOptions)
-
-      if values.length > 0
-        selectOptions.items = values
-
-      select = new hx.Select(elem.node(), selectOptions)
-
-      # Prevent the button submitting the form - must be done after the select
-      # is initialised
-      elem.classed(c, true).on 'click', 'hx.form-builder', (e) -> e.preventDefault()
-
-      if typeof options.required isnt 'boolean'
-        select.value(values[0])
-
-      # XXX: replace this with classes in the css
-      if options.required
-        input = @append('input')
-          .style('margin', '0.25em 0 0 0')
-          .style('padding', 0)
-          .style('width', '1.5em')
-          .style('height', '1.5em')
-          .style('position', 'absolute')
-          .style('left', '0.5em')
-          .style('top', '13px')
-          .style('z-index', -1)
-          .attr('size', 0)
-
-        input.node().setCustomValidity('Please select a value from the list')
-
-        @style('position', 'relative')
-
-        select.on 'change', 'hx.form-builder', ->
-          input.node().setCustomValidity('')
-
-
-      {required: options.required, componentNode: elem.node(), select: select, key: options.key}
-
   addPicker: (name, values, options = {}) ->
     @add name, 'select', 'div', ->
       c = 'hx-btn'

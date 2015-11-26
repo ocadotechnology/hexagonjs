@@ -59,11 +59,6 @@ class PieChart extends hx.EventEmitter
 
   data: optionSetterGetter('data')
 
-  setData: (data) ->
-    hx.deprecatedWarning('PieChart.setData(data)', 'use PieChart.data(data) instead')
-    @data(data)
-    this
-
   calculateTotal = (segments) ->
     allZero = false
     preTotal = hx.sum(segments.map((x) -> x.size))
@@ -171,7 +166,7 @@ class PieChart extends hx.EventEmitter
       @view('.hx-pie-segment', 'path')
         .update (s) ->
           size = getSegmentSize(s, total, allZero)
-          updateSegment(this, size, s.color or s.fillColor, runningTotal, total, i, minimumInnerRadius)  #XXX: DEPRECATED s.color (remove it in 1.0.0)
+          updateSegment(this, size, s.fillColor, runningTotal, total, i, minimumInnerRadius)
           runningTotal += size
         .apply(segments)
 
@@ -346,7 +341,7 @@ class PieChart extends hx.EventEmitter
       {
         series: ring,
         title: ring.title,
-        color: chosenSegment.color or chosenSegment.fillColor or pie.fillColor(), #XXX: DEPRECATED chosenSegment.color (remove in 1.0.0)
+        color: chosenSegment.fillColor or pie.fillColor(),
         x: labelX,
         y: labelY,
         bounding: {

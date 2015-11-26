@@ -221,14 +221,6 @@ class TimePicker extends hx.EventEmitter
     else
       @_.localiser.locale()
 
-  disable: ->
-    hx.deprecatedWarning 'hx.TimePicker.disable()', 'Use disabled(true) instead.'
-    @disabled true
-
-  enable: ->
-    hx.deprecatedWarning 'hx.TimePicker.enable()', 'Use disabled(false) instead.'
-    @disabled false
-
   disabled: (disable) ->
     _ = @_
     if disable?

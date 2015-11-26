@@ -99,13 +99,6 @@ class DateTimePicker extends hx.EventEmitter
     else
       @timePicker.locale()
 
-  disable: ->
-    hx.deprecatedWarning 'hx.DateTimePicker.disable()', 'Use disabled(true) instead.'
-    @disabled(true)
-
-  enable: ->
-    hx.deprecatedWarning 'hx.DateTimePicker.enable()', 'Use disabled(false) instead.'
-    @disabled(false)
 
   disabled: (disable) ->
     dpDisabled = @datePicker.disabled(disable)

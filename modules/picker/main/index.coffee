@@ -21,15 +21,6 @@ class Picker extends hx.EventEmitter
   constructor: (selector, options = {}) ->
     super
 
-    if options.ddClass?
-      hx.deprecatedWarning 'Setting the ddClass options using options.ddClass in the hx.Picker constructor has been deprecated',
-        'Use options.dropdownOptions to specify the dropdown options for the picker.'
-
-      options.dropdownOptions = {
-        ddClass: options.ddClass
-      }
-      delete options.ddClass
-
     @options = hx.merge.defined {
       dropdownOptions: {}
       items: []

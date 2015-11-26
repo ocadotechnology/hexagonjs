@@ -59,58 +59,6 @@ class Color
       a: 1 # 1
     }
 
-    # XXX: START DEPRECATED CONTENT
-    propMap =
-      r:
-        key: 'red'
-      g:
-        key: 'green'
-      b:
-        key: 'blue'
-      h:
-        key: 'hue'
-        # setVal/getVal allows the old property to return a unit value whilst the new method returns a true value.
-        setVal: (val) -> val * 360
-        getVal: (val) -> val / 360
-      s:
-        key: 'saturation'
-        setVal: (val) -> val * 100
-        getVal: (val) -> val / 100
-      l:
-        key: 'lightness'
-        setVal: (val) -> val * 100
-        getVal: (val) -> val / 100
-      a:
-        key: 'alpha'
-
-
-    self = this
-    Object.keys(propMap).forEach (prop) ->
-      property = propMap[prop]
-
-      self[prop] =  self.__proto__[prop]
-
-      Object.defineProperty(self, prop, {
-        enumerable: false
-        configurable: true
-        get: ->
-          hx.deprecatedWarning 'Getting Color.' + prop, 'Use Color.' + property.key + '() instead'
-          if property.getVal?
-            property.getVal self[property.key]()
-          else
-            self[property.key]()
-        set: (value) ->
-          hx.deprecatedWarning 'Setting Color.' + prop, 'Use Color.' + property.key + '(value) instead'
-          if property.setVal?
-            self[property.key](property.setVal(value))
-          else
-            self[property.key](value)
-      })
-
-    # XXX: END DEPRECATED CONTENT
-
-
-
   property = (prop, isHSL, isAlphaValue) ->
     min = 0
     max = switch prop
@@ -122,7 +70,6 @@ class Color
     (value) ->
       if arguments.length > 0
         if value? and not isNaN(value)
-          if value < 1 then value *= max # XXX DEPRECATED: This line is deprecated
           @_[prop] = hx.clamp(min, max, value)
           if not isAlphaValue then update(@_, isHSL)
         this
@@ -139,15 +86,6 @@ class Color
   saturation: property('s', true)
   lightness: property('l', true)
   alpha: property('a', null, true)
-
-  # XXX: These functions will work once the deprecated Object.defineProperty code ha been removed
-  # r: property('r', false)
-  # g: property('g', false)
-  # b: property('b', false)
-  # h: property('h', true)
-  # s: property('s', true)
-  # l: property('l', true)
-  # a: property('a', null, true)
 
   hsl: (arr) ->
     if arguments.length > 0
@@ -229,45 +167,6 @@ class Color
     else list
 
   clone: -> new Color().rgb(@rgb())
-
-
-  # XXX DEPRECATED METHODS START
-
-  setRGB: (arr) ->
-    hx.deprecatedWarning 'Color.setRGB(array)', 'Use rgb(array) instead'
-    @rgb(arr)
-
-  setHSL: (arr) ->
-    hx.deprecatedWarning 'Color.setHSL(array)', 'Use hsl(array) instead'
-    @hsl(arr)
-
-  darken: (amount) ->
-    hx.deprecatedWarning 'Color.darken(amount)', 'Use lighten(-amount) instead'
-    @lighten( - amount)
-
-  desaturate: (amount) ->
-    hx.deprecatedWarning 'Color.desaturate(amount)', 'Use saturate(-amount) instead'
-    @saturate( - amount)
-
-  fadeIn: (amount) ->
-    hx.deprecatedWarning 'Color.fadeIn(amount)', 'Use fade(amount) instead'
-    @fade(amount)
-
-  fadeOut: (amount) ->
-    hx.deprecatedWarning 'Color.fadeOut(amount)', 'Use fade(-amount) instead'
-    @fade( - amount)
-
-  getTextCol: ->
-    hx.deprecatedWarning 'Color.getTextCol()', 'Use textCol() instead'
-    @textCol()
-
-  toArray: ->
-    hx.deprecatedWarning 'Color.toArray()', 'Use rgb() or hsl() instead.'
-    @rgb()
-
-  # XXX DEPRECATED METHODS END
-
-
 
 
 fromString = (str) ->

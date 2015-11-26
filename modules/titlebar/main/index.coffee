@@ -31,7 +31,7 @@ class TitleBar
 
     @isMobileFriendly = hx.select(@selector).select('.hx-titlebar-menu-icon-mobile').size() > 0
     hasLinkBar = hx.select(@selector).select('.hx-titlebar-linkbar').selectAll('.hx-titlebar-link').size() > 0
-    isFixed = hx.select('body').classed('hx-heading-fixed') || hx.select('body').classed('hx-titlebar-fixed')
+    isFixed = hx.select('body').classed('hx-heading-fixed')
     isFullScreen = hx.select('body').classed('hx-full-screen')
 
     if @isMobileFriendly

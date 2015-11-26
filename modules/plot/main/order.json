@@ -1,6 +1,5 @@
 {
   "coffee": [
-    "coffee/declarative/DeclarativeGraph.coffee",
     "coffee/Utils.coffee",
     "coffee/Series.coffee",
     "coffee/Axis.coffee",
