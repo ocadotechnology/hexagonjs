@@ -48,6 +48,8 @@ body.hx-full-screen {
 
   .hx-titlebar-icon {
     transition: background 0.1s;
+    align-self: stretch;
+    display: flex;
   }
 }
 
