@@ -1,92 +1,91 @@
 @module notify
-  
+
   @option background-col
     @type color
     @description: The background color for notifications
     @default: #FFF
-  
+
   @option text-col
     @type color
     @description: The text color for notifications
     @default: #3D3D3D
-  
+
   @option border-col
     @type color
     @description: The border color for notifications
-    @default: #FCFCFC
-  
+    @default: #EFEFEF
+
   @option close-col
     @type color
     @description: The color of the close icon
     @default: #939393
-  
+
   @option close-hover-col
     @type color
     @description: The color of the close icon on hover
     @default: #555555
-  
+
   @option pinned-col
     @type color
     @description: The color of the pin icon when a notification is pinned
     @default: #CB9856
-  
+
   @option pinned-hover-col
     @type color
     @description: The color of the pin icon on hover when a notification is pinned
     @default: #FEB71D
-  
+
   @option unpinned-col
     @type color
     @description: The color of the pin icon when a notification is not pinned
     @default: #939393
-  
+
   @option unpinned-hover-col
     @type color
     @description: The color of the pin icon on hover when a notification is not pinned
     @default: #555555
-  
+
   @option default-col
     @type color
     @description: The default color of the icon
     @default: #6582A6
-  
+
   @option info-col
     @type color
     @description: The color of the notification and text for info notifications
     @default: #A36FA9
-  
+
   @option positive-col
     @type color
     @description: The color of the notification and text for positive notifications
     @default: #6FB365
-  
+
   @option warning-col
     @type color
     @description: The color of the notification and text for warning notifications
     @default: #CB9856
-  
+
   @option negative-col
     @type color
     @description: The color of the notification icon and text for negative notifications
     @default: #C74967
-  
+
   @option loading-col
     @type color
     @description: The color of the notification icon and text for loading notifications
     @default: #575757
-  
+
   @option container-background-col
     @type color
     @description: The background color for the container that holds the notifications
-    @default: #F2F2F2
-  
+    @default: #FFF
+
   @option container-border-col
     @type color
     @description: The border color for the container
-    @default: #D0D0D0
-  
+    @default: transparent
+
   @option shadow-col
     @type col
     @description: The shadow color for the container
-    @default: transparent
-  
+    @default: rgba(0, 0, 0, 0.05)
