@@ -1,59 +1,8 @@
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
 .hx-spinner {
-  animation-duration: 0.75s;
-  animation-iteration-count: infinite;
-  animation-name: rotate;
-  animation-timing-function: linear;
   border: 3px solid $spinner-col;
-  width: 0.75em;
-  height: 0.75em;
   border-right-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  top: 2px;
-  position: relative;
-}
-
-$width: 100px;
-
-@keyframes slide {
-  0% {
-    margin-left: -$width;
-  }
-
-  100% {
-    margin-left: calc(100%);
-  }
-}
-
-
-.hx-spinner-wide {
-  height: 4px;
-  position: relative;
-  overflow: hidden;
 }
 
 .hx-spinner-wide::after {
-  content: "";
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-name: slide;
-  animation-timing-function: linear;
   background: $spinner-col;
-  width: $width;
-  height: 100%;
-  display: inline-block;
-  top: 0;
-  left: 0;
-  position: absolute;
 }
