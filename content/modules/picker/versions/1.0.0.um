@@ -2,6 +2,8 @@
   @api Picker
     @enhancement: The button type of pickers is now 'button'
       @issue 791
+    @bugfix: Fixed an issue with the picker not rendering values correcly
+      @issue 785
 
     @prototype hx.Picker
       @constructor
