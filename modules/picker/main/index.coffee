@@ -1,4 +1,4 @@
-setValue = (picker, value, items) ->
+setValue = (picker, value, items, cause = 'api') ->
   newVal = undefined
   for item in items
     if item is value or (hx.isObject(item) and (item.value is value or item.value is value?.value))
@@ -14,7 +14,7 @@ setValue = (picker, value, items) ->
     picker.current = newVal
     picker.emit 'change', {
       value: newVal
-      cause: 'api'
+      cause: cause
     }
 
 class Picker extends hx.EventEmitter
@@ -48,13 +48,8 @@ class Picker extends hx.EventEmitter
 
     @menu.on 'change', 'hx.picker', (item) =>
       if item?.content?
-        @current = item.content
-        @selectedText.text(@current.text or @current)
+        setValue(this, item.content, @items(), 'user')
         @menu.hide()
-        @emit 'change', {
-          value: @current
-          cause: 'user'
-        }
 
     if not @options.renderer?
       @options.renderer = @menu.renderer()
