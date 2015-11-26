@@ -121,27 +121,29 @@ renderStickyHeaders = ->
 
   # stick the headers along the top of the table (within the thead element.)
   if @options.stickTableHead
-    headerTable = tableClone.clone(true)
-
-    headerTableContent = if additionalLevel
-      headerTable.select('table')
-    else
-      headerTable.append('thead')
-
-    # Deals with grouped headers by selecting all the rows in the thead element
-    @table.select('thead').selectAll('tr')
-      .forEach (rowNode) ->
-        newRowNode = headerTableContent.append('tr')
-        rowNode.selectAll('th, td')
-          .forEach (cellNode) ->
-            fixSizes cellNode, (newNode) ->
-              newRowNode.append newNode
-
-    @topHeader.selectAll('.hx-table').remove()
-
     # We want to fix the sizes for the cells whenever render is called.
     # We only want to add the sticky headers when there are scrollbars.
     if wrapperNode.scrollHeight > @wrapper.height() or @options.alwaysSticky
+      headerTable = tableClone.clone(true)
+
+      headerTableContent = if additionalLevel
+        headerTable.select('table')
+      else
+        headerTable.append('thead')
+
+
+      # Deals with grouped headers by selecting all the rows in the thead element
+      @table.select('thead').selectAll('tr')
+        .forEach (rowNode) ->
+          newRowNode = headerTableContent.append('tr')
+          rowNode.selectAll('th, td')
+            .forEach (cellNode) ->
+              fixSizes cellNode, (newNode) ->
+                newRowNode.append newNode
+                cellNode.classed('hx-sticky-table-invisible', true)
+
+      @topHeader.clear()
+
       addedTopSticky = true
       @topHeader.append headerTable
 
@@ -158,24 +160,27 @@ renderStickyHeaders = ->
 
   # stick the first column headers.
   if @options.stickFirstColumn
-    bodyTable = tableClone.clone(true)
-
-    bodyTableContent = if additionalLevel
-      bodyTable.select('table')
-    else
-      bodyTable.append('thead')
-
-    @table.select('tbody').selectAll('tr')
-      .forEach (rowNode) ->
-        newRowNode = bodyTableContent.append('tr').class(rowNode.class())
-        fixSizes rowNode.select('th, td'), (newNode) ->
-          newRowNode.append newNode
-
-    @leftHeader.selectAll('.hx-table').remove()
 
     # We want to fix the sizes for the cells whenever render is called.
     # We only want to add the sticky headers when there are scrollbars.
     if wrapperNode.scrollWidth > wrapperNode.clientWidth or @options.alwaysSticky
+      bodyTable = tableClone.clone(true)
+
+      bodyTableContent = if additionalLevel
+        bodyTable.select('table')
+      else
+        bodyTable.append('thead')
+
+      @table.select('tbody').selectAll('tr')
+        .forEach (rowNode) ->
+          newRowNode = bodyTableContent.append('tr').class(rowNode.class())
+          cellNode = rowNode.select('th, td')
+          fixSizes rowNode.select('th, td'), (newNode) ->
+            newRowNode.append newNode
+            cellNode.classed('hx-sticky-table-invisible', true)
+
+      @leftHeader.clear()
+
       addedLeftSticky = true
       @leftHeader.append bodyTable
 
@@ -194,12 +199,20 @@ renderStickyHeaders = ->
   if @options.stickFirstColumn and addedLeftSticky and @options.stickTableHead and addedTopSticky
     @topHeader.style('left', @widthOffset + 'px')
 
-    @container.select('.hx-sticky-table-header-top-left')
+    @topLeftTable
       .style('width', @leftHeader.style('width'))
       .style('height', @topHeader.style('height'))
 
+    topLeftTable = @topLeftTable.clear()
+    @table.select('thead').selectAll('tr').forEach (rowNode) ->
+      cellNode = rowNode.select('th, td')
+      fixSizes cellNode, (newNode) ->
+        topLeftTable.append('tr').append newNode
+        cellNode.classed('hx-sticky-table-invisible', true)
+      , true
+
   # This needs to be done after the left head has been added as otherwise the widthOffset is 0
-  @topHeader?.style('max-width', @container.width() - @widthOffset + 'px')
+  @topHeader?.style('max-width', @container.width() - @widthOffset  + 'px')
     .style('width', @tableSize.width - @widthOffset + 'px')
 
   # Get the sizes for the wrapper.
@@ -298,14 +311,12 @@ class StickyTableHeaders extends hx.EventEmitter
       @topHeader?.style('background-color', background)
       @leftHeader?.style('background-color', background)
 
+
     # If we're sticking both headers, the first cell for the thead should be stuck to the
     # top left corner
     if @options.stickFirstColumn and @options.stickTableHead
-      topLeftTable = @container.append('table').class('hx-sticky-table-header-top-left hx-table').append('thead')
-      @table.select('thead').selectAll('tr').forEach (rowNode) ->
-        fixSizes rowNode.select('th, td'), (newNode) ->
-          topLeftTable.append('tr').append newNode
-        , true
+      @topLeftTable = @container.append('table').class('hx-sticky-table-header-top-left hx-table').append('thead')
+
 
     # Table wrapper that allows scrolling on the table.
     @wrapper = @container.append('div').class('hx-sticky-table-wrapper')
