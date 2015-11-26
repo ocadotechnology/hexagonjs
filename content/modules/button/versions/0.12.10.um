@@ -16,7 +16,7 @@
     @example
       @html
         <button id="button-example" class="hx-btn hx-positive">
-          <i class="hx-icon hx-icon-check"></i> Click Me
+          <i class="fa fa-check"></i> Click Me
         </button>
       @js
         hx.select('#button-example').on('click', function(){

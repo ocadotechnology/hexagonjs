@@ -114,7 +114,7 @@
             @p: The default value for the options object is:
             @codeblock js
               {
-                icon: 'hx-icon hx-icon-info',
+                icon: 'fa fa-info',
                 cssclass: 'hx-info',
                 timeout: 5,
                 pinnable: true
@@ -131,7 +131,7 @@
             @p: The default value for the options object is:
             @codeblock js
               {
-                icon: 'hx-icon hx-icon-warning',
+                icon: 'fa fa-warning',
                 cssclass: 'hx-warning',
                 timeout: 5,
                 pinnable: true
@@ -148,7 +148,7 @@
             @p: The default value for the options object is:
             @codeblock js
               {
-                icon: 'hx-icon hx-icon-error',
+                icon: 'fa fa-error',
                 cssclass: 'hx-negative',
                 timeout: 5,
                 pinnable: true
@@ -165,7 +165,7 @@
             @p: The default value for the options object is:
             @codeblock js
               {
-                icon: 'hx-icon hx-icon-check',
+                icon: 'fa fa-check',
                 cssclass: 'hx-positive',
                 timeout: 5,
                 pinnable: true

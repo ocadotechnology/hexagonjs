@@ -16,7 +16,7 @@
             Undraggable
           </div>
           <div data-id="purple" class="hx-drag-element hx-section hx-pad hx-background-info">
-            <span class="hx-drag-control"><i class="hx-icon hx-icon-arrows"></i></span> Draggable Control
+            <span class="hx-drag-control"><i class="fa fa-arrows"></i></span> Draggable Control
           </div>
         </div>
         <br>

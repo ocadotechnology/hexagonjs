@@ -92,12 +92,12 @@
                 [
                   {
                     text: "Confirm"
-                    icon: "hx-icon hx-icon-check"
+                    icon: "fa fa-check"
                     value: true
                     classes: "hx-btn hx-positive"
                   },{
                     text: "Cancel"
-                    icon: "hx-icon hx-icon-close"
+                    icon: "fa fa-close"
                     value: false
                     classes: "hx-btn hx-negative"
                   }

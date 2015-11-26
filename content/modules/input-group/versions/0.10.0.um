@@ -4,7 +4,7 @@
     @example
       @html html
         <div class="hx-input-group">
-          <i class="hx-icon hx-icon-search"></i>
+          <i class="fa fa-search"></i>
           <input type="text" value="input"/>
           <button class="hx-btn hx-positive"><i class="fa fa-arrow-right"></i></button>
           <a href="#"><i class="fa fa-eye"></i>Link</a>
