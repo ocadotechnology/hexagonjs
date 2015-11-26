@@ -1,19 +1,19 @@
-getRange = (selected, visibleCount, pageCount) ->
-  start = Math.max(1, selected - Math.floor(visibleCount / 2))
-  end = Math.min(start + visibleCount, pageCount + 1)
-  start = Math.max(1, end - visibleCount)
+getRange = (obj) ->
+  start = Math.max(1, obj.page - Math.floor(obj.visibleCount / 2))
+  end = Math.min(start + obj.visibleCount, obj.pageCount + 1)
+  start = Math.max(1, end - obj.visibleCount)
   {start: start, end: end}
 
 render = (paginator) ->
 
   if paginator._.pageCount is undefined
     data = [{
-      value: paginator.selected
+      value: paginator._.page
       selected: true
-      dataLength: paginator.selected.toString().length
+      dataLength: paginator._.page.toString().length
     }]
   else
-    {start, end} = getRange(paginator.selected, paginator._.visibleCount, paginator._.pageCount)
+    {start, end} = getRange(paginator._)
 
     maxLength = Math.max(start.toString().length, (end - 1).toString().length)
     buttonSize = 30 + (5 * Math.max(0, maxLength - 2))
@@ -25,38 +25,44 @@ render = (paginator) ->
     visibleCount = Math.max(visibleCount, 1)
 
     # XXX: Probably shouldn't run this twice every time
-    {start, end} = getRange(paginator.selected, visibleCount, paginator._.pageCount)
+    {start, end} = getRange(paginator._)
 
     data = hx.range(end - start).map (i) ->
       {
         value: start + i
-        selected: paginator.selected == start + i
+        selected: paginator._.page == start + i
         dataLength: maxLength
       }
 
   paginator.view.apply(data)
 
-select = (paginator, i, cause) ->
+select = (paginator, page, cause) ->
   if paginator._.pageCount is undefined
-    newPage = Math.max(i, 1)
+    newPage = Math.max(page, 1)
   else
-    newPage = hx.clamp(1, paginator._.pageCount, i)
+    newPage = hx.clamp(1, paginator._.pageCount, page)
 
-  if newPage != paginator.selected
-    paginator.selected = newPage
+  if newPage != paginator._.page
+    paginator._.page = newPage
     render(paginator)
-    paginator.emit 'change', {cause: cause, selected: paginator.selected}
+    paginator.emit 'change', {cause: cause, selected: paginator._.page}
 
 
 class Paginator extends hx.EventEmitter
-  constructor: (selector) ->
+  constructor: (selector, options) ->
     super
 
     hx.component.register(selector, this)
 
     @container = hx.select(selector).classed('hx-paginator', true)
-    @_ =
-      selector: selector
+
+    @_ = hx.merge({
+      page: 1,
+      visibleCount: 10,
+      pageCount: 10
+    }, options)
+
+    @_.selector = selector
 
     self = this
 
@@ -67,7 +73,7 @@ class Paginator extends hx.EventEmitter
         .html('<i class="hx-icon hx-icon-step-backward"></i>')
         .on 'click', 'hx.paginator', ->
           if self._.pageCount is undefined
-            select(self, self.selected - 1, 'user')
+            select(self, self._.page - 1, 'user')
           else
             select(self, 0, 'user')
 
@@ -89,15 +95,11 @@ class Paginator extends hx.EventEmitter
         .html('<i class="hx-icon hx-icon-step-forward"></i>')
         .on 'click', 'hx.paginator', ->
           if self._.pageCount is undefined
-            select(self, self.selected + 1, 'user')
+            select(self, self._.page + 1, 'user')
           else
             select(self, self._.pageCount, 'user')
 
     @container.on 'resize', 'hx.paginator', -> render(self)
-
-    @_.visibleCount = 10
-    @_.pageCount = 10
-    @selected = 1
     render(this)
 
   page: (i) ->
@@ -105,8 +107,7 @@ class Paginator extends hx.EventEmitter
       select(@, i, 'api')
       this
     else
-      @selected
-
+      @_.page
 
   pageCount: (value) ->
     if value?
