@@ -10,10 +10,7 @@ class Toggle extends hx.EventEmitter
 
     @selection = hx.select(selector).classed('hx-toggle', true)
 
-    inputName = 'hx-toggle-' + hx.randomId()
-
     @input = @selection.append('input')
-      .attr('name', inputName)
       .attr('type', 'checkbox').node()
 
     @value(@options.value)
