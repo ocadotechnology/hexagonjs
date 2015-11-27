@@ -28,7 +28,7 @@ validateForm = (form, options) ->
       element = form.children[i].children[1]
 
       # Deal with standard label/input pairs
-      if element.nodeName.toLowerCase() is 'input'
+      if element.nodeName.toLowerCase() is 'input' or element.nodeName.toLowerCase() is 'textarea'
         if not element.checkValidity()
           type = hx.select(element).attr('type')
           errors.push {
