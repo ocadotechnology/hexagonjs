@@ -57,9 +57,19 @@ function createBuilds () {
   // create the dx-prefixed and hx-prefixed builds for the latest version of hexagon
   var buildList = [
     { dest: 'target/resources/hexagon/' + latestVersion, embedAssets: true },
-    { dest: 'target/resources/hexagon/docs', prefix: 'dx', embedAssets: true }
+    { dest: 'target/resources/hexagon/docs', prefix: 'dx', embedAssets: true, addFavicons: true }
   ]
-  return progressSequence('Building Hexagon', chalk.cyan('='), buildList, function (opts) { return hexagon.build(opts) })
+  return progressSequence('Building Hexagon', chalk.cyan('='), buildList, function (opts) {
+    if (opts.addFavicons) {
+      delete opts.addFavicons
+      return hexagon
+        .assets(require('./favicon.js')('../favicons'))
+        .build(opts)
+    } else {
+      return hexagon.build(opts)
+    }
+
+  })
 }
 
 function buildHexagon (force) { // XXX: do this in the postinstall npm script
