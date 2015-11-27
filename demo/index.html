@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Demo | Hexagon.js</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="hexagon.css">
   <link rel="stylesheet" type="text/css" href="index.css">
   <script type="text/javascript" src="hexagon.js"></script>
@@ -9,7 +10,7 @@
     window.contextNames = ['action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
   </script>
 </head>
-<body class="hx-titlebar-fixed">
+<body class="hx-heading-fixed">
   <div class="hx-heading example-heading">
     <div class="hx-titlebar">
       <div class="hx-titlebar-container">
@@ -108,15 +109,18 @@
       <div class="hx-section exampleSection">
         <div class="example">
         <h3>Input Groups</h3>
-          <div class="hx-input-group">
-            <input placeholder="Search"></input>
-            <button class="hx-btn hx-info"><i class="fa fa-search"></i></button>
+          <div class="hx-pad">
+            <div class="hx-input-group">
+              <input placeholder="Search"></input>
+              <button class="hx-btn hx-info"><i class="fa fa-search"></i></button>
+            </div>
           </div>
-
-          <div class="hx-input-group">
-            <i class="fa fa-search"></i>
-            <input placeholder="Search"></input>
-            <div>Div</div>
+          <div class="hx-pad">
+            <div class="hx-input-group">
+              <i class="fa fa-search"></i>
+              <input placeholder="Search"></input>
+              <div>Div</div>
+            </div>
           </div>
         </div>
       </div>
@@ -916,7 +920,7 @@
           <br>
           <div class="collapsibleExample">
             <div class="hx-collapsible-heading hx-collapsible-heading-no-hover hx-compact-group hx-horizontal">
-              <div class="hx-section hx-fixed hx-collapsible-toggle">Toggle</div>
+              <div class="hx-section hx-fixed hx-collapsible-toggle"></div>
               <div class="hx-section hx-pad"><span>Header</span></div>
             </div>
             <div class="hx-collapsible-content">
@@ -926,7 +930,7 @@
           <br>
           <div class="collapsibleExample">
             <div class="hx-collapsible-heading hx-collapsible-heading-no-hover hx-input-group hx-input-group-full-width">
-              <div class="hx-section hx-fixed hx-collapsible-toggle">Toggle</div>
+              <div class="hx-section hx-fixed hx-collapsible-toggle"></div>
               <div class="hx-section">Header</div>
             </div>
             <div class="hx-collapsible-content">
