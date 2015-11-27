@@ -61,7 +61,7 @@
               };
               var tagInput = new hx.TagInput('#validated-tag-input', undefined, validator);
           @param tag [String]: The tag that is being added
-          @returns Boolean: True to accept the tag, false to reject.
+          @returns String: The error to show to the user. If no error exists, the return value should be an empty string.
 
 
       @method add
