@@ -169,7 +169,7 @@ renderStickyHeaders = ->
       bodyTableContent = if additionalLevel
         bodyTable.select('table')
       else
-        bodyTable.append('thead')
+        bodyTable.append('tbody')
 
       @table.select('tbody').selectAll('tr')
         .forEach (rowNode) ->

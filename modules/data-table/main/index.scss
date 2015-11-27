@@ -39,6 +39,7 @@
     color: white;
     text-align: right;
     display: none;
+    margin-right: 1px;
 
     .hx-data-table-status-bar-clear {
       cursor: pointer;
@@ -49,6 +50,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-right: 1px;
 
     .hx-data-table-sort-control,
     .hx-data-table-paginator,
@@ -130,7 +132,7 @@
     .hx-data-table-cell-grouped {
       border-right: solid 1px transparent;
 
-      &:last-child:not(:first-child) {
+      &:last-child {
         border-right-color: transparent;
       }
     }
@@ -337,7 +339,8 @@
 
     .hx-data-table-row {
       display: block;
-      margin: 0.4em;
+      margin: 0.4em 0;
+      margin-right: 1px;
       padding: 0.4em;
       position: relative;
 
