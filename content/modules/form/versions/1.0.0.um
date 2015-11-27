@@ -1,0 +1,7 @@
+@version 1.0.0
+  @api Form
+    @function hx.validateForm
+      @param form [String/HTMLElement]
+      @param? options [Object]
+      @bugfix: Updated to include text areas in the error checking
+        @issue 802
