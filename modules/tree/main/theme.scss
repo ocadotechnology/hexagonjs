@@ -22,5 +22,10 @@
 }
 
 .hx-tree-node-children {
-  border-left: 1px solid $item-border-left-col;
+  border-left-color: $item-border-left-col;
+}
+
+.hx-tree-node-children > .hx-tree-node > .hx-tree-node-content,
+.hx-tree-node-parent {
+  box-shadow: 1px 1px 1px $shadow-col;
 }

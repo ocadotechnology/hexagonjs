@@ -1,12 +1,14 @@
 .hx-tree-node {
-  padding-left: 1.1em;
   margin-top: 0.5em;
+
+  &:first-child {
+    margin-top: 0;
+  }
 
   &.hx-tree-node-open {
     > .hx-tree-node-parent .hx-tree-node-state-icon {
-      transform: rotate(90deg);
       // fallback for when the animation completes / doesn't work
-
+      transform: rotate(90deg);
     }
   }
 }
@@ -22,9 +24,6 @@
   line-height: 1em;
 
   .hx-tree-node-parent-icon {
-    .fa {
-      line-height: 1em;
-    }
     user-select: none;
     padding: 0.5em;
     width: 1em;
@@ -38,10 +37,8 @@
       cursor: pointer;
     }
 
-    &.hx-tree-node-parent-icon-disabled {
-      &:hover {
-        cursor: default;
-      }
+    &.hx-tree-node-parent-icon-disabled:hover {
+      cursor: default;
     }
   }
 
@@ -52,15 +49,7 @@
   }
 }
 
-.hx-tree > .hx-tree-node {
-  padding-left: 0em;
-
-  &:first-child {
-    margin-top: 0em;
-  }
-}
-
 .hx-tree-node-children {
-  margin-left: 1.15em;
-  padding-left: -1em;
+  border-left: solid 2px transparent;
+  padding: 0.5em 0 0 2em;
 }

@@ -1,42 +1,46 @@
 @module tree
-  
+
   @option icon-background-col
     @type color
     @description: The default background color for the expand icon
     @default: #FFF
-  
+
   @option icon-background-hover-col
     @type color
     @description: The default background color for the expand icon on hover
     @default: #6582A6
-  
+
   @option icon-text-col
     @type color
     @description: The default text color for the expand icon
     @default: #000
-  
+
   @option icon-text-hover-col
     @type color
     @description: The default text color for the expand icon on hover
     @default: #F3F3F3
-  
+
   @option item-border-left-col
     @type color
     @description: The color of the line to the left of all children of a parent
-    @default: #F3F3F3
-  
+    @default: transparent
+
   @option icon-disabled-background-col
     @type color
     @description: The color of the expand icon background when disabled
     @default: #FAFAFA
-  
+
   @option icon-disabled-text-col
     @type color
     @description: The color of the expand icon text when disabled
     @default: #939393
-  
+
   @option background-col
     @type color
     @description: The background color of an item in the tree
     @default: #F7F7F7
-  
+
+  @option shadow-col
+    @type color
+    @description: The shadow color for items in the tree
+    @default: rgba(128, 128, 128, 0.17)
