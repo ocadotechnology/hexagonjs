@@ -55,7 +55,7 @@ function setupMenu (node, meta) {
     group[1].forEach(function (module) {
       groupModulesContainer.add(dx.detached('a')
         .class('docs-dropdown-module-link dx-section dx-fixed')
-        .attr('href', '/docs/' + meta.latest + '/' + module.id + '/')
+        .attr('href', '/docs/' + (meta.selectedVersion || meta.latest) + '/' + module.id + '/')
         .text(module.id.split('-').map(function (d) {
           return d[0].toUpperCase() + d.substring(1)
         }).join(' '))
@@ -67,10 +67,31 @@ function setupMenu (node, meta) {
 dx.json('/meta.json', function (err, meta) {
   var menuPos = 0
 
-  versionPicker = new dx.Picker('.docs-version-button', {
-    items: meta.versions.reverse(),
-    value: meta.latest
-  })
+  for (i in meta.versions) {
+    var v = meta.versions[i]
+    if (window.location.pathname.indexOf('/' + v + '/') > -1) {
+      meta.selectedVersion = v
+      break
+    }
+  }
+
+  if (meta.selectedVersion) {
+    dx.select('.docs-version').classed('docs-visible', true)
+    var versionPicker = new dx.Picker('.docs-version-button', {
+      items: meta.versions.reverse(),
+      renderer: function (elem, v) {
+        elem = dx.select(elem)
+          .text(v)
+
+        if (!elem.classed('dx-picker-text')) {
+          elem.on('click', function () {
+            window.location.assign(window.location.href.replace(meta.selectedVersion, v))
+          })
+        }
+      },
+      value: meta.selectedVersion
+    })
+  }
 
   var searchInput = dx.select('.docs-search-box')
 
@@ -108,7 +129,7 @@ dx.json('/meta.json', function (err, meta) {
       var menuNodes = dx.selectAll('.docs-search-result')
       var node = menuNodes.node(menuPos)
       if (node) {
-        document.location.href = hx.select(node).attr('href')
+        document.location.href = dx.select(node).attr('href')
       } else {
         var results = Object.keys(meta.modules).filter(filterer)
         if (results.length > 0) {

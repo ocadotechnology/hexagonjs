@@ -77,7 +77,7 @@ p:last-child {
   border: solid 1px rgba(255, 255, 255, 0.07);
   display: flex;
   flex: 1 1 auto;
-  margin: 0 0 0 1em;
+  margin: 0;
   color: white;
   height: 30px;
   transition: background 0.2s, color 0.2s;
@@ -174,6 +174,10 @@ p:last-child {
   transform: rotate(0deg);
 }
 
+.docs-titlebar-logo {
+  margin-right: 1em;
+}
+
 .docs-group-modules-container {
   flex-basis: 10px;
   border-left: solid 1px #EAEAEA;
@@ -186,6 +190,11 @@ p:last-child {
 
 .docs-version {
   margin: 0 0 0 1em;
+  display: none;
+}
+
+.docs-version.docs-visible {
+  display: block;
 }
 
 .docs-version-button {

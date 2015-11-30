@@ -167,10 +167,11 @@ button.button:focus, button.button:active {
 .docs-titlebar-logo {
   width: 0px;
   pointer-events: none;
+  margin-right: 0;
 }
 
 .docs-titlebar-logo.docs-visible {
-  width: 30px;
+  width: 44px;
   pointer-events: auto;
 }
 
