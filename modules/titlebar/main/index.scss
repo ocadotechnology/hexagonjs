@@ -69,6 +69,11 @@ body.hx-full-screen {
   max-width: 1216px;
 }
 
+body.hx-full-width .hx-titlebar-contents {
+  justify-content: center;
+  max-width: none;
+}
+
 .hx-titlebar-header {
   align-items: center;
   display: flex;
