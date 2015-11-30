@@ -116,9 +116,55 @@ splitData = (data, defined = ->) ->
 splitAndFeather = (data, maxSize, defined = ->) ->
   if maxSize
     featherFactor = maxSize / data.length
-    feather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
+    #feather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
+    LTTBFeather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
   else
     splitData(data, defined)
+
+#Largest-Triangle-Three-Buckets Algorithm for feathering
+LTTBFeather = (array, maxSize=200) ->
+  if maxSize > 1
+    originalLength = array.length
+
+    if originalLength > maxSize
+      newData = new Array(maxSize)
+      newData[0] = array[0]
+      newData[maxSize-1] = array[originalLength-1]
+      bucketSize = (originalLength-2) / (maxSize-2)
+
+      for i in [1...maxSize-1] by 1
+        data1 = newData[i-1]
+        bucket = array.slice(Math.floor((i-1)*bucketSize)+1, Math.floor(i*bucketSize)+1)
+        data2 = dataAverage array.slice(Math.floor(i*bucketSize)+1, Math.floor((i+1)*bucketSize)+1)
+        newData[i] = maxTriangle(data1, bucket, data2)
+
+      newData
+    else
+      array.slice(0)
+  else if maxSize == 1 and array.length > 0
+    [array[Math.floor(array.length/2)]]
+  else []
+
+#calculate the average point in a data point array
+dataAverage = (array) ->
+  x = 0
+  y = 0
+  length = array.length
+  for d in array
+    x += d.x
+    y += d.y
+  x: x/length
+  y: y/length
+
+#find the data point in an array with the largest triangle forming with two selected points
+maxTriangle = (data1, array, data2) ->
+  maxArea = -1
+  for d in array
+    area = Math.abs((data1.x-data2.x)*(d.y-data1.y)-(data2.y-data1.y)*(data1.x-d.x))
+    if area > maxArea
+      maxArea = area
+      data = d
+  data
 
 # prepares an array for plotting as a bar chart
 stackSegments = (array, arrayNames, xvalue) ->
