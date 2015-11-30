@@ -147,20 +147,26 @@ LTTBFeather = (array, maxSize=200) ->
 
 #calculate the average point in a data point array
 dataAverage = (array) ->
-  x = 0
-  y = 0
   length = array.length
-  for d in array
-    x += d.x
-    y += d.y
-  x: x/length
-  y: y/length
+  if array[0].y != undefined
+    sum = array.reduce((a,b) -> {x: a.x+b.x, y: a.y+b.y})
+    x: sum.x/length
+    y: sum.y/length
+  else
+    sum = array.reduce((a,b) -> {x: a.x+b.x, y1: a.y1+b.y1, y2: a.y2+b.y2})
+    x: sum.x/length
+    y1: sum.y1/length
+    y2: sum.y2/length
 
 #find the data point in an array with the largest triangle forming with two selected points
 maxTriangle = (data1, array, data2) ->
   maxArea = -1
   for d in array
-    area = Math.abs((data1.x-data2.x)*(d.y-data1.y)-(data2.y-data1.y)*(data1.x-d.x))
+    if d.y != undefined
+      area = Math.abs((data1.x-data2.x)*(d.y-data1.y)-(data2.y-data1.y)*(data1.x-d.x))
+    else
+      area = Math.abs((data1.x-data2.x)*(Math.abs(d.y1-d.y2)-Math.abs(data1.y2-data1.y1)) -
+          (Math.abs(data2.y2-data2.y1)-Math.abs(data1.y2-data1.y1))*(data1.x-d.x))
     if area > maxArea
       maxArea = area
       data = d
