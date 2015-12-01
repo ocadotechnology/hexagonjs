@@ -1,17 +1,16 @@
 @module error-pages
-  
-  @option shadow-distance
-    @type number
-    @description: How far the shadow should reach in pixels
-    @default: 100
-  
-  @option start-col
+
+  @option shadow-col
     @type color
-    @description: The starting color for the shadow. This is normally a light version of the default text color.
-    @default: #E0E0E0
-  
-  @option end-col
+    @description: The color of the shadow
+    @default: rgba(0, 0, 0, 0.05)
+
+  @option background-col
     @type color
-    @description: The end color for the shadow. This is normally the background color of the page.
-    @default: #F0F0F0
-  
+    @description: The background color of the error message section.
+    @default: #FFFFFF
+
+  @option heading-text-col
+    @type color
+    @description: The color of the heading text
+    @default: #3D3D3D

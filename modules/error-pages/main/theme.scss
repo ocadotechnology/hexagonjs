@@ -1,12 +1,11 @@
 .hx-error-message {
-  background: #FFFFFF;
+  background: $background-col;
   padding: 32px;
-  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.05);
-  border: solid 1px #00A3E0;
+  box-shadow: 2px 2px 2px 2px $shadow-col;
   border-radius: 2px;
 }
 
 .hx-error-message-heading {
   font-size: 2em;
-  color: #00A3E0;
+  color: $heading-text-col;
 }
