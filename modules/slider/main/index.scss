@@ -69,9 +69,6 @@
 
   &:before {
     display: none;
-  }
-
-  &:before {
     left: -0.8em;
   }
 
@@ -116,5 +113,11 @@
 
   .hx-slider-point {
     position: absolute;
+    transform: scale(0.5, 0.5);
+    border-radius: 20px;
+
+    &:nth-last-child(2) {
+      transform: scale(0.5, 0.5) translateX(-14px);
+    }
   }
 }

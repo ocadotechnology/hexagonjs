@@ -4,7 +4,7 @@
     top: (100% - $range-height) / 2;
     height: $range-height;
     background: $background-col;
-    border-radius: $border-radius;
+    border-radius: $inner-border-radius;
   }
 }
 
@@ -12,7 +12,7 @@
   top: (100% - $range-height) / 2;
   height: $range-height;
   background: $range-background-col;
-  border-radius: $border-radius;
+  border-radius: $range-border-radius;
 
   .hx-slider.hx-disabled & {
     background: $disabled-background-col;
@@ -20,7 +20,17 @@
 
   &:before, &:after {
     background: $slider-background-col;
-    border-radius: $border-radius;
+    border-radius: $slider-border-radius;
+  }
+}
+
+.hx-slider-double .hx-slider-range {
+  &:before {
+    border-radius: $slider-left-border-radius;
+  }
+
+  &:after {
+    border-radius: $slider-right-border-radius;
   }
 }
 
@@ -42,7 +52,7 @@
 }
 
 .hx-slider-point {
-  border-radius: $border-radius;
+  border-radius: $marker-border-radius;
   background: darken($slider-background-col, 5);
   height: $range-height;
   top: (100% - $range-height) / 2;
