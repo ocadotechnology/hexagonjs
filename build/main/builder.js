@@ -71,7 +71,6 @@ function resolveTheme (themeResources) {
   })
 }
 
-
 function exportAssets (builder, options) {
   return Promise.all(Object.keys(builder._assetFiles).map(function (exportFilename) {
     var asset = builder._assetFiles[exportFilename]
@@ -79,9 +78,44 @@ function exportAssets (builder, options) {
     if (!options.embedAssets || (options.embedAssets && !asset.allowEmbed)) {
       return fs.copyAsync(asset.filepath, path.join(options.dest, exportFilename))
     }
-  })).then(function () { return build })
+  }))
 }
 
+function getModuleList (moduleDirectories) {
+  return util.moduleList()
+    .map(function (module) {
+      return {
+        name: module,
+        directory: path.join(util.rootDir, 'modules', module)
+      }
+    })
+    .then(function (modules) {
+      return Promise.all(moduleDirectories)
+        .map(function (moduleDirectory) {
+          return util.moduleList(moduleDirectory)
+            .map(function (module) {
+              return {
+                name: module,
+                directory: path.join(moduleDirectory, module)
+              }
+            })
+        })
+        .then(function (moduleDirectories) {
+          return [modules].concat(moduleDirectories)
+        })
+    })
+    .then(function (moduleFolders) {
+      var moduleDirectoryMap = {}
+      for (i in moduleFolders) {
+        var folder = moduleFolders[i]
+        for (j in folder) {
+          var module = folder[j]
+          moduleDirectoryMap[module.name] = module
+        }
+      }
+      return moduleDirectoryMap
+    })
+}
 
 function replaceAssets (data, embeddableAssets) {
   if (embeddableAssets && embeddableAssets.length > 0) {
@@ -91,14 +125,13 @@ function replaceAssets (data, embeddableAssets) {
         data = data.split("'" + encodedAsset.filename + "'").join(encodedAsset.file) // Replace 'filename' (quotes)
       }
     }))
-    .then(function () {
-      return data
-    })
+      .then(function () {
+        return data
+      })
   } else {
     return Promise.resolve(data)
   }
 }
-
 
 function outputFile (directory, filename, data) {
   return fs.outputFileAsync(path.join(directory, filename), data)
@@ -107,39 +140,39 @@ function outputFile (directory, filename, data) {
 function getEmbeddableAssets (options, assetFiles) {
   if (options.embedAssets) {
     var contentTypes = {
-      ttf: "application/x-font-ttf",
-      svg: "image/svg+xml",
-      eot: "application/vnd.ms-fontobject",
-      woff: "application/font-woff",
-      jpeg: "image/jpeg",
-      jpg: "image/jpeg",
-      png: "image/png"
+      ttf: 'application/x-font-ttf',
+      svg: 'image/svg+xml',
+      eot: 'application/vnd.ms-fontobject',
+      woff: 'application/font-woff',
+      jpeg: 'image/jpeg',
+      jpg: 'image/jpeg',
+      png: 'image/png'
     }
 
     return Promise.all(Object.keys(assetFiles).filter(function (assetName) {
       return assetFiles[assetName].allowEmbed
     }))
-    .map(function (assetName) {
-      var type = contentTypes[path.extname(assetName).replace('.','')]
-      var asset = assetFiles[assetName]
-      return util.doesExist(asset.filepath)
-        .then(function (exists){
-          if (exists) {
-            return fs.readFileAsync(asset.filepath, {encoding: 'base64'})
-              .then(function (encodedFile) {
-                return {
-                  filename: path.basename(asset.filepath),
-                  file: "data:" + (type || asset.contentType) + ";base64," + encodedFile
-                }
-              })
-          } else {
-            console.warn('Asset file not found: ' + asset.filepath)
-          }
-        })
-    })
-    .then(function (embeddableAssets) {
-      return embeddableAssets.filter(function (d) { return !!d && d.filename && d.file })
-    })
+      .map(function (assetName) {
+        var type = contentTypes[path.extname(assetName).replace('.', '')]
+        var asset = assetFiles[assetName]
+        return util.doesExist(asset.filepath)
+          .then(function (exists) {
+            if (exists) {
+              return fs.readFileAsync(asset.filepath, {encoding: 'base64'})
+                .then(function (encodedFile) {
+                  return {
+                    filename: path.basename(asset.filepath),
+                    file: 'data:' + (type || asset.contentType) + ';base64,' + encodedFile
+                  }
+                })
+            } else {
+              console.warn('Asset file not found: ' + asset.filepath)
+            }
+          })
+      })
+      .then(function (embeddableAssets) {
+        return embeddableAssets.filter(function (d) { return !!d && d.filename && d.file })
+      })
   } else {
     return Promise.resolve([])
   }
@@ -175,7 +208,7 @@ function manipulateBuildAndWrite (build, options, assetFiles) {
             return replaceAssets(build[key], embeddableAssets)
               .then(function (replacedKeyElement) {
                 newBuild[key] = replacedKeyElement
-                if (options.dest){
+                if (options.dest) {
                   return outputFile(options.dest, fileMap[key], replacedKeyElement)
                 }
               })
@@ -186,20 +219,19 @@ function manipulateBuildAndWrite (build, options, assetFiles) {
               return replaceAssets(build[key][subkey], embeddableAssets)
                 .then(function (replacedKeyElement) {
                   newBuild[key][subkey] = replacedKeyElement
-                  if (options.dest){
+                  if (options.dest) {
                     return outputFile(options.dest, fileMap[key + '.' + subkey], replacedKeyElement)
                   }
                 })
             }))
           }
         }
-    }))
-  }).then(function (){
+      }))
+    }).then(function () {
     // Return the modified build. Should be a modified version of the build with undefined keys removed.
     return newBuild
   })
 }
-
 
 function mergeAssets (a, b) {
   var merged = {}
@@ -216,9 +248,10 @@ function mergeAssets (a, b) {
   return merged
 }
 
-function Builder (themeResources, assetFiles) {
+function Builder (themeResources, assetFiles, moduleDirectories) {
   this._themeResources = themeResources || []
   this._assetFiles = assetFiles || {}
+  this._moduleDirectories = moduleDirectories || []
 }
 
 Builder.prototype = {
@@ -226,7 +259,7 @@ Builder.prototype = {
   // into a single theme, where the theme that was supplied latest overrides ones
   // set before)
   theme: function (themeResource) {
-    return new Builder(this._themeResources.concat([{ type: 'theme', theme: themeResource }]), this._assetFiles)
+    return new Builder(this._themeResources.concat([{ type: 'theme', theme: themeResource }]), this._assetFiles, this._moduleDirectories)
   },
   // used to create a multi-theme build of hexagon
   // themes: function (themeResources) {
@@ -236,39 +269,47 @@ Builder.prototype = {
   // this applies any variables in the themes and removes the variables, so that new variables can be
   // set up without old ones hanging around
   flatten: function () {
-    return new Builder(this._themeResources.concat([{ type: 'flatten' }]), this._assetFiles)
+    return new Builder(this._themeResources.concat([{ type: 'flatten' }]), this._assetFiles, this._moduleDirectories)
   },
   // sets the assets that should be exported when building. an object of the form {exportFilenameRelativeToHexagonJs: filename}
   assets: function (assets, reset) {
-    //XXX: add the option for inlinable assets
+    // XXX: add the option for inlinable assets
     if (reset) {
-      return new Builder(this._themeResources, assets)
+      return new Builder(this._themeResources, assets, this._moduleDirectories)
     } else {
-      return new Builder(this._themeResources, mergeAssets(this._assetFiles, assets))
+      return new Builder(this._themeResources, mergeAssets(this._assetFiles, assets), this._moduleDirectories)
     }
+  },
+  moduleDirectory: function (moduleDirectory) {
+    // You can specify one additional module directory
+    return new Builder(this._themeResources, this._assetFiles, this._moduleDirectories.concat([moduleDirectory]))
   },
   // builds the library into the directory specified
   build: function (options) {
     var self = this
-    return resolveTheme(this._themeResources)
-      .then(function (resolvedTheme) {
-        return build.buildLibrary({
-          modules: options.modules,
-          theme: resolvedTheme,
-          minify: options.minify,
-          prefix: options.prefix
-        })
-      }).then(function (build) {
-        return manipulateBuildAndWrite(build, options, self._assetFiles)
-      }).then(function (build) {
-        if (options.dest) {
-          return exportAssets(self, options)
-            .then(function () {
-              return build
+    return getModuleList(self._moduleDirectories)
+      .then(function (allModules) {
+        return resolveTheme(self._themeResources)
+          .then(function (resolvedTheme) {
+            return build.buildLibrary({
+              allModules: allModules,
+              modules: options.modules,
+              theme: resolvedTheme,
+              minify: options.minify,
+              prefix: options.prefix
             })
-        } else {
-          return build
-        }
+          }).then(function (build) {
+          return manipulateBuildAndWrite(build, options, self._assetFiles)
+        }).then(function (build) {
+          if (options.dest) {
+            return exportAssets(self, options)
+              .then(function () {
+                return build
+              })
+          } else {
+            return build
+          }
+        })
       })
   },
   // builds the library into the directory specified, and then watches for changes. options it expects are the same as build()
@@ -324,9 +365,9 @@ Builder.prototype = {
 
     /* Watch for library changes */
 
-    util.moduleList().then(function (modules) {
-      modules.forEach(function (moduleName) {
-        gaze(path.join(util.moduleDir(moduleName), 'main', '**', '*'), function (err, watcher) {
+    getModuleList(self._moduleDirectories).then(function (allModules) {
+      Object.keys(allModules).forEach(function (moduleName) {
+        gaze(path.join(allModules[moduleName].directory, 'main', '**', '*'), function (err, watcher) {
           if (err) {
             console.error(err)
           } else {
@@ -346,4 +387,13 @@ Builder.prototype = {
   }
 }
 
-module.exports = new Builder
+module.exports = Builder
+
+module.exports.resolveTheme = resolveTheme
+module.exports.exportAssets = exportAssets
+module.exports.getModuleList = getModuleList
+module.exports.replaceAssets = replaceAssets
+module.exports.outputFile = outputFile
+module.exports.getEmbeddableAssets = getEmbeddableAssets
+module.exports.manipulateBuildAndWrite = manipulateBuildAndWrite
+module.exports.mergeAssets = mergeAssets

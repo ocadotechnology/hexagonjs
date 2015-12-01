@@ -1,12 +1,10 @@
-
-
-var chai = require("chai")
-var chaiAsPromised = require("chai-as-promised")
+var chai = require('chai')
+var chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 chai.should()
 
 var util = require('../main/util')
-var path  = require('path')
+var path = require('path')
 
 describe('util', function () {
   describe('utils', function () {
@@ -21,27 +19,20 @@ describe('util', function () {
     })
 
     describe('moduleList', function () {
-
       it('should return an array of the right length', function () {
         return util.moduleList().should.eventually.have.length.of.at.least(72)
       })
 
       describe('should contain some known modules', function () {
-        it('base', function(){
+        it('base', function () {
           return util.moduleList().should.eventually.contain('base')
         })
-        it('selection', function(){
+        it('selection', function () {
           return util.moduleList().should.eventually.contain('selection')
         })
-        it('button', function(){
+        it('button', function () {
           return util.moduleList().should.eventually.contain('button')
         })
-      })
-    })
-
-    describe('moduleDir', function () {
-      it('should return module directory', function () {
-        util.moduleDir('module-name').should.equal(path.join(__dirname, '../../modules/module-name'))
       })
     })
 
@@ -80,7 +71,7 @@ describe('util', function () {
 
     describe('convertSpinalKeysToCamel', function () {
       it('convertSpinalKeysToCamel should work', function () {
-        return util.convertSpinalKeysToCamel({'it-should-work': 'value', 'it-should-work-2': 'value-2'}).should.eql({'itShouldWork' : 'value', 'itShouldWork2' : 'value-2'})
+        return util.convertSpinalKeysToCamel({'it-should-work': 'value', 'it-should-work-2': 'value-2'}).should.eql({'itShouldWork': 'value', 'itShouldWork2': 'value-2'})
       })
     })
 

@@ -33,12 +33,8 @@ exports.doesExist = function (filename) {
     .catch(function () { return false })
 }
 
-exports.moduleList = function () {
-  return fs.readdirAsync(path.join(rootDir, 'modules'))
-}
-
-exports.moduleDir = function (moduleName) {
-  return path.join(path.join(rootDir, 'modules', moduleName))
+exports.moduleList = function (moduleDirectory) {
+  return fs.readdirAsync(moduleDirectory || path.join(rootDir, 'modules'))
 }
 
 // compiles a coffeescript string to javascript. wrap in a promise for nicer error handling

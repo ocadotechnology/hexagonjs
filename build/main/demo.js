@@ -18,7 +18,6 @@
 
 var Promise = require('bluebird')
 var fs = Promise.promisifyAll(require('fs-extra'))
-var builder = require('./builder')
 var path = require('path')
 var liveServer = require('live-server')
 var gaze = require('gaze')
