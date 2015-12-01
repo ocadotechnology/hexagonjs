@@ -11,7 +11,6 @@
     color: #555;
     line-height: 0;
     text-align: center;
-    background: #D5D5D5;
     outline: none;
     cursor: pointer;
     vertical-align: middle;
@@ -31,19 +30,15 @@
       width: 20px;
       border-radius: 50%;
       border: none;
-      background: #ABABAB;
       transform: scale(1);
       transition: left 0.2s ease-in-out, margin-left 0.2s ease-in-out, background 0.2s;
       opacity: 1;
     }
 
     &:checked {
-      background: #D5D5D5;
-
       &:before {
         left: 50%;
         margin-left: 0;
-        background: #B2BA32;
       }
     }
   }
