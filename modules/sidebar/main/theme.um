@@ -74,3 +74,8 @@
     @type color
     @description: The text color of the button in the titlebar that toggles the sidebar on hover.
     @default: rgba(255,255,255,0.75)
+
+  @option shadow-col
+    @type color
+    @description: The shadow color for the sidebar
+    @default rgba(0, 0, 0, 0.05)

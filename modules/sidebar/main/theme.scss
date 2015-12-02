@@ -1,5 +1,6 @@
 .hx-sidebar {
   background: $background-col;
+  box-shadow: 1px 1px 1px 1px $shadow-col;
 
   &.hx-animate {
     transition: opacity $animation-duration, width $animation-duration;
