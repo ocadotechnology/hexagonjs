@@ -116,7 +116,6 @@ splitData = (data, defined = ->) ->
 splitAndFeather = (data, maxSize, defined = ->) ->
   if maxSize
     featherFactor = maxSize / data.length
-    #feather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
     LTTBFeather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
   else
     splitData(data, defined)
@@ -328,3 +327,10 @@ optionSetterGetter = (name) ->
       this
     else
       @_.options[name]
+
+hx._.selection = {
+  dataAverage: dataAverage
+  maxTriangle: maxTriangle
+  LTTBFeather: LTTBFeather
+  splitAndFeather: splitAndFeather
+}
