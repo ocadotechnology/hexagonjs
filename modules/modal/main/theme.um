@@ -25,10 +25,10 @@
     @description: The font size for the modal titlebar
     @default 1.17em
 
-  @option box-shadow
+  @option shadow-col
     @type color
-    @description: The box shadow for the modal
-    @default [0 5px 15px rgba(0, 0, 0, 0.5)]
+    @description: The shadow color for the modal
+    @default rgba(0, 0, 0, 0.25)
 
   @option border-radius
     @type size
