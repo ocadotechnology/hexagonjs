@@ -75,3 +75,8 @@
     @type color
     @description: The contrasting tab color
     @default: #3D3D3D
+
+  @option shadow-col
+    @type color
+    @description: The shadow color for the tabs container
+    @default: rgba(0, 0, 0, 0.05)

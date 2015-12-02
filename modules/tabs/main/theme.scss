@@ -2,6 +2,7 @@
   background: $background-col;
   color: $text-col;
   border-color: $default-col;
+  box-shadow: 1px 1px 1px 1px $shadow-col;
 }
 
 @mixin tab($class, $col) {
