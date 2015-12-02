@@ -89,3 +89,8 @@
     @type color
     @description: The text color to use on dark label backgrounds
     @default: #3D3D3D
+
+  @option shadow-col
+    @type color
+    @description: The color of the shadow
+    @default: rgba(0, 0, 0, 0.05)
