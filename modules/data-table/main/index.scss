@@ -38,6 +38,10 @@
 
   .hx-data-table-status-bar-clear {
     cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &.hx-data-table-has-selection {
