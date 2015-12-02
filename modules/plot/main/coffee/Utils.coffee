@@ -79,22 +79,6 @@ extent2 = (data, f, g) ->
   else
     undefined
 
-# creates a new 'lightweight' version of an array by only taking every nth value, where n is
-# chosen so that the maximum number of values returned in the new array doesn't exceed maxSize
-feather = (array, maxSize=200) ->
-  if maxSize > 1
-    originalLength = array.length
-    if originalLength > maxSize
-      newData = new Array(maxSize)
-      for i in [0...maxSize] by 1
-        newData[i] = array[Math.floor(i * (originalLength-1) / (maxSize-1))]
-      newData
-    else
-      array.slice(0)
-  else if maxSize == 1 and array.length > 0
-    [array[Math.floor(array.length/2)]]
-  else []
-
 splitData = (data, defined = ->) ->
   l = data.length
   datas = []
@@ -113,12 +97,64 @@ splitData = (data, defined = ->) ->
 
   datas.filter((d) -> d.length > 0)
 
+#choose n values so that the maximum number of values returned in the new array doesn't exceed maxSize
 splitAndFeather = (data, maxSize, defined = ->) ->
   if maxSize
     featherFactor = maxSize / data.length
-    feather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
+    LTTBFeather(d, Math.floor(d.length * featherFactor)) for d in splitData(data, defined)
   else
     splitData(data, defined)
+
+#Largest-Triangle-Three-Buckets Algorithm for feathering
+LTTBFeather = (array, maxSize=200) ->
+  if maxSize > 1
+    originalLength = array.length
+
+    if originalLength > maxSize
+      newData = new Array(maxSize)
+      newData[0] = array[0]
+      newData[maxSize-1] = array[originalLength-1]
+      bucketSize = (originalLength-2) / (maxSize-2)
+
+      for i in [1...maxSize-1] by 1
+        data1 = newData[i-1]
+        bucket = array.slice(Math.floor((i-1)*bucketSize)+1, Math.floor(i*bucketSize)+1)
+        data2 = dataAverage array.slice(Math.floor(i*bucketSize)+1, Math.floor((i+1)*bucketSize)+1)
+        newData[i] = maxTriangle(data1, bucket, data2)
+
+      newData
+    else
+      array.slice(0)
+  else if maxSize == 1 and array.length > 0
+    [array[Math.floor(array.length/2)]]
+  else []
+
+#calculate the average point in a data point array
+dataAverage = (array) ->
+  length = array.length
+  if array[0].y != undefined
+    sum = array.reduce((a,b) -> {x: a.x+b.x, y: a.y+b.y})
+    x: sum.x/length
+    y: sum.y/length
+  else
+    sum = array.reduce((a,b) -> {x: a.x+b.x, y1: a.y1+b.y1, y2: a.y2+b.y2})
+    x: sum.x/length
+    y1: sum.y1/length
+    y2: sum.y2/length
+
+#find the data point in an array with the largest triangle forming with two selected points
+maxTriangle = (data1, array, data2) ->
+  maxArea = -1
+  for d in array
+    if d.y != undefined
+      area = Math.abs((data1.x-data2.x)*(d.y-data1.y)-(data2.y-data1.y)*(data1.x-d.x))
+    else
+      area = Math.abs((data1.x-data2.x)*(Math.abs(d.y1-d.y2)-Math.abs(data1.y2-data1.y1)) -
+          (Math.abs(data2.y2-data2.y1)-Math.abs(data1.y2-data1.y1))*(data1.x-d.x))
+    if area > maxArea
+      maxArea = area
+      data = d
+  data
 
 # prepares an array for plotting as a bar chart
 stackSegments = (array, arrayNames, xvalue) ->
@@ -276,3 +312,10 @@ optionSetterGetter = (name) ->
       this
     else
       @_.options[name]
+
+hx._.plot = {
+  dataAverage: dataAverage
+  maxTriangle: maxTriangle
+  LTTBFeather: LTTBFeather
+  splitAndFeather: splitAndFeather
+}
