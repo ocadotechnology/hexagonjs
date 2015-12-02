@@ -79,22 +79,6 @@ extent2 = (data, f, g) ->
   else
     undefined
 
-# creates a new 'lightweight' version of an array by only taking every nth value, where n is
-# chosen so that the maximum number of values returned in the new array doesn't exceed maxSize
-feather = (array, maxSize=200) ->
-  if maxSize > 1
-    originalLength = array.length
-    if originalLength > maxSize
-      newData = new Array(maxSize)
-      for i in [0...maxSize] by 1
-        newData[i] = array[Math.floor(i * (originalLength-1) / (maxSize-1))]
-      newData
-    else
-      array.slice(0)
-  else if maxSize == 1 and array.length > 0
-    [array[Math.floor(array.length/2)]]
-  else []
-
 splitData = (data, defined = ->) ->
   l = data.length
   datas = []
@@ -113,6 +97,7 @@ splitData = (data, defined = ->) ->
 
   datas.filter((d) -> d.length > 0)
 
+#choose n values so that the maximum number of values returned in the new array doesn't exceed maxSize
 splitAndFeather = (data, maxSize, defined = ->) ->
   if maxSize
     featherFactor = maxSize / data.length
@@ -328,7 +313,7 @@ optionSetterGetter = (name) ->
     else
       @_.options[name]
 
-hx._.selection = {
+hx._.plot = {
   dataAverage: dataAverage
   maxTriangle: maxTriangle
   LTTBFeather: LTTBFeather

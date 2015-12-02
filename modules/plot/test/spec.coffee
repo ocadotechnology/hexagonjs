@@ -3,7 +3,7 @@ describe "plot", ->
   describe "Graph", ->
 
     describe 'util functions for plotting', ->
-      s = hx._.selection
+      s = hx._.plot
       array = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}]
       array2 = [{x: 1, y1: 4, y2: 3}, {x: 2, y1: 3, y2: 4}, {x: 3, y1: 5, y2: 5}]
       array3 = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}, {x: 4, y: 2}]
