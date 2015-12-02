@@ -33,6 +33,7 @@ body.hx-titlebar-link-padding {
   font-family: $title-font-family;
   font-size: $title-font-size;
   line-height: $titlebar-height;
+  color: $title-text-col;
 
   a {
     color: $titlebar-text-col;
@@ -158,6 +159,10 @@ body.hx-titlebar-link-padding {
 
     .hx-titlebar-icon {
       background: $context-icon-background;
+    }
+
+    .hx-titlebar-title {
+      color: $context-text-col;
     }
   }
 }
