@@ -278,7 +278,7 @@ class DataTable extends hx.EventEmitter
     selection = @_.selection
     options = @_.options
 
-    selection.select('.hx-data-table-pagination-block').classed('hx-data-table-pagination-block-hidden', options.displayMode isnt 'paginate')
+    selection.select('.hx-data-table-pagination-block').classed('hx-data-table-pagination-block-visible', options.displayMode is 'paginate')
 
     # some utility functions
     getColumnOption = (name, id) ->
@@ -427,7 +427,7 @@ class DataTable extends hx.EventEmitter
 
           # add the 'select all' checkbox to the header
           if options.selectEnabled or options.collapsibleRenderer?
-            headerControlBox = headerRow.append('th').class('hx-data-table-control')
+            headerControlBox = headerRow.append('th').class('hx-data-table-control hx-table-head-no-border')
 
           if options.selectEnabled and not options.singleSelection
             headerCheckBox = headerControlBox.append('div').class('hx-data-table-checkbox')
@@ -540,7 +540,6 @@ class DataTable extends hx.EventEmitter
 
             currentVis = if force? then force else !cc.contentRow.classed('hx-data-table-collapsible-row-visible')
             cc.contentRow.classed('hx-data-table-collapsible-row-visible', currentVis)
-            cc.hiddenRow.classed('hx-data-table-collapsible-row-visible', currentVis)
             node.classed('hx-data-table-collapsible-row-visible', currentVis)
             node.select('.hx-data-table-collapsible-toggle').select('i').class(if currentVis then 'hx-icon hx-icon-minus' else 'hx-icon hx-icon-plus')
 

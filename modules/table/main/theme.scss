@@ -1,5 +1,8 @@
-.hx-table,
-.hx-table > table {
+.hx-table {
+  tr, td, th {
+    border-color: $border-col;
+  }
+
   th {
     background: $header-background-col;
     color: $header-text-col;
@@ -19,32 +22,7 @@
         color: $row-alt-text-col;
 
         &:hover {
-          background: $row-alt-hover-background-col;
-        }
-      }
-
-      td {
-        border-right-color: $inner-border-col;
-      }
-
-      td:first-child {
-        border-left-color: $outer-border-col;
-      }
-
-      td:last-child {
-        border-right-color: $outer-border-col;
-      }
-
-      &:first-child {
-        td {
-          border-top-color: $outer-border-col;
-        }
-      }
-
-      &:last-child,
-      &.hx-lastrow {
-        td {
-          border-bottom-color: $outer-border-col;
+          background: $row-hover-background-col;
         }
       }
     }

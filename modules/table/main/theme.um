@@ -18,17 +18,12 @@
   @option row-hover-background-col
     @type color
     @description: The hover background color for rows inside the tbody element within a table.
-    @default: #f7f7f7
+    @default: #DDE8EE
 
   @option row-alt-background-col
     @type color
     @description: The alternate background color (every second row) for rows inside the tbody element within a table.
     @default: #EEE
-
-  @option row-alt-hover-background-col
-    @type color
-    @description: The alternate hover background color (every second row) for rows inside the tbody element within a table.
-    @default: #E9E9E9
 
   @option row-text-col
     @type color
@@ -40,12 +35,7 @@
     @description: The text color for alternate rows (every second row) within the tbody element in a table.
     @default: black
 
-  @option inner-border-col
+  @option border-col
     @type color
-    @description: The border for elements inside the table (that do not touch the edges)
+    @description: The border color for elements in the table with borders.
     @default: #E2E1E1
-
-  @option outer-border-col
-    @type color
-    @description: The border for elements that touch the edges of the table
-    @default: transparent

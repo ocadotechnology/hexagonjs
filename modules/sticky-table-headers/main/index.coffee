@@ -46,15 +46,11 @@ cloneEvents = (elem, clone) ->
       cloneChildren = clone.childNodes
       cloneEvents elemChildren[i], cloneChildren[i] for i in [0..elemChildren.length]
 
-fixSizes = (elem, fn, round) ->
+fixSizes = (elem, fn) ->
   # Deal with situations where no node is present
   if not elem.empty()
-    width = elem.style('width').replace('px','')
-    height = elem.style('height').replace('px','')
-
-    if round # fix for incorrect sized top left cell due to rounded pixels
-      width = Math.ceil width
-      height = Math.ceil height
+    width = Number(elem.style('width').replace('px',''))
+    height = Number(elem.style('height').replace('px',''))
 
     clone = elem.clone(true)
 
@@ -209,7 +205,7 @@ renderStickyHeaders = ->
       fixSizes cellNode, (newNode) ->
         topLeftTable.append('tr').append newNode
         cellNode.classed('hx-sticky-table-invisible', true)
-      , true
+
 
   # This needs to be done after the left head has been added as otherwise the widthOffset is 0
   @topHeader?.style('max-width', @container.width() - @widthOffset  + 'px')

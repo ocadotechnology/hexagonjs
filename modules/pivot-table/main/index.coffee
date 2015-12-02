@@ -1,7 +1,8 @@
-cellViewEnter = (d, i, isHead) ->
+cellViewEnter = (d, i, isHead, topLeft) ->
   type = if isHead or hx.isFunction(d) then 'th' else 'td'
   cell = @append(type).class('hx-pivot-table-cell')
   if isHead then cell.classed('hx-pivot-table-head-cell', true)
+  if topLeft then cell.classed('hx-table-head-no-border', true)
   cell.node()
 
 cellViewUpdate = (d, e, i, cellRender, isHead) ->
@@ -15,7 +16,7 @@ cellViewUpdate = (d, e, i, cellRender, isHead) ->
 rowViewUpdate = (d, e, i, cellRender, isHead, shifted) ->
   # Account for first column headers so the cell view index is relative to the passed in data body.
   hx.select(e).view('.hx-pivot-table-cell')
-    .enter (d, i) -> cellViewEnter.call(this, d, i, isHead or (shifted and i is 0))
+    .enter (d, i) -> cellViewEnter.call(this, d, i, isHead or (shifted and i is 0), isHead and (shifted and i is 0))
     .update (d, e, i) -> cellViewUpdate(d, e, i, cellRender, isHead or (shifted and i is 0))
     .apply(d)
 
@@ -65,18 +66,18 @@ class PivotTable extends hx.EventEmitter
           e.unshift leftData[i]
           e
 
-        shifted = true
+        leftShifted = true
 
-      if topData.length > 0 and shifted
+      if topData.length > 0 and leftShifted
         topData?.unshift @options.topLeftCellRender or undefined
 
       bodyData ?= data.body
 
       @tableHeadView = @tableHead.view('tr','tr')
-        .update (d, e, i) -> rowViewUpdate(d, e, i, self.options.cellRender, true)
+        .update (d, e, i) -> rowViewUpdate(d, e, i, self.options.cellRender, true, leftShifted)
 
       @tableBodyView = @tableBody.view('tr', 'tr')
-        .update (d, e, i) -> rowViewUpdate(d, e, i, self.options.cellRender, false, shifted)
+        .update (d, e, i) -> rowViewUpdate(d, e, i, self.options.cellRender, false, leftShifted)
 
       if topData?.length > 0
         @tableHeadView.apply([topData])

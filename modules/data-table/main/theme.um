@@ -1,19 +1,9 @@
 @module data-table
 
-  @option header-cell-hover-background-col
-    @type color
-    @description: The background color for header cells on hover
-    @default: #F5F5F5
-
-  @option cell-border-col
-    @type color
-    @description: The border color for cells
-    @default: #E4E4E4
-
   @option disabled-row-background-col
     @type color
     @description: The background color for disabled rows
-    @default: white
+    @default: #FAFAFA
 
   @option disabled-row-text-col
     @type color
@@ -60,16 +50,6 @@
     @description: The shadow color for rows in compact mode
     @default: rgba(128, 128, 128, 0.25)
 
-  @option compact-row-hover-background-col
-    @type color
-    @description: The background color for rows in compact mode when hovering
-    @default: #FAFAFA
-
-  @option compact-row-hover-text-col
-    @type color
-    @description: The text color for rows in compact mode when hovering
-    @default: black
-
   @option compact-row-background-col
     @type color
     @description: The background color for rows in compact mode
@@ -80,6 +60,17 @@
     @description: The text color for rows in compact mode
     @default: black
 
+
+  @option compact-row-hover-background-col
+    @type color
+    @description: The background color for rows in compact mode when hovering
+    @default: #FAFAFA
+
+  @option compact-row-hover-text-col
+    @type color
+    @description: The text color for rows in compact mode when hovering
+    @default: black
+
   @option loading-background-col
     @type color
     @description: The background color for the loading div
@@ -88,4 +79,4 @@
   @option footer-background-col
     @type color
     @description: The background color of the footer section
-    @default: #41484A
+    @default: #FAFAFA
