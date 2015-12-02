@@ -1,6 +1,0 @@
-@module logo
-
-  @option logo
-    @type string
-    @description: The image to use as the logo
-    @default: url('logo.svg')

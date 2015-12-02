@@ -1,5 +1,5 @@
 img.hx-logo {
   &, &:after {
-    content: $logo;
+    content: url("logo.svg");
   }
 }
