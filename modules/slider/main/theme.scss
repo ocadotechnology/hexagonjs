@@ -53,7 +53,7 @@
 
 .hx-slider-point {
   border-radius: $marker-border-radius;
-  background: darken($slider-background-col, 5);
+  background: $slider-marker-col;
   height: $range-height;
   top: (100% - $range-height) / 2;
 }
