@@ -48,4 +48,4 @@
   @option shadow-col
     @type color
     @description: The shadow color for collapsibles
-    @default: rgba(0, 0, 0, 0.5)
+    @default: rgba(0, 0, 0, 0.05)
