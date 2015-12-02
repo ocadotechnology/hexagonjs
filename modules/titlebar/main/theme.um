@@ -169,3 +169,13 @@
     @type color
     @description: The text color for the title when the default titlebar is used
     @default: #3D3D3D
+
+  @option titlebar-context-icon-col
+    @type color
+    @description: The color of the icons when a context class has been applied
+    @default: rgba(255, 255, 255, 0.5)
+
+  @option titlebar-context-icon-hover-col
+    @type color
+    @description: The hover color of the icons when a context class has been applied
+    @default: rgba(255, 255, 255, 0.85)
