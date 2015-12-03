@@ -13,6 +13,7 @@
 
   @api Dropdown
     @prototype hx.Dropdown
+      @extends EventEmitter
       @description: An api for creating a dropdown that shows when the user either clicks or hovers over an element.
       @constructor
         @added

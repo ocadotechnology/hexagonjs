@@ -9,6 +9,7 @@
       @issue 758
 
     @prototype hx.InlinePicker
+      @extends EventEmitter
       @constructor
         @description
         @param selector [String/HTMLElement]: A CSS selector that uniquely identifies the element, or an HTMLElement.

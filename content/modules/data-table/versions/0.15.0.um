@@ -33,6 +33,7 @@
 
   @api Data Table
     @prototype hx.DataTable
+      @extends EventEmitter
       @added: Added a new module for creating data tables to replace the Extended Table module.
         @issue 547
 

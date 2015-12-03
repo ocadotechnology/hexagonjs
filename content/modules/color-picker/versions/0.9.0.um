@@ -54,6 +54,7 @@
 
   @api Color Picker
     @prototype hx.ColorPicker
+      @extends EventEmitter
       @description: The ColorPicker class can be used to allow a user to select a color with a visual representation.
       @constructor
         @param selector [String]: The selector to show the color picker for.

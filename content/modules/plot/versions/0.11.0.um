@@ -3,6 +3,7 @@
   @api Plot
 
     @prototype LineSeries
+      @extends EventEmitter
       @enhancement: Gradient stroke and fill is now possible (by using an array for the color properties)
         @issue 342
 
@@ -71,6 +72,7 @@
             @returns String: The formatted number.
 
     @prototype BandSeries
+      @extends EventEmitter
       @bugfix: Fixed issue where existing band series weren't being cleared when a graph was re-renderered.
         @issue 406
 
@@ -147,6 +149,7 @@
             @returns String: The formatted number.
 
     @prototype BarSeries
+      @extends EventEmitter
       @property class [String]
         @description: An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for a series.
 
@@ -169,6 +172,7 @@
         @returns BarSeries: This BarSeries
 
     @prototype ScatterSeries
+      @extends EventEmitter
       @property class [String]
         @description: An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for the data points.
 
@@ -204,6 +208,7 @@
             @returns String: The formatted number.
 
     @prototype StraightLineSeries
+      @extends EventEmitter
       @property class [String]
         @description: An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for a series, for example by making a line series dashed.
 
@@ -239,6 +244,7 @@
             @returns String: The formatted number.
 
     @prototype hx.Graph
+      @extends EventEmitter
       @enhancement: Added resize listener to make graphs re-render when the container is resized.
         @issue 53
 

@@ -18,6 +18,7 @@
 
   @api Number Picker
     @prototype hx.NumberPicker
+      @extends EventEmitter
       @description: A prototype used to create number pickers.
       @constructor
         @param selector [String/HTMLElement]: The selector to build the number picker inside of

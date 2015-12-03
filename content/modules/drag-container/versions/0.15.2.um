@@ -45,6 +45,7 @@
       @issue 603
 
     @prototype hx.DragContainer
+      @extends EventEmitter
       @added
       @description: A prototype for creating a container with draggable elements inside.
 

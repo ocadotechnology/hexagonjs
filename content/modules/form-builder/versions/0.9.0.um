@@ -10,6 +10,7 @@
 
   @api Form Builder
     @prototype hx.Form
+      @extends EventEmitter
       @description: Used for building forms.
 
       @constructor

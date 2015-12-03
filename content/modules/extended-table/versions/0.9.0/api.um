@@ -1,4 +1,5 @@
 @prototype hx.Table
+  @extends EventEmitter
   @description
     A component to allow tables to be created dynamically using Javascript that contains features such as filtering, sorting and pagination.
 

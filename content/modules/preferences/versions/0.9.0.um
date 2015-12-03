@@ -23,6 +23,7 @@
       @description: An object for getting and setting user preferences
 
     @prototype UserPreferences
+      @extends EventEmitter
       @description: A class for getting and setting user preferences for the current domain.
       @method show: Shows the preferences modal
       @method hide: Hides the preferences modal

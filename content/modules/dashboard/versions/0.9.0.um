@@ -11,6 +11,7 @@
 
   @api Dashboard
     @prototype DashboardWidget
+      @extends EventEmitter
       @added
       @description: A object that represents a widget in the dashboard.
 

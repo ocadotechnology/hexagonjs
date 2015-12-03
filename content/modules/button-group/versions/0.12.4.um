@@ -38,6 +38,8 @@
     @prototype hx.ButtonGroup
       @description
       @added
+      @extends EventEmitter
+
       @constructor
         @param selector [String/HTMLElement]: The target button to set the select up in.
         @param? options [Object]: The options to use when creating the button group.

@@ -8,6 +8,7 @@
 
   @api Menu
     @prototype hx.Menu
+      @extends EventEmitter
       @description: A class used to create dropdown menus using @code[hx.Dropdown] and a list of menu items.
 
       @constructor

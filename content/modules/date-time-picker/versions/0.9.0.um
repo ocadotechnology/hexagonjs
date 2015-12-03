@@ -13,6 +13,7 @@
 
   @api Date Time Picker
     @prototype hx.DateTimePicker
+      @extends EventEmitter
       @description: A class used to combine a date picker and a time picker so that they work toghether.
 
       @constructor

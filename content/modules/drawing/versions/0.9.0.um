@@ -15,6 +15,7 @@
 
   @api Drawing
     @prototype hx.Drawing
+      @extends EventEmitter
       @description
         Used to create interactive drawings.
 

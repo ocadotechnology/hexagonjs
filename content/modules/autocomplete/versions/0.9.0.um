@@ -23,6 +23,7 @@
 
   @api Autocomplete
     @prototype hx.AutoComplete
+      @extends EventEmitter
       @description: The AutoComplete class can be used to add an auto complete suggestion dropdown to any input field.
       @constructor
         @description: Add an auto complete suggestions dropdown to an input box

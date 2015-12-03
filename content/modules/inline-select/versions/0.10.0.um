@@ -10,6 +10,7 @@
 
   @api Inline Select
     @prototype hx.InlineSelect
+      @extends EventEmitter
       @added
       @constructor
         @param selector [String/HTMLElement]: A CSS selector that uniquely identifies the element, or an HTMLElement.

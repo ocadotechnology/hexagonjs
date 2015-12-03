@@ -20,6 +20,7 @@
 
   @api Date Picker
     @prototype hx.DatePicker
+      @extends EventEmitter
       @description: The date picker can be used to create an interactive dropdown to let the user select a date.
 
       @constructor

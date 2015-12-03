@@ -4,6 +4,7 @@
 
   @api Modal
     @prototype hx.Modal
+      @extends EventEmitter
 
       @constructor
         @deprecated

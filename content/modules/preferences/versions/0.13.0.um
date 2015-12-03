@@ -24,6 +24,7 @@
         This has been replaced with the Preferences type
 
     @prototype Preferences
+      @extends EventEmitter
       @description: A class for storing and retrieving user preferences such as timezone and locale preference.
 
       @method timezone

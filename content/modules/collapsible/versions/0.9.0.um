@@ -22,12 +22,14 @@
 
   @api Collapsible
     @prototype hx.Collapseable
+      @extends EventEmitter
       @deprecated: This has been replaced with @code[hx.Collapsible]
 
     @function hx.initialiseCollapseables
       @deprecated: This has been replaced with @code[hx.initialiseCollapsibles]
 
     @prototype hx.Collapsible
+      @extends EventEmitter
       @description: Create one of these for each collapsible in your page to make it respond to mouse clicks. This object also provides ways to open and close the collapsible programmatically, listen for changes in the state of the collapsible and check the state at any time.
 
       @method on

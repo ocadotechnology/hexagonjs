@@ -10,6 +10,7 @@
 
   @api Morph Section
     @prototype hx.MorphSection
+      @extends EventEmitter
       @added
       @description: A base class for adding morph sections.
       @constructor

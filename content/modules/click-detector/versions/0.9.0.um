@@ -16,6 +16,7 @@
 
   @api Click Detector
     @prototype hx.ClickDetector
+      @extends EventEmitter
       @description
 
       @constructor
