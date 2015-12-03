@@ -56,11 +56,12 @@ describe 'data-table', ->
   }
 
   checkSetterGetter = (name, valuesToCheck) ->
-    it 'setting and getting should work', ->
-      dt = new hx.DataTable(hx.detached('div').node())
-      for value in valuesToCheck
-        dt[name](value)
-        expect(dt[name]()).toEqual(value)
+    describe name, ->
+      it 'setting and getting should work', ->
+        dt = new hx.DataTable(hx.detached('div').node())
+        for value in valuesToCheck
+          dt[name](value)
+          expect(dt[name]()).toEqual(value)
 
 
   checkOption = (name, valuesToCheck, dontSpy) ->
@@ -191,7 +192,6 @@ describe 'data-table', ->
     checkColumnOption('sortEnabled', [true, false])
 
   describe 'setter/getters', ->
-    checkSetterGetter('suppressRender', [true, false])
     checkSetterGetter('renderSuppressed', [true, false])
 
 
@@ -321,21 +321,21 @@ describe 'data-table', ->
 
       testTable {tableOptions: tableOptions}, undefined, (container, dt, options, data) ->
         it 'should show collapsible expand icons', ->
-          container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-toggle').size().should.equal(data.rows.length)
+          container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-toggle').size().should.equal(data.rows.length)
 
         it 'should render collapsible rows correctly when toggling with the button', ->
-          handlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-toggle')
+          handlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-toggle')
             .nodes.map(fakeNodeEvent)
 
           handlers[0](fakeEvent)
-          container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
-          container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
-          container.selectAll('.bob').size().should.equal(1)
+          container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
+          container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
+          container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('.bob').size().should.equal(1)
 
           handlers[1](fakeEvent)
-          container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(2)
-          container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(2)
-          container.selectAll('.bob').size().should.equal(2)
+          container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(2)
+          container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(2)
+          container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('.bob').size().should.equal(2)
 
 
 
@@ -347,9 +347,9 @@ describe 'data-table', ->
         }
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
           dt.expandedRows ['0', '1'], ->
-            container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
-            container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
-            container.selectAll('.bob').size().should.equal(1)
+            container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
+            container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
+            container.select('.hx-sticky-table-wrapper').selectAll('.bob').size().should.equal(1)
 
       it "should get the correct row id's", (done) ->
         tableOptions = {
@@ -359,7 +359,7 @@ describe 'data-table', ->
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
           dt.expandedRows().should.eql([])
 
-          clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-toggle')
+          clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-toggle')
             .nodes.map(fakeNodeEvent)
 
           clickHandlers.forEach (h) -> h?() # open all collapsibles
@@ -400,7 +400,7 @@ describe 'data-table', ->
       describe 'paginate', ->
         testTable {tableOptions: {displayMode: 'paginate'}}, undefined, (container, dt, options, data) ->
           it 'should show the paginator block', ->
-            container.select('.hx-data-table-pagination-block-hidden').size().should.equal(0)
+            container.select('.hx-data-table-pagination-block-visible').size().should.equal(1)
 
           it 'should not show the paginator when there is one page', ->
             dt._.numPages.should.equal(1)
@@ -408,7 +408,7 @@ describe 'data-table', ->
 
         it 'should show the paginator when there is more than one page', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-pagination-block-hidden').size().should.equal(0)
+            container.select('.hx-data-table-pagination-block-visible').size().should.equal(1)
             container.select('.hx-data-table-multi-page').size().should.equal(1)
             dt._.numPages.should.equal(3)
 
@@ -463,12 +463,11 @@ describe 'data-table', ->
             done()
 
       describe 'all', ->
-        it 'should show the paginator block', (done) ->
+        it 'should hide the paginator block', (done) ->
           testTable {tableOptions: {displayMode: 'all', pageSize: 1}}, done, (container, dt, options, data) ->
             should.not.exist(dt._.numPages)
-            container.select('.hx-data-table-pagination-block-hidden').size().should.equal(1)
+            container.select('.hx-data-table-pagination-block-visible').size().should.equal(0)
             container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('tr').size().should.equal(3)
-
 
 
 
@@ -492,7 +491,7 @@ describe 'data-table', ->
         tableOptions =
           headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
-          container.select('.hx-sticky-table-header-top').selectAll('.bob').size().should.equal(3)
+          container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(3)
 
       it 'should call the headerCellRenderer for individual columns', (done) ->
         tableOptions =
@@ -505,9 +504,9 @@ describe 'data-table', ->
               headerCellRenderer: (elem) -> hx.select(elem).classed('steve', true)
 
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
-          container.select('.hx-sticky-table-header-top').selectAll('.bob').size().should.equal(1)
-          container.select('.hx-sticky-table-header-top').selectAll('.dave').size().should.equal(1)
-          container.select('.hx-sticky-table-header-top').selectAll('.steve').size().should.equal(1)
+          container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
+          container.select('.hx-sticky-table-header-top').select('thead').selectAll('.dave').size().should.equal(1)
+          container.select('.hx-sticky-table-header-top').select('thead').selectAll('.steve').size().should.equal(1)
 
       it 'should use a column headerCellRenderer instead of the default headerCellRenderer if one is defined', (done) ->
         tableOptions =
@@ -517,8 +516,8 @@ describe 'data-table', ->
               headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
 
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
-          container.select('.hx-sticky-table-header-top').selectAll('.bob').size().should.equal(1)
-          container.select('.hx-sticky-table-header-top').selectAll('.kate').size().should.equal(2)
+          container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
+          container.select('.hx-sticky-table-header-top').select('thead').selectAll('.kate').size().should.equal(2)
 
 
 
@@ -732,7 +731,7 @@ describe 'data-table', ->
     describe 'selectEnabled', ->
       testTable {tableOptions: selectEnabled: true}, undefined, (container, dt, options, data) ->
         it 'should have checkboxes', ->
-          container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox').size().should.equal(3)
+          container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').size().should.equal(3)
 
         it 'should have the checkbox in the top left', ->
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.hx-data-table-checkbox').size().should.equal(1)
@@ -796,7 +795,7 @@ describe 'data-table', ->
       it 'should not allow disabled rows to be selected', ->
         it 'should select the correct range from top to bottom', (done) ->
           testTable {tableOptions: selectEnabled: true, rowEnabledLookup: (row) -> !row.collapsible}, done, (container, dt, options, data) ->
-            clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
+            clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
               .nodes.map(fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
@@ -812,7 +811,7 @@ describe 'data-table', ->
       it 'should toggle the row when clicked twice', ->
         it 'should select the correct range from top to bottom', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
-            clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
+            clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
               .nodes.map(fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
@@ -833,7 +832,7 @@ describe 'data-table', ->
       describe 'shift selection', ->
         it 'should select the correct range from top to bottom', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
-            clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
+            clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
               .nodes.map(fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
@@ -852,7 +851,7 @@ describe 'data-table', ->
 
         it 'should select the correct range from bottom to top', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
-            clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
+            clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
               .nodes.map(fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
@@ -871,7 +870,7 @@ describe 'data-table', ->
 
         it 'should not allow unselectable rows to be selected', (done) ->
           testTable {tableOptions: selectEnabled: true, rowSelectableLookup: (row) -> !!row.collapsible}, done, (container, dt, options, data) ->
-            clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
+            clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
               .nodes.map(fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
@@ -890,7 +889,7 @@ describe 'data-table', ->
 
         it 'should not allow disabled rows to be selected', (done) ->
           testTable {tableOptions: selectEnabled: true, rowEnabledLookup: (row) -> !!row.collapsible}, done, (container, dt, options, data) ->
-            clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
+            clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
               .nodes.map(fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
@@ -917,7 +916,6 @@ describe 'data-table', ->
             container.classed('hx-data-table-disable-text-selection').should.equal(true)
             shiftUpHandler(fakeEvent)
             container.classed('hx-data-table-disable-text-selection').should.equal(false)
-
 
 
 
@@ -1030,21 +1028,8 @@ describe 'data-table', ->
               .select('.hx-data-table-sort-control').select('.hx-picker')
               .component()
 
-            picker.value('name')
-              .emit('change', {value: 'name', cause: 'user'})
-
-        it 'should change the sort direction when the button is clicked', (done) ->
-          testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
-            dt.sort({column: 'name', direction: 'asc'})
-            dt.on 'render', ->
-              dt.sort().should.eql({column: 'name', direction: 'desc'})
-              hx.select('body').clear()
-              done()
-
-            container
-              .select('.hx-data-table-sort-control').select('.hx-button-group')
-              .component()
-              .emit('change', {value: 'desc', cause: 'user'})
+            picker.value({value: 'nameasc'})
+              .emit('change', {value: 'nameasc', cause: 'user'})
 
         it 'should remove the sort when the sort column is set to no sort', (done) ->
           testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
@@ -1151,7 +1136,7 @@ describe 'data-table', ->
 
         it 'should render correctly', (done) ->
           testTable {data: groupedHeaderData, tableOptions: {}}, done, (container, dt, options, data) ->
-            rows = container.select('.hx-sticky-table-header-top').selectAll('tr')
+            rows = container.select('.hx-sticky-table-header-top').select('thead').selectAll('tr')
             rows.size().should.equal(4)
 
             firstRow = hx.select(rows.nodes[0])
@@ -1170,7 +1155,7 @@ describe 'data-table', ->
 
         it 'should render correctly with selection enabled', (done) ->
           testTable {data: groupedHeaderData, tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
-            rows = container.select('.hx-sticky-table-header-top').selectAll('tr')
+            rows = container.select('.hx-sticky-table-header-top').select('thead').selectAll('tr')
             rows.size().should.equal(4)
             rows.selectAll('.hx-data-table-control').size().should.equal(4)
             rows.selectAll('.hx-data-table-checkbox').size().should.equal(1)
@@ -1180,7 +1165,7 @@ describe 'data-table', ->
 
         it 'should render correctly with collapsibles enabled', (done) ->
           testTable {data: groupedHeaderData, tableOptions: {collapsibleRenderer: ->}}, done, (container, dt, options, data) ->
-            rows = container.select('.hx-sticky-table-header-top').selectAll('tr')
+            rows = container.select('.hx-sticky-table-header-top').select('thead').selectAll('tr')
             rows.size().should.equal(4)
             rows.selectAll('.hx-data-table-control').size().should.equal(4)
             rows.selectAll('.hx-data-table-checkbox').size().should.equal(0)
@@ -1192,7 +1177,7 @@ describe 'data-table', ->
 
         it 'should render correctly', (done) ->
           testTable {data: groupedHeaderData, tableOptions: {}}, done, (container, dt, options, data) ->
-            rows = container.select('.hx-sticky-table-header-top').selectAll('tr')
+            rows = container.select('.hx-sticky-table-header-top').select('thead').selectAll('tr')
             rows.size().should.equal(4)
 
             firstRow = hx.select(rows.nodes[0])
@@ -1210,23 +1195,23 @@ describe 'data-table', ->
 
         it 'should render correctly with selection enabled', (done) ->
           testTable {data: groupedHeaderData, tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
-            rows = container.select('.hx-sticky-table-header-top-left').selectAll('tr')
+            rows = container.select('.hx-sticky-table-header-top-left').select('thead').selectAll('tr')
             rows.size().should.equal(4)
             rows.selectAll('.hx-data-table-control').size().should.equal(4)
             rows.selectAll('.hx-data-table-checkbox').size().should.equal(1)
-            hx.select(rows.nodes[0]).selectAll('th').text().should.eql([''])
-            hx.select(rows.nodes[1]).selectAll('th').text().should.eql([''])
-            hx.select(rows.nodes[2]).selectAll('th').text().should.eql([''])
+            hx.select(rows.nodes[0]).select('th').text().should.eql('')
+            hx.select(rows.nodes[1]).select('th').text().should.eql('')
+            hx.select(rows.nodes[2]).select('th').text().should.eql('')
 
         it 'should render correctly with collapsibles enabled', (done) ->
           testTable {data: groupedHeaderData, tableOptions: {collapsibleRenderer: ->}}, done, (container, dt, options, data) ->
-            rows = container.select('.hx-sticky-table-header-top-left').selectAll('tr')
+            rows = container.select('.hx-sticky-table-header-top-left').select('thead').selectAll('tr')
             rows.size().should.equal(4)
             rows.selectAll('.hx-data-table-control').size().should.equal(4)
             rows.selectAll('.hx-data-table-checkbox').size().should.equal(0)
-            hx.select(rows.nodes[0]).selectAll('th').text().should.eql([''])
-            hx.select(rows.nodes[1]).selectAll('th').text().should.eql([''])
-            hx.select(rows.nodes[2]).selectAll('th').text().should.eql([''])
+            hx.select(rows.nodes[0]).select('th').text().should.eql('')
+            hx.select(rows.nodes[1]).select('th').text().should.eql('')
+            hx.select(rows.nodes[2]).select('th').text().should.eql('')
 
 
 
@@ -1258,19 +1243,6 @@ describe 'data-table', ->
 
       dt.rowsForIds(['1'])
       expect(feed.rowsForIds).not.toHaveBeenCalled()
-
-
-
-  describe 'suppressRender', ->
-    it 'should prevent render from doing anything when true', ->
-      container = hx.detached('div').style('width', '1000px')
-      dt = new hx.DataTable(container.node())
-      f = jasmine.createSpy('callback')
-      dt.suppressRender(true)
-      dt.feed hx.dataTable.objectFeed(threeRowsData), f
-      expect(f).not.toHaveBeenCalled()
-      container.select('.hx-data-table-content').node().childNodes.length.should.equal(0)
-      container.selectAll('.hx-data-table-table').size().should.equal(0)
 
 
 
@@ -1620,9 +1592,9 @@ describe 'data-table', ->
             done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
 
     describe 'selectedrowsclear', ->
       it 'should emit an event when the selected rows is cleared', (done) ->
@@ -1642,8 +1614,8 @@ describe 'data-table', ->
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
 
     describe 'expandedrowschange', ->
       it 'should emit an event when row is collapsed/expanded', (done) ->

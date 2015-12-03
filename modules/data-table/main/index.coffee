@@ -544,7 +544,10 @@ class DataTable extends hx.EventEmitter
             node.select('.hx-data-table-collapsible-toggle').select('i').class(if currentVis then 'hx-icon hx-icon-minus' else 'hx-icon hx-icon-plus')
 
             if currentVis then options.collapsibleRenderer cc.contentDiv.node(), row
-            else delete @_.renderedCollapsibles[rowId]
+            else
+              @_.renderedCollapsibles[rowId].contentRow.remove()
+              @_.renderedCollapsibles[rowId].hiddenRow.remove()
+              delete @_.renderedCollapsibles[rowId]
 
             @_.expandedRows[if currentVis then 'add' else 'delete'](rowId)
             @_.stickyHeaders.render()
