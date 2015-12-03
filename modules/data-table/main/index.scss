@@ -7,6 +7,7 @@
 
   .hx-data-table-content {
     flex-shrink: 1;
+    flex-grow: 1;
   }
 
   .hx-data-table-loading {
@@ -55,6 +56,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    flex-grow: 1;
+    flex-shrink: 0;
   }
 
   .hx-data-table-footer-spacer {
@@ -275,7 +278,6 @@
       width: auto !important;
       height: auto !important;
       overflow: visible;
-      margin: 0.4em 2px 2px 0 !important;
     }
 
     .hx-data-table-table {
@@ -283,6 +285,11 @@
       margin: 0 !important;
       min-height: 0 !important;
       min-width: 0 !important;
+    }
+
+    .hx-data-table-content {
+      margin: 0.4em 0 2px 0 !important;
+      padding-right: 2px;
     }
 
     .hx-sticky-table-invisible {

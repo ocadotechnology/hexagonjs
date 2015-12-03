@@ -132,8 +132,8 @@ class StickyTableHeaders
     origScroll = wrapperNode.scrollTop
 
     container
-      .style('height','')
-      .style('width','')
+      .style('height', '')
+      .style('width', '')
 
     wrapper
       .style('height', '')
@@ -157,11 +157,10 @@ class StickyTableHeaders
 
     if options.stickFirstColumn
       offsetWidthElem = hx.select(table.select('tbody').select('tr').select('th, td').nodes[0])
-      offsetWidth = offsetWidthElem.width() # + parseInt(offsetWidthElem.style('border-right'))
+      offsetWidth = offsetWidthElem.width()
 
     totalHeight = container.style('height').replace('px','') - offsetHeight
     totalWidth = container.style('width').replace('px','') - offsetWidth
-
 
     wrapper
       .style('width', totalWidth  + 'px')
@@ -216,7 +215,7 @@ class StickyTableHeaders
 
       for i in [0...realNodes.length]
         cloneEvents(realNodes[i], clonedNodes[i])
-        # hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
+        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
 
     if options.stickFirstColumn
       # Append left
@@ -227,12 +226,6 @@ class StickyTableHeaders
         if not _.showScrollIndicators and options.fullWidth
           background = table.select('th').style('background-color')
           leftHead.style('background-color', background)
-        # scrollLeftHead = (event) ->
-        #   event.preventDefault()
-        #   wrapperNode.scrollTop = wrapperNode.scrollTop + event.deltaY
-        #   updateHeaderPositions(container)
-
-        # leftHead.on 'wheel', scrollLeftHead
 
 
       leftHead.clear()
@@ -244,7 +237,7 @@ class StickyTableHeaders
 
       for i in [0...realNodes.length]
         cloneEvents(realNodes[i], clonedNodes[i])
-        # hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
+        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
 
 
     if options.stickTableHead and options.stickFirstColumn
@@ -261,7 +254,7 @@ class StickyTableHeaders
 
       for i in [0...realNodes.length]
         cloneEvents(realNodes[i], clonedNodes[i])
-        # hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
+        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
 
 
     topHead?.style('height', offsetHeight + 'px')
