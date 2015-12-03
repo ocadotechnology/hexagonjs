@@ -75,4 +75,7 @@
     }
 
   @div .docs-footer:
-    @div .dx-content: Put some footer info here (licence, made by ocado, social media links, other products (quantum, graphite), contributing guide link, etc)
+    @div .dx-content:
+      @div: Made by @hyperlink(https://github.com/ocadotechnology)[Ocado Technology]
+      @div: Code licenced @hyperlink(https://github.com/ocadotechnology/hexagonjs/blob/master/LICENCE)[MIT]
+      @div: Docs licenced @hyperlink(https://creativecommons.org/licenses/by/3.0/)[CC BY 3.0]
