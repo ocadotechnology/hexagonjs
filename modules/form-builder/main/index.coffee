@@ -213,7 +213,7 @@ class Form extends hx.EventEmitter
   addSubmit: (text, icon, submitAction) ->
     hx.select(@selector).append('button')
       .attr('type', 'submit')
-      .class('hx-btn hx-positive hx-form-submit')
+      .class('hx-btn hx-action hx-form-submit')
       .add(hx.detached('i').class(icon))
       .add(hx.detached('span').text(" " + text))
       .on 'click', 'hx.form-builder', (e) =>
