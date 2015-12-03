@@ -270,29 +270,26 @@ function objToQuantum (moduleName, theme) {
 */
 
 // gets the entire list of dependencies for a module
-// function getModuleDependencies (moduleName) {
-//   return fs.readJsonAsync(path.join(allModules[moduleName].directory, 'module.json'))
-//     .then(function (module) {
-//       var dependencies = module.dependencies
-//       if (dependencies != undefined && dependencies.length > 0) {
-//         return computeDependencyList(dependencies, allModules)
-//       } else if (dependencies != undefined) {
-//         return Promise.resolve(dependencies)
-//       } else {
-//         throw new Error('Module "' + moduleName + '" either has no dependencies or is included as an incorrect dependency.')
-//       }
-//     })
-// }
+function getModuleDependencies (moduleName) {
+  return fs.readJsonAsync(path.join(util.rootDir, 'modules', moduleName, 'module.json'))
+    .then(function (module) {
+      var dependencies = module.dependencies
+      if (dependencies != undefined && dependencies.length > 0) {
+        return computeDependencyList(dependencies)
+      } else if (dependencies != undefined) {
+        return Promise.resolve(dependencies)
+      } else {
+        throw new Error('Module "' + moduleName + '" either has no dependencies or is included as an incorrect dependency.')
+      }
+    })
+}
 
-// function computeDependencyList (modules) {
-//   return Promise.all(modules)
-//     .map(function (moduleName) {
-//       return getModuleDependencies(moduleName, allModules)
-//     })
-//     .then(function (list) {
-//       return Promise.resolve(flatten(modules.concat(list)))
-//     })
-// }
+function computeDependencyList (modules) {
+  return Promise.all(modules.map(getModuleDependencies))
+    .then(function (list) {
+      return Promise.resolve(flatten(modules.concat(list)))
+    })
+}
 
 // calculate the order that all modules should go in - then this can be referred to when building subsets of hexagon
 var moduleOrderCache = undefined
@@ -326,13 +323,13 @@ function getModuleList (options) {
   var allModules = Object.keys(options.allModules)
   var obj = {}
   if (options.modules) {
-    return allModules.filter(function (moduleName) {
+    allModules.filter(function (moduleName) {
       return options.modules.indexOf(moduleName) !== -1
     }).forEach(function (moduleName) {
       obj[moduleName] = options.allModules[moduleName]
     })
   } else if (options.excludedModules) {
-    return allModules.filter(function (moduleName) {
+    allModules.filter(function (moduleName) {
       return options.excludedModules.indexOf(moduleName) === -1
     }).forEach(function (moduleName) {
       obj[moduleName] = options.allModules[moduleName]
@@ -496,4 +493,4 @@ function buildLibrary (options) {
 // export everything for testing and use in index.js
 exports.buildModule = buildModule
 exports.buildLibrary = buildLibrary
-// exports.getModuleDependencies = getModuleDependencies
+exports.getModuleDependencies = getModuleDependencies

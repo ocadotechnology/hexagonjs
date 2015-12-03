@@ -24,6 +24,7 @@ var fs = require('fs')
 var path = require('path')
 var util = require('./util')
 var compile = require('./compile')
+var builder = require('./builder')
 
 /*
 
@@ -36,7 +37,7 @@ var compile = require('./compile')
 
 // retuns a promise yielding a javascript string containing the tests for this module
 function buildSingleModuleSpecs (moduleName) {
-  var specFilename = path.join(util.moduleDir(moduleName), 'test', 'spec.coffee')
+  var specFilename = path.join(util.rootDir, 'modules', moduleName, 'test', 'spec.coffee')
   return util.doesExist(specFilename).then(function (exists) {
     if (exists) {
       return fs.readFileAsync(specFilename, 'utf8').then(function (src) {
@@ -50,10 +51,10 @@ function buildSingleModuleSpecs (moduleName) {
 function prepareModuleForTest (moduleBuild) {
   console.log(moduleBuild.moduleName)
   var themeJs = 'hx.theme["' + util.convertSpinalToCamel(moduleBuild.moduleName) + '"] = ' + JSON.stringify(util.convertSpinalKeysToCamel(moduleBuild.themeJson)) + ';\n'
-  return {
+  return Promise.resolve({
     js: themeJs + moduleBuild.coreJs,
     css: moduleBuild.coreCss + '\n' + moduleBuild.themeCss
-  }
+  })
 }
 
 // returns an object with moduleName, dependenciesCss, dependenciesJs, moduleJs, moduleCss, specJs
@@ -61,23 +62,27 @@ function buildSingleModuleTestPackage (moduleName) {
   return buildSingleModuleSpecs(moduleName)
     .then(function (specJs) {
       if (specJs) { // only do the rest of the building of the spec existed
-        return compile.getModuleDependencies(moduleName)
-          .then(function (modules) {
-            return Promise.props({
-              dependencies: compile.buildLibrary({modules: modules}),
-              module: compile.buildModule(moduleName).then(prepareModuleForTest)
-            })
+        return builder.getModuleList([])
+          .then(function (allModules) {
+            return compile.getModuleDependencies(moduleName)
+              .then(function (modules) {
+                return Promise.props({
+                  dependencies: compile.buildLibrary({modules: modules, allModules: allModules}),
+                  module: compile.buildModule(allModules[moduleName]).then(prepareModuleForTest)
+                })
+              })
+              .then(function (b) {
+                return {
+                  moduleName: moduleName,
+                  dependenciesJs: b.dependencies.js,
+                  dependenciesCss: b.dependencies.css,
+                  moduleJs: b.module.js,
+                  moduleCss: b.module.css,
+                  specJs: specJs
+                }
+              })
           })
-          .then(function (b) {
-            return {
-              moduleName: moduleName,
-              dependenciesJs: b.dependencies.js,
-              dependenciesCss: b.dependencies.css,
-              moduleJs: b.module.js,
-              moduleCss: b.module.css,
-              specJs: specJs
-            }
-          })
+
       }
     })
 }
