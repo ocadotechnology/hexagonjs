@@ -4,7 +4,7 @@ HexagonJS
 About
 -----
 
-<a href="https://www.hexagonjs.io"><img src="https://raw.github.com/ocadotechnology/hexagonjs/master/assets/hexagon-logo.svg" align="left" hspace="10" vspace="6"></a>
+<a href="https://www.hexagonjs.io"><img src="https://raw.githubusercontent.com/ocadotechnology/hexagonjs/master/assets/hexagon-logo.svg" align="left" hspace="10" vspace="6"></a>
 
 Hexagon.js is a collection of components, styles and JavaScript utilities. It has been designed from the ground up to support custom theming and extension and exposes a simple api for doing so.
 
