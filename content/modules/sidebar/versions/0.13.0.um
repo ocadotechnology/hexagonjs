@@ -3,9 +3,7 @@
     @example
       @html: @inline 0.13.0/example.html
       @js: @inline 0.13.0/example.js
-      @css:
-        @hidecode
-
+      @css
         .sidebar-example {
           position: relative;
           height: 400px;
@@ -19,6 +17,7 @@
           height: 354px;
           overflow: auto;
         }
+
   @api Sidebar
     @prototype hx.Sidebar
       @constructor
