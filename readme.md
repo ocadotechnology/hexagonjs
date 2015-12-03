@@ -4,8 +4,6 @@ HexagonJS
 About
 -----
 
-![HexagonJS](assets/hexagon-logo.svg)
-
 Hexagon.js is a collection of components, styles and JavaScript utilities. It has been designed from the ground up to support custom theming and extension and exposes a simple api for doing so.
 
 This readme includes no details about how to use the library itself as there is extensive documentation for the library available here: [https://www.hexagonjs.io](https://www.hexagonjs.io).
