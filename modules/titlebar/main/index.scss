@@ -102,7 +102,7 @@ body.hx-full-width .hx-titlebar-contents {
   flex-grow: 1;
   position: relative;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: bold;
 }
 
@@ -142,6 +142,8 @@ body.hx-full-width .hx-titlebar-contents {
 .hx-titlebar-icon {
   line-height: 0;
   vertical-align: middle;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 
   img {
     vertical-align: middle;
