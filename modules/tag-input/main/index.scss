@@ -2,13 +2,15 @@
   display: flex;
   flex-flow: row wrap;
   margin-right: 1px;
+  border: solid 1px transparent;
 
   .hx-tags-container {
     flex-flow: row wrap;
     display: flex;
     flex-grow: 0;
-    margin: 0 -1px 0 0;
+    margin: 0;
     padding: 0;
+    border: none;
 
     &:empty {
       display: none;
@@ -21,7 +23,8 @@
     display: flex;
 
     input {
-      margin: 0 -1px 0 0;
+      margin: 0;
+      border: none;
       flex-grow: 1;
       padding-top: 0.55em;
       padding-bottom: 0.55em;
