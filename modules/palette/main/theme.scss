@@ -17,7 +17,7 @@
     background-color: $col !important;
     color: getTextColFromBG($col) !important;
 
-    a, .hx-background-text-color {
+    a, .hx-background-text-color, .hx-header {
       color: getTextColFromBG($col) !important;
     }
   }
