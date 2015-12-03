@@ -33,6 +33,7 @@
 
   @api Tag Input
     @prototype hx.TagInput
+      @extends EventEmitter
       @description: Initialises a tag input.
       @constructor
         @param selector [String/HTMLElement]: A css selector that uniquely identifies the collapsible in the DOM.

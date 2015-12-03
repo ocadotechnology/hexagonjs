@@ -18,6 +18,7 @@
 
   @api Toggle Button
     @prototype hx.ToggleButton
+      @extends EventEmitter
       @added: Moved the toggle button prototype to it's own module.
         @issue 719
       @description: Creates a toggle button component

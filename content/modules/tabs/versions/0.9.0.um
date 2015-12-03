@@ -8,6 +8,7 @@
 
   @api Tabs
     @prototype hx.Tabs
+      @extends EventEmitter
       @description: A layout type for displaying multiple pieces of content in the same area of the page.
       @constructor
         @description: Sets up a tabs layout.

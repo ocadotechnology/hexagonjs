@@ -30,6 +30,7 @@
 
   @api Side Collapsible
     @prototype hx.SideCollapsible
+      @extends EventEmitter
       @added
         @issue 418
       @description

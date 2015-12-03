@@ -46,6 +46,7 @@
 
   @api Slider
     @prototype hx.Slider
+      @extends EventEmitter
       @description: A widget type for selecting a value from a range, or a range of values from a range.
 
       @constructor

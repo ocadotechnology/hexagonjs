@@ -21,6 +21,7 @@
   @api Time Slider
 
     @prototype hx.TimeSlider
+      @extends EventEmitter
       @description: A widget type for selecting a value from a range of dates, or a date range from a range of date.
       @property start [Number]
         @description: The start date set for this time slider (in milliseconds). This value should only be read, and not set. Use setRange to change the start and end properties.

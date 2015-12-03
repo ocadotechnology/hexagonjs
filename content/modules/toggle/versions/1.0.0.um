@@ -19,6 +19,7 @@
     @added: Added a new module for creating a toggle element
       @issue 794
     @prototype hx.Toggle
+      @extends EventEmitter
       @description: Creates a toggle component
 
       @constructor

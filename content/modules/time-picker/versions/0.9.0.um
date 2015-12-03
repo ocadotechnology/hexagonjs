@@ -16,6 +16,7 @@
 
   @api Time Picker
     @prototype hx.TimePicker
+      @extends EventEmitter
       @description: Used to create a timepicker from a selection.
       @constructor
         @description: Creates a timepicker with the current time
