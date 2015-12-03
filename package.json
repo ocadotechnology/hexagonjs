@@ -21,6 +21,7 @@
   "dependencies": {
     "autoprefixer": "^6.0.3",
     "bluebird": "^2.10.2",
+    "clean-css": "^3.4.8",
     "coffee-script": "^1.10.0",
     "flatten": "0.0.1",
     "fs-extra": "^0.24.0",
@@ -29,7 +30,8 @@
     "merge": "^1.2.0",
     "node-sass": "3.3.0",
     "postcss": "^5.0.9",
-    "quantum-js": "^0.1.1"
+    "quantum-js": "^0.1.1",
+    "uglify-js": "^2.6.1"
   },
   "devDependencies": {
     "chai": "^3.3.0",

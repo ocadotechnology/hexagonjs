@@ -25,6 +25,8 @@ var flatten = require('flatten')
 var dependencyTree = require('./dependency-tree')
 var cache = require('./cache')
 var version = require(path.join(util.rootDir, 'package.json')).version
+var cleanCss = new (require('clean-css'))({advanced: false})
+var uglifyJs = require('uglify-js')
 
 /*
 
@@ -89,7 +91,6 @@ function buildModule (moduleObj, moduleTheme) {
   cache.set(moduleObj.name, promise)
 
   return promise
-
 }
 
 // Loads the default theme variables for a module, returning a flat object containing the variables.
@@ -393,7 +394,8 @@ function buildLibrary (options) {
     },
     prefix: options.prefix || 'hx',
     headerMode: 'full',
-    allModules: options.allModules
+    allModules: options.allModules,
+    minify: options.minify
   }).then(function (options) {
     var themeModules = options.theme.modules || {}
     return getModuleList(options)
@@ -469,11 +471,16 @@ function buildLibrary (options) {
         var headerComment = buildHeaderComment(options.headerMode, version, options.theme.name, builtModules.map(function (m) { return m.moduleName }))
 
         // TODO: add add minified resources in if the flags are set
+        js = replacePrefix(js, options)
+        css = replacePrefix(css, options)
+        coreCss = replacePrefix(coreCss, options)
+        themeCss = replacePrefix(themeCss, options)
+
         var build = {
-          js: util.jsBlockComment(headerComment) + replacePrefix(js, options),
-          css: util.cssBlockComment(headerComment) + replacePrefix(css, options),
-          coreCss: util.cssBlockComment(headerComment) + replacePrefix(coreCss, options),
-          themeCss: util.cssBlockComment(headerComment) + replacePrefix(themeCss, options),
+          js: util.jsBlockComment(headerComment) + js,
+          css: util.cssBlockComment(headerComment) + css,
+          coreCss: util.cssBlockComment(headerComment) + coreCss,
+          themeCss: util.cssBlockComment(headerComment) + themeCss,
           variables: {
             json: replacePrefix(JSON.stringify(themeJson, undefined, 2), options),
             scss: replacePrefix(variablesScss, options),
@@ -482,6 +489,13 @@ function buildLibrary (options) {
             css: replacePrefix(variablesCss, options),
             quantum: replacePrefix(variablesQuantum, options)
           }
+        }
+
+        if (options.minify) {
+          build.jsMin = util.jsBlockComment(headerComment) + uglifyJs.minify(js, {fromString: true}).code
+          build.cssMin = util.jsBlockComment(headerComment) + cleanCss.minify(css).styles
+          build.coreCssMin = util.jsBlockComment(headerComment) + cleanCss.minify(coreCss).styles
+          build.themeCssMin = util.jsBlockComment(headerComment) + cleanCss.minify(themeCss).styles
         }
 
         return build
