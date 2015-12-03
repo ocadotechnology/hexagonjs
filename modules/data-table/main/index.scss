@@ -7,6 +7,7 @@
 
   .hx-data-table-content {
     flex-shrink: 1;
+    flex-grow: 1;
   }
 
   .hx-data-table-loading {
@@ -55,6 +56,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    flex-grow: 1;
+    flex-shrink: 0;
   }
 
   .hx-data-table-footer-spacer {
