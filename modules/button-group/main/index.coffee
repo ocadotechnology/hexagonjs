@@ -26,16 +26,18 @@ class ButtonGroup extends hx.EventEmitter
 
     @view = group.view('button')
       .enter ->
-        @append('button').class('hx-btn ' + self.options.buttonClass)
+        @append('button')
+          .class('hx-btn')
           .classed('hx-section hx-no-margin', self.options.fullWidth)
+          .classed(self.options.buttonClass, true)
           .node()
       .update (item, node) ->
         buttonClass = if item.activeClass? and item is self.current then item.activeClass
         else if item is self.current then self.options.activeClass
         else self.options.buttonClass
 
-        @classed(self.options.buttonClass, false)
-          .classed(self.options.activeClass, false)
+        @class('hx-btn')
+          .classed('hx-section hx-no-margin', self.options.fullWidth)
           .classed(buttonClass, true)
           .attr('disabled', if self.options.disabled then true else undefined)
           .on 'click', 'hx.button-group', ->
