@@ -56,9 +56,9 @@ To test just the library process:
 
     npm run test-library
 
-To test a single module: (TODO)
+To test a single module:
 
-    npm run test-module <name-of-module>
+    npm run test-library <name-of-module>
 
 
 Cleaning the project (TODO)
