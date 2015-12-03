@@ -15,7 +15,7 @@ body.hx-titlebar-link-padding {
 .hx-heading {
   border-bottom-width: $heading-border-bottom-width;
   border-bottom-color: $heading-border-bottom-col;
-  box-shadow: 0 6px 10px 0 $heading-shadow-col;
+  box-shadow: 0 2px 2px 0 $heading-shadow-col;
 }
 
 .hx-titlebar {
@@ -33,6 +33,7 @@ body.hx-titlebar-link-padding {
   font-family: $title-font-family;
   font-size: $title-font-size;
   line-height: $titlebar-height;
+  color: $title-text-col;
 
   a {
     color: $titlebar-text-col;
@@ -108,26 +109,6 @@ body.hx-titlebar-link-padding {
   }
 }
 
-@media (max-width: 900px) {
-  body.hx-titlebar-link-padding {
-    .hx-heading + .hx-content {
-      margin-top: $titlebar-height;
-    }
-  }
-
-  .hx-titlebar-menu-icons {
-    background: $mobile-view-icons-background-col;
-
-    .hx-titlebar-menu-icon {
-      color: $mobile-view-icons-text-col;
-
-      &:hover {
-        color: $mobile-view-icons-text-hover-col;
-      }
-    }
-  }
-}
-
 .hx-titlebar {
   &.hx-action {
     background: $action-background-col;
@@ -158,6 +139,40 @@ body.hx-titlebar-link-padding {
 
     .hx-titlebar-icon {
       background: $context-icon-background;
+    }
+
+    .hx-titlebar-menu-icon {
+      color: $titlebar-context-icon-col;
+
+      &:hover {
+        color: $titlebar-context-icon-hover-col;
+      }
+    }
+
+    .hx-titlebar-title {
+      color: $context-text-col;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  body.hx-titlebar-link-padding {
+    .hx-heading + .hx-content {
+      margin-top: $titlebar-height;
+    }
+  }
+
+  .hx-titlebar {
+    .hx-titlebar-menu-icons {
+      background: $mobile-view-icons-background-col;
+
+      .hx-titlebar-menu-icon {
+        color: $mobile-view-icons-text-col;
+
+        &:hover {
+          color: $mobile-view-icons-text-hover-col;
+        }
+      }
     }
   }
 }

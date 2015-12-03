@@ -38,6 +38,10 @@
 
   .hx-data-table-status-bar-clear {
     cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &.hx-data-table-has-selection {
@@ -73,6 +77,8 @@
 
   .hx-data-table-filter-control {
     display: none;
+    margin: 0.25em;
+    padding: 0.25em;
   }
 
   .hx-data-table-pagination-block-visible,
@@ -248,6 +254,11 @@
 
     th, td {
       border: none;
+    }
+
+    .hx-data-table-filter-control {
+      margin: 0.5em;
+      padding: 0.5em;
     }
 
     .hx-sticky-table-headers {

@@ -55,11 +55,6 @@
     @description: The background color for the tag container.
     @default: white
 
-  @option tag-container-border-col
-    @type color
-    @description: The border color for the tag container.
-    @default: #D8D8D8
-
   @option disabled-col
     @type color
     @description: The background color for disabled tags.
@@ -69,3 +64,8 @@
     @type color
     @description: The text color for disabled tags.
     @default: #939393
+
+  @option border-col
+    @type color
+    @description: The border color for the tag ipnut.
+    @default: #E4E4E4

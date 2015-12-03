@@ -44,3 +44,8 @@
     @type color
     @description: The text-color of the content section
     @default: #3D3D3D
+
+  @option shadow-col
+    @type color
+    @description: The shadow color for collapsibles
+    @default: rgba(0, 0, 0, 0.05)

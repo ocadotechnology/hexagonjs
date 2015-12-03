@@ -69,3 +69,8 @@
     @type color
     @description: The background color for disabled sliders
     @default: #BBBBBB
+
+  @option slider-marker-col
+    @type color
+    @description: The color of the discrete markers
+    @default: #E2E2E2

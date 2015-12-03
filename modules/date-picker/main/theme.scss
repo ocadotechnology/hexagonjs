@@ -10,6 +10,12 @@
 
 .hx-date-picker {
   background: $input-background-col;
+  border-color: $border-col;
+
+  .hx-icon {
+    background: $icon-background-col;
+    color: $icon-col;
+  }
 }
 
 .hx-date-input {
@@ -19,16 +25,16 @@
   }
 }
 
-.hx-datepicker-calendar {
+.hx-date-picker-calendar {
   .hx-calendar-header {
     color: $header-text-col;
 
     .hx-calendar-back,
     .hx-calendar-forward {
-      color: $icon-col;
+      color: $navigation-icon-col;
 
       &:hover {
-        color: $icon-hover-col;
+        color: $navigation-icon-hover-col;
       }
     }
   }

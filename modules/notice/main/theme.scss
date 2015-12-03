@@ -25,6 +25,7 @@
 }
 
 .hx-notice {
+  box-shadow: 1px 1px 1px 1px $shadow-col;
   @include notice(false, $default-col, $default-body-col);
   @include notice(hx-action, $action-col, $action-body-col);
   @include notice(hx-positive, $positive-col, $positive-body-col);

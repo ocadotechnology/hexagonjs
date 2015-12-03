@@ -1,9 +1,7 @@
-$shadow: rgba(0, 0, 0, 0.05);
-
 .hx-dropdown {
   position: absolute;
   z-index: 99;
-  box-shadow: $shadow 0px 3px 8px 3px;
+  border: solid 1px transparent;
   overflow: hidden;
   // here to stop the dropdown from forcing the scrollbar from being
   // shown in the instant it it is first created - which would offset

@@ -2,6 +2,39 @@ describe "plot", ->
 
   describe "Graph", ->
 
+    describe 'util functions for plotting', ->
+      s = hx._.plot
+      array = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}]
+      array2 = [{x: 1, y1: 4, y2: 3}, {x: 2, y1: 3, y2: 4}, {x: 3, y1: 5, y2: 5}]
+      array3 = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}, {x: 4, y: 2}]
+
+      it 'dataAverage: should return the average data point in an array', ->
+        expect(s.dataAverage(array)).toEqual({x: 2, y: 3})
+        expect(s.dataAverage(array2)).toEqual({x: 2, y1: 4, y2: 4})
+
+      it 'maxTriangle: should return a data point', ->
+        data1 = {x: 0, y: 0}
+        data2 = {x: 4, y: 1}
+        data3 = {x: 0, y1: 1, y2: 3}
+        data4 = {x: 4, y1: 3, y2: 4}
+        expect(s.maxTriangle(data1, array, data2)).toEqual({x: 3, y: 4})
+        expect(s.maxTriangle(data3, array2, data4)).toEqual({x: 3, y1: 5, y2: 5})
+
+      it 'LTTBFeather: should return a data array', ->
+        expect(s.LTTBFeather(array, 3)).toEqual(array)
+        expect(s.LTTBFeather(array2, 3)).toEqual(array2)
+        expect(s.LTTBFeather(array, 2)).toEqual([{x: 1, y: 2}, {x: 3, y: 4}])
+        expect(s.LTTBFeather(array2, 2)).toEqual([{x: 1, y1: 4, y2: 3}, {x: 3, y1: 5, y2: 5}])
+        expect(s.LTTBFeather(array3, 3)).toEqual([{x: 1, y: 2}, {x: 3, y: 4}, {x: 4, y: 2}])
+        expect(s.LTTBFeather(array, 1)).toEqual([{x: 2, y: 3}])
+        expect(s.LTTBFeather(array, 0)).toEqual([])
+        expect(s.LTTBFeather([], 3)).toEqual([])
+
+      it 'splitAndFeather: should return a data array', ->
+        expect(s.splitAndFeather(array, 3, (d)-> d.y != undefined)).toEqual([array])
+        expect(s.splitAndFeather(array2, 3, (d)-> d.y1 != undefined and d.y2 != undefined)).toEqual([array2])
+        expect(s.splitAndFeather(array3, 3, (d)-> d.y != undefined)).toEqual([[{x: 1, y: 2}, {x: 3, y: 4}, {x: 4, y: 2}]])
+
     describe 'setter/getters should work', ->
 
       checkSetterGetterAndOption = (property, valuesToCheck) ->

@@ -48,7 +48,12 @@
   @option compact-row-shadow-col
     @type color
     @description: The shadow color for rows in compact mode
-    @default: rgba(128, 128, 128, 0.25)
+    @default: rgba(0, 0, 0, 0.05)
+
+  @option footer-shadow-col
+    @type color
+    @description: The shadow color for the table footer
+    @default: rgba(0, 0, 0, 0.05)
 
   @option compact-row-background-col
     @type color
@@ -59,7 +64,6 @@
     @type color
     @description: The text color for rows in compact mode
     @default: black
-
 
   @option compact-row-hover-background-col
     @type color

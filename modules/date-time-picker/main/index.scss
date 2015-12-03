@@ -1,4 +1,14 @@
 .hx-date-time-picker {
   display: inline-block;
-  padding: 0 !important;
+  padding: 0;
+  border-radius: 2px 0 0 2px;
+
+  .hx-time-picker {
+    border-left: none;
+    border-radius: 0 2px 2px 0;
+
+    .hx-icon {
+      display: none;
+    }
+  }
 }
