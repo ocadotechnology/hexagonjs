@@ -55,7 +55,7 @@
     @type size
     @default 7px
 
-  @option background-section-text-col
+  @option context-text-col
     @description: The text color for sections that use the hx-background- context classes
     @type color
     @default white
