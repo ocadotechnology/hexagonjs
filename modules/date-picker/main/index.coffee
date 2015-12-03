@@ -246,7 +246,7 @@ calendarGridRowUpdate = (datepicker, data, elem, index, rowIndex, mode) ->
     element.select('.hx-grid-text').text(screenVal)
 
     if isValid
-      element.on 'click', 'hx-datepicker', ->
+      element.on 'click', 'hx-date-picker', ->
         _.userEvent = true
         if mode isnt 'd' and mode isnt 'y'
           if day?
@@ -632,7 +632,7 @@ class DatePicker extends hx.EventEmitter
         buildCalendar self
 
       calendarElem = hx.detached('div')
-      calendarElem.class('hx-datepicker-calendar')
+      calendarElem.class('hx-date-picker-calendar')
 
       calendarHeader = calendarElem.append('div')
         .class('hx-calendar-header hx-input-group')

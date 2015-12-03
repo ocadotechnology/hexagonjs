@@ -3,11 +3,18 @@ $gridPadding: 0.7em;
 // Input and 'on page' styles
 .hx-date-picker {
   display: inline-block;
-  padding: 0.4em;
+  padding: 0;
   vertical-align: middle;
+  border-radius: 2px;
+  border: solid 1px transparent;
 
   .hx-date-to-icon {
     font-size: 0.8em;
+  }
+
+  .hx-icon {
+    padding: 0.5em;
+    border-radius: 2px 0 0 2px;
   }
 }
 
@@ -46,12 +53,13 @@ $gridPadding: 0.7em;
 
 .hx-date-input-container {
   display: inline-block;
-  line-height: 1.5em;
+  line-height: 2em;
 }
 
 // Calendar Dropdown styles
-.hx-datepicker-calendar {
+.hx-date-picker-calendar {
   user-select: none;
+  margin: 0.5em;
 
   .hx-calendar-header {
     display: flex;

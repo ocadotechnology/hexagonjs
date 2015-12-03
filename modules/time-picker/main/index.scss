@@ -1,11 +1,18 @@
 .hx-time-picker {
   position: relative;
   display: inline-block;
-  padding: 0.4em;
+  padding: 0;
   vertical-align: middle;
+  padding: 0;
+  border: solid 1px transparent;
+
+  .hx-icon {
+    padding: 0.5em;
+    border-radius: 2px 0 0 2px;
+  }
 
   .hx-time-input-container {
-    line-height: 1.5em;
+    line-height: 2em;
   }
 }
 

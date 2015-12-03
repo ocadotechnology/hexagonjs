@@ -1,5 +1,11 @@
 .hx-time-picker {
   background: $input-background-col;
+  border-color: $border-col;
+
+  .hx-icon {
+    background: $icon-background-col;
+    color: $icon-col;
+  }
 
   &.hx-time-error {
     background: $error-background-col;

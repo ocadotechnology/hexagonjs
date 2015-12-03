@@ -1,77 +1,91 @@
 @module date-picker
-  
+
   @option today-background-col
     @type color
     @description: The background color for today on the calendar
     @default: #E6E6E6
-  
+
   @option light-text-col
     @type color
     @description: The text color to use on dark button backgrounds
     @default: #F3F3F3
-  
+
   @option dark-text-col
     @type color
     @description: The text color to use on dark button backgrounds
     @default: #3D3D3D
-  
+
   @option day-hover-background-col
     @type color
     @description: The hover background color for selectable days on the calendar
     @default: #6FB365
-  
+
   @option range-background-col
     @type color
     @description: The background color for days between the start and end day.
     @default: #E2E2E2
-  
+
   @option selected-background-col
     @type color
     @description: The background for selected days
     @default: #6FB365
-  
+
   @option error-background-col
     @type color
     @description: The background color for the input field when an invalid date has been input.
     @default: #FCBFBF
-  
+
   @option error-outline-col
     @type color
     @description: The outline color for the input field when an invalid date has been input.
     @default: #DE1A4A
-  
+
   @option divider-col
     @type color
     @description: The text color of the divider between the day headers and the calendar body.
     @default: #E2E1E1
-  
+
   @option header-text-col
     @type color
     @description: The color of the month / year text.
     @default: #4A536F
-  
-  @option icon-col
+
+  @option navigation-icon-col
     @type color
     @description: The color of the back / forward icons on the calendar.
     @default: #939393
-  
-  @option icon-hover-col
+
+  @option navigation-icon-hover-col
     @type color
     @description: The hover color of the back / forward icons on the calendar.
     @default: #555555
-  
+
   @option input-background-col
     @type color
     @description: The background color of the date picker input
     @default: #FFF
-  
+
   @option day-border-radius
     @type size
     @description: The border radius for the day markers
     @default: 2px
-  
+
   @option out-of-range-col
     @type color
     @description: The text col to use for dates that are out of the valid range in the calendar date picker.
     @default: #999
-  
+
+  @option border-col
+    @type color
+    @description: The border color for the entire picker
+    @default: #E4E4E4
+
+  @option icon-col
+    @type color
+    @description: The text color for the icon next to the input
+    @default: white
+
+  @option icon-background-col
+    @type color
+    @description: The background color for the icon next to the input
+    @default: #5C5C5C
