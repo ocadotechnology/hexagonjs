@@ -1,4 +1,4 @@
-@inline ../../../shared/common.um
+@inline ../../shared/common.um
 @titlebar FAQs
 
 @div .dx-content

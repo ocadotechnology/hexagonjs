@@ -175,3 +175,7 @@
         @p: Final standardisation of the api. Features deprecated in the 0.x.x series have been removed. From this point on breaking changes are indicated by a major version.
 
         @p: The builder api for hexagon has changed in this version to make theming easier. The builder can now export the theme variables in a variety of formats (sass, less, stylus, css variables, json, quantum).
+
+
+  @h2: Key
+  @changelog.key
