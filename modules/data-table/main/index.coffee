@@ -466,8 +466,8 @@ class DataTable extends hx.EventEmitter
 
 
           @updateSelected = =>
-            rowDivs = container.select('.hx-data-table-body').selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false)
-            checkBoxDivs = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false)
+            rowDivs = tbody.selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false)
+            checkBoxDivs = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false)
 
             if @_.selectedRows.size > 0
               for row, rowIndex in rows
@@ -476,7 +476,7 @@ class DataTable extends hx.EventEmitter
                   if checkBoxDivs.nodes[rowIndex]?
                     hx.select(checkBoxDivs.nodes[rowIndex]).classed('hx-data-table-row-selected', true)
 
-            pageHasSelection = container.select('.hx-data-table-body').selectAll('.hx-data-table-row-selected').size() > 0
+            pageHasSelection = tbody.selectAll('.hx-data-table-row-selected').size() > 0
             selection.classed('hx-data-table-has-page-selection', pageHasSelection and not options.singleSelection)
             selection.classed('hx-data-table-has-selection', @_.selectedRows.size > 0 and not options.singleSelection)
             if totalCount isnt undefined
@@ -624,7 +624,7 @@ class DataTable extends hx.EventEmitter
 
           # set up the sticky headers
           stickFirstColumn = options.selectEnabled or options.collapsibleRenderer?
-          @_.stickyHeaders = new hx.StickyTableHeaders(container.node(), {stickFirstColumn: stickFirstColumn and (filteredCount is undefined or filteredCount > 0), alwaysSticky: true} )
+          @_.stickyHeaders = new hx.StickyTableHeaders(container.node(), {stickFirstColumn: stickFirstColumn and (filteredCount is undefined or filteredCount > 0), fullWidth: true} )
 
           # restore horizontal scroll position
           selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node().scrollLeft = scrollLeft if scrollLeft?

@@ -2,23 +2,53 @@
   position: relative;
   overflow: hidden;
 
+  .hx-table {
+    position: relative;
+    overflow: visible;
+  }
+
   .hx-sticky-table-header-left,
   .hx-sticky-table-header-top {
     position: absolute;
     overflow: hidden;
+  }
+
+  .hx-sticky-table-header-left,
+  .hx-sticky-table-header-top,
+  .hx-sticky-table-header-top-left {
+    z-index: 2;
+  }
+
+  .hx-sticky-table-header-top {
+    top: 0;
 
     .hx-table {
-      position: relative;
-      overflow: visible;
+      margin-top: 0 !important;
+    }
+  }
+
+  .hx-sticky-table-header-left {
+    left: 0;
+
+    .hx-table {
+      margin-left: 0 !important;
     }
   }
 
   .hx-sticky-table-header-top-left {
     position: absolute;
     overflow: hidden;
+    top: 0;
+    left: 0;
+
+    .hx-table {
+      margin: 0 !important;
+    }
   }
 
   .hx-sticky-table-wrapper {
+    position: relative;
+    z-index: 0;
     overflow: auto;
 
     .hx-table {
@@ -36,6 +66,7 @@
   .hx-sticky-table-scroll-bottom {
     position: absolute;
     display: none;
+    z-index: 1;
   }
 
   .hx-sticky-table-scroll-left,
