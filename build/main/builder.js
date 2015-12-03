@@ -161,7 +161,7 @@ function getEmbeddableAssets (options, assetFiles) {
               return fs.readFileAsync(asset.filepath, {encoding: 'base64'})
                 .then(function (encodedFile) {
                   return {
-                    filename: path.basename(asset.filepath),
+                    filename: assetName,
                     file: 'data:' + (type || asset.contentType) + ';base64,' + encodedFile
                   }
                 })
