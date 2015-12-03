@@ -13,17 +13,13 @@
       background: $row-background-col;
       color: $row-text-col;
 
-      &:hover {
-        background: $row-hover-background-col;
-      }
-
       &:nth-child(2n) {
         background: $row-alt-background-col;
         color: $row-alt-text-col;
+      }
 
-        &:hover {
-          background: $row-hover-background-col;
-        }
+      &:hover {
+        background: $row-hover-background-col;
       }
     }
   }
