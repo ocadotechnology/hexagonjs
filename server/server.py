@@ -9,24 +9,17 @@ from google.appengine.api import users
 
 cache = dict()
 
-def is_authorised(request_handler):
-  user = users.get_current_user()
-  return (user and user.email().endswith("@ocado.com"))
-
 class Content(webapp2.RequestHandler):
   def get(self, *args, **kwargs):
     urlPath = args[0]
     root = os.path.split(__file__)[0]
     try:
-      if is_authorised(self):
-        paths = [
-          os.path.join(root, urlPath + '.html'),
-          os.path.join(root, urlPath + 'index.html'),
-          os.path.join(root, urlPath + '/index.html'),
-          os.path.join(root, urlPath)
-        ]
-      else:
-        paths = [os.path.join(root, 'log-in.html')]
+      paths = [
+        os.path.join(root, urlPath + '.html'),
+        os.path.join(root, urlPath + 'index.html'),
+        os.path.join(root, urlPath + '/index.html'),
+        os.path.join(root, urlPath)
+      ]
 
       validPaths = [path for path in paths if os.path.isfile(path)]
       if len(validPaths) > 0:
