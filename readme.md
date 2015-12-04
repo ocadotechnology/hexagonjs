@@ -1,7 +1,7 @@
 HexagonJS Documentation
 =======================
 
-This project contains HexagonJS documentation site.
+This project contains the HexagonJS documentation site.
 
 Deploying
 ---------
