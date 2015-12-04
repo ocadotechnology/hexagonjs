@@ -65,14 +65,12 @@
       @description
         @p: Installing hexagon via npm with the --production flag will no longer install phantomjs.
 
-        @p: Fixed outline for datepickers in the osp light theme
-
         @p: Maps and Sets can now deal with objects with the same toString
 
     @version 0.12.2
       @milestone 20
       @description
-        @p: Improved datepickers and bugfixes. The fonts for the osp-light theme have been fixed.
+        @p: Improved datepickers and bugfixes.
 
     @version 0.12.3
       @milestone 21
