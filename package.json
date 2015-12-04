@@ -1,6 +1,6 @@
 {
   "name": "hexagon-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
     "Charlie Frater <charlie.frater@ocado.com>"
@@ -25,7 +25,7 @@
     "merge": "^1.2.0",
     "node-sass": "3.3.0",
     "postcss": "^5.0.9",
-    "quantum-js": "^0.1.1",
+    "quantum-js": "^1.0.0",
     "uglify-js": "^2.6.1"
   },
   "devDependencies": {
