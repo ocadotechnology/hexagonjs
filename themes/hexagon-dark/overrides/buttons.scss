@@ -1,0 +1,112 @@
+.hx-btn {
+  background: $default-col;
+  color: $default-text-col;
+  border-color: lighten($default-col, 10%);
+
+  &:hover {
+    border-color: lighten($default-col, 20%);
+    background: lighten($default-col, 10%);
+  }
+
+  &.hx-action {
+    background: $action-col;
+    border-color: $action-col;
+    color: $light-text-col;
+
+    &:hover {
+      background: darken($action-col, 10%);
+      border-color: $action-col;
+    }
+  }
+
+  &.hx-positive {
+    background: $positive-col;
+    border-color: $positive-col;
+    color: $light-text-col;
+
+    &:hover {
+      background: darken($positive-col, 10%);
+      border-color: $positive-col;
+    }
+  }
+
+  &.hx-warning {
+    background: $warning-col;
+    border-color: $warning-col;
+    color: $light-text-col;
+
+    &:hover {
+      background: darken($warning-col, 10%);
+      border-color: $warning-col;
+    }
+  }
+
+  &.hx-negative {
+    background: $negative-col;
+    border-color: $negative-col;
+    color: $light-text-col;
+
+    &:hover {
+      background: darken($negative-col, 10%);
+      border-color: $negative-col;
+    }
+  }
+
+  &.hx-info {
+    background: $info-col;
+    border-color: $info-col;
+    color: $light-text-col;
+
+    &:hover {
+      background: darken($info-col, 10%);
+      border-color: $info-col;
+    }
+  }
+
+  &.hx-compliment {
+    background: $complement-col;
+    border-color: $complement-col;
+    color: $light-text-col;
+
+    &:hover {
+      background: lighten($complement-col, 10%);
+      border-color: $complement-col;
+    }
+  }
+
+  &.hx-contrast {
+    background: $contrast-col;
+    border-color: $contrast-col;
+    color: $dark-text-col;
+
+    &:hover {
+      background: darken($contrast-col, 10%);
+      color: $dark-text-col;
+      border-color: $contrast-col;
+    }
+  }
+}
+
+.hx-btn.hx-btn-invert {
+  background: $complement-col;
+  color: $light-text-col;
+}
+
+.hx-btn.hx-btn-invisible {
+  background: none;
+  border-color: transparent;
+  color: $light-text-col;
+}
+
+.hx-btn:disabled,
+.hx-btn.hx-disabled {
+  background: $disabled-col;
+  color: $disabled-text-col;
+  border-color: lighten($default-col, 10%);
+
+  &:hover {
+    background: $disabled-col;
+    color: $disabled-text-col;
+    border-color: lighten($default-col, 10%);
+  }
+}

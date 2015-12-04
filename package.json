@@ -8,15 +8,13 @@
   "publishConfig": {
     "registry": "http://maven.ocado.com/nexus/content/repositories/Hexagon_Releases"
   },
-  "license": "MIT",
-  "main": "build/main/index.js",
+  "license": "Apache-2.0",
+  "main": "index.js",
   "scripts": {
+    "start": "node demo.js",
     "test": "npm run test-build; npm run test-library",
     "test-build": "./node_modules/istanbul/lib/cli.js cover --dir target/test-build/coverage ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec build/test",
-    "test-library": "node build/main/test.js",
-    "build": "node build/main/tasks.js build",
-    "demo": "node build/main/tasks.js demo",
-    "start": "node build/main/tasks.js demo"
+    "test-library": "node build/main/test.js"
   },
   "dependencies": {
     "autoprefixer": "^6.0.3",

@@ -13,5 +13,9 @@
 
 */
 
-module.exports = require('./build')
-module.exports.demo = require('./demo')
+module.exports = {
+  base: require('./build/main/build'),
+  light: require('./themes/hexagon-light/build'),
+  dark: require('./themes/hexagon-dark/build'),
+  demo: require('./build/main/demo')
+}

@@ -1,0 +1,590 @@
+@theme hexagon-base
+  @variables
+
+    @accent-col: #00A3E0
+    @accent-hover-col: #00B6FA
+    @accent-text-col: white
+    @accent-text-hover-col: white
+
+    # Context colors
+    @action-col: #6582A6
+    @complement-col: #FDFDFD
+    @contrast-col: #3D3D3D
+    @default-col: #E6E6E6
+    @info-col: #A36FA9
+    @negative-col: #C74967
+    @positive-col: #6FB365
+    @warning-col: #CB9856
+
+    @disabled-col: #FAFAFA
+
+    # Context body colors
+    @action-body-col: #D0DDEE
+    @complement-body-col: #F7F7F7
+    @contrast-body-col: #D0D0D0
+    @default-body-col: #EDEDED
+    @info-body-col: #E7D0EA
+    @negative-body-col: #F1C0CB
+    @positive-body-col: #CEEACA
+    @warning-body-col: #EFDEC7
+
+    # Text colors
+    @text-col: #3D3D3D
+    @light-text-col: #F3F3F3
+    @dark-text-col: #3D3D3D
+    @heading-text-col: #4A536F
+    @header-text-col: white
+    @disabled-text-col: #939393
+    @error-text-col: white
+    @link-col: #00A3E0
+
+    # Fonts
+    @body-font: 'Open Sans', sans-serif
+    @heading-font: 'Roboto Slab', sans-serif
+    @font-size: 14px
+
+    # Background colors
+    @body-background-col: #F0F0F0
+    @content-background-col: transparent
+
+    # e.g. card headers, collapsible headers
+    @container-header-background-col: #F7F7F7
+
+    # e.g. cards, collapsible content, modal content
+    @container-background-col: #FFFFFF
+
+    # e.g. used in cards, dropdowns
+    @container-border-col: #E7E7E7
+
+    # e.g. tag-input background
+    @element-background-col: #FDFDFD
+
+    @header-background-col: #373D45
+    @linkbar-background-col: #FFFFFF
+
+    # Misc
+    @divider-col: #D0D0D0
+    @divider-style: solid
+    @divider-alt-col: #E7E7E7
+
+    @shadow-col: rgba(0, 0, 0, 0.05)
+
+    @input-border-col: #DADADA
+    @input-focus-border-col: #00A3E0
+    @input-background-col: white
+
+    @faint-icon-col: rgba(0, 0, 0, 0.3)
+    @faint-icon-hover-col: rgba(0, 0, 0, 0.6)
+
+    @context-faint-icon-col: rgba(255, 255, 255, 0.5)
+    @context-faint-icon-hover-col: rgba(255, 255, 255, 0.85)
+
+    # Error colors
+    @error-outline-col: #C74967
+    @error-background-col: #FCBFBF
+
+  @modules
+    @base
+      @variables
+        @body-background-col: $body-background-col
+        @default-font-family: $body-font
+        @default-font-size: $font-size
+        @default-text-col: $text-col
+        @divider-col: $divider-col
+        @divider-style: $divider-style
+        @heading-font-family: $heading-font
+        @heading-text-col: $heading-text-col
+        @input-background-col: $input-background-col
+        @input-border-col: $input-border-col
+        @input-border-radius: 2px
+        @input-focus-border-col: $input-focus-border-col
+        @input-invalid-border-col: $error-outline-col
+        @input-text-col: $text-col
+        @link-col: $link-col
+        @select-background-col: #FAFAFA
+        @select-border-col: #D8D8D8
+        @select-focus-border-col: #B5B5B5
+        @select-text-col: #3D3D3D
+        @text-select-col: #B4B1B5
+
+    @button
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+        @disabled-col: $disabled-col
+
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
+        @disabled-text-col: $disabled-text-col
+
+        @invert-col: #FDFDFD
+        @invert-text-col: gray
+        @invert-hover-col: #F2F2F2
+        @invisible-text-col: #575757
+
+    @card
+      @variables
+        @border-col: $divider-col
+        @background-col: $container-background-col
+        @border-col: $container-border-col
+        @shadow-col: $shadow-col
+        @header-text-col: $text-col
+        @header-background-col: $container-header-background-col
+        @section-border-col: $container-border-col
+        @text-col: $text-col
+        @icon-col: $text-col
+        @context-text-col: white
+        @action-hover-background-col: #F3F3F3
+
+    @collapsible
+      @variables
+        @content-background-col: $container-background-col
+        @content-border-col: ''
+        @content-text-col: $text-col
+        @heading-background-col: $container-header-background-col
+        @heading-text-col: $heading-text-col
+        @toggle-background-col: $default-col
+        @toggle-hover-background-col: $accent-col
+        @toggle-hover-text-col: $accent-text-col
+        @toggle-text-col: $heading-text-col
+        @shadow-col: $shadow-col
+
+    @data-table
+      @variables
+        @compact-row-background-col: $container-background-col
+        @compact-row-hover-background-col: #FAFAFA
+        @compact-row-hover-text-col: $text-col
+        @compact-row-shadow-col: $shadow-col
+        @compact-row-text-col: $text-col
+        @disabled-row-background-col: #FAFAFA
+        @disabled-row-text-col: $disabled-text-col
+        @footer-background-col: $container-background-col
+        @footer-shadow-col: $shadow-col
+        @loading-background-col: rgba(255, 255, 255, 0.4)
+        @no-data-row-background-col: transparent
+        @no-data-row-text-col: $text-col
+        @row-collapsible-background-col: $container-background-col
+        @row-collapsible-text-col: $text-col
+        @selected-row-background-col: rgb(149, 216, 243)
+        @status-bar-background-col: $accent-col
+        @status-bar-text-col: white
+
+    @date-picker
+      @variables
+        @dark-text-col: $dark-text-col
+        @day-border-radius: 2px
+        @day-hover-background-col: $accent-col
+        @divider-col: $divider-col
+        @error-background-col: $error-background-col
+        @error-outline-col: $error-outline-col
+        @header-text-col: $heading-text-col
+        @navigation-icon-col: $disabled-text-col
+        @navigation-icon-hover-col: $text-col
+        @icon-background-col: $accent-col
+        @icon-col: white
+        @input-background-col: $input-background-col
+        @light-text-col: $light-text-col
+        @out-of-range-col: $disabled-text-col
+        @range-background-col: $default-body-col
+        @selected-background-col: $accent-col
+        @today-background-col: $default-col
+        @border-col: $input-border-col
+
+    @date-time-picker
+      @variables
+        @border-col: $input-border-col
+
+    @drag-container
+      @variables
+        @drag-placeholder-border-col: $divider-col
+
+    @drawing
+      @variables
+        @sidebar-background-col: $content-background-col
+        @sidebar-border-col: $divider-alt-col
+        @sidebar-text-col: $text-col
+        @sidebar-title-background-col: $default-body-col
+        @sidebar-title-text-col: $heading-text-col
+
+    @dropdown
+      @variables
+        @background-col: $container-background-col
+        @border-col: $container-border-col
+        @spacing: 0
+
+    @error-pages
+      @variables
+        @shadow-col: $shadow-col
+        @background-col: $container-background-col
+        @heading-text-col: $accent-col
+
+    @form
+      @variables
+        @error-background-col: $contrast-col
+        @error-text-col: $complement-col
+
+    @input-group
+      @variables
+        @div-background-col: $element-background-col
+        @div-border-col: $input-border-col
+        @icon-background-col: $default-body-col
+        @icon-border-col: $input-border-col
+        @input-background-col: $input-background-col
+        @input-border-col: $input-border-col
+        @input-focus-border-col: $input-focus-border-col
+        @input-invalid-outline-col: $error-outline-col
+
+    @label
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+        @disabled-col: $disabled-col
+
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
+        @disabled-text-col: $disabled-text-col
+
+    @layout
+      @variables
+        @border-col: $divider-col
+        @content-background-col: $content-background-col
+        @content-breakpoint: 1300px, 900px
+        @content-max-width: 1200px
+        @content-padding: 1em
+        @margin: 0.3em
+        @named-class-min-width: 250px
+
+    @menu
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $container-background-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+        @disabled-col: $disabled-col
+
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
+        @disabled-text-col: $disabled-text-col
+
+        @default-hover-col: $default-body-col
+        @default-text-col: $text-col
+
+        @collapsible-background-col: $element-background-col
+        @collapsible-text-col: $text-col
+        @default-hover-border-col: transparent
+        @default-border-col: transparent
+        @border-width: 2px
+
+    @modal
+      @variables
+        @background-col: $container-background-col
+        @border-color: $divider-col
+        @border-radius: 3px
+        @box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+        @shade-col: rgba(0,0,0,0.5)
+        @title-background-col: $default-col
+        @title-font-size: 1.17em
+        @title-text-col: $text-col
+        @shadow-col: rgba(0, 0, 0, 0.5)
+
+    @notice
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
+
+        @action-body-col: $action-body-col
+        @complement-body-col: $complement-body-col
+        @contrast-body-col: $contrast-body-col
+        @default-body-col: $default-body-col
+        @info-body-col: $info-body-col
+        @negative-body-col: $negative-body-col
+        @positive-body-col: $positive-body-col
+        @warning-body-col: $warning-body-col
+
+    @notify
+      @variables
+        @background-col: $container-background-col
+        @border-col: $divider-col
+        @close-col: $disabled-text-col
+        @close-hover-col: $text-col
+        @container-background-col: $body-background-col
+        @container-border-col: transparent
+        @default-col: $default-col
+        @info-col: $info-col
+        @loading-col: $action-col
+        @negative-col: $negative-col
+        @pinned-col: $action-col
+        @pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%)
+        @positive-col: $positive-col
+        @shadow-col: $shadow-col
+        @text-col: $text-col
+        @unpinned-col: $disabled-text-col
+        @unpinned-hover-col: $text-col
+        @warning-col: $warning-col
+
+    @paginator
+      @variables
+        @arrow-button:
+        @default-button: hx-complement
+        @selected-button: hx-action
+
+    @palette
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+        @disabled-col: $disabled-col
+
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
+        @disabled-text-col: $disabled-text-col
+
+    @plot
+      @variables
+        #@colors: rgb(177,119,190), rgb(90,155,212), rgb(241,90,113), rgb(151,195,102), rgb(250,169,91), rgb(226,212,64)
+        @warm-col: rgb(250,169,91)
+        @ambient-col: rgb(226,212,64)
+        @cold-col: rgb(90,155,212)
+        @positive-col: rgb(151,195,102)
+        @warning-col: rgb(226,212,64)
+        @negative-col: rgb(241,90,113)
+
+        @axis-line-col: $divider-col
+        @axis-title-text-col: $text-col
+        @grid-line-col: $divider-alt-col
+        @label-background-col: $element-background-col
+        @label-border-col: $divider-alt-col
+        @label-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25)
+        @label-header-background-col: $default-col
+        @label-header-border-col: $divider-col
+        @label-key-text-col: $text-col
+        @label-text-col: $text-col
+        @pie-segment-text-col: rgba(255, 255, 255, 0.8)
+        @tick-line-col: $divider-col
+        @tick-text-col: $text-col
+        @tick-text-size: 10px
+
+    @progress-bar
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+
+        @background-col: transparentize($default-col, 0.5)
+        @border-col: none
+        @border-width: 0
+
+    @side-collapsible
+      @variables
+        @content-background-col: $container-background-col
+        @content-border-col: ''
+        @heading-background-col: $container-header-background-col
+        @heading-text-col: $heading-text-col
+        @toggle-background-col: $default-col
+        @toggle-hover-background-col: $accent-col
+        @toggle-hover-text-col: $accent-text-col
+        @toggle-text-col: $heading-text-col
+
+    @sidebar
+      @variables
+        @animation-duration: 0.15s
+        @background-col: $container-background-col
+        @collapsible-border-col: transparent
+        @section-hover-background-col: $accent-hover-col
+        @section-hover-text-col: $light-text-col
+        @section-text-col: $text-col
+        @selected-background-col: $accent-col
+        @selected-text-col: $light-text-col
+        @title-background-col: $container-header-background-col
+        @title-font: $heading-font
+        @title-text-col: $text-col
+        @titlebar-button-background-col: $header-background-col
+        @titlebar-button-hover-text-col: $faint-icon-hover-col
+        @titlebar-button-text-col: $faint-icon-col
+        @titlebar-icon-background-col: $header-background-col
+        @shadow-col: $shadow-col
+
+    @slider
+      @variables
+        @background-col: $element-background-col
+        @border-radius: 2px
+        @disabled-col: $disabled-col
+        @range-background-col: $accent-col
+        @range-height: 50%
+        @slider-background-col: $default-col
+        @text-col: $complement-col
+        @value-background-col: $contrast-col
+        @value-border-radius: 5px
+        @shadow-col: transparent
+        @slider-marker-col: #E2E2E2
+
+    @spinner
+      @variables
+        @spinner-col: $accent-col
+
+    @sticky-table-headers
+      @variables
+        @scroll-indicator-shadow-color: rgba(0,0,0,0.5)
+
+    @table
+      @variables
+        @header-background-col: $container-background-col
+        @header-text-col: $text-col
+        @row-background-col: $body-background-col
+        @row-alt-background-col: #F3F3F3
+        @row-hover-background-col: #E4E4E4
+        @row-text-col: $text-col
+        @row-alt-text-col: $text-col
+        @border-col: #E2E1E1
+
+    @tabs
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+        @disabled-col: $disabled-col
+
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
+        @disabled-text-col: $disabled-text-col
+
+        @background-col: $element-background-col
+        @tab-background-col: $element-background-col
+        @text-col: $text-col
+        @tab-text-col: $text-col
+        @shadow-col: $shadow-col
+
+    @tag-input
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+        @disabled-col: $disabled-col
+
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
+        @disabled-text-col: $disabled-text-col
+
+        @tag-container-background-col: $element-background-col
+        @tag-container-border-col: $divider-alt-col
+        @border-col: $input-border-col
+
+    @time-picker
+      @variables
+        @icon-background-col: $accent-col
+        @icon-col: white
+        @error-background-col: $error-background-col
+        @error-outline-col: $error-outline-col
+        @input-background-col: $input-background-col
+        @border-col: $input-border-col
+
+    @titlebar
+      @variables
+        @action-background-col: $action-col
+        @complement-background-col: $complement-col
+        @contrast-background-col: $contrast-col
+        @default-background-col: $header-background-col
+        @info-background-col: $info-col
+        @negative-background-col: $negative-col
+        @positive-background-col: $positive-col
+        @warning-background-col: $warning-col
+
+        @context-icon-background: $linkbar-background-col
+        @context-text-col: $light-text-col
+        @font-weight: 100
+        @heading-border-bottom-col: $divider-col
+        @heading-shadow-col: $shadow-col
+        @icon-tooltip-background-col: $contrast-col
+        @icon-tooltip-text-col: $complement-col
+        @icon-vertical-offset: 12px
+        @icon-background-col: $header-background-col
+
+        @link-border-hover-col: $link-col
+        @link-border-selected-col: $action-body-col
+        @link-text-col: $text-col
+        @link-text-hover-col: $link-col
+        @linkbar-background-col: $linkbar-background-col
+        @linkbar-height: 40px
+        @mobile-view-icons-background-col: lighten($default-background-col, 5%)
+        @mobile-view-icons-text-col: $header-text-col
+        @mobile-view-icons-text-hover-col: $header-text-col
+
+        @title-font-family: $heading-font
+        @title-font-size: 1.7em
+        @titlebar-height: 46px
+        @titlebar-icon-col: $faint-icon-col
+        @titlebar-icon-hover-col: $faint-icon-hover-col
+        @titlebar-context-icon-col: $context-faint-icon-col
+        @titlebar-context-icon-hover-col: $context-faint-icon-hover-col
+        @titlebar-menu-context-border-col: transparent
+        @titlebar-menu-context-text-col: white
+        @titlebar-text-col: $header-text-col
+
+        @title-text-col: $accent-col
+
+    @toggle-button
+      @variables
+        @action-col: $action-col
+        @complement-col: $complement-col
+        @contrast-col: $contrast-col
+        @default-col: $default-col
+        @info-col: $info-col
+        @negative-col: $negative-col
+        @positive-col: $positive-col
+        @warning-col: $warning-col
+
+    @tree
+      @variables
+        @background-col: $container-background-col
+        @icon-background-col: $accent-col
+        @icon-background-hover-col: $accent-hover-col
+        @icon-disabled-col: $disabled-col
+        @icon-disabled-text-col: $disabled-text-col
+        @icon-text-col: $accent-text-col
+        @icon-text-hover-col: $accent-text-col
+        @item-border-left-col: $accent-col

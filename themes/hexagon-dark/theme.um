@@ -1,0 +1,152 @@
+@theme hexagon-dark
+  @extra
+    @css: @inline extra.css
+  @variables
+
+    # Accent color
+    @accent-col: #00ADA8
+    @accent-hover-col: #1DBFBB
+    @accent-text-col: white
+    @accent-text-hover-col: white
+
+    # Context colors
+
+    @action-col: #00ADA8
+    @complement-col: #393D3D
+    @contrast-col: #F7F7F9
+    @default-col: #393D3D
+    @info-col: #B36ABB
+    @negative-col: #EC3A65
+    @positive-col: #92BF17
+    @warning-col: #D69B24
+
+    @disabled-col: #FAFAFA
+
+    # Context body colors
+    @action-body-col: #D0DDEE
+    @compliment-body-col: #F9F9F9
+    @contrast-body-col: #F9F9F9
+    @default-body-col: #32373A
+    @info-body-col: #E7D0EA
+    @negative-body-col: #F1C0CB
+    @positive-body-col: #DBE2AE
+    @warning-body-col: #EFDEC7
+
+    # Text colors
+    @text-col: white
+    @light-text-col: white
+    @dark-text-col: #3D3D3D
+    @heading-text-col: white
+    @header-text-col: white
+    @disabled-text-col: #939393
+    @error-text-col: white
+    @link-col: #00ADA8
+
+    # Fonts
+    @body-font: 'Open Sans', sans-serif
+    @heading-font: 'Open Sans', sans-serif
+    @font-size: 14px
+
+    # Background colors
+    @body-background-col: #252C2E
+    @content-background-col: transparent
+
+    # e.g. card headers, collapsible headers
+    @container-header-background-col: #2C3134
+
+    # e.g. cards, collapsible content, modal content
+    @container-background-col: #32373A
+
+    # e.g. used in cards, dropdowns
+    @container-border-col: #424749
+
+    # e.g. tag-input background
+    @element-background-col: #252C2E
+
+    @header-background-col: #2C3134
+    @content-header-background-col: white
+    @linkbar-background-col: #373D45
+
+    # Misc
+    @divider-col: #4E5355
+    @divider-style: solid
+    @divider-alt-col: #383B3C
+
+    @input-border-col: #4E5355
+    @input-focus-border-col: #00ADA8
+    @input-background-col: #2F3639
+
+    # Error colors
+    @error-outline-col: #DE1A4A
+    @error-background-col: #FCBFBF
+
+    @faint-icon-col: rgba(255, 255, 255, 0.3)
+    @faint-icon-hover-col: rgba(255, 255, 255, 0.6)
+
+
+  @modules
+
+    @button
+      @overrides
+        @themeScss: @inline overrides/buttons.scss
+      @variables
+        @default-col: #2F3536
+        @default-text-col: white
+        @invisible-text-col: white
+        @disabled-col: #3B3D3D
+        @invert-col: #2F3536
+        @invert-hover-col: #34393A
+        @invert-text-col: white
+        @light-text-col: white
+
+    @card
+      @variables
+        @border-col: transparent
+
+    @data-table
+      @variables
+        @selected-row-background-col: #119C98
+        @compact-row-hover-background-col: #3D4346
+
+    @slider
+      @variables
+        @slider-background-col: #DADADA
+
+    @table
+      @variables
+        @row-alt-background-col: #2B3234
+        @row-hover-background-col: #3D4346
+
+    @tabs
+      @variables
+        @default-col: #9F9F9F
+
+    @toggle
+      @variables
+        @background-off-col: #495054
+        @background-on-col: #495054
+
+    @tree
+      @variables
+        @icon-disabled-background-col: #393F42
+        @icon-disabled-text-col: #272727
+
+    @menu
+      @variables
+        @default-hover-col: #42474A
+
+    @notice
+      @variables
+        @default-col: $container-header-background-col
+        @default-body-col: $container-background-col
+        @positive-body-col: #9ECA26
+        @action-body-col: #0BBDB8
+        @warning-body-col: #E4AE41
+        @negative-body-col: #EC426C
+        @info-body-col: #B674BD
+        @complement-body-col: $container-background-col
+        @contrast-body-col: #E6E6E6
+
+    @titlebar
+      @variables
+        @icon-background-col: transparent

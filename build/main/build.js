@@ -13,12 +13,12 @@
 
 */
 
-var builder = require('./builder')
+var Builder = require('./builder')
 var path = require('path')
 
 var assetDir = path.join(__dirname, '../../' , 'assets')
 
-module.exports = (new builder).assets({
+module.exports = (new Builder).assets({
   'hexagon-icons.ttf': {
     filepath: path.join(assetDir, 'hexagon-icons.ttf'),
     allowEmbed: true
