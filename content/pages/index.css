@@ -64,6 +64,7 @@ body {
   max-width: 300px;
   max-height: 300px;
   background: url("/resources/logo-v1.svg");
+  background-repeat: no-repeat;
 }
 
 .title {
@@ -132,39 +133,41 @@ button.button:focus, button.button:active {
 
 .docs-statement {
   text-align: center;
-  font-size: 60px;
+  font-size: 25px;
   font-weight: 100;
   padding: 0.25em;
 }
 
 .docs-explanation {
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   /*color: white;*/
+  border: none !important;
 }
 
 .docs-selling-point {
-  padding: 10em;
-  background-color: #262D35;
-  color: white;
-  /*height: 400px;*/
+  flex-basis: 32%;
 }
 
 .docs-components {
-  padding: 5em 0;
-}
-
-.docs-selling-point:nth-child(odd) {
-  background: #F0F0F0;
-  color: #3D3D3D;
+  padding: 2em 0;
 }
 
 /*.docs-selling-point-wrapper {
   padding: 150px;
 }*/
 
+.docs-git-link {
+  padding: 2em 0;
+  text-align: center;
+}
+
+.docs-preprocessor-logo-group {
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 .docs-preprocessor-logo {
-  margin: 2em;
   align-self: center;
 }
 

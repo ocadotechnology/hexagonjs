@@ -98,7 +98,7 @@
         .on('change', function(d) {
           hx.select('#colorpicker')
             .style('background', d.toString())
-            .style('color', d.getTextCol())
+            .style('color', d.textCol())
         })
 
   @div .hx-section.example
@@ -278,5 +278,5 @@
           <label>Checkbox</label>
           <input type="checkbox">
         </div>
-        <button type="submit" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
+        <button type="button" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
       </form>
