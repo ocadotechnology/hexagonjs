@@ -6,5 +6,4 @@ threadsafe: true
 handlers:
 - url: /.*
   script: server.app
-  login: required
   secure: always
