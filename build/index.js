@@ -166,45 +166,50 @@ function getOptions () {
   })
 }
 
-function buildPages () {
-  return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {
-    var start = Date.now()
-    return Promise.all([getTemplateVariables(), getOptions()]).spread(function (templateVariables, options) {
-      return progressSequence('Building pages', chalk.green('='), objs, function (obj) {
-        return Promise.resolve(obj)
-          .then(template({variables: templateVariables}))
-          .then(changelog(options.changelogOptions))
-          .then(version(options.versionOptions))
-          .then(function (res) { return Array.isArray(res) ? res : [res] })
-          .then(flatten)
-          .map(function (file) {
-            if (file.filename.indexOf('modules') > -1) {
-              file.filename = file.filename.replace('modules', 'docs')
-            }
-            return file
-          })
-          .map(html(options.htmlTransforms))
-          .map(html.stringify())
-          .map(function (file) {
-            if (file.filename.indexOf('docs') === 0) {
-              var v = file.filename.split('/')[1]
-              file.content = file.content.split('__version__').join(v)
-            }
-            return file
-          })
-          .map(quantum.write('target'))
-      })
-    }).then(function () {
-      var diff = (Date.now() - start)
-      var mins = (diff - diff % 60000) / 60000
-      var sec = (diff - (diff - diff % 60000)) / 1000
-      console.log(chalk.blue('Done!', mins + 'm', sec + 's'))
+function buildPages (objs) {
+  var start = Date.now()
+  return Promise.all([getTemplateVariables(), getOptions()]).spread(function (templateVariables, options) {
+    return progressSequence('Building pages', chalk.green('='), objs, function (obj) {
+      return Promise.resolve(obj)
+        .then(template({variables: templateVariables}))
+        .then(changelog(options.changelogOptions))
+        .then(version(options.versionOptions))
+        .then(function (res) { return Array.isArray(res) ? res : [res] })
+        .then(flatten)
+        .map(function (file) {
+          if (file.filename.indexOf('modules') > -1) {
+            file.filename = file.filename.replace('modules', 'docs')
+          }
+          return file
+        })
+        .map(html(options.htmlTransforms))
+        .map(html.stringify())
+        .map(function (file) {
+          if (file.filename.indexOf('docs') === 0) {
+            var v = file.filename.split('/')[1]
+            file.content = file.content.split('__version__').join(v)
+          }
+          return file
+        })
+        .map(quantum.write('target'))
     })
+  }).then(function (res) {
+    var diff = (Date.now() - start)
+    var mins = (diff - diff % 60000) / 60000
+    var sec = (diff - (diff - diff % 60000)) / 1000
+    console.log(chalk.blue('Done!', mins + 'm', sec + 's'))
+    return res
   })
-    .then(function (fun) {
-      return fun()
-    })
+}
 
+function watchPages () {
+  return watch('content/pages/**/index.um', { base: 'content/pages'}, buildPages).then(function (fun) {
+    return fun()
+  })
+}
+
+function buildOnce () {
+  return quantum.read('content/pages/**/index.um', { base: 'content/pages'}).then(buildPages)
 }
 
 function startServer () {
@@ -218,10 +223,15 @@ function startServer () {
 
 if (process.argv[2] === 'build-hexagon') {
   buildHexagon(true)
+} else if (process.argv[2] === 'build-release') {
+  buildHexagon(true)
+    .then(copyResources)
+    .then(buildMetaData)
+    .then(buildOnce)
 } else {
   buildHexagon(false)
     .then(copyResources)
     .then(buildMetaData)
-    .then(buildPages)
+    .then(watchPages)
     .then(startServer)
 }

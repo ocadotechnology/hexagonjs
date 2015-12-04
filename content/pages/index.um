@@ -39,12 +39,12 @@
       @div .docs-statement: Modular.
       @div .docs-explanation: Include just the parts you need, throw away everything else. For faster load times.
 
-  @div .docs-selling-point
-    @div .dx-content.docs-selling-point-wrapper
-      @div .docs-statement: Locale & Timezone enabled.
-      @div .docs-explanation
-        @p: Hexagon can be configured to use a certain locale and timezone globally, or on a per component basis.
-        @p: Powered by the internationalization api, or moment.js - you choose.
+#  @div .docs-selling-point
+#    @div .dx-content.docs-selling-point-wrapper
+#      @div .docs-statement: Locale & Timezone enabled.
+#      @div .docs-explanation
+#        @p: Hexagon can be configured to use a certain locale and timezone globally, or on a per component basis.
+#        @p: Powered by the internationalization api, or moment.js - you choose.
 
   @div .docs-selling-point
     @div .dx-content.docs-selling-point-wrapper

@@ -1,12 +1,13 @@
-hexagon-site
-============
+HexagonJS Documentation
+=======================
 
-This project contains the content for the hexagon docs site.
+This project contains HexagonJS documentation site.
 
 Deploying
-=========
-This can be improved, but the current procedure is:
+---------
 
-    npm start (then kill it when it starts watching)
-    cd target
-    gcloud preview app deploy app.yaml --project causal-galaxy-939 --version <revision-number> --promote
+Before releasing, check if the revision number should be bumped. This exists in the package.json file under the upload task.
+
+To publish the site (and make it live) use the following
+
+    npm run release

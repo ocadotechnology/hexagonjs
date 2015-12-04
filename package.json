@@ -9,8 +9,13 @@
   "main": "./build/index.js",
   "scripts": {
     "start": "node build/index.js",
-    "build-hexagon": "node build/index.js build-hexagon"
+    "clean": "rm -r target",
+    "build-hexagon": "node build/index.js build-hexagon",
+    "build-release": "node build/index.js build-release",
+    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 3 --promote",
+    "release": "npm run clean && npm run build-release && npm run upload"
   },
+  "private": true,
   "devDependencies": {
     "bluebird": "^2.10.2",
     "chalk": "^1.1.1",

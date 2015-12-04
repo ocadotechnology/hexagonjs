@@ -260,3 +260,15 @@ a.qm-changelog-link {
 .docs-list > li {
   margin: 0.5em;
 }
+
+.docs-footer {
+  text-align: center;
+}
+
+.docs-footer-note {
+  margin: 0 1em;
+}
+
+.docs-footer-note a {
+  color: rgb(100, 200, 197);
+}
