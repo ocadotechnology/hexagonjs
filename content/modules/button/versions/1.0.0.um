@@ -35,6 +35,11 @@
         @enhancement: Updated the invert styles for buttons to work nicer across different themes
           @issue 704
 
+      @extraclass hx-compliment
+        @removed: Use @code(css)[.hx-complement] instead
+
+      @extraclass hx-complement: Styles the button with a color that complements the theme (light for a light theme, dark for a dark theme)
+
   @theme
     @option compliment-col
       @removed

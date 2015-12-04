@@ -6,6 +6,11 @@
         @added: Added new action context class and updated default styles.
           @issue 652
 
+      @extraclass hx-compliment
+        @removed: Use @code(css)[.hx-complement] instead
+
+      @extraclass hx-complement: Styles the label with complement colors
+
   @theme
     @option compliment-col
       @removed: Use complement-col instead

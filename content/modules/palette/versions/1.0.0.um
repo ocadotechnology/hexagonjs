@@ -63,6 +63,9 @@
     @class hx-background-complement
       @description: Applies the complementary color to the background of the element. The text color will also be set so that it works well with the background color.
 
+    @class hx-border-action
+      @description: Applies the complementary color to the border-color of the element.
+
     @object hx.theme.palette
       @property complimentCol [String]
         @removed: Use hx.theme.palette.complementCol instead

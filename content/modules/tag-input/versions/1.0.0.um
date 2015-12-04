@@ -20,6 +20,11 @@
           @issue 652
       @extraclass hx-compliment
         @removed: Use hx-complement instead
+
+
+      @extraclass hx-compliment
+        @removed: Use @code(css)[.hx-complement] instead
+
       @extraclass hx-complement: The additional class to give tags a complementary color to the base theme color.
 
     @function hx.tagInput
