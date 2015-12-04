@@ -5,9 +5,6 @@
   "contributors": [
     "Charlie Frater <charlie.frater@ocado.com>"
   ],
-  "publishConfig": {
-    "registry": "http://maven.ocado.com/nexus/content/repositories/Hexagon_Releases"
-  },
   "license": "Apache-2.0",
   "main": "index.js",
   "scripts": {
