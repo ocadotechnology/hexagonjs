@@ -37,4 +37,4 @@
     Create an issue on the the Gitlab issue tracker, and tag it with New Feature.
 
   @section I want to contribute to the project. How do I go about doing this?
-    @p: We welcome merge requests for bugfixes and additional features. Please target the "dev" branch when setting up a new merge request.
+    @p: We welcome pull requests for bugfixes and additional features. Please target the "dev" branch when setting up a new pull request.
