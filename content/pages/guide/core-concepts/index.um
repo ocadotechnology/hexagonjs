@@ -56,15 +56,15 @@
 
     @p: The same idea applies when multiple arguments are involved; leaving off the last argument will cause a value to be retrieved, and including the last argument will set the value.
 
-  @card
-    @h2: Renderer functions
-
-    @p: Renderer functions provide a way to extend the default behaviour of hexagon. Often multiple items have to be displayed to the user - this is the case for menus, pickers, trees, tables and several other components. When this happens an array of data has to be converted into a dom structure. Hexagon provides customisation in this process by letting you provide a "renderer" function, which knows how to populate a dom element for a single piece of data.
-
-    @codeblock js
-      Example here
-
-  @card
-    @h2: Events
+#  @card
+#    @h2: Renderer functions
+#
+#    @p: Renderer functions provide a way to extend the default behaviour of hexagon. Often multiple items have to be displayed to the user - this is the case for menus, pickers, trees, tables and several other components. When this happens an array of data has to be converted into a dom structure. Hexagon provides customisation in this process by letting you provide a "renderer" function, which knows how to populate a dom element for a single piece of data.
+#
+#    @codeblock js
+#      Example here
+#
+#  @card
+#    @h2: Events
 
 
