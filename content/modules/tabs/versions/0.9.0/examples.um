@@ -21,7 +21,7 @@
       <div id="tab3" class="hx-tab hx-warning">Tab 3</div>
       <div id="tab4" class="hx-tab hx-negative">Tab 4</div>
       <div id="tab5" class="hx-tab hx-info">Tab 5</div>
-      <div id="tab6" class="hx-tab hx-contrast">Tab 7</div>
+      <div id="tab6" class="hx-tab hx-contrast">Tab 6</div>
       <div class="hx-tabs-content" style="padding: 1em;"></div>
     </div>
 

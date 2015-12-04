@@ -29,7 +29,7 @@
 
   @div .docs-selling-point
     @div .dx-content.docs-selling-point-wrapper
-      @div .docs-statement: Themable.
+      @div .docs-statement: Themeable.
       @div .docs-explanation
         @p: Create custom themes with variable driven theme files.
         @p: Quickly create new themes by extending existing ones, or create something more bespoke by entirely replacing the default theme css on a per module basis.
