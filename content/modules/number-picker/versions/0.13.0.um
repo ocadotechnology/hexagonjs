@@ -34,13 +34,13 @@
       @method setMin
         @param min [Number]
         @deprecated
-          @issue 391
+
           Use @code[min(value)] instead.
 
       @method setMax
         @param max [Number]
         @deprecated
-          @issue 391
+
           Use @code[max(value)] instead.
 
 

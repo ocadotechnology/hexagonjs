@@ -13,4 +13,3 @@
   @api Input Group
     @class hx-input-group
       @updated: Improved styles and added the ability to use 'a' elements in an input group.
-        @issue 352

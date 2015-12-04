@@ -10,18 +10,18 @@
     @function hx.notify.setDefaultTimeout
       @param timeout [Number]
       @deprecated
-        @issue 375
+
         Use @code[hx.notify.defaultTimeout(timeout)] instead.
 
     @function hx.getNotificationManager
       @deprecated
-        @issue 448
+
         Use @code[hx.notify()] instead.
 
     @function hx.getNotificationManager.setDefaultTimeout
       @param timeout [Number]
       @deprecated
-        @issue 448
+
         Use @code[hx.notify.defaultTimeout(timeout)] instead.
 
 

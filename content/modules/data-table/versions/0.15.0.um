@@ -35,7 +35,7 @@
     @prototype hx.DataTable
       @extends EventEmitter
       @added: Added a new module for creating data tables to replace the Extended Table module.
-        @issue 547
+
 
       @description: A component to allow tables to be created dynamically using Javascript that contains features such as filtering, sorting and pagination.
 

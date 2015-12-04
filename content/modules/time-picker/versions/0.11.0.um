@@ -4,7 +4,7 @@
       @updated: All instances of supressCallback have been converted to suppressCallback.
       @method getDate
         @deprecated
-          @issue 375
+
           Use @code[date()] instead.
 
       @method setDate
@@ -12,43 +12,43 @@
         @param? setTime [Boolean]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[date(date, setTime, suppressCallback)] instead.
 
       @method getHour
         @deprecated
-          @issue 375
+
           Use @code[hour()] instead.
 
       @method setHour
         @param hour [Number]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[hour(hour, suppressCallback)] instead.
 
       @method getMinute
         @deprecated
-          @issue 375
+
           Use @code[minute()] instead.
 
       @method setMinute
         @param minute [Number]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[minute(minute, suppressCallback)] instead.
 
       @method getSecond
         @deprecated
-          @issue 375
+
           Use @code[second()] instead.
 
       @method setSecond
         @param second [Number]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[second(second, suppressCallback)] instead.
 
       @method date

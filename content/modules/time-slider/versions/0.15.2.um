@@ -6,18 +6,18 @@
         @param? options [Object]
           @property disabled [Boolean]: Whether the time slider should be disabled
             @added: Added the ability to disable a a time slider in the options
-              @issue 660
+
             @default false
 
       @method disabled
         @added: Added the ability to disable/enable a time slider
-          @issue 660
+
         @description: A method for disabling or enabling a time slider
         @param value [Boolean]: Whether the time slider should be disabled
         @returns TimeSlider: This time slider
 
       @method disabled
         @added: Added the ability to get the disabled state of a time slider
-          @issue 660
+
         @description: A method for getting the disabled state of a time slider
         @returns Boolean: Whether the time slider is disabled

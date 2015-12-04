@@ -1,9 +1,9 @@
 @version 1.0.0
   @api Picker
     @enhancement: The button type of pickers is now 'button'
-      @issue 791
+
     @bugfix: Fixed an issue with the picker not rendering values correcly
-      @issue 785
+
 
     @prototype hx.Picker
       @constructor
@@ -11,12 +11,12 @@
         @param? options [Object]
           @property startValue [String]: The value to use when initialising the select.
             @removed: Use @code(js)[value] instead.
-            @issue 757
+
           @property ddClass [String]
             @removed
               Use @code[dropdownOptions.ddClass] instead.
           @property value [String]: The value to use when initialising the select.
-            @added: @issue 757
+            @added:
 
     @function hx.picker
       @added: Fluid api version of Picker

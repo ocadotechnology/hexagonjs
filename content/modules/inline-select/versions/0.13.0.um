@@ -14,7 +14,7 @@
       @constructor
         @description
         @added
-          @issue 378
+
         @param selector [String/HTMLElement]: A CSS selector that uniquely identifies the element, or an HTMLElement.
         @param? options [Object]: The options to use when constructing the inline select
           @property contextClass [String]: The class to use for the button when the select is active.
@@ -37,7 +37,7 @@
 
       @method items
         @added: Updated the items method to return the items if no arguments are provided.
-          @issue 378
+
         @description: Sets the list of items that will be shown in the select dropdown.
         @returns Array: The currently set items
 
@@ -47,9 +47,8 @@
           @param data [Any]
         @returns InlineSelect: Returns this select for chaining.
           @updated: Updated the renderer method to return the renderer if no arguments are provided.
-            @issue 378
+
 
       @method renderer
         @returns Function: Returns the currently set renderer function.
         @added: Updated the renderer method to return the renderer if no arguments are provided.
-          @issue 378

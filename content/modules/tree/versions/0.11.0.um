@@ -2,4 +2,4 @@
   @api Tree
     @prototype hx.Tree
       @bugfix: Fixed an issue where show/hide were not changing the rotation of the arrow icons in trees.
-        @issue 398
+

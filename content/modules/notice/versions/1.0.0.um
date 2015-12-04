@@ -57,7 +57,7 @@
       @extraclass hx-action
         @description: Styles the notice with action colors
         @added: Added new action context class and updated default styles.
-          @issue 652
+
 
       @extraclass hx-compliment
         @removed: Use @code(css)[.hx-complement] instead

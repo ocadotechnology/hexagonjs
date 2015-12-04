@@ -24,7 +24,7 @@
   @api Select
     @prototype hx.Select
       @updated: Updated the select to allow lazy loading of data and also use an options object in the constructor.
-        @issue 552
+
       @constructor
         @param selector [String/HTMLElement]: The target button to set the select up in.
         @param? options [Object]: The options to use when setting up the select element
@@ -50,7 +50,7 @@
         @param selector [String/HTMLElement]
         @param? ddClass [String]
         @deprecated
-          @issue 552
+
           Use @code[hx.Select(selector, options)] instead.
 
       @method items

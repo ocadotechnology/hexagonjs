@@ -55,18 +55,18 @@
         @param? options [Object]
           @property disabled [Boolean]: Whether the color picker should be disabled
             @added: Added the ability to disable a color picker in the options
-              @issue 660
+
             @default false
 
       @method disabled
         @added: Added the ability to disable/enable a color picker
-          @issue 660
+
         @description: A method for disabling or enabling a color picker
         @param value [Boolean]: Whether the color picker should be disabled
         @returns ColorPicker: This color picker
 
       @method disabled
         @added: Added the ability to get the disabled state of a color picker
-          @issue 660
+
         @description: A method for getting the disabled state of a color picker
         @returns Boolean: Whether the button group is disabled

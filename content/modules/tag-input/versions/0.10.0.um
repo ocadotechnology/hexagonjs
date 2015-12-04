@@ -2,7 +2,7 @@
   @api Tag Input
     @class hx-tag
       @updated: Removed module-specific classes in favor of generic classes
-        @issue 349
+
 
       @extraclass hx-compliment: The additional class to give tags a complimenting color to the base theme color.
       @extraclass hx-contrast: The additional class to give tags a contrasting color to the base theme color.

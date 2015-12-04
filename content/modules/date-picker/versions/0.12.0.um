@@ -11,36 +11,36 @@
 
       @method getDate
         @removed
-          @issue 494
+
 
       @method getRange
         @removed
-          @issue 494
+
 
       @method setDate
         @param date [Date]
         @param dontSetupInput [Boolean]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method setDay
         @param day [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method setMonth
         @param month [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method setYear
         @param year [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method setRange
         @param date1 [Date]
@@ -48,4 +48,3 @@
         @param dontSetupInput [Boolean]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494

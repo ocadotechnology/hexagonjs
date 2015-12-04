@@ -6,7 +6,7 @@
 
   @api Search Dom
     @deprecated: This module will be removed in version 1.0.0
-      @issue 610
+
 
     @function hx.searchDOM
       @param selector [String/HTMLElement]

@@ -2,15 +2,15 @@
   @api Extended Table
     @prototype hx.Table
       @enhancement: Updated the table paginator to be more inline with paginators used in other tables and to make it make more sense.
-        @issue 287
+
       @property options [Object]
         @property allowHeaderWrap [Boolean]: A boolean value that determines whether the header text should be allowed to wrap or not.
           @default false
           @added
-            @issue 495
+
         @property userSelectRowsPerPage [Boolean]: A boolean value that determines whether the dropdown for selecting the number of rows per page should be shown.
           @added
-            @issue 287
+
           @default false
 
         @property singleSelectionMode [Boolean]: A boolean value that determines whether the table should be in single selection mode, only allowing one row to be selected at a time.
@@ -18,11 +18,11 @@
 
       @property paginator [Paginator]
         @removed: The paginator element is no longer used by the table. Use the @code[page(page)] to set the page.
-          @issue 287
+
 
       @method page
         @added
-          @issue 287
+
         @description: A method for setting the currently selected page of a table.
         @param page [Number]: The page to select.
         @param? callback [Function]: A function to call once the table has finished rendering the page.
@@ -34,7 +34,7 @@
         @param data [Object/String/Function]
           @updated:
             @p: Added the ability to override the @code[allowHeaderWrap] setting for individual columns using the @code[allowWrap] property.
-            @issue 495
+
           @description
             The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
 

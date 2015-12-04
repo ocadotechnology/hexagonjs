@@ -8,7 +8,7 @@
         @param? visible [Boolean]
         @param? addIcon [Boolean]
         @deprecated
-          @issue 391
+
           Use @code[hx.Collapsible(selector, options)] instead.
 
       @constructor
@@ -98,12 +98,12 @@
 
         @event show
           @deprecated
-            @issue 391
+
             Use @code[showstart] instead.
 
         @event hide
           @deprecated
-            @issue 391
+
             Use @code[hidestart] instead.
 
         @event showstart
@@ -121,7 +121,7 @@
       @param? lazyContent [Function]
         @param content [HTMLElement]
       @deprecated: Correct spelling
-        @issue 593
+
         Use @code[hx.initializeCollapsibles] instead.
 
     @function hx.initializeCollapsibles

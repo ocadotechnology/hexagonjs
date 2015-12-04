@@ -2,4 +2,3 @@
   @api Sticky Table Headers
     @prototype hx.StickyTableHeaders
       @enhancement: Updated the internals to work better with transparent headings and improve performance
-        @issue 800

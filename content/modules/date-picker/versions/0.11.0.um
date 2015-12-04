@@ -3,15 +3,15 @@
     @prototype hx.DatePicker
       @updated: All instances of supressCallback have been converted to suppressCallback.
       @bugfix: Fixed an issue where setting the values for the date picker and then getting the value would result in the wrong value being returned.
-        @issue 435
+
       @method getDate
         @deprecated
-          @issue 375
+
           Use @code[date()] instead.
 
       @method getRange
         @deprecated
-          @issue 375
+
           Use @code[range()] instead.
 
       @method setDate
@@ -19,28 +19,28 @@
         @param dontSetupInput [Boolean]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[date(date, dontSetupInput, suppressCallback)] instead.
 
       @method setDay
         @param day [Number]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[day(day, suppressCallback)] instead.
 
       @method setMonth
         @param month [Number]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[month(month, suppressCallback)] instead.
 
       @method setYear
         @param year [Number]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[year(year, suppressCallback)] instead.
 
       @method setRange
@@ -49,7 +49,7 @@
         @param dontSetupInput [Boolean]
         @param? suppressCallback [Boolean]
         @deprecated
-          @issue 375
+
           Use @code[range(date1, date2, dontSetupInput, suppressCallback)] instead.
 
       @method date
@@ -117,7 +117,7 @@
 
       @method validRange
         @added: Added the ability to specify a valid range for date pickers.
-          @issue 400
+
         @description:
           @p: A method for setting the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
           @p: To clear a valid range, this method can be called with no parameters.

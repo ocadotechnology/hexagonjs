@@ -7,7 +7,7 @@
         @param callback [Function[Event]]
         @param? retain [Boolean]
         @deprecated
-          @issue 511
+
           The retain parameter has been deprecated use @code[on(name, namespace, callback)] with different namespaces to add multiple listeners to a selection instead.
 
       @method on

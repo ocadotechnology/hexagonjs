@@ -17,7 +17,7 @@
       @method items
         @added: Replacement for menu.render.
         @description: A method for setting the data for the menu using a function.
-          @issue 522
+
         @param data [Function]
           @description:
             @p: The function to call to get the data. This will be called whenever the menu is opened, allowing the data to be changed easily.

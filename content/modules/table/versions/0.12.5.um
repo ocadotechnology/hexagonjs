@@ -4,4 +4,3 @@
       @childclass hx-table-header-allow-wrap
         @description: A class that can be added to th elements that allows the text to wrap onto multiple lines.
         @added
-          @issue 495

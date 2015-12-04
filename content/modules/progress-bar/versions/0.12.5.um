@@ -4,7 +4,7 @@
 
       @method segments
         @added: Added a way to create multi-segment progress bars
-          @issue 321
+
         @description: A method for applying an array of segments to a progress bar.
         @param segments [Array]
           @description:

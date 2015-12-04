@@ -2,7 +2,7 @@
   @api Label
     @class hx-label
       @updated: Removed module-specific classes in favor of generic classes
-        @issue 349
+
 
       @extraclass hx-label-positive
         @removed: Use hx-positive with hx-label instead

@@ -11,7 +11,7 @@
 
     @class hx-collapsible
       @updated: Removed module-specific classes in favor of generic classes
-        @issue 349
+
 
       @extraclass [hx-collapsible-[n]]
         @removed

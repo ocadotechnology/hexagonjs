@@ -2,14 +2,14 @@
   @api Tag Input
     @prototype hx.TagInput
       @enhancement: Updated the tag input to add the text in the field as a tag when clearing focus
-        @issue 739
+
       @constructor
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property draggable [Boolean]: Whether the tags can be dragged and re-ordered.
             @default true
             @added: Added the option to allow the tags to be re-ordered by dragging them
-              @issue 734
+
           @property items [Array[String]]: The array of tags to initialise the tag input with.
             @bugfix: Added the items option to further standardise the API
 
@@ -17,7 +17,7 @@
       @extraclass hx-action
         @description: The additional class to give to action tags.
         @added: Added new action context class and updated default styles.
-          @issue 652
+
       @extraclass hx-compliment
         @removed: Use hx-complement instead
 

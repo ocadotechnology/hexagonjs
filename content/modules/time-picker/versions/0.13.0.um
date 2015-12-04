@@ -6,12 +6,12 @@
         @param? showSeconds [Boolean]
         @param? buttonClass [String]
         @deprecated
-          @issue 391
+
           Use @code[hx.TimePicker(selector, options)] instead.
 
       @constructor
         @added
-          @issue 391
+
         @description: Creates a timepicker with the current time
         @param selector [String/HTMLElement]: The selector of the div to turn into a time picker.
         @param? options [Object]: The options to use when creating the time picker.

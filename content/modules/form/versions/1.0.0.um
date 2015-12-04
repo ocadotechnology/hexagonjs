@@ -4,4 +4,3 @@
       @param form [String/HTMLElement]
       @param? options [Object]
       @bugfix: Updated to include text areas in the error checking
-        @issue 802

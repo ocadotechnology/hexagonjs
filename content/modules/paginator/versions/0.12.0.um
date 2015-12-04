@@ -4,8 +4,7 @@
       @method setPage
         @param index [Number]
         @removed
-          @issue 494
+
 
       @method getPage
         @removed
-          @issue 494

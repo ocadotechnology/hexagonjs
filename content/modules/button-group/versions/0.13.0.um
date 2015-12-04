@@ -6,7 +6,7 @@
         @param? options [Object]
           @property renderer [Function]
             @added
-              @issue 378
+
             @description:
               @p: The render function to call when rendering the buttons
               @p: The default render function is as follows:
@@ -21,7 +21,7 @@
 
           @property items [Array[String]]
             @added
-              @issue 378
+
             @description:
               @p: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items).
               @p: In addition to the value property, an activeClass property can also be provided that will be applied when a button is clicked instead of the activeClass provided in the constructor.
@@ -40,7 +40,7 @@
 
       @method renderer
         @updated: Updated to return the current button group when setting the renderer.
-          @issue 378
+
         @param render [Function]
           @param node [HTMLElement]
           @param data [String/Object]
@@ -49,12 +49,12 @@
 
       @method renderer
         @added: Updated the renderer function to return the currently set renderer if no arguments are provided.
-          @issue 378
+
         @description: A method for getting the button renderer.
         @returns Function: The currently set renderer function.
 
       @method items
         @added: Updated the items function to return the currently set items if no arguments are provided.
-          @issue 378
+
         @description: Sets the list of items that will be shown in the button group
         @returns [Array[Any]]: The currently set items if no arguments are provided.

@@ -7,7 +7,7 @@
 
     @class hx-progress-bar
       @updated: Removed module-specific classes in favor of generic classes
-        @issue 349
+
 
       @extraclass [hx-progressbar-[n]]
         @removed

@@ -7,11 +7,10 @@
           @param error [Object]
           @param data [Object]
         @removed
-          @issue 494
+
 
       @method getPreferences
         @param callback [Function]
           @param error [Object]
           @param data [Object]
         @removed
-          @issue 494

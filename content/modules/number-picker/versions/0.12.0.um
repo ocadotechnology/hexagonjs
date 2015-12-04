@@ -6,8 +6,7 @@
         @param value [Number]
         @param? screenValue [Number/String]
         @removed
-          @issue 494
+
 
       @method getValue
         @removed
-          @issue 494

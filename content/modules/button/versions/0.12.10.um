@@ -44,13 +44,13 @@
   @api Button
     @function hx.initialiseToggleButtons
       @deprecated
-        @issue 588
+
         hx.initializeToggleButtons(selection) instead.
       @description: Initialises all toggle buttons that match the selector given
       @param selector [String]
       @returns [Array[ToggleButton]]: An array of toggle buttons
         @updated: Now returns an array of toggle buttons instead of an array of selections.
-          @issue 590
+
 
     @function hx.initializeToggleButtons
       @added: Rename hx.initialiseToggleButtons to american spelling
@@ -60,7 +60,7 @@
 
     @prototype hx.ToggleButton
       @added: Added a toggle button prototype to improve the usability of toggle buttons.
-        @issue 590
+
       @description: Creates a toggle button component
       @constructor
         @description

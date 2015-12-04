@@ -2,7 +2,7 @@
   @api Tree
     @prototype hx.Tree
       @bugfix
-        @issue 633
+
         The options.items option has been fixed to not throw an error when used.
 
 

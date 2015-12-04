@@ -3,7 +3,7 @@
   @api Button
     @class hx-btn
       @updated: Removed module-specific classes in favor of generic classes
-        @issue 349
+
 
       @extraclass hx-btn-positive
         @removed: Use hx-positive with hx-btn instead.

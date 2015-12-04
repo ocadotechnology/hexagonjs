@@ -17,7 +17,7 @@
   @api Sticky Table Headers
     @prototype hx.StickyTableHeaders
       @added: Added a module for giving html tables sticky headers.
-        @issue 360
+
       @description: A module for applying sticky headers to a html table by restructuring it. The headers can be sticky to the left or the top of the table and will remain in place when scrolling.
 
       @constructor

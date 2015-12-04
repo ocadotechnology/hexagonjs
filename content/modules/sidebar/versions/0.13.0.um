@@ -26,12 +26,12 @@
         @param? contentSelector [String/HTMLElement]
         @param? addSidebarClass [Boolean]
         @deprecated:
-          @issue 391
+
           Use @code[hx.Sidebar(selector, options)] instead.
 
       @constructor
         @added: Added new standardised constructor.
-          @issue 391
+
         @param selector [String/HTMLElement]: A selector for the sidebar container element
         @param? options [Object]: The options to use when setting up the sidebar.
           @property headerSelector [String/HTMLElement]: A selector for the titlebar header element
@@ -43,7 +43,7 @@
 
       @method on
         @added: Added events to the show/hide for the sidebar
-          @issue 391
+
         @description: Register a function that should be called every time an event of the given name happens.
         @param name [String]: The event type to listen out for
         @param callback [Function]

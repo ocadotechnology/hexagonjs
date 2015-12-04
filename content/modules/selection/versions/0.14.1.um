@@ -1,4 +1,3 @@
 @version 0.14.1
   @api Selection
     @bugfix: Fixed an issue in Safari when using @code[hx.select(window).on(...)]
-      @issue 658

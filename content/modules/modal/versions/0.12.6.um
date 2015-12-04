@@ -6,5 +6,5 @@
         @childclass hx-modal-title
           @extraclass hx-modal-title-empty
             @added: Added a class to identify when a title with no length or an undefined title is passed in.
-              @issue 538
+
             @description: The class given to the modal titlebar when the title provided is null, undefined or has a length of 0 to determine that it has no content.

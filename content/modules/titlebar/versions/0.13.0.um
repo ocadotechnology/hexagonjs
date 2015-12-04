@@ -3,7 +3,7 @@
     @prototype hx.TitleBar
       @method setContextClass
         @deprecated
-          @issue 391
+
           Use @code[contextClass(class)] instead.
         @param class [String]
 
@@ -20,7 +20,7 @@
 
       @method setActive
         @deprecated
-          @issue 391
+
           Use @code[active(selector)] instead.
         @param selector [String/HTMLElement]
 

@@ -6,18 +6,18 @@
         @param? options [Object]
           @property disabled [Boolean]: Whether the number picker should be disabled
             @added: Added the ability to disable a number picker in the options
-              @issue 660
+
             @default false
 
       @method disabled
         @added: Added the ability to disable/enable a number picker
-          @issue 660
+
         @description: A method for disabling or enabling a number picker
         @param value [Boolean]: Whether the number picker should be disabled
         @returns NumberPicker: This number picker
 
       @method disabled
         @added: Added the ability to get the disabled state of a number picker
-          @issue 660
+
         @description: A method for getting the disabled state of a number picker
         @returns Boolean: Whether the number picker is disabled

@@ -235,7 +235,7 @@
 
     @prototype hx.Axis
       @bugfix: Fixed an issue with how the axes were being positioned for xAxisTickLabelPosition/yAxisTickLabelPosition
-        @issue 722
+
 
       @constructor
         @param? xScaleType [String]

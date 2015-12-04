@@ -3,13 +3,13 @@
     @function hx.notify.setDefaultTimeout
       @param timeout [Number]
       @removed
-        @issue 494
+
 
     @function hx.getNotificationManager
       @removed
-        @issue 494
+
 
     @function hx.getNotificationManager.setDefaultTimeout
       @param timeout [Number]
       @removed
-        @issue 494
+

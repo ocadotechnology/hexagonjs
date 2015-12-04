@@ -11,4 +11,3 @@
         @param? options [Object]
           @property height [Number]: The height to set the body of the widget to. By default, no height will be set and the widget will resize to the content.
             @added: Added a height option to allow sizing of widgets to account for the removal of the static height.
-              @issue 346

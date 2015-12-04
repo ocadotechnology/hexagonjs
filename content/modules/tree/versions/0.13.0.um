@@ -7,21 +7,21 @@
           @param node [HTMLElement]
           @param data [Any]
         @deprecated: Deprecated as part of API standardisation
-          @issue 576
-          @issue 378
+
+
           Use @code[items(data)] to set the data and @code[renderer(render)] to set the renderer or pass in options to the constructor.
 
       @constructor
         @param selection [String/HTMLElement]
         @param? hideDisabledButtons [Boolean]
         @deprecated: Deprecated as part of API standardisation
-          @issue 576
-          @issue 378
+
+
           Use @code[hx.Tree(selector, options)] instead.
 
       @constructor
         @added
-          @issue 576
+
         @description: Sets up / prepares a selection for displaying data in an expandable tree.
         @param selector [String/HTMLElement]: A unique css selector or a HTMLElement that identifies your tree.
         @param? options [Object]: The options to use when constructing the tree
@@ -53,15 +53,15 @@
 
       @method items
         @added
-          @issue 576
-          @issue 378
+
+
         @description: Gets the items the tree is built from
         @returns [Array[Object]]: The tree items
 
       @method items
         @added
-          @issue 576
-          @issue 378
+
+
         @description: Set the items to build the tree from.
         @param data [Array[Object]]
           @description
@@ -76,8 +76,8 @@
 
       @method renderer
         @added
-          @issue 576
-          @issue 378
+
+
         @description: Gets the function used to convert tree items into DOM elements.
         @returns Function
           @description: The current renderer function
@@ -86,8 +86,8 @@
 
       @method renderer
         @added
-          @issue 576
-          @issue 378
+
+
         @description: Sets the function used to convert tree items into DOM elements.
         @param render [Function]
           @description
@@ -113,7 +113,7 @@
     @function hx.initialiseTrees
       @param selector [String]
       @deprecated
-        @issue 593
+
         Use @code[hx.initializeTrees] instead.
 
     @class hx-tree

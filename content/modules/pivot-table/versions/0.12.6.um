@@ -16,7 +16,7 @@
   @api Pivot Table
     @prototype hx.PivotTable
       @added: Added a module for creating pivot tables from JSON.
-        @issue 360
+
       @description: A module for creating pivot tables from JSON.
 
       @constructor

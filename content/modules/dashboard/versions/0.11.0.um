@@ -8,7 +8,7 @@
   @api Dashboard
     @prototype DashboardWidget
       @updated: Added drag options to the widget and events for dragstart, dragend and drag and added the ability to get/set the order of widgets after they have been added to a dashboard.
-        @issue 347
+
       @method on
         @description: Register a function that should be called every time an event of the given name happens.
         @param name [String]: The event type to listen out for

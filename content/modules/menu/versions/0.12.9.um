@@ -2,7 +2,7 @@
   @api Menu
     @prototype hx.Menu
       @bugfix: Fix an issue with the dropdown content not being set correctly.
-        @issue 574
+
 
       @constructor
         @param selector [String]: The element that will call the menu when clicked or hovered over
@@ -12,7 +12,7 @@
 
       @method on
         @added: Added the on method and clarified the events that are emitted by menus
-          @issue 551
+
         @description: Register a function that should be called every time an event of the given name happens.
         @param name [String]: The event type to listen out for
         @param callback [Function]

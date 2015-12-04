@@ -52,7 +52,7 @@
 
         @event hide
           @deprecated
-            @issue 391
+
             Use the @code[dropdown.hidestart] or @code[dropdown.hideend] event instead.
 
       @method hide

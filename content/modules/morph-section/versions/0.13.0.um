@@ -5,7 +5,7 @@
         @param selector [String/HTMLELement]
         @param? animate [Boolean]
         @deprecated
-          @issue 391
+
           Use @code[hx.MorphSection(selector, options)] instead.
 
       @constructor

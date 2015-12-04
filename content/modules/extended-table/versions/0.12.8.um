@@ -2,4 +2,3 @@
   @api Extended Table
     @prototype hx.Table
       @bugfix: Fixed a bug where the rowselect event was not being emmitted when a row was unselected.
-        @issue 568

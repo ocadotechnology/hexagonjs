@@ -14,7 +14,7 @@
       @method setData
         @param data [Object]
         @deprecated
-          @issue 391
+
           Use @code[data(data)] instead.
 
       @method data

@@ -10,7 +10,7 @@
             @param value [Number]
             @param date [Date]
             @deprecated
-              @issue 378
+
               Use @code[options.renderer] instead
           @property renderer [Function]
             @description:
@@ -32,7 +32,7 @@
         @param end [Date]
         @returns TimeSlider
         @deprecated
-          @issue 378
+
           Use @code[hx.TimeSlider.min/max] instead.
 
       @method min
@@ -64,7 +64,7 @@
 
       @method renderer
         @added
-          @issue 378
+
         @description: Sets the renderer function
         @param? render [Function]
           @description:
@@ -81,7 +81,7 @@
 
       @method renderer
         @added
-          @issue 378
+
         @description: Gets the current renderer function
 
         @returns Function

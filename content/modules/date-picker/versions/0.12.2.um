@@ -17,19 +17,19 @@
   @api Date Picker
     @prototype hx.DatePicker
       @enhancement: Updated the date picker to allow 'zooming out' to year/decade view by clicking the header and converted to use options object instead of multiple arguments.
-        @issue 427
+
       @constructor
         @param selector [String/HTMLElement]
         @param type [String]
         @param? closeOnSelect [Boolean]
         @param? selectRange [Boolean]
         @deprecated
-          @issue 427
+
           Use @code[hx.DatePicker(selector, options)] instead.
 
       @constructor
         @added
-          @issue 427
+
         @param selector [String/HTMLElement]: The selector to use to build the date picker
         @param? options [Object]: The options to use when setting up the datepicker.
           @property type [String]: The type of date picker to show, can be either 'datepicker' or 'calendar'

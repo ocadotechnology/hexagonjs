@@ -6,12 +6,12 @@
         @param? type [String]
         @param? showSeconds [Boolean]
         @deprecated
-          @issue 391
+
           Use @code[hx.DateTimePicker(selector, options)] instead.
 
       @constructor
         @added
-          @issue 391
+
         @description: Creates a datepicker and a timepicker and appends them to the selected element.
         @param selector [String/HTMLElement]: The selector to use to build the date/time picker
         @param? options [Object]: The options to use when setting up the date/time picker.

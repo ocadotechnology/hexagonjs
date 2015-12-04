@@ -4,7 +4,7 @@
 
   @api Modal
     @enhancement: Updated the structure and style of modal popups to allow the modal content to be used as a notification container.
-      @issue 764
+
 
     @prototype hx.Modal
       @constructor
@@ -15,9 +15,9 @@
             @removed: This property has been replaced by
 
           @property closeWithShadeEnabled [Boolean]: Whether clicking on the shaded background around the modal should close it
-            @added: @issue 764
+            @added:
           @property closeButtonEnabled [Boolean]: Whether the modal should have a close button
-            @added: @issue 764
+            @added:
 
           @property titlebarRenderer [Function]
             @description: Renderer function for the titlebar. The this context for the function is this modal.
@@ -30,7 +30,7 @@
 
           @property headerRenderer [Function]
             @added: Added a new header renderer for modals so that the close button no longer has to be absolutely positioned in the title.
-              @issue 764
+
             @description: Renderer function for the modal header. The header contains both the titlebar and the close button for a modal.
             @param node [Element]: The node for the modal header
             @param titleNode [Element]: The node for the modal title

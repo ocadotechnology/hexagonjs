@@ -2,10 +2,10 @@
   @api Tag Input
     @prototype hx.TagInput
       @bugfix: Removed the dependency on input groups and made the styles tag-input specific.
-        @issue 405
+
       @method removeAll
         @deprecated
-          @issue 375
+
           Use @code[remove()] instead.
 
       @method remove

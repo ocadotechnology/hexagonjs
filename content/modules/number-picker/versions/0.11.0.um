@@ -35,10 +35,10 @@
         @param value [Number]
         @param? screenValue [Number/String]
         @deprecated
-          @issue 375
+
           Use @code[value(value, screenValue)] instead.
 
       @method getValue
         @deprecated
-          @issue 375
+
           Use @code[value()] instead.

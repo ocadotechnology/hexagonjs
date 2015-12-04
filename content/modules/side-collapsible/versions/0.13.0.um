@@ -40,7 +40,7 @@
 
       @method on
         @added: Added events to side collapsible
-          @issue 391
+
         @description: Register a function that should be called every time an event of the given name happens.
         @param name [String]: The event type to listen out for
         @param callback [Function]

@@ -15,7 +15,7 @@
       @constructor
         @param selection [String/HTMLElement]
         @removed: Use @code(js)[hx.Paginator(selector, options)]
-          @issue 762
+
 
       @constructor
         @description: Sets up a paginator.

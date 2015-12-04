@@ -5,7 +5,7 @@
       @param form [String/HTMLElement]
       @param? showMessage [Boolean]
       @deprecated
-        @issue 391
+
         Use @code[hx.validateForm(selector, options)] instead.
 
     @function hx.validateForm

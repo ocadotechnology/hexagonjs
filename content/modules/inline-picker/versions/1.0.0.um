@@ -6,7 +6,7 @@
 
   @api Inline Picker
     @added: Renamed the inline select module to be inline-picker
-      @issue 758
+
 
     @prototype hx.InlinePicker
       @extends EventEmitter
@@ -18,9 +18,9 @@
           @property ddClass [String]: The additional class to add to the dropdown when creating it.
           @property startValue [String]
             @removed: The startValue option has been renamed to value
-              @issue 757
+
           @property value [String]: The value to use when initialising the select.
-            @added: @issue 757
+            @added:
           @property noValueText [String]: The text to use when no value is selected.
             @default('Choose a value...')
           @property items [Array/Function]

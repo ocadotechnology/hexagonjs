@@ -13,13 +13,13 @@
       @method setPageCount
         @param count [Number]
         @deprecated
-          @issue 391
+
           Use @code[pageCount(value)] instead
 
       @method setVisibleCount
         @param count [Number]
         @deprecated
-          @issue 391
+
           Use @code[visibleCount(value)] instead
 
       @method pageCount

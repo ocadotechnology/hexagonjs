@@ -2,7 +2,7 @@
   @api Tree
     @class hx-tree
       @updated: Removed module-specific classes in favor of generic classes
-        @issue 349
+
 
       @extraclass [hx-tree-[n]]
         @removed

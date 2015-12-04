@@ -34,7 +34,7 @@
         @param? validator [Function]
           @param tag [String]
         @deprecated
-          @issue 391
+
           Use @code[hx.TagInput(selector, options)] instead.
 
       @constructor
@@ -82,7 +82,7 @@
 
       @method tags
         @deprecated
-          @issue 391
+
           Use @code[hx.TagInput.items()] instead.
 
       @method add

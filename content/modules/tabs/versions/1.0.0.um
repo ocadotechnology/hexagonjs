@@ -8,7 +8,7 @@
         @extraclass hx-action
           @description: Colors the tab with the action color.
           @added: Added new action context class and updated default styles.
-            @issue 652
+
 
         @extraclass hx-compliment: Colors the tab with the compliment color.
           @removed: Use hx-complement instead

@@ -5,9 +5,9 @@
 
   @api Toggle Button
     @removed: This module was removed in this version and replaced with the Toggle module
-      @issue 794
+
     @prototype hx.ToggleButton
-      @removed: @issue 794
+      @removed:
 
     @class hx-btn-toggle
-      @removed: @issue 794
+      @removed:

@@ -60,7 +60,7 @@
           @param element [HTMLElement]
           @param data [Any]
         @deprecated
-          @issue 378
+
           Use @code[items(items)] and @code[renderer(render)] to set the data and the renderer individually or pass in the correct values as options when constructing the crumbtrail.
 
       @method renderer

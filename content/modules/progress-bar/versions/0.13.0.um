@@ -25,11 +25,11 @@
         @description: Creates a progress bar
         @param selector [String/HTMLElement]: The selector to create the progressbar inside.
         @removed: Added options to the constructor
-          @issue 391
+
 
       @constructor
         @added: Added options to the constructor
-          @issue 391
+
         @description: Creates a progress bar
         @param selector [String/HTMLElement]: The selector to create the progressbar inside.
         @param? options [Object]: The options to use when setting up the progressbar.
@@ -44,7 +44,7 @@
         @description: A method for applying an array of segments to a progress bar.
         @param segments [Array]
           @updated: Added the ability to clear the segments by passing in undefined as the segments parameter.
-            @issue 391
+
           @description:
             @p: The array of segments to apply. It should be in the format of an array of objects with a value or ratio property and an optional class property.
             @p: Every segment must have either a value or a ratio and every item in the array of segments must have the same property, values and ratios can not be used in conjunction with one another.

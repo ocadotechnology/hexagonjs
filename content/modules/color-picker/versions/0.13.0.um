@@ -53,7 +53,7 @@
       @enhancement:
         @p: Moved the @code[showInputs] and @code[currentColor] to be accessible as @code[options.showInputs] and @code[value()]
         @p: The value can now also be set with the @code[value(color)] method.
-        @issue 391
+
 
       @constructor
         @param selector [String]
@@ -61,12 +61,12 @@
         @param? showInputs [Boolean]
         @param? align [String]
         @deprecated
-          @issue 391
+
           Use @code[hx.ColorPicker(selector, options)] instead.
 
       @constructor
         @added
-          @issue 391
+
         @param selector [String/HTMLElement]: The selector to show the color picker for.
         @param? options [Object]: The options to use when setting up the color picker
           @property startColor [Color]: The start color to use when creating the color picker.
@@ -78,14 +78,14 @@
 
       @method value
         @added: Added a method for setting the current color
-          @issue 391
+
         @description: A method for setting the value of a color picker
         @param value [String/Color]: The color to set the color picker to.
         @returns ColorPicker: This ColorPicker
 
       @method value
         @added: Added a method for getting the current color
-          @issue 391
+
         @description: A method for getting the value of a color picker
         @returns String: The currently set color value.
 

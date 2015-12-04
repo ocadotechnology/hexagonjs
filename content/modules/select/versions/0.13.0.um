@@ -18,21 +18,21 @@
 
       @method items
         @removed
-          @issue 378
+
         @description: Sets the list of items that will be shown in the select dropdown.
         @param items [Array[Any]]: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
         @returns Select: Returns this select for chaining
 
       @method items
         @added: Made the items parameter optional. If it is not passed in, the currently set items are returned.
-          @issue 378
+
         @description: Sets the list of items that will be shown in the select dropdown.
         @param items [Array[Any]]: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
         @returns Select: This Select
 
       @method items
         @added: Made the items parameter optional. If it is not passed in, the currently set items are returned.
-          @issue 378
+
         @description: Gets the list of items that will be shown in the select dropdown, or if a function has been set it will return that.
         @returns [Array[Any]/Function]: The currently set items.
 

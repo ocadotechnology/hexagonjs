@@ -15,12 +15,12 @@
 
     @prototype UserPreferences
       @removed
-        @issue 601
+
         This has been replaced with the Preferences type
 
     @property hx.preferences [UserPreferences]
       @removed
-        @issue 601
+
         This has been replaced with the Preferences type
 
     @prototype Preferences

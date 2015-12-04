@@ -11,42 +11,42 @@
           @param update [Boolean]
           @param rangeStart [Boolean]
         @removed
-          @issue 384
+
 
       @method setRangeStartValue
         @param value [Number/Date]
         @removed
-          @issue 384
+
 
 
       @method setRangeEndValue
         @param value [Number/Date]
         @removed
-          @issue 384
+
 
       @method getRangeStartValue
         @removed
-          @issue 384
+
 
       @method getRangeEndValue
         @removed
-          @issue 384
+
 
       @method setValue
         @param value [Number/Date]
         @deprecated
-          @issue 375
+
           Use @code[value(value)] instead.
 
       @method setValue
         @param value [Object]
         @deprecated
-          @issue 375
+
           Use @code[value(value)] instead.
 
       @method getValue
         @deprecated
-          @issue 375
+
           Use @code[value()] instead.
 
       @method value

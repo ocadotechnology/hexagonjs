@@ -2,4 +2,4 @@
   @api Dashboard
     @prototype DashboardWidget
       @bugfix: Fixed dragging widgets for touch devices.
-        @issue 536
+

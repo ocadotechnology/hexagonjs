@@ -2,9 +2,9 @@
   @api Drawing
     @prototype hx.Drawing
       @enhancement: Added resize listener to make drawings re-render when the container is resized.
-        @issue 53
+
       @enhancement: Added sidebar method and themes to allow for better overlays
-        @issue 143
+
 
       @method enableSidebar
         @description: A function for enabling and populating the drawing sidebar.

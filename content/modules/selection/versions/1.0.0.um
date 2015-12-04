@@ -9,7 +9,7 @@
         @removed
           @p: The function called for each node will now be passed a @code[Selection] instead of an @code[Element]
           @p: The current behavior can be replicated using @code(js)[Selection.nodes.map]
-          @issue 651
+
 
       @method map
         @description
@@ -17,4 +17,4 @@
         @param f [Function[Selection]]
           @description: A function that takes a Selection as its first parameter
         @returns [Any/Array[Any]]: The result of the function f
-        @added: @issue 651
+        @added:

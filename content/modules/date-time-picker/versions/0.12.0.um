@@ -11,59 +11,58 @@
 
       @method getDate
         @removed
-          @issue 494
+
 
       @method setDate
         @param date [Date]
         @param? setTime [Boolean]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method setDay
         @param day [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method setMonth
         @param month [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method setYear
         @param year [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method getHour
         @removed
-          @issue 494
+
 
       @method setHour
         @param hour [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method getMinute
         @removed
-          @issue 494
+
 
       @method setMinute
         @param minute [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494
+
 
       @method getSecond
         @removed
-          @issue 494
+
 
       @method setSecond
         @param second [Number]
         @param? suppressCallback [Boolean]
         @removed
-          @issue 494

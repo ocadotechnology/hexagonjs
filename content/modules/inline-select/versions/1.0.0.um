@@ -5,4 +5,3 @@
 
   @api Inline Select
     @removed: This module was replaced with the inline picker module in this version
-      @issue 758

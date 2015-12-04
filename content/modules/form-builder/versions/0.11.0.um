@@ -49,7 +49,7 @@
         @param values [Array[String]]
         @param? options [Object]
         @enhancement: Updated the form builder to use the new hx.Select element.
-          @issue 373
+
         @returns Form: This Form
 
       @method addSelect
@@ -57,18 +57,18 @@
         @param values [Array[Object]]
         @param? options [Object]
         @enhancement: Updated the form builder to use the new hx.Select element.
-          @issue 373
+
         @returns Form: This Form
 
       @method getData
         @deprecated
-          @issue 375
+
           Use @code[data()] instead.
 
       @method fill
         @param data [Object]
         @deprecated
-          @issue 375
+
           Use @code[data(data)] instead.
 
       @method data

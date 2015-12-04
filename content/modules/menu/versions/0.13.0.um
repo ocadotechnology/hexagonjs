@@ -6,7 +6,7 @@
     @prototype hx.Menu
       @constructor
         @deprecated
-          @issue 391
+
           Use @code[hx.Menu(selector, options)] instead.
         @description
         @param selector [String]
@@ -16,7 +16,7 @@
 
       @constructor
         @added
-          @issue 391
+
         @description
         @param selector [String/HTMLElement]: The element that will call the menu when clicked or hovered over
         @param? options [Object]: The options to use when setting up the menu.
@@ -35,20 +35,20 @@
         @param items [Array[Object]]
         @returns Menu: This Menu
           @added: Added a return type to the items method.
-            @issue 391
+
 
       @property renderer
         @param element [HTMLElement]
         @param item [Object]
         @deprecated: Deprecated the ability to set menu.renderer to a function.
-          @issue 378
-          @issue 576
+
+
           Use @code[menu.renderer(render)] to set the renderer instead.
 
       @method renderer
         @added
-          @issue 378
-          @issue 576
+
+
         @description
           A method used to set a custom renderer for a menu
           @codeblock js
@@ -66,8 +66,8 @@
 
       @method renderer
         @added
-          @issue 378
-          @issue 576
+
+
 
         @description: Gets the current item renderer function
 
@@ -80,13 +80,13 @@
 
       @method add
         @removed
-          @issue 378
+
         @description: Add an item to the menu. The format of the item can vary depending on the renderer that is defined.
         @param item [String]: An item to add.
 
       @method add
         @removed
-          @issue 378
+
         @description: A method of adding multiple items from an array.
         @param items [Array]: An array of items to add.
 
@@ -97,17 +97,17 @@
 
         @event select
           @deprecated
-            @issue 391
+
             Use the @code[change] event instead.
 
         @event activeset
           @deprecated
-            @issue 391
+
             Use the @code[highlight] event instead.
 
         @event change
           @added: Added a new event to replace the 'select' event.
-            @issue 391
+
           @description: The event called when a menu item is selected.
           @data Object
             @property eventType [String]
@@ -121,7 +121,7 @@
 
         @event highlight
           @added: Added a new event to replace the 'activeset' event
-            @issue 391
+
           @description: The event called when a menu item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
           @data Object
             @property eventType [String]
@@ -160,28 +160,28 @@
             @param data [Array[String/Object]]
         @returns Menu: This Menu
           @added: Added a return type to the items method.
-            @issue 391
+
 
       @method items
         @param items [Array[Object]]
         @returns Menu: This Menu
           @added: Added a return type to the items method.
-            @issue 391
+
 
       @method items
         @added: Added a method for getting the current items for the menu.
-          @issue 391
+
         @description: A method for getting the current items for the menu.
         @returns Array/Function: The currently set items array of function for the menu.
 
       @method hide
         @returns Menu: This Menu
           @added: Added a return type to the hide method.
-            @issue 391
+
 
       @method clearItems
         @deprecated
-          @issue 391
+
           Use @code[hx.Menu.items] to set the items to an empty array instead.
 
 
@@ -189,4 +189,3 @@
         @param element [HTMLElement]
         @returns Menu: This Menu
           @added: Added a return type to the addException method.
-            @issue 391

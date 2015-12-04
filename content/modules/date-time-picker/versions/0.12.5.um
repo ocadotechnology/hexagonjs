@@ -3,7 +3,7 @@
     @prototype hx.DateTimePicker
       @method date
         @removed: The setTime parameter has been changed to retainTime and the behaviour inverted. Passing false will set the entire date object whereas previously false would only set the days/months/years (ignoring the hours/minutes/seconds). Use @code[date(date, retainTime, suppressCallback)] instead.
-          @issue 523
+
         @param date [Date]
         @param? setTime [Boolean]
           @default false

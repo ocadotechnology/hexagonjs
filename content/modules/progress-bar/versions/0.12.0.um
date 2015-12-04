@@ -4,8 +4,7 @@
       @method setProgress
         @param value [Number]
         @removed
-          @issue 494
+
 
       @method getProgress
         @removed
-          @issue 494

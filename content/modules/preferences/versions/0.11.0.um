@@ -7,7 +7,7 @@
           @param error [Object]
           @param data [Object]
         @deprecated
-          @issue 375
+
           Use @code[value(data, callback)] instead.
 
       @method getPreferences
@@ -15,7 +15,7 @@
           @param error [Object]
           @param data [Object]
         @deprecated
-          @issue 375
+
           Use @code[value(callback)] instead.
 
       @method value

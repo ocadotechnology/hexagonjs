@@ -43,7 +43,7 @@
   @api Notify
     @prototype hx.NotificationManager
       @enhancement: The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
-        @issue 391
+
 
       @method temporary
         @param message [String]
@@ -52,7 +52,7 @@
         @param? timeout [Number]
         @returns Notification: The newly created Notification
         @deprecated
-          @issue 391
+
           Use @code[hx.notify(message, options)] instead.
 
       @method permanent
@@ -61,35 +61,35 @@
         @param? cssclass [String]
         @returns Notification: The newly created Notification
         @deprecated
-          @issue 391
+
           Use @code[hx.notify(message, options)] instead, setting @code[options.timeout] as @code[undefined]
 
       @method info
         @param message [String]
         @param? timeout [Number]
         @deprecated
-          @issue 391
+
           Use @code[hx.notify.info(message, options)] instead.
 
       @method warning
         @param message [String]
         @param? timeout [Number]
         @deprecated
-          @issue 391
+
           Use @code[hx.notify.warning(message, options)] instead.
 
       @method negative
         @param message [String]
         @param? timeout [Number]
         @deprecated
-          @issue 391
+
           Use @code[hx.notify.negative(message, options)] instead.
 
       @method positive
         @param message [String]
         @param? timeout [Number]
         @deprecated
-          @issue 391
+
           Use @code[hx.notify.positive(message, options)] instead.
 
 
@@ -181,7 +181,7 @@
     @function hx.notify
       @condensed
       @deprecated
-        @issue 391
+
         The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
       @returns Notification: The newly created Notification
 

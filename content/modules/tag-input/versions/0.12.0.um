@@ -3,4 +3,3 @@
     @prototype hx.TagInput
       @method removeAll
         @removed
-          @issue 494

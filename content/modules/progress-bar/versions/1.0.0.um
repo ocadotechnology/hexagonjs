@@ -22,11 +22,11 @@
   @api Progress Bar
     @class hx-progress-bar
       @bugfix: Updated the progress bar styles to remove the need for @code(css)[!important] flags.
-        @issue 766
+
       @extraclass hx-action
         @description: Styles the progress bar with action colors
         @added: Added new action context class and updated default styles.
-          @issue 652
+
 
       @extraclass hx-compliment
         @removed: Use @code(css)[.hx-complement] instead

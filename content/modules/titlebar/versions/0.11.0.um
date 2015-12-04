@@ -3,7 +3,7 @@
   @api Titlebar
     @class hx-heading
       @enhancement: Updated menu icon tooltip styles so the last tooltip won't be able to flow outside the the titlebar area.
-        @issue 361
+
 
   @theme
 

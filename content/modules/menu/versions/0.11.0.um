@@ -4,13 +4,13 @@
       @method addItem
         @param item [String]
         @deprecated
-          @issue 375
+
           Use @code[add(item)] instead.
 
       @method addItems
         @param items [Array]
         @deprecated
-          @issue 375
+
           Use @code[add(items)] instead.
 
       @method add

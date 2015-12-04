@@ -31,12 +31,12 @@
       @method setProgress
         @param value [Number]
         @deprecated
-          @issue 375
+
           Use @code[progress(value)] instead.
 
       @method getProgress
         @deprecated
-          @issue 375
+
           Use @code[progress()] instead.
 
       @method value

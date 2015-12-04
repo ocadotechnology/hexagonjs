@@ -4,12 +4,12 @@
       @method disable
         @removed
           Use @code[disabled(true)] instead.
-          @issue 660
+
 
       @method enable
         @removed
           Use @code[disabled(false)] instead.
-          @issue 660
+
 
     @function hx.timePicker
       @added: Fluid api version of TimePicker

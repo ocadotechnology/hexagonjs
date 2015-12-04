@@ -4,13 +4,12 @@
       @method setValue
         @param value [Number/Date]
         @removed
-          @issue 494
+
 
       @method setValue
         @param value [Object]
         @removed
-          @issue 494
+
 
       @method getValue
         @removed
-          @issue 494

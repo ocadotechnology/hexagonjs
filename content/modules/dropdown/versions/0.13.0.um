@@ -11,12 +11,12 @@
         @param? matchWidth [Boolean]
         @param? ddClass [String]
         @deprecated
-          @issue 391
+
           Use @code[hx.Dropdown(selector, dropdownContent, options)] instead.
 
       @constructor
         @added
-          @issue 391
+
         @param selector [String/HTMLElement]: The element the user has to click or hover over to show the dropdown
         @param dropdownContent [String/Function]
           @description
@@ -75,12 +75,12 @@
         @event hide
           @deprecated
             Use @code[hidestart] instead.
-            @issue 391
+
 
         @event show
           @deprecated
             Use @code[showstart] instead.
-            @issue 391
+
 
         @returns Dropdown: This Dropdown
 

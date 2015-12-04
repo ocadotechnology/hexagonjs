@@ -2,7 +2,7 @@
   @api Data Table
     @prototype hx.DataTable
       @bugfix: Fixed a bug where the sort controls were showing in compact mode when sorting had been disabled.
-        @issue 708
+
 
       @method on
         @param name [String]
@@ -12,19 +12,19 @@
         @event rowclick
           @data Object: An object containing the row data and the row node.
             @bugfix: Updated the row click event data to include the row data as well as the row node
-              @issue 711
+
             @property data [Object]: The data for the row
             @property node [HTMLElement]: The node for the row
 
       @method suppressRender
         @deprecated
-          @issue 715
+
           Use @code[renderSuppressed()] instead
 
       @method suppressRender
         @param suppress [Boolean]
         @deprecated
-          @issue 715
+
           Use @code[renderSuppressed(value)] instead
 
       @method renderSuppressed

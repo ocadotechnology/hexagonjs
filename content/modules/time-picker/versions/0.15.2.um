@@ -2,35 +2,35 @@
   @api Time Picker
     @prototype hx.TimePicker
       @bugfix: Disabled text input for touch devices as the input box conflicts with the dropdown for changing the time which isn't very user friendly
-        @issue 663
+
 
       @method disable
         @deprecated
           Use @code[disabled(true)] instead.
-          @issue 660
+
 
       @method enable
         @deprecated
           Use @code[disabled(false)] instead.
-          @issue 660
+
 
       @constructor
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property disabled [Boolean]: Whether the time picker should be disabled
             @added: Added the ability to disable a time picker in the options
-              @issue 660
+
             @default false
 
       @method disabled
         @added: Added the ability to disable/enable a time picker
-          @issue 660
+
         @description: A method for disabling or enabling a time picker
         @param value [Boolean]: Whether the time picker should be disabled
         @returns TimePicker: This time picker
 
       @method disabled
         @added: Added the ability to get the disabled state of a time picker
-          @issue 660
+
         @description: A method for getting the disabled state of a time picker
         @returns Boolean: Whether the button group is disabled

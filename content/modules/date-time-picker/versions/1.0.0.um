@@ -4,12 +4,12 @@
       @method disable
         @removed
           Use @code[disabled(true)] instead.
-          @issue 685
+
 
       @method enable
         @removed
           Use @code[disabled(false)] instead.
-          @issue 685
+
 
 
     @function hx.dateTimePicker

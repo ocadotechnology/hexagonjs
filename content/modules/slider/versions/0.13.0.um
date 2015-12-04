@@ -10,7 +10,7 @@
             @param value [Number]
             @deprecated
               Use @code[options.renderer] instead.
-              @issue 378
+
 
           @property renderer [Function]
             @description:
@@ -30,7 +30,7 @@
           @default true
         @deprecated
           Use @code[discreteValues] instead
-          @issue 378
+
 
       @method discreteValues
         @description: Makes the slider a discrete value, using the values provided
@@ -72,7 +72,7 @@
 
       @method renderer
         @added
-          @issue 378
+
         @description: Sets the renderer function
         @param render [Function]
           @description:
@@ -89,7 +89,7 @@
 
       @method renderer
         @added
-          @issue 378
+
         @description: Gets the current renderer function
 
         @returns Function

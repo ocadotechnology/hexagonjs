@@ -47,52 +47,52 @@
   @api Palette
     @class hx-border-default
       @added: Added border context classes
-        @issue 571
+
       @description: Applies the default color to the border-color of the element.
     @class hx-border-positive
       @added: Added border context classes
-        @issue 571
+
       @description: Applies the positive color to the border-color of the element.
     @class hx-border-warning
       @added: Added border context classes
-        @issue 571
+
       @description: Applies the warning color to the border-color of the element.
     @class hx-border-negative
       @added: Added border context classes
-        @issue 571
+
       @description: Applies the negative color to the border-color of the element.
     @class hx-border-info
       @added: Added border context classes
-        @issue 571
+
       @description: Applies the info color to the border-color of the element.
     @class hx-border-compliment
       @added: Added border context classes
-        @issue 571
+
       @description: Applies the compliment color to the border-color of the element.
     @class hx-border-contrast
       @added: Added border context classes
-        @issue 571
+
       @description: Applies the contrast color to the border-color of the element.
 
     @class hx-border-disabled
       @added: Added disabled context classes
-        @issue 572
+
       @description: Applies the disabled color to the border-color of the element.
 
     @class hx-text-disabled
       @added: Added disabled context classes
-        @issue 572
+
       @description: Applies the disabled color to the text of the element.
 
     @class hx-background-disabled
       @added: Added disabled context classes
-        @issue 572
+
       @description: Applies the disabled color to the background of the element.
 
   @theme
     @option disabled-col
       @added
-        @issue 572
+
         @p: Added disabled context classes
       @type color
       @description: The disabled color
@@ -101,7 +101,7 @@
 
     @option disabled-background-col
       @added
-        @issue 572
+
         @p: Added disabled context classes
       @type color
       @description: The disabled background color

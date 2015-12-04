@@ -6,11 +6,11 @@
 
         @deprecated:
           @p: The each method for selections has been replaced to use a method that provides a selection as the argument to the @code[f] function Use @code[Selection.forEach(f)] instead.
-          @issue 549
+
 
       @method forEach
         @added: Added a new function that uses selections instead of nodes when iterating over the nodes to make it easier to set properties for elements in a selection.
-          @issue 549
+
         @description
           Calls a function for each element in the selection. Returns this selection for chaining.
         @param f [Function[Selection]]

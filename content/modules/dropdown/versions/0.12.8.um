@@ -2,4 +2,3 @@
   @api Dropdown
     @prototype hx.Dropdown
       @bugfix: Updated the z-index checking so that it gets the highest of all the parent z-index, not just the closest parent's z-index.
-        @issue 565

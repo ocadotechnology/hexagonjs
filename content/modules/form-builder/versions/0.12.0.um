@@ -68,9 +68,8 @@
 
       @method getData
         @removed
-          @issue 494
+
 
       @method fill
         @param data [Object]
         @removed
-          @issue 494

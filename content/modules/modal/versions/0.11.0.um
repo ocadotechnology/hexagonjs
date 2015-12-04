@@ -15,7 +15,7 @@
 
       @function dialog
         @added: Added extra parameters to the dialog function to enable a class and icon to be passed to the titlebar.
-          @issue 399
+
         @description: A function for creating a simple modal popup with a title, a message and some buttons.
         @param title [String]: The title for the modal.
         @param message [String]: The message for the modal.

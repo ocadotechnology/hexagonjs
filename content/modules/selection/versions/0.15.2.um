@@ -5,4 +5,3 @@
       @method classed
         @param class [String]
         @enhancement: Added the ability to check for multiple classes at once, e.g. @code[selection.classed('a b')]
-          @issue 687

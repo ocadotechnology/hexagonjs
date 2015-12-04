@@ -4,7 +4,7 @@
       @bugfix: Fixed a styling bug where the selected row was not highlighted for mobile view
       @updated:
         @p: Added the @code[rowSelectableLookup] function to determine whether a row is selectable after it has been clicked and added the ability to disable row selection entirely using the @code[unselectable] property in the row data.
-        @issue 537
+
       @method on
         @added: Added a 'rowclick' event for when a row in the table is clicked on.
         @param name [String]
@@ -26,7 +26,7 @@
 
         @property rowSelectableLookup [Function]
           @added: Added a function that is called when a row is selected to determine whether the row should be able to be selected.
-            @issue 537
+
           @description
             @p: A function for looking up whether a row is selectable when it is clicked or selected by the select all tick.
             @p: This function should call the callback with true if the row is selectable and false if it is not, this will prevent the row being selected.
@@ -45,7 +45,7 @@
 
         @param data [Object/String/Function]
           @updated: Added the ability to make rows unselectable when rendering the table.
-            @issue 537
+
           @description
             The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
 
