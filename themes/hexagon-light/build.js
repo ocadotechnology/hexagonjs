@@ -22,3 +22,4 @@ module.exports = hexagon
     }
   })
   .assets(favicons(path.join(__dirname, '../assets/favicons')))
+  .flatten()
