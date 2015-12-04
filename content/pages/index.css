@@ -144,10 +144,14 @@ button.button:focus, button.button:active {
 }
 
 .docs-selling-point {
-  padding: 5em;
+  padding: 10em;
   background-color: #262D35;
   color: white;
   /*height: 400px;*/
+}
+
+.docs-components {
+  padding: 5em 0;
 }
 
 .docs-selling-point:nth-child(odd) {
@@ -155,9 +159,9 @@ button.button:focus, button.button:active {
   color: #3D3D3D;
 }
 
-.docs-selling-point-wrapper {
+/*.docs-selling-point-wrapper {
   padding: 150px;
-}
+}*/
 
 .docs-preprocessor-logo {
   margin: 2em;

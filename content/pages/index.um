@@ -23,9 +23,20 @@
 
 @div .description
 
-  @div .dx-content.dx-pad-top
-    @div .docs-statement: Components.
-    @inline ../shared/examples.um
+  @div .docs-selling-point
+    @div .dx-content.docs-selling-point-wrapper
+      @div .docs-statement: Open Source.
+      @div .docs-explanation
+        @p: Hexagon.js is an open source project made by @hyperlink(http://www.ocadotechnology.com/)[Ocado Technology].
+        @p
+          @a .hx-btn
+            @attr style: padding: 0.6em;
+            @attr href: https://github.com/ocadotechnology/hexagonjs
+            @attr title: Hexagon.js on GitHub
+            View on
+            @img
+              @attr src: https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png
+              @attr style: height: 0.9em; vertical-align: -2px; margin-left: 8px;
 
   @div .docs-selling-point
     @div .dx-content.docs-selling-point-wrapper
@@ -33,11 +44,6 @@
       @div .docs-explanation
         @p: Create custom themes with variable driven theme files.
         @p: Quickly create new themes by extending existing ones, or create something more bespoke by entirely replacing the default theme css on a per module basis.
-
-  @div .docs-selling-point
-    @div .dx-content.docs-selling-point-wrapper
-      @div .docs-statement: Modular.
-      @div .docs-explanation: Include just the parts you need, throw away everything else. For faster load times.
 
 #  @div .docs-selling-point
 #    @div .dx-content.docs-selling-point-wrapper
@@ -69,6 +75,17 @@
             @attr style: width:100px;height:auto;
 
         @div .dx-section
+
+  @div .docs-selling-point
+    @div .dx-content.docs-selling-point-wrapper
+      @div .docs-statement: Modular.
+      @div .docs-explanation: Include just the parts you need, throw away everything else. For faster load times.
+
+  @div .docs-components
+    @div .dx-content
+      @div .docs-statement: Components.
+      @inline ../shared/examples.um
+
 
 
 
