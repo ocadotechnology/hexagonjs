@@ -5,7 +5,7 @@ var version = require('quantum-version')
 var template = require('quantum-template')
 var changelog = require('quantum-changelog')
 
-var hexagon = require('hexagon-theme')
+var hexagon = require('hexagon-js')
 
 var Promise = require('bluebird')
 var path = require('path')
@@ -60,7 +60,7 @@ function createBuilds () {
     { dest: 'target/resources/hexagon/docs', prefix: 'dx', embedAssets: true, addFavicons: true }
   ]
   return progressSequence('Building Hexagon', chalk.cyan('='), buildList, function (opts) {
-    return hexagon.hexagonLight.build(opts)
+    return hexagon.light.build(opts)
   })
 }
 

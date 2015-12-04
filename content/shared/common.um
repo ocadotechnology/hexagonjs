@@ -3,7 +3,6 @@
 @script /resources/titlebar.js
 @stylesheet /resources/font-awesome/css/font-awesome.min.css
 @stylesheet /resources/docs.css
-@stylesheet /resources/hexagon-overrides.css
 @stylesheet /resources/fonts/fonts.css
 
 @head
@@ -67,12 +66,6 @@
 
 
 @define footer
-  @css
-    .docs-footer {
-      padding: 1em;
-      background: #373D45;
-      color: white;
-    }
 
   @div .docs-footer:
     @div .dx-content:

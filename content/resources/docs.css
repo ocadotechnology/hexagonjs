@@ -263,6 +263,9 @@ a.qm-changelog-link {
 
 .docs-footer {
   text-align: center;
+  padding: 1em;
+  background: #373D45;
+  color: white;
 }
 
 .docs-footer-note {

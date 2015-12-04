@@ -22,7 +22,7 @@
     "flatten": "0.0.1",
     "fs-extra": "^0.24.0",
     "glob": "^5.0.15",
-    "hexagon-theme": "^1.0.0",
+    "hexagon-js": "^1.0.0",
     "live-server": "^0.8.2",
     "progress": "^1.1.8",
     "quantum-api": "^0.1.1",
