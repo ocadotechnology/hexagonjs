@@ -19,7 +19,7 @@
           @span: HEXAGON@span(.js)[.js]
           @div .version: {{version}}
 
-  @div .what-it-is: A modular, themable collection of components for modern browsers
+  @div .what-it-is: A modular, themeable collection of components for modern browsers
 
 @div .description
 
