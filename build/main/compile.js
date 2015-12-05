@@ -253,7 +253,7 @@ function objToCssVariables (theme, prefix) {
 function objToQuantum (moduleName, theme) {
   var keys = Object.keys(theme)
   if (keys.length > 0) {
-    var module = quantum.create(moduleName)
+    var module = quantum.create(moduleName.name)
     keys.map(function (key) {
       module.add(quantum.create(key).add(theme[key]))
     })

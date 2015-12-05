@@ -1,0 +1,44 @@
+{
+  "name": "hexagon-js",
+  "description": "A modular, themeable collection of components for modern browsers",
+  "main": [
+    "dist/hexagon-light/hexagon.js",
+    "dist/hexagon-light/hexagon.css",
+    "dist/hexagon-dark/hexagon.js",
+    "dist/hexagon-dark/hexagon.css"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "css",
+    "js",
+    "mobile-friendly",
+    "responsive",
+    "front-end",
+    "library",
+    "web",
+    "modular"
+  ],
+  "authors": [
+    "Charlie Frater <charlie.frater@ocado.com>",
+    "James Smyth <james.smyth@ocado.com>"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://www.hexagonjs.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "demo",
+    "modules",
+    "assets",
+    "target",
+    "themes",
+    "build",
+    "demo.js",
+    "index.js",
+    "package.json"
+  ],
+  "private": true
+}
