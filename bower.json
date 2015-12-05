@@ -34,6 +34,7 @@
     "modules",
     "assets",
     "target",
+    "themes",
     "build",
     "demo.js",
     "index.js",
