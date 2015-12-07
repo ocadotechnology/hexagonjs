@@ -48,12 +48,20 @@ body {
 }
 
 .container {
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
 .header-container {
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -146,6 +154,8 @@ button.button:focus, button.button:active {
 }
 
 .docs-selling-point {
+  -webkit-flex-basis: 32%;
+  -ms-flex-preferred-size: 32%;
   flex-basis: 32%;
 }
 
@@ -163,11 +173,17 @@ button.button:focus, button.button:active {
 }
 
 .docs-preprocessor-logo-group {
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
 .docs-preprocessor-logo {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
   align-self: center;
 }
 
@@ -183,6 +199,7 @@ button.button:focus, button.button:active {
 }
 
 .docs-titlebar-logo.docs-animate > .docs-logo {
+  transition: opacity 1s, -webkit-transform 1s;
   transition: opacity 1s, transform 1s;
 }
 
@@ -200,8 +217,8 @@ button.button:focus, button.button:active {
 }
 
 .dx-titlebar-subtitle {
-  -webkit-align-self: center;
   -ms-flex-item-align: center;
+  -webkit-align-self: center;
   align-self: center;
   margin-left: 0.5em;
 }

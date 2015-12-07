@@ -12,12 +12,12 @@
         @param setup [Function[HTMLElement]]
         @param? options [Object]
           @property isClosable [Boolean]
-            @removed: This property has been replaced by
+            @removed: This property has been replaced by @code[closeWithShadeEnabled] and @code[closeButtonEnabled]
 
           @property closeWithShadeEnabled [Boolean]: Whether clicking on the shaded background around the modal should close it
-            @added:
+            @added
           @property closeButtonEnabled [Boolean]: Whether the modal should have a close button
-            @added:
+            @added
 
           @property titlebarRenderer [Function]
             @description: Renderer function for the titlebar. The this context for the function is this modal.
