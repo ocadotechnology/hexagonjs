@@ -23,11 +23,6 @@
           min-height: 100px;
         }
 
-    @h3: More Examples
-      <ul>
-        <li>@hxExampleLink(meter)</li>
-      </ul>
-
   @api Meter
     @prototype hx.Meter
       @enhancement: Will now center itself in its container.

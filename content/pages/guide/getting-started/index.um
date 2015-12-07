@@ -27,12 +27,13 @@
     @codeblock js
       var hexagon = require('hexagon-js')
 
-      hexagon.build({
+      hexagon.light.build({
         // the directory to output the library to
-        target: 'libs/hexagonjs',
+        dest: 'libs/hexagonjs',
         // include just the modules you are interested in, or leave as undefined to get all the modules
         modules: ['plot', 'titlebar', 'base']
       })
 
+    @p: There are two themes available by default, @code(js)[hexagon.light] and @code(js)[hexagon.dark] with a third, more basic theme available in the form of @code(js)[hexagon.base].
     @p: Save this in a file, then run it with node to generate your build. This api can be easily integrated with gulp or grunt, or even be run as an npm task.
 
