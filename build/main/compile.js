@@ -321,6 +321,7 @@ function getModulesOrder (modules, allModules) {
 }
 
 function getModuleList (options) {
+  var moduleList
   var allModules = Object.keys(options.allModules)
   if (options.modules) {
     moduleList = allModules.filter(function (moduleName) {
