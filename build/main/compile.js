@@ -322,23 +322,27 @@ function getModulesOrder (modules, allModules) {
 
 function getModuleList (options) {
   var allModules = Object.keys(options.allModules)
-  var obj = {}
   if (options.modules) {
-    allModules.filter(function (moduleName) {
+    moduleList = allModules.filter(function (moduleName) {
       return options.modules.indexOf(moduleName) !== -1
-    }).forEach(function (moduleName) {
-      obj[moduleName] = options.allModules[moduleName]
     })
   } else if (options.excludedModules) {
-    allModules.filter(function (moduleName) {
+    moduleList = allModules.filter(function (moduleName) {
       return options.excludedModules.indexOf(moduleName) === -1
-    }).forEach(function (moduleName) {
-      obj[moduleName] = options.allModules[moduleName]
     })
   } else {
-    obj = options.allModules
+    moduleList = allModules
   }
-  return Promise.resolve(obj)
+  return Promise.resolve(moduleList)
+    .then(computeDependencyList)
+    .then(function (moduleList) {
+      var modules = {}
+      for (i in moduleList) {
+        var moduleName = moduleList[i]
+        modules[moduleName] = options.allModules[moduleName]
+      }
+      return modules
+    })
 }
 
 function buildHeaderComment (headerMode, version, themeName, moduleList) {
