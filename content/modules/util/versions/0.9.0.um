@@ -53,6 +53,7 @@
     @function hx.supports
       @description
         Provides a way to find out if the browser supports a feature.
+      @param name [String]: The name of the feature to check
 
         @codeblock js
           // this is the list of checks that are currently available
