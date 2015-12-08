@@ -26,12 +26,6 @@
           height: 100%;
         }
 
-    @h3: More Examples
-      <ul>
-        <li>@hxExampleLink(meter)</li>
-      </ul>
-
-
   @api Meter
     @prototype hx.Meter
       @added

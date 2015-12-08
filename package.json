@@ -1,6 +1,6 @@
 {
   "name": "hexagon-site",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
     "Charlie Frater <charlie.frater@ocado.com>"
@@ -28,7 +28,7 @@
     "quantum-api": "^0.1.1",
     "quantum-changelog": "^0.1.8",
     "quantum-html": "^0.1.1",
-    "quantum-js": "^0.1.1",
+    "quantum-js": "^1.0.0",
     "quantum-template": "^0.1.0",
     "quantum-version": "^0.1.1",
     "quantum-watch": "^0.1.1"

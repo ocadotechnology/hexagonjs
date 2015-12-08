@@ -33,12 +33,6 @@
           hx.notify.info('The order is: ' + dragContainer.order().join(', '))
         })
 
-    @h4: More Examples
-      <ul>
-        <li>
-        @hxExampleLink drag-container
-        </li>
-      </ul>
 
   @api Drag Container
     @added: Added a module that allows elements to be dragged and ordered. This replicates the functionality of dashboard in a general purpose way.

@@ -34,7 +34,7 @@
 
 
   @section I have a feature request. Who do I ask?
-    Create an issue on the the Gitlab issue tracker, and tag it with New Feature.
+    Create an issue on the the @hyperlink(https://github.com/ocadotechnology/hexagonjs/issues/)[GitHub issue tracker], and tag it with New Feature.
 
   @section I want to contribute to the project. How do I go about doing this?
-    @p: We welcome pull requests for bugfixes and additional features. Please target the "dev" branch when setting up a new pull request.
+    @p: We welcome pull requests for bugfixes and additional features. Please target the "master" branch when setting up a new pull request.
