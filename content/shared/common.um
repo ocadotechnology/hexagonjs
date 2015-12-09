@@ -1,6 +1,7 @@
 @stylesheet /resources/hexagon/docs/hexagon.css
 @script /resources/hexagon/docs/hexagon.js
 @script /resources/titlebar.js
+@script /resources/docs.js
 @stylesheet /resources/font-awesome/css/font-awesome.min.css
 @stylesheet /resources/docs.css
 @stylesheet /resources/fonts/fonts.css

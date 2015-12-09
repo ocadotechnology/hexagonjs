@@ -30,8 +30,81 @@ p:last-child {
   float: right;
 }
 
-.docs-examples .qm-api-example {
+.docs-examples .docs-example {
   margin-top: 1.5em;
+}
+
+.docs-example {
+  border: solid 1px rgb(234, 230, 230);
+}
+
+.docs-example-body {
+  margin: 0.5em;
+}
+
+.docs-example-code-container {
+  padding: 1em;
+}
+
+.docs-example-code-body {}
+
+.docs-example-code {}
+
+.docs-example-code .docs-collapsible-toggle:hover {
+  background: #D9D9D9;
+}
+
+.docs-example-code .docs-collapsible-toggle svg {
+  margin-right: 0.5em;
+}
+
+.docs-collapsible {}
+
+.docs-collapsible-heading {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: white;
+}
+
+.docs-collapsible-toggle {
+  padding: 0.5em;
+  text-align: center;
+  cursor: pointer;
+}
+
+.docs-collapsible-toggle svg {
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+}
+
+.docs-collapsible-open > .docs-collapsible-heading svg {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.docs-collapsible-head {
+  padding: 0.5em;
+  line-height: 1em;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: 1em;
+}
+
+.docs-collapsible-content {
+  display: none;
+  background: #F7F7F7;
+}
+
+.docs-collapsible-open > .docs-collapsible-content {
+  display: block;
 }
 
 .docs-menu-container {
