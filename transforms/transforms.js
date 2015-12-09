@@ -21,15 +21,29 @@ exports.module = function (entity, page, transforms) {
 
   var moduleTitle = entity.ps()
 
-  return page.create('div').class('docs-module')
+  var moduleContainer = page.create('div').class('docs-module')
     .add(page.create('h1').class('docs-module-section').text(moduleTitle)
       .add(page.create('div').class('docs-module-changelog-link')
         .add(page.create('a').text('Changelog').attr('href', '/docs/' + module + '/changelog/'))))
     .add(entity.select('description').transform(transforms))
-    .add(page.create('h1').class('docs-module-section').text('Examples'))
-    .add(entity.filter('examples').transform(transforms))
-    .add(page.create('h1').class('docs-module-section').text('Api'))
-    .add(entity.filter('api').transform(transforms))
+
+  if (entity.has('examples')) {
+    var exampleContent = entity.filter('examples')
+    if (exampleContent.content[0].content.length) {
+      moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Examples'))
+        .add(exampleContent.transform(transforms))
+    }
+  }
+
+  if (entity.has('api')) {
+    var apiContent = entity.filter('api')
+    if (apiContent.content[0].content.length) {
+      moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Api'))
+        .add(apiContent.transform(transforms))
+    }
+  }
+
+  return moduleContainer
 }
 
 exports.examples = function (entity, page, transforms) {

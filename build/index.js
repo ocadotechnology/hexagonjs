@@ -149,7 +149,8 @@ function getOptions () {
     filenameModifier: filenameModifier,
     versions: versions,
     unmergable: ['examples', 'description', 'extra'],
-    taggable: ['prototype', 'constructor', 'function', 'method', 'property', 'returns', 'class', 'extraclass', 'childclass']
+    taggable: ['prototype', 'constructor', 'function', 'method', 'property', 'returns', 'class', 'extraclass', 'childclass'],
+    removeTags: ['enhancement', 'bugfix', 'docs', 'info']
   }
 
   var htmlTransforms = Promise.props({
