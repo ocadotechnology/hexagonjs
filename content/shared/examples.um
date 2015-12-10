@@ -239,7 +239,7 @@
 
   @div .hx-section.example
     @h3: Form
-    @html:
+    @html
       <form class="hx-form">
         <div>
           <label>Text</label>
@@ -261,22 +261,22 @@
           <label>Radio</label>
           <div id="group-1">
             <div>
-              <input type="radio" value="One" name="group-1">
-              <label>One</label>
+              <input id="radio1" type="radio" value="One" name="group-1">
+              <label for="radio1">One</label>
             </div>
             <div>
-              <input type="radio" value="Two" name="group-1">
-              <label>Two</label>
+              <input id="radio2" type="radio" value="Two" name="group-1">
+              <label for="radio2">Two</label>
             </div>
             <div>
-              <input type="radio" value="Three" name="group-1">
-              <label>Three</label>
+              <input id="radio3" type="radio" value="Three" name="group-1">
+              <label for="radio3">Three</label>
             </div>
           </div>
         </div>
         <div>
-          <label>Checkbox</label>
-          <input type="checkbox">
+          <label for="checkbox1" >Checkbox</label>
+          <input id="checkbox1" type="checkbox">
         </div>
         <button type="button" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
       </form>

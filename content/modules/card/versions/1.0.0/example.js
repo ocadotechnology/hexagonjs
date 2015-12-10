@@ -10,6 +10,13 @@ function sparkline (options) {
     .add(hx.card.section().add(hx.sparkline({strokeColor: options.sparklineColor, data: options.sparklineData})))
 }
 
+function random (i) {
+  return {
+    x: i,
+    y: Math.random()
+  }
+}
+
 function statusCard (name, context) {
   return hx.card()
     .add(hx.card.header.section({ context: context})
@@ -21,10 +28,10 @@ function statusCard (name, context) {
       .add(titleText('Thread Count', '19'))
       .add(titleText('Page Hits', '2236 / s')))
     .add(hx.card.aligned()
-      .add(sparkline({text: 'Memory Use', sparklineColor: hx.theme.plot.colors[0], sparklineData: hx.range(60).map(Math.random)}))
-      .add(sparkline({text: 'Thread Count', sparklineColor: hx.theme.plot.colors[1], sparklineData: hx.range(60).map(Math.random)}))
-      .add(sparkline({text: 'Page Hits', sparklineColor: hx.theme.plot.colors[2], sparklineData: hx.range(60).map(Math.random)}))
-      .add(sparkline({text: 'Messages Processed', sparklineColor: hx.theme.plot.colors[3], sparklineData: hx.range(60).map(Math.random)})))
+      .add(sparkline({text: 'Memory Use', sparklineColor: hx.theme.plot.colors[0], sparklineData: hx.range(60).map(random)}))
+      .add(sparkline({text: 'Thread Count', sparklineColor: hx.theme.plot.colors[1], sparklineData: hx.range(60).map(random)}))
+      .add(sparkline({text: 'Page Hits', sparklineColor: hx.theme.plot.colors[2], sparklineData: hx.range(60).map(random)}))
+      .add(sparkline({text: 'Messages Processed', sparklineColor: hx.theme.plot.colors[3], sparklineData: hx.range(60).map(random)})))
 }
 
 hx.select('#card-container')
