@@ -14,7 +14,7 @@ Next you should install the dependencies needed with
 
 The project contains a demo site for testing out changes, and developing new themes. This command will run the demo site:
 
-    npm site
+    npm start
 
 This will start a webserver on port 9009, and will watch for changes made to the library.
 
