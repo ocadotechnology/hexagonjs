@@ -84,6 +84,9 @@
 
 @version 1.0.0
 
+  @description
+    An api and set of styles for creating cards.
+
   @examples
     @example
       @html html
