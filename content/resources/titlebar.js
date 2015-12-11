@@ -55,7 +55,7 @@ function setupMenu (node, meta) {
     group[1].forEach(function (module) {
       groupModulesContainer.add(dx.detached('a')
         .class('docs-dropdown-module-link dx-section dx-fixed')
-        .attr('href', '/docs/' + (meta.selectedVersion || meta.latest) + '/' + module.id + '/')
+        .attr('href', '/docs/' + (meta.selectedVersion || meta.targetVersions[meta.targetVersions.length - 1]) + '/' + module.id + '/')
         .text(module.id.split('-').map(function (d) {
           return d[0].toUpperCase() + d.substring(1)
         }).join(' '))
@@ -67,8 +67,8 @@ function setupMenu (node, meta) {
 dx.json('/meta.json', function (err, meta) {
   var menuPos = 0
 
-  for (i in meta.versions) {
-    var v = meta.versions[i]
+  for (i in meta.targetVersions) {
+    var v = meta.targetVersions[i]
     if (window.location.pathname.indexOf('/' + v + '/') > -1) {
       meta.selectedVersion = v
       break
@@ -78,7 +78,7 @@ dx.json('/meta.json', function (err, meta) {
   if (meta.selectedVersion) {
     dx.select('.docs-version').classed('docs-visible', true)
     var versionPicker = new dx.Picker('.docs-version-button', {
-      items: meta.versions.reverse(),
+      items: meta.targetVersions.reverse(),
       renderer: function (elem, v) {
         elem = dx.select(elem)
           .text(v)
@@ -114,7 +114,7 @@ dx.json('/meta.json', function (err, meta) {
       Object.keys(meta.modules).filter(filterer).forEach(function (moduleId, i) {
         dropdownContent.append('a')
           .class('docs-search-result')
-          .attr('href', '/docs/' + meta.latest + '/' + moduleId + '/')
+          .attr('href', '/docs/' + (meta.selectedVersion || meta.targetVersions[meta.targetVersions.length - 1]) + '/' + moduleId + '/')
           .classed('docs-search-result-highlight', menuPos === i)
           .add(dx.detached('span').class('docs-search-result-text').text(moduleId.split('-').join(' ')))
       })
