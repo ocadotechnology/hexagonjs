@@ -206,353 +206,292 @@
 # Methods for changing the options
 # --------------------------------
 
-      @method &lt;option&gt;
-        @description
-          @p: Gets the value of a table option
-          @p: Every option for the table has a function with this signature. For example:
-          @codeblock js
-            dataTable.allowHeaderWrap() // returns the current allowHeaderWrap option
-            dataTable.sort() // returns the current sort option
-          @p: For details on each option and what types to expect, see the @code[options] parameter of the constructor.
-        @returns OptionType: The value of the table option
+      @group Options
 
-      @method &lt;option&gt;
-        @description
-          @p: Sets the value of a table option
-          @p: Every option for the table has a function with this signature. For example:
-          @codeblock js
-            dataTable.allowHeaderWrap(true) // sets the allowHeaderWrap option
-            dataTable.sort({column: 'name', direction: 'asc'}) // sets the sort option
-          @p: For details on each option and what types to expect, see the @code[options] parameter of the constructor.
-        @param value [Function]: The value for the table option
-        @param? callback [Function]: The function to call once rendering is complete
-        @returns DataTable: This DataTable
+        @method collapsibleRenderer
+          @description: Gets the collapsibleRenderer option
+          @returns Function: The collapsibleRenderer option
 
-#      @method collapsibleRenderer
-#        @description: Gets the collapsibleRenderer option
-#        @returns Function: The collapsibleRenderer option
-#
-#      @method collapsibleRenderer
-#        @description: Sets the collapsibleRenderer option
-#        @param value [Function]: The value for the collapsibleRenderer option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method compact
-#        @description: Gets the compact option
-#        @returns Boolean: The compact option
-#
-#      @method compact
-#        @description: Sets the compact option
-#        @param value [Boolean]: The value for the compact option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method displayMode
-#        @description: Gets the displayMode option
-#        @returns String: The displayMode option
-#
-#      @method displayMode
-#        @description: Sets the displayMode option
-#        @param value [String]: The value for the displayMode option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method feed
-#        @description: Gets the feed option
-#        @returns Object: The feed option
-#
-#      @method feed
-#        @description: Sets the feed option
-#        @param value [Object]: The value for the feed option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method filter
-#        @description: Gets the filter option
-#        @returns String: The filter option
-#
-#      @method filter
-#        @description: Sets the filter option
-#        @param value [String]: The value for the filter option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method filterEnabled
-#        @description: Gets the filterEnabled option
-#        @returns Boolean: The filterEnabled option
-#
-#      @method filterEnabled
-#        @description: Sets the filterEnabled option
-#        @param value [Boolean]: The value for the filterEnabled option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method noDataMessage
-#        @description: Gets the noDataMessage option
-#        @returns String: The noDataMessage option
-#
-#      @method noDataMessage
-#        @description: Sets the noDataMessage option
-#        @param value [String]: The value for the noDataMessage option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method pageSize
-#        @description: Gets the pageSize option
-#        @returns Number: The pageSize option
-#
-#      @method pageSize
-#        @description: Sets the pageSize option
-#        @param value [Number]: The value for the pageSize option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method pageSizeOptions
-#        @description: Gets the pageSizeOptions option
-#        @returns Array[Number]: The pageSizeOptions option
-#
-#      @method pageSizeOptions
-#        @description: Sets the pageSizeOptions option
-#        @param value [Array[Number]]: The value for the pageSizeOptions option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method retainHorizontalScrollOnRender
-#        @description: Gets the retainHorizontalScrollOnRender option
-#        @returns Boolean: The retainHorizontalScrollOnRender option
-#
-#      @method retainHorizontalScrollOnRender
-#        @description: Sets the retainHorizontalScrollOnRender option
-#        @param value [Boolean]: The value for the retainHorizontalScrollOnRender option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method retainVerticalScrollOnRender
-#        @description: Gets the retainVerticalScrollOnRender option
-#        @returns Boolean: The retainVerticalScrollOnRender option
-#
-#      @method retainVerticalScrollOnRender
-#        @description: Sets the retainVerticalScrollOnRender option
-#        @param value [Boolean]: The value for the retainVerticalScrollOnRender option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method rowCollapsibleLookup
-#        @description: Gets the rowCollapsibleLookup option
-#        @returns Function: The rowCollapsibleLookup option
-#
-#      @method rowCollapsibleLookup
-#        @description: Sets the rowCollapsibleLookup option
-#        @param value [Function]: The value for the rowCollapsibleLookup option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method rowEnabledLookup
-#        @description: Gets the rowEnabledLookup option
-#        @returns Function: The rowEnabledLookup option
-#
-#      @method rowEnabledLookup
-#        @description: Sets the rowEnabledLookup option
-#        @param value [Function]: The value for the rowEnabledLookup option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method rowIDLookup
-#        @description: Gets the rowIDLookup option
-#        @returns Function: The rowIDLookup option
-#
-#      @method rowIDLookup
-#        @description: Sets the rowIDLookup option
-#        @param value [Function]: The value for the rowIDLookup option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method rowSelectableLookup
-#        @description: Gets the rowSelectableLookup option
-#        @returns Function: The rowSelectableLookup option
-#
-#      @method rowSelectableLookup
-#        @description: Sets the rowSelectableLookup option
-#        @param value [Function]: The value for the rowSelectableLookup option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method selectEnabled
-#        @description: Gets the selectEnabled option
-#        @returns Boolean: The selectEnabled option
-#
-#      @method selectEnabled
-#        @description: Sets the selectEnabled option
-#        @param value [Boolean]: The value for the selectEnabled option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method singleSelection
-#        @description: Gets the singleSelection option
-#        @returns Boolean: The singleSelection option
-#
-#      @method singleSelection
-#        @description: Sets the singleSelection option
-#        @param value [Boolean]: The value for the singleSelection option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#
-#      @method sort
-#        @description: Gets the sort option
-#        @returns Object: The sort option
-#
-#      @method sort
-#        @description: Sets the sort option
-#        @param value [Object]: The value for the sort option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
+        @method collapsibleRenderer
+          @description: Sets the collapsibleRenderer option
+          @param value [Function]: The value for the collapsibleRenderer option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
 
 
+        @method compact
+          @description: Gets the compact option
+          @returns Boolean: The compact option
 
-# Methods for changing the column options
-# ---------------------------------------
+        @method compact
+          @description: Sets the compact option
+          @param value [Boolean]: The value for the compact option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
 
-      @method &lt;columnOption&gt;
-        @description
-          @p: Gets the value of a column option
-          @p: The four options values that can be retrieved individually are:
-          @list
-            allowHeaderWrap
-            cellRenderer
-            headerCellRenderer
-            sortEnabled
-          @p: Each column option value can be retrieved individually:
-          @codeblock js
-            dataTable.allowHeaderWrap('name') // gets the allowHeaderWrap option for a column with id 'name'
-            dataTable.sortEnabled('age') // gets the sortEnabled option for a column with id 'age'
-          @p: For details on each option and what types to expect, see the @code[options] parameter of the constructor.
-        @param column [String]: The id of the column to get the option value for
-        @returns OptionType: The value of the column option
 
-      @method &lt;columnOption&gt;
-        @description
-          @p: Sets the value of a column option
-          @p: The four options that can be set individually are:
-          @list
-            allowHeaderWrap
-            cellRenderer
-            headerCellRenderer
-            sortEnabled
-          @p: Each column option can be set individually:
-          @codeblock js
-            dataTable.allowHeaderWrap('name', true) // sets the allowHeaderWrap option for a column with id 'name'
-            dataTable.sortEnabled('age', 'false') // sets the sortEnabled option for a column with id 'age'
-          @p: For details on each option and what types to expect, see the @code[options] parameter of the constructor.
-        @param column [String]: The id of the column to get the option value for
-        @param value [OptionType]: The value for the column option
-        @param? callback [Function]: The function to call once rendering is complete
-        @returns DataTable: This DataTable
+        @method displayMode
+          @description: Gets the displayMode option
+          @returns String: The displayMode option
 
-#      @method allowHeaderWrap
-#        @description: Gets the allowHeaderWrap option
-#        @returns Boolean: The allowHeaderWrap option
-#
-#      @method allowHeaderWrap
-#        @description: Sets the allowHeaderWrap option
-#        @param value [Boolean]: The value for the allowHeaderWrap option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#      @method allowHeaderWrap
-#        @description: Gets the allowHeaderWrap value for a column of the table if one has been set.
-#        @param column [String]: The id of the column to get the allowHeaderWrap value for
-#        @returns Boolean: The allowHeaderWrap option for the column
-#
-#      @method allowHeaderWrap
-#        @description: Sets the allowHeaderWrap value for a column of the table
-#        @param column [String]: The id of the column to set the allowHeaderWrap value for
-#        @param value [Boolean]: The value to set
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#      @method cellRenderer
-#        @description: Gets the cellRenderer option
-#        @returns Function: The cellRenderer option
-#
-#      @method cellRenderer
-#        @description: Sets the cellRenderer option
-#        @param value [Function]: The value for the cellRenderer option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#      @method cellRenderer
-#        @description: Gets the cellRenderer value for a column of the table if one has been set.
-#        @param column [String]: The id of the column to get the cellRenderer value for
-#        @returns Function: The cellRenderer option for the column
-#
-#      @method cellRenderer
-#        @description: Sets the cellRenderer value for a column of the table
-#        @param column [String]: The id of the column to set the cellRenderer value for
-#        @param value [Function]: The value to set
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#      @method headerCellRenderer
-#        @description: Gets the headerCellRenderer option
-#        @returns Function: The headerCellRenderer option
-#
-#      @method headerCellRenderer
-#        @description: Sets the headerCellRenderer option
-#        @param value [Function]: The value for the headerCellRenderer option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#      @method headerCellRenderer
-#        @description: Gets the headerCellRenderer value for a column of the table if one has been set.
-#        @param column [String]: The id of the column to get the headerCellRenderer value for
-#        @returns Function: The headerCellRenderer option for the column
-#
-#      @method headerCellRenderer
-#        @description: Sets the headerCellRenderer value for a column of the table
-#        @param column [String]: The id of the column to set the headerCellRenderer value for
-#        @param value [Function]: The value to set
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#      @method sortEnabled
-#        @description: Gets the sortEnabled option
-#        @returns Boolean: The sortEnabled option
-#
-#      @method sortEnabled
-#        @description: Sets the sortEnabled option
-#        @param value [Boolean]: The value for the sortEnabled option
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
-#
-#      @method sortEnabled
-#        @description: Gets the sortEnabled value for a column of the table if one has been set.
-#        @param column [String]: The id of the column to get the sortEnabled value for
-#        @returns Boolean: The sortEnabled option for the column
-#
-#      @method sortEnabled
-#        @description: Sets the sortEnabled value for a column of the table
-#        @param column [String]: The id of the column to set the sortEnabled value for
-#        @param value [Boolean]: The value to set
-#        @param? callback [Function]: The function to call once rendering is complete
-#        @returns DataTable: This DataTable
+        @method displayMode
+          @description: Sets the displayMode option
+          @param value [String]: The value for the displayMode option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method feed
+          @description: Gets the feed option
+          @returns Object: The feed option
+
+        @method feed
+          @description: Sets the feed option
+          @param value [Object]: The value for the feed option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method filter
+          @description: Gets the filter option
+          @returns String: The filter option
+
+        @method filter
+          @description: Sets the filter option
+          @param value [String]: The value for the filter option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method filterEnabled
+          @description: Gets the filterEnabled option
+          @returns Boolean: The filterEnabled option
+
+        @method filterEnabled
+          @description: Sets the filterEnabled option
+          @param value [Boolean]: The value for the filterEnabled option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method noDataMessage
+          @description: Gets the noDataMessage option
+          @returns String: The noDataMessage option
+
+        @method noDataMessage
+          @description: Sets the noDataMessage option
+          @param value [String]: The value for the noDataMessage option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method pageSize
+          @description: Gets the pageSize option
+          @returns Number: The pageSize option
+
+        @method pageSize
+          @description: Sets the pageSize option
+          @param value [Number]: The value for the pageSize option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method pageSizeOptions
+          @description: Gets the pageSizeOptions option
+          @returns Array[Number]: The pageSizeOptions option
+
+        @method pageSizeOptions
+          @description: Sets the pageSizeOptions option
+          @param value [Array[Number]]: The value for the pageSizeOptions option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method retainHorizontalScrollOnRender
+          @description: Gets the retainHorizontalScrollOnRender option
+          @returns Boolean: The retainHorizontalScrollOnRender option
+
+        @method retainHorizontalScrollOnRender
+          @description: Sets the retainHorizontalScrollOnRender option
+          @param value [Boolean]: The value for the retainHorizontalScrollOnRender option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method retainVerticalScrollOnRender
+          @description: Gets the retainVerticalScrollOnRender option
+          @returns Boolean: The retainVerticalScrollOnRender option
+
+        @method retainVerticalScrollOnRender
+          @description: Sets the retainVerticalScrollOnRender option
+          @param value [Boolean]: The value for the retainVerticalScrollOnRender option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method rowCollapsibleLookup
+          @description: Gets the rowCollapsibleLookup option
+          @returns Function: The rowCollapsibleLookup option
+
+        @method rowCollapsibleLookup
+          @description: Sets the rowCollapsibleLookup option
+          @param value [Function]: The value for the rowCollapsibleLookup option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method rowEnabledLookup
+          @description: Gets the rowEnabledLookup option
+          @returns Function: The rowEnabledLookup option
+
+        @method rowEnabledLookup
+          @description: Sets the rowEnabledLookup option
+          @param value [Function]: The value for the rowEnabledLookup option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method rowIDLookup
+          @description: Gets the rowIDLookup option
+          @returns Function: The rowIDLookup option
+
+        @method rowIDLookup
+          @description: Sets the rowIDLookup option
+          @param value [Function]: The value for the rowIDLookup option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method rowSelectableLookup
+          @description: Gets the rowSelectableLookup option
+          @returns Function: The rowSelectableLookup option
+
+        @method rowSelectableLookup
+          @description: Sets the rowSelectableLookup option
+          @param value [Function]: The value for the rowSelectableLookup option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method selectEnabled
+          @description: Gets the selectEnabled option
+          @returns Boolean: The selectEnabled option
+
+        @method selectEnabled
+          @description: Sets the selectEnabled option
+          @param value [Boolean]: The value for the selectEnabled option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method singleSelection
+          @description: Gets the singleSelection option
+          @returns Boolean: The singleSelection option
+
+        @method singleSelection
+          @description: Sets the singleSelection option
+          @param value [Boolean]: The value for the singleSelection option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+
+        @method sort
+          @description: Gets the sort option
+          @returns Object: The sort option
+
+        @method sort
+          @description: Sets the sort option
+          @param value [Object]: The value for the sort option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method allowHeaderWrap
+          @description: Gets the allowHeaderWrap option
+          @returns Boolean: The allowHeaderWrap option
+
+        @method allowHeaderWrap
+          @description: Sets the allowHeaderWrap option
+          @param value [Boolean]: The value for the allowHeaderWrap option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method allowHeaderWrap
+          @description: Gets the allowHeaderWrap value for a column of the table if one has been set.
+          @param column [String]: The id of the column to get the allowHeaderWrap value for
+          @returns Boolean: The allowHeaderWrap option for the column
+
+        @method allowHeaderWrap
+          @description: Sets the allowHeaderWrap value for a column of the table
+          @param column [String]: The id of the column to set the allowHeaderWrap value for
+          @param value [Boolean]: The value to set
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method cellRenderer
+          @description: Gets the cellRenderer option
+          @returns Function: The cellRenderer option
+
+        @method cellRenderer
+          @description: Sets the cellRenderer option
+          @param value [Function]: The value for the cellRenderer option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method cellRenderer
+          @description: Gets the cellRenderer value for a column of the table if one has been set.
+          @param column [String]: The id of the column to get the cellRenderer value for
+          @returns Function: The cellRenderer option for the column
+
+        @method cellRenderer
+          @description: Sets the cellRenderer value for a column of the table
+          @param column [String]: The id of the column to set the cellRenderer value for
+          @param value [Function]: The value to set
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method headerCellRenderer
+          @description: Gets the headerCellRenderer option
+          @returns Function: The headerCellRenderer option
+
+        @method headerCellRenderer
+          @description: Sets the headerCellRenderer option
+          @param value [Function]: The value for the headerCellRenderer option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method headerCellRenderer
+          @description: Gets the headerCellRenderer value for a column of the table if one has been set.
+          @param column [String]: The id of the column to get the headerCellRenderer value for
+          @returns Function: The headerCellRenderer option for the column
+
+        @method headerCellRenderer
+          @description: Sets the headerCellRenderer value for a column of the table
+          @param column [String]: The id of the column to set the headerCellRenderer value for
+          @param value [Function]: The value to set
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method sortEnabled
+          @description: Gets the sortEnabled option
+          @returns Boolean: The sortEnabled option
+
+        @method sortEnabled
+          @description: Sets the sortEnabled option
+          @param value [Boolean]: The value for the sortEnabled option
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
+
+        @method sortEnabled
+          @description: Gets the sortEnabled value for a column of the table if one has been set.
+          @param column [String]: The id of the column to get the sortEnabled value for
+          @returns Boolean: The sortEnabled option for the column
+
+        @method sortEnabled
+          @description: Sets the sortEnabled value for a column of the table
+          @param column [String]: The id of the column to set the sortEnabled value for
+          @param value [Boolean]: The value to set
+          @param? callback [Function]: The function to call once rendering is complete
+          @returns DataTable: This DataTable
 
 
 # Methods for changing the state of the table
