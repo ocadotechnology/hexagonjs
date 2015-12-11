@@ -1,4 +1,3 @@
-@examplePage Selection
-  @example
-    @html: @inline selection.html
-    @coffee: @inline selection.coffee
+@example
+  @html: @inline selection.html
+  @coffee: @inline selection.coffee

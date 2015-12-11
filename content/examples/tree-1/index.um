@@ -1,4 +1,3 @@
-@examplePage Tree
-  @example
-    @html: @inline tree.html
-    @coffee: @inline tree.coffee
+@example
+  @html: @inline tree.html
+  @coffee: @inline tree.coffee

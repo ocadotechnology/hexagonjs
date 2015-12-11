@@ -1,5 +1,4 @@
-@examplePage Band Graph
-  @example
-    @html: @inline bandgraph.html
-    @coffee: @inline bandgraph.coffee
-    @css: @inline bandgraph.css
+@example
+  @html: @inline bandgraph.html
+  @coffee: @inline bandgraph.coffee
+  @css: @inline bandgraph.css

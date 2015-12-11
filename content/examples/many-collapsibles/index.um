@@ -1,6 +1,5 @@
-@examplePage Many Collapsibles
-  @example
-    @html: @inline many-collapsibles.html
-    @coffee: @inline many-collapsibles.coffee
-    @css: @inline many-collapsibles.css
+@example
+  @html: @inline many-collapsibles.html
+  @coffee: @inline many-collapsibles.coffee
+  @css: @inline many-collapsibles.css
 

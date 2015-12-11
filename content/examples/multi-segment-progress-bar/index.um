@@ -1,4 +1,3 @@
-@examplePage Multi Segment Progress Bar
-  @example
-    @html: @inline multi-segment-progress-bar.html
-    @coffee: @inline multi-segment-progress-bar.coffee
+@example
+  @html: @inline multi-segment-progress-bar.html
+  @coffee: @inline multi-segment-progress-bar.coffee

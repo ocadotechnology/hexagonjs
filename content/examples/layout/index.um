@@ -1,9 +1,7 @@
-@examplePage Layout
-  @css
-    .hx-content-full-width.example {
-      padding-top: 0px;
-    }
-  @example
-    @html: @inline layout.html
-    @css: @inline layout.css
-
+@css
+  .hx-content-full-width.example {
+    padding-top: 0px;
+  }
+@example
+  @html: @inline layout.html
+  @css: @inline layout.css

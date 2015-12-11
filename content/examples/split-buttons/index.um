@@ -1,5 +1,4 @@
-@examplePage Split Buttons
-  @example
-    @html: @inline split-buttons.html
-    @coffee: @inline split-buttons.coffee
-    @css: @inline split-buttons.css
+@example
+  @html: @inline split-buttons.html
+  @coffee: @inline split-buttons.coffee
+  @css: @inline split-buttons.css

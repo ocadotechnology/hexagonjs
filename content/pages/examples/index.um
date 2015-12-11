@@ -1,6 +1,5 @@
 @inline ../../shared/common.um
-
 @titlebar Examples
-
 @div .dx-content
   @h1: Examples
+  @exampleLinkList

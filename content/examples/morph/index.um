@@ -1,4 +1,3 @@
-@examplePage Morph
-  @example
-    @html: @inline morph.html
-    @coffee: @inline morph.coffee
+@example
+  @html: @inline morph.html
+  @coffee: @inline morph.coffee

@@ -1,4 +1,3 @@
-@examplePage Paginator
-  @example
-    @html: @inline paginator.html
-    @coffee: @inline paginator.coffee
+@example
+  @html: @inline paginator.html
+  @coffee: @inline paginator.coffee

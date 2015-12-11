@@ -1,5 +1,4 @@
-@examplePage Composite
-  @example
-    @html: @inline composite.html
-    @coffee: @inline composite.coffee
-    @css: @inline composite.css
+@example
+  @html: @inline composite.html
+  @coffee: @inline composite.coffee
+  @css: @inline composite.css

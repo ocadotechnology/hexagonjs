@@ -1,5 +1,4 @@
-@examplePage Scatter Graph
-  @example
-    @html: @inline scattergraph.html
-    @coffee: @inline scattergraph.coffee
-    @css: @inline scattergraph.css
+@example
+  @html: @inline scattergraph.html
+  @coffee: @inline scattergraph.coffee
+  @css: @inline scattergraph.css

@@ -1,5 +1,4 @@
-@examplePage Bar Chart
-  @example
-    @html: @inline barchart.html
-    @coffee: @inline barchart.coffee
-    @css: @inline barchart.css
+@example
+  @html: @inline barchart.html
+  @coffee: @inline barchart.coffee
+  @css: @inline barchart.css

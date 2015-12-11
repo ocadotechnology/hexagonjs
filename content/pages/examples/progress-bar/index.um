@@ -1,0 +1,10 @@
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
+@inline ../../../shared/common.um
+@titlebar Progress Bar Example
+
+@div .dx-content
+  @h1: Progress Bar Example
+    @div .docs-example-title-link
+      @hyperlink(/examples/)[All Examples]
+  @inline ../../../examples/progress-bar/index.um

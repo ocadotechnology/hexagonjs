@@ -1,4 +1,3 @@
-@examplePage Crumbtrail
-  @example
-    @html: @inline crumbtrail.html
-    @coffee: @inline crumbtrail.coffee
+@example
+  @html: @inline crumbtrail.html
+  @coffee: @inline crumbtrail.coffee

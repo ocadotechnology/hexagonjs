@@ -1,4 +1,3 @@
-@examplePage Menu
-  @example
-    @html: @inline menu.html
-    @coffee: @inline menu.coffee
+@example
+  @html: @inline menu.html
+  @coffee: @inline menu.coffee

@@ -1,0 +1,10 @@
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
+@inline ../../../shared/common.um
+@titlebar Line Graph 6 Example
+
+@div .dx-content
+  @h1: Line Graph 6 Example
+    @div .docs-example-title-link
+      @hyperlink(/examples/)[All Examples]
+  @inline ../../../examples/line-graph-6/index.um

@@ -1,4 +1,3 @@
-@examplePage Date Picker with Time Slider
-  @example
-    @html: @inline datepicker-with-timeslider.html
-    @coffee: @inline datepicker-with-timeslider.coffee
+@example
+  @html: @inline datepicker-with-timeslider.html
+  @coffee: @inline datepicker-with-timeslider.coffee

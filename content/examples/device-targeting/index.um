@@ -1,3 +1,2 @@
-@examplePage Device Targeting
-  @example
-    @html: @inline device-targeting.html
+@example
+  @html: @inline device-targeting.html

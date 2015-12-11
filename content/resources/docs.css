@@ -24,6 +24,7 @@ p:last-child {
   content: 'There have been no changes to this module since version 0.9.0';
 }
 
+.docs-example-title-link,
 .docs-module-changelog-link {
   font-size: 0.6em;
   padding: 0.5em 0;
