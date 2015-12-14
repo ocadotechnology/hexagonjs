@@ -2,20 +2,15 @@
   @api Data Table
     @prototype hx.DataTable
       @bugfix: Updated the compact sort picker to use the @code[headerCellRenderer] for each column
-
-
       @bugfix: Updated the styles to make the compact mode more compact
-
 
       @method suppressRender
         @removed
-
           Use @code[renderSuppressed()] instead
 
       @method suppressRender
         @param suppress [Boolean]
         @removed
-
           Use @code[renderSuppressed(value)] instead
 
     @function hx.dataTable

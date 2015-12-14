@@ -563,170 +563,144 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event selectedrowschange
+        @event selectedrowschange [Object]
           @description: Emitted when a row is selected or deselected.
-          @data Object
-            @property value [Array[String]]: The selected rows (a list of ids).
-            @property? row [Object]: The row that was selected (if this event was caused by the user clicking on the row check)
-            @property? rowValue [Boolean]: Whether or not the row that was clicked on is now selected (if this event was caused by the user clicking on the row check)
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Array[String]]: The selected rows (a list of ids).
+          @property? row [Object]: The row that was selected (if this event was caused by the user clicking on the row check)
+          @property? rowValue [Boolean]: Whether or not the row that was clicked on is now selected (if this event was caused by the user clicking on the row check)
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
         @event selectedrowsclear
           @description: Emitted when the row selection is cleared by clicking on the 'clear selection' text.
 
-        @event expandedrowschange
+        @event expandedrowschange [Object]
           @description: Emitted when a row is expanded or collapsed
-          @data Object
-            @property value [Array[String]]: The expanded rows (a list of ids).
-            @property? row [Object]: The row that was expanded or collapsed (if this event was caused by the user clicking on the expand toggle)
-            @property? rowValue [Boolean]: Whether or not the row that was clicked on is now expanded  (if this event was caused by the user clicking on the expand toggle)
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Array[String]]: The expanded rows (a list of ids).
+          @property? row [Object]: The row that was expanded or collapsed (if this event was caused by the user clicking on the expand toggle)
+          @property? rowValue [Boolean]: Whether or not the row that was clicked on is now expanded  (if this event was caused by the user clicking on the expand toggle)
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event rowclick
-          @description: Emitted when a row is clicked.
-          @data Object: The row object for the row that was clicked.
+        @event rowclick [Object]
+          @description: Emitted when a row is clicked. The data sent with the event is the row object for the row that was clicked
 
         @event render
           @description: Emitted when the table is rendered.
 
-        @event pagechange
+        @event pagechange [Object]
           @description: Emitted when the page is changed
-          @data Object
-            @property value [Any]: The selected page number, starting from 1.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The selected page number, starting from 1.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event collapsiblerendererchange
+        @event collapsiblerendererchange [Object]
           @description: Emitted when the collapsibleRenderer option is changed
-          @data Object
-            @property value [Any]: The value of the collapsibleRenderer option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the collapsibleRenderer option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event compactchange
+        @event compactchange [Object]
           @description: Emitted when the compact option is changed
-          @data Object
-            @property value [Any]: The value of the compact option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-            @property? mode [Boolean]: If the cause is 'user', and the value is 'auto', this value will contain the actual compact mode (it will be true for compact, false for desktop)
+          @property value [Any]: The value of the compact option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property? mode [Boolean]: If the cause is 'user', and the value is 'auto', this value will contain the actual compact mode (it will be true for compact, false for desktop)
 
-        @event displaymodechange
+        @event displaymodechange [Object]
           @description: Emitted when the displayMode option is changed
-          @data Object
-            @property value [Any]: The value of the displayMode option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the displayMode option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event feedchange
+        @event feedchange [Object]
           @description: Emitted when the feed option is changed
-          @data Object
-            @property value [Any]: The value of the feed option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the feed option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event filterchange
+        @event filterchange [Object]
           @description: Emitted when the filter option is changed
-          @data Object
-            @property value [Any]: The value of the filter option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the filter option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event filterenabledchange
+        @event filterenabledchange [Object]
           @description: Emitted when the filterEnabled option is changed
-          @data Object
-            @property value [Any]: The value of the filterEnabled option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the filterEnabled option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event nodatamessagechange
+        @event nodatamessagechange [Object]
           @description: Emitted when the noDataMessage option is changed
-          @data Object
-            @property value [Any]: The value of the noDataMessage option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the noDataMessage option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event pagesizechange
+        @event pagesizechange [Object]
           @description: Emitted when the pageSize option is changed
-          @data Object
-            @property value [Any]: The value of the pageSize option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the pageSize option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event pagesizeoptionschange
+        @event pagesizeoptionschange [Object]
           @description: Emitted when the pageSizeOptions option is changed
-          @data Object
-            @property value [Any]: The value of the pageSizeOptions option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the pageSizeOptions option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event retainhorizontalscrollonrenderchange
+        @event retainhorizontalscrollonrenderchange [Object]
           @description: Emitted when the retainHorizontalScrollOnRender option is changed
-          @data Object
-            @property value [Any]: The value of the retainHorizontalScrollOnRender option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the retainHorizontalScrollOnRender option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event retainverticalscrollonrenderchange
+        @event retainverticalscrollonrenderchange [Object]
           @description: Emitted when the retainVerticalScrollOnRender option is changed
-          @data Object
-            @property value [Any]: The value of the retainVerticalScrollOnRender option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the retainVerticalScrollOnRender option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event rowcollapsiblelookupchange
+        @event rowcollapsiblelookupchange [Object]
           @description: Emitted when the rowCollapsibleLookup option is changed
-          @data Object
-            @property value [Any]: The value of the rowCollapsibleLookup option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the rowCollapsibleLookup option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event rowenabledlookupchange
+        @event rowenabledlookupchange [Object]
           @description: Emitted when the rowEnabledLookup option is changed
-          @data Object
-            @property value [Any]: The value of the rowEnabledLookup option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the rowEnabledLookup option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event rowidlookupchange
+        @event rowidlookupchange [Object]
           @description: Emitted when the rowIDLookup option is changed
-          @data Object
-            @property value [Any]: The value of the rowIDLookup option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the rowIDLookup option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event rowselectablelookupchange
+        @event rowselectablelookupchange [Object]
           @description: Emitted when the rowSelectableLookup option is changed
-          @data Object
-            @property value [Any]: The value of the rowSelectableLookup option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the rowSelectableLookup option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event selectenabledchange
+        @event selectenabledchange [Object]
           @description: Emitted when the selectEnabled option is changed
-          @data Object
-            @property value [Any]: The value of the selectEnabled option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the selectEnabled option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event singleselectionchange
+        @event singleselectionchange [Object]
           @description: Emitted when the singleSelection option is changed
-          @data Object
-            @property value [Any]: The value of the singleSelection option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the singleSelection option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event sortchange
+        @event sortchange [Object]
           @description: Emitted when the sort option is changed
-          @data Object
-            @property value [Any]: The value of the sort option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the sort option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event allowheaderwrapchange
+        @event allowheaderwrapchange [Object]
           @description: Emitted when the allowHeaderWrap option is changed
-          @data Object
-            @property value [Any]: The value of the allowHeaderWrap option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the allowHeaderWrap option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event cellrendererchange
+        @event cellrendererchange [Object]
           @description: Emitted when the cellRenderer option is changed
-          @data Object
-            @property value [Any]: The value of the cellRenderer option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the cellRenderer option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event headercellrendererchange
+        @event headercellrendererchange [Object]
           @description: Emitted when the headerCellRenderer option is changed
-          @data Object
-            @property value [Any]: The value of the headerCellRenderer option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the headerCellRenderer option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-        @event sortenabledchange
+        @event sortenabledchange [Object]
           @description: Emitted when the sortEnabled option is changed
-          @data Object
-            @property value [Any]: The value of the sortEnabled option.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The value of the sortEnabled option.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
         @returns DataTable: This DataTable
 
@@ -753,7 +727,7 @@
               @codeblock js
                 hx.json('path_to_your_request.file', function(err, data){
                   if (!err) table.feed(hx.dataTable.objectFeed(tableData));
-                }
+                })
 
         @param data [Object]: The data to use in the feed.
         @param? options [Object]: The options to use in the feed.
