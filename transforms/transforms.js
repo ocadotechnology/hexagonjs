@@ -25,22 +25,31 @@ exports.module = function (entity, page, transforms) {
     .add(page.create('h1').class('docs-module-section').text(moduleTitle)
       .add(page.create('div').class('docs-module-changelog-link')
         .add(page.create('a').text('Changelog').attr('href', '/docs/' + module + '/changelog/'))))
-    .add(entity.select('description').transform(transforms))
 
-  if (entity.has('examples')) {
-    var exampleContent = entity.filter('examples')
-    if (exampleContent.content[0].content.length) {
-      moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Examples'))
-        .add(exampleContent.transform(transforms))
+  if (entity.content.filter(function (e) {return e}).length) {
+    if (entity.has('description')) {
+      moduleContainer = moduleContainer.add(entity.select('description').transform(transforms))
+    } else {
+      moduleContainer = moduleContainer.add('This module does not have a description.')
     }
-  }
 
-  if (entity.has('api')) {
-    var apiContent = entity.filter('api')
-    if (apiContent.content[0].content.length) {
-      moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Api'))
-        .add(apiContent.transform(transforms))
+    if (entity.has('examples')) {
+      var exampleContent = entity.filter('examples')
+      if (exampleContent.content[0].content.length) {
+        moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Examples'))
+          .add(exampleContent.transform(transforms))
+      }
     }
+
+    if (entity.has('api')) {
+      var apiContent = entity.filter('api')
+      if (apiContent.content[0].content.length) {
+        moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Api'))
+          .add(apiContent.transform(transforms))
+      }
+    }
+  } else {
+    moduleContainer = moduleContainer.add('This module does not have any documentation for this version.')
   }
 
   return moduleContainer

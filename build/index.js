@@ -12,7 +12,6 @@ var path = require('path')
 var fs = Promise.promisifyAll(require('fs-extra'))
 var util = require('./util')
 var versions = require('../content/versions.json')
-var latestVersion = versions[versions.length - 1]
 
 var glob = Promise.promisify(require('glob'))
 var Progress = require('progress')
@@ -27,36 +26,42 @@ try {
   var privateConfig = {}
 }
 
-function buildMetaData () {
-  var modules = util.moduleList().then(function (moduleNames) {
+function buildMetaData (dev) {
+  if (dev) {
+    var targetVersions = [versions.targetVersions.reverse()[0]]
+  } else {
+    var targetVersions = versions.targetVersions
+  }
+
+  return util.moduleList().then(function (moduleNames) {
     var res = {}
     return Promise.all(moduleNames.map(function (moduleName) {
       return fs.readJsonAsync(path.join(util.toModuleDir(moduleName), 'module.json'))
         .then(function (meta) {
           res[moduleName] = meta
         })
-    })).then(function () {
-      return res
-    })
+    }))
+      .then(function () {
+        return res
+      })
   })
-
-  return fs.readJsonAsync(path.join(util.root, 'content', 'versions.json'))
-    .then(function (versions) {
+    .then(function (modules) {
       return Promise.props({
-        versions: versions,
-        latest: versions[versions.length - 1],
+        versions: versions.versions,
+        targetVersions: targetVersions,
+        latest: versions.latest,
         modules: modules
       })
-    }).then(function (meta) {
-    return fs.writeJsonAsync(path.join('target', 'meta.json'), meta)
-  })
-
+    })
+    .then(function (meta) {
+      return fs.writeJsonAsync(path.join('target', 'meta.json'), meta)
+    })
 }
 
 function createBuilds () {
   // create the dx-prefixed and hx-prefixed builds for the latest version of hexagon
   var buildList = [
-    { dest: 'target/resources/hexagon/' + latestVersion, embedAssets: true },
+    { dest: 'target/resources/hexagon/' + versions.latest, embedAssets: true },
     { dest: 'target/resources/hexagon/docs', prefix: 'dx', embedAssets: true, addFavicons: true }
   ]
   return progressSequence('Building Hexagon', chalk.cyan('='), buildList, function (opts) {
@@ -66,7 +71,7 @@ function createBuilds () {
 
 function buildHexagon (force) { // XXX: do this in the postinstall npm script
   if (force) return createBuilds()
-  return fs.accessAsync('target/resources/hexagon/' + latestVersion + '/hexagon.css', fs.F_OK)
+  return fs.accessAsync('target/resources/hexagon/' + versions.latest + '/hexagon.css', fs.F_OK)
     .then(function () {
       console.log(chalk.cyan('Skipping Hexagon Build (Already Exists)'))
     })
@@ -84,10 +89,17 @@ function copyResources () {
   ])
 }
 
-function getTemplateVariables () {
+function getTemplateVariables (dev) {
+  if (dev) {
+    var targetVersions = [versions.targetVersions.reverse()[0]]
+  } else {
+    var targetVersions = versions.targetVersions
+  }
+
   return Promise.props({
-    version: latestVersion,
-    versionList: fs.readJsonAsync(path.join(util.root, 'content/versions.json')),
+    version: versions.latest,
+    versionList: versions.versions,
+    targetVersionList: targetVersions,
     modules: util.moduleList()
   })
 }
@@ -105,7 +117,7 @@ function progressSequence (desc, completeStyle, list, func) {
     }, {concurrency: 5})
 }
 
-function getOptions () {
+function getOptions (dev) {
   function filenameModifier (filename, version) {
     var baseName = path.basename(filename)
     var moduleName = path.basename(path.dirname(filename))
@@ -135,22 +147,97 @@ function getOptions () {
     })
 
     return {
-      types: types
+      typeLinks: types
     }
   })
 
+  var taggable = [
+    'function',
+    'prototype',
+    'method',
+    'property',
+    'object',
+    'constructor',
+    'returns',
+    'event',
+    'data',
+    'class',
+    'extraclass',
+    'childclass'
+  ]
+
+  var indexable = [
+    'param',
+    'group'
+  ]
+
+  var buildTags = {
+    added: {
+      order: 8
+    },
+    updated: {
+      order: 7
+    },
+    deprecated: {
+      order: 5
+    },
+    removed: {
+      order: 4
+    },
+    enhancement: {
+      keyText: 'Enhancement',
+      iconClass: 'fa fa-fw fa-magic',
+      order: 6,
+      retain: false,
+      removeEntity: false
+    },
+    bugfix: {
+      keyText: 'Bug Fix',
+      iconClass: 'fa fa-fw fa-bug',
+      order: 3,
+      retain: false,
+      removeEntity: false
+    },
+    docs: {
+      keyText: 'Documentation',
+      iconClass: 'fa fa-fw fa-book',
+      order: 2,
+      retain: false,
+      removeEntity: false
+    },
+    info: {
+      keyText: 'Information',
+      iconClass: 'fa fa-fw fa-info',
+      order: 1,
+      retain: false,
+      removeEntity: false
+    }
+  }
+
+  if (dev) {
+    var targetVersions = [versions.targetVersions.reverse()[0]]
+  } else {
+    var targetVersions = versions.targetVersions
+  }
+
   var changelogOptions = {
-    targetVersions: versions,
+    tags: buildTags,
+    taggable: taggable,
+    indexable: indexable,
+    versions: versions.versions,
+    targetVersions: targetVersions,
     milestoneUrl: privateConfig.milestoneUrl || 'https://github.com/ocadotechnology/hexagonjs/milestones/',
     issueUrl: privateConfig.issueUrl || 'https://github.com/ocadotechnology/hexagonjs/issues/'
   }
 
   var versionOptions = {
-    filenameModifier: filenameModifier,
-    versions: versions,
+    tags: buildTags,
+    taggable: taggable,
+    indexable: indexable,
     unmergable: ['examples', 'description', 'extra'],
-    taggable: ['prototype', 'constructor', 'function', 'method', 'property', 'returns', 'class', 'extraclass', 'childclass'],
-    removeTags: ['enhancement', 'bugfix', 'docs', 'info']
+    filenameModifier: filenameModifier,
+    versions: versions.versions,
+    targetVersions: targetVersions
   }
 
   var htmlTransforms = Promise.props({
@@ -167,9 +254,9 @@ function getOptions () {
   })
 }
 
-function buildPages (objs) {
+function buildPages (objs, dev) {
   var start = Date.now()
-  return Promise.all([getTemplateVariables(), getOptions()]).spread(function (templateVariables, options) {
+  return Promise.all([getTemplateVariables(dev), getOptions(dev)]).spread(function (templateVariables, options) {
     return progressSequence('Building pages', chalk.green('='), objs, function (obj) {
       return Promise.resolve(obj)
         .then(template({variables: templateVariables}))
@@ -204,7 +291,9 @@ function buildPages (objs) {
 }
 
 function watchPages () {
-  return watch('content/pages/**/index.um', { base: 'content/pages'}, buildPages).then(function (fun) {
+  // return watch('content/pages/modules/card/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, true)}).then(function (fun) {
+  // return watch('content/pages/changelog/**/index.um', { base: 'content/pages'}, function(objs) {return buildPages(objs, true)}).then(function (fun) {
+  return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, true)}).then(function (fun) {
     return fun()
   })
 }
@@ -232,7 +321,9 @@ if (process.argv[2] === 'build-hexagon') {
 } else {
   buildHexagon(false)
     .then(copyResources)
-    .then(buildMetaData)
+    .then(function (res) {
+      return buildMetaData(res, true)
+    })
     .then(watchPages)
     .then(startServer)
 }

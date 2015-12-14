@@ -152,6 +152,17 @@
 
         @p: The builder api for hexagon has changed in this version to make theming easier. The builder can now export the theme variables in a variety of formats (sass, less, stylus, css variables, json, quantum).
 
+    @version 1.0.1
+      @description
+        @p: An update to the builder to resolve some dependency issues and fix the bower config
+
+    @version 1.0.2
+      @description
+        @p: Fix for the module dependency calculation. If an explicit list of modules is included, the build will now include those modules and all the modules thet they depend on.
+
+    @version 1.0.3
+      @description
+        @p: Update the build config for the themes to allow the theme fonts to be embedded in the css using the @code[embedAssets] option.
 
   @h2: Key
   @changelog.key
