@@ -1488,7 +1488,7 @@ describe 'data-table', ->
           container.classed('hx-data-table-infinite').should.equal(true)
           done()
 
-      describe 'should display the correct text for the currently visible rows', (done) ->
+      describe 'should display the correct text for the currently visible rows', ->
         container = hx.detached('div').style('width', '1000px')
         dt = new hx.DataTable(container.node(), {
           pageSize: [5, 10, 15]
@@ -1512,7 +1512,7 @@ describe 'data-table', ->
               container.select('.hx-data-table-paginator-total-rows').text().should.equal('201 - 400')
               done()
 
-      describe 'should correctly disable the pagnation arrows given the page number', (done) ->
+      describe 'should correctly disable the pagnation arrows given the page number', ->
         container = hx.detached('div').style('width', '1000px')
         dt = new hx.DataTable(container.node())
 

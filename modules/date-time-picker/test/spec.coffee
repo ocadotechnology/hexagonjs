@@ -3,29 +3,27 @@ describe 'date-time-picker', ->
     dp = new hx.DateTimePicker(hx.detached('div').node())
 
     describe 'should return this for getter setters with parameters:', ->
-      it 'datetimepicker.date', -> expect(dp.date(new Date)).toEqual(dp)
-      it 'datetimepicker.day', -> expect(dp.day(10)).toEqual(dp)
-      it 'datetimepicker.hour', -> expect(dp.hour(10)).toEqual(dp)
-      it 'datetimepicker.minute', -> expect(dp.minute(10)).toEqual(dp)
-      it 'datetimepicker.month', -> expect(dp.month(10)).toEqual(dp)
-      it 'datetimepicker.second', -> expect(dp.second(10)).toEqual(dp)
-      it 'datetimepicker.year', -> expect(dp.year(10)).toEqual(dp)
-      it 'datetimepicker.locale', -> expect(dp.locale('en-gb')).toEqual(dp)
+      it 'datetimepicker.date', -> dp.date(new Date).should.equal(dp)
+      it 'datetimepicker.day', -> dp.day(10).should.equal(dp)
+      it 'datetimepicker.hour', -> dp.hour(10).should.equal(dp)
+      it 'datetimepicker.minute', -> dp.minute(10).should.equal(dp)
+      it 'datetimepicker.month', -> dp.month(10).should.equal(dp)
+      it 'datetimepicker.second', -> dp.second(10).should.equal(dp)
+      it 'datetimepicker.year', -> dp.year(10).should.equal(dp)
+      it 'datetimepicker.locale', -> dp.locale('en-gb').should.equal(dp)
+      it 'datetimepicker.disabled', -> dp.disabled(true).should.equal(dp)
 
     describe 'should return values for setter/getters without parameters:', ->
 
       it 'datetimepicker.date', ->
         date = new Date
-        expect(dp.date(date).date()).toEqual(date)
+        dp.date(date).date().should.eql(date)
 
-      it 'datetimepicker.day', -> expect(dp.day(10).day()).toEqual(10)
-      it 'datetimepicker.hour', -> expect(dp.hour(10).hour()).toEqual(10)
-      it 'datetimepicker.minute', -> expect(dp.minute(10).minute()).toEqual(10)
-      it 'datetimepicker.month', -> expect(dp.month(10).month()).toEqual(10)
-      it 'datetimepicker.second', -> expect(dp.second(10).second()).toEqual(10)
-      it 'datetimepicker.year', -> expect(dp.year(10).year()).toEqual(10)
-      it 'datetimepicker.locale', -> expect(dp.locale('en-gb').locale()).toEqual('en-gb')
-
-
-    it 'should return this for disable', -> expect(dp.disable()).toEqual(dp)
-    it 'should return this for enable', -> expect(dp.enable()).toEqual(dp)
+      it 'datetimepicker.day', -> dp.day(10).day().should.equal(10)
+      it 'datetimepicker.hour', -> dp.hour(10).hour().should.equal(10)
+      it 'datetimepicker.minute', -> dp.minute(10).minute().should.equal(10)
+      it 'datetimepicker.month', -> dp.month(10).month().should.equal(10)
+      it 'datetimepicker.second', -> dp.second(10).second().should.equal(10)
+      it 'datetimepicker.year', -> dp.year(10).year().should.equal(10)
+      it 'datetimepicker.locale', -> dp.locale('en-gb').locale().should.equal('en-gb')
+      it 'datetimepicker.disabled', -> dp.disabled(true).disabled().should.equal(true)
