@@ -1,3 +1,0 @@
-@example
-  @html: @inline range-slider.html
-  @coffee: @inline range-slider.coffee

@@ -1,6 +1,11 @@
 
-datePicker1 = new hx.DatePicker('#datepicker-1', 'datepicker')
-datePicker2 = new hx.DatePicker('#datepicker-2', 'calendar')
+datePicker1 = new hx.DatePicker('#datepicker-1')
+datePicker2 = new hx.DatePicker('#datepicker-2', {type: 'datepicker'})
 
-window.datePicker3 = new hx.DatePicker('#datepicker-3', 'calendar', true, true)
-datePicker4 = new hx.DatePicker('#datepicker-4', 'calendar', false, true)
+datePicker3 = new hx.DatePicker('#datepicker-3', {
+  selectRange: true
+})
+datePicker4 = new hx.DatePicker('#datepicker-4', {
+  selectRange: true
+  closeOnSelect: false
+})

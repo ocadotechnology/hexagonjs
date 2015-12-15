@@ -1,3 +1,4 @@
+# Built with npm run build-examples - do not edit manually
 @stylesheet /resources/hexagon/{{version}}/hexagon.css
 @script /resources/hexagon/{{version}}/hexagon.js
 @inline ../../../shared/common.um

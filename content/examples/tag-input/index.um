@@ -1,3 +1,0 @@
-@example
-  @html: @inline taginput.html
-  @coffee: @inline taginput.coffee

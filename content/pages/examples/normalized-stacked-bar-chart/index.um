@@ -1,0 +1,11 @@
+# Built with npm run build-examples - do not edit manually
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
+@inline ../../../shared/common.um
+@titlebar Normalized Stacked Bar Chart Example
+
+@div .dx-content
+  @h1: Normalized Stacked Bar Chart Example
+    @div .docs-example-title-link
+      @hyperlink(/examples/)[All Examples]
+  @inline ../../../examples/normalized-stacked-bar-chart/index.um

@@ -1,7 +1,0 @@
-
-@script //cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment-with-locales.min.js
-@example
-  @hidecode
-  @html: @inline fake-live-report.html
-  @coffee: @inline fake-live-report.coffee
-  @css: @inline fake-live-report.css

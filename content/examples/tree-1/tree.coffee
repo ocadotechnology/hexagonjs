@@ -1,1 +1,0 @@
-tree = new hx.Tree('#tree')

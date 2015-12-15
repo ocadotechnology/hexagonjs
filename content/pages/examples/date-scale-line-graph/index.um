@@ -1,0 +1,11 @@
+# Built with npm run build-examples - do not edit manually
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
+@inline ../../../shared/common.um
+@titlebar Date Scale Line Graph Example
+
+@div .dx-content
+  @h1: Date Scale Line Graph Example
+    @div .docs-example-title-link
+      @hyperlink(/examples/)[All Examples]
+  @inline ../../../examples/date-scale-line-graph/index.um

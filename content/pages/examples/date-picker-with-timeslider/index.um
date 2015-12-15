@@ -1,10 +1,11 @@
+# Built with npm run build-examples - do not edit manually
 @stylesheet /resources/hexagon/{{version}}/hexagon.css
 @script /resources/hexagon/{{version}}/hexagon.js
 @inline ../../../shared/common.um
-@titlebar Date Picker With Timeslider Example
+@titlebar Date Picker with Timeslider Example
 
 @div .dx-content
-  @h1: Date Picker With Timeslider Example
+  @h1: Date Picker with Timeslider Example
     @div .docs-example-title-link
       @hyperlink(/examples/)[All Examples]
   @inline ../../../examples/date-picker-with-timeslider/index.um

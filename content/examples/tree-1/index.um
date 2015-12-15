@@ -1,3 +1,0 @@
-@example
-  @html: @inline tree.html
-  @coffee: @inline tree.coffee

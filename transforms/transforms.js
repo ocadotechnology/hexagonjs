@@ -115,24 +115,3 @@ exports.example = function (entity, page, transforms) {
     .add(body)
     .add(code)
 }
-
-exports.exampleLinkList = function (entity, page, transforms) {
-  var Promise = require('bluebird')
-  var fs = Promise.promisifyAll(require('fs-extra'))
-
-  function capitalise (s) {
-    return s.split('-').map(function (part) {return part[0].toUpperCase() + part.slice(1)}).join(' ')
-  }
-
-  return fs.readdirAsync('content/examples')
-    .map(function (exampleName) {
-      return page.create('div').class('docs-example-link')
-        .add(page.create('a')
-          .attr('href', '/examples/' + exampleName + '/')
-          .text(capitalise(exampleName)))
-    })
-    .then(function (examples) {
-      return page.create('div').class('docs-example-link-container')
-        .add(examples)
-    })
-}
