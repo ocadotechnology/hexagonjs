@@ -27,7 +27,7 @@ try {
 }
 
 function buildMetaData (dev) {
-  if (dev) {
+  if (dev === true) {
     var targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
     var targetVersions = versions.targetVersions
@@ -90,7 +90,7 @@ function copyResources () {
 }
 
 function getTemplateVariables (dev) {
-  if (dev) {
+  if (dev === true) {
     var targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
     var targetVersions = versions.targetVersions
@@ -214,7 +214,7 @@ function getOptions (dev) {
     }
   }
 
-  if (dev) {
+  if (dev === true) {
     var targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
     var targetVersions = versions.targetVersions
@@ -321,8 +321,8 @@ if (process.argv[2] === 'build-hexagon') {
 } else {
   buildHexagon(false)
     .then(copyResources)
-    .then(function (res) {
-      return buildMetaData(res, true)
+    .then(function () {
+      return buildMetaData(true)
     })
     .then(watchPages)
     .then(startServer)
