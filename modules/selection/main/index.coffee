@@ -19,11 +19,6 @@ getMethod = (node, methodName) ->
 selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, selector)
 selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
 
-# use Sizzle if it is available. untested
-if typeof Sizzle is "function"
-  selectSingle = (selector, node) -> Sizzle(selector, node)[0] or null
-  selectAll = Sizzle
-
 getHexagonElementDataObject = (element, createIfNotExists = true) ->
   if createIfNotExists
     element.__hx__ ?= {}
@@ -124,6 +119,7 @@ class Selection
     @nodes = @nodes.filter((d) -> d?)
     @singleSelection = false
 
+  # selects the first node matching the selector relative to this selection's nodes
   select: (selector) ->
     if not hx.isString(selector)
       hx.consoleWarning(
@@ -137,6 +133,7 @@ class Selection
       s.singleSelection = @singleSelection
       s
 
+  # selects all nodes matching the selector relative to this selection's nodes
   selectAll: (selector) ->
     if not hx.isString(selector)
       hx.consoleWarning(
@@ -148,6 +145,7 @@ class Selection
     else
       new Selection(flattenNodes(@nodes.map((node) -> selectAll(selector, node))))
 
+  # traverses up the dom to find the closest matching element. returns a selection containing the result
   closest: (selector) ->
     s = if not hx.isString(selector)
       hx.consoleWarning(
@@ -217,29 +215,35 @@ class Selection
   # inserts the element after the selected (at the same level in the dom tree)
   insertAfter: (name) -> attach(this, name, ((parent, node) -> parent.parentNode.insertBefore(node, parent.nextSibling)), true)
 
+  # removes the selected elements from the dom
   remove: -> node.parentNode?.removeChild(node) for node in @nodes
 
   # removes all children from the selected nodes
   clear: ->
     for node in @nodes
+      removeChild = getMethod(node, 'removeChild')
       while node.firstChild
-        getMethod(node, 'removeChild').call(node, node.firstChild)
+        removeChild.call(node, node.firstChild)
     this
 
+  # gets the nth node in the selection, defaulting to the first
   node: (i=0) -> @nodes[i]
 
+  # clones the nodes in the selection, and returns a new selection holding the cloned nodes
   clone: (deep = true) ->
     newNodes = (getMethod(node, 'cloneNode').call(node, deep) for node in @nodes)
     s = new Selection(newNodes)
     s.singleSelection = @singleSelection
     s
 
+  # gets or sets a property for the nodes in the selection
   prop: (property, value) ->
     if arguments.length == 2
       if value? then (node[property] = value for node in @nodes)
-      @
+      this
     else reformed(@singleSelection, node[property] for node in @nodes)
 
+  # gets or sets an attribute of the nodes in the selection
   attr: (attribute, value) ->
     if attribute.indexOf(':') >= 0
       parts = attribute.split(':')
@@ -269,7 +273,7 @@ class Selection
 
       reformed(@singleSelection, (if (val = getVal(node)) isnt null then val else undefined) for node in @nodes)
 
-
+  # gets or sets a style attribute of the nodes in the selection
   style: (property, value) ->
     if arguments.length == 2
       for node in @nodes
@@ -280,6 +284,7 @@ class Selection
       this
     else reformed(@singleSelection, window.getComputedStyle(node, null).getPropertyValue(property) for node in @nodes)
 
+  # gets or sets the text of the nodes in the selection
   text: (text) ->
     if arguments.length == 1
       for node in @nodes
@@ -288,14 +293,16 @@ class Selection
     else
       reformed(@singleSelection, ((node.textContent or '') for node in @nodes))
 
+  # gets or sets the inner html of the nodes in the selection
   html: (html) ->
     if arguments.length == 1
       for node in @nodes
-        node.innerHTML = html or ''
+        node.innerHTML = if html? then html else ''
       this
     else
       reformed(@singleSelection, ((node.innerHTML or '') for node in @nodes))
 
+  # gets or sets the class attribute of the nodes in the selection
   class: (_class) ->
     if arguments.length == 1
       getMethod(node, 'setAttribute').call(node, 'class', _class or '') for node in @nodes
@@ -303,6 +310,7 @@ class Selection
     else
       reformed(@singleSelection, ((getMethod(node, 'getAttribute').call(node, 'class') or '') for node in @nodes))
 
+  # adds, removes or gets a class in the class list for a node
   classed: (_class, include) ->
     if arguments.length == 1
       classes = ((getMethod(node, 'getAttribute').call(node, 'class') or '') for node in @nodes)
@@ -310,8 +318,10 @@ class Selection
     else
       classed(node, _class, include) for node in @nodes; this
 
+  # gets or sets the value property of a node
   value: (value) -> if arguments.length == 1 then @prop('value', value) else @prop('value')
 
+  # subscribe for dom events from the underlying nodes
   on: (name, namespace, f) ->
     if not hx.isString(namespace)
       f = namespace
@@ -350,6 +360,7 @@ class Selection
         eventEmitter.on name, f
     this
 
+  # unsubscribe for dom events from the underlying nodes
   off: (name, namespace, f) ->
     if not hx.isString(namespace)
       f = namespace
@@ -370,6 +381,7 @@ class Selection
       data.eventEmitter?.off(name, namespace, f)
     this
 
+  # attaches or reads some data from the underlying nodes
   data: (key, value) ->
     if arguments.length == 1
       values = for node in @nodes
@@ -383,27 +395,36 @@ class Selection
         data.data.set(key, value)
       this
 
+  # runs some function for each node in the selection
   forEach: (f) ->
     @nodes.map((node) -> select(node)).forEach(f)
     this
 
+  # maps the selection to an array
   map: (f) -> reformed(@singleSelection, @nodes.map((node) -> select(node)).map(f))
 
+  # creates a new selection with some of the nodes filtered out
   filter: (f) ->
     s = new Selection(@nodes.filter((node) -> f(select(node))))
     s.singleSelection = @singleSelection
     s
 
+  # gets the client rect box for nodes in the selection
   box: -> reformed(@singleSelection, getMethod(node, 'getBoundingClientRect').call(node) for node in @nodes)
 
+  # gets the widths of the nodes in the selection (in pixels)
   width: -> reformed(@singleSelection, getMethod(node, 'getBoundingClientRect').call(node).width for node in @nodes)
 
+  # gets the heights of the nodes in the selection (in pixels)
   height: -> reformed(@singleSelection, getMethod(node, 'getBoundingClientRect').call(node).height for node in @nodes)
 
+  # gets the number of nodes in the selection
   size: -> @nodes.length
 
+  # checks if the selection is empty
   empty: -> @nodes.length == 0
 
+  # checks if any of the nodes in the selection contain the supplied node
   contains: (element) ->
     for node in @nodes
       if getMethod(node, 'contains').call(node, element) then return true
@@ -420,7 +441,6 @@ select = (selector, isArray) ->
 
 # expose
 hx.select = (selector) ->
-  # TODO: remove from minified build
   if selector instanceof Selection
     hx.consoleWarning(
       'hx.select was passed a selection',
@@ -443,7 +463,6 @@ hx.select.getHexagonElementDataObject = getHexagonElementDataObject
 hx.select.addEventAugmenter = (augmenter) -> augmenters.push augmenter
 
 hx.selectAll = (selector) ->
-  # TODO: remove from minified build
   if not (hx.isString(selector) or hx.isArray(selector))
     hx.consoleWarning(
       'hx.selectAll was passed the wrong argument type',
