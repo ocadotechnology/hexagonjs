@@ -28,6 +28,5 @@
         @event change [Object]
           @updated: Now emits an object instead of a value.
           @description: Emitted when the dropdown is shown or hidden
-          @data Object
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-            @property value [Any]: The item that was selected.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property value [Any]: The item that was selected.

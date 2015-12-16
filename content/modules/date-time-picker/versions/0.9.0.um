@@ -136,8 +136,8 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event change: Emitted when the date or time is changed.
-          @data [Date]: The currently selected date.
+        @event change [Date]
+          @description: Emitted when the date or time is changed. The data with the event is the currently selected date.
 
         @returns DateTimePicker: This DateTimePicker
 

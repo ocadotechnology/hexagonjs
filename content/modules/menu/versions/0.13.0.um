@@ -105,32 +105,28 @@
 
             Use the @code[highlight] event instead.
 
-        @event change
+        @event change [Object]
           @added: Added a new event to replace the 'select' event.
-
           @description: The event called when a menu item is selected.
-          @data Object
-            @property eventType [String]
-              @description:
-                The type of event that caused the selection:
-                @list:
-                  'click' - User clicked
-                  'enter' - User pressed the enter key
-                  'tab'   - User pressed the tab key
-            @property item [String/Object]: The menu item as it was passed into the menu.
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                'click' - User clicked
+                'enter' - User pressed the enter key
+                'tab'   - User pressed the tab key
+          @property item [String/Object]: The menu item as it was passed into the menu.
 
-        @event highlight
+        @event highlight [Object]
           @added: Added a new event to replace the 'activeset' event
-
           @description: The event called when a menu item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
-          @data Object
-            @property eventType [String]
-              @description:
-                The type of event that caused the selection:
-                @list:
-                  'click' - User clicked
-                  'arrow' - User used the arrow keys
-            @property item [String/Object]: The menu item as it was passed into the menu.
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                'click' - User clicked
+                'arrow' - User used the arrow keys
+          @property item [String/Object]: The menu item as it was passed into the menu.
 
         @event dropdown.showstart
           @added: Pipe the dropdown events through so they can be listened to directly.
@@ -150,8 +146,8 @@
 
         @event dropdown.change [Boolean]
           @added: Pipe the dropdown events through so they can be listened to directly.
-          @description: Emitted when the dropdown is shown or hidden
-          @data [Boolean]: A boolean indicating whether or not the dropdown is hidden.
+          @description: Emitted when the dropdown is shown or hidden. The data sent with this event is a boolean indicating whether or not the dropdown is visible. True means that the dropdown has just been shown, false means it has just been hidden.
+
 
 
       @method items

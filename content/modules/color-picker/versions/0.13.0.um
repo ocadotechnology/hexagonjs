@@ -120,5 +120,4 @@
 
         @event dropdown.change [Boolean]
           @added: Pipe the dropdown events through so they can be listened to directly.
-          @description: Emitted when the dropdown is shown or hidden
-          @data [Boolean]: A boolean indicating whether or not the dropdown is hidden.
+          @description: Emitted when the dropdown is shown or hidden. The data that comes with the event is a boolean indicating whether or not the dropdown is hidden. True means that the dropdown has just been shown, false means that it has just been hidden.

@@ -102,9 +102,8 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event change
+        @event change [String]
           @description
-            The event called when the selected item is changed.
-          @data [String]: The value that was selected.
+            The event called when the selected item is changed. The data is the value that was selected.
 
         @returns ButtonGroup: This button group

@@ -160,13 +160,13 @@
           @param data [Any]
 
         @event change
-        @event time.change: Emitted when the time is changed.
-          @data Object: An object containing the type of call that has been made
-            @property type [String]: The type of event that fired the change. Can be 'user' (when the user clicks something to change the time) or 'api' (when a method call is used to change the api.)
+        @event time.change [Object]
+          @description: Emitted when the time is changed.
+          @property type [String]: The type of event that fired the change. Can be 'user' (when the user clicks something to change the time) or 'api' (when a method call is used to change the api.)
         @event time.show
         @event time.hide
-        @event date.change: Emitted when the date is changed.
-          @data Object: An object containing the type of call that has been made
-            @property type [String]: The type of event that fired the change. Can be 'user' (when the user clicks something to change the date) or 'api' (when a method call is used to change the api.)
+        @event date.change [Object]
+          @description: Emitted when the date is changed.
+          @property type [String]: The type of event that fired the change. Can be 'user' (when the user clicks something to change the date) or 'api' (when a method call is used to change the api.)
         @event date.show
         @event date.hide

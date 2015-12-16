@@ -50,13 +50,11 @@
 
         @added: Added an on click listener to series.
 
-
-        @event click
+        @event click [Object]
           @description: The event emitted when a series is clicked.
-          @data Object
-            @property event: The click event data.
-            @property data: The data of the point on the line that was clicked.
-            @property series: The selected series.
+          @property event: The click event data.
+          @property data: The data of the point on the line that was clicked.
+          @property series: The selected series.
         @returns LineSeries: This LineSeries
 
       @method createLabelValues [Function]
@@ -122,13 +120,11 @@
 
         @added: Added an on click listener to series.
 
-
-        @event click
+        @event click [Object]
           @description: The event emitted when a series is clicked.
-          @data Object
-            @property event: The click event data.
-            @property data: The data of the point on the band that was clicked.
-            @property series: The selected series.
+          @property event: The click event data.
+          @property data: The data of the point on the band that was clicked.
+          @property series: The selected series.
         @returns BandSeries: This BandSeries
 
       @method createLabelValues [Function]
@@ -162,13 +158,11 @@
 
         @added: Added an on click listener to series.
 
-
-        @event click
+        @event click [Object]
           @description: The event emitted when a series is clicked.
-          @data Object
-            @property event: The click event data.
-            @property data: The data of the bar that was clicked.
-            @property series: The selected series.
+          @property event: The click event data.
+          @property data: The data of the bar that was clicked.
+          @property series: The selected series.
         @returns BarSeries: This BarSeries
 
     @prototype ScatterSeries
@@ -185,13 +179,11 @@
 
         @added: Added an on click listener to series.
 
-
-        @event click
+        @event click [Object]
           @description: The event emitted when a series is clicked.
-          @data Object
-            @property event: The click event data.
-            @property data: The data of the point on the graph that was clicked.
-            @property series: The selected series.
+          @property event: The click event data.
+          @property data: The data of the point on the graph that was clicked.
+          @property series: The selected series.
 
         @returns ScatterSeries: This ScatterSeries
 
@@ -221,13 +213,11 @@
 
         @added: Added an on click listener to series.
 
-
-        @event click
+        @event click [Object]
           @description: The event emitted when a series is clicked.
-          @data Object
-            @property event: The click event data.
-            @property data: The data of the point on the line that was clicked.
-            @property series: The selected series.
+          @property event: The click event data.
+          @property data: The data of the point on the line that was clicked.
+          @property series: The selected series.
 
         @returns StraightLineSeries: This StraightLineSeries
 
@@ -260,13 +250,11 @@
 
         @added: Added an on click listener to graphs as an alternative method of accessing the series on click.
 
-
-        @event click
+        @event click [Object]
           @description: The event emitted when a series is clicked.
-          @data Object
-            @property event: The click event data.
-            @property data: The data of the point or element that was clicked.
-            @property series: The selected series.
+          @property event: The click event data.
+          @property data: The data of the point or element that was clicked.
+          @property series: The selected series.
         @returns Graph: This Graph
 
       @property useZoom [Boolean]
@@ -318,13 +306,11 @@
 
         @added: Added an on click listener to pie charts.
 
-
-        @event click
+        @event click [Object]
           @description: The event emitted when the pie chart is clicked.
-          @data Object
-            @property event: The click event data.
-            @property data: The data of the segment that was clicked.
-            @property series: The series data for the pie chart or pie chart ring.
+          @property event: The click event data.
+          @property data: The data of the segment that was clicked.
+          @property series: The series data for the pie chart or pie chart ring.
 
         @returns PieChart: This PieChart
 

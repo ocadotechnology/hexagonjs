@@ -49,9 +49,9 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event submit
-          @description: Emitted when the form is submitted. The form data is included with this event.
-          @data [Object]: An object containing the same form data that would be retrieved with form.getData()
+        @event submit [Object]
+          @description: Emitted when the form is submitted. The form data is included with this event. The data is an object containing the same form data that would be retrieved with form.getData()
+
         @returns Form: This Form
 
       @method addText

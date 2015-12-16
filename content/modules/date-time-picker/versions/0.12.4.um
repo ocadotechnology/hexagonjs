@@ -13,5 +13,5 @@
         @event date.show: Emitted when the date picker is shown.
         @event date.hide: Emitted when the date picker is hidden.
 
-        @event change: Emitted when the date or time is changed.
-          @data [Date]: The currently selected date.
+        @event change [Date]
+          @description: Emitted when the date or time is changed. The data sent with the event is the currently selected date.

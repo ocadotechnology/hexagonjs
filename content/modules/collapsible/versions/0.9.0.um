@@ -46,8 +46,7 @@
           @description: Emitted when the collapsible is hidden. No extra data with this event type
 
         @event change [Boolean]
-          @description: Emitted when the collapsible's state changes. The data that comes with this event is a boolean.
-          @data [Boolean]: True means that the collapsible has just been opened, false means it has just been closed.
+          @description: Emitted when the collapsible's state changes. The data that comes with this event is a boolean. True means that the collapsible has just been opened, false means it has just been closed.
 
         @returns Collapsible: This Collapsible
 

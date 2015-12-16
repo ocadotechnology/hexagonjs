@@ -94,12 +94,12 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event drag: The event emitted whilst an element is being dragged.
-          @data HTMLElement: The selected element
-        @event dragstart: The event emitted at the start of an element being dragged.
-          @data HTMLElement: The selected element
-        @event dragend: The event emitted at the end of an element being dragged.
-          @data HTMLElement: The selected element
+        @event drag [HTMLElement]
+          @description: The event emitted whilst an element is being dragged. The data with the event is the element that is being dragged.
+        @event dragstart [HtTMLElement]
+          @description: The event emitted at the start of an element being dragged. The data with the event is the element that is being dragged.
+        @event dragend [HtTMLElement]
+          @description: The event emitted at the end of an element being dragged. The data with the event is the element that is being dragged.
 
     @class hx-drag-container: The class applied to the drag container.
       @childclass hx-drag-element: The class to apply to elements that should be draggable

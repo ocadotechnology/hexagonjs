@@ -17,10 +17,10 @@
         @event rowcollapsible
         @event render
 
-        @event rowclick: An event called when a row is clicked
-          @data Object
-            @property data [Object/Array]: The row data
-            @property node [Node]: The row node
+        @event rowclick [Object]
+          @description: An event called when a row is clicked
+          @property data [Object/Array]: The row data
+          @property node [Node]: The row node
 
       @property options [Object]
 

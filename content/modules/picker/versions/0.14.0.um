@@ -73,16 +73,15 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event highlight
+        @event highlight [Object]
           @description: The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
-          @data Object
-            @property eventType [String]
-              @description:
-                The type of event that caused the selection:
-                @list:
-                  'click' - User clicked
-                  'arrow' - User used the arrow keys
-            @property item [String/Object]: The item as it was passed into the select.
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                'click' - User clicked
+                'arrow' - User used the arrow keys
+          @property item [String/Object]: The item as it was passed into the select.
 
         @event change [Object]
           @description: Emitted when the selected value is changed.
@@ -106,8 +105,8 @@
 
         @event dropdown.change [Boolean]
           @added: Pipe the dropdown events through so they can be listened to directly.
-          @description: Emitted when the dropdown is shown or hidden
-          @data [Boolean]: A boolean indicating whether or not the dropdown is hidden.
+          @description: Emitted when the dropdown is shown or hidden. The data with the event is a boolean indicating whether or not the dropdown is visible. True means it has
+
 
         @returns Picker: This Picker
 

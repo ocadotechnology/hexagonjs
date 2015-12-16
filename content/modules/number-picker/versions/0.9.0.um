@@ -55,13 +55,11 @@
         @event decrement
           @description: Called when the value is decremented
 
-        @event change
-          @description: Called when the value is changed
-          @data [Number]: The new value of the number picker
+        @event change [Number]
+          @description: Called when the value is changed. The data with the event is the new value of the number picker
 
-        @event input-change
-          @description: Called when the input value is changed
-          @data [Number]: The new value of the number picker
+        @event input-change [Number]
+          @description: Called when the input value is changed. The data with the event is the new value of the number picker
 
         @returns NumberPicker: This NumberPicker
   @theme

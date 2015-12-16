@@ -188,9 +188,11 @@
         @param callback [Function]
           @param data [Any]
 
-        @event change: Emitted when the date is changed.
-          @data Object: An object containing the type of call that has been made
-            @property type [String]: The type of event that fired the change. Can be 'user' (when the user clicks something to change the date) or 'api' (when a method call is used to change the api.)
+        @event change [Object]
+          @description: Emitted when the date is changed.
+          @property type [String]: The type of event that fired the change. Can be 'user' (when the user clicks something to change the date) or 'api' (when a method call is used to change the api.)
+
         @event show: Emitted when the date picker is shown.
+
         @event hide: Emitted when the date picker is hidden.
 

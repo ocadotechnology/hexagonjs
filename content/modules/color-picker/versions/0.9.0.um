@@ -78,10 +78,14 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event change: Emitted when the dropdown is opened, whilst the color is changed and when the color has finished changing.
-          @data [Color]: The current color of the color picker.
-        @event changeend: Emitted when the color has finished being changed (either by the visual method or by the input boxes).
-          @data [Color]: The current color of the color picker.
+        @event change [Color]
+          @description
+            Emitted when the dropdown is opened, whilst the color is changed and when the color has finished changing. The data emitted with the event is the current color selected.
+
+        @event changeend [Color]
+          @description
+            Emitted when the color has finished being changed (either by the visual method or by the input boxes). The data emitted with the event is the current color selected.
+
         @returns ColorPicker: This ColorPicker
 
   @theme

@@ -19,26 +19,25 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event select
+        @event select [Object]
           @description: The event called when a menu item is selected.
-          @data Object
-            @property eventType [String]
-              @description:
-                The type of event that caused the selection:
-                @list:
-                  'click' - User clicked
-                  'enter' - User pressed the enter key
-                  'tab'   - User pressed the tab key
-            @property item [String/Object]: The menu item as it was passed into the menu.
-        @event activeset
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                'click' - User clicked
+                'enter' - User pressed the enter key
+                'tab'   - User pressed the tab key
+          @property item [String/Object]: The menu item as it was passed into the menu.
+
+        @event activeset [Object]
           @description: The event called when a menu item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
-          @data Object
-            @property eventType [String]
-              @description:
-                The type of event that caused the selection:
-                @list:
-                  'click' - User clicked
-                  'arrow' - User used the arrow keys
-            @property item [String/Object]: The menu item as it was passed into the menu.
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                'click' - User clicked
+                'arrow' - User used the arrow keys
+          @property item [String/Object]: The menu item as it was passed into the menu.
 
         @returns Menu: This Menu
