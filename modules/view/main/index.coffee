@@ -2,7 +2,12 @@
 class View
   constructor: (@rootSelection, @selector, @defaultType) ->
     self = this
-    @new = (datum) -> if self.selector.charAt(0)=='.' then @append(self.defaultType).class(self.selector.substring(1)).node() else @append(self.defaultType).node()
+    @new = (datum) ->
+      [elementType, classes...] = self.selector.split '.'
+      node = @append elementType or self.defaultType
+        .class classes.join ' '
+        .node()
+      node
     @each = (datum, element) ->
     @old = (datum, element) -> @remove()
   enter: (f) -> @new = f; this
@@ -68,10 +73,21 @@ class View
           enterSet.push {datum: data[j]}
 
 
-    newNodeSet = ({element: @new.call(@rootSelection, d.datum, i), datum: d.datum} for d, i in enterSet)
+    newNodeSet = enterSet.map (d, i) =>
+      datum = d.datum
+      element = @new.call @rootSelection, d.datum, i
+      nodes = @rootSelection.selectAll(@selector).nodes
 
-    for d in newNodeSet
-      hx.select.getHexagonElementDataObject(d.element).datum = d.datum
+      unless element in nodes
+        hx.consoleWarning "view enter fn returned", element, "! It didn't match selector", @selector, ", so you may encounter odd behavior"
+
+      hedo = hx.select.getHexagonElementDataObject element
+      hedo.datum = datum
+      ret =
+        element: element
+        datum: d.datum
+
+    newNodeSet.forEach (d) ->
 
     @old.call(hx.select(d.element), d.datum, d.element, i) for d, i in exitSet
     @each.call(hx.select(d.element), d.datum, d.element, i) for d, i in updateSet.concat(newNodeSet)
