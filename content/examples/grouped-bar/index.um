@@ -1,4 +1,0 @@
-@example
-  @html: @inline grouped-bar.html
-  @coffee: @inline grouped-bar.coffee
-  @css: @inline grouped-bar.css

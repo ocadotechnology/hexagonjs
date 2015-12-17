@@ -2586,6 +2586,7 @@
       @default #E0E0E0
 
   @extra
+    @h1 .docs-module-section: Getting Started
     @inline 0.15.2/handbook/graphs/graphs.um
     @inline 0.15.2/handbook/axes/axes.um
     @inline 0.15.2/handbook/series/series.um

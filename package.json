@@ -10,11 +10,12 @@
   "scripts": {
     "start": "node build/index.js",
     "clean": "rm -r target; true",
+    "build-all": "node build/index.js build-all",
     "build-examples": "node build/buildexamples.js",
     "build-hexagon": "node build/index.js build-hexagon",
     "build-release": "node build/index.js build-release",
-    "release": "npm run clean && npm run build-examples && npm run build-release && npm run upload"
     "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 6 --promote",
+    "release": "npm run clean && npm run build-examples && npm run build-release && npm run upload"
   },
   "private": true,
   "devDependencies": {

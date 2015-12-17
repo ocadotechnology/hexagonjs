@@ -658,3 +658,10 @@
 
       @property color [String]
         @removed: Use @code(js)[series.strokeColor(color)] to set the color, @code(js)[series.strokeColor()] to get the color.
+
+  @extra
+    @h1 .docs-module-section: Getting Started
+    @inline 1.0.0/handbook/graphs/graphs.um
+    @inline 1.0.0/handbook/axes/axes.um
+    @inline 1.0.0/handbook/series/series.um
+    @inline 1.0.0/handbook/pie-charts/pie-charts.um

@@ -18,6 +18,7 @@ percentageSegments = [
     "value": 1
   }
   {
+    "class": 'hx-action'
     "value": 0.1
   }
 ]
@@ -26,6 +27,7 @@ percentageSegments = [
 # Ratio value defaults to 1. Segments are not sorted.
 ratioSegments = [
   {
+    "class": 'hx-action'
     "ratio": 1
   }
   {

@@ -1,4 +1,0 @@
-@example
-  @html: @inline piechart2.html
-  @coffee: @inline piechart2.coffee
-  @css: @inline piechart2.css

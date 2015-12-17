@@ -1,4 +1,0 @@
-@example
-  @html: @inline linegraph3.html
-  @coffee: @inline linegraph3.coffee
-  @css: @inline linegraph3.css

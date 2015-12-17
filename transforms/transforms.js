@@ -3,7 +3,8 @@ var quantum = require('quantum-js')
 exports.section = function (entity, page, transforms) {
   return page.create('div').class('docs-section')
     .add(page.create('h2').text(entity.ps()))
-    .add(entity.transform(transforms))
+    .add(page.create('div').class('docs-section-content')
+      .add(entity.transform(transforms)))
 }
 
 exports.card = function (entity, page, transforms) {
@@ -47,6 +48,10 @@ exports.module = function (entity, page, transforms) {
         moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Api'))
           .add(apiContent.transform(transforms))
       }
+    }
+
+    if (entity.has('extra')) {
+      moduleContainer = moduleContainer.add(entity.select('extra').transform(transforms))
     }
   } else {
     moduleContainer = moduleContainer.add('This module does not have any documentation for this version.')

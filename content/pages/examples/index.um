@@ -7,13 +7,9 @@
     @div .docs-example-link
       @hyperlink(/examples/animated-circles/)[Animated Circles]
     @div .docs-example-link
-      @hyperlink(/examples/area-graph/)[Area Graph]
-    @div .docs-example-link
       @hyperlink(/examples/auto-complete/)[Auto Complete]
     @div .docs-example-link
       @hyperlink(/examples/collapsible-table-rows/)[Collapsible Table Rows]
-    @div .docs-example-link
-      @hyperlink(/examples/combined-actual-and-projected-line-graph/)[Combined Actual and Projected Line Graph]
     @div .docs-example-link
       @hyperlink(/examples/composite-drawing/)[Composite Drawing]
     @div .docs-example-link
@@ -21,15 +17,9 @@
     @div .docs-example-link
       @hyperlink(/examples/date-picker-with-timeslider/)[Date Picker with Timeslider]
     @div .docs-example-link
-      @hyperlink(/examples/date-scale-line-graph/)[Date Scale Line Graph]
-    @div .docs-example-link
       @hyperlink(/examples/date-time-picker/)[Date Time Picker]
     @div .docs-example-link
       @hyperlink(/examples/device-targeting/)[Device Targeting]
-    @div .docs-example-link
-      @hyperlink(/examples/discrete-line-graph/)[Discrete Line Graph]
-    @div .docs-example-link
-      @hyperlink(/examples/donut-chart/)[Donut Chart]
     @div .docs-example-link
       @hyperlink(/examples/drawing-shapes/)[Drawing Shapes]
     @div .docs-example-link
@@ -39,15 +29,9 @@
     @div .docs-example-link
       @hyperlink(/examples/form-builder/)[Form Builder]
     @div .docs-example-link
-      @hyperlink(/examples/gradient-fill-color-line-graph/)[Gradient Fill Color Line Graph]
-    @div .docs-example-link
-      @hyperlink(/examples/gradient-stroke-color-line-graph/)[Gradient Stroke Color Line Graph]
-    @div .docs-example-link
-      @hyperlink(/examples/grouped-bar/)[Grouped Bar]
+      @hyperlink(/examples/graph-and-chart/)[Graph and Chart]
     @div .docs-example-link
       @hyperlink(/examples/hexagonal-game-of-life/)[Hexagonal Game Of Life]
-    @div .docs-example-link
-      @hyperlink(/examples/line-graph-with-data-gap/)[Line Graph with Data Gap]
     @div .docs-example-link
       @hyperlink(/examples/meter/)[Meter]
     @div .docs-example-link
@@ -57,17 +41,9 @@
     @div .docs-example-link
       @hyperlink(/examples/morphing-sections-popup/)[Morphing Sections Popup]
     @div .docs-example-link
-      @hyperlink(/examples/multi-group-stacked-bar-chart/)[Multi Group Stacked Bar Chart]
-    @div .docs-example-link
       @hyperlink(/examples/multi-segment-progress-bar/)[Multi Segment Progress Bar]
     @div .docs-example-link
-      @hyperlink(/examples/multi-series-line-graph/)[Multi Series Line Graph]
-    @div .docs-example-link
-      @hyperlink(/examples/multi-series-pie-chart/)[Multi Series Pie Chart]
-    @div .docs-example-link
       @hyperlink(/examples/mutliple-collapsible-initialization/)[Mutliple Collapsible Initialization]
-    @div .docs-example-link
-      @hyperlink(/examples/normalized-stacked-bar-chart/)[Normalized Stacked Bar Chart]
     @div .docs-example-link
       @hyperlink(/examples/notification-pinning/)[Notification Pinning]
     @div .docs-example-link
@@ -79,8 +55,6 @@
     @div .docs-example-link
       @hyperlink(/examples/random-lines/)[Random Lines]
     @div .docs-example-link
-      @hyperlink(/examples/scatter-graph/)[Scatter Graph]
-    @div .docs-example-link
       @hyperlink(/examples/selection/)[Selection]
     @div .docs-example-link
       @hyperlink(/examples/slider/)[Slider]
@@ -89,12 +63,4 @@
     @div .docs-example-link
       @hyperlink(/examples/split-buttons/)[Split Buttons]
     @div .docs-example-link
-      @hyperlink(/examples/stacked-area-graph/)[Stacked Area Graph]
-    @div .docs-example-link
-      @hyperlink(/examples/stacked-area-graph-with-data-overlap/)[Stacked Area Graph with Data Overlap]
-    @div .docs-example-link
-      @hyperlink(/examples/stacked-bar-chart/)[Stacked Bar Chart]
-    @div .docs-example-link
       @hyperlink(/examples/sticky-table-headers/)[Sticky Table Headers]
-    @div .docs-example-link
-      @hyperlink(/examples/straight-line-graph/)[Straight Line Graph]

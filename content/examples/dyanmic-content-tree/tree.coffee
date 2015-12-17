@@ -7,11 +7,11 @@ data = [
         "children": [
           {
             "name": "item 1",
-            "color": "defaultCol"
+            "color": "action"
           },
           {
             "name": "item 2",
-            "color": "positiveCol"
+            "color": "positive"
           }
         ]
       },
@@ -20,11 +20,11 @@ data = [
         "children": [
           {
             "name": "item 3",
-            "color": "warningCol"
+            "color": "warning"
           },
           {
             "name": "item 4",
-            "color": "negativeCol"
+            "color": "negative"
           }
         ]
       },
@@ -33,11 +33,11 @@ data = [
         "children": [
           {
             "name": "item 5",
-            "color": "infoCol"
+            "color": "info"
           },
           {
             "name": "item 6",
-            "color": "defaultCol"
+            "color": "action"
           }
         ]
       }
@@ -51,8 +51,6 @@ data = [
 
 tree = new hx.Tree('#tree', {
   renderer:(element, datum) ->
-    hx.select(element)
-      .text(datum.name)
-      .style('color', hx.theme.palette[datum.color])
+    hx.palette.textContext(hx.select(element).text(datum.name).node(), datum.color)
   items: data
 })

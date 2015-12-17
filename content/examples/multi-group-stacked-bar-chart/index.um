@@ -1,4 +1,0 @@
-@example
-  @html: @inline stacked-bar-2.html
-  @coffee: @inline stacked-bar-2.coffee
-  @css: @inline stacked-bar-2.css

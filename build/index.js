@@ -292,7 +292,7 @@ function buildPages (objs, dev) {
 }
 
 function watchPages () {
-  return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, true)}).then(function (fun) {
+  return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, process.argv[2] !== 'build-all')}).then(function (fun) {
     return fun()
   })
 }
@@ -321,7 +321,7 @@ if (process.argv[2] === 'build-hexagon') {
   buildHexagon(false)
     .then(copyResources)
     .then(function () {
-      return buildMetaData(true)
+      return buildMetaData(process.argv[2] !== 'build-all')
     })
     .then(watchPages)
     .then(startServer)

@@ -47,7 +47,7 @@
         @td
           @code[exCol.lighten(-0.2)]
         @td
-          @code[exCol.lightness(0.3)]
+          @code[exCol.lightness(30)]
       @tr
         @td
           @html: <div id="lighten_orig" class="example-cell"></div>
@@ -64,7 +64,7 @@
         @td
           @html: <div id="lighten_lightness" class="example-cell"></div>
           @js
-            setCellColor("lighten_lightness",exCol.clone().lightness(0.3))
+            setCellColor("lighten_lightness",exCol.clone().lightness(30))
 
   @section Saturation
     @p: The saturation functions are useful for creating new colors that are of a similar lightness. Below are examples of each of the saturation functions:
@@ -84,7 +84,7 @@
         @td
           @code[exCol.saturate(-0.4)]
         @td
-          @code[exCol.saturation(0.1)]
+          @code[exCol.saturation(10)]
       @tr
         @td
           @html: <div id="saturation_orig" class="example-cell"></div>
@@ -101,7 +101,7 @@
         @td
           @html: <div id="saturation_saturation" class="example-cell"></div>
           @js
-            setCellColor("saturation_saturation",exCol.clone().saturation(0.1))
+            setCellColor("saturation_saturation",exCol.clone().saturation(10))
 
   @section Alpha
     @p: The alpha functions are useful for making transparent colors where required or animating a color. Below are examples of each of the saturation functions. Note: The alpha channel is only supported with RGBA and HSLA. When outputting a color string, make sure you output to a type that accepts alpha values
