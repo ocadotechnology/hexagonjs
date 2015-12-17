@@ -6,7 +6,7 @@
         @param callback [Function]
           @param data [Any]
 
-        @event change: The event called when the selected item is changed.
-          @data [Object]
-            @property value [Any]: The item that was selected.
-            @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+        @event change [Object]
+          @description: The event called when the selected item is changed.
+          @property value [Any]: The item that was selected.
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting

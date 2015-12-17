@@ -10,8 +10,15 @@
   #@section I want to create a custom theme. Is is possible?
   #  Yes it is! The best place to get started is the @hyperlink(/docs/custom-themes)[custom themes] section of the docs.
 
+  @section I have found a problem with the documentation. Where can I report it?
+    @p: You can report issues related to the site on the documentation GitHub issue tracker: @hyperlink(https://github.com/ocadotechnology/hexagonjs-site/issues)[hexagonjs-site/issues].
+    @p: When submitting a bug report, please provide a link to the page(s) that exhibit the issue.
+    @p: If you have the knowledge and the time to update the documentation, please submit a pull request and everyone can benefit.
+
   @section I have found a bug. Where can I report it?
-    @p: You can report issues on the hexagon @hyperlink(https://github.com/ocadotechnology/hexagonjs/issues)[github issue tracker]. When submitting a bug report please provide an example that reproduces the bug, and specify which version of hexagon you are using. The following template can be used:
+    @p: You can report issues on the Hexagon.js GitHub issue tracker: @hyperlink(https://github.com/ocadotechnology/hexagonjs/issues)[hexagonjs/issues].
+    @p: When submitting a bug report please provide an example that reproduces the bug, and specify which version of hexagon you are using.
+    @p: The following template can be used:
 
     @codeblock md
       Title: Module Name: short description
@@ -34,7 +41,7 @@
 
 
   @section I have a feature request. Who do I ask?
-    Create an issue on the the @hyperlink(https://github.com/ocadotechnology/hexagonjs/issues/)[GitHub issue tracker], and tag it with New Feature.
+    @p: Create an issue on the the @hyperlink(https://github.com/ocadotechnology/hexagonjs/issues/)[GitHub issue tracker], and tag it with New Feature.
 
   @section I want to contribute to the project. How do I go about doing this?
     @p: We welcome pull requests for bugfixes and additional features. Please target the "master" branch when setting up a new pull request.

@@ -34,6 +34,7 @@
           @img
             @attr src: https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png
             @attr style: height: 0.9em; margin-left: 8px;
+            @attr title: GitHub Logo
 
     @div .dx-group.dx-horizontal
       @div .dx-section.docs-selling-point.dx-card

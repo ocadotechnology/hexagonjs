@@ -48,11 +48,10 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event change
+        @event change [Object]
           @description: Emitted when the selected page is changed.
-          @data [Object]
-            @property cause [String]: Will be either 'user' or 'api'. 'user' means that the user clicked on the paginator to cause the page to change, 'api' means that one of the methods on the paginator (such as setPage) was called to cause the change.
-            @property selected [Number]: The selected page (1 based index).
+          @property cause [String]: Will be either 'user' or 'api'. 'user' means that the user clicked on the paginator to cause the page to change, 'api' means that one of the methods on the paginator (such as setPage) was called to cause the change.
+          @property selected [Number]: The selected page (1 based index).
 
         @returns Paginator: this paginator
 

@@ -17,17 +17,16 @@
         @param callback [Function]
           @param data [Any]
 
-        @event highlight
+        @event highlight [Object]
           @added: Pipe the dropdown events through so they can be listened to directly.
           @description: The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
-          @data Object
-            @property eventType [String]
-              @description:
-                The type of event that caused the selection:
-                @list:
-                  'click' - User clicked
-                  'arrow' - User used the arrow keys
-            @property item [String/Object]: The item as it was passed into the select.
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                'click' - User clicked
+                'arrow' - User used the arrow keys
+          @property item [String/Object]: The item as it was passed into the select.
 
         @event dropdown.showstart
           @added: Pipe the dropdown events through so they can be listened to directly.
@@ -47,12 +46,10 @@
 
         @event dropdown.change [Boolean]
           @added: Pipe the dropdown events through so they can be listened to directly.
-          @description: Emitted when the dropdown is shown or hidden
-          @data [Boolean]: A boolean indicating whether or not the dropdown is hidden.
+          @description: Emitted when the dropdown is shown or hidden. The data is a boolean indicating whether or not the dropdown is hidden.
 
         @event hide
           @deprecated
-
             Use the @code[dropdown.hidestart] or @code[dropdown.hideend] event instead.
 
       @method hide

@@ -6,20 +6,17 @@
         @param callback [Function]
           @param data [Any]
 
-        @event change
-          @data Object
-            @property eventType [String]
-            @property item [String/Object]
-            @property menu [Menu]: This Menu.
-              @added: Added the parent menu to the event data
+        @event change [Object]
+          @property eventType [String]
+          @property item [String/Object]
+          @property menu [Menu]: This Menu.
+            @added: Added the parent menu to the event data
 
-
-        @event highlight
-          @data Object
-            @property eventType [String]
-            @property item [String/Object]
-            @property menu [Menu]: This Menu.
-              @added: Added the parent menu to the event data
+        @event highlight [Object]
+          @property eventType [String]
+          @property item [String/Object]
+          @property menu [Menu]: This Menu.
+            @added: Added the parent menu to the event data
 
 
       @constructor

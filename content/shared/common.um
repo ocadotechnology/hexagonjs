@@ -75,3 +75,4 @@
       @span .docs-footer-note: Created @(@) @hyperlink(https://github.com/ocadotechnology)[Ocado Technology]
       @span .docs-footer-note: Code license @hyperlink(https://github.com/ocadotechnology/hexagonjs/blob/master/LICENCE)[Apache-2.0]
       @span .docs-footer-note: Docs license @hyperlink(https://creativecommons.org/licenses/by/3.0/)[CC BY 3.0]
+      @span .docs-footer-note: This site on @hyperlink(https://github.com/ocadotechnology/hexagonjs-site)[GitHub]

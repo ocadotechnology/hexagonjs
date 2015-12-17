@@ -226,6 +226,7 @@ function getOptions (dev) {
     indexable: indexable,
     versions: versions.versions,
     targetVersions: targetVersions,
+    reverseVisibleList: true,
     milestoneUrl: privateConfig.milestoneUrl || 'https://github.com/ocadotechnology/hexagonjs/milestones/',
     issueUrl: privateConfig.issueUrl || 'https://github.com/ocadotechnology/hexagonjs/issues/'
   }
@@ -291,8 +292,6 @@ function buildPages (objs, dev) {
 }
 
 function watchPages () {
-  // return watch('content/pages/modules/card/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, true)}).then(function (fun) {
-  // return watch('content/pages/changelog/**/index.um', { base: 'content/pages'}, function(objs) {return buildPages(objs, true)}).then(function (fun) {
   return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, true)}).then(function (fun) {
     return fun()
   })

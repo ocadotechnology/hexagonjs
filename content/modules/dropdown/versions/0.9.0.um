@@ -119,8 +119,7 @@
           @description: Emitted when the dropdown is hidden. No data is sent with this event.
 
         @event change [Boolean]
-          @description: Emitted when the dropdown is shown or hidden
-          @data [Boolean]: A boolean indicating whether or not the dropdown is hidden.
+          @description: Emitted when the dropdown is shown or hidden. The data with the event is a boolean indicating whether or not the dropdown is visible. True means that the dropdown has just been shown, false means that it has just been hidden.
 
         @returns Dropdown: This Dropdown
 

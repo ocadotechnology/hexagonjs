@@ -203,13 +203,11 @@
           @description: The function to call when an event occurs.
           @param data [Any]: The data sent along with the event (if any)
 
-        @event change
-          @description: The event called whenever the input text is updated by the auto complete object.
-          @data [String]: The value of the input field
+        @event change [String]
+          @description: The event called whenever the input text is updated by the auto complete object. The data is the value of the input field.
 
-        @event hide
-          @description: The event called when the auto complete is hidden, either by changing focus or by manually calling the 'hide' method.
-          @data [String]: The value of the input field
+        @event hide [String]
+          @description: The event called when the auto complete is hidden, either by changing focus or by manually calling the 'hide' method. The data is the value of the input field
 
         @returns AutoComplete: This AutoComplete
 
