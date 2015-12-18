@@ -5,33 +5,19 @@
   @h1: Examples
   @div .docs-example-link-container
     @div .docs-example-link
-      @hyperlink(/examples/animated-circles/)[Animated Circles]
+      @hyperlink(/examples/animated-drawing/)[Animated Drawing]
     @div .docs-example-link
       @hyperlink(/examples/auto-complete/)[Auto Complete]
     @div .docs-example-link
       @hyperlink(/examples/collapsible-table-rows/)[Collapsible Table Rows]
     @div .docs-example-link
-      @hyperlink(/examples/composite-drawing/)[Composite Drawing]
-    @div .docs-example-link
-      @hyperlink(/examples/date-picker/)[Date Picker]
-    @div .docs-example-link
       @hyperlink(/examples/date-picker-with-timeslider/)[Date Picker with Timeslider]
-    @div .docs-example-link
-      @hyperlink(/examples/date-time-picker/)[Date Time Picker]
     @div .docs-example-link
       @hyperlink(/examples/device-targeting/)[Device Targeting]
     @div .docs-example-link
-      @hyperlink(/examples/drawing-shapes/)[Drawing Shapes]
-    @div .docs-example-link
-      @hyperlink(/examples/drawing-text/)[Drawing Text]
-    @div .docs-example-link
-      @hyperlink(/examples/dyanmic-content-tree/)[Dyanmic Content Tree]
-    @div .docs-example-link
-      @hyperlink(/examples/form-builder/)[Form Builder]
+      @hyperlink(/examples/drawing/)[Drawing]
     @div .docs-example-link
       @hyperlink(/examples/graph-and-chart/)[Graph and Chart]
-    @div .docs-example-link
-      @hyperlink(/examples/hexagonal-game-of-life/)[Hexagonal Game Of Life]
     @div .docs-example-link
       @hyperlink(/examples/meter/)[Meter]
     @div .docs-example-link
@@ -41,26 +27,14 @@
     @div .docs-example-link
       @hyperlink(/examples/morphing-sections-popup/)[Morphing Sections Popup]
     @div .docs-example-link
-      @hyperlink(/examples/multi-segment-progress-bar/)[Multi Segment Progress Bar]
-    @div .docs-example-link
       @hyperlink(/examples/mutliple-collapsible-initialization/)[Mutliple Collapsible Initialization]
     @div .docs-example-link
-      @hyperlink(/examples/notification-pinning/)[Notification Pinning]
-    @div .docs-example-link
-      @hyperlink(/examples/number-picker/)[Number Picker]
-    @div .docs-example-link
-      @hyperlink(/examples/pivot-table/)[Pivot Table]
-    @div .docs-example-link
       @hyperlink(/examples/progress-bar/)[Progress Bar]
-    @div .docs-example-link
-      @hyperlink(/examples/random-lines/)[Random Lines]
-    @div .docs-example-link
-      @hyperlink(/examples/selection/)[Selection]
-    @div .docs-example-link
-      @hyperlink(/examples/slider/)[Slider]
-    @div .docs-example-link
-      @hyperlink(/examples/slider-time/)[Slider Time]
     @div .docs-example-link
       @hyperlink(/examples/split-buttons/)[Split Buttons]
     @div .docs-example-link
       @hyperlink(/examples/sticky-table-headers/)[Sticky Table Headers]
+    @div .docs-example-link
+      @hyperlink(/examples/tree-with-dynamic-content/)[Tree with Dynamic Content]
+    @div .docs-example-link
+      @hyperlink(/examples/view/)[View]

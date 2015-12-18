@@ -1,3 +1,0 @@
-@example
-  @html: @inline numberpicker.html
-  @coffee: @inline numberpicker.coffee

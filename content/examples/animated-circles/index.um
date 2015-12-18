@@ -1,4 +1,0 @@
-@example
-  @html: @inline animated-circles.html
-  @coffee: @inline animated-circles.coffee
-  @css: @inline animated-circles.css

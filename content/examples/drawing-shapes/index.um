@@ -1,4 +1,0 @@
-@example
-  @html: @inline drawing-shapes.html
-  @coffee: @inline drawing-shapes.coffee
-  @css: @inline drawing-shapes.css

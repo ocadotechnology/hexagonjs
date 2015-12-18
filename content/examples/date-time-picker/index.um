@@ -1,3 +1,0 @@
-@example
-  @html: @inline datetime-picker.html
-  @coffee: @inline datetime-picker.coffee

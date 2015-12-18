@@ -1,4 +1,0 @@
-@example
-  @html: @inline random-lines.html
-  @coffee: @inline random-lines.coffee
-  @css: @inline random-lines.css

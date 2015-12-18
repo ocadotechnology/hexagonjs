@@ -1,4 +1,4 @@
-select = new hx.InlineSelect('#select-1')
-select.items(['Red', 'Green', 'Blue'])
-select.value('Red')
+picker = new hx.InlinePicker('#picker-1')
+picker.items(['Red', 'Green', 'Blue'])
+picker.value('Red')
 

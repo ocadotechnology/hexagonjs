@@ -3,15 +3,15 @@
 data = [
   {
     "text":"Menu Item 1",
-    "url":"/"
+    "url":"#menu-1"
   },
   {
     "text":"Menu Item 2",
-    "url":"/examples/menu"
+    "url":"#menu-2"
   },
   {
     "text":"Menu Item 3",
-    "url":"http://www.ocado.com/"
+    "url":"#menu-3"
   }
 ]
 
@@ -19,10 +19,10 @@ data = [
 menu = new hx.Menu("#btn-2", 'rtrb')
 
 #redefine the renderer for this menu
-menu.renderer = (element, item) ->
+menu.renderer (element, item) ->
   hx.select(element)
     .html(item.text)
     .on('click', -> document.location = item.url)
 
 #render the data
-menu.render(data)
+menu.items(data)

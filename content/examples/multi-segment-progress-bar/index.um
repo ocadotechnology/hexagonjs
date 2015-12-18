@@ -1,3 +1,0 @@
-@example
-  @html: @inline multi-segment-progress-bar.html
-  @coffee: @inline multi-segment-progress-bar.coffee

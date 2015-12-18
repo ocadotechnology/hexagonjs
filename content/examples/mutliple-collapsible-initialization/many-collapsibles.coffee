@@ -1,1 +1,1 @@
-hx.initialiseCollapsibles('.hx-collapsible')
+hx.initializeCollapsibles('.hx-collapsible')
