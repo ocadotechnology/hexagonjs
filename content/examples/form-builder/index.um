@@ -1,4 +1,0 @@
-@examplePage Form Builder
-  @example
-    @html: @inline form-builder.html
-    @coffee: @inline form-builder.coffee

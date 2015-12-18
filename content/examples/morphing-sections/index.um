@@ -1,28 +1,27 @@
-@examplePage Morphing Sections
-  @example
-    @html: @inline index1.html
-    @coffee: @inline index1.coffee
+@example
+  @html: @inline index1.html
+  @coffee: @inline index1.coffee
 
-  <br>
+@br
 
-  @example
-    @html: @inline index2.html
-    @coffee: @inline index2.coffee
-#
-#  <br>
-#
-#  @example
-#    @html: @inline index3.html
-#    @coffee: @inline index3.coffee
+@example
+  @html: @inline index2.html
+  @coffee: @inline index2.coffee
 
-  <br>
+# @br
 
-  @example
-    @html: @inline index4.html
-    @coffee: @inline index4.coffee
+# @example
+#   @html: @inline index3.html
+#   @coffee: @inline index3.coffee
 
-  <br>
+@br
 
-  @example
-    @html: @inline index5.html
-    @coffee: @inline index5.coffee
+@example
+  @html: @inline index4.html
+  @coffee: @inline index4.coffee
+
+@br
+
+@example
+  @html: @inline index5.html
+  @coffee: @inline index5.coffee

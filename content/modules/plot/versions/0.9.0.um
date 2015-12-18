@@ -120,6 +120,7 @@
       @default #E7E7E7
 
   @extra
+    @h1 .docs-module-section: Getting Started
     @inline 0.9.0/handbook/graphs/graphs.um
     @inline 0.9.0/handbook/axes/axes.um
     @inline 0.9.0/handbook/series/series.um

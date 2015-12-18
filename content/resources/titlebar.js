@@ -12,7 +12,7 @@ function setupMenu (node, meta) {
     .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/').text('Home'))
     .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/getting-started/').text('Installation / Getting Started'))
     .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/core-concepts/').text('Core concepts'))
-    // .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/examples/').text('Examples'))
+    .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/examples/').text('Examples'))
     // .add(dx.detached('h3').text('Design patterns'))
     // .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/general-guidelines/').text('General guidelines'))
     // .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/page-layout/').text('Page layout'))

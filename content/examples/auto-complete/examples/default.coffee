@@ -1,0 +1,1 @@
+new hx.AutoComplete('#autoComplete-Default', nameData)

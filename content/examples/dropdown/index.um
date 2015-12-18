@@ -1,5 +1,0 @@
-@examplePage Dropdowns
-  @example
-    @html: @inline dropdown.html
-    @coffee: @inline dropdown.coffee
-    @css: @inline dropdown.css

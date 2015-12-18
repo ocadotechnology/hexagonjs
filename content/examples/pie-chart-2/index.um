@@ -1,5 +1,0 @@
-@examplePage Pie Chart 2
-  @example
-    @html: @inline piechart2.html
-    @coffee: @inline piechart2.coffee
-    @css: @inline piechart2.css

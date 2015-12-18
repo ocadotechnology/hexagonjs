@@ -1,5 +1,4 @@
-@examplePage Meter
-  @example
-    @html: @inline index.html
-    @js: @inline index.js
-    @css: @inline index.css
+@example
+  @html: @inline index.html
+  @js: @inline index.js
+  @css: @inline index.css

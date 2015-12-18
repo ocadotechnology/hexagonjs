@@ -1,5 +1,0 @@
-@examplePage Stacked Area 1
-  @example
-    @html: @inline stacked-area-1.html
-    @coffee: @inline stacked-area-1.coffee
-    @css: @inline stacked-area-1.css

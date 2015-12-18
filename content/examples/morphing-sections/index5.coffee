@@ -4,7 +4,7 @@ items = [
   { text: 'Blue', value: 'blue' }
 ]
 
-select = new hx.InlineSelect('#select-2')
+picker = new hx.InlinePicker('#picker-2')
   .renderer (node, item) -> hx.select(node).text(item.text)
   .items(items)
   .value('red')

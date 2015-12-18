@@ -1,4 +1,3 @@
-@examplePage Collapsible Table Rows
-  @example
-    @html: @inline index.html
-    @coffee: @inline index.coffee
+@example
+  @html: @inline index.html
+  @coffee: @inline index.coffee

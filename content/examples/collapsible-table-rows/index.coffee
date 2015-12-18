@@ -30,6 +30,5 @@ toggleRow = (rowNode, i) ->
 hx.select('#my-table')
   .select('tbody')
   .selectAll('tr')
-  .each (rowNode, i) ->
-    hx.select(rowNode)
-      .on('click', -> toggleRow(rowNode, i))
+  .forEach (rowNode, i) ->
+    rowNode.on('click', -> toggleRow(rowNode.node(), i))

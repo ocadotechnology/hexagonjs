@@ -93,3 +93,5 @@
         @removed
           Use @code[saturation(value)] with a value between 0 and 100 instead of 0 and 1
         @param saturation [Number]
+
+  @extra: @inline 1.0.0/extra.um

@@ -1,6 +1,0 @@
-@examplePage Line Graph 4
-  @script //cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment-with-locales.min.js
-  @example
-    @html: @inline linegraph4-date.html
-    @coffee: @inline linegraph4-date.coffee
-    @css: @inline linegraph4-date.css

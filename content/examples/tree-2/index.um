@@ -1,4 +1,0 @@
-@examplePage Tree (from JSON source)
-  @example
-    @html: @inline tree.html
-    @coffee: @inline tree.coffee

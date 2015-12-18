@@ -1,5 +1,0 @@
-@examplePage Straight Line Graph
-  @example
-    @html: @inline straightlinegraph.html
-    @coffee: @inline straightlinegraph.coffee
-    @css: @inline straightlinegraph.css

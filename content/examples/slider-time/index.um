@@ -1,4 +1,0 @@
-@examplePage Time Slider
-  @example
-    @html: @inline slider-time.html
-    @coffee: @inline slider-time.coffee

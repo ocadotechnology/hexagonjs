@@ -2,7 +2,7 @@
 
   @section Creating a pie chart
 
-    Example showing creation of a simple pie chart.
+    @p: Example showing creation of a simple pie chart.
 
     @example
       @html
@@ -36,7 +36,7 @@
 
     @section Donut Charts
 
-      Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
+      @p: Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
 
       @codeblock js
         new hx.PieChart('#docs-pie2',{
@@ -78,7 +78,7 @@
 
     @section Multiple ring pie charts
 
-      When specifying the data, multiple series can specified. The data supplied must be an array in this case:
+      @p: When specifying the data, multiple series can specified. The data supplied must be an array in this case:
 
       @codeblock js
         data = [
@@ -124,7 +124,7 @@
           }
         ]
 
-      This would produce the following:
+      @p: This would produce the following:
 
       @example
         @html

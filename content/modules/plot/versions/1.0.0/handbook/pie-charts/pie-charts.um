@@ -1,0 +1,179 @@
+@section Pie Charts
+
+  @section Creating a pie chart
+
+    @p: Example showing creation of a simple pie chart.
+
+    @example
+      @html
+        <div id="docs-pie" style="height:200px"></div>
+
+      @js
+        pie = new hx.PieChart('#docs-pie');
+
+        pie.data({
+          title: "Pie Chart",
+          segments: [
+            {
+              name: "Segment 1",
+              size: 10,
+              fillColor: hx.cycle(hx.theme.plot.colors, 0)
+            },
+            {
+              name: "Segment 2",
+              size: 10,
+              fillColor: hx.cycle(hx.theme.plot.colors, 1)
+            },
+            {
+              name: "Segment 3",
+              size: 80,
+              fillColor: hx.cycle(hx.theme.plot.colors, 2)
+            }
+          ]
+        });
+
+        pie.render();
+
+    @section Donut Charts
+
+      @p: Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
+
+      @codeblock js
+        new hx.PieChart('#docs-pie2',{
+          innerPadding: 0.5
+        });
+
+      @example
+        @html
+          <div id="docs-pie2" style="height:200px"></div>
+
+        @js
+          pie = new hx.PieChart('#docs-pie2',{
+            innerPadding: 0.5
+          });
+
+          pie.data({
+            title: "Pie Chart",
+            segments: [
+              {
+                name: "Segment 1",
+                size: 10,
+                fillColor: hx.cycle(hx.theme.plot.colors ,0)
+              },
+              {
+                name: "Segment 2",
+                size: 10,
+                fillColor: hx.cycle(hx.theme.plot.colors ,1)
+              },
+              {
+                name: "Segment 3",
+                size: 80,
+                fillColor: hx.cycle(hx.theme.plot.colors ,2)
+              }
+            ]
+          });
+
+          pie.render();
+
+
+    @section Multiple ring pie charts
+
+      @p: When specifying the data, multiple series can specified. The data supplied must be an array in this case:
+
+      @codeblock js
+        data = [
+          {
+            title: "Series 1",
+            segments: [
+              {
+                name: "Segment 1",
+                size: 10,
+                fillColor: hx.cycle(hx.theme.plot.colors, 0)
+              },
+              {
+                name: "Segment 2",
+                size: 10,
+                fillColor: hx.cycle(hx.theme.plot.colors, 1)
+              },
+              {
+                name: "Segment 3",
+                size: 80,
+                fillColor: hx.cycle(hx.theme.plot.colors, 2)
+              }
+            ]
+          },
+          {
+            title: "Series 2",
+            segments: [
+              {
+                name: "Segment 1",
+                size: 90,
+                fillColor: hx.cycle(hx.theme.plot.colors, 3)
+              },
+              {
+                name: "Segment 2",
+                size: 20,
+                fillColor: hx.cycle(hx.theme.plot.colors, 4)
+              },
+              {
+                name: "Segment 3",
+                size: 30,
+                fillColor: hx.cycle(hx.theme.plot.colors, 5)
+              }
+            ]
+          }
+        ]
+
+      @p: This would produce the following:
+
+      @example
+        @html
+          <div id="docs-pie3" style="height:200px"></div>
+
+        @js
+          pie = new hx.PieChart('#docs-pie3');
+
+          pie.data([
+            {
+              title: "Series 1",
+              segments: [
+                {
+                  name: "Segment 1",
+                  size: 10,
+                  fillColor: hx.cycle(hx.theme.plot.colors, 0)
+                },
+                {
+                  name: "Segment 2",
+                  size: 10,
+                  fillColor: hx.cycle(hx.theme.plot.colors, 1)
+                },
+                {
+                  name: "Segment 3",
+                  size: 80,
+                  fillColor: hx.cycle(hx.theme.plot.colors, 2)
+                }
+              ]
+            },
+            {
+              title: "Series 2",
+              segments: [
+                {
+                  name: "Segment 1",
+                  size: 90,
+                  fillColor: hx.cycle(hx.theme.plot.colors, 3)
+                },
+                {
+                  name: "Segment 2",
+                  size: 20,
+                  fillColor: hx.cycle(hx.theme.plot.colors, 4)
+                },
+                {
+                  name: "Segment 3",
+                  size: 30,
+                  fillColor: hx.cycle(hx.theme.plot.colors, 5)
+                }
+              ]
+            }
+          ]);
+
+          pie.render();

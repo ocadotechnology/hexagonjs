@@ -1,4 +1,0 @@
-@examplePage Date Pickers
-  @example
-    @html: @inline datepicker.html
-    @coffee: @inline datepicker.coffee

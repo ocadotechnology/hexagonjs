@@ -1,5 +1,0 @@
-@examplePage Donut Chart
-  @example
-    @html: @inline donutchart.html
-    @coffee: @inline donutchart.coffee
-    @css: @inline donutchart.css
