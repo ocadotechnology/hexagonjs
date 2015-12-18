@@ -1087,6 +1087,105 @@
         @description: Gets the current label formatter of the pie chart
         @returns Function: The current label formatter
 
+      @method data
+        @description: Gets the current data of the pie chart
+        @returns [Object/Array[Object]]: The current data
+
+      @method data
+        @description
+          Sets the data this pie chart should display.
+
+        @param data [Object/Array[Object]]
+          @description
+            @p: The data that describes the pie chart.
+            @p: The data should be of the form:
+            @codeblock js
+              {
+                title: "Pie Chart"
+                segments: [
+                  {
+                    name: "Segment 1"
+                    size: 10,
+                    fillColor: hx.cycle(hx.color.graph, 0)
+                  },
+                  {
+                    name: "Segment 2"
+                    size: 10,
+                    fillColor: hx.cycle(hx.color.graph, 1)
+                  },
+                  {
+                    name: "Segment 3"
+                    size: 80,
+                    fillColor: hx.cycle(hx.color.graph, 2)
+                  }
+                ]
+              }
+
+            @p: For multi-ring pie charts, an array of the above object is expected:
+            @codeblock js
+              [
+                {
+                  title: "Series 1"
+                  segments: [
+                    {
+                      name: "Segment 1",
+                      size: 10,
+                      fillColor: hx.cycle(hx.color.graph, 0)
+                    },
+                    {
+                      name: "Segment 2",
+                      size: 10,
+                      fillColor: hx.cycle(hx.color.graph, 1)
+                    },
+                    {
+                      name: "Segment 3",
+                      size: 80,
+                      fillColor: hx.cycle(hx.color.graph, 2)
+                    }
+                  ]
+                },
+                {
+                  name: "Series 2"
+                  segments: [
+                    {
+                      name: "Segment 1",
+                      size: 90,
+                      fillColor: hx.cycle(hx.color.graph, 3)
+                    },
+                    {
+                      name: "Segment 2",
+                      size: 20,
+                      fillColor: hx.cycle(hx.color.graph, 4)
+                    },
+                    {
+                      name: "Segment 3",
+                      size: 30,
+                      fillColor: hx.cycle(hx.color.graph, 5)
+                    }
+                  ]
+                },
+                {
+                  name: "Series 3"
+                  segments: [
+                    {
+                      name: "Segment 1",
+                      size: 90,
+                      fillColor: hx.cycle(hx.color.graph, 6)
+                    },
+                    {
+                      name: "Segment 2",
+                      size: 20,
+                      fillColor: hx.cycle(hx.color.graph, 7)
+                    },
+                    {
+                      name: "Segment 3",
+                      size: 30,
+                      fillColor: hx.cycle(hx.color.graph, 8)
+                    }
+                  ]
+                }
+              ]
+
 
       @method setData
         @param data [Data]

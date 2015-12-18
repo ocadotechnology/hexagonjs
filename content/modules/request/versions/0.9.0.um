@@ -136,7 +136,7 @@
 
     @function hx.html
       @description
-        A wrapper for hx.xhr that supplies a formatter to return a DocumentFragment instead of the response object. Note: When inserted into the DOM any script tags in the html string will be executed immediately - if you do not want this to happen, sanitize the string before passing into this function or remove the script tags from the document fragment created.
+        A wrapper for hx.request that supplies a formatter to return a DocumentFragment instead of the response object. Note: When inserted into the DOM any script tags in the html string will be executed immediately - if you do not want this to happen, sanitize the string before passing into this function or remove the script tags from the document fragment created.
       @param url [Any]
         @description
           The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
@@ -379,7 +379,7 @@
 
     @function hx.html
       @description
-        A wrapper for hx.xhr that supplies a formatter to return a DocumentFragment instead of the response object.
+        A wrapper for hx.request that supplies a formatter to return a DocumentFragment instead of the response object.
       @param url [Any]
         @description
           The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
@@ -500,7 +500,7 @@
       @enhancement: hx.json now supports empty responses (it used to throw a parse error if the response was empty).
 
       @description
-        A wrapper for hx.xhr that supplies a formatter to return a JSON parsed javascript object instead of the response object.
+        A wrapper for hx.request that supplies a formatter to return a JSON parsed javascript object instead of the response object.
       @param url [Any]
         @description
           The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
