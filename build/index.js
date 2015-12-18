@@ -225,7 +225,7 @@ function getOptions (dev) {
     taggable: taggable,
     indexable: indexable,
     versions: versions.versions,
-    targetVersions: targetVersions,
+    targetVersions: versions.versions,
     reverseVisibleList: true,
     milestoneUrl: privateConfig.milestoneUrl || 'https://github.com/ocadotechnology/hexagonjs/milestones/',
     issueUrl: privateConfig.issueUrl || 'https://github.com/ocadotechnology/hexagonjs/issues/'

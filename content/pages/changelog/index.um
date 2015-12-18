@@ -164,5 +164,9 @@
       @description
         @p: Update the build config for the themes to allow the theme fonts to be embedded in the css using the @code[embedAssets] option.
 
+    @version 1.0.4
+      @description
+        @p: Fix several bug fixes that were causing visual issues
+
   @h2: Key
   @changelog.key

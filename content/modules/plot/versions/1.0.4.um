@@ -1,0 +1,5 @@
+@version 1.0.4
+  @api Plot
+    @prototype hx.Sparkline
+      @bugfix: Fix a bug where data with the same Y value caused an error with linear gradients
+        @issue 52
