@@ -10,19 +10,18 @@ class Toggle extends hx.EventEmitter
 
     @selection = hx.select(selector).classed('hx-toggle', true)
 
-    @input = @selection.append('input')
-      .attr('type', 'checkbox').node()
+    @toggle = @selection.append('div').class('hx-toggle-box')
 
     @value(@options.value)
 
-    @selection.on 'click', 'hx.toggle', =>
+    @selection.on 'click', 'hx.toggle', (e) =>
       @value(!@value())
       @emit 'change', @value()
 
   value: (val) ->
     if val?
       @options.value = val
-      @input.checked = val
+      @toggle.classed('hx-toggle-box-on', val)
       this
     else
       @options.value
