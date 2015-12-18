@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.0.1
+ Version: 1.0.4
  Theme: hexagon-light
  Modules:
    set
@@ -391,6 +391,7 @@ i.hx-icon {
   position: absolute;
   z-index: 99;
   border: solid 1px transparent;
+  box-sizing: border-box;
   overflow: hidden;
   top: -10000px; }
   .hx-dropdown:focus {
@@ -2521,7 +2522,7 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
   text-align: center;
   width: auto;
   display: inline-block;
-  position: relative;
+  position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translateX(-50%) translateY(-50%);
@@ -2778,7 +2779,7 @@ img.hx-logo, img.hx-logo:after {
 
 .hx-toggle {
   display: inline-block; }
-  .hx-toggle > input[type="checkbox"] {
+  .hx-toggle > .hx-toggle-box {
     display: inline-block;
     position: relative;
     margin: 2px 8px;
@@ -2791,10 +2792,9 @@ img.hx-logo, img.hx-logo:after {
     outline: none;
     cursor: pointer;
     vertical-align: middle;
-    -webkit-appearance: none;
     border-radius: 8px;
     border: none; }
-    .hx-toggle > input[type="checkbox"]:before {
+    .hx-toggle > .hx-toggle-box:before {
       float: none;
       content: ' ';
       position: absolute;
@@ -2810,10 +2810,10 @@ img.hx-logo, img.hx-logo:after {
               transform: scale(1);
       transition: left 0.2s ease-in-out, margin-left 0.2s ease-in-out, background 0.2s;
       opacity: 1; }
-    .hx-toggle > input[type="checkbox"]:checked:before {
+    .hx-toggle > .hx-toggle-box.hx-toggle-box-on:before {
       left: 50%;
       margin-left: 0; }
-  .hx-toggle.hx-btn > input[type="checkbox"] {
+  .hx-toggle.hx-btn > .hx-toggle-box {
     margin-left: 1em;
     margin-right: 0; }
 
@@ -4267,13 +4267,13 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
     border-color: #4A4E4E; }
 
 
-.hx-toggle > input[type="checkbox"] {
+.hx-toggle > .hx-toggle-box {
   background: #D5D5D5; }
-  .hx-toggle > input[type="checkbox"]:before {
+  .hx-toggle > .hx-toggle-box:before {
     background: #ABABAB; }
-  .hx-toggle > input[type="checkbox"]:checked {
+  .hx-toggle > .hx-toggle-box.hx-toggle-box-on {
     background: #D5D5D5; }
-    .hx-toggle > input[type="checkbox"]:checked:before {
+    .hx-toggle > .hx-toggle-box.hx-toggle-box-on:before {
       background: #B2BA32; }
 
 .hx-tree-node-parent,
@@ -4302,7 +4302,7 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 300;
-  src: local("Open Sans Light"), local("OpenSans-Light"), url(assets/open-sans-light.woff) format("woff");
+  src: local("Open Sans Light"), local("OpenSans-Light"), url("assets/open-sans-light.woff") format("woff");
 }
 
 
@@ -4310,7 +4310,7 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local("Open Sans"), local("OpenSans"), url(assets/open-sans-regular.woff) format("woff");
+  src: local("Open Sans"), local("OpenSans"), url("assets/open-sans-regular.woff") format("woff");
 }
 
 
@@ -4318,5 +4318,5 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: local("Open Sans Bold"), local("OpenSans-Bold"), url(assets/open-sans-bold.woff) format("woff");
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("assets/open-sans-bold.woff") format("woff");
 }
