@@ -233,6 +233,8 @@ hx.clone = (obj) ->
     new hx.Map(obj.entries().map(([k, v]) -> [hx.clone(k), hx.clone(v)]))
   else if obj instanceof hx.Set
     new hx.Set(obj.keys().map(hx.clone))
+  else if obj instanceof Date
+    new Date obj.getTime()
   else if hx.isObject(obj) and obj isnt null
     hx.consoleWarning("Trying to clone #{obj} with constructor
                        #{obj?.constructor?.name},
@@ -251,6 +253,8 @@ hx.shallowClone = (obj) ->
     new hx.Map obj.entries()
   else if obj instanceof hx.Set
     new hx.Set obj.keys()
+  else if obj instanceof Date
+    new Date obj.getTime()
   else if hx.isObject(obj) and obj isnt null
     hx.consoleWarning("Trying to shallow clone #{obj} with constructor
                        #{obj?.constructor?.name},
