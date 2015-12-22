@@ -1,7 +1,7 @@
 .hx-toggle {
   display: inline-block;
 
-  > input[type="checkbox"] {
+  > .hx-toggle-box {
     display: inline-block;
     position: relative;
     margin: 2px 8px;
@@ -14,7 +14,6 @@
     outline: none;
     cursor: pointer;
     vertical-align: middle;
-    -webkit-appearance: none;
     border-radius: 8px;
     border: none;
 
@@ -35,7 +34,7 @@
       opacity: 1;
     }
 
-    &:checked {
+    &.hx-toggle-box-on {
       &:before {
         left: 50%;
         margin-left: 0;
@@ -43,7 +42,7 @@
     }
   }
 
-  &.hx-btn > input[type="checkbox"] {
+  &.hx-btn > .hx-toggle-box {
     margin-left: 1em;
     margin-right: 0;
   }

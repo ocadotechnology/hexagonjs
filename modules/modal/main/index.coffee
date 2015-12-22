@@ -60,7 +60,7 @@ class Modal extends hx.EventEmitter
 
     @contentContainer = modal.append('div').attr('class', 'hx-modal-content')
 
-    if @setup then @setup(@contentContainer.node())
+    if @setup then @setup(@contentContainer.node(), this)
 
     @emit('show', @contentContainer.node())
     @emit('showstart')

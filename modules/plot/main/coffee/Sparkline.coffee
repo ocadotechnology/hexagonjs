@@ -51,6 +51,8 @@ class Sparkline
       },
       y: {
         visible: false
+        scalePaddingMin: 0.1
+        scalePaddingMax: 0.1
       }
     })
     series =  axis.addSeries(opts.type, {
