@@ -88,5 +88,10 @@ class Set
   # get the items in the set
   values: -> (v[1] for v in @entries())
 
+# expose
+module.exports = Set
 
-hx.Set = Set
+# backwards compatibility
+module.exports.hx = {
+  Set: Set
+}

@@ -102,4 +102,9 @@ class Map
   # get the values of the entries in the map
   values: -> (v[1] for v in @entries())
 
-hx.Map = Map
+module.exports = Map
+
+# backwards compatibility
+module.exports.hx = {
+  Map: Map
+}
