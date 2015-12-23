@@ -47,11 +47,9 @@
           @property allowHeaderWrap [Boolean]: A boolean to determine whether table headers should be allowed to wrap onto multiple lines.
             @default false
 
-          @property cellRenderer [Function]
-            @description
-              @p: A function for rendering body cells.
-              @p: Default Value:
-              @codeblock:
+          @property cellRenderer [Function]: A function for rendering body cells.
+            @default
+              @codeblock js
                 function (element, cell, row) {
                   hx.select(element).text(cell);
                 }
@@ -67,11 +65,11 @@
             @description
               @p: An object that allows the setting of column specific renderers as well as the ability to disable sorting for a specific column.
               @p: The properties that can be set for a specific column are:
-              @list
-                allowHeaderWrap
-                sortEnabled
-                cellRenderer
-                headerCellRenderer
+              @ul
+                @li: allowHeaderWrap
+                @li: sortEnabled
+                @li: cellRenderer
+                @li: headerCellRenderer
               @p: To set a one of the options for a column, an object can be defined:
               @codeblock js
                 {
@@ -88,19 +86,19 @@
             @description
               @p: A value to determine whether compact mode should be enabled.
               @p: There are three possible values:
-              @list
-                'auto': Detect the size of the window and switch between compact and standard modes automatically.
-                true: Always use compact mode
-                false: Always use standard mode.
+              @ul
+                @li: 'auto': Detect the size of the window and switch between compact and standard modes automatically.
+                @li: true: Always use compact mode
+                @li: false: Always use standard mode.
             @default 'auto'
 
           @property displayMode [String]:
             @description
               @p: A string to determine what display mode the table should use.
               @p: There are currently two possible values:
-              @list
-                'paginate': show a single page at a time with a pagination option.
-                'all': Show all the rows on a single page.
+              @ul
+                @li: 'paginate': show a single page at a time with a pagination option.
+                @li: 'all': Show all the rows on a single page.
             @default 'paginate'
 
           @property feed [Feed]
@@ -111,14 +109,12 @@
           @property filterEnabled [Boolean]: A boolean to determine whether filtering should be enabled.
             @default true
 
-          @property headerCellRenderer [Function]:
+          @property headerCellRenderer [Function]: A function for rendering header cells.
             @param element [HTMLElement]: The element that is being populated.
             @param cell [Object]: The data for the cell.
             @param headers [Object]: The entire headers object.
-            @description
-              @p: A function for rendering header cells.
-              @p: Default Value:
-              @codeblock:
+            @default
+              @codeblock js
                 function (element, cell, headers) {
                   hx.select(element).text(cell.name);
                 }
@@ -140,33 +136,27 @@
           @property retainVerticalScrollOnRender [Boolean]: A boolean to determine whether the vertical scroll should be retained when re-rendering the current page of data.
             @default false
 
-          @property rowCollapsibleLookup [Function]:
-            @description
-              @p: A function for determining whether a row has a collapsible.
-              @p: Default Value:
-              @codeblock:
+          @property rowCollapsibleLookup [Function]: A function for determining whether a row has a collapsible.
+            @default
+              @codeblock js
                 function (row) {
                   return false;
                 }
             @param row [Object]: The data for the current row.
             @returns Boolean: Whether the row should have a collapsible
 
-          @property rowEnabledLookup [Function]
-            @description
-              @p: A function for determining whether a row should be visually disabled and prevented from being selected.
-              @p: Default Value:
-              @codeblock:
+          @property rowEnabledLookup [Function]: A function for determining whether a row should be visually disabled and prevented from being selected.
+            @default
+              @codeblock js
                 function (row) {
                   return !row.disabled;
                 }
             @param row [Object]: The data for the current row.
             @returns Boolean: Whether the row should be disabled. True means that the row should be enabled, false means it should be disabled.
 
-          @property rowIDLookup [Function]
-            @description
-              @p: A function for getting the unique id for a row.
-              @p: Default Value:
-              @codeblock:
+          @property rowIDLookup [Function]: A function for getting the unique id for a row.
+            @default
+              @codeblock js
                 function (row) {
                   return row.id;
                 }
@@ -174,11 +164,9 @@
             @param row [Object]: The data for the current row.
             @returns String: The id of the row provided
 
-          @property rowSelectableLookup [Function]
-            @description
-              @p: A function for determining whether a row can be selected at the time it is clicked.
-              @p: Default Value:
-              @codeblock:
+          @property rowSelectableLookup [Function]: A function for determining whether a row can be selected at the time it is clicked.
+            @default
+              @codeblock js
                 function (row) {
                   return true;
                 }
@@ -197,16 +185,21 @@
 
           @property sort [Object]: The sort to apply when creating the table. No sorting is applied by default
             @property column [String]: The column id to sort on
-            @property direction [String]: The sort direction. Can be either @code['asc'] or @code['desc']
+            @property direction [String]
+              @description: The sort direction. Can be either @code['asc'] or @code['desc']
 
-          @property sortEnabled [Boolean]: A boolean to determine whether sorting should be enabled. This can also be set on a per-column basis using the @code[columns] option.
+          @property sortEnabled [Boolean]
+            @description: A boolean to determine whether sorting should be enabled. This can also be set on a per-column basis using the @code[columns] option.
             @default true
 
 
-# Methods for changing the options
-# --------------------------------
+      # Methods for changing the options
+      # --------------------------------
 
       @group Options
+        @description
+          @p: These methods are for getting/setting the value of the options available on data tables.
+          @p: For more information about what each option controls and the values they can be set to, see the options parameter of the DataTable constructor.
 
         @method collapsibleRenderer
           @description: Gets the collapsibleRenderer option
@@ -494,8 +487,8 @@
           @returns DataTable: This DataTable
 
 
-# Methods for changing the state of the table
-# -------------------------------------------
+      # Methods for changing the state of the table
+      # -------------------------------------------
 
       @method page
         @description: Gets the current page
@@ -538,8 +531,8 @@
 
 
 
-# Methods that perform an action on the table
-# -------------------------------------------
+      # Methods that perform an action on the table
+      # -------------------------------------------
 
       @method suppressRender
         @description: A method for getting the suppressed state of the table.
@@ -705,55 +698,8 @@
         @returns DataTable: This DataTable
 
 
-# Data / Feed related docs
-# ------------------------
-
-    @object hx.dataTable
-      @description: An object containing the default feed types for supplying a table with data
-
-      @property objectFeed [Function]
-        @description
-          @p: The default feed object for using object based data
-          @collapsible [Using an object feed]
-            @content
-              @p: An object feed expects the data to be provided as a whole when the feed is created.
-              @p: The below code block shows a basic use of the object feed.
-              @codeblock js
-                var tableData = {...} // See the 'data' argument for how to structure the data.
-                var table = new hx.DataTable('#selector')
-                table.feed(hx.dataTable.objectFeed(tableData))
-
-              @p: Alternatively, if the data is returned from a URL request, it can be set as follows:
-              @codeblock js
-                hx.json('path_to_your_request.file', function(err, data){
-                  if (!err) table.feed(hx.dataTable.objectFeed(tableData));
-                })
-
-        @param data [Object]: The data to use in the feed.
-        @param? options [Object]: The options to use in the feed.
-          @property filter [Function]
-            @description
-              @p: Determines if the row should be included in the filtered data set.
-              @p: The default filter function just checks for inclusion of the search term in any of the cell's text.
-            @param term [String]: The search term.
-            @param row [Object]: The row data.
-            @returns Boolean: True if you want to include the row, false, to exclude it.
-          @property compare [Function]
-            @description: The compare function used to sort the rows.
-            @param cell1 [Object]: The first cell object to compare
-            @param cell2 [Object]: The second cell object to compare
-            @returns Number: -1 if cell1 should be ordered less than cell2, 0 if it is the same, +1 if it should be ordered larger than cell2
-        @returns Feed: A feed object.
-
-      @property urlFeed [Function]
-        @description
-          @p: The default feed object for using url based data
-        @param url [String]: The url to use in the feed.
-        @param? options [Object]: The options to use in the feed.
-          @property cache [Boolean]: Whether or not to cache values in memory - if you always want fresh data, this should be set to false.
-            @default false
-          @property extra [Object]: Extra information to pass through to the requests made for data. This can be useful for identifying the table, or providing extra options when requesting data from the server.
-        @returns Feed: A feed object.
+    # Data / Feed related docs
+    # ------------------------
 
     @object Feed
       @description
@@ -771,10 +717,10 @@
         @p: If a custom feed is created, it must return the values expected by the table.
 
       @property headers [Function]: A function to get a list of header objects
-        @param callback [Function]: The function to call once the data has been retrieved
+        @param callback [Function]: The function to call once the data has been retrieved.
           @param data [Array[Object]]
             @description
-              @p: The array of header objects. The header objects will be in the format of @code[{name, id}]
+              @p: The headers for a data set. The data is expected in the following format:
               @codeblock js
                 [
                   {
@@ -784,43 +730,8 @@
                   ... // Additional headers
                 ]
 
-              @collapsible [Adding multi column / grouped headers]
-                @content:
-                  @p: It is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
-
-                  @codeblock js
-                    {
-                      headers:[
-                        { id: 'name', name: 'Name', groups: ['Group 1']},
-                        { id: 'age', name: 'Age' },
-                        { id: 'gender', name: 'Gender', groups: ['Group 2']},
-                        { id: 'dob', name: 'Date of Birth', groups: ['Group 2']},
-                        { id: 'salary', name: 'Salary (£)', groups: ['Group 2']}
-                      ],
-                      rows: [
-                        //...
-                      ]
-                    }
-
-              @collapsible [Wrapping header text for individual columns]
-                @content
-                  @p: It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the @code[allowWrap] property in the header colums:
-                  @codeblock js
-                    {
-                      headers:[
-                        { id: 'name', name: 'Name' },
-                        { id: 'age', name: 'Age' },
-                        { id: 'gender', name: 'Gender' },
-                        { id: 'dob', name: 'Date of Birth' allowWrap: true },
-                        { id: 'salary', name: 'Salary (£)' }
-                      ],
-                      rows: [
-                        //...
-                      ]
-                    }
-
-      @property totalCount [Function]: A function to get the total number of rows in the data set
-        @param callback [Function]: The function to call once the data has been retrieved
+      @property totalCount [Function]: A function to get the total number of rows in the data set.
+        @param callback [Function]: The function to call once the data has been retrieved.
           @param data [Number]: The total number of rows. This can be undefined if you don't know the total number of rows in the data set.
 
       @property rows [Function]: A function to get the row data for the range object specified along with the filtered count
@@ -838,18 +749,19 @@
                 }
               }
             @p: The above example would be expected to return the first 15 rows of data, sorted by the 'name' column in descending order.
-
           @property start [Number]: The start of the range. Might be undefined if the all displayMode is used.
           @property end [Number]: The end of the range. Might be undefined if the all displayMode is used.
-          @property? filter [String]: The filter being used
-          @property? sort [Object]: The sort being used
+          @property sort [Object]: The sort being used.
+            @property column [String]: The column being sorted. Can be a column id or @code(js)[undefined] indicating no sort.
+            @property direction [String]: The sort direction. Can be "asc", "desc" or undefined.
+          @property filter [String]: The filter being used.
 
-        @param callback [Function]: The function to call once the data has been retrieved
-          @param data [Object]: The rows and filtered count of the data
+        @param callback [Function]: The function to call once the data has been retrieved.
+          @param data [Object]
             @property filteredCount [Number]: The number of filtered rows
             @property rows [Array[Object]]
               @description
-                @p: The array of rows to display in the table. The rows array must have the following structure:
+                @p: The rows for a range of the data set. The data is expected in the following format:
                 @codeblock js
                   [
                     {
@@ -863,49 +775,346 @@
                   ]
                 @p: A cell value must be provided for each column id for every row
 
-                @collapsible [Making rows unselectable]
-                  @content
-                    @p: When a row is selected, the @code[rowSelectableLookup] function is called. If it returns false, the row will not be selected.
-                    @p: By default, the @code[rowSelectableLookup] function allows all rows to be selected. However, by setting the @code[rowSelectableLookup], the row can be made unselectable:
-                    @codeblock js
-                      dataTable.rowSelectableLookup(function (row) {
-                        return !row.unselectable;
-                      })
-                    @codeblock js
-                      [
-                        {
-                          id: 'rowId',
-                          unselectable: true,
-                          cells: {
-                            ...// Row data
-                          }
-                        },
-                        ... // Additional rows
-                      ]
-
-                @collapsible [Disabling rows]
-                  @content
-                    @p: When a row is rendered, the @code[rowEnabledLookup] function is called. If it returns false, the row will visually disabled and unselectable.
-                    @p: By default, a row can be made unselectable using a property in the row object:
-                    @codeblock js
-                      [
-                        {
-                          id: 'rowId',
-                          disabled: true,
-                          cells: {
-                            ...// Row data
-                          }
-                        },
-                        ... // Additional rows
-                      ]
-                    @p: This does not disable row collapsibles.
-
-      @property rowsForIds [Function]: A function to get the rows for the ids supplied
-        @param ids [Array]: The array of id's to get
+      @property rowsForIds [Function]
+        @description
+          @p: A function for getting the rows for an array of id's in the data.
+          @p: This is used when @code(js)[DataTable::rowsForIds] is called.
+        @param ids [Array[String]]: The array of row id's to lookup.
         @param lookupRow [Function]: The row id lookup function for the table
-        @param callback [Function]: The function to call once the data has been retrieved
+        @param callback [Function]: The function to call once the data has been retrieved.
           @param data [Array[Object]]: The array of row data retrieved from the id lookup
 
+
+
+    @object hx.dataTable
+      @description
+        @p: An object containing the default Feed object constructors.
+        @p: See the Using Feeds section for more information about using and creating Feeds.
+
+      @function objectFeed
+        @description:
+          @p: The default feed object for using object based data
+
+        @param data [Object]
+          @description
+            @p: The data to use in the feed.
+            @p: The data is expected in the following format:
+
+            @codeblock js
+              {
+                headers: [
+                  { name: 'Name', id: 'name' },
+                  ... // Additional Headers
+                ],
+                rows: [
+                  {
+                    // hidden details can go here (not in the cells object)
+                    id: 0,
+                    cells: {
+                      'name': 'Bob',
+                      ... // Additional cell data (each header should have linked cell data for each row)
+                    }
+                  },
+                  ... // Additional Rows
+                ]
+              }
+
+        @param? options [Object]: The options to use in the feed.
+          @property filter [Function]
+            @description
+              @p: Determines if the row should be included in the filtered data set.
+              @p: The default filter function just checks for inclusion of the search term in any of the cell's text.
+            @param term [String]: The search term
+            @param row [Object]: The row data
+            @default
+              @codeblock js
+                function (term, row) {
+                  var rowSearchTerm = Object.keys(row.cells).map(function (key) { return row.cells[key]}).join(' ').toLowerCase()
+                  term = term.toLowerCase.split(' ');
+                  for (var i in term) {
+                    var part = term[i];
+                    if (rowSearchTerm.indexOf(part) === -1) {
+                      return false
+                    }
+                  }
+                  return false
+                }
+
+          @property compare [Function]
+            @description: The compare function used to sort the rows.
+            @param cell1 [String]: The first cell value to compare
+            @param cell2 [String]: The second cell value to compare
+            @default
+              @codeblock js
+                function (cell1, cell2) {
+                  return (cell1 > cell2 ? 1 : -1)
+                }
+            @returns Number: -1 if cell1 should be ordered before cell2, 0 if it is the same, +1 if it should be ordered after cell2
+
+        @returns Feed: A feed object. See the @code[Feed] object for more information on what a feed contains.
+
+
+      @function urlFeed
+        @description
+          @p: Creates a url fee using the provided url. The feed will then make requests to retrieve the various chunks of data as they are required.
+
+        @param url [String]: The url to use in the feed.
+        @param? options [Object]: The options to use in the feed.
+          @property extra [Any]: Extra information to pass through to the requests made for data. This can be useful for identifying the table, or providing extra options when requesting data from the server.
+          @property cache [Boolean]: Whether or not to cache values in memory - if you always want fresh data, this should be set to false.
+            @default false
+
+        @returns Feed: A feed object. See the @code[Feed] object for more information on what a feed contains.
+
+
+
+  @extra
+    @h1 .docs-module-section: Using Feeds
+
+    @p: Data tables contain multiple options for displaying the data, as well as flexibility in how the data is provided.
+    @p: There are two functions that are available for creating feeds, however custom feeds can also be created.
+
+    @section Using hx.dataTable.objectFeed
+      @p: An object feed expects the data to be provided as a whole when the feed is created.
+      @p: The below code shows a basic use of the object feed.
+      @codeblock js
+        var tableData = {
+          headers: [
+            { name: 'Name', id: 'name' },
+            { name: 'Age', id: 'age' },
+            { name: 'Profession', id: 'profession' }
+          ],
+          rows: [
+            {
+              id: 0,
+              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+            },
+            {
+              id: 1,
+              cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
+            },
+            {
+              id: 2,
+              cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
+            }
+          ]
+        }
+        var table = new hx.DataTable('#selector')
+        table.feed(hx.dataTable.objectFeed(tableData))
+
+      @p: Alternatively, if the data is returned from a URL request, it can be set as follows:
+      @codeblock js
+        hx.json('path_to_your_request.file', function(err, data){
+          if (!err) table.feed(hx.dataTable.objectFeed(tableData));
+        })
+
+      @p: The object feed handles the sorting and filtering of the data internally making it the preferred choice for small or static data sets.
+
+
+    @section Using hx.dataTable.urlFeed
+      @p: A url feed expects a single url to handle multiple requests and return different types of data.
+      @p: They can be created using:
+      @codeblock js
+        hx.dataTable.urlFeed('request_url', {
+          cache: true, // Whether to attempt caching of data
+          extra: // Any extra data to be sent with every request
+        })
+      @p: There are four different request types made by the url feed, all of which will be @code[POST] requests:
+
+      @h4: headers
+      @codeblock js
+        {
+          type: 'headers',
+          extra: // As defined in the options
+        }
+      @p: The data returned should be in the following format:
+      @codeblock js
+        [
+          {
+            "name": "columnName", // The name for the heading to display in the table
+            "id": "columnID" // The unique ID for the column
+          },
+          ... // Additional headers
+        ]
+
+      @h4: totalCount
+      @codeblock js
+        {
+          type: 'totalCount',
+          extra: // As defined in the options
+        }
+      @p: The data returned should be in the following format:
+      @codeblock js
+        {
+          "count": 123 // The total number of rows in the data set
+        }
+      @p: If the total is unknown, this can return undefined.
+
+      @h4: rows
+      @p: The URL feed expects the server to perform any sorting/filtering as part of the 'rows' request.
+      @codeblock js
+        {
+          type: 'rows',
+          range: {
+            start: 0, // The start index to get
+            end: 14, // The end index to get
+            sort: {
+              column: undefined, // the sort column
+              direction: undefined // The sort direction
+            },
+            filter: undefined // The current filter.
+          }
+          extra: // As defined in the options
+        }
+      @p: The data returned should be in the following format:
+      @codeblock js
+        {
+          "filteredCount": 10, // The number of rows in the filtered set
+          "rows": [
+            {
+              "id": 0, // The ID for a row
+              // hidden details can be specified here (not in the cells object)
+              "cells": {
+                "columnID": "value" // The cell values for a row in columnID/value pairs
+              }
+            },
+            ... // Additional rows
+          ]
+        }
+
+      @h4: rowsForIds
+      @codeblock js
+        {
+          type: 'rowsForIds',
+          ids: [1, 2, 3] // The array of ids to get row data for
+          extra: // As defined in the options
+        }
+      @p: The data returned should be in the following format:
+      @codeblock js
+        [
+          {
+            "id": 0, // The ID for a row
+            // hidden details can be specified here (not in the cells object)
+            "cells": {
+              "columnID": "value" // The cell values for a row in columnID/value pairs
+            }
+          },
+          ... // Additional rows
+        ]
+
+    @section Creating a custom feed
+      @p: In situations where the feeds provided in the @code(js)[hx.dataTable] object are not suitable, custom feeds can be created.
+      @p: For instance, if using @code[POST] is not suitable, an alternative could be created:
+
+      @codeblock js
+        // Serializes an object into param=value&param[child]=value
+        function serialize (obj, prefix) {
+          var arr = []
+          for (var p in obj) {
+            if (obj.hasOwnProperty(p)) {
+              var k = prefix ? prefix + '[' + p + ']' : p, v = obj[p]
+              arr.push(typeof v == 'object' ?
+                serialize(v, k) :
+                encodeURIComponent(k) + '=' + encodeURIComponent(v))
+            }
+          }
+          return arr.join('&')
+        }
+
+        function createCustomURLFeed (url) {
+          var fetcher = function (data, cb) {
+            // Serializes the data so it can be passed over as a GET request
+            hx.json(url + '?' + serialize(data), function (err, data) { cb(data) })
+          }
+
+          // Return the feed object with headers, rows, rowsForIds and totalCount properties
+          return {
+            headers: function (cb) {
+              fetcher({ type: 'headers' }, cb)
+            },
+            rows: function (range, cb) {
+              fetcher({ type: 'rows', range: range }, cb)
+            },
+            rowsForIds: function (ids, lookupRow, cb) {
+              fetcher({ type: 'rowsForIds', ids: ids }, cb)
+            },
+            totalCount: function (cb) {
+              fetcher({ type: 'totalCount' }, cb)
+            }
+          }
+        }
+
+
+    @h1 .docs-module-section: Additional options
+    @p: As well as the options available on the data table prototype, there are a few extra options when setting the data that can change the table behaviour by default.
+
+    @section Multi column / grouped headers
+      @p: It is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
+
+      @codeblock js
+        {
+          headers:[
+            { id: 'name', name: 'Name', groups: ['Group 1']},
+            { id: 'age', name: 'Age' },
+            { id: 'gender', name: 'Gender', groups: ['Group 2']},
+            { id: 'dob', name: 'Date of Birth', groups: ['Group 2']},
+            { id: 'salary', name: 'Salary (£)', groups: ['Group 2']}
+          ],
+          rows: [
+            //...
+          ]
+        }
+
+    @section Wrapping header text for indivual columns
+      @p: It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the @code[allowWrap] property in the header colums:
+      @codeblock js
+        {
+          headers:[
+            { id: 'name', name: 'Name' },
+            { id: 'age', name: 'Age' },
+            { id: 'gender', name: 'Gender' },
+            { id: 'dob', name: 'Date of Birth' allowWrap: true },
+            { id: 'salary', name: 'Salary (£)' }
+          ],
+          rows: [
+            //...
+          ]
+        }
+
+    @section Disabling rows
+      @p: When a row is rendered, the @code[rowEnabledLookup] function is called. If it returns false, the row will visually disabled and unselectable.
+      @p: By default, a row can be made unselectable using a property in the row object:
+      @codeblock js
+        [
+          {
+            id: 'rowId',
+            disabled: true,
+            cells: {
+              ...// Row data
+            }
+          },
+          ... // Additional rows
+        ]
+      @p: This does not disable row collapsibles.
+
+    @section Making Rows unselectable
+      @p: When a row is selected, the @code[rowSelectableLookup] function is called to check whether the row is selectable. If it returns false, the row will not be selected.
+      @p: By default, the @code[rowSelectableLookup] function allows all rows to be selected. However, by setting the @code[rowSelectableLookup], the row can be made unselectable:
+      @codeblock js
+        dataTable.rowSelectableLookup(function (row) {
+          return !row.unselectable;
+        })
+      @codeblock js
+        [
+          {
+            id: 'rowId',
+            unselectable: true,
+            cells: {
+              ...// Row data
+            }
+          },
+          ... // Additional rows
+        ]
 
   @theme
     @option header-cell-hover-background-col
