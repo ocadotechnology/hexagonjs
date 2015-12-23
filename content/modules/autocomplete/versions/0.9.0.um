@@ -32,70 +32,69 @@
           @description
             @p: The data to use as suggestions for the input field. Data can be specified as an array of items or as a function that returns an array of items.
             @p: The data must be in one of the following formats:
-            @collapsible Array
-              @content
-                @codeblock json
-                  [
-                    "Bob",
-                    "Steve",
-                    ...
-                  ]
+            @h4: Array
 
-                By default, the data is expected as an array of string values. If object based data is passed in, an @code[inputMap] must be provided in the options:
-                @codeblock js
-                  data = [
-                    {
-                      name "Bob",
-                      age: 21
-                    },
-                    {
-                      name: "Steve",
-                      age: 25
+            @codeblock json
+              [
+                "Bob",
+                "Steve",
+                ...
+              ]
+
+            By default, the data is expected as an array of string values. If object based data is passed in, an @code[inputMap] must be provided in the options:
+            @codeblock js
+              data = [
+                {
+                  name "Bob",
+                  age: 21
+                },
+                {
+                  name: "Steve",
+                  age: 25
+                }
+              ]
+              options = {
+                inputMap: function(item){
+                  return item.name + ', ' + item.age;
+                }
+              };
+
+            A @code[renderer] and @code[filterOptions.searchValues] can also be specified to change how the text is displayed and what data is searchable, independent of the @code[inputMap].
+
+            @h4: Function
+            @codeblock js
+              var data = function(term, callback){
+                hx.json('path/to/data.json?search='+term, function(e, r){
+                  callback(r.responseText)
+                });
+              }
+
+            @p: A 'Loading...' message will be shown whilst the AutoComplete waits for a response from this function.
+            @p: It can be used in conjunction with the internal matching or be used to match externally when setting the @code(js)[matchType] to 'external':
+            @codeblock js
+              var data = function(term, callback) {
+                if (term.length > 0) {
+                  var a, county, d, name, _i, _len;
+                  a = [];
+                  for (_i = 0, _len = townAndCountyData.length; _i < _len; _i++) {
+                    d = townAndCountyData[_i];
+                    name = d.name.toLowerCase();
+                    county = d.county.toLowerCase();
+                    term = term.toLowerCase();
+                    if (name.indexOf(term) > -1 || county.indexOf(term) > -1) {
+                      a.push(d);
                     }
-                  ]
-                  options = {
-                    inputMap: function(item){
-                      return item.name + ', ' + item.age;
-                    }
-                  };
-
-                A @code[renderer] and @code[filterOptions.searchValues] can also be specified to change how the text is displayed and what data is searchable, independent of the @code[inputMap].
-
-            @collapsible Function
-              @content
-                @codeblock js
-                  var data = function(term, callback){
-                    hx.json('path/to/data.json?search='+term, function(e, r){
-                      callback(r.responseText)
-                    });
                   }
+                  return callback(a);
+                } else {
+                  return callback([]);
+                }
+              };
+              options.matchType = 'external'
 
-                @p: A 'Loading...' message will be shown whilst the AutoComplete waits for a response from this function.
-                @p: It can be used in conjunction with the internal matching or be used to match externally when setting the @code(js)[matchType] to 'external':
-                @codeblock js
-                  var data = function(term, callback) {
-                    if (term.length > 0) {
-                      var a, county, d, name, _i, _len;
-                      a = [];
-                      for (_i = 0, _len = townAndCountyData.length; _i < _len; _i++) {
-                        d = townAndCountyData[_i];
-                        name = d.name.toLowerCase();
-                        county = d.county.toLowerCase();
-                        term = term.toLowerCase();
-                        if (name.indexOf(term) > -1 || county.indexOf(term) > -1) {
-                          a.push(d);
-                        }
-                      }
-                      return callback(a);
-                    } else {
-                      return callback([]);
-                    }
-                  };
-                  options.matchType = 'external'
-
-                @p: The term passed in is the current value of the input field (for use as a search term).
-                @p: The callback is the function that should be called to pass the data back to the AutoComplete to display.
-                @p: The callback must be called for the AutoComplete to show.
+            @p: The term passed in is the current value of the input field (for use as a search term).
+            @p: The callback is the function that should be called to pass the data back to the AutoComplete to display.
+            @p: The callback must be called for the AutoComplete to show.
 
         @param? options [Object]
           @description: The options to use when building an auto complete box
