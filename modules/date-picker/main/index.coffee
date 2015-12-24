@@ -171,11 +171,9 @@ calendarGridUpdate = (datepicker, data, elem, index, mode) ->
   element = hx.select(elem)
 
   if data is 'days'
-    element.view('.hx-grid-row-heading')
-      .enter (d) ->
-        @classed('hx-grid-row-heading', true)
-        node = @append('div').class('hx-grid')
-        node.node()
+    element
+      .classed 'hx-grid-row-heading', true
+      .view '.hx-grid'
       .update (d) -> @text(d).node()
       .apply(datepicker.localiser.localiseWeek())
   else
