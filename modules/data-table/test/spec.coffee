@@ -695,7 +695,7 @@ describe 'data-table', ->
             dt.selectedRows [], ->
               expect dt.selectedRows()
                 .toEqual []
-            
+
       it 'should select rows by id', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0', '1'], ->
@@ -1861,5 +1861,13 @@ describe 'data-table', ->
       testFeedWithOptions({extra: 'some-value'})
 
 
+  describe 'fluid api', ->
+    it 'should return a selection', ->
+      expect(hx.dataTable() instanceof hx.Selection).toEqual(true)
 
+    it 'should not render if a feed is not defined', ->
+      hx.dataTable().select('.hx-data-table-content').html().should.equal('')
+
+    it 'should render if a feed is defined', ->
+      hx.dataTable({feed: hx.dataTable.objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)
 

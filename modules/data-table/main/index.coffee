@@ -760,7 +760,8 @@ hx.DataTable = DataTable
 
 hx.dataTable = (options) ->
   selection = hx.detached('div')
-  new DataTable(selection.node(), options)
+  dataTable = new DataTable(selection.node(), options)
+  if options and options.feed then dataTable.render()
   selection
 
 hx.dataTable.objectFeed = objectFeed
