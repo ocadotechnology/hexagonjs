@@ -78,3 +78,9 @@ body.hx-modal-open {
 .hx-modal-title-empty {
   display: none;
 }
+
+@media (max-width: 900px) {
+  .hx-modal {
+    max-width: 90%;
+  }
+}
