@@ -190,6 +190,7 @@ describe 'data-table', ->
     checkColumnOption('cellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('headerCellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('sortEnabled', [true, false])
+    checkColumnOption('maxWidth', [10, 100])
 
   describe 'setter/getters', ->
     checkSetterGetter('renderSuppressed', [true, false])

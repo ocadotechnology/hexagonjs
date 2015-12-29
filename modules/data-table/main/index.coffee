@@ -214,6 +214,7 @@ class DataTable extends hx.EventEmitter
   cellRenderer: columnOption('cellRenderer')
   headerCellRenderer: columnOption('headerCellRenderer')
   sortEnabled: columnOption('sortEnabled')
+  maxWidth: columnOption('maxWidth')
 
 
   # Methods for changing the state of the table
@@ -598,10 +599,18 @@ class DataTable extends hx.EventEmitter
 
                 # Render the 'key' value using the headerCellRenderer
                 keyDiv = hx.detached('div').class('hx-data-table-cell-key')
-                getColumnOption('headerCellRenderer', headers[columnIndex])(keyDiv.node(), headers[columnIndex], headers)
+                getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers)
 
-                cellDiv = tr.append('td').class('hx-data-table-cell')
-                  .add(keyDiv)
+                cellElem = tr.append('td').class('hx-data-table-cell')
+                columnMaxWidth = getColumnOption('maxWidth', headers[columnIndex].id)
+                if columnMaxWidth?
+                  columnMaxWidth = parseInt(columnMaxWidth) + 'px'
+                  cellElem
+                    .style('max-width', columnMaxWidth)
+                    .style('width', columnMaxWidth)
+                    .style('min-width', columnMaxWidth)
+
+                cellDiv = cellElem.add(keyDiv)
                   .append('div').class('hx-data-table-cell-value').node()
                 getColumnOption('cellRenderer', headers[columnIndex].id)(cellDiv, cell, row)
           else # append the 'No Data' row.
