@@ -1,0 +1,11 @@
+@inline ../../shared/common.um
+@titlebar 404
+
+@div .dx-error-message
+  @div .dx-error-message-heading: 404
+  @p: The content you requested was not found
+  @div
+    @button .dx-btn.dx-action: Go Back
+      @attr onclick: javascript:window.history.back()
+    @a .dx-btn.dx-action: Go to Home Page
+      @attr href: /

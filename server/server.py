@@ -13,6 +13,7 @@ class Content(webapp2.RequestHandler):
   def get(self, *args, **kwargs):
     urlPath = args[0]
     root = os.path.split(__file__)[0]
+    errorPath = os.path.join(root, '404', 'index.html')
     try:
       paths = [
         os.path.join(root, urlPath + '.html'),
@@ -25,7 +26,7 @@ class Content(webapp2.RequestHandler):
       if len(validPaths) > 0:
         path = validPaths[0]
       else:
-        path = os.path.join(os.path.split(__file__)[0], '404.html')
+        path = errorPath
         self.response.set_status(404)
 
       if path.endswith(".css"):
@@ -50,8 +51,10 @@ class Content(webapp2.RequestHandler):
         self.response.out.write(content)
     except:
       logging.exception("unable to serve page")
-      path = os.path.join(os.path.split(__file__)[0], '404.html')
+      path = errorPath
       f = open(path, 'r')
+      content = f.read()
+      self.response.out.write(content)
       self.response.set_status(404)
 
 app = WSGIApplication([

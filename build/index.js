@@ -305,6 +305,7 @@ function startServer () {
   liveServer.start({
     port: 9000,
     root: 'target',
+    file: '404/index.html',
     wait: 50,
     open: false
   })
