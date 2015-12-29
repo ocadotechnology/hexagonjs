@@ -71,30 +71,30 @@
 
       @method append
         @description
-          Appends an element to all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @htmlescape[<div>] element for example.
-        @param nodeType [String/Element/Selection]: The element type to append.
-        @returns Selection
+          Appends an element to all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code(html)[<div>] element for example.
+        @param element [String/Element/Selection]: The element type to append, or the element to append, or a selection containing an element to append.
+        @returns Selection: A new Selection containing the new elements
 
       @method prepend
         @added
         @description
-          Appends an element to the start of all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @htmlescape[<div>] element for example.
-        @param nodeType [String/Element/Selection]: The element type to append.
-        @returns Selection
+          Inserts an element at the start of all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code(html)[<div>] element for example.
+        @param element [String/Element/Selection]: The element type to prepend, or the element to prepend, or a selection containing an element to prepend.
+        @returns Selection: A new Selection containing the new elements
 
       @method insertBefore
         @added
         @description
-          Appends an element before each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
-        @param nodeType [String/Element/Selection]: The element type to append.
-        @returns Selection
+          Inserts an element before each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
+        @param element [String/Element/Selection]: The element type to insert, or the element to insert, or a selection containing an element to insert.
+        @returns Selection: A new Selection containing the new elements
 
       @method insertAfter
         @added
         @description
-          Appends an element after each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
-        @param nodeType [String/Element/Selection]: The element type to append.
-        @returns Selection
+          Inserts an element after each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
+        @param element [String/Element/Selection]: The element type to insert, or the element to insert, or a selection containing an element to insert.
+        @returns Selection: A new Selection containing the new elements
 
       @method remove
         @description
