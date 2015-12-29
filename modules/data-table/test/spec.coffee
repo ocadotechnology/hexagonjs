@@ -688,6 +688,13 @@ describe 'data-table', ->
 
 
     describe 'selectedRows', ->
+      it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->
+        testTable {tableOptions: {selectEnabled: true, singleSelection: true}}, done, (container, dt, options, data) ->
+          dt.selectedRows ['0'], ->
+            dt.selectedRows [], ->
+              expect dt.selectedRows()
+                .toEqual []
+            
       it 'should select rows by id', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0', '1'], ->
