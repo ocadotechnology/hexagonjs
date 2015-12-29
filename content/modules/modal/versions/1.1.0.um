@@ -1,0 +1,4 @@
+@version 1.1.0
+  @api Modal
+    @bugfix: Added some styles to modals so they no longer overflow on small devices
+      @issue 8
