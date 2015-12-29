@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.0.1
+ Version: 1.0.4
  Theme: hexagon-dark
  Modules:
    set
@@ -9003,7 +9003,9 @@ Sparkline = (function() {
         visible: false
       },
       y: {
-        visible: false
+        visible: false,
+        scalePaddingMin: 0.1,
+        scalePaddingMax: 0.1
       }
     });
     series = axis.addSeries(opts.type, {
@@ -9158,6 +9160,9 @@ StickyTableHeaders = (function() {
       resolvedOptions.stickTableHead = false;
     }
     container = tableIsRootElement ? table.insertAfter('div')["class"]('hx-sticky-table-headers') : selection.classed('hx-sticky-table-headers', true);
+    if (resolvedOptions.containerClass) {
+      container.classed(resolvedOptions.containerClass, true);
+    }
     wrapper = container.append('div')["class"]('hx-sticky-table-wrapper');
     wrapper.append(table);
     showScrollIndicators = hx.scrollbarSize() === 0;
@@ -19149,10 +19154,10 @@ Toggle = (function(superClass) {
       value: false
     }, options);
     this.selection = hx.select(selector).classed('hx-toggle', true);
-    this.input = this.selection.append('input').attr('type', 'checkbox').node();
+    this.toggle = this.selection.append('div')["class"]('hx-toggle-box');
     this.value(this.options.value);
     this.selection.on('click', 'hx.toggle', (function(_this) {
-      return function() {
+      return function(e) {
         _this.value(!_this.value());
         return _this.emit('change', _this.value());
       };
@@ -19162,7 +19167,7 @@ Toggle = (function(superClass) {
   Toggle.prototype.value = function(val) {
     if (val != null) {
       this.options.value = val;
-      this.input.checked = val;
+      this.toggle.classed('hx-toggle-box-on', val);
       return this;
     } else {
       return this.options.value;

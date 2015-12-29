@@ -233,7 +233,7 @@ class DataTable extends hx.EventEmitter
     if arguments.length > 0 and not hx.isFunction(value)
 
       # Deal with single select mode when setting the selected rows
-      if @singleSelection() and hx.isArray(value)
+      if @singleSelection() and hx.isArray(value) and value.length
         value = [value[0]]
       @_.selectedRows = new hx.Set(value)
       @emit('selectedrowschange', {value: @_.selectedRows.values(), cause: 'api'})

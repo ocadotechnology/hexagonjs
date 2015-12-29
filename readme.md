@@ -1,6 +1,8 @@
 HexagonJS
 =========
 
+[![Build Status](https://travis-ci.org/ocadotechnology/hexagonjs.svg?branch=master)](https://travis-ci.org/ocadotechnology/hexagonjs)
+
 About
 -----
 

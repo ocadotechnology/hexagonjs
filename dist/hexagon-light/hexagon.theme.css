@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.0.1
+ Version: 1.0.4
  Theme: hexagon-light
  Modules:
    set
@@ -1474,13 +1474,13 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
     border-color: #4A4E4E; }
 
 
-.hx-toggle > input[type="checkbox"] {
+.hx-toggle > .hx-toggle-box {
   background: #D5D5D5; }
-  .hx-toggle > input[type="checkbox"]:before {
+  .hx-toggle > .hx-toggle-box:before {
     background: #ABABAB; }
-  .hx-toggle > input[type="checkbox"]:checked {
+  .hx-toggle > .hx-toggle-box.hx-toggle-box-on {
     background: #D5D5D5; }
-    .hx-toggle > input[type="checkbox"]:checked:before {
+    .hx-toggle > .hx-toggle-box.hx-toggle-box-on:before {
       background: #B2BA32; }
 
 .hx-tree-node-parent,

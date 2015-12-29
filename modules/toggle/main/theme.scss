@@ -1,12 +1,12 @@
 .hx-toggle {
-  > input[type="checkbox"] {
+  > .hx-toggle-box {
     background: $background-off-col;
 
     &:before {
       background: $toggle-off-col;
     }
 
-    &:checked {
+    &.hx-toggle-box-on {
       background: $background-on-col;
 
       &:before {
