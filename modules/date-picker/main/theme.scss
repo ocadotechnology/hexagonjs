@@ -12,7 +12,7 @@
   background: $input-background-col;
   border-color: $border-col;
 
-  .hx-icon {
+  .hx-icon:not(.hx-date-to-icon) {
     background: $icon-background-col;
     color: $icon-col;
   }
