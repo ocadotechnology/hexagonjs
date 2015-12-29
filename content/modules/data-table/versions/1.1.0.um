@@ -1,0 +1,7 @@
+@version 1.1.0
+  @api Data Table
+    @function hx.dataTable
+      @param options [Object]
+      @returns Selection
+      @enhancement: Make the fluid api data table function render the table if a feed is provided
+        @issue 59
