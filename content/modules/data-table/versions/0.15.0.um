@@ -64,12 +64,6 @@
           @property columns [Object]
             @description
               @p: An object that allows the setting of column specific renderers as well as the ability to disable sorting for a specific column.
-              @p: The properties that can be set for a specific column are:
-              @ul
-                @li: allowHeaderWrap
-                @li: sortEnabled
-                @li: cellRenderer
-                @li: headerCellRenderer
               @p: To set a one of the options for a column, an object can be defined:
               @codeblock js
                 {
@@ -81,6 +75,16 @@
                   }
                 }
               @p: Columns will use the default options if a column specific value is not provided.
+            @property allowHeaderWrap [Boolean]: Column specific version of the allowHeaderWrap option
+            @property sortEnabled [Boolean]: Column specific version of the sortEnabled option
+            @property cellRenderer [Function]: Column specific version of the cellRenderer option
+              @param element [HTMLElement]: The element that is being populated.
+              @param cell [Object]: The data for the cell.
+              @param row [Object]: The entire row object.
+            @property headerCellRenderer [Function]: Column specific version of the headerCellRenderer option
+              @param element [HTMLElement]: The element that is being populated.
+              @param cell [Object]: The data for the cell.
+              @param headers [Object]: The entire headers object.
 
           @property compact [String/Boolean]
             @description
