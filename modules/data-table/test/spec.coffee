@@ -112,14 +112,27 @@ describe 'data-table', ->
 
 
 
-  checkColumnOption = (name, valuesToCheck) ->
+  checkColumnOption = (name, valuesToCheck, columnOnly) ->
     describe 'column option: ' + name, ->
       beforeEach -> spyOn(hx, 'consoleWarning')
 
-      checkSetterGetter(name, valuesToCheck)
-      checkOption(name, valuesToCheck, true)
-
       columnId = 'col-id'
+
+      if columnOnly
+        it 'should return undefined if the column id is not a string', ->
+          dt = new hx.DataTable(hx.detached('div').node())
+          expect(dt[name]()).toEqual(undefined)
+          expect(dt[name](undefined)).toEqual(undefined)
+          for value in valuesToCheck
+            expect(dt[name](value)).toEqual(undefined)
+
+        it 'should return undefined if the value is not set for a column', ->
+          dt = new hx.DataTable(hx.detached('div').node())
+          expect(dt[name](columnId)).toEqual(undefined)
+
+      else
+        checkSetterGetter(name, valuesToCheck)
+        checkOption(name, valuesToCheck, true)
 
       it 'passing in option to constructor should work', ->
         for value in valuesToCheck
@@ -148,6 +161,19 @@ describe 'data-table', ->
           expect(dt[name](columnId)).toEqual(value)
           dt[name](columnId, undefined)
           expect(dt[name](columnId)).toEqual(undefined)
+
+      it 'should emit an event with {cause: api, columnId: columnId} when changed via the api', (done) ->
+        checked = 0
+        for value in valuesToCheck
+          dt = new hx.DataTable(hx.detached('div').node(), {feed: hx.dataTable.objectFeed(threeRowsData)})
+          dt.on name.toLowerCase() + 'change', (d) ->
+            if(d.value isnt undefined)
+              d.value.should.eql(value)
+            d.column.should.equal(columnId)
+            d.cause.should.equal('api')
+            checked++
+            if checked == valuesToCheck.length then done()
+          dt[name](columnId, value)
 
   testTable = (options, done, spec) ->
     tableOptions = options.tableOptions
@@ -190,7 +216,9 @@ describe 'data-table', ->
     checkColumnOption('cellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('headerCellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('sortEnabled', [true, false])
-    checkColumnOption('maxWidth', [10, 100])
+
+  describe 'column only options', ->
+    checkColumnOption('maxWidth', [10, 100], true)
 
   describe 'setter/getters', ->
     checkSetterGetter('renderSuppressed', [true, false])
@@ -984,7 +1012,7 @@ describe 'data-table', ->
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-data-table-sort-icon').size().should.equal(1)
 
-      it 'should use a column cellRenderer instead of the default cellRenderer if one is defined', (done) ->
+      it 'should use a column sortEnabled instead of the default sortEnabled if one is defined', (done) ->
         tableOptions =
           sortEnabled: false
           columns:
@@ -1056,6 +1084,22 @@ describe 'data-table', ->
 
 
 
+    describe 'maxWidth', ->
+      it 'should set the max width for individual columns', (done) ->
+        tableOptions =
+          columns:
+            name:
+              maxWidth: 10
+
+        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+          container.select('.hx-sticky-table-wrapper').select('tbody').select('tr').selectAll('td').forEach (cell, index) ->
+            if index is 0
+              cell.attr('style').should.equal('max-width: 10px; width: 10px; min-width: 10px; ')
+            else
+              expect(cell.attr('style')).toEqual(undefined)
+
+
+
     describe 'sort', ->
       it 'should call the feed with the correct arguments', (done) ->
         dt = new hx.DataTable(hx.detached('div').node())
@@ -1105,6 +1149,7 @@ describe 'data-table', ->
           expect(dt.filter).toHaveBeenCalledWith('a', undefined, 'user')
           jasmine.clock().uninstall()
           done()
+
 
 
     describe 'grouped headers', ->

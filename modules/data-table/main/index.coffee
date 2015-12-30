@@ -209,12 +209,26 @@ class DataTable extends hx.EventEmitter
           this
       else options[name]
 
-
   allowHeaderWrap: columnOption('allowHeaderWrap')
   cellRenderer: columnOption('cellRenderer')
   headerCellRenderer: columnOption('headerCellRenderer')
   sortEnabled: columnOption('sortEnabled')
-  maxWidth: columnOption('maxWidth')
+
+  # function for setting / getting options that are only column specific and cannot be set for the whole table
+  columnOnlyOption = (name) ->
+    (columnId, value, cb) ->
+      options = @_.options
+      if hx.isString(columnId)
+        if arguments.length > 1
+          options.columns[columnId] ?= {}
+          options.columns[columnId][name] = value
+          @emit(name.toLowerCase() + 'change', {column: columnId, value: value, cause: 'api'})
+          @render(cb)
+          this
+        else if options.columns[columnId]
+          options.columns[columnId][name]
+
+  maxWidth: columnOnlyOption('maxWidth')
 
 
   # Methods for changing the state of the table
