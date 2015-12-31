@@ -105,6 +105,9 @@ function buildTestPackages (moduleNames) {
 function runTests (moduleNames, destDir, phantomOnly) {
   return buildTestPackages(moduleNames).then(function (testPackages) {
     return karma(testPackages, destDir, phantomOnly)
+      .then(function (exitStatus) {
+        process.exitCode = exitStatus;
+      })
   })
 }
 
