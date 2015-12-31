@@ -13,8 +13,6 @@ function coverage (req, res) {
   var collector = new istanbul.Collector()
   var reporter = new istanbul.Reporter(undefined, path.join(__dirname, '../..', 'target/coverage'))
 
-  console.log(req.body)
-
   req.body.forEach(function (c) {
     collector.add(c)
   })
