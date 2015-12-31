@@ -1,0 +1,134 @@
+.hx-print-only {
+  display: none;
+}
+
+@media print {
+  .hx-no-print {
+    display: none !important;
+  }
+
+  .hx-print-only {
+    display: initial;
+  }
+
+  .hx-footnote-ref {
+    font-size: 0.8em;
+    margin-top: -0.5em;
+    display: inline-block;
+    font-style: italic;
+  }
+
+  html,
+  body {
+    height: auto;
+    font-size: 12pt;
+    page-break-after: avoid;
+  }
+
+  body {
+    background: transparent !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: black !important;
+  }
+
+  .hx-heading,
+  .hx-sidebar {
+    display: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  table,
+  ul,
+  svg,
+  img,
+  form,
+  input,
+  .hx-footnote-links,
+  .hx-data-table,
+  .hx-card,
+  .hx-form,
+  .hx-table,
+  .hx-graph,
+  .hx-meter {
+    page-break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .hx-footnote-links {
+    page-break-after: avoid;
+  }
+
+  h1 {
+    font-size: 250%;
+  }
+
+  h2 {
+    font-size: 175%;
+  }
+
+  h3 {
+    font-size: 135%;
+  }
+
+  h4 {
+    font-size: 100%;
+    font-variant: small-caps;
+  }
+
+  h5 {
+    font-size: 100%;
+  }
+
+  h6 {
+    font-size: 90%;
+    font-style: italic;
+  }
+
+  .hx-spinner,
+  .hx-spinner-wide {
+    display: none !important;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  * {
+    box-shadow: none !important;
+  }
+
+  .hx-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  a:link:not(.hx-btn),
+  a:visited:not(.hx-btn) {
+    font-weight: bolder;
+    text-decoration: underline;
+  }
+
+  @page {
+    margin: 1.5cm;
+  }
+}
+
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
