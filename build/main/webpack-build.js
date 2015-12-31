@@ -7,7 +7,6 @@ var fs = Promise.promisifyAll(require('fs-extra'))
 var compiler = webpack({
   context: path.join(__dirname, '..', '..'),
   entry: {
-    hexagon: './modules/hexagon',
     'hexagon.test': 'mocha!./modules/hexagon.test'
   },
   output: {
@@ -18,8 +17,10 @@ var compiler = webpack({
   },
   module: {
     loaders: [
-      { test: /spec.coffee$/, loader: 'coffee'},
-      { test: /.coffee$/, loader: 'coffee-coverage', exclude: /spec.coffee$/ }
+      { test: /spec.js$/, loader: 'babel', exclude: [/node_modules/] },
+      { test: /.js$/, loader: 'isparta', exclude: [/spec.js$/, /node_modules/] },
+      { test: /spec.coffee$/, loader: 'coffee', exclude: [/node_modules/]},
+      { test: /.coffee$/, loader: 'coffee-coverage', exclude: [/spec.coffee$/, /node_modules/] }
     ]
   },
   resolve: {

@@ -6,11 +6,13 @@
 <body>
 <script>
   window.hxTestFinished = function() {
-    console.log(_$coffeeIstanbul);
     var XHR = new XMLHttpRequest();
     XHR.open("POST", "http://localhost:9099/coverage", true);
     XHR.setRequestHeader("Content-type", "application/json");
-    XHR.send(JSON.stringify(_$coffeeIstanbul));
+    XHR.send(JSON.stringify([
+      _$coffeeIstanbul,
+      __coverage__
+    ]));
   }
 </script>
 <script type="text/javascript" src="hexagon.test.js"></script>
