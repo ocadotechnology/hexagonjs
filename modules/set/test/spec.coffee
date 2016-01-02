@@ -1,5 +1,4 @@
 should = require('chai').should()
-
 Set = require('../main')
 
 describe "set", ->

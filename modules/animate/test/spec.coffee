@@ -60,8 +60,8 @@ describe 'hx-animate', ->
       ease = ->
       fromSelection = hx.select(node).animate(ease)
       normal = hx.animate(node, ease)
-      expect(fromSelection.node).toEqual(normal.node)
-      expect(fromSelection.ease).toEqual(normal.ease)
+      fromSelection.node.should.equal(normal.node)
+      fromSelection.ease.should.equal(normal.ease)
 
     describe 'style', ->
       it 'should emit end at the end of an animation', ->
@@ -71,12 +71,12 @@ describe 'hx-animate', ->
           .on 'end', -> end = true
 
         jasmine.clock().tick(10)
-        expect(end).toBe(true)
+        end.should.equal(true)
 
       it 'the easing function passed in should be used', ->
         ease = (d) -> Math.sqrt(Math.abs(d))
         anim = hx.animate(new FakeNode, ease)
-        expect(anim.ease).toBe(ease)
+        anim.ease.should.equal(ease)
 
       it 'should emit end at the end of an animation with multiple styles', ->
         end = false
@@ -86,7 +86,7 @@ describe 'hx-animate', ->
           .on 'end', -> end = true
 
         jasmine.clock().tick(10)
-        expect(end).toBe(true)
+        end.should.equal(true)
 
       it 'should take roughly the amount of time requested', ->
         start = now()
@@ -99,7 +99,7 @@ describe 'hx-animate', ->
 
         jasmine.clock().tick(100)
 
-        expect(time).toEqual(100)
+        time.should.equal(100)
 
       it 'should take roughly the amount of time requested (using default)', ->
         start = now()
@@ -111,7 +111,7 @@ describe 'hx-animate', ->
             time = now() - start
 
         jasmine.clock().tick(200)
-        expect(time).toEqual(200)
+        time.should.equal(200)
 
       it 'if you dont supply a node, then the end event should be emitted straight away', ->
         end = false
@@ -120,7 +120,7 @@ describe 'hx-animate', ->
           .style('height', '100%', 100)
           .style('width', '100%', 50)
 
-        expect(end).toEqual(true)
+        end.should.equal(true)
 
       it 'should only emit end once', ->
         count = 0
@@ -130,7 +130,7 @@ describe 'hx-animate', ->
           .style('width', '100%', 50)
 
 
-        expect(count).toBe(1)
+        count.should.equal(1)
 
       it 'should end on the correct values', ->
         node = new FakeNode
@@ -139,8 +139,8 @@ describe 'hx-animate', ->
           .style('width', '100%', 50)
 
         jasmine.clock().tick(100)
-        expect(node.styles['height']).toEqual('100%')
-        expect(node.styles['width']).toEqual('100%')
+        node.styles['height'].should.equal('100%')
+        node.styles['width'].should.equal('100%')
 
       it 'should end on the correct values', ->
 
@@ -154,8 +154,8 @@ describe 'hx-animate', ->
           .style('width', '100%', 50)
 
         jasmine.clock().tick(100)
-        expect(node.styles['height']).toEqual('100%')
-        expect(node.styles['width']).toEqual('100%')
+        node.styles['height'].should.equal('100%')
+        node.styles['width'].should.equal('100%')
 
       it 'should interpolate to the correct values', ->
 
@@ -169,16 +169,16 @@ describe 'hx-animate', ->
           .style('height', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('50%')
-        expect(node.styles['height']).toEqual('75%')
+        node.styles['width'].should.equal('50%')
+        node.styles['height'].should.equal('75%')
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('100%')
-        expect(node.styles['height']).toEqual('100%')
+        node.styles['width'].should.equal('100%')
+        node.styles['height'].should.equal('100%')
 
       it 'changing the easing function should affect the values', ->
 
@@ -192,15 +192,15 @@ describe 'hx-animate', ->
           .style('height', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('1.5625%')
+        node.styles['width'].should.equal('1.5625%')
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('12.5%')
-        expect(node.styles['height']).toEqual('56.25%')
+        node.styles['width'].should.equal('12.5%')
+        node.styles['height'].should.equal('56.25%')
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('100%')
-        expect(node.styles['height']).toEqual('100%')
+        node.styles['width'].should.equal('100%')
+        node.styles['height'].should.equal('100%')
 
       it 'changing the easing function should affect the values', ->
 
@@ -214,15 +214,15 @@ describe 'hx-animate', ->
           .style('height', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('6.25%')
+        node.styles['width'].should.equal('6.25%')
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('100%')
-        expect(node.styles['height']).toEqual('100%')
+        node.styles['width'].should.equal('100%')
+        node.styles['height'].should.equal('100%')
 
       it 'should interpolate the correct values', ->
 
@@ -234,16 +234,16 @@ describe 'hx-animate', ->
           .style('height', '50%', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         jasmine.clock().tick(25)
-        expect(node.styles['width']).toEqual('50%')
-        expect(node.styles['height']).toEqual('75%')
+        node.styles['width'].should.equal('50%')
+        node.styles['height'].should.equal('75%')
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('100%')
-        expect(node.styles['height']).toEqual('100%')
+        node.styles['width'].should.equal('100%')
+        node.styles['height'].should.equal('100%')
 
       it 'should interpolate the correct values', ->
 
@@ -255,16 +255,16 @@ describe 'hx-animate', ->
           .style('height', '50%', '100%', undefined)
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('50%')
-        expect(node.styles['height']).toEqual('75%')
+        node.styles['width'].should.equal('50%')
+        node.styles['height'].should.equal('75%')
 
         jasmine.clock().tick(100)
-        expect(node.styles['width']).toEqual('100%')
-        expect(node.styles['height']).toEqual('100%')
+        node.styles['width'].should.equal('100%')
+        node.styles['height'].should.equal('100%')
 
       it 'cancel should work for range animations', ->
 
@@ -276,18 +276,18 @@ describe 'hx-animate', ->
           .style('height', '50%', '100%', undefined)
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         anim.cancel()
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         jasmine.clock().tick(100)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
       it 'cancel should work for range animations', ->
 
@@ -301,18 +301,18 @@ describe 'hx-animate', ->
           .style('height', '100%')
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         anim.cancel()
 
         jasmine.clock().tick(50)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
         jasmine.clock().tick(100)
-        expect(node.styles['width']).toEqual('25%')
-        expect(node.styles['height']).toEqual('62.5%')
+        node.styles['width'].should.equal('25%')
+        node.styles['height'].should.equal('62.5%')
 
     describe 'attr', ->
       it 'should emit end at the end of an animation', ->
@@ -322,12 +322,12 @@ describe 'hx-animate', ->
           .on 'end', -> end = true
 
         jasmine.clock().tick(10)
-        expect(end).toBe(true)
+        end.should.equal(true)
 
       it 'the easing function passed in should be used', ->
         ease = (d) -> Math.sqrt(Math.abs(d))
         anim = hx.animate(new FakeNode, ease)
-        expect(anim.ease).toBe(ease)
+        anim.ease.should.equal(ease)
 
       it 'should emit end at the end of an animation with multiple attrs', ->
         end = false
@@ -337,7 +337,7 @@ describe 'hx-animate', ->
           .on 'end', -> end = true
 
         jasmine.clock().tick(10)
-        expect(end).toBe(true)
+        end.should.equal(true)
 
       it 'should take roughly the amount of time requested', ->
         start = now()
@@ -350,7 +350,7 @@ describe 'hx-animate', ->
 
         jasmine.clock().tick(100)
 
-        expect(time).toEqual(100)
+        time.should.equal(100)
 
       it 'should take roughly the amount of time requested (using default)', ->
         start = now()
@@ -362,7 +362,7 @@ describe 'hx-animate', ->
             time = now() - start
 
         jasmine.clock().tick(200)
-        expect(time).toEqual(200)
+        time.should.equal(200)
 
       it 'if you dont supply a node, then the end event should be emitted straight away', ->
         end = false
@@ -371,7 +371,7 @@ describe 'hx-animate', ->
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
 
-        expect(end).toEqual(true)
+        end.should.equal(true)
 
       it 'should only emit end once', ->
         count = 0
@@ -381,7 +381,7 @@ describe 'hx-animate', ->
           .attr('width', '100%', 50)
 
 
-        expect(count).toBe(1)
+        count.should.equal(1)
 
       it 'should end on the correct values', ->
         node = new FakeNode
@@ -390,8 +390,8 @@ describe 'hx-animate', ->
           .attr('width', '100%', 50)
 
         jasmine.clock().tick(100)
-        expect(node.attrs['height']).toEqual('100%')
-        expect(node.attrs['width']).toEqual('100%')
+        node.attrs['height'].should.equal('100%')
+        node.attrs['width'].should.equal('100%')
 
       it 'should end on the correct values', ->
 
@@ -405,8 +405,8 @@ describe 'hx-animate', ->
           .attr('width', '100%', 50)
 
         jasmine.clock().tick(100)
-        expect(node.attrs['height']).toEqual('100%')
-        expect(node.attrs['width']).toEqual('100%')
+        node.attrs['height'].should.equal('100%')
+        node.attrs['width'].should.equal('100%')
 
       it 'should interpolate to the correct values', ->
 
@@ -420,16 +420,16 @@ describe 'hx-animate', ->
           .attr('height', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('50%')
-        expect(node.attrs['height']).toEqual('75%')
+        node.attrs['width'].should.equal('50%')
+        node.attrs['height'].should.equal('75%')
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('100%')
-        expect(node.attrs['height']).toEqual('100%')
+        node.attrs['width'].should.equal('100%')
+        node.attrs['height'].should.equal('100%')
 
       it 'changing the easing function should affect the values', ->
 
@@ -443,15 +443,15 @@ describe 'hx-animate', ->
           .attr('height', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('1.5625%')
+        node.attrs['width'].should.equal('1.5625%')
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('12.5%')
-        expect(node.attrs['height']).toEqual('56.25%')
+        node.attrs['width'].should.equal('12.5%')
+        node.attrs['height'].should.equal('56.25%')
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('100%')
-        expect(node.attrs['height']).toEqual('100%')
+        node.attrs['width'].should.equal('100%')
+        node.attrs['height'].should.equal('100%')
 
       it 'changing the easing function should affect the values', ->
 
@@ -465,15 +465,15 @@ describe 'hx-animate', ->
           .attr('height', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('6.25%')
+        node.attrs['width'].should.equal('6.25%')
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('100%')
-        expect(node.attrs['height']).toEqual('100%')
+        node.attrs['width'].should.equal('100%')
+        node.attrs['height'].should.equal('100%')
 
       it 'should interpolate the correct values', ->
 
@@ -485,16 +485,16 @@ describe 'hx-animate', ->
           .attr('height', '50%', '100%', 100)
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         jasmine.clock().tick(25)
-        expect(node.attrs['width']).toEqual('50%')
-        expect(node.attrs['height']).toEqual('75%')
+        node.attrs['width'].should.equal('50%')
+        node.attrs['height'].should.equal('75%')
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('100%')
-        expect(node.attrs['height']).toEqual('100%')
+        node.attrs['width'].should.equal('100%')
+        node.attrs['height'].should.equal('100%')
 
       it 'should interpolate the correct values', ->
 
@@ -506,16 +506,16 @@ describe 'hx-animate', ->
           .attr('height', '50%', '100%', undefined)
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('50%')
-        expect(node.attrs['height']).toEqual('75%')
+        node.attrs['width'].should.equal('50%')
+        node.attrs['height'].should.equal('75%')
 
         jasmine.clock().tick(100)
-        expect(node.attrs['width']).toEqual('100%')
-        expect(node.attrs['height']).toEqual('100%')
+        node.attrs['width'].should.equal('100%')
+        node.attrs['height'].should.equal('100%')
 
       it 'cancel should work for range animations', ->
 
@@ -527,18 +527,18 @@ describe 'hx-animate', ->
           .attr('height', '50%', '100%', undefined)
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         anim.cancel()
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         jasmine.clock().tick(100)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
       it 'cancel should work for range animations', ->
 
@@ -552,18 +552,18 @@ describe 'hx-animate', ->
           .attr('height', '100%')
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         anim.cancel()
 
         jasmine.clock().tick(50)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
         jasmine.clock().tick(100)
-        expect(node.attrs['width']).toEqual('25%')
-        expect(node.attrs['height']).toEqual('62.5%')
+        node.attrs['width'].should.equal('25%')
+        node.attrs['height'].should.equal('62.5%')
 
 
   describe 'hx.morph', ->
@@ -572,7 +572,7 @@ describe 'hx-animate', ->
       node = hx.detached('div').node()
       fromSelection = hx.select(node).morph()
       normal = hx.morph(node)
-      expect(fromSelection.node).toEqual(normal.node)
+      fromSelection.node.should.equal(normal.node)
 
     it 'should proceed straight away for no argument functions that are not event emitters', ->
       called1 = false
@@ -582,8 +582,8 @@ describe 'hx-animate', ->
         .then -> called2 = true
         .go()
 
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(true)
+      called1.should.equal(true)
+      called2.should.equal(true)
 
     it 'should wait until async functions finish before continuing', ->
       called = false
@@ -593,11 +593,11 @@ describe 'hx-animate', ->
         .then -> called = true
         .go()
 
-      expect(called).toEqual(false)
+      called.should.equal(false)
       jasmine.clock().tick(25)
-      expect(called).toEqual(false)
+      called.should.equal(false)
       jasmine.clock().tick(100)
-      expect(called).toEqual(true)
+      called.should.equal(true)
 
     it 'should wait until event emitters emit end finish before continuing', ->
       called = false
@@ -610,11 +610,11 @@ describe 'hx-animate', ->
         .then -> called = true
         .go()
 
-      expect(called).toEqual(false)
+      called.should.equal(false)
       jasmine.clock().tick(25)
-      expect(called).toEqual(false)
+      called.should.equal(false)
       jasmine.clock().tick(100)
-      expect(called).toEqual(true)
+      called.should.equal(true)
 
     it 'should cancel ongoing morphs correctly', ->
       called1 = false
@@ -636,8 +636,8 @@ describe 'hx-animate', ->
 
       jasmine.clock().tick(150)
 
-      expect(called1).toEqual(false)
-      expect(called2).toEqual(true)
+      called1.should.equal(false)
+      called2.should.equal(true)
 
     it 'should do nothing when you cancel an ongoing morph when a node isnt given', ->
       called1 = false
@@ -657,8 +657,8 @@ describe 'hx-animate', ->
 
       jasmine.clock().tick(150)
 
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(true)
+      called1.should.equal(true)
+      called2.should.equal(true)
 
     it 'should be fine with cancelling morphs on a node that hasnt got any', ->
       called = false
@@ -671,7 +671,7 @@ describe 'hx-animate', ->
 
       jasmine.clock().tick(150)
 
-      expect(called).toEqual(true)
+      called.should.equal(true)
 
     it 'should be fine with cancelling morphs on a node that hasnt got any (due to them all expiring)', ->
       called = false
@@ -686,7 +686,7 @@ describe 'hx-animate', ->
 
       jasmine.clock().tick(150)
 
-      expect(called).toEqual(true)
+      called.should.equal(true)
 
     it 'should ignore things that have already been cancelled', ->
       called = false
@@ -702,7 +702,7 @@ describe 'hx-animate', ->
         .then (done) -> setTimeout(done, 100)
         .go(true)
 
-      expect(called).toEqual(false)
+      called.should.equal(false)
 
     it 'cancelling a morph twice should be fine', ->
       node = new FakeNode
@@ -713,7 +713,7 @@ describe 'hx-animate', ->
 
       morph.cancel()
 
-      expect(-> morph.cancel()).not.toThrow()
+      should.not.Throw(-> morph.cancel())
 
     it 'when cancelling, the cancellers should be called', ->
       node = new FakeNode
@@ -728,8 +728,8 @@ describe 'hx-animate', ->
 
       morph.cancel()
 
-      expect(cancelled1).toEqual(true)
-      expect(cancelled2).toEqual(true)
+      cancelled1.should.equal(true)
+      cancelled2.should.equal(true)
 
     it 'shouldnt fall over on cancel properties that isnt a function', ->
       node = new FakeNode
@@ -743,7 +743,7 @@ describe 'hx-animate', ->
         .and (done) -> {cancel: -> cancelled2 = true}
         .go()
 
-      expect(-> morph.cancel()).not.toThrow()
+      should.not.Throw(-> morph.cancel())
 
     it 'should ignore things that have already finished', ->
       called = false
@@ -757,7 +757,7 @@ describe 'hx-animate', ->
 
       hx.morph(node).go(true)
 
-      expect(called).toEqual(false)
+      called.should.equal(false)
 
     it 'should filter out cancelled morphs when a new one is started', ->
       called = false
@@ -775,7 +775,7 @@ describe 'hx-animate', ->
 
       hx.morph(node).go(false)
 
-      expect(node.__hx__.morphs).toContain(original[0])
+      node.__hx__.morphs.should.contain(original[0])
 
     it 'things with a cancel method should be put onto the cancellers array', ->
       node = new FakeNode
@@ -788,7 +788,7 @@ describe 'hx-animate', ->
         .and (done) -> obj
         .go()
 
-      expect(morph.cancelers).toEqual([obj, obj, obj])
+      morph.cancelers.should.eql([obj, obj, obj])
 
 
     it 'should wait until all async things have finished before emitting end', ->
@@ -817,22 +817,22 @@ describe 'hx-animate', ->
         .on 'end', -> end = true
 
       jasmine.clock().tick(101)
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(false)
-      expect(called3).toEqual(false)
-      expect(end).toEqual(false)
+      called1.should.equal(true)
+      called2.should.equal(false)
+      called3.should.equal(false)
+      end.should.equal(false)
 
       jasmine.clock().tick(100)
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(true)
-      expect(called3).toEqual(false)
-      expect(end).toEqual(false)
+      called1.should.equal(true)
+      called2.should.equal(true)
+      called3.should.equal(false)
+      end.should.equal(false)
 
       jasmine.clock().tick(100)
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(true)
-      expect(called3).toEqual(true)
-      expect(end).toEqual(true)
+      called1.should.equal(true)
+      called2.should.equal(true)
+      called3.should.equal(true)
+      end.should.equal(true)
 
     it 'with should do the same as then', ->
       called1 = false
@@ -860,22 +860,22 @@ describe 'hx-animate', ->
         .go()
 
       jasmine.clock().tick(101)
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(false)
-      expect(called3).toEqual(false)
-      expect(end).toEqual(false)
+      called1.should.equal(true)
+      called2.should.equal(false)
+      called3.should.equal(false)
+      end.should.equal(false)
 
       jasmine.clock().tick(100)
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(true)
-      expect(called3).toEqual(false)
-      expect(end).toEqual(false)
+      called1.should.equal(true)
+      called2.should.equal(true)
+      called3.should.equal(false)
+      end.should.equal(false)
 
       jasmine.clock().tick(100)
-      expect(called1).toEqual(true)
-      expect(called2).toEqual(true)
-      expect(called3).toEqual(true)
-      expect(end).toEqual(true)
+      called1.should.equal(true)
+      called2.should.equal(true)
+      called3.should.equal(true)
+      end.should.equal(true)
 
     it 'named morphs should work', ->
       end = false
@@ -901,10 +901,10 @@ describe 'hx-animate', ->
         .go()
 
       jasmine.clock().tick(101)
-      expect(end).toEqual(false)
+      end.should.equal(false)
 
       jasmine.clock().tick(400)
-      expect(end).toEqual(true)
+      end.should.equal(true)
 
     it 'named morphs should do nothing when you have no node', ->
       end = false
@@ -928,19 +928,19 @@ describe 'hx-animate', ->
         .go()
 
       jasmine.clock().tick(101)
-      expect(end).toEqual(true)
+      end.should.equal(true)
 
       jasmine.clock().tick(400)
-      expect(end).toEqual(true)
+      end.should.equal(true)
 
     it 'a warning should be thrown when a named morph is used that doesnt exist', ->
-      spyOn(console, 'warn')
+      chai.spy.on(console, 'warn')
 
       hx.morph(new FakeNode)
         .with('delay5', 500)
         .go()
 
-      expect(console.warn).toHaveBeenCalled()
+      console.warn.should.have.been.called.once
 
     it 'andStyle should affect an elements styles', ->
       node = new FakeNode
@@ -951,11 +951,11 @@ describe 'hx-animate', ->
         .andStyle('height', '100')
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'andStyle should affect an elements styles (with custom duration)', ->
       node = new FakeNode
@@ -966,11 +966,11 @@ describe 'hx-animate', ->
         .andStyle('height', '100', 500)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'andStyle should affect an elements styles (with start and end values)', ->
       node = new FakeNode
@@ -979,11 +979,11 @@ describe 'hx-animate', ->
         .andStyle('height', '0', '100', undefined)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'andStyle should affect an elements styles (with start and end values and custom duration)', ->
       node = new FakeNode
@@ -992,11 +992,11 @@ describe 'hx-animate', ->
         .andStyle('height', '0', '100', 500)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles', ->
       node = new FakeNode
@@ -1007,11 +1007,11 @@ describe 'hx-animate', ->
         .thenStyle('height', '100')
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles (with custom duration)', ->
       node = new FakeNode
@@ -1022,11 +1022,11 @@ describe 'hx-animate', ->
         .thenStyle('height', '100', 500)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles (with start and end values)', ->
       node = new FakeNode
@@ -1035,11 +1035,11 @@ describe 'hx-animate', ->
         .thenStyle('height', '0', '100', undefined)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles (with start and end values and custom duration)', ->
       node = new FakeNode
@@ -1048,11 +1048,11 @@ describe 'hx-animate', ->
         .thenStyle('height', '0', '100', 500)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes', ->
       node = new FakeNode
@@ -1063,11 +1063,11 @@ describe 'hx-animate', ->
         .andAttr('height', '100')
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes (with custom duration)', ->
       node = new FakeNode
@@ -1078,11 +1078,11 @@ describe 'hx-animate', ->
         .andAttr('height', '100', 500)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
@@ -1091,11 +1091,11 @@ describe 'hx-animate', ->
         .andAttr('height', '0', '100', undefined)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
@@ -1104,11 +1104,11 @@ describe 'hx-animate', ->
         .andAttr('height', '0', '100', 500)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes', ->
       node = new FakeNode
@@ -1119,11 +1119,11 @@ describe 'hx-animate', ->
         .thenAttr('height', '100')
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes (with custom duration)', ->
       node = new FakeNode
@@ -1134,11 +1134,11 @@ describe 'hx-animate', ->
         .thenAttr('height', '100', 500)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
@@ -1147,11 +1147,11 @@ describe 'hx-animate', ->
         .thenAttr('height', '0', '100', undefined)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
@@ -1160,11 +1160,11 @@ describe 'hx-animate', ->
         .thenAttr('height', '0', '100', 500)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
    it 'withStyle should affect an elements attributes', ->
       node = new FakeNode
@@ -1175,11 +1175,11 @@ describe 'hx-animate', ->
         .withStyle('height', '100')
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'withStyle should affect an elements attributes (with custom duration)', ->
       node = new FakeNode
@@ -1190,11 +1190,11 @@ describe 'hx-animate', ->
         .withStyle('height', '100', 500)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'withStyle should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
@@ -1203,11 +1203,11 @@ describe 'hx-animate', ->
         .withStyle('height', '0', '100', undefined)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'withStyle should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
@@ -1216,11 +1216,11 @@ describe 'hx-animate', ->
         .withStyle('height', '0', '100', 500)
         .go()
 
-      expect(node.styles['height']).toEqual('0')
+      node.styles['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('50')
+      node.styles['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.styles['height']).toEqual('100')
+      node.styles['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes', ->
       node = new FakeNode
@@ -1231,11 +1231,11 @@ describe 'hx-animate', ->
         .withAttr('height', '100')
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes (with custom duration)', ->
       node = new FakeNode
@@ -1246,11 +1246,11 @@ describe 'hx-animate', ->
         .withAttr('height', '100', 500)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
@@ -1259,11 +1259,11 @@ describe 'hx-animate', ->
         .withAttr('height', '0', '100', undefined)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(100)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
@@ -1272,8 +1272,8 @@ describe 'hx-animate', ->
         .withAttr('height', '0', '100', 500)
         .go()
 
-      expect(node.attrs['height']).toEqual('0')
+      node.attrs['height'].should.equal('0')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('50')
+      node.attrs['height'].should.equal('50')
       jasmine.clock().tick(250)
-      expect(node.attrs['height']).toEqual('100')
+      node.attrs['height'].should.equal('100')

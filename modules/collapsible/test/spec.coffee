@@ -1,6 +1,10 @@
 describe 'collapsible', ->
+
+  Collapsible = hx.Collapsible
+  select = hx.select
+
   beforeEach ->
-    fixture = hx.select('body').append('div').attr('id', 'fixture').html """
+    fixture = select('body').append('div').attr('id', 'fixture').html """
       <div id="example" class="hx-collapsible">
         <div class="hx-collapsible-heading">Header</div>
         <div class="hx-collapsible-content">Content</div>
@@ -27,154 +31,154 @@ describe 'collapsible', ->
     """
 
   afterEach ->
-    hx.select('#fixture').remove()
+    select('#fixture').remove()
 
   it 'should initialise the target element with openable', ->
-    new hx.Collapsible(hx.select('#example').node())
-    expect(hx.select('#example').classed('hx-openable')).toEqual(true)
+    new Collapsible(select('#example').node())
+    select('#example').classed('hx-openable').should.equal(true)
 
   it 'should initialise with visible if visible is set', ->
-    new hx.Collapsible(hx.select('#example').node(), {visible: true})
-    expect(hx.select('#example').classed('hx-collapsible-expanded')).toEqual(true)
-    expect(hx.select('#example').classed('hx-opened')).toEqual(true)
+    new Collapsible(select('#example').node(), {visible: true})
+    select('#example').classed('hx-collapsible-expanded').should.equal(true)
+    select('#example').classed('hx-opened').should.equal(true)
 
   it 'should initialise with visible if visible is set to false', ->
-    new hx.Collapsible(hx.select('#example').node(), {visible: false})
-    expect(hx.select('#example').classed('hx-collapsible-expanded')).toEqual(false)
-    expect(hx.select('#example').classed('hx-opened')).toEqual(false)
+    new Collapsible(select('#example').node(), {visible: false})
+    select('#example').classed('hx-collapsible-expanded').should.equal(false)
+    select('#example').classed('hx-opened').should.equal(false)
 
   it 'should call the lazy function just once', ->
     called = 0
     f = -> called++
-    collapsible = new hx.Collapsible(hx.select('#example').node(), {lazyContent: f})
-    expect(called).toEqual(0)
+    collapsible = new Collapsible(select('#example').node(), {lazyContent: f})
+    called.should.equal(0)
     collapsible.show(false)
-    expect(called).toEqual(1)
+    called.should.equal(1)
     collapsible.hide(false)
-    expect(called).toEqual(1)
+    called.should.equal(1)
     collapsible.show(false)
-    expect(called).toEqual(1)
+    called.should.equal(1)
     collapsible.show(false)
-    expect(called).toEqual(1)
+    called.should.equal(1)
 
   it 'should add an icon by default', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node())
-    expect(hx.select('#example').select('i').size()).toEqual(1)
+    collapsible = new Collapsible(select('#example').node())
+    select('#example').select('i').size().should.equal(1)
 
   it 'should not add an icon if addIcon is false', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false, addIcon: false })
-    expect(hx.select('#example').select('i').size()).toEqual(0)
+    collapsible = new Collapsible(select('#example').node(), { visible: false, addIcon: false })
+    select('#example').select('i').size().should.equal(0)
 
   it 'should remove an existing icon if there is one, then add a new one', ->
-    collapsible = new hx.Collapsible(hx.select('#example2').node())
-    expect(hx.select('#example2').select('i').classed('existing')).toEqual(false)
+    collapsible = new Collapsible(select('#example2').node())
+    select('#example2').select('i').classed('existing').should.equal(false)
 
   it 'an existing icon should not be touched if addIcon is false', ->
-    collapsible = new hx.Collapsible(hx.select('#example2').node(), { visible: false, addIcon: false })
-    expect(hx.select('#example2').select('i').classed('existing')).toEqual(true)
+    collapsible = new Collapsible(select('#example2').node(), { visible: false, addIcon: false })
+    select('#example2').select('i').classed('existing').should.equal(true)
 
   it 'should add an icon by default (with toggle area)', ->
-    collapsible = new hx.Collapsible(hx.select('#example3').node())
-    expect(hx.select('#example3').select('i').size()).toEqual(1)
+    collapsible = new Collapsible(select('#example3').node())
+    select('#example3').select('i').size().should.equal(1)
 
   it 'should not add an icon if addIcon is false (with toggle area)', ->
-    collapsible = new hx.Collapsible(hx.select('#example3').node(), { visible: false, addIcon: false })
-    expect(hx.select('#example3').select('i').size()).toEqual(0)
+    collapsible = new Collapsible(select('#example3').node(), { visible: false, addIcon: false })
+    select('#example3').select('i').size().should.equal(0)
 
   it 'should remove an existing icon if there is one, then add a new one (with toggle area)', ->
-    collapsible = new hx.Collapsible(hx.select('#example4').node())
-    expect(hx.select('#example4').select('i').classed('existing')).toEqual(false)
+    collapsible = new Collapsible(select('#example4').node())
+    select('#example4').select('i').classed('existing').should.equal(false)
 
   it 'an existing icon should not be touched if addIcon is false (with toggle area)', ->
-    collapsible = new hx.Collapsible(hx.select('#example4').node(), { visible: false, addIcon: false })
-    expect(hx.select('#example4').select('i').classed('existing')).toEqual(true)
+    collapsible = new Collapsible(select('#example4').node(), { visible: false, addIcon: false })
+    select('#example4').select('i').classed('existing').should.equal(true)
 
   it 'the collapsible should be visible after show is called', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.show(false)
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(true)
 
   it 'the collapsible should not be visible after hide is called', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.hide(false)
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(false)
 
   it 'toggle should work as expected', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.show(false)
     collapsible.toggle(false)
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(false)
     collapsible.toggle(false)
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(true)
 
   it 'the collapsible should be visible after show is called (with animation enabled)', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.show(true)
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(true)
 
   it 'the collapsible should not be visible after hide is called (with animation enabled)', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.hide(true)
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(false)
 
   it 'toggle should work as expected (with animation enabled)', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.show(true)
     collapsible.toggle(true)
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(false)
     collapsible.toggle(true)
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(true)
 
   it 'the collapsible should be visible after show is called (with default animation)', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.show()
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(true)
 
   it 'the collapsible should not be visible after hide is called (with default animation)', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.hide()
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(false)
 
   it 'toggle should work as expected (with default animation)', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node(), { visible: false })
+    collapsible = new Collapsible(select('#example').node(), { visible: false })
     collapsible.show()
     collapsible.toggle()
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(false)
     collapsible.toggle()
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(true)
 
   it 'initializeCollapsibles should work', ->
     collapsibles = hx.initializeCollapsibles('.hx-collapsible')
-    expect(collapsibles.length).toEqual(4)
-    expect(collapsibles[0]).toEqual(jasmine.any(hx.Collapsible))
-    expect(collapsibles[1]).toEqual(jasmine.any(hx.Collapsible))
-    expect(collapsibles[2]).toEqual(jasmine.any(hx.Collapsible))
-    expect(collapsibles[3]).toEqual(jasmine.any(hx.Collapsible))
+    collapsibles.length.should.equal(4)
+    collapsibles[0].should.be.an.instanceOf(Collapsible)
+    collapsibles[1].should.be.an.instanceOf(Collapsible)
+    collapsibles[2].should.be.an.instanceOf(Collapsible)
+    collapsibles[3].should.be.an.instanceOf(Collapsible)
 
   it 'should open when clicked', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node())
+    collapsible = new Collapsible(select('#example').node())
     collapsible.hide()
-    expect(collapsible.isOpen()).toEqual(false)
-    hx.select('#example').select('.hx-collapsible-heading').node().__hx__.eventEmitter.emit('click')
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(false)
+    select('#example').select('.hx-collapsible-heading').node().__hx__.eventEmitter.emit('click')
+    collapsible.isOpen().should.equal(true)
 
   it 'should close when clicked', ->
-    collapsible = new hx.Collapsible(hx.select('#example').node())
+    collapsible = new Collapsible(select('#example').node())
     collapsible.show()
-    expect(collapsible.isOpen()).toEqual(true)
-    hx.select('#example').select('.hx-collapsible-heading').node().__hx__.eventEmitter.emit('click')
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(true)
+    select('#example').select('.hx-collapsible-heading').node().__hx__.eventEmitter.emit('click')
+    collapsible.isOpen().should.equal(false)
 
   it 'should open when clicked (with toggle area)', ->
-    collapsible = new hx.Collapsible(hx.select('#example3').node())
+    collapsible = new Collapsible(select('#example3').node())
     collapsible.hide()
-    expect(collapsible.isOpen()).toEqual(false)
-    hx.select('#example3').select('.hx-collapsible-toggle').node().__hx__.eventEmitter.emit('click')
-    expect(collapsible.isOpen()).toEqual(true)
+    collapsible.isOpen().should.equal(false)
+    select('#example3').select('.hx-collapsible-toggle').node().__hx__.eventEmitter.emit('click')
+    collapsible.isOpen().should.equal(true)
 
   it 'should close when clicked (with toggle area)', ->
-    collapsible = new hx.Collapsible(hx.select('#example3').node())
+    collapsible = new Collapsible(select('#example3').node())
     collapsible.show()
-    expect(collapsible.isOpen()).toEqual(true)
-    hx.select('#example3').select('.hx-collapsible-toggle').node().__hx__.eventEmitter.emit('click')
-    expect(collapsible.isOpen()).toEqual(false)
+    collapsible.isOpen().should.equal(true)
+    select('#example3').select('.hx-collapsible-toggle').node().__hx__.eventEmitter.emit('click')
+    collapsible.isOpen().should.equal(false)
