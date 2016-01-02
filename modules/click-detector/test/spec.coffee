@@ -1,5 +1,7 @@
 describe 'ClickDetector', ->
 
+  ClickDetector = hx.ClickDetector
+
   cd = null
   beforeEach ->
     fixture = hx.select('body')
@@ -15,7 +17,7 @@ describe 'ClickDetector', ->
       .attr('id', 'elem')
 
 
-    cd = new hx.ClickDetector()
+    cd = new ClickDetector
 
   afterEach ->
     cd = null
@@ -23,30 +25,30 @@ describe 'ClickDetector', ->
   it 'should correctly add exceptions', ->
     cd.addException(document.getElementById('exception'))
 
-    expect(cd.exceptions.size).toEqual(1)
-    expect(cd.exceptions.entries()).toEqual([document.getElementById('exception')])
+    cd.exceptions.size.should.equal(1)
+    cd.exceptions.entries().should.eql([document.getElementById('exception')])
 
   it 'should correctly remove exceptions', ->
     cd.addException(document.getElementById('exception'))
 
-    expect(cd.exceptions.size).toEqual(1)
-    expect(cd.exceptions.entries()).toEqual([document.getElementById('exception')])
+    cd.exceptions.size.should.equal(1)
+    cd.exceptions.entries().should.eql([document.getElementById('exception')])
     cd.removeException(document.getElementById('exception'))
-    expect(cd.exceptions.size).toEqual(0)
+    cd.exceptions.size.should.equal(0)
 
     cd.removeException(document.getElementById('elem'))
-    expect(cd.exceptions.size).toEqual(0)
+    cd.exceptions.size.should.equal(0)
 
   it 'should correctly clear exceptions', ->
     cd.addException(document.getElementById('exception'))
 
-    expect(cd.exceptions.size).toEqual(1)
-    expect(cd.exceptions.entries()).toEqual([document.getElementById('exception')])
+    cd.exceptions.size.should.equal(1)
+    cd.exceptions.entries().should.eql([document.getElementById('exception')])
 
     cd.removeAllExceptions()
 
-    expect(cd.exceptions.size).toEqual(0)
-    expect(cd.exceptions.entries()).toEqual([])
+    cd.exceptions.size.should.equal(0)
+    cd.exceptions.entries().should.eql([])
 
   it 'should emit the click event when a pointerdown event is called', ->
     val = 0
@@ -55,7 +57,7 @@ describe 'ClickDetector', ->
 
     document.__hx__.eventEmitter.emit('pointerdown', { event: {target: document.getElementById('elem')}})
 
-    expect(val).toEqual(1)
+    val.should.equal(1)
 
   it 'should emit the click event when a pointerup event is called', ->
     val = 0
@@ -64,7 +66,7 @@ describe 'ClickDetector', ->
 
     document.__hx__.eventEmitter.emit('pointerup', { event: {target: document.getElementById('elem')}})
 
-    expect(val).toEqual(1)
+    val.should.equal(1)
 
 
   it 'should not emit an event for an exception', ->
@@ -77,7 +79,7 @@ describe 'ClickDetector', ->
     document.__hx__.eventEmitter.emit('pointerdown', { event: {target: document.getElementById('exception')}})
     document.__hx__.eventEmitter.emit('pointerup', { event: {target: document.getElementById('exception')}})
 
-    expect(val).toEqual(0)
+    val.should.equal(0)
 
   it 'should emit an event for an element that is not an exception', ->
     cd.addException(document.getElementById('exception'))
@@ -89,7 +91,7 @@ describe 'ClickDetector', ->
     document.__hx__.eventEmitter.emit('pointerdown', { event: {target: document.getElementById('elem')}})
     document.__hx__.eventEmitter.emit('pointerup', { event: {target: document.getElementById('elem')}})
 
-    expect(val).toEqual(2)
+    val.should.equal(2)
 
   it 'should correctly check for the original element when pointerup is called on a different element to that of pointerdown', ->
     val = 0
@@ -99,7 +101,7 @@ describe 'ClickDetector', ->
     document.__hx__.eventEmitter.emit('pointerdown', { event: {target: document.getElementById('elem')}})
     document.__hx__.eventEmitter.emit('pointerup', { event: {target: document.getElementById('exception')}})
 
-    expect(val).toEqual(1)
+    val.should.equal(1)
 
   it 'should correctly deregister listeners', ->
     val = 0
@@ -108,10 +110,10 @@ describe 'ClickDetector', ->
 
     document.__hx__.eventEmitter.emit('pointerdown', { event: {target: document.getElementById('elem')}})
 
-    expect(val).toEqual(1)
+    val.should.equal(1)
 
     cd.cleanUp()
 
     document.__hx__.eventEmitter.emit('pointerdown', { event: {target: document.getElementById('elem')}})
 
-    expect(val).toEqual(1)
+    val.should.equal(1)

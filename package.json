@@ -32,10 +32,12 @@
   "devDependencies": {
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "chai-spies": "^0.7.1",
     "istanbul": "^0.4.1",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.10",
     "karma-chai": "^0.1.0",
+    "karma-chai-spies": "^0.1.4",
     "karma-chrome-launcher": "^0.2.1",
     "karma-coffee-preprocessor": "^0.3.0",
     "karma-coverage": "^0.5.2",
