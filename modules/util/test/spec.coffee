@@ -442,6 +442,10 @@ describe "Util", ->
     s = new hx.Set [1, "a", {}]
     m = new hx.Map [["a", 5], [6, {}]]
 
+    d = new Date
+    expect hx.shallowClone d
+      .toEqual d
+
     expect(hx.shallowClone(l).entries()).toEqual(l.entries())
     expect(hx.shallowClone(s).entries()).toEqual(s.entries())
     expect(hx.shallowClone(m).entries()).toEqual(m.entries())
@@ -449,6 +453,10 @@ describe "Util", ->
   it '(deep) clone should work', ->
     expect(hx.clone(1)).toEqual(1)
     expect(hx.clone('string')).toEqual('string')
+
+    d = new Date
+    expect hx.clone d
+      .toEqual d
 
     f = ->
     expect(hx.clone(f)).toEqual(f)

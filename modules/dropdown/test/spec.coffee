@@ -37,11 +37,6 @@ describe 'hx-dropdown', ->
 
   beforeAll ->
 
-    console.log(hx.select('head').node())
-    console.log(hx.select('body').node())
-
-    #hx.select('body').clear()
-
     hx._.dropdown.attachToSelector = '#dropdown-fixture'
 
     hx.select('body')
@@ -55,8 +50,6 @@ describe 'hx-dropdown', ->
       .style('height', '1000px')
       .style('position', 'relative')
       .attr('id', 'dropdown-fixture')
-
-    console.log(fixture.width(), fixture.height())
 
     window.innerHeight = 1000
     window.innerWidth = 1000

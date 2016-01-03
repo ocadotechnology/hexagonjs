@@ -14,7 +14,7 @@ Next you should install the dependencies needed with
 
 The project contains a demo site for testing out changes, and developing new themes. This command will run the demo site:
 
-    npm site
+    npm start
 
 This will start a webserver on port 9009, and will watch for changes made to the library.
 
@@ -43,22 +43,20 @@ Template for issue creation
 
 When submitting a bug report please provide an example that reproduces the bug, and specify which version of hexagon you are using. The following template can be used:
 
-```markdown
-Title: Module Name: short description
+    Title: Module Name: short description
 
-Hexagon version: x.x.x
-Theme: theme-name    // if relevant
-Build Config: {...}  // if using the npm builder
+    Hexagon version: x.x.x
+    Theme: theme-name    // if relevant
+    Build Config: {...}  // if using the npm builder
 
-Expected
---------
-What you expected to happen
+    Expected
+    --------
+    What you expected to happen
 
-Actual
-------
-What actually happens
+    Actual
+    ------
+    What actually happens
 
-Example
--------
-A short example that reproduces the problem
-```
+    Example
+    -------
+    A short example that reproduces the problem

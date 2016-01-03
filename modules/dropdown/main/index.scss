@@ -2,6 +2,7 @@
   position: absolute;
   z-index: 99;
   border: solid 1px transparent;
+  box-sizing: border-box;
   overflow: hidden;
   // here to stop the dropdown from forcing the scrollbar from being
   // shown in the instant it it is first created - which would offset

@@ -688,6 +688,13 @@ describe 'data-table', ->
 
 
     describe 'selectedRows', ->
+      it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->
+        testTable {tableOptions: {selectEnabled: true, singleSelection: true}}, done, (container, dt, options, data) ->
+          dt.selectedRows ['0'], ->
+            dt.selectedRows [], ->
+              expect dt.selectedRows()
+                .toEqual []
+            
       it 'should select rows by id', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0', '1'], ->
@@ -1488,7 +1495,7 @@ describe 'data-table', ->
           container.classed('hx-data-table-infinite').should.equal(true)
           done()
 
-      describe 'should display the correct text for the currently visible rows', (done) ->
+      describe 'should display the correct text for the currently visible rows', ->
         container = hx.detached('div').style('width', '1000px')
         dt = new hx.DataTable(container.node(), {
           pageSize: [5, 10, 15]
@@ -1512,7 +1519,7 @@ describe 'data-table', ->
               container.select('.hx-data-table-paginator-total-rows').text().should.equal('201 - 400')
               done()
 
-      describe 'should correctly disable the pagnation arrows given the page number', (done) ->
+      describe 'should correctly disable the pagnation arrows given the page number', ->
         container = hx.detached('div').style('width', '1000px')
         dt = new hx.DataTable(container.node())
 

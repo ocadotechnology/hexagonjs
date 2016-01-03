@@ -83,6 +83,9 @@ class StickyTableHeaders
     else
       selection.classed('hx-sticky-table-headers', true)
 
+    if resolvedOptions.containerClass
+      container.classed(resolvedOptions.containerClass, true)
+
     # Table wrapper that allows scrolling on the table.
     wrapper = container.append('div').class('hx-sticky-table-wrapper')
 
