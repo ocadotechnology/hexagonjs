@@ -118,23 +118,17 @@ parsers =
   'text/html': (text) -> hx.parseHTML text
   'text/plain': (text) -> text
 
-reshapedRequest = (args, type) ->
-  urls = args[0]
+reshapedRequest = ([urls, data, callback, options], type) ->
 
-  if hx.isFunction(args[1])
-    callback = args[1]
-    options = args[2]
-  else
-    data = args[1]
-    callback = args[2]
-    options = args[3]
+  [data, callback, options] = [undefined, data, callback] if hx.isFunction data
 
   defaults = if type
     contentType: type
     formatter: (xhr) -> parsers[type](xhr.responseText)
   else
     formatter: (xhr) ->
-      mimeType = xhr.getResponseHeader 'content-type'
+      [mimeType] = xhr.getResponseHeader 'content-type'
+        .split ';'
       parser = parsers[mimeType]
       if parser
         parser xhr.responseText
