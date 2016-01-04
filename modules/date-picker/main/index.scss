@@ -3,6 +3,7 @@ $gridPadding: 0.7em;
 // Input and 'on page' styles
 .hx-date-picker {
   display: inline-block;
+  white-space: nowrap;
   padding: 0;
   vertical-align: middle;
   border-radius: 2px;
