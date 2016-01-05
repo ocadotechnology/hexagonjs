@@ -1,6 +1,6 @@
-describe 'color', ->
-  color = hx.color
+color = require('../main')
 
+describe 'color', ->
   describe 'color', ->
     it 'should default to black when no arguments are passed in', ->
       color().rgb().should.eql([0, 0, 0, 1])

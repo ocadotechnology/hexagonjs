@@ -1,7 +1,7 @@
-hxSet = require('../set/main')
-hxMap = require('../map/main')
-hxList = require('../list/main')
-selection = require('../selection/main')
+hxSet = require('modules/set/main')
+hxMap = require('modules/map/main')
+hxList = require('modules/list/main')
+selection = require('modules/selection/main')
 
 deprecatedWarning = (deprecatedItem, messages...) ->
   heading = "Deprecation Warning: #{deprecatedItem}"

@@ -61,4 +61,9 @@ class List
   values: -> @list
 
 
-hx.List = List
+module.exports = List
+
+# backwards compatibility
+module.exports.hx = {
+  List: List
+}

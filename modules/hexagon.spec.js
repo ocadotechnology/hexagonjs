@@ -1,3 +1,5 @@
+import hx from './hexagon'
+
 // add a handle for when the tests are finished
 after(() => {
   if (window.hxTestFinished) {
@@ -7,27 +9,48 @@ after(() => {
 
 require('./set/test/spec')
 require('./map/test/spec')
-
-// test that the library is backwards compatible
-const hx = require('./hexagon')
+require('./list/test/spec')
+// require('./color/test/spec')
 
 describe('backwards compatiblity tests', () => {
-
-  function checkProperty (name) {
-    it('should have the ' + name + ' function', () => {
-      hx.should.have.property(name)
-    })
-  }
 
   it('hx should be on the window', () => {
     hx.should.be.defined
   })
 
-  describe('Set', () => {
-    checkProperty('Set')
+  describe('set', () => {
+    it('hx should have the Set prototype', () => {
+      hx.should.have.property('Set')
+    })
   })
 
-// describe('utils', () => {
+  describe('map', () => {
+    it('hx should have the Map prototype', () => {
+      hx.should.have.property('Map')
+    })
+  })
+
+  describe('list', () => {
+    it('hx should have the List prototype', () => {
+      hx.should.have.property('List')
+    })
+  })
+
+  // describe('color', () => {
+  //   it('hx should have the color function', () => {
+  //     hx.should.have.property('color')
+  //   })
+
+  //   it('hx should have the color.isColor function', () => {
+  //     hx.color.should.have.property('isColor')
+  //   })
+
+  //   it('hx should have the color.isColorString function', () => {
+  //     hx.color.should.have.property('isColorString')
+  //   })
+  // })
+
+// describe('util', () => {
 //   checkProperty('deprecatedWarning')
 //   checkProperty('consoleWarning')
 //   checkProperty('hash')

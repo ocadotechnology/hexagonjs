@@ -1,6 +1,7 @@
-describe "List", ->
+should = require('chai').should()
+List = require('../main')
 
-  List = hx.List
+describe "List", ->
 
   it "contains nothing when initialsed",  ->
     list = new List

@@ -1,7 +1,7 @@
-util = require('../main')
-hxSet = require('../set/main')
-hxMap = require('../map/main')
-hxList = require('../list/main')
+util = require('modules/util/main')
+hxSet = require('modules/set/main')
+hxMap = require('modules/map/main')
+hxList = require('modules/list/main')
 
 describe "Util", ->
 

@@ -7,7 +7,7 @@ var fs = Promise.promisifyAll(require('fs-extra'))
 var compiler = webpack({
   context: path.join(__dirname, '..', '..'),
   entry: {
-    'hexagon.test': 'mocha!./modules/hexagon.test'
+    'hexagon.test': 'mocha!./modules/hexagon.spec'
   },
   output: {
     path: path.join(__dirname, '..', '..', 'target', 'test'),
@@ -15,15 +15,42 @@ var compiler = webpack({
     library: 'hx',
     libraryTarget: 'umd'
   },
+  babel: {
+    presets: ['es2015', 'stage-0']
+  },
+  isparta: {
+    embedSource: true,
+    noAutoWrap: true,
+    babel: {
+      presets: ['es2015', 'stage-0']
+    }
+  },
   module: {
-    loaders: [
-      { test: /spec.js$/, loader: 'babel', exclude: [/node_modules/] },
-      { test: /.js$/, loader: 'isparta', exclude: [/spec.js$/, /node_modules/] },
-      { test: /spec.coffee$/, loader: 'coffee', exclude: [/node_modules/]},
-      { test: /.coffee$/, loader: 'coffee-coverage', exclude: [/spec.coffee$/, /node_modules/] }
+    preLoaders: [
+      {
+        test: /spec.js$/,
+        loader: 'babel',
+        exclude: [/node_modules/],
+      },
+      {
+        test: /.js$/,
+        loader: 'isparta',
+        exclude: [/spec.js$/, /node_modules/],
+      },
+      {
+        test: /spec.coffee$/,
+        loader: 'coffee',
+        exclude: [/node_modules/]
+      },
+      {
+        test: /.coffee$/,
+        loader: 'coffee-coverage',
+        exclude: [/spec.coffee$/, /node_modules/]
+      }
     ]
   },
   resolve: {
+    root: path.join(__dirname, '..', '..'),
     extensions: ['', '.coffee', '.js', '.json']
   }
 })

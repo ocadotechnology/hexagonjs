@@ -5,11 +5,12 @@ const merge = (objs) => {
       res[k] = obj.hx[k]
     })
   })
+
   return res
 }
 
-module.export = merge([
+export default merge([
   require('./set/main'),
-// require('./list/main'),
-// require('./map/main')
+  require('./map/main'),
+  require('./list/main')
 ])
