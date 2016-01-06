@@ -624,7 +624,83 @@ describe 'hx-request', ->
 
       expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
 
+  describe 'hx.text', ->
+    it 'should correctly  set the mimeType to text/plain', ->
+      hx.text 'test.txt', defaultCb
 
+      expect(jasmine.Ajax.requests.at(0).overriddenMimeType).toEqual('text/plain')
+      expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+      expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+
+    it 'should correctly format and return the correct data', (done) ->
+      cb = (error, result) ->
+        expect(error).not.toBeDefined()
+        expect(result).toEqual('Test data')
+        done()
+
+      hx.text 'test.txt', cb
+
+      jasmine.Ajax.requests.at(0).respondWith({
+        status: 200
+        responseText: 'Test data'
+      })
+
+    it 'should pass the data through', ->
+      data = {some: 'data'}
+      hx.text 'test.txt', data, defaultCb
+      expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+
+  describe 'hx.reshapedRequest', ->
+    describe 'should format and return the correct data', ->
+      it 'for json', (done) ->
+        cb = (error, result, source, index) ->
+          expect(error).not.toBeDefined()
+          expect(result).toEqual({some: "data"})
+          done()
+
+        hx.reshapedRequest 'test.json', cb
+
+        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+
+        jasmine.Ajax.requests.at(0).respondWith
+          status: 200
+          responseText: '{"some": "data"}'
+      it 'even when there is a charset', (done) ->
+        cb = (error, result, source, index) ->
+          expect(error).not.toBeDefined()
+          expect(result).toEqual({some: "data"})
+          done()
+
+        hx.reshapedRequest 'test.json', cb
+
+        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+        jasmine.Ajax.requests.at(0).respondWith
+          status: 200
+          responseText: '{"some": "data"}'
+          contentType: 'application/json;charset=UTF-8'
+
+      it 'for html', (done) ->
+        cb = (error, result, source, index) ->
+          expect(error).not.toBeDefined()
+          expect(result.toString()).toEqual('[object DocumentFragment]')
+          expect(result.childNodes.length).toEqual(1)
+          expect(result.childNodes[0].className).toEqual('parent')
+          expect(result.childNodes[0].childNodes[0].className).toEqual('child')
+          done()
+
+        hx.reshapedRequest 'test.html', cb
+
+        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+        jasmine.Ajax.requests.at(0).respondWith
+          status: 200
+          contentType: 'text/html'
+          responseText: '<div class="parent"><span class="child">bob</span></div>'
+
+    it 'should pass the data through', ->
+      data = {some: 'data'}
+      hx.json 'test.json', data, defaultCb
+      expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+        
   describe 'hx.json', ->
     it 'should correctly set the mimeType to application/json', ->
       hx.json 'test.json', defaultCb
@@ -652,6 +728,5 @@ describe 'hx-request', ->
     it 'should pass the data through', ->
       data = {some: 'data'}
       hx.json 'test.json', data, defaultCb
-
 
       expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)

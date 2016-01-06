@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node demo.js",
     "dist": "node build/main/dist.js",
-    "test": "npm run test-build; npm run test-library",
+    "test": "npm run test-build && npm run test-library",
     "test-build": "./node_modules/istanbul/lib/cli.js cover --dir target/test-build/coverage ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec build/test",
     "test-library": "node build/main/test.js",
     "combine-coverage": "node build/main/combine-coverage.js",
