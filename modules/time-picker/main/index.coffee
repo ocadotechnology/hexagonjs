@@ -32,11 +32,8 @@ updateTimePicker = (timepicker) ->
 
 
 
-class Localiser
-  constructor: ->
-    @currentLocale = 'en-gb'
-
-  localiseTime: (date, showSeconds) ->
+class Localizer
+  localizeTime: (date, showSeconds) ->
     timeString = date.getHours() + ':' + zeroPad date.getMinutes()
     if showSeconds
       timeString += ':' + zeroPad date.getSeconds()
@@ -45,35 +42,22 @@ class Localiser
   checkTime: (time) ->
     not isNaN(time[0]) and not isNaN(time[1]) and not isNaN(time[2])
 
-  locale: (locale) ->
-    # Can't set the locale for default localiser
-    if locale?
-      return
-    else
-      'en-gb'
 
+class LocalizerMoment
 
-class LocaliserMoment
-  constructor: ->
-    @currentLocale = moment.locale()
-
-  localiseTime: (date, showSeconds) ->
+  localizeTime: (date, showSeconds) ->
     format = if showSeconds then 'H:mm:ss' else 'H:mm'
-    moment(date).locale(@currentLocale).format(format)
+    moment(date).locale(hx.preferences.locale()).format(format)
 
   checkTime: (time) ->
-    moment({hours: time[0], minutes: time[1], seconds: time[2]}).locale(@currentLocale).isValid()
-
-  locale: (locale) ->
-    if locale
-      @currentLocale = locale
-    else
-      @currentLocale
+    moment({hours: time[0], minutes: time[1], seconds: time[2]}).locale(hx.preferences.locale()).isValid()
 
 
 class TimePicker extends hx.EventEmitter
   constructor: (@selector, options) ->
     super
+
+    hx.preferences.on 'localechange', => updateTimePicker this
 
     @options = hx.merge {
       showSeconds: false
@@ -87,7 +71,7 @@ class TimePicker extends hx.EventEmitter
       disabled: @options.disabled
     }
 
-    _.localiser = if moment? then new LocaliserMoment() else new Localiser()
+    _.localizer = if moment? then new LocalizerMoment() else new Localizer()
 
     _.selectedDate = new Date
     _.selectedDate.setMilliseconds(0)
@@ -107,7 +91,7 @@ class TimePicker extends hx.EventEmitter
     if hx.supports('date') and hx.supports('touch')
       # disable text input for touch devices as it conflicts with the dropdown
       @input.attr('readonly', true)
-      @input.on 'click', 'hx.time-picker', (event) =>
+      @input.on 'click', 'hx.time-picker', (event) ->
         event.preventDefault()
     else
       @input.on 'input', 'hx.time-picker', (event) =>
@@ -115,7 +99,7 @@ class TimePicker extends hx.EventEmitter
         timeout = setTimeout =>
           time = event.target.value.split(':')
           time[2] ?= 0
-          if _.localiser.checkTime(time)
+          if _.localizer.checkTime(time)
             @hour(time[0])
             @minute(time[1])
             @second(time[2] or 0)
@@ -211,15 +195,15 @@ class TimePicker extends hx.EventEmitter
     else
       _.selectedDate.getSeconds()
 
-  getScreenTime: ->  @_.localiser.localiseTime(@date(), @options.showSeconds)
+  getScreenTime: ->  @_.localizer.localizeTime(@date(), @options.showSeconds)
 
   locale: (locale) ->
+    hx.deprecatedWarning 'hx.TimePicker::locale is deprecated. Use hx.preferences.locale instead.'
     if arguments.length > 0
-      @_.localiser.locale(locale)
-      updateTimePicker this
+      hx.preferences.locale locale
       this
     else
-      @_.localiser.locale()
+      hx.preferences.locale()
 
   disabled: (disable) ->
     _ = @_

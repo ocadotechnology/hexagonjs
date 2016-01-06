@@ -92,12 +92,12 @@ class DateTimePicker extends hx.EventEmitter
   getScreenTime: -> @timePicker.getScreenTime()
 
   locale: (locale) ->
+    hx.deprecatedWarning 'hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.'
     if arguments.length > 0
-      @timePicker.locale(locale)
-      @datePicker.locale(locale)
+      hx.preferences.locale locale
       this
     else
-      @timePicker.locale()
+      hx.preferences.locale()
 
 
   disabled: (disable) ->

@@ -23,5 +23,5 @@ describe 'time-picker', ->
 
     it 'locale', ->
       tp = new hx.TimePicker(document.createElement('div'))
-      expect(tp.locale('en-gb')).toEqual(tp)
-      expect(tp.locale()).toEqual('en-gb')
+      expect(tp.locale('en-GB')).toEqual(tp)
+      expect(tp.locale()).toEqual('en-GB')
