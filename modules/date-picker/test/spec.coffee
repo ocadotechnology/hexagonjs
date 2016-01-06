@@ -44,7 +44,7 @@ describe 'hx-date-picker', ->
 
       it 'dp.locale', ->
         dp = new hx.DatePicker(hx.detached('div').node())
-        expect(dp.locale('en-gb')).toEqual(dp)
+        expect(dp.locale('en-GB')).toEqual(dp)
 
     describe 'should return values for setter/getters without parameters:', ->
 
@@ -67,7 +67,7 @@ describe 'hx-date-picker', ->
 
       it 'dp.locale', ->
         dp = new hx.DatePicker(hx.detached('div').node())
-        expect(dp.locale('en-gb').locale()).toEqual('en-gb')
+        expect(dp.locale('en-GB').locale()).toEqual('en-GB')
 
 
     it 'should return this for show', ->

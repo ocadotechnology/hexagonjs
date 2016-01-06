@@ -10,9 +10,11 @@
   "scripts": {
     "start": "node demo.js",
     "dist": "node build/main/dist.js",
-    "test": "npm run test-build; npm run test-library",
+    "test": "npm run test-build && npm run test-library",
     "test-build": "./node_modules/istanbul/lib/cli.js cover --dir target/test-build/coverage ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec build/test",
-    "test-library": "node build/main/test.js"
+    "test-library": "node build/main/test.js",
+    "combine-coverage": "node build/main/combine-coverage.js",
+    "upload-coverage": "cat target/test-library/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "autoprefixer": "^6.0.3",
@@ -33,6 +35,7 @@
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
     "chai-spies": "^0.7.1",
+    "coveralls": "^2.11.6",
     "istanbul": "^0.4.1",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.10",

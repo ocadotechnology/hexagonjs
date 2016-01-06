@@ -143,8 +143,7 @@ function runKarma (files, destDir, phantomOnly) {
 
   return new Promise(function (resolve, reject) {
     karma.server.start(cfg, function (exitStatus) {
-      // exitStatus === 0 ? resolve() : reject(new Error('Karma exited with status code ' + exitStatus))
-      resolve()
+      resolve(exitStatus);
     })
   })
 }

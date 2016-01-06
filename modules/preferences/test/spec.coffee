@@ -5,6 +5,14 @@ describe 'hx-preferences', ->
       expect(hx.preferences.supportedLocales(list)).toEqual(hx.preferences)
       expect(hx.preferences.supportedLocales()).toEqual(list)
 
+    it 'locale: should not be possible to explicitly clear the locale', ->
+      # sanity check
+      expect(hx.preferences.locale()).toBeDefined()
+
+      hx.preferences.locale undefined
+      expect(hx.preferences.locale()).toBeDefined()
+
+
     it 'locale: setter/getter', ->
       expect(hx.preferences.locale('vi')).toEqual(hx.preferences)
       expect(hx.preferences.locale()).toEqual('vi')
@@ -30,10 +38,6 @@ describe 'hx-preferences', ->
       hx.preferences.on 'localechange', -> called = true
       hx.preferences.locale('en-us')
       expect(called).toEqual(true)
-
-    it 'locale: setting undefined should clear the locale', ->
-      expect(hx.preferences.locale('vi').locale(undefined)).toEqual(hx.preferences)
-      expect(hx.preferences.locale()).toEqual(undefined)
 
     it 'locale: setter/getter for non supported value', ->
       spyOn(hx, 'consoleWarning')

@@ -115,7 +115,7 @@ class Preferences extends hx.EventEmitter
         inputMap: (item) -> item.full
         showOtherResults: true
         mustMatch: true
-      }).on 'change', (item) => locale = item.value
+      }).on 'change', (item) -> locale = item.value
 
       localeSection = hx.detached('div')
         .add(hx.detached('label').text('Locale'))
@@ -125,7 +125,7 @@ class Preferences extends hx.EventEmitter
       timezoneAutocompleteElement.value(timezone)
 
       new hx.AutoComplete(timezoneAutocompleteElement.node(), moment?.tz.names() or [], {showOtherResults: true, mustMatch: true})
-        .on 'change', (value) => timezone = value
+        .on 'change', (value) -> timezone = value
 
       timezoneSection = hx.detached('div')
         .add(hx.detached('label').text('Time Zone'))
@@ -137,7 +137,7 @@ class Preferences extends hx.EventEmitter
         .on 'click', =>
           @locale(locale)
           @timezone(timezone)
-          @save (err) =>
+          @save (err) ->
             if err
               hx.notify.negative(err)
             else
@@ -158,6 +158,8 @@ class Preferences extends hx.EventEmitter
       modal: modal
     }
 
+    @locale moment?.locale() or navigator.language or 'en'
+
   timezone: (timezone) ->
     if arguments.length > 0
       if @_.preferences['timezone'] isnt timezone
@@ -171,16 +173,13 @@ class Preferences extends hx.EventEmitter
     if arguments.length > 0
       # check that the local being set is supported
 
-      if locale is undefined
-        if @_.preferences['locale'] isnt undefined
-          @_.preferences['locale'] = undefined
-          @emit('localechange', undefined)
-      else if (localeObject = localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0])
+      if hx.isString(locale) and (localeObject = localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0])
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
           @emit('localechange', localeObject.value)
       else
-        hx.consoleWarning('preferences.locale', locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon')
+        hx.consoleWarning('preferences.locale',
+          locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon')
       this
     else
       @_.preferences['locale']
@@ -210,7 +209,7 @@ class Preferences extends hx.EventEmitter
   # loads the preferences
   load: (cb) ->
     try
-       @_.backingStore.load (err, prefs) =>
+      @_.backingStore.load (err, prefs) =>
         if prefs?
           @_.preferences = JSON.parse(prefs)
         cb?(err)
