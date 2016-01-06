@@ -128,7 +128,7 @@ function runKarma (files, destDir, phantomOnly) {
     jsonReporter: jsonReporter,
     singleRun: true,
     browsers: null,
-    frameworks: ['jasmine-ajax', 'jasmine', 'sinon', 'chai'],
+    frameworks: ['jasmine-ajax', 'jasmine', 'sinon', 'chai-spies', 'chai'],
     autoWatch: false,
     reporters: ['coverage', 'html', 'json', 'mocha']
   }
