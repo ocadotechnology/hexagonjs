@@ -45,21 +45,21 @@ describe 'hx-preferences', ->
       expect(hx.preferences.locale('lemon')).toEqual(hx.preferences)
       expect(hx.preferences.locale()).toEqual('vi')
       expect(hx.consoleWarning).toHaveBeenCalled()
+    describe 'timezone', ->
+      it 'setter/getter', ->
+        expect(hx.preferences.timezone('UTC+01:00')).toEqual(hx.preferences)
+        expect(hx.preferences.timezone()).toEqual('UTC+01:00')
 
-    it 'timezone: setter/getter', ->
-      expect(hx.preferences.timezone('America/Los_Angeles')).toEqual(hx.preferences)
-      expect(hx.preferences.timezone()).toEqual('America/Los_Angeles')
+      it 'dont emit when setting to the same value', ->
+        hx.preferences.timezone('UTC+00:00')
+        called = false
+        hx.preferences.on 'timezonechange', -> called = true
+        hx.preferences.timezone('UTC+00:00')
+        expect(called).toEqual(false)
 
-    it 'timezone: dont emit when setting to the same value', ->
-      hx.preferences.timezone('America/Los_Angeles')
-      called = false
-      hx.preferences.on 'timezonechange', -> called = true
-      hx.preferences.timezone('America/Los_Angeles')
-      expect(called).toEqual(false)
-
-    it 'timezone: dont emit when setting to the same value', ->
-      hx.preferences.timezone('America/Los_Angeles')
-      called = false
-      hx.preferences.on 'timezonechange', -> called = true
-      hx.preferences.timezone('America/New_York')
-      expect(called).toEqual(true)
+      it 'emit when setting to new value', ->
+        hx.preferences.timezone('UTC+00:00')
+        called = false
+        hx.preferences.on 'timezonechange', -> called = true
+        hx.preferences.timezone('UTC+01:00')
+        expect(called).toEqual(true)

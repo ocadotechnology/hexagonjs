@@ -3,7 +3,8 @@
     "component",
     "event-emitter",
     "util",
-    "format"
+    "format",
+    "preferences"
   ],
   "keywords": []
 }

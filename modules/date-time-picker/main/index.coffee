@@ -7,8 +7,6 @@ class DateTimePicker extends hx.EventEmitter
       timePickerOptions: {}
     }
 
-    timezone = hx.dateLocalizer().timezone
-
     # You can't select a range for a date-time picker.
     delete @options.datePickerOptions.selectRange
 
@@ -48,7 +46,7 @@ class DateTimePicker extends hx.EventEmitter
 
     updateDatePicker = (data) =>
       @datePicker.suppressed('change', true)
-      @datePicker.date(timezone(@date()))
+      @datePicker.date(hx.preferences.applyTimezoneOffset(@date()))
       @datePicker.suppressed('change', false)
 
       if data?

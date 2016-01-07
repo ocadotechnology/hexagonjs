@@ -1,11 +1,6 @@
 class DateLocalizer
   zeroPad = hx.format.zeroPad(2)
 
-  timezone: (date, offset) ->
-    offset ?= hx.preferences.timezone().offset
-    utc = date.getTime() + (date.getTimezoneOffset() * 60000)
-    new Date(utc + offset * 60 * 60 * 1000)
-
   # get the display order for the date so dates can be displayed correctly when localised
   dateOrder: -> ['DD','MM','YYYY']
 
@@ -40,7 +35,7 @@ class DateLocalizer
 
   # localise a date object to return a time string of hh:mm or hh:mm:ss (or localised format)
   time: (date, showSeconds) ->
-    date = @timezone(date)
+    date = hx.preferences.applyTimezoneOffset(date)
     timeString = date.getHours() + ':' + zeroPad date.getMinutes()
     if showSeconds
       timeString += ':' + zeroPad date.getSeconds()
@@ -83,12 +78,6 @@ class DateLocalizer
 
 
 class DateLocalizerMoment
-
-  timezone: (date, offset) ->
-    offset ?= hx.preferences.timezone().offset
-    utc = date.getTime() + (date.getTimezoneOffset() * 60000)
-    new Date(utc + offset * 60 * 60 * 1000)
-
   dateOrder: ->
     date = moment({year:2003, month:11, day:22}).locale(hx.preferences.locale())
     dateCheck = date.format('L')
@@ -143,7 +132,7 @@ class DateLocalizerMoment
     moment(date).locale(hx.preferences.locale()).format('L')
 
   time: (date, showSeconds) ->
-    date = @timezone(date)
+    date = hx.preferences.applyTimezoneOffset(date)
     format = if showSeconds then 'H:mm:ss' else 'H:mm'
     moment(date).locale(hx.preferences.locale()).format(format)
 
@@ -175,5 +164,5 @@ class DateLocalizerMoment
     else
       new Date('Invalid Date')
 
-
-hx.dateLocalizer = -> if moment? then new DateLocalizerMoment else new DateLocalizer
+dateLocalizer = -> if moment? then new DateLocalizerMoment else new DateLocalizer
+hx.dateLocalizer = dateLocalizer
