@@ -10,7 +10,7 @@
     "icon",
     "input-group",
     "preferences",
-    "date-time-modifier"
+    "date-localizer"
   ],
   "keywords": [
     "date",
