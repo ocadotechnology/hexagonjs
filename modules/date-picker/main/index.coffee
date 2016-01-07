@@ -150,7 +150,7 @@ buildCalendar = (datepicker, mode) ->
     when 'd'
       data = getCalendarDecade(visible.year)
       cls = 'hx-calendar-decade'
-      text = localizer.decade(data[0][1], data[3][1])
+      text = localizer.year(data[0][1]) + ' - ' + localizer.year(data[3][1])
     when 'y'
       data = getCalendarYear()
       cls = 'hx-calendar-year'

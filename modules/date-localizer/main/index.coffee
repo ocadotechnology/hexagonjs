@@ -46,8 +46,8 @@ class DateLocalizer
     not isNaN(time[0]) and not isNaN(time[1]) and not isNaN(time[2])
 
   # convert a localised date string back to a date object (unlocalise)
-  stringToDate: (dateString) ->
-    if inbuilt
+  stringToDate: (dateString, useInbuilt) ->
+    if useInbuilt
       order = ['YYYY', 'MM', 'DD']
       split = dateString.split('-')
     else
