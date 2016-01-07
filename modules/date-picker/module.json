@@ -9,7 +9,8 @@
     "dropdown",
     "icon",
     "input-group",
-    "preferences"
+    "preferences",
+    "date-time-modifier"
   ],
   "keywords": [
     "date",

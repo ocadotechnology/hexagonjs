@@ -84,6 +84,64 @@ localeList = [
 ]
 
 
+timezoneList = [
+  {name: 'UTC−12:00', offset: -12}
+  {name: 'UTC−11:00', offset: -11}
+  {name: 'UTC−10:00', offset: -10}
+  {name: 'UTC−09:30', offset: -9.5}
+  {name: 'UTC−09:00', offset: -9}
+  {name: 'UTC−08:00', offset: -8}
+  {name: 'UTC−07:00', offset: -7}
+  {name: 'UTC−06:00', offset: -6}
+  {name: 'UTC−05:00', offset: -5}
+  {name: 'UTC−04:30', offset: -4.5}
+  {name: 'UTC−04:00', offset: -4}
+  {name: 'UTC−03:30', offset: -3.5}
+  {name: 'UTC−03:00', offset: -3}
+  {name: 'UTC−02:00', offset: -2}
+  {name: 'UTC−01:00', offset: -1}
+  {name: 'UTC', offset: 0}
+  {name: 'UTC+01:00', offset: 1}
+  {name: 'UTC+02:00', offset: 2}
+  {name: 'UTC+03:00', offset: 3}
+  {name: 'UTC+03:30', offset: 3.5}
+  {name: 'UTC+04:00', offset: 4}
+  {name: 'UTC+04:30', offset: 4.5}
+  {name: 'UTC+05:00', offset: 5}
+  {name: 'UTC+05:30', offset: 5.5}
+  {name: 'UTC+05:45', offset: 5.75}
+  {name: 'UTC+06:00', offset: 6}
+  {name: 'UTC+06:30', offset: 6.5}
+  {name: 'UTC+07:00', offset: 7}
+  {name: 'UTC+08:00', offset: 8}
+  {name: 'UTC+08:30', offset: 8.5}
+  {name: 'UTC+08:45', offset: 8.75}
+  {name: 'UTC+09:00', offset: 9}
+  {name: 'UTC+09:30', offset: 9.5}
+  {name: 'UTC+10:00', offset: 10}
+  {name: 'UTC+10:30', offset: 10.5}
+  {name: 'UTC+11:00', offset: 11}
+  {name: 'UTC+12:00', offset: 12}
+  {name: 'UTC+12:45', offset: 12.75}
+  {name: 'UTC+13:00', offset: 13}
+  {name: 'UTC+14:00', offset: 14}
+]
+
+lookupTimezone = (timezone) ->
+  if timezone?
+    if not timezone.name
+      timezoneList.filter((v) -> v.name is timezone or v.offset is timezone)[0]
+    else
+      timezone
+
+lookupLocale = (locale) ->
+  if locale?
+    if not locale.full
+      localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
+    else
+      locale
+
+
 LocalStoragePreferencesStore = {
   save: (prefs, cb) -> localStorage.setItem('hx_preferences', prefs); cb()
   load: (cb) -> cb(undefined, localStorage.getItem('hx_preferences'))
@@ -93,13 +151,19 @@ class Preferences extends hx.EventEmitter
   constructor: ->
     super
 
-    setupModal = (element) =>
+    if moment?.tz?.names().length
+      timezoneList = moment.tz.names().map (tz) ->
+        {
+          name: tz
+          offset: - moment.tz.zone(tz).offset(Date.now()) / 60
+        }
 
+    setupModal = (element) =>
       locale = @locale()
       timezone = @timezone()
 
       localeAutocompleteElement = hx.detached('input')
-      localeAutocompleteElement.value(localeList.filter((d) -> d.value is locale)[0]?.full)
+      localeAutocompleteElement.value(lookupLocale(locale)?.full)
 
       supportedLocales = if @_.supportedLocales?
         localeList.map (l) =>
@@ -122,10 +186,24 @@ class Preferences extends hx.EventEmitter
         .add(localeAutocompleteElement)
 
       timezoneAutocompleteElement = hx.detached('input')
-      timezoneAutocompleteElement.value(timezone)
+      timezoneAutocompleteElement.value(timezone.name)
 
-      new hx.AutoComplete(timezoneAutocompleteElement.node(), moment?.tz.names() or [], {showOtherResults: true, mustMatch: true})
-        .on 'change', (value) -> timezone = value
+      supportedTimezones = if @_.supportedTimezones?
+        localeList.map (l) =>
+          {
+            offset: l.offset,
+            name: l.name,
+            disabled: not (l.name in @_.supportedLocales)
+          }
+      else timezoneList
+
+      # work out how to add support for tz.names
+      new hx.AutoComplete(timezoneAutocompleteElement.node(), supportedTimezones, {
+        renderer: (element, datum) -> hx.select(element).text(datum.name)
+        inputMap: (item) -> item.name
+        showOtherResults: true
+        mustMatch: true
+      }).on 'change', (value) -> timezone = value
 
       timezoneSection = hx.detached('div')
         .add(hx.detached('label').text('Time Zone'))
@@ -142,7 +220,7 @@ class Preferences extends hx.EventEmitter
               hx.notify.negative(err)
             else
               hx.notify.positive("Preferences Saved")
-              modal.close()
+              modal.hide()
 
       hx.select(element)
         .append('div').class('hx-form')
@@ -159,10 +237,14 @@ class Preferences extends hx.EventEmitter
     }
 
     @locale moment?.locale() or navigator.language or 'en'
+    @timezone moment?.tz?.guess() or (new Date().getTimezonevalue?()) or 0
 
-  timezone: (timezone) ->
+  timezone: (tz) ->
     if arguments.length > 0
-      if @_.preferences['timezone'] isnt timezone
+      timezone = lookupTimezone(tz)
+      if not timezone?
+        hx.consoleWarning('preferences.timezone', tz + ' is not a valid timezone.')
+      else if @_.preferences['timezone']?.name isnt timezone?.name
         @_.preferences['timezone'] = timezone
         @emit('timezonechange', timezone)
       this
@@ -172,8 +254,7 @@ class Preferences extends hx.EventEmitter
   locale: (locale) ->
     if arguments.length > 0
       # check that the local being set is supported
-
-      if hx.isString(locale) and (localeObject = localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0])
+      if hx.isString(locale) and (localeObject = lookupLocale(locale))
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
           @emit('localechange', localeObject.value)
@@ -190,7 +271,14 @@ class Preferences extends hx.EventEmitter
       @_.supportedLocales = locales
       this
     else
-      @_.supportedLocales
+      @_.supportedLocales || localeList.map((v) -> v.value)
+
+  supportedTimezones: (timezones) ->
+    if arguments.length > 0
+      @_.supportedTimezones = timezones
+      this
+    else
+      @_.supportedTimezones || timezoneList.map((v) -> v.name)
 
   # sets the backingStore to use - currently the only one available is hx.preferences.localStorage
   # getting the backingStore should not be possible
