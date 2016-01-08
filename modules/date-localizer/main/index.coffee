@@ -1,4 +1,4 @@
-class DateLocalizer
+class DateTimeLocalizer
   zeroPad = hx.format.zeroPad(2)
 
   # get the display order for the date so dates can be displayed correctly when localised
@@ -77,7 +77,7 @@ class DateLocalizer
       new Date('Invalid Date')
 
 
-class DateLocalizerMoment
+class DateTimeLocalizerMoment
   dateOrder: ->
     date = moment({year:2003, month:11, day:22}).locale(hx.preferences.locale())
     dateCheck = date.format('L')
@@ -164,5 +164,5 @@ class DateLocalizerMoment
     else
       new Date('Invalid Date')
 
-dateLocalizer = -> if moment? then new DateLocalizerMoment else new DateLocalizer
-hx.dateLocalizer = dateLocalizer
+dateTimeLocalizer = -> if moment? then new DateTimeLocalizerMoment else new DateTimeLocalizer
+hx.dateTimeLocalizer = dateTimeLocalizer

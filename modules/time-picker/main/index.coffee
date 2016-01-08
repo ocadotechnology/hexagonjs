@@ -52,7 +52,7 @@ class TimePicker extends hx.EventEmitter
     hx.preferences.on 'localechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
     hx.preferences.on 'timezonechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
 
-    _.localizer = hx.dateLocalizer()
+    _.localizer = hx.dateTimeLocalizer()
 
     _.selectedDate = new Date
     _.selectedDate.setMilliseconds(0)

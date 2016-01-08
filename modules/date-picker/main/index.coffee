@@ -369,7 +369,7 @@ class DatePicker extends hx.EventEmitter
     _.startDate.setHours(0, 0, 0, 0)
     _.endDate.setHours(0, 0, 0, 0)
 
-    @localizer = hx.dateLocalizer()
+    @localizer = hx.dateTimeLocalizer()
 
     @selection = hx.select(@selector).classed('hx-date-picker', true)
 
