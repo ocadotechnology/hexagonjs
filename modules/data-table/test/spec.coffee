@@ -1,8 +1,8 @@
 
 describe 'data-table', ->
   beforeAll ->
-    #hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
-    #hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
+    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
+    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
 
 
   # Used to mimic an event call for a node
@@ -617,7 +617,8 @@ describe 'data-table', ->
       describe 'retainHorizontalScrollOnRender', ->
         describe 'true', ->
           it 'should restore the horizontal scroll when re-rendering', (done) ->
-            testTable {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
               container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
               dt.render()
@@ -626,7 +627,8 @@ describe 'data-table', ->
 
         describe 'false', ->
           it 'should not restore the horizontal scroll when re-rendering', (done) ->
-            testTable {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
               container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
               dt.render()
@@ -637,7 +639,8 @@ describe 'data-table', ->
       describe 'retainVerticalScrollOnRender', ->
         describe 'true', ->
           it 'should restore the vertical scroll when re-rendering', (done) ->
-            testTable {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}, done, (container, dt, options, data) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
               container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
               dt.render()
@@ -645,7 +648,8 @@ describe 'data-table', ->
 
         describe 'false', ->
           it 'should not restore the vertical scroll when re-rendering', (done) ->
-            testTable {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
               container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
               dt.render()
@@ -688,6 +692,36 @@ describe 'data-table', ->
 
 
     describe 'selectedRows', ->
+      it 'should be possible for the user to deselect a row selected by the api', (done) ->
+        feed = hx.dataTable.objectFeed
+          headers: [
+            name: 'Name'
+            id: 'name'
+          ]
+          rows: [
+            id: 0
+            cells:
+              name: 'Bob'
+          ]
+        tableSel = hx.detached 'div'
+        tableOpts =
+          feed: feed
+          singleSelection: true
+          selectEnabled: true
+        table = new hx.DataTable tableSel.node(), tableOpts
+        table.selectedRows [0]
+        
+        table.on 'selectedrowschange', (data) ->
+          console.log data
+          if data.cause is 'user'
+            # Row 0 was selected before, so now we're unselecting it
+            data.value.should.eql []
+            done()
+        checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
+        faker = fakeNodeEvent checkSel.node()
+        faker fakeEvent
+
+
       it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->
         testTable {tableOptions: {selectEnabled: true, singleSelection: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0'], ->
@@ -1099,7 +1133,7 @@ describe 'data-table', ->
           filterEvent = fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
-          jasmine.clock().tick(201);
+          jasmine.clock().tick(201)
           expect(dt.filter).toHaveBeenCalledWith()
           expect(dt.filter).toHaveBeenCalledWith('a', undefined, 'user')
           jasmine.clock().uninstall()

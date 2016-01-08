@@ -287,7 +287,9 @@ class DataTable extends hx.EventEmitter
       else
         options[name]
 
-    rowToArray = (headers, obj) -> headers.map (header) -> obj.cells[header.id]
+    rowToArray = (headers, obj) -> headers.map (header) ->
+      console.log obj unless obj.cells
+      obj.cells[header.id]
 
     # build the main structure of the table in a detached container
     container = hx.detached('div').class('hx-data-table-content')
