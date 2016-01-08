@@ -712,7 +712,6 @@ describe 'data-table', ->
         table.selectedRows [0]
         
         table.on 'selectedrowschange', (data) ->
-          console.log data
           if data.cause is 'user'
             # Row 0 was selected before, so now we're unselecting it
             data.value.should.eql []
