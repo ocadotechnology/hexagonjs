@@ -67,7 +67,7 @@ class Axis
     }, options)
 
     @_ = {
-      series: new hx.List
+      series: new hx.List options?.series or []
     }
 
     @x = dimension(this, opts.x)
@@ -472,7 +472,10 @@ class Axis
 
       if @x.title()
         axisGroupSelection.view('.hx-axis-title', 'text')
-          .update (d) -> @attr('transform', 'translate(' + ((width+totalXOffset)/2) + ', ' + (markerY + d.xAxisSize-d.xTitleHeight/2 - axisPadding/2) + ')').text(self.x.title())
+          .update (d) ->
+            translateX = (width+totalXOffset)/2
+            translateY = markerY + d.xAxisSize-d.xTitleHeight/2 - axisPadding/2
+            @attr('transform', 'translate(' + translateX + ', ' + translateY + ')').text(self.x.title())
           .apply(this)
 
     if not @y.visible()
@@ -521,7 +524,10 @@ class Axis
 
       if @y.title()
         axisGroupSelection.view('.hx-axis-title', 'text')
-          .update (d) -> @attr('transform', 'translate(' + (markerX - d.yAxisSize + d.yTitleHeight/2 + axisPadding/2) + ', ' + ((height-totalYOffset)/2) + ') rotate(-90)').text(self.y.title())
+          .update (d) ->
+            translateX = markerX - d.yAxisSize + d.yTitleHeight/2 + axisPadding/2
+            translateY = (height-totalYOffset)/2
+            @attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(-90)').text(self.y.title())
           .apply(this)
 
 
@@ -538,7 +544,7 @@ class Axis
   # the graph object may choose to ignore it if one of the other axes offers a better
   # alternative
   getLabelDetails: (x, y) ->
-    labels = hx.flatten(series.getLabelDetails(x, y) for series in @series())
+    labels = hx.flatten @series().map (series) -> series.getLabelDetails(x, y)
     labels.filter((d) -> d)
 
   # gets the width of the stack for a particular type, group and x value (the seriesId is the series that you want to get the baseline for)

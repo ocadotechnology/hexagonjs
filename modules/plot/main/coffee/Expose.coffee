@@ -7,6 +7,13 @@ hx.plot.arcCurve = arcCurve
 hx.plot.svgCurve = svgCurve
 hx.Axis = Axis
 hx.Graph = Graph
+
+hx.graph = (options) ->
+  selection = new hx.detached 'div'
+  graph = new Graph selection.node(), options
+  graph.render()
+  selection
+
 hx.LineSeries = LineSeries
 hx.BandSeries = BandSeries
 hx.ScatterSeries = ScatterSeries

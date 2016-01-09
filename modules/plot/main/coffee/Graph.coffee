@@ -1,4 +1,4 @@
-#XXX: hard coded config values - move these to a config file for the graphing api
+# XXX: hard coded config values - move these to a config file for the graphing api
 tickSize = 6
 labelOffset = tickSize + 4
 axisPadding = 4
@@ -18,7 +18,7 @@ class Graph extends hx.EventEmitter
         legendsEnabled: false,
         legendLocation: 'auto'
       }, options),
-      axes: new hx.List
+      axes: new hx.List options?.axes or []
     }
 
     #XXX: move to the underscore object
@@ -110,7 +110,7 @@ class Graph extends hx.EventEmitter
       if @legendEnabled() && @legendLocation() is 'hover'
         @svgTarget.select('.hx-legend-container').style('display', 'none')
 
-    @svgTarget.on 'pointerleave', 'hx.plot', (p) => clearLabels()
+    @svgTarget.on 'pointerleave', 'hx.plot', (p) -> clearLabels()
 
     @svgTarget.on 'click', 'hx.plot', (p) =>
       x = Math.round(p.x - @svgTarget.box().left)
@@ -276,7 +276,9 @@ class Graph extends hx.EventEmitter
         when 'top-left'
           legendContainer.attr('transform', 'translate(' + (@plotArea.x1 + 10) + ',' + (@plotArea.y1 + 10) + ')')
         when 'bottom-right'
-          legendContainer.attr('transform', 'translate(' + (@plotArea.x2 - 10 - legendContainer.width()) + ',' + (@plotArea.y2 - 5 - legendContainer.height()) + ')')
+          legendContainerTransformX = @plotArea.x2 - 10 - legendContainer.width()
+          legendContainerTransformY = @plotArea.y2 - 5 - legendContainer.height()
+          legendContainer.attr('transform', 'translate(' + legendContainerTransformX + ',' + legendContainerTransformY + ')')
         when 'bottom-left'
           legendContainer.attr('transform', 'translate(' + (@plotArea.x1 + 10) + ',' + (@plotArea.y2 - 5 - legendContainer.height()) + ')')
         when 'hover'
@@ -300,9 +302,9 @@ class Graph extends hx.EventEmitter
     x = hx.clamp(graph.plotArea.x1, graph.plotArea.x2, x)
     y = hx.clamp(graph.plotArea.y1, graph.plotArea.y2, y)
 
-    labels = hx.flatten(axis.getLabelDetails(x, y) for axis in graph.axes())
+    labels = hx.flatten graph.axes().map (axis) -> axis.getLabelDetails x, y
 
-    labels = labels.filter (label) =>
+    labels = labels.filter (label) ->
       graph.plotArea.x1 <= label.x <= graph.plotArea.x2 and graph.plotArea.y1 <= label.y <= graph.plotArea.y2
 
     bestMeta = undefined
