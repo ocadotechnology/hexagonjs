@@ -67,11 +67,11 @@ class Axis
     }, options)
 
     @_ = {
-      series: new hx.List options?.series or []
+      series: new hx.List
     }
 
-    @x = dimension(this, opts.x)
-    @y = dimension(this, opts.y)
+    @x = dimension this, hx.merge axisTickLabelPosition: 'bottom', options?.x
+    @y = dimension this, hx.merge axisTickLabelPosition: 'left', options?.y
 
     #XXX: move these to the underscore object
 
@@ -85,6 +85,7 @@ class Axis
     @xTitleHeight = 0
     @yAxisSize = 50
     @yTitleHeight = 0
+    options?.series?.forEach (series) => @addSeries series
 
 
   supportsGroup = (series) ->

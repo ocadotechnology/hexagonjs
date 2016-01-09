@@ -11,14 +11,14 @@ class Graph extends hx.EventEmitter
     hx.component.register(@selector, this)
 
     @_ = {
-      options: hx.merge({
+      options: hx.shallowMerge({
         zoomRangeStart: 0,
         zoomRangeEnd: 1,
         labelsEnabled: true,
         legendsEnabled: false,
         legendLocation: 'auto'
       }, options),
-      axes: new hx.List options?.axes or []
+      axes: new hx.List
     }
 
     #XXX: move to the underscore object
@@ -154,6 +154,7 @@ class Graph extends hx.EventEmitter
         @emit('zoom', {start: @zoomRangeStart(), end: @zoomRangeEnd()})
 
         @render()
+    options?.axes?.forEach (axis) => @addAxis axis
 
   zoomRangeStart: optionSetterGetter('zoomRangeStart')
   zoomRangeEnd: optionSetterGetter('zoomRangeEnd')
