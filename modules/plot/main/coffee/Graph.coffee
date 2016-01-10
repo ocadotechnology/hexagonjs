@@ -297,6 +297,7 @@ class Graph extends hx.EventEmitter
       .attr('width', @plotArea.x2 - @plotArea.x1)
       .attr('height', @plotArea.y2 - @plotArea.y1)
 
+    @emit 'render'
     this
 
   getClosestMeta = (graph, x, y) ->

@@ -254,20 +254,26 @@ describe "plot", ->
       checkOptionAndSetterGetter(hx.BarSeries, 'group', ['group1', 'group2'])
 
     describe "render", ->
-      it 'should display when the height is positive', ->
+      it 'should display when the height is positive', (done) ->
         axisOpts =
           series: [new hx.LineSeries]
           x:
             type: 'linear'
           y:
             type: 'linear'
-        selection = hx.detached 'div'
+        #selection = hx.detached 'div'
+        #  .style 'height', '400px'
+        #graph = new hx.Graph selection.node(), axes: [new hx.Axis axisOpts]
+        #graph.render()
+        selection = hx.graph axes: [new hx.Axis axisOpts]
           .style 'height', '400px'
-        hx.select('body').add(selection)
-        graph = new hx.Graph selection.node(), axes: [new hx.Axis axisOpts]
-        graph.render()
-        selection.selectAll('.hx-series').size().should.equal(2)
-        selection.remove()
+        hx.component selection
+          .on 'render', ->
+            selection.selectAll('.hx-series').size().should.equal(2)
+            selection.remove()
+            done()
+        hx.select 'body'
+          .add selection
 
   describe "hx.PieChart", ->
 

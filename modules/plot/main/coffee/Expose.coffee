@@ -11,7 +11,8 @@ hx.Graph = Graph
 hx.graph = (options) ->
   selection = new hx.detached 'div'
   graph = new Graph selection.node(), options
-  graph.render()
+  # There is no point rendering it now, the selection is of zero size.
+  selection.on 'resize', -> graph.render()
   selection
 
 hx.LineSeries = LineSeries
