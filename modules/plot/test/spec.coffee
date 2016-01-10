@@ -255,7 +255,6 @@ describe "plot", ->
 
     describe "render", ->
       it 'should display when the height is positive', (done) ->
-        console.log "Default timeout Interval", jasmine.DEFAULT_TIMEOUT_INTERVAL
         graphOpts =
           axes: [
             series: [['line']]
