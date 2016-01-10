@@ -255,19 +255,17 @@ describe "plot", ->
 
     describe "render", ->
       it 'should display when the height is positive', (done) ->
-        axisOpts =
-          series: [new hx.LineSeries]
-          x:
-            type: 'linear'
-          y:
-            type: 'linear'
-        #selection = hx.detached 'div'
-        #  .style 'height', '400px'
-        #graph = new hx.Graph selection.node(), axes: [new hx.Axis axisOpts]
-        #graph.render()
-        selection = hx.graph axes: [new hx.Axis axisOpts]
+        graphOpts =
+          axes: [
+            series: [['line']]
+            x:
+              type: 'linear'
+            y:
+              type: 'linear'
+          ]
+        selection = hx.graph graphOpts
           .style 'height', '400px'
-        hx.component selection
+        hx.component selection.node()
           .on 'render', ->
             selection.selectAll('.hx-series').size().should.equal(2)
             selection.remove()

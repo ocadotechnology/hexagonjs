@@ -85,7 +85,8 @@ class Axis
     @xTitleHeight = 0
     @yAxisSize = 50
     @yTitleHeight = 0
-    options?.series?.forEach (series) => @addSeries series
+    options?.series?.forEach ([seriesType, seriesOpts]) =>
+      @addSeries seriesType, seriesOpts
 
 
   supportsGroup = (series) ->
