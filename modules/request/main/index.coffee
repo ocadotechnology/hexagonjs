@@ -113,29 +113,33 @@ hx.request = -> # url, callback, options || url, data, callback, options
   hx_xhr urlType, urls, data or null, callback, options
 
 
-reshapedRequest = (args, type, formatter) ->
-  urls = args[0]
+parsers =
+  'application/json': (text) -> if text then JSON.parse text
+  'text/html': (text) -> hx.parseHTML text
+  'text/plain': (text) -> text
 
-  if hx.isFunction(args[1])
-    callback = args[1]
-    options = args[2]
-  else
-    data = args[1]
-    callback = args[2]
-    options = args[3]
+reshapedRequest = ([urls, data, callback, options], type) ->
 
-  defaults =
+  [data, callback, options] = [undefined, data, callback] if hx.isFunction data
+
+  defaults = if type
     contentType: type
-    formatter: formatter
+    formatter: (xhr) -> parsers[type](xhr.responseText)
+  else
+    formatter: (xhr) ->
+      [mimeType] = xhr.getResponseHeader 'content-type'
+        .split ';'
+      parser = parsers[mimeType]
+      if parser
+        parser xhr.responseText
+      else
+        hx.consoleWarning "Unknown parser for mime type #{mimeType}, carrying on anyway"
+        xhr
 
   options = hx.merge defaults, options
-
   hx.request urls, data, callback, options
 
-hx.json = ->
-  reshapedRequest arguments, 'application/json', (result) ->
-    if result.responseText then JSON.parse(result.responseText)
-
-hx.html = ->
-  reshapedRequest arguments, 'text/html', (result) ->
-    hx.parseHTML result.responseText
+hx.json = (args...) -> reshapedRequest args, 'application/json'
+hx.html = (args...) -> reshapedRequest args, 'text/html'
+hx.text = (args...) -> reshapedRequest args, 'text/plain'
+hx.reshapedRequest = (args...) -> reshapedRequest args

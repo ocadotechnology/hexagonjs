@@ -7,7 +7,8 @@
     "dropdown",
     "util",
     "format",
-    "icon"
+    "icon",
+    "preferences"
   ],
   "keywords": [
     "time",
