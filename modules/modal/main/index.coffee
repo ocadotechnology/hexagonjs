@@ -55,8 +55,8 @@ class Modal extends hx.EventEmitter
         if not modal.contains(e.target) && hx.select('body').contains(e.target)
           closeModal(this, {cause: 'shade'})
 
-    @options.titlebarRenderer.call(this, title.node())
-    @options.headerRenderer.call(this, titleContainer.node(), title.node(), closeButton?.node())
+    @options.titlebarRenderer.call(this, title.node(), this)
+    @options.headerRenderer.call(this, titleContainer.node(), title.node(), closeButton?.node(), this)
 
     @contentContainer = modal.append('div').attr('class', 'hx-modal-content')
 
@@ -97,14 +97,14 @@ makeButtons = (container, buttons, modal, callback) ->
   return
 
 getTitleRender = (icon) ->
-  (elem) ->
+  (elem, modal) ->
     elem = hx.select(elem)
     if icon?
       elem.append('i').class(icon)
     elem.append('span').text(@title)
 
 getHeaderRender = (titleClass) ->
-  (elem, title, button) ->
+  (elem, title, button, modal) ->
     hx.select(elem).classed('hx-background-' + titleClass, true)
       .add(title)
       .add(button)
