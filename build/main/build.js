@@ -38,5 +38,13 @@ module.exports = (new Builder).assets({
   'assets/logo.svg': {
     filepath: path.join(assetDir, 'hexagon-logo.svg'),
     allowEmbed: true
+  },
+  'hexagon.print.css': {
+    filepath: path.join(assetDir, 'hexagon-print.css'),
+    allowEmbed: false
+  },
+  'hexagon.print.js': {
+    filepath: path.join(assetDir, 'hexagon-print.js'),
+    allowEmbed: false
   }
 })
