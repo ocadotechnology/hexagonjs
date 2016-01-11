@@ -115,6 +115,7 @@ function runKarma (files, destDir, phantomOnly) {
     stdout: false
   }
 
+
   var cfg = {
     basePath: '',
     loggers: [],
@@ -143,7 +144,7 @@ function runKarma (files, destDir, phantomOnly) {
 
   return new Promise(function (resolve, reject) {
     karma.server.start(cfg, function (exitStatus) {
-      resolve(exitStatus);
+      resolve(exitStatus)
     })
   })
 }
