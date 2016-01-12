@@ -12,7 +12,7 @@ hx.graph = (options) ->
   selection = new hx.detached 'div'
   graph = new Graph selection.node(), options
   # There is no point rendering it now, the selection is of zero size.
-  selection.on 'resize', -> graph.render()
+  selection.on 'resize', 'hx.plot', -> graph.render()
   selection
 
 hx.LineSeries = LineSeries
