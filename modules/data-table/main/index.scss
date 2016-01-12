@@ -95,8 +95,17 @@
   }
 
   // Cell Styles
+  .hx-data-table-cell {
+    padding: 0;
+  }
+
   .hx-data-table-cell-key {
     display: none;
+  }
+
+  .hx-data-table-cell-inner,
+  .hx-data-table-cell-value {
+    padding: 0.3em 0.75em;
   }
 
   .hx-data-table-cell-inner {

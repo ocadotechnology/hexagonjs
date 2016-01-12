@@ -68,11 +68,17 @@ class StickyTableHeaders
     if table.classed('hx-table-full') and not options.fullWidth?
       options.fullWidth = true
 
-    if resolvedOptions.stickTableHead and table.select('thead').select('tr').empty()
+    if resolvedOptions.stickTableHead and table.select('thead').selectAll('tr').empty()
       # Cant stick something that isn't there
       hx.consoleWarning 'hx.StickyTableHeaders - ' + selector,
-        'Sticky table headers initialized without thead element'
+        'Sticky table headers initialized with stickTableHead of true without a thead element present'
       resolvedOptions.stickTableHead = false
+
+    if resolvedOptions.stickFirstColumn and table.select('tbody').select('tr').selectAll('th, td').empty()
+      # Cant stick something that isn't there
+      hx.consoleWarning 'hx.StickyTableHeaders - ' + selector,
+        'Sticky table headers initialized with stickFirstColumn of true without any columns to stick'
+      resolvedOptions.stickFirstColumn = false
 
     # Create the container, this will always be the root element.
     container = if tableIsRootElement

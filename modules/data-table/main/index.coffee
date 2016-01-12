@@ -209,11 +209,26 @@ class DataTable extends hx.EventEmitter
           this
       else options[name]
 
-
   allowHeaderWrap: columnOption('allowHeaderWrap')
   cellRenderer: columnOption('cellRenderer')
   headerCellRenderer: columnOption('headerCellRenderer')
   sortEnabled: columnOption('sortEnabled')
+
+  # function for setting / getting options that are only column specific and cannot be set for the whole table
+  columnOnlyOption = (name) ->
+    (columnId, value, cb) ->
+      options = @_.options
+      if hx.isString(columnId)
+        if arguments.length > 1
+          options.columns[columnId] ?= {}
+          options.columns[columnId][name] = value
+          @emit(name.toLowerCase() + 'change', {column: columnId, value: value, cause: 'api'})
+          @render(cb)
+          this
+        else if options.columns[columnId]
+          options.columns[columnId][name]
+
+  maxWidth: columnOnlyOption('maxWidth')
 
 
   # Methods for changing the state of the table
@@ -236,7 +251,9 @@ class DataTable extends hx.EventEmitter
       if @singleSelection() and hx.isArray(value) and value.length
         value = [value[0]]
       @_.selectedRows = new hx.Set(value)
-      @emit('selectedrowschange', {value: @_.selectedRows.values(), cause: 'api'})
+      newSelectedRows = @_.selectedRows.values()
+      @emit('selectedrowschange', {value: newSelectedRows, cause: 'api'})
+      @_.lastSelected = newSelectedRows[newSelectedRows.length - 1]
       @render(cb)
       this
     else
@@ -397,32 +414,33 @@ class DataTable extends hx.EventEmitter
 
           # build the grouped header
           if headers.some((header) -> header.groups?)
-              maxHeaderDepth = Math.max.apply(null, headers.filter((e) -> e.groups?).map((e) -> e.groups.length))
+            relevantHeaders = headers.filter((e) -> e.groups?).map((e) -> e.groups.length)
+            maxHeaderDepth = Math.max.apply(null,  relevantHeaders)
 
-              # Map over to populate columns with groups of '' where not included
-              headerGroups = headers.map (e) ->
-                groups = e.groups or []
-                groups.push '' while groups.length < maxHeaderDepth
-                groups
+            # Map over to populate columns with groups of '' where not included
+            headerGroups = headers.map (e) ->
+              groups = e.groups or []
+              groups.push '' while groups.length < maxHeaderDepth
+              groups
 
-              for row in [maxHeaderDepth-1..0] by -1
-                groupedRow = headerRow.insertBefore 'tr'
-                groupedRow.append('th').class('hx-data-table-control') if options.selectEnabled or options.collapsibleRenderer?
-                count = 1
-                for column in [1..headerGroups.length] by 1
-                  col = headerGroups[column]
-                  prevCol = headerGroups[column-1]
-                  if col? and prevCol?
-                    parent = col.slice(row, maxHeaderDepth).toString()
-                    prevParent = prevCol.slice(row, maxHeaderDepth).toString()
+            for row in [maxHeaderDepth-1..0] by -1
+              groupedRow = headerRow.insertBefore 'tr'
+              groupedRow.append('th').class('hx-data-table-control') if options.selectEnabled or options.collapsibleRenderer?
+              count = 1
+              for column in [1..headerGroups.length] by 1
+                col = headerGroups[column]
+                prevCol = headerGroups[column-1]
+                if col? and prevCol?
+                  parent = col.slice(row, maxHeaderDepth).toString()
+                  prevParent = prevCol.slice(row, maxHeaderDepth).toString()
 
-                  if column is headerGroups.length or col[row] isnt prevCol[row] or parent isnt prevParent
-                    groupedRow.append('th')
-                      .attr('colspan', count)
-                      .class('hx-data-table-cell-grouped')
-                      .text(prevCol[row])
-                    count = 0
-                  count++
+                if column is headerGroups.length or col[row] isnt prevCol[row] or parent isnt prevParent
+                  groupedRow.append('th')
+                    .attr('colspan', count)
+                    .class('hx-data-table-cell-grouped')
+                    .text(prevCol[row])
+                  count = 0
+                count++
 
 
           # add the 'select all' checkbox to the header
@@ -433,7 +451,7 @@ class DataTable extends hx.EventEmitter
             headerCheckBox = headerControlBox.append('div').class('hx-data-table-checkbox')
               .on 'click', 'hx.data-table', =>
                 if rows.length > 0
-                  enabledRows = rows.filter (row) => options.rowEnabledLookup(row)
+                  enabledRows = rows.filter (row) -> options.rowEnabledLookup(row)
                   selectMulti(0, rows.length - 1, not enabledRows.every((row) => @_.selectedRows.has(options.rowIDLookup(row))))
             headerCheckBox.append('i').class('hx-icon hx-icon-check')
 
@@ -467,7 +485,10 @@ class DataTable extends hx.EventEmitter
 
           @updateSelected = =>
             rowDivs = tbody.selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false)
-            checkBoxDivs = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false)
+            checkBoxDivs = container.select('.hx-sticky-table-header-left')
+              .select('tbody')
+              .selectAll('.hx-data-table-row')
+              .classed('hx-data-table-row-selected', false)
 
             if @_.selectedRows.size > 0
               for row, rowIndex in rows
@@ -480,7 +501,9 @@ class DataTable extends hx.EventEmitter
             selection.classed('hx-data-table-has-page-selection', pageHasSelection and not options.singleSelection)
             selection.classed('hx-data-table-has-selection', @_.selectedRows.size > 0 and not options.singleSelection)
             if totalCount isnt undefined
-              selection.select('.hx-data-table-status-bar').select('.hx-data-table-status-bar-text').text(@_.selectedRows.size + ' of ' + totalCount + ' selected.')
+              selection.select('.hx-data-table-status-bar')
+                .select('.hx-data-table-status-bar-text')
+                .text(@_.selectedRows.size + ' of ' + totalCount + ' selected.')
 
           # handles multi row selection ('select all' and shift selection)
           selectMulti = (start, end, force) =>
@@ -510,12 +533,13 @@ class DataTable extends hx.EventEmitter
 
             if options.rowSelectableLookup(row)
               id = options.rowIDLookup(row)
-              @_.selectedRows[if @_.selectedRows.has(id) then 'delete' else 'add'](id)
+              deleteOrAdd = if @_.selectedRows.has(id) then 'delete' else 'add'
+              @_.selectedRows[deleteOrAdd](id)
               @emit 'selectedrowschange', {row: row, rowValue: @_.selectedRows.has(id), value: @selectedRows(), cause: 'user'}
             @updateSelected()
 
           # Deal with collapsible rows
-          buildCollapsible = =>
+          buildCollapsible = ->
             contentRow = hx.detached('tr').class('hx-data-table-collapsible-content-row')
             hiddenRow = hx.detached('tr').class('hx-data-table-collapsible-row-spacer')
 
@@ -576,7 +600,7 @@ class DataTable extends hx.EventEmitter
                   checkbox.append('i').class('hx-icon hx-icon-check')
 
                   if options.rowEnabledLookup(row)
-                    checkbox.on 'click', 'hx.data-table', (e) =>
+                    checkbox.on 'click', 'hx.data-table', (e) ->
                       e.stopPropagation() # prevent collapsibles being toggled by tick selection in compact mode
                       selectRow(row, rowIndex, e.shiftKey)
 
@@ -598,10 +622,18 @@ class DataTable extends hx.EventEmitter
 
                 # Render the 'key' value using the headerCellRenderer
                 keyDiv = hx.detached('div').class('hx-data-table-cell-key')
-                getColumnOption('headerCellRenderer', headers[columnIndex])(keyDiv.node(), headers[columnIndex], headers)
+                getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers)
 
-                cellDiv = tr.append('td').class('hx-data-table-cell')
-                  .add(keyDiv)
+                cellElem = tr.append('td').class('hx-data-table-cell')
+                columnMaxWidth = getColumnOption('maxWidth', headers[columnIndex].id)
+                if columnMaxWidth?
+                  columnMaxWidth = parseInt(columnMaxWidth) + 'px'
+                  cellElem
+                    .style('max-width', columnMaxWidth)
+                    .style('width', columnMaxWidth)
+                    .style('min-width', columnMaxWidth)
+
+                cellDiv = cellElem.add(keyDiv)
                   .append('div').class('hx-data-table-cell-value').node()
                 getColumnOption('cellRenderer', headers[columnIndex].id)(cellDiv, cell, row)
           else # append the 'No Data' row.
@@ -627,7 +659,8 @@ class DataTable extends hx.EventEmitter
 
           # set up the sticky headers
           stickFirstColumn = options.selectEnabled or options.collapsibleRenderer?
-          @_.stickyHeaders = new hx.StickyTableHeaders(container.node(), {stickFirstColumn: stickFirstColumn and (filteredCount is undefined or filteredCount > 0), fullWidth: true} )
+          stickyOpts = {stickFirstColumn: stickFirstColumn and (filteredCount is undefined or filteredCount > 0), fullWidth: true}
+          @_.stickyHeaders = new hx.StickyTableHeaders(container.node(), stickyOpts)
 
           # restore horizontal scroll position
           selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node().scrollLeft = scrollLeft if scrollLeft?
@@ -751,7 +784,8 @@ hx.DataTable = DataTable
 
 hx.dataTable = (options) ->
   selection = hx.detached('div')
-  new DataTable(selection.node(), options)
+  dataTable = new DataTable(selection.node(), options)
+  if options and options.feed then dataTable.render()
   selection
 
 hx.dataTable.objectFeed = objectFeed

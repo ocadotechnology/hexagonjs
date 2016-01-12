@@ -1,8 +1,8 @@
 
 describe 'data-table', ->
   beforeAll ->
-    #hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
-    #hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
+    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
+    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
 
 
   # Used to mimic an event call for a node
@@ -112,14 +112,27 @@ describe 'data-table', ->
 
 
 
-  checkColumnOption = (name, valuesToCheck) ->
+  checkColumnOption = (name, valuesToCheck, columnOnly) ->
     describe 'column option: ' + name, ->
       beforeEach -> spyOn(hx, 'consoleWarning')
 
-      checkSetterGetter(name, valuesToCheck)
-      checkOption(name, valuesToCheck, true)
-
       columnId = 'col-id'
+
+      if columnOnly
+        it 'should return undefined if the column id is not a string', ->
+          dt = new hx.DataTable(hx.detached('div').node())
+          expect(dt[name]()).toEqual(undefined)
+          expect(dt[name](undefined)).toEqual(undefined)
+          for value in valuesToCheck
+            expect(dt[name](value)).toEqual(undefined)
+
+        it 'should return undefined if the value is not set for a column', ->
+          dt = new hx.DataTable(hx.detached('div').node())
+          expect(dt[name](columnId)).toEqual(undefined)
+
+      else
+        checkSetterGetter(name, valuesToCheck)
+        checkOption(name, valuesToCheck, true)
 
       it 'passing in option to constructor should work', ->
         for value in valuesToCheck
@@ -148,6 +161,19 @@ describe 'data-table', ->
           expect(dt[name](columnId)).toEqual(value)
           dt[name](columnId, undefined)
           expect(dt[name](columnId)).toEqual(undefined)
+
+      it 'should emit an event with {cause: api, columnId: columnId} when changed via the api', (done) ->
+        checked = 0
+        for value in valuesToCheck
+          dt = new hx.DataTable(hx.detached('div').node(), {feed: hx.dataTable.objectFeed(threeRowsData)})
+          dt.on name.toLowerCase() + 'change', (d) ->
+            if(d.value isnt undefined)
+              d.value.should.eql(value)
+            d.column.should.equal(columnId)
+            d.cause.should.equal('api')
+            checked++
+            if checked == valuesToCheck.length then done()
+          dt[name](columnId, value)
 
   testTable = (options, done, spec) ->
     tableOptions = options.tableOptions
@@ -190,6 +216,9 @@ describe 'data-table', ->
     checkColumnOption('cellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('headerCellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('sortEnabled', [true, false])
+
+  describe 'column only options', ->
+    checkColumnOption('maxWidth', [10, 100], true)
 
   describe 'setter/getters', ->
     checkSetterGetter('renderSuppressed', [true, false])
@@ -617,7 +646,8 @@ describe 'data-table', ->
       describe 'retainHorizontalScrollOnRender', ->
         describe 'true', ->
           it 'should restore the horizontal scroll when re-rendering', (done) ->
-            testTable {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
               container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
               dt.render()
@@ -626,7 +656,8 @@ describe 'data-table', ->
 
         describe 'false', ->
           it 'should not restore the horizontal scroll when re-rendering', (done) ->
-            testTable {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
               container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
               dt.render()
@@ -637,7 +668,8 @@ describe 'data-table', ->
       describe 'retainVerticalScrollOnRender', ->
         describe 'true', ->
           it 'should restore the vertical scroll when re-rendering', (done) ->
-            testTable {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}, done, (container, dt, options, data) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
               container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
               dt.render()
@@ -645,7 +677,8 @@ describe 'data-table', ->
 
         describe 'false', ->
           it 'should not restore the vertical scroll when re-rendering', (done) ->
-            testTable {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
               container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
               dt.render()
@@ -688,13 +721,42 @@ describe 'data-table', ->
 
 
     describe 'selectedRows', ->
+      it 'should be possible for the user to deselect a row selected by the api', (done) ->
+        feed = hx.dataTable.objectFeed
+          headers: [
+            name: 'Name'
+            id: 'name'
+          ]
+          rows: [
+            id: 0
+            cells:
+              name: 'Bob'
+          ]
+        tableSel = hx.detached 'div'
+        tableOpts =
+          feed: feed
+          singleSelection: true
+          selectEnabled: true
+        table = new hx.DataTable tableSel.node(), tableOpts
+        table.selectedRows [0]
+        
+        table.on 'selectedrowschange', (data) ->
+          if data.cause is 'user'
+            # Row 0 was selected before, so now we're unselecting it
+            data.value.should.eql []
+            done()
+        checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
+        faker = fakeNodeEvent checkSel.node()
+        faker fakeEvent
+
+
       it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->
         testTable {tableOptions: {selectEnabled: true, singleSelection: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0'], ->
             dt.selectedRows [], ->
               expect dt.selectedRows()
                 .toEqual []
-            
+
       it 'should select rows by id', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0', '1'], ->
@@ -983,7 +1045,7 @@ describe 'data-table', ->
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-data-table-sort-icon').size().should.equal(1)
 
-      it 'should use a column cellRenderer instead of the default cellRenderer if one is defined', (done) ->
+      it 'should use a column sortEnabled instead of the default sortEnabled if one is defined', (done) ->
         tableOptions =
           sortEnabled: false
           columns:
@@ -1055,6 +1117,22 @@ describe 'data-table', ->
 
 
 
+    describe 'maxWidth', ->
+      it 'should set the max width for individual columns', (done) ->
+        tableOptions =
+          columns:
+            name:
+              maxWidth: 10
+
+        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+          container.select('.hx-sticky-table-wrapper').select('tbody').select('tr').selectAll('td').forEach (cell, index) ->
+            if index is 0
+              cell.attr('style').should.equal('max-width: 10px; width: 10px; min-width: 10px; ')
+            else
+              expect(cell.attr('style')).toEqual(undefined)
+
+
+
     describe 'sort', ->
       it 'should call the feed with the correct arguments', (done) ->
         dt = new hx.DataTable(hx.detached('div').node())
@@ -1099,11 +1177,12 @@ describe 'data-table', ->
           filterEvent = fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
-          jasmine.clock().tick(201);
+          jasmine.clock().tick(201)
           expect(dt.filter).toHaveBeenCalledWith()
           expect(dt.filter).toHaveBeenCalledWith('a', undefined, 'user')
           jasmine.clock().uninstall()
           done()
+
 
 
     describe 'grouped headers', ->
@@ -1860,5 +1939,13 @@ describe 'data-table', ->
       testFeedWithOptions({extra: 'some-value'})
 
 
+  describe 'fluid api', ->
+    it 'should return a selection', ->
+      expect(hx.dataTable() instanceof hx.Selection).toEqual(true)
 
+    it 'should not render if a feed is not defined', ->
+      hx.dataTable().select('.hx-data-table-content').html().should.equal('')
+
+    it 'should render if a feed is defined', ->
+      hx.dataTable({feed: hx.dataTable.objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)
 

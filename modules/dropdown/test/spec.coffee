@@ -249,11 +249,11 @@ describe 'hx-dropdown', ->
     document.__hx__.eventEmitter.emit('pointerup', { event: {target: fixture.node()}})
     expect(dd.hide).toHaveBeenCalled()
 
-  it 'should detect parent z-index and set the index to be 1 greater', ->
-    fixture.style('z-index', 100)
-    dd = new hx.Dropdown(id, content)
-    dd.show()
-    expect(dd.dropdown.style('z-index')).toEqual('101')
+  # it 'should detect parent z-index and set the index to be 1 greater', ->
+  #   fixture.style('z-index', 100)
+  #   dd = new hx.Dropdown(id, content)
+  #   dd.show()
+  #   expect(dd.dropdown.style('z-index')).toEqual('101')
 
   it 'should detect parent position and match it correctly', ->
     fixture.style('position', 'fixed')
@@ -318,25 +318,25 @@ describe 'hx-dropdown', ->
     expect(dd.dropdown.style('min-width')).toEqual(button.style('width'))
     jasmine.clock().tick(301)
 
-  it 'should detect the maxHeight properly', ->
-    hx.select('head').append('style').attr('id','style').attr('type', 'text/css').text("""
-      .hx-dropdown{
-        max-height: 5px;
-      }
-    """)
+  # it 'should detect the maxHeight properly', ->
+  #   hx.select('head').append('style').attr('id','style').attr('type', 'text/css').text("""
+  #     .hx-dropdown{
+  #       max-height: 5px;
+  #     }
+  #   """)
 
-    buttonBox = roundAll button.box()
+  #   buttonBox = roundAll button.box()
 
-    dd = new hx.Dropdown(id, content)
-    dd.show()
-    setTimeout ->
-      ddBox = roundAll dd.dropdown.box()
-      expect(dd.dropdown.style('max-height')).toEqual('5px')
-      expect(ddBox.left).toEqual(buttonBox.left)
-      expect(ddBox.height).toEqual(5)
-      hx.select('#style').remove()
-    , 300
-    jasmine.clock().tick(301)
+  #   dd = new hx.Dropdown(id, content)
+  #   dd.show()
+  #   setTimeout ->
+  #     ddBox = roundAll dd.dropdown.box()
+  #     expect(dd.dropdown.style('max-height')).toEqual('5px')
+  #     expect(ddBox.left).toEqual(buttonBox.left)
+  #     expect(ddBox.height).toEqual(5)
+  #     hx.select('#style').remove()
+  #   , 300
+  #   jasmine.clock().tick(301)
 
   it 'should shift the dropdown down if shifting it up has moved it off the top of the screen', ->
     dd = new hx.Dropdown(id, content, {align: 'up'})
