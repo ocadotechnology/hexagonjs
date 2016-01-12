@@ -209,11 +209,26 @@ class DataTable extends hx.EventEmitter
           this
       else options[name]
 
-
   allowHeaderWrap: columnOption('allowHeaderWrap')
   cellRenderer: columnOption('cellRenderer')
   headerCellRenderer: columnOption('headerCellRenderer')
   sortEnabled: columnOption('sortEnabled')
+
+  # function for setting / getting options that are only column specific and cannot be set for the whole table
+  columnOnlyOption = (name) ->
+    (columnId, value, cb) ->
+      options = @_.options
+      if hx.isString(columnId)
+        if arguments.length > 1
+          options.columns[columnId] ?= {}
+          options.columns[columnId][name] = value
+          @emit(name.toLowerCase() + 'change', {column: columnId, value: value, cause: 'api'})
+          @render(cb)
+          this
+        else if options.columns[columnId]
+          options.columns[columnId][name]
+
+  maxWidth: columnOnlyOption('maxWidth')
 
 
   # Methods for changing the state of the table
@@ -607,10 +622,18 @@ class DataTable extends hx.EventEmitter
 
                 # Render the 'key' value using the headerCellRenderer
                 keyDiv = hx.detached('div').class('hx-data-table-cell-key')
-                getColumnOption('headerCellRenderer', headers[columnIndex])(keyDiv.node(), headers[columnIndex], headers)
+                getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers)
 
-                cellDiv = tr.append('td').class('hx-data-table-cell')
-                  .add(keyDiv)
+                cellElem = tr.append('td').class('hx-data-table-cell')
+                columnMaxWidth = getColumnOption('maxWidth', headers[columnIndex].id)
+                if columnMaxWidth?
+                  columnMaxWidth = parseInt(columnMaxWidth) + 'px'
+                  cellElem
+                    .style('max-width', columnMaxWidth)
+                    .style('width', columnMaxWidth)
+                    .style('min-width', columnMaxWidth)
+
+                cellDiv = cellElem.add(keyDiv)
                   .append('div').class('hx-data-table-cell-value').node()
                 getColumnOption('cellRenderer', headers[columnIndex].id)(cellDiv, cell, row)
           else # append the 'No Data' row.
@@ -761,7 +784,8 @@ hx.DataTable = DataTable
 
 hx.dataTable = (options) ->
   selection = hx.detached('div')
-  new DataTable(selection.node(), options)
+  dataTable = new DataTable(selection.node(), options)
+  if options and options.feed then dataTable.render()
   selection
 
 hx.dataTable.objectFeed = objectFeed

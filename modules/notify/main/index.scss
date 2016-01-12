@@ -5,7 +5,7 @@
   left: 50%;
   top: 0;
   transform: translateX(-50%);
-  z-index: 103;
+  z-index: 106;
   box-sizing: border-box;
 
   &:empty {
@@ -33,6 +33,12 @@ body.hx-titlebar-link-padding > {
     .hx-notification-container {
       top: 46px;
     }
+  }
+}
+
+body.hx-modal-open > {
+  .hx-notification-container {
+    top: 0;
   }
 }
 

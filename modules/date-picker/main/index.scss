@@ -3,18 +3,21 @@ $gridPadding: 0.7em;
 // Input and 'on page' styles
 .hx-date-picker {
   display: inline-block;
+  white-space: nowrap;
   padding: 0;
   vertical-align: middle;
   border-radius: 2px;
   border: solid 1px transparent;
 
-  .hx-date-to-icon {
-    font-size: 0.8em;
-  }
-
   .hx-icon {
     padding: 0.5em;
     border-radius: 2px 0 0 2px;
+  }
+
+  .hx-date-to-icon {
+    font-size: 0.8em;
+    padding: 0;
+    vertical-align: 1px;
   }
 }
 

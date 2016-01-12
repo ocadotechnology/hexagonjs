@@ -144,6 +144,7 @@ function getEmbeddableAssets (options, assetFiles) {
       svg: 'image/svg+xml',
       eot: 'application/vnd.ms-fontobject',
       woff: 'application/font-woff',
+      woff2: 'application/font-woff2',
       jpeg: 'image/jpeg',
       jpg: 'image/jpeg',
       png: 'image/png'

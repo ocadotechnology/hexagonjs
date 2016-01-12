@@ -19,24 +19,32 @@ var path = require('path')
 var assetDir = path.join(__dirname, '../../', 'assets')
 
 module.exports = (new Builder()).assets({
-  'hexagon-icons.ttf': {
+  'assets/hexagon-icons.ttf': {
     filepath: path.join(assetDir, 'hexagon-icons.ttf'),
     allowEmbed: true
   },
-  'hexagon-icons.eot': {
+  'assets/hexagon-icons.eot': {
     filepath: path.join(assetDir, 'hexagon-icons.eot'),
     allowEmbed: true
   },
-  'hexagon-icons.woff': {
+  'assets/hexagon-icons.woff': {
     filepath: path.join(assetDir, 'hexagon-icons.woff'),
     allowEmbed: true
   },
-  'hexagon-icons.svg': {
+  'assets/hexagon-icons.svg': {
     filepath: path.join(assetDir, 'hexagon-icons.svg'),
     allowEmbed: true
   },
-  'logo.svg': {
+  'assets/logo.svg': {
     filepath: path.join(assetDir, 'hexagon-logo.svg'),
     allowEmbed: true
+  },
+  'hexagon.print.css': {
+    filepath: path.join(assetDir, 'hexagon-print.css'),
+    allowEmbed: false
+  },
+  'hexagon.print.js': {
+    filepath: path.join(assetDir, 'hexagon-print.js'),
+    allowEmbed: false
   }
 })

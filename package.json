@@ -1,11 +1,23 @@
 {
   "name": "hexagon-js",
   "version": "1.0.4",
+  "description": "A modular, themeable collection of components for modern browsers",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
     "Charlie Frater <charlie.frater@ocado.com>"
   ],
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ocadotechnology/hexagonjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ocadotechnology/hexagonjs/issues"
+  },
+  "homepage": "https://hexagonjs.io",
+  "engines" : {
+    "node" : ">=0.12 <=4.2"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node demo.js",
