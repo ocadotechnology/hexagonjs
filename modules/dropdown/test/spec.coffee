@@ -91,14 +91,12 @@ describe 'hx-dropdown', ->
     spyOn(console, 'error')
     dd = new hx.Dropdown(id, hx.detached('div'))
     dd.show()
-    expect(console.error).toHaveBeenCalledWith('hexagon: dropdownContent is not a valid type ' + id)
+    expect(console.error).toHaveBeenCalledWith('dropdown: dropdownContent is not a valid type ' + id)
 
   it 'should create a dropdown object with the correct default options', ->
     dd = new hx.Dropdown(id, content)
 
-    expect(dd.selector).toEqual(id)
     expect(dd.selection).toEqual(button)
-    expect(dd.dropdownContent).toEqual(content)
     expect(getSpacing(dd)).toEqual(0)
     expect(dd.options.matchWidth).toEqual(true)
     expect(dd.alignments).toEqual('lblt'.split(''))
@@ -226,20 +224,20 @@ describe 'hx-dropdown', ->
 
   it 'should not do anything if hide is called and the dropdown is already closed', ->
     dd = new hx.Dropdown(id, content)
-    spyOn(dd.clickDetector, 'off')
+    spyOn(dd._.clickDetector, 'off')
     expect(dd.visible).toEqual(false)
     expect(hx.select('.hx-dropdown').empty()).toEqual(true)
 
     dd.hide()
     expect(dd.visible).toEqual(false)
     expect(hx.select('.hx-dropdown').empty()).toEqual(true)
-    expect(dd.clickDetector.off).not.toHaveBeenCalled()
+    expect(dd._.clickDetector.off).not.toHaveBeenCalled()
 
   it 'should call the clean up the click detector', ->
     dd = new hx.Dropdown(id, content)
-    spyOn(dd.clickDetector, 'cleanUp')
+    spyOn(dd._.clickDetector, 'cleanUp')
     dd.cleanUp()
-    expect(dd.clickDetector.cleanUp).toHaveBeenCalled()
+    expect(dd._.clickDetector.cleanUp).toHaveBeenCalled()
 
   it 'should call hide when an element other than the button is clicked', ->
     dd = new hx.Dropdown(id, content)

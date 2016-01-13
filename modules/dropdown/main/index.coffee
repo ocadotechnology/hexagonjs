@@ -14,23 +14,36 @@ checkFixedPos = (node) ->
 
 class Dropdown extends hx.EventEmitter
 
-  constructor: (@selector, @dropdownContent, options) ->
+  constructor: (selector, dropdownContent, options) ->
     super
 
-    hx.component.register(@selector, this)
+    hx.component.register(selector, this)
 
-    @options = hx.merge.defined {
-      mode: 'click'
-      align: 'lblt'
-      spacing: Number(hx.theme.dropdown.spacing)
-      matchWidth: true
+    @options = hx.merge.defined({
+      mode: 'click',
+      align: 'lblt',
+      spacing: Number(hx.theme.dropdown.spacing),
+      matchWidth: true,
       ddClass: ''
-    }, options
+    }, options)
 
-    @selection = hx.select(@selector)
+    setupDropdown = switch
+      when hx.isString(dropdownContent)
+        (node) => hx.select(node).html(dropdownContent)
+      when hx.isFunction(dropdownContent)
+        (node) => dropdownContent(node)
+      else
+        console.error('dropdown: dropdownContent is not a valid type ' +selector)
+        () ->
+
+    @_ = {
+      setupDropdown: setupDropdown,
+      clickDetector: new hx.ClickDetector
+    }
+
+    @selection = hx.select(selector)
     @visible = false
     @dropdown = undefined
-    @clickDetector = new hx.ClickDetector
     @useScroll = false
 
     alignQuad = switch @options.align
@@ -50,11 +63,11 @@ class Dropdown extends hx.EventEmitter
       @selection.on 'mouseout', 'hx.dropdown', => @hide()
 
   addException: (node) ->
-    @clickDetector.addException(node)
+    @_.clickDetector.addException(node)
     this
 
   removeException: (node) ->
-    @clickDetector.removeException(node)
+    @_.clickDetector.removeException(node)
     this
 
   toggle: (cb) ->
@@ -66,23 +79,16 @@ class Dropdown extends hx.EventEmitter
       @dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown')
       if @options.ddClass.length > 0
         @dropdown.classed @options.ddClass, true
-      switch
-        when hx.isString(@dropdownContent)
-          @dropdown.html(@dropdownContent)
-          @clickDetector.removeAllExceptions()
-          @clickDetector.addException @dropdown.node()
-          @clickDetector.addException @selection.node()
-        when hx.isFunction(@dropdownContent)
-          node = @dropdown.node()
-          @dropdownContent node
-          @clickDetector.removeAllExceptions()
-          @clickDetector.addException node
-          @clickDetector.addException @selection.node()
-        else console.error('hexagon: dropdownContent is not a valid type ' + @selector)
+
+      @_.setupDropdown(@dropdown.node())
+
+      @_.clickDetector.removeAllExceptions()
+      @_.clickDetector.addException @dropdown.node()
+      @_.clickDetector.addException @selection.node()
 
 
     # only listen for 'hide' if dropdown is open. reduces number of listeners on the page.
-    @clickDetector.on 'click', 'hx.dropdown', => @hide();
+    @_.clickDetector.on 'click', 'hx.dropdown', => @hide();
 
     if not @visible and @dropdown
       # Gets the maximum z-index of all the parent elements
@@ -135,8 +141,7 @@ class Dropdown extends hx.EventEmitter
         movedVertical = true
         verticalPos -= verticalWindow
 
-      # This function checks for when the dropdown overlaps the selection by
-      # comparing the position of the sides
+      # inverval intersection check
       checkOverlap = (posA, posB, rectA, rectB) ->
         # posA/B are dropdown sides (left/right or top/bottom)  - [ ]
         # rectA/B are selection sides (left/right or top/bottom) - | |
@@ -217,7 +222,7 @@ class Dropdown extends hx.EventEmitter
       @dropdown.remove()
       @dropdown = undefined
       # remove this on hide - it doesn't matter if we click and the dropdown is already hidden.
-      @clickDetector.off 'click', 'hx.dropdown'
+      @_.clickDetector.off 'click', 'hx.dropdown'
     this
 
   isOpen: -> @visible
@@ -225,7 +230,7 @@ class Dropdown extends hx.EventEmitter
   # to be called when this dropdown is removed from the page, and is no longer going to be referenced
   # it unlikely that you will need to call this, but if using dropdowns in dynamic content, it might be needed
   cleanUp: ->
-    @clickDetector.cleanUp()
+    @_.clickDetector.cleanUp()
     this
 
 hx.Dropdown = Dropdown
