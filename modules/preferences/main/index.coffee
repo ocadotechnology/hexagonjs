@@ -142,7 +142,7 @@ class Preferences extends hx.EventEmitter
               hx.notify.negative(err)
             else
               hx.notify.positive("Preferences Saved")
-              modal.close()
+              modal.hide()
 
       hx.select(element)
         .append('div').class('hx-form')
