@@ -176,6 +176,9 @@ class StickyTableHeaders
     offsetHeight = 0
     offsetWidth = 0
 
+    if options.fullWidth
+      table.style('width', '100%')
+
     if options.stickTableHead
       offsetHeight = table.select('thead').height()
 
@@ -209,6 +212,7 @@ class StickyTableHeaders
 
     if options.fullWidth
       table
+        .style('width', '')
         .style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset + 'px')
         .style('min-height', wrapperBox.height + offsetHeight - heightScrollbarOffset + 'px')
     else
@@ -217,6 +221,8 @@ class StickyTableHeaders
         .style('max-height', tableBox.height - offsetHeight + heightScrollbarOffset + 'px')
 
     tableClone = table.clone(true)
+      .style('height', table.style('height'))
+      .style('width', table.style('width'))
 
     if options.stickTableHead
       # Append top
