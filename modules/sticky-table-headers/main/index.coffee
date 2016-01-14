@@ -43,6 +43,21 @@ cloneEvents = (elem, clone) ->
       cloneChildren = clone.childNodes
       cloneEvents elemChildren[i], cloneChildren[i] for i in [0..elemChildren.length]
 
+getChildrenFromTable = (t, body, single) ->
+  realParents = getChildren(t.select(if body then 'tbody' else 'thead'), 'tr')
+  hx.flatten realParents.map (parent) -> getChildren(hx.select(parent), 'th, td', single)
+
+getChildren = (parent, selector, single) ->
+  children = if single
+    parent.select selector
+  else
+    parent.selectAll selector
+  children.filter((node) -> node.node().parentNode is parent.node()).nodes
+
+createStickyHeaderNodes = (real, cloned) ->
+  for i in [0...real.length]
+    cloneEvents(real[i], cloned[i])
+    hx.select(real[i]).classed('hx-sticky-table-invisible', true)
 
 class StickyTableHeaders
   constructor: (selector, options) ->
@@ -219,12 +234,10 @@ class StickyTableHeaders
 
       topTable = topHead.append tableClone.clone(true)
 
-      realNodes = table.select('thead').selectAll('tr').selectAll('th, td').nodes
-      clonedNodes = topTable.select('thead').selectAll('tr').selectAll('th, td').nodes
+      realNodes = getChildrenFromTable table
+      clonedNodes = getChildrenFromTable topTable
 
-      for i in [0...realNodes.length]
-        cloneEvents(realNodes[i], clonedNodes[i])
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
+      createStickyHeaderNodes realNodes, clonedNodes
 
     if options.stickFirstColumn
       # Append left
@@ -241,13 +254,10 @@ class StickyTableHeaders
 
       leftTable = leftHead.append tableClone.clone(true)
 
-      realNodes = table.select('tbody').selectAll('tr').select('th, td').nodes
-      clonedNodes = leftTable.select('tbody').selectAll('tr').select('th, td').nodes
+      realNodes = getChildrenFromTable table, true, true
+      clonedNodes = getChildrenFromTable leftTable, true, true
 
-      for i in [0...realNodes.length]
-        cloneEvents(realNodes[i], clonedNodes[i])
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
-
+      createStickyHeaderNodes realNodes, clonedNodes
 
     if options.stickTableHead and options.stickFirstColumn
       # Append top left
@@ -258,28 +268,33 @@ class StickyTableHeaders
 
       topLeftTable = topLeftHead.append tableClone.clone(true)
 
-      realNodes = table.select('thead').selectAll('tr').select('th, td').nodes
-      clonedNodes = topLeftTable.select('thead').selectAll('tr').select('th, td').nodes
+      realNodes = getChildrenFromTable table, false, true
+      clonedNodes = getChildrenFromTable topLeftTable, false, true
 
-      for i in [0...realNodes.length]
-        cloneEvents(realNodes[i], clonedNodes[i])
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
-
+      createStickyHeaderNodes realNodes, clonedNodes
 
     topHead?.style('height', offsetHeight + 'px')
       .style('width', wrapperBox.width + 'px')
       .style('left', offsetWidth + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     topTable?.style('margin-left', - offsetWidth + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     leftHead?.style('height', wrapperBox.height + 'px')
       .style('width', offsetWidth + 'px')
       .style('top', offsetHeight + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     leftTable?.style('margin-top', - offsetHeight + 'px')
 
-    topLeftHead?.style('width', leftHead?.style('width'))
-      .style('height', topHead?.style('height'))
+    topLeftHead?.style('width', leftHead?.style('width') || offsetWidth + 'px')
+      .style('height', topHead?.style('height') || offsetHeight + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     wrapperNode.scrollTop = origScroll
     if _.showScrollIndicators
