@@ -156,22 +156,22 @@ class StickyTableHeaders
     origScroll = wrapperNode.scrollTop
 
     container
-      .style('height', '')
-      .style('width', '')
+      .style('height', undefined)
+      .style('width', undefined)
 
     wrapper
-      .style('height', '')
-      .style('width', '')
-      .style('margin-top', '')
-      .style('margin-left', '')
-      .style('max-width', '')
-      .style('max-height', '')
+      .style('height', undefined)
+      .style('width', undefined)
+      .style('margin-top', undefined)
+      .style('margin-left', undefined)
+      .style('max-width', undefined)
+      .style('max-height', undefined)
 
     table
-      .style('margin-top', '')
-      .style('margin-left', '')
-      .style('min-width', '')
-      .style('min-height', '')
+      .style('margin-top', undefined)
+      .style('margin-left', undefined)
+      .style('min-width', undefined)
+      .style('min-height', undefined)
 
     offsetHeight = 0
     offsetWidth = 0
@@ -212,7 +212,7 @@ class StickyTableHeaders
 
     if options.fullWidth
       table
-        .style('width', '')
+        .style('width', undefined)
         .style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset + 'px')
         .style('min-height', wrapperBox.height + offsetHeight - heightScrollbarOffset + 'px')
     else
