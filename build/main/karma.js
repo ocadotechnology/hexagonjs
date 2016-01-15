@@ -79,7 +79,11 @@ function createAfterAllScript (moduleName) {
   return [
     "var head = document.getElementsByTagName('head').item(0)",
     "head.removeChild(document.getElementById('" + moduleName + "-dependencies-css'));",
-    "head.removeChild(document.getElementById('" + moduleName + "-module-css'));"
+    "head.removeChild(document.getElementById('" + moduleName + "-module-css'));",
+    "var body = document.getElementsByTagName('body').item(0)",
+    'while (body.firstChild) {',
+    '    body.removeChild(body.firstChild);',
+    '}'
   ].join('\n')
 }
 

@@ -25,26 +25,37 @@ class DateTimePicker extends hx.EventEmitter
     @datePicker = new hx.DatePicker(dtNode, @options.datePickerOptions)
     @timePicker = new hx.TimePicker(tpNode, @options.timePickerOptions)
 
+    @_ = {
+      uniqueId: hx.randomId()
+    }
+
+    hx.preferences.on 'timezonechange', 'hx.date-time-picker-' + @_.uniqueId, -> updateDatePicker()
+
     @datePicker.pipe(this, 'date', ['show', 'hide'])
     @timePicker.pipe(this, 'time', ['show', 'hide'])
 
-    @datePicker.on 'change', 'hx.date-time-picker', (data) =>
+    updateTimePicker = (data) =>
       @timePicker.suppressed('change', true)
-      @timePicker.date(new Date(@datePicker.date().getTime()), true)
+      @timePicker.date(@datePicker.date(), true)
       @timePicker.suppressed('change', false)
 
-      # Called here as otherwise calling @date() would return the previously set date
-      @emit 'date.change', data
-      @emit 'change', @date()
+      if data?
+        # Called here as otherwise calling @date() would return the previously set date
+        @emit 'date.change', data
+        @emit 'change', @date()
 
-    @timePicker.on 'change', 'hx.date-time-picker', (data) =>
+    updateDatePicker = (data) =>
       @datePicker.suppressed('change', true)
-      @datePicker.date(new Date(@date().getTime()))
+      @datePicker.date(hx.preferences.applyTimezoneOffset(@date()))
       @datePicker.suppressed('change', false)
 
-      # Called here as otherwise calling @date() would return the previously set date
-      @emit 'time.change', data
-      @emit 'change', @date()
+      if data?
+        # Called here as otherwise calling @date() would return the previously set date
+        @emit 'time.change', data
+        @emit 'change', @date()
+
+    @datePicker.on 'change', 'hx.date-time-picker', updateTimePicker
+    @timePicker.on 'change', 'hx.date-time-picker', updateDatePicker
 
   date: (val, retainTime) ->
     if arguments.length > 0

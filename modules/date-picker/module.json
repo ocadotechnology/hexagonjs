@@ -9,7 +9,8 @@
     "dropdown",
     "icon",
     "input-group",
-    "preferences"
+    "preferences",
+    "date-localizer"
   ],
   "keywords": [
     "date",
