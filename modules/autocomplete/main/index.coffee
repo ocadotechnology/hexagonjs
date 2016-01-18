@@ -341,7 +341,7 @@ class AutoComplete extends hx.EventEmitter
       menu.on 'dropdown.change', 'hx.autocomplete', (visible) ->
         if !!visible
           _.initialValue = input.value()
-          menu.dropdown.useScroll = true
+          menu.dropdown._.useScroll = true
         else
           _.checkValidity()
           return

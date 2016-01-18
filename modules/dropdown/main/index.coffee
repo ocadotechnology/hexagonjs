@@ -19,6 +19,8 @@ class Dropdown extends hx.EventEmitter
 
     hx.component.register(selector, this)
 
+    # XXX [2.0.0]: this should not be part of the public api (but should use setterGetter methods instead)
+    # it has been documented so will have to stay here for the 1.x.x series (it should be removed in 2.0.0)
     @options = hx.merge.defined({
       mode: 'click',
       align: 'lblt',
@@ -36,15 +38,8 @@ class Dropdown extends hx.EventEmitter
         console.error('dropdown: dropdownContent is not a valid type ' +selector)
         () ->
 
-    @_ = {
-      setupDropdown: setupDropdown,
-      clickDetector: new hx.ClickDetector
-    }
-
-    @selection = hx.select(selector)
-    @visible = false
-    @dropdown = undefined
-    @useScroll = false
+    clickDetector = new hx.ClickDetector
+    clickDetector.on 'click', 'hx.dropdown', => @hide()
 
     alignQuad = switch @options.align
       when 'up' then 'ltlb'
@@ -53,14 +48,33 @@ class Dropdown extends hx.EventEmitter
       when 'right' then 'rtlt'
       else @options.align
 
-    @alignments = alignQuad.split('')
+    alignments = alignQuad.split('')
+
+    onclick = => @toggle()
+    onmouseover = => @show()
+    onmouseout = => @hide()
+
+    selection = hx.select(selector)
+
+    @_ = {
+      setupDropdown: setupDropdown,
+      clickDetector: clickDetector,
+      alignments: alignments,
+      onclick: onclick,
+      onmouseover: onmouseover,
+      onmouseout: onmouseout,
+      visible: false,
+      dropdown: undefined,
+      selection: selection,
+      useScroll: false # XXX: used by autocomplete - this should be part of the public api if it is used by other modules
+    }
 
     if @options.mode is 'click' or @options.mode is 'hover'
-      @selection.on 'click', 'hx.dropdown', => @toggle()
+      selection.on('click', 'hx.dropdown', onclick)
 
     if @options.mode is 'hover'
-      @selection.on 'mouseover', 'hx.dropdown', => @show()
-      @selection.on 'mouseout', 'hx.dropdown', => @hide()
+      selection.on('mouseover', 'hx.dropdown', onmouseover)
+      selection.on('mouseout', 'hx.dropdown', onmouseout)
 
   addException: (node) ->
     @_.clickDetector.addException(node)
@@ -75,49 +89,48 @@ class Dropdown extends hx.EventEmitter
     this
 
   show: (cb) ->
-    if not @dropdown
-      @dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown')
+    _ = @_
+
+    if not _.visible
+      _.visible = true
+
+      _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown')
+
       if @options.ddClass.length > 0
-        @dropdown.classed @options.ddClass, true
+        _.dropdown.classed @options.ddClass, true
 
-      @_.setupDropdown(@dropdown.node())
+      _.setupDropdown(_.dropdown.node())
+      _.clickDetector.removeAllExceptions()
+      _.clickDetector.addException(_.dropdown.node())
+      _.clickDetector.addException(_.selection.node())
 
-      @_.clickDetector.removeAllExceptions()
-      @_.clickDetector.addException @dropdown.node()
-      @_.clickDetector.addException @selection.node()
-
-
-    # only listen for 'hide' if dropdown is open. reduces number of listeners on the page.
-    @_.clickDetector.on 'click', 'hx.dropdown', => @hide();
-
-    if not @visible and @dropdown
       # Gets the maximum z-index of all the parent elements
-      parentZIndex = hx.parentZIndex(@selection.node(), true)
+      parentZIndex = hx.parentZIndex(_.selection.node(), true)
 
       if parentZIndex > 0
-        @dropdown.style('z-index', parentZIndex + 1)
+        _.dropdown.style('z-index', parentZIndex + 1)
 
-      rect = @selection.box()
-      @dropdown.style('display', 'block')
-      if @options.matchWidth then @dropdown.style('min-width', rect.width + 'px')
-      dropdownRect = @dropdown.box()
-      ddMaxHeight = @dropdown.style('max-height').replace('px','')
+      rect = _.selection.box()
+      _.dropdown.style('display', 'block')
+      if @options.matchWidth then _.dropdown.style('min-width', rect.width + 'px')
+      dropdownRect = _.dropdown.box()
+      ddMaxHeight = _.dropdown.style('max-height').replace('px','')
 
       horizontalPos = rect.left
       verticalPos = rect.top
 
-      if @alignments[0] is 'r' then horizontalPos = rect.right
-      if @alignments[1] is 'b' then verticalPos = rect.bottom
-      if @alignments[2] is 'r' then horizontalPos -= dropdownRect.width
-      if @alignments[3] is 'b' then verticalPos -= dropdownRect.height
+      if _.alignments[0] is 'r' then horizontalPos = rect.right
+      if _.alignments[1] is 'b' then verticalPos = rect.bottom
+      if _.alignments[2] is 'r' then horizontalPos -= dropdownRect.width
+      if _.alignments[3] is 'b' then verticalPos -= dropdownRect.height
 
-      if @alignments[0] != @alignments[2]
-        switch @alignments[2]
+      if _.alignments[0] isnt _.alignments[2]
+        switch _.alignments[2]
           when 'l' then horizontalPos += @options.spacing
           when 'r' then horizontalPos -= @options.spacing
 
-      if @alignments[1] != @alignments[3]
-        switch @alignments[3]
+      if _.alignments[1] isnt _.alignments[3]
+        switch _.alignments[3]
           when 't' then verticalPos += @options.spacing
           when 'b'
             invertY = true
@@ -171,9 +184,9 @@ class Dropdown extends hx.EventEmitter
             invertY = false
             verticalPos = rect.top + rect.height + @options.spacing
 
-      parentFixed = hx.checkParents(@selection.node(), checkFixedPos)
+      parentFixed = hx.checkParents(_.selection.node(), checkFixedPos)
       if parentFixed
-        @dropdown.style('position','fixed')
+        _.dropdown.style('position','fixed')
       else
         verticalPos += getWindowMeasurement(false, true)
         horizontalPos += getWindowMeasurement(true, true)
@@ -186,12 +199,12 @@ class Dropdown extends hx.EventEmitter
         bodyDiff = document.body.scrollHeight - document.body.clientHeight
         verticalPos = document.body.scrollHeight - verticalPos - bodyDiff - dropdownRect.height
 
-      @dropdown.style('top', 'auto')
+      _.dropdown.style('top', 'auto')
         .style(yPos, verticalPos + 'px')
         .style('left', horizontalPos + 'px')
         .style('width', dropdownRect.width + 'px')
 
-      @dropdown
+      _.dropdown
         .style('height', '0px')
         .style(yPos, (verticalPos + 8) + 'px')
         .style('opacity', 0)
@@ -199,38 +212,46 @@ class Dropdown extends hx.EventEmitter
           .with('fadein', 150)
           .and('expandv', 150)
           .and =>
-            @dropdown.animate().style(yPos, verticalPos + 'px', 150)
+            _.dropdown.animate().style(yPos, verticalPos + 'px', 150)
           .then =>
-            if @useScroll and @dropdown?
-              @dropdown.style('overflow-y','auto')
+            if _.useScroll and _.dropdown?
+              _.dropdown.style('overflow-y','auto')
             @emit('showend')
             cb?()
           .go()
 
-      @visible = true
+
       @emit('showstart')
       @emit('change', true)
     this
 
   hide: (cb) ->
-    if @visible
-      @visible = false
+    _ = @_
+    if _.visible
+      _.visible = false
       @emit('hidestart') # future proofing for adition of animations
       @emit('change', false)
       @emit('hideend') # future proofing for adition of animations
       cb?()
-      @dropdown.remove()
-      @dropdown = undefined
-      # remove this on hide - it doesn't matter if we click and the dropdown is already hidden.
-      @_.clickDetector.off 'click', 'hx.dropdown'
+      _.dropdown.remove()
+      _.dropdown = undefined
     this
 
-  isOpen: -> @visible
+  isOpen: -> @_.visible
 
   # to be called when this dropdown is removed from the page, and is no longer going to be referenced
   # it unlikely that you will need to call this, but if using dropdowns in dynamic content, it might be needed
   cleanUp: ->
-    @_.clickDetector.cleanUp()
+    _ = @_
+    _.clickDetector.cleanUp()
+
+    if @options.mode is 'click' or @options.mode is 'hover'
+      _.selection.off(_.onclick)
+
+    if @options.mode is 'hover'
+      _.selection.off('mouseover', 'hx.dropdown', _.onmouseover)
+      _.selection.off('mouseout', 'hx.dropdown', _.onmouseout)
+
     this
 
 hx.Dropdown = Dropdown
