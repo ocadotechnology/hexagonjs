@@ -12,6 +12,7 @@ function setupMenu (node, meta) {
     .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/').text('Home'))
     .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/getting-started/').text('Installation / Getting Started'))
     .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/core-concepts/').text('Core concepts'))
+    .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/printing/').text('Printing'))
     .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/examples/').text('Examples'))
     // .add(dx.detached('h3').text('Design patterns'))
     // .add(dx.detached('a').class('docs-dropdown-link').attr('href', '/guide/general-guidelines/').text('General guidelines'))
@@ -96,7 +97,7 @@ dx.json('/meta.json', function (err, meta) {
   var searchInput = dx.select('.docs-search-box')
 
   function filterer (item) {
-    var searchValue = searchInput.value()
+    var searchValue = searchInput.value().toLowerCase()
     return searchValue.split(' ').every(function (term) {
       return meta.modules[item].keywords.some(function (keyword) {
         return keyword.indexOf(term) >= 0
@@ -106,7 +107,7 @@ dx.json('/meta.json', function (err, meta) {
   }
 
   function renderMenu () {
-    var searchValue = searchInput.value()
+    var searchValue = searchInput.value().toLowerCase()
     dropdownContent.clear()
 
     if (searchValue) {
@@ -124,7 +125,7 @@ dx.json('/meta.json', function (err, meta) {
   }
 
   function performSearch () {
-    var searchValue = searchInput.value()
+    var searchValue = searchInput.value().toLowerCase()
     if (searchValue) {
       var menuNodes = dx.selectAll('.docs-search-result')
       var node = menuNodes.node(menuPos)
