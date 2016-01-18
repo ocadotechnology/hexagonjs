@@ -255,6 +255,16 @@ describe "plot", ->
 
     describe "render", ->
       it 'should display when the height is positive', ->
+        selection = hx.detached('div').style('height', '400px')
+        hx.select('body').add(selection)
+        graph = new hx.Graph(selection.node())
+        axis = graph.addAxis('linear', 'linear')
+        a1 = axis.addSeries()
+        graph.render()
+        selection.selectAll('.hx-series').size().should.equal(2)
+        selection.remove()
+
+      it 'should display when the height is positive using fluent api', ->
         graphOpts =
           axes: [
             series: [['line']]
