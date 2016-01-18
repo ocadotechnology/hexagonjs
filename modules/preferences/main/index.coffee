@@ -252,7 +252,7 @@ class Preferences extends hx.EventEmitter
 
 
   applyTimezoneOffset: (date, offset) ->
-    offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime) || 0
+    offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
     utc = date.getTime() + (date.getTimezoneOffset() * 60000)
     new Date(utc + offset * 60 * 60 * 1000)
 
