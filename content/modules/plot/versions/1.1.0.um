@@ -12,6 +12,7 @@
                   type: 'line',   // The series type
                   options: {...}  // The series options
                 }
+            @added: Added a series option to hx.Axis to allow graphs to be created with the fluid api.
 
 
     @prototype hx.Graph
@@ -33,6 +34,7 @@
                     }
                   ]
                 }
+            @added: Added an axes option to hx.Graph to allow graphs to be created with the fluid api.
 
 
       @method on
@@ -41,6 +43,7 @@
           @param data [Any]
         @returns Graph
         @event render: The event emitted when a graph is rendered.
+          @added: Added an event to allow listening to when a graph is rendered.
 
 
     @function hx.graph
@@ -51,7 +54,9 @@
       @param options [Object]
         @description
           @p: The options to use when setting up the graph.
-          @p: See the options defined in the @code(um)[hx.Graph] prototype constructor for details on the available options
+          @p: See the options defined in the @code(um)[hx.Graph] prototype constructor for details on the available option
+
+      @added: Added a fluid api for graphs.
 
 
 
