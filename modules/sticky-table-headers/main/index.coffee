@@ -15,11 +15,17 @@ updateScrollIndicators = (wrapper, top, right, bottom, left) ->
 updateHeaderPositions = (container) ->
   # Set the relative positions of the two headers.
   # This method reduces flickering when scrolling on mobile devices.
-  node = container.select('.hx-sticky-table-wrapper').node()
+  node = getChildren(container, '.hx-sticky-table-wrapper')[0]
   leftOffset = - node.scrollLeft
   topOffset = - node.scrollTop
-  container.select('.hx-sticky-table-header-top').select('.hx-table').style('left', leftOffset + 'px')
-  container.select('.hx-sticky-table-header-left').select('.hx-table').style('top', topOffset + 'px')
+
+  topNode = getChildren(container, '.hx-sticky-table-header-top')[0]
+  if topNode?
+    hx.select(topNode).select('.hx-table').style('left', leftOffset + 'px')
+
+  leftNode = getChildren(container, '.hx-sticky-table-header-left')[0]
+  if leftNode?
+    hx.select(leftNode).select('.hx-table').style('top', topOffset + 'px')
 
 
 cloneEvents = (elem, clone) ->
@@ -213,8 +219,7 @@ class StickyTableHeaders
     if options.fullWidth
       table
         .style('width', undefined)
-        .style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset + 'px')
-        .style('min-height', wrapperBox.height + offsetHeight - heightScrollbarOffset + 'px')
+        .style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset - 1 + 'px')
     else
       wrapper
         .style('max-width', tableBox.width - offsetWidth + widthScrollbarOffset + 'px')
