@@ -79,7 +79,11 @@ function createAfterAllScript (moduleName) {
   return [
     "var head = document.getElementsByTagName('head').item(0)",
     "head.removeChild(document.getElementById('" + moduleName + "-dependencies-css'));",
-    "head.removeChild(document.getElementById('" + moduleName + "-module-css'));"
+    "head.removeChild(document.getElementById('" + moduleName + "-module-css'));",
+    "var body = document.getElementsByTagName('body').item(0)",
+    'while (body.firstChild) {',
+    '    body.removeChild(body.firstChild);',
+    '}'
   ].join('\n')
 }
 
@@ -115,6 +119,7 @@ function runKarma (files, destDir, phantomOnly) {
     stdout: false
   }
 
+
   var cfg = {
     basePath: '',
     loggers: [],
@@ -143,7 +148,7 @@ function runKarma (files, destDir, phantomOnly) {
 
   return new Promise(function (resolve, reject) {
     karma.server.start(cfg, function (exitStatus) {
-      resolve(exitStatus);
+      resolve(exitStatus)
     })
   })
 }

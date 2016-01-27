@@ -3,13 +3,13 @@
     var links = hx.detached('ol')
     var refs = []
     hx.select('body').selectAll('*').forEach(function (sel) {
-      if (sel.node().nodeName === 'A' && !sel.classed('.hx-btn')) {
+      if (sel.node().nodeName === 'A' && !sel.classed('hx-titlebar-icon')) {
         var thisRef = sel.attr('href')
         if (thisRef && thisRef.length && thisRef !== '#') {
           if (!(refs.indexOf(thisRef) > -1))
             refs.push(thisRef)
           var itemIndex = refs.indexOf(thisRef)
-          sel.add(hx.detached('sup')['class']('hx-footnote-ref hx-print-only').text('[' + (itemIndex + 1) + ']'))
+          sel.add(hx.detached('sup').class('hx-footnote-ref hx-print-only').text('[' + (itemIndex + 1) + ']'))
         }
       }
     })
@@ -17,7 +17,7 @@
       links.add(hx.detached('li').text(ref))
     })
     if (refs.length > 0) {
-      hx.select('body').add(hx.detached('div')['class']('hx-footnote-links hx-print-only').add('hr').add(hx.detached('h2').text('Links')).add(links))
+      hx.select('body').add(hx.detached('div').class('hx-footnote-links hx-print-only').add('hr').add(hx.detached('h2').text('Links')).add(links))
     }
   }
 

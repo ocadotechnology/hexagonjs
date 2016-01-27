@@ -82,7 +82,6 @@ function buildSingleModuleTestPackage (moduleName) {
                 }
               })
           })
-
       }
     })
 }
@@ -106,7 +105,7 @@ function runTests (moduleNames, destDir, phantomOnly) {
   return buildTestPackages(moduleNames).then(function (testPackages) {
     return karma(testPackages, destDir, phantomOnly)
       .then(function (exitStatus) {
-        process.exitCode = exitStatus;
+        process.exitCode = exitStatus
       })
   })
 }
@@ -128,9 +127,8 @@ if (require.main === module) {
       return runTests(moduleList, path.join('target', 'test-library'), true)
     })
   } else {
-    return runTests(moduleList, path.join('target', 'test-library'), true)
+    runTests(moduleList, path.join('target', 'test-library'), true)
   }
-
 } else {
   module.exports = {
     runTests: runTests,
