@@ -1370,19 +1370,22 @@
               })
             }
 
-            const axes = [{
+            var axes = [{
               series: hx.theme.plot.colors.map(function(col, i) {
-                return ['line', {
-                  title: 'Series ' + (i+1),
-                  data: createData(randomSign(), randomSign(), randomSign()),
-                  labelInterpolated: true,
-                  markersEnabled: true,
-                  strokeEnabled: true,
-                  strokeColor: col,
-                  fillEnabled: true,
-                  fillColor: hx.color(col).alpha(0.2).toString(),
-                  group: 'some-group'
-                }]
+                return {
+                  type: 'line',
+                  options: {
+                    title: 'Series ' + (i+1),
+                    data: createData(randomSign(), randomSign(), randomSign()),
+                    labelInterpolated: true,
+                    markersEnabled: true,
+                    strokeEnabled: true,
+                    strokeColor: col,
+                    fillEnabled: true,
+                    fillColor: hx.color(col).alpha(0.2).toString(),
+                    group: 'some-group'
+                  }
+                }
               }),
               x: {
                 title: 'Time'

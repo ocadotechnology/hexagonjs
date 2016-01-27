@@ -267,7 +267,9 @@ describe "plot", ->
       it 'should display when the height is positive using fluent api', ->
         graphOpts =
           axes: [
-            series: [['line']]
+            series: [
+              type: 'line'
+            ]
             x:
               type: 'linear'
             y:
