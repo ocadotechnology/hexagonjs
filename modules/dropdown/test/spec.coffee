@@ -7,6 +7,7 @@ describe 'hx-dropdown', ->
   id = '#button'
 
   fixture = undefined
+  clock = undefined
 
   getWindowMeasurement = (horizontal, scroll) ->
     if scroll then 0
@@ -61,14 +62,13 @@ describe 'hx-dropdown', ->
     hx.loop = hx_loop = (f) ->
       g = -> hx_loop_update(f, g)
       hx_loop_update(f, g)
-    jasmine.clock().install()
     baseTime = new Date(2013, 0, 1)
-    jasmine.clock().mockDate(baseTime)
+    clock = sinon.useFakeTimers(baseTime.getTime())
 
   afterAll ->
     fixture.remove()
     hx.loop = savedHxLoop
-    jasmine.clock().uninstall()
+    clock.restore()
     hx.select('body')
       .style('padding', '')
       .style('margin', '')
@@ -88,177 +88,177 @@ describe 'hx-dropdown', ->
 
 
   it 'should throw an error when passing in the wrong thing for dropdownContent', ->
-    spyOn(console, 'error')
+    chai.spy.on(console, 'error')
     dd = new hx.Dropdown(id, hx.detached('div'))
     dd.show()
-    expect(console.error).toHaveBeenCalledWith('dropdown: dropdownContent is not a valid type ' + id)
+    console.error.should.have.been.called.with('dropdown: dropdownContent is not a valid type ' + id)
 
   it 'should create a dropdown object with the correct default options', ->
     dd = new hx.Dropdown(id, content)
 
-    expect(dd._.selection).toEqual(button)
-    expect(getSpacing(dd)).toEqual(0)
-    expect(dd.options.matchWidth).toEqual(true)
-    expect(dd._.alignments).toEqual('lblt'.split(''))
-    expect(dd._.dropdown).not.toBeDefined()
-    expect(dd._.visible).toEqual(false)
-    expect(dd.options.ddClass).toEqual('')
-    expect(dd.options.mode).toEqual('click')
+    dd._.selection.should.eql(button)
+    getSpacing(dd).should.equal(0)
+    dd.options.matchWidth.should.equal(true)
+    dd._.alignments.should.eql('lblt'.split(''))
+    should.not.exist(dd._.dropdown)
+    dd._.visible.should.equal(false)
+    dd.options.ddClass.should.equal('')
+    dd.options.mode.should.equal('click')
 
 
   it 'should set the mode correctly for click', ->
     dd = new hx.Dropdown(id, content, {mode: 'click'})
 
-    expect(dd._.selection.node().__hx__.eventEmitter.has('click')).toEqual(true)
-    expect(dd._.selection.node().__hx__.eventEmitter.has('mouseover')).toEqual(false)
-    expect(dd._.selection.node().__hx__.eventEmitter.has('mouseout')).toEqual(false)
+    dd._.selection.node().__hx__.eventEmitter.has('click').should.equal(true)
+    dd._.selection.node().__hx__.eventEmitter.has('mouseover').should.equal(false)
+    dd._.selection.node().__hx__.eventEmitter.has('mouseout').should.equal(false)
 
     dd = new hx.Dropdown(id, content, {mode: 'hover'})
-    expect(dd._.selection.node().__hx__.eventEmitter.has('click')).toEqual(true)
-    expect(dd._.selection.node().__hx__.eventEmitter.has('mouseover')).toEqual(true)
-    expect(dd._.selection.node().__hx__.eventEmitter.has('mouseout')).toEqual(true)
+    dd._.selection.node().__hx__.eventEmitter.has('click').should.equal(true)
+    dd._.selection.node().__hx__.eventEmitter.has('mouseover').should.equal(true)
+    dd._.selection.node().__hx__.eventEmitter.has('mouseout').should.equal(true)
 
 
   it 'should set the alignment correctly', ->
     dd = new hx.Dropdown(id, content, {align: 'rbrb'})
-    expect(dd._.alignments).toEqual('rbrb'.split(''))
+    dd._.alignments.should.eql('rbrb'.split(''))
 
   it 'should use the right alignment option when a named align value is used', ->
     dd = new hx.Dropdown(id, content, {align: 'up'})
-    expect(dd._.alignments).toEqual('ltlb'.split(''))
+    dd._.alignments.should.eql('ltlb'.split(''))
 
     dd = new hx.Dropdown(id, content, {align: 'down'})
-    expect(dd._.alignments).toEqual('lblt'.split(''))
+    dd._.alignments.should.eql('lblt'.split(''))
 
     dd = new hx.Dropdown(id, content, {align: 'left'})
-    expect(dd._.alignments).toEqual('ltrt'.split(''))
+    dd._.alignments.should.eql('ltrt'.split(''))
 
     dd = new hx.Dropdown(id, content, {align: 'right'})
-    expect(dd._.alignments).toEqual('rtlt'.split(''))
+    dd._.alignments.should.eql('rtlt'.split(''))
 
   it 'should set the spacing correctly', ->
     dd = new hx.Dropdown(id, content, {spacing: 10} )
-    expect(getSpacing(dd)).toEqual(10)
+    getSpacing(dd).should.equal(10)
 
 
   # it 'should use the spacing correctly', ->
   #   dd = new hx.Dropdown(id, content, {spacing: 10})
   #   dd.show()
   #   buttonBox = button.box()
-  #   jasmine.clock().tick(301)
+  #   clock.tick(301)
   #   console.log(hx.select('body').node())
   #   ddBox = dd._.dropdown.box()
-  #   expect(ddBox.left).toEqual(buttonBox.left)
-  #   expect(ddBox.top).toEqual(buttonBox.top + buttonBox.height + getSpacing(dd))
+  #   ddBox.left.should.equal(buttonBox.left)
+  #   ddBox.top.should.equal(buttonBox.top + buttonBox.height + getSpacing(dd))
 
 
   it 'should set the matchWidth property correctly', ->
     dd = new hx.Dropdown(id, content, {matchWidth: false} )
-    expect(dd.options.matchWidth).toEqual(false)
+    dd.options.matchWidth.should.equal(false)
 
     dd = new hx.Dropdown(id, content, {matchWidth: true} )
-    expect(dd.options.matchWidth).toEqual(true)
+    dd.options.matchWidth.should.equal(true)
 
   it 'should set the ddClass correctly', ->
     dd = new hx.Dropdown(id, content, { ddClass: 'bob' })
-    expect(dd.options.ddClass).toEqual('bob')
+    dd.options.ddClass.should.equal('bob')
 
   it 'should call toggle the selector is clicked in click mode', ->
     dd = new hx.Dropdown(id, content)
-    spyOn(dd, 'toggle')
+    chai.spy.on(dd, 'toggle')
     dd._.selection.node().__hx__.eventEmitter.emit('click')
-    expect(dd.toggle).toHaveBeenCalled()
+    dd.toggle.should.have.been.called()
 
   it 'should call show/hide on mouseover/mouseout in hover mode', ->
     dd = new hx.Dropdown(id, content, {mode: 'hover'})
-    spyOn(dd, 'show')
-    spyOn(dd, 'hide')
-    spyOn(dd, 'toggle')
+    chai.spy.on(dd, 'show')
+    chai.spy.on(dd, 'hide')
+    chai.spy.on(dd, 'toggle')
 
     dd._.selection.node().__hx__.eventEmitter.emit('mouseover')
-    expect(dd.show).toHaveBeenCalled()
+    dd.show.should.have.been.called()
 
     dd._.selection.node().__hx__.eventEmitter.emit('mouseout')
-    expect(dd.hide).toHaveBeenCalled()
+    dd.hide.should.have.been.called()
 
     dd._.selection.node().__hx__.eventEmitter.emit('click')
-    expect(dd.toggle).toHaveBeenCalled()
+    dd.toggle.should.have.been.called()
 
   it 'should correctly detect if the dropdown is open', ->
     dd = new hx.Dropdown(id, content)
-    expect(dd.isOpen()).toEqual(false)
+    dd.isOpen().should.equal(false)
     dd.show()
-    expect(dd.isOpen()).toEqual(true)
+    dd.isOpen().should.equal(true)
     dd.hide()
-    expect(dd.isOpen()).toEqual(false)
+    dd.isOpen().should.equal(false)
     dd.toggle()
-    expect(dd.isOpen()).toEqual(true)
+    dd.isOpen().should.equal(true)
     dd.toggle()
-    expect(dd.isOpen()).toEqual(false)
+    dd.isOpen().should.equal(false)
 
   it 'should exist on the page when opened and set the visible property to true', ->
     dd = new hx.Dropdown(id, content)
-    expect(dd._.visible).toEqual(false)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(true)
+    dd._.visible.should.equal(false)
+    hx.select('.hx-dropdown').empty().should.equal(true)
 
     dd._.selection.node().__hx__.eventEmitter.emit('click')
 
-    expect(dd._.visible).toEqual(true)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(false)
-    expect(hx.select('.hx-dropdown').html()).toEqual(content)
+    dd._.visible.should.equal(true)
+    hx.select('.hx-dropdown').empty().should.equal(false)
+    hx.select('.hx-dropdown').html().should.equal(content)
 
   it 'should not do anything if show is called and the dropdown is already open', ->
     dd = new hx.Dropdown(id, content)
-    expect(dd._.visible).toEqual(false)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(true)
+    dd._.visible.should.equal(false)
+    hx.select('.hx-dropdown').empty().should.equal(true)
 
     dd.show()
-    expect(dd._.visible).toEqual(true)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(false)
-    expect(hx.select('.hx-dropdown').html()).toEqual(content)
+    dd._.visible.should.equal(true)
+    hx.select('.hx-dropdown').empty().should.equal(false)
+    hx.select('.hx-dropdown').html().should.equal(content)
 
     dd.show()
-    expect(dd._.visible).toEqual(true)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(false)
-    expect(hx.select('.hx-dropdown').html()).toEqual(content)
+    dd._.visible.should.equal(true)
+    hx.select('.hx-dropdown').empty().should.equal(false)
+    hx.select('.hx-dropdown').html().should.equal(content)
 
   it 'should not do anything if hide is called and the dropdown is already closed', ->
     dd = new hx.Dropdown(id, content)
-    spyOn(dd._.clickDetector, 'off')
-    expect(dd._.visible).toEqual(false)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(true)
+    chai.spy.on(dd._.clickDetector, 'off')
+    dd._.visible.should.equal(false)
+    hx.select('.hx-dropdown').empty().should.equal(true)
 
     dd.hide()
-    expect(dd._.visible).toEqual(false)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(true)
-    expect(dd._.clickDetector.off).not.toHaveBeenCalled()
+    dd._.visible.should.equal(false)
+    hx.select('.hx-dropdown').empty().should.equal(true)
+    dd._.clickDetector.off.should.have.not.been.called()
 
   it 'should call the clean up the click detector', ->
     dd = new hx.Dropdown(id, content)
-    spyOn(dd._.clickDetector, 'cleanUp')
+    chai.spy.on(dd._.clickDetector, 'cleanUp')
     dd.cleanUp()
-    expect(dd._.clickDetector.cleanUp).toHaveBeenCalled()
+    dd._.clickDetector.cleanUp.should.have.been.called()
 
   it 'should call hide when an element other than the button is clicked', ->
     dd = new hx.Dropdown(id, content)
-    spyOn(dd, 'hide')
+    chai.spy.on(dd, 'hide')
     dd.show()
     document.__hx__.eventEmitter.emit('pointerdown', { event: {target: fixture.node()}})
     document.__hx__.eventEmitter.emit('pointerup', { event: {target: fixture.node()}})
-    expect(dd.hide).toHaveBeenCalled()
+    dd.hide.should.have.been.called()
 
   # it 'should detect parent z-index and set the index to be 1 greater', ->
   #   fixture.style('z-index', 100)
   #   dd = new hx.Dropdown(id, content)
   #   dd.show()
-  #   expect(dd._.dropdown.style('z-index')).toEqual('101')
+  #   dd._.dropdown.style('z-index').should.equal('101')
 
   it 'should detect parent position and match it correctly', ->
     fixture.style('position', 'fixed')
 
     dd = new hx.Dropdown(id, content)
     dd.show()
-    expect(dd._.dropdown.style('position')).toEqual('fixed')
+    dd._.dropdown.style('position').should.equal('fixed')
 
   it 'should render correctly using a function as content', ->
     populate = (elem) ->
@@ -268,34 +268,34 @@ describe 'hx-dropdown', ->
 
     dd.show()
     # uses fixture bg as hex gets converted to different things by different browsers
-    expect(dd._.dropdown.select('.bob').text()).toEqual('Dave')
+    dd._.dropdown.select('.bob').text().should.equal('Dave')
 
 
   it 'should class the dropdown with the supplied dd class', ->
     dd = new hx.Dropdown(id, content, {ddClass: 'bob'})
     dd.show()
-    expect(dd._.dropdown.classed('bob')).toEqual(true)
+    dd._.dropdown.classed('bob').should.equal(true)
 
   it 'should show and hide correctly', ->
     dd = new hx.Dropdown(id, content)
 
-    expect(dd._.visible).toEqual(false)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(true)
+    dd._.visible.should.equal(false)
+    hx.select('.hx-dropdown').empty().should.equal(true)
 
     dd.show()
-    expect(dd._.visible).toEqual(true)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(false)
+    dd._.visible.should.equal(true)
+    hx.select('.hx-dropdown').empty().should.equal(false)
 
     dd.hide()
-    expect(dd._.visible).toEqual(false)
-    expect(hx.select('.hx-dropdown').empty()).toEqual(true)
+    dd._.visible.should.equal(false)
+    hx.select('.hx-dropdown').empty().should.equal(true)
 
-  it 'should set the overflow style when the useScroll option is specified', ->
+  it 'should set the overflow style when the useScroll (private) option is specified', ->
     dd = new hx.Dropdown(id, content)
-    dd.useScroll = true
+    dd._.useScroll = true
     dd.show()
-    jasmine.clock().tick(300)
-    expect(dd._.dropdown.style('overflow-y')).toEqual('auto')
+    clock.tick(300)
+    dd._.dropdown.style('overflow-y').should.equal('auto')
 
   it 'shouldnt try to match the width of the parent if matchWidth is false', ->
     button.text('Wider button for testing')
@@ -304,8 +304,8 @@ describe 'hx-dropdown', ->
     dd = new hx.Dropdown(id, content, {matchWidth: false })
 
     dd.show()
-    expect(dd._.dropdown.style('min-width')).toEqual('0px')
-    jasmine.clock().tick(301)
+    dd._.dropdown.style('min-width').should.equal('0px')
+    clock.tick(301)
 
   it 'should try to match the width of the parent if matchWidth is true', ->
     button.text('Wider button for testing')
@@ -313,8 +313,8 @@ describe 'hx-dropdown', ->
     dd = new hx.Dropdown(id, content, {matchWidt: true })
 
     dd.show()
-    expect(dd._.dropdown.style('min-width')).toEqual(button.style('width'))
-    jasmine.clock().tick(301)
+    dd._.dropdown.style('min-width').should.equal(button.style('width'))
+    clock.tick(301)
 
   # it 'should detect the maxHeight properly', ->
   #   hx.select('head').append('style').attr('id','style').attr('type', 'text/css').text("""
@@ -329,12 +329,12 @@ describe 'hx-dropdown', ->
   #   dd.show()
   #   setTimeout ->
   #     ddBox = roundAll dd._.dropdown.box()
-  #     expect(dd._.dropdown.style('max-height')).toEqual('5px')
-  #     expect(ddBox.left).toEqual(buttonBox.left)
-  #     expect(ddBox.height).toEqual(5)
+  #     dd._.dropdown.style('max-height').should.equal('5px')
+  #     ddBox.left.should.equal(buttonBox.left)
+  #     ddBox.height.should.equal(5)
   #     hx.select('#style').remove()
   #   , 300
-  #   jasmine.clock().tick(301)
+  #   clock.tick(301)
 
   it 'should shift the dropdown down if shifting it up has moved it off the top of the screen', ->
     dd = new hx.Dropdown(id, content, {align: 'up'})
@@ -345,10 +345,10 @@ describe 'hx-dropdown', ->
     dd.show()
     setTimeout ->
       ddBox = roundAll dd._.dropdown.box()
-      expect(ddBox.top).toEqual(buttonBox.top + buttonBox.height + getSpacing(dd))
-      expect(ddBox.left).toEqual(buttonBox.left)
+      ddBox.top.should.equal(buttonBox.top + buttonBox.height + getSpacing(dd))
+      ddBox.left.should.equal(buttonBox.left)
     , 300
-    jasmine.clock().tick(301)
+    clock.tick(301)
 
 
   describe 'align', ->
@@ -364,68 +364,68 @@ describe 'hx-dropdown', ->
       tests = [
           align: null
           check: ->
-            expect(ddBox.left).toEqual(buttonBox.left)
-            expect(ddBox.top).toEqual(buttonBox.bottom + getSpacing(dd))
+            ddBox.left.should.equal(buttonBox.left)
+            ddBox.top.should.equal(buttonBox.bottom + getSpacing(dd))
         ,
           align: 'up'
           check: ->
-            expect(ddBox.left).toEqual(buttonBox.left)
-            expect(ddBox.top).toEqual(buttonBox.top - ddBox.height - getSpacing(dd))
+            ddBox.left.should.equal(buttonBox.left)
+            ddBox.top.should.equal(buttonBox.top - ddBox.height - getSpacing(dd))
         ,
           align: 'down'
           check: ->
-            expect(ddBox.left).toEqual(buttonBox.left)
-            expect(ddBox.top).toEqual(buttonBox.bottom + getSpacing(dd))
+            ddBox.left.should.equal(buttonBox.left)
+            ddBox.top.should.equal(buttonBox.bottom + getSpacing(dd))
         ,
           align: 'left'
           check: ->
-            expect(ddBox.right).toEqual(buttonBox.left - getSpacing(dd))
-            expect(ddBox.top).toEqual(buttonBox.top)
+            ddBox.right.should.equal(buttonBox.left - getSpacing(dd))
+            ddBox.top.should.equal(buttonBox.top)
         ,
           align: 'right'
           check: ->
-            expect(ddBox.left).toEqual(buttonBox.right + getSpacing(dd))
-            expect(ddBox.top).toEqual(buttonBox.top)
+            ddBox.left.should.equal(buttonBox.right + getSpacing(dd))
+            ddBox.top.should.equal(buttonBox.top)
         ,
           align: 'lbrb'
           check: ->
-            expect(ddBox.right).toEqual(buttonBox.left - getSpacing(dd))
-            expect(ddBox.bottom).toEqual(buttonBox.bottom)
+            ddBox.right.should.equal(buttonBox.left - getSpacing(dd))
+            ddBox.bottom.should.equal(buttonBox.bottom)
         ,
           align: 'lbrt'
           check: ->
-            expect(ddBox.right).toEqual(buttonBox.left - getSpacing(dd))
-            expect(ddBox.top).toEqual(buttonBox.top + buttonBox.height + getSpacing(dd))
+            ddBox.right.should.equal(buttonBox.left - getSpacing(dd))
+            ddBox.top.should.equal(buttonBox.top + buttonBox.height + getSpacing(dd))
         ,
           align: 'ltrb'
           check: ->
-            expect(ddBox.right).toEqual(buttonBox.left - getSpacing(dd))
-            expect(ddBox.bottom).toEqual(buttonBox.top - getSpacing(dd))
+            ddBox.right.should.equal(buttonBox.left - getSpacing(dd))
+            ddBox.bottom.should.equal(buttonBox.top - getSpacing(dd))
         ,
           align: 'rblt'
           check: ->
-            expect(ddBox.left).toEqual(buttonBox.right + getSpacing(dd))
-            expect(ddBox.top).toEqual(buttonBox.bottom + getSpacing(dd))
+            ddBox.left.should.equal(buttonBox.right + getSpacing(dd))
+            ddBox.top.should.equal(buttonBox.bottom + getSpacing(dd))
         ,
           align: 'rblb'
           check: ->
-            expect(ddBox.left).toEqual(buttonBox.right + getSpacing(dd))
-            expect(ddBox.bottom).toEqual(buttonBox.bottom)
+            ddBox.left.should.equal(buttonBox.right + getSpacing(dd))
+            ddBox.bottom.should.equal(buttonBox.bottom)
         ,
           align: 'rbrt'
           check: ->
-            expect(ddBox.right).toEqual(buttonBox.right)
-            expect(ddBox.top).toEqual(buttonBox.bottom + getSpacing(dd))
+            ddBox.right.should.equal(buttonBox.right)
+            ddBox.top.should.equal(buttonBox.bottom + getSpacing(dd))
         ,
           align: 'rtlb'
           check: ->
-            expect(ddBox.left).toEqual(buttonBox.right + getSpacing(dd))
-            expect(ddBox.top).toEqual(buttonBox.top - ddBox.height - getSpacing(dd))
+            ddBox.left.should.equal(buttonBox.right + getSpacing(dd))
+            ddBox.top.should.equal(buttonBox.top - ddBox.height - getSpacing(dd))
         ,
           align: 'rtrb'
           check: ->
-            expect(ddBox.right).toEqual(buttonBox.right)
-            expect(ddBox.bottom).toEqual(buttonBox.top - getSpacing(dd))
+            ddBox.right.should.equal(buttonBox.right)
+            ddBox.bottom.should.equal(buttonBox.top - getSpacing(dd))
       ]
 
       t = (test, index) ->
@@ -438,7 +438,7 @@ describe 'hx-dropdown', ->
             ddBox = roundAll dd._.dropdown.box()
             test.check()
           , 300
-          jasmine.clock().tick(301)
+          clock.tick(301)
 
         if index < tests.length
           t(tests[index], index + 1)
@@ -453,19 +453,19 @@ describe 'hx-dropdown', ->
       tests = [
         pos: 'left'
         check: ->
-          expect(ddBox.left).toEqual(0)
+          ddBox.left.should.equal(0)
       ,
         pos: 'top'
         check: ->
-          expect(ddBox.top).toEqual(0)
+          ddBox.top.should.equal(0)
       ,
         pos: 'right'
         check: ->
-          expect(ddBox.left).toEqual(window.innerWidth - ddBox.width - scrollbarWidth)
+          ddBox.left.should.equal(window.innerWidth - ddBox.width - scrollbarWidth)
       ,
         pos: 'bottom'
         check: ->
-          expect(ddBox.top).toEqual(window.innerHeight - ddBox.height)
+          ddBox.top.should.equal(window.innerHeight - ddBox.height)
       ]
 
       t = (test, index) ->
@@ -485,7 +485,7 @@ describe 'hx-dropdown', ->
             ddBox = roundAll dd._.dropdown.box()
             test.check()
           , 300
-          jasmine.clock().tick(301)
+          clock.tick(301)
 
         if index < tests.length
           t(tests[index], index + 1)
@@ -496,28 +496,28 @@ describe 'hx-dropdown', ->
       tests = [
         align: 'rbrb'
         check: ->
-          expect(ddBox.top).toEqual(buttonBox.bottom + getSpacing(dd))
-          expect(ddBox.right).toEqual(buttonBox.right)
+          ddBox.top.should.equal(buttonBox.bottom + getSpacing(dd))
+          ddBox.right.should.equal(buttonBox.right)
       ,
         align: 'lblb'
         check: ->
-          expect(ddBox.top).toEqual(buttonBox.bottom + getSpacing(dd))
-          expect(ddBox.left).toEqual(buttonBox.left)
+          ddBox.top.should.equal(buttonBox.bottom + getSpacing(dd))
+          ddBox.left.should.equal(buttonBox.left)
       ,
         align: 'rtrt'
         check: ->
-          expect(ddBox.bottom).toEqual(buttonBox.top - getSpacing(dd))
-          expect(ddBox.right).toEqual(buttonBox.right)
+          ddBox.bottom.should.equal(buttonBox.top - getSpacing(dd))
+          ddBox.right.should.equal(buttonBox.right)
       ,
         align: 'ltlt'
         check: ->
-          expect(ddBox.bottom).toEqual(buttonBox.top - getSpacing(dd))
-          expect(ddBox.left).toEqual(buttonBox.left)
+          ddBox.bottom.should.equal(buttonBox.top - getSpacing(dd))
+          ddBox.left.should.equal(buttonBox.left)
       ,
         align: 'cover'
         check: ->
-          expect(ddBox.top).toEqual(buttonBox.bottom + getSpacing(dd))
-          expect(ddBox.left).toEqual(buttonBox.left)
+          ddBox.top.should.equal(buttonBox.bottom + getSpacing(dd))
+          ddBox.left.should.equal(buttonBox.left)
       ]
 
       t = (test, index) ->
@@ -531,7 +531,7 @@ describe 'hx-dropdown', ->
             ddBox = roundAll dd._.dropdown.box()
             test.check()
           , 300
-          jasmine.clock().tick(301)
+          clock.tick(301)
 
         if index < tests.length
           t(tests[index], index + 1)
