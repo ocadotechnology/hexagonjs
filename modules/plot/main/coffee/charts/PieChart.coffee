@@ -95,7 +95,8 @@ class PieChart extends hx.EventEmitter
     startAngle += 2 * P while startAngle < 0
 
     switch
-      when totalAngle is P and startAngle % (P / 2) is 0 # When the start angle is a multiple of PI / 2 radians (1 / 4 of a circle) and the total angle is half a circle
+      # When the start angle is a multiple of PI / 2 radians (1 / 4 of a circle) and the total angle is half a circle
+      when totalAngle is P and startAngle % (P / 2) is 0
         switch
           when startAngle is 0 or startAngle % (2 * P) is 0 or startAngle % P is 0
             r = hx.clamp(0, height / 2,r * 2)
@@ -145,7 +146,18 @@ class PieChart extends hx.EventEmitter
       else
         Math.max(innerRadius + ringSize * ring, minimumInnerRadius)
 
-      selection.attr('d', arcCurve(self.circle.x, self.circle.y, actualInnerRadius, innerRadius + ringSize * (ring + 1 - self.ringPadding()), start, end, segmentPadding, straightInnerSegments)).attr('fill', color)
+      diameter = arcCurve(
+        self.circle.x,
+        self.circle.y,
+        actualInnerRadius,
+        innerRadius + ringSize * (ring + 1 - self.ringPadding()),
+        start,
+        end,
+        segmentPadding,
+        straightInnerSegments
+      )
+
+      selection.attr('d', diameter).attr('fill', color)
 
     updateRing = (d, e, i) ->
       segments = d.segments

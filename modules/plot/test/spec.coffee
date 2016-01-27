@@ -230,7 +230,18 @@ describe "plot", ->
       checkOptionAndSetterGetter(hx.StraightLineSeries, 'labelsEnabled', [true, false])
       checkOptionAndSetterGetter(hx.StraightLineSeries, 'labelRenderer', [(->), (x) -> x])
 
-      checkOptionAndSetterGetter(hx.StraightLineSeries, 'strokeColor', ['rgba(1, 2, 3, 0.5)', 'red', [{ yValue: -4, color: 'red' }, {yValue: 4, color: 'green'}]])
+      checkOptionAndSetterGetter(hx.StraightLineSeries, 'strokeColor', [
+        'rgba(1, 2, 3, 0.5)'
+        'red'
+        [{
+          yValue: -4
+          color: 'red'
+        }
+        {
+          yValue: 4
+          color: 'green'
+        }]
+      ])
 
     describe "hx.BarSeries", ->
 
@@ -249,6 +260,26 @@ describe "plot", ->
         graph = new hx.Graph(selection.node())
         axis = graph.addAxis('linear', 'linear')
         a1 = axis.addSeries()
+        graph.render()
+        selection.selectAll('.hx-series').size().should.equal(2)
+        selection.remove()
+
+      it 'should display when the height is positive using fluent api', ->
+        graphOpts =
+          axes: [
+            series: [
+              type: 'line'
+            ]
+            x:
+              type: 'linear'
+            y:
+              type: 'linear'
+          ]
+        selection = hx.detached 'div'
+          .style 'height', '400px'
+        graph = new hx.Graph selection.node(), graphOpts
+        hx.select 'body'
+          .add selection
         graph.render()
         selection.selectAll('.hx-series').size().should.equal(2)
         selection.remove()

@@ -16,9 +16,9 @@
 var Builder = require('./builder')
 var path = require('path')
 
-var assetDir = path.join(__dirname, '../../' , 'assets')
+var assetDir = path.join(__dirname, '../../', 'assets')
 
-module.exports = (new Builder).assets({
+module.exports = (new Builder()).assets({
   'assets/hexagon-icons.ttf': {
     filepath: path.join(assetDir, 'hexagon-icons.ttf'),
     allowEmbed: true

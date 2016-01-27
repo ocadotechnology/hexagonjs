@@ -119,6 +119,7 @@ function runKarma (files, destDir, phantomOnly) {
     stdout: false
   }
 
+
   var cfg = {
     basePath: '',
     loggers: [],
