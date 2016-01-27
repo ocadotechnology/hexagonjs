@@ -70,8 +70,12 @@ class Axis
       series: new hx.List
     }
 
-    @x = dimension this, hx.merge axisTickLabelPosition: 'bottom', options?.x
-    @y = dimension this, hx.merge axisTickLabelPosition: 'left', options?.y
+    @x = dimension this, hx.merge({
+      axisTickLabelPosition: 'bottom'
+    }, options?.x)
+    @y = dimension this, hx.merge({
+      axisTickLabelPosition: 'left'
+    }, options?.y)
 
     #XXX: move these to the underscore object
 
