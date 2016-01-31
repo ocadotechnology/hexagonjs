@@ -7,7 +7,7 @@ html
     script(src="/jasmine/jasmine-html.js")
     script(src="/jasmine/boot.js")
     script(src="/chai/chai.js")
-    script chai.should()
+    script window.should = chai.should()
     script(src="/chai/chai-spies.js")
   body
     each jsFile in jsFiles

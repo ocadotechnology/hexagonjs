@@ -1,7 +1,7 @@
 describe 'drag-container', ->
   fixture = undefined
   dragContainer = undefined
-  body = hx.select('body')
+  body = hx.select('body').append('div').class('fixture')
 
   createDraggableElem = (index) ->
     fixture.append('div').class('hx-drag-element')
