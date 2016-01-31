@@ -1,7 +1,7 @@
 
 describe 'data-table', ->
-  beforeAll ->
-    hx.select('body').append('div').class('fixture')
+  beforeEach ->
+    hx.select('body').append('div').class('fixture') unless hx.select('.fixture').size()
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
 
@@ -228,6 +228,7 @@ describe 'data-table', ->
   describe 'render', ->
 
     describe 'default options', ->
+      hx.select('body').append('div').class('fixture')
       testTable {}, undefined, (container, dt, options, data) ->
         it 'should have the correct headers', ->
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.hx-data-table-cell').text().should.eql(headers)
@@ -980,8 +981,8 @@ describe 'data-table', ->
         it 'should class the container correctly when pressing shift to prevent text selection', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
             container.classed('hx-data-table-disable-text-selection').should.equal(false)
-            shiftDownHandler = fakeNodeEvent hx.select('.fixture').node(), 'keydown'
-            shiftUpHandler = fakeNodeEvent hx.select('.fixture').node(), 'keyup'
+            shiftDownHandler = fakeNodeEvent hx.select('body').node(), 'keydown'
+            shiftUpHandler = fakeNodeEvent hx.select('body').node(), 'keyup'
             shiftDownHandler(fakeShiftEvent)
             container.classed('hx-data-table-disable-text-selection').should.equal(true)
             shiftUpHandler(fakeEvent)
