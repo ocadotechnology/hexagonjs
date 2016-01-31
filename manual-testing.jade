@@ -1,0 +1,11 @@
+html
+  head
+    each cssFile in cssFiles
+      link(rel="styleseet" type="text/css" href= cssFile)
+    link(rel="stylesheet" href="/jasmine/jasmine.css")
+    script(src="/jasmine/jasmine.js")
+    script(src="/jasmine/jasmine-html.js")
+    script(src="/jasmine/boot.js")
+  body
+    each jsFile in jsFiles
+      script(src= jsFile)

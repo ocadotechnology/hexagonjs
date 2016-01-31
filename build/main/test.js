@@ -20,11 +20,13 @@
 
 var Promise = require('bluebird')
 var karma = require('./karma')
-var fs = require('fs')
+var fs = require('fs-extra')
 var path = require('path')
 var util = require('./util')
 var compile = require('./compile')
 var builder = require('./builder')
+var flatten = require('flatten')
+var jade = require('jade')
 
 /*
 
@@ -110,12 +112,85 @@ function runTests (moduleNames, destDir, phantomOnly) {
   })
 }
 
+function build (rootDir, testPackage, key) {
+  var rootName = key.split(/Css$|Js$/)[0]
+  var ext = key.endsWith('Css') ? 'css' : 'js'
+  var result = path.join(testPackage.moduleName, ext, rootName + '.' + ext)
+  var fileName = path.join(rootDir, result)
+  return fs.outputFileAsync(fileName, testPackage[key]).then(function () {
+    return path.sep + result
+  })
+}
+
+function getOutputFileNames (rootDir, testPackage) {
+  var keys = [
+    'dependenciesCss',
+    'moduleCss',
+    'dependenciesJs',
+    'moduleJs',
+    'specJs'
+  ]
+  return Promise.all(keys.filter(function (key) {
+    return testPackage[key]
+  }).map(function (key) {
+    return build(rootDir, testPackage, key)
+  }))
+}
+
+function buildRunnerForFiles (fileNames) {
+  var cssFiles = fileNames.filter(function (fileName) {
+    return /css$/.test(fileName)
+  })
+  var jsFiles = fileNames.filter(function (fileName) {
+    return /js$/.test(fileName)
+  })
+  return eventualManualTestingTemplate.then(function (manualTestingTemplate) {
+    return manualTestingTemplate({
+      cssFiles: cssFiles,
+      jsFiles: jsFiles
+    })
+  })
+}
+
+var eventualManualTestingTemplate = fs.readFileAsync(path.join(util.rootDir, 'manual-testing.jade'))
+  .then(function (jadeText) { return jade.compile(jadeText, {pretty: true}) })
+
 // builds a html page that may be opened in the browser to run the tests for the modules given
-// XXX: not strictly needed, but would be a nice feature
-function buildTestPage (moduleNames, destFilename) {
+function buildTestPage (moduleNames, destDir) {
+  var jasmineDir = path.join(
+    util.rootDir,
+    'node_modules',
+    'jasmine-core',
+    'lib',
+    'jasmine-core'
+  )
+  var jasmine = fs.copyAsync(jasmineDir, path.join(destDir, 'jasmine'))
   return buildTestPackages(moduleNames)
     .then(function (testPackages) {
-      // XXX: build a html page with test embedded + write to the destFilename
+      var promises = testPackages.map(function (testPackage) {
+        return getOutputFileNames(destDir, testPackage)
+      })
+      // XXX zip here
+      var allPromise = Promise.all(promises)
+      var individualRunners = allPromise.then(function (tp) {
+        return Promise.all(tp.map(function (x, i) {
+          buildRunnerForFiles(x)
+          .then(function (html) {
+            var indexFileName = path.join(
+              destDir,
+              testPackages[i].moduleName,
+              'index.html')
+            return fs.outputFileAsync(indexFileName, html)
+          })
+        }))
+      })
+      var fullRunner = allPromise.then(flatten)
+        .then(buildRunnerForFiles)
+        .then(function (html) {
+          var indexFileName = path.join(destDir, 'index.html')
+          fs.outputFile(indexFileName, html)
+        })
+      return Promise.all([individualRunners, fullRunner, jasmine])
     })
 }
 
