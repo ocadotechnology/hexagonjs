@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var test = require('./test')
 var bluebird = require('bluebird')
-var fs = bluebird.promisifyAll(require('fs'))
+var fs = bluebird.promisifyAll(require('fs-extra'))
 var util = require('./util')
 var path = require('path')
 var gaze = require('gaze')
@@ -14,6 +14,48 @@ var outputDirectory = path.join(util.rootDir, 'target', 'specrunner')
 
 function getAllModules () {
   return fs.readdirAsync(modulesFolder)
+}
+
+function dependencies (destDir) {
+  var jasmineDir = path.join(
+    util.rootDir,
+    'node_modules',
+    'jasmine-core',
+    'lib',
+    'jasmine-core'
+  )
+  var jasmineAjaxFile = path.join(
+    util.rootDir,
+    'node_modules',
+    'jasmine-ajax',
+    'lib',
+    'mock-ajax.js'
+  )
+  var chaiPath = path.join(
+    util.rootDir,
+    'node_modules',
+    'chai',
+    'chai.js'
+  )
+  var chaiSpiesPath = path.join(
+    util.rootDir,
+    'node_modules',
+    'chai-spies',
+    'chai-spies.js'
+  )
+  var jasmine = fs.copyAsync(jasmineDir, path.join(destDir, 'jasmine'))
+  var jasmineAjax = fs.copyAsync(jasmineAjaxFile, path.join(
+    destDir,
+    'jasmine',
+    'mock-ajax.js'
+  ))
+  var chai = fs.copyAsync(chaiPath, path.join(destDir, 'chai', 'chai.js'))
+  var chaiSpies = fs.copyAsync(chaiSpiesPath, path.join(
+    destDir,
+    'chai',
+    'chai-spies.js'
+  ))
+  return Promise.all([jasmine, jasmineAjax, chai, chaiSpies])
 }
 
 function getGlobsForModule (module) {
@@ -38,8 +80,9 @@ function watch (files, moduleName) {
   })
 }
 
-function manualTesting (modules) {
+function specrunner (modules) {
   // No modules = all modules
+  dependencies(outputDirectory)
   var eventualModules = modules.length
     ? Promise.resolve(modules)
     : getAllModules()
@@ -58,6 +101,8 @@ function manualTesting (modules) {
 }
 
 if (require.main === module) {
-  manualTesting(process.argv.slice(2))
+  specrunner(process.argv.slice(2))
+} else {
+  module.exports = specrunner
 }
 

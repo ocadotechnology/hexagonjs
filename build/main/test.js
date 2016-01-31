@@ -156,52 +156,13 @@ var eventualSpecrunnerTemplate = fs.readFileAsync(path.join(util.rootDir, 'specr
 
 // builds a html page that may be opened in the browser to run the tests for the modules given
 function buildTestPage (moduleNames, destDir) {
-  var jasmineDir = path.join(
-    util.rootDir,
-    'node_modules',
-    'jasmine-core',
-    'lib',
-    'jasmine-core'
-  )
-  var jasmineAjax = path.join(
-    util.rootDir,
-    'node_modules',
-    'jasmine-ajax',
-    'lib',
-    'mock-ajax.js'
-  )
-  var chaiPath = path.join(
-    util.rootDir,
-    'node_modules',
-    'chai',
-    'chai.js'
-  )
-  var chaiSpiesPath = path.join(
-    util.rootDir,
-    'node_modules',
-    'chai-spies',
-    'chai-spies.js'
-  )
-  var jasmine = fs.copyAsync(jasmineDir, path.join(destDir, 'jasmine'))
-  var jasmineAjax = fs.copyAsync(jasmineAjax, path.join(
-    destDir,
-    'jasmine',
-    'mock-ajax.js'
-  ))
-  var chai = fs.copyAsync(chaiPath, path.join(destDir, 'chai', 'chai.js'))
-  var chaiSpies = fs.copyAsync(chaiSpiesPath, path.join(
-    destDir,
-    'chai',
-    'chai-spies.js'
-  ))
-  var dependencies = Promise.all([jasmine, jasmineAjax, chai, chaiSpies])
   return buildTestPackages(moduleNames)
     .then(function (testPackages) {
       var promises = testPackages.map(function (testPackage) {
         return getOutputFileNames(destDir, testPackage)
       })
       // XXX zip here
-      var individualRunners = Promise.all(promises).then(function (tp) {
+      return Promise.all(promises).then(function (tp) {
         return Promise.all(tp.map(function (x, i) {
           buildRunnerForFiles(x).then(function (html) {
             var indexFileName = path.join(
@@ -212,7 +173,6 @@ function buildTestPage (moduleNames, destDir) {
           })
         }))
       })
-      return Promise.all([individualRunners, dependencies])
     })
 }
 
