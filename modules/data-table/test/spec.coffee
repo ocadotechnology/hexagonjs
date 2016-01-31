@@ -1,6 +1,7 @@
 
 describe 'data-table', ->
   beforeAll ->
+    hx.select('body').append('div').class('fixture')
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
 
@@ -184,11 +185,11 @@ describe 'data-table', ->
 
     if options.containerHeight?
       container.style('height', options.containerHeight + 'px')
-    hx.select('body').append(container)
+    hx.select('.fixture').append(container)
     dt = new hx.DataTable(container.node(), tableOptions)
     dt.feed hx.dataTable.objectFeed(data), ->
       spec(container, dt, options, data)
-      hx.select('body').clear()
+      hx.select('.fixture').clear()
       done?()
 
   describe 'global options', ->
@@ -445,7 +446,7 @@ describe 'data-table', ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, undefined, (container, dt, options, data) ->
             dt.on 'render', ->
               dt.page().should.equal(2)
-              hx.select('body').clear()
+              hx.select('.fixture').clear()
               done()
 
             container
@@ -458,7 +459,7 @@ describe 'data-table', ->
             dt.page(2)
             dt.on 'render', ->
               dt.page().should.equal(1)
-              hx.select('body').clear()
+              hx.select('.fixture').clear()
               done()
 
             fakeNodeEvent(container.select('.hx-data-table-paginator-back').node())(fakeEvent)
@@ -467,7 +468,7 @@ describe 'data-table', ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, undefined, (container, dt, options, data) ->
             dt.on 'render', ->
               dt.page().should.equal(2)
-              hx.select('body').clear()
+              hx.select('.fixture').clear()
               done()
 
             fakeNodeEvent(container.select('.hx-data-table-paginator-forward').node())(fakeEvent)
@@ -478,7 +479,7 @@ describe 'data-table', ->
             fakeNodeEvent(container.select('.hx-data-table-paginator-back').node())(fakeEvent)
             dt.page().should.equal(1)
             expect(dt.render).not.toHaveBeenCalled()
-            hx.select('body').clear()
+            hx.select('.fixture').clear()
             done()
 
         it 'should not change the page when the forward button is disabled', (done) ->
@@ -488,7 +489,7 @@ describe 'data-table', ->
             fakeNodeEvent(container.select('.hx-data-table-paginator-forward').node())(fakeEvent)
             dt.page().should.equal(dt._.numPages)
             expect(dt.render).not.toHaveBeenCalled()
-            hx.select('body').clear()
+            hx.select('.fixture').clear()
             done()
 
       describe 'all', ->
@@ -627,7 +628,7 @@ describe 'data-table', ->
           dt.on 'render', ->
             container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('tr').size().should.equal(1)
             dt.pageSize().should.equal(1)
-            hx.select('body').clear()
+            hx.select('.fixture').clear()
             done()
 
           container
@@ -979,8 +980,8 @@ describe 'data-table', ->
         it 'should class the container correctly when pressing shift to prevent text selection', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
             container.classed('hx-data-table-disable-text-selection').should.equal(false)
-            shiftDownHandler = fakeNodeEvent hx.select('body').node(), 'keydown'
-            shiftUpHandler = fakeNodeEvent hx.select('body').node(), 'keyup'
+            shiftDownHandler = fakeNodeEvent hx.select('.fixture').node(), 'keydown'
+            shiftUpHandler = fakeNodeEvent hx.select('.fixture').node(), 'keyup'
             shiftDownHandler(fakeShiftEvent)
             container.classed('hx-data-table-disable-text-selection').should.equal(true)
             shiftUpHandler(fakeEvent)
@@ -1090,7 +1091,7 @@ describe 'data-table', ->
           testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
             dt.on 'render', ->
               dt.sort().should.eql({column: 'name', direction: 'asc'})
-              hx.select('body').clear()
+              hx.select('.fixture').clear()
               done()
 
             picker = container
@@ -1105,7 +1106,7 @@ describe 'data-table', ->
             dt.sort({column: 'name', direction: 'asc'})
             dt.on 'render', ->
               dt.sort().should.eql({column: undefined, direction: undefined})
-              hx.select('body').clear()
+              hx.select('.fixture').clear()
               done()
 
             picker = container
@@ -1795,7 +1796,7 @@ describe 'data-table', ->
     describe 'compactchange', ->
       it 'should emit an event when changing from full to compact', (done) ->
 
-        container = hx.select('body').append('div').style('width', '1000px')
+        container = hx.select('.fixture').append('div').style('width', '1000px')
 
         dt = new hx.DataTable(container.node())
 
@@ -1803,14 +1804,14 @@ describe 'data-table', ->
           d.value.should.equal('auto')
           d.state.should.equal(true)
           d.cause.should.equal('user')
-          hx.select('body').clear()
+          hx.select('.fixture').clear()
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           container.style('width', '100px')
 
       it 'should emit an event when changing from compact to full', (done) ->
-        container = hx.select('body').append('div').style('width', '100px')
+        container = hx.select('.fixture').append('div').style('width', '100px')
 
         dt = new hx.DataTable(container.node())
 
@@ -1819,7 +1820,7 @@ describe 'data-table', ->
           d.state.should.equal(false)
           d.cause.should.equal('user')
           dt.off('compactchange')
-          hx.select('body').clear()
+          hx.select('.fixture').clear()
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
@@ -1827,7 +1828,7 @@ describe 'data-table', ->
 
        it 'should not emit an event if it doesnt change mode', (done) ->
 
-        container = hx.select('body').append('div').style('width', '1000px')
+        container = hx.select('.fixture').append('div').style('width', '1000px')
 
         dt = new hx.DataTable(container.node())
 

@@ -4,8 +4,7 @@ var bluebird = require('bluebird')
 var fs = bluebird.promisifyAll(require('fs'))
 var util = require('./util')
 var path = require('path')
-var flatten = require('flatten')
-var gazeAsync = bluebird.promisify(require('gaze'))
+var gaze = require('gaze')
 var liveServer = require('live-server')
 
 var Promise = bluebird
@@ -27,9 +26,15 @@ function build (moduleNames) {
   test.buildTestPage(moduleNames, outputDirectory)
 }
 
-function watch (files, moduleNames) {
-  gazeAsync(files).then(function (watcher) {
-    watcher.on('changed', function () { build(moduleNames) })
+function watch (files, moduleName) {
+  gaze(files, function (error, watcher) {
+    if (error) {
+      throw error
+    }
+    watcher.on('changed', function () {
+      console.log('Rebuilding ' + moduleName)
+      build([moduleName])
+    })
   })
 }
 
@@ -39,8 +44,10 @@ function manualTesting (modules) {
     ? Promise.resolve(modules)
     : getAllModules()
   eventualModules.then(function (moduleNames) {
-    var toWatch = flatten(moduleNames.map(getGlobsForModule))
-    watch(toWatch, moduleNames)
+    moduleNames.forEach(function (moduleName) {
+      var toWatch = getGlobsForModule(moduleName)
+      watch(toWatch, moduleName)
+    })
     build(moduleNames)
   })
   liveServer.start({

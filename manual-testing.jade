@@ -1,13 +1,14 @@
 html
   head
-    each cssFile in cssFiles
-      link(rel="styleseet" type="text/css" href= cssFile)
     link(rel="stylesheet" href="/jasmine/jasmine.css")
+    each cssFile in cssFiles
+      link(rel="stylesheet" href= cssFile)
     script(src="/jasmine/jasmine.js")
     script(src="/jasmine/jasmine-html.js")
     script(src="/jasmine/boot.js")
     script(src="/chai/chai.js")
     script chai.should()
+    script(src="/chai/chai-spies.js")
   body
     each jsFile in jsFiles
       script(src= jsFile)

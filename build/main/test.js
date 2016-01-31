@@ -163,14 +163,26 @@ function buildTestPage (moduleNames, destDir) {
     'lib',
     'jasmine-core'
   )
-  var chaiBrowser = path.join(
+  var chaiPath = path.join(
     util.rootDir,
     'node_modules',
     'chai',
     'chai.js'
   )
+  var chaiSpiesPath = path.join(
+    util.rootDir,
+    'node_modules',
+    'chai-spies',
+    'chai-spies.js'
+  )
   var jasmine = fs.copyAsync(jasmineDir, path.join(destDir, 'jasmine'))
-  var chai = fs.copyAsync(chaiBrowser, path.join(destDir, 'chai', 'chai.js'))
+  var chai = fs.copyAsync(chaiPath, path.join(destDir, 'chai', 'chai.js'))
+  var chaiSpies = fs.copyAsync(chaiSpiesPath, path.join(
+    destDir,
+    'chai',
+    'chai-spies.js'
+  ))
+  var dependencies = Promise.all([jasmine, chai, chaiSpies])
   return buildTestPackages(moduleNames)
     .then(function (testPackages) {
       var promises = testPackages.map(function (testPackage) {
@@ -188,7 +200,7 @@ function buildTestPage (moduleNames, destDir) {
           })
         }))
       })
-      return Promise.all([individualRunners, jasmine, chai])
+      return Promise.all([individualRunners, dependencies])
     })
 }
 
