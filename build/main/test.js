@@ -25,7 +25,6 @@ var path = require('path')
 var util = require('./util')
 var compile = require('./compile')
 var builder = require('./builder')
-var flatten = require('flatten')
 var jade = require('jade')
 
 /*
@@ -164,18 +163,23 @@ function buildTestPage (moduleNames, destDir) {
     'lib',
     'jasmine-core'
   )
+  var chaiBrowser = path.join(
+    util.rootDir,
+    'node_modules',
+    'chai',
+    'chai.js'
+  )
   var jasmine = fs.copyAsync(jasmineDir, path.join(destDir, 'jasmine'))
+  var chai = fs.copyAsync(chaiBrowser, path.join(destDir, 'chai', 'chai.js'))
   return buildTestPackages(moduleNames)
     .then(function (testPackages) {
       var promises = testPackages.map(function (testPackage) {
         return getOutputFileNames(destDir, testPackage)
       })
       // XXX zip here
-      var allPromise = Promise.all(promises)
-      var individualRunners = allPromise.then(function (tp) {
+      var individualRunners = Promise.all(promises).then(function (tp) {
         return Promise.all(tp.map(function (x, i) {
-          buildRunnerForFiles(x)
-          .then(function (html) {
+          buildRunnerForFiles(x).then(function (html) {
             var indexFileName = path.join(
               destDir,
               testPackages[i].moduleName,
@@ -184,13 +188,7 @@ function buildTestPage (moduleNames, destDir) {
           })
         }))
       })
-      var fullRunner = allPromise.then(flatten)
-        .then(buildRunnerForFiles)
-        .then(function (html) {
-          var indexFileName = path.join(destDir, 'index.html')
-          fs.outputFile(indexFileName, html)
-        })
-      return Promise.all([individualRunners, fullRunner, jasmine])
+      return Promise.all([individualRunners, jasmine, chai])
     })
 }
 

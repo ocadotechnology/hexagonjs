@@ -6,6 +6,8 @@ html
     script(src="/jasmine/jasmine.js")
     script(src="/jasmine/jasmine-html.js")
     script(src="/jasmine/boot.js")
+    script(src="/chai/chai.js")
+    script chai.should()
   body
     each jsFile in jsFiles
       script(src= jsFile)
