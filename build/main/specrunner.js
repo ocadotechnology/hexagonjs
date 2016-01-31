@@ -10,7 +10,7 @@ var liveServer = require('live-server')
 var Promise = bluebird
 
 var modulesFolder = path.join(util.rootDir, 'modules')
-var outputDirectory = path.join(util.rootDir, 'target', 'manual-testing')
+var outputDirectory = path.join(util.rootDir, 'target', 'specrunner')
 
 function getAllModules () {
   return fs.readdirAsync(modulesFolder)

@@ -50,6 +50,7 @@
     "chai-spies": "^0.7.1",
     "coveralls": "^2.11.6",
     "istanbul": "^0.4.1",
+    "jasmine-ajax": "^3.2.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.10",
     "karma-chai": "^0.1.0",

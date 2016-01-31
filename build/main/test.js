@@ -143,15 +143,15 @@ function buildRunnerForFiles (fileNames) {
   var jsFiles = fileNames.filter(function (fileName) {
     return /js$/.test(fileName)
   })
-  return eventualManualTestingTemplate.then(function (manualTestingTemplate) {
-    return manualTestingTemplate({
+  return eventualSpecrunnerTemplate.then(function (specrunnerTemplate) {
+    return specrunnerTemplate({
       cssFiles: cssFiles,
       jsFiles: jsFiles
     })
   })
 }
 
-var eventualManualTestingTemplate = fs.readFileAsync(path.join(util.rootDir, 'manual-testing.jade'))
+var eventualSpecrunnerTemplate = fs.readFileAsync(path.join(util.rootDir, 'specrunner.jade'))
   .then(function (jadeText) { return jade.compile(jadeText, {pretty: true}) })
 
 // builds a html page that may be opened in the browser to run the tests for the modules given
