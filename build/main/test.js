@@ -117,7 +117,7 @@ function build (rootDir, testPackage, key) {
   var result = path.join(testPackage.moduleName, ext, rootName + '.' + ext)
   var fileName = path.join(rootDir, result)
   return fs.outputFileAsync(fileName, testPackage[key]).then(function () {
-    return path.sep + result
+    return '/' + result.split(path.sep).join('/')
   })
 }
 
