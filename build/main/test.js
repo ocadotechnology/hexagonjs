@@ -163,6 +163,13 @@ function buildTestPage (moduleNames, destDir) {
     'lib',
     'jasmine-core'
   )
+  var jasmineAjax = path.join(
+    util.rootDir,
+    'node_modules',
+    'jasmine-ajax',
+    'lib',
+    'mock-ajax.js'
+  )
   var chaiPath = path.join(
     util.rootDir,
     'node_modules',
@@ -176,13 +183,18 @@ function buildTestPage (moduleNames, destDir) {
     'chai-spies.js'
   )
   var jasmine = fs.copyAsync(jasmineDir, path.join(destDir, 'jasmine'))
+  var jasmineAjax = fs.copyAsync(jasmineAjax, path.join(
+    destDir,
+    'jasmine',
+    'mock-ajax.js'
+  ))
   var chai = fs.copyAsync(chaiPath, path.join(destDir, 'chai', 'chai.js'))
   var chaiSpies = fs.copyAsync(chaiSpiesPath, path.join(
     destDir,
     'chai',
     'chai-spies.js'
   ))
-  var dependencies = Promise.all([jasmine, chai, chaiSpies])
+  var dependencies = Promise.all([jasmine, jasmineAjax, chai, chaiSpies])
   return buildTestPackages(moduleNames)
     .then(function (testPackages) {
       var promises = testPackages.map(function (testPackage) {
