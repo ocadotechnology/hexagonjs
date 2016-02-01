@@ -1,3 +1,5 @@
+$hx-spinner-spinner-col: #00ADA8;
+
 $hx-base-default-font-family: 'Open Sans', sans-serif;
 $hx-base-heading-font-family: 'Open Sans', sans-serif;
 $hx-base-body-background-col: #252C2E;
@@ -18,6 +20,38 @@ $hx-base-link-col: #00ADA8;
 $hx-base-divider-col: #4E5355;
 $hx-base-divider-style: solid;
 $hx-base-default-font-size: 14px;
+
+$hx-modal-shade-col: rgba(0,0,0,0.5);
+$hx-modal-background-col: #32373A;
+$hx-modal-title-background-col: #393D3D;
+$hx-modal-title-text-col: white;
+$hx-modal-title-font-size: 1.17em;
+$hx-modal-shadow-col: rgba(0, 0, 0, 0.5);
+$hx-modal-border-radius: 3px;
+$hx-modal-border-color: #4E5355;
+$hx-modal-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+$hx-notify-background-col: #32373A;
+$hx-notify-text-col: white;
+$hx-notify-border-col: #4E5355;
+$hx-notify-close-col: #939393;
+$hx-notify-close-hover-col: white;
+$hx-notify-pinned-col: #00ADA8;
+$hx-notify-pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%);
+$hx-notify-unpinned-col: #939393;
+$hx-notify-unpinned-hover-col: white;
+$hx-notify-default-col: #393D3D;
+$hx-notify-info-col: #B36ABB;
+$hx-notify-positive-col: #92BF17;
+$hx-notify-warning-col: #D69B24;
+$hx-notify-negative-col: #EC3A65;
+$hx-notify-loading-col: #00ADA8;
+$hx-notify-container-background-col: #252C2E;
+$hx-notify-container-border-col: transparent;
+$hx-notify-shadow-col: rgba(0, 0, 0, 0.05);
+
+$hx-form-error-text-col: #393D3D;
+$hx-form-error-background-col: #F7F7F9;
 
 $hx-dropdown-spacing: 0;
 $hx-dropdown-background-col: #32373A;
@@ -105,8 +139,6 @@ $hx-layout-content-background-col: transparent;
 
 $hx-drag-container-drag-placeholder-border-col: #4E5355;
 
-$hx-spinner-spinner-col: #00ADA8;
-
 $hx-progress-bar-border-col: none;
 $hx-progress-bar-border-width: 0;
 $hx-progress-bar-default-col: #393D3D;
@@ -117,7 +149,7 @@ $hx-progress-bar-negative-col: #EC3A65;
 $hx-progress-bar-info-col: #B36ABB;
 $hx-progress-bar-complement-col: #393D3D;
 $hx-progress-bar-contrast-col: #F7F7F9;
-$hx-progress-bar-background-col: transparentize($default-col, 0.5);
+$hx-progress-bar-background-col: rgba(227,227,227,0.3);
 
 $hx-plot-colors: rgb(177,119,190), rgb(90,155,212), rgb(241,90,113), rgb(151,195,102), rgb(250,169,91), rgb(226,212,64);
 $hx-plot-warm-col: rgb(250,169,91);
@@ -193,38 +225,6 @@ $hx-tag-input-disabled-col: #FAFAFA;
 $hx-tag-input-disabled-text-col: #939393;
 $hx-tag-input-border-col: #4E5355;
 $hx-tag-input-tag-container-border-col: #383B3C;
-
-$hx-modal-shade-col: rgba(0,0,0,0.5);
-$hx-modal-background-col: #32373A;
-$hx-modal-title-background-col: #393D3D;
-$hx-modal-title-text-col: white;
-$hx-modal-title-font-size: 1.17em;
-$hx-modal-shadow-col: rgba(0, 0, 0, 0.5);
-$hx-modal-border-radius: 3px;
-$hx-modal-border-color: #4E5355;
-$hx-modal-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-
-$hx-notify-background-col: #32373A;
-$hx-notify-text-col: white;
-$hx-notify-border-col: #4E5355;
-$hx-notify-close-col: #939393;
-$hx-notify-close-hover-col: white;
-$hx-notify-pinned-col: #00ADA8;
-$hx-notify-pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%);
-$hx-notify-unpinned-col: #939393;
-$hx-notify-unpinned-hover-col: white;
-$hx-notify-default-col: #393D3D;
-$hx-notify-info-col: #B36ABB;
-$hx-notify-positive-col: #92BF17;
-$hx-notify-warning-col: #D69B24;
-$hx-notify-negative-col: #EC3A65;
-$hx-notify-loading-col: #00ADA8;
-$hx-notify-container-background-col: #252C2E;
-$hx-notify-container-border-col: transparent;
-$hx-notify-shadow-col: rgba(0, 0, 0, 0.05);
-
-$hx-form-error-text-col: #393D3D;
-$hx-form-error-background-col: #F7F7F9;
 
 $hx-titlebar-default-background-col: #2C3134;
 $hx-titlebar-action-background-col: #00ADA8;

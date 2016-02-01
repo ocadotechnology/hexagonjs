@@ -1,4 +1,6 @@
 :root {
+  --hx-spinner-spinner-col: #00ADA8;
+  
   --hx-base-default-font-family: 'Open Sans', sans-serif;
   --hx-base-heading-font-family: 'Open Sans', sans-serif;
   --hx-base-body-background-col: rgb(247, 247, 249);
@@ -19,6 +21,38 @@
   --hx-base-divider-col: #D0D0D0;
   --hx-base-divider-style: solid;
   --hx-base-default-font-size: 14px;
+  
+  --hx-modal-shade-col: rgba(0,0,0,0.5);
+  --hx-modal-background-col: #FFFFFF;
+  --hx-modal-title-background-col: #FFFFFF;
+  --hx-modal-title-text-col: #3D3D3D;
+  --hx-modal-title-font-size: 1.17em;
+  --hx-modal-shadow-col: rgba(0, 0, 0, 0.5);
+  --hx-modal-border-radius: 3px;
+  --hx-modal-border-color: #D0D0D0;
+  --hx-modal-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  
+  --hx-notify-background-col: #FFFFFF;
+  --hx-notify-text-col: #3D3D3D;
+  --hx-notify-border-col: #D0D0D0;
+  --hx-notify-close-col: #939393;
+  --hx-notify-close-hover-col: #3D3D3D;
+  --hx-notify-pinned-col: #00ADA8;
+  --hx-notify-pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%);
+  --hx-notify-unpinned-col: #939393;
+  --hx-notify-unpinned-hover-col: #3D3D3D;
+  --hx-notify-default-col: #FFFFFF;
+  --hx-notify-info-col: #B36ABB;
+  --hx-notify-positive-col: #92BF17;
+  --hx-notify-warning-col: #D69B24;
+  --hx-notify-negative-col: #EC3A65;
+  --hx-notify-loading-col: #00ADA8;
+  --hx-notify-container-background-col: rgb(247, 247, 249);
+  --hx-notify-container-border-col: transparent;
+  --hx-notify-shadow-col: rgba(0, 0, 0, 0.05);
+  
+  --hx-form-error-text-col: #F7F7F9;
+  --hx-form-error-background-col: #4A4E4E;
   
   --hx-dropdown-spacing: 0;
   --hx-dropdown-background-col: #FFFFFF;
@@ -105,8 +139,6 @@
   
   --hx-drag-container-drag-placeholder-border-col: #D0D0D0;
   
-  --hx-spinner-spinner-col: #00ADA8;
-  
   --hx-progress-bar-border-col: none;
   --hx-progress-bar-border-width: 0;
   --hx-progress-bar-default-col: #FFFFFF;
@@ -117,7 +149,7 @@
   --hx-progress-bar-info-col: #B36ABB;
   --hx-progress-bar-complement-col: #F7F7F9;
   --hx-progress-bar-contrast-col: #4A4E4E;
-  --hx-progress-bar-background-col: transparentize($default-col, 0.5);
+  --hx-progress-bar-background-col: rgba(227,227,227,0.3);
   
   --hx-plot-colors-0: rgb(177,119,190);
   --hx-plot-colors-1: rgb(90,155,212);
@@ -198,38 +230,6 @@
   --hx-tag-input-disabled-text-col: #939393;
   --hx-tag-input-border-col: #DADADA;
   --hx-tag-input-tag-container-border-col: #E7E7E7;
-  
-  --hx-modal-shade-col: rgba(0,0,0,0.5);
-  --hx-modal-background-col: #FFFFFF;
-  --hx-modal-title-background-col: #FFFFFF;
-  --hx-modal-title-text-col: #3D3D3D;
-  --hx-modal-title-font-size: 1.17em;
-  --hx-modal-shadow-col: rgba(0, 0, 0, 0.5);
-  --hx-modal-border-radius: 3px;
-  --hx-modal-border-color: #D0D0D0;
-  --hx-modal-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  
-  --hx-notify-background-col: #FFFFFF;
-  --hx-notify-text-col: #3D3D3D;
-  --hx-notify-border-col: #D0D0D0;
-  --hx-notify-close-col: #939393;
-  --hx-notify-close-hover-col: #3D3D3D;
-  --hx-notify-pinned-col: #00ADA8;
-  --hx-notify-pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%);
-  --hx-notify-unpinned-col: #939393;
-  --hx-notify-unpinned-hover-col: #3D3D3D;
-  --hx-notify-default-col: #FFFFFF;
-  --hx-notify-info-col: #B36ABB;
-  --hx-notify-positive-col: #92BF17;
-  --hx-notify-warning-col: #D69B24;
-  --hx-notify-negative-col: #EC3A65;
-  --hx-notify-loading-col: #00ADA8;
-  --hx-notify-container-background-col: rgb(247, 247, 249);
-  --hx-notify-container-border-col: transparent;
-  --hx-notify-shadow-col: rgba(0, 0, 0, 0.05);
-  
-  --hx-form-error-text-col: #F7F7F9;
-  --hx-form-error-background-col: #4A4E4E;
   
   --hx-titlebar-default-background-col: #F8F8F8;
   --hx-titlebar-action-background-col: #00ADA8;

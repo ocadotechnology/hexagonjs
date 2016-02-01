@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.0.4
+ Version: 1.1.0
  Theme: hexagon-light
  Modules:
    set
@@ -22,26 +22,31 @@
    interpolate
    animate
    pointer-events
+   icon
+   spinner
+   view
+   sort
    component
    morphs
    click-detector
    base
-   icon
+   modal
+   notify
+   filter
+   form
    dropdown
    collapsible
    palette
+   format
+   preferences
    button
    resize-events
-   sort
-   format
-   view
    menu
    input-group
+   date-localizer
    number-picker
    layout
    drag-container
-   spinner
-   filter
    progress-bar
    plot
    sticky-table-headers
@@ -53,9 +58,6 @@
    time-picker
    tag-input
    morph-section
-   modal
-   notify
-   form
    titlebar
    slider
    autocomplete
@@ -78,7 +80,6 @@
    notice
    paginator
    pivot-table
-   preferences
    side-collapsible
    sidebar
    tabs
@@ -94,6 +95,16 @@
 
 
 
+
+
+
+
+.hx-spinner {
+  border: 3px solid #00ADA8;
+  border-right-color: transparent; }
+
+.hx-spinner-wide::after {
+  background: #00ADA8; }
 
 
 
@@ -155,6 +166,69 @@ hr {
   border-color: #D0D0D0;
   border-style: solid; }
 
+.hx-modal-shade {
+  background: rgba(0, 0, 0, 0.5); }
+
+.hx-modal {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5); }
+
+.hx-modal-title-container {
+  font-size: 1.17em;
+  background: #FFFFFF;
+  border-radius: 3px 3px 0 0;
+  color: #3D3D3D;
+  border-color: #D0D0D0; }
+
+.hx-modal-content {
+  background: #FFFFFF;
+  border-radius: 0 0 3px 3px; }
+
+.hx-modal-title-empty + .hx-modal-content {
+  border-radius: 3px; }
+
+.hx-notification-container {
+  background: #f7f7f9;
+  border: solid 1px transparent;
+  border-top: none;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.05); }
+
+.hx-notification {
+  background-color: #FFFFFF;
+  color: #3D3D3D;
+  border-color: #D0D0D0; }
+  .hx-notification .hx-notification-icon {
+    color: #FFFFFF; }
+  .hx-notification.hx-positive .hx-notification-icon {
+    color: #92BF17; }
+  .hx-notification.hx-warning .hx-notification-icon {
+    color: #D69B24; }
+  .hx-notification.hx-negative .hx-notification-icon {
+    color: #EC3A65; }
+  .hx-notification.hx-info .hx-notification-icon {
+    color: #B36ABB; }
+
+.hx-notification-close {
+  color: #939393; }
+  .hx-notification-close:hover {
+    color: #3D3D3D; }
+
+.hx-notification-pin {
+  color: #939393; }
+  .hx-notification-pin:hover {
+    color: #3D3D3D; }
+
+.hx-notification-pin-pinned {
+  color: #00ADA8; }
+  .hx-notification-pin-pinned:hover {
+    color: #037774; }
+
+
+.hx-form-error {
+  color: #F7F7F9; }
+  .hx-form-error .hx-form-error-text-container .hx-form-error-text {
+    background: #4A4E4E; }
+    .hx-form-error .hx-form-error-text-container .hx-form-error-text:before {
+      border-bottom-color: #4A4E4E; }
 
 .hx-dropdown {
   background: #FFFFFF;
@@ -286,6 +360,8 @@ hr {
 
 .hx-border-disabled {
   border-color: #FAFAFA !important; }
+
+
 
 .hx-btn {
   background: #FFFFFF;
@@ -446,9 +522,6 @@ hr {
   border: 1px solid #e1e1e1; }
 
 
-
-
-
 .hx-menu-item {
   color: #3D3D3D;
   background: #FFFFFF; }
@@ -599,6 +672,7 @@ hr {
   background: #F9F9F9; }
 
 
+
 .hx-content {
   padding-left: 1em;
   padding-right: 1em;
@@ -667,18 +741,10 @@ hr {
 .hx-drag-placeholder div {
   border-color: #D0D0D0; }
 
-.hx-spinner {
-  border: 3px solid #00ADA8;
-  border-right-color: transparent; }
-
-.hx-spinner-wide::after {
-  background: #00ADA8; }
-
-
 .hx-progress-bar {
   border-color: none;
   border-width: 0;
-  background-color: rgba(255, 255, 255, 0.5); }
+  background-color: rgba(227, 227, 227, 0.3); }
   .hx-progress-bar.hx-action .hx-progress-bar-inner {
     background: #00ADA8; }
   .hx-progress-bar.hx-positive .hx-progress-bar-inner {
@@ -824,7 +890,7 @@ hr {
 .hx-date-picker {
   background: white;
   border-color: #DADADA; }
-  .hx-date-picker .hx-icon {
+  .hx-date-picker .hx-icon:not(.hx-date-to-icon) {
     background: #00ADA8;
     color: white; }
 
@@ -878,9 +944,8 @@ hr {
     outline: solid 1px #DE1A4A; }
 
 .hx-tag-input {
-  border-color: #DADADA; }
-  .hx-tag-input .hx-tags-container {
-    background: #FDFDFD; }
+  border-color: #DADADA;
+  background: #FDFDFD; }
 
 .hx-tag {
   background: #FFFFFF;
@@ -926,69 +991,6 @@ hr {
   background: #FAFAFA;
   color: #939393; }
 
-
-.hx-modal-shade {
-  background: rgba(0, 0, 0, 0.5); }
-
-.hx-modal {
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5); }
-
-.hx-modal-title-container {
-  font-size: 1.17em;
-  background: #FFFFFF;
-  border-radius: 3px 3px 0 0;
-  color: #3D3D3D;
-  border-color: #D0D0D0; }
-
-.hx-modal-content {
-  background: #FFFFFF;
-  border-radius: 0 0 3px 3px; }
-
-.hx-modal-title-empty + .hx-modal-content {
-  border-radius: 3px; }
-
-.hx-notification-container {
-  background: #f7f7f9;
-  border: solid 1px transparent;
-  border-top: none;
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.05); }
-
-.hx-notification {
-  background-color: #FFFFFF;
-  color: #3D3D3D;
-  border-color: #D0D0D0; }
-  .hx-notification .hx-notification-icon {
-    color: #FFFFFF; }
-  .hx-notification.hx-positive .hx-notification-icon {
-    color: #92BF17; }
-  .hx-notification.hx-warning .hx-notification-icon {
-    color: #D69B24; }
-  .hx-notification.hx-negative .hx-notification-icon {
-    color: #EC3A65; }
-  .hx-notification.hx-info .hx-notification-icon {
-    color: #B36ABB; }
-
-.hx-notification-close {
-  color: #939393; }
-  .hx-notification-close:hover {
-    color: #3D3D3D; }
-
-.hx-notification-pin {
-  color: #939393; }
-  .hx-notification-pin:hover {
-    color: #3D3D3D; }
-
-.hx-notification-pin-pinned {
-  color: #00ADA8; }
-  .hx-notification-pin-pinned:hover {
-    color: #037774; }
-
-.hx-form-error {
-  color: #F7F7F9; }
-  .hx-form-error .hx-form-error-text-container .hx-form-error-text {
-    background: #4A4E4E; }
-    .hx-form-error .hx-form-error-text-container .hx-form-error-text:before {
-      border-bottom-color: #4A4E4E; }
 
 body.hx-heading-fixed .hx-heading + .hx-content,
 body.hx-full-screen .hx-heading + .hx-content {
@@ -1364,7 +1366,6 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   .hx-notice.hx-contrast > .hx-notice-body {
     background: #3E4444;
     color: #F3F3F3; }
-
 
 
 
