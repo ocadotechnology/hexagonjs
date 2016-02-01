@@ -237,6 +237,7 @@ function getOptions (dev) {
     indexable: indexable,
     unmergable: ['examples', 'description', 'extra'],
     filenameModifier: filenameModifier,
+    outputLatest: false,
     versions: versions.versions,
     targetVersions: targetVersions
   }
@@ -244,7 +245,7 @@ function getOptions (dev) {
   var htmlTransforms = Promise.props({
     html: html.transforms,
     api: apiOptions.then(api),
-    changelog: changelog(changelogOptions).transforms,
+    changelog: changelog.transforms(changelogOptions),
     docs: require('../transforms/transforms')
   })
 
@@ -271,7 +272,7 @@ function buildPages (objs, dev) {
           }
           return file
         })
-        .map(html(options.htmlTransforms))
+        .map(html({transforms: options.htmlTransforms}))
         .map(html.stringify())
         .map(function (file) {
           if (file.filename.indexOf('docs') === 0) {

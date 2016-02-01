@@ -1,0 +1,4 @@
+@version 1.1.0
+  @api Progress Bar
+    @bugfix: Updated the progressbar background color to add more contrast
+      @issue 78

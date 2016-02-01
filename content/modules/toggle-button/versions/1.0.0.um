@@ -2,6 +2,7 @@
   @description: This module was removed in version 1.0.0 and replaced with the @hyperlink(../toggle)[Toggle] module.
 
   @examples
+    @removed
 
   @api Toggle Button
     @removed: This module was removed in this version and replaced with the Toggle module

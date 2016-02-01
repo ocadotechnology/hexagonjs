@@ -19,7 +19,7 @@
 
       @method setDate
         @param date [Date]
-        @param dontSetupInput [Boolean]
+        @param? dontSetupInput [Boolean]
         @param? suppressCallback [Boolean]
         @removed
 

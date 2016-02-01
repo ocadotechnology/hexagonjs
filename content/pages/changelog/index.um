@@ -168,5 +168,7 @@
       @description
         @p: Fix several bug fixes that were causing visual issues
 
+    @version 1.1.0
+
   @h2: Key
   @changelog.key
