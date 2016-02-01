@@ -88,10 +88,11 @@ describe 'hx-dropdown', ->
 
 
   it 'should throw an error when passing in the wrong thing for dropdownContent', ->
-    chai.spy.on(console, 'error')
-    dd = new hx.Dropdown(id, hx.detached('div'))
+    chai.spy.on(hx, 'consoleWarning')
+    invalidDropdownContent = {}
+    dd = new hx.Dropdown(id, invalidDropdownContent)
     dd.show()
-    console.error.should.have.been.called.with('dropdown: dropdownContent is not a valid type ' + id)
+    hx.consoleWarning.should.have.been.called.with('dropdown: dropdownContent is not a valid type. dropdownContent: ', invalidDropdownContent)
 
   it 'should create a dropdown object with the correct default options', ->
     dd = new hx.Dropdown(id, content)
@@ -265,9 +266,7 @@ describe 'hx-dropdown', ->
       hx.select(elem).append('div').class('bob').text('Dave')
 
     dd = new hx.Dropdown(id, populate)
-
     dd.show()
-    # uses fixture bg as hex gets converted to different things by different browsers
     dd._.dropdown.select('.bob').text().should.equal('Dave')
 
 
