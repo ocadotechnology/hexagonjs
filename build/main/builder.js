@@ -33,7 +33,7 @@ function resolveTheme (themeResources) {
       if (typeof resource.theme === 'string') {
         if (resource.theme.lastIndexOf('.um') === resource.theme.length - 3) {
           return quantum.read(resource.theme)
-            .then(function (read) { return read[0].content})
+            .then(function (read) { return read[0].content })
             .then(theme.formats.quantumAST.toJson)
             .then(function (jsonTheme) {
               return {type: 'theme', theme: jsonTheme}
@@ -51,7 +51,7 @@ function resolveTheme (themeResources) {
       return resource
     }
   })).then(function (resources) {
-    var resolved = undefined
+    var resolved
 
     resources.forEach(function (resource) {
       if (resource.type === 'theme') {
@@ -60,14 +60,12 @@ function resolveTheme (themeResources) {
         } else {
           resolved = resource.theme
         }
-
       } else if (resource.type === 'flatten') {
         resolved = theme.flatten(resolved)
       }
     })
 
     return theme.flatten(resolved || {})
-
   })
 }
 
@@ -106,6 +104,7 @@ function getModuleList (moduleDirectories) {
     })
     .then(function (moduleFolders) {
       var moduleDirectoryMap = {}
+      var i, j
       for (i in moduleFolders) {
         var folder = moduleFolders[i]
         for (j in folder) {
@@ -230,8 +229,8 @@ function manipulateBuildAndWrite (build, options, assetFiles) {
       }))
     }).then(function () {
     // Return the modified build. Should be a modified version of the build with undefined keys removed.
-    return newBuild
-  })
+      return newBuild
+    })
 }
 
 function mergeAssets (a, b) {
@@ -300,17 +299,17 @@ Builder.prototype = {
               prefix: options.prefix
             })
           }).then(function (build) {
-          return manipulateBuildAndWrite(build, options, self._assetFiles)
-        }).then(function (build) {
-          if (options.dest) {
-            return exportAssets(self, options)
+            return manipulateBuildAndWrite(build, options, self._assetFiles)
+          }).then(function (build) {
+            if (options.dest) {
+              return exportAssets(self, options)
               .then(function () {
                 return build
               })
-          } else {
-            return build
-          }
-        })
+            } else {
+              return build
+            }
+          })
       })
   },
   // builds the library into the directory specified, and then watches for changes. options it expects are the same as build()

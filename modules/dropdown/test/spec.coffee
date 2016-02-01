@@ -40,10 +40,12 @@ describe 'hx-dropdown', ->
     hx._.dropdown.attachToSelector = '#dropdown-fixture'
 
     hx.select('body')
+      .append('div')
+      .class('fixture')
       .style('height', '1000px')
       .style('width', '1000px')
 
-    fixture = hx.select('body').append('div')
+    fixture = hx.select('.fixture').append('div')
       .style('padding', '0')
       .style('margin', '0')
       .style('width', '1000px')
@@ -69,7 +71,7 @@ describe 'hx-dropdown', ->
     fixture.remove()
     hx.loop = savedHxLoop
     jasmine.clock().uninstall()
-    hx.select('body')
+    hx.select('.fixture')
       .style('padding', '')
       .style('margin', '')
       .style('width', '')
