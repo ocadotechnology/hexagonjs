@@ -126,6 +126,7 @@ class DataTable extends hx.EventEmitter
       page: 1
       pagePicker: pagePicker
       pageSizePicker: pageSizePicker
+      statusBar: statusBar
       sortColPicker: sortColPicker
       selectedRows: new hx.Set   # holds the ids of the selected rows
       expandedRows: new hx.Set
@@ -135,6 +136,9 @@ class DataTable extends hx.EventEmitter
 
     # responsive page resize when compact is 'auto'
     selection.on 'resize', 'hx.data-table', =>
+      selection.selectAll('.hx-data-table-collapsible-content-container').map (e) =>
+        e.style('max-width', (parseInt(selection.style('width')) - @_.collapsibleSizeDiff) + 'px')
+
       state = (@compact() is 'auto' and selection.width() < collapseBreakPoint) or @compact() is true
       selection.classed 'hx-data-table-compact', state
       if @_.compactState isnt state
@@ -484,11 +488,19 @@ class DataTable extends hx.EventEmitter
 
 
           @updateSelected = =>
-            rowDivs = tbody.selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false)
-            checkBoxDivs = container.select('.hx-sticky-table-header-left')
-              .select('tbody')
-              .selectAll('.hx-data-table-row')
-              .classed('hx-data-table-row-selected', false)
+            parentFilter = (parent) ->
+              (sel) -> sel.node().parentNode is parent.node()
+
+            getSelectableRows = (parent) ->
+              parent
+                .selectAll('.hx-data-table-row')
+                .filter(parentFilter(parent))
+                .classed('hx-data-table-row-selected', false)
+
+            rowDivs = getSelectableRows(tbody)
+
+            leftHeaderBody = container.select('.hx-sticky-table-header-left').select('tbody')
+            checkBoxDivs = getSelectableRows(leftHeaderBody)
 
             if @_.selectedRows.size > 0
               for row, rowIndex in rows
@@ -501,7 +513,7 @@ class DataTable extends hx.EventEmitter
             selection.classed('hx-data-table-has-page-selection', pageHasSelection and not options.singleSelection)
             selection.classed('hx-data-table-has-selection', @_.selectedRows.size > 0 and not options.singleSelection)
             if totalCount isnt undefined
-              selection.select('.hx-data-table-status-bar')
+              @_.statusBar
                 .select('.hx-data-table-status-bar-text')
                 .text(@_.selectedRows.size + ' of ' + totalCount + ' selected.')
 
@@ -549,6 +561,7 @@ class DataTable extends hx.EventEmitter
             # The div that the user will populate with the collapsibleRender function
             contentDiv = contentRow.append('td').class('hx-data-table-collapsible-cell')
               .attr('colspan',fullWidthColSpan)
+              .append('div').class('hx-data-table-collapsible-content-container')
               .append('div').class('hx-data-table-collapsible-content')
 
             {contentRow: contentRow, hiddenRow: hiddenRow, contentDiv: contentDiv}
@@ -575,6 +588,8 @@ class DataTable extends hx.EventEmitter
 
             @_.expandedRows[if currentVis then 'add' else 'delete'](rowId)
             @_.stickyHeaders.render()
+
+            @_.collapsibleSizeDiff = parseInt(selection.style('width')) - parseInt(hx.select(cc.contentDiv.node().parentNode).style('width'))
 
             currentVis
 
@@ -645,7 +660,7 @@ class DataTable extends hx.EventEmitter
           # We only retain the horizontal scroll as when sorting/filtering on
           # the first page it retains the vertical scroll which looks weird.
           if @page() is @_.oldPage
-            wrapperNode = selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node()
+            wrapperNode = selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node()
             scrollLeft = wrapperNode.scrollLeft if options.retainHorizontalScrollOnRender
             scrollTop = wrapperNode.scrollTop if options.retainVerticalScrollOnRender
 
@@ -663,8 +678,8 @@ class DataTable extends hx.EventEmitter
           @_.stickyHeaders = new hx.StickyTableHeaders(container.node(), stickyOpts)
 
           # restore horizontal scroll position
-          selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node().scrollLeft = scrollLeft if scrollLeft?
-          selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node().scrollTop = scrollTop if scrollTop?
+          selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollLeft = scrollLeft if scrollLeft?
+          selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollTop = scrollTop if scrollTop?
 
           # hide the loading spinner as we're done rendering
           selection.select('.hx-data-table-loading').style('display', 'none')
