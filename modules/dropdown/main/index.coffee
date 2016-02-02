@@ -2,93 +2,67 @@
 dropdownAnimateSlideDistance = 8
 
 checkFixedPos = (node) ->
-  elem = hx.select(node)
-  if elem.size() > 0 and elem.style('position') is 'fixed' then true
+  if hx.select(node).style('position') is 'fixed' then true
 
-calculateDropdownPosition = (alignments, rect, dropdownRect, windowRect, spacing, ddMaxHeight, parentFixed, scrollbarWidth) ->
-  horizontalPos = rect.x
-  verticalPos = rect.y
+calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) ->
 
-  if alignments[0] is 'r' then horizontalPos = rect.x + rect.width
-  if alignments[1] is 'b' then verticalPos = rect.y + rect.height
-  if alignments[2] is 'r' then horizontalPos -= dropdownRect.width
-  if alignments[3] is 'b' then verticalPos -= dropdownRect.height
+  # figure out the direction the drop-down should be revealed (for the animation)
+  direction = if alignments[1] is alignments[3] and alignments[0] isnt alignments[2]
+    if alignments[0] is 'l' then 'left' else 'right'
+  else if alignments[3] is 't' then 'down' else 'up'
 
-  if alignments[0] isnt alignments[2]
-    switch alignments[2]
-      when 'l' then horizontalPos += spacing
-      when 'r' then horizontalPos -= spacing
+  # work out where the drop-down would go when there is ample space
 
-  if alignments[1] isnt alignments[3]
-    switch alignments[3]
-      when 't' then verticalPos += spacing
-      when 'b'
-        invertY = true
-        verticalPos -= spacing
+  x = selectionRect.x
+  y = selectionRect.y
 
-  # these checks move the dropdown when it flows outside the window boundaries
-  if horizontalPos < 0 then horizontalPos = 0
-  if (horizontalWindow = (horizontalPos + dropdownRect.width - windowRect.innerWidth + scrollbarWidth)) > 0
-    horizontalPos -= horizontalWindow
+  if alignments[0] is 'r' then x += selectionRect.width
+  if alignments[1] is 'b' then y += selectionRect.height
+  if alignments[2] is 'r' then x -= dropdownRect.width
+  if alignments[3] is 'b' then y -= dropdownRect.height
 
-  if verticalPos < 0 then verticalPos = 0
+  # adjust the position of the drop-down when there is not enough space
 
-  ddHeight = if not isNaN(ddMaxHeight)
-    Math.min(ddMaxHeight, dropdownRect.height)
+
+  # slide into view (in the appropriate direction)
+  if direction is 'down' or direction is 'up'
+    x = hx.clamp(0, windowRect.width - dropdownRect.width, x)
   else
-    dropdownRect.height
+    y = hx.clamp(0, windowRect.height - dropdownRect.height, y)
 
-  if (verticalWindow = (verticalPos + ddHeight - windowRect.innerHeight )) > 0
-    movedVertical = true
-    verticalPos -= verticalWindow
+  # flip from downwards to upwards (if needed and there is the space to)
+  if direction is 'down' and y > windowRect.height - dropdownRect.height and selectionRect.y - dropdownRect.height > 0
+    direction = 'up'
+    y = selectionRect.y - dropdownRect.height
+    if alignments[1] is alignments[3]
+      y += selectionRect.height
 
-  # inverval intersection check
-  checkOverlap = (posA, posB, rectA, rectB) ->
-    # posA/B are dropdown sides (left/right or top/bottom)  - [ ]
-    # rectA/B are selection sides (left/right or top/bottom) - | |
-    complete = posA < rectA and posB > rectB # [ | | ]
-    partialA = posB >= rectB and posA < rectB and posA >= rectA # | [ | ]
-    partialB = posA <= rectA and posB > rectA and posB <= rectB # [ | ] |
+  # flip from upwards to downwards (if needed and there is the space to)
+  else if direction is 'up' and y < 0 and selectionRect.y + selectionRect.height +  dropdownRect.height < windowRect.height
+    direction = 'down'
+    y = selectionRect.y + selectionRect.height
+    if alignments[1] is alignments[3]
+      y -= selectionRect.height
 
-    if complete or partialA then 2
-    else if partialB then 1
-    else 0
+  # flip from right to left (if needed and there is the space to)
+  else if direction is 'right' and x > windowRect.width - dropdownRect.width and selectionRect.x - dropdownRect.width > 0
+    direction = 'left'
+    x = selectionRect.x - dropdownRect.width
+    if alignments[0] is alignments[2]
+      x += selectionRect.width
 
-  horizontalOverlap = checkOverlap(horizontalPos, (horizontalPos + dropdownRect.width), rect.x, (rect.x + rect.width))
-  verticalOverlap = checkOverlap(verticalPos, (verticalPos + dropdownRect.height), rect.y, (rect.y + rect.height))
+  # flip from upwards to downwards (if needed and there is the space to)
+  else if direction is 'left' and x < 0 and selectionRect.x + selectionRect.width +  dropdownRect.width < windowRect.width
+    direction = 'right'
+    x = selectionRect.x + selectionRect.width
+    if alignments[0] is alignments[2]
+      x -= selectionRect.width
 
-  # if both are greater than 0 then dd overlaps selection
-  if horizontalOverlap > 0 and verticalOverlap > 0
-    # dropdown overlaps at the top of the selection so should be moved down
-    if verticalOverlap > 1 and not movedVertical
-      invertY = false
-      verticalPos = rect.y + rect.height + spacing
-    else
-      invertY = true
-      verticalPos = rect.y - dropdownRect.height - spacing
-
-      # check if dropdown goes off the screen after being moved up
-      if verticalPos < 0
-        invertY = false
-        verticalPos = rect.y + rect.height + spacing
-
-
-  if not parentFixed
-    horizontalPos += windowRect.scrollX
-    verticalPos += windowRect.scrollY
-
-  # switches the dropdown position so it scales from the bottom instead of the top
-  yPos = 'top'
-  if invertY
-    yPos = 'bottom'
-    bodyDiff = document.body.scrollHeight - document.body.clientHeight
-    verticalPos = document.body.scrollHeight - verticalPos - bodyDiff - dropdownRect.height
 
   {
-    y: verticalPos,
-    x: horizontalPos,
-    yPos: yPos,
-    xPos: 'left'
+    x: x,
+    y: y,
+    direction: direction
   }
 
 class Dropdown extends hx.EventEmitter
@@ -103,7 +77,7 @@ class Dropdown extends hx.EventEmitter
     @options = hx.merge.defined({
       mode: 'click',
       align: 'lblt',
-      spacing: Number(hx.theme.dropdown.spacing),
+      spacing: undefined,
       matchWidth: true,
       ddClass: ''
     }, options)
@@ -185,46 +159,48 @@ class Dropdown extends hx.EventEmitter
 
       _.dropdown.style('display', 'block')
 
+      # extract measurements from the dom
       rect = _.selection.box()
       dropdownRect = _.dropdown.box()
       ddMaxHeight = _.dropdown.style('max-height').replace('px','')
       parentFixed = hx.checkParents(_.selection.node(), checkFixedPos)
+      parentZIndex = hx.parentZIndex(_.selection.node(), true)
 
-      {xPos, yPos, x, y} = calculateDropdownPosition(
+      # calculate the position of the dropdown
+      {x, y} = calculateDropdownPosition(
         _.alignments,
         { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
         { width: dropdownRect.width, height: dropdownRect.height },
-        { scrollX: window.scrollX, scrollY: window.scrollY, innerWidth: window.innerWidth, innerHeight: window.innerHeight }
-        @options.spacing,
+        { width: window.innerWidth, height: window.innerHeight },
         ddMaxHeight,
-        parentFixed,
         hx.scrollbarSize()
       )
 
-      # Gets the maximum z-index of all the parent elements
-      parentZIndex = hx.parentZIndex(_.selection.node(), true)
+      if not parentFixed
+        x += window.scrollX
+        y += window.scrollY
+
+      # update the styles for the dropdown
       if parentZIndex > 0
         _.dropdown.style('z-index', parentZIndex + 1)
 
       if parentFixed
-        _.dropdown.style('position','fixed')
+        _.dropdown.style('position', 'fixed')
 
-      if @options.matchWidth then _.dropdown.style('min-width', rect.width + 'px')
+      if @options.matchWidth
+        _.dropdown.style('min-width', rect.width + 'px')
 
       _.dropdown
-        .style('top', 'auto')
-        .style('bottom', 'auto')
-        .style('left', 'auto')
-        .style('right', 'auto')
-        .style(xPos, x + 'px')
-        .style(yPos, (y + dropdownAnimateSlideDistance) + 'px')
+        .style('left', x + 'px')
+        .style('top', (y + dropdownAnimateSlideDistance) + 'px')
         .style('height', '0px')
         .style('opacity', 0)
+        .style('margin-top', @options.dropdown)
         .morph()
           .with('fadein', 150)
           .and('expandv', 150)
           .and =>
-            _.dropdown.animate().style(yPos, y + 'px', 150)
+            _.dropdown.animate().style('top', y + 'px', 150)
           .then =>
             if _.useScroll and _.dropdown?
               _.dropdown.style('overflow-y','auto')
@@ -269,5 +245,6 @@ class Dropdown extends hx.EventEmitter
 hx.Dropdown = Dropdown
 
 hx._.dropdown = {
-  attachToSelector: 'body'
+  attachToSelector: 'body',
+  calculateDropdownPosition: calculateDropdownPosition
 }

@@ -4,7 +4,6 @@
     @type size
     @description: The default spacing for dropdowns
     @default: 0
-    @includeWithJs 0
 
   @option background-col
     @type color
