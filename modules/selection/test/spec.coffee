@@ -1,6 +1,4 @@
 describe 'Selection Api', ->
-  consoleWarn = undefined
-
   beforeEach ->
     fixture = hx.select('body').append('div').attr('id', 'fixture').html """
       <div class="wrapper">
@@ -29,7 +27,7 @@ describe 'Selection Api', ->
     hx.select('#fixture').selectAll('span').style('display', 'block').style('display')
     hx.select('#fixture').select('span').style('display', 'inline-block').style('display')
 
-    consoleWarn = chai.spy.on(console, 'warn')
+    hx.consoleWarning = chai.spy()
 
   afterEach ->
     hx.select('#fixture').remove()
@@ -157,19 +155,19 @@ describe 'Selection Api', ->
 
   it 'hx.select should log a warning if an invalid type is given', ->
     hx.select(3.14156)
-    consoleWarn.should.have.been.called()
+    hx.consoleWarning.should.have.been.called()
 
   it 'hx.selectAll should log a warning if an invalid type is given', ->
     hx.selectAll(3.14156)
-    consoleWarn.should.have.been.called()
+    hx.consoleWarning.should.have.been.called()
 
   it 'selection.select should log a warning if an invalid type is given', ->
     hx.select('#fixture').select(3.1415)
-    consoleWarn.should.have.been.called()
+    hx.consoleWarning.should.have.been.called()
 
   it 'selection.selectAll should log a warning if an invalid type is given', ->
     hx.select('#fixture').selectAll(3.1415)
-    consoleWarn.should.have.been.called()
+    hx.consoleWarning.should.have.been.called()
 
   # creating detached elements
 
@@ -257,7 +255,7 @@ describe 'Selection Api', ->
     selection = hx.select('#fixture').selectAll('span')
     appended = selection.append(document.createElement('h1'))
     appended.size().should.equal(0)
-    consoleWarn.should.have.been.called()
+    hx.consoleWarning.should.have.been.called()
 
   it 'appending an existing element to an empty selection should do nothing', ->
     selection = hx.select('#empty').select('span')
@@ -953,12 +951,12 @@ describe 'Selection Api', ->
     hx.select('#grandchild').closest('#thing-that-doesnt-exist').empty().should.equal(true)
 
   it 'closest should warn when you give a non string argument', ->
-    consoleWarning = chai.spy.on(hx, 'consoleWarning')
+    hx.consoleWarning = chai.spy()
 
     obj = {}
 
     hx.select('#fixture').closest(obj)
-    consoleWarning.should.have.been.called.with('Selection.closest was passed the wrong argument type', 'Selection.closest only accepts a string argument, you supplied:', obj)
+    hx.consoleWarning.should.have.been.called.with('Selection.closest was passed the wrong argument type', 'Selection.closest only accepts a string argument, you supplied:', obj)
 
   it 'closest should warn when you give a non string argument', ->
     hx.select('#fixture').closest('potato').empty().should.equal(true)
