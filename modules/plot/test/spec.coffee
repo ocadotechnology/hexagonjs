@@ -9,31 +9,31 @@ describe "plot", ->
       array3 = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}, {x: 4, y: 2}]
 
       it 'dataAverage: should return the average data point in an array', ->
-        expect(s.dataAverage(array)).toEqual({x: 2, y: 3})
-        expect(s.dataAverage(array2)).toEqual({x: 2, y1: 4, y2: 4})
+        s.dataAverage(array).should.eql({x: 2, y: 3})
+        s.dataAverage(array2).should.eql({x: 2, y1: 4, y2: 4})
 
       it 'maxTriangle: should return a data point', ->
         data1 = {x: 0, y: 0}
         data2 = {x: 4, y: 1}
         data3 = {x: 0, y1: 1, y2: 3}
         data4 = {x: 4, y1: 3, y2: 4}
-        expect(s.maxTriangle(data1, array, data2)).toEqual({x: 3, y: 4})
-        expect(s.maxTriangle(data3, array2, data4)).toEqual({x: 3, y1: 5, y2: 5})
+        s.maxTriangle(data1, array, data2).should.eql({x: 3, y: 4})
+        s.maxTriangle(data3, array2, data4).should.eql({x: 3, y1: 5, y2: 5})
 
       it 'LTTBFeather: should return a data array', ->
-        expect(s.LTTBFeather(array, 3)).toEqual(array)
-        expect(s.LTTBFeather(array2, 3)).toEqual(array2)
-        expect(s.LTTBFeather(array, 2)).toEqual([{x: 1, y: 2}, {x: 3, y: 4}])
-        expect(s.LTTBFeather(array2, 2)).toEqual([{x: 1, y1: 4, y2: 3}, {x: 3, y1: 5, y2: 5}])
-        expect(s.LTTBFeather(array3, 3)).toEqual([{x: 1, y: 2}, {x: 3, y: 4}, {x: 4, y: 2}])
-        expect(s.LTTBFeather(array, 1)).toEqual([{x: 2, y: 3}])
-        expect(s.LTTBFeather(array, 0)).toEqual([])
-        expect(s.LTTBFeather([], 3)).toEqual([])
+        s.LTTBFeather(array, 3).should.eql(array)
+        s.LTTBFeather(array2, 3).should.eql(array2)
+        s.LTTBFeather(array, 2).should.eql([{x: 1, y: 2}, {x: 3, y: 4}])
+        s.LTTBFeather(array2, 2).should.eql([{x: 1, y1: 4, y2: 3}, {x: 3, y1: 5, y2: 5}])
+        s.LTTBFeather(array3, 3).should.eql([{x: 1, y: 2}, {x: 3, y: 4}, {x: 4, y: 2}])
+        s.LTTBFeather(array, 1).should.eql([{x: 2, y: 3}])
+        s.LTTBFeather(array, 0).should.eql([])
+        s.LTTBFeather([], 3).should.eql([])
 
       it 'splitAndFeather: should return a data array', ->
-        expect(s.splitAndFeather(array, 3, (d)-> d.y != undefined)).toEqual([array])
-        expect(s.splitAndFeather(array2, 3, (d)-> d.y1 != undefined and d.y2 != undefined)).toEqual([array2])
-        expect(s.splitAndFeather(array3, 3, (d)-> d.y != undefined)).toEqual([[{x: 1, y: 2}, {x: 3, y: 4}, {x: 4, y: 2}]])
+        s.splitAndFeather(array, 3, (d)-> d.y != undefined).should.eql([array])
+        s.splitAndFeather(array2, 3, (d)-> d.y1 != undefined and d.y2 != undefined).should.eql([array2])
+        s.splitAndFeather(array3, 3, (d)-> d.y != undefined).should.eql([[{x: 1, y: 2}, {x: 3, y: 4}, {x: 4, y: 2}]])
 
     describe 'setter/getters should work', ->
 
@@ -41,15 +41,15 @@ describe "plot", ->
         it 'property ' + property + ' should set and get correctly', ->
           valuesToCheck.forEach (v) ->
             graph = new hx.Graph(hx.detached('div').node())
-            expect(graph[property](v)).toEqual(graph)
-            expect(graph[property]()).toEqual(v)
+            graph[property](v).should.equal(graph)
+            graph[property]().should.equal(v)
 
         it 'option ' + property + ' should get passed through', ->
           valuesToCheck.forEach (v) ->
             opts = {}
             opts[property] = v
             graph = new hx.Graph(hx.detached('div').node(), opts)
-            expect(graph[property]()).toEqual(v)
+            graph[property]().should.equal(v)
 
       checkSetterGetterAndOption('zoomRangeStart', [0, 0.5, 1])
       checkSetterGetterAndOption('zoomRangeEnd', [0, 0.5, 1])
@@ -104,8 +104,8 @@ describe "plot", ->
         it 'property ' + property + ' should set and get correctly', ->
           valuesToCheck.forEach (v) ->
             axis = new hx.Axis
-            expect(axis[dim][property](v)).toEqual(axis)
-            expect(axis[dim][property]()).toEqual(v)
+            axis[dim][property](v).should.equal(axis)
+            axis[dim][property]().should.equal(v)
 
         it 'option ' + property + ' should be passed through correctly', ->
           valuesToCheck.forEach (v) ->
@@ -113,7 +113,7 @@ describe "plot", ->
             opts[dim] = {}
             opts[dim][property] = v
             axis = new hx.Axis(opts)
-            expect(axis[dim][property]()).toEqual(v)
+            axis[dim][property]().should.equal(v)
 
       checkSetterGetterAndOption('x', 'scaleType', ['linear', 'time', 'discrete'])
       checkSetterGetterAndOption('x', 'visible', [true, false])
@@ -173,15 +173,21 @@ describe "plot", ->
       it 'setter/getter ' + property + ' should set and get correctly', ->
         series = new SeriesType
         valuesToCheck.forEach (v) ->
-          expect(series[property](v)).toEqual(series)
-          expect(series[property]()).toEqual(v)
+          series[property](v).should.equal(series)
+          if v?
+            series[property]().should.eql(v)
+          else
+            should.not.exist(series[property]())
 
       it 'option ' + property + ' should get passed through as the initial value', ->
         valuesToCheck.forEach (v) ->
           opts = {}
           opts[property] = v
           series = new SeriesType(opts)
-          expect(series[property]()).toEqual(v)
+          if v?
+            series[property]().should.eql(v)
+          else
+            should.not.exist(series[property]())
 
     describe "hx.LineSeries", ->
 
@@ -292,15 +298,15 @@ describe "plot", ->
         it 'property ' + property + ' should set and get correctly', ->
           valuesToCheck.forEach (v) ->
             graph = new hx.PieChart(hx.detached('div').node())
-            expect(graph[property](v)).toEqual(graph)
-            expect(graph[property]()).toEqual(v)
+            graph[property](v).should.equal(graph)
+            graph[property]().should.equal(v)
 
         it 'option ' + property + ' should get passed through', ->
           valuesToCheck.forEach (v) ->
             opts = {}
             opts[property] = v
             graph = new hx.PieChart(hx.detached('div').node(), opts)
-            expect(graph[property]()).toEqual(v)
+            graph[property]().should.equal(v)
 
       checkSetterGetterAndOption('labelsEnabled', [true, false])
       checkSetterGetterAndOption('legendEnabled', [true, false])
