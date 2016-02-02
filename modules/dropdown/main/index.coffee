@@ -23,7 +23,6 @@ calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect
 
   # adjust the position of the drop-down when there is not enough space
 
-
   # slide into view (in the appropriate direction)
   if direction is 'down' or direction is 'up'
     x = hx.clamp(0, windowRect.width - dropdownRect.width, x)
@@ -48,16 +47,11 @@ calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect
   else if direction is 'right' and x > windowRect.width - dropdownRect.width and selectionRect.x - dropdownRect.width > 0
     direction = 'left'
     x = selectionRect.x - dropdownRect.width
-    if alignments[0] is alignments[2]
-      x += selectionRect.width
 
   # flip from upwards to downwards (if needed and there is the space to)
   else if direction is 'left' and x < 0 and selectionRect.x + selectionRect.width +  dropdownRect.width < windowRect.width
     direction = 'right'
     x = selectionRect.x + selectionRect.width
-    if alignments[0] is alignments[2]
-      x -= selectionRect.width
-
 
   {
     x: x,
