@@ -1,8 +1,11 @@
 describe 'hx-transition', ->
   savedHxLoop = hx.loop
+
+  clock = undefined
+  beforeAll -> clock = sinon.useFakeTimers()
+  afterAll -> clock.restore()
+
   beforeEach ->
-    # jasmine.clock().uninstall()
-    jasmine.clock().install()
     # mock hx.loop
     hx_requestAnimationFrame = (f) ->
       setTimeout(f, 1)
@@ -13,12 +16,10 @@ describe 'hx-transition', ->
       hx_loop_update(f, g)
 
     baseTime = new Date(2013, 0, 1)
-    jasmine.clock().mockDate(baseTime)
 
 
   afterEach ->
     hx.loop = savedHxLoop
-    jasmine.clock().uninstall()
 
   it 'hx.loop: should not loop if true is returned', ->
     count = 0
@@ -26,7 +27,7 @@ describe 'hx-transition', ->
       count++
       true
     hx.loop cb
-    jasmine.clock().tick(5)
+    clock.tick(5)
     expect(count).toBe(1)
 
   it 'hx.loop: should not loop if true is returned', ->
@@ -35,7 +36,7 @@ describe 'hx-transition', ->
       count++
       count==2
     hx.loop cb
-    jasmine.clock().tick(5)
+    clock.tick(5)
     expect(count).toBe(2)
 
   it 'hx.ease: linear', ->
@@ -61,14 +62,14 @@ describe 'hx-transition', ->
     end = false
     hx.transition 5, (-> count++), undefined, ->
       end = true
-    jasmine.clock().tick(5)
+    clock.tick(5)
     expect(end).toEqual(true)
     expect(count).toBeGreaterThan(1)
 
   it 'hx.transition: should be fine without an end callback', ->
     count = 0
     hx.transition(5, (-> count++))
-    jasmine.clock().tick(5)
+    clock.tick(5)
     expect(count).toBeGreaterThan(1)
 
   it 'hx.transition: should call the callback with the right values', ->
@@ -78,7 +79,7 @@ describe 'hx-transition', ->
 
     hx.transition 60, cb, hx.ease.linear
 
-    jasmine.clock().tick(60)
+    clock.tick(60)
 
     expect(values).toEqual(values.slice().sort()) # check the values are ascending
     expect(values[values.length-1]).toEqual(1)
@@ -90,7 +91,7 @@ describe 'hx-transition', ->
       expect(cancelled).toEqual(false)
       called = true
 
-    jasmine.clock().tick(1)
+    clock.tick(1)
     expect(called).toBe(true)
 
   it 'hx.transition: cancelling should work', ->
@@ -99,7 +100,7 @@ describe 'hx-transition', ->
       can = cancelled
 
     stop()
-    jasmine.clock().tick(1)
+    clock.tick(1)
     expect(can).toEqual(true)
 
 
@@ -111,5 +112,5 @@ describe 'hx-transition', ->
   it 'hx.transition: giving negative duration should result in the transition instantly finishing', ->
     value = -1
     hx.transition -1000, ((v) -> value = v), undefined
-    jasmine.clock().tick(1)
+    clock.tick(1)
     expect(value).toEqual(1)
