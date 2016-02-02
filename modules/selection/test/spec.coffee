@@ -1,4 +1,6 @@
 describe 'Selection Api', ->
+  origConsoleWarning = hx.consoleWarning
+
   beforeEach ->
     fixture = hx.select('body').append('div').attr('id', 'fixture').html """
       <div class="wrapper">
@@ -26,11 +28,11 @@ describe 'Selection Api', ->
 
     hx.select('#fixture').selectAll('span').style('display', 'block').style('display')
     hx.select('#fixture').select('span').style('display', 'inline-block').style('display')
-
     hx.consoleWarning = chai.spy()
 
   afterEach ->
     hx.select('#fixture').remove()
+    hx.consoleWarning = origConsoleWarning
 
   describe 'ElementSet', ->
 

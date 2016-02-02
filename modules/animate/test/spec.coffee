@@ -935,6 +935,7 @@ describe 'hx-animate', ->
       end.should.equal(true)
 
     it 'a warning should be thrown when a named morph is used that doesnt exist', ->
+      origConsoleWarning = hx.consoleWarning
       hx.consoleWarning = chai.spy()
 
       hx.morph(new FakeNode)
@@ -942,6 +943,7 @@ describe 'hx-animate', ->
         .go()
 
       hx.consoleWarning.should.have.been.called.once
+      hx.consoleWarning = origConsoleWarning
 
     it 'andStyle should affect an elements styles', ->
       node = new FakeNode

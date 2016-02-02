@@ -22,8 +22,13 @@ describe 'hx-date-picker', ->
     else
       range
 
+  origConsoleWarning = hx.consoleWarning
+
   beforeEach ->
     hx.consoleWarning = chai.spy()
+
+  afterEach ->
+    hx.consoleWarning = origConsoleWarning
 
   describe 'test return types:', ->
 

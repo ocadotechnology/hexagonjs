@@ -3,9 +3,13 @@ describe 'data-table', ->
   beforeAll ->
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
+  origConsoleWarning = hx.consoleWarning
 
   beforeEach ->
     hx.consoleWarning = chai.spy()
+
+  afterEach ->
+    hx.consoleWarning = origConsoleWarning
 
   # Used to mimic an event call for a node
   fakeNodeEvent = (node, eventName) ->
