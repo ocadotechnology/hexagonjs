@@ -2,8 +2,8 @@ describe 'hx-transition', ->
   savedHxLoop = hx.loop
 
   clock = undefined
-  beforeAll -> clock = sinon.useFakeTimers()
-  afterAll -> clock.restore()
+  before -> clock = sinon.useFakeTimers()
+  after -> clock.restore()
 
   beforeEach ->
     # mock hx.loop

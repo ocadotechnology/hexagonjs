@@ -90,8 +90,8 @@ function createAfterAllScript (moduleName) {
 function bootstrapSpec (moduleName, js) {
   return [
     'describe("' + moduleName + '", function() {',
-    'beforeAll(function() {' + createBeforeAllScript(moduleName) + '})',
-    'afterAll(function() {' + createAfterAllScript(moduleName) + '})',
+    'before(function() {' + createBeforeAllScript(moduleName) + '})',
+    'after(function() {' + createAfterAllScript(moduleName) + '})',
     js,
     '})'
   ].join('\n')
@@ -119,7 +119,6 @@ function runKarma (files, destDir, phantomOnly) {
     stdout: false
   }
 
-
   var cfg = {
     basePath: '',
     loggers: [],
@@ -133,7 +132,7 @@ function runKarma (files, destDir, phantomOnly) {
     jsonReporter: jsonReporter,
     singleRun: true,
     browsers: null,
-    frameworks: ['jasmine-ajax', 'jasmine', 'sinon', 'chai-spies', 'chai'],
+    frameworks: ['mocha', 'sinon', 'chai-spies', 'chai'],
     autoWatch: false,
     reporters: ['coverage', 'html', 'json', 'mocha']
   }

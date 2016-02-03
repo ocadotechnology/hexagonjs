@@ -35,7 +35,7 @@ describe 'hx-dropdown', ->
       .style('margin', '-50px -25px 0 0')
       .text('button')
 
-  beforeAll ->
+  before ->
 
     hx._.dropdown.attachToSelector = '#dropdown-fixture'
 
@@ -65,7 +65,7 @@ describe 'hx-dropdown', ->
     baseTime = new Date(2013, 0, 1)
     jasmine.clock().mockDate(baseTime)
 
-  afterAll ->
+  after ->
     fixture.remove()
     hx.loop = savedHxLoop
     jasmine.clock().uninstall()

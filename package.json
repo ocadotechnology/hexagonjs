@@ -15,8 +15,8 @@
     "url": "https://github.com/ocadotechnology/hexagonjs/issues"
   },
   "homepage": "https://hexagonjs.io",
-  "engines" : {
-    "node" : ">=0.12 <=4.2"
+  "engines": {
+    "node": ">=0.12 <=4.2"
   },
   "main": "index.js",
   "scripts": {
@@ -61,8 +61,8 @@
     "karma-html-reporter": "^0.2.7",
     "karma-ie-launcher": "^0.2.0",
     "karma-jasmine": "^0.3.6",
-    "karma-jasmine-ajax": "^0.1.13",
     "karma-json-reporter": "^1.2.0",
+    "karma-mocha": "^0.2.1",
     "karma-mocha-reporter": "^1.1.1",
     "karma-opera-launcher": "^0.3.0",
     "karma-phantomjs-launcher": "^0.2.1",
