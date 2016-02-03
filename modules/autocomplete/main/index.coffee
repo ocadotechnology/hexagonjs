@@ -139,7 +139,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
     if items.length > 0
       _.menu.items(items)
       if _.menu.dropdown.isOpen()
-        _.menu.dropdown.dropdownContent _.menu.dropdown.dropdown.node()
+        _.menu.dropdown._.dropdownContent _.menu.dropdown._.dropdown.node()
       else
         _.menu.dropdown.show()
     else # Hide the dropdown as there are no items
