@@ -1,32 +1,34 @@
-describe 'hx-request', ->
-  defaultCb = -> null
+describe 'Request API', ->
+  defaultCb = chai.spy()
+
+  xhr = undefined
+  requests = undefined
 
   beforeEach ->
-    jasmine.Ajax.install()
-
-    # this might not be an issue
-    #if navigator.userAgent.indexOf('Phantom') > -1
-    #  # Mock ajax request is broken by mimeType function so we kill it here
-    #  XMLHttpRequest.prototype.overrideMimeType = null
+    xhr = sinon.useFakeXMLHttpRequest()
+    requests = []
+    xhr.onCreate = (req) -> requests.push(req)
+    XMLHttpRequest.prototype.overrideMimeType = (mimeType) ->
+      this["Content-Type"] = mimeType
 
   afterEach ->
-    jasmine.Ajax.uninstall()
+    xhr.restore()
 
   describe 'hx.request', ->
     it 'should use GET by default as the request type when no data is provided', ->
       hx.request 'test.file', defaultCb
 
-      expect(jasmine.Ajax.requests.count()).toEqual(1)
-      expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+      requests.length.should.equal(1)
+      requests[0].url.should.equal('test.file')
+      requests[0].method.should.equal('GET')
 
     it 'should use POST by default as the request type when data is provided', ->
       hx.request 'test.file', {some: 'data'}, defaultCb
 
-      expect(jasmine.Ajax.requests.count()).toEqual(1)
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-      expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify {some: 'data'})
+      requests.length.should.equal(1)
+      requests[0].method.should.equal('POST')
+      requests[0].url.should.equal('test.file')
+      requests[0].requestBody.should.equal(JSON.stringify {some: 'data'})
 
     it 'should correctly set the requestType', ->
       options =
@@ -34,9 +36,9 @@ describe 'hx-request', ->
 
       hx.request 'test.file', defaultCb, options
 
-      expect(jasmine.Ajax.requests.count()).toEqual(1)
-      expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('PUT')
+      requests.length.should.equal(1)
+      requests[0].url.should.equal('test.file')
+      requests[0].method.should.equal('PUT')
 
     it 'should correctly set the content type', ->
       options =
@@ -44,9 +46,9 @@ describe 'hx-request', ->
 
       hx.request 'test.file', defaultCb, options
 
-      expect(jasmine.Ajax.requests.count()).toEqual(1)
-      expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-      expect(jasmine.Ajax.requests.at(0).requestHeaders['Content-Type']).toEqual('some/type')
+      requests.length.should.equal(1)
+      requests[0].url.should.equal('test.file')
+      requests[0].requestHeaders['Content-Type'].should.equal('some/type')
 
     it 'should correctly set the response type', ->
       options =
@@ -54,9 +56,9 @@ describe 'hx-request', ->
 
       hx.request 'test.file', defaultCb, options
 
-      expect(jasmine.Ajax.requests.count()).toEqual(1)
-      expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-      expect(jasmine.Ajax.requests.at(0).responseType).toEqual('some/type')
+      requests.length.should.equal(1)
+      requests[0].url.should.equal('test.file')
+      requests[0].responseType.should.equal('some/type')
 
     it 'should allow headers to be explicitly set', ->
       options =
@@ -67,10 +69,10 @@ describe 'hx-request', ->
 
       hx.request 'test.file', defaultCb, options
 
-      expect(jasmine.Ajax.requests.count()).toEqual(1)
-      expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-      expect(jasmine.Ajax.requests.at(0).requestHeaders['Content-Type']).toEqual('something')
-      expect(jasmine.Ajax.requests.at(0).requestHeaders['accept']).toEqual('everything')
+      requests.length.should.equal(1)
+      requests[0].url.should.equal('test.file')
+      requests[0].requestHeaders['Content-Type'].should.equal('something')
+      requests[0].requestHeaders['accept'].should.equal('everything')
 
     it 'should allow custom headers to be set', ->
       options =
@@ -79,144 +81,125 @@ describe 'hx-request', ->
 
       hx.request 'test.file', defaultCb, options
 
-      expect(jasmine.Ajax.requests.count()).toEqual(1)
-      expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-      expect(jasmine.Ajax.requests.at(0).requestHeaders['custom']).toEqual('some custom thing')
+      requests.length.should.equal(1)
+      requests[0].url.should.equal('test.file')
+      requests[0].requestHeaders['custom'].should.equal('some custom thing')
 
     it 'should thrown an error when an incorrect url is passed in', ->
-      spyOn(console, 'error')
+      origError = console.error
+      console.error = chai.spy()
 
       hx.request defaultCb
-      expect(console.error).toHaveBeenCalledWith('Incorrect URL passed into hx.request: ', defaultCb)
+      console.error.should.have.been.called.with('Incorrect URL passed into hx.request: ', defaultCb)
 
       arr = []
       hx.request arr
-      expect(console.error).toHaveBeenCalledWith('Incorrect URL passed into hx.request: ', arr)
+      console.error.should.have.been.called.with('Incorrect URL passed into hx.request: ', arr)
 
     it 'should pass the correct data to the callback', ->
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toBeDefined()
-        expect(result.responseText).toEqual('Some text')
+        should.not.exist(error)
+        should.exist(result)
+        result.responseText.should.equal('Some text')
 
       hx.request 'test.file', cb
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-        responseText: 'Some text'
-      })
+      requests[0].respond(200, undefined, 'Some text')
 
     it 'should return the correct source when data is not provided', ->
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toBeDefined()
-        expect(source).toEqual('test.file')
+        should.not.exist(error)
+        should.exist(result)
+        source.should.equal('test.file')
 
       hx.request 'test.file', cb
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-      })
+      requests[0].respond(200)
 
     it 'should return the correct source when data is provided', ->
       data = {some: 'data'}
 
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toBeDefined()
-        expect(source).toEqual({url: 'test.file', data: data})
+        should.not.exist(error)
+        should.exist(result)
+        source.should.eql({url: 'test.file', data: data})
 
       hx.request 'test.file', data, cb
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-      })
-
-    it 'should deal with a response having content but no status', ->
-      cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toBeDefined()
-        expect(result.status).not.toBeDefined()
-        expect(result.responseText).toEqual('Some text')
-
-      hx.request 'test.file', cb
-
-      jasmine.Ajax.requests.at(0).respondWith({
-        responseText: 'Some text'
-      })
+      requests[0].respond(200)
 
     it 'should deal with status 304 (cached response)', ->
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toBeDefined()
-        expect(result.responseText).toEqual('Some text')
+        should.not.exist(error)
+        should.exist(result)
+        result.responseText.should.equal('Some text')
 
       hx.request 'test.file', cb
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 304
-        responseText: 'Some text'
-      })
+      requests[0].respond(304, undefined, 'Some text')
 
     it 'should return an error when an error status is returned', ->
       cb = (error, result, source, index) ->
-        expect(error).toBeDefined()
-        expect(result).not.toBeDefined()
-        expect(error.status).toEqual(404)
+        should.exist(error)
+        should.not.exist(result)
+        error.status.should.equal(404)
 
       hx.request 'test.file', cb
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 404
-      })
+      requests[0].respond(404)
+
+    # Is this a valid test?
+    # it 'should deal with a response having content but no status', (done) ->
+    #   cb = (error, result, source, index) ->
+    #     should.not.exist(error)
+    #     should.exist(result)
+    #     should.not.exist(result.status)
+    #     result.responseText.should.equal('Some text')
+    #     done()
+
+    #   hx.request 'test.file', cb
+    #   requests[0].respond(undefined, undefined, 'Some text')
+
 
     it 'should format the response data correctly when one is passed in', ->
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toBeDefined()
-        expect(result).toEqual({some: 'data'})
+        should.not.exist(error)
+        should.exist(result)
+        result.should.eql({some: 'data'})
 
       opts =
         formatter: (r) -> JSON.parse r.responseText
 
       hx.request 'test.file', cb, opts
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-        responseText: '{"some":"data"}'
-      })
+      requests[0].respond(200, undefined, '{"some":"data"}')
+
 
     it 'should return an error when there is an error with the formatter', ->
       cb = (error, result, source, index) ->
-        expect(error.message).toBeDefined()
-        expect(result).not.toBeDefined()
-        expect(source).toEqual('test.file')
+        should.exist(error.message)
+        should.not.exist(result)
+        source.should.equal('test.file')
 
       opts =
         formatter: (r) -> JSON.parse(r.responseText)
 
       hx.request 'test.file', cb, opts
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-        responseText: '[bob, steve, kate]'
-      })
+      requests[0].respond(200, undefined, '[bob, steve, kate]')
+
 
     it 'should check the response if a response type is defined', ->
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toBeDefined()
-        expect(result.status).not.toBeDefined()
-        expect(result.response).toEqual('01010011 01101111 01101101 01100101 00100000 01110100 01100101 01111000 01110100')
-        expect(jasmine.Ajax.requests.at(0).responseType).toEqual('binary')
+        should.not.exist(error)
+        should.exist(result)
+        requests[0].responseType.should.equal("arraybuffer")
+        requests[0].response.should.be.instanceOf(ArrayBuffer)
 
       opts =
-        responseType: 'binary'
+        responseType: "arraybuffer"
 
       hx.request 'test.file', cb, opts
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        response: '01010011 01101111 01101101 01100101 00100000 01110100 01100101 01111000 01110100'
-        responseType: 'binary'
-      })
+      requests[0].respond(200, {"Content-Type": "application/octet-stream"}, '01010011 01101111 01101101 01100101 00100000 01110100 01100101 01111000 01110100')
 
 
     describe 'with url as an object', ->
@@ -226,9 +209,9 @@ describe 'hx-request', ->
           url: 'test.file'
         hx.request url, defaultCb
 
-        expect(jasmine.Ajax.requests.count()).toEqual(1)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+        requests.length.should.equal(1)
+        requests[0].url.should.equal('test.file')
+        requests[0].method.should.equal('GET')
 
       it 'should handle sending a request with data in the arguments', ->
         url =
@@ -237,10 +220,10 @@ describe 'hx-request', ->
         data = {some: 'data'}
         hx.request url, data, defaultCb
 
-        expect(jasmine.Ajax.requests.count()).toEqual(1)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-        expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+        requests.length.should.equal(1)
+        requests[0].url.should.equal('test.file')
+        requests[0].method.should.equal('POST')
+        requests[0].requestBody.should.equal(JSON.stringify data)
 
       it 'should handle sending a request with data in the object', ->
         data = {some: 'data'}
@@ -249,10 +232,10 @@ describe 'hx-request', ->
           data: data
         hx.request url, defaultCb
 
-        expect(jasmine.Ajax.requests.count()).toEqual(1)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-        expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+        requests.length.should.equal(1)
+        requests[0].url.should.equal('test.file')
+        requests[0].method.should.equal('POST')
+        requests[0].requestBody.should.equal(JSON.stringify data)
 
       it 'should send the object data instead of the provided data', ->
         data = {some: 'data'}
@@ -262,31 +245,31 @@ describe 'hx-request', ->
           data: objectData
         hx.request url, data, defaultCb
 
-        expect(jasmine.Ajax.requests.count()).toEqual(1)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-        expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify objectData)
+        requests.length.should.equal(1)
+        requests[0].url.should.equal('test.file')
+        requests[0].method.should.equal('POST')
+        requests[0].requestBody.should.equal(JSON.stringify objectData)
 
       it 'should return the correct source in the response', ->
         cb1 = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toBeDefined()
-          expect(source).toEqual('test.file')
+          should.not.exist(error)
+          should.exist(result)
+          source.should.equal('test.file')
 
         cb2 = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toBeDefined()
-          expect(source).toEqual({url: 'test.file', data: data})
+          should.not.exist(error)
+          should.exist(result)
+          source.should.eql({url: 'test.file', data: data})
 
         cb3 = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toBeDefined()
-          expect(source).toEqual({url: 'test.file', data: objData})
+          should.not.exist(error)
+          should.exist(result)
+          source.should.eql({url: 'test.file', data: objData})
 
         cb4 = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toBeDefined()
-          expect(source).toEqual({url: 'test.file', data: objData})
+          should.not.exist(error)
+          should.exist(result)
+          source.should.eql({url: 'test.file', data: objData})
 
         data = {some: 'data'}
         objData = {some: 'other data'}
@@ -295,29 +278,21 @@ describe 'hx-request', ->
           url: 'test.file'
         hx.request url, cb1
 
-        jasmine.Ajax.requests.at(0).respondWith({
-          status: 200
-        })
+        requests[0].respond(200)
 
         hx.request url, data, cb2
 
-        jasmine.Ajax.requests.at(1).respondWith({
-          status: 200
-        })
+        requests[1].respond(200)
 
         url.data = objData
 
         hx.request url, cb3
 
-        jasmine.Ajax.requests.at(2).respondWith({
-          status: 200
-        })
+        requests[2].respond(200)
 
         hx.request url, data, cb4
 
-        jasmine.Ajax.requests.at(3).respondWith({
-          status: 200
-        })
+        requests[3].respond(200)
 
 
     describe 'with url as an array', ->
@@ -326,29 +301,29 @@ describe 'hx-request', ->
         url = ['test.file']
 
         hx.request url, defaultCb
-        expect(jasmine.Ajax.requests.count()).toEqual(1)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+        requests.length.should.equal(1)
+        requests[0].url.should.equal('test.file')
+        requests[0].method.should.equal('GET')
 
       it 'should handle sending a single request with data', ->
         url = ['test.file']
         data = {some: 'data'}
 
         hx.request url, data, defaultCb
-        expect(jasmine.Ajax.requests.count()).toEqual(1)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-        expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+        requests.length.should.equal(1)
+        requests[0].url.should.equal('test.file')
+        requests[0].method.should.equal('POST')
+        requests[0].requestBody.should.equal(JSON.stringify data)
 
       it 'should handle sending multiple requests without data', ->
         url = ['test1.file', 'test2.file']
 
         hx.request url, defaultCb
-        expect(jasmine.Ajax.requests.count()).toEqual(2)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test1.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-        expect(jasmine.Ajax.requests.at(1).url).toEqual('test2.file')
-        expect(jasmine.Ajax.requests.at(1).method).toEqual('GET')
+        requests.length.should.equal(2)
+        requests[0].url.should.equal('test1.file')
+        requests[0].method.should.equal('GET')
+        requests[1].url.should.equal('test2.file')
+        requests[1].method.should.equal('GET')
 
       it 'should handle sending multiple requests with data', ->
         url = ['test1.file', 'test2.file']
@@ -356,14 +331,14 @@ describe 'hx-request', ->
 
         hx.request url, data, defaultCb
 
-        expect(jasmine.Ajax.requests.count()).toEqual(2)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test1.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-        expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+        requests.length.should.equal(2)
+        requests[0].url.should.equal('test1.file')
+        requests[0].method.should.equal('POST')
+        requests[0].requestBody.should.equal(JSON.stringify data)
 
-        expect(jasmine.Ajax.requests.at(1).url).toEqual('test2.file')
-        expect(jasmine.Ajax.requests.at(1).method).toEqual('POST')
-        expect(jasmine.Ajax.requests.at(1).params).toEqual(JSON.stringify data)
+        requests[1].url.should.equal('test2.file')
+        requests[1].method.should.equal('POST')
+        requests[1].requestBody.should.equal(JSON.stringify data)
 
       it 'should handle sending multiple requests of different types', ->
         data = {some: 'data'}
@@ -371,35 +346,35 @@ describe 'hx-request', ->
 
         hx.request url, defaultCb
 
-        expect(jasmine.Ajax.requests.count()).toEqual(3)
-        expect(jasmine.Ajax.requests.at(0).url).toEqual('test1.file')
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-        expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+        requests.length.should.equal(3)
+        requests[0].url.should.equal('test1.file')
+        requests[0].method.should.equal('GET')
+        should.not.exist(requests[0].requestBody)
 
-        expect(jasmine.Ajax.requests.at(1).url).toEqual('test2.file')
-        expect(jasmine.Ajax.requests.at(1).method).toEqual('GET')
-        expect(jasmine.Ajax.requests.at(1).params).toEqual(null)
+        requests[1].url.should.equal('test2.file')
+        requests[1].method.should.equal('GET')
+        should.not.exist(requests[1].requestBody)
 
-        expect(jasmine.Ajax.requests.at(2).url).toEqual('test3.file')
-        expect(jasmine.Ajax.requests.at(2).method).toEqual('POST')
-        expect(jasmine.Ajax.requests.at(2).params).toEqual(JSON.stringify data)
+        requests[2].url.should.equal('test3.file')
+        requests[2].method.should.equal('POST')
+        requests[2].requestBody.should.equal(JSON.stringify data)
 
       it 'should return the correct source in all the responses', ->
         cb1 = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toBeDefined()
+          should.not.exist(error)
+          should.exist(result)
           switch index
-            when 0 then expect(source).toEqual('test1.file')
-            when 1 then expect(source).toEqual('test2.file')
-            else expect(source).toEqual(['test1.file', 'test2.file'])
+            when 0 then source.should.equal('test1.file')
+            when 1 then source.should.equal('test2.file')
+            else source.should.eql(['test1.file', 'test2.file'])
 
         cb2 = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toBeDefined()
+          should.not.exist(error)
+          should.exist(result)
           switch index
-            when 0 then expect(source).toEqual({url: 'test1.file', data: data})
-            when 1 then expect(source).toEqual({url: 'test2.file', data: data})
-            else expect(source).toEqual([{url: 'test1.file', data: data}, {url: 'test2.file', data: data}])
+            when 0 then source.should.eql({url: 'test1.file', data: data})
+            when 1 then source.should.eql({url: 'test2.file', data: data})
+            else source.should.eql([{url: 'test1.file', data: data}, {url: 'test2.file', data: data}])
 
         url = [
           'test1.file'
@@ -407,32 +382,24 @@ describe 'hx-request', ->
         ]
 
         hx.request url, cb1
-        jasmine.Ajax.requests.at(0).respondWith({
-          status: 200
-        })
-        jasmine.Ajax.requests.at(1).respondWith({
-          status: 200
-        })
+        requests[0].respond(200)
+        requests[1].respond(200)
 
         data = {some: 'data'}
 
         hx.request url, data, cb2
-        jasmine.Ajax.requests.at(2).respondWith({
-          status: 200
-        })
-        jasmine.Ajax.requests.at(3).respondWith({
-          status: 200
-        })
+        requests[2].respond(200)
+        requests[3].respond(200)
 
       it 'should call set the index based on the order the urls were called, not the order they return', ->
         cb = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toBeDefined()
+          should.not.exist(error)
+          should.exist(result)
           if index isnt -1
             responses[index] = true
-            expect(source).toEqual(urls[index])
+            source.should.equal(urls[index])
           else
-            expect(source).toEqual(urls)
+            source.should.eql(urls)
 
         responses = {}
 
@@ -443,15 +410,11 @@ describe 'hx-request', ->
 
         hx.request urls, cb
 
-        jasmine.Ajax.requests.at(1).respondWith({
-          status: 200
-        })
-        expect(responses[1]).toEqual(true)
+        requests[1].respond(200)
+        responses[1].should.equal(true)
 
-        jasmine.Ajax.requests.at(0).respondWith({
-          status: 200
-        })
-        expect(responses[0]).toEqual(true)
+        requests[0].respond(200)
+        responses[0].should.equal(true)
 
 
       describe 'of objects', ->
@@ -460,55 +423,55 @@ describe 'hx-request', ->
           url = [{url: 'test.file'}]
 
           hx.request url, defaultCb
-          expect(jasmine.Ajax.requests.count()).toEqual(1)
-          expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-          expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+          requests.length.should.equal(1)
+          requests[0].url.should.equal('test.file')
+          requests[0].method.should.equal('GET')
 
         it 'should handle sending a single request with data', ->
           url = [{url: 'test.file'}]
           data = {some: 'data'}
 
           hx.request url, data, defaultCb
-          expect(jasmine.Ajax.requests.count()).toEqual(1)
-          expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-          expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-          expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+          requests.length.should.equal(1)
+          requests[0].url.should.equal('test.file')
+          requests[0].method.should.equal('POST')
+          requests[0].requestBody.should.equal(JSON.stringify data)
 
         it 'should handle sending a single request with data in the object', ->
           data = {some: 'data'}
           url = [{url: 'test.file', data: data}]
 
           hx.request url, data, defaultCb
-          expect(jasmine.Ajax.requests.count()).toEqual(1)
-          expect(jasmine.Ajax.requests.at(0).url).toEqual('test.file')
-          expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-          expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+          requests.length.should.equal(1)
+          requests[0].url.should.equal('test.file')
+          requests[0].method.should.equal('POST')
+          requests[0].requestBody.should.equal(JSON.stringify data)
 
         it 'should handle sending multiple requests without data', ->
           url = [{url: 'test1.file'}, {url: 'test2.file'}]
 
           hx.request url, defaultCb
 
-          expect(jasmine.Ajax.requests.count()).toEqual(2)
-          expect(jasmine.Ajax.requests.at(0).url).toEqual('test1.file')
-          expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+          requests.length.should.equal(2)
+          requests[0].url.should.equal('test1.file')
+          requests[0].method.should.equal('GET')
 
-          expect(jasmine.Ajax.requests.at(1).url).toEqual('test2.file')
-          expect(jasmine.Ajax.requests.at(1).method).toEqual('GET')
+          requests[1].url.should.equal('test2.file')
+          requests[1].method.should.equal('GET')
 
         it 'should handle sending multiple requests with data', ->
           url = [{url: 'test1.file'}, {url: 'test2.file'}]
           data = {some: 'data'}
           hx.request url, data, defaultCb
 
-          expect(jasmine.Ajax.requests.count()).toEqual(2)
-          expect(jasmine.Ajax.requests.at(0).url).toEqual('test1.file')
-          expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-          expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+          requests.length.should.equal(2)
+          requests[0].url.should.equal('test1.file')
+          requests[0].method.should.equal('POST')
+          requests[0].requestBody.should.equal(JSON.stringify data)
 
-          expect(jasmine.Ajax.requests.at(1).url).toEqual('test2.file')
-          expect(jasmine.Ajax.requests.at(1).method).toEqual('POST')
-          expect(jasmine.Ajax.requests.at(1).params).toEqual(JSON.stringify data)
+          requests[1].url.should.equal('test2.file')
+          requests[1].method.should.equal('POST')
+          requests[1].requestBody.should.equal(JSON.stringify data)
 
         it 'should handle sending multiple requests with data in one of the objects', ->
           data = {some: 'data'}
@@ -516,14 +479,14 @@ describe 'hx-request', ->
 
           hx.request url, defaultCb
 
-          expect(jasmine.Ajax.requests.count()).toEqual(2)
-          expect(jasmine.Ajax.requests.at(0).url).toEqual('test1.file')
-          expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-          expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+          requests.length.should.equal(2)
+          requests[0].url.should.equal('test1.file')
+          requests[0].method.should.equal('GET')
+          should.not.exist(requests[0].requestBody)
 
-          expect(jasmine.Ajax.requests.at(1).url).toEqual('test2.file')
-          expect(jasmine.Ajax.requests.at(1).method).toEqual('POST')
-          expect(jasmine.Ajax.requests.at(1).params).toEqual(JSON.stringify data)
+          requests[1].url.should.equal('test2.file')
+          requests[1].method.should.equal('POST')
+          requests[1].requestBody.should.equal(JSON.stringify data)
 
         it 'should handle sending multiple requests with data and data in one of the objects', ->
           data = {some: 'data'}
@@ -532,31 +495,31 @@ describe 'hx-request', ->
 
           hx.request url, data, defaultCb
 
-          expect(jasmine.Ajax.requests.count()).toEqual(2)
-          expect(jasmine.Ajax.requests.at(0).url).toEqual('test1.file')
-          expect(jasmine.Ajax.requests.at(0).method).toEqual('POST')
-          expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+          requests.length.should.equal(2)
+          requests[0].url.should.equal('test1.file')
+          requests[0].method.should.equal('POST')
+          requests[0].requestBody.should.equal(JSON.stringify data)
 
-          expect(jasmine.Ajax.requests.at(1).url).toEqual('test2.file')
-          expect(jasmine.Ajax.requests.at(1).method).toEqual('POST')
-          expect(jasmine.Ajax.requests.at(1).params).toEqual(JSON.stringify objectData)
+          requests[1].url.should.equal('test2.file')
+          requests[1].method.should.equal('POST')
+          requests[1].requestBody.should.equal(JSON.stringify objectData)
 
         it 'should return the correct source in all the responses', ->
           cb1 = (error, result, source, index) ->
-            expect(error).not.toBeDefined()
-            expect(result).toBeDefined()
+            should.not.exist(error)
+            should.exist(result)
             switch index
-              when 0 then expect(source).toEqual('test1.file')
-              when 1 then expect(source).toEqual({url: 'test2.file', data: objData})
-              else expect(source).toEqual(['test1.file', {url: 'test2.file', data: objData}])
+              when 0 then source.should.equal('test1.file')
+              when 1 then source.should.eql({url: 'test2.file', data: objData})
+              else source.should.eql(['test1.file', {url: 'test2.file', data: objData}])
 
           cb2 = (error, result, source, index) ->
-            expect(error).not.toBeDefined()
-            expect(result).toBeDefined()
+            should.not.exist(error)
+            should.exist(result)
             switch index
-              when 0 then expect(source).toEqual({url: 'test1.file', data: data})
-              when 1 then expect(source).toEqual({url: 'test2.file', data: objData})
-              else expect(source).toEqual([{url: 'test1.file', data: data}, {url: 'test2.file', data: objData}])
+              when 0 then source.should.eql({url: 'test1.file', data: data})
+              when 1 then source.should.eql({url: 'test2.file', data: objData})
+              else source.should.eql([{url: 'test1.file', data: data}, {url: 'test2.file', data: objData}])
 
           objData = {some: 'other data'}
 
@@ -571,162 +534,162 @@ describe 'hx-request', ->
           ]
 
           hx.request url, cb1
-          jasmine.Ajax.requests.at(0).respondWith({
-            status: 200
-          })
-          jasmine.Ajax.requests.at(1).respondWith({
-            status: 200
-          })
+          requests[0].respond(200)
+          requests[1].respond(200)
 
           data = {some: 'data'}
 
           hx.request url, data, cb2
-          jasmine.Ajax.requests.at(2).respondWith({
-            status: 200
-          })
-          jasmine.Ajax.requests.at(3).respondWith({
-            status: 200
-          })
+          requests[2].respond(200)
+          requests[3].respond(200)
 
 
   describe 'hx.html', ->
     it 'should correctly set the mimeType to text/html', ->
       hx.html 'test.html', defaultCb
 
-      expect(jasmine.Ajax.requests.at(0).overriddenMimeType).toEqual('text/html')
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+      requests[0].requestHeaders["Content-Type"].should.equal('text/html')
+      requests[0].method.should.equal('GET')
+      should.not.exist(requests[0].requestBody)
 
     it 'should format and return the correct data', ->
       test = '<div class="parent"><span class="child">bob</span></div>'
 
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result.toString()).toEqual('[object DocumentFragment]')
-        expect(result.childNodes.length).toEqual(1)
-        expect(result.childNodes[0].className).toEqual('parent')
-        expect(result.childNodes[0].childNodes[0].className).toEqual('child')
+        should.not.exist(error)
+        result.toString().should.equal('[object DocumentFragment]')
+        result.childNodes.length.should.equal(1)
+        result.childNodes[0].className.should.equal('parent')
+        result.childNodes[0].childNodes[0].className.should.equal('child')
 
       hx.html 'test.html', cb
 
-      expect(jasmine.Ajax.requests.at(0).overriddenMimeType).toEqual('text/html')
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+      requests[0].requestHeaders["Content-Type"].should.equal('text/html')
+      requests[0].method.should.equal('GET')
+      should.not.exist(requests[0].requestBody)
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-        responseText: test
-      })
+      requests[0].respond(200, undefined, test)
+
 
     it 'should pass the data through', ->
       data = {some: 'data'}
       hx.html 'test.html', data, defaultCb
 
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+      requests[0].requestBody.should.equal(JSON.stringify data)
 
   describe 'hx.text', ->
     it 'should correctly  set the mimeType to text/plain', ->
       hx.text 'test.txt', defaultCb
 
-      expect(jasmine.Ajax.requests.at(0).overriddenMimeType).toEqual('text/plain')
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+      requests[0].requestHeaders["Content-Type"].should.equal('text/plain')
+      requests[0].method.should.equal('GET')
+      should.not.exist(requests[0].requestBody)
 
     it 'should correctly format and return the correct data', (done) ->
       cb = (error, result) ->
-        expect(error).not.toBeDefined()
-        expect(result).toEqual('Test data')
+        should.not.exist(error)
+        result.should.equal('Test data')
         done()
 
       hx.text 'test.txt', cb
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-        responseText: 'Test data'
-      })
+      requests[0].respond(200, undefined, 'Test data')
+
 
     it 'should pass the data through', ->
       data = {some: 'data'}
       hx.text 'test.txt', data, defaultCb
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+      requests[0].requestBody.should.equal(JSON.stringify data)
 
   describe 'hx.reshapedRequest', ->
     describe 'should format and return the correct data', ->
       it 'for json', (done) ->
         cb = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toEqual({some: "data"})
+          should.not.exist(error)
+          result.should.eql({some: "data"})
           done()
 
         hx.reshapedRequest 'test.json', cb
 
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
+        requests[0].method.should.equal('GET')
+        requests[0].respond(200, {"Content-Type": "application/json"}, '{"some": "data"}')
 
-        jasmine.Ajax.requests.at(0).respondWith
-          status: 200
-          responseText: '{"some": "data"}'
       it 'even when there is a charset', (done) ->
         cb = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result).toEqual({some: "data"})
+          should.not.exist(error)
+          result.should.eql({some: "data"})
           done()
 
         hx.reshapedRequest 'test.json', cb
 
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-        jasmine.Ajax.requests.at(0).respondWith
-          status: 200
-          responseText: '{"some": "data"}'
-          contentType: 'application/json;charset=UTF-8'
+        requests[0].method.should.equal('GET')
+        requests[0].respond(200, {"Content-Type": 'application/json;charset=UTF-8'}, '{"some": "data"}')
 
       it 'for html', (done) ->
         cb = (error, result, source, index) ->
-          expect(error).not.toBeDefined()
-          expect(result.toString()).toEqual('[object DocumentFragment]')
-          expect(result.childNodes.length).toEqual(1)
-          expect(result.childNodes[0].className).toEqual('parent')
-          expect(result.childNodes[0].childNodes[0].className).toEqual('child')
+          should.not.exist(error)
+          result.toString().should.equal('[object DocumentFragment]')
+          result.childNodes.length.should.equal(1)
+          result.childNodes[0].className.should.equal('parent')
+          result.childNodes[0].childNodes[0].className.should.equal('child')
           done()
 
         hx.reshapedRequest 'test.html', cb
 
-        expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-        jasmine.Ajax.requests.at(0).respondWith
-          status: 200
-          contentType: 'text/html'
-          responseText: '<div class="parent"><span class="child">bob</span></div>'
+        requests[0].method.should.equal('GET')
+        requests[0].respond(200, {"Content-Type": 'text/html'}, '<div class="parent"><span class="child">bob</span></div>')
 
     it 'should pass the data through', ->
       data = {some: 'data'}
       hx.json 'test.json', data, defaultCb
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
-        
+      requests[0].requestBody.should.equal(JSON.stringify data)
+
+    it 'should log a warning when the content type defined is not text, json or plain', (done) ->
+      origConsoleWarning = hx.consoleWarning
+      hx.consoleWarning = chai.spy()
+      cb = (error, result, source) ->
+        should.not.exist(error)
+        should.exist(result)
+        hx.consoleWarning.should.have.been.called.with("Unknown parser for mime type application/octet-stream, carrying on anyway")
+        done()
+
+      hx.reshapedRequest 'test.bin', cb
+      requests[0].method.should.equal('GET')
+      requests[0].respond(200, {"Content-Type": 'application/octet-stream'}, '1011010010011101010010')
+
   describe 'hx.json', ->
     it 'should correctly set the mimeType to application/json', ->
       hx.json 'test.json', defaultCb
 
-      expect(jasmine.Ajax.requests.at(0).overriddenMimeType).toEqual('application/json')
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+      requests[0].requestHeaders["Content-Type"].should.equal('application/json')
+      requests[0].method.should.equal('GET')
+      should.not.exist(requests[0].requestBody)
 
-    it 'should format and return the correct data', ->
+    it 'should format and return the correct data', (done) ->
       cb = (error, result, source, index) ->
-        expect(error).not.toBeDefined()
-        expect(result).toEqual({some: "data"})
+        should.not.exist(error)
+        result.should.eql({some: "data"})
+        done()
 
       hx.json 'test.json', cb
 
-      expect(jasmine.Ajax.requests.at(0).overriddenMimeType).toEqual('application/json')
-      expect(jasmine.Ajax.requests.at(0).method).toEqual('GET')
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(null)
+      requests[0].requestHeaders["Content-Type"].should.equal('application/json')
+      requests[0].method.should.equal('GET')
+      should.not.exist(requests[0].requestBody)
+      requests[0].respond(200, undefined, '{"some": "data"}')
 
-      jasmine.Ajax.requests.at(0).respondWith({
-        status: 200
-        responseText: '{"some": "data"}'
-      })
 
     it 'should pass the data through', ->
       data = {some: 'data'}
       hx.json 'test.json', data, defaultCb
 
-      expect(jasmine.Ajax.requests.at(0).params).toEqual(JSON.stringify data)
+      requests[0].requestBody.should.equal(JSON.stringify data)
+
+    it 'should handle undefined as the response', (done) ->
+      cb = (error, result, source) ->
+        should.not.exist(error)
+        should.not.exist(result)
+        done()
+
+      hx.json 'test.json', cb
+      requests[0].respond(200, undefined, undefined)

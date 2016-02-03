@@ -1,13 +1,9 @@
-hasResponse = (request) ->
-  responseType = request.responseType
-  if responseType and responseType isnt 'text' then request.response else request.responseText
-
 respondToRequest = (request, url, data, callback, options, index) ->
   status = request.status
 
   source = if data? then {url:url, data:data} else url
 
-  if not status and hasResponse(request) or status >= 200 and status < 300 or status is 304
+  if status >= 200 and status < 300 or status is 304
     try
       result = options.formatter request
     catch e
@@ -25,7 +21,7 @@ sendRequest = (request, url, data, options) ->
     request.setRequestHeader header, value
 
   if options.responseType then request.responseType = options.responseType
-  request.overrideMimeType options.contentType
+  if options.contentType then request.overrideMimeType options.contentType
 
   sendData = if data? and typeof data isnt 'string' then JSON.stringify(data) else data
 
@@ -48,19 +44,10 @@ performRequest = (url, data = null, callback, options = {}, index) ->
 
   request = new XMLHttpRequest()
 
-  ### istanbul ignore next: ie 8.0 - 9.x use xDomainRequest, no other browser uses it ###
-  if 'withCredentials' not of request and typeof XDomainRequest isnt undefined and /^(http(s)?:)?\/\//.test(url)
-    request = new XDomainRequest()
-
   respond = ->
     respondToRequest(request, url, data, callback, options, index)
 
-  ### istanbul ignore next: onload/onerror are part of XMLHttpRequest 2 spec so this is here for older browser support ###
-  if 'onload' of request then request.onload = request.onerror = respond
-  else request.onreadystatechange = ->
-    request.readyState > 3 and respond()
-    return
-
+  request.onload = request.onerror = respond
   sendRequest(request, url, data, options)
 
 
@@ -118,28 +105,28 @@ parsers =
   'text/html': (text) -> hx.parseHTML text
   'text/plain': (text) -> text
 
-reshapedRequest = ([urls, data, callback, options], type) ->
+reshapedRequest = (type) ->
+  (urls, data, callback, options) ->
+    [data, callback, options] = [undefined, data, callback] if hx.isFunction data
 
-  [data, callback, options] = [undefined, data, callback] if hx.isFunction data
+    defaults = if type
+      contentType: type
+      formatter: (xhr) -> parsers[type](xhr.responseText)
+    else
+      formatter: (xhr) ->
+        [mimeType] = xhr.getResponseHeader 'content-type'
+          .split ';'
+        parser = parsers[mimeType]
+        if parser
+          parser xhr.responseText
+        else
+          hx.consoleWarning "Unknown parser for mime type #{mimeType}, carrying on anyway"
+          xhr
 
-  defaults = if type
-    contentType: type
-    formatter: (xhr) -> parsers[type](xhr.responseText)
-  else
-    formatter: (xhr) ->
-      [mimeType] = xhr.getResponseHeader 'content-type'
-        .split ';'
-      parser = parsers[mimeType]
-      if parser
-        parser xhr.responseText
-      else
-        hx.consoleWarning "Unknown parser for mime type #{mimeType}, carrying on anyway"
-        xhr
+    options = hx.merge defaults, options
+    hx.request urls, data, callback, options
 
-  options = hx.merge defaults, options
-  hx.request urls, data, callback, options
-
-hx.json = (args...) -> reshapedRequest args, 'application/json'
-hx.html = (args...) -> reshapedRequest args, 'text/html'
-hx.text = (args...) -> reshapedRequest args, 'text/plain'
-hx.reshapedRequest = (args...) -> reshapedRequest args
+hx.json = reshapedRequest('application/json')
+hx.html = reshapedRequest('text/html')
+hx.text = reshapedRequest('text/plain')
+hx.reshapedRequest = reshapedRequest()
