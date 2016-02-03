@@ -1172,7 +1172,7 @@ describe 'data-table', ->
           done()
 
       it 'should call filter when changing the filter input', (done) ->
-        jasmine.clock().install()
+        clock = sinon.useFakeTimers()
         container = hx.detached('div')
         dt = new hx.DataTable(container.node())
         filterSpy = chai.spy.on(dt, 'filter')
@@ -1183,10 +1183,10 @@ describe 'data-table', ->
           filterEvent = fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
-          jasmine.clock().tick(201)
+          clock.tick(201)
           filterSpy.should.have.been.called.with()
           filterSpy.should.have.been.called.with('a', undefined, 'user')
-          jasmine.clock().uninstall()
+          clock.uninstall()
           done()
 
 
