@@ -440,8 +440,8 @@ describe "Util", ->
     m = new hx.Map [["a", 5], [6, {}]]
 
     d = new Date
-    expect hx.shallowClone d
-      .toEqual d
+    hx.shallowClone(d).should.not.equal(d)
+    hx.shallowClone(d).should.eql(d)
 
     hx.shallowClone(l).entries().should.eql(l.entries())
     hx.shallowClone(s).entries().should.eql(s.entries())
@@ -452,8 +452,8 @@ describe "Util", ->
     hx.clone('string').should.equal('string')
 
     d = new Date
-    expect hx.clone d
-      .toEqual d
+    hx.clone(d).should.not.equal(d)
+    hx.clone(d).should.eql(d)
 
     f = ->
     hx.clone(f).should.eql(f)

@@ -1,6 +1,6 @@
 
 describe 'hx-titlebar', ->
-
+  origWarn = console.warn
   beforeEach ->
     fixture = hx.select('body').append('div').attr('id', 'fixture').html """
       <div class="hx-heading">
@@ -36,10 +36,10 @@ describe 'hx-titlebar', ->
 
     hx.select('#fixture').selectAll('span').style('display', 'block').style('display')
     hx.select('#fixture').select('span').style('display', 'inline-block').style('display')
-
-    spyOn(console, 'warn')
+    console.warn = chai.spy()
 
   afterEach ->
+    console.warn = origWarn
     hx.select('#fixture').remove()
 
 
