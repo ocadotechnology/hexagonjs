@@ -760,8 +760,7 @@ describe 'data-table', ->
         testTable {tableOptions: {selectEnabled: true, singleSelection: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0'], ->
             dt.selectedRows [], ->
-              expect dt.selectedRows()
-                .toEqual []
+              dt.selectedRows().should.eql([])
 
       it 'should select rows by id', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->

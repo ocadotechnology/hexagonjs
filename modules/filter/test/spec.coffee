@@ -26,41 +26,41 @@ describe 'hx-filter tests', ->
           options.caseSensitive = false
           options.sort = true
 
-        expect(callFilter('fuzzy', 'pete', options)).toEqual([])
-        expect(callFilter('fuzzy', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('fuzzy', 'dav', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('fuzzy', 've', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
-        expect(callFilter('fuzzy', 'ao', options)).toEqual(getResult([{name: 'Alejandro', age: '90' }]))
-        expect(callFilter('fuzzy', 'ae', options)).toEqual(getResult([{name: 'Alejandro', age: '90' }, {name: 'Dave', age: '12' }, {name: 'Kate', age: '56' }]))
-        expect(callFilter('fuzzy', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('fuzzy', 'pete', options).should.eql([])
+        callFilter('fuzzy', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('fuzzy', 'dav', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('fuzzy', 've', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
+        callFilter('fuzzy', 'ao', options).should.eql(getResult([{name: 'Alejandro', age: '90' }]))
+        callFilter('fuzzy', 'ae', options).should.eql(getResult([{name: 'Alejandro', age: '90' }, {name: 'Dave', age: '12' }, {name: 'Kate', age: '56' }]))
+        callFilter('fuzzy', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
         '.()-[]{}\\^|$?*+!'.split().forEach (char) ->
-          expect(callFilter('fuzzy', char, options)).toEqual(getResult([{name: '.()-[]{}\\^|$?*+!', age: '32' }]))
-        expect(callFilter('fuzzy', '.()-[]{}\\^|$?*+!', options)).toEqual(getResult([{name: '.()-[]{}\\^|$?*+!', age: '32' }]))
+          callFilter('fuzzy', char, options).should.eql(getResult([{name: '.()-[]{}\\^|$?*+!', age: '32' }]))
+        callFilter('fuzzy', '.()-[]{}\\^|$?*+!', options).should.eql(getResult([{name: '.()-[]{}\\^|$?*+!', age: '32' }]))
 
 
       it 'when using case sensitivity', ->
         options ?= {}
         options.caseSensitive = true
         options.sort = true
-        expect(callFilter('fuzzy', 'pete', options)).toEqual([])
-        expect(callFilter('fuzzy', 'dave', options)).toEqual([])
-        expect(callFilter('fuzzy', 'dav', options)).toEqual([])
-        expect(callFilter('fuzzy', 've', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
-        expect(callFilter('fuzzy', 'ao', options)).toEqual(getResult([{name: 'Alejandro', age: '90' }]))
-        expect(callFilter('fuzzy', 'ae', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Kate', age: '56' }]))
-        expect(callFilter('fuzzy', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('fuzzy', 'pete', options).should.eql([])
+        callFilter('fuzzy', 'dave', options).should.eql([])
+        callFilter('fuzzy', 'dav', options).should.eql([])
+        callFilter('fuzzy', 've', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
+        callFilter('fuzzy', 'ao', options).should.eql(getResult([{name: 'Alejandro', age: '90' }]))
+        callFilter('fuzzy', 'ae', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Kate', age: '56' }]))
+        callFilter('fuzzy', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
       it 'when not sorting', ->
         options ?= {}
         options.caseSensitive = false
         options.sort = false
-        expect(callFilter('fuzzy', 'pete', options)).toEqual([])
-        expect(callFilter('fuzzy', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('fuzzy', 'dav', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('fuzzy', 've', options)).toEqual(getResult([{name: 'Steve', age: '34' }, {name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
-        expect(callFilter('fuzzy', 'ao', options)).toEqual(getResult([{name: 'Alejandro', age: '90' }]))
-        expect(callFilter('fuzzy', 'ae', options)).toEqual(getResult([{name: 'Kate', age: '56' }, {name: 'Dave', age: '12' }, {name: 'Alejandro', age: '90' }]))
-        expect(callFilter('fuzzy', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('fuzzy', 'pete', options).should.eql([])
+        callFilter('fuzzy', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('fuzzy', 'dav', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('fuzzy', 've', options).should.eql(getResult([{name: 'Steve', age: '34' }, {name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('fuzzy', 'ao', options).should.eql(getResult([{name: 'Alejandro', age: '90' }]))
+        callFilter('fuzzy', 'ae', options).should.eql(getResult([{name: 'Kate', age: '56' }, {name: 'Dave', age: '12' }, {name: 'Alejandro', age: '90' }]))
+        callFilter('fuzzy', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
 
 
@@ -75,52 +75,52 @@ describe 'hx-filter tests', ->
           options.caseSensitive = false
           options.sort = true
 
-        expect(callFilter('exact', 'pete', options)).toEqual([])
+        callFilter('exact', 'pete', options).should.eql([])
         if type is 'str'
-          expect(callFilter('exact', 'dave', options)).toEqual([])
+          callFilter('exact', 'dave', options).should.eql([])
         else
-          expect(callFilter('exact', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('exact', 'dav', options)).toEqual([])
-        expect(callFilter('exact', 've', options)).toEqual([])
-        expect(callFilter('exact', 'ao', options)).toEqual([])
-        expect(callFilter('exact', 'ae', options)).toEqual([])
+          callFilter('exact', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('exact', 'dav', options).should.eql([])
+        callFilter('exact', 've', options).should.eql([])
+        callFilter('exact', 'ao', options).should.eql([])
+        callFilter('exact', 'ae', options).should.eql([])
         if type is 'str'
-          expect(callFilter('exact', '12', options)).toEqual([])
+          callFilter('exact', '12', options).should.eql([])
         else
-          expect(callFilter('exact', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+          callFilter('exact', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
       it 'when using case sensitivity', ->
         options ?= {}
         options.caseSensitive = true
         options.sort = true
-        expect(callFilter('exact', 'pete', options)).toEqual([])
-        expect(callFilter('exact', 'dave', options)).toEqual([])
-        expect(callFilter('exact', 'dav', options)).toEqual([])
-        expect(callFilter('exact', 've', options)).toEqual([])
-        expect(callFilter('exact', 'ao', options)).toEqual([])
-        expect(callFilter('exact', 'ae', options)).toEqual([])
+        callFilter('exact', 'pete', options).should.eql([])
+        callFilter('exact', 'dave', options).should.eql([])
+        callFilter('exact', 'dav', options).should.eql([])
+        callFilter('exact', 've', options).should.eql([])
+        callFilter('exact', 'ao', options).should.eql([])
+        callFilter('exact', 'ae', options).should.eql([])
         if type is 'str'
-          expect(callFilter('exact', '12', options)).toEqual([])
+          callFilter('exact', '12', options).should.eql([])
         else
-          expect(callFilter('exact', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+          callFilter('exact', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
       it 'when not sorting', ->
         options ?= {}
         options.caseSensitive = false
         options.sort = false
-        expect(callFilter('exact', 'pete', options)).toEqual([])
+        callFilter('exact', 'pete', options).should.eql([])
         if type is 'str'
-          expect(callFilter('exact', 'dave', options)).toEqual([])
+          callFilter('exact', 'dave', options).should.eql([])
         else
-          expect(callFilter('exact', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('exact', 'dav', options)).toEqual([])
-        expect(callFilter('exact', 've', options)).toEqual([])
-        expect(callFilter('exact', 'ao', options)).toEqual([])
-        expect(callFilter('exact', 'ae', options)).toEqual([])
+          callFilter('exact', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('exact', 'dav', options).should.eql([])
+        callFilter('exact', 've', options).should.eql([])
+        callFilter('exact', 'ao', options).should.eql([])
+        callFilter('exact', 'ae', options).should.eql([])
         if type is 'str'
-          expect(callFilter('exact', '12', options)).toEqual([])
+          callFilter('exact', '12', options).should.eql([])
         else
-          expect(callFilter('exact', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+          callFilter('exact', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
 
 
@@ -135,46 +135,46 @@ describe 'hx-filter tests', ->
           options.caseSensitive = false
           options.sort = true
 
-        expect(callFilter('startsWith', 'pete', options)).toEqual([])
-        expect(callFilter('startsWith', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('startsWith', 'dav', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('startsWith', 've', options)).toEqual([])
-        expect(callFilter('startsWith', 'ao', options)).toEqual([])
-        expect(callFilter('startsWith', 'ae', options)).toEqual([])
+        callFilter('startsWith', 'pete', options).should.eql([])
+        callFilter('startsWith', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('startsWith', 'dav', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('startsWith', 've', options).should.eql([])
+        callFilter('startsWith', 'ao', options).should.eql([])
+        callFilter('startsWith', 'ae', options).should.eql([])
         if type is 'str'
-          expect(callFilter('startsWith', '12', options)).toEqual([])
+          callFilter('startsWith', '12', options).should.eql([])
         else
-          expect(callFilter('startsWith', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+          callFilter('startsWith', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
       it 'when using case sensitivity', ->
         options ?= {}
         options.caseSensitive = true
         options.sort = true
-        expect(callFilter('startsWith', 'pete', options)).toEqual([])
-        expect(callFilter('startsWith', 'dave', options)).toEqual([])
-        expect(callFilter('startsWith', 'dav', options)).toEqual([])
-        expect(callFilter('startsWith', 've', options)).toEqual([])
-        expect(callFilter('startsWith', 'ao', options)).toEqual([])
-        expect(callFilter('startsWith', 'ae', options)).toEqual([])
+        callFilter('startsWith', 'pete', options).should.eql([])
+        callFilter('startsWith', 'dave', options).should.eql([])
+        callFilter('startsWith', 'dav', options).should.eql([])
+        callFilter('startsWith', 've', options).should.eql([])
+        callFilter('startsWith', 'ao', options).should.eql([])
+        callFilter('startsWith', 'ae', options).should.eql([])
         if type is 'str'
-          expect(callFilter('startsWith', '12', options)).toEqual([])
+          callFilter('startsWith', '12', options).should.eql([])
         else
-          expect(callFilter('startsWith', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+          callFilter('startsWith', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
       it 'when not sorting', ->
         options ?= {}
         options.caseSensitive = false
         options.sort = false
-        expect(callFilter('startsWith', 'pete', options)).toEqual([])
-        expect(callFilter('startsWith', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('startsWith', 'dav', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('startsWith', 've', options)).toEqual([])
-        expect(callFilter('startsWith', 'ao', options)).toEqual([])
-        expect(callFilter('startsWith', 'ae', options)).toEqual([])
+        callFilter('startsWith', 'pete', options).should.eql([])
+        callFilter('startsWith', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('startsWith', 'dav', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('startsWith', 've', options).should.eql([])
+        callFilter('startsWith', 'ao', options).should.eql([])
+        callFilter('startsWith', 'ae', options).should.eql([])
         if type is 'str'
-          expect(callFilter('startsWith', '12', options)).toEqual([])
+          callFilter('startsWith', '12', options).should.eql([])
         else
-          expect(callFilter('startsWith', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+          callFilter('startsWith', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
 
 
@@ -189,37 +189,37 @@ describe 'hx-filter tests', ->
           options.caseSensitive = false
           options.sort = true
 
-        expect(callFilter('contains', 'pete', options)).toEqual([])
-        expect(callFilter('contains', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('contains', 'dav', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('contains', 've', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
-        expect(callFilter('contains', 'ao', options)).toEqual([])
-        expect(callFilter('contains', 'ae', options)).toEqual([])
-        expect(callFilter('contains', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('contains', 'pete', options).should.eql([])
+        callFilter('contains', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('contains', 'dav', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('contains', 've', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
+        callFilter('contains', 'ao', options).should.eql([])
+        callFilter('contains', 'ae', options).should.eql([])
+        callFilter('contains', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
       it 'when using case sensitivity', ->
         options ?= {}
         options.caseSensitive = true
         options.sort = true
-        expect(callFilter('contains', 'pete', options)).toEqual([])
-        expect(callFilter('contains', 'dave', options)).toEqual([])
-        expect(callFilter('contains', 'dav', options)).toEqual([])
-        expect(callFilter('contains', 've', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
-        expect(callFilter('contains', 'ao', options)).toEqual([])
-        expect(callFilter('contains', 'ae', options)).toEqual([])
-        expect(callFilter('contains', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('contains', 'pete', options).should.eql([])
+        callFilter('contains', 'dave', options).should.eql([])
+        callFilter('contains', 'dav', options).should.eql([])
+        callFilter('contains', 've', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }, {name: 'Steve', age: '34' }]))
+        callFilter('contains', 'ao', options).should.eql([])
+        callFilter('contains', 'ae', options).should.eql([])
+        callFilter('contains', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
       it 'when not sorting', ->
         options ?= {}
         options.caseSensitive = false
         options.sort = false
-        expect(callFilter('contains', 'pete', options)).toEqual([])
-        expect(callFilter('contains', 'dave', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('contains', 'dav', options)).toEqual(getResult([{name: 'Dave', age: '12' }]))
-        expect(callFilter('contains', 've', options)).toEqual(getResult([{name: 'Steve', age: '34' }, {name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
-        expect(callFilter('contains', 'ao', options)).toEqual([])
-        expect(callFilter('contains', 'ae', options)).toEqual([])
-        expect(callFilter('contains', '12', options)).toEqual(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('contains', 'pete', options).should.eql([])
+        callFilter('contains', 'dave', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('contains', 'dav', options).should.eql(getResult([{name: 'Dave', age: '12' }]))
+        callFilter('contains', 've', options).should.eql(getResult([{name: 'Steve', age: '34' }, {name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
+        callFilter('contains', 'ao', options).should.eql([])
+        callFilter('contains', 'ae', options).should.eql([])
+        callFilter('contains', '12', options).should.eql(getResult([{name: 'Dave', age: '12' }, {name: 'Steve', age: '12' }]))
 
 
 
