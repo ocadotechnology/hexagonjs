@@ -146,18 +146,6 @@ describe 'Request API', ->
 
       requests[0].respond(404)
 
-    # Is this a valid test?
-    # it 'should deal with a response having content but no status', (done) ->
-    #   cb = (error, result, source, index) ->
-    #     should.not.exist(error)
-    #     should.exist(result)
-    #     should.not.exist(result.status)
-    #     result.responseText.should.equal('Some text')
-    #     done()
-
-    #   hx.request 'test.file', cb
-    #   requests[0].respond(undefined, undefined, 'Some text')
-
 
     it 'should format the response data correctly when one is passed in', ->
       cb = (error, result, source, index) ->
