@@ -58,8 +58,7 @@ describe 'hx-dropdown', ->
     hx.loop = hx_loop = (f) ->
       g = -> hx_loop_update(f, g)
       hx_loop_update(f, g)
-    baseTime = new Date(2013, 0, 1)
-    clock = sinon.useFakeTimers(baseTime.getTime())
+    clock = sinon.useFakeTimers()
 
   afterAll ->
     fixture.remove()
