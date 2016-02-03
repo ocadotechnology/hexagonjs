@@ -28,8 +28,11 @@ describe 'hx-animate', ->
 
   savedGetComputedStyle = undefined
   savedHxLoop = undefined
+  clock = undefined
+  beforeAll -> clock = sinon.useFakeTimers()
+  afterAll -> clock.restore()
+
   beforeEach ->
-    jasmine.clock().install()
     savedGetComputedStyle = window.getComputedStyle
     window.getComputedStyle = (node, thing) ->
       {
@@ -46,12 +49,10 @@ describe 'hx-animate', ->
       hx_loop_update(f, g)
 
     baseTime = new Date(2013, 0, 1)
-    jasmine.clock().mockDate(baseTime)
 
   afterEach ->
     window.getComputedStyle = savedGetComputedStyle
     hx.loop = savedHxLoop
-    jasmine.clock().uninstall()
 
   describe 'hx.animate', ->
 
@@ -70,7 +71,7 @@ describe 'hx-animate', ->
           .style('height', '100%', 10)
           .on 'end', -> end = true
 
-        jasmine.clock().tick(10)
+        clock.tick(10)
         end.should.equal(true)
 
       it 'the easing function passed in should be used', ->
@@ -85,7 +86,7 @@ describe 'hx-animate', ->
           .style('width', '100%', 10)
           .on 'end', -> end = true
 
-        jasmine.clock().tick(10)
+        clock.tick(10)
         end.should.equal(true)
 
       it 'should take roughly the amount of time requested', ->
@@ -97,7 +98,7 @@ describe 'hx-animate', ->
           .on 'end', ->
             time = now() - start
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
 
         time.should.equal(100)
 
@@ -110,7 +111,7 @@ describe 'hx-animate', ->
           .on 'end', ->
             time = now() - start
 
-        jasmine.clock().tick(200)
+        clock.tick(200)
         time.should.equal(200)
 
       it 'if you dont supply a node, then the end event should be emitted straight away', ->
@@ -138,7 +139,7 @@ describe 'hx-animate', ->
           .style('height', '100%', 100)
           .style('width', '100%', 50)
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.styles['height'].should.equal('100%')
         node.styles['width'].should.equal('100%')
 
@@ -153,7 +154,7 @@ describe 'hx-animate', ->
           .style('height', '100%', 100)
           .style('width', '100%', 50)
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.styles['height'].should.equal('100%')
         node.styles['width'].should.equal('100%')
 
@@ -168,15 +169,15 @@ describe 'hx-animate', ->
           .style('width', '100%', 100)
           .style('height', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('50%')
         node.styles['height'].should.equal('75%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('100%')
         node.styles['height'].should.equal('100%')
 
@@ -191,14 +192,14 @@ describe 'hx-animate', ->
           .style('width', '100%', 100)
           .style('height', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('1.5625%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('12.5%')
         node.styles['height'].should.equal('56.25%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('100%')
         node.styles['height'].should.equal('100%')
 
@@ -213,14 +214,14 @@ describe 'hx-animate', ->
           .style('width', '100%', 100)
           .style('height', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('6.25%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('100%')
         node.styles['height'].should.equal('100%')
 
@@ -233,15 +234,15 @@ describe 'hx-animate', ->
           .style('width', '0%', '100%', 100)
           .style('height', '50%', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.styles['width'].should.equal('50%')
         node.styles['height'].should.equal('75%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('100%')
         node.styles['height'].should.equal('100%')
 
@@ -254,15 +255,15 @@ describe 'hx-animate', ->
           .style('width', '0%', '100%', undefined)
           .style('height', '50%', '100%', undefined)
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('50%')
         node.styles['height'].should.equal('75%')
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.styles['width'].should.equal('100%')
         node.styles['height'].should.equal('100%')
 
@@ -275,17 +276,17 @@ describe 'hx-animate', ->
           .style('width', '0%', '100%', undefined)
           .style('height', '50%', '100%', undefined)
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
         anim.cancel()
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
@@ -300,17 +301,17 @@ describe 'hx-animate', ->
           .style('width', '100%')
           .style('height', '100%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
         anim.cancel()
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.styles['width'].should.equal('25%')
         node.styles['height'].should.equal('62.5%')
 
@@ -321,7 +322,7 @@ describe 'hx-animate', ->
           .attr('height', '100%', 10)
           .on 'end', -> end = true
 
-        jasmine.clock().tick(10)
+        clock.tick(10)
         end.should.equal(true)
 
       it 'the easing function passed in should be used', ->
@@ -336,7 +337,7 @@ describe 'hx-animate', ->
           .attr('width', '100%', 10)
           .on 'end', -> end = true
 
-        jasmine.clock().tick(10)
+        clock.tick(10)
         end.should.equal(true)
 
       it 'should take roughly the amount of time requested', ->
@@ -348,7 +349,7 @@ describe 'hx-animate', ->
           .on 'end', ->
             time = now() - start
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
 
         time.should.equal(100)
 
@@ -361,7 +362,7 @@ describe 'hx-animate', ->
           .on 'end', ->
             time = now() - start
 
-        jasmine.clock().tick(200)
+        clock.tick(200)
         time.should.equal(200)
 
       it 'if you dont supply a node, then the end event should be emitted straight away', ->
@@ -389,7 +390,7 @@ describe 'hx-animate', ->
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.attrs['height'].should.equal('100%')
         node.attrs['width'].should.equal('100%')
 
@@ -404,7 +405,7 @@ describe 'hx-animate', ->
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.attrs['height'].should.equal('100%')
         node.attrs['width'].should.equal('100%')
 
@@ -419,15 +420,15 @@ describe 'hx-animate', ->
           .attr('width', '100%', 100)
           .attr('height', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('50%')
         node.attrs['height'].should.equal('75%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('100%')
         node.attrs['height'].should.equal('100%')
 
@@ -442,14 +443,14 @@ describe 'hx-animate', ->
           .attr('width', '100%', 100)
           .attr('height', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('1.5625%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('12.5%')
         node.attrs['height'].should.equal('56.25%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('100%')
         node.attrs['height'].should.equal('100%')
 
@@ -464,14 +465,14 @@ describe 'hx-animate', ->
           .attr('width', '100%', 100)
           .attr('height', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('6.25%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('100%')
         node.attrs['height'].should.equal('100%')
 
@@ -484,15 +485,15 @@ describe 'hx-animate', ->
           .attr('width', '0%', '100%', 100)
           .attr('height', '50%', '100%', 100)
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(25)
+        clock.tick(25)
         node.attrs['width'].should.equal('50%')
         node.attrs['height'].should.equal('75%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('100%')
         node.attrs['height'].should.equal('100%')
 
@@ -505,15 +506,15 @@ describe 'hx-animate', ->
           .attr('width', '0%', '100%', undefined)
           .attr('height', '50%', '100%', undefined)
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('50%')
         node.attrs['height'].should.equal('75%')
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.attrs['width'].should.equal('100%')
         node.attrs['height'].should.equal('100%')
 
@@ -526,17 +527,17 @@ describe 'hx-animate', ->
           .attr('width', '0%', '100%', undefined)
           .attr('height', '50%', '100%', undefined)
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
         anim.cancel()
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
@@ -551,17 +552,17 @@ describe 'hx-animate', ->
           .attr('width', '100%')
           .attr('height', '100%')
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
         anim.cancel()
 
-        jasmine.clock().tick(50)
+        clock.tick(50)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
-        jasmine.clock().tick(100)
+        clock.tick(100)
         node.attrs['width'].should.equal('25%')
         node.attrs['height'].should.equal('62.5%')
 
@@ -594,9 +595,9 @@ describe 'hx-animate', ->
         .go()
 
       called.should.equal(false)
-      jasmine.clock().tick(25)
+      clock.tick(25)
       called.should.equal(false)
-      jasmine.clock().tick(100)
+      clock.tick(100)
       called.should.equal(true)
 
     it 'should wait until event emitters emit end finish before continuing', ->
@@ -611,9 +612,9 @@ describe 'hx-animate', ->
         .go()
 
       called.should.equal(false)
-      jasmine.clock().tick(25)
+      clock.tick(25)
       called.should.equal(false)
-      jasmine.clock().tick(100)
+      clock.tick(100)
       called.should.equal(true)
 
     it 'should cancel ongoing morphs correctly', ->
@@ -627,14 +628,14 @@ describe 'hx-animate', ->
         .then -> called1 = true
         .go()
 
-      jasmine.clock().tick(25)
+      clock.tick(25)
 
       hx.morph(node)
         .then (done) -> setTimeout(done, 100)
         .then -> called2 = true
         .go(true)
 
-      jasmine.clock().tick(150)
+      clock.tick(150)
 
       called1.should.equal(false)
       called2.should.equal(true)
@@ -648,14 +649,14 @@ describe 'hx-animate', ->
         .then -> called1 = true
         .go()
 
-      jasmine.clock().tick(25)
+      clock.tick(25)
 
       hx.morph()
         .then (done) -> setTimeout(done, 100)
         .then -> called2 = true
         .go(true)
 
-      jasmine.clock().tick(150)
+      clock.tick(150)
 
       called1.should.equal(true)
       called2.should.equal(true)
@@ -669,7 +670,7 @@ describe 'hx-animate', ->
         .then -> called = true
         .go(true)
 
-      jasmine.clock().tick(150)
+      clock.tick(150)
 
       called.should.equal(true)
 
@@ -684,7 +685,7 @@ describe 'hx-animate', ->
         .then -> called = true
         .go(true)
 
-      jasmine.clock().tick(150)
+      clock.tick(150)
 
       called.should.equal(true)
 
@@ -816,19 +817,19 @@ describe 'hx-animate', ->
         .go()
         .on 'end', -> end = true
 
-      jasmine.clock().tick(101)
+      clock.tick(101)
       called1.should.equal(true)
       called2.should.equal(false)
       called3.should.equal(false)
       end.should.equal(false)
 
-      jasmine.clock().tick(100)
+      clock.tick(100)
       called1.should.equal(true)
       called2.should.equal(true)
       called3.should.equal(false)
       end.should.equal(false)
 
-      jasmine.clock().tick(100)
+      clock.tick(100)
       called1.should.equal(true)
       called2.should.equal(true)
       called3.should.equal(true)
@@ -859,19 +860,19 @@ describe 'hx-animate', ->
         .on 'end', -> end = true
         .go()
 
-      jasmine.clock().tick(101)
+      clock.tick(101)
       called1.should.equal(true)
       called2.should.equal(false)
       called3.should.equal(false)
       end.should.equal(false)
 
-      jasmine.clock().tick(100)
+      clock.tick(100)
       called1.should.equal(true)
       called2.should.equal(true)
       called3.should.equal(false)
       end.should.equal(false)
 
-      jasmine.clock().tick(100)
+      clock.tick(100)
       called1.should.equal(true)
       called2.should.equal(true)
       called3.should.equal(true)
@@ -900,10 +901,10 @@ describe 'hx-animate', ->
         .on 'end', -> end = true
         .go()
 
-      jasmine.clock().tick(101)
+      clock.tick(101)
       end.should.equal(false)
 
-      jasmine.clock().tick(400)
+      clock.tick(400)
       end.should.equal(true)
 
     it 'named morphs should do nothing when you have no node', ->
@@ -927,20 +928,22 @@ describe 'hx-animate', ->
         .on 'end', -> end = true
         .go()
 
-      jasmine.clock().tick(101)
+      clock.tick(101)
       end.should.equal(true)
 
-      jasmine.clock().tick(400)
+      clock.tick(400)
       end.should.equal(true)
 
     it 'a warning should be thrown when a named morph is used that doesnt exist', ->
-      chai.spy.on(console, 'warn')
+      origConsoleWarning = hx.consoleWarning
+      hx.consoleWarning = chai.spy()
 
       hx.morph(new FakeNode)
         .with('delay5', 500)
         .go()
 
-      console.warn.should.have.been.called.once
+      hx.consoleWarning.should.have.been.called.once
+      hx.consoleWarning = origConsoleWarning
 
     it 'andStyle should affect an elements styles', ->
       node = new FakeNode
@@ -952,9 +955,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('100')
 
     it 'andStyle should affect an elements styles (with custom duration)', ->
@@ -967,9 +970,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('100')
 
     it 'andStyle should affect an elements styles (with start and end values)', ->
@@ -980,9 +983,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('100')
 
     it 'andStyle should affect an elements styles (with start and end values and custom duration)', ->
@@ -993,9 +996,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles', ->
@@ -1008,9 +1011,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles (with custom duration)', ->
@@ -1023,9 +1026,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles (with start and end values)', ->
@@ -1036,9 +1039,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('100')
 
     it 'thenStyle should affect an elements styles (with start and end values and custom duration)', ->
@@ -1049,9 +1052,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes', ->
@@ -1064,9 +1067,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes (with custom duration)', ->
@@ -1079,9 +1082,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes (with start and end values)', ->
@@ -1092,9 +1095,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('100')
 
     it 'andAttr should affect an elements attributes (with start and end values and custom duration)', ->
@@ -1105,9 +1108,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes', ->
@@ -1120,9 +1123,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes (with custom duration)', ->
@@ -1135,9 +1138,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes (with start and end values)', ->
@@ -1148,9 +1151,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('100')
 
     it 'thenAttr should affect an elements attributes (with start and end values and custom duration)', ->
@@ -1161,9 +1164,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('100')
 
    it 'withStyle should affect an elements attributes', ->
@@ -1176,9 +1179,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('100')
 
     it 'withStyle should affect an elements attributes (with custom duration)', ->
@@ -1191,9 +1194,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('100')
 
     it 'withStyle should affect an elements attributes (with start and end values)', ->
@@ -1204,9 +1207,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.styles['height'].should.equal('100')
 
     it 'withStyle should affect an elements attributes (with start and end values and custom duration)', ->
@@ -1217,9 +1220,9 @@ describe 'hx-animate', ->
         .go()
 
       node.styles['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.styles['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes', ->
@@ -1232,9 +1235,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes (with custom duration)', ->
@@ -1247,9 +1250,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes (with start and end values)', ->
@@ -1260,9 +1263,9 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(100)
+      clock.tick(100)
       node.attrs['height'].should.equal('100')
 
     it 'withAttr should affect an elements attributes (with start and end values and custom duration)', ->
@@ -1273,7 +1276,7 @@ describe 'hx-animate', ->
         .go()
 
       node.attrs['height'].should.equal('0')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('50')
-      jasmine.clock().tick(250)
+      clock.tick(250)
       node.attrs['height'].should.equal('100')

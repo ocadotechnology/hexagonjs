@@ -15,7 +15,7 @@ describe 'palette', ->
     it 'contrast', -> testContext('contrast')
 
     it 'should return undefined if there is no context', ->
-      expect(hx.palette.context(hx.detached('div'))).toEqual(undefined)
+      should.not.exist(hx.palette.context(hx.detached('div')))
 
     it 'should remove existing context classes', ->
       selection = hx.detached('div').class('hx-positive hx-negative')
@@ -46,7 +46,7 @@ describe 'palette', ->
     it 'contrast', -> testContext('contrast')
 
     it 'should return undefined if there is no context', ->
-      expect(hx.palette.textContext(hx.detached('div'))).toEqual(undefined)
+      should.not.exist(hx.palette.textContext(hx.detached('div')))
 
     it 'should remove existing textContext classes', ->
       selection = hx.detached('div').class('hx-text-positive hx-text-negative')
@@ -78,7 +78,7 @@ describe 'palette', ->
     it 'contrast', -> testContext('contrast')
 
     it 'should return undefined if there is no context', ->
-      expect(hx.palette.backgroundContext(hx.detached('div'))).toEqual(undefined)
+      should.not.exist(hx.palette.backgroundContext(hx.detached('div')))
 
     it 'should remove existing backgroundContext classes', ->
       selection = hx.detached('div').class('hx-background-positive hx-background-negative')

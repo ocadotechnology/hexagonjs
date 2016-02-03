@@ -3,10 +3,9 @@ describe "hx-drawing", ->
   # suppress expected console.warns, and fail the test if they don't happen
   withDisabledConsoleWarn = (f) ->
     w = console.warn
-    console.warn = ->
-    spyOn(console, 'warn')
+    console.warn = chai.spy()
     f()
-    expect(console.warn).toHaveBeenCalled()
+    console.warn.should.have.been.called()
     console.warn = w
 
   testSetGet = (prop, values, constructorFactory) ->
@@ -14,7 +13,7 @@ describe "hx-drawing", ->
       for value in values
         obj = new (constructorFactory())
         obj.set(prop, value)
-        expect(obj.get(prop)) .toEqual value
+        obj.get(prop).should.eql(value)
 
   testUndefinedSetGet = (prop, constructorFactory) ->
     it "check undefined values that don't start with attr. don't get set", ->
@@ -25,7 +24,7 @@ describe "hx-drawing", ->
       for p in prop.split('.')
         o = o[p]
 
-      expect(o) .toEqual undefined
+      should.not.exist(o)
 
   describe "Layer", ->
     it "Should calculate the bounding rect correctly", ->
@@ -45,7 +44,7 @@ describe "hx-drawing", ->
       circle.set('radius', 10)
 
       bb = layer.getBoundingBox(drawing.ctx)
-      expect(bb) .toEqual [-10, -10, 70, 100]
+      bb.should.eql([-10, -10, 70, 100])
 
   xdescribe "DrawingColor", ->
 
@@ -59,7 +58,7 @@ describe "hx-drawing", ->
       circle.set('radius', 20)
 
       bb = circle.getBoundingBox()
-      expect(bb) .toEqual [-10, -10, 30, 30]
+      bb.should.eql([-10, -10, 30, 30])
 
     describe "Set + Get", ->
       testSetGet 'position.x', [10, -10],  -> hx._.drawing.Circle
@@ -85,7 +84,7 @@ describe "hx-drawing", ->
       grid.set('cellSize.y', 12)
 
       bb = grid.getBoundingBox()
-      expect(bb) .toEqual [10, 20, 10 + 5* 11, 20 + 6 * 12]
+      bb.should.eql([10, 20, 10 + 5* 11, 20 + 6 * 12])
 
     describe "Set + Get", ->
       testSetGet 'position.x', [10, -10],  -> hx._.drawing.Grid
@@ -115,7 +114,7 @@ describe "hx-drawing", ->
       line.set('end.y', 40)
 
       bb = line.getBoundingBox()
-      expect(bb) .toEqual [10, 20, 30, 40]
+      bb.should.eql([10, 20, 30, 40])
 
     describe "Set + Get", ->
       testSetGet 'start.x', [10, -10],  -> hx._.drawing.Line
@@ -137,7 +136,7 @@ describe "hx-drawing", ->
       rectangle.set('height', 40)
 
       bb = rectangle.getBoundingBox()
-      expect(bb) .toEqual [10, 20, 40, 60]
+      bb.should.eql([10, 20, 40, 60])
 
     describe "Set + Get", ->
       testSetGet 'position.x', [10, -10],  -> hx._.drawing.Rectangle
@@ -186,7 +185,7 @@ describe "hx-drawing", ->
       shape.set('polygon', curve)
 
       bb = shape.getBoundingBox()
-      expect(bb) .toEqual [20, 30, 30, 40]
+      bb.should.eql([20, 30, 30, 40])
 
     it "Should calculate the bounding rect for curved concave shapes", ->
       shape = new hx._.drawing.Shape
@@ -203,7 +202,7 @@ describe "hx-drawing", ->
       shape.set('curve', curve)
 
       bb = shape.getBoundingBox()
-      expect(bb) .toEqual [20, 30, 30, 40]
+      bb.should.eql([20, 30, 30, 40])
 
     it "Should calculate the bounding rect for curved convex shapes", ->
       shape = new hx._.drawing.Shape
@@ -220,7 +219,7 @@ describe "hx-drawing", ->
       shape.set('curve', curve)
 
       bb = shape.getBoundingBox()
-      expect(bb) .toEqual [15, 25, 35, 45]
+      bb.should.eql([15, 25, 35, 45])
 
     describe "Set + Get", ->
       testSetGet 'position.x', [10, -10],  -> hx._.drawing.Shape
@@ -236,7 +235,7 @@ describe "hx-drawing", ->
 
   describe "Composite", ->
     it "Create all drawing objects as children", ->
-      expect( ->
+      (->
         composite = new hx._.drawing.Composite
 
         composite.create('circle', 'one')
@@ -246,7 +245,7 @@ describe "hx-drawing", ->
         composite.create('text', 'five')
         composite.create('shape', 'six')
         composite.create('composite', 'seven')
-      ).not.toThrow()
+      ).should.not.throw()
 
 
 
@@ -263,7 +262,7 @@ describe "hx-drawing", ->
         composite.create('composite', 'seven')
 
       check = (composite, prop, value) ->
-        expect(composite.set(prop, value).get(prop)) .toEqual value
+        composite.set(prop, value).get(prop).should.equal(value)
 
       it 'Circle', ->
         composite = create()
@@ -328,62 +327,62 @@ describe "hx-drawing", ->
     describe "line-segment vs line-segment", ->
 
       it "parallel lines do not intersect", ->
-        expect(hx._.drawing.lineIntersection(10, 10, 20, 20, 15, 10, 25, 20)) .toEqual false
+        hx._.drawing.lineIntersection(10, 10, 20, 20, 15, 10, 25, 20).should.equal(false)
 
       it "line segments that are not long enough to intersect (but would intersect if longer)", ->
-        expect(hx._.drawing.lineIntersection(0, 0, 10, 10, 0, 10, 4, 6)) .toEqual false
+        hx._.drawing.lineIntersection(0, 0, 10, 10, 0, 10, 4, 6).should.equal(false)
 
       it "intersecting segments should return true", ->
-        expect(hx._.drawing.lineIntersection(0, 0, 10, 10, 0, 10, 10, 0)) .toEqual true
+        hx._.drawing.lineIntersection(0, 0, 10, 10, 0, 10, 10, 0).should.equal(true)
 
 
     describe "point vs rectangle", ->
 
       it "point outside rectangle", ->
-        expect(hx._.drawing.pointRectangleIntersection(20, 0, -5, -5, 5, 5)) .toEqual false
+        hx._.drawing.pointRectangleIntersection(20, 0, -5, -5, 5, 5).should.equal(false)
 
       it "point inside rectangle", ->
-        expect(hx._.drawing.pointRectangleIntersection(0, 0, -5, -5, 5, 5)) .toEqual true
+        hx._.drawing.pointRectangleIntersection(0, 0, -5, -5, 5, 5).should.equal(true)
 
       it "point on rectangle corner", ->
-        expect(hx._.drawing.pointRectangleIntersection(5, 5, -5, -5, 5, 5)) .toEqual true
+        hx._.drawing.pointRectangleIntersection(5, 5, -5, -5, 5, 5).should.equal(true)
 
       it "point on rectangle edge", ->
-        expect(hx._.drawing.pointRectangleIntersection(5, 0, -5, -5, 5, 5)) .toEqual true
+        hx._.drawing.pointRectangleIntersection(5, 0, -5, -5, 5, 5).should.equal(true)
 
 
     describe "line-segment vs horizontal line-segment", ->
 
       it "parallel lines do not intersect", ->
-        expect(hx._.drawing.horizontalLineIntersection(10, 15, 20, 15, 10, 20, 16)) .toEqual false
+        hx._.drawing.horizontalLineIntersection(10, 15, 20, 15, 10, 20, 16).should.equal(false)
 
       it "parallel lines do actually intersect, if they overlap", ->
-        expect(hx._.drawing.horizontalLineIntersection(-5, 0, 5, 0, 0, 5, 0)) .toEqual true
+        hx._.drawing.horizontalLineIntersection(-5, 0, 5, 0, 0, 5, 0).should.equal(true)
 
       it "horizontal parallel lines don't intersect, if they don't overlap", ->
-        expect(hx._.drawing.horizontalLineIntersection(-5, 0, 5, 0, 10, 15, 0)) .toEqual false
+        hx._.drawing.horizontalLineIntersection(-5, 0, 5, 0, 10, 15, 0).should.equal(false)
 
       it "line segments that are not long enough to intersect (but would intersect if longer)", ->
-        expect(hx._.drawing.horizontalLineIntersection(-5, -5, 5, 5, -5, -1, 0)) .toEqual false
+        hx._.drawing.horizontalLineIntersection(-5, -5, 5, 5, -5, -1, 0).should.equal(false)
 
       it "intersecting segments should return true", ->
-        expect(hx._.drawing.horizontalLineIntersection(-5, -5, 5, 5, -5, 5, 0)) .toEqual true
+        hx._.drawing.horizontalLineIntersection(-5, -5, 5, 5, -5, 5, 0).should.equal(true)
 
 
     describe "line-segment vs vertical line-segment", ->
 
       it "parallel lines do not intersect", ->
-        expect(hx._.drawing.verticalLineIntersection(15, 10, 15, 20, 10, 20, 16)) .toEqual false
+        hx._.drawing.verticalLineIntersection(15, 10, 15, 20, 10, 20, 16).should.equal(false)
 
       it "parallel lines do actually intersect, if they overlap", ->
-        expect(hx._.drawing.verticalLineIntersection(0, -5, 0, 5, 0, 5, 0)) .toEqual true
+        hx._.drawing.verticalLineIntersection(0, -5, 0, 5, 0, 5, 0).should.equal(true)
 
       it "vertical parallel lines don't intersect, if they don't overlap", ->
-        expect(hx._.drawing.verticalLineIntersection(0, -5, 0, 5, 10, 15, 0)) .toEqual false
+        hx._.drawing.verticalLineIntersection(0, -5, 0, 5, 10, 15, 0).should.equal(false)
 
       it "line segments that are not long enough to intersect (but would intersect if longer)", ->
-        expect(hx._.drawing.verticalLineIntersection(-5, -5, 5, 5, -5, -1, 0)) .toEqual false
+        hx._.drawing.verticalLineIntersection(-5, -5, 5, 5, -5, -1, 0).should.equal(false)
 
       it "intersecting segments should return true", ->
-        expect(hx._.drawing.verticalLineIntersection(-5, -5, 5, 5, -5, 5, 0)) .toEqual true
+        hx._.drawing.verticalLineIntersection(-5, -5, 5, 5, -5, 5, 0).should.equal(true)
 
