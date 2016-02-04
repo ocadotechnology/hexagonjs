@@ -43,7 +43,7 @@ class InlinePicker extends hx.InlineMorphSection
       options.renderer = @picker.renderer()
 
     @picker.menu.dropdown.on 'showstart', 'hx.inline-picker', =>
-      this.detector.addException(@picker.menu.dropdown.dropdown.node())
+      this.detector.addException(@picker.menu.dropdown._.dropdown.node())
 
     super(@selector, enterEditMode, exitEditMode, options)
 
