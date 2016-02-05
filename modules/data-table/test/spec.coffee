@@ -1,6 +1,6 @@
 
 describe 'data-table', ->
-  beforeAll ->
+  before ->
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
     # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
   origConsoleWarning = hx.consoleWarning

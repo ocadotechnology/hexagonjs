@@ -29,8 +29,8 @@ describe 'hx-animate', ->
   savedGetComputedStyle = undefined
   savedHxLoop = undefined
   clock = undefined
-  beforeAll -> clock = sinon.useFakeTimers()
-  afterAll -> clock.restore()
+  before -> clock = sinon.useFakeTimers()
+  after -> clock.restore()
 
   beforeEach ->
     savedGetComputedStyle = window.getComputedStyle

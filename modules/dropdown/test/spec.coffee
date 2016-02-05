@@ -36,7 +36,7 @@ describe 'hx-dropdown', ->
       .style('margin', '-50px -25px 0 0')
       .text('button')
 
-  beforeAll ->
+  before ->
 
     hx._.dropdown.attachToSelector = '#dropdown-fixture'
 
@@ -60,7 +60,7 @@ describe 'hx-dropdown', ->
       hx_loop_update(f, g)
     clock = sinon.useFakeTimers()
 
-  afterAll ->
+  after ->
     fixture.remove()
     hx.loop = savedHxLoop
     clock.restore()
