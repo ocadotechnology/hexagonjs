@@ -2,10 +2,10 @@ class DateTimePicker extends hx.EventEmitter
   constructor: (@selector, options) ->
     super
 
-    @options = hx.merge {
+    @options = hx.merge({
       datePickerOptions: {}
       timePickerOptions: {}
-    }
+    }, options)
 
     # You can't select a range for a date-time picker.
     delete @options.datePickerOptions.selectRange
