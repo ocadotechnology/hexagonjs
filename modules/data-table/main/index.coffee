@@ -257,7 +257,7 @@ class DataTable extends hx.EventEmitter
       @_.selectedRows = new hx.Set(value)
       newSelectedRows = @_.selectedRows.values()
       @emit('selectedrowschange', {value: newSelectedRows, cause: 'api'})
-      @_.lastSelected = newSelectedRows[newSelectedRows.length - 1]
+      @_.userLastSelectedIndex = undefined
       @render(cb)
       this
     else
@@ -531,17 +531,18 @@ class DataTable extends hx.EventEmitter
 
           # handles row selection.
           selectRow = (row, index, shiftDown) =>
-            if options.singleSelection and index isnt @_.lastSelected
-              @_.selectedRows.clear()
-            else
-              # does the check for whether we're shift selecting and calls into selectMulti if we are
-              if shiftDown and @_.lastSelected? and index isnt @_.lastSelected
-                force = @_.selectedRows.has(options.rowIDLookup(rows[@_.lastSelected]))
-                if index > @_.lastSelected then selectMulti(@_.lastSelected + 1, index, force)
-                else selectMulti(index, @_.lastSelected, force)
-                return
+            if @_.userLastSelectedIndex?
+              if options.singleSelection and index isnt @_.userLastSelectedIndex
+                @_.selectedRows.clear()
+              else
+                # does the check for whether we're shift selecting and calls into selectMulti if we are
+                if shiftDown and index isnt @_.userLastSelectedIndex
+                  force = @_.selectedRows.has(options.rowIDLookup(rows[@_.userLastSelectedIndex]))
+                  if index > @_.userLastSelectedIndex then selectMulti(@_.userLastSelectedIndex + 1, index, force)
+                  else selectMulti(index, @_.userLastSelectedIndex, force)
+                  return
 
-            @_.lastSelected = index
+            @_.userLastSelectedIndex = index
 
             if options.rowSelectableLookup(row)
               id = options.rowIDLookup(row)
