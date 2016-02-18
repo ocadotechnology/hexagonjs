@@ -6,17 +6,17 @@
   @examples
     @codeblock js
       // linear easing function
-      hx.ease.linear(1) // returns 0
+      hx.ease.linear(0) // returns 0
       hx.ease.linear(0.5) // returns 0.5
       hx.ease.linear(1) // returns 1
 
       // quadratic easing function
-      hx.ease.quad(1) // returns 0
+      hx.ease.quad(0) // returns 0
       hx.ease.quad(0.5) // returns 0.25
       hx.ease.quad(1) // returns 1
 
       // cubic easing function
-      hx.ease.cubic(1) // returns 0
+      hx.ease.cubic(0) // returns 0
       hx.ease.cubic(0.5) // returns 0.125
       hx.ease.cubic(1) // returns 1
 
@@ -35,22 +35,22 @@
   @api Transition
     @function hx.loop
       @description
-        Calls a function every frame until it returns true. This will attempt to use requestAnimationFrame, falling back to setTimeout if requestAnimationFrame is unavailable.
+        Calls a function every frame until it returns true. This will attempt to use @code[requestAnimationFrame], falling back to @code[setTimeout] if @code[requestAnimationFrame] is unavailable.
       @param callback [Function]
         @description: Return true to end the loop
         @returns Boolean
 
     @function hx.transition
       @description
-        Calls a function every frame for an amount of time, providing the progress to the callback. This will attempt to use requestAnimationFrame, falling back to setTimeout if requestAnimationFrame is unavailable.
+        Calls a function every frame for an amount of time, providing the progress to the callback. This will attempt to use @code[requestAnimationFrame], falling back to @code[setTimeout] if @code[requestAnimationFrame] is unavailable.
       @param millis [Number]: The transition's duration in milliseconds
       @param callback [Function]
         @description: The function that gets called each frame
-        @param? cancelled [Boolean]: If the transition has been cancelled and this is the final call, then cancelled with be true, otherwise it will be false.
+        @param? cancelled [Boolean]: If the transition has been cancelled and this is the final call, then cancelled will be true, otherwise it will be false.
         @param progress [Number]
       @param? ease [Function]
         @description
-          The easing function to use. You can use one of the predefined functions on hx.ease, or can defined your own.
+          The easing function to use. You can use one of the predefined functions on hx.ease, or you can define your own.
         @param input [Number]: A value between 0 and 1
         @default: hx.ease.linear
         @returns Number: A value between 0 and 1
@@ -68,7 +68,7 @@
 
     @object ease
       @description
-        A collection of easing function that map from domain [0, 1] to range [0, 1]
+        A collection of easing functions that map from domain [0, 1] to range [0, 1]
 
       @function linear
         @description
