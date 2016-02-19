@@ -186,7 +186,7 @@
     @codeblock js
       newCol = exCol.clone()
       newCol.lighten(-0.2)
-      newCol..saturate(-0.3)
+      newCol.saturate(-0.3)
 
   @section Building a color range
     @p: You can use the colorRange function to create a range of lighter or darker colors based on any color. The default values for the function returns an array of 7 color objects, 3 lighter, 3 darker and the original, in order of lightness.

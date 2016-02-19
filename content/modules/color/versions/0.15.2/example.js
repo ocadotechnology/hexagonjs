@@ -10,7 +10,7 @@ col = hx.color('hsl(88.5,59%,46.9%)')
 col = hx.color('hsla(88.5,59%,46.9%,1)')
 
 // Output a color to an array
-col.toArray() // returns [123, 190, 49, 1]
+col.rgb() // returns [123, 190, 49, 1]
 
 // Lighten a color
 hx.color([50,50,50]).lighten(0.5) // returns color object equivalent to [75,75,75,1]

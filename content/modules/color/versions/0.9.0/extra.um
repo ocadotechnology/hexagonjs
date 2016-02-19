@@ -104,7 +104,7 @@
             setCellColor("saturation_saturation",exCol.clone().saturation(0.1))
 
   @section Alpha
-    @p: @p: The alpha functions are useful for making transparent colors where required or animating a color. Below are examples of each of the saturation functions. Note: The alpha channel is only supported with RGBA and HSLA. When outputting a color string, make sure you output to a type that accepts alpha values
+    @p: The alpha functions are useful for making transparent colors where required or animating a color. Below are examples of each of the saturation functions. Note: The alpha channel is only supported with RGBA and HSLA. When outputting a color string, make sure you output to a type that accepts alpha values
     @table .hx-table.hx-table-centered
       @attr align: center
       @thead
@@ -180,17 +180,17 @@
 
   @section Chaining methods
     @p: It's possible to chain methods when using the Color api. For instance, to create a color that is 20% darker and 30% less saturated than the original, use:
-    @codeblock
+    @codeblock js
       newCol = exCol.clone().darken(0.2).desaturate(0.3)
     @p: instead of
-    @codeblock
+    @codeblock js
       newCol = exCol.clone()
       newCol.darken(0.2)
       newCol.desaturate(0.3)
 
   @section Building a color range
     @p: You can use the colorRange function to create a range of lighter or darker colors based on any color. The default values for the function returns an array of 7 color objects, 3 lighter, 3 darker and the original, in order of lightness.
-    @codeblock
+    @codeblock js
       exCol.range()
 
     @css
