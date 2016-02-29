@@ -14,8 +14,3 @@ var form = new hx.Form('#form')
   .addDateTimePicker('Date Time Picker')
   .addSubmit('Submit', 'fa fa-check')
   .on('submit', function (data) {console.log(data)})
-
-var radioNode = hx.select(form.properties.get('Radio').node)
-radioNode.selectAll('input').on('click', function (e) {
-  console.log(form.property('Radio'))
-})
