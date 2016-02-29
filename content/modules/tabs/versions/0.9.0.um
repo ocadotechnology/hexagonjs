@@ -34,10 +34,6 @@
           @data Number: The index of the selected tab.
         @returns Tabs: This Tabs
 
-    @function hx.initialiseTabs
-      @description: Initialises all the tabs that match a css selector in a page and returns the Tab objects as an array.
-      @param selector [String]: A css selector that selects the tab groups you wish to initialise.
-
     @class hx-tabs
       @description: The class to give to the tabs container
 
