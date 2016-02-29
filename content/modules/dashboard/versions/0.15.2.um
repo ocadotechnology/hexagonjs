@@ -6,6 +6,9 @@
 
     @p: Styles for creating dashboard layouts.
 
+  @examples
+    @removed
+
   @api Dashboard
     @deprecated
 
