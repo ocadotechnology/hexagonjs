@@ -6,15 +6,13 @@
   @examples
     @example
       @html
-        <div class="hx-well">
-          <span class="hx-label">hx-label</span>
-          <span class="hx-label hx-positive">hx-positive</span>
-          <span class="hx-label hx-warning">hx-warning</span>
-          <span class="hx-label hx-negative">hx-negative</span>
-          <span class="hx-label hx-info">hx-info</span>
-          <span class="hx-label hx-compliment">hx-compliment</span>
-          <span class="hx-label hx-contrast">hx-contrast</span>
-        </div>
+        <span class="hx-label">hx-label</span>
+        <span class="hx-label hx-positive">hx-positive</span>
+        <span class="hx-label hx-warning">hx-warning</span>
+        <span class="hx-label hx-negative">hx-negative</span>
+        <span class="hx-label hx-info">hx-info</span>
+        <span class="hx-label hx-compliment">hx-compliment</span>
+        <span class="hx-label hx-contrast">hx-contrast</span>
 
   @api Label
     @class hx-label

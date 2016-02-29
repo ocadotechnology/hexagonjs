@@ -6,10 +6,9 @@
   @examples
     @example
       @html
-        <div class="hx-well">
-          <label for="auto-complete">Auto Complete:</label>
-          <input id="auto-complete" type="text">
-        </div>
+        <label for="auto-complete">Auto Complete:</label>
+        <input id="auto-complete" type="text">
+
       @js
         var data = [
           "Bob",

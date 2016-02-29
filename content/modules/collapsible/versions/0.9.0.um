@@ -8,15 +8,14 @@
   @examples
     @example
       @html
-        <div class="hx-well">
-          <div id="example">
-            <div class="hx-collapsible-heading">Header</div>
-            <div class="hx-collapsible-content"><div style="padding:1em;font-size:2em">
-              Content
-            </div>
-            </div>
+        <div id="example">
+          <div class="hx-collapsible-heading">Header</div>
+          <div class="hx-collapsible-content"><div style="padding:1em;font-size:2em">
+            Content
+          </div>
           </div>
         </div>
+
       @js js
         var collapsible = new hx.Collapsible('#example')
 
