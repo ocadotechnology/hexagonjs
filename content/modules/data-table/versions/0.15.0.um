@@ -295,7 +295,7 @@
 
         @method pageSizeOptions
           @description: Gets the pageSizeOptions option
-          @returns Array[Number]: The pageSizeOptions option
+          @returns [Array[Number]]: The pageSizeOptions option
 
         @method pageSizeOptions
           @description: Sets the pageSizeOptions option
