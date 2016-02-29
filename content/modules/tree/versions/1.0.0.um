@@ -1,4 +1,7 @@
 @version 1.0.0
+  @examples
+    @inline 1.0.0/examples.um
+
   @api Tree
     @function hx.tree
       @added: Fluid api version of Tree

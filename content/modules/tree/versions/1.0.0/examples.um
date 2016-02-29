@@ -1,0 +1,50 @@
+@example
+  @html
+    <div id="example" class="hx-tree">
+      <div class="hx-tree-node">
+        <div class="hx-tree-node-parent"><div class="hx-tree-node-content">Parent 1</div></div>
+        <div class="hx-tree-node-children" style="display:none">
+          <div class="hx-tree-node">
+            <div class="hx-tree-node-content">Item 1</div>
+          </div>
+          <div class="hx-tree-node">
+            <div class="hx-tree-node-parent"><div class="hx-tree-node-content">Parent 2</div></div>
+            <div class="hx-tree-node-children" style="display:none">
+              <div class="hx-tree-node">
+                <div class="hx-tree-node-content">Item 2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  @js
+    var tree = new hx.Tree('#example')
+
+@example
+  @html
+    <div id="example-dynamic"></div>
+
+  @js
+    var tree = new hx.Tree('#example-dynamic', {
+      renderer: function (elem, data) { hx.select(elem).html(data.name) },
+      items: [
+        {
+          name: 'Parent 1',
+          children: [
+            {
+              name: 'Item 1'
+            },
+            {
+              name: 'Parent 2',
+              children: [
+                {
+                  name: 'Item 2'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    })
