@@ -2,7 +2,7 @@
 
   @examples
     @example
-      @html html
+      @html
         <div class="hx-input-group">
           <i class="fa fa-search"></i>
           <input type="text" value="input"/>

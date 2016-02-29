@@ -1,7 +1,7 @@
 @version 0.15.2
   @examples
     @example
-      @html html
+      @html
         <div class="hx-well example">
           <button class="hx-btn">hx-btn</button>
           <button class="hx-btn hx-positive">hx-positive</button>

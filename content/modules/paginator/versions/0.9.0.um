@@ -5,7 +5,7 @@
 
   @examples
     @example
-      @html html
+      @html
         <div id="example"></div>
       @js js
         var paginator = new hx.Paginator('#example');

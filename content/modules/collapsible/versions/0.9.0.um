@@ -7,7 +7,7 @@
 
   @examples
     @example
-      @html html
+      @html
         <div class="hx-well">
           <div id="example">
             <div class="hx-collapsible-heading">Header</div>

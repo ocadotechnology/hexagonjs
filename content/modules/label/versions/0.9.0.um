@@ -5,7 +5,7 @@
 
   @examples
     @example
-      @html html
+      @html
         <div class="hx-well">
           <span class="hx-label">hx-label</span>
           <span class="hx-label hx-positive">hx-positive</span>

@@ -1,7 +1,7 @@
 @version 0.12.7
   @examples
     @example
-      @html html
+      @html
         <button id="exampleSelectArray" class="hx-btn hx-positive"></button>
       @js
         var select = new hx.Select('#exampleSelectArray', {
@@ -9,7 +9,7 @@
           startValue: 'Option 1'
         });
     @example
-      @html html
+      @html
         <button id="exampleSelectFunction" class="hx-btn hx-positive"></button>
       @js
         var getVals = function (cb) {

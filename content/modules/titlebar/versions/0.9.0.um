@@ -19,19 +19,19 @@
     The above definition is a full example of what a titlebar can contain. You can drop certain components of the titlebar if they are not needed. Here is a much simpler titlebar with just a title:
 
     @example
-      @html html: @inline 0.9.0/titlebarSuperSimple.html
+      @html: @inline 0.9.0/titlebarSuperSimple.html
 
     @example
-      @html html: @inline 0.9.0/titlebarSimple.html
+      @html: @inline 0.9.0/titlebarSimple.html
 
     @example
-      @html html: @inline 0.9.0/titlebarNoLinks.html
+      @html: @inline 0.9.0/titlebarNoLinks.html
 
     @example
-      @html html: @inline 0.9.0/titlebarTextAndIcons.html
+      @html: @inline 0.9.0/titlebarTextAndIcons.html
 
     @example
-      @html html: @inline 0.9.0/titlebarNoIcons.html
+      @html: @inline 0.9.0/titlebarNoIcons.html
 
 
     @js

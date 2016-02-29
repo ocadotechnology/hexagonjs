@@ -1,7 +1,7 @@
 @version 0.15.0
   @examples
     @example
-      @html html
+      @html
         <button id="example" class="hx-btn"></button>
       @js
         new hx.Picker('#example', {

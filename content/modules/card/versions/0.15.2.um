@@ -5,7 +5,7 @@
 
   @examples
 #    @example
-#      @html html
+#      @html
 #        <div id="card-container"></div>
 #      @js
 #        @inline 0.15.2/example.js
