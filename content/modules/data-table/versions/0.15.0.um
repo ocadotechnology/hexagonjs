@@ -527,7 +527,7 @@
         @returns DataTable: This DataTable
 
 
-      @method rowForIds
+      @method rowsForIds
         @description: Converts row ids to row objects using the table's data feed.
         @param ids [Array[String]]: The array of row ids to get from the data
         @param callback [Function]: The function to call once the rows have been retrieved
