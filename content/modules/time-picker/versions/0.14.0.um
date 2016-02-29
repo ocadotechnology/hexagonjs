@@ -1,4 +1,13 @@
 @version 0.14.0
+  @examples
+    @example
+      @html
+        <div id="timepicker"></div>
+        <div id="timepickerseconds"></div>
+      @js
+        new hx.TimePicker('#timepicker')
+        new hx.TimePicker('#timepickerseconds', {showSeconds: true})
+
   @api Time Picker
     @prototype hx.TimePicker
       @constructor
