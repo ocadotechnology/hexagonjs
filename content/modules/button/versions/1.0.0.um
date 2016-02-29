@@ -5,6 +5,7 @@
       @html
         <div class="hx-well example">
           <button class="hx-btn">hx-btn</button>
+          <button class="hx-btn hx-action">hx-action</button>
           <button class="hx-btn hx-positive">hx-positive</button>
           <button class="hx-btn hx-warning">hx-warning</button>
           <button class="hx-btn hx-negative">hx-negative</button>
