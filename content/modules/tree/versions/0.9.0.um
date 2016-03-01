@@ -7,7 +7,7 @@
 
   @examples
     @example
-      @html html: @inline 0.9.0/example.html
+      @html: @inline 0.9.0/example.html
       @js js: @inline 0.9.0/example.js
 
   @api Tree
@@ -45,6 +45,7 @@
         @description: Sets up / prepares a selection for displaying data in an expandable tree.
         @param selection [String/HTMLElement]: A unique css selector or a HTMLElement that identifies your tree.
         @param? hideDisabledButtons [Boolean]: A parameter that hides the 'disabled' buttons added to the tree.
+          @default false
 
       @method show
         @description: Shows all the nodes for the selected tree.

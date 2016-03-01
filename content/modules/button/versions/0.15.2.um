@@ -1,17 +1,15 @@
 @version 0.15.2
   @examples
     @example
-      @html html
-        <div class="hx-well example">
-          <button class="hx-btn">hx-btn</button>
-          <button class="hx-btn hx-positive">hx-positive</button>
-          <button class="hx-btn hx-warning">hx-warning</button>
-          <button class="hx-btn hx-negative">hx-negative</button>
-          <button class="hx-btn hx-info">hx-info</button>
-          <button class="hx-btn hx-compliment">hx-compliment</button>
-          <button class="hx-btn hx-contrast">hx-contrast</button>
-          <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
-        </div>
+      @html
+        <button class="hx-btn">hx-btn</button>
+        <button class="hx-btn hx-positive">hx-positive</button>
+        <button class="hx-btn hx-warning">hx-warning</button>
+        <button class="hx-btn hx-negative">hx-negative</button>
+        <button class="hx-btn hx-info">hx-info</button>
+        <button class="hx-btn hx-compliment">hx-compliment</button>
+        <button class="hx-btn hx-contrast">hx-contrast</button>
+        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
 
     @example
       @html

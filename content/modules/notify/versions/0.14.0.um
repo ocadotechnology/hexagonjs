@@ -58,8 +58,6 @@
         loadingNotification.close();
       });
 
-      // show a notification that must be either dismissed by the user, or closed programatically
-      hx.notify.permanent('No timeout here');
 
   @api Notify
     @prototype hx.NotificationManager

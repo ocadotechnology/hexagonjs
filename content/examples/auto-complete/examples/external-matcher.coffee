@@ -2,13 +2,13 @@ options = {
   matchType: 'external'
   inputMap: (item) -> item.name
   renderer: (elem, item) ->
-    hx.select(elem).text(item.name + ', ' + item.county)
+    hx.select(elem).text(item.name + ', ' + item.location)
 }
 data = (term, callback) ->
   if term.length > 0
     delay = Math.round(Math.random()*3000) + 1000
     setTimeout =>
-      data = hx.filter.contains nameAndLocationData, term, {searchValues: (d) -> [d.name, d.county]}
+      data = hx.filter.contains nameAndLocationData, term, {searchValues: (d) -> [d.name, d.location]}
       callback data
     , delay
   else

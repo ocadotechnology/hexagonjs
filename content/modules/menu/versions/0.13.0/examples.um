@@ -67,14 +67,12 @@
 
 @example
   @html
-    <div class="hx-well">
-      <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
-      <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
-      <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
-      <button class="hx-btn hx-info menuButtonNamed">hx-info</button>
-      <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
-      <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
-    </div>
+    <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
+    <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
+    <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
+    <button class="hx-btn hx-info menuButtonNamed">hx-info</button>
+    <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
+    <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
   @js
     menuItems = ["item 1","item 2","item 3"]
@@ -85,9 +83,7 @@
 
 @example
   @html
-    <div class="hx-well">
-      <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
-    </div>
+    <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
   @js
     menu = new hx.Menu('#collapsibleMenu', {

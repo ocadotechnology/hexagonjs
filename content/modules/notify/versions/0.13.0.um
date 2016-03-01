@@ -1,3 +1,13 @@
+@define notifyOptions
+  @property icon [String]: The icon to display in the notification (expects a font awesome fa- icon).
+  @property cssclass [String]: The css class or classes to give the notification.
+  @property timeout [Number]
+    @description
+      @p: How long (in seconds) the notification should hang around for before it dismisses itself.
+      @p: If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+      @p: If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+  @property pinnable [Boolean]: Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+
 @version 0.13.0
   @examples
     @example
@@ -97,11 +107,7 @@
         @description: A method for showing a notification for a notification manager.
         @param message [String]: The text to display in the notification
         @param? options [Object]: The options to use when setting up the notification.
-          @property icon [String]: The icon to display in the notification (expects a font awesome fa- icon).
-          @property cssclass [String]: The css class or classes to give the notification.
-          @property timeout [Number]: How long (in seconds) the notification should hang around for before it dismisses itself. If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
-            @default 5
-          @property pinnable [Boolean]: Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          @notifyOptions
 
 
       @method info
@@ -116,9 +122,9 @@
               {
                 icon: 'fa fa-info',
                 cssclass: 'hx-info',
-                timeout: 5,
                 pinnable: true
               }
+          @notifyOptions
         @returns Notification: The newly created Notification
 
       @method warning
@@ -133,9 +139,9 @@
               {
                 icon: 'fa fa-warning',
                 cssclass: 'hx-warning',
-                timeout: 5,
                 pinnable: true
               }
+          @notifyOptions
         @returns Notification: The newly created Notification
 
       @method negative
@@ -150,9 +156,9 @@
               {
                 icon: 'fa fa-error',
                 cssclass: 'hx-negative',
-                timeout: 5,
                 pinnable: true
               }
+          @notifyOptions
         @returns Notification: The newly created Notification
 
       @method positive
@@ -167,9 +173,9 @@
               {
                 icon: 'fa fa-check',
                 cssclass: 'hx-positive',
-                timeout: 5,
                 pinnable: true
               }
+          @notifyOptions
         @returns Notification: The newly created Notification
 
       @method defaultTimeout
@@ -179,51 +185,84 @@
 
 
     @function hx.notify
-      @condensed
       @deprecated
-
         The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
       @returns Notification: The newly created Notification
 
     @function hx.notify
-      @condensed
       @description: Shows a notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[notify] method.
       @param message [String]: The text to display in the notification
       @param? options [Object]: The options to use when setting up the notification.
+        @notifyOptions
       @returns Notification: The newly created Notification
 
     @function hx.notify.info
-      @condensed
       @description: Shows an information notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[info] method.
       @param message [String]: The text to display in the notification
       @param? options [Object]: The options to use when setting up the notification.
+        @description
+          @p: The options to use when setting up the notification.
+          @p: The default value for the options object is:
+          @codeblock js
+            {
+              icon: 'fa fa-info',
+              cssclass: 'hx-info',
+              pinnable: true
+            }
+        @notifyOptions
       @returns Notification: The newly created Notification
 
     @function hx.notify.loading
-      @condensed
       @description: Shows a loading notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[loading] method.
       @param message [String]: The text to display in the notification
       @returns Notification: The newly created Notification
 
     @function hx.notify.warning
-      @condensed
       @description: Shows a warning notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[warning] method.
       @param message [String]: The text to display in the notification
       @param? options [Object]: The options to use when setting up the notification.
+        @description
+          @p: The options to use when setting up the notification.
+          @p: The default value for the options object is:
+          @codeblock js
+            {
+              icon: 'fa fa-warning',
+              cssclass: 'hx-warning',
+              pinnable: true
+            }
+        @notifyOptions
       @returns Notification: The newly created Notification
 
     @function hx.notify.negative
-      @condensed
       @description: Shows a negative notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[negative] method.
       @param message [String]: The text to display in the notification
       @param? options [Object]: The options to use when setting up the notification.
+        @description
+          @p: The options to use when setting up the notification.
+          @p: The default value for the options object is:
+          @codeblock js
+            {
+              icon: 'fa fa-error',
+              cssclass: 'hx-negative',
+              pinnable: true
+            }
+        @notifyOptions
       @returns Notification: The newly created Notification
 
     @function hx.notify.positive
-      @condensed
       @description: Shows a positive notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[positive] method.
       @param message [String]: The text to display in the notification
       @param? options [Object]: The options to use when setting up the notification.
+        @description
+          @p: The options to use when setting up the notification.
+          @p: The default value for the options object is:
+          @codeblock js
+            {
+              icon: 'fa fa-check',
+              cssclass: 'hx-positive',
+              pinnable: true
+            }
+        @notifyOptions
       @returns Notification: The newly created Notification
 
     @prototype Notification

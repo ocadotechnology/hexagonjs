@@ -4,7 +4,7 @@ options = {
     hx.select(elem)
       .text(item.name)
       .append('span')
-        .class('hx-label')
-        .text(item.county)
+        .class('hx-label hx-contrast')
+        .text(item.location)
 }
 new hx.AutoComplete('#autoComplete-Renderer', nameAndLocationData, options)

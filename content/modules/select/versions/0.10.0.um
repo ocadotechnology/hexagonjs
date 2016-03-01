@@ -5,7 +5,7 @@
 
   @examples
     @example
-      @html html
+      @html
         <button id="example" class="hx-btn hx-positive"></button>
       @js
         select = new hx.Select('#example')

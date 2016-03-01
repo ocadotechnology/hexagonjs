@@ -1,7 +1,7 @@
 @version 0.13.0
   @examples
     @example
-      @html html
+      @html
         <div id="example"></div>
       @js js
         var paginator = new hx.Paginator('#example');

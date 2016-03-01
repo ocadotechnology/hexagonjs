@@ -7,15 +7,15 @@
 
   @js
     defaultMenu = new hx.Menu('#menuDefault')
-    defaultMenu.render(["item 1","item 2","item 3"])
+    defaultMenu.items(["item 1","item 2","item 3"])
 
     var renderer = function(elem, item){
       hx.select(elem).text(item.name)
     }
 
     disabledMenu = new hx.Menu('#menuDisabled')
-    disabledMenu.renderer = renderer
-    disabledMenu.render([
+    disabledMenu.renderer(renderer)
+    disabledMenu.items([
       {
         name: 'Disabled Item 1',
         disabled: true
@@ -29,8 +29,8 @@
     ])
 
     unselectableMenu = new hx.Menu('#menuNoSelect')
-    unselectableMenu.renderer = renderer
-    unselectableMenu.render([
+    unselectableMenu.renderer(renderer)
+    unselectableMenu.items([
       {
         name: 'Unselectable Item 1',
         unselectable: true
@@ -44,8 +44,8 @@
     ])
 
     mixedMenu = new hx.Menu('#menuMixed')
-    mixedMenu.renderer = renderer
-    mixedMenu.render([
+    mixedMenu.renderer(renderer)
+    mixedMenu.items([
       {
         name: 'Disabled Item 1',
         disabled: true
@@ -67,6 +67,7 @@
 
 @example
   @html
+    <button class="hx-btn hx-action menuButtonNamed">hx-action</button>
     <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
     <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
     <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
@@ -76,9 +77,9 @@
 
   @js
     menuItems = ["item 1","item 2","item 3"]
-    menuExample = hx.selectAll('.menuButtonNamed').each(function(node){
-      menu = new hx.Menu(node);
-      menu.render(menuItems);
+    menuExample = hx.selectAll('.menuButtonNamed').forEach(function(node){
+      menu = new hx.Menu(node.node());
+      menu.items(menuItems);
     });
 
 @example
@@ -86,23 +87,24 @@
     <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
   @js
-    menu = new hx.Menu('#collapsibleMenu');
-    menu.renderer = function(element, item){
-      hx.select(element).text(item.text || item)
-    };
-    menu.render([
-      {
-        text: 'Item 1',
-        children: [
-          'Sub item 1',
-          'Sub item 2',
-        ]
+    menu = new hx.Menu('#collapsibleMenu', {
+      renderer: function(element, item){
+        hx.select(element).text(item.text || item)
       },
-      {
-        text: 'Item 2',
-        children: [
-          'Sub item 1',
-          'Sub item 2',
-        ]
-      }
-    ])
+      items:[
+        {
+          text: 'Item 1',
+          children: [
+            'Sub item 1',
+            'Sub item 2',
+          ]
+        },
+        {
+          text: 'Item 2',
+          children: [
+            'Sub item 1',
+            'Sub item 2',
+          ]
+        }
+      ]
+    });

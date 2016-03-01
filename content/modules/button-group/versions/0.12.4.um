@@ -5,7 +5,7 @@
 
   @examples
     @example
-      @html html
+      @html
         <div id="buttonGroup1"></div>
         <br>
         <div id="buttonGroup2"></div>

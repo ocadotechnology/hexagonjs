@@ -1,7 +1,7 @@
 @version 1.0.0
   @examples
     @example
-      @html html
+      @html
         <div class="hx-notice">
           <div class="hx-notice-header">Notice</div>
           <div class="hx-notice-body">Body Content</div>
