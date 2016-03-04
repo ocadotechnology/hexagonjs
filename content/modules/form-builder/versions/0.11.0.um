@@ -6,59 +6,59 @@
 
   @api Form Builder
     @prototype hx.Form
+      @group Add Component Methods
+        @method addDatePicker
+          @description: Adds a date picker to the form.
+          @param name [String]: The field name.
+          @param? options [Object]: The options to use when creating the field.
+            @property type [String]: The type of date picker to use, 'calendar' or 'datepicker'. The default is decided by the date picker.
+            @property closeOnSelect [Boolean]: Whether to close the datepicker when a date has been selected.
+              @default true
+            @property selectRange [Boolean]: Whether to display a date range picker instead of a standard date picker.
+              @default false
+            @property startDate [Date]: The selected start date to use when selectRange is true. Both startDate and endDate must be defined for this to have an effect.
+              @default Today
+            @property endDate [Date]: The selected end date to use when selectRange is true. Both startDate and endDate must be defined for this to have an effect.
+              @default Today
+            @property key [String]: The property name to map the input value to when filling the form and when getting the data.
+          @returns Form: This Form
 
-      @method addDatePicker
-        @description: Adds a date picker to the form.
-        @param name [String]: The field name.
-        @param? options [Object]: The options to use when creating the field.
-          @property type [String]: The type of date picker to use, 'calendar' or 'datepicker'. The default is decided by the date picker.
-          @property closeOnSelect [Boolean]: Whether to close the datepicker when a date has been selected.
-            @default true
-          @property selectRange [Boolean]: Whether to display a date range picker instead of a standard date picker.
-            @default false
-          @property startDate [Date]: The selected start date to use when selectRange is true. Both startDate and endDate must be defined for this to have an effect.
-            @default Today
-          @property endDate [Date]: The selected end date to use when selectRange is true. Both startDate and endDate must be defined for this to have an effect.
-            @default Today
-          @property key [String]: The property name to map the input value to when filling the form and when getting the data.
-        @returns Form: This Form
+        @method addTimePicker
+          @description: Adds a time picker to the form.
+          @param name [String]: The field name.
+          @param? options [Object]: The options to use when creating the field.
+            @property showSeconds [Boolean]: Whether to show the seconds in the time picker.
+              @default false
+            @property buttonClass [String]: An additional class to give to the buttons in the time picker (e.g. hx-positive)
+            @property key [String]: The property name to map the input value to when filling the form and when getting the data.
+          @returns Form: This Form
 
-      @method addTimePicker
-        @description: Adds a time picker to the form.
-        @param name [String]: The field name.
-        @param? options [Object]: The options to use when creating the field.
-          @property showSeconds [Boolean]: Whether to show the seconds in the time picker.
-            @default false
-          @property buttonClass [String]: An additional class to give to the buttons in the time picker (e.g. hx-positive)
-          @property key [String]: The property name to map the input value to when filling the form and when getting the data.
-        @returns Form: This Form
+        @method addDateTimePicker
+          @description: Adds a date time picker to the form.
+          @param name [String]: The field name.
+          @param? options [Object]: The options to use when creating the field.
+            @property showSeconds [Boolean]: Whether to show the seconds in the time picker.
+              @default false
+            @property closeOnSelect [Boolean]: Whether to close the date time picker when a date has been selected.
+              @default true
+            @property key [String]: The property name to map the input value to when filling the form and when getting the data.
+          @returns Form: This Form
 
-      @method addDateTimePicker
-        @description: Adds a date time picker to the form.
-        @param name [String]: The field name.
-        @param? options [Object]: The options to use when creating the field.
-          @property showSeconds [Boolean]: Whether to show the seconds in the time picker.
-            @default false
-          @property closeOnSelect [Boolean]: Whether to close the date time picker when a date has been selected.
-            @default true
-          @property key [String]: The property name to map the input value to when filling the form and when getting the data.
-        @returns Form: This Form
+        @method addSelect
+          @param name [String]
+          @param values [Array[String]]
+          @param? options [Object]
+          @enhancement: Updated the form builder to use the new hx.Select element.
 
-      @method addSelect
-        @param name [String]
-        @param values [Array[String]]
-        @param? options [Object]
-        @enhancement: Updated the form builder to use the new hx.Select element.
+          @returns Form: This Form
 
-        @returns Form: This Form
+        @method addSelect
+          @param name [String]
+          @param values [Array[Object]]
+          @param? options [Object]
+          @enhancement: Updated the form builder to use the new hx.Select element.
 
-      @method addSelect
-        @param name [String]
-        @param values [Array[Object]]
-        @param? options [Object]
-        @enhancement: Updated the form builder to use the new hx.Select element.
-
-        @returns Form: This Form
+          @returns Form: This Form
 
       @method getData
         @deprecated

@@ -6,26 +6,27 @@
 
   @api Form Builder
     @prototype hx.Form
-      @method addSelect
-        @description
-          Adds a dropdown select input to the form. There is an alternative overload that accepts an array of strings as the values.
+      @group Add Component Methods
+        @method addSelect
+          @description
+            Adds a dropdown select input to the form. There is an alternative overload that accepts an array of strings as the values.
 
-          @codeblock js
-            var values = [
-              { text: 'Hue', value: 'hue' } ,
-              { text: 'Saturation', value: 'saturation'},
-              { text: 'Lightness', value: 'lightness'}
-            ];
-            form.addSelect('Select', values, {required: true})
+            @codeblock js
+              var values = [
+                { text: 'Hue', value: 'hue' } ,
+                { text: 'Saturation', value: 'saturation'},
+                { text: 'Lightness', value: 'lightness'}
+              ];
+              form.addSelect('Select', values, {required: true})
 
-        @param name [String]: The field name.
-        @param values [Array[Object]]: An array of the possible options in the dropdown. The objects should have text and value fields.
-        @param? options [Object]
-          @property key [String]: The property name to map the input value to when filling the form and when getting the data.
-          @property required [Boolean]
-            @description
-              @p: Whether or not this is a required field.
-              @p: When the value is 'false', the select object will start with a blank value but is not required to be selected.
-              @p: When the value is 'true', the select object will start with a blank value and will not validate until a user has selected an option.
-              @p: When the value is not defined, the dropdown behaves as normal.
-        @returns Form: This Form
+          @param name [String]: The field name.
+          @param values [Array[Object]]: An array of the possible options in the dropdown. The objects should have text and value fields.
+          @param? options [Object]
+            @property key [String]: The property name to map the input value to when filling the form and when getting the data.
+            @property required [Boolean]
+              @description
+                @p: Whether or not this is a required field.
+                @p: When the value is 'false', the select object will start with a blank value but is not required to be selected.
+                @p: When the value is 'true', the select object will start with a blank value and will not validate until a user has selected an option.
+                @p: When the value is not defined, the dropdown behaves as normal.
+          @returns Form: This Form

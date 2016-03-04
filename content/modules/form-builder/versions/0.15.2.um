@@ -59,18 +59,18 @@
         @param property [String]: The property/key to use.
         @returns String: The error message for the property.
 
+      @group Add Component Methods
+        @method addSubmit
+          @param text [String]
+          @param icon [String]
+          @removed: Replaced with @code[addSubmit(text, icon, submitAction)]
 
-      @method addSubmit
-        @param text [String]
-        @param icon [String]
-        @removed: Replaced with @code[addSubmit(text, icon, submitAction)]
-
-      @method addSubmit
-        @description: Adds a submit button to the form
-        @param text [String]: The text to give the button
-        @param icon [String]: The icon class for the button's icon
-        @param? submitAction [Function]
-          @description: The function to call when the form is submitted instead of calling @code[form.submit()]. Useful for setting custom error messages for properties before submitting the form.
-          @param form [Form]: The form being submitted
-        @returns Form: This Form
+        @method addSubmit
+          @description: Adds a submit button to the form
+          @param text [String]: The text to give the button
+          @param icon [String]: The icon class for the button's icon
+          @param? submitAction [Function]
+            @description: The function to call when the form is submitted instead of calling @code[form.submit()]. Useful for setting custom error messages for properties before submitting the form.
+            @param form [Form]: The form being submitted
+          @returns Form: This Form
 
