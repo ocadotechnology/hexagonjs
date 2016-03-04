@@ -35,7 +35,7 @@ class Picker extends hx.EventEmitter
     @selection = hx.select(selector)
 
     @current = undefined
-    button = @selection.classed('hx-picker', true).append('span').class('hx-picker-inner').attr('type', 'button')
+    button = @selection.classed('hx-picker hx-btn', true).append('span').class('hx-picker-inner').attr('type', 'button')
     @selectedText = button.append('span').class('hx-picker-text')
     button.append('span').class('hx-picker-icon').append('i').class('hx-icon hx-icon-caret-down')
 
