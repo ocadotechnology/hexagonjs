@@ -92,6 +92,7 @@ dx.json('/meta.json', function (err, meta) {
       },
       value: meta.selectedVersion
     })
+    dx.select('.docs-version-button').classed('dx-btn', false)
   }
 
   var searchInput = dx.select('.docs-search-box')
@@ -158,7 +159,7 @@ dx.json('/meta.json', function (err, meta) {
     dropdown.show()
   })
 
-  dropdown.clickDetector.addException(dx.select('.docs-titlebar-logo').node())
+  dropdown._.clickDetector.addException(dx.select('.docs-titlebar-logo').node())
 
   dx.select('.docs-titlebar-logo').on('click', function () {
     dropdown.toggle()
