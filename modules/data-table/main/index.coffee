@@ -786,10 +786,18 @@ urlFeed = (url, options) ->
 
   {
     url: url # for debugging
-    headers: maybeCached (r) -> hx.json(url, { type: 'headers', extra: options.extra }, r)
-    totalCount: maybeCached (r) -> hx.json(url, { type: 'totalCount', extra: options.extra }, (res) -> r(res.count))
-    rows: (range, cb) -> hx.json(url, { type: 'rows', range: range, extra: options.extra }, cb)
-    rowsForIds: (ids, lookupRow, cb) -> hx.json(url, { type: 'rowsForIds', ids: ids, extra: options.extra }, cb)
+    headers: maybeCached (cb) ->
+      hx.json url, { type: 'headers', extra: options.extra }, (err, res) ->
+        cb(res)
+    totalCount: maybeCached (cb) ->
+      hx.json url, { type: 'totalCount', extra: options.extra }, (err, res) ->
+        cb(res.count)
+    rows: (range, cb) ->
+      hx.json url, { type: 'rows', range: range, extra: options.extra }, (err, res) ->
+        cb(res)
+    rowsForIds: (ids, lookupRow, cb) ->
+      hx.json url, { type: 'rowsForIds', ids: ids, extra: options.extra }, (err, res) ->
+        cb(res)
   }
 
 

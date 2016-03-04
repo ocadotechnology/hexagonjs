@@ -1865,7 +1865,7 @@ describe 'data-table', ->
         else
           should.not.exist(data)
 
-        cb(response)
+        cb(undefined, response)
 
     tearDownFakeHxJson = -> hx.json = json
 
