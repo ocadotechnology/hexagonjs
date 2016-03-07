@@ -71,23 +71,22 @@ class View
       viewEnterWarning = (element, selector) ->
         hx.consoleWarning "view enter fn returned", element, "! It didn't match selector", selector, ", so you may encounter odd behavior"
 
+      classes = @selector.split('.')
+      selectorContainsClasses = classes.length > 1
+      classString = classes.slice(1).join(' ')
+
       newNodeSet = enterSet.map (d, i) =>
         datum = d.datum
         element = @new.call @rootSelection, d.datum, i
 
-        if @selector.indexOf('.') >= 0
-          classes = @selector.split('.')
-          isChild = @rootSelection.node().contains(element)
-
-          # Checks isChild first as it's the quickest operation
-          if not isChild
-            viewEnterWarning(element, @selector)
-          else
-            isClassedCorrectly = hx.select(element).classed(classes.slice(1).join(' '))
-            if typeof isClassedCorrectly isnt 'boolean'
-              isClassedCorrectly = isClassedCorrectly.every((e) -> e)
-            viewEnterWarning(element, @selector) unless isClassedCorrectly
-
+        # Checks isChild first as it's the quickest operation
+        isChild = @rootSelection.node().contains(element)
+        if not isChild
+          viewEnterWarning(element, @selector)
+        # Only do this check if the selector actually contains classes to check
+        else if selectorContainsClasses
+          isClassedCorrectly = hx.select(element).classed(classString)
+          viewEnterWarning(element, @selector) unless isClassedCorrectly
 
         hedo = hx.select.getHexagonElementDataObject element
         hedo.datum = datum
