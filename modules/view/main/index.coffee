@@ -2,12 +2,12 @@
 class View
   constructor: (@rootSelection, @selector, @defaultType) ->
     self = this
+    elementType = self.selector.split('.')[0]
+    classes = self.selector.split('.').slice(1).join ' '
     @new = (datum) ->
-      [elementType, classes...] = self.selector.split '.'
-      node = @append elementType or self.defaultType
-        .class classes.join ' '
+      @append elementType or self.defaultType
+        .class classes
         .node()
-      node
     @each = (datum, element) ->
     @old = (datum, element) -> @remove()
   enter: (f) -> @new = f; this
@@ -68,14 +68,26 @@ class View
           for j in [i..data.length-1]
             enterSet.push {datum: data[j]}
 
+      viewEnterWarning = (element, selector) ->
+        hx.consoleWarning "view enter fn returned", element, "! It didn't match selector", selector, ", so you may encounter odd behavior"
 
       newNodeSet = enterSet.map (d, i) =>
         datum = d.datum
         element = @new.call @rootSelection, d.datum, i
-        subselection = @rootSelection.selectAll @selector
 
-        unless element in subselection.nodes
-          hx.consoleWarning "view enter fn returned", element, "! It didn't match selector", @selector, ", so you may encounter odd behavior"
+        if @selector.indexOf('.') >= 0
+          classes = @selector.split('.')
+          isChild = @rootSelection.node().contains(element)
+
+          # Checks isChild first as it's the quickest operation
+          if not isChild
+            viewEnterWarning(element, @selector)
+          else
+            isClassedCorrectly = hx.select(element).classed(classes.slice(1).join(' '))
+            if typeof isClassedCorrectly isnt 'boolean'
+              isClassedCorrectly = isClassedCorrectly.every((e) -> e)
+            viewEnterWarning(element, @selector) unless isClassedCorrectly
+
 
         hedo = hx.select.getHexagonElementDataObject element
         hedo.datum = datum
