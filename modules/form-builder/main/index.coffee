@@ -22,7 +22,7 @@ class Form extends hx.EventEmitter
 
     # Define the default function for enabling/disabling a form property
     extras.disable ?= (sel, disable) ->
-      sel.attr('disabled', if disable then true else undefined)
+      sel.attr('disabled', if disable then 'disabled' else undefined)
 
     if extras.key?
       key = extras.key
