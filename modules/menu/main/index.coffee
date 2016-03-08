@@ -247,7 +247,7 @@ class Menu extends hx.EventEmitter
         ddNode = hx.select(node)
         if node.scrollTop < node.scrollHeight - node.clientHeight
           ddNode.style('width', ddNode.width() + hx.scrollbarSize() + 'px')
-          if @dropdown.alignments[2] is 'r'
+          if @dropdown._.alignments[2] is 'r'
             ddNode.style('left', Math.max(0, ddNode.box().left - hx.scrollbarSize()) + 'px')
 
     selection = hx.select(@selector)
