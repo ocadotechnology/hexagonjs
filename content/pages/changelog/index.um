@@ -173,5 +173,9 @@
         @p: Added a timezone api to preferences and updated date/time pickers to listen to changes in timezone/locale automatically, added @code[hx.graph] as a fluid api version for creating graphs, added @code[hx.text] as a new wrapper for @code[hx.request] and made several bugfixes and improvements to the underlying code.
         @p: Also added @hyperlink(/guide/printing/)[print styles] to hexagon builds as additional resources.
 
+    @version 1.2.0
+      @description
+        @p: Several enhancements and bugfixes to do with the more commonly used components such as View and Data Table as well as additional functionality for Form Builder.
+
   @h2: Key
   @changelog.key
