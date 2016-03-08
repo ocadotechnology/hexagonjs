@@ -287,31 +287,30 @@ class Menu extends hx.EventEmitter
           checkEvent(e, self)
         self.emit 'keydown', e
 
-      self.dropdown._.dropdown
-        .on 'click', 'hx.menu', (e) ->
-          # get the closest menu item - uses nodes as blank selection can be
-          # returned if the target is a hx-menu-item
+      self.dropdown._.dropdown?.on 'click', 'hx.menu', (e) ->
+        # get the closest menu item - uses nodes as blank selection can be
+        # returned if the target is a hx-menu-item
 
-          target = if hx.select(e.target).classed('hx-menu-link')
-            e.target
-          else
-            hx.select(e.target).closest('.hx-menu-item').node()
+        target = if hx.select(e.target).classed('hx-menu-link')
+          e.target
+        else
+          hx.select(e.target).closest('.hx-menu-item').node()
 
-          if target
+        if target
 
-            index = -1
+          index = -1
 
-            t = hx.select(target)
-            if t.classed('hx-menu-link')
-              allItems = getAllItems(self)
-              i = 0
-              while index < 0 and i < allItems.length
-                if allItems[i].node is target
-                  index = i
-                  break
-                i += 1
-              setActive(self, index, undefined, true)
-            targetElem.node().focus()
+          t = hx.select(target)
+          if t.classed('hx-menu-link')
+            allItems = getAllItems(self)
+            i = 0
+            while index < 0 and i < allItems.length
+              if allItems[i].node is target
+                index = i
+                break
+              i += 1
+            setActive(self, index, undefined, true)
+          targetElem.node().focus()
 
 
     # pipe the dropdown events through
