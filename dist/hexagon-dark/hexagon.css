@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.1.0
+ Version: 1.2.0
  Theme: hexagon-dark
  Modules:
    set
@@ -333,10 +333,6 @@ input {
   border: solid;
   border-width: 1px;
   padding: 0.4em; }
-  textarea:disabled,
-  input:disabled {
-    cursor: not-allowed;
-    opacity: 0.5; }
   textarea:invalid,
   input:invalid {
     border-width: 1px;
@@ -455,6 +451,12 @@ input[type=radio] {
 
 hr {
   border: 1px solid transparent; }
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.5; }
 
 body.hx-modal-open {
   overflow-y: hidden; }
@@ -3062,7 +3064,8 @@ hr {
 .hx-dropdown {
   background: #32373A;
   box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.05);
-  border-color: #424749; }
+  border-color: #424749;
+  margin-top: 0px; }
 
 .hx-collapsible-heading {
   background: #2C3134;

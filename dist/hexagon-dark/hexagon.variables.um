@@ -154,7 +154,13 @@
       @contrast-col: #F7F7F9
       @background-col: rgba(227,227,227,0.3)
     @plot
-      @colors: rgb(177,119,190),rgb(90,155,212),rgb(241,90,113),rgb(151,195,102),rgb(250,169,91),rgb(226,212,64)
+      @colors
+        rgb(177,119,190)
+        rgb(90,155,212)
+        rgb(241,90,113)
+        rgb(151,195,102)
+        rgb(250,169,91)
+        rgb(226,212,64)
       @warm-col: rgb(250,169,91)
       @ambient-col: rgb(226,212,64)
       @cold-col: rgb(90,155,212)

@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.1.0
+ Version: 1.2.0
  Theme: hexagon-light
  Modules:
    set
@@ -3532,22 +3532,19 @@ addAugmentorWithoutLocation('pointerenter', 'mouseenter', ['touchenter']);
 
 
 (function(){
-var View,
-  slice = [].slice,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+var View;
 
 View = (function() {
   function View(rootSelection, selector1, defaultType) {
-    var self;
+    var classes, elementType, self;
     this.rootSelection = rootSelection;
     this.selector = selector1;
     this.defaultType = defaultType;
     self = this;
+    elementType = self.selector.split('.')[0];
+    classes = self.selector.split('.').slice(1).join(' ');
     this["new"] = function(datum) {
-      var classes, elementType, node, ref;
-      ref = self.selector.split('.'), elementType = ref[0], classes = 2 <= ref.length ? slice.call(ref, 1) : [];
-      node = this.append(elementType || self.defaultType)["class"](classes.join(' ')).node();
-      return node;
+      return this.append(elementType || self.defaultType)["class"](classes).node();
     };
     this.each = function(datum, element) {};
     this.old = function(datum, element) {
@@ -3571,7 +3568,7 @@ View = (function() {
   };
 
   View.prototype.apply = function(data, key) {
-    var d, dataByKey, datum, enterSet, exitSet, i, j, k, l, len, len1, len2, len3, m, n, newNodeSet, node, nodeByKey, nodeData, nodes, o, p, ref, ref1, ref2, updateSet;
+    var classString, classes, d, dataByKey, datum, enterSet, exitSet, i, j, k, l, len, len1, len2, len3, m, n, newNodeSet, node, nodeByKey, nodeData, nodes, o, p, ref, ref1, ref2, selectorContainsClasses, updateSet, viewEnterWarning;
     if (this.rootSelection.size()) {
       if (!hx.isArray(data)) {
         data = [data];
@@ -3659,14 +3656,25 @@ View = (function() {
           }
         }
       }
+      viewEnterWarning = function(element, selector) {
+        return hx.consoleWarning("view enter fn returned", element, "! It didn't match selector", selector, ", so you may encounter odd behavior");
+      };
+      classes = this.selector.split('.');
+      selectorContainsClasses = classes.length > 1;
+      classString = classes.slice(1).join(' ');
       newNodeSet = enterSet.map((function(_this) {
         return function(d, i) {
-          var element, hedo, ret, subselection;
+          var element, hedo, isChild, isClassedCorrectly, ret;
           datum = d.datum;
           element = _this["new"].call(_this.rootSelection, d.datum, i);
-          subselection = _this.rootSelection.selectAll(_this.selector);
-          if (indexOf.call(subselection.nodes, element) < 0) {
-            hx.consoleWarning("view enter fn returned", element, "! It didn't match selector", _this.selector, ", so you may encounter odd behavior");
+          isChild = _this.rootSelection.node().contains(element);
+          if (!isChild) {
+            viewEnterWarning(element, _this.selector);
+          } else if (selectorContainsClasses) {
+            isClassedCorrectly = hx.select(element).classed(classString);
+            if (!isClassedCorrectly) {
+              viewEnterWarning(element, _this.selector);
+            }
           }
           hedo = hx.select.getHexagonElementDataObject(element);
           hedo.datum = datum;
@@ -4859,57 +4867,101 @@ hx.validateForm = validateForm;
 
 })();
 (function(){
-
-/* istanbul ignore next: ignore coffeescript's extend function */
-var Dropdown, checkFixedPos, getWindowMeasurement,
+var Dropdown, calculateDropdownPosition, checkFixedPos, dropdownAnimateSlideDistance,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-getWindowMeasurement = function(horizontal, scroll) {
-  if (horizontal) {
-    if (scroll) {
-      return window.scrollX;
-    } else {
-      return window.innerWidth;
-    }
-  } else {
-    if (scroll) {
-      return window.scrollY;
-    } else {
-      return window.innerHeight;
-    }
+dropdownAnimateSlideDistance = 8;
+
+checkFixedPos = function(node) {
+  if (hx.select(node).style('position') === 'fixed') {
+    return true;
   }
 };
 
-checkFixedPos = function(node) {
-  var elem;
-  elem = hx.select(node);
-  if (elem.size() > 0 && elem.style('position') === 'fixed') {
-    return true;
+calculateDropdownPosition = function(alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) {
+  var direction, x, y;
+  direction = alignments[1] === alignments[3] && alignments[0] !== alignments[2] ? alignments[0] === 'l' ? 'left' : 'right' : alignments[3] === 't' ? 'down' : 'up';
+  x = selectionRect.x;
+  y = selectionRect.y;
+  if (alignments[0] === 'r') {
+    x += selectionRect.width;
   }
+  if (alignments[1] === 'b') {
+    y += selectionRect.height;
+  }
+  if (alignments[2] === 'r') {
+    x -= dropdownRect.width;
+  }
+  if (alignments[3] === 'b') {
+    y -= dropdownRect.height;
+  }
+  if (direction === 'down' || direction === 'up') {
+    x = hx.clamp(0, windowRect.width - dropdownRect.width, x);
+  } else {
+    y = hx.clamp(0, windowRect.height - dropdownRect.height, y);
+  }
+  if (direction === 'down' && y > windowRect.height - dropdownRect.height && selectionRect.y - dropdownRect.height > 0) {
+    direction = 'up';
+    y = selectionRect.y - dropdownRect.height;
+    if (alignments[1] === alignments[3]) {
+      y += selectionRect.height;
+    }
+  } else if (direction === 'up' && y < 0 && selectionRect.y + selectionRect.height + dropdownRect.height < windowRect.height) {
+    direction = 'down';
+    y = selectionRect.y + selectionRect.height;
+    if (alignments[1] === alignments[3]) {
+      y -= selectionRect.height;
+    }
+  } else if (direction === 'right' && x > windowRect.width - dropdownRect.width && selectionRect.x - dropdownRect.width > 0) {
+    direction = 'left';
+    x = selectionRect.x - dropdownRect.width;
+  } else if (direction === 'left' && x < 0 && selectionRect.x + selectionRect.width + dropdownRect.width < windowRect.width) {
+    direction = 'right';
+    x = selectionRect.x + selectionRect.width;
+  }
+  return {
+    x: x,
+    y: y,
+    direction: direction
+  };
 };
 
 Dropdown = (function(superClass) {
   extend(Dropdown, superClass);
 
   function Dropdown(selector, dropdownContent, options) {
-    var alignQuad;
-    this.selector = selector;
-    this.dropdownContent = dropdownContent;
+    var alignQuad, alignments, clickDetector, onclick, onmouseout, onmouseover, selection, setupDropdown;
     Dropdown.__super__.constructor.apply(this, arguments);
-    hx.component.register(this.selector, this);
+    hx.component.register(selector, this);
     this.options = hx.merge.defined({
       mode: 'click',
       align: 'lblt',
-      spacing: Number(hx.theme.dropdown.spacing),
+      spacing: void 0,
       matchWidth: true,
       ddClass: ''
     }, options);
-    this.selection = hx.select(this.selector);
-    this.visible = false;
-    this.dropdown = void 0;
-    this.clickDetector = new hx.ClickDetector;
-    this.useScroll = false;
+    setupDropdown = (function() {
+      switch (false) {
+        case !hx.isString(dropdownContent):
+          return function(node) {
+            return hx.select(node).html(dropdownContent);
+          };
+        case !hx.isFunction(dropdownContent):
+          return function(node) {
+            return dropdownContent(node);
+          };
+        default:
+          hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent);
+          return function() {};
+      }
+    })();
+    clickDetector = new hx.ClickDetector;
+    clickDetector.on('click', 'hx.dropdown', (function(_this) {
+      return function() {
+        return _this.hide();
+      };
+    })(this));
     alignQuad = (function() {
       switch (this.options.align) {
         case 'up':
@@ -4924,35 +4976,51 @@ Dropdown = (function(superClass) {
           return this.options.align;
       }
     }).call(this);
-    this.alignments = alignQuad.split('');
+    alignments = alignQuad.split('');
+    onclick = (function(_this) {
+      return function() {
+        return _this.toggle();
+      };
+    })(this);
+    onmouseover = (function(_this) {
+      return function() {
+        return _this.show();
+      };
+    })(this);
+    onmouseout = (function(_this) {
+      return function() {
+        return _this.hide();
+      };
+    })(this);
+    selection = hx.select(selector);
+    this._ = {
+      setupDropdown: setupDropdown,
+      clickDetector: clickDetector,
+      alignments: alignments,
+      onclick: onclick,
+      onmouseover: onmouseover,
+      onmouseout: onmouseout,
+      visible: false,
+      dropdown: void 0,
+      selection: selection,
+      useScroll: false
+    };
     if (this.options.mode === 'click' || this.options.mode === 'hover') {
-      this.selection.on('click', 'hx.dropdown', (function(_this) {
-        return function() {
-          return _this.toggle();
-        };
-      })(this));
+      selection.on('click', 'hx.dropdown', onclick);
     }
     if (this.options.mode === 'hover') {
-      this.selection.on('mouseover', 'hx.dropdown', (function(_this) {
-        return function() {
-          return _this.show();
-        };
-      })(this));
-      this.selection.on('mouseout', 'hx.dropdown', (function(_this) {
-        return function() {
-          return _this.hide();
-        };
-      })(this));
+      selection.on('mouseover', 'hx.dropdown', onmouseover);
+      selection.on('mouseout', 'hx.dropdown', onmouseout);
     }
   }
 
   Dropdown.prototype.addException = function(node) {
-    this.clickDetector.addException(node);
+    this._.clickDetector.addException(node);
     return this;
   };
 
   Dropdown.prototype.removeException = function(node) {
-    this.clickDetector.removeException(node);
+    this._.clickDetector.removeException(node);
     return this;
   };
 
@@ -4966,151 +5034,62 @@ Dropdown = (function(superClass) {
   };
 
   Dropdown.prototype.show = function(cb) {
-    var bodyDiff, checkOverlap, ddHeight, ddMaxHeight, dropdownRect, horizontalOverlap, horizontalPos, horizontalWindow, invertY, movedVertical, node, parentFixed, parentZIndex, rect, scrollbarWidth, verticalOverlap, verticalPos, verticalWindow, yPos;
-    if (!this.dropdown) {
-      this.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown');
+    var _, ddMaxHeight, dropdownRect, parentFixed, parentZIndex, rect, ref, x, y;
+    _ = this._;
+    if (!_.visible) {
+      _.visible = true;
+      _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown');
       if (this.options.ddClass.length > 0) {
-        this.dropdown.classed(this.options.ddClass, true);
+        _.dropdown.classed(this.options.ddClass, true);
       }
-      switch (false) {
-        case !hx.isString(this.dropdownContent):
-          this.dropdown.html(this.dropdownContent);
-          this.clickDetector.removeAllExceptions();
-          this.clickDetector.addException(this.dropdown.node());
-          this.clickDetector.addException(this.selection.node());
-          break;
-        case !hx.isFunction(this.dropdownContent):
-          node = this.dropdown.node();
-          this.dropdownContent(node);
-          this.clickDetector.removeAllExceptions();
-          this.clickDetector.addException(node);
-          this.clickDetector.addException(this.selection.node());
-          break;
-        default:
-          console.error('hexagon: dropdownContent is not a valid type ' + this.selector);
+      _.setupDropdown(_.dropdown.node());
+      _.clickDetector.removeAllExceptions();
+      _.clickDetector.addException(_.dropdown.node());
+      _.clickDetector.addException(_.selection.node());
+      _.dropdown.style('display', 'block');
+      rect = _.selection.box();
+      dropdownRect = _.dropdown.box();
+      ddMaxHeight = _.dropdown.style('max-height').replace('px', '');
+      parentFixed = hx.checkParents(_.selection.node(), checkFixedPos);
+      parentZIndex = hx.parentZIndex(_.selection.node(), true);
+      ref = calculateDropdownPosition(_.alignments, {
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      }, {
+        width: dropdownRect.width,
+        height: dropdownRect.height
+      }, {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }, ddMaxHeight, hx.scrollbarSize()), x = ref.x, y = ref.y;
+      if (!parentFixed) {
+        x += window.scrollX;
+        y += window.scrollY;
       }
-    }
-    this.clickDetector.on('click', 'hx.dropdown', (function(_this) {
-      return function() {
-        return _this.hide();
-      };
-    })(this));
-    if (!this.visible && this.dropdown) {
-      parentZIndex = hx.parentZIndex(this.selection.node(), true);
       if (parentZIndex > 0) {
-        this.dropdown.style('z-index', parentZIndex + 1);
+        _.dropdown.style('z-index', parentZIndex + 1);
       }
-      rect = this.selection.box();
-      this.dropdown.style('display', 'block');
-      if (this.options.matchWidth) {
-        this.dropdown.style('min-width', rect.width + 'px');
-      }
-      dropdownRect = this.dropdown.box();
-      ddMaxHeight = this.dropdown.style('max-height').replace('px', '');
-      horizontalPos = rect.left;
-      verticalPos = rect.top;
-      if (this.alignments[0] === 'r') {
-        horizontalPos = rect.right;
-      }
-      if (this.alignments[1] === 'b') {
-        verticalPos = rect.bottom;
-      }
-      if (this.alignments[2] === 'r') {
-        horizontalPos -= dropdownRect.width;
-      }
-      if (this.alignments[3] === 'b') {
-        verticalPos -= dropdownRect.height;
-      }
-      if (this.alignments[0] !== this.alignments[2]) {
-        switch (this.alignments[2]) {
-          case 'l':
-            horizontalPos += this.options.spacing;
-            break;
-          case 'r':
-            horizontalPos -= this.options.spacing;
-        }
-      }
-      if (this.alignments[1] !== this.alignments[3]) {
-        switch (this.alignments[3]) {
-          case 't':
-            verticalPos += this.options.spacing;
-            break;
-          case 'b':
-            invertY = true;
-            verticalPos -= this.options.spacing;
-        }
-      }
-      scrollbarWidth = hx.scrollbarSize();
-      if (horizontalPos < 0) {
-        horizontalPos = 0;
-      }
-      if ((horizontalWindow = horizontalPos + dropdownRect.width - getWindowMeasurement(true) + scrollbarWidth) > 0) {
-        horizontalPos -= horizontalWindow;
-      }
-      if (verticalPos < 0) {
-        verticalPos = 0;
-      }
-      ddHeight = !isNaN(ddMaxHeight) ? Math.min(ddMaxHeight, dropdownRect.height) : dropdownRect.height;
-      if ((verticalWindow = verticalPos + ddHeight - getWindowMeasurement()) > 0) {
-        movedVertical = true;
-        verticalPos -= verticalWindow;
-      }
-      checkOverlap = function(posA, posB, rectA, rectB) {
-        var complete, partialA, partialB;
-        complete = posA < rectA && posB > rectB;
-        partialA = posB >= rectB && posA < rectB && posA >= rectA;
-        partialB = posA <= rectA && posB > rectA && posB <= rectB;
-        if (complete || partialA) {
-          return 2;
-        } else if (partialB) {
-          return 1;
-        } else {
-          return 0;
-        }
-      };
-      horizontalOverlap = checkOverlap(horizontalPos, horizontalPos + dropdownRect.width, rect.left, rect.left + rect.width);
-      verticalOverlap = checkOverlap(verticalPos, verticalPos + dropdownRect.height, rect.top, rect.top + rect.height);
-      if (horizontalOverlap > 0 && verticalOverlap > 0) {
-        if (verticalOverlap > 1 && !movedVertical) {
-          invertY = false;
-          verticalPos = rect.top + rect.height + this.options.spacing;
-        } else {
-          invertY = true;
-          verticalPos = rect.top - dropdownRect.height - this.options.spacing;
-          if (verticalPos < 0) {
-            invertY = false;
-            verticalPos = rect.top + rect.height + this.options.spacing;
-          }
-        }
-      }
-      parentFixed = hx.checkParents(this.selection.node(), checkFixedPos);
       if (parentFixed) {
-        this.dropdown.style('position', 'fixed');
-      } else {
-        verticalPos += getWindowMeasurement(false, true);
-        horizontalPos += getWindowMeasurement(true, true);
+        _.dropdown.style('position', 'fixed');
       }
-      yPos = 'top';
-      if (invertY) {
-        yPos = 'bottom';
-        bodyDiff = document.body.scrollHeight - document.body.clientHeight;
-        verticalPos = document.body.scrollHeight - verticalPos - bodyDiff - dropdownRect.height;
+      if (this.options.matchWidth) {
+        _.dropdown.style('min-width', rect.width + 'px');
       }
-      this.dropdown.style('top', 'auto').style(yPos, verticalPos + 'px').style('left', horizontalPos + 'px').style('width', dropdownRect.width + 'px');
-      this.dropdown.style('height', '0px').style(yPos, (verticalPos + 8) + 'px').style('opacity', 0).morph()["with"]('fadein', 150).and('expandv', 150).and((function(_this) {
+      _.dropdown.style('left', x + 'px').style('top', (y + dropdownAnimateSlideDistance) + 'px').style('height', '0px').style('opacity', 0).style('margin-top', this.options.dropdown).morph()["with"]('fadein', 150).and('expandv', 150).and((function(_this) {
         return function() {
-          return _this.dropdown.animate().style(yPos, verticalPos + 'px', 150);
+          return _.dropdown.animate().style('top', y + 'px', 150);
         };
       })(this)).then((function(_this) {
         return function() {
-          if (_this.useScroll && (_this.dropdown != null)) {
-            _this.dropdown.style('overflow-y', 'auto');
+          if (_.useScroll && (_.dropdown != null)) {
+            _.dropdown.style('overflow-y', 'auto');
           }
           _this.emit('showend');
           return typeof cb === "function" ? cb() : void 0;
         };
       })(this)).go();
-      this.visible = true;
       this.emit('showstart');
       this.emit('change', true);
     }
@@ -5118,27 +5097,37 @@ Dropdown = (function(superClass) {
   };
 
   Dropdown.prototype.hide = function(cb) {
-    if (this.visible) {
-      this.visible = false;
+    var _;
+    _ = this._;
+    if (_.visible) {
+      _.visible = false;
       this.emit('hidestart');
       this.emit('change', false);
       this.emit('hideend');
       if (typeof cb === "function") {
         cb();
       }
-      this.dropdown.remove();
-      this.dropdown = void 0;
-      this.clickDetector.off('click', 'hx.dropdown');
+      _.dropdown.remove();
+      _.dropdown = void 0;
     }
     return this;
   };
 
   Dropdown.prototype.isOpen = function() {
-    return this.visible;
+    return this._.visible;
   };
 
   Dropdown.prototype.cleanUp = function() {
-    this.clickDetector.cleanUp();
+    var _;
+    _ = this._;
+    _.clickDetector.cleanUp();
+    if (this.options.mode === 'click' || this.options.mode === 'hover') {
+      _.selection.off(_.onclick);
+    }
+    if (this.options.mode === 'hover') {
+      _.selection.off('mouseover', 'hx.dropdown', _.onmouseover);
+      _.selection.off('mouseout', 'hx.dropdown', _.onmouseout);
+    }
     return this;
   };
 
@@ -5149,7 +5138,8 @@ Dropdown = (function(superClass) {
 hx.Dropdown = Dropdown;
 
 hx._.dropdown = {
-  attachToSelector: 'body'
+  attachToSelector: 'body',
+  calculateDropdownPosition: calculateDropdownPosition
 };
 
 })();
@@ -6174,7 +6164,7 @@ getAllItems = function(menu) {
 
 setActive = function(menu, pos, up, click) {
   var allItems, collapsibleHeading, content, dNode, ddScroll, goUp, isEnabled, itemHeight, mNode, menuNode, node, offset, parentNode, parentOffset, ref, ref1, ref2, ref3, selectedItem, totalOffset;
-  if ((ref = menu.dropdown.dropdown) != null) {
+  if ((ref = menu.dropdown._.dropdown) != null) {
     ref.selectAll('.hx-menu-item').classed('hx-menu-active', false);
   }
   if (pos >= 0) {
@@ -6202,7 +6192,7 @@ setActive = function(menu, pos, up, click) {
       return void 0;
     } else {
       menu.cursorPos = pos;
-      if (((dNode = (ref3 = menu.dropdown.dropdown) != null ? ref3.node() : void 0) != null) && !click) {
+      if (((dNode = (ref3 = menu.dropdown._.dropdown) != null ? ref3.node() : void 0) != null) && !click) {
         menuNode = hx.select(node).classed('hx-menu-active', true);
         mNode = menuNode.node();
         offset = mNode.offsetTop;
@@ -6409,12 +6399,12 @@ Menu = (function(superClass) {
     this.dropdown.on('showend', (function(_this) {
       return function() {
         var ddNode, node;
-        if (_this.dropdown.dropdown != null) {
-          node = _this.dropdown.dropdown.node();
+        if (_this.dropdown._.dropdown != null) {
+          node = _this.dropdown._.dropdown.node();
           ddNode = hx.select(node);
           if (node.scrollTop < node.scrollHeight - node.clientHeight) {
             ddNode.style('width', ddNode.width() + hx.scrollbarSize() + 'px');
-            if (_this.dropdown.alignments[2] === 'r') {
+            if (_this.dropdown._.alignments[2] === 'r') {
               return ddNode.style('left', Math.max(0, ddNode.box().left - hx.scrollbarSize()) + 'px');
             }
           }
@@ -6452,9 +6442,10 @@ Menu = (function(superClass) {
       targetElem = selection;
     }
     this.dropdown.on('showstart', 'hx.menu', function() {
+      var ref;
       self.cursorPos = -1;
       if (!isInput) {
-        targetElem = self.dropdown.dropdown;
+        targetElem = self.dropdown._.dropdown;
         targetElem.attr('tabindex', '-1');
         targetElem.node().focus();
       }
@@ -6464,7 +6455,7 @@ Menu = (function(superClass) {
         }
         return self.emit('keydown', e);
       });
-      return self.dropdown.dropdown.on('click', 'hx.menu', function(e) {
+      return (ref = self.dropdown._.dropdown) != null ? ref.on('click', 'hx.menu', function(e) {
         var allItems, i, index, t, target;
         target = hx.select(e.target).classed('hx-menu-link') ? e.target : hx.select(e.target).closest('.hx-menu-item').node();
         if (target) {
@@ -6484,7 +6475,7 @@ Menu = (function(superClass) {
           }
           return targetElem.node().focus();
         }
-      });
+      }) : void 0;
     });
     this.dropdown.pipe(this, 'dropdown');
     if (this.options.disabled) {
@@ -6832,10 +6823,10 @@ checkValue = function(numberPicker, context) {
   max = numberPicker.max();
   min = numberPicker.min();
   if (max !== void 0) {
-    value = hx.min([value, max]);
+    value = Math.min(value, max);
   }
   if (min !== void 0) {
-    value = hx.max([value, min]);
+    value = Math.max(value, min);
   }
   if (value !== oldValue) {
     return context.value(value);
@@ -6854,7 +6845,8 @@ NumberPicker = (function(superClass) {
       buttonClass: '',
       min: void 0,
       max: void 0,
-      disabled: false
+      disabled: false,
+      value: 0
     }, options);
     this._ = {};
     container = hx.select(this.selector);
@@ -6889,24 +6881,25 @@ NumberPicker = (function(superClass) {
         return _this.decrement();
       };
     })(this));
-    if (this.options.max) {
+    if (this.options.max !== void 0) {
       this.max(this.options.max);
     }
-    if (this.options.min) {
+    if (this.options.min !== void 0) {
       this.min(this.options.min);
     }
     if (this.options.disabled) {
       this.disabled(this.options.disabled);
     }
+    this.selectInput.attr('data-value', this.options.value).value(this.options.value);
   }
 
   NumberPicker.prototype.value = function(value, screenValue) {
     if (arguments.length > 0) {
-      if (this.options.max !== void 0 && value > this.max) {
-        value = this.max;
+      if (this._.max !== void 0 && value > this._.max) {
+        value = this._.max;
       }
-      if (this.min !== void 0 && value < this.min) {
-        value = this.min;
+      if (this._.min !== void 0 && value < this._.min) {
+        value = this._.min;
       }
       if (screenValue && isNaN(screenValue)) {
         this.selectInput.attr('type', 'text').attr('readonly', '');
@@ -10700,7 +10693,7 @@ Picker = (function(superClass) {
     hx.component.register(selector, this);
     this.selection = hx.select(selector);
     this.current = void 0;
-    button = this.selection.classed('hx-picker', true).append('span')["class"]('hx-picker-inner').attr('type', 'button');
+    button = this.selection.classed('hx-picker hx-btn', true).append('span')["class"]('hx-picker-inner').attr('type', 'button');
     this.selectedText = button.append('span')["class"]('hx-picker-text');
     button.append('span')["class"]('hx-picker-icon').append('i')["class"]('hx-icon hx-icon-caret-down');
     this.menu = new hx.Menu(selector, {
@@ -10902,18 +10895,7 @@ hx.ButtonGroup = ButtonGroup;
 
 })();
 (function(){
-var hasResponse, hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest,
-  slice = [].slice;
-
-hasResponse = function(request) {
-  var responseType;
-  responseType = request.responseType;
-  if (responseType && responseType !== 'text') {
-    return request.response;
-  } else {
-    return request.responseText;
-  }
-};
+var hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
 
 respondToRequest = function(request, url, data, callback, options, index) {
   var e, error1, result, source, status;
@@ -10922,7 +10904,7 @@ respondToRequest = function(request, url, data, callback, options, index) {
     url: url,
     data: data
   } : url;
-  if (!status && hasResponse(request) || status >= 200 && status < 300 || status === 304) {
+  if (status >= 200 && status < 300 || status === 304) {
     try {
       result = options.formatter(request);
     } catch (error1) {
@@ -10947,7 +10929,9 @@ sendRequest = function(request, url, data, options) {
   if (options.responseType) {
     request.responseType = options.responseType;
   }
-  request.overrideMimeType(options.contentType);
+  if (options.contentType) {
+    request.overrideMimeType(options.contentType);
+  }
   sendData = (data != null) && typeof data !== 'string' ? JSON.stringify(data) : data;
   return request.send(sendData);
 };
@@ -10978,23 +10962,10 @@ performRequest = function(url, data, callback, options, index) {
     options.requestType = 'POST';
   }
   request = new XMLHttpRequest();
-
-  /* istanbul ignore next: ie 8.0 - 9.x use xDomainRequest, no other browser uses it */
-  if (!('withCredentials' in request) && typeof XDomainRequest !== void 0 && /^(http(s)?:)?\/\//.test(url)) {
-    request = new XDomainRequest();
-  }
   respond = function() {
     return respondToRequest(request, url, data, callback, options, index);
   };
-
-  /* istanbul ignore next: onload/onerror are part of XMLHttpRequest 2 spec so this is here for older browser support */
-  if ('onload' in request) {
-    request.onload = request.onerror = respond;
-  } else {
-    request.onreadystatechange = function() {
-      request.readyState > 3 && respond();
-    };
-  }
+  request.onload = request.onerror = respond;
   return sendRequest(request, url, data, options);
 };
 
@@ -11084,57 +11055,42 @@ parsers = {
   }
 };
 
-reshapedRequest = function(arg, type) {
-  var callback, data, defaults, options, ref, urls;
-  urls = arg[0], data = arg[1], callback = arg[2], options = arg[3];
-  if (hx.isFunction(data)) {
-    ref = [void 0, data, callback], data = ref[0], callback = ref[1], options = ref[2];
-  }
-  defaults = type ? {
-    contentType: type,
-    formatter: function(xhr) {
-      return parsers[type](xhr.responseText);
+reshapedRequest = function(type) {
+  return function(urls, data, callback, options) {
+    var defaults, ref;
+    if (hx.isFunction(data)) {
+      ref = [void 0, data, callback], data = ref[0], callback = ref[1], options = ref[2];
     }
-  } : {
-    formatter: function(xhr) {
-      var mimeType, parser;
-      mimeType = xhr.getResponseHeader('content-type').split(';')[0];
-      parser = parsers[mimeType];
-      if (parser) {
-        return parser(xhr.responseText);
-      } else {
-        hx.consoleWarning("Unknown parser for mime type " + mimeType + ", carrying on anyway");
-        return xhr;
+    defaults = type ? {
+      contentType: type,
+      formatter: function(xhr) {
+        return parsers[type](xhr.responseText);
       }
-    }
+    } : {
+      formatter: function(xhr) {
+        var mimeType, parser;
+        mimeType = xhr.getResponseHeader('content-type').split(';')[0];
+        parser = parsers[mimeType];
+        if (parser) {
+          return parser(xhr.responseText);
+        } else {
+          hx.consoleWarning("Unknown parser for mime type " + mimeType + ", carrying on anyway");
+          return xhr;
+        }
+      }
+    };
+    options = hx.merge(defaults, options);
+    return hx.request(urls, data, callback, options);
   };
-  options = hx.merge(defaults, options);
-  return hx.request(urls, data, callback, options);
 };
 
-hx.json = function() {
-  var args;
-  args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-  return reshapedRequest(args, 'application/json');
-};
+hx.json = reshapedRequest('application/json');
 
-hx.html = function() {
-  var args;
-  args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-  return reshapedRequest(args, 'text/html');
-};
+hx.html = reshapedRequest('text/html');
 
-hx.text = function() {
-  var args;
-  args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-  return reshapedRequest(args, 'text/plain');
-};
+hx.text = reshapedRequest('text/plain');
 
-hx.reshapedRequest = function() {
-  var args;
-  args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-  return reshapedRequest(args);
-};
+hx.reshapedRequest = reshapedRequest();
 
 })();
 
@@ -13156,7 +13112,7 @@ buildAutoComplete = function(searchTerm, fromCallback, loading) {
     if (items.length > 0) {
       _.menu.items(items);
       if (_.menu.dropdown.isOpen()) {
-        _.menu.dropdown.dropdownContent(_.menu.dropdown.dropdown.node());
+        _.menu.dropdown._.dropdownContent(_.menu.dropdown._.dropdown.node());
       } else {
         _.menu.dropdown.show();
       }
@@ -13366,7 +13322,7 @@ AutoComplete = (function(superClass) {
       menu.on('dropdown.change', 'hx.autocomplete', function(visible) {
         if (!!visible) {
           _.initialValue = input.value();
-          return menu.dropdown.useScroll = true;
+          return menu.dropdown._.useScroll = true;
         } else {
           _.checkValidity();
         }
@@ -14658,7 +14614,7 @@ DataTable = (function(superClass) {
         value: newSelectedRows,
         cause: 'api'
       });
-      this._.lastSelected = newSelectedRows[newSelectedRows.length - 1];
+      this._.userLastSelectedIndex = void 0;
       this.render(cb);
       return this;
     } else {
@@ -14972,20 +14928,22 @@ DataTable = (function(superClass) {
             };
             selectRow = function(row, index, shiftDown) {
               var deleteOrAdd, force, id;
-              if (options.singleSelection && index !== _this._.lastSelected) {
-                _this._.selectedRows.clear();
-              } else {
-                if (shiftDown && (_this._.lastSelected != null) && index !== _this._.lastSelected) {
-                  force = _this._.selectedRows.has(options.rowIDLookup(rows[_this._.lastSelected]));
-                  if (index > _this._.lastSelected) {
-                    selectMulti(_this._.lastSelected + 1, index, force);
-                  } else {
-                    selectMulti(index, _this._.lastSelected, force);
+              if (_this._.userLastSelectedIndex != null) {
+                if (options.singleSelection && index !== _this._.userLastSelectedIndex) {
+                  _this._.selectedRows.clear();
+                } else {
+                  if (shiftDown && index !== _this._.userLastSelectedIndex) {
+                    force = _this._.selectedRows.has(options.rowIDLookup(rows[_this._.userLastSelectedIndex]));
+                    if (index > _this._.userLastSelectedIndex) {
+                      selectMulti(_this._.userLastSelectedIndex + 1, index, force);
+                    } else {
+                      selectMulti(index, _this._.userLastSelectedIndex, force);
+                    }
+                    return;
                   }
-                  return;
                 }
               }
-              _this._.lastSelected = index;
+              _this._.userLastSelectedIndex = index;
               if (options.rowSelectableLookup(row)) {
                 id = options.rowIDLookup(row);
                 deleteOrAdd = _this._.selectedRows.has(id) ? 'delete' : 'add';
@@ -15248,7 +15206,7 @@ objectFeed = function(data, options) {
 };
 
 urlFeed = function(url, options) {
-  var maybeCached;
+  var jsonCallback, maybeCached;
   options = hx.merge({
     extra: void 0,
     cache: false
@@ -15273,20 +15231,28 @@ urlFeed = function(url, options) {
       };
     }
   };
+  jsonCallback = function(cb) {
+    return function(err, value) {
+      if (err) {
+        console.error(err);
+      }
+      return cb(value);
+    };
+  };
   return {
     url: url,
-    headers: maybeCached(function(r) {
+    headers: maybeCached(function(cb) {
       return hx.json(url, {
         type: 'headers',
         extra: options.extra
-      }, r);
+      }, jsonCallback(cb));
     }),
-    totalCount: maybeCached(function(r) {
+    totalCount: maybeCached(function(cb) {
       return hx.json(url, {
         type: 'totalCount',
         extra: options.extra
-      }, function(res) {
-        return r(res.count);
+      }, function(err, res) {
+        return jsonCallback(cb)(err, res.count);
       });
     }),
     rows: function(range, cb) {
@@ -15294,14 +15260,14 @@ urlFeed = function(url, options) {
         type: 'rows',
         range: range,
         extra: options.extra
-      }, cb);
+      }, jsonCallback(cb));
     },
     rowsForIds: function(ids, lookupRow, cb) {
       return hx.json(url, {
         type: 'rowsForIds',
         ids: ids,
         extra: options.extra
-      }, cb);
+      }, jsonCallback(cb));
     }
   };
 };
@@ -15338,7 +15304,7 @@ DateTimePicker = (function(superClass) {
     this.options = hx.merge({
       datePickerOptions: {},
       timePickerOptions: {}
-    });
+    }, options);
     delete this.options.datePickerOptions.selectRange;
     hx.component.register(this.selector, this);
     this.suppressCallback = false;
@@ -17780,6 +17746,11 @@ Form = (function(superClass) {
     entry.append('label').attr("for", id).text(name);
     selection = entry.append(nodeType).attr("id", id);
     extras = f.call(selection) || {};
+    if (extras.disable == null) {
+      extras.disable = function(sel, disable) {
+        return sel.attr('disabled', disable ? 'disabled' : void 0);
+      };
+    }
     if (extras.key != null) {
       key = extras.key;
       delete extras.key;
@@ -17794,6 +17765,12 @@ Form = (function(superClass) {
         node: selection.node(),
         extras: extras
       });
+    }
+    if (extras.hidden) {
+      this.hidden(name, extras.hidden);
+    }
+    if (extras.disabled) {
+      this.disabled(name, extras.disabled);
     }
     return this;
   };
@@ -17820,9 +17797,6 @@ Form = (function(superClass) {
       if (options.required) {
         selection.attr('required', options.required);
       }
-      if (options.disabled) {
-        selection.attr('disabled', '');
-      }
       ref = options.attrs;
       for (i = 0, len = ref.length; i < len; i++) {
         attr = ref[i];
@@ -17837,7 +17811,9 @@ Form = (function(superClass) {
       }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled
       };
     });
   };
@@ -17861,9 +17837,6 @@ Form = (function(superClass) {
       if (options.required) {
         selection.attr('required', options.required);
       }
-      if (options.disabled) {
-        selection.attr('disabled', '');
-      }
       ref = options.attrs;
       for (i = 0, len = ref.length; i < len; i++) {
         attr = ref[i];
@@ -17878,7 +17851,9 @@ Form = (function(superClass) {
       }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled
       };
     });
   };
@@ -17938,40 +17913,33 @@ Form = (function(superClass) {
       options = {};
     }
     return this.add(name, 'select', 'div', function() {
-      var c, elem, input, pickerOptions, select;
-      c = 'hx-btn';
-      elem = this.append('button');
-      if (options.disabled) {
-        elem.attr('disabled', '');
-      } else {
-        if (options.buttonClass != null) {
-          c += ' ' + options.buttonClass;
-        }
-      }
+      var elem, input, picker, pickerOptions;
+      elem = this.append('button').attr('type', 'button')["class"](options.buttonClass);
       pickerOptions = hx.merge({}, options.pickerOptions);
       if (values.length > 0) {
         pickerOptions.items = values;
       }
-      select = new hx.Picker(elem.node(), pickerOptions);
-      elem.classed(c, true).on('click', 'hx.form-builder', function(e) {
-        return e.preventDefault();
-      });
+      picker = new hx.Picker(elem.node(), pickerOptions);
       input = this.append('input')["class"]('hx-hidden-form-input').attr('size', 0);
       this.style('position', 'relative');
       if (typeof options.required !== 'boolean') {
-        select.value(values[0]);
+        picker.value(values[0]);
       }
       if (options.required) {
         input.node().setCustomValidity('Please select a value from the list');
-        select.on('change', 'hx.form-builder', function() {
+        picker.on('change', 'hx.form-builder', function() {
           return input.node().setCustomValidity('');
         });
       }
       return {
         required: options.required,
         componentNode: elem.node(),
-        select: select,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(selection, disabled) {
+          return picker.disabled(disabled);
+        }
       };
     });
   };
@@ -17985,12 +17953,11 @@ Form = (function(superClass) {
       if (options.required != null) {
         this.attr('required', options.required);
       }
-      if (options.disabled) {
-        this.attr('disabled', '');
-      }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled
       };
     });
   };
@@ -18003,7 +17970,7 @@ Form = (function(superClass) {
     self = this;
     return this.add(name, 'radio', 'div', function() {
       var count, i, id, input, len, selection, value;
-      id = self.formId + name.split(" ").join("-");
+      id = self.formId + name.split(' ').join('-');
       count = 0;
       for (i = 0, len = values.length; i < len; i++) {
         value = values[i];
@@ -18012,15 +17979,17 @@ Form = (function(superClass) {
         if (options.required != null) {
           input.attr('required', options.required);
         }
-        if (options.disabled) {
-          input.attr('disabled', '');
-        }
         selection.append('label').attr("for", id + "-" + count).text(value);
         count += 1;
       }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return sel.selectAll('input').attr('disabled', disabled ? true : void 0);
+        }
       };
     });
   };
@@ -18029,13 +17998,10 @@ Form = (function(superClass) {
     if (options == null) {
       options = {};
     }
-    this.add(name, 'datepicker', 'div', function() {
+    return this.add(name, 'datepicker', 'div', function() {
       var datepicker, elem, getValue, setValue;
       elem = this.append('div').node();
       datepicker = new hx.DatePicker(elem, options.datePickerOptions);
-      if (options.disabled) {
-        datepicker.disable();
-      }
       if ((options.validStart != null) || (options.validEnd != null)) {
         datepicker.validRange(options.validStart, options.validEnd);
       }
@@ -18061,23 +18027,24 @@ Form = (function(superClass) {
         key: options.key,
         componentNode: elem,
         getValue: getValue,
-        setValue: setValue
+        setValue: setValue,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return datepicker.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.addTimePicker = function(name, options) {
     if (options == null) {
       options = {};
     }
-    this.add(name, 'timepicker', 'div', function() {
+    return this.add(name, 'timepicker', 'div', function() {
       var elem, getValue, setValue, timepicker;
       elem = this.append('div').node();
       timepicker = new hx.TimePicker(elem, options.timePickerOptions);
-      if (options.disabled) {
-        timepicker.disable();
-      }
       getValue = function() {
         return timepicker.date();
       };
@@ -18088,23 +18055,24 @@ Form = (function(superClass) {
         key: options.key,
         componentNode: elem,
         getValue: getValue,
-        setValue: setValue
+        setValue: setValue,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return timepicker.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.addDateTimePicker = function(name, options) {
     if (options == null) {
       options = {};
     }
-    this.add(name, 'datetimepicker', 'div', function() {
+    return this.add(name, 'datetimepicker', 'div', function() {
       var datetimepicker, elem, getValue, setValue;
       elem = this.append('div').node();
       datetimepicker = new hx.DateTimePicker(elem, options.dateTimePickerOptions);
-      if (options.disabled) {
-        datetimepicker.disable();
-      }
       getValue = function() {
         return datetimepicker.date();
       };
@@ -18115,10 +18083,14 @@ Form = (function(superClass) {
         key: options.key,
         componentNode: elem,
         getValue: getValue,
-        setValue: setValue
+        setValue: setValue,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return datetimepicker.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.addSubmit = function(text, icon, submitAction) {
@@ -18141,16 +18113,20 @@ Form = (function(superClass) {
       options = {};
     }
     self = this;
-    this.add(name, 'tagInput', 'div', function() {
-      var elem;
+    return this.add(name, 'tagInput', 'div', function() {
+      var elem, tagInput;
       elem = this.append('div').node();
-      new hx.TagInput(elem, options.tagInputOptions);
+      tagInput = new hx.TagInput(elem, options.tagInputOptions);
       return {
         key: options.key,
-        componentNode: elem
+        componentNode: elem,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return tagInput.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.submit = function() {
@@ -18175,7 +18151,7 @@ Form = (function(superClass) {
       result = {};
       this.properties.forEach((function(_this) {
         return function(key, it) {
-          if (!it.hidden) {
+          if (!it.extras.hidden) {
             return result[key] = _this.value(key);
           }
         };
@@ -18206,6 +18182,32 @@ Form = (function(superClass) {
         return this;
       } else {
         return !!prop.hidden;
+      }
+    }
+  };
+
+  Form.prototype.disabled = function(property, disabled) {
+    var prop, res;
+    if (hx.isArray(property)) {
+      res = property.map((function(_this) {
+        return function(prop) {
+          return _this.disabled(prop, disabled);
+        };
+      })(this));
+      if (disabled != null) {
+        return this;
+      } else {
+        return res;
+      }
+    } else if (this.properties.has(property)) {
+      prop = this.properties.get(property);
+      if (disabled != null) {
+        prop.disabled = disabled;
+        prop.extras.disable(hx.select(prop.node), disabled);
+        this.properties.set(property, prop);
+        return this;
+      } else {
+        return !!prop.disabled;
       }
     }
   };
@@ -18272,7 +18274,7 @@ Form = (function(superClass) {
             return hx.select(node).value(value);
         }
       } else {
-        if (!it.hidden) {
+        if (!it.hidden && !it.disabled) {
           value = (function() {
             switch (it.type) {
               case 'checkbox':
@@ -18432,7 +18434,7 @@ InlinePicker = (function(superClass) {
     }
     this.picker.menu.dropdown.on('showstart', 'hx.inline-picker', (function(_this) {
       return function() {
-        return _this.detector.addException(_this.picker.menu.dropdown.dropdown.node());
+        return _this.detector.addException(_this.picker.menu.dropdown._.dropdown.node());
       };
     })(this));
     InlinePicker.__super__.constructor.call(this, this.selector, enterEditMode, exitEditMode, options);
