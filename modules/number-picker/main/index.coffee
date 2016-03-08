@@ -2,8 +2,8 @@ checkValue = (numberPicker, context) ->
   value = oldValue = context.value()
   max = numberPicker.max()
   min = numberPicker.min()
-  if max isnt undefined then value = hx.min([value, max])
-  if min isnt undefined then value = hx.max([value, min])
+  if max isnt undefined then value = Math.min(value, max)
+  if min isnt undefined then value = Math.max(value, min)
   if value isnt oldValue then context.value(value)
 
 class NumberPicker extends hx.EventEmitter
@@ -16,7 +16,8 @@ class NumberPicker extends hx.EventEmitter
       buttonClass: ''
       min: undefined
       max: undefined
-      disabled: false
+      disabled: false,
+      value: 0
     }, options)
 
     @_ = {}
@@ -41,14 +42,18 @@ class NumberPicker extends hx.EventEmitter
     button.append('i').class('hx-icon hx-icon-chevron-down')
     button.on 'click', 'hx.number-picker', => @decrement()
 
-    if @options.max then @max @options.max
-    if @options.min then @min @options.min
+    if @options.max isnt undefined then @max @options.max
+    if @options.min isnt undefined then @min @options.min
     if @options.disabled then @disabled(@options.disabled)
+
+    @selectInput
+      .attr('data-value', @options.value)
+      .value(@options.value)
 
   value: (value, screenValue) ->
     if arguments.length > 0
-      if @options.max isnt undefined and value > @max then value = @max
-      if @min isnt undefined and value < @min then value = @min
+      if @_.max isnt undefined and value > @_.max then value = @_.max
+      if @_.min isnt undefined and value < @_.min then value = @_.min
       if screenValue and isNaN(screenValue)
         @selectInput.attr('type', 'text')
           .attr('readonly', '')
@@ -107,4 +112,3 @@ hx.numberPicker = (options) ->
   selection
 
 hx.NumberPicker = NumberPicker
-
