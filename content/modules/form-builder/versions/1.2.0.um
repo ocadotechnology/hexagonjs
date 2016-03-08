@@ -3,8 +3,6 @@
     @prototype hx.Form
       @bugfix: Updated the hidden/disabled state for properties so they can be hidden/disabled when added using the options and also using the hidden/disabled methods after they have been added.
 
-      @extends EventEmitter
-
       @method disabled
         @description: A method for getting the disabled state of a property in a form.
         @param property [String]: The property/key to use.
