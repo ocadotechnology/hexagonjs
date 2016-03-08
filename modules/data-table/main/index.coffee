@@ -784,12 +784,22 @@ urlFeed = (url, options) ->
     else
       (cb) -> fetcher(cb)
 
+  jsonCallback = (cb) ->
+    (err, value) ->
+      console.error(err) if err
+      cb(value)
+
   {
     url: url # for debugging
-    headers: maybeCached (r) -> hx.json(url, { type: 'headers', extra: options.extra }, r)
-    totalCount: maybeCached (r) -> hx.json(url, { type: 'totalCount', extra: options.extra }, (res) -> r(res.count))
-    rows: (range, cb) -> hx.json(url, { type: 'rows', range: range, extra: options.extra }, cb)
-    rowsForIds: (ids, lookupRow, cb) -> hx.json(url, { type: 'rowsForIds', ids: ids, extra: options.extra }, cb)
+    headers: maybeCached (cb) ->
+      hx.json url, { type: 'headers', extra: options.extra }, jsonCallback(cb)
+    totalCount: maybeCached (cb) ->
+      hx.json url, { type: 'totalCount', extra: options.extra }, (err, res) ->
+        jsonCallback(cb)(err, res.count)
+    rows: (range, cb) ->
+      hx.json url, { type: 'rows', range: range, extra: options.extra }, jsonCallback(cb)
+    rowsForIds: (ids, lookupRow, cb) ->
+      hx.json url, { type: 'rowsForIds', ids: ids, extra: options.extra }, jsonCallback(cb)
   }
 
 
