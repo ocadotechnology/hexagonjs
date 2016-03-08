@@ -1,0 +1,7 @@
+@version 1.2.0
+  @api Data Table
+    @bugfix: Fixed the table row selection so that single row selection works properly
+      @issue 85
+      @issue 135
+    @bugfix: Update hx.dataTable.urlFeed so that it uses the correct callback format from hx.json
+      @issue 154
