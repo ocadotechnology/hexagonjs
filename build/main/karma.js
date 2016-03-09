@@ -134,7 +134,12 @@ function runKarma (files, destDir, phantomOnly) {
     browsers: null,
     frameworks: ['mocha', 'sinon', 'chai-spies', 'chai'],
     autoWatch: false,
-    reporters: ['coverage', 'html', 'json', 'mocha']
+    reporters: ['coverage', 'html', 'json', 'mocha'],
+    client: {
+      mocha: {
+        timeout: 10000
+      }
+    }
   }
 
   cfg.preprocessors[path.join(destDir, 'lib', '*', 'module.js')] = ['coverage']
