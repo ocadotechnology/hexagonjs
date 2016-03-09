@@ -191,6 +191,8 @@ describe "Util", ->
   it "isString: should work", ->
     hx.isString("this is a string").should.equal(true)
     hx.isString(new String("this is a string")).should.equal(true)
+    hx.isString(undefined).should.equal(false)
+    hx.isString(null).should.equal(false)
     hx.isString(123).should.equal(false)
     hx.isString({}).should.equal(false)
     hx.isString([]).should.equal(false)
@@ -202,6 +204,8 @@ describe "Util", ->
   it "isFunction: should work", ->
     hx.isFunction("this is a string").should.equal(false)
     hx.isFunction(new String("this is a string")).should.equal(false)
+    hx.isFunction(undefined).should.equal(false)
+    hx.isFunction(null).should.equal(false)
     hx.isFunction(123).should.equal(false)
     hx.isFunction({}).should.equal(false)
     hx.isFunction([]).should.equal(false)
@@ -213,6 +217,8 @@ describe "Util", ->
   it "isArray: should work", ->
     hx.isArray("this is a string").should.equal(false)
     hx.isArray(new String("this is a string")).should.equal(false)
+    hx.isArray(undefined).should.equal(false)
+    hx.isArray(null).should.equal(false)
     hx.isArray(123).should.equal(false)
     hx.isArray({}).should.equal(false)
     hx.isArray([]).should.equal(true)
@@ -224,6 +230,8 @@ describe "Util", ->
   it "isBoolean: should work", ->
     hx.isBoolean("this is a string").should.equal(false)
     hx.isBoolean(new String("this is a string")).should.equal(false)
+    hx.isBoolean(undefined).should.equal(false)
+    hx.isBoolean(null).should.equal(false)
     hx.isBoolean(123).should.equal(false)
     hx.isBoolean({}).should.equal(false)
     hx.isBoolean([]).should.equal(false)
@@ -276,6 +284,8 @@ describe "Util", ->
     hx.isObject(123).should.equal(false)
     hx.isObject(/a/).should.equal(true)
     hx.isObject([]).should.equal(false)
+    hx.isObject(undefined).should.equal(false)
+    hx.isObject(null).should.equal(false)
 
   it 'isPlainObject: should work', ->
     class A
@@ -291,6 +301,7 @@ describe "Util", ->
     hx.isPlainObject(/a/).should.equal(false)
     hx.isPlainObject([]).should.equal(false)
     hx.isPlainObject(null).should.equal(false)
+    hx.isPlainObject(undefined).should.equal(false)
 
   describe 'merge', ->
 
