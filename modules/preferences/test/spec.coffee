@@ -68,4 +68,3 @@ describe 'hx-preferences', ->
         spy = chai.spy.on(hx, 'consoleWarning')
         hx.preferences.timezone('America').should.equal(hx.preferences)
         spy.should.have.been.called()
-

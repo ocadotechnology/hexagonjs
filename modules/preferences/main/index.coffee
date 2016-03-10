@@ -207,7 +207,10 @@ class Preferences extends hx.EventEmitter
       modal: modal
     }
 
-    @locale moment?.locale() or navigator.language or 'en'
+    defaultLocaleId = moment?.locale() or navigator.language
+    if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
+      defaultLocaleId = 'en'
+    @locale defaultLocaleId
     @timezone moment?.tz?.guess() or 'UTC+00:00'
 
   timezone: (timezone) ->
