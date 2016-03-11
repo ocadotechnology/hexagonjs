@@ -49,6 +49,10 @@ i.hx-icon {
 
 
 // Replace this stuff with icomoon generated icons
+.hx-icon-upload:before {
+    content: "\f093";
+}
+
 .hx-icon-toggle-off:before {
   content: "\f204";
 }
