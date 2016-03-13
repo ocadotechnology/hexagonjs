@@ -139,7 +139,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
     if items.length > 0
       _.menu.items(items)
       if _.menu.dropdown.isOpen()
-        _.menu.dropdown.dropdownContent _.menu.dropdown.dropdown.node()
+        _.menu.dropdown._.dropdownContent _.menu.dropdown._.dropdown.node()
       else
         _.menu.dropdown.show()
     else # Hide the dropdown as there are no items
@@ -341,7 +341,7 @@ class AutoComplete extends hx.EventEmitter
       menu.on 'dropdown.change', 'hx.autocomplete', (visible) ->
         if !!visible
           _.initialValue = input.value()
-          menu.dropdown.useScroll = true
+          menu.dropdown._.useScroll = true
         else
           _.checkValidity()
           return

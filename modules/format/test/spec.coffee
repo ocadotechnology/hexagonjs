@@ -1,5 +1,5 @@
 describe 'hx-format tests', ->
-  check = (a, b) -> expect(a).toEqual(b)
+  check = (a, b) -> a.should.equal(b)
 
   it "round works",  ->
     check hx.format.round(2)(123), '120'

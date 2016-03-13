@@ -36,25 +36,25 @@ describe 'color', ->
       color('hsla(50,100,10,0.7)').rgb().should.eql([ 51, 43, 0, 0.7 ])
 
     it 'should return undefined when an invalid color string is passed in ', ->
-      expect(color('#GGGGGG')).toEqual(undefined)
+      should.not.exist(color('#GGGGGG'))
 
     it 'should return undefined when an invalid color string is passed in ', ->
-      expect(color(123)).toEqual(undefined)
+      should.not.exist(color(123))
 
     it 'should return undefined when an invalid color string is passed in ', ->
-      expect(color({})).toEqual(undefined)
+      should.not.exist(color({}))
 
     it 'should return undefined when an invalid color string is passed in ', ->
-      expect(color(->)).toEqual(undefined)
+      should.not.exist(color(->))
 
     it 'should return undefined when an invalid color string is passed in ', ->
-      expect(color('not a string')).toEqual(undefined)
+      should.not.exist(color('not a string'))
 
     it 'should return undefined when an invalid color string is passed in ', ->
-      expect(color('hsl(aasd, 12, 12)')).toEqual(undefined)
+      should.not.exist(color('hsl(aasd, 12, 12)'))
 
     it 'should return undefined when an invalid color string is passed in ', ->
-      expect(color('rgb(aasd, 12, 12)')).toEqual(undefined)
+      should.not.exist(color('rgb(aasd, 12, 12)'))
 
     it 'should return a color when a valid color string is passed in ', ->
       color('#FFFFFF').should.eql(color(255, 255, 255, 1))

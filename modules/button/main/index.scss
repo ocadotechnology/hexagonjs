@@ -11,6 +11,10 @@
   text-decoration: none;
   border: 1px solid transparent;
 
+  > * {
+    line-height: normal;
+  }
+
   &:focus {
     outline: none;
     z-index: 1;

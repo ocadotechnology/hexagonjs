@@ -19,7 +19,7 @@ describe "Util", ->
       [4, 8, 12]
     ]
 
-    expect(util.transpose array) .toEqual transposed
+    util.transpose(array).should.eql(transposed)
 
   it "transpose: roundtrip", ->
     array = [
@@ -28,217 +28,223 @@ describe "Util", ->
       [9, 10, 11, 12]
     ]
 
-    expect(util.transpose util.transpose array) .toEqual array
+    util.transpose(util.transpose(array)).should.eql(array)
 
   it "transpose: return identity for 1D array", ->
     array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    expect(util.transpose array) .toEqual array
+    util.transpose(array).should.eql(array)
 
   it "transpose: return empty array for empty array argument", ->
-    expect(util.transpose []) .toEqual []
+    util.transpose([]).should.eql([])
 
   it "transpose: return undefined for non array argument", ->
-    expect(util.transpose false) .toEqual undefined
+    should.not.exist(util.transpose(false))
 
   it "transpose: work with strings", ->
-    expect(util.transpose ["one", "two"])
-      .toEqual [['o', 't'], ['n', 'w'], ['e', 'o']]
+    util.transpose(["one", "two"]).should.eql([['o', 't'], ['n', 'w'], ['e', 'o']])
 
   it "unique: work with numbers", ->
-    expect(util.unique([1, 2, 3, 1, 2, 3, 4])) .toEqual [1, 2, 3, 4]
+    util.unique([1, 2, 3, 1, 2, 3, 4]).should.eql([1, 2, 3, 4])
 
   it "unique: work with strings", ->
-    expect(util.unique(['1', '2', '3', '1', '2', '3', '4']))
-      .toEqual ['1', '2', '3', '4']
+    util.unique(['1', '2', '3', '1', '2', '3', '4']).should.eql(['1', '2', '3', '4'])
 
   it "unique: work with booleans", ->
-    expect(util.unique([true, false, true])) .toEqual [true, false]
-    expect(util.unique([true, true])) .toEqual [true]
-    expect(util.unique([false, false, false])) .toEqual [false]
+    util.unique([true, false, true]).should.eql([true, false])
+    util.unique([true, true]).should.eql([true])
+    util.unique([false, false, false]).should.eql([false])
 
   it 'zip: works', ->
-    expect(util.zip([[1, 2], [3, 4]])) .toEqual [[1, 3], [2, 4]]
-    expect(util.zip([[1, 2, 3], [4, 5, 6]])) .toEqual [[1, 4], [2, 5], [3, 6]]
+    util.zip([[1, 2], [3, 4]]).should.eql([[1, 3], [2, 4]])
+    util.zip([[1, 2, 3], [4, 5, 6]]).should.eql([[1, 4], [2, 5], [3, 6]])
 
   it 'zip: works with more than two arrays', ->
     arrays = util.range(10).map(-> util.range(10))
     expected = util.range(10).map( (i) -> util.range(10).map(-> i))
-    expect(util.zip(arrays)) .toEqual expected
+    util.zip(arrays).should.eql(expected)
 
   it 'zip: doesnt blow up when given stupid arguments', ->
-    expect(util.zip()) .toEqual []
-    expect(util.zip([])) .toEqual []
-    expect(util.zip([1, 2, 3])) .toEqual []
-    expect(util.zip([[], []])) .toEqual []
+    util.zip().should.eql([])
+    util.zip([]).should.eql([])
+    util.zip([1, 2, 3]).should.eql([])
+    util.zip([[], []]).should.eql([])
 
   it 'hash: should give consistent results', ->
-    expect(util.hash('thing')).toEqual(util.hash('thing'))
-    expect(util.hash('thing2')).toEqual(util.hash('thing2'))
-    expect(util.hash('thing3')).toEqual(util.hash('thing3'))
-    expect(util.hash('thing2')).not.toEqual(util.hash('thing3'))
+    util.hash('thing').should.equal(util.hash('thing'))
+    util.hash('thing2').should.equal(util.hash('thing2'))
+    util.hash('thing3').should.equal(util.hash('thing3'))
+    util.hash('thing2').should.not.equal(util.hash('thing3'))
 
   it 'hash: should return a number', ->
-    expect(util.hash('thing')).toEqual(jasmine.any(Number))
+    util.hash('thing').should.be.a('number')
 
   it 'hash: should not return a number > max', ->
     for i in [0..100]
-      expect(util.hash(util.randomId(), 5)).toBeLessThan(5)
+      util.hash(util.randomId(), 5).should.be.below(5)
 
   it 'supports: should return boolean', ->
-    expect(util.supports('touch')).toEqual(jasmine.any(Boolean))
-    expect(util.supports('date')).toEqual(jasmine.any(Boolean))
+    util.supports('touch').should.be.a('boolean')
+    util.supports('date').should.be.a('boolean')
 
     # check the cached branches dont error
-    expect(util.supports('touch')).toEqual(util.supports('touch'))
-    expect(util.supports('date')).toEqual(util.supports('date'))
+    util.supports('touch').should.equal(util.supports('touch'))
+    util.supports('date').should.equal(util.supports('date'))
 
   it 'deprecatedWarning', ->
-    spyOn(console, 'warn')
-    spyOn(console, 'trace')
+    warn = chai.spy.on(console, 'warn')
+    trace = chai.spy.on(console, 'trace')
     util.deprecatedWarning('something', 'do something else')
-    expect(console.warn).toHaveBeenCalled()
-    expect(console.trace).toHaveBeenCalled()
+    warn.should.have.been.called()
+    trace.should.have.been.called()
 
   it 'deprecatedWarning', ->
-    spyOn(console, 'trace')
+    trace = chai.spy.on(console, 'trace')
     util.deprecatedWarning('something')
-    expect(console.trace).toHaveBeenCalled()
+    trace.should.have.been.called()
 
   it 'consoleWarning', ->
-    spyOn(console, 'warn')
-    spyOn(console, 'trace')
+    warn = chai.spy.on(console, 'warn')
+    trace = chai.spy.on(console, 'trace')
     util.consoleWarning('something', 'you are doing something silly')
-    expect(console.warn).toHaveBeenCalled()
-    expect(console.trace).toHaveBeenCalled()
+    warn.should.have.been.called()
+    trace.should.have.been.called()
 
   it 'consoleWarning', ->
-    spyOn(console, 'trace')
+    trace = chai.spy.on(console, 'trace')
     util.consoleWarning('something')
-    expect(console.trace).toHaveBeenCalled()
+    trace.should.have.been.called()
 
   it 'clamp: should work', ->
-    expect(util.clamp(0, 10, 15)).toEqual(10)
-    expect(util.clamp(0, 10, 5)).toEqual(5)
-    expect(util.clamp(0, 10, 10)).toEqual(10)
-    expect(util.clamp(0, 10, -15)).toEqual(0)
-    expect(util.clamp(0, 10, 0)).toEqual(0)
+    util.clamp(0, 10, 15).should.equal(10)
+    util.clamp(0, 10, 5).should.equal(5)
+    util.clamp(0, 10, 10).should.equal(10)
+    util.clamp(0, 10, -15).should.equal(0)
+    util.clamp(0, 10, 0).should.equal(0)
 
   it 'clampUnit: should work', ->
-    expect(util.clampUnit(0.15)).toEqual(0.15)
-    expect(util.clampUnit(0.0)).toEqual(0)
-    expect(util.clampUnit(-0.15)).toEqual(0)
-    expect(util.clampUnit(1.15)).toEqual(1)
-    expect(util.clampUnit(2.15)).toEqual(1)
+    util.clampUnit(0.15).should.equal(0.15)
+    util.clampUnit(0.0).should.equal(0)
+    util.clampUnit(-0.15).should.equal(0)
+    util.clampUnit(1.15).should.equal(1)
+    util.clampUnit(2.15).should.equal(1)
 
   it 'randomId: should work', ->
-    expect(util.randomId()).toEqual(jasmine.any(String))
-    expect(util.randomId().length).toEqual(16)
-    expect(util.randomId(24).length).toEqual(24)
-    expect(util.randomId(24, 'A')).toEqual('AAAAAAAAAAAAAAAAAAAAAAAA')
+    util.randomId().should.be.a('string')
+    util.randomId().length.should.equal(16)
+    util.randomId(24).length.should.equal(24)
+    util.randomId(24, 'A').should.equal('AAAAAAAAAAAAAAAAAAAAAAAA')
 
   it 'min: should work', ->
-    expect(util.min()).toEqual(Infinity)
-    expect(util.min([])).toEqual(Infinity)
-    expect(util.min([1, 5, 2])).toEqual(1)
-    expect(util.min([undefined, 5, 2])).toEqual(2)
+    util.min().should.equal(Infinity)
+    util.min([]).should.equal(Infinity)
+    util.min([1, 5, 2]).should.equal(1)
+    util.min([undefined, 5, 2]).should.equal(2)
 
   it 'minBy: should work', ->
-    expect(util.minBy()).toEqual(undefined)
-    expect(util.minBy([])).toEqual(undefined)
-    expect(util.minBy([1, 2, 3, 4])).toEqual(1)
-    expect(util.minBy([1, undefined, 3, 4])).toEqual(1)
-    expect(util.minBy([5, 2, 3, 4])).toEqual(2)
-    expect(util.minBy([1, 5, undefined, 3, 4], (d) -> -d)).toEqual(5)
+    should.not.exist(util.minBy())
+    should.not.exist(util.minBy([]))
+    util.minBy([1, 2, 3, 4]).should.equal(1)
+    util.minBy([1, undefined, 3, 4]).should.equal(1)
+    util.minBy([5, 2, 3, 4]).should.equal(2)
+    util.minBy([1, 5, undefined, 3, 4], (d) -> -d).should.equal(5)
 
   it 'max: should work', ->
-    expect(util.max()).toEqual(-Infinity)
-    expect(util.max([])).toEqual(-Infinity)
-    expect(util.max([1, 5, 2])).toEqual(5)
-    expect(util.max([undefined, 5, 2])).toEqual(5)
+    util.max().should.equal(-Infinity)
+    util.max([]).should.equal(-Infinity)
+    util.max([1, 5, 2]).should.equal(5)
+    util.max([undefined, 5, 2]).should.equal(5)
 
   it 'maxBy: should work', ->
-    expect(util.maxBy()).toEqual(undefined)
-    expect(util.maxBy([])).toEqual(undefined)
-    expect(util.maxBy([1, 2, 3, 4])).toEqual(4)
-    expect(util.maxBy([1, undefined, 3, 4])).toEqual(4)
-    expect(util.maxBy([1, 5, 3, 4])).toEqual(5)
-    expect(util.maxBy([5, 1, undefined, 5, 4], (d) -> -d)).toEqual(1)
+    should.not.exist(util.maxBy())
+    should.not.exist(util.maxBy([]))
+    util.maxBy([1, 2, 3, 4]).should.equal(4)
+    util.maxBy([1, undefined, 3, 4]).should.equal(4)
+    util.maxBy([1, 5, 3, 4]).should.equal(5)
+    util.maxBy([5, 1, undefined, 5, 4], (d) -> -d).should.equal(1)
 
   it 'range should work', ->
-    expect(util.range(10)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    util.range(10).should.eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
   it 'sum should work', ->
-    expect(util.sum([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])).toEqual(45)
+    util.sum([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).should.equal(45)
 
   it "flatten: should flatten a 2d array into a 1d array", ->
-    expect(util.flatten([[1, 2], [2, 3], [3, 10]])) .toEqual [1, 2, 2, 3, 3, 10]
+    util.flatten([[1, 2], [2, 3], [3, 10]]).should.eql([1, 2, 2, 3, 3, 10])
 
   it "cycle: should work", ->
-    expect(util.cycle([0, 1, 2], 0)).toEqual(0)
-    expect(util.cycle([0, 4, 8], 1)).toEqual(4)
-    expect(util.cycle([0, 1, 2], 20)).toEqual(2)
-    expect(util.cycle([0, 1, 2], 0)).toEqual(0)
+    util.cycle([0, 1, 2], 0).should.equal(0)
+    util.cycle([0, 4, 8], 1).should.equal(4)
+    util.cycle([0, 1, 2], 20).should.equal(2)
+    util.cycle([0, 1, 2], 0).should.equal(0)
 
   it "hashList: should work", ->
-    expect(util.hashList([0, 1, 2], "thing-1"))
-      .toEqual(util.hashList([0, 1, 2], "thing-1"))
-    expect(util.hashList([0, 1, 2], "thing-2")).toEqual(jasmine.any(Number))
-    expect(util.hashList([0, 1, 2], "thing-3")).toEqual(jasmine.any(Number))
-    expect(util.hashList([0, 1, 2], "thing-4")).toEqual(jasmine.any(Number))
+    util.hashList([0, 1, 2], "thing-1").should.equal(util.hashList([0, 1, 2], "thing-1"))
+    util.hashList([0, 1, 2], "thing-2").should.be.a('number')
+    util.hashList([0, 1, 2], "thing-3").should.be.a('number')
+    util.hashList([0, 1, 2], "thing-4").should.be.a('number')
 
   it "find: should work", ->
     values = [{v: 5, x: 10}, {v: 7, x: 20}, {v: 2, x: 30}]
-    expect(util.find(values, (d) -> d.v is 2)).toEqual(values[2])
-    expect(util.find(values, (d) -> d.v is 5)).toEqual(values[0])
-    expect(util.find(values, (d) -> d.v is 7)).toEqual(values[1])
+    util.find(values, (d) -> d.v is 2).should.equal(values[2])
+    util.find(values, (d) -> d.v is 5).should.equal(values[0])
+    util.find(values, (d) -> d.v is 7).should.equal(values[1])
 
   it "find: should return undefined when nothing is found", ->
     values = [{v: 5, x: 10}, {v: 7, x: 20}, {v: 2, x: 30}]
-    expect(util.find(values, (d) -> false)).toEqual(undefined)
+    should.not.exist(util.find(values, (d) -> false))
 
   it "isString: should work", ->
-    expect(util.isString("this is a string")).toEqual(true)
-    expect(util.isString(new String("this is a string"))).toEqual(true)
-    expect(util.isString(123)).toEqual(false)
-    expect(util.isString({})).toEqual(false)
-    expect(util.isString([])).toEqual(false)
-    expect(util.isString(/b/)).toEqual(false)
-    expect(util.isString(->)).toEqual(false)
-    expect(util.isString(true)).toEqual(false)
-    expect(util.isString(false)).toEqual(false)
+    util.isString("this is a string").should.equal(true)
+    util.isString(new String("this is a string")).should.equal(true)
+    util.isString(undefined).should.equal(false)
+    util.isString(null).should.equal(false)
+    util.isString(123).should.equal(false)
+    util.isString({}).should.equal(false)
+    util.isString([]).should.equal(false)
+    util.isString(/b/).should.equal(false)
+    util.isString(->).should.equal(false)
+    util.isString(true).should.equal(false)
+    util.isString(false).should.equal(false)
 
   it "isFunction: should work", ->
-    expect(util.isFunction("this is a string")).toEqual(false)
-    expect(util.isFunction(new String("this is a string"))).toEqual(false)
-    expect(util.isFunction(123)).toEqual(false)
-    expect(util.isFunction({})).toEqual(false)
-    expect(util.isFunction([])).toEqual(false)
-    expect(util.isFunction(/b/)).toEqual(false)
-    expect(util.isFunction(->)).toEqual(true)
-    expect(util.isFunction(true)).toEqual(false)
-    expect(util.isFunction(false)).toEqual(false)
+    util.isFunction("this is a string").should.equal(false)
+    util.isFunction(new String("this is a string")).should.equal(false)
+    util.isFunction(undefined).should.equal(false)
+    util.isFunction(null).should.equal(false)
+    util.isFunction(123).should.equal(false)
+    util.isFunction({}).should.equal(false)
+    util.isFunction([]).should.equal(false)
+    util.isFunction(/b/).should.equal(false)
+    util.isFunction(->).should.equal(true)
+    util.isFunction(true).should.equal(false)
+    util.isFunction(false).should.equal(false)
 
   it "isArray: should work", ->
-    expect(util.isArray("this is a string")).toEqual(false)
-    expect(util.isArray(new String("this is a string"))).toEqual(false)
-    expect(util.isArray(123)).toEqual(false)
-    expect(util.isArray({})).toEqual(false)
-    expect(util.isArray([])).toEqual(true)
-    expect(util.isArray(/b/)).toEqual(false)
-    expect(util.isArray(->)).toEqual(false)
-    expect(util.isArray(true)).toEqual(false)
-    expect(util.isArray(false)).toEqual(false)
+    util.isArray("this is a string").should.equal(false)
+    util.isArray(new String("this is a string")).should.equal(false)
+    util.isArray(undefined).should.equal(false)
+    util.isArray(null).should.equal(false)
+    util.isArray(123).should.equal(false)
+    util.isArray({}).should.equal(false)
+    util.isArray([]).should.equal(true)
+    util.isArray(/b/).should.equal(false)
+    util.isArray(->).should.equal(false)
+    util.isArray(true).should.equal(false)
+    util.isArray(false).should.equal(false)
 
   it "isBoolean: should work", ->
-    expect(util.isBoolean("this is a string")).toEqual(false)
-    expect(util.isBoolean(new String("this is a string"))).toEqual(false)
-    expect(util.isBoolean(123)).toEqual(false)
-    expect(util.isBoolean({})).toEqual(false)
-    expect(util.isBoolean([])).toEqual(false)
-    expect(util.isBoolean(/b/)).toEqual(false)
-    expect(util.isBoolean(->)).toEqual(false)
-    expect(util.isBoolean(true)).toEqual(true)
-    expect(util.isBoolean(false)).toEqual(true)
+    util.isBoolean("this is a string").should.equal(false)
+    util.isBoolean(new String("this is a string")).should.equal(false)
+    util.isBoolean(undefined).should.equal(false)
+    util.isBoolean(null).should.equal(false)
+    util.isBoolean(123).should.equal(false)
+    util.isBoolean({}).should.equal(false)
+    util.isBoolean([]).should.equal(false)
+    util.isBoolean(/b/).should.equal(false)
+    util.isBoolean(->).should.equal(false)
+    util.isBoolean(true).should.equal(true)
+    util.isBoolean(false).should.equal(true)
+
 
   it "groupBy: should work", ->
     values = [
@@ -257,48 +263,52 @@ describe "Util", ->
     ])
 
   it "endsWith: should work", ->
-    expect(util.endsWith('test-string', 'ing')).toEqual(true)
-    expect(util.endsWith('test-string', '')).toEqual(true)
-    expect(util.endsWith('test-string', 'test')).toEqual(false)
+    util.endsWith('test-string', 'ing').should.equal(true)
+    util.endsWith('test-string', '').should.equal(true)
+    util.endsWith('test-string', 'test').should.equal(false)
 
   it "startsWith: should work", ->
-    expect(util.startsWith('test-string', 'ing')).toEqual(false)
-    expect(util.startsWith('test-string', '')).toEqual(true)
-    expect(util.startsWith('test-string', 'test')).toEqual(true)
+    util.startsWith('test-string', 'ing').should.equal(false)
+    util.startsWith('test-string', '').should.equal(true)
+    util.startsWith('test-string', 'test').should.equal(true)
 
   it 'tween: should work', ->
-    expect(util.tween(0, 10, 0.5)).toBeCloseTo(5)
-    expect(util.tween(0, 10, 1.5)).toBeCloseTo(15)
-    expect(util.tween(0, -3, 0.1)).toBeCloseTo(-0.3)
+    util.tween(0, 10, 0.5).should.be.closeTo(5, 0.1)
+    util.tween(0, 10, 1.5).should.be.closeTo(15, 0.1)
+    util.tween(0, -3, 0.1).should.be.closeTo(-0.3, 0.1)
+
 
   it 'isObject: should work', ->
     class A
       constructor: ->
 
-    expect(util.isObject(new A)).toEqual(true)
-    expect(util.isObject({})).toEqual(true)
-    expect(util.isObject(document.createElement('div'))).toEqual(true)
-    expect(util.isObject(window)).toEqual(true)
-    expect(util.isObject(->)).toEqual(false)
-    expect(util.isObject("")).toEqual(false)
-    expect(util.isObject(123)).toEqual(false)
-    expect(util.isObject(/a/)).toEqual(true)
-    expect(util.isObject([])).toEqual(false)
+    util.isObject(new A).should.equal(true)
+    util.isObject({}).should.equal(true)
+    util.isObject(document.createElement('div')).should.equal(true)
+    util.isObject(window).should.equal(true)
+    util.isObject(->).should.equal(false)
+    util.isObject("").should.equal(false)
+    util.isObject(123).should.equal(false)
+    util.isObject(/a/).should.equal(true)
+    util.isObject([]).should.equal(false)
+    util.isObject(undefined).should.equal(false)
+    util.isObject(null).should.equal(false)
 
   it 'isPlainObject: should work', ->
     class A
       constructor: ->
 
-    expect(util.isPlainObject(new A)).toEqual(false)
-    expect(util.isPlainObject({})).toEqual(true)
-    expect(util.isPlainObject(document.createElement('div'))).toEqual(false)
-    expect(util.isPlainObject(window)).toEqual(false)
-    expect(util.isPlainObject(->)).toEqual(false)
-    expect(util.isPlainObject("")).toEqual(false)
-    expect(util.isPlainObject(123)).toEqual(false)
-    expect(util.isPlainObject(/a/)).toEqual(false)
-    expect(util.isPlainObject([])).toEqual(false)
-    expect(util.isPlainObject(null)).toEqual(false)
+    util.isPlainObject(new A).should.equal(false)
+    util.isPlainObject({}).should.equal(true)
+    util.isPlainObject(document.createElement('div')).should.equal(false)
+    util.isPlainObject(window).should.equal(false)
+    util.isPlainObject(->).should.equal(false)
+    util.isPlainObject("").should.equal(false)
+    util.isPlainObject(123).should.equal(false)
+    util.isPlainObject(/a/).should.equal(false)
+    util.isPlainObject([]).should.equal(false)
+    util.isPlainObject(null).should.equal(false)
+    util.isPlainObject(undefined).should.equal(false)
 
   describe 'merge', ->
 
@@ -306,183 +316,182 @@ describe "Util", ->
       class A
         constructor: -> @a = 1
 
-      expect(util.merge({a: {b: 2, c: {d: 3}}}))
-        .toEqual({a: {b: 2, c: {d: 3}}})
+      util.merge({a: {b: 2, c: {d: 3}}})
+       .should.eql({a: {b: 2, c: {d: 3}}})
 
-      expect(util.merge({a: {b: 2, c: {d: 3}}},
-                      {a: {b: 'hello', c: {d: 4, e: 'value'}}}))
-        .toEqual({a: {b: 'hello', c: {d: 4, e: 'value'}}})
+      util.merge({a: {b: 2, c: {d: 3}}},
+                      {a: {b: 'hello', c: {d: 4, e: 'value'}}})
+       .should.eql({a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
-      expect(util.merge({a: {b: 2, c: {d: 3}}},
-                      {a: {b: 'hello', c: {d: 4, e: new A}}}))
-        .toEqual({a: {b: 'hello', c: {d: 4, e: {}}}})
+      util.merge({a: {b: 2, c: {d: 3}}},
+                      {a: {b: 'hello', c: {d: 4, e: new A}}})
+       .should.eql({a: {b: 'hello', c: {d: 4, e: {}}}})
 
-      expect(util.merge({a: {b: 2}}, {a: {c: 3}}))
-        .toEqual({a: {b: 2, c: 3}})
+      util.merge({a: {b: 2}}, {a: {c: 3}})
+       .should.eql({a: {b: 2, c: 3}})
 
-      expect(util.merge({a: {b: 2}}, {a: 2}))
-        .toEqual({a: 2})
+      util.merge({a: {b: 2}}, {a: 2})
+       .should.eql({a: 2})
 
-      expect(util.merge({a: {b: 2}}, {a: {c: new A}}))
-        .toEqual({a: {b: 2, c: {}}})
+      util.merge({a: {b: 2}}, {a: {c: new A}})
+       .should.eql({a: {b: 2, c: {}}})
 
-      expect(util.merge({a: {b: 2}}, {}))
-        .toEqual({a: {b: 2}})
+      util.merge({a: {b: 2}}, {})
+       .should.eql({a: {b: 2}})
 
-      expect(util.merge({a: {b: 2}}, new A))
-        .toEqual({a: {b: 2}})
+      util.merge({a: {b: 2}}, new A)
+       .should.eql({a: {b: 2}})
 
     it 'should work when not retaining undefined values', ->
       class A
         constructor: -> @a = 1
 
-      expect(util.merge.defined({a: {b: 2, c: {d: 3}}}))
-        .toEqual({a: {b: 2, c: {d: 3}}})
+      util.merge.defined({a: {b: 2, c: {d: 3}}})
+       .should.eql({a: {b: 2, c: {d: 3}}})
 
-      expect(util.merge.defined({a: {b: 2, c: {d: 3}}},
-                              {a: {b: 'hello', c: {d: 4, e: 'value'}}}))
-        .toEqual({a: {b: 'hello', c: {d: 4, e: 'value'}}})
+      util.merge.defined({a: {b: 2, c: {d: 3}}},
+                              {a: {b: 'hello', c: {d: 4, e: 'value'}}})
+       .should.eql({a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
-      expect(util.merge.defined({a: {b: 2, c: {d: 3}}},
-                              {a: {b: 'hello', c: {d: 4, e: new A}}}))
-        .toEqual({a: {b: 'hello', c: {d: 4, e: {}}}})
+      util.merge.defined({a: {b: 2, c: {d: 3}}},
+                              {a: {b: 'hello', c: {d: 4, e: new A}}})
+       .should.eql({a: {b: 'hello', c: {d: 4, e: {}}}})
 
-      expect(util.merge.defined({a: {b: 2}}, {a: {c: 3}}))
-        .toEqual({a: {b: 2, c: 3}})
+      util.merge.defined({a: {b: 2}}, {a: {c: 3}})
+       .should.eql({a: {b: 2, c: 3}})
 
-      expect(util.merge.defined({a: {b: 2}}, {a: 2}))
-        .toEqual({a: 2})
+      util.merge.defined({a: {b: 2}}, {a: 2})
+       .should.eql({a: 2})
 
-      expect(util.merge.defined({a: {b: 2}}, {a: {c: new A}}))
-        .toEqual({a: {b: 2, c: {}}})
+      util.merge.defined({a: {b: 2}}, {a: {c: new A}})
+       .should.eql({a: {b: 2, c: {}}})
 
-      expect(util.merge.defined({a: {b: 2}}, {}))
-        .toEqual({a: {b: 2}})
+      util.merge.defined({a: {b: 2}}, {})
+       .should.eql({a: {b: 2}})
 
-      expect(util.merge.defined({a: {b: 2}}, new A))
-        .toEqual({a: {b: 2}})
+      util.merge.defined({a: {b: 2}}, new A)
+       .should.eql({a: {b: 2}})
 
     it 'should retain undefined values', ->
-      expect(util.merge({'a': {'b': 5}}, {'a': {'b': undefined}}, {'b': 3}))
-        .toEqual({'a': {'b': undefined}, 'b': 3})
+      util.merge({'a': {'b': 5}}, {'a': {'b': undefined}}, {'b': 3})
+       .should.eql({'a': {'b': undefined}, 'b': 3})
 
     it 'bug check - should not throw an error when null is present', ->
-      expect( -> util.merge({}, {a: null}) ).not.toThrow()
+       -> util.merge({}, {a: null}) .to.not.throw()
 
     it 'merging with null should work', ->
-      expect(util.merge({a: '5'}, {a: null})).toEqual({a: null})
+      util.merge({a: '5'}, {a: null}).should.eql({a: null})
 
     it 'merge.defined should not retain undefined values', ->
-      expect(util.merge.defined({'a': {'b': 5}},
-                              {'a': {'b': undefined}}, {'b': 3}))
-        .toEqual({'a': {'b': 5}, 'b': 3})
+      util.merge.defined({'a': {'b': 5}},
+                              {'a': {'b': undefined}}, {'b': 3})
+       .should.eql({'a': {'b': 5}, 'b': 3})
 
     it 'shallowMerge should work', ->
 
-      expect(util.shallowMerge({'a': 1})).toEqual({'a': 1})
-      expect(util.shallowMerge({'a': 1}, {'a': 2})).toEqual({'a': 2})
-      expect(util.shallowMerge({'a': 1}, {'a': 2}, {'b': 3}))
-        .toEqual({'a': 2, 'b': 3})
+      util.shallowMerge({'a': 1}).should.eql({'a': 1})
+      util.shallowMerge({'a': 1}, {'a': 2}).should.eql({'a': 2})
+      util.shallowMerge({'a': 1}, {'a': 2}, {'b': 3})
+       .should.eql({'a': 2, 'b': 3})
 
       src = {'a': 1}
-      expect(util.shallowMerge(src)).not.toBe(src)
+      util.shallowMerge(src).should.not.equal(src)
 
-      expect(util.shallowMerge()).toEqual({})
+      util.shallowMerge().should.eql({})
 
       class A
         constructor: -> @a = 1
 
-      expect(util.shallowMerge(new A)).toEqual({})
+      util.shallowMerge(new A).should.eql({})
 
       a = new A
-      expect(util.shallowMerge({'a': 1, 'b': a})).toEqual({'a': 1, b: a})
+      util.shallowMerge({'a': 1, 'b': a}).should.eql({'a': 1, b: a})
 
 
     it 'shallowMerge.defined should work', ->
-
-      expect(util.shallowMerge.defined({'a': 1})).toEqual({'a': 1})
-      expect(util.shallowMerge.defined({'a': 1}, {'a': 2})).toEqual({'a': 2})
-      expect(util.shallowMerge.defined({'a': 1}, {'a': 2}, {'b': 3}))
-        .toEqual({'a': 2, 'b': 3})
-      expect(util.shallowMerge.defined({'a': 1}, {'a': [1, 2, 3]}, {'b': 3}))
-        .toEqual({'a': [1, 2, 3], 'b': 3})
+      util.shallowMerge.defined({'a': 1}).should.eql({'a': 1})
+      util.shallowMerge.defined({'a': 1}, {'a': 2}).should.eql({'a': 2})
+      util.shallowMerge.defined({'a': 1}, {'a': 2}, {'b': 3})
+       .should.eql({'a': 2, 'b': 3})
+      util.shallowMerge.defined({'a': 1}, {'a': [1, 2, 3]}, {'b': 3})
+       .should.eql({'a': [1, 2, 3], 'b': 3})
 
       src = {'a': 1}
-      expect(util.shallowMerge.defined(src)).not.toBe(src)
+      util.shallowMerge.defined(src).should.not.equal(src)
 
-      expect(util.shallowMerge()).toEqual({})
+      util.shallowMerge().should.eql({})
 
       class A
         constructor: -> @a = 1
 
-      expect(util.shallowMerge.defined(new A)).toEqual({})
+      util.shallowMerge.defined(new A).should.eql({})
 
       a = new A
-      expect(util.shallowMerge.defined({'a': 1, 'b': a})).toEqual({'a': 1, b: a})
+      util.shallowMerge.defined({'a': 1, 'b': a}).should.eql({'a': 1, b: a})
 
     it 'shallowMerge: should retain undefined values', ->
-      expect(util.shallowMerge({'a': 1}, {'a': undefined}, {'b': 3}))
-        .toEqual({'a': undefined, 'b': 3})
+      util.shallowMerge({'a': 1}, {'a': undefined}, {'b': 3})
+       .should.eql({'a': undefined, 'b': 3})
 
     it 'shallowMerge.defined: shallow merge should ignore undefined values', ->
-      expect(util.shallowMerge.defined({'a': 1}, {'a': undefined}, {'b': 3}))
-        .toEqual({'a': 1, 'b': 3})
+      util.shallowMerge.defined({'a': 1}, {'a': undefined}, {'b': 3})
+       .should.eql({'a': 1, 'b': 3})
 
   it 'shallowClone should work', ->
-    expect(util.shallowClone(1)).toEqual(1)
-    expect(util.shallowClone('string')).toEqual('string')
+    util.shallowClone(1).should.equal(1)
+    util.shallowClone('string').should.equal('string')
 
     f = ->
-    expect(util.shallowClone(f)).toEqual(f)
+    util.shallowClone(f).should.equal(f)
 
-    expect(util.shallowClone({a: 1})).toEqual({a: 1})
-    expect(util.shallowClone({a: 5, b: 1})).toEqual({a: 5, b: 1})
+    util.shallowClone({a: 1}).should.eql({a: 1})
+    util.shallowClone({a: 5, b: 1}).should.eql({a: 5, b: 1})
     obj = {c: 3}
-    expect(util.shallowClone({a: 5, b: obj})).toEqual({a: 5, b: obj})
-    expect(util.shallowClone({a: 5, b: obj}).b).toBe(obj)
+    util.shallowClone({a: 5, b: obj}).should.eql({a: 5, b: obj})
+    util.shallowClone({a: 5, b: obj}).b.should.eql(obj)
 
-    expect(util.shallowClone([1, 2, 3])).toEqual([1, 2, 3])
+    util.shallowClone([1, 2, 3]).should.eql([1, 2, 3])
 
     l = new hxList [1, "a", {}]
     s = new hxSet [1, "a", {}]
     m = new hxMap [["a", 5], [6, {}]]
 
     d = new Date
-    expect hx.shallowClone d
-      .toEqual d
+    util.shallowClone(d).should.not.equal(d)
+    util.shallowClone(d).should.eql(d)
 
-    expect(hx.shallowClone(l).entries()).toEqual(l.entries())
-    expect(hx.shallowClone(s).entries()).toEqual(s.entries())
-    expect(hx.shallowClone(m).entries()).toEqual(m.entries())
+    util.shallowClone(l).entries().should.eql(l.entries())
+    util.shallowClone(s).entries().should.eql(s.entries())
+    util.shallowClone(m).entries().should.eql(m.entries())
 
   it '(deep) clone should work', ->
-    expect(util.clone(1)).toEqual(1)
-    expect(util.clone('string')).toEqual('string')
+
+    util.clone(1).should.equal(1)
+    util.clone('string').should.equal('string')
 
     d = new Date
-    expect hx.clone d
-      .toEqual d
+    util.clone(d).should.not.equal(d)
+    util.clone(d).should.eql(d)
 
     f = ->
-    expect(util.clone(f)).toEqual(f)
 
-    expect(util.clone({a: 1})).toEqual({a: 1})
-    expect(util.clone({a: 5, b: 1})).toEqual({a: 5, b: 1})
+    util.clone(f).should.eql(f)
+
+    util.clone({a: 1}).should.eql({a: 1})
+    util.clone({a: 5, b: 1}).should.eql({a: 5, b: 1})
     obj = {c: 3}
-    expect(util.clone({a: 5, b: obj})).toEqual({a: 5, b: {c: 3}})
-    expect(util.clone({a: 5, b: obj}).b).not.toBe(obj)
+    util.clone({a: 5, b: obj}).should.eql({a: 5, b: {c: 3}})
+    util.clone({a: 5, b: obj}).b.should.not.equal(obj)
 
-    expect(util.clone([1, 2, 3])).toEqual([1, 2, 3])
-    l = new hxList [1, "a", {}]
-    s = new hxSet [1, "a", {}]
-    m = new hxMap [["a", 5], [6, {}]]
-
-
-    expect(util.clone(l).entries()).toEqual(l.entries())
-    expect(util.clone(s).entries()).toEqual(s.entries())
-    expect(util.clone(m).entries()).toEqual(m.entries())
+    util.clone([1, 2, 3]).should.eql([1, 2, 3])
+    l = new util.List [1, "a", {}]
+    s = new util.Set [1, "a", {}]
+    m = new util.Map [["a", 5], [6, {}]]
 
 
+    util.clone(l).entries().should.eql(l.entries())
+    util.clone(s).entries().should.eql(s.entries())
+    util.clone(m).entries().should.eql(m.entries())
 
   it 'cleanNode: should remove all whitespace nodes', ->
     container = document.createElement('div')
@@ -498,12 +507,12 @@ describe "Util", ->
 
     container.appendChild(inner)
 
-    expect(container.childNodes.length).toEqual(4)
-    expect(inner.childNodes.length).toEqual(3)
+    container.childNodes.length.should.equal(4)
+    inner.childNodes.length.should.equal(3)
     container = util.cleanNode(container)
-    expect(container.childNodes.length).toEqual(2)
-    expect(container.innerHTML).toEqual('<div></div><div>Dave<div></div></div>')
-    expect(inner.childNodes.length).toEqual(2)
-    expect(inner.innerHTML).toEqual('Dave<div></div>')
-    expect(inner.childNodes[0].nodeValue).toEqual('Dave')
-    expect(inner.childNodes[1].innerHTML).toEqual('')
+    container.childNodes.length.should.equal(2)
+    container.innerHTML.should.equal('<div></div><div>Dave<div></div></div>')
+    inner.childNodes.length.should.equal(2)
+    inner.innerHTML.should.equal('Dave<div></div>')
+    inner.childNodes[0].nodeValue.should.equal('Dave')
+    inner.childNodes[1].innerHTML.should.equal('')

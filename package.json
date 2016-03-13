@@ -1,19 +1,33 @@
 {
   "name": "hexagon-js",
-  "version": "1.0.4",
+  "version": "1.2.0",
+  "description": "A modular, themeable collection of components for modern browsers",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
     "Charlie Frater <charlie.frater@ocado.com>"
   ],
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ocadotechnology/hexagonjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ocadotechnology/hexagonjs/issues"
+  },
+  "homepage": "https://hexagonjs.io",
+  "engines": {
+    "node": ">=0.12 <=4.2"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node demo.js",
     "dist": "node build/main/dist.js",
-    "test": "npm run test-build; npm run test-library",
+    "test": "npm run test-build && npm run test-library",
     "test-build": "./node_modules/istanbul/lib/cli.js cover --dir target/test-build/coverage ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec build/test",
     "test-library": "node build/main/test.js",
-    "webpack": "node build/main/webpack-build.js"
+    "webpack": "node build/main/webpack-build.js",
+    "combine-coverage": "node build/main/combine-coverage.js",
+    "upload-coverage": "cat target/test-library/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "autoprefixer": "^6.0.3",
@@ -46,6 +60,7 @@
     "express": "^4.13.3",
     "ibrik-instrumenter-loader": "^0.1.1",
     "chai-spies": "^0.7.1",
+    "coveralls": "^2.11.6",
     "istanbul": "^0.4.1",
     "mocha": "^2.3.3",
     "mocha-loader": "^0.7.1",

@@ -1,9 +1,15 @@
 
 describe 'data-table', ->
-  beforeAll ->
-    #hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
-    #hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
+  before ->
+    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
+    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
+  origConsoleWarning = hx.consoleWarning
 
+  beforeEach ->
+    hx.consoleWarning = chai.spy()
+
+  afterEach ->
+    hx.consoleWarning = origConsoleWarning
 
   # Used to mimic an event call for a node
   fakeNodeEvent = (node, eventName) ->
@@ -61,14 +67,14 @@ describe 'data-table', ->
         dt = new hx.DataTable(hx.detached('div').node())
         for value in valuesToCheck
           dt[name](value)
-          expect(dt[name]()).toEqual(value)
+          if value?
+            dt[name]().should.eql(value)
+          else
+            should.not.exist(dt[name]())
 
 
   checkOption = (name, valuesToCheck, dontSpy) ->
     describe name, ->
-      if not dontSpy
-        beforeEach -> spyOn(hx, 'consoleWarning')
-
       checkSetterGetter(name, valuesToCheck)
 
       it 'passing in option to constructor should work', ->
@@ -76,16 +82,19 @@ describe 'data-table', ->
           options = {}
           options[name] = value
           dt = new hx.DataTable(hx.detached('div').node(), options)
-          expect(dt[name]()).toEqual(value)
+          if value?
+            dt[name]().should.eql(value)
+          else
+            should.not.exist(dt[name]())
 
       it 'should trigger render by default', ->
         for value in valuesToCheck
           options = {}
           options[name] = value
           dt = new hx.DataTable(hx.detached('div').node(), options)
-          spyOn(dt, 'render')
+          dt.render = chai.spy()
           dt[name](value)
-          expect(dt.render).toHaveBeenCalled()
+          dt.render.should.have.been.called()
 
       it 'should call callback if passed in', ->
         for value in valuesToCheck
@@ -93,9 +102,9 @@ describe 'data-table', ->
           options[name] = value
           dt = new hx.DataTable(hx.detached('div').node(), options)
           dt.feed(hx.dataTable.objectFeed(threeRowsData))
-          cb = jasmine.createSpy('cb')
+          cb = chai.spy()
           dt[name](value, cb)
-          expect(cb).toHaveBeenCalled()
+          cb.should.have.been.called()
 
        it 'should emit an event with {cause: api} when changed via the api', (done) ->
         checked = 0
@@ -112,14 +121,25 @@ describe 'data-table', ->
 
 
 
-  checkColumnOption = (name, valuesToCheck) ->
+  checkColumnOption = (name, valuesToCheck, columnOnly) ->
     describe 'column option: ' + name, ->
-      beforeEach -> spyOn(hx, 'consoleWarning')
-
-      checkSetterGetter(name, valuesToCheck)
-      checkOption(name, valuesToCheck, true)
-
       columnId = 'col-id'
+
+      if columnOnly
+        it 'should return undefined if the column id is not a string', ->
+          dt = new hx.DataTable(hx.detached('div').node())
+          should.not.exist(dt[name]())
+          should.not.exist(dt[name](undefined))
+          for value in valuesToCheck
+            should.not.exist(dt[name](value))
+
+        it 'should return undefined if the value is not set for a column', ->
+          dt = new hx.DataTable(hx.detached('div').node())
+          should.not.exist(dt[name](columnId))
+
+      else
+        checkSetterGetter(name, valuesToCheck)
+        checkOption(name, valuesToCheck, true)
 
       it 'passing in option to constructor should work', ->
         for value in valuesToCheck
@@ -127,14 +147,14 @@ describe 'data-table', ->
           options.columns[columnId] ?= {}
           options.columns[columnId][name] = value
           dt = new hx.DataTable(hx.detached('div').node(), options)
-          expect(dt[name](columnId)).toEqual(value)
+          dt[name](columnId).should.equal(value)
 
       it 'should trigger render by default', ->
         for value in valuesToCheck
           dt = new hx.DataTable(hx.detached('div').node())
-          spyOn(dt, 'render')
+          dt.render = chai.spy()
           dt[name](columnId, value)
-          expect(dt.render).toHaveBeenCalled()
+          dt.render.should.have.been.called()
 
       it 'setting should return the data table for chaining', ->
         dt = new hx.DataTable(hx.detached('div').node())
@@ -145,9 +165,22 @@ describe 'data-table', ->
         dt = new hx.DataTable(hx.detached('div').node())
         for value in valuesToCheck
           dt[name](columnId, value)
-          expect(dt[name](columnId)).toEqual(value)
+          dt[name](columnId).should.equal(value)
           dt[name](columnId, undefined)
-          expect(dt[name](columnId)).toEqual(undefined)
+          should.not.exist(dt[name](columnId))
+
+      it 'should emit an event with {cause: api, columnId: columnId} when changed via the api', (done) ->
+        checked = 0
+        for value in valuesToCheck
+          dt = new hx.DataTable(hx.detached('div').node(), {feed: hx.dataTable.objectFeed(threeRowsData)})
+          dt.on name.toLowerCase() + 'change', (d) ->
+            if(d.value isnt undefined)
+              d.value.should.eql(value)
+            d.column.should.equal(columnId)
+            d.cause.should.equal('api')
+            checked++
+            if checked == valuesToCheck.length then done()
+          dt[name](columnId, value)
 
   testTable = (options, done, spec) ->
     tableOptions = options.tableOptions
@@ -190,6 +223,9 @@ describe 'data-table', ->
     checkColumnOption('cellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('headerCellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('sortEnabled', [true, false])
+
+  describe 'column only options', ->
+    checkColumnOption('maxWidth', [10, 100], true)
 
   describe 'setter/getters', ->
     checkSetterGetter('renderSuppressed', [true, false])
@@ -445,20 +481,20 @@ describe 'data-table', ->
 
         it 'should not change the page when the back button is disabled', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, undefined, (container, dt, options, data) ->
-            spyOn(dt, 'render')
+            dt.render = chai.spy()
             fakeNodeEvent(container.select('.hx-data-table-paginator-back').node())(fakeEvent)
             dt.page().should.equal(1)
-            expect(dt.render).not.toHaveBeenCalled()
+            dt.render.should.not.have.been.called()
             hx.select('body').clear()
             done()
 
         it 'should not change the page when the forward button is disabled', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, undefined, (container, dt, options, data) ->
             dt.page(dt._.numPages)
-            spyOn(dt, 'render')
+            dt.render = chai.spy()
             fakeNodeEvent(container.select('.hx-data-table-paginator-forward').node())(fakeEvent)
             dt.page().should.equal(dt._.numPages)
-            expect(dt.render).not.toHaveBeenCalled()
+            dt.render.should.not.have.been.called()
             hx.select('body').clear()
             done()
 
@@ -524,7 +560,7 @@ describe 'data-table', ->
     describe 'noDataMessage', ->
       it 'should have the right value for the no data message', (done) ->
         testTable {data: noData, tableOptions: {noDataMessage: 'no data to display'}}, done, (container, dt, options, data) ->
-          expect(container.select('.hx-data-table-row-no-data').text()).toEqual(dt.noDataMessage())
+          container.select('.hx-data-table-row-no-data').text().should.equal(dt.noDataMessage())
 
 
 
@@ -554,9 +590,8 @@ describe 'data-table', ->
 
       it 'the renderer should correct the page number if it is greater than the data', (done) ->
         dt = new hx.DataTable(hx.detached('div').node())
-        spyOn(hx, 'consoleWarning')
         dt.page(10)
-        expect(hx.consoleWarning).toHaveBeenCalled()
+        hx.consoleWarning.should.have.been.called()
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           dt.page().should.equal(1)
           done()
@@ -617,7 +652,8 @@ describe 'data-table', ->
       describe 'retainHorizontalScrollOnRender', ->
         describe 'true', ->
           it 'should restore the horizontal scroll when re-rendering', (done) ->
-            testTable {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
               container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
               dt.render()
@@ -626,7 +662,8 @@ describe 'data-table', ->
 
         describe 'false', ->
           it 'should not restore the horizontal scroll when re-rendering', (done) ->
-            testTable {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
               container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
               dt.render()
@@ -637,7 +674,8 @@ describe 'data-table', ->
       describe 'retainVerticalScrollOnRender', ->
         describe 'true', ->
           it 'should restore the vertical scroll when re-rendering', (done) ->
-            testTable {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}, done, (container, dt, options, data) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
               container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
               dt.render()
@@ -645,7 +683,8 @@ describe 'data-table', ->
 
         describe 'false', ->
           it 'should not restore the vertical scroll when re-rendering', (done) ->
-            testTable {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}, done, (container, dt, options, data) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
               container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
               container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
               dt.render()
@@ -688,13 +727,41 @@ describe 'data-table', ->
 
 
     describe 'selectedRows', ->
+      it 'should be possible for the user to deselect a row selected by the api', (done) ->
+        feed = hx.dataTable.objectFeed
+          headers: [
+            name: 'Name'
+            id: 'name'
+          ]
+          rows: [
+            id: 0
+            cells:
+              name: 'Bob'
+          ]
+        tableSel = hx.detached 'div'
+        tableOpts =
+          feed: feed
+          singleSelection: true
+          selectEnabled: true
+        table = new hx.DataTable tableSel.node(), tableOpts
+        table.selectedRows [0]
+
+        table.on 'selectedrowschange', (data) ->
+          if data.cause is 'user'
+            # Row 0 was selected before, so now we're unselecting it
+            data.value.should.eql []
+            done()
+        checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
+        faker = fakeNodeEvent checkSel.node()
+        faker fakeEvent
+
+
       it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->
         testTable {tableOptions: {selectEnabled: true, singleSelection: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0'], ->
             dt.selectedRows [], ->
-              expect dt.selectedRows()
-                .toEqual []
-            
+              dt.selectedRows().should.eql([])
+
       it 'should select rows by id', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           dt.selectedRows ['0', '1'], ->
@@ -983,7 +1050,7 @@ describe 'data-table', ->
         testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-data-table-sort-icon').size().should.equal(1)
 
-      it 'should use a column cellRenderer instead of the default cellRenderer if one is defined', (done) ->
+      it 'should use a column sortEnabled instead of the default sortEnabled if one is defined', (done) ->
         tableOptions =
           sortEnabled: false
           columns:
@@ -998,7 +1065,7 @@ describe 'data-table', ->
           clickHandlers = container.select('.hx-sticky-table-header-top').selectAll('.hx-data-table-cell-sort-enabled')
             .nodes.map(fakeNodeEvent)
 
-          expect(dt.sort()).toEqual(undefined)
+          should.not.exist(dt.sort())
 
           clickHandlers[0](fakeEvent)
           dt.sort().should.eql({column: 'name', direction: 'asc'})
@@ -1055,19 +1122,35 @@ describe 'data-table', ->
 
 
 
+    describe 'maxWidth', ->
+      it 'should set the max width for individual columns', (done) ->
+        tableOptions =
+          columns:
+            name:
+              maxWidth: 10
+
+        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+          container.select('.hx-sticky-table-wrapper').select('tbody').select('tr').selectAll('td').forEach (cell, index) ->
+            if index is 0
+              cell.attr('style').should.equal('max-width: 10px; width: 10px; min-width: 10px; ')
+            else
+              should.not.exist(cell.attr('style'))
+
+
+
     describe 'sort', ->
       it 'should call the feed with the correct arguments', (done) ->
         dt = new hx.DataTable(hx.detached('div').node())
         feed = hx.dataTable.objectFeed(threeRowsData)
-        spyOn(feed, 'headers').and.callThrough()
-        spyOn(feed, 'totalCount').and.callThrough()
-        spyOn(feed, 'rows').and.callThrough()
+        headersSpy = chai.spy.on(feed, 'headers')
+        totalCountSpy = chai.spy.on(feed, 'totalCount')
+        rowsSpy = chai.spy.on(feed, 'rows')
         dt.feed(feed)
         dt.sort {column: 'age', direction: 'asc'}, ->
-          expect(feed.headers).toHaveBeenCalled()
-          expect(feed.totalCount).toHaveBeenCalled()
-          expect(feed.rows).toHaveBeenCalled()
-          expect(feed.rows.calls.mostRecent().args[0]).toEqual({ start: 0, end: 14, sort: {column: 'age', direction: 'asc'}, filter: undefined })
+          headersSpy.should.have.been.called()
+          totalCountSpy.should.have.been.called()
+          rowsSpy.should.have.been.called()
+          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: {column: 'age', direction: 'asc'}, filter: undefined })
           done()
 
 
@@ -1076,34 +1159,35 @@ describe 'data-table', ->
       it 'should call the feed with the correct arguments', (done) ->
         dt = new hx.DataTable(hx.detached('div').node())
         feed = hx.dataTable.objectFeed(threeRowsData)
-        spyOn(feed, 'headers').and.callThrough()
-        spyOn(feed, 'totalCount').and.callThrough()
-        spyOn(feed, 'rows').and.callThrough()
+        headersSpy = chai.spy.on(feed, 'headers')
+        totalCountSpy = chai.spy.on(feed, 'totalCount')
+        rowsSpy = chai.spy.on(feed, 'rows')
         dt.feed(feed)
         dt.filter 'filter-term', ->
-          expect(feed.headers).toHaveBeenCalled()
-          expect(feed.totalCount).toHaveBeenCalled()
-          expect(feed.rows).toHaveBeenCalled()
-          expect(feed.rows.calls.mostRecent().args[0]).toEqual({ start: 0, end: 14, sort: undefined, filter: 'filter-term' })
+          headersSpy.should.have.been.called()
+          totalCountSpy.should.have.been.called()
+          rowsSpy.should.have.been.called()
+          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: undefined, filter: 'filter-term' })
           done()
 
       it 'should call filter when changing the filter input', (done) ->
-        jasmine.clock().install()
+        clock = sinon.useFakeTimers()
         container = hx.detached('div')
         dt = new hx.DataTable(container.node())
-        spyOn dt, 'filter'
-        expect(dt.filter).not.toHaveBeenCalled()
+        filterSpy = chai.spy.on(dt, 'filter')
+        filterSpy.should.not.have.been.called()
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          expect(dt.filter).toHaveBeenCalledWith()
+          filterSpy.should.have.been.called.with()
           filterInput = container.select('.hx-data-table-filter-control')
           filterEvent = fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
-          jasmine.clock().tick(201);
-          expect(dt.filter).toHaveBeenCalledWith()
-          expect(dt.filter).toHaveBeenCalledWith('a', undefined, 'user')
-          jasmine.clock().uninstall()
+          clock.tick(201)
+          filterSpy.should.have.been.called.with()
+          filterSpy.should.have.been.called.with('a', undefined, 'user')
+          clock.uninstall()
           done()
+
 
 
     describe 'grouped headers', ->
@@ -1245,11 +1329,11 @@ describe 'data-table', ->
       dt = new hx.DataTable(hx.detached('div').node())
 
       feed = hx.dataTable.objectFeed(threeRowsData)
-      spyOn(feed, 'rowsForIds')
+      feed.rowsForIds = chai.spy()
       dt.feed feed
 
       dt.rowsForIds(['1'])
-      expect(feed.rowsForIds).not.toHaveBeenCalled()
+      feed.rowsForIds.should.not.have.been.called()
 
 
 
@@ -1257,10 +1341,10 @@ describe 'data-table', ->
     it 'should prevent render from doing anything when true', ->
       container = hx.detached('div').style('width', '1000px')
       dt = new hx.DataTable(container.node())
-      f = jasmine.createSpy('callback')
+      f = chai.spy()
       dt.renderSuppressed(true)
       dt.feed hx.dataTable.objectFeed(threeRowsData), f
-      expect(f).not.toHaveBeenCalled()
+      f.should.not.have.been.called()
       container.select('.hx-data-table-content').node().childNodes.length.should.equal(0)
       container.selectAll('.hx-data-table-table').size().should.equal(0)
 
@@ -1658,7 +1742,7 @@ describe 'data-table', ->
 
         dt.on 'rowclick', (d) ->
           d.data.should.eql(threeRowsData.rows[0])
-          expect(d.node instanceof Element).toEqual(true)
+          d.node.should.be.an.instanceof(Element)
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
@@ -1774,14 +1858,14 @@ describe 'data-table', ->
         if expectedUrl isnt undefined
           url.should.eql(expectedUrl)
         else
-          expect(data).toEqual(undefined)
+          should.not.exist(data)
 
         if expectedPostData isnt undefined
           data.should.eql(expectedPostData)
         else
-          expect(data).toEqual(undefined)
+          should.not.exist(data)
 
-        cb(response)
+        cb(undefined, response)
 
     tearDownFakeHxJson = -> hx.json = json
 
@@ -1797,7 +1881,7 @@ describe 'data-table', ->
       it 'totalCount', (done) ->
         setupFakeHxJson({count: 3}, 'some-url', {type: 'totalCount', extra: options?.extra})
         hx.dataTable.urlFeed('some-url', options).totalCount (count) ->
-          expect(count).toEqual(3)
+          count.should.equal(3)
           tearDownFakeHxJson()
           done()
 
@@ -1834,25 +1918,25 @@ describe 'data-table', ->
 
       it 'should cache the headers', (done) ->
         setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: undefined})
-        spyOn(hx, 'json').and.callThrough()
+        jsonSpy = chai.spy.on(hx, 'json')
         feed = hx.dataTable.urlFeed('some-url', {cache: true})
         feed.headers (headers) ->
           headers.should.eql(['header1', 'header2', 'header3'])
           feed.headers (headers) ->
             headers.should.eql(['header1', 'header2', 'header3'])
-            expect(hx.json.calls.count()).toEqual(1)
+            jsonSpy.should.have.been.called.once
             tearDownFakeHxJson()
             done()
 
       it 'should cache the totalCount', (done) ->
         setupFakeHxJson({count: 5}, 'some-url', {type: 'totalCount', extra: undefined})
-        spyOn(hx, 'json').and.callThrough()
+        jsonSpy = chai.spy.on(hx, 'json')
         feed = hx.dataTable.urlFeed('some-url', {cache: true})
         feed.totalCount (totalCount) ->
           totalCount.should.equal(5)
           feed.totalCount (totalCount) ->
             totalCount.should.equal(5)
-            expect(hx.json.calls.count()).toEqual(1)
+            jsonSpy.should.have.been.called.once
             tearDownFakeHxJson()
             done()
 
@@ -1860,5 +1944,13 @@ describe 'data-table', ->
       testFeedWithOptions({extra: 'some-value'})
 
 
+  describe 'fluid api', ->
+    it 'should return a selection', ->
+      hx.dataTable().should.be.an.instanceof(hx.Selection)
 
+    it 'should not render if a feed is not defined', ->
+      hx.dataTable().select('.hx-data-table-content').html().should.equal('')
+
+    it 'should render if a feed is defined', ->
+      hx.dataTable({feed: hx.dataTable.objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)
 

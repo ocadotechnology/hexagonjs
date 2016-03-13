@@ -31,7 +31,7 @@ getAllItems = (menu) ->
 # If setActive is called on click, the dropdown is already hidden so
 # offsetParent checking doesn't work.
 setActive = (menu, pos, up, click) ->
-  menu.dropdown.dropdown?.selectAll('.hx-menu-item').classed('hx-menu-active',false)
+  menu.dropdown._.dropdown?.selectAll('.hx-menu-item').classed('hx-menu-active',false)
   if pos >= 0
     allItems = getAllItems(menu)
     node = allItems[pos].node
@@ -56,7 +56,7 @@ setActive = (menu, pos, up, click) ->
       return undefined
     else
       menu.cursorPos = pos
-      if (dNode = menu.dropdown.dropdown?.node())? and not click
+      if (dNode = menu.dropdown._.dropdown?.node())? and not click
         menuNode = hx.select(node).classed('hx-menu-active',true)
 
         mNode = menuNode.node()
@@ -242,12 +242,12 @@ class Menu extends hx.EventEmitter
     @dropdown = new hx.Dropdown(@selector, dropdownContent, @options.dropdownOptions)
 
     @dropdown.on 'showend', =>
-      if @dropdown.dropdown?
-        node = @dropdown.dropdown.node()
+      if @dropdown._.dropdown?
+        node = @dropdown._.dropdown.node()
         ddNode = hx.select(node)
         if node.scrollTop < node.scrollHeight - node.clientHeight
           ddNode.style('width', ddNode.width() + hx.scrollbarSize() + 'px')
-          if @dropdown.alignments[2] is 'r'
+          if @dropdown._.alignments[2] is 'r'
             ddNode.style('left', Math.max(0, ddNode.box().left - hx.scrollbarSize()) + 'px')
 
     selection = hx.select(@selector)
@@ -278,7 +278,7 @@ class Menu extends hx.EventEmitter
       self.cursorPos = -1
 
       if !isInput
-        targetElem = self.dropdown.dropdown
+        targetElem = self.dropdown._.dropdown
         targetElem.attr('tabindex','-1')
         targetElem.node().focus()
 
@@ -287,31 +287,30 @@ class Menu extends hx.EventEmitter
           checkEvent(e, self)
         self.emit 'keydown', e
 
-      self.dropdown.dropdown
-        .on 'click', 'hx.menu', (e) ->
-          # get the closest menu item - uses nodes as blank selection can be
-          # returned if the target is a hx-menu-item
+      self.dropdown._.dropdown?.on 'click', 'hx.menu', (e) ->
+        # get the closest menu item - uses nodes as blank selection can be
+        # returned if the target is a hx-menu-item
 
-          target = if hx.select(e.target).classed('hx-menu-link')
-            e.target
-          else
-            hx.select(e.target).closest('.hx-menu-item').node()
+        target = if hx.select(e.target).classed('hx-menu-link')
+          e.target
+        else
+          hx.select(e.target).closest('.hx-menu-item').node()
 
-          if target
+        if target
 
-            index = -1
+          index = -1
 
-            t = hx.select(target)
-            if t.classed('hx-menu-link')
-              allItems = getAllItems(self)
-              i = 0
-              while index < 0 and i < allItems.length
-                if allItems[i].node is target
-                  index = i
-                  break
-                i += 1
-              setActive(self, index, undefined, true)
-            targetElem.node().focus()
+          t = hx.select(target)
+          if t.classed('hx-menu-link')
+            allItems = getAllItems(self)
+            i = 0
+            while index < 0 and i < allItems.length
+              if allItems[i].node is target
+                index = i
+                break
+              i += 1
+            setActive(self, index, undefined, true)
+          targetElem.node().focus()
 
 
     # pipe the dropdown events through

@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.0.4
+ Version: 1.2.0
  Theme: hexagon-light
  Modules:
    set
@@ -22,26 +22,31 @@
    interpolate
    animate
    pointer-events
+   icon
+   spinner
+   view
+   sort
    component
    morphs
    click-detector
    base
-   icon
+   modal
+   notify
+   filter
+   form
    dropdown
    collapsible
    palette
+   format
+   preferences
    button
    resize-events
-   sort
-   format
-   view
    menu
    input-group
+   date-localizer
    number-picker
    layout
    drag-container
-   spinner
-   filter
    progress-bar
    plot
    sticky-table-headers
@@ -53,9 +58,6 @@
    time-picker
    tag-input
    morph-section
-   modal
-   notify
-   form
    titlebar
    slider
    autocomplete
@@ -78,7 +80,6 @@
    notice
    paginator
    pivot-table
-   preferences
    side-collapsible
    sidebar
    tabs
@@ -101,6 +102,12 @@ hx.theme = {
   "interpolate": {},
   "animate": {},
   "pointerEvents": {},
+  "icon": {},
+  "spinner": {
+    "spinnerCol": "#00ADA8"
+  },
+  "view": {},
+  "sort": {},
   "component": {},
   "morphs": {},
   "clickDetector": {},
@@ -126,7 +133,42 @@ hx.theme = {
     "dividerStyle": "solid",
     "defaultFontSize": "14px"
   },
-  "icon": {},
+  "modal": {
+    "shadeCol": "rgba(0,0,0,0.5)",
+    "backgroundCol": "#FFFFFF",
+    "titleBackgroundCol": "#FFFFFF",
+    "titleTextCol": "#3D3D3D",
+    "titleFontSize": "1.17em",
+    "shadowCol": "rgba(0, 0, 0, 0.5)",
+    "borderRadius": "3px",
+    "borderColor": "#D0D0D0",
+    "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.5)"
+  },
+  "notify": {
+    "backgroundCol": "#FFFFFF",
+    "textCol": "#3D3D3D",
+    "borderCol": "#D0D0D0",
+    "closeCol": "#939393",
+    "closeHoverCol": "#3D3D3D",
+    "pinnedCol": "#00ADA8",
+    "pinnedHoverCol": "darken(desaturate($pinned-col, 5%), 10%)",
+    "unpinnedCol": "#939393",
+    "unpinnedHoverCol": "#3D3D3D",
+    "defaultCol": "#FFFFFF",
+    "infoCol": "#B36ABB",
+    "positiveCol": "#92BF17",
+    "warningCol": "#D69B24",
+    "negativeCol": "#EC3A65",
+    "loadingCol": "#00ADA8",
+    "containerBackgroundCol": "rgb(247, 247, 249)",
+    "containerBorderCol": "transparent",
+    "shadowCol": "rgba(0, 0, 0, 0.05)"
+  },
+  "filter": {},
+  "form": {
+    "errorTextCol": "#F7F7F9",
+    "errorBackgroundCol": "#4A4E4E"
+  },
   "dropdown": {
     "spacing": "0",
     "backgroundCol": "#FFFFFF",
@@ -159,6 +201,8 @@ hx.theme = {
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
+  "format": {},
+  "preferences": {},
   "button": {
     "defaultCol": "#FFFFFF",
     "actionCol": "#00ADA8",
@@ -178,9 +222,6 @@ hx.theme = {
     "darkTextCol": "#3D3D3D"
   },
   "resizeEvents": {},
-  "sort": {},
-  "format": {},
-  "view": {},
   "menu": {
     "defaultCol": "#FFFFFF",
     "defaultHoverCol": "#F9F9F9",
@@ -212,6 +253,7 @@ hx.theme = {
     "iconBackgroundCol": "#F9F9F9",
     "iconBorderCol": "#DADADA"
   },
+  "dateLocalizer": {},
   "numberPicker": {},
   "layout": {
     "contentMaxWidth": "1200px",
@@ -225,10 +267,6 @@ hx.theme = {
   "dragContainer": {
     "dragPlaceholderBorderCol": "#D0D0D0"
   },
-  "spinner": {
-    "spinnerCol": "#00ADA8"
-  },
-  "filter": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -240,7 +278,7 @@ hx.theme = {
     "infoCol": "#B36ABB",
     "complementCol": "#F7F7F9",
     "contrastCol": "#4A4E4E",
-    "backgroundCol": "transparentize($default-col, 0.5)"
+    "backgroundCol": "rgba(227,227,227,0.3)"
   },
   "plot": {
     "colors": [
@@ -334,41 +372,6 @@ hx.theme = {
     "tagContainerBorderCol": "#E7E7E7"
   },
   "morphSection": {},
-  "modal": {
-    "shadeCol": "rgba(0,0,0,0.5)",
-    "backgroundCol": "#FFFFFF",
-    "titleBackgroundCol": "#FFFFFF",
-    "titleTextCol": "#3D3D3D",
-    "titleFontSize": "1.17em",
-    "shadowCol": "rgba(0, 0, 0, 0.5)",
-    "borderRadius": "3px",
-    "borderColor": "#D0D0D0",
-    "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.5)"
-  },
-  "notify": {
-    "backgroundCol": "#FFFFFF",
-    "textCol": "#3D3D3D",
-    "borderCol": "#D0D0D0",
-    "closeCol": "#939393",
-    "closeHoverCol": "#3D3D3D",
-    "pinnedCol": "#00ADA8",
-    "pinnedHoverCol": "darken(desaturate($pinned-col, 5%), 10%)",
-    "unpinnedCol": "#939393",
-    "unpinnedHoverCol": "#3D3D3D",
-    "defaultCol": "#FFFFFF",
-    "infoCol": "#B36ABB",
-    "positiveCol": "#92BF17",
-    "warningCol": "#D69B24",
-    "negativeCol": "#EC3A65",
-    "loadingCol": "#00ADA8",
-    "containerBackgroundCol": "rgb(247, 247, 249)",
-    "containerBorderCol": "transparent",
-    "shadowCol": "rgba(0, 0, 0, 0.05)"
-  },
-  "form": {
-    "errorTextCol": "#F7F7F9",
-    "errorBackgroundCol": "#4A4E4E"
-  },
   "titlebar": {
     "defaultBackgroundCol": "#F8F8F8",
     "actionBackgroundCol": "#00ADA8",
@@ -529,7 +532,6 @@ hx.theme = {
     "selectedButton": "hx-action"
   },
   "pivotTable": {},
-  "preferences": {},
   "sideCollapsible": {
     "headingBackgroundCol": "#FAFAFA",
     "headingTextCol": "#3D3D3D",
@@ -1419,6 +1421,8 @@ hx.clone = function(obj) {
     }));
   } else if (obj instanceof hx.Set) {
     return new hx.Set(obj.keys().map(hx.clone));
+  } else if (obj instanceof Date) {
+    return new Date(obj.getTime());
   } else if (hx.isObject(obj) && obj !== null) {
     hx.consoleWarning("Trying to clone " + obj + " with constructor " + (obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0) + ", it isn't really cloneable! Carrying on anyway.");
     return {};
@@ -1439,6 +1443,8 @@ hx.shallowClone = function(obj) {
     return new hx.Map(obj.entries());
   } else if (obj instanceof hx.Set) {
     return new hx.Set(obj.keys());
+  } else if (obj instanceof Date) {
+    return new Date(obj.getTime());
   } else if (hx.isObject(obj) && obj !== null) {
     hx.consoleWarning("Trying to shallow clone " + obj + " with constructor " + (obj != null ? (ref = obj.constructor) != null ? ref.name : void 0 : void 0) + ", it isn't really cloneable! Carrying on anyway.");
     return {};
@@ -2186,13 +2192,6 @@ selectAll = function(selector, node) {
   return getMethod(node, 'querySelectorAll').call(node, selector);
 };
 
-if (typeof Sizzle === "function") {
-  selectSingle = function(selector, node) {
-    return Sizzle(selector, node)[0] || null;
-  };
-  selectAll = Sizzle;
-}
-
 getHexagonElementDataObject = function(element, createIfNotExists) {
   if (createIfNotExists == null) {
     createIfNotExists = true;
@@ -2489,12 +2488,13 @@ Selection = (function() {
   };
 
   Selection.prototype.clear = function() {
-    var j, len, node, ref;
+    var j, len, node, ref, removeChild;
     ref = this.nodes;
     for (j = 0, len = ref.length; j < len; j++) {
       node = ref[j];
+      removeChild = getMethod(node, 'removeChild');
       while (node.firstChild) {
-        getMethod(node, 'removeChild').call(node, node.firstChild);
+        removeChild.call(node, node.firstChild);
       }
     }
     return this;
@@ -2655,7 +2655,7 @@ Selection = (function() {
       ref = this.nodes;
       for (j = 0, len = ref.length; j < len; j++) {
         node = ref[j];
-        node.innerHTML = html || '';
+        node.innerHTML = html != null ? html : '';
       }
       return this;
     } else {
@@ -3529,6 +3529,257 @@ addAugmentorWithoutLocation('pointerleave', 'mouseleave', ['touchleave']);
 addAugmentorWithoutLocation('pointerenter', 'mouseenter', ['touchenter']);
 
 })();
+
+
+(function(){
+var View;
+
+View = (function() {
+  function View(rootSelection, selector1, defaultType) {
+    var classes, elementType, self;
+    this.rootSelection = rootSelection;
+    this.selector = selector1;
+    this.defaultType = defaultType;
+    self = this;
+    elementType = self.selector.split('.')[0];
+    classes = self.selector.split('.').slice(1).join(' ');
+    this["new"] = function(datum) {
+      return this.append(elementType || self.defaultType)["class"](classes).node();
+    };
+    this.each = function(datum, element) {};
+    this.old = function(datum, element) {
+      return this.remove();
+    };
+  }
+
+  View.prototype.enter = function(f) {
+    this["new"] = f;
+    return this;
+  };
+
+  View.prototype.exit = function(f) {
+    this.old = f;
+    return this;
+  };
+
+  View.prototype.update = function(f) {
+    this.each = f;
+    return this;
+  };
+
+  View.prototype.apply = function(data, key) {
+    var classString, classes, d, dataByKey, datum, enterSet, exitSet, i, j, k, l, len, len1, len2, len3, m, n, newNodeSet, node, nodeByKey, nodeData, nodes, o, p, ref, ref1, ref2, selectorContainsClasses, updateSet, viewEnterWarning;
+    if (this.rootSelection.size()) {
+      if (!hx.isArray(data)) {
+        data = [data];
+      }
+      enterSet = [];
+      updateSet = [];
+      exitSet = [];
+      nodes = this.rootSelection.selectAll(this.selector).nodes;
+      if (key) {
+        nodeByKey = new hx.Map;
+        dataByKey = new hx.Map(data.map(function(datum) {
+          return [key(datum), datum];
+        }));
+        for (l = 0, len = nodes.length; l < len; l++) {
+          node = nodes[l];
+          nodeData = hx.select.getHexagonElementDataObject(node);
+          if (nodeData.datum) {
+            d = nodeData.datum;
+            k = key(d);
+            if (nodeByKey.has(k)) {
+              exitSet.push({
+                element: node,
+                datum: d
+              });
+            } else {
+              nodeByKey.set(k, node);
+              if (dataByKey.has(k)) {
+                datum = dataByKey.get(k);
+                dataByKey["delete"](k);
+                updateSet.push({
+                  element: node,
+                  datum: datum
+                });
+              } else {
+                exitSet.push({
+                  element: node,
+                  datum: d
+                });
+              }
+            }
+          } else {
+            exitSet.push({
+              element: node,
+              datum: void 0
+            });
+          }
+        }
+        enterSet = (function() {
+          var len1, m, ref, results;
+          ref = dataByKey.entries();
+          results = [];
+          for (m = 0, len1 = ref.length; m < len1; m++) {
+            d = ref[m];
+            results.push({
+              datum: d[1]
+            });
+          }
+          return results;
+        })();
+      } else {
+        i = 0;
+        for (m = 0, len1 = nodes.length; m < len1; m++) {
+          node = nodes[m];
+          if (i < data.length) {
+            nodeData = hx.select.getHexagonElementDataObject(node);
+            nodeData.datum = data[i];
+            updateSet.push({
+              element: node,
+              datum: data[i]
+            });
+          } else {
+            nodeData = hx.select.getHexagonElementDataObject(node, false);
+            exitSet.push({
+              element: node,
+              datum: nodeData.datum
+            });
+          }
+          i++;
+        }
+        if (i < data.length) {
+          for (j = n = ref = i, ref1 = data.length - 1; ref <= ref1 ? n <= ref1 : n >= ref1; j = ref <= ref1 ? ++n : --n) {
+            enterSet.push({
+              datum: data[j]
+            });
+          }
+        }
+      }
+      viewEnterWarning = function(element, selector) {
+        return hx.consoleWarning("view enter fn returned", element, "! It didn't match selector", selector, ", so you may encounter odd behavior");
+      };
+      classes = this.selector.split('.');
+      selectorContainsClasses = classes.length > 1;
+      classString = classes.slice(1).join(' ');
+      newNodeSet = enterSet.map((function(_this) {
+        return function(d, i) {
+          var element, hedo, isChild, isClassedCorrectly, ret;
+          datum = d.datum;
+          element = _this["new"].call(_this.rootSelection, d.datum, i);
+          isChild = _this.rootSelection.node().contains(element);
+          if (!isChild) {
+            viewEnterWarning(element, _this.selector);
+          } else if (selectorContainsClasses) {
+            isClassedCorrectly = hx.select(element).classed(classString);
+            if (!isClassedCorrectly) {
+              viewEnterWarning(element, _this.selector);
+            }
+          }
+          hedo = hx.select.getHexagonElementDataObject(element);
+          hedo.datum = datum;
+          return ret = {
+            element: element,
+            datum: d.datum
+          };
+        };
+      })(this));
+      for (i = o = 0, len2 = exitSet.length; o < len2; i = ++o) {
+        d = exitSet[i];
+        this.old.call(hx.select(d.element), d.datum, d.element, i);
+      }
+      ref2 = updateSet.concat(newNodeSet);
+      for (i = p = 0, len3 = ref2.length; p < len3; i = ++p) {
+        d = ref2[i];
+        this.each.call(hx.select(d.element), d.datum, d.element, i);
+      }
+      return this;
+    }
+  };
+
+  return View;
+
+})();
+
+hx.Selection.prototype.view = function(selector, type) {
+  if (type == null) {
+    type = 'div';
+  }
+  if (this.size() === 0) {
+    hx.consoleWarning('.view() called on an empty selection');
+  }
+  return new View(this, selector, type);
+};
+
+})();
+(function(){
+var collator, compare, hasCollator, localeCompare,
+  slice = [].slice;
+
+hasCollator = (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
+
+collator = hasCollator ? new Intl.Collator(void 0, {
+  numeric: true
+}).compare : function(a, b) {
+  if (a < b) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+compare = function(a, b) {
+  if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+    return a - b;
+  } else {
+    return collator(a, b);
+  }
+};
+
+localeCompare = function(locale, options) {
+  var localeCollator;
+  if (options == null) {
+    options = {
+      numeric: true
+    };
+  }
+  localeCollator = hasCollator ? new Intl.Collator(locale, options).compare : function(a, b) {
+    return a.localeCompare(b, locale, options);
+  };
+  return function(a, b) {
+    if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return localeCollator(a, b);
+    }
+  };
+};
+
+hx.sortBy = function(arr, f) {
+  var newArr;
+  newArr = slice.call(arr);
+  newArr.sort(function(left, right) {
+    var fLeft, fRight;
+    fLeft = f(left);
+    fRight = f(right);
+    return compare(fLeft, fRight);
+  });
+  return newArr;
+};
+
+hx.sort = function(arr) {
+  return hx.sortBy(arr, function(x) {
+    return x;
+  });
+};
+
+hx.sort.compare = compare;
+
+hx.sort.localeCompare = localeCompare;
+
+})();
 (function(){
 hx.component = function(selector) {
   var ref, ref1, ref2;
@@ -3892,59 +4143,825 @@ hx.ClickDetector = ClickDetector;
 
 })();
 
-
 (function(){
-
-/* istanbul ignore next: ignore coffeescript's extend function */
-var Dropdown, checkFixedPos, getWindowMeasurement,
+var Modal, getHeaderRender, getTitleRender, makeButtons, modalDialog, modalInput,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-getWindowMeasurement = function(horizontal, scroll) {
-  if (horizontal) {
-    if (scroll) {
-      return window.scrollX;
-    } else {
-      return window.innerWidth;
+Modal = (function(superClass) {
+  var closeModal;
+
+  extend(Modal, superClass);
+
+  closeModal = function(modal, event) {
+    var body;
+    body = hx.select('body').classed('hx-modal-open', false);
+    body.select('.hx-modal-container').remove();
+    body.select('.hx-modal-shade').remove();
+    modal.emit('hidestart');
+    modal.emit('hide', event);
+    return modal.emit('hideend');
+  };
+
+  function Modal(title1, setup1, options) {
+    this.title = title1;
+    this.setup = setup1;
+    Modal.__super__.constructor.apply(this, arguments);
+    this.options = hx.merge({
+      closeWithShadeEnabled: true,
+      closeButtonEnabled: true,
+      titlebarRenderer: function(node) {
+        return hx.select(node).text(this.title);
+      },
+      headerRenderer: function(node, titleNode, closeButtonNode) {
+        return hx.select(node).add(titleNode).add(closeButtonNode);
+      }
+    }, options);
+    this.contentContainer = null;
+  }
+
+  Modal.prototype.show = function(cb) {
+    var body, closeButton, modal, modalContainer, self, shade, title, titleContainer;
+    body = hx.select('body').classed('hx-modal-open', true);
+    shade = body.select('.hx-modal-shade');
+    if (shade.empty()) {
+      shade = body.append('div').attr('class', 'hx-modal-shade');
+      shade.style('opacity', 0).morph()["with"]('fadein', 150).go();
     }
+    modalContainer = body.select('.hx-modal-container');
+    if (modalContainer.empty()) {
+      modalContainer = body.append('div').attr('class', 'hx-modal-container');
+    }
+    modal = modalContainer.select('.hx-modal');
+    if (modal.empty()) {
+      modal = modalContainer.append('div').attr('class', 'hx-modal');
+    }
+    titleContainer = modal.append('div')["class"]('hx-modal-title-container hx-group hx-horizontal hx-header');
+    title = hx.detached('div')["class"]('hx-modal-title');
+    if (this.options.closeButtonEnabled) {
+      closeButton = hx.detached('div').add(hx.detached('i')["class"]('hx-icon hx-icon-close'))["class"]('hx-modal-close hx-fixed').on('click', 'hx.modal', (function(_this) {
+        return function() {
+          return closeModal(_this, {
+            cause: 'button'
+          });
+        };
+      })(this));
+    } else {
+      if ((this.title == null) || this.title.length === 0) {
+        titleContainer.classed('hx-modal-title-empty', true);
+      }
+    }
+    if (this.options.closeWithShadeEnabled) {
+      modalContainer.on('click', 'hx.modal', (function(_this) {
+        return function(e) {
+          if (!modal.contains(e.target) && hx.select('body').contains(e.target)) {
+            return closeModal(_this, {
+              cause: 'shade'
+            });
+          }
+        };
+      })(this));
+    }
+    this.options.titlebarRenderer.call(this, title.node(), this);
+    this.options.headerRenderer.call(this, titleContainer.node(), title.node(), closeButton != null ? closeButton.node() : void 0, this);
+    this.contentContainer = modal.append('div').attr('class', 'hx-modal-content');
+    if (this.setup) {
+      this.setup(this.contentContainer.node(), this);
+    }
+    this.emit('show', this.contentContainer.node());
+    this.emit('showstart');
+    self = this;
+    modal.style('opacity', 0).style('top', '-30px').morph()["with"]('fadein', 150).and(function() {
+      return modal.animate().style('top', '0px', 100);
+    }).then(function() {
+      self.emit('showend');
+      return typeof cb === "function" ? cb() : void 0;
+    }).go();
+    return this;
+  };
+
+  Modal.prototype.hide = function() {
+    closeModal(this, {
+      cause: 'api'
+    });
+    return this;
+  };
+
+  return Modal;
+
+})(hx.EventEmitter);
+
+makeButtons = function(container, buttons, modal, callback) {
+  buttons.forEach(function(d) {
+    return container.append('button').attr('type', 'button')["class"](d.classes).add(hx.detached('i')["class"](d.icon)).add(hx.detached('span').text(' ' + d.text)).on('click', 'hx.modal', function() {
+      if (typeof callback === "function") {
+        callback(d.value);
+      }
+      return modal.hide();
+    });
+  });
+};
+
+getTitleRender = function(icon) {
+  return function(elem, modal) {
+    elem = hx.select(elem);
+    if (icon != null) {
+      elem.append('i')["class"](icon);
+    }
+    return elem.append('span').text(this.title);
+  };
+};
+
+getHeaderRender = function(titleClass) {
+  return function(elem, title, button, modal) {
+    return hx.select(elem).classed('hx-background-' + titleClass, true).add(title).add(button);
+  };
+};
+
+modalDialog = function(title, message, callback, options) {
+  var modal, setup;
+  options = hx.merge.defined({
+    callback: void 0,
+    buttons: [
+      {
+        text: 'Cancel',
+        icon: 'hx-icon hx-icon-close',
+        value: false,
+        classes: 'hx-btn hx-negative'
+      }, {
+        text: 'Confirm',
+        icon: 'hx-icon hx-icon-check',
+        value: true,
+        classes: 'hx-btn hx-positive'
+      }
+    ],
+    titleClass: void 0,
+    icon: void 0
+  }, options);
+  setup = function(element) {
+    var buttonContainer, container;
+    container = hx.select(element);
+    message = container.append('div')["class"]('hx-modal-message').text(message);
+    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
+    return makeButtons(buttonContainer, options.buttons, this, callback);
+  };
+  modal = new Modal(title, setup, {
+    closeWithShadeEnabled: options.closeWithShadeEnabled,
+    closeButtonEnabled: options.closeButtonEnabled
+  });
+  if (options.titleClass != null) {
+    modal.options.headerRenderer = getHeaderRender(options.titleClass);
+    modal.options.titlebarRenderer = getTitleRender(options.icon);
+  }
+  modal.on('hide', 'hx.modal', function(d) {
+    if (d.cause !== 'api') {
+      return callback();
+    }
+  });
+  return modal.show();
+};
+
+modalInput = function(title, message, callback, options) {
+  var modal, setup;
+  options = hx.merge.defined({
+    value: ''
+  }, options);
+  setup = function(element) {
+    var buttonContainer, buttons, container, input;
+    buttons = [
+      {
+        text: 'Cancel',
+        icon: 'hx-icon hx-icon-close',
+        value: false,
+        classes: 'hx-btn hx-negative'
+      }, {
+        text: 'Confirm',
+        icon: 'hx-icon hx-icon-check',
+        value: true,
+        classes: 'hx-btn hx-positive'
+      }
+    ];
+    container = hx.select(element);
+    message = container.append('span')["class"]('hx-modal-message').text(message);
+    input = container.append('input')["class"]('hx-modal-input').text(this.options.value);
+    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
+    return makeButtons(buttonContainer, buttons, this, function(res) {
+      if (res) {
+        return callback(input.value());
+      } else {
+        return callback(res);
+      }
+    });
+  };
+  modal = new Modal(title, setup, {
+    closeWithShadeEnabled: options.closeWithShadeEnabled,
+    closeButtonEnabled: options.closeButtonEnabled
+  });
+  modal.on('close', 'hx.modal', function(d) {
+    if (d.cause !== 'api') {
+      return callback();
+    }
+  });
+  return modal.show();
+};
+
+hx.Modal = Modal;
+
+hx.modal = {
+  dialog: modalDialog,
+  input: modalInput
+};
+
+})();
+(function(){
+var Notification, NotificationManager, inbuiltNotificationManager, nextId, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus;
+
+setupNotification = function(notification, selection) {
+  if ((notification.options.icon != null) && notification.options.icon.length > 0) {
+    selection.append('div')["class"]('hx-notification-icon-container hx-section hx-fixed hx-no-margin').append('i')["class"]('hx-notification-icon ' + notification.options.icon);
+  }
+  selection.append('div')["class"]('hx-notification-text hx-section hx-no-margin').text(notification.message);
+  if (notification.options.pinnable) {
+    notification.domPin = selection.append('div')["class"]('hx-notification-icon-container hx-notification-pin hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
+      return togglePin(notification);
+    });
+    notification.domPin.append('i').attr('class', 'hx-icon hx-icon-thumb-tack');
+    updatePinnedStatus(notification);
+  }
+  return selection.append('div')["class"]('hx-notification-icon-container hx-notification-close hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
+    return notification.close();
+  }).append('i')["class"]('hx-icon hx-icon-close');
+};
+
+nextId = function(manager) {
+  return manager.currentId++;
+};
+
+redraw = function(manager) {
+  var container, selection, view;
+  selection = hx.select(manager.selector);
+  container = selection.select('#' + manager.uniqueId);
+  if (container.empty()) {
+    container = selection.append('div')["class"]('hx-notification-container').attr('id', manager.uniqueId);
+  }
+  view = container.view('.hx-notification');
+  view.enter(function(d) {
+    selection = this.append('div');
+    selection["class"]('hx-notification hx-group hx-horizontal ' + d.options.cssclass).forEach(function(node) {
+      setupNotification(d, selection);
+      return d.trueHeight = selection.style('height');
+    }).style('opacity', 0).style('height', 0).style('padding-top', 0).style('padding-bottom', 0).style('margin-top', 0).style('margin-bottom', 0).morph()["with"]('expandv').and('fadein').then(function() {
+      return selection.style('height', '');
+    }).go();
+    return selection.node();
+  });
+  view.exit(function() {
+    return this.style('overflow', 'hidden').morph()["with"]('fadeout', 100).then('collapsev', 100).then((function(_this) {
+      return function() {
+        return _this.remove();
+      };
+    })(this)).go();
+  });
+  return view.apply(manager.notifications, function(d) {
+    return d.id;
+  });
+};
+
+removeNotification = function(manager, notification) {
+  var i;
+  i = manager.notifications.indexOf(notification);
+  if (i >= 0) {
+    manager.notifications.splice(i, 1);
+  }
+  return redraw(manager);
+};
+
+startTimeout = function(notification, seconds) {
+  return notification.timeoutId = window.setTimeout(((function(_this) {
+    return function() {
+      return notification.close();
+    };
+  })(this)), seconds * 1000);
+};
+
+togglePin = function(notification) {
+  if (notification.pinned) {
+    return notification.unpin();
   } else {
-    if (scroll) {
-      return window.scrollY;
-    } else {
-      return window.innerHeight;
-    }
+    return notification.pin();
   }
 };
 
+updatePinnedStatus = function(notification) {
+  return notification.domPin.classed('hx-notification-pin-pinned', notification.pinned);
+};
+
+Notification = (function() {
+  function Notification(manager1, message1, options) {
+    this.manager = manager1;
+    this.message = message1;
+    this.options = hx.merge({
+      icon: void 0,
+      cssClass: void 0,
+      timeout: this.manager._.defaultTimeout,
+      pinnable: true
+    }, options);
+    this.id = nextId(this.manager);
+    if (this.options.timeout) {
+      startTimeout(this, this.options.timeout);
+      this.pinned = false;
+    } else {
+      this.pinned = true;
+    }
+  }
+
+  Notification.prototype.close = function() {
+    removeNotification(this.manager, this);
+    return this;
+  };
+
+  Notification.prototype.pin = function() {
+    this.pinned = true;
+    window.clearTimeout(this.timeoutId);
+    updatePinnedStatus(this);
+    return this;
+  };
+
+  Notification.prototype.unpin = function() {
+    this.pinned = false;
+    startTimeout(this, 1);
+    updatePinnedStatus(this);
+    return this;
+  };
+
+  return Notification;
+
+})();
+
+NotificationManager = (function() {
+  function NotificationManager(selector) {
+    this.selector = selector != null ? selector : 'body';
+    this.currentId = 0;
+    this.notifications = [];
+    this.uniqueId = 'hx-notify-' + hx.randomId();
+    this._ = {
+      defaultTimeout: 5
+    };
+  }
+
+  NotificationManager.prototype.notify = function(message, options) {
+    var notification;
+    notification = new Notification(this, message, options);
+    this.notifications.push(notification);
+    redraw(this);
+    return notification;
+  };
+
+  NotificationManager.prototype.info = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return this.notify(message, hx.merge({
+      icon: 'hx-icon hx-icon-info',
+      cssclass: 'hx-info'
+    }, options));
+  };
+
+  NotificationManager.prototype.warning = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return this.notify(message, hx.merge({
+      icon: 'hx-icon hx-icon-warning',
+      cssclass: 'hx-warning'
+    }, options));
+  };
+
+  NotificationManager.prototype.negative = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return this.notify(message, hx.merge({
+      icon: 'hx-icon hx-icon-error',
+      cssclass: 'hx-negative'
+    }, options));
+  };
+
+  NotificationManager.prototype.positive = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return this.notify(message, hx.merge({
+      icon: 'hx-icon hx-icon-check',
+      cssclass: 'hx-positive'
+    }, options));
+  };
+
+  NotificationManager.prototype.loading = function(message) {
+    return this.notify(message, {
+      icon: 'hx-spinner',
+      cssclass: 'hx-loading',
+      timeout: void 0,
+      pinnable: false
+    });
+  };
+
+  NotificationManager.prototype.defaultTimeout = function(timeout) {
+    if (arguments.length > 0) {
+      this._.defaultTimeout = timeout || 5;
+      return this;
+    } else {
+      return this._.defaultTimeout;
+    }
+  };
+
+  return NotificationManager;
+
+})();
+
+hx.NotificationManager = NotificationManager;
+
+inbuiltNotificationManager = new NotificationManager;
+
+hx.notify = function(message, options) {
+  return inbuiltNotificationManager.notify(message, options);
+};
+
+hx.notify.info = function(message, options) {
+  return inbuiltNotificationManager.info(message, options);
+};
+
+hx.notify.positive = function(message, options) {
+  return inbuiltNotificationManager.positive(message, options);
+};
+
+hx.notify.warning = function(message, options) {
+  return inbuiltNotificationManager.warning(message, options);
+};
+
+hx.notify.negative = function(message, options) {
+  return inbuiltNotificationManager.negative(message, options);
+};
+
+hx.notify.loading = function(message) {
+  return inbuiltNotificationManager.loading(message);
+};
+
+hx.notify.defaultTimeout = function(timeout) {
+  return inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments);
+};
+
+})();
+(function(){
+var buildFilter, filterCaseModifier, filterMatch;
+
+filterCaseModifier = function(caseSensitive) {
+  if (caseSensitive) {
+    return function(string) {
+      return string;
+    };
+  } else {
+    return function(string) {
+      return string.toLowerCase();
+    };
+  }
+};
+
+filterMatch = function(item, getIndex, options) {
+  var e, isMatch, j, len, ref, val;
+  val = 0;
+  isMatch = false;
+  if (options.searchValues != null) {
+    ref = options.searchValues(item);
+    for (j = 0, len = ref.length; j < len; j++) {
+      e = ref[j];
+      val += options.lookup(options.caseModifier(e.toString()));
+      if (val > -1) {
+        isMatch = true;
+      }
+    }
+  } else {
+    val += options.lookup(options.caseModifier(item.toString()));
+  }
+  if (getIndex === true) {
+    return val;
+  } else if (isMatch || val > -1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+buildFilter = function(lookupType) {
+  return function(array, term, options) {
+    if (options == null) {
+      options = {};
+    }
+    options = hx.merge.defined({
+      caseSensitive: false,
+      searchValues: void 0,
+      sort: true
+    }, options);
+    options.caseModifier = filterCaseModifier(options.caseSensitive);
+    if (typeof term === 'string') {
+      term = options.caseModifier(term);
+    }
+    options.lookup = lookupType(term);
+    array = array.filter(function(d) {
+      return filterMatch(d, false, options);
+    });
+    if (options.sort === true) {
+      array = array.sort(function(a, b) {
+        var aArr, aI, bArr, bI, i, j, r, ref;
+        aI = filterMatch(a, true, options);
+        bI = filterMatch(b, true, options);
+        if (aI > bI) {
+          return 1;
+        } else if (aI < bI) {
+          return -1;
+        } else if (options.searchValues != null) {
+          r = 0;
+          aArr = options.searchValues(a);
+          bArr = options.searchValues(b);
+          for (i = j = 0, ref = aArr.length; j < ref; i = j += 1) {
+            r = hx.sort.compare(aArr[i], bArr[i]);
+            if (r !== 0) {
+              break;
+            }
+          }
+          return r;
+        } else {
+          return hx.sort.compare(a, b);
+        }
+      });
+    }
+    return array;
+  };
+};
+
+hx.filter = {
+  exact: buildFilter(function(term) {
+    return function(item) {
+      if (item === term) {
+        return term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  startsWith: buildFilter(function(term) {
+    return function(item) {
+      if (hx.startsWith(item, term)) {
+        return term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  contains: buildFilter(function(term) {
+    return function(item) {
+      var index;
+      index = item.indexOf(term);
+      if (index > -1) {
+        return index + term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  excludes: buildFilter(function(term) {
+    return function(item) {
+      var index;
+      index = item.indexOf(term);
+      if (index === -1) {
+        return term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  greater: buildFilter(function(term) {
+    return function(item) {
+      var val;
+      val = hx.sort.compare(item, term);
+      if (val !== -1) {
+        return val;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  less: buildFilter(function(term) {
+    return function(item) {
+      var val;
+      val = hx.sort.compare(term, item);
+      if (val !== -1) {
+        return val;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  fuzzy: buildFilter(function(term) {
+    var escapeRegExp, pattern, regStr;
+    escapeRegExp = function(str) {
+      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    };
+    regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?';
+    pattern = new RegExp(regStr);
+    return function(item) {
+      var match;
+      match = item.match(pattern);
+      if (match != null) {
+        return match.index + match[0].length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  regex: buildFilter(function(term) {
+    return function(item) {
+      var match;
+      match = item.match(term);
+      if (match != null) {
+        return match.index + match[0].length;
+      } else {
+        return -1;
+      }
+    };
+  })
+};
+
+})();
+(function(){
+var getValidationMessage, validateForm;
+
+getValidationMessage = function(message, type) {
+  switch (message.toLowerCase()) {
+    case 'value missing':
+      if (type === 'radio') {
+        return 'Please select one of these options.';
+      } else {
+        return 'Please fill in this field.';
+      }
+      break;
+    case 'type mismatch':
+      return 'Please enter a valid ' + type + '.';
+    default:
+      return message;
+  }
+};
+
+validateForm = function(form, options) {
+  var element, error, errors, i, input, j, ref, type;
+  form = hx.select(form).node();
+  options = hx.merge.defined({
+    showMessage: true
+  }, options);
+  hx.select(form).selectAll('.hx-form-error').remove();
+  errors = [];
+  for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+    if (form.children[i].nodeName.toLowerCase() === 'div') {
+      element = form.children[i].children[1];
+      if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
+        if (!element.checkValidity()) {
+          type = hx.select(element).attr('type');
+          errors.push({
+            message: getValidationMessage(element.validationMessage, type),
+            node: element,
+            validity: element.validity
+          });
+        }
+      } else {
+        input = hx.select(element).select('input').node();
+        type = hx.select(element).select('input').attr('type');
+        if (input && !input.checkValidity()) {
+          errors.push({
+            message: getValidationMessage(input.validationMessage, type),
+            node: element,
+            validity: input.validity
+          });
+        }
+      }
+    }
+  }
+  if (options.showMessage && errors.length > 0) {
+    error = errors[0];
+    hx.select(error.node.parentNode).insertAfter('div')["class"]('hx-form-error').append('div').insertAfter('div')["class"]('hx-form-error-text-container').append('div')["class"]('hx-form-error-text').text(error.message);
+    hx.select(error.node).on('click', 'hx.form', function(e) {
+      var next;
+      next = hx.select(error.node.parentNode.nextElementSibling);
+      if (next.classed('hx-form-error')) {
+        next.remove();
+      }
+      return hx.select(error.node).off('click', 'hx.form');
+    });
+  }
+  return {
+    valid: errors.length === 0,
+    errors: errors
+  };
+};
+
+hx.validateForm = validateForm;
+
+})();
+(function(){
+var Dropdown, calculateDropdownPosition, checkFixedPos, dropdownAnimateSlideDistance,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+dropdownAnimateSlideDistance = 8;
+
 checkFixedPos = function(node) {
-  var elem;
-  elem = hx.select(node);
-  if (elem.size() > 0 && elem.style('position') === 'fixed') {
+  if (hx.select(node).style('position') === 'fixed') {
     return true;
   }
+};
+
+calculateDropdownPosition = function(alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) {
+  var direction, x, y;
+  direction = alignments[1] === alignments[3] && alignments[0] !== alignments[2] ? alignments[0] === 'l' ? 'left' : 'right' : alignments[3] === 't' ? 'down' : 'up';
+  x = selectionRect.x;
+  y = selectionRect.y;
+  if (alignments[0] === 'r') {
+    x += selectionRect.width;
+  }
+  if (alignments[1] === 'b') {
+    y += selectionRect.height;
+  }
+  if (alignments[2] === 'r') {
+    x -= dropdownRect.width;
+  }
+  if (alignments[3] === 'b') {
+    y -= dropdownRect.height;
+  }
+  if (direction === 'down' || direction === 'up') {
+    x = hx.clamp(0, windowRect.width - dropdownRect.width, x);
+  } else {
+    y = hx.clamp(0, windowRect.height - dropdownRect.height, y);
+  }
+  if (direction === 'down' && y > windowRect.height - dropdownRect.height && selectionRect.y - dropdownRect.height > 0) {
+    direction = 'up';
+    y = selectionRect.y - dropdownRect.height;
+    if (alignments[1] === alignments[3]) {
+      y += selectionRect.height;
+    }
+  } else if (direction === 'up' && y < 0 && selectionRect.y + selectionRect.height + dropdownRect.height < windowRect.height) {
+    direction = 'down';
+    y = selectionRect.y + selectionRect.height;
+    if (alignments[1] === alignments[3]) {
+      y -= selectionRect.height;
+    }
+  } else if (direction === 'right' && x > windowRect.width - dropdownRect.width && selectionRect.x - dropdownRect.width > 0) {
+    direction = 'left';
+    x = selectionRect.x - dropdownRect.width;
+  } else if (direction === 'left' && x < 0 && selectionRect.x + selectionRect.width + dropdownRect.width < windowRect.width) {
+    direction = 'right';
+    x = selectionRect.x + selectionRect.width;
+  }
+  return {
+    x: x,
+    y: y,
+    direction: direction
+  };
 };
 
 Dropdown = (function(superClass) {
   extend(Dropdown, superClass);
 
   function Dropdown(selector, dropdownContent, options) {
-    var alignQuad;
-    this.selector = selector;
-    this.dropdownContent = dropdownContent;
+    var alignQuad, alignments, clickDetector, onclick, onmouseout, onmouseover, selection, setupDropdown;
     Dropdown.__super__.constructor.apply(this, arguments);
-    hx.component.register(this.selector, this);
+    hx.component.register(selector, this);
     this.options = hx.merge.defined({
       mode: 'click',
       align: 'lblt',
-      spacing: Number(hx.theme.dropdown.spacing),
+      spacing: void 0,
       matchWidth: true,
       ddClass: ''
     }, options);
-    this.selection = hx.select(this.selector);
-    this.visible = false;
-    this.dropdown = void 0;
-    this.clickDetector = new hx.ClickDetector;
-    this.useScroll = false;
+    setupDropdown = (function() {
+      switch (false) {
+        case !hx.isString(dropdownContent):
+          return function(node) {
+            return hx.select(node).html(dropdownContent);
+          };
+        case !hx.isFunction(dropdownContent):
+          return function(node) {
+            return dropdownContent(node);
+          };
+        default:
+          hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent);
+          return function() {};
+      }
+    })();
+    clickDetector = new hx.ClickDetector;
+    clickDetector.on('click', 'hx.dropdown', (function(_this) {
+      return function() {
+        return _this.hide();
+      };
+    })(this));
     alignQuad = (function() {
       switch (this.options.align) {
         case 'up':
@@ -3959,35 +4976,51 @@ Dropdown = (function(superClass) {
           return this.options.align;
       }
     }).call(this);
-    this.alignments = alignQuad.split('');
+    alignments = alignQuad.split('');
+    onclick = (function(_this) {
+      return function() {
+        return _this.toggle();
+      };
+    })(this);
+    onmouseover = (function(_this) {
+      return function() {
+        return _this.show();
+      };
+    })(this);
+    onmouseout = (function(_this) {
+      return function() {
+        return _this.hide();
+      };
+    })(this);
+    selection = hx.select(selector);
+    this._ = {
+      setupDropdown: setupDropdown,
+      clickDetector: clickDetector,
+      alignments: alignments,
+      onclick: onclick,
+      onmouseover: onmouseover,
+      onmouseout: onmouseout,
+      visible: false,
+      dropdown: void 0,
+      selection: selection,
+      useScroll: false
+    };
     if (this.options.mode === 'click' || this.options.mode === 'hover') {
-      this.selection.on('click', 'hx.dropdown', (function(_this) {
-        return function() {
-          return _this.toggle();
-        };
-      })(this));
+      selection.on('click', 'hx.dropdown', onclick);
     }
     if (this.options.mode === 'hover') {
-      this.selection.on('mouseover', 'hx.dropdown', (function(_this) {
-        return function() {
-          return _this.show();
-        };
-      })(this));
-      this.selection.on('mouseout', 'hx.dropdown', (function(_this) {
-        return function() {
-          return _this.hide();
-        };
-      })(this));
+      selection.on('mouseover', 'hx.dropdown', onmouseover);
+      selection.on('mouseout', 'hx.dropdown', onmouseout);
     }
   }
 
   Dropdown.prototype.addException = function(node) {
-    this.clickDetector.addException(node);
+    this._.clickDetector.addException(node);
     return this;
   };
 
   Dropdown.prototype.removeException = function(node) {
-    this.clickDetector.removeException(node);
+    this._.clickDetector.removeException(node);
     return this;
   };
 
@@ -4001,151 +5034,62 @@ Dropdown = (function(superClass) {
   };
 
   Dropdown.prototype.show = function(cb) {
-    var bodyDiff, checkOverlap, ddHeight, ddMaxHeight, dropdownRect, horizontalOverlap, horizontalPos, horizontalWindow, invertY, movedVertical, node, parentFixed, parentZIndex, rect, scrollbarWidth, verticalOverlap, verticalPos, verticalWindow, yPos;
-    if (!this.dropdown) {
-      this.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown');
+    var _, ddMaxHeight, dropdownRect, parentFixed, parentZIndex, rect, ref, x, y;
+    _ = this._;
+    if (!_.visible) {
+      _.visible = true;
+      _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown');
       if (this.options.ddClass.length > 0) {
-        this.dropdown.classed(this.options.ddClass, true);
+        _.dropdown.classed(this.options.ddClass, true);
       }
-      switch (false) {
-        case !hx.isString(this.dropdownContent):
-          this.dropdown.html(this.dropdownContent);
-          this.clickDetector.removeAllExceptions();
-          this.clickDetector.addException(this.dropdown.node());
-          this.clickDetector.addException(this.selection.node());
-          break;
-        case !hx.isFunction(this.dropdownContent):
-          node = this.dropdown.node();
-          this.dropdownContent(node);
-          this.clickDetector.removeAllExceptions();
-          this.clickDetector.addException(node);
-          this.clickDetector.addException(this.selection.node());
-          break;
-        default:
-          console.error('hexagon: dropdownContent is not a valid type ' + this.selector);
+      _.setupDropdown(_.dropdown.node());
+      _.clickDetector.removeAllExceptions();
+      _.clickDetector.addException(_.dropdown.node());
+      _.clickDetector.addException(_.selection.node());
+      _.dropdown.style('display', 'block');
+      rect = _.selection.box();
+      dropdownRect = _.dropdown.box();
+      ddMaxHeight = _.dropdown.style('max-height').replace('px', '');
+      parentFixed = hx.checkParents(_.selection.node(), checkFixedPos);
+      parentZIndex = hx.parentZIndex(_.selection.node(), true);
+      ref = calculateDropdownPosition(_.alignments, {
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      }, {
+        width: dropdownRect.width,
+        height: dropdownRect.height
+      }, {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }, ddMaxHeight, hx.scrollbarSize()), x = ref.x, y = ref.y;
+      if (!parentFixed) {
+        x += window.scrollX;
+        y += window.scrollY;
       }
-    }
-    this.clickDetector.on('click', 'hx.dropdown', (function(_this) {
-      return function() {
-        return _this.hide();
-      };
-    })(this));
-    if (!this.visible && this.dropdown) {
-      parentZIndex = hx.parentZIndex(this.selection.node(), true);
       if (parentZIndex > 0) {
-        this.dropdown.style('z-index', parentZIndex + 1);
+        _.dropdown.style('z-index', parentZIndex + 1);
       }
-      rect = this.selection.box();
-      this.dropdown.style('display', 'block');
-      if (this.options.matchWidth) {
-        this.dropdown.style('min-width', rect.width + 'px');
-      }
-      dropdownRect = this.dropdown.box();
-      ddMaxHeight = this.dropdown.style('max-height').replace('px', '');
-      horizontalPos = rect.left;
-      verticalPos = rect.top;
-      if (this.alignments[0] === 'r') {
-        horizontalPos = rect.right;
-      }
-      if (this.alignments[1] === 'b') {
-        verticalPos = rect.bottom;
-      }
-      if (this.alignments[2] === 'r') {
-        horizontalPos -= dropdownRect.width;
-      }
-      if (this.alignments[3] === 'b') {
-        verticalPos -= dropdownRect.height;
-      }
-      if (this.alignments[0] !== this.alignments[2]) {
-        switch (this.alignments[2]) {
-          case 'l':
-            horizontalPos += this.options.spacing;
-            break;
-          case 'r':
-            horizontalPos -= this.options.spacing;
-        }
-      }
-      if (this.alignments[1] !== this.alignments[3]) {
-        switch (this.alignments[3]) {
-          case 't':
-            verticalPos += this.options.spacing;
-            break;
-          case 'b':
-            invertY = true;
-            verticalPos -= this.options.spacing;
-        }
-      }
-      scrollbarWidth = hx.scrollbarSize();
-      if (horizontalPos < 0) {
-        horizontalPos = 0;
-      }
-      if ((horizontalWindow = horizontalPos + dropdownRect.width - getWindowMeasurement(true) + scrollbarWidth) > 0) {
-        horizontalPos -= horizontalWindow;
-      }
-      if (verticalPos < 0) {
-        verticalPos = 0;
-      }
-      ddHeight = !isNaN(ddMaxHeight) ? Math.min(ddMaxHeight, dropdownRect.height) : dropdownRect.height;
-      if ((verticalWindow = verticalPos + ddHeight - getWindowMeasurement()) > 0) {
-        movedVertical = true;
-        verticalPos -= verticalWindow;
-      }
-      checkOverlap = function(posA, posB, rectA, rectB) {
-        var complete, partialA, partialB;
-        complete = posA < rectA && posB > rectB;
-        partialA = posB >= rectB && posA < rectB && posA >= rectA;
-        partialB = posA <= rectA && posB > rectA && posB <= rectB;
-        if (complete || partialA) {
-          return 2;
-        } else if (partialB) {
-          return 1;
-        } else {
-          return 0;
-        }
-      };
-      horizontalOverlap = checkOverlap(horizontalPos, horizontalPos + dropdownRect.width, rect.left, rect.left + rect.width);
-      verticalOverlap = checkOverlap(verticalPos, verticalPos + dropdownRect.height, rect.top, rect.top + rect.height);
-      if (horizontalOverlap > 0 && verticalOverlap > 0) {
-        if (verticalOverlap > 1 && !movedVertical) {
-          invertY = false;
-          verticalPos = rect.top + rect.height + this.options.spacing;
-        } else {
-          invertY = true;
-          verticalPos = rect.top - dropdownRect.height - this.options.spacing;
-          if (verticalPos < 0) {
-            invertY = false;
-            verticalPos = rect.top + rect.height + this.options.spacing;
-          }
-        }
-      }
-      parentFixed = hx.checkParents(this.selection.node(), checkFixedPos);
       if (parentFixed) {
-        this.dropdown.style('position', 'fixed');
-      } else {
-        verticalPos += getWindowMeasurement(false, true);
-        horizontalPos += getWindowMeasurement(true, true);
+        _.dropdown.style('position', 'fixed');
       }
-      yPos = 'top';
-      if (invertY) {
-        yPos = 'bottom';
-        bodyDiff = document.body.scrollHeight - document.body.clientHeight;
-        verticalPos = document.body.scrollHeight - verticalPos - bodyDiff - dropdownRect.height;
+      if (this.options.matchWidth) {
+        _.dropdown.style('min-width', rect.width + 'px');
       }
-      this.dropdown.style('top', 'auto').style(yPos, verticalPos + 'px').style('left', horizontalPos + 'px').style('width', dropdownRect.width + 'px');
-      this.dropdown.style('height', '0px').style(yPos, (verticalPos + 8) + 'px').style('opacity', 0).morph()["with"]('fadein', 150).and('expandv', 150).and((function(_this) {
+      _.dropdown.style('left', x + 'px').style('top', (y + dropdownAnimateSlideDistance) + 'px').style('height', '0px').style('opacity', 0).style('margin-top', this.options.dropdown).morph()["with"]('fadein', 150).and('expandv', 150).and((function(_this) {
         return function() {
-          return _this.dropdown.animate().style(yPos, verticalPos + 'px', 150);
+          return _.dropdown.animate().style('top', y + 'px', 150);
         };
       })(this)).then((function(_this) {
         return function() {
-          if (_this.useScroll && (_this.dropdown != null)) {
-            _this.dropdown.style('overflow-y', 'auto');
+          if (_.useScroll && (_.dropdown != null)) {
+            _.dropdown.style('overflow-y', 'auto');
           }
           _this.emit('showend');
           return typeof cb === "function" ? cb() : void 0;
         };
       })(this)).go();
-      this.visible = true;
       this.emit('showstart');
       this.emit('change', true);
     }
@@ -4153,27 +5097,37 @@ Dropdown = (function(superClass) {
   };
 
   Dropdown.prototype.hide = function(cb) {
-    if (this.visible) {
-      this.visible = false;
+    var _;
+    _ = this._;
+    if (_.visible) {
+      _.visible = false;
       this.emit('hidestart');
       this.emit('change', false);
       this.emit('hideend');
       if (typeof cb === "function") {
         cb();
       }
-      this.dropdown.remove();
-      this.dropdown = void 0;
-      this.clickDetector.off('click', 'hx.dropdown');
+      _.dropdown.remove();
+      _.dropdown = void 0;
     }
     return this;
   };
 
   Dropdown.prototype.isOpen = function() {
-    return this.visible;
+    return this._.visible;
   };
 
   Dropdown.prototype.cleanUp = function() {
-    this.clickDetector.cleanUp();
+    var _;
+    _ = this._;
+    _.clickDetector.cleanUp();
+    if (this.options.mode === 'click' || this.options.mode === 'hover') {
+      _.selection.off(_.onclick);
+    }
+    if (this.options.mode === 'hover') {
+      _.selection.off('mouseover', 'hx.dropdown', _.onmouseover);
+      _.selection.off('mouseout', 'hx.dropdown', _.onmouseout);
+    }
     return this;
   };
 
@@ -4184,7 +5138,8 @@ Dropdown = (function(superClass) {
 hx.Dropdown = Dropdown;
 
 hx._.dropdown = {
-  attachToSelector: 'body'
+  attachToSelector: 'body',
+  calculateDropdownPosition: calculateDropdownPosition
 };
 
 })();
@@ -4397,6 +5352,583 @@ hx.palette.backgroundContext = function(selector, context) {
 };
 
 })();
+(function(){
+var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
+
+siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+
+zeroPad = function(number, pad) {
+  var _, str, zeros;
+  str = number.toString();
+  if (str.length < pad) {
+    zeros = pad - str.length;
+    return ((function() {
+      var i, ref, results;
+      results = [];
+      for (_ = i = 0, ref = zeros - 1; 0 <= ref ? i <= ref : i >= ref; _ = 0 <= ref ? ++i : --i) {
+        results.push('0');
+      }
+      return results;
+    })()).join('') + str;
+  } else {
+    return str;
+  }
+};
+
+precision = function(n) {
+  if (n) {
+    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
+  } else {
+    return 1;
+  }
+};
+
+roundPrecision = function(n, base, factor) {
+  if (factor >= 0) {
+    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
+  } else {
+    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
+  }
+};
+
+formatRound = function(n, sf) {
+  var factor;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  factor = precision(n) - sf + 1;
+  return roundPrecision(n, 10, factor).toString();
+};
+
+formatSI = function(n, sf) {
+  var p, siFactor, suffix, x;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  p = Math.min(precision(n), 26);
+  suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
+  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
+  if (p === -3) {
+    x = 1000;
+    suffix = siSuffixes[6];
+  }
+  siFactor = Math.pow(10, p - p % 3) / x;
+  return formatRound(n / siFactor, sf) + suffix;
+};
+
+formatExp = function(n, sf) {
+  var p;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  p = precision(n);
+  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
+};
+
+formatFixed = function(n, digits) {
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  return n.toFixed(digits);
+};
+
+strictCheck = function(f, sf, strict) {
+  if (strict) {
+    return function(n) {
+      return f(n, sf);
+    };
+  } else {
+    return function(n) {
+      if (hx.isString(n)) {
+        return n;
+      } else {
+        return f(n, sf);
+      }
+    };
+  }
+};
+
+hx.format = {
+  round: function(sf, strict) {
+    return strictCheck(formatRound, sf, strict);
+  },
+  si: function(sf, strict) {
+    return strictCheck(formatSI, sf, strict);
+  },
+  exp: function(sf, strict) {
+    return strictCheck(formatExp, sf, strict);
+  },
+  fixed: function(digits, strict) {
+    return strictCheck(formatFixed, digits, strict);
+  },
+  zeroPad: function(length, strict) {
+    return strictCheck(zeroPad, length, strict);
+  }
+};
+
+})();
+(function(){
+var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, localeList, lookupLocale,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty,
+  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+localeList = [
+  {
+    value: "af",
+    full: "Afrikaans"
+  }, {
+    value: "sq",
+    full: "Albanian"
+  }, {
+    value: "ar",
+    full: "Arabic"
+  }, {
+    value: "ar-MA",
+    full: "Arabic (Morocco)"
+  }, {
+    value: "ar-SA",
+    full: "Arabic (Saudi Arabia)"
+  }, {
+    value: "ar-TN",
+    full: "Arabic (Tunisia)"
+  }, {
+    value: "hy-AM",
+    full: "Armenian"
+  }, {
+    value: "az",
+    full: "Azerbaijani"
+  }, {
+    value: "id",
+    full: "Bahasa Indonesia"
+  }, {
+    value: "ms-MY",
+    full: "Bahasa Malayu"
+  }, {
+    value: "eu",
+    full: "Basque"
+  }, {
+    value: "be",
+    full: "Belarusian"
+  }, {
+    value: "bn",
+    full: "Bengali"
+  }, {
+    value: "bs",
+    full: "Bosnian"
+  }, {
+    value: "br",
+    full: "Breton"
+  }, {
+    value: "bg",
+    full: "Bulgarian"
+  }, {
+    value: "my",
+    full: "Burmese"
+  }, {
+    value: "ca",
+    full: "Catalan"
+  }, {
+    value: "zh-CN",
+    full: "Chinese"
+  }, {
+    value: "zh-TW",
+    full: "Chinese (Traditional)"
+  }, {
+    value: "cv",
+    full: "Chuvash"
+  }, {
+    value: "hr",
+    full: "Croatian"
+  }, {
+    value: "cs",
+    full: "Czech"
+  }, {
+    value: "da",
+    full: "Danish"
+  }, {
+    value: "nl",
+    full: "Dutch"
+  }, {
+    value: "en",
+    full: "English"
+  }, {
+    value: "en-US",
+    full: "English (US)"
+  }, {
+    value: "en-AU",
+    full: "English (Australia)"
+  }, {
+    value: "en-CA",
+    full: "English (Canada)"
+  }, {
+    value: "en-GB",
+    full: "English (UK) "
+  }, {
+    value: "eo",
+    full: "Esperanto"
+  }, {
+    value: "et",
+    full: "Estonian"
+  }, {
+    value: "fo",
+    full: "Farose"
+  }, {
+    value: "fi",
+    full: "Finnish"
+  }, {
+    value: "fr",
+    full: "French"
+  }, {
+    value: "fr-CA",
+    full: "French (Canada)"
+  }, {
+    value: "fy",
+    full: "Frisian"
+  }, {
+    value: "gl",
+    full: "Galician"
+  }, {
+    value: "ka",
+    full: "Georgian"
+  }, {
+    value: "de",
+    full: "German"
+  }, {
+    value: "de-AT",
+    full: "German (Austria)"
+  }, {
+    value: "el",
+    full: "Greek"
+  }, {
+    value: "he",
+    full: "Hebrew"
+  }, {
+    value: "hi",
+    full: "Hindi"
+  }, {
+    value: "hu",
+    full: "Hungarian"
+  }, {
+    value: "is",
+    full: "Icelandic"
+  }, {
+    value: "it",
+    full: "Italian"
+  }, {
+    value: "ja",
+    full: "Japanese"
+  }, {
+    value: "km",
+    full: "Khmer (Cambodia)"
+  }, {
+    value: "ko",
+    full: "Korean"
+  }, {
+    value: "lv",
+    full: "Latvian"
+  }, {
+    value: "lt",
+    full: "Lithuanian"
+  }, {
+    value: "lb",
+    full: "Luxembourgish"
+  }, {
+    value: "mk",
+    full: "Macedonian"
+  }, {
+    value: "ml",
+    full: "Malayalam"
+  }, {
+    value: "mr",
+    full: "Marathi"
+  }, {
+    value: "ne",
+    full: "Nepalese"
+  }, {
+    value: "nb",
+    full: "Norwegian"
+  }, {
+    value: "nn",
+    full: "Norwegian Nynorsk"
+  }, {
+    value: "fa",
+    full: "Persian"
+  }, {
+    value: "pl",
+    full: "Polish"
+  }, {
+    value: "pt",
+    full: "Portuguese"
+  }, {
+    value: "pt-BR",
+    full: "Portuguese (Brazil)"
+  }, {
+    value: "ro",
+    full: "Romanian"
+  }, {
+    value: "ru",
+    full: "Russian"
+  }, {
+    value: "sr",
+    full: "Serbian"
+  }, {
+    value: "sr-CYRL",
+    full: "Serbian Cyrillic"
+  }, {
+    value: "sk",
+    full: "Slovak"
+  }, {
+    value: "sl",
+    full: "Slovenian"
+  }, {
+    value: "es",
+    full: "Spanish"
+  }, {
+    value: "sv",
+    full: "Swedish"
+  }, {
+    value: "tl-PH",
+    full: "Tagalog (Filipino)"
+  }, {
+    value: "tzm",
+    full: "Tamaziɣt"
+  }, {
+    value: "tzm-LATN",
+    full: "Tamaziɣt Latin"
+  }, {
+    value: "ta",
+    full: "Tamil"
+  }, {
+    value: "th",
+    full: "Thai"
+  }, {
+    value: "bo",
+    full: "Tibetan"
+  }, {
+    value: "tr",
+    full: "Turkish"
+  }, {
+    value: "uk",
+    full: "Ukrainian"
+  }, {
+    value: "uz",
+    full: "Uzbek"
+  }, {
+    value: "vi",
+    full: "Vietnamese"
+  }, {
+    value: "cy",
+    full: "Welsh"
+  }
+];
+
+defaultTimezoneList = ['UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00', 'UTC-08:00', 'UTC-07:00', 'UTC-06:00', 'UTC-05:00', 'UTC-04:30', 'UTC-04:00', 'UTC-03:30', 'UTC-03:00', 'UTC-02:00', 'UTC-01:00', 'UTC+00:00', 'UTC+01:00', 'UTC+02:00', 'UTC+03:00', 'UTC+03:30', 'UTC+04:00', 'UTC+04:30', 'UTC+05:00', 'UTC+05:30', 'UTC+05:45', 'UTC+06:00', 'UTC+06:30', 'UTC+07:00', 'UTC+08:00', 'UTC+08:30', 'UTC+08:45', 'UTC+09:00', 'UTC+09:30', 'UTC+10:00', 'UTC+10:30', 'UTC+11:00', 'UTC+12:00', 'UTC+12:45', 'UTC+13:00', 'UTC+14:00'];
+
+LocalStoragePreferencesStore = {
+  save: function(prefs, cb) {
+    localStorage.setItem('hx_preferences', prefs);
+    return cb();
+  },
+  load: function(cb) {
+    return cb(void 0, localStorage.getItem('hx_preferences'));
+  }
+};
+
+lookupLocale = function(locale) {
+  return localeList.filter(function(l) {
+    return l.value.toLowerCase() === locale.toLowerCase();
+  })[0];
+};
+
+Preferences = (function(superClass) {
+  var option;
+
+  extend(Preferences, superClass);
+
+  function Preferences() {
+    var modal, ref, setupModal;
+    Preferences.__super__.constructor.apply(this, arguments);
+    setupModal = (function(_this) {
+      return function(element) {
+        var locale, localeAutocompleteElement, localeSection, ref, saveButton, supportedLocales, timezone, timezoneAutocompleteElement, timezoneSection;
+        locale = _this.locale();
+        timezone = _this.timezone();
+        localeAutocompleteElement = hx.detached('input');
+        localeAutocompleteElement.value((ref = lookupLocale(locale)) != null ? ref.full : void 0);
+        supportedLocales = localeList.map(function(l) {
+          var ref1;
+          return {
+            value: l.value,
+            full: l.full,
+            disabled: !(ref1 = l.value, indexOf.call(_this._.supportedLocales, ref1) >= 0)
+          };
+        });
+        new hx.AutoComplete(localeAutocompleteElement.node(), supportedLocales, {
+          renderer: function(element, datum) {
+            return hx.select(element).text(datum.full);
+          },
+          inputMap: function(item) {
+            return item.full;
+          },
+          showOtherResults: true,
+          mustMatch: true
+        }).on('change', function(item) {
+          return locale = item.value;
+        });
+        localeSection = hx.detached('div').add(hx.detached('label').text('Locale')).add(localeAutocompleteElement);
+        timezoneAutocompleteElement = hx.detached('input');
+        timezoneAutocompleteElement.value(timezone);
+        new hx.AutoComplete(timezoneAutocompleteElement.node(), _this._.supportedTimezones, {
+          showOtherResults: true,
+          mustMatch: true
+        }).on('change', function(value) {
+          return timezone = value;
+        });
+        timezoneSection = hx.detached('div').add(hx.detached('label').text('Time Zone')).add(timezoneAutocompleteElement);
+        saveButton = hx.detached('button')["class"]('hx-btn hx-positive').add(hx.detached('i')["class"]('hx-icon hx-icon-check')).add(hx.detached('span').text(' Save')).on('click', function() {
+          _this.locale(locale);
+          _this.timezone(timezone);
+          return _this.save(function(err) {
+            if (err) {
+              return hx.notify.negative(err);
+            } else {
+              hx.notify.positive("Preferences Saved");
+              return modal.hide();
+            }
+          });
+        });
+        return hx.select(element).append('div')["class"]('hx-form').add(localeSection).add(timezoneSection).add(saveButton);
+      };
+    })(this);
+    modal = new hx.Modal('Preferences', setupModal);
+    this._ = {
+      backingStore: LocalStoragePreferencesStore,
+      supportedTimezones: defaultTimezoneList,
+      supportedLocales: localeList.map(function(v) {
+        return v.value;
+      }),
+      timezoneOffsetLookup: function(timezone, datestamp) {
+        var stampParts;
+        stampParts = timezone.replace('UTC', '').replace('+', '').replace('-0', '-').split(':').map(Number);
+        return stampParts[0] + (stampParts[0] >= 0 ? stampParts[1] / 60 : -(stampParts[1] / 60));
+      },
+      preferences: {},
+      modal: modal
+    };
+    this.locale((typeof moment !== "undefined" && moment !== null ? moment.locale() : void 0) || navigator.language || 'en');
+    this.timezone((typeof moment !== "undefined" && moment !== null ? (ref = moment.tz) != null ? ref.guess() : void 0 : void 0) || 'UTC+00:00');
+  }
+
+  Preferences.prototype.timezone = function(timezone) {
+    if (arguments.length > 0) {
+      if (hx.isString(timezone) && this._.supportedTimezones.indexOf(timezone) !== -1) {
+        if (this._.preferences['timezone'] !== timezone) {
+          this._.preferences['timezone'] = timezone;
+          this.emit('timezonechange', timezone);
+        }
+      } else {
+        hx.consoleWarning('preferences.timezone:', timezone + ' is not a valid timezone');
+      }
+      return this;
+    } else {
+      return this._.preferences['timezone'];
+    }
+  };
+
+  Preferences.prototype.locale = function(locale) {
+    var localeObject;
+    if (arguments.length > 0) {
+      if (hx.isString(locale) && (localeObject = lookupLocale(locale))) {
+        if (this._.preferences['locale'] !== localeObject.value) {
+          this._.preferences['locale'] = localeObject.value;
+          this.emit('localechange', localeObject.value);
+        }
+      } else {
+        hx.consoleWarning('preferences.locale', locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon');
+      }
+      return this;
+    } else {
+      return this._.preferences['locale'];
+    }
+  };
+
+  option = function(name) {
+    return function(value) {
+      if (arguments.length > 0) {
+        this._[name] = value;
+        return this;
+      } else {
+        return this._[name];
+      }
+    };
+  };
+
+  Preferences.prototype.supportedLocales = option('supportedLocales');
+
+  Preferences.prototype.supportedTimezones = option('supportedTimezones');
+
+  Preferences.prototype.timezoneOffsetLookup = option('timezoneOffsetLookup');
+
+  Preferences.prototype.applyTimezoneOffset = function(date, offset) {
+    var utc;
+    if (offset == null) {
+      offset = this._.timezoneOffsetLookup(this.timezone(), date.getTime()) || 0;
+    }
+    utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+    return new Date(utc + offset * 60 * 60 * 1000);
+  };
+
+  Preferences.prototype.backingStore = function(backingStore) {
+    if (backingStore != null) {
+      this._.backingStore = backingStore;
+    }
+    return this;
+  };
+
+  Preferences.prototype.save = function(cb) {
+    var e, error;
+    try {
+      return this._.backingStore.save(JSON.stringify(this._.preferences), function(err) {
+        return typeof cb === "function" ? cb(err) : void 0;
+      });
+    } catch (error) {
+      e = error;
+      return typeof cb === "function" ? cb(e) : void 0;
+    }
+  };
+
+  Preferences.prototype.load = function(cb) {
+    var e, error;
+    try {
+      return this._.backingStore.load((function(_this) {
+        return function(err, prefs) {
+          if (prefs != null) {
+            _this._.preferences = JSON.parse(prefs);
+          }
+          return typeof cb === "function" ? cb(err) : void 0;
+        };
+      })(this));
+    } catch (error) {
+      e = error;
+      return typeof cb === "function" ? cb(e) : void 0;
+    }
+  };
+
+  Preferences.prototype.show = function() {
+    this._.modal.show();
+    return this;
+  };
+
+  return Preferences;
+
+})(hx.EventEmitter);
+
+hx.preferences = new Preferences;
+
+hx.preferences.localStorageStore = LocalStoragePreferencesStore;
+
+})();
 
 (function(){
 var addResizeListener, initializeResizeListeners, removeResizeListener;
@@ -4581,364 +6113,6 @@ hx.select.addEventAugmenter({
 
 })();
 (function(){
-var collator, compare, hasCollator, localeCompare,
-  slice = [].slice;
-
-hasCollator = (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
-
-collator = hasCollator ? new Intl.Collator(void 0, {
-  numeric: true
-}).compare : function(a, b) {
-  if (a < b) {
-    return -1;
-  } else if (a > b) {
-    return 1;
-  } else {
-    return 0;
-  }
-};
-
-compare = function(a, b) {
-  if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-    return a - b;
-  } else {
-    return collator(a, b);
-  }
-};
-
-localeCompare = function(locale, options) {
-  var localeCollator;
-  if (options == null) {
-    options = {
-      numeric: true
-    };
-  }
-  localeCollator = hasCollator ? new Intl.Collator(locale, options).compare : function(a, b) {
-    return a.localeCompare(b, locale, options);
-  };
-  return function(a, b) {
-    if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return localeCollator(a, b);
-    }
-  };
-};
-
-hx.sortBy = function(arr, f) {
-  var newArr;
-  newArr = slice.call(arr);
-  newArr.sort(function(left, right) {
-    var fLeft, fRight;
-    fLeft = f(left);
-    fRight = f(right);
-    return compare(fLeft, fRight);
-  });
-  return newArr;
-};
-
-hx.sort = function(arr) {
-  return hx.sortBy(arr, function(x) {
-    return x;
-  });
-};
-
-hx.sort.compare = compare;
-
-hx.sort.localeCompare = localeCompare;
-
-})();
-(function(){
-var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
-
-siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
-
-zeroPad = function(number, pad) {
-  var _, str, zeros;
-  str = number.toString();
-  if (str.length < pad) {
-    zeros = pad - str.length;
-    return ((function() {
-      var i, ref, results;
-      results = [];
-      for (_ = i = 0, ref = zeros - 1; 0 <= ref ? i <= ref : i >= ref; _ = 0 <= ref ? ++i : --i) {
-        results.push('0');
-      }
-      return results;
-    })()).join('') + str;
-  } else {
-    return str;
-  }
-};
-
-precision = function(n) {
-  if (n) {
-    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
-  } else {
-    return 1;
-  }
-};
-
-roundPrecision = function(n, base, factor) {
-  if (factor >= 0) {
-    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
-  } else {
-    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
-  }
-};
-
-formatRound = function(n, sf) {
-  var factor;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  factor = precision(n) - sf + 1;
-  return roundPrecision(n, 10, factor).toString();
-};
-
-formatSI = function(n, sf) {
-  var p, siFactor, suffix, x;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = Math.min(precision(n), 26);
-  suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
-  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
-  if (p === -3) {
-    x = 1000;
-    suffix = siSuffixes[6];
-  }
-  siFactor = Math.pow(10, p - p % 3) / x;
-  return formatRound(n / siFactor, sf) + suffix;
-};
-
-formatExp = function(n, sf) {
-  var p;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = precision(n);
-  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
-};
-
-formatFixed = function(n, digits) {
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  return n.toFixed(digits);
-};
-
-strictCheck = function(f, sf, strict) {
-  if (strict) {
-    return function(n) {
-      return f(n, sf);
-    };
-  } else {
-    return function(n) {
-      if (hx.isString(n)) {
-        return n;
-      } else {
-        return f(n, sf);
-      }
-    };
-  }
-};
-
-hx.format = {
-  round: function(sf, strict) {
-    return strictCheck(formatRound, sf, strict);
-  },
-  si: function(sf, strict) {
-    return strictCheck(formatSI, sf, strict);
-  },
-  exp: function(sf, strict) {
-    return strictCheck(formatExp, sf, strict);
-  },
-  fixed: function(digits, strict) {
-    return strictCheck(formatFixed, digits, strict);
-  },
-  zeroPad: function(length, strict) {
-    return strictCheck(zeroPad, length, strict);
-  }
-};
-
-})();
-(function(){
-var View;
-
-View = (function() {
-  function View(rootSelection, selector1, defaultType) {
-    var self;
-    this.rootSelection = rootSelection;
-    this.selector = selector1;
-    this.defaultType = defaultType;
-    self = this;
-    this["new"] = function(datum) {
-      if (self.selector.charAt(0) === '.') {
-        return this.append(self.defaultType)["class"](self.selector.substring(1)).node();
-      } else {
-        return this.append(self.defaultType).node();
-      }
-    };
-    this.each = function(datum, element) {};
-    this.old = function(datum, element) {
-      return this.remove();
-    };
-  }
-
-  View.prototype.enter = function(f) {
-    this["new"] = f;
-    return this;
-  };
-
-  View.prototype.exit = function(f) {
-    this.old = f;
-    return this;
-  };
-
-  View.prototype.update = function(f) {
-    this.each = f;
-    return this;
-  };
-
-  View.prototype.apply = function(data, key) {
-    var d, dataByKey, datum, enterSet, exitSet, i, j, k, l, len, len1, len2, len3, len4, len5, m, n, newNodeSet, node, nodeByKey, nodeData, nodes, o, p, q, r, ref, ref1, ref2, updateSet;
-    if (this.rootSelection.size() === 0) {
-      return;
-    }
-    if (!(data instanceof Array)) {
-      data = [data];
-    }
-    enterSet = [];
-    updateSet = [];
-    exitSet = [];
-    nodes = this.rootSelection.selectAll(this.selector).nodes;
-    if (key) {
-      nodeByKey = new hx.Map;
-      dataByKey = new hx.Map;
-      for (l = 0, len = data.length; l < len; l++) {
-        datum = data[l];
-        k = key(datum);
-        dataByKey.set(k, datum);
-      }
-      for (m = 0, len1 = nodes.length; m < len1; m++) {
-        node = nodes[m];
-        nodeData = hx.select.getHexagonElementDataObject(node);
-        if (nodeData.datum) {
-          d = nodeData.datum;
-          k = key(d);
-          if (nodeByKey.has(k)) {
-            exitSet.push({
-              element: node,
-              datum: d
-            });
-          } else {
-            nodeByKey.set(k, node);
-            if (dataByKey.has(k)) {
-              datum = dataByKey.get(k);
-              dataByKey["delete"](k);
-              updateSet.push({
-                element: node,
-                datum: datum
-              });
-            } else {
-              exitSet.push({
-                element: node,
-                datum: d
-              });
-            }
-          }
-        } else {
-          exitSet.push({
-            element: node,
-            datum: void 0
-          });
-        }
-      }
-      enterSet = (function() {
-        var len2, n, ref, results;
-        ref = dataByKey.entries();
-        results = [];
-        for (n = 0, len2 = ref.length; n < len2; n++) {
-          d = ref[n];
-          results.push({
-            datum: d[1]
-          });
-        }
-        return results;
-      })();
-    } else {
-      i = 0;
-      for (n = 0, len2 = nodes.length; n < len2; n++) {
-        node = nodes[n];
-        if (i < data.length) {
-          nodeData = hx.select.getHexagonElementDataObject(node);
-          nodeData.datum = data[i];
-          updateSet.push({
-            element: node,
-            datum: data[i]
-          });
-        } else {
-          nodeData = hx.select.getHexagonElementDataObject(node, false);
-          exitSet.push({
-            element: node,
-            datum: nodeData.datum
-          });
-        }
-        i++;
-      }
-      if (i < data.length) {
-        for (j = o = ref = i, ref1 = data.length - 1; ref <= ref1 ? o <= ref1 : o >= ref1; j = ref <= ref1 ? ++o : --o) {
-          enterSet.push({
-            datum: data[j]
-          });
-        }
-      }
-    }
-    newNodeSet = (function() {
-      var len3, p, results;
-      results = [];
-      for (i = p = 0, len3 = enterSet.length; p < len3; i = ++p) {
-        d = enterSet[i];
-        results.push({
-          element: this["new"].call(this.rootSelection, d.datum, i),
-          datum: d.datum
-        });
-      }
-      return results;
-    }).call(this);
-    for (p = 0, len3 = newNodeSet.length; p < len3; p++) {
-      d = newNodeSet[p];
-      hx.select.getHexagonElementDataObject(d.element).datum = d.datum;
-    }
-    for (i = q = 0, len4 = exitSet.length; q < len4; i = ++q) {
-      d = exitSet[i];
-      this.old.call(hx.select(d.element), d.datum, d.element, i);
-    }
-    ref2 = updateSet.concat(newNodeSet);
-    for (i = r = 0, len5 = ref2.length; r < len5; i = ++r) {
-      d = ref2[i];
-      this.each.call(hx.select(d.element), d.datum, d.element, i);
-    }
-    return this;
-  };
-
-  return View;
-
-})();
-
-hx.Selection.prototype.view = function(selector, type) {
-  if (type == null) {
-    type = 'div';
-  }
-  if (this.size() === 0) {
-    hx.consoleWarning('.view() called on an empty selection');
-  }
-  return new View(this, selector, type);
-};
-
-})();
-(function(){
 var Menu, MenuItem, addItem, checkEvent, dealWithEvent, emitItem, getAllItems, moveSelectionDown, moveSelectionUp, populateNode, setActive, setupInner, toggleCollapsible,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -4990,7 +6164,7 @@ getAllItems = function(menu) {
 
 setActive = function(menu, pos, up, click) {
   var allItems, collapsibleHeading, content, dNode, ddScroll, goUp, isEnabled, itemHeight, mNode, menuNode, node, offset, parentNode, parentOffset, ref, ref1, ref2, ref3, selectedItem, totalOffset;
-  if ((ref = menu.dropdown.dropdown) != null) {
+  if ((ref = menu.dropdown._.dropdown) != null) {
     ref.selectAll('.hx-menu-item').classed('hx-menu-active', false);
   }
   if (pos >= 0) {
@@ -5018,7 +6192,7 @@ setActive = function(menu, pos, up, click) {
       return void 0;
     } else {
       menu.cursorPos = pos;
-      if (((dNode = (ref3 = menu.dropdown.dropdown) != null ? ref3.node() : void 0) != null) && !click) {
+      if (((dNode = (ref3 = menu.dropdown._.dropdown) != null ? ref3.node() : void 0) != null) && !click) {
         menuNode = hx.select(node).classed('hx-menu-active', true);
         mNode = menuNode.node();
         offset = mNode.offsetTop;
@@ -5225,12 +6399,12 @@ Menu = (function(superClass) {
     this.dropdown.on('showend', (function(_this) {
       return function() {
         var ddNode, node;
-        if (_this.dropdown.dropdown != null) {
-          node = _this.dropdown.dropdown.node();
+        if (_this.dropdown._.dropdown != null) {
+          node = _this.dropdown._.dropdown.node();
           ddNode = hx.select(node);
           if (node.scrollTop < node.scrollHeight - node.clientHeight) {
             ddNode.style('width', ddNode.width() + hx.scrollbarSize() + 'px');
-            if (_this.dropdown.alignments[2] === 'r') {
+            if (_this.dropdown._.alignments[2] === 'r') {
               return ddNode.style('left', Math.max(0, ddNode.box().left - hx.scrollbarSize()) + 'px');
             }
           }
@@ -5268,9 +6442,10 @@ Menu = (function(superClass) {
       targetElem = selection;
     }
     this.dropdown.on('showstart', 'hx.menu', function() {
+      var ref;
       self.cursorPos = -1;
       if (!isInput) {
-        targetElem = self.dropdown.dropdown;
+        targetElem = self.dropdown._.dropdown;
         targetElem.attr('tabindex', '-1');
         targetElem.node().focus();
       }
@@ -5280,7 +6455,7 @@ Menu = (function(superClass) {
         }
         return self.emit('keydown', e);
       });
-      return self.dropdown.dropdown.on('click', 'hx.menu', function(e) {
+      return (ref = self.dropdown._.dropdown) != null ? ref.on('click', 'hx.menu', function(e) {
         var allItems, i, index, t, target;
         target = hx.select(e.target).classed('hx-menu-link') ? e.target : hx.select(e.target).closest('.hx-menu-item').node();
         if (target) {
@@ -5300,7 +6475,7 @@ Menu = (function(superClass) {
           }
           return targetElem.node().focus();
         }
-      });
+      }) : void 0;
     });
     this.dropdown.pipe(this, 'dropdown');
     if (this.options.disabled) {
@@ -5362,6 +6537,282 @@ hx.Menu = Menu;
 })();
 
 (function(){
+var DateTimeLocalizer, DateTimeLocalizerMoment, dateTimeLocalizer;
+
+DateTimeLocalizer = (function() {
+  var zeroPad;
+
+  function DateTimeLocalizer() {}
+
+  zeroPad = hx.format.zeroPad(2);
+
+  DateTimeLocalizer.prototype.dateOrder = function() {
+    return ['DD', 'MM', 'YYYY'];
+  };
+
+  DateTimeLocalizer.prototype.weekStart = function() {
+    return 0;
+  };
+
+  DateTimeLocalizer.prototype.weekDays = function() {
+    return ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  };
+
+  DateTimeLocalizer.prototype.todayText = function() {
+    return 'Today';
+  };
+
+  DateTimeLocalizer.prototype.day = function(day, pad) {
+    if (pad) {
+      return zeroPad(day);
+    } else {
+      return day;
+    }
+  };
+
+  DateTimeLocalizer.prototype.month = function(month, short) {
+    if (short) {
+      return zeroPad(month + 1);
+    } else {
+      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month];
+    }
+  };
+
+  DateTimeLocalizer.prototype.year = function(year) {
+    return year;
+  };
+
+  DateTimeLocalizer.prototype.date = function(date, useInbuilt) {
+    if (useInbuilt) {
+      return date.getFullYear() + '-' + zeroPad(date.getMonth() + 1) + '-' + zeroPad(date.getDate());
+    } else {
+      return zeroPad(date.getDate()) + '/' + zeroPad(date.getMonth() + 1) + '/' + date.getFullYear();
+    }
+  };
+
+  DateTimeLocalizer.prototype.time = function(date, showSeconds) {
+    var timeString;
+    date = hx.preferences.applyTimezoneOffset(date);
+    timeString = date.getHours() + ':' + zeroPad(date.getMinutes());
+    if (showSeconds) {
+      timeString += ':' + zeroPad(date.getSeconds());
+    }
+    return timeString;
+  };
+
+  DateTimeLocalizer.prototype.checkTime = function(time) {
+    return !isNaN(time[0]) && !isNaN(time[1]) && !isNaN(time[2]);
+  };
+
+  DateTimeLocalizer.prototype.stringToDate = function(dateString, useInbuilt) {
+    var allValid, day, daysValid, format, i, j, len, month, monthsValid, order, part, split, w, year, yearsValid;
+    if (useInbuilt) {
+      order = ['YYYY', 'MM', 'DD'];
+      split = dateString.split('-');
+    } else {
+      order = this.dateOrder();
+      split = dateString.split('/');
+    }
+    allValid = split.length === 3 && !split.some(function(e) {
+      return e === '' || e === '0';
+    });
+    if (allValid) {
+      format = '';
+      for (i = j = 0, len = order.length; j < len; i = ++j) {
+        w = order[i];
+        part = split[i];
+        switch (w) {
+          case 'DD':
+            daysValid = part.length < 3 && part !== '';
+            day = Number(split[i]);
+            break;
+          case 'MM':
+            monthsValid = part.length < 3 && part !== '';
+            month = Number(split[i]);
+            break;
+          case 'YYYY':
+            yearsValid = part.length < 5 && part !== '';
+            year = Number(split[i]);
+            if (year.toString().length === 2) {
+              year += 2000;
+            }
+        }
+      }
+      if (daysValid && monthsValid && yearsValid) {
+        return new Date(year, month - 1, day);
+      } else {
+        return new Date('Invalid Date');
+      }
+    } else {
+      return new Date('Invalid Date');
+    }
+  };
+
+  return DateTimeLocalizer;
+
+})();
+
+DateTimeLocalizerMoment = (function() {
+  function DateTimeLocalizerMoment() {}
+
+  DateTimeLocalizerMoment.prototype.dateOrder = function() {
+    var date, dateCheck, dayIndex, i, j, monthIndex, ref, result, yearIndex;
+    date = moment({
+      year: 2003,
+      month: 11,
+      day: 22
+    }).locale(hx.preferences.locale());
+    dateCheck = date.format('L');
+    yearIndex = dateCheck.indexOf(date.format('YYYY'));
+    monthIndex = dateCheck.indexOf(date.format('MM'));
+    dayIndex = dateCheck.indexOf(date.format('DD'));
+    result = [];
+    for (i = j = 0, ref = dateCheck.length; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      switch (i) {
+        case yearIndex:
+          result.push('YYYY');
+          break;
+        case monthIndex:
+          result.push('MM');
+          break;
+        case dayIndex:
+          result.push('DD');
+      }
+    }
+    if (result.length === 0) {
+      result = ['DD', 'MM', 'YYYY'];
+    }
+    return result;
+  };
+
+  DateTimeLocalizerMoment.prototype.weekStart = function() {
+    return moment().weekday(0).toDate().getDay();
+  };
+
+  DateTimeLocalizerMoment.prototype.weekDays = function() {
+    var dayDate, dayNames, i, j;
+    dayDate = moment().weekday(0);
+    dayDate.locale(hx.preferences.locale());
+    dayNames = [dayDate.format('dd')];
+    for (i = j = 0; j < 6; i = ++j) {
+      dayNames.push(dayDate.add(1, 'd').format('dd'));
+    }
+    return dayNames;
+  };
+
+  DateTimeLocalizerMoment.prototype.todayText = function() {
+    var i, j, ref, today, todayArr, tomorrow, tomorrowArr;
+    today = moment({
+      hour: 12,
+      minute: 0,
+      second: 0
+    }).locale(hx.preferences.locale());
+    tomorrow = today.clone().add(1, 'day');
+    todayArr = today.calendar().split('').reverse();
+    tomorrowArr = tomorrow.calendar().split('').reverse();
+    for (i = j = 0, ref = todayArr.length; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      if (todayArr[i] !== tomorrowArr[i]) {
+        break;
+      }
+    }
+    todayArr.splice(0, i);
+    return todayArr.reverse().join('');
+  };
+
+  DateTimeLocalizerMoment.prototype.day = function(day, pad) {
+    return moment({
+      day: day,
+      month: 0
+    }).locale(hx.preferences.locale()).format(pad ? 'DD' : 'D');
+  };
+
+  DateTimeLocalizerMoment.prototype.month = function(month, short) {
+    return moment({
+      month: month
+    }).locale(hx.preferences.locale()).format(short ? 'MM' : 'MMM');
+  };
+
+  DateTimeLocalizerMoment.prototype.year = function(year) {
+    return moment({
+      year: year
+    }).locale(hx.preferences.locale()).format('YYYY');
+  };
+
+  DateTimeLocalizerMoment.prototype.decade = function(start, end) {
+    return this.year(start) + ' - ' + this.year(end);
+  };
+
+  DateTimeLocalizerMoment.prototype.date = function(date) {
+    return moment(date).locale(hx.preferences.locale()).format('L');
+  };
+
+  DateTimeLocalizerMoment.prototype.time = function(date, showSeconds) {
+    var format;
+    date = hx.preferences.applyTimezoneOffset(date);
+    format = showSeconds ? 'H:mm:ss' : 'H:mm';
+    return moment(date).locale(hx.preferences.locale()).format(format);
+  };
+
+  DateTimeLocalizerMoment.prototype.checkTime = function(time) {
+    return moment({
+      hours: time[0],
+      minutes: time[1],
+      seconds: time[2]
+    }).locale(hx.preferences.locale()).isValid();
+  };
+
+  DateTimeLocalizerMoment.prototype.stringToDate = function(dateString) {
+    var allValid, daysValid, format, i, j, len, monthsValid, order, part, split, w, yearsValid;
+    order = this.dateOrder();
+    split = dateString.split('/');
+    allValid = split.length === 3 && !split.some(function(e) {
+      return e === '' || e === '0';
+    });
+    if (allValid) {
+      format = '';
+      for (i = j = 0, len = order.length; j < len; i = ++j) {
+        w = order[i];
+        part = split[i];
+        switch (w) {
+          case 'DD':
+            daysValid = part.length < 3 && part !== '';
+            format += 'DD';
+            break;
+          case 'MM':
+            monthsValid = part.length < 3 && part !== '';
+            format += 'MM';
+            break;
+          case 'YYYY':
+            yearsValid = part.length < 5 && part !== '';
+            format += 'YYYY';
+        }
+      }
+      if (daysValid && monthsValid && yearsValid) {
+        return moment(dateString, format, hx.preferences.locale()).toDate();
+      } else {
+        return new Date('Invalid Date');
+      }
+    } else {
+      return new Date('Invalid Date');
+    }
+  };
+
+  return DateTimeLocalizerMoment;
+
+})();
+
+dateTimeLocalizer = function() {
+  if (typeof moment !== "undefined" && moment !== null) {
+    return new DateTimeLocalizerMoment;
+  } else {
+    return new DateTimeLocalizer;
+  }
+};
+
+hx.dateTimeLocalizer = dateTimeLocalizer;
+
+})();
+(function(){
 var NumberPicker, checkValue,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -5372,10 +6823,10 @@ checkValue = function(numberPicker, context) {
   max = numberPicker.max();
   min = numberPicker.min();
   if (max !== void 0) {
-    value = hx.min([value, max]);
+    value = Math.min(value, max);
   }
   if (min !== void 0) {
-    value = hx.max([value, min]);
+    value = Math.max(value, min);
   }
   if (value !== oldValue) {
     return context.value(value);
@@ -5394,7 +6845,8 @@ NumberPicker = (function(superClass) {
       buttonClass: '',
       min: void 0,
       max: void 0,
-      disabled: false
+      disabled: false,
+      value: 0
     }, options);
     this._ = {};
     container = hx.select(this.selector);
@@ -5429,24 +6881,25 @@ NumberPicker = (function(superClass) {
         return _this.decrement();
       };
     })(this));
-    if (this.options.max) {
+    if (this.options.max !== void 0) {
       this.max(this.options.max);
     }
-    if (this.options.min) {
+    if (this.options.min !== void 0) {
       this.min(this.options.min);
     }
     if (this.options.disabled) {
       this.disabled(this.options.disabled);
     }
+    this.selectInput.attr('data-value', this.options.value).value(this.options.value);
   }
 
   NumberPicker.prototype.value = function(value, screenValue) {
     if (arguments.length > 0) {
-      if (this.options.max !== void 0 && value > this.max) {
-        value = this.max;
+      if (this._.max !== void 0 && value > this._.max) {
+        value = this._.max;
       }
-      if (this.min !== void 0 && value < this.min) {
-        value = this.min;
+      if (this._.min !== void 0 && value < this._.min) {
+        value = this._.min;
       }
       if (screenValue && isNaN(screenValue)) {
         this.selectInput.attr('type', 'text').attr('readonly', '');
@@ -5755,188 +7208,6 @@ hx.dragContainer = function(options) {
 };
 
 hx.DragContainer = DragContainer;
-
-})();
-
-(function(){
-var buildFilter, filterCaseModifier, filterMatch;
-
-filterCaseModifier = function(caseSensitive) {
-  if (caseSensitive) {
-    return function(string) {
-      return string;
-    };
-  } else {
-    return function(string) {
-      return string.toLowerCase();
-    };
-  }
-};
-
-filterMatch = function(item, getIndex, options) {
-  var e, isMatch, j, len, ref, val;
-  val = 0;
-  isMatch = false;
-  if (options.searchValues != null) {
-    ref = options.searchValues(item);
-    for (j = 0, len = ref.length; j < len; j++) {
-      e = ref[j];
-      val += options.lookup(options.caseModifier(e.toString()));
-      if (val > -1) {
-        isMatch = true;
-      }
-    }
-  } else {
-    val += options.lookup(options.caseModifier(item.toString()));
-  }
-  if (getIndex === true) {
-    return val;
-  } else if (isMatch || val > -1) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-buildFilter = function(lookupType) {
-  return function(array, term, options) {
-    if (options == null) {
-      options = {};
-    }
-    options = hx.merge.defined({
-      caseSensitive: false,
-      searchValues: void 0,
-      sort: true
-    }, options);
-    options.caseModifier = filterCaseModifier(options.caseSensitive);
-    if (typeof term === 'string') {
-      term = options.caseModifier(term);
-    }
-    options.lookup = lookupType(term);
-    array = array.filter(function(d) {
-      return filterMatch(d, false, options);
-    });
-    if (options.sort === true) {
-      array = array.sort(function(a, b) {
-        var aArr, aI, bArr, bI, i, j, r, ref;
-        aI = filterMatch(a, true, options);
-        bI = filterMatch(b, true, options);
-        if (aI > bI) {
-          return 1;
-        } else if (aI < bI) {
-          return -1;
-        } else if (options.searchValues != null) {
-          r = 0;
-          aArr = options.searchValues(a);
-          bArr = options.searchValues(b);
-          for (i = j = 0, ref = aArr.length; j < ref; i = j += 1) {
-            r = hx.sort.compare(aArr[i], bArr[i]);
-            if (r !== 0) {
-              break;
-            }
-          }
-          return r;
-        } else {
-          return hx.sort.compare(a, b);
-        }
-      });
-    }
-    return array;
-  };
-};
-
-hx.filter = {
-  exact: buildFilter(function(term) {
-    return function(item) {
-      if (item === term) {
-        return term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  startsWith: buildFilter(function(term) {
-    return function(item) {
-      if (hx.startsWith(item, term)) {
-        return term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  contains: buildFilter(function(term) {
-    return function(item) {
-      var index;
-      index = item.indexOf(term);
-      if (index > -1) {
-        return index + term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  excludes: buildFilter(function(term) {
-    return function(item) {
-      var index;
-      index = item.indexOf(term);
-      if (index === -1) {
-        return term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  greater: buildFilter(function(term) {
-    return function(item) {
-      var val;
-      val = hx.sort.compare(item, term);
-      if (val !== -1) {
-        return val;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  less: buildFilter(function(term) {
-    return function(item) {
-      var val;
-      val = hx.sort.compare(term, item);
-      if (val !== -1) {
-        return val;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  fuzzy: buildFilter(function(term) {
-    var escapeRegExp, pattern, regStr;
-    escapeRegExp = function(str) {
-      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    };
-    regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?';
-    pattern = new RegExp(regStr);
-    return function(item) {
-      var match;
-      match = item.match(pattern);
-      if (match != null) {
-        return match.index + match[0].length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  regex: buildFilter(function(term) {
-    return function(item) {
-      var match;
-      match = item.match(term);
-      if (match != null) {
-        return match.index + match[0].length;
-      } else {
-        return -1;
-      }
-    };
-  })
-};
 
 })();
 (function(){
@@ -6644,7 +7915,7 @@ Axis = (function() {
   var scalePad, supportsGroup;
 
   function Axis(options) {
-    var opts;
+    var opts, ref;
     opts = hx.merge({
       x: {
         axisTickLabelPosition: 'bottom'
@@ -6656,8 +7927,12 @@ Axis = (function() {
     this._ = {
       series: new hx.List
     };
-    this.x = dimension(this, opts.x);
-    this.y = dimension(this, opts.y);
+    this.x = dimension(this, hx.merge({
+      axisTickLabelPosition: 'bottom'
+    }, options != null ? options.x : void 0));
+    this.y = dimension(this, hx.merge({
+      axisTickLabelPosition: 'left'
+    }, options != null ? options.y : void 0));
     this.xScale = new LinearScale(0, 1, 0, 1);
     this.yScale = new LinearScale(0, 1, 0, 1);
     this.graph = null;
@@ -6665,6 +7940,15 @@ Axis = (function() {
     this.xTitleHeight = 0;
     this.yAxisSize = 50;
     this.yTitleHeight = 0;
+    if (options != null) {
+      if ((ref = options.series) != null) {
+        ref.forEach((function(_this) {
+          return function(seriesObj) {
+            return _this.addSeries(seriesObj.type, seriesObj.options);
+          };
+        })(this));
+      }
+    }
   }
 
   supportsGroup = function(series) {
@@ -7170,7 +8454,10 @@ Axis = (function() {
       }).apply(this.xScale);
       if (this.x.title()) {
         axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
-          return this.attr('transform', 'translate(' + ((width + totalXOffset) / 2) + ', ' + (markerY + d.xAxisSize - d.xTitleHeight / 2 - axisPadding / 2) + ')').text(self.x.title());
+          var translateX, translateY;
+          translateX = (width + totalXOffset) / 2;
+          translateY = markerY + d.xAxisSize - d.xTitleHeight / 2 - axisPadding / 2;
+          return this.attr('transform', 'translate(' + translateX + ', ' + translateY + ')').text(self.x.title());
         }).apply(this);
       }
     }
@@ -7211,7 +8498,10 @@ Axis = (function() {
       }).apply(this.yScale);
       if (this.y.title()) {
         return axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
-          return this.attr('transform', 'translate(' + (markerX - d.yAxisSize + d.yTitleHeight / 2 + axisPadding / 2) + ', ' + ((height - totalYOffset) / 2) + ') rotate(-90)').text(self.y.title());
+          var translateX, translateY;
+          translateX = markerX - d.yAxisSize + d.yTitleHeight / 2 + axisPadding / 2;
+          translateY = (height - totalYOffset) / 2;
+          return this.attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(-90)').text(self.y.title());
         }).apply(this);
       }
     }
@@ -7237,17 +8527,10 @@ Axis = (function() {
   };
 
   Axis.prototype.getLabelDetails = function(x, y) {
-    var labels, series;
-    labels = hx.flatten((function() {
-      var k, len, ref, results;
-      ref = this.series();
-      results = [];
-      for (k = 0, len = ref.length; k < len; k++) {
-        series = ref[k];
-        results.push(series.getLabelDetails(x, y));
-      }
-      return results;
-    }).call(this));
+    var labels;
+    labels = hx.flatten(this.series().map(function(series) {
+      return series.getLabelDetails(x, y);
+    }));
     return labels.filter(function(d) {
       return d;
     });
@@ -7319,12 +8602,12 @@ Graph = (function(superClass) {
   extend(Graph, superClass);
 
   function Graph(selector, options) {
-    var clipPath, defs, id, savedZoomEnd, savedZoomStart, selection, threshold, touchX1, touchX2;
+    var clipPath, defs, id, ref, savedZoomEnd, savedZoomStart, selection, threshold, touchX1, touchX2;
     this.selector = selector;
     Graph.__super__.constructor.apply(this, arguments);
     hx.component.register(this.selector, this);
     this._ = {
-      options: hx.merge({
+      options: hx.shallowMerge({
         zoomRangeStart: 0,
         zoomRangeEnd: 1,
         labelsEnabled: true,
@@ -7427,11 +8710,9 @@ Graph = (function(superClass) {
         }
       };
     })(this));
-    this.svgTarget.on('pointerleave', 'hx.plot', (function(_this) {
-      return function(p) {
-        return clearLabels();
-      };
-    })(this));
+    this.svgTarget.on('pointerleave', 'hx.plot', function(p) {
+      return clearLabels();
+    });
     this.svgTarget.on('click', 'hx.plot', (function(_this) {
       return function(p) {
         var data, labelMeta, x, y;
@@ -7485,6 +8766,15 @@ Graph = (function(superClass) {
         }
       };
     })(this));
+    if (options != null) {
+      if ((ref = options.axes) != null) {
+        ref.forEach((function(_this) {
+          return function(axis) {
+            return _this.addAxis(axis);
+          };
+        })(this));
+      }
+    }
   }
 
   Graph.prototype.zoomRangeStart = optionSetterGetter('zoomRangeStart');
@@ -7527,7 +8817,7 @@ Graph = (function(superClass) {
   };
 
   Graph.prototype.render = function() {
-    var enter, hasData, legendContainer, selection, self, totalX, totalY, x, y;
+    var enter, hasData, legendContainer, legendContainerTransformX, legendContainerTransformY, selection, self, totalX, totalY, x, y;
     selection = hx.select(this.selector);
     this.width = Number(selection.width());
     this.height = Number(selection.height());
@@ -7602,7 +8892,9 @@ Graph = (function(superClass) {
           legendContainer.attr('transform', 'translate(' + (this.plotArea.x1 + 10) + ',' + (this.plotArea.y1 + 10) + ')');
           break;
         case 'bottom-right':
-          legendContainer.attr('transform', 'translate(' + (this.plotArea.x2 - 10 - legendContainer.width()) + ',' + (this.plotArea.y2 - 5 - legendContainer.height()) + ')');
+          legendContainerTransformX = this.plotArea.x2 - 10 - legendContainer.width();
+          legendContainerTransformY = this.plotArea.y2 - 5 - legendContainer.height();
+          legendContainer.attr('transform', 'translate(' + legendContainerTransformX + ',' + legendContainerTransformY + ')');
           break;
         case 'bottom-left':
           legendContainer.attr('transform', 'translate(' + (this.plotArea.x1 + 10) + ',' + (this.plotArea.y2 - 5 - legendContainer.height()) + ')');
@@ -7617,29 +8909,21 @@ Graph = (function(superClass) {
       this.svgTarget.select('.hx-legend-container').remove();
     }
     this.clipRect.attr('x', this.plotArea.x1).attr('y', this.plotArea.y1).attr('width', this.plotArea.x2 - this.plotArea.x1).attr('height', this.plotArea.y2 - this.plotArea.y1);
+    this.emit('render');
     return this;
   };
 
   getClosestMeta = function(graph, x, y) {
-    var axis, bestDistance, bestMeta, distance, i, l, labels, len, xx, yy;
+    var bestDistance, bestMeta, distance, i, l, labels, len, xx, yy;
     x = hx.clamp(graph.plotArea.x1, graph.plotArea.x2, x);
     y = hx.clamp(graph.plotArea.y1, graph.plotArea.y2, y);
-    labels = hx.flatten((function() {
-      var i, len, ref, results;
-      ref = graph.axes();
-      results = [];
-      for (i = 0, len = ref.length; i < len; i++) {
-        axis = ref[i];
-        results.push(axis.getLabelDetails(x, y));
-      }
-      return results;
-    })());
-    labels = labels.filter((function(_this) {
-      return function(label) {
-        var ref, ref1;
-        return (graph.plotArea.x1 <= (ref = label.x) && ref <= graph.plotArea.x2) && (graph.plotArea.y1 <= (ref1 = label.y) && ref1 <= graph.plotArea.y2);
-      };
-    })(this));
+    labels = hx.flatten(graph.axes().map(function(axis) {
+      return axis.getLabelDetails(x, y);
+    }));
+    labels = labels.filter(function(label) {
+      var ref, ref1;
+      return (graph.plotArea.x1 <= (ref = label.x) && ref <= graph.plotArea.x2) && (graph.plotArea.y1 <= (ref1 = label.y) && ref1 <= graph.plotArea.y2);
+    });
     bestMeta = void 0;
     bestDistance = void 0;
     for (i = 0, len = labels.length; i < len; i++) {
@@ -8703,13 +9987,14 @@ PieChart = (function(superClass) {
     outerRadius = r;
     ringSize = radius / data.length + (radius / data.length * this.ringPadding() / data.length);
     updateSegment = function(selection, size, color, runningTotal, total, ring, minimumInnerRadius) {
-      var actualInnerRadius, end, start, startOffset, straightInnerSegments;
+      var actualInnerRadius, diameter, end, start, startOffset, straightInnerSegments;
       startOffset = self.startAngle() + Math.PI * 1.5;
       start = startOffset + runningTotal / total * self.totalAngle();
       end = startOffset + (runningTotal + size) / total * self.totalAngle();
       straightInnerSegments = ring === 0 && innerRadius === 0;
       actualInnerRadius = straightInnerSegments ? Math.max(innerRadius + ringSize * ring, arcCurveMinimumRadius(start, end, segmentPadding)) : Math.max(innerRadius + ringSize * ring, minimumInnerRadius);
-      return selection.attr('d', arcCurve(self.circle.x, self.circle.y, actualInnerRadius, innerRadius + ringSize * (ring + 1 - self.ringPadding()), start, end, segmentPadding, straightInnerSegments)).attr('fill', color);
+      diameter = arcCurve(self.circle.x, self.circle.y, actualInnerRadius, innerRadius + ringSize * (ring + 1 - self.ringPadding()), start, end, segmentPadding, straightInnerSegments);
+      return selection.attr('d', diameter).attr('fill', color);
     };
     updateRing = function(d, e, i) {
       var allZero, end, j, len, minimumInnerRadius, ref, ref1, runningTotal, segment, segments, size, start, startOffset, total;
@@ -9055,6 +10340,13 @@ hx.Axis = Axis;
 
 hx.Graph = Graph;
 
+hx.graph = function(options) {
+  var graph, selection;
+  selection = new hx.detached('div');
+  graph = new Graph(selection.node(), options);
+  return selection;
+};
+
 hx.LineSeries = LineSeries;
 
 hx.BandSeries = BandSeries;
@@ -9087,7 +10379,7 @@ hx.Sparkline = Sparkline;
 
 })();
 (function(){
-var StickyTableHeaders, cloneEvents, updateHeaderPositions, updateScrollIndicators;
+var StickyTableHeaders, cloneEvents, createStickyHeaderNodes, getChildren, getChildrenFromTable, updateHeaderPositions, updateScrollIndicators;
 
 updateScrollIndicators = function(wrapper, top, right, bottom, left) {
   var canScrollDown, canScrollLeft, canScrollRight, canScrollUp, node;
@@ -9103,12 +10395,18 @@ updateScrollIndicators = function(wrapper, top, right, bottom, left) {
 };
 
 updateHeaderPositions = function(container) {
-  var leftOffset, node, topOffset;
-  node = container.select('.hx-sticky-table-wrapper').node();
+  var leftNode, leftOffset, node, topNode, topOffset;
+  node = getChildren(container, '.hx-sticky-table-wrapper')[0];
   leftOffset = -node.scrollLeft;
   topOffset = -node.scrollTop;
-  container.select('.hx-sticky-table-header-top').select('.hx-table').style('left', leftOffset + 'px');
-  return container.select('.hx-sticky-table-header-left').select('.hx-table').style('top', topOffset + 'px');
+  topNode = getChildren(container, '.hx-sticky-table-header-top')[0];
+  if (topNode != null) {
+    hx.select(topNode).select('.hx-table').style('left', leftOffset + 'px');
+  }
+  leftNode = getChildren(container, '.hx-sticky-table-header-left')[0];
+  if (leftNode != null) {
+    return hx.select(leftNode).select('.hx-table').style('top', topOffset + 'px');
+  }
 };
 
 cloneEvents = function(elem, clone) {
@@ -9138,6 +10436,32 @@ cloneEvents = function(elem, clone) {
   }
 };
 
+getChildrenFromTable = function(t, body, single) {
+  var realParents;
+  realParents = getChildren(t.select(body ? 'tbody' : 'thead'), 'tr');
+  return hx.flatten(realParents.map(function(parent) {
+    return getChildren(hx.select(parent), 'th, td', single);
+  }));
+};
+
+getChildren = function(parent, selector, single) {
+  var children;
+  children = single ? parent.select(selector) : parent.selectAll(selector);
+  return children.filter(function(node) {
+    return node.node().parentNode === parent.node();
+  }).nodes;
+};
+
+createStickyHeaderNodes = function(real, cloned) {
+  var i, j, ref, results;
+  results = [];
+  for (i = j = 0, ref = real.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+    cloneEvents(real[i], cloned[i]);
+    results.push(hx.select(real[i]).classed('hx-sticky-table-invisible', true));
+  }
+  return results;
+};
+
 StickyTableHeaders = (function() {
   function StickyTableHeaders(selector, options) {
     var bottomIndicator, container, leftIndicator, resolvedOptions, rightIndicator, selection, self, showScrollIndicators, table, tableIsRootElement, topIndicator, wrapper;
@@ -9154,9 +10478,13 @@ StickyTableHeaders = (function() {
     if (table.classed('hx-table-full') && (options.fullWidth == null)) {
       options.fullWidth = true;
     }
-    if (resolvedOptions.stickTableHead && table.select('thead').select('tr').empty()) {
-      hx.consoleWarning('hx.StickyTableHeaders - ' + selector, 'Sticky table headers initialized without thead element');
+    if (resolvedOptions.stickTableHead && table.select('thead').selectAll('tr').empty()) {
+      hx.consoleWarning('hx.StickyTableHeaders - ' + selector, 'Sticky table headers initialized with stickTableHead of true without a thead element present');
       resolvedOptions.stickTableHead = false;
+    }
+    if (resolvedOptions.stickFirstColumn && table.select('tbody').select('tr').selectAll('th, td').empty()) {
+      hx.consoleWarning('hx.StickyTableHeaders - ' + selector, 'Sticky table headers initialized with stickFirstColumn of true without any columns to stick');
+      resolvedOptions.stickFirstColumn = false;
     }
     container = tableIsRootElement ? table.insertAfter('div')["class"]('hx-sticky-table-headers') : selection.classed('hx-sticky-table-headers', true);
     if (resolvedOptions.containerClass) {
@@ -9198,7 +10526,7 @@ StickyTableHeaders = (function() {
   }
 
   StickyTableHeaders.prototype.render = function() {
-    var _, background, bottomIndicator, clonedNodes, container, hasHorizontalScroll, hasVerticalScroll, heightScrollbarOffset, i, j, k, l, leftHead, leftIndicator, leftTable, offsetHeight, offsetWidth, offsetWidthElem, options, origScroll, realNodes, ref, ref1, ref2, rightIndicator, scrollOffsetHeight, scrollOffsetWidth, table, tableBox, tableClone, topHead, topIndicator, topLeftHead, topLeftTable, topTable, totalHeight, totalWidth, widthScrollbarOffset, wrapper, wrapperBox, wrapperNode;
+    var _, background, bottomIndicator, clonedNodes, container, hasHorizontalScroll, hasVerticalScroll, heightScrollbarOffset, leftHead, leftIndicator, leftTable, offsetHeight, offsetWidth, offsetWidthElem, options, origScroll, realNodes, rightIndicator, scrollOffsetHeight, scrollOffsetWidth, table, tableBox, tableClone, topHead, topIndicator, topLeftHead, topLeftTable, topTable, totalHeight, totalWidth, widthScrollbarOffset, wrapper, wrapperBox, wrapperNode;
     _ = this._;
     container = _.container;
     wrapper = _.wrapper;
@@ -9206,11 +10534,14 @@ StickyTableHeaders = (function() {
     table = _.table;
     options = _.options;
     origScroll = wrapperNode.scrollTop;
-    container.style('height', '').style('width', '');
-    wrapper.style('height', '').style('width', '').style('margin-top', '').style('margin-left', '').style('max-width', '').style('max-height', '');
-    table.style('margin-top', '').style('margin-left', '').style('min-width', '').style('min-height', '');
+    container.style('height', void 0).style('width', void 0);
+    wrapper.style('height', void 0).style('width', void 0).style('margin-top', void 0).style('margin-left', void 0).style('max-width', void 0).style('max-height', void 0);
+    table.style('margin-top', void 0).style('margin-left', void 0).style('min-width', void 0).style('min-height', void 0);
     offsetHeight = 0;
     offsetWidth = 0;
+    if (options.fullWidth) {
+      table.style('width', '100%');
+    }
     if (options.stickTableHead) {
       offsetHeight = table.select('thead').height();
     }
@@ -9229,11 +10560,11 @@ StickyTableHeaders = (function() {
     widthScrollbarOffset = hasVerticalScroll ? hx.scrollbarSize() : 0;
     wrapperBox = wrapper.box();
     if (options.fullWidth) {
-      table.style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset + 'px').style('min-height', wrapperBox.height + offsetHeight - heightScrollbarOffset + 'px');
+      table.style('width', void 0).style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset - 1 + 'px');
     } else {
       wrapper.style('max-width', tableBox.width - offsetWidth + widthScrollbarOffset + 'px').style('max-height', tableBox.height - offsetHeight + heightScrollbarOffset + 'px');
     }
-    tableClone = table.clone(true);
+    tableClone = table.clone(true).style('height', table.style('height')).style('width', table.style('width'));
     if (options.stickTableHead) {
       topHead = container.select('.hx-sticky-table-header-top');
       if (topHead.empty()) {
@@ -9245,12 +10576,9 @@ StickyTableHeaders = (function() {
       }
       topHead.clear();
       topTable = topHead.append(tableClone.clone(true));
-      realNodes = table.select('thead').selectAll('tr').selectAll('th, td').nodes;
-      clonedNodes = topTable.select('thead').selectAll('tr').selectAll('th, td').nodes;
-      for (i = j = 0, ref = realNodes.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-        cloneEvents(realNodes[i], clonedNodes[i]);
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true);
-      }
+      realNodes = getChildrenFromTable(table);
+      clonedNodes = getChildrenFromTable(topTable);
+      createStickyHeaderNodes(realNodes, clonedNodes);
     }
     if (options.stickFirstColumn) {
       leftHead = container.select('.hx-sticky-table-header-left');
@@ -9263,12 +10591,9 @@ StickyTableHeaders = (function() {
       }
       leftHead.clear();
       leftTable = leftHead.append(tableClone.clone(true));
-      realNodes = table.select('tbody').selectAll('tr').select('th, td').nodes;
-      clonedNodes = leftTable.select('tbody').selectAll('tr').select('th, td').nodes;
-      for (i = k = 0, ref1 = realNodes.length; 0 <= ref1 ? k < ref1 : k > ref1; i = 0 <= ref1 ? ++k : --k) {
-        cloneEvents(realNodes[i], clonedNodes[i]);
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true);
-      }
+      realNodes = getChildrenFromTable(table, true, true);
+      clonedNodes = getChildrenFromTable(leftTable, true, true);
+      createStickyHeaderNodes(realNodes, clonedNodes);
     }
     if (options.stickTableHead && options.stickFirstColumn) {
       topLeftHead = container.select('.hx-sticky-table-header-top-left');
@@ -9277,27 +10602,24 @@ StickyTableHeaders = (function() {
       }
       topLeftHead.clear();
       topLeftTable = topLeftHead.append(tableClone.clone(true));
-      realNodes = table.select('thead').selectAll('tr').select('th, td').nodes;
-      clonedNodes = topLeftTable.select('thead').selectAll('tr').select('th, td').nodes;
-      for (i = l = 0, ref2 = realNodes.length; 0 <= ref2 ? l < ref2 : l > ref2; i = 0 <= ref2 ? ++l : --l) {
-        cloneEvents(realNodes[i], clonedNodes[i]);
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true);
-      }
+      realNodes = getChildrenFromTable(table, false, true);
+      clonedNodes = getChildrenFromTable(topLeftTable, false, true);
+      createStickyHeaderNodes(realNodes, clonedNodes);
     }
     if (topHead != null) {
-      topHead.style('height', offsetHeight + 'px').style('width', wrapperBox.width + 'px').style('left', offsetWidth + 'px');
+      topHead.style('height', offsetHeight + 'px').style('width', wrapperBox.width + 'px').style('left', offsetWidth + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
     }
     if (topTable != null) {
-      topTable.style('margin-left', -offsetWidth + 'px');
+      topTable.style('margin-left', -offsetWidth + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
     }
     if (leftHead != null) {
-      leftHead.style('height', wrapperBox.height + 'px').style('width', offsetWidth + 'px').style('top', offsetHeight + 'px');
+      leftHead.style('height', wrapperBox.height + 'px').style('width', offsetWidth + 'px').style('top', offsetHeight + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
     }
     if (leftTable != null) {
       leftTable.style('margin-top', -offsetHeight + 'px');
     }
     if (topLeftHead != null) {
-      topLeftHead.style('width', leftHead != null ? leftHead.style('width') : void 0).style('height', topHead != null ? topHead.style('height') : void 0);
+      topLeftHead.style('width', (leftHead != null ? leftHead.style('width') : void 0) || offsetWidth + 'px').style('height', (topHead != null ? topHead.style('height') : void 0) || offsetHeight + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
     }
     wrapperNode.scrollTop = origScroll;
     if (_.showScrollIndicators) {
@@ -9371,7 +10693,7 @@ Picker = (function(superClass) {
     hx.component.register(selector, this);
     this.selection = hx.select(selector);
     this.current = void 0;
-    button = this.selection.classed('hx-picker', true).append('span')["class"]('hx-picker-inner').attr('type', 'button');
+    button = this.selection.classed('hx-picker hx-btn', true).append('span')["class"]('hx-picker-inner').attr('type', 'button');
     this.selectedText = button.append('span')["class"]('hx-picker-text');
     button.append('span')["class"]('hx-picker-icon').append('i')["class"]('hx-icon hx-icon-caret-down');
     this.menu = new hx.Menu(selector, {
@@ -9573,17 +10895,7 @@ hx.ButtonGroup = ButtonGroup;
 
 })();
 (function(){
-var hasResponse, hx_xhr, performRequest, reshapedRequest, respondToRequest, sendRequest;
-
-hasResponse = function(request) {
-  var responseType;
-  responseType = request.responseType;
-  if (responseType && responseType !== 'text') {
-    return request.response;
-  } else {
-    return request.responseText;
-  }
-};
+var hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
 
 respondToRequest = function(request, url, data, callback, options, index) {
   var e, error1, result, source, status;
@@ -9592,7 +10904,7 @@ respondToRequest = function(request, url, data, callback, options, index) {
     url: url,
     data: data
   } : url;
-  if (!status && hasResponse(request) || status >= 200 && status < 300 || status === 304) {
+  if (status >= 200 && status < 300 || status === 304) {
     try {
       result = options.formatter(request);
     } catch (error1) {
@@ -9617,7 +10929,9 @@ sendRequest = function(request, url, data, options) {
   if (options.responseType) {
     request.responseType = options.responseType;
   }
-  request.overrideMimeType(options.contentType);
+  if (options.contentType) {
+    request.overrideMimeType(options.contentType);
+  }
   sendData = (data != null) && typeof data !== 'string' ? JSON.stringify(data) : data;
   return request.send(sendData);
 };
@@ -9648,23 +10962,10 @@ performRequest = function(url, data, callback, options, index) {
     options.requestType = 'POST';
   }
   request = new XMLHttpRequest();
-
-  /* istanbul ignore next: ie 8.0 - 9.x use xDomainRequest, no other browser uses it */
-  if (!('withCredentials' in request) && typeof XDomainRequest !== void 0 && /^(http(s)?:)?\/\//.test(url)) {
-    request = new XDomainRequest();
-  }
   respond = function() {
     return respondToRequest(request, url, data, callback, options, index);
   };
-
-  /* istanbul ignore next: onload/onerror are part of XMLHttpRequest 2 spec so this is here for older browser support */
-  if ('onload' in request) {
-    request.onload = request.onerror = respond;
-  } else {
-    request.onreadystatechange = function() {
-      request.readyState > 3 && respond();
-    };
-  }
+  request.onload = request.onerror = respond;
   return sendRequest(request, url, data, options);
 };
 
@@ -9740,43 +11041,61 @@ hx.request = function() {
   return hx_xhr(urlType, urls, data || null, callback, options);
 };
 
-reshapedRequest = function(args, type, formatter) {
-  var callback, data, defaults, options, urls;
-  urls = args[0];
-  if (hx.isFunction(args[1])) {
-    callback = args[1];
-    options = args[2];
-  } else {
-    data = args[1];
-    callback = args[2];
-    options = args[3];
-  }
-  defaults = {
-    contentType: type,
-    formatter: formatter
-  };
-  options = hx.merge(defaults, options);
-  return hx.request(urls, data, callback, options);
-};
-
-hx.json = function() {
-  return reshapedRequest(arguments, 'application/json', function(result) {
-    if (result.responseText) {
-      return JSON.parse(result.responseText);
+parsers = {
+  'application/json': function(text) {
+    if (text) {
+      return JSON.parse(text);
     }
-  });
+  },
+  'text/html': function(text) {
+    return hx.parseHTML(text);
+  },
+  'text/plain': function(text) {
+    return text;
+  }
 };
 
-hx.html = function() {
-  return reshapedRequest(arguments, 'text/html', function(result) {
-    return hx.parseHTML(result.responseText);
-  });
+reshapedRequest = function(type) {
+  return function(urls, data, callback, options) {
+    var defaults, ref;
+    if (hx.isFunction(data)) {
+      ref = [void 0, data, callback], data = ref[0], callback = ref[1], options = ref[2];
+    }
+    defaults = type ? {
+      contentType: type,
+      formatter: function(xhr) {
+        return parsers[type](xhr.responseText);
+      }
+    } : {
+      formatter: function(xhr) {
+        var mimeType, parser;
+        mimeType = xhr.getResponseHeader('content-type').split(';')[0];
+        parser = parsers[mimeType];
+        if (parser) {
+          return parser(xhr.responseText);
+        } else {
+          hx.consoleWarning("Unknown parser for mime type " + mimeType + ", carrying on anyway");
+          return xhr;
+        }
+      }
+    };
+    options = hx.merge(defaults, options);
+    return hx.request(urls, data, callback, options);
+  };
 };
+
+hx.json = reshapedRequest('application/json');
+
+hx.html = reshapedRequest('text/html');
+
+hx.text = reshapedRequest('text/plain');
+
+hx.reshapedRequest = reshapedRequest();
 
 })();
 
 (function(){
-var DatePicker, Localiser, LocaliserMoment, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates, zeroPad,
+var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates, zeroPad,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -9944,7 +11263,7 @@ validateDates = function(datepicker) {
 };
 
 buildCalendar = function(datepicker, mode) {
-  var _, cls, data, localiser, ref, text, visible;
+  var _, cls, data, localizer, ref, text, visible;
   _ = datepicker._;
   _.calendarGrid.selectAll('.hx-grid-row').remove();
   _.calendarView = _.calendarGrid.view('.hx-grid-row', 'div').update(function(d, e, i) {
@@ -9954,29 +11273,29 @@ buildCalendar = function(datepicker, mode) {
     mode = _.mode;
   }
   _.mode = mode;
-  localiser = datepicker.localiser;
+  localizer = datepicker.localizer;
   visible = datepicker.visibleMonth();
   switch (mode) {
     case 'd':
       data = getCalendarDecade(visible.year);
       cls = 'hx-calendar-decade';
-      text = localiser.localiseDecade(data[0][1], data[3][1]);
+      text = localizer.year(data[0][1]) + ' - ' + localizer.year(data[3][1]);
       break;
     case 'y':
       data = getCalendarYear();
       cls = 'hx-calendar-year';
-      text = localiser.localiseYear(visible.year);
+      text = localizer.year(visible.year);
       break;
     default:
-      data = getCalendarMonth(visible.year, visible.month - 1, localiser.localiseWeekStart());
+      data = getCalendarMonth(visible.year, visible.month - 1, localizer.weekStart());
       data.unshift('days');
       cls = 'hx-calendar-month';
-      text = localiser.localiseMonth(visible.month - 1) + ' / ' + localiser.localiseYear(visible.year);
+      text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year);
   }
   _.calendarGrid["class"]('hx-calendar-grid ' + cls);
   _.calendarHeadBtn.text(text);
   if ((ref = _.calendarTodayButton) != null) {
-    ref.text(localiser.localiseToday());
+    ref.text(localizer.todayText());
   }
   return _.calendarView.apply(data);
 };
@@ -9986,14 +11305,9 @@ calendarGridUpdate = function(datepicker, data, elem, index, mode) {
   _ = datepicker._;
   element = hx.select(elem);
   if (data === 'days') {
-    return element.view('.hx-grid-row-heading').enter(function(d) {
-      var node;
-      this.classed('hx-grid-row-heading', true);
-      node = this.append('div')["class"]('hx-grid');
-      return node.node();
-    }).update(function(d) {
+    return element.classed('hx-grid-row-heading', true).view('.hx-grid').update(function(d) {
       return this.text(d).node();
-    }).apply(datepicker.localiser.localiseWeek());
+    }).apply(datepicker.localizer.weekDays());
   } else {
     return element.view('.hx-grid').enter(function(d) {
       var node;
@@ -10024,19 +11338,19 @@ calendarGridRowUpdate = function(datepicker, data, elem, index, rowIndex, mode) 
     switch (mode) {
       case 'd':
         year = data;
-        screenVal = datepicker.localiser.localiseYear(data);
+        screenVal = datepicker.localizer.year(data);
         selectable = rowIndex === 0 ? index !== 0 : rowIndex === 3 ? index !== 2 : true;
         break;
       case 'y':
         month = data;
         year = visible.year;
-        screenVal = datepicker.localiser.localiseMonth(data);
+        screenVal = datepicker.localizer.month(data);
         break;
       default:
         day = data;
         month = visible.month - 1;
         year = visible.year;
-        screenVal = datepicker.localiser.localiseDay(data);
+        screenVal = datepicker.localizer.day(data);
     }
     isValid = isSelectable(datepicker, year, month, day) && selectable;
     if (datepicker.options.selectRange) {
@@ -10104,18 +11418,18 @@ calendarGridRowUpdate = function(datepicker, data, elem, index, rowIndex, mode) 
 };
 
 buildDatepicker = function(datepicker) {
-  var _, day, localiser, month, year;
+  var _, day, localizer, month, year;
   _ = datepicker._;
   day = datepicker.day();
   month = datepicker.month();
   year = datepicker.year();
-  localiser = datepicker.localiser;
+  localizer = datepicker.localizer;
   _.dayPicker.suppressed('change', true);
   _.monthPicker.suppressed('change', true);
   _.yearPicker.suppressed('change', true);
-  _.dayPicker.value(day, localiser.localiseDay(day, true));
-  _.monthPicker.value(month, localiser.localiseMonth(month - 1, true));
-  _.yearPicker.value(year, localiser.localiseYear(year));
+  _.dayPicker.value(day, localizer.day(day, true));
+  _.monthPicker.value(month, localizer.month(month - 1, true));
+  _.yearPicker.value(year, localizer.year(year));
   _.dayPicker.suppressed('change', false);
   _.monthPicker.suppressed('change', false);
   return _.yearPicker.suppressed('change', false);
@@ -10126,14 +11440,14 @@ setupInput = function(datepicker) {
   _ = datepicker._;
   if (datepicker.options.selectRange) {
     range = datepicker.range();
-    _.inputStart.value(datepicker.localiser.localiseDate(range.start, _.useInbuilt));
-    return _.inputEnd.value(datepicker.localiser.localiseDate(range.end || range.start, _.useInbuilt));
+    _.inputStart.value(datepicker.localizer.date(range.start, _.useInbuilt));
+    return _.inputEnd.value(datepicker.localizer.date(range.end || range.start, _.useInbuilt));
   } else {
-    return _.input.value(datepicker.localiser.localiseDate(datepicker.date(), _.useInbuilt));
+    return _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt));
   }
 };
 
-updateDatepicker = function(datepicker) {
+updateDatepicker = function(datepicker, suppress) {
   var _;
   _ = datepicker._;
   validateDates(datepicker);
@@ -10146,9 +11460,11 @@ updateDatepicker = function(datepicker) {
       _.input.classed('hx-date-error', false);
     }
     setupInput(datepicker);
-    datepicker.emit('change', {
-      type: _.userEvent ? 'user' : 'api'
-    });
+    if (!suppress) {
+      datepicker.emit('change', {
+        type: _.userEvent ? 'user' : 'api'
+      });
+    }
     _.userEvent = false;
     _.preventFeedback = false;
     if (datepicker.options.type === 'calendar') {
@@ -10158,259 +11474,6 @@ updateDatepicker = function(datepicker) {
     }
   }
 };
-
-Localiser = (function() {
-  function Localiser() {
-    this.currentLocale = 'en-gb';
-  }
-
-  Localiser.prototype.dateOrder = function() {
-    return ['DD', 'MM', 'YYYY'];
-  };
-
-  Localiser.prototype.localiseWeekStart = function() {
-    return 0;
-  };
-
-  Localiser.prototype.localiseWeek = function() {
-    return ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  };
-
-  Localiser.prototype.localiseDay = function(day, pad) {
-    if (pad) {
-      return zeroPad(day);
-    } else {
-      return day;
-    }
-  };
-
-  Localiser.prototype.localiseMonth = function(month, short) {
-    if (short) {
-      return zeroPad(month + 1);
-    } else {
-      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month];
-    }
-  };
-
-  Localiser.prototype.localiseYear = function(year) {
-    return year;
-  };
-
-  Localiser.prototype.localiseDecade = function(start, end) {
-    return this.localiseYear(start) + ' - ' + this.localiseYear(end);
-  };
-
-  Localiser.prototype.localiseDate = function(date, useInbuilt) {
-    if (useInbuilt) {
-      return date.getFullYear() + '-' + zeroPad(date.getMonth() + 1) + '-' + zeroPad(date.getDate());
-    } else {
-      return zeroPad(date.getDate()) + '/' + zeroPad(date.getMonth() + 1) + '/' + date.getFullYear();
-    }
-  };
-
-  Localiser.prototype.localiseToday = function() {
-    return 'Today';
-  };
-
-  Localiser.prototype.locale = function(locale) {
-    if (locale != null) {
-
-    } else {
-      return 'en-gb';
-    }
-  };
-
-  Localiser.prototype.stringToDate = function(dateString, inbuilt) {
-    var allValid, day, daysValid, format, i, j, len, month, monthsValid, order, part, split, w, year, yearsValid;
-    if (inbuilt) {
-      order = ['YYYY', 'MM', 'DD'];
-      split = dateString.split('-');
-    } else {
-      order = this.dateOrder();
-      split = dateString.split('/');
-    }
-    allValid = split.length === 3 && !split.some(function(e) {
-      return e === '' || e === '0';
-    });
-    if (allValid) {
-      format = '';
-      for (i = j = 0, len = order.length; j < len; i = ++j) {
-        w = order[i];
-        part = split[i];
-        switch (w) {
-          case 'DD':
-            daysValid = part.length < 3 && part !== '';
-            day = Number(split[i]);
-            break;
-          case 'MM':
-            monthsValid = part.length < 3 && part !== '';
-            month = Number(split[i]);
-            break;
-          case 'YYYY':
-            yearsValid = part.length < 5 && part !== '';
-            year = Number(split[i]);
-            if (year.toString().length === 2) {
-              year += 2000;
-            }
-        }
-      }
-      if (daysValid && monthsValid && yearsValid) {
-        return new Date(year, month - 1, day);
-      } else {
-        return new Date('Invalid Date');
-      }
-    } else {
-      return new Date('Invalid Date');
-    }
-  };
-
-  return Localiser;
-
-})();
-
-LocaliserMoment = (function() {
-  function LocaliserMoment() {
-    this.currentLocale = moment.locale();
-  }
-
-  LocaliserMoment.prototype.dateOrder = function() {
-    var date, dateCheck, dayIndex, i, j, monthIndex, ref, result, yearIndex;
-    date = moment({
-      year: 2003,
-      month: 11,
-      day: 22
-    }).locale(this.currentLocale);
-    dateCheck = date.format('L');
-    yearIndex = dateCheck.indexOf(date.format('YYYY'));
-    monthIndex = dateCheck.indexOf(date.format('MM'));
-    dayIndex = dateCheck.indexOf(date.format('DD'));
-    result = [];
-    for (i = j = 0, ref = dateCheck.length; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-      switch (i) {
-        case yearIndex:
-          result.push('YYYY');
-          break;
-        case monthIndex:
-          result.push('MM');
-          break;
-        case dayIndex:
-          result.push('DD');
-      }
-    }
-    if (result.length === 0) {
-      result = ['DD', 'MM', 'YYYY'];
-    }
-    return result;
-  };
-
-  LocaliserMoment.prototype.localiseWeekStart = function() {
-    return moment().weekday(0).toDate().getDay();
-  };
-
-  LocaliserMoment.prototype.localiseWeek = function() {
-    var dayDate, dayNames, i, j;
-    dayDate = moment().weekday(0);
-    dayDate.locale(this.currentLocale);
-    dayNames = [dayDate.format('dd')];
-    for (i = j = 0; j < 6; i = ++j) {
-      dayNames.push(dayDate.add(1, 'd').format('dd'));
-    }
-    return dayNames;
-  };
-
-  LocaliserMoment.prototype.localiseDay = function(day, pad) {
-    return moment({
-      day: day,
-      month: 0
-    }).locale(this.currentLocale).format(pad ? 'DD' : 'D');
-  };
-
-  LocaliserMoment.prototype.localiseMonth = function(month, short) {
-    return moment({
-      month: month
-    }).locale(this.currentLocale).format(short ? 'MM' : 'MMM');
-  };
-
-  LocaliserMoment.prototype.localiseYear = function(year) {
-    return moment({
-      year: year
-    }).locale(this.currentLocale).format('YYYY');
-  };
-
-  LocaliserMoment.prototype.localiseDecade = function(start, end) {
-    return this.localiseYear(start) + ' - ' + this.localiseYear(end);
-  };
-
-  LocaliserMoment.prototype.localiseDate = function(date) {
-    return moment(date).locale(this.currentLocale).format('L');
-  };
-
-  LocaliserMoment.prototype.localiseToday = function() {
-    var i, j, ref, today, todayArr, tomorrow, tomorrowArr;
-    today = moment({
-      hour: 12,
-      minute: 0,
-      second: 0
-    }).locale(this.currentLocale);
-    tomorrow = today.clone().add(1, 'day');
-    todayArr = today.calendar().split('').reverse();
-    tomorrowArr = tomorrow.calendar().split('').reverse();
-    for (i = j = 0, ref = todayArr.length; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-      if (todayArr[i] !== tomorrowArr[i]) {
-        break;
-      }
-    }
-    todayArr.splice(0, i);
-    return todayArr.reverse().join('');
-  };
-
-  LocaliserMoment.prototype.locale = function(locale) {
-    if (locale != null) {
-      return this.currentLocale = locale;
-    } else {
-      return this.currentLocale;
-    }
-  };
-
-  LocaliserMoment.prototype.stringToDate = function(dateString) {
-    var allValid, daysValid, format, i, j, len, monthsValid, order, part, split, w, yearsValid;
-    order = this.dateOrder();
-    split = dateString.split('/');
-    allValid = split.length === 3 && !split.some(function(e) {
-      return e === '' || e === '0';
-    });
-    if (allValid) {
-      format = '';
-      for (i = j = 0, len = order.length; j < len; i = ++j) {
-        w = order[i];
-        part = split[i];
-        switch (w) {
-          case 'DD':
-            daysValid = part.length < 3 && part !== '';
-            format += 'DD';
-            break;
-          case 'MM':
-            monthsValid = part.length < 3 && part !== '';
-            format += 'MM';
-            break;
-          case 'YYYY':
-            yearsValid = part.length < 5 && part !== '';
-            format += 'YYYY';
-        }
-      }
-      if (daysValid && monthsValid && yearsValid) {
-        return moment(dateString, format, this.currentLocale).toDate();
-      } else {
-        return new Date('Invalid Date');
-      }
-    } else {
-      return new Date('Invalid Date');
-    }
-  };
-
-  return LocaliserMoment;
-
-})();
 
 DatePicker = (function(superClass) {
   extend(DatePicker, superClass);
@@ -10434,11 +11497,22 @@ DatePicker = (function(superClass) {
       disabled: this.options.disabled,
       mode: this.options.defaultView,
       startDate: new Date,
-      endDate: new Date
+      endDate: new Date,
+      uniqueId: hx.randomId()
     };
+    hx.preferences.on('localechange', 'hx.date-picker-' + _.uniqueId, (function(_this) {
+      return function() {
+        return updateDatepicker(_this, true);
+      };
+    })(this));
+    hx.preferences.on('timezonechange', 'hx.date-picker-' + _.uniqueId, (function(_this) {
+      return function() {
+        return updateDatepicker(_this, true);
+      };
+    })(this));
     _.startDate.setHours(0, 0, 0, 0);
     _.endDate.setHours(0, 0, 0, 0);
-    this.localiser = typeof moment !== "undefined" && moment !== null ? new LocaliserMoment : new Localiser;
+    this.localizer = hx.dateTimeLocalizer();
     this.selection = hx.select(this.selector).classed('hx-date-picker', true);
     inputContainer = this.selection.append('div')["class"]('hx-date-input-container');
     icon = inputContainer.append('i')["class"]('hx-icon hx-icon-calendar');
@@ -10454,8 +11528,8 @@ DatePicker = (function(superClass) {
         clearTimeout(timeout);
         return timeout = setTimeout(function() {
           var date1, date2, endValid, startValid;
-          date1 = self.localiser.stringToDate(_.inputStart.value(), _.useInbuilt);
-          date2 = self.localiser.stringToDate(_.inputEnd.value(), _.useInbuilt);
+          date1 = self.localizer.stringToDate(_.inputStart.value(), _.useInbuilt);
+          date2 = self.localizer.stringToDate(_.inputEnd.value(), _.useInbuilt);
           if (which && date2 < date1) {
             date1 = date2;
             _.inputStart.value(_.inputEnd.value());
@@ -10490,7 +11564,7 @@ DatePicker = (function(superClass) {
         clearTimeout(timeout);
         return timeout = setTimeout(function() {
           var date;
-          date = self.localiser.stringToDate(_.input.value(), _.useInbuilt);
+          date = self.localizer.stringToDate(_.input.value(), _.useInbuilt);
           if (date.getTime()) {
             if (date.getTime() !== self.date().getTime()) {
               self.date(date);
@@ -10605,7 +11679,7 @@ DatePicker = (function(superClass) {
         var i, j, len, ref, selection;
         if (!_.disabled) {
           selection = hx.select(elem);
-          ref = self.localiser.dateOrder();
+          ref = self.localizer.dateOrder();
           for (j = 0, len = ref.length; j < len; j++) {
             i = ref[j];
             switch (i) {
@@ -10686,7 +11760,7 @@ DatePicker = (function(superClass) {
   };
 
   DatePicker.prototype.getScreenDate = function(endDate) {
-    return this.localiser.localiseDate(!endDate ? _.startDate : _.endDate);
+    return this.localizer.date(!endDate ? _.startDate : _.endDate);
   };
 
   DatePicker.prototype.visibleMonth = function(month, year) {
@@ -10830,12 +11904,12 @@ DatePicker = (function(superClass) {
   };
 
   DatePicker.prototype.locale = function(locale) {
+    hx.deprecatedWarning('hx.DatePicker::locale is deprecated. Use hx.preferences.locale instead.');
     if (arguments.length > 0) {
-      this.localiser.locale(locale);
-      updateDatepicker(this);
+      hx.preferences.locale(locale);
       return this;
     } else {
-      return this.localiser.locale();
+      return hx.preferences.locale();
     }
   };
 
@@ -10854,7 +11928,7 @@ hx.DatePicker = DatePicker;
 
 })();
 (function(){
-var Localiser, LocaliserMoment, TimePicker, setupInput, setupTimepicker, updateTimePicker, zeroPad,
+var TimePicker, setupInput, setupTimepicker, updateTimePicker, zeroPad,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -10879,82 +11953,23 @@ setupInput = function(timepicker) {
   return timepicker.input.value(timepicker.getScreenTime(timepicker.options.showSeconds));
 };
 
-updateTimePicker = function(timepicker) {
+updateTimePicker = function(timepicker, suppress) {
   var _;
   if (!timepicker.preventFeedback) {
     _ = timepicker._;
     timepicker.preventFeedback = true;
     timepicker.input.classed('hx-time-error', false);
     setupInput(timepicker);
-    timepicker.emit('change', {
-      type: _.userEvent ? 'user' : 'api'
-    });
+    if (!suppress) {
+      timepicker.emit('change', {
+        type: _.userEvent ? 'user' : 'api'
+      });
+    }
     _.userEvent = false;
     timepicker.preventFeedback = false;
     return setupTimepicker(timepicker);
   }
 };
-
-Localiser = (function() {
-  function Localiser() {
-    this.currentLocale = 'en-gb';
-  }
-
-  Localiser.prototype.localiseTime = function(date, showSeconds) {
-    var timeString;
-    timeString = date.getHours() + ':' + zeroPad(date.getMinutes());
-    if (showSeconds) {
-      timeString += ':' + zeroPad(date.getSeconds());
-    }
-    return timeString;
-  };
-
-  Localiser.prototype.checkTime = function(time) {
-    return !isNaN(time[0]) && !isNaN(time[1]) && !isNaN(time[2]);
-  };
-
-  Localiser.prototype.locale = function(locale) {
-    if (locale != null) {
-
-    } else {
-      return 'en-gb';
-    }
-  };
-
-  return Localiser;
-
-})();
-
-LocaliserMoment = (function() {
-  function LocaliserMoment() {
-    this.currentLocale = moment.locale();
-  }
-
-  LocaliserMoment.prototype.localiseTime = function(date, showSeconds) {
-    var format;
-    format = showSeconds ? 'H:mm:ss' : 'H:mm';
-    return moment(date).locale(this.currentLocale).format(format);
-  };
-
-  LocaliserMoment.prototype.checkTime = function(time) {
-    return moment({
-      hours: time[0],
-      minutes: time[1],
-      seconds: time[2]
-    }).locale(this.currentLocale).isValid();
-  };
-
-  LocaliserMoment.prototype.locale = function(locale) {
-    if (locale) {
-      return this.currentLocale = locale;
-    } else {
-      return this.currentLocale;
-    }
-  };
-
-  return LocaliserMoment;
-
-})();
 
 TimePicker = (function(superClass) {
   extend(TimePicker, superClass);
@@ -10970,9 +11985,20 @@ TimePicker = (function(superClass) {
     }, options);
     hx.component.register(this.selector, this);
     _ = this._ = {
-      disabled: this.options.disabled
+      disabled: this.options.disabled,
+      uniqueId: hx.randomId()
     };
-    _.localiser = typeof moment !== "undefined" && moment !== null ? new LocaliserMoment() : new Localiser();
+    hx.preferences.on('localechange', 'hx.time-picker-' + _.uniqueId, (function(_this) {
+      return function() {
+        return updateTimePicker(_this, true);
+      };
+    })(this));
+    hx.preferences.on('timezonechange', 'hx.time-picker-' + _.uniqueId, (function(_this) {
+      return function() {
+        return updateTimePicker(_this, true);
+      };
+    })(this));
+    _.localizer = hx.dateTimeLocalizer();
     _.selectedDate = new Date;
     _.selectedDate.setMilliseconds(0);
     if (!this.showSeconds) {
@@ -10985,11 +12011,9 @@ TimePicker = (function(superClass) {
     timeout = void 0;
     if (hx.supports('date') && hx.supports('touch')) {
       this.input.attr('readonly', true);
-      this.input.on('click', 'hx.time-picker', (function(_this) {
-        return function(event) {
-          return event.preventDefault();
-        };
-      })(this));
+      this.input.on('click', 'hx.time-picker', function(event) {
+        return event.preventDefault();
+      });
     } else {
       this.input.on('input', 'hx.time-picker', (function(_this) {
         return function(event) {
@@ -11000,7 +12024,7 @@ TimePicker = (function(superClass) {
             if (time[2] == null) {
               time[2] = 0;
             }
-            if (_.localiser.checkTime(time)) {
+            if (_.localizer.checkTime(time)) {
               _this.hour(time[0]);
               _this.minute(time[1]);
               return _this.second(time[2] || 0);
@@ -11132,16 +12156,16 @@ TimePicker = (function(superClass) {
   };
 
   TimePicker.prototype.getScreenTime = function() {
-    return this._.localiser.localiseTime(this.date(), this.options.showSeconds);
+    return this._.localizer.time(this.date(), this.options.showSeconds);
   };
 
   TimePicker.prototype.locale = function(locale) {
+    hx.deprecatedWarning('hx.TimePicker::locale is deprecated. Use hx.preferences.locale instead.');
     if (arguments.length > 0) {
-      this._.localiser.locale(locale);
-      updateTimePicker(this);
+      hx.preferences.locale(locale);
       return this;
     } else {
-      return this._.localiser.locale();
+      return hx.preferences.locale();
     }
   };
 
@@ -11503,548 +12527,6 @@ InlineMorphSection = (function(superClass) {
 hx.MorphSection = MorphSection;
 
 hx.InlineMorphSection = InlineMorphSection;
-
-})();
-(function(){
-var Modal, getHeaderRender, getTitleRender, makeButtons, modalDialog, modalInput,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-Modal = (function(superClass) {
-  var closeModal;
-
-  extend(Modal, superClass);
-
-  closeModal = function(modal, event) {
-    var body;
-    body = hx.select('body').classed('hx-modal-open', false);
-    body.select('.hx-modal-container').remove();
-    body.select('.hx-modal-shade').remove();
-    modal.emit('hidestart');
-    modal.emit('hide', event);
-    return modal.emit('hideend');
-  };
-
-  function Modal(title1, setup1, options) {
-    this.title = title1;
-    this.setup = setup1;
-    Modal.__super__.constructor.apply(this, arguments);
-    this.options = hx.merge({
-      closeWithShadeEnabled: true,
-      closeButtonEnabled: true,
-      titlebarRenderer: function(node) {
-        return hx.select(node).text(this.title);
-      },
-      headerRenderer: function(node, titleNode, closeButtonNode) {
-        return hx.select(node).add(titleNode).add(closeButtonNode);
-      }
-    }, options);
-    this.contentContainer = null;
-  }
-
-  Modal.prototype.show = function(cb) {
-    var body, closeButton, modal, modalContainer, self, shade, title, titleContainer;
-    body = hx.select('body').classed('hx-modal-open', true);
-    shade = body.select('.hx-modal-shade');
-    if (shade.empty()) {
-      shade = body.append('div').attr('class', 'hx-modal-shade');
-      shade.style('opacity', 0).morph()["with"]('fadein', 150).go();
-    }
-    modalContainer = body.select('.hx-modal-container');
-    if (modalContainer.empty()) {
-      modalContainer = body.append('div').attr('class', 'hx-modal-container');
-    }
-    modal = modalContainer.select('.hx-modal');
-    if (modal.empty()) {
-      modal = modalContainer.append('div').attr('class', 'hx-modal');
-    }
-    titleContainer = modal.append('div')["class"]('hx-modal-title-container hx-group hx-horizontal hx-header');
-    title = hx.detached('div')["class"]('hx-modal-title');
-    if (this.options.closeButtonEnabled) {
-      closeButton = hx.detached('div').add(hx.detached('i')["class"]('hx-icon hx-icon-close'))["class"]('hx-modal-close hx-fixed').on('click', 'hx.modal', (function(_this) {
-        return function() {
-          return closeModal(_this, {
-            cause: 'button'
-          });
-        };
-      })(this));
-    } else {
-      if ((this.title == null) || this.title.length === 0) {
-        titleContainer.classed('hx-modal-title-empty', true);
-      }
-    }
-    if (this.options.closeWithShadeEnabled) {
-      modalContainer.on('click', 'hx.modal', (function(_this) {
-        return function(e) {
-          if (!modal.contains(e.target) && hx.select('body').contains(e.target)) {
-            return closeModal(_this, {
-              cause: 'shade'
-            });
-          }
-        };
-      })(this));
-    }
-    this.options.titlebarRenderer.call(this, title.node());
-    this.options.headerRenderer.call(this, titleContainer.node(), title.node(), closeButton != null ? closeButton.node() : void 0);
-    this.contentContainer = modal.append('div').attr('class', 'hx-modal-content');
-    if (this.setup) {
-      this.setup(this.contentContainer.node());
-    }
-    this.emit('show', this.contentContainer.node());
-    this.emit('showstart');
-    self = this;
-    modal.style('opacity', 0).style('top', '-30px').morph()["with"]('fadein', 150).and(function() {
-      return modal.animate().style('top', '0px', 100);
-    }).then(function() {
-      self.emit('showend');
-      return typeof cb === "function" ? cb() : void 0;
-    }).go();
-    return this;
-  };
-
-  Modal.prototype.hide = function() {
-    closeModal(this, {
-      cause: 'api'
-    });
-    return this;
-  };
-
-  return Modal;
-
-})(hx.EventEmitter);
-
-makeButtons = function(container, buttons, modal, callback) {
-  buttons.forEach(function(d) {
-    return container.append('button').attr('type', 'button')["class"](d.classes).add(hx.detached('i')["class"](d.icon)).add(hx.detached('span').text(' ' + d.text)).on('click', 'hx.modal', function() {
-      if (typeof callback === "function") {
-        callback(d.value);
-      }
-      return modal.hide();
-    });
-  });
-};
-
-getTitleRender = function(icon) {
-  return function(elem) {
-    elem = hx.select(elem);
-    if (icon != null) {
-      elem.append('i')["class"](icon);
-    }
-    return elem.append('span').text(this.title);
-  };
-};
-
-getHeaderRender = function(titleClass) {
-  return function(elem, title, button) {
-    return hx.select(elem).classed('hx-background-' + titleClass, true).add(title).add(button);
-  };
-};
-
-modalDialog = function(title, message, callback, options) {
-  var modal, setup;
-  options = hx.merge.defined({
-    callback: void 0,
-    buttons: [
-      {
-        text: 'Cancel',
-        icon: 'hx-icon hx-icon-close',
-        value: false,
-        classes: 'hx-btn hx-negative'
-      }, {
-        text: 'Confirm',
-        icon: 'hx-icon hx-icon-check',
-        value: true,
-        classes: 'hx-btn hx-positive'
-      }
-    ],
-    titleClass: void 0,
-    icon: void 0
-  }, options);
-  setup = function(element) {
-    var buttonContainer, container;
-    container = hx.select(element);
-    message = container.append('div')["class"]('hx-modal-message').text(message);
-    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
-    return makeButtons(buttonContainer, options.buttons, this, callback);
-  };
-  modal = new Modal(title, setup, {
-    closeWithShadeEnabled: options.closeWithShadeEnabled,
-    closeButtonEnabled: options.closeButtonEnabled
-  });
-  if (options.titleClass != null) {
-    modal.options.headerRenderer = getHeaderRender(options.titleClass);
-    modal.options.titlebarRenderer = getTitleRender(options.icon);
-  }
-  modal.on('hide', 'hx.modal', function(d) {
-    if (d.cause !== 'api') {
-      return callback();
-    }
-  });
-  return modal.show();
-};
-
-modalInput = function(title, message, callback, options) {
-  var modal, setup;
-  options = hx.merge.defined({
-    value: ''
-  }, options);
-  setup = function(element) {
-    var buttonContainer, buttons, container, input;
-    buttons = [
-      {
-        text: 'Cancel',
-        icon: 'hx-icon hx-icon-close',
-        value: false,
-        classes: 'hx-btn hx-negative'
-      }, {
-        text: 'Confirm',
-        icon: 'hx-icon hx-icon-check',
-        value: true,
-        classes: 'hx-btn hx-positive'
-      }
-    ];
-    container = hx.select(element);
-    message = container.append('span')["class"]('hx-modal-message').text(message);
-    input = container.append('input')["class"]('hx-modal-input').text(this.options.value);
-    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
-    return makeButtons(buttonContainer, buttons, this, function(res) {
-      if (res) {
-        return callback(input.value());
-      } else {
-        return callback(res);
-      }
-    });
-  };
-  modal = new Modal(title, setup, {
-    closeWithShadeEnabled: options.closeWithShadeEnabled,
-    closeButtonEnabled: options.closeButtonEnabled
-  });
-  modal.on('close', 'hx.modal', function(d) {
-    if (d.cause !== 'api') {
-      return callback();
-    }
-  });
-  return modal.show();
-};
-
-hx.Modal = Modal;
-
-hx.modal = {
-  dialog: modalDialog,
-  input: modalInput
-};
-
-})();
-(function(){
-var Notification, NotificationManager, inbuiltNotificationManager, nextId, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus;
-
-setupNotification = function(notification, selection) {
-  if ((notification.options.icon != null) && notification.options.icon.length > 0) {
-    selection.append('div')["class"]('hx-notification-icon-container hx-section hx-fixed hx-no-margin').append('i')["class"]('hx-notification-icon ' + notification.options.icon);
-  }
-  selection.append('div')["class"]('hx-notification-text hx-section hx-no-margin').text(notification.message);
-  if (notification.options.pinnable) {
-    notification.domPin = selection.append('div')["class"]('hx-notification-icon-container hx-notification-pin hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
-      return togglePin(notification);
-    });
-    notification.domPin.append('i').attr('class', 'hx-icon hx-icon-thumb-tack');
-    updatePinnedStatus(notification);
-  }
-  return selection.append('div')["class"]('hx-notification-icon-container hx-notification-close hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
-    return notification.close();
-  }).append('i')["class"]('hx-icon hx-icon-close');
-};
-
-nextId = function(manager) {
-  return manager.currentId++;
-};
-
-redraw = function(manager) {
-  var container, selection, view;
-  selection = hx.select(manager.selector);
-  container = selection.select('#' + manager.uniqueId);
-  if (container.empty()) {
-    container = selection.append('div')["class"]('hx-notification-container').attr('id', manager.uniqueId);
-  }
-  view = container.view('.hx-notification');
-  view.enter(function(d) {
-    selection = this.append('div');
-    selection["class"]('hx-notification hx-group hx-horizontal ' + d.options.cssclass).forEach(function(node) {
-      setupNotification(d, selection);
-      return d.trueHeight = selection.style('height');
-    }).style('opacity', 0).style('height', 0).style('padding-top', 0).style('padding-bottom', 0).style('margin-top', 0).style('margin-bottom', 0).morph()["with"]('expandv').and('fadein').then(function() {
-      return selection.style('height', '');
-    }).go();
-    return selection.node();
-  });
-  view.exit(function() {
-    return this.style('overflow', 'hidden').morph()["with"]('fadeout', 100).then('collapsev', 100).then((function(_this) {
-      return function() {
-        return _this.remove();
-      };
-    })(this)).go();
-  });
-  return view.apply(manager.notifications, function(d) {
-    return d.id;
-  });
-};
-
-removeNotification = function(manager, notification) {
-  var i;
-  i = manager.notifications.indexOf(notification);
-  if (i >= 0) {
-    manager.notifications.splice(i, 1);
-  }
-  return redraw(manager);
-};
-
-startTimeout = function(notification, seconds) {
-  return notification.timeoutId = window.setTimeout(((function(_this) {
-    return function() {
-      return notification.close();
-    };
-  })(this)), seconds * 1000);
-};
-
-togglePin = function(notification) {
-  if (notification.pinned) {
-    return notification.unpin();
-  } else {
-    return notification.pin();
-  }
-};
-
-updatePinnedStatus = function(notification) {
-  return notification.domPin.classed('hx-notification-pin-pinned', notification.pinned);
-};
-
-Notification = (function() {
-  function Notification(manager1, message1, options) {
-    this.manager = manager1;
-    this.message = message1;
-    this.options = hx.merge({
-      icon: void 0,
-      cssClass: void 0,
-      timeout: this.manager._.defaultTimeout,
-      pinnable: true
-    }, options);
-    this.id = nextId(this.manager);
-    if (this.options.timeout) {
-      startTimeout(this, this.options.timeout);
-      this.pinned = false;
-    } else {
-      this.pinned = true;
-    }
-  }
-
-  Notification.prototype.close = function() {
-    removeNotification(this.manager, this);
-    return this;
-  };
-
-  Notification.prototype.pin = function() {
-    this.pinned = true;
-    window.clearTimeout(this.timeoutId);
-    updatePinnedStatus(this);
-    return this;
-  };
-
-  Notification.prototype.unpin = function() {
-    this.pinned = false;
-    startTimeout(this, 1);
-    updatePinnedStatus(this);
-    return this;
-  };
-
-  return Notification;
-
-})();
-
-NotificationManager = (function() {
-  function NotificationManager(selector) {
-    this.selector = selector != null ? selector : 'body';
-    this.currentId = 0;
-    this.notifications = [];
-    this.uniqueId = 'hx-notify-' + hx.randomId();
-    this._ = {
-      defaultTimeout: 5
-    };
-  }
-
-  NotificationManager.prototype.notify = function(message, options) {
-    var notification;
-    notification = new Notification(this, message, options);
-    this.notifications.push(notification);
-    redraw(this);
-    return notification;
-  };
-
-  NotificationManager.prototype.info = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-info',
-      cssclass: 'hx-info'
-    }, options));
-  };
-
-  NotificationManager.prototype.warning = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-warning',
-      cssclass: 'hx-warning'
-    }, options));
-  };
-
-  NotificationManager.prototype.negative = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-error',
-      cssclass: 'hx-negative'
-    }, options));
-  };
-
-  NotificationManager.prototype.positive = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-check',
-      cssclass: 'hx-positive'
-    }, options));
-  };
-
-  NotificationManager.prototype.loading = function(message) {
-    return this.notify(message, {
-      icon: 'hx-spinner',
-      cssclass: 'hx-loading',
-      timeout: void 0,
-      pinnable: false
-    });
-  };
-
-  NotificationManager.prototype.defaultTimeout = function(timeout) {
-    if (arguments.length > 0) {
-      this._.defaultTimeout = timeout || 5;
-      return this;
-    } else {
-      return this._.defaultTimeout;
-    }
-  };
-
-  return NotificationManager;
-
-})();
-
-hx.NotificationManager = NotificationManager;
-
-inbuiltNotificationManager = new NotificationManager;
-
-hx.notify = function(message, options) {
-  return inbuiltNotificationManager.notify(message, options);
-};
-
-hx.notify.info = function(message, options) {
-  return inbuiltNotificationManager.info(message, options);
-};
-
-hx.notify.positive = function(message, options) {
-  return inbuiltNotificationManager.positive(message, options);
-};
-
-hx.notify.warning = function(message, options) {
-  return inbuiltNotificationManager.warning(message, options);
-};
-
-hx.notify.negative = function(message, options) {
-  return inbuiltNotificationManager.negative(message, options);
-};
-
-hx.notify.loading = function(message) {
-  return inbuiltNotificationManager.loading(message);
-};
-
-hx.notify.defaultTimeout = function(timeout) {
-  return inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments);
-};
-
-})();
-(function(){
-var getValidationMessage, validateForm;
-
-getValidationMessage = function(message, type) {
-  switch (message.toLowerCase()) {
-    case 'value missing':
-      if (type === 'radio') {
-        return 'Please select one of these options.';
-      } else {
-        return 'Please fill in this field.';
-      }
-      break;
-    case 'type mismatch':
-      return 'Please enter a valid ' + type + '.';
-    default:
-      return message;
-  }
-};
-
-validateForm = function(form, options) {
-  var element, error, errors, i, input, j, ref, type;
-  form = hx.select(form).node();
-  options = hx.merge.defined({
-    showMessage: true
-  }, options);
-  hx.select(form).selectAll('.hx-form-error').remove();
-  errors = [];
-  for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-    if (form.children[i].nodeName.toLowerCase() === 'div') {
-      element = form.children[i].children[1];
-      if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
-        if (!element.checkValidity()) {
-          type = hx.select(element).attr('type');
-          errors.push({
-            message: getValidationMessage(element.validationMessage, type),
-            node: element,
-            validity: element.validity
-          });
-        }
-      } else {
-        input = hx.select(element).select('input').node();
-        type = hx.select(element).select('input').attr('type');
-        if (input && !input.checkValidity()) {
-          errors.push({
-            message: getValidationMessage(input.validationMessage, type),
-            node: element,
-            validity: input.validity
-          });
-        }
-      }
-    }
-  }
-  if (options.showMessage && errors.length > 0) {
-    error = errors[0];
-    hx.select(error.node.parentNode).insertAfter('div')["class"]('hx-form-error').append('div').insertAfter('div')["class"]('hx-form-error-text-container').append('div')["class"]('hx-form-error-text').text(error.message);
-    hx.select(error.node).on('click', 'hx.form', function(e) {
-      var next;
-      next = hx.select(error.node.parentNode.nextElementSibling);
-      if (next.classed('hx-form-error')) {
-        next.remove();
-      }
-      return hx.select(error.node).off('click', 'hx.form');
-    });
-  }
-  return {
-    valid: errors.length === 0,
-    errors: errors
-  };
-};
-
-hx.validateForm = validateForm;
 
 })();
 (function(){
@@ -12630,7 +13112,7 @@ buildAutoComplete = function(searchTerm, fromCallback, loading) {
     if (items.length > 0) {
       _.menu.items(items);
       if (_.menu.dropdown.isOpen()) {
-        _.menu.dropdown.dropdownContent(_.menu.dropdown.dropdown.node());
+        _.menu.dropdown._.dropdownContent(_.menu.dropdown._.dropdown.node());
       } else {
         _.menu.dropdown.show();
       }
@@ -12840,7 +13322,7 @@ AutoComplete = (function(superClass) {
       menu.on('dropdown.change', 'hx.autocomplete', function(visible) {
         if (!!visible) {
           _.initialValue = input.value();
-          return menu.dropdown.useScroll = true;
+          return menu.dropdown._.useScroll = true;
         } else {
           _.checkValidity();
         }
@@ -13806,7 +14288,7 @@ fullWidthColSpan = 999;
 collapseBreakPoint = 480;
 
 DataTable = (function(superClass) {
-  var columnOption, option;
+  var columnOnlyOption, columnOption, option;
 
   extend(DataTable, superClass);
 
@@ -13939,6 +14421,7 @@ DataTable = (function(superClass) {
       page: 1,
       pagePicker: pagePicker,
       pageSizePicker: pageSizePicker,
+      statusBar: statusBar,
       sortColPicker: sortColPicker,
       selectedRows: new hx.Set,
       expandedRows: new hx.Set,
@@ -13948,6 +14431,9 @@ DataTable = (function(superClass) {
     selection.on('resize', 'hx.data-table', (function(_this) {
       return function() {
         var state;
+        selection.selectAll('.hx-data-table-collapsible-content-container').map(function(e) {
+          return e.style('max-width', (parseInt(selection.style('width')) - _this._.collapsibleSizeDiff) + 'px');
+        });
         state = (_this.compact() === 'auto' && selection.width() < collapseBreakPoint) || _this.compact() === true;
         selection.classed('hx-data-table-compact', state);
         if (_this._.compactState !== state) {
@@ -14073,6 +14559,32 @@ DataTable = (function(superClass) {
 
   DataTable.prototype.sortEnabled = columnOption('sortEnabled');
 
+  columnOnlyOption = function(name) {
+    return function(columnId, value, cb) {
+      var base, options;
+      options = this._.options;
+      if (hx.isString(columnId)) {
+        if (arguments.length > 1) {
+          if ((base = options.columns)[columnId] == null) {
+            base[columnId] = {};
+          }
+          options.columns[columnId][name] = value;
+          this.emit(name.toLowerCase() + 'change', {
+            column: columnId,
+            value: value,
+            cause: 'api'
+          });
+          this.render(cb);
+          return this;
+        } else if (options.columns[columnId]) {
+          return options.columns[columnId][name];
+        }
+      }
+    };
+  };
+
+  DataTable.prototype.maxWidth = columnOnlyOption('maxWidth');
+
   DataTable.prototype.page = function(value, cb, cause) {
     if (arguments.length > 0) {
       this._.page = Math.max(1, value);
@@ -14091,15 +14603,18 @@ DataTable = (function(superClass) {
   };
 
   DataTable.prototype.selectedRows = function(value, cb) {
+    var newSelectedRows;
     if (arguments.length > 0 && !hx.isFunction(value)) {
-      if (this.singleSelection() && hx.isArray(value)) {
+      if (this.singleSelection() && hx.isArray(value) && value.length) {
         value = [value[0]];
       }
       this._.selectedRows = new hx.Set(value);
+      newSelectedRows = this._.selectedRows.values();
       this.emit('selectedrowschange', {
-        value: this._.selectedRows.values(),
+        value: newSelectedRows,
         cause: 'api'
       });
+      this._.userLastSelectedIndex = void 0;
       this.render(cb);
       return this;
     } else {
@@ -14190,7 +14705,7 @@ DataTable = (function(superClass) {
             sort: _this.sort(),
             filter: _this.filter()
           }, function(arg) {
-            var buildCollapsible, col, column, count, currentSort, filteredCount, groupedRow, headerCheckBox, headerControlBox, headerGroups, i, items, j, l, maxHeaderDepth, num, numText, pageSizeOptions, parent, prevCol, prevParent, ref, ref1, row, rows, scrollLeft, scrollTop, selectMulti, selectPageSize, selectRow, sortColumns, stickFirstColumn, toggleCollapsible, wrapperNode;
+            var buildCollapsible, col, column, count, currentSort, filteredCount, groupedRow, headerCheckBox, headerControlBox, headerGroups, i, items, j, l, maxHeaderDepth, num, numText, pageSizeOptions, parent, prevCol, prevParent, ref, ref1, relevantHeaders, row, rows, scrollLeft, scrollTop, selectMulti, selectPageSize, selectRow, sortColumns, stickFirstColumn, stickyOpts, toggleCollapsible, wrapperNode;
             rows = arg.rows, filteredCount = arg.filteredCount;
             if (options.displayMode === 'paginate') {
               if (filteredCount === void 0) {
@@ -14285,11 +14800,12 @@ DataTable = (function(superClass) {
             if (headers.some(function(header) {
               return header.groups != null;
             })) {
-              maxHeaderDepth = Math.max.apply(null, headers.filter(function(e) {
+              relevantHeaders = headers.filter(function(e) {
                 return e.groups != null;
               }).map(function(e) {
                 return e.groups.length;
-              }));
+              });
+              maxHeaderDepth = Math.max.apply(null, relevantHeaders);
               headerGroups = headers.map(function(e) {
                 var groups;
                 groups = e.groups || [];
@@ -14359,9 +14875,18 @@ DataTable = (function(superClass) {
               }
             });
             _this.updateSelected = function() {
-              var checkBoxDivs, len, m, pageHasSelection, rowDivs, rowIndex;
-              rowDivs = tbody.selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false);
-              checkBoxDivs = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-row').classed('hx-data-table-row-selected', false);
+              var checkBoxDivs, getSelectableRows, leftHeaderBody, len, m, pageHasSelection, parentFilter, rowDivs, rowIndex;
+              parentFilter = function(parent) {
+                return function(sel) {
+                  return sel.node().parentNode === parent.node();
+                };
+              };
+              getSelectableRows = function(parent) {
+                return parent.selectAll('.hx-data-table-row').filter(parentFilter(parent)).classed('hx-data-table-row-selected', false);
+              };
+              rowDivs = getSelectableRows(tbody);
+              leftHeaderBody = container.select('.hx-sticky-table-header-left').select('tbody');
+              checkBoxDivs = getSelectableRows(leftHeaderBody);
               if (_this._.selectedRows.size > 0) {
                 for (rowIndex = m = 0, len = rows.length; m < len; rowIndex = ++m) {
                   row = rows[rowIndex];
@@ -14377,7 +14902,7 @@ DataTable = (function(superClass) {
               selection.classed('hx-data-table-has-page-selection', pageHasSelection && !options.singleSelection);
               selection.classed('hx-data-table-has-selection', _this._.selectedRows.size > 0 && !options.singleSelection);
               if (totalCount !== void 0) {
-                return selection.select('.hx-data-table-status-bar').select('.hx-data-table-status-bar-text').text(_this._.selectedRows.size + ' of ' + totalCount + ' selected.');
+                return _this._.statusBar.select('.hx-data-table-status-bar-text').text(_this._.selectedRows.size + ' of ' + totalCount + ' selected.');
               }
             };
             selectMulti = function(start, end, force) {
@@ -14402,24 +14927,27 @@ DataTable = (function(superClass) {
               return _this.updateSelected();
             };
             selectRow = function(row, index, shiftDown) {
-              var force, id;
-              if (options.singleSelection && index !== _this._.lastSelected) {
-                _this._.selectedRows.clear();
-              } else {
-                if (shiftDown && (_this._.lastSelected != null) && index !== _this._.lastSelected) {
-                  force = _this._.selectedRows.has(options.rowIDLookup(rows[_this._.lastSelected]));
-                  if (index > _this._.lastSelected) {
-                    selectMulti(_this._.lastSelected + 1, index, force);
-                  } else {
-                    selectMulti(index, _this._.lastSelected, force);
+              var deleteOrAdd, force, id;
+              if (_this._.userLastSelectedIndex != null) {
+                if (options.singleSelection && index !== _this._.userLastSelectedIndex) {
+                  _this._.selectedRows.clear();
+                } else {
+                  if (shiftDown && index !== _this._.userLastSelectedIndex) {
+                    force = _this._.selectedRows.has(options.rowIDLookup(rows[_this._.userLastSelectedIndex]));
+                    if (index > _this._.userLastSelectedIndex) {
+                      selectMulti(_this._.userLastSelectedIndex + 1, index, force);
+                    } else {
+                      selectMulti(index, _this._.userLastSelectedIndex, force);
+                    }
+                    return;
                   }
-                  return;
                 }
               }
-              _this._.lastSelected = index;
+              _this._.userLastSelectedIndex = index;
               if (options.rowSelectableLookup(row)) {
                 id = options.rowIDLookup(row);
-                _this._.selectedRows[_this._.selectedRows.has(id) ? 'delete' : 'add'](id);
+                deleteOrAdd = _this._.selectedRows.has(id) ? 'delete' : 'add';
+                _this._.selectedRows[deleteOrAdd](id);
                 _this.emit('selectedrowschange', {
                   row: row,
                   rowValue: _this._.selectedRows.has(id),
@@ -14434,7 +14962,7 @@ DataTable = (function(superClass) {
               contentRow = hx.detached('tr')["class"]('hx-data-table-collapsible-content-row');
               hiddenRow = hx.detached('tr')["class"]('hx-data-table-collapsible-row-spacer');
               contentRow.append('td')["class"]('hx-data-table-collapsible-cell hx-data-table-collapsible-cell-empty');
-              contentDiv = contentRow.append('td')["class"]('hx-data-table-collapsible-cell').attr('colspan', fullWidthColSpan).append('div')["class"]('hx-data-table-collapsible-content');
+              contentDiv = contentRow.append('td')["class"]('hx-data-table-collapsible-cell').attr('colspan', fullWidthColSpan).append('div')["class"]('hx-data-table-collapsible-content-container').append('div')["class"]('hx-data-table-collapsible-content');
               return {
                 contentRow: contentRow,
                 hiddenRow: hiddenRow,
@@ -14460,11 +14988,12 @@ DataTable = (function(superClass) {
               }
               _this._.expandedRows[currentVis ? 'add' : 'delete'](rowId);
               _this._.stickyHeaders.render();
+              _this._.collapsibleSizeDiff = parseInt(selection.style('width')) - parseInt(hx.select(cc.contentDiv.node().parentNode).style('width'));
               return currentVis;
             };
             if (filteredCount === void 0 || filteredCount > 0) {
               rows.forEach(function(row, rowIndex) {
-                var cell, cellDiv, checkbox, collapsibleControl, columnIndex, controlDiv, keyDiv, len, m, ref2, results, rowIsCollapsible, tr;
+                var cell, cellDiv, cellElem, checkbox, collapsibleControl, columnIndex, columnMaxWidth, controlDiv, keyDiv, len, m, ref2, results, rowIsCollapsible, tr;
                 tr = tbody.append('tr')["class"]('hx-data-table-row').classed('hx-data-table-row-selected', _this._.selectedRows.has(options.rowIDLookup(row))).classed('hx-data-table-row-disabled', !options.rowEnabledLookup(row));
                 tr.on('click', 'hx.data-table', function(e) {
                   return _this.emit('rowclick', {
@@ -14511,8 +15040,14 @@ DataTable = (function(superClass) {
                 for (columnIndex = m = 0, len = ref2.length; m < len; columnIndex = ++m) {
                   cell = ref2[columnIndex];
                   keyDiv = hx.detached('div')["class"]('hx-data-table-cell-key');
-                  getColumnOption('headerCellRenderer', headers[columnIndex])(keyDiv.node(), headers[columnIndex], headers);
-                  cellDiv = tr.append('td')["class"]('hx-data-table-cell').add(keyDiv).append('div')["class"]('hx-data-table-cell-value').node();
+                  getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers);
+                  cellElem = tr.append('td')["class"]('hx-data-table-cell');
+                  columnMaxWidth = getColumnOption('maxWidth', headers[columnIndex].id);
+                  if (columnMaxWidth != null) {
+                    columnMaxWidth = parseInt(columnMaxWidth) + 'px';
+                    cellElem.style('max-width', columnMaxWidth).style('width', columnMaxWidth).style('min-width', columnMaxWidth);
+                  }
+                  cellDiv = cellElem.add(keyDiv).append('div')["class"]('hx-data-table-cell-value').node();
                   results.push(getColumnOption('cellRenderer', headers[columnIndex].id)(cellDiv, cell, row));
                 }
                 return results;
@@ -14522,7 +15057,7 @@ DataTable = (function(superClass) {
             }
             _this.updateSelected();
             if (_this.page() === _this._.oldPage) {
-              wrapperNode = selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node();
+              wrapperNode = selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node();
               if (options.retainHorizontalScrollOnRender) {
                 scrollLeft = wrapperNode.scrollLeft;
               }
@@ -14535,15 +15070,16 @@ DataTable = (function(superClass) {
             selection.select('.hx-data-table-content').remove();
             selection.classed('hx-data-table-compact', ((options.compact === 'auto') && (selection.width() < collapseBreakPoint)) || (options.compact === true));
             stickFirstColumn = options.selectEnabled || (options.collapsibleRenderer != null);
-            _this._.stickyHeaders = new hx.StickyTableHeaders(container.node(), {
+            stickyOpts = {
               stickFirstColumn: stickFirstColumn && (filteredCount === void 0 || filteredCount > 0),
               fullWidth: true
-            });
+            };
+            _this._.stickyHeaders = new hx.StickyTableHeaders(container.node(), stickyOpts);
             if (scrollLeft != null) {
-              selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node().scrollLeft = scrollLeft;
+              selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollLeft = scrollLeft;
             }
             if (scrollTop != null) {
-              selection.select('.hx-data-table-content .hx-sticky-table-wrapper').node().scrollTop = scrollTop;
+              selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollTop = scrollTop;
             }
             selection.select('.hx-data-table-loading').style('display', 'none');
             _this.emit('render');
@@ -14670,7 +15206,7 @@ objectFeed = function(data, options) {
 };
 
 urlFeed = function(url, options) {
-  var maybeCached;
+  var jsonCallback, maybeCached;
   options = hx.merge({
     extra: void 0,
     cache: false
@@ -14695,20 +15231,28 @@ urlFeed = function(url, options) {
       };
     }
   };
+  jsonCallback = function(cb) {
+    return function(err, value) {
+      if (err) {
+        console.error(err);
+      }
+      return cb(value);
+    };
+  };
   return {
     url: url,
-    headers: maybeCached(function(r) {
+    headers: maybeCached(function(cb) {
       return hx.json(url, {
         type: 'headers',
         extra: options.extra
-      }, r);
+      }, jsonCallback(cb));
     }),
-    totalCount: maybeCached(function(r) {
+    totalCount: maybeCached(function(cb) {
       return hx.json(url, {
         type: 'totalCount',
         extra: options.extra
-      }, function(res) {
-        return r(res.count);
+      }, function(err, res) {
+        return jsonCallback(cb)(err, res.count);
       });
     }),
     rows: function(range, cb) {
@@ -14716,14 +15260,14 @@ urlFeed = function(url, options) {
         type: 'rows',
         range: range,
         extra: options.extra
-      }, cb);
+      }, jsonCallback(cb));
     },
     rowsForIds: function(ids, lookupRow, cb) {
       return hx.json(url, {
         type: 'rowsForIds',
         ids: ids,
         extra: options.extra
-      }, cb);
+      }, jsonCallback(cb));
     }
   };
 };
@@ -14731,9 +15275,12 @@ urlFeed = function(url, options) {
 hx.DataTable = DataTable;
 
 hx.dataTable = function(options) {
-  var selection;
+  var dataTable, selection;
   selection = hx.detached('div');
-  new DataTable(selection.node(), options);
+  dataTable = new DataTable(selection.node(), options);
+  if (options && options.feed) {
+    dataTable.render();
+  }
   return selection;
 };
 
@@ -14751,13 +15298,13 @@ DateTimePicker = (function(superClass) {
   extend(DateTimePicker, superClass);
 
   function DateTimePicker(selector, options) {
-    var dtNode, tpNode;
+    var dtNode, tpNode, updateDatePicker, updateTimePicker;
     this.selector = selector;
     DateTimePicker.__super__.constructor.apply(this, arguments);
     this.options = hx.merge({
       datePickerOptions: {},
       timePickerOptions: {}
-    });
+    }, options);
     delete this.options.datePickerOptions.selectRange;
     hx.component.register(this.selector, this);
     this.suppressCallback = false;
@@ -14767,26 +15314,38 @@ DateTimePicker = (function(superClass) {
     this.options.timePickerOptions.disabled = this.options.datePickerOptions.disabled;
     this.datePicker = new hx.DatePicker(dtNode, this.options.datePickerOptions);
     this.timePicker = new hx.TimePicker(tpNode, this.options.timePickerOptions);
+    this._ = {
+      uniqueId: hx.randomId()
+    };
+    hx.preferences.on('timezonechange', 'hx.date-time-picker-' + this._.uniqueId, function() {
+      return updateDatePicker();
+    });
     this.datePicker.pipe(this, 'date', ['show', 'hide']);
     this.timePicker.pipe(this, 'time', ['show', 'hide']);
-    this.datePicker.on('change', 'hx.date-time-picker', (function(_this) {
+    updateTimePicker = (function(_this) {
       return function(data) {
         _this.timePicker.suppressed('change', true);
-        _this.timePicker.date(new Date(_this.datePicker.date().getTime()), true);
+        _this.timePicker.date(_this.datePicker.date(), true);
         _this.timePicker.suppressed('change', false);
-        _this.emit('date.change', data);
-        return _this.emit('change', _this.date());
+        if (data != null) {
+          _this.emit('date.change', data);
+          return _this.emit('change', _this.date());
+        }
       };
-    })(this));
-    this.timePicker.on('change', 'hx.date-time-picker', (function(_this) {
+    })(this);
+    updateDatePicker = (function(_this) {
       return function(data) {
         _this.datePicker.suppressed('change', true);
-        _this.datePicker.date(new Date(_this.date().getTime()));
+        _this.datePicker.date(hx.preferences.applyTimezoneOffset(_this.date()));
         _this.datePicker.suppressed('change', false);
-        _this.emit('time.change', data);
-        return _this.emit('change', _this.date());
+        if (data != null) {
+          _this.emit('time.change', data);
+          return _this.emit('change', _this.date());
+        }
       };
-    })(this));
+    })(this);
+    this.datePicker.on('change', 'hx.date-time-picker', updateTimePicker);
+    this.timePicker.on('change', 'hx.date-time-picker', updateDatePicker);
   }
 
   DateTimePicker.prototype.date = function(val, retainTime) {
@@ -14861,12 +15420,12 @@ DateTimePicker = (function(superClass) {
   };
 
   DateTimePicker.prototype.locale = function(locale) {
+    hx.deprecatedWarning('hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.');
     if (arguments.length > 0) {
-      this.timePicker.locale(locale);
-      this.datePicker.locale(locale);
+      hx.preferences.locale(locale);
       return this;
     } else {
-      return this.timePicker.locale();
+      return hx.preferences.locale();
     }
   };
 
@@ -17187,6 +17746,11 @@ Form = (function(superClass) {
     entry.append('label').attr("for", id).text(name);
     selection = entry.append(nodeType).attr("id", id);
     extras = f.call(selection) || {};
+    if (extras.disable == null) {
+      extras.disable = function(sel, disable) {
+        return sel.attr('disabled', disable ? 'disabled' : void 0);
+      };
+    }
     if (extras.key != null) {
       key = extras.key;
       delete extras.key;
@@ -17201,6 +17765,12 @@ Form = (function(superClass) {
         node: selection.node(),
         extras: extras
       });
+    }
+    if (extras.hidden) {
+      this.hidden(name, extras.hidden);
+    }
+    if (extras.disabled) {
+      this.disabled(name, extras.disabled);
     }
     return this;
   };
@@ -17227,9 +17797,6 @@ Form = (function(superClass) {
       if (options.required) {
         selection.attr('required', options.required);
       }
-      if (options.disabled) {
-        selection.attr('disabled', '');
-      }
       ref = options.attrs;
       for (i = 0, len = ref.length; i < len; i++) {
         attr = ref[i];
@@ -17244,7 +17811,9 @@ Form = (function(superClass) {
       }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled
       };
     });
   };
@@ -17268,9 +17837,6 @@ Form = (function(superClass) {
       if (options.required) {
         selection.attr('required', options.required);
       }
-      if (options.disabled) {
-        selection.attr('disabled', '');
-      }
       ref = options.attrs;
       for (i = 0, len = ref.length; i < len; i++) {
         attr = ref[i];
@@ -17285,7 +17851,9 @@ Form = (function(superClass) {
       }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled
       };
     });
   };
@@ -17345,40 +17913,33 @@ Form = (function(superClass) {
       options = {};
     }
     return this.add(name, 'select', 'div', function() {
-      var c, elem, input, pickerOptions, select;
-      c = 'hx-btn';
-      elem = this.append('button');
-      if (options.disabled) {
-        elem.attr('disabled', '');
-      } else {
-        if (options.buttonClass != null) {
-          c += ' ' + options.buttonClass;
-        }
-      }
+      var elem, input, picker, pickerOptions;
+      elem = this.append('button').attr('type', 'button')["class"](options.buttonClass);
       pickerOptions = hx.merge({}, options.pickerOptions);
       if (values.length > 0) {
         pickerOptions.items = values;
       }
-      select = new hx.Picker(elem.node(), pickerOptions);
-      elem.classed(c, true).on('click', 'hx.form-builder', function(e) {
-        return e.preventDefault();
-      });
+      picker = new hx.Picker(elem.node(), pickerOptions);
       input = this.append('input')["class"]('hx-hidden-form-input').attr('size', 0);
       this.style('position', 'relative');
       if (typeof options.required !== 'boolean') {
-        select.value(values[0]);
+        picker.value(values[0]);
       }
       if (options.required) {
         input.node().setCustomValidity('Please select a value from the list');
-        select.on('change', 'hx.form-builder', function() {
+        picker.on('change', 'hx.form-builder', function() {
           return input.node().setCustomValidity('');
         });
       }
       return {
         required: options.required,
         componentNode: elem.node(),
-        select: select,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(selection, disabled) {
+          return picker.disabled(disabled);
+        }
       };
     });
   };
@@ -17392,12 +17953,11 @@ Form = (function(superClass) {
       if (options.required != null) {
         this.attr('required', options.required);
       }
-      if (options.disabled) {
-        this.attr('disabled', '');
-      }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled
       };
     });
   };
@@ -17410,7 +17970,7 @@ Form = (function(superClass) {
     self = this;
     return this.add(name, 'radio', 'div', function() {
       var count, i, id, input, len, selection, value;
-      id = self.formId + name.split(" ").join("-");
+      id = self.formId + name.split(' ').join('-');
       count = 0;
       for (i = 0, len = values.length; i < len; i++) {
         value = values[i];
@@ -17419,15 +17979,17 @@ Form = (function(superClass) {
         if (options.required != null) {
           input.attr('required', options.required);
         }
-        if (options.disabled) {
-          input.attr('disabled', '');
-        }
         selection.append('label').attr("for", id + "-" + count).text(value);
         count += 1;
       }
       return {
         required: options.required,
-        key: options.key
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return sel.selectAll('input').attr('disabled', disabled ? true : void 0);
+        }
       };
     });
   };
@@ -17436,13 +17998,10 @@ Form = (function(superClass) {
     if (options == null) {
       options = {};
     }
-    this.add(name, 'datepicker', 'div', function() {
+    return this.add(name, 'datepicker', 'div', function() {
       var datepicker, elem, getValue, setValue;
       elem = this.append('div').node();
       datepicker = new hx.DatePicker(elem, options.datePickerOptions);
-      if (options.disabled) {
-        datepicker.disable();
-      }
       if ((options.validStart != null) || (options.validEnd != null)) {
         datepicker.validRange(options.validStart, options.validEnd);
       }
@@ -17468,23 +18027,24 @@ Form = (function(superClass) {
         key: options.key,
         componentNode: elem,
         getValue: getValue,
-        setValue: setValue
+        setValue: setValue,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return datepicker.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.addTimePicker = function(name, options) {
     if (options == null) {
       options = {};
     }
-    this.add(name, 'timepicker', 'div', function() {
+    return this.add(name, 'timepicker', 'div', function() {
       var elem, getValue, setValue, timepicker;
       elem = this.append('div').node();
       timepicker = new hx.TimePicker(elem, options.timePickerOptions);
-      if (options.disabled) {
-        timepicker.disable();
-      }
       getValue = function() {
         return timepicker.date();
       };
@@ -17495,23 +18055,24 @@ Form = (function(superClass) {
         key: options.key,
         componentNode: elem,
         getValue: getValue,
-        setValue: setValue
+        setValue: setValue,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return timepicker.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.addDateTimePicker = function(name, options) {
     if (options == null) {
       options = {};
     }
-    this.add(name, 'datetimepicker', 'div', function() {
+    return this.add(name, 'datetimepicker', 'div', function() {
       var datetimepicker, elem, getValue, setValue;
       elem = this.append('div').node();
       datetimepicker = new hx.DateTimePicker(elem, options.dateTimePickerOptions);
-      if (options.disabled) {
-        datetimepicker.disable();
-      }
       getValue = function() {
         return datetimepicker.date();
       };
@@ -17522,10 +18083,14 @@ Form = (function(superClass) {
         key: options.key,
         componentNode: elem,
         getValue: getValue,
-        setValue: setValue
+        setValue: setValue,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return datetimepicker.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.addSubmit = function(text, icon, submitAction) {
@@ -17548,16 +18113,20 @@ Form = (function(superClass) {
       options = {};
     }
     self = this;
-    this.add(name, 'tagInput', 'div', function() {
-      var elem;
+    return this.add(name, 'tagInput', 'div', function() {
+      var elem, tagInput;
       elem = this.append('div').node();
-      new hx.TagInput(elem, options.tagInputOptions);
+      tagInput = new hx.TagInput(elem, options.tagInputOptions);
       return {
         key: options.key,
-        componentNode: elem
+        componentNode: elem,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return tagInput.disabled(disabled);
+        }
       };
     });
-    return this;
   };
 
   Form.prototype.submit = function() {
@@ -17582,7 +18151,7 @@ Form = (function(superClass) {
       result = {};
       this.properties.forEach((function(_this) {
         return function(key, it) {
-          if (!it.hidden) {
+          if (!it.extras.hidden) {
             return result[key] = _this.value(key);
           }
         };
@@ -17613,6 +18182,32 @@ Form = (function(superClass) {
         return this;
       } else {
         return !!prop.hidden;
+      }
+    }
+  };
+
+  Form.prototype.disabled = function(property, disabled) {
+    var prop, res;
+    if (hx.isArray(property)) {
+      res = property.map((function(_this) {
+        return function(prop) {
+          return _this.disabled(prop, disabled);
+        };
+      })(this));
+      if (disabled != null) {
+        return this;
+      } else {
+        return res;
+      }
+    } else if (this.properties.has(property)) {
+      prop = this.properties.get(property);
+      if (disabled != null) {
+        prop.disabled = disabled;
+        prop.extras.disable(hx.select(prop.node), disabled);
+        this.properties.set(property, prop);
+        return this;
+      } else {
+        return !!prop.disabled;
       }
     }
   };
@@ -17679,7 +18274,7 @@ Form = (function(superClass) {
             return hx.select(node).value(value);
         }
       } else {
-        if (!it.hidden) {
+        if (!it.hidden && !it.disabled) {
           value = (function() {
             switch (it.type) {
               case 'checkbox':
@@ -17839,7 +18434,7 @@ InlinePicker = (function(superClass) {
     }
     this.picker.menu.dropdown.on('showstart', 'hx.inline-picker', (function(_this) {
       return function() {
-        return _this.detector.addException(_this.picker.menu.dropdown.dropdown.node());
+        return _this.detector.addException(_this.picker.menu.dropdown._.dropdown.node());
       };
     })(this));
     InlinePicker.__super__.constructor.call(this, this.selector, enterEditMode, exitEditMode, options);
@@ -18333,435 +18928,6 @@ hx.pivotTable = function(options) {
 };
 
 hx.PivotTable = PivotTable;
-
-})();
-(function(){
-var LocalStoragePreferencesStore, Preferences, localeList,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-localeList = [
-  {
-    value: "af",
-    full: "Afrikaans"
-  }, {
-    value: "sq",
-    full: "Albanian"
-  }, {
-    value: "ar",
-    full: "Arabic"
-  }, {
-    value: "ar-MA",
-    full: "Arabic (Morocco)"
-  }, {
-    value: "ar-SA",
-    full: "Arabic (Saudi Arabia)"
-  }, {
-    value: "ar-TN",
-    full: "Arabic (Tunisia)"
-  }, {
-    value: "hy-AM",
-    full: "Armenian"
-  }, {
-    value: "az",
-    full: "Azerbaijani"
-  }, {
-    value: "id",
-    full: "Bahasa Indonesia"
-  }, {
-    value: "ms-MY",
-    full: "Bahasa Malayu"
-  }, {
-    value: "eu",
-    full: "Basque"
-  }, {
-    value: "be",
-    full: "Belarusian"
-  }, {
-    value: "bn",
-    full: "Bengali"
-  }, {
-    value: "bs",
-    full: "Bosnian"
-  }, {
-    value: "br",
-    full: "Breton"
-  }, {
-    value: "bg",
-    full: "Bulgarian"
-  }, {
-    value: "my",
-    full: "Burmese"
-  }, {
-    value: "ca",
-    full: "Catalan"
-  }, {
-    value: "zh-CN",
-    full: "Chinese"
-  }, {
-    value: "zh-TW",
-    full: "Chinese (Traditional)"
-  }, {
-    value: "cv",
-    full: "Chuvash"
-  }, {
-    value: "hr",
-    full: "Croatian"
-  }, {
-    value: "cs",
-    full: "Czech"
-  }, {
-    value: "da",
-    full: "Danish"
-  }, {
-    value: "nl",
-    full: "Dutch"
-  }, {
-    value: "en",
-    full: "English"
-  }, {
-    value: "en-US",
-    full: "English (US)"
-  }, {
-    value: "en-AU",
-    full: "English (Australia)"
-  }, {
-    value: "en-CA",
-    full: "English (Canada)"
-  }, {
-    value: "en-GB",
-    full: "English (UK) "
-  }, {
-    value: "eo",
-    full: "Esperanto"
-  }, {
-    value: "et",
-    full: "Estonian"
-  }, {
-    value: "fo",
-    full: "Farose"
-  }, {
-    value: "fi",
-    full: "Finnish"
-  }, {
-    value: "fr",
-    full: "French"
-  }, {
-    value: "fr-CA",
-    full: "French (Canada)"
-  }, {
-    value: "fy",
-    full: "Frisian"
-  }, {
-    value: "gl",
-    full: "Galician"
-  }, {
-    value: "ka",
-    full: "Georgian"
-  }, {
-    value: "de",
-    full: "German"
-  }, {
-    value: "de-AT",
-    full: "German (Austria)"
-  }, {
-    value: "el",
-    full: "Greek"
-  }, {
-    value: "he",
-    full: "Hebrew"
-  }, {
-    value: "hi",
-    full: "Hindi"
-  }, {
-    value: "hu",
-    full: "Hungarian"
-  }, {
-    value: "is",
-    full: "Icelandic"
-  }, {
-    value: "it",
-    full: "Italian"
-  }, {
-    value: "ja",
-    full: "Japanese"
-  }, {
-    value: "km",
-    full: "Khmer (Cambodia)"
-  }, {
-    value: "ko",
-    full: "Korean"
-  }, {
-    value: "lv",
-    full: "Latvian"
-  }, {
-    value: "lt",
-    full: "Lithuanian"
-  }, {
-    value: "lb",
-    full: "Luxembourgish"
-  }, {
-    value: "mk",
-    full: "Macedonian"
-  }, {
-    value: "ml",
-    full: "Malayalam"
-  }, {
-    value: "mr",
-    full: "Marathi"
-  }, {
-    value: "ne",
-    full: "Nepalese"
-  }, {
-    value: "nb",
-    full: "Norwegian"
-  }, {
-    value: "nn",
-    full: "Norwegian Nynorsk"
-  }, {
-    value: "fa",
-    full: "Persian"
-  }, {
-    value: "pl",
-    full: "Polish"
-  }, {
-    value: "pt",
-    full: "Portuguese"
-  }, {
-    value: "pt-BR",
-    full: "Portuguese (Brazil)"
-  }, {
-    value: "ro",
-    full: "Romanian"
-  }, {
-    value: "ru",
-    full: "Russian"
-  }, {
-    value: "sr",
-    full: "Serbian"
-  }, {
-    value: "sr-CYRL",
-    full: "Serbian Cyrillic"
-  }, {
-    value: "sk",
-    full: "Slovak"
-  }, {
-    value: "sl",
-    full: "Slovenian"
-  }, {
-    value: "es",
-    full: "Spanish"
-  }, {
-    value: "sv",
-    full: "Swedish"
-  }, {
-    value: "tl-PH",
-    full: "Tagalog (Filipino)"
-  }, {
-    value: "tzm",
-    full: "Tamaziɣt"
-  }, {
-    value: "tzm-LATN",
-    full: "Tamaziɣt Latin"
-  }, {
-    value: "ta",
-    full: "Tamil"
-  }, {
-    value: "th",
-    full: "Thai"
-  }, {
-    value: "bo",
-    full: "Tibetan"
-  }, {
-    value: "tr",
-    full: "Turkish"
-  }, {
-    value: "uk",
-    full: "Ukrainian"
-  }, {
-    value: "uz",
-    full: "Uzbek"
-  }, {
-    value: "vi",
-    full: "Vietnamese"
-  }, {
-    value: "cy",
-    full: "Welsh"
-  }
-];
-
-LocalStoragePreferencesStore = {
-  save: function(prefs, cb) {
-    localStorage.setItem('hx_preferences', prefs);
-    return cb();
-  },
-  load: function(cb) {
-    return cb(void 0, localStorage.getItem('hx_preferences'));
-  }
-};
-
-Preferences = (function(superClass) {
-  extend(Preferences, superClass);
-
-  function Preferences() {
-    var modal, setupModal;
-    Preferences.__super__.constructor.apply(this, arguments);
-    setupModal = (function(_this) {
-      return function(element) {
-        var locale, localeAutocompleteElement, localeSection, ref, saveButton, supportedLocales, timezone, timezoneAutocompleteElement, timezoneSection;
-        locale = _this.locale();
-        timezone = _this.timezone();
-        localeAutocompleteElement = hx.detached('input');
-        localeAutocompleteElement.value((ref = localeList.filter(function(d) {
-          return d.value === locale;
-        })[0]) != null ? ref.full : void 0);
-        supportedLocales = _this._.supportedLocales != null ? localeList.map(function(l) {
-          var ref1;
-          return {
-            value: l.value,
-            full: l.full,
-            disabled: !(ref1 = l.value, indexOf.call(_this._.supportedLocales, ref1) >= 0)
-          };
-        }) : localeList;
-        new hx.AutoComplete(localeAutocompleteElement.node(), supportedLocales, {
-          renderer: function(element, datum) {
-            return hx.select(element).text(datum.full);
-          },
-          inputMap: function(item) {
-            return item.full;
-          },
-          showOtherResults: true,
-          mustMatch: true
-        }).on('change', function(item) {
-          return locale = item.value;
-        });
-        localeSection = hx.detached('div').add(hx.detached('label').text('Locale')).add(localeAutocompleteElement);
-        timezoneAutocompleteElement = hx.detached('input');
-        timezoneAutocompleteElement.value(timezone);
-        new hx.AutoComplete(timezoneAutocompleteElement.node(), (typeof moment !== "undefined" && moment !== null ? moment.tz.names() : void 0) || [], {
-          showOtherResults: true,
-          mustMatch: true
-        }).on('change', function(value) {
-          return timezone = value;
-        });
-        timezoneSection = hx.detached('div').add(hx.detached('label').text('Time Zone')).add(timezoneAutocompleteElement);
-        saveButton = hx.detached('button')["class"]('hx-btn hx-positive').add(hx.detached('i')["class"]('hx-icon hx-icon-check')).add(hx.detached('span').text(' Save')).on('click', function() {
-          _this.locale(locale);
-          _this.timezone(timezone);
-          return _this.save(function(err) {
-            if (err) {
-              return hx.notify.negative(err);
-            } else {
-              hx.notify.positive("Preferences Saved");
-              return modal.close();
-            }
-          });
-        });
-        return hx.select(element).append('div')["class"]('hx-form').add(localeSection).add(timezoneSection).add(saveButton);
-      };
-    })(this);
-    modal = new hx.Modal('Preferences', setupModal);
-    this._ = {
-      backingStore: LocalStoragePreferencesStore,
-      preferences: {},
-      modal: modal
-    };
-  }
-
-  Preferences.prototype.timezone = function(timezone) {
-    if (arguments.length > 0) {
-      if (this._.preferences['timezone'] !== timezone) {
-        this._.preferences['timezone'] = timezone;
-        this.emit('timezonechange', timezone);
-      }
-      return this;
-    } else {
-      return this._.preferences['timezone'];
-    }
-  };
-
-  Preferences.prototype.locale = function(locale) {
-    var localeObject;
-    if (arguments.length > 0) {
-      if (locale === void 0) {
-        if (this._.preferences['locale'] !== void 0) {
-          this._.preferences['locale'] = void 0;
-          this.emit('localechange', void 0);
-        }
-      } else if ((localeObject = localeList.filter(function(l) {
-        return l.value.toLowerCase() === locale.toLowerCase();
-      })[0])) {
-        if (this._.preferences['locale'] !== localeObject.value) {
-          this._.preferences['locale'] = localeObject.value;
-          this.emit('localechange', localeObject.value);
-        }
-      } else {
-        hx.consoleWarning('preferences.locale', locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon');
-      }
-      return this;
-    } else {
-      return this._.preferences['locale'];
-    }
-  };
-
-  Preferences.prototype.supportedLocales = function(locales) {
-    if (arguments.length > 0) {
-      this._.supportedLocales = locales;
-      return this;
-    } else {
-      return this._.supportedLocales;
-    }
-  };
-
-  Preferences.prototype.backingStore = function(backingStore) {
-    if (backingStore != null) {
-      this._.backingStore = backingStore;
-    }
-    return this;
-  };
-
-  Preferences.prototype.save = function(cb) {
-    var e, error;
-    try {
-      return this._.backingStore.save(JSON.stringify(this._.preferences), function(err) {
-        return typeof cb === "function" ? cb(err) : void 0;
-      });
-    } catch (error) {
-      e = error;
-      return typeof cb === "function" ? cb(e) : void 0;
-    }
-  };
-
-  Preferences.prototype.load = function(cb) {
-    var e, error;
-    try {
-      return this._.backingStore.load((function(_this) {
-        return function(err, prefs) {
-          if (prefs != null) {
-            _this._.preferences = JSON.parse(prefs);
-          }
-          return typeof cb === "function" ? cb(err) : void 0;
-        };
-      })(this));
-    } catch (error) {
-      e = error;
-      return typeof cb === "function" ? cb(e) : void 0;
-    }
-  };
-
-  Preferences.prototype.show = function() {
-    this._.modal.show();
-    return this;
-  };
-
-  return Preferences;
-
-})(hx.EventEmitter);
-
-hx.preferences = new Preferences;
-
-hx.preferences.localStorageStore = LocalStoragePreferencesStore;
 
 })();
 (function(){

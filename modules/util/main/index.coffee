@@ -140,7 +140,7 @@ isArray = (x) -> x instanceof Array
 # returns true if the thing passed in is an object, except for arrays
 # which technically are objects, but in the eyes of this function are not
 # objects
-isObject = (obj) -> typeof obj is 'object' and not isArray(obj)
+isObject = (obj) -> typeof obj is 'object' and not isArray(obj) and obj isnt null
 
 isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
 

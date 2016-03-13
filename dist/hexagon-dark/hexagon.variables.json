@@ -10,6 +10,12 @@
   "interpolate": {},
   "animate": {},
   "pointerEvents": {},
+  "icon": {},
+  "spinner": {
+    "spinnerCol": "#00ADA8"
+  },
+  "view": {},
+  "sort": {},
   "component": {},
   "morphs": {},
   "clickDetector": {},
@@ -35,7 +41,42 @@
     "dividerStyle": "solid",
     "defaultFontSize": "14px"
   },
-  "icon": {},
+  "modal": {
+    "shadeCol": "rgba(0,0,0,0.5)",
+    "backgroundCol": "#32373A",
+    "titleBackgroundCol": "#393D3D",
+    "titleTextCol": "white",
+    "titleFontSize": "1.17em",
+    "shadowCol": "rgba(0, 0, 0, 0.5)",
+    "borderRadius": "3px",
+    "borderColor": "#4E5355",
+    "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.5)"
+  },
+  "notify": {
+    "backgroundCol": "#32373A",
+    "textCol": "white",
+    "borderCol": "#4E5355",
+    "closeCol": "#939393",
+    "closeHoverCol": "white",
+    "pinnedCol": "#00ADA8",
+    "pinnedHoverCol": "darken(desaturate($pinned-col, 5%), 10%)",
+    "unpinnedCol": "#939393",
+    "unpinnedHoverCol": "white",
+    "defaultCol": "#393D3D",
+    "infoCol": "#B36ABB",
+    "positiveCol": "#92BF17",
+    "warningCol": "#D69B24",
+    "negativeCol": "#EC3A65",
+    "loadingCol": "#00ADA8",
+    "containerBackgroundCol": "#252C2E",
+    "containerBorderCol": "transparent",
+    "shadowCol": "rgba(0, 0, 0, 0.05)"
+  },
+  "filter": {},
+  "form": {
+    "errorTextCol": "#393D3D",
+    "errorBackgroundCol": "#F7F7F9"
+  },
   "dropdown": {
     "spacing": "0",
     "backgroundCol": "#32373A",
@@ -68,6 +109,8 @@
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
+  "format": {},
+  "preferences": {},
   "button": {
     "defaultCol": "#2F3536",
     "actionCol": "#00ADA8",
@@ -88,9 +131,6 @@
     "defaultTextCol": "white"
   },
   "resizeEvents": {},
-  "sort": {},
-  "format": {},
-  "view": {},
   "menu": {
     "defaultCol": "#32373A",
     "defaultHoverCol": "#42474A",
@@ -122,6 +162,7 @@
     "iconBackgroundCol": "#32373A",
     "iconBorderCol": "#4E5355"
   },
+  "dateLocalizer": {},
   "numberPicker": {},
   "layout": {
     "contentMaxWidth": "1200px",
@@ -135,10 +176,6 @@
   "dragContainer": {
     "dragPlaceholderBorderCol": "#4E5355"
   },
-  "spinner": {
-    "spinnerCol": "#00ADA8"
-  },
-  "filter": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -150,7 +187,7 @@
     "infoCol": "#B36ABB",
     "complementCol": "#393D3D",
     "contrastCol": "#F7F7F9",
-    "backgroundCol": "transparentize($default-col, 0.5)"
+    "backgroundCol": "rgba(227,227,227,0.3)"
   },
   "plot": {
     "colors": [
@@ -244,41 +281,6 @@
     "tagContainerBorderCol": "#383B3C"
   },
   "morphSection": {},
-  "modal": {
-    "shadeCol": "rgba(0,0,0,0.5)",
-    "backgroundCol": "#32373A",
-    "titleBackgroundCol": "#393D3D",
-    "titleTextCol": "white",
-    "titleFontSize": "1.17em",
-    "shadowCol": "rgba(0, 0, 0, 0.5)",
-    "borderRadius": "3px",
-    "borderColor": "#4E5355",
-    "boxShadow": "0 5px 15px rgba(0, 0, 0, 0.5)"
-  },
-  "notify": {
-    "backgroundCol": "#32373A",
-    "textCol": "white",
-    "borderCol": "#4E5355",
-    "closeCol": "#939393",
-    "closeHoverCol": "white",
-    "pinnedCol": "#00ADA8",
-    "pinnedHoverCol": "darken(desaturate($pinned-col, 5%), 10%)",
-    "unpinnedCol": "#939393",
-    "unpinnedHoverCol": "white",
-    "defaultCol": "#393D3D",
-    "infoCol": "#B36ABB",
-    "positiveCol": "#92BF17",
-    "warningCol": "#D69B24",
-    "negativeCol": "#EC3A65",
-    "loadingCol": "#00ADA8",
-    "containerBackgroundCol": "#252C2E",
-    "containerBorderCol": "transparent",
-    "shadowCol": "rgba(0, 0, 0, 0.05)"
-  },
-  "form": {
-    "errorTextCol": "#393D3D",
-    "errorBackgroundCol": "#F7F7F9"
-  },
   "titlebar": {
     "defaultBackgroundCol": "#2C3134",
     "actionBackgroundCol": "#00ADA8",
@@ -439,7 +441,6 @@
     "selectedButton": "hx-action"
   },
   "pivotTable": {},
-  "preferences": {},
   "sideCollapsible": {
     "headingBackgroundCol": "#2C3134",
     "headingTextCol": "white",

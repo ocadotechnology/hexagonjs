@@ -15,11 +15,17 @@ updateScrollIndicators = (wrapper, top, right, bottom, left) ->
 updateHeaderPositions = (container) ->
   # Set the relative positions of the two headers.
   # This method reduces flickering when scrolling on mobile devices.
-  node = container.select('.hx-sticky-table-wrapper').node()
+  node = getChildren(container, '.hx-sticky-table-wrapper')[0]
   leftOffset = - node.scrollLeft
   topOffset = - node.scrollTop
-  container.select('.hx-sticky-table-header-top').select('.hx-table').style('left', leftOffset + 'px')
-  container.select('.hx-sticky-table-header-left').select('.hx-table').style('top', topOffset + 'px')
+
+  topNode = getChildren(container, '.hx-sticky-table-header-top')[0]
+  if topNode?
+    hx.select(topNode).select('.hx-table').style('left', leftOffset + 'px')
+
+  leftNode = getChildren(container, '.hx-sticky-table-header-left')[0]
+  if leftNode?
+    hx.select(leftNode).select('.hx-table').style('top', topOffset + 'px')
 
 
 cloneEvents = (elem, clone) ->
@@ -43,6 +49,21 @@ cloneEvents = (elem, clone) ->
       cloneChildren = clone.childNodes
       cloneEvents elemChildren[i], cloneChildren[i] for i in [0..elemChildren.length]
 
+getChildrenFromTable = (t, body, single) ->
+  realParents = getChildren(t.select(if body then 'tbody' else 'thead'), 'tr')
+  hx.flatten realParents.map (parent) -> getChildren(hx.select(parent), 'th, td', single)
+
+getChildren = (parent, selector, single) ->
+  children = if single
+    parent.select selector
+  else
+    parent.selectAll selector
+  children.filter((node) -> node.node().parentNode is parent.node()).nodes
+
+createStickyHeaderNodes = (real, cloned) ->
+  for i in [0...real.length]
+    cloneEvents(real[i], cloned[i])
+    hx.select(real[i]).classed('hx-sticky-table-invisible', true)
 
 class StickyTableHeaders
   constructor: (selector, options) ->
@@ -68,11 +89,17 @@ class StickyTableHeaders
     if table.classed('hx-table-full') and not options.fullWidth?
       options.fullWidth = true
 
-    if resolvedOptions.stickTableHead and table.select('thead').select('tr').empty()
+    if resolvedOptions.stickTableHead and table.select('thead').selectAll('tr').empty()
       # Cant stick something that isn't there
       hx.consoleWarning 'hx.StickyTableHeaders - ' + selector,
-        'Sticky table headers initialized without thead element'
+        'Sticky table headers initialized with stickTableHead of true without a thead element present'
       resolvedOptions.stickTableHead = false
+
+    if resolvedOptions.stickFirstColumn and table.select('tbody').select('tr').selectAll('th, td').empty()
+      # Cant stick something that isn't there
+      hx.consoleWarning 'hx.StickyTableHeaders - ' + selector,
+        'Sticky table headers initialized with stickFirstColumn of true without any columns to stick'
+      resolvedOptions.stickFirstColumn = false
 
     # Create the container, this will always be the root element.
     container = if tableIsRootElement
@@ -135,25 +162,28 @@ class StickyTableHeaders
     origScroll = wrapperNode.scrollTop
 
     container
-      .style('height', '')
-      .style('width', '')
+      .style('height', undefined)
+      .style('width', undefined)
 
     wrapper
-      .style('height', '')
-      .style('width', '')
-      .style('margin-top', '')
-      .style('margin-left', '')
-      .style('max-width', '')
-      .style('max-height', '')
+      .style('height', undefined)
+      .style('width', undefined)
+      .style('margin-top', undefined)
+      .style('margin-left', undefined)
+      .style('max-width', undefined)
+      .style('max-height', undefined)
 
     table
-      .style('margin-top', '')
-      .style('margin-left', '')
-      .style('min-width', '')
-      .style('min-height', '')
+      .style('margin-top', undefined)
+      .style('margin-left', undefined)
+      .style('min-width', undefined)
+      .style('min-height', undefined)
 
     offsetHeight = 0
     offsetWidth = 0
+
+    if options.fullWidth
+      table.style('width', '100%')
 
     if options.stickTableHead
       offsetHeight = table.select('thead').height()
@@ -188,14 +218,16 @@ class StickyTableHeaders
 
     if options.fullWidth
       table
-        .style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset + 'px')
-        .style('min-height', wrapperBox.height + offsetHeight - heightScrollbarOffset + 'px')
+        .style('width', undefined)
+        .style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset - 1 + 'px')
     else
       wrapper
         .style('max-width', tableBox.width - offsetWidth + widthScrollbarOffset + 'px')
         .style('max-height', tableBox.height - offsetHeight + heightScrollbarOffset + 'px')
 
     tableClone = table.clone(true)
+      .style('height', table.style('height'))
+      .style('width', table.style('width'))
 
     if options.stickTableHead
       # Append top
@@ -213,12 +245,10 @@ class StickyTableHeaders
 
       topTable = topHead.append tableClone.clone(true)
 
-      realNodes = table.select('thead').selectAll('tr').selectAll('th, td').nodes
-      clonedNodes = topTable.select('thead').selectAll('tr').selectAll('th, td').nodes
+      realNodes = getChildrenFromTable table
+      clonedNodes = getChildrenFromTable topTable
 
-      for i in [0...realNodes.length]
-        cloneEvents(realNodes[i], clonedNodes[i])
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
+      createStickyHeaderNodes realNodes, clonedNodes
 
     if options.stickFirstColumn
       # Append left
@@ -235,13 +265,10 @@ class StickyTableHeaders
 
       leftTable = leftHead.append tableClone.clone(true)
 
-      realNodes = table.select('tbody').selectAll('tr').select('th, td').nodes
-      clonedNodes = leftTable.select('tbody').selectAll('tr').select('th, td').nodes
+      realNodes = getChildrenFromTable table, true, true
+      clonedNodes = getChildrenFromTable leftTable, true, true
 
-      for i in [0...realNodes.length]
-        cloneEvents(realNodes[i], clonedNodes[i])
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
-
+      createStickyHeaderNodes realNodes, clonedNodes
 
     if options.stickTableHead and options.stickFirstColumn
       # Append top left
@@ -252,28 +279,33 @@ class StickyTableHeaders
 
       topLeftTable = topLeftHead.append tableClone.clone(true)
 
-      realNodes = table.select('thead').selectAll('tr').select('th, td').nodes
-      clonedNodes = topLeftTable.select('thead').selectAll('tr').select('th, td').nodes
+      realNodes = getChildrenFromTable table, false, true
+      clonedNodes = getChildrenFromTable topLeftTable, false, true
 
-      for i in [0...realNodes.length]
-        cloneEvents(realNodes[i], clonedNodes[i])
-        hx.select(realNodes[i]).classed('hx-sticky-table-invisible', true)
-
+      createStickyHeaderNodes realNodes, clonedNodes
 
     topHead?.style('height', offsetHeight + 'px')
       .style('width', wrapperBox.width + 'px')
       .style('left', offsetWidth + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     topTable?.style('margin-left', - offsetWidth + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     leftHead?.style('height', wrapperBox.height + 'px')
       .style('width', offsetWidth + 'px')
       .style('top', offsetHeight + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     leftTable?.style('margin-top', - offsetHeight + 'px')
 
-    topLeftHead?.style('width', leftHead?.style('width'))
-      .style('height', topHead?.style('height'))
+    topLeftHead?.style('width', leftHead?.style('width') || offsetWidth + 'px')
+      .style('height', topHead?.style('height') || offsetHeight + 'px')
+      .selectAll('.hx-sticky-table-invisible')
+        .classed('hx-sticky-table-invisible', false)
 
     wrapperNode.scrollTop = origScroll
     if _.showScrollIndicators

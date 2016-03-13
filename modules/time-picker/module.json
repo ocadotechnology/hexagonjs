@@ -7,7 +7,9 @@
     "dropdown",
     "util",
     "format",
-    "icon"
+    "icon",
+    "preferences",
+    "date-localizer"
   ],
   "keywords": [
     "time",

@@ -1,5 +1,7 @@
 @theme
   @modules
+    @spinner
+      @spinner-col: #00ADA8
     @base
       @default-font-family: 'Open Sans', sans-serif
       @heading-font-family: 'Open Sans', sans-serif
@@ -21,6 +23,38 @@
       @divider-col: #D0D0D0
       @divider-style: solid
       @default-font-size: 14px
+    @modal
+      @shade-col: rgba(0,0,0,0.5)
+      @background-col: #FFFFFF
+      @title-background-col: #FFFFFF
+      @title-text-col: #3D3D3D
+      @title-font-size: 1.17em
+      @shadow-col: rgba(0, 0, 0, 0.5)
+      @border-radius: 3px
+      @border-color: #D0D0D0
+      @box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+    @notify
+      @background-col: #FFFFFF
+      @text-col: #3D3D3D
+      @border-col: #D0D0D0
+      @close-col: #939393
+      @close-hover-col: #3D3D3D
+      @pinned-col: #00ADA8
+      @pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%)
+      @unpinned-col: #939393
+      @unpinned-hover-col: #3D3D3D
+      @default-col: #FFFFFF
+      @info-col: #B36ABB
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @loading-col: #00ADA8
+      @container-background-col: rgb(247, 247, 249)
+      @container-border-col: transparent
+      @shadow-col: rgba(0, 0, 0, 0.05)
+    @form
+      @error-text-col: #F7F7F9
+      @error-background-col: #4A4E4E
     @dropdown
       @spacing: 0
       @background-col: #FFFFFF
@@ -106,8 +140,6 @@
       @content-background-col: transparent
     @drag-container
       @drag-placeholder-border-col: #D0D0D0
-    @spinner
-      @spinner-col: #00ADA8
     @progress-bar
       @border-col: none
       @border-width: 0
@@ -119,9 +151,15 @@
       @info-col: #B36ABB
       @complement-col: #F7F7F9
       @contrast-col: #4A4E4E
-      @background-col: transparentize($default-col, 0.5)
+      @background-col: rgba(227,227,227,0.3)
     @plot
-      @colors: rgb(177,119,190),rgb(90,155,212),rgb(241,90,113),rgb(151,195,102),rgb(250,169,91),rgb(226,212,64)
+      @colors
+        rgb(177,119,190)
+        rgb(90,155,212)
+        rgb(241,90,113)
+        rgb(151,195,102)
+        rgb(250,169,91)
+        rgb(226,212,64)
       @warm-col: rgb(250,169,91)
       @ambient-col: rgb(226,212,64)
       @cold-col: rgb(90,155,212)
@@ -195,38 +233,6 @@
       @disabled-text-col: #939393
       @border-col: #DADADA
       @tag-container-border-col: #E7E7E7
-    @modal
-      @shade-col: rgba(0,0,0,0.5)
-      @background-col: #FFFFFF
-      @title-background-col: #FFFFFF
-      @title-text-col: #3D3D3D
-      @title-font-size: 1.17em
-      @shadow-col: rgba(0, 0, 0, 0.5)
-      @border-radius: 3px
-      @border-color: #D0D0D0
-      @box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
-    @notify
-      @background-col: #FFFFFF
-      @text-col: #3D3D3D
-      @border-col: #D0D0D0
-      @close-col: #939393
-      @close-hover-col: #3D3D3D
-      @pinned-col: #00ADA8
-      @pinned-hover-col: darken(desaturate($pinned-col, 5%), 10%)
-      @unpinned-col: #939393
-      @unpinned-hover-col: #3D3D3D
-      @default-col: #FFFFFF
-      @info-col: #B36ABB
-      @positive-col: #92BF17
-      @warning-col: #D69B24
-      @negative-col: #EC3A65
-      @loading-col: #00ADA8
-      @container-background-col: rgb(247, 247, 249)
-      @container-border-col: transparent
-      @shadow-col: rgba(0, 0, 0, 0.05)
-    @form
-      @error-text-col: #F7F7F9
-      @error-background-col: #4A4E4E
     @titlebar
       @default-background-col: #F8F8F8
       @action-background-col: #00ADA8

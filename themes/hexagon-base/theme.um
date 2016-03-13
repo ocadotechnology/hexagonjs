@@ -404,8 +404,7 @@
         @negative-col: $negative-col
         @positive-col: $positive-col
         @warning-col: $warning-col
-
-        @background-col: transparentize($default-col, 0.5)
+        @background-col: rgba(227,227,227,0.3)
         @border-col: none
         @border-width: 0
 

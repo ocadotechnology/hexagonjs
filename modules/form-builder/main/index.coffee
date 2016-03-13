@@ -2,7 +2,6 @@
 class Form extends hx.EventEmitter
   constructor: (@selector) ->
     super
-
     hx.component.register(@selector, this)
 
     @formId = "form-"+hx.randomId() + '-'
@@ -21,6 +20,10 @@ class Form extends hx.EventEmitter
     selection = entry.append(nodeType).attr("id",id)
     extras = f.call(selection) or {}
 
+    # Define the default function for enabling/disabling a form property
+    extras.disable ?= (sel, disable) ->
+      sel.attr('disabled', if disable then 'disabled' else undefined)
+
     if extras.key?
       key = extras.key
       delete extras.key
@@ -33,6 +36,9 @@ class Form extends hx.EventEmitter
         type: type
         node: selection.node()
         extras: extras
+
+    if extras.hidden then @hidden name, extras.hidden
+    if extras.disabled then @disabled name, extras.disabled
     this
 
   addText: (name, options={}) ->
@@ -46,10 +52,14 @@ class Form extends hx.EventEmitter
           options.autoCompleteOptions ?= undefined)
       if options.placeholder? then selection.attr('placeholder', options.placeholder)
       if options.required then selection.attr('required', options.required)
-      if options.disabled then selection.attr('disabled', '')
       selection.attr(attr.type, attr.value) for attr in options.attrs
       if options.validator? then selection.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || "")
-      {required: options.required, key: options.key}
+      {
+        required: options.required
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+      }
 
   addTextArea: (name, options={}) ->
     options.type ?= "textarea"
@@ -58,10 +68,14 @@ class Form extends hx.EventEmitter
       selection = @attr('type', options.type)
       if options.placeholder? then selection.attr('placeholder', options.placeholder)
       if options.required then selection.attr('required', options.required)
-      if options.disabled then selection.attr('disabled', '')
       selection.attr(attr.type, attr.value) for attr in options.attrs
       if options.validator? then selection.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || "")
-      {required: options.required, key: options.key}
+      {
+        required: options.required
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+      }
 
   addEmail: (name, options={}) ->
     options.type = "email"
@@ -84,72 +98,71 @@ class Form extends hx.EventEmitter
 
   addPicker: (name, values, options = {}) ->
     @add name, 'select', 'div', ->
-      c = 'hx-btn'
-
       elem = @append('button')
-
-      if options.disabled then elem.attr('disabled', '')
-      else
-        if options.buttonClass?
-          c += ' ' + options.buttonClass
+        .attr('type', 'button')
+        .class(options.buttonClass)
 
       pickerOptions = hx.merge({}, options.pickerOptions)
 
       if values.length > 0
         pickerOptions.items = values
 
-      select = new hx.Picker(elem.node(), pickerOptions)
-
-      # Prevent the button submitting the form - must be done after the select
-      # is initialised
-      elem.classed(c, true).on 'click', 'hx.form-builder', (e) -> e.preventDefault()
-
-      # XXX: replace this with classes in the css
+      picker = new hx.Picker(elem.node(), pickerOptions)
       input = @append('input').class('hx-hidden-form-input').attr('size', 0)
-
       @style('position', 'relative')
 
-      if typeof options.required isnt 'boolean'
-        select.value(values[0])
+      picker.value(values[0]) unless typeof options.required is 'boolean'
 
       if options.required
         input.node().setCustomValidity('Please select a value from the list')
-
-        select.on 'change', 'hx.form-builder', ->
+        picker.on 'change', 'hx.form-builder', ->
           input.node().setCustomValidity('')
 
-
-      {required: options.required, componentNode: elem.node(), select: select, key: options.key}
+      {
+        required: options.required
+        componentNode: elem.node()
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (selection, disabled) -> picker.disabled(disabled)
+      }
 
   addCheckbox: (name, options = {}) ->
     @add name, 'checkbox', 'input', ->
       @attr('type', 'checkbox')
       if options.required? then @attr('required', options.required)
-      if options.disabled then @attr('disabled', '')
-      {required: options.required, key: options.key}
+      {
+        required: options.required
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+      }
 
   addRadio: (name, values, options = {}) ->
     self = this
     @add name, 'radio', 'div', ->
-      id = self.formId + name.split(" ").join("-")
+      id = self.formId + name.split(' ').join('-')
       count = 0
       for value in values
         selection  = @append('div').class('hx-radio-container')
         input = selection.append('input').attr('type', 'radio').attr('name', id).attr("id",id+"-"+count).value(value)
         if options.required? then input.attr('required', options.required)
-        if options.disabled then input.attr('disabled', '')
         selection.append('label').attr("for", id + "-" + count).text(value)
         count += 1
-      {required: options.required, key: options.key}
+      {
+        required: options.required
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) ->
+          sel.selectAll('input')
+            .attr('disabled', if disabled then true else undefined)
+      }
 
   addDatePicker: (name, options = {}) ->
     @add name, 'datepicker', 'div', ->
-
       elem = @append('div').node()
       datepicker = new hx.DatePicker(elem, options.datePickerOptions)
-
-      if options.disabled
-        datepicker.disable()
 
       if options.validStart? or options.validEnd?
         datepicker.validRange(options.validStart, options.validEnd)
@@ -165,50 +178,51 @@ class Form extends hx.EventEmitter
           datepicker.range(options.startDate, options.endDate, false, true)
 
       else
-        getValue = ->
-          datepicker.date()
+        getValue = -> datepicker.date()
+        setValue = (value) -> datepicker.date(value)
 
-        setValue = (value) ->
-          datepicker.date(value)
-
-      {key: options.key, componentNode: elem, getValue: getValue, setValue: setValue}
-    this
+      {
+        key: options.key
+        componentNode: elem
+        getValue: getValue
+        setValue: setValue
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) -> datepicker.disabled(disabled)
+      }
 
   addTimePicker: (name, options = {}) ->
     @add name, 'timepicker', 'div', ->
       elem = @append('div').node()
-
       timepicker = new hx.TimePicker(elem, options.timePickerOptions)
+      getValue = -> timepicker.date()
+      setValue = (value) -> timepicker.date(value)
 
-      if options.disabled
-        timepicker.disable()
-
-      getValue = ->
-        timepicker.date()
-
-      setValue = (value) ->
-        timepicker.date(value)
-
-      {key: options.key, componentNode: elem, getValue: getValue, setValue: setValue}
-    this
+      {
+        key: options.key
+        componentNode: elem
+        getValue: getValue
+        setValue: setValue
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) -> timepicker.disabled(disabled)
+      }
 
   addDateTimePicker: (name, options = {}) ->
     @add name, 'datetimepicker', 'div', ->
       elem = @append('div').node()
-
       datetimepicker = new hx.DateTimePicker(elem, options.dateTimePickerOptions)
-
-      if options.disabled
-        datetimepicker.disable()
-
-      getValue = ->
-        datetimepicker.date()
-
-      setValue = (value) ->
-        datetimepicker.date(value)
-
-      {key: options.key, componentNode: elem, getValue: getValue, setValue: setValue}
-    this
+      getValue = -> datetimepicker.date()
+      setValue = (value) -> datetimepicker.date(value)
+      {
+        key: options.key
+        componentNode: elem
+        getValue: getValue
+        setValue: setValue
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) -> datetimepicker.disabled(disabled)
+      }
 
   addSubmit: (text, icon, submitAction) ->
     hx.select(@selector).append('button')
@@ -228,9 +242,14 @@ class Form extends hx.EventEmitter
     self = this
     @add name, 'tagInput', 'div', ->
       elem = @append('div').node()
-      new hx.TagInput(elem, options.tagInputOptions)
-      {key: options.key, componentNode: elem}
-    this
+      tagInput = new hx.TagInput(elem, options.tagInputOptions)
+      {
+        key: options.key
+        componentNode: elem
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) -> tagInput.disabled(disabled)
+      }
 
   submit: ->
     {valid, errors} = hx.validateForm(@selector)
@@ -244,7 +263,7 @@ class Form extends hx.EventEmitter
     else
       result = {}
       @properties.forEach (key, it) =>
-        if not it.hidden
+        if not it.extras.hidden
           result[key] = @value(key)
       result
 
@@ -261,6 +280,21 @@ class Form extends hx.EventEmitter
         this
       else
         !!prop.hidden
+
+  disabled: (property, disabled) ->
+    if hx.isArray(property)
+      res = property.map (prop) => @disabled(prop, disabled)
+      if disabled? then this else res
+    else if @properties.has(property)
+      prop = @properties.get(property)
+      if disabled?
+        prop.disabled = disabled
+        prop.extras.disable(hx.select(prop.node), disabled)
+        @properties.set(property, prop)
+        this
+      else
+        !!prop.disabled
+
 
   node: (property) -> @properties.get(property).node if @properties.has(property)
 
@@ -298,7 +332,7 @@ class Form extends hx.EventEmitter
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
           else hx.select(node).value(value)
       else
-        if not it.hidden
+        if not it.hidden and not it.disabled
           value = switch it.type
             when 'checkbox' then hx.select(it.node).prop('checked')
             when 'radio' then hx.select(it.node).select('input:checked').value()

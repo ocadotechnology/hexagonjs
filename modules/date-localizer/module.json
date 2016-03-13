@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "component",
+    "event-emitter",
+    "util",
+    "format",
+    "preferences"
+  ],
+  "keywords": []
+}

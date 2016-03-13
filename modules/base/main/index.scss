@@ -51,11 +51,6 @@ input {
   border-width: 1px;
   padding: 0.4em;
 
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-
   &:invalid {
     border-width: 1px;
     border-style: dotted;
@@ -184,4 +179,13 @@ input[type=radio] {
 
 hr {
   border: 1px solid transparent;
+}
+
+input,
+textarea,
+select {
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }

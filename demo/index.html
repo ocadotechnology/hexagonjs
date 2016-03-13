@@ -4,6 +4,7 @@
   <title>Demo | Hexagon.js</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="hexagon.css">
+  <link rel="stylesheet" media="print" type="text/css" href="hexagon.print.css">
   <link rel="stylesheet" type="text/css" href="index.css">
   <script type="text/javascript" src="hexagon.js"></script>
   <script>
@@ -1352,24 +1353,14 @@
       <div class="hx-section exampleSection">
         <div class="example">
           <h3>Plot (Graphs)</h3>
-          <div id="graph" class="graph-example hx-margin"></div>
+          <div id="graph" class="hx-margin"></div>
           <script>
-            var graph = new hx.Graph('#graph')
-            var axis = graph.addAxis({
-              x: {
-                title: 'Time'
-              },
-              y: {
-                title: 'Value',
-                scalePaddingMax: 0.1
-              }
-            })
 
             var randomSign = function(){
               return Math.random() > 0.5 ? 1 : 0
             }
 
-            var createData = function(a, b, c) {
+            var createData = function(a, b, c){
               var offset = 0.1 + Math.random()
               return hx.range(50).map(function(i){
                 return {
@@ -1379,21 +1370,33 @@
               })
             }
 
-            hx.theme.plot.colors.forEach(function(col, i) {
-              axis.addSeries('line', {
-                title: 'Series ' + (i+1),
-                data: createData(randomSign(), randomSign(), randomSign()),
-                labelInterpolated: true,
-                markersEnabled: true,
-                strokeEnabled: true,
-                strokeColor: col,
-                fillEnabled: true,
-                fillColor: hx.color(col).alpha(0.2).toString(),
-                group: 'some-group'
-              })
-            })
+            var axes = [{
+              series: hx.theme.plot.colors.map(function(col, i) {
+                return {
+                  type: 'line',
+                  options: {
+                    title: 'Series ' + (i+1),
+                    data: createData(randomSign(), randomSign(), randomSign()),
+                    labelInterpolated: true,
+                    markersEnabled: true,
+                    strokeEnabled: true,
+                    strokeColor: col,
+                    fillEnabled: true,
+                    fillColor: hx.color(col).alpha(0.2).toString(),
+                    group: 'some-group'
+                  }
+                }
+              }),
+              x: {
+                title: 'Time'
+              },
+              y: {
+                title: 'Value',
+                scalePaddingMax: 0.1
+              }
+            }]
 
-            graph.render()
+            new hx.select('#graph').add(hx.graph({axes: axes}).classed('graph-example', true))
           </script>
         </div>
       </div>
@@ -1721,6 +1724,7 @@
 
 
 <script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="hexagon.print.js"></script>
 </body>
 </html>
 

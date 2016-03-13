@@ -25,7 +25,7 @@
     }
   }
 
-  tbody th:first-child {
+  tbody > tr > th:first-child {
     border-right-width: 2px;
     border-right-style: solid;
   }

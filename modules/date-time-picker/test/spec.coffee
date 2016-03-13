@@ -10,7 +10,7 @@ describe 'date-time-picker', ->
       it 'datetimepicker.month', -> dp.month(10).should.equal(dp)
       it 'datetimepicker.second', -> dp.second(10).should.equal(dp)
       it 'datetimepicker.year', -> dp.year(10).should.equal(dp)
-      it 'datetimepicker.locale', -> dp.locale('en-gb').should.equal(dp)
+      it 'datetimepicker.locale', -> dp.locale('en-GB').should.equal(dp)
       it 'datetimepicker.disabled', -> dp.disabled(true).should.equal(dp)
 
     describe 'should return values for setter/getters without parameters:', ->
@@ -25,5 +25,5 @@ describe 'date-time-picker', ->
       it 'datetimepicker.month', -> dp.month(10).month().should.equal(10)
       it 'datetimepicker.second', -> dp.second(10).second().should.equal(10)
       it 'datetimepicker.year', -> dp.year(10).year().should.equal(10)
-      it 'datetimepicker.locale', -> dp.locale('en-gb').locale().should.equal('en-gb')
+      it 'datetimepicker.locale', -> dp.locale('en-GB').locale().should.equal('en-GB')
       it 'datetimepicker.disabled', -> dp.disabled(true).disabled().should.equal(true)

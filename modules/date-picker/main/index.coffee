@@ -142,7 +142,7 @@ buildCalendar = (datepicker, mode) ->
   mode ?= _.mode
   _.mode = mode
 
-  localiser = datepicker.localiser
+  localizer = datepicker.localizer
 
   visible = datepicker.visibleMonth()
 
@@ -150,20 +150,20 @@ buildCalendar = (datepicker, mode) ->
     when 'd'
       data = getCalendarDecade(visible.year)
       cls = 'hx-calendar-decade'
-      text = localiser.localiseDecade(data[0][1], data[3][1])
+      text = localizer.year(data[0][1]) + ' - ' + localizer.year(data[3][1])
     when 'y'
       data = getCalendarYear()
       cls = 'hx-calendar-year'
-      text = localiser.localiseYear(visible.year)
+      text = localizer.year(visible.year)
     else
-      data = getCalendarMonth(visible.year, visible.month - 1, localiser.localiseWeekStart())
+      data = getCalendarMonth(visible.year, visible.month - 1, localizer.weekStart())
       data.unshift 'days' # When the update gets to this it adds the days of the week as a row
       cls = 'hx-calendar-month'
-      text = localiser.localiseMonth(visible.month - 1) + ' / ' + localiser.localiseYear(visible.year)
+      text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year)
 
   _.calendarGrid.class('hx-calendar-grid ' + cls)
   _.calendarHeadBtn.text(text)
-  _.calendarTodayButton?.text(localiser.localiseToday())
+  _.calendarTodayButton?.text(localizer.todayText())
   _.calendarView.apply(data)
 
 calendarGridUpdate = (datepicker, data, elem, index, mode) ->
@@ -175,7 +175,7 @@ calendarGridUpdate = (datepicker, data, elem, index, mode) ->
       .classed 'hx-grid-row-heading', true
       .view '.hx-grid'
       .update (d) -> @text(d).node()
-      .apply(datepicker.localiser.localiseWeek())
+      .apply(datepicker.localizer.weekDays())
   else
     element.view('.hx-grid')
       .enter (d) ->
@@ -209,17 +209,17 @@ calendarGridRowUpdate = (datepicker, data, elem, index, rowIndex, mode) ->
     switch mode
       when 'd'
         year = data
-        screenVal = datepicker.localiser.localiseYear(data)
+        screenVal = datepicker.localizer.year(data)
         selectable = if rowIndex is 0 then index isnt 0 else if rowIndex is 3 then index isnt 2 else true
       when 'y'
         month = data
         year = visible.year
-        screenVal = datepicker.localiser.localiseMonth(data)
+        screenVal = datepicker.localizer.month(data)
       else
         day = data
         month = visible.month - 1
         year = visible.year
-        screenVal = datepicker.localiser.localiseDay(data)
+        screenVal = datepicker.localizer.day(data)
 
     isValid = isSelectable(datepicker, year, month, day) and selectable
 
@@ -289,13 +289,13 @@ buildDatepicker = (datepicker) ->
   day = datepicker.day()
   month = datepicker.month()
   year = datepicker.year()
-  localiser = datepicker.localiser
+  localizer = datepicker.localizer
   _.dayPicker.suppressed 'change', true
   _.monthPicker.suppressed 'change', true
   _.yearPicker.suppressed 'change', true
-  _.dayPicker.value(day, localiser.localiseDay(day, true))
-  _.monthPicker.value(month, localiser.localiseMonth(month - 1, true))
-  _.yearPicker.value(year, localiser.localiseYear(year))
+  _.dayPicker.value(day, localizer.day(day, true))
+  _.monthPicker.value(month, localizer.month(month - 1, true))
+  _.yearPicker.value(year, localizer.year(year))
   _.dayPicker.suppressed 'change', false
   _.monthPicker.suppressed 'change', false
   _.yearPicker.suppressed 'change', false
@@ -308,14 +308,14 @@ setupInput = (datepicker) ->
 
   if datepicker.options.selectRange
     range = datepicker.range()
-    _.inputStart.value(datepicker.localiser.localiseDate range.start, _.useInbuilt)
-    _.inputEnd.value(datepicker.localiser.localiseDate range.end or range.start, _.useInbuilt)
+    _.inputStart.value(datepicker.localizer.date range.start, _.useInbuilt)
+    _.inputEnd.value(datepicker.localizer.date range.end or range.start, _.useInbuilt)
   else
-    _.input.value(datepicker.localiser.localiseDate datepicker.date(), _.useInbuilt)
+    _.input.value(datepicker.localizer.date datepicker.date(), _.useInbuilt)
 
 
 # Function for updating the input fields and emitting the change event.
-updateDatepicker = (datepicker) ->
+updateDatepicker = (datepicker, suppress) ->
   _ = datepicker._
   validateDates(datepicker)
   if not _.preventFeedback
@@ -326,7 +326,8 @@ updateDatepicker = (datepicker) ->
     else
       _.input.classed('hx-date-error', false)
     setupInput datepicker
-    datepicker.emit 'change', {type: if _.userEvent then 'user' else 'api'}
+    if not suppress
+      datepicker.emit 'change', {type: if _.userEvent then 'user' else 'api'}
     _.userEvent = false
     _.preventFeedback = false
 
@@ -334,181 +335,6 @@ updateDatepicker = (datepicker) ->
       buildCalendar datepicker
     else
       buildDatepicker datepicker
-
-
-# Localisers
-
-class Localiser
-  constructor: -> @currentLocale = 'en-gb'
-
-  dateOrder: -> ['DD','MM','YYYY']
-
-  localiseWeekStart: -> 0
-
-  localiseWeek: -> ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-
-  localiseDay: (day, pad) -> if pad then zeroPad(day) else day
-
-  localiseMonth: (month, short) ->
-    if short then zeroPad(month + 1)
-    else
-      [
-        'Jan'
-        'Feb'
-        'Mar'
-        'Apr'
-        'May'
-        'Jun'
-        'Jul'
-        'Aug'
-        'Sep'
-        'Oct'
-        'Nov'
-        'Dec'
-      ][month]
-
-  localiseYear: (year) -> year
-
-  localiseDecade: (start, end) ->
-    @localiseYear(start) + ' - ' + @localiseYear(end)
-
-  localiseDate: (date, useInbuilt) ->
-    if useInbuilt
-      date.getFullYear() + '-' +
-      zeroPad(date.getMonth() + 1 )+ '-' +
-      zeroPad(date.getDate())
-    else
-      zeroPad(date.getDate()) + '/' + zeroPad(date.getMonth() + 1) + '/' + date.getFullYear()
-
-  localiseToday: -> 'Today'
-
-  locale: (locale) ->
-    # Can't set the locale for default localiser
-    if locale?
-      return
-    else
-      'en-gb'
-
-  stringToDate: (dateString, inbuilt) ->
-    if inbuilt
-      order = ['YYYY', 'MM', 'DD']
-      split = dateString.split('-')
-    else
-      order = @dateOrder()
-      split = dateString.split('/')
-    allValid = split.length is 3 and not split.some (e) -> e is '' or e is '0'
-    if allValid
-      format = ''
-      for w, i in order
-        part = split[i]
-        switch w
-          when 'DD'
-            daysValid = part.length < 3 and part isnt ''
-            day = Number split[i]
-          when 'MM'
-            monthsValid = part.length < 3 and part isnt ''
-            month = Number split[i]
-          when 'YYYY'
-            yearsValid = part.length < 5 and part isnt ''
-            year = Number split[i]
-            if year.toString().length is 2 then year += 2000
-      if daysValid and monthsValid and yearsValid
-        new Date(year, month - 1, day)
-      else
-        new Date('Invalid Date')
-    else
-      new Date('Invalid Date')
-
-
-class LocaliserMoment
-  constructor: ->
-    @currentLocale = moment.locale()
-
-  dateOrder: ->
-    date = moment({year:2003, month:11, day:22}).locale(@currentLocale)
-    dateCheck = date.format('L')
-    yearIndex = dateCheck.indexOf(date.format('YYYY'))
-    monthIndex = dateCheck.indexOf(date.format('MM'))
-    dayIndex = dateCheck.indexOf(date.format('DD'))
-
-    result = []
-    for i in [0..dateCheck.length]
-      switch i
-        when yearIndex then result.push 'YYYY'
-        when monthIndex then result.push 'MM'
-        when dayIndex then result.push 'DD'
-
-    if result.length is 0 then result = ['DD','MM','YYYY']
-    result
-
-  localiseWeekStart: -> moment().weekday(0).toDate().getDay()
-
-  localiseWeek: ->
-    dayDate = moment().weekday(0)
-    dayDate.locale(@currentLocale)
-    dayNames = [dayDate.format('dd')]
-    for i in [0...6]
-      dayNames.push(dayDate.add(1,'d').format('dd'))
-    dayNames
-
-  localiseDay: (day, pad) ->
-    moment({day: day, month: 0}).locale(@currentLocale).format(if pad then 'DD' else 'D')
-
-  localiseMonth: (month, short) ->
-    moment({month: month}).locale(@currentLocale).format(if short then 'MM' else 'MMM')
-
-  localiseYear: (year) ->
-    moment({year: year}).locale(@currentLocale).format('YYYY')
-
-  localiseDecade: (start, end) ->
-    @localiseYear(start) + ' - ' + @localiseYear(end)
-
-  localiseDate: (date) ->
-    moment(date).locale(@currentLocale).format('L')
-
-  localiseToday: ->
-    today = moment({hour: 12, minute: 0, second: 0}).locale(@currentLocale)
-    tomorrow = today.clone().add(1, 'day')
-    todayArr = today.calendar().split('').reverse()
-    tomorrowArr = tomorrow.calendar().split('').reverse()
-    for i in [0..todayArr.length]
-      if todayArr[i] isnt tomorrowArr[i]
-        break
-    todayArr.splice(0, i)
-    todayArr.reverse().join('')
-
-  locale: (locale) ->
-    if locale?
-      @currentLocale = locale
-    else
-      @currentLocale
-
-  stringToDate: (dateString) ->
-    order = @dateOrder()
-    split = dateString.split('/')
-    allValid = split.length is 3 and not split.some (e) -> e is '' or e is '0'
-    if allValid
-      format = ''
-      for w, i in order
-        part = split[i]
-        switch w
-          when 'DD'
-            daysValid = part.length < 3 and part isnt ''
-            format += 'DD'
-          when 'MM'
-            monthsValid = part.length < 3 and part isnt ''
-            format += 'MM'
-          when 'YYYY'
-            yearsValid = part.length < 5 and part isnt ''
-            format += 'YYYY'
-      if daysValid and monthsValid and yearsValid
-        moment(dateString, format, @currentLocale).toDate()
-      else
-        new Date('Invalid Date')
-    else
-      new Date('Invalid Date')
-
-
 
 
 class DatePicker extends hx.EventEmitter
@@ -534,12 +360,16 @@ class DatePicker extends hx.EventEmitter
       mode: @options.defaultView
       startDate: new Date
       endDate: new Date
+      uniqueId: hx.randomId()
     }
+
+    hx.preferences.on 'localechange', 'hx.date-picker-' + _.uniqueId, => updateDatepicker this, true
+    hx.preferences.on 'timezonechange', 'hx.date-picker-' + _.uniqueId, => updateDatepicker this, true
 
     _.startDate.setHours(0, 0, 0, 0)
     _.endDate.setHours(0, 0, 0, 0)
 
-    @localiser = if moment? then new LocaliserMoment else new Localiser
+    @localizer = hx.dateTimeLocalizer()
 
     @selection = hx.select(@selector).classed('hx-date-picker', true)
 
@@ -560,8 +390,8 @@ class DatePicker extends hx.EventEmitter
         self.hide()
         clearTimeout timeout
         timeout = setTimeout ->
-          date1 = self.localiser.stringToDate(_.inputStart.value(), _.useInbuilt)
-          date2 = self.localiser.stringToDate(_.inputEnd.value(), _.useInbuilt)
+          date1 = self.localizer.stringToDate(_.inputStart.value(), _.useInbuilt)
+          date2 = self.localizer.stringToDate(_.inputEnd.value(), _.useInbuilt)
           if which and date2 < date1
             date1 = date2
             _.inputStart.value(_.inputEnd.value())
@@ -595,7 +425,7 @@ class DatePicker extends hx.EventEmitter
           self.hide()
           clearTimeout timeout
           timeout = setTimeout ->
-            date = self.localiser.stringToDate(_.input.value(), _.useInbuilt)
+            date = self.localizer.stringToDate(_.input.value(), _.useInbuilt)
             if date.getTime()
               if date.getTime() isnt self.date().getTime()
                 self.date(date)
@@ -643,7 +473,7 @@ class DatePicker extends hx.EventEmitter
       _.calendarHeadBtn = calendarHeader.append('button')
         .class('hx-btn hx-btn-invert hx-calendar-button')
         .on 'click', 'hx.date-picker', ->
-           switch _.mode
+          switch _.mode
             when 'd' then return
             when 'y' then buildCalendar self, 'd'
             else buildCalendar self, 'y'
@@ -706,7 +536,7 @@ class DatePicker extends hx.EventEmitter
           selection = hx.select(elem)
 
           # add nodes in the correct order
-          for i in self.localiser.dateOrder()
+          for i in self.localizer.dateOrder()
             switch i
               when 'DD' then selection.append dayNode
               when 'MM' then selection.append monthNode
@@ -753,7 +583,7 @@ class DatePicker extends hx.EventEmitter
     this
 
   getScreenDate: (endDate) ->
-    @localiser.localiseDate if not endDate then _.startDate else _.endDate
+    @localizer.date if not endDate then _.startDate else _.endDate
 
   visibleMonth: (month, year) ->
     _ = @_
@@ -865,12 +695,12 @@ class DatePicker extends hx.EventEmitter
       _.validRange
 
   locale: (locale) ->
+    hx.deprecatedWarning 'hx.DatePicker::locale is deprecated. Use hx.preferences.locale instead.'
     if arguments.length > 0
-      @localiser.locale(locale)
-      updateDatepicker(this)
+      hx.preferences.locale locale
       this
     else
-      @localiser.locale()
+      hx.preferences.locale()
 
 hx.datePicker = (options) ->
   selection = hx.detached('div')

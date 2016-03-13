@@ -13,12 +13,12 @@ describe 'hx-meter', ->
 
     })
 
-    expect(meter.value().total).toEqual(123)
-    expect(meter.value().completed).toEqual(456)
-    expect(meter.value().tracker).toEqual(789)
-    expect(meter.value().marker).toEqual(246)
-    expect(meter.value().unitText).toEqual('banana')
-    expect(meter.value().markerText).toEqual('strawberry')
+    meter.value().total.should.equal(123)
+    meter.value().completed.should.equal(456)
+    meter.value().tracker.should.equal(789)
+    meter.value().marker.should.equal(246)
+    meter.value().unitText.should.equal('banana')
+    meter.value().markerText.should.equal('strawberry')
 
   it 'setting partial values should be fine', ->
     meter = new hx.Meter(document.createElement('div'))
@@ -35,10 +35,10 @@ describe 'hx-meter', ->
       unitText: 'banana'
     })
 
-    expect(meter.value().total).toEqual(123)
-    expect(meter.value().completed).toEqual(456)
-    expect(meter.value().tracker).toEqual(789)
-    expect(meter.value().marker).toEqual(246)
-    expect(meter.value().unitText).toEqual('banana')
-    expect(meter.value().markerText).toEqual('strawberry')
+    meter.value().total.should.equal(123)
+    meter.value().completed.should.equal(456)
+    meter.value().tracker.should.equal(789)
+    meter.value().marker.should.equal(246)
+    meter.value().unitText.should.equal('banana')
+    meter.value().markerText.should.equal('strawberry')
 
