@@ -25,7 +25,7 @@ class Modal extends hx.EventEmitter
 
   show: (cb) ->
     # Clears the focus so pressing 'enter' does not cause buttons to call modal.show()
-    document.activeElement.blur()
+    document.activeElement?.blur()
     body = hx.select('body').classed('hx-modal-open', true)
     shade = body.select('.hx-modal-shade')
     if shade.empty()
