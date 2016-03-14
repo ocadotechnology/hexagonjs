@@ -2,6 +2,8 @@ util = require('modules/util/main')
 hxSet = require('modules/set/main')
 hxMap = require('modules/map/main')
 hxList = require('modules/list/main')
+chai = require('chai')
+should = chai.should()
 
 describe "Util", ->
 
@@ -256,7 +258,7 @@ describe "Util", ->
       {key: 'c', value: 6}
     ]
 
-    expect(util.groupBy(values, (d) -> d.key)).toEqual([
+    util.groupBy(values, (d) -> d.key).should.eql([
       ['a', [{key: 'a', value: 1}, {key: 'a', value: 2}, {key: 'a', value: 3}]],
       ['b', [{key: 'b', value: 4}, {key: 'b', value: 5} ]],
       ['c', [{key: 'c', value: 6}]]
@@ -484,9 +486,9 @@ describe "Util", ->
     util.clone({a: 5, b: obj}).b.should.not.equal(obj)
 
     util.clone([1, 2, 3]).should.eql([1, 2, 3])
-    l = new util.List [1, "a", {}]
-    s = new util.Set [1, "a", {}]
-    m = new util.Map [["a", 5], [6, {}]]
+    l = new hxList [1, "a", {}]
+    s = new hxSet [1, "a", {}]
+    m = new hxMap [["a", 5], [6, {}]]
 
 
     util.clone(l).entries().should.eql(l.entries())

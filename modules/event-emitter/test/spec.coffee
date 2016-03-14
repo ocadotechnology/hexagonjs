@@ -1,14 +1,16 @@
+EventEmitter = require('modules/event-emitter/main')
+
 describe "EventEmitter", ->
 
   it "should work with a single callback registered", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = null
     eventEmitter.on('test-event', (data) -> received = data)
     eventEmitter.emit('test-event', "some-data")
     received.should.equal("some-data")
 
   it "should work with multiple callbacks registered to the same name", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     eventEmitter.on('test-event', (data) -> received1 = data)
@@ -18,7 +20,7 @@ describe "EventEmitter", ->
     received2.should.equal("some-data")
 
   it "should work with multiple callbacks registered to different names", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     eventEmitter.on('test-event1', (data) -> received1 = data)
@@ -29,35 +31,35 @@ describe "EventEmitter", ->
     received2.should.equal("some-data-2")
 
   it "should work with multiple events being emmitted to a single callback", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = 0
     eventEmitter.on('test-event', (data) -> if data is "some-data" then received++)
     eventEmitter.emit('test-event', "some-data") for _ in [1..7]
     received.should.equal(7)
 
   it "should be able to emit an event to a name with no listeners registered", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     (-> eventEmitter.emit('test-event', "some-data")).should.not.throw()
 
   it "should not receive events for a different name", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = "nothing"
     eventEmitter.on('not-test-event', (data) -> received = data)
     eventEmitter.emit('test-event', "some-data")
     received.should.equal("nothing")
 
   it "should know which handlers are registered", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     eventEmitter.on('test-event', (data) -> received = data)
     eventEmitter.has('test-event').should.equal(true)
 
   it "should know which handlers are registered when no name is used", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     eventEmitter.on(null, (data) -> received = data)
     eventEmitter.has('test-event').should.equal(true)
 
   it "should allow listening to all events", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     eventEmitter.on('test-event1', (data) -> received1 = data)
@@ -69,14 +71,14 @@ describe "EventEmitter", ->
     received2.should.equal("some-data-2")
 
   it "should supply the name correctly when listening to all events", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = null
     eventEmitter.on(null, (name, data) -> received = name)
     eventEmitter.emit('test-event-1', "some-data-1")
     received.should.equal("test-event-1")
 
   it "should be able to de-register a named handler", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = null
     handler = (data) -> received = data
     eventEmitter.on('test-event-1', handler)
@@ -87,7 +89,7 @@ describe "EventEmitter", ->
     received.should.equal("some-data-1")
 
   it "should be fine de-registering a handler that doesn't exist", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = null
     handler = (data) -> received = data
     eventEmitter.on('test-event-1', handler)
@@ -98,7 +100,7 @@ describe "EventEmitter", ->
     received.should.equal("some-data-2")
 
   it "should be fine de-registering a handler that doesn't exist for non named events", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = null
     handler = (data) -> received = data
     eventEmitter.on('test-event-1', handler)
@@ -109,7 +111,7 @@ describe "EventEmitter", ->
     received.should.equal("some-data-2")
 
   it "should be able to de-register a non named handler", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = null
     handler = (name, data) -> received = data
     eventEmitter.on(null, handler)
@@ -120,7 +122,7 @@ describe "EventEmitter", ->
     received.should.equal("some-data-1")
 
   it "should be able to de-register multiple handlers", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     handler1 = (data) -> received1 = data
@@ -136,7 +138,7 @@ describe "EventEmitter", ->
     received2.should.equal("some-data-1")
 
   it "should be able to de-register multiple handlers", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     received3 = null
@@ -161,8 +163,8 @@ describe "EventEmitter", ->
 
 
   it "should do standard piping correctly 1", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2)
@@ -172,8 +174,8 @@ describe "EventEmitter", ->
     received.should.equal('data')
 
   it "should do standard piping correctly 2", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2)
@@ -190,8 +192,8 @@ describe "EventEmitter", ->
 
 
   it "should do namespaced piping correctly 1", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2, 'namespace')
@@ -202,8 +204,8 @@ describe "EventEmitter", ->
 
 
   it "should do namespaced piping correctly 2", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2)
@@ -219,8 +221,8 @@ describe "EventEmitter", ->
     received.should.equal('data')
 
   it "should do filtered piping correctly 1", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2, undefined, ['event'])
@@ -233,8 +235,8 @@ describe "EventEmitter", ->
 
 
   it "should do filtered piping correctly 2", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2, undefined, ['event'])
@@ -252,8 +254,8 @@ describe "EventEmitter", ->
     received.should.equal('data1')
 
   it "should do filtered namespaced piping correctly 1", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2, 'namespace', ['event'])
@@ -266,8 +268,8 @@ describe "EventEmitter", ->
 
 
   it "should do filtered namespaced piping correctly 2", ->
-    ee1 = new hx.EventEmitter
-    ee2 = new hx.EventEmitter
+    ee1 = new EventEmitter
+    ee2 = new EventEmitter
     received = null
 
     ee1.pipe(ee2, 'namespace', ['event'])
@@ -285,14 +287,14 @@ describe "EventEmitter", ->
     received.should.equal('data1')
 
   it "registering a namespaced handler should work", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received = null
     eventEmitter.on('test-event', 'my-namespace', (data) -> received = data)
     eventEmitter.emit('test-event', "some-data")
     received.should.equal("some-data")
 
   it "registering a namespaced handler should work with a default handler", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     eventEmitter.on('test-event', 'my-namespace', (data) -> received1 = data)
@@ -302,7 +304,7 @@ describe "EventEmitter", ->
     received2.should.equal("some-data")
 
   it "removing a namespaced handler should work for a specific function", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     f1 = (data) -> received1 = data
@@ -316,7 +318,7 @@ describe "EventEmitter", ->
     received2.should.equal("some-data2")
 
   it "removing a namespaced handler by name and namespace should work", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     received3 = null
@@ -334,7 +336,7 @@ describe "EventEmitter", ->
     received3.should.equal("some-data2")
 
   it "removing from the default namespace should work", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     received3 = null
@@ -353,7 +355,7 @@ describe "EventEmitter", ->
 
 
   it "removing all handlers by name (even namespaced) should work", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     received3 = null
@@ -371,7 +373,7 @@ describe "EventEmitter", ->
     received3.should.equal("some-data")
 
   it "removing all handlers (even namespaced) should work", ->
-    eventEmitter = new hx.EventEmitter
+    eventEmitter = new EventEmitter
     received1 = null
     received2 = null
     received3 = null
@@ -389,7 +391,7 @@ describe "EventEmitter", ->
     received3.should.equal("some-data")
 
   it 'suppressed works', ->
-    ee = new hx.EventEmitter
+    ee = new EventEmitter
     received = 0
     ee.on 'test-event', -> received++
     ee.emit('test-event')
@@ -402,7 +404,7 @@ describe "EventEmitter", ->
     received.should.equal(2)
 
   it 'suppressed works with namespaces', ->
-    ee = new hx.EventEmitter
+    ee = new EventEmitter
     received = 0
     ee.on 'test-event', 'namespace', -> received++
     ee.emit('test-event')
@@ -415,7 +417,7 @@ describe "EventEmitter", ->
     received.should.equal(2)
 
   it 'suppressed returns the right types', ->
-    ee = new hx.EventEmitter
+    ee = new EventEmitter
     ee.suppressed('test-event').should.equal(false)
     ee.suppressed('test-event', true).should.equal(ee)
     ee.suppressed('test-event').should.equal(true)

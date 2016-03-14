@@ -1,9 +1,12 @@
+util = require('modules/util/main/utils')
+hxMap = require('modules/map/main')
+hxList = require('modules/list/main')
 
 class BasicEventEmitter
 
   constructor: ->
-    @callbacks = new hx.Map
-    @allCallbacks = new hx.List
+    @callbacks = new hxMap
+    @allCallbacks = new hxList
 
   # emit an object to all callbacks registered with the name given
   emit: (name, data) ->
@@ -15,7 +18,7 @@ class BasicEventEmitter
   on: (name, callback) ->
     if name
       if not @callbacks.has(name)
-        @callbacks.set(name, new hx.List)
+        @callbacks.set(name, new hxList)
       @callbacks.get(name).add callback
     else
       @allCallbacks.add callback
@@ -37,10 +40,10 @@ class BasicEventEmitter
         @allCallbacks.remove(callback)
     else
       if name
-        @callbacks.set(name, new hx.List)
+        @callbacks.set(name, new hxList)
       else
-        @callbacks = new hx.Map
-        @allCallbacks = new hx.List
+        @callbacks = new hxMap
+        @allCallbacks = new hxList
     this
 
   # lets you pipe events through to another event emitter
@@ -63,9 +66,9 @@ class BasicEventEmitter
 
 class EventEmitter
   constructor: ->
-    @suppressedMap = new hx.Map
-    @emitters = new hx.List
-    @emittersMap = new hx.Map
+    @suppressedMap = new hxMap
+    @emitters = new hxList
+    @emittersMap = new hxMap
     @global = addEmitter(this, 'default')
 
   addEmitter = (ee, namespace) ->
@@ -103,16 +106,16 @@ class EventEmitter
   # register a callback against the name given
   on: (name, namespace, callback) ->
 
-    # XXX: Deprecated event check - This is useful to have if we need to deprecated events in the future
+    # NOTE: Deprecated event check - This is useful to have if we need to deprecated events in the future
     # if (dep = @deprecatedEvents?[name])?
     #   deprecatedEventWarning(dep.module, name, dep.event)
     #   name = dep.event
 
     if namespace is 'default'
-      hx.consoleWarning('"default" is a reserved namespace. It can not be used as a namespace name.')
+      util.consoleWarning('"default" is a reserved namespace. It can not be used as a namespace name.')
       return this
 
-    if hx.isString(namespace)
+    if util.isString(namespace)
       ee = @emittersMap.get(namespace)
       if not ee
         ee = addEmitter(this, namespace)
@@ -129,7 +132,7 @@ class EventEmitter
 
   # deregisters a callback
   off: (name, namespace, callback) ->
-    if hx.isString(namespace)
+    if util.isString(namespace)
       @emittersMap.get(namespace)?.off(name, callback)
     else
       for emitter in @emitters.entries()
@@ -141,12 +144,11 @@ class EventEmitter
     @global.pipe(eventEmitter, prefix, filter)
     this
 
-hx.EventEmitter = EventEmitter
 
-# deprecatedEventWarning = (module, deprecatedEvent, newEvent) ->
-#   message = if deprecatedEvent is newEvent
-#     'Check the docs for alternatives.'
-#   else
-#     'Use ' + newEvent + ' instead.'
+# export
+module.exports = EventEmitter
 
-#   hx.deprecatedWarning module + ': ' + deprecatedEvent, message
+# backwards compatiblity
+module.exports.hx = {
+  EventEmitter: EventEmitter
+}

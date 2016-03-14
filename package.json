@@ -55,15 +55,14 @@
     "body-parser": "^1.14.2",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "chai-spies": "^0.7.1",
     "coffee-coverage-loader": "^1.0.2",
     "cors": "^2.7.1",
+    "coveralls": "^2.11.6",
     "express": "^4.13.3",
     "ibrik-instrumenter-loader": "^0.1.1",
-    "chai-spies": "^0.7.1",
-    "coveralls": "^2.11.6",
     "istanbul": "^0.4.1",
-    "mocha": "^2.3.3",
-    "mocha-loader": "^0.7.1",
+    "mocha": "^2.4.5",
     "sinon": "^1.17.1",
     "supports-color": "^3.1.2"
   }

@@ -1,4 +1,4 @@
-utils = require('../../util/main')
+utils = require('modules/util/main/utils')
 
 componentToHex = (c) ->
   hex = c.toString(16)
@@ -226,7 +226,7 @@ isColor = (obj) -> obj instanceof Color
 
 module.exports = color
 module.exports.isColorString = isColorString
-module.exports.isColor = f
+module.exports.isColor = isColor
 
 module.exports.hx = {
   color: color,

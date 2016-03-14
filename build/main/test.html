@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="text/javascript" src="hexagon.css"></script>
+  <link rel="stylesheet" href="mocha.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="hexagon.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
+<div id="mocha"></div>
 <script>
   window.hxTestFinished = function() {
     var XHR = new XMLHttpRequest();
@@ -15,6 +17,15 @@
     ]));
   }
 </script>
+<script type="text/javascript" src="mocha.js"></script>
+<script>
+  mocha.setup('bdd')
+</script>
 <script type="text/javascript" src="hexagon.test.js"></script>
+<script>
+  mocha.run(function () {
+    console.log('done')
+  })
+</script>
 </body>
 </html>

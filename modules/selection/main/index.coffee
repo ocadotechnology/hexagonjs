@@ -1,3 +1,9 @@
+ElementSet = require('./element-set')
+util = require('modules/util/main/utils')
+getHexagonElementDataObject = require('./get-hexagon-element-data-object')
+hxMap = require('modules/map/main')
+hxSet = require('modules/set/main')
+EventEmitter = require('modules/event-emitter/main')
 
 namespaces = {
   svg: 'http://www.w3.org/2000/svg'
@@ -18,40 +24,6 @@ getMethod = (node, methodName) ->
 
 selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, selector)
 selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
-
-getHexagonElementDataObject = (element, createIfNotExists = true) ->
-  if createIfNotExists
-    element.__hx__ ?= {}
-    element.__hx__
-  else
-    if element.__hx__ then element.__hx__
-
-class ElementSet
-  constructor: ->
-    @elements = new hx.List
-    @ids = new hx.Set
-
-  add: (element) ->
-    d = getHexagonElementDataObject(element)
-    d.id ?= hx.randomId()
-    id = d.id
-
-    if not @ids.has id
-      @ids.add id
-      @elements.add element
-
-  remove: (element) ->
-    d = getHexagonElementDataObject(element, false)
-    if d and d.id
-      if @ids.has d.id
-        @elements.remove element
-        @ids.delete d.id
-
-  entries: -> @elements.entries()
-
-  has: (element) ->
-    d = getHexagonElementDataObject(element)
-    d and d.id and @ids.has(d.id) or false
 
 closestParent = (selector, node) ->
   node = node.parentNode
@@ -81,7 +53,7 @@ flattenNodes = (nodes) ->
 
 #XXX: could check for the existance of classList (https://developer.mozilla.org/en-US/docs/Web/API/element.classList)
 classed = (node, _class, include) ->
-  selection = hx.select(node)
+  selection = select(node)
   c = selection.attr('class')
   newList = _class.split(' ').filter((d) -> d!='')
   if not c
@@ -121,8 +93,8 @@ class Selection
 
   # selects the first node matching the selector relative to this selection's nodes
   select: (selector) ->
-    if not hx.isString(selector)
-      hx.consoleWarning(
+    if not util.isString(selector)
+      util.consoleWarning(
         'Selection.select was passed the wrong argument type',
         'Selection.select only accepts a string argument, you supplied:',
         selector
@@ -135,8 +107,8 @@ class Selection
 
   # selects all nodes matching the selector relative to this selection's nodes
   selectAll: (selector) ->
-    if not hx.isString(selector)
-      hx.consoleWarning(
+    if not util.isString(selector)
+      util.consoleWarning(
         'Selection.selectAll was passed the wrong argument type',
         'Selection.selectAll only accepts a string argument, you supplied:',
         selector
@@ -147,8 +119,8 @@ class Selection
 
   # traverses up the dom to find the closest matching element. returns a selection containing the result
   closest: (selector) ->
-    s = if not hx.isString(selector)
-      hx.consoleWarning(
+    s = if not util.isString(selector)
+      util.consoleWarning(
         'Selection.closest was passed the wrong argument type',
         'Selection.closest only accepts a string argument, you supplied:',
         selector
@@ -163,14 +135,14 @@ class Selection
   attachSingle = (selection, element, attacher) ->
     if element is undefined
       return []
-    if not (hx.isString(element) or (element instanceof Selection) or (element instanceof Element))
-      hx.consoleWarning('Selection Api error when attaching element', 'Expecting an Element, Selection or string argument, you supplied:', element)
+    if not (util.isString(element) or (element instanceof Selection) or (element instanceof Element))
+      util.consoleWarning('Selection Api error when attaching element', 'Expecting an Element, Selection or string argument, you supplied:', element)
       return []
     if not selection.singleSelection and (element instanceof Element or element instanceof Selection)
-      hx.consoleWarning('Selection Api error when attaching element', 'You can not attach an existing element to a selection with multiple elements')
+      util.consoleWarning('Selection Api error when attaching element', 'You can not attach an existing element to a selection with multiple elements')
       return []
     if selection.empty()
-      hx.consoleWarning('Selection Api error when attaching element', 'You can not attach an element to an empty selection')
+      util.consoleWarning('Selection Api error when attaching element', 'You can not attach an element to an empty selection')
       return []
 
     if element instanceof Element
@@ -188,11 +160,11 @@ class Selection
 
   attach = (selection, name, attacher, reverse = false) ->
     singleSelection = selection.singleSelection
-    newNodes = if hx.isArray(name)
+    newNodes = if Array.isArray(name)
       singleSelection = false
       dir = if reverse then -1 else 1
       ns = (attachSingle(selection, element, attacher) for element in name by dir)
-      hx.flatten(if reverse then ns.reverse() else ns)
+      util.flatten(if reverse then ns.reverse() else ns)
     else
       attachSingle(selection, name, attacher)
 
@@ -323,7 +295,7 @@ class Selection
 
   # subscribe for dom events from the underlying nodes
   on: (name, namespace, f) ->
-    if not hx.isString(namespace)
+    if not util.isString(namespace)
       f = namespace
       namespace = 'hx.selection'
 
@@ -335,10 +307,10 @@ class Selection
       eventEmitter = if data.eventEmitter
         data.eventEmitter
       else
-        data.eventEmitter = new hx.EventEmitter
-      data.eventAugmenters ?= new hx.Map
+        data.eventEmitter = new EventEmitter
+      data.eventAugmenters ?= new hxMap
 
-      data.listenerNamesRegistered ?= new hx.Set
+      data.listenerNamesRegistered ?= new hxSet
 
       if not data.listenerNamesRegistered.has(name)
         handler = (e) -> eventEmitter.emit(name, e)
@@ -362,7 +334,7 @@ class Selection
 
   # unsubscribe for dom events from the underlying nodes
   off: (name, namespace, f) ->
-    if not hx.isString(namespace)
+    if not util.isString(namespace)
       f = namespace
       namespace = undefined
 
@@ -391,7 +363,7 @@ class Selection
     else
       values = for node in @nodes
         data = getHexagonElementDataObject(node)
-        data.data ?= new hx.Map
+        data.data ?= new hxMap
         data.data.set(key, value)
       this
 
@@ -440,16 +412,16 @@ select = (selector, isArray) ->
   s
 
 # expose
-hx.select = (selector) ->
+hxSelect = (selector) ->
   if selector instanceof Selection
-    hx.consoleWarning(
+    util.consoleWarning(
       'hx.select was passed a selection',
       'Calling hx.select on a selection returns the same selection',
       selector
     )
     selector
-  else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or hx.isString(selector) or selector is document or selector is window)
-    hx.consoleWarning(
+  else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or util.isString(selector) or selector is document or selector is window)
+    util.consoleWarning(
       'hx.select was passed the wrong argument type',
       'hx.select only accepts a HTMLElement, SVGElement or string argument, you supplied:',
       selector
@@ -458,31 +430,39 @@ hx.select = (selector) ->
   else
     select(selector)
 
-hx.select.getHexagonElementDataObject = getHexagonElementDataObject
+hxSelect.getHexagonElementDataObject = getHexagonElementDataObject
 
-hx.select.addEventAugmenter = (augmenter) -> augmenters.push augmenter
+hxSelect.addEventAugmenter = (augmenter) -> augmenters.push augmenter
 
-hx.selectAll = (selector) ->
-  if not (hx.isString(selector) or hx.isArray(selector))
-    hx.consoleWarning(
+hxSelectAll = (selector) ->
+  if not (util.isString(selector) or Array.isArray(selector))
+    util.consoleWarning(
       'hx.selectAll was passed the wrong argument type',
       'hx.selectAll only accepts a string argument, you supplied:',
       selector
     )
     new Selection([])
   else
-    if hx.isArray(selector)
+    if util.isArray(selector)
       select(selector, true)
     else
       select(document).selectAll(selector)
 
-hx.detached = (name, namespace) ->
+detached = (name, namespace) ->
   namespace = if namespaces.hasOwnProperty(name) then namespaces[name] else namespaces.xhtml
-  hx.select(document.createElementNS(namespace, name))
+  new Selection([document.createElementNS(namespace, name)])
 
-# expose the Selection prototype so that it can be extended
-hx.Selection = Selection
 
-hx._.selection = {
-  ElementSet: ElementSet
+# expose
+module.exports = hxSelect
+module.exports.selectAll = hxSelectAll
+module.exports.detached = detached
+module.exports.Selection = Selection
+
+# backwards compatiblity
+module.exports.hx = {
+  select: hxSelect,
+  selectAll: hxSelectAll,
+  detached: detached,
+  Selection: Selection
 }

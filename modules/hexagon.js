@@ -9,8 +9,12 @@ const merge = (objs) => {
   return res
 }
 
-export default merge([
+module.exports = merge([
   require('./set/main'),
   require('./map/main'),
-  require('./list/main')
+  require('./list/main'),
+  require('./color/main'),
+  require('./util/main'),
+  require('./event-emitter/main'),
+  require('./selection/main')
 ])

@@ -1,4 +1,5 @@
-color = require('../main')
+color = require('modules/color/main')
+should = require('chai').should()
 
 describe 'color', ->
   describe 'color', ->
@@ -79,69 +80,69 @@ describe 'color', ->
 
   describe 'hx.isColor', ->
     it 'should return true for a color instance', ->
-      color.isColor(color()).should.eql(true)
+      color.isColor(color()).should.equal(true)
 
     it 'should return false for a color instance', ->
-      color.isColor({}).should.eql(false)
+      color.isColor({}).should.equal(false)
 
   describe 'hx.isColorString', ->
     it 'should return false when an invalid color string is passed in ', ->
-      color.isColorString('#GGGGGG').should.eql(false)
+      color.isColorString('#GGGGGG').should.equal(false)
 
     it 'should return false when an invalid color string is passed in ', ->
-      color.isColorString(123).should.eql(false)
+      color.isColorString(123).should.equal(false)
 
     it 'should return false when an invalid color string is passed in ', ->
-      color.isColorString({}).should.eql(false)
+      color.isColorString({}).should.equal(false)
 
     it 'should return false when an invalid color string is passed in ', ->
-      color.isColorString(->).should.eql(false)
+      color.isColorString(->).should.equal(false)
 
     it 'should return false when an invalid color string is passed in ', ->
-      color.isColorString('not a string').should.eql(false)
+      color.isColorString('not a string').should.equal(false)
 
     it 'should return false when an invalid color string is passed in ', ->
-      color.isColorString('hsl(aasd, 12, 12)').should.eql(false)
+      color.isColorString('hsl(aasd, 12, 12)').should.equal(false)
 
     it 'should return false when an invalid color string is passed in ', ->
-      color.isColorString('rgb(aasd, 12, 12)').should.eql(false)
+      color.isColorString('rgb(aasd, 12, 12)').should.equal(false)
 
     it 'should return true when a valid color string is passed in ', ->
-      color.isColorString('#FFFFFF').should.eql(true)
+      color.isColorString('#FFFFFF').should.equal(true)
 
     it 'should return true when a valid color string is passed in (rgb)', ->
-      color.isColorString('rgb(255, 255, 255)').should.eql(true)
+      color.isColorString('rgb(255, 255, 255)').should.equal(true)
 
     it 'should return true when a valid color string is passed in (rgba)', ->
-      color.isColorString('rgba(255, 255, 255, 0.5)').should.eql(true)
+      color.isColorString('rgba(255, 255, 255, 0.5)').should.equal(true)
 
     it 'should return true when a valid color string is passed in hsl', ->
-      color.isColorString('hsl(50, 50, 50)').should.eql(true)
+      color.isColorString('hsl(50, 50, 50)').should.equal(true)
 
     it 'should return true when a valid color string is passed in hsla', ->
-      color.isColorString('hsl(50, 50, 50, 0.5)').should.eql(true)
+      color.isColorString('hsl(50, 50, 50, 0.5)').should.equal(true)
 
   describe 'Color::toString', ->
     it 'should return correct 6 character hex color by default', ->
-      color().toString().should.eql('#000000')
+      color().toString().should.equal('#000000')
 
     it 'should return correct hex string of color', ->
-      color(123,190,49).toString().should.eql('#7bbe31')
+      color(123,190,49).toString().should.equal('#7bbe31')
 
     it 'should return the rgba css string of a color when no type is passed in', ->
-      color(240,120,10,0.5).toString().should.eql('rgba(240,120,10,0.5)')
+      color(240,120,10,0.5).toString().should.equal('rgba(240,120,10,0.5)')
 
     it 'should return the rgb css string of a color', ->
-      color(240,120,10,0.5).toString('rgb').should.eql('rgb(240,120,10)')
+      color(240,120,10,0.5).toString('rgb').should.equal('rgb(240,120,10)')
 
     it 'should return the rgba css string of a color', ->
-      color(240,120,10,0.5).toString('rgba').should.eql('rgba(240,120,10,0.5)')
+      color(240,120,10,0.5).toString('rgba').should.equal('rgba(240,120,10,0.5)')
 
     it 'should return the hsl css string of a color', ->
-      color().hsl([10,50,50]).toString('hsl').should.eql('hsl(10,50%,50%)')
+      color().hsl([10,50,50]).toString('hsl').should.equal('hsl(10,50%,50%)')
 
     it 'should return the hsla css string of a color', ->
-      color().hsl([10,50,50,1]).toString('hsla').should.eql('hsla(10,50%,50%,1)')
+      color().hsl([10,50,50,1]).toString('hsla').should.equal('hsla(10,50%,50%,1)')
 
   describe 'Color::mix', ->
     it 'should return a 50/50 mix of two colors', ->
@@ -274,4 +275,3 @@ describe 'color', ->
     it 'should output in hex format', ->
       color([50,50,50]).range(undefined, undefined, undefined, 'hex')
         .should.eql(['#191919', '#212121', '#2a2a2a', '#323232', '#3a3a3a', '#434343', '#4b4b4b'])
-

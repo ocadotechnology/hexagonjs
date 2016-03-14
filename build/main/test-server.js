@@ -26,7 +26,7 @@ function coverage (req, res) {
 }
 
 app
-  .use(bodyParser())
+  .use(bodyParser({limit: '50mb'}))
   .use(cors())
   .post('/coverage', coverage)
   .listen(port, function () {

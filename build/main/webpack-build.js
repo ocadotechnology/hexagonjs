@@ -7,13 +7,13 @@ var fs = Promise.promisifyAll(require('fs-extra'))
 var compiler = webpack({
   context: path.join(__dirname, '..', '..'),
   entry: {
-    'hexagon.test': 'mocha!./modules/hexagon.spec'
+    'hexagon.test': './modules/hexagon.spec'
   },
   output: {
     path: path.join(__dirname, '..', '..', 'target', 'test'),
     filename: '[name].js',
     library: 'hx',
-    libraryTarget: 'umd'
+    libraryTarget: 'var'
   },
   babel: {
     presets: ['es2015', 'stage-0']
@@ -69,3 +69,6 @@ compiler.watch({}, function (err, stats) {
 })
 
 fs.copyAsync(path.join(__dirname, 'test.html'), path.join(__dirname, '..', '..', 'target', 'test', 'index.html'))
+
+fs.copyAsync(path.join(__dirname, '..', '..', 'node_modules', 'mocha', 'mocha.js'), path.join(__dirname, '..', '..', 'target', 'test', 'mocha.js'))
+fs.copyAsync(path.join(__dirname, '..', '..', 'node_modules', 'mocha', 'mocha.css'), path.join(__dirname, '..', '..', 'target', 'test', 'mocha.css'))
