@@ -5,7 +5,8 @@
     "util",
     "selection",
     "event-emitter",
-    "tag-input"
+    "tag-input",
+    "picker"
   ],
   "keywords": [
     "form",
