@@ -1,6 +1,6 @@
 {
   "name": "hexagon-js",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A modular, themeable collection of components for modern browsers",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
@@ -66,7 +66,6 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
     "karma-sinon": "^1.0.4",
-    "karma-slimerjs-launcher": "^0.2.0",
     "mocha": "^2.3.3",
     "phantomjs": "^1.9.18",
     "sinon": "^1.17.1"
