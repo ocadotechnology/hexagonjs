@@ -7,7 +7,7 @@ fileValidator = (file, acceptedExtensions) ->
   else
     true
 
-fileListToMap = (fileList, acceptedExtensions, emitter) ->
+fileListToMap = (fileList, acceptedExtensions, emitter, options) ->
   # Deals with duplicates if the file has the same UID
   # Also removes invalid files
   map = new hx.Map()
@@ -15,6 +15,8 @@ fileListToMap = (fileList, acceptedExtensions, emitter) ->
     if fileValidator file, acceptedExtensions
       fileUID = getFileUID file
       map.set(fileUID, file)
+      unless options.multiple
+        break
     else
       emitter.emit 'fileextensionerror',
         cause: 'user'
@@ -77,7 +79,7 @@ class FileInput extends hx.EventEmitter
       .add hx.detached('span').text resolvedOptions.buttonText
 
     noFilesTextDiv = hx.section()
-      .text resolvedOptions.noFilesText or ''
+      .text resolvedOptions.noFilesText
 
     selectedFiles = hx.section()
       .classed 'hx-file-input-selected', true
@@ -152,7 +154,7 @@ class FileInput extends hx.EventEmitter
     })
 
     input.on 'change', (e) =>
-      handleFiles fileListToMap(e.target.files, acceptedExtensions, this)
+      handleFiles fileListToMap(e.target.files, acceptedExtensions, this, resolvedOptions)
       input.value('')
 
     @_ =
@@ -172,7 +174,7 @@ class FileInput extends hx.EventEmitter
         preventDefault(e)
         unless self._.disabled
           files = e.dataTransfer.files
-          handleFiles fileListToMap(files, acceptedExtensions, this)
+          handleFiles fileListToMap(files, acceptedExtensions, this, resolvedOptions)
 
       selection
         .on 'dragenter', preventDefault
@@ -212,7 +214,12 @@ class FileInput extends hx.EventEmitter
       @_.fileMap = new hx.Map
       this
     else
-      @_.fileMap.values() unless @_.disabled
+      @_.fileMap.values()
 
 
 hx.FileInput = FileInput
+
+hx.fileInput = (options) ->
+  selection = hx.detached('div')
+  new FileInput(selection.node(), options)
+  selection
