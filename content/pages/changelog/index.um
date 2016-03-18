@@ -177,5 +177,9 @@
       @description
         @p: Several enhancements and bugfixes to do with the more commonly used components such as View and Data Table as well as additional functionality for Form Builder.
 
+    @version 1.2.1
+      @description
+        @p: Includes some bugfixes and improvements to under-the-hood behaviour.
+
   @h2: Key
   @changelog.key
