@@ -1,3 +1,29 @@
+getFileUID = (file) -> file.name + file.size + file.lastModified + file.type
+
+fileValidator = (file, acceptedExtensions) ->
+  if acceptedExtensions?.length
+    extension = file.name.substr(file.name.lastIndexOf('.')+1)
+    acceptedExtensions.indexOf(extension) > -1
+  else
+    true
+
+fileListToMap = (fileList, acceptedExtensions, emitter) ->
+  # Deals with duplicates if the file has the same UID
+  # Also removes invalid files
+  map = new hx.Map()
+  for file in fileList
+    if fileValidator file, acceptedExtensions
+      fileUID = getFileUID file
+      map.set(fileUID, file)
+    else
+      emitter.emit 'fileextensionerror',
+        cause: 'user'
+        value:
+          accepted: acceptedExtensions
+          filename: file.name
+  map
+
+
 class FileInput extends hx.EventEmitter
   constructor: (@selector, options) ->
     super
@@ -7,31 +33,78 @@ class FileInput extends hx.EventEmitter
     defaults =
       disabled: false
       fullWidth: false
-      accept: undefined
+      acceptedExtensions: undefined
       multiple: false
       dragEnabled: true
       buttonClass: 'hx-action'
       noFilesText: 'No File Chosen'
-      filesSelectedText: 'Files Selected'
+      filesselectedFiles: 'Files Selected'
       buttonText: 'Choose File'
 
     resolvedOptions = hx.merge defaults, options
+
+    # @on 'fileextensionerror', (d) ->
+    #   val = d.value
+    #   console.error "Attempted addition of file with invalid extension: #{val.filename}" +
+    #     "\nAccepted Extensions: #{val.accepted.join(', ')}"
+
+
+    if resolvedOptions.multiple and not options.buttonText
+      resolvedOptions.buttonText = 'Choose Files'
+
+    selection = hx.select @selector
+      .classed 'hx-file-input', true
+      .classed 'hx-file-input-full-width', resolvedOptions.fullWidth
+
+    if resolvedOptions.acceptedExtensions?.length > 0
+      acceptedExtensions = resolvedOptions.acceptedExtensions
+      acceptedExtensionsString = resolvedOptions.acceptedExtensions
+        .map((e) -> ".#{e}").join(',')
+
+    input = hx.detached 'input'
+      .class 'hx-file-input-hidden'
+      .attr 'type', 'file'
+      .attr 'accept', acceptedExtensionsString
+      .attr 'multiple', if resolvedOptions.multiple then 'multiple' else undefined
+
+    group = hx.detached 'div'
+      .class "hx-input-group hx-input-group-full-width hx-no-margin"
+
+    button = hx.detached 'button'
+      .class "hx-file-input-button hx-btn hx-no-margin #{resolvedOptions.buttonClass}"
+      .on 'click', -> input.node().click()
+      .add hx.detached('i').class('hx-file-input-icon hx-icon hx-icon-upload')
+      .add hx.detached('span').text resolvedOptions.buttonText
+
+    noFilesTextDiv = hx.section()
+      .text resolvedOptions.noFilesText or ''
+
+    selectedFiles = hx.section()
+      .classed 'hx-file-input-selected', true
+      .add noFilesTextDiv
 
     # Regex for checking for image mime type
     imageType = /^image\//
     filePreview = (file) ->
       if imageType.test(file.type)
-        image = hx.detached('img').class('hx-file-input-preview-image')
-        node = image.node()
-        node.file = file
+        img = hx.detached('img').node()
+        img.file = file
         reader = new FileReader()
-        reader.onload = (e) -> node.src = e.target.result
+        reader.onload = (e) -> img.src = e.target.result
         reader.readAsDataURL(file)
+        image = hx.section.fixed()
+          .classed('hx-file-input-preview-image', true)
+          .add img
 
-      container = hx.detached('div').class 'hx-file-input-preview'
+      container = hx.group()
+        .classed('hx-file-input-preview', true)
 
-      removeButton = hx.detached 'span'
-        .class 'hx-file-input-remove hx-text-negative'
+      text = hx.section()
+        .classed('hx-file-input-preview-text', true)
+        .text file.name
+
+      remove = hx.section.fixed()
+        .classed('hx-file-input-preview-remove hx-text-negative', true)
         .add hx.icon({class: 'hx-icon hx-icon-close'})
         .on 'click', ->
           self._.fileMap.delete getFileUID file
@@ -39,18 +112,16 @@ class FileInput extends hx.EventEmitter
           handleFiles self._.fileMap
 
       container
-        .add hx.detached('span').class('hx-file-input-preview-text').text(file.name)
+        .add text
         .add image
-        .add removeButton
-
-    getFileUID = (file) -> file.name + file.size + file.lastModified + file.type
+        .add remove
 
     handleFiles = (fileMap) =>
       selectedFiles.clear()
         .classed 'hx-btn', false
         .off('click', 'hx.file-input')
-      length = fileMap.size
 
+      length = fileMap.size
       if length
         if length is 1
           dropdown.hide() if dropdown.isOpen()
@@ -58,12 +129,11 @@ class FileInput extends hx.EventEmitter
         else
           selectedFiles
             .classed 'hx-btn', true
-            .add hx.detached('span').text "#{length} Files Selected"
+            .add hx.section().text "#{length} Files Selected"
             .add hx.detached('i').class 'hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down'
             .on 'click', 'hx.file-input', -> dropdown.show()
       else
-        selectedFiles.append 'span'
-          .text resolvedOptions.noFilesText or ''
+        selectedFiles.append noFilesTextDiv
 
       @_.fileMap = fileMap
 
@@ -71,53 +141,26 @@ class FileInput extends hx.EventEmitter
         cause: 'user'
         data: @_.fileMap.values()
 
-    fileListToMap = (fileList) ->
-      # Deals with duplicates if the file has the same UID
-      map = new hx.Map()
-      for file in fileList
-        fileUID = getFileUID file
-        map.set(fileUID, file)
-      map
-
-    if resolvedOptions.multiple and not options.buttonText
-      resolvedOptions.buttonText = 'Choose Files'
-
-    selection = hx.select @selector
-      .classed 'hx-file-input', true
-
-    input = hx.detached 'input'
-      .class 'hx-file-input-hidden'
-      .attr 'type', 'file'
-      .attr 'accept', resolvedOptions.accept
-      .attr 'multiple', if resolvedOptions.multiple then 'multiple' else undefined
-
-    group = hx.inputGroup()
-
-    button = hx.detached 'button'
-      .class "hx-file-input-button hx-btn #{resolvedOptions.buttonClass}"
-      .on 'click', -> input.node().click()
-      .add hx.detached('i').class('hx-file-input-icon hx-icon hx-icon-upload')
-      .add hx.detached('span').text resolvedOptions.buttonText
-
-    selectedFiles = hx.detached 'div'
-      .class 'hx-file-input-selected hx-section'
-      .text resolvedOptions.noFilesText or ''
-
     dropdownDiv = hx.detached 'div'
     setupDropdown = (element) ->
       sel = hx.select element
       self._.fileMap.values().map (file) ->
         sel.append filePreview(file)
+
     dropdown = new hx.Dropdown(dropdownDiv.node(), setupDropdown, {
       ddClass: 'hx-file-input-dropdown'
     })
 
-    input.on 'change', (e) -> handleFiles fileListToMap e.target.files
+    input.on 'change', (e) =>
+      handleFiles fileListToMap(e.target.files, acceptedExtensions, this)
+      input.value('')
 
     @_ =
       options: resolvedOptions
       input: input
       button: button
+      selectedFiles: selectedFiles
+      noFilesTextDiv: noFilesTextDiv
       fileMap: new hx.Map()
 
     if resolvedOptions.dragEnabled
@@ -125,15 +168,11 @@ class FileInput extends hx.EventEmitter
         e.preventDefault()
         e.stopPropagation()
 
-      drop = (e) =>
+      drop = (e) ->
         preventDefault(e)
-        unless @_.disabled
+        unless self._.disabled
           files = e.dataTransfer.files
-          validates = true
-          for file in files
-            break if not validates
-          if validates
-            handleFiles fileListToMap files
+          handleFiles fileListToMap(files, acceptedExtensions, this)
 
       selection
         .on 'dragenter', preventDefault
@@ -154,12 +193,26 @@ class FileInput extends hx.EventEmitter
       disabledAttr = if disabled then 'disabled' else undefined
       @_.input.attr 'disabled', disabledAttr
       @_.button.attr 'disabled', disabledAttr
+      @_.selectedFiles.classed 'hx-text-disabled hx-background-disabled', disabled
       @_.disabled = disabled
+      @value(undefined) if disabled
       this
     else
       @_.disabled or false
 
-  value: -> @_.fileMap.values()
+  value: (value) ->
+    if arguments.length
+      if value?
+        hx.consoleWarning 'hx.FileInput.value: It is not possible to set the value of a file input for security reasons.'
+      @_.input.value('')
+      @_.selectedFiles.clear()
+        .classed 'hx-btn', false
+        .off('click', 'hx.file-input')
+      @_.selectedFiles.append @_.noFilesTextDiv
+      @_.fileMap = new hx.Map
+      this
+    else
+      @_.fileMap.values() unless @_.disabled
 
 
 hx.FileInput = FileInput

@@ -2,7 +2,13 @@
   "dependencies": [
     "component",
     "selection",
-    "event-emitter"
+    "event-emitter",
+    "map",
+    "input-group",
+    "dropdown",
+    "fluid",
+    "layout",
+    "util"
   ],
   "keywords": [
     "file",

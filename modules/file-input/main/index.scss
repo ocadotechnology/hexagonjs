@@ -1,69 +1,31 @@
 .hx-file-input {
   display: inline-block;
-  margin: 0 0.25em;
+  min-width: 20em;
 
+  &.hx-file-input-full-width {
+    display: block;
+  }
   .hx-input-group {
-    margin: 0;
-
     .hx-file-input-selected {
-      padding-left: 0.8em;
-      padding-right: 0.8em;
+      display: flex;
+      line-height: 1em;
+      align-items: center;
+      padding: 0 0.4em;
+      text-align: left;
     }
   }
-}
-
-.hx-file-input-file {
-  margin: -0.4em 0.2em;
-}
-
-.hx-file-input-remove-file {
-  font-size: 1em;
-  margin: -0.2em 0 0 0.6em;
 }
 
 .hx-file-input-hidden {
   display: none;
 }
 
-.hx-file-input-icon {
-  margin-right: 0.6em;
+.hx-file-input-preview + .hx-file-input-preview {
+  margin-top: 0.2em;
 }
 
-.hx-file-input-remove,
-.hx-file-input-dropdown-icon {
-  margin-left: 0.6em;
-  display: inline-block;
-}
-
-.hx-file-input-remove {
-  cursor: pointer;
-}
-
-.hx-file-input-dropdown {
-  max-height: 400px;
-  overflow-y: auto;
-
-  .hx-file-input-preview {
-    padding: 0.4em;
-  }
-}
-
-.hx-file-input-selected {
-  vertical-align: middle;
-  cursor: default;
-}
-
-.hx-file-input-preview-text {
-  max-width: 300px;
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: middle;
-}
-
-.hx-file-input-preview-image {
-  max-height: 2em;
-  max-width: 3.5em;
-  margin: -0.8em 0 -0.7em 0.4em;
+.hx-file-input-preview-image > img {
+  max-height: 1.5em;
+  margin: -0.25em 0;
   vertical-align: middle;
 }
