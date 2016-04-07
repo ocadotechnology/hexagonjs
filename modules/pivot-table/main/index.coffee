@@ -32,6 +32,7 @@ class PivotTable extends hx.EventEmitter
       cellRender: (data, element, isHead, column) ->
         hx.select(element).text(data)
       useResponsive: true
+      data: undefined
     }, options)
 
     @_ = {}
@@ -42,6 +43,9 @@ class PivotTable extends hx.EventEmitter
 
     @tableHead = @table.append('thead')
     @tableBody = @table.append('tbody')
+
+    if @options.data?
+      @data(@options.data)
 
   data: (data) ->
     if data?
