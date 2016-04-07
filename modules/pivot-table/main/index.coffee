@@ -53,20 +53,23 @@ class PivotTable extends hx.EventEmitter
 
       @_.data = data
 
-      topData = if data.topHead?.length > 0 then data.topHead else []
-      leftData = if data.leftHead?.length > 0 then data.leftHead else []
+      clonedData = hx.merge(data, true)
 
-      if topData.length > 0 and data.body.length > 0
-        if topData.length isnt data.body[0].length
+      topData = if clonedData.topHead?.length > 0 then clonedData.topHead else []
+      leftData = if clonedData.leftHead?.length > 0 then clonedData.leftHead else []
+      bodyData = if clonedData.body?.length > 0 then clonedData.body else []
+
+      if topData.length > 0 and bodyData.length > 0
+        if topData.length isnt bodyData[0].length
           hx.consoleWarning 'hx.PivotTable - ' + @selector,
             'The number of columns in the dataset is not equal to the number of headers provided in data.topHead'
 
       if leftData.length > 0
-        if leftData.length isnt data.body.length
+        if leftData.length isnt bodyData.length
           hx.consoleWarning 'hx.PivotTable - ' + @selector,
             'The number of rows in the dataset is not equal to the number of headers provided in data.leftHead'
 
-        bodyData = data.body.map (e, i) ->
+        bodyData = bodyData.map (e, i) ->
           e.unshift leftData[i]
           e
 
@@ -74,8 +77,6 @@ class PivotTable extends hx.EventEmitter
 
       if topData.length > 0 and leftShifted
         topData?.unshift @options.topLeftCellRender or undefined
-
-      bodyData ?= data.body
 
       @tableHeadView = @tableHead.view('tr','tr')
         .update (d, e, i) -> rowViewUpdate(d, e, i, self.options.cellRender, true, leftShifted)
