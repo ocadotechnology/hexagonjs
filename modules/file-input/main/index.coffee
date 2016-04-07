@@ -45,12 +45,6 @@ class FileInput extends hx.EventEmitter
 
     resolvedOptions = hx.merge defaults, options
 
-    # @on 'fileextensionerror', (d) ->
-    #   val = d.value
-    #   console.error "Attempted addition of file with invalid extension: #{val.filename}" +
-    #     "\nAccepted Extensions: #{val.accepted.join(', ')}"
-
-
     if resolvedOptions.multiple and not options.buttonText
       resolvedOptions.buttonText = 'Choose Files'
 
@@ -205,13 +199,14 @@ class FileInput extends hx.EventEmitter
   value: (value) ->
     if arguments.length
       if value?
-        hx.consoleWarning 'hx.FileInput.value: It is not possible to set the value of a file input for security reasons.'
-      @_.input.value('')
-      @_.selectedFiles.clear()
-        .classed 'hx-btn', false
-        .off('click', 'hx.file-input')
-      @_.selectedFiles.append @_.noFilesTextDiv
-      @_.fileMap = new hx.Map
+        hx.consoleWarning 'hx.FileInput.value: It is not possible to set the value of a file input for security reasons. The value can only be cleared by passing in "undefined"'
+      else
+        @_.input.value('')
+        @_.selectedFiles.clear()
+          .classed 'hx-btn', false
+          .off('click', 'hx.file-input')
+        @_.selectedFiles.append @_.noFilesTextDiv
+        @_.fileMap = new hx.Map
       this
     else
       @_.fileMap.values()
