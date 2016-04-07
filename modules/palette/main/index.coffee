@@ -35,3 +35,13 @@ hx.palette.backgroundContext =  (selector, context) ->
     for c in paletteContexts
       if selection.classed('hx-background-' + c) then return c
     return undefined
+
+hx.palette.borderContext =  (selector, context) ->
+  selection = flatSelect(selector)
+  if arguments.length > 1
+    paletteContexts.forEach (c) -> selection.classed('hx-border-' + c, c is context)
+    return selection
+  else
+    for c in paletteContexts
+      if selection.classed('hx-border-' + c) then return c
+    return undefined

@@ -91,3 +91,34 @@ describe 'palette', ->
       hx.palette.backgroundContext(selection, undefined)
       selection.classed('hx-background-positive').should.equal(false)
       selection.classed('hx-background-negative').should.equal(false)
+
+  describe 'hx.palette.borderContext should correctly class an element', ->
+    testContext = (context) ->
+      selection = hx.detached('div')
+      hx.palette.borderContext(selection, context).should.equal(selection)
+      selection.classed('hx-border-' + context).should.equal(true)
+      hx.palette.borderContext(selection.node()).should.equal(context)
+
+    it 'default', -> testContext('default')
+    it 'positive', -> testContext('positive')
+    it 'warning', -> testContext('warning')
+    it 'negative', -> testContext('negative')
+    it 'info', -> testContext('info')
+    it 'action', -> testContext('action')
+    it 'complement', -> testContext('complement')
+    it 'contrast', -> testContext('contrast')
+
+    it 'should return undefined if there is no context', ->
+      should.not.exist(hx.palette.borderContext(hx.detached('div')))
+
+    it 'should remove existing borderContext classes', ->
+      selection = hx.detached('div').class('hx-border-positive hx-border-negative')
+      hx.palette.borderContext(selection, 'positive')
+      selection.classed('hx-border-positive').should.equal(true)
+      selection.classed('hx-border-negative').should.equal(false)
+
+    it 'should remove existing borderContext classes', ->
+      selection = hx.detached('div').class('hx-border-positive hx-border-negative')
+      hx.palette.borderContext(selection, undefined)
+      selection.classed('hx-border-positive').should.equal(false)
+      selection.classed('hx-border-negative').should.equal(false)
