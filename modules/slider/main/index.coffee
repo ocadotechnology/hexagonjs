@@ -61,8 +61,9 @@ slide = (e) ->
     val.value = posToValue.call this, pos
 
   @value(val)
-
-  @emit 'change', @value()
+  if @_.oldValue isnt @value()
+    @_.oldValue = @value()
+    @emit 'change', @value()
   return
 
 slideEnd = (e) ->
@@ -163,6 +164,7 @@ class Slider extends hx.EventEmitter
       .classed('hx-slider-discrete', _.isDiscrete)
       .on 'pointerdown', 'hx.slider', (e) =>
         if not _.disabled
+          _.oldValue = @value()
           @emit 'slidestart', @value()
           slide.call this, e
 
