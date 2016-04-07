@@ -325,9 +325,7 @@ class Form extends hx.EventEmitter
         switch it.type
           when 'checkbox' then hx.select(node).prop('checked', value)
           when 'radio' then hx.select(node).selectAll('input').filter((d) -> d.value() is value).prop('checked', true)
-          when 'tagInput'
-            tagInput = hx.component(it.extras.componentNode or node)
-            value.forEach((e) -> tagInput.add(e))
+          when 'tagInput' then hx.component(it.extras.componentNode or node).items(value)
           when 'select' then hx.component(it.extras.componentNode or node).value(value)
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
           else hx.select(node).value(value)
