@@ -52,6 +52,7 @@ class NumberPicker extends hx.EventEmitter
 
   value: (value, screenValue) ->
     if arguments.length > 0
+      prevValue = @value()
       if @_.max isnt undefined and value > @_.max then value = @_.max
       if @_.min isnt undefined and value < @_.min then value = @_.min
       if screenValue and isNaN(screenValue)
@@ -64,7 +65,8 @@ class NumberPicker extends hx.EventEmitter
       @selectInput.value(screenValue or value)
       @selectInput.attr('data-value', value)
 
-      @emit 'change', {value: value}
+      if prevValue isnt value
+        @emit 'change', {value: value}
       this
     else
       Number(@selectInput.attr('data-value'))
@@ -88,13 +90,17 @@ class NumberPicker extends hx.EventEmitter
       @_.max
 
   increment: ->
+    prevValue = @value()
     @value(@value() + 1)
-    @emit 'increment'
+    if prevValue isnt @value()
+      @emit 'increment'
     this
 
   decrement: ->
+    prevValue = @value()
     @value(@value() - 1)
-    @emit 'decrement'
+    if prevValue isnt @value()
+      @emit 'decrement'
     this
 
   disabled: (disable) ->
