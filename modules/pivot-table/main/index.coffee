@@ -1,3 +1,53 @@
+createTableView = (head, body, leftShifted, cellRender) ->
+  cellViewEnter = (data, index, isHead) ->
+    isFirstColum = leftShifted and index is 0
+    cellIsHead = isHead or isFirstColum
+    cellIsTopLeft = isHead and isFirstColum
+    type = if cellIsHead or hx.isFunction(data) then 'th' else 'td'
+    cell = @append(type).class('hx-pivot-table-cell')
+    if cellIsHead then cell.classed('hx-pivot-table-head-cell', true)
+    if cellIsTopLeft then cell.classed('hx-table-head-no-border', true)
+    cell.node()
+
+  cellViewUpdate = (data, node, index, isHead) ->
+    isFirstColum = leftShifted and index is 0
+    cellIsHead = isHead or isFirstColum
+    selection = hx.select(node)
+    if hx.isFunction(data) # Top left cell
+      data(node)
+    else if not data? # Top left cell when no renderer provided
+      selection.text('')
+    else cellRender(data, node, cellIsHead, index) # Head / Body cells
+
+  rowViewEnter = (data, isHead) ->
+    rowNode = @append('tr').node()
+    rowView = hx.select(rowNode).view('.hx-pivot-table-cell')
+      .enter (datum, index) ->
+        # index starts at 0 for new cells added to a row so we override the
+        # value here.
+        index = data.indexOf(datum)
+        cellViewEnter.call(this, datum, index, isHead)
+      .update (datum, node, index) ->
+        index = data.indexOf(datum)
+        cellIsHead = isHead or (leftShifted and index is 0)
+        cellViewUpdate(datum, node, index, isHead)
+    # create the view once on enter and re-use it in the update
+    hx.component.register(rowNode, { view: rowView })
+    rowNode
+
+  rowViewUpdate = (data, node, index, isHead) ->
+    hx.component(node).view.apply(data)
+
+  headView = head.view('tr')
+    .enter (data) -> rowViewEnter.call(this, data, true)
+    .update (data, node) -> rowViewUpdate(data, node, true)
+
+  bodyView = body.view('tr')
+    .enter (data) -> rowViewEnter.call(this, data, false)
+    .update (data, node) -> rowViewUpdate(data, node, false)
+
+  [headView, bodyView]
+
 class PivotTable extends hx.EventEmitter
   constructor: (@selector, options) ->
     super
@@ -56,54 +106,8 @@ class PivotTable extends hx.EventEmitter
       if topData.length > 0 and leftShifted
         topData?.unshift @options.topLeftCellRender or undefined
 
-
-      cellViewEnter = (data, index, isHead) ->
-        isFirstColum = leftShifted and index is 0
-        cellIsHead = isHead or isFirstColum
-        cellIsTopLeft = isHead and isFirstColum
-        type = if cellIsHead or hx.isFunction(data) then 'th' else 'td'
-        cell = @append(type).class('hx-pivot-table-cell')
-        if cellIsHead then cell.classed('hx-pivot-table-head-cell', true)
-        if cellIsTopLeft then cell.classed('hx-table-head-no-border', true)
-        cell.node()
-
-      cellViewUpdate = (data, node, index, isHead) ->
-        isFirstColum = leftShifted and index is 0
-        cellIsHead = isHead or isFirstColum
-        selection = hx.select(node)
-        if hx.isFunction(data) # Top left cell
-          data(node)
-        else if not data? # Top left cell when no renderer provided
-          selection.text('')
-        else self.options.cellRender(data, node, cellIsHead, index) # Head / Body cells
-
-      rowViewEnter = (data, isHead) ->
-        rowNode = @append('tr').node()
-        rowView = hx.select(rowNode).view('.hx-pivot-table-cell')
-          .enter (datum, index) ->
-            # index starts at 0 for new cells added to a row so we override the
-            # value here.
-            index = data.indexOf(datum)
-            cellViewEnter.call(this, datum, index, isHead)
-          .update (datum, node, index) ->
-            index = data.indexOf(datum)
-            cellIsHead = isHead or (leftShifted and index is 0)
-            cellViewUpdate(datum, node, index, isHead)
-        # create the view once on enter and re-use it in the update
-        hx.component.register(rowNode, { view: rowView })
-        rowNode
-
-      rowViewUpdate = (data, node, index, isHead) ->
-        hx.component(node).view.apply(data)
-
-
-      @tableHeadView = @tableHead.view('tr','tr')
-        .enter (data) -> rowViewEnter.call(this, data, true)
-        .update (data, node) -> rowViewUpdate(data, node, true)
-
-      @tableBodyView = @tableBody.view('tr', 'tr')
-        .enter (data) -> rowViewEnter.call(this, data, false)
-        .update (data, node) -> rowViewUpdate(data, node, false)
+      [@tableHeadView, @tableBodyView] =
+        createTableView(@tableHead, @tableBody, leftShifted, self.options.cellRender)
 
       if topData?.length > 0
         @tableHeadView.apply([topData])
