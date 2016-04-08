@@ -1,25 +1,3 @@
-cellViewEnter = (d, i, isHead, topLeft) ->
-  type = if isHead or hx.isFunction(d) then 'th' else 'td'
-  cell = @append(type).class('hx-pivot-table-cell')
-  if isHead then cell.classed('hx-pivot-table-head-cell', true)
-  if topLeft then cell.classed('hx-table-head-no-border', true)
-  cell.node()
-
-cellViewUpdate = (d, e, i, cellRender, isHead) ->
-  elem = hx.select(e)
-  if hx.isFunction d # Top left cell
-    d(e)
-  else if not d? # Top left cell when no renderer provided
-    elem.text('')
-  else cellRender(d, e, isHead, i) # Head / Body cells
-
-rowViewUpdate = (d, e, i, cellRender, isHead, shifted) ->
-  # Account for first column headers so the cell view index is relative to the passed in data body.
-  hx.select(e).view('.hx-pivot-table-cell')
-    .enter (d, i) -> cellViewEnter.call(this, d, i, isHead or (shifted and i is 0), isHead and (shifted and i is 0))
-    .update (d, e, i) -> cellViewUpdate(d, e, i, cellRender, isHead or (shifted and i is 0))
-    .apply(d)
-
 class PivotTable extends hx.EventEmitter
   constructor: (@selector, options) ->
     super
@@ -78,11 +56,54 @@ class PivotTable extends hx.EventEmitter
       if topData.length > 0 and leftShifted
         topData?.unshift @options.topLeftCellRender or undefined
 
+
+      cellViewEnter = (data, index, isHead) ->
+        isFirstColum = leftShifted and index is 0
+        cellIsHead = isHead or isFirstColum
+        cellIsTopLeft = isHead and isFirstColum
+        type = if cellIsHead or hx.isFunction(data) then 'th' else 'td'
+        cell = @append(type).class('hx-pivot-table-cell')
+        if cellIsHead then cell.classed('hx-pivot-table-head-cell', true)
+        if cellIsTopLeft then cell.classed('hx-table-head-no-border', true)
+        cell.node()
+
+      cellViewUpdate = (data, node, index, isHead) ->
+        isFirstColum = leftShifted and index is 0
+        cellIsHead = isHead or isFirstColum
+        selection = hx.select(node)
+        if hx.isFunction(data) # Top left cell
+          data(node)
+        else if not data? # Top left cell when no renderer provided
+          selection.text('')
+        else self.options.cellRender(data, node, cellIsHead, index) # Head / Body cells
+
+      rowViewEnter = (data, isHead) ->
+        rowNode = @append('tr').node()
+        rowView = hx.select(rowNode).view('.hx-pivot-table-cell')
+          .enter (datum, index) ->
+            # index starts at 0 for new cells added to a row so we override the
+            # value here.
+            index = data.indexOf(datum)
+            cellViewEnter.call(this, datum, index, isHead)
+          .update (datum, node, index) ->
+            index = data.indexOf(datum)
+            cellIsHead = isHead or (leftShifted and index is 0)
+            cellViewUpdate(datum, node, index, isHead)
+        # create the view once on enter and re-use it in the update
+        hx.component.register(rowNode, { view: rowView })
+        rowNode
+
+      rowViewUpdate = (data, node, index, isHead) ->
+        hx.component(node).view.apply(data)
+
+
       @tableHeadView = @tableHead.view('tr','tr')
-        .update (d, e, i) -> rowViewUpdate(d, e, i, self.options.cellRender, true, leftShifted)
+        .enter (data) -> rowViewEnter.call(this, data, true)
+        .update (data, node) -> rowViewUpdate(data, node, true)
 
       @tableBodyView = @tableBody.view('tr', 'tr')
-        .update (d, e, i) -> rowViewUpdate(d, e, i, self.options.cellRender, false, leftShifted)
+        .enter (data) -> rowViewEnter.call(this, data, false)
+        .update (data, node) -> rowViewUpdate(data, node, false)
 
       if topData?.length > 0
         @tableHeadView.apply([topData])
