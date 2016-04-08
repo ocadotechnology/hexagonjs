@@ -28,6 +28,11 @@ class Picker extends hx.EventEmitter
       renderer: undefined
       value: undefined
       disabled: false
+      showAutocomplete: false
+      autocompleteLookup: (term, value) ->
+        val = (value.value or value.text or value)
+        val.toLowerCase().indexOf(term.toLowerCase()) > -1
+      autocompleteNoData: 'No Results Found'
     }, options
 
     hx.component.register(selector, this)
@@ -39,8 +44,8 @@ class Picker extends hx.EventEmitter
     button.append('span').class('hx-picker-icon').append('i').class('hx-icon hx-icon-caret-down')
 
     renderWrapper = (node, item) =>
-      if item.autoComplete
-        hx.select(node).append('input')
+      if item.unselectable
+        hx.select(node).text(item.text)
       else
         @_.renderer(node, item)
 
@@ -48,14 +53,50 @@ class Picker extends hx.EventEmitter
       dropdownOptions: resolvedOptions.dropdownOptions
       items: resolvedOptions.items
       disabled: resolvedOptions.disabled
+      selectedStart: if resolvedOptions.showAutocomplete then 0 else -1
     })
 
     menu.pipe(this, '', ['highlight'])
     menu.dropdown.pipe(this, 'dropdown')
+
+    if resolvedOptions.showAutocomplete
+      autocompleteChange = (event) =>
+        value = event.target.value
+        filteredItems = if value?.length > 0
+          @items().filter (value) ->
+            resolvedOptions.autocompleteLookup(event.target.value, value)
+        else @items()
+        if filteredItems.length is 0
+          filteredItems = [{
+            unselectable: true
+            text: resolvedOptions.autocompleteNoData
+          }]
+        menu.cursorPos = if value?.length and filteredItems.length then 0 else -1
+        menu.items(filteredItems)
+        menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node())
+        menuItems = menu.dropdown._.dropdown.selectAll('.hx-menu-item')
+          .classed('hx-menu-active', false)
+        if menu.cursorPos > -1
+          hx.select menuItems.node(menu.cursorPos)
+            .classed('hx-menu-active', true)
+
+      debouncedAutocompleteChange = hx.debounce 200, autocompleteChange
+
+      menu.dropdown.on 'showstart', 'hx.picker.autocomplete', ->
+        input = hx.detached('input')
+          .on 'input', 'hx.picker.autocomplete', debouncedAutocompleteChange
+        menu.dropdown._.dropdown.prepend(input)
+        input.node().focus()
+      menu.dropdown.on 'hideend', 'hx.picker.autocomplete', =>
+        menu.items(@items())
+
+
     menu.on 'change', 'hx.picker', (item) =>
       if item?.content?
         setValue(this, item.content, @items(), 'user')
         menu.hide()
+
+    menu.on 'hide', => menu.items(@items())
 
     @_ =
       menu: menu
@@ -89,7 +130,11 @@ class Picker extends hx.EventEmitter
   items: (items) ->
     if items?
       @_.items = items
-      @_.menu.items(items)
+      # menuItems = if @_.options.showAutocomplete
+      #   [autocompleteItem].concat(items)
+      # else
+      #   items
+      @_.menu.items(items.slice(0))
       @value(@_.current)
       this
     else
