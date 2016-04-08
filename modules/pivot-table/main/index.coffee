@@ -1,6 +1,6 @@
-createTableView = (head, body, leftShifted, cellRender) ->
+createTableView = (table, head, body) ->
   cellViewEnter = (data, index, isHead) ->
-    isFirstColum = leftShifted and index is 0
+    isFirstColum = table._.leftShifted and index is 0
     cellIsHead = isHead or isFirstColum
     cellIsTopLeft = isHead and isFirstColum
     type = if cellIsHead or hx.isFunction(data) then 'th' else 'td'
@@ -10,14 +10,14 @@ createTableView = (head, body, leftShifted, cellRender) ->
     cell.node()
 
   cellViewUpdate = (data, node, index, isHead) ->
-    isFirstColum = leftShifted and index is 0
+    isFirstColum = table._.leftShifted and index is 0
     cellIsHead = isHead or isFirstColum
     selection = hx.select(node)
     if hx.isFunction(data) # Top left cell
       data(node)
     else if not data? # Top left cell when no renderer provided
       selection.text('')
-    else cellRender(data, node, cellIsHead, index) # Head / Body cells
+    else table.options.cellRender(data, node, cellIsHead, index) # Head / Body cells
 
   rowViewEnter = (data, isHead) ->
     rowNode = @append('tr').node()
@@ -29,7 +29,6 @@ createTableView = (head, body, leftShifted, cellRender) ->
         cellViewEnter.call(this, datum, index, isHead)
       .update (datum, node, index) ->
         index = data.indexOf(datum)
-        cellIsHead = isHead or (leftShifted and index is 0)
         cellViewUpdate(datum, node, index, isHead)
     # create the view once on enter and re-use it in the update
     hx.component.register(rowNode, { view: rowView })
@@ -72,14 +71,18 @@ class PivotTable extends hx.EventEmitter
     @tableHead = @table.append('thead')
     @tableBody = @table.append('tbody')
 
+    # Create the re-usable views
+    [@tableHeadView, @tableBodyView] =
+      createTableView(this, @tableHead, @tableBody)
+
     if @options.data?
       @data(@options.data)
 
   data: (data) ->
     if data?
-      self = this
-
-      @_.data = data
+      _ = @_
+      _.data = data
+      _.leftShifted = false
 
       clonedData = hx.merge(data, true)
 
@@ -101,13 +104,10 @@ class PivotTable extends hx.EventEmitter
           e.unshift leftData[i]
           e
 
-        leftShifted = true
+        _.leftShifted = true
 
-      if topData.length > 0 and leftShifted
+      if topData.length > 0 and _.leftShifted
         topData?.unshift @options.topLeftCellRender or undefined
-
-      [@tableHeadView, @tableBodyView] =
-        createTableView(@tableHead, @tableBody, leftShifted, self.options.cellRender)
 
       if topData?.length > 0
         @tableHeadView.apply([topData])
