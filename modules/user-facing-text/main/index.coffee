@@ -1,6 +1,8 @@
 _ =
   localisedText: {}
 
+userFacingTextEmitter = new hx.EventEmitter
+
 userFacingText = (stringPath, locales) ->
   if arguments.length
     strings = if hx.isString(stringPath)
@@ -16,18 +18,19 @@ userFacingText = (stringPath, locales) ->
         else
           tmp[string] = {}
           tmp = tmp[string]
+      userFacingTextEmitter.emit('change')
       _.localisedText = hx.merge.defined(_.localisedText, newText)
-      this
+      return
     else
       textObject = undefined
       tmp = _.localisedText
       for string, i in strings
         if i is strings.length - 1
           textObject = tmp[string]
-        else if tmp?
+        else if tmp and tmp[string]
           tmp = tmp[string]
-        else
-          break
+        else break
+
       if not textObject
         hx.consoleWarning 'hx.userFacingText.localisedText: No text was found for locale for the path ' + stringPath
       else
