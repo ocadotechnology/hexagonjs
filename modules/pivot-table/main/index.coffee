@@ -81,8 +81,7 @@ class PivotTable extends hx.EventEmitter
       _.data = data
       _.leftShifted = false
 
-      clonedData = hx.merge(data, true)
-
+      clonedData = hx.clone(data)
       topData = if clonedData.topHead?.length > 0 then clonedData.topHead else []
       leftData = if clonedData.leftHead?.length > 0 then clonedData.leftHead else []
       bodyData = if clonedData.body?.length > 0 then clonedData.body else []
