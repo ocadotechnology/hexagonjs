@@ -22,13 +22,10 @@ createTableView = (table, head, body) ->
   rowViewEnter = (data, isHead) ->
     rowNode = @append('tr').node()
     rowView = hx.select(rowNode).view('.hx-pivot-table-cell')
-      .enter (datum, index) ->
-        # index starts at 0 for new cells added to a row so we override the
-        # value here.
+      .enter (datum) ->
         index = data.indexOf(datum)
         cellViewEnter.call(this, datum, index, isHead)
       .update (datum, node, index) ->
-        index = data.indexOf(datum)
         cellViewUpdate(datum, node, index, isHead)
     # create the view once on enter and re-use it in the update
     hx.component.register(rowNode, { view: rowView })
