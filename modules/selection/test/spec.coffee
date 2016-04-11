@@ -201,6 +201,10 @@ describe 'Selection Api', ->
       .shallowSelect('.one')
     selection.size().should.equal(2)
 
+  it 'shallowSelect should log a warning if an invalid type is given', ->
+    hx.detached('div').shallowSelect(3.1415)
+    hx.consoleWarning.should.have.been.called()
+
 
   it 'shallowSelectAll should not set singleSelection to true', ->
     selection = hx.selectAll('#fixture').shallowSelectAll('div')
@@ -224,6 +228,10 @@ describe 'Selection Api', ->
     selection = hx.select('#fixture').select('.wrapper').shallowSelectAll('div')
       .shallowSelectAll('.one')
     selection.size().should.equal(4)
+
+  it 'shallowSelectAll should log a warning if an invalid type is given', ->
+    hx.detached('div').shallowSelectAll(3.1415)
+    hx.consoleWarning.should.have.been.called()
 
 
   # creating detached elements

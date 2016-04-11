@@ -16,22 +16,15 @@ getMethod = (node, methodName) ->
   else
     Element.prototype[methodName]
 
-getMatches = (node) ->
-  # XXX: use hx.vendor
-  matchesMethod =
-    if node.matches then 'matches'
-    else if node.matchesSelector then 'matchesSelector'
-    else if node.mozMatchesSelector then 'mozMatchesSelector'
-    else if node.webkitMatchesSelector then 'webkitMatchesSelector'
-    else if node.oMatchesSelector then 'oMatchesSelector'
-    else if node.msMatchesSelector then 'msMatchesSelector'
 
-  if matchesMethod then getMethod(node, matchesMethod)
-  else (selector) ->
-    matchingNodes = getMethod(this, 'querySelector').call(this, selector)
-    i = matchingNodes.length
-    i while --i >= 0 and matchingNodes.item(i) isnt this
-    i > -1
+# Should only be called with Function.call(node, selector)
+matchPolyfill = (selector) ->
+  node = this
+  matchingNodes = (node.document or node.ownerDocument).querySelectorAll(selector)
+  [].slice.call(matchingNodes).indexOf(node) > -1
+
+getMatches = (node) ->
+  node.matches or hx.vendor(node, 'matchesSelector') or matchPolyfill
 
 selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, selector)
 selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
