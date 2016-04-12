@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.2.0
+ Version: 1.2.1
  Theme: hexagon-dark
  Modules:
    set
@@ -1258,7 +1258,7 @@ hx.isArray = function(x) {
 };
 
 hx.isObject = function(obj) {
-  return typeof obj === 'object' && !hx.isArray(obj);
+  return typeof obj === 'object' && !hx.isArray(obj) && obj !== null;
 };
 
 hx.isBoolean = function(x) {
@@ -4182,21 +4182,19 @@ Modal = (function(superClass) {
   }
 
   Modal.prototype.show = function(cb) {
-    var body, closeButton, modal, modalContainer, self, shade, title, titleContainer;
+    var body, closeButton, modal, modalContainer, ref, self, shade, title, titleContainer;
+    if ((ref = document.activeElement) != null) {
+      ref.blur();
+    }
     body = hx.select('body').classed('hx-modal-open', true);
     shade = body.select('.hx-modal-shade');
     if (shade.empty()) {
       shade = body.append('div').attr('class', 'hx-modal-shade');
       shade.style('opacity', 0).morph()["with"]('fadein', 150).go();
     }
-    modalContainer = body.select('.hx-modal-container');
-    if (modalContainer.empty()) {
-      modalContainer = body.append('div').attr('class', 'hx-modal-container');
-    }
-    modal = modalContainer.select('.hx-modal');
-    if (modal.empty()) {
-      modal = modalContainer.append('div').attr('class', 'hx-modal');
-    }
+    body.select('.hx-modal-container').remove();
+    modalContainer = body.append('div').attr('class', 'hx-modal-container');
+    modal = modalContainer.append('div').attr('class', 'hx-modal');
     titleContainer = modal.append('div')["class"]('hx-modal-title-container hx-group hx-horizontal hx-header');
     title = hx.detached('div')["class"]('hx-modal-title');
     if (this.options.closeButtonEnabled) {
@@ -5748,7 +5746,7 @@ Preferences = (function(superClass) {
   extend(Preferences, superClass);
 
   function Preferences() {
-    var modal, ref, setupModal;
+    var defaultLocaleId, modal, ref, setupModal;
     Preferences.__super__.constructor.apply(this, arguments);
     setupModal = (function(_this) {
       return function(element) {
@@ -5817,7 +5815,11 @@ Preferences = (function(superClass) {
       preferences: {},
       modal: modal
     };
-    this.locale((typeof moment !== "undefined" && moment !== null ? moment.locale() : void 0) || navigator.language || 'en');
+    defaultLocaleId = (typeof moment !== "undefined" && moment !== null ? moment.locale() : void 0) || navigator.language;
+    if (!(hx.isString(defaultLocaleId) && lookupLocale(defaultLocaleId))) {
+      defaultLocaleId = 'en';
+    }
+    this.locale(defaultLocaleId);
     this.timezone((typeof moment !== "undefined" && moment !== null ? (ref = moment.tz) != null ? ref.guess() : void 0 : void 0) || 'UTC+00:00');
   }
 
@@ -13113,7 +13115,7 @@ buildAutoComplete = function(searchTerm, fromCallback, loading) {
     if (items.length > 0) {
       _.menu.items(items);
       if (_.menu.dropdown.isOpen()) {
-        _.menu.dropdown._.dropdownContent(_.menu.dropdown._.dropdown.node());
+        _.menu.dropdown._.setupDropdown(_.menu.dropdown._.dropdown.node());
       } else {
         _.menu.dropdown.show();
       }

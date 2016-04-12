@@ -6,7 +6,8 @@
     "collapsible",
     "util",
     "icon",
-    "palette"
+    "palette",
+    "view"
   ],
   "keywords": [
     "menu"
