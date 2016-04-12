@@ -1,45 +1,43 @@
 _ =
+  initialValues: {}
   localisedText: {}
 
-userFacingTextEmitter = new hx.EventEmitter
-
-userFacingText = (stringPath, locales) ->
+completeGetterSetter = (object) ->
   if arguments.length
-    strings = if hx.isString(stringPath)
-      [stringPath]
-    else stringPath
-
-    if locales?
-      newText = tmp = {}
-      for string, i in strings
-        if i is strings.length - 1
-          # Merge the locales to prevent mutation
-          tmp[string] = hx.merge locales
-        else
-          tmp[string] = {}
-          tmp = tmp[string]
-      userFacingTextEmitter.emit('change')
-      _.localisedText = hx.merge.defined(_.localisedText, newText)
-      return
-    else
-      textObject = undefined
-      tmp = _.localisedText
-      for string, i in strings
-        if i is strings.length - 1
-          textObject = tmp[string]
-        else if tmp and tmp[string]
-          tmp = tmp[string]
-        else break
-
-      if not textObject
-        hx.consoleWarning 'hx.userFacingText.localisedText: No text was found for locale for the path ' + stringPath
-      else
-        textObject[hx.preferences.locale()] || textObject['en'] # There must be a fallback in english.
+    for module of object
+      for key of object[module]
+        partialGetterSetter(module, key, object[module][key])
   else
-    _.localisedText
+    hx.clone _.localisedText
+
+partialGetterSetter = (module, key, value) ->
+  if module and module.length and key and key.length
+    if hx.isString(value) and value.length
+      _.localisedText[module] ?= {}
+      _.localisedText[module][key] = value
+      _.initialValues[module] ?= {}
+      _.initialValues[module][key] ?= value
+      true
+    else if not value?
+      text = _.localisedText[module]?[key]
+      unless text
+        hx.consoleWarning "hx.userFacingText: No text was found for key: #{key} in module: #{module}"
+      text
+    else
+      hx.consoleWarning "hx.userFacingText: The value provided must be a string but was passed value: #{value}"
+  else
+    hx.consoleWarning "hx.userFacingText: A module and key are expected as strings but was passed module: #{module} and key: #{key}"
+
+userFacingText = ->
+  if hx.isObject(arguments[0]) or arguments.length is 0
+    completeGetterSetter.apply(this, arguments)
+  else
+    partialGetterSetter.apply(this, arguments)
+
+userFacingTextDefaults = -> hx.clone _.initialValues
 
 hx.userFacingText = userFacingText
-hx.userFacingText.emitter = userFacingTextEmitter
+hx.userFacingText.defaults = userFacingTextDefaults
 
 # For tests
 hx.userFacingText._ = _

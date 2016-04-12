@@ -1,156 +1,83 @@
 describe 'User Facing Text', ->
-  origText = hx.merge hx.userFacingText._.localisedText
+  origText = hx.clone hx.userFacingText._.localisedText
+  origInitialText = hx.clone hx.userFacingText._.initialValues
   origConsoleWarning = hx.consoleWarning
-
-  localeObj = {'en': 'Thing'}
-  localeObjWithFrench = {'en': 'English Thing', 'fr': 'French Thing'}
 
   beforeEach ->
     hx.consoleWarning = chai.spy()
     hx.userFacingText._.localisedText = {}
+    hx.userFacingText._.initialValues = {}
 
   after ->
     hx.userFacingText._.localisedText = origText
+    hx.userFacingText._.initialValues = origInitialText
     hx.consoleWarning = origConsoleWarning
 
   it 'should register text using a string path', ->
-    hx.userFacingText('thing', localeObj)
-
-    # Must not be the same object but must have the same values
-    hx.userFacingText._.localisedText.thing.should.not.equal(localeObj)
-    hx.userFacingText._.localisedText.thing.should.eql(localeObj)
+    hx.userFacingText('module', 'key', 'text')
+    hx.userFacingText().module.key.should.equal('text')
     hx.consoleWarning.should.not.have.been.called()
 
-  it 'should register text using an array path', ->
-    hx.userFacingText(['thing1', 'thing2', 'thing3'], localeObj)
-    should.exist(hx.userFacingText._.localisedText.thing1)
-    should.exist(hx.userFacingText._.localisedText.thing1.thing2)
-    should.exist(hx.userFacingText._.localisedText.thing1.thing2.thing3)
-
-    hx.userFacingText._.localisedText.thing1.thing2.thing3.should.not.equal(localeObj)
-    hx.userFacingText._.localisedText.thing1.thing2.thing3.should.eql(localeObj)
+  it 'should return the correct value', ->
+    hx.userFacingText('module', 'key', 'text')
+    hx.userFacingText().module.key.should.equal('text')
+    hx.userFacingText('module', 'key').should.equal('text')
     hx.consoleWarning.should.not.have.been.called()
 
-  it 'should merge text for existing locales using a string path', ->
-    hx.userFacingText('thing', localeObj)
-
-    hx.userFacingText._.localisedText.thing.should.not.equal(localeObj)
-    hx.userFacingText._.localisedText.thing.should.eql(localeObj)
+  it 'should return the complete set of values when called with no arguments', ->
+    hx.userFacingText().should.eql({})
+    hx.userFacingText('module', 'key', 'text')
+    hx.userFacingText().should.eql({
+      module:
+        key: 'text'
+    })
     hx.consoleWarning.should.not.have.been.called()
 
-    hx.userFacingText('thing', localeObjWithFrench)
+  it 'should set multiple keys at once when calling with one argument', ->
+    textObj = {
+      module1:
+        key1: 'text1'
+        key2: 'text2'
+      module2:
+        key3: 'text3'
+    }
+    hx.userFacingText(textObj)
+    hx.consoleWarning.should.not.have.been.called()
+    hx.userFacingText().should.not.equal(textObj)
+    hx.userFacingText().should.eql(textObj)
 
-    hx.userFacingText._.localisedText.thing.should.not.equal(localeObjWithFrench)
-    hx.userFacingText._.localisedText.thing.should.eql(localeObjWithFrench)
+  it 'defaults: should return the first values that were set for a key/module', ->
+    hx.userFacingText('module', 'key', 'text1')
+    hx.userFacingText('module', 'key', 'text2')
+    hx.userFacingText.defaults().should.eql({
+      module:
+        key: 'text1'
+    })
     hx.consoleWarning.should.not.have.been.called()
 
-  it 'should merge text for existing locales using an array path', ->
-    hx.userFacingText(['thing1', 'thing2', 'thing3'], localeObj)
+  # "Bad" Path
+  it 'should throw an error when called with an invalid value', ->
+    hx.userFacingText('module', 'key', {})
+    hx.consoleWarning.should.have.been.called.once()
+    hx.consoleWarning.reset()
+    hx.userFacingText('module', 'key', 3.1415)
+    hx.consoleWarning.should.have.been.called.once()
+    hx.userFacingText().should.eql({})
 
-    should.exist(hx.userFacingText._.localisedText.thing1)
-    should.exist(hx.userFacingText._.localisedText.thing1.thing2)
-    should.exist(hx.userFacingText._.localisedText.thing1.thing2.thing3)
+  it 'should throw an error when called with a module / key that does not exist', ->
+    hx.userFacingText('module')
+    hx.consoleWarning.should.have.been.called.once()
+    hx.consoleWarning.reset()
+    hx.userFacingText('module', 'key')
+    hx.consoleWarning.should.have.been.called.once()
 
-    hx.userFacingText._.localisedText.thing1.thing2.thing3.should.not.equal(localeObj)
-    hx.userFacingText._.localisedText.thing1.thing2.thing3.should.eql(localeObj)
-    hx.consoleWarning.should.not.have.been.called()
-
-    hx.userFacingText(['thing1', 'thing2', 'thing3'], localeObjWithFrench)
-
-    should.exist(hx.userFacingText._.localisedText.thing1)
-    should.exist(hx.userFacingText._.localisedText.thing1.thing2)
-    should.exist(hx.userFacingText._.localisedText.thing1.thing2.thing3)
-
-    hx.userFacingText._.localisedText.thing1.thing2.thing3.should.not.equal(localeObjWithFrench)
-    hx.userFacingText._.localisedText.thing1.thing2.thing3.should.eql(localeObjWithFrench)
-    hx.consoleWarning.should.not.have.been.called()
-
-  it 'should return an object with all defined locale texts ', ->
-    hx.userFacingText('thing1', localeObj)
-    hx.userFacingText('thing2', localeObjWithFrench)
-    hx.userFacingText().should.eql({'thing1': localeObj, 'thing2': localeObjWithFrench})
-    hx.consoleWarning.should.not.have.been.called()
-
-  it 'should return the text for the correct locale using a string path', ->
-    hx.userFacingText('thing1', localeObjWithFrench)
-
-    hx.preferences.supportedLocales([
-      {value: 'en', full: 'English'},
-      {value: 'fr', full: 'French'}
-    ])
-
-    hx.preferences.locale('en')
-    hx.userFacingText('thing1').should.equal('English Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-    hx.preferences.locale('fr')
-    hx.userFacingText('thing1').should.equal('French Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-  it 'should fall back to english when text for a locale is not defined using a string path', ->
-    hx.userFacingText('thing', localeObj)
-
-    hx.preferences.supportedLocales([
-      {value: 'en', full: 'English'},
-      {value: 'fr', full: 'French'}
-    ])
-
-    hx.preferences.locale('en')
-    hx.userFacingText('thing').should.equal('Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-    hx.preferences.locale('fr')
-    hx.userFacingText('thing').should.equal('Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-  it 'should return the text for the correct locale using an array path', ->
-    hx.userFacingText(['thing1', 'thing2'], localeObjWithFrench)
-
-    hx.preferences.supportedLocales([
-      {value: 'en', full: 'English'},
-      {value: 'fr', full: 'French'}
-    ])
-
-    hx.preferences.locale('en')
-    hx.userFacingText(['thing1', 'thing2']).should.equal('English Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-    hx.preferences.locale('fr')
-    hx.userFacingText(['thing1', 'thing2']).should.equal('French Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-  it 'should fall back to english when text for a locale is not defined using an array path', ->
-    hx.userFacingText(['thing1', 'thing2'], localeObj)
-
-    hx.preferences.supportedLocales([
-      {value: 'en', full: 'English'},
-      {value: 'fr', full: 'French'}
-    ])
-
-    hx.preferences.locale('en')
-    hx.userFacingText(['thing1', 'thing2']).should.equal('Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-    hx.preferences.locale('fr')
-    hx.userFacingText(['thing1', 'thing2']).should.equal('Thing')
-    hx.consoleWarning.should.not.have.been.called()
-
-  it 'should show a console warning when a text object could not be found', ->
-    should.not.exist(hx.userFacingText('bob'))
-    hx.consoleWarning.should.have.been.called()
-
-  it 'should show a console warning when a text object could not be found in an array', ->
-    should.not.exist(hx.userFacingText(['bob', 'dave']))
-    hx.consoleWarning.should.have.been.called()
-
-  it 'should show a console warning when a text object could not be found in an array when part of the string path exists', ->
-    hx.userFacingText('thing', localeObj)
-    should.not.exist(hx.userFacingText(['thing', 'bob', 'dave']))
-    hx.consoleWarning.should.have.been.called()
-
-  it 'should emit an event when the text for a locale is changed', ->
-    fn = chai.spy()
-    hx.userFacingText.emitter.on 'change', fn
-    hx.userFacingText('thing', localeObj)
-    fn.should.have.been.called()
-    hx.consoleWarning.should.not.have.been.called()
+  it 'should throw an error when called with an invalid module or key', ->
+    hx.userFacingText('module')
+    hx.consoleWarning.should.have.been.called.once()
+    hx.consoleWarning.reset()
+    hx.userFacingText(3.1415, 'key')
+    hx.consoleWarning.should.have.been.called.once()
+    hx.consoleWarning.reset()
+    hx.userFacingText('module', undefined)
+    hx.consoleWarning.should.have.been.called.once()
+    hx.consoleWarning.reset()
