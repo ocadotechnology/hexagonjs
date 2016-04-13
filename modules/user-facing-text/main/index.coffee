@@ -13,9 +13,11 @@ completeGetterSetter = (object) ->
   else
     hx.clone _.localisedText
 
+isValid = (value) -> hx.isString(value) and value.length
+
 partialGetterSetter = (module, key, value) ->
-  if hx.isString(module) and module.length and hx.isString(key) and key.length
-    if hx.isString(value) and value.length
+  if isValid(module) and isValid(string)
+    if isValid(value)
       _.localisedText[module] ?= {}
       _.localisedText[module][key] = value
       _.initialValues[module] ?= {}
