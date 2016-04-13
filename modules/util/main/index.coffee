@@ -49,11 +49,10 @@ hx.supports = (name) ->
 hx.debounce = (duration, fn) ->
   timeout = undefined
   return ->
-    args = arguments
     if timeout then clearTimeout(timeout)
     f = ->
       timeout = undefined
-      fn.apply(this, args)
+      fn()
     timeout = setTimeout(f, duration)
 
 hx.clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
@@ -281,7 +280,7 @@ hx.parseHTML = (html) ->
     phantom/safari dont support create contextual fragment so use a slower
     method.
     ###
-
+    
     # This try/catch is only run once, the first time hx.parseHTML is called.
     # Subsequent calls use the cached hx_parseHTML function
     try
