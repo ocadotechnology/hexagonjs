@@ -6,5 +6,6 @@
 .sass-cache
 /debug
 /npm-debug.log
-node_modules
-target
+/node_modules
+/target
+/coverage

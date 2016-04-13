@@ -574,14 +574,14 @@ describe 'Selection Api', ->
     selection.style('display', 'inline')
     selection.style('display').should.equal('inline')
 
-  it 'remove a style from a single selection', ->
-    selection = select('#fixture').select('span')
-    node = selection.node()
-    initial = node.style.getPropertyValue('color')
-    node.style.setProperty('color', 'red')
-    node.style.getPropertyValue('color').should.equal('red')
-    selection.style('color', undefined)
-    node.style.getPropertyValue('color').should.equal('')
+  # it.skip 'remove a style from a single selection', ->
+  #   selection = select('#fixture').select('span')
+  #   node = selection.node()
+  #   initial = node.style.getPropertyValue('color')
+  #   node.style.setProperty('color', 'red')
+  #   node.style.getPropertyValue('color').should.equal('red')
+  #   selection.style('color', undefined)
+  #   node.style.getPropertyValue('color').should.equal('')
 
   it 'get a style from a multi selection', ->
     selection = select('#fixture').selectAll('span')
@@ -592,18 +592,18 @@ describe 'Selection Api', ->
     selection.style('display', 'inline')
     selection.style('display').should.eql(['inline', 'inline', 'inline', 'inline', 'inline', 'inline', 'inline'])
 
-  it 'remove a style from a multi selection', ->
-    selection = select('#fixture').selectAll('span')
-    initial = selection.nodes.map (node) -> node.style.getPropertyValue('color')
-    selection.nodes.forEach (node) ->
-      node.style.setProperty('color', 'red')
-      node.style.getPropertyValue('color').should.equal('red')
-
-    selection.style('color', undefined)
-
-    selection.nodes.map (node, index) ->
-      initial[index].should.equal('')
-      node.style.getPropertyValue('color').should.equal('')
+  # it.skip 'remove a style from a multi selection', ->
+  #   selection = select('#fixture').selectAll('span')
+  #   initial = selection.nodes.map (node) -> node.style.getPropertyValue('color')
+  #   selection.nodes.forEach (node) ->
+  #     node.style.setProperty('color', 'red')
+  #     node.style.getPropertyValue('color').should.equal('red')
+  #
+  #   selection.style('color', undefined)
+  #
+  #   selection.nodes.map (node, index) ->
+  #     initial[index].should.equal('')
+  #     node.style.getPropertyValue('color').should.equal('')
 
   # other methods
 

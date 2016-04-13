@@ -23,20 +23,6 @@ This will start a webserver on port 9009, and will watch for changes made to the
 
     npm test
 
-This command will run all the tests for the build process and the library itself.
-
-To test just the build process:
-
-    npm run test-build
-
-To test just the library process:
-
-    npm run test-library
-
-To test a single module:
-
-    npm run test-library <name-of-module>
-
 
 Template for issue creation
 ---------------------------
