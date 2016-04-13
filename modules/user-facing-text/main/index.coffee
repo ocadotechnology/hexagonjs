@@ -16,7 +16,7 @@ completeGetterSetter = (object) ->
 isValid = (value) -> hx.isString(value) and value.length
 
 partialGetterSetter = (module, key, value) ->
-  if isValid(module) and isValid(string)
+  if isValid(module) and isValid(key)
     if isValid(value)
       _.localisedText[module] ?= {}
       _.localisedText[module][key] = value
