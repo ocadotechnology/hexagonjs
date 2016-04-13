@@ -3,6 +3,8 @@ describe 'User Facing Text', ->
   origInitialText = hx.clone hx.userFacingText._.initialValues
   origConsoleWarning = hx.consoleWarning
 
+  objectWithLength = {length: 1}
+
   beforeEach ->
     hx.consoleWarning = chai.spy()
     hx.userFacingText._.localisedText = {}
@@ -56,28 +58,138 @@ describe 'User Facing Text', ->
     hx.consoleWarning.should.not.have.been.called()
 
   # "Bad" Path
-  it 'should throw an error when called with an invalid value', ->
-    hx.userFacingText('module', 'key', {})
-    hx.consoleWarning.should.have.been.called.once()
-    hx.consoleWarning.reset()
-    hx.userFacingText('module', 'key', 3.1415)
-    hx.consoleWarning.should.have.been.called.once()
-    hx.userFacingText().should.eql({})
+  describe 'Errors', ->
+    it 'when called with a module / key that does not exist', ->
+      hx.userFacingText('module')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
 
-  it 'should throw an error when called with a module / key that does not exist', ->
-    hx.userFacingText('module')
-    hx.consoleWarning.should.have.been.called.once()
-    hx.consoleWarning.reset()
-    hx.userFacingText('module', 'key')
-    hx.consoleWarning.should.have.been.called.once()
+      hx.userFacingText('module', 'key')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.userFacingText().should.eql({})
 
-  it 'should throw an error when called with an invalid module or key', ->
-    hx.userFacingText('module')
-    hx.consoleWarning.should.have.been.called.once()
-    hx.consoleWarning.reset()
-    hx.userFacingText(3.1415, 'key')
-    hx.consoleWarning.should.have.been.called.once()
-    hx.consoleWarning.reset()
-    hx.userFacingText('module', undefined)
-    hx.consoleWarning.should.have.been.called.once()
-    hx.consoleWarning.reset()
+
+    it 'when called with an invalid module when getting', ->
+      hx.userFacingText(undefined)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText(undefined, 'key')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText(3.1415, 'key')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText(objectWithLength, 'key')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText().should.eql({})
+
+
+    it 'when called with an invalid module when setting', ->
+      hx.userFacingText(undefined, 'key', 'value')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+      hx.userFacingText().should.eql({})
+
+      hx.userFacingText(3.1415, 'key', 'value')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText(objectWithLength, 'key', 'value')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText().should.eql({})
+
+
+    it 'when called with an invalid key when getting', ->
+      hx.userFacingText('module', undefined)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText('module', 3.1415)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText('module', objectWithLength)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText().should.eql({})
+
+
+    it 'when called with an invalid key when setting', ->
+      hx.userFacingText('module', undefined, 'value')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText('module', 3.1415, 'value')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText('module', objectWithLength, 'value')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText().should.eql({})
+
+
+    it 'when called with an invalid value', ->
+      hx.userFacingText('module', 'key', undefined)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText('module', 'key', 3.1415)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText('module', 'key', objectWithLength)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.userFacingText().should.eql({})
+
+
+    it 'when calling the global setter with an object with invalid values', ->
+      hx.userFacingText({
+        'module1':
+          'key1': 'value1'
+        'module2':
+          'key2': undefined
+        'module3':
+          'key3': 3.1415
+        'module4':
+          'key4': objectWithLength
+      })
+      hx.consoleWarning.should.have.been.called.exactly(3)
+      hx.userFacingText().should.eql({
+        'module1':
+          'key1': 'value1'
+      })
+
+    it 'when calling the global setter with a non-plain object', ->
+      class Test
+        constructor: ->
+          @length = 1
+          @module1 =
+            key1: 'value'
+
+      testObj = new Test
+      hx.userFacingText(testObj)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.userFacingText().should.eql({})
+
+    it 'when calling the global setter with an invalid value', ->
+      hx.userFacingText('module')
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText(undefined)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
+
+      hx.userFacingText(3.1415)
+      hx.consoleWarning.should.have.been.called.once()
+      hx.consoleWarning.reset()
