@@ -35,9 +35,6 @@ class InlinePicker extends hx.InlineMorphSection
       items: resolvedOptions.items
       ddClass: resolvedOptions.ddClass
       noValueText: resolvedOptions.noValueText
-      showAutocomplete: resolvedOptions.showAutocomplete
-      autocompleteNoData: resolvedOptions.autocompleteNoData
-      autocompleteLookup: resolvedOptions.autocompleteLookup
     })
 
     picker._.menu.dropdown.on 'showstart', 'hx.inline-picker', =>
