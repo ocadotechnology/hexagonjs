@@ -23,6 +23,15 @@ describe 'Selection Api', ->
           <div></div>
           <div></div>
         </div>
+        <div id="outer-3">
+          <div class="a-class">
+            <div class="child"></div>
+          </div>
+          <div class="child">
+            <div class="child"></div>
+          </div>
+          <div class="child"></div>
+        </div>
       </div>
     """
 
@@ -170,6 +179,60 @@ describe 'Selection Api', ->
   it 'selection.selectAll should log a warning if an invalid type is given', ->
     hx.select('#fixture').selectAll(3.1415)
     hx.consoleWarning.should.have.been.called()
+
+  # shallow select
+  it 'shallowSelect should set singleSelection to false for multi selections', ->
+    selection = hx.selectAll('#fixture').shallowSelect('div')
+    selection.singleSelection.should.equal(false)
+    selection.size().should.equal(1)
+
+  it 'shallowSelect should set singleSelection to true for single selections', ->
+    selection = hx.select('#fixture').shallowSelect('div')
+    selection.singleSelection.should.equal(true)
+    selection.size().should.equal(1)
+
+  it 'shallowSelect should select only direct decendents', ->
+    selection = hx.select('#outer-3').shallowSelect('.child')
+    selection.size().should.equal(1)
+    selection.node().parentNode.isEqualNode(hx.select('#outer-3').node()).should.equal(true)
+
+  it 'shallowSelect should work on a multi selection', ->
+    selection = hx.select('#fixture').select('.wrapper').shallowSelectAll('div')
+      .shallowSelect('.one')
+    selection.size().should.equal(2)
+
+  it 'shallowSelect should log a warning if an invalid type is given', ->
+    hx.detached('div').shallowSelect(3.1415)
+    hx.consoleWarning.should.have.been.called()
+
+
+  it 'shallowSelectAll should not set singleSelection to true', ->
+    selection = hx.selectAll('#fixture').shallowSelectAll('div')
+    selection.size().should.equal(1)
+    selection.singleSelection.should.equal(false)
+
+  it 'shallowSelectAll should not set singleSelection to true', ->
+    selection = hx.select('#fixture').shallowSelectAll('div')
+    selection.size().should.equal(1)
+    selection.singleSelection.should.equal(false)
+
+  it 'shallowSelectAll should select only direct decendents', ->
+    selection = hx.select('#outer-3').shallowSelectAll('.child')
+    selection.size().should.equal(2)
+    parentNode = hx.select('#outer-3').node()
+    selection.nodes.map (node) -> node.parentNode.isEqualNode(parentNode)
+      .every (val) -> val
+      .should.equal(true)
+
+  it 'shallowSelectAll should work on a multi selection', ->
+    selection = hx.select('#fixture').select('.wrapper').shallowSelectAll('div')
+      .shallowSelectAll('.one')
+    selection.size().should.equal(4)
+
+  it 'shallowSelectAll should log a warning if an invalid type is given', ->
+    hx.detached('div').shallowSelectAll(3.1415)
+    hx.consoleWarning.should.have.been.called()
+
 
   # creating detached elements
 

@@ -16,8 +16,33 @@ getMethod = (node, methodName) ->
   else
     Element.prototype[methodName]
 
+
+# Should only be called with Function.call(node, selector)
+matchPolyfill = (selector) ->
+  node = this
+  matchingNodes = (node.document or node.ownerDocument).querySelectorAll(selector)
+  [].slice.call(matchingNodes).indexOf(node) > -1
+
+getMatches = (node) ->
+  node.matches or hx.vendor(node, 'matchesSelector') or matchPolyfill
+
 selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, selector)
 selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
+
+shallowSelectSingle = (selector, node) ->
+  matchFn = getMatches(node)
+  for child in node.children
+    if matchFn.call(child, selector)
+      return child
+
+shallowSelectAll = (selector, node) ->
+  matchFn = getMatches(node)
+  matchingNodes = []
+  for child in node.children
+    if matchFn.call(child, selector)
+      matchingNodes.push child
+  matchingNodes
+
 
 getHexagonElementDataObject = (element, createIfNotExists = true) ->
   if createIfNotExists
@@ -55,19 +80,8 @@ class ElementSet
 
 closestParent = (selector, node) ->
   node = node.parentNode
-
-  #XXX: use hx.vendor
-  matches =
-    if node.matches then 'matches'
-    else if node.matchesSelector then 'matchesSelector'
-    else if node.mozMatchesSelector then 'mozMatchesSelector'
-    else if node.webkitMatchesSelector then 'webkitMatchesSelector'
-    else if node.oMatchesSelector then 'oMatchesSelector'
-    else if node.msMatchesSelector then 'msMatchesSelector'
-    else throw new Error("Dom matches method is not available (and is needed for closest())")
-
   while node and node isnt document
-    if getMethod(node, matches).call(node, selector) then return node
+    if getMatches(node).call(node, selector) then return node
     node = node.parentNode
 
   undefined
@@ -144,6 +158,33 @@ class Selection
       new Selection([])
     else
       new Selection(flattenNodes(@nodes.map((node) -> selectAll(selector, node))))
+
+  # selects the first node matching the selector that is a direct descendent of this selection
+  shallowSelect: (selector) ->
+    if not hx.isString(selector)
+      hx.consoleWarning(
+        'Selection.selectAll was passed the wrong argument type',
+        'Selection.selectAll only accepts a string argument, you supplied:',
+        selector
+      )
+      new Selection([])
+    else
+      s = new Selection(@nodes.map((node) -> shallowSelectSingle(selector, node)))
+      s.singleSelection = @singleSelection
+      s
+
+  # selects all the nodes matching the selector that are a direct descendent of this selection
+  shallowSelectAll: (selector) ->
+    if not hx.isString(selector)
+      hx.consoleWarning(
+        'Selection.selectAll was passed the wrong argument type',
+        'Selection.selectAll only accepts a string argument, you supplied:',
+        selector
+      )
+      new Selection([])
+    else
+      new Selection(flattenNodes(@nodes.map((node) -> shallowSelectAll(selector, node))))
+
 
   # traverses up the dom to find the closest matching element. returns a selection containing the result
   closest: (selector) ->
