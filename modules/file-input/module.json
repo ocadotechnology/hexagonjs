@@ -1,0 +1,17 @@
+{
+  "dependencies": [
+    "component",
+    "selection",
+    "event-emitter",
+    "map",
+    "input-group",
+    "dropdown",
+    "fluid",
+    "layout",
+    "util"
+  ],
+  "keywords": [
+    "file",
+    "input"
+  ]
+}
