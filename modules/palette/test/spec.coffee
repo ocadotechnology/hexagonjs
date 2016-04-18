@@ -1,93 +1,53 @@
-describe 'palette', ->
-  describe 'hx.palette.context should correctly class an element', ->
-    testContext = (context) ->
-      selection = hx.detached('div')
-      hx.palette.context(selection, context).should.equal(selection)
-      selection.classed('hx-' + context).should.equal(true)
-      hx.palette.context(selection.node()).should.equal(context)
+describe 'Palette', ->
+  origConsoleWarning = hx.consoleWarning
 
-    it 'positive', -> testContext('positive')
-    it 'warning', -> testContext('warning')
-    it 'negative', -> testContext('negative')
-    it 'info', -> testContext('info')
-    it 'action', -> testContext('action')
-    it 'complement', -> testContext('complement')
-    it 'contrast', -> testContext('contrast')
+  beforeEach ->
+    hx.consoleWarning = chai.spy()
 
-    it 'should return undefined if there is no context', ->
-      should.not.exist(hx.palette.context(hx.detached('div')))
+  after ->
+    hx.consoleWarning = origConsoleWarning
 
-    it 'should remove existing context classes', ->
-      selection = hx.detached('div').class('hx-positive hx-negative')
-      hx.palette.context(selection, 'positive')
-      selection.classed('hx-positive').should.equal(true)
-      selection.classed('hx-negative').should.equal(false)
+  testPaletteContextType = (type, testContexts, prefix) ->
+    describe "hx.palette.#{type} should correctly class an element", ->
+      testContext = (context) ->
+        it context, ->
+          selection = hx.detached('div')
+          hx.palette[type](selection, context).should.equal(selection)
+          selection.classed("#{prefix}-#{context}").should.equal(true)
+          hx.palette[type](selection.node()).should.equal(context)
+          hx.consoleWarning.should.not.have.been.called()
 
-    it 'supplying undefined should remove existing context classes', ->
-      selection = hx.detached('div').class('hx-positive hx-negative')
-      hx.palette.context(selection, undefined)
-      selection.classed('hx-positive').should.equal(false)
-      selection.classed('hx-negative').should.equal(false)
+      testContexts.forEach testContext
 
-  describe 'hx.palette.textContext should correctly class an element', ->
-    testContext = (context) ->
-      selection = hx.detached('div')
-      hx.palette.textContext(selection, context).should.equal(selection)
-      selection.classed('hx-text-' + context).should.equal(true)
-      hx.palette.textContext(selection.node()).should.equal(context)
+      it 'should return undefined if there is no context', ->
+        should.not.exist(hx.palette.context(hx.detached('div')))
+        hx.consoleWarning.should.not.have.been.called()
 
-    it 'default', -> testContext('default')
-    it 'positive', -> testContext('positive')
-    it 'warning', -> testContext('warning')
-    it 'negative', -> testContext('negative')
-    it 'info', -> testContext('info')
-    it 'action', -> testContext('action')
-    it 'complement', -> testContext('complement')
-    it 'contrast', -> testContext('contrast')
+      it 'should remove existing context classes', ->
+        selection = hx.detached('div').class("#{prefix}-positive #{prefix}-negative")
+        hx.palette[type](selection, 'positive')
+        selection.classed("#{prefix}-positive").should.equal(true)
+        selection.classed("#{prefix}-negative").should.equal(false)
+        hx.consoleWarning.should.not.have.been.called()
 
-    it 'should return undefined if there is no context', ->
-      should.not.exist(hx.palette.textContext(hx.detached('div')))
+      it 'supplying undefined should remove existing context classes', ->
+        selection = hx.detached('div').class("#{prefix}-positive #{prefix}-negative")
+        hx.palette[type](selection, undefined)
+        selection.classed("#{prefix}-positive").should.equal(false)
+        selection.classed("#{prefix}-negative").should.equal(false)
+        hx.consoleWarning.should.not.have.been.called()
 
-    it 'should remove existing textContext classes', ->
-      selection = hx.detached('div').class('hx-text-positive hx-text-negative')
-      hx.palette.textContext(selection, 'positive')
-      selection.classed('hx-text-positive').should.equal(true)
-      selection.classed('hx-text-negative').should.equal(false)
-
-    it 'supplying undefined should remove existing context classes', ->
-      selection = hx.detached('div').class('hx-text-positive hx-text-negative')
-      hx.palette.textContext(selection, undefined)
-      selection.classed('hx-text-positive').should.equal(false)
-      selection.classed('hx-text-negative').should.equal(false)
+      it 'should log a warning when a context is not known', ->
+        hx.palette[type](hx.detached('div'), 'bob')
+        hx.consoleWarning.should.have.been.called()
 
 
-  describe 'hx.palette.backgroundContext should correctly class an element', ->
-    testContext = (context) ->
-      selection = hx.detached('div')
-      hx.palette.backgroundContext(selection, context).should.equal(selection)
-      selection.classed('hx-background-' + context).should.equal(true)
-      hx.palette.backgroundContext(selection.node()).should.equal(context)
+  contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
+  testPaletteContextType 'context', contexts, 'hx'
 
-    it 'default', -> testContext('default')
-    it 'positive', -> testContext('positive')
-    it 'warning', -> testContext('warning')
-    it 'negative', -> testContext('negative')
-    it 'info', -> testContext('info')
-    it 'action', -> testContext('action')
-    it 'complement', -> testContext('complement')
-    it 'contrast', -> testContext('contrast')
+  paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
+  types = ['textContext', 'backgroundContext', 'borderContext']
+  typePrefixes = ['hx-text', 'hx-background', 'hx-border']
 
-    it 'should return undefined if there is no context', ->
-      should.not.exist(hx.palette.backgroundContext(hx.detached('div')))
-
-    it 'should remove existing backgroundContext classes', ->
-      selection = hx.detached('div').class('hx-background-positive hx-background-negative')
-      hx.palette.backgroundContext(selection, 'positive')
-      selection.classed('hx-background-positive').should.equal(true)
-      selection.classed('hx-background-negative').should.equal(false)
-
-    it 'should remove existing backgroundContext classes', ->
-      selection = hx.detached('div').class('hx-background-positive hx-background-negative')
-      hx.palette.backgroundContext(selection, undefined)
-      selection.classed('hx-background-positive').should.equal(false)
-      selection.classed('hx-background-negative').should.equal(false)
+  types.forEach (type, index) ->
+    testPaletteContextType type, paletteContexts, typePrefixes[index]
