@@ -1,0 +1,9 @@
+{
+  "dependencies": [
+    "selection"
+  ],
+  "keywords": [
+    "autocomplete",
+    "picker"
+  ]
+}

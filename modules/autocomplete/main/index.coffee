@@ -383,9 +383,9 @@ class AutoComplete extends hx.EventEmitter
       _.cleanUp = true
     this
 
-hx.autoComplete = (options) ->
+hx.autoComplete = (data, options) ->
   selection = hx.detached('input')
-  new AutoComplete(selection.node(), options)
+  new AutoComplete(selection.node(), data, options)
   selection
 
 hx.AutoComplete = AutoComplete
