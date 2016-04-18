@@ -66,9 +66,7 @@ function resolveTheme (themeResources) {
       }
     })
 
-    console.log(theme)
     return theme.flatten(resolved || {})
-
   })
 }
 

@@ -1,6 +1,8 @@
 {
   "dependencies": [
-    "selection"
+    "selection",
+    "user-facing-text",
+    "util"
   ],
   "keywords": [
     "autocomplete",
