@@ -5,7 +5,7 @@ onTabSelected = (tabs, element, i) ->
   hx.select(element).classed('hx-tab-active', true)
 
   context = hx.palette.context(element)
-  selection.select('.hx-tabs-content').class('hx-tabs-content' + (if context then ' hx-border-' + context else ''))
+  hx.palette.borderContext(selection.select('.hx-tabs-content'), context)
 
   hx.select(tabs.selector).selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true)
   hx.select('#' + hx.select(element).attr('data-content')).classed('hx-tab-content-hidden', false)

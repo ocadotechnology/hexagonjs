@@ -1,0 +1,32 @@
+.hx-file-input {
+  display: inline-block;
+  min-width: 20em;
+
+  &.hx-file-input-full-width {
+    display: block;
+  }
+  .hx-input-group {
+    .hx-file-input-selected {
+      display: flex;
+      line-height: 1em;
+      align-items: center;
+      padding: 0 0.4em;
+      text-align: left;
+    }
+  }
+}
+
+.hx-file-input-hidden {
+  display: none;
+}
+
+.hx-file-input-preview + .hx-file-input-preview {
+  margin-top: 0.2em;
+}
+
+.hx-file-input-preview-image > img {
+  max-height: 1.5em;
+  max-width: 5em;
+  margin: -0.25em 0;
+  vertical-align: middle;
+}

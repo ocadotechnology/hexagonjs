@@ -251,6 +251,19 @@ class Form extends hx.EventEmitter
         disable: (sel, disabled) -> tagInput.disabled(disabled)
       }
 
+  addFileInput: (name, options = {}) ->
+    self = this
+    @add name, 'fileInput', 'div', ->
+      elem = @append('div').node()
+      fileInput = new hx.FileInput(elem, options.fileInputOptions)
+      {
+        key: options.key
+        componentNode: elem
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) -> fileInput.disabled(disabled)
+      }
+
   submit: ->
     {valid, errors} = hx.validateForm(@selector)
     if valid then @emit('submit', @data())
@@ -263,7 +276,7 @@ class Form extends hx.EventEmitter
     else
       result = {}
       @properties.forEach (key, it) =>
-        if not it.extras.hidden
+        if not it.hidden
           result[key] = @value(key)
       result
 
@@ -325,9 +338,11 @@ class Form extends hx.EventEmitter
         switch it.type
           when 'checkbox' then hx.select(node).prop('checked', value)
           when 'radio' then hx.select(node).selectAll('input').filter((d) -> d.value() is value).prop('checked', true)
-          when 'tagInput'
-            tagInput = hx.component(it.extras.componentNode or node)
-            value.forEach((e) -> tagInput.add(e))
+          when 'fileInput'
+            # You cannot set the value for a file input
+            fileInput = hx.component(it.extras.componentNode or node)
+            fileInput.value(value)
+          when 'tagInput' then hx.component(it.extras.componentNode or node).items(value)
           when 'select' then hx.component(it.extras.componentNode or node).value(value)
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
           else hx.select(node).value(value)
@@ -337,6 +352,7 @@ class Form extends hx.EventEmitter
             when 'checkbox' then hx.select(it.node).prop('checked')
             when 'radio' then hx.select(it.node).select('input:checked').value()
             when 'tagInput' then hx.component(it.extras.componentNode or it.node).items()
+            when 'fileInput' then hx.component(it.extras.componentNode or it.node).value()
             when 'select' then hx.component(it.extras.componentNode or it.node).value()
             when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.getValue()
             else hx.select(it.node).value()

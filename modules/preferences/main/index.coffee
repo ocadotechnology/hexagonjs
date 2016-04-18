@@ -211,7 +211,15 @@ class Preferences extends hx.EventEmitter
     if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
     @locale defaultLocaleId
-    @timezone moment?.tz?.guess() or 'UTC+00:00'
+
+    guessedMomentTimezone = moment?.tz?.guess()
+    if guessedMomentTimezone?
+      @supportedTimezones moment.tz.names()
+      @timezoneOffsetLookup (timezone, datestamp) ->
+        -(moment.tz.zone(timezone).offset(timestamp) / 60)
+      @timezone guessedMomentTimezone
+    else
+      @timezone 'UTC+00:00'
 
   timezone: (timezone) ->
     if arguments.length > 0
