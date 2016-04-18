@@ -262,6 +262,7 @@
     "iconCol": "white",
     "iconBackgroundCol": "#00ADA8"
   },
+  "fluid": {},
   "tagInput": {
     "defaultCol": "#FFFFFF",
     "actionCol": "#00ADA8",
@@ -393,7 +394,7 @@
     "headingTextCol": "#00ADA8"
   },
   "fastClick": {},
-  "fluid": {},
+  "fileInput": {},
   "formBuilder": {},
   "inlineEditable": {},
   "inlinePicker": {},
@@ -509,5 +510,6 @@
     "backgroundCol": "#FFFFFF",
     "shadowCol": "rgba(128, 128, 128, 0.17)",
     "iconDisabledCol": "#FAFAFA"
-  }
+  },
+  "userFacingText": {}
 }
