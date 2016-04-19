@@ -4,12 +4,12 @@ hx.userFacingText({
     otherResults: 'Other Results'
 })
 
-sortDisabledData = (inputMap) ->
-  inputMap ?= hx.identity
+sortDisabledData = (valueLookup) ->
+  valueLookup ?= hx.identity
   (a, b) ->
     if not a.disabled and b.disabled then -1
     else if a.disabled and not b.disabled then 1
-    else hx.sort.compare(inputMap(a), inputMap(b))
+    else hx.sort.compare(valueLookup(a), valueLookup(b))
 
 trimTrailingSpaces = (term) ->
   newTerm = term
@@ -22,22 +22,24 @@ class AutocompleteFeed
     self = this
 
     defaults =
-      inputMap: undefined
-      matchType: 'contains'
       filter: undefined
       filterOptions: undefined
+      valueLookup: undefined
+      matchType: 'contains'
+      showOtherResults: false
+      trimTrailingSpaces: false
 
-    if options.inputMap?
-      # default searchValue if inputMap is defined
+    if options.valueLookup?
+      # default searchValue if valueLookup is defined
       defaults.filterOptions =
-        searchValues: (datum) -> [self.options.inputMap(datum)]
+        searchValues: (datum) -> [self._.options.valueLookup(datum)]
 
     resolvedOptions = hx.merge defaults, options
 
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (data, term) ->
       hx.filter[resolvedOptions.matchType](data, term, resolvedOptions.filterOptions)
-        .sort sortDisabledData(resolvedOptions.inputMap)
+        .sort sortDisabledData(resolvedOptions.valueLookup)
 
     @_ =
       options: resolvedOptions
@@ -46,7 +48,7 @@ class AutocompleteFeed
 
   clearCache: -> @_.resultsCache = new hx.Map
 
-  filterData: (term = '', callback) ->
+  filterData: (term, callback) ->
     _ = @_
 
     cacheDataAndCallback = (results, otherResults = []) =>
@@ -65,17 +67,17 @@ class AutocompleteFeed
       # The matching is external so we don't filter here
       _.data(term, cacheDataAndCallback)
     else
-      cachedData = _.resultsCache.get(term)
-      if cachedData?
+      if _.resultsCache.has(term)
         # Use the cached data if it exists
+        cachedData = _.resultsCache.get(term)
         callback(cachedData.results, cachedData.otherResults)
       else
         filterAndCallback = (unfilteredData) ->
           filteredData = _.options.filter(unfilteredData, term)
           if _.options.showOtherResults
             otherResults = unfilteredData.filter (datum) ->
-                unfilteredData.indexOf(datum) is -1
-              .sort sortDisabledData(_.options.inputMap)
+                filteredData.indexOf(datum) is -1
+              .sort sortDisabledData(_.options.valueLookup)
 
           cacheDataAndCallback(filteredData, otherResults)
 
@@ -107,10 +109,12 @@ class AutocompletePicker extends hx.EventEmitter
     hx.component.register(selector, this)
 
     defaults =
-      inputMap: undefined
-      matchType: undefined
       filter: undefined
       filterOptions: undefined
+      matchType: undefined
+      valueLookup: undefined
+      trimTrailingSpaces: undefined
+      showOtherResults: undefined
 
       noResultsMessage: hx.userFacingText('autocomplete', 'noResults')
       otherResultsMessage: hx.userFacingText('autocomplete', 'otherResults')
@@ -118,7 +122,7 @@ class AutocompletePicker extends hx.EventEmitter
     resolvedOptions = hx.merge defaults, options
 
     feedOptions =
-      inputMap: resolvedOptions.inputMap
+      valueLookup: resolvedOptions.valueLookup
       matchType: resolvedOptions.matchType
       filter: resolvedOptions.filter
       filterOptions: resolvedOptions.filterOptions
@@ -132,6 +136,7 @@ class AutocompletePicker extends hx.EventEmitter
 
 
     @_ =
+      options: resolvedOptions
       feed: feed
 
 
@@ -158,7 +163,7 @@ class AutocompletePicker extends hx.EventEmitter
 
 hx.autocompletePicker = (data, options) ->
   selection = hx.detached('input')
-  new AutoComplete(selection.node(), data, options)
+  new AutocompletePicker(selection.node(), data, options)
   selection
 
 hx.AutocompletePicker = AutocompletePicker

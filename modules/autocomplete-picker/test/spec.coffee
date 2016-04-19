@@ -7,12 +7,12 @@ describe 'Autocomplete Feed', ->
     af._.options.filter.should.be.an.instanceOf(Function)
     af._.options.matchType.should.equal('contains')
     should.not.exist(af._.options.filterOptions)
-    should.not.exist(af._.options.inputMap)
+    should.not.exist(af._.options.valueLookup)
 
-  it 'should use the default searchValues function if an inputMap is defined', ->
-    inputMap = chai.spy()
+  it 'should use the default searchValues function if an valueLookup is defined', ->
+    valueLookup = chai.spy()
     af = new AutocompleteFeed({
-      inputMap: inputMap
+      valueLookup: valueLookup
     })
     should.exist(af._.options.filterOptions)
     af._.options.filterOptions.should.be.an.instanceOf(Object)
@@ -20,20 +20,20 @@ describe 'Autocomplete Feed', ->
     af._.options.filterOptions.searchValues.should.be.an.instanceOf(Function)
 
   it 'should use passed in options where defined', ->
-    inputMap = chai.spy()
+    valueLookup = chai.spy()
     matchType = 'exact'
     filter = chai.spy()
     filterOptions =
       searchValues: chai.spy()
 
     af = new AutocompleteFeed({
-      inputMap: inputMap
+      valueLookup: valueLookup
       matchType: matchType
       filter: filter
       filterOptions: filterOptions
     })
 
-    af._.options.inputMap.should.equal(inputMap)
+    af._.options.valueLookup.should.equal(valueLookup)
     af._.options.matchType.should.equal(matchType)
     af._.options.filter.should.equal(filter)
     af._.options.filterOptions.should.eql(filterOptions)
@@ -52,21 +52,145 @@ describe 'Autocomplete Feed', ->
 
     describe 'filterData(term, callback):', ->
       it 'should not perform filtering when using external matching and data as a function', ->
+        af = new AutocompleteFeed({
+          matchType: 'external'
+        })
+        dataArr = ['b','c','a','d']
+        data = (term, cb) -> cb(dataArr)
+        af.data(data)
+        callback = chai.spy()
+        af.filterData('a', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with(dataArr, [])
 
       it 'should use cached data if available', ->
+        af = new AutocompleteFeed
+        spy = chai.spy()
+        callback = chai.spy()
+        data = (term, cb) ->
+          spy(term)
+          cb(['a'])
+        af.data(data)
+
+        af.filterData('a', callback)
+        spy.should.have.been.called.once()
+        callback.should.have.been.called.once()
+        spy.should.have.been.called.with('a')
+
+        af.filterData('ab', callback)
+        spy.should.have.been.called.twice()
+        callback.should.have.been.called.twice()
+        spy.should.have.been.called.with('ab')
+
+        af.filterData('a', callback)
+        spy.should.have.been.called.twice()
+        callback.should.have.been.called.exactly(3)
 
       it 'should call the filter option function', ->
+        filter = chai.spy()
+        af = new AutocompleteFeed({
+          filter: filter
+        })
+        af.data(['a'])
+        af.filterData('a', ->)
+        filter.should.have.been.called.once()
+        filter.should.have.been.called.with(['a'], 'a')
 
       it 'should sort and filter results by default', ->
+        af = new AutocompleteFeed
+        af.data(['ba','b','a','c','d','ab','a'])
+        callback = chai.spy()
+        af.filterData('a', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with(['a','a','ab','ba'], [])
 
-      it 'should return other results', ->
+      it 'should return other results when using a function', ->
+        af = new AutocompleteFeed({
+          showOtherResults: true
+        })
+        dataArr = ['ba','b','a','d','c','ab','a']
+        data = (term, cb) -> cb(dataArr)
+        af.data(data)
+        callback = chai.spy()
+        af.filterData('a', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with(['a','a','ab','ba'], ['b','c','d'])
+
+      it 'should return other results when using an array', ->
+        af = new AutocompleteFeed({
+          showOtherResults: true
+        })
+        af.data(['ba','b','a','d','c','ab','a'])
+        callback = chai.spy()
+        af.filterData('a', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with(['a','a','ab','ba'], ['b','c','d'])
 
       it 'should return the entire dataset when the term is ""', ->
+        af = new AutocompleteFeed
+        dataArr = ['ba','b','a','d','c','ab','a']
+        af.data(dataArr)
+        callback = chai.spy()
+        af.filterData('', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with(dataArr, [])
 
-      it 'should trim trailing spaces', ->
+      it 'should trim trailing spaces when no values are returned', ->
+        af = new AutocompleteFeed({
+          trimTrailingSpaces: true
+        })
+        data = (term, cb) ->
 
-      it 'should use the inputMap correctly', ->
+          if term.lastIndexOf(' ') is term.length - 1
+            cb []
+          else
+            cb ['a', 'aa', 'b', 'ba']
+        af.data(data)
+        callback = chai.spy()
+        af.filterData('a ', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with(['a','aa', 'ba'],[])
 
+      it 'should not trim trailing spaces if a value is returned', ->
+        af = new AutocompleteFeed({
+          trimTrailingSpaces: true
+        })
+        data = (term, cb) -> cb ['a', 'a a', 'aa', 'b', 'ba']
+        af.data(data)
+        callback = chai.spy()
+        af.filterData('a ', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with(['a a'],[])
+
+      it 'should use the valueLookup correctly', ->
+        valueLookup = (val) -> val.text
+        af = new AutocompleteFeed({
+          valueLookup: valueLookup
+        })
+        aObj = {text: 'a'}
+        bObj = {text: 'b'}
+        cObj = {text: 'ca'}
+
+        af.data([aObj, bObj, cObj])
+        callback = chai.spy()
+        af.filterData('a', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with([aObj, cObj])
+
+      it 'should sort disabled items correctly', ->
+        valueLookup = (val) -> val.text
+        af = new AutocompleteFeed({
+          valueLookup: valueLookup
+        })
+        aObj = {text: 'a', disabled: false}
+        bObj = {text: 'ab', disabled: true}
+        cObj = {text: 'ac', disabled: false}
+
+        af.data([aObj, bObj, cObj])
+        callback = chai.spy()
+        af.filterData('a', callback)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with([aObj, cObj, bObj])
 
     it 'isValidData(data): should validate data correctly', ->
       af = new AutocompleteFeed
@@ -180,3 +304,15 @@ describe 'Autocomplete Picker', ->
     it 'data(data: Array): should set the data array', ->
 
       hx.consoleWarning.should.not.have.been.called()
+
+  describe 'hx.autocompletePicker', ->
+    it 'should return a selection with an autocomplete picker component', ->
+      d = hx.autocompletePicker(['a'])
+      d.should.be.an.instanceOf(hx.Selection)
+      d.component().should.be.an.instanceOf(hx.AutocompletePicker)
+
+    it 'should pass the options through to the autocomplete picker', ->
+      d = hx.autocompletePicker(['a'], {
+        matchType: 'external'
+      })
+      d.component()._.options.matchType.should.equal('external')
