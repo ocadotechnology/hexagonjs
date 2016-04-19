@@ -130,6 +130,7 @@ function getOptions (dev) {
       'Boolean': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
       'Date': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date',
       'Element': 'https://developer.mozilla.org/en/docs/Web/API/Element',
+      'File': 'https://developer.mozilla.org/en/docs/Web/API/File',
       'Function': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function',
       'HTMLElement': 'https://developer.mozilla.org/en/docs/Web/API/HTMLElement',
       'Node': 'https://developer.mozilla.org/en/docs/Web/API/Node',

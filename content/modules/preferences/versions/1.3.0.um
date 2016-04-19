@@ -1,0 +1,4 @@
+@version 1.3.0
+  @api Preferences
+    @bugfix: Update the preferences default timezone lookup to work correctly with Moment.js
+      @issue 133
