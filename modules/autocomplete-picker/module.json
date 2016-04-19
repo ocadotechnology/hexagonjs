@@ -1,5 +1,7 @@
 {
   "dependencies": [
+    "filter",
+    "sort",
     "selection",
     "user-facing-text",
     "util",

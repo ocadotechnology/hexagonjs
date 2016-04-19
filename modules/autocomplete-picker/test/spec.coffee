@@ -195,8 +195,10 @@ describe 'Autocomplete Feed', ->
     it 'isValidData(data): should validate data correctly', ->
       af = new AutocompleteFeed
 
-      af.isValidData([]).should.equal(true)
+      af.isValidData([]).should.equal(false)
+      af.isValidData(['a']).should.equal(true)
       af.isValidData(chai.spy()).should.equal(true)
+      af.isValidData(->).should.equal(true)
       af.isValidData({}).should.equal(false)
 
     it 'data(data): should set the current data', ->

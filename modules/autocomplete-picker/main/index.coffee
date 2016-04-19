@@ -1,5 +1,6 @@
 hx.userFacingText({
   autocomplete:
+    loading: 'Loading...'
     noResults: 'No Results Found'
     otherResults: 'Other Results'
 })
@@ -34,7 +35,7 @@ class AutocompleteFeed
       defaults.filterOptions =
         searchValues: (datum) -> [self._.options.valueLookup(datum)]
 
-    resolvedOptions = hx.merge defaults, options
+    resolvedOptions = hx.merge.defined defaults, options
 
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (data, term) ->
@@ -91,7 +92,7 @@ class AutocompleteFeed
           # Skip filtering and return the entire dataset
           cacheDataAndCallback(_.data)
 
-  isValidData: (data) -> hx.isArray(data) or hx.isFunction(data)
+  isValidData: (data) -> (hx.isArray(data) and data.length > 0) or hx.isFunction(data)
 
   data: (data) ->
     # Validation should be external to the feed and show relevant error message(s)
@@ -101,6 +102,13 @@ class AutocompleteFeed
     else
       @_.data
 
+
+validateData = (feed, data) ->
+  if not feed.isValidData(data)
+    hx.consoleWarning "hx.AutocompletePicker: the data was expected to be an array of items or a function, you supplied: #{data}"
+    false
+  else
+    true
 
 class AutocompletePicker extends hx.EventEmitter
   constructor: (selector, data, options) ->
@@ -116,10 +124,20 @@ class AutocompletePicker extends hx.EventEmitter
       trimTrailingSpaces: undefined
       showOtherResults: undefined
 
-      noResultsMessage: hx.userFacingText('autocomplete', 'noResults')
-      otherResultsMessage: hx.userFacingText('autocomplete', 'otherResults')
+      value: undefined
+      buttonClass: undefined
+      renderer: undefined
+      loadingText: hx.userFacingText('autocomplete', 'loading')
+      noResultsText: hx.userFacingText('autocomplete', 'noResults')
+      otherResultsText: hx.userFacingText('autocomplete', 'otherResults')
 
     resolvedOptions = hx.merge defaults, options
+
+    selection = hx.select(selector)
+      .classed('hx-autocomplete-picker hx-btn', true)
+
+    if resolvedOptions.buttonClass
+      selection.classed(resolvedOptions.buttonClass, true)
 
     feedOptions =
       valueLookup: resolvedOptions.valueLookup
@@ -129,40 +147,91 @@ class AutocompletePicker extends hx.EventEmitter
 
     feed = new AutocompleteFeed(feedOptions)
 
-    if not feed.isValidData(data)
-      hx.consoleWarning "hx.AutocompletePicker #{selector}: the data was expected to be an array of items or a function, you supplied: #{data}"
-    else
-      feed.data(data)
-
-
     @_ =
       options: resolvedOptions
       feed: feed
 
+    if validateData(feed, data)
+      feed.data(data)
 
-  clearCache: ->
+      menu = new hx.Menu(selector, {
+        renderer: resolvedOptions.renderer
+      })
 
-  hide: ->
+      noResultsItem =
+        text: resolvedOptions.noResultsText
+        unselectable: true
 
-  disabled: (disabled) ->
-    if arguments.length
+      loadingItem =
+        text: resolvedOptions.loadingText
+        unselectable: true
 
-    else
+      otherResultsItem =
+        text: resolvedOptions.otherResultsText
+        heading: true
 
+      renderMenu = (items) ->
+        menu.items(items)
+        menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node())
+
+      populateMenu = (term) ->
+        renderMenu([loadingItem])
+        feed.filterData term, (results, otherResults) ->
+          if results.length is 0
+            results.push(noResultsItem)
+          if otherResults.length > 0
+            otherResults.unshift(otherResultsItem)
+          renderMenu(results.concat(otherResults))
+
+      input = hx.detached('input').value(resolvedOptions.value)
+        .on 'input', (e) -> populateMenu(e.target.value)
+
+
+
+
+      menu.dropdown.on 'showstart', ->
+        menu.dropdown._.dropdown.prepend(input)
+        populateMenu(input.value())
+
+      menu.dropdown.on 'showend', ->
+        input.node().focus()
+
+      @_.renderer = menu?.renderer()
+
+
+  clearCache: -> @_.feed.clearCache()
+
+  hide: -> @_.menu.hide()
+
+  disabled: (disable) ->
+    menuDisable = @_.menu.disabled(disable)
+    # menu.disabled returns the wrong 'this' so we return the correct things below
+    if disable? then this
+    else menuDisable
 
   data: (data) ->
     if arguments.length
-
+      if validateData(@_.feed, data)
+        @_.feed.data(data)
+      this
     else
-
+      @_.feed.data()
 
   value: (value) ->
     if arguments.length
 
     else
 
+  renderer: (f) ->
+    if f?
+      @_.renderer = f
+      this
+    else
+      @_.renderer
+
+
 hx.autocompletePicker = (data, options) ->
-  selection = hx.detached('input')
+  selection = hx.detached('div')
   new AutocompletePicker(selection.node(), data, options)
   selection
 
