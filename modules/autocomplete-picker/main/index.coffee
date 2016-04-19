@@ -18,7 +18,7 @@ trimTrailingSpaces = (term) ->
   newTerm
 
 class AutocompleteFeed
-  constructor: (options) ->
+  constructor: (options = {}) ->
     self = this
 
     defaults =
@@ -34,6 +34,7 @@ class AutocompleteFeed
 
     resolvedOptions = hx.merge defaults, options
 
+    # defined here so we can use the resolved options
     resolvedOptions.filter ?= (data, term) ->
       hx.filter[resolvedOptions.matchType](data, term, resolvedOptions.filterOptions)
         .sort sortDisabledData(resolvedOptions.inputMap)
@@ -91,6 +92,7 @@ class AutocompleteFeed
   isValidData: (data) -> hx.isArray(data) or hx.isFunction(data)
 
   data: (data) ->
+    # Validation should be external to the feed and show relevant error message(s)
     if arguments.length
       @_.data = data
       this
@@ -161,4 +163,4 @@ hx.autocompletePicker = (data, options) ->
 
 hx.AutocompletePicker = AutocompletePicker
 
-hx.AutocompletePicker._.AutocompleteFeed = AutocompleteFeed
+hx._.AutocompleteFeed = AutocompleteFeed
