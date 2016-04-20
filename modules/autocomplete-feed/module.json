@@ -1,0 +1,14 @@
+{
+  "dependencies": [
+    "filter",
+    "map",
+    "sort",
+    "util"
+  ],
+  "keywords": [
+    "autocomplete",
+    "auto",
+    "complete",
+    "feed"
+  ]
+}

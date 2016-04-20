@@ -1,11 +1,12 @@
 {
   "dependencies": [
-    "filter",
-    "sort",
+    "autocomplete-feed",
+    "component",
+    "menu",
     "selection",
+    "sort",
     "user-facing-text",
-    "util",
-    "component"
+    "util"
   ],
   "keywords": [
     "autocomplete",
