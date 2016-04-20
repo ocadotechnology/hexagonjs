@@ -6,6 +6,9 @@ hx.userFacingText({
     otherResults: 'Other Results'
 })
 
+enterKeyCode = 13
+debounceDuration = 200
+
 validateItems = (feed, items) ->
   if not feed.validateItems(items)
     hx.consoleWarning "hx.AutocompletePicker: the items was expected to be an array of items or a function, you supplied: #{items}"
@@ -74,6 +77,7 @@ class AutocompletePicker extends hx.EventEmitter
     feed = new hx.AutocompleteFeed(feedOptions)
 
     @_ =
+      selection: selection
       options: resolvedOptions
       valueText: valueText
       feed: feed
@@ -128,15 +132,17 @@ class AutocompletePicker extends hx.EventEmitter
             otherResults = [otherResultsItem].concat(otherResults)
           renderMenu(results.concat(otherResults))
 
+      debouncedPopulate = hx.debounce debounceDuration, populateMenu
+
       setValue = (item) =>
         setPickerValue(this, [item], 'user')
         menu.hide()
 
       input = hx.detached('input').class('hx-autocomplete-picker-input')
-        .on 'input', (e) -> populateMenu(e.target.value)
+        .on 'input', (e) -> debouncedPopulate(e.target.value)
         .on 'keydown', (e) ->
           if input.value().length
-            if (e.which or e.keyCode) is 13 and menu.cursorPos is -1
+            if (e.which or e.keyCode) is enterKeyCode and menu.cursorPos is -1
               topItem = menu.items()[0]
               if not topItem.unselectable
                 setValue(topItem)
@@ -144,7 +150,7 @@ class AutocompletePicker extends hx.EventEmitter
       menu.dropdown.on 'showstart', ->
         input.value('')
         menu.dropdown._.dropdown.prepend(input)
-        populateMenu(input.value())
+        debouncedPopulate(input.value())
 
       menu.dropdown.on 'showend', ->
         input.node().focus()
@@ -165,9 +171,13 @@ class AutocompletePicker extends hx.EventEmitter
         @disabled(resolvedOptions.disabled)
 
 
-  clearCache: -> @_.feed.clearCache()
+  clearCache: ->
+    @_.feed.clearCache()
+    this
 
-  hide: -> @_.menu.hide()
+  hide: ->
+    @_.menu.hide()
+    this
 
   disabled: (disable) ->
     menuDisable = @_.menu.disabled(disable)

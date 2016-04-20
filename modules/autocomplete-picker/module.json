@@ -7,9 +7,5 @@
     "sort",
     "user-facing-text",
     "util"
-  ],
-  "keywords": [
-    "autocomplete",
-    "picker"
   ]
 }

@@ -40,10 +40,14 @@ class AutocompleteFeed
       resultsCache: new hx.Map
 
 
-  clearCache: -> @_.resultsCache = new hx.Map
+  clearCache: ->
+    @_.resultsCache = new hx.Map
+    this
 
   filter: (term = '', callback) ->
     _ = @_
+    thisFilter = term + hx.randomId()
+    _.lastFilter = thisFilter
 
     cacheitemsAndCallback = (results, otherResults = []) =>
       if _.options.trimTrailingSpaces and results.length is 0 and term.lastIndexOf(' ') is term.length - 1
@@ -55,7 +59,8 @@ class AutocompleteFeed
           results: results,
           otherResults: otherResults
         })
-        callback(results, otherResults)
+        if thisFilter is _.lastFilter
+          callback(results, otherResults)
 
     if _.options.matchType is 'external' and hx.isFunction(_.items)
       # The matching is external so we don't filter here
@@ -85,7 +90,7 @@ class AutocompleteFeed
           # Skip filtering and return the entire itemsset
           cacheitemsAndCallback(_.items)
 
-  validateItems: (items) -> (hx.isArray(items) and items.length > 0) or hx.isFunction(items)
+  validateItems: (items) -> hx.isArray(items) or hx.isFunction(items)
 
   items: (items) ->
     # Validation should be external to the feed and show relevant error message(s)

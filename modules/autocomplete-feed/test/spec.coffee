@@ -51,7 +51,7 @@ describe 'autocomplete-feed', ->
       initialCache = af._.resultsCache
       initialCache.should.be.an.instanceOf(hx.Map)
       initialCache.keys().should.eql(['', 'a'])
-      af.clearCache()
+      af.clearCache().should.equal(af)
       initialCache.should.not.equal(af._.resultsCache)
       af._.resultsCache.should.be.an.instanceOf(hx.Map)
       af._.resultsCache.keys().should.eql([])
@@ -60,7 +60,7 @@ describe 'autocomplete-feed', ->
     it 'validateItems: should validate items correctly', ->
       af = new hx.AutocompleteFeed
 
-      af.validateItems([]).should.equal(false)
+      af.validateItems([]).should.equal(true)
       af.validateItems(['a']).should.equal(true)
       af.validateItems(chai.spy()).should.equal(true)
       af.validateItems(->).should.equal(true)
@@ -237,3 +237,22 @@ describe 'autocomplete-feed', ->
       af.filter('a', callback)
       callback.should.have.been.called.once()
       callback.should.have.been.called.with([aObj, cObj, bObj])
+
+    it 'filter: should only call back with the last call to filter', ->
+      clock = sinon.useFakeTimers()
+      itemArr = ['abc','abb','acc']
+      items = (term, callback) ->
+        setTimeout ->
+          callback(itemArr)
+        , 1000
+
+      af = new hx.AutocompleteFeed
+      af.items(items).should.equal(af)
+      cb = chai.spy()
+      af.filter('a', cb)
+      af.filter('ab', cb)
+      af.filter('abc', cb)
+      clock.tick(4000)
+      cb.should.have.been.called.once()
+      cb.should.have.been.called.with(['abc'])
+      clock.restore()
