@@ -1,11 +1,12 @@
 hx.userFacingText({
   autocomplete:
+    chooseValue: 'Choose a value...'
     loading: 'Loading...'
     noResults: 'No Results Found'
     otherResults: 'Other Results'
 })
 
-sortDisabledData = (valueLookup) ->
+sortItems = (valueLookup) ->
   valueLookup ?= hx.identity
   (a, b) ->
     if not a.disabled and b.disabled then -1
@@ -38,9 +39,9 @@ class AutocompleteFeed
     resolvedOptions = hx.merge.defined defaults, options
 
     # defined here so we can use the resolved options
-    resolvedOptions.filter ?= (data, term) ->
-      hx.filter[resolvedOptions.matchType](data, term, resolvedOptions.filterOptions)
-        .sort sortDisabledData(resolvedOptions.valueLookup)
+    resolvedOptions.filter ?= (items, term) ->
+      hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
+        .sort sortItems(resolvedOptions.valueLookup)
 
     @_ =
       options: resolvedOptions
@@ -49,69 +50,81 @@ class AutocompleteFeed
 
   clearCache: -> @_.resultsCache = new hx.Map
 
-  filterData: (term, callback) ->
+  filter: (term = '', callback) ->
     _ = @_
 
-    cacheDataAndCallback = (results, otherResults = []) =>
+    cacheitemsAndCallback = (results, otherResults = []) =>
       if _.options.trimTrailingSpaces and results.length is 0 and term.lastIndexOf(' ') is term.length - 1
         # The term has trailing spaces and no results were found
-        @filterData(trimTrailingSpaces(term), callback)
+        @filter(trimTrailingSpaces(term), callback)
       else
-        # Cache the currently searched term data
+        # Cache the currently searched term items
         _.resultsCache.set(term, {
           results: results,
           otherResults: otherResults
         })
         callback(results, otherResults)
 
-    if _.options.matchType is 'external' and hx.isFunction(_.data)
+    if _.options.matchType is 'external' and hx.isFunction(_.items)
       # The matching is external so we don't filter here
-      _.data(term, cacheDataAndCallback)
+      _.items(term, cacheitemsAndCallback)
     else
       if _.resultsCache.has(term)
-        # Use the cached data if it exists
-        cachedData = _.resultsCache.get(term)
-        callback(cachedData.results, cachedData.otherResults)
+        # Use the cached items if it exists
+        cacheditems = _.resultsCache.get(term)
+        callback(cacheditems.results, cacheditems.otherResults)
       else
-        filterAndCallback = (unfilteredData) ->
-          filteredData = _.options.filter(unfilteredData, term)
+        filterAndCallback = (unfiltereditems) ->
+          filtereditems = _.options.filter(unfiltereditems, term)
           if _.options.showOtherResults
-            otherResults = unfilteredData.filter (datum) ->
-                filteredData.indexOf(datum) is -1
-              .sort sortDisabledData(_.options.valueLookup)
+            otherResults = unfiltereditems.filter (datum) ->
+                filtereditems.indexOf(datum) is -1
+              .sort sortItems(_.options.valueLookup)
 
-          cacheDataAndCallback(filteredData, otherResults)
+          cacheitemsAndCallback(filtereditems, otherResults)
 
-        if hx.isFunction(_.data)
+        if hx.isFunction(_.items)
           # Call the function then apply filtering
-          _.data(term, filterAndCallback)
+          _.items(term, filterAndCallback)
         else if term.length
           # Apply filtering to the static object
-          filterAndCallback(_.data)
+          filterAndCallback(_.items)
         else
-          # Skip filtering and return the entire dataset
-          cacheDataAndCallback(_.data)
+          # Skip filtering and return the entire itemsset
+          cacheitemsAndCallback(_.items)
 
-  isValidData: (data) -> (hx.isArray(data) and data.length > 0) or hx.isFunction(data)
+  isValiditems: (items) -> (hx.isArray(items) and items.length > 0) or hx.isFunction(items)
 
-  data: (data) ->
+  items: (items) ->
     # Validation should be external to the feed and show relevant error message(s)
     if arguments.length
-      @_.data = data
+      @_.items = items
       this
     else
-      @_.data
+      @_.items
 
 
-validateData = (feed, data) ->
-  if not feed.isValidData(data)
-    hx.consoleWarning "hx.AutocompletePicker: the data was expected to be an array of items or a function, you supplied: #{data}"
+
+
+
+validateItems = (feed, items) ->
+  if not feed.isValiditems(items)
+    hx.consoleWarning "hx.AutocompletePicker: the items was expected to be an array of items or a function, you supplied: #{items}"
     false
   else
     true
 
+setPickerValue = (picker, results) ->
+  _ = picker._
+  _.valueText.clear()
+  if results.length
+    _.current = results[0]
+    _.renderer _.valueText.node(), results[0]
+  else
+    _.valueText.text(_.options.chooseValueText)
+
 class AutocompletePicker extends hx.EventEmitter
-  constructor: (selector, data, options) ->
+  constructor: (selector, items, options) ->
     super()
 
     hx.component.register(selector, this)
@@ -124,9 +137,11 @@ class AutocompletePicker extends hx.EventEmitter
       trimTrailingSpaces: undefined
       showOtherResults: undefined
 
-      value: undefined
       buttonClass: undefined
       renderer: undefined
+      value: undefined
+
+      chooseValueText: hx.userFacingText('autocomplete', 'chooseValue')
       loadingText: hx.userFacingText('autocomplete', 'loading')
       noResultsText: hx.userFacingText('autocomplete', 'noResults')
       otherResultsText: hx.userFacingText('autocomplete', 'otherResults')
@@ -139,6 +154,10 @@ class AutocompletePicker extends hx.EventEmitter
     if resolvedOptions.buttonClass
       selection.classed(resolvedOptions.buttonClass, true)
 
+    valueText = selection.append('div').class('hx-autocomplete-picker-text')
+    selection.append('span').class('hx-autocomplete-picker-icon')
+      .append('i').class('hx-icon hx-icon-caret-down')
+
     feedOptions =
       valueLookup: resolvedOptions.valueLookup
       matchType: resolvedOptions.matchType
@@ -149,14 +168,31 @@ class AutocompletePicker extends hx.EventEmitter
 
     @_ =
       options: resolvedOptions
+      valueText: valueText
       feed: feed
+      valueLookup: resolvedOptions.valueLookup or hx.identity
 
-    if validateData(feed, data)
-      feed.data(data)
+    if validateItems(feed, items)
+      feed.items(items)
+
+      renderWrapper = (element, item) =>
+        selection = hx.select(element)
+          .clear()
+          .classed('hx-autocomplete-picker-heading', item.heading)
+        if item.unselectable or item.heading
+          hx.select(element)
+            .text(item.text)
+            .off()
+        else
+          @_.renderer(element, item)
 
       menu = new hx.Menu(selector, {
-        renderer: resolvedOptions.renderer
+        dropdownOptions:
+          ddClass: 'hx-autocomplete-picker-dropdown'
       })
+
+      @_.renderer = resolvedOptions.renderer or menu.renderer()
+      menu.renderer(renderWrapper)
 
       noResultsItem =
         text: resolvedOptions.noResultsText
@@ -176,18 +212,23 @@ class AutocompletePicker extends hx.EventEmitter
 
       populateMenu = (term) ->
         renderMenu([loadingItem])
-        feed.filterData term, (results, otherResults) ->
+        feed.filter term, (results, otherResults) ->
           if results.length is 0
             results.push(noResultsItem)
           if otherResults.length > 0
             otherResults.unshift(otherResultsItem)
           renderMenu(results.concat(otherResults))
 
-      input = hx.detached('input').value(resolvedOptions.value)
+      setValue = (item) =>
+        setPickerValue(this, [item])
+        menu.hide()
+
+      input = hx.detached('input')
         .on 'input', (e) -> populateMenu(e.target.value)
-
-
-
+        .on 'keydown', (e) ->
+          if input.value().length
+            if (e.which or e.keyCode) is 13 and menu.cursorPos is -1
+              setValue(menu.items()[0])
 
       menu.dropdown.on 'showstart', ->
         menu.dropdown._.dropdown.prepend(input)
@@ -196,7 +237,14 @@ class AutocompletePicker extends hx.EventEmitter
       menu.dropdown.on 'showend', ->
         input.node().focus()
 
-      @_.renderer = menu?.renderer()
+      menu.on 'change', (item) =>
+        if item?.content?
+          setValue(item.content)
+
+      if resolvedOptions.value
+        @value(resolvedOptions.value)
+      else
+        valueText.text(resolvedOptions.chooseValueText)
 
 
   clearCache: -> @_.feed.clearCache()
@@ -209,18 +257,24 @@ class AutocompletePicker extends hx.EventEmitter
     if disable? then this
     else menuDisable
 
-  data: (data) ->
+  items: (items) ->
     if arguments.length
-      if validateData(@_.feed, data)
-        @_.feed.data(data)
+      if validateItems(@_.feed, items)
+        @_.feed.items(items)
+        @value(@_.current)
       this
     else
-      @_.feed.data()
+      @_.feed.items()
 
   value: (value) ->
+    _ = @_
     if arguments.length
-
+      _.valueText.text(_.options.loadingText)
+      _.feed.filter _.valueLookup(value), (results) =>
+        setPickerValue(this, results)
+      this
     else
+      _.current
 
   renderer: (f) ->
     if f?
@@ -230,9 +284,9 @@ class AutocompletePicker extends hx.EventEmitter
       @_.renderer
 
 
-hx.autocompletePicker = (data, options) ->
+hx.autocompletePicker = (items, options) ->
   selection = hx.detached('div')
-  new AutocompletePicker(selection.node(), data, options)
+  new AutocompletePicker(selection.node(), items, options)
   selection
 
 hx.AutocompletePicker = AutocompletePicker
