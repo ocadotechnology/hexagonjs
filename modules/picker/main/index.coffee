@@ -38,11 +38,7 @@ class Picker extends hx.EventEmitter
     selectedText = button.append('span').class('hx-picker-text')
     button.append('span').class('hx-picker-icon').append('i').class('hx-icon hx-icon-caret-down')
 
-    renderWrapper = (node, item) =>
-      if item.autoComplete
-        hx.select(node).append('input')
-      else
-        @_.renderer(node, item)
+    renderWrapper = (node, item) => @_.renderer(node, item)
 
     menu = new hx.Menu(selector, {
       dropdownOptions: resolvedOptions.dropdownOptions
