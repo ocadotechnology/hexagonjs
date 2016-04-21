@@ -251,18 +251,31 @@ describe 'autocomplete-feed', ->
     it 'filter: should only call back with the last call to filter', ->
       clock = sinon.useFakeTimers()
       itemArr = ['abc','abb','acc']
+      callCheck = chai.spy()
       items = (term, callback) ->
         setTimeout ->
+          callCheck(term)
           callback(itemArr)
-        , 1000
+        , 1000 / term.length
 
       af = new hx.AutocompleteFeed
       af.items(items).should.equal(af)
+
       cb = chai.spy()
       af.filter('a', cb)
-      af.filter('ab', cb)
       af.filter('abc', cb)
-      clock.tick(4000)
+      af.filter('ab', cb)
+
+      clock.tick(1000 / 3)
+      callCheck.should.have.been.called.once()
+      callCheck.should.have.been.called.with('abc')
+      clock.tick(1000 / 2)
+      callCheck.should.have.been.called.twice()
+      callCheck.should.have.been.called.with('ab')
+      clock.tick(1000 / 1)
+      callCheck.should.have.been.called.exactly(3)
+      callCheck.should.have.been.called.with('a')
+
       cb.should.have.been.called.once()
-      cb.should.have.been.called.with(['abc'])
+      cb.should.have.been.called.with(['abb', 'abc'])
       clock.restore()
