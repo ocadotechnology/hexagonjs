@@ -1,15 +1,17 @@
 {
   "dependencies": [
+    "autocomplete",
+    "autocomplete-picker",
     "component",
-    "map",
-    "util",
-    "selection",
+    "date-picker",
+    "date-time-picker",
     "event-emitter",
+    "file-input",
+    "map",
+    "picker",
+    "selection",
     "tag-input",
-    "picker"
-  ],
-  "keywords": [
-    "form",
-    "builder"
+    "time-picker",
+    "util"
   ]
 }
