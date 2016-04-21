@@ -200,7 +200,7 @@ class AutocompletePicker extends hx.EventEmitter
       _.valueText.text(_.options.loadingText)
       _.feed.filter _.valueLookup(value), (results) =>
         setPickerValue(this, results, 'api')
-        callback?(value, results.length is 1)
+        callback?(results[0])
       this
     else
       _.current

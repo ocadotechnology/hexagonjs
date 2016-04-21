@@ -311,6 +311,22 @@ describe 'autocomplete-picker', ->
         hx.consoleWarning.should.not.have.been.called()
 
 
+    it 'value: should use the first value if multiple results are returned from the filter', ->
+      aObj = {name: 'a', location: 'a'}
+      bObj = {name: 'a', location: 'b'}
+      cObj = {name: 'a', location: 'c'}
+
+      valueLookup = (item) -> item.name
+
+      items = [bObj, aObj, cObj]
+      testClosedAutocomplete items, {valueLookup: valueLookup}, (ap) ->
+        should.not.exist(ap.value())
+        callback = chai.spy()
+        ap.value({name: 'a'}, callback).should.equal(ap)
+        callback.should.have.been.called.with(bObj)
+        ap.value().should.equal(bObj)
+
+
     it 'value: should get and set the value as passed in', ->
       aObj = {name: 'a'}
       bObj = {name: 'b'}
@@ -324,10 +340,10 @@ describe 'autocomplete-picker', ->
         should.not.exist(ap.value())
         callback = chai.spy()
         ap.value({name: 'a'}, callback).should.equal(ap)
-        callback.should.have.been.called.with(aObj, true)
+        callback.should.have.been.called.with(aObj)
         ap.value().should.equal(aObj)
         ap.value({name: 'd'}, callback).should.equal(ap)
-        callback.should.have.been.called.with(dObj, false)
+        callback.should.have.been.called.with(undefined)
         ap.value().should.equal(aObj)
 
 
@@ -347,7 +363,7 @@ describe 'autocomplete-picker', ->
         callback.should.not.have.been.called()
         clock.tick(trivialAsyncWait)
         callback.should.have.been.called.once()
-        callback.should.have.been.called.with('a', true)
+        callback.should.have.been.called.with('a')
 
 
     it 'value: should call the callback correctly when the value is in the item set', ->
@@ -358,7 +374,7 @@ describe 'autocomplete-picker', ->
         callback.should.not.have.been.called()
         clock.tick(trivialAsyncWait)
         callback.should.have.been.called.once()
-        callback.should.have.been.called.with('d', false)
+        callback.should.have.been.called.with(undefined)
 
 
     it 'items: should set and get the items', ->
