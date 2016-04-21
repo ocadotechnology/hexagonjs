@@ -25,14 +25,14 @@ describe 'Palette', ->
 
       it 'should remove existing context classes', ->
         selection = hx.detached('div').class("#{prefix}-positive #{prefix}-negative")
-        hx.palette[type](selection, 'positive')
+        hx.palette[type](selection, 'positive').should.equal(selection)
         selection.classed("#{prefix}-positive").should.equal(true)
         selection.classed("#{prefix}-negative").should.equal(false)
         hx.consoleWarning.should.not.have.been.called()
 
       it 'supplying undefined should remove existing context classes', ->
         selection = hx.detached('div').class("#{prefix}-positive #{prefix}-negative")
-        hx.palette[type](selection, undefined)
+        hx.palette[type](selection, undefined).should.equal(selection)
         selection.classed("#{prefix}-positive").should.equal(false)
         selection.classed("#{prefix}-negative").should.equal(false)
         hx.consoleWarning.should.not.have.been.called()
