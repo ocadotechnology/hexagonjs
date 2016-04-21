@@ -14,7 +14,15 @@ describe 'autocomplete-picker', ->
     stopPropagation: ->
   }
 
+  dropdownAnimationWait = 200
+  inputDebounceWait = 200
+
   trivialItems = ['a','b','c']
+  trivialAsyncWait = 1000
+  trivialAsyncItems = (term, callback) ->
+    cb = ->
+      callback(trivialItems)
+    setTimeout(cb, trivialAsyncWait)
 
   beforeEach ->
     hx.consoleWarning.reset()
@@ -31,7 +39,6 @@ describe 'autocomplete-picker', ->
     if node?
       (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
 
-
   testAutocomplete = (openAutocomplete, items, options, test) ->
     button = fixture.append('div').node()
     ap = new hx.AutocompletePicker(button, items, options)
@@ -40,7 +47,7 @@ describe 'autocomplete-picker', ->
       fakeNodeEvent(button, 'click')(fakeEvent)
       unless options?.disabled
         ap._.menu.dropdown.isOpen().should.equal(true)
-      clock.tick(200)
+      clock.tick(dropdownAnimationWait)
     test(ap)
 
   testClosedAutocomplete = (items, options, test) ->
@@ -148,7 +155,7 @@ describe 'autocomplete-picker', ->
       fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
-      clock.tick(200)
+      clock.tick(inputDebounceWait)
       ap._.menu.dropdown._.dropdown.selectAll('.hx-menu-item').text().should.eql(['b'])
       hx.consoleWarning.should.not.have.been.called()
 
@@ -194,7 +201,7 @@ describe 'autocomplete-picker', ->
       fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
-      clock.tick(200)
+      clock.tick(inputDebounceWait)
       ap._.menu.dropdown._.dropdown.selectAll('.hx-menu-item').text().should.eql([hx.userFacingText('autocompletePicker', 'noResults')])
       hx.consoleWarning.should.not.have.been.called()
 
@@ -205,7 +212,7 @@ describe 'autocomplete-picker', ->
       fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
-      clock.tick(200)
+      clock.tick(inputDebounceWait)
       ap._.menu.dropdown._.dropdown.selectAll('.hx-menu-item').text().should.eql([hx.userFacingText('autocompletePicker', 'noResults')])
       fakeNodeEvent(document.activeElement, 'keydown')({
         keyCode: 13
@@ -225,12 +232,7 @@ describe 'autocomplete-picker', ->
 
 
   it 'should show "Loading..." when results are loading', ->
-    items = (term, callback) ->
-      cb = ->
-        callback(['a'])
-      setTimeout(cb, 1000)
-
-    testOpenAutocomplete items, undefined, (ap) ->
+    testOpenAutocomplete trivialAsyncItems, undefined, (ap) ->
       ap._.menu.dropdown._.dropdown.selectAll('.hx-menu-item').text().should.eql([hx.userFacingText('autocompletePicker', 'loading')])
       hx.consoleWarning.should.not.have.been.called()
 
@@ -253,7 +255,7 @@ describe 'autocomplete-picker', ->
       fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
-      clock.tick(200)
+      clock.tick(inputDebounceWait)
       ap._.menu.dropdown._.dropdown.selectAll('.hx-menu-item').text().should.eql(['b', hx.userFacingText('autocompletePicker', 'otherResults'), 'a', 'c'])
 
 
@@ -309,12 +311,54 @@ describe 'autocomplete-picker', ->
         hx.consoleWarning.should.not.have.been.called()
 
 
-    it 'value: should not set the value when not in the itemsset', ->
+    it 'value: should get and set the value as passed in', ->
+      aObj = {name: 'a'}
+      bObj = {name: 'b'}
+      cObj = {name: 'c'}
+      dObj = {name: 'd'}
+
+      valueLookup = (item) -> item.name
+
+      items = [aObj, bObj, cObj]
+      testClosedAutocomplete items, {valueLookup: valueLookup}, (ap) ->
+        should.not.exist(ap.value())
+        callback = chai.spy()
+        ap.value({name: 'a'}, callback).should.equal(ap)
+        callback.should.have.been.called.with(aObj, true)
+        ap.value().should.equal(aObj)
+        ap.value({name: 'd'}, callback).should.equal(ap)
+        callback.should.have.been.called.with(dObj, false)
+        ap.value().should.equal(aObj)
+
+
+    it 'value: should not set the value when not in the item set', ->
       testClosedAutocomplete trivialItems, undefined, (ap) ->
         should.not.exist(ap.value())
         ap.value('d').should.equal(ap)
         should.not.exist(ap.value())
         hx.consoleWarning.should.not.have.been.called()
+
+
+    it 'value: should call the callback correctly when the value is in the item set', ->
+      testClosedAutocomplete trivialAsyncItems, undefined, (ap) ->
+        should.not.exist(ap.value())
+        callback = chai.spy()
+        ap.value('a', callback).should.equal(ap)
+        callback.should.not.have.been.called()
+        clock.tick(trivialAsyncWait)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with('a', true)
+
+
+    it 'value: should call the callback correctly when the value is in the item set', ->
+      testClosedAutocomplete trivialAsyncItems, undefined, (ap) ->
+        should.not.exist(ap.value())
+        callback = chai.spy()
+        ap.value('d', callback).should.equal(ap)
+        callback.should.not.have.been.called()
+        clock.tick(trivialAsyncWait)
+        callback.should.have.been.called.once()
+        callback.should.have.been.called.with('d', false)
 
 
     it 'items: should set and get the items', ->
@@ -399,7 +443,7 @@ describe 'autocomplete-picker', ->
       change.should.have.been.called.with(true)
       showstart.should.have.been.called()
 
-      clock.tick(200)
+      clock.tick(dropdownAnimationWait)
 
       showend.should.have.been.called()
 
@@ -407,7 +451,7 @@ describe 'autocomplete-picker', ->
       change.should.have.been.called.with(false)
       hidestart.should.have.been.called()
 
-      clock.tick(200)
+      clock.tick(dropdownAnimationWait)
 
       hideend.should.have.been.called()
 
@@ -437,7 +481,7 @@ describe 'autocomplete-picker', ->
         fakeNodeEvent(document.activeElement, 'input')({
           target: document.activeElement
         })
-        clock.tick(200)
+        clock.tick(inputDebounceWait)
         fakeNodeEvent(document.activeElement, 'keydown')({
           keyCode: 13
         })

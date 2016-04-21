@@ -42,7 +42,7 @@ class AutocompletePicker extends hx.EventEmitter
       matchType: undefined
       showOtherResults: undefined
       trimTrailingSpaces: undefined
-      valueLookup: undefined
+      valueLookup: undefined # Used by the feed and by the `value` method
 
       # Options used by the picker
       buttonClass: undefined
@@ -194,12 +194,13 @@ class AutocompletePicker extends hx.EventEmitter
     else
       @_.feed.items()
 
-  value: (value) ->
+  value: (value, callback) ->
     _ = @_
     if arguments.length
       _.valueText.text(_.options.loadingText)
       _.feed.filter _.valueLookup(value), (results) =>
         setPickerValue(this, results, 'api')
+        callback?(value, results.length is 1)
       this
     else
       _.current
