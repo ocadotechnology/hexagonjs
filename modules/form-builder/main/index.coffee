@@ -1,4 +1,3 @@
-
 class Form extends hx.EventEmitter
   constructor: (@selector) ->
     super
@@ -102,7 +101,7 @@ class Form extends hx.EventEmitter
         .attr('type', 'button')
         .class(options.buttonClass)
 
-      pickerOptions = hx.merge({}, options.pickerOptions)
+      pickerOptions = hx.clone options.pickerOptions
 
       if values.length > 0
         pickerOptions.items = values
@@ -125,6 +124,37 @@ class Form extends hx.EventEmitter
         hidden: options.hidden
         disabled: options.disabled
         disable: (selection, disabled) -> picker.disabled(disabled)
+      }
+
+  addAutocompletePicker: (name, values, options = {}) ->
+    @add name, 'select', 'div', ->
+      elem = @append('button')
+        .attr('type', 'button')
+        .class(options.buttonClass)
+
+      autocompletePickerOptions = hx.merge({buttonClass: options.buttonClass}, options.autocompletePickerOptions)
+
+      if values.length > 0
+        autocompletePickerOptions.items = values
+
+      autocompletePicker = new hx.AutocompletePicker(elem.node(), values, autocompletePickerOptions)
+      input = @append('input').class('hx-hidden-form-input').attr('size', 0)
+      @style('position', 'relative')
+
+      autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'
+
+      if options.required
+        input.node().setCustomValidity('Please select a value from the list')
+        autocompletePicker.on 'change', 'hx.form-builder', ->
+          input.node().setCustomValidity('')
+
+      {
+        required: options.required
+        componentNode: elem.node()
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (selection, disabled) -> autocompletePicker.disabled(disabled)
       }
 
   addCheckbox: (name, options = {}) ->
