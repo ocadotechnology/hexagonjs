@@ -33,7 +33,10 @@ class AutocompleteFeed
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
       hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
-        .sort sortItems(resolvedOptions.valueLookup)
+        .sort (a, b) ->
+          if not a.disabled and b.disabled then -1
+          else if a.disabled and not b.disabled then 1
+          else 0
 
     @_ =
       options: resolvedOptions

@@ -157,6 +157,16 @@ describe 'autocomplete-feed', ->
       callback.should.have.been.called.with(['a','a','ab','ba'], ['b','c','d'])
 
 
+    it 'filter: should sort items in the correct order', ->
+      af = new hx.AutocompleteFeed
+      af.items(['ab', 'ba', 'aab', 'bba'])
+      callback = chai.spy()
+      af.filter('a', callback)
+      callback.should.have.been.called.with(['aab', 'ab', 'ba', 'bba'], [])
+      af.filter('b', callback)
+      callback.should.have.been.called.with(['ba', 'bba', 'ab', 'aab'], [])
+
+
     it 'filter: should return other results when using an array', ->
       af = new hx.AutocompleteFeed({
         showOtherResults: true
