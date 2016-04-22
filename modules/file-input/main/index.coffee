@@ -1,3 +1,13 @@
+hx.userFacingText({
+  fileInput: {
+    noFile: 'No File Chosen',
+    filesSelected: 'Files Selected',
+    chooseFile: 'Choose File'
+    chooseFiles: 'Choose Files'
+  }
+})
+
+
 getFileUID = (file) -> file.name + file.size + file.lastModified + file.type
 
 fileValidator = (file, acceptedExtensions) ->
@@ -39,14 +49,14 @@ class FileInput extends hx.EventEmitter
       multiple: false
       dragEnabled: true
       buttonClass: 'hx-action'
-      noFilesText: 'No File Chosen'
-      filesSelectedText: 'Files Selected'
-      buttonText: 'Choose File'
+      noFilesText: hx.userFacingText('fileInput', 'noFiles')
+      filesSelectedText: hx.userFacingText('fileInput', 'filesSelected')
+      buttonText: hx.userFacingText('fileInput', 'chooseFile')
 
     resolvedOptions = hx.merge defaults, options
 
     if resolvedOptions.multiple and not options.buttonText
-      resolvedOptions.buttonText = 'Choose Files'
+      resolvedOptions.buttonText = hx.userFacingText('fileInput', 'chooseFiles')
 
     selection = hx.select @selector
       .classed 'hx-file-input', true
