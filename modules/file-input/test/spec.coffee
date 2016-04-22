@@ -1,16 +1,10 @@
 describe "file-input", ->
   fakeFileList = undefined
   fixture = undefined
-
+  clock = undefined
   origConsoleWarning = hx.consoleWarning
-  hx.consoleWarning = chai.spy()
-
   origDropdownAttachSelector = hx._.dropdown.attachToSelector
-  hx._.dropdown.attachToSelector = '#fixture'
-
   dropdownAnimationDuration = 200
-
-  clock = sinon.useFakeTimers()
 
   fakeFile1 =
     name: 'file-1.ext'
@@ -28,6 +22,11 @@ describe "file-input", ->
     # fake some dom event stuff
     stopPropagation: ->
   }
+
+  before ->
+    hx.consoleWarning = chai.spy()
+    hx._.dropdown.attachToSelector = '#fixture'
+    clock = sinon.useFakeTimers()
 
   beforeEach ->
     hx.consoleWarning.reset()

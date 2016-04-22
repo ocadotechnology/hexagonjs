@@ -1,6 +1,5 @@
 {
   "dependencies": [
-    "event-emitter",
     "util"
   ]
 }

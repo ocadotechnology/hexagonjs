@@ -1,14 +1,13 @@
-
 describe 'data-table', ->
-  before ->
-    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
-    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
   origConsoleWarning = hx.consoleWarning
 
-  beforeEach ->
+  before ->
     hx.consoleWarning = chai.spy()
 
-  afterEach ->
+  beforeEach ->
+    hx.consoleWarning.reset()
+
+  after ->
     hx.consoleWarning = origConsoleWarning
 
   # Used to mimic an event call for a node

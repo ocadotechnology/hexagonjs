@@ -1,12 +1,10 @@
 {
   "dependencies": [
     "component",
-    "menu",
     "event-emitter",
+    "icon",
+    "menu",
     "selection",
-    "icon"
-  ],
-  "keywords": [
-    "picker"
+    "user-facing-text"
   ]
 }
