@@ -2,7 +2,7 @@ hx.userFacingText({
   form: {
     missingRadioValue: 'Please select one of these options',
     missingValue: 'Please fill in this field',
-    typeMismatch: 'Please enter a valid value for this field',
+    typeMismatch: 'Please enter a valid value for this field'
   }
 })
 
