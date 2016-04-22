@@ -53,7 +53,7 @@ class AutocompleteFeed
     thisFilter = term + hx.randomId()
     _.lastFilter = thisFilter
 
-    cacheitemsAndCallback = (results, otherResults = []) =>
+    cacheItemsThenCallback = (results, otherResults = []) =>
       if _.options.trimTrailingSpaces and results.length is 0 and term.lastIndexOf(' ') is term.length - 1
         # The term has trailing spaces and no results were found
         @filter(trimTrailingSpaces(term), callback)
@@ -74,7 +74,7 @@ class AutocompleteFeed
       callback(cacheditems.results, cacheditems.otherResults)
     else if _.options.matchType is 'external' and hx.isFunction(_.items)
       # The matching is external so we don't filter here
-      _.items(term, cacheitemsAndCallback)
+      _.items(term, cacheItemsThenCallback)
     else
       filterAndCallback = (unfilteredItems) ->
         filteredItems = _.options.filter(unfilteredItems, term)
@@ -83,7 +83,7 @@ class AutocompleteFeed
               filteredItems.indexOf(datum) is -1
             .sort sortItems(_.options.valueLookup)
 
-        cacheitemsAndCallback(filteredItems, otherResults)
+        cacheItemsThenCallback(filteredItems, otherResults)
 
       if hx.isFunction(_.items)
         # Call the function then apply filtering
@@ -93,7 +93,7 @@ class AutocompleteFeed
         filterAndCallback(_.items)
       else
         # Skip filtering and return the entire itemsset
-        cacheitemsAndCallback(_.items)
+        cacheItemsThenCallback(_.items)
 
   validateItems: (items) -> hx.isArray(items) or hx.isFunction(items)
 
