@@ -40,7 +40,7 @@ class FileInput extends hx.EventEmitter
       dragEnabled: true
       buttonClass: 'hx-action'
       noFilesText: 'No File Chosen'
-      filesselectedFiles: 'Files Selected'
+      filesSelectedText: 'Files Selected'
       buttonText: 'Choose File'
 
     resolvedOptions = hx.merge defaults, options
@@ -125,7 +125,7 @@ class FileInput extends hx.EventEmitter
         else
           selectedFiles
             .classed 'hx-btn', true
-            .add hx.section().text "#{length} Files Selected"
+            .add hx.section().text "#{length} #{resolvedOptions.filesSelectedText}"
             .add hx.detached('i').class 'hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down'
             .on 'click', 'hx.file-input', -> dropdown.show()
       else
