@@ -1,9 +1,9 @@
 hx.userFacingText({
   fileInput: {
-    noFile: 'No File Chosen',
-    filesSelected: 'Files Selected',
-    chooseFile: 'Choose File'
+    chooseFile: 'Choose File',
     chooseFiles: 'Choose Files'
+    filesSelected: 'Files Selected: $numFiles',
+    noFile: 'No File Chosen',
   }
 })
 
@@ -49,9 +49,10 @@ class FileInput extends hx.EventEmitter
       multiple: false
       dragEnabled: true
       buttonClass: 'hx-action'
-      noFilesText: hx.userFacingText('fileInput', 'noFiles')
-      filesSelectedText: hx.userFacingText('fileInput', 'filesSelected')
+
       buttonText: hx.userFacingText('fileInput', 'chooseFile')
+      filesSelectedText: hx.userFacingText('fileInput', 'filesSelected')
+      noFilesText: hx.userFacingText('fileInput', 'noFile')
 
     resolvedOptions = hx.merge defaults, options
 
@@ -133,9 +134,11 @@ class FileInput extends hx.EventEmitter
           dropdown.hide() if dropdown.isOpen()
           selectedFiles.append filePreview(fileMap.values()[0])
         else
+          localizedLength = length.toLocaleString(hx.preferences.locale())
+          filesSelectedText = resolvedOptions.filesSelectedText.replace('$numFiles', localizedLength)
           selectedFiles
             .classed 'hx-btn', true
-            .add hx.section().text "#{length} #{resolvedOptions.filesSelectedText}"
+            .add hx.section().text filesSelectedText
             .add hx.detached('i').class 'hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down'
             .on 'click', 'hx.file-input', -> dropdown.show()
       else

@@ -1,13 +1,6 @@
 {
   "dependencies": [
-    "preferences",
-    "util",
-    "event-emitter"
-  ],
-  "keywords": [
-    "user",
-    "facing",
-    "text",
-    "locale"
+    "event-emitter",
+    "util"
   ]
 }
