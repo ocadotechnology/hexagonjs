@@ -1,3 +1,9 @@
+hx.userFacingText({
+  picker: {
+    chooseValue: 'Choose a value...'
+  }
+})
+
 setValue = (picker, value, items, cause = 'api') ->
   newVal = undefined
   for item in items
@@ -24,7 +30,7 @@ class Picker extends hx.EventEmitter
     @options = hx.merge.defined {
       dropdownOptions: {}
       items: []
-      noValueText: 'Choose a value...'
+      noValueText: hx.userFacingText('picker', 'chooseValue')
       renderer: undefined
       value: undefined
       disabled: false
