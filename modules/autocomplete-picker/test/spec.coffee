@@ -73,6 +73,7 @@ describe 'autocomplete-picker', ->
         filter: undefined
         filterOptions: undefined
         matchType: undefined
+        useCache: undefined
         showOtherResults: undefined
         trimTrailingSpaces: undefined
         valueLookup: undefined

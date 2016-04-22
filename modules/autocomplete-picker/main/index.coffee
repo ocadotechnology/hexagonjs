@@ -40,6 +40,7 @@ class AutocompletePicker extends hx.EventEmitter
       filter: undefined
       filterOptions: undefined
       matchType: undefined
+      useCache: undefined
       showOtherResults: undefined
       trimTrailingSpaces: undefined
       valueLookup: undefined # Used by the feed and by the `value` method

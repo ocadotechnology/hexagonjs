@@ -19,6 +19,7 @@ class AutocompleteFeed
       filter: undefined
       filterOptions: undefined
       matchType: 'contains'
+      useCache: true
       showOtherResults: false
       trimTrailingSpaces: false
       valueLookup: undefined
@@ -58,40 +59,41 @@ class AutocompleteFeed
         @filter(trimTrailingSpaces(term), callback)
       else
         # Cache the currently searched term items
-        _.resultsCache.set(term, {
-          results: results,
-          otherResults: otherResults
-        })
+        if _.options.useCache
+          _.resultsCache.set(term, {
+            results: results,
+            otherResults: otherResults
+          })
+        # Only call back if this is the filter that was called last
         if thisFilter is _.lastFilter
           callback(results, otherResults)
 
-    if _.options.matchType is 'external' and hx.isFunction(_.items)
+    if _.options.useCache and _.resultsCache.has(term)
+      # Get the result from the cache
+      cacheditems = _.resultsCache.get(term)
+      callback(cacheditems.results, cacheditems.otherResults)
+    else if _.options.matchType is 'external' and hx.isFunction(_.items)
       # The matching is external so we don't filter here
       _.items(term, cacheitemsAndCallback)
     else
-      if _.resultsCache.has(term)
-        # Use the cached items if it exists
-        cacheditems = _.resultsCache.get(term)
-        callback(cacheditems.results, cacheditems.otherResults)
+      filterAndCallback = (unfilteredItems) ->
+        filteredItems = _.options.filter(unfilteredItems, term)
+        if _.options.showOtherResults
+          otherResults = unfilteredItems.filter (datum) ->
+              filteredItems.indexOf(datum) is -1
+            .sort sortItems(_.options.valueLookup)
+
+        cacheitemsAndCallback(filteredItems, otherResults)
+
+      if hx.isFunction(_.items)
+        # Call the function then apply filtering
+        _.items(term, filterAndCallback)
+      else if term.length
+        # Apply filtering to the static object
+        filterAndCallback(_.items)
       else
-        filterAndCallback = (unfilteredItems) ->
-          filteredItems = _.options.filter(unfilteredItems, term)
-          if _.options.showOtherResults
-            otherResults = unfilteredItems.filter (datum) ->
-                filteredItems.indexOf(datum) is -1
-              .sort sortItems(_.options.valueLookup)
-
-          cacheitemsAndCallback(filteredItems, otherResults)
-
-        if hx.isFunction(_.items)
-          # Call the function then apply filtering
-          _.items(term, filterAndCallback)
-        else if term.length
-          # Apply filtering to the static object
-          filterAndCallback(_.items)
-        else
-          # Skip filtering and return the entire itemsset
-          cacheitemsAndCallback(_.items)
+        # Skip filtering and return the entire itemsset
+        cacheitemsAndCallback(_.items)
 
   validateItems: (items) -> hx.isArray(items) or hx.isFunction(items)
 

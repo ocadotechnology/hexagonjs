@@ -3,6 +3,7 @@ describe 'autocomplete-feed', ->
   it 'should set the default options correctly', ->
     af = new hx.AutocompleteFeed
     should.exist(af._.options.filter)
+    af._.options.useCache.should.equal(true)
     af._.options.filter.should.be.an.instanceOf(Function)
     af._.options.matchType.should.equal('contains')
     should.not.exist(af._.options.filterOptions)
@@ -193,11 +194,11 @@ describe 'autocomplete-feed', ->
         trimTrailingSpaces: true
       })
       items = (term, cb) ->
-
         if term.lastIndexOf(' ') is term.length - 1
           cb []
         else
           cb ['a', 'aa', 'b', 'ba']
+
       af.items(items)
       callback = chai.spy()
       af.filter('a ', callback)
@@ -248,6 +249,25 @@ describe 'autocomplete-feed', ->
       callback.should.have.been.called.once()
       callback.should.have.been.called.with([aObj, cObj, bObj])
 
+
+    it 'filter: should sort disabled other results correctly', ->
+      valueLookup = (val) -> val.text
+      af = new hx.AutocompleteFeed({
+        valueLookup: valueLookup
+        showOtherResults: true
+      })
+      aObj = {text: 'a', disabled: false}
+      bObj = {text: 'ab', disabled: true}
+      cObj = {text: 'ac', disabled: false}
+      dObj = {text: 'abc', disabled: false}
+
+      af.items([aObj, bObj, cObj, dObj])
+      callback = chai.spy()
+      af.filter('d', callback)
+      callback.should.have.been.called.once()
+      callback.should.have.been.called.with([], [aObj, dObj, cObj, bObj])
+
+
     it 'filter: should only call back with the last call to filter', ->
       clock = sinon.useFakeTimers()
       itemArr = ['abc','abb','acc']
@@ -279,3 +299,114 @@ describe 'autocomplete-feed', ->
       cb.should.have.been.called.once()
       cb.should.have.been.called.with(['abb', 'abc'])
       clock.restore()
+
+
+    it 'filter: should not cache results when the useCache option is false', ->
+      af = new hx.AutocompleteFeed({
+        useCache: false
+      })
+      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.entries().length.should.equal(0)
+      af.items(['a','b','c'])
+      af._.resultsCache.entries().length.should.equal(0)
+      af.filter('', ->)
+      af._.resultsCache.entries().length.should.equal(0)
+      af.filter('a', ->)
+      af._.resultsCache.entries().length.should.equal(0)
+      af.filter('b', ->)
+      af._.resultsCache.entries().length.should.equal(0)
+
+
+    it 'filter: should use the cache before attempting to get new data', ->
+      af = new hx.AutocompleteFeed()
+      callback = chai.spy()
+      af.items(['a','b','c'])
+      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.entries().length.should.equal(0)
+      chai.spy.on(af._.resultsCache, 'has')
+      chai.spy.on(af._.resultsCache, 'get')
+      chai.spy.on(af._.resultsCache, 'set')
+
+      af.filter('a', callback)
+      af._.resultsCache.has.should.have.been.called.with('a')
+      af._.resultsCache.has.should.have.been.called.once()
+      af._.resultsCache.set.should.have.been.called.with('a', {
+        results: ['a']
+        otherResults: []
+      })
+      af._.resultsCache.entries().length.should.equal(1)
+      callback.should.have.been.called.with(['a'],[])
+
+      af.filter('a', callback)
+      af._.resultsCache.has.should.have.been.called.with('a')
+      af._.resultsCache.has.should.have.been.called.twice()
+      af._.resultsCache.get.should.have.been.called.with('a')
+      af._.resultsCache.get.should.have.been.called.once()
+      callback.should.have.been.called.with(['a'],[])
+      callback.should.have.been.called.twice()
+
+
+    it 'filter: should use the cache before attempting to get new data using a function', ->
+      af = new hx.AutocompleteFeed()
+      items = chai.spy((term, cb) -> cb(['a','b','c'],['d']))
+      callback = chai.spy()
+      af.items(items)
+      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.entries().length.should.equal(0)
+      chai.spy.on(af._.resultsCache, 'has')
+      chai.spy.on(af._.resultsCache, 'get')
+      chai.spy.on(af._.resultsCache, 'set')
+
+      af.filter('a', callback)
+      af._.resultsCache.has.should.have.been.called.with('a')
+      af._.resultsCache.has.should.have.been.called.once()
+      af._.resultsCache.set.should.have.been.called.with('a', {
+        results: ['a']
+        otherResults: []
+      })
+      af._.resultsCache.entries().length.should.equal(1)
+      callback.should.have.been.called.with(['a'],[])
+      items.should.have.been.called.once()
+
+      af.filter('a', callback)
+      af._.resultsCache.has.should.have.been.called.with('a')
+      af._.resultsCache.has.should.have.been.called.twice()
+      af._.resultsCache.get.should.have.been.called.with('a')
+      af._.resultsCache.get.should.have.been.called.once()
+      callback.should.have.been.called.with(['a'],[])
+      callback.should.have.been.called.twice()
+      items.should.have.been.called.once()
+
+
+    it 'filter: should use the cache before attempting to get new data when using external matching', ->
+      af = new hx.AutocompleteFeed({
+        matchType: 'external'
+      })
+      items = chai.spy((term, cb) -> cb(['a','b','c'],['d']))
+      callback = chai.spy()
+      af.items(items)
+      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.entries().length.should.equal(0)
+      chai.spy.on(af._.resultsCache, 'has')
+      chai.spy.on(af._.resultsCache, 'get')
+      chai.spy.on(af._.resultsCache, 'set')
+
+      af.filter('a', callback)
+      af._.resultsCache.has.should.have.been.called.with('a')
+      af._.resultsCache.has.should.have.been.called.once()
+      af._.resultsCache.set.should.have.been.called.with('a', {
+        results: ['a','b','c']
+        otherResults: ['d']
+      })
+      af._.resultsCache.entries().length.should.equal(1)
+      callback.should.have.been.called.with(['a','b','c'],['d'])
+      items.should.have.been.called.once()
+
+      af.filter('a', callback)
+      af._.resultsCache.has.should.have.been.called.with('a')
+      af._.resultsCache.has.should.have.been.called.twice()
+      af._.resultsCache.get.should.have.been.called.with('a')
+      af._.resultsCache.get.should.have.been.called.once()
+      callback.should.have.been.called.with(['a','b','c'],['d'])
+      callback.should.have.been.called.twice()
+      items.should.have.been.called.once()
