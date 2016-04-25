@@ -6,8 +6,10 @@ node_js:
   - "0.11"
 script: npm test && npm run combine-coverage && npm run upload-coverage
 deploy:
+  provider: npm
   api_key:
     secure: O6denjAF8xsmdOj4ICep02QuDVr79bET7vLx1Lxj2idlFlsmJMFPFIfEjymOvhAtHslJ21DftMnkiFJR/KWYRAYlsMaE059Hlicg9lt83vDsCFotSwq+bf733LjtG9xmgmfV5d4kBkuCxfuPO2iC7jbibS5XY41+9ekuuUzdz1MtcQL5Fxe8Th0osGd2/poAh+62lhfg4Bd/P1kSzvC+3JqjfINlJKfUP9euIIR+obG6qt6fxK7OJKlt281erRmEm8gkf6iPlca3p6MFEPNUuGyeYOvvBcoIf55F053JH+M9/zuDVDrrXRVu0n8ULuADo+NsMFrQ31/9tWVmFSNAsBzEf3VTPie1pGKTS3adi16HtScPmdCtO7cw6b+VCymqZicdWSD6FpFD2R+Hl55LIeQqIz96I+pHm9Q4QFhXmJpSG5QlvWhZz/iB/JH51CCRNzMne3slED19LvbnYOAVapxoavfewxO1LNpbLVNuLC/5svfOWvqZcBGRDjWEdil8WFTXXB6l+a1u6oGwIFhRH6u/naBN7MGfj+FfeuhLdBVjTH+LF/Uc+67B22OE+qcIKkYsOfX7N2ehm8YWmfKyW0k0SMAgmqmDbA7QAelOrBbgW6C0N2dE2IAc/RB2Kh/dblnuOB67bJP6nydv1TdG64UzaPQKJ/oajR4wuKHNE3w=
   on:
     branch: master
+    repo: ocadotechnology/hexagonjs
     tags: true
