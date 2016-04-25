@@ -15,7 +15,7 @@
     @div .dx-notice-header: Notice
     @div .dx-notice-body
       @p: Dark themes should not be used where printing is required.
-      @p: The overhead for re-writing styles so they display nicely on a light background causes issues display issues when printing as file load times are too great.
+      @p: The overhead for re-writing styles so they display nicely on a light background causes display issues when printing as file load times are too great.
 
   @h2: Print Script
 

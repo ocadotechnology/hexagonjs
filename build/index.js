@@ -61,7 +61,7 @@ function buildMetaData (dev) {
 function createBuilds () {
   // create the dx-prefixed and hx-prefixed builds for the latest version of hexagon
   var buildList = [
-    { dest: 'target/resources/hexagon/' + versions.latest, embedAssets: true },
+    { dest: 'content/resources/hexagon/' + versions.latest, embedAssets: true },
     { dest: 'target/resources/hexagon/docs', prefix: 'dx', embedAssets: true, addFavicons: true }
   ]
   return progressSequence('Building Hexagon', chalk.cyan('='), buildList, function (opts) {
@@ -71,7 +71,7 @@ function createBuilds () {
 
 function buildHexagon (force) { // XXX: do this in the postinstall npm script
   if (force) return createBuilds()
-  return fs.accessAsync('target/resources/hexagon/' + versions.latest + '/hexagon.css', fs.F_OK)
+  return fs.accessAsync('target/resources/hexagon/docs/' + versions.latest + '/hexagon.css', fs.F_OK)
     .then(function () {
       console.log(chalk.cyan('Skipping Hexagon Build (Already Exists)'))
     })
@@ -130,6 +130,7 @@ function getOptions (dev) {
       'Boolean': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
       'Date': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date',
       'Element': 'https://developer.mozilla.org/en/docs/Web/API/Element',
+      'File': 'https://developer.mozilla.org/en/docs/Web/API/File',
       'Function': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function',
       'HTMLElement': 'https://developer.mozilla.org/en/docs/Web/API/HTMLElement',
       'Node': 'https://developer.mozilla.org/en/docs/Web/API/Node',

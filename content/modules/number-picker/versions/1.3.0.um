@@ -1,0 +1,4 @@
+@version 1.3.0
+  @api Number Picker
+    @bugfix: Update to only emit events when the value has actually changed
+      @issue 182
