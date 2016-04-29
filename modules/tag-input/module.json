@@ -1,14 +1,11 @@
 {
   "dependencies": [
     "component",
-    "selection",
+    "drag-container",
     "event-emitter",
-    "util",
     "layout",
-    "drag-container"
-  ],
-  "keywords": [
-    "tag",
-    "input"
+    "selection",
+    "user-facing-text",
+    "util"
   ]
 }

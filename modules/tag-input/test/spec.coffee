@@ -1,4 +1,7 @@
 describe 'tag-input', ->
+  it 'should have user facing text defined', ->
+    hx.userFacingText('tagInput','placeholder').should.equal('add tag...')
+
   describe 'api', ->
     it 'items: initial value is correct', ->
       ti = new hx.TagInput(hx.detached('div').node())
