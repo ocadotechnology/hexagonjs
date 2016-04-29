@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.3.0
+ Version: 1.3.1
  Theme: hexagon-dark
  Modules:
    set
@@ -5352,10 +5352,11 @@ context = function(contextArray, contextPrefix) {
     if (arguments.length > 1) {
       selection.classed(mappedContexts, false);
       if (contextArray.indexOf(context) !== -1) {
-        return selection.classed(contextPrefix + "-" + context, true);
+        selection.classed(contextPrefix + "-" + context, true);
       } else if (context) {
-        return hx.consoleWarning(context + " is not a known context! Accepted values are " + (contextArray.join(', ')));
+        hx.consoleWarning(context + " is not a known context! Accepted values are " + (contextArray.join(', ')));
       }
+      return selection;
     } else {
       for (i = 0, len = paletteContexts.length; i < len; i++) {
         context = paletteContexts[i];
@@ -17829,7 +17830,7 @@ FileInput = (function(superClass) {
       dragEnabled: true,
       buttonClass: 'hx-action',
       noFilesText: 'No File Chosen',
-      filesselectedFiles: 'Files Selected',
+      filesSelectedText: 'Files Selected',
       buttonText: 'Choose File'
     };
     resolvedOptions = hx.merge(defaults, options);
@@ -17886,7 +17887,7 @@ FileInput = (function(superClass) {
             }
             selectedFiles.append(filePreview(fileMap.values()[0]));
           } else {
-            selectedFiles.classed('hx-btn', true).add(hx.section().text(length + " Files Selected")).add(hx.detached('i')["class"]('hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down')).on('click', 'hx.file-input', function() {
+            selectedFiles.classed('hx-btn', true).add(hx.section().text(length + " " + resolvedOptions.filesSelectedText)).add(hx.detached('i')["class"]('hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down')).on('click', 'hx.file-input', function() {
               return dropdown.show();
             });
           }
