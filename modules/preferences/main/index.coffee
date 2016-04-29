@@ -1,3 +1,13 @@
+hx.userFacingText({
+  preferences: {
+    locale: 'Locale',
+    preferences: 'Preferences',
+    preferenesSaved: 'Preferences Saved',
+    save: 'Save',
+    timezone: 'Timezone'
+  }
+})
+
 localeList = [
   {value:"af", full:"Afrikaans"}
   {value:"sq", full:"Albanian"}
@@ -159,7 +169,7 @@ class Preferences extends hx.EventEmitter
       }).on 'change', (item) -> locale = item.value
 
       localeSection = hx.detached('div')
-        .add(hx.detached('label').text('Locale'))
+        .add(hx.detached('label').text(hx.userFacingText('preferences','locale')))
         .add(localeAutocompleteElement)
 
       # Timezone Stuff
@@ -172,12 +182,12 @@ class Preferences extends hx.EventEmitter
       }).on 'change', (value) -> timezone = value
 
       timezoneSection = hx.detached('div')
-        .add(hx.detached('label').text('Time Zone'))
+        .add(hx.detached('label').text(hx.userFacingText('preferences','timezone')))
         .add(timezoneAutocompleteElement)
 
       saveButton = hx.detached('button').class('hx-btn hx-positive')
         .add(hx.detached('i').class('hx-icon hx-icon-check'))
-        .add(hx.detached('span').text(' Save'))
+        .add(hx.detached('span').text(' ' + hx.userFacingText('preferences','save')))
         .on 'click', =>
           @locale(locale)
           @timezone(timezone)
@@ -185,7 +195,7 @@ class Preferences extends hx.EventEmitter
             if err
               hx.notify.negative(err)
             else
-              hx.notify.positive("Preferences Saved")
+              hx.notify.positive(hx.userFacingText('preferences','preferenesSaved'))
               modal.hide()
 
       hx.select(element)
@@ -194,7 +204,7 @@ class Preferences extends hx.EventEmitter
         .add(timezoneSection)
         .add(saveButton)
 
-    modal = new hx.Modal('Preferences', setupModal)
+    modal = new hx.Modal(hx.userFacingText('preferences','preferences'), setupModal)
 
     @_ = {
       backingStore: LocalStoragePreferencesStore
@@ -260,7 +270,6 @@ class Preferences extends hx.EventEmitter
   supportedLocales: option 'supportedLocales'
   supportedTimezones: option 'supportedTimezones'
   timezoneOffsetLookup: option 'timezoneOffsetLookup'
-
 
   applyTimezoneOffset: (date, offset) ->
     offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
