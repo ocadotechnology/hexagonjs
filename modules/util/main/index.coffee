@@ -280,7 +280,7 @@ hx.parseHTML = (html) ->
     phantom/safari dont support create contextual fragment so use a slower
     method.
     ###
-    
+
     # This try/catch is only run once, the first time hx.parseHTML is called.
     # Subsequent calls use the cached hx_parseHTML function
     try

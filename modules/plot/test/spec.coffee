@@ -1,4 +1,7 @@
 describe "plot", ->
+    it 'should have user facing text defined', ->
+    hx.userFacingText('plot','noData').should.equal('No Data')
+
 
   describe "Graph", ->
 

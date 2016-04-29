@@ -1,16 +1,14 @@
 {
   "dependencies": [
+    "color",
     "component",
-    "util",
+    "format",
     "list",
     "map",
-    "color",
-    "selection",
-    "format",
     "resize-events",
+    "selection",
+    "user-facing-text",
+    "util",
     "view"
-  ],
-  "keywords": [
-    "plot"
   ]
 }
