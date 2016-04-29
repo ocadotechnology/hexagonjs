@@ -197,6 +197,16 @@ describe 'data-table', ->
       hx.select('body').clear()
       done?()
 
+  it 'should have user facing text defined', ->
+    hx.userFacingText('dataTable', 'clearSelection').should.equal('clear selection')
+    hx.userFacingText('dataTable', 'loading').should.equal('Loading')
+    hx.userFacingText('dataTable', 'noData').should.equal('No Data')
+    hx.userFacingText('dataTable', 'noSort').should.equal('No Sort')
+    hx.userFacingText('dataTable', 'rowsPerPage').should.equal('Rows Per Page')
+    hx.userFacingText('dataTable', 'search').should.equal('Search')
+    hx.userFacingText('dataTable', 'selectedRows').should.equal('$selected of $total selected.')
+    hx.userFacingText('dataTable', 'sortBy').should.equal('Sort By')
+
   describe 'global options', ->
     checkOption('collapsibleRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkOption('compact', ['auto', true, false])

@@ -13,6 +13,7 @@
     "sort",
     "sticky-table-headers",
     "table",
+    "user-facing-text",
     "util"
   ]
 }

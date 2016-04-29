@@ -1,3 +1,16 @@
+hx.userFacingText({
+  dataTable: {
+    clearSelection: 'clear selection',
+    loading: 'Loading',
+    noData: 'No Data',
+    noSort: 'No Sort',
+    rowsPerPage: 'Rows Per Page',
+    search: 'Search',
+    selectedRows: '$selected of $total selected.',
+    sortBy: 'Sort By'
+  }
+})
+
 
 fullWidthColSpan = 999 # the colspan used to make a cell display as an entire row
 collapseBreakPoint = 480
@@ -15,7 +28,6 @@ class DataTable extends hx.EventEmitter
       feed: undefined
       filter: undefined
       filterEnabled: true
-      noDataMessage: 'No Data'
       pageSize: 15
       pageSizeOptions: undefined  # supply an array of numbers to show the user
       retainHorizontalScrollOnRender: true
@@ -38,6 +50,15 @@ class DataTable extends hx.EventEmitter
 
       # per column options (headerCellRenderer, cellRenderer, sortEnabled)
       columns: {}
+
+      clearSelectionText: hx.userFacingText('dataTable','clearSelection')
+      loadingText: hx.userFacingText('dataTable','loading')
+      noDataMessage: hx.userFacingText('dataTable','noData')
+      noSortText: hx.userFacingText('dataTable', 'noSort')
+      rowsPerPageText: hx.userFacingText('dataTable','rowsPerPage')
+      searchPlaceholder: hx.userFacingText('dataTable','search')
+      selectedRowsText: hx.userFacingText('dataTable', 'selectedRows')
+      sortByText: hx.userFacingText('dataTable','sortBy')
     }, options)
 
     selection = hx.select(selector).classed('hx-data-table', true)
@@ -50,7 +71,7 @@ class DataTable extends hx.EventEmitter
     onInput = hx.debounce 200, => @filter(filterInput.value(), undefined, 'user')
 
     filterInput = footer.append('input').class('hx-data-table-filter-control')
-      .attr('placeholder', 'Search')
+      .attr('placeholder', resolvedOptions.searchPlaceholder)
       .classed('hx-data-table-filter-visible', resolvedOptions.filterEnabled)
       .on 'input', 'hx.data-table', onInput
 
@@ -58,11 +79,11 @@ class DataTable extends hx.EventEmitter
     selection.append('div').class('hx-data-table-loading')
       .append('div').class('hx-data-table-loading-inner')
         .append('div').class('hx-spinner')
-        .insertAfter('span').text(' Loading')
+        .insertAfter('span').text(' ' + resolvedOptions.loadingText)
 
     # Create the status bar text span and the clear button
     statusBar.append('span').class('hx-data-table-status-bar-text')
-      .insertAfter('span').class('hx-data-table-status-bar-clear').text(' (clear selection)')
+      .insertAfter('span').class('hx-data-table-status-bar-clear').text(" (#{resolvedOptions.clearSelectionText})")
         .on 'click', 'hx.data-table', =>
           @_.selectedRows.clear()
           selection.select('.hx-data-table-content').selectAll('.hx-data-table-row-selected').classed('hx-data-table-row-selected', false)
@@ -74,7 +95,7 @@ class DataTable extends hx.EventEmitter
     # compact sort - always on the page, only visible in compact mode (so we can just change the class and everything will work)
     sortDiv = footer.append('div').class('hx-data-table-sort-control')
       .classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled)
-    sortDiv.append('span').text('Sort By: ')
+    sortDiv.append('span').text(resolvedOptions.sortByText + ': ')
     sortColPicker = new hx.Picker(sortDiv.append('button').class('hx-btn hx-btn-invisible').node())
     sortColPicker.on 'change', 'hx.data-table', (d) =>
       if d.cause is 'user' then @sort({column: sortColPicker.value().column, direction: sortColPicker.value().direction})
@@ -109,7 +130,7 @@ class DataTable extends hx.EventEmitter
     # pageSizeOptions select
     pageSizeContainer = paginationContainer.append('div').class('hx-data-table-page-size')
 
-    pageSizeContainer.append('span').text('Rows per page: ')
+    pageSizeContainer.append('span').text(resolvedOptions.rowsPerPageText + ': ')
 
     pageSizeNode = pageSizeContainer.append('button').class('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node()
     pageSizePicker = new hx.Picker(pageSizeNode, { dropdownOptions: { align: 'rbrt' } })
@@ -394,7 +415,7 @@ class DataTable extends hx.EventEmitter
                 else
                   hx.select(element).text(option.text)
               )
-              .items([{text: 'No Sort', value: undefined}].concat sortColumns)
+              .items([{text: options.noSortText, value: undefined}].concat sortColumns)
 
             if currentSort.column and @_.sortColPicker.value().value isnt (currentSort.column + currentSort.direction)
               @_.sortColPicker.value({value: currentSort.column + currentSort.direction})
@@ -515,7 +536,7 @@ class DataTable extends hx.EventEmitter
             if totalCount isnt undefined
               @_.statusBar
                 .select('.hx-data-table-status-bar-text')
-                .text(@_.selectedRows.size + ' of ' + totalCount + ' selected.')
+                .text(options.selectedRowsText.replace('$selected', @_.selectedRows.size).replace('$total', totalCount))
 
           # handles multi row selection ('select all' and shift selection)
           selectMulti = (start, end, force) =>
