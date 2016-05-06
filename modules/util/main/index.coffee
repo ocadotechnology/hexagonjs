@@ -170,7 +170,7 @@ hx.startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
 
 hx.tween = (start, end, amount) -> start + (end - start) * amount
 
-hx.defined = (x) -> x isnt undefined
+hx.defined = (x) -> x isnt undefined and x isnt null
 
 hx.zip = (arrays) ->
   if arrays
@@ -280,7 +280,7 @@ hx.parseHTML = (html) ->
     phantom/safari dont support create contextual fragment so use a slower
     method.
     ###
-    
+
     # This try/catch is only run once, the first time hx.parseHTML is called.
     # Subsequent calls use the cached hx_parseHTML function
     try
