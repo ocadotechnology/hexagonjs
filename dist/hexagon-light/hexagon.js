@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.3.1
+ Version: 1.3.2
  Theme: hexagon-light
  Modules:
    set
@@ -1307,7 +1307,7 @@ hx.tween = function(start, end, amount) {
 };
 
 hx.defined = function(x) {
-  return x !== void 0;
+  return x !== void 0 && x !== null;
 };
 
 hx.zip = function(arrays) {
