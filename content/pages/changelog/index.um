@@ -189,5 +189,9 @@
       @description
         @p: Fix the file input options.
 
+    @version 1.3.2
+      @description
+        @p: Fix to hx.defined.
+
   @h2: Key
   @changelog.key
