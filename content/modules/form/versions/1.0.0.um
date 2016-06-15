@@ -1,4 +1,12 @@
 @version 1.0.0
+  @examples
+    @example
+      @html: @inline 1.0.0/example.html
+
+      @js
+        var tagInput = new hx.TagInput('#tagInput')
+        tagInput.items(['a','b'])
+
   @api Form
     @function hx.validateForm
       @param form [String/HTMLElement]
