@@ -27,10 +27,11 @@ setPickerValue = (picker, results, cause) ->
     })
     _.renderer _.valueText.node(), results[0]
   else
+    _.current = undefined
     _.valueText.text(_.options.chooseValueText)
 
 class AutocompletePicker extends hx.EventEmitter
-  constructor: (selector, items, options) ->
+  constructor: (selector, items, options = {}) ->
     super()
 
     hx.component.register(selector, this)
@@ -54,6 +55,10 @@ class AutocompletePicker extends hx.EventEmitter
       loadingText: hx.userFacingText('autocompletePicker', 'loading')
       noResultsText: hx.userFacingText('autocompletePicker', 'noResults')
       otherResultsText: hx.userFacingText('autocompletePicker', 'otherResults')
+
+    if options.valueLookup
+      defaults.renderer = (element, item) ->
+        hx.select(element).text(options.valueLookup(item))
 
     resolvedOptions = hx.merge defaults, options
 

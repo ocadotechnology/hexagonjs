@@ -10,7 +10,7 @@ describe 'autocomplete-feed', ->
     should.not.exist(af._.options.valueLookup)
 
 
-  it 'should use the default searchValues function if an valueLookup is defined', ->
+  it 'should use the default searchValues function if a valueLookup is defined', ->
     valueLookup = chai.spy()
     af = new hx.AutocompleteFeed({
       valueLookup: valueLookup

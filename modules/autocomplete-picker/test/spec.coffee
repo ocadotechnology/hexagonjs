@@ -96,6 +96,15 @@ describe 'autocomplete-picker', ->
       items.should.not.have.been.called()
 
 
+  it 'should use the default renderer function if a valueLookup is defined', ->
+    valueLookup = (val) -> 'dave:' + val
+    testClosedAutocomplete trivialItems, {valueLookup: valueLookup}, (ap) ->
+      should.exist(ap._.renderer)
+      testValueLookupDiv = hx.detached('div')
+      ap._.renderer(testValueLookupDiv.node(), 'bob')
+      testValueLookupDiv.text().should.equal('dave:bob')
+
+
   it 'should correctly class the button', ->
     button = fixture.append('div').class('bob')
     ap = new hx.AutocompletePicker(button.node(), trivialItems, {buttonClass: 'steve'})
@@ -274,6 +283,16 @@ describe 'autocomplete-picker', ->
       ap._.selection.select('.hx-autocomplete-picker-text').text().should.equal(hx.userFacingText('autocompletePicker', 'chooseValue'))
 
 
+  it 'should set the value to "undefined" if an invalid value is passed in', ->
+    testClosedAutocomplete trivialItems, undefined, (ap) ->
+      ap._.selection.select('.hx-autocomplete-picker-text').text().should.equal(hx.userFacingText('autocompletePicker', 'chooseValue'))
+      ap.value('a')
+      ap._.selection.select('.hx-autocomplete-picker-text').text().should.equal('a')
+      ap.value('d')
+      ap._.selection.select('.hx-autocomplete-picker-text').text().should.equal(hx.userFacingText('autocompletePicker', 'chooseValue'))
+      should.not.exist(ap.value())
+
+
 
   describe 'api', ->
 
@@ -345,7 +364,7 @@ describe 'autocomplete-picker', ->
         ap.value().should.equal(aObj)
         ap.value({name: 'd'}, callback).should.equal(ap)
         callback.should.have.been.called.with(undefined)
-        ap.value().should.equal(aObj)
+        should.not.exist(ap.value())
 
 
     it 'value: should not set the value when not in the item set', ->
