@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.2.1
+ Version: 1.3.2
  Theme: hexagon-light
  Modules:
    set
@@ -56,6 +56,7 @@
    table
    date-picker
    time-picker
+   fluid
    tag-input
    morph-section
    titlebar
@@ -70,7 +71,7 @@
    drawing
    error-pages
    fast-click
-   fluid
+   file-input
    form-builder
    inline-editable
    inline-picker
@@ -86,6 +87,7 @@
    time-slider
    toggle
    tree
+   user-facing-text
 */
 
 
@@ -134,6 +136,9 @@ i.hx-icon {
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
+
+.hx-icon-upload:before {
+  content: "\f093"; }
 
 .hx-icon-toggle-off:before {
   content: "\f204"; }
@@ -1441,6 +1446,7 @@ a.hx-btn:hover {
     outline: none;
     background: none; }
 
+
 .hx-tag-input {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1477,7 +1483,7 @@ a.hx-btn:hover {
     display: flex; }
     .hx-tag-input form input {
       margin: 0;
-      border: none;
+      border-style: none;
       -webkit-flex-grow: 1;
           -ms-flex-positive: 1;
               flex-grow: 1;
@@ -2571,6 +2577,33 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
   font-weight: 100; }
 
 
+.hx-file-input {
+  display: inline-block;
+  min-width: 20em; }
+  .hx-file-input.hx-file-input-full-width {
+    display: block; }
+  .hx-file-input .hx-input-group .hx-file-input-selected {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    line-height: 1em;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 0 0.4em;
+    text-align: left; }
+
+.hx-file-input-hidden {
+  display: none; }
+
+.hx-file-input-preview + .hx-file-input-preview {
+  margin-top: 0.2em; }
+
+.hx-file-input-preview-image > img {
+  max-height: 1.5em;
+  max-width: 5em;
+  margin: -0.25em 0;
+  vertical-align: middle; }
 
 .hx-hidden-form-input {
   margin: 0.25em 0 0 0;
@@ -2916,6 +2949,7 @@ img.hx-logo, img.hx-logo:after {
 .hx-tree-node-children {
   border-left: solid 2px transparent;
   padding: 0.5em 0 0 2em; }
+
 
 
 
@@ -3775,6 +3809,7 @@ hr {
     background: #FCBFBF;
     outline: solid 1px #DE1A4A; }
 
+
 .hx-tag-input {
   border-color: #DADADA;
   background: #FDFDFD; }
@@ -4336,6 +4371,7 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 .hx-tree-node-children > .hx-tree-node > .hx-tree-node-content,
 .hx-tree-node-parent {
   box-shadow: 1px 1px 1px rgba(128, 128, 128, 0.17); }
+
 
 
 @font-face {

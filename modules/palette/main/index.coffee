@@ -18,6 +18,7 @@ context = (contextArray, contextPrefix) ->
         selection.classed("#{contextPrefix}-#{context}", true)
       else if context
         hx.consoleWarning "#{context} is not a known context! Accepted values are #{contextArray.join(', ')}"
+      selection
     else
       for context in paletteContexts
         if selection.classed("#{contextPrefix}-#{context}") then return context

@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.2.1
+ Version: 1.3.2
  Theme: hexagon-dark
  Modules:
    set
@@ -56,6 +56,7 @@
    table
    date-picker
    time-picker
+   fluid
    tag-input
    morph-section
    titlebar
@@ -70,7 +71,7 @@
    drawing
    error-pages
    fast-click
-   fluid
+   file-input
    form-builder
    inline-editable
    inline-picker
@@ -86,6 +87,7 @@
    time-slider
    toggle
    tree
+   user-facing-text
 */
 
 
@@ -864,6 +866,7 @@ hr {
     background: #FCBFBF;
     outline: solid 1px #DE1A4A; }
 
+
 .hx-tag-input {
   border-color: #4E5355;
   background: #252C2E; }
@@ -1425,3 +1428,4 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 .hx-tree-node-children > .hx-tree-node > .hx-tree-node-content,
 .hx-tree-node-parent {
   box-shadow: 1px 1px 1px rgba(128, 128, 128, 0.17); }
+

@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.2.1
+ Version: 1.3.2
  Theme: hexagon-light
  Modules:
    set
@@ -56,6 +56,7 @@
    table
    date-picker
    time-picker
+   fluid
    tag-input
    morph-section
    titlebar
@@ -70,7 +71,7 @@
    drawing
    error-pages
    fast-click
-   fluid
+   file-input
    form-builder
    inline-editable
    inline-picker
@@ -86,6 +87,7 @@
    time-slider
    toggle
    tree
+   user-facing-text
 */
 (function(){
 var hx = {"_": {}};
@@ -354,6 +356,7 @@ hx.theme = {
     "iconCol": "white",
     "iconBackgroundCol": "#00ADA8"
   },
+  "fluid": {},
   "tagInput": {
     "defaultCol": "#FFFFFF",
     "actionCol": "#00ADA8",
@@ -485,7 +488,7 @@ hx.theme = {
     "headingTextCol": "#00ADA8"
   },
   "fastClick": {},
-  "fluid": {},
+  "fileInput": {},
   "formBuilder": {},
   "inlineEditable": {},
   "inlinePicker": {},
@@ -601,7 +604,8 @@ hx.theme = {
     "backgroundCol": "#FFFFFF",
     "shadowCol": "rgba(128, 128, 128, 0.17)",
     "iconDisabledCol": "#FAFAFA"
-  }
+  },
+  "userFacingText": {}
 };
 (function(){
 var Set, checkPrefix, prefix, prefixChar, prefixString,
@@ -1303,7 +1307,7 @@ hx.tween = function(start, end, amount) {
 };
 
 hx.defined = function(x) {
-  return x !== void 0;
+  return x !== void 0 && x !== null;
 };
 
 hx.zip = function(arrays) {
@@ -2164,7 +2168,7 @@ hx.color.isColor = function(obj) {
 
 })();
 (function(){
-var ElementSet, Selection, augmenters, classed, closestParent, flattenNodes, getHexagonElementDataObject, getMethod, namespaces, reformed, select, selectAll, selectSingle;
+var ElementSet, Selection, augmenters, classed, closestParent, flattenNodes, getHexagonElementDataObject, getMatches, getMethod, matchPolyfill, namespaces, reformed, select, selectAll, selectSingle, shallowSelectAll, shallowSelectSingle;
 
 namespaces = {
   svg: 'http://www.w3.org/2000/svg',
@@ -2184,12 +2188,49 @@ getMethod = function(node, methodName) {
   }
 };
 
+matchPolyfill = function(selector) {
+  var matchingNodes, node;
+  node = this;
+  matchingNodes = (node.document || node.ownerDocument).querySelectorAll(selector);
+  return [].slice.call(matchingNodes).indexOf(node) > -1;
+};
+
+getMatches = function(node) {
+  return node.matches || hx.vendor(node, 'matchesSelector') || matchPolyfill;
+};
+
 selectSingle = function(selector, node) {
   return getMethod(node, 'querySelector').call(node, selector);
 };
 
 selectAll = function(selector, node) {
   return getMethod(node, 'querySelectorAll').call(node, selector);
+};
+
+shallowSelectSingle = function(selector, node) {
+  var child, j, len, matchFn, ref;
+  matchFn = getMatches(node);
+  ref = node.children;
+  for (j = 0, len = ref.length; j < len; j++) {
+    child = ref[j];
+    if (matchFn.call(child, selector)) {
+      return child;
+    }
+  }
+};
+
+shallowSelectAll = function(selector, node) {
+  var child, j, len, matchFn, matchingNodes, ref;
+  matchFn = getMatches(node);
+  matchingNodes = [];
+  ref = node.children;
+  for (j = 0, len = ref.length; j < len; j++) {
+    child = ref[j];
+    if (matchFn.call(child, selector)) {
+      matchingNodes.push(child);
+    }
+  }
+  return matchingNodes;
 };
 
 getHexagonElementDataObject = function(element, createIfNotExists) {
@@ -2253,27 +2294,9 @@ ElementSet = (function() {
 })();
 
 closestParent = function(selector, node) {
-  var matches;
   node = node.parentNode;
-  matches = (function() {
-    if (node.matches) {
-      return 'matches';
-    } else if (node.matchesSelector) {
-      return 'matchesSelector';
-    } else if (node.mozMatchesSelector) {
-      return 'mozMatchesSelector';
-    } else if (node.webkitMatchesSelector) {
-      return 'webkitMatchesSelector';
-    } else if (node.oMatchesSelector) {
-      return 'oMatchesSelector';
-    } else if (node.msMatchesSelector) {
-      return 'msMatchesSelector';
-    } else {
-      throw new Error("Dom matches method is not available (and is needed for closest())");
-    }
-  })();
   while (node && node !== document) {
-    if (getMethod(node, matches).call(node, selector)) {
+    if (getMatches(node).call(node, selector)) {
       return node;
     }
     node = node.parentNode;
@@ -2372,6 +2395,31 @@ Selection = (function() {
     } else {
       return new Selection(flattenNodes(this.nodes.map(function(node) {
         return selectAll(selector, node);
+      })));
+    }
+  };
+
+  Selection.prototype.shallowSelect = function(selector) {
+    var s;
+    if (!hx.isString(selector)) {
+      hx.consoleWarning('Selection.selectAll was passed the wrong argument type', 'Selection.selectAll only accepts a string argument, you supplied:', selector);
+      return new Selection([]);
+    } else {
+      s = new Selection(this.nodes.map(function(node) {
+        return shallowSelectSingle(selector, node);
+      }));
+      s.singleSelection = this.singleSelection;
+      return s;
+    }
+  };
+
+  Selection.prototype.shallowSelectAll = function(selector) {
+    if (!hx.isString(selector)) {
+      hx.consoleWarning('Selection.selectAll was passed the wrong argument type', 'Selection.selectAll only accepts a string argument, you supplied:', selector);
+      return new Selection([]);
+    } else {
+      return new Selection(flattenNodes(this.nodes.map(function(node) {
+        return shallowSelectAll(selector, node);
       })));
     }
   };
@@ -5276,7 +5324,7 @@ hx.initializeCollapsibles = function(selector, options) {
 
 })();
 (function(){
-var contexts, flatSelect, paletteContexts;
+var context, contexts, flatSelect, paletteContexts;
 
 contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast'];
 
@@ -5292,62 +5340,41 @@ flatSelect = function(selector) {
   }
 };
 
-hx.palette.context = function(selector, context) {
-  var c, i, len, selection;
-  selection = flatSelect(selector);
-  if (arguments.length > 1) {
-    contexts.forEach(function(c) {
-      return selection.classed('hx-' + c, c === context);
-    });
-    return selection;
-  } else {
-    for (i = 0, len = contexts.length; i < len; i++) {
-      c = contexts[i];
-      if (selection.classed('hx-' + c)) {
-        return c;
+context = function(contextArray, contextPrefix) {
+  var mappedContexts;
+  mappedContexts = contextArray.map(function(context) {
+    return contextPrefix + "-" + context;
+  }).join(' ');
+  return function(selector, context) {
+    var i, len, selection;
+    selection = flatSelect(selector);
+    if (arguments.length > 1) {
+      selection.classed(mappedContexts, false);
+      if (contextArray.indexOf(context) !== -1) {
+        selection.classed(contextPrefix + "-" + context, true);
+      } else if (context) {
+        hx.consoleWarning(context + " is not a known context! Accepted values are " + (contextArray.join(', ')));
       }
+      return selection;
+    } else {
+      for (i = 0, len = paletteContexts.length; i < len; i++) {
+        context = paletteContexts[i];
+        if (selection.classed(contextPrefix + "-" + context)) {
+          return context;
+        }
+      }
+      return void 0;
     }
-    return void 0;
-  }
+  };
 };
 
-hx.palette.textContext = function(selector, context) {
-  var c, i, len, selection;
-  selection = flatSelect(selector);
-  if (arguments.length > 1) {
-    paletteContexts.forEach(function(c) {
-      return selection.classed('hx-text-' + c, c === context);
-    });
-    return selection;
-  } else {
-    for (i = 0, len = paletteContexts.length; i < len; i++) {
-      c = paletteContexts[i];
-      if (selection.classed('hx-text-' + c)) {
-        return c;
-      }
-    }
-    return void 0;
-  }
-};
+hx.palette.context = context(contexts, 'hx');
 
-hx.palette.backgroundContext = function(selector, context) {
-  var c, i, len, selection;
-  selection = flatSelect(selector);
-  if (arguments.length > 1) {
-    paletteContexts.forEach(function(c) {
-      return selection.classed('hx-background-' + c, c === context);
-    });
-    return selection;
-  } else {
-    for (i = 0, len = paletteContexts.length; i < len; i++) {
-      c = paletteContexts[i];
-      if (selection.classed('hx-background-' + c)) {
-        return c;
-      }
-    }
-    return void 0;
-  }
-};
+hx.palette.textContext = context(paletteContexts, 'hx-text');
+
+hx.palette.backgroundContext = context(paletteContexts, 'hx-background');
+
+hx.palette.borderContext = context(paletteContexts, 'hx-border');
 
 })();
 (function(){
@@ -5745,7 +5772,7 @@ Preferences = (function(superClass) {
   extend(Preferences, superClass);
 
   function Preferences() {
-    var defaultLocaleId, modal, ref, setupModal;
+    var defaultLocaleId, guessedMomentTimezone, modal, ref, setupModal;
     Preferences.__super__.constructor.apply(this, arguments);
     setupModal = (function(_this) {
       return function(element) {
@@ -5819,7 +5846,16 @@ Preferences = (function(superClass) {
       defaultLocaleId = 'en';
     }
     this.locale(defaultLocaleId);
-    this.timezone((typeof moment !== "undefined" && moment !== null ? (ref = moment.tz) != null ? ref.guess() : void 0 : void 0) || 'UTC+00:00');
+    guessedMomentTimezone = typeof moment !== "undefined" && moment !== null ? (ref = moment.tz) != null ? ref.guess() : void 0 : void 0;
+    if (guessedMomentTimezone != null) {
+      this.supportedTimezones(moment.tz.names());
+      this.timezoneOffsetLookup(function(timezone, datestamp) {
+        return -(moment.tz.zone(timezone).offset(timestamp) / 60);
+      });
+      this.timezone(guessedMomentTimezone);
+    } else {
+      this.timezone('UTC+00:00');
+    }
   }
 
   Preferences.prototype.timezone = function(timezone) {
@@ -6896,7 +6932,9 @@ NumberPicker = (function(superClass) {
   }
 
   NumberPicker.prototype.value = function(value, screenValue) {
+    var prevValue;
     if (arguments.length > 0) {
+      prevValue = this.value();
       if (this._.max !== void 0 && value > this._.max) {
         value = this._.max;
       }
@@ -6910,9 +6948,11 @@ NumberPicker = (function(superClass) {
       }
       this.selectInput.value(screenValue || value);
       this.selectInput.attr('data-value', value);
-      this.emit('change', {
-        value: value
-      });
+      if (prevValue !== value) {
+        this.emit('change', {
+          value: value
+        });
+      }
       return this;
     } else {
       return Number(this.selectInput.attr('data-value'));
@@ -6942,14 +6982,22 @@ NumberPicker = (function(superClass) {
   };
 
   NumberPicker.prototype.increment = function() {
+    var prevValue;
+    prevValue = this.value();
     this.value(this.value() + 1);
-    this.emit('increment');
+    if (prevValue !== this.value()) {
+      this.emit('increment');
+    }
     return this;
   };
 
   NumberPicker.prototype.decrement = function() {
+    var prevValue;
+    prevValue = this.value();
     this.value(this.value() - 1);
-    this.emit('decrement');
+    if (prevValue !== this.value()) {
+      this.emit('decrement');
+    }
     return this;
   };
 
@@ -12202,6 +12250,56 @@ hx.TimePicker = TimePicker;
 
 })();
 (function(){
+var factory;
+
+factory = function(type, clasz) {
+  return function() {
+    return hx.detached(type)["class"](clasz);
+  };
+};
+
+hx.inputGroup = factory('div', 'hx-input-group');
+
+hx.notice = factory('div', 'hx-notice');
+
+hx.notice.head = factory('div', 'hx-notice-head');
+
+hx.notice.body = factory('div', 'hx-notice-body');
+
+hx.spinner = factory('span', 'hx-spinner');
+
+hx.spinner.wide = factory('div', 'hx-spinner-wide');
+
+hx.icon = function(options) {
+  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
+};
+
+hx.button = function(options) {
+  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
+};
+
+hx.label = function(options) {
+  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
+};
+
+hx.group = factory('div', 'hx-group hx-horizontal');
+
+hx.group.vertical = factory('div', 'hx-group hx-vertical');
+
+hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
+
+hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
+
+hx.section = factory('div', 'hx-section');
+
+hx.section.fixed = factory('div', 'hx-section hx-fixed');
+
+hx.checkbox = function() {
+  return hx.detached('input').attr('type', 'checkbox');
+};
+
+})();
+(function(){
 var TagInput,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -12235,13 +12333,13 @@ TagInput = (function(superClass) {
       return function() {
         var error, name;
         name = _this.input.value();
-        if (_this.options.validator) {
-          error = _this.options.validator(name);
-          _this.input.node().setCustomValidity(error || '');
-          return error.length > 0;
-        } else if (name === '') {
+        if (name === '') {
           _this.input.node().setCustomValidity('');
           return false;
+        } else if (_this.options.validator) {
+          error = _this.options.validator(name) || '';
+          _this.input.node().setCustomValidity(error);
+          return error.length > 0;
         }
       };
     })(this);
@@ -12290,7 +12388,7 @@ TagInput = (function(superClass) {
     });
     this.input.on('blur', 'hx.tag-input', (function(_this) {
       return function(event) {
-        if (!hasError() && _this.input.value().length > 0) {
+        if (_this.input.value().length > 0 && !hasError()) {
           return _this.add(_this.input.value(), void 0);
         }
       };
@@ -12674,9 +12772,8 @@ posToDiscrete = function(pos) {
 };
 
 slide = function(e) {
-  var _, diff, end, isEnd, offset, pos, start, val;
+  var _, diff, end, isEnd, offset, pos, prevValue, start, val;
   _ = this._;
-  this.emit('slidestart', this.value());
   _.mouseDown = true;
   _.pointerMoveHandler = (function(_this) {
     return function(e) {
@@ -12716,8 +12813,11 @@ slide = function(e) {
     _.dragging = 'value';
     val.value = posToValue.call(this, pos);
   }
+  prevValue = this.value();
   this.value(val);
-  this.emit('change', this.value());
+  if (prevValue !== this.value()) {
+    this.emit('change', this.value());
+  }
 };
 
 slideEnd = function(e) {
@@ -12807,6 +12907,7 @@ Slider = (function(superClass) {
     _.container = hx.select(this.selector).classed('hx-slider', true).append('div').classed('hx-slider-inner', true).classed('hx-slider-double', this.options.type === 'range').classed('hx-slider-discrete', _.isDiscrete).on('pointerdown', 'hx.slider', (function(_this) {
       return function(e) {
         if (!_.disabled) {
+          _this.emit('slidestart', _this.value());
           return slide.call(_this, e);
         }
       };
@@ -13378,10 +13479,10 @@ AutoComplete = (function(superClass) {
 
 })(hx.EventEmitter);
 
-hx.autoComplete = function(options) {
+hx.autoComplete = function(data, options) {
   var selection;
   selection = hx.detached('input');
-  new AutoComplete(selection.node(), options);
+  new AutoComplete(selection.node(), data, options);
   return selection;
 };
 
@@ -17669,52 +17770,226 @@ if (hx.supports('touch')) {
 
 })();
 (function(){
-var factory;
+var FileInput, fileListToMap, fileValidator, getFileUID,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-factory = function(type, clasz) {
-  return function() {
-    return hx.detached(type)["class"](clasz);
+getFileUID = function(file) {
+  return file.name + file.size + file.lastModified + file.type;
+};
+
+fileValidator = function(file, acceptedExtensions) {
+  var extension;
+  if (acceptedExtensions != null ? acceptedExtensions.length : void 0) {
+    extension = file.name.substr(file.name.lastIndexOf('.') + 1);
+    return acceptedExtensions.indexOf(extension) > -1;
+  } else {
+    return true;
+  }
+};
+
+fileListToMap = function(fileList, acceptedExtensions, emitter, options) {
+  var file, fileUID, i, len, map;
+  map = new hx.Map();
+  for (i = 0, len = fileList.length; i < len; i++) {
+    file = fileList[i];
+    if (fileValidator(file, acceptedExtensions)) {
+      fileUID = getFileUID(file);
+      map.set(fileUID, file);
+      if (!options.multiple) {
+        break;
+      }
+    } else {
+      emitter.emit('fileextensionerror', {
+        cause: 'user',
+        value: {
+          accepted: acceptedExtensions,
+          filename: file.name
+        }
+      });
+    }
+  }
+  return map;
+};
+
+FileInput = (function(superClass) {
+  extend(FileInput, superClass);
+
+  function FileInput(selector, options) {
+    var acceptedExtensions, acceptedExtensionsString, button, defaults, drop, dropdown, dropdownDiv, filePreview, group, handleFiles, imageType, input, noFilesTextDiv, preventDefault, ref, resolvedOptions, selectedFiles, selection, self, setupDropdown;
+    this.selector = selector;
+    FileInput.__super__.constructor.apply(this, arguments);
+    hx.component.register(this.selector, this);
+    self = this;
+    defaults = {
+      disabled: false,
+      fullWidth: false,
+      acceptedExtensions: void 0,
+      multiple: false,
+      dragEnabled: true,
+      buttonClass: 'hx-action',
+      noFilesText: 'No File Chosen',
+      filesSelectedText: 'Files Selected',
+      buttonText: 'Choose File'
+    };
+    resolvedOptions = hx.merge(defaults, options);
+    if (resolvedOptions.multiple && !options.buttonText) {
+      resolvedOptions.buttonText = 'Choose Files';
+    }
+    selection = hx.select(this.selector).classed('hx-file-input', true).classed('hx-file-input-full-width', resolvedOptions.fullWidth);
+    if (((ref = resolvedOptions.acceptedExtensions) != null ? ref.length : void 0) > 0) {
+      acceptedExtensions = resolvedOptions.acceptedExtensions;
+      acceptedExtensionsString = resolvedOptions.acceptedExtensions.map(function(e) {
+        return "." + e;
+      }).join(',');
+    }
+    input = hx.detached('input')["class"]('hx-file-input-hidden').attr('type', 'file').attr('accept', acceptedExtensionsString).attr('multiple', resolvedOptions.multiple ? 'multiple' : void 0);
+    group = hx.detached('div')["class"]("hx-input-group hx-input-group-full-width hx-no-margin");
+    button = hx.detached('button')["class"]("hx-file-input-button hx-btn hx-no-margin " + resolvedOptions.buttonClass).on('click', function() {
+      return input.node().click();
+    }).add(hx.detached('i')["class"]('hx-file-input-icon hx-icon hx-icon-upload')).add(hx.detached('span').text(resolvedOptions.buttonText));
+    noFilesTextDiv = hx.section().text(resolvedOptions.noFilesText);
+    selectedFiles = hx.section().classed('hx-file-input-selected', true).add(noFilesTextDiv);
+    imageType = /^image\//;
+    filePreview = function(file) {
+      var container, image, img, reader, remove, text;
+      if (imageType.test(file.type)) {
+        img = hx.detached('img').node();
+        img.file = file;
+        reader = new FileReader();
+        reader.onload = function(e) {
+          return img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        image = hx.section.fixed().classed('hx-file-input-preview-image', true).add(img);
+      }
+      container = hx.group().classed('hx-file-input-preview', true);
+      text = hx.section().classed('hx-file-input-preview-text', true).text(file.name);
+      remove = hx.section.fixed().classed('hx-file-input-preview-remove hx-text-negative', true).add(hx.icon({
+        "class": 'hx-icon hx-icon-close'
+      })).on('click', function() {
+        self._.fileMap["delete"](getFileUID(file));
+        container.remove();
+        return handleFiles(self._.fileMap);
+      });
+      return container.add(text).add(image).add(remove);
+    };
+    handleFiles = (function(_this) {
+      return function(fileMap) {
+        var length;
+        selectedFiles.clear().classed('hx-btn', false).off('click', 'hx.file-input');
+        length = fileMap.size;
+        if (length) {
+          if (length === 1) {
+            if (dropdown.isOpen()) {
+              dropdown.hide();
+            }
+            selectedFiles.append(filePreview(fileMap.values()[0]));
+          } else {
+            selectedFiles.classed('hx-btn', true).add(hx.section().text(length + " " + resolvedOptions.filesSelectedText)).add(hx.detached('i')["class"]('hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down')).on('click', 'hx.file-input', function() {
+              return dropdown.show();
+            });
+          }
+        } else {
+          selectedFiles.append(noFilesTextDiv);
+        }
+        _this._.fileMap = fileMap;
+        return _this.emit('change', {
+          cause: 'user',
+          data: _this._.fileMap.values()
+        });
+      };
+    })(this);
+    dropdownDiv = hx.detached('div');
+    setupDropdown = function(element) {
+      var sel;
+      sel = hx.select(element);
+      return self._.fileMap.values().map(function(file) {
+        return sel.append(filePreview(file));
+      });
+    };
+    dropdown = new hx.Dropdown(dropdownDiv.node(), setupDropdown, {
+      ddClass: 'hx-file-input-dropdown'
+    });
+    input.on('change', (function(_this) {
+      return function(e) {
+        handleFiles(fileListToMap(e.target.files, acceptedExtensions, _this, resolvedOptions));
+        return input.value('');
+      };
+    })(this));
+    this._ = {
+      options: resolvedOptions,
+      input: input,
+      button: button,
+      selectedFiles: selectedFiles,
+      noFilesTextDiv: noFilesTextDiv,
+      fileMap: new hx.Map()
+    };
+    if (resolvedOptions.dragEnabled) {
+      preventDefault = function(e) {
+        e.preventDefault();
+        return e.stopPropagation();
+      };
+      drop = function(e) {
+        var files;
+        preventDefault(e);
+        if (!self._.disabled) {
+          files = e.dataTransfer.files;
+          return handleFiles(fileListToMap(files, acceptedExtensions, this, resolvedOptions));
+        }
+      };
+      selection.on('dragenter', preventDefault).on('dragover', preventDefault).on('drop', drop);
+    }
+    if (resolvedOptions.disabled) {
+      this.disabled(resolvedOptions.disabled);
+    }
+    selection.add(input).add(group.add(button).add(selectedFiles)).add(dropdownDiv);
+  }
+
+  FileInput.prototype.disabled = function(disabled) {
+    var disabledAttr;
+    if (arguments.length) {
+      disabledAttr = disabled ? 'disabled' : void 0;
+      this._.input.attr('disabled', disabledAttr);
+      this._.button.attr('disabled', disabledAttr);
+      this._.selectedFiles.classed('hx-text-disabled hx-background-disabled', disabled);
+      this._.disabled = disabled;
+      if (disabled) {
+        this.value(void 0);
+      }
+      return this;
+    } else {
+      return this._.disabled || false;
+    }
   };
-};
 
-hx.inputGroup = factory('div', 'hx-input-group');
+  FileInput.prototype.value = function(value) {
+    if (arguments.length) {
+      if (value != null) {
+        hx.consoleWarning('hx.FileInput.value: It is not possible to set the value of a file input for security reasons. The value can only be cleared by passing in "undefined"');
+      } else {
+        this._.input.value('');
+        this._.selectedFiles.clear().classed('hx-btn', false).off('click', 'hx.file-input');
+        this._.selectedFiles.append(this._.noFilesTextDiv);
+        this._.fileMap = new hx.Map;
+      }
+      return this;
+    } else {
+      return this._.fileMap.values();
+    }
+  };
 
-hx.notice = factory('div', 'hx-notice');
+  return FileInput;
 
-hx.notice.head = factory('div', 'hx-notice-head');
+})(hx.EventEmitter);
 
-hx.notice.body = factory('div', 'hx-notice-body');
+hx.FileInput = FileInput;
 
-hx.spinner = factory('span', 'hx-spinner');
-
-hx.spinner.wide = factory('div', 'hx-spinner-wide');
-
-hx.icon = function(options) {
-  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
-};
-
-hx.button = function(options) {
-  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
-};
-
-hx.label = function(options) {
-  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
-};
-
-hx.group = factory('div', 'hx-group hx-horizontal');
-
-hx.group.vertical = factory('div', 'hx-group hx-vertical');
-
-hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
-
-hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
-
-hx.section = factory('div', 'hx-section');
-
-hx.section.fixed = factory('div', 'hx-section hx-fixed');
-
-hx.checkbox = function() {
-  return hx.detached('input').attr('type', 'checkbox');
+hx.fileInput = function(options) {
+  var selection;
+  selection = hx.detached('div');
+  new FileInput(selection.node(), options);
+  return selection;
 };
 
 })();
@@ -18131,6 +18406,28 @@ Form = (function(superClass) {
     });
   };
 
+  Form.prototype.addFileInput = function(name, options) {
+    var self;
+    if (options == null) {
+      options = {};
+    }
+    self = this;
+    return this.add(name, 'fileInput', 'div', function() {
+      var elem, fileInput;
+      elem = this.append('div').node();
+      fileInput = new hx.FileInput(elem, options.fileInputOptions);
+      return {
+        key: options.key,
+        componentNode: elem,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return fileInput.disabled(disabled);
+        }
+      };
+    });
+  };
+
   Form.prototype.submit = function() {
     var errors, ref, valid;
     ref = hx.validateForm(this.selector), valid = ref.valid, errors = ref.errors;
@@ -18153,7 +18450,7 @@ Form = (function(superClass) {
       result = {};
       this.properties.forEach((function(_this) {
         return function(key, it) {
-          if (!it.extras.hidden) {
+          if (!it.hidden) {
             return result[key] = _this.value(key);
           }
         };
@@ -18249,7 +18546,7 @@ Form = (function(superClass) {
   };
 
   Form.prototype.value = function(property, value) {
-    var it, node, tagInput;
+    var fileInput, it, node;
     if (this.properties.has(property)) {
       it = this.properties.get(property);
       node = it.node;
@@ -18261,11 +18558,11 @@ Form = (function(superClass) {
             return hx.select(node).selectAll('input').filter(function(d) {
               return d.value() === value;
             }).prop('checked', true);
+          case 'fileInput':
+            fileInput = hx.component(it.extras.componentNode || node);
+            return fileInput.value(value);
           case 'tagInput':
-            tagInput = hx.component(it.extras.componentNode || node);
-            return value.forEach(function(e) {
-              return tagInput.add(e);
-            });
+            return hx.component(it.extras.componentNode || node).items(value);
           case 'select':
             return hx.component(it.extras.componentNode || node).value(value);
           case 'datepicker':
@@ -18285,6 +18582,8 @@ Form = (function(superClass) {
                 return hx.select(it.node).select('input:checked').value();
               case 'tagInput':
                 return hx.component(it.extras.componentNode || it.node).items();
+              case 'fileInput':
+                return hx.component(it.extras.componentNode || it.node).value();
               case 'select':
                 return hx.component(it.extras.componentNode || it.node).value();
               case 'datepicker':
@@ -18800,48 +19099,76 @@ hx.Paginator = Paginator;
 
 })();
 (function(){
-var PivotTable, cellViewEnter, cellViewUpdate, rowViewUpdate,
+var PivotTable, createTableView,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-cellViewEnter = function(d, i, isHead, topLeft) {
-  var cell, type;
-  type = isHead || hx.isFunction(d) ? 'th' : 'td';
-  cell = this.append(type)["class"]('hx-pivot-table-cell');
-  if (isHead) {
-    cell.classed('hx-pivot-table-head-cell', true);
-  }
-  if (topLeft) {
-    cell.classed('hx-table-head-no-border', true);
-  }
-  return cell.node();
-};
-
-cellViewUpdate = function(d, e, i, cellRender, isHead) {
-  var elem;
-  elem = hx.select(e);
-  if (hx.isFunction(d)) {
-    return d(e);
-  } else if (d == null) {
-    return elem.text('');
-  } else {
-    return cellRender(d, e, isHead, i);
-  }
-};
-
-rowViewUpdate = function(d, e, i, cellRender, isHead, shifted) {
-  return hx.select(e).view('.hx-pivot-table-cell').enter(function(d, i) {
-    return cellViewEnter.call(this, d, i, isHead || (shifted && i === 0), isHead && (shifted && i === 0));
-  }).update(function(d, e, i) {
-    return cellViewUpdate(d, e, i, cellRender, isHead || (shifted && i === 0));
-  }).apply(d);
+createTableView = function(table, head, body) {
+  var bodyView, cellViewEnter, cellViewUpdate, headView, rowViewEnter, rowViewUpdate;
+  cellViewEnter = function(data, index, isHead) {
+    var cell, cellIsHead, cellIsTopLeft, isFirstColum, type;
+    isFirstColum = table._.leftShifted && index === 0;
+    cellIsHead = isHead || isFirstColum;
+    cellIsTopLeft = isHead && isFirstColum;
+    type = cellIsHead || hx.isFunction(data) ? 'th' : 'td';
+    cell = this.append(type)["class"]('hx-pivot-table-cell');
+    if (cellIsHead) {
+      cell.classed('hx-pivot-table-head-cell', true);
+    }
+    if (cellIsTopLeft) {
+      cell.classed('hx-table-head-no-border', true);
+    }
+    return cell.node();
+  };
+  cellViewUpdate = function(data, node, index, isHead) {
+    var cellIsHead, isFirstColum, selection;
+    isFirstColum = table._.leftShifted && index === 0;
+    cellIsHead = isHead || isFirstColum;
+    selection = hx.select(node);
+    if (hx.isFunction(data)) {
+      return data(node);
+    } else if (data == null) {
+      return selection.text('');
+    } else {
+      return table.options.cellRender(data, node, cellIsHead, index);
+    }
+  };
+  rowViewEnter = function(data, isHead) {
+    var rowNode, rowView;
+    rowNode = this.append('tr').node();
+    rowView = hx.select(rowNode).view('.hx-pivot-table-cell').enter(function(datum) {
+      var index;
+      index = data.indexOf(datum);
+      return cellViewEnter.call(this, datum, index, isHead);
+    }).update(function(datum, node, index) {
+      return cellViewUpdate(datum, node, index, isHead);
+    });
+    hx.component.register(rowNode, {
+      view: rowView
+    });
+    return rowNode;
+  };
+  rowViewUpdate = function(data, node, index, isHead) {
+    return hx.component(node).view.apply(data);
+  };
+  headView = head.view('tr').enter(function(data) {
+    return rowViewEnter.call(this, data, true);
+  }).update(function(data, node) {
+    return rowViewUpdate(data, node, true);
+  });
+  bodyView = body.view('tr').enter(function(data) {
+    return rowViewEnter.call(this, data, false);
+  }).update(function(data, node) {
+    return rowViewUpdate(data, node, false);
+  });
+  return [headView, bodyView];
 };
 
 PivotTable = (function(superClass) {
   extend(PivotTable, superClass);
 
   function PivotTable(selector, options) {
-    var self;
+    var ref, self;
     this.selector = selector;
     PivotTable.__super__.constructor.apply(this, arguments);
     self = this;
@@ -18852,51 +19179,50 @@ PivotTable = (function(superClass) {
       cellRender: function(data, element, isHead, column) {
         return hx.select(element).text(data);
       },
-      useResponsive: true
+      useResponsive: true,
+      data: void 0
     }, options);
     this._ = {};
     this.selection = hx.select(this.selector).classed('hx-pivot-table', true);
     this.table = this.selection.append('table')["class"]('hx-table');
     this.tableHead = this.table.append('thead');
     this.tableBody = this.table.append('tbody');
+    ref = createTableView(this, this.tableHead, this.tableBody), this.tableHeadView = ref[0], this.tableBodyView = ref[1];
+    if (this.options.data != null) {
+      this.data(this.options.data);
+    }
   }
 
   PivotTable.prototype.data = function(data) {
-    var bodyData, leftData, leftShifted, ref, ref1, self, topData;
+    var _, bodyData, clonedData, leftData, ref, ref1, ref2, topData;
     if (data != null) {
-      self = this;
-      this._.data = data;
-      topData = ((ref = data.topHead) != null ? ref.length : void 0) > 0 ? data.topHead : [];
-      leftData = ((ref1 = data.leftHead) != null ? ref1.length : void 0) > 0 ? data.leftHead : [];
-      if (topData.length > 0 && data.body.length > 0) {
-        if (topData.length !== data.body[0].length) {
+      _ = this._;
+      _.data = data;
+      _.leftShifted = false;
+      clonedData = hx.clone(data);
+      topData = ((ref = clonedData.topHead) != null ? ref.length : void 0) > 0 ? clonedData.topHead : [];
+      leftData = ((ref1 = clonedData.leftHead) != null ? ref1.length : void 0) > 0 ? clonedData.leftHead : [];
+      bodyData = ((ref2 = clonedData.body) != null ? ref2.length : void 0) > 0 ? clonedData.body : [];
+      if (topData.length > 0 && bodyData.length > 0) {
+        if (topData.length !== bodyData[0].length) {
           hx.consoleWarning('hx.PivotTable - ' + this.selector, 'The number of columns in the dataset is not equal to the number of headers provided in data.topHead');
         }
       }
       if (leftData.length > 0) {
-        if (leftData.length !== data.body.length) {
+        if (leftData.length !== bodyData.length) {
           hx.consoleWarning('hx.PivotTable - ' + this.selector, 'The number of rows in the dataset is not equal to the number of headers provided in data.leftHead');
         }
-        bodyData = data.body.map(function(e, i) {
+        bodyData = bodyData.map(function(e, i) {
           e.unshift(leftData[i]);
           return e;
         });
-        leftShifted = true;
+        _.leftShifted = true;
       }
-      if (topData.length > 0 && leftShifted) {
+      if (topData.length > 0 && _.leftShifted) {
         if (topData != null) {
           topData.unshift(this.options.topLeftCellRender || void 0);
         }
       }
-      if (bodyData == null) {
-        bodyData = data.body;
-      }
-      this.tableHeadView = this.tableHead.view('tr', 'tr').update(function(d, e, i) {
-        return rowViewUpdate(d, e, i, self.options.cellRender, true, leftShifted);
-      });
-      this.tableBodyView = this.tableBody.view('tr', 'tr').update(function(d, e, i) {
-        return rowViewUpdate(d, e, i, self.options.cellRender, false, leftShifted);
-      });
       if ((topData != null ? topData.length : void 0) > 0) {
         this.tableHeadView.apply([topData]);
       }
@@ -19159,7 +19485,7 @@ onTabSelected = function(tabs, element, i) {
   selection.selectAll('.hx-tab').classed('hx-tab-active', false);
   hx.select(element).classed('hx-tab-active', true);
   context = hx.palette.context(element);
-  selection.select('.hx-tabs-content')["class"]('hx-tabs-content' + (context ? ' hx-border-' + context : ''));
+  hx.palette.borderContext(selection.select('.hx-tabs-content'), context);
   hx.select(tabs.selector).selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true);
   hx.select('#' + hx.select(element).attr('data-content')).classed('hx-tab-content-hidden', false);
   return tabs.emit('change', {
@@ -19583,6 +19909,91 @@ hx.initializeTrees = function(selector) {
     return new Tree(d);
   });
 };
+
+})();
+(function(){
+var _, completeGetterSetter, isValid, partialGetterSetter, userFacingText, userFacingTextDefaults;
+
+_ = {
+  initialValues: {},
+  localisedText: {}
+};
+
+completeGetterSetter = function(object) {
+  var key, module, results;
+  if (arguments.length) {
+    if (hx.isPlainObject(object)) {
+      results = [];
+      for (module in object) {
+        results.push((function() {
+          var results1;
+          results1 = [];
+          for (key in object[module]) {
+            results1.push(partialGetterSetter(module, key, object[module][key]));
+          }
+          return results1;
+        })());
+      }
+      return results;
+    } else {
+      return hx.consoleWarning("hx.userFacingText: Expected a plain object but was instead passed: " + object);
+    }
+  } else {
+    return hx.clone(_.localisedText);
+  }
+};
+
+isValid = function(value) {
+  return hx.isString(value) && value.length;
+};
+
+partialGetterSetter = function(module, key, value) {
+  var base, base1, base2, ref, text;
+  if (isValid(module) && isValid(key)) {
+    if (isValid(value)) {
+      if ((base = _.localisedText)[module] == null) {
+        base[module] = {};
+      }
+      _.localisedText[module][key] = value;
+      if ((base1 = _.initialValues)[module] == null) {
+        base1[module] = {};
+      }
+      if ((base2 = _.initialValues[module])[key] == null) {
+        base2[key] = value;
+      }
+      return true;
+    } else if (value == null) {
+      text = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
+      if (text) {
+        return text;
+      } else {
+        return hx.consoleWarning("hx.userFacingText: No text was found for key: " + key + " in module: " + module);
+      }
+    } else {
+      return hx.consoleWarning("hx.userFacingText: The value provided must be a string but was passed value: " + value);
+    }
+  } else {
+    return hx.consoleWarning("hx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
+  }
+};
+
+userFacingText = function() {
+  if (arguments.length <= 1) {
+    return completeGetterSetter.apply(this, arguments);
+  } else {
+    return partialGetterSetter.apply(this, arguments);
+  }
+};
+
+userFacingTextDefaults = function() {
+  return hx.clone(_.initialValues);
+};
+
+hx.userFacingText = userFacingText;
+
+hx.userFacingText.defaults = userFacingTextDefaults;
+
+hx.userFacingText._ = _;
 
 })();
 
