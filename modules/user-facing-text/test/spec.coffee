@@ -1,18 +1,18 @@
 describe 'User Facing Text', ->
-  origText = hx.clone hx.userFacingText._.localisedText
-  origInitialText = hx.clone hx.userFacingText._.initialValues
+  origText = hx.clone hx._.userFacingText.localisedText
+  origInitialText = hx.clone hx._.userFacingText.initialValues
   origConsoleWarning = hx.consoleWarning
 
   objectWithLength = {length: 1}
 
   beforeEach ->
     hx.consoleWarning = chai.spy()
-    hx.userFacingText._.localisedText = {}
-    hx.userFacingText._.initialValues = {}
+    hx._.userFacingText.localisedText = {}
+    hx._.userFacingText.initialValues = {}
 
   after ->
-    hx.userFacingText._.localisedText = origText
-    hx.userFacingText._.initialValues = origInitialText
+    hx._.userFacingText.localisedText = origText
+    hx._.userFacingText.initialValues = origInitialText
     hx.consoleWarning = origConsoleWarning
 
   it 'should register text using a string path', ->

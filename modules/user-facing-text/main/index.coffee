@@ -46,4 +46,4 @@ hx.userFacingText = userFacingText
 hx.userFacingText.defaults = userFacingTextDefaults
 
 # For tests
-hx.userFacingText._ = _
+hx._.userFacingText = _
