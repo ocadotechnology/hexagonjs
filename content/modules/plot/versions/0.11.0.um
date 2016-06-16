@@ -282,12 +282,12 @@
           How to display the legend on the graph. Possible modes:
 
           @list
-            'auto' - moves the legend around to avoid the mouse
-            'hover' - same as auto, but only displays the legend on mouse hover
-            'top-right' - displays the legend in the top right
-            'top-left' - displays the legend in the top left
-            'bottom-right' - displays the legend in the bottom right
-            'bottom-left' - displays the legend in the bottom left
+            @item: 'auto' - moves the legend around to avoid the mouse
+            @item: 'hover' - same as auto, but only displays the legend on mouse hover
+            @item: 'top-right' - displays the legend in the top right
+            @item: 'top-left' - displays the legend in the top left
+            @item: 'bottom-right' - displays the legend in the bottom right
+            @item: 'bottom-left' - displays the legend in the bottom left
 
         @default auto
 
@@ -349,12 +349,12 @@
           How to display the legend on the graph. Possible modes:
 
           @list
-            'auto' - moves the legend around to avoid the mouse
-            'hover' - same as auto, but only displays the legend on mouse hover
-            'top-right' - displays the legend in the top right
-            'top-left' - displays the legend in the top left
-            'bottom-right' - displays the legend in the bottom right
-            'bottom-left' - displays the legend in the bottom left
+            @item: 'auto' - moves the legend around to avoid the mouse
+            @item: 'hover' - same as auto, but only displays the legend on mouse hover
+            @item: 'top-right' - displays the legend in the top right
+            @item: 'top-left' - displays the legend in the top left
+            @item: 'bottom-right' - displays the legend in the bottom right
+            @item: 'bottom-left' - displays the legend in the bottom left
 
         @default auto
 

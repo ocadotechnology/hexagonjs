@@ -348,10 +348,10 @@
       @description
         Returns true if the value passed in is a plain object, where a plain objects is defined as:
 
-        @list bullets
-          Anything created with new (or equivalent)
-          DOM nodes
-          window
+        @list
+          @item: Anything created with new (or equivalent)
+          @item: DOM nodes
+          @item: window
 
         @codeblock js
           hx.isPlainObject("i am a string")                // returns false

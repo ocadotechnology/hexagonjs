@@ -25,9 +25,9 @@
             @description:
               The type of event that caused the selection:
               @list:
-                'click' - User clicked
-                'enter' - User pressed the enter key
-                'tab'   - User pressed the tab key
+                @item: 'click' - User clicked
+                @item: 'enter' - User pressed the enter key
+                @item: 'tab'   - User pressed the tab key
           @property item [String/Object]: The menu item as it was passed into the menu.
 
         @event activeset [Object]
@@ -36,8 +36,8 @@
             @description:
               The type of event that caused the selection:
               @list:
-                'click' - User clicked
-                'arrow' - User used the arrow keys
+                @item: 'click' - User clicked
+                @item: 'arrow' - User used the arrow keys
           @property item [String/Object]: The menu item as it was passed into the menu.
 
         @returns Menu: This Menu
