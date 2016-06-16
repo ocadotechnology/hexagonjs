@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar Autocomplete Picker Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: Autocomplete Picker Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/autocomplete-picker/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/autocomplete-picker/
