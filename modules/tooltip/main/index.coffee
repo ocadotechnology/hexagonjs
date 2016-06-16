@@ -1,21 +1,29 @@
+class Tooltip
+  constructor: (selector, message = '', options = {}) ->
+    defaults = {
+      align: 'right'
+    }
+    resolvedOptions = hx.merge(defaults, options)
 
-hx.tooltip = (selector, opts) ->
+    content = (element) -> hx.select(element).text(message)
 
-  options = hx.merge({
-    message: ''
-    align: 'right'
-  }, opts)
+    dropdownOptions = {
+      mode: 'click',
+      matchWidth: false,
+      align: resolvedOptions.align,
+      ddClass: 'hx-tooltip'
+    }
 
-  content = (element) ->
-    hx.select(element)
-      .text(options.message)
-      .classed('hx-tooltip', true)
+    selection = hx.select(selector)
 
-  dropdownOptions = {
-    mode: 'hover',
-    align: options.align
-  }
+    @_ = {
+      selection: selection,
+      dropdown: new hx.Dropdown(selection.node(), content, dropdownOptions)
+    }
 
-  new hx.Dropdown(hx.select(selector).node(), content, dropdownOptions)
+  remove: ->
+    @dropdown.hide()
+    @dropdown.cleanUp()
 
-  return
+hx.tooltip = (selector, message, options) ->
+  new Tooltip(selector, message, options)
