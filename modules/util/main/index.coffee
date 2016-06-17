@@ -170,7 +170,7 @@ hx.startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
 
 hx.tween = (start, end, amount) -> start + (end - start) * amount
 
-hx.defined = (x) -> x isnt undefined
+hx.defined = (x) -> x isnt undefined and x isnt null
 
 hx.zip = (arrays) ->
   if arrays

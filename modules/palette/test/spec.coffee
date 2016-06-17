@@ -13,11 +13,16 @@ describe 'Palette', ->
         it context, ->
           selection = hx.detached('div')
           hx.palette[type](selection, context).should.equal(selection)
-          selection.classed("#{prefix}-#{context}").should.equal(true)
-          hx.palette[type](selection.node()).should.equal(context)
+          if (context)
+            selection.classed("#{prefix}-#{context}").should.equal(true)
+            hx.palette[type](selection.node()).should.equal(context)
+          else
+            should.not.exist(hx.palette[type](selection.node()))
           hx.consoleWarning.should.not.have.been.called()
 
       testContexts.forEach testContext
+
+      testContext(undefined)
 
       it 'should return undefined if there is no context', ->
         should.not.exist(hx.palette.context(hx.detached('div')))
