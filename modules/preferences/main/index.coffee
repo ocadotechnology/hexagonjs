@@ -207,7 +207,7 @@ class Preferences extends hx.EventEmitter
       modal: modal
     }
 
-    defaultLocaleId = moment?.locale() or navigator.language
+    defaultLocaleId = moment?.locale() or navigator.languages?[0] or navigator.language
     if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
     @locale defaultLocaleId
