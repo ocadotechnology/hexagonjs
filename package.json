@@ -1,6 +1,6 @@
 {
   "name": "hexagon-js",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "A modular, themeable collection of components for modern browsers",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
@@ -16,7 +16,7 @@
   },
   "homepage": "https://hexagonjs.io",
   "engines": {
-    "node": ">=0.12 <5.0.0"
+    "node": ">=0.12 <7.0.0"
   },
   "main": "index.js",
   "scripts": {

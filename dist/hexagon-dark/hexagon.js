@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.3.2
+ Version: 1.3.3
  Theme: hexagon-dark
  Modules:
    set
@@ -5773,7 +5773,7 @@ Preferences = (function(superClass) {
   extend(Preferences, superClass);
 
   function Preferences() {
-    var defaultLocaleId, guessedMomentTimezone, modal, ref, setupModal;
+    var defaultLocaleId, guessedMomentTimezone, modal, ref, ref1, setupModal;
     Preferences.__super__.constructor.apply(this, arguments);
     setupModal = (function(_this) {
       return function(element) {
@@ -5842,12 +5842,12 @@ Preferences = (function(superClass) {
       preferences: {},
       modal: modal
     };
-    defaultLocaleId = (typeof moment !== "undefined" && moment !== null ? moment.locale() : void 0) || navigator.language;
+    defaultLocaleId = (typeof moment !== "undefined" && moment !== null ? moment.locale() : void 0) || ((ref = navigator.languages) != null ? ref[0] : void 0) || navigator.language;
     if (!(hx.isString(defaultLocaleId) && lookupLocale(defaultLocaleId))) {
       defaultLocaleId = 'en';
     }
     this.locale(defaultLocaleId);
-    guessedMomentTimezone = typeof moment !== "undefined" && moment !== null ? (ref = moment.tz) != null ? ref.guess() : void 0 : void 0;
+    guessedMomentTimezone = typeof moment !== "undefined" && moment !== null ? (ref1 = moment.tz) != null ? ref1.guess() : void 0 : void 0;
     if (guessedMomentTimezone != null) {
       this.supportedTimezones(moment.tz.names());
       this.timezoneOffsetLookup(function(timezone, datestamp) {
