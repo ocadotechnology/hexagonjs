@@ -9,7 +9,7 @@
       @js
         new hx.FileInput('#example')
 
-  @api FileInput
+  @api File Input
     @added: New FileInput component and fluid api function
       @issue 25
     @prototype hx.FileInput

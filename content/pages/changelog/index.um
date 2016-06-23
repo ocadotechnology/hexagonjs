@@ -197,5 +197,10 @@
       @description
         @p: Change the preferences module to prefer navigator.languages over navigator.language
 
+    @version 1.4.0
+      @description
+        @p: Added the Autocomplete Picker module, a hybrid of an AutoComplete and a Picker.
+        @p: Added the User Facing Text module for defining the default text for Hexagon modules.
+
   @h2: Key
   @changelog.key

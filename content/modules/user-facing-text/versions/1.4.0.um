@@ -1,0 +1,74 @@
+@version 1.4.0
+  @description
+    @p: A module used for defining the default text for hexagon modules.
+    @p: All the default text within hexagon is now defined using this module. It can be overriden for each instance if required using the options for each component.
+    @p: This module can also be used as a method for localisation of user facing text.
+    @p: Hexagon provides all text in English.
+
+  @examples
+    @codeblock js
+      // Get and set inbuilt values:
+      hx.userFacingText('form', 'missingValue') // Get the text for the 'form' module and 'missingValue' key
+      hx.userFacingText('form', 'missingValue', 'Value Missing') // Set the text
+
+      // Get and set custom values
+      hx.userFacingText('yourComponentName', 'yourKeyValue', 'Some Text') // Set a custom user facing text
+      hx.userFacingText('yourComponentName', 'yourKeyValue') // Returns: "Some Text"
+
+      // Get all set values
+      hx.userFacingText()
+
+      // Set multiple values
+      var text = {
+        form: {
+          missingValue: 'Value Missing'
+        },
+        yourComponentName: {
+          yourKeyValue: 'Some Text'
+        }
+      }
+      hx.userFacingText(text)
+
+
+  @api User Facing Text
+    @added: Added a new module for managing all the user facing text in hexagon
+    @function hx.userFacingText
+      @description: Get the currently set text for all modules
+      @returns Object: The currently set userFacingText object
+
+    @function hx.userFacingText
+      @description:
+        @p: Sets multiple module text keys:
+        @codeblock js
+          var text = {
+            picker: {
+              chooseValue: 'Text'
+            },
+            form: {
+              typeMismatch: 'Type mismatch error',
+              missingValue: 'Missing Value'
+            }
+          }
+          hx.userFacingText(text)
+
+        @p: It can also be used to reset the text to the default values
+        @codeblock js
+          hx.userFacingText(hx.userFacingText.defaults())
+      @param text [Object]: The object with module/key objects to set.
+
+
+    @function hx.userFacingText
+      @description: Gets the text for a module key
+      @param module [String]: The module to get text from
+      @param key [String]: The key to get text for
+      @returns String: The currently set text
+
+    @function hx.userFacingText
+      @description: Sets the text for a module key
+      @param module [String]: The module to set text for
+      @param key [String]: The key to set text for
+      @param value [String]: The text to set
+
+
+    @function hx.userFacingText.defaults
+      @returns Object: The initial value set for the userFacingText object.
