@@ -12,12 +12,12 @@ setValue = (picker, value, items, cause = 'api') ->
       break
 
   if newVal?
-    picker.options.renderer(picker.selectedText.node(), newVal)
+    picker._.renderer(picker._.selectedText.node(), newVal)
   else
-    picker.selectedText.text(picker.options.noValueText)
+    picker._.selectedText.text(picker._.options.noValueText)
 
-  if picker.current isnt newVal
-    picker.current = newVal
+  if picker._.current isnt newVal
+    picker._.current = newVal
     picker.emit 'change', {
       value: newVal
       cause: cause
@@ -27,7 +27,7 @@ class Picker extends hx.EventEmitter
   constructor: (selector, options = {}) ->
     super
 
-    @options = hx.merge.defined {
+    resolvedOptions = hx.merge.defined {
       dropdownOptions: {}
       items: []
       noValueText: hx.userFacingText('picker', 'chooseValue')
@@ -40,52 +40,62 @@ class Picker extends hx.EventEmitter
 
     @selection = hx.select(selector)
 
-    @current = undefined
     button = @selection.classed('hx-picker hx-btn', true).append('span').class('hx-picker-inner').attr('type', 'button')
-    @selectedText = button.append('span').class('hx-picker-text')
+    selectedText = button.append('span').class('hx-picker-text')
     button.append('span').class('hx-picker-icon').append('i').class('hx-icon hx-icon-caret-down')
 
-    @menu = new hx.Menu(selector, {
-      dropdownOptions: @options.dropdownOptions
-      items: @options.items
-      renderer: @options.renderer
-      disabled: @options.disabled
+    renderWrapper = (node, item) => @_.renderer(node, item)
+
+    menu = new hx.Menu(selector, {
+      dropdownOptions: resolvedOptions.dropdownOptions
+      items: resolvedOptions.items
+      disabled: resolvedOptions.disabled
     })
 
-    @menu.on 'change', 'hx.picker', (item) =>
+    menu.pipe(this, '', ['highlight'])
+    menu.dropdown.pipe(this, 'dropdown')
+    menu.on 'change', 'hx.picker', (item) =>
       if item?.content?
         setValue(this, item.content, @items(), 'user')
-        @menu.hide()
+        menu.hide()
 
-    if not @options.renderer?
-      @options.renderer = @menu.renderer()
+    @_ =
+      menu: menu
+      options: resolvedOptions
+      renderer: resolvedOptions.renderer
+      selectedText: selectedText
+      current: undefined
 
-    if @options.value?
-      @value(@options.value)
+    if not resolvedOptions.renderer?
+      @renderer menu.renderer()
 
-    if not @current? and @options.noValueText?
-      @selectedText.text(@options.noValueText)
+    menu.renderer(renderWrapper)
 
-    @menu.pipe(this, '', ['highlight'])
-    @menu.dropdown.pipe(this, 'dropdown')
+    if resolvedOptions.items?
+      @items resolvedOptions.items
+
+    if resolvedOptions.value?
+      @value resolvedOptions.value
+
+    if not @_.current? and resolvedOptions.noValueText?
+      selectedText.text resolvedOptions.noValueText
 
   renderer: (f) ->
     if f?
-      @options.renderer = f
-      @menu.renderer(f)
+      @_.renderer = f
       this
     else
-      @options.renderer
+      @_.renderer
 
 
   items: (items) ->
     if items?
-      @options.items = items
-      @menu.items(items)
-      @value(@current)
+      @_.items = items
+      @_.menu.items(items)
+      @value(@_.current)
       this
     else
-      @options.items
+      @_.items
 
   value: (value) ->
     if arguments.length > 0
@@ -99,10 +109,10 @@ class Picker extends hx.EventEmitter
         setValue(this, value, @items())
       this
     else
-      @current
+      @_.current
 
   disabled: (disable) ->
-    menuDisable = @menu.disabled(disable)
+    menuDisable = @_.menu.disabled(disable)
     # menu.disabled returns the wrong 'this' so we return the correct things below
     if disable? then this
     else menuDisable

@@ -223,11 +223,16 @@ class Menu extends hx.EventEmitter
     @options.dropdownOptions.ddClass = 'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
     dropdownContent = (node) ->
+      elem = hx.select(node)
+      menuItems = elem.select('.hx-menu-items')
+      if menuItems.empty()
+        menuItems = elem.append('div').class('hx-menu-items')
+
       doneFn = (items) ->
         if self._.itemsChanged # We don't want to keep making lots of new menu items if the items haven't changed
           self._.itemsChanged = false
           setupInner(self, items, self)
-        populateNode(node, self._.menuItems)
+        populateNode(menuItems.node(), self._.menuItems)
 
       # Items as set by the user.
       rawItems = self._.items

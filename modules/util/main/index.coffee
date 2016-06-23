@@ -49,10 +49,11 @@ hx.supports = (name) ->
 hx.debounce = (duration, fn) ->
   timeout = undefined
   return ->
+    origArgs = arguments
     if timeout then clearTimeout(timeout)
     f = ->
       timeout = undefined
-      fn()
+      fn.apply(this, origArgs)
     timeout = setTimeout(f, duration)
 
 hx.clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
