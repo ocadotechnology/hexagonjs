@@ -71,7 +71,7 @@ function createBuilds () {
 
 function buildHexagon (force) { // XXX: do this in the postinstall npm script
   if (force) return createBuilds()
-  return fs.accessAsync('target/resources/hexagon/docs/' + versions.latest + '/hexagon.css', fs.F_OK)
+  return fs.accessAsync('target/resources/hexagon/' + versions.latest + '/hexagon.css', fs.F_OK)
     .then(function () {
       console.log(chalk.cyan('Skipping Hexagon Build (Already Exists)'))
     })
