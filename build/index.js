@@ -13,24 +13,25 @@ var fs = Promise.promisifyAll(require('fs-extra'))
 var util = require('./util')
 var versions = require('../content/versions.json')
 
-var glob = Promise.promisify(require('glob'))
 var Progress = require('progress')
 var chalk = require('chalk')
 var watch = require('quantum-watch')
 var flatten = require('flatten')
 var liveServer = require('live-server')
 
+var privateConfig
 try {
-  var privateConfig = require('../config.json')
+  privateConfig = require('../config.json')
 } catch (e) {
-  var privateConfig = {}
+  privateConfig = {}
 }
 
 function buildMetaData (dev) {
+  var targetVersions
   if (dev === true) {
-    var targetVersions = [versions.targetVersions.reverse()[0]]
+    targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
-    var targetVersions = versions.targetVersions
+    targetVersions = versions.targetVersions
   }
 
   return util.moduleList().then(function (moduleNames) {
@@ -58,25 +59,44 @@ function buildMetaData (dev) {
     })
 }
 
-function createBuilds () {
-  // create the dx-prefixed and hx-prefixed builds for the latest version of hexagon
-  var buildList = [
-    { dest: 'content/resources/hexagon/' + versions.latest, embedAssets: true },
-    { dest: 'target/resources/hexagon/docs', prefix: 'dx', embedAssets: true, addFavicons: true }
-  ]
-  return progressSequence('Building Hexagon', chalk.cyan('='), buildList, function (opts) {
-    return hexagon.light.build(opts)
-  })
+function hexagonBuildLog (message) {
+  console.log(chalk.cyan(message))
 }
 
-function buildHexagon (force) { // XXX: do this in the postinstall npm script
-  if (force) return createBuilds()
-  return fs.accessAsync('target/resources/hexagon/docs/' + versions.latest + '/hexagon.css', fs.F_OK)
-    .then(function () {
-      console.log(chalk.cyan('Skipping Hexagon Build (Already Exists)'))
-    })
+function createLatestBuild (force) {
+  hexagonBuildLog('Building Hexagon ' + versions.latest)
+  var dest = 'content/resources/hexagon/' + versions.latest
+  var opts = {
+    dest: dest,
+    embedAssets: true
+  }
+  return createHexagonBuild(dest, opts, force)
+    .then(() => hexagonBuildLog(chalk.cyan('Hexagon ' + versions.latest + ' Built')))
+}
+
+function createDocsBuild (force) {
+  hexagonBuildLog('Building Hexagon for Docs')
+  var dest = 'target/resources/hexagon/docs'
+  var opts = {
+    dest: dest,
+    prefix: 'dx',
+    embedAssets: true,
+    addFavicons: true
+  }
+  return createHexagonBuild(dest, opts, force)
+    .then(() => hexagonBuildLog('Hexagon for Docs Built'))
+}
+
+function createHexagonBuild (dest, options, force) {
+  if (force) return hexagon.light.build(options)
+  return fs.accessAsync(dest + '/hexagon.css', fs.F_OK)
     // Hexagon build doesn't already exist
-    .catch(createBuilds)
+    .catch(() => hexagon.light.build(options))
+}
+
+function buildHexagon (force) {
+  return createLatestBuild(force)
+    .then(() => createDocsBuild(force))
 }
 
 // copies the static resources to the target directory
@@ -90,10 +110,11 @@ function copyResources () {
 }
 
 function getTemplateVariables (dev) {
+  var targetVersions
   if (dev === true) {
-    var targetVersions = [versions.targetVersions.reverse()[0]]
+    targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
-    var targetVersions = versions.targetVersions
+    targetVersions = versions.targetVersions
   }
 
   return Promise.props({
@@ -105,7 +126,7 @@ function getTemplateVariables (dev) {
 }
 
 function progressSequence (desc, completeStyle, list, func) {
-  var bar = new Progress(desc + ' :current/:total [:bar] :percent :etas', { total: list.length, width: 50, complete: completeStyle})
+  var bar = new Progress(desc + ' :current/:total [:bar] :percent :etas', { total: list.length, width: 50, complete: completeStyle })
   bar.tick(0)
   return Promise.all(list)
     .map(function (f) {
@@ -215,10 +236,11 @@ function getOptions (dev) {
     }
   }
 
+  var targetVersions
   if (dev === true) {
-    var targetVersions = [versions.targetVersions.reverse()[0]]
+    targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
-    var targetVersions = versions.targetVersions
+    targetVersions = versions.targetVersions
   }
 
   var changelogOptions = {
@@ -294,13 +316,13 @@ function buildPages (objs, dev) {
 }
 
 function watchPages () {
-  return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, process.argv[2] !== 'build-all')}).then(function (fun) {
+  return watch('content/pages/**/index.um', { base: 'content/pages' }, function (objs) { return buildPages(objs, process.argv[2] !== 'build-all') }).then(function (fun) {
     return fun()
   })
 }
 
 function buildOnce () {
-  return quantum.read('content/pages/**/index.um', { base: 'content/pages'}).then(buildPages)
+  return quantum.read('content/pages/**/index.um', { base: 'content/pages' }).then(buildPages)
 }
 
 function startServer () {
@@ -313,7 +335,9 @@ function startServer () {
   })
 }
 
-if (process.argv[2] === 'build-hexagon') {
+if (process.argv[2] === 'postinstall') {
+  createLatestBuild(true)
+} else if (process.argv[2] === 'build-hexagon') {
   buildHexagon(true)
 } else if (process.argv[2] === 'build-release') {
   buildHexagon(true)
