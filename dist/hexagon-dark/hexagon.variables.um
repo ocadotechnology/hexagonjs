@@ -2,27 +2,9 @@
   @modules
     @spinner
       @spinner-col: #00ADA8
-    @base
-      @default-font-family: 'Open Sans', sans-serif
-      @heading-font-family: 'Open Sans', sans-serif
-      @body-background-col: #252C2E
-      @default-text-col: white
-      @heading-text-col: white
-      @input-background-col: #2F3639
-      @input-border-col: #4E5355
-      @input-text-col: white
-      @input-focus-border-col: #00ADA8
-      @input-invalid-border-col: #DE1A4A
-      @input-border-radius: 2px
-      @select-background-col: #FAFAFA
-      @select-border-col: #D8D8D8
-      @select-text-col: #3D3D3D
-      @select-focus-border-col: #B5B5B5
-      @text-select-col: #B4B1B5
-      @link-col: #00ADA8
-      @divider-col: #4E5355
-      @divider-style: solid
-      @default-font-size: 14px
+    @form
+      @error-text-col: #393D3D
+      @error-background-col: #F7F7F9
     @modal
       @shade-col: rgba(0,0,0,0.5)
       @background-col: #32373A
@@ -52,9 +34,45 @@
       @container-background-col: #252C2E
       @container-border-col: transparent
       @shadow-col: rgba(0, 0, 0, 0.05)
-    @form
-      @error-text-col: #393D3D
-      @error-background-col: #F7F7F9
+    @base
+      @default-font-family: 'Open Sans', sans-serif
+      @heading-font-family: 'Open Sans', sans-serif
+      @body-background-col: #252C2E
+      @default-text-col: white
+      @heading-text-col: white
+      @input-background-col: #2F3639
+      @input-border-col: #4E5355
+      @input-text-col: white
+      @input-focus-border-col: #00ADA8
+      @input-invalid-border-col: #DE1A4A
+      @input-border-radius: 2px
+      @select-background-col: #FAFAFA
+      @select-border-col: #D8D8D8
+      @select-text-col: #3D3D3D
+      @select-focus-border-col: #B5B5B5
+      @text-select-col: #B4B1B5
+      @link-col: #00ADA8
+      @divider-col: #4E5355
+      @divider-style: solid
+      @default-font-size: 14px
+    @button
+      @default-col: #2F3536
+      @action-col: #00ADA8
+      @positive-col: #92BF17
+      @warning-col: #D69B24
+      @negative-col: #EC3A65
+      @info-col: #B36ABB
+      @complement-col: #393D3D
+      @contrast-col: #F7F7F9
+      @disabled-col: #3B3D3D
+      @disabled-text-col: #939393
+      @invert-col: #2F3536
+      @invert-text-col: white
+      @invert-hover-col: #34393A
+      @invisible-text-col: white
+      @light-text-col: white
+      @dark-text-col: #3D3D3D
+      @default-text-col: white
     @dropdown
       @spacing: 0
       @background-col: #32373A
@@ -84,24 +102,15 @@
       @dark-text-col: #3D3D3D
       @disabled-col: #FAFAFA
       @disabled-text-col: #939393
-    @button
-      @default-col: #2F3536
-      @action-col: #00ADA8
-      @positive-col: #92BF17
-      @warning-col: #D69B24
-      @negative-col: #EC3A65
-      @info-col: #B36ABB
-      @complement-col: #393D3D
-      @contrast-col: #F7F7F9
-      @disabled-col: #3B3D3D
-      @disabled-text-col: #939393
-      @invert-col: #2F3536
-      @invert-text-col: white
-      @invert-hover-col: #34393A
-      @invisible-text-col: white
-      @light-text-col: white
-      @dark-text-col: #3D3D3D
-      @default-text-col: white
+    @input-group
+      @input-background-col: #2F3639
+      @input-border-col: #4E5355
+      @input-invalid-outline-col: #DE1A4A
+      @input-focus-border-col: #00ADA8
+      @div-background-col: #252C2E
+      @div-border-col: #4E5355
+      @icon-background-col: #32373A
+      @icon-border-col: #4E5355
     @menu
       @default-col: #32373A
       @default-hover-col: #42474A
@@ -122,15 +131,34 @@
       @default-hover-border-col: transparent
       @default-border-col: transparent
       @border-width: 2px
-    @input-group
+    @date-picker
+      @today-background-col: #393D3D
+      @light-text-col: white
+      @dark-text-col: #3D3D3D
+      @day-hover-background-col: #00ADA8
+      @range-background-col: #32373A
+      @selected-background-col: #00ADA8
+      @error-background-col: #FCBFBF
+      @error-outline-col: #DE1A4A
+      @divider-col: #4E5355
+      @header-text-col: white
+      @navigation-icon-col: #939393
+      @navigation-icon-hover-col: white
       @input-background-col: #2F3639
-      @input-border-col: #4E5355
-      @input-invalid-outline-col: #DE1A4A
-      @input-focus-border-col: #00ADA8
-      @div-background-col: #252C2E
-      @div-border-col: #4E5355
-      @icon-background-col: #32373A
-      @icon-border-col: #4E5355
+      @day-border-radius: 2px
+      @out-of-range-col: #939393
+      @border-col: #4E5355
+      @icon-col: white
+      @icon-background-col: #00ADA8
+    @time-picker
+      @error-background-col: #FCBFBF
+      @error-outline-col: #DE1A4A
+      @input-background-col: #2F3639
+      @border-col: #4E5355
+      @icon-col: white
+      @icon-background-col: #00ADA8
+    @drag-container
+      @drag-placeholder-border-col: #4E5355
     @layout
       @content-max-width: 1200px
       @content-breakpoint: 1300px, 900px
@@ -139,8 +167,6 @@
       @named-class-min-width: 250px
       @border-col: #4E5355
       @content-background-col: transparent
-    @drag-container
-      @drag-placeholder-border-col: #4E5355
     @progress-bar
       @border-col: none
       @border-width: 0
@@ -192,32 +218,8 @@
       @row-text-col: white
       @row-alt-text-col: white
       @border-col: #E2E1E1
-    @date-picker
-      @today-background-col: #393D3D
-      @light-text-col: white
-      @dark-text-col: #3D3D3D
-      @day-hover-background-col: #00ADA8
-      @range-background-col: #32373A
-      @selected-background-col: #00ADA8
-      @error-background-col: #FCBFBF
-      @error-outline-col: #DE1A4A
-      @divider-col: #4E5355
-      @header-text-col: white
-      @navigation-icon-col: #939393
-      @navigation-icon-hover-col: white
-      @input-background-col: #2F3639
-      @day-border-radius: 2px
-      @out-of-range-col: #939393
+    @date-time-picker
       @border-col: #4E5355
-      @icon-col: white
-      @icon-background-col: #00ADA8
-    @time-picker
-      @error-background-col: #FCBFBF
-      @error-outline-col: #DE1A4A
-      @input-background-col: #2F3639
-      @border-col: #4E5355
-      @icon-col: white
-      @icon-background-col: #00ADA8
     @tag-input
       @default-col: #393D3D
       @action-col: #00ADA8
@@ -323,8 +325,6 @@
       @compact-row-hover-text-col: white
       @loading-background-col: rgba(255, 255, 255, 0.4)
       @footer-background-col: #32373A
-    @date-time-picker
-      @border-col: #4E5355
     @drawing
       @sidebar-border-col: #383B3C
       @sidebar-title-background-col: #32373A

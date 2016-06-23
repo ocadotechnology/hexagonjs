@@ -8,38 +8,19 @@
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "sort": {},
+  "userFacingText": {},
   "animate": {},
-  "pointerEvents": {},
   "icon": {},
   "spinner": {
     "spinnerCol": "#00ADA8"
   },
   "view": {},
-  "sort": {},
-  "component": {},
-  "morphs": {},
-  "clickDetector": {},
-  "base": {
-    "defaultFontFamily": "'Open Sans', sans-serif",
-    "headingFontFamily": "'Open Sans', sans-serif",
-    "bodyBackgroundCol": "rgb(247, 247, 249)",
-    "defaultTextCol": "#3D3D3D",
-    "headingTextCol": "#3D3D3D",
-    "inputBackgroundCol": "white",
-    "inputBorderCol": "#DADADA",
-    "inputTextCol": "#3D3D3D",
-    "inputFocusBorderCol": "#00ADA8",
-    "inputInvalidBorderCol": "#DE1A4A",
-    "inputBorderRadius": "2px",
-    "selectBackgroundCol": "#FAFAFA",
-    "selectBorderCol": "#D8D8D8",
-    "selectTextCol": "#3D3D3D",
-    "selectFocusBorderCol": "#B5B5B5",
-    "textSelectCol": "#B4B1B5",
-    "linkCol": "#00ADA8",
-    "dividerCol": "#D0D0D0",
-    "dividerStyle": "solid",
-    "defaultFontSize": "14px"
+  "pointerEvents": {},
+  "filter": {},
+  "form": {
+    "errorTextCol": "#F7F7F9",
+    "errorBackgroundCol": "#4A4E4E"
   },
   "modal": {
     "shadeCol": "rgba(0,0,0,0.5)",
@@ -72,10 +53,50 @@
     "containerBorderCol": "transparent",
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
-  "filter": {},
-  "form": {
-    "errorTextCol": "#F7F7F9",
-    "errorBackgroundCol": "#4A4E4E"
+  "component": {},
+  "morphs": {},
+  "clickDetector": {},
+  "base": {
+    "defaultFontFamily": "'Open Sans', sans-serif",
+    "headingFontFamily": "'Open Sans', sans-serif",
+    "bodyBackgroundCol": "rgb(247, 247, 249)",
+    "defaultTextCol": "#3D3D3D",
+    "headingTextCol": "#3D3D3D",
+    "inputBackgroundCol": "white",
+    "inputBorderCol": "#DADADA",
+    "inputTextCol": "#3D3D3D",
+    "inputFocusBorderCol": "#00ADA8",
+    "inputInvalidBorderCol": "#DE1A4A",
+    "inputBorderRadius": "2px",
+    "selectBackgroundCol": "#FAFAFA",
+    "selectBorderCol": "#D8D8D8",
+    "selectTextCol": "#3D3D3D",
+    "selectFocusBorderCol": "#B5B5B5",
+    "textSelectCol": "#B4B1B5",
+    "linkCol": "#00ADA8",
+    "dividerCol": "#D0D0D0",
+    "dividerStyle": "solid",
+    "defaultFontSize": "14px"
+  },
+  "format": {},
+  "preferences": {},
+  "button": {
+    "defaultCol": "#FFFFFF",
+    "actionCol": "#00ADA8",
+    "positiveCol": "#92BF17",
+    "warningCol": "#D69B24",
+    "negativeCol": "#EC3A65",
+    "infoCol": "#B36ABB",
+    "complementCol": "#F7F7F9",
+    "contrastCol": "#4A4E4E",
+    "disabledCol": "#FAFAFA",
+    "disabledTextCol": "#939393",
+    "invertCol": "#FDFDFD",
+    "invertTextCol": "gray",
+    "invertHoverCol": "#F2F2F2",
+    "invisibleTextCol": "#575757",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D"
   },
   "dropdown": {
     "spacing": "0",
@@ -109,26 +130,18 @@
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
-  "format": {},
-  "preferences": {},
-  "button": {
-    "defaultCol": "#FFFFFF",
-    "actionCol": "#00ADA8",
-    "positiveCol": "#92BF17",
-    "warningCol": "#D69B24",
-    "negativeCol": "#EC3A65",
-    "infoCol": "#B36ABB",
-    "complementCol": "#F7F7F9",
-    "contrastCol": "#4A4E4E",
-    "disabledCol": "#FAFAFA",
-    "disabledTextCol": "#939393",
-    "invertCol": "#FDFDFD",
-    "invertTextCol": "gray",
-    "invertHoverCol": "#F2F2F2",
-    "invisibleTextCol": "#575757",
-    "lightTextCol": "#F3F3F3",
-    "darkTextCol": "#3D3D3D"
+  "inputGroup": {
+    "inputBackgroundCol": "white",
+    "inputBorderCol": "#DADADA",
+    "inputInvalidOutlineCol": "#DE1A4A",
+    "inputFocusBorderCol": "#00ADA8",
+    "divBackgroundCol": "#FDFDFD",
+    "divBorderCol": "#DADADA",
+    "iconBackgroundCol": "#F9F9F9",
+    "iconBorderCol": "#DADADA"
   },
+  "dateLocalizer": {},
+  "numberPicker": {},
   "resizeEvents": {},
   "menu": {
     "defaultCol": "#FFFFFF",
@@ -151,18 +164,38 @@
     "defaultBorderCol": "transparent",
     "borderWidth": "2px"
   },
-  "inputGroup": {
+  "autocompleteFeed": {},
+  "datePicker": {
+    "todayBackgroundCol": "#FFFFFF",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D",
+    "dayHoverBackgroundCol": "#00ADA8",
+    "rangeBackgroundCol": "#F9F9F9",
+    "selectedBackgroundCol": "#00ADA8",
+    "errorBackgroundCol": "#FCBFBF",
+    "errorOutlineCol": "#DE1A4A",
+    "dividerCol": "#D0D0D0",
+    "headerTextCol": "#3D3D3D",
+    "navigationIconCol": "#939393",
+    "navigationIconHoverCol": "#3D3D3D",
     "inputBackgroundCol": "white",
-    "inputBorderCol": "#DADADA",
-    "inputInvalidOutlineCol": "#DE1A4A",
-    "inputFocusBorderCol": "#00ADA8",
-    "divBackgroundCol": "#FDFDFD",
-    "divBorderCol": "#DADADA",
-    "iconBackgroundCol": "#F9F9F9",
-    "iconBorderCol": "#DADADA"
+    "dayBorderRadius": "2px",
+    "outOfRangeCol": "#939393",
+    "borderCol": "#DADADA",
+    "iconCol": "white",
+    "iconBackgroundCol": "#00ADA8"
   },
-  "dateLocalizer": {},
-  "numberPicker": {},
+  "timePicker": {
+    "errorBackgroundCol": "#FCBFBF",
+    "errorOutlineCol": "#DE1A4A",
+    "inputBackgroundCol": "white",
+    "borderCol": "#DADADA",
+    "iconCol": "white",
+    "iconBackgroundCol": "#00ADA8"
+  },
+  "dragContainer": {
+    "dragPlaceholderBorderCol": "#D0D0D0"
+  },
   "layout": {
     "contentMaxWidth": "1200px",
     "contentBreakpoint": "1300px, 900px",
@@ -171,9 +204,6 @@
     "namedClassMinWidth": "250px",
     "borderCol": "#D0D0D0",
     "contentBackgroundCol": "transparent"
-  },
-  "dragContainer": {
-    "dragPlaceholderBorderCol": "#D0D0D0"
   },
   "progressBar": {
     "borderCol": "none",
@@ -218,12 +248,12 @@
     "labelHeaderBackgroundCol": "#FFFFFF",
     "labelHeaderBorderCol": "#D0D0D0"
   },
+  "buttonGroup": {},
+  "picker": {},
+  "request": {},
   "stickyTableHeaders": {
     "scrollIndicatorShadowColor": "rgba(0,0,0,0.5)"
   },
-  "picker": {},
-  "buttonGroup": {},
-  "request": {},
   "table": {
     "headerBackgroundCol": "#FFFFFF",
     "headerTextCol": "#3D3D3D",
@@ -234,35 +264,12 @@
     "rowAltTextCol": "#3D3D3D",
     "borderCol": "#E2E1E1"
   },
-  "datePicker": {
-    "todayBackgroundCol": "#FFFFFF",
-    "lightTextCol": "#F3F3F3",
-    "darkTextCol": "#3D3D3D",
-    "dayHoverBackgroundCol": "#00ADA8",
-    "rangeBackgroundCol": "#F9F9F9",
-    "selectedBackgroundCol": "#00ADA8",
-    "errorBackgroundCol": "#FCBFBF",
-    "errorOutlineCol": "#DE1A4A",
-    "dividerCol": "#D0D0D0",
-    "headerTextCol": "#3D3D3D",
-    "navigationIconCol": "#939393",
-    "navigationIconHoverCol": "#3D3D3D",
-    "inputBackgroundCol": "white",
-    "dayBorderRadius": "2px",
-    "outOfRangeCol": "#939393",
-    "borderCol": "#DADADA",
-    "iconCol": "white",
-    "iconBackgroundCol": "#00ADA8"
-  },
-  "timePicker": {
-    "errorBackgroundCol": "#FCBFBF",
-    "errorOutlineCol": "#DE1A4A",
-    "inputBackgroundCol": "white",
-    "borderCol": "#DADADA",
-    "iconCol": "white",
-    "iconBackgroundCol": "#00ADA8"
-  },
   "fluid": {},
+  "autocomplete": {},
+  "autocompletePicker": {},
+  "dateTimePicker": {
+    "borderCol": "#DADADA"
+  },
   "tagInput": {
     "defaultCol": "#FFFFFF",
     "actionCol": "#00ADA8",
@@ -341,7 +348,6 @@
     "disabledCol": "#FAFAFA",
     "shadowCol": "transparent"
   },
-  "autocomplete": {},
   "card": {
     "backgroundCol": "#FFFFFF",
     "borderCol": "#E7E7E7",
@@ -377,9 +383,6 @@
     "compactRowHoverTextCol": "#3D3D3D",
     "loadingBackgroundCol": "rgba(255, 255, 255, 0.4)",
     "footerBackgroundCol": "#FFFFFF"
-  },
-  "dateTimePicker": {
-    "borderCol": "#DADADA"
   },
   "drawing": {
     "sidebarBorderCol": "#E7E7E7",
@@ -510,6 +513,5 @@
     "backgroundCol": "#FFFFFF",
     "shadowCol": "rgba(128, 128, 128, 0.17)",
     "iconDisabledCol": "#FAFAFA"
-  },
-  "userFacingText": {}
+  }
 }
