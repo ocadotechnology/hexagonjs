@@ -1,15 +1,12 @@
 {
   "dependencies": [
     "component",
-    "map",
-    "util",
-    "selection",
     "event-emitter",
-    "tag-input",
-    "picker"
-  ],
-  "keywords": [
     "form",
-    "builder"
+    "map",
+    "picker",
+    "selection",
+    "tag-input",
+    "util"
   ]
 }

@@ -1,3 +1,9 @@
+hx.userFacingText({
+  plot: {
+    noData: 'No Data'
+  }
+})
+
 # XXX: hard coded config values - move these to a config file for the graphing api
 tickSize = 6
 labelOffset = tickSize + 4
@@ -16,7 +22,8 @@ class Graph extends hx.EventEmitter
         zoomRangeEnd: 1,
         labelsEnabled: true,
         legendsEnabled: false,
-        legendLocation: 'auto'
+        legendLocation: 'auto',
+        noDataText: hx.userFacingText('plot', 'noData')
       }, options),
       axes: new hx.List
     }
@@ -199,7 +206,7 @@ class Graph extends hx.EventEmitter
     self = this
     @svgTarget.view('.hx-plot-no-data', 'text')
       .update ->
-        @text('No Data')
+        @text(self._.options.noDataText)
         .attr('x', self.width/2)
         .attr('y', self.height/2)
       .apply(if hasData then [] else [true])

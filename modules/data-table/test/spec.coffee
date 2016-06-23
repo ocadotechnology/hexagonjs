@@ -1,14 +1,13 @@
-
 describe 'data-table', ->
-  before ->
-    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/dependencies/hexagon.css')
-    # hx.select('head').append('link').attr('rel', 'stylesheet').attr('href', '/base/target/modules/data-table/hexagon.css')
   origConsoleWarning = hx.consoleWarning
 
-  beforeEach ->
+  before ->
     hx.consoleWarning = chai.spy()
 
-  afterEach ->
+  beforeEach ->
+    hx.consoleWarning.reset()
+
+  after ->
     hx.consoleWarning = origConsoleWarning
 
   # Used to mimic an event call for a node
@@ -197,6 +196,16 @@ describe 'data-table', ->
       spec(container, dt, options, data)
       hx.select('body').clear()
       done?()
+
+  it 'should have user facing text defined', ->
+    hx.userFacingText('dataTable', 'clearSelection').should.equal('clear selection')
+    hx.userFacingText('dataTable', 'loading').should.equal('Loading')
+    hx.userFacingText('dataTable', 'noData').should.equal('No Data')
+    hx.userFacingText('dataTable', 'noSort').should.equal('No Sort')
+    hx.userFacingText('dataTable', 'rowsPerPage').should.equal('Rows Per Page')
+    hx.userFacingText('dataTable', 'search').should.equal('Search')
+    hx.userFacingText('dataTable', 'selectedRows').should.equal('$selected of $total selected.')
+    hx.userFacingText('dataTable', 'sortBy').should.equal('Sort By')
 
   describe 'global options', ->
     checkOption('collapsibleRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])

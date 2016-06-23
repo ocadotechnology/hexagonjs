@@ -1,3 +1,8 @@
+hx.userFacingText({
+  form: {
+    pleaseSelectAValue: 'Please select a value from the list'
+  }
+})
 
 class Form extends hx.EventEmitter
   constructor: (@selector) ->
@@ -114,7 +119,7 @@ class Form extends hx.EventEmitter
       picker.value(values[0]) unless typeof options.required is 'boolean'
 
       if options.required
-        input.node().setCustomValidity('Please select a value from the list')
+        input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'))
         picker.on 'change', 'hx.form-builder', ->
           input.node().setCustomValidity('')
 
@@ -242,6 +247,10 @@ class Form extends hx.EventEmitter
     self = this
     @add name, 'tagInput', 'div', ->
       elem = @append('div').node()
+      if options.placeholder
+        options.tagInputOptions ?= {}
+        options.tagInputOptions.placeholder ?= options.placeholder
+
       tagInput = new hx.TagInput(elem, options.tagInputOptions)
       {
         key: options.key

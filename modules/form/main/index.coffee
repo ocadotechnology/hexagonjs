@@ -1,13 +1,21 @@
+hx.userFacingText({
+  form: {
+    missingRadioValue: 'Please select one of these options',
+    missingValue: 'Please fill in this field',
+    typeMismatch: 'Please enter a valid value for this field'
+  }
+})
+
 # Swaps out poor validation messages for more descriptive ones.
 getValidationMessage = (message, type) ->
   switch message.toLowerCase()
     when 'value missing'
       if type is 'radio'
-        'Please select one of these options.'
+        hx.userFacingText('form', 'missingRadioValue')
       else
-        'Please fill in this field.'
+        hx.userFacingText('form', 'missingValue')
     when 'type mismatch'
-      'Please enter a valid ' + type + '.'
+      hx.userFacingText('form', 'typeMismatch')
     else
       message
 

@@ -1,3 +1,12 @@
+hx.userFacingText({
+  autoComplete: {
+    loading: 'Loading...',
+    noResultsFound: 'No results found',
+    otherResults: 'Other Results',
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+  }
+})
+
 # Force match is used when closing the dd and options.mustMatch is true
 # It checks if the term is exactly a term in the data and should only
 # be called when the menu is hidden.
@@ -120,9 +129,9 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
 
     trimAndReload = false
     if not filteredData?
-      message.text = 'Loading...'
+      message.text = @options.loadingText
     else if searchTerm.length < @options.minLength
-      message.text = "Please enter #{@options.minLength} or more characters"
+      message.text = @options.minLengthMessage.replace('$minLength', @options.minLength)
     else if (searchTerm.length > 0 or @options.showAll) and filteredData.length is 0
       if @options.trimTrailingSpaces and _.input.value().lastIndexOf(' ') is _.input.value().length - 1
         trimAndReload = true
@@ -198,8 +207,11 @@ class AutoComplete extends hx.EventEmitter
         filterOptions: undefined
         showOtherResults: false
         allowTabCompletion: true
-        noResultsMessage: 'No results found'
-        otherResultsMessage: 'Other Results'
+
+        loadingMessage: hx.userFacingText('autoComplete', 'loading')
+        noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
+        otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults')
+        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
       }, @options
 
       if @options.inputMap?

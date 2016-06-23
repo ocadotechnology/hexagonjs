@@ -1,3 +1,9 @@
+hx.userFacingText({
+  tagInput: {
+    placeholder: 'add tag...'
+  }
+})
+
 class TagInput extends hx.EventEmitter
 
   constructor: (@selector, options) ->
@@ -10,6 +16,7 @@ class TagInput extends hx.EventEmitter
       validator: undefined
       draggable: true
       items: []
+      placeholder: hx.userFacingText('tagInput', 'placeholder')
     }, options
 
     hx.component.register(@selector, this)
@@ -21,7 +28,7 @@ class TagInput extends hx.EventEmitter
       _.dragContainer = new hx.DragContainer(@tagContainer.node())
 
     @form = @selection.append('form')
-    @input = @form.append('input').attr('placeholder', 'add tag...')
+    @input = @form.append('input').attr('placeholder', @options.placeholder)
 
     backspacedown = false
 
