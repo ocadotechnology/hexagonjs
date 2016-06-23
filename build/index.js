@@ -59,25 +59,44 @@ function buildMetaData (dev) {
     })
 }
 
-function createBuilds () {
-  // create the dx-prefixed and hx-prefixed builds for the latest version of hexagon
-  var buildList = [
-    { dest: 'content/resources/hexagon/' + versions.latest, embedAssets: true },
-    { dest: 'target/resources/hexagon/docs', prefix: 'dx', embedAssets: true, addFavicons: true }
-  ]
-  return progressSequence('Building Hexagon', chalk.cyan('='), buildList, function (opts) {
-    return hexagon.light.build(opts)
-  })
+function hexagonBuildLog (message) {
+  console.log(chalk.cyan(message))
 }
 
-function buildHexagon (force) { // XXX: do this in the postinstall npm script
-  if (force) return createBuilds()
-  return fs.accessAsync('content/resources/hexagon/' + versions.latest + '/hexagon.css', fs.F_OK)
-    .then(function () {
-      console.log(chalk.cyan('Skipping Hexagon Build (Already Exists)'))
-    })
+function createLatestBuild (force) {
+  hexagonBuildLog('Building Hexagon ' + versions.latest)
+  var dest = 'content/resources/hexagon/' + versions.latest
+  var opts = {
+    dest: dest,
+    embedAssets: true
+  }
+  return createHexagonBuild(dest, opts, force)
+    .then(() => hexagonBuildLog(chalk.cyan('Hexagon ' + versions.latest + ' Built')))
+}
+
+function createDocsBuild (force) {
+  hexagonBuildLog('Building Hexagon for Docs')
+  var dest = 'target/resources/hexagon/docs'
+  var opts = {
+    dest: dest,
+    prefix: 'dx',
+    embedAssets: true,
+    addFavicons: true
+  }
+  return createHexagonBuild(dest, opts, force)
+    .then(() => hexagonBuildLog('Hexagon for Docs Built'))
+}
+
+function createHexagonBuild (dest, options, force) {
+  if (force) return hexagon.light.build(options)
+  return fs.accessAsync(dest + '/hexagon.css', fs.F_OK)
     // Hexagon build doesn't already exist
-    .catch(createBuilds)
+    .catch(() => hexagon.light.build(options))
+}
+
+function buildHexagon (force) {
+  return createLatestBuild(force)
+    .then(() => createDocsBuild(force))
 }
 
 // copies the static resources to the target directory
@@ -316,7 +335,9 @@ function startServer () {
   })
 }
 
-if (process.argv[2] === 'build-hexagon') {
+if (process.argv[2] === 'postinstall') {
+  createLatestBuild(true)
+} else if (process.argv[2] === 'build-hexagon') {
   buildHexagon(true)
 } else if (process.argv[2] === 'build-release') {
   buildHexagon(true)
