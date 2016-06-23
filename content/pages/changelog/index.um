@@ -191,7 +191,11 @@
 
     @version 1.3.2
       @description
-        @p: Fix to hx.defined.
+        @p: Fix for hx.defined.
+
+    @version 1.3.3
+      @description
+        @p: Change the preferences module to prefer navigator.languages over navigator.language
 
     @version 1.4.0
       @description

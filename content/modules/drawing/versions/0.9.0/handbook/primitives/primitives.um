@@ -5,13 +5,13 @@
     @p: There are currently 7 different primitives drawing types in the api:
 
     @list
-      Circle
-      Rectangle
-      Text
-      Line
-      Grid
-      Shape
-      Composite
+      @item: Circle
+      @item: Rectangle
+      @item: Text
+      @item: Line
+      @item: Grid
+      @item: Shape
+      @item: Composite
 
     @p: These can all be created through the 'create' method on the drawing object. Each primitive type has it's own class which is described in the api section.
 
