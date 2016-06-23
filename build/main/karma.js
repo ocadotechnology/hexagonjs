@@ -151,8 +151,9 @@ function runKarma (files, destDir, phantomOnly) {
   }
 
   return new Promise(function (resolve, reject) {
-    karma.server.start(cfg, function (exitStatus) {
+    var server = new karma.Server(cfg, function (exitStatus) {
       resolve(exitStatus)
     })
+    server.start()
   })
 }
