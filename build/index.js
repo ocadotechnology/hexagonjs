@@ -13,24 +13,25 @@ var fs = Promise.promisifyAll(require('fs-extra'))
 var util = require('./util')
 var versions = require('../content/versions.json')
 
-var glob = Promise.promisify(require('glob'))
 var Progress = require('progress')
 var chalk = require('chalk')
 var watch = require('quantum-watch')
 var flatten = require('flatten')
 var liveServer = require('live-server')
 
+var privateConfig
 try {
-  var privateConfig = require('../config.json')
+  privateConfig = require('../config.json')
 } catch (e) {
-  var privateConfig = {}
+  privateConfig = {}
 }
 
 function buildMetaData (dev) {
+  var targetVersions
   if (dev === true) {
-    var targetVersions = [versions.targetVersions.reverse()[0]]
+    targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
-    var targetVersions = versions.targetVersions
+    targetVersions = versions.targetVersions
   }
 
   return util.moduleList().then(function (moduleNames) {
@@ -71,7 +72,7 @@ function createBuilds () {
 
 function buildHexagon (force) { // XXX: do this in the postinstall npm script
   if (force) return createBuilds()
-  return fs.accessAsync('target/resources/hexagon/' + versions.latest + '/hexagon.css', fs.F_OK)
+  return fs.accessAsync('content/resources/hexagon/' + versions.latest + '/hexagon.css', fs.F_OK)
     .then(function () {
       console.log(chalk.cyan('Skipping Hexagon Build (Already Exists)'))
     })
@@ -90,10 +91,11 @@ function copyResources () {
 }
 
 function getTemplateVariables (dev) {
+  var targetVersions
   if (dev === true) {
-    var targetVersions = [versions.targetVersions.reverse()[0]]
+    targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
-    var targetVersions = versions.targetVersions
+    targetVersions = versions.targetVersions
   }
 
   return Promise.props({
@@ -105,7 +107,7 @@ function getTemplateVariables (dev) {
 }
 
 function progressSequence (desc, completeStyle, list, func) {
-  var bar = new Progress(desc + ' :current/:total [:bar] :percent :etas', { total: list.length, width: 50, complete: completeStyle})
+  var bar = new Progress(desc + ' :current/:total [:bar] :percent :etas', { total: list.length, width: 50, complete: completeStyle })
   bar.tick(0)
   return Promise.all(list)
     .map(function (f) {
@@ -215,10 +217,11 @@ function getOptions (dev) {
     }
   }
 
+  var targetVersions
   if (dev === true) {
-    var targetVersions = [versions.targetVersions.reverse()[0]]
+    targetVersions = [versions.targetVersions.reverse()[0]]
   } else {
-    var targetVersions = versions.targetVersions
+    targetVersions = versions.targetVersions
   }
 
   var changelogOptions = {
@@ -294,13 +297,13 @@ function buildPages (objs, dev) {
 }
 
 function watchPages () {
-  return watch('content/pages/**/index.um', { base: 'content/pages'}, function (objs) {return buildPages(objs, process.argv[2] !== 'build-all')}).then(function (fun) {
+  return watch('content/pages/**/index.um', { base: 'content/pages' }, function (objs) { return buildPages(objs, process.argv[2] !== 'build-all') }).then(function (fun) {
     return fun()
   })
 }
 
 function buildOnce () {
-  return quantum.read('content/pages/**/index.um', { base: 'content/pages'}).then(buildPages)
+  return quantum.read('content/pages/**/index.um', { base: 'content/pages' }).then(buildPages)
 }
 
 function startServer () {
