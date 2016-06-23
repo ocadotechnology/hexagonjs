@@ -15,7 +15,7 @@
     "build-examples": "node build/buildexamples.js",
     "build-hexagon": "node build/index.js build-hexagon",
     "build-release": "node build/index.js build-release",
-    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 11 --promote",
+    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 13 --promote",
     "clean-npm": "rm -r node_modules; true && npm cache clean && npm install",
     "test": "npm run clean-npm && npm run clean && npm run build-examples && npm run build-all",
     "release": "npm run clean-npm && npm run clean && npm run build-examples && npm run build-release && npm run upload"
