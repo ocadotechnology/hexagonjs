@@ -29,7 +29,7 @@
       @js
         @inline 1.4.0/example.js
 
-  @api Autocomplete picker
+  @api Autocomplete Picker
 
     @prototype hx.AutocompletePicker
       @added
