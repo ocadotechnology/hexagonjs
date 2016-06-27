@@ -92,12 +92,12 @@ drawing.on 'update', ->
       cell.drawingObject.set('fill.color', color, 250)
 
 
-dx.select(window).on 'scroll', ->
-  dx.select('.docs-titlebar-logo')
-    .classed('docs-animate', true)
-    .classed('docs-visible', window.scrollY > 100)
+# dx.select(window).on 'scroll', ->
+#   dx.select('.docs-titlebar-logo')
+#     .classed('docs-animate', true)
+#     .classed('docs-visible', window.scrollY > 100)
 
-dx.select('.docs-titlebar-logo')
-  .classed('docs-visible', window.scrollY > 100)
+# dx.select('.docs-titlebar-logo')
+#   .classed('docs-visible', window.scrollY > 100)
 
 
