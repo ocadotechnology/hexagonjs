@@ -219,7 +219,7 @@ class Preferences extends hx.EventEmitter
 
     defaultLocaleId = navigator.languages?[0] or navigator.language
 
-    @on('localechange', (value) -> moment.locale(value))
+    @on('localechange', (value) -> moment?.locale(value))
 
     if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
