@@ -12,6 +12,7 @@
   &#{if($class, "." + $class, "")} {
     // border: solid $col 1px;
 
+    > .hx-notice-head,
     > .hx-notice-header {
       background: $col;
       color: getTextColFromBG($col);
