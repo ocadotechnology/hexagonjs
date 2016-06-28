@@ -219,8 +219,6 @@ class Preferences extends hx.EventEmitter
 
     defaultLocaleId = navigator.languages?[0] or navigator.language
 
-    @on('localechange', (value) -> moment?.locale(value))
-
     if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
     @locale defaultLocaleId
@@ -253,6 +251,10 @@ class Preferences extends hx.EventEmitter
       if hx.isString(locale) and (localeObject = lookupLocale(locale))
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
+
+          # moment doesn't look up the 'default' locale so we set it here
+          # Moment issue: https://github.com/moment/moment/issues/2621
+          moment?.locale(localeObject.value)
           @emit('localechange', localeObject.value)
       else
         hx.consoleWarning('preferences.locale',
