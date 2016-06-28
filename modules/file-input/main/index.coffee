@@ -78,6 +78,7 @@ class FileInput extends hx.EventEmitter
       .class "hx-input-group hx-input-group-full-width hx-no-margin"
 
     button = hx.detached 'button'
+      .attr 'type', 'button'
       .class "hx-file-input-button hx-btn hx-no-margin #{resolvedOptions.buttonClass}"
       .on 'click', -> input.node().click()
       .add hx.detached('i').class('hx-file-input-icon hx-icon hx-icon-upload')
