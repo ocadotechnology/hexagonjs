@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.4.0
+ Version: 1.4.1
  Theme: hexagon-dark
  Modules:
    set
@@ -1241,48 +1241,56 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 
 .hx-notice {
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05); }
+  .hx-notice > .hx-notice-head,
   .hx-notice > .hx-notice-header {
     background: #2C3134;
     color: white; }
   .hx-notice > .hx-notice-body {
     background: #32373A;
     color: white; }
+  .hx-notice.hx-action > .hx-notice-head,
   .hx-notice.hx-action > .hx-notice-header {
     background: #00ADA8;
     color: white; }
   .hx-notice.hx-action > .hx-notice-body {
     background: #0BBDB8;
     color: white; }
+  .hx-notice.hx-positive > .hx-notice-head,
   .hx-notice.hx-positive > .hx-notice-header {
     background: #92BF17;
     color: white; }
   .hx-notice.hx-positive > .hx-notice-body {
     background: #9ECA26;
     color: white; }
+  .hx-notice.hx-negative > .hx-notice-head,
   .hx-notice.hx-negative > .hx-notice-header {
     background: #EC3A65;
     color: white; }
   .hx-notice.hx-negative > .hx-notice-body {
     background: #EC426C;
     color: white; }
+  .hx-notice.hx-warning > .hx-notice-head,
   .hx-notice.hx-warning > .hx-notice-header {
     background: #D69B24;
     color: white; }
   .hx-notice.hx-warning > .hx-notice-body {
     background: #E4AE41;
     color: white; }
+  .hx-notice.hx-info > .hx-notice-head,
   .hx-notice.hx-info > .hx-notice-header {
     background: #B36ABB;
     color: white; }
   .hx-notice.hx-info > .hx-notice-body {
     background: #B674BD;
     color: white; }
+  .hx-notice.hx-complement > .hx-notice-head,
   .hx-notice.hx-complement > .hx-notice-header {
     background: #393D3D;
     color: white; }
   .hx-notice.hx-complement > .hx-notice-body {
     background: #32373A;
     color: white; }
+  .hx-notice.hx-contrast > .hx-notice-head,
   .hx-notice.hx-contrast > .hx-notice-header {
     background: #F7F7F9;
     color: #3D3D3D; }

@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.4.0
+ Version: 1.4.1
  Theme: hexagon-light
  Modules:
    set
@@ -1196,18 +1196,18 @@ a.hx-btn:hover {
   left: 0; }
 
 .hx-plot-label {
-  position: relative; }
+  position: absolute; }
 
 .hx-plot-label-details {
   transform: translate(10px, -50%);
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   font-size: 10px; }
 
 .hx-plot-label-details-basic {
   transform: translate(10px, -50%);
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   font-size: 10px;
@@ -2502,6 +2502,7 @@ img.hx-logo, img.hx-logo:after {
 
 .hx-notice {
   margin: 0.4em 0; }
+  .hx-notice .hx-notice-head,
   .hx-notice .hx-notice-header {
     padding: 0.4em;
     font-weight: bold; }
