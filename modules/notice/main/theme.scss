@@ -10,8 +10,7 @@
 
 @mixin notice($class, $col, $bodyCol) {
   &#{if($class, "." + $class, "")} {
-    // border: solid $col 1px;
-
+    // XXX 2.0.0 - hx-notice-header should be removed
     > .hx-notice-head,
     > .hx-notice-header {
       background: $col;
