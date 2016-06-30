@@ -192,8 +192,14 @@
         <div class="example">
           <h3>Autocomplete</h3>
           <input id="autocomplete"></input>
+          <input id="autocomplete-async"></input>
           <script>
             new hx.AutoComplete('#autocomplete', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
+            new hx.AutoComplete('#autocomplete-async', function (term, callback) {
+              setTimeout(function () {
+                callback(['Bob', 'Kate', 'Steve', 'Ganesh', 'Lazlo'])
+              }, 1000)
+            })
           </script>
         </div>
       </div>

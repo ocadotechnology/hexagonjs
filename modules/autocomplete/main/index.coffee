@@ -129,7 +129,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
 
     trimAndReload = false
     if not filteredData?
-      message.text = @options.loadingText
+      message.text = @options.loadingMessage
     else if searchTerm.length < @options.minLength
       message.text = @options.minLengthMessage.replace('$minLength', @options.minLength)
     else if (searchTerm.length > 0 or @options.showAll) and filteredData.length is 0
