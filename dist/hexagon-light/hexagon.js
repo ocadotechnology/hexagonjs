@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.4.1
+ Version: 1.4.2
  Theme: hexagon-light
  Modules:
    set
@@ -5129,7 +5129,7 @@ hx.userFacingText({
   preferences: {
     locale: 'Locale',
     preferences: 'Preferences',
-    preferenesSaved: 'Preferences Saved',
+    preferencesSaved: 'Preferences Saved',
     save: 'Save',
     timezone: 'Timezone'
   }
@@ -5455,7 +5455,7 @@ Preferences = (function(superClass) {
             if (err) {
               return hx.notify.negative(err);
             } else {
-              hx.notify.positive(hx.userFacingText('preferences', 'preferenesSaved'));
+              hx.notify.positive(hx.userFacingText('preferences', 'preferencesSaved'));
               return modal.hide();
             }
           });
@@ -12694,9 +12694,9 @@ buildAutoComplete = function(searchTerm, fromCallback, loading) {
     items = [];
     trimAndReload = false;
     if (filteredData == null) {
-      message.text = this.options.loadingText;
+      message.text = this.options.loadingMessage;
     } else if (searchTerm.length < this.options.minLength) {
-      message.text = this.options.minLengthMessage.replace('$minLength', this.options.minLength);
+      message.text = this.options.pleaseEnterMinCharactersMessage.replace('$minLength', this.options.minLength);
     } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
       if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
         trimAndReload = true;
