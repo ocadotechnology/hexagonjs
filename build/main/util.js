@@ -55,7 +55,7 @@ exports.iife = function (src) {
 }
 
 // compiles a scss string to css
-var prefixer = postcss([autoprefixer({ browsers: ['last 2 versions', 'iOS > 7'] })])
+var prefixer = postcss([autoprefixer({ browsers: ['last 2 versions', 'iOS >= 7'] })])
 exports.scss = function (src) {
   return sass.renderAsync({data: src})
     .then(function (res) {
