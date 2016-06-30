@@ -2,7 +2,7 @@ hx.userFacingText({
   preferences: {
     locale: 'Locale',
     preferences: 'Preferences',
-    preferenesSaved: 'Preferences Saved',
+    preferencesSaved: 'Preferences Saved',
     save: 'Save',
     timezone: 'Timezone'
   }
@@ -195,7 +195,7 @@ class Preferences extends hx.EventEmitter
             if err
               hx.notify.negative(err)
             else
-              hx.notify.positive(hx.userFacingText('preferences','preferenesSaved'))
+              hx.notify.positive(hx.userFacingText('preferences','preferencesSaved'))
               modal.hide()
 
       hx.select(element)
