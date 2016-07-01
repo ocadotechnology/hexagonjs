@@ -1,0 +1,6 @@
+@version 1.4.0
+  @api Card
+    @group Building blocks
+      @function hx.card.title
+        @updated: Changed the function to create a span rather than a div
+          @issue 245

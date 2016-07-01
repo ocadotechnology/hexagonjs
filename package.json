@@ -1,6 +1,6 @@
 {
   "name": "hexagon-site",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
     "Charlie Frater <charlie.frater@ocado.com>"
@@ -15,10 +15,11 @@
     "build-examples": "node build/buildexamples.js",
     "build-hexagon": "node build/index.js build-hexagon",
     "build-release": "node build/index.js build-release",
-    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 13 --promote",
+    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 15 --promote",
     "clean-npm": "rm -r node_modules; true && npm cache clean && npm install",
-    "test": "npm run clean-npm && npm run clean && npm run build-examples && npm run build-all",
-    "release": "npm run clean-npm && npm run clean && npm run build-examples && npm run build-release && npm run upload"
+    "prepare-release": "npm run clean && npm run clean-npm && npm run build-examples",
+    "test": "npm run prepare-release && npm run build-all",
+    "release": "npm run prepare-release && npm run build-release && npm run upload"
   },
   "private": true,
   "devDependencies": {
@@ -28,7 +29,7 @@
     "flatten": "0.0.1",
     "fs-extra": "^0.24.0",
     "glob": "^5.0.15",
-    "hexagon-js": "1.4.0",
+    "hexagon-js": "1.4.2",
     "live-server": "^0.8.2",
     "progress": "^1.1.8",
     "quantum-api": "^0.10.0",

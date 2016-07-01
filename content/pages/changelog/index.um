@@ -202,5 +202,14 @@
         @p: Added the Autocomplete Picker module, a hybrid of an AutoComplete and a Picker.
         @p: Added the User Facing Text module for defining the default text for Hexagon modules.
 
+    @version 1.4.1
+      @description
+        @p: Several bugfixes, including changes to how the default locale is set when using @code[moment]
+
+    @version 1.4.2
+      @description
+        @p: Fix an issue with the code using the wrong option variables in AutoComplete
+        @p: Also added CSS support for iOS 7/8 to resolve some style and layout issues on older iPads
+
   @h2: Key
   @changelog.key

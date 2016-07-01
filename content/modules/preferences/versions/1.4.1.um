@@ -1,0 +1,5 @@
+@version 1.4.1
+  @api Preferences
+    @bugfix: Fix an incorrectly named variable
+      @issue 222
+    @updated: Updated the default locale when using @code[moment] as moment doesn't guess the current locale correctly

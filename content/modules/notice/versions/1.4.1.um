@@ -1,0 +1,61 @@
+@version 1.4.1
+  @examples
+    @example
+      @html
+        <div class="hx-notice">
+          <div class="hx-notice-head">Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-positive">
+          <div class="hx-notice-head">Positive Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-action">
+          <div class="hx-notice-head">Action Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-warning">
+          <div class="hx-notice-head">Warning Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-negative">
+          <div class="hx-notice-head">Negative Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-info">
+          <div class="hx-notice-head">Info Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-compliment">
+          <div class="hx-notice-head">Compliment Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-contrast">
+          <div class="hx-notice-head">Contrast Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice">
+          <span class="hx-notice-head hx-group hx-horizontal hx-no-margin">
+            <div class="hx-section hx-no-margin">Notice with icon</div>
+            <div>
+              <i class="fa fa-rocket"></i>
+            </div>
+          </span>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+  @api Notice
+    @class hx-notice
+      @childclass hx-notice-header
+        @deprecated: This class will be replaced by @code[hx-notice-head]
+          @issue 225
+      @childclass hx-notice-head: The header section of the Notice
+        @added: @issue 225

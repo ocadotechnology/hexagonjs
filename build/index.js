@@ -95,8 +95,7 @@ function createHexagonBuild (dest, options, force) {
 }
 
 function buildHexagon (force) {
-  return createLatestBuild(force)
-    .then(() => createDocsBuild(force))
+  return createDocsBuild(force)
 }
 
 // copies the static resources to the target directory

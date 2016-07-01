@@ -1,0 +1,4 @@
+@version 1.4.1
+  @api Plot
+    @bugfix: Fix the styles for plot labels to prevent them causing a scrollbar
+      @issue 139

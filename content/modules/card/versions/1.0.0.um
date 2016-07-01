@@ -22,7 +22,7 @@
 
 @define textLikeComponent
   @function {{ps}}
-    @description: Creates an {{cs}}.
+    @description: Creates an element for entering {{cs}}.
     @returns Selection: Returns a selection containing the detached element
     @group Component
       @object api
@@ -240,9 +240,9 @@
       @textLikeComponent hx.card.text: text
       @textLikeComponent hx.card.small.text: text
       @textLikeComponent hx.card.large.text: text
-      @textLikeComponent hx.card.title: title
-      @textLikeComponent hx.card.small.title: title
-      @textLikeComponent hx.card.large.title: title
+      @textLikeComponent hx.card.title: a title
+      @textLikeComponent hx.card.small.title: a title
+      @textLikeComponent hx.card.large.title: a title
 
       @iconLikeComponent hx.card.icon: Creates an icon
       @iconLikeComponent hx.card.small.icon: Creates a small icon
