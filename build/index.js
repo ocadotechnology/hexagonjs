@@ -104,15 +104,8 @@ function copyResources () {
     fs.copyAsync('node_modules/font-awesome/css/', 'target/resources/font-awesome/css/'),
     fs.copyAsync('node_modules/font-awesome/fonts/', 'target/resources/font-awesome/fonts/'),
     fs.copyAsync('content/resources/', 'target/resources/'),
-    copyServer()
+    fs.copyAsync('server/', 'target/')
   ])
-}
-
-function copyServer () {
-  return fs.copyAsync('server/', 'target/')
-    .then(() => fs.readFileAsync('target/server.py', 'utf-8'))
-    .then((contents) => contents.replace('__latestVersion__', versions.latest))
-    .then((contents) => fs.outputFileAsync('target/server.py', contents))
 }
 
 function getTemplateVariables (dev) {
