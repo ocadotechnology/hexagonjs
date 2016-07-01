@@ -59,7 +59,7 @@ function setupMenu (node, meta) {
     groupsObj[name].forEach(function (module) {
       groupModulesContainer.add(dx.detached('a')
         .class('docs-dropdown-module-link dx-section dx-fixed')
-        .attr('href', '/docs/' + (meta.selectedVersion || meta.targetVersions[meta.targetVersions.length - 1]) + '/' + module + '/')
+        .attr('href', '/docs/' + (meta.selectedVersion ? meta.selectedVersion + '/' : '') + module + '/')
         .text(module.split('-').map(function (d) {
           return d[0].toUpperCase() + d.substring(1)
         }).join(' '))
@@ -80,7 +80,7 @@ dx.json('/meta.json', function (err, meta) {
     }
   }
 
-  if (meta.selectedVersion) {
+  if (window.location.pathname.indexOf('/docs/') > -1) {
     dx.select('.docs-version').classed('docs-visible', true)
     var versionPicker = new dx.Picker('.docs-version-button', {
       items: meta.targetVersions.reverse(),
@@ -90,11 +90,15 @@ dx.json('/meta.json', function (err, meta) {
 
         if (!elem.classed('dx-picker-text')) {
           elem.on('click', function () {
-            window.location.assign(window.location.href.replace(meta.selectedVersion, v))
+            if (meta.selectedVersion) {
+              window.location.assign(window.location.href.replace(meta.selectedVersion, v))
+            } else {
+              window.location.assign(window.location.href.replace('docs/', 'docs/' + v + '/'))
+            }
           })
         }
       },
-      value: meta.selectedVersion
+      value: meta.selectedVersion || meta.latest
     })
     dx.select('.docs-version-button').classed('dx-btn', false)
   }

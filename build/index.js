@@ -17,7 +17,6 @@ var Progress = require('progress')
 var chalk = require('chalk')
 var watch = require('quantum-watch')
 var flatten = require('flatten')
-var liveServer = require('live-server')
 
 var privateConfig
 try {
@@ -104,8 +103,15 @@ function copyResources () {
     fs.copyAsync('node_modules/font-awesome/css/', 'target/resources/font-awesome/css/'),
     fs.copyAsync('node_modules/font-awesome/fonts/', 'target/resources/font-awesome/fonts/'),
     fs.copyAsync('content/resources/', 'target/resources/'),
-    fs.copyAsync('server/', 'target/')
+    copyServer()
   ])
+}
+
+function copyServer () {
+  return fs.copyAsync('server/', 'target/')
+    .then(() => fs.readFileAsync('target/server.py', 'utf-8'))
+    .then((contents) => contents.replace('__latestVersion__', versions.latest))
+    .then((contents) => fs.outputFileAsync('target/server.py', contents))
 }
 
 function getTemplateVariables (dev) {
@@ -325,13 +331,7 @@ function buildOnce () {
 }
 
 function startServer () {
-  liveServer.start({
-    port: 9000,
-    root: 'target',
-    file: '404/index.html',
-    wait: 50,
-    open: false
-  })
+  require('child_process').spawn('dev_appserver.py', ['--port=9000', '--host=0.0.0.0', 'target/app.yaml'], { stdio: 'inherit' })
 }
 
 if (process.argv[2] === 'postinstall') {

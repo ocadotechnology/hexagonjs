@@ -19,6 +19,7 @@ class Content(webapp2.RequestHandler):
         os.path.join(root, urlPath + '.html'),
         os.path.join(root, urlPath + 'index.html'),
         os.path.join(root, urlPath + '/index.html'),
+        os.path.join(root, urlPath.replace('docs/','docs/__latestVersion__/') + '/index.html'),
         os.path.join(root, urlPath)
       ]
 
