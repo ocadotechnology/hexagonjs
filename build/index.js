@@ -259,7 +259,6 @@ function getOptions (dev) {
     indexable: indexable,
     unmergeable: ['examples', 'description', 'extra'],
     filenameModifier: filenameModifier,
-    outputLatest: false,
     versions: versions.versions,
     targetVersions: targetVersions
   }
