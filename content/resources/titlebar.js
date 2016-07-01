@@ -80,7 +80,7 @@ dx.json('/meta.json', function (err, meta) {
     }
   }
 
-  if (window.location.pathname.indexOf('/docs/') > -1) {
+  if (window.location.pathname.indexOf('/docs/') > -1 && window.location.pathname.indexOf('changelog') === -1) {
     dx.select('.docs-version').classed('docs-visible', true)
     var versionPicker = new dx.Picker('.docs-version-button', {
       items: meta.targetVersions.reverse(),
