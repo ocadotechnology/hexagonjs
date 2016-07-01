@@ -17,6 +17,7 @@ var Progress = require('progress')
 var chalk = require('chalk')
 var watch = require('quantum-watch')
 var flatten = require('flatten')
+var liveServer = require('live-server')
 
 var privateConfig
 try {
@@ -265,7 +266,6 @@ function getOptions (dev) {
     indexable: indexable,
     unmergeable: ['examples', 'description', 'extra'],
     filenameModifier: filenameModifier,
-    outputLatest: false,
     versions: versions.versions,
     targetVersions: targetVersions
   }
@@ -331,7 +331,13 @@ function buildOnce () {
 }
 
 function startServer () {
-  require('child_process').spawn('dev_appserver.py', ['--port=9000', '--host=0.0.0.0', 'target/app.yaml'], { stdio: 'inherit' })
+  liveServer.start({
+    port: 9000,
+    root: 'target',
+    file: '404/index.html',
+    wait: 50,
+    open: false
+  })
 }
 
 if (process.argv[2] === 'postinstall') {
