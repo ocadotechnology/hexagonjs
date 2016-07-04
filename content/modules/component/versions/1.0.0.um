@@ -10,7 +10,7 @@
 
         hx.select('#my-button').on('click', function(){
           var tagInput = hx.component('#my-tag-input')
-          hx.notify().info('Tags: ' + tagInput.tags().join(', '))
+          hx.notify.info('Tags: ' + tagInput.items().join(', '))
         })
 
     @example
