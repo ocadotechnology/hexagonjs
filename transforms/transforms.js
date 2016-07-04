@@ -27,7 +27,7 @@ exports.module = function (entity, page, transforms) {
       .add(page.create('div').class('docs-module-changelog-link')
         .add(page.create('a').text('Changelog').attr('href', '/docs/' + module + '/changelog/'))))
 
-  if (entity.content.filter(function (e) {return e}).length) {
+  if (entity.content.filter(function (e) { return e }).length) {
     if (entity.has('description')) {
       moduleContainer = moduleContainer.add(entity.select('description').transform(transforms))
     } else {
@@ -119,4 +119,12 @@ exports.example = function (entity, page, transforms) {
   return page.create('div').class('docs-example')
     .add(body)
     .add(code)
+}
+
+exports.keywords = function (entity, page, transforms) {
+  var hexagonKeywords = 'hexagon, hexagon js, hexagon-js, hexagon.js'
+  var keywords = entity.ps() ? entity.ps(', ') + ', ' : ''
+  return page.create('meta')
+    .attr('name', 'keywords')
+    .attr('content', keywords + hexagonKeywords)
 }
