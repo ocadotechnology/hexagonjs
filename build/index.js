@@ -296,9 +296,10 @@ function buildPages (objs, dev) {
         .map(html({transforms: options.htmlTransforms}))
         .map(html.stringify())
         .map(function (file) {
-          if (file.filename.indexOf('docs') === 0) {
-            var v = file.filename.split('/')[1]
-            file.content = file.content.split('__version__').join(v)
+          var splitName = file.filename.split('/')
+          if (splitName[0] === 'docs') {
+            var hexagonVersionToLoad = (splitName.length > 3 ? splitName[1] : versions.latest)
+            file.content = file.content.split('__version__').join(hexagonVersionToLoad)
           }
           return file
         })
