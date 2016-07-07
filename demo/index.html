@@ -1360,6 +1360,7 @@
         <div class="example">
           <h3>Plot (Graphs)</h3>
           <div id="graph" class="hx-margin"></div>
+          <div id="pie" class="hx-margin"></div>
           <script>
 
             var randomSign = function(){
@@ -1402,7 +1403,21 @@
               }
             }]
 
-            new hx.select('#graph').add(hx.graph({axes: axes}).classed('graph-example', true))
+            hx.select('#graph').add(hx.graph({axes: axes, legendEnabled: true}).classed('graph-example', true))
+
+            var data = {
+              title: "Hi",
+              segments: hx.range(6).map(function (i) {
+                return {
+                  name: "Segment " + i,
+                  size: i + 1,
+                  fillColor: hx.cycle(hx.theme.plot.colors, i)
+                }
+              })
+            }
+            hx.select('#pie').style('height', '100px').add(hx.pieChart({legendEnabled: true, data: data}))
+
+
           </script>
         </div>
       </div>
