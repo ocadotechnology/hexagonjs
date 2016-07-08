@@ -20,6 +20,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/util/test/spec')
   require('modules/color/test/spec')
   require('modules/selection/test/spec')
+  require('modules/transition/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -117,6 +118,12 @@ describe('HexagonJS Test Suite', () => {
       checkProperty('detached')
       checkProperty('getHexagonElementDataObject', hx.select)
       checkProperty('addEventAugmenter', hx.select)
+    })
+
+    describe('transition', () => {
+      checkProperty('transition')
+      checkProperty('loop')
+      checkProperty('ease')
     })
   })
 

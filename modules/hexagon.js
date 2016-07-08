@@ -16,5 +16,6 @@ module.exports = merge([
   require('./color/main'),
   require('./util/main'),
   require('./event-emitter/main'),
-  require('./selection/main')
+  require('./selection/main'),
+  require('./transition/main')
 ])
