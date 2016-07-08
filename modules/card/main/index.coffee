@@ -133,7 +133,7 @@ hx.card.text = textLikeComponent('span', 'hx-card-text')
 hx.card.small.text = (options) -> hx.card.text(options).classed('hx-card-small', true)
 hx.card.large.text = (options) -> hx.card.text(options).classed('hx-card-large', true)
 
-hx.card.title = textLikeComponent('div', 'hx-card-title hx-header')
+hx.card.title = textLikeComponent('span', 'hx-card-title hx-header')
 hx.card.small.title = (options) -> hx.card.title(options).classed('hx-card-small', true)
 hx.card.large.title = (options) -> hx.card.title(options).classed('hx-card-large', true)
 

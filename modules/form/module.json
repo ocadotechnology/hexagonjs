@@ -1,6 +1,7 @@
 {
-  "dependencies": [],
-  "keywords": [
-    "form"
+  "dependencies": [
+    "selection",
+    "user-facing-text",
+    "util"
   ]
 }

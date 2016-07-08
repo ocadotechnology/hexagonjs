@@ -16,8 +16,6 @@ posToDiscrete = (pos) ->
 # is being dragged.
 slide = (e) ->
   _ = @_
-
-  @emit 'slidestart', @value()
   _.mouseDown = true
 
   _.pointerMoveHandler = (e) => slide.call this, e
@@ -62,9 +60,10 @@ slide = (e) ->
     _.dragging = 'value'
     val.value = posToValue.call this, pos
 
+  prevValue = @value()
   @value(val)
-
-  @emit 'change', @value()
+  if prevValue isnt @value()
+    @emit 'change', @value()
   return
 
 slideEnd = (e) ->
@@ -164,7 +163,9 @@ class Slider extends hx.EventEmitter
       .classed('hx-slider-double', @options.type is 'range')
       .classed('hx-slider-discrete', _.isDiscrete)
       .on 'pointerdown', 'hx.slider', (e) =>
-        if not _.disabled then slide.call this, e
+        if not _.disabled
+          @emit 'slidestart', @value()
+          slide.call this, e
 
     _.range = _.container.append('div').class('hx-slider-range')
 

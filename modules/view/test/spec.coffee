@@ -78,3 +78,46 @@ describe 'hx-view', ->
     selection.selectAll('.class').text().should.eql(["2", "3"])
     hx.consoleWarning.should.not.have.been.called()
 
+  it "should index correctly when entering nodes", ->
+    selection = hx.detached('div')
+
+    spy = chai.spy()
+    view = selection.view('div')
+      .enter (datum, index) ->
+        spy(datum, index)
+        @append('div').node()
+
+    spy.should.not.have.been.called()
+    view.apply([1..3])
+    spy.should.have.been.called.exactly(3)
+    spy.should.have.been.called.with(1, 0)
+    spy.should.have.been.called.with(2, 1)
+    spy.should.have.been.called.with(3, 2)
+    spy.reset()
+    view.apply([1..4])
+    spy.should.have.been.called.exactly(1)
+    spy.should.have.been.called.with(4, 0)
+    hx.consoleWarning.should.not.have.been.called()
+
+  it "should index correctly when updating nodes", ->
+    selection = hx.detached('div')
+
+    spy = chai.spy()
+    view = selection.view('div')
+      .update (datum, node, index) ->
+        spy(datum, index)
+
+    spy.should.not.have.been.called()
+    view.apply([1..3])
+    spy.should.have.been.called.exactly(3)
+    spy.should.have.been.called.with(1, 0)
+    spy.should.have.been.called.with(2, 1)
+    spy.should.have.been.called.with(3, 2)
+    spy.reset()
+    view.apply([1..4])
+    spy.should.have.been.called.exactly(4)
+    spy.should.have.been.called.with(1, 0)
+    spy.should.have.been.called.with(2, 1)
+    spy.should.have.been.called.with(3, 2)
+    spy.should.have.been.called.with(4, 3)
+    hx.consoleWarning.should.not.have.been.called()

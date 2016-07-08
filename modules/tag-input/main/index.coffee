@@ -1,3 +1,9 @@
+hx.userFacingText({
+  tagInput: {
+    placeholder: 'add tag...'
+  }
+})
+
 class TagInput extends hx.EventEmitter
 
   constructor: (@selector, options) ->
@@ -10,6 +16,7 @@ class TagInput extends hx.EventEmitter
       validator: undefined
       draggable: true
       items: []
+      placeholder: hx.userFacingText('tagInput', 'placeholder')
     }, options
 
     hx.component.register(@selector, this)
@@ -21,19 +28,19 @@ class TagInput extends hx.EventEmitter
       _.dragContainer = new hx.DragContainer(@tagContainer.node())
 
     @form = @selection.append('form')
-    @input = @form.append('input').attr('placeholder', 'add tag...')
+    @input = @form.append('input').attr('placeholder', @options.placeholder)
 
     backspacedown = false
 
     hasError = =>
       name = @input.value()
-      if @options.validator
-        error = @options.validator(name)
-        @input.node().setCustomValidity(error or '')
-        error.length > 0
-      else if name is ''
+      if name is ''
         @input.node().setCustomValidity('')
         false
+      else if @options.validator
+        error = @options.validator(name) or ''
+        @input.node().setCustomValidity(error)
+        error.length > 0
 
     @form.on 'keypress', 'hx.tag-input', (event) =>
       if event.keyCode is 13
@@ -65,7 +72,7 @@ class TagInput extends hx.EventEmitter
         true
 
     @input.on 'blur', 'hx.tag-input', (event) =>
-      if not hasError() and @input.value().length > 0
+      if @input.value().length > 0 and not hasError()
         @add(@input.value(), undefined)
 
     @input.on 'focus', 'hx.tag-input', (event) =>

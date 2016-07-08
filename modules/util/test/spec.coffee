@@ -518,3 +518,13 @@ describe "Util", ->
     inner.innerHTML.should.equal('Dave<div></div>')
     inner.childNodes[0].nodeValue.should.equal('Dave')
     inner.childNodes[1].innerHTML.should.equal('')
+
+  it 'defined: should return true for non-null and non-undefined values', ->
+    hx.defined(123).should.equal(true)
+    hx.defined("123").should.equal(true)
+    hx.defined({}).should.equal(true)
+    hx.defined(/123/).should.equal(true)
+
+  it 'defined: should return false for null and undefined', ->
+    hx.defined(null).should.equal(false)
+    hx.defined(undefined).should.equal(false)

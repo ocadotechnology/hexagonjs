@@ -1,4 +1,11 @@
 describe 'hx-preferences', ->
+  it 'should have user facing text defined', ->
+    hx.userFacingText('preferences', 'locale').should.equal('Locale')
+    hx.userFacingText('preferences', 'preferences').should.equal('Preferences')
+    hx.userFacingText('preferences', 'preferencesSaved').should.equal('Preferences Saved')
+    hx.userFacingText('preferences', 'save').should.equal('Save')
+    hx.userFacingText('preferences', 'timezone').should.equal('Timezone')
+
   describe 'api', ->
     it 'supportedLocales: setter/getter', ->
       list = ["uz", "vi", "cy"]

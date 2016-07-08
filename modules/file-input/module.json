@@ -1,0 +1,15 @@
+{
+  "dependencies": [
+    "component",
+    "dropdown",
+    "event-emitter",
+    "fluid",
+    "input-group",
+    "layout",
+    "map",
+    "preferences",
+    "selection",
+    "user-facing-text",
+    "util"
+  ]
+}

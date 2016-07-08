@@ -1,25 +1,7 @@
 $hx-spinner-spinner-col: #00ADA8;
 
-$hx-base-default-font-family: 'Open Sans', sans-serif;
-$hx-base-heading-font-family: 'Open Sans', sans-serif;
-$hx-base-body-background-col: rgb(247, 247, 249);
-$hx-base-default-text-col: #3D3D3D;
-$hx-base-heading-text-col: #3D3D3D;
-$hx-base-input-background-col: white;
-$hx-base-input-border-col: #DADADA;
-$hx-base-input-text-col: #3D3D3D;
-$hx-base-input-focus-border-col: #00ADA8;
-$hx-base-input-invalid-border-col: #DE1A4A;
-$hx-base-input-border-radius: 2px;
-$hx-base-select-background-col: #FAFAFA;
-$hx-base-select-border-col: #D8D8D8;
-$hx-base-select-text-col: #3D3D3D;
-$hx-base-select-focus-border-col: #B5B5B5;
-$hx-base-text-select-col: #B4B1B5;
-$hx-base-link-col: #00ADA8;
-$hx-base-divider-col: #D0D0D0;
-$hx-base-divider-style: solid;
-$hx-base-default-font-size: 14px;
+$hx-form-error-text-col: #F7F7F9;
+$hx-form-error-background-col: #4A4E4E;
 
 $hx-modal-shade-col: rgba(0,0,0,0.5);
 $hx-modal-background-col: #FFFFFF;
@@ -50,8 +32,43 @@ $hx-notify-container-background-col: rgb(247, 247, 249);
 $hx-notify-container-border-col: transparent;
 $hx-notify-shadow-col: rgba(0, 0, 0, 0.05);
 
-$hx-form-error-text-col: #F7F7F9;
-$hx-form-error-background-col: #4A4E4E;
+$hx-base-default-font-family: 'Open Sans', sans-serif;
+$hx-base-heading-font-family: 'Open Sans', sans-serif;
+$hx-base-body-background-col: rgb(247, 247, 249);
+$hx-base-default-text-col: #3D3D3D;
+$hx-base-heading-text-col: #3D3D3D;
+$hx-base-input-background-col: white;
+$hx-base-input-border-col: #DADADA;
+$hx-base-input-text-col: #3D3D3D;
+$hx-base-input-focus-border-col: #00ADA8;
+$hx-base-input-invalid-border-col: #DE1A4A;
+$hx-base-input-border-radius: 2px;
+$hx-base-select-background-col: #FAFAFA;
+$hx-base-select-border-col: #D8D8D8;
+$hx-base-select-text-col: #3D3D3D;
+$hx-base-select-focus-border-col: #B5B5B5;
+$hx-base-text-select-col: #B4B1B5;
+$hx-base-link-col: #00ADA8;
+$hx-base-divider-col: #D0D0D0;
+$hx-base-divider-style: solid;
+$hx-base-default-font-size: 14px;
+
+$hx-button-default-col: #FFFFFF;
+$hx-button-action-col: #00ADA8;
+$hx-button-positive-col: #92BF17;
+$hx-button-warning-col: #D69B24;
+$hx-button-negative-col: #EC3A65;
+$hx-button-info-col: #B36ABB;
+$hx-button-complement-col: #F7F7F9;
+$hx-button-contrast-col: #4A4E4E;
+$hx-button-disabled-col: #FAFAFA;
+$hx-button-disabled-text-col: #939393;
+$hx-button-invert-col: #FDFDFD;
+$hx-button-invert-text-col: gray;
+$hx-button-invert-hover-col: #F2F2F2;
+$hx-button-invisible-text-col: #575757;
+$hx-button-light-text-col: #F3F3F3;
+$hx-button-dark-text-col: #3D3D3D;
 
 $hx-dropdown-spacing: 0;
 $hx-dropdown-background-col: #FFFFFF;
@@ -82,22 +99,14 @@ $hx-palette-dark-text-col: #3D3D3D;
 $hx-palette-disabled-col: #FAFAFA;
 $hx-palette-disabled-text-col: #939393;
 
-$hx-button-default-col: #FFFFFF;
-$hx-button-action-col: #00ADA8;
-$hx-button-positive-col: #92BF17;
-$hx-button-warning-col: #D69B24;
-$hx-button-negative-col: #EC3A65;
-$hx-button-info-col: #B36ABB;
-$hx-button-complement-col: #F7F7F9;
-$hx-button-contrast-col: #4A4E4E;
-$hx-button-disabled-col: #FAFAFA;
-$hx-button-disabled-text-col: #939393;
-$hx-button-invert-col: #FDFDFD;
-$hx-button-invert-text-col: gray;
-$hx-button-invert-hover-col: #F2F2F2;
-$hx-button-invisible-text-col: #575757;
-$hx-button-light-text-col: #F3F3F3;
-$hx-button-dark-text-col: #3D3D3D;
+$hx-input-group-input-background-col: white;
+$hx-input-group-input-border-col: #DADADA;
+$hx-input-group-input-invalid-outline-col: #DE1A4A;
+$hx-input-group-input-focus-border-col: #00ADA8;
+$hx-input-group-div-background-col: #FDFDFD;
+$hx-input-group-div-border-col: #DADADA;
+$hx-input-group-icon-background-col: #F9F9F9;
+$hx-input-group-icon-border-col: #DADADA;
 
 $hx-menu-default-col: #FFFFFF;
 $hx-menu-default-hover-col: #F9F9F9;
@@ -119,14 +128,33 @@ $hx-menu-default-hover-border-col: transparent;
 $hx-menu-default-border-col: transparent;
 $hx-menu-border-width: 2px;
 
-$hx-input-group-input-background-col: white;
-$hx-input-group-input-border-col: #DADADA;
-$hx-input-group-input-invalid-outline-col: #DE1A4A;
-$hx-input-group-input-focus-border-col: #00ADA8;
-$hx-input-group-div-background-col: #FDFDFD;
-$hx-input-group-div-border-col: #DADADA;
-$hx-input-group-icon-background-col: #F9F9F9;
-$hx-input-group-icon-border-col: #DADADA;
+$hx-date-picker-today-background-col: #FFFFFF;
+$hx-date-picker-light-text-col: #F3F3F3;
+$hx-date-picker-dark-text-col: #3D3D3D;
+$hx-date-picker-day-hover-background-col: #00ADA8;
+$hx-date-picker-range-background-col: #F9F9F9;
+$hx-date-picker-selected-background-col: #00ADA8;
+$hx-date-picker-error-background-col: #FCBFBF;
+$hx-date-picker-error-outline-col: #DE1A4A;
+$hx-date-picker-divider-col: #D0D0D0;
+$hx-date-picker-header-text-col: #3D3D3D;
+$hx-date-picker-navigation-icon-col: #939393;
+$hx-date-picker-navigation-icon-hover-col: #3D3D3D;
+$hx-date-picker-input-background-col: white;
+$hx-date-picker-day-border-radius: 2px;
+$hx-date-picker-out-of-range-col: #939393;
+$hx-date-picker-border-col: #DADADA;
+$hx-date-picker-icon-col: white;
+$hx-date-picker-icon-background-col: #00ADA8;
+
+$hx-time-picker-error-background-col: #FCBFBF;
+$hx-time-picker-error-outline-col: #DE1A4A;
+$hx-time-picker-input-background-col: white;
+$hx-time-picker-border-col: #DADADA;
+$hx-time-picker-icon-col: white;
+$hx-time-picker-icon-background-col: #00ADA8;
+
+$hx-drag-container-drag-placeholder-border-col: #D0D0D0;
 
 $hx-layout-content-max-width: 1200px;
 $hx-layout-content-breakpoint: 1300px, 900px;
@@ -135,8 +163,6 @@ $hx-layout-margin: 0.3em;
 $hx-layout-named-class-min-width: 250px;
 $hx-layout-border-col: #D0D0D0;
 $hx-layout-content-background-col: transparent;
-
-$hx-drag-container-drag-placeholder-border-col: #D0D0D0;
 
 $hx-progress-bar-border-col: none;
 $hx-progress-bar-border-width: 0;
@@ -183,31 +209,7 @@ $hx-table-row-text-col: #3D3D3D;
 $hx-table-row-alt-text-col: #3D3D3D;
 $hx-table-border-col: #E2E1E1;
 
-$hx-date-picker-today-background-col: #FFFFFF;
-$hx-date-picker-light-text-col: #F3F3F3;
-$hx-date-picker-dark-text-col: #3D3D3D;
-$hx-date-picker-day-hover-background-col: #00ADA8;
-$hx-date-picker-range-background-col: #F9F9F9;
-$hx-date-picker-selected-background-col: #00ADA8;
-$hx-date-picker-error-background-col: #FCBFBF;
-$hx-date-picker-error-outline-col: #DE1A4A;
-$hx-date-picker-divider-col: #D0D0D0;
-$hx-date-picker-header-text-col: #3D3D3D;
-$hx-date-picker-navigation-icon-col: #939393;
-$hx-date-picker-navigation-icon-hover-col: #3D3D3D;
-$hx-date-picker-input-background-col: white;
-$hx-date-picker-day-border-radius: 2px;
-$hx-date-picker-out-of-range-col: #939393;
-$hx-date-picker-border-col: #DADADA;
-$hx-date-picker-icon-col: white;
-$hx-date-picker-icon-background-col: #00ADA8;
-
-$hx-time-picker-error-background-col: #FCBFBF;
-$hx-time-picker-error-outline-col: #DE1A4A;
-$hx-time-picker-input-background-col: white;
-$hx-time-picker-border-col: #DADADA;
-$hx-time-picker-icon-col: white;
-$hx-time-picker-icon-background-col: #00ADA8;
+$hx-date-time-picker-border-col: #DADADA;
 
 $hx-tag-input-default-col: #FFFFFF;
 $hx-tag-input-action-col: #00ADA8;
@@ -313,8 +315,6 @@ $hx-data-table-compact-row-hover-background-col: #FAFAFA;
 $hx-data-table-compact-row-hover-text-col: #3D3D3D;
 $hx-data-table-loading-background-col: rgba(255, 255, 255, 0.4);
 $hx-data-table-footer-background-col: #FFFFFF;
-
-$hx-date-time-picker-border-col: #DADADA;
 
 $hx-drawing-sidebar-border-col: #E7E7E7;
 $hx-drawing-sidebar-title-background-col: #F9F9F9;
