@@ -21,6 +21,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/color/test/spec')
   require('modules/selection/test/spec')
   require('modules/transition/test/spec')
+  require('modules/interpolate/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -124,6 +125,10 @@ describe('HexagonJS Test Suite', () => {
       checkProperty('transition')
       checkProperty('loop')
       checkProperty('ease')
+    })
+
+    describe('interpolate', () => {
+      checkProperty('interpolate')
     })
   })
 

@@ -17,5 +17,6 @@ module.exports = merge([
   require('./util/main'),
   require('./event-emitter/main'),
   require('./selection/main'),
-  require('./transition/main')
+  require('./transition/main'),
+  require('./interpolate/main')
 ])
