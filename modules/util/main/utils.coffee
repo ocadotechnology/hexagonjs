@@ -173,7 +173,7 @@ startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
 
 tween = (start, end, amount) -> start + (end - start) * amount
 
-defined = (x) -> x isnt undefined
+defined = (x) -> x isnt undefined and x isnt null
 
 zip = (arrays) ->
   if arrays

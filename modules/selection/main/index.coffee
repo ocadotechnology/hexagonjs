@@ -35,6 +35,20 @@ getMatches = (node) ->
 selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, selector)
 selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
 
+shallowSelectSingle = (selector, node) ->
+  matchFn = getMatches(node)
+  for child in node.children
+    if matchFn.call(child, selector)
+      return child
+
+shallowSelectAll = (selector, node) ->
+  matchFn = getMatches(node)
+  matchingNodes = []
+  for child in node.children
+    if matchFn.call(child, selector)
+      matchingNodes.push child
+  matchingNodes
+
 closestParent = (selector, node) ->
   node = node.parentNode
   while node and node isnt document
@@ -119,7 +133,7 @@ class Selection
   # selects the first node matching the selector that is a direct descendent of this selection
   shallowSelect: (selector) ->
     if not util.isString(selector)
-      hx.consoleWarning(
+      util.consoleWarning(
         'Selection.selectAll was passed the wrong argument type',
         'Selection.selectAll only accepts a string argument, you supplied:',
         selector
@@ -133,7 +147,7 @@ class Selection
   # selects all the nodes matching the selector that are a direct descendent of this selection
   shallowSelectAll: (selector) ->
     if not util.isString(selector)
-      hx.consoleWarning(
+      util.consoleWarning(
         'Selection.selectAll was passed the wrong argument type',
         'Selection.selectAll only accepts a string argument, you supplied:',
         selector

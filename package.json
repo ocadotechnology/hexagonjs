@@ -23,7 +23,7 @@
     "start": "browser-test-runner watch test & webpack --config=webpack.test.config.js --progress --watch",
     "build-tests": "webpack --config=webpack.test.config.js --progress",
     "dist": "node build/main/dist.js",
-    "test": "npm run build-tests && browser-test-runner run test",
+    "test": "npm run build-tests && browser-test-runner run test/index.html",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "webpack": "^1.12.9"
   },
   "devDependencies": {
-    "browser-test-runner": "^0.3.0",
+    "browser-test-runner": "^0.3.2",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
     "chai-spies": "^0.7.1",
@@ -43,6 +43,7 @@
     "coveralls": "^2.11.6",
     "isparta-loader": "^2.0.0",
     "mocha": "^2.4.5",
+    "phantomjs": "^1.0.0",
     "sinon": "^1.17.1"
   }
 }
