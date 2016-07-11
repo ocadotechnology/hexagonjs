@@ -35,7 +35,7 @@
     "webpack": "^1.12.9"
   },
   "devDependencies": {
-    "browser-test-runner": "^0.3.2",
+    "browser-test-runner": "^0.4.0",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
     "chai-spies": "^0.7.1",
