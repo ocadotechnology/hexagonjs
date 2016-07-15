@@ -1159,7 +1159,7 @@ describe 'data-table', ->
           headersSpy.should.have.been.called()
           totalCountSpy.should.have.been.called()
           rowsSpy.should.have.been.called()
-          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: {column: 'age', direction: 'asc'}, filter: undefined })
+          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: {column: 'age', direction: 'asc'}, filter: undefined, advancedSearch: undefined, useAdvancedSearch: false })
           done()
 
 
@@ -1176,7 +1176,7 @@ describe 'data-table', ->
           headersSpy.should.have.been.called()
           totalCountSpy.should.have.been.called()
           rowsSpy.should.have.been.called()
-          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: undefined, filter: 'filter-term' })
+          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: undefined, filter: 'filter-term', advancedSearch: undefined, useAdvancedSearch: false })
           done()
 
       it 'should call filter when changing the filter input', (done) ->
@@ -1962,4 +1962,110 @@ describe 'data-table', ->
 
     it 'should render if a feed is defined', ->
       hx.dataTable({feed: hx.dataTable.objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)
+
+  describe 'advanced search', ->
+    data = {
+      headers: [
+        { id: 'name', name: "Name" }
+        { id: 'phone', name: "Phone" }
+        { id: 'email', name: "Email" }
+        { id: 'company', name: "Company" }
+        { id: 'city', name: "City" }
+        { id: 'keywords', name: "Keywords" }
+        { id: 'salary', name: "Salary" }
+      ]
+      rows: [
+        { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+        { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+        { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
+        { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+        { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+        { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+      ]
+    }
+
+    it 'should get the rows from the data set with filtering on multiple columns', (done) ->
+      filter = [
+        [{
+          column: 'name',
+          term: 'a',
+        }, {
+          column: 'phone',
+          term: '1',
+        }]
+      ]
+      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+        data.rows.should.eql([
+          { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+        ])
+        data.filteredCount.should.equal(1)
+        done()
+
+    it 'should filter on "any" column', (done) ->
+      filter = [
+        [{
+          column: 'any'
+          term: 'a'
+        }]
+      ]
+      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+        data.rows.should.eql([
+          { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+          { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+          { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
+          { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+          { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+          { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+        ])
+        data.filteredCount.should.equal(6)
+        done()
+
+    it 'should get the rows from the data set with filtering on multiple columns using "or"', (done) ->
+      filter = [
+        [{
+          column: 'name',
+          term: 'a',
+        }], [{
+          column: 'phone',
+          term: '1',
+        }]
+      ]
+      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+        data.rows.should.eql([
+          { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+          { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+          { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+          { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+          { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+        ])
+        data.filteredCount.should.equal(5)
+        done()
+
+    it 'should perform a complex filter', (done) ->
+      filter = [
+        [{
+          column: 'name',
+          term: 'a',
+        }, {
+          column: 'email',
+          term: '.com',
+        }], [{
+          column: 'company',
+          term: 'corp.',
+        }, {
+          column: 'phone',
+          term: '1',
+        }], [{
+          column: 'keywords',
+          term: 'nam',
+        }]
+      ]
+      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+        data.rows.should.eql([
+          { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+          { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+          { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+        ])
+        data.filteredCount.should.equal(3)
+        done()
 

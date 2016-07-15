@@ -54,6 +54,8 @@ class DataTable extends hx.EventEmitter
       feed: undefined
       filter: undefined
       filterEnabled: true
+      showAdvancedSearch: false
+      advancedSearchEnabled: false
       pageSize: 15
       pageSizeOptions: undefined  # supply an array of numbers to show the user
       retainHorizontalScrollOnRender: true
@@ -145,30 +147,6 @@ class DataTable extends hx.EventEmitter
     # Render individual row
     advancedSearchRowEnter = (filterGroup, filterGroupIndex, dataTable) ->
       (filterRow, index, trueIndex) ->
-        typePickerOptions =
-          items: [
-            { text: hx.userFacingText('dataTable', 'and'), value: 'and' }
-            { text: hx.userFacingText('dataTable', 'or'), value: 'or' }
-          ]
-
-        typePickerSel = hx.picker(typePickerOptions)
-          .classed('hx-data-table-advanced-search-type', true)
-
-        typePickerSel.component()
-          .on 'change', (data) ->
-            if data.cause is 'user'
-              prevFilters = dataTable.advancedSearch()
-              [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
-
-              newFilters = if data.value.value is 'or'
-                [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
-                [leftFilterGroups..., leftFilters, [filter, rightFilters...], rightFilterGroups...]
-              else
-                [leftAllButLast..., leftLast] = leftFilterGroups
-                [leftAllButLast..., [leftLast..., filterGroup...], rightFilterGroups...]
-
-              dataTable.advancedSearch(newFilters)
-
         anyColumn = {
           text: resolvedOptions.anyColumnText
           value: 'any'
@@ -237,9 +215,8 @@ class DataTable extends hx.EventEmitter
             dataTable.advancedSearch(newFilters)
 
         @append('div').class('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width')
-          .add(typePickerSel)
-          .add(columnPickerSel)
           .add(termInput)
+          .add(columnPickerSel)
           .add(removeBtn)
           .node()
 
@@ -247,9 +224,6 @@ class DataTable extends hx.EventEmitter
     advancedSearchRowUpdate = ({term, column}, element, index) ->
       filterRowSel = hx.select(element)
         .classed('hx-data-table-advanced-search-invalid', not term)
-
-      filterRowSel.select('.hx-data-table-advanced-search-type').component()
-        .value(if index is 0 then 'or' else 'and')
 
       filterRowSel.select('.hx-data-table-advanced-search-column').component()
         .value(column or 'any')
@@ -591,7 +565,16 @@ class DataTable extends hx.EventEmitter
 
         selection.classed('hx-data-table-infinite', totalCount is undefined)
 
-        feed.rows {start: start, end: end, sort: @sort(), filter: @filter(), advancedSearch: @advancedSearch()}, ({rows, filteredCount}) =>
+        range = {
+          start: start,
+          end: end,
+          sort: @sort(),
+          filter: @filter(),
+          advancedSearch: @advancedSearch(),
+          useAdvancedSearch: options.showAdvancedSearch and options.advancedSearchEnabled
+        }
+
+        feed.rows range, ({rows, filteredCount}) =>
           if options.displayMode is 'paginate'
             if filteredCount is undefined
               @_.numPages = undefined
@@ -977,6 +960,9 @@ objectFeed = (data, options) ->
       validFilters = hx.find filters, (groupedFilters) ->
         invalidFilter = hx.find groupedFilters, (filter) ->
           searchTerm = if filter.column is 'any' then rowSearchTerm else row.cells[filter.column].toLowerCase()
+
+          console.log filter
+
           # This requires the cell value to be a string...
           not lookupTerm filter.term, searchTerm
         not hx.defined invalidFilter
@@ -1004,12 +990,16 @@ objectFeed = (data, options) ->
       if range.sort?.column isnt sortCacheTerm.column
         filtered = undefined
 
-      if filtered is undefined or filterCacheTerm isnt range.filter
-        filtered = if range.filter and range.filter.length > 0
-          if hx.isArray(range.filter)
-            data.rows.filter((row) -> options.advancedSearch(range.advancedSearch, row))
-          else
-            data.rows.filter((row) -> options.filter(range.filter, row))
+      if range.useAdvancedSearch and range.advancedSearch?.length
+        filtered = if filtered is undefined or filterCacheTerm isnt range.advancedSearch
+          data.rows.filter((row) -> options.advancedSearch(range.advancedSearch, row))
+        else
+          data.rows.slice()
+        filterCacheTerm = range.advancedSearch
+        sorted = undefined
+      else
+        filtered =  if range.filter and filtered is undefined or filterCacheTerm isnt range.filter
+          data.rows.filter((row) -> options.filter(range.filter, row))
         else
           data.rows.slice()
         filterCacheTerm = range.filter
