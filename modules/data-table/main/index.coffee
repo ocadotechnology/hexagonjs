@@ -1,9 +1,15 @@
 hx.userFacingText({
   dataTable: {
+    addFilter: 'Add Filter',
+    advancedSearch: 'Advanced Search',
+    and: 'and',
+    anyColumn: 'Any column'
+    clearFilters: 'Clear Filters',
     clearSelection: 'clear selection',
     loading: 'Loading',
     noData: 'No Data',
     noSort: 'No Sort',
+    or: 'or',
     rowsPerPage: 'Rows Per Page',
     search: 'Search',
     selectedRows: '$selected of $total selected.',
@@ -14,6 +20,12 @@ hx.userFacingText({
 
 fullWidthColSpan = 999 # the colspan used to make a cell display as an entire row
 collapseBreakPoint = 480
+
+columnOptionLookup = (options, name, id) ->
+  if options.columns isnt undefined and options.columns[id] isnt undefined and options.columns[id][name] isnt undefined
+    options.columns[id][name]
+  else
+    options[name]
 
 class DataTable extends hx.EventEmitter
   constructor: (selector, options) ->
@@ -59,6 +71,12 @@ class DataTable extends hx.EventEmitter
       searchPlaceholder: hx.userFacingText('dataTable','search')
       selectedRowsText: hx.userFacingText('dataTable', 'selectedRows')
       sortByText: hx.userFacingText('dataTable','sortBy')
+
+      addFilterText: hx.userFacingText('dataTable', 'addFilter')
+      clearFiltersText: hx.userFacingText('dataTable', 'clearFilters')
+      anyColumnText: hx.userFacingText('dataTable', 'anyColumn')
+
+      advancedSearchPlaceholder: hx.userFacingText('dataTable', 'search')
     }, options)
 
     selection = hx.select(selector).classed('hx-data-table', true)
@@ -102,6 +120,183 @@ class DataTable extends hx.EventEmitter
 
     # spacer to push other content to the right hand side of the footer
     footer.append('div').class('hx-data-table-footer-spacer')
+
+    advancedSearch = hx.detached('div').class('hx-data-table-advanced-search')
+    advancedSearchContainer = advancedSearch.append('div').class('hx-data-table-advanced-search-container')
+    advancedSearchButtons = advancedSearch.append('div').class('hx-data-table-advanced-search-buttons')
+
+
+    # Render individual row
+    advancedSearchRowEnter = (filterGroup, filterGroupIndex, dataTable) ->
+      (filterRow, index, trueIndex) ->
+        typePickerOptions =
+          items: [
+            { text: hx.userFacingText('dataTable', 'and'), value: 'and' }
+            { text: hx.userFacingText('dataTable', 'or'), value: 'or' }
+          ]
+
+        typePickerSel = hx.picker(typePickerOptions)
+          .classed('hx-data-table-advanced-search-type', true)
+
+        typePickerSel.component()
+          .on 'change', (data) ->
+            if data.cause is 'user'
+              prevFilters = dataTable.filter()
+              [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+
+              newFilters = if data.value.value is 'or'
+                [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
+                [leftFilterGroups..., leftFilters, [filter, rightFilters...], rightFilterGroups...]
+              else
+                [leftAllButLast..., leftLast] = leftFilterGroups
+                [leftAllButLast..., [leftLast..., filterGroup...], rightFilterGroups...]
+
+              dataTable.filter(newFilters)
+
+        anyColumn = {
+          text: resolvedOptions.anyColumnText
+          value: 'any'
+          anyColumn: true
+        }
+
+        columnItems = filterRow.headers.map (header) ->
+          value: header.id
+          orig: header
+
+        columnRenderer = (element, cell) ->
+          if cell.anyColumn then hx.select(element).text(cell.text)
+          else columnOptionLookup(resolvedOptions, 'headerCellRenderer', cell.orig.id)(element, cell.orig, filterRow.headers)
+
+        columnPickerOptions =
+          items: [anyColumn, columnItems...]
+          renderer: columnRenderer
+
+        columnPickerSel = hx.picker(columnPickerOptions)
+          .classed('hx-data-table-advanced-search-column', true)
+
+        columnPickerSel.component()
+          .on 'change', (data) ->
+            if data.cause is 'user'
+              prevFilters = dataTable.filter()
+              [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+              [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
+              newFilter = hx.merge(filter, {
+                column: data.value.value
+              })
+              dataTable.filter([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
+
+        debouncedInput = hx.debounce 200, (e) ->
+          prevFilters = dataTable.filter()
+          [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+          [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
+          newFilter = hx.merge(filter, {
+            term: e.target.value
+          })
+          dataTable.filter([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
+
+        termInput = hx.detached('input').attr('placeholder', resolvedOptions.advancedSearchPlaceholder)
+          .class('hx-data-table-advanced-search-input hx-section')
+          .on 'input', debouncedInput
+
+        splitArray = (array, index) ->
+          left = if index is 0
+            []
+          else
+            array[0..index - 1]
+          right = if index is array.length - 1
+            []
+          else
+            array[index+1..array.length]
+          [left, array[index], right]
+
+
+        removeBtn = hx.button({context: 'negative'})
+          .add(hx.icon({class: 'hx-icon hx-icon-close'}))
+          .on 'click', ->
+            prevFilters = dataTable.filter()
+            [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+            [leftFilters, _, rightFilters] = splitArray(filterGroup, trueIndex)
+
+            newFilters = if trueIndex is 0
+              [leftFilterGroup..., leftFilterGroupLast] = leftFilterGroups
+
+              [_, filters...] = filterGroup
+
+              newFilterGroup = [leftFilterGroupLast..., filters...]
+              [leftFilterGroup..., newFilterGroup, rightFilterGroups...]
+            else
+              newFilterGroup = [leftFilters..., rightFilters...]
+              if newFilterGroup.length
+                [leftFilterGroups..., newFilterGroup, rightFilterGroups...]
+              else
+                [leftFilterGroups..., rightFilterGroups...]
+            dataTable.filter(newFilters)
+
+        @append('div').class('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width')
+          .add(typePickerSel)
+          .add(columnPickerSel)
+          .add(termInput)
+          .add(removeBtn)
+          .node()
+
+
+    advancedSearchRowUpdate = ({term, column}, element, index) ->
+      filterRowSel = hx.select(element)
+        .classed('hx-data-table-advanced-search-invalid', not term)
+
+      filterRowSel.select('.hx-data-table-advanced-search-type').component()
+        .value(if index is 0 then 'or' else 'and')
+
+      filterRowSel.select('.hx-data-table-advanced-search-column').component()
+        .value(column or 'any')
+
+      filterRowSel.select('.hx-data-table-advanced-search-input').value(term or '')
+
+
+
+    # Render grouped filters
+    advancedSearchGroupEnter = (dataTable) ->
+      (filterGroup, index, trueIndex) ->
+        filterGroupSel = hx.detached('div').class('hx-data-table-advanced-search-filter-group')
+        filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter')
+          .enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable))
+          .update(advancedSearchRowUpdate)
+        hx.component.register(filterGroupSel.node(), {
+          filterGroupView
+        })
+        @append(filterGroupSel).node()
+
+    advancedSearchGroupUpdate = (filterGroup, element, index) ->
+      hx.component(element).filterGroupView.apply(filterGroup)
+
+    advancedSearchView = advancedSearchContainer.view('.hx-data-table-advanced-search-filter-group')
+      .enter(advancedSearchGroupEnter(this))
+      .update(advancedSearchGroupUpdate)
+
+    addFilter = =>
+      currentFilters = @filter() or [[]]
+      [previousFilterGroups..., lastFilterGroup] = currentFilters
+      newLastFilterGroup = [lastFilterGroup..., {
+        column: 'any',
+        term: ''
+      }]
+      @filter([previousFilterGroups..., newLastFilterGroup])
+
+    clearFilters = => @filter(undefined)
+
+    advancedSearchButtons.append(hx.button({context: 'positive'})
+      .add(hx.icon({class: 'hx-icon hx-icon-plus'}))
+      .add(hx.detached('span').text(resolvedOptions.addFilterText)))
+      .on 'click', addFilter
+
+    advancedSearchButtons.append(hx.button({context: 'negative'})
+      .add(hx.icon({class: 'hx-icon hx-icon-close'}))
+      .add(hx.detached('span').text(resolvedOptions.clearFiltersText)))
+      .on 'click', clearFilters
+
+    # XXX TODO - put this somewhere proper
+    footer.insertAfter(advancedSearch)
+
 
     # pagination block (the page selector and the rows per page selector)
     paginationContainer = footer.append('div').class('hx-data-table-pagination-block')
@@ -153,6 +348,7 @@ class DataTable extends hx.EventEmitter
       expandedRows: new hx.Set
       renderedCollapsibles: {}
       compactState: (resolvedOptions.compact is 'auto' and selection.width() < collapseBreakPoint) or resolvedOptions.compact is true
+      advancedSearchView: advancedSearchView
     }
 
     # responsive page resize when compact is 'auto'
@@ -323,11 +519,7 @@ class DataTable extends hx.EventEmitter
     selection.select('.hx-data-table-pagination-block').classed('hx-data-table-pagination-block-visible', options.displayMode is 'paginate')
 
     # some utility functions
-    getColumnOption = (name, id) ->
-      if options.columns isnt undefined and options.columns[id] isnt undefined and options.columns[id][name] isnt undefined
-        options.columns[id][name]
-      else
-        options[name]
+    getColumnOption = (name, id) -> columnOptionLookup(options, name, id)
 
     rowToArray = (headers, obj) -> headers.map (header) -> obj.cells[header.id]
 
@@ -347,6 +539,15 @@ class DataTable extends hx.EventEmitter
     # load in the data needed
     # XXX: how much of this could be split out so it's not re-defined every time render is called?
     feed.headers (headers) =>
+      if options.showAdvancedSearch and options.advancedSearchEnabled
+        currentFilters = @filter()
+        if hx.isArray(currentFilters)
+          @_.advancedSearchView.apply currentFilters.map (filterGroup) =>
+            filterGroup.map (filterRow) =>
+              hx.merge(filterRow, {
+                headers,
+                getColumnOption
+              })
 
       selection.select('.hx-data-table-sort-control')
         .classed('hx-data-table-sort-visible', options.sortEnabled or headers.some((header) -> getColumnOption('sortEnabled', header.id)))
@@ -729,12 +930,30 @@ class DataTable extends hx.EventEmitter
 ###
 
 objectFeed = (data, options) ->
+  lookupTerm = (term, rowSearchTerm) ->
+    # What if we have multiple spaces ?
+    arr = term.toLowerCase().split ' '
+    validPart = hx.find arr, (part) -> ~rowSearchTerm.indexOf part
+    hx.defined validPart
+
+
   options = hx.merge({
     filter: (term, row) ->
-      rowSearchTerm = (v for k, v of row.cells).join(' ').toLowerCase() # this bit can be cached for more speedy filters
-      for part in term.toLowerCase().split(' ')
-        if rowSearchTerm.indexOf(part) is -1 then return false
-      return true
+      rowSearchTerm = (v for k, v of row.cells).join(' ').toLowerCase()
+      lookupTerm(term, rowSearchTerm)
+
+    advancedSearch: (filters, row) ->
+      rowSearchTerm = (v for k, v of row.cells).join(' ').toLowerCase()
+      # if term is empty this will return false
+      validFilters = hx.find filters, (groupedFilters) ->
+        invalidFilter = hx.find groupedFilters, (filter) ->
+          searchTerm = if filter.column is 'any' then rowSearchTerm else row.cells[filter.column].toLowerCase()
+          # This requires the cell value to be a string...
+          not lookupTerm filter.term, searchTerm
+        not hx.defined invalidFilter
+      hx.defined validFilters
+
+
     #XXX: should this be hx.sort.compare?
     #XXX: should this provide more information - like the column id being sorted on?
     compare: (c1, c2) -> if c1 > c2 then 1 else -1
@@ -757,9 +976,13 @@ objectFeed = (data, options) ->
         filtered = undefined
 
       if filtered is undefined or filterCacheTerm isnt range.filter
-        filtered = if range.filter
-          data.rows.filter((row) -> options.filter(range.filter, row))
-        else data.rows.slice()
+        filtered = if range.filter and range.filter.length > 0
+          if hx.isArray(range.filter)
+            data.rows.filter((row) -> options.advancedSearch(range.filter, row))
+          else
+            data.rows.filter((row) -> options.filter(range.filter, row))
+        else
+          data.rows.slice()
         filterCacheTerm = range.filter
         sorted = undefined
 
