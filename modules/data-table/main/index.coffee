@@ -1,6 +1,7 @@
 hx.userFacingText({
   dataTable: {
     addFilter: 'Add Filter',
+    addFilterGroup: 'Add Filter Group',
     advancedSearch: 'Advanced Search',
     and: 'and',
     anyColumn: 'Any column'
@@ -10,6 +11,7 @@ hx.userFacingText({
     noData: 'No Data',
     noSort: 'No Sort',
     or: 'or',
+    removeFilterGroup: 'Remove Filter Group',
     rowsPerPage: 'Rows Per Page',
     search: 'Search',
     selectedRows: '$selected of $total selected.',
@@ -26,6 +28,18 @@ columnOptionLookup = (options, name, id) ->
     options.columns[id][name]
   else
     options[name]
+
+splitArray = (array, index) ->
+  left = if index is 0
+    []
+  else
+    array[0..index - 1]
+  right = if index is array.length - 1
+    []
+  else
+    array[index+1..array.length]
+  [left, array[index], right]
+
 
 class DataTable extends hx.EventEmitter
   constructor: (selector, options) ->
@@ -75,6 +89,8 @@ class DataTable extends hx.EventEmitter
       addFilterText: hx.userFacingText('dataTable', 'addFilter')
       clearFiltersText: hx.userFacingText('dataTable', 'clearFilters')
       anyColumnText: hx.userFacingText('dataTable', 'anyColumn')
+      removeFilterGroupText: hx.userFacingText('dataTable', 'removeFilterGroup')
+      addFilterGroupText: hx.userFacingText('dataTable', 'addFilterGroup')
 
       advancedSearchPlaceholder: hx.userFacingText('dataTable', 'search')
     }, options)
@@ -141,7 +157,7 @@ class DataTable extends hx.EventEmitter
         typePickerSel.component()
           .on 'change', (data) ->
             if data.cause is 'user'
-              prevFilters = dataTable.filter()
+              prevFilters = dataTable.advancedSearch()
               [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
 
               newFilters = if data.value.value is 'or'
@@ -151,7 +167,7 @@ class DataTable extends hx.EventEmitter
                 [leftAllButLast..., leftLast] = leftFilterGroups
                 [leftAllButLast..., [leftLast..., filterGroup...], rightFilterGroups...]
 
-              dataTable.filter(newFilters)
+              dataTable.advancedSearch(newFilters)
 
         anyColumn = {
           text: resolvedOptions.anyColumnText
@@ -177,51 +193,39 @@ class DataTable extends hx.EventEmitter
         columnPickerSel.component()
           .on 'change', (data) ->
             if data.cause is 'user'
-              prevFilters = dataTable.filter()
+              prevFilters = dataTable.advancedSearch()
               [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
               [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
               newFilter = hx.merge(filter, {
                 column: data.value.value
               })
-              dataTable.filter([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
+              dataTable.advancedSearch([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
 
         debouncedInput = hx.debounce 200, (e) ->
-          prevFilters = dataTable.filter()
+          prevFilters = dataTable.advancedSearch()
           [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
           [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
           newFilter = hx.merge(filter, {
             term: e.target.value
           })
-          dataTable.filter([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
+          dataTable.advancedSearch([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
 
         termInput = hx.detached('input').attr('placeholder', resolvedOptions.advancedSearchPlaceholder)
           .class('hx-data-table-advanced-search-input hx-section')
           .on 'input', debouncedInput
 
-        splitArray = (array, index) ->
-          left = if index is 0
-            []
-          else
-            array[0..index - 1]
-          right = if index is array.length - 1
-            []
-          else
-            array[index+1..array.length]
-          [left, array[index], right]
-
-
         removeBtn = hx.button({context: 'negative'})
           .add(hx.icon({class: 'hx-icon hx-icon-close'}))
           .on 'click', ->
-            prevFilters = dataTable.filter()
+            prevFilters = dataTable.advancedSearch()
             [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
             [leftFilters, _, rightFilters] = splitArray(filterGroup, trueIndex)
 
-            newFilters = if trueIndex is 0
+            newFilters = if trueIndex is 0 and filterGroupIndex is 0
+              [rightFilters, rightFilterGroups...]
+            else if trueIndex is 0
               [leftFilterGroup..., leftFilterGroupLast] = leftFilterGroups
-
               [_, filters...] = filterGroup
-
               newFilterGroup = [leftFilterGroupLast..., filters...]
               [leftFilterGroup..., newFilterGroup, rightFilterGroups...]
             else
@@ -230,7 +234,7 @@ class DataTable extends hx.EventEmitter
                 [leftFilterGroups..., newFilterGroup, rightFilterGroups...]
               else
                 [leftFilterGroups..., rightFilterGroups...]
-            dataTable.filter(newFilters)
+            dataTable.advancedSearch(newFilters)
 
         @append('div').class('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width')
           .add(typePickerSel)
@@ -257,10 +261,37 @@ class DataTable extends hx.EventEmitter
     # Render grouped filters
     advancedSearchGroupEnter = (dataTable) ->
       (filterGroup, index, trueIndex) ->
+        addFilterToGroup = ->
+          prevFilters = dataTable.advancedSearch()
+          [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, trueIndex)
+          newFilter = {
+            column: 'any',
+            term: ''
+          }
+          dataTable.advancedSearch([leftFilterGroups..., [filterGroup..., newFilter], rightFilterGroups...])
+
+        removeFilterGroup = ->
+          prevFilters = dataTable.advancedSearch()
+          [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, trueIndex)
+          dataTable.advancedSearch([leftFilterGroups..., rightFilterGroups...])
+
         filterGroupSel = hx.detached('div').class('hx-data-table-advanced-search-filter-group')
-        filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter')
-          .enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable))
-          .update(advancedSearchRowUpdate)
+        filterGroupView = filterGroupSel.append('div')
+          .view('.hx-data-table-advanced-search-filter')
+            .enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable))
+            .update(advancedSearchRowUpdate)
+        filterGroupButtons = filterGroupSel.append('div')
+
+        filterGroupButtons.append(hx.button({context: 'positive'})
+          .add(hx.icon({class: 'hx-icon hx-icon-plus'}))
+          .add(hx.detached('span').text(resolvedOptions.addFilterText)))
+          .on 'click', addFilterToGroup
+
+        filterGroupButtons.append(hx.button({context: 'negative'})
+          .add(hx.icon({class: 'hx-icon hx-icon-close'}))
+          .add(hx.detached('span').text(resolvedOptions.removeFilterGroupText)))
+          .on 'click', removeFilterGroup
+
         hx.component.register(filterGroupSel.node(), {
           filterGroupView
         })
@@ -273,21 +304,19 @@ class DataTable extends hx.EventEmitter
       .enter(advancedSearchGroupEnter(this))
       .update(advancedSearchGroupUpdate)
 
-    addFilter = =>
-      currentFilters = @filter() or [[]]
-      [previousFilterGroups..., lastFilterGroup] = currentFilters
-      newLastFilterGroup = [lastFilterGroup..., {
+    addFilterGroup = ->
+      prevFilters = dataTable.advancedSearch() or []
+      dataTable.advancedSearch([prevFilters..., [{
         column: 'any',
         term: ''
-      }]
-      @filter([previousFilterGroups..., newLastFilterGroup])
+      }]])
 
-    clearFilters = => @filter(undefined)
+    clearFilters = => @advancedSearch([[]])
 
     advancedSearchButtons.append(hx.button({context: 'positive'})
       .add(hx.icon({class: 'hx-icon hx-icon-plus'}))
-      .add(hx.detached('span').text(resolvedOptions.addFilterText)))
-      .on 'click', addFilter
+      .add(hx.detached('span').text(resolvedOptions.addFilterGroupText)))
+      .on 'click', addFilterGroup
 
     advancedSearchButtons.append(hx.button({context: 'negative'})
       .add(hx.icon({class: 'hx-icon hx-icon-close'}))
@@ -396,6 +425,7 @@ class DataTable extends hx.EventEmitter
   displayMode: option('displayMode')
   feed: option('feed')
   filter: option('filter')
+  advancedSearch: option('advancedSearch')
   filterEnabled: option('filterEnabled')
   noDataMessage: option('noDataMessage')
   pageSize: option('pageSize')
@@ -540,14 +570,13 @@ class DataTable extends hx.EventEmitter
     # XXX: how much of this could be split out so it's not re-defined every time render is called?
     feed.headers (headers) =>
       if options.showAdvancedSearch and options.advancedSearchEnabled
-        currentFilters = @filter()
-        if hx.isArray(currentFilters)
-          @_.advancedSearchView.apply currentFilters.map (filterGroup) =>
-            filterGroup.map (filterRow) =>
-              hx.merge(filterRow, {
-                headers,
-                getColumnOption
-              })
+        currentFilters = @advancedSearch() or [[]]
+        @_.advancedSearchView.apply currentFilters.filter((x) -> x.length).map (filterGroup) ->
+          filterGroup.map (filterRow) ->
+            hx.merge(filterRow, {
+              headers,
+              getColumnOption
+            })
 
       selection.select('.hx-data-table-sort-control')
         .classed('hx-data-table-sort-visible', options.sortEnabled or headers.some((header) -> getColumnOption('sortEnabled', header.id)))
@@ -562,7 +591,7 @@ class DataTable extends hx.EventEmitter
 
         selection.classed('hx-data-table-infinite', totalCount is undefined)
 
-        feed.rows {start: start, end: end, sort: @sort(), filter: @filter()}, ({rows, filteredCount}) =>
+        feed.rows {start: start, end: end, sort: @sort(), filter: @filter(), advancedSearch: @advancedSearch()}, ({rows, filteredCount}) =>
           if options.displayMode is 'paginate'
             if filteredCount is undefined
               @_.numPages = undefined
@@ -978,7 +1007,7 @@ objectFeed = (data, options) ->
       if filtered is undefined or filterCacheTerm isnt range.filter
         filtered = if range.filter and range.filter.length > 0
           if hx.isArray(range.filter)
-            data.rows.filter((row) -> options.advancedSearch(range.filter, row))
+            data.rows.filter((row) -> options.advancedSearch(range.advancedSearch, row))
           else
             data.rows.filter((row) -> options.filter(range.filter, row))
         else
