@@ -960,9 +960,6 @@ objectFeed = (data, options) ->
       validFilters = hx.find filters, (groupedFilters) ->
         invalidFilter = hx.find groupedFilters, (filter) ->
           searchTerm = if filter.column is 'any' then rowSearchTerm else row.cells[filter.column].toLowerCase()
-
-          console.log filter
-
           # This requires the cell value to be a string...
           not lookupTerm filter.term, searchTerm
         not hx.defined invalidFilter
@@ -990,11 +987,12 @@ objectFeed = (data, options) ->
       if range.sort?.column isnt sortCacheTerm.column
         filtered = undefined
 
-      if range.useAdvancedSearch and range.advancedSearch?.length
-        filtered = if filtered is undefined or filterCacheTerm isnt range.advancedSearch
+      if range.useAdvancedSearch
+        filtered = if range.advancedSearch?.length and (filtered is undefined or filterCacheTerm isnt range.advancedSearch)
           data.rows.filter((row) -> options.advancedSearch(range.advancedSearch, row))
         else
           data.rows.slice()
+
         filterCacheTerm = range.advancedSearch
         sorted = undefined
       else
