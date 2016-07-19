@@ -267,7 +267,7 @@ describe 'data-table', ->
           hx.select(rows[2]).selectAll('td').selectAll('.hx-data-table-cell-value').text().should.eql(['Dan', '41', 'Builder'])
 
         it 'should show the paginator block', ->
-          container.select('.hx-data-table-pagination-block-hidden').size().should.equal(0)
+          container.select('.hx-data-table-pagination-visible').size().should.equal(1)
 
         it 'should not show the paginator', ->
           container.select('.hx-data-table-multi-page').size().should.equal(0)
@@ -445,7 +445,7 @@ describe 'data-table', ->
       describe 'paginate', ->
         testTable {tableOptions: {displayMode: 'paginate'}}, undefined, (container, dt, options, data) ->
           it 'should show the paginator block', ->
-            container.select('.hx-data-table-pagination-block-visible').size().should.equal(1)
+            container.select('.hx-data-table-pagination-visible').size().should.equal(1)
 
           it 'should not show the paginator when there is one page', ->
             dt._.numPages.should.equal(1)
@@ -453,7 +453,7 @@ describe 'data-table', ->
 
         it 'should show the paginator when there is more than one page', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-pagination-block-visible').size().should.equal(1)
+            container.select('.hx-data-table-pagination-visible').size().should.equal(1)
             container.select('.hx-data-table-multi-page').size().should.equal(1)
             dt._.numPages.should.equal(3)
 
@@ -1558,6 +1558,114 @@ describe 'data-table', ->
           ])
           done()
 
+
+      describe 'advanced search', ->
+        advancedSearchData = {
+          headers: [
+            { id: 'name', name: "Name" }
+            { id: 'phone', name: "Phone" }
+            { id: 'email', name: "Email" }
+            { id: 'company', name: "Company" }
+            { id: 'city', name: "City" }
+            { id: 'keywords', name: "Keywords" }
+            { id: 'salary', name: "Salary" }
+          ]
+          rows: [
+            { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+            { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+            { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
+            { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+            { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+            { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+          ]
+        }
+
+        it 'should get the rows from the data set with filtering on multiple columns', (done) ->
+          filter = [
+            [{
+              column: 'name',
+              term: 'a',
+            }, {
+              column: 'phone',
+              term: '1',
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+            ])
+            data.filteredCount.should.equal(1)
+            done()
+
+        it 'should filter on "any" column', (done) ->
+          filter = [
+            [{
+              column: 'any'
+              term: 'a'
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+              { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+              { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
+              { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+              { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+              { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+            ])
+            data.filteredCount.should.equal(6)
+            done()
+
+        it 'should get the rows from the data set with filtering on multiple columns using "or"', (done) ->
+          filter = [
+            [{
+              column: 'name',
+              term: 'a',
+            }], [{
+              column: 'phone',
+              term: '1',
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+              { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+              { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+              { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+              { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+            ])
+            data.filteredCount.should.equal(5)
+            done()
+
+        it 'should perform a complex filter', (done) ->
+          filter = [
+            [{
+              column: 'name',
+              term: 'a',
+            }, {
+              column: 'email',
+              term: '.com',
+            }], [{
+              column: 'company',
+              term: 'corp.',
+            }, {
+              column: 'phone',
+              term: '1',
+            }], [{
+              column: 'keywords',
+              term: 'nam',
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+              { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+              { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+            ])
+            data.filteredCount.should.equal(3)
+            done()
+
+
     describe 'infinite data', ->
 
       # feed for use when testing the infinite data
@@ -1629,6 +1737,101 @@ describe 'data-table', ->
             dt.page 2, ->
               container.select('.hx-data-table-paginator-back').classed('hx-data-table-btn-disabled').should.equal(false)
               done()
+
+
+    describe 'url feed', ->
+      json = undefined
+      setupFakeHxJson = (response, expectedUrl, expectedPostData) ->
+        json = hx.json
+        hx.json = (url, data, cb) ->
+          if expectedUrl isnt undefined
+            url.should.eql(expectedUrl)
+          else
+            should.not.exist(data)
+
+          if expectedPostData isnt undefined
+            data.should.eql(expectedPostData)
+          else
+            should.not.exist(data)
+
+          cb(undefined, response)
+
+      tearDownFakeHxJson = -> hx.json = json
+
+
+      testFeedWithOptions = (options) ->
+        it 'headers', (done) ->
+          setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).headers (headers) ->
+            headers.should.eql(['header1', 'header2', 'header3'])
+            tearDownFakeHxJson()
+            done()
+
+        it 'totalCount', (done) ->
+          setupFakeHxJson({count: 3}, 'some-url', {type: 'totalCount', extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).totalCount (count) ->
+            count.should.equal(3)
+            tearDownFakeHxJson()
+            done()
+
+        it 'rows', (done) ->
+          result = {
+            rows: [
+              {'id': 0, 'cells': {'whatever': 1}},
+              {'id': 1, 'cells': {'whatever': 2}}
+            ],
+            filteredCount: 5
+          }
+          setupFakeHxJson(result, 'some-url', {type: 'rows', range: {start: 0, end: 5, filter: 'something'}, extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).rows {start: 0, end: 5, filter: 'something'}, (res) ->
+            res.should.eql(result)
+            tearDownFakeHxJson()
+            done()
+
+        it 'rowsForIds', (done) ->
+          result = [
+            {'id': 0, 'cells': {'whatever': 1}},
+            {'id': 1, 'cells': {'whatever': 2}}
+          ]
+          setupFakeHxJson(result, 'some-url', {type: 'rowsForIds', ids: [0, 1], extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).rowsForIds [0, 1], undefined, (res) ->
+            res.should.eql(result)
+            tearDownFakeHxJson()
+            done()
+
+      describe 'with default options should make the correct requests for', ->
+        testFeedWithOptions(undefined)
+
+      describe 'with cached: true should make the correct requests for', ->
+        testFeedWithOptions({cache: true})
+
+        it 'should cache the headers', (done) ->
+          setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: undefined})
+          jsonSpy = chai.spy.on(hx, 'json')
+          feed = hx.dataTable.urlFeed('some-url', {cache: true})
+          feed.headers (headers) ->
+            headers.should.eql(['header1', 'header2', 'header3'])
+            feed.headers (headers) ->
+              headers.should.eql(['header1', 'header2', 'header3'])
+              jsonSpy.should.have.been.called.once
+              tearDownFakeHxJson()
+              done()
+
+        it 'should cache the totalCount', (done) ->
+          setupFakeHxJson({count: 5}, 'some-url', {type: 'totalCount', extra: undefined})
+          jsonSpy = chai.spy.on(hx, 'json')
+          feed = hx.dataTable.urlFeed('some-url', {cache: true})
+          feed.totalCount (totalCount) ->
+            totalCount.should.equal(5)
+            feed.totalCount (totalCount) ->
+              totalCount.should.equal(5)
+              jsonSpy.should.have.been.called.once
+              tearDownFakeHxJson()
+              done()
+
+      describe 'with extra object passed in should make the correct requests for', ->
+        testFeedWithOptions({extra: 'some-value'})
+
 
 
   describe 'events', ->
@@ -1858,101 +2061,6 @@ describe 'data-table', ->
           setTimeout(f, 50)
 
 
-  describe 'url feed', ->
-
-    json = undefined
-    setupFakeHxJson = (response, expectedUrl, expectedPostData) ->
-      json = hx.json
-      hx.json = (url, data, cb) ->
-        if expectedUrl isnt undefined
-          url.should.eql(expectedUrl)
-        else
-          should.not.exist(data)
-
-        if expectedPostData isnt undefined
-          data.should.eql(expectedPostData)
-        else
-          should.not.exist(data)
-
-        cb(undefined, response)
-
-    tearDownFakeHxJson = -> hx.json = json
-
-
-    testFeedWithOptions = (options) ->
-      it 'headers', (done) ->
-        setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).headers (headers) ->
-          headers.should.eql(['header1', 'header2', 'header3'])
-          tearDownFakeHxJson()
-          done()
-
-      it 'totalCount', (done) ->
-        setupFakeHxJson({count: 3}, 'some-url', {type: 'totalCount', extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).totalCount (count) ->
-          count.should.equal(3)
-          tearDownFakeHxJson()
-          done()
-
-      it 'rows', (done) ->
-        result = {
-          rows: [
-            {'id': 0, 'cells': {'whatever': 1}},
-            {'id': 1, 'cells': {'whatever': 2}}
-          ],
-          filteredCount: 5
-        }
-        setupFakeHxJson(result, 'some-url', {type: 'rows', range: {start: 0, end: 5, filter: 'something'}, extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).rows {start: 0, end: 5, filter: 'something'}, (res) ->
-          res.should.eql(result)
-          tearDownFakeHxJson()
-          done()
-
-      it 'rowsForIds', (done) ->
-        result = [
-          {'id': 0, 'cells': {'whatever': 1}},
-          {'id': 1, 'cells': {'whatever': 2}}
-        ]
-        setupFakeHxJson(result, 'some-url', {type: 'rowsForIds', ids: [0, 1], extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).rowsForIds [0, 1], undefined, (res) ->
-          res.should.eql(result)
-          tearDownFakeHxJson()
-          done()
-
-    describe 'with default options should make the correct requests for', ->
-      testFeedWithOptions(undefined)
-
-    describe 'with cached: true should make the correct requests for', ->
-      testFeedWithOptions({cache: true})
-
-      it 'should cache the headers', (done) ->
-        setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: undefined})
-        jsonSpy = chai.spy.on(hx, 'json')
-        feed = hx.dataTable.urlFeed('some-url', {cache: true})
-        feed.headers (headers) ->
-          headers.should.eql(['header1', 'header2', 'header3'])
-          feed.headers (headers) ->
-            headers.should.eql(['header1', 'header2', 'header3'])
-            jsonSpy.should.have.been.called.once
-            tearDownFakeHxJson()
-            done()
-
-      it 'should cache the totalCount', (done) ->
-        setupFakeHxJson({count: 5}, 'some-url', {type: 'totalCount', extra: undefined})
-        jsonSpy = chai.spy.on(hx, 'json')
-        feed = hx.dataTable.urlFeed('some-url', {cache: true})
-        feed.totalCount (totalCount) ->
-          totalCount.should.equal(5)
-          feed.totalCount (totalCount) ->
-            totalCount.should.equal(5)
-            jsonSpy.should.have.been.called.once
-            tearDownFakeHxJson()
-            done()
-
-    describe 'with extra object passed in should make the correct requests for', ->
-      testFeedWithOptions({extra: 'some-value'})
-
-
   describe 'fluid api', ->
     it 'should return a selection', ->
       hx.dataTable().should.be.an.instanceof(hx.Selection)
@@ -1962,110 +2070,3 @@ describe 'data-table', ->
 
     it 'should render if a feed is defined', ->
       hx.dataTable({feed: hx.dataTable.objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)
-
-  describe 'advanced search', ->
-    data = {
-      headers: [
-        { id: 'name', name: "Name" }
-        { id: 'phone', name: "Phone" }
-        { id: 'email', name: "Email" }
-        { id: 'company', name: "Company" }
-        { id: 'city', name: "City" }
-        { id: 'keywords', name: "Keywords" }
-        { id: 'salary', name: "Salary" }
-      ]
-      rows: [
-        { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
-        { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
-        { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
-        { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
-        { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
-        { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
-      ]
-    }
-
-    it 'should get the rows from the data set with filtering on multiple columns', (done) ->
-      filter = [
-        [{
-          column: 'name',
-          term: 'a',
-        }, {
-          column: 'phone',
-          term: '1',
-        }]
-      ]
-      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
-        data.rows.should.eql([
-          { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
-        ])
-        data.filteredCount.should.equal(1)
-        done()
-
-    it 'should filter on "any" column', (done) ->
-      filter = [
-        [{
-          column: 'any'
-          term: 'a'
-        }]
-      ]
-      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
-        data.rows.should.eql([
-          { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
-          { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
-          { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
-          { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
-          { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
-          { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
-        ])
-        data.filteredCount.should.equal(6)
-        done()
-
-    it 'should get the rows from the data set with filtering on multiple columns using "or"', (done) ->
-      filter = [
-        [{
-          column: 'name',
-          term: 'a',
-        }], [{
-          column: 'phone',
-          term: '1',
-        }]
-      ]
-      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
-        data.rows.should.eql([
-          { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
-          { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
-          { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
-          { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
-          { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
-        ])
-        data.filteredCount.should.equal(5)
-        done()
-
-    it 'should perform a complex filter', (done) ->
-      filter = [
-        [{
-          column: 'name',
-          term: 'a',
-        }, {
-          column: 'email',
-          term: '.com',
-        }], [{
-          column: 'company',
-          term: 'corp.',
-        }, {
-          column: 'phone',
-          term: '1',
-        }], [{
-          column: 'keywords',
-          term: 'nam',
-        }]
-      ]
-      hx.dataTable.objectFeed(data).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
-        data.rows.should.eql([
-          { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
-          { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
-          { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
-        ])
-        data.filteredCount.should.equal(3)
-        done()
-
