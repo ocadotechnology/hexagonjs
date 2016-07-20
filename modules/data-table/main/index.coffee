@@ -1070,35 +1070,35 @@ stripLeadingAndTrailingWhitespaceRegex = /^\s+|\s+$/g
 getRowSearchTerm = (cellValueLookup, row) ->
   (v for k, v of row.cells).map(cellValueLookup).join(' ').toLowerCase()
 
-defaultTermFormatter = (term, rowSearchTerm) ->
+defaultTermLookup = (term, rowSearchTerm) ->
   arr = term?.toLowerCase()
     .replace(stripLeadingAndTrailingWhitespaceRegex,'')
     .split whitespaceSplitRegex
   validPart = hx.find arr, (part) -> ~rowSearchTerm.indexOf part
   hx.defined validPart
 
-getAdvancedSearchFilter = (cellValueLookup = hx.identity, termFormatter = defaultTermFormatter) ->
+getAdvancedSearchFilter = (cellValueLookup = hx.identity, termLookup = defaultTermLookup) ->
   (filters, row) ->
     rowSearchTerm = getRowSearchTerm(cellValueLookup, row)
     # If term is empty this will return false
     validFilters = hx.find filters, (groupedFilters) ->
       invalidFilter = hx.find groupedFilters, (filter) ->
         searchTerm = if filter.column is 'any' then rowSearchTerm else cellValueLookup(row.cells[filter.column]).toLowerCase()
-        not termFormatter filter.term, searchTerm
+        not termLookup filter.term, searchTerm
       not hx.defined invalidFilter
     hx.defined validFilters
 
 objectFeed = (data, options) ->
   options = hx.merge({
     cellValueLookup: hx.identity
-    termFormatter: defaultTermFormatter
+    termLookup: defaultTermLookup
 
     #XXX: should this provide more information - like the column id being sorted on?
     compare: hx.sort.compare
   }, options)
 
-  options.filter ?= (term, row) -> options.termFormatter(term, getRowSearchTerm(options.cellValueLookup, row))
-  options.advancedSearch ?= getAdvancedSearchFilter(options.cellValueLookup, options.termFormatter)
+  options.filter ?= (term, row) -> options.termLookup(term, getRowSearchTerm(options.cellValueLookup, row))
+  options.advancedSearch ?= getAdvancedSearchFilter(options.cellValueLookup, options.termLookup)
 
   # cached values
   filtered = undefined
