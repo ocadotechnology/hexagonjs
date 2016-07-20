@@ -198,10 +198,16 @@ describe 'data-table', ->
       done?()
 
   it 'should have user facing text defined', ->
+    hx.userFacingText('dataTable', 'addFilter').should.equal('Add Filter')
+    hx.userFacingText('dataTable', 'advancedSearch').should.equal('Advanced Search')
+    hx.userFacingText('dataTable', 'and').should.equal('and')
+    hx.userFacingText('dataTable', 'anyColumn').should.equal('Any column')
+    hx.userFacingText('dataTable', 'clearFilters').should.equal('Clear Filters')
     hx.userFacingText('dataTable', 'clearSelection').should.equal('clear selection')
     hx.userFacingText('dataTable', 'loading').should.equal('Loading')
     hx.userFacingText('dataTable', 'noData').should.equal('No Data')
     hx.userFacingText('dataTable', 'noSort').should.equal('No Sort')
+    hx.userFacingText('dataTable', 'or').should.equal('or')
     hx.userFacingText('dataTable', 'rowsPerPage').should.equal('Rows Per Page')
     hx.userFacingText('dataTable', 'search').should.equal('Search')
     hx.userFacingText('dataTable', 'selectedRows').should.equal('$selected of $total selected.')
@@ -214,6 +220,9 @@ describe 'data-table', ->
     checkOption('feed', [hx.dataTable.objectFeed(noData), hx.dataTable.objectFeed(threeRowsData)])
     checkOption('filter', ['bob', 'aaaa', undefined])
     checkOption('filterEnabled', [true, false])
+    checkOption('showAdvancedSearch', [true, false])
+    checkOption('advancedSearchEnabled', [true, false])
+    checkOption('showSearchAboveTable', [true, false])
     checkOption('noDataMessage', ['No Data', 'Wahooo! You successfully deleted everything.'])
     checkOption('pageSize', [10, 20, 666])
     checkOption('pageSizeOptions', [undefined, [5, 10, 20], [100, 200, 500]])
@@ -266,19 +275,16 @@ describe 'data-table', ->
           hx.select(rows[2]).selectAll('td').selectAll('.hx-data-table-cell-key').text().should.eql(headers)
           hx.select(rows[2]).selectAll('td').selectAll('.hx-data-table-cell-value').text().should.eql(['Dan', '41', 'Builder'])
 
-        it 'should show the paginator block', ->
-          container.select('.hx-data-table-pagination-visible').size().should.equal(1)
-
         it 'should not show the paginator', ->
-          container.select('.hx-data-table-multi-page').size().should.equal(0)
+          container.selectAll('.hx-data-table-paginator-visible').size().should.equal(0)
 
         it 'should not show the row per page picker', ->
-          container.select('.hx-data-table-page-size').size().should.equal(1)
-          container.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size').should.equal(false)
+          container.selectAll('.hx-data-table-page-size').size().should.equal(2)
+          container.selectAll('.hx-data-table-page-size-visible').size().should.equal(0)
 
         it 'should show the filter box', ->
-          container.select('.hx-data-table-filter-control').size().should.equal(1)
-          container.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible').should.equal(true)
+          container.select('.hx-data-table-filter').size().should.equal(1)
+          container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(true)
 
         it 'should not show collapsible expand icons', ->
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-toggle').size().should.equal(0)
@@ -444,17 +450,13 @@ describe 'data-table', ->
     describe 'displayMode', ->
       describe 'paginate', ->
         testTable {tableOptions: {displayMode: 'paginate'}}, undefined, (container, dt, options, data) ->
-          it 'should show the paginator block', ->
-            container.select('.hx-data-table-pagination-visible').size().should.equal(1)
-
           it 'should not show the paginator when there is one page', ->
             dt._.numPages.should.equal(1)
-            container.select('.hx-data-table-multi-page').size().should.equal(0)
+            container.selectAll('.hx-data-table-paginator-visible').size().should.equal(0)
 
         it 'should show the paginator when there is more than one page', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-pagination-visible').size().should.equal(1)
-            container.select('.hx-data-table-multi-page').size().should.equal(1)
+            container.selectAll('.hx-data-table-paginator-visible').size().should.equal(3)
             dt._.numPages.should.equal(3)
 
         it 'should change the page when the picker is changed', (done) ->
@@ -465,7 +467,7 @@ describe 'data-table', ->
               done()
 
             container
-              .select('.hx-data-table-pagination-picker')
+              .select('.hx-data-table-paginator-picker')
               .component()
               .emit('change', {value: {value: 2}, cause: 'user'})
 
@@ -511,7 +513,7 @@ describe 'data-table', ->
         it 'should hide the paginator block', (done) ->
           testTable {tableOptions: {displayMode: 'all', pageSize: 1}}, done, (container, dt, options, data) ->
             should.not.exist(dt._.numPages)
-            container.select('.hx-data-table-pagination-block-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-paginator-visible').size().should.equal(0)
             container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('tr').size().should.equal(3)
 
 
@@ -520,14 +522,14 @@ describe 'data-table', ->
       describe 'true', ->
         it 'should show the filter box', (done) ->
           testTable {tableOptions: {filterEnabled: true}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-filter-control').size().should.equal(1)
-            container.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible').should.equal(true)
+            container.select('.hx-data-table-filter').size().should.equal(1)
+            container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(true)
 
       describe 'false', ->
         it 'should not show the filter box', (done) ->
           testTable {tableOptions: {filterEnabled: false}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-filter-control').size().should.equal(1)
-            container.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible').should.equal(false)
+            container.select('.hx-data-table-filter').size().should.equal(1)
+            container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(false)
 
 
 
@@ -623,13 +625,13 @@ describe 'data-table', ->
     describe 'pageSizeOptions', ->
       it 'should not show the row per page picker by default', (done) ->
         testTable {tableOptions: {pageSizeOptions: undefined}}, done, (container, dt, options, data) ->
-          container.select('.hx-data-table-page-size').size().should.equal(1)
-          container.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size').should.equal(false)
+          container.selectAll('.hx-data-table-page-size').size().should.equal(2)
+          container.selectAll('.hx-data-table-page-size-visible').size().should.equal(0)
 
       testTable {tableOptions: {pageSizeOptions: [4, 1, 3, 2]}}, undefined, (container, dt, options, data) ->
         it 'should show the rows per page picker', ->
-          container.select('.hx-data-table-page-size').size().should.equal(1)
-          container.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size').should.equal(true)
+          container.selectAll('.hx-data-table-page-size').size().should.equal(2)
+          container.selectAll('.hx-data-table-page-size-visible').size().should.equal(2)
 
         it 'should sort the options in numeric order', ->
           dt.pageSizeOptions().should.eql([1, 2, 3, 4, 15])
@@ -1094,11 +1096,11 @@ describe 'data-table', ->
       describe 'compact mode', ->
         it 'should not show the sort control if there are no sorts', ->
           testTable {tableOptions: {compact: true, sortEnabled: false}}, undefined, (container, dt, options, data) ->
-            container.select('.hx-data-table-sort-control').classed('hx-data-table-sort-visible').should.equal(false)
+            container.select('.hx-data-table-sort').classed('hx-data-table-sort-visible').should.equal(false)
 
         it 'should show the sort control if sort is only enabled for one column ', ->
           testTable {tableOptions: {compact: true, sortEnabled: false, columns: {name: {sortEnabled: true}}}}, undefined, (container, dt, options, data) ->
-            container.select('.hx-data-table-sort-control').classed('hx-data-table-sort-visible').should.equal(true)
+            container.select('.hx-data-table-sort').classed('hx-data-table-sort-visible').should.equal(true)
 
         it 'should change the sort column when changing the sort picker', (done) ->
           testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
@@ -1108,7 +1110,7 @@ describe 'data-table', ->
               done()
 
             picker = container
-              .select('.hx-data-table-sort-control').select('.hx-picker')
+              .select('.hx-data-table-sort').select('.hx-picker')
               .component()
 
             picker.value({value: 'nameasc'})
@@ -1123,7 +1125,7 @@ describe 'data-table', ->
               done()
 
             picker = container
-              .select('.hx-data-table-sort-control').select('.hx-picker')
+              .select('.hx-data-table-sort').select('.hx-picker')
               .component()
 
             picker.value(undefined)
@@ -1187,7 +1189,7 @@ describe 'data-table', ->
         filterSpy.should.not.have.been.called()
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           filterSpy.should.have.been.called.with()
-          filterInput = container.select('.hx-data-table-filter-control')
+          filterInput = container.select('.hx-data-table-filter')
           filterEvent = fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
@@ -1861,8 +1863,8 @@ describe 'data-table', ->
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          selection.select('.hx-data-table-filter-control').value('test')
-          fakeNodeEvent(selection.select('.hx-data-table-filter-control').node(), 'input')()
+          selection.select('.hx-data-table-filter').value('test')
+          fakeNodeEvent(selection.select('.hx-data-table-filter').node(), 'input')()
 
     describe 'selectedrowschange', ->
       it 'should emit an event when rows are selected/deselected', (done) ->
@@ -1997,7 +1999,7 @@ describe 'data-table', ->
             d.cause.should.equal('user')
             done()
           dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-            selection.select('.hx-data-table-pagination-picker').component().emit('change', {value: {value: 2}, cause: 'user'})
+            selection.select('.hx-data-table-paginator-picker').component().emit('change', {value: {value: 2}, cause: 'user'})
 
         it 'should work when setting the page to 1', (done) ->
           selection = hx.detached('div')
@@ -2007,7 +2009,7 @@ describe 'data-table', ->
             d.cause.should.equal('user')
             done()
           dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-            selection.select('.hx-data-table-pagination-picker').component().emit('change', {value: {value: 1}, cause: 'user'})
+            selection.select('.hx-data-table-paginator-picker').component().emit('change', {value: {value: 1}, cause: 'user'})
 
     describe 'compactchange', ->
       it 'should emit an event when changing from full to compact', (done) ->
