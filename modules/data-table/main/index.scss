@@ -365,7 +365,7 @@
 
 
   &.hx-data-table-compact,
-  &.hx-data-table-show-search-above-table {
+  &.hx-data-table-show-search-above-content {
     .hx-data-table-control-panel-bottom {
       order: 4;
     }
@@ -387,7 +387,7 @@
       }
     }
 
-    &.hx-data-table-show-search-above-table {
+    &.hx-data-table-show-search-above-content {
       .hx-data-table-control-panel {
         order: 1;
         box-shadow: none;

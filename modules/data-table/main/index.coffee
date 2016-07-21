@@ -1027,9 +1027,8 @@ class DataTable extends hx.EventEmitter
           selection.select('.hx-data-table-content').insertAfter(container)
           selection.select('.hx-data-table-content').remove()
 
-          tableIsCompact = ((options.compact is 'auto') and (selection.width() < collapseBreakPoint)) or (options.compact is true)
-          selection.classed('hx-data-table-compact', tableIsCompact)
-            .classed('hx-data-table-show-search-above-table', options.showSearchAboveTable)
+          selection.classed('hx-data-table-compact', ((options.compact is 'auto') and (selection.width() < collapseBreakPoint)) or (options.compact is true))
+            .classed('hx-data-table-show-search-above-content', options.showSearchAboveTable)
 
           # set up the sticky headers
           stickFirstColumn = options.selectEnabled or options.collapsibleRenderer?
@@ -1071,8 +1070,7 @@ getRowSearchTerm = (cellValueLookup, row) ->
   (v for k, v of row.cells).map(cellValueLookup).join(' ').toLowerCase()
 
 defaultTermLookup = (term, rowSearchTerm) ->
-  arr = term?.toLowerCase()
-    .replace(stripLeadingAndTrailingWhitespaceRegex,'')
+  arr = term.replace(stripLeadingAndTrailingWhitespaceRegex,'')
     .split whitespaceSplitRegex
   validPart = hx.find arr, (part) -> ~rowSearchTerm.indexOf part
   hx.defined validPart
@@ -1084,7 +1082,7 @@ getAdvancedSearchFilter = (cellValueLookup = hx.identity, termLookup = defaultTe
     validFilters = hx.find filters, (groupedFilters) ->
       invalidFilter = hx.find groupedFilters, (filter) ->
         searchTerm = if filter.column is 'any' then rowSearchTerm else cellValueLookup(row.cells[filter.column]).toLowerCase()
-        not termLookup filter.term, searchTerm
+        not termLookup filter.term.toLowerCase(), searchTerm
       not hx.defined invalidFilter
     hx.defined validFilters
 
@@ -1097,7 +1095,7 @@ objectFeed = (data, options) ->
     compare: hx.sort.compare
   }, options)
 
-  options.filter ?= (term, row) -> options.termLookup(term, getRowSearchTerm(options.cellValueLookup, row))
+  options.filter ?= (term, row) -> options.termLookup(term.toLowerCase(), getRowSearchTerm(options.cellValueLookup, row))
   options.advancedSearch ?= getAdvancedSearchFilter(options.cellValueLookup, options.termLookup)
 
   # cached values
@@ -1136,7 +1134,6 @@ objectFeed = (data, options) ->
         sorted = if range.sort and range.sort.column
           direction = if range.sort.direction is 'asc' then 1 else -1
           column = range.sort.column
-          filtered.sort (r1, r2) -> direction * options.compare(r1.cells[column], r2.cells[column])
           filtered.sort (r1, r2) -> direction * options.compare(r1.cells[column], r2.cells[column])
           filtered
         else filtered
