@@ -28,14 +28,8 @@ columnOptionLookup = (options, name, id) ->
     options[name]
 
 splitArray = (array, index) ->
-  left = if index is 0
-    []
-  else
-    array[0..index - 1]
-  right = if index is array.length - 1
-    []
-  else
-    array[index+1..array.length]
+  left = if index is 0 then [] else array[0...index]
+  right = if index is array.length - 1 then [] else array[index+1...array.length]
   [left, array[index], right]
 
 # pagination block (the page selector and the rows per page selector)
