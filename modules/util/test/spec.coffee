@@ -139,12 +139,13 @@ describe "Util", ->
   it 'minBy: should work', ->
     should.not.exist(hx.minBy())
     should.not.exist(hx.minBy([]))
+    should.not.exist(hx.minBy([undefined, undefined, undefined]))
     hx.minBy([1, 2, 3, 4]).should.equal(1)
     hx.minBy([1, undefined, 3, 4]).should.equal(1)
     hx.minBy([5, 2, 3, 4]).should.equal(2)
     hx.minBy([5, 2, 3, 4, 1], (d) -> d).should.equal(1)
-    hx.minBy([1, 5, undefined, 3, 4], (d) -> -d).should.equal(5)
-    hx.minBy([undefined, 1, 5, 3, 4], (d) -> -d).should.equal(5)
+    hx.minBy([1, 5, undefined, 3, 4], (d) -> if d is undefined then undefined else -d).should.equal(5)
+    hx.minBy([undefined, 1, 5, 3, 4], (d) -> if d is undefined then undefined else -d).should.equal(5)
 
   it 'max: should work', ->
     hx.max().should.equal(-Infinity)
@@ -156,12 +157,13 @@ describe "Util", ->
   it 'maxBy: should work', ->
     should.not.exist(hx.maxBy())
     should.not.exist(hx.maxBy([]))
+    should.not.exist(hx.maxBy([undefined, undefined, undefined]))
     hx.maxBy([1, 2, 3, 4]).should.equal(4)
     hx.maxBy([1, undefined, 3, 4]).should.equal(4)
     hx.maxBy([1, 5, 3, 4]).should.equal(5)
     hx.maxBy([5, 2, 3, 4, 1], (d) -> -d).should.equal(1)
-    hx.maxBy([5, 1, undefined, 5, 4], (d) -> -d).should.equal(1)
-    hx.maxBy([undefined, 5, 1, 5, 4], (d) -> -d).should.equal(1)
+    hx.maxBy([5, 1, undefined, 5, 4], (d) -> if d is undefined then undefined else -d).should.equal(1)
+    hx.maxBy([undefined, 5, 1, 5, 4], (d) -> if d is undefined then undefined else -d).should.equal(1)
 
   it 'range should work', ->
     hx.range(10).should.eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])

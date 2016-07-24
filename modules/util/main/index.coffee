@@ -73,14 +73,13 @@ hx.minBy = (values, f) ->
 
   if f
     min = values[0]
-    minValue = f(min)
-    for i in [1...values.length-1] by 1
+    maxValue = f(min)
+    for i in [1...values.length] by 1
       v = values[i]
-      if v isnt undefined
-        fv = f(v)
-        if fv isnt undefined and fv < minValue
-          min = v
-          minValue = fv
+      fv = f(v)
+      if minValue is undefined or (fv isnt undefined and fv < minValue)
+        min = v
+        minValue = fv
     min
   else
     min = values[0]
@@ -97,13 +96,12 @@ hx.maxBy = (values, f) ->
   if f
     max = values[0]
     maxValue = f(max)
-    for i in [1...values.length-1] by 1
+    for i in [1...values.length] by 1
       v = values[i]
-      if v isnt undefined
-        fv = f(v)
-        if fv isnt undefined and fv > maxValue
-          max = v
-          maxValue = fv
+      fv = f(v)
+      if maxValue is undefined or (fv isnt undefined and fv > maxValue)
+        max = v
+        maxValue = fv
     max
   else
     max = values[0]
