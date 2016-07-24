@@ -143,6 +143,14 @@ describe "Util", ->
     hx.minBy([5, 2, 3, 4]).should.equal(2)
     hx.minBy([1, 5, undefined, 3, 4], (d) -> -d).should.equal(5)
 
+  it 'argmin: should return the index of the smallest defined value', ->
+    hx.argmin([1, 4, -5, 9]).should.equal(2)
+    hx.argmin([undefined, -5, 9]).should.equal(1)
+    hx.argmin([1, undefined, -5, 9]).should.equal(2)
+    should.not.exist(hx.argmin([undefined, undefined]))
+    should.not.exist(hx.argmin([]))
+    should.not.exist(hx.argmin())
+
   it 'max: should work', ->
     hx.max().should.equal(-Infinity)
     hx.max([]).should.equal(-Infinity)
@@ -156,6 +164,14 @@ describe "Util", ->
     hx.maxBy([1, undefined, 3, 4]).should.equal(4)
     hx.maxBy([1, 5, 3, 4]).should.equal(5)
     hx.maxBy([5, 1, undefined, 5, 4], (d) -> -d).should.equal(1)
+
+  it 'argmax: should return the index of the largest defined value', ->
+    hx.argmax([1, 4, -5, 9]).should.equal(3)
+    hx.argmax([undefined, -5, 9]).should.equal(2)
+    hx.argmax([1, undefined, -5, 9]).should.equal(3)
+    should.not.exist(hx.argmax([undefined, undefined]))
+    should.not.exist(hx.argmax([]))
+    should.not.exist(hx.argmax())
 
   it 'range should work', ->
     hx.range(10).should.eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
