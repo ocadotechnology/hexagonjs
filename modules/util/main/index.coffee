@@ -73,7 +73,7 @@ hx.minBy = (values, f) ->
 
   if f
     min = values[0]
-    maxValue = f(min)
+    minValue = f(min)
     for i in [1...values.length] by 1
       v = values[i]
       fv = f(v)
