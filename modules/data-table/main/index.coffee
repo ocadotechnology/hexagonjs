@@ -1075,7 +1075,7 @@ getAdvancedSearchFilter = (cellValueLookup = hx.identity, termLookup = defaultTe
     # If term is empty this will return false
     validFilters = hx.find filters, (groupedFilters) ->
       invalidFilter = hx.find groupedFilters, (filter) ->
-        searchTerm = if filter.column is 'any' then rowSearchTerm else cellValueLookup(row.cells[filter.column]).toLowerCase()
+        searchTerm = if filter.column is 'any' then rowSearchTerm else (cellValueLookup(row.cells[filter.column]) + '').toLowerCase()
         not termLookup filter.term.toLowerCase(), searchTerm
       not hx.defined invalidFilter
     hx.defined validFilters

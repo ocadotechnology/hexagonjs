@@ -1,6 +1,10 @@
 describe 'data-table', ->
   origConsoleWarning = hx.consoleWarning
 
+  clockTime = (new Date(2013, 0, 1)).getTime()
+  dropdownAnimationTime = 150
+  inputDebounceDelay = 200
+
   before ->
     hx.consoleWarning = chai.spy()
 
@@ -59,6 +63,28 @@ describe 'data-table', ->
     stopPropagation: ->
     shiftKey: true
   }
+
+  # Fake the changing of a picker value by clicking a value
+  emulatePickerValueChange = (pickerNode, dt, valueIndex, done, expectation) ->
+    clock = sinon.useFakeTimers(clockTime)
+    renderSpy = chai.spy expectation
+    dt.on 'render', renderSpy
+
+    fakeNodeEvent(pickerNode)(fakeEvent)
+    clock.tick(dropdownAnimationTime)
+    dropdown = hx.select('.hx-dropdown')
+    targetNode = dropdown.selectAll('.hx-menu-item').node(valueIndex)
+
+    pickerEvent = {
+      stopPropagation: ->
+      target: targetNode
+    }
+
+    fakeNodeEvent(dropdown.node())(pickerEvent)
+    renderSpy.should.have.been.called()
+    clock.restore()
+    hx.select('body').clear()
+    done()
 
   checkSetterGetter = (name, valuesToCheck) ->
     describe name, ->
@@ -1118,32 +1144,27 @@ describe 'data-table', ->
 
         it 'should change the sort column when changing the sort picker', (done) ->
           testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
-            dt.on 'render', ->
+            pickerNode = container.select('.hx-data-table-sort')
+              .select('.hx-picker').node()
+
+            pickerExpectation = ->
               dt.sort().should.eql({column: 'name', direction: 'asc'})
-              hx.select('body').clear()
-              done()
 
-            picker = container
-              .select('.hx-data-table-sort').select('.hx-picker')
-              .component()
-
-            picker.value({value: 'nameasc'})
-              .emit('change', {value: 'nameasc', cause: 'user'})
+            emulatePickerValueChange(pickerNode, dt, 1, done, pickerExpectation)
 
         it 'should remove the sort when the sort column is set to no sort', (done) ->
-          testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
-            dt.sort({column: 'name', direction: 'asc'})
-            dt.on 'render', ->
+          tableOptions =
+            compact: true
+            sort: {column: 'name', direction: 'asc'}
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            pickerNode = container.select('.hx-data-table-sort')
+              .select('.hx-picker').node()
+
+            pickerExpectation = ->
               dt.sort().should.eql({column: undefined, direction: undefined})
-              hx.select('body').clear()
-              done()
 
-            picker = container
-              .select('.hx-data-table-sort').select('.hx-picker')
-              .component()
-
-            picker.value(undefined)
-              .emit('change', {value: undefined, cause: 'user'})
+            emulatePickerValueChange(pickerNode, dt, 0, done, pickerExpectation)
 
 
 
@@ -1196,7 +1217,7 @@ describe 'data-table', ->
           done()
 
       it 'should call filter when changing the filter input', (done) ->
-        clock = sinon.useFakeTimers()
+        clock = sinon.useFakeTimers(clockTime)
         container = hx.detached('div')
         dt = new hx.DataTable(container.node())
         filterSpy = chai.spy.on(dt, 'filter')
@@ -1207,10 +1228,10 @@ describe 'data-table', ->
           filterEvent = fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
-          clock.tick(201)
+          clock.tick(inputDebounceDelay)
           filterSpy.should.have.been.called.with()
           filterSpy.should.have.been.called.with('a', undefined, 'user')
-          clock.uninstall()
+          clock.restore()
           done()
 
 
@@ -1368,17 +1389,158 @@ describe 'data-table', ->
 
     describe 'advanced search', ->
       describe 'showAdvancedSearch', ->
-        it 'should show the advanced search toggle when filters are enabled', -> # TODO
+        it 'should show the advanced search toggle when filters are enabled', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
 
-        it 'should not show the advanced search toggle when filters are disabled', -> # TODO
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.classed('hx-data-table-show-search-above-content').should.equal(false)
+            container.selectAll('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-control-panel-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
 
-        it 'should toggle the advanced and regular filters correctly', -> # TODO
+        it 'should not show the advanced search toggle when filters are disabled', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+            filterEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.classed('hx-data-table-show-search-above-content').should.equal(false)
+            container.selectAll('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-control-panel-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(0)
+
 
 
       describe 'advancedSearchEnabled', ->
-        it 'should not be enabled by default', -> # TODO
+        it 'should not be enabled by default', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
 
-        it 'should hide the filter input when enabled', -> # TODO
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.advancedSearchEnabled().should.equal(false)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(1)
+
+
+        it 'should hide the filter input when enabled', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+            advancedSearchEnabled: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.advancedSearchEnabled().should.equal(true)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
+        it 'should toggle the advanced and regular filters correctly', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.advancedSearchEnabled().should.equal(false)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(1)
+
+            fakeNodeEvent(container.select('.hx-data-table-advanced-search-toggle').node(), 'click')(fakeEvent)
+
+            dt.advancedSearchEnabled().should.equal(true)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
+      describe 'advancedSearch', ->
+        it 'should render the advanced search correctly',(done) ->
+          tableOptions =
+            showAdvancedSearch: true
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
+            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
+            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(2)
+            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            checkValue = (node, typePickerVal, columnPickerVal, termVal) ->
+              elem = hx.select(node)
+              if typePickerVal
+                elem.select('.hx-data-table-advanced-search-type').component().value().value.should.equal(typePickerVal)
+              elem.select('.hx-data-table-advanced-search-column').component().value().value.should.equal(columnPickerVal)
+              elem.select('.hx-data-table-advanced-search-input').value().should.equal(termVal)
+
+            checkValue(filterRows.node(0), undefined, 'any', 'a')
+            checkValue(filterRows.node(1), 'and', 'name', 'b')
+            checkValue(filterRows.node(2), 'or', 'any', 'c')
+
+        it 'should make a new advancedSearch group when changing the type picker for a filter', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
+            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
+            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(1)
+            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            pickerNode = hx.select(filterRows.node(1))
+              .select('.hx-data-table-advanced-search-type').node()
+
+            pickerExpectation = ->
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}, {column: 'any', term: 'c'}]])
+
+            emulatePickerValueChange(pickerNode, dt, 1, done, pickerExpectation)
+
+
+        it 'should update the advancedSearch when changing the column picker for a filter', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
+            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
+            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(1)
+            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            pickerNode = hx.select(filterRows.node(1))
+              .select('.hx-data-table-advanced-search-column').node()
+
+            pickerExpectation = ->
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'age', term: 'b'}, {column: 'any', term: 'c'}]])
+
+            emulatePickerValueChange(pickerNode, dt, 2, done, pickerExpectation)
+
+        it 'should update the advancedSearch when changing the term for a filter', (done) ->
+          clock = sinon.useFakeTimers(clockTime)
+          tableOptions =
+            showAdvancedSearch: true
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
+            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
+            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(1)
+            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            termNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-input')
+
+            termNode.value('d')
+            fakeNodeEvent(termNode.node(), 'input')({target: {value: 'd'}})
+            clock.tick(inputDebounceDelay + 1)
+            dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'd'}]])
+            clock.restore()
+            hx.select('body').clear()
+            done()
+
+
 
       describe 'hx.dataTable.getAdvancedSearchFilter', ->
         it 'should use the defaults if provided', ->
@@ -1420,6 +1582,28 @@ describe 'data-table', ->
 
           advancedSearchFilter(filter, {cells: {name: 'Bob', surname: 'Steve'}}).should.equal(true)
           advancedSearchFilter(filter, {cells: {name: 'steve', surname: 'bob'}}).should.equal(true)
+
+
+    describe 'option combinations', ->
+      it 'advancedSearchEnabled (true) and showSearchAboveTable (true) should show the advanced above the table', ->
+        # TODO
+
+      it 'advancedSearchEnabled(true) and filterEnabled (false) should only show the advanced search', ->
+        # TODO
+
+
+      describe 'compact', ->
+        it 'filterEnabled, advancedSearchEnabled or pageSizeOptions should cause the compact menu/collapsible to show', ->
+          # TODO
+
+        it 'pageSizeOptions with multiple pages should show the bottom control panel', ->
+          # TODO
+
+        it 'should not show the control panels when there is nothing to show in them', ->
+          # TODO
+
+
+
 
 
 
@@ -1487,7 +1671,7 @@ describe 'data-table', ->
           fakeNodeEvent(selection.select('.hx-sticky-table-header-top').select('.hx-data-table-cell').node(), 'click')()
 
     describe 'filterchange', ->
-      it 'should emit an event when filter clicked with cause: user', (done) ->
+      it 'should emit an event when filter changed with cause: user', (done) ->
         selection = hx.detached('div')
         dt = new hx.DataTable(selection.node())
 
