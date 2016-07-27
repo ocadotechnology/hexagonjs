@@ -4,6 +4,7 @@ describe 'data-table', ->
   clockTime = (new Date(2013, 0, 1)).getTime()
   dropdownAnimationTime = 150
   inputDebounceDelay = 200
+  animationCompletedDelay = 500
 
   before ->
     hx.consoleWarning = chai.spy()
@@ -1423,9 +1424,18 @@ describe 'data-table', ->
             container.selectAll('.hx-data-table-filter-visible').size().should.equal(1)
 
 
+        it 'should default to being visible if enabled', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.showAdvancedSearch().should.equal(true)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
+
         it 'should hide the filter input when enabled', (done) ->
           tableOptions =
-            showAdvancedSearch: true
             advancedSearchEnabled: true
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
@@ -1451,7 +1461,6 @@ describe 'data-table', ->
       describe 'advancedSearch', ->
         it 'should render the advanced search correctly',(done) ->
           tableOptions =
-            showAdvancedSearch: true
             advancedSearchEnabled: true
             advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
 
@@ -1475,15 +1484,11 @@ describe 'data-table', ->
 
         it 'should make a new advancedSearch group when changing the type picker for a filter', (done) ->
           tableOptions =
-            showAdvancedSearch: true
             advancedSearchEnabled: true
             advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
 
           testTable {tableOptions}, undefined, (container, dt, options, data) ->
-            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
-            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
-            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(1)
-            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
             filterRows.size().should.equal(3)
 
             pickerNode = hx.select(filterRows.node(1))
@@ -1497,15 +1502,11 @@ describe 'data-table', ->
 
         it 'should update the advancedSearch when changing the column picker for a filter', (done) ->
           tableOptions =
-            showAdvancedSearch: true
             advancedSearchEnabled: true
             advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
 
           testTable {tableOptions}, undefined, (container, dt, options, data) ->
-            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
-            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
-            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(1)
-            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
             filterRows.size().should.equal(3)
 
             pickerNode = hx.select(filterRows.node(1))
@@ -1519,15 +1520,11 @@ describe 'data-table', ->
         it 'should update the advancedSearch when changing the term for a filter', (done) ->
           clock = sinon.useFakeTimers(clockTime)
           tableOptions =
-            showAdvancedSearch: true
             advancedSearchEnabled: true
             advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
 
           testTable {tableOptions}, undefined, (container, dt, options, data) ->
-            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
-            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
-            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(1)
-            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
             filterRows.size().should.equal(3)
 
             termNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-input')
@@ -1540,6 +1537,169 @@ describe 'data-table', ->
             hx.select('body').clear()
             done()
 
+
+        it 'should default to "any" for the column value', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{term: 'a'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(1)
+
+            pickerVal = hx.select(filterRows.node(0)).select('.hx-data-table-advanced-search-column').component().value()
+            pickerVal.value.should.eql('any')
+            pickerVal.anyColumn.should.eql(true)
+
+        it 'should add a filter correctly', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            dt.advancedSearch().should.eql([[{column: 'any', term: ''}]])
+
+        it 'should add a filter correctly when there is a filter group', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}, {column: 'any', term: ''}]])
+
+        it 'should add a filter correctly when there are multiple filter groups', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}, {column: 'any', term: ''}]])
+
+
+        it 'should clear the filters correctly', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-clear-filters').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            should.not.exist(dt.advancedSearch())
+
+
+        describe 'removing filters', ->
+
+          it 'should remove a single filter', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(3)
+
+              removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'any', term: 'c'}]])
+
+
+          it 'should remove the first filter in a group', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}, {column: 'name', term: 'b'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(4)
+
+              removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'name', term: 'b'}]])
+
+
+          it 'should remove the last filter from a group', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(3)
+
+              removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}]])
+
+          it 'should remove the last filter from a group when there are groups either side of it', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(3)
+
+              removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'any', term: 'c'}]])
+
+          it 'should remove the first filter from a group when there are groups either side of it', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}, {column: 'any', term: 'd'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(4)
+
+              removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'any', term: 'd'}], [{column: 'any', term: 'c'}]])
+
+          it 'should remove a filter from a group without affecting the surrounding groups', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}, {column: 'any', term: 'd'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(4)
+
+              removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]])
+
+          it 'should remove the last filter', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(1)
+
+              removeNode = hx.select(filterRows.node(0)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              should.not.exist(dt.advancedSearch())
 
 
       describe 'hx.dataTable.getAdvancedSearchFilter', ->
@@ -1585,22 +1745,92 @@ describe 'data-table', ->
 
 
     describe 'option combinations', ->
-      it 'advancedSearchEnabled (true) and showSearchAboveTable (true) should show the advanced above the table', ->
-        # TODO
+      it 'advancedSearchEnabled (true) and showSearchAboveTable (true) should show the advanced search above the table', (done) ->
+        tableOptions =
+          advancedSearchEnabled: true
+          showSearchAboveTable: true
 
-      it 'advancedSearchEnabled(true) and filterEnabled (false) should only show the advanced search', ->
-        # TODO
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          # We assume the styles work here - the re-ordering of the control panel is done purely with CSS...
+          container.classed('hx-data-table-show-search-above-content').should.equal(true)
+          container.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible').should.equal(true)
+
+
+      it 'advancedSearchEnabled(true) and filterEnabled (false) should only show the advanced search', (done) ->
+        tableOptions =
+          advancedSearchEnabled: true
+          filterEnabled: false
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          container.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible').should.equal(true)
+          container.select('.hx-data-table-advanced-search-toggle').classed('hx-data-table-advanced-search-visible').should.equal(false)
+          container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(false)
 
 
       describe 'compact', ->
-        it 'filterEnabled, advancedSearchEnabled or pageSizeOptions should cause the compact menu/collapsible to show', ->
-          # TODO
+        it 'filterEnabled (true) and sortEnabled (false) should show the compact control panel', (done) ->
+          tableOptions =
+            compact: true
+            filterEnabled: true
+            sortEnabled: false
 
-        it 'pageSizeOptions with multiple pages should show the bottom control panel', ->
-          # TODO
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(true)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(false)
 
-        it 'should not show the control panels when there is nothing to show in them', ->
-          # TODO
+        it 'advancedSearchEnabled (true) and filterEnabled/sortEnabled (false) should show the compact control panel', (done) ->
+          tableOptions =
+            compact: true
+            advancedSearchEnabled: true
+            filterEnabled: false
+            sortEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(true)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(false)
+
+        it 'pageSizeOptions and filterEnabled/sortEnabled (false) should show the compact control panel and bottom control panel', (done) ->
+          tableOptions =
+            compact: true
+            pageSizeOptions: [1,2,3,4,5]
+            filterEnabled: false
+            sortEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(true)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(true)
+
+        it 'should not show the control panels when there is nothing to show in them', (done) ->
+          tableOptions =
+            compact: true
+            filterEnabled: false
+            sortEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(false)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(false)
+
+        it 'should toggle the control panel visibility when the toggle is clicked', (done) ->
+          clock = sinon.useFakeTimers(clockTime)
+          tableOptions =
+            compact: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            toggleButton = container.select('.hx-data-table-control-panel-compact-toggle')
+            toggleButton.classed('hx-data-table-control-panel-compact-toggle-visible').should.equal(true)
+            controlPanel = container.select('.hx-data-table-control-panel')
+            controlPanelCompact = container.select('.hx-data-table-control-panel-compact')
+            controlPanel.classed('hx-data-table-control-panel-visible hx-data-table-compact-hide').should.equal(true)
+            fakeNodeEvent(toggleButton.node())(fakeEvent)
+            clock.tick(animationCompletedDelay)
+            controlPanel.classed('hx-data-table-compact-hide').should.equal(false)
+            controlPanelCompact.classed('hx-data-table-control-panel-compact-open').should.equal(true)
+            fakeNodeEvent(toggleButton.node())(fakeEvent)
+            clock.tick(animationCompletedDelay)
+            controlPanel.classed('hx-data-table-compact-hide').should.equal(true)
+            controlPanelCompact.classed('hx-data-table-control-panel-compact-open').should.equal(false)
+            clock.restore()
+
 
 
 
@@ -2081,6 +2311,29 @@ describe 'data-table', ->
           ])
           done()
 
+      it 'should use the provided filter function', ->
+        options =
+          filter: (term, row) -> row.cells.name is term
+        hx.dataTable.objectFeed(data, options).rows {filter: 'Bob', start: 0, end: 2}, (data) ->
+          data.rows.should.eql([
+            {
+              id: 0,
+              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+            }
+          ])
+          data.filteredCount.should.equal(1)
+
+      it 'should use the provided advanced search function', ->
+        options =
+          advancedSearch: (filters, row) -> row.cells.name is filters[0][0].term
+        hx.dataTable.objectFeed(data, options).rows {useAdvancedSearch: true, advancedSearch: [[{column: 'name', term: 'Bob'}]], start: 0, end: 2}, (data) ->
+          data.rows.should.eql([
+            {
+              id: 0,
+              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+            }
+          ])
+          data.filteredCount.should.equal(1)
 
       describe 'advanced search', ->
         advancedSearchData = {

@@ -145,7 +145,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         .attr('required', 'required')
         .on 'input', debouncedInput
 
-      removeBtn = hx.button({context: 'negative'}).classed('hx-btn-invert', true)
+      removeBtn = hx.button({context: 'negative'}).classed('hx-data-table-advanced-search-remove hx-btn-invert', true)
         .add(hx.icon({class: 'hx-icon hx-icon-close'}))
         .on 'click', ->
           prevFilters = dataTable.advancedSearch()
@@ -157,14 +157,9 @@ createAdvancedSearchView = (selection, dataTable, options) ->
           else if trueIndex is 0
             [leftFilterGroup..., leftFilterGroupLast] = leftFilterGroups
             [_, filters...] = filterGroup
-            newFilterGroup = [leftFilterGroupLast..., filters...]
-            [leftFilterGroup..., newFilterGroup, rightFilterGroups...]
+            [leftFilterGroup..., [leftFilterGroupLast..., filters...], rightFilterGroups...]
           else
-            newFilterGroup = [leftFilters..., rightFilters...]
-            if newFilterGroup.length
-              [leftFilterGroups..., newFilterGroup, rightFilterGroups...]
-            else
-              [leftFilterGroups..., rightFilterGroups...]
+            [leftFilterGroups..., [leftFilters..., rightFilters...], rightFilterGroups...]
 
           filterToUse = newFilters.filter((group) => group.length)
 
@@ -269,6 +264,7 @@ class DataTable extends hx.EventEmitter
     }, options)
 
     resolvedOptions.pageSize = Math.min resolvedOptions.pageSize, 1000
+    resolvedOptions.showAdvancedSearch = true if resolvedOptions.advancedSearchEnabled
 
     selection = hx.select(selector).classed('hx-data-table', true)
     content = hx.detached('div').class('hx-data-table-content')
@@ -359,7 +355,7 @@ class DataTable extends hx.EventEmitter
     clearFilters = => @advancedSearch(undefined)
 
     advancedSearchAddFilterButton = hx.button({context: 'positive'})
-      .classed('hx-data-table-advanced-search-button hx-btn-invert', true)
+      .classed('hx-data-table-advanced-search-add-filter hx-data-table-advanced-search-button hx-btn-invert', true)
       .add(hx.icon({class: 'hx-data-table-advanced-search-icon hx-icon hx-icon-plus hx-text-positive'}))
       .add(hx.detached('span').text(resolvedOptions.addFilterText))
       .on 'click', addFilter
