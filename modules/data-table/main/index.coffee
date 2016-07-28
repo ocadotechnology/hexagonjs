@@ -218,10 +218,12 @@ class DataTable extends hx.EventEmitter
       compact: 'auto'             # 'auto', true, false
       displayMode: 'paginate'     # 'paginate', 'all'
       feed: undefined
+      showSearchAboveTable: false
       filter: undefined
       filterEnabled: true
       showAdvancedSearch: false
       advancedSearchEnabled: false
+      advancedSearch: undefined
       pageSize: 15
       pageSizeOptions: undefined  # supply an array of numbers to show the user
       retainHorizontalScrollOnRender: true
@@ -230,7 +232,6 @@ class DataTable extends hx.EventEmitter
       singleSelection: false
       sort: undefined
       sortEnabled: true
-      showSearchAboveTable: false
 
       # functions used for getting row state
       rowIDLookup: (row) -> row.id
@@ -264,6 +265,7 @@ class DataTable extends hx.EventEmitter
     }, options)
 
     resolvedOptions.pageSize = Math.min resolvedOptions.pageSize, 1000
+    resolvedOptions.advancedSearchEnabled = true if resolvedOptions.advancedSearch
     resolvedOptions.showAdvancedSearch = true if resolvedOptions.advancedSearchEnabled
 
     selection = hx.select(selector).classed('hx-data-table', true)

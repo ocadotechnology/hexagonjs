@@ -1,18 +1,14 @@
 describe 'data-table', ->
   origConsoleWarning = hx.consoleWarning
-
   clockTime = (new Date(2013, 0, 1)).getTime()
   dropdownAnimationTime = 150
   inputDebounceDelay = 200
   animationCompletedDelay = 500
 
-  before ->
+  beforeEach ->
     hx.consoleWarning = chai.spy()
 
-  beforeEach ->
-    hx.consoleWarning.reset()
-
-  after ->
+  afterEach ->
     hx.consoleWarning = origConsoleWarning
 
   # Used to mimic an event call for a node
@@ -1389,6 +1385,18 @@ describe 'data-table', ->
 
 
     describe 'advanced search', ->
+      describe 'advancedSearch', ->
+        it 'should enable the advanced search filtering if passed in the options', (done) ->
+          tableOptions =
+            advancedSearch: [[{column: 'any', term: ''}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.classed('hx-data-table-show-search-above-content').should.equal(false)
+            container.selectAll('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-control-panel-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
       describe 'showAdvancedSearch', ->
         it 'should show the advanced search toggle when filters are enabled', (done) ->
           tableOptions =
@@ -1399,6 +1407,7 @@ describe 'data-table', ->
             container.selectAll('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
             container.selectAll('.hx-data-table-control-panel-visible').size().should.equal(1)
             container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
+
 
         it 'should not show the advanced search toggle when filters are disabled', (done) ->
           tableOptions =
