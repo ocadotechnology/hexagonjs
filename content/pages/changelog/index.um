@@ -211,5 +211,12 @@
         @p: Fix an issue with the code using the wrong option variables in AutoComplete
         @p: Also added CSS support for iOS 7/8 to resolve some style and layout issues on older iPads
 
+    @version 1.5.0
+      @description
+        @p: Added the ability to search across multiple columns in DataTables.
+        @p: Added the ability to show the search above the table content in the data table options.
+        @p: Changes to the structure of the DataTable to improve @code[compact] mode, including adding a compact 'menu' to reduce the amount of space data tables take up when in compact mode
+        @p: Added some new utility functions for checking the type of values and getting the argmin/argmax.
+
   @h2: Key
   @changelog.key
