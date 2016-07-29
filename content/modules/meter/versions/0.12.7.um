@@ -31,7 +31,7 @@
       @added
       @constructor
         @param selector [String/HTMLElement]: A unique css selector or a HTMLElement that identifies the container for the meter.
-        @param options [Object]
+        @param? options [Object]
           @property useMarker [Boolean]
             Wheter or not to use the marker part of the meter
             @default false
