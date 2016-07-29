@@ -380,3 +380,8 @@ a.qm-changelog-link {
 .docs-footer-note a {
   color: rgb(100, 200, 197);
 }
+
+.docs-page-link {
+  position: relative;
+  top: -50px;
+}

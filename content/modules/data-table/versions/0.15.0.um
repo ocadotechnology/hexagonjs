@@ -720,7 +720,7 @@
         @p: A data table expects data to be returned in the callback of each function with a specific value.
         @p: If a custom feed is created, it must return the values expected by the table.
 
-      @property headers [Function]: A function to get a list of header objects
+      @function headers: A function to get a list of header objects
         @param callback [Function]: The function to call once the data has been retrieved.
           @param data [Array[Object]]
             @description
@@ -734,11 +734,11 @@
                   ... // Additional headers
                 ]
 
-      @property totalCount [Function]: A function to get the total number of rows in the data set.
+      @function totalCount: A function to get the total number of rows in the data set.
         @param callback [Function]: The function to call once the data has been retrieved.
           @param data [Number]: The total number of rows. This can be undefined if you don't know the total number of rows in the data set.
 
-      @property rows [Function]: A function to get the row data for the range object specified along with the filtered count
+      @function rows: A function to get the row data for the range object specified along with the filtered count
         @param range [Object]
           @description
             @p: The range to get the rows for. An example object can be seen below:
@@ -779,7 +779,7 @@
                   ]
                 @p: A cell value must be provided for each column id for every row
 
-      @property rowsForIds [Function]
+      @function rowsForIds
         @description
           @p: A function for getting the rows for an array of id's in the data.
           @p: This is used when @code(js)[DataTable::rowsForIds] is called.
