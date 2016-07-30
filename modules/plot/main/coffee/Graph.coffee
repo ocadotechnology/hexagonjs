@@ -24,6 +24,7 @@ class Graph extends hx.EventEmitter
         legendsEnabled: false,
         legendLocation: 'auto',
         noDataText: hx.userFacingText('plot', 'noData')
+        redrawOnResize: true
       }, options),
       axes: new hx.List
     }
@@ -32,7 +33,9 @@ class Graph extends hx.EventEmitter
 
     id = hx.randomId()
 
-    selection = hx.select(@selector).on 'resize', 'hx.plot', => @render()
+    selection = hx.select(@selector)
+
+    if @_.options.redrawOnResize then selection.on 'resize', 'hx.plot', => @render()
     @svgTarget = selection.append("svg").attr('class', 'hx-graph')
     defs = @svgTarget.append('defs')
     @axesTarget = @svgTarget.append('g').attr('class', 'hx-axes')
