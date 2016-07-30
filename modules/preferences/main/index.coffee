@@ -2,7 +2,7 @@ hx.userFacingText({
   preferences: {
     locale: 'Locale',
     preferences: 'Preferences',
-    preferenesSaved: 'Preferences Saved',
+    preferencesSaved: 'Preferences Saved',
     save: 'Save',
     timezone: 'Timezone'
   }
@@ -195,7 +195,7 @@ class Preferences extends hx.EventEmitter
             if err
               hx.notify.negative(err)
             else
-              hx.notify.positive(hx.userFacingText('preferences','preferenesSaved'))
+              hx.notify.positive(hx.userFacingText('preferences','preferencesSaved'))
               modal.hide()
 
       hx.select(element)
@@ -217,7 +217,8 @@ class Preferences extends hx.EventEmitter
       modal: modal
     }
 
-    defaultLocaleId = moment?.locale() or navigator.languages?[0] or navigator.language
+    defaultLocaleId = navigator.languages?[0] or navigator.language
+
     if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
     @locale defaultLocaleId
@@ -225,7 +226,7 @@ class Preferences extends hx.EventEmitter
     guessedMomentTimezone = moment?.tz?.guess()
     if guessedMomentTimezone?
       @supportedTimezones moment.tz.names()
-      @timezoneOffsetLookup (timezone, datestamp) ->
+      @timezoneOffsetLookup (timezone, timestamp) ->
         -(moment.tz.zone(timezone).offset(timestamp) / 60)
       @timezone guessedMomentTimezone
     else
@@ -250,6 +251,10 @@ class Preferences extends hx.EventEmitter
       if hx.isString(locale) and (localeObject = lookupLocale(locale))
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
+
+          # moment doesn't look up the 'default' locale so we set it here
+          # Moment issue: https://github.com/moment/moment/issues/2621
+          moment?.locale(localeObject.value)
           @emit('localechange', localeObject.value)
       else
         hx.consoleWarning('preferences.locale',

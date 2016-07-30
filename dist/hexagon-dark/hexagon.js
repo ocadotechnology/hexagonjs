@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.4.0
+ Version: 1.4.2
  Theme: hexagon-dark
  Modules:
    set
@@ -5130,7 +5130,7 @@ hx.userFacingText({
   preferences: {
     locale: 'Locale',
     preferences: 'Preferences',
-    preferenesSaved: 'Preferences Saved',
+    preferencesSaved: 'Preferences Saved',
     save: 'Save',
     timezone: 'Timezone'
   }
@@ -5456,7 +5456,7 @@ Preferences = (function(superClass) {
             if (err) {
               return hx.notify.negative(err);
             } else {
-              hx.notify.positive(hx.userFacingText('preferences', 'preferenesSaved'));
+              hx.notify.positive(hx.userFacingText('preferences', 'preferencesSaved'));
               return modal.hide();
             }
           });
@@ -5479,7 +5479,7 @@ Preferences = (function(superClass) {
       preferences: {},
       modal: modal
     };
-    defaultLocaleId = (typeof moment !== "undefined" && moment !== null ? moment.locale() : void 0) || ((ref = navigator.languages) != null ? ref[0] : void 0) || navigator.language;
+    defaultLocaleId = ((ref = navigator.languages) != null ? ref[0] : void 0) || navigator.language;
     if (!(hx.isString(defaultLocaleId) && lookupLocale(defaultLocaleId))) {
       defaultLocaleId = 'en';
     }
@@ -5487,7 +5487,7 @@ Preferences = (function(superClass) {
     guessedMomentTimezone = typeof moment !== "undefined" && moment !== null ? (ref1 = moment.tz) != null ? ref1.guess() : void 0 : void 0;
     if (guessedMomentTimezone != null) {
       this.supportedTimezones(moment.tz.names());
-      this.timezoneOffsetLookup(function(timezone, datestamp) {
+      this.timezoneOffsetLookup(function(timezone, timestamp) {
         return -(moment.tz.zone(timezone).offset(timestamp) / 60);
       });
       this.timezone(guessedMomentTimezone);
@@ -5518,6 +5518,9 @@ Preferences = (function(superClass) {
       if (hx.isString(locale) && (localeObject = lookupLocale(locale))) {
         if (this._.preferences['locale'] !== localeObject.value) {
           this._.preferences['locale'] = localeObject.value;
+          if (typeof moment !== "undefined" && moment !== null) {
+            moment.locale(localeObject.value);
+          }
           this.emit('localechange', localeObject.value);
         }
       } else {
@@ -12692,9 +12695,9 @@ buildAutoComplete = function(searchTerm, fromCallback, loading) {
     items = [];
     trimAndReload = false;
     if (filteredData == null) {
-      message.text = this.options.loadingText;
+      message.text = this.options.loadingMessage;
     } else if (searchTerm.length < this.options.minLength) {
-      message.text = this.options.minLengthMessage.replace('$minLength', this.options.minLength);
+      message.text = this.options.pleaseEnterMinCharactersMessage.replace('$minLength', this.options.minLength);
     } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
       if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
         trimAndReload = true;
@@ -18443,7 +18446,7 @@ FileInput = (function(superClass) {
     }
     input = hx.detached('input')["class"]('hx-file-input-hidden').attr('type', 'file').attr('accept', acceptedExtensionsString).attr('multiple', resolvedOptions.multiple ? 'multiple' : void 0);
     group = hx.detached('div')["class"]("hx-input-group hx-input-group-full-width hx-no-margin");
-    button = hx.detached('button')["class"]("hx-file-input-button hx-btn hx-no-margin " + resolvedOptions.buttonClass).on('click', function() {
+    button = hx.detached('button').attr('type', 'button')["class"]("hx-file-input-button hx-btn hx-no-margin " + resolvedOptions.buttonClass).on('click', function() {
       return input.node().click();
     }).add(hx.detached('i')["class"]('hx-file-input-icon hx-icon hx-icon-upload')).add(hx.detached('span').text(resolvedOptions.buttonText));
     noFilesTextDiv = hx.section().text(resolvedOptions.noFilesText);
