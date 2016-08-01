@@ -4,6 +4,7 @@
 .DS_Store
 .npmrc
 .sass-cache
+.idea
 /debug
 /npm-debug.log
 /node_modules

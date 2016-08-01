@@ -80,7 +80,7 @@ class View
 
       newNodeSet = enterSet.map (d, i) =>
         datum = d.datum
-        element = @new.call(@rootSelection, d.datum, i)
+        element = @new.call(@rootSelection, datum, i, data.indexOf(datum))
 
         # Checks isChild first as it's the quickest operation
         isChild = @rootSelection.node().contains(element)

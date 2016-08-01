@@ -76,13 +76,12 @@ minBy = (values, f) ->
   if f
     min = values[0]
     minValue = f(min)
-    for i in [1...values.length-1] by 1
+    for i in [1...values.length] by 1
       v = values[i]
-      if v isnt undefined
-        fv = f(v)
-        if fv isnt undefined and fv < minValue
-          min = v
-          minValue = fv
+      fv = f(v)
+      if minValue is undefined or (fv isnt undefined and fv < minValue)
+        min = v
+        minValue = fv
     min
   else
     min = values[0]
@@ -90,6 +89,30 @@ minBy = (values, f) ->
       if v isnt undefined and v < min
         min = v
     min
+
+argmin = (values, f) ->
+  if not values? or values.length is 0 then return undefined
+
+  minIndex = 0
+  minValue = undefined
+  if f
+    minValue = f(values[0])
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = f(values[i])
+        if minValue is undefined or (v isnt undefined and v < minValue)
+          minValue = v
+          minIndex = i
+  else
+    minValue = values[0]
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = values[i]
+        if minValue is undefined or (v isnt undefined and v < minValue)
+          minValue = v
+          minIndex = i
+
+  if minValue is undefined then undefined else minIndex
 
 max = (values) -> Math.max.apply(null, values?.filter(defined))
 
@@ -99,13 +122,12 @@ maxBy = (values, f) ->
   if f
     max = values[0]
     maxValue = f(max)
-    for i in [1...values.length-1] by 1
+    for i in [1...values.length] by 1
       v = values[i]
-      if v isnt undefined
-        fv = f(v)
-        if fv isnt undefined and fv > maxValue
-          max = v
-          maxValue = fv
+      fv = f(v)
+      if maxValue is undefined or (fv isnt undefined and fv > maxValue)
+        max = v
+        maxValue = fv
     max
   else
     max = values[0]
@@ -113,6 +135,30 @@ maxBy = (values, f) ->
       if v isnt undefined and v > max
         max = v
     max
+
+argmax = (values, f) ->
+  if not values? or values.length is 0 then return undefined
+
+  maxIndex = 0
+  maxValue = undefined
+  if f
+    maxValue = f(values[0])
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = f(values[i])
+        if maxValue is undefined or (v isnt undefined and v > maxValue)
+          maxValue = v
+          maxIndex = i
+  else
+    maxValue = values[0]
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = values[i]
+        if maxValue is undefined or (v isnt undefined and v > maxValue)
+          maxValue = v
+          maxIndex = i
+
+  if maxValue is undefined then undefined else maxIndex
 
 range = (length) -> (x for x in [0...length] by 1)
 
@@ -128,6 +174,8 @@ find = (arr, f) ->
   for d in arr
     if f(d) then return d
   undefined
+
+isNumber = (x) -> typeof x is 'number' or x instanceof Number
 
 isString = (x) -> typeof x == 'string' or x instanceof String
 
@@ -287,14 +335,17 @@ module.exports = {
   randomId: randomId
   min: min
   minBy: minBy
+  argmin: argmin
   max: max
   maxBy: maxBy
+  argmax: argmax
   range: range
   sum: sum
   flatten: flatten
   cycle: cycle
   hashList: hashList
   find: find
+  isNumber: isNumber
   isString: isString
   isFunction: isFunction
   isArray: isArray

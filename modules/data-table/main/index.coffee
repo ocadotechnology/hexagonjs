@@ -1,9 +1,15 @@
 hx.userFacingText({
   dataTable: {
+    addFilter: 'Add Filter',
+    advancedSearch: 'Advanced Search',
+    and: 'and',
+    anyColumn: 'Any column'
+    clearFilters: 'Clear Filters',
     clearSelection: 'clear selection',
     loading: 'Loading',
     noData: 'No Data',
     noSort: 'No Sort',
+    or: 'or',
     rowsPerPage: 'Rows Per Page',
     search: 'Search',
     selectedRows: '$selected of $total selected.',
@@ -14,6 +20,192 @@ hx.userFacingText({
 
 fullWidthColSpan = 999 # the colspan used to make a cell display as an entire row
 collapseBreakPoint = 480
+
+columnOptionLookup = (options, name, id) ->
+  if options.columns isnt undefined and options.columns[id] isnt undefined and options.columns[id][name] isnt undefined
+    options.columns[id][name]
+  else
+    options[name]
+
+splitArray = (array, index) ->
+  left = if index is 0 then [] else array[0...index]
+  right = if index is array.length - 1 then [] else array[index+1...array.length]
+  [left, array[index], right]
+
+# pagination block (the page selector and the rows per page selector)
+createPaginationBlock = (table) ->
+  container = hx.detached('div').class('hx-data-table-paginator')
+
+  pickerNode = container.append('button').class('hx-data-table-paginator-picker hx-btn hx-btn-invisible').node()
+  picker = new hx.Picker(pickerNode, { dropdownOptions: { align: 'rbrt' } })
+    .on 'change', 'hx.data-table', (d) =>
+      if d.cause is 'user'
+        table.page(d.value.value, undefined, d.cause)
+
+  totalRows = container.append('span').class('hx-data-table-paginator-total-rows')
+
+  back = container.append('button').class('hx-data-table-paginator-back hx-btn hx-btn-invisible')
+  back.append('i').class('hx-icon hx-icon-chevron-left')
+  back.on 'click', 'hx.data-table', => if not back.classed('hx-data-table-btn-disabled') then table.page(table.page()-1)
+
+  forward = container.append('button').class('hx-data-table-paginator-forward hx-btn hx-btn-invisible')
+  forward.append('i').class('hx-icon hx-icon-chevron-right')
+  forward.on 'click', 'hx.data-table', => if not forward.classed('hx-data-table-btn-disabled') then table.page(table.page()+1)
+
+  [container, picker]
+
+# pageSizeOptions select
+createPageSizeBlock= (table, options) ->
+  container = hx.detached('div').class('hx-data-table-page-size')
+
+  container.append('span').text(options.rowsPerPageText + ': ')
+
+  node = container.append('button').class('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node()
+  picker = new hx.Picker(node, { dropdownOptions: { align: 'rbrt' } })
+    .on 'change', 'hx.data-table', (d) ->
+      if d.cause is 'user'
+        table.pageSize(d.value.value, undefined, 'user')
+        table.page(1, undefined, 'user')
+
+  [container, picker]
+
+spacer = -> hx.detached('div').class('hx-data-table-spacer')
+
+createAdvancedSearchView = (selection, dataTable, options) ->
+  # Render individual row
+  advancedSearchRowEnter = (filterGroup, filterGroupIndex) ->
+    (filterRow, index, trueIndex) ->
+      typePickerOptions =
+        items: [
+          { text: hx.userFacingText('dataTable', 'and'), value: 'and' }
+          { text: hx.userFacingText('dataTable', 'or'), value: 'or' }
+        ]
+
+      typePickerSel = hx.picker(typePickerOptions)
+        .classed('hx-data-table-advanced-search-type hx-section hx-fixed', true)
+
+      typePickerSel.component()
+        .on 'change', (data) ->
+          if data.cause is 'user'
+            prevFilters = dataTable.advancedSearch()
+            [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+
+            newFilters = if data.value.value is 'or'
+              [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
+              [leftFilterGroups..., leftFilters, [filter, rightFilters...], rightFilterGroups...]
+            else
+              [leftAllButLast..., leftLast] = leftFilterGroups
+              [leftAllButLast..., [leftLast..., filterGroup...], rightFilterGroups...]
+
+            dataTable.advancedSearch(newFilters)
+
+      anyColumn = {
+        text: options.anyColumnText
+        value: 'any'
+        anyColumn: true
+      }
+
+      columnItems = filterRow.headers.map (header) ->
+        value: header.id
+        orig: header
+
+      columnRenderer = (element, cell) ->
+        if cell.anyColumn then hx.select(element).text(cell.text)
+        else columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(element, cell.orig, filterRow.headers)
+
+      columnPickerOptions =
+        items: [anyColumn, columnItems...]
+        renderer: columnRenderer
+
+      columnPickerSel = hx.picker(columnPickerOptions)
+        .classed('hx-data-table-advanced-search-column hx-section hx-fixed', true)
+
+      columnPickerSel.component()
+        .on 'change', (data) ->
+          if data.cause is 'user'
+            prevFilters = dataTable.advancedSearch()
+            [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+            [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
+            newFilter = hx.merge(filter, {
+              column: data.value.value
+            })
+            dataTable.advancedSearch([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
+
+      debouncedInput = hx.debounce 200, (e) ->
+        prevFilters = dataTable.advancedSearch()
+        [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+        [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
+        newFilter = hx.merge(filter, {
+          term: e.target.value
+        })
+        dataTable.advancedSearch([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
+
+      termInput = hx.detached('input').attr('placeholder', options.advancedSearchPlaceholder)
+        .class('hx-data-table-advanced-search-input hx-section')
+        .attr('required', 'required')
+        .on 'input', debouncedInput
+
+      removeBtn = hx.button({context: 'negative'}).classed('hx-data-table-advanced-search-remove hx-btn-invert', true)
+        .add(hx.icon({class: 'hx-icon hx-icon-close'}))
+        .on 'click', ->
+          prevFilters = dataTable.advancedSearch()
+          [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
+          [leftFilters, _, rightFilters] = splitArray(filterGroup, trueIndex)
+
+          newFilters = if trueIndex is 0 and filterGroupIndex is 0
+            [rightFilters, rightFilterGroups...]
+          else if trueIndex is 0
+            [leftFilterGroup..., leftFilterGroupLast] = leftFilterGroups
+            [_, filters...] = filterGroup
+            [leftFilterGroup..., [leftFilterGroupLast..., filters...], rightFilterGroups...]
+          else
+            [leftFilterGroups..., [leftFilters..., rightFilters...], rightFilterGroups...]
+
+          filterToUse = newFilters.filter((group) => group.length)
+
+          dataTable.advancedSearch(if filterToUse.length then filterToUse else undefined)
+
+      @append('div').class('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width')
+        .add(typePickerSel)
+        .add(columnPickerSel)
+        .add(termInput)
+        .add(removeBtn)
+        .node()
+
+  advancedSearchRowUpdate = ({term, column}, element, index) ->
+    filterRowSel = hx.select(element)
+
+    validContext = if not term then 'negative' else undefined
+
+    filterRowSel.select('.hx-data-table-advanced-search-type')
+      .component().value(if index is 0 then 'or' else 'and')
+
+    filterRowSel.select('.hx-data-table-advanced-search-column')
+      .component().value(column or 'any')
+
+    filterRowSel.select('.hx-data-table-advanced-search-input')
+      .value(term or '')
+
+  # Render grouped filters
+  advancedSearchGroupEnter = (dataTable) ->
+    (filterGroup, index, trueIndex) ->
+      filterGroupSel = hx.detached('div').class('hx-data-table-advanced-search-filter-group')
+      filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter')
+          .enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable))
+          .update(advancedSearchRowUpdate)
+
+      hx.component.register(filterGroupSel.node(), {
+        filterGroupView
+      })
+      @append(filterGroupSel).node()
+
+  advancedSearchGroupUpdate = (filterGroup, element, index) ->
+    hx.component(element).filterGroupView.apply(filterGroup)
+
+  selection.view('.hx-data-table-advanced-search-filter-group')
+    .enter(advancedSearchGroupEnter(this))
+    .update(advancedSearchGroupUpdate)
+
 
 class DataTable extends hx.EventEmitter
   constructor: (selector, options) ->
@@ -26,8 +218,12 @@ class DataTable extends hx.EventEmitter
       compact: 'auto'             # 'auto', true, false
       displayMode: 'paginate'     # 'paginate', 'all'
       feed: undefined
+      showSearchAboveTable: false
       filter: undefined
       filterEnabled: true
+      showAdvancedSearch: false
+      advancedSearchEnabled: false
+      advancedSearch: undefined
       pageSize: 15
       pageSizeOptions: undefined  # supply an array of numbers to show the user
       retainHorizontalScrollOnRender: true
@@ -59,100 +255,184 @@ class DataTable extends hx.EventEmitter
       searchPlaceholder: hx.userFacingText('dataTable','search')
       selectedRowsText: hx.userFacingText('dataTable', 'selectedRows')
       sortByText: hx.userFacingText('dataTable','sortBy')
+
+      addFilterText: hx.userFacingText('dataTable', 'addFilter')
+      clearFiltersText: hx.userFacingText('dataTable', 'clearFilters')
+      anyColumnText: hx.userFacingText('dataTable', 'anyColumn')
+
+      advancedSearchText: hx.userFacingText('dataTable','advancedSearch')
+      advancedSearchPlaceholder: hx.userFacingText('dataTable', 'search')
     }, options)
 
-    selection = hx.select(selector).classed('hx-data-table', true)
-    content = selection.append('div').class('hx-data-table-content')
-    statusBar = selection.append('div').class('hx-data-table-status-bar')
-    footer = selection.append('div').class('hx-data-table-footer')
-
     resolvedOptions.pageSize = Math.min resolvedOptions.pageSize, 1000
+    resolvedOptions.advancedSearchEnabled = true if resolvedOptions.advancedSearch
+    resolvedOptions.showAdvancedSearch = true if resolvedOptions.advancedSearchEnabled
+
+    selection = hx.select(selector).classed('hx-data-table', true)
+    content = hx.detached('div').class('hx-data-table-content')
+
+    # loading div
+    loadingDiv = hx.detached('div').class('hx-data-table-loading')
+      .add(hx.detached('div').class('hx-data-table-loading-inner')
+        .add(hx.detached('div').class('hx-spinner'))
+        .add(hx.detached('span').text(' ' + resolvedOptions.loadingText)))
+
+    statusBar = hx.detached('div').class('hx-data-table-status-bar')
+
+    statusBarText = hx.detached('span').class('hx-data-table-status-bar-text')
+
+    statusBarClear = hx.detached('span').class('hx-data-table-status-bar-clear')
+      .text(" (#{resolvedOptions.clearSelectionText})")
+      .on 'click', 'hx.data-table', =>
+        @_.selectedRows.clear()
+        selection.select('.hx-data-table-content').selectAll('.hx-data-table-row-selected').classed('hx-data-table-row-selected', false)
+        @updateSelected()
+        @emit 'selectedrowsclear'
+
+    controlPanelCompact = hx.detached('div').class('hx-data-table-control-panel-compact')
+
+    controlPanelCompactToggle = hx.button().classed('hx-data-table-control-panel-compact-toggle hx-btn-invisible', true)
+      .add(hx.icon({class: 'hx-icon hx-icon-bars'}))
+      .on 'click', ->
+        toggleElem = controlPanel
+        if toggleElem.classed('hx-data-table-compact-hide')
+          toggleElem.classed('hx-data-table-compact-hide', false)
+            .style('height', '0px')
+            .morph().with('expandv', 150)
+            .then ->
+              controlPanelCompact.classed('hx-data-table-control-panel-compact-open', true)
+            .go()
+        else
+          toggleElem.morph().with('collapsev', 50)
+            .then ->
+              toggleElem.classed('hx-data-table-compact-hide', true)
+              controlPanelCompact.classed('hx-data-table-control-panel-compact-open', false)
+            .thenStyle('display', '')
+            .go()
+
+    controlPanel = hx.detached('div').class('hx-data-table-control-panel hx-data-table-compact-hide')
+    controlPanelInner = hx.detached('div').class('hx-data-table-control-panel-inner')
+
+    # compact sort - always on the page, only visible in compact mode (so we can just change the class and everything will work)
+    compactSort = hx.detached('div').class('hx-data-table-sort')
+      .classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled)
+      .add(hx.detached('span').text(resolvedOptions.sortByText + ': '))
+
+    sortColPicker = new hx.Picker(compactSort.append('button').class('hx-btn hx-btn-invisible').node())
+    sortColPicker.on 'change', 'hx.data-table', (d) =>
+      if d.cause is 'user' then @sort({column: sortColPicker.value().column, direction: sortColPicker.value().direction})
+
+    filterContainer = hx.detached('div').class('hx-data-table-filter-container')
 
     onInput = hx.debounce 200, => @filter(filterInput.value(), undefined, 'user')
 
-    filterInput = footer.append('input').class('hx-data-table-filter-control')
+    filterInput = hx.detached('input').class('hx-data-table-filter')
       .attr('placeholder', resolvedOptions.searchPlaceholder)
       .classed('hx-data-table-filter-visible', resolvedOptions.filterEnabled)
       .on 'input', 'hx.data-table', onInput
 
-    # loading div
-    selection.append('div').class('hx-data-table-loading')
-      .append('div').class('hx-data-table-loading-inner')
-        .append('div').class('hx-spinner')
-        .insertAfter('span').text(' ' + resolvedOptions.loadingText)
+    advancedSearchContainer = hx.detached('div').class('hx-data-table-advanced-search-container')
 
-    # Create the status bar text span and the clear button
-    statusBar.append('span').class('hx-data-table-status-bar-text')
-      .insertAfter('span').class('hx-data-table-status-bar-clear').text(" (#{resolvedOptions.clearSelectionText})")
-        .on 'click', 'hx.data-table', =>
-          @_.selectedRows.clear()
-          selection.select('.hx-data-table-content').selectAll('.hx-data-table-row-selected').classed('hx-data-table-row-selected', false)
-          @updateSelected()
-          @emit 'selectedrowsclear'
+    advancedSearchToggle = hx.button()
+      .class('hx-data-table-advanced-search-toggle hx-btn hx-btn-invisible')
+      .text(resolvedOptions.advancedSearchText)
 
-    # control panel / footer section
+    advancedSearchToggleButton = new hx.Toggle(advancedSearchToggle.node())
+    advancedSearchToggleButton.on 'change', (data) => @advancedSearchEnabled(data)
 
-    # compact sort - always on the page, only visible in compact mode (so we can just change the class and everything will work)
-    sortDiv = footer.append('div').class('hx-data-table-sort-control')
-      .classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled)
-    sortDiv.append('span').text(resolvedOptions.sortByText + ': ')
-    sortColPicker = new hx.Picker(sortDiv.append('button').class('hx-btn hx-btn-invisible').node())
-    sortColPicker.on 'change', 'hx.data-table', (d) =>
-      if d.cause is 'user' then @sort({column: sortColPicker.value().column, direction: sortColPicker.value().direction})
+    advancedSearch = hx.detached('div').class('hx-data-table-advanced-search')
+    advancedSearchView = createAdvancedSearchView(advancedSearch, this, resolvedOptions)
 
-    # spacer to push other content to the right hand side of the footer
-    footer.append('div').class('hx-data-table-footer-spacer')
+    advancedSearchButtons = hx.detached('div').class('hx-data-table-advanced-search-buttons')
 
-    # pagination block (the page selector and the rows per page selector)
-    paginationContainer = footer.append('div').class('hx-data-table-pagination-block')
+    addFilter = =>
+      currentFilters = @advancedSearch() or [[]]
+      [previousFilterGroups..., lastFilterGroup] = currentFilters
+      newLastFilterGroup = [lastFilterGroup..., {
+        column: 'any',
+        term: ''
+      }]
+      @advancedSearch([previousFilterGroups..., newLastFilterGroup])
 
+    clearFilters = => @advancedSearch(undefined)
 
-    # pagination select
-    pagePickerContainer = paginationContainer.append('div').class('hx-data-table-paginator')
+    advancedSearchAddFilterButton = hx.button({context: 'positive'})
+      .classed('hx-data-table-advanced-search-add-filter hx-data-table-advanced-search-button hx-btn-invert', true)
+      .add(hx.icon({class: 'hx-data-table-advanced-search-icon hx-icon hx-icon-plus hx-text-positive'}))
+      .add(hx.detached('span').text(resolvedOptions.addFilterText))
+      .on 'click', addFilter
 
-    pagePickerNode = pagePickerContainer.append('button').class('hx-data-table-pagination-picker hx-btn hx-btn-invisible').node()
-    pagePicker = new hx.Picker(pagePickerNode, { dropdownOptions: { align: 'rbrt' } })
-      .on 'change', 'hx.data-table', (d) =>
-        if d.cause is 'user'
-          @page(d.value.value, undefined, d.cause)
+    advancedSearchClearFilterButton = hx.button({context: 'negative'})
+      .classed('hx-data-table-advanced-search-clear-filters hx-data-table-advanced-search-button hx-btn-invert', true)
+      .add(hx.icon({class: 'hx-data-table-advanced-search-icon hx-icon hx-icon-close hx-text-negative'}))
+      .add(hx.detached('span').text(resolvedOptions.clearFiltersText))
+      .on 'click', clearFilters
 
-    pagePickerTotalRows = pagePickerContainer.append('span').class('hx-data-table-paginator-total-rows')
+    # We create multiple copies of these to show in different places
+    # This makes it easier to change the UI as we can show/hide instead of moving them
+    [pageSize, pageSizePicker] = createPageSizeBlock(this, resolvedOptions)
+    [pageSizeBottom, pageSizePickerBottom] = createPageSizeBlock(this, resolvedOptions)
 
-    pagePickerBack = pagePickerContainer.append('button').class('hx-data-table-paginator-back hx-btn hx-btn-invisible')
-    pagePickerBack.append('i').class('hx-icon hx-icon-chevron-left')
-    pagePickerBack.on 'click', 'hx.data-table', => if not pagePickerBack.classed('hx-data-table-btn-disabled') then @page(@page()-1)
+    [pagination, pagePicker] = createPaginationBlock(this)
+    [paginationBottom, pagePickerBottom] = createPaginationBlock(this)
+    [paginationCompact, pagePickerCompact] = createPaginationBlock(this)
 
-    pagePickerForward = pagePickerContainer.append('button').class('hx-data-table-paginator-forward hx-btn hx-btn-invisible')
-    pagePickerForward.append('i').class('hx-icon hx-icon-chevron-right')
-    pagePickerForward.on 'click', 'hx.data-table', => if not pagePickerForward.classed('hx-data-table-btn-disabled') then @page(@page()+1)
+    # The main pagination is hidden as the compact control panel contains a version of it
+    pagination.classed('hx-data-table-compact-hide', true)
 
+    controlPanelBottom = hx.detached('div').class('hx-data-table-control-panel-bottom')
 
-    # pageSizeOptions select
-    pageSizeContainer = paginationContainer.append('div').class('hx-data-table-page-size')
-
-    pageSizeContainer.append('span').text(resolvedOptions.rowsPerPageText + ': ')
-
-    pageSizeNode = pageSizeContainer.append('button').class('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node()
-    pageSizePicker = new hx.Picker(pageSizeNode, { dropdownOptions: { align: 'rbrt' } })
-      .on 'change', 'hx.data-table', (d) =>
-        if d.cause is 'user'
-          @pageSize(d.value.value, undefined, 'user')
-          @page(1, undefined, 'user')
-
+    # Create the structure in one place
+    # Some entities still make sense to be built individually (e.g. the loading div)
+    selection
+      .add(content)
+      .add(statusBar
+        .add(statusBarText)
+        .add(statusBarClear))
+      # Control panel displayed at the top for compact mode
+      .add(controlPanelCompact
+        .add(paginationCompact)
+        .add(spacer())
+        .add(controlPanelCompactToggle))
+      # Main control panel - contains all the components
+      .add(controlPanel
+        .add(controlPanelInner
+          .add(compactSort)
+          .add(pagination)
+          .add(pageSize)
+          .add(spacer())
+          .add(filterContainer
+            .add(advancedSearchToggle)
+            .add(filterInput)))
+        # The advanced search container isn't in the main control panel as it is easier to style outside
+        .add(advancedSearchContainer
+          .add(advancedSearch)
+          .add(advancedSearchButtons
+            .add(advancedSearchAddFilterButton)
+            .add(advancedSearchClearFilterButton))))
+      # Bottom control panel - shown in compact mode and when the search is at the top
+      .add(controlPanelBottom
+        .add(spacer())
+        .add(pageSizeBottom)
+        .add(paginationBottom))
+      # Add the loading div last - helps keep it on top of everything
+      .add(loadingDiv)
 
     # 'private' variables
     @_ = {
       selection: selection
       options: resolvedOptions
       page: 1
-      pagePicker: pagePicker
-      pageSizePicker: pageSizePicker
+      pagePickers: [pagePicker, pagePickerCompact, pagePickerBottom]
+      pageSizePickers: [pageSizePicker, pageSizePickerBottom]
       statusBar: statusBar
       sortColPicker: sortColPicker
       selectedRows: new hx.Set   # holds the ids of the selected rows
       expandedRows: new hx.Set
       renderedCollapsibles: {}
       compactState: (resolvedOptions.compact is 'auto' and selection.width() < collapseBreakPoint) or resolvedOptions.compact is true
+      advancedSearchView: advancedSearchView
+      advancedSearchToggleButton: advancedSearchToggleButton
     }
 
     # responsive page resize when compact is 'auto'
@@ -200,6 +480,10 @@ class DataTable extends hx.EventEmitter
   displayMode: option('displayMode')
   feed: option('feed')
   filter: option('filter')
+  advancedSearch: option('advancedSearch')
+  showAdvancedSearch: option('showAdvancedSearch')
+  advancedSearchEnabled: option('advancedSearchEnabled')
+  showSearchAboveTable: option('showSearchAboveTable')
   filterEnabled: option('filterEnabled')
   noDataMessage: option('noDataMessage')
   pageSize: option('pageSize')
@@ -320,14 +604,8 @@ class DataTable extends hx.EventEmitter
     selection = @_.selection
     options = @_.options
 
-    selection.select('.hx-data-table-pagination-block').classed('hx-data-table-pagination-block-visible', options.displayMode is 'paginate')
-
     # some utility functions
-    getColumnOption = (name, id) ->
-      if options.columns isnt undefined and options.columns[id] isnt undefined and options.columns[id][name] isnt undefined
-        options.columns[id][name]
-      else
-        options[name]
+    getColumnOption = (name, id) -> columnOptionLookup(options, name, id)
 
     rowToArray = (headers, obj) -> headers.map (header) -> obj.cells[header.id]
 
@@ -341,14 +619,40 @@ class DataTable extends hx.EventEmitter
     # make the loading div visible
     selection.select('.hx-data-table-loading').style('display', '')
 
-    selection.select('.hx-data-table-filter-control')
-      .classed('hx-data-table-filter-visible', options.filterEnabled)
+    advancedSearchVisibleAndEnabled = (not options.filterEnabled or options.showAdvancedSearch) and options.advancedSearchEnabled
+
+    selection.select('.hx-data-table-filter')
+      .classed('hx-data-table-filter-visible', options.filterEnabled and not advancedSearchVisibleAndEnabled)
+
+    @_.advancedSearchToggleButton.value(options.advancedSearchEnabled)
+
+    selection.select('.hx-data-table-advanced-search-toggle')
+      .classed('hx-data-table-advanced-search-visible', options.filterEnabled and options.showAdvancedSearch)
+
+    selection.select('.hx-data-table-advanced-search-container')
+      .classed('hx-data-table-advanced-search-visible', advancedSearchVisibleAndEnabled)
+
+    selection.select('.hx-data-table-control-panel')
+      .classed('hx-data-table-filter-enabled', options.filterEnabled)
+
+    showCompactControlPanelToggle = options.filterEnabled or options.sortEnabled or options.advancedSearchEnabled or options.pageSizeOptions?.length
+
+    selection.select('.hx-data-table-control-panel-compact-toggle')
+      .classed('hx-data-table-control-panel-compact-toggle-visible', showCompactControlPanelToggle)
 
     # load in the data needed
     # XXX: how much of this could be split out so it's not re-defined every time render is called?
     feed.headers (headers) =>
+      if advancedSearchVisibleAndEnabled
+        currentFilters = @advancedSearch() or []
+        @_.advancedSearchView.apply currentFilters.filter((x) -> x.length).map (filterGroup) ->
+          filterGroup.map (filterRow) ->
+            hx.merge(filterRow, {
+              headers,
+              getColumnOption
+            })
 
-      selection.select('.hx-data-table-sort-control')
+      selection.select('.hx-data-table-sort')
         .classed('hx-data-table-sort-visible', options.sortEnabled or headers.some((header) -> getColumnOption('sortEnabled', header.id)))
 
       feed.totalCount (totalCount) =>
@@ -361,19 +665,29 @@ class DataTable extends hx.EventEmitter
 
         selection.classed('hx-data-table-infinite', totalCount is undefined)
 
-        feed.rows {start: start, end: end, sort: @sort(), filter: @filter()}, ({rows, filteredCount}) =>
+        range = {
+          start: start,
+          end: end,
+          sort: @sort(),
+          filter: @filter(),
+          advancedSearch: @advancedSearch(),
+          useAdvancedSearch: options.showAdvancedSearch and options.advancedSearchEnabled
+        }
+
+        feed.rows range, ({rows, filteredCount}) =>
           if options.displayMode is 'paginate'
+            multiPage = false
             if filteredCount is undefined
               @_.numPages = undefined
               numText = (start+1) + ' - ' + (end+1)
-              selection.select('.hx-data-table-paginator').classed('hx-data-table-multi-page', true)
+              multiPage = true
             else
 
               @_.numPages = Math.max(1, Math.ceil(filteredCount / options.pageSize))
 
               if @page() > @_.numPages then @page(@_.numPages)
 
-              selection.select('.hx-data-table-paginator').classed('hx-data-table-multi-page', @_.numPages > 1)
+              multiPage = @_.numPages > 1
 
               if filteredCount > 0 and @_.numPages > 1
                 numText = 'of ' + filteredCount
@@ -382,15 +696,26 @@ class DataTable extends hx.EventEmitter
                   text: (num + 1 - options.pageSize) + ' - ' + Math.min(num, filteredCount) # e.g. 1 - 15
                   value: i
 
-                @_.pagePicker
-                  .items(items)
-                  .value(@page())
+                @_.pagePickers.forEach (picker) =>
+                  picker
+                    .items(items)
+                    .value(@page())
 
-            selection.select('.hx-data-table-paginator-total-rows').text(numText or '')
+            selection.selectAll('.hx-data-table-paginator').classed('hx-data-table-paginator-visible', multiPage)
 
-            selection.select('.hx-data-table-paginator-back').classed('hx-data-table-btn-disabled', @page() is 1)
-            selection.select('.hx-data-table-paginator-forward').classed('hx-data-table-btn-disabled', @page() is @_.numPages)
+            selection.selectAll('.hx-data-table-paginator-total-rows').text(numText or '')
 
+            selection.selectAll('.hx-data-table-paginator-back').classed('hx-data-table-btn-disabled', @page() is 1)
+            selection.selectAll('.hx-data-table-paginator-forward').classed('hx-data-table-btn-disabled', @page() is @_.numPages)
+
+          selection.select('.hx-data-table-control-panel-compact')
+            .classed('hx-data-table-control-panel-compact-visible', multiPage or showCompactControlPanelToggle)
+
+          selection.select('.hx-data-table-control-panel-bottom')
+            .classed('hx-data-table-control-panel-bottom-visible', multiPage or options.pageSizeOptions?.length)
+
+          selection.select('.hx-data-table-control-panel')
+            .classed('hx-data-table-control-panel-visible', multiPage or showCompactControlPanelToggle)
 
           if headers.some((header) -> getColumnOption('sortEnabled', header.id))
             currentSort = (@sort() or {})
@@ -423,7 +748,7 @@ class DataTable extends hx.EventEmitter
           # populate the page size picker if there are options set
           if filteredCount isnt undefined and filteredCount > 0
             selectPageSize = options.pageSizeOptions? and options.pageSizeOptions.length > 0
-            selection.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size', selectPageSize)
+            selection.selectAll('.hx-data-table-page-size').classed('hx-data-table-page-size-visible', selectPageSize)
 
             if selectPageSize
               if options.pageSizeOptions.indexOf(options.pageSize) is -1
@@ -433,9 +758,10 @@ class DataTable extends hx.EventEmitter
                 .sort(hx.sort.compare)
                 .map((item) -> {text: item, value: item})
 
-              @_.pageSizePicker
-                .items(pageSizeOptions)
-                .value(options.pageSize)
+              @_.pageSizePickers.forEach (picker) ->
+                picker
+                  .items(pageSizeOptions)
+                  .value(options.pageSize)
 
           # build the grouped header
           if headers.some((header) -> header.groups?)
@@ -692,7 +1018,9 @@ class DataTable extends hx.EventEmitter
           # remove the old content div, and slot in the new one
           selection.select('.hx-data-table-content').insertAfter(container)
           selection.select('.hx-data-table-content').remove()
+
           selection.classed('hx-data-table-compact', ((options.compact is 'auto') and (selection.width() < collapseBreakPoint)) or (options.compact is true))
+            .classed('hx-data-table-show-search-above-content', options.showSearchAboveTable)
 
           # set up the sticky headers
           stickFirstColumn = options.selectEnabled or options.collapsibleRenderer?
@@ -727,18 +1055,40 @@ class DataTable extends hx.EventEmitter
   There are predefined feeds for objects and urls.
 
 ###
+whitespaceSplitRegex = /\s+/
+stripLeadingAndTrailingWhitespaceRegex = /^\s+|\s+$/g
+
+getRowSearchTerm = (cellValueLookup, row) ->
+  (v for k, v of row.cells).map(cellValueLookup).join(' ').toLowerCase()
+
+defaultTermLookup = (term, rowSearchTerm) ->
+  arr = term.replace(stripLeadingAndTrailingWhitespaceRegex,'')
+    .split whitespaceSplitRegex
+  validPart = hx.find arr, (part) -> ~rowSearchTerm.indexOf part
+  hx.defined validPart
+
+getAdvancedSearchFilter = (cellValueLookup = hx.identity, termLookup = defaultTermLookup) ->
+  (filters, row) ->
+    rowSearchTerm = getRowSearchTerm(cellValueLookup, row)
+    # If term is empty this will return false
+    validFilters = hx.find filters, (groupedFilters) ->
+      invalidFilter = hx.find groupedFilters, (filter) ->
+        searchTerm = if filter.column is 'any' then rowSearchTerm else (cellValueLookup(row.cells[filter.column]) + '').toLowerCase()
+        not termLookup filter.term.toLowerCase(), searchTerm
+      not hx.defined invalidFilter
+    hx.defined validFilters
 
 objectFeed = (data, options) ->
   options = hx.merge({
-    filter: (term, row) ->
-      rowSearchTerm = (v for k, v of row.cells).join(' ').toLowerCase() # this bit can be cached for more speedy filters
-      for part in term.toLowerCase().split(' ')
-        if rowSearchTerm.indexOf(part) is -1 then return false
-      return true
-    #XXX: should this be hx.sort.compare?
+    cellValueLookup: hx.identity
+    termLookup: defaultTermLookup
+
     #XXX: should this provide more information - like the column id being sorted on?
-    compare: (c1, c2) -> if c1 > c2 then 1 else -1
+    compare: hx.sort.compare
   }, options)
+
+  options.filter ?= (term, row) -> options.termLookup(term.toLowerCase(), getRowSearchTerm(options.cellValueLookup, row))
+  options.advancedSearch ?= getAdvancedSearchFilter(options.cellValueLookup, options.termLookup)
 
   # cached values
   filtered = undefined
@@ -756,10 +1106,19 @@ objectFeed = (data, options) ->
       if range.sort?.column isnt sortCacheTerm.column
         filtered = undefined
 
-      if filtered is undefined or filterCacheTerm isnt range.filter
-        filtered = if range.filter
+      if range.useAdvancedSearch
+        filtered = if range.advancedSearch?.length and (filtered is undefined or filterCacheTerm isnt range.advancedSearch)
+          data.rows.filter((row) -> options.advancedSearch(range.advancedSearch, row))
+        else
+          data.rows.slice()
+
+        filterCacheTerm = range.advancedSearch
+        sorted = undefined
+      else
+        filtered =  if range.filter and (filtered is undefined or filterCacheTerm isnt range.filter)
           data.rows.filter((row) -> options.filter(range.filter, row))
-        else data.rows.slice()
+        else
+          data.rows.slice()
         filterCacheTerm = range.filter
         sorted = undefined
 
@@ -767,7 +1126,6 @@ objectFeed = (data, options) ->
         sorted = if range.sort and range.sort.column
           direction = if range.sort.direction is 'asc' then 1 else -1
           column = range.sort.column
-          filtered.sort (r1, r2) -> direction * options.compare(r1.cells[column], r2.cells[column])
           filtered.sort (r1, r2) -> direction * options.compare(r1.cells[column], r2.cells[column])
           filtered
         else filtered
@@ -807,7 +1165,7 @@ urlFeed = (url, options) ->
 
   jsonCallback = (cb) ->
     (err, value) ->
-      console.error(err) if err
+      hx.consoleWarning(err) if err
       cb(value)
 
   {
@@ -825,8 +1183,6 @@ urlFeed = (url, options) ->
 
 
 
-
-
 hx.DataTable = DataTable
 
 hx.dataTable = (options) ->
@@ -837,3 +1193,4 @@ hx.dataTable = (options) ->
 
 hx.dataTable.objectFeed = objectFeed
 hx.dataTable.urlFeed = urlFeed
+hx.dataTable.getAdvancedSearchFilter = getAdvancedSearchFilter

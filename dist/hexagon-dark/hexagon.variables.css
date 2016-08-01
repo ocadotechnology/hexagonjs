@@ -216,6 +216,11 @@
   --hx-table-row-alt-text-col: white;
   --hx-table-border-col: #E2E1E1;
   
+  --hx-toggle-background-off-col: #495054;
+  --hx-toggle-background-on-col: #495054;
+  --hx-toggle-toggle-off-col: #ABABAB;
+  --hx-toggle-toggle-on-col: #B2BA32;
+  
   --hx-date-time-picker-border-col: #4E5355;
   
   --hx-tag-input-default-col: #393D3D;
@@ -417,11 +422,6 @@
   --hx-tabs-light-text-col: white;
   --hx-tabs-dark-text-col: #3D3D3D;
   --hx-tabs-disabled-text-col: #939393;
-  
-  --hx-toggle-background-off-col: #495054;
-  --hx-toggle-background-on-col: #495054;
-  --hx-toggle-toggle-off-col: #ABABAB;
-  --hx-toggle-toggle-on-col: #B2BA32;
   
   --hx-tree-icon-background-col: #00ADA8;
   --hx-tree-icon-background-hover-col: #1DBFBB;

@@ -1,5 +1,12 @@
-class Meter
+hx.userFacingText({
+  meter: {
+    of: 'of'
+  }
+})
+
+class Meter extends hx.EventEmitter
   constructor: (selector, options) ->
+    super()
 
     hx.component.register(selector, this)
 
@@ -25,13 +32,14 @@ class Meter
       trackerCol: hx.color(hx.theme.plot.positiveCol).alpha(0.5).toString()
       trackerBackgroundCol: hx.color(hx.theme.palette.contrastCol).alpha(0.05).toString()
       markerCol: hx.theme.palette.contrastCol
+      valueFormatter: (value, isTotal) -> if isTotal then "#{hx.userFacingText('meter', 'of')} #{value}" else value
     }, options)
 
     randomId = hx.randomId()
 
     _.selection = selection = hx.select(selector)
       .classed('hx-meter', true)
-      .on 'resize', => @render()
+      .on 'resize', => @render('user')
 
     _.container = container = selection.append('div').class('hx-meter-container')
 
@@ -64,7 +72,7 @@ class Meter
     else
       @_.data
 
-  render: ->
+  render: (cause = 'api') ->
     _ = @_
     options = @options
     data = _.data
@@ -75,19 +83,19 @@ class Meter
     trackerProgress = Math.max(0, Math.min(1, (data.tracker / data.total) or 0))
     markerProgress = Math.max(0, Math.min(1, (data.marker / data.total) or 0))
 
-    _.completedText.text(data.completed)
-    _.totalText.text('of ' + data.total)
+    _.completedText.text(options.valueFormatter(data.completed, false))
+    _.totalText.text(options.valueFormatter(data.total, true))
     _.typeText.text(data.unitText)
 
-    size = Math.min(selection.width(), selection.height()*2)
+    size = Math.min(selection.width(), selection.height() * 2)
 
     # 14 is the standard font size, 150 is the assumed size, and size is the actual
     # size of the container. This scales the fonts appropriately
-    container.style('font-size', Math.round(14 / 150 * (size/2)) + 'px')
+    container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px')
     textOffset = 10 * (size / 2) /  150
 
-    x = size/2
-    y = size/2
+    x = size / 2
+    y = size / 2
 
     markerR2 = 1 + options.markerOuterExtend
 
@@ -162,6 +170,8 @@ class Meter
     else
       _.markerArc.style('visibility', 'hidden')
       _.markerText.style('visibility', 'hidden')
+
+    @emit 'render', { cause, data }
 
     this
 

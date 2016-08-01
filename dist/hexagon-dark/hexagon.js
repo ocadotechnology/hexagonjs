@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.4.2
+ Version: 1.5.0
  Theme: hexagon-dark
  Modules:
    set
@@ -54,11 +54,12 @@
    progress-bar
    plot
    button-group
+   fluid
    picker
    request
    sticky-table-headers
    table
-   fluid
+   toggle
    autocomplete
    autocomplete-picker
    date-time-picker
@@ -88,7 +89,6 @@
    sidebar
    tabs
    time-slider
-   toggle
    tree
 */
 (function(){
@@ -346,6 +346,7 @@ hx.theme = {
     "labelHeaderBorderCol": "#4E5355"
   },
   "buttonGroup": {},
+  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {
@@ -361,7 +362,12 @@ hx.theme = {
     "rowAltTextCol": "white",
     "borderCol": "#E2E1E1"
   },
-  "fluid": {},
+  "toggle": {
+    "backgroundOffCol": "#495054",
+    "backgroundOnCol": "#495054",
+    "toggleOffCol": "#ABABAB",
+    "toggleOnCol": "#B2BA32"
+  },
   "autocomplete": {},
   "autocompletePicker": {},
   "dateTimePicker": {
@@ -593,12 +599,6 @@ hx.theme = {
     "disabledTextCol": "#939393"
   },
   "timeSlider": {},
-  "toggle": {
-    "backgroundOffCol": "#495054",
-    "backgroundOnCol": "#495054",
-    "toggleOffCol": "#ABABAB",
-    "toggleOnCol": "#B2BA32"
-  },
   "tree": {
     "iconBackgroundCol": "#00ADA8",
     "iconBackgroundHoverCol": "#1DBFBB",
@@ -1158,14 +1158,12 @@ hx.minBy = function(values, f) {
   if (f) {
     min = values[0];
     minValue = f(min);
-    for (i = l = 1, ref = values.length - 1; l < ref; i = l += 1) {
+    for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
       v = values[i];
-      if (v !== void 0) {
-        fv = f(v);
-        if (fv !== void 0 && fv < minValue) {
-          min = v;
-          minValue = fv;
-        }
+      fv = f(v);
+      if (minValue === void 0 || (fv !== void 0 && fv < minValue)) {
+        min = v;
+        minValue = fv;
       }
     }
     return min;
@@ -1181,6 +1179,43 @@ hx.minBy = function(values, f) {
   }
 };
 
+hx.argmin = function(values, f) {
+  var i, l, m, minIndex, minValue, ref, ref1, v;
+  if ((values == null) || values.length === 0) {
+    return void 0;
+  }
+  minIndex = 0;
+  minValue = void 0;
+  if (f) {
+    minValue = f(values[0]);
+    if (values.length > 1) {
+      for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
+        v = f(values[i]);
+        if (minValue === void 0 || (v !== void 0 && v < minValue)) {
+          minValue = v;
+          minIndex = i;
+        }
+      }
+    }
+  } else {
+    minValue = values[0];
+    if (values.length > 1) {
+      for (i = m = 1, ref1 = values.length; m < ref1; i = m += 1) {
+        v = values[i];
+        if (minValue === void 0 || (v !== void 0 && v < minValue)) {
+          minValue = v;
+          minIndex = i;
+        }
+      }
+    }
+  }
+  if (minValue === void 0) {
+    return void 0;
+  } else {
+    return minIndex;
+  }
+};
+
 hx.max = function(values) {
   return Math.max.apply(null, values != null ? values.filter(hx.defined) : void 0);
 };
@@ -1193,14 +1228,12 @@ hx.maxBy = function(values, f) {
   if (f) {
     max = values[0];
     maxValue = f(max);
-    for (i = l = 1, ref = values.length - 1; l < ref; i = l += 1) {
+    for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
       v = values[i];
-      if (v !== void 0) {
-        fv = f(v);
-        if (fv !== void 0 && fv > maxValue) {
-          max = v;
-          maxValue = fv;
-        }
+      fv = f(v);
+      if (maxValue === void 0 || (fv !== void 0 && fv > maxValue)) {
+        max = v;
+        maxValue = fv;
       }
     }
     return max;
@@ -1213,6 +1246,43 @@ hx.maxBy = function(values, f) {
       }
     }
     return max;
+  }
+};
+
+hx.argmax = function(values, f) {
+  var i, l, m, maxIndex, maxValue, ref, ref1, v;
+  if ((values == null) || values.length === 0) {
+    return void 0;
+  }
+  maxIndex = 0;
+  maxValue = void 0;
+  if (f) {
+    maxValue = f(values[0]);
+    if (values.length > 1) {
+      for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
+        v = f(values[i]);
+        if (maxValue === void 0 || (v !== void 0 && v > maxValue)) {
+          maxValue = v;
+          maxIndex = i;
+        }
+      }
+    }
+  } else {
+    maxValue = values[0];
+    if (values.length > 1) {
+      for (i = m = 1, ref1 = values.length; m < ref1; i = m += 1) {
+        v = values[i];
+        if (maxValue === void 0 || (v !== void 0 && v > maxValue)) {
+          maxValue = v;
+          maxIndex = i;
+        }
+      }
+    }
+  }
+  if (maxValue === void 0) {
+    return void 0;
+  } else {
+    return maxIndex;
   }
 };
 
@@ -1272,6 +1342,10 @@ hx.isObject = function(obj) {
 
 hx.isBoolean = function(x) {
   return x === true || x === false || typeof x === 'boolean';
+};
+
+hx.isNumber = function(x) {
+  return typeof x === 'number' || x instanceof Number;
 };
 
 hx.isPlainObject = function(obj) {
@@ -3790,7 +3864,7 @@ View = (function() {
         return function(d, i) {
           var element, hedo, isChild, isClassedCorrectly, ret;
           datum = d.datum;
-          element = _this["new"].call(_this.rootSelection, d.datum, i);
+          element = _this["new"].call(_this.rootSelection, datum, i, data.indexOf(datum));
           isChild = _this.rootSelection.node().contains(element);
           if (!isChild) {
             viewEnterWarning(element, _this.selector);
@@ -9106,7 +9180,7 @@ populateLegendSeries = function(selection, series) {
     return selection.node();
   }).update(function(s, e, i) {
     this.select('text').text(hx.isFunction(s.title) ? s.title() : s.name).attr('y', i * 20 + 10).attr('x', 15);
-    return this.select('rect').text(hx.isFunction(s.title) ? s.title() : s.name).attr('y', i * 20).attr('x', 0).attr('width', 10).attr('height', 10).attr('fill', s.legendColor ? s.legendColor() : s.color);
+    return this.select('rect').text(hx.isFunction(s.title) ? s.title() : s.name).attr('y', i * 20).attr('x', 0).attr('width', 10).attr('height', 10).attr('fill', s.legendColor ? s.legendColor() : s.fillColor);
   }).apply(series);
   width = hx.max(selection.selectAll('text').nodes.map(function(node) {
     return node.getComputedTextLength();
@@ -10034,16 +10108,20 @@ Graph = (function(superClass) {
         labelsEnabled: true,
         legendsEnabled: false,
         legendLocation: 'auto',
-        noDataText: hx.userFacingText('plot', 'noData')
+        noDataText: hx.userFacingText('plot', 'noData'),
+        redrawOnResize: true
       }, options),
       axes: new hx.List
     };
     id = hx.randomId();
-    selection = hx.select(this.selector).on('resize', 'hx.plot', (function(_this) {
-      return function() {
-        return _this.render();
-      };
-    })(this));
+    selection = hx.select(this.selector);
+    if (this._.options.redrawOnResize) {
+      selection.on('resize', 'hx.plot', (function(_this) {
+        return function() {
+          return _this.render();
+        };
+      })(this));
+    }
     this.svgTarget = selection.append("svg").attr('class', 'hx-graph');
     defs = this.svgTarget.append('defs');
     this.axesTarget = this.svgTarget.append('g').attr('class', 'hx-axes');
@@ -10210,6 +10288,8 @@ Graph = (function(superClass) {
   Graph.prototype.legendEnabled = optionSetterGetter('legendEnabled');
 
   Graph.prototype.legendLocation = optionSetterGetter('legendLocation');
+
+  Graph.prototype.redrawOnResize = optionSetterGetter('redrawOnResize');
 
   Graph.prototype.axes = function(axes) {
     if (arguments.length > 0) {
@@ -11270,6 +11350,11 @@ PieChart = (function(superClass) {
   function PieChart(selector, options) {
     this.selector = selector;
     PieChart.__super__.constructor.apply(this, arguments);
+    hx.select(this.selector).classed('hx-pie-chart', true).on('resize', 'hx.plot', (function(_this) {
+      return function() {
+        return _this.render();
+      };
+    })(this));
     hx.component.register(this.selector, this);
     this._ = {
       options: hx.merge({
@@ -11695,7 +11780,9 @@ Sparkline = (function() {
     };
     hx.components.clear(selector);
     hx.component.register(selector, this);
-    graph = new hx.Graph(selector);
+    graph = new hx.Graph(selector, {
+      redrawOnResize: options.redrawOnResize
+    });
     if (opts.type !== 'bar' && opts.type !== 'line') {
       hx.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"');
       this.render = function() {
@@ -11732,6 +11819,11 @@ Sparkline = (function() {
   Sparkline.prototype.strokeColor = optionSetterGetter('strokeColor');
 
   Sparkline.prototype.labelRenderer = optionSetterGetter('labelRenderer');
+
+  Sparkline.prototype.redrawOnResize = function(value) {
+    this._.graph.redrawOnResize(value);
+    return optionSetterGetter('redrawOnResize').apply(this, arguments);
+  };
 
   Sparkline.prototype.render = function() {
     var self;
@@ -11783,7 +11875,6 @@ hx.pieChart = function(options) {
   var pieChart, selection;
   selection = hx.detached('div');
   pieChart = new PieChart(selection.node(), options);
-  pieChart.render();
   return selection;
 };
 
@@ -11903,6 +11994,56 @@ hx.buttonGroup = function(options) {
 };
 
 hx.ButtonGroup = ButtonGroup;
+
+})();
+(function(){
+var factory;
+
+factory = function(type, clasz) {
+  return function() {
+    return hx.detached(type)["class"](clasz);
+  };
+};
+
+hx.inputGroup = factory('div', 'hx-input-group');
+
+hx.notice = factory('div', 'hx-notice');
+
+hx.notice.head = factory('div', 'hx-notice-head');
+
+hx.notice.body = factory('div', 'hx-notice-body');
+
+hx.spinner = factory('span', 'hx-spinner');
+
+hx.spinner.wide = factory('div', 'hx-spinner-wide');
+
+hx.icon = function(options) {
+  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
+};
+
+hx.button = function(options) {
+  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
+};
+
+hx.label = function(options) {
+  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
+};
+
+hx.group = factory('div', 'hx-group hx-horizontal');
+
+hx.group.vertical = factory('div', 'hx-group hx-vertical');
+
+hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
+
+hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
+
+hx.section = factory('div', 'hx-section');
+
+hx.section.fixed = factory('div', 'hx-section hx-fixed');
+
+hx.checkbox = function() {
+  return hx.detached('input').attr('type', 'checkbox');
+};
 
 })();
 (function(){
@@ -12536,53 +12677,52 @@ hx.StickyTableHeaders = StickyTableHeaders;
 })();
 
 (function(){
-var factory;
+var Toggle,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-factory = function(type, clasz) {
-  return function() {
-    return hx.detached(type)["class"](clasz);
+Toggle = (function(superClass) {
+  extend(Toggle, superClass);
+
+  function Toggle(selector, options) {
+    Toggle.__super__.constructor.apply(this, arguments);
+    hx.component.register(selector, this);
+    this.options = hx.merge.defined({
+      value: false
+    }, options);
+    this.selection = hx.select(selector).classed('hx-toggle', true);
+    this.toggle = this.selection.append('div')["class"]('hx-toggle-box');
+    this.value(this.options.value);
+    this.selection.on('click', 'hx.toggle', (function(_this) {
+      return function(e) {
+        _this.value(!_this.value());
+        return _this.emit('change', _this.value());
+      };
+    })(this));
+  }
+
+  Toggle.prototype.value = function(val) {
+    if (val != null) {
+      this.options.value = val;
+      this.toggle.classed('hx-toggle-box-on', val);
+      return this;
+    } else {
+      return this.options.value;
+    }
   };
+
+  return Toggle;
+
+})(hx.EventEmitter);
+
+hx.toggle = function(options) {
+  var selection;
+  selection = hx.detached('div');
+  new Toggle(selection.node(), options);
+  return selection;
 };
 
-hx.inputGroup = factory('div', 'hx-input-group');
-
-hx.notice = factory('div', 'hx-notice');
-
-hx.notice.head = factory('div', 'hx-notice-head');
-
-hx.notice.body = factory('div', 'hx-notice-body');
-
-hx.spinner = factory('span', 'hx-spinner');
-
-hx.spinner.wide = factory('div', 'hx-spinner-wide');
-
-hx.icon = function(options) {
-  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
-};
-
-hx.button = function(options) {
-  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
-};
-
-hx.label = function(options) {
-  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
-};
-
-hx.group = factory('div', 'hx-group hx-horizontal');
-
-hx.group.vertical = factory('div', 'hx-group hx-vertical');
-
-hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
-
-hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
-
-hx.section = factory('div', 'hx-section');
-
-hx.section.fixed = factory('div', 'hx-section hx-fixed');
-
-hx.checkbox = function() {
-  return hx.detached('input').attr('type', 'checkbox');
-};
+hx.Toggle = Toggle;
 
 })();
 (function(){
@@ -15119,16 +15259,23 @@ hx.Crumbtrail = Crumbtrail;
 
 })();
 (function(){
-var DataTable, collapseBreakPoint, fullWidthColSpan, objectFeed, urlFeed,
+var DataTable, collapseBreakPoint, columnOptionLookup, createAdvancedSearchView, createPageSizeBlock, createPaginationBlock, defaultTermLookup, fullWidthColSpan, getAdvancedSearchFilter, getRowSearchTerm, objectFeed, spacer, splitArray, stripLeadingAndTrailingWhitespaceRegex, urlFeed, whitespaceSplitRegex,
+  slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
 hx.userFacingText({
   dataTable: {
+    addFilter: 'Add Filter',
+    advancedSearch: 'Advanced Search',
+    and: 'and',
+    anyColumn: 'Any column',
+    clearFilters: 'Clear Filters',
     clearSelection: 'clear selection',
     loading: 'Loading',
     noData: 'No Data',
     noSort: 'No Sort',
+    or: 'or',
     rowsPerPage: 'Rows Per Page',
     search: 'Search',
     selectedRows: '$selected of $total selected.',
@@ -15140,13 +15287,205 @@ fullWidthColSpan = 999;
 
 collapseBreakPoint = 480;
 
+columnOptionLookup = function(options, name, id) {
+  if (options.columns !== void 0 && options.columns[id] !== void 0 && options.columns[id][name] !== void 0) {
+    return options.columns[id][name];
+  } else {
+    return options[name];
+  }
+};
+
+splitArray = function(array, index) {
+  var left, right;
+  left = index === 0 ? [] : array.slice(0, index);
+  right = index === array.length - 1 ? [] : array.slice(index + 1, array.length);
+  return [left, array[index], right];
+};
+
+createPaginationBlock = function(table) {
+  var back, container, forward, picker, pickerNode, totalRows;
+  container = hx.detached('div')["class"]('hx-data-table-paginator');
+  pickerNode = container.append('button')["class"]('hx-data-table-paginator-picker hx-btn hx-btn-invisible').node();
+  picker = new hx.Picker(pickerNode, {
+    dropdownOptions: {
+      align: 'rbrt'
+    }
+  }).on('change', 'hx.data-table', (function(_this) {
+    return function(d) {
+      if (d.cause === 'user') {
+        return table.page(d.value.value, void 0, d.cause);
+      }
+    };
+  })(this));
+  totalRows = container.append('span')["class"]('hx-data-table-paginator-total-rows');
+  back = container.append('button')["class"]('hx-data-table-paginator-back hx-btn hx-btn-invisible');
+  back.append('i')["class"]('hx-icon hx-icon-chevron-left');
+  back.on('click', 'hx.data-table', (function(_this) {
+    return function() {
+      if (!back.classed('hx-data-table-btn-disabled')) {
+        return table.page(table.page() - 1);
+      }
+    };
+  })(this));
+  forward = container.append('button')["class"]('hx-data-table-paginator-forward hx-btn hx-btn-invisible');
+  forward.append('i')["class"]('hx-icon hx-icon-chevron-right');
+  forward.on('click', 'hx.data-table', (function(_this) {
+    return function() {
+      if (!forward.classed('hx-data-table-btn-disabled')) {
+        return table.page(table.page() + 1);
+      }
+    };
+  })(this));
+  return [container, picker];
+};
+
+createPageSizeBlock = function(table, options) {
+  var container, node, picker;
+  container = hx.detached('div')["class"]('hx-data-table-page-size');
+  container.append('span').text(options.rowsPerPageText + ': ');
+  node = container.append('button')["class"]('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node();
+  picker = new hx.Picker(node, {
+    dropdownOptions: {
+      align: 'rbrt'
+    }
+  }).on('change', 'hx.data-table', function(d) {
+    if (d.cause === 'user') {
+      table.pageSize(d.value.value, void 0, 'user');
+      return table.page(1, void 0, 'user');
+    }
+  });
+  return [container, picker];
+};
+
+spacer = function() {
+  return hx.detached('div')["class"]('hx-data-table-spacer');
+};
+
+createAdvancedSearchView = function(selection, dataTable, options) {
+  var advancedSearchGroupEnter, advancedSearchGroupUpdate, advancedSearchRowEnter, advancedSearchRowUpdate;
+  advancedSearchRowEnter = function(filterGroup, filterGroupIndex) {
+    return function(filterRow, index, trueIndex) {
+      var anyColumn, columnItems, columnPickerOptions, columnPickerSel, columnRenderer, debouncedInput, removeBtn, termInput, typePickerOptions, typePickerSel;
+      typePickerOptions = {
+        items: [
+          {
+            text: hx.userFacingText('dataTable', 'and'),
+            value: 'and'
+          }, {
+            text: hx.userFacingText('dataTable', 'or'),
+            value: 'or'
+          }
+        ]
+      };
+      typePickerSel = hx.picker(typePickerOptions).classed('hx-data-table-advanced-search-type hx-section hx-fixed', true);
+      typePickerSel.component().on('change', function(data) {
+        var filter, j, leftAllButLast, leftFilterGroups, leftFilters, leftLast, newFilters, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        if (data.cause === 'user') {
+          prevFilters = dataTable.advancedSearch();
+          ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+          newFilters = data.value.value === 'or' ? ((ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2], ref1), slice.call(leftFilterGroups).concat([leftFilters], [[filter].concat(slice.call(rightFilters))], slice.call(rightFilterGroups))) : ((leftAllButLast = 2 <= leftFilterGroups.length ? slice.call(leftFilterGroups, 0, j = leftFilterGroups.length - 1) : (j = 0, []), leftLast = leftFilterGroups[j++], leftFilterGroups), slice.call(leftAllButLast).concat([slice.call(leftLast).concat(slice.call(filterGroup))], slice.call(rightFilterGroups)));
+          return dataTable.advancedSearch(newFilters);
+        }
+      });
+      anyColumn = {
+        text: options.anyColumnText,
+        value: 'any',
+        anyColumn: true
+      };
+      columnItems = filterRow.headers.map(function(header) {
+        return {
+          value: header.id,
+          orig: header
+        };
+      });
+      columnRenderer = function(element, cell) {
+        if (cell.anyColumn) {
+          return hx.select(element).text(cell.text);
+        } else {
+          return columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(element, cell.orig, filterRow.headers);
+        }
+      };
+      columnPickerOptions = {
+        items: [anyColumn].concat(slice.call(columnItems)),
+        renderer: columnRenderer
+      };
+      columnPickerSel = hx.picker(columnPickerOptions).classed('hx-data-table-advanced-search-column hx-section hx-fixed', true);
+      columnPickerSel.component().on('change', function(data) {
+        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        if (data.cause === 'user') {
+          prevFilters = dataTable.advancedSearch();
+          ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+          ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2];
+          newFilter = hx.merge(filter, {
+            column: data.value.value
+          });
+          return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
+        }
+      });
+      debouncedInput = hx.debounce(200, function(e) {
+        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        prevFilters = dataTable.advancedSearch();
+        ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+        ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2];
+        newFilter = hx.merge(filter, {
+          term: e.target.value
+        });
+        return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
+      });
+      termInput = hx.detached('input').attr('placeholder', options.advancedSearchPlaceholder)["class"]('hx-data-table-advanced-search-input hx-section').attr('required', 'required').on('input', debouncedInput);
+      removeBtn = hx.button({
+        context: 'negative'
+      }).classed('hx-data-table-advanced-search-remove hx-btn-invert', true).add(hx.icon({
+        "class": 'hx-icon hx-icon-close'
+      })).on('click', function() {
+        var _, filterToUse, filters, j, leftFilterGroup, leftFilterGroupLast, leftFilterGroups, leftFilters, newFilters, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        prevFilters = dataTable.advancedSearch();
+        ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+        ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], _ = ref1[1], rightFilters = ref1[2];
+        newFilters = trueIndex === 0 && filterGroupIndex === 0 ? [rightFilters].concat(slice.call(rightFilterGroups)) : trueIndex === 0 ? ((leftFilterGroup = 2 <= leftFilterGroups.length ? slice.call(leftFilterGroups, 0, j = leftFilterGroups.length - 1) : (j = 0, []), leftFilterGroupLast = leftFilterGroups[j++], leftFilterGroups), (_ = filterGroup[0], filters = 2 <= filterGroup.length ? slice.call(filterGroup, 1) : [], filterGroup), slice.call(leftFilterGroup).concat([slice.call(leftFilterGroupLast).concat(slice.call(filters))], slice.call(rightFilterGroups))) : slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat(slice.call(rightFilters))], slice.call(rightFilterGroups));
+        filterToUse = newFilters.filter((function(_this) {
+          return function(group) {
+            return group.length;
+          };
+        })(this));
+        return dataTable.advancedSearch(filterToUse.length ? filterToUse : void 0);
+      });
+      return this.append('div')["class"]('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width').add(typePickerSel).add(columnPickerSel).add(termInput).add(removeBtn).node();
+    };
+  };
+  advancedSearchRowUpdate = function(arg, element, index) {
+    var column, filterRowSel, term, validContext;
+    term = arg.term, column = arg.column;
+    filterRowSel = hx.select(element);
+    validContext = !term ? 'negative' : void 0;
+    filterRowSel.select('.hx-data-table-advanced-search-type').component().value(index === 0 ? 'or' : 'and');
+    filterRowSel.select('.hx-data-table-advanced-search-column').component().value(column || 'any');
+    return filterRowSel.select('.hx-data-table-advanced-search-input').value(term || '');
+  };
+  advancedSearchGroupEnter = function(dataTable) {
+    return function(filterGroup, index, trueIndex) {
+      var filterGroupSel, filterGroupView;
+      filterGroupSel = hx.detached('div')["class"]('hx-data-table-advanced-search-filter-group');
+      filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter').enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable)).update(advancedSearchRowUpdate);
+      hx.component.register(filterGroupSel.node(), {
+        filterGroupView: filterGroupView
+      });
+      return this.append(filterGroupSel).node();
+    };
+  };
+  advancedSearchGroupUpdate = function(filterGroup, element, index) {
+    return hx.component(element).filterGroupView.apply(filterGroup);
+  };
+  return selection.view('.hx-data-table-advanced-search-filter-group').enter(advancedSearchGroupEnter(this)).update(advancedSearchGroupUpdate);
+};
+
 DataTable = (function(superClass) {
   var columnOnlyOption, columnOption, option;
 
   extend(DataTable, superClass);
 
   function DataTable(selector, options) {
-    var content, filterInput, footer, onInput, pagePicker, pagePickerBack, pagePickerContainer, pagePickerForward, pagePickerNode, pagePickerTotalRows, pageSizeContainer, pageSizeNode, pageSizePicker, paginationContainer, randomId, resolvedOptions, selection, sortColPicker, sortDiv, statusBar;
+    var addFilter, advancedSearch, advancedSearchAddFilterButton, advancedSearchButtons, advancedSearchClearFilterButton, advancedSearchContainer, advancedSearchToggle, advancedSearchToggleButton, advancedSearchView, clearFilters, compactSort, content, controlPanel, controlPanelBottom, controlPanelCompact, controlPanelCompactToggle, controlPanelInner, filterContainer, filterInput, loadingDiv, onInput, pagePicker, pagePickerBottom, pagePickerCompact, pageSize, pageSizeBottom, pageSizePicker, pageSizePickerBottom, pagination, paginationBottom, paginationCompact, randomId, ref, ref1, ref2, ref3, ref4, resolvedOptions, selection, sortColPicker, statusBar, statusBarClear, statusBarText;
     DataTable.__super__.constructor.apply(this, arguments);
     hx.component.register(selector, this);
     resolvedOptions = hx.merge({
@@ -15154,8 +15493,12 @@ DataTable = (function(superClass) {
       compact: 'auto',
       displayMode: 'paginate',
       feed: void 0,
+      showSearchAboveTable: false,
       filter: void 0,
       filterEnabled: true,
+      showAdvancedSearch: false,
+      advancedSearchEnabled: false,
+      advancedSearch: void 0,
       pageSize: 15,
       pageSizeOptions: void 0,
       retainHorizontalScrollOnRender: true,
@@ -15191,21 +15534,26 @@ DataTable = (function(superClass) {
       rowsPerPageText: hx.userFacingText('dataTable', 'rowsPerPage'),
       searchPlaceholder: hx.userFacingText('dataTable', 'search'),
       selectedRowsText: hx.userFacingText('dataTable', 'selectedRows'),
-      sortByText: hx.userFacingText('dataTable', 'sortBy')
+      sortByText: hx.userFacingText('dataTable', 'sortBy'),
+      addFilterText: hx.userFacingText('dataTable', 'addFilter'),
+      clearFiltersText: hx.userFacingText('dataTable', 'clearFilters'),
+      anyColumnText: hx.userFacingText('dataTable', 'anyColumn'),
+      advancedSearchText: hx.userFacingText('dataTable', 'advancedSearch'),
+      advancedSearchPlaceholder: hx.userFacingText('dataTable', 'search')
     }, options);
-    selection = hx.select(selector).classed('hx-data-table', true);
-    content = selection.append('div')["class"]('hx-data-table-content');
-    statusBar = selection.append('div')["class"]('hx-data-table-status-bar');
-    footer = selection.append('div')["class"]('hx-data-table-footer');
     resolvedOptions.pageSize = Math.min(resolvedOptions.pageSize, 1000);
-    onInput = hx.debounce(200, (function(_this) {
-      return function() {
-        return _this.filter(filterInput.value(), void 0, 'user');
-      };
-    })(this));
-    filterInput = footer.append('input')["class"]('hx-data-table-filter-control').attr('placeholder', resolvedOptions.searchPlaceholder).classed('hx-data-table-filter-visible', resolvedOptions.filterEnabled).on('input', 'hx.data-table', onInput);
-    selection.append('div')["class"]('hx-data-table-loading').append('div')["class"]('hx-data-table-loading-inner').append('div')["class"]('hx-spinner').insertAfter('span').text(' ' + resolvedOptions.loadingText);
-    statusBar.append('span')["class"]('hx-data-table-status-bar-text').insertAfter('span')["class"]('hx-data-table-status-bar-clear').text(" (" + resolvedOptions.clearSelectionText + ")").on('click', 'hx.data-table', (function(_this) {
+    if (resolvedOptions.advancedSearch) {
+      resolvedOptions.advancedSearchEnabled = true;
+    }
+    if (resolvedOptions.advancedSearchEnabled) {
+      resolvedOptions.showAdvancedSearch = true;
+    }
+    selection = hx.select(selector).classed('hx-data-table', true);
+    content = hx.detached('div')["class"]('hx-data-table-content');
+    loadingDiv = hx.detached('div')["class"]('hx-data-table-loading').add(hx.detached('div')["class"]('hx-data-table-loading-inner').add(hx.detached('div')["class"]('hx-spinner')).add(hx.detached('span').text(' ' + resolvedOptions.loadingText)));
+    statusBar = hx.detached('div')["class"]('hx-data-table-status-bar');
+    statusBarText = hx.detached('span')["class"]('hx-data-table-status-bar-text');
+    statusBarClear = hx.detached('span')["class"]('hx-data-table-status-bar-clear').text(" (" + resolvedOptions.clearSelectionText + ")").on('click', 'hx.data-table', (function(_this) {
       return function() {
         _this._.selectedRows.clear();
         selection.select('.hx-data-table-content').selectAll('.hx-data-table-row-selected').classed('hx-data-table-row-selected', false);
@@ -15213,9 +15561,27 @@ DataTable = (function(superClass) {
         return _this.emit('selectedrowsclear');
       };
     })(this));
-    sortDiv = footer.append('div')["class"]('hx-data-table-sort-control').classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled);
-    sortDiv.append('span').text(resolvedOptions.sortByText + ': ');
-    sortColPicker = new hx.Picker(sortDiv.append('button')["class"]('hx-btn hx-btn-invisible').node());
+    controlPanelCompact = hx.detached('div')["class"]('hx-data-table-control-panel-compact');
+    controlPanelCompactToggle = hx.button().classed('hx-data-table-control-panel-compact-toggle hx-btn-invisible', true).add(hx.icon({
+      "class": 'hx-icon hx-icon-bars'
+    })).on('click', function() {
+      var toggleElem;
+      toggleElem = controlPanel;
+      if (toggleElem.classed('hx-data-table-compact-hide')) {
+        return toggleElem.classed('hx-data-table-compact-hide', false).style('height', '0px').morph()["with"]('expandv', 150).then(function() {
+          return controlPanelCompact.classed('hx-data-table-control-panel-compact-open', true);
+        }).go();
+      } else {
+        return toggleElem.morph()["with"]('collapsev', 50).then(function() {
+          toggleElem.classed('hx-data-table-compact-hide', true);
+          return controlPanelCompact.classed('hx-data-table-control-panel-compact-open', false);
+        }).thenStyle('display', '').go();
+      }
+    });
+    controlPanel = hx.detached('div')["class"]('hx-data-table-control-panel hx-data-table-compact-hide');
+    controlPanelInner = hx.detached('div')["class"]('hx-data-table-control-panel-inner');
+    compactSort = hx.detached('div')["class"]('hx-data-table-sort').classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled).add(hx.detached('span').text(resolvedOptions.sortByText + ': '));
+    sortColPicker = new hx.Picker(compactSort.append('button')["class"]('hx-btn hx-btn-invisible').node());
     sortColPicker.on('change', 'hx.data-table', (function(_this) {
       return function(d) {
         if (d.cause === 'user') {
@@ -15226,67 +15592,73 @@ DataTable = (function(superClass) {
         }
       };
     })(this));
-    footer.append('div')["class"]('hx-data-table-footer-spacer');
-    paginationContainer = footer.append('div')["class"]('hx-data-table-pagination-block');
-    pagePickerContainer = paginationContainer.append('div')["class"]('hx-data-table-paginator');
-    pagePickerNode = pagePickerContainer.append('button')["class"]('hx-data-table-pagination-picker hx-btn hx-btn-invisible').node();
-    pagePicker = new hx.Picker(pagePickerNode, {
-      dropdownOptions: {
-        align: 'rbrt'
-      }
-    }).on('change', 'hx.data-table', (function(_this) {
-      return function(d) {
-        if (d.cause === 'user') {
-          return _this.page(d.value.value, void 0, d.cause);
-        }
-      };
-    })(this));
-    pagePickerTotalRows = pagePickerContainer.append('span')["class"]('hx-data-table-paginator-total-rows');
-    pagePickerBack = pagePickerContainer.append('button')["class"]('hx-data-table-paginator-back hx-btn hx-btn-invisible');
-    pagePickerBack.append('i')["class"]('hx-icon hx-icon-chevron-left');
-    pagePickerBack.on('click', 'hx.data-table', (function(_this) {
+    filterContainer = hx.detached('div')["class"]('hx-data-table-filter-container');
+    onInput = hx.debounce(200, (function(_this) {
       return function() {
-        if (!pagePickerBack.classed('hx-data-table-btn-disabled')) {
-          return _this.page(_this.page() - 1);
-        }
+        return _this.filter(filterInput.value(), void 0, 'user');
       };
     })(this));
-    pagePickerForward = pagePickerContainer.append('button')["class"]('hx-data-table-paginator-forward hx-btn hx-btn-invisible');
-    pagePickerForward.append('i')["class"]('hx-icon hx-icon-chevron-right');
-    pagePickerForward.on('click', 'hx.data-table', (function(_this) {
+    filterInput = hx.detached('input')["class"]('hx-data-table-filter').attr('placeholder', resolvedOptions.searchPlaceholder).classed('hx-data-table-filter-visible', resolvedOptions.filterEnabled).on('input', 'hx.data-table', onInput);
+    advancedSearchContainer = hx.detached('div')["class"]('hx-data-table-advanced-search-container');
+    advancedSearchToggle = hx.button()["class"]('hx-data-table-advanced-search-toggle hx-btn hx-btn-invisible').text(resolvedOptions.advancedSearchText);
+    advancedSearchToggleButton = new hx.Toggle(advancedSearchToggle.node());
+    advancedSearchToggleButton.on('change', (function(_this) {
+      return function(data) {
+        return _this.advancedSearchEnabled(data);
+      };
+    })(this));
+    advancedSearch = hx.detached('div')["class"]('hx-data-table-advanced-search');
+    advancedSearchView = createAdvancedSearchView(advancedSearch, this, resolvedOptions);
+    advancedSearchButtons = hx.detached('div')["class"]('hx-data-table-advanced-search-buttons');
+    addFilter = (function(_this) {
       return function() {
-        if (!pagePickerForward.classed('hx-data-table-btn-disabled')) {
-          return _this.page(_this.page() + 1);
-        }
+        var currentFilters, j, lastFilterGroup, newLastFilterGroup, previousFilterGroups;
+        currentFilters = _this.advancedSearch() || [[]];
+        previousFilterGroups = 2 <= currentFilters.length ? slice.call(currentFilters, 0, j = currentFilters.length - 1) : (j = 0, []), lastFilterGroup = currentFilters[j++];
+        newLastFilterGroup = slice.call(lastFilterGroup).concat([{
+            column: 'any',
+            term: ''
+          }]);
+        return _this.advancedSearch(slice.call(previousFilterGroups).concat([newLastFilterGroup]));
       };
-    })(this));
-    pageSizeContainer = paginationContainer.append('div')["class"]('hx-data-table-page-size');
-    pageSizeContainer.append('span').text(resolvedOptions.rowsPerPageText + ': ');
-    pageSizeNode = pageSizeContainer.append('button')["class"]('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node();
-    pageSizePicker = new hx.Picker(pageSizeNode, {
-      dropdownOptions: {
-        align: 'rbrt'
-      }
-    }).on('change', 'hx.data-table', (function(_this) {
-      return function(d) {
-        if (d.cause === 'user') {
-          _this.pageSize(d.value.value, void 0, 'user');
-          return _this.page(1, void 0, 'user');
-        }
+    })(this);
+    clearFilters = (function(_this) {
+      return function() {
+        return _this.advancedSearch(void 0);
       };
-    })(this));
+    })(this);
+    advancedSearchAddFilterButton = hx.button({
+      context: 'positive'
+    }).classed('hx-data-table-advanced-search-add-filter hx-data-table-advanced-search-button hx-btn-invert', true).add(hx.icon({
+      "class": 'hx-data-table-advanced-search-icon hx-icon hx-icon-plus hx-text-positive'
+    })).add(hx.detached('span').text(resolvedOptions.addFilterText)).on('click', addFilter);
+    advancedSearchClearFilterButton = hx.button({
+      context: 'negative'
+    }).classed('hx-data-table-advanced-search-clear-filters hx-data-table-advanced-search-button hx-btn-invert', true).add(hx.icon({
+      "class": 'hx-data-table-advanced-search-icon hx-icon hx-icon-close hx-text-negative'
+    })).add(hx.detached('span').text(resolvedOptions.clearFiltersText)).on('click', clearFilters);
+    ref = createPageSizeBlock(this, resolvedOptions), pageSize = ref[0], pageSizePicker = ref[1];
+    ref1 = createPageSizeBlock(this, resolvedOptions), pageSizeBottom = ref1[0], pageSizePickerBottom = ref1[1];
+    ref2 = createPaginationBlock(this), pagination = ref2[0], pagePicker = ref2[1];
+    ref3 = createPaginationBlock(this), paginationBottom = ref3[0], pagePickerBottom = ref3[1];
+    ref4 = createPaginationBlock(this), paginationCompact = ref4[0], pagePickerCompact = ref4[1];
+    pagination.classed('hx-data-table-compact-hide', true);
+    controlPanelBottom = hx.detached('div')["class"]('hx-data-table-control-panel-bottom');
+    selection.add(content).add(statusBar.add(statusBarText).add(statusBarClear)).add(controlPanelCompact.add(paginationCompact).add(spacer()).add(controlPanelCompactToggle)).add(controlPanel.add(controlPanelInner.add(compactSort).add(pagination).add(pageSize).add(spacer()).add(filterContainer.add(advancedSearchToggle).add(filterInput))).add(advancedSearchContainer.add(advancedSearch).add(advancedSearchButtons.add(advancedSearchAddFilterButton).add(advancedSearchClearFilterButton)))).add(controlPanelBottom.add(spacer()).add(pageSizeBottom).add(paginationBottom)).add(loadingDiv);
     this._ = {
       selection: selection,
       options: resolvedOptions,
       page: 1,
-      pagePicker: pagePicker,
-      pageSizePicker: pageSizePicker,
+      pagePickers: [pagePicker, pagePickerCompact, pagePickerBottom],
+      pageSizePickers: [pageSizePicker, pageSizePickerBottom],
       statusBar: statusBar,
       sortColPicker: sortColPicker,
       selectedRows: new hx.Set,
       expandedRows: new hx.Set,
       renderedCollapsibles: {},
-      compactState: (resolvedOptions.compact === 'auto' && selection.width() < collapseBreakPoint) || resolvedOptions.compact === true
+      compactState: (resolvedOptions.compact === 'auto' && selection.width() < collapseBreakPoint) || resolvedOptions.compact === true,
+      advancedSearchView: advancedSearchView,
+      advancedSearchToggleButton: advancedSearchToggleButton
     };
     selection.on('resize', 'hx.data-table', (function(_this) {
       return function() {
@@ -15350,6 +15722,14 @@ DataTable = (function(superClass) {
   DataTable.prototype.feed = option('feed');
 
   DataTable.prototype.filter = option('filter');
+
+  DataTable.prototype.advancedSearch = option('advancedSearch');
+
+  DataTable.prototype.showAdvancedSearch = option('showAdvancedSearch');
+
+  DataTable.prototype.advancedSearchEnabled = option('advancedSearchEnabled');
+
+  DataTable.prototype.showSearchAboveTable = option('showSearchAboveTable');
 
   DataTable.prototype.filterEnabled = option('filterEnabled');
 
@@ -15513,7 +15893,7 @@ DataTable = (function(superClass) {
   };
 
   DataTable.prototype.render = function(cb) {
-    var container, feed, getColumnOption, headerRow, options, rowToArray, selection, table, tbody, thead;
+    var advancedSearchVisibleAndEnabled, container, feed, getColumnOption, headerRow, options, ref, rowToArray, selection, showCompactControlPanelToggle, table, tbody, thead;
     if (this._.renderSuppressed) {
       return;
     }
@@ -15524,13 +15904,8 @@ DataTable = (function(superClass) {
     }
     selection = this._.selection;
     options = this._.options;
-    selection.select('.hx-data-table-pagination-block').classed('hx-data-table-pagination-block-visible', options.displayMode === 'paginate');
     getColumnOption = function(name, id) {
-      if (options.columns !== void 0 && options.columns[id] !== void 0 && options.columns[id][name] !== void 0) {
-        return options.columns[id][name];
-      } else {
-        return options[name];
-      }
+      return columnOptionLookup(options, name, id);
     };
     rowToArray = function(headers, obj) {
       return headers.map(function(header) {
@@ -15543,14 +15918,35 @@ DataTable = (function(superClass) {
     tbody = table.append('tbody')["class"]('hx-data-table-body');
     headerRow = thead.append('tr')["class"]('hx-data-table-row');
     selection.select('.hx-data-table-loading').style('display', '');
-    selection.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible', options.filterEnabled);
+    advancedSearchVisibleAndEnabled = (!options.filterEnabled || options.showAdvancedSearch) && options.advancedSearchEnabled;
+    selection.select('.hx-data-table-filter').classed('hx-data-table-filter-visible', options.filterEnabled && !advancedSearchVisibleAndEnabled);
+    this._.advancedSearchToggleButton.value(options.advancedSearchEnabled);
+    selection.select('.hx-data-table-advanced-search-toggle').classed('hx-data-table-advanced-search-visible', options.filterEnabled && options.showAdvancedSearch);
+    selection.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible', advancedSearchVisibleAndEnabled);
+    selection.select('.hx-data-table-control-panel').classed('hx-data-table-filter-enabled', options.filterEnabled);
+    showCompactControlPanelToggle = options.filterEnabled || options.sortEnabled || options.advancedSearchEnabled || ((ref = options.pageSizeOptions) != null ? ref.length : void 0);
+    selection.select('.hx-data-table-control-panel-compact-toggle').classed('hx-data-table-control-panel-compact-toggle-visible', showCompactControlPanelToggle);
     feed.headers((function(_this) {
       return function(headers) {
-        selection.select('.hx-data-table-sort-control').classed('hx-data-table-sort-visible', options.sortEnabled || headers.some(function(header) {
+        var currentFilters;
+        if (advancedSearchVisibleAndEnabled) {
+          currentFilters = _this.advancedSearch() || [];
+          _this._.advancedSearchView.apply(currentFilters.filter(function(x) {
+            return x.length;
+          }).map(function(filterGroup) {
+            return filterGroup.map(function(filterRow) {
+              return hx.merge(filterRow, {
+                headers: headers,
+                getColumnOption: getColumnOption
+              });
+            });
+          }));
+        }
+        selection.select('.hx-data-table-sort').classed('hx-data-table-sort-visible', options.sortEnabled || headers.some(function(header) {
           return getColumnOption('sortEnabled', header.id);
         }));
         return feed.totalCount(function(totalCount) {
-          var end, start;
+          var end, range, start;
           if (options.displayMode === 'paginate') {
             start = (_this.page() - 1) * options.pageSize;
             end = _this.page() * options.pageSize - 1;
@@ -15559,31 +15955,35 @@ DataTable = (function(superClass) {
             end = void 0;
           }
           selection.classed('hx-data-table-infinite', totalCount === void 0);
-          return feed.rows({
+          range = {
             start: start,
             end: end,
             sort: _this.sort(),
-            filter: _this.filter()
-          }, function(arg) {
-            var buildCollapsible, col, column, count, currentSort, filteredCount, groupedRow, headerCheckBox, headerControlBox, headerGroups, i, items, j, l, maxHeaderDepth, num, numText, pageSizeOptions, parent, prevCol, prevParent, ref, ref1, relevantHeaders, row, rows, scrollLeft, scrollTop, selectMulti, selectPageSize, selectRow, sortColumns, stickFirstColumn, stickyOpts, toggleCollapsible, wrapperNode;
+            filter: _this.filter(),
+            advancedSearch: _this.advancedSearch(),
+            useAdvancedSearch: options.showAdvancedSearch && options.advancedSearchEnabled
+          };
+          return feed.rows(range, function(arg) {
+            var buildCollapsible, col, column, count, currentSort, filteredCount, groupedRow, headerCheckBox, headerControlBox, headerGroups, i, items, j, l, maxHeaderDepth, multiPage, num, numText, pageSizeOptions, parent, prevCol, prevParent, ref1, ref2, ref3, relevantHeaders, row, rows, scrollLeft, scrollTop, selectMulti, selectPageSize, selectRow, sortColumns, stickFirstColumn, stickyOpts, toggleCollapsible, wrapperNode;
             rows = arg.rows, filteredCount = arg.filteredCount;
             if (options.displayMode === 'paginate') {
+              multiPage = false;
               if (filteredCount === void 0) {
                 _this._.numPages = void 0;
                 numText = (start + 1) + ' - ' + (end + 1);
-                selection.select('.hx-data-table-paginator').classed('hx-data-table-multi-page', true);
+                multiPage = true;
               } else {
                 _this._.numPages = Math.max(1, Math.ceil(filteredCount / options.pageSize));
                 if (_this.page() > _this._.numPages) {
                   _this.page(_this._.numPages);
                 }
-                selection.select('.hx-data-table-paginator').classed('hx-data-table-multi-page', _this._.numPages > 1);
+                multiPage = _this._.numPages > 1;
                 if (filteredCount > 0 && _this._.numPages > 1) {
                   numText = 'of ' + filteredCount;
                   items = (function() {
-                    var j, ref, results;
+                    var j, ref1, results;
                     results = [];
-                    for (i = j = 1, ref = this._.numPages; j <= ref; i = j += 1) {
+                    for (i = j = 1, ref1 = this._.numPages; j <= ref1; i = j += 1) {
                       num = i * options.pageSize;
                       results.push({
                         text: (num + 1 - options.pageSize) + ' - ' + Math.min(num, filteredCount),
@@ -15592,13 +15992,19 @@ DataTable = (function(superClass) {
                     }
                     return results;
                   }).call(_this);
-                  _this._.pagePicker.items(items).value(_this.page());
+                  _this._.pagePickers.forEach(function(picker) {
+                    return picker.items(items).value(_this.page());
+                  });
                 }
               }
-              selection.select('.hx-data-table-paginator-total-rows').text(numText || '');
-              selection.select('.hx-data-table-paginator-back').classed('hx-data-table-btn-disabled', _this.page() === 1);
-              selection.select('.hx-data-table-paginator-forward').classed('hx-data-table-btn-disabled', _this.page() === _this._.numPages);
+              selection.selectAll('.hx-data-table-paginator').classed('hx-data-table-paginator-visible', multiPage);
+              selection.selectAll('.hx-data-table-paginator-total-rows').text(numText || '');
+              selection.selectAll('.hx-data-table-paginator-back').classed('hx-data-table-btn-disabled', _this.page() === 1);
+              selection.selectAll('.hx-data-table-paginator-forward').classed('hx-data-table-btn-disabled', _this.page() === _this._.numPages);
             }
+            selection.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible', multiPage || showCompactControlPanelToggle);
+            selection.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible', multiPage || ((ref1 = options.pageSizeOptions) != null ? ref1.length : void 0));
+            selection.select('.hx-data-table-control-panel').classed('hx-data-table-control-panel-visible', multiPage || showCompactControlPanelToggle);
             if (headers.some(function(header) {
               return getColumnOption('sortEnabled', header.id);
             })) {
@@ -15643,7 +16049,7 @@ DataTable = (function(superClass) {
             }
             if (filteredCount !== void 0 && filteredCount > 0) {
               selectPageSize = (options.pageSizeOptions != null) && options.pageSizeOptions.length > 0;
-              selection.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size', selectPageSize);
+              selection.selectAll('.hx-data-table-page-size').classed('hx-data-table-page-size-visible', selectPageSize);
               if (selectPageSize) {
                 if (options.pageSizeOptions.indexOf(options.pageSize) === -1) {
                   options.pageSizeOptions.push(options.pageSize);
@@ -15654,7 +16060,9 @@ DataTable = (function(superClass) {
                     value: item
                   };
                 });
-                _this._.pageSizePicker.items(pageSizeOptions).value(options.pageSize);
+                _this._.pageSizePickers.forEach(function(picker) {
+                  return picker.items(pageSizeOptions).value(options.pageSize);
+                });
               }
             }
             if (headers.some(function(header) {
@@ -15674,13 +16082,13 @@ DataTable = (function(superClass) {
                 }
                 return groups;
               });
-              for (row = j = ref = maxHeaderDepth - 1; j >= 0; row = j += -1) {
+              for (row = j = ref2 = maxHeaderDepth - 1; j >= 0; row = j += -1) {
                 groupedRow = headerRow.insertBefore('tr');
                 if (options.selectEnabled || (options.collapsibleRenderer != null)) {
                   groupedRow.append('th')["class"]('hx-data-table-control');
                 }
                 count = 1;
-                for (column = l = 1, ref1 = headerGroups.length; l <= ref1; column = l += 1) {
+                for (column = l = 1, ref3 = headerGroups.length; l <= ref3; column = l += 1) {
                   col = headerGroups[column];
                   prevCol = headerGroups[column - 1];
                   if ((col != null) && (prevCol != null)) {
@@ -15766,9 +16174,9 @@ DataTable = (function(superClass) {
               }
             };
             selectMulti = function(start, end, force) {
-              var id, len, m, n, newRows, ref2, ref3;
+              var id, len, m, n, newRows, ref4, ref5;
               newRows = [];
-              for (i = m = ref2 = start, ref3 = end; m <= ref3; i = m += 1) {
+              for (i = m = ref4 = start, ref5 = end; m <= ref5; i = m += 1) {
                 newRows.push(rows[i]);
               }
               for (n = 0, len = newRows.length; n < len; n++) {
@@ -15853,7 +16261,7 @@ DataTable = (function(superClass) {
             };
             if (filteredCount === void 0 || filteredCount > 0) {
               rows.forEach(function(row, rowIndex) {
-                var cell, cellDiv, cellElem, checkbox, collapsibleControl, columnIndex, columnMaxWidth, controlDiv, keyDiv, len, m, ref2, results, rowIsCollapsible, tr;
+                var cell, cellDiv, cellElem, checkbox, collapsibleControl, columnIndex, columnMaxWidth, controlDiv, keyDiv, len, m, ref4, results, rowIsCollapsible, tr;
                 tr = tbody.append('tr')["class"]('hx-data-table-row').classed('hx-data-table-row-selected', _this._.selectedRows.has(options.rowIDLookup(row))).classed('hx-data-table-row-disabled', !options.rowEnabledLookup(row));
                 tr.on('click', 'hx.data-table', function(e) {
                   return _this.emit('rowclick', {
@@ -15895,10 +16303,10 @@ DataTable = (function(superClass) {
                     });
                   }
                 }
-                ref2 = rowToArray(headers, row);
+                ref4 = rowToArray(headers, row);
                 results = [];
-                for (columnIndex = m = 0, len = ref2.length; m < len; columnIndex = ++m) {
-                  cell = ref2[columnIndex];
+                for (columnIndex = m = 0, len = ref4.length; m < len; columnIndex = ++m) {
+                  cell = ref4[columnIndex];
                   keyDiv = hx.detached('div')["class"]('hx-data-table-cell-key');
                   getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers);
                   cellElem = tr.append('td')["class"]('hx-data-table-cell');
@@ -15928,7 +16336,7 @@ DataTable = (function(superClass) {
             _this._.oldPage = _this.page();
             selection.select('.hx-data-table-content').insertAfter(container);
             selection.select('.hx-data-table-content').remove();
-            selection.classed('hx-data-table-compact', ((options.compact === 'auto') && (selection.width() < collapseBreakPoint)) || (options.compact === true));
+            selection.classed('hx-data-table-compact', ((options.compact === 'auto') && (selection.width() < collapseBreakPoint)) || (options.compact === true)).classed('hx-data-table-show-search-above-content', options.showSearchAboveTable);
             stickFirstColumn = options.selectEnabled || (options.collapsibleRenderer != null);
             stickyOpts = {
               stickFirstColumn: stickFirstColumn && (filteredCount === void 0 || filteredCount > 0),
@@ -15971,38 +16379,71 @@ DataTable = (function(superClass) {
   There are predefined feeds for objects and urls.
  */
 
+whitespaceSplitRegex = /\s+/;
+
+stripLeadingAndTrailingWhitespaceRegex = /^\s+|\s+$/g;
+
+getRowSearchTerm = function(cellValueLookup, row) {
+  var k, v;
+  return ((function() {
+    var ref, results;
+    ref = row.cells;
+    results = [];
+    for (k in ref) {
+      v = ref[k];
+      results.push(v);
+    }
+    return results;
+  })()).map(cellValueLookup).join(' ').toLowerCase();
+};
+
+defaultTermLookup = function(term, rowSearchTerm) {
+  var arr, validPart;
+  arr = term.replace(stripLeadingAndTrailingWhitespaceRegex, '').split(whitespaceSplitRegex);
+  validPart = hx.find(arr, function(part) {
+    return ~rowSearchTerm.indexOf(part);
+  });
+  return hx.defined(validPart);
+};
+
+getAdvancedSearchFilter = function(cellValueLookup, termLookup) {
+  if (cellValueLookup == null) {
+    cellValueLookup = hx.identity;
+  }
+  if (termLookup == null) {
+    termLookup = defaultTermLookup;
+  }
+  return function(filters, row) {
+    var rowSearchTerm, validFilters;
+    rowSearchTerm = getRowSearchTerm(cellValueLookup, row);
+    validFilters = hx.find(filters, function(groupedFilters) {
+      var invalidFilter;
+      invalidFilter = hx.find(groupedFilters, function(filter) {
+        var searchTerm;
+        searchTerm = filter.column === 'any' ? rowSearchTerm : (cellValueLookup(row.cells[filter.column]) + '').toLowerCase();
+        return !termLookup(filter.term.toLowerCase(), searchTerm);
+      });
+      return !hx.defined(invalidFilter);
+    });
+    return hx.defined(validFilters);
+  };
+};
+
 objectFeed = function(data, options) {
   var filterCacheTerm, filtered, rowsByIdMap, sortCacheTerm, sorted;
   options = hx.merge({
-    filter: function(term, row) {
-      var j, k, len, part, ref, rowSearchTerm, v;
-      rowSearchTerm = ((function() {
-        var ref, results;
-        ref = row.cells;
-        results = [];
-        for (k in ref) {
-          v = ref[k];
-          results.push(v);
-        }
-        return results;
-      })()).join(' ').toLowerCase();
-      ref = term.toLowerCase().split(' ');
-      for (j = 0, len = ref.length; j < len; j++) {
-        part = ref[j];
-        if (rowSearchTerm.indexOf(part) === -1) {
-          return false;
-        }
-      }
-      return true;
-    },
-    compare: function(c1, c2) {
-      if (c1 > c2) {
-        return 1;
-      } else {
-        return -1;
-      }
-    }
+    cellValueLookup: hx.identity,
+    termLookup: defaultTermLookup,
+    compare: hx.sort.compare
   }, options);
+  if (options.filter == null) {
+    options.filter = function(term, row) {
+      return options.termLookup(term.toLowerCase(), getRowSearchTerm(options.cellValueLookup, row));
+    };
+  }
+  if (options.advancedSearch == null) {
+    options.advancedSearch = getAdvancedSearchFilter(options.cellValueLookup, options.termLookup);
+  }
   filtered = void 0;
   filterCacheTerm = void 0;
   sorted = void 0;
@@ -16017,25 +16458,29 @@ objectFeed = function(data, options) {
       return cb(data.rows.length);
     },
     rows: function(range, cb) {
-      var column, direction, ref, ref1, ref2, ref3, ref4;
+      var column, direction, ref, ref1, ref2, ref3, ref4, ref5;
       if (((ref = range.sort) != null ? ref.column : void 0) !== sortCacheTerm.column) {
         filtered = void 0;
       }
-      if (filtered === void 0 || filterCacheTerm !== range.filter) {
-        filtered = range.filter ? data.rows.filter(function(row) {
+      if (range.useAdvancedSearch) {
+        filtered = ((ref1 = range.advancedSearch) != null ? ref1.length : void 0) && (filtered === void 0 || filterCacheTerm !== range.advancedSearch) ? data.rows.filter(function(row) {
+          return options.advancedSearch(range.advancedSearch, row);
+        }) : data.rows.slice();
+        filterCacheTerm = range.advancedSearch;
+        sorted = void 0;
+      } else {
+        filtered = range.filter && (filtered === void 0 || filterCacheTerm !== range.filter) ? data.rows.filter(function(row) {
           return options.filter(range.filter, row);
         }) : data.rows.slice();
         filterCacheTerm = range.filter;
         sorted = void 0;
       }
-      if (sorted === void 0 || sortCacheTerm.column !== ((ref1 = range.sort) != null ? ref1.column : void 0) || sortCacheTerm.direction !== ((ref2 = range.sort) != null ? ref2.direction : void 0)) {
+      if (sorted === void 0 || sortCacheTerm.column !== ((ref2 = range.sort) != null ? ref2.column : void 0) || sortCacheTerm.direction !== ((ref3 = range.sort) != null ? ref3.direction : void 0)) {
         sorted = range.sort && range.sort.column ? (direction = range.sort.direction === 'asc' ? 1 : -1, column = range.sort.column, filtered.sort(function(r1, r2) {
           return direction * options.compare(r1.cells[column], r2.cells[column]);
-        }), filtered.sort(function(r1, r2) {
-          return direction * options.compare(r1.cells[column], r2.cells[column]);
         }), filtered) : filtered;
-        sortCacheTerm.column = (ref3 = range.sort) != null ? ref3.column : void 0;
-        sortCacheTerm.direction = (ref4 = range.sort) != null ? ref4.direction : void 0;
+        sortCacheTerm.column = (ref4 = range.sort) != null ? ref4.column : void 0;
+        sortCacheTerm.direction = (ref5 = range.sort) != null ? ref5.direction : void 0;
       }
       return cb({
         rows: sorted.slice(range.start, +range.end + 1 || 9e9),
@@ -16094,7 +16539,7 @@ urlFeed = function(url, options) {
   jsonCallback = function(cb) {
     return function(err, value) {
       if (err) {
-        console.error(err);
+        hx.consoleWarning(err);
       }
       return cb(value);
     };
@@ -16147,6 +16592,8 @@ hx.dataTable = function(options) {
 hx.dataTable.objectFeed = objectFeed;
 
 hx.dataTable.urlFeed = urlFeed;
+
+hx.dataTable.getAdvancedSearchFilter = getAdvancedSearchFilter;
 
 })();
 (function(){
@@ -19458,11 +19905,22 @@ hx.InlinePicker = InlinePicker;
 
 
 (function(){
-var Meter;
+var Meter,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-Meter = (function() {
+hx.userFacingText({
+  meter: {
+    of: 'of'
+  }
+});
+
+Meter = (function(superClass) {
+  extend(Meter, superClass);
+
   function Meter(selector, options) {
     var _, container, innerText, randomId, selection, svg;
+    Meter.__super__.constructor.call(this);
     hx.component.register(selector, this);
     this._ = _ = {};
     _.data = {
@@ -19483,12 +19941,19 @@ Meter = (function() {
       progressCol: hx.theme.plot.positiveCol,
       trackerCol: hx.color(hx.theme.plot.positiveCol).alpha(0.5).toString(),
       trackerBackgroundCol: hx.color(hx.theme.palette.contrastCol).alpha(0.05).toString(),
-      markerCol: hx.theme.palette.contrastCol
+      markerCol: hx.theme.palette.contrastCol,
+      valueFormatter: function(value, isTotal) {
+        if (isTotal) {
+          return (hx.userFacingText('meter', 'of')) + " " + value;
+        } else {
+          return value;
+        }
+      }
     }, options);
     randomId = hx.randomId();
     _.selection = selection = hx.select(selector).classed('hx-meter', true).on('resize', (function(_this) {
       return function() {
-        return _this.render();
+        return _this.render('user');
       };
     })(this));
     _.container = container = selection.append('div')["class"]('hx-meter-container');
@@ -19516,8 +19981,11 @@ Meter = (function() {
     }
   };
 
-  Meter.prototype.render = function() {
+  Meter.prototype.render = function(cause) {
     var _, container, data, endRadians, i, markerProgress, markerR1, markerR2, markerWidth, options, path, points, progress, progressR1, progressR2, radius, selection, size, startRadians, svg, textOffset, trackerProgress, trackerR1, trackerR2, updateArc, x, y;
+    if (cause == null) {
+      cause = 'api';
+    }
     _ = this._;
     options = this.options;
     data = _.data;
@@ -19527,8 +19995,8 @@ Meter = (function() {
     progress = Math.max(0, Math.min(1, (data.completed / data.total) || 0));
     trackerProgress = Math.max(0, Math.min(1, (data.tracker / data.total) || 0));
     markerProgress = Math.max(0, Math.min(1, (data.marker / data.total) || 0));
-    _.completedText.text(data.completed);
-    _.totalText.text('of ' + data.total);
+    _.completedText.text(options.valueFormatter(data.completed, false));
+    _.totalText.text(options.valueFormatter(data.total, true));
     _.typeText.text(data.unitText);
     size = Math.min(selection.width(), selection.height() * 2);
     container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px');
@@ -19595,12 +20063,16 @@ Meter = (function() {
       _.markerArc.style('visibility', 'hidden');
       _.markerText.style('visibility', 'hidden');
     }
+    this.emit('render', {
+      cause: cause,
+      data: data
+    });
     return this;
   };
 
   return Meter;
 
-})();
+})(hx.EventEmitter);
 
 hx.meter = function(options) {
   var selection;
@@ -20292,55 +20764,6 @@ hx.timeSlider = function(options) {
 };
 
 hx.TimeSlider = TimeSlider;
-
-})();
-(function(){
-var Toggle,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-Toggle = (function(superClass) {
-  extend(Toggle, superClass);
-
-  function Toggle(selector, options) {
-    Toggle.__super__.constructor.apply(this, arguments);
-    hx.component.register(selector, this);
-    this.options = hx.merge.defined({
-      value: false
-    }, options);
-    this.selection = hx.select(selector).classed('hx-toggle', true);
-    this.toggle = this.selection.append('div')["class"]('hx-toggle-box');
-    this.value(this.options.value);
-    this.selection.on('click', 'hx.toggle', (function(_this) {
-      return function(e) {
-        _this.value(!_this.value());
-        return _this.emit('change', _this.value());
-      };
-    })(this));
-  }
-
-  Toggle.prototype.value = function(val) {
-    if (val != null) {
-      this.options.value = val;
-      this.toggle.classed('hx-toggle-box-on', val);
-      return this;
-    } else {
-      return this.options.value;
-    }
-  };
-
-  return Toggle;
-
-})(hx.EventEmitter);
-
-hx.toggle = function(options) {
-  var selection;
-  selection = hx.detached('div');
-  new Toggle(selection.node(), options);
-  return selection;
-};
-
-hx.Toggle = Toggle;
 
 })();
 (function(){

@@ -141,28 +141,54 @@ describe "Util", ->
     util.min([]).should.equal(Infinity)
     util.min([1, 5, 2]).should.equal(1)
     util.min([undefined, 5, 2]).should.equal(2)
+    util.min([1, undefined, 5, 2]).should.equal(1)
 
   it 'minBy: should work', ->
     should.not.exist(util.minBy())
     should.not.exist(util.minBy([]))
+    should.not.exist(util.minBy([undefined, undefined, undefined]))
     util.minBy([1, 2, 3, 4]).should.equal(1)
     util.minBy([1, undefined, 3, 4]).should.equal(1)
     util.minBy([5, 2, 3, 4]).should.equal(2)
-    util.minBy([1, 5, undefined, 3, 4], (d) -> -d).should.equal(5)
+    util.minBy([5, 2, 3, 4, 1], (d) -> d).should.equal(1)
+    util.minBy([1, 5, undefined, 3, 4], (d) -> if d is undefined then undefined else -d).should.equal(5)
+    util.minBy([undefined, 1, 5, 3, 4], (d) -> if d is undefined then undefined else -d).should.equal(5)
+
+  it 'argmin: should return the index of the smallest defined value', ->
+    util.argmin([1, 4, -5, 9]).should.equal(2)
+    util.argmin([undefined, -5, 9]).should.equal(1)
+    util.argmin([1, undefined, -5, 9]).should.equal(2)
+    util.argmin([-1, 5, -9], (d) -> -d).should.equal(1)
+    should.not.exist(util.argmin([undefined, undefined]))
+    should.not.exist(util.argmin([]))
+    should.not.exist(util.argmin())
 
   it 'max: should work', ->
     util.max().should.equal(-Infinity)
     util.max([]).should.equal(-Infinity)
     util.max([1, 5, 2]).should.equal(5)
     util.max([undefined, 5, 2]).should.equal(5)
+    util.max([1, undefined, 5, 2]).should.equal(5)
 
   it 'maxBy: should work', ->
     should.not.exist(util.maxBy())
     should.not.exist(util.maxBy([]))
+    should.not.exist(util.maxBy([undefined, undefined, undefined]))
     util.maxBy([1, 2, 3, 4]).should.equal(4)
     util.maxBy([1, undefined, 3, 4]).should.equal(4)
     util.maxBy([1, 5, 3, 4]).should.equal(5)
-    util.maxBy([5, 1, undefined, 5, 4], (d) -> -d).should.equal(1)
+    util.maxBy([5, 2, 3, 4, 1], (d) -> -d).should.equal(1)
+    util.maxBy([5, 1, undefined, 5, 4], (d) -> if d is undefined then undefined else -d).should.equal(1)
+    util.maxBy([undefined, 5, 1, 5, 4], (d) -> if d is undefined then undefined else -d).should.equal(1)
+
+  it 'argmax: should return the index of the largest defined value', ->
+    util.argmax([1, 4, -5, 9]).should.equal(3)
+    util.argmax([undefined, -5, 9]).should.equal(2)
+    util.argmax([1, undefined, -5, 9]).should.equal(3)
+    util.argmax([1, -5, 9], (d) -> -d).should.equal(1)
+    should.not.exist(util.argmax([undefined, undefined]))
+    should.not.exist(util.argmax([]))
+    should.not.exist(util.argmax())
 
   it 'range should work', ->
     util.range(10).should.eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -311,6 +337,23 @@ describe "Util", ->
     util.isPlainObject([]).should.equal(false)
     util.isPlainObject(null).should.equal(false)
     util.isPlainObject(undefined).should.equal(false)
+
+  it 'isNumber: should work', ->
+    class A
+      constructor: ->
+
+    util.isNumber(new A).should.equal(false)
+    util.isNumber({}).should.equal(false)
+    util.isNumber(document.createElement('div')).should.equal(false)
+    util.isNumber(window).should.equal(false)
+    util.isNumber(->).should.equal(false)
+    util.isNumber("").should.equal(false)
+    util.isNumber(123).should.equal(true)
+    util.isNumber(NaN).should.equal(true)
+    util.isNumber(/a/).should.equal(false)
+    util.isNumber([]).should.equal(false)
+    util.isNumber(undefined).should.equal(false)
+    util.isNumber(null).should.equal(false)
 
   describe 'merge', ->
 

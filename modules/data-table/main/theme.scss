@@ -51,9 +51,11 @@
     }
   }
 
-  .hx-data-table-footer {
+  .hx-data-table-control-panel-bottom,
+  .hx-data-table-control-panel-compact,
+  .hx-data-table-control-panel {
     background: $footer-background-col;
-    box-shadow: 1px 1px 1px 1px $footer-shadow-col;
+    box-shadow: 1px 1px 1px $footer-shadow-col;
   }
 
   .hx-data-table-status-bar {

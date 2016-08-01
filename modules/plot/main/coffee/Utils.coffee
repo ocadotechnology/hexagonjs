@@ -293,7 +293,7 @@ populateLegendSeries = (selection, series) ->
         .attr('x', 0)
         .attr('width', 10)
         .attr('height', 10)
-        .attr('fill', if s.legendColor then s.legendColor() else s.color) # XXX: the else s.color is there for PieCharts... which should be fixed when pie charts are refactored
+        .attr('fill', if s.legendColor then s.legendColor() else s.fillColor) # XXX: the else s.fillColor is there for PieCharts... which should be fixed when pie charts are refactored
     .apply(series)
 
   width = hx.max(selection.selectAll('text').nodes.map((node) -> node.getComputedTextLength()))

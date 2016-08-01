@@ -14,14 +14,17 @@ module.exports = {
   randomId: utils.randomId
   min: utils.min
   minBy: utils.minBy
+  argmin: utils.argmin
   max: utils.max
   maxBy: utils.maxBy
+  argmax: utils.argmax
   range: utils.range
   sum: utils.sum
   flatten: utils.flatten
   cycle: utils.cycle
   hashList: utils.hashList
   find: utils.find
+  isNumber: utils.isNumber
   isString: utils.isString
   isFunction: utils.isFunction
   isArray: utils.isArray
