@@ -1,13 +1,14 @@
 describe 'data-table', ->
   origConsoleWarning = hx.consoleWarning
-
-  before ->
-    hx.consoleWarning = chai.spy()
+  clockTime = (new Date(2013, 0, 1)).getTime()
+  dropdownAnimationTime = 150
+  inputDebounceDelay = 200
+  animationCompletedDelay = 500
 
   beforeEach ->
-    hx.consoleWarning.reset()
+    hx.consoleWarning = chai.spy()
 
-  after ->
+  afterEach ->
     hx.consoleWarning = origConsoleWarning
 
   # Used to mimic an event call for a node
@@ -59,6 +60,28 @@ describe 'data-table', ->
     stopPropagation: ->
     shiftKey: true
   }
+
+  # Fake the changing of a picker value by clicking a value
+  emulatePickerValueChange = (pickerNode, dt, valueIndex, done, expectation) ->
+    clock = sinon.useFakeTimers(clockTime)
+    renderSpy = chai.spy expectation
+    dt.on 'render', renderSpy
+
+    fakeNodeEvent(pickerNode)(fakeEvent)
+    clock.tick(dropdownAnimationTime)
+    dropdown = hx.select('.hx-dropdown')
+    targetNode = dropdown.selectAll('.hx-menu-item').node(valueIndex)
+
+    pickerEvent = {
+      stopPropagation: ->
+      target: targetNode
+    }
+
+    fakeNodeEvent(dropdown.node())(pickerEvent)
+    renderSpy.should.have.been.called()
+    clock.restore()
+    hx.select('body').clear()
+    done()
 
   checkSetterGetter = (name, valuesToCheck) ->
     describe name, ->
@@ -198,10 +221,16 @@ describe 'data-table', ->
       done?()
 
   it 'should have user facing text defined', ->
+    hx.userFacingText('dataTable', 'addFilter').should.equal('Add Filter')
+    hx.userFacingText('dataTable', 'advancedSearch').should.equal('Advanced Search')
+    hx.userFacingText('dataTable', 'and').should.equal('and')
+    hx.userFacingText('dataTable', 'anyColumn').should.equal('Any column')
+    hx.userFacingText('dataTable', 'clearFilters').should.equal('Clear Filters')
     hx.userFacingText('dataTable', 'clearSelection').should.equal('clear selection')
     hx.userFacingText('dataTable', 'loading').should.equal('Loading')
     hx.userFacingText('dataTable', 'noData').should.equal('No Data')
     hx.userFacingText('dataTable', 'noSort').should.equal('No Sort')
+    hx.userFacingText('dataTable', 'or').should.equal('or')
     hx.userFacingText('dataTable', 'rowsPerPage').should.equal('Rows Per Page')
     hx.userFacingText('dataTable', 'search').should.equal('Search')
     hx.userFacingText('dataTable', 'selectedRows').should.equal('$selected of $total selected.')
@@ -213,7 +242,11 @@ describe 'data-table', ->
     checkOption('displayMode', ['paginate', 'all'])
     checkOption('feed', [hx.dataTable.objectFeed(noData), hx.dataTable.objectFeed(threeRowsData)])
     checkOption('filter', ['bob', 'aaaa', undefined])
+    checkOption('advancedSearch', [[[{column: 'any', term: 'a'}]], [[{column: 'any', term: 'a'}, {column: 'any', term: 'b'}]], undefined])
     checkOption('filterEnabled', [true, false])
+    checkOption('showAdvancedSearch', [true, false])
+    checkOption('advancedSearchEnabled', [true, false])
+    checkOption('showSearchAboveTable', [true, false])
     checkOption('noDataMessage', ['No Data', 'Wahooo! You successfully deleted everything.'])
     checkOption('pageSize', [10, 20, 666])
     checkOption('pageSizeOptions', [undefined, [5, 10, 20], [100, 200, 500]])
@@ -266,19 +299,25 @@ describe 'data-table', ->
           hx.select(rows[2]).selectAll('td').selectAll('.hx-data-table-cell-key').text().should.eql(headers)
           hx.select(rows[2]).selectAll('td').selectAll('.hx-data-table-cell-value').text().should.eql(['Dan', '41', 'Builder'])
 
-        it 'should show the paginator block', ->
-          container.select('.hx-data-table-pagination-block-hidden').size().should.equal(0)
+        it 'should not show the search above the table', ->
+          container.classed('hx-data-table-show-search-above-content').should.equal(false)
+
+        it 'should not show the bottom control panel', ->
+          container.select('.hx-data-table-control-panel-bottom-visible').empty().should.equal(true)
+
+        it 'should show the control panel', ->
+          container.select('.hx-data-table-control-panel-visible').empty().should.equal(false)
 
         it 'should not show the paginator', ->
-          container.select('.hx-data-table-multi-page').size().should.equal(0)
+          container.selectAll('.hx-data-table-paginator-visible').size().should.equal(0)
 
         it 'should not show the row per page picker', ->
-          container.select('.hx-data-table-page-size').size().should.equal(1)
-          container.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size').should.equal(false)
+          container.selectAll('.hx-data-table-page-size').size().should.equal(2)
+          container.selectAll('.hx-data-table-page-size-visible').size().should.equal(0)
 
         it 'should show the filter box', ->
-          container.select('.hx-data-table-filter-control').size().should.equal(1)
-          container.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible').should.equal(true)
+          container.select('.hx-data-table-filter').size().should.equal(1)
+          container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(true)
 
         it 'should not show collapsible expand icons', ->
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-toggle').size().should.equal(0)
@@ -295,7 +334,7 @@ describe 'data-table', ->
       it 'should add the allowHeaderWrap class to all columns when enabled by default', (done) ->
         tableOptions =
           allowHeaderWrap: true
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-table-header-allow-wrap').size().should.equal(3)
 
       it 'should allow allowHeaderWrap for individual columns', (done) ->
@@ -308,7 +347,7 @@ describe 'data-table', ->
             profession:
               allowHeaderWrap: false
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-table-header-allow-wrap').size().should.equal(1)
 
       it 'should override default allowHeaderWrap when defined for a column', (done) ->
@@ -318,7 +357,7 @@ describe 'data-table', ->
             name:
               allowHeaderWrap: false
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-table-header-allow-wrap').size().should.equal(2)
 
 
@@ -327,7 +366,7 @@ describe 'data-table', ->
       it 'should call the cellRenderer', (done) ->
         tableOptions =
           cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(3)
 
       it 'should call the cellRenderer for individual columns', (done) ->
@@ -340,7 +379,7 @@ describe 'data-table', ->
             profession:
               cellRenderer: (elem) -> hx.select(elem).classed('steve', true)
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
           container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.dave').size().should.equal(1)
           container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.steve').size().should.equal(1)
@@ -352,7 +391,7 @@ describe 'data-table', ->
             name:
               cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
           container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.kate').size().should.equal(2)
 
@@ -364,7 +403,7 @@ describe 'data-table', ->
         rowCollapsibleLookup: (row) -> true
       }
 
-      testTable {tableOptions: tableOptions}, undefined, (container, dt, options, data) ->
+      testTable {tableOptions}, undefined, (container, dt, options, data) ->
         it 'should show collapsible expand icons', ->
           container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-toggle').size().should.equal(data.rows.length)
 
@@ -390,7 +429,7 @@ describe 'data-table', ->
           collapsibleRenderer: (element, d) -> hx.select(element).class('bob')
           rowCollapsibleLookup: (row) -> !!row.collapsible
         }
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           dt.expandedRows ['0', '1'], ->
             container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
             container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
@@ -401,7 +440,7 @@ describe 'data-table', ->
           collapsibleRenderer: (element, d) -> hx.select(element).class('bob')
           rowCollapsibleLookup: (row) -> !!row.collapsible
         }
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           dt.expandedRows().should.eql([])
 
           clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-toggle')
@@ -444,17 +483,13 @@ describe 'data-table', ->
     describe 'displayMode', ->
       describe 'paginate', ->
         testTable {tableOptions: {displayMode: 'paginate'}}, undefined, (container, dt, options, data) ->
-          it 'should show the paginator block', ->
-            container.select('.hx-data-table-pagination-block-visible').size().should.equal(1)
-
           it 'should not show the paginator when there is one page', ->
             dt._.numPages.should.equal(1)
-            container.select('.hx-data-table-multi-page').size().should.equal(0)
+            container.selectAll('.hx-data-table-paginator-visible').size().should.equal(0)
 
         it 'should show the paginator when there is more than one page', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-pagination-block-visible').size().should.equal(1)
-            container.select('.hx-data-table-multi-page').size().should.equal(1)
+            container.selectAll('.hx-data-table-paginator-visible').size().should.equal(3)
             dt._.numPages.should.equal(3)
 
         it 'should change the page when the picker is changed', (done) ->
@@ -465,7 +500,7 @@ describe 'data-table', ->
               done()
 
             container
-              .select('.hx-data-table-pagination-picker')
+              .select('.hx-data-table-paginator-picker')
               .component()
               .emit('change', {value: {value: 2}, cause: 'user'})
 
@@ -511,7 +546,7 @@ describe 'data-table', ->
         it 'should hide the paginator block', (done) ->
           testTable {tableOptions: {displayMode: 'all', pageSize: 1}}, done, (container, dt, options, data) ->
             should.not.exist(dt._.numPages)
-            container.select('.hx-data-table-pagination-block-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-paginator-visible').size().should.equal(0)
             container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('tr').size().should.equal(3)
 
 
@@ -520,14 +555,14 @@ describe 'data-table', ->
       describe 'true', ->
         it 'should show the filter box', (done) ->
           testTable {tableOptions: {filterEnabled: true}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-filter-control').size().should.equal(1)
-            container.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible').should.equal(true)
+            container.select('.hx-data-table-filter').size().should.equal(1)
+            container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(true)
 
       describe 'false', ->
         it 'should not show the filter box', (done) ->
           testTable {tableOptions: {filterEnabled: false}}, done, (container, dt, options, data) ->
-            container.select('.hx-data-table-filter-control').size().should.equal(1)
-            container.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible').should.equal(false)
+            container.select('.hx-data-table-filter').size().should.equal(1)
+            container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(false)
 
 
 
@@ -535,7 +570,7 @@ describe 'data-table', ->
       it 'should call the headerCellRenderer', (done) ->
         tableOptions =
           headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(3)
 
       it 'should call the headerCellRenderer for individual columns', (done) ->
@@ -548,7 +583,7 @@ describe 'data-table', ->
             profession:
               headerCellRenderer: (elem) -> hx.select(elem).classed('steve', true)
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.dave').size().should.equal(1)
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.steve').size().should.equal(1)
@@ -560,7 +595,7 @@ describe 'data-table', ->
             name:
               headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
           container.select('.hx-sticky-table-header-top').select('thead').selectAll('.kate').size().should.equal(2)
 
@@ -623,13 +658,13 @@ describe 'data-table', ->
     describe 'pageSizeOptions', ->
       it 'should not show the row per page picker by default', (done) ->
         testTable {tableOptions: {pageSizeOptions: undefined}}, done, (container, dt, options, data) ->
-          container.select('.hx-data-table-page-size').size().should.equal(1)
-          container.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size').should.equal(false)
+          container.selectAll('.hx-data-table-page-size').size().should.equal(2)
+          container.selectAll('.hx-data-table-page-size-visible').size().should.equal(0)
 
       testTable {tableOptions: {pageSizeOptions: [4, 1, 3, 2]}}, undefined, (container, dt, options, data) ->
         it 'should show the rows per page picker', ->
-          container.select('.hx-data-table-page-size').size().should.equal(1)
-          container.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size').should.equal(true)
+          container.selectAll('.hx-data-table-page-size').size().should.equal(2)
+          container.selectAll('.hx-data-table-page-size-visible').size().should.equal(2)
 
         it 'should sort the options in numeric order', ->
           dt.pageSizeOptions().should.eql([1, 2, 3, 4, 15])
@@ -1056,7 +1091,7 @@ describe 'data-table', ->
             profession:
               sortEnabled: false
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-data-table-sort-icon').size().should.equal(1)
 
       it 'should use a column sortEnabled instead of the default sortEnabled if one is defined', (done) ->
@@ -1066,7 +1101,7 @@ describe 'data-table', ->
             name:
               sortEnabled: true
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-top').selectAll('.hx-data-table-sort-icon').size().should.equal(1)
 
       it 'should change the sort when clicking a sort icon', (done) ->
@@ -1092,42 +1127,41 @@ describe 'data-table', ->
           dt.sort().should.eql({column: 'age', direction: 'asc'})
 
       describe 'compact mode', ->
+        it 'should show the compact control panel for default options', ->
+          testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact-visible').empty().should.equal(false)
+
         it 'should not show the sort control if there are no sorts', ->
           testTable {tableOptions: {compact: true, sortEnabled: false}}, undefined, (container, dt, options, data) ->
-            container.select('.hx-data-table-sort-control').classed('hx-data-table-sort-visible').should.equal(false)
+            container.select('.hx-data-table-sort').classed('hx-data-table-sort-visible').should.equal(false)
 
         it 'should show the sort control if sort is only enabled for one column ', ->
           testTable {tableOptions: {compact: true, sortEnabled: false, columns: {name: {sortEnabled: true}}}}, undefined, (container, dt, options, data) ->
-            container.select('.hx-data-table-sort-control').classed('hx-data-table-sort-visible').should.equal(true)
+            container.select('.hx-data-table-sort').classed('hx-data-table-sort-visible').should.equal(true)
 
         it 'should change the sort column when changing the sort picker', (done) ->
           testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
-            dt.on 'render', ->
+            pickerNode = container.select('.hx-data-table-sort')
+              .select('.hx-picker').node()
+
+            pickerExpectation = ->
               dt.sort().should.eql({column: 'name', direction: 'asc'})
-              hx.select('body').clear()
-              done()
 
-            picker = container
-              .select('.hx-data-table-sort-control').select('.hx-picker')
-              .component()
-
-            picker.value({value: 'nameasc'})
-              .emit('change', {value: 'nameasc', cause: 'user'})
+            emulatePickerValueChange(pickerNode, dt, 1, done, pickerExpectation)
 
         it 'should remove the sort when the sort column is set to no sort', (done) ->
-          testTable {tableOptions: {compact: true}}, undefined, (container, dt, options, data) ->
-            dt.sort({column: 'name', direction: 'asc'})
-            dt.on 'render', ->
+          tableOptions =
+            compact: true
+            sort: {column: 'name', direction: 'asc'}
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            pickerNode = container.select('.hx-data-table-sort')
+              .select('.hx-picker').node()
+
+            pickerExpectation = ->
               dt.sort().should.eql({column: undefined, direction: undefined})
-              hx.select('body').clear()
-              done()
 
-            picker = container
-              .select('.hx-data-table-sort-control').select('.hx-picker')
-              .component()
-
-            picker.value(undefined)
-              .emit('change', {value: undefined, cause: 'user'})
+            emulatePickerValueChange(pickerNode, dt, 0, done, pickerExpectation)
 
 
 
@@ -1138,7 +1172,7 @@ describe 'data-table', ->
             name:
               maxWidth: 10
 
-        testTable {tableOptions: tableOptions}, done, (container, dt, options, data) ->
+        testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-wrapper').select('tbody').select('tr').selectAll('td').forEach (cell, index) ->
             if index is 0
               cell.attr('style').should.equal('max-width: 10px; width: 10px; min-width: 10px; ')
@@ -1159,7 +1193,7 @@ describe 'data-table', ->
           headersSpy.should.have.been.called()
           totalCountSpy.should.have.been.called()
           rowsSpy.should.have.been.called()
-          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: {column: 'age', direction: 'asc'}, filter: undefined })
+          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: {column: 'age', direction: 'asc'}, filter: undefined, advancedSearch: undefined, useAdvancedSearch: false })
           done()
 
 
@@ -1176,26 +1210,61 @@ describe 'data-table', ->
           headersSpy.should.have.been.called()
           totalCountSpy.should.have.been.called()
           rowsSpy.should.have.been.called()
-          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: undefined, filter: 'filter-term' })
+          rowsSpy.should.have.been.called.with({ start: 0, end: 14, sort: undefined, filter: 'filter-term', advancedSearch: undefined, useAdvancedSearch: false })
           done()
 
       it 'should call filter when changing the filter input', (done) ->
-        clock = sinon.useFakeTimers()
+        clock = sinon.useFakeTimers(clockTime)
         container = hx.detached('div')
         dt = new hx.DataTable(container.node())
         filterSpy = chai.spy.on(dt, 'filter')
         filterSpy.should.not.have.been.called()
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           filterSpy.should.have.been.called.with()
-          filterInput = container.select('.hx-data-table-filter-control')
+          filterInput = container.select('.hx-data-table-filter')
           filterEvent = fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
-          clock.tick(201)
+          clock.tick(inputDebounceDelay)
           filterSpy.should.have.been.called.with()
           filterSpy.should.have.been.called.with('a', undefined, 'user')
-          clock.uninstall()
+          clock.restore()
           done()
+
+
+
+    describe 'showSearchAboveTable', ->
+      it 'should add the correct class to the table', (done) ->
+        # The re-ordering is done by CSS
+        tableOptions =
+          showSearchAboveTable: true
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          container.classed('hx-data-table-show-search-above-content').should.equal(true)
+          container.select('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
+          container.select('.hx-data-table-control-panel-visible').size().should.equal(1)
+
+      it 'should show the bottom control panel if there are page size options', (done) ->
+        # The re-ordering is done by CSS
+        tableOptions =
+          showSearchAboveTable: true
+          pageSizeOptions: [1,2,3,4,5]
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          container.classed('hx-data-table-show-search-above-content').should.equal(true)
+          container.select('.hx-data-table-control-panel-bottom-visible').size().should.equal(1)
+          container.select('.hx-data-table-control-panel-visible').size().should.equal(1)
+
+      it 'should show the bottom control panel if there are multiple pages', (done) ->
+        # The re-ordering is done by CSS
+        tableOptions =
+          showSearchAboveTable: true
+          pageSize: 1
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          container.classed('hx-data-table-show-search-above-content').should.equal(true)
+          container.select('.hx-data-table-control-panel-bottom-visible').size().should.equal(1)
+          container.select('.hx-data-table-control-panel-visible').size().should.equal(1)
 
 
 
@@ -1315,6 +1384,467 @@ describe 'data-table', ->
 
 
 
+    describe 'advanced search', ->
+      describe 'advancedSearch', ->
+        it 'should enable the advanced search filtering if passed in the options', (done) ->
+          tableOptions =
+            advancedSearch: [[{column: 'any', term: ''}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.classed('hx-data-table-show-search-above-content').should.equal(false)
+            container.selectAll('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-control-panel-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
+      describe 'showAdvancedSearch', ->
+        it 'should show the advanced search toggle when filters are enabled', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.classed('hx-data-table-show-search-above-content').should.equal(false)
+            container.selectAll('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-control-panel-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
+
+
+        it 'should not show the advanced search toggle when filters are disabled', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+            filterEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.classed('hx-data-table-show-search-above-content').should.equal(false)
+            container.selectAll('.hx-data-table-control-panel-bottom-visible').size().should.equal(0)
+            container.selectAll('.hx-data-table-control-panel-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(0)
+
+
+
+      describe 'advancedSearchEnabled', ->
+        it 'should not be enabled by default', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.advancedSearchEnabled().should.equal(false)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(1)
+
+
+        it 'should default to being visible if enabled', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.showAdvancedSearch().should.equal(true)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
+
+        it 'should hide the filter input when enabled', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.advancedSearchEnabled().should.equal(true)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
+        it 'should toggle the advanced and regular filters correctly', (done) ->
+          tableOptions =
+            showAdvancedSearch: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            dt.advancedSearchEnabled().should.equal(false)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(1)
+
+            fakeNodeEvent(container.select('.hx-data-table-advanced-search-toggle').node(), 'click')(fakeEvent)
+
+            dt.advancedSearchEnabled().should.equal(true)
+            container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
+            container.selectAll('.hx-data-table-filter-visible').size().should.equal(0)
+
+      describe 'advancedSearch', ->
+        it 'should render the advanced search correctly',(done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            advancedSearchContainer = container.select('.hx-data-table-advanced-search-container')
+            advancedSearchContainer.classed('hx-data-table-advanced-search-visible').should.equal(true)
+            advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter-group').size().should.equal(2)
+            filterRows = advancedSearchContainer.selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            checkValue = (node, typePickerVal, columnPickerVal, termVal) ->
+              elem = hx.select(node)
+              if typePickerVal
+                elem.select('.hx-data-table-advanced-search-type').component().value().value.should.equal(typePickerVal)
+              elem.select('.hx-data-table-advanced-search-column').component().value().value.should.equal(columnPickerVal)
+              elem.select('.hx-data-table-advanced-search-input').value().should.equal(termVal)
+
+            checkValue(filterRows.node(0), undefined, 'any', 'a')
+            checkValue(filterRows.node(1), 'and', 'name', 'b')
+            checkValue(filterRows.node(2), 'or', 'any', 'c')
+
+        it 'should make a new advancedSearch group when changing the type picker for a filter', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            pickerNode = hx.select(filterRows.node(1))
+              .select('.hx-data-table-advanced-search-type').node()
+
+            pickerExpectation = ->
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}, {column: 'any', term: 'c'}]])
+
+            emulatePickerValueChange(pickerNode, dt, 1, done, pickerExpectation)
+
+
+        it 'should update the advancedSearch when changing the column picker for a filter', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            pickerNode = hx.select(filterRows.node(1))
+              .select('.hx-data-table-advanced-search-column').node()
+
+            pickerExpectation = ->
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'age', term: 'b'}, {column: 'any', term: 'c'}]])
+
+            emulatePickerValueChange(pickerNode, dt, 2, done, pickerExpectation)
+
+        it 'should update the advancedSearch when changing the term for a filter', (done) ->
+          clock = sinon.useFakeTimers(clockTime)
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            termNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-input')
+
+            termNode.value('d')
+            fakeNodeEvent(termNode.node(), 'input')({target: {value: 'd'}})
+            clock.tick(inputDebounceDelay + 1)
+            dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'd'}]])
+            clock.restore()
+            hx.select('body').clear()
+            done()
+
+
+        it 'should default to "any" for the column value', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{term: 'a'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(1)
+
+            pickerVal = hx.select(filterRows.node(0)).select('.hx-data-table-advanced-search-column').component().value()
+            pickerVal.value.should.eql('any')
+            pickerVal.anyColumn.should.eql(true)
+
+        it 'should add a filter correctly', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            dt.advancedSearch().should.eql([[{column: 'any', term: ''}]])
+
+        it 'should add a filter correctly when there is a filter group', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}, {column: 'any', term: ''}]])
+
+        it 'should add a filter correctly when there are multiple filter groups', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}, {column: 'any', term: ''}]])
+
+
+        it 'should clear the filters correctly', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            clearNode = container.select('.hx-data-table-advanced-search-clear-filters').node()
+            fakeNodeEvent(clearNode)(fakeEvent)
+            should.not.exist(dt.advancedSearch())
+
+
+        describe 'removing filters', ->
+
+          it 'should remove a single filter', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(3)
+
+              removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'any', term: 'c'}]])
+
+
+          it 'should remove the first filter in a group', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}, {column: 'name', term: 'b'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(4)
+
+              removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'name', term: 'b'}]])
+
+
+          it 'should remove the last filter from a group', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(3)
+
+              removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}]])
+
+          it 'should remove the last filter from a group when there are groups either side of it', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(3)
+
+              removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'any', term: 'c'}]])
+
+          it 'should remove the first filter from a group when there are groups either side of it', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}, {column: 'any', term: 'd'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(4)
+
+              removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'any', term: 'd'}], [{column: 'any', term: 'c'}]])
+
+          it 'should remove a filter from a group without affecting the surrounding groups', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}, {column: 'any', term: 'd'}], [{column: 'any', term: 'c'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(4)
+
+              removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]])
+
+          it 'should remove the last filter', (done) ->
+            tableOptions =
+              showAdvancedSearch: true
+              advancedSearchEnabled: true
+              advancedSearch: [[{column: 'any', term: 'a'}]]
+
+            testTable {tableOptions}, done, (container, dt, options, data) ->
+              filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+              filterRows.size().should.equal(1)
+
+              removeNode = hx.select(filterRows.node(0)).select('.hx-data-table-advanced-search-remove').node()
+
+              fakeNodeEvent(removeNode)(fakeEvent)
+              should.not.exist(dt.advancedSearch())
+
+
+      describe 'hx.dataTable.getAdvancedSearchFilter', ->
+        it 'should use the defaults if provided', ->
+          advancedSearchFilter = hx.dataTable.getAdvancedSearchFilter()
+
+          filter = [[{column: 'name', term: 'Bob'}]]
+
+          advancedSearchFilter(filter, {cells: {name: 'Bob'}}).should.equal(true)
+          advancedSearchFilter(filter, {cells: {name: 'Steve'}}).should.equal(false)
+          advancedSearchFilter(filter, {cells: {name: 'Bobby'}}).should.equal(true)
+
+          filter = [[{column: 'any', term: 'Bob'}, {column: 'any', term: 'Steve'}]]
+
+          advancedSearchFilter(filter, {cells: {name: 'Bob', surname: 'Steve'}}).should.equal(true)
+          advancedSearchFilter(filter, {cells: {name: 'steve', surname: 'bob'}}).should.equal(true)
+
+        it 'should use the provided cellValueLookup', ->
+          cellValueLookup = (cell) -> cell.value
+
+          advancedSearchFilter = hx.dataTable.getAdvancedSearchFilter(cellValueLookup)
+
+          filter = [[{column: 'name', term: 'Bob'}]]
+
+          advancedSearchFilter(filter, {cells: {name: {text: 'a', value: 'Bob'}}}).should.equal(true)
+          advancedSearchFilter(filter, {cells: {name: {text: 'b', value: 'Steve'}}}).should.equal(false)
+          advancedSearchFilter(filter, {cells: {name: {text: 'c', value: 'Bobby'}}}).should.equal(true)
+
+        it 'should use the provided termLookup', ->
+          termLookup = (term, rowSearchTerm) -> rowSearchTerm.indexOf(term) > -1
+
+          filter = [[{column: 'name', term: 'Bob Steve'}]]
+
+          advancedSearchFilter = hx.dataTable.getAdvancedSearchFilter(undefined, termLookup)
+
+          advancedSearchFilter(filter, {cells: {name: 'Bob Steve'}}).should.equal(true)
+          advancedSearchFilter(filter, {cells: {name: 'bob a steve'}}).should.equal(false)
+
+          filter = [[{column: 'any', term: 'Bob'}, {column: 'any', term: 'Steve'}]]
+
+          advancedSearchFilter(filter, {cells: {name: 'Bob', surname: 'Steve'}}).should.equal(true)
+          advancedSearchFilter(filter, {cells: {name: 'steve', surname: 'bob'}}).should.equal(true)
+
+
+    describe 'option combinations', ->
+      it 'advancedSearchEnabled (true) and showSearchAboveTable (true) should show the advanced search above the table', (done) ->
+        tableOptions =
+          advancedSearchEnabled: true
+          showSearchAboveTable: true
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          # We assume the styles work here - the re-ordering of the control panel is done purely with CSS...
+          container.classed('hx-data-table-show-search-above-content').should.equal(true)
+          container.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible').should.equal(true)
+
+
+      it 'advancedSearchEnabled(true) and filterEnabled (false) should only show the advanced search', (done) ->
+        tableOptions =
+          advancedSearchEnabled: true
+          filterEnabled: false
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          container.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible').should.equal(true)
+          container.select('.hx-data-table-advanced-search-toggle').classed('hx-data-table-advanced-search-visible').should.equal(false)
+          container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(false)
+
+
+      describe 'compact', ->
+        it 'filterEnabled (true) and sortEnabled (false) should show the compact control panel', (done) ->
+          tableOptions =
+            compact: true
+            filterEnabled: true
+            sortEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(true)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(false)
+
+        it 'advancedSearchEnabled (true) and filterEnabled/sortEnabled (false) should show the compact control panel', (done) ->
+          tableOptions =
+            compact: true
+            advancedSearchEnabled: true
+            filterEnabled: false
+            sortEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(true)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(false)
+
+        it 'pageSizeOptions and filterEnabled/sortEnabled (false) should show the compact control panel and bottom control panel', (done) ->
+          tableOptions =
+            compact: true
+            pageSizeOptions: [1,2,3,4,5]
+            filterEnabled: false
+            sortEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(true)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(true)
+
+        it 'should not show the control panels when there is nothing to show in them', (done) ->
+          tableOptions =
+            compact: true
+            filterEnabled: false
+            sortEnabled: false
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            container.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible').should.equal(false)
+            container.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible').should.equal(false)
+
+        it 'should toggle the control panel visibility when the toggle is clicked', (done) ->
+          clock = sinon.useFakeTimers(clockTime)
+          tableOptions =
+            compact: true
+
+          testTable {tableOptions}, done, (container, dt, options, data) ->
+            toggleButton = container.select('.hx-data-table-control-panel-compact-toggle')
+            toggleButton.classed('hx-data-table-control-panel-compact-toggle-visible').should.equal(true)
+            controlPanel = container.select('.hx-data-table-control-panel')
+            controlPanelCompact = container.select('.hx-data-table-control-panel-compact')
+            controlPanel.classed('hx-data-table-control-panel-visible hx-data-table-compact-hide').should.equal(true)
+            fakeNodeEvent(toggleButton.node())(fakeEvent)
+            clock.tick(animationCompletedDelay)
+            controlPanel.classed('hx-data-table-compact-hide').should.equal(false)
+            controlPanelCompact.classed('hx-data-table-control-panel-compact-open').should.equal(true)
+            fakeNodeEvent(toggleButton.node())(fakeEvent)
+            clock.tick(animationCompletedDelay)
+            controlPanel.classed('hx-data-table-compact-hide').should.equal(true)
+            controlPanelCompact.classed('hx-data-table-control-panel-compact-open').should.equal(false)
+            clock.restore()
+
+
+
+
+
+
 
   describe 'rowsForIds', ->
     it 'should return the correct values', (done) ->
@@ -1356,6 +1886,238 @@ describe 'data-table', ->
       f.should.not.have.been.called()
       container.select('.hx-data-table-content').node().childNodes.length.should.equal(0)
       container.selectAll('.hx-data-table-table').size().should.equal(0)
+
+
+
+
+
+
+
+  describe 'events', ->
+
+    describe 'sortchange', ->
+      it 'should emit an event when sort clicked with cause: user', (done) ->
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node())
+
+        dt.on 'sortchange', (d) ->
+          d.value.column.should.equal('name')
+          d.value.direction.should.equal('asc')
+          d.cause.should.equal('user')
+          done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-top').select('.hx-data-table-cell').node(), 'click')()
+
+    describe 'filterchange', ->
+      it 'should emit an event when filter changed with cause: user', (done) ->
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node())
+
+        dt.on 'filterchange', (d) ->
+          d.value.should.equal('test')
+          d.cause.should.equal('user')
+          done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          selection.select('.hx-data-table-filter').value('test')
+          fakeNodeEvent(selection.select('.hx-data-table-filter').node(), 'input')()
+
+    describe 'selectedrowschange', ->
+      it 'should emit an event when rows are selected/deselected', (done) ->
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node(), {
+          selectEnabled: true,
+          rowSelectableLookup: (row) -> true
+        })
+
+        n = 0
+        dt.on 'selectedrowschange', (d) ->
+
+          if n is 0
+            d.row.should.eql(threeRowsData.rows[0])
+            d.rowValue.should.equal(true)
+            d.value.should.eql([threeRowsData.rows[0].id])
+            d.cause.should.equal('user')
+            n++
+          else if n is 1
+            d.row.should.eql(threeRowsData.rows[2])
+            d.rowValue.should.equal(true)
+            d.value.should.eql([threeRowsData.rows[0].id, threeRowsData.rows[2].id])
+            d.cause.should.equal('user')
+            n++
+          else if n is 2
+            d.row.should.eql(threeRowsData.rows[0])
+            d.rowValue.should.equal(false)
+            d.value.should.eql([threeRowsData.rows[2].id])
+            d.cause.should.equal('user')
+            done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+
+    describe 'selectedrowsclear', ->
+      it 'should emit an event when the selected rows is cleared', (done) ->
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node(), {
+          selectEnabled: true,
+          rowSelectableLookup: (row) -> true
+        })
+
+        n = 0
+        dt.on 'selectedrowschange', (d) ->
+          if n is 1
+            fakeNodeEvent(selection.select('.hx-data-table-status-bar-clear').node(0), 'click')(fakeEvent)
+          n++
+
+        dt.on 'selectedrowsclear', (d) ->
+          done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
+
+    describe 'expandedrowschange', ->
+      it 'should emit an event when row is collapsed/expanded', (done) ->
+
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node(), {
+          collapsibleRenderer: ->
+          rowCollapsibleLookup: (row) -> true
+        })
+
+        first = true
+        dt.on 'expandedrowschange', (d) ->
+          d.row.should.eql(threeRowsData.rows[0])
+          if first
+            d.rowValue.should.equal(true)
+            d.value.should.eql([threeRowsData.rows[0].id])
+            d.cause.should.equal('user')
+            first = false
+          else
+            d.rowValue.should.equal(false)
+            d.value.should.eql([])
+            d.cause.should.equal('user')
+            done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
+          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
+
+    describe 'rowclick', ->
+      it 'should emit an event when the row is clicked', (done) ->
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node(), {pageSizeOptions: [5, 10, 15]})
+
+        dt.on 'rowclick', (d) ->
+          d.data.should.eql(threeRowsData.rows[0])
+          d.node.should.be.an.instanceof(Element)
+          done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          fakeNodeEvent(selection.select('.hx-sticky-table-wrapper').select('.hx-data-table-body').select('.hx-data-table-row').node(), 'click')()
+
+    describe 'render', ->
+      it 'should emit an event when the row is clicked', (done) ->
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node(), {pageSizeOptions: [5, 10, 15]})
+
+        dt.on 'render', -> done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData)
+
+    describe 'pagesizechange', ->
+      it 'should emit an event when the page size is changed with cause: user', (done) ->
+        selection = hx.detached('div')
+        dt = new hx.DataTable(selection.node(), {pageSizeOptions: [5, 10, 15]})
+
+        dt.on 'pagesizechange', (d) ->
+          d.value.should.equal(10)
+          d.cause.should.equal('user')
+          done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          selection
+            .select('.hx-data-table-page-size-picker')
+            .component()
+            .emit('change', {value: {value: 10, text: '10'}, cause: 'user'})
+
+    describe 'pagechange', ->
+
+      describe 'should emit an event when the page changes', ->
+
+        it 'should work when setting the page to 2', (done) ->
+          selection = hx.detached('div')
+          dt = new hx.DataTable(selection.node(), {pageSize: 2, pageSizeOptions: [5, 10, 15]})
+          dt.on 'pagechange', (d) ->
+            d.value.should.eql(2)
+            d.cause.should.equal('user')
+            done()
+          dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+            selection.select('.hx-data-table-paginator-picker').component().emit('change', {value: {value: 2}, cause: 'user'})
+
+        it 'should work when setting the page to 1', (done) ->
+          selection = hx.detached('div')
+          dt = new hx.DataTable(selection.node(), {pageSize: 2, pageSizeOptions: [5, 10, 15]})
+          dt.on 'pagechange', (d) ->
+            d.value.should.equal(1)
+            d.cause.should.equal('user')
+            done()
+          dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+            selection.select('.hx-data-table-paginator-picker').component().emit('change', {value: {value: 1}, cause: 'user'})
+
+    describe 'compactchange', ->
+      it 'should emit an event when changing from full to compact', (done) ->
+
+        container = hx.select('body').append('div').style('width', '1000px')
+
+        dt = new hx.DataTable(container.node())
+
+        dt.on 'compactchange', (d) ->
+          d.value.should.equal('auto')
+          d.state.should.equal(true)
+          d.cause.should.equal('user')
+          hx.select('body').clear()
+          done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          container.style('width', '100px')
+
+      it 'should emit an event when changing from compact to full', (done) ->
+        container = hx.select('body').append('div').style('width', '100px')
+
+        dt = new hx.DataTable(container.node())
+
+        dt.on 'compactchange', (d) ->
+          d.value.should.equal('auto')
+          d.state.should.equal(false)
+          d.cause.should.equal('user')
+          dt.off('compactchange')
+          hx.select('body').clear()
+          done()
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          container.style('width', '1000px')
+
+       it 'should not emit an event if it doesnt change mode', (done) ->
+
+        container = hx.select('body').append('div').style('width', '1000px')
+
+        dt = new hx.DataTable(container.node())
+
+        called = false
+        dt.on 'compactchange', (d) ->
+          called = true
+
+        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
+          container.style('width', '900px')
+
+          f = ->
+            called.should.equal(false)
+            done()
+          setTimeout(f, 50)
 
 
 
@@ -1558,6 +2320,198 @@ describe 'data-table', ->
           ])
           done()
 
+      it 'should use the provided filter function', ->
+        options =
+          filter: (term, row) -> row.cells.name is term
+        hx.dataTable.objectFeed(data, options).rows {filter: 'Bob', start: 0, end: 2}, (data) ->
+          data.rows.should.eql([
+            {
+              id: 0,
+              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+            }
+          ])
+          data.filteredCount.should.equal(1)
+
+      it 'should use the provided advanced search function', ->
+        options =
+          advancedSearch: (filters, row) -> row.cells.name is filters[0][0].term
+        hx.dataTable.objectFeed(data, options).rows {useAdvancedSearch: true, advancedSearch: [[{column: 'name', term: 'Bob'}]], start: 0, end: 2}, (data) ->
+          data.rows.should.eql([
+            {
+              id: 0,
+              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+            }
+          ])
+          data.filteredCount.should.equal(1)
+
+      describe 'advanced search', ->
+        advancedSearchData = {
+          headers: [
+            { id: 'name', name: "Name" }
+            { id: 'phone', name: "Phone" }
+            { id: 'email', name: "Email" }
+            { id: 'company', name: "Company" }
+            { id: 'city', name: "City" }
+            { id: 'keywords', name: "Keywords" }
+            { id: 'salary', name: "Salary" }
+          ]
+          rows: [
+            { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+            { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+            { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
+            { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+            { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+            { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+          ]
+        }
+
+        it 'should return the complete dataset when the filter is not defined', (done) ->
+          filter = undefined
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql(advancedSearchData.rows)
+            data.filteredCount.should.equal(6)
+            done()
+
+        it 'should return the complete dataset when the filter is empty', (done) ->
+          filter = []
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql(advancedSearchData.rows)
+            data.filteredCount.should.equal(6)
+            done()
+
+        it 'should return the complete dataset when the filter is empty', (done) ->
+          filter = [[]]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql(advancedSearchData.rows)
+            data.filteredCount.should.equal(6)
+            done()
+
+        it 'should get the rows from the data set with filtering on multiple columns', (done) ->
+          filter = [
+            [{
+              column: 'name',
+              term: 'a',
+            }, {
+              column: 'phone',
+              term: '1',
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+            ])
+            data.filteredCount.should.equal(1)
+            done()
+
+        it 'should filter multiple times on the same data', (done) ->
+          filter = [
+            [{
+              column: 'any'
+              term: 'a'
+            }]
+          ]
+          feed = hx.dataTable.objectFeed(advancedSearchData)
+
+          firstData = undefined
+
+          feed.rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            firstData = data.rows
+            data.rows.should.eql([
+              { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+              { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+              { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
+              { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+              { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+              { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+            ])
+            data.filteredCount.should.equal(6)
+
+            filter = [
+              [{
+                column: 'name',
+                term: 'a',
+              }, {
+                column: 'phone',
+                term: '1',
+              }]
+            ]
+
+            feed.rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+              data.rows.should.eql([
+                { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+              ])
+              data.filteredCount.should.equal(1)
+              done()
+
+        it 'should filter on "any" column', (done) ->
+          filter = [
+            [{
+              column: 'any'
+              term: 'a'
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+              { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+              { cells: { name: "Juliet Ruiz", phone: "0800 692945", email: "vel@Aliquam.ca", company: "Auctor Velit Aliquam Corp.", city: "Kungälv", keywords: "consequat nec, mollis", salary: "£463.76" } }
+              { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+              { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+              { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+            ])
+            data.filteredCount.should.equal(6)
+            done()
+
+        it 'should get the rows from the data set with filtering on multiple columns using "or"', (done) ->
+          filter = [
+            [{
+              column: 'name',
+              term: 'a',
+            }], [{
+              column: 'phone',
+              term: '1',
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+              { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+              { cells: { name: "Olivia Caldwell", phone: "(01370) 43740", email: "Aenean.massa@condimentum.co.uk", company: "Fringilla Porttitor Vulputate Inc.", city: "Birmingham", keywords: "Donec fringilla. Donec", salary: "£257.33" } }
+              { cells: { name: "Odette Ferrell", phone: "(011495) 29835", email: "dolor@aliquetPhasellus.co.uk", company: "Tincidunt Company", city: "Quedlinburg", keywords: "ac, eleifend vitae,", salary: "£353.87" } }
+              { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+            ])
+            data.filteredCount.should.equal(5)
+            done()
+
+        it 'should perform a complex filter', (done) ->
+          filter = [
+            [{
+              column: 'name',
+              term: 'a',
+            }, {
+              column: 'email',
+              term: '.com',
+            }], [{
+              column: 'company',
+              term: 'corp.',
+            }, {
+              column: 'phone',
+              term: '1',
+            }], [{
+              column: 'keywords',
+              term: 'nam',
+            }]
+          ]
+          hx.dataTable.objectFeed(advancedSearchData).rows {start: 0, end: 5, useAdvancedSearch: true, advancedSearch: filter}, (data) ->
+            data.rows.should.eql([
+              { cells: { name: "Wing Simon", phone: "(0151) 610 0311", email: "Curabitur.vel.lectus@nibhdolor.com", company: "Fringilla Corp.", city: "Frignano", keywords: "Morbi sit amet", salary: "£235.59" } }
+              { cells: { name: "Simon Olsen", phone: "056 1366 7271", email: "mauris.sapien.cursus@Proinultrices.com", company: "Aenean Foundation", city: "Istanbul", keywords: "non magna. Nam", salary: "£337.53" } }
+              { cells: { name: "Lilah Lamb", phone: "07624 294538", email: "gravida@nonmassa.com", company: "Tellus Justo Sit LLP", city: "Vagli Sotto", keywords: "commodo auctor velit.", salary: "£292.15" } }
+            ])
+            data.filteredCount.should.equal(3)
+            done()
+
+
     describe 'infinite data', ->
 
       # feed for use when testing the infinite data
@@ -1631,326 +2585,99 @@ describe 'data-table', ->
               done()
 
 
-  describe 'events', ->
-
-    describe 'sortchange', ->
-      it 'should emit an event when sort clicked with cause: user', (done) ->
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node())
-
-        dt.on 'sortchange', (d) ->
-          d.value.column.should.equal('name')
-          d.value.direction.should.equal('asc')
-          d.cause.should.equal('user')
-          done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-top').select('.hx-data-table-cell').node(), 'click')()
-
-    describe 'filterchange', ->
-      it 'should emit an event when filter clicked with cause: user', (done) ->
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node())
-
-        dt.on 'filterchange', (d) ->
-          d.value.should.equal('test')
-          d.cause.should.equal('user')
-          done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          selection.select('.hx-data-table-filter-control').value('test')
-          fakeNodeEvent(selection.select('.hx-data-table-filter-control').node(), 'input')()
-
-    describe 'selectedrowschange', ->
-      it 'should emit an event when rows are selected/deselected', (done) ->
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node(), {
-          selectEnabled: true,
-          rowSelectableLookup: (row) -> true
-        })
-
-        n = 0
-        dt.on 'selectedrowschange', (d) ->
-
-          if n is 0
-            d.row.should.eql(threeRowsData.rows[0])
-            d.rowValue.should.equal(true)
-            d.value.should.eql([threeRowsData.rows[0].id])
-            d.cause.should.equal('user')
-            n++
-          else if n is 1
-            d.row.should.eql(threeRowsData.rows[2])
-            d.rowValue.should.equal(true)
-            d.value.should.eql([threeRowsData.rows[0].id, threeRowsData.rows[2].id])
-            d.cause.should.equal('user')
-            n++
-          else if n is 2
-            d.row.should.eql(threeRowsData.rows[0])
-            d.rowValue.should.equal(false)
-            d.value.should.eql([threeRowsData.rows[2].id])
-            d.cause.should.equal('user')
-            done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
-
-    describe 'selectedrowsclear', ->
-      it 'should emit an event when the selected rows is cleared', (done) ->
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node(), {
-          selectEnabled: true,
-          rowSelectableLookup: (row) -> true
-        })
-
-        n = 0
-        dt.on 'selectedrowschange', (d) ->
-          if n is 1
-            fakeNodeEvent(selection.select('.hx-data-table-status-bar-clear').node(0), 'click')(fakeEvent)
-          n++
-
-        dt.on 'selectedrowsclear', (d) ->
-          done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
-
-    describe 'expandedrowschange', ->
-      it 'should emit an event when row is collapsed/expanded', (done) ->
-
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node(), {
-          collapsibleRenderer: ->
-          rowCollapsibleLookup: (row) -> true
-        })
-
-        first = true
-        dt.on 'expandedrowschange', (d) ->
-          d.row.should.eql(threeRowsData.rows[0])
-          if first
-            d.rowValue.should.equal(true)
-            d.value.should.eql([threeRowsData.rows[0].id])
-            d.cause.should.equal('user')
-            first = false
+    describe 'url feed', ->
+      json = undefined
+      setupFakeHxJson = (response, expectedUrl, expectedPostData) ->
+        json = hx.json
+        hx.json = (url, data, cb) ->
+          if expectedUrl isnt undefined
+            url.should.eql(expectedUrl)
           else
-            d.rowValue.should.equal(false)
-            d.value.should.eql([])
-            d.cause.should.equal('user')
+            should.not.exist(data)
+
+          if expectedPostData isnt undefined
+            data.should.eql(expectedPostData)
+          else
+            should.not.exist(data)
+
+          cb(undefined, response)
+
+      tearDownFakeHxJson = -> hx.json = json
+
+
+      testFeedWithOptions = (options) ->
+        it 'headers', (done) ->
+          setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).headers (headers) ->
+            headers.should.eql(['header1', 'header2', 'header3'])
+            tearDownFakeHxJson()
             done()
 
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
-
-    describe 'rowclick', ->
-      it 'should emit an event when the row is clicked', (done) ->
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node(), {pageSizeOptions: [5, 10, 15]})
-
-        dt.on 'rowclick', (d) ->
-          d.data.should.eql(threeRowsData.rows[0])
-          d.node.should.be.an.instanceof(Element)
-          done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-wrapper').select('.hx-data-table-body').select('.hx-data-table-row').node(), 'click')()
-
-    describe 'render', ->
-      it 'should emit an event when the row is clicked', (done) ->
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node(), {pageSizeOptions: [5, 10, 15]})
-
-        dt.on 'render', -> done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData)
-
-    describe 'pagesizechange', ->
-      it 'should emit an event when the page size is changed with cause: user', (done) ->
-        selection = hx.detached('div')
-        dt = new hx.DataTable(selection.node(), {pageSizeOptions: [5, 10, 15]})
-
-        dt.on 'pagesizechange', (d) ->
-          d.value.should.equal(10)
-          d.cause.should.equal('user')
-          done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          selection
-            .select('.hx-data-table-page-size-picker')
-            .component()
-            .emit('change', {value: {value: 10, text: '10'}, cause: 'user'})
-
-    describe 'pagechange', ->
-
-      describe 'should emit an event when the page changes', ->
-
-        it 'should work when setting the page to 2', (done) ->
-          selection = hx.detached('div')
-          dt = new hx.DataTable(selection.node(), {pageSize: 2, pageSizeOptions: [5, 10, 15]})
-          dt.on 'pagechange', (d) ->
-            d.value.should.eql(2)
-            d.cause.should.equal('user')
+        it 'totalCount', (done) ->
+          setupFakeHxJson({count: 3}, 'some-url', {type: 'totalCount', extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).totalCount (count) ->
+            count.should.equal(3)
+            tearDownFakeHxJson()
             done()
-          dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-            selection.select('.hx-data-table-pagination-picker').component().emit('change', {value: {value: 2}, cause: 'user'})
 
-        it 'should work when setting the page to 1', (done) ->
-          selection = hx.detached('div')
-          dt = new hx.DataTable(selection.node(), {pageSize: 2, pageSizeOptions: [5, 10, 15]})
-          dt.on 'pagechange', (d) ->
-            d.value.should.equal(1)
-            d.cause.should.equal('user')
+        it 'rows', (done) ->
+          result = {
+            rows: [
+              {'id': 0, 'cells': {'whatever': 1}},
+              {'id': 1, 'cells': {'whatever': 2}}
+            ],
+            filteredCount: 5
+          }
+          setupFakeHxJson(result, 'some-url', {type: 'rows', range: {start: 0, end: 5, filter: 'something'}, extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).rows {start: 0, end: 5, filter: 'something'}, (res) ->
+            res.should.eql(result)
+            tearDownFakeHxJson()
             done()
-          dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-            selection.select('.hx-data-table-pagination-picker').component().emit('change', {value: {value: 1}, cause: 'user'})
 
-    describe 'compactchange', ->
-      it 'should emit an event when changing from full to compact', (done) ->
-
-        container = hx.select('body').append('div').style('width', '1000px')
-
-        dt = new hx.DataTable(container.node())
-
-        dt.on 'compactchange', (d) ->
-          d.value.should.equal('auto')
-          d.state.should.equal(true)
-          d.cause.should.equal('user')
-          hx.select('body').clear()
-          done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          container.style('width', '100px')
-
-      it 'should emit an event when changing from compact to full', (done) ->
-        container = hx.select('body').append('div').style('width', '100px')
-
-        dt = new hx.DataTable(container.node())
-
-        dt.on 'compactchange', (d) ->
-          d.value.should.equal('auto')
-          d.state.should.equal(false)
-          d.cause.should.equal('user')
-          dt.off('compactchange')
-          hx.select('body').clear()
-          done()
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          container.style('width', '1000px')
-
-       it 'should not emit an event if it doesnt change mode', (done) ->
-
-        container = hx.select('body').append('div').style('width', '1000px')
-
-        dt = new hx.DataTable(container.node())
-
-        called = false
-        dt.on 'compactchange', (d) ->
-          called = true
-
-        dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          container.style('width', '900px')
-
-          f = ->
-            called.should.equal(false)
-            done()
-          setTimeout(f, 50)
-
-
-  describe 'url feed', ->
-
-    json = undefined
-    setupFakeHxJson = (response, expectedUrl, expectedPostData) ->
-      json = hx.json
-      hx.json = (url, data, cb) ->
-        if expectedUrl isnt undefined
-          url.should.eql(expectedUrl)
-        else
-          should.not.exist(data)
-
-        if expectedPostData isnt undefined
-          data.should.eql(expectedPostData)
-        else
-          should.not.exist(data)
-
-        cb(undefined, response)
-
-    tearDownFakeHxJson = -> hx.json = json
-
-
-    testFeedWithOptions = (options) ->
-      it 'headers', (done) ->
-        setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).headers (headers) ->
-          headers.should.eql(['header1', 'header2', 'header3'])
-          tearDownFakeHxJson()
-          done()
-
-      it 'totalCount', (done) ->
-        setupFakeHxJson({count: 3}, 'some-url', {type: 'totalCount', extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).totalCount (count) ->
-          count.should.equal(3)
-          tearDownFakeHxJson()
-          done()
-
-      it 'rows', (done) ->
-        result = {
-          rows: [
+        it 'rowsForIds', (done) ->
+          result = [
             {'id': 0, 'cells': {'whatever': 1}},
             {'id': 1, 'cells': {'whatever': 2}}
-          ],
-          filteredCount: 5
-        }
-        setupFakeHxJson(result, 'some-url', {type: 'rows', range: {start: 0, end: 5, filter: 'something'}, extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).rows {start: 0, end: 5, filter: 'something'}, (res) ->
-          res.should.eql(result)
-          tearDownFakeHxJson()
-          done()
+          ]
+          setupFakeHxJson(result, 'some-url', {type: 'rowsForIds', ids: [0, 1], extra: options?.extra})
+          hx.dataTable.urlFeed('some-url', options).rowsForIds [0, 1], undefined, (res) ->
+            res.should.eql(result)
+            tearDownFakeHxJson()
+            done()
 
-      it 'rowsForIds', (done) ->
-        result = [
-          {'id': 0, 'cells': {'whatever': 1}},
-          {'id': 1, 'cells': {'whatever': 2}}
-        ]
-        setupFakeHxJson(result, 'some-url', {type: 'rowsForIds', ids: [0, 1], extra: options?.extra})
-        hx.dataTable.urlFeed('some-url', options).rowsForIds [0, 1], undefined, (res) ->
-          res.should.eql(result)
-          tearDownFakeHxJson()
-          done()
+      describe 'with default options should make the correct requests for', ->
+        testFeedWithOptions(undefined)
 
-    describe 'with default options should make the correct requests for', ->
-      testFeedWithOptions(undefined)
+      describe 'with cached: true should make the correct requests for', ->
+        testFeedWithOptions({cache: true})
 
-    describe 'with cached: true should make the correct requests for', ->
-      testFeedWithOptions({cache: true})
-
-      it 'should cache the headers', (done) ->
-        setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: undefined})
-        jsonSpy = chai.spy.on(hx, 'json')
-        feed = hx.dataTable.urlFeed('some-url', {cache: true})
-        feed.headers (headers) ->
-          headers.should.eql(['header1', 'header2', 'header3'])
+        it 'should cache the headers', (done) ->
+          setupFakeHxJson(['header1', 'header2', 'header3'], 'some-url', {type: 'headers', extra: undefined})
+          jsonSpy = chai.spy.on(hx, 'json')
+          feed = hx.dataTable.urlFeed('some-url', {cache: true})
           feed.headers (headers) ->
             headers.should.eql(['header1', 'header2', 'header3'])
-            jsonSpy.should.have.been.called.once
-            tearDownFakeHxJson()
-            done()
+            feed.headers (headers) ->
+              headers.should.eql(['header1', 'header2', 'header3'])
+              jsonSpy.should.have.been.called.once
+              tearDownFakeHxJson()
+              done()
 
-      it 'should cache the totalCount', (done) ->
-        setupFakeHxJson({count: 5}, 'some-url', {type: 'totalCount', extra: undefined})
-        jsonSpy = chai.spy.on(hx, 'json')
-        feed = hx.dataTable.urlFeed('some-url', {cache: true})
-        feed.totalCount (totalCount) ->
-          totalCount.should.equal(5)
+        it 'should cache the totalCount', (done) ->
+          setupFakeHxJson({count: 5}, 'some-url', {type: 'totalCount', extra: undefined})
+          jsonSpy = chai.spy.on(hx, 'json')
+          feed = hx.dataTable.urlFeed('some-url', {cache: true})
           feed.totalCount (totalCount) ->
             totalCount.should.equal(5)
-            jsonSpy.should.have.been.called.once
-            tearDownFakeHxJson()
-            done()
+            feed.totalCount (totalCount) ->
+              totalCount.should.equal(5)
+              jsonSpy.should.have.been.called.once
+              tearDownFakeHxJson()
+              done()
 
-    describe 'with extra object passed in should make the correct requests for', ->
-      testFeedWithOptions({extra: 'some-value'})
+      describe 'with extra object passed in should make the correct requests for', ->
+        testFeedWithOptions({extra: 'some-value'})
+
 
 
   describe 'fluid api', ->
@@ -1962,4 +2689,3 @@ describe 'data-table', ->
 
     it 'should render if a feed is defined', ->
       hx.dataTable({feed: hx.dataTable.objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)
-

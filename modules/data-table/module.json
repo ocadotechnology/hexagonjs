@@ -2,8 +2,10 @@
   "dependencies": [
     "button",
     "button-group",
+    "component",
     "event-emitter",
     "filter",
+    "fluid",
     "icon",
     "picker",
     "request",
@@ -13,6 +15,7 @@
     "sort",
     "sticky-table-headers",
     "table",
+    "toggle",
     "user-facing-text",
     "util"
   ]
