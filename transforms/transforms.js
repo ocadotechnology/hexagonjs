@@ -1,5 +1,10 @@
 var quantum = require('quantum-js')
 
+exports.pageLink = function (entity, page, transforms) {
+  return page.create('div').class('docs-page-link')
+    .attr('id', entity.ps('-'))
+}
+
 exports.section = function (entity, page, transforms) {
   return page.create('div').class('docs-section')
     .add(page.create('h2').text(entity.ps()))

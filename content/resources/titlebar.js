@@ -123,7 +123,7 @@ dx.json('/meta.json', function (err, meta) {
       Object.keys(meta.modules).filter(filterer).forEach(function (moduleId, i) {
         dropdownContent.append('a')
           .class('docs-search-result')
-          .attr('href', '/docs/' + (meta.selectedVersion || meta.targetVersions[meta.targetVersions.length - 1]) + '/' + moduleId + '/')
+          .attr('href', '/docs/' + (meta.selectedVersion ? meta.selectedVersion + '/' : '') + moduleId + '/')
           .classed('docs-search-result-highlight', menuPos === i)
           .add(dx.detached('span').class('docs-search-result-text').text(moduleId.split('-').join(' ')))
       })

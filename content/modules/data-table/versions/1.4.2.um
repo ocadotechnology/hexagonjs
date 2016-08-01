@@ -1,0 +1,11 @@
+@version 1.4.2
+  @api Data Table
+    @object hx.dataTable
+      @function objectFeed
+        @param data [Object]
+        @param? options [Object]
+          @property compare [Function]
+            @param cell1 [String]
+            @param cell2 [String]
+            @default
+              @removed
