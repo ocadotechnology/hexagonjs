@@ -21,10 +21,6 @@ describe 'hx-dropdown', ->
 
   getSpacing = (dd) -> dd.options.spacing or Number(hx.theme.dropdown.spacing)
 
-  fakeNodeEvent = (node, eventName) ->
-    if node?
-      (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
-
   makeButton = ->
     fixture.append('div')
       .attr('id', id.slice(1))

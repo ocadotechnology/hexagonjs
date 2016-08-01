@@ -6,5 +6,6 @@
 .sass-cache
 /debug
 /npm-debug.log
+.idea
 node_modules
 target

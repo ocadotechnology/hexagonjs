@@ -39,10 +39,6 @@ describe "file-input", ->
     hx._.dropdown.attachToSelector = origDropdownAttachSelector
     clock.restore()
 
-  fakeNodeEvent = (node, eventName) ->
-    if node?
-      (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
-
   testFileInput = (options, callback) ->
     sel = fixture.append('div')
     fileInput = new hx.FileInput(sel.node(), options)
@@ -73,7 +69,7 @@ describe "file-input", ->
     testFileInput undefined, (sel, fileInput) ->
       input = sel.select('.hx-file-input-hidden').node()
       chai.spy.on(input, 'click')
-      fakeNodeEvent(sel.select('.hx-file-input-button').node(), 'click')(fakeEvent)
+      testHelpers.fakeNodeEvent(sel.select('.hx-file-input-button').node(), 'click')(fakeEvent)
       input.click.should.have.been.called()
 
 
@@ -96,33 +92,33 @@ describe "file-input", ->
 
   it 'should allow any files by default', ->
     testFileInput undefined, (sel, fileInput) ->
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1 ] })
       hx.consoleWarning.should.not.have.been.called()
       fileInput.value().should.eql([ fakeFile1 ])
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile2 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile2 ] })
       hx.consoleWarning.should.not.have.been.called()
       fileInput.value().should.eql([ fakeFile2 ])
 
 
   it 'should allow only a single file by default', ->
     testFileInput undefined, (sel, fileInput) ->
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
       hx.consoleWarning.should.not.have.been.called()
       fileInput.value().should.eql([ fakeFile1 ])
 
 
   it 'should remove the file from the list when clicking the "x"', ->
     testFileInput undefined, (sel, fileInput) ->
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1 ] })
       hx.consoleWarning.should.not.have.been.called()
       fileInput.value().should.eql([ fakeFile1 ])
-      fakeNodeEvent(sel.select('.hx-file-input-preview-remove').node(), 'click')(fakeEvent)
+      testHelpers.fakeNodeEvent(sel.select('.hx-file-input-preview-remove').node(), 'click')(fakeEvent)
       fileInput.value().should.eql([])
 
 
   it 'should use the files selected text when selecting multiple files', ->
     testFileInput { multiple: true }, (sel, fileInput) ->
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
       hx.consoleWarning.should.not.have.been.called()
       fileInput.value().should.eql([ fakeFile1, fakeFile2 ])
       sel.select('.hx-file-input-selected').text().should.equal(hx.userFacingText('fileInput', 'filesSelected').replace('$numFiles', 2))
@@ -130,14 +126,14 @@ describe "file-input", ->
 
   it 'should hide the dropdown when the number of files changes from >1 to 1', ->
     testFileInput { multiple: true }, (sel, fileInput) ->
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
       hx.consoleWarning.should.not.have.been.called()
       fileInput.value().should.eql([ fakeFile1, fakeFile2 ])
-      fakeNodeEvent(sel.select('.hx-file-input-selected').node(), 'click')(fakeEvent)
+      testHelpers.fakeNodeEvent(sel.select('.hx-file-input-selected').node(), 'click')(fakeEvent)
       clock.tick(dropdownAnimationDuration)
       dropdown = hx.select('#fixture').select('.hx-file-input-dropdown')
       dropdown.empty().should.equal(false)
-      fakeNodeEvent(dropdown.select('.hx-file-input-preview-remove').node(), 'click')(fakeEvent)
+      testHelpers.fakeNodeEvent(dropdown.select('.hx-file-input-preview-remove').node(), 'click')(fakeEvent)
       fileInput.value().should.eql([ fakeFile2 ])
       clock.tick(dropdownAnimationDuration)
       hx.select('#fixture').select('.hx-file-input-dropdown').empty().should.equal(true)
@@ -146,7 +142,7 @@ describe "file-input", ->
 
   it 'should allow multiple files when multiple is true', ->
     testFileInput { multiple: true }, (sel, fileInput) ->
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
       hx.consoleWarning.should.not.have.been.called()
       fileInput.value().should.eql([ fakeFile1, fakeFile2 ])
 
@@ -155,7 +151,7 @@ describe "file-input", ->
     testFileInput { acceptedExtensions: [ 'png' ] }, (sel, fileInput) ->
       cbSpy = chai.spy()
       fileInput.on 'fileextensionerror', cbSpy
-      fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
+      testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
       cbSpy.should.have.been.called()
       fileInput.value().should.eql([ fakeFile2 ])
 
@@ -197,15 +193,15 @@ describe "file-input", ->
           files: [ fakeFile1 ]
         }
       }
-      fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.once()
       fakeDragEvent.stopPropagation.should.have.been.called.once()
 
-      fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.twice()
       fakeDragEvent.stopPropagation.should.have.been.called.twice()
 
-      fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.exactly(3)
       fileInput.value().should.eql([ fakeFile1 ])
 
@@ -219,15 +215,15 @@ describe "file-input", ->
           files: [ fakeFile1, fakeFile2 ]
         }
       }
-      fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.once()
       fakeDragEvent.stopPropagation.should.have.been.called.once()
 
-      fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.twice()
       fakeDragEvent.stopPropagation.should.have.been.called.twice()
 
-      fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.exactly(3)
       fileInput.value().should.eql([ fakeFile1, fakeFile2 ])
 
@@ -241,15 +237,15 @@ describe "file-input", ->
           files: [ fakeFile1 ]
         }
       }
-      fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.once()
       fakeDragEvent.stopPropagation.should.have.been.called.once()
 
-      fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.twice()
       fakeDragEvent.stopPropagation.should.have.been.called.twice()
 
-      fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.exactly(3)
       fileInput.value().should.eql([])
 
@@ -263,15 +259,15 @@ describe "file-input", ->
           files: [ fakeFile1 ]
         }
       }
-      fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.not.have.been.called()
       fakeDragEvent.stopPropagation.should.not.have.been.called()
 
-      fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.not.have.been.called()
       fakeDragEvent.stopPropagation.should.not.have.been.called()
 
-      fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
+      testHelpers.fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.not.have.been.called()
       fileInput.value().should.eql([])
 
