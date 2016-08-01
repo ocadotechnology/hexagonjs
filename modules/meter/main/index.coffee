@@ -72,8 +72,7 @@ class Meter extends hx.EventEmitter
     else
       @_.data
 
-  render: (cause) ->
-    cause ?= 'api'
+  render: (cause = 'api') ->
     _ = @_
     options = @options
     data = _.data
