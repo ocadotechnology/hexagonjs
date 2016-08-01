@@ -357,3 +357,12 @@ describe "plot", ->
       checkSetterGetterAndOption('ringPadding', [0, 5, 10])
       checkSetterGetterAndOption('totalAngle', [0, 5, 10])
       checkSetterGetterAndOption('startAngle', [0, 5, 10])
+
+  describe 'hx.Sparkline', ->
+    it 'should pass the redrawOnResize option to its Graph', ->
+      sparkLine = new hx.Sparkline(hx.detached('div'), redrawOnResize: false)
+      sparkLine._.graph.redrawOnResize().should.equal(false)
+      sparkLine.redrawOnResize().should.equal(false)
+      sparkLine.redrawOnResize(true)
+      sparkLine._.graph.redrawOnResize().should.equal(true)
+      sparkLine.redrawOnResize().should.equal(true)

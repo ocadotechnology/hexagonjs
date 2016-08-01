@@ -172,6 +172,7 @@ class Graph extends hx.EventEmitter
   labelsEnabled: optionSetterGetter('labelsEnabled')
   legendEnabled: optionSetterGetter('legendEnabled')
   legendLocation: optionSetterGetter('legendLocation')
+  redrawOnResize: optionSetterGetter('redrawOnResize')
 
   axes: (axes) ->
     if arguments.length > 0

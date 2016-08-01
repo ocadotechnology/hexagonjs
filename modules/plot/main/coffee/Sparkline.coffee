@@ -70,6 +70,9 @@ class Sparkline
   fillColor: optionSetterGetter('fillColor')
   strokeColor: optionSetterGetter('strokeColor')
   labelRenderer: optionSetterGetter('labelRenderer')
+  redrawOnResize: (value) ->
+    @_.graph.redrawOnResize(value)
+    optionSetterGetter('redrawOnResize').apply(this, arguments)
 
   render: ->
     self = this
