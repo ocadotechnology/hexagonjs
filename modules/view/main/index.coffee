@@ -1,4 +1,8 @@
 
+HMap = require('modules/map/main')
+select = require('modules/selection/main')
+util = require('modules/util/main')
+
 class View
   constructor: (@rootSelection, @selector, @defaultType) ->
     self = this
@@ -14,11 +18,10 @@ class View
   exit: (f) -> @old = f; this
   update: (f) -> @each = f; this
 
-  #XXX: Tidy and optimise
   apply: (data, key) ->
 
     if @rootSelection.size()
-      data = [data] unless hx.isArray data
+      data = if Array.isArray(data) then data else [data]
       enterSet = []
       updateSet = []
       exitSet = []
@@ -28,11 +31,11 @@ class View
 
       if key
         # some temporary maps for keeping track of which nodes are entering, and which are exiting
-        nodeByKey = new hx.Map
+        nodeByKey = new HMap
 
-        dataByKey = new hx.Map data.map (datum) -> [key(datum), datum]
+        dataByKey = new HMap data.map (datum) -> [key(datum), datum]
         for node in nodes
-          nodeData = hx.select.getHexagonElementDataObject(node)
+          nodeData = select.getHexagonElementDataObject(node)
           if nodeData.datum
             d = nodeData.datum
             k = key(d)
@@ -44,32 +47,32 @@ class View
               if dataByKey.has(k)
                 datum = dataByKey.get(k)
                 dataByKey.delete(k)
-                updateSet.push {element: node, datum: datum}
+                updateSet.push({element: node, datum: datum})
               else
                 # the data no longer exists - the node should disappear
-                exitSet.push {element: node, datum: d}
+                exitSet.push({element: node, datum: d})
           else
             # remove unknown nodes
-            exitSet.push {element: node, datum: undefined}
+            exitSet.push({element: node, datum: undefined})
 
         enterSet = ({datum: d[1]} for d in dataByKey.entries())
       else
         i = 0
         for node in nodes
           if i < data.length
-            nodeData = hx.select.getHexagonElementDataObject(node)
+            nodeData = select.getHexagonElementDataObject(node)
             nodeData.datum = data[i]
-            updateSet.push {element: node, datum: data[i]}
+            updateSet.push({element: node, datum: data[i]})
           else
-            nodeData = hx.select.getHexagonElementDataObject(node, false)
-            exitSet.push {element: node, datum: nodeData.datum}
+            nodeData = select.getHexagonElementDataObject(node, false)
+            exitSet.push({element: node, datum: nodeData.datum})
           i++
         if i < data.length
           for j in [i..data.length-1]
-            enterSet.push {datum: data[j]}
+            enterSet.push({datum: data[j]})
 
       viewEnterWarning = (element, selector) ->
-        hx.consoleWarning "view enter fn returned", element, "! It didn't match selector", selector, ", so you may encounter odd behavior"
+        util.consoleWarning("view enter function returned", element, ". It didn't match selector", selector, ", so you may encounter odd behavior")
 
       classes = @selector.split('.')
       selectorContainsClasses = classes.length > 1
@@ -77,7 +80,7 @@ class View
 
       newNodeSet = enterSet.map (d, i) =>
         datum = d.datum
-        element = @new.call @rootSelection, d.datum, i
+        element = @new.call(@rootSelection, d.datum, i)
 
         # Checks isChild first as it's the quickest operation
         isChild = @rootSelection.node().contains(element)
@@ -85,23 +88,27 @@ class View
           viewEnterWarning(element, @selector)
         # Only do this check if the selector actually contains classes to check
         else if selectorContainsClasses
-          isClassedCorrectly = hx.select(element).classed(classString)
-          viewEnterWarning(element, @selector) unless isClassedCorrectly
+          isClassedCorrectly = select(element).classed(classString)
+          if not isClassedCorrectly then viewEnterWarning(element, @selector)
 
-        hedo = hx.select.getHexagonElementDataObject element
+        hedo = select.getHexagonElementDataObject(element)
         hedo.datum = datum
-        ret =
-          element: element
+        ret = {
+          element: element,
           datum: d.datum
+        }
 
 
-      @old.call(hx.select(d.element), d.datum, d.element, i) for d, i in exitSet
-      @each.call(hx.select(d.element), d.datum, d.element, i) for d, i in updateSet.concat(newNodeSet)
+      @old.call(select(d.element), d.datum, d.element, i) for d, i in exitSet
+      @each.call(select(d.element), d.datum, d.element, i) for d, i in updateSet.concat(newNodeSet)
 
       this
 
-
-hx.Selection::view = (selector, type='div') ->
-  #TODO: remove from minified build
-  if @size() == 0 then hx.consoleWarning('.view() called on an empty selection')
-  new View(this, selector, type)
+module.exports = {
+  hx: {
+    init: ->
+      select.Selection::view = (selector, type='div') ->
+        if @size() == 0 then util.consoleWarning('.view() called on an empty selection')
+        new View(this, selector, type)
+  }
+}

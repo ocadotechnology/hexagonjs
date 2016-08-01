@@ -23,6 +23,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/transition/test/spec')
   require('modules/interpolate/test/spec')
   require('modules/animate/test/spec')
+  require('modules/view/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -135,6 +136,12 @@ describe('HexagonJS Test Suite', () => {
     describe('animate', () => {
       checkProperty('animate')
       checkProperty('morph')
+      checkProperty('animate', hx.detached('div'))
+      checkProperty('morph', hx.detached('div'))
+    })
+
+    describe('view', () => {
+      checkProperty('view', hx.detached('div'))
     })
   })
 

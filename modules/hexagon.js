@@ -1,11 +1,13 @@
 const merge = (objs) => {
   const res = {}
   objs.forEach((obj) => {
-    Object.keys(obj.hx).forEach((k) => {
-      res[k] = obj.hx[k]
-    })
-    if (obj.hx && obj.hx.init) {
-      obj.hx.init()
+    if (obj) {
+      Object.keys(obj.hx).forEach((k) => {
+        res[k] = obj.hx[k]
+      })
+      if (obj.hx && obj.hx.init) {
+        obj.hx.init()
+      }
     }
   })
 
@@ -23,5 +25,6 @@ module.exports = merge([
   require('./transition/main'),
   require('./interpolate/main'),
   require('./animate/main'),
-  require('./pointer-events/main')
+  require('./pointer-events/main'),
+  require('./view/main')
 ])
