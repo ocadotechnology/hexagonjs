@@ -9,6 +9,21 @@
               @issue 152
             @description
               Whether or not the graph should automatically be redrawn when the container is resized. By default true.
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Gets the currently set option for whether the graph should redraw on resizing the container
+        @returns Boolean: The currently set value for redrawOnResize
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Sets the option for whether the graph should redraw on resizing the container
+        @param value [Boolean]: Whether the graph should redraw on resizing the container
+        @returns Graph: This Graph
+
+
     @prototype hx.Sparkline
       @constructor
         @param selector [HTMLElement/String]
@@ -18,3 +33,16 @@
               @issue 152
             @description
               Whether or not the sparkline should automatically be redrawn when the container is resized. By default true.
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Gets the currently set option for whether the sparkline should redraw on resizing the container
+        @returns Boolean: The currently set value for redrawOnResize
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Sets the option for whether the sparkline should redraw on resizing the container
+        @param value [Boolean]: Whether the sparkline should redraw on resizing the container
+        @returns Sparkline: This Sparkline
