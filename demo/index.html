@@ -1415,7 +1415,9 @@
                 }
               })
             }
-            hx.select('#pie').style('height', '100px').add(hx.pieChart({legendEnabled: true, data: data}))
+            hx.select('#pie').style('height', '100px').add(
+              hx.pieChart({legendEnabled: true, data: data}).style('width', '100%').style('height', '100%')
+            )
 
 
           </script>

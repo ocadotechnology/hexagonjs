@@ -81,7 +81,7 @@ class PieChart extends hx.EventEmitter
 
   render: ->
     self = this
-    selection = hx.select(@selector).class('hx-pie-chart')
+    selection = hx.select(@selector)
     width = selection.width()
     height = selection.height()
     r = Math.min(width, height) / 2
