@@ -26,27 +26,30 @@ var flatten = require('flatten')
 // that looks like: { name, css, dependencesJs, moduleJs, specJs }
 // destDir is a directory where the results should be written to
 module.exports = function (testPackages, destDir, phantomOnly) {
-  return Promise.all(testPackages.map(function (testPackage) {
-    var moduleDir = path.join(destDir, 'lib', testPackage.moduleName)
-    return Promise.all([
-      fs.outputFileAsync(path.join(moduleDir, 'dependencies.js'), testPackage.dependenciesJs || ''),
-      fs.outputFileAsync(path.join(moduleDir, 'dependencies.css'), testPackage.dependenciesCss || ''),
-      fs.outputFileAsync(path.join(moduleDir, 'module.js'), testPackage.moduleJs || ''),
-      fs.outputFileAsync(path.join(moduleDir, 'module.css'), testPackage.moduleCss || ''),
-      fs.outputFileAsync(path.join(moduleDir, 'spec.js'), testPackage.specJs ? bootstrapSpec(testPackage.moduleName, testPackage.specJs) : ''),
-      fs.outputFileAsync(path.join(moduleDir, 'bootstrap.js'), testPackage.specJs ? generateBootstrapJs(testPackage.moduleName) : '')
-    ]).then(function () {
-      return [
-        path.join(moduleDir, 'dependencies.js'),
-        path.join(moduleDir, 'dependencies.css'),
-        path.join(moduleDir, 'module.js'),
-        path.join(moduleDir, 'module.css'),
-        path.join(moduleDir, 'bootstrap.js'),
-        path.join(moduleDir, 'spec.js')
-      ]
+  return fs.copyAsync(path.join(__dirname, 'test-helpers.js'), path.join(destDir, 'lib', 'test-helpers.js')).then(function() {
+    return Promise.all(testPackages.map(function (testPackage) {
+      var moduleDir = path.join(destDir, 'lib', testPackage.moduleName)
+      return Promise.all([
+        fs.outputFileAsync(path.join(moduleDir, 'dependencies.js'), testPackage.dependenciesJs || ''),
+        fs.outputFileAsync(path.join(moduleDir, 'dependencies.css'), testPackage.dependenciesCss || ''),
+        fs.outputFileAsync(path.join(moduleDir, 'module.js'), testPackage.moduleJs || ''),
+        fs.outputFileAsync(path.join(moduleDir, 'module.css'), testPackage.moduleCss || ''),
+        fs.outputFileAsync(path.join(moduleDir, 'spec.js'), testPackage.specJs ? bootstrapSpec(testPackage.moduleName, testPackage.specJs) : ''),
+        fs.outputFileAsync(path.join(moduleDir, 'bootstrap.js'), testPackage.specJs ? generateBootstrapJs(testPackage.moduleName) : '')
+      ]).then(function () {
+        return [
+          path.join(destDir, 'lib', 'test-helpers.js'),
+          path.join(moduleDir, 'dependencies.js'),
+          path.join(moduleDir, 'dependencies.css'),
+          path.join(moduleDir, 'module.js'),
+          path.join(moduleDir, 'module.css'),
+          path.join(moduleDir, 'bootstrap.js'),
+          path.join(moduleDir, 'spec.js')
+        ]
+      })
+    })).then(function (files) {
+      return runKarma(flatten(files), destDir, phantomOnly)
     })
-  })).then(function (files) {
-    return runKarma(flatten(files), destDir, phantomOnly)
   })
 }
 

@@ -1,8 +1,3 @@
-# Used to mimic an event call for a node
-fakeNodeEvent = (node, eventName) ->
-  if node?
-    (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
-
 describe "plot", ->
   it 'should have user facing text defined', ->
     hx.userFacingText('plot','noData').should.equal('No Data')
@@ -107,7 +102,7 @@ describe "plot", ->
       renderSpy = chai.spy()
       graph.on 'render', renderSpy
       selection.style 'width', '400px'
-      fakeNodeEvent(selection.node(), 'resize')()
+      testHelpers.fakeNodeEvent(selection.node(), 'resize')()
       renderSpy.should.not.have.been.called()
 
     it 'should redraw on resize by default', ->
@@ -122,7 +117,7 @@ describe "plot", ->
       renderSpy = chai.spy()
       graph.on 'render', renderSpy
       selection.style 'width', '400px'
-      fakeNodeEvent(selection.node(), 'resize')()
+      testHelpers.fakeNodeEvent(selection.node(), 'resize')()
       renderSpy.should.have.been.called()
 
 

@@ -11,11 +11,6 @@ describe 'data-table', ->
   afterEach ->
     hx.consoleWarning = origConsoleWarning
 
-  # Used to mimic an event call for a node
-  fakeNodeEvent = (node, eventName) ->
-    if node?
-      (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
-
   noData = {
     headers: [
       { name: 'Name', id: 'name' },
@@ -67,7 +62,7 @@ describe 'data-table', ->
     renderSpy = chai.spy expectation
     dt.on 'render', renderSpy
 
-    fakeNodeEvent(pickerNode)(fakeEvent)
+    testHelpers.fakeNodeEvent(pickerNode)(fakeEvent)
     clock.tick(dropdownAnimationTime)
     dropdown = hx.select('.hx-dropdown')
     targetNode = dropdown.selectAll('.hx-menu-item').node(valueIndex)
@@ -77,7 +72,7 @@ describe 'data-table', ->
       target: targetNode
     }
 
-    fakeNodeEvent(dropdown.node())(pickerEvent)
+    testHelpers.fakeNodeEvent(dropdown.node())(pickerEvent)
     renderSpy.should.have.been.called()
     clock.restore()
     hx.select('body').clear()
@@ -409,7 +404,7 @@ describe 'data-table', ->
 
         it 'should render collapsible rows correctly when toggling with the button', ->
           handlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-toggle')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
 
           handlers[0](fakeEvent)
           container.select('.hx-sticky-table-wrapper').select('tbody').selectAll('.hx-data-table-collapsible-content-row').size().should.equal(1)
@@ -444,7 +439,7 @@ describe 'data-table', ->
           dt.expandedRows().should.eql([])
 
           clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-collapsible-toggle')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
 
           clickHandlers.forEach (h) -> h?() # open all collapsibles
           dt.expandedRows().should.eql(['0', '2'])
@@ -512,7 +507,7 @@ describe 'data-table', ->
               hx.select('body').clear()
               done()
 
-            fakeNodeEvent(container.select('.hx-data-table-paginator-back').node())(fakeEvent)
+            testHelpers.fakeNodeEvent(container.select('.hx-data-table-paginator-back').node())(fakeEvent)
 
         it 'should change the page when the forward button is clicked', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, undefined, (container, dt, options, data) ->
@@ -521,12 +516,12 @@ describe 'data-table', ->
               hx.select('body').clear()
               done()
 
-            fakeNodeEvent(container.select('.hx-data-table-paginator-forward').node())(fakeEvent)
+            testHelpers.fakeNodeEvent(container.select('.hx-data-table-paginator-forward').node())(fakeEvent)
 
         it 'should not change the page when the back button is disabled', (done) ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, undefined, (container, dt, options, data) ->
             dt.render = chai.spy()
-            fakeNodeEvent(container.select('.hx-data-table-paginator-back').node())(fakeEvent)
+            testHelpers.fakeNodeEvent(container.select('.hx-data-table-paginator-back').node())(fakeEvent)
             dt.page().should.equal(1)
             dt.render.should.not.have.been.called()
             hx.select('body').clear()
@@ -536,7 +531,7 @@ describe 'data-table', ->
           testTable {tableOptions: {displayMode: 'paginate', pageSize: 1}}, undefined, (container, dt, options, data) ->
             dt.page(dt._.numPages)
             dt.render = chai.spy()
-            fakeNodeEvent(container.select('.hx-data-table-paginator-forward').node())(fakeEvent)
+            testHelpers.fakeNodeEvent(container.select('.hx-data-table-paginator-forward').node())(fakeEvent)
             dt.page().should.equal(dt._.numPages)
             dt.render.should.not.have.been.called()
             hx.select('body').clear()
@@ -755,7 +750,7 @@ describe 'data-table', ->
       it 'should allow all rows to be selected by default', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
             .forEach (h) -> h?(fakeEvent)
 
           container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-row-selected').size().should.equal(3)
@@ -763,7 +758,7 @@ describe 'data-table', ->
       it 'should prevent rows being selected', (done) ->
         testTable {tableOptions: {selectEnabled: true, rowSelectableLookup: ((row) -> !row.collapsible)}}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
             .forEach (h) -> h?(fakeEvent)
 
           container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-row-selected').size().should.equal(1)
@@ -796,7 +791,7 @@ describe 'data-table', ->
             data.value.should.eql []
             done()
         checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
-        faker = fakeNodeEvent checkSel.node()
+        faker = testHelpers.fakeNodeEvent checkSel.node()
         faker fakeEvent
 
 
@@ -816,7 +811,7 @@ describe 'data-table', ->
       it 'should get the correct row ids from the selection', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
             .forEach (h) -> h?(fakeEvent)
 
           dt.selectedRows().should.eql(['0', '1', '2'])
@@ -824,7 +819,7 @@ describe 'data-table', ->
       it 'should get the correct row ids from the selection', (done) ->
         testTable {tableOptions: {selectEnabled: true}}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
             .forEach (h) -> h?(fakeEvent)
 
           dt.selectedRows().should.eql(['0', '1', '2'])
@@ -857,7 +852,7 @@ describe 'data-table', ->
 
       it 'should select all the rows when clicking the checkbox in the top left', (done) ->
         testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
-          selectAllHandler = fakeNodeEvent container.select('.hx-sticky-table-header-top-left').select('thead').select('.hx-data-table-checkbox').node()
+          selectAllHandler = testHelpers.fakeNodeEvent container.select('.hx-sticky-table-header-top-left').select('thead').select('.hx-data-table-checkbox').node()
 
           container.classed('hx-data-table-has-page-selection').should.equal(false)
           container.classed('hx-data-table-has-selection').should.equal(false)
@@ -878,7 +873,7 @@ describe 'data-table', ->
 
       it 'should clear the selection when the (clear selection) link is clicked', (done) ->
         testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
-          selectAllHandler = fakeNodeEvent container.select('.hx-sticky-table-header-top-left').select('thead').select('.hx-data-table-checkbox').node()
+          selectAllHandler = testHelpers.fakeNodeEvent container.select('.hx-sticky-table-header-top-left').select('thead').select('.hx-data-table-checkbox').node()
 
           container.classed('hx-data-table-has-page-selection').should.equal(false)
           container.classed('hx-data-table-has-selection').should.equal(false)
@@ -891,7 +886,7 @@ describe 'data-table', ->
           container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-row-selected').size().should.equal(3)
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-row-selected').size().should.equal(3)
 
-          clearSelectionHandler = fakeNodeEvent container.select('.hx-data-table-status-bar').select('.hx-data-table-status-bar-clear').node()
+          clearSelectionHandler = testHelpers.fakeNodeEvent container.select('.hx-data-table-status-bar').select('.hx-data-table-status-bar-clear').node()
 
           clearSelectionHandler(fakeEvent)
           container.classed('hx-data-table-has-page-selection').should.equal(false)
@@ -901,7 +896,7 @@ describe 'data-table', ->
 
       it 'should not break when clicking the top left tick with no data', (done) ->
         testTable {data: noData, tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
-          selectAllHandler = fakeNodeEvent container.select('.hx-sticky-table-header-top').select('thead').select('.hx-data-table-checkbox').node()
+          selectAllHandler = testHelpers.fakeNodeEvent container.select('.hx-sticky-table-header-top').select('thead').select('.hx-data-table-checkbox').node()
 
           container.classed('hx-data-table-has-page-selection').should.equal(false)
           container.classed('hx-data-table-has-selection').should.equal(false)
@@ -914,7 +909,7 @@ describe 'data-table', ->
         it 'should select the correct range from top to bottom', (done) ->
           testTable {tableOptions: selectEnabled: true, rowEnabledLookup: (row) -> !row.collapsible}, done, (container, dt, options, data) ->
             clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
-              .nodes.map(fakeNodeEvent)
+              .nodes.map(testHelpers.fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
             container.classed('hx-data-table-has-selection').should.equal(false)
@@ -930,7 +925,7 @@ describe 'data-table', ->
         it 'should select the correct range from top to bottom', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
             clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
-              .nodes.map(fakeNodeEvent)
+              .nodes.map(testHelpers.fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
             container.classed('hx-data-table-has-selection').should.equal(false)
@@ -951,7 +946,7 @@ describe 'data-table', ->
         it 'should select the correct range from top to bottom', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
             clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
-              .nodes.map(fakeNodeEvent)
+              .nodes.map(testHelpers.fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
             container.classed('hx-data-table-has-selection').should.equal(false)
@@ -970,7 +965,7 @@ describe 'data-table', ->
         it 'should select the correct range from bottom to top', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
             clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
-              .nodes.map(fakeNodeEvent)
+              .nodes.map(testHelpers.fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
             container.classed('hx-data-table-has-selection').should.equal(false)
@@ -989,7 +984,7 @@ describe 'data-table', ->
         it 'should not allow unselectable rows to be selected', (done) ->
           testTable {tableOptions: selectEnabled: true, rowSelectableLookup: (row) -> !!row.collapsible}, done, (container, dt, options, data) ->
             clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
-              .nodes.map(fakeNodeEvent)
+              .nodes.map(testHelpers.fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
             container.classed('hx-data-table-has-selection').should.equal(false)
@@ -1008,7 +1003,7 @@ describe 'data-table', ->
         it 'should not allow disabled rows to be selected', (done) ->
           testTable {tableOptions: selectEnabled: true, rowEnabledLookup: (row) -> !!row.collapsible}, done, (container, dt, options, data) ->
             clickHandlers = container.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox')
-              .nodes.map(fakeNodeEvent)
+              .nodes.map(testHelpers.fakeNodeEvent)
 
             container.classed('hx-data-table-has-page-selection').should.equal(false)
             container.classed('hx-data-table-has-selection').should.equal(false)
@@ -1028,8 +1023,8 @@ describe 'data-table', ->
         it 'should class the container correctly when pressing shift to prevent text selection', (done) ->
           testTable {tableOptions: selectEnabled: true}, done, (container, dt, options, data) ->
             container.classed('hx-data-table-disable-text-selection').should.equal(false)
-            shiftDownHandler = fakeNodeEvent hx.select('body').node(), 'keydown'
-            shiftUpHandler = fakeNodeEvent hx.select('body').node(), 'keyup'
+            shiftDownHandler = testHelpers.fakeNodeEvent hx.select('body').node(), 'keydown'
+            shiftUpHandler = testHelpers.fakeNodeEvent hx.select('body').node(), 'keyup'
             shiftDownHandler(fakeShiftEvent)
             container.classed('hx-data-table-disable-text-selection').should.equal(true)
             shiftUpHandler(fakeEvent)
@@ -1048,7 +1043,7 @@ describe 'data-table', ->
 
         it 'should only allow one row to be selected', ->
           clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
 
           container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-row-selected').size().should.equal(0)
 
@@ -1064,7 +1059,7 @@ describe 'data-table', ->
       it 'should only select the new row on shift selection', (done) ->
         testTable {tableOptions: selectEnabled: true, singleSelection: true}, done, (container, dt, options, data) ->
           clickHandlers = container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-checkbox')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
 
           container.select('.hx-sticky-table-wrapper').selectAll('.hx-data-table-row-selected').size().should.equal(0)
 
@@ -1107,7 +1102,7 @@ describe 'data-table', ->
       it 'should change the sort when clicking a sort icon', (done) ->
         testTable {tableOptions: sortEnabled: true}, done, (container, dt, options, data) ->
           clickHandlers = container.select('.hx-sticky-table-header-top').selectAll('.hx-data-table-cell-sort-enabled')
-            .nodes.map(fakeNodeEvent)
+            .nodes.map(testHelpers.fakeNodeEvent)
 
           should.not.exist(dt.sort())
 
@@ -1221,8 +1216,9 @@ describe 'data-table', ->
         filterSpy.should.not.have.been.called()
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           filterSpy.should.have.been.called.with()
+
           filterInput = container.select('.hx-data-table-filter')
-          filterEvent = fakeNodeEvent filterInput.node(), 'input'
+          filterEvent = testHelpers.fakeNodeEvent filterInput.node(), 'input'
           filterInput.value('a')
           filterEvent(fakeEvent)
           clock.tick(inputDebounceDelay)
@@ -1461,7 +1457,7 @@ describe 'data-table', ->
             container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(1)
             container.selectAll('.hx-data-table-filter-visible').size().should.equal(1)
 
-            fakeNodeEvent(container.select('.hx-data-table-advanced-search-toggle').node(), 'click')(fakeEvent)
+            testHelpers.fakeNodeEvent(container.select('.hx-data-table-advanced-search-toggle').node(), 'click')(fakeEvent)
 
             dt.advancedSearchEnabled().should.equal(true)
             container.selectAll('.hx-data-table-advanced-search-visible').size().should.equal(2)
@@ -1539,7 +1535,7 @@ describe 'data-table', ->
             termNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-input')
 
             termNode.value('d')
-            fakeNodeEvent(termNode.node(), 'input')({target: {value: 'd'}})
+            testHelpers.fakeNodeEvent(termNode.node(), 'input')({target: {value: 'd'}})
             clock.tick(inputDebounceDelay + 1)
             dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'd'}]])
             clock.restore()
@@ -1566,7 +1562,7 @@ describe 'data-table', ->
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
-            fakeNodeEvent(clearNode)(fakeEvent)
+            testHelpers.fakeNodeEvent(clearNode)(fakeEvent)
             dt.advancedSearch().should.eql([[{column: 'any', term: ''}]])
 
         it 'should add a filter correctly when there is a filter group', (done) ->
@@ -1576,7 +1572,7 @@ describe 'data-table', ->
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
-            fakeNodeEvent(clearNode)(fakeEvent)
+            testHelpers.fakeNodeEvent(clearNode)(fakeEvent)
             dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}, {column: 'any', term: ''}]])
 
         it 'should add a filter correctly when there are multiple filter groups', (done) ->
@@ -1586,7 +1582,7 @@ describe 'data-table', ->
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             clearNode = container.select('.hx-data-table-advanced-search-add-filter').node()
-            fakeNodeEvent(clearNode)(fakeEvent)
+            testHelpers.fakeNodeEvent(clearNode)(fakeEvent)
             dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}], [{column: 'any', term: 'c'}, {column: 'any', term: ''}]])
 
 
@@ -1597,7 +1593,7 @@ describe 'data-table', ->
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             clearNode = container.select('.hx-data-table-advanced-search-clear-filters').node()
-            fakeNodeEvent(clearNode)(fakeEvent)
+            testHelpers.fakeNodeEvent(clearNode)(fakeEvent)
             should.not.exist(dt.advancedSearch())
 
 
@@ -1615,7 +1611,7 @@ describe 'data-table', ->
 
               removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
 
-              fakeNodeEvent(removeNode)(fakeEvent)
+              testHelpers.fakeNodeEvent(removeNode)(fakeEvent)
               dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'any', term: 'c'}]])
 
 
@@ -1631,7 +1627,7 @@ describe 'data-table', ->
 
               removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
 
-              fakeNodeEvent(removeNode)(fakeEvent)
+              testHelpers.fakeNodeEvent(removeNode)(fakeEvent)
               dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'name', term: 'b'}]])
 
 
@@ -1647,7 +1643,7 @@ describe 'data-table', ->
 
               removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
 
-              fakeNodeEvent(removeNode)(fakeEvent)
+              testHelpers.fakeNodeEvent(removeNode)(fakeEvent)
               dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}]])
 
           it 'should remove the last filter from a group when there are groups either side of it', (done) ->
@@ -1662,7 +1658,7 @@ describe 'data-table', ->
 
               removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
 
-              fakeNodeEvent(removeNode)(fakeEvent)
+              testHelpers.fakeNodeEvent(removeNode)(fakeEvent)
               dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'any', term: 'c'}]])
 
           it 'should remove the first filter from a group when there are groups either side of it', (done) ->
@@ -1677,7 +1673,7 @@ describe 'data-table', ->
 
               removeNode = hx.select(filterRows.node(1)).select('.hx-data-table-advanced-search-remove').node()
 
-              fakeNodeEvent(removeNode)(fakeEvent)
+              testHelpers.fakeNodeEvent(removeNode)(fakeEvent)
               dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'any', term: 'd'}], [{column: 'any', term: 'c'}]])
 
           it 'should remove a filter from a group without affecting the surrounding groups', (done) ->
@@ -1692,7 +1688,7 @@ describe 'data-table', ->
 
               removeNode = hx.select(filterRows.node(2)).select('.hx-data-table-advanced-search-remove').node()
 
-              fakeNodeEvent(removeNode)(fakeEvent)
+              testHelpers.fakeNodeEvent(removeNode)(fakeEvent)
               dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}], [{column: 'name', term: 'b'}], [{column: 'any', term: 'c'}]])
 
           it 'should remove the last filter', (done) ->
@@ -1707,7 +1703,7 @@ describe 'data-table', ->
 
               removeNode = hx.select(filterRows.node(0)).select('.hx-data-table-advanced-search-remove').node()
 
-              fakeNodeEvent(removeNode)(fakeEvent)
+              testHelpers.fakeNodeEvent(removeNode)(fakeEvent)
               should.not.exist(dt.advancedSearch())
 
 
@@ -1830,18 +1826,15 @@ describe 'data-table', ->
             controlPanel = container.select('.hx-data-table-control-panel')
             controlPanelCompact = container.select('.hx-data-table-control-panel-compact')
             controlPanel.classed('hx-data-table-control-panel-visible hx-data-table-compact-hide').should.equal(true)
-            fakeNodeEvent(toggleButton.node())(fakeEvent)
+            testHelpers.fakeNodeEvent(toggleButton.node())(fakeEvent)
             clock.tick(animationCompletedDelay)
             controlPanel.classed('hx-data-table-compact-hide').should.equal(false)
             controlPanelCompact.classed('hx-data-table-control-panel-compact-open').should.equal(true)
-            fakeNodeEvent(toggleButton.node())(fakeEvent)
+            testHelpers.fakeNodeEvent(toggleButton.node())(fakeEvent)
             clock.tick(animationCompletedDelay)
             controlPanel.classed('hx-data-table-compact-hide').should.equal(true)
             controlPanelCompact.classed('hx-data-table-control-panel-compact-open').should.equal(false)
             clock.restore()
-
-
-
 
 
 
@@ -1907,7 +1900,7 @@ describe 'data-table', ->
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-top').select('.hx-data-table-cell').node(), 'click')()
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-top').select('.hx-data-table-cell').node(), 'click')()
 
     describe 'filterchange', ->
       it 'should emit an event when filter changed with cause: user', (done) ->
@@ -1921,7 +1914,8 @@ describe 'data-table', ->
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           selection.select('.hx-data-table-filter').value('test')
-          fakeNodeEvent(selection.select('.hx-data-table-filter').node(), 'input')()
+          testHelpers.fakeNodeEvent(selection.select('.hx-data-table-filter').node(), 'input')()
+
 
     describe 'selectedrowschange', ->
       it 'should emit an event when rows are selected/deselected', (done) ->
@@ -1954,9 +1948,9 @@ describe 'data-table', ->
             done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
 
     describe 'selectedrowsclear', ->
       it 'should emit an event when the selected rows is cleared', (done) ->
@@ -1969,15 +1963,15 @@ describe 'data-table', ->
         n = 0
         dt.on 'selectedrowschange', (d) ->
           if n is 1
-            fakeNodeEvent(selection.select('.hx-data-table-status-bar-clear').node(0), 'click')(fakeEvent)
+            testHelpers.fakeNodeEvent(selection.select('.hx-data-table-status-bar-clear').node(0), 'click')(fakeEvent)
           n++
 
         dt.on 'selectedrowsclear', (d) ->
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(0), 'click')(fakeEvent)
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('tbody').selectAll('.hx-data-table-checkbox').node(2), 'click')(fakeEvent)
 
     describe 'expandedrowschange', ->
       it 'should emit an event when row is collapsed/expanded', (done) ->
@@ -2003,8 +1997,8 @@ describe 'data-table', ->
             done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
-          fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-left').select('.hx-data-table-collapsible-toggle').node(), 'click')()
 
     describe 'rowclick', ->
       it 'should emit an event when the row is clicked', (done) ->
@@ -2017,7 +2011,7 @@ describe 'data-table', ->
           done()
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          fakeNodeEvent(selection.select('.hx-sticky-table-wrapper').select('.hx-data-table-body').select('.hx-data-table-row').node(), 'click')()
+          testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-wrapper').select('.hx-data-table-body').select('.hx-data-table-row').node(), 'click')()
 
     describe 'render', ->
       it 'should emit an event when the row is clicked', (done) ->
