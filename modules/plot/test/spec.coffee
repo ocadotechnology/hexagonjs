@@ -110,7 +110,7 @@ describe "plot", ->
       fakeNodeEvent(selection.node(), 'resize')()
       renderSpy.should.not.have.been.called()
 
-    it 'should by default redraw on resize', ->
+    it 'should redraw on resize by default', ->
       selection = hx.select('body').append('div')
         .style 'width', '500px'
         .style 'height', '500px'
