@@ -22,6 +22,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/selection/test/spec')
   require('modules/transition/test/spec')
   require('modules/interpolate/test/spec')
+  require('modules/animate/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -129,6 +130,11 @@ describe('HexagonJS Test Suite', () => {
 
     describe('interpolate', () => {
       checkProperty('interpolate')
+    })
+
+    describe('animate', () => {
+      checkProperty('animate')
+      checkProperty('morph')
     })
   })
 

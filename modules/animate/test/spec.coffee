@@ -1,14 +1,22 @@
+util = require('modules/util/main')
+select = require('modules/selection/main')
+animate = require('modules/animate/main')
+EventEmitter = require('modules/event-emitter/main')
+transition = require('modules/transition/main')
+fakeTime = require('test/utils/fake-time')
+chai = require('chai')
+
 describe 'hx-animate', ->
   now = -> Date.now()
 
-  class Delay extends hx.EventEmitter
+  class Delay extends EventEmitter
     constructor: (duration) ->
       super
       @timeout = setTimeout((=> @emit('end')), duration)
 
     cancel: => clearTimeout(@timeout)
 
-  hx.morph.register 'delay', (node, duration=100) ->
+  animate.morph.register 'delay', (node, duration=100) ->
     new Delay(duration)
 
   class FakeNode
@@ -27,10 +35,8 @@ describe 'hx-animate', ->
       @getAttribute = (prop) -> self.attrs[prop]
 
   savedGetComputedStyle = undefined
-  savedHxLoop = undefined
+  savedHxLoop = transition.loop
   clock = undefined
-  before -> clock = sinon.useFakeTimers()
-  after -> clock.restore()
 
   beforeEach ->
     savedGetComputedStyle = window.getComputedStyle
@@ -39,35 +45,35 @@ describe 'hx-animate', ->
         getPropertyValue: (prop) -> node.styles[prop]
       }
 
-    # mock hx.loop
-    hx_requestAnimationFrame = (f) ->
-      setTimeout(f, 1)
+    clock = fakeTime.installFakeTimers()
+    # mock transition.loop
+    hx_requestAnimationFrame = (f) -> setTimeout(f, 1)
     hx_loop_update = (f, g) -> if not f() then hx_requestAnimationFrame(g)
-    savedHxLoop = hx.loop
-    hx.loop = hx_loop = (f) ->
+    savedHxLoop = transition.loop
+    transition.loop = (f) ->
       g = -> hx_loop_update(f, g)
       hx_loop_update(f, g)
 
-    baseTime = new Date(2013, 0, 1)
 
   afterEach ->
     window.getComputedStyle = savedGetComputedStyle
-    hx.loop = savedHxLoop
+    transition.loop = savedHxLoop
+    clock.restore()
 
-  describe 'hx.animate', ->
+  describe 'animate', ->
 
-    it 'hx.selection().animate should return an animation', ->
-      node = hx.detached('div').node()
+    it 'Selection::animate should return an animation', ->
+      node = select.detached('div').node()
       ease = ->
-      fromSelection = hx.select(node).animate(ease)
-      normal = hx.animate(node, ease)
+      fromSelection = select(node).animate(ease)
+      normal = animate.animate(node, ease)
       fromSelection.node.should.equal(normal.node)
       fromSelection.ease.should.equal(normal.ease)
 
     describe 'style', ->
       it 'should emit end at the end of an animation', ->
         end = false
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .style('height', '100%', 10)
           .on 'end', -> end = true
 
@@ -76,12 +82,12 @@ describe 'hx-animate', ->
 
       it 'the easing function passed in should be used', ->
         ease = (d) -> Math.sqrt(Math.abs(d))
-        anim = hx.animate(new FakeNode, ease)
+        anim = animate.animate(new FakeNode, ease)
         anim.ease.should.equal(ease)
 
       it 'should emit end at the end of an animation with multiple styles', ->
         end = false
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .style('height', '100%', 10)
           .style('width', '100%', 10)
           .on 'end', -> end = true
@@ -92,7 +98,7 @@ describe 'hx-animate', ->
       it 'should take roughly the amount of time requested', ->
         start = now()
         time = undefined
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .style('height', '100%', 100)
           .style('width', '100%', 50)
           .on 'end', ->
@@ -105,7 +111,7 @@ describe 'hx-animate', ->
       it 'should take roughly the amount of time requested (using default)', ->
         start = now()
         time = undefined
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .style('height', '100%')
           .style('width', '100%', 50)
           .on 'end', ->
@@ -116,7 +122,7 @@ describe 'hx-animate', ->
 
       it 'if you dont supply a node, then the end event should be emitted straight away', ->
         end = false
-        hx.animate()
+        animate.animate()
           .on 'end', -> end = true
           .style('height', '100%', 100)
           .style('width', '100%', 50)
@@ -125,7 +131,7 @@ describe 'hx-animate', ->
 
       it 'should only emit end once', ->
         count = 0
-        hx.animate()
+        animate.animate()
           .on('end', -> count++)
           .style('height', '100%', 100)
           .style('width', '100%', 50)
@@ -135,7 +141,7 @@ describe 'hx-animate', ->
 
       it 'should end on the correct values', ->
         node = new FakeNode
-        hx.animate(node)
+        animate.animate(node)
           .style('height', '100%', 100)
           .style('width', '100%', 50)
 
@@ -150,7 +156,7 @@ describe 'hx-animate', ->
         node.styles['width'] = '0%'
         node.styles['height'] = '50%'
 
-        hx.animate(node)
+        animate.animate(node)
           .style('height', '100%', 100)
           .style('width', '100%', 50)
 
@@ -165,7 +171,7 @@ describe 'hx-animate', ->
         node.styles['width'] = '0%'
         node.styles['height'] = '50%'
 
-        hx.animate(node)
+        animate.animate(node)
           .style('width', '100%', 100)
           .style('height', '100%', 100)
 
@@ -188,7 +194,7 @@ describe 'hx-animate', ->
         node.styles['width'] = '0%'
         node.styles['height'] = '50%'
 
-        hx.animate(node, hx.ease.cubic)
+        animate.animate(node, transition.ease.cubic)
           .style('width', '100%', 100)
           .style('height', '100%', 100)
 
@@ -210,7 +216,7 @@ describe 'hx-animate', ->
         node.styles['width'] = '0%'
         node.styles['height'] = '50%'
 
-        hx.animate(node, hx.ease.quad)
+        animate.animate(node, transition.ease.quad)
           .style('width', '100%', 100)
           .style('height', '100%', 100)
 
@@ -230,7 +236,7 @@ describe 'hx-animate', ->
         end = false
         node = new FakeNode
 
-        hx.animate(node)
+        animate.animate(node)
           .style('width', '0%', '100%', 100)
           .style('height', '50%', '100%', 100)
 
@@ -251,7 +257,7 @@ describe 'hx-animate', ->
         end = false
         node = new FakeNode
 
-        hx.animate(node)
+        animate.animate(node)
           .style('width', '0%', '100%', undefined)
           .style('height', '50%', '100%', undefined)
 
@@ -272,7 +278,7 @@ describe 'hx-animate', ->
         end = false
         node = new FakeNode
 
-        anim = hx.animate(node)
+        anim = animate.animate(node)
           .style('width', '0%', '100%', undefined)
           .style('height', '50%', '100%', undefined)
 
@@ -297,7 +303,7 @@ describe 'hx-animate', ->
         node.styles['width'] = '0%'
         node.styles['height'] = '50%'
 
-        anim = hx.animate(node)
+        anim = animate.animate(node)
           .style('width', '100%')
           .style('height', '100%')
 
@@ -318,7 +324,7 @@ describe 'hx-animate', ->
     describe 'attr', ->
       it 'should emit end at the end of an animation', ->
         end = false
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .attr('height', '100%', 10)
           .on 'end', -> end = true
 
@@ -327,12 +333,12 @@ describe 'hx-animate', ->
 
       it 'the easing function passed in should be used', ->
         ease = (d) -> Math.sqrt(Math.abs(d))
-        anim = hx.animate(new FakeNode, ease)
+        anim = animate.animate(new FakeNode, ease)
         anim.ease.should.equal(ease)
 
       it 'should emit end at the end of an animation with multiple attrs', ->
         end = false
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .attr('height', '100%', 10)
           .attr('width', '100%', 10)
           .on 'end', -> end = true
@@ -343,7 +349,7 @@ describe 'hx-animate', ->
       it 'should take roughly the amount of time requested', ->
         start = now()
         time = undefined
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
           .on 'end', ->
@@ -356,7 +362,7 @@ describe 'hx-animate', ->
       it 'should take roughly the amount of time requested (using default)', ->
         start = now()
         time = undefined
-        hx.animate(new FakeNode)
+        animate.animate(new FakeNode)
           .attr('height', '100%')
           .attr('width', '100%', 50)
           .on 'end', ->
@@ -367,7 +373,7 @@ describe 'hx-animate', ->
 
       it 'if you dont supply a node, then the end event should be emitted straight away', ->
         end = false
-        hx.animate()
+        animate.animate()
           .on 'end', -> end = true
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
@@ -376,7 +382,7 @@ describe 'hx-animate', ->
 
       it 'should only emit end once', ->
         count = 0
-        hx.animate()
+        animate.animate()
           .on 'end', -> count++
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
@@ -386,7 +392,7 @@ describe 'hx-animate', ->
 
       it 'should end on the correct values', ->
         node = new FakeNode
-        hx.animate(node)
+        animate.animate(node)
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
 
@@ -401,7 +407,7 @@ describe 'hx-animate', ->
         node.attrs['width'] = '0%'
         node.attrs['height'] = '50%'
 
-        hx.animate(node)
+        animate.animate(node)
           .attr('height', '100%', 100)
           .attr('width', '100%', 50)
 
@@ -416,7 +422,7 @@ describe 'hx-animate', ->
         node.attrs['width'] = '0%'
         node.attrs['height'] = '50%'
 
-        hx.animate(node)
+        animate.animate(node)
           .attr('width', '100%', 100)
           .attr('height', '100%', 100)
 
@@ -439,7 +445,7 @@ describe 'hx-animate', ->
         node.attrs['width'] = '0%'
         node.attrs['height'] = '50%'
 
-        hx.animate(node, hx.ease.cubic)
+        animate.animate(node, transition.ease.cubic)
           .attr('width', '100%', 100)
           .attr('height', '100%', 100)
 
@@ -461,7 +467,7 @@ describe 'hx-animate', ->
         node.attrs['width'] = '0%'
         node.attrs['height'] = '50%'
 
-        hx.animate(node, hx.ease.quad)
+        animate.animate(node, transition.ease.quad)
           .attr('width', '100%', 100)
           .attr('height', '100%', 100)
 
@@ -481,7 +487,7 @@ describe 'hx-animate', ->
         end = false
         node = new FakeNode
 
-        hx.animate(node)
+        animate.animate(node)
           .attr('width', '0%', '100%', 100)
           .attr('height', '50%', '100%', 100)
 
@@ -502,7 +508,7 @@ describe 'hx-animate', ->
         end = false
         node = new FakeNode
 
-        hx.animate(node)
+        animate.animate(node)
           .attr('width', '0%', '100%', undefined)
           .attr('height', '50%', '100%', undefined)
 
@@ -523,7 +529,7 @@ describe 'hx-animate', ->
         end = false
         node = new FakeNode
 
-        anim = hx.animate(node)
+        anim = animate.animate(node)
           .attr('width', '0%', '100%', undefined)
           .attr('height', '50%', '100%', undefined)
 
@@ -548,7 +554,7 @@ describe 'hx-animate', ->
         node.attrs['width'] = '0%'
         node.attrs['height'] = '50%'
 
-        anim = hx.animate(node)
+        anim = animate.animate(node)
           .attr('width', '100%')
           .attr('height', '100%')
 
@@ -567,18 +573,18 @@ describe 'hx-animate', ->
         node.attrs['height'].should.equal('62.5%')
 
 
-  describe 'hx.morph', ->
+  describe 'animate.morph', ->
 
-    it 'hx.selection().morph should return a morph', ->
-      node = hx.detached('div').node()
-      fromSelection = hx.select(node).morph()
-      normal = hx.morph(node)
+    it 'Selection::morph should return a morph', ->
+      node = select.detached('div').node()
+      fromSelection = select(node).morph()
+      normal = animate.morph(node)
       fromSelection.node.should.equal(normal.node)
 
     it 'should proceed straight away for no argument functions that are not event emitters', ->
       called1 = false
       called2 = false
-      hx.morph()
+      animate.morph()
         .then -> called1 = true
         .then -> called2 = true
         .go()
@@ -589,7 +595,7 @@ describe 'hx-animate', ->
     it 'should wait until async functions finish before continuing', ->
       called = false
 
-      hx.morph()
+      animate.morph()
         .then (done) -> setTimeout(done, 100)
         .then -> called = true
         .go()
@@ -603,9 +609,9 @@ describe 'hx-animate', ->
     it 'should wait until event emitters emit end finish before continuing', ->
       called = false
 
-      hx.morph()
+      animate.morph()
         .then (done) ->
-          ee = new hx.EventEmitter
+          ee = new EventEmitter
           setTimeout((-> ee.emit('end')), 100)
           ee
         .then -> called = true
@@ -623,14 +629,14 @@ describe 'hx-animate', ->
 
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .then (done) -> setTimeout(done, 100)
         .then -> called1 = true
         .go()
 
       clock.tick(25)
 
-      hx.morph(node)
+      animate.morph(node)
         .then (done) -> setTimeout(done, 100)
         .then -> called2 = true
         .go(true)
@@ -644,14 +650,14 @@ describe 'hx-animate', ->
       called1 = false
       called2 = false
 
-      hx.morph()
+      animate.morph()
         .then (done) -> setTimeout(done, 100)
         .then -> called1 = true
         .go()
 
       clock.tick(25)
 
-      hx.morph()
+      animate.morph()
         .then (done) -> setTimeout(done, 100)
         .then -> called2 = true
         .go(true)
@@ -664,7 +670,7 @@ describe 'hx-animate', ->
     it 'should be fine with cancelling morphs on a node that hasnt got any', ->
       called = false
 
-      hx.morph(new FakeNode)
+      animate.morph(new FakeNode)
         .then (done) ->
           setTimeout(done, 100)
         .then -> called = true
@@ -680,7 +686,7 @@ describe 'hx-animate', ->
 
       node.__hx__ = {}
 
-      hx.morph(node)
+      animate.morph(node)
         .then (done) -> setTimeout(done, 100)
         .then -> called = true
         .go(true)
@@ -699,7 +705,7 @@ describe 'hx-animate', ->
         ]
       }
 
-      hx.morph(node)
+      animate.morph(node)
         .then (done) -> setTimeout(done, 100)
         .go(true)
 
@@ -708,13 +714,15 @@ describe 'hx-animate', ->
     it 'cancelling a morph twice should be fine', ->
       node = new FakeNode
 
-      morph = hx.morph(node)
+      morph = animate.morph(node)
         .then (done) -> setTimeout(done, 100)
         .go(true)
 
       morph.cancel()
 
-      should.not.Throw(-> morph.cancel())
+      chai.expect(-> morph.cancel()).to.not.throw()
+
+      return
 
     it 'when cancelling, the cancellers should be called', ->
       node = new FakeNode
@@ -722,7 +730,7 @@ describe 'hx-animate', ->
       cancelled1 = false
       cancelled2 = false
 
-      morph = hx.morph(node)
+      morph = animate.morph(node)
         .then (done) -> {cancel: -> cancelled1 = true}
         .and (done) -> {cancel: -> cancelled2 = true}
         .go()
@@ -738,13 +746,13 @@ describe 'hx-animate', ->
       cancelled1 = false
       cancelled2 = false
 
-      morph = hx.morph(node)
+      morph = animate.morph(node)
         .then (done) -> {cancel: 'not-a-function'}
         .and (done) -> {cancel: -> cancelled1 = true}
         .and (done) -> {cancel: -> cancelled2 = true}
         .go()
 
-      should.not.Throw(-> morph.cancel())
+      chai.expect(-> morph.cancel()).to.not.throw()
 
     it 'should ignore things that have already finished', ->
       called = false
@@ -756,7 +764,7 @@ describe 'hx-animate', ->
         ]
       }
 
-      hx.morph(node).go(true)
+      animate.morph(node).go(true)
 
       called.should.equal(false)
 
@@ -774,7 +782,7 @@ describe 'hx-animate', ->
         morphs: original.slice()
       }
 
-      hx.morph(node).go(false)
+      animate.morph(node).go(false)
 
       node.__hx__.morphs.should.contain(original[0])
 
@@ -783,7 +791,7 @@ describe 'hx-animate', ->
 
       obj = { cancel: -> }
 
-      morph = hx.morph(node)
+      morph = animate.morph(node)
         .then (done) -> obj
         .and (done) -> obj
         .and (done) -> obj
@@ -798,7 +806,7 @@ describe 'hx-animate', ->
       called3 = false
       end = false
 
-      hx.morph()
+      animate.morph()
         .then (done) ->
           finish = ->
             called1 = true
@@ -841,7 +849,7 @@ describe 'hx-animate', ->
       called3 = false
       end = false
 
-      hx.morph()
+      animate.morph()
         .with (done) ->
           finish = ->
             called1 = true
@@ -881,22 +889,22 @@ describe 'hx-animate', ->
     it 'named morphs should work', ->
       end = false
 
-      class Delay extends hx.EventEmitter
+      class Delay extends EventEmitter
         constructor: (duration) ->
           super
           @timeout = setTimeout((=> @emit('end')), duration)
 
         cancel: => clearTimeout(@timeout)
 
-      hx.morph.register 'delay', (node, duration=100) ->
+      animate.morph.register 'delay', (node, duration=100) ->
         new Delay(duration)
 
-      hx.morph.register 'delay2', (node, duration=100) ->
+      animate.morph.register 'delay2', (node, duration=100) ->
         new Delay(duration)
 
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .with('delay', 500).and('delay2', 100)
         .on 'end', -> end = true
         .go()
@@ -910,20 +918,20 @@ describe 'hx-animate', ->
     it 'named morphs should do nothing when you have no node', ->
       end = false
 
-      class Delay extends hx.EventEmitter
+      class Delay extends EventEmitter
         constructor: (duration) ->
           super
           @timeout = setTimeout((=> @emit('end')), duration)
 
         cancel: => clearTimeout(@timeout)
 
-      hx.morph.register 'delay', (node, duration=100) ->
+      animate.morph.register 'delay', (node, duration=100) ->
         new Delay(duration)
 
-      hx.morph.register 'delay2', (node, duration=100) ->
+      animate.morph.register 'delay2', (node, duration=100) ->
         new Delay(duration)
 
-      hx.morph()
+      animate.morph()
         .with('delay', 500).and('delay2', 100)
         .on 'end', -> end = true
         .go()
@@ -935,22 +943,22 @@ describe 'hx-animate', ->
       end.should.equal(true)
 
     it 'a warning should be thrown when a named morph is used that doesnt exist', ->
-      origConsoleWarning = hx.consoleWarning
-      hx.consoleWarning = chai.spy()
+      origConsoleWarning = util.consoleWarning
+      util.consoleWarning = chai.spy()
 
-      hx.morph(new FakeNode)
+      animate.morph(new FakeNode)
         .with('delay5', 500)
         .go()
 
-      hx.consoleWarning.should.have.been.called.once
-      hx.consoleWarning = origConsoleWarning
+      util.consoleWarning.should.have.been.called.once
+      util.consoleWarning = origConsoleWarning
 
     it 'andStyle should affect an elements styles', ->
       node = new FakeNode
 
       node.styles['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .andStyle('height', '100')
         .go()
 
@@ -965,7 +973,7 @@ describe 'hx-animate', ->
 
       node.styles['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .andStyle('height', '100', 500)
         .go()
 
@@ -978,7 +986,7 @@ describe 'hx-animate', ->
     it 'andStyle should affect an elements styles (with start and end values)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .andStyle('height', '0', '100', undefined)
         .go()
 
@@ -991,7 +999,7 @@ describe 'hx-animate', ->
     it 'andStyle should affect an elements styles (with start and end values and custom duration)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .andStyle('height', '0', '100', 500)
         .go()
 
@@ -1006,7 +1014,7 @@ describe 'hx-animate', ->
 
       node.styles['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .thenStyle('height', '100')
         .go()
 
@@ -1021,7 +1029,7 @@ describe 'hx-animate', ->
 
       node.styles['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .thenStyle('height', '100', 500)
         .go()
 
@@ -1034,7 +1042,7 @@ describe 'hx-animate', ->
     it 'thenStyle should affect an elements styles (with start and end values)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .thenStyle('height', '0', '100', undefined)
         .go()
 
@@ -1047,7 +1055,7 @@ describe 'hx-animate', ->
     it 'thenStyle should affect an elements styles (with start and end values and custom duration)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .thenStyle('height', '0', '100', 500)
         .go()
 
@@ -1062,7 +1070,7 @@ describe 'hx-animate', ->
 
       node.attrs['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .andAttr('height', '100')
         .go()
 
@@ -1077,7 +1085,7 @@ describe 'hx-animate', ->
 
       node.attrs['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .andAttr('height', '100', 500)
         .go()
 
@@ -1090,7 +1098,7 @@ describe 'hx-animate', ->
     it 'andAttr should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .andAttr('height', '0', '100', undefined)
         .go()
 
@@ -1103,7 +1111,7 @@ describe 'hx-animate', ->
     it 'andAttr should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .andAttr('height', '0', '100', 500)
         .go()
 
@@ -1118,7 +1126,7 @@ describe 'hx-animate', ->
 
       node.attrs['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .thenAttr('height', '100')
         .go()
 
@@ -1133,7 +1141,7 @@ describe 'hx-animate', ->
 
       node.attrs['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .thenAttr('height', '100', 500)
         .go()
 
@@ -1146,7 +1154,7 @@ describe 'hx-animate', ->
     it 'thenAttr should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .thenAttr('height', '0', '100', undefined)
         .go()
 
@@ -1159,7 +1167,7 @@ describe 'hx-animate', ->
     it 'thenAttr should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .thenAttr('height', '0', '100', 500)
         .go()
 
@@ -1174,7 +1182,7 @@ describe 'hx-animate', ->
 
       node.styles['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .withStyle('height', '100')
         .go()
 
@@ -1189,7 +1197,7 @@ describe 'hx-animate', ->
 
       node.styles['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .withStyle('height', '100', 500)
         .go()
 
@@ -1202,7 +1210,7 @@ describe 'hx-animate', ->
     it 'withStyle should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .withStyle('height', '0', '100', undefined)
         .go()
 
@@ -1215,7 +1223,7 @@ describe 'hx-animate', ->
     it 'withStyle should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .withStyle('height', '0', '100', 500)
         .go()
 
@@ -1230,7 +1238,7 @@ describe 'hx-animate', ->
 
       node.attrs['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .withAttr('height', '100')
         .go()
 
@@ -1245,7 +1253,7 @@ describe 'hx-animate', ->
 
       node.attrs['height'] = '0'
 
-      hx.morph(node)
+      animate.morph(node)
         .withAttr('height', '100', 500)
         .go()
 
@@ -1258,7 +1266,7 @@ describe 'hx-animate', ->
     it 'withAttr should affect an elements attributes (with start and end values)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .withAttr('height', '0', '100', undefined)
         .go()
 
@@ -1271,7 +1279,7 @@ describe 'hx-animate', ->
     it 'withAttr should affect an elements attributes (with start and end values and custom duration)', ->
       node = new FakeNode
 
-      hx.morph(node)
+      animate.morph(node)
         .withAttr('height', '0', '100', 500)
         .go()
 
