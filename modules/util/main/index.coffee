@@ -141,6 +141,8 @@ hx.isObject = (obj) -> typeof obj is 'object' and not hx.isArray(obj) and obj is
 
 hx.isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
 
+hx.isNumber = (x) -> typeof x is 'number' or x instanceof Number
+
 # Not plain objects:
 # - Anything created with new (or equivalent)
 # - DOM nodes

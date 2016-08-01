@@ -303,6 +303,23 @@ describe "Util", ->
     hx.isPlainObject(null).should.equal(false)
     hx.isPlainObject(undefined).should.equal(false)
 
+  it 'isNumber: should work', ->
+    class A
+      constructor: ->
+
+    hx.isNumber(new A).should.equal(false)
+    hx.isNumber({}).should.equal(false)
+    hx.isNumber(document.createElement('div')).should.equal(false)
+    hx.isNumber(window).should.equal(false)
+    hx.isNumber(->).should.equal(false)
+    hx.isNumber("").should.equal(false)
+    hx.isNumber(123).should.equal(true)
+    hx.isNumber(NaN).should.equal(true)
+    hx.isNumber(/a/).should.equal(false)
+    hx.isNumber([]).should.equal(false)
+    hx.isNumber(undefined).should.equal(false)
+    hx.isNumber(null).should.equal(false)
+
   describe 'merge', ->
 
     it 'should work', ->
