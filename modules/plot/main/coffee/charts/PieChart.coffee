@@ -18,7 +18,9 @@ class PieChart extends hx.EventEmitter
 
   constructor: (@selector, options) ->
     super
+
     hx.select @selector
+      .classed 'hx-pie-chart', true
       .on 'resize', 'hx.plot', => @render()
 
     hx.component.register(@selector, this)
