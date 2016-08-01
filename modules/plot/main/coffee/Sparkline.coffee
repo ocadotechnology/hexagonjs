@@ -37,7 +37,7 @@ class Sparkline
     hx.components.clear(selector)
     hx.component.register(selector, this)
 
-    graph = new hx.Graph(selector, options)
+    graph = new hx.Graph(selector, { redrawOnResize: options.redrawOnResize })
 
     if opts.type isnt 'bar' and opts.type isnt 'line'
       hx.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"')
