@@ -88,6 +88,30 @@ hx.minBy = (values, f) ->
         min = v
     min
 
+hx.argmin = (values, f) ->
+  if not values? or values.length is 0 then return undefined
+
+  minIndex = 0
+  minValue = undefined
+  if f
+    minValue = f(values[0])
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = f(values[i])
+        if minValue is undefined or (v isnt undefined and v < minValue)
+          minValue = v
+          minIndex = i
+  else
+    minValue = values[0]
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = values[i]
+        if minValue is undefined or (v isnt undefined and v < minValue)
+          minValue = v
+          minIndex = i
+
+  if minValue is undefined then undefined else minIndex
+
 hx.max = (values) -> Math.max.apply(null, values?.filter(hx.defined))
 
 hx.maxBy = (values, f) ->
@@ -109,6 +133,30 @@ hx.maxBy = (values, f) ->
       if v isnt undefined and v > max
         max = v
     max
+
+hx.argmax = (values, f) ->
+  if not values? or values.length is 0 then return undefined
+
+  maxIndex = 0
+  maxValue = undefined
+  if f
+    maxValue = f(values[0])
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = f(values[i])
+        if maxValue is undefined or (v isnt undefined and v > maxValue)
+          maxValue = v
+          maxIndex = i
+  else
+    maxValue = values[0]
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = values[i]
+        if maxValue is undefined or (v isnt undefined and v > maxValue)
+          maxValue = v
+          maxIndex = i
+
+  if maxValue is undefined then undefined else maxIndex
 
 hx.range = (length) -> (x for x in [0...length] by 1)
 
