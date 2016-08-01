@@ -24,7 +24,6 @@ hx.StraightLineSeries = StraightLineSeries
 hx.pieChart = (options) ->
   selection = hx.detached('div')
   pieChart = new PieChart(selection.node(), options)
-  pieChart.render()
   selection
 
 hx.PieChart = PieChart
