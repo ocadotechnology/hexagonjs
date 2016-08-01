@@ -250,6 +250,7 @@
     "labelHeaderBorderCol": "#4E5355"
   },
   "buttonGroup": {},
+  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {
@@ -265,7 +266,12 @@
     "rowAltTextCol": "white",
     "borderCol": "#E2E1E1"
   },
-  "fluid": {},
+  "toggle": {
+    "backgroundOffCol": "#495054",
+    "backgroundOnCol": "#495054",
+    "toggleOffCol": "#ABABAB",
+    "toggleOnCol": "#B2BA32"
+  },
   "autocomplete": {},
   "autocompletePicker": {},
   "dateTimePicker": {
@@ -497,12 +503,6 @@
     "disabledTextCol": "#939393"
   },
   "timeSlider": {},
-  "toggle": {
-    "backgroundOffCol": "#495054",
-    "backgroundOnCol": "#495054",
-    "toggleOffCol": "#ABABAB",
-    "toggleOnCol": "#B2BA32"
-  },
   "tree": {
     "iconBackgroundCol": "#00ADA8",
     "iconBackgroundHoverCol": "#1DBFBB",

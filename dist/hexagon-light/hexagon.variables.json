@@ -249,6 +249,7 @@
     "labelHeaderBorderCol": "#D0D0D0"
   },
   "buttonGroup": {},
+  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {
@@ -264,7 +265,12 @@
     "rowAltTextCol": "#3D3D3D",
     "borderCol": "#E2E1E1"
   },
-  "fluid": {},
+  "toggle": {
+    "backgroundOffCol": "#D5D5D5;",
+    "backgroundOnCol": "#D5D5D5;",
+    "toggleOffCol": "#ABABAB",
+    "toggleOnCol": "#B2BA32"
+  },
   "autocomplete": {},
   "autocompletePicker": {},
   "dateTimePicker": {
@@ -496,12 +502,6 @@
     "disabledTextCol": "#939393"
   },
   "timeSlider": {},
-  "toggle": {
-    "backgroundOffCol": "#D5D5D5;",
-    "backgroundOnCol": "#D5D5D5;",
-    "toggleOffCol": "#ABABAB",
-    "toggleOnCol": "#B2BA32"
-  },
   "tree": {
     "iconBackgroundCol": "#00ADA8",
     "iconBackgroundHoverCol": "#1DBFBB",

@@ -217,6 +217,11 @@
       @row-text-col: #3D3D3D
       @row-alt-text-col: #3D3D3D
       @border-col: #E2E1E1
+    @toggle
+      @background-off-col: #D5D5D5;
+      @background-on-col: #D5D5D5;
+      @toggle-off-col: #ABABAB
+      @toggle-on-col: #B2BA32
     @date-time-picker
       @border-col: #DADADA
     @tag-input
@@ -419,11 +424,6 @@
       @light-text-col: #F3F3F3
       @dark-text-col: #3D3D3D
       @disabled-text-col: #939393
-    @toggle
-      @background-off-col: #D5D5D5;
-      @background-on-col: #D5D5D5;
-      @toggle-off-col: #ABABAB
-      @toggle-on-col: #B2BA32
     @tree
       @icon-background-col: #00ADA8
       @icon-background-hover-col: #1DBFBB

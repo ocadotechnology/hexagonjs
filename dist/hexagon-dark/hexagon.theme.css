@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.4.2
+ Version: 1.5.0
  Theme: hexagon-dark
  Modules:
    set
@@ -54,11 +54,12 @@
    progress-bar
    plot
    button-group
+   fluid
    picker
    request
    sticky-table-headers
    table
-   fluid
+   toggle
    autocomplete
    autocomplete-picker
    date-time-picker
@@ -88,7 +89,6 @@
    sidebar
    tabs
    time-slider
-   toggle
    tree
 */
 
@@ -848,6 +848,7 @@ hr {
 
 
 
+
 .hx-sticky-table-scroll-top,
 .hx-sticky-table-scroll-right,
 .hx-sticky-table-scroll-bottom,
@@ -870,6 +871,14 @@ hr {
   .hx-table tbody tr:hover {
     background: #3D4346; }
 
+.hx-toggle > .hx-toggle-box {
+  background: #495054; }
+  .hx-toggle > .hx-toggle-box:before {
+    background: #ABABAB; }
+  .hx-toggle > .hx-toggle-box.hx-toggle-box-on {
+    background: #495054; }
+    .hx-toggle > .hx-toggle-box.hx-toggle-box-on:before {
+      background: #B2BA32; }
 
 
 
@@ -1166,9 +1175,11 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 .hx-data-table .hx-data-table-table tr.hx-data-table-row-selected {
   background: #119C98; }
 
-.hx-data-table .hx-data-table-footer {
+.hx-data-table .hx-data-table-control-panel-bottom,
+.hx-data-table .hx-data-table-control-panel-compact,
+.hx-data-table .hx-data-table-control-panel {
   background: #32373A;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05); }
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05); }
 
 .hx-data-table .hx-data-table-status-bar {
   background: #00ADA8;
@@ -1411,15 +1422,6 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   .hx-tab.hx-contrast {
     border-color: #F7F7F9; }
 
-
-.hx-toggle > .hx-toggle-box {
-  background: #495054; }
-  .hx-toggle > .hx-toggle-box:before {
-    background: #ABABAB; }
-  .hx-toggle > .hx-toggle-box.hx-toggle-box-on {
-    background: #495054; }
-    .hx-toggle > .hx-toggle-box.hx-toggle-box-on:before {
-      background: #B2BA32; }
 
 .hx-tree-node-parent,
 .hx-tree-node-content {
