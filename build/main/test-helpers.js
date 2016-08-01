@@ -4,7 +4,7 @@ var testHelpers = (function () {
       return function (e) {
         var eventEmitter = hx.select.getHexagonElementDataObject(node).eventEmitter
         if (eventEmitter != null) {
-          // we're using fakeNodeEvent for mapping arrays, so the eventName might be a an index
+          // we're using fakeNodeEvent for mapping arrays, so the eventName might be an index
           eventName = (eventName != null && isNaN(eventName)) ? eventName : 'click'
           eventEmitter.emit(eventName, e)
         }

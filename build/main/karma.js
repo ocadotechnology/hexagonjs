@@ -50,9 +50,6 @@ module.exports = function (testPackages, destDir, phantomOnly) {
     })).then(function (files) {
       return runKarma(flatten(files), destDir, phantomOnly)
     })
-  }).catch((e) => {
-    console.log(e)
-    process.exit(1)
   })
 }
 
