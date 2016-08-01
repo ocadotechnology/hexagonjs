@@ -1,7 +1,11 @@
+# Used to mimic an event call for a node
+fakeNodeEvent = (node, eventName) ->
+  if node?
+    (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
+
 describe "plot", ->
   it 'should have user facing text defined', ->
     hx.userFacingText('plot','noData').should.equal('No Data')
-
 
   describe "Graph", ->
 
@@ -90,6 +94,37 @@ describe "plot", ->
       axis = graph.addAxis(new hx.Axis({x: {scaleType: 'discrete'}, y: {scaleType: 'time'}}))
       axis.x.scaleType().should.equal('discrete')
       axis.y.scaleType().should.equal('time')
+
+    it 'should not redraw on resize when told not to', ->
+      selection = hx.select('body').append('div')
+        .style 'width', '500px'
+        .style 'height', '500px'
+      graph = new hx.Graph(selection.node(), redrawOnResize: false)
+      axis = graph.addAxis(x: { title: 'foo' }, y: { title: 'bar' })
+      axis.addSeries('line', data: [{ x: 0, y: 1 }])
+      graph.render()
+
+      renderSpy = chai.spy()
+      graph.on 'render', renderSpy
+      selection.style 'width', '400px'
+      fakeNodeEvent(selection.node(), 'resize')()
+      renderSpy.should.not.have.been.called()
+
+    it 'should redraw on resize by default', ->
+      selection = hx.select('body').append('div')
+        .style 'width', '500px'
+        .style 'height', '500px'
+      graph = new hx.Graph(selection.node())
+      axis = graph.addAxis(x: {title: 'foo'}, y: {title: 'bar'})
+      axis.addSeries('line', data: [{x: 0, y: 1}])
+      graph.render()
+
+      renderSpy = chai.spy()
+      graph.on 'render', renderSpy
+      selection.style 'width', '400px'
+      fakeNodeEvent(selection.node(), 'resize')()
+      renderSpy.should.have.been.called()
+
 
   describe "hx.Axis", ->
 
@@ -322,3 +357,12 @@ describe "plot", ->
       checkSetterGetterAndOption('ringPadding', [0, 5, 10])
       checkSetterGetterAndOption('totalAngle', [0, 5, 10])
       checkSetterGetterAndOption('startAngle', [0, 5, 10])
+
+  describe 'hx.Sparkline', ->
+    it 'should pass the redrawOnResize option to its Graph', ->
+      sparkLine = new hx.Sparkline(hx.detached('div'), redrawOnResize: false)
+      sparkLine._.graph.redrawOnResize().should.equal(false)
+      sparkLine.redrawOnResize().should.equal(false)
+      sparkLine.redrawOnResize(true)
+      sparkLine._.graph.redrawOnResize().should.equal(true)
+      sparkLine.redrawOnResize().should.equal(true)
