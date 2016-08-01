@@ -1,8 +1,4 @@
 describe 'hx-meter', ->
-  fakeNodeEvent = (node, eventName) ->
-    if node?
-      (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
-
   it 'should set and get values', ->
     meter = new hx.Meter(document.createElement('div'))
 
@@ -92,7 +88,7 @@ describe 'hx-meter', ->
 
     meter.on 'render', renderSpy
     selection.style 'width', '400px'
-    fakeNodeEvent(selection.node(), 'resize')()
+    testHelpers.fakeNodeEvent(selection.node(), 'resize')()
 
     renderSpy.should.have.been.called()
 

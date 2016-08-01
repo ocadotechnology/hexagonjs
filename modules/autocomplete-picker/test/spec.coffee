@@ -35,16 +35,12 @@ describe 'autocomplete-picker', ->
     fixture.remove()
     clock.restore()
 
-  fakeNodeEvent = (node, eventName) ->
-    if node?
-      (e) -> hx.select.getHexagonElementDataObject(node).eventEmitter?.emit((if eventName? and isNaN(eventName) then eventName else 'click'), e)
-
   testAutocomplete = (openAutocomplete, items, options, test) ->
     button = fixture.append('div').node()
     ap = new hx.AutocompletePicker(button, items, options)
     hx.consoleWarning.should.not.have.been.called()
     if openAutocomplete
-      fakeNodeEvent(button, 'click')(fakeEvent)
+      testHelpers.fakeNodeEvent(button, 'click')(fakeEvent)
       unless options?.disabled
         ap._.menu.dropdown.isOpen().should.equal(true)
       clock.tick(dropdownAnimationWait)
@@ -134,7 +130,7 @@ describe 'autocomplete-picker', ->
       input = document.activeElement
       input.value = 'a'
       ap.hide()
-      fakeNodeEvent(ap._.selection.node(), 'click')(fakeEvent)
+      testHelpers.fakeNodeEvent(ap._.selection.node(), 'click')(fakeEvent)
       input.value.should.equal('')
 
 
@@ -143,15 +139,15 @@ describe 'autocomplete-picker', ->
       # When doing a real keydown, the event propagates from the input.
       # This doesn't happen in the tests because we use the event emitter.
       dropdown = ap._.menu.dropdown._.dropdown.node()
-      fakeNodeEvent(dropdown, 'keydown')({
+      testHelpers.fakeNodeEvent(dropdown, 'keydown')({
         which: 40 # Down key
         preventDefault: ->
       })
-      fakeNodeEvent(dropdown, 'keydown')({
+      testHelpers.fakeNodeEvent(dropdown, 'keydown')({
         which: 40
         preventDefault: ->
       })
-      fakeNodeEvent(dropdown, 'keydown')({
+      testHelpers.fakeNodeEvent(dropdown, 'keydown')({
         which: 13 # Enter key
         preventDefault: ->
       })
@@ -162,7 +158,7 @@ describe 'autocomplete-picker', ->
   it 'should filter items when typing', ->
     testOpenAutocomplete trivialItems, undefined, (ap) ->
       hx.select(document.activeElement).value('b')
-      fakeNodeEvent(document.activeElement, 'input')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
       clock.tick(inputDebounceWait)
@@ -172,7 +168,7 @@ describe 'autocomplete-picker', ->
 
   it 'should not do anything when enter is pressed and the input is empty', ->
     testOpenAutocomplete trivialItems, undefined, (ap) ->
-      fakeNodeEvent(document.activeElement, 'keydown')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'keydown')({
         which: 13
       })
       should.not.exist(ap.value())
@@ -183,7 +179,7 @@ describe 'autocomplete-picker', ->
   it 'should not select an item when the key pressed is not enter', ->
     testOpenAutocomplete trivialItems, undefined, (ap) ->
       hx.select(document.activeElement).value('b')
-      fakeNodeEvent(document.activeElement, 'keydown')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'keydown')({
         which: 40
       })
       should.not.exist(ap.value())
@@ -194,11 +190,11 @@ describe 'autocomplete-picker', ->
   it 'should select the first item when enter is pressed and a value is entered', ->
     testOpenAutocomplete trivialItems, undefined, (ap) ->
       hx.select(document.activeElement).value('b')
-      fakeNodeEvent(document.activeElement, 'input')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
       clock.tick(200)
-      fakeNodeEvent(document.activeElement, 'keydown')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'keydown')({
         keyCode: 13
       })
       ap.value().should.equal('b')
@@ -208,7 +204,7 @@ describe 'autocomplete-picker', ->
   it 'should show the "No Results Found" text when no values are found', ->
     testOpenAutocomplete trivialItems, undefined, (ap) ->
       hx.select(document.activeElement).value('d')
-      fakeNodeEvent(document.activeElement, 'input')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
       clock.tick(inputDebounceWait)
@@ -219,12 +215,12 @@ describe 'autocomplete-picker', ->
   it 'should not select the first item when enter is pressed and a value is entered if the value is "No Results"', ->
     testOpenAutocomplete trivialItems, undefined, (ap) ->
       hx.select(document.activeElement).value('d')
-      fakeNodeEvent(document.activeElement, 'input')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
       clock.tick(inputDebounceWait)
       ap._.menu.dropdown._.dropdown.selectAll('.hx-menu-item').text().should.eql([hx.userFacingText('autocompletePicker', 'noResults')])
-      fakeNodeEvent(document.activeElement, 'keydown')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'keydown')({
         keyCode: 13
       })
       should.not.exist(ap.value())
@@ -262,7 +258,7 @@ describe 'autocomplete-picker', ->
     testOpenAutocomplete trivialItems, {showOtherResults: true}, (ap) ->
       ap._.menu.dropdown._.dropdown.selectAll('.hx-menu-item').text().should.eql(trivialItems)
       hx.select(document.activeElement).value('b')
-      fakeNodeEvent(document.activeElement, 'input')({
+      testHelpers.fakeNodeEvent(document.activeElement, 'input')({
         target: document.activeElement
       })
       clock.tick(inputDebounceWait)
@@ -436,7 +432,7 @@ describe 'autocomplete-picker', ->
         ap.on 'highlight', highlight
 
         dropdown = ap._.menu.dropdown._.dropdown.node()
-        fakeNodeEvent(dropdown, 'keydown')({
+        testHelpers.fakeNodeEvent(dropdown, 'keydown')({
           which: 40 # Down key
           preventDefault: ->
         })
@@ -445,7 +441,7 @@ describe 'autocomplete-picker', ->
           content: 'a'
           menu: ap._.menu
         })
-        fakeNodeEvent(dropdown, 'keydown')({
+        testHelpers.fakeNodeEvent(dropdown, 'keydown')({
           which: 40
           preventDefault: ->
         })
@@ -475,7 +471,7 @@ describe 'autocomplete-picker', ->
       ap.on 'dropdown.showend', showend
       ap.on 'dropdown.showstart', showstart
 
-      fakeNodeEvent(button, 'click')(fakeEvent)
+      testHelpers.fakeNodeEvent(button, 'click')(fakeEvent)
       change.should.have.been.called.with(true)
       showstart.should.have.been.called()
 
@@ -514,11 +510,11 @@ describe 'autocomplete-picker', ->
         ap.on 'change', value
 
         hx.select(document.activeElement).value('b')
-        fakeNodeEvent(document.activeElement, 'input')({
+        testHelpers.fakeNodeEvent(document.activeElement, 'input')({
           target: document.activeElement
         })
         clock.tick(inputDebounceWait)
-        fakeNodeEvent(document.activeElement, 'keydown')({
+        testHelpers.fakeNodeEvent(document.activeElement, 'keydown')({
           keyCode: 13
         })
 
