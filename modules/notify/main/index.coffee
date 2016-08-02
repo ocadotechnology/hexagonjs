@@ -1,3 +1,6 @@
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+
 # utility method for setting up notifications
 setupNotification = (notification, selection) ->
   if notification.options.icon? and notification.options.icon.length > 0
@@ -32,7 +35,7 @@ setupNotification = (notification, selection) ->
 nextId = (manager) -> manager.currentId++
 
 redraw = (manager) ->
-  selection = hx.select(manager.selector)
+  selection = select(manager.selector)
 
   container = selection.select('#' + manager.uniqueId)
   if container.empty()
@@ -87,7 +90,7 @@ updatePinnedStatus = (notification) ->
 
 class Notification
   constructor: (@manager, @message, options) ->
-    @options = hx.merge {
+    @options = utils.merge {
       icon: undefined
       cssClass: undefined
       timeout: @manager._.defaultTimeout
@@ -127,7 +130,7 @@ class NotificationManager
     @currentId = 0
     @notifications = []
 
-    @uniqueId = 'hx-notify-' + hx.randomId()
+    @uniqueId = 'hx-notify-' + utils.randomId()
 
     @_ = {
       defaultTimeout: 5
@@ -140,25 +143,25 @@ class NotificationManager
     notification
 
   info: (message, options = {}) ->
-    @notify(message, hx.merge {
+    @notify(message, utils.merge {
       icon: 'hx-icon hx-icon-info'
       cssclass: 'hx-info'
     }, options)
 
   warning: (message, options = {}) ->
-    @notify(message, hx.merge {
+    @notify(message, utils.merge {
       icon: 'hx-icon hx-icon-warning'
       cssclass: 'hx-warning'
     }, options)
 
   negative: (message, options = {}) ->
-    @notify(message, hx.merge {
+    @notify(message, utils.merge {
       icon: 'hx-icon hx-icon-error'
       cssclass: 'hx-negative'
     }, options)
 
   positive: (message, options = {}) ->
-    @notify(message, hx.merge {
+    @notify(message, utils.merge {
       icon: 'hx-icon hx-icon-check'
       cssclass: 'hx-positive'
     }, options)
@@ -180,16 +183,25 @@ class NotificationManager
     else
       @_.defaultTimeout
 
-
-hx.NotificationManager = NotificationManager
-
 # Inbuilt notification manager related functions
 inbuiltNotificationManager = new NotificationManager
 
-hx.notify = (message, options) -> inbuiltNotificationManager.notify(message, options)
-hx.notify.info = (message, options) -> inbuiltNotificationManager.info(message, options)
-hx.notify.positive = (message, options) -> inbuiltNotificationManager.positive(message, options)
-hx.notify.warning = (message, options) -> inbuiltNotificationManager.warning(message, options)
-hx.notify.negative = (message, options) -> inbuiltNotificationManager.negative(message, options)
-hx.notify.loading = (message) -> inbuiltNotificationManager.loading(message)
-hx.notify.defaultTimeout = (timeout) -> inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments)
+defaultTimeout = (timeout) -> inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments)
+
+notify = (message, options) -> inbuiltNotificationManager.notify(message, options)
+notify.info = (message, options) -> inbuiltNotificationManager.info(message, options)
+notify.positive = (message, options) -> inbuiltNotificationManager.positive(message, options)
+notify.warning = (message, options) -> inbuiltNotificationManager.warning(message, options)
+notify.negative = (message, options) -> inbuiltNotificationManager.negative(message, options)
+notify.loading = (message) -> inbuiltNotificationManager.loading(message)
+notify.defaultTimeout = defaultTimeout
+
+module.exports = {
+  notify: notify,
+  NotificationManager: NotificationManager,
+  defaultTimeout: defaultTimeout
+  hx: {
+    notify: notify,
+    NotificationManager: NotificationManager
+  }
+}

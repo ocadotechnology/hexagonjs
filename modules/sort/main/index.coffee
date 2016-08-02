@@ -32,7 +32,7 @@ localeCompare = (locale, options) ->
     else localeCollator(a, b)
 
 
-hx.sortBy = (arr, f) ->
+sortBy = (arr, f) ->
   newArr = [arr...]
   newArr.sort (left, right) ->
     fLeft = f left
@@ -40,6 +40,19 @@ hx.sortBy = (arr, f) ->
     compare fLeft, fRight
   newArr
 
-hx.sort = (arr) -> hx.sortBy arr, (x) -> x
-hx.sort.compare = compare
-hx.sort.localeCompare = localeCompare
+sort = (arr) -> sortBy(arr, (x) -> x)
+sort.compare = compare
+sort.localeCompare = localeCompare
+
+module.exports = {
+  sort: sort,
+  sortBy: sortBy,
+  compare: compare,
+  localeCompare: localeCompare
+}
+
+# XXX: backwards compat
+module.exports.hx = {
+  sort: sort,
+  sortBy: sortBy
+}

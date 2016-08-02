@@ -1,8 +1,8 @@
 ElementSet = require('./element-set')
 util = require('modules/util/main/utils')
 getHexagonElementDataObject = require('./get-hexagon-element-data-object')
-hxMap = require('modules/map/main')
-hxSet = require('modules/set/main')
+HMap = require('modules/map/main')
+HSet = require('modules/set/main')
 EventEmitter = require('modules/event-emitter/main')
 
 namespaces = {
@@ -348,9 +348,9 @@ class Selection
         data.eventEmitter
       else
         data.eventEmitter = new EventEmitter
-      data.eventAugmenters ?= new hxMap
+      data.eventAugmenters ?= new HMap
 
-      data.listenerNamesRegistered ?= new hxSet
+      data.listenerNamesRegistered ?= new HSet
 
       if not data.listenerNamesRegistered.has(name)
         handler = (e) -> eventEmitter.emit(name, e)
@@ -403,7 +403,7 @@ class Selection
     else
       values = for node in @nodes
         data = getHexagonElementDataObject(node)
-        data.data ?= new hxMap
+        data.data ?= new HMap
         data.data.set(key, value)
       this
 

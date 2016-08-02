@@ -24,6 +24,15 @@ describe('HexagonJS Test Suite', () => {
   require('modules/interpolate/test/spec')
   require('modules/animate/test/spec')
   require('modules/view/test/spec')
+  require('modules/sort/test/spec')
+  require('modules/component/test/spec')
+  require('modules/click-detector/test/spec')
+  require('modules/modal/test/spec')
+  require('modules/notify/test/spec')
+  require('modules/filter/test/spec')
+  require('modules/user-facing-text/test/spec')
+  require('modules/form/test/spec')
+  require('modules/dropdown/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -143,6 +152,64 @@ describe('HexagonJS Test Suite', () => {
     describe('view', () => {
       checkProperty('view', hx.detached('div'))
     })
+
+    describe('sort', () => {
+      checkProperty('sort')
+      checkProperty('sortBy')
+      checkProperty('compare', hx.sort)
+      checkProperty('localeCompare', hx.sort)
+    })
+
+    describe('component', () => {
+      checkProperty('component')
+      checkProperty('components')
+      checkProperty('register', hx.component)
+      checkProperty('clear', hx.components)
+    })
+
+    describe('click-detector', () => {
+      checkProperty('ClickDetector')
+    })
+
+    describe('modal', () => {
+      checkProperty('Modal')
+      checkProperty('dialog', hx.modal)
+      checkProperty('input', hx.modal)
+    })
+
+    describe('notify', () => {
+      checkProperty('notify')
+      checkProperty('NotificationManager')
+      checkProperty('info', hx.notify)
+      checkProperty('positive', hx.notify)
+      checkProperty('warning', hx.notify)
+      checkProperty('negative', hx.notify)
+      checkProperty('loading', hx.notify)
+    })
+
+    describe('filter', () => {
+      checkProperty('exact', hx.filter)
+      checkProperty('startsWith', hx.filter)
+      checkProperty('contains', hx.filter)
+      checkProperty('excludes', hx.filter)
+      checkProperty('greater', hx.filter)
+      checkProperty('less', hx.filter)
+      checkProperty('fuzzy', hx.filter)
+      checkProperty('regex', hx.filter)
+    })
+
+    describe('user-facing-text', () => {
+      checkProperty('userFacingText')
+    })
+
+    describe('form', () => {
+      checkProperty('validateForm')
+    })
+
+    describe('dropdown', () => {
+      checkProperty('Dropdown')
+    })
+
   })
 
 })

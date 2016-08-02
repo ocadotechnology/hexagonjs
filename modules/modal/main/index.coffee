@@ -1,8 +1,15 @@
+EventEmitter = require('modules/event-emitter/main')
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
 
-class Modal extends hx.EventEmitter
+# NOTE: this is needed to force animate to be included before modal in the build
+# this workaround will go away once the animate api is made more sensible
+animate = require('modules/animate/main')
+
+class Modal extends EventEmitter
 
   closeModal = (modal, event) ->
-    body = hx.select('body').classed('hx-modal-open', false)
+    body = select('body').classed('hx-modal-open', false)
     body.select('.hx-modal-container').remove()
     body.select('.hx-modal-shade').remove()
     modal.emit('hidestart')
@@ -12,12 +19,12 @@ class Modal extends hx.EventEmitter
   constructor: (@title, @setup, options) ->
     super
 
-    @options = hx.merge {
+    @options = utils.merge {
       closeWithShadeEnabled: true,
       closeButtonEnabled: true,
-      titlebarRenderer: (node) -> hx.select(node).text(@title),
+      titlebarRenderer: (node) -> select(node).text(@title),
       headerRenderer: (node, titleNode, closeButtonNode) ->
-        hx.select(node).add(titleNode).add(closeButtonNode)
+        select(node).add(titleNode).add(closeButtonNode)
     }, options
 
     @contentContainer = null
@@ -26,7 +33,7 @@ class Modal extends hx.EventEmitter
   show: (cb) ->
     # Clears the focus so pressing 'enter' does not cause buttons to call modal.show()
     document.activeElement?.blur()
-    body = hx.select('body').classed('hx-modal-open', true)
+    body = select('body').classed('hx-modal-open', true)
     shade = body.select('.hx-modal-shade')
     if shade.empty()
       shade = body.append('div').attr('class', 'hx-modal-shade')
@@ -37,11 +44,11 @@ class Modal extends hx.EventEmitter
     modal = modalContainer.append('div').attr('class', 'hx-modal')
     titleContainer = modal.append('div')
       .class('hx-modal-title-container hx-group hx-horizontal hx-header')
-    title = hx.detached('div').class('hx-modal-title')
+    title = select.detached('div').class('hx-modal-title')
 
     if @options.closeButtonEnabled
-      closeButton = hx.detached('div')
-        .add(hx.detached('i').class('hx-icon hx-icon-close'))
+      closeButton = select.detached('div')
+        .add(select.detached('i').class('hx-icon hx-icon-close'))
         .class('hx-modal-close hx-fixed')
           .on('click', 'hx.modal', => closeModal(this, {cause: 'button'}))
     else
@@ -50,7 +57,7 @@ class Modal extends hx.EventEmitter
 
     if @options.closeWithShadeEnabled
       modalContainer.on 'click', 'hx.modal', (e) =>
-        if not modal.contains(e.target) && hx.select('body').contains(e.target)
+        if not modal.contains(e.target) && select('body').contains(e.target)
           closeModal(this, {cause: 'shade'})
 
     @options.titlebarRenderer.call(this, title.node(), this)
@@ -87,8 +94,8 @@ makeButtons = (container, buttons, modal, callback) ->
     container.append('button')
       .attr('type', 'button')
       .class(d.classes)
-      .add(hx.detached('i').class(d.icon))
-      .add(hx.detached('span').text(' ' + d.text))
+      .add(select.detached('i').class(d.icon))
+      .add(select.detached('span').text(' ' + d.text))
       .on 'click', 'hx.modal', ->
         callback?(d.value)
         modal.hide()
@@ -96,19 +103,19 @@ makeButtons = (container, buttons, modal, callback) ->
 
 getTitleRender = (icon) ->
   (elem, modal) ->
-    elem = hx.select(elem)
+    elem = select(elem)
     if icon?
       elem.append('i').class(icon)
     elem.append('span').text(@title)
 
 getHeaderRender = (titleClass) ->
   (elem, title, button, modal) ->
-    hx.select(elem).classed('hx-background-' + titleClass, true)
+    select(elem).classed('hx-background-' + titleClass, true)
       .add(title)
       .add(button)
 
 modalDialog = (title, message, callback, options) ->
-  options = hx.merge.defined {
+  options = utils.merge.defined {
     callback: undefined
     buttons: [
       {text: 'Cancel', icon: 'hx-icon hx-icon-close', value: false, classes: 'hx-btn hx-negative' }
@@ -119,7 +126,7 @@ modalDialog = (title, message, callback, options) ->
   }, options
 
   setup = (element) ->
-    container = hx.select(element)
+    container = select(element)
     message = container.append('div').class('hx-modal-message').text(message)
     buttonContainer = container.append('div').class('hx-modal-buttons')
     makeButtons buttonContainer, options.buttons, this, callback
@@ -135,7 +142,7 @@ modalDialog = (title, message, callback, options) ->
   modal.show()
 
 modalInput = (title, message, callback, options) ->
-  options = hx.merge.defined {
+  options = utils.merge.defined {
     value: ''
   }, options
 
@@ -144,7 +151,7 @@ modalInput = (title, message, callback, options) ->
       {text: 'Cancel', icon: 'hx-icon hx-icon-close', value: false, classes: 'hx-btn hx-negative' }
       {text: 'Confirm', icon: 'hx-icon hx-icon-check', value: true, classes: 'hx-btn hx-positive' }
     ]
-    container = hx.select(element)
+    container = select(element)
     message = container.append('span').class('hx-modal-message').text(message)
     input = container.append('input').class('hx-modal-input').text(this.options.value)
     buttonContainer = container.append('div').class('hx-modal-buttons')
@@ -158,9 +165,19 @@ modalInput = (title, message, callback, options) ->
   modal.on 'close', 'hx.modal', (d) -> if d.cause isnt 'api' then callback()
   modal.show()
 
+module.exports = {
+  Modal: Modal,
+  modal: {
+    dialog: modalDialog,
+    input: modalInput
+  }
+}
 
-hx.Modal = Modal
-
-hx.modal =
-  dialog: modalDialog
-  input: modalInput
+# XXX: backwards compatiblity
+module.exports.hx = {
+  Modal: Modal,
+  modal: {
+    dialog: modalDialog,
+    input: modalInput
+  }
+}

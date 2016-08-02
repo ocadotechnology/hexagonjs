@@ -1,10 +1,18 @@
+animate = require('modules/animate/main')
+select = require('modules/selection/main')
+EventEmitter = require('modules/event-emitter/main')
+
+# XXX: rather than modifying the global hx state, these should be exposed as functions/objects
+#      that can be used with the selection api in some way
+
+
 # built in animations and morphs
 
-hx.morph.register 'fadeout', (node, duration=100) ->
-  hx.animate(node).style('opacity', 0, duration)
+animate.morph.register 'fadeout', (node, duration=100) ->
+  animate.animate(node).style('opacity', 0, duration)
 
-hx.morph.register 'fadein', (node, duration=100) ->
-  hx.animate(node).style('opacity', 1, duration)
+animate.morph.register 'fadein', (node, duration=100) ->
+  animate.animate(node).style('opacity', 1, duration)
 
 # should only be used for size values
 getStyles = (selection, properties) ->
@@ -27,7 +35,7 @@ animateStyles = (selection, properties, duration) ->
     animation.style(item.name, item.value, duration)
   animation
 
-hx.morph.register 'expand', (node, duration=100) ->
+animate.morph.register 'expand', (node, duration=100) ->
 
   properties = [
     'height',
@@ -43,7 +51,7 @@ hx.morph.register 'expand', (node, duration=100) ->
   ]
 
   # get the start and end style values
-  selection = hx.select(node)
+  selection = select(node)
   start = getStyles(selection, properties)
   selection.style('display', '')
   end = clearAndGet(selection, properties)
@@ -58,7 +66,7 @@ hx.morph.register 'expand', (node, duration=100) ->
       clearAndGet(selection, properties)
       selection.classed 'hx-morph-hidden', false
 
-hx.morph.register 'expandv', (node, duration=100) ->
+animate.morph.register 'expandv', (node, duration=100) ->
 
   properties = [
     'height',
@@ -69,7 +77,7 @@ hx.morph.register 'expandv', (node, duration=100) ->
   ]
 
   # get the start and end style values
-  selection = hx.select(node)
+  selection = select(node)
   start = getStyles(selection, properties)
   selection.style('display', '')
   end = clearAndGet(selection, properties)
@@ -85,7 +93,7 @@ hx.morph.register 'expandv', (node, duration=100) ->
       selection.classed 'hx-morph-hidden', false
 
 
-hx.morph.register 'expandh', (node, duration=100) ->
+animate.morph.register 'expandh', (node, duration=100) ->
 
   properties = [
     'width',
@@ -96,7 +104,7 @@ hx.morph.register 'expandh', (node, duration=100) ->
   ]
 
   # get the start and end style values
-  selection = hx.select(node)
+  selection = select(node)
   start = getStyles(selection, properties)
   selection.style('display', '')
   end = clearAndGet(selection, properties)
@@ -111,9 +119,9 @@ hx.morph.register 'expandh', (node, duration=100) ->
       clearAndGet(selection, properties)
       selection.classed 'hx-morph-hidden', false
 
-hx.morph.register 'collapse', (node, duration=100) ->
-  selection = hx.select(node).classed('hx-morph-hidden', true)
-  hx.animate(node)
+animate.morph.register 'collapse', (node, duration=100) ->
+  selection = select(node).classed('hx-morph-hidden', true)
+  animate.animate(node)
     .style('height', '0px', duration)
     .style('padding-top', '0px', duration)
     .style('padding-bottom', '0px', duration)
@@ -139,9 +147,9 @@ hx.morph.register 'collapse', (node, duration=100) ->
         .style('margin-right', '')
         .classed('hx-morph-hidden', false)
 
-hx.morph.register 'collapsev', (node, duration=100) ->
-  selection = hx.select(node).classed('hx-morph-hidden', true)
-  hx.animate(node)
+animate.morph.register 'collapsev', (node, duration=100) ->
+  selection = select(node).classed('hx-morph-hidden', true)
+  animate.animate(node)
     .style('height', '0px', duration)
     .style('padding-top', '0px', duration)
     .style('padding-bottom', '0px', duration)
@@ -157,9 +165,9 @@ hx.morph.register 'collapsev', (node, duration=100) ->
         .style('margin-bottom', '')
         .classed('hx-morph-hidden', false)
 
-hx.morph.register 'collapseh', (node, duration=100) ->
-  selection = hx.select(node).classed('hx-morph-hidden', true)
-  hx.animate(node)
+animate.morph.register 'collapseh', (node, duration=100) ->
+  selection = select(node).classed('hx-morph-hidden', true)
+  animate.animate(node)
     .style('width', '0px', duration)
     .style('padding-left', '0px', duration)
     .style('padding-right', '0px', duration)
@@ -175,40 +183,40 @@ hx.morph.register 'collapseh', (node, duration=100) ->
         .style('margin-right', '')
         .classed('hx-morph-hidden', false)
 
-hx.morph.register 'rotate-90', (node, duration=100) ->
-  hx.animate(node)
+animate.morph.register 'rotate-90', (node, duration=100) ->
+  animate.animate(node)
     .style('-webkit-transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration)
     .style('transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration)
     .on 'end', 'hx.morphs', ->
-      hx.select(node)
+      select(node)
         .style('transform', '')
         .style('-webkit-transform', '')
     .on 'cancel', 'hx.morphs', ->
-      hx.select(node)
+      select(node)
         .style('transform', '')
         .style('-webkit-transform', '')
 
-hx.morph.register 'rotate-0', (node, duration=100) ->
-  hx.animate(node)
+animate.morph.register 'rotate-0', (node, duration=100) ->
+  animate.animate(node)
     .style('-webkit-transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration)
     .style('transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration)
     .on 'end', 'hx.morphs', ->
-      hx.select(node)
+      select(node)
         .style('transform', '')
         .style('-webkit-transform', '')
     .on 'cancel', 'hx.morphs', ->
-      hx.select(node)
+      select(node)
         .style('transform', '')
         .style('-webkit-transform', '')
 
-class Delay extends hx.EventEmitter
+class Delay extends EventEmitter
   constructor: (duration) ->
     super
     @timeout = setTimeout((=> @emit('end')), duration)
 
   cancel: => clearTimeout(@timeout)
 
-hx.morph.register 'delay', (node, duration=100) ->
+animate.morph.register 'delay', (node, duration=100) ->
   new Delay(duration)
 
-
+module.exports = {}

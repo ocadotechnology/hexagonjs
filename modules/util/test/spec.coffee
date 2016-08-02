@@ -1,7 +1,7 @@
 util = require('modules/util/main')
-hxSet = require('modules/set/main')
-hxMap = require('modules/map/main')
-hxList = require('modules/list/main')
+HSet = require('modules/set/main')
+HMap = require('modules/map/main')
+HList = require('modules/list/main')
 chai = require('chai')
 should = chai.should()
 
@@ -497,9 +497,9 @@ describe "Util", ->
 
     util.shallowClone([1, 2, 3]).should.eql([1, 2, 3])
 
-    l = new hxList [1, "a", {}]
-    s = new hxSet [1, "a", {}]
-    m = new hxMap [["a", 5], [6, {}]]
+    l = new HList [1, "a", {}]
+    s = new HSet [1, "a", {}]
+    m = new HMap [["a", 5], [6, {}]]
 
     d = new Date
     util.shallowClone(d).should.not.equal(d)
@@ -529,9 +529,9 @@ describe "Util", ->
     util.clone({a: 5, b: obj}).b.should.not.equal(obj)
 
     util.clone([1, 2, 3]).should.eql([1, 2, 3])
-    l = new hxList [1, "a", {}]
-    s = new hxSet [1, "a", {}]
-    m = new hxMap [["a", 5], [6, {}]]
+    l = new HList [1, "a", {}]
+    s = new HSet [1, "a", {}]
+    m = new HMap [["a", 5], [6, {}]]
 
 
     util.clone(l).entries().should.eql(l.entries())

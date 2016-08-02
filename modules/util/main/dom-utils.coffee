@@ -1,4 +1,5 @@
-selection = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+select = require('modules/selection/main')
 
 #XXX [2.0.0]: move to another module (for dom-related utils)
 cachedParseHtml = null
@@ -41,11 +42,11 @@ scrollbarSize = ->
     inner.style.height = '200px'
     outer = document.createElement('div')
 
-    inner = selection.detached('p')
+    inner = select.detached('p')
       .style('width', '100%')
       .style('height', '200px')
 
-    outer = selection.detached('div')
+    outer = select.detached('div')
       .style('position', 'absolute')
       .style('top', '0')
       .style('left', '0')
@@ -56,7 +57,7 @@ scrollbarSize = ->
 
     outer.append(inner)
 
-    selection.select('body').append(outer)
+    select('body').append(outer)
 
     w1 = inner.node().offsetWidth
     outer.style('overflow', 'scroll')
@@ -76,12 +77,12 @@ scrollbarSize = ->
 #XXX [2.0.0]: move to another module (for dom-related utils)
 parentZIndex = (node, findMax) ->
   check = (node) ->
-    index = Number selection.select(node).style('z-index')
+    index = Number select(node).style('z-index')
     if !isNaN(index) and index > 0 then index
 
   res = checkParents(node, check, findMax)
 
-  if findMax then max(res) else res
+  if findMax then utils.max(res) else res
 
 #XXX [2.0.0]: move to another module (for dom-related utils)
 checkParents = (node, check, returnArray) ->

@@ -1,12 +1,12 @@
 util = require('modules/util/main/utils')
-hxList = require('modules/list/main')
-hxSet = require('modules/set/main')
+HList = require('modules/list/main')
+HSet = require('modules/set/main')
 getHexagonElementDataObject = require('./get-hexagon-element-data-object')
 
 module.exports = class ElementSet
   constructor: ->
-    @elements = new hxList
-    @ids = new hxSet
+    @elements = new HList
+    @ids = new HSet
 
   add: (element) ->
     d = getHexagonElementDataObject(element)

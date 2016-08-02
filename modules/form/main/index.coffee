@@ -1,4 +1,7 @@
-hx.userFacingText({
+userFacingText = require('modules/user-facing-text/main')
+select = require('modules/selection/main')
+
+userFacingText({
   form: {
     missingRadioValue: 'Please select one of these options',
     missingValue: 'Please fill in this field',
@@ -11,22 +14,23 @@ getValidationMessage = (message, type) ->
   switch message.toLowerCase()
     when 'value missing'
       if type is 'radio'
-        hx.userFacingText('form', 'missingRadioValue')
+        userFacingText('form', 'missingRadioValue')
       else
-        hx.userFacingText('form', 'missingValue')
+        userFacingText('form', 'missingValue')
     when 'type mismatch'
-      hx.userFacingText('form', 'typeMismatch')
+      userFacingText('form', 'typeMismatch')
     else
       message
 
-validateForm = (form, options) ->
-  form = hx.select(form).node()
+validate = (form, options) ->
+  form = select(form).node()
 
-  options = hx.merge.defined {
+  defaultOptions = {
     showMessage: true
-  }, options
+  }
+  options = hx.merge.defined(defaultOptions, options)
 
-  hx.select(form).selectAll('.hx-form-error').remove()
+  select(form).selectAll('.hx-form-error').remove()
 
   errors = []
 
@@ -38,28 +42,28 @@ validateForm = (form, options) ->
       # Deal with standard label/input pairs
       if element.nodeName.toLowerCase() is 'input' or element.nodeName.toLowerCase() is 'textarea'
         if not element.checkValidity()
-          type = hx.select(element).attr('type')
-          errors.push {
-            message: getValidationMessage element.validationMessage, type
-            node: element
+          type = select(element).attr('type')
+          errors.push({
+            message: getValidationMessage(element.validationMessage, type),
+            node: element,
             validity: element.validity
-          }
+          })
       else
         # Deal with radio groups and other similar structured elements
-        input = hx.select(element).select('input').node()
-        type  = hx.select(element).select('input').attr('type')
+        input = select(element).select('input').node()
+        type  = select(element).select('input').attr('type')
         if input and not input.checkValidity()
-          errors.push {
-            message: getValidationMessage input.validationMessage, type
-            node: element
+          errors.push({
+            message: getValidationMessage(input.validationMessage, type),
+            node: element,
             validity: input.validity
-          }
+          })
 
   if options.showMessage and errors.length > 0
     error = errors[0]
     # XXX: This structure lets us jump out of the forced table layout. If we change
     # to match the full-width aeris forms, this will need changing.
-    hx.select(error.node.parentNode)
+    select(error.node.parentNode)
       .insertAfter('div')
       .class('hx-form-error')
       .append('div')
@@ -69,16 +73,21 @@ validateForm = (form, options) ->
       .class('hx-form-error-text')
       .text(error.message)
 
-    hx.select(error.node).on 'click', 'hx.form', (e) ->
-      next = hx.select(error.node.parentNode.nextElementSibling)
+    select(error.node).on 'click', 'hx.form', (e) ->
+      next = select(error.node.parentNode.nextElementSibling)
       if next.classed('hx-form-error')
         next.remove()
-      hx.select(error.node).off 'click', 'hx.form'
+      select(error.node).off('click', 'hx.form')
 
   # Return the errors so we can still check how many there are.
-  {
+  return {
     valid: errors.length is 0,
     errors: errors
   }
 
-hx.validateForm = validateForm
+module.exports = {
+  validate: validate,
+  hx: {
+    validateForm: validate
+  }
+}

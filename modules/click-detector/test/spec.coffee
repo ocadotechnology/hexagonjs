@@ -1,10 +1,11 @@
-describe 'ClickDetector', ->
+ClickDetector = require('modules/click-detector/main')
+select = require('modules/selection/main')
 
-  ClickDetector = hx.ClickDetector
+describe 'ClickDetector', ->
 
   cd = null
   beforeEach ->
-    fixture = hx.select('body')
+    fixture = select('body')
     exception = fixture.append('div')
       .style('width', '50px')
       .style('height', '50px')
@@ -15,7 +16,6 @@ describe 'ClickDetector', ->
       .style('height', '50px')
       .style('margin', '0 auto')
       .attr('id', 'elem')
-
 
     cd = new ClickDetector
 

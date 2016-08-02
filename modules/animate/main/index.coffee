@@ -2,7 +2,7 @@ transition = require('modules/transition/main')
 EventEmitter = require('modules/event-emitter/main')
 interpolate = require('modules/interpolate/main')
 select = require('modules/selection/main')
-hxMap = require('modules/map/main')
+HMap = require('modules/map/main')
 util = require('modules/util/main')
 
 # works on the single node given
@@ -191,7 +191,7 @@ class Morph extends EventEmitter
 
 morph = (node) -> new Morph(node)
 
-hx_morphs = new hxMap
+hx_morphs = new HMap
 morph.register = (name, morph) -> hx_morphs.set(name, morph)
 
 select.Selection::animate = (ease) -> animate(@nodes[0], ease)

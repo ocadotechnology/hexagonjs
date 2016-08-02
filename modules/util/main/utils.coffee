@@ -1,6 +1,6 @@
-hxSet = require('modules/set/main')
-hxMap = require('modules/map/main')
-hxList = require('modules/list/main')
+HSet = require('modules/set/main')
+HMap = require('modules/map/main')
+HList = require('modules/list/main')
 
 deprecatedWarning = (deprecatedItem, messages...) ->
   heading = "Deprecation Warning: #{deprecatedItem}"
@@ -8,10 +8,12 @@ deprecatedWarning = (deprecatedItem, messages...) ->
   messages = messages.map (d) -> '  ' + d
   console.warn [heading].concat(messages).join('\n')
   console.trace('Stack Trace')
+  return
 
 consoleWarning = (heading, messages...) ->
   console.warn.apply(console, [heading].concat(messages))
   console.trace('Stack Trace')
+  return
 
 # consistent string to int hashing
 hash = (str, max) ->
@@ -203,16 +205,16 @@ isPlainObject = (obj) ->
   obj.constructor.prototype.hasOwnProperty('isPrototypeOf')
 
 groupBy = (arr, f) ->
-  map = new hxMap
+  map = new HMap
   for x in arr
     category = f(x)
-    if not map.has(category) then map.set(category, new hxList)
+    if not map.has(category) then map.set(category, new HList)
     map.get(category).add(x)
   values = map.entries()
   values.forEach((d) -> d[1] = d[1].entries())
   values
 
-unique = (list) -> new hxSet(list).values()
+unique = (list) -> new HSet(list).values()
 
 endsWith  = (string, suffix) ->
   string.indexOf(suffix, string.length - suffix.length) != -1
@@ -278,12 +280,12 @@ clone = (obj) ->
     obj.map(clone)
   else if isPlainObject(obj)
     merge({}, obj)
-  else if obj instanceof hxList
-    new hxList(obj.entries().map(clone))
-  else if obj instanceof hxMap
-    new hxMap(obj.entries().map(([k, v]) -> [clone(k), clone(v)]))
-  else if obj instanceof hxSet
-    new hxSet(obj.keys().map(clone))
+  else if obj instanceof HList
+    new HList(obj.entries().map(clone))
+  else if obj instanceof HMap
+    new HMap(obj.entries().map(([k, v]) -> [clone(k), clone(v)]))
+  else if obj instanceof HSet
+    new HSet(obj.keys().map(clone))
   else if obj instanceof Date
     new Date obj.getTime()
   else if isObject(obj) and obj isnt null
@@ -298,12 +300,12 @@ shallowClone = (obj) ->
     obj.slice()
   else if isPlainObject(obj)
     shallowMerge({}, obj)
-  else if obj instanceof hxList
-    new hxList obj.entries()
-  else if obj instanceof hxMap
-    new hxMap obj.entries()
-  else if obj instanceof hxSet
-    new hxSet obj.keys()
+  else if obj instanceof HList
+    new HList obj.entries()
+  else if obj instanceof HMap
+    new HMap obj.entries()
+  else if obj instanceof HSet
+    new HSet obj.keys()
   else if obj instanceof Date
     new Date obj.getTime()
   else if isObject(obj) and obj isnt null

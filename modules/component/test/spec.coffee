@@ -1,1 +1,1 @@
-describe 'hx-component', ->
+describe 'component', ->

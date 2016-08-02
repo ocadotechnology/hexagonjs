@@ -1,9 +1,11 @@
-describe 'hx-filter tests', ->
+filter = require('modules/filter/main')
+
+describe 'filter tests', ->
 
   runSpecsForSource = (array, options, type) ->
 
     callFilter = (type, term, options) ->
-      hx.filter[type](array, term, options)
+      filter[type](array, term, options)
 
     getResult = (terms) ->
       switch type
@@ -13,8 +15,6 @@ describe 'hx-filter tests', ->
           terms.map (d) -> [d.name, d.age]
         when 'obj'
           terms
-
-
 
     describe 'fuzzy should return the right results', ->
 

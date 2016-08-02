@@ -1,12 +1,12 @@
 util = require('modules/util/main/utils')
-hxMap = require('modules/map/main')
-hxList = require('modules/list/main')
+HMap = require('modules/map/main')
+HList = require('modules/list/main')
 
 class BasicEventEmitter
 
   constructor: ->
-    @callbacks = new hxMap
-    @allCallbacks = new hxList
+    @callbacks = new HMap
+    @allCallbacks = new HList
 
   # emit an object to all callbacks registered with the name given
   emit: (name, data) ->
@@ -18,7 +18,7 @@ class BasicEventEmitter
   on: (name, callback) ->
     if name
       if not @callbacks.has(name)
-        @callbacks.set(name, new hxList)
+        @callbacks.set(name, new HList)
       @callbacks.get(name).add callback
     else
       @allCallbacks.add callback
@@ -40,10 +40,10 @@ class BasicEventEmitter
         @allCallbacks.remove(callback)
     else
       if name
-        @callbacks.set(name, new hxList)
+        @callbacks.set(name, new HList)
       else
-        @callbacks = new hxMap
-        @allCallbacks = new hxList
+        @callbacks = new HMap
+        @allCallbacks = new HList
     this
 
   # lets you pipe events through to another event emitter
@@ -66,9 +66,9 @@ class BasicEventEmitter
 
 class EventEmitter
   constructor: ->
-    @suppressedMap = new hxMap
-    @emitters = new hxList
-    @emittersMap = new hxMap
+    @suppressedMap = new HMap
+    @emitters = new HList
+    @emittersMap = new HMap
     @global = addEmitter(this, 'default')
 
   addEmitter = (ee, namespace) ->

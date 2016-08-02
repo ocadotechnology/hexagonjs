@@ -1,2 +1,1 @@
-describe 'hx-modal tests', ->
-  # ...
+describe 'modal', ->

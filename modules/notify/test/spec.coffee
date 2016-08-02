@@ -1,2 +1,1 @@
-describe 'hx-notify tests', ->
-  # ...
+describe 'notify', ->

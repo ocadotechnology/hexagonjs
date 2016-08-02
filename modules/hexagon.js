@@ -2,11 +2,13 @@ const merge = (objs) => {
   const res = {}
   objs.forEach((obj) => {
     if (obj) {
-      Object.keys(obj.hx).forEach((k) => {
-        res[k] = obj.hx[k]
-      })
-      if (obj.hx && obj.hx.init) {
-        obj.hx.init()
+      if (obj.hx) {
+        Object.keys(obj.hx).forEach((k) => {
+          res[k] = obj.hx[k]
+        })
+        if (obj.hx.init) {
+          obj.hx.init()
+        }
       }
     }
   })
@@ -26,5 +28,15 @@ module.exports = merge([
   require('./interpolate/main'),
   require('./animate/main'),
   require('./pointer-events/main'),
-  require('./view/main')
+  require('./view/main'),
+  require('./sort/main'),
+  require('./component/main'),
+  require('./morphs/main'),
+  require('./click-detector/main'),
+  require('./modal/main'),
+  require('./notify/main'),
+  require('./filter/main'),
+  require('./user-facing-text/main'),
+  require('./form/main'),
+  require('./dropdown/main')
 ])
