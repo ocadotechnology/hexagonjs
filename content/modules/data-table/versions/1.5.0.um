@@ -37,6 +37,8 @@
       @enhancement: Updated the compact view to have a collapsible control panel that houses the search, sort and advanced search controls so that compact tables take up less space
       @updated: Updated the data table to include options for Advanced searching (multi-column filtering) as well as showing the search above the table
         @issue 49
+      @bugfix: Resolved an issue where the classes for showing/hiding the sort were not being applied correctly
+        @issue 252
       @constructor
         @param selector [String/HTMLElement]
         @param? options [Object]

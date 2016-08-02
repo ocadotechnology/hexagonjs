@@ -46,3 +46,7 @@
         @description: Sets the option for whether the sparkline should redraw on resizing the container
         @param value [Boolean]: Whether the sparkline should redraw on resizing the container
         @returns Sparkline: This Sparkline
+
+
+    @prototype hx.PieChart
+      @bugfix: Resolved an issue in pie charts where the legend was not being displayed with the correct colors and was not rendering correctly
