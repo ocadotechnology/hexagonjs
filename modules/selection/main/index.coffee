@@ -490,8 +490,7 @@ hxSelectAll = (selector) ->
 
 detached = (name, namespace) ->
   namespace = if namespaces.hasOwnProperty(name) then namespaces[name] else namespaces.xhtml
-  new Selection([document.createElementNS(namespace, name)])
-
+  select(document.createElementNS(namespace, name))
 
 # expose
 module.exports = hxSelect

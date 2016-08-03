@@ -1,13 +1,18 @@
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+
 contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
 paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
 
-hx.palette = {}
+palette = {}
 
+#XXX: make hx.select do flattening
 flatSelect = (selector) ->
-  if selector instanceof hx.Selection then selector else hx.select(selector)
+  if selector instanceof select.Selection then selector else select(selector)
 
 context = (contextArray, contextPrefix) ->
-  mappedContexts = contextArray.map (context) -> "#{contextPrefix}-#{context}"
+  mappedContexts = contextArray
+    .map((context) -> contextPrefix + '-' + context)
     .join(' ')
 
   (selector, context) ->
@@ -15,16 +20,21 @@ context = (contextArray, contextPrefix) ->
     if arguments.length > 1
       selection.classed(mappedContexts, false)
       if contextArray.indexOf(context) isnt -1
-        selection.classed("#{contextPrefix}-#{context}", true)
+        selection.classed(contextPrefix + '-' + context, true)
       else if context
-        hx.consoleWarning "#{context} is not a known context! Accepted values are #{contextArray.join(', ')}"
+        utils.consoleWarning(context + ' is not a known context. Accepted values are ' + contextArray.join(', '))
       selection
     else
       for context in paletteContexts
-        if selection.classed("#{contextPrefix}-#{context}") then return context
+        if selection.classed(contextPrefix + '-' + context) then return context
       return undefined
 
-hx.palette.context = context(contexts, 'hx')
-hx.palette.textContext = context(paletteContexts, 'hx-text')
-hx.palette.backgroundContext = context(paletteContexts, 'hx-background')
-hx.palette.borderContext = context(paletteContexts, 'hx-border')
+palette.context = context(contexts, 'hx')
+palette.textContext = context(paletteContexts, 'hx-text')
+palette.backgroundContext = context(paletteContexts, 'hx-background')
+palette.borderContext = context(paletteContexts, 'hx-border')
+
+module.exports = palette
+module.exports.hx = {
+  palette: palette
+}

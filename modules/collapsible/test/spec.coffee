@@ -1,7 +1,7 @@
-describe 'collapsible', ->
+Collapsible = require('modules/collapsible/main')
+select = require('modules/selection/main')
 
-  Collapsible = hx.Collapsible
-  select = hx.select
+describe 'collapsible', ->
 
   beforeEach ->
     fixture = select('body').append('div').attr('id', 'fixture').html """
@@ -148,7 +148,7 @@ describe 'collapsible', ->
     collapsible.isOpen().should.equal(true)
 
   it 'initializeCollapsibles should work', ->
-    collapsibles = hx.initializeCollapsibles('.hx-collapsible')
+    collapsibles = Collapsible.initializeCollapsibles('.hx-collapsible')
     collapsibles.length.should.equal(4)
     collapsibles[0].should.be.an.instanceOf(Collapsible)
     collapsibles[1].should.be.an.instanceOf(Collapsible)

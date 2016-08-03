@@ -38,5 +38,8 @@ module.exports = merge([
   require('./filter/main'),
   require('./user-facing-text/main'),
   require('./form/main'),
-  require('./dropdown/main')
+  require('./dropdown/main'),
+  require('./collapsible/main'),
+  require('./palette/main'),
+  require('./format/main')
 ])

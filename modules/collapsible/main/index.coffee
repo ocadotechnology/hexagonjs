@@ -1,30 +1,34 @@
-### istanbul ignore next: ignore the uncoverable coffee generated code ###
-class Collapsible extends hx.EventEmitter
+EventEmitter = require('modules/event-emitter/main')
+utils = require('modules/util/main/utils')
+component = require('modules/component/main')
+select = require('modules/selection/main')
+
+class Collapsible extends EventEmitter
 
   constructor: (selector, options) ->
     super
 
-    @options = hx.merge.defined {
+    @options = utils.merge.defined({
       lazyContent: undefined
       visible: false
       addIcon: true
       animate: true
-    }, options
+    }, options)
 
-    hx.component.register(selector, this)
+    component.register(selector, this)
 
     @lazyContentCreated = false
 
-    @selection = hx.select(selector)
+    @selection = select(selector)
       .classed('hx-openable', true)
       .classed('hx-collapsible', true)
 
     header = @selection.select('.hx-collapsible-heading')
     if not (toggleBtn = header.select('.hx-collapsible-toggle')).empty()
       header.classed('hx-collapsible-heading-no-hover', true)
-      toggleBtn.on 'click', 'hx.collapsible', => @toggle()
+      toggleBtn.on('click', 'hx.collapsible', => @toggle())
     else
-      header.on 'click', 'hx.collapsible', => @toggle()
+      header.on('click', 'hx.collapsible', => @toggle())
 
     content = @selection.select('.hx-collapsible-content').style('height', 0).style('opacity', 0)
 
@@ -124,8 +128,16 @@ class Collapsible extends hx.EventEmitter
 
   isOpen: -> @visible
 
-hx.Collapsible = Collapsible
 
 # initialise all collapsibles that match the css selector, and return the result as an array of Collapsibles
-hx.initializeCollapsibles = (selector, options) ->
-  hx.selectAll(selector).nodes.map((d) -> new Collapsible(d, options))
+initializeCollapsibles = (selector, options) ->
+  select.selectAll(selector).nodes.map((d) -> new Collapsible(d, options))
+
+
+module.exports = Collapsible
+module.exports.initializeCollapsibles = initializeCollapsibles
+
+module.exports.hx = {
+  Collapsible: Collapsible,
+  initializeCollapsibles: initializeCollapsibles
+}

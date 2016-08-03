@@ -1,4 +1,12 @@
-hx.userFacingText({
+userFacingText = require('modules/user-facing-text/main')
+EventEmitter = require('modules/event-emitter/main')
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+Modal = require('modules/modal/main')
+Autocomplete = require('modules/autocomplete/main')
+notify = require('modules/notify/main')
+
+userFacingText({
   preferences: {
     locale: 'Locale',
     preferences: 'Preferences',
@@ -143,7 +151,7 @@ LocalStoragePreferencesStore = {
 
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
-class Preferences extends hx.EventEmitter
+class Preferences extends EventEmitter
   constructor: ->
     super
 
@@ -151,7 +159,7 @@ class Preferences extends hx.EventEmitter
       locale = @locale()
       timezone = @timezone()
 
-      localeAutocompleteElement = hx.detached('input')
+      localeAutocompleteElement = select.detached('input')
       localeAutocompleteElement.value(lookupLocale(locale)?.full)
 
       supportedLocales = localeList.map (l) =>
@@ -161,50 +169,50 @@ class Preferences extends hx.EventEmitter
           disabled: not (l.value in @_.supportedLocales)
         }
 
-      new hx.AutoComplete(localeAutocompleteElement.node(), supportedLocales, {
-        renderer: (element, datum) -> hx.select(element).text(datum.full)
+      new AutoComplete(localeAutocompleteElement.node(), supportedLocales, {
+        renderer: (element, datum) -> select(element).text(datum.full)
         inputMap: (item) -> item.full
         showOtherResults: true
         mustMatch: true
       }).on 'change', (item) -> locale = item.value
 
-      localeSection = hx.detached('div')
-        .add(hx.detached('label').text(hx.userFacingText('preferences','locale')))
+      localeSection = select.detached('div')
+        .add(select.detached('label').text(userFacingText('preferences','locale')))
         .add(localeAutocompleteElement)
 
       # Timezone Stuff
-      timezoneAutocompleteElement = hx.detached('input')
+      timezoneAutocompleteElement = select.detached('input')
       timezoneAutocompleteElement.value(timezone)
 
-      new hx.AutoComplete(timezoneAutocompleteElement.node(), @_.supportedTimezones, {
+      new AutoComplete(timezoneAutocompleteElement.node(), @_.supportedTimezones, {
         showOtherResults: true
         mustMatch: true
       }).on 'change', (value) -> timezone = value
 
-      timezoneSection = hx.detached('div')
-        .add(hx.detached('label').text(hx.userFacingText('preferences','timezone')))
+      timezoneSection = select.detached('div')
+        .add(select.detached('label').text(userFacingText('preferences','timezone')))
         .add(timezoneAutocompleteElement)
 
-      saveButton = hx.detached('button').class('hx-btn hx-positive')
-        .add(hx.detached('i').class('hx-icon hx-icon-check'))
-        .add(hx.detached('span').text(' ' + hx.userFacingText('preferences','save')))
+      saveButton = select.detached('button').class('hx-btn hx-positive')
+        .add(select.detached('i').class('hx-icon hx-icon-check'))
+        .add(select.detached('span').text(' ' + userFacingText('preferences','save')))
         .on 'click', =>
           @locale(locale)
           @timezone(timezone)
           @save (err) ->
             if err
-              hx.notify.negative(err)
+              notify.negative(err)
             else
-              hx.notify.positive(hx.userFacingText('preferences','preferencesSaved'))
+              notify.positive(userFacingText('preferences','preferencesSaved'))
               modal.hide()
 
-      hx.select(element)
+      select(element)
         .append('div').class('hx-form')
         .add(localeSection)
         .add(timezoneSection)
         .add(saveButton)
 
-    modal = new hx.Modal(hx.userFacingText('preferences','preferences'), setupModal)
+    modal = new Modal(userFacingText('preferences','preferences'), setupModal)
 
     @_ = {
       backingStore: LocalStoragePreferencesStore
@@ -219,7 +227,7 @@ class Preferences extends hx.EventEmitter
 
     defaultLocaleId = navigator.languages?[0] or navigator.language
 
-    if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
+    if not (utils.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
     @locale defaultLocaleId
 
@@ -234,13 +242,12 @@ class Preferences extends hx.EventEmitter
 
   timezone: (timezone) ->
     if arguments.length > 0
-      if hx.isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
+      if utils.isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
         if @_.preferences['timezone'] isnt timezone
           @_.preferences['timezone'] = timezone
           @emit('timezonechange', timezone)
       else
-        hx.consoleWarning('preferences.timezone:',
-          timezone + ' is not a valid timezone')
+        utils.consoleWarning('preferences.timezone:', timezone + ' is not a valid timezone')
       this
     else
       @_.preferences['timezone']
@@ -248,7 +255,7 @@ class Preferences extends hx.EventEmitter
   locale: (locale) ->
     if arguments.length > 0
       # check that the locale being set is supported
-      if hx.isString(locale) and (localeObject = lookupLocale(locale))
+      if utils.isString(locale) and (localeObject = lookupLocale(locale))
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
 
@@ -257,7 +264,7 @@ class Preferences extends hx.EventEmitter
           moment?.locale(localeObject.value)
           @emit('localechange', localeObject.value)
       else
-        hx.consoleWarning('preferences.locale',
+        utils.consoleWarning('preferences.locale',
           locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon')
       this
     else

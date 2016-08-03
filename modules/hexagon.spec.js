@@ -33,6 +33,9 @@ describe('HexagonJS Test Suite', () => {
   require('modules/user-facing-text/test/spec')
   require('modules/form/test/spec')
   require('modules/dropdown/test/spec')
+  require('modules/collapsible/test/spec')
+  require('modules/palette/test/spec')
+  require('modules/format/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -208,6 +211,26 @@ describe('HexagonJS Test Suite', () => {
 
     describe('dropdown', () => {
       checkProperty('Dropdown')
+    })
+
+    describe('collapsible', () => {
+      checkProperty('Collapsible')
+      checkProperty('initializeCollapsibles')
+    })
+
+    describe('palette', () => {
+      checkProperty('context', hx.palette)
+      checkProperty('textContext', hx.palette)
+      checkProperty('backgroundContext', hx.palette)
+      checkProperty('borderContext', hx.palette)
+    })
+
+    describe('format', () => {
+      checkProperty('round', hx.format)
+      checkProperty('si', hx.format)
+      checkProperty('exp', hx.format)
+      checkProperty('fixed', hx.format)
+      checkProperty('zeroPad', hx.format)
     })
 
   })

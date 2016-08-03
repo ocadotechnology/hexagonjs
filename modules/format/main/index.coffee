@@ -36,7 +36,6 @@ formatSI = (n, sf) ->
     suffix = siSuffixes[6]
   siFactor = Math.pow(10, p - p % 3) / x
 
-
   formatRound(n / siFactor, sf) + suffix
 
 formatExp = (n, sf) ->
@@ -54,9 +53,14 @@ strictCheck = (f, sf, strict) ->
     else
       (n) -> if hx.isString(n) then n else f(n, sf)
 
-hx.format =
+format =
   round: (sf, strict) -> strictCheck formatRound, sf, strict
   si: (sf, strict) -> strictCheck formatSI, sf, strict
   exp: (sf, strict) -> strictCheck formatExp, sf, strict
   fixed: (digits, strict) -> strictCheck formatFixed, digits, strict
   zeroPad: (length, strict) -> strictCheck zeroPad, length, strict
+
+module.exports = format
+module.exports.hx = {
+  format: format
+}
