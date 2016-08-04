@@ -1,6 +1,9 @@
 describe 'hx-meter', ->
+  afterEach ->
+    hx.select('body').clear()
+
   it 'should set and get values', ->
-    meter = new hx.Meter(document.createElement('div'))
+    meter = new hx.Meter(hx.detached('div').node())
 
     meter.value({
       total: 123,
@@ -20,7 +23,7 @@ describe 'hx-meter', ->
     meter.value().markerText.should.equal('strawberry')
 
   it 'setting partial values should be fine', ->
-    meter = new hx.Meter(document.createElement('div'))
+    meter = new hx.Meter(hx.detached('div').node())
 
     meter.value({
       completed: 456,
@@ -45,7 +48,11 @@ describe 'hx-meter', ->
     hx.userFacingText('meter', 'of').should.equal('of')
 
   it 'emit an event when rendering with cause "api" when value method is called with data', (done) ->
-    meter = new hx.Meter(document.createElement('div'))
+    selection = hx.select('body')
+      .append 'div'
+      .style 'width', '500px'
+      .style 'height', '500px'
+    meter = new hx.Meter(selection.node())
 
     data =
       marker: 246,
@@ -82,15 +89,38 @@ describe 'hx-meter', ->
     meter = new hx.Meter(selection.node())
     renderSpy = chai.spy (obj) ->
       obj.should.eql({cause: 'user', data: data})
-      done()
 
     meter.value(data)
 
     meter.on 'render', renderSpy
     selection.style 'width', '400px'
     testHelpers.fakeNodeEvent(selection.node(), 'resize')()
-
     renderSpy.should.have.been.called()
+    done()
+
+  it 'should redraw on resize when the option is false', ->
+    selection = hx.select('body')
+      .append 'div'
+      .style 'width', '500px'
+      .style 'height', '500px'
+
+    data =
+      marker: 246,
+      markerText: 'strawberry',
+      unitText: 'banana',
+      completed: 456,
+      tracker: 789,
+      total: 123
+
+    meter = new hx.Meter(selection.node(), redrawOnResize: false)
+    meter.value(data)
+    renderSpy = chai.spy()
+    meter.on 'render', renderSpy
+    selection.style 'width', '400px'
+    testHelpers.fakeNodeEvent(selection.node(), 'resize')()
+
+    renderSpy.should.not.have.been.called()
+
 
   it 'should use a default value formatter', ->
     selection = hx.select('body')
@@ -130,3 +160,30 @@ describe 'hx-meter', ->
 
     selection.select '.hx-meter-total'
       .text().should.equal 'total'
+
+  it 'should not render when the container size is 0', ->
+    selection = hx.select 'body'
+      .append 'div'
+      .style 'width', '0px'
+      .style 'height', '0px'
+
+    data =
+      marker: 246,
+      markerText: 'strawberry',
+      unitText: 'banana',
+      completed: 456,
+      tracker: 789,
+      total: 123
+
+    meter = new hx.Meter(selection.node(), {redrawOnResize: false})
+    meter.value(data)
+    renderSpy = chai.spy()
+    meter.on 'render', renderSpy
+    meter.render()
+    renderSpy.should.not.have.been.called()
+    selection
+      .style('height', '100px')
+      .style('width', '100px')
+    meter.render()
+    renderSpy.should.have.been.called()
+
