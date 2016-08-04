@@ -7,6 +7,7 @@ class Sparkline
       data: [],
       type: 'line',
       labelRenderer: (element, obj) -> hx.select(element).text(obj.y + ' (' + obj.x + ')')
+      redrawOnResize: true
     }, options)
 
     innerLabelRenderer = (element, meta) ->
