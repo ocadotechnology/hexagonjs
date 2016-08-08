@@ -33,13 +33,15 @@ class Meter extends hx.EventEmitter
       trackerBackgroundCol: hx.color(hx.theme.palette.contrastCol).alpha(0.05).toString()
       markerCol: hx.theme.palette.contrastCol
       valueFormatter: (value, isTotal) -> if isTotal then "#{hx.userFacingText('meter', 'of')} #{value}" else value
+      redrawOnResize: true
     }, options)
 
     randomId = hx.randomId()
 
     _.selection = selection = hx.select(selector)
       .classed('hx-meter', true)
-      .on 'resize', => @render('user')
+      .on 'resize', =>
+        @render('user') if @options.redrawOnResize
 
     _.container = container = selection.append('div').class('hx-meter-container')
 
@@ -89,89 +91,90 @@ class Meter extends hx.EventEmitter
 
     size = Math.min(selection.width(), selection.height() * 2)
 
-    # 14 is the standard font size, 150 is the assumed size, and size is the actual
-    # size of the container. This scales the fonts appropriately
-    container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px')
-    textOffset = 10 * (size / 2) /  150
+    if size > 0
+      # 14 is the standard font size, 150 is the assumed size, and size is the actual
+      # size of the container. This scales the fonts appropriately
+      container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px')
+      textOffset = 10 * (size / 2) /  150
 
-    x = size / 2
-    y = size / 2
+      x = size / 2
+      y = size / 2
 
-    markerR2 = 1 + options.markerOuterExtend
+      markerR2 = 1 + options.markerOuterExtend
 
-    trackerR2 = if options.useMarker then 1 - options.markerPadding else 1
-    trackerR1 = trackerR2 - options.trackerWidth
+      trackerR2 = if options.useMarker then 1 - options.markerPadding else 1
+      trackerR1 = trackerR2 - options.trackerWidth
 
-    if options.useTracker
-      progressR2 = trackerR1 - options.arcPadding
-    else
-      progressR2 = if options.useMarker then 1 - options.markerPadding else 1
-
-    progressR1 = progressR2 - options.progressWidth
-    markerR1 = progressR1 - options.markerInnerExtend
-    markerWidth = options.markerWidth
-
-    updateArc = (selection, start, end, r1, r2, col) ->
-      innerRadius = size/2*r1
-      outerRadius = size/2*r2
-      startRadians = Math.PI + Math.PI*start
-      endRadians = Math.PI + Math.PI*end
-      padding = 0
-      path = hx.plot.arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding)
-
-      selection
-        .attr('d', path)
-        .attr('fill', col)
-        .style('visibility', undefined)
-
-    # update the inner container size to match the outer container
-    container.style('width', size + 'px')
-    container.style('height', size/2 + 'px')
-
-    # main progress
-    updateArc(_.progressArc, 0, progress, progressR1, progressR2, options.progressCol)
-    updateArc(_.progressBackgroundArc, progress, 1, progressR1, progressR2, options.progressBackgroundCol)
-
-    # tracker progress
-    if options.useTracker
-      updateArc(_.trackerArc, 0, trackerProgress, trackerR1, trackerR2, options.trackerCol)
-      updateArc(_.trackerBackgroundArc, trackerProgress, 1, trackerR1, trackerR2, options.trackerBackgroundCol)
-    else
-      _.trackerArc.style('visibility', 'hidden')
-      _.trackerBackgroundArc.style('visibility', 'hidden')
-
-    # marker
-    if options.useMarker
-      startRadians = Math.PI
-      endRadians = Math.PI*2
-      radius = size/2-textOffset
-      points = for i in [0..100]
-        x: x + radius * Math.cos((i/100 + 1)*Math.PI)
-        y: y + radius * Math.sin((i/100 + 1)*Math.PI)
-
-      path = hx.plot.svgCurve(points, false)
-
-      _.markerTextCurve.attr('d', path)
-
-      if markerProgress < 0.5
-        _.markerText
-          .attr('startOffset', (markerProgress*100+1) + '%')
-          .attr('text-anchor', 'start')
+      if options.useTracker
+        progressR2 = trackerR1 - options.arcPadding
       else
+        progressR2 = if options.useMarker then 1 - options.markerPadding else 1
+
+      progressR1 = progressR2 - options.progressWidth
+      markerR1 = progressR1 - options.markerInnerExtend
+      markerWidth = options.markerWidth
+
+      updateArc = (selection, start, end, r1, r2, col) ->
+        innerRadius = size/2*r1
+        outerRadius = size/2*r2
+        startRadians = Math.PI + Math.PI*start
+        endRadians = Math.PI + Math.PI*end
+        padding = 0
+        path = hx.plot.arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding)
+
+        selection
+          .attr('d', path)
+          .attr('fill', col)
+          .style('visibility', undefined)
+
+      # update the inner container size to match the outer container
+      container.style('width', size + 'px')
+      container.style('height', size/2 + 'px')
+
+      # main progress
+      updateArc(_.progressArc, 0, progress, progressR1, progressR2, options.progressCol)
+      updateArc(_.progressBackgroundArc, progress, 1, progressR1, progressR2, options.progressBackgroundCol)
+
+      # tracker progress
+      if options.useTracker
+        updateArc(_.trackerArc, 0, trackerProgress, trackerR1, trackerR2, options.trackerCol)
+        updateArc(_.trackerBackgroundArc, trackerProgress, 1, trackerR1, trackerR2, options.trackerBackgroundCol)
+      else
+        _.trackerArc.style('visibility', 'hidden')
+        _.trackerBackgroundArc.style('visibility', 'hidden')
+
+      # marker
+      if options.useMarker
+        startRadians = Math.PI
+        endRadians = Math.PI*2
+        radius = size/2-textOffset
+        points = for i in [0..100]
+          x: x + radius * Math.cos((i/100 + 1)*Math.PI)
+          y: y + radius * Math.sin((i/100 + 1)*Math.PI)
+
+        path = hx.plot.svgCurve(points, false)
+
+        _.markerTextCurve.attr('d', path)
+
+        if markerProgress < 0.5
+          _.markerText
+            .attr('startOffset', (markerProgress*100+1) + '%')
+            .attr('text-anchor', 'start')
+        else
+          _.markerText
+            .attr('startOffset', (markerProgress*100-1) + '%')
+            .attr('text-anchor', 'end')
+
         _.markerText
-          .attr('startOffset', (markerProgress*100-1) + '%')
-          .attr('text-anchor', 'end')
+          .style('visibility', undefined)
+          .text(data.markerText)
 
-      _.markerText
-        .style('visibility', undefined)
-        .text(data.markerText)
+        updateArc(_.markerArc, markerProgress-options.markerSize/2, markerProgress+options.markerSize/2, markerR1, markerR2, @options.markerCol)
+      else
+        _.markerArc.style('visibility', 'hidden')
+        _.markerText.style('visibility', 'hidden')
 
-      updateArc(_.markerArc, markerProgress-options.markerSize/2, markerProgress+options.markerSize/2, markerR1, markerR2, @options.markerCol)
-    else
-      _.markerArc.style('visibility', 'hidden')
-      _.markerText.style('visibility', 'hidden')
-
-    @emit 'render', { cause, data }
+      @emit 'render', { cause, data }
 
     this
 
