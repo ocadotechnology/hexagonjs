@@ -116,8 +116,14 @@ class TagInput extends hx.EventEmitter
   add: (name, cssclass) ->
     if hx.isArray(name)
       addTag(this, n, cssclass) for n in name
-    else
+    else if name
       addTag(this, name, cssclass)
+    else
+      hx.consoleWarning(
+        'TagInput.add was passed the wrong argument type',
+        'TagInput.add accepts an array or string argument, you supplied:',
+        name
+      )
     @input.value('')
     if @options.draggable then @_.dragContainer.setup()
     this
@@ -144,7 +150,14 @@ class TagInput extends hx.EventEmitter
   items: (items, cssclass) ->
     if arguments.length > 0
       @remove()
-      @add(items, cssclass)
+      if hx.isArray(items)
+        @add(items, cssclass)
+      else if items
+        hx.consoleWarning(
+          'TagInput.items was passed the wrong argument type',
+          'TagInput.items only accepts an array argument, you supplied:',
+          items
+        )
       this
     else
       @tagContainer.selectAll('.hx-tag').select('.hx-tag-text').text()
