@@ -46,6 +46,7 @@ body.hx-modal-open > {
   padding: 0.25em;
   position: relative;
   pointer-events: auto;
+  display: flex;
   // Stops long messages wrapping onto second line
   flex-wrap: nowrap;
   border-bottom: solid 1px;
@@ -62,6 +63,8 @@ body.hx-modal-open > {
     width: 1em;
     text-align: center;
     user-select: none;
+    flex-grow: 0;
+    margin: 0;
   }
 
   .hx-notification-close,
@@ -71,6 +74,8 @@ body.hx-modal-open > {
 
   .hx-notification-text {
     word-wrap: break-word;
+    margin: 0;
+    flex: 1 1 auto;
   }
 }
 

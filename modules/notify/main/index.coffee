@@ -2,19 +2,19 @@
 setupNotification = (notification, selection) ->
   if notification.options.icon? and notification.options.icon.length > 0
     selection.append('div')
-      .class('hx-notification-icon-container hx-section hx-fixed hx-no-margin')
+      .class('hx-notification-icon-container')
       .append('i')
         .class('hx-notification-icon ' + notification.options.icon)
 
   selection
     .append('div')
-      .class('hx-notification-text hx-section hx-no-margin')
+      .class('hx-notification-text')
       .text(notification.message)
 
   if notification.options.pinnable
     notification.domPin = selection
       .append('div')
-        .class('hx-notification-icon-container hx-notification-pin hx-section hx-fixed hx-no-margin')
+        .class('hx-notification-icon-container hx-notification-pin')
         .on 'click', 'hx.notify', -> togglePin(notification)
 
     notification.domPin.append('i')
@@ -24,7 +24,7 @@ setupNotification = (notification, selection) ->
 
   selection
     .append('div')
-      .class('hx-notification-icon-container hx-notification-close hx-section hx-fixed hx-no-margin')
+      .class('hx-notification-icon-container hx-notification-close')
       .on 'click', 'hx.notify', -> notification.close()
       .append('i')
         .class('hx-icon hx-icon-close')
@@ -43,7 +43,7 @@ redraw = (manager) ->
   view.enter (d) ->
     selection = @append('div')
     selection
-      .class('hx-notification hx-group hx-horizontal ' + d.options.cssclass)
+      .class('hx-notification ' + d.options.cssclass)
       .forEach (node) ->
         setupNotification(d, selection)
         d.trueHeight = selection.style('height')
@@ -139,29 +139,21 @@ class NotificationManager
     redraw(this)
     notification
 
+  themedNotification = (manager, contextClass, iconClass, message, options) ->
+    mergedOptions = hx.merge({
+      icon: 'hx-icon ' + iconClass
+    }, options)
+    mergedOptions.cssclass = contextClass + ' ' + (options.cssclass or '')
+    manager.notify(message, mergedOptions)
+
   info: (message, options = {}) ->
-    @notify(message, hx.merge {
-      icon: 'hx-icon hx-icon-info'
-      cssclass: 'hx-info'
-    }, options)
-
+    themedNotification(this, 'hx-info', 'hx-icon-info', message, options)
   warning: (message, options = {}) ->
-    @notify(message, hx.merge {
-      icon: 'hx-icon hx-icon-warning'
-      cssclass: 'hx-warning'
-    }, options)
-
+    themedNotification(this, 'hx-warning', 'hx-icon-warning', message, options)
   negative: (message, options = {}) ->
-    @notify(message, hx.merge {
-      icon: 'hx-icon hx-icon-error'
-      cssclass: 'hx-negative'
-    }, options)
-
+    themedNotification(this, 'hx-negative', 'hx-icon-error', message, options)
   positive: (message, options = {}) ->
-    @notify(message, hx.merge {
-      icon: 'hx-icon hx-icon-check'
-      cssclass: 'hx-positive'
-    }, options)
+    themedNotification(this, 'hx-positive', 'hx-icon-check', message, options)
 
   # shows a loading message (a permanent message with the a spinning loading icon)
   loading: (message) ->
