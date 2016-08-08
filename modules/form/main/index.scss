@@ -11,15 +11,24 @@
       display: table-cell;
     }
 
-    > *:not(input) {
+    > *:not(input):not(select):not(textarea):not(button):not(.hx-btn) {
       padding-top: 8px;
     }
 
     // Padding top doesn't look right for inputs and select and the other margins make the boxes difficult to align
     > input,
     > select,
-    > textarea {
+    > textarea,
+    > button,
+    > .hx-btn {
       margin: 8px 0 0 0;
+    }
+
+    > div {
+      > .hx-btn,
+      > button {
+        margin: 0;
+      }
     }
 
     > input:not([type="checkbox"]):not([type="radio"]),
