@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.5.0
+ Version: 1.5.1
  Theme: hexagon-dark
  Modules:
    set
@@ -302,12 +302,17 @@ i.hx-icon {
     display: table-row; }
     .hx-form > div > * {
       display: table-cell; }
-    .hx-form > div > *:not(input) {
+    .hx-form > div > *:not(input):not(select):not(textarea):not(button):not(.hx-btn) {
       padding-top: 8px; }
     .hx-form > div > input,
     .hx-form > div > select,
-    .hx-form > div > textarea {
+    .hx-form > div > textarea,
+    .hx-form > div > button,
+    .hx-form > div > .hx-btn {
       margin: 8px 0 0 0; }
+    .hx-form > div > div > .hx-btn,
+    .hx-form > div > div > button {
+      margin: 0; }
     .hx-form > div > input:not([type="checkbox"]):not([type="radio"]),
     .hx-form > div > select,
     .hx-form > div > textarea {
@@ -465,6 +470,9 @@ body.hx-modal-open > .hx-notification-container {
   padding: 0.25em;
   position: relative;
   pointer-events: auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
@@ -479,12 +487,20 @@ body.hx-modal-open > .hx-notification-container {
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
-            user-select: none; }
+            user-select: none;
+    -webkit-flex-grow: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+    margin: 0; }
   .hx-notification .hx-notification-close,
   .hx-notification .hx-notification-pin {
     cursor: pointer; }
   .hx-notification .hx-notification-text {
-    word-wrap: break-word; }
+    word-wrap: break-word;
+    margin: 0;
+    -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto; }
 
 .hx-notification.hx-loading .hx-notification-icon {
   font-size: 0.75em; }
@@ -1812,7 +1828,7 @@ body.hx-full-width .hx-titlebar-contents {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 3px; }
-  .hx-titlebar-link:hover, .hx-titlebar-link.hx-selected {
+  .hx-titlebar-link.hx-selected, .hx-titlebar-link:hover {
     border-bottom: 2px solid transparent;
     padding-bottom: 1px; }
 
@@ -3972,11 +3988,11 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 
 .hx-titlebar-link {
   color: white; }
+  .hx-titlebar-link.hx-selected {
+    border-bottom-color: #D0DDEE; }
   .hx-titlebar-link:hover {
     border-bottom-color: #00ADA8;
     color: #00ADA8; }
-  .hx-titlebar-link.hx-selected {
-    border-bottom-color: #D0DDEE; }
 
 @media (min-width: 901px) {
   .hx-titlebar-menu-content {

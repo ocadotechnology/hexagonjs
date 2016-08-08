@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.5.0
+ Version: 1.5.1
  Theme: hexagon-dark
  Modules:
    set
@@ -4482,17 +4482,17 @@ var Notification, NotificationManager, inbuiltNotificationManager, nextId, redra
 
 setupNotification = function(notification, selection) {
   if ((notification.options.icon != null) && notification.options.icon.length > 0) {
-    selection.append('div')["class"]('hx-notification-icon-container hx-section hx-fixed hx-no-margin').append('i')["class"]('hx-notification-icon ' + notification.options.icon);
+    selection.append('div')["class"]('hx-notification-icon-container').append('i')["class"]('hx-notification-icon ' + notification.options.icon);
   }
-  selection.append('div')["class"]('hx-notification-text hx-section hx-no-margin').text(notification.message);
+  selection.append('div')["class"]('hx-notification-text').text(notification.message);
   if (notification.options.pinnable) {
-    notification.domPin = selection.append('div')["class"]('hx-notification-icon-container hx-notification-pin hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
+    notification.domPin = selection.append('div')["class"]('hx-notification-icon-container hx-notification-pin').on('click', 'hx.notify', function() {
       return togglePin(notification);
     });
     notification.domPin.append('i').attr('class', 'hx-icon hx-icon-thumb-tack');
     updatePinnedStatus(notification);
   }
-  return selection.append('div')["class"]('hx-notification-icon-container hx-notification-close hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
+  return selection.append('div')["class"]('hx-notification-icon-container hx-notification-close').on('click', 'hx.notify', function() {
     return notification.close();
   }).append('i')["class"]('hx-icon hx-icon-close');
 };
@@ -4511,7 +4511,7 @@ redraw = function(manager) {
   view = container.view('.hx-notification');
   view.enter(function(d) {
     selection = this.append('div');
-    selection["class"]('hx-notification hx-group hx-horizontal ' + d.options.cssclass).forEach(function(node) {
+    selection["class"]('hx-notification ' + d.options.cssclass).forEach(function(node) {
       setupNotification(d, selection);
       return d.trueHeight = selection.style('height');
     }).style('opacity', 0).style('height', 0).style('padding-top', 0).style('padding-bottom', 0).style('margin-top', 0).style('margin-bottom', 0).morph()["with"]('expandv').and('fadein').then(function() {
@@ -4603,6 +4603,8 @@ Notification = (function() {
 })();
 
 NotificationManager = (function() {
+  var themedNotification;
+
   function NotificationManager(selector) {
     this.selector = selector != null ? selector : 'body';
     this.currentId = 0;
@@ -4621,44 +4623,41 @@ NotificationManager = (function() {
     return notification;
   };
 
+  themedNotification = function(manager, contextClass, iconClass, message, options) {
+    var mergedOptions;
+    mergedOptions = hx.merge({
+      icon: 'hx-icon ' + iconClass
+    }, options);
+    mergedOptions.cssclass = contextClass + ' ' + (options.cssclass || '');
+    return manager.notify(message, mergedOptions);
+  };
+
   NotificationManager.prototype.info = function(message, options) {
     if (options == null) {
       options = {};
     }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-info',
-      cssclass: 'hx-info'
-    }, options));
+    return themedNotification(this, 'hx-info', 'hx-icon-info', message, options);
   };
 
   NotificationManager.prototype.warning = function(message, options) {
     if (options == null) {
       options = {};
     }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-warning',
-      cssclass: 'hx-warning'
-    }, options));
+    return themedNotification(this, 'hx-warning', 'hx-icon-warning', message, options);
   };
 
   NotificationManager.prototype.negative = function(message, options) {
     if (options == null) {
       options = {};
     }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-error',
-      cssclass: 'hx-negative'
-    }, options));
+    return themedNotification(this, 'hx-negative', 'hx-icon-error', message, options);
   };
 
   NotificationManager.prototype.positive = function(message, options) {
     if (options == null) {
       options = {};
     }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-check',
-      cssclass: 'hx-positive'
-    }, options));
+    return themedNotification(this, 'hx-positive', 'hx-icon-check', message, options);
   };
 
   NotificationManager.prototype.loading = function(message) {
@@ -10115,13 +10114,13 @@ Graph = (function(superClass) {
     };
     id = hx.randomId();
     selection = hx.select(this.selector);
-    if (this._.options.redrawOnResize) {
-      selection.on('resize', 'hx.plot', (function(_this) {
-        return function() {
+    selection.on('resize', 'hx.plot', (function(_this) {
+      return function() {
+        if (_this._.options.redrawOnResize) {
           return _this.render();
-        };
-      })(this));
-    }
+        }
+      };
+    })(this));
     this.svgTarget = selection.append("svg").attr('class', 'hx-graph');
     defs = this.svgTarget.append('defs');
     this.axesTarget = this.svgTarget.append('g').attr('class', 'hx-axes');
@@ -11761,7 +11760,8 @@ Sparkline = (function() {
       type: 'line',
       labelRenderer: function(element, obj) {
         return hx.select(element).text(obj.y + ' (' + obj.x + ')');
-      }
+      },
+      redrawOnResize: true
     }, options);
     innerLabelRenderer = function(element, meta) {
       var details, labelNode, marker, midX, midY, xValue, yValue;
@@ -11781,7 +11781,7 @@ Sparkline = (function() {
     hx.components.clear(selector);
     hx.component.register(selector, this);
     graph = new hx.Graph(selector, {
-      redrawOnResize: options.redrawOnResize
+      redrawOnResize: opts.redrawOnResize
     });
     if (opts.type !== 'bar' && opts.type !== 'line') {
       hx.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"');
@@ -13721,8 +13721,10 @@ TagInput = (function(superClass) {
         n = name[i];
         addTag(this, n, cssclass);
       }
-    } else {
+    } else if (name) {
       addTag(this, name, cssclass);
+    } else {
+      hx.consoleWarning('TagInput.add was passed the wrong argument type', 'TagInput.add accepts an array or string argument, you supplied:', name);
     }
     this.input.value('');
     if (this.options.draggable) {
@@ -13765,7 +13767,11 @@ TagInput = (function(superClass) {
   TagInput.prototype.items = function(items, cssclass) {
     if (arguments.length > 0) {
       this.remove();
-      this.add(items, cssclass);
+      if (hx.isArray(items)) {
+        this.add(items, cssclass);
+      } else if (items) {
+        hx.consoleWarning('TagInput.items was passed the wrong argument type', 'TagInput.items only accepts an array argument, you supplied:', items);
+      }
       return this;
     } else {
       return this.tagContainer.selectAll('.hx-tag').select('.hx-tag-text').text();
@@ -19948,12 +19954,15 @@ Meter = (function(superClass) {
         } else {
           return value;
         }
-      }
+      },
+      redrawOnResize: true
     }, options);
     randomId = hx.randomId();
     _.selection = selection = hx.select(selector).classed('hx-meter', true).on('resize', (function(_this) {
       return function() {
-        return _this.render('user');
+        if (_this.options.redrawOnResize) {
+          return _this.render('user');
+        }
       };
     })(this));
     _.container = container = selection.append('div')["class"]('hx-meter-container');
@@ -19999,74 +20008,76 @@ Meter = (function(superClass) {
     _.totalText.text(options.valueFormatter(data.total, true));
     _.typeText.text(data.unitText);
     size = Math.min(selection.width(), selection.height() * 2);
-    container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px');
-    textOffset = 10 * (size / 2) / 150;
-    x = size / 2;
-    y = size / 2;
-    markerR2 = 1 + options.markerOuterExtend;
-    trackerR2 = options.useMarker ? 1 - options.markerPadding : 1;
-    trackerR1 = trackerR2 - options.trackerWidth;
-    if (options.useTracker) {
-      progressR2 = trackerR1 - options.arcPadding;
-    } else {
-      progressR2 = options.useMarker ? 1 - options.markerPadding : 1;
-    }
-    progressR1 = progressR2 - options.progressWidth;
-    markerR1 = progressR1 - options.markerInnerExtend;
-    markerWidth = options.markerWidth;
-    updateArc = function(selection, start, end, r1, r2, col) {
-      var endRadians, innerRadius, outerRadius, padding, path, startRadians;
-      innerRadius = size / 2 * r1;
-      outerRadius = size / 2 * r2;
-      startRadians = Math.PI + Math.PI * start;
-      endRadians = Math.PI + Math.PI * end;
-      padding = 0;
-      path = hx.plot.arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding);
-      return selection.attr('d', path).attr('fill', col).style('visibility', void 0);
-    };
-    container.style('width', size + 'px');
-    container.style('height', size / 2 + 'px');
-    updateArc(_.progressArc, 0, progress, progressR1, progressR2, options.progressCol);
-    updateArc(_.progressBackgroundArc, progress, 1, progressR1, progressR2, options.progressBackgroundCol);
-    if (options.useTracker) {
-      updateArc(_.trackerArc, 0, trackerProgress, trackerR1, trackerR2, options.trackerCol);
-      updateArc(_.trackerBackgroundArc, trackerProgress, 1, trackerR1, trackerR2, options.trackerBackgroundCol);
-    } else {
-      _.trackerArc.style('visibility', 'hidden');
-      _.trackerBackgroundArc.style('visibility', 'hidden');
-    }
-    if (options.useMarker) {
-      startRadians = Math.PI;
-      endRadians = Math.PI * 2;
-      radius = size / 2 - textOffset;
-      points = (function() {
-        var j, results;
-        results = [];
-        for (i = j = 0; j <= 100; i = ++j) {
-          results.push({
-            x: x + radius * Math.cos((i / 100 + 1) * Math.PI),
-            y: y + radius * Math.sin((i / 100 + 1) * Math.PI)
-          });
-        }
-        return results;
-      })();
-      path = hx.plot.svgCurve(points, false);
-      _.markerTextCurve.attr('d', path);
-      if (markerProgress < 0.5) {
-        _.markerText.attr('startOffset', (markerProgress * 100 + 1) + '%').attr('text-anchor', 'start');
+    if (size > 0) {
+      container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px');
+      textOffset = 10 * (size / 2) / 150;
+      x = size / 2;
+      y = size / 2;
+      markerR2 = 1 + options.markerOuterExtend;
+      trackerR2 = options.useMarker ? 1 - options.markerPadding : 1;
+      trackerR1 = trackerR2 - options.trackerWidth;
+      if (options.useTracker) {
+        progressR2 = trackerR1 - options.arcPadding;
       } else {
-        _.markerText.attr('startOffset', (markerProgress * 100 - 1) + '%').attr('text-anchor', 'end');
+        progressR2 = options.useMarker ? 1 - options.markerPadding : 1;
       }
-      _.markerText.style('visibility', void 0).text(data.markerText);
-      updateArc(_.markerArc, markerProgress - options.markerSize / 2, markerProgress + options.markerSize / 2, markerR1, markerR2, this.options.markerCol);
-    } else {
-      _.markerArc.style('visibility', 'hidden');
-      _.markerText.style('visibility', 'hidden');
+      progressR1 = progressR2 - options.progressWidth;
+      markerR1 = progressR1 - options.markerInnerExtend;
+      markerWidth = options.markerWidth;
+      updateArc = function(selection, start, end, r1, r2, col) {
+        var endRadians, innerRadius, outerRadius, padding, path, startRadians;
+        innerRadius = size / 2 * r1;
+        outerRadius = size / 2 * r2;
+        startRadians = Math.PI + Math.PI * start;
+        endRadians = Math.PI + Math.PI * end;
+        padding = 0;
+        path = hx.plot.arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding);
+        return selection.attr('d', path).attr('fill', col).style('visibility', void 0);
+      };
+      container.style('width', size + 'px');
+      container.style('height', size / 2 + 'px');
+      updateArc(_.progressArc, 0, progress, progressR1, progressR2, options.progressCol);
+      updateArc(_.progressBackgroundArc, progress, 1, progressR1, progressR2, options.progressBackgroundCol);
+      if (options.useTracker) {
+        updateArc(_.trackerArc, 0, trackerProgress, trackerR1, trackerR2, options.trackerCol);
+        updateArc(_.trackerBackgroundArc, trackerProgress, 1, trackerR1, trackerR2, options.trackerBackgroundCol);
+      } else {
+        _.trackerArc.style('visibility', 'hidden');
+        _.trackerBackgroundArc.style('visibility', 'hidden');
+      }
+      if (options.useMarker) {
+        startRadians = Math.PI;
+        endRadians = Math.PI * 2;
+        radius = size / 2 - textOffset;
+        points = (function() {
+          var j, results;
+          results = [];
+          for (i = j = 0; j <= 100; i = ++j) {
+            results.push({
+              x: x + radius * Math.cos((i / 100 + 1) * Math.PI),
+              y: y + radius * Math.sin((i / 100 + 1) * Math.PI)
+            });
+          }
+          return results;
+        })();
+        path = hx.plot.svgCurve(points, false);
+        _.markerTextCurve.attr('d', path);
+        if (markerProgress < 0.5) {
+          _.markerText.attr('startOffset', (markerProgress * 100 + 1) + '%').attr('text-anchor', 'start');
+        } else {
+          _.markerText.attr('startOffset', (markerProgress * 100 - 1) + '%').attr('text-anchor', 'end');
+        }
+        _.markerText.style('visibility', void 0).text(data.markerText);
+        updateArc(_.markerArc, markerProgress - options.markerSize / 2, markerProgress + options.markerSize / 2, markerR1, markerR2, this.options.markerCol);
+      } else {
+        _.markerArc.style('visibility', 'hidden');
+        _.markerText.style('visibility', 'hidden');
+      }
+      this.emit('render', {
+        cause: cause,
+        data: data
+      });
     }
-    this.emit('render', {
-      cause: cause,
-      data: data
-    });
     return this;
   };
 

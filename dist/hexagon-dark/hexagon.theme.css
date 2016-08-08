@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.5.0
+ Version: 1.5.1
  Theme: hexagon-dark
  Modules:
    set
@@ -986,11 +986,11 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 
 .hx-titlebar-link {
   color: white; }
+  .hx-titlebar-link.hx-selected {
+    border-bottom-color: #D0DDEE; }
   .hx-titlebar-link:hover {
     border-bottom-color: #00ADA8;
     color: #00ADA8; }
-  .hx-titlebar-link.hx-selected {
-    border-bottom-color: #D0DDEE; }
 
 @media (min-width: 901px) {
   .hx-titlebar-menu-content {
