@@ -218,5 +218,9 @@
         @p: Changes to the structure of the DataTable to improve @code[compact] mode, including adding a compact 'menu' to reduce the amount of space data tables take up when in compact mode
         @p: Added some new utility functions for checking the type of values and getting the argmin/argmax.
 
+    @version 1.5.1
+      @description
+        Fixed a selection of bugs including an issue caused by meters when rendering with 0 width/height, button alignment in forms and notification flex styles.
+
   @h2: Key
   @changelog.key

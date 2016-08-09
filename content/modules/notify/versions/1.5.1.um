@@ -1,0 +1,4 @@
+@version 1.5.1
+  @api Notify
+    @bugfix: Fixed the flex styles for notifications
+      @issue 280

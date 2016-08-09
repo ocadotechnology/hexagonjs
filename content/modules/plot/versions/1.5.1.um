@@ -1,0 +1,5 @@
+@version 1.5.1
+  @api Plot
+    @prototype hx.Sparkline
+      @bugfix: Fixed the default @code[redrawOnResize] value
+        @issue 279

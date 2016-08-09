@@ -1,0 +1,4 @@
+@version 1.5.1
+  @api Form
+    @bugfix: Resolved an issue with the alignment of buttons in forms
+      @issue 274
