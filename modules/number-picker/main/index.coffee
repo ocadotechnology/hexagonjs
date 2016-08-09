@@ -6,6 +6,24 @@ checkValue = (numberPicker, context) ->
   if min isnt undefined then value = Math.max(value, min)
   if value isnt oldValue then context.value(value)
 
+addHoldHandler = (incrementOnHold, incrementDelay, selection, incrementFn) ->
+  holdStart = undefined
+  holdTimer = undefined
+  incrementHold = undefined
+  if incrementOnHold
+    selection.on 'pointerdown', 'hx.number-picker', ->
+      holdStart = Date.now()
+      fn = -> incrementHold = setInterval((-> incrementFn()), incrementDelay)
+      holdTimer = setTimeout(fn, 200)
+
+    selection.on 'pointerup', 'hx.number-picker', ->
+      if Date.now() - holdStart < 200
+        incrementFn()
+      clearTimeout(holdTimer)
+      clearInterval(incrementHold)
+  else
+    selection.on 'click', 'hx.number-picker', -> incrementFn()
+
 class NumberPicker extends hx.EventEmitter
   constructor: (@selector, options) ->
     super
@@ -16,8 +34,10 @@ class NumberPicker extends hx.EventEmitter
       buttonClass: ''
       min: undefined
       max: undefined
-      disabled: false,
+      disabled: false
       value: 0
+      incrementOnHold: true
+      incrementDelay: 50
     }, options)
 
     @_ = {}
@@ -25,9 +45,10 @@ class NumberPicker extends hx.EventEmitter
     container = hx.select(@selector)
     select = container.class('hx-number-picker')
 
-    button = select.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
-    button.append('i').class('hx-icon hx-icon-chevron-up')
-    button.on 'click', 'hx.number-picker', => @increment()
+    incrementButton = select.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
+    incrementButton.append('i').class('hx-icon hx-icon-chevron-up')
+
+    addHoldHandler(@options.incrementOnHold, @options.incrementDelay, incrementButton, => @increment())
 
     @selectInput = select.append('input')
     @selectInput.attr('type', 'number')
@@ -38,9 +59,11 @@ class NumberPicker extends hx.EventEmitter
       @emit 'input-change', {value: @value()}
       @emit 'change', {value: @value()}
 
-    button = select.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
-    button.append('i').class('hx-icon hx-icon-chevron-down')
-    button.on 'click', 'hx.number-picker', => @decrement()
+    decrementButton = select.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
+    decrementButton.append('i').class('hx-icon hx-icon-chevron-down')
+
+    addHoldHandler(@options.incrementOnHold, @options.incrementDelay, decrementButton, => @decrement())
+
 
     if @options.max isnt undefined then @max @options.max
     if @options.min isnt undefined then @min @options.min
