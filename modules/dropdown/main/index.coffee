@@ -59,6 +59,16 @@ calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect
     direction: direction
   }
 
+dropdownContentToSetupDropdown = (dropdownContent) ->
+  setupDropdown = switch
+    when hx.isString dropdownContent
+      (node) -> hx.select(node).html(dropdownContent)
+    when hx.isFunction dropdownContent
+      dropdownContent
+    else
+      hx.consoleWarning 'dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent
+      -> undefined
+
 class Dropdown extends hx.EventEmitter
 
   constructor: (selector, dropdownContent, options) ->
@@ -76,14 +86,6 @@ class Dropdown extends hx.EventEmitter
       ddClass: ''
     }, options)
 
-    setupDropdown = switch
-      when hx.isString(dropdownContent)
-        (node) -> hx.select(node).html(dropdownContent)
-      when hx.isFunction(dropdownContent)
-        (node) -> dropdownContent(node)
-      else
-        hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
-        () ->
 
     clickDetector = new hx.ClickDetector
     clickDetector.on 'click', 'hx.dropdown', => @hide()
@@ -103,8 +105,11 @@ class Dropdown extends hx.EventEmitter
 
     selection = hx.select(selector)
 
+    setupDropdown = dropdownContentToSetupDropdown dropdownContent
+
     @_ = {
       setupDropdown: setupDropdown,
+      dropdownContent: dropdownContent,
       clickDetector: clickDetector,
       alignments: alignments,
       onclick: onclick,
@@ -135,11 +140,29 @@ class Dropdown extends hx.EventEmitter
     if @isOpen() then @hide(cb) else @show(cb)
     this
 
-  show: (cb) ->
-    _ = @_
+  dropdownContent: (dropdownContent, cb) ->
+    if arguments.length
+      setupDropdown = dropdownContentToSetupDropdown dropdownContent
+      @_.dropdownContent = dropdownContent
+      @_ = hx.shallowMerge @_, {
+        setupDropdown,
+        dropdownContent
+      }
+      @_.render cb
+    else
+      @_.dropdownContent
 
-    if not _.visible
-      _.visible = true
+  show: (cb) ->
+
+    if not @_.visible
+      @_.visible = true
+      @render cb
+    this
+
+  render: (cb) ->
+
+    _ = @_
+    if _.visible
 
       _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown')
 
@@ -193,7 +216,7 @@ class Dropdown extends hx.EventEmitter
         .morph()
           .with('fadein', 150)
           .and('expandv', 150)
-          .and =>
+          .and ->
             _.dropdown.animate().style('top', y + 'px', 150)
           .then =>
             if _.useScroll and _.dropdown?
