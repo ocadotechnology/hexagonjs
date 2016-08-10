@@ -10,6 +10,12 @@ hx.consoleWarning = (heading, messages...) ->
   console.warn.apply(console, [heading].concat(messages))
   console.trace('Stack Trace')
 
+validateDoctype = (doctype) ->
+  doctype? and doctype.name is 'html' and not (doctype.publicId or doctype.systemId)
+
+unless validateDoctype document.doctype
+  hx.consoleWarning 'Expected doctype: <!DOCTYPE html>, actual doctype: ', document.doctype, ' so you may have CSS problems.'
+
 # consistent string to int hashing
 hx.hash = (str, max) ->
   res = 0
