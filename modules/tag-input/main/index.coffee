@@ -4,6 +4,16 @@ hx.userFacingText({
   }
 })
 
+createFilteredData = (filterFn, data) ->
+  if hx.isFunction data
+    (term, callback) ->
+      data term, (result) ->
+        callback result.filter filterFn
+  else if hx.isArray data
+    (term, callback) -> callback data.filter filterFn
+  else
+    data
+
 class TagInput extends hx.EventEmitter
 
   constructor: (@selector, options) ->
@@ -17,7 +27,14 @@ class TagInput extends hx.EventEmitter
       draggable: true
       items: []
       placeholder: hx.userFacingText('tagInput', 'placeholder')
+      autocompleteData: undefined
+      autocompleteOptions: {}
+      excludeTags: true
+      mustMatchAutocomplete: true
     }, options
+
+    if @options.mustMatchAutocomplete
+      @options.autocompleteOptions.mustMatch = true
 
     hx.component.register(@selector, this)
 
@@ -29,6 +46,15 @@ class TagInput extends hx.EventEmitter
 
     @form = @selection.append('form')
     @input = @form.append('input').attr('placeholder', @options.placeholder)
+    if @options.autocompleteData?
+      isValid = if @options.validator? then (item) => not @options.validator(item) else hx.identity
+      filterFn = if @options.excludeTags then (item) => isValid(item) and not ~@items().indexOf(item.toString()) else isValid
+      acData = createFilteredData filterFn, @options.autocompleteData
+
+      @_.autocomplete = new hx.AutoComplete(@input.node(), acData, @options.autocompleteOptions)
+      @_.autocomplete.on 'change', 'hx.taginput', (value) =>  # add the item to the tag list on first enter/tab
+        @add value
+        setTimeout (=> @_.autocomplete.show()), 0
 
     backspacedown = false
 
@@ -49,7 +75,7 @@ class TagInput extends hx.EventEmitter
           name = @input.value()
           if name
             _.userEvent = true
-            @add(name, undefined)
+            @add name
 
     @input.on 'input', 'hx.tag-input', hasError
 

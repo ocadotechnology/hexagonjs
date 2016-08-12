@@ -204,6 +204,16 @@
         </div>
       </div>
 
+      <div class="hx-section exampleSection">
+        <div class="example">
+          <h3>Autocomplete Picker</h3>
+          <div id="autocomplete-picker"></div>
+          <script>
+            new hx.AutocompletePicker('#autocomplete-picker', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
+          </script>
+        </div>
+      </div>
+
 
       <!-- color picker -->
       <div class="hx-section exampleSection">
@@ -379,6 +389,18 @@
                 return (value.length !== 'default' ? 'hx-' + value : '')
               },
               items: ['default', 'action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
+            })
+          </script>
+        </div>
+      </div>
+
+      <div class="hx-section exampleSection">
+        <div class="example">
+          <h3>Autocompleted Tag Input</h3>
+          <div id="autocomplete-tag-input"></div>
+          <script>
+            new hx.TagInput('#autocomplete-tag-input', {
+              autocompleteData: ['Jane', 'Bob', 'Dan', 'Steve', 'Alejandro']
             })
           </script>
         </div>

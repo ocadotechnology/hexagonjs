@@ -1,5 +1,6 @@
 {
   "dependencies": [
+    "autocomplete",
     "component",
     "drag-container",
     "event-emitter",
