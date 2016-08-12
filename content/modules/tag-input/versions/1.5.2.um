@@ -1,0 +1,21 @@
+@version 1.5.2
+  @api Tag Input
+    @prototype hx.TagInput
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property autocompleteData [Array/Function]
+            @added: @issue 194
+            @description:
+              @p: The data to use as suggestions for the tag input. Data can be specified as an array of items or as a function that returns an array of items.
+              @p: See @code[hx.AutoComplete] for further details.
+              @p: By default, no autocompletion is provided.
+          @property autocompleteOptions [Object]
+            @added: @issue 194
+            @description: Special options to be passed to the autocomplete. See hx.Autocomplete options.
+          @property excludeTags [Boolean]
+            @added: @issue 194
+            @description: Determines whether existing tags should be excluded from the autocompletion. By default true.
+          @property mustMatchAutocomplete [Boolean]
+            @added: @issue 194
+            @description: Determines whether the TagInput should only allow inputs that come from the autocomplete (if defined). Be default true.
