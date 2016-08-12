@@ -12,7 +12,7 @@
               @p: By default, no autocompletion is provided.
           @property autocompleteOptions [Object]
             @added: @issue 194
-            @description: Special options to be passed to the autocomplete. See hx.Autocomplete options.
+            @description: Special options to be passed to the autocomplete. See @code[hx.AutoComplete] options.
           @property excludeTags [Boolean]
             @added: @issue 194
             @description: Determines whether existing tags should be excluded from the autocompletion. By default true.
