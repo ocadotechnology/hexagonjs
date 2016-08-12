@@ -184,7 +184,7 @@ describe 'tag-input', ->
       dropdownAnimateDuration = 200
 
       chai.spy.on(ti._.autocomplete, 'show')
-      testHelpers.fakeNodeEvent(ti.input.node(), 'focus', 'hx.autocomplete')({})
+      testHelpers.fakeNodeEvent(ti.input.node(), 'focus')({})
       clock.tick(dropdownAnimateDuration)
 
       ti._.autocomplete.show.should.have.been.called.once()
