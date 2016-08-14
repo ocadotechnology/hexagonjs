@@ -52,4 +52,4 @@ module.exports = {
 }
 
 # backwards compatibility
-module.exports.hx = module.exports
+module.exports.hx = utils.shallowClone(module.exports)

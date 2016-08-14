@@ -1,3 +1,8 @@
+select = require('modules/selection/main')
+component = require('modules/component/main')
+utils = require('modules/util/main/utils')
+EventEmitter = require('modules/event-emitter/main')
+
 checkValue = (numberPicker, context) ->
   value = oldValue = context.value()
   max = numberPicker.max()
@@ -6,13 +11,13 @@ checkValue = (numberPicker, context) ->
   if min isnt undefined then value = Math.max(value, min)
   if value isnt oldValue then context.value(value)
 
-class NumberPicker extends hx.EventEmitter
+class NumberPicker extends EventEmitter
   constructor: (@selector, options) ->
     super
 
-    hx.component.register(@selector, this)
+    component.component.register(@selector, this)
 
-    @options = hx.merge.defined({
+    @options = utils.merge.defined({
       buttonClass: ''
       min: undefined
       max: undefined
@@ -22,14 +27,14 @@ class NumberPicker extends hx.EventEmitter
 
     @_ = {}
 
-    container = hx.select(@selector)
-    select = container.class('hx-number-picker')
+    container = select(@selector)
+    selection = container.class('hx-number-picker')
 
-    button = select.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
+    button = selection.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
     button.append('i').class('hx-icon hx-icon-chevron-up')
     button.on 'click', 'hx.number-picker', => @increment()
 
-    @selectInput = select.append('input')
+    @selectInput = selection.append('input')
     @selectInput.attr('type', 'number')
     @selectInput.on 'blur', 'hx.number-picker', =>
       if not @selectInput.attr('readonly')?
@@ -38,7 +43,7 @@ class NumberPicker extends hx.EventEmitter
       @emit 'input-change', {value: @value()}
       @emit 'change', {value: @value()}
 
-    button = select.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
+    button = selection.append('button').attr('type', 'button').class('hx-btn ' + @options.buttonClass)
     button.append('i').class('hx-icon hx-icon-chevron-down')
     button.on 'click', 'hx.number-picker', => @decrement()
 
@@ -107,14 +112,19 @@ class NumberPicker extends hx.EventEmitter
     if disable?
       @options.disabled = disable
       dis = if disable then true else undefined
-      hx.select(@selector).selectAll('button').forEach (e) -> e.attr('disabled', dis)
+      select(@selector).selectAll('button').forEach (e) -> e.attr('disabled', dis)
       @selectInput.attr('disabled', dis)
     else
       @options.disabled
 
-hx.numberPicker = (options) ->
-  selection = hx.detached('div')
+numberPicker = (options) ->
+  selection = select.detached('div')
   new NumberPicker(selection.node(), options)
   selection
 
-hx.NumberPicker = NumberPicker
+module.exports = numberPicker
+module.exports.NumberPicker = NumberPicker
+module.exports.hx  = {
+  numberPicker: numberPicker
+  NumberPicker: NumberPicker
+}

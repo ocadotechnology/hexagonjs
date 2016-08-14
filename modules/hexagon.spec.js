@@ -1,7 +1,7 @@
 import hx from './hexagon'
 
-var chai = require('chai')
-var spies = require('chai-spies')
+const chai = require('chai')
+const spies = require('chai-spies')
 chai.use(spies)
 
 describe('HexagonJS Test Suite', () => {
@@ -36,6 +36,12 @@ describe('HexagonJS Test Suite', () => {
   require('modules/collapsible/test/spec')
   require('modules/palette/test/spec')
   require('modules/format/test/spec')
+  require('modules/menu/test/spec')
+  require('modules/preferences/test/spec')
+  require('modules/autocomplete/test/spec')
+  require('modules/number-picker/test/spec')
+  require('modules/drag-container/test/spec')
+  require('modules/date-localizer/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -231,6 +237,34 @@ describe('HexagonJS Test Suite', () => {
       checkProperty('exp', hx.format)
       checkProperty('fixed', hx.format)
       checkProperty('zeroPad', hx.format)
+    })
+
+    describe('menu', () => {
+      checkProperty('Menu')
+    })
+
+    describe('preferences', () => {
+      checkProperty('preferences')
+      checkProperty('LocalStoragePreferencesStore')
+    })
+
+    describe('date-localizer', () => {
+      checkProperty('dateTimeLocalizer')
+    })
+
+    describe('autocomplete', () => {
+      checkProperty('autoComplete')
+      checkProperty('AutoComplete')
+    })
+
+    describe('number-picker', () => {
+      checkProperty('numberPicker')
+      checkProperty('NumberPicker')
+    })
+
+    describe('drag-container', () => {
+      checkProperty('dragContainer')
+      checkProperty('DragContainer')
     })
 
   })

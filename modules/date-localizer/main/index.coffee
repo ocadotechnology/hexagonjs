@@ -1,5 +1,8 @@
+preferences = require('modules/preferences/main')
+format = require('modules/format/main')
+
 class DateTimeLocalizer
-  zeroPad = hx.format.zeroPad(2)
+  zeroPad = format.zeroPad(2)
 
   # get the display order for the date so dates can be displayed correctly when localised
   dateOrder: -> ['DD','MM','YYYY']
@@ -35,7 +38,7 @@ class DateTimeLocalizer
 
   # localise a date object to return a time string of hh:mm or hh:mm:ss (or localised format)
   time: (date, showSeconds) ->
-    date = hx.preferences.applyTimezoneOffset(date)
+    date = preferences.applyTimezoneOffset(date)
     timeString = date.getHours() + ':' + zeroPad date.getMinutes()
     if showSeconds
       timeString += ':' + zeroPad date.getSeconds()
@@ -79,7 +82,7 @@ class DateTimeLocalizer
 
 class DateTimeLocalizerMoment
   dateOrder: ->
-    date = moment({year:2003, month:11, day:22}).locale(hx.preferences.locale())
+    date = moment({year:2003, month:11, day:22}).locale(preferences.locale())
     dateCheck = date.format('L')
     yearIndex = dateCheck.indexOf(date.format('YYYY'))
     monthIndex = dateCheck.indexOf(date.format('MM'))
@@ -99,14 +102,14 @@ class DateTimeLocalizerMoment
 
   weekDays: ->
     dayDate = moment().weekday(0)
-    dayDate.locale(hx.preferences.locale())
+    dayDate.locale(preferences.locale())
     dayNames = [dayDate.format('dd')]
     for i in [0...6]
       dayNames.push(dayDate.add(1,'d').format('dd'))
     dayNames
 
   todayText: ->
-    today = moment({hour: 12, minute: 0, second: 0}).locale(hx.preferences.locale())
+    today = moment({hour: 12, minute: 0, second: 0}).locale(preferences.locale())
     tomorrow = today.clone().add(1, 'day')
     todayArr = today.calendar().split('').reverse()
     tomorrowArr = tomorrow.calendar().split('').reverse()
@@ -117,27 +120,27 @@ class DateTimeLocalizerMoment
     todayArr.reverse().join('')
 
   day: (day, pad) ->
-    moment({day: day, month: 0}).locale(hx.preferences.locale()).format(if pad then 'DD' else 'D')
+    moment({day: day, month: 0}).locale(preferences.locale()).format(if pad then 'DD' else 'D')
 
   month: (month, short) ->
-    moment({month: month}).locale(hx.preferences.locale()).format(if short then 'MM' else 'MMM')
+    moment({month: month}).locale(preferences.locale()).format(if short then 'MM' else 'MMM')
 
   year: (year) ->
-    moment({year: year}).locale(hx.preferences.locale()).format('YYYY')
+    moment({year: year}).locale(preferences.locale()).format('YYYY')
 
   decade: (start, end) ->
     @year(start) + ' - ' + @year(end)
 
   date: (date) ->
-    moment(date).locale(hx.preferences.locale()).format('L')
+    moment(date).locale(preferences.locale()).format('L')
 
   time: (date, showSeconds) ->
-    date = hx.preferences.applyTimezoneOffset(date)
+    date = preferences.applyTimezoneOffset(date)
     format = if showSeconds then 'H:mm:ss' else 'H:mm'
-    moment(date).locale(hx.preferences.locale()).format(format)
+    moment(date).locale(preferences.locale()).format(format)
 
   checkTime: (time) ->
-    moment({hours: time[0], minutes: time[1], seconds: time[2]}).locale(hx.preferences.locale()).isValid()
+    moment({hours: time[0], minutes: time[1], seconds: time[2]}).locale(preferences.locale()).isValid()
 
   stringToDate: (dateString) ->
     order = @dateOrder()
@@ -158,11 +161,15 @@ class DateTimeLocalizerMoment
             yearsValid = part.length < 5 and part isnt ''
             format += 'YYYY'
       if daysValid and monthsValid and yearsValid
-        moment(dateString, format, hx.preferences.locale()).toDate()
+        moment(dateString, format, preferences.locale()).toDate()
       else
         new Date('Invalid Date')
     else
       new Date('Invalid Date')
 
 dateTimeLocalizer = -> if moment? then new DateTimeLocalizerMoment else new DateTimeLocalizer
-hx.dateTimeLocalizer = dateTimeLocalizer
+
+module.exports = dateTimeLocalizer
+module.exports.hx = {
+  dateTimeLocalizer: dateTimeLocalizer
+}

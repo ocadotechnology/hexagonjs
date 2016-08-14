@@ -2,8 +2,8 @@ userFacingText = require('modules/user-facing-text/main')
 EventEmitter = require('modules/event-emitter/main')
 select = require('modules/selection/main')
 utils = require('modules/util/main/utils')
-Modal = require('modules/modal/main')
-Autocomplete = require('modules/autocomplete/main')
+Modal = require('modules/modal/main').Modal
+Autocomplete = require('modules/autocomplete/main').Autocomplete
 notify = require('modules/notify/main')
 
 userFacingText({
@@ -317,5 +317,11 @@ class Preferences extends EventEmitter
     @_.modal.show()
     this
 
-hx.preferences = new Preferences
-hx.preferences.localStorageStore = LocalStoragePreferencesStore
+preferences = new Preferences
+
+module.exports = preferences
+module.exports.LocalStoragePreferencesStore = LocalStoragePreferencesStore
+module.exports.hx = {
+  preferences: preferences,
+  LocalStoragePreferencesStore: LocalStoragePreferencesStore
+}

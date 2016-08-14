@@ -1,8 +1,10 @@
+dateTimeLocalizer = require('modules/date-localizer/main')
+
 describe 'dateTimeLocalizerMoment', ->
   # Not sure how to test this...
 
 describe 'dateTimeLocalizer', ->
-  localizer = hx.dateTimeLocalizer()
+  localizer = dateTimeLocalizer()
 
   testDate = new Date(1452130200000) # Thu Jan 07 2016 01:30:00 GMT+0000 (GMT)
   zeroHourDate = new Date(1452124800000) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)

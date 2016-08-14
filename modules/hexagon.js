@@ -16,7 +16,7 @@ const merge = (objs) => {
   return res
 }
 
-module.exports = merge([
+module.exports = window.hx = merge([
   require('./set/main'),
   require('./map/main'),
   require('./list/main'),
@@ -41,5 +41,12 @@ module.exports = merge([
   require('./dropdown/main'),
   require('./collapsible/main'),
   require('./palette/main'),
-  require('./format/main')
+  require('./format/main'),
+  require('./resize-events/main'),
+  require('./menu/main'),
+  require('./preferences/main'),
+  require('./date-localizer/main'),
+  require('./autocomplete/main'),
+  require('./number-picker/main'),
+  require('./drag-container/main')
 ])

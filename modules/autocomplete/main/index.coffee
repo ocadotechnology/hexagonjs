@@ -1,4 +1,15 @@
-hx.userFacingText({
+userFacingText = require('modules/user-facing-text/main')
+sort = require('modules/sort/main')
+EventEmitter = require('modules/event-emitter/main')
+component = require('modules/component/main')
+utils = require('modules/util/main/utils')
+HMap = require('modules/map/main')
+filter = require('modules/filter/main')
+select = require('modules/selection/main')
+Menu = require('modules/menu/main')
+sort = require('modules/sort/main')
+
+userFacingText({
   autoComplete: {
     loading: 'Loading...',
     noResultsFound: 'No results found',
@@ -58,9 +69,9 @@ findTerm = (term, forceMatch) ->
             data = data.sort (a,b) ->
               a = self.options.inputMap(a)
               b = self.options.inputMap(b)
-              hx.sort.compare(a, b)
+              sort.compare(a, b)
           else
-            data = data.sort hx.sort.compare
+            data = data.sort sort.compare
         data
 
 
@@ -68,7 +79,7 @@ findTerm = (term, forceMatch) ->
       remainingResults.sort (a, b) ->
         if not a.disabled and b.disabled then -1
         else if a.disabled and not b.disabled then 1
-        else hx.sort.compare(a.full, b.full)
+        else sort.compare(a.full, b.full)
     )
 
     filteredData = matches.concat remainingResults
@@ -164,14 +175,14 @@ showAutoComplete = ->
   buildAutoComplete.call this, @_.input.value() or ''
 
 
-class AutoComplete extends hx.EventEmitter
+class AutoComplete extends EventEmitter
 
   constructor: (@selector, @data, @options = {}) ->
     super
 
     @_ = _ = {}
 
-    hx.component.register(@selector, this)
+    component.component.register(@selector, this)
 
     _.ignoreMatch = false
     _.ignoreNextFocus = false
@@ -179,22 +190,22 @@ class AutoComplete extends hx.EventEmitter
     self = this
 
     # create the data cache for storing the datasets based on their search term
-    _.data = new hx.Map()
+    _.data = new HMap()
 
-    if hx.isFunction @data
+    if utils.isFunction @data
       _.callback = @data
     else
       _.data.set('', @data)
 
      # do a sanity check on the data
-    if not hx.isArray(@data) and not hx.isFunction(@data)
-      hx.consoleWarning(
+    if not Array.isArray(@data) and not utils.isFunction(@data)
+      utils.consoleWarning(
         'AutoComplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
         ' but should have been an array of items or a function'
       )
     else
       # setup options
-      @options = hx.merge {
+      @options = utils.merge({
         minLength: 0
         showAll: true
         trimTrailingSpaces: false
@@ -208,44 +219,43 @@ class AutoComplete extends hx.EventEmitter
         showOtherResults: false
         allowTabCompletion: true
 
-        loadingMessage: hx.userFacingText('autoComplete', 'loading')
-        noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
-        otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults')
-        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
-      }, @options
+        loadingMessage: userFacingText('autoComplete', 'loading')
+        noResultsMessage: userFacingText('autoComplete', 'noResultsFound')
+        otherResultsMessage: userFacingText('autoComplete', 'otherResults')
+        pleaseEnterMinCharactersMessage: userFacingText('autoComplete', 'pleaseEnterMinCharacters')
+      }, @options)
 
       if @options.inputMap?
         # default searchValue if inputMap is defined
         _filterOpts =
           searchValues: (d) -> [self.options.inputMap(d)]
 
-      @options.filterOptions = hx.merge {}, _filterOpts, @options.filterOptions
+      @options.filterOptions = utils.merge({}, _filterOpts, @options.filterOptions)
 
       @options.filter ?= (arr, term) ->
-        hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
+        filter[self.options.matchType](arr, term, self.options.filterOptions)
           .sort (a, b) ->
             if not a.disabled and b.disabled then -1
             else if a.disabled and not b.disabled then 1
-            else hx.sort.compare(a, b)
+            else sort.compare(a, b)
 
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?
-        (elem, item) -> hx.select(elem).text(self.options.inputMap(item))
+        (elem, item) -> select(elem).text(self.options.inputMap(item))
       else
-        (elem, item) -> hx.select(elem).text(item)
+        (elem, item) -> select(elem).text(item)
 
-      @options.placeholder ?= if @options.minLength > 0
-        "Min length #{@options.minLength} characters"
+      if @options.minLength > 0 and @options.placeholder is undefined
+        @options.placeholder = "Min length #{@options.minLength} characters"
 
-      # create input and menu objects
-      input = hx.select @selector
-      menu = new hx.Menu @selector, {dropdownOptions: {ddClass: 'hx-autocomplete-dropdown'}}
+      input = select(@selector)
+      menu = new Menu(@selector, {dropdownOptions: {ddClass: 'hx-autocomplete-dropdown'}})
 
-      menu.pipe this, '', ['highlight']
-      menu.dropdown.pipe this, 'dropdown'
+      menu.pipe(this, '', ['highlight'])
+      menu.dropdown.pipe(this, 'dropdown')
 
-      hx.select(@selector).off 'click', 'hx.menu'
+      select(@selector).off('click', 'hx.menu')
       menu.on 'input', 'hx.autocomplete', (e) ->
         if self.options.allowTabCompletion
           if (e.which or e.keyCode) == 9
@@ -290,7 +300,7 @@ class AutoComplete extends hx.EventEmitter
       menu.renderer (elem, item) ->
         # if the item is a unselectable item or a heading, we use a set renderer
         # and ignore the passed in renderer
-        selection = hx.select elem
+        selection = select(elem)
         selection.style('font-weight','')
         if item.unselectable or item.heading
           selection
@@ -368,8 +378,8 @@ class AutoComplete extends hx.EventEmitter
     this
 
   clearCache: ->
-    @_.data = new hx.Map()
-    if @data? and not hx.isFunction @data
+    @_.data = new HMap()
+    if @data? and not utils.isFunction @data
       @_.data.set('', @data)
     this
 
@@ -395,9 +405,14 @@ class AutoComplete extends hx.EventEmitter
       _.cleanUp = true
     this
 
-hx.autoComplete = (data, options) ->
-  selection = hx.detached('input')
+autoComplete = (data, options) ->
+  selection = select.detached('input')
   new AutoComplete(selection.node(), data, options)
   selection
 
-hx.AutoComplete = AutoComplete
+module.exports = autoComplete
+module.exports.AutoComplete = AutoComplete
+module.exports.hx = {
+  AutoComplete: AutoComplete,
+  autoComplete: autoComplete,
+}
