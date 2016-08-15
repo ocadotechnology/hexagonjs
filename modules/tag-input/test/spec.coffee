@@ -8,6 +8,9 @@ describe 'tag-input', ->
   after ->
     hx.consoleWarning = origConsoleWarning
 
+  afterEach ->
+    hx.select('body').clear()
+
 
   it 'should have user facing text defined', ->
     hx.userFacingText('tagInput','placeholder').should.equal('add tag...')
@@ -191,7 +194,7 @@ describe 'tag-input', ->
       ti._.autocomplete.emit 'change', 'a'
       clock.tick(dropdownAnimateDuration)
       ti._.autocomplete.show.should.have.been.called.twice()
-      clock.reset()
+      clock.uninstall()
 
     it 'should not log a warning if everything is set up correctly', ->
       hx.consoleWarning.should.not.have.been.called()
