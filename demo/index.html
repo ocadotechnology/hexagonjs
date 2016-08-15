@@ -259,10 +259,19 @@
           <button id="dropdownClick" class="hx-btn">Click Dropdown</button>
           <button id="dropdownHover" class="hx-btn">Hover Dropdown</button>
           <script>
-            function ddContent (element) {
-              hx.select(element).append('div').style('padding', '1em').text('Dropdown Content')
+            function ddContent (text) {
+              return function (element) {
+                sel = hx.select(element)
+                sel.clear()
+                sel.append('div').style('padding', '1em').text(text)
+              }
             }
-            new hx.Dropdown('#dropdownClick', ddContent)
+            var dropDown = new hx.Dropdown('#dropdownClick', ddContent('Bob'))
+            dropDown.on('showend', function () {
+              setTimeout(function () {
+                dropDown.dropdownContent(ddContent('Kate'))
+              }, 500)
+            })
             new hx.Dropdown('#dropdownHover', ddContent, {mode: 'hover'})
           </script>
         </div>
