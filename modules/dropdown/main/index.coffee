@@ -162,7 +162,10 @@ class Dropdown extends hx.EventEmitter
   show: (cb) ->
     _ = @_
 
-    if not _.visible
+    if _.visible
+      @render()
+      cb?()
+    else
       _.visible = true
 
       _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown')
@@ -217,7 +220,7 @@ class Dropdown extends hx.EventEmitter
         .morph()
           .with('fadein', 150)
           .and('expandv', 150)
-          .and =>
+          .and ->
             _.dropdown.animate().style('top', y + 'px', 150)
           .then =>
             if _.useScroll and _.dropdown?
