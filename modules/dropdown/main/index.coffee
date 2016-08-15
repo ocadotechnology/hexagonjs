@@ -131,13 +131,12 @@ class Dropdown extends hx.EventEmitter
   dropdownContent: (dropdownContent) ->
     if arguments.length
       setupDropdown = dropdownContentToSetupDropdown dropdownContent
-      @_.dropdownContent = dropdownContent
       @_ = hx.shallowMerge @_, {
         setupDropdown,
         dropdownContent
       }
-      debugger
       @render()
+      this
     else
       @_.dropdownContent
 
@@ -157,6 +156,8 @@ class Dropdown extends hx.EventEmitter
 
   render: ->
     @_.setupDropdown @_.dropdown.node()
+    @emit 'render'
+    this
 
   show: (cb) ->
     _ = @_
