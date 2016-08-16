@@ -1,6 +1,14 @@
 @inline ../../../shared/common.um
-@titlebar Creating a Custom Theme
 
-@div .dx-content
-  @h1: Creating a Custom Theme
+@titlebar
 
+@topSection
+  @title Custom Themes
+  @description
+    How to create custom themes for hexagon
+
+@contentSection
+
+  @topic Creating a Custom Theme
+
+    @notice [Needs documenting!]

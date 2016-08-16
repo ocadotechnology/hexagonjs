@@ -1,5 +1,5 @@
-@stylesheet /resources/hexagon/docs/hexagon.css
-@script /resources/hexagon/docs/hexagon.js
+@stylesheet /resources/hexagon/latest/hexagon.css
+@script /resources/hexagon/latest/hexagon.js
 @script /resources/titlebar.js
 @script /resources/docs.js
 @stylesheet /resources/font-awesome/css/font-awesome.min.css
@@ -69,10 +69,25 @@
 
 
 @define footer
-
-  @div .docs-footer:
-    @div .dx-content:
+  @div .docs-footer
+    @div .dx-content
       @span .docs-footer-note: Created @(@) @hyperlink(https://github.com/ocadotechnology)[Ocado Technology]
       @span .docs-footer-note: Code license @hyperlink(https://github.com/ocadotechnology/hexagonjs/blob/master/LICENCE)[Apache-2.0]
       @span .docs-footer-note: Docs license @hyperlink(https://creativecommons.org/licenses/by/3.0/)[CC BY 3.0]
       @span .docs-footer-note: This site on @hyperlink(https://github.com/ocadotechnology/hexagonjs-site)[GitHub]
+
+@define siteSidebar
+  @sidebar left
+    @navigationMenu
+      @section Guides
+        @page /guide/getting-started: Getting Started
+        @page /guide/core-concepts: Core Concepts
+        @page /guide/general-guidelines: General Guidelines
+
+      @section Topics
+        @page /guide/representing-data: Representing Data
+        @page /guide/working-with-data: Working With Data
+        @page /guide/working-with-dom: Working with the DOM
+        @page /guide/designing-for-mobiles: Designing for Mobiles
+        @page /guide/create-custom-themes: Creating Custom Themes
+        @page /guide/printing: Print Styles

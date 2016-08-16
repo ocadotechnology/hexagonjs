@@ -1,16 +1,15 @@
 @inline ../../../shared/common.um
-@titlebar General Guidelines
 
-@div .dx-content
-  @card
-    @h2: Meta tags + doc type
+@titlebar
 
-    @p: recommend the minimal set of meta tags (for mobile friendliness) and the doc type to set
+@topSection
+  @title General guidelines
+  @description
+    Things that you should do™
 
-  @card
-    @h2: Including scripts (general advice is place at bottom of body)
+@contentSection
 
-  @card
-    @h2: ...
-
-
+  @notice [Needs documenting!]
+    @list
+      @item: recommend the minimal set of meta tags (for mobile friendliness) and the doc type to set
+      @item: Including scripts (general advice is place at bottom of body)

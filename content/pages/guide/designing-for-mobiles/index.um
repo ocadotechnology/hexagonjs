@@ -1,6 +1,12 @@
 @inline ../../../shared/common.um
-@titlebar Designing for Mobiles
 
-@div .dx-content
-  @h1: Designing for Mobiles
+@titlebar
 
+@topSection
+  @title Designing for small devices
+  @description
+    Considerations to make when writing applications for mobile devices
+
+@contentSection
+
+  @notice [Needs documenting!]
