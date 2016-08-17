@@ -678,16 +678,18 @@
       <div class="hx-section exampleSection">
         <div class="example">
           <h3>Number Pickers</h3>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
+          <div id="numberPickers">
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+          </div>
           <script>
-            hx.selectAll('.numberPicker').nodes.forEach(function (node, index) {
+            hx.select('#numberPickers').selectAll('.numberPicker').nodes.forEach(function (node, index) {
               new hx.NumberPicker(node, {
                 buttonClass: (contextNames[index - 1] ? 'hx-' + contextNames[index - 1] : '')
               }).value(0)
