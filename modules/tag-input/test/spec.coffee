@@ -8,6 +8,9 @@ describe 'tag-input', ->
   after ->
     hx.consoleWarning = origConsoleWarning
 
+  afterEach ->
+    hx.select('body').clear()
+
 
   it 'should have user facing text defined', ->
     hx.userFacingText('tagInput','placeholder').should.equal('add tag...')
@@ -112,3 +115,124 @@ describe 'tag-input', ->
       hx.select.getHexagonElementDataObject(ti.input.node()).eventEmitter.emit('input')
       spy.should.not.have.been.called()
       hx.consoleWarning.should.not.have.been.called()
+
+  describe 'autocomplete', ->
+    it 'should have autocomplete if given an array of values', (done) ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['a', 'b', 'c']
+      })
+      expect(ti._.autocomplete).to.not.be.undefined
+      acSpy = chai.spy (result) ->
+        result.should.eql(['a', 'b', 'c'])
+        done()
+      ti._.autocomplete.data(undefined, acSpy)
+      acSpy.should.have.been.called()
+
+    it 'should have autocomplete if given a function that returns values', (done) ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: (t, cb) -> cb ['a', 'b', 'c']
+      })
+      expect(ti._.autocomplete).to.not.be.undefined
+      acSpy = chai.spy (result) ->
+        result.should.eql(['a', 'b', 'c'])
+        done()
+      ti._.autocomplete.data(undefined, acSpy)
+      acSpy.should.have.been.called()
+
+    it 'should filter out autocompletions by default if they are already tags', (done) ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['a', 'b', 'c']
+      })
+      expect(ti._.autocomplete).to.not.be.undefined
+      acSpy = chai.spy (result) ->
+        result.should.eql(['b', 'c'])
+        done()
+
+      ti.add 'a'
+      ti._.autocomplete.data(undefined, acSpy)
+      acSpy.should.have.been.called()
+
+    it 'should not filter out autocompletions that are already tags if told not to', (done) ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: (t, cb) -> cb ['a', 'b', 'c']
+        excludeTags: false
+      })
+      expect(ti._.autocomplete).to.not.be.undefined
+      acSpy = chai.spy (result) ->
+        result.should.eql(['a', 'b', 'c'])
+        done()
+
+      ti.add 'a'
+      ti._.autocomplete.data(undefined, acSpy)
+      acSpy.should.have.been.called()
+
+    it 'should create the tag on pressing enter/tag on the autocompletion', ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['a', 'b', 'c']
+      })
+      expect(ti._.autocomplete).to.not.be.undefined
+      chai.spy.on(ti, 'add')
+      ti._.autocomplete.emit 'change', 'a'
+      ti.add.should.have.been.called().with('a')
+
+    it 'should open the dropdown again after the tag has been created', ->
+      clock = sinon.useFakeTimers()
+
+      selection = hx.select('body').append('div')
+
+      ti = new hx.TagInput(selection.node(), {
+        autocompleteData: ['a', 'b', 'c']
+      })
+
+      dropdownAnimateDuration = 200
+
+      chai.spy.on(ti._.autocomplete, 'show')
+      testHelpers.fakeNodeEvent(ti.input.node(), 'focus')({})
+      clock.tick(dropdownAnimateDuration)
+
+      ti._.autocomplete.show.should.have.been.called.once()
+      ti._.autocomplete.emit 'change', 'a'
+      clock.tick(dropdownAnimateDuration)
+      ti._.autocomplete.show.should.have.been.called.twice()
+      clock.uninstall()
+
+    it 'should not log a warning if everything is set up correctly', ->
+      hx.consoleWarning.should.not.have.been.called()
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: []
+      })
+      hx.consoleWarning.should.not.have.been.called()
+
+    it 'should log a warning from the autocomplete if autocompleteData is neither an array nor a function', ->
+      hx.consoleWarning.should.not.have.been.called()
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: "this is stupid"
+      })
+      hx.consoleWarning.should.have.been.called()
+
+    it 'should filter out autocompleted items that do not pass the validity check', (done) ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['a', 'b', 'c', 1, 'd']
+        validator: (name) -> if not isNaN(Number(name)) then "please enter text"
+      })
+
+      expect(ti._.autocomplete).to.not.be.undefined
+      acSpy = chai.spy (result) ->
+        result.should.eql(['a', 'b', 'c', 'd'])
+        done()
+
+      ti._.autocomplete.data(undefined, acSpy)
+      acSpy.should.have.been.called()
+
+    it 'should set the mustMatch option on the autocomplete options if the mustMatchAutocomplete option is true', ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['a', 'b', 'c']
+      })
+      expect(ti._.autocomplete.options.mustMatch).to.be.true
+
+    it 'should not set the mustMatch option on the autocomplete options if the mustMatchAutocomplete option is false', ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['a', 'b', 'c']
+        mustMatchAutocomplete: false
+      })
+      expect(ti._.autocomplete.options.mustMatch).to.be.false
