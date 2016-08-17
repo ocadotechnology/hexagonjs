@@ -59,6 +59,18 @@ calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect
     direction: direction
   }
 
+dropdownContentToSetupDropdown = (dropdownContent) ->
+  setupDropdown = switch
+    when hx.isString dropdownContent
+      (node) -> hx.select(node).html(dropdownContent)
+    when hx.isFunction dropdownContent
+      dropdownContent
+    else
+      hx.consoleWarning 'dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent
+      -> undefined
+
+
+
 class Dropdown extends hx.EventEmitter
 
   constructor: (selector, dropdownContent, options) ->
@@ -76,14 +88,7 @@ class Dropdown extends hx.EventEmitter
       ddClass: ''
     }, options)
 
-    setupDropdown = switch
-      when hx.isString(dropdownContent)
-        (node) -> hx.select(node).html(dropdownContent)
-      when hx.isFunction(dropdownContent)
-        (node) -> dropdownContent(node)
-      else
-        hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
-        () ->
+    setupDropdown = dropdownContentToSetupDropdown dropdownContent
 
     clickDetector = new hx.ClickDetector
     clickDetector.on 'click', 'hx.dropdown', => @hide()
@@ -123,6 +128,20 @@ class Dropdown extends hx.EventEmitter
       selection.on('mouseover', 'hx.dropdown', onmouseover)
       selection.on('mouseout', 'hx.dropdown', onmouseout)
 
+  dropdownContent: (dropdownContent) ->
+    if arguments.length
+      setupDropdown = dropdownContentToSetupDropdown dropdownContent
+      @_ = hx.shallowMerge @_, {
+        setupDropdown,
+        dropdownContent
+      }
+      @render()
+      this
+    else
+      @_.dropdownContent
+
+
+
   addException: (node) ->
     @_.clickDetector.addException(node)
     this
@@ -135,10 +154,18 @@ class Dropdown extends hx.EventEmitter
     if @isOpen() then @hide(cb) else @show(cb)
     this
 
+  render: ->
+    @_.setupDropdown @_.dropdown.node()
+    @emit 'render'
+    this
+
   show: (cb) ->
     _ = @_
 
-    if not _.visible
+    if _.visible
+      @render()
+      cb?()
+    else
       _.visible = true
 
       _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown')
@@ -146,7 +173,7 @@ class Dropdown extends hx.EventEmitter
       if @options.ddClass.length > 0
         _.dropdown.classed(@options.ddClass, true)
 
-      _.setupDropdown(_.dropdown.node())
+      @render()
       _.clickDetector.removeAllExceptions()
       _.clickDetector.addException(_.dropdown.node())
       _.clickDetector.addException(_.selection.node())
@@ -193,7 +220,7 @@ class Dropdown extends hx.EventEmitter
         .morph()
           .with('fadein', 150)
           .and('expandv', 150)
-          .and =>
+          .and ->
             _.dropdown.animate().style('top', y + 'px', 150)
           .then =>
             if _.useScroll and _.dropdown?
