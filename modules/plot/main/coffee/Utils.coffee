@@ -204,7 +204,6 @@ search = (array, find, lookup) ->
 findLabel = (array, find, interpolate, interpolateValues) ->
   i = search(array, find, (d) -> d.x)
   if i > -1
-    atEdge = i is 0 or i is array.length - 1
     if interpolate
       closest = array[i]
       dist = find - closest.x
@@ -214,9 +213,9 @@ findLabel = (array, find, interpolate, interpolateValues) ->
         nextClosest = array[if inLower then i-1 else i+1]
         interpolated = interpolateValues find, closest, nextClosest, (yClosest, yNextClosest) ->
           yClosest + (yClosest - yNextClosest) * dist / (closest.x - nextClosest.x)
-        if interpolated? then interpolated else if not atEdge then array[i]
-      else if not atEdge then array[i]
-    else if not atEdge then array[i]
+        if interpolated? then interpolated else array[i]
+      else array[i]
+    else array[i]
 
 # creates label canditate label points for all the sections of data in a series, then picks the
 # one that is closest to the mouse
