@@ -113,7 +113,7 @@
 
           @property filterOptions [Object]
             @description
-              @p: The options to use when filtering internally. The available options can be found on the @hyperlink(../../filter)[Filter] page.
+              @p: The options to use when filtering internally. The available options can be found on the @hyperlink(../filter)[Filter] page.
               @p: The default @code[searchValues] option uses the passed in valueLookup to search on
 
           @property matchType [String]
