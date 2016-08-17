@@ -142,7 +142,6 @@
   },
   "dateLocalizer": {},
   "numberPicker": {},
-  "resizeEvents": {},
   "menu": {
     "defaultCol": "#FFFFFF",
     "defaultHoverCol": "#F9F9F9",
@@ -164,6 +163,7 @@
     "defaultBorderCol": "transparent",
     "borderWidth": "2px"
   },
+  "resizeEvents": {},
   "autocompleteFeed": {},
   "datePicker": {
     "todayBackgroundCol": "#FFFFFF",
@@ -193,6 +193,7 @@
     "iconCol": "white",
     "iconBackgroundCol": "#00ADA8"
   },
+  "autocomplete": {},
   "dragContainer": {
     "dragPlaceholderBorderCol": "#D0D0D0"
   },
@@ -271,7 +272,6 @@
     "toggleOffCol": "#ABABAB",
     "toggleOnCol": "#B2BA32"
   },
-  "autocomplete": {},
   "autocompletePicker": {},
   "dateTimePicker": {
     "borderCol": "#DADADA"

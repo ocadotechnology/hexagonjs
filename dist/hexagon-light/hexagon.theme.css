@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.5.1
+ Version: 1.6.0
  Theme: hexagon-light
  Modules:
    set
@@ -44,11 +44,12 @@
    input-group
    date-localizer
    number-picker
-   resize-events
    menu
+   resize-events
    autocomplete-feed
    date-picker
    time-picker
+   autocomplete
    drag-container
    layout
    progress-bar
@@ -60,7 +61,6 @@
    sticky-table-headers
    table
    toggle
-   autocomplete
    autocomplete-picker
    date-time-picker
    tag-input
@@ -545,7 +545,6 @@ hr {
 
 
 
-
 .hx-menu-item {
   color: #3D3D3D;
   background: #FFFFFF; }
@@ -680,6 +679,7 @@ hr {
   color: #3D3D3D; }
 
 
+
 .hx-date-picker {
   background: white;
   border-color: #DADADA; }
@@ -735,6 +735,7 @@ hr {
   .hx-time-picker.hx-time-error {
     background: #FCBFBF;
     outline: solid 1px #DE1A4A; }
+
 
 .hx-drag-placeholder div {
   border-color: #D0D0D0; }
@@ -959,7 +960,6 @@ hr {
     background: #D5D5D5; }
     .hx-toggle > .hx-toggle-box.hx-toggle-box-on:before {
       background: #B2BA32; }
-
 
 
 

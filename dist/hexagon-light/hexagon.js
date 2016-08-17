@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.5.1
+ Version: 1.6.0
  Theme: hexagon-light
  Modules:
    set
@@ -44,11 +44,12 @@
    input-group
    date-localizer
    number-picker
-   resize-events
    menu
+   resize-events
    autocomplete-feed
    date-picker
    time-picker
+   autocomplete
    drag-container
    layout
    progress-bar
@@ -60,7 +61,6 @@
    sticky-table-headers
    table
    toggle
-   autocomplete
    autocomplete-picker
    date-time-picker
    tag-input
@@ -238,7 +238,6 @@ hx.theme = {
   },
   "dateLocalizer": {},
   "numberPicker": {},
-  "resizeEvents": {},
   "menu": {
     "defaultCol": "#FFFFFF",
     "defaultHoverCol": "#F9F9F9",
@@ -260,6 +259,7 @@ hx.theme = {
     "defaultBorderCol": "transparent",
     "borderWidth": "2px"
   },
+  "resizeEvents": {},
   "autocompleteFeed": {},
   "datePicker": {
     "todayBackgroundCol": "#FFFFFF",
@@ -289,6 +289,7 @@ hx.theme = {
     "iconCol": "white",
     "iconBackgroundCol": "#00ADA8"
   },
+  "autocomplete": {},
   "dragContainer": {
     "dragPlaceholderBorderCol": "#D0D0D0"
   },
@@ -367,7 +368,6 @@ hx.theme = {
     "toggleOffCol": "#ABABAB",
     "toggleOnCol": "#B2BA32"
   },
-  "autocomplete": {},
   "autocompletePicker": {},
   "dateTimePicker": {
     "borderCol": "#DADADA"
@@ -5682,7 +5682,7 @@ hx.preferences.localStorageStore = LocalStoragePreferencesStore;
 })();
 
 (function(){
-var Dropdown, calculateDropdownPosition, checkFixedPos, dropdownAnimateSlideDistance,
+var Dropdown, calculateDropdownPosition, checkFixedPos, dropdownAnimateSlideDistance, dropdownContentToSetupDropdown,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -5742,6 +5742,25 @@ calculateDropdownPosition = function(alignments, selectionRect, dropdownRect, wi
   };
 };
 
+dropdownContentToSetupDropdown = function(dropdownContent) {
+  var setupDropdown;
+  return setupDropdown = (function() {
+    switch (false) {
+      case !hx.isString(dropdownContent):
+        return function(node) {
+          return hx.select(node).html(dropdownContent);
+        };
+      case !hx.isFunction(dropdownContent):
+        return dropdownContent;
+      default:
+        hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent);
+        return function() {
+          return void 0;
+        };
+    }
+  })();
+};
+
 Dropdown = (function(superClass) {
   extend(Dropdown, superClass);
 
@@ -5756,21 +5775,7 @@ Dropdown = (function(superClass) {
       matchWidth: true,
       ddClass: ''
     }, options);
-    setupDropdown = (function() {
-      switch (false) {
-        case !hx.isString(dropdownContent):
-          return function(node) {
-            return hx.select(node).html(dropdownContent);
-          };
-        case !hx.isFunction(dropdownContent):
-          return function(node) {
-            return dropdownContent(node);
-          };
-        default:
-          hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent);
-          return function() {};
-      }
-    })();
+    setupDropdown = dropdownContentToSetupDropdown(dropdownContent);
     clickDetector = new hx.ClickDetector;
     clickDetector.on('click', 'hx.dropdown', (function(_this) {
       return function() {
@@ -5829,6 +5834,21 @@ Dropdown = (function(superClass) {
     }
   }
 
+  Dropdown.prototype.dropdownContent = function(dropdownContent) {
+    var setupDropdown;
+    if (arguments.length) {
+      setupDropdown = dropdownContentToSetupDropdown(dropdownContent);
+      this._ = hx.shallowMerge(this._, {
+        setupDropdown: setupDropdown,
+        dropdownContent: dropdownContent
+      });
+      this.render();
+      return this;
+    } else {
+      return this._.dropdownContent;
+    }
+  };
+
   Dropdown.prototype.addException = function(node) {
     this._.clickDetector.addException(node);
     return this;
@@ -5848,16 +5868,27 @@ Dropdown = (function(superClass) {
     return this;
   };
 
+  Dropdown.prototype.render = function() {
+    this._.setupDropdown(this._.dropdown.node());
+    this.emit('render');
+    return this;
+  };
+
   Dropdown.prototype.show = function(cb) {
     var _, ddMaxHeight, dropdownRect, parentFixed, parentZIndex, rect, ref, x, y;
     _ = this._;
-    if (!_.visible) {
+    if (_.visible) {
+      this.render();
+      if (typeof cb === "function") {
+        cb();
+      }
+    } else {
       _.visible = true;
       _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown');
       if (this.options.ddClass.length > 0) {
         _.dropdown.classed(this.options.ddClass, true);
       }
-      _.setupDropdown(_.dropdown.node());
+      this.render();
       _.clickDetector.removeAllExceptions();
       _.clickDetector.addException(_.dropdown.node());
       _.clickDetector.addException(_.selection.node());
@@ -5892,11 +5923,9 @@ Dropdown = (function(superClass) {
       if (this.options.matchWidth) {
         _.dropdown.style('min-width', rect.width + 'px');
       }
-      _.dropdown.style('left', x + 'px').style('top', (y + dropdownAnimateSlideDistance) + 'px').style('height', '0px').style('opacity', 0).style('margin-top', this.options.dropdown).morph()["with"]('fadein', 150).and('expandv', 150).and((function(_this) {
-        return function() {
-          return _.dropdown.animate().style('top', y + 'px', 150);
-        };
-      })(this)).then((function(_this) {
+      _.dropdown.style('left', x + 'px').style('top', (y + dropdownAnimateSlideDistance) + 'px').style('height', '0px').style('opacity', 0).style('margin-top', this.options.dropdown).morph()["with"]('fadein', 150).and('expandv', 150).and(function() {
+        return _.dropdown.animate().style('top', y + 'px', 150);
+      }).then((function(_this) {
         return function() {
           if (_.useScroll && (_.dropdown != null)) {
             _.dropdown.style('overflow-y', 'auto');
@@ -6424,7 +6453,7 @@ hx.dateTimeLocalizer = dateTimeLocalizer;
 
 })();
 (function(){
-var NumberPicker, checkValue,
+var NumberPicker, addHoldHandler, checkValue,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -6444,11 +6473,47 @@ checkValue = function(numberPicker, context) {
   }
 };
 
+addHoldHandler = function(incrementOnHold, incrementDelay, selection, incrementFn) {
+  var clearTimers, holdStart, holdTimeout, incrementInterval;
+  if (incrementOnHold) {
+    holdStart = void 0;
+    holdTimeout = void 0;
+    incrementInterval = void 0;
+    clearTimers = function() {
+      clearTimeout(holdTimeout);
+      return clearInterval(incrementInterval);
+    };
+    selection.on('pointerdown', 'hx.number-picker', function(e) {
+      var fn;
+      holdStart = Date.now();
+      document.activeElement.blur();
+      e.event.preventDefault();
+      fn = function() {
+        return incrementInterval = setInterval((function() {
+          return incrementFn();
+        }), incrementDelay);
+      };
+      return holdTimeout = setTimeout(fn, 200);
+    });
+    selection.on('pointerup', 'hx.number-picker', function() {
+      clearTimers();
+      if ((Date.now() - holdStart) < 200) {
+        return incrementFn();
+      }
+    });
+    return selection.on('pointerleave', 'hx.number-picker', clearTimers);
+  } else {
+    return selection.on('click', 'hx.number-picker', function() {
+      return incrementFn();
+    });
+  }
+};
+
 NumberPicker = (function(superClass) {
   extend(NumberPicker, superClass);
 
   function NumberPicker(selector, options) {
-    var button, container, select;
+    var container, decrementButton, incrementButton, selection;
     this.selector = selector;
     NumberPicker.__super__.constructor.apply(this, arguments);
     hx.component.register(this.selector, this);
@@ -6457,37 +6522,33 @@ NumberPicker = (function(superClass) {
       min: void 0,
       max: void 0,
       disabled: false,
-      value: 0
+      value: 0,
+      incrementOnHold: true,
+      incrementDelay: 50
     }, options);
     this._ = {};
     container = hx.select(this.selector);
-    select = container["class"]('hx-number-picker');
-    button = select.append('button').attr('type', 'button')["class"]('hx-btn ' + this.options.buttonClass);
-    button.append('i')["class"]('hx-icon hx-icon-chevron-up');
-    button.on('click', 'hx.number-picker', (function(_this) {
+    selection = container["class"]('hx-number-picker');
+    incrementButton = selection.append('button').attr('type', 'button')["class"]('hx-number-picker-increment hx-btn ' + this.options.buttonClass);
+    incrementButton.append('i')["class"]('hx-icon hx-icon-chevron-up');
+    addHoldHandler(this.options.incrementOnHold, this.options.incrementDelay, incrementButton, (function(_this) {
       return function() {
         return _this.increment();
       };
     })(this));
-    this.selectInput = select.append('input');
+    this.selectInput = selection.append('input');
     this.selectInput.attr('type', 'number');
     this.selectInput.on('blur', 'hx.number-picker', (function(_this) {
       return function() {
-        if (_this.selectInput.attr('readonly') == null) {
-          checkValue(_this, _this.selectInput);
-          _this.selectInput.attr('data-value', _this.selectInput.value());
-        }
         _this.emit('input-change', {
           value: _this.value()
         });
-        return _this.emit('change', {
-          value: _this.value()
-        });
+        return _this.value(void 0, _this.selectInput.value());
       };
     })(this));
-    button = select.append('button').attr('type', 'button')["class"]('hx-btn ' + this.options.buttonClass);
-    button.append('i')["class"]('hx-icon hx-icon-chevron-down');
-    button.on('click', 'hx.number-picker', (function(_this) {
+    decrementButton = selection.append('button').attr('type', 'button')["class"]('hx-number-picker-decrement hx-btn ' + this.options.buttonClass);
+    decrementButton.append('i')["class"]('hx-icon hx-icon-chevron-down');
+    addHoldHandler(this.options.incrementOnHold, this.options.incrementDelay, decrementButton, (function(_this) {
       return function() {
         return _this.decrement();
       };
@@ -6505,22 +6566,17 @@ NumberPicker = (function(superClass) {
   }
 
   NumberPicker.prototype.value = function(value, screenValue) {
-    var prevValue;
+    var newVal, prevValue;
     if (arguments.length > 0) {
       prevValue = this.value();
-      if (this._.max !== void 0 && value > this._.max) {
-        value = this._.max;
+      newVal = (value == null) && screenValue ? screenValue : value;
+      if (this._.max !== void 0 && newVal > this._.max) {
+        newVal = this._.max;
       }
-      if (this._.min !== void 0 && value < this._.min) {
-        value = this._.min;
+      if (this._.min !== void 0 && newVal < this._.min) {
+        newVal = this._.min;
       }
-      if (screenValue && isNaN(screenValue)) {
-        this.selectInput.attr('type', 'text').attr('readonly', '');
-      } else {
-        this.selectInput.attr('type', 'number').node().removeAttribute('readonly');
-      }
-      this.selectInput.value(screenValue || value);
-      this.selectInput.attr('data-value', value);
+      this.selectInput.attr('type', 'text').attr('data-value', newVal).attr('readonly', screenValue && isNaN(screenValue) ? 'readonly' : void 0).value(screenValue || newVal);
       if (prevValue !== value) {
         this.emit('change', {
           value: value
@@ -6556,20 +6612,24 @@ NumberPicker = (function(superClass) {
 
   NumberPicker.prototype.increment = function() {
     var prevValue;
-    prevValue = this.value();
-    this.value(this.value() + 1);
-    if (prevValue !== this.value()) {
-      this.emit('increment');
+    if (!this.options.disabled) {
+      prevValue = this.value();
+      this.value(this.value() + 1);
+      if (prevValue !== this.value()) {
+        this.emit('increment');
+      }
     }
     return this;
   };
 
   NumberPicker.prototype.decrement = function() {
     var prevValue;
-    prevValue = this.value();
-    this.value(this.value() - 1);
-    if (prevValue !== this.value()) {
-      this.emit('decrement');
+    if (!this.options.disabled) {
+      prevValue = this.value();
+      this.value(this.value() - 1);
+      if (prevValue !== this.value()) {
+        this.emit('decrement');
+      }
     }
     return this;
   };
@@ -6578,11 +6638,12 @@ NumberPicker = (function(superClass) {
     var dis;
     if (disable != null) {
       this.options.disabled = disable;
-      dis = disable ? true : void 0;
+      dis = disable ? 'disabled' : void 0;
       hx.select(this.selector).selectAll('button').forEach(function(e) {
         return e.attr('disabled', dis);
       });
-      return this.selectInput.attr('disabled', dis);
+      this.selectInput.attr('disabled', dis);
+      return this;
     } else {
       return this.options.disabled;
     }
@@ -6600,188 +6661,6 @@ hx.numberPicker = function(options) {
 };
 
 hx.NumberPicker = NumberPicker;
-
-})();
-(function(){
-var addResizeListener, initializeResizeListeners, removeResizeListener;
-
-addResizeListener = void 0;
-
-removeResizeListener = void 0;
-
-
-/**
-* Detect Element Resize
-*
-* https://github.com/sdecima/javascript-detect-element-resize
-* Sebastian Decima
-*
-* version: 0.5.3
-*
- */
-
-initializeResizeListeners = function() {
-  var animation, animationKeyframes, animationName, animationStyle, animationstartevent, animationstring, attachEvent, cancelFrame, checkTriggers, createStyles, domPrefixes, elm, i, keyframeprefix, pfx, requestFrame, resetTriggers, scrollListener, startEvents, stylesCreated;
-  attachEvent = document.attachEvent;
-  stylesCreated = false;
-  resetTriggers = function(element) {
-    var contract, expand, expandChild, triggers;
-    triggers = element.__resizeTriggers__;
-    expand = triggers.firstElementChild;
-    contract = triggers.lastElementChild;
-    expandChild = expand.firstElementChild;
-    contract.scrollLeft = contract.scrollWidth;
-    contract.scrollTop = contract.scrollHeight;
-    expandChild.style.width = expand.offsetWidth + 1 + 'px';
-    expandChild.style.height = expand.offsetHeight + 1 + 'px';
-    expand.scrollLeft = expand.scrollWidth;
-    expand.scrollTop = expand.scrollHeight;
-  };
-  checkTriggers = function(element) {
-    return element.offsetWidth !== element.__resizeLast__.width || element.offsetHeight !== element.__resizeLast__.height;
-  };
-  scrollListener = function(e) {
-    var element;
-    element = this;
-    resetTriggers(this);
-    if (this.__resizeRAF__) {
-      cancelFrame(this.__resizeRAF__);
-    }
-    this.__resizeRAF__ = requestFrame(function() {
-      if (checkTriggers(element)) {
-        element.__resizeLast__.width = element.offsetWidth;
-        element.__resizeLast__.height = element.offsetHeight;
-        element.__resizeListeners__.forEach(function(fn) {
-          fn.call(element, e);
-        });
-      }
-    });
-  };
-  createStyles = function() {
-    var css, head, style;
-    if (!stylesCreated) {
-      css = (animationKeyframes ? animationKeyframes : '') + '.resize-triggers { ' + (animationStyle ? animationStyle : '') + 'visibility: hidden; opacity: 0; z-index: -1;} ' + '.resize-triggers, .resize-triggers > div, .contract-trigger:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }';
-      head = document.head || document.getElementsByTagName('head')[0];
-      style = document.createElement('style');
-      style.type = 'text/css';
-      if (style.styleSheet) {
-        style.styleSheet.cssText = css;
-      } else {
-        style.appendChild(document.createTextNode(css));
-      }
-      head.appendChild(style);
-      stylesCreated = true;
-    }
-  };
-  if (!attachEvent) {
-    requestFrame = (function() {
-      var raf;
-      raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function(fn) {
-        return window.setTimeout(fn, 20);
-      };
-      return function(fn) {
-        return raf(fn);
-      };
-    })();
-    cancelFrame = (function() {
-      var cancel;
-      cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.clearTimeout;
-      return function(id) {
-        return cancel(id);
-      };
-    })();
-
-    /* Detect CSS Animations support to detect element display/re-attach */
-    animation = false;
-    animationstring = 'animation';
-    keyframeprefix = '';
-    animationstartevent = 'animationstart';
-    domPrefixes = 'Webkit Moz O ms'.split(' ');
-    startEvents = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' ');
-    pfx = '';
-    elm = document.createElement('fakeelement');
-    if (elm.style.animationName !== void 0) {
-      animation = true;
-    }
-    if (animation === false) {
-      i = 0;
-    }
-    while (i < domPrefixes.length) {
-      if (elm.style[domPrefixes[i] + 'AnimationName'] !== void 0) {
-        pfx = domPrefixes[i];
-        animationstring = pfx + 'Animation';
-        keyframeprefix = '-' + pfx.toLowerCase() + '-';
-        animationstartevent = startEvents[i];
-        animation = true;
-        break;
-      }
-      i++;
-    }
-    animationName = 'resizeanim';
-    animationKeyframes = '@' + keyframeprefix + 'keyframes ' + animationName + ' { from { opacity: 0; } to { opacity: 0; } } ';
-    animationStyle = keyframeprefix + 'animation: 1ms ' + animationName + '; ';
-  }
-  addResizeListener = function(element, fn) {
-    if (attachEvent) {
-      element.attachEvent('onresize', fn);
-    } else {
-      if (!element.__resizeTriggers__) {
-        if (getComputedStyle(element).position === 'static') {
-          element.style.position = 'relative';
-        }
-        createStyles();
-        element.__resizeLast__ = {};
-        element.__resizeListeners__ = [];
-        (element.__resizeTriggers__ = document.createElement('div')).className = 'resize-triggers';
-        element.__resizeTriggers__.innerHTML = '<div class="expand-trigger"><div></div></div>' + '<div class="contract-trigger"></div>';
-        element.appendChild(element.__resizeTriggers__);
-        resetTriggers(element);
-        element.addEventListener('scroll', scrollListener, true);
-
-        /* Listen for a css animation to detect element display/re-attach */
-        animationstartevent && element.__resizeTriggers__.addEventListener(animationstartevent, function(e) {
-          if (e.animationName === animationName) {
-            resetTriggers(element);
-          }
-        });
-      }
-      element.__resizeListeners__.push(fn);
-    }
-  };
-  removeResizeListener = function(element, fn) {
-    if (attachEvent) {
-      element.detachEvent('onresize', fn);
-    } else {
-      element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
-      if (!element.__resizeListeners__.length) {
-        element.removeEventListener('scroll', scrollListener);
-        element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__);
-      }
-    }
-  };
-};
-
-hx.select.addEventAugmenter({
-  name: 'resize',
-  setup: function(node, eventEmitter) {
-    var handler;
-    if (typeof addResizeListener === "undefined" || addResizeListener === null) {
-      initializeResizeListeners();
-    }
-    handler = function(e) {
-      var box;
-      box = hx.select(node).box();
-      return eventEmitter.emit('resize', {
-        clientRect: box,
-        event: e
-      });
-    };
-    addResizeListener(node, handler);
-    return function() {
-      return removeResizeListener(node, handler);
-    };
-  }
-});
 
 })();
 (function(){
@@ -7210,6 +7089,188 @@ Menu = (function(superClass) {
 })(hx.EventEmitter);
 
 hx.Menu = Menu;
+
+})();
+(function(){
+var addResizeListener, initializeResizeListeners, removeResizeListener;
+
+addResizeListener = void 0;
+
+removeResizeListener = void 0;
+
+
+/**
+* Detect Element Resize
+*
+* https://github.com/sdecima/javascript-detect-element-resize
+* Sebastian Decima
+*
+* version: 0.5.3
+*
+ */
+
+initializeResizeListeners = function() {
+  var animation, animationKeyframes, animationName, animationStyle, animationstartevent, animationstring, attachEvent, cancelFrame, checkTriggers, createStyles, domPrefixes, elm, i, keyframeprefix, pfx, requestFrame, resetTriggers, scrollListener, startEvents, stylesCreated;
+  attachEvent = document.attachEvent;
+  stylesCreated = false;
+  resetTriggers = function(element) {
+    var contract, expand, expandChild, triggers;
+    triggers = element.__resizeTriggers__;
+    expand = triggers.firstElementChild;
+    contract = triggers.lastElementChild;
+    expandChild = expand.firstElementChild;
+    contract.scrollLeft = contract.scrollWidth;
+    contract.scrollTop = contract.scrollHeight;
+    expandChild.style.width = expand.offsetWidth + 1 + 'px';
+    expandChild.style.height = expand.offsetHeight + 1 + 'px';
+    expand.scrollLeft = expand.scrollWidth;
+    expand.scrollTop = expand.scrollHeight;
+  };
+  checkTriggers = function(element) {
+    return element.offsetWidth !== element.__resizeLast__.width || element.offsetHeight !== element.__resizeLast__.height;
+  };
+  scrollListener = function(e) {
+    var element;
+    element = this;
+    resetTriggers(this);
+    if (this.__resizeRAF__) {
+      cancelFrame(this.__resizeRAF__);
+    }
+    this.__resizeRAF__ = requestFrame(function() {
+      if (checkTriggers(element)) {
+        element.__resizeLast__.width = element.offsetWidth;
+        element.__resizeLast__.height = element.offsetHeight;
+        element.__resizeListeners__.forEach(function(fn) {
+          fn.call(element, e);
+        });
+      }
+    });
+  };
+  createStyles = function() {
+    var css, head, style;
+    if (!stylesCreated) {
+      css = (animationKeyframes ? animationKeyframes : '') + '.resize-triggers { ' + (animationStyle ? animationStyle : '') + 'visibility: hidden; opacity: 0; z-index: -1;} ' + '.resize-triggers, .resize-triggers > div, .contract-trigger:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }';
+      head = document.head || document.getElementsByTagName('head')[0];
+      style = document.createElement('style');
+      style.type = 'text/css';
+      if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+      head.appendChild(style);
+      stylesCreated = true;
+    }
+  };
+  if (!attachEvent) {
+    requestFrame = (function() {
+      var raf;
+      raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function(fn) {
+        return window.setTimeout(fn, 20);
+      };
+      return function(fn) {
+        return raf(fn);
+      };
+    })();
+    cancelFrame = (function() {
+      var cancel;
+      cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.clearTimeout;
+      return function(id) {
+        return cancel(id);
+      };
+    })();
+
+    /* Detect CSS Animations support to detect element display/re-attach */
+    animation = false;
+    animationstring = 'animation';
+    keyframeprefix = '';
+    animationstartevent = 'animationstart';
+    domPrefixes = 'Webkit Moz O ms'.split(' ');
+    startEvents = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' ');
+    pfx = '';
+    elm = document.createElement('fakeelement');
+    if (elm.style.animationName !== void 0) {
+      animation = true;
+    }
+    if (animation === false) {
+      i = 0;
+    }
+    while (i < domPrefixes.length) {
+      if (elm.style[domPrefixes[i] + 'AnimationName'] !== void 0) {
+        pfx = domPrefixes[i];
+        animationstring = pfx + 'Animation';
+        keyframeprefix = '-' + pfx.toLowerCase() + '-';
+        animationstartevent = startEvents[i];
+        animation = true;
+        break;
+      }
+      i++;
+    }
+    animationName = 'resizeanim';
+    animationKeyframes = '@' + keyframeprefix + 'keyframes ' + animationName + ' { from { opacity: 0; } to { opacity: 0; } } ';
+    animationStyle = keyframeprefix + 'animation: 1ms ' + animationName + '; ';
+  }
+  addResizeListener = function(element, fn) {
+    if (attachEvent) {
+      element.attachEvent('onresize', fn);
+    } else {
+      if (!element.__resizeTriggers__) {
+        if (getComputedStyle(element).position === 'static') {
+          element.style.position = 'relative';
+        }
+        createStyles();
+        element.__resizeLast__ = {};
+        element.__resizeListeners__ = [];
+        (element.__resizeTriggers__ = document.createElement('div')).className = 'resize-triggers';
+        element.__resizeTriggers__.innerHTML = '<div class="expand-trigger"><div></div></div>' + '<div class="contract-trigger"></div>';
+        element.appendChild(element.__resizeTriggers__);
+        resetTriggers(element);
+        element.addEventListener('scroll', scrollListener, true);
+
+        /* Listen for a css animation to detect element display/re-attach */
+        animationstartevent && element.__resizeTriggers__.addEventListener(animationstartevent, function(e) {
+          if (e.animationName === animationName) {
+            resetTriggers(element);
+          }
+        });
+      }
+      element.__resizeListeners__.push(fn);
+    }
+  };
+  removeResizeListener = function(element, fn) {
+    if (attachEvent) {
+      element.detachEvent('onresize', fn);
+    } else {
+      element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
+      if (!element.__resizeListeners__.length) {
+        element.removeEventListener('scroll', scrollListener);
+        element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__);
+      }
+    }
+  };
+};
+
+hx.select.addEventAugmenter({
+  name: 'resize',
+  setup: function(node, eventEmitter) {
+    var handler;
+    if (typeof addResizeListener === "undefined" || addResizeListener === null) {
+      initializeResizeListeners();
+    }
+    handler = function(e) {
+      var box;
+      box = hx.select(node).box();
+      return eventEmitter.emit('resize', {
+        clientRect: box,
+        event: e
+      });
+    };
+    addResizeListener(node, handler);
+    return function() {
+      return removeResizeListener(node, handler);
+    };
+  }
+});
 
 })();
 (function(){
@@ -8467,6 +8528,410 @@ hx.TimePicker = TimePicker;
 
 })();
 (function(){
+var AutoComplete, buildAutoComplete, findTerm, showAutoComplete,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  autoComplete: {
+    loading: 'Loading...',
+    noResultsFound: 'No results found',
+    otherResults: 'Other Results',
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+  }
+});
+
+findTerm = function(term, forceMatch) {
+  var _, allData, data, dataMatches, filteredData, heading, matches, remainingResults, self;
+  self = this;
+  _ = this._;
+  if (_.prevTerm == null) {
+    _.prevTerm = '';
+  }
+  allData = _.data.get(term);
+  if (term.length >= _.prevTerm.length) {
+    if (allData == null) {
+      allData = _.data.get(_.prevTerm);
+    }
+  }
+  if (allData == null) {
+    allData = _.data.get('');
+  }
+  _.prevTerm = term;
+  filteredData = this.options.matchType === 'external' ? allData : term.length === 0 && !this.options.showAll ? [] : this.options.filter(allData, term);
+  dataMatches = allData.length === filteredData.length && allData.length > 0;
+  if (this.options.showOtherResults && !forceMatch && !dataMatches) {
+    matches = filteredData.length > 0 ? filteredData : [
+      {
+        unselectable: true,
+        text: self.options.noResultsMessage
+      }
+    ];
+    heading = [
+      {
+        unselectable: true,
+        heading: true,
+        text: self.options.otherResultsMessage
+      }
+    ];
+    remainingResults = filteredData.length === 0 ? allData : (data = allData.filter(function(d) {
+      if (filteredData.some(function(e) {
+        return e === d;
+      })) {
+        return false;
+      } else {
+        return true;
+      }
+    }), (this.options.filterOptions.sort == null) || this.options.filterOptions.sort ? this.options.inputMap != null ? data = data.sort(function(a, b) {
+      a = self.options.inputMap(a);
+      b = self.options.inputMap(b);
+      return hx.sort.compare(a, b);
+    }) : data = data.sort(hx.sort.compare) : void 0, data);
+    remainingResults = heading.concat(remainingResults.sort(function(a, b) {
+      if (!a.disabled && b.disabled) {
+        return -1;
+      } else if (a.disabled && !b.disabled) {
+        return 1;
+      } else {
+        return hx.sort.compare(a.full, b.full);
+      }
+    }));
+    filteredData = matches.concat(remainingResults);
+  }
+  return filteredData;
+};
+
+buildAutoComplete = function(searchTerm, fromCallback, loading) {
+  var _, filteredData, items, message, self, trimAndReload;
+  self = this;
+  _ = this._;
+  if ((_.callback != null) && !fromCallback) {
+    if (searchTerm.length < this.options.minLength || (!this.options.showAll && searchTerm.length === 0)) {
+      _.data.set(searchTerm, []);
+      buildAutoComplete.call(self, searchTerm, true);
+    } else {
+      buildAutoComplete.call(self, searchTerm, true, true);
+      _.currentSearch = searchTerm;
+      if (!_.data.get(searchTerm)) {
+        _.data.set(searchTerm, true);
+        _.callback.call(self, searchTerm, function(returnData) {
+          if (!_.cleanUp) {
+            _.data.set(searchTerm, returnData);
+            if (_.currentSearch === searchTerm) {
+              return buildAutoComplete.call(self, searchTerm, true);
+            }
+          }
+        });
+      } else {
+        buildAutoComplete.call(self, searchTerm, true);
+      }
+    }
+  } else {
+    _.menu.cursorPos = -1;
+    filteredData = !loading ? this.options.matchType === 'external' ? _.data.get(searchTerm) : findTerm.call(self, searchTerm) : void 0;
+    message = {
+      unselectable: true,
+      text: ''
+    };
+    _.menu.items([]);
+    items = [];
+    trimAndReload = false;
+    if (filteredData == null) {
+      message.text = this.options.loadingMessage;
+    } else if (searchTerm.length < this.options.minLength) {
+      message.text = this.options.pleaseEnterMinCharactersMessage.replace('$minLength', this.options.minLength);
+    } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
+      if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
+        trimAndReload = true;
+      } else if (this.options.noResultsMessage.length > 0 && (this.options.noResultsMessage != null)) {
+        message.text = this.options.noResultsMessage;
+      }
+    } else if (searchTerm.length >= this.options.minLength && filteredData.length > 0) {
+      items = items.concat(filteredData);
+    }
+    if (message.text.length > 0) {
+      items = [message].concat(items);
+    }
+    if (items.length > 0) {
+      _.menu.items(items);
+      if (_.menu.dropdown.isOpen()) {
+        _.menu.dropdown._.setupDropdown(_.menu.dropdown._.dropdown.node());
+      } else {
+        _.menu.dropdown.show();
+      }
+    } else {
+      _.menu.hide();
+    }
+    if (trimAndReload) {
+      _.input.value(_.input.value().substring(0, _.input.value().length - 1));
+      buildAutoComplete.call(self, _.input.value(), fromCallback, loading);
+    }
+  }
+  return void 0;
+};
+
+showAutoComplete = function() {
+  this._.cleanUp = false;
+  return buildAutoComplete.call(this, this._.input.value() || '');
+};
+
+AutoComplete = (function(superClass) {
+  extend(AutoComplete, superClass);
+
+  function AutoComplete(selector, data1, options1) {
+    var _, _filterOpts, base, base1, base2, input, menu, self, timeout;
+    this.selector = selector;
+    this.data = data1;
+    this.options = options1 != null ? options1 : {};
+    AutoComplete.__super__.constructor.apply(this, arguments);
+    this._ = _ = {};
+    hx.component.register(this.selector, this);
+    _.ignoreMatch = false;
+    _.ignoreNextFocus = false;
+    self = this;
+    _.data = new hx.Map();
+    if (hx.isFunction(this.data)) {
+      _.callback = this.data;
+    } else {
+      _.data.set('', this.data);
+    }
+    if (!hx.isArray(this.data) && !hx.isFunction(this.data)) {
+      hx.consoleWarning('AutoComplete - ', this.selector, ': data set incorrectly - you supplied: ', this.data, ' but should have been an array of items or a function');
+    } else {
+      this.options = hx.merge({
+        minLength: 0,
+        showAll: true,
+        trimTrailingSpaces: false,
+        mustMatch: false,
+        inputMap: void 0,
+        renderer: void 0,
+        matchType: 'contains',
+        placeholder: void 0,
+        filter: void 0,
+        filterOptions: void 0,
+        showOtherResults: false,
+        allowTabCompletion: true,
+        loadingMessage: hx.userFacingText('autoComplete', 'loading'),
+        noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound'),
+        otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults'),
+        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
+      }, this.options);
+      if (this.options.inputMap != null) {
+        _filterOpts = {
+          searchValues: function(d) {
+            return [self.options.inputMap(d)];
+          }
+        };
+      }
+      this.options.filterOptions = hx.merge({}, _filterOpts, this.options.filterOptions);
+      if ((base = this.options).filter == null) {
+        base.filter = function(arr, term) {
+          return hx.filter[self.options.matchType](arr, term, self.options.filterOptions).sort(function(a, b) {
+            if (!a.disabled && b.disabled) {
+              return -1;
+            } else if (a.disabled && !b.disabled) {
+              return 1;
+            } else {
+              return hx.sort.compare(a, b);
+            }
+          });
+        };
+      }
+      if ((base1 = this.options).renderer == null) {
+        base1.renderer = this.options.inputMap != null ? function(elem, item) {
+          return hx.select(elem).text(self.options.inputMap(item));
+        } : function(elem, item) {
+          return hx.select(elem).text(item);
+        };
+      }
+      if ((base2 = this.options).placeholder == null) {
+        base2.placeholder = this.options.minLength > 0 ? "Min length " + this.options.minLength + " characters" : void 0;
+      }
+      input = hx.select(this.selector);
+      menu = new hx.Menu(this.selector, {
+        dropdownOptions: {
+          ddClass: 'hx-autocomplete-dropdown'
+        }
+      });
+      menu.pipe(this, '', ['highlight']);
+      menu.dropdown.pipe(this, 'dropdown');
+      hx.select(this.selector).off('click', 'hx.menu');
+      menu.on('input', 'hx.autocomplete', function(e) {
+        if (self.options.allowTabCompletion) {
+          if ((e.which || e.keyCode) === 9) {
+            return e.preventDefault();
+          }
+        }
+      });
+      _.setInputValue = this.options.inputMap != null ? function(d) {
+        input.value(self.options.inputMap(d));
+        return self.emit('change', d);
+      } : function(d) {
+        input.value(d);
+        return self.emit('change', d);
+      };
+      if (this.options.placeholder != null) {
+        input.attr('placeholder', this.options.placeholder);
+      }
+      input.on('focus', 'hx.autocomplete', function(e) {
+        if (!_.ignoreNextFocus) {
+          _.cleanUp = false;
+          return self.show();
+        }
+      });
+      input.on('blur', 'hx.autocomplete', function(e) {
+        if (e.relatedTarget != null) {
+          self.hide();
+        }
+        return _.ignoreNextFocus = false;
+      });
+      timeout = void 0;
+      input.on('input', 'hx.autocomplete', function() {
+        _.cleanUp = false;
+        clearTimeout(timeout);
+        _.initialValue = input.value();
+        return timeout = setTimeout(function() {
+          if (input.value() !== _.prevTerm) {
+            return buildAutoComplete.call(self, input.value() || '');
+          }
+        }, 200);
+      });
+      menu.renderer(function(elem, item) {
+        var selection;
+        selection = hx.select(elem);
+        selection.style('font-weight', '');
+        if (item.unselectable || item.heading) {
+          selection.text(item.text).off();
+          if (item.heading) {
+            return selection.style('font-weight', '600');
+          }
+        } else {
+          return self.options.renderer(elem, item);
+        }
+      });
+      menu.on('change', 'hx.autocomplete', function(d) {
+        var content;
+        content = d != null ? d.content : void 0;
+        if (content != null) {
+          if (!(content != null ? content.unselectable : void 0) && !(content != null ? content.heading : void 0) && !(content != null ? content.disabled : void 0)) {
+            if (d.eventType === 'tab') {
+              if (self.options.allowTabCompletion) {
+                _.setInputValue(content);
+                _.ignoreMatch = true;
+                return self.hide();
+              }
+            } else if (menu.cursorPos === -1 && (_.initialValue != null)) {
+              return input.value(_.initialValue);
+            } else {
+              _.setInputValue(content);
+              if (d.eventType === 'click' || d.eventType === 'enter') {
+                _.ignoreMatch = true;
+                self.hide();
+                return _.ignoreNextFocus = true;
+              }
+            }
+          }
+        } else if (d.eventType === 'enter') {
+          _.ignoreMatch = false;
+          self.hide();
+          return _.ignoreNextFocus = true;
+        }
+      });
+      _.checkValidity = function() {
+        var exactMatch;
+        _.cleanUp = true;
+        if (!_.ignoreMatch) {
+          if (self.options.mustMatch) {
+            if (input.value().length > 0) {
+              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : findTerm.call(self, input.value(), true);
+              if (exactMatch !== true && (exactMatch != null ? exactMatch.length : void 0) > 0) {
+                exactMatch = exactMatch != null ? exactMatch.filter(function(e) {
+                  e = self.options.inputMap != null ? self.options.inputMap(e) : e;
+                  return e.toLowerCase() === input.value().toLowerCase();
+                }) : void 0;
+                if ((exactMatch != null ? exactMatch.length : void 0) > 0) {
+                  _.setInputValue(exactMatch[0]);
+                } else {
+                  input.value('');
+                }
+              } else {
+                input.value('');
+              }
+            }
+          }
+        }
+        _.ignoreMatch = false;
+        self.clearCache();
+        return self.emit('hide', input.value());
+      };
+      menu.on('dropdown.change', 'hx.autocomplete', function(visible) {
+        if (!!visible) {
+          _.initialValue = input.value();
+          return menu.dropdown._.useScroll = true;
+        } else {
+          _.checkValidity();
+        }
+      });
+      menu.on('click', 'hx.autocomplete', function() {
+        return _.ignoreMatch = true;
+      });
+      _.menu = menu;
+      _.input = input;
+    }
+    this;
+  }
+
+  AutoComplete.prototype.clearCache = function() {
+    this._.data = new hx.Map();
+    if ((this.data != null) && !hx.isFunction(this.data)) {
+      this._.data.set('', this.data);
+    }
+    return this;
+  };
+
+  AutoComplete.prototype.show = function() {
+    this._.ignoreNextFocus = false;
+    showAutoComplete.call(this);
+    return this;
+  };
+
+  AutoComplete.prototype.value = function(value) {
+    if (arguments.length > 0) {
+      this._.setInputValue(value);
+      this._.checkValidity();
+      return this;
+    } else {
+      return this._.input.value();
+    }
+  };
+
+  AutoComplete.prototype.hide = function() {
+    var _;
+    _ = this._;
+    _.ignoreNextFocus = false;
+    if (_.menu.dropdown.isOpen()) {
+      _.menu.hide();
+      _.prevTerm = void 0;
+      _.cleanUp = true;
+    }
+    return this;
+  };
+
+  return AutoComplete;
+
+})(hx.EventEmitter);
+
+hx.autoComplete = function(data, options) {
+  var selection;
+  selection = hx.detached('input');
+  new AutoComplete(selection.node(), data, options);
+  return selection;
+};
+
+hx.AutoComplete = AutoComplete;
+
+})();
+(function(){
 var DragContainer, containerChildren, drag, endDrag, getGrid, startDrag,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -9080,12 +9545,11 @@ search = function(array, find, lookup) {
 };
 
 findLabel = function(array, find, interpolate, interpolateValues) {
-  var atEdge, closest, dist, i, inLower, inUpper, interpolated, nextClosest;
+  var closest, dist, i, inLower, inUpper, interpolated, nextClosest;
   i = search(array, find, function(d) {
     return d.x;
   });
   if (i > -1) {
-    atEdge = i === 0 || i === array.length - 1;
     if (interpolate) {
       closest = array[i];
       dist = find - closest.x;
@@ -9098,13 +9562,13 @@ findLabel = function(array, find, interpolate, interpolateValues) {
         });
         if (interpolated != null) {
           return interpolated;
-        } else if (!atEdge) {
+        } else {
           return array[i];
         }
-      } else if (!atEdge) {
+      } else {
         return array[i];
       }
-    } else if (!atEdge) {
+    } else {
       return array[i];
     }
   }
@@ -11752,11 +12216,13 @@ var Sparkline;
 
 Sparkline = (function() {
   function Sparkline(selector, options) {
-    var axis, graph, innerLabelRenderer, opts, series;
+    var axis, axisOptions, graph, innerLabelRenderer, opts, series;
     opts = hx.merge.defined({
       strokeColor: hx.theme.plot.colors[0],
       data: [],
       type: 'line',
+      min: void 0,
+      max: void 0,
       labelRenderer: function(element, obj) {
         return hx.select(element).text(obj.y + ' (' + obj.x + ')');
       },
@@ -11789,7 +12255,7 @@ Sparkline = (function() {
       };
       return;
     }
-    axis = graph.addAxis({
+    axisOptions = {
       x: {
         scaleType: opts.type === 'bar' ? 'discrete' : 'linear',
         visible: false
@@ -11799,7 +12265,14 @@ Sparkline = (function() {
         scalePaddingMin: 0.1,
         scalePaddingMax: 0.1
       }
-    });
+    };
+    if (opts.min != null) {
+      axisOptions.y.min = opts.min;
+    }
+    if (opts.max != null) {
+      axisOptions.y.max = opts.max;
+    }
+    axis = graph.addAxis(axisOptions);
     series = axis.addSeries(opts.type, {
       fillEnabled: true,
       labelRenderer: innerLabelRenderer
@@ -12725,410 +13198,6 @@ hx.Toggle = Toggle;
 
 })();
 (function(){
-var AutoComplete, buildAutoComplete, findTerm, showAutoComplete,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-hx.userFacingText({
-  autoComplete: {
-    loading: 'Loading...',
-    noResultsFound: 'No results found',
-    otherResults: 'Other Results',
-    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
-  }
-});
-
-findTerm = function(term, forceMatch) {
-  var _, allData, data, dataMatches, filteredData, heading, matches, remainingResults, self;
-  self = this;
-  _ = this._;
-  if (_.prevTerm == null) {
-    _.prevTerm = '';
-  }
-  allData = _.data.get(term);
-  if (term.length >= _.prevTerm.length) {
-    if (allData == null) {
-      allData = _.data.get(_.prevTerm);
-    }
-  }
-  if (allData == null) {
-    allData = _.data.get('');
-  }
-  _.prevTerm = term;
-  filteredData = this.options.matchType === 'external' ? allData : term.length === 0 && !this.options.showAll ? [] : this.options.filter(allData, term);
-  dataMatches = allData.length === filteredData.length && allData.length > 0;
-  if (this.options.showOtherResults && !forceMatch && !dataMatches) {
-    matches = filteredData.length > 0 ? filteredData : [
-      {
-        unselectable: true,
-        text: self.options.noResultsMessage
-      }
-    ];
-    heading = [
-      {
-        unselectable: true,
-        heading: true,
-        text: self.options.otherResultsMessage
-      }
-    ];
-    remainingResults = filteredData.length === 0 ? allData : (data = allData.filter(function(d) {
-      if (filteredData.some(function(e) {
-        return e === d;
-      })) {
-        return false;
-      } else {
-        return true;
-      }
-    }), (this.options.filterOptions.sort == null) || this.options.filterOptions.sort ? this.options.inputMap != null ? data = data.sort(function(a, b) {
-      a = self.options.inputMap(a);
-      b = self.options.inputMap(b);
-      return hx.sort.compare(a, b);
-    }) : data = data.sort(hx.sort.compare) : void 0, data);
-    remainingResults = heading.concat(remainingResults.sort(function(a, b) {
-      if (!a.disabled && b.disabled) {
-        return -1;
-      } else if (a.disabled && !b.disabled) {
-        return 1;
-      } else {
-        return hx.sort.compare(a.full, b.full);
-      }
-    }));
-    filteredData = matches.concat(remainingResults);
-  }
-  return filteredData;
-};
-
-buildAutoComplete = function(searchTerm, fromCallback, loading) {
-  var _, filteredData, items, message, self, trimAndReload;
-  self = this;
-  _ = this._;
-  if ((_.callback != null) && !fromCallback) {
-    if (searchTerm.length < this.options.minLength || (!this.options.showAll && searchTerm.length === 0)) {
-      _.data.set(searchTerm, []);
-      buildAutoComplete.call(self, searchTerm, true);
-    } else {
-      buildAutoComplete.call(self, searchTerm, true, true);
-      _.currentSearch = searchTerm;
-      if (!_.data.get(searchTerm)) {
-        _.data.set(searchTerm, true);
-        _.callback.call(self, searchTerm, function(returnData) {
-          if (!_.cleanUp) {
-            _.data.set(searchTerm, returnData);
-            if (_.currentSearch === searchTerm) {
-              return buildAutoComplete.call(self, searchTerm, true);
-            }
-          }
-        });
-      } else {
-        buildAutoComplete.call(self, searchTerm, true);
-      }
-    }
-  } else {
-    _.menu.cursorPos = -1;
-    filteredData = !loading ? this.options.matchType === 'external' ? _.data.get(searchTerm) : findTerm.call(self, searchTerm) : void 0;
-    message = {
-      unselectable: true,
-      text: ''
-    };
-    _.menu.items([]);
-    items = [];
-    trimAndReload = false;
-    if (filteredData == null) {
-      message.text = this.options.loadingMessage;
-    } else if (searchTerm.length < this.options.minLength) {
-      message.text = this.options.pleaseEnterMinCharactersMessage.replace('$minLength', this.options.minLength);
-    } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
-      if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
-        trimAndReload = true;
-      } else if (this.options.noResultsMessage.length > 0 && (this.options.noResultsMessage != null)) {
-        message.text = this.options.noResultsMessage;
-      }
-    } else if (searchTerm.length >= this.options.minLength && filteredData.length > 0) {
-      items = items.concat(filteredData);
-    }
-    if (message.text.length > 0) {
-      items = [message].concat(items);
-    }
-    if (items.length > 0) {
-      _.menu.items(items);
-      if (_.menu.dropdown.isOpen()) {
-        _.menu.dropdown._.setupDropdown(_.menu.dropdown._.dropdown.node());
-      } else {
-        _.menu.dropdown.show();
-      }
-    } else {
-      _.menu.hide();
-    }
-    if (trimAndReload) {
-      _.input.value(_.input.value().substring(0, _.input.value().length - 1));
-      buildAutoComplete.call(self, _.input.value(), fromCallback, loading);
-    }
-  }
-  return void 0;
-};
-
-showAutoComplete = function() {
-  this._.cleanUp = false;
-  return buildAutoComplete.call(this, this._.input.value() || '');
-};
-
-AutoComplete = (function(superClass) {
-  extend(AutoComplete, superClass);
-
-  function AutoComplete(selector, data1, options1) {
-    var _, _filterOpts, base, base1, base2, input, menu, self, timeout;
-    this.selector = selector;
-    this.data = data1;
-    this.options = options1 != null ? options1 : {};
-    AutoComplete.__super__.constructor.apply(this, arguments);
-    this._ = _ = {};
-    hx.component.register(this.selector, this);
-    _.ignoreMatch = false;
-    _.ignoreNextFocus = false;
-    self = this;
-    _.data = new hx.Map();
-    if (hx.isFunction(this.data)) {
-      _.callback = this.data;
-    } else {
-      _.data.set('', this.data);
-    }
-    if (!hx.isArray(this.data) && !hx.isFunction(this.data)) {
-      hx.consoleWarning('AutoComplete - ', this.selector, ': data set incorrectly - you supplied: ', this.data, ' but should have been an array of items or a function');
-    } else {
-      this.options = hx.merge({
-        minLength: 0,
-        showAll: true,
-        trimTrailingSpaces: false,
-        mustMatch: false,
-        inputMap: void 0,
-        renderer: void 0,
-        matchType: 'contains',
-        placeholder: void 0,
-        filter: void 0,
-        filterOptions: void 0,
-        showOtherResults: false,
-        allowTabCompletion: true,
-        loadingMessage: hx.userFacingText('autoComplete', 'loading'),
-        noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound'),
-        otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults'),
-        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
-      }, this.options);
-      if (this.options.inputMap != null) {
-        _filterOpts = {
-          searchValues: function(d) {
-            return [self.options.inputMap(d)];
-          }
-        };
-      }
-      this.options.filterOptions = hx.merge({}, _filterOpts, this.options.filterOptions);
-      if ((base = this.options).filter == null) {
-        base.filter = function(arr, term) {
-          return hx.filter[self.options.matchType](arr, term, self.options.filterOptions).sort(function(a, b) {
-            if (!a.disabled && b.disabled) {
-              return -1;
-            } else if (a.disabled && !b.disabled) {
-              return 1;
-            } else {
-              return hx.sort.compare(a, b);
-            }
-          });
-        };
-      }
-      if ((base1 = this.options).renderer == null) {
-        base1.renderer = this.options.inputMap != null ? function(elem, item) {
-          return hx.select(elem).text(self.options.inputMap(item));
-        } : function(elem, item) {
-          return hx.select(elem).text(item);
-        };
-      }
-      if ((base2 = this.options).placeholder == null) {
-        base2.placeholder = this.options.minLength > 0 ? "Min length " + this.options.minLength + " characters" : void 0;
-      }
-      input = hx.select(this.selector);
-      menu = new hx.Menu(this.selector, {
-        dropdownOptions: {
-          ddClass: 'hx-autocomplete-dropdown'
-        }
-      });
-      menu.pipe(this, '', ['highlight']);
-      menu.dropdown.pipe(this, 'dropdown');
-      hx.select(this.selector).off('click', 'hx.menu');
-      menu.on('input', 'hx.autocomplete', function(e) {
-        if (self.options.allowTabCompletion) {
-          if ((e.which || e.keyCode) === 9) {
-            return e.preventDefault();
-          }
-        }
-      });
-      _.setInputValue = this.options.inputMap != null ? function(d) {
-        input.value(self.options.inputMap(d));
-        return self.emit('change', d);
-      } : function(d) {
-        input.value(d);
-        return self.emit('change', d);
-      };
-      if (this.options.placeholder != null) {
-        input.attr('placeholder', this.options.placeholder);
-      }
-      input.on('focus', 'hx.autocomplete', function(e) {
-        if (!_.ignoreNextFocus) {
-          _.cleanUp = false;
-          return self.show();
-        }
-      });
-      input.on('blur', 'hx.autocomplete', function(e) {
-        if (e.relatedTarget != null) {
-          self.hide();
-        }
-        return _.ignoreNextFocus = false;
-      });
-      timeout = void 0;
-      input.on('input', 'hx.autocomplete', function() {
-        _.cleanUp = false;
-        clearTimeout(timeout);
-        _.initialValue = input.value();
-        return timeout = setTimeout(function() {
-          if (input.value() !== _.prevTerm) {
-            return buildAutoComplete.call(self, input.value() || '');
-          }
-        }, 200);
-      });
-      menu.renderer(function(elem, item) {
-        var selection;
-        selection = hx.select(elem);
-        selection.style('font-weight', '');
-        if (item.unselectable || item.heading) {
-          selection.text(item.text).off();
-          if (item.heading) {
-            return selection.style('font-weight', '600');
-          }
-        } else {
-          return self.options.renderer(elem, item);
-        }
-      });
-      menu.on('change', 'hx.autocomplete', function(d) {
-        var content;
-        content = d != null ? d.content : void 0;
-        if (content != null) {
-          if (!(content != null ? content.unselectable : void 0) && !(content != null ? content.heading : void 0) && !(content != null ? content.disabled : void 0)) {
-            if (d.eventType === 'tab') {
-              if (self.options.allowTabCompletion) {
-                _.setInputValue(content);
-                _.ignoreMatch = true;
-                return self.hide();
-              }
-            } else if (menu.cursorPos === -1 && (_.initialValue != null)) {
-              return input.value(_.initialValue);
-            } else {
-              _.setInputValue(content);
-              if (d.eventType === 'click' || d.eventType === 'enter') {
-                _.ignoreMatch = true;
-                self.hide();
-                return _.ignoreNextFocus = true;
-              }
-            }
-          }
-        } else if (d.eventType === 'enter') {
-          _.ignoreMatch = false;
-          self.hide();
-          return _.ignoreNextFocus = true;
-        }
-      });
-      _.checkValidity = function() {
-        var exactMatch;
-        _.cleanUp = true;
-        if (!_.ignoreMatch) {
-          if (self.options.mustMatch) {
-            if (input.value().length > 0) {
-              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : findTerm.call(self, input.value(), true);
-              if (exactMatch !== true && (exactMatch != null ? exactMatch.length : void 0) > 0) {
-                exactMatch = exactMatch != null ? exactMatch.filter(function(e) {
-                  e = self.options.inputMap != null ? self.options.inputMap(e) : e;
-                  return e.toLowerCase() === input.value().toLowerCase();
-                }) : void 0;
-                if ((exactMatch != null ? exactMatch.length : void 0) > 0) {
-                  _.setInputValue(exactMatch[0]);
-                } else {
-                  input.value('');
-                }
-              } else {
-                input.value('');
-              }
-            }
-          }
-        }
-        _.ignoreMatch = false;
-        self.clearCache();
-        return self.emit('hide', input.value());
-      };
-      menu.on('dropdown.change', 'hx.autocomplete', function(visible) {
-        if (!!visible) {
-          _.initialValue = input.value();
-          return menu.dropdown._.useScroll = true;
-        } else {
-          _.checkValidity();
-        }
-      });
-      menu.on('click', 'hx.autocomplete', function() {
-        return _.ignoreMatch = true;
-      });
-      _.menu = menu;
-      _.input = input;
-    }
-    this;
-  }
-
-  AutoComplete.prototype.clearCache = function() {
-    this._.data = new hx.Map();
-    if ((this.data != null) && !hx.isFunction(this.data)) {
-      this._.data.set('', this.data);
-    }
-    return this;
-  };
-
-  AutoComplete.prototype.show = function() {
-    this._.ignoreNextFocus = false;
-    showAutoComplete.call(this);
-    return this;
-  };
-
-  AutoComplete.prototype.value = function(value) {
-    if (arguments.length > 0) {
-      this._.setInputValue(value);
-      this._.checkValidity();
-      return this;
-    } else {
-      return this._.input.value();
-    }
-  };
-
-  AutoComplete.prototype.hide = function() {
-    var _;
-    _ = this._;
-    _.ignoreNextFocus = false;
-    if (_.menu.dropdown.isOpen()) {
-      _.menu.hide();
-      _.prevTerm = void 0;
-      _.cleanUp = true;
-    }
-    return this;
-  };
-
-  return AutoComplete;
-
-})(hx.EventEmitter);
-
-hx.autoComplete = function(data, options) {
-  var selection;
-  selection = hx.detached('input');
-  new AutoComplete(selection.node(), data, options);
-  return selection;
-};
-
-hx.AutoComplete = AutoComplete;
-
-})();
-(function(){
 var AutocompletePicker, debounceDuration, enterKeyCode, setPickerValue, validateItems,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -13562,7 +13631,7 @@ hx.DateTimePicker = DateTimePicker;
 
 })();
 (function(){
-var TagInput,
+var TagInput, createFilteredData,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -13572,13 +13641,29 @@ hx.userFacingText({
   }
 });
 
+createFilteredData = function(filterFn, data) {
+  if (hx.isFunction(data)) {
+    return function(term, callback) {
+      return data(term, function(result) {
+        return callback(result.filter(filterFn));
+      });
+    };
+  } else if (hx.isArray(data)) {
+    return function(term, callback) {
+      return callback(data.filter(filterFn));
+    };
+  } else {
+    return data;
+  }
+};
+
 TagInput = (function(superClass) {
   var addTag;
 
   extend(TagInput, superClass);
 
   function TagInput(selector, options) {
-    var _, backspacedown, hasError;
+    var _, acData, backspacedown, filterFn, hasError, isValid;
     this.selector = selector;
     TagInput.__super__.constructor.apply(this, arguments);
     _ = this._ = {};
@@ -13587,8 +13672,15 @@ TagInput = (function(superClass) {
       validator: void 0,
       draggable: true,
       items: [],
-      placeholder: hx.userFacingText('tagInput', 'placeholder')
+      placeholder: hx.userFacingText('tagInput', 'placeholder'),
+      autocompleteData: void 0,
+      autocompleteOptions: {},
+      excludeTags: true,
+      mustMatchAutocomplete: true
     }, options);
+    if (this.options.mustMatchAutocomplete) {
+      this.options.autocompleteOptions.mustMatch = true;
+    }
     hx.component.register(this.selector, this);
     this.selection = hx.select(this.selector).classed('hx-tag-input', true);
     this.tagContainer = this.selection.append('span')["class"]('hx-tags-container');
@@ -13597,6 +13689,28 @@ TagInput = (function(superClass) {
     }
     this.form = this.selection.append('form');
     this.input = this.form.append('input').attr('placeholder', this.options.placeholder);
+    if (this.options.autocompleteData != null) {
+      isValid = this.options.validator != null ? (function(_this) {
+        return function(item) {
+          return !_this.options.validator(item);
+        };
+      })(this) : hx.identity;
+      filterFn = this.options.excludeTags ? (function(_this) {
+        return function(item) {
+          return isValid(item) && !~_this.items().indexOf(item.toString());
+        };
+      })(this) : isValid;
+      acData = createFilteredData(filterFn, this.options.autocompleteData);
+      this._.autocomplete = new hx.AutoComplete(this.input.node(), acData, this.options.autocompleteOptions);
+      this._.autocomplete.on('change', 'hx.taginput', (function(_this) {
+        return function(value) {
+          _this.add(value);
+          return setTimeout((function() {
+            return _this._.autocomplete.show();
+          }), 0);
+        };
+      })(this));
+    }
     backspacedown = false;
     hasError = (function(_this) {
       return function() {
@@ -13621,7 +13735,7 @@ TagInput = (function(superClass) {
             name = _this.input.value();
             if (name) {
               _.userEvent = true;
-              return _this.add(name, void 0);
+              return _this.add(name);
             }
           }
         }
