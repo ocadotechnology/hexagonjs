@@ -222,5 +222,9 @@
       @description
         Fixed a selection of bugs including an issue caused by meters when rendering with 0 width/height, button alignment in forms and notification flex styles.
 
+    @version 1.6.0
+      @description
+        @p: Added a selection of new features including the addition of autocomplete to tag inputs, the ability to press and hold to increment/decrement Number Pickers, improved reusability of Dropdowns and the addition of min/max options to Sparklines.
+
   @h2: Key
   @changelog.key
