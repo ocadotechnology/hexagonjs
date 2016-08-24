@@ -5,10 +5,10 @@
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property filesselectedFiles [String]
-            @default 'Files Selected'
+            @default: 'Files Selected'
             @removed: This variable was badly named and unused internally. It has been replaced by @code(js)[filesSelectedText].
               @issue 210
           @property filesSelectedText [String]: The string to indicate the number of files selected
-            @default 'Files Selected'
+            @default: 'Files Selected'
             @bugfix: Changed the option name to be more sensible and actually use it in the code.
               @issue 210

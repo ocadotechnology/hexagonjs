@@ -35,9 +35,9 @@
         @param? options [Object]: The options to use when setting up the progressbar.
           @property segments [Array]: The array of segments to initialise the progressbar with.
           @property value [Number]: The value of the progressbar when it is initialised
-            @default 0
+            @default: 0
           @property animate [Boolean]: Whether to animate the progress changes for the progressbar by adding the hx-animate class.
-            @default false
+            @default: false
 
 
       @method segments
@@ -78,5 +78,5 @@
               ]
             @p: Passing in undefined as the segments parameter clears the segments and sets the progressbar to a single bar. The retainProgress parameter can be used in conjuntion with this to retain the current progress.
         @param? retainProgress [Boolean]: Whether to retain the current progress of the progressbar.
-          @default false
+          @default: false
 

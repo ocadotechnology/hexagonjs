@@ -26,42 +26,42 @@
     @option input-background-col
       @description:
       @type color
-      @default #FAFAFA
+      @default: #FAFAFA
 
     @option input-border-col
       @description:
       @type color
-      @default #D8D8D8
+      @default: #D8D8D8
 
     @option input-invalid-outline-col
       @description:
       @type color
-      @default #DE1A4A
+      @default: #DE1A4A
 
     @option input-focus-border-col
       @description:
       @type color
-      @default #B5B5B5
+      @default: #B5B5B5
 
     @option div-background-col
       @description:
       @type color
-      @default #FFF
+      @default: #FFF
 
     @option div-border-col
       @description:
       @type color
-      @default #DDD
+      @default: #DDD
 
     @option icon-background-col
       @description:
       @type color
-      @default #EAEAEA
+      @default: #EAEAEA
 
     @option icon-border-col
       @description:
       @type color
-      @default #DDD
+      @default: #DDD
 
 
   @seeAlso

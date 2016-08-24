@@ -8,9 +8,9 @@
             @added: Added the ability to press and hold to increment number pickers
               @issue 177
             @description: Whether pressing and holding the button should increment the number picker until releasing the button
-            @default true
+            @default: true
           @property incrementDelay [Number]
             @added: Added the ability to press and hold to increment number pickers
               @issue 177
             @description: The delay between increments whilst pressing and holding the number picker buttons
-            @default 50
+            @default: 50

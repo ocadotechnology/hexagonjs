@@ -10,7 +10,7 @@
         @param node [HTMLElement]: The current node being checked
         @return result: The result of the check
       @param? returnArray [Boolean]: If this value is true, the check will run all the way until the document element and return all the non-undefined results as an array.
-        @default false
+        @default: false
 
     @function hx.parentZIndex
       @description
@@ -18,7 +18,7 @@
 
       @param node [HTMLElement]: The node to start checking from
       @param? findMax [Boolean]: If this value is true, the maximum z-index from all the parents (up to the document element) will be returned.
-        @default false
+        @default: false
 
     @function hx.debounce
       @description:

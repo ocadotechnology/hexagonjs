@@ -39,24 +39,24 @@
     @option sidebar-border-col
       @type color
       @description: The border color for the sidebar.
-      @default #E2E1E1
+      @default: #E2E1E1
 
     @option sidebar-title-background-col
       @type color
       @description: The background color for @code[hx-drawing-sidebar-title] sections.
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option sidebar-title-text-col
       @type color
       @description: The text color for @code[hx-drawing-sidebar-title] sections.
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option sidebar-background-col
       @type color
       @description: The background color for the sidebar.
-      @default white
+      @default: white
 
     @option sidebar-text-col
       @type color
       @description: The text color for the sidebar.
-      @default black
+      @default: black

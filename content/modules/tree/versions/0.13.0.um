@@ -26,7 +26,7 @@
         @param selector [String/HTMLElement]: A unique css selector or a HTMLElement that identifies your tree.
         @param? options [Object]: The options to use when constructing the tree
           @property hideDisabledButtons [Boolean]: A parameter that hides the 'disabled' buttons added to the tree.
-            @default false
+            @default: false
           @property animate [Boolean]: A parameter that determines whether to animate the arrows when tree children are shown/hidden.
           @property renderer [Function]
             @description

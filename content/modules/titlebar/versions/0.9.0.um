@@ -94,122 +94,122 @@
     @option title-font-family
       @description: The shadow color for shadow under the heading
       @type text
-      @default 'Roboto Slab', sans-serif
+      @default: 'Roboto Slab', sans-serif
 
     @option heading-shadow-col
       @description: The shadow color for shadow under the heading
       @type color
-      @default transparent
+      @default: transparent
 
     @option heading-border-bottom-col
       @description: The color of the border at the bottom of the heading
       @type color
-      @default #DDDDDD
+      @default: #DDDDDD
 
     @option titlebar-background-col
       @description: The background color of the titlebar (the top section of the header)
       @type color
-      @default #373D45
+      @default: #373D45
 
     @option titlebar-text-col
       @description: The text color used in the titlebar (the top section of the header)
       @type color
-      @default #F4F4F4
+      @default: #F4F4F4
 
     @option titlebar-icon-col
       @description: The text color used in the titlebar (the top section of the header)
       @type color
-      @default rgba(255,255,255,0.5)
+      @default: rgba(255,255,255,0.5)
 
     @option titlebar-icon-hover-col
       @description: The text color used in the titlebar (the top section of the header)
       @type color
-      @default rgba(255,255,255,0.75)
+      @default: rgba(255,255,255,0.75)
 
     @option linkbar-background-col
       @description: The text color used in the titlebar (the top section of the header)
       @type color
-      @default #F2F2F2
+      @default: #F2F2F2
 
     @option link-text-col
       @description: The color of the link text
       @type color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option link-text-hover-col
       @description: The color of the link text on hover
       @type color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option link-border-hover-col
       @description: The color of the link border on hover
       @type color
-      @default #777
+      @default: #777
 
     @option link-border-selected-col
       @description: The color of the link border when selected
       @type color
-      @default #373D45
+      @default: #373D45
 
     @option mobile-view-icons-background-col
       @description: The background color used for the icons section when in mobile view
       @type color
-      @default #424A54
+      @default: #424A54
 
     @option mobile-view-icons-text-col
       @description: The color of the titlebar icons and their text when in mobile view
       @type color
-      @default #DADADA
+      @default: #DADADA
 
     @option mobile-view-icons-text-hover-col
       @description: The color of the titlebar icons and their text when in mobile view
       @type color
-      @default #EEEEEE
+      @default: #EEEEEE
 
 
     @option title-font-size
       @description: The size of the title text
       @type size
-      @default 1.7em
+      @default: 1.7em
 
     @option titlebar-height
       @description: The height of the top section of the heading
       @type size
-      @default 46px
+      @default: 46px
 
     @option linkbar-height
       @description: The height of the top section of the heading
       @type size
-      @default 40px
+      @default: 40px
 
     @option titlebar-menu-context-text-col
       @description: The color of text within the menu context section
       @type color
-      @default #FFF
+      @default: #FFF
 
     @option icon-tooltip-background-col
       @description: The background color for the tooltips that are shown on hover for the menu icons.
       @type color
-      @default #000
+      @default: #000
 
     @option icon-tooltip-text-col
       @description: The text color for the tooltips that are shown on hover for the menu icons.
       @type color
-      @default #FFF
+      @default: #FFF
 
     @option font-weight
       @description: The weight of the font used in the titlebar header
       @type number
-      @default 100
+      @default: 100
 
     @option icon-vertical-offset
       @description: The vertical offset for the main titlebar icon
       @type size
-      @default 12px
+      @default: 12px
 
     @option icon
       @description: The default icon to use in the titlebar (with failovers)
       @type string list
-      @default [url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="71.958" height="12"><g><path d="M3.954 12c-.38 0-.85-.27-1.04-.6L.143 6.6c-.192-.332-.192-.87 0-1.2L2.912.598C3.104.27 3.572 0 3.954 0h5.542c.384 0 .85.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6H3.954" fill="%2380cc28"/><path d="M3.954 12c-.38 0-.85-.27-1.04-.6L.143 6.6c-.192-.332-.192-.87 0-1.2L2.912.598C3.104.27 3.572 0 3.954 0h5.542c.384 0 .85.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6H3.954" fill="%2380cc28"/><path d="M18.58 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2L17.54.598C17.732.27 18.2 0 18.58 0h5.544c.38 0 .848.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.192.33-.66.6-1.04.6H18.58" fill="%23fbbf16"/><path d="M18.58 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2L17.54.598C17.732.27 18.2 0 18.58 0h5.544c.38 0 .848.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.192.33-.66.6-1.04.6H18.58" fill="%23fbbf16"/><path d="M33.207 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2l2.77-4.803C32.36.27 32.828 0 33.208 0h5.543c.383 0 .85.27 1.04.597L42.56 5.4c.193.33.193.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6h-5.543" fill="%23d27f12"/><path d="M33.207 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2l2.77-4.803C32.36.27 32.828 0 33.208 0h5.543c.383 0 .85.27 1.04.597L42.56 5.4c.193.33.193.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6h-5.543" fill="%23d27f12"/><path d="M47.835 12c-.382 0-.848-.27-1.038-.6l-2.772-4.8c-.19-.332-.19-.87 0-1.2L46.797.598C46.987.27 47.453 0 47.835 0h5.542c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.542" fill="%23d2103e"/><path d="M47.835 12c-.382 0-.848-.27-1.038-.6l-2.772-4.8c-.19-.332-.19-.87 0-1.2L46.797.598C46.987.27 47.453 0 47.835 0h5.542c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.542" fill="%23d2103e"/><path d="M62.464 12c-.383 0-.85-.27-1.04-.6l-2.77-4.8c-.193-.332-.193-.87 0-1.2l2.77-4.803C61.614.27 62.08 0 62.464 0h5.54c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.54" fill="%23732185"/><path d="M62.464 12c-.383 0-.85-.27-1.04-.6l-2.77-4.8c-.193-.332-.193-.87 0-1.2l2.77-4.803C61.614.27 62.08 0 62.464 0h5.54c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.54" fill="%23732185"/></g></svg>')]
+      @default: [url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="71.958" height="12"><g><path d="M3.954 12c-.38 0-.85-.27-1.04-.6L.143 6.6c-.192-.332-.192-.87 0-1.2L2.912.598C3.104.27 3.572 0 3.954 0h5.542c.384 0 .85.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6H3.954" fill="%2380cc28"/><path d="M3.954 12c-.38 0-.85-.27-1.04-.6L.143 6.6c-.192-.332-.192-.87 0-1.2L2.912.598C3.104.27 3.572 0 3.954 0h5.542c.384 0 .85.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6H3.954" fill="%2380cc28"/><path d="M18.58 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2L17.54.598C17.732.27 18.2 0 18.58 0h5.544c.38 0 .848.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.192.33-.66.6-1.04.6H18.58" fill="%23fbbf16"/><path d="M18.58 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2L17.54.598C17.732.27 18.2 0 18.58 0h5.544c.38 0 .848.27 1.04.597l2.77 4.803c.19.33.19.87 0 1.2l-2.77 4.8c-.192.33-.66.6-1.04.6H18.58" fill="%23fbbf16"/><path d="M33.207 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2l2.77-4.803C32.36.27 32.828 0 33.208 0h5.543c.383 0 .85.27 1.04.597L42.56 5.4c.193.33.193.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6h-5.543" fill="%23d27f12"/><path d="M33.207 12c-.38 0-.848-.27-1.04-.6l-2.77-4.8c-.19-.332-.19-.87 0-1.2l2.77-4.803C32.36.27 32.828 0 33.208 0h5.543c.383 0 .85.27 1.04.597L42.56 5.4c.193.33.193.87 0 1.2l-2.77 4.8c-.19.33-.657.6-1.04.6h-5.543" fill="%23d27f12"/><path d="M47.835 12c-.382 0-.848-.27-1.038-.6l-2.772-4.8c-.19-.332-.19-.87 0-1.2L46.797.598C46.987.27 47.453 0 47.835 0h5.542c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.542" fill="%23d2103e"/><path d="M47.835 12c-.382 0-.848-.27-1.038-.6l-2.772-4.8c-.19-.332-.19-.87 0-1.2L46.797.598C46.987.27 47.453 0 47.835 0h5.542c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.542" fill="%23d2103e"/><path d="M62.464 12c-.383 0-.85-.27-1.04-.6l-2.77-4.8c-.193-.332-.193-.87 0-1.2l2.77-4.803C61.614.27 62.08 0 62.464 0h5.54c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.54" fill="%23732185"/><path d="M62.464 12c-.383 0-.85-.27-1.04-.6l-2.77-4.8c-.193-.332-.193-.87 0-1.2l2.77-4.803C61.614.27 62.08 0 62.464 0h5.54c.382 0 .85.27 1.04.597l2.77 4.803c.192.33.192.87 0 1.2l-2.77 4.8c-.19.33-.658.6-1.04.6h-5.54" fill="%23732185"/></g></svg>')]
 
   @seeAlso

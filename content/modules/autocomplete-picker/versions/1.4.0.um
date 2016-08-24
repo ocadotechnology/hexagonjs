@@ -121,21 +121,21 @@
               @p: The type of filtering the autocomplete picker should use when filtering internally
               @p: The internal filter uses the @code[hx.filter] functions. All the filter types can be specified as the match type (e.g. 'startsWith', 'exact' or 'fuzzy') and the default value is 'contains'
               @p: In addition to the internal filter, external matching can be used (where the data returned from the callback is used directly and not sorted/filtered internally) by setting the match type to 'external'
-            @default 'contains'
+            @default: 'contains'
 
           @property useCache [Boolean]
             @description: Determines whether the autocomplete should attempt to cache results. This can be set to @code[false] non-static datasets or when using external matching
-            @default true
+            @default: true
 
           @property showOtherResults [Boolean]
             @description
               @p: Determines whether to show results under an 'other results' heading that are in the data but don't match the input text.
               @p: Only used when not using external matching.
-            @default false
+            @default: false
 
           @property trimTrailingSpaces [Boolean]
             @description: An option to enable whitespace trimming at the end of the input value if no results are found for that string
-            @default false
+            @default: false
 
           @property valueLookup [Function]
             @description
@@ -154,14 +154,14 @@
                 }
             @param item [Any]: The item to retrieve a value from
             @returns String: The string for use when filtering results
-            @default [hx.identity]
+            @default: [hx.identity]
 
           @property buttonClass [String]
             @description: The additional class to give to the picker button. By default, it is given the @code(html)[hx-btn] class in addition to the value passed in here
 
           @property disabled [Boolean]
             @description: The initial disabled state of the autocomplete picker
-            @default false
+            @default: false
 
           @property renderer [Function]
             @description
@@ -176,19 +176,19 @@
 
           @property chooseValueText [String]
             @description: The text to display on the button when no value is selected
-            @default [hx.userFacingText('autocompletePicker', 'chooseValue')]
+            @default: [hx.userFacingText('autocompletePicker', 'chooseValue')]
 
           @property loadingText [String]
             @description: The loading text to display
-            @default [hx.userFacingText('autocompletePicker', 'loading')]
+            @default: [hx.userFacingText('autocompletePicker', 'loading')]
 
           @property noResultsText [String]
             @description: The text to display when no results are found for a search term
-            @default [hx.userFacingText('autocompletePicker', 'noResults')]
+            @default: [hx.userFacingText('autocompletePicker', 'noResults')]
 
           @property otherResultsText [String]
             @description: The heading to display above other results when the @code[showOtherResults] option is enabled
-            @default [hx.userFacingText('autocompletePicker', 'otherResults')]
+            @default: [hx.userFacingText('autocompletePicker', 'otherResults')]
 
 
       @method clearCache

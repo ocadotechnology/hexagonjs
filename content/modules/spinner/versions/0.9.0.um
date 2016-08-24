@@ -25,16 +25,16 @@
     @option default-col
       @description: The list of colors to cycle through
       @type color
-      @default #6582A6
+      @default: #6582A6
 
     @option colors
       @description: The list of colors to cycle through. This should be an even number
       @type color list
-      @default #6D9E66, #D2A469, #C24563, #98719D
+      @default: #6D9E66, #D2A469, #C24563, #98719D
 
     @option shadow-col
       @description: The color of any shadows used
       @type color
-      @default #D0D0D0
+      @default: #D0D0D0
 
   @seeAlso

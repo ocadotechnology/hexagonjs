@@ -24,7 +24,7 @@
         @param? showSeconds [Boolean]
           @description
             Whether to show the seconds in the timepicker.
-          @default false
+          @default: false
         @param? buttonClass [String]: The class to add to the buttons.
 
       @method setDate
@@ -33,12 +33,12 @@
         @param? setTime [Boolean]
           @description
             Whether to set the time as well as the date. Only the day/month/year will be updated unless this is passed in as true.
-          @default false
+          @default: false
 
         @param? suppressCallback [Boolean]
           @description
             A value used to prevent the change event being emitted
-          @default false
+          @default: false
 
       @method setHour
         @description
@@ -47,7 +47,7 @@
         @param? suppressCallback [Boolean]
           @description
             A value used to prevent the change event being emitted
-          @default false
+          @default: false
 
       @method setMinute
         @description
@@ -56,7 +56,7 @@
         @param? suppressCallback [Boolean]
           @description
             A value used to prevent the change event being emitted
-          @default false
+          @default: false
 
       @method setSecond
         @description
@@ -65,7 +65,7 @@
         @param? suppressCallback [Boolean]
           @description
             A value used to prevent the change event being emitted
-          @default false
+          @default: false
 
       @method addHours
         @description
@@ -124,16 +124,16 @@
     @option error-background-col
       @description: The background to use in the time picker when there is an error with the input
       @type color
-      @default #FCBFBF
+      @default: #FCBFBF
 
     @option error-outline-col
       @description: The color to outline the timepicker input with when there is an error with the input
       @type color
-      @default #DE1A4A
+      @default: #DE1A4A
 
     @option input-background-col
       @description: The background color of the input
       @type color
-      @default #FFF
+      @default: #FFF
 
   @seeAlso

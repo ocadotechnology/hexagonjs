@@ -16,9 +16,9 @@
     @option tag-container-background-col
       @type color
       @description: The background color for the tag container.
-      @default white
+      @default: white
 
     @option tag-container-border-col
       @type color
       @description: The border color for the tag container.
-      @default #D8D8D8
+      @default: #D8D8D8

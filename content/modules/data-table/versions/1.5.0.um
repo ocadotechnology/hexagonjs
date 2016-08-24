@@ -48,7 +48,7 @@
               @p: Whether to show the advanced search and the toggle for switching between the regular filter and the advanced search.
               @p: If @code[advancedSearchEnabled] is true or an @code[advancedSearch] is passed in, this is set to true.
               @p: See the @hyperlink(#using-the-advanced-search)[Using the Advanced Search] section at the bottom of the page for more information on the advanced search
-            @default false
+            @default: false
 
           @property advancedSearchEnabled [Boolean]
             @added: @issue 49
@@ -56,7 +56,7 @@
               @p: Whether the advanced search should be enabled. If an @code[advancedSearch] is passed in, this is set to true.
               @p: If @code[filterEnabled] is set to false and this is set to true, the advanced search will be shown on it's own with no toggle for switching the filter type.
               @p: See the @hyperlink(#using-the-advanced-search)[Using the Advanced Search] section at the bottom of the page for more information on the advanced search
-            @default false
+            @default: false
 
           @property advancedSearch [Array[Array[Object]]]
             @added: @issue 49
@@ -67,7 +67,7 @@
 
           @property showSearchAboveTable [Boolean]: Whether to show the Search/Advanced search above the table
             @added: @issue 49
-            @default false
+            @default: false
 
           @property addFilterText [String]: The text to display on the add filter button
             @added: @issue 49

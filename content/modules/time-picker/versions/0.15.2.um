@@ -20,7 +20,7 @@
           @property disabled [Boolean]: Whether the time picker should be disabled
             @added: Added the ability to disable a time picker in the options
 
-            @default false
+            @default: false
 
       @method disabled
         @added: Added the ability to disable/enable a time picker

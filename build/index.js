@@ -257,7 +257,7 @@ function getOptions (dev) {
     tags: buildTags,
     taggable: taggable,
     indexable: indexable,
-    unmergeable: ['examples', 'description', 'extra'],
+    unmergeable: ['examples', 'description', 'extra', 'default'],
     filenameModifier: filenameModifier,
     versions: versions.versions,
     targetVersions: targetVersions

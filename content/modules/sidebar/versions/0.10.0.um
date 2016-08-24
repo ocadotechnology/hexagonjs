@@ -32,11 +32,11 @@
         @description
         @param selector [String/HTMLElement]: A selector for the sidebar container element
         @param? headerSelector [String/HTMLElement]: A selector for the titlebar header element
-          @default '.hx-titlebar-header'
+          @default: '.hx-titlebar-header'
         @param? contentSelector [String/HTMLElement]: A selector for the hx-content section
-          @default '.hx-content'
+          @default: '.hx-content'
         @param? addSidebarClass [Boolean]: Whether or not to add the hx-sidebar-page class to the body element.
-          @default true
+          @default: true
 
       @method toggle
         @description: Toggles the opened state of the sidebar
@@ -69,71 +69,71 @@
     @option animation-duration
       @description: How long animations should take (use css transition durations)
       @type time
-      @default 0.2s
+      @default: 0.2s
 
     @option background-col
       @description: The background color for the sidebar
       @type color
-      @default #F7F7F7
+      @default: #F7F7F7
 
     @option selected-background-col
       @description: The background color for selected items
       @type color
-      @default #FFF
+      @default: #FFF
 
     @option title-font
       @description: The font to use for the title sections
       @type string
-      @default 'Roboto Slab', sans-serif
+      @default: 'Roboto Slab', sans-serif
 
     @option title-background-col
       @description: The background color for title sections
       @type color
-      @default #F2F2F2
+      @default: #F2F2F2
 
     @option title-text-col
       @description: The text color for title sections
       @type color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option titlebar-icon-background-col
       @description: The background color for titlebar icon
       @type color
-      @default #373D45
+      @default: #373D45
 
     @option section-text-col
       @description: The text color for .hx-sidebar-section elements
       @type color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option section-hover-background-col
       @description: The background color for .hx-sidebar-section elements on hover
       @type color
-      @default #698BB5
+      @default: #698BB5
 
     @option section-hover-text-col
       @description: The text color for .hx-sidebar-section elements on hover
       @type color
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option collapsible-border-col
       @description: The border color used to indicate collapsible levels
       @type color
-      @default rgb(210,208,208)
+      @default: rgb(210,208,208)
 
     @option titlebar-button-background-col
       @description: The background color of the button in the titlebar that toggles the sidebar.
       @type color
-      @default #373D45
+      @default: #373D45
 
     @option titlebar-button-text-col
       @description: The text color of the button in the titlebar that toggles the sidebar.
       @type color
-      @default rgba(255,255,255,0.5)
+      @default: rgba(255,255,255,0.5)
 
     @option titlebar-button-hover-text-col
       @description: The text color of the button in the titlebar that toggles the sidebar on hover.
       @type color
-      @default rgba(255,255,255,0.75)
+      @default: rgba(255,255,255,0.75)
 
   @seeAlso

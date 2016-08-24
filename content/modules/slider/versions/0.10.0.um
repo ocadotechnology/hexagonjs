@@ -21,7 +21,7 @@
         @param selector [String/HTMLElement]: The element used to create the slider
         @param? options [Object]: The options to use when creating the slider
           @property type [String]: The type of the slider. Can be 'range' or 'slider'
-            @default 'slider'
+            @default: 'slider'
           @property render [Function]:
             @description:
               @p: The render function to use when rendering the value of the slider.
@@ -34,9 +34,9 @@
             @param elem [HTMLElement]: The node of the slider value.
             @param value [Number]: The current value of the selected slider control.
           @property min [Number]: The minimum value of the slider. For discrete sliders, it can be set to one of the discrete values.
-            @default 0
+            @default: 0
           @property max [Number]: The maximum value of the slider. For discrete sliders, it can be set to one of the discrete values.
-            @default 1
+            @default: 1
           @property step [Number]: The step to use when building the slider. The slider will display with points at intervals at the step value, starting from the minimum value. The maximum step will always be less than or equal to the maximum value of the slider.
           @property discreteValues [Array]: An array of values to use on the slider. They will display in the order provided and will be spaced evenly along the slider.
 
@@ -119,9 +119,9 @@
     @option value-background-col
       @type color
       @description: The background color for the value that shows above the slider when the user hovers or slides one of the sliders.
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option value-border-radius
       @type size
       @description: The border-radius for the value that shows above the slider when the user hovers or slides one of the sliders.
-      @default 5px
+      @default: 5px

@@ -98,9 +98,9 @@
           hx.randomId(10, 'abc') // returns a 10-character string using the letters a, b and c
 
       @param? length [Number]: The length of the string to generate
-        @default 16
+        @default: 16
       @param? alphabet [String]: The alphabet to use. Defaults to hex
-        @default ABCEDEF0123456789
+        @default: ABCEDEF0123456789
       @returns Number: The value, clamped to the range [0, 1]
 
     @function hx.min
@@ -528,7 +528,7 @@
 
       @param object [Object/Array]: The object/array to clone
       @param? deep [Boolean]: Whether or not a deep clone should be performed.
-        @default false
+        @default: false
       @returns Object/Array: The cloned object/array
 
     @function hx.clone
@@ -571,7 +571,7 @@
 
       @param node [HTMLElement]: The node to clean
       @param? recurse [Boolean]: Whether to recursively clean child nodes
-        @default true
+        @default: true
       @returns node: The cleaned node.
 
   @seeAlso

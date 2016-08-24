@@ -7,4 +7,4 @@
           @property placeholder
             @added: @issue 211
             @description: The placeholder for the input field when it has no text
-            @default [hx.userFacingText('tagInput', 'placeholder')]
+            @default: [hx.userFacingText('tagInput', 'placeholder')]

@@ -21,62 +21,62 @@
         @param selector [String/HTMLElement]: The selector to use to build the date/time picker
         @param? type [String]
           @description: The type of datepicker to show, can be either 'datepicker' or 'calendar'
-          @default 'calendar'
+          @default: 'calendar'
         @param? showSeconds [Boolean]
           @description: Whether to show the seconds in the timepicker.
-          @default false
+          @default: false
 
       @method setDate
         @description: Sets the date for the DateTimePicker. It can be used to set only the date or the date and the time.
         @param date [Date]: The date to set the timepicker to.
         @param? setTime [Boolean]
           @description: Whether to set the time as well as the date. Only the day/month/year will be updated unless this is passed in as true.
-          @default false
+          @default: false
         @param? suppressCallback [Boolean]
           @description: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method setDay
         @description: A function used to set the currently selected day
         @param day [Number]: The day of the month to set
         @param? suppressCallback [Boolean]
           @description: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method setMonth
         @description: A function to set the currently selected month
         @param month [Number]: The month to show
         @param? suppressCallback [Boolean]
           @description: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method setYear
         @description: A function to set the currently selected year
         @param year [Number]: The year to set the date picker to
         @param? suppressCallback [Boolean]
           @description: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method setHour
         @description: A function to set the currently selected hour
         @param hour [Number]: The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the timepicker to cycle into the next/previous day.
         @param? suppressCallback [Boolean]
           @description: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method setMinute
         @description: A function to set the currently selected minute
         @param minute [Number]: The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous hour.
         @param? suppressCallback [Boolean]
           @description: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method setSecond
         @description: A function to set the currently selected second
         @param second [Number]: The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous minute.
         @param? suppressCallback [Boolean]
           @description: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method addDays
         @description: A function to add days to the currently selected date

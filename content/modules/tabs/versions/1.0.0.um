@@ -22,4 +22,4 @@
     @option complement-col
       @type color
       @description: The complementary tab color
-      @default #FDFDFD
+      @default: #FDFDFD

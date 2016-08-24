@@ -44,11 +44,11 @@
         @param selector [String/HTMLElement]: The target button to set the select up in.
         @param? options [Object]: The options to use when creating the button group.
           @property activeClass [String]: The button class to use for the active button.
-            @default 'hx-contrast'
+            @default: 'hx-contrast'
           @property buttonClass [String]: The button class to use for inactive buttons.
-            @default 'hx-compliment'
+            @default: 'hx-compliment'
           @property fullWidth [Boolean]: Whether the group should span the full width of its container.
-            @default false
+            @default: false
 
       @method items
         @description: Sets the list of items that will be shown in the button group

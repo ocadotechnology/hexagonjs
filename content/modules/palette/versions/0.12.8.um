@@ -96,7 +96,7 @@
         @p: Added disabled context classes
       @type color
       @description: The disabled color
-      @default #939393
+      @default: #939393
       @includeWithJs true
 
     @option disabled-background-col
@@ -105,5 +105,5 @@
         @p: Added disabled context classes
       @type color
       @description: The disabled background color
-      @default #FAFAFA
+      @default: #FAFAFA
       @includeWithJs true

@@ -7,7 +7,7 @@
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property draggable [Boolean]: Whether the tags can be dragged and re-ordered.
-            @default true
+            @default: true
             @added: Added the option to allow the tags to be re-ordered by dragging them
 
           @property items [Array[String]]: The array of tags to initialise the tag input with.
@@ -40,4 +40,4 @@
     @option complement-col
       @type color
       @description: The base complement color.
-      @default #FDFDFD
+      @default: #FDFDFD

@@ -122,31 +122,31 @@
     @option background-col
       @type color
       @description: The background of the slider container element
-      @default #F7F7F7
+      @default: #F7F7F7
 
     @option slider-background-col
       @type color
       @description: The background of the draggable slider element(s)
-      @default #E2E2E2
+      @default: #E2E2E2
 
     @option range-background-col
       @type color
       @description: The background of the range between draggable sliders.
-      @default #98719D
+      @default: #98719D
 
     @option border-radius
       @type size
       @description: The border radius of the slider background and slider slider.
-      @default 2px
+      @default: 2px
 
     @option text-col
       @type color
       @description: The color of the text in the sliders
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option range-height
       @type size
       @description: The height of the slider range block - best specified in percent.
-      @default 50%
+      @default: 50%
 
   @seeAlso

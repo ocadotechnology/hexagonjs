@@ -37,7 +37,7 @@
         @param count [Number]: The total number of results found, if any.
       @param? options [Object]: The options to use when searching
         @property minLength [Number]: The minimum length for the search term before searching will commence. This helps reduce the potential number of matches and help keep the search running quickly.
-          @default 2
+          @default: 2
         @property elemMatch [Function]: A function for deciding what to do with an element if a match is found
           @param elem [HTMLElement]: The selected element
           @param match [Boolean]: True if the element contains a match, false if it doesn't.
@@ -46,17 +46,17 @@
       @description
         A helper function for clearing the search from a selector
       @param? selector [String/HTMLElement]: The selector to clear the search results for.
-        @default 'body'
+        @default: 'body'
 
   @theme
     @option text-col
       @type color
       @description: The text color for highlighted results when searching.
-      @default black
+      @default: black
 
     @option background-col
       @type color
       @description: The background color for highlighted results when searching.
-      @default #FFF0B3
+      @default: #FFF0B3
 
   @seeAlso

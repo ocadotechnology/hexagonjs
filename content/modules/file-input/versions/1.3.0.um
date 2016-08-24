@@ -19,21 +19,21 @@
         @param selector [String/HTMLElement]: A CSS selector string which uniquely identifies the element to create the FileInput in, or the Element to create the FileInput in.
         @param? options [Object]: The options to use when setting up the FileInput
           @property disabled [Boolean]: The disabled state to initialise the FileInput in
-            @default false
+            @default: false
           @property fullWidth [Boolean]: Whether the FileInput should be full width
-            @default false
+            @default: false
           @property acceptedExtensions [Array[String]]
             @description: An array of file extensions, e.g. @code(js)[['png', 'jpeg']]
           @property multiple [Boolean]: Whether multiple files can be selected
-            @default false
+            @default: false
           @property dragEnabled [Boolean]: Whether the user can drag and drop files to the input to upload
-            @default true
+            @default: true
           @property buttonClass [String]: The class to use for the button
-            @default 'hx-action'
+            @default: 'hx-action'
           @property filesselectedFiles [String]: The string to indicate the number of files selected
-            @default 'Files Selected'
+            @default: 'Files Selected'
           @property buttonText [String]: The text to display on the button. The default text becomes 'Choose Files' when selecting multiple files.
-            @default 'Choose File'
+            @default: 'Choose File'
 
       @method disabled
         @description: A method for getting the disabled state of a FileInput

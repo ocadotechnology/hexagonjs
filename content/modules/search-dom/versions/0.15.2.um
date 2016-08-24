@@ -25,6 +25,6 @@
       @description
         A helper function for clearing the search from a selector
       @param? selector [String/HTMLElement]: The selector to clear the search results for.
-        @default 'body'
+        @default: 'body'
 
       @deprecated

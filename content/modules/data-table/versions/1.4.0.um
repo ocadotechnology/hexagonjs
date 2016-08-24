@@ -7,27 +7,27 @@
           @property clearSelectionText [String]
             @added: @issue 211
             @description: The text to display on the 'clear selection' link when rows have been selected
-            @default [hx.userFacingText('dataTable','clearSelection')]
+            @default: [hx.userFacingText('dataTable','clearSelection')]
           @property loadingText [String]
             @added: @issue 211
             @description: The text to display when data is loading
-            @default [hx.userFacingText('dataTable','loading')]
+            @default: [hx.userFacingText('dataTable','loading')]
           @property noDataMessage [String]
             @updated: The default text is now taken from the user facing text module.
               @issue 211
-            @default [hx.userFacingText('dataTable','noData')]
+            @default: [hx.userFacingText('dataTable','noData')]
           @property noSortText [String]
             @added: @issue 211
             @description: The text to display on the mobile sort menu for 'No Sort'
-            @default [hx.userFacingText('dataTable', 'noSort')]
+            @default: [hx.userFacingText('dataTable', 'noSort')]
           @property rowsPerPageText [String]
             @added: @issue 211
             @description: The text to display next to the 'rows per page' picker
-            @default [hx.userFacingText('dataTable','rowsPerPage')]
+            @default: [hx.userFacingText('dataTable','rowsPerPage')]
           @property searchPlaceholder [String]
             @added: @issue 211
             @description: The placeholder for the 'search' box
-            @default [hx.userFacingText('dataTable','search')]
+            @default: [hx.userFacingText('dataTable','search')]
           @property selectedRowsText [String]
             @added: @issue 211
             @description:
@@ -38,8 +38,8 @@
                   selectedRowsText: '$selected of $total selected.'
                 }
                 // Would evalate to '1 of 3 selected.'
-            @default [hx.userFacingText('dataTable', 'selectedRows')]
+            @default: [hx.userFacingText('dataTable', 'selectedRows')]
           @property sortByText [String]
             @added: @issue 211
             @description: The text to display next to the sort picker shown in compact mode.
-            @default [hx.userFacingText('dataTable','sortBy')]
+            @default: [hx.userFacingText('dataTable','sortBy')]

@@ -34,9 +34,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
@@ -77,9 +77,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
@@ -120,9 +120,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
@@ -163,9 +163,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
@@ -206,9 +206,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
@@ -249,9 +249,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
@@ -292,9 +292,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
@@ -340,9 +340,9 @@
           @description
             The options to use when filtering
           @property caseSensitive [Boolean]: Whether the filtering should be case sensitive.
-            @default false
+            @default: false
           @property sort [Boolean]: Whether to sort the results.
-            @default true
+            @default: true
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:

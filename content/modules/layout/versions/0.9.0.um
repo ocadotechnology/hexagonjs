@@ -210,37 +210,37 @@
     @option content-max-width
       @description: The max width of the content area when no breakpoints, padding or margin are applied.
       @type size
-      @default 1200px
+      @default: 1200px
 
     @option content-breakpoint
       @description: The breakpoint of the content area, the first item is the max width of the window, the second is the width to give the content when that media query applies.
       @type list size
-      @default 1300px, 900px
+      @default: 1300px, 900px
 
     @option content-padding
       @description: The padding around the content area.
       @type size
-      @default 1em
+      @default: 1em
 
     @option margin
       @description: The margin around layouts and sections.
       @type size
-      @default 4px
+      @default: 4px
 
     @option named-class-min-width
       @description: The minimum width for named sections to prevent them getting too small (as they are percentage based). The named classes are: @code(css)[hx-small], @code(css)[hx-medium], @code(css)[hx-large].
       @type size
-      @default 250px
+      @default: 250px
 
     @option border-col
       @description: The color of the border used for hx-border-* sections
       @type color
-      @default #D0D0D0
+      @default: #D0D0D0
 
     @option content-background-col
       @description: The background color for the hx-content class
       @type color
-      @default transparent
+      @default: transparent
 
 
   @seeAlso

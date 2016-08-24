@@ -14,8 +14,8 @@
           @property min [Number/String]: The minimum value the y axis should show. If set to 'auto' the minimum value will calculated from the data in the series.
             @added: Added an option for setting the minimum y value for a sparkline
               @issue 261
-            @default 'auto'
+            @default: 'auto'
           @property max [Number/String]: The maximum value the y axis should show. If set to 'auto' the maximum value will calculated from the data in the series.
             @added: Added an option for setting the maximum y value for a sparkline
               @issue 261
-            @default 'auto'
+            @default: 'auto'

@@ -102,12 +102,12 @@
               @p: The type of filtering the AutoComplete should use when filtering internally
               @p: The internal filter uses the @code[hx.filter] functions. All the filter types can be specified as the match type (e.g. 'startsWith', 'exact' or 'fuzzy') and the default value is 'contains'
               @p: In addition to the internal filter, external matching can be used (where the data returned from the callback is used directly and not sorted/filtered internally) by setting the match type to 'external'
-            @default 'contains'
+            @default: 'contains'
 
           @property minLength [Number]
             @description
               The minimum length of text input before suggestions will be shown.
-            @default 0
+            @default: 0
 
           @property placeholder [String]
             @description
@@ -118,12 +118,12 @@
             @description
               @p: Whether the final value in the input field must match a value from the suggestions.
               @p: If set to true, the input field will be updated to the first result of the filtered data when the user changes focus. If no matches are found, the input field is cleared.
-            @default false
+            @default: false
 
           @property showAll [Boolean]
             @description
               Determines whether all the data will be shown when no text is present and the user clicks on the input.
-            @default true
+            @default: true
 
           @property renderer [Function]
             @description
@@ -141,7 +141,7 @@
             @description
               @p: Determines whether to show results under an 'other results' heading that are in the data but don't match the input text.
               @p: Only used when not using external matching.
-            @default false
+            @default: false
 
           @property filter [Function]
             @description: The function to use when filtering internally. Should only be used when one of the @code[hx.filter] methods isn't suitable for filtering the data.
@@ -179,13 +179,13 @@
           @property noResultsMessage [String]
             @description
               The text to display when no results are found. If this is not defined or set to '' then the dropdown will not be shown when there are no results.
-            @default ['No results found...']
+            @default: ['No results found...']
 
           @property otherResultsMessage [String]
             @description
               @p: The text to display at the top of the other results when the @code[showOtherResults] option is true.
               @p: The text must be set to a valid string, setting this option to undefined or '' will not prevent the heading from showing as it acts as a divider between matching and non-matching results.
-            @default ['Other Results']
+            @default: ['Other Results']
 
       @method clearCache
         @description

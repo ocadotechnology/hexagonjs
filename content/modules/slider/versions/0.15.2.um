@@ -10,7 +10,7 @@
           @property disabled [Boolean]: Whether the slider should be disabled
             @added: Added the ability to disable a slider in the options
 
-            @default false
+            @default: false
 
       @method disabled
         @added: Added the ability to disable/enable a slider
@@ -27,6 +27,6 @@
 
   @theme
     @option disabled-background-col
-      @default #BBBBBB
+      @default: #BBBBBB
       @type color
       @description: The background color for disabled sliders

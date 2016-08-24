@@ -232,13 +232,13 @@
     @option default-col
       @type color
       @description: The default color
-      @default #E6E6E6
+      @default: #E6E6E6
       @includeWithJs true
 
     @option action-col
       @type color
       @description: The action color
-      @default #6582A6
+      @default: #6582A6
       @includeWithJs true
 
     @option compliment-col
@@ -247,5 +247,5 @@
     @option complement-col
       @type color
       @description: The complement color
-      @default #FDFDFD
+      @default: #FDFDFD
       @includeWithJs true

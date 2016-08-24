@@ -27,13 +27,13 @@
           @property visible [Boolean]
             @description
               Whether or not the collapsible should start expanded. The default is false - collapsed.
-            @default false
+            @default: false
           @property addIcon [Boolean]
             @description
               Supply false to prevent the arrow icon being added to the start of the collapsable header.
-            @default true
+            @default: true
           @property animate [Boolean]: An option to determine the default animate action when calling the show/hide methods.
-            @default true
+            @default: true
 
       @method show
         @removed
@@ -58,7 +58,7 @@
         @param? animate [Boolean]
           @description
             Whether or not to animate the collapsible state transition. The default value is determined by the @code[animate] property passed in when creating the collapsible.
-          @default true
+          @default: true
             @removed
               @p: The default is now determined by @code[options.animate]
         @param? callback [Function]
@@ -71,7 +71,7 @@
         @param? animate [Boolean]
           @description
             Whether or not to animate the collapsible state transition. The default value is determined by the @code[animate] property passed in when creating the collapsible.
-          @default true
+          @default: true
             @removed
               @p: The default is now determined by @code[options.animate]
         @param? callback [Function]
@@ -84,7 +84,7 @@
         @param? animate [Boolean]
           @description
             Whether or not to animate the collapsible state transition. The default value is determined by the @code[animate] property passed in when creating the collapsible.
-          @default true
+          @default: true
             @removed
               @p: The default is now determined by @code[options.animate]
         @param? callback [Function]

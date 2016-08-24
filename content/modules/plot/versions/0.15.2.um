@@ -31,7 +31,7 @@
         @param selector [HTMLElement/String]: An HTMLElement or CSS selector which selects the graph's container.
         @param? options [Object]: The options to use when creating the sparkline
           @property type [String]: The type of sparkline to create. Can be 'bar' or 'line'
-            @default 'line'
+            @default: 'line'
           @property strokeColor [String]: The stroke color to use. This only affects the 'line' type.
           @property fillColor [String]: The fill color to use
           @property data [Array]:  An array of numbers - each number will be a data point in the sparkline.
@@ -85,23 +85,23 @@
 
           @property zoomRangeStart [Number]
             @description: Sets the start of the zoomed region - specified on the 0 to 1 scale where 0 is the left-most value on the x axis, and 1 means the right-most value of the x axis (setting it to 1 will always result in the graph showing nothing).
-            @default 0
+            @default: 0
 
           @property zoomRangeEnd [Number]
             @description: Sets the end of the zoomed region - specified on the 0 to 1 scale where 0 is the left-most value on the x axis, and 1 means the right-most value of the x axis (setting it to 1 will always result in the graph showing nothing).
-            @default 1
+            @default: 1
 
           @property zoomEnabled [Boolean]
             @description: Enables or disables the zoom with mouse feature. Supplying true enables zoom, false disables it.
-            @default false
+            @default: false
 
           @property labelsEnabled [Boolean]
             @description: Enables or disables labels. Supplying true enables zoom, false disables it.
-            @default true
+            @default: true
 
           @property legendEnabled [Boolean]
             @description: Enables or disables the legends. Supplying true enables zoom, false disables it.
-            @default true
+            @default: true
 
           @property legendLocation [String]
             @description
@@ -114,7 +114,7 @@
                 @item: 'top-left' - displays the legend in the top left
                 @item: 'bottom-right' - displays the legend in the bottom right
                 @item: 'bottom-left' - displays the legend in the bottom left
-            @default "auto"
+            @default: "auto"
 
       @property zoomStart [Number]
         @deprecated: Use graph.zoomRangeStart() instead. zoomRangeStart(value) to set, zoomRangeStart() to get.
@@ -248,162 +248,162 @@
           @property x [Object]
             @property scaleType [String]
               @description: The scale type to use. Should be one of 'linear', 'discrete' or 'time'. 'discrete' should be used for bar charts, and 'linear' and 'time' for line graphs (in general). The 'time' scale type is similar to linear, but picks the ticks so that they align on sensible times.
-              @default 'linear'
+              @default: 'linear'
 
             @property visible [Boolean]
               @description:
                 @p: Sets the visibility state
                 @p: Whether or not the x axis should be visible. The default is true.
-              @default true
+              @default: true
 
             @property formatter [Function]
               @description:
                 @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
               @param value [Number]
               @returns String: The number formatted as a string.
-              @default hx.format.si
+              @default: hx.format.si
 
             @property tickRotation [Number]
               @description: Sets the rotation of the ticks in degrees.
-              @default 0
+              @default: 0
 
             @property min [Number/String]
               @description: Sets the minimum value the axis should show. If set to 'auto' the minimum value will calculated from the data in the series.
-              @default 'auto'
+              @default: 'auto'
 
             @property max [Number/String]
               @description: Sets the maximum value the axis should show. If set to 'auto' the maximum value will calculated from the data in the series.
-              @default 'auto'
+              @default: 'auto'
 
             @property discretePadding [Number]
               @description
                 @p: Sets the discretePadding property
                 @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
-              @default 0,1
+              @default: 0,1
 
             @property discreteLabels [Array[String]]
               @description
                 @p: Sets the discreteLabels property
                 @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
-              @default 'auto'
+              @default: 'auto'
 
             @property tickSpacing [Number]
               @description: Sets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks.
-              @default 50
+              @default: 50
 
             @property title [String]
               @description: Sets the title of the axis
-              @default ''
+              @default: ''
 
             @property scalePaddingMin [Number]
               @description: Sets the scalePaddingMin property
-              @default 0
+              @default: 0
 
             @property scalePaddingMax [Number]
               @description: Sets the padding to apply to the end of the axis domain. This option makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the domain. The default value is 0, which applies no padding.
-              @default 0
+              @default: 0
 
             @property ticksAll [Boolean]
               @description: Sets whether ticks should be shown for every data point.
-              @default false
+              @default: false
 
             @property gridLines [Boolean]
               @description: Sets whether or not grid lines should be used for the axis ticks. True means the grid lines will be shown.
-              @default true
+              @default: true
 
             @property nthTickVisible [Number]
               @description: Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
-              @default 1
+              @default: 1
 
             @property axisTickLabelPosition [Boolean]
               @description
                 @p: Sets the axisTickLabelPosi property
                 @p: Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
-              @default 'bottom'
+              @default: 'bottom'
 
             @property showTicks [Boolean]
               @description: Sets the showTicks property. If true, the axis ticks (text and tick marker) will be visible, if false they will be hidden.
-              @default true
+              @default: true
 
           @property y [Object]
             @property scaleType [String]
               @description: The scale type to use. Should be one of 'linear', 'discrete' or 'time'. 'discrete' should be used for bar charts, and 'linear' and 'time' for line graphs (in general). The 'time' scale type is similar to linear, but picks the ticks so that they align on sensible times.
-              @default 'linear'
+              @default: 'linear'
 
             @property visible [Boolean]
               @description:
                 @p: Sets the visibility state
                 @p: Whether or not the x axis should be visible. The default is true.
-              @default true
+              @default: true
 
             @property formatter [Function]
               @description:
                 @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
               @param value [Number]
               @returns String: The number formatted as a string.
-              @default hx.format.si
+              @default: hx.format.si
 
             @property tickRotation [Number]
               @description: Sets the rotation of the ticks in degrees.
-              @default 0
+              @default: 0
 
             @property min [Number/String]
               @description: Sets the minimum value the axis should show. If set to 'auto' the minimum value will calculated from the data in the series.
-              @default 'auto'
+              @default: 'auto'
 
             @property max [Number/String]
               @description: Sets the maximum value the axis should show. If set to 'auto' the maximum value will calculated from the data in the series.
-              @default 'auto'
+              @default: 'auto'
 
             @property discretePadding [Number]
               @description
                 @p: Sets the discretePadding property
                 @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
-              @default 0,1
+              @default: 0,1
 
             @property discreteLabels [Array[String]]
               @description
                 @p: Sets the discreteLabels property
                 @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
-              @default 'auto'
+              @default: 'auto'
 
             @property tickSpacing [Number]
               @description: Sets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks.
-              @default 50
+              @default: 50
 
             @property title [String]
               @description: Sets the title of the axis
-              @default ''
+              @default: ''
 
             @property scalePaddingMin [Number]
               @description: Sets the scalePaddingMin property
-              @default 0
+              @default: 0
 
             @property scalePaddingMax [Number]
               @description: Sets the padding to apply to the end of the axis domain. This option makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the domain. The default value is 0, which applies no padding.
-              @default 0
+              @default: 0
 
             @property ticksAll [Boolean]
               @description: Sets whether ticks should be shown for every data point.
-              @default false
+              @default: false
 
             @property gridLines [Boolean]
               @description: Sets whether or not grid lines should be used for the axis ticks. True means the grid lines will be shown.
-              @default true
+              @default: true
 
             @property nthTickVisible [Number]
               @description: Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
-              @default 1
+              @default: 1
 
             @property axisTickLabelPosition [Boolean]
               @description
                 @p: Sets the axisTickLabelPosi property
                 @p: Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
-              @default 'left'
+              @default: 'left'
 
             @property showTicks [Boolean]
               @description: Sets the showTicks property. If true, the axis ticks (text and tick marker) will be visible, if false they will be hidden.
-              @default true
+              @default: true
 
       @method addSeries
         @param type [String]
@@ -871,7 +871,7 @@
         @param selector [String/HTMLElement]: An HTMLElement or CSS selector which selects the graph's container.
         @param? options [Object]
           @property labelsEnabled [Boolean]: Whether labels should be displayed for this series. True if they are enabled, false if disabled
-            @default true
+            @default: true
 
           @property labelRenderer [Function]: The label renderer for this series.
             @param element [HTMLElement]: The container populated
@@ -880,29 +880,29 @@
           @property labelFormatter [Function]: The label formatter for this series.
             @param value [Number/String]: The value point to format
             @returns Number/String: The formatted value point
-            @default hx.format.si(2)
+            @default: hx.format.si(2)
 
           @property fillColor [String]: The color used to fill the series with as a CSS color string.
-            @default [hx.theme.plot.colors[1]]
+            @default: [hx.theme.plot.colors[1]]
 
           @property segmentPadding [Number]: The spacing between the segments. This value is a ratio of the segment width, so that pie charts scale to any size well.
-            @default 0
+            @default: 0
 
           @property innerPadding [Number]: The padding at the centre of the pie chart. This can turn a pie chart into a donut chart. This value should be between 0 and 1. A value around 0.5 is good for donut charts.
-            @default 0
+            @default: 0
 
           @property ringPadding [Number]: The separation between rings when there are multiple rings. This should be a value between 0 and 1.
-            @default 0.1
+            @default: 0.1
 
           @property totalAngle [Number]: The total angle the pie chart should use in radians - the default is 2*Math.PI. This can be used to create semi-circle donut charts.
-            @default 2*Math.PI
+            @default: 2*Math.PI
 
           @property startAngle [Number]: The angle that the segments should drawing from in radians. The default is 0, which starts the drawing from 12 o'clock. For drawing a semi-circle donut chart, this could be changed to -Math.PI/2.
-            @default 0
+            @default: 0
 
           @property legendEnabled [Boolean]
             @description: Enables or disables the legends. Supplying true enables zoom, false disables it.
-            @default true
+            @default: true
 
           @property legendLocation [String]
             @description
@@ -915,10 +915,10 @@
                 @item: 'top-left' - displays the legend in the top left
                 @item: 'bottom-right' - displays the legend in the bottom right
                 @item: 'bottom-left' - displays the legend in the bottom left
-            @default "auto"
+            @default: "auto"
 
           @property segmentTextEnabled [Boolean]: Whether or not to display text on each segment. If this is enabled, it is recommended that useLabels is disabled.
-            @default false
+            @default: false
 
           @property segmentTextFormatter [Function]
             @description: Returns the text that should be displayed on a segment if useSegmentText is enabled.
@@ -1242,44 +1242,44 @@
       @constructor
         @param? options [Object]
           @property title [String]: The title of the series
-            @default ''
+            @default: ''
 
           @property group [String]: The group the series belongs to. Series with the same group will be stacked on top of each other.
-            @default undefined
+            @default: undefined
 
           @property labelsEnabled [Boolean]: Whether labels should be displayed for this series. True if they are enabled, false if disabled
-            @default true
+            @default: true
 
           @property labelRenderer [Function]: The label renderer for this series.
             @param element [HTMLElement]: The container populated
             @param data [Object]: The data provided for rendering the label
 
           @property labelInterpolated [Boolean]: Whether or not label's values should be interpolated. True if the labels are interpolated between data points, false if the labels snap to the closest data point.
-            @default false
+            @default: false
 
           @property strokeEnabled [Boolean]: Whether the path of this series should be stroked. True if they are enabled, false if disabled.
-            @default true
+            @default: true
 
           @property strokeColor [String]: The color used to stroke the series with as a CSS color string.
-            @default [hx.theme.plot.colors[0]]
+            @default: [hx.theme.plot.colors[0]]
 
           @property fillEnabled [Boolean]: Gets whether the path of this series should be filled. True if they are enabled, false if disabled.
-            @default false
+            @default: false
 
           @property fillColor [String]: The color used to fill the series with as a CSS color string.
-            @default undefined
+            @default: undefined
 
           @property class [String]: The additional class applied to the series svg element.
-            @default ''
+            @default: ''
 
           @property markersEnabled [Boolean]: Whether markers should be placed where there are data points. True if they are enabled, false if disabled
-            @default false
+            @default: false
 
           @property markerFillColor [String]: The color used to fill the markers with as a CSS color string. If undefined the strokeColor will be used.
-            @default undefined
+            @default: undefined
 
           @property markerRadius [Number]: The radius of the markers in pixels
-            @default 2
+            @default: 2
 
           @property data [Array[Object]]
             @description
@@ -1307,7 +1307,7 @@
 
 
           @property sampleThreshold [Number]: The maximum number of data points to render when displaying the graph. If there are more data points in the series data than this value, the data will be sampled.
-            @default 200
+            @default: 200
 
           @property labelValuesExtractor [Function]: The label values extractor that returns the values to display in the label
             @param series [Series]: The Series this label extractor has been applied to
@@ -1622,23 +1622,23 @@
       @constructor
         @param? options [Object]
           @property title [String]: The title of the series
-            @default ''
+            @default: ''
 
           @property group [String]: The group the series belongs to. Series with the same group will be stacked on top of each other.
-            @default undefined
+            @default: undefined
 
           @property labelsEnabled [Boolean]: Whether labels should be displayed for this series. True if they are enabled, false if disabled
-            @default true
+            @default: true
 
           @property labelRenderer [Function]: The label renderer for this series.
             @param element [HTMLElement]: The container populated
             @param data [Object]: The data provided for rendering the label
 
           @property fillColor [String]: The color used to fill the series with as a CSS color string.
-            @default [hx.theme.plot.colors[1]]
+            @default: [hx.theme.plot.colors[1]]
 
           @property class [String]: The additional class applied to the series svg element.
-            @default ''
+            @default: ''
 
           @property data [Array[Object]]
             @description
@@ -1894,23 +1894,23 @@
       @constructor
         @param? options [Object]
           @property title [String]: The title of the series
-            @default ''
+            @default: ''
 
           @property labelsEnabled [Boolean]: Whether labels should be displayed for this series. True if they are enabled, false if disabled
-            @default true
+            @default: true
 
           @property labelRenderer [Function]: The label renderer for this series.
             @param element [HTMLElement]: The container populated
             @param data [Object]: The data provided for rendering the label
 
           @method labelInterpolated [Boolean]: Whether or not label's values should be interpolated. True if the labels are interpolated between data points, false if the labels snap to the closest data point.
-            @default false
+            @default: false
 
           @property fillColor [String]: The color used to fill the series with as a CSS color string.
-            @default [hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString()]
+            @default: [hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString()]
 
           @property class [String]: The additional class applied to the series svg element.
-            @default ''
+            @default: ''
 
           @property data [Array[Object]]
             @description
@@ -1935,7 +1935,7 @@
                 ]
 
           @property sampleThreshold [Number]: The maximum number of data points to render when displaying the graph. If there are more data points in the series data than this value, the data will be sampled.
-            @default 200
+            @default: 200
 
           @property labelValuesExtractor [Function]: The label values extractor that returns the values to display in the label
             @param series [Series]: The Series this label extractor has been applied to
@@ -2166,23 +2166,23 @@
       @constructor
         @param? options [Object]
           @property title [String]: The title of the series
-            @default ''
+            @default: ''
 
           @property labelsEnabled [Boolean]: Whether labels should be displayed for this series. True if they are enabled, false if disabled
-            @default true
+            @default: true
 
           @property labelRenderer [Function]: The label renderer for this series.
             @param element [HTMLElement]: The container populated
             @param data [Object]: The data provided for rendering the label
 
           @property fillColor [String]: The color used to fill the series with as a CSS color string.
-            @default [hx.theme.plot.colors[3]]
+            @default: [hx.theme.plot.colors[3]]
 
           @property class [String]: The additional class applied to the series svg element.
-            @default ''
+            @default: ''
 
           @property radius [Number]: The radius of the scatter points for this series. The radius may also be overidden in the data.
-            @default 2
+            @default: 2
 
           @property data [Array[Object]]
             @description
@@ -2427,17 +2427,17 @@
           @property title [String]: The title of the series
 
           @property labelsEnabled [Boolean]: Whether labels should be displayed for this series. True if they are enabled, false if disabled
-            @default true
+            @default: true
 
           @property labelRenderer [Function]: The label renderer for this series.
             @param element [HTMLElement]: The container populated
             @param data [Object]: The data provided for rendering the label
 
           @property strokeColor [String]: The color used to stroke the series with as a CSS color string.
-            @default [hx.theme.plot.colors[4]]
+            @default: [hx.theme.plot.colors[4]]
 
           @property class [String]: The additional class applied to the series svg element.
-            @default ''
+            @default: ''
 
           @property data [Array[Object]]
             @description
@@ -2670,19 +2670,19 @@
     @option pie-segment-text-col
       @type color
       @description: The color for text displayed on top of pie segments
-      @default rgba(255, 255, 255, 0.8)
+      @default: rgba(255, 255, 255, 0.8)
     @option label-box-shadow
       @type color
       @description: The box shadow for labels
-      @default 1px 1px 1px rgba(0, 0, 0, 0.25)
+      @default: 1px 1px 1px rgba(0, 0, 0, 0.25)
     @option label-header-background-col
       @type color
       @description: The background color for label headers
-      @default #F3F3F3
+      @default: #F3F3F3
     @option label-header-border-col
       @type color
       @description: The border color shown between the label header and the label details
-      @default #E0E0E0
+      @default: #E0E0E0
 
   @extra
     @h1 .docs-module-section: Getting Started

@@ -16,9 +16,9 @@
         @param title [String]: The title that should be shown in the modal's title bar.
         @param setup [Function[HTMLElement]]: A function that takes an HTMLElement as it's first argument, and sets up the content of the modal using that element.
         @param? isClosable [Boolean]: Whether or not the modal should display a button in the top left for closing the modal.
-          @default true
+          @default: true
         @param? maxWidth [Number]: The maximum width the modal should take in pixels.
-          @default 480
+          @default: 480
 
       @constructor
         @added
@@ -26,7 +26,7 @@
         @param title [String]: The title that should be shown in the modal's title bar.
         @param setup [Function[HTMLElement]]: A function that takes an HTMLElement as it's first argument, and sets up the content of the modal using that element.
         @param? isClosable [Boolean]: Whether or not the modal should display a button in the top left for closing the modal.
-          @default true
+          @default: true
 
       @method show
         @description: Shows the modal.
@@ -64,7 +64,7 @@
               ]
 
         @param? isClosable [Boolean]: Whether or not the modal should show a close button.
-          @default false
+          @default: false
 
       @function input
         @description: A function for creating a simple modal popup with a title, a message and an input box (and confirm and cancel buttons).
@@ -73,7 +73,7 @@
         @param callback [Function]:The function that gets called when a button is clicked.
         @param value [String]: The string value entered into the modal's input box, or false if the cancel button was clicked, or undefined if the close button was clicked in the titlebar of the modal.
         @param? isClosable [Boolean]: Whether or not the modal should show a close button.
-          @default true
+          @default: true
 
     @class hx-modal-shade
       @description: The class given to the semi-transparent overlay shown over the page.
@@ -94,21 +94,21 @@
     @option shade-col
       @type color
       @description: The color of the overlay shown above the content when a modal is shown.
-      @default rgba(0,0,0,0.5)
+      @default: rgba(0,0,0,0.5)
 
     @option background-col
       @type color
       @description: The background color of the modal
-      @default #F7F7F7
+      @default: #F7F7F7
 
     @option title-background-col
       @type color
       @description: The background color for the modal titlebar
-      @default #373D45
+      @default: #373D45
 
     @option title-text-col
       @type color
       @description: The text color for the modal titlebar
-      @default #F4F4F4
+      @default: #F4F4F4
 
   @seeAlso

@@ -9,12 +9,12 @@
     @param? xScaleType [String]
       @description
         The scale type to use for the x axis. Can currently be 'linear', 'discrete' or 'date'. When 'linear' and 'date' are used the data should be specified as a number. When 'discrete' is used, the data can be a number or a string. 'date' and 'linear' do the same thing, with the exception that 'date' will choose the tick values on the graph so that they align with common time intervals (1 min, 5 min, 30 min etc). 'date' scales expect the values to be specified in milliseconds.
-      @default 'linear'
+      @default: 'linear'
 
     @param? yScaleType [String]
       @description
         The scale type to use for the x axis. Can currently be 'linear', 'discrete' or 'date'. When 'linear' and 'date' are used the data should be specified as a number. When 'discrete' is used, the data can be a number or a string. 'date' and 'linear' do the same thing, with the exception that 'date' will choose the tick values on the graph so that they align with common time intervals (1 min, 5 min, 30 min etc). 'date' scales expect the values to be specified in milliseconds.
-      @default 'linear'
+      @default: 'linear'
 
 
   @property xVisible [Boolean]
@@ -62,12 +62,12 @@
   @property xGridLines [Boolean]
     @added
     Whether or not to show grid lines for the x axis ticks. True means the grid lines will be shown.
-    @default true
+    @default: true
 
   @property xNthTickVisible [Number]
     @added
     Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
-    @default 1
+    @default: 1
 
   @property yVisible [Boolean]
     Whether or not the y axis should be visible. The default is true.
@@ -113,12 +113,12 @@
   @property yGridLines [Boolean]
     @added
     Whether or not to show grid lines for the y axis ticks. True means the grid lines will be shown.
-    @default true
+    @default: true
 
   @property yNthTickVisible [Number]
     @added
     Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
-    @default 1
+    @default: 1
 
   @method addSeries
     @description: Creates a new Series with the given type, and adds it to the axis. The new Series instance is returned.

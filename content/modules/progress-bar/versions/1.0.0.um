@@ -47,4 +47,4 @@
     @option complement-col
       @type color
       @description: The complementary progress bar color
-      @default #FDFDFD
+      @default: #FDFDFD

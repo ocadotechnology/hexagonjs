@@ -8,5 +8,5 @@
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property redrawOnResize [Boolean]: Whether to redraw the meter when the container is resized
-            @default true
+            @default: true
             @added: Added an option to allow the meter to be redrawn manually

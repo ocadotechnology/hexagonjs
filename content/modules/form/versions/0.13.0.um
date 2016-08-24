@@ -24,7 +24,7 @@
       @param form [String/HTMLElement]: A css selector that selects the form to validate, or the form element itself to validate
       @param? options [Object]: The options to use when validating the form
         @property showMessage [Boolean]: Whether to show the message when validating. When set to false, the validate function will only return the errors without modifying the form.
-          @default true
+          @default: true
 
       @returns Object
         @property valid [Boolean]: Whether or not the form is valid

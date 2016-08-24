@@ -29,10 +29,10 @@
     @option compliment-col
       @type color
       @description: The base compliment color.
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option contrast-col
       @type color
       @description: The base contrast color.
-      @default #3D3D3D
+      @default: #3D3D3D
 

@@ -9,15 +9,15 @@
             @added: The default text is retrieved from the userFacingText module
               @issue 211
             @description: The text to display when the autocomplete is loading data
-            @default [hx.userFacingText('autocomplete', 'loading')]
+            @default: [hx.userFacingText('autocomplete', 'loading')]
           @property noResultsMessage [String]
             @updated: The default text is now retrieved from the userFacingText module
               @issue 211
-            @default [hx.userFacingText('autocomplete', 'noResultsFound')]
+            @default: [hx.userFacingText('autocomplete', 'noResultsFound')]
           @property otherResultsMessage [String]
             @updated: The default text is now retrieved from the userFacingText module
               @issue 211
-            @default [hx.userFacingText('autocomplete', 'otherResults')]
+            @default: [hx.userFacingText('autocomplete', 'otherResults')]
           @property pleaseEnterMinCharactersMessage [String]
             @added: The default text is retrieved from the userFacingText module
               @issue 211
@@ -31,4 +31,4 @@
                 }
                 // Evaluates to 'Please enter 3 characters'
 
-            @default [hx.userFacingText('autocomplete', 'pleaseEnterMinCharacters')]
+            @default: [hx.userFacingText('autocomplete', 'pleaseEnterMinCharacters')]

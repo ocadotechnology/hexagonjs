@@ -7,10 +7,10 @@
           @property buttonText [String]
             @updated: @issue 211
             @description: The text to display on the button. The default text becomes @code(js)[hx.userFacingText('fileInput', 'chooseFiles')] when selecting multiple files.
-            @default [hx.userFacingText('fileInput', 'chooseFile')]
+            @default: [hx.userFacingText('fileInput', 'chooseFile')]
           @property filesSelectedText [String]
             @updated: @issue 211
-            @default [hx.userFacingText('fileInput', 'filesSelected')]
+            @default: [hx.userFacingText('fileInput', 'filesSelected')]
           @property noFilesText [String]
             @added: @issue 211
-            @default [hx.userFacingText('fileInput', 'noFile')]
+            @default: [hx.userFacingText('fileInput', 'noFile')]

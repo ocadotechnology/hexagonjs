@@ -35,11 +35,11 @@
         @param selector [String/HTMLElement]: A selector for the sidebar container element
         @param? options [Object]: The options to use when setting up the sidebar.
           @property headerSelector [String/HTMLElement]: A selector for the titlebar header element
-            @default '.hx-titlebar-header'
+            @default: '.hx-titlebar-header'
           @property contentSelector [String/HTMLElement]: A selector for the hx-content section
-            @default '.hx-content'
+            @default: '.hx-content'
           @property addSidebarClass [Boolean]: Whether or not to add the hx-sidebar-page class to the body element.
-            @default true
+            @default: true
 
       @method on
         @added: Added events to the show/hide for the sidebar

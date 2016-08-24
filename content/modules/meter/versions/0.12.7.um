@@ -34,11 +34,11 @@
         @param? options [Object]
           @property useMarker [Boolean]
             Wheter or not to use the marker part of the meter
-            @default false
+            @default: false
 
           @property useTracker [Boolean]
             Wheter or not to use the tracker part of the meter
-            @default false
+            @default: false
 
           @property trackerWidth [Number]
             The width of the tracker arc (value between 0 and 1)

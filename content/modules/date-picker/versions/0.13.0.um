@@ -8,11 +8,11 @@
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property allowInbuiltPicker [Boolean]: Whether to allow the inbuilt datepicker for touch devices. Generally this should be allowed as the inbuilt picker is generally more suited to the device.
-            @default true
+            @default: true
           @property disabled [Boolean]
             @description:
               Whether the datepicker should be disabled on load. It can be enabled using the @code[enable] method.
-            @default false
+            @default: false
 
       @method showMonth
         @deprecated
@@ -113,7 +113,7 @@
           @property start [Date]: The first date of the range
           @property end [Date]: The second date of the range
         @param? dontSetupInput [Boolean]: A value used to prevent the input being changed
-          @default false
+          @default: false
         @returns DatePicker: This DatePicker
 
 

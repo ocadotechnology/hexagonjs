@@ -259,23 +259,23 @@
 
       @property useZoom [Boolean]
         @description: Whether or not to enable zoom controls for the graph
-        @default false
+        @default: false
 
       @property zoomStart [Number]
         @description: The start or the zoomed region - specified on the 0 to 1 scale.
-        @default 0
+        @default: 0
 
       @property zoomEnd [Number]
         @description: The end or the zoomed region - specified on the 0 to 1 scale.
-        @default 1
+        @default: 1
 
       @property useLabels [Boolean]
         @description: Whether or not to display labels on hover
-        @default true
+        @default: true
 
       @property useLegend [Boolean]
         @description: Whether or not to display the legend
-        @default false
+        @default: false
 
       @property legendPosition [String]
         @description
@@ -289,7 +289,7 @@
             @item: 'bottom-right' - displays the legend in the bottom right
             @item: 'bottom-left' - displays the legend in the bottom left
 
-        @default auto
+        @default: auto
 
     @prototype hx.PieChart
       @enhancement: Added resize listener to make pie charts re-render when the container is resized.
@@ -328,11 +328,11 @@
 
       @property useLabels [Boolean]
         @description: Whether or not to display labels on hover
-        @default true
+        @default: true
 
       @property useSegmentText [Boolean]
         @description: Whether or not to display text on each segment. If this is enabled, it is recommended that useLabels is disabled.
-        @default false
+        @default: false
 
       @property segmentTextFormatter [Function]
         @description: Returns the text that should be displayed on a segment if useSegmentText is enabled.
@@ -342,7 +342,7 @@
 
       @property useLegend [Boolean]
         @description: Whether or not to display the legend
-        @default false
+        @default: false
 
       @property legendPosition [String]
         @description
@@ -356,7 +356,7 @@
             @item: 'bottom-right' - displays the legend in the bottom right
             @item: 'bottom-left' - displays the legend in the bottom left
 
-        @default auto
+        @default: auto
 
     @function hx.plot
       @description: Provides a function for declaring graphs as an object, as alternative to the builder pattern use by the rest of the plot api.
@@ -364,7 +364,7 @@
       @param description [Object]
         @property type [String]:
           Can currently be either 'pie' or 'graph'.
-          @default graph
+          @default: graph
 
         @property? segmentPadding [Number]: To be used when constructing pie charts. See the pie chart api for details.
         @property? innerPadding [Number]: To be used when constructing pie charts. See the pie chart api for details.

@@ -34,53 +34,53 @@
     @option colors
       @description: The list of colors to give the numbered label classes
       @type color list
-      @default #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
+      @default: #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
       @deprecated: All numbered color classes will be removed in a later version.
 
     @option default-col
       @type color
       @description: The base default label color
-      @default #6582A6
+      @default: #6582A6
 
     @option positive-col
       @type color
       @description: The base positive label color
-      @default #6FB365
+      @default: #6FB365
 
     @option warning-col
       @type color
       @description: The base warning label color
-      @default #CB9856
+      @default: #CB9856
 
     @option negative-col
       @type color
       @description: The base negative label color
-      @default #C74967
+      @default: #C74967
 
     @option info-col
       @type color
       @description: The base info label color
-      @default #A36FA9
+      @default: #A36FA9
 
     @option compliment-col
       @type color
       @description: The base compliment label color
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option contrast-col
       @type color
       @description: The base contrast label color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option light-text-col
       @type color
       @description: The text color to use on dark label backgrounds
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option dark-text-col
       @type color
       @description: The text color to use on dark label backgrounds
-      @default #3D3D3D
+      @default: #3D3D3D
 
   @seeAlso
 

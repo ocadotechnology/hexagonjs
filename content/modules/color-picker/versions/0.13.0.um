@@ -70,11 +70,11 @@
         @param selector [String/HTMLElement]: The selector to show the color picker for.
         @param? options [Object]: The options to use when setting up the color picker
           @property startColor [Color]: The start color to use when creating the color picker.
-            @default #000000
+            @default: #000000
           @property showInputs [Boolean]: Boolean to decide whether or not to show the input boxes for the hex, red, green, blue, hue, saturation and lightness values.
-            @default false
+            @default: false
           @property align [String]: The alignment of the dropdown (options can be found in the dropdown documentation)
-            @default lblt
+            @default: lblt
 
       @method value
         @added: Added a method for setting the current color
