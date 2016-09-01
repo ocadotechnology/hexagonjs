@@ -381,17 +381,23 @@
 
           /* returns
             [
-              "a", [
-                { type: 'a', value: 1 },
-                { type: 'a', value: 2 }
+              [
+                "a", [
+                  { type: 'a', value: 1 },
+                  { type: 'a', value: 2 }
+                ]
               ],
-              "b", [
-                { type: 'b', value: 3 },
-                { type: 'b', value: 4 },
-                { type: 'b', value: 5 }
+              [
+                "b", [
+                  { type: 'b', value: 3 },
+                  { type: 'b', value: 4 },
+                  { type: 'b', value: 5 }
+                ]
               ],
-              "c", [
-                { type: 'c', value: 6 }
+              [
+                "c", [
+                  { type: 'c', value: 6 }
+                ]
               ]
             ]
           */
