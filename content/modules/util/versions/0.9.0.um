@@ -380,20 +380,20 @@
           ]
 
           /* returns
-            {
-              a: [
+            [
+              "a", [
                 { type: 'a', value: 1 },
                 { type: 'a', value: 2 }
               ],
-              b: [
+              "b", [
                 { type: 'b', value: 3 },
                 { type: 'b', value: 4 },
                 { type: 'b', value: 5 }
               ],
-              b: [
+              "c", [
                 { type: 'c', value: 6 }
               ]
-            }
+            ]
           */
           hx.groupBy(items, function(v){
             return v.type;
