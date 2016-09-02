@@ -410,8 +410,8 @@
       @param classifier [Function]
         @description: A function that returns the category that an item should be grouped into
         @param item [Any]: The item to classify
-        @returns String: The category to group the item into
-      @returns Object: An object who's keys are the categories, and items are arrays of grouped values
+        @returns Any: The category to group the item into
+      @returns Array: An array of tuples where the first element of each tuple is the category, and the second element is an array of grouped values
 
     @function hx.unique
       @description
