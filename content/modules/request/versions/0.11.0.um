@@ -3,7 +3,17 @@
     @function hx.xhr
       @removed: Given a more descriptive name: hx.request
       @param url [Any]
-      @param? data [Any]
+      @param data [Any]
+      @param callback [Function]
+        @param error [Object]
+        @param response [Object / Any]
+        @param source [Any]
+        @param? index [Number]
+      @param? options [Object]
+
+    @function hx.xhr
+      @removed: Given a more descriptive name: hx.request
+      @param url [Any]
       @param callback [Function]
         @param error [Object]
         @param response [Object / Any]
