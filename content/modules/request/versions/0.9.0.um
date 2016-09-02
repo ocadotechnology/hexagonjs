@@ -74,8 +74,8 @@
 
       @param data [Any]
         @description
-          @p The data to send with the request. It can be a string or a javascript object.
-          @p Objects will be passed through JSON.stringify before being sent with the request and strings will be passed straight through.
+          @p: The data to send with the request. It can be a string or a javascript object.
+          @p: Objects will be passed through JSON.stringify before being sent with the request and strings will be passed straight through.
 
       @param callback [Function]
         @description
