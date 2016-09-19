@@ -663,8 +663,6 @@ class DataTable extends hx.EventEmitter
           start = undefined
           end = undefined
 
-        selection.classed('hx-data-table-infinite', totalCount is undefined)
-
         range = {
           start: start,
           end: end,
@@ -677,6 +675,8 @@ class DataTable extends hx.EventEmitter
         feed.rows range, ({rows, filteredCount}) =>
           if options.displayMode is 'paginate'
             multiPage = false
+            selection.classed('hx-data-table-infinite', filteredCount is undefined)
+
             if filteredCount is undefined
               @_.numPages = undefined
               numText = (start+1) + ' - ' + (end+1)
@@ -746,22 +746,21 @@ class DataTable extends hx.EventEmitter
               @_.sortColPicker.value({value: currentSort.column + currentSort.direction})
 
           # populate the page size picker if there are options set
-          if filteredCount isnt undefined and filteredCount > 0
-            selectPageSize = options.pageSizeOptions? and options.pageSizeOptions.length > 0
-            selection.selectAll('.hx-data-table-page-size').classed('hx-data-table-page-size-visible', selectPageSize)
+          selectPageSize = options.pageSizeOptions? and options.pageSizeOptions.length > 0
+          selection.selectAll('.hx-data-table-page-size').classed('hx-data-table-page-size-visible', selectPageSize)
 
-            if selectPageSize
-              if options.pageSizeOptions.indexOf(options.pageSize) is -1
-                options.pageSizeOptions.push options.pageSize
+          if selectPageSize
+            if options.pageSizeOptions.indexOf(options.pageSize) is -1
+              options.pageSizeOptions.push options.pageSize
 
-              pageSizeOptions = options.pageSizeOptions
-                .sort(hx.sort.compare)
-                .map((item) -> {text: item, value: item})
+            pageSizeOptions = options.pageSizeOptions
+              .sort(hx.sort.compare)
+              .map((item) -> {text: item, value: item})
 
-              @_.pageSizePickers.forEach (picker) ->
-                picker
-                  .items(pageSizeOptions)
-                  .value(options.pageSize)
+            @_.pageSizePickers.forEach (picker) ->
+              picker
+                .items(pageSizeOptions)
+                .value(options.pageSize)
 
           # build the grouped header
           if headers.some((header) -> header.groups?)
