@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.6.0
+ Version: 1.7.0
  Theme: hexagon-dark
  Modules:
    set
@@ -6125,9 +6125,9 @@ hx.initializeCollapsibles = function(selector, options) {
 (function(){
 var context, contexts, flatSelect, paletteContexts;
 
-contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast'];
+contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled'];
 
-paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast'];
+paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled'];
 
 hx.palette = {};
 
@@ -13073,7 +13073,7 @@ StickyTableHeaders = (function() {
     }
     tableClone = table.clone(true).style('height', table.style('height')).style('width', table.style('width'));
     if (options.stickTableHead) {
-      topHead = container.select('.hx-sticky-table-header-top');
+      topHead = container.shallowSelect('.hx-sticky-table-header-top');
       if (topHead.empty()) {
         topHead = container.prepend('div')["class"]('hx-sticky-table-header-top');
         if (!_.showScrollIndicators && options.fullWidth) {
@@ -13088,7 +13088,7 @@ StickyTableHeaders = (function() {
       createStickyHeaderNodes(realNodes, clonedNodes);
     }
     if (options.stickFirstColumn) {
-      leftHead = container.select('.hx-sticky-table-header-left');
+      leftHead = container.shallowSelect('.hx-sticky-table-header-left');
       if (leftHead.empty()) {
         leftHead = container.prepend('div')["class"]('hx-sticky-table-header-left');
         if (!_.showScrollIndicators && options.fullWidth) {
@@ -13103,7 +13103,7 @@ StickyTableHeaders = (function() {
       createStickyHeaderNodes(realNodes, clonedNodes);
     }
     if (options.stickTableHead && options.stickFirstColumn) {
-      topLeftHead = container.select('.hx-sticky-table-header-top-left');
+      topLeftHead = container.shallowSelect('.hx-sticky-table-header-top-left');
       if (topLeftHead.empty()) {
         topLeftHead = container.prepend('div')["class"]('hx-sticky-table-header-top-left');
       }
@@ -16074,7 +16074,6 @@ DataTable = (function(superClass) {
             start = void 0;
             end = void 0;
           }
-          selection.classed('hx-data-table-infinite', totalCount === void 0);
           range = {
             start: start,
             end: end,
@@ -16088,6 +16087,7 @@ DataTable = (function(superClass) {
             rows = arg.rows, filteredCount = arg.filteredCount;
             if (options.displayMode === 'paginate') {
               multiPage = false;
+              selection.classed('hx-data-table-infinite', filteredCount === void 0);
               if (filteredCount === void 0) {
                 _this._.numPages = void 0;
                 numText = (start + 1) + ' - ' + (end + 1);
@@ -16167,23 +16167,21 @@ DataTable = (function(superClass) {
                 });
               }
             }
-            if (filteredCount !== void 0 && filteredCount > 0) {
-              selectPageSize = (options.pageSizeOptions != null) && options.pageSizeOptions.length > 0;
-              selection.selectAll('.hx-data-table-page-size').classed('hx-data-table-page-size-visible', selectPageSize);
-              if (selectPageSize) {
-                if (options.pageSizeOptions.indexOf(options.pageSize) === -1) {
-                  options.pageSizeOptions.push(options.pageSize);
-                }
-                pageSizeOptions = options.pageSizeOptions.sort(hx.sort.compare).map(function(item) {
-                  return {
-                    text: item,
-                    value: item
-                  };
-                });
-                _this._.pageSizePickers.forEach(function(picker) {
-                  return picker.items(pageSizeOptions).value(options.pageSize);
-                });
+            selectPageSize = (options.pageSizeOptions != null) && options.pageSizeOptions.length > 0;
+            selection.selectAll('.hx-data-table-page-size').classed('hx-data-table-page-size-visible', selectPageSize);
+            if (selectPageSize) {
+              if (options.pageSizeOptions.indexOf(options.pageSize) === -1) {
+                options.pageSizeOptions.push(options.pageSize);
               }
+              pageSizeOptions = options.pageSizeOptions.sort(hx.sort.compare).map(function(item) {
+                return {
+                  text: item,
+                  value: item
+                };
+              });
+              _this._.pageSizePickers.forEach(function(picker) {
+                return picker.items(pageSizeOptions).value(options.pageSize);
+              });
             }
             if (headers.some(function(header) {
               return header.groups != null;
