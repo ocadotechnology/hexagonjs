@@ -838,18 +838,18 @@
                     {name: 'Profession', id: 'profession', groups: ['Child Group 2', 'Parent Group']}
                 ],
                 rows: [
-                    {
-                        id: 0, // hidden details can go here (not in the cells object)
-                        cells: {'name': 'Bob', 'age': 25, 'profession': 'Developer'}
-                    },
-                    {
-                        id: 1,
-                        cells: {'name': 'Jan', 'age': 41, 'profession': 'Artist'}
-                    },
-                    {
-                        id: 2,
-                        cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder'}
-                    }
+                  {
+                    id: 0, // hidden details can go here (not in the cells object)
+                    cells: {'name': 'Bob', 'age': 25, 'profession': 'Developer'}
+                  },
+                  {
+                    id: 1,
+                    cells: {'name': 'Jan', 'age': 41, 'profession': 'Artist'}
+                  },
+                  {
+                    id: 2,
+                    cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder'}
+                  }
                 ]
               })
             }).render()
@@ -892,7 +892,7 @@
                         cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
                       }
                     ].slice(range.start, range.end + 1),
-                    filteredCount: (finalSize !== undefined || range.end >= 3) ? finalSize = 3 : undefined
+                    filteredCount: (finalSize !== undefined || range.end >= 2) ? finalSize = 3 : undefined
                   })
                 },
                 totalCount: function (cb) { cb(undefined) }
