@@ -231,7 +231,7 @@ class StickyTableHeaders
 
     if options.stickTableHead
       # Append top
-      topHead = container.select('.hx-sticky-table-header-top')
+      topHead = container.shallowSelect('.hx-sticky-table-header-top')
       if topHead.empty()
         topHead = container.prepend('div').class('hx-sticky-table-header-top')
         # We don't need to do this when the scrollbar size is 0 as there's no empty space shown
@@ -252,7 +252,7 @@ class StickyTableHeaders
 
     if options.stickFirstColumn
       # Append left
-      leftHead = container.select('.hx-sticky-table-header-left')
+      leftHead = container.shallowSelect('.hx-sticky-table-header-left')
       if leftHead.empty()
         leftHead = container.prepend('div').class('hx-sticky-table-header-left')
 
@@ -272,7 +272,7 @@ class StickyTableHeaders
 
     if options.stickTableHead and options.stickFirstColumn
       # Append top left
-      topLeftHead = container.select('.hx-sticky-table-header-top-left')
+      topLeftHead = container.shallowSelect('.hx-sticky-table-header-top-left')
       if topLeftHead.empty()
         topLeftHead = container.prepend('div').class('hx-sticky-table-header-top-left')
       topLeftHead.clear()
