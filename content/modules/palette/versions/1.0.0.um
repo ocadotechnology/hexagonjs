@@ -130,7 +130,7 @@
             @item: @bold['info'] - the element has the 'hx-info' class
             @item: @bold['action'] - the element has the 'hx-action' class
             @item: @bold['complement'] - the element has the 'hx-complement' class
-            @item: @bold['contrast'] - the element has the 'hx-positive' class
+            @item: @bold['contrast'] - the element has the 'hx-contrast' class
 
     @function hx.palette.textContext
       @description
@@ -178,7 +178,7 @@
             @item: @bold['info'] - the element has the 'hx-text-info' class
             @item: @bold['action'] - the element has the 'hx-text-action' class
             @item: @bold['complement'] - the element has the 'hx-text-complement' class
-            @item: @bold['contrast'] - the element has the 'hx-text-positive' class
+            @item: @bold['contrast'] - the element has the 'hx-text-contrast' class
 
     @function hx.palette.backgroundContext
       @description
@@ -226,7 +226,7 @@
             @item: @bold['info'] - the element has the 'hx-background-info' class
             @item: @bold['action'] - the element has the 'hx-background-action' class
             @item: @bold['complement'] - the element has the 'hx-background-complement' class
-            @item: @bold['contrast'] - the element has the 'hx-background-positive' class
+            @item: @bold['contrast'] - the element has the 'hx-background-contrast' class
 
   @theme
     @option default-col
