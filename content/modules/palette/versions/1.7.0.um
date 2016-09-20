@@ -4,7 +4,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @param context [String]
         @description
           The context to apply. May be one of:
@@ -23,7 +23,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @returns [String]
         @description
           The context of the element. May be one of:
@@ -43,7 +43,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @param context [String]
         @description
           The context to apply. May be one of:
@@ -64,7 +64,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @returns [String]
         @description
           The text context of the element. May be one of:
@@ -85,7 +85,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @param context [String]
         @description
           The context to apply. May be one of:
@@ -106,7 +106,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @returns [String]
         @description
           The background context of the element. May be one of:
@@ -127,7 +127,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @param context [String]
         @description
           The context to apply. May be one of:
@@ -148,7 +148,7 @@
       @updated: Added 'disabled' to the list of context classes
         @issue 298
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
       @returns [String]
         @description
           The border context of the element. May be one of:
