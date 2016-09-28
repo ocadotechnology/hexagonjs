@@ -17,7 +17,7 @@ class Crumbtrail
         self.options.renderer(element, d)
       else
         @class('hx-crumbtrail-separator')
-          .html(self.options.separator).node()
+          .text(self.options.separator).node()
 
     @view = hx.select(@selector).view('span', 'span')
       .update update
