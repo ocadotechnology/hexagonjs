@@ -11,3 +11,9 @@ hexagon.light.build({
   dest: 'content/resources/hexagon/latest',
   embedAssets: true
 })
+
+hexagon.light.build({
+  dest: 'content/resources/hexagon/docs',
+  prefix: 'dx',
+  embedAssets: true
+})

@@ -41,12 +41,16 @@ p:last-child {
   float: right;
 }
 
-.docs-examples .docs-example {
+.docs-example + .docs-example {
   margin-top: 1.5em;
 }
 
 .docs-example {
-  border: solid 1px rgb(234, 230, 230);
+  background: white;
+  padding: 1em;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+  border: solid 1px rgba(0, 0, 0, 0.05);
 }
 
 .docs-example-body {
@@ -292,7 +296,9 @@ p:last-child {
 
 .dx-titlebar {
   background: #00ADA8;
-  height: 46px;
+  min-height: 46px;
+  position: fixed;
+  width: 100%;
 }
 
 .docs-version {
@@ -383,4 +389,8 @@ a.qm-changelog-link {
 
 .docs-footer-note a {
   color: rgb(100, 200, 197);
+}
+
+.qm-docs-topic-header {
+  color: #00ada8 !important;
 }

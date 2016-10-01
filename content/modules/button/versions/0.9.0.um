@@ -3,7 +3,8 @@
   @description
     Provides the @code(css)[hx-btn] class for styling @code[<button>] and @code[<a>] elements.
 
-    @coffee: @inline clicker.coffee
+    @script
+      @coffee: @inline clicker.coffee
 
   @examples
     @example
@@ -185,7 +186,3 @@
     @moduleLink hx-input-group
 
   @changelog
-
-
-
-

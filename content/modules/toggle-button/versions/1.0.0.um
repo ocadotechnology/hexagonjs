@@ -8,7 +8,7 @@
     @removed: This module was removed in this version and replaced with the Toggle module
 
     @prototype hx.ToggleButton
-      @removed:
+      @removed
 
     @class hx-btn-toggle
-      @removed:
+      @removed
