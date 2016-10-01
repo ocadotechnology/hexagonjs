@@ -27,9 +27,9 @@
         @param selector [String/HTMLElement]: The selector to use to build the date picker
         @param type [String]: The type of date picker to show, can be either 'datepicker' or 'calendar'
         @param? closeOnSelect [Boolean]: Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
-          @default true
+          @default: true
         @param? selectRange [Boolean]: Set to true to allow the selection of a date range.
-          @default false
+          @default: false
 
       @method showMonth
         @description: A function used to show the month specified without affecting the date selection
@@ -41,25 +41,25 @@
         @param date [Date]: The date to set the date picker to
         @param? dontSetupInput [Boolean]: A value used to prevent the input being changed
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method setDay
         @description: A function used to set the day in the date picker
         @param day [Number]: The day of the month to set
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted
-          @default false
+          @default: false
 
       @method setMonth
         @description: A function to set the month of the date picker
         @param month [Number]: The month to show
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted
-          @default false
+          @default: false
 
       @method setYear
         @description: A function to set the year of the date picker
         @param year [Number]: The year to set the date picker to
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted
-          @default false
+          @default: false
 
       @method setRange
         @description
@@ -69,7 +69,7 @@
         @param date2 [Date]: The second date of the range
         @param dontSetupInput [Boolean]: A value used to prevent the input being changed
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
 
       @method addDays
         @description: A function to add days to the date picker
@@ -131,71 +131,71 @@
     @option today-background-col
       @type color
       @description: The background color for today on the calendar
-      @default #E6E6E6
+      @default: #E6E6E6
 
     @option light-text-col
       @type color
       @description: The text color to use on dark button backgrounds
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option dark-text-col
       @type color
       @description: The text color to use on dark button backgrounds
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option day-hover-background-col
       @type color
       @description: The hover background color for selectable days on the calendar
-      @default #6FB365
+      @default: #6FB365
 
     @option range-background-col
       @type color
       @description: The background color for days between the start and end day.
-      @default #E2E2E2
+      @default: #E2E2E2
 
     @option selected-background-col
       @type color
       @description: The background for selected days
-      @default #6FB365
+      @default: #6FB365
 
     @option error-background-col
       @type color
       @description: The background color for the input field when an invalid date has been input.
-      @default #FCBFBF
+      @default: #FCBFBF
 
     @option error-outline-col
       @type color
       @description: The outline color for the input field when an invalid date has been input.
-      @default #DE1A4A
+      @default: #DE1A4A
 
     @option divider-col
       @type color
       @description: The text color of the divider between the day headers and the calendar body.
-      @default #E2E1E1
+      @default: #E2E1E1
 
     @option header-text-col
       @type color
       @description: The color of the month / year text.
-      @default #4A536F
+      @default: #4A536F
 
     @option icon-col
       @type color
       @description: The color of the back / forward icons on the calendar.
-      @default #939393
+      @default: #939393
 
     @option icon-hover-col
       @type color
       @description: The hover color of the back / forward icons on the calendar.
-      @default #555555
+      @default: #555555
 
     @option input-background-col
       @type color
       @description: The background color of the date picker input
-      @default #FFF
+      @default: #FFF
 
     @option day-border-radius
       @type size
       @description: The border radius for the day markers
-      @default 2px
+      @default: 2px
 
   @seeAlso

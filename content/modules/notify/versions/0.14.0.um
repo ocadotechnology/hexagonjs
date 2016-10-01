@@ -71,7 +71,7 @@
         @param message [String]
         @param? options [Object]
           @property timeout [Number]: How long (in seconds) the notification should hang around for before it dismisses itself. If false is supplied, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
-            @default 5
+            @default: 5
           @property pinnable [Boolean]
 
       @method temporary

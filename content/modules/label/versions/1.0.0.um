@@ -18,4 +18,4 @@
     @option complement-col
       @type color
       @description: The base compliment label color
-      @default #FDFDFD
+      @default: #FDFDFD

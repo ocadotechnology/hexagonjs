@@ -5,4 +5,4 @@
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property alwaysSticky [Boolean]: A boolean to determine whether to always display the sticky headers even when the table cannot be scrolled.
-            @default false
+            @default: false

@@ -7,7 +7,7 @@
           @property disabled [Boolean]: Whether the picker should be disabled
             @added: Added the ability to disable a picker in the options
 
-            @default false
+            @default: false
 
       @method disabled
         @added: Added the ability to disable/enable a picker

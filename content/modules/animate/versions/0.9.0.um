@@ -149,7 +149,7 @@
         @param property [String]: The style property to animate
         @param endValue [String/Number]: The value to animate the property to
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Animation: This Animation, for chaining.
 
       @method style
@@ -165,7 +165,7 @@
         @param attribute [String]: The attribute to animate
         @param endValue [String/Number]: The value to animate the attribute to
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Animation: This Animation, for chaining.
 
       @method attr
@@ -201,7 +201,7 @@
         @description: Adds an action that should happen concurrently with the previous action
         @param morph [String]: The named morph to use.
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Animation: This Morph, for chaining.
 
       @method and
@@ -221,7 +221,7 @@
         @description: Adds an action that should happen after the previous action
         @param morph [String]: The named morph to use.
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
 
       @method then
@@ -242,7 +242,7 @@
         @param property [String]: The style property to animate
         @param endValue [String/Number]: The value to animate the property to
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Morph: This Morph, for chaining.
 
       @method andStyle
@@ -258,7 +258,7 @@
         @param property [String]: The style property to animate
         @param endValue [String/Number]: The value to animate the property to
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
 
       @method thenStyle
@@ -274,7 +274,7 @@
         @param property [String]: The style property to animate
         @param endValue [String/Number]: The value to animate the property to
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Morph: This Morph, for chaining.
 
       @method andAttr
@@ -290,7 +290,7 @@
         @param property [String]: The style property to animate
         @param endValue [String/Number]: The value to animate the property to
         @param? duration [Number]: The length of the animation in milliseconds
-          @default 200
+          @default: 200
         @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
 
       @method thenAttr
@@ -304,7 +304,7 @@
       @method go
         @description: Starts this morph. This should always be called at the end of the chain of actions.
         @param? cancelOngoing [Boolean]: Stops any ongoing morphs for the selected node
-          @default false
+          @default: false
         @returns Morph: This Morph, for chaining.
 
       @method on

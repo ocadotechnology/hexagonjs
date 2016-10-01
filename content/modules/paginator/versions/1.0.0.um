@@ -22,11 +22,11 @@
         @param selector [String/HTMLElement]: A CSS selector or a HTMLElement that identifies the container for your paginator.
         @param? options [Object]
           @property page [Number]: The page index to set. This index is 1 based.
-            @default 1
+            @default: 1
           @property visibleCount [Number]: The number of pages visible in the paginator.
-            @default 10
+            @default: 10
           @property pageCount [Number]: The number of pages to give the paginator.
-            @default 10
+            @default: 10
 
     @function hx.paginator
       @added: Fluid api version of Paginator
@@ -38,5 +38,5 @@
     @option default-button
       @description: The button class to give the number buttons
       @type string
-      @default hx-complement
+      @default: hx-complement
       @includeWithJs true

@@ -11,27 +11,27 @@
     @property rowsPerPage [Number]
       @description
         The maximum number of rows on a page - if there are more rows in the data than this value, the pagination will be shown automatically.
-      @default 100
+      @default: 100
 
     @property showSorts [Boolean]
       @description
         Whether to show the sorts on the table columns.
-      @default true
+      @default: true
 
     @property showFilters [Boolean]
       @description
         Whether to show the filters on the table columns.
-      @default true
+      @default: true
 
     @property showSelection [Boolean]
       @description
         Whether to allow rows to be selected and show the ticks at the side of the table.
-      @default false
+      @default: false
 
     @property rowSelectable [Boolean]
       @description
         If showSelection is set to true, this value determines if the entire row should be clickable or just the tick box.
-      @default true
+      @default: true
 
     @property collapsibleRow [Function]
       @description
@@ -42,12 +42,12 @@
     @property alwaysMobile [Boolean]
       @description
         Whether to always show the table in 'mobile' mode. This is a mode that enables mobile users to see the data in a more sensible layout.
-      @default false
+      @default: false
 
     @property useResponsive [Boolean]
       @description
         Whether to switch to 'mobile' mode when the container for the table is below 480px.
-      @default true
+      @default: true
 
     @property enabledFilters [Array]
       @updated
@@ -71,7 +71,7 @@
       @added
       @description
         The message to display when there is no data.
-      @default 'No Data'.
+      @default: 'No Data'.
 
     @property defaultCellValueLookup [Function]
       @added
@@ -483,10 +483,10 @@
         Any extra information that should be fed through to server side and function requests. Not needed for object based data.
 
     @param? clearSorts [Boolean]: A boolean value that determines whether sorts should be reset when setting the data.
-      @default false
+      @default: false
 
     @param? clearFilters [Boolean]: A boolean value that determines whether filters should be reset when setting the data.
-      @default false
+      @default: false
 
     @param? callback [Function]
       @description: A function to be called once the table has fetched all data and has finished rendering.
@@ -527,7 +527,7 @@
       @description
         The filter type to add.
         The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
-      @default 'contains'
+      @default: 'contains'
 
     @param? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
 
@@ -556,7 +556,7 @@
       @description
         The filter type to add.
         The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
-      @default 'contains'
+      @default: 'contains'
 
     @param? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
 
@@ -584,7 +584,7 @@
       @description
         The filter type to add.
         The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
-      @default 'contains'
+      @default: 'contains'
 
     @param? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
 

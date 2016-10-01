@@ -33,12 +33,12 @@
         @param selector [String/HTMLElement]: The selector to use to build the date picker
         @param? options [Object]: The options to use when setting up the datepicker.
           @property type [String]: The type of date picker to show, can be either 'datepicker' or 'calendar'
-            @default 'calendar'
+            @default: 'calendar'
           @property closeOnSelect [Boolean]: Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
-            @default true
+            @default: true
           @property selectRange [Boolean]: Set to true to allow the selection of a date range. If this is set to true, the type is set to 'calendar' and showTodayButton is set to false as these properties cannot be used when in range selection mode.
-            @default false
+            @default: false
           @property defaultView [String]: The default view to use when using the date picker. Can be 'm' for month view, 'y' for year view or 'd' for decade view.
-            @default 'm'
+            @default: 'm'
           @property showTodayButton [Boolean]: Whether to show the 'today' button when using the date picker. The today button allows the user to select today regardless of what view they are currently in.
-            @default true
+            @default: true

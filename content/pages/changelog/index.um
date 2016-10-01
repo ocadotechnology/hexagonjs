@@ -181,5 +181,56 @@
       @description
         @p: Includes some bugfixes and improvements to under-the-hood behaviour.
 
+    @version 1.3.0
+      @description
+        @p: Fix multiple bugs and add the @code(js)[shallowSelect] functionality as well as a new File Input module.
+
+    @version 1.3.1
+      @description
+        @p: Fix the file input options.
+
+    @version 1.3.2
+      @description
+        @p: Fix for hx.defined.
+
+    @version 1.3.3
+      @description
+        @p: Change the preferences module to prefer navigator.languages over navigator.language
+
+    @version 1.4.0
+      @description
+        @p: Added the Autocomplete Picker module, a hybrid of an AutoComplete and a Picker.
+        @p: Added the User Facing Text module for defining the default text for Hexagon modules.
+
+    @version 1.4.1
+      @description
+        @p: Several bugfixes, including changes to how the default locale is set when using @code[moment]
+
+    @version 1.4.2
+      @description
+        @p: Fix an issue with the code using the wrong option variables in AutoComplete
+        @p: Also added CSS support for iOS 7/8 to resolve some style and layout issues on older iPads
+
+    @version 1.5.0
+      @description
+        @p: Added the ability to search across multiple columns in DataTables.
+        @p: Added the ability to show the search above the table content in the data table options.
+        @p: Changes to the structure of the DataTable to improve @code[compact] mode, including adding a compact 'menu' to reduce the amount of space data tables take up when in compact mode
+        @p: Added some new utility functions for checking the type of values and getting the argmin/argmax.
+
+    @version 1.5.1
+      @description
+        Fixed a selection of bugs including an issue caused by meters when rendering with 0 width/height, button alignment in forms and notification flex styles.
+
+    @version 1.6.0
+      @description
+        @p: Added a selection of new features including the addition of autocomplete to tag inputs, the ability to press and hold to increment/decrement Number Pickers, improved reusability of Dropdowns and the addition of min/max options to Sparklines.
+
+    @version 1.7.0
+      @description
+        @p: Added support for lazily loaded data table feeds
+        @p: Added the @code[disabled] context class to @code(js)[hx.palette.context]
+        @p: Fixed a bug in sticky table headers that prevented nested sticky tables being created
+
   @h2: Key
   @changelog.key

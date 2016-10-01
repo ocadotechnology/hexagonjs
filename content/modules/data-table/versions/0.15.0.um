@@ -45,7 +45,7 @@
         @param? options [Object]: The options to use when creating the data table
 
           @property allowHeaderWrap [Boolean]: A boolean to determine whether table headers should be allowed to wrap onto multiple lines.
-            @default false
+            @default: false
 
           @property cellRenderer [Function]: A function for rendering body cells.
             @default
@@ -94,7 +94,7 @@
                 @li: 'auto': Detect the size of the window and switch between compact and standard modes automatically.
                 @li: true: Always use compact mode
                 @li: false: Always use standard mode.
-            @default 'auto'
+            @default: 'auto'
 
           @property displayMode [String]:
             @description
@@ -103,7 +103,7 @@
               @ul
                 @li: 'paginate': show a single page at a time with a pagination option.
                 @li: 'all': Show all the rows on a single page.
-            @default 'paginate'
+            @default: 'paginate'
 
           @property feed [Feed]
             @description: The feed to use when creating the table. See the @code[Feed] and @code[hx.dataTable] objects for information on feeds.
@@ -111,7 +111,7 @@
           @property filter [String]: The filter to apply when creating the table
 
           @property filterEnabled [Boolean]: A boolean to determine whether filtering should be enabled.
-            @default true
+            @default: true
 
           @property headerCellRenderer [Function]: A function for rendering header cells.
             @param element [HTMLElement]: The element that is being populated.
@@ -124,10 +124,10 @@
                 }
 
           @property noDataMessage [String]: A string that is displayed when there is no data in the table.
-            @default ['No Data']
+            @default: ['No Data']
 
           @property pageSize [Number]: A number to determine how many rows should be shown on a page.
-            @default 15
+            @default: 15
 
           @property pageSizeOptions [Array[Number]]
             @description
@@ -135,10 +135,10 @@
               @p: If a value is provided, a dropdown is shown to allow the user to change the rows displayed on a page.
 
           @property retainHorizontalScrollOnRender [Boolean]: A boolean to determine whether the horizontal scroll should be retained when re-rendering the current page of data.
-            @default true
+            @default: true
 
           @property retainVerticalScrollOnRender [Boolean]: A boolean to determine whether the vertical scroll should be retained when re-rendering the current page of data.
-            @default false
+            @default: false
 
           @property rowCollapsibleLookup [Function]: A function for determining whether a row has a collapsible.
             @default
@@ -178,14 +178,14 @@
             @returns Boolean: Whether the row can be selected.
 
           @property selectEnabled [Boolean]: A boolean to determine whether the selection of rows should be enabled.
-            @default false
+            @default: false
 
           @property singleSelection [Boolean]
             @description
               @p: A boolean to determine whether the table should be in single select mode.
               @p: This mode only allows one row to be selected at a time.
               @p: @code[selectEnabled] must also be true for this to take effect.
-            @default false
+            @default: false
 
           @property sort [Object]: The sort to apply when creating the table. No sorting is applied by default
             @property column [String]: The column id to sort on
@@ -194,7 +194,7 @@
 
           @property sortEnabled [Boolean]
             @description: A boolean to determine whether sorting should be enabled. This can also be set on a per-column basis using the @code[columns] option.
-            @default true
+            @default: true
 
 
       # Methods for changing the options
@@ -720,7 +720,7 @@
         @p: A data table expects data to be returned in the callback of each function with a specific value.
         @p: If a custom feed is created, it must return the values expected by the table.
 
-      @property headers [Function]: A function to get a list of header objects
+      @function headers: A function to get a list of header objects
         @param callback [Function]: The function to call once the data has been retrieved.
           @param data [Array[Object]]
             @description
@@ -734,11 +734,11 @@
                   ... // Additional headers
                 ]
 
-      @property totalCount [Function]: A function to get the total number of rows in the data set.
+      @function totalCount: A function to get the total number of rows in the data set.
         @param callback [Function]: The function to call once the data has been retrieved.
           @param data [Number]: The total number of rows. This can be undefined if you don't know the total number of rows in the data set.
 
-      @property rows [Function]: A function to get the row data for the range object specified along with the filtered count
+      @function rows: A function to get the row data for the range object specified along with the filtered count
         @param range [Object]
           @description
             @p: The range to get the rows for. An example object can be seen below:
@@ -779,7 +779,7 @@
                   ]
                 @p: A cell value must be provided for each column id for every row
 
-      @property rowsForIds [Function]
+      @function rowsForIds
         @description
           @p: A function for getting the rows for an array of id's in the data.
           @p: This is used when @code(js)[DataTable::rowsForIds] is called.
@@ -866,7 +866,7 @@
         @param? options [Object]: The options to use in the feed.
           @property extra [Any]: Extra information to pass through to the requests made for data. This can be useful for identifying the table, or providing extra options when requesting data from the server.
           @property cache [Boolean]: Whether or not to cache values in memory - if you always want fresh data, this should be set to false.
-            @default false
+            @default: false
 
         @returns Feed: A feed object. See the @code[Feed] object for more information on what a feed contains.
 
@@ -1124,71 +1124,71 @@
     @option header-cell-hover-background-col
       @description: The background color for header cells on hover
       @type color
-      @default [#F5F5F5]
+      @default: [#F5F5F5]
     @option cell-border-col
       @description: The border color for cells
       @type color
-      @default [#E4E4E4]
+      @default: [#E4E4E4]
     @option disabled-row-background-col
       @description: The background color for disabled rows
       @type color
-      @default [white]
+      @default: [white]
     @option disabled-row-text-col
       @description: The text color for disabled rows
       @type color
-      @default [grey]
+      @default: [grey]
     @option no-data-row-background-col
       @description: The background color for the 'no data' row
       @type color
-      @default [transparent]
+      @default: [transparent]
     @option no-data-row-text-col
       @description: The text color for the 'no data' row
       @type color
-      @default [black]
+      @default: [black]
     @option selected-row-background-col
       @description: The background color for selected rows
       @type color
-      @default [#F7F6B8]
+      @default: [#F7F6B8]
     @option status-bar-background-col
       @description: The background color for the status bar
       @type color
-      @default [#FFB800]
+      @default: [#FFB800]
     @option status-bar-text-col
       @description: The text color for the status bar
       @type color
-      @default [white]
+      @default: [white]
     @option row-collapsible-background-col
       @description: The background color for collapsible rows
       @type color
-      @default [white]
+      @default: [white]
     @option row-collapsible-text-col
       @description: The text color for collapsible rows
       @type color
-      @default [black]
+      @default: [black]
     @option compact-row-shadow-col
       @description: The shadow color for rows in compact mode
       @type color
-      @default [rgba(128, 128, 128, 0.25)]
+      @default: [rgba(128, 128, 128, 0.25)]
     @option compact-row-hover-background-col
       @description: The background color for rows in compact mode when hovering
       @type color
-      @default [#FAFAFA]
+      @default: [#FAFAFA]
     @option compact-row-hover-text-col
       @description: The text color for rows in compact mode when hovering
       @type color
-      @default [black]
+      @default: [black]
     @option compact-row-background-col
       @description: The background color for rows in compact mode
       @type color
-      @default [white]
+      @default: [white]
     @option compact-row-text-col
       @description: The text color for rows in compact mode
       @type color
-      @default [black]
+      @default: [black]
     @option loading-background-col
       @description: The background color for the loading div
       @type color
-      @default [rgba(255, 255, 255, 0.4)]
+      @default: [rgba(255, 255, 255, 0.4)]
 
 
   @seeAlso

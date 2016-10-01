@@ -15,7 +15,7 @@
           });
       @param form [String/HTMLElement]: A css selector that selects the form to validate, or the form element
       @param? showMessage [Boolean]: Whether to show the message when validating. When set to false, the validate function will only return the errors without modifying the form.
-        @default true
+        @default: true
 
       @returns Object
         @property valid [Boolean]: Whether or not the form is valid
@@ -26,9 +26,9 @@
     @option error-text-col
       @description: The color of the text in the error message.
       @type color
-      @default white
+      @default: white
 
     @option error-background-col
       @description: The background color of the error message.
       @type color
-      @default rgba(0,0,0,0.7)
+      @default: rgba(0,0,0,0.7)

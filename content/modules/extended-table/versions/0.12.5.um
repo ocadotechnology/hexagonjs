@@ -5,16 +5,16 @@
 
       @property options [Object]
         @property allowHeaderWrap [Boolean]: A boolean value that determines whether the header text should be allowed to wrap or not.
-          @default false
+          @default: false
           @added
 
         @property userSelectRowsPerPage [Boolean]: A boolean value that determines whether the dropdown for selecting the number of rows per page should be shown.
           @added
 
-          @default false
+          @default: false
 
         @property singleSelectionMode [Boolean]: A boolean value that determines whether the table should be in single selection mode, only allowing one row to be selected at a time.
-          @default false
+          @default: false
 
       @property paginator [Paginator]
         @removed: The paginator element is no longer used by the table. Use the @code[page(page)] to set the page.

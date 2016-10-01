@@ -1,5 +1,4 @@
 @version 0.10.0
-
   @examples
     @example
       @html
@@ -21,7 +20,7 @@
         @param selector [String/HTMLElement]: The element used to create the slider
         @param? options [Object]: The options to use when creating the slider
           @property type [String]: The type of the slider. Can be 'range' or 'slider'
-            @default 'slider'
+            @default: 'slider'
           @property min [Date]: The minimum value of the slider.
           @property max [Date]: The maximum value of the slider.
           @property step [Number]: The step to use when building the slider. The slider will display with points at intervals at the step value, starting from the minimum value. The maximum step will always be less than or equal to the maximum value of the slider.

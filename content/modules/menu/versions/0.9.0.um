@@ -70,98 +70,98 @@
     @option colors
       @description: The list of colors to give the numbered menu classes
       @type color list
-      @default #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
+      @default: #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
       @deprecated: All numbered color classes will be removed in a later version.
 
     @option default-col
       @type color
       @description: The base default menu color
-      @default #F2F2F2
+      @default: #F2F2F2
 
     @option default-hover-col
       @type color
       @description: The default menu hover color
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option positive-col
       @type color
       @description: The base positive menu color
-      @default #6FB365
+      @default: #6FB365
 
     @option warning-col
       @type color
       @description: The base warning menu color
-      @default #CB9856
+      @default: #CB9856
 
     @option negative-col
       @type color
       @description: The base negative menu color
-      @default #C74967
+      @default: #C74967
 
     @option info-col
       @type color
       @description: The base info menu color
-      @default #A36FA9
+      @default: #A36FA9
 
     @option compliment-col
       @type color
       @description: The base complimentary menu color
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option contrast-col
       @type color
       @description: The base contrasting menu color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option disabled-col
       @type color
       @description: The base color for disabled menus
-      @default #FAFAFA
+      @default: #FAFAFA
 
     @option disabled-text-col
       @type color
       @description: The text color for disabled menus
-      @default #939393
+      @default: #939393
 
     @option light-text-col
       @type color
       @description: The text color to use on dark menu backgrounds
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option dark-text-col
       @type color
       @description: The text color to use on dark menu backgrounds
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option default-text-col
       @type color
       @description: The default text color that items in the menu are given
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option collapsible-background-col
       @type color
       @description: The color of the collapsible heading for nested menus
-      @default #FFFFFF
+      @default: #FFFFFF
 
     @option collapsible-text-col
       @type color
       @description: The color of the collapsible heading for nested menus
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option default-hover-border-col
       @type color
       @description: The color of the border to the left of items in the menu
-      @default transparent
+      @default: transparent
 
     @option default-border-col
       @type color
       @description: The color of the border to the left of items in the menu when hovering
-      @default transparent
+      @default: transparent
 
     @option border-width
       @type color
       @description: The width of the border to the left of items in the menu
-      @default 0
+      @default: 0
 
 
   @seeAlso

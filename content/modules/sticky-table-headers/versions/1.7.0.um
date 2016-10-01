@@ -1,0 +1,4 @@
+@version 1.7.0
+  @api Sticky Table Headers
+    @bugfix: Fix that allows sticky tables to be nested
+      @issue 302

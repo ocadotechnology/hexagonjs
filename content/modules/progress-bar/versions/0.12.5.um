@@ -39,7 +39,7 @@
                 }
               ]
         @param? retainProgress [Boolean]: Whether to retain the current progress of the progressbar.
-          @default false
+          @default: false
         @returns ProgressBar: This progressbar for chaining.
 
       @method segments

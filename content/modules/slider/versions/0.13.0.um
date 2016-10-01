@@ -27,7 +27,7 @@
       @method setDiscreteValues
         @param array [Array]
         @param? render [Boolean]
-          @default true
+          @default: true
         @deprecated
           Use @code[discreteValues] instead
 
@@ -36,7 +36,7 @@
         @description: Makes the slider a discrete value, using the values provided
         @param array [Array]: The array of discrete values to use
         @param? render [Boolean]: Whether to update the slider
-          @default true
+          @default: true
         @returns Slider: This Slider
 
       @method discreteValues

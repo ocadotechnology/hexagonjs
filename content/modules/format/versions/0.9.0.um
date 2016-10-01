@@ -17,7 +17,7 @@
           @codeblock js: hx.format.round(4)(3.1415926) // Returns "3.142"
         @param sf [Number]: The number of significant figures to use.
         @param? strict [Boolean]: Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-          @default false
+          @default: false
         @returns Function
           @param number [Number]: The number to format.
           @returns String: The formatted string
@@ -28,7 +28,7 @@
           @codeblock js: hx.format.si(1)(10000) // Returns "10K"
         @param sf [Number]: The number of significant figures to use.
         @param? strict [Boolean]: Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-          @default false
+          @default: false
         @returns Function
           @param number [Number]: The number to format.
           @returns String: The formatted string
@@ -39,7 +39,7 @@
           @codeblock js: hx.format.exp(2)(111111) // Returns "1.1e5"
         @param sf [Number]: The number of significant figures to use.
         @param? strict [Boolean]: Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-          @default false
+          @default: false
         @returns Function
           @param number [Number]: The number to format.
           @returns String: The formatted string
@@ -52,7 +52,7 @@
             hx.format.fixed(3)(12.123123) // Returns "12.123"
         @param digits [Number]: The number of digits to limit the number to.
         @param? strict [Boolean]: Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-          @default false
+          @default: false
         @returns Function
           @param number [Number]: The number to format.
           @returns String: The formatted string
@@ -65,7 +65,7 @@
             hx.format.zeroPad(10)(100)  // returns "0000000100"
         @param length [Number]: The length of the output string
         @param? strict [Boolean]: Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-          @default false
+          @default: false
         @returns Function
           @param number [Number]: The number to format.
           @returns String: The formatted string

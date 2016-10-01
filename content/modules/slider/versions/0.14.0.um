@@ -14,7 +14,7 @@
       @method setDiscreteValues
         @param array [Array]
         @param? render [Boolean]
-          @default true
+          @default: true
         @removed
           Use @code[discreteValues] instead
 

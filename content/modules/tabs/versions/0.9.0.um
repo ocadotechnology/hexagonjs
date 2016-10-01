@@ -68,52 +68,52 @@
     @option background-col
       @type color
       @description: The background color for the tabs and the tab content
-      @default #F7F7F7
+      @default: #F7F7F7
 
     @option tab-background-col
       @type color
       @description: The background color for the tabs and the tab content
-      @default #F7F7F7
+      @default: #F7F7F7
 
     @option default-col
       @type color
       @description: The default tab color
-      @default #6582A6
+      @default: #6582A6
 
     @option positive-col
       @type color
       @description: The positive tab color
-      @default #6FB365
+      @default: #6FB365
 
     @option warning-col
       @type color
       @description: The warning tab color
-      @default #CB9856
+      @default: #CB9856
 
     @option negative-col
       @type color
       @description: The negative tab color
-      @default #C74967
+      @default: #C74967
 
     @option info-col
       @type color
       @description: The info tab color
-      @default #A36FA9
+      @default: #A36FA9
 
     @option compliment-col
       @type color
       @description: The complimentary tab color
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option contrast-col
       @type color
       @description: The contrasting tab color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option colors
       @description: The list of colors to give the numbered tab classes
       @type color list
-      @default #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
+      @default: #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
       @deprecated: All numbered color classes will be removed in a later version.
 
 

@@ -61,7 +61,7 @@
         @param date [Date]: The date to set.
         @param? dontSetupInput [Boolean]: A value used to prevent the input being changed.
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns DatePicker: This DatePicker
 
       @method day
@@ -72,7 +72,7 @@
         @description: A function used to set the currently selected day.
         @param day [Number]: The day to set.
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns DatePicker: This DatePicker
 
       @method month
@@ -83,7 +83,7 @@
         @description: A function to set the currently selected month.
         @param month [Number]: The month to set. The value is 1-based (e.g. 1 = January).
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns DatePicker: This DatePicker
 
       @method year
@@ -94,7 +94,7 @@
         @description: A function to set the currently selected year.
         @param year [Number]: The year to set.
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns DatePicker: This DatePicker
 
       @method range
@@ -112,7 +112,7 @@
         @param date2 [Date]: The second date of the range
         @param? dontSetupInput [Boolean]: A value used to prevent the input being changed
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns DatePicker: This DatePicker
 
       @method validRange
@@ -131,7 +131,7 @@
         @param? start [Date]: The start date of the valid range. Any dates before this date are not valid and cannot be selected.
         @param? end [Date]: The start date of the valid range. Any dates after this date are not valid and cannot be selected.
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns DatePicker: This DatePicker
 
       @method showMonth
@@ -145,4 +145,4 @@
     @option out-of-range-col
       @type color
       @description: The text col to use for dates that are out of the valid range in the calendar date picker.
-      @default #999
+      @default: #999

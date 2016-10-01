@@ -1,0 +1,4 @@
+@version 1.5.1
+  @api Titlebar
+    @bugfix: Resolved an issue with the precedence of the link styles
+      @issue 248

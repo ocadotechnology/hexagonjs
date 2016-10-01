@@ -1,0 +1,3 @@
+@version 1.5.0
+  @api Toggle
+    @enhancement: Updated the styles to make the toggle icon slightly smaller and more compact

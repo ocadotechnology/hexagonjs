@@ -16,7 +16,7 @@
       @constructor
         @param selector [String/HTMLELement]: A selector that uniquely identifies the element on the page.
         @param? animate [Boolean]: Whether or not to animate the section transitions. True means that animation will happen.
-          @default true
+          @default: true
 
       @method visible
         @description: Sets the visibilty of the section

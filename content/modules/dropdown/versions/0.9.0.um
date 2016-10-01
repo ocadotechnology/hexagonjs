@@ -25,7 +25,7 @@
               ddContent = '<div>Some content</div>';
           @param node [HTMLElement]: The dropdown node to populate.
         @param? mode [String]: The type of action that will show the dropdown, can be 'click' or 'hover' (the hover value will act as click for mobile devices without the hover event)
-          @default 'click'
+          @default: 'click'
         @param? align [String]
           @description
             The alignment value for the dropdown. The complete list of all alignment properties that should be used can be seen below:
@@ -47,11 +47,11 @@
               @item: 'rtlb'
               @item: 'rtrb'
             Aside from 'up', 'down', 'left' and 'right', the other values use the first two characters to select a corner from the selection and the second two characters to select a corner from the dropdown and then align those corners so they are closest to each other.
-          @default 'lblt'
+          @default: 'lblt'
         @param? spacing [Number]: How much space to show between the dropdown and the selector
-          @default theme.spacing
+          @default: theme.spacing
         @param? matchWidth [Boolean]: If set to true, the dropdown width will always be the same as or greater than the width of the selector
-          @default true
+          @default: true
         @param? ddClass [String]: An additional class to add to the dropdown when creating it.
 
       @constructor
@@ -127,12 +127,12 @@
     @option spacing
       @description: The default spacing for dropdowns
       @type size
-      @default 0
+      @default: 0
       @includeWithJs true
 
     @option background-col
       @description: The default background color for dropdowns
       @type color
-      @default #FAFAFA
+      @default: #FAFAFA
 
   @seeAlso

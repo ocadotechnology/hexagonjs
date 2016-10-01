@@ -27,15 +27,15 @@
         @param? options [Object]
           @property draggable [Boolean]
             @description: A boolean that determines whether the element is draggable. If the @code[showDragControl] option is true, this option does not need to be set.
-            @default false
+            @default: false
           @property showDragControl [Boolean]: A boolean that determines whether the drag control is visible on load.
-            @default false
+            @default: false
           @property resizeOnDrag [Boolean]: A boolean that determines whether the element being dragged should resize to match the width of the placeholder on the page.
-            @default false
+            @default: false
           @property id [String]: A unique id for the widget to use when getting/setting the order of widgets in a dashboard.
           @property height [String]: The height to set the body of the widget to as a css size (200px, 100%, etc). By default, no height will be set and the widget will resize to the content.
           @property width [String]: The target width of the widget - it may grow or shrink a bit depending on the device.
-            @default "500px"
+            @default: "500px"
           @property height [Number]:
             @removed: This should now be specified as a css size string.
           @property width [Number]:
@@ -59,4 +59,4 @@
     @option drag-placeholder-border-col
       @type color
       @description: The color of the placeholder border shown when dragging a dashboard widget.
-      @default grey
+      @default: grey

@@ -59,9 +59,9 @@
         @description: A function to set the currently selected date.
         @param date [Date]: The date to set.
         @param? setTime [Boolean]: Whether to set the time as well as the date. Only the day/month/year will be updated unless this value is true.
-          @default false
+          @default: false
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns TimePicker: This TimePicker
 
       @method hour
@@ -72,7 +72,7 @@
         @description: A function to set the currently selected hour.
         @param hour [Number]: The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the TimePicker to cycle into the next/previous day.
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns TimePicker: This TimePicker
 
       @method minute
@@ -83,7 +83,7 @@
         @description: A function to set the currently selected minute.
         @param minute [Number]: The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous hour.
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns TimePicker: This TimePicker
 
       @method second
@@ -94,7 +94,7 @@
         @description: A function to set the currently selected second.
         @param second [Number]: The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous minute.
         @param? suppressCallback [Boolean]: A value used to prevent the change event being emitted.
-          @default false
+          @default: false
         @returns TimePicker: This TimePicker
 
       @method update

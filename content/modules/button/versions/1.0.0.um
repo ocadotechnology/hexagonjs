@@ -47,4 +47,4 @@
     @option complement-col
       @type color
       @description: The base complimentary button color
-      @default #FDFDFD
+      @default: #FDFDFD

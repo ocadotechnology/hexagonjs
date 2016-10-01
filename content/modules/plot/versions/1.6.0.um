@@ -1,0 +1,21 @@
+@version 1.6.0
+  @api Plot
+    @prototype LineSeries
+      @bugfix: Updated line series so that the labels show for the first/last points
+        @issue 89
+
+    @prototype hx.Sparkline
+      @bugfix: Updated sparkline so that the labels show for the first/last points
+        @issue 89
+
+      @constructor
+        @param selector [HTMLElement/String]
+        @param? options [Object]
+          @property min [Number/String]: The minimum value the y axis should show. If set to 'auto' the minimum value will calculated from the data in the series.
+            @added: Added an option for setting the minimum y value for a sparkline
+              @issue 261
+            @default: 'auto'
+          @property max [Number/String]: The maximum value the y axis should show. If set to 'auto' the maximum value will calculated from the data in the series.
+            @added: Added an option for setting the maximum y value for a sparkline
+              @issue 261
+            @default: 'auto'

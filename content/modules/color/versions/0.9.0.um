@@ -123,11 +123,11 @@
             A css color string. The default is to output a hex string if the alpha is 1, and rgba string if the alpha value is less than 1.
             Accepted types are:
             @list
-              hex
-              rgb
-              rgba
-              hsl
-              hsla
+              @item: hex
+              @item: rgb
+              @item: rgba
+              @item: hsl
+              @item: hsla
 
         @returns String: A css color string of the type passed in.
 
@@ -157,12 +157,12 @@
             The output format for the array. If left undefined, a Color object will be returned.
             Accepted values are:
             @list
-              hex
-              rgb
-              rgba
-              hsl
-              hsla
-              array
+              @item: hex
+              @item: rgb
+              @item: rgba
+              @item: hsl
+              @item: hsla
+              @item: array
 
         @returns Array: An array of colors in the specified output format. If no output format is specified, an array of Color objects is returned.
 

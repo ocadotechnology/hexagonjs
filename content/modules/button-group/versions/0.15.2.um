@@ -7,7 +7,7 @@
           @property disabled [Boolean]: Whether the button group should be disabled
             @added: Added the ability to disable a button group in the options
 
-            @default false
+            @default: false
 
       @method disabled
         @added: Added the ability to disable/enable a button group

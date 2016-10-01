@@ -1,6 +1,7 @@
 @stylesheet /resources/hexagon/__version__/hexagon.css
 @script /resources/hexagon/__version__/hexagon.js
 @inline ../../../shared/common.um
+@keywords list collection util
 @titlebar List
 
 @div .dx-content

@@ -25,7 +25,7 @@
 
           @property isClosable [Boolean]
             @description: Whether or not the modal shows the x button for closing the modal. True means that the button will be shown, and that clicking the area surrounding the modal will cause the modal to close.
-              @default true
+              @default: true
 
       @property setupTitlebar [Function]
         @param element [HTMLElement]
@@ -105,7 +105,7 @@
                 ]
 
           @property isClosable [Boolean]: Whether or not the modal should show a close button.
-            @default false
+            @default: false
           @property titleClass [String]
             @description:
               @p: The class to use when rendering the titlebar.
@@ -132,6 +132,6 @@
           @param value [String]: The string value entered into the modal's input box, or false if the cancel button was clicked, or undefined if the close button was clicked in the titlebar of the modal.
         @param? options [Object]
           @property isClosable [Boolean]: Whether or not the modal should show a close button.
-            @default true
+            @default: true
           @property value [String]: Initial text to place in the input box.
         @returns Modal: The newly constructed Modal

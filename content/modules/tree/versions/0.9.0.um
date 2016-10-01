@@ -45,14 +45,14 @@
         @description: Sets up / prepares a selection for displaying data in an expandable tree.
         @param selection [String/HTMLElement]: A unique css selector or a HTMLElement that identifies your tree.
         @param? hideDisabledButtons [Boolean]: A parameter that hides the 'disabled' buttons added to the tree.
-          @default false
+          @default: false
 
       @method show
         @description: Shows all the nodes for the selected tree.
         @param? animate [Boolean]
           @description
             Whether or not to animate the toggle when expanding the tree.
-            @default true
+            @default: true
         @returns Tree: This Tree
 
       @method show
@@ -69,7 +69,7 @@
         @param? animate [Boolean]
           @description
             Whether or not to animate the toggle when hiding the tree.
-            @default true
+            @default: true
         @returns Tree: This Tree
 
       @method hide
@@ -100,54 +100,54 @@
     @option icon-background-hover-colors
       @description: The list of background colors for the expand icons for the numbered color classes
       @type color list
-      @default #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
+      @default: #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
       @deprecated: All numbered color classes will be removed in a later version.
 
     @option icon-text-hover-colors
       @description: The list of text colors for the expand icons for the numbered color classes
       @type color list
-      @default #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #000000
+      @default: #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #000000
       @deprecated: All numbered color classes will be removed in a later version.
 
     @option icon-background-col
       @type color
       @description: The default background color for the expand icon
-      @default #FFF
+      @default: #FFF
 
     @option icon-background-hover-col
       @type color
       @description: The default background color for the expand icon on hover
-      @default #6582A6
+      @default: #6582A6
 
     @option icon-text-col
       @type color
       @description: The default text color for the expand icon
-      @default #000
+      @default: #000
 
     @option icon-text-hover-col
       @type color
       @description: The default text color for the expand icon on hover
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option item-border-left-col
       @type color
       @description: The color of the line to the left of all children of a parent
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option icon-disabled-background-col
       @type color
       @description: The color of the expand icon background when disabled
-      @default #FAFAFA
+      @default: #FAFAFA
 
     @option icon-disabled-text-col
       @type color
       @description: The color of the expand icon text when disabled
-      @default #939393
+      @default: #939393
 
     @option background-col
       @type color
       @description: The background color of an item in the tree
-      @default #F7F7F7
+      @default: #F7F7F7
 
 
 

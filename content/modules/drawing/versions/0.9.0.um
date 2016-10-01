@@ -91,16 +91,18 @@
 
       @method create
         @description: Creates a new object in the default layer.
-        @param type [String]:
-          The type of primitive to create, should be one of:
-          @list
-            rectangle
-            circle
-            line
-            text
-            grid
-            shape
-            composite
+        @param type [String]
+          @description
+            @p: The type of primitive to create, should be one of:
+
+            @list
+              @item: rectangle
+              @item: circle
+              @item: line
+              @item: text
+              @item: grid
+              @item: shape
+              @item: composite
 
         @param? id [String]: By default a random id is created for each new object. To override this behaviour, supply an id here.
           @defaultValue hx.randomId()
@@ -190,16 +192,18 @@
 
       @method create
         @description: Creates a new object in this layer.
-        @param type [String]:
-          The type of primitive to create, should be one of:
-          @list
-            rectangle
-            circle
-            line
-            text
-            grid
-            shape
-            composite
+        @param type [String]
+          @description
+            @p: The type of primitive to create, should be one of:
+
+            @list
+              @item: rectangle
+              @item: circle
+              @item: line
+              @item: text
+              @item: grid
+              @item: shape
+              @item: composite
 
         @param? id [String]: By default a random id is created for each new object. To override this behaviour, supply an id here.
           @defaultValue hx.randomId()
@@ -240,21 +244,24 @@
       @description: A primitive type for drawing a rectangle. Create with drawing.create('rectangle') or layer.create('rectangle').
       @method set
         @description: Sets the value of one of the properties of this object, optionally animating the change.
-        @param name [String]: The name of the property to set. The available properties are:
-          Properties that can be animated:
-          @list
-            position.x
-            position.y
-            width
-            height
-            fill.color
-            outline.color
-            outline.width
+        @param name [String]
+          @description
+            @p: The name of the property to set. The available properties are:
 
-          Properties that can't be animated:
-          @list
-            fill.enabled
-            outline.enabled
+            Properties that can be animated:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: width
+              @item: height
+              @item: fill.color
+              @item: outline.color
+              @item: outline.width
+
+            Properties that can't be animated:
+            @list
+              @item: fill.enabled
+              @item: outline.enabled
 
         @param value [Any]: The value to set the property to.
         @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
@@ -264,17 +271,19 @@
 
       @method get
         @description: Gets the current value of one of the properties of this object.
-        @param name [String]: The name of the property to get. The available properties are:
-          @list
-            position.x
-            position.y
-            width
-            height
-            fill.enabled
-            fill.color
-            outline.enabled
-            outline.color
-            outline.width
+        @param name [String]
+          @description
+            @p: The name of the property to get. The available properties are:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: width
+              @item: height
+              @item: fill.enabled
+              @item: fill.color
+              @item: outline.enabled
+              @item: outline.color
+              @item: outline.width
         @returns Any: The value of the property
 
     @prototype Circle
@@ -282,20 +291,23 @@
 
       @method set
         @description: Sets the value of one of the properties of this object, optionally animating the change.
-        @param name [String]: The name of the property to set. The available properties are:
-          Properties that can be animated:
-          @list
-            position.x
-            position.y
-            radius
-            fill.color
-            outline.color
-            outline.width
+        @param name [String]
+          @description
+            @p: The name of the property to set. The available properties are:
 
-          Properties that can't be animated:
-          @list
-            fill.enabled
-            outline.enabled
+            Properties that can be animated:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: radius
+              @item: fill.color
+              @item: outline.color
+              @item: outline.width
+
+            Properties that can't be animated:
+            @list
+              @item: fill.enabled
+              @item: outline.enabled
 
         @param value [Any]: The value to set the property to.
         @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
@@ -305,16 +317,19 @@
 
       @method get
         @description: Gets the current value of one of the properties of this object.
-        @param name [String]: The name of the property to get. The available properties are:
-          @list
-            position.x
-            position.y
-            radius
-            fill.enabled
-            fill.color
-            outline.enabled
-            outline.color
-            outline.width
+        @param name [String]
+          @description
+            @p: The name of the property to get. The available properties are:
+
+            @list
+              @item: position.x
+              @item: position.y
+              @item: radius
+              @item: fill.enabled
+              @item: fill.color
+              @item: outline.enabled
+              @item: outline.color
+              @item: outline.width
 
         @returns Any: The value of the property
 
@@ -323,15 +338,18 @@
 
       @method set
         @description: Sets the value of one of the properties of this object, optionally animating the change.
-        @param name [String]: The name of the property to set. The available properties are:
-          Properties that can be animated:
-          @list
-            start.x
-            start.y
-            end.x
-            end.y
-            color
-            width
+        @param name [String]
+          @description
+            @p: The name of the property to set. The available properties are:
+
+            Properties that can be animated:
+            @list
+              @item: start.x
+              @item: start.y
+              @item: end.x
+              @item: end.y
+              @item: color
+              @item: width
 
         @param value [Any]: The value to set the property to.
         @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
@@ -341,14 +359,16 @@
 
       @method get
         @description: Gets the current value of one of the properties of this object.
-        @param name [String]: The name of the property to get. The available properties are:
-          @list
-            start.x
-            start.y
-            end.x
-            end.y
-            color
-            width
+        @param name [String]
+          @description
+            @p: The name of the property to get. The available properties are:
+            @list
+              @item: start.x
+              @item: start.y
+              @item: end.x
+              @item: end.y
+              @item: color
+              @item: width
 
         @returns Any: The value of the property
 
@@ -357,20 +377,23 @@
 
       @method set
         @description: Sets the value of one of the properties of this object, optionally animating the change.
-        @param name [String]: The name of the property to set. The available properties are:
-          Properties that can be animated:
-          @list
-            position.x
-            position.y
-            color
-            size
-            text
+        @param name [String]
+          @description
+            @p: The name of the property to set. The available properties are:
 
-          Properties that can't be animated:
-          @list
-            font
-            align.x
-            align.y
+            Properties that can be animated:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: color
+              @item: size
+              @item: text
+
+            Properties that can't be animated:
+            @list
+              @item: font
+              @item: align.x
+              @item: align.y
 
         @param value [Any]: The value to set the property to.
         @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
@@ -380,16 +403,18 @@
 
       @method get
         @description: Gets the current value of one of the properties of this object.
-        @param name [String]: The name of the property to get. The available properties are:
-          @list
-            position.x
-            position.y
-            color
-            font
-            size
-            text
-            align.x
-            align.y
+        @param name [String]
+          @description:
+            @p: The name of the property to get. The available properties are:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: color
+              @item: font
+              @item: size
+              @item: text
+              @item: align.x
+              @item: align.y
 
         @returns Any: The value of the property
 
@@ -399,24 +424,27 @@
 
       @method set
         @description: Sets the value of one of the properties of this object, optionally animating the change.
-        @param name [String]: The name of the property to set. The available properties are:
-          Properties that can be animated:
-          @list
-            position.x
-            position.y
-            cellSize.x
-            cellSize.y
-            gridLines.color
-            gridLines.width
+        @param name [String]
+          @description
+            @p: The name of the property to set. The available properties are:
 
-          Properties that can't be animated:
-          @list
-            gridLines.enabled
-            cells.enabled
-            cells.states
-            cells.palette
-            gridSize.x
-            gridSize.y
+            Properties that can be animated:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: cellSize.x
+              @item: cellSize.y
+              @item: gridLines.color
+              @item: gridLines.width
+
+            Properties that can't be animated:
+            @list
+              @item: gridLines.enabled
+              @item: cells.enabled
+              @item: cells.states
+              @item: cells.palette
+              @item: gridSize.x
+              @item: gridSize.y
 
         @param value [Any]: The value to set the property to.
         @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
@@ -426,20 +454,22 @@
 
       @method get
         @description: Gets the current value of one of the properties of this object.
-        @param name [String]: The name of the property to get. The available properties are:
-          @list
-            position.x
-            position.y
-            cellSize.x
-            cellSize.y
-            gridSize.x
-            gridSize.y
-            gridLines.color
-            gridLines.width
-            gridLines.enabled
-            cells.enabled
-            cells.states
-            cells.palette
+        @param name [String]
+          @description
+            @p: The name of the property to get. The available properties are:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: cellSize.x
+              @item: cellSize.y
+              @item: gridSize.x
+              @item: gridSize.y
+              @item: gridLines.color
+              @item: gridLines.width
+              @item: gridLines.enabled
+              @item: cells.enabled
+              @item: cells.states
+              @item: cells.palette
 
         @returns Any: The value of the property
 
@@ -448,21 +478,24 @@
 
       @method set
         @description: Sets the value of one of the properties of this object, optionally animating the change.
-        @param name [String]: The name of the property to set. The available properties are:
-          Properties that can be animated:
-          @list
-            position.x
-            position.y
-            fill.color
-            outline.width
-            outline.color
+        @param name [String]
+          @description
+            @p: The name of the property to set. The available properties are:
 
-          Properties that can't be animated:
-          @list
-            fill.enabled
-            outline.enabled
-            curve
-            polygon
+            Properties that can be animated:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: fill.color
+              @item: outline.width
+              @item: outline.color
+
+            Properties that can't be animated:
+            @list
+              @item: fill.enabled
+              @item: outline.enabled
+              @item: curve
+              @item: polygon
 
 
         @param value [Any]: The value to set the property to.
@@ -473,17 +506,20 @@
 
       @method get
         @description: Gets the current value of one of the properties of this object.
-        @param name [String]: The name of the property to get. The available properties are:
-          @list
-            position.x
-            position.y
-            fill.enabled
-            fill.color
-            outline.enabled
-            outline.width
-            outline.color
-            curve
-            polygon
+        @param name [String]
+          @description
+            @p: The name of the property to get. The available properties are:
+
+            @list
+              @item: position.x
+              @item: position.y
+              @item: fill.enabled
+              @item: fill.color
+              @item: outline.enabled
+              @item: outline.width
+              @item: outline.color
+              @item: curve
+              @item: polygon
 
         @returns Any: The value of the property
 
@@ -492,15 +528,17 @@
 
       @method set
         @description: Sets the value of one of the properties of this object, optionally animating the change.
-        @param name [String]: The name of the property to set. The available properties are:
+        @param name [String]
+          @description
+            @p: The name of the property to set. The available properties are:
 
-          Properties that can be animated:
-          @list
-            position.x
-            position.y
-            angle
-            scale
-            objectName._ (these properties can only be animated if the property of the nested object being referred to supports animation)
+            Properties that can be animated:
+            @list
+              @item: position.x
+              @item: position.y
+              @item: angle
+              @item: scale
+              @item: objectName._ (these properties can only be animated if the property of the nested object being referred to supports animation)
 
         @param value [Any]: The value to set the property to.
         @param? duration [Number]: If set, the property will be animated to this value, and the animation will take duration milliseconds.
@@ -510,28 +548,33 @@
 
       @method get
         @description: Gets the current value of one of the properties of this object, or one of the nested objects.
-        @param name [String]: The name of the property to get. The available properties are:
-          @list
-            position.x
-            position.y
-            angle
-            scale
-            objectName._
+        @param name [String]
+          @description
+            @p: The name of the property to get. The available properties are:
+
+            @list
+              @item: position.x
+              @item: position.y
+              @item: angle
+              @item: scale
+              @item: objectName._
 
         @returns Any: The value of the property
 
       @method create
         @description: Creates a new object in this composite object.
-        @param type [String]:
-          The type of primitive to create, should be one of:
-          @list
-            rectangle
-            circle
-            line
-            text
-            grid
-            shape
-            composite
+        @param type [String]
+          @description
+            @p: The type of primitive to create, should be one of:
+
+            @list
+              @item: rectangle
+              @item: circle
+              @item: line
+              @item: text
+              @item: grid
+              @item: shape
+              @item: composite
 
         @param name [String]: The name which can be used to access the object.
 

@@ -98,9 +98,9 @@
           hx.randomId(10, 'abc') // returns a 10-character string using the letters a, b and c
 
       @param? length [Number]: The length of the string to generate
-        @default 16
+        @default: 16
       @param? alphabet [String]: The alphabet to use. Defaults to hex
-        @default ABCEDEF0123456789
+        @default: ABCEDEF0123456789
       @returns Number: The value, clamped to the range [0, 1]
 
     @function hx.min
@@ -122,7 +122,7 @@
           })
 
       @param array [Array]: An array of numbers or objects
-      @param? f [Function]: A function which maps the values before applying the min
+      @param? lookup [Function]: A function which maps the values before applying the min
         @param value [Any]: An object from the array
         @returns Number: The number to compare by
       @returns Number: The minimum value in the array
@@ -157,7 +157,7 @@
           })
 
       @param array [Array]: An array of numbers or objects
-      @param? f [Function]: A function which maps the values before applying the max
+      @param? lookup [Function]: A function which maps the values before applying the max
         @param value [Any]: An object from the array
         @returns Number: The number to compare by
       @returns Number: The maximum value in the array
@@ -184,7 +184,7 @@
           })
 
       @param array [Array]: An array of any type
-      @param f [Function]: A function which extracts or computes the value to be compared
+      @param lookup [Function]: A function which extracts or computes the value to be compared
         @param value [Any]: An item from the array
         @returns Number: The number to compare by
       @returns Any: The item with the corresponding minimum value
@@ -200,7 +200,7 @@
           })
 
       @param array [Array]: An array of any type
-      @param f [Function]: A function which extracts or computes the value to be compared
+      @param lookup [Function]: A function which extracts or computes the value to be compared
         @param value [Any]: An item from the array
         @returns Number: The number to compare by
       @returns Any: The item with the corresponding maximum value
@@ -348,10 +348,10 @@
       @description
         Returns true if the value passed in is a plain object, where a plain objects is defined as:
 
-        @list bullets
-          Anything created with new (or equivalent)
-          DOM nodes
-          window
+        @list
+          @item: Anything created with new (or equivalent)
+          @item: DOM nodes
+          @item: window
 
         @codeblock js
           hx.isPlainObject("i am a string")                // returns false
@@ -380,20 +380,26 @@
           ]
 
           /* returns
-            {
-              a: [
-                { type: 'a', value: 1 },
-                { type: 'a', value: 2 }
+            [
+              [
+                "a", [
+                  { type: 'a', value: 1 },
+                  { type: 'a', value: 2 }
+                ]
               ],
-              b: [
-                { type: 'b', value: 3 },
-                { type: 'b', value: 4 },
-                { type: 'b', value: 5 }
+              [
+                "b", [
+                  { type: 'b', value: 3 },
+                  { type: 'b', value: 4 },
+                  { type: 'b', value: 5 }
+                ]
               ],
-              b: [
-                { type: 'c', value: 6 }
+              [
+                "c", [
+                  { type: 'c', value: 6 }
+                ]
               ]
-            }
+            ]
           */
           hx.groupBy(items, function(v){
             return v.type;
@@ -404,8 +410,8 @@
       @param classifier [Function]
         @description: A function that returns the category that an item should be grouped into
         @param item [Any]: The item to classify
-        @returns String: The category to group the item into
-      @returns Object: An object who's keys are the categories, and items are arrays of grouped values
+        @returns Any: The category to group the item into
+      @returns Array: An array of tuples where the first element of each tuple is the category, and the second element is an array of grouped values
 
     @function hx.unique
       @description
@@ -528,7 +534,7 @@
 
       @param object [Object/Array]: The object/array to clone
       @param? deep [Boolean]: Whether or not a deep clone should be performed.
-        @default false
+        @default: false
       @returns Object/Array: The cloned object/array
 
     @function hx.clone
@@ -571,7 +577,7 @@
 
       @param node [HTMLElement]: The node to clean
       @param? recurse [Boolean]: Whether to recursively clean child nodes
-        @default true
+        @default: true
       @returns node: The cleaned node.
 
   @seeAlso

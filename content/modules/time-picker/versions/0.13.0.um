@@ -18,7 +18,7 @@
           @property showSeconds [Boolean]
             @description
               Whether to show the seconds in the timepicker.
-            @default false
+            @default: false
           @property buttonClass [String]: The class to add to the buttons.
 
       @method addHours
@@ -87,7 +87,7 @@
         @description: A function to set the currently selected date.
         @param date [Date]: The date to set.
         @param? retainTime [Boolean]: Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
-          @default false
+          @default: false
         @returns TimePicker: This TimePicker
 
       @method hour

@@ -48,7 +48,7 @@
             @param column [Number]: The column index of the cell
 
           @property useResponsive [Boolean]: Determines whether or not to re-render the table when the container is resized.
-            @default true
+            @default: true
 
 
       @method setData

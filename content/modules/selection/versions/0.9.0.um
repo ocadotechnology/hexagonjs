@@ -50,7 +50,7 @@
         Creates a new detached element, wrapped in a selection.
       @param type [String]: The tag type, eg 'div'
       @param? namespace [String]: The namespace to use, eg 'http://www.w3.org/1999/xhtml'
-        @default [http://www.w3.org/1999/xhtml]
+        @default: [http://www.w3.org/1999/xhtml]
       @returns Selection
 
     @prototype Selection

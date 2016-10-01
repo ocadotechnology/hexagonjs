@@ -10,4 +10,4 @@
     @option titlebar-menu-context-border-col
       @type color
       @description: The border color for menu icons
-      @default rgba(255,255,255,0.1)
+      @default: rgba(255,255,255,0.1)

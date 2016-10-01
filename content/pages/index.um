@@ -2,6 +2,8 @@
 @script /resources/hexagon/{{version}}/hexagon.js
 @inline ../shared/common.um
 
+@keywords [hexagon js, modular themeable collection of components for modern browsers]
+
 @titlebar
 
 @coffee: @inline index.coffee

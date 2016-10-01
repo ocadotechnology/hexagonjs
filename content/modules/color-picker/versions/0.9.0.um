@@ -59,11 +59,11 @@
       @constructor
         @param selector [String]: The selector to show the color picker for.
         @param? startColor [Color]: The start color to use when creating the color picker.
-          @default #000000
+          @default: #000000
         @param? showInputs [Boolean]: Boolean to decide whether or not to show the input boxes for the hex, red, green, blue, hue, saturation and lightness values.
-          @default false
+          @default: false
         @param? align [String]: The alignment of the dropdown (options can be found in the dropdown documentation)
-          @default lblt
+          @default: lblt
 
       @property currentColor [Color]
         @description: The color the picker is currently set to. When building a picker without a color defined, the value is set to '#000000'.

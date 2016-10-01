@@ -30,94 +30,94 @@
     @option colors
       @type color list
       @description: The list of colors to use for graph series.
-      @default [rgb(177,119,190), rgb(90,155,212), rgb(241,90,113), rgb(151,195,102), rgb(250,169,91), rgb(226,212,64)]
+      @default: [rgb(177,119,190), rgb(90,155,212), rgb(241,90,113), rgb(151,195,102), rgb(250,169,91), rgb(226,212,64)]
       @includeWithJs true
 
     @option warm-col
       @type color
       @description: A warm color from the graph palette (red or orange)
       @includeWithJs true
-      @default rgb(250,169,91)
+      @default: rgb(250,169,91)
 
     @option ambient-col
       @type color
       @description: An ambient color from the graph palette
       @includeWithJs true
-      @default rgb(226,212,64)
+      @default: rgb(226,212,64)
 
     @option cold-col
       @type color
       @description: A cold color from the graph palette (most likely a shade of blue)
       @includeWithJs true
-      @default rgb(90,155,212)
+      @default: rgb(90,155,212)
 
     @option positive-col
       @type color
       @description: A positive color from the graph palette (a shade of green)
       @includeWithJs true
-      @default rgb(151,195,102)
+      @default: rgb(151,195,102)
 
     @option warning-col
       @type color
       @description: A warning color from the graph palette (a shade of orange / yellow)
       @includeWithJs true
-      @default rgb(226,212,64)
+      @default: rgb(226,212,64)
 
     @option negative-col
       @type color
       @description: A negative color from the graph palette (a shade of red)
       @includeWithJs true
-      @default rgb(241,90,113)
+      @default: rgb(241,90,113)
 
     @option label-background-col
       @type color
       @description: The background color of labels.
-      @default #FFF
+      @default: #FFF
 
     @option label-text-col
       @type color
       @description: The text color used for labels.
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option tick-text-col
       @type color
       @description: The color of the text at the ticks along the axes.
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option tick-text-size
       @type size
       @description: The size of the tick label text.
-      @default 10px
+      @default: 10px
 
     @option tick-line-col
       @type color
       @description: The color of the line that marks a tick.
-      @default #D0D0D0
+      @default: #D0D0D0
 
     @option axis-line-col
       @type color
       @description: The color of the axis line.
-      @default #D0D0D0
+      @default: #D0D0D0
 
     @option axis-title-text-col
       @type color
       @description: The color of axis title text.
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option label-key-text-col
       @type color
       @description: The color of the value titles within a label.
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option label-border-col
       @type color
       @description: The border color for labels.
-      @default #D0D0D0
+      @default: #D0D0D0
 
     @option grid-line-col
       @type color
       @descroption: The color of the axis grid lines
-      @default #E7E7E7
+      @default: #E7E7E7
 
   @extra
     @h1 .docs-module-section: Getting Started

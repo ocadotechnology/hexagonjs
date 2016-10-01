@@ -41,7 +41,7 @@
               ]
 
         @param? isClosable [Boolean]: Whether or not the modal should show a close button.
-          @default false
+          @default: false
         @param? titleClass [String]
           @description:
             @p: The class to use when rendering the titlebar.

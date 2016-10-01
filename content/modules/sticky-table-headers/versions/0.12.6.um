@@ -42,13 +42,13 @@
         @param? options [Object]: The options to use when creating the sticky headers.
 
           @property stickTableHead [Boolean]: Whether or not to stick the @code[<thead>] element of the table. This will stick all rows that are inside the @code[<thead>] element to the top of the table.
-            @default true
+            @default: true
 
           @property stickFirstColumn [Boolean]: Whether or not to stick the first column to the left side of the table.
-            @default false
+            @default: false
 
           @property useResponsive [Boolean]: Whether to add a listener to the table when the container is resized to re-render the sticky headers so that the header sizes always match the table sizes correctly.
-            @default true
+            @default: true
 
           @property containerClass [String]: An additional class to add to the container to allow styling. This is mostly useful when the root element passed into the constructor is a table as the table element will no longer be the root element.
 
@@ -68,4 +68,4 @@
     @option scroll-indicator-shadow-color
       @description: The box shadow color for the scroll indicators that show when scrollbars aren't always visible.
       @type color
-      @default rgba(0,0,0,0.5)
+      @default: rgba(0,0,0,0.5)

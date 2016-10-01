@@ -4,5 +4,5 @@
     @option default-font-size
       @description: The global default font size
       @type string
-      @default 14px
+      @default: 14px
 

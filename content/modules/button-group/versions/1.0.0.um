@@ -11,4 +11,4 @@
         @param selector [String/HTMLElement]
         @param? options [Object]
           @property buttonClass [String]
-            @default 'hx-complement'
+            @default: 'hx-complement'

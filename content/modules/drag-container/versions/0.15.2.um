@@ -60,7 +60,7 @@
             @returns String: The unique id for the current node.
           @property order [Array]: The array of ids to use to order the elements.
           @property resizeOnDrag [Boolean]: Whether the element being dragged should be resized to fit into the space currently selected.
-            @default false
+            @default: false
 
       @method setup
         @description: The method used to set up the drag control listeners for the container. This should be called whenever an element is added to the drag container that has a drag control inside it.
@@ -109,4 +109,4 @@
     @option drag-placeholder-border-col
       @type color
       @description: The color of the placeholder border shown when dragging an element.
-      @default grey
+      @default: grey

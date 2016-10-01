@@ -1,4 +1,4 @@
-var versionPicker = undefined
+var dx = window.dx
 
 function setupMenu (node, meta) {
   var selection = dx.select(node)
@@ -43,21 +43,24 @@ function setupMenu (node, meta) {
     'util': 'Utils (Javascript)'
   }
 
+  function toId (module) {
+    return module.id
+  }
+
   groups.forEach(function (group) {
-    groupsObj[group[0]] = group
+    groupsObj[group[0]] = group[1].map(toId).sort()
   })
 
-  var orderedGroups = [groupsObj['styles'], groupsObj['component'], groupsObj['util']]
-
-  orderedGroups.forEach(function (group) {
+  var groupOrder = ['styles', 'component', 'util']
+  groupOrder.forEach(function (name) {
     var groupContainer = container.append('div').class('dx-group dx-vertical')
-    groupContainer.append('h3').class('dx-section').text(groupNames[group[0]])
+    groupContainer.append('h3').class('dx-section').text(groupNames[name])
     var groupModulesContainer = groupContainer.append('div').class('.dx-group dx-horizontal')
-    group[1].forEach(function (module) {
+    groupsObj[name].forEach(function (module) {
       groupModulesContainer.add(dx.detached('a')
         .class('docs-dropdown-module-link dx-section dx-fixed')
-        .attr('href', '/docs/' + (meta.selectedVersion || meta.targetVersions[meta.targetVersions.length - 1]) + '/' + module.id + '/')
-        .text(module.id.split('-').map(function (d) {
+        .attr('href', '/docs/' + (meta.selectedVersion ? meta.selectedVersion + '/' : '') + module + '/')
+        .text(module.split('-').map(function (d) {
           return d[0].toUpperCase() + d.substring(1)
         }).join(' '))
       )
@@ -67,7 +70,8 @@ function setupMenu (node, meta) {
 
 dx.json('/meta.json', function (err, meta) {
   var menuPos = 0
-
+  var i
+  if (err) { console.error(err) }
   for (i in meta.targetVersions) {
     var v = meta.targetVersions[i]
     if (window.location.pathname.indexOf('/' + v + '/') > -1) {
@@ -76,7 +80,7 @@ dx.json('/meta.json', function (err, meta) {
     }
   }
 
-  if (meta.selectedVersion) {
+  if (window.location.pathname.indexOf('/docs/') > -1 && window.location.pathname.indexOf('changelog') === -1) {
     dx.select('.docs-version').classed('docs-visible', true)
     var versionPicker = new dx.Picker('.docs-version-button', {
       items: meta.targetVersions.reverse(),
@@ -86,11 +90,15 @@ dx.json('/meta.json', function (err, meta) {
 
         if (!elem.classed('dx-picker-text')) {
           elem.on('click', function () {
-            window.location.assign(window.location.href.replace(meta.selectedVersion, v))
+            if (meta.selectedVersion) {
+              window.location.assign(window.location.href.replace(meta.selectedVersion, v))
+            } else {
+              window.location.assign(window.location.href.replace('docs/', 'docs/' + v + '/'))
+            }
           })
         }
       },
-      value: meta.selectedVersion
+      value: meta.selectedVersion || meta.latest
     })
     dx.select('.docs-version-button').classed('dx-btn', false)
   }
@@ -104,7 +112,6 @@ dx.json('/meta.json', function (err, meta) {
         return keyword.indexOf(term) >= 0
       })
     })
-    return Math.random() > 0.5
   }
 
   function renderMenu () {
@@ -116,7 +123,7 @@ dx.json('/meta.json', function (err, meta) {
       Object.keys(meta.modules).filter(filterer).forEach(function (moduleId, i) {
         dropdownContent.append('a')
           .class('docs-search-result')
-          .attr('href', '/docs/' + (meta.selectedVersion || meta.targetVersions[meta.targetVersions.length - 1]) + '/' + moduleId + '/')
+          .attr('href', '/docs/' + (meta.selectedVersion ? meta.selectedVersion + '/' : '') + moduleId + '/')
           .classed('docs-search-result-highlight', menuPos === i)
           .add(dx.detached('span').class('docs-search-result-text').text(moduleId.split('-').join(' ')))
       })
@@ -167,29 +174,24 @@ dx.json('/meta.json', function (err, meta) {
 
   searchInput.on('input', renderMenu)
 
+  function getSearchResult (event) {
+    var menuNodes, node
+    menuNodes = dx.selectAll('.docs-search-result')
+    node = menuNodes.node(menuPos)
+    if (node) dx.select(node).classed('docs-search-result-highlight', false)
+    menuPos = (event.which === 38 ? Math.max(-1, menuPos - 1) : Math.min(menuNodes.size() - 1, menuPos + 1))
+    node = menuNodes.node(menuPos)
+    if (node) dx.select(node).classed('docs-search-result-highlight', true)
+    event.preventDefault()
+  }
+
   searchInput.on('keydown', function (event) {
     if (event.which === 13) { // enter
       performSearch()
     } else if (event.which === 9) { // tab
       //
-    } else if (event.which === 38) { // up
-      var menuNodes = dx.selectAll('.docs-search-result')
-      var node = menuNodes.node(menuPos)
-      if (node) dx.select(node).classed('docs-search-result-highlight', false)
-      menuPos = Math.max(-1, menuPos - 1)
-      node = menuNodes.node(menuPos)
-      if (node) dx.select(node).classed('docs-search-result-highlight', true)
-      event.preventDefault()
-    } else if (event.which === 40) { // down
-      var menuNodes = dx.selectAll('.docs-search-result')
-      var node = menuNodes.node(menuPos)
-      if (node) dx.select(node).classed('docs-search-result-highlight', false)
-      menuPos = Math.min(menuNodes.size() - 1, menuPos + 1)
-      node = menuNodes.node(menuPos)
-      if (node) dx.select(node).classed('docs-search-result-highlight', true)
-      event.preventDefault()
+    } else if (event.which === 38 || event.which === 40) { // up || down
+      getSearchResult(event)
     }
-
   })
-
 })

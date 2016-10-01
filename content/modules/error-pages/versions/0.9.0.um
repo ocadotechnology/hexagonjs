@@ -39,17 +39,17 @@
     @option shadow-distance
       @type number
       @description: How far the shadow should reach in pixels
-      @default 100
+      @default: 100
 
     @option start-col
       @type color
       @description: The starting color for the shadow. This is normally a light version of the default text color.
-      @default #E0E0E0
+      @default: #E0E0E0
 
     @option end-col
       @type color
       @description: The end color for the shadow. This is normally the background color of the page.
 # Default should match the default-background-col from the base module.
-      @default #F0F0F0
+      @default: #F0F0F0
 
   @seeAlso

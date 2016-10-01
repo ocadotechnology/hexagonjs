@@ -30,6 +30,8 @@
         @param selector [String/HTMLElement]: The element or CSS selector string that uniquely identifies the element to initialise the number picker into
         @param? options [Object]: The options that can be configured for the number picker component
           @property buttonClass [String]: The button class to apply to the number picker buttons
+          @property min [Number]: The minimum number the number picker can have
+          @property max [Number]: The maximum number the number picker can have
 
       @method setMin
         @param min [Number]

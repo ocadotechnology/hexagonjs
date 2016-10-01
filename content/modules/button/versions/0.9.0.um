@@ -104,83 +104,83 @@
     @option colors
       @description: The list of colors to give the numbered button classes
       @type color list
-      @default #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
+      @default: #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
       @deprecated: All numbered color classes will be removed in a later version.
 
     @option default-col
       @type color
       @description: The base default button color
-      @default #6582A6
+      @default: #6582A6
 
     @option positive-col
       @type color
       @description: The base positive button color
-      @default #6FB365
+      @default: #6FB365
 
     @option warning-col
       @type color
       @description: The base warning button color
-      @default #CB9856
+      @default: #CB9856
 
     @option negative-col
       @type color
       @description: The base negative button color
-      @default #C74967
+      @default: #C74967
 
     @option info-col
       @type color
       @description: The base info button color
-      @default #A36FA9
+      @default: #A36FA9
 
     @option compliment-col
       @type color
       @description: The base complimentary button color
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option contrast-col
       @type color
       @description: The base contrasting button color
-      @default #3D3D3D
+      @default: #3D3D3D
 
     @option disabled-col
       @type color
       @description: The base color for disabled buttons
-      @default #FAFAFA
+      @default: #FAFAFA
 
     @option disabled-text-col
       @type color
       @description: The text color for disabled buttons
-      @default #939393
+      @default: #939393
 
     @option invert-col
       @type color
       @description: The background color for inverted buttons
-      @default #FDFDFD
+      @default: #FDFDFD
 
     @option invert-text-col
       @type color
       @description: The text color for inverted buttons
-      @default gray
+      @default: gray
 
     @option invert-hover-col
       @type color
       @description: The background color for the inverted buttons on hover
-      @default #F9F9F9
+      @default: #F9F9F9
 
     @option invisible-text-col
       @type color
       @description: The text color for invisible buttons
-      @default #575757
+      @default: #575757
 
     @option light-text-col
       @type color
       @description: The text color to use on dark button backgrounds
-      @default #F3F3F3
+      @default: #F3F3F3
 
     @option dark-text-col
       @type color
       @description: The text color to use on dark button backgrounds
-      @default #3D3D3D
+      @default: #3D3D3D
 
   @seeAlso
     @moduleLink hx-input-group

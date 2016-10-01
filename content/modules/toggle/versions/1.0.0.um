@@ -28,7 +28,7 @@
         @param? options [Object]
           @description: The options to use when intialising the toggle
           @property value [Boolean]: The value to initialise the toggle with.
-            @default false
+            @default: false
 
       @method value
         @description: A method for setting the value of a toggle.

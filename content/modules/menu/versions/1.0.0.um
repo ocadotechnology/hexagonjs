@@ -44,4 +44,4 @@
     @option complement-col
       @type color
       @description: The base complimentary menu color
-      @default #FDFDFD
+      @default: #FDFDFD

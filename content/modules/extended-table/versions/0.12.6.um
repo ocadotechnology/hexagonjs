@@ -273,9 +273,9 @@
     @option row-unselectable-background-col
       @description: The background color to use when a row is unselectable
       @type color
-      @default #FAFAFA
+      @default: #FAFAFA
 
     @option row-unselectable-text-col
       @description: The text color to use when a row is unselectable
       @type color
-      @default #939393
+      @default: #939393
