@@ -62,7 +62,7 @@ format = (tree, element, animate) ->
     renderLazyChildren(treeNode, true)
     treeNode.selectAll('.hx-tree-node-children').style('display', 'block')
 
-    if treeNode.style('display') is 'block'
+    if treeNode.shallowSelect('.hx-tree-node-children').style('display') is 'block'
       formatChildren(tree, treeNode.selectAll('.hx-tree-node'), animate)
     else
       toggle(iconElement)
