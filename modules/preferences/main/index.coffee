@@ -230,7 +230,13 @@ class Preferences extends hx.EventEmitter
         -(moment.tz.zone(timezone).offset(timestamp) / 60)
       @timezone guessedMomentTimezone
     else
-      @timezone 'UTC+00:00'
+      zeroPad = hx.format.zeroPad(2)
+      offset = (new Date()).getTimezoneOffset()
+      modifier = if offset > 1 then '-' else '+'
+      absOffset = Math.abs(offset)
+      minutes = absOffset % 60
+      hours = (absOffset - minutes) / 60
+      @timezone "UTC#{modifier}#{zeroPad(hours)}:#{zeroPad(minutes)}"
 
   timezone: (timezone) ->
     if arguments.length > 0
