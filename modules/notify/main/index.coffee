@@ -5,7 +5,16 @@ setupNotification = (notification, selection) ->
       .add(hx.detached('i').class('hx-notification-icon ' + notification.options.icon))
 
   content = hx.detached('div').class('hx-notification-content')
-  notification.options.renderer(content.node(), notification.message)
+  msg = notification.message
+
+  msgIsNode = (msg instanceof hx.Selection) or (msg instanceof HTMLElement)
+  msgIsArrayOfNodes = msgIsNode or hx.isArray(msg) and msg.every (item) ->
+    (item instanceof hx.Selection) or (item instanceof HTMLElement)
+
+  if msgIsNode or msgIsArrayOfNodes
+    content.add(msg)
+  else
+    notification.options.renderer(content.node(), msg)
 
   if notification.options.pinnable
     pin = hx.detached('div')
@@ -85,6 +94,7 @@ togglePin = (notification) -> if notification.pinned then notification.unpin() e
 updatePinnedStatus = (notification) ->
   notification.domPin.classed('hx-notification-pin-pinned', notification.pinned)
 
+defaultRenderer = (node, message) -> hx.select(node).text(message)
 
 class Notification
   constructor: (@manager, @message, options) ->
@@ -93,8 +103,11 @@ class Notification
       cssclass: undefined
       timeout: @manager._.defaultTimeout
       pinnable: true
-      renderer: (node, message) -> hx.select(node).text(message)
+      renderer: defaultRenderer
     }, options
+
+    # Prevent undefined renderers being passed in
+    @options.renderer ?= defaultRenderer
 
     @id = nextId(@manager)
 
