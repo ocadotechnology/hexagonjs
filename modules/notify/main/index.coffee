@@ -1,33 +1,32 @@
 # utility method for setting up notifications
 setupNotification = (notification, selection) ->
-  if notification.options.icon? and notification.options.icon.length > 0
-    selection.append('div')
-      .class('hx-notification-icon-container')
-      .append('i')
-        .class('hx-notification-icon ' + notification.options.icon)
+  icon = if notification.options.icon? and notification.options.icon.length > 0
+    hx.detached('div').class('hx-notification-icon-container')
+      .add(hx.detached('i').class('hx-notification-icon ' + notification.options.icon))
 
-  selection
-    .append('div')
-      .class('hx-notification-text')
-      .text(notification.message)
+  content = hx.detached('div').class('hx-notification-content')
+  notification.options.renderer(content.node(), notification.message)
 
   if notification.options.pinnable
-    notification.domPin = selection
-      .append('div')
-        .class('hx-notification-icon-container hx-notification-pin')
-        .on 'click', 'hx.notify', -> togglePin(notification)
+    pin = hx.detached('div')
+      .class('hx-notification-icon-container hx-notification-pin')
+      .on('click', 'hx.notify', -> togglePin(notification))
+      .add(hx.detached('i').attr('class', 'hx-icon hx-icon-thumb-tack'))
 
-    notification.domPin.append('i')
-      .attr('class', 'hx-icon hx-icon-thumb-tack')
-
+    notification.domPin = pin
     updatePinnedStatus(notification)
 
+  close = hx.detached('div')
+    .class('hx-notification-icon-container hx-notification-close')
+    .on('click', 'hx.notify', -> notification.close())
+    .add(hx.detached('i').class('hx-icon hx-icon-close'))
+
+
   selection
-    .append('div')
-      .class('hx-notification-icon-container hx-notification-close')
-      .on 'click', 'hx.notify', -> notification.close()
-      .append('i')
-        .class('hx-icon hx-icon-close')
+    .add(icon)
+    .add(content)
+    .add(pin)
+    .add(close)
 
 nextId = (manager) -> manager.currentId++
 
@@ -92,6 +91,7 @@ class Notification
       cssClass: undefined
       timeout: @manager._.defaultTimeout
       pinnable: true
+      renderer: (node, message) -> hx.select(node).text(message)
     }, options
 
     @id = nextId(@manager)
