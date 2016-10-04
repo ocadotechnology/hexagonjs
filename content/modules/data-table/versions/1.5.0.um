@@ -1,35 +1,12 @@
 @version 1.5.0
   @examples
     @example
-      @html
-        <div id="example"></div>
-      @js
-        var table = new hx.DataTable('#example')
-        table.feed(hx.dataTable.objectFeed({
-          headers: [
-            { name: 'Name', id: 'name' },
-            { name: 'Age', id: 'age' },
-            { name: 'Profession', id: 'profession' }
-          ],
-          rows: [
-            {
-              id: 0, // hidden details can go here (not in the cells object)
-              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
-            },
-            {
-              id: 1,
-              cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
-            },
-            {
-              id: 2,
-              cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
-            }
-          ]
-        }))
+      @html: @inline 1.5.0/simple-example.html
+      @js: @inline 1.5.0/simple-example.js
 
     @example
-      @html: @inline 1.5.0/example.html
-      @js: @inline 1.5.0/example.js
+      @html: @inline 1.5.0/advanced-search-example.html
+      @js: @inline 1.5.0/advanced-search-example.js
 
 
   @api Data Table
