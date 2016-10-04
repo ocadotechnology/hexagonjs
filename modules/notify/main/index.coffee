@@ -41,8 +41,10 @@ redraw = (manager) ->
   view = container.view('.hx-notification')
   view.enter (d) ->
     selection = @append('div')
+    optionalClass = if d.options.cssclass then " #{d.options.cssclass}" else ''
+
     selection
-      .class('hx-notification ' + d.options.cssclass)
+      .class("hx-notification#{optionalClass}")
       .forEach (node) ->
         setupNotification(d, selection)
         d.trueHeight = selection.style('height')
@@ -88,7 +90,7 @@ class Notification
   constructor: (@manager, @message, options) ->
     @options = hx.merge {
       icon: undefined
-      cssClass: undefined
+      cssclass: undefined
       timeout: @manager._.defaultTimeout
       pinnable: true
       renderer: (node, message) -> hx.select(node).text(message)
@@ -143,7 +145,8 @@ class NotificationManager
     mergedOptions = hx.merge({
       icon: 'hx-icon ' + iconClass
     }, options)
-    mergedOptions.cssclass = contextClass + ' ' + (options.cssclass or '')
+    optionalClass = if mergedOptions.cssclass then " #{mergedOptions.cssclass}" else ''
+    mergedOptions.cssclass = "#{contextClass}#{optionalClass}"
     manager.notify(message, mergedOptions)
 
   info: (message, options = {}) ->
