@@ -709,7 +709,7 @@ Set = (function() {
       }
     }
     if (this.nan) {
-      items.push([NaN, NaN]);
+      items.push([0/0, 0/0]);
     }
     return items;
   };
@@ -830,7 +830,7 @@ Map = (function() {
       }
     }
     if (this.nan !== void 0) {
-      items.push([NaN, this.nan]);
+      items.push([0/0, this.nan]);
     }
     return items;
   };
@@ -1558,7 +1558,7 @@ hx.identity = function(d) {
 hx_parseHTML = null;
 
 hx.parseHTML = function(html) {
-  var e, error;
+  var e;
   if (!hx_parseHTML) {
 
     /*
@@ -5638,7 +5638,7 @@ Preferences = (function(superClass) {
   };
 
   Preferences.prototype.save = function(cb) {
-    var e, error;
+    var e;
     try {
       return this._.backingStore.save(JSON.stringify(this._.preferences), function(err) {
         return typeof cb === "function" ? cb(err) : void 0;
@@ -5650,7 +5650,7 @@ Preferences = (function(superClass) {
   };
 
   Preferences.prototype.load = function(cb) {
-    var e, error;
+    var e;
     try {
       return this._.backingStore.load((function(_this) {
         return function(err, prefs) {
@@ -12689,7 +12689,7 @@ hx.Picker = Picker;
 var hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
 
 respondToRequest = function(request, url, data, callback, options, index) {
-  var e, error1, result, source, status;
+  var e, result, source, status;
   status = request.status;
   source = data != null ? {
     url: url,

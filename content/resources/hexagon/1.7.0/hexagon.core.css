@@ -1779,12 +1779,12 @@ body.hx-full-width .hx-titlebar-contents {
     vertical-align: middle;
     -webkit-align-self: center;
         -ms-flex-item-align: center;
+                -ms-grid-row-align: center;
             align-self: center; }
 
 .hx-titlebar-menu-icon-mobile {
   -webkit-align-items: middle;
       -ms-flex-align: middle;
-              -ms-grid-row-align: middle;
           align-items: middle;
   display: none;
   margin-right: 0.3em;
@@ -1899,7 +1899,6 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
   .hx-titlebar-menu-icons {
     -webkit-align-items: center;
         -ms-flex-align: center;
-                -ms-grid-row-align: center;
             align-items: center;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
@@ -2343,7 +2342,6 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
             flex-wrap: nowrap;
     -webkit-align-items: center;
         -ms-flex-align: center;
-                -ms-grid-row-align: center;
             align-items: center; }
   .hx-data-table .hx-data-table-filter {
     display: none;
