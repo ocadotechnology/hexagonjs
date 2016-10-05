@@ -44,8 +44,17 @@ class TagInput extends hx.EventEmitter
     if @options.draggable
       _.dragContainer = new hx.DragContainer(@tagContainer.node())
 
-    @form = @selection.append('form')
-    @input = @form.append('input').attr('placeholder', @options.placeholder)
+    isInsideForm = not @selection.closest('form').empty()
+
+    inputContainer = @selection.append(if isInsideForm then 'div' else 'form')
+      .class('hx-tag-input-container')
+
+    validationForm = if isInsideForm
+      @selection.closest('.hx-form')
+    else
+      inputContainer
+
+    @input = inputContainer.append('input').attr('placeholder', @options.placeholder)
     if @options.autocompleteData?
       isValid = if @options.validator? then (item) => not @options.validator(item) else hx.identity
       filterFn = if @options.excludeTags then (item) => isValid(item) and not ~@items().indexOf(item.toString()) else isValid
@@ -60,17 +69,28 @@ class TagInput extends hx.EventEmitter
 
     hasError = =>
       name = @input.value()
-      if name is ''
-        @input.node().setCustomValidity('')
-        false
-      else if @options.validator
+      @input.node().setCustomValidity('')
+      validateForm(true)
+      if name isnt '' and @options.validator
         error = @options.validator(name) or ''
         @input.node().setCustomValidity(error)
         error.length > 0
+      else
+        false
 
-    @form.on 'keypress', 'hx.tag-input', (event) =>
+    validateForm = (clear) =>
+      if isInsideForm
+        if clear
+          validationForm.selectAll('.hx-form-error').remove()
+        else
+          hx.validateForm(validationForm.node()).valid
+      else
+        validationForm.node().checkValidity()
+
+    @input.on 'keypress', 'hx.tag-input', (event) =>
       if event.keyCode is 13
-        if @form.node().checkValidity()
+        validateForm()
+        if @input.node().checkValidity()
           event.preventDefault()
           name = @input.value()
           if name
@@ -83,6 +103,7 @@ class TagInput extends hx.EventEmitter
       if ((event.keyCode or event.charCode) is 8) and not backspacedown
         backspacedown = true
         @input.node().setCustomValidity('')
+        validateForm(true)
 
         if @input.value() is ''
           selection = @tagContainer.selectAll('.hx-tag')
@@ -102,7 +123,7 @@ class TagInput extends hx.EventEmitter
         @add(@input.value(), undefined)
 
     @input.on 'focus', 'hx.tag-input', (event) =>
-      if hasError() then @form.node().checkValidity()
+      if not isInsideForm and hasError() then validateForm()
 
     if @options.disabled then @disabled(@options.disabled)
     if @options.items then @items(@options.items)
