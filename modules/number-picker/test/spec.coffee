@@ -143,6 +143,30 @@ describe 'number picker', ->
       np.decrement().should.equal(np)
       change.should.have.been.called.with({ value: 0 })
 
+    it 'change: should emit whenever the value is changed by the min/max function', ->
+      change = chai.spy()
+
+      sel = hx.detached('div')
+      np = new hx.NumberPicker(sel.node(), {value: 0})
+      np.debug = true
+      np.on('change', change)
+
+      np.min(5).should.equal(np)
+      np.value().should.equal(5)
+      change.should.have.been.called.with({ value: 5 })
+      change.reset()
+      np.min(0).should.equal(np)
+      np.value().should.equal(5)
+      change.should.not.have.been.called()
+      change.reset()
+      np.max(0).should.equal(np)
+      np.value().should.equal(0)
+      change.should.have.been.called.with({ value: 0 })
+      change.reset()
+      np.max(5).should.equal(np)
+      np.value().should.equal(0)
+      change.should.not.have.been.called()
+
     it 'input-change: should emit whenever the input text is is updated ', ->
       change = chai.spy()
 

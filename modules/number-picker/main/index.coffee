@@ -97,7 +97,7 @@ class NumberPicker extends hx.EventEmitter
       selection.select('.hx-number-picker-increment')
         .attr('disabled', getDisabled(@options.disabled, newVal, @max()))
 
-      if prevValue isnt value
+      if prevValue isnt newVal
         @emit 'change', {value: newVal}
       this
     else
