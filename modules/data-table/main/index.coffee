@@ -1031,7 +1031,7 @@ class DataTable extends hx.EventEmitter
           selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollTop = scrollTop if scrollTop?
 
           # hide the loading spinner as we're done rendering
-          selection.select('.hx-data-table-loading').style('display', 'none')
+          selection.shallowSelect('.hx-data-table-loading').style('display', 'none')
 
           @emit 'render'
           cb?()
