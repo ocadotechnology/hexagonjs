@@ -1,0 +1,5 @@
+@version 1.8.0
+  @api Tag Input
+    @prototype hx.TagInput
+      @bugfix: Updated the tag input so that the validator behaves the same regardless of whether it is inside a form
+        @issue 203
