@@ -34,8 +34,8 @@ class Crumbtrail
 
   items: (data) ->
     if data?
-      @options.items = hx.flatten(data.map((d) -> [d, 0])).slice(0, -1)
-      @view.apply @options.items
+      @options.items = data
+      @view.apply hx.flatten(data.map((d) -> [d, 0])).slice(0, -1)
       this
     else
       @options.items
