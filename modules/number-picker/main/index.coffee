@@ -1,10 +1,9 @@
-checkValue = (numberPicker, context) ->
-  value = oldValue = context.value()
-  max = numberPicker.max()
-  min = numberPicker.min()
+checkValue = (value, min, max) ->
   if max isnt undefined then value = Math.min(value, max)
   if min isnt undefined then value = Math.max(value, min)
-  if value isnt oldValue then context.value(value)
+  value
+
+getDisabled = (disabled, val, edge) -> if disabled or (val is edge) then 'disabled' else undefined
 
 addHoldHandler = (incrementOnHold, incrementDelay, selection, incrementFn) ->
   if incrementOnHold
@@ -62,8 +61,9 @@ class NumberPicker extends hx.EventEmitter
     @selectInput = selection.append('input')
     @selectInput.attr('type', 'number')
     @selectInput.on 'blur', 'hx.number-picker', =>
-      @emit 'input-change', {value: @value()}
-      @value(undefined, @selectInput.value())
+      if @selectInput.attr('readonly') is undefined
+        @value(undefined, @selectInput.value())
+        @emit 'input-change', {value: @value()}
 
     decrementButton = selection.append('button').attr('type', 'button').class('hx-number-picker-decrement hx-btn ' + @options.buttonClass)
     decrementButton.append('i').class('hx-icon hx-icon-chevron-down')
@@ -72,27 +72,33 @@ class NumberPicker extends hx.EventEmitter
     if @options.max isnt undefined then @max @options.max
     if @options.min isnt undefined then @min @options.min
     if @options.disabled then @disabled(@options.disabled)
-
-    @selectInput
-      .attr('data-value', @options.value)
-      .value(@options.value)
+    @value @options.value
 
   value: (value, screenValue) ->
     if arguments.length > 0
       prevValue = @value()
-      newVal = if not value? and screenValue then screenValue else value
 
-      if @_.max isnt undefined and newVal > @_.max then newVal = @_.max
-      if @_.min isnt undefined and newVal < @_.min then newVal = @_.min
+      valueToUse = if not value? and screenValue then Number(screenValue) else value
+
+      newVal = checkValue(valueToUse, @min(), @max())
 
       @selectInput
         .attr('type', 'text')
         .attr('data-value', newVal)
         .attr('readonly', if screenValue and isNaN(screenValue) then 'readonly' else undefined)
-        .value(screenValue or newVal)
+        # If both value and screen value are defined, we set the input text to be the screen value
+        # otherwise we use the provided value (as it is set via the input)
+        .value(if value? and screenValue? then screenValue else newVal)
+
+      selection = hx.select(@selector)
+      selection.select('.hx-number-picker-decrement')
+        .attr('disabled', getDisabled(@options.disabled, newVal, @min()))
+
+      selection.select('.hx-number-picker-increment')
+        .attr('disabled', getDisabled(@options.disabled, newVal, @max()))
 
       if prevValue isnt value
-        @emit 'change', {value: value}
+        @emit 'change', {value: newVal}
       this
     else
       Number(@selectInput.attr('data-value'))
@@ -101,7 +107,7 @@ class NumberPicker extends hx.EventEmitter
     if arguments.length > 0
       @_.min = val
       @selectInput.attr('min', val)
-      checkValue(this, this)
+      @value(@value())
       this
     else
       @_.min
@@ -110,7 +116,7 @@ class NumberPicker extends hx.EventEmitter
     if arguments.length > 0
       @_.max = val
       @selectInput.attr('max', val)
-      checkValue(this, this)
+      @value(@value())
       this
     else
       @_.max
