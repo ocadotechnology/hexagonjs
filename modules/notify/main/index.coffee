@@ -7,14 +7,38 @@ setupNotification = (notification, selection) ->
   content = hx.detached('div').class('hx-notification-content')
   msg = notification.message
 
-  msgIsNode = (msg instanceof hx.Selection) or (msg instanceof HTMLElement)
+  msgIsString = hx.isString(msg) or hx.isNumber(msg)
+
+  msgIsNode = not msgIsString and ((msg instanceof hx.Selection) or (msg instanceof HTMLElement))
   msgIsArrayOfNodes = msgIsNode or hx.isArray(msg) and msg.every (item) ->
     (item instanceof hx.Selection) or (item instanceof HTMLElement)
 
+  msgIsObject = not msgIsString and not msgIsNode and not msgIsArrayOfNodes and hx.isObject(msg)
+
+  if msgIsString
+    content.text(msg)
   if msgIsNode or msgIsArrayOfNodes
     content.add(msg)
-  else
+  else if msgIsObject and notification.options.renderer
     notification.options.renderer(content.node(), msg)
+  else
+    if msgIsObject
+      hx.consoleWarning(
+        'Notification created using an object with invalid arguments\n',
+        'An object was passed to the notification without a renderer being defined\n'
+        "message:",
+        msg,
+        "\nrenderer:",
+        notification.options.renderer
+      )
+    else
+      hx.consoleWarning(
+        'Notification created using an object with invalid arguments\n',
+        'The notification expected a String, Selection, HTMLElement or an Object with matching renderer but was passed:\n',
+        "message:",
+        msg
+      )
+    content.text('ERROR CONSTRUCTING NOTIFICATION')
 
   if notification.options.pinnable
     pin = hx.detached('div')
@@ -103,11 +127,8 @@ class Notification
       cssclass: undefined
       timeout: @manager._.defaultTimeout
       pinnable: true
-      renderer: defaultRenderer
+      renderer: undefined
     }, options
-
-    # Prevent undefined renderers being passed in
-    @options.renderer ?= defaultRenderer
 
     @id = nextId(@manager)
 
