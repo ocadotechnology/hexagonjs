@@ -34,11 +34,14 @@ class Picker extends hx.EventEmitter
       renderer: undefined
       value: undefined
       disabled: false
+      fullWidth: false
     }, options
 
     hx.component.register(selector, this)
 
     @selection = hx.select(selector)
+
+    @selection.classed('hx-picker-full-width', resolvedOptions.fullWidth)
 
     button = @selection.classed('hx-picker hx-btn', true).append('span').class('hx-picker-inner').attr('type', 'button')
     selectedText = button.append('span').class('hx-picker-text')
