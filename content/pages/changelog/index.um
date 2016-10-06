@@ -232,5 +232,10 @@
         @p: Added the @code[disabled] context class to @code(js)[hx.palette.context]
         @p: Fixed a bug in sticky table headers that prevented nested sticky tables being created
 
+    @version 1.8.0
+      @description
+        @p: TODO: list important features of this release
+
+
   @h2: Key
   @changelog.key
