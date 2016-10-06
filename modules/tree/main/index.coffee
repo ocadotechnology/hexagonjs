@@ -125,6 +125,7 @@ class Tree
       animate: true
       renderer: (elem, data) -> hx.select(elem).html(data.name || data)
       items: []
+      lazy: false
     }, options
 
     @selection = hx.select(@selector).classed('hx-tree hx-openable', true)
