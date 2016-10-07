@@ -31,9 +31,9 @@ class AutocompleteFeed
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
       filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
-      disabled = filtered.filter (i) -> i.disabled
-      active = filtered.filter (i) -> not i.disabled
-      [active..., disabled...]
+
+      groupedActive = new hx.Map hx.groupBy filtered, (i) -> not i.disabled
+      [groupedActive.get(true)..., groupedActive.get(false)...]
 
     @_ =
       options: resolvedOptions
@@ -79,9 +79,8 @@ class AutocompleteFeed
               filteredItems.indexOf(datum) is -1
             .sort sortItems(_.options.valueLookup)
 
-          disabled = unpartitioned.filter ({disabled}) -> disabled
-          active = unpartitioned.filter ({disabled}) -> not disabled
-          otherResults = [active..., disabled...]
+          groupedActive = new hx.Map hx.groupBy unpartitioned, (i) -> not i.disabled
+          otherResults = [groupedActive.get(true)..., groupedActive.get(false)...]
 
         cacheItemsThenCallback(filteredItems, otherResults)
 

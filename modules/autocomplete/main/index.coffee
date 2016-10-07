@@ -63,11 +63,9 @@ findTerm = (term, forceMatch) ->
             data = data.sort hx.sort.compare
         data
 
-    disabled = remainingResults.filter (i) -> i.disabled
-    active = remainingResults.filter (i) -> not i.disabled
-    [active..., disabled...]
+    groupedActive = new hx.Map hx.groupBy remainingResults, (i) -> not i.disabled
 
-    filteredData = [matches..., heading, active..., disabled...]
+    filteredData = [matches..., heading, groupedActive.get(true)..., groupedActive.get(false)...]
   filteredData
 
 
@@ -219,9 +217,8 @@ class AutoComplete extends hx.EventEmitter
 
       @options.filter ?= (arr, term) ->
         filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
-        disabled = filtered.filter (i) -> i.disabled
-        active = filtered.filter (i) -> not i.disabled
-        [active..., disabled...]
+        groupedActive = new hx.Map hx.groupBy filtered, (i) -> not i.disabled
+        [groupedActive.get(true)..., groupedActive.get(false)...]
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?
