@@ -20,6 +20,15 @@ describe 'autocomplete-feed', ->
     should.exist(af._.options.filterOptions.searchValues)
     af._.options.filterOptions.searchValues.should.be.an.instanceOf(Function)
 
+  # sanity check
+  it 'should not override the searchValues option even if valueLookup is defined', ->
+    af = new hx.AutocompleteFeed
+      valueLookup: 'hello world'
+      filterOptions:
+        searchValues: 'do not override'
+
+    af._.options.filterOptions.searchValues.should.equal('do not override')
+
 
   it 'should use passed in options where defined', ->
     valueLookup = chai.spy()

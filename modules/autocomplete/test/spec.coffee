@@ -4,3 +4,21 @@ describe 'autocomplete', ->
     hx.userFacingText('autoComplete','noResultsFound').should.equal('No results found')
     hx.userFacingText('autoComplete','otherResults').should.equal('Other Results')
     hx.userFacingText('autoComplete','pleaseEnterMinCharacters').should.equal('Please enter $minLength or more characters')
+
+
+  it 'should sort items correctly when using objects', ->
+    itemsObjects = hx.range(100).map (i) -> id: i
+
+    ac = new hx.AutoComplete hx.detached('div').node(), itemsObjects
+
+    ac.show()
+    ac._.menu.items().map(({id}) -> id).should.eql(hx.range(100))
+
+  it 'should sort disabled items correctly', ->
+    itemsObjects = hx.range(100).map (i) -> id: i, disabled: i % 2 == 0
+
+    ac = new hx.AutoComplete hx.detached('div').node(), itemsObjects
+
+    ac.show()
+    ac._.menu.items().slice(0, 50).map(({id}) -> id).should.eql(hx.range(50).map (i) -> 2 * i + 1)
+    ac._.menu.items().slice(50, 100).map(({id}) -> id).should.eql(hx.range(50).map (i) -> 2 * i)
