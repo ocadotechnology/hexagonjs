@@ -2,6 +2,8 @@ describe 'tag-input', ->
   origConsoleWarning = hx.consoleWarning
   hx.consoleWarning = chai.spy()
 
+  dropdownAnimateDuration = 200
+
   beforeEach ->
     hx.consoleWarning.reset()
 
@@ -184,8 +186,6 @@ describe 'tag-input', ->
         autocompleteData: ['a', 'b', 'c']
       })
 
-      dropdownAnimateDuration = 200
-
       chai.spy.on(ti._.autocomplete, 'show')
       testHelpers.fakeNodeEvent(ti.input.node(), 'focus')({})
       clock.tick(dropdownAnimateDuration)
@@ -236,3 +236,22 @@ describe 'tag-input', ->
         mustMatchAutocomplete: false
       })
       expect(ti._.autocomplete.options.mustMatch).to.be.false
+
+    it 'should not add a tag when selecting the item via the autocomplete', ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['bob']
+      })
+      clock = sinon.useFakeTimers()
+      testHelpers.fakeNodeEvent(ti.input.node(), 'focus')({})
+      ti.input.value('b')
+      testHelpers.fakeNodeEvent(ti.input.node(), 'input')({})
+      clock.tick(dropdownAnimateDuration)
+
+      dropdown = ti._.autocomplete._.menu.dropdown._.dropdown
+      target = dropdown.select('.hx-menu-item').node()
+
+      testHelpers.fakeNodeEvent(ti.input.node(), 'blur')({})
+      testHelpers.fakeNodeEvent(dropdown.node(), 'click')({target: target})
+      ti.items().should.eql(['bob'])
+
+
