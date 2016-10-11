@@ -66,7 +66,7 @@
   position: absolute;
 }
 
-// XXXL theme variables
+// XXX: theme variables
 .hx-plot-label-details {
   transform: translate(10px, -50%);
   position: absolute;
@@ -84,6 +84,7 @@
   font-weight: bold;
   margin-left: 0.5em;
   padding: 0.5em;
+  white-space: nowrap;
 }
 
 .hx-plot-label-details-header {
