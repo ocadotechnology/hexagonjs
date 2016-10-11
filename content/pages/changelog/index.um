@@ -234,8 +234,10 @@
 
     @version 1.8.0
       @description
-        @p: TODO: list important features of this release
-
+        @p: Added support for lazily loaded trees when building from json
+        @p: Allow HTML content inside notifications
+        @p: Disable the increment/decrement buttons for number pickers
+        @p: This release also includes a selection of bugfixes
 
   @h2: Key
   @changelog.key
