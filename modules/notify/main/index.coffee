@@ -7,6 +7,7 @@ setupNotification = (notification, selection) ->
   content = hx.detached('div').class('hx-notification-content')
   msg = notification.message
 
+  # We check `isNumber` here as in some cases it might be sensible to pass a number as the message (e.g. hx.notify.error(404))
   msgIsString = hx.isString(msg) or hx.isNumber(msg)
 
   msgIsNode = not msgIsString and ((msg instanceof hx.Selection) or (msg instanceof HTMLElement))
