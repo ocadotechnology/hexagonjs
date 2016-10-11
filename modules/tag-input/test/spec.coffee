@@ -253,5 +253,6 @@ describe 'tag-input', ->
       testHelpers.fakeNodeEvent(ti.input.node(), 'blur')({})
       testHelpers.fakeNodeEvent(dropdown.node(), 'click')({target: target})
       ti.items().should.eql(['bob'])
+      clock.uninstall()
 
 
