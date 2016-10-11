@@ -143,6 +143,14 @@ LocalStoragePreferencesStore = {
 
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
+zeroPad = hx.format.zeroPad(2)
+defaultTimezoneLookup = (offset) ->
+  modifier = if offset > 1 then '-' else '+'
+  absOffset = Math.abs(offset)
+  minutes = absOffset % 60
+  hours = (absOffset - minutes) / 60
+  "UTC#{modifier}#{zeroPad(hours)}:#{zeroPad(minutes)}"
+
 class Preferences extends hx.EventEmitter
   constructor: ->
     super
@@ -230,13 +238,7 @@ class Preferences extends hx.EventEmitter
         -(moment.tz.zone(timezone).offset(timestamp) / 60)
       @timezone guessedMomentTimezone
     else
-      zeroPad = hx.format.zeroPad(2)
-      offset = (new Date()).getTimezoneOffset()
-      modifier = if offset > 1 then '-' else '+'
-      absOffset = Math.abs(offset)
-      minutes = absOffset % 60
-      hours = (absOffset - minutes) / 60
-      @timezone "UTC#{modifier}#{zeroPad(hours)}:#{zeroPad(minutes)}"
+      @timezone defaultTimezoneLookup((new Date()).getTimezoneOffset())
 
   timezone: (timezone) ->
     if arguments.length > 0
@@ -318,3 +320,7 @@ class Preferences extends hx.EventEmitter
 
 hx.preferences = new Preferences
 hx.preferences.localStorageStore = LocalStoragePreferencesStore
+
+hx._.preferences = {
+  defaultTimezoneLookup: defaultTimezoneLookup
+}
