@@ -72,10 +72,11 @@ class TagInput extends hx.EventEmitter
       if event.keyCode is 13
         if @form.node().checkValidity()
           event.preventDefault()
-          name = @input.value()
-          if name
-            _.userEvent = true
-            @add name
+          if not @_.autocomplete
+            name = @input.value()
+            if name
+              _.userEvent = true
+              @add name
 
     @input.on 'input', 'hx.tag-input', hasError
 
@@ -87,9 +88,11 @@ class TagInput extends hx.EventEmitter
         if @input.value() is ''
           selection = @tagContainer.selectAll('.hx-tag')
           if selection.size() > 0
+            @_.autocomplete?.hide()
             nodeSelection = hx.select(selection.node(selection.size()-1))
             value = nodeSelection.text()
             nodeSelection.remove()
+            @_.autocomplete?.show()
             @emit 'remove', {value: value, type: 'user'}
 
     @input.on 'keyup', 'hx.tag-input', (event) ->
@@ -97,9 +100,10 @@ class TagInput extends hx.EventEmitter
         backspacedown = false
         true
 
-    @input.on 'blur', 'hx.tag-input', (event) =>
-      if @input.value().length > 0 and not hasError()
-        @add(@input.value(), undefined)
+    if not @_.autocomplete
+      @input.on 'blur', 'hx.tag-input', (event) =>
+        if @input.value().length > 0 and not hasError()
+          @add(@input.value(), undefined)
 
     @input.on 'focus', 'hx.tag-input', (event) =>
       if hasError() then @form.node().checkValidity()
