@@ -16,20 +16,20 @@
       display: none;
     }
   }
+}
 
-  form {
-    flex-flow: row wrap;
+.hx-tag-input-container {
+  flex-flow: row wrap;
+  flex-grow: 1;
+  display: flex;
+
+  input {
+    margin: 0;
+    margin: -1px;
     flex-grow: 1;
-    display: flex;
-
-    input {
-      margin: 0;
-      border-style: none;
-      flex-grow: 1;
-      padding-top: 0.55em;
-      padding-bottom: 0.55em;
-      min-width: 150px;
-    }
+    padding-top: 0.55em;
+    padding-bottom: 0.55em;
+    min-width: 150px;
   }
 }
 
