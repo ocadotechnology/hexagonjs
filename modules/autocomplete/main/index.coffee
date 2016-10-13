@@ -46,7 +46,7 @@ findTerm = (term, forceMatch) ->
     else [{unselectable:true, text:self.options.noResultsMessage}]
 
     # find values that are in the original data but not in the filtered data
-    heading = [{unselectable:true, heading: true, text: self.options.otherResultsMessage}]
+    heading = {unselectable:true, heading: true, text: self.options.otherResultsMessage}
 
     remainingResults =
       if filteredData.length is 0 then allData
@@ -63,15 +63,9 @@ findTerm = (term, forceMatch) ->
             data = data.sort hx.sort.compare
         data
 
+    groupedActive = new hx.Map(hx.groupBy(remainingResults, (i) -> not i.disabled))
 
-    remainingResults = heading.concat(
-      remainingResults.sort (a, b) ->
-        if not a.disabled and b.disabled then -1
-        else if a.disabled and not b.disabled then 1
-        else hx.sort.compare(a.full, b.full)
-    )
-
-    filteredData = matches.concat remainingResults
+    filteredData = [matches..., heading, groupedActive.get(true)..., groupedActive.get(false)...]
   filteredData
 
 
@@ -222,12 +216,9 @@ class AutoComplete extends hx.EventEmitter
       @options.filterOptions = hx.merge {}, _filterOpts, @options.filterOptions
 
       @options.filter ?= (arr, term) ->
-        hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
-          .sort (a, b) ->
-            if not a.disabled and b.disabled then -1
-            else if a.disabled and not b.disabled then 1
-            else hx.sort.compare(a, b)
-
+        filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
+        groupedActive = new hx.Map(hx.groupBy(filtered, (i) -> not i.disabled))
+        [groupedActive.get(true)..., groupedActive.get(false)...]
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?

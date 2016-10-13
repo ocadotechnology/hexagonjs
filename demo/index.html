@@ -191,8 +191,9 @@
       <div class="hx-section exampleSection">
         <div class="example">
           <h3>Autocomplete</h3>
-          <input id="autocomplete"></input>
-          <input id="autocomplete-async"></input>
+          <input id="autocomplete"/>
+          <input id="autocomplete-async"/>
+          <input id="autocomplete-numbers"/>
           <script>
             new hx.AutoComplete('#autocomplete', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
             new hx.AutoComplete('#autocomplete-async', function (term, callback) {
@@ -200,6 +201,9 @@
                 callback(['Bob', 'Kate', 'Steve', 'Ganesh', 'Lazlo'])
               }, 1000)
             })
+            const itemsObjects = hx.range(100).map((i) => ({id: i, disabled: (i % 2 == 0)})).reverse()
+            const ac = new hx.AutoComplete('#autocomplete-numbers', itemsObjects, { inputMap: (i) => i.id, showOtherResults: true })
+            console.log(ac._.menu.items().map(({id}) => id))
           </script>
         </div>
       </div>

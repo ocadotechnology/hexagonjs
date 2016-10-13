@@ -1,9 +1,6 @@
 sortItems = (valueLookup) ->
   valueLookup ?= hx.identity
-  (a, b) ->
-    if not a.disabled and b.disabled then -1
-    else if a.disabled and not b.disabled then 1
-    else hx.sort.compare(valueLookup(a), valueLookup(b))
+  (a, b) -> hx.sort.compare(valueLookup(a), valueLookup(b))
 
 trimTrailingSpaces = (term) ->
   newTerm = term
@@ -33,11 +30,10 @@ class AutocompleteFeed
 
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
-      hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
-        .sort (a, b) ->
-          if not a.disabled and b.disabled then -1
-          else if a.disabled and not b.disabled then 1
-          else 0
+      filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
+
+      groupedActive = new hx.Map(hx.groupBy(filtered, (i) -> not i.disabled))
+      [groupedActive.get(true)..., groupedActive.get(false)...]
 
     @_ =
       options: resolvedOptions
@@ -79,9 +75,12 @@ class AutocompleteFeed
       filterAndCallback = (unfilteredItems) ->
         filteredItems = _.options.filter(unfilteredItems, term)
         if _.options.showOtherResults
-          otherResults = unfilteredItems.filter (datum) ->
+          unpartitioned = unfilteredItems.filter (datum) ->
               filteredItems.indexOf(datum) is -1
             .sort sortItems(_.options.valueLookup)
+
+          groupedActive = new hx.Map(hx.groupBy(unpartitioned, (i) -> not i.disabled))
+          otherResults = [groupedActive.get(true)..., groupedActive.get(false)...]
 
         cacheItemsThenCallback(filteredItems, otherResults)
 
