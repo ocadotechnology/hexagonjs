@@ -108,6 +108,110 @@ describe 'number picker', ->
     sel.select('input').value().should.equal('zero')
     sel.select('input').attr('readonly').should.equal('readonly')
 
+  it 'should not call value when bluring from an input with a screenValue', ->
+    change = chai.spy()
+    sel = hx.detached('div')
+    np = new hx.NumberPicker(sel.node())
+    np.on('input-change', change)
+    np.value(0, 'zero')
+    np.value().should.equal(0)
+    sel.select('input').value().should.equal('zero')
+    sel.select('input').attr('readonly').should.equal('readonly')
+
+    chai.spy.on(np, 'value')
+    testHelpers.fakeNodeEvent(np.selectInput.node(), 'blur')(fakeEvent)
+    np.value.should.not.have.been.called()
+    change.should.not.have.been.called()
+
+  describe 'events', ->
+    it 'change: should emit whenever the value is changed', ->
+      change = chai.spy()
+
+      sel = hx.detached('div')
+      np = new hx.NumberPicker(sel.node())
+      np.on('change', change)
+
+      np.value(1).should.equal(np)
+      change.should.have.been.called.with({ value: 1 })
+      change.reset()
+      np.increment().should.equal(np)
+      change.should.have.been.called.with({ value: 2 })
+      change.reset()
+      np.decrement().should.equal(np)
+      change.should.have.been.called.with({ value: 1 })
+      change.reset()
+      np.decrement().should.equal(np)
+      change.should.have.been.called.with({ value: 0 })
+
+    it 'change: should emit whenever the value is changed by the min/max function', ->
+      change = chai.spy()
+
+      sel = hx.detached('div')
+      np = new hx.NumberPicker(sel.node(), {value: 0})
+      np.debug = true
+      np.on('change', change)
+
+      np.min(5).should.equal(np)
+      np.value().should.equal(5)
+      change.should.have.been.called.with({ value: 5 })
+      change.reset()
+      np.min(0).should.equal(np)
+      np.value().should.equal(5)
+      change.should.not.have.been.called()
+      change.reset()
+      np.max(0).should.equal(np)
+      np.value().should.equal(0)
+      change.should.have.been.called.with({ value: 0 })
+      change.reset()
+      np.max(5).should.equal(np)
+      np.value().should.equal(0)
+      change.should.not.have.been.called()
+
+    it 'input-change: should emit whenever the input text is is updated ', ->
+      change = chai.spy()
+
+      sel = hx.detached('div')
+      np = new hx.NumberPicker(sel.node())
+      np.on('input-change', change)
+
+      np.value().should.equal(0)
+      np.selectInput.value(5)
+      change.should.not.have.been.called()
+      testHelpers.fakeNodeEvent(np.selectInput.node(), 'blur')(fakeEvent)
+      change.should.have.been.called.with({value: 5})
+
+    it 'decrement: should emit when the user decrements', ->
+      change = chai.spy()
+
+      sel = hx.detached('div')
+      np = new hx.NumberPicker(sel.node())
+      np.on('decrement', change)
+
+      buttonNode = sel.select('.hx-number-picker-decrement').node()
+
+      change.should.not.have.been.called()
+      testHelpers.fakeNodeEvent(buttonNode, 'pointerdown')(fakePointerEvent)
+      clock.tick(100)
+      testHelpers.fakeNodeEvent(buttonNode, 'pointerup')(fakePointerEvent)
+      change.should.have.been.called.once()
+      np.value().should.equal(-1)
+
+    it 'increment: should emit when the user increments', ->
+      change = chai.spy()
+
+      sel = hx.detached('div')
+      np = new hx.NumberPicker(sel.node())
+      np.on('increment', change)
+
+      buttonNode = sel.select('.hx-number-picker-increment').node()
+
+      change.should.not.have.been.called()
+      testHelpers.fakeNodeEvent(buttonNode, 'pointerdown')(fakePointerEvent)
+      clock.tick(100)
+      testHelpers.fakeNodeEvent(buttonNode, 'pointerup')(fakePointerEvent)
+      change.should.have.been.called.once()
+      np.value().should.equal(1)
+
   testButton = (method, selector, multiplier) ->
     describe method, ->
       it "#{method}: should increment the number picker", ->
@@ -126,6 +230,12 @@ describe 'number picker', ->
         np[method]().should.equal(np)
         np.value().should.equal(1 * multiplier)
 
+      it "#{method}: should disable the button when at the min/max value", ->
+        sel = hx.detached('div')
+        np = new hx.NumberPicker(sel.node(), {min: -5, max: 5, value: multiplier * 5})
+        sel.select(".hx-number-picker-#{method}").attr('disabled').should.equal('disabled')
+        np.value(0).should.equal(np)
+        should.not.exist(sel.select(".hx-number-picker-#{method}").attr('disabled'))
 
       it 'button: should increment correctly when clicking the button', ->
         sel = hx.detached('div')
@@ -161,7 +271,6 @@ describe 'number picker', ->
         np.value().should.equal(0)
         testHelpers.fakeNodeEvent(sel.select(selector).node())(fakePointerEvent)
         np.value().should.equal(1 * multiplier)
-
 
       it 'button: should stop incrementing when the pointer leaves the button', ->
         sel = hx.detached('div')
