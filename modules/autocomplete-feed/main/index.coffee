@@ -32,7 +32,7 @@ class AutocompleteFeed
     resolvedOptions.filter ?= (items, term) ->
       filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
 
-      groupedActive = new hx.Map hx.groupBy filtered, (i) -> not i.disabled
+      groupedActive = new hx.Map(hx.groupBy(filtered, (i) -> not i.disabled))
       [groupedActive.get(true)..., groupedActive.get(false)...]
 
     @_ =
@@ -79,7 +79,7 @@ class AutocompleteFeed
               filteredItems.indexOf(datum) is -1
             .sort sortItems(_.options.valueLookup)
 
-          groupedActive = new hx.Map hx.groupBy unpartitioned, (i) -> not i.disabled
+          groupedActive = new hx.Map(hx.groupBy(unpartitioned, (i) -> not i.disabled))
           otherResults = [groupedActive.get(true)..., groupedActive.get(false)...]
 
         cacheItemsThenCallback(filteredItems, otherResults)
