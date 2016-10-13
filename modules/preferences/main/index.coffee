@@ -145,7 +145,7 @@ lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is loc
 
 zeroPad = hx.format.zeroPad(2)
 defaultTimezoneLookup = (offset) ->
-  modifier = if offset > 1 then '-' else '+'
+  modifier = if offset > 0 then '-' else '+'
   absOffset = Math.abs(offset)
   minutes = absOffset % 60
   hours = (absOffset - minutes) / 60

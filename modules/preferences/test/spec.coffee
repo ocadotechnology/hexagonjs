@@ -78,6 +78,10 @@ describe 'hx-preferences', ->
 
     describe 'defaultTimezoneLookup', ->
       it 'should get the correct string timezone', ->
+        hx._.preferences.defaultTimezoneLookup(1).should.equal('UTC-00:01')
+        hx._.preferences.defaultTimezoneLookup(2).should.equal('UTC-00:02')
         hx._.preferences.defaultTimezoneLookup(0).should.equal('UTC+00:00')
+        hx._.preferences.defaultTimezoneLookup(-1).should.equal('UTC+00:01')
+        hx._.preferences.defaultTimezoneLookup(-2).should.equal('UTC+00:02')
         hx._.preferences.defaultTimezoneLookup(10).should.equal('UTC-00:10')
         hx._.preferences.defaultTimezoneLookup(-100).should.equal('UTC+01:40')
