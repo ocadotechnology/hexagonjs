@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.7.0
+ Version: 1.8.0
  Theme: hexagon-light
  Modules:
    set
@@ -31,11 +31,11 @@
    form
    modal
    notify
+   format
    component
    morphs
    click-detector
    base
-   format
    preferences
    button
    dropdown
@@ -495,9 +495,8 @@ body.hx-modal-open > .hx-notification-container {
   .hx-notification .hx-notification-close,
   .hx-notification .hx-notification-pin {
     cursor: pointer; }
-  .hx-notification .hx-notification-text {
+  .hx-notification .hx-notification-content {
     word-wrap: break-word;
-    margin: 0;
     -webkit-flex: 1 1 auto;
         -ms-flex: 1 1 auto;
             flex: 1 1 auto; }
@@ -515,6 +514,7 @@ body.hx-modal-open > .hx-notification-container {
     width: 100%;
     margin-left: 0;
     left: 0; } }
+
 
 
 .hx-morph-hidden {
@@ -689,7 +689,6 @@ textarea:disabled,
 select:disabled {
   cursor: not-allowed;
   opacity: 0.5; }
-
 
 
 .hx-btn {
@@ -1320,7 +1319,8 @@ a.hx-btn:hover {
   font-size: 10px;
   font-weight: bold;
   margin-left: 0.5em;
-  padding: 0.5em; }
+  padding: 0.5em;
+  white-space: nowrap; }
 
 .hx-plot-label-details-header {
   border-bottom: solid 1px transparent;
@@ -1375,6 +1375,16 @@ a.hx-btn:hover {
   .hx-picker span + span {
     margin: 0 0 0 0.4em; }
 
+.hx-picker-full-width {
+  box-sizing: border-box;
+  width: 100%; }
+
+.hx-picker-full-width .hx-picker-inner {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 100%; }
+
 
 .hx-sticky-table-headers {
   position: relative;
@@ -1390,6 +1400,8 @@ a.hx-btn:hover {
   .hx-sticky-table-headers .hx-sticky-table-header-top,
   .hx-sticky-table-headers .hx-sticky-table-header-top-left {
     z-index: 2; }
+  .hx-sticky-table-headers .hx-sticky-table-invisible {
+    visibility: hidden; }
   .hx-sticky-table-headers .hx-sticky-table-header-top {
     top: 0; }
     .hx-sticky-table-headers .hx-sticky-table-header-top .hx-table {
@@ -1411,8 +1423,6 @@ a.hx-btn:hover {
     overflow: auto; }
     .hx-sticky-table-headers .hx-sticky-table-wrapper .hx-table {
       overflow: visible; }
-    .hx-sticky-table-headers .hx-sticky-table-wrapper .hx-sticky-table-invisible {
-      visibility: hidden; }
   .hx-sticky-table-headers .hx-sticky-table-scroll-left,
   .hx-sticky-table-headers .hx-sticky-table-scroll-right,
   .hx-sticky-table-headers .hx-sticky-table-scroll-top,
@@ -1554,25 +1564,26 @@ a.hx-btn:hover {
     border: none; }
     .hx-tag-input .hx-tags-container:empty {
       display: none; }
-  .hx-tag-input form {
-    -webkit-flex-flow: row wrap;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
+
+.hx-tag-input-container {
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  .hx-tag-input-container input {
+    margin: 0;
+    margin: -1px;
     -webkit-flex-grow: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex; }
-    .hx-tag-input form input {
-      margin: 0;
-      border-style: none;
-      -webkit-flex-grow: 1;
-          -ms-flex-positive: 1;
-              flex-grow: 1;
-      padding-top: 0.55em;
-      padding-bottom: 0.55em;
-      min-width: 150px; }
+    padding-top: 0.55em;
+    padding-bottom: 0.55em;
+    min-width: 150px; }
 
 .hx-tag {
   display: -webkit-flex;
@@ -1779,12 +1790,12 @@ body.hx-full-width .hx-titlebar-contents {
     vertical-align: middle;
     -webkit-align-self: center;
         -ms-flex-item-align: center;
+                -ms-grid-row-align: center;
             align-self: center; }
 
 .hx-titlebar-menu-icon-mobile {
   -webkit-align-items: middle;
       -ms-flex-align: middle;
-              -ms-grid-row-align: middle;
           align-items: middle;
   display: none;
   margin-right: 0.3em;
@@ -1899,7 +1910,6 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
   .hx-titlebar-menu-icons {
     -webkit-align-items: center;
         -ms-flex-align: center;
-                -ms-grid-row-align: center;
             align-items: center;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
@@ -2343,7 +2353,6 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
             flex-wrap: nowrap;
     -webkit-align-items: center;
         -ms-flex-align: center;
-                -ms-grid-row-align: center;
             align-items: center; }
   .hx-data-table .hx-data-table-filter {
     display: none;

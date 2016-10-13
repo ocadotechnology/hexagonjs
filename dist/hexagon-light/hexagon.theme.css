@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.7.0
+ Version: 1.8.0
  Theme: hexagon-light
  Modules:
    set
@@ -31,11 +31,11 @@
    form
    modal
    notify
+   format
    component
    morphs
    click-detector
    base
-   format
    preferences
    button
    dropdown
@@ -180,6 +180,7 @@
 
 
 
+
 body, button, textarea,
 input {
   font-family: "Open Sans", sans-serif;
@@ -234,7 +235,6 @@ a {
 hr {
   border-color: #D0D0D0;
   border-style: solid; }
-
 
 
 .hx-btn {

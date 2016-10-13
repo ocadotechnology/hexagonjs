@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.7.0
+ Version: 1.8.0
  Theme: hexagon-light
  Modules:
    set
@@ -31,11 +31,11 @@
    form
    modal
    notify
+   format
    component
    morphs
    click-detector
    base
-   format
    preferences
    button
    dropdown
@@ -149,6 +149,7 @@ hx.theme = {
     "containerBorderCol": "transparent",
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
+  "format": {},
   "component": {},
   "morphs": {},
   "clickDetector": {},
@@ -174,7 +175,6 @@ hx.theme = {
     "dividerStyle": "solid",
     "defaultFontSize": "14px"
   },
-  "format": {},
   "preferences": {},
   "button": {
     "defaultCol": "#FFFFFF",
@@ -709,7 +709,7 @@ Set = (function() {
       }
     }
     if (this.nan) {
-      items.push([NaN, NaN]);
+      items.push([0/0, 0/0]);
     }
     return items;
   };
@@ -830,7 +830,7 @@ Map = (function() {
       }
     }
     if (this.nan !== void 0) {
-      items.push([NaN, this.nan]);
+      items.push([0/0, this.nan]);
     }
     return items;
   };
@@ -1558,7 +1558,7 @@ hx.identity = function(d) {
 hx_parseHTML = null;
 
 hx.parseHTML = function(html) {
-  var e, error;
+  var e;
   if (!hx_parseHTML) {
 
     /*
@@ -1706,6 +1706,12 @@ BasicEventEmitter = (function() {
     return this;
   };
 
+  BasicEventEmitter.prototype.isEmpty = function() {
+    return this.callbacks.values().every(function(list) {
+      return list.size === 0;
+    }) && this.allCallbacks.size === 0;
+  };
+
   BasicEventEmitter.prototype.on = function(name, callback) {
     if (name) {
       if (!this.callbacks.has(name)) {
@@ -1788,24 +1794,26 @@ EventEmitter = (function() {
     return be;
   };
 
-  removeEmitter = function(ee, namespace) {
-    if (ee.emittersMap.has(namespace)) {
+  removeEmitter = function(ee, be, namespace) {
+    var lookedUpNamespace, ref;
+    if (namespace && ee.emittersMap.has(namespace)) {
       ee.emittersMap["delete"](namespace);
-      ee.emitters.remove(ee);
+    } else {
+      lookedUpNamespace = (ref = ee.emittersMap.entries().filter(function(arg) {
+        var _, e;
+        _ = arg[0], e = arg[1];
+        return e === be;
+      })[0]) != null ? ref[0] : void 0;
+      if (lookedUpNamespace) {
+        ee.emittersMap["delete"](lookedUpNamespace);
+      }
     }
-    return ee;
+    return ee.emitters.remove(be);
   };
 
   EventEmitter.prototype.emit = function(name, data) {
-    var e, emitter, i, len, ref;
+    var emitter, i, len, ref;
     if (!this.suppressedMap.get(name)) {
-      if (this.deprecatedEvents != null) {
-        for (e in this.deprecatedEvents) {
-          if (this.deprecatedEvents[e].event === name) {
-            this.emit(e, data);
-          }
-        }
-      }
       ref = this.emitters.entries();
       for (i = 0, len = ref.length; i < len; i++) {
         emitter = ref[i];
@@ -1858,17 +1866,34 @@ EventEmitter = (function() {
   };
 
   EventEmitter.prototype.off = function(name, namespace, callback) {
-    var emitter, i, len, ref, ref1;
+    var be, emitters, emittersToRemove;
     if (hx.isString(namespace)) {
-      if ((ref = this.emittersMap.get(namespace)) != null) {
-        ref.off(name, callback);
+      if (this.emittersMap.has(namespace)) {
+        be = this.emittersMap.get(namespace);
+        be.off(name, callback);
+        if (be.isEmpty()) {
+          removeEmitter(this, be, namespace);
+        }
       }
     } else {
-      ref1 = this.emitters.entries();
-      for (i = 0, len = ref1.length; i < len; i++) {
-        emitter = ref1[i];
-        emitter.off(name, callback);
+      if (!callback && !hx.isString(namespace)) {
+        callback = namespace;
       }
+      emitters = this.emitters.entries();
+      emittersToRemove = [];
+      emitters.forEach((function(_this) {
+        return function(emitter) {
+          emitter.off(name, callback);
+          if (emitter !== _this.global && emitter.isEmpty()) {
+            return emittersToRemove.push(emitter);
+          }
+        };
+      })(this));
+      emittersToRemove.map((function(_this) {
+        return function(e) {
+          return removeEmitter(_this, e);
+        };
+      })(this));
     }
     return this;
   };
@@ -4195,13 +4220,14 @@ getValidationMessage = function(message, type) {
 };
 
 validateForm = function(form, options) {
-  var element, error, errors, i, input, j, ref, type;
+  var element, error, errors, focusedElement, i, input, j, ref, type;
   form = hx.select(form).node();
   options = hx.merge.defined({
     showMessage: true
   }, options);
   hx.select(form).selectAll('.hx-form-error').remove();
   errors = [];
+  focusedElement = document.activeElement;
   for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
     if (form.children[i].nodeName.toLowerCase() === 'div') {
       element = form.children[i].children[1];
@@ -4211,7 +4237,8 @@ validateForm = function(form, options) {
           errors.push({
             message: getValidationMessage(element.validationMessage, type),
             node: element,
-            validity: element.validity
+            validity: element.validity,
+            focused: focusedElement === element
           });
         }
       } else {
@@ -4221,14 +4248,17 @@ validateForm = function(form, options) {
           errors.push({
             message: getValidationMessage(input.validationMessage, type),
             node: element,
-            validity: input.validity
+            validity: input.validity,
+            focused: focusedElement === input
           });
         }
       }
     }
   }
   if (options.showMessage && errors.length > 0) {
-    error = errors[0];
+    error = errors.filter(function(error) {
+      return error.focused;
+    })[0] || errors[0];
     hx.select(error.node.parentNode).insertAfter('div')["class"]('hx-form-error').append('div').insertAfter('div')["class"]('hx-form-error-text-container').append('div')["class"]('hx-form-error-text').text(error.message);
     hx.select(error.node).on('click', 'hx.form', function(e) {
       var next;
@@ -4477,23 +4507,45 @@ hx.modal = {
 
 })();
 (function(){
-var Notification, NotificationManager, inbuiltNotificationManager, nextId, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus;
+var Notification, NotificationManager, defaultRenderer, inbuiltNotificationManager, nextId, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus;
 
 setupNotification = function(notification, selection) {
-  if ((notification.options.icon != null) && notification.options.icon.length > 0) {
-    selection.append('div')["class"]('hx-notification-icon-container').append('i')["class"]('hx-notification-icon ' + notification.options.icon);
+  var close, content, icon, msg, msgIsArrayOfNodes, msgIsNode, msgIsObject, msgIsString, pin;
+  icon = (notification.options.icon != null) && notification.options.icon.length > 0 ? hx.detached('div')["class"]('hx-notification-icon-container').add(hx.detached('i')["class"]('hx-notification-icon ' + notification.options.icon)) : void 0;
+  content = hx.detached('div')["class"]('hx-notification-content');
+  msg = notification.message;
+  msgIsString = hx.isString(msg) || hx.isNumber(msg);
+  msgIsNode = !msgIsString && ((msg instanceof hx.Selection) || (msg instanceof HTMLElement));
+  msgIsArrayOfNodes = msgIsNode || hx.isArray(msg) && msg.every(function(item) {
+    return (item instanceof hx.Selection) || (item instanceof HTMLElement);
+  });
+  msgIsObject = !msgIsString && !msgIsNode && !msgIsArrayOfNodes && hx.isObject(msg);
+  if (msgIsString) {
+    content.text(msg);
   }
-  selection.append('div')["class"]('hx-notification-text').text(notification.message);
+  if (msgIsNode || msgIsArrayOfNodes) {
+    content.add(msg);
+  } else if (msgIsObject && notification.options.renderer) {
+    notification.options.renderer(content.node(), msg);
+  } else {
+    if (msgIsObject) {
+      hx.consoleWarning('Notification created using an object with invalid arguments\n', 'An object was passed to the notification without a renderer being defined\n', "message:", msg, "\nrenderer:", notification.options.renderer);
+    } else {
+      hx.consoleWarning('Notification created using an object with invalid arguments\n', 'The notification expected a String, Selection, HTMLElement or an Object with matching renderer but was passed:\n', "message:", msg);
+    }
+    content.text('ERROR CONSTRUCTING NOTIFICATION');
+  }
   if (notification.options.pinnable) {
-    notification.domPin = selection.append('div')["class"]('hx-notification-icon-container hx-notification-pin').on('click', 'hx.notify', function() {
+    pin = hx.detached('div')["class"]('hx-notification-icon-container hx-notification-pin').on('click', 'hx.notify', function() {
       return togglePin(notification);
-    });
-    notification.domPin.append('i').attr('class', 'hx-icon hx-icon-thumb-tack');
+    }).add(hx.detached('i').attr('class', 'hx-icon hx-icon-thumb-tack'));
+    notification.domPin = pin;
     updatePinnedStatus(notification);
   }
-  return selection.append('div')["class"]('hx-notification-icon-container hx-notification-close').on('click', 'hx.notify', function() {
+  close = hx.detached('div')["class"]('hx-notification-icon-container hx-notification-close').on('click', 'hx.notify', function() {
     return notification.close();
-  }).append('i')["class"]('hx-icon hx-icon-close');
+  }).add(hx.detached('i')["class"]('hx-icon hx-icon-close'));
+  return selection.add(icon).add(content).add(pin).add(close);
 };
 
 nextId = function(manager) {
@@ -4509,8 +4561,10 @@ redraw = function(manager) {
   }
   view = container.view('.hx-notification');
   view.enter(function(d) {
+    var optionalClass;
     selection = this.append('div');
-    selection["class"]('hx-notification ' + d.options.cssclass).forEach(function(node) {
+    optionalClass = d.options.cssclass ? " " + d.options.cssclass : '';
+    selection["class"]("hx-notification" + optionalClass).forEach(function(node) {
       setupNotification(d, selection);
       return d.trueHeight = selection.style('height');
     }).style('opacity', 0).style('height', 0).style('padding-top', 0).style('padding-bottom', 0).style('margin-top', 0).style('margin-bottom', 0).morph()["with"]('expandv').and('fadein').then(function() {
@@ -4559,15 +4613,20 @@ updatePinnedStatus = function(notification) {
   return notification.domPin.classed('hx-notification-pin-pinned', notification.pinned);
 };
 
+defaultRenderer = function(node, message) {
+  return hx.select(node).text(message);
+};
+
 Notification = (function() {
   function Notification(manager1, message1, options) {
     this.manager = manager1;
     this.message = message1;
     this.options = hx.merge({
       icon: void 0,
-      cssClass: void 0,
+      cssclass: void 0,
       timeout: this.manager._.defaultTimeout,
-      pinnable: true
+      pinnable: true,
+      renderer: void 0
     }, options);
     this.id = nextId(this.manager);
     if (this.options.timeout) {
@@ -4623,11 +4682,12 @@ NotificationManager = (function() {
   };
 
   themedNotification = function(manager, contextClass, iconClass, message, options) {
-    var mergedOptions;
+    var mergedOptions, optionalClass;
     mergedOptions = hx.merge({
       icon: 'hx-icon ' + iconClass
     }, options);
-    mergedOptions.cssclass = contextClass + ' ' + (options.cssclass || '');
+    optionalClass = mergedOptions.cssclass ? " " + mergedOptions.cssclass : '';
+    mergedOptions.cssclass = "" + contextClass + optionalClass;
     return manager.notify(message, mergedOptions);
   };
 
@@ -4711,6 +4771,121 @@ hx.notify.loading = function(message) {
 
 hx.notify.defaultTimeout = function(timeout) {
   return inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments);
+};
+
+})();
+(function(){
+var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
+
+siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+
+zeroPad = function(number, pad) {
+  var _, str, zeros;
+  str = number.toString();
+  if (str.length < pad) {
+    zeros = pad - str.length;
+    return ((function() {
+      var i, ref, results;
+      results = [];
+      for (_ = i = 0, ref = zeros - 1; 0 <= ref ? i <= ref : i >= ref; _ = 0 <= ref ? ++i : --i) {
+        results.push('0');
+      }
+      return results;
+    })()).join('') + str;
+  } else {
+    return str;
+  }
+};
+
+precision = function(n) {
+  if (n) {
+    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
+  } else {
+    return 1;
+  }
+};
+
+roundPrecision = function(n, base, factor) {
+  if (factor >= 0) {
+    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
+  } else {
+    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
+  }
+};
+
+formatRound = function(n, sf) {
+  var factor;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  factor = precision(n) - sf + 1;
+  return roundPrecision(n, 10, factor).toString();
+};
+
+formatSI = function(n, sf) {
+  var p, siFactor, suffix, x;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  p = Math.min(precision(n), 26);
+  suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
+  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
+  if (p === -3) {
+    x = 1000;
+    suffix = siSuffixes[6];
+  }
+  siFactor = Math.pow(10, p - p % 3) / x;
+  return formatRound(n / siFactor, sf) + suffix;
+};
+
+formatExp = function(n, sf) {
+  var p;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  p = precision(n);
+  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
+};
+
+formatFixed = function(n, digits) {
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  return n.toFixed(digits);
+};
+
+strictCheck = function(f, sf, strict) {
+  if (strict) {
+    return function(n) {
+      return f(n, sf);
+    };
+  } else {
+    return function(n) {
+      if (hx.isString(n)) {
+        return n;
+      } else {
+        return f(n, sf);
+      }
+    };
+  }
+};
+
+hx.format = {
+  round: function(sf, strict) {
+    return strictCheck(formatRound, sf, strict);
+  },
+  si: function(sf, strict) {
+    return strictCheck(formatSI, sf, strict);
+  },
+  exp: function(sf, strict) {
+    return strictCheck(formatExp, sf, strict);
+  },
+  fixed: function(digits, strict) {
+    return strictCheck(formatFixed, digits, strict);
+  },
+  zeroPad: function(length, strict) {
+    return strictCheck(zeroPad, length, strict);
+  }
 };
 
 })();
@@ -5078,122 +5253,7 @@ hx.ClickDetector = ClickDetector;
 })();
 
 (function(){
-var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
-
-siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
-
-zeroPad = function(number, pad) {
-  var _, str, zeros;
-  str = number.toString();
-  if (str.length < pad) {
-    zeros = pad - str.length;
-    return ((function() {
-      var i, ref, results;
-      results = [];
-      for (_ = i = 0, ref = zeros - 1; 0 <= ref ? i <= ref : i >= ref; _ = 0 <= ref ? ++i : --i) {
-        results.push('0');
-      }
-      return results;
-    })()).join('') + str;
-  } else {
-    return str;
-  }
-};
-
-precision = function(n) {
-  if (n) {
-    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
-  } else {
-    return 1;
-  }
-};
-
-roundPrecision = function(n, base, factor) {
-  if (factor >= 0) {
-    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
-  } else {
-    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
-  }
-};
-
-formatRound = function(n, sf) {
-  var factor;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  factor = precision(n) - sf + 1;
-  return roundPrecision(n, 10, factor).toString();
-};
-
-formatSI = function(n, sf) {
-  var p, siFactor, suffix, x;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = Math.min(precision(n), 26);
-  suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
-  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
-  if (p === -3) {
-    x = 1000;
-    suffix = siSuffixes[6];
-  }
-  siFactor = Math.pow(10, p - p % 3) / x;
-  return formatRound(n / siFactor, sf) + suffix;
-};
-
-formatExp = function(n, sf) {
-  var p;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = precision(n);
-  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
-};
-
-formatFixed = function(n, digits) {
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  return n.toFixed(digits);
-};
-
-strictCheck = function(f, sf, strict) {
-  if (strict) {
-    return function(n) {
-      return f(n, sf);
-    };
-  } else {
-    return function(n) {
-      if (hx.isString(n)) {
-        return n;
-      } else {
-        return f(n, sf);
-      }
-    };
-  }
-};
-
-hx.format = {
-  round: function(sf, strict) {
-    return strictCheck(formatRound, sf, strict);
-  },
-  si: function(sf, strict) {
-    return strictCheck(formatSI, sf, strict);
-  },
-  exp: function(sf, strict) {
-    return strictCheck(formatExp, sf, strict);
-  },
-  fixed: function(digits, strict) {
-    return strictCheck(formatFixed, digits, strict);
-  },
-  zeroPad: function(length, strict) {
-    return strictCheck(zeroPad, length, strict);
-  }
-};
-
-})();
-(function(){
-var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, localeList, lookupLocale,
+var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, defaultTimezoneLookup, localeList, lookupLocale, zeroPad,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -5476,6 +5536,17 @@ lookupLocale = function(locale) {
   })[0];
 };
 
+zeroPad = hx.format.zeroPad(2);
+
+defaultTimezoneLookup = function(offset) {
+  var absOffset, hours, minutes, modifier;
+  modifier = offset > 0 ? '-' : '+';
+  absOffset = Math.abs(offset);
+  minutes = absOffset % 60;
+  hours = (absOffset - minutes) / 60;
+  return "UTC" + modifier + (zeroPad(hours)) + ":" + (zeroPad(minutes));
+};
+
 Preferences = (function(superClass) {
   var option;
 
@@ -5564,7 +5635,7 @@ Preferences = (function(superClass) {
       });
       this.timezone(guessedMomentTimezone);
     } else {
-      this.timezone('UTC+00:00');
+      this.timezone(defaultTimezoneLookup((new Date()).getTimezoneOffset()));
     }
   }
 
@@ -5638,7 +5709,7 @@ Preferences = (function(superClass) {
   };
 
   Preferences.prototype.save = function(cb) {
-    var e, error;
+    var e;
     try {
       return this._.backingStore.save(JSON.stringify(this._.preferences), function(err) {
         return typeof cb === "function" ? cb(err) : void 0;
@@ -5650,7 +5721,7 @@ Preferences = (function(superClass) {
   };
 
   Preferences.prototype.load = function(cb) {
-    var e, error;
+    var e;
     try {
       return this._.backingStore.load((function(_this) {
         return function(err, prefs) {
@@ -5678,6 +5749,10 @@ Preferences = (function(superClass) {
 hx.preferences = new Preferences;
 
 hx.preferences.localStorageStore = LocalStoragePreferencesStore;
+
+hx._.preferences = {
+  defaultTimezoneLookup: defaultTimezoneLookup
+};
 
 })();
 
@@ -6453,23 +6528,25 @@ hx.dateTimeLocalizer = dateTimeLocalizer;
 
 })();
 (function(){
-var NumberPicker, addHoldHandler, checkValue,
+var NumberPicker, addHoldHandler, checkValue, getDisabled,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-checkValue = function(numberPicker, context) {
-  var max, min, oldValue, value;
-  value = oldValue = context.value();
-  max = numberPicker.max();
-  min = numberPicker.min();
+checkValue = function(value, min, max) {
   if (max !== void 0) {
     value = Math.min(value, max);
   }
   if (min !== void 0) {
     value = Math.max(value, min);
   }
-  if (value !== oldValue) {
-    return context.value(value);
+  return value;
+};
+
+getDisabled = function(disabled, val, edge) {
+  if (disabled || (val === edge)) {
+    return 'disabled';
+  } else {
+    return void 0;
   }
 };
 
@@ -6540,10 +6617,12 @@ NumberPicker = (function(superClass) {
     this.selectInput.attr('type', 'number');
     this.selectInput.on('blur', 'hx.number-picker', (function(_this) {
       return function() {
-        _this.emit('input-change', {
-          value: _this.value()
-        });
-        return _this.value(void 0, _this.selectInput.value());
+        if (_this.selectInput.attr('readonly') === void 0) {
+          _this.value(void 0, _this.selectInput.value());
+          return _this.emit('input-change', {
+            value: _this.value()
+          });
+        }
       };
     })(this));
     decrementButton = selection.append('button').attr('type', 'button')["class"]('hx-number-picker-decrement hx-btn ' + this.options.buttonClass);
@@ -6562,24 +6641,22 @@ NumberPicker = (function(superClass) {
     if (this.options.disabled) {
       this.disabled(this.options.disabled);
     }
-    this.selectInput.attr('data-value', this.options.value).value(this.options.value);
+    this.value(this.options.value);
   }
 
   NumberPicker.prototype.value = function(value, screenValue) {
-    var newVal, prevValue;
+    var newVal, prevValue, selection, valueToUse;
     if (arguments.length > 0) {
       prevValue = this.value();
-      newVal = (value == null) && screenValue ? screenValue : value;
-      if (this._.max !== void 0 && newVal > this._.max) {
-        newVal = this._.max;
-      }
-      if (this._.min !== void 0 && newVal < this._.min) {
-        newVal = this._.min;
-      }
-      this.selectInput.attr('type', 'text').attr('data-value', newVal).attr('readonly', screenValue && isNaN(screenValue) ? 'readonly' : void 0).value(screenValue || newVal);
-      if (prevValue !== value) {
+      valueToUse = (value == null) && screenValue ? Number(screenValue) : value;
+      newVal = checkValue(valueToUse, this.min(), this.max());
+      this.selectInput.attr('type', 'text').attr('data-value', newVal).attr('readonly', screenValue && isNaN(screenValue) ? 'readonly' : void 0).value((value != null) && (screenValue != null) ? screenValue : newVal);
+      selection = hx.select(this.selector);
+      selection.select('.hx-number-picker-decrement').attr('disabled', getDisabled(this.options.disabled, newVal, this.min()));
+      selection.select('.hx-number-picker-increment').attr('disabled', getDisabled(this.options.disabled, newVal, this.max()));
+      if (prevValue !== newVal) {
         this.emit('change', {
-          value: value
+          value: newVal
         });
       }
       return this;
@@ -6592,7 +6669,7 @@ NumberPicker = (function(superClass) {
     if (arguments.length > 0) {
       this._.min = val;
       this.selectInput.attr('min', val);
-      checkValue(this, this);
+      this.value(this.value());
       return this;
     } else {
       return this._.min;
@@ -6603,7 +6680,7 @@ NumberPicker = (function(superClass) {
     if (arguments.length > 0) {
       this._.max = val;
       this.selectInput.attr('max', val);
-      checkValue(this, this);
+      this.value(this.value());
       return this;
     } else {
       return this._.max;
@@ -7274,20 +7351,15 @@ hx.select.addEventAugmenter({
 
 })();
 (function(){
-var AutocompleteFeed, sortItems, trimTrailingSpaces;
+var AutocompleteFeed, sortItems, trimTrailingSpaces,
+  slice = [].slice;
 
 sortItems = function(valueLookup) {
   if (valueLookup == null) {
     valueLookup = hx.identity;
   }
   return function(a, b) {
-    if (!a.disabled && b.disabled) {
-      return -1;
-    } else if (a.disabled && !b.disabled) {
-      return 1;
-    } else {
-      return hx.sort.compare(valueLookup(a), valueLookup(b));
-    }
+    return hx.sort.compare(valueLookup(a), valueLookup(b));
   };
 };
 
@@ -7326,15 +7398,12 @@ AutocompleteFeed = (function() {
     resolvedOptions = hx.merge.defined(defaults, options);
     if (resolvedOptions.filter == null) {
       resolvedOptions.filter = function(items, term) {
-        return hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions).sort(function(a, b) {
-          if (!a.disabled && b.disabled) {
-            return -1;
-          } else if (a.disabled && !b.disabled) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
+        var filtered, groupedActive;
+        filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions);
+        groupedActive = new hx.Map(hx.groupBy(filtered, function(i) {
+          return !i.disabled;
+        }));
+        return slice.call(groupedActive.get(true)).concat(slice.call(groupedActive.get(false)));
       };
     }
     this._ = {
@@ -7383,12 +7452,16 @@ AutocompleteFeed = (function() {
       return _.items(term, cacheItemsThenCallback);
     } else {
       filterAndCallback = function(unfilteredItems) {
-        var filteredItems, otherResults;
+        var filteredItems, groupedActive, otherResults, unpartitioned;
         filteredItems = _.options.filter(unfilteredItems, term);
         if (_.options.showOtherResults) {
-          otherResults = unfilteredItems.filter(function(datum) {
+          unpartitioned = unfilteredItems.filter(function(datum) {
             return filteredItems.indexOf(datum) === -1;
           }).sort(sortItems(_.options.valueLookup));
+          groupedActive = new hx.Map(hx.groupBy(unpartitioned, function(i) {
+            return !i.disabled;
+          }));
+          otherResults = slice.call(groupedActive.get(true)).concat(slice.call(groupedActive.get(false)));
         }
         return cacheItemsThenCallback(filteredItems, otherResults);
       };
@@ -8529,6 +8602,7 @@ hx.TimePicker = TimePicker;
 })();
 (function(){
 var AutoComplete, buildAutoComplete, findTerm, showAutoComplete,
+  slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -8542,7 +8616,7 @@ hx.userFacingText({
 });
 
 findTerm = function(term, forceMatch) {
-  var _, allData, data, dataMatches, filteredData, heading, matches, remainingResults, self;
+  var _, allData, data, dataMatches, filteredData, groupedActive, heading, matches, remainingResults, self;
   self = this;
   _ = this._;
   if (_.prevTerm == null) {
@@ -8567,13 +8641,11 @@ findTerm = function(term, forceMatch) {
         text: self.options.noResultsMessage
       }
     ];
-    heading = [
-      {
-        unselectable: true,
-        heading: true,
-        text: self.options.otherResultsMessage
-      }
-    ];
+    heading = {
+      unselectable: true,
+      heading: true,
+      text: self.options.otherResultsMessage
+    };
     remainingResults = filteredData.length === 0 ? allData : (data = allData.filter(function(d) {
       if (filteredData.some(function(e) {
         return e === d;
@@ -8587,16 +8659,10 @@ findTerm = function(term, forceMatch) {
       b = self.options.inputMap(b);
       return hx.sort.compare(a, b);
     }) : data = data.sort(hx.sort.compare) : void 0, data);
-    remainingResults = heading.concat(remainingResults.sort(function(a, b) {
-      if (!a.disabled && b.disabled) {
-        return -1;
-      } else if (a.disabled && !b.disabled) {
-        return 1;
-      } else {
-        return hx.sort.compare(a.full, b.full);
-      }
+    groupedActive = new hx.Map(hx.groupBy(remainingResults, function(i) {
+      return !i.disabled;
     }));
-    filteredData = matches.concat(remainingResults);
+    filteredData = slice.call(matches).concat([heading], slice.call(groupedActive.get(true)), slice.call(groupedActive.get(false)));
   }
   return filteredData;
 };
@@ -8726,15 +8792,12 @@ AutoComplete = (function(superClass) {
       this.options.filterOptions = hx.merge({}, _filterOpts, this.options.filterOptions);
       if ((base = this.options).filter == null) {
         base.filter = function(arr, term) {
-          return hx.filter[self.options.matchType](arr, term, self.options.filterOptions).sort(function(a, b) {
-            if (!a.disabled && b.disabled) {
-              return -1;
-            } else if (a.disabled && !b.disabled) {
-              return 1;
-            } else {
-              return hx.sort.compare(a, b);
-            }
-          });
+          var filtered, groupedActive;
+          filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions);
+          groupedActive = new hx.Map(hx.groupBy(filtered, function(i) {
+            return !i.disabled;
+          }));
+          return slice.call(groupedActive.get(true)).concat(slice.call(groupedActive.get(false)));
         };
       }
       if ((base1 = this.options).renderer == null) {
@@ -12571,10 +12634,12 @@ Picker = (function(superClass) {
       noValueText: hx.userFacingText('picker', 'chooseValue'),
       renderer: void 0,
       value: void 0,
-      disabled: false
+      disabled: false,
+      fullWidth: false
     }, options);
     hx.component.register(selector, this);
     this.selection = hx.select(selector);
+    this.selection.classed('hx-picker-full-width', resolvedOptions.fullWidth);
     button = this.selection.classed('hx-picker hx-btn', true).append('span')["class"]('hx-picker-inner').attr('type', 'button');
     selectedText = button.append('span')["class"]('hx-picker-text');
     button.append('span')["class"]('hx-picker-icon').append('i')["class"]('hx-icon hx-icon-caret-down');
@@ -12689,7 +12754,7 @@ hx.Picker = Picker;
 var hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
 
 respondToRequest = function(request, url, data, callback, options, index) {
-  var e, error1, result, source, status;
+  var e, result, source, status;
   status = request.status;
   source = data != null ? {
     url: url,
@@ -12885,7 +12950,7 @@ hx.reshapedRequest = reshapedRequest();
 
 })();
 (function(){
-var StickyTableHeaders, cloneEvents, createStickyHeaderNodes, getChildren, getChildrenFromTable, updateHeaderPositions, updateScrollIndicators;
+var StickyTableHeaders, cloneEvents, cloneTableAndNodeEvents, createStickyHeaderNodes, getChildren, getChildrenFromTable, updateHeaderPositions, updateScrollIndicators;
 
 updateScrollIndicators = function(wrapper, top, right, bottom, left) {
   var canScrollDown, canScrollLeft, canScrollRight, canScrollUp, node;
@@ -12900,18 +12965,17 @@ updateScrollIndicators = function(wrapper, top, right, bottom, left) {
   return left.style('display', canScrollLeft ? 'block' : '');
 };
 
-updateHeaderPositions = function(container) {
-  var leftNode, leftOffset, node, topNode, topOffset;
-  node = getChildren(container, '.hx-sticky-table-wrapper')[0];
-  leftOffset = -node.scrollLeft;
-  topOffset = -node.scrollTop;
-  topNode = getChildren(container, '.hx-sticky-table-header-top')[0];
+updateHeaderPositions = function(container, wrapperNode) {
+  var leftNode, leftOffset, topNode, topOffset;
+  leftOffset = -wrapperNode.scrollLeft;
+  topOffset = -wrapperNode.scrollTop;
+  topNode = container.shallowSelect('.hx-sticky-table-header-top');
   if (topNode != null) {
-    hx.select(topNode).select('.hx-table').style('left', leftOffset + 'px');
+    topNode.select('.hx-table').style('left', leftOffset + 'px');
   }
-  leftNode = getChildren(container, '.hx-sticky-table-header-left')[0];
+  leftNode = container.shallowSelect('.hx-sticky-table-header-left');
   if (leftNode != null) {
-    return hx.select(leftNode).select('.hx-table').style('top', topOffset + 'px');
+    return leftNode.select('.hx-table').style('top', topOffset + 'px');
   }
 };
 
@@ -12963,9 +13027,20 @@ createStickyHeaderNodes = function(real, cloned) {
   results = [];
   for (i = j = 0, ref = real.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
     cloneEvents(real[i], cloned[i]);
-    results.push(hx.select(real[i]).classed('hx-sticky-table-invisible', true));
+    hx.select(real[i]).classed('hx-sticky-table-invisible', true);
+    results.push(hx.select(cloned[i]).classed('hx-sticky-table-invisible', false));
   }
   return results;
+};
+
+cloneTableAndNodeEvents = function(selection, realTable, tableClone, body, single) {
+  var clonedNodes, innerTableClone, realNodes;
+  innerTableClone = selection.append(tableClone.clone(true));
+  innerTableClone.selectAll('th, td').classed('hx-sticky-table-invisible', true);
+  realNodes = getChildrenFromTable(realTable, body, single);
+  clonedNodes = getChildrenFromTable(innerTableClone, body, single);
+  createStickyHeaderNodes(realNodes, clonedNodes);
+  return innerTableClone;
 };
 
 StickyTableHeaders = (function() {
@@ -13009,7 +13084,7 @@ StickyTableHeaders = (function() {
       if (showScrollIndicators) {
         updateScrollIndicators(wrapper, topIndicator, rightIndicator, bottomIndicator, leftIndicator);
       }
-      return updateHeaderPositions(container);
+      return updateHeaderPositions(container, wrapper.node());
     });
     this._ = {
       options: resolvedOptions,
@@ -13032,7 +13107,7 @@ StickyTableHeaders = (function() {
   }
 
   StickyTableHeaders.prototype.render = function() {
-    var _, background, bottomIndicator, clonedNodes, container, hasHorizontalScroll, hasVerticalScroll, heightScrollbarOffset, leftHead, leftIndicator, leftTable, offsetHeight, offsetWidth, offsetWidthElem, options, origScroll, realNodes, rightIndicator, scrollOffsetHeight, scrollOffsetWidth, table, tableBox, tableClone, topHead, topIndicator, topLeftHead, topLeftTable, topTable, totalHeight, totalWidth, widthScrollbarOffset, wrapper, wrapperBox, wrapperNode;
+    var _, background, bottomIndicator, container, hasHorizontalScroll, hasVerticalScroll, heightScrollbarOffset, leftHead, leftIndicator, leftTable, offsetHeight, offsetWidth, offsetWidthElem, options, origScroll, rightIndicator, scrollOffsetHeight, scrollOffsetWidth, table, tableBox, tableClone, topHead, topIndicator, topLeftHead, topLeftTable, topTable, totalHeight, totalWidth, widthScrollbarOffset, wrapper, wrapperBox, wrapperNode;
     _ = this._;
     container = _.container;
     wrapper = _.wrapper;
@@ -13081,10 +13156,7 @@ StickyTableHeaders = (function() {
         }
       }
       topHead.clear();
-      topTable = topHead.append(tableClone.clone(true));
-      realNodes = getChildrenFromTable(table);
-      clonedNodes = getChildrenFromTable(topTable);
-      createStickyHeaderNodes(realNodes, clonedNodes);
+      topTable = cloneTableAndNodeEvents(topHead, table, tableClone);
     }
     if (options.stickFirstColumn) {
       leftHead = container.shallowSelect('.hx-sticky-table-header-left');
@@ -13096,10 +13168,7 @@ StickyTableHeaders = (function() {
         }
       }
       leftHead.clear();
-      leftTable = leftHead.append(tableClone.clone(true));
-      realNodes = getChildrenFromTable(table, true, true);
-      clonedNodes = getChildrenFromTable(leftTable, true, true);
-      createStickyHeaderNodes(realNodes, clonedNodes);
+      leftTable = cloneTableAndNodeEvents(leftHead, table, tableClone, true, true);
     }
     if (options.stickTableHead && options.stickFirstColumn) {
       topLeftHead = container.shallowSelect('.hx-sticky-table-header-top-left');
@@ -13107,37 +13176,34 @@ StickyTableHeaders = (function() {
         topLeftHead = container.prepend('div')["class"]('hx-sticky-table-header-top-left');
       }
       topLeftHead.clear();
-      topLeftTable = topLeftHead.append(tableClone.clone(true));
-      realNodes = getChildrenFromTable(table, false, true);
-      clonedNodes = getChildrenFromTable(topLeftTable, false, true);
-      createStickyHeaderNodes(realNodes, clonedNodes);
+      topLeftTable = cloneTableAndNodeEvents(topLeftHead, table, tableClone, false, true);
     }
     if (topHead != null) {
-      topHead.style('height', offsetHeight + 'px').style('width', wrapperBox.width + 'px').style('left', offsetWidth + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
+      topHead.style('height', offsetHeight + 'px').style('width', wrapperBox.width + 'px').style('left', offsetWidth + 'px');
     }
     if (topTable != null) {
-      topTable.style('margin-left', -offsetWidth + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
+      topTable.style('margin-left', -offsetWidth + 'px');
     }
     if (leftHead != null) {
-      leftHead.style('height', wrapperBox.height + 'px').style('width', offsetWidth + 'px').style('top', offsetHeight + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
+      leftHead.style('height', wrapperBox.height + 'px').style('width', offsetWidth + 'px').style('top', offsetHeight + 'px');
     }
     if (leftTable != null) {
       leftTable.style('margin-top', -offsetHeight + 'px');
     }
     if (topLeftHead != null) {
-      topLeftHead.style('width', (leftHead != null ? leftHead.style('width') : void 0) || offsetWidth + 'px').style('height', (topHead != null ? topHead.style('height') : void 0) || offsetHeight + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
+      topLeftHead.style('width', (leftHead != null ? leftHead.style('width') : void 0) || offsetWidth + 'px').style('height', (topHead != null ? topHead.style('height') : void 0) || offsetHeight + 'px');
     }
     wrapperNode.scrollTop = origScroll;
     if (_.showScrollIndicators) {
       scrollOffsetWidth = offsetWidth - 1;
       scrollOffsetHeight = offsetHeight - 1;
-      topIndicator = container.select('.hx-sticky-table-scroll-top').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
-      rightIndicator = container.select('.hx-sticky-table-scroll-right').style('top', scrollOffsetHeight + 'px').style('height', wrapperBox.height + 'px');
-      bottomIndicator = container.select('.hx-sticky-table-scroll-bottom').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
-      leftIndicator = container.select('.hx-sticky-table-scroll-left').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('height', wrapperBox.height + 'px');
+      topIndicator = container.shallowSelect('.hx-sticky-table-scroll-top').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
+      rightIndicator = container.shallowSelect('.hx-sticky-table-scroll-right').style('top', scrollOffsetHeight + 'px').style('height', wrapperBox.height + 'px');
+      bottomIndicator = container.shallowSelect('.hx-sticky-table-scroll-bottom').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
+      leftIndicator = container.shallowSelect('.hx-sticky-table-scroll-left').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('height', wrapperBox.height + 'px');
       updateScrollIndicators(wrapper, topIndicator, rightIndicator, bottomIndicator, leftIndicator);
     }
-    return updateHeaderPositions(container);
+    return updateHeaderPositions(container, wrapper.node());
   };
 
   return StickyTableHeaders;
@@ -13663,7 +13729,7 @@ TagInput = (function(superClass) {
   extend(TagInput, superClass);
 
   function TagInput(selector, options) {
-    var _, acData, backspacedown, filterFn, hasError, isValid;
+    var _, acData, backspacedown, filterFn, hasError, inputContainer, isInsideForm, isValid, validateForm, validationForm;
     this.selector = selector;
     TagInput.__super__.constructor.apply(this, arguments);
     _ = this._ = {};
@@ -13687,8 +13753,10 @@ TagInput = (function(superClass) {
     if (this.options.draggable) {
       _.dragContainer = new hx.DragContainer(this.tagContainer.node());
     }
-    this.form = this.selection.append('form');
-    this.input = this.form.append('input').attr('placeholder', this.options.placeholder);
+    isInsideForm = !this.selection.closest('form').empty();
+    inputContainer = this.selection.append(isInsideForm ? 'div' : 'form')["class"]('hx-tag-input-container');
+    validationForm = isInsideForm ? this.selection.closest('.hx-form') : inputContainer;
+    this.input = inputContainer.append('input').attr('placeholder', this.options.placeholder);
     if (this.options.autocompleteData != null) {
       isValid = this.options.validator != null ? (function(_this) {
         return function(item) {
@@ -13716,26 +13784,43 @@ TagInput = (function(superClass) {
       return function() {
         var error, name;
         name = _this.input.value();
-        if (name === '') {
-          _this.input.node().setCustomValidity('');
-          return false;
-        } else if (_this.options.validator) {
+        _this.input.node().setCustomValidity('');
+        validateForm(true);
+        if (name !== '' && _this.options.validator) {
           error = _this.options.validator(name) || '';
           _this.input.node().setCustomValidity(error);
           return error.length > 0;
+        } else {
+          return false;
         }
       };
     })(this);
-    this.form.on('keypress', 'hx.tag-input', (function(_this) {
+    validateForm = (function(_this) {
+      return function(clear) {
+        if (isInsideForm) {
+          if (clear) {
+            return validationForm.selectAll('.hx-form-error').remove();
+          } else {
+            return hx.validateForm(validationForm.node()).valid;
+          }
+        } else {
+          return validationForm.node().checkValidity();
+        }
+      };
+    })(this);
+    this.input.on('keypress', 'hx.tag-input', (function(_this) {
       return function(event) {
         var name;
         if (event.keyCode === 13) {
-          if (_this.form.node().checkValidity()) {
+          validateForm();
+          if (_this.input.node().checkValidity()) {
             event.preventDefault();
-            name = _this.input.value();
-            if (name) {
-              _.userEvent = true;
-              return _this.add(name);
+            if (!_this._.autocomplete) {
+              name = _this.input.value();
+              if (name) {
+                _.userEvent = true;
+                return _this.add(name);
+              }
             }
           }
         }
@@ -13744,16 +13829,23 @@ TagInput = (function(superClass) {
     this.input.on('input', 'hx.tag-input', hasError);
     this.input.on('keydown', 'hx.tag-input', (function(_this) {
       return function(event) {
-        var nodeSelection, selection, value;
+        var nodeSelection, ref, ref1, selection, value;
         if (((event.keyCode || event.charCode) === 8) && !backspacedown) {
           backspacedown = true;
           _this.input.node().setCustomValidity('');
+          validateForm(true);
           if (_this.input.value() === '') {
             selection = _this.tagContainer.selectAll('.hx-tag');
             if (selection.size() > 0) {
+              if ((ref = _this._.autocomplete) != null) {
+                ref.hide();
+              }
               nodeSelection = hx.select(selection.node(selection.size() - 1));
               value = nodeSelection.text();
               nodeSelection.remove();
+              if ((ref1 = _this._.autocomplete) != null) {
+                ref1.show();
+              }
               return _this.emit('remove', {
                 value: value,
                 type: 'user'
@@ -13769,17 +13861,19 @@ TagInput = (function(superClass) {
         return true;
       }
     });
-    this.input.on('blur', 'hx.tag-input', (function(_this) {
-      return function(event) {
-        if (_this.input.value().length > 0 && !hasError()) {
-          return _this.add(_this.input.value(), void 0);
-        }
-      };
-    })(this));
+    if (!this._.autocomplete) {
+      this.input.on('blur', 'hx.tag-input', (function(_this) {
+        return function(event) {
+          if (_this.input.value().length > 0 && !hasError()) {
+            return _this.add(_this.input.value(), void 0);
+          }
+        };
+      })(this));
+    }
     this.input.on('focus', 'hx.tag-input', (function(_this) {
       return function(event) {
-        if (hasError()) {
-          return _this.form.node().checkValidity();
+        if (!isInsideForm && hasError()) {
+          return validateForm();
         }
       };
     })(this));
@@ -15317,10 +15411,12 @@ var Crumbtrail;
 
 Crumbtrail = (function() {
   function Crumbtrail(selector, options) {
-    var self, update;
+    var section, self, update;
     this.selector = selector;
     hx.component.register(this.selector, this);
     self = this;
+    section = hx.select(this.selector);
+    section.classed('hx-crumbtrail', true);
     this.options = hx.merge.defined({
       renderer: function(node, data) {
         return hx.select(node).text(data);
@@ -15333,10 +15429,10 @@ Crumbtrail = (function() {
         this["class"]('hx-crumbtrail-node');
         return self.options.renderer(element, d);
       } else {
-        return this["class"]('hx-crumbtrail-separator').html(self.options.separator).node();
+        return this["class"]('hx-crumbtrail-separator').text(self.options.separator).node();
       }
     };
-    this.view = hx.select(this.selector).view('span', 'span').update(update);
+    this.view = section.view('span', 'span').update(update);
     if ((this.options.items != null) && this.options.items.length > 0) {
       this.items(this.options.items);
     }
@@ -15353,10 +15449,10 @@ Crumbtrail = (function() {
 
   Crumbtrail.prototype.items = function(data) {
     if (data != null) {
-      this.options.items = hx.flatten(data.map(function(d) {
+      this.options.items = data;
+      this.view.apply(hx.flatten(data.map(function(d) {
         return [d, 0];
-      })).slice(0, -1);
-      this.view.apply(this.options.items);
+      })).slice(0, -1));
       return this;
     } else {
       return this.options.items;
@@ -16466,7 +16562,7 @@ DataTable = (function(superClass) {
             if (scrollTop != null) {
               selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollTop = scrollTop;
             }
-            selection.select('.hx-data-table-loading').style('display', 'none');
+            selection.shallowSelect('.hx-data-table-loading').style('display', 'none');
             _this.emit('render');
             return typeof cb === "function" ? cb() : void 0;
           });
@@ -20889,12 +20985,55 @@ hx.TimeSlider = TimeSlider;
 
 })();
 (function(){
-var Tree, format, formatIcon, recurseUpTree;
+var Tree, createChildren, createNodeView, createTreeNode, format, formatChildren, formatIcon, recurseUpTree;
+
+createNodeView = function(node, renderer, lazy) {
+  return node.view('.hx-tree-node').enter(function(d) {
+    return this.append(createTreeNode(d, renderer, lazy)).node();
+  });
+};
+
+createChildren = function(children, renderer, lazy) {
+  return children.map(function(child) {
+    return createTreeNode(child, renderer, lazy);
+  });
+};
+
+createTreeNode = function(data, renderer, lazy) {
+  var childContainer, childView, nodeContent, treeNode;
+  treeNode = hx.detached('div')["class"]('hx-tree-node');
+  nodeContent = hx.detached('div').attr('class', 'hx-tree-node-content');
+  renderer(nodeContent.node(), data);
+  if ((data.children != null) && data.children.length > 0) {
+    childContainer = hx.detached('div')["class"]('hx-tree-node-children').style('display', 'none');
+    if (lazy) {
+      childView = createNodeView(childContainer, renderer, lazy);
+      hx.component.register(treeNode.node(), {
+        renderChildren: function() {
+          return childView.apply(data.children);
+        }
+      });
+    } else {
+      childContainer.append(createChildren(data.children, renderer, lazy));
+    }
+    return treeNode.add(hx.detached('div')["class"]('hx-tree-node-parent').add(nodeContent)).add(childContainer);
+  } else {
+    return treeNode.add(nodeContent);
+  }
+};
+
+formatChildren = function(tree, children, animate) {
+  return children.forEach((function(_this) {
+    return function(d) {
+      return format(tree, d.node(), animate);
+    };
+  })(this));
+};
 
 formatIcon = (function(_this) {
   return function(node, iconElement, animate) {
     var children, open;
-    children = hx.select(node).select('.hx-tree-node-children');
+    children = hx.select(node).shallowSelect('.hx-tree-node-children');
     if (!children.selectAll('.hx-tree-node').empty()) {
       open = children.style('display') === 'block';
       hx.select(node).classed('hx-tree-node-open', open);
@@ -20906,11 +21045,25 @@ formatIcon = (function(_this) {
 })(this);
 
 format = function(tree, element, animate) {
-  var elem, innerElem, newElem, openAllOrToggle, parent, selection, showDisabled, toggle;
+  var childTreeNodes, elem, innerElem, newElem, openAllOrToggle, parent, renderLazyChildren, selection, showDisabled, siblings, siblingsHaveChildren, siblingsHaveLazyChildren, toggle, treeNode, treeNodeComponent;
+  treeNode = hx.select(element);
+  treeNodeComponent = treeNode.component();
+  renderLazyChildren = function(rootNode, recursive) {
+    if ((rootNode.component() != null) && rootNode.selectAll('.hx-tree-node').empty()) {
+      rootNode.component().renderChildren();
+      formatChildren(tree, rootNode.selectAll('.hx-tree-node'), animate);
+    }
+    if (recursive) {
+      return rootNode.selectAll('.hx-tree-node').map(function(sel) {
+        return renderLazyChildren(sel, recursive);
+      });
+    }
+  };
   toggle = (function(_this) {
     return function(iconElement) {
       var display, selection;
-      selection = hx.select(element).select('.hx-tree-node-children');
+      selection = treeNode.select('.hx-tree-node-children');
+      renderLazyChildren(treeNode);
       display = selection.style('display') === 'none' ? 'block' : 'none';
       selection.style('display', display);
       return formatIcon(element, iconElement, tree.options.animate);
@@ -20918,30 +21071,23 @@ format = function(tree, element, animate) {
   })(this);
   openAllOrToggle = (function(_this) {
     return function(iconElement) {
-      var root, rootNode, selection;
-      selection = hx.select(element).selectAll('.hx-tree-node-children');
-      root = hx.select(element).select('.hx-tree-node-children');
-      rootNode = root.node();
-      if (root.style('display') === 'block') {
-        return selection.forEach(function(node) {
-          var parentNode;
-          if (node !== rootNode) {
-            if (node.style('display') !== 'block') {
-              parentNode = node.node().parentNode;
-              iconElement = hx.select(parentNode).select('.hx-tree-node-parent-icon').node();
-              node.style('display', 'block');
-              return formatIcon(parentNode, iconElement, tree.options.animate);
-            }
-          }
-        });
+      renderLazyChildren(treeNode, true);
+      treeNode.selectAll('.hx-tree-node-children').style('display', 'block');
+      if (treeNode.shallowSelect('.hx-tree-node-children').style('display') === 'block') {
+        return formatChildren(tree, treeNode.selectAll('.hx-tree-node'), animate);
       } else {
         return toggle(iconElement);
       }
     };
   })(this);
-  showDisabled = hx.select(element.parentNode).selectAll('.hx-tree-node').select('.hx-tree-node-children').selectAll('.hx-tree-node').size() > 0;
-  showDisabled = tree.options.hideDisabledButtons ? false : showDisabled;
-  if (hx.select(element).select('.hx-tree-node-children').selectAll('.hx-tree-node').size() > 0 || showDisabled) {
+  siblings = hx.select(element.parentNode).shallowSelectAll('.hx-tree-node');
+  siblingsHaveChildren = siblings.shallowSelect('.hx-tree-node-children').shallowSelectAll('.hx-tree-node').size() > 0;
+  siblingsHaveLazyChildren = siblingsHaveChildren || siblings.nodes.map(function(node) {
+    return hx.component(node) != null;
+  }).some(hx.identity);
+  showDisabled = tree.options.hideDisabledButtons ? false : siblingsHaveLazyChildren;
+  childTreeNodes = treeNode.select('.hx-tree-node-children');
+  if ((treeNodeComponent != null) || childTreeNodes.selectAll('.hx-tree-node').size() > 0 || showDisabled) {
     innerElem = hx.select(element).select('.hx-tree-node-parent');
     if (innerElem.size() > 0) {
       return innerElem.view('.hx-tree-node-parent-icon').enter(function() {
@@ -20968,8 +21114,8 @@ format = function(tree, element, animate) {
       }).apply(this);
     } else {
       parent = hx.select(element);
-      elem = parent.select(".hx-tree-node-content").node();
-      newElem = parent.append("div").attr("class", "hx-tree-node-parent").node();
+      elem = parent.select('.hx-tree-node-content').node();
+      newElem = parent.append('div').attr('class', 'hx-tree-node-parent').node();
       newElem.appendChild(elem);
       selection = hx.select(newElem).append('div');
       return selection.attr('class', 'hx-tree-node-parent-icon hx-tree-node-parent-icon-disabled').append('i').attr('class', 'hx-icon hx-icon-chevron-right');
@@ -20998,11 +21144,12 @@ Tree = (function() {
       hideDisabledButtons: false,
       animate: true,
       renderer: function(elem, data) {
-        return hx.select(elem).html(data);
+        return hx.select(elem).html(data.name || data);
       },
-      items: []
+      items: [],
+      lazy: false
     }, options);
-    this.selection = hx.select(this.selector).classed('hx-openable', true);
+    this.selection = hx.select(this.selector).classed('hx-tree hx-openable', true);
     if ((this.options.items != null) && this.options.items.length > 0) {
       this.items(this.options.items);
     }
@@ -21011,11 +21158,7 @@ Tree = (function() {
 
   Tree.prototype.refresh = function(animate) {
     animate = animate != null ? animate : this.options.animate;
-    this.selection.selectAll('.hx-tree-node').forEach((function(_this) {
-      return function(d) {
-        return format(_this, d.node(), animate);
-      };
-    })(this));
+    formatChildren(this, this.selection.selectAll('.hx-tree-node'), animate);
     return this;
   };
 
@@ -21029,33 +21172,10 @@ Tree = (function() {
   };
 
   Tree.prototype.items = function(data) {
-    var self, setup, setupNodeList;
     if (data != null) {
-      self = this;
       this.options.items = data;
-      setup = function(element, data) {
-        var content, parentContent;
-        if ((data.children != null) && data.children.length > 0) {
-          parentContent = hx.select(element).append('div').attr('class', 'hx-tree-node-parent').append('div').attr('class', 'hx-tree-node-content');
-          self.options.renderer(parentContent.node(), data);
-          content = hx.select(element).append('div').attr('class', 'hx-tree-node-children');
-          return setupNodeList(content, data.children);
-        } else {
-          content = hx.select(element).append('div').attr('class', 'hx-tree-node-content');
-          return self.options.renderer(content.node(), data);
-        }
-      };
-      setupNodeList = function(selection, data) {
-        var nodes;
-        return nodes = selection.view('.hx-tree-node').enter(function(d) {
-          var node;
-          node = this.append('div').attr('class', 'hx-tree-node').node();
-          setup(node, d);
-          return node;
-        }).apply(data);
-      };
-      this.selection.selectAll('.hx-tree-node').remove();
-      setupNodeList(this.selection, data);
+      this.selection.clear();
+      createNodeView(this.selection, this.renderer(), this.options.lazy).apply(data);
       this.refresh(false);
       return this;
     } else {

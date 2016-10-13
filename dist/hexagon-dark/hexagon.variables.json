@@ -53,6 +53,7 @@
     "containerBorderCol": "transparent",
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
+  "format": {},
   "component": {},
   "morphs": {},
   "clickDetector": {},
@@ -78,7 +79,6 @@
     "dividerStyle": "solid",
     "defaultFontSize": "14px"
   },
-  "format": {},
   "preferences": {},
   "button": {
     "defaultCol": "#2F3536",
