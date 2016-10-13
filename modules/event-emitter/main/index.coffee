@@ -1,6 +1,4 @@
-
 class BasicEventEmitter
-
   constructor: ->
     @callbacks = new hx.Map
     @allCallbacks = new hx.List
@@ -10,6 +8,8 @@ class BasicEventEmitter
     if @callbacks.has(name) then cb(data) for cb in @callbacks.get(name).entries()
     cb(name, data) for cb in @allCallbacks.entries()
     this
+
+  isEmpty: -> @callbacks.values().every((list) -> list.size is 0) and @allCallbacks.size is 0
 
   # register a callback against the name given
   on: (name, callback) ->
@@ -74,19 +74,23 @@ class EventEmitter
     ee.emitters.add(be)
     be
 
-  removeEmitter = (ee, namespace) ->
-    if ee.emittersMap.has(namespace)
+  removeEmitter = (ee, be, namespace) ->
+    if namespace and ee.emittersMap.has(namespace)
       ee.emittersMap.delete(namespace)
-      ee.emitters.remove(ee)
-    ee
+    else
+      lookedUpNamespace = ee.emittersMap.entries().filter(([_, e]) -> e is be)[0]?[0]
+      if lookedUpNamespace
+        ee.emittersMap.delete(lookedUpNamespace)
+    ee.emitters.remove(be)
 
   # emit an object to all callbacks registered with the name given
   emit: (name, data) ->
     if not @suppressedMap.get(name)
-      if @deprecatedEvents?
-        for e of @deprecatedEvents
-          if @deprecatedEvents[e].event is name
-            @emit e, data
+      # XXX: Deprecated event check - This is useful to have if we need to deprecated events in the future
+      # if @deprecatedEvents?
+      #   for e of @deprecatedEvents
+      #     if @deprecatedEvents[e].event is name
+      #       @emit e, data
 
       for emitter in @emitters.entries()
         emitter.emit(name, data)
@@ -130,10 +134,22 @@ class EventEmitter
   # deregisters a callback
   off: (name, namespace, callback) ->
     if hx.isString(namespace)
-      @emittersMap.get(namespace)?.off(name, callback)
+      if @emittersMap.has(namespace)
+        be = @emittersMap.get(namespace)
+        be.off(name, callback)
+        if be.isEmpty()
+          removeEmitter(this, be, namespace)
     else
-      for emitter in @emitters.entries()
+      if not callback and not hx.isString(namespace)
+        callback = namespace
+
+      emitters = @emitters.entries()
+      emittersToRemove = []
+      emitters.forEach (emitter) =>
         emitter.off(name, callback)
+        if emitter isnt @global and emitter.isEmpty()
+          emittersToRemove.push(emitter)
+      emittersToRemove.map((e) => removeEmitter(this, e))
     this
 
   # lets you pipe events through to another event emitter
