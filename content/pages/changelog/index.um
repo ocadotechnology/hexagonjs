@@ -1,9 +1,9 @@
-@inline ../../shared/common.um
-@titlebar Changelog
+@inline ../../templates/sidebar-page.um
 
-@div .dx-content
-  @h1 .docs-module-section: Changelog
+@topSection
+  @title Change Log
 
+@contentSection
   @changelog.wrapper
     @process
       @inline ../modules/*/index.um

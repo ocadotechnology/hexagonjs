@@ -1,7 +1,8 @@
 @version 0.9.0
 
   @description
-    Provides the @code(css)[hx-btn] class for styling @code[<button>] and @code[<a>] elements.
+    Provides the @code(css)[hx-btn] class for styling @code[<button>] and
+    @code[<a>] elements.
 
     @script
       @coffee: @inline clicker.coffee
@@ -24,9 +25,10 @@
           <i class="fa fa-check"></i> Click Me
         </button>
       @js
-        hx.select('#button-example').on('click', function(){
-          hx.notify().info('Button clicked');
-        });
+        hx.select('#button-example')
+          .on('click', function(){
+            hx.notify().info('Button clicked')
+          })
 
     @example
       @html
@@ -34,14 +36,15 @@
         <button id="toggle2" class="hx-btn hx-btn-toggle hx-btn-toggle-off">Toggle Button Off</button>
 
       @js
-        var toggle1 = hx.select("#toggle1")
-        var toggle2 = hx.select("#toggle2")
-        toggle1.on('click', function () {
-          hx.notify().info("Toggle 1 set to " + (toggle1.classed("hx-btn-toggle-off") ? "off" : "on"));
-        }, true)
-        toggle2.on('click', function () {
-          hx.notify().info("Toggle 1 set to " + (toggle2.attr("data") === "true" ? "on" : "off"));
-        }, true)
+        hx.select("#toggle1")
+          .on('click', function () {
+            hx.notify().info("Toggle 1 set to " + (toggle1.classed("hx-btn-toggle-off") ? "off" : "on"))
+          }, true)
+
+        hx.select("#toggle2")
+          .on('click', function () {
+            hx.notify().info("Toggle 1 set to " + (toggle2.attr("data") === "true" ? "on" : "off"))
+          }, true)
 
 
   @api Button
@@ -60,52 +63,77 @@
           Sets the button to the off state when initialising.
 
       @extraclass hx-btn-positive
-        @deprecated: Use hx-positive with hx-btn instead.
-        Adds button styling indicative of success, confirmation or something positive
+        @deprecated
+          @description: Use hx-positive with hx-btn instead.
+        @description
+          Adds button styling indicative of success, confirmation or something
+          positive
       @extraclass hx-btn-negative
-        @deprecated: Use hx-negative with hx-btn instead.
-        Adds button styling indicative of failure, danger or something negative
+        @deprecated:
+          @description: Use hx-negative with hx-btn instead.
+        @description
+          Adds button styling indicative of failure, danger or something negative
       @extraclass hx-btn-warning
-        @deprecated: Use hx-warning with hx-btn instead.
-        Adds button styling indicative of warning, to suggest the user should use caution
+        @deprecated:
+          @description: Use hx-warning with hx-btn instead.
+        @description
+          Adds button styling indicative of warning, to suggest the user should
+          use caution
       @extraclass hx-positive
         @added
-        Adds button styling indicative of success, confirmation or something positive
+        @description
+          Adds button styling indicative of success, confirmation or something
+          positive
       @extraclass hx-negative
         @added
-        Adds button styling indicative of failure, danger or something negative
+        @description
+          Adds button styling indicative of failure, danger or something negative
       @extraclass hx-warning
         @added
-        Adds button styling indicative of warning, to suggest the user should use caution
+        @description
+          Adds button styling indicative of warning, to suggest the user should
+          use caution
       @extraclass hx-compliment
         @added
-        Styles the button with a color that compliments the theme (light for a light theme, dark for a dark theme)
+        @description
+          Styles the button with a color that compliments the theme (light for a
+          light theme, dark for a dark theme)
       @extraclass hx-contrast
         @added
-        Styles the button with a contrasting color to the theme
+        @description
+          Styles the button with a contrasting color to the theme
       @extraclass hx-info
         @added
-        Styles the button to indicate that clicking it will lead to some form of documentation / information.
+        @description
+          Styles the button to indicate that clicking it will lead to some form
+          of documentation / information.
       @extraclass hx-btn-invisible
-        Removes all styles so that only the text can be seen.
+        @description
+          Removes all styles so that only the text can be seen.
       @extraclass hx-btn-invert
         @added
-        Gives the button an inverted style, so that the text is colored rather than the background.
+        @description
+          Gives the button an inverted style, so that the text is colored rather
+          than the background.
 
       @extraclass hx-disabled
         @added
-        Gives the button the style of a disabled button.
+        @description
+          Gives the button the style of a disabled button.
 
       @extraclass [hx-btn-[n]]
-        @deprecated: All numbered color classes will be removed in a later version.: Use the context classes instead.
-
+        @deprecated
+          @description
+            All numbered color classes will be removed in a later version; use
+            the context classes instead.
 
   @theme
     @option colors
       @description: The list of colors to give the numbered button classes
       @type color list
       @default: #3D3D3D, #74B06B, #D89C4D, #697584, #C24563, #98719D, #D0D0D0
-      @deprecated: All numbered color classes will be removed in a later version.
+      @deprecated:
+        @description: All numbered color classes will be removed in a later version.
 
     @option default-col
       @type color
@@ -181,8 +209,5 @@
       @type color
       @description: The text color to use on dark button backgrounds
       @default: #3D3D3D
-
-  @seeAlso
-    @moduleLink hx-input-group
 
   @changelog

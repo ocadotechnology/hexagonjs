@@ -55,14 +55,16 @@
         @param? ddClass [String]: An additional class to add to the dropdown when creating it.
 
       @constructor
-        @removed:
-          @p: The mode parameter has been moved after the dropdown content:
-          @codeblock js
-            // old way
-            new hx.Dropdown(selector, mode, dropdownContent, align, spacing, matchWidth, ddClass)]
+        @removed
+          @description
+            The mode parameter has been moved after the dropdown content:
 
-            // new way
-            new hx.Dropdown(selector, dropdownContent, mode, align, spacing, matchWidth, ddClass)]
+            @codeblock js
+              // old way
+              new hx.Dropdown(selector, mode, dropdownContent, align, spacing, matchWidth, ddClass)]
+
+              // new way
+              new hx.Dropdown(selector, dropdownContent, mode, align, spacing, matchWidth, ddClass)]
         @param selector [String/HTMLElement]
         @param mode [String]
         @param dropdownContent [String/Function]

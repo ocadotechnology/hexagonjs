@@ -23,9 +23,13 @@
 
   @api Button
     @prototype hx.ToggleButton
-      @removed: Moved hx.ToggleButton into it's own module (toggle-button)
+      @removed
+        @description
+          Moved hx.ToggleButton into it's own module (toggle-button)
 
 
     @class hx-btn
       @extraclass hx-btn-toggle
-        @removed: Moved hx.ToggleButton into it's own module (toggle-button)
+        @removed
+          @description
+            Moved hx.ToggleButton into it's own module (toggle-button)

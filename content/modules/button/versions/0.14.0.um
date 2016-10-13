@@ -18,9 +18,10 @@
           <i class="fa fa-check"></i> Click Me
         </button>
       @js
-        hx.select('#button-example').on('click', function(){
-          hx.notify.info('Button clicked');
-        });
+        hx.select('#button-example')
+          .on('click', function(){
+            hx.notify.info('Button clicked')
+          })
 
     @example
       @html
@@ -28,23 +29,29 @@
         <button id="toggle2" class="hx-btn">Toggle Button Off</button>
 
       @js
-        toggle1 = new hx.ToggleButton('#toggle1')
+        var toggle1 = new hx.ToggleButton('#toggle1')
 
         toggle1.on('change', function(data) {
-          hx.notify.info("Toggle 1 set to " + (data ? "on" : "off"));
+          hx.notify.info("Toggle 1 set to " + (data ? "on" : "off"))
         })
 
-        toggle2 = new hx.ToggleButton('#toggle2', {value: false})
+        var toggle2 = new hx.ToggleButton('#toggle2', {value: false})
 
         toggle2.on('change', function(data) {
-          hx.notify.info("Toggle 2 set to " + (data ? "on" : "off"));
+          hx.notify.info("Toggle 2 set to " + (data ? "on" : "off"))
         })
 
   @api Button
     @function hx.initializeToggleButtons
       @param selector [String]
-      @removed: This function no longer makes sense as the state of a toggle button matters and is managed by the ToggleButton class.
+      @removed
+        @description
+          This function no longer makes sense as the state of a toggle button
+          matters and is managed by the ToggleButton class.
 
     @function hx.initialiseToggleButtons
       @param selector [String]
-      @removed: This function no longer makes sense as the state of a toggle button matters and is managed by the ToggleButton class.
+      @removed
+        @description
+          This function no longer makes sense as the state of a toggle button
+          matters and is managed by the ToggleButton class.

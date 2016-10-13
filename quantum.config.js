@@ -76,7 +76,11 @@ function pipeline (obj) {
 
 module.exports = {
   pipeline: pipeline,
-  pages: 'content/pages/changelog/**/*.um',
+  pages: [{
+    files: 'content/pages/changelog/**/*.um',
+    base: 'content/pages',
+    watch: true
+  }],
   // resources: {
   //   files: 'content/resources/**/*',
   //   base: 'content',

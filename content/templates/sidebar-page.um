@@ -4,7 +4,8 @@
   @content
     @stylesheet [/resources/hexagon/docs/hexagon.css]
     @stylesheet [/resources/hexagon/{{version}}/hexagon.css]
-    @stylesheet [/resources/font-awesome/css/font-awesome.min.css]
+    # @stylesheet [/resources/font-awesome/css/font-awesome.min.css]
+    @stylesheet [http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css]
     @stylesheet [/resources/fonts/fonts.css]
     @stylesheet [/resources/docs.css]
     @stylesheet [/resources/docs-new.css]
@@ -50,7 +51,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @header
-      @icon /resources/logo-mono-v1.svg
+      @icon /resources/logo-v1.svg
       @title HexagonJS
 
     @sidebarPage

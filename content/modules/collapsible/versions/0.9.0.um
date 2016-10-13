@@ -22,10 +22,12 @@
   @api Collapsible
     @prototype hx.Collapseable
       @extends EventEmitter
-      @deprecated: This has been replaced with @code[hx.Collapsible]
+      @deprecated
+        @description: This has been replaced with @code(js)[hx.Collapsible]
 
     @function hx.initialiseCollapseables
-      @deprecated: This has been replaced with @code[hx.initialiseCollapsibles]
+      @deprecated
+        @description: This has been replaced with @code(js)[hx.initialiseCollapsibles]
 
     @prototype hx.Collapsible
       @extends EventEmitter

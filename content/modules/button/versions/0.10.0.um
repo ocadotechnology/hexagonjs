@@ -2,35 +2,44 @@
 
   @api Button
     @class hx-btn
-      @updated: Removed module-specific classes in favor of generic classes
-
+      @updated
+        @description
+          Removed module-specific classes in favor of generic classes
 
       @extraclass hx-btn-positive
-        @removed: Use hx-positive with hx-btn instead.
+        @removed
+          @description: Use hx-positive with hx-btn instead.
 
       @extraclass hx-btn-ok
-        @removed: Use hx-positive with hx-btn instead.
+        @removed
+          @description: Use hx-positive with hx-btn instead.
 
       @extraclass hx-btn-negative
-        @removed: Use hx-negative with hx-btn instead.
+        @removed
+          @description: Use hx-negative with hx-btn instead.
 
       @extraclass hx-btn-cancel
-        @removed: Use hx-negative with hx-btn instead.
+        @removed
+          @description: Use hx-negative with hx-btn instead.
 
       @extraclass hx-btn-contrast
-        @removed: Use hx-contrast with hx-btn instead.
+        @removed
+          @description: Use hx-contrast with hx-btn instead.
 
       @extraclass hx-btn-compliment
-        @removed: Use hx-compliment with hx-btn instead.
+        @removed
+          @description: Use hx-compliment with hx-btn instead.
 
       @extraclass hx-btn-warning
-        @removed: Use hx-warning with hx-btn instead.
+        @removed
+          @description: Use hx-warning with hx-btn instead.
 
       @extraclass [hx-btn-[n]]
         @removed
 
       @extraclass hx-color-info
-        @removed: Use hx-info with hx-btn instead.
+        @removed
+          @description: Use hx-info with hx-btn instead.
 
   @theme
     @option colors

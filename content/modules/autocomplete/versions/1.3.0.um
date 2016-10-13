@@ -2,17 +2,23 @@
   @api Autocomplete
     @function hx.autoComplete
       @param options [Object]
-      @removed: This function did not work as it didn't pass the data to the autocomplete
+      @removed
         @issue 205
+        @description
+          This function did not work as it didn't pass the data to the autocomplete
 
     @function hx.autoComplete
-      @added: New fluid version of the autocomplete that takes data as well as options.
+      @added
         @issue 205
       @description: Creates a new AutoComplete set up on a detached element, wrapped in a selection
       @param data [Array/Function]
         @description
-          @p: The data to use as suggestions for the input field.
-          @p: See the @code(js)[hx.AutoComplete] prototype constructor for more information about the data.
+          The data to use as suggestions for the input field. See the
+          @code(js)[hx.AutoComplete] prototype constructor for more information
+          about the data.
       @param? options [Object]
-        @description: See the @code(js)[hx.AutoComplete] prototype constructor for more information about the options.
-      @returns Selection: A selection containing an element with an AutoComplete initialised on it
+        @description
+          See the @code(js)[hx.AutoComplete] prototype constructor for more
+          information about the options.
+      @returns Selection
+        A selection containing an element with an AutoComplete initialised on it

@@ -17,7 +17,7 @@
   },
   "private": true,
   "devDependencies": {
-    "hexagon-js": "1.2.1",
+    "hexagon-js": "1.7.0",
     "quantum-api": "^2.0.0",
     "quantum-changelog": "^2.0.0",
     "quantum-code-highlight": "^2.0.0",

@@ -6,24 +6,37 @@
         @param data [Array/Function]
         @param? options [Object]
           @property loadingMessage [String]
-            @added: The default text is retrieved from the userFacingText module
+            @added
               @issue 211
-            @description: The text to display when the autocomplete is loading data
-            @default: [hx.userFacingText('autocomplete', 'loading')]
+              @description
+                The default text is retrieved from the userFacingText module
+            @description
+              The text to display when the autocomplete is loading data
+            @default:
+              @code(js)[hx.userFacingText('autocomplete', 'loading')]
           @property noResultsMessage [String]
-            @updated: The default text is now retrieved from the userFacingText module
+            @updated
               @issue 211
-            @default: [hx.userFacingText('autocomplete', 'noResultsFound')]
+              @description
+                The default text is now retrieved from the userFacingText module
+            @default
+              @code(js)[hx.userFacingText('autocomplete', 'noResultsFound')]
           @property otherResultsMessage [String]
-            @updated: The default text is now retrieved from the userFacingText module
+            @updated
               @issue 211
-            @default: [hx.userFacingText('autocomplete', 'otherResults')]
+              @description
+                The default text is now retrieved from the userFacingText module
+            @default
+              @code(js)[hx.userFacingText('autocomplete', 'otherResults')]
           @property pleaseEnterMinCharactersMessage [String]
-            @added: The default text is retrieved from the userFacingText module
+            @added
               @issue 211
             @description
-              @p: The text to display when the user has not entered enough text.
-              @p: When setting this, the minimum number of characters can be substituted in using the @code(js)['$minLength'] variable, e.g.
+              The text to display when the user has not entered enough text.
+
+              When setting this, the minimum number of characters can be substituted
+              in using the @code(js)['$minLength'] variable, e.g.
+
               @codeblock js
                 options = {
                   minLength: 3,
@@ -31,4 +44,5 @@
                 }
                 // Evaluates to 'Please enter 3 characters'
 
-            @default: [hx.userFacingText('autocomplete', 'pleaseEnterMinCharacters')]
+            @default
+              @code(js)[hx.userFacingText('autocomplete', 'pleaseEnterMinCharacters')]

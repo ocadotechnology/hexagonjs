@@ -5,5 +5,8 @@
         @param selector [String/HTMLElement]
         @param data [Array/Function]
         @param? options [Object]
-          @property trimTrailingSpaces [Boolean]: An option to enable whitespace trimming at the end of the input value if no results are found for that string.
-            @added:
+          @property trimTrailingSpaces [Boolean]
+            @added
+            @description
+              An option to enable whitespace trimming at the end of the input
+              value if no results are found for that string.
