@@ -9,6 +9,7 @@
     "selection",
     "sort",
     "user-facing-text",
-    "util"
+    "util",
+    "format"
   ]
 }
