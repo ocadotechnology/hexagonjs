@@ -9,7 +9,7 @@ class BasicEventEmitter
     cb(name, data) for cb in @allCallbacks.entries()
     this
 
-  isEmpty: -> hx.sum(@callbacks.values().map((list) -> list.size)) is 0 and @allCallbacks.size is 0
+  isEmpty: -> @callbacks.values().every((list) -> list.size is 0) and @allCallbacks.size is 0
 
   # register a callback against the name given
   on: (name, callback) ->
