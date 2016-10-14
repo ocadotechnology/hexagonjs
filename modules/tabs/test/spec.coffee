@@ -18,6 +18,7 @@ describe 'hx-tabs tests', ->
       },
     }, {
       title: 'title3',
+      context: 'negative',
       content: {
         name: 'Ganesh',
         town: 'Digswell'
@@ -49,18 +50,20 @@ describe 'hx-tabs tests', ->
 
   setupTabs = ->
 
+    ctx = [undefined, undefined, 'negative', 'action']
     createTabHeaderAndBody = (i) ->
       identifier = "tab-content-#{i}"
       header = hx.detached 'div'
         .class 'hx-tab'
         .attr 'id', "tab-#{i}"
         .attr 'data-content', identifier
+      hx.palette.context header.node(), ctx[i]
       body = hx.detached 'div'
         .attr 'id', identifier
         .class 'hx-tab-content'
       { header, body }
 
-    numberOfTabs = 3
+    numberOfTabs = ctx.length
 
     headerAndBody = hx.range numberOfTabs
       .map createTabHeaderAndBody
@@ -180,6 +183,37 @@ describe 'hx-tabs tests', ->
 
   it 'should allow things to be set by the dom', ->
     testChange 'user', (tabs) -> pretendClickTab tabs, 1
+
+  it 'should set the pallette correctly', ->
+    tabs = setupTabsUsingStructuredObject()
+    headers = tabs.selectAll '.hx-tab'
+    actualContext = headers.map (header) -> hx.palette.context header
+    expectedContext = [undefined, undefined, 'negative', 'action']
+    actualContext.should.eql expectedContext
+
+  it 'should correctly update the context of the content border in api mode', ->
+    tabs = setupTabsUsingStructuredObject()
+    testContext tabs
+
+  it 'should update the context of the content border in html mode', ->
+    { rootSel } = setupTabs()
+    testContext rootSel
+
+  testContext = (tabs) ->
+    should.not.exist hx.palette.borderContext tabs.select '.hx-tabs-content'
+    tabs.component().select 2
+    ctx = hx.palette.borderContext tabs.select '.hx-tabs-content'
+    ctx.should.equal 'negative'
+
+  it 'should ', ->
+
+  it 'should use the default renderer if none is specified', ->
+    tabs = hx.tabs items: [{ title: 'Title', content: 'Content' }]
+    opts = tabs.component()._.options
+    opts.contentRenderer.should.be.defined
+    opts.titleRenderer.should.be.defined
+    tabs.select('.hx-tabs-content').text().should.equal 'Content'
+    tabs.select('.hx-tab').text().should.equal 'Title'
 
 
 
