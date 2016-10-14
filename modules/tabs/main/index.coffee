@@ -1,4 +1,4 @@
-onTabSelected = (tabs, element, i) ->
+onTabSelected = (tabs, element, i, cause) ->
   tabs.selected = i
   selection = hx.select(tabs.selector)
   selection.selectAll('.hx-tab').classed('hx-tab-active', false)
@@ -13,12 +13,12 @@ onTabSelected = (tabs, element, i) ->
     .classed('hx-tab-content-hidden', true)
   item = tabs.items()[i]
   if item?
-    tabs._.options.contentRenderer tabsContent, item.content
+    tabs._.options.contentRenderer tabsContent.node(), item.content
   else
     tabToSelectSelector = '#' + hx.select(element).attr('data-content')
     tabToSelect = rootSelection.select(tabToSelectSelector)
     tabToSelect.classed('hx-tab-content-hidden', false)
-  tabs.emit('change', {id: i})
+  tabs.emit('change', {id: i, value: i, cause})
 
 class Tabs extends hx.EventEmitter
 
@@ -46,7 +46,7 @@ class Tabs extends hx.EventEmitter
     rootSel.classed 'hx-tabs', true
 
 
-    titleRenderer = resolvedOptions.titleRenderer or defaultRenderer
+    titleRenderer = resolvedOptions.titleRenderer
 
     tabsContent = rootSel.select '.hx-tabs-content'
 
@@ -63,7 +63,8 @@ class Tabs extends hx.EventEmitter
       @items resolvedOptions.items
     else
       rootSel.selectAll('.hx-tab').forEach (node, i) ->
-        node.on 'click', 'hx.tabs', -> onTabSelected(self, node.node(), i)
+        node.on 'click', 'hx.tabs', ->
+          onTabSelected self, node.node(), i, 'user'
 
     # make the first tab active
     @select(0)
@@ -89,7 +90,7 @@ class Tabs extends hx.EventEmitter
           @_.options.titleRenderer tab.node(), title
           hx.palette.context tab.node(), context
           tab.on 'click', 'hx.tabs', =>
-            onTabSelected this, tab.node(), i
+            onTabSelected this, tab.node(), i, 'user'
           tab
         tabsContent.insertBefore titleBarsToAdd
 
@@ -105,7 +106,7 @@ class Tabs extends hx.EventEmitter
   select: (i, force) ->
     if @selected != i or force
       tab = hx.select(@selector).selectAll('.hx-tab').nodes[i]
-      onTabSelected(this, tab, i)
+      onTabSelected(this, tab, i, 'api')
 
 hx.Tabs = Tabs
 
