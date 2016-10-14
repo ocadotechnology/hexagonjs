@@ -38,11 +38,6 @@ describe 'hx-tabs tests', ->
 
     actualHidden.should.eql expectedHidden
 
-  before ->
-    hx.select 'body'
-      .append 'div'
-      .class 'fixture'
-
   testChangeEventFired = (tabToSelect, done) ->
     { tabs, rootSel } = setupTabs()
 
@@ -58,12 +53,8 @@ describe 'hx-tabs tests', ->
     f = testHelpers.fakeNodeEvent headerSel.node(), 'click'
     f()
 
-  beforeEach ->
-    hx.select '.fixture'
-      .clear()
-
   it 'should select the first element by default', ->
-    { rootSel, headerAndBody } = setupTabs()
+    { headerAndBody } = setupTabs()
     verifyVisible headerAndBody, 0
 
   it 'should correctly emit the change event if changed from the api', (done) ->
