@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.8.0
+ Version: 1.8.1
  Theme: hexagon-light
  Modules:
    set
@@ -4522,8 +4522,7 @@ setupNotification = function(notification, selection) {
   msgIsObject = !msgIsString && !msgIsNode && !msgIsArrayOfNodes && hx.isObject(msg);
   if (msgIsString) {
     content.text(msg);
-  }
-  if (msgIsNode || msgIsArrayOfNodes) {
+  } else if (msgIsNode || msgIsArrayOfNodes) {
     content.add(msg);
   } else if (msgIsObject && notification.options.renderer) {
     notification.options.renderer(content.node(), msg);
