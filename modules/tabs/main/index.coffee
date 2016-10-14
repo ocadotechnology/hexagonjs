@@ -100,6 +100,12 @@ class Tabs extends hx.EventEmitter
     else
       @_.options.items
 
+  value: (newValue) ->
+    if arguments.length
+      @select newValue, true
+    else
+      @selected
+
   select: (i, force) ->
     if @selected != i or force
       tab = hx.select(@selector).selectAll('.hx-tab').nodes[i]
