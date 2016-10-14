@@ -7,8 +7,12 @@ onTabSelected = (tabs, element, i) ->
   context = hx.palette.context(element)
   hx.palette.borderContext(selection.select('.hx-tabs-content'), context)
 
-  hx.select(tabs.selector).selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true)
-  hx.select('#' + hx.select(element).attr('data-content')).classed('hx-tab-content-hidden', false)
+  rootSelection = hx.select(tabs.selector)
+  rootSelection.selectAll('.hx-tab-content')
+    .classed('hx-tab-content-hidden', true)
+  tabToSelectSelector = '#' + hx.select(element).attr('data-content')
+  tabToSelect = rootSelection.select(tabToSelectSelector)
+  tabToSelect.classed('hx-tab-content-hidden', false)
   tabs.emit('change', {id: i})
 
 class Tabs extends hx.EventEmitter
