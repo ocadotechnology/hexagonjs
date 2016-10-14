@@ -68,7 +68,6 @@ describe 'hx-tabs tests', ->
     headerAndBody = hx.range numberOfTabs
       .map createTabHeaderAndBody
 
-
     tabsContent = hx.detached 'div'
       .class 'hx-tabs-content'
       .add headerAndBody.map ({ body }) -> body
@@ -91,7 +90,6 @@ describe 'hx-tabs tests', ->
 
   testChangeEventFired = (cause, tabToSelect, done) ->
     { tabs, rootSel } = setupTabs()
-
 
     tabs.on 'change', (data) ->
       data.should.eql { id: tabToSelect, value: tabToSelect, cause }
@@ -116,7 +114,6 @@ describe 'hx-tabs tests', ->
 
     tabsContent = tabs.select '.hx-tabs-content'
     verifyVisible headers, 1
-
 
     contentRenderer = tabs.component()._.options.contentRenderer
     contentRenderer.should.have.been.called.with tabsContent.node(), {
@@ -212,7 +209,4 @@ describe 'hx-tabs tests', ->
     opts.titleRenderer.should.be.defined
     tabs.select('.hx-tabs-content').text().should.equal 'Content'
     tabs.select('.hx-tab').text().should.equal 'Title'
-
-
-
 
