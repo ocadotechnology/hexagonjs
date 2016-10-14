@@ -45,7 +45,6 @@ class Tabs extends hx.EventEmitter
 
     rootSel.classed 'hx-tabs', true
 
-
     titleRenderer = resolvedOptions.titleRenderer
 
     tabsContent = rootSel.select '.hx-tabs-content'
@@ -53,7 +52,6 @@ class Tabs extends hx.EventEmitter
     if tabsContent.empty()
       tabsContent = rootSel.append 'div'
         .class 'hx-tabs-content'
-
 
     @selected = -1
 
@@ -68,7 +66,6 @@ class Tabs extends hx.EventEmitter
 
     # make the first tab active
     @select(0)
-
 
   items: (newItems) ->
     if arguments.length

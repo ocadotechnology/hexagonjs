@@ -104,6 +104,34 @@ describe 'hx-tabs tests', ->
     f = testHelpers.fakeNodeEvent tabs.node(tabToSelect), 'click'
     f()
 
+  testChange = (cause, f) ->
+    tabs = setupTabsUsingStructuredObject()
+    headers = getHeaders tabs
+    allTitles = getHeaders tabs
+    spy = chai.spy()
+
+    tabs.component().on 'change', spy
+
+    f tabs
+
+    tabsContent = tabs.select '.hx-tabs-content'
+    verifyVisible headers, 1
+
+
+    contentRenderer = tabs.component()._.options.contentRenderer
+    contentRenderer.should.have.been.called.with tabsContent.node(), {
+      name: 'Kate',
+      town: 'North Mymms'
+    }
+
+    spy.should.be.called.with { id: 1, value: 1, cause }
+
+  testContext = (tabs) ->
+    should.not.exist hx.palette.borderContext tabs.select '.hx-tabs-content'
+    tabs.component().select 2
+    ctx = hx.palette.borderContext tabs.select '.hx-tabs-content'
+    ctx.should.equal 'negative'
+
   it 'should select the first element by default', ->
     { headerAndBody } = setupTabs()
     verifyVisible headerAndBody, 0
@@ -156,28 +184,6 @@ describe 'hx-tabs tests', ->
       .map ({ header }) -> header.text()
     allTitles.should.eql ['Example1', 'Example2', 'Example3', 'Example4']
 
-  testChange = (cause, f) ->
-    tabs = setupTabsUsingStructuredObject()
-    headers = getHeaders tabs
-    allTitles = getHeaders tabs
-    spy = chai.spy()
-
-    tabs.component().on 'change', spy
-
-    f tabs
-
-    tabsContent = tabs.select '.hx-tabs-content'
-    verifyVisible headers, 1
-
-
-    contentRenderer = tabs.component()._.options.contentRenderer
-    contentRenderer.should.have.been.called.with tabsContent.node(), {
-      name: 'Kate',
-      town: 'North Mymms'
-    }
-
-    spy.should.be.called.with { id: 1, value: 1, cause }
-
   it 'should allow things to be set by the api', ->
     testChange 'api', (tabs) -> tabs.component().select 1
 
@@ -198,14 +204,6 @@ describe 'hx-tabs tests', ->
   it 'should update the context of the content border in html mode', ->
     { rootSel } = setupTabs()
     testContext rootSel
-
-  testContext = (tabs) ->
-    should.not.exist hx.palette.borderContext tabs.select '.hx-tabs-content'
-    tabs.component().select 2
-    ctx = hx.palette.borderContext tabs.select '.hx-tabs-content'
-    ctx.should.equal 'negative'
-
-  it 'should ', ->
 
   it 'should use the default renderer if none is specified', ->
     tabs = hx.tabs items: [{ title: 'Title', content: 'Content' }]
