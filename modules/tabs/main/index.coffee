@@ -13,6 +13,7 @@ onTabSelected = (tabs, element, i, cause) ->
     .classed('hx-tab-content-hidden', true)
   item = tabs.items()[i]
   if item?
+    tabsContent.clear()
     tabs._.options.contentRenderer tabsContent.node(), item.content
   else
     tabToSelectSelector = '#' + hx.select(element).attr('data-content')
@@ -91,7 +92,7 @@ class Tabs extends hx.EventEmitter
           tab
         tabsContent.insertBefore titleBarsToAdd
 
-        @select 0
+        @select 0, true
 
       @_.options.items = newItems
 

@@ -339,9 +339,9 @@
 
       <!-- tabs -->
       <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Tabs</h3>
-          <div id="tabs" class="hx-tabs">
+        <div class="example" class="hx-group hx-vertical">
+          <h3 class="hx-section">Tabs</h3>
+          <div id="tabs" class="hx-section hx-tabs">
             <div class="hx-tab" data-content="tab-content-1">Tab 1</div>
             <div class="hx-tab hx-action" data-content="tab-content-2">Tab 2</div>
             <div class="hx-tab hx-positive" data-content="tab-content-3">Tab 3</div>
@@ -361,9 +361,8 @@
               <div id="tab-content-8" class="hx-tab-content" style="padding: 1em;">Stuff goes here 8</div>
             </div>
           </div>
-          <script>
-            new hx.Tabs('#tabs')
-          </script>
+          <div class="hx-section" id="tabs-fluid">
+          </div>
         </div>
       </div>
 
