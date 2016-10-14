@@ -78,3 +78,51 @@ describe 'hx-tabs tests', ->
     { tabs, rootSel, headerAndBody } = setupTabs()
     pretendClickTab rootSel, tabToSelect
     verifyVisible headerAndBody, tabToSelect
+
+  it 'should allow the tabs content to be set using a structured object', ->
+    console.log 'structured object'
+    items = [{
+      title: 'title1',
+      content: {
+        name: 'Bob',
+        town: 'Wheathampstead'
+      }
+    }, {
+      title: 'title2',
+      content: {
+        name: 'Kate',
+        town: 'North Mymms'
+      },
+    }, {
+      title: 'title3',
+      content: {
+        name: 'Ganesh',
+        town: 'Digswell'
+      }
+    }, {
+      title: 'title4',
+      context: 'action',
+      content: {
+        name: 'Lazlo',
+        town: 'Essendon'
+      }
+    }]
+
+    titles =
+      title1: 'Example1'
+      title2: 'Example2'
+      title3: 'Example3'
+      title4: 'Example4'
+
+    titleRenderer = (node, data) -> hx.select(node).text(titles[data])
+
+    contentRenderer = (node, item) ->
+      console.log item
+      { name, town } = item
+      hx.select node
+        .add hx.detached('span').text name
+        .add hx.detached('span').text town
+
+    console.log hx.tabs { titleRenderer, contentRenderer, items }
+
+
