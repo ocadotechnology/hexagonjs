@@ -18,7 +18,7 @@ setupNotification = (notification, selection) ->
 
   if msgIsString
     content.text(msg)
-  if msgIsNode or msgIsArrayOfNodes
+  else if msgIsNode or msgIsArrayOfNodes
     content.add(msg)
   else if msgIsObject and notification.options.renderer
     notification.options.renderer(content.node(), msg)
