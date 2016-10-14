@@ -232,5 +232,12 @@
         @p: Added the @code[disabled] context class to @code(js)[hx.palette.context]
         @p: Fixed a bug in sticky table headers that prevented nested sticky tables being created
 
+    @version 1.8.0
+      @description
+        @p: Added support for lazily loaded trees when building from json
+        @p: Allow HTML content inside notifications
+        @p: Disable the increment/decrement buttons for number pickers
+        @p: This release also includes a selection of bugfixes
+
   @h2: Key
   @changelog.key

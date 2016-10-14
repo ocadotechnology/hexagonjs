@@ -1,0 +1,14 @@
+@version 1.8.0
+  @api Tree
+    @prototype hx.Tree
+      @constructor
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property lazy [Boolean]
+            @description:
+              @p: Whether to lazily render the tree nodes when building from JSON.
+              @p: When this is true, the children of a tree node will only be renderered when their parent is opened.
+            @default: false
+            @added: Added an option for lazily rendering tree nodes when building from JSON
+              @issue 29
+
