@@ -42,6 +42,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/number-picker/test/spec')
   require('modules/drag-container/test/spec')
   require('modules/date-localizer/test/spec')
+  require('modules/progress-bar/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -267,8 +268,11 @@ describe('HexagonJS Test Suite', () => {
       checkProperty('DragContainer')
     })
 
+    describe('progress-bar', () => {
+      checkProperty('progressBar')
+      checkProperty('ProgressBar')
+    })
   })
-
 })
 
 module.exports = hx

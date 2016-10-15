@@ -20,29 +20,31 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "browser-test-runner watch test & webpack --config=webpack.test.config.js --progress --watch",
+    "start": "npm-run-all --parallel start:*",
+    "start:browser-test-runner": "browser-test-runner watch test",
+    "start:webpack": "webpack --config=webpack.test.config.js --progress --watch",
     "build-tests": "webpack --config=webpack.test.config.js --progress",
     "dist": "node build/main/dist.js",
     "test": "npm run build-tests && browser-test-runner run test/index.html",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
-    "babel-core": "^6.3.26",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-stage-0": "^6.3.13",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0",
     "coffee-loader": "^0.7.2",
-    "webpack": "^1.12.9"
+    "webpack": "^1.13.2"
   },
   "devDependencies": {
     "browser-test-runner": "^0.4.0",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
     "chai-spies": "^0.7.1",
-    "coffee-coverage-loader": "^1.0.2",
     "coveralls": "^2.11.6",
+    "ibrik-instrumenter-loader": "^0.1.1",
     "isparta-loader": "^2.0.0",
     "mocha": "^2.4.5",
+    "npm-run-all": "^3.1.0",
     "phantomjs": "^1.0.0",
     "sinon": "^1.17.1"
   }

@@ -25,12 +25,12 @@ module.exports = {
       {
         test: /spec.js$/,
         loader: 'babel',
-        exclude: [/node_modules/],
+        exclude: [/node_modules/]
       },
       {
         test: /.js$/,
         loader: 'isparta',
-        exclude: [/spec.js$/, /node_modules/],
+        exclude: [/spec.js$/, /node_modules/]
       },
       {
         test: /spec.coffee$/,
@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         test: /.coffee$/,
-        loader: 'coffee-coverage',
+        loader: 'ibrik-instrumenter-loader',
         exclude: [/spec.coffee$/, /node_modules/]
       }
     ]

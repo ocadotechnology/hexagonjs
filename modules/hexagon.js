@@ -48,5 +48,7 @@ module.exports = window.hx = merge([
   require('./date-localizer/main'),
   require('./autocomplete/main'),
   require('./number-picker/main'),
-  require('./drag-container/main')
+  require('./drag-container/main'),
+  require('./progress-bar/main'),
+  require('./sticky-table-headers/main')
 ])
