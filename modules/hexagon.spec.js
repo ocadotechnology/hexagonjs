@@ -44,6 +44,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/date-localizer/test/spec')
   require('modules/progress-bar/test/spec')
   require('modules/autocomplete-feed/test/spec')
+  require('modules/picker/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -276,6 +277,11 @@ describe('HexagonJS Test Suite', () => {
 
     describe('autocomplete-feed', () => {
       checkProperty('AutocompleteFeed')
+    })
+
+    describe('picker', () => {
+      checkProperty('picker')
+      checkProperty('Picker')
     })
   })
 })
