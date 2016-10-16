@@ -43,6 +43,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/drag-container/test/spec')
   require('modules/date-localizer/test/spec')
   require('modules/progress-bar/test/spec')
+  require('modules/autocomplete-feed/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -271,6 +272,10 @@ describe('HexagonJS Test Suite', () => {
     describe('progress-bar', () => {
       checkProperty('progressBar')
       checkProperty('ProgressBar')
+    })
+
+    describe('autocomplete-feed', () => {
+      checkProperty('AutocompleteFeed')
     })
   })
 })

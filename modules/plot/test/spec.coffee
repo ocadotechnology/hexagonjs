@@ -354,10 +354,28 @@ describe "plot", ->
       checkSetterGetterAndOption('startAngle', [0, 5, 10])
 
   describe 'hx.Sparkline', ->
+    it 'should use the correct default value for redrawOnResize', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node())
+      sparkLine._.graph.redrawOnResize().should.equal(true)
+      sparkLine.redrawOnResize().should.equal(true)
+
     it 'should pass the redrawOnResize option to its Graph', ->
-      sparkLine = new hx.Sparkline(hx.detached('div'), redrawOnResize: false)
+      sparkLine = new hx.Sparkline(hx.detached('div').node(), redrawOnResize: false)
       sparkLine._.graph.redrawOnResize().should.equal(false)
       sparkLine.redrawOnResize().should.equal(false)
       sparkLine.redrawOnResize(true)
       sparkLine._.graph.redrawOnResize().should.equal(true)
       sparkLine.redrawOnResize().should.equal(true)
+
+    it 'should set the min value properly', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node(), {min: 5})
+      sparkLine._.graph.axes()[0].y.min().should.equal(5)
+
+    it 'should set the max value properly', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node(), {max: 5})
+      sparkLine._.graph.axes()[0].y.max().should.equal(5)
+
+    it 'should use auto for the default min/max values', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node())
+      sparkLine._.graph.axes()[0].y.min().should.equal('auto')
+      sparkLine._.graph.axes()[0].y.max().should.equal('auto')

@@ -1,5 +1,6 @@
 userFacingText = require('modules/user-facing-text/main')
 select = require('modules/selection/main')
+util = require('modules/util/main/utils')
 
 userFacingText({
   form: {
@@ -28,11 +29,13 @@ validate = (form, options) ->
   defaultOptions = {
     showMessage: true
   }
-  options = hx.merge.defined(defaultOptions, options)
+  options = util.merge.defined(defaultOptions, options)
 
   select(form).selectAll('.hx-form-error').remove()
 
   errors = []
+
+  focusedElement = document.activeElement
 
   for i in [0...form.children.length]
     # Loop through all direct child divs of form element ()
@@ -46,7 +49,8 @@ validate = (form, options) ->
           errors.push({
             message: getValidationMessage(element.validationMessage, type),
             node: element,
-            validity: element.validity
+            validity: element.validity,
+            focused: focusedElement is element
           })
       else
         # Deal with radio groups and other similar structured elements
@@ -56,11 +60,14 @@ validate = (form, options) ->
           errors.push({
             message: getValidationMessage(input.validationMessage, type),
             node: element,
-            validity: input.validity
+            validity: input.validity,
+            focused: focusedElement is input
           })
 
   if options.showMessage and errors.length > 0
-    error = errors[0]
+    # Show the error for the focused element (if there is one) or the first error in the form
+    error = errors.filter((error) -> error.focused)[0] or errors[0]
+
     # XXX: This structure lets us jump out of the forced table layout. If we change
     # to match the full-width aeris forms, this will need changing.
     select(error.node.parentNode)

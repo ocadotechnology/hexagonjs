@@ -27,13 +27,13 @@ filterMatch = (item, getIndex, options) ->
   else false
 
 buildFilter = (lookupType) ->
-  (array, term, options = {}) ->
+  (array, term, opts = {}) ->
 
     options = utils.merge.defined {
       caseSensitive: false
       searchValues: undefined
       sort: true
-    }, options
+    }, opts
 
     # set the case modifier - we add it to options so we can easily pass to
     # filterMatch. We set this once to reduce the amount of checking we need

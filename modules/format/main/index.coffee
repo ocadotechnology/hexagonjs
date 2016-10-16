@@ -1,4 +1,6 @@
 
+utils = require('modules/util/main/utils')
+
 siSuffixes = ['y','z','a','f','p','n','µ','','','K','M','G','T','P','E','Z','Y']
 
 zeroPad = (number, pad) ->
@@ -51,7 +53,7 @@ strictCheck = (f, sf, strict) ->
     if strict
       (n) -> f(n, sf)
     else
-      (n) -> if hx.isString(n) then n else f(n, sf)
+      (n) -> if utils.isString(n) then n else f(n, sf)
 
 format =
   round: (sf, strict) -> strictCheck formatRound, sf, strict

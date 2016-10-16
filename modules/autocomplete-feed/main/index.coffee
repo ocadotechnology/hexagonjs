@@ -1,9 +1,11 @@
+sort = require('modules/sort/main')
+filter = require('modules/filter/main')
+utils = require('modules/util/main/utils')
+HMap = require('modules/map/main')
+
 sortItems = (valueLookup) ->
-  valueLookup ?= hx.identity
-  (a, b) ->
-    if not a.disabled and b.disabled then -1
-    else if a.disabled and not b.disabled then 1
-    else hx.sort.compare(valueLookup(a), valueLookup(b))
+  valueLookup ?= utils.identity
+  (a, b) -> sort.compare(valueLookup(a), valueLookup(b))
 
 trimTrailingSpaces = (term) ->
   newTerm = term
@@ -29,28 +31,32 @@ class AutocompleteFeed
       defaults.filterOptions =
         searchValues: (datum) -> [self._.options.valueLookup(datum)]
 
-    resolvedOptions = hx.merge.defined defaults, options
+    resolvedOptions = utils.merge.defined defaults, options
 
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
-      hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
-        .sort (a, b) ->
-          if not a.disabled and b.disabled then -1
-          else if a.disabled and not b.disabled then 1
-          else 0
+      filtered = filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
+
+      groupedActive = new HMap(utils.groupBy(filtered, (i) -> not i.disabled))
+      res = []
+      if groupedActive.get(true)
+        res = res.concat(groupedActive.get(true))
+      if groupedActive.get(false)
+        res = res.concat(groupedActive.get(false))
+      res
 
     @_ =
       options: resolvedOptions
-      resultsCache: new hx.Map
+      resultsCache: new HMap
 
 
   clearCache: ->
-    @_.resultsCache = new hx.Map
+    @_.resultsCache = new HMap
     this
 
   filter: (term = '', callback) ->
     _ = @_
-    thisFilter = term + hx.randomId()
+    thisFilter = term + utils.randomId()
     _.lastFilter = thisFilter
 
     cacheItemsThenCallback = (results, otherResults = []) =>
@@ -72,20 +78,27 @@ class AutocompleteFeed
       # Get the result from the cache
       cacheditems = _.resultsCache.get(term)
       callback(cacheditems.results, cacheditems.otherResults)
-    else if _.options.matchType is 'external' and hx.isFunction(_.items)
+    else if _.options.matchType is 'external' and utils.isFunction(_.items)
       # The matching is external so we don't filter here
       _.items(term, cacheItemsThenCallback)
     else
       filterAndCallback = (unfilteredItems) ->
         filteredItems = _.options.filter(unfilteredItems, term)
         if _.options.showOtherResults
-          otherResults = unfilteredItems.filter (datum) ->
+          unpartitioned = unfilteredItems.filter (datum) ->
               filteredItems.indexOf(datum) is -1
             .sort sortItems(_.options.valueLookup)
 
+          groupedActive = new HMap(utils.groupBy(unpartitioned, (i) -> not i.disabled))
+          otherResults = []
+          if groupedActive.get(true)
+            otherResults = otherResults.concat(groupedActive.get(true))
+          if groupedActive.get(false)
+            otherResults = otherResults.concat(groupedActive.get(false))
+
         cacheItemsThenCallback(filteredItems, otherResults)
 
-      if hx.isFunction(_.items)
+      if utils.isFunction(_.items)
         # Call the function then apply filtering
         _.items(term, filterAndCallback)
       else if term.length
@@ -95,7 +108,7 @@ class AutocompleteFeed
         # Skip filtering and return the entire itemsset
         cacheItemsThenCallback(_.items)
 
-  validateItems: (items) -> hx.isArray(items) or hx.isFunction(items)
+  validateItems: (items) -> Array.isArray(items) or utils.isFunction(items)
 
   items: (items) ->
     # Validation should be external to the feed and show relevant error message(s)
@@ -106,4 +119,7 @@ class AutocompleteFeed
       @_.items
 
 
-hx.AutocompleteFeed = AutocompleteFeed
+module.exports = AutocompleteFeed
+module.exports.hx = {
+  AutocompleteFeed: AutocompleteFeed
+}

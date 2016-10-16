@@ -6,7 +6,10 @@ class Sparkline
       strokeColor: hx.theme.plot.colors[0],
       data: [],
       type: 'line',
+      min: undefined
+      max: undefined
       labelRenderer: (element, obj) -> hx.select(element).text(obj.y + ' (' + obj.x + ')')
+      redrawOnResize: true
     }, options)
 
     innerLabelRenderer = (element, meta) ->
@@ -37,14 +40,14 @@ class Sparkline
     hx.components.clear(selector)
     hx.component.register(selector, this)
 
-    graph = new hx.Graph(selector, { redrawOnResize: options.redrawOnResize })
+    graph = new hx.Graph(selector, { redrawOnResize: opts.redrawOnResize })
 
     if opts.type isnt 'bar' and opts.type isnt 'line'
       hx.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"')
       @render = -> graph.render()
       return
 
-    axis = graph.addAxis({
+    axisOptions = {
       x: {
         scaleType: if opts.type is 'bar' then 'discrete' else 'linear'
         visible: false
@@ -54,7 +57,12 @@ class Sparkline
         scalePaddingMin: 0.1
         scalePaddingMax: 0.1
       }
-    })
+    }
+
+    axisOptions.y.min = opts.min if opts.min?
+    axisOptions.y.max = opts.max if opts.max?
+
+    axis = graph.addAxis(axisOptions)
     series =  axis.addSeries(opts.type, {
       fillEnabled: true
       labelRenderer: innerLabelRenderer

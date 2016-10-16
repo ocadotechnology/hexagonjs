@@ -55,10 +55,10 @@ describe 'Palette', ->
         utils.consoleWarning.should.have.been.called()
 
 
-  contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
+  contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
   testPaletteContextType 'context', contexts, 'hx'
 
-  paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
+  paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
   types = ['textContext', 'backgroundContext', 'borderContext']
   typePrefixes = ['hx-text', 'hx-background', 'hx-border']
 

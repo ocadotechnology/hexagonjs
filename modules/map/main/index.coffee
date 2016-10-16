@@ -65,7 +65,7 @@ class Map
       prefixedKey = prefix key
       row = @items[prefixedKey]
       index = row?.keys?.indexOf key
-      if index? and index isnt -1 then row.values[index]
+      if index? and index isnt -1 then row.values[index] else undefined
 
   # check if the map contains a value
   has: (key) ->

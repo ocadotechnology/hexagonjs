@@ -3,6 +3,7 @@ should = chai.should()
 select = require('modules/selection/main')
 elementSetTests = require('./element-set.spec')
 util = require('modules/util/main/utils')
+emitEvent = require('test/utils/emit-event')
 
 describe 'Selection Api', ->
   origConsoleWarning = util.consoleWarning
@@ -1004,7 +1005,7 @@ describe 'Selection Api', ->
     div = select.detached('div')
     called = false
     div.on 'click', (e) -> called = true
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     called.should.equal(true)
 
   it 'basic event emitter replacement should work', ->
@@ -1012,7 +1013,7 @@ describe 'Selection Api', ->
     called = false
     div.on('click', (e) -> called = 1)
     div.on('click', (e) -> called = 2)
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     called.should.equal(2)
 
   it 'basic event emitter removal should work', ->
@@ -1022,14 +1023,14 @@ describe 'Selection Api', ->
     div.on('click', (e) -> called = 2)
     div.on('click', f)
     div.off('click', f)
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     called.should.equal(false)
 
   it 'namespaced event emitter addition should work', ->
     div = select.detached('div')
     result1 = false
     div.on('click', 'my-namespace', (e) -> result1 = true)
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     result1.should.equal(true)
 
   it 'namespaced event emitter addition should not affect other namespaces', ->
@@ -1038,7 +1039,7 @@ describe 'Selection Api', ->
     result2 = false
     div.on('click', 'my-namespace-1', (e) -> result1 = true)
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     result1.should.equal(true)
     result2.should.equal(true)
 
@@ -1049,7 +1050,7 @@ describe 'Selection Api', ->
     div.on('click', 'my-namespace-1', (e) -> result1 = true)
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
     div.off('click', 'my-namespace-1')
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     result1.should.equal(false)
     result2.should.equal(true)
 
@@ -1061,7 +1062,7 @@ describe 'Selection Api', ->
     div.on('click', 'my-namespace-1', f)
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
     div.off('click', 'my-namespace-1', f)
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     result1.should.equal(false)
     result2.should.equal(true)
 
@@ -1073,7 +1074,7 @@ describe 'Selection Api', ->
     div.on('click', 'my-namespace-1', f)
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
     div.off('click', f)
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     result1.should.equal(false)
     result2.should.equal(true)
 
@@ -1085,7 +1086,7 @@ describe 'Selection Api', ->
     div.on('click', 'my-namespace-1', (e) -> result1 = true)
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
     div.on('click', 'my-namespace-1', (e) -> result3 = true)
-    div.node().__hx__.eventEmitter.emit('click', {})
+    emitEvent(div.node(), 'click', {})
     result1.should.equal(false)
     result2.should.equal(true)
     result3.should.equal(true)
@@ -1097,10 +1098,10 @@ describe 'Selection Api', ->
     result3 = false
     div.on('click', 'my-namespace-1', (e) -> result1 = true)
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
-    div.on('clack', 'my-namespace-1', ((e) -> result3 = true))
+    div.on('clack', 'my-namespace-1', (e) -> result3 = true)
     div.off()
-    div.node().__hx__.eventEmitter.emit('click', {})
-    div.node().__hx__.eventEmitter.emit('clack', {})
+    emitEvent(div.node(), 'click', {})
+    emitEvent(div.node(), 'clack', {})
     result1.should.equal(false)
     result2.should.equal(false)
     result3.should.equal(false)
@@ -1114,8 +1115,8 @@ describe 'Selection Api', ->
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
     div.on('clack', 'my-namespace-1', ((e) -> result3 = true))
     div.off('click')
-    div.node().__hx__.eventEmitter.emit('click', {})
-    div.node().__hx__.eventEmitter.emit('clack', {})
+    emitEvent(div.node(), 'click', {})
+    emitEvent(div.node(), 'clack', {})
     result1.should.equal(false)
     result2.should.equal(false)
     result3.should.equal(true)
@@ -1129,8 +1130,8 @@ describe 'Selection Api', ->
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
     div.on('clack', 'my-namespace-1', ((e) -> result3 = true))
     div.off(undefined, 'my-namespace-1')
-    div.node().__hx__.eventEmitter.emit('click', {})
-    div.node().__hx__.eventEmitter.emit('clack', {})
+    emitEvent(div.node(), 'click', {})
+    emitEvent(div.node(), 'clack', {})
     result1.should.equal(false)
     result2.should.equal(true)
     result3.should.equal(false)
@@ -1144,8 +1145,8 @@ describe 'Selection Api', ->
     div.on('click', 'my-namespace-2', (e) -> result2 = true)
     div.on('clack', 'my-namespace-1', ((e) -> result3 = true))
     div.off('click', 'my-namespace-1')
-    div.node().__hx__.eventEmitter.emit('click', {})
-    div.node().__hx__.eventEmitter.emit('clack', {})
+    emitEvent(div.node(), 'click', {})
+    emitEvent(div.node(), 'clack', {})
     result1.should.equal(false)
     result2.should.equal(true)
     result3.should.equal(true)

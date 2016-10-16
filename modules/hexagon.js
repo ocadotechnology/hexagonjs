@@ -50,5 +50,6 @@ module.exports = window.hx = merge([
   require('./number-picker/main'),
   require('./drag-container/main'),
   require('./progress-bar/main'),
-  require('./sticky-table-headers/main')
+  require('./sticky-table-headers/main'),
+  require('./autocomplete-feed/main')
 ])

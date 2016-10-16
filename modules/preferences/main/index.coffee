@@ -5,6 +5,7 @@ utils = require('modules/util/main/utils')
 Modal = require('modules/modal/main').Modal
 Autocomplete = require('modules/autocomplete/main').Autocomplete
 notify = require('modules/notify/main')
+format = require('modules/format/main')
 
 userFacingText({
   preferences: {
@@ -151,6 +152,14 @@ LocalStoragePreferencesStore = {
 
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
+zeroPad = format.zeroPad(2)
+defaultTimezoneLookup = (offset) ->
+  modifier = if offset > 0 then '-' else '+'
+  absOffset = Math.abs(offset)
+  minutes = absOffset % 60
+  hours = (absOffset - minutes) / 60
+  "UTC#{modifier}#{zeroPad(hours)}:#{zeroPad(minutes)}"
+
 class Preferences extends EventEmitter
   constructor: ->
     super
@@ -238,7 +247,7 @@ class Preferences extends EventEmitter
         -(moment.tz.zone(timezone).offset(timestamp) / 60)
       @timezone guessedMomentTimezone
     else
-      @timezone 'UTC+00:00'
+      @timezone defaultTimezoneLookup((new Date()).getTimezoneOffset())
 
   timezone: (timezone) ->
     if arguments.length > 0
@@ -321,6 +330,7 @@ preferences = new Preferences
 
 module.exports = preferences
 module.exports.LocalStoragePreferencesStore = LocalStoragePreferencesStore
+module.exports.defaultTimezoneLookup = defaultTimezoneLookup
 module.exports.hx = {
   preferences: preferences,
   LocalStoragePreferencesStore: LocalStoragePreferencesStore

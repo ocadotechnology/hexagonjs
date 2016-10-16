@@ -1,6 +1,16 @@
+util = require('modules/util/main/utils')
 EventEmitter = require('modules/event-emitter/main')
+chai = require('chai')
+should = chai.should()
 
 describe "EventEmitter", ->
+  origConsoleWarning = util.consoleWarning
+
+  beforeEach ->
+    util.consoleWarning = chai.spy()
+
+  afterEach ->
+    util.consoleWarning = origConsoleWarning
 
   it "should work with a single callback registered", ->
     eventEmitter = new EventEmitter
@@ -57,6 +67,26 @@ describe "EventEmitter", ->
     eventEmitter = new EventEmitter
     eventEmitter.on(null, (data) -> received = data)
     eventEmitter.has('test-event').should.equal(true)
+
+  it "should know which handlers are registered in namespaces", ->
+    ee = new EventEmitter
+    ee.on('name', 'namespace', chai.spy())
+    ee.has('name').should.equal(true)
+
+  it "should know which handlers are registered in namespaces when no name is used", ->
+    ee = new EventEmitter
+    ee.on(null, 'namespace', chai.spy())
+    ee.has('name').should.equal(true)
+
+  it "should know when handlers do not exist", ->
+    ee = new EventEmitter
+    ee.on('name', chai.spy())
+    ee.has('test-event').should.equal(false)
+
+  it "should know when handlers do not exist in namespaces", ->
+    ee = new EventEmitter
+    ee.on('name', 'namespace', chai.spy())
+    ee.has('test-event').should.equal(false)
 
   it "should allow listening to all events", ->
     eventEmitter = new EventEmitter
@@ -160,7 +190,61 @@ describe "EventEmitter", ->
     received2.should.equal("some-data-1")
     received3.should.equal("some-data-10")
 
+  it "should be able to de-register handlers with no name", ->
+    ee = new EventEmitter
+    spy = chai.spy()
+    ee.on(undefined, spy)
+    ee.emit('test', 'data')
+    spy.should.have.been.called.with('test','data')
+    spy.reset()
+    ee.off(undefined, spy)
+    ee.emit('test2', 'data2')
+    spy.should.not.have.been.called()
 
+  it "should clean-up correctly when de-registering handlers", ->
+    ee = new EventEmitter
+    ee.emitters.size.should.equal(1)
+    ee.emittersMap.size.should.equal(1)
+    ee.emittersMap.entries().should.eql([['default', ee.global]])
+    ee.emittersMap.values()[0].should.equal(ee.global)
+    ee.global.callbacks.size.should.equal(0)
+
+    spy = chai.spy()
+    
+    should.not.exist(ee.global.callbacks.get('name'))
+    ee.on('name', spy)
+    ee.global.callbacks.get('name').size.should.equal(1)
+
+    ee.off('name', spy)
+    ee.global.callbacks.get('name').size.should.equal(0)
+
+  it "should clean-up correctly when de-registering handlers with a namespace", ->
+    ee = new EventEmitter
+    ee.emitters.size.should.equal(1)
+    ee.emittersMap.size.should.equal(1)
+    ee.emittersMap.entries().should.eql([['default', ee.global]])
+    ee.emittersMap.values()[0].should.equal(ee.global)
+    ee.global.callbacks.size.should.equal(0)
+
+    spy = chai.spy()
+
+    should.not.exist(ee.global.callbacks.get('name'))
+    ee.on('name', 'namespace', spy)
+    should.not.exist(ee.global.callbacks.get('name'))
+    ee.global.callbacks.size.should.equal(0)
+    ee.emitters.size.should.equal(2)
+    ee.emittersMap.size.should.equal(2)
+    ee.emittersMap.get('namespace').callbacks.get('name').size.should.equal(1)
+
+    ee.off('name', 'namespace', spy)
+    ee.emitters.size.should.equal(1)
+    ee.emittersMap.size.should.equal(1)
+    should.not.exist(ee.emittersMap.get('namespace'))
+
+  it "should be fine de-registering when a namespace doesn't exist", ->
+    ee = new EventEmitter
+    spy = chai.spy()
+    ee.off('name', 'namespace', spy).should.equal(ee)
 
   it "should do standard piping correctly 1", ->
     ee1 = new EventEmitter
@@ -423,3 +507,12 @@ describe "EventEmitter", ->
     ee.suppressed('test-event').should.equal(true)
     ee.suppressed('test-event', false).should.equal(ee)
     ee.suppressed('test-event').should.equal(false)
+
+  it 'should not let you assign "default" as a namespace', ->
+    ee = new EventEmitter
+    spy = chai.spy()
+    util.consoleWarning.should.not.have.been.called()
+    ee.on('name', 'default', spy)
+    util.consoleWarning.should.have.been.called.with('"default" is a reserved namespace. It can not be used as a namespace name.')
+    ee.emit('name')
+    spy.should.not.have.been.called()

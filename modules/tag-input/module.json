@@ -1,11 +1,13 @@
 {
   "dependencies": [
+    "autocomplete",
     "component",
     "drag-container",
     "event-emitter",
     "layout",
     "selection",
     "user-facing-text",
-    "util"
+    "util",
+    "form"
   ]
 }

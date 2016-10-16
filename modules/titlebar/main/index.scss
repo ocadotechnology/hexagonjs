@@ -186,8 +186,8 @@ body.hx-full-width .hx-titlebar-contents {
   padding-right: 1em;
   padding-top: 3px;
 
-  &:hover,
-  &.hx-selected {
+  &.hx-selected,
+  &:hover {
     border-bottom: 2px solid transparent;
     padding-bottom: 1px;
   }

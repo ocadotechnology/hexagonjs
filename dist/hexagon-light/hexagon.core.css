@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.5.0
+ Version: 1.8.1
  Theme: hexagon-light
  Modules:
    set
@@ -31,11 +31,11 @@
    form
    modal
    notify
+   format
    component
    morphs
    click-detector
    base
-   format
    preferences
    button
    dropdown
@@ -44,11 +44,12 @@
    input-group
    date-localizer
    number-picker
-   resize-events
    menu
+   resize-events
    autocomplete-feed
    date-picker
    time-picker
+   autocomplete
    drag-container
    layout
    progress-bar
@@ -60,7 +61,6 @@
    sticky-table-headers
    table
    toggle
-   autocomplete
    autocomplete-picker
    date-time-picker
    tag-input
@@ -302,12 +302,17 @@ i.hx-icon {
     display: table-row; }
     .hx-form > div > * {
       display: table-cell; }
-    .hx-form > div > *:not(input) {
+    .hx-form > div > *:not(input):not(select):not(textarea):not(button):not(.hx-btn) {
       padding-top: 8px; }
     .hx-form > div > input,
     .hx-form > div > select,
-    .hx-form > div > textarea {
+    .hx-form > div > textarea,
+    .hx-form > div > button,
+    .hx-form > div > .hx-btn {
       margin: 8px 0 0 0; }
+    .hx-form > div > div > .hx-btn,
+    .hx-form > div > div > button {
+      margin: 0; }
     .hx-form > div > input:not([type="checkbox"]):not([type="radio"]),
     .hx-form > div > select,
     .hx-form > div > textarea {
@@ -465,6 +470,9 @@ body.hx-modal-open > .hx-notification-container {
   padding: 0.25em;
   position: relative;
   pointer-events: auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
@@ -479,12 +487,19 @@ body.hx-modal-open > .hx-notification-container {
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
-            user-select: none; }
+            user-select: none;
+    -webkit-flex-grow: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+    margin: 0; }
   .hx-notification .hx-notification-close,
   .hx-notification .hx-notification-pin {
     cursor: pointer; }
-  .hx-notification .hx-notification-text {
-    word-wrap: break-word; }
+  .hx-notification .hx-notification-content {
+    word-wrap: break-word;
+    -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto; }
 
 .hx-notification.hx-loading .hx-notification-icon {
   font-size: 0.75em; }
@@ -499,6 +514,7 @@ body.hx-modal-open > .hx-notification-container {
     width: 100%;
     margin-left: 0;
     left: 0; } }
+
 
 
 .hx-morph-hidden {
@@ -675,7 +691,6 @@ select:disabled {
   opacity: 0.5; }
 
 
-
 .hx-btn {
   border: 0;
   border-radius: 0.15em;
@@ -827,7 +842,6 @@ a.hx-btn:hover {
     -moz-appearance: textfield;
     -webkit-appearance: none; }
 
-
 .hx-menu {
   max-height: 500px;
   overflow-y: auto; }
@@ -870,6 +884,7 @@ a.hx-btn:hover {
 
 .hx-menu .hx-collapsible-content > .hx-menu-item {
   padding-left: 1.5em; }
+
 
 
 .hx-date-picker {
@@ -1042,6 +1057,10 @@ a.hx-btn:hover {
     border: none;
     outline: none;
     background: none; }
+
+.hx-autocomplete-dropdown {
+  max-height: 440px;
+  overflow: auto; }
 
 .hx-drag-container {
   position: relative; }
@@ -1300,7 +1319,8 @@ a.hx-btn:hover {
   font-size: 10px;
   font-weight: bold;
   margin-left: 0.5em;
-  padding: 0.5em; }
+  padding: 0.5em;
+  white-space: nowrap; }
 
 .hx-plot-label-details-header {
   border-bottom: solid 1px transparent;
@@ -1355,6 +1375,16 @@ a.hx-btn:hover {
   .hx-picker span + span {
     margin: 0 0 0 0.4em; }
 
+.hx-picker-full-width {
+  box-sizing: border-box;
+  width: 100%; }
+
+.hx-picker-full-width .hx-picker-inner {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 100%; }
+
 
 .hx-sticky-table-headers {
   position: relative;
@@ -1370,6 +1400,8 @@ a.hx-btn:hover {
   .hx-sticky-table-headers .hx-sticky-table-header-top,
   .hx-sticky-table-headers .hx-sticky-table-header-top-left {
     z-index: 2; }
+  .hx-sticky-table-headers .hx-sticky-table-invisible {
+    visibility: hidden; }
   .hx-sticky-table-headers .hx-sticky-table-header-top {
     top: 0; }
     .hx-sticky-table-headers .hx-sticky-table-header-top .hx-table {
@@ -1391,8 +1423,6 @@ a.hx-btn:hover {
     overflow: auto; }
     .hx-sticky-table-headers .hx-sticky-table-wrapper .hx-table {
       overflow: visible; }
-    .hx-sticky-table-headers .hx-sticky-table-wrapper .hx-sticky-table-invisible {
-      visibility: hidden; }
   .hx-sticky-table-headers .hx-sticky-table-scroll-left,
   .hx-sticky-table-headers .hx-sticky-table-scroll-right,
   .hx-sticky-table-headers .hx-sticky-table-scroll-top,
@@ -1491,10 +1521,6 @@ a.hx-btn:hover {
     margin-left: 0.5em;
     margin-right: 0; }
 
-.hx-autocomplete-dropdown {
-  max-height: 440px;
-  overflow: auto; }
-
 .hx-autocomplete-picker-text {
   display: inline-block;
   margin-right: 0.4em; }
@@ -1538,25 +1564,26 @@ a.hx-btn:hover {
     border: none; }
     .hx-tag-input .hx-tags-container:empty {
       display: none; }
-  .hx-tag-input form {
-    -webkit-flex-flow: row wrap;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
+
+.hx-tag-input-container {
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  .hx-tag-input-container input {
+    margin: 0;
+    margin: -1px;
     -webkit-flex-grow: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex; }
-    .hx-tag-input form input {
-      margin: 0;
-      border-style: none;
-      -webkit-flex-grow: 1;
-          -ms-flex-positive: 1;
-              flex-grow: 1;
-      padding-top: 0.55em;
-      padding-bottom: 0.55em;
-      min-width: 150px; }
+    padding-top: 0.55em;
+    padding-bottom: 0.55em;
+    min-width: 150px; }
 
 .hx-tag {
   display: -webkit-flex;
@@ -1763,12 +1790,12 @@ body.hx-full-width .hx-titlebar-contents {
     vertical-align: middle;
     -webkit-align-self: center;
         -ms-flex-item-align: center;
+                -ms-grid-row-align: center;
             align-self: center; }
 
 .hx-titlebar-menu-icon-mobile {
   -webkit-align-items: middle;
       -ms-flex-align: middle;
-              -ms-grid-row-align: middle;
           align-items: middle;
   display: none;
   margin-right: 0.3em;
@@ -1812,7 +1839,7 @@ body.hx-full-width .hx-titlebar-contents {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 3px; }
-  .hx-titlebar-link:hover, .hx-titlebar-link.hx-selected {
+  .hx-titlebar-link.hx-selected, .hx-titlebar-link:hover {
     border-bottom: 2px solid transparent;
     padding-bottom: 1px; }
 
@@ -1883,7 +1910,6 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
   .hx-titlebar-menu-icons {
     -webkit-align-items: center;
         -ms-flex-align: center;
-                -ms-grid-row-align: center;
             align-items: center;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
@@ -2327,7 +2353,6 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
             flex-wrap: nowrap;
     -webkit-align-items: center;
         -ms-flex-align: center;
-                -ms-grid-row-align: center;
             align-items: center; }
   .hx-data-table .hx-data-table-filter {
     display: none;

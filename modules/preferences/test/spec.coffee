@@ -84,3 +84,13 @@ describe 'hx-preferences', ->
         spy = chai.spy.on(utils, 'consoleWarning')
         preferences.timezone('America').should.equal(preferences)
         spy.should.have.been.called()
+
+    describe 'defaultTimezoneLookup', ->
+      it 'should get the correct string timezone', ->
+        preferences.defaultTimezoneLookup(1).should.equal('UTC-00:01')
+        preferences.defaultTimezoneLookup(2).should.equal('UTC-00:02')
+        preferences.defaultTimezoneLookup(0).should.equal('UTC+00:00')
+        preferences.defaultTimezoneLookup(-1).should.equal('UTC+00:01')
+        preferences.defaultTimezoneLookup(-2).should.equal('UTC+00:02')
+        preferences.defaultTimezoneLookup(10).should.equal('UTC-00:10')
+        preferences.defaultTimezoneLookup(-100).should.equal('UTC+01:40')

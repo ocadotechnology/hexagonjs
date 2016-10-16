@@ -53,36 +53,37 @@ findTerm = (term, forceMatch) ->
   # Adds 'Other Data' heading and shows the data that was filtered out under it
   if @options.showOtherResults and !forceMatch and !dataMatches
 
-    matches = if filteredData.length > 0 then filteredData
-    else [{unselectable:true, text:self.options.noResultsMessage}]
+    matches = if filteredData.length > 0
+      filteredData
+    else
+      [{unselectable:true, text:self.options.noResultsMessage}]
 
     # find values that are in the original data but not in the filtered data
-    heading = [{unselectable:true, heading: true, text: self.options.otherResultsMessage}]
+    heading = {unselectable:true, heading: true, text: self.options.otherResultsMessage}
 
     remainingResults =
-      if filteredData.length is 0 then allData
+      if filteredData.length is 0
+        allData
       else
-        data = allData.filter (d) ->
-          if filteredData.some((e) -> e is d) then false else true
+        data = allData.filter (d) -> not filteredData.some((e) -> e is d)
         if not @options.filterOptions.sort? or @options.filterOptions.sort
           if @options.inputMap?
-            data = data.sort (a,b) ->
-              a = self.options.inputMap(a)
-              b = self.options.inputMap(b)
-              sort.compare(a, b)
+            data.sort (a,b) ->
+              sort.compare(
+                self.options.inputMap(a),
+                self.options.inputMap(b)
+              )
           else
-            data = data.sort sort.compare
+            data.sort(sort.compare)
         data
 
+    groupedActive = new HMap(utils.groupBy(remainingResults, (i) -> not i.disabled))
 
-    remainingResults = heading.concat(
-      remainingResults.sort (a, b) ->
-        if not a.disabled and b.disabled then -1
-        else if a.disabled and not b.disabled then 1
-        else sort.compare(a.full, b.full)
-    )
+    filteredData = matches
+      .concat([heading])
+      .concat(groupedActive.get(true) || [])
+      .concat(groupedActive.get(false) || [])
 
-    filteredData = matches.concat remainingResults
   filteredData
 
 
@@ -233,12 +234,9 @@ class AutoComplete extends EventEmitter
       @options.filterOptions = utils.merge({}, _filterOpts, @options.filterOptions)
 
       @options.filter ?= (arr, term) ->
-        filter[self.options.matchType](arr, term, self.options.filterOptions)
-          .sort (a, b) ->
-            if not a.disabled and b.disabled then -1
-            else if a.disabled and not b.disabled then 1
-            else sort.compare(a, b)
-
+        filtered = filter[self.options.matchType](arr, term, self.options.filterOptions)
+        groupedActive = new HMap(utils.groupBy(filtered, (i) -> not i.disabled))
+        (groupedActive.get(true) || []).concat(groupedActive.get(false) || [])
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?

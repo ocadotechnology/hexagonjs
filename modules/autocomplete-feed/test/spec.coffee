@@ -1,7 +1,17 @@
+AutocompleteFeed = require('modules/autocomplete-feed/main')
+chai = require('chai')
+
+spies = require('chai-spies')
+HMap = require('modules/map/main')
+fakeTime = require('test/utils/fake-time')
+chai.use(spies)
+
+should = chai.should()
+
 describe 'autocomplete-feed', ->
 
   it 'should set the default options correctly', ->
-    af = new hx.AutocompleteFeed
+    af = new AutocompleteFeed
     should.exist(af._.options.filter)
     af._.options.useCache.should.equal(true)
     af._.options.filter.should.be.an.instanceOf(Function)
@@ -12,13 +22,22 @@ describe 'autocomplete-feed', ->
 
   it 'should use the default searchValues function if a valueLookup is defined', ->
     valueLookup = chai.spy()
-    af = new hx.AutocompleteFeed({
+    af = new AutocompleteFeed({
       valueLookup: valueLookup
     })
     should.exist(af._.options.filterOptions)
     af._.options.filterOptions.should.be.an.instanceOf(Object)
     should.exist(af._.options.filterOptions.searchValues)
     af._.options.filterOptions.searchValues.should.be.an.instanceOf(Function)
+
+  # sanity check
+  it 'should not override the searchValues option even if valueLookup is defined', ->
+    af = new AutocompleteFeed
+      valueLookup: 'hello world'
+      filterOptions:
+        searchValues: 'do not override'
+
+    af._.options.filterOptions.searchValues.should.equal('do not override')
 
 
   it 'should use passed in options where defined', ->
@@ -28,7 +47,7 @@ describe 'autocomplete-feed', ->
     filterOptions =
       searchValues: chai.spy()
 
-    af = new hx.AutocompleteFeed({
+    af = new AutocompleteFeed({
       valueLookup: valueLookup
       matchType: matchType
       filter: filter
@@ -45,21 +64,21 @@ describe 'autocomplete-feed', ->
   describe 'api', ->
 
     it 'clearCache: should create a new cache', ->
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       af.items(['a','b','c'])
       af.filter('', ->)
       af.filter('a', ->)
       initialCache = af._.resultsCache
-      initialCache.should.be.an.instanceOf(hx.Map)
+      initialCache.should.be.an.instanceOf(HMap)
       initialCache.keys().should.eql(['', 'a'])
       af.clearCache().should.equal(af)
       initialCache.should.not.equal(af._.resultsCache)
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(HMap)
       af._.resultsCache.keys().should.eql([])
 
 
     it 'validateItems: should validate items correctly', ->
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
 
       af.validateItems([]).should.equal(true)
       af.validateItems(['a']).should.equal(true)
@@ -70,14 +89,14 @@ describe 'autocomplete-feed', ->
 
     it 'items: should set and get the current items', ->
       items = [1,2,3]
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       should.not.exist(af.items())
       af.items(items)
       af.items().should.equal(items)
 
 
     it 'filter: should use "" if the term is undefined', ->
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       cb = chai.spy()
       items = (term, callback) ->
         should.exist(term)
@@ -89,7 +108,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should not perform filtering when using external matching and items as a function', ->
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         matchType: 'external'
       })
       itemsArr = ['b','c','a','d']
@@ -102,7 +121,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should use cached items if available', ->
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       spy = chai.spy()
       callback = chai.spy()
       items = (term, cb) ->
@@ -127,7 +146,7 @@ describe 'autocomplete-feed', ->
 
     it 'filter: should call the filter option function', ->
       filter = chai.spy()
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         filter: filter
       })
       af.items(['a'])
@@ -137,7 +156,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should sort and filter results by default', ->
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       af.items(['ba','b','a','c','d','ab','a'])
       callback = chai.spy()
       af.filter('a', callback)
@@ -146,7 +165,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should return other results when using a function', ->
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         showOtherResults: true
       })
       itemsArr = ['ba','b','a','d','c','ab','a']
@@ -159,7 +178,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should sort items in the correct order', ->
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       af.items(['ab', 'ba', 'aab', 'bba'])
       callback = chai.spy()
       af.filter('a', callback)
@@ -169,7 +188,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should return other results when using an array', ->
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         showOtherResults: true
       })
       af.items(['ba','b','a','d','c','ab','a'])
@@ -180,7 +199,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should return the entire itemsset when the term is ""', ->
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       itemsArr = ['ba','b','a','d','c','ab','a']
       af.items(itemsArr)
       callback = chai.spy()
@@ -190,7 +209,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should trim trailing spaces when no values are returned', ->
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         trimTrailingSpaces: true
       })
       items = (term, cb) ->
@@ -207,7 +226,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should not trim trailing spaces if a value is returned', ->
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         trimTrailingSpaces: true
       })
       items = (term, cb) -> cb ['a', 'a a', 'aa', 'b', 'ba']
@@ -220,7 +239,7 @@ describe 'autocomplete-feed', ->
 
     it 'filter: should use the valueLookup correctly', ->
       valueLookup = (val) -> val.text
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         valueLookup: valueLookup
       })
       aObj = {text: 'a'}
@@ -236,7 +255,7 @@ describe 'autocomplete-feed', ->
 
     it 'filter: should sort disabled items correctly', ->
       valueLookup = (val) -> val.text
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         valueLookup: valueLookup
       })
       aObj = {text: 'a', disabled: false}
@@ -252,7 +271,7 @@ describe 'autocomplete-feed', ->
 
     it 'filter: should sort disabled other results correctly', ->
       valueLookup = (val) -> val.text
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         valueLookup: valueLookup
         showOtherResults: true
       })
@@ -269,7 +288,7 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should only call back with the last call to filter', ->
-      clock = sinon.useFakeTimers()
+      clock = fakeTime.installFakeTimers()
       itemArr = ['abc','abb','acc']
       callCheck = chai.spy()
       items = (term, callback) ->
@@ -278,7 +297,7 @@ describe 'autocomplete-feed', ->
           callback(itemArr)
         , 1000 / term.length
 
-      af = new hx.AutocompleteFeed
+      af = new AutocompleteFeed
       af.items(items).should.equal(af)
 
       cb = chai.spy()
@@ -302,10 +321,10 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should not cache results when the useCache option is false', ->
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         useCache: false
       })
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(HMap)
       af._.resultsCache.entries().length.should.equal(0)
       af.items(['a','b','c'])
       af._.resultsCache.entries().length.should.equal(0)
@@ -318,10 +337,10 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should use the cache before attempting to get new data', ->
-      af = new hx.AutocompleteFeed()
+      af = new AutocompleteFeed()
       callback = chai.spy()
       af.items(['a','b','c'])
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(HMap)
       af._.resultsCache.entries().length.should.equal(0)
       chai.spy.on(af._.resultsCache, 'has')
       chai.spy.on(af._.resultsCache, 'get')
@@ -347,11 +366,11 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should use the cache before attempting to get new data using a function', ->
-      af = new hx.AutocompleteFeed()
+      af = new AutocompleteFeed()
       items = chai.spy((term, cb) -> cb(['a','b','c'],['d']))
       callback = chai.spy()
       af.items(items)
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(HMap)
       af._.resultsCache.entries().length.should.equal(0)
       chai.spy.on(af._.resultsCache, 'has')
       chai.spy.on(af._.resultsCache, 'get')
@@ -379,13 +398,13 @@ describe 'autocomplete-feed', ->
 
 
     it 'filter: should use the cache before attempting to get new data when using external matching', ->
-      af = new hx.AutocompleteFeed({
+      af = new AutocompleteFeed({
         matchType: 'external'
       })
       items = chai.spy((term, cb) -> cb(['a','b','c'],['d']))
       callback = chai.spy()
       af.items(items)
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(HMap)
       af._.resultsCache.entries().length.should.equal(0)
       chai.spy.on(af._.resultsCache, 'has')
       chai.spy.on(af._.resultsCache, 'get')

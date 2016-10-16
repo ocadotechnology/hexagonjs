@@ -3,34 +3,67 @@ utils = require('modules/util/main/utils')
 
 # utility method for setting up notifications
 setupNotification = (notification, selection) ->
-  if notification.options.icon? and notification.options.icon.length > 0
-    selection.append('div')
-      .class('hx-notification-icon-container hx-section hx-fixed hx-no-margin')
-      .append('i')
-        .class('hx-notification-icon ' + notification.options.icon)
+  icon = if notification.options.icon? and notification.options.icon.length > 0
+    select.detached('div').class('hx-notification-icon-container')
+      .add(select.detached('i').class('hx-notification-icon ' + notification.options.icon))
 
-  selection
-    .append('div')
-      .class('hx-notification-text hx-section hx-no-margin')
-      .text(notification.message)
+  content = select.detached('div').class('hx-notification-content')
+  msg = notification.message
+
+  # We check `isNumber` here as in some cases it might be sensible to pass a number as the message (e.g. hx.notify.error(404))
+  msgIsString = utils.isString(msg) or utils.isNumber(msg)
+
+  msgIsNode = not msgIsString and ((msg instanceof select.Selection) or (msg instanceof HTMLElement))
+  msgIsArrayOfNodes = msgIsNode or Array.isArray(msg) and msg.every (item) ->
+    (item instanceof select.Selection) or (item instanceof HTMLElement)
+
+  msgIsObject = not msgIsString and not msgIsNode and not msgIsArrayOfNodes and utils.isObject(msg)
+
+  if msgIsString
+    content.text(msg)
+  else if msgIsNode or msgIsArrayOfNodes
+    content.add(msg)
+  else if msgIsObject and notification.options.renderer
+    notification.options.renderer(content.node(), msg)
+  else
+    if msgIsObject
+      utils.consoleWarning(
+        'Notification created using an object with invalid arguments\n',
+        'An object was passed to the notification without a renderer being defined\n'
+        "message:",
+        msg,
+        "\nrenderer:",
+        notification.options.renderer
+      )
+    else
+      utils.consoleWarning(
+        'Notification created using an object with invalid arguments\n',
+        'The notification expected a String, Selection, HTMLElement or an Object with matching renderer but was passed:\n',
+        "message:",
+        msg
+      )
+    content.text('ERROR CONSTRUCTING NOTIFICATION')
 
   if notification.options.pinnable
-    notification.domPin = selection
-      .append('div')
-        .class('hx-notification-icon-container hx-notification-pin hx-section hx-fixed hx-no-margin')
-        .on 'click', 'hx.notify', -> togglePin(notification)
+    pin = select.detached('div')
+      .class('hx-notification-icon-container hx-notification-pin')
+      .on('click', 'hx.notify', -> togglePin(notification))
+      .add(select.detached('i').attr('class', 'hx-icon hx-icon-thumb-tack'))
 
-    notification.domPin.append('i')
-      .attr('class', 'hx-icon hx-icon-thumb-tack')
-
+    notification.domPin = pin
     updatePinnedStatus(notification)
 
+  close = select.detached('div')
+    .class('hx-notification-icon-container hx-notification-close')
+    .on('click', 'hx.notify', -> notification.close())
+    .add(select.detached('i').class('hx-icon hx-icon-close'))
+
+
   selection
-    .append('div')
-      .class('hx-notification-icon-container hx-notification-close hx-section hx-fixed hx-no-margin')
-      .on 'click', 'hx.notify', -> notification.close()
-      .append('i')
-        .class('hx-icon hx-icon-close')
+    .add(icon)
+    .add(content)
+    .add(pin)
+    .add(close)
 
 nextId = (manager) -> manager.currentId++
 
@@ -45,8 +78,10 @@ redraw = (manager) ->
   view = container.view('.hx-notification')
   view.enter (d) ->
     selection = @append('div')
+    optionalClass = if d.options.cssclass then " #{d.options.cssclass}" else ''
+
     selection
-      .class('hx-notification hx-group hx-horizontal ' + d.options.cssclass)
+      .class("hx-notification#{optionalClass}")
       .forEach (node) ->
         setupNotification(d, selection)
         d.trueHeight = selection.style('height')
@@ -87,14 +122,16 @@ togglePin = (notification) -> if notification.pinned then notification.unpin() e
 updatePinnedStatus = (notification) ->
   notification.domPin.classed('hx-notification-pin-pinned', notification.pinned)
 
+defaultRenderer = (node, message) -> select(node).text(message)
 
 class Notification
   constructor: (@manager, @message, options) ->
     @options = utils.merge {
       icon: undefined
-      cssClass: undefined
+      cssclass: undefined
       timeout: @manager._.defaultTimeout
       pinnable: true
+      renderer: undefined
     }, options
 
     @id = nextId(@manager)
