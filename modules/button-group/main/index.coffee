@@ -1,16 +1,21 @@
-class ButtonGroup extends hx.EventEmitter
+select = require('modules/selection/main')
+component = require('modules/component/main')
+utils = require('modules/util/main/utils')
+EventEmitter = require('modules/event-emitter/main')
+
+class ButtonGroup extends EventEmitter
   constructor: (selector, options) ->
     super
     self = this
 
-    hx.component.register(selector, this)
+    component.register(selector, this)
 
-    @options = hx.merge.defined({
+    @options = utils.merge.defined({
       buttonClass: 'hx-complement'
       activeClass: 'hx-contrast'
       fullWidth: false
       renderer: (node, data, current) ->
-        hx.select(node).text(if data.value? then data.value else data)
+        select(node).text(if data.value? then data.value else data)
         return
       items: []
       disabled: false
@@ -18,7 +23,7 @@ class ButtonGroup extends hx.EventEmitter
 
     @current = undefined
 
-    group = hx.select(selector)
+    group = select(selector)
       .classed('hx-button-group', true)
       .append('div')
         .class('hx-input-group')
@@ -84,9 +89,15 @@ class ButtonGroup extends hx.EventEmitter
     else
       @options.disabled
 
-hx.buttonGroup = (options) ->
-  selection = hx.detached('div')
+buttonGroup = (options) ->
+  selection = select.detached('div')
   new ButtonGroup(selection.node(), options)
   selection
 
-hx.ButtonGroup = ButtonGroup
+module.exports = buttonGroup
+module.exports.ButtonGroup = ButtonGroup
+
+module.exports.hx = {
+  buttonGroup: buttonGroup,
+  ButtonGroup: ButtonGroup
+}

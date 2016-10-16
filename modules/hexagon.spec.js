@@ -45,6 +45,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/progress-bar/test/spec')
   require('modules/autocomplete-feed/test/spec')
   require('modules/picker/test/spec')
+  require('modules/button-group/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -282,6 +283,11 @@ describe('HexagonJS Test Suite', () => {
     describe('picker', () => {
       checkProperty('picker')
       checkProperty('Picker')
+    })
+
+    describe('buttonGroup', () => {
+      checkProperty('buttonGroup')
+      checkProperty('ButtonGroup')
     })
   })
 })

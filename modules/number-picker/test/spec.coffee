@@ -1,9 +1,10 @@
 select = require('modules/selection/main')
 NumberPicker = require('modules/number-picker/main').NumberPicker
-should = require('chai').should()
+chai = require('chai')
 fakeTime = require('test/utils/fake-time')
 emitEvent = require('test/utils/emit-event')
-chai = require('chai')
+
+should = chai.should()
 
 describe 'number picker', ->
   fakePointerEvent =

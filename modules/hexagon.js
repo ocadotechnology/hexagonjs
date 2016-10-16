@@ -52,5 +52,6 @@ module.exports = window.hx = merge([
   require('./progress-bar/main'),
   require('./sticky-table-headers/main'),
   require('./autocomplete-feed/main'),
-  require('./picker/main')
+  require('./picker/main'),
+  require('./button-group/main')
 ])
