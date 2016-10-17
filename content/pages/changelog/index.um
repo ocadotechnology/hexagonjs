@@ -239,5 +239,8 @@
         @p: Disable the increment/decrement buttons for number pickers
         @p: This release also includes a selection of bugfixes
 
+    @version 1.8.1
+      @description: Patch the issue introduced in the Notification module introduced in the previous version.
+
   @h2: Key
   @changelog.key
