@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.8.1
+ Version: 1.8.2
  Theme: hexagon-light
  Modules:
    set
@@ -7350,7 +7350,7 @@ hx.select.addEventAugmenter({
 
 })();
 (function(){
-var AutocompleteFeed, sortItems, trimTrailingSpaces,
+var AutocompleteFeed, sortActive, sortItems, trimTrailingSpaces,
   slice = [].slice;
 
 sortItems = function(valueLookup) {
@@ -7369,6 +7369,19 @@ trimTrailingSpaces = function(term) {
     newTerm = newTerm.slice(0, newTerm.length - 1);
   }
   return newTerm;
+};
+
+sortActive = function(items) {
+  var active, groupedActive, inactive;
+  groupedActive = new hx.Map(hx.groupBy(items, function(i) {
+    return !i.disabled;
+  }));
+  active = groupedActive.get(true) || [];
+  inactive = groupedActive.get(false) || [];
+  return {
+    active: active,
+    inactive: inactive
+  };
 };
 
 AutocompleteFeed = (function() {
@@ -7397,12 +7410,10 @@ AutocompleteFeed = (function() {
     resolvedOptions = hx.merge.defined(defaults, options);
     if (resolvedOptions.filter == null) {
       resolvedOptions.filter = function(items, term) {
-        var filtered, groupedActive;
+        var active, filtered, inactive, ref;
         filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions);
-        groupedActive = new hx.Map(hx.groupBy(filtered, function(i) {
-          return !i.disabled;
-        }));
-        return slice.call(groupedActive.get(true)).concat(slice.call(groupedActive.get(false)));
+        ref = sortActive(filtered), active = ref.active, inactive = ref.inactive;
+        return slice.call(active).concat(slice.call(inactive));
       };
     }
     this._ = {
@@ -7451,16 +7462,14 @@ AutocompleteFeed = (function() {
       return _.items(term, cacheItemsThenCallback);
     } else {
       filterAndCallback = function(unfilteredItems) {
-        var filteredItems, groupedActive, otherResults, unpartitioned;
+        var active, filteredItems, inactive, otherResults, ref, unpartitioned;
         filteredItems = _.options.filter(unfilteredItems, term);
         if (_.options.showOtherResults) {
           unpartitioned = unfilteredItems.filter(function(datum) {
             return filteredItems.indexOf(datum) === -1;
           }).sort(sortItems(_.options.valueLookup));
-          groupedActive = new hx.Map(hx.groupBy(unpartitioned, function(i) {
-            return !i.disabled;
-          }));
-          otherResults = slice.call(groupedActive.get(true)).concat(slice.call(groupedActive.get(false)));
+          ref = sortActive(unpartitioned), active = ref.active, inactive = ref.inactive;
+          otherResults = slice.call(active).concat(slice.call(inactive));
         }
         return cacheItemsThenCallback(filteredItems, otherResults);
       };
@@ -8600,7 +8609,7 @@ hx.TimePicker = TimePicker;
 
 })();
 (function(){
-var AutoComplete, buildAutoComplete, findTerm, showAutoComplete,
+var AutoComplete, buildAutoComplete, findTerm, showAutoComplete, sortActive,
   slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -8614,8 +8623,21 @@ hx.userFacingText({
   }
 });
 
+sortActive = function(items) {
+  var active, groupedActive, inactive;
+  groupedActive = new hx.Map(hx.groupBy(items, function(i) {
+    return !i.disabled;
+  }));
+  active = groupedActive.get(true) || [];
+  inactive = groupedActive.get(false) || [];
+  return {
+    active: active,
+    inactive: inactive
+  };
+};
+
 findTerm = function(term, forceMatch) {
-  var _, allData, data, dataMatches, filteredData, groupedActive, heading, matches, remainingResults, self;
+  var _, active, allData, data, dataMatches, filteredData, heading, inactive, matches, ref, remainingResults, self;
   self = this;
   _ = this._;
   if (_.prevTerm == null) {
@@ -8658,10 +8680,8 @@ findTerm = function(term, forceMatch) {
       b = self.options.inputMap(b);
       return hx.sort.compare(a, b);
     }) : data = data.sort(hx.sort.compare) : void 0, data);
-    groupedActive = new hx.Map(hx.groupBy(remainingResults, function(i) {
-      return !i.disabled;
-    }));
-    filteredData = slice.call(matches).concat([heading], slice.call(groupedActive.get(true)), slice.call(groupedActive.get(false)));
+    ref = sortActive(remainingResults), active = ref.active, inactive = ref.inactive;
+    filteredData = slice.call(matches).concat([heading], slice.call(active), slice.call(inactive));
   }
   return filteredData;
 };
@@ -8790,14 +8810,14 @@ AutoComplete = (function(superClass) {
       }
       this.options.filterOptions = hx.merge({}, _filterOpts, this.options.filterOptions);
       if ((base = this.options).filter == null) {
-        base.filter = function(arr, term) {
-          var filtered, groupedActive;
-          filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions);
-          groupedActive = new hx.Map(hx.groupBy(filtered, function(i) {
-            return !i.disabled;
-          }));
-          return slice.call(groupedActive.get(true)).concat(slice.call(groupedActive.get(false)));
-        };
+        base.filter = (function(_this) {
+          return function(arr, term) {
+            var active, filtered, inactive, ref;
+            filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions);
+            ref = sortActive(filtered), active = ref.active, inactive = ref.inactive;
+            return slice.call(active).concat(slice.call(inactive));
+          };
+        })(this);
       }
       if ((base1 = this.options).renderer == null) {
         base1.renderer = this.options.inputMap != null ? function(elem, item) {
