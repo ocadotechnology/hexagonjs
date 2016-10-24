@@ -242,5 +242,8 @@
     @version 1.8.1
       @description: Patch the issue introduced in the Notification module introduced in the previous version.
 
+    @version 1.8.2
+      @description: Fix an issue with the autocomplete and autocomplete picker that caused it to break when there are no disabled items to filter.
+
   @h2: Key
   @changelog.key
