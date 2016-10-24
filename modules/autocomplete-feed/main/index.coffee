@@ -8,6 +8,12 @@ trimTrailingSpaces = (term) ->
     newTerm = newTerm.slice(0, newTerm.length - 1)
   newTerm
 
+sortActive = (items) ->
+  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  active = groupedActive.get(true) || []
+  inactive = groupedActive.get(false) || []
+  { active, inactive }
+
 class AutocompleteFeed
   constructor: (options = {}) ->
     self = this
@@ -31,9 +37,8 @@ class AutocompleteFeed
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
       filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
-
-      groupedActive = new hx.Map(hx.groupBy(filtered, (i) -> not i.disabled))
-      [groupedActive.get(true)..., groupedActive.get(false)...]
+      { active, inactive } = sortActive(filtered)
+      [active..., inactive...]
 
     @_ =
       options: resolvedOptions
@@ -79,8 +84,8 @@ class AutocompleteFeed
               filteredItems.indexOf(datum) is -1
             .sort sortItems(_.options.valueLookup)
 
-          groupedActive = new hx.Map(hx.groupBy(unpartitioned, (i) -> not i.disabled))
-          otherResults = [groupedActive.get(true)..., groupedActive.get(false)...]
+          { active, inactive } = sortActive(unpartitioned)
+          otherResults = [active..., inactive...]
 
         cacheItemsThenCallback(filteredItems, otherResults)
 

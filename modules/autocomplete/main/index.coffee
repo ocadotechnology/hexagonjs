@@ -7,6 +7,14 @@ hx.userFacingText({
   }
 })
 
+
+sortActive = (items) ->
+  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  active = groupedActive.get(true) || []
+  inactive = groupedActive.get(false) || []
+  { active, inactive }
+
+
 # Force match is used when closing the dd and options.mustMatch is true
 # It checks if the term is exactly a term in the data and should only
 # be called when the menu is hidden.
@@ -63,9 +71,8 @@ findTerm = (term, forceMatch) ->
             data = data.sort hx.sort.compare
         data
 
-    groupedActive = new hx.Map(hx.groupBy(remainingResults, (i) -> not i.disabled))
-
-    filteredData = [matches..., heading, groupedActive.get(true)..., groupedActive.get(false)...]
+    { active, inactive } = sortActive(remainingResults)
+    filteredData = [matches..., heading, active..., inactive...]
   filteredData
 
 
@@ -215,10 +222,10 @@ class AutoComplete extends hx.EventEmitter
 
       @options.filterOptions = hx.merge {}, _filterOpts, @options.filterOptions
 
-      @options.filter ?= (arr, term) ->
+      @options.filter ?= (arr, term) =>
         filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
-        groupedActive = new hx.Map(hx.groupBy(filtered, (i) -> not i.disabled))
-        [groupedActive.get(true)..., groupedActive.get(false)...]
+        { active, inactive } = sortActive(filtered)
+        [active..., inactive...]
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?
