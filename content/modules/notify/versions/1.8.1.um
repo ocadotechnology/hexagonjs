@@ -1,0 +1,3 @@
+@version 1.8.1
+  @api Notify
+    @bugfix: Fix an issue with the notifications that broke the string-based functionality

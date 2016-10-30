@@ -359,5 +359,18 @@
         Fixed a bug in sticky table headers that prevented nested sticky tables
         being created
 
+    @version 1.8.0
+      @description
+        @p: Added support for lazily loaded trees when building from json
+        @p: Allow HTML content inside notifications
+        @p: Disable the increment/decrement buttons for number pickers
+        @p: This release also includes a selection of bugfixes
+
+    @version 1.8.1
+      @description: Patch the issue introduced in the Notification module introduced in the previous version.
+
+    @version 1.8.2
+      @description: Fix an issue with the autocomplete and autocomplete picker that caused it to break when there are no disabled items to filter.
+
   @h2: Key
   @changelog.key
