@@ -46,64 +46,71 @@
 
   @api Palette
     @class hx-border-default
-      @added: Added border context classes
-
+      @added
+        @description: Added border context classes
       @description: Applies the default color to the border-color of the element.
+
     @class hx-border-positive
-      @added: Added border context classes
-
+      @added
+        @description: Added border context classes
       @description: Applies the positive color to the border-color of the element.
+
     @class hx-border-warning
-      @added: Added border context classes
-
+      @added
+        @description: Added border context classes
       @description: Applies the warning color to the border-color of the element.
+
     @class hx-border-negative
-      @added: Added border context classes
-
+      @added
+        @description: Added border context classes
       @description: Applies the negative color to the border-color of the element.
+
     @class hx-border-info
-      @added: Added border context classes
-
+      @added
+        @description: Added border context classes
       @description: Applies the info color to the border-color of the element.
+
     @class hx-border-compliment
-      @added: Added border context classes
-
+      @added
+        @description: Added border context classes
       @description: Applies the compliment color to the border-color of the element.
-    @class hx-border-contrast
-      @added: Added border context classes
 
+    @class hx-border-contrast
+      @added
+        @description: Added border context classes
       @description: Applies the contrast color to the border-color of the element.
 
     @class hx-border-disabled
-      @added: Added disabled context classes
-
+      @added
+        @description: Added disabled context classes
       @description: Applies the disabled color to the border-color of the element.
 
     @class hx-text-disabled
-      @added: Added disabled context classes
-
+      @added
+        @description: Added disabled context classes
       @description: Applies the disabled color to the text of the element.
 
     @class hx-background-disabled
-      @added: Added disabled context classes
-
+      @added
+        @description: Added disabled context classes
       @description: Applies the disabled color to the background of the element.
+
 
   @theme
     @option disabled-col
       @added
+        @description: Added disabled context classes
 
-        @p: Added disabled context classes
-      @type color
+    @type color
       @description: The disabled color
       @default: #939393
       @includeWithJs true
 
     @option disabled-background-col
       @added
-
-        @p: Added disabled context classes
-      @type color
+        @description: Added disabled context classes
+        
+    @type color
       @description: The disabled background color
       @default: #FAFAFA
       @includeWithJs true

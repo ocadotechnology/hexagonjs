@@ -52,40 +52,52 @@
   @api Palette
 
     @class hx-text-compliment
-      @removed: Use hx-text-complement instead
+      @removed
+        @description: Use hx-text-complement instead
 
     @class hx-text-complement
       @description: Applies the complement color to the text in the element.
 
     @class hx-background-compliment
-      @removed: Use hx-background-complement instead
+      @removed
+        @description: Use hx-background-complement instead
 
     @class hx-background-complement
-      @description: Applies the complementary color to the background of the element. The text color will also be set so that it works well with the background color.
+      @description
+        Applies the complementary color to the background of the element. The
+        text color will also be set so that it works well with the background color.
 
     @class hx-border-action
       @description: Applies the complementary color to the border-color of the element.
 
     @object hx.theme.palette
       @property complimentCol [String]
-        @removed: Use hx.theme.palette.complementCol instead
-      @property complementCol [String] The complementary color used by the current theme
+        @removed
+          @description: Use hx.theme.palette.complementCol instead
+      @property complementCol [String]
+        @description: The complementary color used by the current theme
 
 
     @class hx-text-action
+      @added
+        @description: Added new action context class.
       @description: Applies the action color to the text in the element.
-      @added: Added new action context class.
 
     @class hx-background-action
-      @description: Applies the action color to the background of the element. The text color will also be set so that it works well with the background color.
-      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.
-      @added: Added new action context class.
+      @added
+        @description: Added new action context class.
+      @description
+        Applies the action color to the background of the element. The text color
+        will also be set so that it works well with the background color.
+      @childclass hx-background-text-color
+        @description
+          Applies the text color to a child element of any element with a
+          background class.
 
     @class hx-border-action
+      @added
+        @description: Added new action context class.
       @description: Applies the action color to the border-color of the element.
-      @added: Added new action context class.
-
-
 
     @function hx.palette.context
       @description
@@ -95,7 +107,9 @@
           // adds the 'hx-positive' class to the element, and removes all other context classes
           hx.palette.context('.my-element', 'positive')
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
+        @description
+          The element to add the context class to (or a css selector that selects it)
       @param context [String]
         @description
           The context to apply. May be one of:
@@ -117,8 +131,10 @@
           // gets the context of the element (by looking at the class of the element)
           hx.palette.context('.my-element')
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
-      @returns [String]
+      @param selector [Element/String]
+        @description
+          The element to add the context class to (or a css selector that selects it)
+      @returns String
         @description
           The context of the element. May be one of:
 
@@ -140,7 +156,9 @@
           // adds the 'hx-text-positive' class to the element, and removes all other text context classes
           hx.palette.context('.my-element', 'positive')
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @param selector [Element/String]
+        @description
+          The element to add the context class to (or a css selector that selects it)
       @param context [String]
         @description
           The context to apply. May be one of:
@@ -164,8 +182,10 @@
           // gets the context of the element (by looking at the class of the element)
           hx.palette.textContext('.my-element')
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
-      @returns [String]
+      @param selector [Element/String]
+        @description
+          The element to add the context class to (or a css selector that selects it)
+      @returns String
         @description
           The text context of the element. May be one of:
 
@@ -212,8 +232,10 @@
           // gets the context of the element (by looking at the class of the element)
           hx.palette.backgroundContext('.my-element')
 
-      @param selector [Element/String]: The element to add the context class to (or a css selector that selects it)
-      @returns [String]
+      @param selector [Element/String]
+        @description
+          The element to add the context class to (or a css selector that selects it)
+      @returns String
         @description
           The background context of the element. May be one of:
 

@@ -3,8 +3,6 @@
   @description
     Gives access to the theme's color palette and adds classes for coloring elements with the theme colors.
 
-  @installation
-
   @examples
     @css
       .example {
@@ -35,7 +33,6 @@
       </div>
 
   @api Palette
-    @condensed
     @class hx-text-default
       @description: Applies the default color to the text in the element.
     @class hx-text-positive
@@ -66,18 +63,26 @@
       @description: Applies the contrasting color to the background of the element. The text color will also be set so that it works well with the background color.
 
     @object hx.theme.palette
-      @property defaultCol [String] The default color used by the current theme
-      @property positiveCol [String] The positive color used by the current theme
-      @property negativeCol [String] The negative color used by the current theme
-      @property warningCol [String] The warning color used by the current theme
-      @property infoCol [String] The info color used by the current theme
-      @property complimentCol [String] The complimentary color used by the current theme
-      @property contrastCol [String] The contrasting color used by the current theme
-      @property lightTextCol [String] The light text color used by the current theme
-      @property darkTextCol [String] The dark text color used by the current theme
+      @property defaultCol [String]
+        @description: The default color used by the current theme
+      @property positiveCol [String]
+        @description: The positive color used by the current theme
+      @property negativeCol [String]
+        @description: The negative color used by the current theme
+      @property warningCol [String]
+        @description: The warning color used by the current theme
+      @property infoCol [String]
+        @description: The info color used by the current theme
+      @property complimentCol [String]
+        @description: The complimentary color used by the current theme
+      @property contrastCol [String]
+        @description: The contrasting color used by the current theme
+      @property lightTextCol [String]
+        @description: The light text color used by the current theme
+      @property darkTextCol [String]
+        @description: The dark text color used by the current theme
 
   @theme
-    @condensed
 
     @option default-col
       @type color
@@ -136,7 +141,3 @@
   @seeAlso
 
   @changelog
-
-
-
-

@@ -1,7 +1,8 @@
 @version 1.7.0
   @api Palette
     @function hx.palette.context
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]
@@ -20,7 +21,8 @@
             hx.palette.context('.my-element', 'disabled')
 
     @function hx.palette.context
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]
@@ -40,7 +42,8 @@
             @item: @bold['disabled'] - the element has the 'hx-disabled' class
 
     @function hx.palette.textContext
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]
@@ -61,7 +64,8 @@
             hx.palette.textContext('.my-element', 'disabled')
 
     @function hx.palette.textContext
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]
@@ -82,7 +86,8 @@
             @item: @bold['disabled'] - the element has the 'hx-text-disabled' class
 
     @function hx.palette.backgroundContext
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]
@@ -103,7 +108,8 @@
             hx.palette.backgroundContext('.my-element', 'disabled')
 
     @function hx.palette.backgroundContext
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]
@@ -124,7 +130,8 @@
             @item: @bold['disabled'] - the element has the 'hx-background-disabled' class
 
     @function hx.palette.borderContext
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]
@@ -145,7 +152,8 @@
             hx.palette.borderContext('.my-element', 'disabled')
 
     @function hx.palette.borderContext
-      @updated: Added 'disabled' to the list of context classes
+      @updated
+        @description: Added @code(js)['disabled'] to the list of context classes
         @issue 298
 
       @param selector [Element/String]

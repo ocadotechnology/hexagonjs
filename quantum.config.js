@@ -58,7 +58,9 @@ const versionOptions = {
 
 function pipeline (obj) {
   return Promise.resolve(obj)
-    .then(changelog())
+    .then(changelog({
+      reverseVisibleList: true
+    }))
     .then(version(versionOptions))
     .map((page) => {
       const templateOptions = {
