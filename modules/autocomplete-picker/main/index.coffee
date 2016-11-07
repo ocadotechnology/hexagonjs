@@ -157,6 +157,7 @@ class AutocompletePicker extends hx.EventEmitter
       menu.dropdown.on 'showstart', ->
         input.value('')
         menu.dropdown._.dropdown.prepend(input)
+        renderMenu([loadingItem])
         debouncedPopulate(input.value())
 
       menu.dropdown.on 'showend', ->
