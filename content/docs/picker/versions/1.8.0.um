@@ -1,0 +1,14 @@
+@version 1.8.0
+  @api Picker
+    @prototype hx.Picker
+      @constructor
+        @updated
+          @issue 275
+          @description
+            Added @code(js)[options.fullWidth] for setting whether the picker
+            should be the full width of the container or not
+        @param selector [String/HTMLElement]
+        @param? options [Object]
+          @property fullWidth [Boolean]
+            @description: Whether the picker should be the full width of the container
+            @default: false

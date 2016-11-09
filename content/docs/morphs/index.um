@@ -1,0 +1,5 @@
+@inline ../../templates/sidebar-page.um
+
+@contentSection
+  @module Morphs
+    @inline versions/*.um

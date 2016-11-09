@@ -1,4 +1,0 @@
-@inline ../../../templates/sidebar-page.um
-
-@contentSection
-  @inline ../../../modules/button/index.um

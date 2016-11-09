@@ -1,0 +1,333 @@
+@version 0.9.0
+
+  @description
+    Animate element's styles and attributes.
+
+  @examples
+    @h2: Animation
+
+    The Animation class lets you do a one shot animation on an element. No
+    scheduling is possible with animation - all changes happen in one go. To
+    perform animations one after another, morphs are required.
+
+    @codeblock js
+      // just specifying the end value
+      hx.select('body').animate()
+        .style('background-color', '#000000', 500)
+
+    @html
+      <button id="demo-1" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
+      <button id="demo-1-reset" class="hx-btn hx-contrast"><i class="fa fa-refresh"></i> Reset</button>
+    @js
+      hx.select('#demo-1').on('click', function(){
+        hx.select('body').animate()
+          .style('background-color', '#000000', 500);
+      });
+
+      hx.select('#demo-1-reset').on('click', function() {
+        hx.select('body').style('background-color', '');
+      });
+
+    @codeblock js
+      // specifying a start and end value
+      hx.select('body').animate()
+        .style(
+          'transform',
+          'perspective(1000px) rotateX(0deg) rotateY(0deg)',
+          'perspective(1000px) rotateX(360deg) rotateY(360deg)',
+          1000
+        )
+
+    @html
+      <button id="demo-2" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
+    @js
+      hx.select('#demo-2').on('click', function(){
+        hx.select('body').animate()
+          .style(
+            'transform',
+            'perspective(1000px) rotateX(0deg) rotateY(0deg)',
+            'perspective(1000px) rotateX(360deg) rotateY(360deg)',
+            1500
+          ).on('end', function(){
+            hx.select('body').style('transform', '');
+          })
+      });
+
+
+    @h2: Morphs
+
+    The Morph class lets you chain animations together so that they happen one after another.
+
+    @codeblock js
+      hx.select('body').morph()
+        .then(function(){
+          return hx.select('body').animate().style('background-color', '#ff0000', 500);
+        })
+        .then(function(){
+          return hx.select('body').animate().style('background-color', '#00ff00', 500);
+        })
+        .then(function(){
+          return hx.select('body').animate().style('background-color', '#0000ff', 500);
+        })
+        .then(function(){
+          hx.select('body').style('background-color', '')
+        })
+        .go()
+
+    @html
+      <button id="demo-3" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
+    @js
+      hx.select('#demo-3').on('click', function(){
+        hx.select('body').morph()
+          .then(function(){
+            return hx.select('body').animate().style('background-color', '#ff0000', 500);
+          })
+          .then(function(){
+            return hx.select('body').animate().style('background-color', '#00ff00', 500);
+          })
+          .then(function(){
+            return hx.select('body').animate().style('background-color', '#0000ff', 500);
+          })
+          .then(function(){
+            hx.select('body').style('background-color', '')
+          })
+          .go()
+      });
+
+    This is the same as above - just using some methods on Morph that allow more concise code.
+
+    @codeblock js
+      hx.select('body').morph()
+        .thenStyle('background-color', '#ff0000', 500)
+        .thenStyle('background-color', '#00ff00', 500)
+        .thenStyle('background-color', '#0000ff', 500)
+        .then(function(){ hx.select('body').style('background-color', '') })
+        .go()
+
+    @html
+      <button id="demo-4" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
+    @js
+      hx.select('#demo-4').on('click', function(){
+        hx.select('body').morph()
+        .thenStyle('background-color', '#ff0000', 500)
+        .thenStyle('background-color', '#00ff00', 500)
+        .thenStyle('background-color', '#0000ff', 500)
+        .then(function(){ hx.select('body').style('background-color', '') })
+        .go()
+      });
+
+  @api Animate
+    @function hx.animate
+      @description
+        Constructs a new animation that will be applied to the node specified.
+      @param node [Element]
+      @param? ease [Function]
+        The easing function to use for the animations. See hx.ease for some pre-built easing functions.
+        @param value [Number]: The input value
+        @returns Number: The value after it has been transformed by the easing function
+
+      @returns Animation: The newly constructed Animation object.
+
+    @function hx.morph
+      @description
+        Constructs a new morph that will be applied to the node specified.
+      @param node [Element]
+      @returns Morph: The newly constructed Morph object.
+
+    @function hx.morph.register
+      @description: Registers a named morph action.
+      @param name [String]: The name to register the action under
+      @param action [Function]
+        A function that performs the action
+        @param node [Element]: The node to apply the action to (if it makes sense to apply the action to a node)
+        @param duration [Number]: The length the action should take in milliseconds. The action being defined should respect this value.
+
+    @prototype Animation
+      @extends hx.EventEmitter
+      @description
+        A class for animating the styles and attributes of a Node.
+
+      @method style
+        @description: Animates a style property on the node.
+        @param property [String]: The style property to animate
+        @param endValue [String/Number]: The value to animate the property to
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Animation: This Animation, for chaining.
+
+      @method style
+        @description: Animates a style property on the node.
+        @param property [String]: The style property to animate
+        @param startValue [String/Number]: The value to animate the property from
+        @param endValue [String/Number]: The value to animate the property to
+        @param duration [Number]: The length of the animation in milliseconds.
+        @returns Animation: This Animation, for chaining.
+
+      @method attr
+        @description: Animates an attribute on the node.
+        @param attribute [String]: The attribute to animate
+        @param endValue [String/Number]: The value to animate the attribute to
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Animation: This Animation, for chaining.
+
+      @method attr
+        @description: Animates an attribute on the node.
+        @param attribute [String]: The attribute to animate
+        @param startValue [String/Number]: The value to animate the attribute from
+        @param endValue [String/Number]: The value to animate the attribute to
+        @param duration [Number]: The length of the animation in milliseconds.
+        @returns Animation: This Animation, for chaining.
+
+      @method cancel
+        @description: Cancels this animation.
+        @returns Animation: This Animation, for chaining.
+
+      @event end
+        @description: Emitted when all of the animations specified have ended.
+      @event cancelled
+        @description: Emitted when cancel() is called on this animation.
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @param name [String]: The event type to listen out for
+        @param callback [Function]
+          @description: The function to call when an event occurs.
+          @param data [Any]: The data sent along with the event (if any)
+        @returns Animation: This Animation, for chaining.
+
+
+    @prototype Morph
+      @extends hx.EventEmitter
+      @description
+        A class for chaining animations, asynchronous function calls, and synchronous function calls together.
+
+      @method and
+        @description: Adds an action that should happen concurrently with the previous action
+        @param morph [String]: The named morph to use.
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Animation: This Morph, for chaining.
+
+      @method and
+        @description: Adds an action that should happen concurrently with the previous action
+        @param function [Function]
+          @description:
+            @p: A function that gets called as part of the chain. If this function returns an EventEmitter, the behaviour is to wait for that event emitter to emit an 'end' event before proceeding to the next step.
+            @p: Anything that is returned from this function that has a 'cancel' method will be called.
+          @param? done [Function]
+            @description:
+              @p: If specified in the argument list, this action will only complete when this function is called to complete the action.
+              @p: If this is not specified in the argument list the function will be called synchronously (ie it will block).
+              @p: The later option is useful for cleanup at the end of a morph.
+        @returns Morph: This Morph, for chaining.
+
+      @method then
+        @description: Adds an action that should happen after the previous action
+        @param morph [String]: The named morph to use.
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
+
+      @method then
+        @description: Adds an action that should happen after the previous action
+        @param function [Function]
+          @description:
+            @p: A function that gets called as part of the chain. If this function returns an EventEmitter, the behaviour is to wait for that event emitter to emit an 'end' event before proceeding to the next step.
+            @p: Anything that is returned from this function that has a 'cancel' method will be called.
+          @param? done [Function]
+            @description:
+              @p: If specified in the argument list, this action will only complete when this function is called to complete the action.
+              @p: If this is not specified in the argument list the function will be called synchronously (ie it will block).
+              @p: The later option is useful for cleanup at the end of a morph.
+        @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
+
+      @method andStyle
+        @description: Adds an action that styles the element concurrently with the previous action.
+        @param property [String]: The style property to animate
+        @param endValue [String/Number]: The value to animate the property to
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Morph: This Morph, for chaining.
+
+      @method andStyle
+        @description: Adds an action that styles the element concurrently with the previous action.
+        @param property [String]: The style property to animate
+        @param startValue [String/Number]: The value to animate the property from
+        @param endValue [String/Number]: The value to animate the property to
+        @param duration [Number]: The length of the animation in milliseconds.
+        @returns Morph: This Morph, for chaining.
+
+      @method thenStyle
+        @description: Adds an action that styles the element after the previous action completes.
+        @param property [String]: The style property to animate
+        @param endValue [String/Number]: The value to animate the property to
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
+
+      @method thenStyle
+        @description: Adds an action that styles the element after the previous action completes.
+        @param property [String]: The style property to animate
+        @param startValue [String/Number]: The value to animate the property from
+        @param endValue [String/Number]: The value to animate the property to
+        @param duration [Number]: The length of the animation in milliseconds.
+        @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
+
+      @method andAttr
+        @description: Adds an action that animates an attributes value on the element concurrently with the previous action.
+        @param property [String]: The style property to animate
+        @param endValue [String/Number]: The value to animate the property to
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Morph: This Morph, for chaining.
+
+      @method andAttr
+        @description: Adds an action that animates an attributes value on the element concurrently with the previous action.
+        @param property [String]: The style property to animate
+        @param startValue [String/Number]: The value to animate the property from
+        @param endValue [String/Number]: The value to animate the property to
+        @param duration [Number]: The length of the animation in milliseconds.
+        @returns Morph: This Morph, for chaining.
+
+      @method thenAttr
+        @description: Adds an action that animates an attributes value on the element after the previous action completes.
+        @param property [String]: The style property to animate
+        @param endValue [String/Number]: The value to animate the property to
+        @param? duration [Number]: The length of the animation in milliseconds
+          @default: 200
+        @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
+
+      @method thenAttr
+        @description: Adds an action that animates an attributes value on the element after the previous action completes.
+        @param property [String]: The style property to animate
+        @param startValue [String/Number]: The value to animate the property from
+        @param endValue [String/Number]: The value to animate the property to
+        @param duration [Number]: The length of the animation in milliseconds.
+        @returns Morph: A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
+
+      @method go
+        @description: Starts this morph. This should always be called at the end of the chain of actions.
+        @param? cancelOngoing [Boolean]: Stops any ongoing morphs for the selected node
+          @default: false
+        @returns Morph: This Morph, for chaining.
+
+      @event end
+        @description: Emitted when the entire chain of actions have finished for this morph.
+
+      @event cancelled
+        @description: Emitted when cancel() is called on this animation.
+
+    @prototype Selection
+      @description
+        This module adds some methods to the selection api's prototype.
+
+      @method animate
+        @description: Creates a new animation using the first node in the selection
+        @returns Animation
+
+      @method morph
+        @description: Creates a new morph using the first node in the selection
+        @returns Morph
+
+  @seeAlso

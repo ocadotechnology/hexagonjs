@@ -1,0 +1,15 @@
+
+    @inline ../../../templates/sidebar-page.um
+
+    @topSection
+      @title Sticky Table Headers Changelog
+
+    @contentSection
+      @changelogList
+        @process
+          @dontGroup
+          @inline ../index.um
+        @for v in versionList
+          @version {{v}}
+            @link /docs/{{v}}/sticky-table-headers/
+    

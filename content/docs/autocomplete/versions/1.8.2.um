@@ -1,0 +1,8 @@
+@version 1.8.2
+  @api Autocomplete
+    @prototype hx.AutoComplete
+      @bugfix
+        @issue 343
+        @description
+          Fixed an issue where the filtering failed when there were no 'disabled'
+          items in the list

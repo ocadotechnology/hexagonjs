@@ -1,8 +1,0 @@
-@stylesheet /resources/hexagon/__version__/hexagon.css
-@script /resources/hexagon/__version__/hexagon.js
-@inline ../../../shared/common.um
-@keywords form builder component
-@titlebar Form Builder
-
-@div .dx-content
-  @inline ../../../modules/form-builder/index.um

@@ -1,0 +1,5 @@
+@inline ../../templates/sidebar-page.um
+
+@contentSection
+  @module Fast Click
+    @inline versions/*.um

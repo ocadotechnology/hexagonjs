@@ -1,8 +1,0 @@
-@stylesheet /resources/hexagon/__version__/hexagon.css
-@script /resources/hexagon/__version__/hexagon.js
-@inline ../../../shared/common.um
-@keywords morph section transform util
-@titlebar Morph Section
-
-@div .dx-content
-  @inline ../../../modules/morph-section/index.um

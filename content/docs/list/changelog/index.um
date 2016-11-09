@@ -1,0 +1,15 @@
+
+    @inline ../../../templates/sidebar-page.um
+
+    @topSection
+      @title List Changelog
+
+    @contentSection
+      @changelogList
+        @process
+          @dontGroup
+          @inline ../index.um
+        @for v in versionList
+          @version {{v}}
+            @link /docs/{{v}}/list/
+    

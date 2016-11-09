@@ -1,0 +1,5 @@
+@inline ../../templates/sidebar-page.um
+
+@contentSection
+  @module Layout
+    @inline versions/*.um

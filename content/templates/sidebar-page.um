@@ -72,7 +72,7 @@
 
           @section Modules
             # XXX: change to /docs/<module-name>
-            @page /modules/button: Button
+            @page /docs/button: Button
 
       @content
         @templateContent

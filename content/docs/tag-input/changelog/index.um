@@ -1,0 +1,15 @@
+
+    @inline ../../../templates/sidebar-page.um
+
+    @topSection
+      @title Tag Input Changelog
+
+    @contentSection
+      @changelogList
+        @process
+          @dontGroup
+          @inline ../index.um
+        @for v in versionList
+          @version {{v}}
+            @link /docs/{{v}}/tag-input/
+    

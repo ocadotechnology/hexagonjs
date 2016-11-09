@@ -1,0 +1,6 @@
+@version 1.8.0
+  @api Autocomplete
+    @bugfix
+      @issue 273
+      @description
+        Fixed an issue where object based items were being sorted incorrectly
