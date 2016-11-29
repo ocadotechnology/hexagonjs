@@ -1,51 +1,8 @@
-@inline ../../../shared/common.um
+@inline ../../templates/sidebar-page.um
 
 @titlebar
 
 @topSection
   @title Getting Started
   @description
-    How to install and set up hexagon
-
-@contentSection
-  @siteSidebar
-
-  @topic Getting started
-
-  @section Installing with bower
-    Installing with bower is the easiest way to get started. The bower builds
-    contain all the modules - in order to create more slimline builds see the
-    installing with npm section below.
-
-    @codeblock bash
-      bower install hexagon-js
-
-    The bower_components directory will then contain a hexagon-js directory
-    that contains the library.
-
-
-  @section Installing with npm
-    Hexagon has a builder api for creating custom builds. This is available
-    as an npm module. To install it run the following in your npm project:
-
-    @codeblock bash
-      npm install --save hexagon-js
-
-    To build a custom version of the library some javascript must be written:
-
-    @codeblock js
-      var hexagon = require('hexagon-js')
-
-      hexagon.light.build({
-        // the directory to output the library to
-        dest: 'libs/hexagonjs',
-        // include just the modules you are interested in, or leave as undefined to get all the modules
-        modules: ['plot', 'titlebar', 'base']
-      })
-
-    There are two themes available by default, @code(js)[hexagon.light] and
-    @code(js)[hexagon.dark] with a third, more basic theme available in the
-    form of @code(js)[hexagon.base].
-
-    Save this in a file, then run it with node to generate your build. This api
-    can be easily integrated with gulp or grunt, or can even be run as an npm task.
+    How to set up a basic page with hexagon

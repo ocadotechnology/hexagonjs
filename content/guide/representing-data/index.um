@@ -1,6 +1,0 @@
-@inline ../../../shared/common.um
-@titlebar Representing Data
-
-@div .dx-content
-  @h1: Representing Data
-

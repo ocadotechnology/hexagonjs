@@ -1,8 +1,8 @@
 {
   "name": "hexagon-site",
   "version": "1.8.2",
-  "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
+    "James Smyth <james.smyth@ocado.com>",
     "Charlie Frater <charlie.frater@ocado.com>"
   ],
   "license": "MIT",
@@ -17,14 +17,15 @@
   },
   "private": true,
   "devDependencies": {
+    "font-awesome": "^4.7.0",
     "hexagon-js": "1.8.2",
     "quantum-api": "^2.0.0",
     "quantum-changelog": "^2.0.0",
     "quantum-code-highlight": "^2.0.0",
-    "quantum-js": "^2.0.0",
+    "quantum-docs": "^2.0.0",
     "quantum-html": "^2.0.0",
+    "quantum-js": "^2.0.0",
     "quantum-template": "^2.0.0",
-    "quantum-version": "^2.0.0",
-    "font-awesome": "^4.4.0"
+    "quantum-version": "^2.0.0"
   }
 }

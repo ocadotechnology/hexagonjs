@@ -4,6 +4,7 @@ body {
   background: #f9f9f9;
 }
 
+/*XXX: terrible - replace with non * versions */
 * {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;

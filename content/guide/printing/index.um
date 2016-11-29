@@ -1,4 +1,5 @@
-@inline ../../../shared/common.um
+@inline ../../templates/sidebar-page.um
+
 @titlebar Printing
 
 @div .dx-content

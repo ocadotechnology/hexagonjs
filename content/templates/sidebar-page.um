@@ -2,16 +2,15 @@
 @template
   @contentEntityName templateContent
   @content
+    @if version: @stylesheet [/resources/hexagon/{{version}}/hexagon.css]
     @stylesheet [/resources/hexagon/docs/hexagon.css]
-    @stylesheet [/resources/hexagon/{{version}}/hexagon.css]
-    # @stylesheet [/resources/font-awesome/css/font-awesome.min.css]
-    @stylesheet [http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css]
+    @stylesheet [/resources/font-awesome/css/font-awesome.min.css]
     @stylesheet [/resources/fonts/fonts.css]
     @stylesheet [/resources/docs.css]
     @stylesheet [/resources/docs-new.css]
 
+    @if version: @script [/resources/hexagon/{{version}}/hexagon.js]
     @script [/resources/hexagon/docs/hexagon.js]
-    @script [/resources/hexagon/{{version}}/hexagon.js]
     @script [/resources/titlebar.js]
     @script [/resources/docs.js]
 
@@ -59,8 +58,8 @@
         @navigationMenu
           @section Guides
             @page /guide/getting-started: Getting Started
+            @page /guide/installation: Installation
             @page /guide/core-concepts: Core Concepts
-            @page /guide/general-guidelines: General Guidelines
 
           @section Topics
             @page /guide/representing-data: Representing Data
@@ -71,7 +70,6 @@
             @page /guide/printing: Print Styles
 
           @section Modules
-            # XXX: change to /docs/<module-name>
             @page /docs/button: Button
 
       @content

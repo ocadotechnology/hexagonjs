@@ -4,36 +4,25 @@ const html = require('quantum-html')
 const api = require('quantum-api')
 const version = require('quantum-version')
 const template = require('quantum-template')
-const changelog = require('quantum-changelog')
 const docs = require('quantum-docs')
 const codeHighlight = require('quantum-code-highlight')
 
-//
 const transforms = require('./transforms/transforms')
 
-const timesink = require('timesink')
-
 const htmlOptions = {
-  embedAssets: true, // XXX:  make false
+  embedAssets: false,
   assetPath: '/assets'
 }
 
+//XXX: tidy and move this into quantum (with persistence)
 function cachedTransforms (trans) {
   const store = {}
 
   function cached (transform) {
     return (selection, transforms) => {
-      const stop = timesink.start('trans:'+selection.type())
-      const stopHash = timesink.start('hash')
       const h = JSON.stringify(selection.entity())
-      stopHash()
       if (!(h in store)) {
         store[h] = transform(selection, transforms)
-      }
-      if (store[h] && store[h].then) {
-        store[h].then(stop)
-      } else {
-        stop()
       }
       return store[h]
     }
@@ -49,10 +38,18 @@ function cachedTransforms (trans) {
   return res
 }
 
+const apiOptions = {
+  languages: [
+    api.languages.javascript(),
+    api.languages.css()
+  ],
+  reverseVisibleList: true,
+  issueUrl: (id) => 'https://github.com/ocadotechnology/hexagonjs/issues/' + id
+}
+
 const htmlTransforms = cachedTransforms({
   html: html.transforms(),
-  api: api.transforms(),
-  changelog: changelog.transforms(),
+  api: api.transforms(apiOptions),
   docs: docs.transforms(),
   codeHighlight: codeHighlight.transforms(),
   hxs: transforms
@@ -103,36 +100,24 @@ const versionOptions = {
   ]
 }
 
-function pipeline (obj) {
-  return Promise.resolve(obj)
-    .then(timesink.time('changelog', changelog({
-      languages: [changelog.languages.javascript],
-      reverseVisibleList: true,
-      issueUrl: 'https://github.com/ocadotechnology/hexagonjs/issues/'
-    })))
-    .then(timesink.time('version', version(versionOptions)))
-    .then(timesink.time('template', (pages) => {
-      return Promise.all(pages.map(page => {
-        const templateOptions = {
-          variables: {
-            version: page.meta.version
-          }
-        }
-        return template(templateOptions)(page)
-      }))
-    }))
-    .then(timesink.time('docs', (pages) => Promise.all(pages.map(docs()))))
-    .then(timesink.time('html', (pages) => Promise.all(pages.map(html({ transforms: htmlTransforms })))))
-    .then(timesink.time('html-stringify', (pages) => Promise.all(pages.map(html.stringify(htmlOptions)))))
-    .map(html.htmlRenamer())
-    .then((res) => {
-      // console.log(timesink.report())
-      return res
-    })
+function customizedTemplate (page) {
+  const templateOptions = {
+    variables: {
+      version: page.meta.version
+    }
+  }
+  return template(templateOptions)(page)
 }
 
 module.exports = {
-  pipeline: pipeline,
+  pipeline: [
+    docs(),
+    api(apiOptions),
+    version(versionOptions),
+    customizedTemplate,
+    html({ transforms: htmlTransforms })
+  ],
+  concurrency: 1,
   pages: [
     {
       files: 'content/**/index.um',
@@ -141,6 +126,15 @@ module.exports = {
     }
   ],
   resources: [
+    {
+      files: [
+        'node_modules/font-awesome/css/**',
+        'node_modules/font-awesome/fonts/**'
+      ],
+      base: 'node_modules',
+      dest: 'resources',
+      watch: false
+    },
     {
       files: 'resources/hexagon/**/*',
       base: '.',

@@ -1,15 +1,13 @@
+@inline ../../../templates/sidebar-page.um
 
-    @inline ../../../templates/sidebar-page.um
+@topSection
+  @title Animate Changelog
 
-    @topSection
-      @title Animate Changelog
-
-    @contentSection
-      @changelogList
-        @process
-          @dontGroup
-          @inline ../index.um
-        @for v in versionList
-          @version {{v}}
-            @link /docs/{{v}}/animate/
-    
+@contentSection
+  @changelogList
+    @process
+      @groupByApi false
+      @inline ../index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/animate/
