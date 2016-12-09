@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.8.2
+ Version: 1.9.0
  Theme: hexagon-light
  Modules:
    set
@@ -2909,7 +2909,7 @@ Selection = (function() {
       if (data.listenerNamesRegistered == null) {
         data.listenerNamesRegistered = new hx.Set;
       }
-      if (!data.listenerNamesRegistered.has(name)) {
+      if (name.indexOf('pointer') !== 0 && !data.listenerNamesRegistered.has(name)) {
         handler = function(e) {
           return eventEmitter.emit(name, e);
         };
@@ -4942,6 +4942,24 @@ if (hx.Selection) {
       }
     } else {
       return this.nodes.map(hx.components);
+    }
+  };
+  hx.Selection.prototype.api = function(api) {
+    if (arguments.length > 0) {
+      if (this.singleSelection) {
+        hx.component.register(this.nodes[0], api);
+      } else {
+        hx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection');
+      }
+      return this;
+    } else {
+      if (this.singleSelection) {
+        if (this.nodes[0]) {
+          return hx.component(this.nodes[0]);
+        }
+      } else {
+        return this.nodes.map(hx.component);
+      }
     }
   };
 }
@@ -12557,6 +12575,22 @@ factory = function(type, clasz) {
   return function() {
     return hx.detached(type)["class"](clasz);
   };
+};
+
+hx.div = function(cls) {
+  if (cls) {
+    return hx.detached('div')["class"](cls);
+  } else {
+    return hx.detached('div');
+  }
+};
+
+hx.span = function(cls) {
+  if (cls) {
+    return hx.detached('span')["class"](cls);
+  } else {
+    return hx.detached('span');
+  }
 };
 
 hx.inputGroup = factory('div', 'hx-input-group');
