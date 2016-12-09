@@ -36,3 +36,16 @@ if hx.Selection
       if @nodes[0] then hx.components(@nodes[0])
     else
       @nodes.map(hx.components)
+
+  hx.Selection::api = (api) ->
+    if arguments.length > 0
+      if @singleSelection
+        hx.component.register(@nodes[0], api)
+      else
+        hx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection')
+      this
+    else
+      if @singleSelection
+        if @nodes[0] then hx.component(@nodes[0])
+      else
+        @nodes.map(hx.component)
