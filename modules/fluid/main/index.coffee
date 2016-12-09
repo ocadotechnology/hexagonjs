@@ -1,6 +1,12 @@
 
 factory = (type, clasz) -> -> hx.detached(type).class(clasz)
 
+hx.div = (cls) ->
+  if cls then hx.detached('div').class(cls) else hx.detached('div')
+
+hx.span = (cls) ->
+  if cls then hx.detached('span').class(cls) else hx.detached('span')
+
 hx.inputGroup = factory('div', 'hx-input-group')
 
 hx.notice = factory('div', 'hx-notice')
