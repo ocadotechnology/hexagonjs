@@ -245,5 +245,11 @@
     @version 1.8.2
       @description: Fix an issue with the autocomplete and autocomplete picker that caused it to break when there are no disabled items to filter.
 
+    @version 1.9.0
+      @description
+        @p: Resolved an issue caused by the addition of @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent)[PointerEvent] in Chrome 55+.
+
+        @p: The native @code[PointerEvent] has been disabled in this version because of an incompatibility with the Hexagon pointer events. Native support will be re-introduced in the next major release.
+
   @h2: Key
   @changelog.key
