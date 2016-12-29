@@ -352,7 +352,7 @@ class Selection
 
       data.listenerNamesRegistered ?= new HSet
 
-      if not data.listenerNamesRegistered.has(name)
+      if name.indexOf('pointer') isnt 0 and not data.listenerNamesRegistered.has(name)
         handler = (e) -> eventEmitter.emit(name, e)
         data.listenerNamesRegistered.add(name)
         getMethod(node, 'addEventListener').call(node, name, handler)

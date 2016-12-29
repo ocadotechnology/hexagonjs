@@ -1,4 +1,5 @@
 select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
 
 #XXX [2.0.0]: make these part of the selection api as setter getters (with optional names)
 #             so that this entire api can be removed and absorbed into the selection api
@@ -28,17 +29,32 @@ register = (selector, component) ->
   node.__hx__.components.push component
   return
 
+# XXX: [2.0.0] remove
 select.Selection::component = ->
   if @singleSelection
     if @nodes[0] then component(@nodes[0])
   else
     @nodes.map(component)
 
+# XXX: [2.0.0] remove
 select.Selection::components = ->
   if @singleSelection
     if @nodes[0] then components(@nodes[0])
   else
     @nodes.map(components)
+
+select.Selection::api = (api) ->
+  if arguments.length > 0
+    if @singleSelection
+      register(@nodes[0], api)
+    else
+      utils.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection')
+    return this
+  else
+    if @singleSelection
+      if @nodes[0] then component(@nodes[0])
+    else
+      @nodes.map(component)
 
 component.register = register
 components.clear = clear
