@@ -23,7 +23,7 @@ class View
       updateSet = []
       exitSet = []
 
-      nodes = @rootSelection.selectAll @selector
+      nodes = @rootSelection.shallowSelectAll @selector
         .nodes
 
       if key

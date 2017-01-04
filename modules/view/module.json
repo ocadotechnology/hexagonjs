@@ -1,6 +1,7 @@
 {
   "dependencies": [
-    "selection"
+    "selection",
+    "component"
   ],
   "keywords": [
     "view"
