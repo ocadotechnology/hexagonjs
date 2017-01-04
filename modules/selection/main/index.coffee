@@ -30,18 +30,21 @@ selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, s
 selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
 
 shallowSelectSingle = (selector, node) ->
-  matchFn = getMatches(node)
-  for child in node.children
-    if matchFn.call(child, selector)
-      return child
+  if node.children?.length
+    matchFn = getMatches(node)
+    for child in node.children
+      if matchFn.call(child, selector)
+        return child
 
 shallowSelectAll = (selector, node) ->
-  matchFn = getMatches(node)
-  matchingNodes = []
-  for child in node.children
-    if matchFn.call(child, selector)
-      matchingNodes.push child
-  matchingNodes
+  if node.children?.length
+    matchFn = getMatches(node)
+    matchingNodes = []
+    for child in node.children
+      if matchFn.call(child, selector)
+        matchingNodes.push child
+    matchingNodes
+  else []
 
 
 getHexagonElementDataObject = (element, createIfNotExists = true) ->

@@ -527,6 +527,19 @@ describe "Util", ->
     hx.clone(m).entries().should.eql(m.entries())
 
 
+  it 'vendor: should find the property if it exists', ->
+    obj = {
+      prop: 'something'
+    }
+    hx.vendor(obj, 'prop').should.equal('something')
+
+
+  it 'vendor: should find a prefixed property if it exists', ->
+    obj = {
+      webkitProp: 'webkit'
+    }
+    hx.vendor(obj, 'prop').should.equal('webkit')
+
 
   it 'cleanNode: should remove all whitespace nodes', ->
     container = document.createElement('div')
