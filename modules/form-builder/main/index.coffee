@@ -24,26 +24,21 @@ class Form extends hx.EventEmitter
     entry.append('label').attr("for", id).text(name)
     selection = entry.append(nodeType).attr("id",id)
     extras = f.call(selection) or {}
+    key = extras.key || name
+    # We don't want or need the key in the extras after this point
+    delete extras.key
 
     # Define the default function for enabling/disabling a form property
     extras.disable ?= (sel, disable) ->
       sel.attr('disabled', if disable then 'disabled' else undefined)
 
-    if extras.key?
-      key = extras.key
-      delete extras.key
-      @properties.set key,
-        type: type
-        node: selection.node()
-        extras: extras
-    else
-      @properties.set name,
-        type: type
-        node: selection.node()
-        extras: extras
+    @properties.set key,
+      type: type
+      node: selection.node()
+      extras: extras
 
-    if extras.hidden then @hidden name, extras.hidden
-    if extras.disabled then @disabled name, extras.disabled
+    if extras.hidden then @hidden key, extras.hidden
+    if extras.disabled then @disabled key, extras.disabled
     this
 
   addText: (name, options={}) ->
