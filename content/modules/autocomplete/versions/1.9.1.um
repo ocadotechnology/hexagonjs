@@ -1,0 +1,6 @@
+@version 1.9.1
+  @api Autocomplete Picker
+    @prototype hx.AutocompletePicker
+      @bugfix
+        @description: Resolved an issue where typing enter quickly before debouncing completes allowed values that didn't match the current filter to be entered
+        @issue 346
