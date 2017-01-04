@@ -1077,6 +1077,15 @@ getAdvancedSearchFilter = (cellValueLookup = hx.identity, termLookup = defaultTe
       not hx.defined invalidFilter
     hx.defined validFilters
 
+
+getFiltered = (rows, term, filtered, filterCacheTerm, fn) ->
+  if (term?.length and (filtered is undefined or filterCacheTerm isnt term))
+    rows.filter fn
+  else if filtered is undefined or not term?.length
+    rows.slice()
+  else
+    filtered
+
 objectFeed = (data, options) ->
   options = hx.merge({
     cellValueLookup: hx.identity
@@ -1101,23 +1110,17 @@ objectFeed = (data, options) ->
     headers: (cb) -> cb(data.headers)
     totalCount: (cb) -> cb(data.rows.length)
     rows: (range, cb) ->
-
       if range.sort?.column isnt sortCacheTerm.column
         filtered = undefined
 
       if range.useAdvancedSearch
-        filtered = if range.advancedSearch?.length and (filtered is undefined or filterCacheTerm isnt range.advancedSearch)
-          data.rows.filter((row) -> options.advancedSearch(range.advancedSearch, row))
-        else
-          data.rows.slice()
-
+        advancedSearchFilterFn = (row) -> options.advancedSearch(range.advancedSearch, row)
+        filtered = getFiltered(data.rows, range.advancedSearch, filtered, filterCacheTerm, advancedSearchFilterFn)
         filterCacheTerm = range.advancedSearch
         sorted = undefined
       else
-        filtered =  if range.filter and (filtered is undefined or filterCacheTerm isnt range.filter)
-          data.rows.filter((row) -> options.filter(range.filter, row))
-        else
-          data.rows.slice()
+        filterFn = (row) -> options.filter(range.filter, row)
+        filtered = getFiltered(data.rows, range.filter, filtered, filterCacheTerm, filterFn)
         filterCacheTerm = range.filter
         sorted = undefined
 
