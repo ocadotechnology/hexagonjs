@@ -1,3 +1,5 @@
+defaultContext = [undefined, undefined, 'negative', 'action']
+
 describe 'hx-tabs tests', ->
   getHeaders = (root) ->
     root.selectAll '.hx-tab'
@@ -50,7 +52,7 @@ describe 'hx-tabs tests', ->
 
   setupTabs = ->
 
-    ctx = [undefined, undefined, 'negative', 'action']
+    ctx = defaultContext
     createTabHeaderAndBody = (i) ->
       identifier = "tab-content-#{i}"
       header = hx.detached 'div'
@@ -81,14 +83,14 @@ describe 'hx-tabs tests', ->
     { headerAndBody, rootSel, tabs }
 
   verifyVisible = (headerAndBody, i) ->
-    expectedVisible = headerAndBody.map (_, index)  -> index is i
+    expectedVisible = headerAndBody.map (_, index) -> index is i
 
     actualVisible = headerAndBody.map ({ header }) ->
       header.classed 'hx-tab-active'
 
     actualVisible.should.eql expectedVisible
 
-  testChangeEventFired = (cause, tabToSelect, done) ->
+  setupChangeEventTest = (cause, tabToSelect, done) ->
     { tabs, rootSel } = setupTabs()
 
     tabs.on 'change', (data) ->
@@ -135,7 +137,7 @@ describe 'hx-tabs tests', ->
 
   it 'should correctly emit the change event if changed from the api', (done) ->
     tabToSelect = 1
-    { tabs } = testChangeEventFired 'api', tabToSelect, done
+    { tabs } = setupChangeEventTest 'api', tabToSelect, done
     tabs.select tabToSelect
 
   it 'should correctly select the tab if changed from the api', ->
@@ -146,7 +148,7 @@ describe 'hx-tabs tests', ->
 
   it 'should correctly emit the change event if changed from the dom', (done) ->
     tabToSelect = 1
-    { rootSel } = testChangeEventFired 'user', tabToSelect, done
+    { rootSel } = setupChangeEventTest 'user', tabToSelect, done
     pretendClickTab rootSel, tabToSelect
 
   it 'should correctly select the tab if changed from the dom', ->
@@ -191,7 +193,7 @@ describe 'hx-tabs tests', ->
     tabs = setupTabsUsingStructuredObject()
     headers = tabs.selectAll '.hx-tab'
     actualContext = headers.map (header) -> hx.palette.context header
-    expectedContext = [undefined, undefined, 'negative', 'action']
+    expectedContext = defaultContext
     actualContext.should.eql expectedContext
 
   it 'should correctly update the context of the content border in api mode', ->
