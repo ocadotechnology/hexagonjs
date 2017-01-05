@@ -12,12 +12,6 @@ class InlineEditable extends hx.InlineMorphSection
     if value isnt options.enterValueText
       inputSel.value(value)
     inputSel.node().focus()
-    hx.select(content).select('.hx-confirm').on 'click', 'hx.inline-editable', =>
-      value = hx.select(content).select('.hx-name').value()
-      @textSelection.text(value || options.enterValueText)
-        .classed('hx-inline-editable-no-value', !value.length)
-      @emit('change', { cause: 'user', value: value })
-      this.hide()
 
   constructor: (@selector, opts) ->
     # MorphSection registers the component
@@ -34,9 +28,25 @@ class InlineEditable extends hx.InlineMorphSection
 
     @textSelection = selection.append('a').class('hx-morph-toggle').text(options.value || options.enterValueText)
 
+    input = hx.detached('input').class('hx-name').attr('placeholder', options.enterValueText)
+    confirm = hx.detached('button').class('hx-btn hx-positive hx-confirm').add(hx.detached('i').class('hx-icon hx-icon-check'))
+
+    setValue = =>
+      value = input.value()
+      @textSelection.text(value || options.enterValueText)
+        .classed('hx-inline-editable-no-value', !value.length)
+      @emit('change', { cause: 'user', value: value })
+      @hide()
+
+    confirm.on 'click', 'hx.inline-editable', setValue
+    input.on 'keydown', 'hx.inline-editable', (e) ->
+      if e.key is 'Enter' or e.keyCode is 13 or e.which is 13
+        setValue()
+
     selection.append('div').class('hx-morph-content hx-input-group')
-      .add hx.detached('input').class('hx-name').attr('placeholder', options.enterValueText)
-      .add hx.detached('button').class('hx-btn hx-positive hx-confirm').add(hx.detached('i').class('hx-icon hx-icon-check'))
+      .add input
+      .add confirm
+
 
     super(@selector, enterEditMode(options))
 
