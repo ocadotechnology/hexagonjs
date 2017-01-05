@@ -63,7 +63,7 @@ class InlineMorphSection extends MorphSection
         morphSection.detector = undefined
         morphSection.hide()
     @on 'hide', 'hx.morph-section', (data) ->
-      exitEditMode.call(morphSection, data.toggle, data.content)
+      exitEditMode?.call(morphSection, data.toggle, data.content)
       hx.select(data.toggle).style('display', '')
 
 
