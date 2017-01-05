@@ -28,12 +28,12 @@
             The function to call when the event occurs.
           @param data [Any]: The data sent along with the event.
 
-        @event change
+        @event change [Object]
           @description: Emitted when the value is changed.
 
-          @object data
-            @property api [Boolean]: True if a call to the value method caused this change. False if it was a result of a user change.
-            @property value [String]: The new value.
+          @property api [Boolean]: True if a call to the value method caused this change. False if it was a result of a user change.
+
+          @property value [String]: The new value.
         @returns InlineEditable: This InlineEditable
 
   @seeAlso
