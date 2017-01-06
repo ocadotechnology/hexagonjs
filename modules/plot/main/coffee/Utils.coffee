@@ -2,12 +2,13 @@ doCollisionDetection = (nodes) ->
   distance = 1
   nodes.forEach (node, i) ->
     previousNodes = nodes.slice 0, (i - distance + 1)
-    doesOverlap = previousNodes.find (previousNode, j) ->
+      .map (n, j) -> [n, j]
+    hx.find previousNodes, ([previousNode, j]) ->
       prevBox = previousNode.getBoundingClientRect()
       currBox = node.getBoundingClientRect()
       doesCollide = currBox.left < prevBox.right
       currentDistance = i - j
-      if doesCollide and currentDistance > distance
+      if doesCollide
         distance = currentDistance
       doesCollide
   nodes.forEach (node, i) ->

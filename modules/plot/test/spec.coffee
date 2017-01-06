@@ -10,6 +10,22 @@ describe "plot", ->
       array2 = [{x: 1, y1: 4, y2: 3}, {x: 2, y1: 3, y2: 4}, {x: 3, y1: 5, y2: 5}]
       array3 = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}, {x: 4, y: 2}]
 
+      it 'doCollisionDetection: should hide text that gets in the way of other text', ->
+        widthPx = 200
+        createSuspiciousElement = (i) ->
+          hx.detached 'div'
+            .text i
+            .style 'left', "#{i * widthPx / 2}px"
+            .style 'width', "#{widthPx}px"
+            .style 'position', 'absolute'
+            .node()
+        suspiciousElements = hx.range(4).map createSuspiciousElement
+        suspiciousElementsSel = hx.selectAll suspiciousElements
+        suspiciousElementsSel.text().should.deep.equal ['0', '1', '2', '3']
+        hx._.plot.doCollisionDetection suspiciousElements
+        suspiciousElementsSel.text().should.deep.equal ['0', '', '2', '']
+
+
       it 'dataAverage: should return the average data point in an array', ->
         s.dataAverage(array).should.eql({x: 2, y: 3})
         s.dataAverage(array2).should.eql({x: 2, y1: 4, y2: 4})
