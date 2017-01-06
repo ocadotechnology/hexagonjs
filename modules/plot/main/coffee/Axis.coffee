@@ -1,15 +1,5 @@
 
 # by far the most complicated component of the graphing api. The auto axis scaling makes things really complicated here...
-doCollisionDetection = (nodes) ->
-  nodes.forEach (node, i) ->
-    previousNodes = nodes.slice 0, i
-    doesOverlap = previousNodes.find (previousNode) ->
-      prevBox = previousNode.getBoundingClientRect()
-      currBox = node.getBoundingClientRect()
-      currBox.left < prevBox.right
-    if doesOverlap
-      hx.select(node).text ''
-
 dimension = (axis, options) ->
   state = hx.merge({
     scaleType: 'linear',

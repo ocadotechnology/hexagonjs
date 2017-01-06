@@ -1,3 +1,19 @@
+doCollisionDetection = (nodes) ->
+  distance = 1
+  nodes.forEach (node, i) ->
+    previousNodes = nodes.slice 0, (i - distance + 1)
+    doesOverlap = previousNodes.find (previousNode, j) ->
+      prevBox = previousNode.getBoundingClientRect()
+      currBox = node.getBoundingClientRect()
+      doesCollide = currBox.left < prevBox.right
+      currentDistance = i - j
+      if doesCollide and currentDistance > distance
+        distance = currentDistance
+      doesCollide
+  nodes.forEach (node, i) ->
+    if i % (distance + 1)
+      hx.select node
+        .text ''
 
 # encodes the data into an svg path string
 svgCurve = (data, close) ->
@@ -313,6 +329,7 @@ optionSetterGetter = (name) ->
       @_.options[name]
 
 hx._.plot = {
+  doCollisionDetection: doCollisionDetection
   dataAverage: dataAverage
   maxTriangle: maxTriangle
   LTTBFeather: LTTBFeather
