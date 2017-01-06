@@ -12,18 +12,25 @@ describe "plot", ->
 
       it 'doCollisionDetection: should hide text that gets in the way of other text', ->
         widthPx = 200
+        intendedDistance = 2
         createSuspiciousElement = (i) ->
           hx.detached 'div'
             .text i
-            .style 'left', "#{i * widthPx / 2}px"
+            .style 'left', "#{i * widthPx / intendedDistance}px"
             .style 'width', "#{widthPx}px"
             .style 'position', 'absolute'
             .node()
+
         suspiciousElements = hx.range(4).map createSuspiciousElement
         suspiciousElementsSel = hx.selectAll suspiciousElements
-        suspiciousElementsSel.text().should.deep.equal ['0', '1', '2', '3']
+
+        expectedPrevText = ['0', '1', '2', '3']
+        # Sense check
+        suspiciousElementsSel.text().should.deep.equal expectedPrevText
         hx._.plot.doCollisionDetection suspiciousElements
-        suspiciousElementsSel.text().should.deep.equal ['0', '', '2', '']
+
+        expectedCurrText = expectedPrevText.map (val, i) -> if i % intendedDistance then '' else val
+        suspiciousElementsSel.text().should.deep.equal expectedCurrText
 
 
       it 'dataAverage: should return the average data point in an array', ->
