@@ -2,11 +2,15 @@ doCollisionDetection = (nodes) ->
   reductor = (oldDistance, node, i) ->
     previousNodes = nodes.slice 0, (i - oldDistance + 1)
       .map (n, j) -> [n, j]
-    possibleNewDistance = hx.find previousNodes, ([previousNode, j]) ->
+    tuple = possibleNewDistance = hx.find previousNodes, ([previousNode, j]) ->
       prevBox = previousNode.getBoundingClientRect()
       currBox = node.getBoundingClientRect()
-      i - j if currBox.left < prevBox.right
-    possibleNewDistance or oldDistance
+      currBox.left < prevBox.right
+    if tuple
+      [_, j] = tuple
+      i - j
+    else
+      oldDistance
   distance = nodes.reduce reductor, 1
   nodes.forEach (node, i) ->
     if i % (distance + 1)
