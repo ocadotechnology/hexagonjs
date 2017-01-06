@@ -8,7 +8,7 @@ function createData(a, b, c, type) {
   var offset = 0.1 + Math.random()
   return hx.range(50).map(function (i) {
     return {
-      x: type === 'line' ? i : `REALLYLONGSTRING ${i}`,
+      x: i,
       y: Math.abs(offset + a * Math.sin(i / 10) + b * Math.sin(i / 20) + c * Math.sin(i / 40) + Math.sin(i / 50) + Math.sin(i / 100))
     }
   })
@@ -21,7 +21,7 @@ function createGraph(type) {
         title: 'Time',
         scaleType: type === 'line' ? 'linear' : 'discrete',
         formatter: (x) => {
-          return `Overlapping ${x}`
+          return `${'Overlapping long string'.slice(0, x)} ${x}`
         }
       },
       y: {
