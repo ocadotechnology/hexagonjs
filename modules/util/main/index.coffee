@@ -316,7 +316,7 @@ vendorPrefixes = ["webkit", "ms", "moz", "Moz", "o", "O"]
 hx.vendor = (obj, prop) ->
   if prop of obj then return obj[prop]
   for p in vendorPrefixes
-    if (prefixedProp = p + prop.charAt(0) + prop.slice(1)) of obj
+    if (prefixedProp = p + prop.charAt(0).toUpperCase() + prop.slice(1)) of obj
       return obj[prefixedProp]
 
 hx.identity = (d) -> d
