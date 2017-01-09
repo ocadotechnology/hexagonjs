@@ -387,7 +387,7 @@ class Form extends hx.EventEmitter
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
           else hx.select(node).value(value)
       else
-        if not it.hidden and not it.disabled
+        if not it.hidden
           value = switch it.type
             when 'checkbox' then hx.select(it.node).prop('checked')
             when 'radio' then hx.select(it.node).select('input:checked').value()
