@@ -251,7 +251,7 @@
 
         @p: The native @code[PointerEvent] has been disabled in this version because of an incompatibility with the Hexagon pointer events. Native support will be re-introduced in the next major release.
 
-    @version 1.9.1
+    @version 1.10.0
       @description
         @p: Resolved a host of bugs
 

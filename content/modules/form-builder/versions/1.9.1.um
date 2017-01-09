@@ -1,6 +1,0 @@
-@version 1.9.1
-  @api Form Builder
-    @prototype hx.Form
-      @bugfix
-        @description: Resolved an issue when attempting to add fields that are disabled/hidden as their initial state
-        @issue 359
