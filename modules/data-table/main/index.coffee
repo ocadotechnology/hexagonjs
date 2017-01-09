@@ -623,6 +623,7 @@ class DataTable extends hx.EventEmitter
 
     selection.select('.hx-data-table-filter')
       .classed('hx-data-table-filter-visible', options.filterEnabled and not advancedSearchVisibleAndEnabled)
+      .value(@filter())
 
     @_.advancedSearchToggleButton.value(options.advancedSearchEnabled)
 

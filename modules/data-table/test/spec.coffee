@@ -1227,6 +1227,16 @@ describe 'data-table', ->
           clock.restore()
           done()
 
+      it 'should update the filter input when changing the filter with the api', (done) ->
+        container = hx.detached('div')
+        dt = new hx.DataTable(container.node())
+        feed = hx.dataTable.objectFeed(threeRowsData)
+        dt.feed(feed)
+        input = container.select('.hx-data-table-filter')
+        input.value().should.equal('')
+        dt.filter 'filter-term', ->
+          input.value().should.equal('filter-term')
+          done()
 
 
     describe 'showSearchAboveTable', ->
