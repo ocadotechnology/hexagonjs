@@ -474,8 +474,10 @@ class Axis
               .apply(tick[0])
           .apply(if self.x.showTicks() then scale.ticks(self.x.tickSpacing()) else [])
 
-        if self.x.doCollisionDetection()
-          doCollisionDetection @selectAll('.hx-tick-text-x').filter((x) -> x.text()).nodes
+        if self.x.showTicks() and self.x.doCollisionDetection()
+          nodes = @selectAll('.hx-tick-text-x').filter((x) -> x.text()).nodes
+          if nodes.length
+            doCollisionDetection nodes
 
       axisGroupSelection.select('.hx-axis-scale')
         .view('.hx-axis-view', 'g')
