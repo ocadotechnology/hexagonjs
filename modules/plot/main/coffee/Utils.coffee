@@ -1,3 +1,20 @@
+doCollisionDetection = (nodesRaw) ->
+  nodes = nodesRaw.map (node, index) ->
+    { node, index, box: node.getBoundingClientRect() }
+  reductor = (oldDistance, { index: currentIndex, box: currBox }) ->
+    previousNodes = nodes.slice 0, (currentIndex - oldDistance + 1)
+    tuple = hx.find previousNodes, ({ index: previousIndex, box: prevBox }) ->
+      currBox.left < prevBox.right
+    if tuple
+      { index: previousIndex } = tuple
+      currentIndex - previousIndex
+    else
+      oldDistance
+  distance = nodes.reduce reductor, 1
+  nodes.forEach ({ node, index: currentIndex }) ->
+    if currentIndex % (distance + 1)
+      hx.select node
+        .text ''
 
 # encodes the data into an svg path string
 svgCurve = (data, close) ->
@@ -313,6 +330,7 @@ optionSetterGetter = (name) ->
       @_.options[name]
 
 hx._.plot = {
+  doCollisionDetection: doCollisionDetection
   dataAverage: dataAverage
   maxTriangle: maxTriangle
   LTTBFeather: LTTBFeather
