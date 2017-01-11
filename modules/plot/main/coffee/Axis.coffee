@@ -564,29 +564,21 @@ class Axis
             extent(data, (d) -> d.y)
         ys = maybeys.filter((d) -> d?)
   
-        yymin = hx.min(ys.map((d) -> d[0]))
-        yymax = hx.max(ys.map((d) -> d[1]))
+        {
+          yymin: hx.min(ys.map((d) -> d[0]))
+          yymax: hx.max(ys.map((d) -> d[1]))
+        }
       else
         topSeries = series[series.length-1]
-        if ymin == undefined
-          ymin = 0
-        else
-          ymin = Math.min(ymin, 0)
-        if ymax == undefined
-          ymax = 0
-        else
-          ymax = Math.max(ymax, 0)
-        stackHeights = topSeries.data().map (d) =>
-          console.log topSeries._
+        stackHeights = topSeries.data().map (d) ->
           @getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId+1, yscaledomainmin)
-        console.log stackHeights
         {
           yymin: hx.min stackHeights
           yymax: hx.max stackHeights
         }
       {
-        ymin: if (ymin == undefined or yymin < ymin) then yymin else ymin
-        ymax: if (ymax == undefined or yymax > ymax) then yymax else ymax
+        ymin: Math.min(ymin, yymin)
+        ymax: Math.max(yMax, yymax)
       }
   
     stackGroupReductor = (prev, type) ->
