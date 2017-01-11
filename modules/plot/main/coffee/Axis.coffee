@@ -317,21 +317,20 @@ class Axis
       @yScale.domain(domain)
     else
 
-      # OPTIM: this expensive calculation is not needed if the scales are non auto
-      # XXX: band series?
-
-      ymin = undefined
-      ymax = undefined
-
-      { ymin, ymax } = @calculateYBounds()
+      { yMinMightBeAuto, yMaxMightBeAuto } = { yMaxMightBeAuto: @y.max(), yMinMightBeAuto: @y.min() }
+      { ymin, ymax } = if 'auto' in [yMaxMightBeAuto, yMinMightBeAuto]
+        { ymin, ymax } = @calculateYBounds()
+        yminscaled = if yMinMightBeAuto is 'auto' then scalePad(ymin, ymax - ymin, -@y.scalePaddingMin()) else yMinMightBeAuto
+        ymaxscaled = if yMaxMightBeAuto is 'auto' then scalePad(ymax, ymax - ymin, @y.scalePaddingMax()) else yMaxMightBeAuto
+        { ymin: yminscaled, ymax: ymaxscaled }
+      else
+        { ymin: yMinMightBeAuto, ymax: yMaxMightBeAuto }
 
 
       ymin = if @y.min() is 'auto' then ymin else @y.min()
       ymax = if @y.max() is 'auto' then ymax else @y.max()
 
 
-      if @y.min() is 'auto' then ymin = scalePad(ymin, ymax - ymin, -@y.scalePaddingMin())
-      if @y.max() is 'auto' then ymax = scalePad(ymax, ymax - ymin, @y.scalePaddingMax())
 
       @yScale.domain(ymin, ymax)
 
@@ -538,6 +537,8 @@ class Axis
       Math.max(start, 0)
 
   calculateYBounds: ->
+    # The series must already be tagged before calling this method
+    # XXX: band series?
     allSeries = @series()
     xscaletype = @x.scaleType()
     yscaledomainmin = @yScale.domainMin
