@@ -558,8 +558,8 @@ class Axis
       group: hx.groupBy series, (s) -> if supportsGroup(s) then s.group() else undefined
   
   
-    typeGroupReductor = (type) =>
-      ({ ymin, ymax }, [seriesGroup, series]) =>
+    typeGroupReductor = (type) ->
+      ({ ymin, ymax }, [seriesGroup, series]) ->
         { yymin, yymax } = if seriesGroup == undefined
           maybeys = allSeries.map (s) ->
             data = s.data()
@@ -579,10 +579,10 @@ class Axis
             yymax: hx.max(ys.map((d) -> d[1]))
           }
         else
-          seriesId = series[series.length-1]._.seriesId + 1
           allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
-          stackHeights = allX.map (x) =>
-            @getYStack type, seriesGroup, x, seriesId, yscaledomainmin
+          stackHeights = allX.map (x) ->
+            maybeys = series.map (series) -> series.getY x, xscaletype is 'discrete'
+            hx.sum maybeys.filter hx.identity
           {
             yymin: hx.min stackHeights
             yymax: hx.max stackHeights
