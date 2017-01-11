@@ -570,15 +570,16 @@ class Axis
         }
       else
         topSeries = series[series.length-1]
-        stackHeights = topSeries.data().map (d) ->
-          @getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId+1, yscaledomainmin)
+        allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
+        stackHeights = allX.map (x) =>
+          @getYStack(topSeries._.type, topSeries.group(), x, topSeries._.seriesId+1, yscaledomainmin)
         {
           yymin: hx.min stackHeights
           yymax: hx.max stackHeights
         }
       {
         ymin: Math.min(ymin, yymin)
-        ymax: Math.max(yMax, yymax)
+        ymax: Math.max(ymax, yymax)
       }
   
     stackGroupReductor = (prev, type) ->
