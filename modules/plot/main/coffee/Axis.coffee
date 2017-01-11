@@ -558,39 +558,41 @@ class Axis
       group: hx.groupBy series, (s) -> if supportsGroup(s) then s.group() else undefined
   
   
-    typeGroupReductor = ({ ymin, ymax }, [seriesGroup, series]) =>
-      { yymin, yymax } = if seriesGroup == undefined
-        maybeys = allSeries.map (s) ->
-          data = s.data()
-          if s instanceof StraightLineSeries
-            if not data.dx and not data.dy and data.y
-              [data.y, data.y]
+    typeGroupReductor = (type) =>
+      ({ ymin, ymax }, [seriesGroup, series]) =>
+        { yymin, yymax } = if seriesGroup == undefined
+          maybeys = allSeries.map (s) ->
+            data = s.data()
+            if s instanceof StraightLineSeries
+              if not data.dx and not data.dy and data.y
+                [data.y, data.y]
+              else
+                undefined
+            else if s instanceof BandSeries
+              extent2(data, ((d) -> d.y1), (d) -> d.y2)
             else
-              undefined
-          else if s instanceof BandSeries
-            extent2(data, ((d) -> d.y1), (d) -> d.y2)
-          else
-            extent(data, (d) -> d.y)
-        ys = maybeys.filter((d) -> d?)
+              extent(data, (d) -> d.y)
+          ys = maybeys.filter((d) -> d?)
   
+          {
+            yymin: hx.min(ys.map((d) -> d[0]))
+            yymax: hx.max(ys.map((d) -> d[1]))
+          }
+        else
+          seriesId = series[series.length-1]._.seriesId + 1
+          allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
+          stackHeights = allX.map (x) =>
+            @getYStack type, seriesGroup, x, seriesId, yscaledomainmin
+          {
+            yymin: hx.min stackHeights
+            yymax: hx.max stackHeights
+          }
         {
-          yymin: hx.min(ys.map((d) -> d[0]))
-          yymax: hx.max(ys.map((d) -> d[1]))
+          ymin: Math.min(ymin, yymin)
+          ymax: Math.max(ymax, yymax)
         }
-      else
-        topSeries = series[series.length-1]
-        allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
-        stackHeights = allX.map (x) =>
-          @getYStack(topSeries._.type, topSeries.group(), x, topSeries._.seriesId+1, yscaledomainmin)
-        {
-          yymin: hx.min stackHeights
-          yymax: hx.max stackHeights
-        }
-      {
-        ymin: Math.min(ymin, yymin)
-        ymax: Math.max(ymax, yymax)
-      }
   
-    stackGroupReductor = (prev, type) ->
-      type.group.reduce typeGroupReductor, prev
+    stackGroupReductor = (prev, { type, group }) ->
+      reductor = typeGroupReductor type
+      group.reduce reductor, prev
     stackGroups.reduce stackGroupReductor, initValue
