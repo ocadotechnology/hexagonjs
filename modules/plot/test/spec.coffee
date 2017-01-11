@@ -52,6 +52,30 @@ describe "plot", ->
         axis.tagSeries()
         { ymax } = axis.calculateYBounds()
         ymax.should.eql(10)
+
+      it 'doCollisionDetection: should hide text that gets in the way of other text', ->
+        widthPx = 200
+        intendedDistance = 2
+        createSuspiciousElement = (i) ->
+          hx.detached 'div'
+            .text i
+            .style 'left', "#{i * widthPx / intendedDistance}px"
+            .style 'width', "#{widthPx}px"
+            .style 'position', 'absolute'
+            .node()
+
+        suspiciousElements = hx.range(4).map createSuspiciousElement
+        suspiciousElementsSel = hx.selectAll suspiciousElements
+
+        expectedPrevText = ['0', '1', '2', '3']
+        # Sense check
+        suspiciousElementsSel.text().should.deep.equal expectedPrevText
+        hx._.plot.doCollisionDetection suspiciousElements
+
+        expectedCurrText = expectedPrevText.map (val, i) -> if i % intendedDistance then '' else val
+        suspiciousElementsSel.text().should.deep.equal expectedCurrText
+
+
       it 'dataAverage: should return the average data point in an array', ->
         s.dataAverage(array).should.eql({x: 2, y: 3})
         s.dataAverage(array2).should.eql({x: 2, y1: 4, y2: 4})

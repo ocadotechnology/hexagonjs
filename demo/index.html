@@ -339,9 +339,9 @@
 
       <!-- tabs -->
       <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Tabs</h3>
-          <div id="tabs" class="hx-tabs">
+        <div class="example" class="hx-group hx-vertical">
+          <h3 class="hx-section">Tabs</h3>
+          <div id="tabs" class="hx-section hx-tabs">
             <div class="hx-tab" data-content="tab-content-1">Tab 1</div>
             <div class="hx-tab hx-action" data-content="tab-content-2">Tab 2</div>
             <div class="hx-tab hx-positive" data-content="tab-content-3">Tab 3</div>
@@ -362,7 +362,62 @@
             </div>
           </div>
           <script>
-            new hx.Tabs('#tabs')
+            var tabs = new hx.Tabs('#tabs')
+          </script>
+          <br>
+          <h3 class="hx-section">Fluid Tabs</h3>
+          <div class="hx-section" id="tabs-fluid"></div>
+          <script>
+            function tabsTitleRenderer(node, value) {
+              hx.select(node).text('Tab ' + value)
+            }
+
+            function tabsContentRenderer(node, value) {
+              hx.select(node)
+                .style('padding', '1em')
+                .add(hx.detached('span').text(value.name))
+                .add(hx.label().text(value.town))
+            }
+
+            var tabItems = [
+              {
+                title: 1,
+                context: 'action',
+                content: {
+                  town: 'Wheathampstead',
+                  name: 'Bob'
+                }
+              }, {
+                title: 2,
+                context: 'negative',
+                content: {
+                  town: 'Welwyn',
+                  name: 'Kate'
+                }
+              }, {
+                title: 3,
+                context: 'positive',
+                content: {
+                  town: 'Digswell',
+                  name: 'Ganesh'
+                }
+              }, {
+                title: 4,
+                content: {
+                  town: 'Essendon',
+                  name: 'Lazlo'
+                }
+              }
+            ]
+
+            var tabs = hx.tabs({
+              items: tabItems,
+              titleRenderer: tabsTitleRenderer,
+              contentRenderer: tabsContentRenderer
+            })
+
+            hx.select('#tabs-fluid')
+              .add(tabs)
           </script>
         </div>
       </div>

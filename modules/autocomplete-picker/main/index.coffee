@@ -130,7 +130,6 @@ class AutocompletePicker extends hx.EventEmitter
         menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node())
 
       populateMenu = (term) ->
-        renderMenu([loadingItem])
         feed.filter term, (results, otherResults) ->
           if results.length is 0
             results.push(noResultsItem)
@@ -145,7 +144,9 @@ class AutocompletePicker extends hx.EventEmitter
         menu.hide()
 
       input = hx.detached('input').class('hx-autocomplete-picker-input')
-        .on 'input', (e) -> debouncedPopulate(e.target.value)
+        .on 'input', (e) ->
+            renderMenu([loadingItem])
+            debouncedPopulate(e.target.value)
         .on 'keydown', (e) ->
           if input.value().length
             if (e.which or e.keyCode) is enterKeyCode and menu.cursorPos is -1
@@ -156,6 +157,7 @@ class AutocompletePicker extends hx.EventEmitter
       menu.dropdown.on 'showstart', ->
         input.value('')
         menu.dropdown._.dropdown.prepend(input)
+        renderMenu([loadingItem])
         debouncedPopulate(input.value())
 
       menu.dropdown.on 'showend', ->

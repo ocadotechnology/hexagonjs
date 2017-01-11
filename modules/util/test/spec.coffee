@@ -1,4 +1,5 @@
 describe "Util", ->
+  clockTime = (new Date(2013, 0, 1)).getTime()
 
   it "transpose: inverts a 2D array", ->
     array = [
@@ -84,6 +85,38 @@ describe "Util", ->
     # check the cached branches dont error
     hx.supports('touch').should.equal(hx.supports('touch'))
     hx.supports('date').should.equal(hx.supports('date'))
+
+  it 'identity: should return what it is passed', ->
+    a = {}
+    hx.identity(a).should.equal(a)
+    hx.identity(true).should.equal(true)
+    hx.identity('').should.equal('')
+    should.not.exist(hx.identity(undefined))
+
+  it 'debounce: should prevent a function being called multiple times in quick succession', ->
+    clock = sinon.useFakeTimers(clockTime)
+    fn = chai.spy()
+    debounce = hx.debounce(100, fn)
+    fn.should.not.have.been.called()
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(50)
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(50)
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(101)
+    fn.should.have.been.called()
+
+  it 'debounce: shold pass through arguments', ->
+    clock = sinon.useFakeTimers(clockTime)
+    fn = chai.spy()
+    debounce = hx.debounce(100, fn)
+    fn.should.not.have.been.called()
+    debounce('bob')
+    clock.tick(101)
+    fn.should.have.been.called.with('bob')
 
   it 'deprecatedWarning', ->
     warn = chai.spy.on(console, 'warn')
@@ -526,6 +559,19 @@ describe "Util", ->
     hx.clone(s).entries().should.eql(s.entries())
     hx.clone(m).entries().should.eql(m.entries())
 
+
+  it 'vendor: should find the property if it exists', ->
+    obj = {
+      prop: 'something'
+    }
+    hx.vendor(obj, 'prop').should.equal('something')
+
+
+  it 'vendor: should find a prefixed property if it exists', ->
+    obj = {
+      webkitProp: 'webkit'
+    }
+    hx.vendor(obj, 'prop').should.equal('webkit')
 
 
   it 'cleanNode: should remove all whitespace nodes', ->
