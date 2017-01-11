@@ -93,9 +93,6 @@ class Axis
       @addSeries seriesObj.type, seriesObj.options
 
 
-  supportsGroup = (series) ->
-    series instanceof BarSeries or
-    series instanceof LineSeries
 
   # series: string (which indicates the type of series to create) or a Series object, or nothing for a line series
   # possible types: line, area, area-stacked, bar, bar-stacked, scatter, constant (line)
@@ -326,47 +323,8 @@ class Axis
       ymin = undefined
       ymax = undefined
 
-      types = hx.groupBy(@series(), (d) -> d._.type)
-      stackGroups = types.map (d) ->
-        type: d[0]
-        group: hx.groupBy(d[1], (s) -> if supportsGroup(s) then s.group() else undefined)
+      { ymin, ymax } = calculateYBounds(@series(), @yScale.domainMin, @x.scaleType)
 
-      for type in stackGroups
-        for group in type.group
-          series = group[1]
-          if group[0] == undefined
-
-            ys = for s in @series()
-              data = s.data()
-              if s instanceof StraightLineSeries
-                if not data.dx and not data.dy and data.y
-                  [data.y, data.y]
-                else
-                  undefined
-              else if s instanceof BandSeries
-                extent2(data, ((d) -> d.y1), (d) -> d.y2)
-              else
-                extent(data, (d) -> d.y)
-            ys = ys.filter((d) -> d?)
-
-            yymin = hx.min(ys.map((d) -> d[0]))
-            yymax = hx.max(ys.map((d) -> d[1]))
-            if (ymin == undefined or yymin < ymin) then ymin = yymin
-            if (ymax == undefined or yymax > ymax) then ymax = yymax
-          else
-            topSeries = series[series.length-1]
-            if ymin == undefined
-              ymin = 0
-            else
-              ymin = Math.min(ymin, 0)
-            if ymax == undefined
-              ymax = 0
-            else
-              ymax = Math.max(ymax, 0)
-            for d in topSeries.data()
-              stackHeight = @getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId+1, @yScale.domainMin)
-              if (ymin == undefined or stackHeight < ymin) then ymin = stackHeight
-              if (ymax == undefined or stackHeight > ymax) then ymax = stackHeight
 
       ymin = if @y.min() is 'auto' then ymin else @y.min()
       ymax = if @y.max() is 'auto' then ymax else @y.max()
@@ -564,15 +522,6 @@ class Axis
             xStack += xs
       xStack
     else Math.max(start, 0)
-
-  # gets the height of the stack for a particular type, group and x value (the seriesId is the series that you want to get the baseline for)
   getYStack: (type, group, x, seriesId, start = 0) ->
-    if group
-      yStack = Math.max(@yScale.domainMin, 0)
-      for series, j in @series()
-        if series._.seriesId < seriesId and series.group() == group and series._.type == type
-          ys = series.getY(x, @x.scaleType() is 'discrete')
-          if hx.defined(ys)
-            yStack += ys
-      yStack
-    else Math.max(start, 0)
+    getYStack(type, group, x, seriesId, start, @yScale.domainMin, @series(), @x.scaleType)
+
