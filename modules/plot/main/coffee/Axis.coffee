@@ -545,7 +545,6 @@ class Axis
       Math.max(start, 0)
 
   calculateYBounds: ->
-    # The series must already be tagged before calling this method
     # XXX: band series?
     allSeries = @series()
     xScaleType = @x.scaleType()
