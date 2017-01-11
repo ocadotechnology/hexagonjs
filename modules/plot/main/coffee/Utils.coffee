@@ -2,66 +2,6 @@ supportsGroup = (series) ->
   series instanceof BarSeries or
   series instanceof LineSeries
 
-getYStack = (type, group, x, seriesId, start, yscaledomainmin, allSeries, xscaletype) ->
-  if group
-    yStack = Math.max(yscaledomainmin, 0)
-    maybeys = allSeries.map (series) ->
-      if series._.seriesId < seriesId and series.group() == group and series._.type == type
-        series.getY(x, xscaletype is 'discrete')
-    yStack + hx.sum maybeys.filter hx.identity
-  else
-    Math.max(start, 0)
-
-calculateYBounds = (allSeries, yscaledomainmin, xscaletype) ->
-  initValue = { ymin: 0, ymax: 0 }
-  types = hx.groupBy(allSeries, (d) -> d._.type)
-  stackGroups = types.map ([type, series]) ->
-    type: type
-    group: hx.groupBy series, (s) -> if supportsGroup(s) then s.group() else undefined
-
-
-  typeGroupReductor = ({ ymin, ymax }, [seriesGroup, series]) ->
-    { yymin, yymax } = if seriesGroup == undefined
-      maybeys = allSeries.map (s) ->
-        data = s.data()
-        if s instanceof StraightLineSeries
-          if not data.dx and not data.dy and data.y
-            [data.y, data.y]
-          else
-            undefined
-        else if s instanceof BandSeries
-          extent2(data, ((d) -> d.y1), (d) -> d.y2)
-        else
-          extent(data, (d) -> d.y)
-      ys = maybeys.filter((d) -> d?)
-
-      yymin = hx.min(ys.map((d) -> d[0]))
-      yymax = hx.max(ys.map((d) -> d[1]))
-    else
-      topSeries = series[series.length-1]
-      if ymin == undefined
-        ymin = 0
-      else
-        ymin = Math.min(ymin, 0)
-      if ymax == undefined
-        ymax = 0
-      else
-        ymax = Math.max(ymax, 0)
-      stackHeights = topSeries.data().map (d) ->
-        getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId+1, yscaledomainmin, yscaledomainmin, allSeries, xscaletype)
-      {
-        yymin: hx.min stackHeights
-        yymax: hx.max stackHeights
-      }
-    {
-      ymin: if (ymin == undefined or yymin < ymin) then yymin else ymin
-      ymax: if (ymax == undefined or yymax > ymax) then yymax else ymax
-    }
-
-  stackGroupReductor = (prev, type) ->
-    type.group.reduce typeGroupReductor, prev
-  stackGroups.reduce stackGroupReductor, initValue
-
 
 # encodes the data into an svg path string
 svgCurve = (data, close) ->

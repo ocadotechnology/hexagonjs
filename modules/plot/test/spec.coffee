@@ -10,6 +10,48 @@ describe "plot", ->
       array2 = [{x: 1, y1: 4, y2: 3}, {x: 2, y1: 3, y2: 4}, {x: 3, y1: 5, y2: 5}]
       array3 = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}, {x: 4, y: 2}]
 
+      it 'calculateYBounds: should correctly calculate y bounds when the data is sparse and the graph is stacked', ->
+        axis = new hx.Axis({
+          x: {
+            scaleType: 'discrete'
+          },
+          y: {
+            min: 0
+          },
+          series: [
+            {
+              type: 'bar',
+              options: {
+                title: 'Bob',
+                group: 'g0',
+                fillColor: hx.theme.plot.coldCol,
+                data: [{
+                  x: 'verybig',
+                  y: 10
+                }, {
+                  x: 'alwayspresesnt',
+                  y: 1
+                }]
+              }
+            },
+            {
+              type: 'bar',
+              options: {
+                title: 'Lazlo',
+                fillColor: hx.theme.plot.warmCol,
+                group: 'g0',
+                data: [{
+                  x: 'alwayspresesnt',
+                  y: 2
+                }]
+              }
+            }
+          ]
+  		})
+
+        axis.tagSeries()
+        { ymax } = axis.calculateYBounds()
+        ymax.should.eql(10)
       it 'dataAverage: should return the average data point in an array', ->
         s.dataAverage(array).should.eql({x: 2, y: 3})
         s.dataAverage(array2).should.eql({x: 2, y1: 4, y2: 4})
