@@ -532,14 +532,14 @@ class Axis
 
   getYStack: (type, group, x, seriesId, start = 0) ->
     allSeries = @series()
-    xscaletype = @x.scaleType()
-    yscaledomainmin = @yScale.domainMin
+    xScaleType = @x.scaleType()
+    yScaleDomainMin = @yScale.domainMin
 
     if group
-      yStack = Math.max(yscaledomainmin, 0)
+      yStack = Math.max(yScaleDomainMin, 0)
       maybeys = allSeries.map (series) ->
         if series._.seriesId < seriesId and series.group() == group and series._.type == type
-          series.getY(x, xscaletype is 'discrete')
+          series.getY(x, xScaleType is 'discrete')
       yStack + hx.sum maybeys.filter hx.identity
     else
       Math.max(start, 0)
@@ -548,8 +548,7 @@ class Axis
     # The series must already be tagged before calling this method
     # XXX: band series?
     allSeries = @series()
-    xscaletype = @x.scaleType()
-    yscaledomainmin = @yScale.domainMin
+    xScaleType = @x.scaleType()
 
     initValue = { ymin: 0, ymax: 0 }
     types = hx.groupBy(allSeries, (d) -> d._.type)
@@ -581,7 +580,7 @@ class Axis
         else
           allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
           stackHeights = allX.map (x) ->
-            maybeys = series.map (series) -> series.getY x, xscaletype is 'discrete'
+            maybeys = series.map (series) -> series.getY x, xScaleType is 'discrete'
             hx.sum maybeys.filter hx.identity
           {
             yymin: hx.min stackHeights
