@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.9.0
+ Version: 1.10.0
  Theme: hexagon-light
  Modules:
    set
@@ -20,6 +20,7 @@
    selection
    transition
    interpolate
+   component
    sort
    user-facing-text
    animate
@@ -32,7 +33,6 @@
    modal
    notify
    format
-   component
    morphs
    click-detector
    base
@@ -91,6 +91,7 @@
    time-slider
    tree
 */
+
 
 
 
@@ -514,7 +515,6 @@ body.hx-modal-open > .hx-notification-container {
     width: 100%;
     margin-left: 0;
     left: 0; } }
-
 
 
 .hx-morph-hidden {
@@ -2042,6 +2042,9 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
   .hx-card > .hx-card-section:not(.hx-card-joint) {
     border-bottom: 1px solid transparent; }
 
+.hx-card-section {
+  vertical-align: middle; }
+
 .hx-card-group {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2810,6 +2813,9 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
   .hx-inline-editable .hx-input-group {
     margin: -0.45em 0; }
 
+.hx-inline-editable-no-value {
+  font-style: italic; }
+
 .hx-inline-picker {
   line-height: 2em; }
   .hx-inline-picker .hx-input-group {
@@ -3023,18 +3029,31 @@ img.hx-logo, img.hx-logo:after {
   .hx-sidebar.hx-opened {
     width: 100%; } }
 
+.hx-tabs {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
 .hx-tab {
   display: inline-block;
   padding: 0.5em 1em;
   border-top: solid 3px;
   border-left: solid 1px;
-  border-right: solid 1px; }
+  border-right: solid 1px;
+  margin-right: 3px;
+  position: relative; }
   .hx-tab:hover {
     cursor: pointer; }
 
 .hx-tabs-content {
   margin-top: -1px;
-  border: solid 1px; }
+  border: solid 1px;
+  -webkit-flex: 1 1 100%;
+      -ms-flex: 1 1 100%;
+          flex: 1 1 100%; }
 
 .hx-tab-content-hidden {
   display: none; }

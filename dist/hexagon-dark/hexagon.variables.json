@@ -8,6 +8,7 @@
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "component": {},
   "sort": {},
   "userFacingText": {},
   "animate": {},
@@ -54,7 +55,6 @@
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "format": {},
-  "component": {},
   "morphs": {},
   "clickDetector": {},
   "base": {

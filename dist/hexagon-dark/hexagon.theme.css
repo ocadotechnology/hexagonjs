@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.9.0
+ Version: 1.10.0
  Theme: hexagon-dark
  Modules:
    set
@@ -20,6 +20,7 @@
    selection
    transition
    interpolate
+   component
    sort
    user-facing-text
    animate
@@ -32,7 +33,6 @@
    modal
    notify
    format
-   component
    morphs
    click-detector
    base
@@ -91,6 +91,7 @@
    time-slider
    tree
 */
+
 
 
 
@@ -176,7 +177,6 @@
   color: #00ADA8; }
   .hx-notification-pin-pinned:hover {
     color: #037774; }
-
 
 
 
