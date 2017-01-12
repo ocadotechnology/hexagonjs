@@ -3,7 +3,9 @@
     "component",
     "morph-section",
     "input-group",
-    "icon"
+    "icon",
+    "user-facing-text",
+    "util"
   ],
   "keywords": [
     "inline",
