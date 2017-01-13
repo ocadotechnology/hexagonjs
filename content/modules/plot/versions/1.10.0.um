@@ -1,0 +1,48 @@
+@define doCollisionDetectionOption
+  @property doCollisionDetection [Boolean]
+    @added
+      @description
+        Added an option to enable collision detection to prevent labels overlapping on graphs. By default, this value is true.
+      @issue 353
+    @description
+      An option for enabling collision detection on labels.
+
+      When this is enabled, labels will be prevented from overlapping by dynamically changing the @code[nthTickVisible] property.
+    @default: true
+
+  @define doCollisionDetectionMethod
+    @method doCollisionDetection
+      @added
+        @description
+          Added an option to enable collision detection to prevent labels overlapping on graphs. By default, this value is true.
+        @issue 353
+      @description
+        @p: Gets the doCollisionDetection property
+        @p: Used for enabling collision detecion for labels to prevent them from overlapping
+      @returns Boolean: The doCollisionDetection value.
+
+    @method doCollisionDetection
+      @added
+        @description
+          Added an option to enable collision detection to prevent labels overlapping on graphs. By default, this value is true.
+        @issue 353
+      @description
+        @p: Sets the doCollisionDetection property
+        @p: Used for enabling collision detecion for labels to prevent them from overlapping
+      @param value [Boolean]
+      @returns Axis: This Axis
+
+@version 1.10.0
+  @api Plot
+    @prototype hx.Axis
+      @constructor
+        @param? options [Object]
+          @property x [Object]
+            @doCollisionDetectionOption
+          @property y [Object]
+            @doCollisionDetectionOption
+
+      @property x [Object]
+        @doCollisionDetectionMethod
+      @property y [Object]
+        @doCollisionDetectionMethod

@@ -586,7 +586,7 @@
         @event pagechange [Object]
           @description: Emitted when the page is changed
           @property value [Any]: The selected page number, starting from 1.
-          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+          @property cause [String]: Can be 'user' or 'api', depending on what caused the change. 'api' means a call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
         @event collapsiblerendererchange [Object]
           @description: Emitted when the collapsibleRenderer option is changed

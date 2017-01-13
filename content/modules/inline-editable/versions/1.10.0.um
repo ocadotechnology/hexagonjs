@@ -1,0 +1,43 @@
+@version 1.10.0
+  @api Inline Editable
+    @prototype hx.InlineEditable
+      @enhancement
+        @description: Made the input take focus when the editable is 'opened' and made it possible to press 'enter' to set the value.
+        @issue 351
+      @constructor
+        @param selector [String/HTMLElement]
+        @removed
+          @description: Added the 'options' parameter to the constructor
+          @issue 351
+
+      @constructor
+        @added
+          @description: Added the options parameter to the constructor to allow the 'enter value' text to be set
+          @issue 351
+        @param selector [String/HTMLElement]: A CSS selector that uniquely identifies the element, or an HTMLElement.
+        @param? options [Object]
+          @property enterValueText [String]
+            @description: The text to display when no value has been entered to prompt the user to enter something
+            @default: @code[hx.userFacingText('inlineEditable', 'enterValue')]
+          @property value [String]
+            @description: The initial value of the inline editable. The default is the text in the selection at the point of creation.
+            @default: @code[selection.text()]
+
+      @method on
+        @param name [String]
+        @param callback [Function]
+          @param data [Any]
+
+        @event change [Object]
+          @description: Emitted when the value is changed.
+
+          @property api [Boolean]
+            @removed
+              @description: The api property was always set to false. It has been removed and replaced with the standard 'cause' property
+              @issue 351
+
+          @property cause [String]
+            @description: Can be 'user' or 'api', depending on what caused the change. 'api' means a call to the javascript api caused the change, 'user' means that the change was caused by inputting
+            @added
+              @description: Replaced the broken 'api' property
+              @issue 351
