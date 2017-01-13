@@ -253,7 +253,10 @@
 
     @version 1.10.0
       @description
-        @p: Resolved a host of bugs
+        @p: Resolved some issues with the data table sort/filter.
+        @p: Added automatic label collision detection to graphs to prevent label overlap.
+        @p: Made Inline Editables allow 'empty' values.
+        @p: Fixed a selection of bugs.
 
   @h2: Key
   @changelog.key
