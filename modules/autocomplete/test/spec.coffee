@@ -10,7 +10,6 @@ describe 'autocomplete', ->
     userFacingText('autoComplete','otherResults').should.equal('Other Results')
     userFacingText('autoComplete','pleaseEnterMinCharacters').should.equal('Please enter $minLength or more characters')
 
-
   xit 'should sort items correctly when using objects', ->
     itemsObjects = utils.range(100).map((i) -> { id: i })
 

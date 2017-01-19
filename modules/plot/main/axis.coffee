@@ -1,11 +1,29 @@
+utils = require('modules/util/main/utils')
+format = require('modules/format/main')
+select = require('modules/selection/main')
+HList = require('modules/list/main')
+HSet = require('modules/set/main')
+HMap = require('modules/map/main')
 
-# by far the most complicated component of the graphing api. The auto axis scaling makes things really complicated here...
+LinearScale = require('./scales/linear')
+DiscreteScale = require('./scales/discrete')
+DateScale = require('./scales/date')
+
+Series = require('./series')
+LineSeries = require('./series/line-series')
+BandSeries = require('./series/band-series')
+ScatterSeries = require('./series/scatter-series')
+BarSeries = require('./series/bar-series')
+StraightLineSeries = require('./series/straight-line-series')
+
+graphconfig = require('./config')
+graphutils = require('./utils')
 
 dimension = (axis, options) ->
-  state = hx.merge({
+  state = utils.merge({
     scaleType: 'linear',
     visible: true,
-    formatter: hx.format.si(2)
+    formatter: format.si(2)
     tickRotation: 0
     min: 'auto'
     max: 'auto'
@@ -30,7 +48,7 @@ dimension = (axis, options) ->
       else
         state[name]
 
-  {
+  return {
     scaleType: setterGetter('scaleType'),
     visible: setterGetter('visible'),
     formatter: setterGetter('formatter'),
@@ -53,11 +71,11 @@ dimension = (axis, options) ->
   }
 
 
-class Axis
+module.exports = class Axis
 
   constructor: (options) ->
 
-    opts = hx.merge({
+    opts = utils.merge({
       x: {
         axisTickLabelPosition: 'bottom'
       },
@@ -67,15 +85,16 @@ class Axis
     }, options)
 
     @_ = {
-      series: new hx.List
+      series: new HList
     }
 
-    @x = dimension this, hx.merge({
+    @x = dimension(this, utils.merge({
       axisTickLabelPosition: 'bottom'
-    }, options?.x)
-    @y = dimension this, hx.merge({
+    }, options?.x))
+
+    @y = dimension(this, utils.merge({
       axisTickLabelPosition: 'left'
-    }, options?.y)
+    }, options?.y))
 
     #XXX: move these to the underscore object
 
@@ -92,7 +111,6 @@ class Axis
     options?.series?.forEach (seriesObj) =>
       @addSeries seriesObj.type, seriesObj.options
 
-
   supportsGroup = (series) ->
     series instanceof BarSeries or
     series instanceof LineSeries
@@ -101,7 +119,7 @@ class Axis
   # possible types: line, area, area-stacked, bar, bar-stacked, scatter, constant (line)
   addSeries: (series, options) ->
 
-    if hx.isString(series)
+    if utils.isString(series)
       series = switch series
         when 'line' then new LineSeries(options)
         when 'band' then new BandSeries(options)
@@ -109,7 +127,7 @@ class Axis
         when 'scatter' then new ScatterSeries(options)
         when 'straight-line' then new StraightLineSeries(options)
         else
-          hx.consoleWarning(series + ' is not a valid series type')
+          utils.consoleWarning(series + ' is not a valid series type')
           undefined
       @_.series.add series
       series.axis = this
@@ -124,12 +142,12 @@ class Axis
       series.axis = this
       series
     else
-      hx.consoleWarning(series + ' is not a valid series type')
+      utils.consoleWarning(series + ' is not a valid series type')
       return
 
   series: (series) ->
     if arguments.length > 0
-      @_.series = new hx.List(series)
+      @_.series = new HList(series)
       for s in series
         s.axis = this
       this
@@ -142,10 +160,10 @@ class Axis
       series
 
   setupAxisSvg: (element) ->
-    gridGroup = hx.select(element).append('g').class('hx-axis-grid')
-    xAxisGroup = hx.select(element).append('g').class('hx-x-axis')
+    gridGroup = select(element).append('g').class('hx-axis-grid')
+    xAxisGroup = select(element).append('g').class('hx-x-axis')
     xAxisGroup.append('g').class('hx-axis-scale')
-    yAxisGroup = hx.select(element).append('g').class('hx-y-axis')
+    yAxisGroup = select(element).append('g').class('hx-y-axis')
     yAxisGroup.append('g').class('hx-axis-scale')
 
   scalePad = (value, range, padding) -> value + (range or 1) * padding
@@ -154,11 +172,11 @@ class Axis
 
     groupTypeEntries = (data) ->
 
-      groups = new hx.Map
+      groups = new HMap
       for series in data
         group = if supportsGroup(series) then series.group()
         if not groups.has(group)
-          groups.set(group, new hx.List)
+          groups.set(group, new HList)
         groups.get(group).add(series)
 
       internalGroupId = 0
@@ -189,10 +207,10 @@ class Axis
       internalGroupId
 
     # collect the series by type
-    types = new hx.Map
+    types = new HMap
     for series in @series()
       if not types.has(series._.type)
-        types.set(series._.type, new hx.List)
+        types.set(series._.type, new HList)
       types.get(series._.type).add(series)
 
     for typeEntry in types.entries()
@@ -211,7 +229,7 @@ class Axis
       domain = if @x.discreteLabels()
         @x.discreteLabels()
       else
-        set = new hx.Set
+        set = new HSet
         for series in @series()
           for d in series.data()
             set.add(d.x)
@@ -230,10 +248,10 @@ class Axis
           else
             undefined
         else
-          extent(s.data(), (d) -> d.x)
-      xs = xs.filter(hx.identity)
-      xmin = hx.min(xs.map((d) -> d[0]))
-      xmax = hx.max(xs.map((d) -> d[1]))
+          graphutils.extent(s.data(), (d) -> d.x)
+      xs = xs.filter(utils.identity)
+      xmin = utils.min(xs.map((d) -> d[0]))
+      xmax = utils.max(xs.map((d) -> d[1]))
 
       xmin = if @x.min() is 'auto' then xmin else @x.min()
       xmax = if @x.max() is 'auto' then xmax else @x.max()
@@ -249,15 +267,15 @@ class Axis
     xLabelTickSize = 0
 
     if not @x.visible()
-      hx.select(element).select('.hx-x-axis').remove()
+      select(element).select('.hx-x-axis').remove()
     else
-      axisGroupSelection = hx.select(element).select('.hx-x-axis')
+      axisGroupSelection = select(element).select('.hx-x-axis')
       alphaDeg = @x.tickRotation()
       alpha = alphaDeg / 180 * Math.PI
 
       getXTicks = (scale) =>
         if self.x.ticksAll()
-          set = new hx.Set
+          set = new HSet
           for series in @series()
             for d in series.data()
               set.add(d.x)
@@ -279,10 +297,10 @@ class Axis
                     size =  bbox.height * Math.cos(alpha) + bbox.width * Math.sin(alpha)
                     xLabelTickSize = Math.max(xLabelTickSize, size)
                     if alpha is 0
-                      @attr("transform", "translate(#{-bbox.width / 2},#{labelOffset})")
+                      @attr("transform", "translate(#{-bbox.width / 2},#{graphconfig.labelOffset})")
                       .style("dominant-baseline", "hanging")
                     else
-                      @attr("transform", "translate(0,#{labelOffset}) rotate(#{alphaDeg})")
+                      @attr("transform", "translate(0,#{graphconfig.labelOffset}) rotate(#{alphaDeg})")
                   .apply(tick[0])
               .apply(getXTicks(scale))
           .apply(@xScale)
@@ -293,7 +311,7 @@ class Axis
           .apply(this)
         xLabelTickSize += @xTitleHeight
 
-      xLabelTickSize += labelOffset + axisPadding
+      xLabelTickSize += graphconfig.labelOffset + graphconfig.axisPadding
 
     @xAxisSize = xLabelTickSize
 
@@ -311,7 +329,7 @@ class Axis
       domain = if @yDiscreteLabels
         @yDiscreteLabels
       else
-        set = new hx.Set
+        set = new HSet
         for series in @series()
           for d in series.data()
             set.add(d.y)
@@ -326,10 +344,10 @@ class Axis
       ymin = undefined
       ymax = undefined
 
-      types = hx.groupBy(@series(), (d) -> d._.type)
+      types = utils.groupBy(@series(), (d) -> d._.type)
       stackGroups = types.map (d) ->
         type: d[0]
-        group: hx.groupBy(d[1], (s) -> if supportsGroup(s) then s.group() else undefined)
+        group: utils.groupBy(d[1], (s) -> if supportsGroup(s) then s.group() else undefined)
 
       for type in stackGroups
         for group in type.group
@@ -344,13 +362,13 @@ class Axis
                 else
                   undefined
               else if s instanceof BandSeries
-                extent2(data, ((d) -> d.y1), (d) -> d.y2)
+                graphutils.extent2(data, ((d) -> d.y1), (d) -> d.y2)
               else
-                extent(data, (d) -> d.y)
+                graphutils.extent(data, (d) -> d.y)
             ys = ys.filter((d) -> d?)
 
-            yymin = hx.min(ys.map((d) -> d[0]))
-            yymax = hx.max(ys.map((d) -> d[1]))
+            yymin = utils.min(ys.map((d) -> d[0]))
+            yymax = utils.max(ys.map((d) -> d[1]))
             if (ymin == undefined or yymin < ymin) then ymin = yymin
             if (ymax == undefined or yymax > ymax) then ymax = yymax
           else
@@ -380,9 +398,9 @@ class Axis
     yLabelTickSize = 0
 
     if not @y.visible()
-      hx.select(element).select('.hx-y-axis').remove()
+      select(element).select('.hx-y-axis').remove()
     else
-      axisGroupSelection = hx.select(element).select('.hx-y-axis')
+      axisGroupSelection = select(element).select('.hx-y-axis')
 
       axisGroupSelection.select('.hx-axis-scale')
         .view('.hx-axis-view', 'g')
@@ -391,7 +409,7 @@ class Axis
               .update (tick) ->
                 @view('.hx-tick-text-y', 'text')
                   .update (t) ->
-                    size = @text(self.y.formatter()(t)).attr('x', -labelOffset).width()
+                    size = @text(self.y.formatter()(t)).attr('x', -graphconfig.labelOffset).width()
                     if size > yLabelTickSize then yLabelTickSize = size
                   .apply(tick[0])
               .apply(scale.ticks(self.y.tickSpacing()))
@@ -403,7 +421,7 @@ class Axis
           .apply(this)
         yLabelTickSize += @yTitleHeight
 
-      yLabelTickSize += labelOffset + axisPadding
+      yLabelTickSize += graphconfig.labelOffset + graphconfig.axisPadding
 
     @yAxisSize = yLabelTickSize
 
@@ -427,12 +445,12 @@ class Axis
       when 'discrete' then @yScale.range(height - totalYOffset, 0)
       when 'log' then @yScale.range(height - totalYOffset, 0)
 
-    gridSelection = hx.select(element).select('.hx-axis-grid')
+    gridSelection = select(element).select('.hx-axis-grid')
 
     # render the axis
 
     if not @x.visible()
-      hx.select(element).select('.hx-x-axis').remove()
+      select(element).select('.hx-x-axis').remove()
     else
       if @x.gridLines()
         gridSelection.view('.hx-vertical-grid-line', 'line')
@@ -441,7 +459,7 @@ class Axis
             .attr('y1', self.yScale.rangeMax).attr('y2', self.yScale.rangeMin)
           .apply(@xScale.ticks(self.x.tickSpacing()))
 
-      axisGroupSelection = hx.select(element).select('.hx-x-axis')
+      axisGroupSelection = select(element).select('.hx-x-axis')
 
       yline = @yScale.apply(0)
       if isNaN(yline) or @y.scaleType() is 'discrete'
@@ -480,12 +498,12 @@ class Axis
         axisGroupSelection.view('.hx-axis-title', 'text')
           .update (d) ->
             translateX = (width+totalXOffset)/2
-            translateY = markerY + d.xAxisSize-d.xTitleHeight/2 - axisPadding/2
+            translateY = markerY + d.xAxisSize-d.xTitleHeight/2 - graphconfig.axisPadding/2
             @attr('transform', 'translate(' + translateX + ', ' + translateY + ')').text(self.x.title())
           .apply(this)
 
     if not @y.visible()
-      hx.select(element).select('.hx-y-axis').remove()
+      select(element).select('.hx-y-axis').remove()
     else
       if @y.gridLines()
         gridSelection.view('.hx-horizontal-grid-line', 'line')
@@ -494,7 +512,7 @@ class Axis
             .attr('x1', self.xScale.rangeMax).attr('x2', self.xScale.rangeMin)
           .apply(@yScale.ticks(self.y.tickSpacing()))
 
-      axisGroupSelection = hx.select(element).select('.hx-y-axis')
+      axisGroupSelection = select(element).select('.hx-y-axis')
         #.attr("transform", "translate(" + (xOffset + @yAxisSize) + "," + 0 + ")")
 
 
@@ -523,7 +541,7 @@ class Axis
                   .update (t) -> @attr('x1', -tickSize).attr('x2', 0)
                   .apply(this)
                 @view('.hx-tick-text-y', 'text')
-                  .update (t) -> @attr('x', -labelOffset).text(if (i%self.y.nthTickVisible())==0 then self.y.formatter()(t) else '')
+                  .update (t) -> @attr('x', -graphconfig.labelOffset).text(if (i%self.y.nthTickVisible())==0 then self.y.formatter()(t) else '')
                   .apply(tick[0])
               .apply(if self.y.showTicks() then scale.ticks(self.y.tickSpacing()) else [])
           .apply(@yScale)
@@ -531,7 +549,7 @@ class Axis
       if @y.title()
         axisGroupSelection.view('.hx-axis-title', 'text')
           .update (d) ->
-            translateX = markerX - d.yAxisSize + d.yTitleHeight/2 + axisPadding/2
+            translateX = markerX - d.yAxisSize + d.yTitleHeight/2 + graphconfig.axisPadding/2
             translateY = (height-totalYOffset)/2
             @attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(-90)').text(self.y.title())
           .apply(this)
@@ -540,8 +558,8 @@ class Axis
   updateDataSvg: (fillLayer, sparseLayer) ->
     fill = []
     sparse = []
-    hx.select(fillLayer).view('.hx-series', 'g').update((d, e) -> fill.push(e)).apply(@series())
-    hx.select(sparseLayer).view('.hx-series', 'g').update((d, e) -> sparse.push(e)).apply(@series())
+    select(fillLayer).view('.hx-series', 'g').update((d, e) -> fill.push(e)).apply(@series())
+    select(sparseLayer).view('.hx-series', 'g').update((d, e) -> sparse.push(e)).apply(@series())
 
     for s, i in @series()
       s.updateSvg(fill[i], sparse[i])
@@ -550,7 +568,7 @@ class Axis
   # the graph object may choose to ignore it if one of the other axes offers a better
   # alternative
   getLabelDetails: (x, y) ->
-    labels = hx.flatten @series().map (series) -> series.getLabelDetails(x, y)
+    labels = utils.flatten @series().map (series) -> series.getLabelDetails(x, y)
     labels.filter((d) -> d)
 
   # gets the width of the stack for a particular type, group and x value (the seriesId is the series that you want to get the baseline for)
@@ -560,7 +578,7 @@ class Axis
       for series, j in @series()
         if series._.seriesId < seriesId and series.group() == group and series._.type == type
           xs = series.getX(y)
-          if hx.defined(xs)
+          if utils.defined(xs)
             xStack += xs
       xStack
     else Math.max(start, 0)
@@ -572,7 +590,7 @@ class Axis
       for series, j in @series()
         if series._.seriesId < seriesId and series.group() == group and series._.type == type
           ys = series.getY(x, @x.scaleType() is 'discrete')
-          if hx.defined(ys)
+          if utils.defined(ys)
             yStack += ys
       yStack
     else Math.max(start, 0)

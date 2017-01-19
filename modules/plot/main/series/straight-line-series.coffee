@@ -1,15 +1,19 @@
+Series = require('../series')
+utils = require('modules/util/main/utils')
 
-class StraightLineSeries extends Series
+graphutils = require('../utils')
+
+module.exports = class StraightLineSeries extends Series
 
   constructor: (options) ->
-    super(hx.merge({
-      strokeColor: hx.theme.plot.colors[4],
+    super(utils.merge({
+      strokeColor: theme.plotColor5,
       data: {}
     }, options))
 
     @_.type = 'straight-line'
 
-  strokeColor: optionSetterGetter('strokeColor')
+  strokeColor: graphutils.optionSetterGetter('strokeColor')
 
   legendColor: -> @_.options.strokeColor
 
@@ -19,7 +23,7 @@ class StraightLineSeries extends Series
 
     if data
       self = this
-      hx.select(sparseLayer).view('.hx-series-data', 'line')
+      select(sparseLayer).view('.hx-series-data', 'line')
         .update (d) ->
           @class('hx-series-data hx-series-constant ' + self.class())
           .attr('x1', self.axis.xScale.apply(d[0].x))
@@ -126,4 +130,3 @@ class StraightLineSeries extends Series
       {x: data.x, y: y} for y in [@axis.yScale.domainMin, @axis.yScale.domainMax]
     else if data.y?
       {x: x, y: data.y} for x in [@axis.xScale.domainMin, @axis.xScale.domainMax]
-

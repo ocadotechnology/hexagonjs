@@ -1,4 +1,5 @@
-var path = require('path')
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -32,6 +33,11 @@ module.exports = {
         loader: 'isparta',
         exclude: [/spec.js$/, /node_modules/]
       },
+      // {
+      //   test: /.coffee$/,
+      //   loader: 'coffee',
+      //   exclude: [/node_modules/]
+      // }
       {
         test: /spec.coffee$/,
         loader: 'coffee',
@@ -47,5 +53,17 @@ module.exports = {
   resolve: {
     root: process.cwd(),
     extensions: ['', '.coffee', '.js', '.json']
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      theme: {
+        plotColor1: JSON.stringify("#000000"),
+        plotColor2: JSON.stringify("#000000"),
+        plotColor3: JSON.stringify("#000000"),
+        plotColor4: JSON.stringify("#000000"),
+        plotColor5: JSON.stringify("#000000"),
+        plotColor6: JSON.stringify("#000000")
+      }
+    })
+  ]
 }

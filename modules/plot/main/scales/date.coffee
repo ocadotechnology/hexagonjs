@@ -1,4 +1,6 @@
-class DateScale extends LinearScale
+LinearScale = require('./linear')
+
+module.exports = class DateScale extends LinearScale
   constructor: (@domainMin, @domainMax, @rangeMin, @rangeMax) ->
     super
 
@@ -80,4 +82,3 @@ class DateScale extends LinearScale
     for i in [0..niceCount]
       d = domainStart + i * niceDomainSpacing
       [d, @apply(d)]
-

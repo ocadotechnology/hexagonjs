@@ -46,6 +46,7 @@ describe('HexagonJS Test Suite', () => {
   require('modules/autocomplete-feed/test/spec')
   require('modules/picker/test/spec')
   require('modules/button-group/test/spec')
+  require('modules/plot/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -288,6 +289,21 @@ describe('HexagonJS Test Suite', () => {
     describe('buttonGroup', () => {
       checkProperty('buttonGroup')
       checkProperty('ButtonGroup')
+    })
+
+    describe('plot', () => {
+      checkProperty('Graph')
+      checkProperty('graph')
+      checkProperty('Axis')
+      checkProperty('LineSeries')
+      checkProperty('BarSeries')
+      checkProperty('BandSeries')
+      checkProperty('ScatterSeries')
+      checkProperty('StraightLineSeries')
+      checkProperty('Sparkline')
+      checkProperty('sparkline')
+      checkProperty('PieChart')
+      checkProperty('pieChart')
     })
   })
 })

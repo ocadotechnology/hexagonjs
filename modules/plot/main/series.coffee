@@ -1,5 +1,10 @@
+EventEmitter = require('modules/event-emitter/main')
+labels = require('./labels')
+utils = require('modules/util/main/utils')
 
-class Series extends hx.EventEmitter
+graphutils = require('./utils')
+
+module.exports = class Series extends EventEmitter
 
   defaultLabelValuesExtractor = (series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) ->
     [
@@ -19,11 +24,11 @@ class Series extends hx.EventEmitter
     super
 
     @_ = {
-      options: hx.merge({
+      options: utils.merge({
         title: undefined,
         data: undefined,
         labelsEnabled: true,
-        labelRenderer: hx.plot.label.standard,
+        labelRenderer: labels.standard,
         labelInterpolated: false,
         labelFormatters: {}
         class: ''
@@ -37,12 +42,12 @@ class Series extends hx.EventEmitter
 
     @_.options.data ?= []
 
-  title: optionSetterGetter('title')
-  data: optionSetterGetter('data')
-  labelsEnabled: optionSetterGetter('labelsEnabled')
-  labelRenderer: optionSetterGetter('labelRenderer')
-  labelInterpolated: optionSetterGetter('labelInterpolated')
-  labelValuesExtractor: optionSetterGetter('labelValuesExtractor')
+  title: graphutils.optionSetterGetter('title')
+  data: graphutils.optionSetterGetter('data')
+  labelsEnabled: graphutils.optionSetterGetter('labelsEnabled')
+  labelRenderer: graphutils.optionSetterGetter('labelRenderer')
+  labelInterpolated: graphutils.optionSetterGetter('labelInterpolated')
+  labelValuesExtractor: graphutils.optionSetterGetter('labelValuesExtractor')
   labelFormatter: (name, value) ->
     if arguments.length > 1
       @_.options.labelFormatters[name] = value
@@ -50,22 +55,22 @@ class Series extends hx.EventEmitter
     else
       @_.options.labelFormatters[name]
 
-  class: optionSetterGetter('class')
+  class: graphutils.optionSetterGetter('class')
 
   getX: (y) ->
     data = @data()
-    if hx.isString(y)
-      d = hx.find data, (d) -> d.y==y
-      if hx.defined(d) then d.x else undefined
+    if utils.isString(y)
+      d = utils.find data, (d) -> d.y==y
+      if utils.defined(d) then d.x else undefined
     else
       i = inefficientSearch(data, y, true, (d) -> d.y)
       data[i].x
 
   getY: (x, isDiscrete) ->
     data = @data()
-    if hx.isString(x)
-      d = hx.find data, (d) -> d.x==x
-      if hx.defined(d) then d.y else undefined
+    if utils.isString(x)
+      d = utils.find data, (d) -> d.x==x
+      if utils.defined(d) then d.y else undefined
     else
       i = inefficientSearch(data, x, false, (d) -> d.x)
       if 0 <= i < data.length-1
@@ -90,4 +95,3 @@ class Series extends hx.EventEmitter
 
   legendColor: ->
     # Implemented by the series type - should return a colour to use for the legend
-

@@ -53,5 +53,6 @@ module.exports = window.hx = merge([
   require('./sticky-table-headers/main'),
   require('./autocomplete-feed/main'),
   require('./picker/main'),
-  require('./button-group/main')
+  require('./button-group/main'),
+  require('./plot/main')
 ])

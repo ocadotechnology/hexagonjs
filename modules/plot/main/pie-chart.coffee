@@ -1,6 +1,14 @@
+EventEmitter = require('modules/event-emitter/main')
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+format = require('modules/format/main')
+
+labels = require('./labels')
+graphutils = require('./utils')
+
 # not part of the core graphing api, since polar coordinates are difficult to mix with axes
 
-class PieChart extends hx.EventEmitter
+module.exports = class PieChart extends EventEmitter
 
   defaultLabelValuesExtractor = (segment, ring, pie) ->
     [
@@ -12,29 +20,28 @@ class PieChart extends hx.EventEmitter
     ]
 
   defaultSegmentTextFormatter = (segment, segments) ->
-    if segment.size / hx.sum(segments.map((s) -> s.size)) > 0.05 then segment.size else ''
+    if segment.size / utils.sum(segments.map((s) -> s.size)) > 0.05 then segment.size else ''
 
-  defaultLabelFormatter = hx.format.si(2)
+  defaultLabelFormatter = format.si(2)
 
   constructor: (@selector, options) ->
     super
 
-    hx.select @selector
-      .classed 'hx-pie-chart', true
-      .on 'resize', 'hx.plot', => @render()
-
-    hx.component.register(@selector, this)
+    selection = select(@selector)
+      .classed('hx-pie-chart', true)
+      .on('resize', 'hx.plot', => @render())
+      .api(this)
 
     @_ = {
-      options: hx.merge({
+      options: utils.merge({
         segmentPadding: 0
         innerPadding: 0
         ringPadding: 0.1
         totalAngle: Math.PI * 2
         startAngle: 0
-        fillColor: hx.theme.plot.colors[1]
+        fillColor: theme.plotColor1
         labelsEnabled: true
-        labelRenderer: hx.plot.label.standard
+        labelRenderer: labels.standard
         labelValuesExtractor: defaultLabelValuesExtractor
         labelFormatter: defaultLabelFormatter
         segmentTextEnabled: false
@@ -45,32 +52,32 @@ class PieChart extends hx.EventEmitter
     }
 
 
-  labelsEnabled: optionSetterGetter('labelsEnabled')
-  legendEnabled: optionSetterGetter('legendEnabled')
-  legendLocation: optionSetterGetter('legendLocation')
-  fillColor: optionSetterGetter('fillColor')
-  segmentTextEnabled: optionSetterGetter('segmentTextEnabled')
-  segmentTextFormatter: optionSetterGetter('segmentTextFormatter')
-  labelValuesExtractor: optionSetterGetter('labelValuesExtractor')
-  labelFormatter: optionSetterGetter('labelFormatter')
-  labelRenderer: optionSetterGetter('labelRenderer')
+  labelsEnabled: graphutils.optionSetterGetter('labelsEnabled')
+  legendEnabled: graphutils.optionSetterGetter('legendEnabled')
+  legendLocation: graphutils.optionSetterGetter('legendLocation')
+  fillColor: graphutils.optionSetterGetter('fillColor')
+  segmentTextEnabled: graphutils.optionSetterGetter('segmentTextEnabled')
+  segmentTextFormatter: graphutils.optionSetterGetter('segmentTextFormatter')
+  labelValuesExtractor: graphutils.optionSetterGetter('labelValuesExtractor')
+  labelFormatter: graphutils.optionSetterGetter('labelFormatter')
+  labelRenderer: graphutils.optionSetterGetter('labelRenderer')
 
-  segmentPadding: optionSetterGetter('segmentPadding')
-  innerPadding: optionSetterGetter('innerPadding')
-  ringPadding: optionSetterGetter('ringPadding')
-  totalAngle: optionSetterGetter('totalAngle')
-  startAngle: optionSetterGetter('startAngle')
+  segmentPadding: graphutils.optionSetterGetter('segmentPadding')
+  innerPadding: graphutils.optionSetterGetter('innerPadding')
+  ringPadding: graphutils.optionSetterGetter('ringPadding')
+  totalAngle: graphutils.optionSetterGetter('totalAngle')
+  startAngle: graphutils.optionSetterGetter('startAngle')
 
-  data: optionSetterGetter('data')
+  data: graphutils.optionSetterGetter('data')
 
   calculateTotal = (segments) ->
     allZero = false
-    preTotal = hx.sum(segments.map((x) -> x.size))
+    preTotal = utils.sum(segments.map((x) -> x.size))
     total = if preTotal is 0
       allZero = true
       segments.length
     else
-      hx.sum(segments.map((x) -> getSegmentSize(x, preTotal)))
+      utils.sum(segments.map((x) -> getSegmentSize(x, preTotal)))
     {
       total: total,
       allZero: allZero
@@ -83,7 +90,7 @@ class PieChart extends hx.EventEmitter
 
   render: ->
     self = this
-    selection = hx.select(@selector)
+    selection = select(@selector)
     width = selection.width()
     height = selection.height()
     r = Math.min(width, height) / 2
@@ -103,9 +110,9 @@ class PieChart extends hx.EventEmitter
       when totalAngle is P and startAngle % (P / 2) is 0
         switch
           when startAngle is 0 or startAngle % (2 * P) is 0 or startAngle % P is 0
-            r = hx.clamp(0, height / 2,r * 2)
+            r = utils.clamp(0, height / 2,r * 2)
           when startAngle % (P * (3 / 2)) is 0 or startAngle % (P / 2) is 0
-            r = hx.clamp(0, width / 2,r * 2)
+            r = utils.clamp(0, width / 2,r * 2)
         switch
           when startAngle is 0 or startAngle % (2 * P) is 0
             diffX =  - r / 2
@@ -280,7 +287,7 @@ class PieChart extends hx.EventEmitter
       data = @data()
       if not Array.isArray(data)
         data = [data]
-      populateLegendSeries(legendContainer, hx.flatten(data.map((d) -> d.segments)))
+      populateLegendSeries(legendContainer, utils.flatten(data.map((d) -> d.segments)))
 
       switch @legendLocation()
         when 'top-left'
@@ -302,7 +309,7 @@ class PieChart extends hx.EventEmitter
     if not Array.isArray(data)
       data = [data]
 
-    selection = hx.select(pie.selector)
+    selection = select(pie.selector)
     width = selection.width()
     height = selection.height()
     r = pie.circle.r
@@ -321,7 +328,7 @@ class PieChart extends hx.EventEmitter
       return
 
     # find out which ring we are in
-    whichRing = hx.clamp(0, data.length - 1, Math.floor((r + pie.ringPadding() * ringSize / 2 - innerRadius) / ringSize))
+    whichRing = utils.clamp(0, data.length - 1, Math.floor((r + pie.ringPadding() * ringSize / 2 - innerRadius) / ringSize))
     ring = data[whichRing]
 
     # find out which segment we are in
@@ -371,14 +378,14 @@ class PieChart extends hx.EventEmitter
 
 
   clearLabels = () ->
-    hx.select('body')
+    select('body')
       .select('.hx-plot-label-container')
       .clear()
 
   updateLabels = (pie, x, y) ->
 
     updateLabel = (data, element) ->
-      hx.select(element)
+      select(element)
         .style('left', Math.round(window.pageXOffset + pie.svgTarget.box().left + data.x) + 'px')
         .style('top', Math.round(window.pageYOffset + pie.svgTarget.box().top + data.y) + 'px')
 
@@ -386,10 +393,10 @@ class PieChart extends hx.EventEmitter
 
     bestMeta = getClosestMeta(pie, x, y)
 
-    if hx.select('body').select('.hx-plot-label-container').empty()
-      hx.select('body').append('div').class('hx-plot-label-container')
+    if select('body').select('.hx-plot-label-container').empty()
+      select('body').append('div').class('hx-plot-label-container')
 
-    hx.select('body')
+    select('body')
       .select('.hx-plot-label-container')
       .view('.hx-plot-label', 'div')
         .update(updateLabel)

@@ -1,5 +1,5 @@
 
-class LinearScale
+module.exports = class LinearScale
 
   constructor: (@domainMin=0, @domainMax=10, @rangeMin=0, @rangeMax=10) ->
     den = (@domainMax - @domainMin)

@@ -1,19 +1,25 @@
+Series = require('../series')
+select = require('modules/selection/main')
+color = require('modules/color/main')
+utils = require('modules/util/main/utils')
+
+graphutils = require('../utils')
 
 updatePath = (series, element, _class, data, type, update) ->
-  hx.select(element).view('.hx-series-data', 'g')
+  select(element).view('.hx-series-data', 'g')
     .update (d) ->
       @class('hx-series-data hx-series-line ' + series.class() )
       .view(_class, type).update(update).apply(d)
     .apply(data)
 
-class LineSeries extends Series
+module.exports = class LineSeries extends Series
 
   scale = (data, axis) -> {x: axis.xScale.apply(d.x), y: axis.yScale.apply(d.y)} for d in data
 
   constructor: (options) ->
-    super(hx.merge({
+    super(utils.merge({
       strokeEnabled: true,
-      strokeColor: hx.theme.plot.colors[0],
+      strokeColor: theme.plotColor1,
       fillEnabled: false,
       fillColor: undefined,
       markersEnabled: false,
@@ -25,15 +31,15 @@ class LineSeries extends Series
 
     @_.type = 'line'
 
-  strokeEnabled: optionSetterGetter('strokeEnabled')
-  strokeColor: optionSetterGetter('strokeColor')
-  fillEnabled: optionSetterGetter('fillEnabled')
-  fillColor: optionSetterGetter('fillColor')
-  markersEnabled: optionSetterGetter('markersEnabled')
-  markerRadius: optionSetterGetter('markerRadius')
-  markerFillColor: optionSetterGetter('markerFillColor')
-  sampleThreshold: optionSetterGetter('sampleThreshold')
-  group: optionSetterGetter('group')
+  strokeEnabled: graphutils.optionSetterGetter('strokeEnabled')
+  strokeColor: graphutils.optionSetterGetter('strokeColor')
+  fillEnabled: graphutils.optionSetterGetter('fillEnabled')
+  fillColor: graphutils.optionSetterGetter('fillColor')
+  markersEnabled: graphutils.optionSetterGetter('markersEnabled')
+  markerRadius: graphutils.optionSetterGetter('markerRadius')
+  markerFillColor: graphutils.optionSetterGetter('markerFillColor')
+  sampleThreshold: graphutils.optionSetterGetter('sampleThreshold')
+  group: graphutils.optionSetterGetter('group')
 
   legendColor: -> @_.options.strokeColor
 
@@ -42,7 +48,7 @@ class LineSeries extends Series
     self = this
     axis = @axis
 
-    featheredData = splitAndFeather(@data(), @sampleThreshold(), (d) -> d.y != undefined)
+    featheredData = graphutils.splitAndFeather(@data(), @sampleThreshold(), (d) -> d.y != undefined)
     @_.featheredData = featheredData
 
     applyStack = (dataToStack, calculateBaseline) ->
@@ -55,12 +61,12 @@ class LineSeries extends Series
         gradientCols = self.fillColor() or self.strokeColor().map (d) ->
           {
             value: d.value
-            color: hx.color(d.color).alpha(0.1).toString('rgba')
+            color: color(d.color).alpha(0.1).toString('rgba')
           }
-        gradientId = createLinearGradient(fillLayer, gradientCols, self)
+        gradientId = graphutils.createLinearGradient(fillLayer, gradientCols, self)
         fillCol = 'url(#' + gradientId + ')'
       else
-        fillCol = self.fillColor() or hx.color(self.strokeColor()).alpha(0.1).toString()
+        fillCol = self.fillColor() or color(self.strokeColor()).alpha(0.1).toString()
 
       fillToY = Math.max(Math.min(@axis.yScale.domainMax, 0), @axis.yScale.domainMin)
 
@@ -68,7 +74,7 @@ class LineSeries extends Series
         for data in featheredData
           applyStack(data).concat(applyStack(data.slice(0).reverse(), true))
 
-      areas = (svgCurve(scale(data, @axis), true) for data in fillPreparedData)
+      areas = (graphutils.svgCurve(scale(data, @axis), true) for data in fillPreparedData)
 
       updatePath this, fillLayer, '.hx-series-line-fill', areas, 'path', (d) ->
         @attr('d', d)
@@ -76,12 +82,12 @@ class LineSeries extends Series
 
     if @strokeEnabled()
       if @axis.y.scaleType() != 'discrete'
-        curves = (svgCurve(scale(applyStack(data), @axis)) for data in featheredData)
+        curves = (graphutils.svgCurve(scale(applyStack(data), @axis)) for data in featheredData)
       else
-        curves = (svgCurve(scale(data, @axis)) for data in featheredData)
+        curves = (graphutils.svgCurve(scale(data, @axis)) for data in featheredData)
 
       if Array.isArray(this.strokeColor())
-        gradientId = createLinearGradient(sparseLayer, this.strokeColor(), self)
+        gradientId = graphutils.createLinearGradient(sparseLayer, this.strokeColor(), self)
         strokeCol = 'url(#' + gradientId + ')'
       else
         strokeCol = self.strokeColor()
@@ -92,9 +98,9 @@ class LineSeries extends Series
 
     if @markersEnabled()
       preparedData = if @axis.y.scaleType() != 'discrete'
-        applyStack(hx.flatten(featheredData))
+        applyStack(utils.flatten(featheredData))
       else
-        hx.flatten(featheredData)
+        utils.flatten(featheredData)
 
       updatePath this, sparseLayer, '.hx-series-line-markers', scale(preparedData, @axis), 'circle', (d) ->
         @attr('cx', d.x)
@@ -111,8 +117,8 @@ class LineSeries extends Series
       }
 
   getLabelDetails: (x, y) ->
-    if point = createLabelPoint(this, x, y, lineSeriesDataInterpolator)
+    if point = graphutils.createLabelPoint(this, x, y, lineSeriesDataInterpolator)
       [
-        makeLabelDetails(this, point, (d) => @axis.getYStack(@_.type, @group(), d.x, @_.seriesId) + d.y)
+        graphutils.makeLabelDetails(this, point, (d) => @axis.getYStack(@_.type, @group(), d.x, @_.seriesId) + d.y)
       ]
     else []

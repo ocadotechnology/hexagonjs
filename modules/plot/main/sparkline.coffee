@@ -1,49 +1,55 @@
+Graph = require('./graph')
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
 
-class Sparkline
+graphutils = require('./utils')
+
+module.exports = class Sparkline
 
   constructor: (selector, options) ->
-    opts = hx.merge.defined({
-      strokeColor: hx.theme.plot.colors[0],
+    opts = utils.merge.defined({
+      strokeColor: theme.plotColor1,
       data: [],
       type: 'line',
       min: undefined
       max: undefined
-      labelRenderer: (element, obj) -> hx.select(element).text(obj.y + ' (' + obj.x + ')')
+      labelRenderer: (element, obj) -> select(element).text(obj.y + ' (' + obj.x + ')')
       redrawOnResize: true
     }, options)
 
     innerLabelRenderer = (element, meta) ->
-      marker = hx.detached('div').class('hx-plot-label-marker').style('background', meta.color)
+      marker = select.detached('div').class('hx-plot-label-marker').style('background', meta.color)
 
       xValue = meta.values[0]
       yValue = meta.values[1]
       midX = (meta.bounding.x1 + meta.bounding.x2) / 2
       midY = (meta.bounding.y1 + meta.bounding.y2) / 2
 
-      labelNode = hx.detached('div').node()
+      labelNode = select.detached('div').node()
 
       opts.labelRenderer(labelNode, {
         x: xValue.value,
         y: yValue.value
       })
 
-      details = hx.detached('div').class('hx-plot-label-details-basic')
+      details = select.detached('div').class('hx-plot-label-details-basic')
         .classed('hx-plot-label-details-left', meta.x >= midX)
         .classed('hx-plot-label-details-bottom', meta.y >= midY)
-        .add(hx.detached('span').class('hx-plot-label-sparkline-x').add(labelNode))
+        .add(select.detached('span').class('hx-plot-label-sparkline-x').add(labelNode))
 
-      hx.select(element)
+      select(element)
         .clear()
         .add(marker)
         .add(details)
 
-    hx.components.clear(selector)
-    hx.component.register(selector, this)
+    select(selector)
+      .classed('hx-sparkline', true)
+      .api(this)
 
-    graph = new hx.Graph(selector, { redrawOnResize: opts.redrawOnResize })
+    graph = new Graph(selector, { redrawOnResize: opts.redrawOnResize })
 
     if opts.type isnt 'bar' and opts.type isnt 'line'
-      hx.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"')
+      utils.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"')
       @render = -> graph.render()
       return
 
@@ -74,13 +80,13 @@ class Sparkline
       series: series
     }
 
-  data: optionSetterGetter('data')
-  fillColor: optionSetterGetter('fillColor')
-  strokeColor: optionSetterGetter('strokeColor')
-  labelRenderer: optionSetterGetter('labelRenderer')
+  data: graphutils.optionSetterGetter('data')
+  fillColor: graphutils.optionSetterGetter('fillColor')
+  strokeColor: graphutils.optionSetterGetter('strokeColor')
+  labelRenderer: graphutils.optionSetterGetter('labelRenderer')
   redrawOnResize: (value) ->
     @_.graph.redrawOnResize(value)
-    optionSetterGetter('redrawOnResize').apply(this, arguments)
+    graphutils.optionSetterGetter('redrawOnResize').apply(this, arguments)
 
   render: ->
     self = this

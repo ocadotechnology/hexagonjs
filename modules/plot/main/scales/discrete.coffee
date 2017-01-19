@@ -1,5 +1,5 @@
 
-class DiscreteScale
+module.exports = class DiscreteScale
 
   constructor: (@bandPadding=0.1) ->
     @domainCategories = []

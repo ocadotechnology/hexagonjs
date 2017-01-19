@@ -1,3 +1,7 @@
+select = require('modules/selection/main')
+color = require('modules/color/main')
+utils = require('modules/util/main/utils')
+
 
 # encodes the data into an svg path string
 svgCurve = (data, close) ->
@@ -34,7 +38,7 @@ arcCurve = (x, y, innerRadius, outerRadius, startRadians, endRadians, padding, d
       else
         endRadians - (radpad / 2) - ((i / max) * r)
 
-      theta = hx.clamp(startRadians, endRadians, theta)
+      theta = utils.clamp(startRadians, endRadians, theta)
       points.push {
         x: x + radius * Math.cos(theta)
         y: y + radius * Math.sin(theta)
@@ -62,8 +66,8 @@ extent = (data, f) ->
     min = f(data[0])
     max = f(data[0])
     for d in data
-      min = hx.min([min, f(d)])
-      max = hx.max([max, f(d)])
+      min = utils.min([min, f(d)])
+      max = utils.max([max, f(d)])
     [min, max]
   else
     undefined
@@ -73,8 +77,8 @@ extent2 = (data, f, g) ->
     min = f(data[0])
     max = f(data[0])
     for d in data
-      min = hx.min([min, f(d), g(d)])
-      max = hx.max([max, f(d), g(d)])
+      min = utils.min([min, f(d), g(d)])
+      max = utils.max([max, f(d), g(d)])
     [min, max]
   else
     undefined
@@ -243,16 +247,15 @@ makeLabelDetails = (series, point, yAccessor, xProperty='x', yProperty='y') ->
     values: series.labelValuesExtractor()(series, point, undefined, yAccessor, xProperty, yProperty)
   }
 
-
 boundLabel = (label, graph) ->
   label.bounding = graph.plotArea
   label
 
 createLinearGradient = (parent, values, series) ->
-  gradientId = hx.randomId()
+  gradientId = utils.randomId()
 
-  hx.select(parent).select('.hx-linear-gradient').remove()
-  linearGradient = hx.select(parent).append('linearGradient')
+  select(parent).select('.hx-linear-gradient').remove()
+  linearGradient = select(parent).append('linearGradient')
     .attr('class', 'hx-linear-gradient')
     .attr('id', gradientId)
     .attr('gradientUnits', "userSpaceOnUse")
@@ -264,8 +267,8 @@ createLinearGradient = (parent, values, series) ->
   values.forEach (value) ->
     linearGradient.append('stop')
       .attr('offset', ((value.yValue - series.axis.yScale.domainMin) / (series.axis.yScale.domainMax - series.axis.yScale.domainMin) * 100) + '%')
-      .attr('stop-color', hx.color(value.color).alpha(1).toString())
-      .attr('stop-opacity', hx.color(value.color).alpha())
+      .attr('stop-color', color(value.color).alpha(1).toString())
+      .attr('stop-opacity', color(value.color).alpha())
 
   gradientId
 
@@ -282,12 +285,12 @@ populateLegendSeries = (selection, series) ->
       selection.node()
     .update (s, e, i) ->
       @select('text')
-        .text(if hx.isFunction(s.title) then s.title() else s.name)
+        .text(if utils.isFunction(s.title) then s.title() else s.name)
         .attr('y', i*20 + 10)
         .attr('x', 15)
 
       @select('rect')
-        .text(if hx.isFunction(s.title) then s.title() else s.name)
+        .text(if utils.isFunction(s.title) then s.title() else s.name)
         .attr('y', i*20)
         .attr('x', 0)
         .attr('width', 10)
@@ -295,7 +298,7 @@ populateLegendSeries = (selection, series) ->
         .attr('fill', if s.legendColor then s.legendColor() else s.fillColor) # XXX: the else s.fillColor is there for PieCharts... which should be fixed when pie charts are refactored
     .apply(series)
 
-  width = hx.max(selection.selectAll('text').nodes.map((node) -> node.getComputedTextLength()))
+  width = utils.max(selection.selectAll('text').nodes.map((node) -> node.getComputedTextLength()))
 
   background.attr('width', width + 6 + 20)
   background.attr('x', -5)
@@ -312,9 +315,25 @@ optionSetterGetter = (name) ->
     else
       @_.options[name]
 
-hx._.plot = {
-  dataAverage: dataAverage
-  maxTriangle: maxTriangle
-  LTTBFeather: LTTBFeather
-  splitAndFeather: splitAndFeather
+module.exports = {
+  svgCurve,
+  dataAverage,
+  maxTriangle,
+  LTTBFeather,
+  boundLabel,
+  splitAndFeather,
+  populateLegendSeries,
+  createLinearGradient,
+  optionSetterGetter,
+  arcCurveMinimumRadius
+  arcCurve,
+  extent,
+  extent2,
+  splitData,
+  stackSegments,
+  inefficientSearch,
+  search,
+  findLabel,
+  createLabelPoint,
+  makeLabelDetails
 }

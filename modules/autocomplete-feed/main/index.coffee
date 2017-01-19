@@ -14,7 +14,7 @@ trimTrailingSpaces = (term) ->
   newTerm
 
 sortActive = (items) ->
-  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new HMap(utils.groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -41,7 +41,7 @@ class AutocompleteFeed
 
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
-      filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
+      filtered = filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
       { active, inactive } = sortActive(filtered)
       [active..., inactive...]
 

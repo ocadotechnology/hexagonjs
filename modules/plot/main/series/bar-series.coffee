@@ -1,24 +1,29 @@
+Series = require('../series')
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
 
-class BarSeries extends Series
+graphutils = require('../utils')
+
+module.exports = class BarSeries extends Series
 
   constructor: (options) ->
-    super(hx.merge({
-      fillColor: hx.theme.plot.colors[1],
+    super(utils.merge({
+      fillColor: theme.plotColor2,
       group: undefined
     }, options))
 
     @_.type = 'bar'
 
 
-  fillColor: optionSetterGetter('fillColor')
-  group: optionSetterGetter('group')
+  fillColor: graphutils.optionSetterGetter('fillColor')
+  group: graphutils.optionSetterGetter('group')
 
   legendColor: -> @_.options.fillColor
 
   updateSvg: (fillLayer) ->
     self = this
     axis = @axis
-    hx.select(fillLayer).view('.hx-series-data', 'rect')
+    select(fillLayer).view('.hx-series-data', 'rect')
       .update (d) ->
 
         if axis.x.scaleType() is 'discrete'
@@ -65,7 +70,7 @@ class BarSeries extends Series
       xx = @axis.xScale.inverse(x)
       yy = @axis.yScale.inverse(y)
 
-      barData = hx.find(@data(), (d) -> d.x == xx)
+      barData = utils.find(@data(), (d) -> d.x == xx)
 
       # XXX: this only works for vertically stacked bars
 
@@ -88,7 +93,7 @@ class BarSeries extends Series
 
           min = Math.min(barY, @axis.yScale.apply(0))
           max = Math.max(barY, barY + height)
-          yy = hx.clamp(min, max, @axis.yScale.apply(yy))
+          yy = utils.clamp(min, max, @axis.yScale.apply(yy))
 
           meta = {
             series: this,

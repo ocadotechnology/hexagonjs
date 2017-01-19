@@ -1,17 +1,23 @@
+Series = require('../series')
+select = require('modules/selection/main')
+color = require('modules/color/main')
+utils = require('modules/util/main/utils')
 
-class BandSeries extends Series
+graphutils = require('../utils')
+
+module.exports = class BandSeries extends Series
   scale = (data, axis) -> {x: axis.xScale.apply(d.x), y: axis.yScale.apply(d.y)} for d in data
 
   constructor: (options) ->
-    super(hx.merge({
-      fillColor: hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString()
+    super(utils.merge({
+      fillColor: color(theme.plotColor3).alpha(0.2).toString()
       sampleThreshold: 200
     }, options))
 
     @_.type = 'band'
 
-  fillColor: optionSetterGetter('fillColor')
-  sampleThreshold: optionSetterGetter('sampleThreshold')
+  fillColor: graphutils.optionSetterGetter('fillColor')
+  sampleThreshold: graphutils.optionSetterGetter('sampleThreshold')
 
   legendColor: -> @_.options.fillColor
 
@@ -35,7 +41,7 @@ class BandSeries extends Series
     else
       fillCol = self.fillColor()
 
-    hx.select(fillLayer).view('.hx-series-data', 'path', 'hx-series-area')
+    select(fillLayer).view('.hx-series-data', 'path', 'hx-series-area')
       .update (d) ->
         @attr('d', d)
         .class('hx-series-data ' + self.class())

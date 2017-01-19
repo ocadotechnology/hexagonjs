@@ -1,26 +1,32 @@
+Series = require('../series')
+select = require('modules/selection/main')
+color = require('modules/color/main')
+utils = require('modules/util/main/utils')
 
-class ScatterSeries extends Series
+graphutils = require('../utils')
+
+module.exports = class ScatterSeries extends Series
 
   # private functions
   filter = (data) -> data.filter((d) -> d.x!=undefined && d.y!=undefined)
   scale = (data, axis) -> {x: axis.xScale.apply(d.x), y: axis.yScale.apply(d.y), radius: d.radius, fillColor: d.fillColor, color: d.color, size: d.size} for d in data
 
   constructor: (options) ->
-    super(hx.merge({
-      fillColor: hx.theme.plot.colors[3]
+    super(utils.merge({
+      fillColor: ''
       radius: 2
     }, options))
 
     @_.type = 'scatter'
 
-  fillColor: optionSetterGetter('fillColor')
-  radius: optionSetterGetter('radius')
+  fillColor: graphutils.optionSetterGetter('fillColor')
+  radius: graphutils.optionSetterGetter('radius')
 
   legendColor: -> @_.options.fillColor
 
   updateSvg: (fillLayer, sparseLayer) ->
     self = this
-    hx.select(sparseLayer).view('.hx-series-data', 'circle')
+    select(sparseLayer).view('.hx-series-data', 'circle')
       .update (d) ->
         @class('hx-series-data hx-series-scatter ' + self.class())
         .attr('cx', d.x)

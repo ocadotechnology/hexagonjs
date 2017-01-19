@@ -1,42 +1,39 @@
-hx.userFacingText({
-  plot: {
-    noData: 'No Data'
-  }
-})
+userFacingText = require('modules/user-facing-text/main')
+select = require('modules/selection/main')
+EventEmitter = require('modules/event-emitter/main')
+utils = require('modules/util/main/utils')
+HList = require('modules/list/main')
 
-# XXX: hard coded config values - move these to a config file for the graphing api
-tickSize = 6
-labelOffset = tickSize + 4
-axisPadding = 4
+graphutils = require('./utils')
+Axis = require('./axis')
 
-class Graph extends hx.EventEmitter
+module.exports = class Graph extends EventEmitter
 
   constructor: (@selector, options) ->
     super
 
-    hx.component.register(@selector, this)
-
     @_ = {
-      options: hx.shallowMerge({
+      options: utils.shallowMerge({
         zoomRangeStart: 0,
         zoomRangeEnd: 1,
         labelsEnabled: true,
         legendsEnabled: false,
         legendLocation: 'auto',
-        noDataText: hx.userFacingText('plot', 'noData')
+        noDataText: userFacingText('plot', 'noData')
         redrawOnResize: true
       }, options),
-      axes: new hx.List
+      axes: new HList
     }
 
     #XXX: move to the underscore object
 
-    id = hx.randomId()
+    id = utils.randomId()
 
-    selection = hx.select(@selector)
+    selection = select(@selector)
+      .api(this)
 
     selection.on 'resize', 'hx.plot', =>
-      @render() if @_.options.redrawOnResize
+      if @_.options.redrawOnResize then @render()
 
     @svgTarget = selection.append("svg").attr('class', 'hx-graph')
     defs = @svgTarget.append('defs')
@@ -90,8 +87,8 @@ class Graph extends hx.EventEmitter
           startFactor = -threshold
         if @zoomRangeStart() == 0 and endFactor < threshold
           endFactor = threshold
-        @zoomRangeStart(hx.clampUnit(xhat + z * startFactor))
-        @zoomRangeEnd(hx.clampUnit(xhat + z * endFactor))
+        @zoomRangeStart(utils.clampUnit(xhat + z * startFactor))
+        @zoomRangeEnd(utils.clampUnit(xhat + z * endFactor))
         @emit('zoom', {start: @zoomRangeStart(), end: @zoomRangeEnd()})
 
         @render()
@@ -152,7 +149,7 @@ class Graph extends hx.EventEmitter
 
         x = e.clientX - @svgTarget.box().left - @plotArea.x1
         w = @plotArea.x2 - @plotArea.x1
-        xn = hx.clampUnit(x / w)
+        xn = utils.clampUnit(x / w)
         xhat = zoomRangeStart + (zoomRangeEnd - zoomRangeStart) * xn
         z = 1 - delta / 600
         startFactor = (zoomRangeStart - xhat)
@@ -161,24 +158,24 @@ class Graph extends hx.EventEmitter
           startFactor = -threshold
         if zoomRangeStart == 0 and endFactor < threshold
           endFactor = threshold
-        @zoomRangeStart(hx.clampUnit(xhat + z * startFactor))
-        @zoomRangeEnd(hx.clampUnit(xhat + z * endFactor))
+        @zoomRangeStart(utils.clampUnit(xhat + z * startFactor))
+        @zoomRangeEnd(utils.clampUnit(xhat + z * endFactor))
         @emit('zoom', {start: @zoomRangeStart(), end: @zoomRangeEnd()})
 
         @render()
     options?.axes?.forEach (axis) => @addAxis axis
 
-  zoomRangeStart: optionSetterGetter('zoomRangeStart')
-  zoomRangeEnd: optionSetterGetter('zoomRangeEnd')
-  zoomEnabled: optionSetterGetter('zoomEnabled')
-  labelsEnabled: optionSetterGetter('labelsEnabled')
-  legendEnabled: optionSetterGetter('legendEnabled')
-  legendLocation: optionSetterGetter('legendLocation')
-  redrawOnResize: optionSetterGetter('redrawOnResize')
+  zoomRangeStart: graphutils.optionSetterGetter('zoomRangeStart')
+  zoomRangeEnd: graphutils.optionSetterGetter('zoomRangeEnd')
+  zoomEnabled: graphutils.optionSetterGetter('zoomEnabled')
+  labelsEnabled: graphutils.optionSetterGetter('labelsEnabled')
+  legendEnabled: graphutils.optionSetterGetter('legendEnabled')
+  legendLocation: graphutils.optionSetterGetter('legendLocation')
+  redrawOnResize: graphutils.optionSetterGetter('redrawOnResize')
 
   axes: (axes) ->
     if arguments.length > 0
-      @_.axes = new hx.List(axes)
+      @_.axes = new HList(axes)
       @axes().forEach (a) -> a.graph = this
       this
     else
@@ -198,7 +195,7 @@ class Graph extends hx.EventEmitter
 
   render: ->
 
-    selection = hx.select(@selector)
+    selection = select(@selector)
     @width = Number(selection.width())
     @height = Number(selection.height())
 
@@ -207,7 +204,7 @@ class Graph extends hx.EventEmitter
     hasData = @axes().some (axis) ->
       axis.series().some (series) ->
         data = series.data()
-        hx.isObject(data) or data.length > 0
+        utils.isObject(data) or data.length > 0
 
     self = this
     @svgTarget.view('.hx-plot-no-data', 'text')
@@ -284,7 +281,7 @@ class Graph extends hx.EventEmitter
         legendContainer = @svgTarget.append('g').class('hx-legend-container')
 
       # collect up the series and update the legend container
-      populateLegendSeries(legendContainer, hx.flatten(@axes().map((axis) -> axis.series())))
+      populateLegendSeries(legendContainer, utils.flatten(@axes().map((axis) -> axis.series())))
 
       switch @legendLocation()
         when 'top-left'
@@ -314,10 +311,10 @@ class Graph extends hx.EventEmitter
     this
 
   getClosestMeta = (graph, x, y) ->
-    x = hx.clamp(graph.plotArea.x1, graph.plotArea.x2, x)
-    y = hx.clamp(graph.plotArea.y1, graph.plotArea.y2, y)
+    x = utils.clamp(graph.plotArea.x1, graph.plotArea.x2, x)
+    y = utils.clamp(graph.plotArea.y1, graph.plotArea.y2, y)
 
-    labels = hx.flatten graph.axes().map (axis) -> axis.getLabelDetails x, y
+    labels = utils.flatten graph.axes().map (axis) -> axis.getLabelDetails x, y
 
     labels = labels.filter (label) ->
       graph.plotArea.x1 <= label.x <= graph.plotArea.x2 and graph.plotArea.y1 <= label.y <= graph.plotArea.y2
@@ -336,14 +333,14 @@ class Graph extends hx.EventEmitter
     bestMeta
 
   clearLabels = () ->
-    hx.select('body')
+    select('body')
       .select('.hx-plot-label-container')
       .clear()
 
   updateLabels = (graph, x, y) ->
 
     updateLabel = (data, element) ->
-      hx.select(element)
+      select(element)
         .style('left', Math.round(window.pageXOffset + graph.svgTarget.box().left + data.x) + 'px')
         .style('top', Math.round(window.pageYOffset + graph.svgTarget.box().top + data.y) + 'px')
 
@@ -351,12 +348,11 @@ class Graph extends hx.EventEmitter
 
     bestMeta = getClosestMeta(graph, x, y)
 
-    if hx.select('body').select('.hx-plot-label-container').empty()
-      hx.select('body').append('div').class('hx-plot-label-container')
+    if select('body').select('.hx-plot-label-container').empty()
+      select('body').append('div').class('hx-plot-label-container')
 
-    hx.select('body')
+    select('body')
       .select('.hx-plot-label-container')
       .view('.hx-plot-label', 'div')
         .update(updateLabel)
         .apply(if bestMeta then boundLabel(bestMeta, graph) else [])
-
