@@ -15256,7 +15256,7 @@ ColorPicker = (function(superClass) {
           return circleMoved(pos);
         };
         dragObject = function(elem, parent, min, max, startCallback, moveCallback, endCallback) {
-          var StartListening, StopListening, cursorStartPos, dispose, disposed, dragGo, dragStart, dragStop, dragStopHook, dragging, elementStartPos, listening, temp;
+          var StartListening, StopListening, cursorStartPos, disposed, dragGo, dragStart, dragStop, dragStopHook, dragging, elementStartPos, listening, temp;
           cursorStartPos = elementStartPos = dragging = listening = disposed = null;
           if (min !== null && max !== null) {
             temp = min.min(max);
@@ -15310,14 +15310,16 @@ ColorPicker = (function(superClass) {
             }
             return dragging = false;
           };
-          dispose = function() {
-            if (disposed) {
-              return;
+          ({
+            dispose: function() {
+              if (disposed) {
+                return;
+              }
+              this.StopListening(true);
+              elem = parent = min = max = startCallback = moveCallback = endCallback = null;
+              return disposed = true;
             }
-            this.StopListening(true);
-            elem = parent = min = max = startCallback = moveCallback = endCallback = null;
-            return disposed = true;
-          };
+          });
           StartListening = function() {
             if (listening || disposed) {
               return;
