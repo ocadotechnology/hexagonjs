@@ -227,7 +227,7 @@ class ColorPicker extends hx.EventEmitter
           if endCallback isnt null then endCallback(elem)
           dragging = false
 
-        dispose: ->
+        dispose = ->
           if disposed then return
           @StopListening(true)
           elem = parent = min = max = startCallback = moveCallback = endCallback = null
