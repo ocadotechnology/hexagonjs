@@ -8985,6 +8985,7 @@ AutoComplete = (function(superClass) {
       _.menu = menu;
       _.input = input;
     }
+    this;
   }
 
   AutoComplete.prototype.clearCache = function() {
