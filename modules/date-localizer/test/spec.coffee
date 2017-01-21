@@ -3,9 +3,9 @@ describe 'dateTimeLocalizerMoment', ->
 
 describe 'dateTimeLocalizer', ->
   localizer = hx.dateTimeLocalizer()
-
+  tzDifference = (new Date()).getTimezoneOffset() * 60 * 1000;
   testDate = new Date(1452130200000) # Thu Jan 07 2016 01:30:00 GMT+0000 (GMT)
-  zeroHourDate = new Date(1452124800000) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)
+  zeroHourDate = new Date(1452124800000 + tzDifference) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)
   invalidDate = new Date('Invalid Date')
 
   it 'dateOrder: should get the display order for the date so dates can be displayed correctly when localized', ->
