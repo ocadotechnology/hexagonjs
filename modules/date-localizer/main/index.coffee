@@ -70,7 +70,7 @@ class DateTimeLocalizer
             year = Number split[i]
             if year.toString().length is 2 then year += 2000
       if daysValid and monthsValid and yearsValid
-        new Date(year, month - 1, day)
+        new Date(Date.UTC(year, month - 1, day))
       else
         new Date('Invalid Date')
     else
