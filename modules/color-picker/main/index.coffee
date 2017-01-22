@@ -186,7 +186,7 @@ class ColorPicker extends hx.EventEmitter
         circleMoved(pos)
 
       dragObject = (elem, parent, min, max, startCallback, moveCallback, endCallback) ->
-        cursorStartPos = elementStartPos = dragging = listening = disposed = null
+        cursorStartPos = elementStartPos = dragging = listening =  null
 
         if min isnt null and max isnt null
           temp = min.min(max)
@@ -195,7 +195,7 @@ class ColorPicker extends hx.EventEmitter
 
         dragStart = (e) ->
           e = e.event
-          if dragging or not listening or disposed then return
+          if dragging or not listening then return
           dragging = true
           if startCallback isnt null then startCallback(e, elem)
           cursorStartPos = absoluteCursorPosition(e)
@@ -206,7 +206,7 @@ class ColorPicker extends hx.EventEmitter
 
         dragGo = (e) ->
           e = e.event
-          if !dragging or disposed then return
+          if !dragging then return
           newPos = absoluteCursorPosition(e)
           newPos = newPos.add(elementStartPos).subtract(cursorStartPos)
           newPos = newPos.bound(min, max)
@@ -220,26 +220,20 @@ class ColorPicker extends hx.EventEmitter
           cancelEvent(e)
 
         dragStop = ->
-          if not dragging or disposed then return true
+          if not dragging then return true
           hx.select(document).off 'pointermove', 'hx.color-picker', dragGo
           hx.select(document).off 'pointerup', 'hx.color-picker', dragStopHook
           cursorStartPos = elementStartPos = null;
           if endCallback isnt null then endCallback(elem)
           dragging = false
 
-        dispose: ->
-          if disposed then return
-          @StopListening(true)
-          elem = parent = min = max = startCallback = moveCallback = endCallback = null
-          disposed = true
-
         StartListening = ->
-          if listening or disposed then return
+          if listening then return
           listening = true
           parent.on 'pointerdown', 'hx.color-picker', dragStart
 
         StopListening = ->
-          if not listening or disposed then return
+          if not listening then return
           parent.off 'pointerdown', 'hx.color-picker', dragStart
           if stopCurrentDragging and dragging then dragStop()
 

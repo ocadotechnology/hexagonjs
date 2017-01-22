@@ -363,7 +363,6 @@ class AutoComplete extends hx.EventEmitter
       _.input = input
 
 
-    this
 
   clearCache: ->
     @_.data = new hx.Map()
