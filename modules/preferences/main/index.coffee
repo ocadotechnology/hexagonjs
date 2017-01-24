@@ -287,11 +287,11 @@ class Preferences extends hx.EventEmitter
   applyTimezoneOffset: (date, offset) ->
     offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
     utc = date.getTime() + (date.getTimezoneOffset() * 60000)
-    # In fact timezoneOffsetLookup working properly and returns
+    # In fact timezoneOffsetLookup works properly and returns
     # 2 for Sofia but the proper offset is not this because
-    # If we want to get real date we must subtract
+    # if we want to get real date we must subtract
     # these hours - the real offset for Sofia for
-    # example is -120
+    # example is -120.
     realOffset = -1 * offset * 60
     new Date(utc + realOffset * 60 * 60 * 1000)
 
