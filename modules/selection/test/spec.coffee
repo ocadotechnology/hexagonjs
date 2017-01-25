@@ -133,6 +133,12 @@ describe 'Selection Api', ->
     selection.class().should.equal('first one')
     selection.node().tagName.toLowerCase().should.equal('span')
 
+  it 'hx.select a selection as no-op', ->
+    selection = hx.select('#fixture')
+    selection2 = hx.select(selection)
+    selection2.should.equal(selection)
+    hx.consoleWarning.should.not.have.been.called()
+
   it 'hx.selectAll elements by id', ->
     selection = hx.select('#fixture').selectAll('#outer-1')
     selection.size().should.equal(1)
