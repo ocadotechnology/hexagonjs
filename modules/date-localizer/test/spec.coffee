@@ -7,8 +7,8 @@ describe 'dateTimeLocalizer', ->
   testDate = new Date(1452130200000) # Thu Jan 07 2016 01:30:00 GMT+0000 (GMT)
   zeroHourDate = new Date(1452124800000) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)
   invalidDate = new Date('Invalid Date')
-  # 0 - London, -120 - Sofia, -60 Krakow, -540 Tokio
-  timezonesOfsets = [0, -120, -60, -540]
+  # 0 - London, -120 - Sofia, -60 Krakow, -540 Tokio, 420 Pinal (Arizona/United states)
+  timezonesOfsets = [0, -120, -60, -540, 420]
 
   # This is helper function. It accepts
   # function as a argument and execute it
