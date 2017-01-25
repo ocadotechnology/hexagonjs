@@ -7,15 +7,15 @@ describe 'dateTimeLocalizer', ->
   testDate = new Date(1452130200000) # Thu Jan 07 2016 01:30:00 GMT+0000 (GMT)
   zeroHourDate = new Date(1452124800000) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)
   invalidDate = new Date('Invalid Date')
-  # 0 - London, -120 - Sofia, -60 Krakow
-  timezonesOfsets = [0, -120, -60]
+  # 0 - London, -120 - Sofia, -60 Krakow, -540 Tokio
+  timezonesOfsets = [0, -120, -60, -540]
 
   # This is helper function. It accepts
   # function as a argument and execute it
   # in all timezones that is provided
   executeFunctionInAllTimeZones = (func) ->
     for currentOffset in timezonesOfsets
-      calculatedTimeZoneMiliseconds = (new Date()).getTime() + (currentOffset * 3600 * 1000)
+      calculatedTimeZoneMiliseconds = (new Date()).getTime() + (-1 * currentOffset * 60000)
       clock = sinon.useFakeTimers calculatedTimeZoneMiliseconds
       func()
       clock.restore()

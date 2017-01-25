@@ -286,14 +286,7 @@ class Preferences extends hx.EventEmitter
 
   applyTimezoneOffset: (date, offset) ->
     offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
-    utc = date.getTime() + (date.getTimezoneOffset() * 60000)
-    # In fact timezoneOffsetLookup works properly and returns
-    # 2 for Sofia but the proper offset is not this because
-    # if we want to get real date we must subtract
-    # these hours - the real offset for Sofia for
-    # example is -120.
-    realOffset = -1 * offset * 60
-    new Date(utc + realOffset * 60 * 60 * 1000)
+    new Date(date.getTime() + -1 * offset * 60 * 60 * 1000)
 
   # sets the backingStore to use - currently the only one available is hx.preferences.localStorage
   # getting the backingStore should not be possible
