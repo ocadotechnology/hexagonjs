@@ -15,7 +15,7 @@ describe 'dateTimeLocalizer', ->
   # in all timezones that is provided
   executeFunctionInAllTimeZones = (func) ->
     for currentOffset in timezonesOfsets
-      calculatedTimeZoneMiliseconds = (new Date()).getTime() + (-1 * currentOffset * 60000)
+      calculatedTimeZoneMiliseconds = (new Date()).getTime() + (currentOffset * 60000)
       clock = sinon.useFakeTimers calculatedTimeZoneMiliseconds
       func()
       clock.restore()
