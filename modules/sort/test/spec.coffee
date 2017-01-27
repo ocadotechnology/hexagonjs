@@ -1,5 +1,15 @@
 describe 'hx-sort tests', ->
 
+  runWithoutCollator = (tests) -> ->
+    originalCollator = Intl?.Collator
+    beforeEach ->
+      if originalCollator? then Intl.Collator = undefined
+
+    afterEach ->
+      if originalCollator? then Intl.Collator = originalCollator
+
+    tests()
+
   describe "sort", ->
     it "should work", ->
       a = [3, 1, 2]
@@ -47,55 +57,78 @@ describe 'hx-sort tests', ->
       byName.map((x) -> x.name).should.eql(['Bob', 'Ganesh', 'Kate', 'Lazlo'])
       byAge.map((x) -> x.name).should.eql(['Lazlo', 'Ganesh', 'Bob', 'Kate'])
 
-
-  describe 'using standard compare. ', ->
+  compareTests = ->
     it 'Strings should return the right value', ->
-      hx.sort.compare('a','b').should.equal(-1)
-      hx.sort.compare('b','a').should.equal(1)
-      hx.sort.compare('a','a').should.equal(0)
+      hx.sort.compare('a', 'b').should.equal(-1)
+      hx.sort.compare('b', 'a').should.equal(1)
+      hx.sort.compare('a', 'a').should.equal(0)
+
+    it 'undefined should be treated as its string representation', ->
+      hx.sort.compare(undefined, 'a').should.equal(1)
+      hx.sort.compare('a', undefined).should.equal(-1)
+      hx.sort.compare(undefined, 'z').should.equal(-1)
+      hx.sort.compare('z', undefined).should.equal(1)
+      hx.sort.compare(undefined, null).should.equal(1)
+      hx.sort.compare(null, undefined).should.equal(-1)
+      hx.sort.compare(undefined, undefined).should.equal(0)
+
+    it 'null should be treated as its string representation', ->
+      hx.sort.compare(null, 'a').should.equal(1)
+      hx.sort.compare('a', null).should.equal(-1)
+      hx.sort.compare(null, 'z').should.equal(-1)
+      hx.sort.compare('z', null).should.equal(1)
+      hx.sort.compare(null, null).should.equal(0)
 
     it 'Arrays should return the right value', ->
       array = ['c', 'a', 'b', 'aa', 'ab', 'ac', '1', '2']
       array.sort(hx.sort.compare).should.eql(['1', '2', 'a', 'aa', 'ab', 'ac', 'b', 'c'])
-      array = ['25','10','20','42','100']
-      array.sort(hx.sort.compare).should.eql(['10','20','25','42','100'])
+      array = ['25', '10', '20', '42', '100']
+      array.sort(hx.sort.compare).should.eql(['10', '20', '25', '42', '100'])
+
+    it 'Arrays of strings with undefined values should sort undefined to the end', ->
+      array = ['b', undefined, null, 'z', 'a', 'p']
+      array.sort(hx.sort.compare).should.eql(['a', 'b', null, 'p', 'z', undefined])
 
     it 'Numbers should return the right value', ->
-      hx.sort.compare(1,2).should.equal(-1)
-      hx.sort.compare(2,1).should.equal(1)
-      hx.sort.compare(1,1).should.equal(0)
+      hx.sort.compare(1, 2).should.equal(-1)
+      hx.sort.compare(2, 1).should.equal(1)
+      hx.sort.compare(1, 1).should.equal(0)
 
     it 'Arrays of numbers should return the right value', ->
       array = [100, 200, 1, 20, 2, 10]
-      array.sort(hx.sort.compare).should.eql([1,2,10,20,100,200])
+      array.sort(hx.sort.compare).should.eql([1, 2, 10, 20, 100, 200])
 
-  describe 'using localeCompare. ', ->
+  describe 'using standard compare potentially with Intl.Collator. ', compareTests
+
+  describe 'using standard compare without Intl.Collator', runWithoutCollator(compareTests)
+
+  localeCompareTests = ->
     supportsOptions = ->
       try
-        'a'.localeCompare('b','i')
+        'a'.localeCompare('b', 'i')
       catch e
         e is 'RangeError'
       false
 
     it 'Strings should return the right value', ->
-      hx.sort.localeCompare()('a','b').should.equal(-1)
-      hx.sort.localeCompare()('b','a').should.equal(1)
-      hx.sort.localeCompare()('a','a').should.equal(0)
+      hx.sort.localeCompare()('a', 'b').should.equal(-1)
+      hx.sort.localeCompare()('b', 'a').should.equal(1)
+      hx.sort.localeCompare()('a', 'a').should.equal(0)
 
     it 'Arrays should return the right value', ->
       array = ['c', 'a', 'b', 'aa', 'ab', 'ac', '1', '2']
       array.sort(hx.sort.localeCompare()).should.eql(['1', '2', 'a', 'aa', 'ab', 'ac', 'b', 'c'])
-      array = ['25','10','20','42','100']
-      array.sort(hx.sort.localeCompare()).should.eql(['10','20','25','42','100'])
+      array = ['25', '10', '20', '42', '100']
+      array.sort(hx.sort.localeCompare()).should.eql(['10', '20', '25', '42', '100'])
 
     it 'Numbers should return the right value', ->
       hx.sort.localeCompare()(1, 2).should.equal(-1)
-      hx.sort.localeCompare()(2,1).should.equal(1)
-      hx.sort.localeCompare()(1,1).should.equal(0)
+      hx.sort.localeCompare()(2, 1).should.equal(1)
+      hx.sort.localeCompare()(1, 1).should.equal(0)
 
     it 'Arrays of numbers should return the right value', ->
       array = [100, 200, 1, 20, 2, 10]
-      array.sort(hx.sort.localeCompare()).should.eql([1,2,10,20,100,200])
+      array.sort(hx.sort.localeCompare()).should.eql([1, 2, 10, 20, 100, 200])
 
 
     it 'Array with localised characters should return the right value', ->
@@ -108,3 +141,9 @@ describe 'hx-sort tests', ->
         if supportsOptions()
           array.sort(hx.sort.localeCompare('sv')).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
           array.sort(hx.sort.localeCompare('de')).should.eql(['a', 'e', 'é', 'è', 'z', 'ä'])
+
+  describe 'using localeCompare potentially with Intl.Collator. ', localeCompareTests
+
+  describe 'using localeCompare without Intl.Collator. ', runWithoutCollator(localeCompareTests)
+
+
