@@ -26,8 +26,7 @@ class View
       updateSet = []
       exitSet = []
 
-      nodes = @rootSelection.selectAll @selector
-        .nodes
+      nodes = @rootSelection.shallowSelectAll(@selector).nodes
 
       if key
         # some temporary maps for keeping track of which nodes are entering, and which are exiting

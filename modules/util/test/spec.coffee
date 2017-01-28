@@ -3,10 +3,13 @@ HSet = require('modules/set/main')
 HMap = require('modules/map/main')
 HList = require('modules/list/main')
 chai = require('chai')
+fakeTime = require('test/utils/fake-time')
+chaiSpies = require('chai-spies')
+
 should = chai.should()
+chai.use(chaiSpies)
 
 describe "Util", ->
-
   it "transpose: inverts a 2D array", ->
     array = [
       [1,  2,  3,  4]
@@ -91,6 +94,40 @@ describe "Util", ->
     # check the cached branches dont error
     util.supports('touch').should.equal(util.supports('touch'))
     util.supports('date').should.equal(util.supports('date'))
+
+  it 'identity: should return what it is passed', ->
+    a = {}
+    util.identity(a).should.equal(a)
+    util.identity(true).should.equal(true)
+    util.identity('').should.equal('')
+    should.not.exist(util.identity(undefined))
+
+  it 'debounce: should prevent a function being called multiple times in quick succession', ->
+    clock = fakeTime.installFakeTimers()
+    fn = chai.spy()
+    debounce = util.debounce(100, fn)
+    fn.should.not.have.been.called()
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(50)
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(50)
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(101)
+    fn.should.have.been.called()
+    clock.restore()
+
+  it 'debounce: shold pass through arguments', ->
+    clock = fakeTime.installFakeTimers()
+    fn = chai.spy()
+    debounce = util.debounce(100, fn)
+    fn.should.not.have.been.called()
+    debounce('bob')
+    clock.tick(101)
+    fn.should.have.been.called.with('bob')
+    clock.restore()
 
   it 'deprecatedWarning', ->
     warn = chai.spy.on(console, 'warn')
@@ -538,6 +575,20 @@ describe "Util", ->
     util.clone(s).entries().should.eql(s.entries())
     util.clone(m).entries().should.eql(m.entries())
 
+
+  it 'vendor: should find the property if it exists', ->
+    obj = {
+      prop: 'something'
+    }
+    hx.vendor(obj, 'prop').should.equal('something')
+
+
+  it 'vendor: should find a prefixed property if it exists', ->
+    obj = {
+      webkitProp: 'webkit'
+    }
+    hx.vendor(obj, 'prop').should.equal('webkit')
+
   it 'cleanNode: should remove all whitespace nodes', ->
     container = document.createElement('div')
     inner = document.createElement('div')
@@ -563,11 +614,11 @@ describe "Util", ->
     inner.childNodes[1].innerHTML.should.equal('')
 
   it 'defined: should return true for non-null and non-undefined values', ->
-    hx.defined(123).should.equal(true)
-    hx.defined("123").should.equal(true)
-    hx.defined({}).should.equal(true)
-    hx.defined(/123/).should.equal(true)
+    util.defined(123).should.equal(true)
+    util.defined("123").should.equal(true)
+    util.defined({}).should.equal(true)
+    util.defined(/123/).should.equal(true)
 
   it 'defined: should return false for null and undefined', ->
-    hx.defined(null).should.equal(false)
-    hx.defined(undefined).should.equal(false)
+    util.defined(null).should.equal(false)
+    util.defined(undefined).should.equal(false)

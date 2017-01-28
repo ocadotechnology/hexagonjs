@@ -454,11 +454,6 @@ select = (selector, isArray) ->
 # expose
 hxSelect = (selector) ->
   if selector instanceof Selection
-    util.consoleWarning(
-      'hx.select was passed a selection',
-      'Calling hx.select on a selection returns the same selection',
-      selector
-    )
     selector
   else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or util.isString(selector) or selector is document or selector is window)
     util.consoleWarning(

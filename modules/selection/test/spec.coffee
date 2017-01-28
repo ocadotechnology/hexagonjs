@@ -75,6 +75,12 @@ describe 'Selection Api', ->
     selection.class().should.equal('first one')
     selection.node().tagName.toLowerCase().should.equal('span')
 
+  it 'select a selection as no-op', ->
+    selection = select('#fixture')
+    selection2 = select(selection)
+    selection2.should.equal(selection)
+    util.consoleWarning.should.not.have.been.called()
+
   it 'select.selectAll elements by id', ->
     selection = select('#fixture').selectAll('#outer-1')
     selection.size().should.equal(1)

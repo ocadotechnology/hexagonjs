@@ -126,3 +126,66 @@ describe 'view', ->
     spy.should.have.been.called.with(3, 2)
     spy.should.have.been.called.with(4, 3)
     util.consoleWarning.should.not.have.been.called()
+
+  it 'should only select direct children', ->
+    selection = select.detached('div')
+
+    view = selection.view('div')
+      .enter(-> @append('div').add(select.detached('span')).add(select.detached('div')).node())
+      .update((d, e) -> select(e).select('span').text(d))
+
+    view.apply(['a','b','c'])
+    selection.selectAll('div').text().should.eql(['a','','b','','c',''])
+    view.apply(['a','b','c'])
+    selection.selectAll('div').text().should.eql(['a','','b','','c',''])
+
+
+
+  it 'should allow recursive nesting', ->
+    selection = select.detached('div')
+
+    viewEnter = ->
+      children = select.detached('div')
+      text = select.detached('span')
+
+      view = children.view('.child')
+        .enter(viewEnter)
+        .update(viewUpdate)
+
+      sel = select.detached('div').class('child')
+        .add(text)
+        .add(children)
+
+      sel.api({
+        update: (item) ->
+          text.text(item.text)
+          view.apply(item.children || [])
+      })
+
+      this.append(sel).node()
+
+    viewUpdate = (item, elem) ->
+      select(elem).api().update(item)
+
+    view = selection.view('.child')
+      .enter(viewEnter)
+      .update(viewUpdate)
+
+    items = [
+      {
+        text: 'Item 1',
+        children: [
+          {
+            text: 'Replaced with item 2 on second call'
+          }
+        ]
+      },
+      {
+        text: 'Item 2'
+      }
+    ]
+
+    view.apply(items)
+    selection.shallowSelectAll('.child').select('span').text().should.eql(['Item 1', 'Item 2'])
+    view.apply(items)
+    selection.shallowSelectAll('.child').select('span').text().should.eql(['Item 1', 'Item 2'])

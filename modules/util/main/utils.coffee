@@ -55,9 +55,10 @@ debounce = (duration, fn) ->
   timeout = undefined
   return ->
     if timeout then clearTimeout(timeout)
+    origArgs = arguments
     f = ->
       timeout = undefined
-      fn()
+      fn.apply(fn, origArgs)
     timeout = setTimeout(f, duration)
 
 clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
@@ -320,7 +321,7 @@ vendorPrefixes = ["webkit", "ms", "moz", "Moz", "o", "O"]
 vendor = (obj, prop) ->
   if prop of obj then return obj[prop]
   for p in vendorPrefixes
-    if (prefixedProp = p + prop.charAt(0) + prop.slice(1)) of obj
+    if (prefixedProp = p + prop.charAt(0).toUpperCase() + prop.slice(1)) of obj
       return obj[prefixedProp]
 
 identity = (d) -> d

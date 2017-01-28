@@ -1,9 +1,16 @@
+.hx-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .hx-tab {
   display: inline-block;
   padding: 0.5em 1em;
   border-top: solid 3px;
   border-left: solid 1px;
   border-right: solid 1px;
+  margin-right: 3px;
+  position: relative;
 
   &:hover {
     cursor: pointer;
@@ -13,6 +20,7 @@
 .hx-tabs-content {
   margin-top: -1px;
   border: solid 1px;
+  flex: 1 1 100%;
 }
 
 .hx-tab-content-hidden {

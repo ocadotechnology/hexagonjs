@@ -1192,7 +1192,6 @@ describe 'data-table', ->
           done()
 
 
-
     describe 'filter', ->
       it 'should call the feed with the correct arguments', (done) ->
         dt = new hx.DataTable(hx.detached('div').node())
@@ -1227,6 +1226,16 @@ describe 'data-table', ->
           clock.restore()
           done()
 
+      it 'should update the filter input when changing the filter with the api', (done) ->
+        container = hx.detached('div')
+        dt = new hx.DataTable(container.node())
+        feed = hx.dataTable.objectFeed(threeRowsData)
+        dt.feed(feed)
+        input = container.select('.hx-data-table-filter')
+        input.value().should.equal('')
+        dt.filter 'filter-term', ->
+          input.value().should.equal('filter-term')
+          done()
 
 
     describe 'showSearchAboveTable', ->
@@ -2178,6 +2187,35 @@ describe 'data-table', ->
           ])
           data.filteredCount.should.equal(3)
           done()
+
+      it 'should sort the data correctly', (done) ->
+        feed = hx.dataTable.objectFeed(data)
+
+        feed.rows {start: 0, end: 3, sort: {column: 'name', direction: 'asc'}, filter: '41'}, (data) ->
+          data.rows.should.eql([
+            {
+              id: 2,
+              cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
+            },
+            {
+              id: 1,
+              cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
+            }
+          ])
+
+          feed.rows {start: 0, end: 3, sort: {column: 'name', direction: 'desc'}, filter: '41'}, (data) ->
+            data.rows.should.eql([
+              {
+                id: 1,
+                cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
+              },
+              {
+                id: 2,
+                cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
+              }
+            ])
+            done()
+
 
       it 'should get the rows from the data set with filtering', (done) ->
         hx.dataTable.objectFeed(data).rows {start: 0, end: 2, filter: '41'}, (data) ->

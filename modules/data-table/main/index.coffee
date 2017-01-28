@@ -623,6 +623,7 @@ class DataTable extends hx.EventEmitter
 
     selection.select('.hx-data-table-filter')
       .classed('hx-data-table-filter-visible', options.filterEnabled and not advancedSearchVisibleAndEnabled)
+      .value(@filter())
 
     @_.advancedSearchToggleButton.value(options.advancedSearchEnabled)
 
@@ -1077,6 +1078,16 @@ getAdvancedSearchFilter = (cellValueLookup = hx.identity, termLookup = defaultTe
       not hx.defined invalidFilter
     hx.defined validFilters
 
+
+getFiltered = (rows, term, filterCache, filterCacheTerm, fn) ->
+  # term can be a string (regular filter) or an array (advanced search)
+  if (term?.length and (filterCache is undefined or filterCacheTerm isnt term))
+    rows.filter fn
+  else if filterCache is undefined or not term?.length
+    rows.slice()
+  else
+    filterCache
+
 objectFeed = (data, options) ->
   options = hx.merge({
     cellValueLookup: hx.identity
@@ -1090,7 +1101,7 @@ objectFeed = (data, options) ->
   options.advancedSearch ?= getAdvancedSearchFilter(options.cellValueLookup, options.termLookup)
 
   # cached values
-  filtered = undefined
+  filterCache = undefined
   filterCacheTerm = undefined
   sorted = undefined
   sortCacheTerm = {}
@@ -1101,23 +1112,17 @@ objectFeed = (data, options) ->
     headers: (cb) -> cb(data.headers)
     totalCount: (cb) -> cb(data.rows.length)
     rows: (range, cb) ->
-
       if range.sort?.column isnt sortCacheTerm.column
-        filtered = undefined
+        filterCache = undefined
 
       if range.useAdvancedSearch
-        filtered = if range.advancedSearch?.length and (filtered is undefined or filterCacheTerm isnt range.advancedSearch)
-          data.rows.filter((row) -> options.advancedSearch(range.advancedSearch, row))
-        else
-          data.rows.slice()
-
+        advancedSearchFilterFn = (row) -> options.advancedSearch(range.advancedSearch, row)
+        filterCache = getFiltered(data.rows, range.advancedSearch, filterCache, filterCacheTerm, advancedSearchFilterFn)
         filterCacheTerm = range.advancedSearch
         sorted = undefined
       else
-        filtered =  if range.filter and (filtered is undefined or filterCacheTerm isnt range.filter)
-          data.rows.filter((row) -> options.filter(range.filter, row))
-        else
-          data.rows.slice()
+        filterFn = (row) -> options.filter(range.filter, row)
+        filterCache = getFiltered(data.rows, range.filter, filterCache, filterCacheTerm, filterFn)
         filterCacheTerm = range.filter
         sorted = undefined
 
@@ -1125,9 +1130,9 @@ objectFeed = (data, options) ->
         sorted = if range.sort and range.sort.column
           direction = if range.sort.direction is 'asc' then 1 else -1
           column = range.sort.column
-          filtered.sort (r1, r2) -> direction * options.compare(r1.cells[column], r2.cells[column])
-          filtered
-        else filtered
+          filterCache.sort (r1, r2) -> direction * options.compare(r1.cells[column], r2.cells[column])
+          filterCache
+        else filterCache
         sortCacheTerm.column = range.sort?.column
         sortCacheTerm.direction = range.sort?.direction
 

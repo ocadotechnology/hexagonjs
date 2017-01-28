@@ -25,6 +25,7 @@ dimension = (axis, options) ->
     visible: true,
     formatter: format.si(2)
     tickRotation: 0
+    doCollisionDetection: true
     min: 'auto'
     max: 'auto'
     discretePadding: 0.1
@@ -49,6 +50,7 @@ dimension = (axis, options) ->
         state[name]
 
   return {
+    doCollisionDetection: setterGetter('doCollisionDetection'),
     scaleType: setterGetter('scaleType'),
     visible: setterGetter('visible'),
     formatter: setterGetter('formatter'),
@@ -473,25 +475,32 @@ module.exports = class Axis
         else
           markerY = height - yOffset - @xAxisSize
 
+      axisUpdateFunc = (scale) ->
+        @view('.hx-axis-line', 'line')
+          .update((s) ->
+            @attr('x1', s.rangeMin).attr('x2', s.rangeMax)
+            @attr('y1', axisY).attr('y2', axisY)
+          ).apply(scale)
+
+        @view('.hx-tick', 'g')
+          .update (tick, e, i) ->
+            @attr("transform", "translate(" + tick[1] + "," + markerY + ")")
+            @view('.hx-tick-line', 'line')
+              .update (t) -> @attr('y1', 0).attr('y2', tickSize)
+              .apply(this)
+            @view('.hx-tick-text-x', 'text')
+              .update (t) -> @text(if (i%self.x.nthTickVisible())==0 then self.x.formatter()(t) else '')
+              .apply(tick[0])
+          .apply(if self.x.showTicks() then scale.ticks(self.x.tickSpacing()) else [])
+
+        if self.x.showTicks() and self.x.doCollisionDetection()
+          nodes = @selectAll('.hx-tick-text-x').filter((x) -> x.text()).nodes
+          if nodes.length
+            doCollisionDetection nodes
+
       axisGroupSelection.select('.hx-axis-scale')
         .view('.hx-axis-view', 'g')
-          .update (scale) ->
-            @view('.hx-axis-line', 'line')
-              .update((s) ->
-                @attr('x1', s.rangeMin).attr('x2', s.rangeMax)
-                @attr('y1', axisY).attr('y2', axisY)
-              ).apply(scale)
-
-            @view('.hx-tick', 'g')
-              .update (tick, e, i) ->
-                @attr("transform", "translate(" + tick[1] + "," + markerY + ")")
-                @view('.hx-tick-line', 'line')
-                  .update (t) -> @attr('y1', 0).attr('y2', tickSize)
-                  .apply(this)
-                @view('.hx-tick-text-x', 'text')
-                  .update (t) -> @text(if (i%self.x.nthTickVisible())==0 then self.x.formatter()(t) else '')
-                  .apply(tick[0])
-              .apply(if self.x.showTicks() then scale.ticks(self.x.tickSpacing()) else [])
+          .update axisUpdateFunc
           .apply(@xScale)
 
       if @x.title()

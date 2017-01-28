@@ -103,7 +103,7 @@ class Tabs extends hx.EventEmitter
 
   value: (newValue) ->
     if arguments.length
-      @select newValue, true
+      @select newValue, false
     else
       @selected
 

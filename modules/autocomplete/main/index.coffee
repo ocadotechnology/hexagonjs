@@ -7,7 +7,6 @@ HMap = require('modules/map/main')
 filter = require('modules/filter/main')
 select = require('modules/selection/main')
 Menu = require('modules/menu/main')
-sort = require('modules/sort/main')
 
 userFacingText({
   autoComplete: {
@@ -375,9 +374,6 @@ class AutoComplete extends EventEmitter
 
       _.menu = menu
       _.input = input
-
-
-    this
 
   clearCache: ->
     @_.data = new HMap()
