@@ -25,20 +25,23 @@ class DateTimeLocalizer
   year: (year) -> year
 
   # localise a date object to return a date string of dd/mm/yyyy (or localised format)
-  date: (date, useInbuilt) ->
+  date: (inputDate, useInbuilt) ->
+    # We should clone date not change
+    # agruments - according to tests.
+    resultDate = new Date(inputDate.getTime())
     if useInbuilt
-      date.getFullYear() + '-' +
-      zeroPad(date.getMonth() + 1 )+ '-' +
-      zeroPad(date.getDate())
+      resultDate.getFullYear() + '-' +
+      zeroPad(resultDate.getMonth() + 1 )+ '-' +
+      zeroPad(resultDate.getDate())
     else
-      zeroPad(date.getDate()) + '/' + zeroPad(date.getMonth() + 1) + '/' + date.getFullYear()
+      zeroPad(resultDate.getDate()) + '/' + zeroPad(resultDate.getMonth() + 1) + '/' + resultDate.getFullYear()
 
   # localise a date object to return a time string of hh:mm or hh:mm:ss (or localised format)
-  time: (date, showSeconds) ->
-    date = hx.preferences.applyTimezoneOffset(date)
-    timeString = date.getHours() + ':' + zeroPad date.getMinutes()
-    if showSeconds
-      timeString += ':' + zeroPad date.getSeconds()
+  time: (inputDate, enableShowSeconds) ->
+    resultDate = hx.preferences.applyTimezoneOffset(inputDate)
+    timeString = '' + zeroPad resultDate.getHours() + ':' + zeroPad resultDate.getMinutes()
+    if enableShowSeconds
+      timeString = timeString.concat ':' + zeroPad resultDate.getSeconds()
     timeString
 
   # check if a time is a valid time (time as array of [hh, mm, ss])

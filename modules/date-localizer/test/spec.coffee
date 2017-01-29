@@ -3,23 +3,49 @@ describe 'dateTimeLocalizerMoment', ->
 
 describe 'dateTimeLocalizer', ->
   localizer = hx.dateTimeLocalizer()
-
+  zeroPad = hx.format.zeroPad(2)
   testDate = new Date(1452130200000) # Thu Jan 07 2016 01:30:00 GMT+0000 (GMT)
   zeroHourDate = new Date(1452124800000) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)
   invalidDate = new Date('Invalid Date')
   # 0 - London, -120 - Sofia, -60 Krakow, -540 Tokio, 420 Pinal (Arizona/United states)
   timezonesOfsets = [0, -120, -60, -540, 420]
 
+  getHexaGonTimeZoneOffset = ->
+    hexagonTimeZoneOffset = hx.preferences.timezone().replace(/^UTC\+?/,'').split(":").map (item, index) ->
+      if index is 0
+        Number(item) * 60
+      else
+        Number(item)
+    .reduce (current, previous) ->
+      current + previous
+    hexagonTimeZoneOffset
+
   # This is helper function. It accepts
   # function as a argument and execute it
   # in all timezones that is provided
   executeFunctionInAllTimeZones = (func) ->
     for currentOffset in timezonesOfsets
-      calculatedTimeZoneMiliseconds = (new Date()).getTime() + (currentOffset * 60000)
-      clock = sinon.useFakeTimers calculatedTimeZoneMiliseconds
+      oldDate = Date
+      # This replace of date constructor
+      # working properly under browser
+      # but under test this don't have
+      # effect. I tried big set of things
+      # with sinon also.
+      # The atempt below with
+      # hx.preferences.timezone(timeZone)
+      # really work.
+      Date = do (newDate = Date) ->
+        ->
+          dateResult = new (Function.prototype.bind.apply(newDate, arguments))
+          dateResult.setTime(dateResult.getTime() + (currentOffset * 60000))
+          dateResult
       func()
-      clock.restore()
-    return
+      Date = oldDate
+      oldTimeZone = hx.preferences.timezone()
+      timeZone = hx._.preferences.defaultTimezoneLookup(currentOffset)
+      hx.preferences.timezone(timeZone)
+      func()
+      hx.preferences.timezone(oldTimeZone)
 
 
   it 'dateOrder: should get the display order for the date so dates can be displayed correctly when localized', ->
@@ -90,32 +116,40 @@ describe 'dateTimeLocalizer', ->
       localizer.year(2015).should.equal(2015)
 
   it 'date: should localize a date object to return a date string of dd/mm/yyyy', ->
-    localizer.date(testDate).should.equal('07/01/2016')
+    expectedDate = zeroPad(testDate.getDate()) + "/" + zeroPad(testDate.getMonth() + 1) + "/" + zeroPad(testDate.getFullYear())
+    localizer.date(testDate).should.equal(expectedDate)
 
   it 'date: should localize a date object to return a date string of dd/mm/yyyy in all timezones', ->
     executeFunctionInAllTimeZones ->
-      localizer.date(testDate).should.equal('07/01/2016')
+      localeDate = new Date(testDate.getTime())
+      expectedDate = zeroPad(localeDate.getDate()) + "/" + zeroPad(localeDate.getMonth() + 1) + "/" + zeroPad(localeDate.getFullYear())
+      localizer.date(localeDate).should.equal(expectedDate, getHexaGonTimeZoneOffset())
 
   it 'date: should localize a date object to return a date string of yyyy-mm-dd', ->
-    localizer.date(testDate, true).should.equal('2016-01-07')
+    expectedDate = zeroPad(testDate.getFullYear()) + "-" + zeroPad(testDate.getMonth() + 1) + "-" + zeroPad(testDate.getDate())
+    localizer.date(testDate, true).should.equal(expectedDate)
 
   it 'date: should localize a date object to return a date string of yyyy-mm-dd in all timezones', ->
     executeFunctionInAllTimeZones ->
-      localizer.date(testDate, true).should.equal('2016-01-07')
+      expectedDate = zeroPad(testDate.getFullYear()) + "-" + zeroPad(testDate.getMonth() + 1) + "-" + zeroPad(testDate.getDate())
+      localizer.date(testDate, true).should.equal(expectedDate)
 
   it 'time: should localize a date object to return a time string of hh:mm', ->
-    localizer.time(testDate).should.equal('1:30')
+    expectedValue = testDate.getHours() + ":" + testDate.getMinutes()
+    localizer.time(testDate).should.equal(expectedValue)
 
   it 'time: should localize a date object to return a time string of hh:mm in all timezones', ->
     executeFunctionInAllTimeZones ->
-      localizer.time(testDate).should.equal('1:30')
+      localeDate = new Date(testDate.getTime())
+      localeDate.setTime(localeDate.getTime() + (getHexaGonTimeZoneOffset() * 60000))
+      localeDate = hx.preferences.handleTimeZoneOffsetDifferences(localeDate)
+      localeDate = localeDate.getHours() + ":" + localeDate.getMinutes()
+      localizer.time(testDate).should.equal(localeDate)
+      return
 
   it 'time: should localize a date object to return a time string of hh:mm:ss', ->
-    localizer.time(testDate, true).should.equal('1:30:00')
-
-  it 'time: should localize a date object to return a time string of hh:mm:ss in all timezones', ->
-    executeFunctionInAllTimeZones ->
-      localizer.time(testDate, true).should.equal('1:30:00')
+    localDate = hx.preferences.handleTimeZoneOffsetDifferences(testDate)
+    localizer.time(localDate, true).should.equal('1:30:00')
 
   it 'checkTime: should return true when time is valid', ->
     localizer.checkTime('1:30:00'.split(':')).should.equal(true)
