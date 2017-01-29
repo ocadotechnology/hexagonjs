@@ -1,26 +1,21 @@
 # Intl.Collator isn't supported by safari
 # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Collator
 # using a collator is supposed to be faster than doing localeCompare
-hasCollator = Intl?.Collator?
-hasCollatorFn = if (window.chai) then -> Intl?.Collator else -> hasCollator
+hasCollator = -> Intl?.Collator?
 
-collatorFn = -> if hasCollatorFn()
+collatorFn = -> if hasCollator()
   new Intl.Collator(undefined, {numeric: true}).compare
 else
   (a, b) ->
     if a is b then 0
     else if String(a) > String(b) then 1
     else -1
+    
+collator = if (window.chai?) then (a, b) -> collatorFn()(a, b) else collatorFn()
 
-compare = if (window.chai)
-    (a, b) ->
-      if not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
-      else collatorFn()(a, b)
-  else
-    collator = collatorFn()
-    (a, b) ->
-      if not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
-      else collator(a, b)
+compare = (a, b) ->
+  if not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
+  else collator(a, b)
 
 
 # slower than compare but enforces locale comparison for browsers that
@@ -28,7 +23,7 @@ compare = if (window.chai)
 localeCompare = (locale, options) ->
   options ?= {numeric: true}
 
-  localeCollator = if hasCollatorFn()
+  localeCollator = if hasCollator()
     new Intl.Collator(locale, options).compare
   else
     (a, b) ->
@@ -38,6 +33,13 @@ localeCompare = (locale, options) ->
     if not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
     else localeCollator(a, b)
 
+compareNullsLast = (a, b) ->
+  if not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
+  else
+    if a is b then 0
+    else if a is undefined or (a is null and b?) then 1
+    else if a? and b? then collator(a, b)
+    else -1
 
 hx.sortBy = (arr, f) ->
   newArr = [arr...]
@@ -50,3 +52,4 @@ hx.sortBy = (arr, f) ->
 hx.sort = (arr) -> hx.sortBy arr, (x) -> x
 hx.sort.compare = compare
 hx.sort.localeCompare = localeCompare
+hx.sort.compareNullsLast = compareNullsLast

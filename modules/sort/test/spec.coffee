@@ -64,10 +64,10 @@ describe 'hx-sort tests', ->
       hx.sort.compare('a', 'a').should.equal(0)
 
     it 'undefined should be treated as its string representation', ->
-      hx.sort.compare(undefined, 'a').should.equal(1)
-      hx.sort.compare('a', undefined).should.equal(-1)
-      hx.sort.compare(undefined, 'z').should.equal(-1)
-      hx.sort.compare('z', undefined).should.equal(1)
+      hx.sort.compare(undefined, 't').should.equal(1)
+      hx.sort.compare('t', undefined).should.equal(-1)
+      hx.sort.compare(undefined, 'v').should.equal(-1)
+      hx.sort.compare('v', undefined).should.equal(1)
       hx.sort.compare(undefined, null).should.equal(1)
       hx.sort.compare(null, undefined).should.equal(-1)
       hx.sort.compare(undefined, undefined).should.equal(0)
@@ -146,4 +146,47 @@ describe 'hx-sort tests', ->
 
   describe 'using localeCompare without Intl.Collator. ', runWithoutCollator(localeCompareTests)
 
+  compareNullsLastTests = ->
+    it 'Strings should return the right value', ->
+      hx.sort.compareNullsLast('a', 'b').should.equal(-1)
+      hx.sort.compareNullsLast('b', 'a').should.equal(1)
+      hx.sort.compareNullsLast('a', 'a').should.equal(0)
 
+    it 'undefined should always be sorted to the end', ->
+      hx.sort.compareNullsLast(undefined, 'a').should.equal(1)
+      hx.sort.compareNullsLast('a', undefined).should.equal(-1)
+      hx.sort.compareNullsLast(undefined, 'z').should.equal(1)
+      hx.sort.compareNullsLast('z', undefined).should.equal(-1)
+      hx.sort.compareNullsLast(undefined, null).should.equal(1)
+      hx.sort.compareNullsLast(null, undefined).should.equal(-1)
+      hx.sort.compareNullsLast(undefined, undefined).should.equal(0)
+
+    it 'null should be sorted after any defined value', ->
+      hx.sort.compareNullsLast(null, 'a').should.equal(1)
+      hx.sort.compareNullsLast('a', null).should.equal(-1)
+      hx.sort.compareNullsLast(null, 'z').should.equal(1)
+      hx.sort.compareNullsLast('z', null).should.equal(-1)
+      hx.sort.compareNullsLast(null, null).should.equal(0)
+
+    it 'Arrays should return the right value', ->
+      array = ['c', 'a', 'b', 'aa', 'ab', 'ac', '1', '2']
+      array.sort(hx.sort.compareNullsLast).should.eql(['1', '2', 'a', 'aa', 'ab', 'ac', 'b', 'c'])
+      array = ['25', '10', '20', '42', '100']
+      array.sort(hx.sort.compareNullsLast).should.eql(['10', '20', '25', '42', '100'])
+
+    it 'Arrays of strings with undefined values should sort null and undefined to the end', ->
+      array = ['b', undefined, null, 'z', 'a', 'p']
+      array.sort(hx.sort.compareNullsLast).should.eql(['a', 'b', 'p', 'z', null, undefined])
+
+    it 'Numbers should return the right value', ->
+      hx.sort.compare(1, 2).should.equal(-1)
+      hx.sort.compare(2, 1).should.equal(1)
+      hx.sort.compare(1, 1).should.equal(0)
+
+    it 'Arrays of numbers should return the right value', ->
+      array = [100, 200, 1, 20, 2, 10]
+      array.sort(hx.sort.compare).should.eql([1, 2, 10, 20, 100, 200])
+
+  describe 'using compareNullsLast potentially with Intl.Collator. ', compareNullsLastTests
+
+  describe 'using compareNullsLast without Intl.Collator. ', runWithoutCollator(compareNullsLastTests)
