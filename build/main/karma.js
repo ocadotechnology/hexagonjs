@@ -148,7 +148,7 @@ function runKarma (files, destDir, phantomOnly) {
   cfg.preprocessors[path.join(destDir, 'lib', '*', 'module.js')] = ['coverage']
 
   if (phantomOnly) {
-    cfg.browsers = ['PhantomJS', 'Firefox', 'Chrome']
+    cfg.browsers = ['PhantomJS']
   } else {
     cfg.frameworks.push('detectBrowsers')
   }
