@@ -8,6 +8,7 @@ describe 'hx-sort tests', ->
 
     afterEach ->
       if originalCollator? then Intl.Collator = originalCollator
+      delete hx._.sort.collator
 
     tests()
 
