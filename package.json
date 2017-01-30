@@ -25,7 +25,18 @@
     "start:webpack": "webpack --config=webpack.test.config.js --progress --watch",
     "build-tests": "webpack --config=webpack.test.config.js --progress",
     "dist": "node build/main/dist.js",
-    "test": "npm run build-tests && browser-test-runner run test/index.html",
+    "test": "npm run test-phantomjs",
+    "test-saucelabs": "npm run build-tests && npm run run-tests-saucelabs",
+    "test-phantomjs": "npm run build-tests && npm run run-local-tests:phantomjs",
+    "test-chrome": "npm run build-tests && npm run run-local-tests:phantomjs",
+    "test-firefox": "npm run build-tests && npm run run-local-tests:firefox",
+    "test-safari": "npm run build-tests && npm run run-local-tests:safari",
+    "test-all": "npm run build-tests && npm-run-all run-local-tests:*",
+    "run-local-tests:phantomjs": "browser-test-runner phantomjs 'test/index.html'",
+    "run-local-tests:chrome": "browser-test-runner chrome 'test/index.html'",
+    "run-local-tests:safari": "browser-test-runner safari 'test/index.html'",
+    "run-local-tests:firefox": "browser-test-runner firefox 'test/index.html'",
+    "run-tests-saucelabs": "browser-test-runner saucelabs 'test/index.html'",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
@@ -36,7 +47,7 @@
     "webpack": "^1.13.2"
   },
   "devDependencies": {
-    "browser-test-runner": "^0.4.0",
+    "browser-test-runner": "^0.5.0",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
     "chai-spies": "^0.7.1",
@@ -45,7 +56,7 @@
     "isparta-loader": "^2.0.0",
     "mocha": "^2.4.5",
     "npm-run-all": "^3.1.0",
-    "phantomjs": "^1.0.0",
+    "phantomjs": "^2.0.0",
     "sinon": "^1.17.1"
   }
 }

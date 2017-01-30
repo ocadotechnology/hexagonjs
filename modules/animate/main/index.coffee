@@ -5,6 +5,8 @@ select = require('modules/selection/main')
 HMap = require('modules/map/main')
 util = require('modules/util/main')
 
+# XXX: [2.0.0] Remove, and replace with promise based transitions for props, attrs and style on selection
+
 # works on the single node given
 class Animation extends EventEmitter
   constructor: (@node, @ease=transition.ease.linear) ->

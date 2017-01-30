@@ -1156,3 +1156,30 @@ describe 'Selection Api', ->
     result1.should.equal(false)
     result2.should.equal(true)
     result3.should.equal(true)
+
+  describe 'common elements', ->
+    describe 'div', ->
+      it 'should create a selection', ->
+        select.div().should.be.an.instanceof(select.Selection)
+
+      it 'should create a div element', ->
+        select.div().node().nodeName.toLowerCase().should.equal('div')
+
+      it 'should have no class if no class is supplied', ->
+        select.div().class().should.equal('')
+
+      it 'should have a class if a class is supplied', ->
+        select.div('some-class').class().should.equal('some-class')
+
+    describe 'select.span', ->
+      it 'should create a selection', ->
+        select.span().should.be.an.instanceof(select.Selection)
+
+      it 'should create a span element', ->
+        select.span().node().nodeName.toLowerCase().should.equal('span')
+
+      it 'should have no class if no class is supplied', ->
+        select.span().class().should.equal('')
+
+      it 'should have a class if a class is supplied', ->
+        select.span('some-class').class().should.equal('some-class')

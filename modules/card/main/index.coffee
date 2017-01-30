@@ -1,5 +1,8 @@
-div = (clasz) -> hx.detached('div').class(clasz)
-span = (clasz) -> hx.detached('span').class(clasz)
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+
+div = (clasz) -> select.detached('div').class(clasz)
+span = (clasz) -> select.detached('span').class(clasz)
 
 #XXX: use the palette context functions instead
 classContext = (selection, context) -> if context then selection.classed('hx-' + context, true) else selection
@@ -7,8 +10,8 @@ textContext = (selection, context) -> if context then selection.classed('hx-text
 backgroundContext = (selection, context) -> if context then selection.classed('hx-background-' + context, true) else selection
 
 # core card layout (card + sections + horizontal groups)
-hx.card = -> div('hx-card')
-hx.card.small = -> div('hx-card-small hx-card')
+card = -> div('hx-card')
+card.small = -> div('hx-card-small hx-card')
 
 sizes = [undefined, 'small', 'normal']
 fixes = [undefined, 'fixed']
@@ -21,14 +24,14 @@ sizes.forEach (size) ->
     joints.forEach (joint) ->
       directions.forEach (direction) ->
         headers.forEach (header) ->
-          types = [size, fixed, joint, direction, header].filter(hx.defined)
-          base = hx.card
+          types = [size, fixed, joint, direction, header].filter(utils.defined)
+          base = card
           types.forEach (type) ->
             base[type] ?= {}
             base = base[type]
 
 getComponentParent = (identifierParts) ->
-  base = hx.card
+  base = card
   identifierParts.forEach (type) ->
     base[type] ?= {}
     base = base[type]
@@ -41,11 +44,10 @@ defineComponent = (identifier, setup) ->
 
   parent[name] = (options) ->
     selection = div(identifier.split('.').map((d) -> 'hx-card-' + d).join(' '))
+      .api({
+        context: (context) -> backgroundContext(selection, context)
+      })
     backgroundContext(selection, options?.context)
-
-    hx.component.register(selection.node(), {
-      context: (context) -> backgroundContext(selection, context)
-    })
 
     setup?(selection, options)
     selection
@@ -104,85 +106,102 @@ for size in ['small', 'normal', 'slim']
   defineComponent size + '.fixed.joint.header.group'
   defineComponent size + '.fixed.joint.vertical.header.group'
 
-hx.card.aligned = -> hx.detached('div').class('hx-card-aligned')
+card.aligned = -> select.detached('div').class('hx-card-aligned')
 
 ### building blocks ###
 
-hx.card.large = {}
+card.large = {}
 
 textLikeComponent = (elementType, clasz) ->
   (options) ->
-    selection = textContext(hx.detached(elementType).class(clasz).text(options.text), options?.context)
     context = options?.context
-    hx.component.register(selection.node(), {
-      text: (text) ->
-        if arguments.length > 0
-          selection.text(text)
-          this
-        else selection.text()
-      context: (c) ->
-        if arguments.length > 0
-          context = c
-          textContext(selection, context)
-          this
-        else context
+
+    selection = select.detached(elementType)
+      .class(clasz)
+      .text(options.text)
+      .api({
+        text: (text) ->
+          if arguments.length > 0
+            selection.text(text)
+            this
+          else selection.text()
+        context: (c) ->
+          if arguments.length > 0
+            context = c
+            textContext(selection, context)
+            this
+          else context
+      })
+
+    textContext(selection, context)
+
+    return selection
+
+card.text = textLikeComponent('span', 'hx-card-text')
+card.small.text = (options) -> card.text(options).classed('hx-card-small', true)
+card.large.text = (options) -> card.text(options).classed('hx-card-large', true)
+
+card.title = textLikeComponent('span', 'hx-card-title hx-header')
+card.small.title = (options) -> card.title(options).classed('hx-card-small', true)
+card.large.title = (options) -> card.title(options).classed('hx-card-large', true)
+
+card.icon = (options) ->
+  selection = select.detached('i')
+    .class('hx-card-icon ' + (options.icon or ''))
+    .api({
+      icon: (icon) ->
+        selection.class('hx-card-icon ' + (icon or ''))
+        this
+      context: (context) ->
+        textContext(selection, context)
+        this
     })
-    selection
 
-hx.card.text = textLikeComponent('span', 'hx-card-text')
-hx.card.small.text = (options) -> hx.card.text(options).classed('hx-card-small', true)
-hx.card.large.text = (options) -> hx.card.text(options).classed('hx-card-large', true)
+  textContext(selection, options?.context)
 
-hx.card.title = textLikeComponent('span', 'hx-card-title hx-header')
-hx.card.small.title = (options) -> hx.card.title(options).classed('hx-card-small', true)
-hx.card.large.title = (options) -> hx.card.title(options).classed('hx-card-large', true)
-
-hx.card.icon = (options) ->
-  selection = textContext(hx.detached('i').class('hx-card-icon ' + (options.icon or '')), options?.context)
-  hx.component.register(selection.node(), {
-    icon: (icon) ->
-      selection.class('hx-card-icon ' + (icon or ''))
-      this
-    context: (context) ->
-      textContext(selection, context)
-      this
-  })
-  selection
-hx.card.small.icon = (options) -> hx.card.icon(options).classed('hx-card-small', true)
-hx.card.large.icon = (options) -> hx.card.icon(options).classed('hx-card-large', true)
+  return selection
+  
+card.small.icon = (options) -> card.icon(options).classed('hx-card-small', true)
+card.large.icon = (options) -> card.icon(options).classed('hx-card-large', true)
 
 ### sections ###
 
-hx.card.action = { icon: {}}
-hx.card.icon.action = {}
+card.action = { icon: {}}
+card.icon.action = {}
 
-hx.card.action.section = (options) ->
-  hx.card.section(options).add(
-    hx.detached('a')
+card.action.section = (options) ->
+  card.section(options).add(
+    select.detached('a')
       .attr('href', options.link)
       .class('hx-card-action')
-      .add(hx.card.text(options)))
+      .add(card.text(options)))
 
-hx.card.action.icon.section = (options) ->
-  hx.card.section(options).add(
-    hx.detached('a')
+card.action.icon.section = (options) ->
+  card.section(options).add(
+    select.detached('a')
       .attr('href', options.link)
       .class('hx-card-action')
-      .add(hx.card.text(options))
-      .add(hx.card.icon(options)))
+      .add(card.text(options))
+      .add(card.icon(options)))
 
-hx.card.icon.action.section = (options) ->
-  hx.card.section(options).add(
-    hx.detached('a')
+card.icon.action.section = (options) ->
+  card.section(options).add(
+    select.detached('a')
       .attr('href', options.link)
       .class('hx-card-action')
-      .add(hx.card.icon(options))
-      .add(hx.card.text(options)))
+      .add(card.icon(options))
+      .add(card.text(options)))
 
 # Complete cards
 
-hx.card.notice = (options = {}) ->
-  hx.card().classed('hx-card-small', true)
-    .add(hx.card.header.section({sectionContext: options.context or 'info'})
-      .add(hx.card.title({titleText: options.title or 'Note'})))
-    .add(hx.card.section().add(hx.card.text({text: options.message})))
+card.notice = (options = {}) ->
+  card().classed('hx-card-small', true)
+    .add(card.header.section({sectionContext: options.context or 'info'})
+      .add(card.title({titleText: options.title or 'Note'})))
+    .add(card.section().add(card.text({text: options.message})))
+
+
+module.exports = card
+module.exports.hx = {
+  card
+}

@@ -37,16 +37,18 @@ selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, s
 
 shallowSelectSingle = (selector, node) ->
   matchFn = getMatches(node)
-  for child in node.children
-    if matchFn.call(child, selector)
-      return child
+  if node.children
+    for child in node.children
+      if matchFn.call(child, selector)
+        return child
 
 shallowSelectAll = (selector, node) ->
   matchFn = getMatches(node)
   matchingNodes = []
-  for child in node.children
-    if matchFn.call(child, selector)
-      matchingNodes.push child
+  if node.children
+    for child in node.children
+      if matchFn.call(child, selector)
+        matchingNodes.push child
   matchingNodes
 
 closestParent = (selector, node) ->
@@ -487,11 +489,29 @@ detached = (name, namespace) ->
   namespace = if namespaces.hasOwnProperty(name) then namespaces[name] else namespaces.xhtml
   select(document.createElementNS(namespace, name))
 
+
+# XXX: 2.0.0: these have all moved module - this needs documenting
+div = (cls) -> detached('div').class(cls)
+span = (cls) -> detached('span').class(cls)
+input = (cls) -> detached('input').class(cls)
+# XXX: 2.0.0: api has changed + moved module - this needs documenting
+button = (cls) -> detached('button').class(cls)
+checkbox = (cls) -> detached('input').attr('type', 'checkbox').class(cls)
+# XXX: 2.0.0: api has changed + moved module - this needs documenting
+icon = (cls) -> detached('i').class(cls)
+
 # expose
 module.exports = hxSelect
 module.exports.selectAll = hxSelectAll
 module.exports.detached = detached
 module.exports.Selection = Selection
+module.exports.div = div
+module.exports.span = span
+module.exports.input = input
+module.exports.button = button
+module.exports.checkbox = checkbox
+module.exports.icon = icon
+
 
 # backwards compatiblity
 module.exports.hx = {

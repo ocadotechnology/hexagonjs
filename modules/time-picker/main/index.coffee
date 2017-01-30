@@ -1,6 +1,13 @@
-zeroPad = hx.format.zeroPad(2)
+format = require('modules/format/main')
+EventEmitter = require('modules/event-emitter/main')
+utils = require('modules/util/main/utils')
+preferences = require('modules/preferences/main')
+dateTimeLocalizer = require('modules/date-localizer/main')
+select = require('modules/selection/main')
+NumberPicker = require('modules/number-picker/main').NumberPicker
+Dropdown = require('modules/dropdown/main')
 
-
+zeroPad = format.zeroPad(2)
 
 setupTimepicker = (timepicker) ->
   screenTime = timepicker.getScreenTime().split(':')
@@ -32,27 +39,25 @@ updateTimePicker = (timepicker, suppress) ->
     setupTimepicker timepicker
 
 
-class TimePicker extends hx.EventEmitter
+class TimePicker extends EventEmitter
   constructor: (@selector, options) ->
     super
 
-    @options = hx.merge {
+    @options = utils.merge {
       showSeconds: false
       buttonClass: 'hx-btn-invert'
       disabled: false
     }, options
 
-    hx.component.register(@selector, this)
-
     _ = @_ = {
       disabled: @options.disabled
-      uniqueId: hx.randomId()
+      uniqueId: utils.randomId()
     }
 
-    hx.preferences.on 'localechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
-    hx.preferences.on 'timezonechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
+    preferences.on 'localechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
+    preferences.on 'timezonechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
 
-    _.localizer = hx.dateTimeLocalizer()
+    _.localizer = dateTimeLocalizer()
 
     _.selectedDate = new Date
     _.selectedDate.setMilliseconds(0)
@@ -60,7 +65,9 @@ class TimePicker extends hx.EventEmitter
       _.selectedDate.setSeconds(0)
 
     # set up everything that is needed to turn the div into a calendar input
-    @selection = hx.select(@selector).classed('hx-time-picker', true)
+    @selection = select(@selector)
+      .classed('hx-time-picker', true)
+      .api(this)
 
     # input text box + icon
     inputContainer = @selection.append('div').class('hx-time-input-container')
@@ -69,7 +76,7 @@ class TimePicker extends hx.EventEmitter
 
     timeout = undefined
 
-    if hx.supports('date') and hx.supports('touch')
+    if utils.supports('date') and utils.supports('touch')
       # disable text input for touch devices as it conflicts with the dropdown
       @input.attr('readonly', true)
       @input.on 'click', 'hx.time-picker', (event) ->
@@ -90,25 +97,25 @@ class TimePicker extends hx.EventEmitter
     setupInput this
 
     # set up datepicker nodes for attaching to dropdown
-    hourNode = hx.detached('div').node()
-    minuteNode = hx.detached('div').node()
-    second = hx.detached('div').node()
+    hourNode = select.detached('div').node()
+    minuteNode = select.detached('div').node()
+    second = select.detached('div').node()
 
-    @hourPicker = new hx.NumberPicker hourNode, {buttonClass: @options.buttonClass}
+    @hourPicker = new NumberPicker hourNode, {buttonClass: @options.buttonClass}
       .on 'change', 'hx.time-picker', (e) =>
         _.userEvent = true
         @hour e.value
     @hourPicker.selectInput.attr('tabindex', 1)
       .attr('maxlength','2')
 
-    @minutePicker = new hx.NumberPicker minuteNode, {buttonClass: @options.buttonClass}
+    @minutePicker = new NumberPicker minuteNode, {buttonClass: @options.buttonClass}
       .on 'change', 'hx.time-picker', (e) =>
         _.userEvent = true
         @minute e.value
     @minutePicker.selectInput.attr('tabindex', 2)
       .attr('maxlength','2')
 
-    @secondPicker = new hx.NumberPicker second, {buttonClass: @options.buttonClass}
+    @secondPicker = new NumberPicker second, {buttonClass: @options.buttonClass}
       .on 'change', 'hx.time-picker', (e) =>
         _.userEvent = true
         @second e.value
@@ -118,7 +125,7 @@ class TimePicker extends hx.EventEmitter
     setupDropdown = (elem) =>
       if not _.disabled
         if @input.attr('disabled') is undefined
-          selection = hx.select(elem)
+          selection = select(elem)
           selection.append hourNode
           selection.append minuteNode
           if @options.showSeconds
@@ -126,7 +133,7 @@ class TimePicker extends hx.EventEmitter
           setupTimepicker this
         else @dropdown.hide()
 
-    @dropdown = new hx.Dropdown(@selector, setupDropdown, {
+    @dropdown = new Dropdown(@selector, setupDropdown, {
       matchWidth: false
       ddClass: 'hx-time-picker-dropdown'
     })
@@ -179,12 +186,12 @@ class TimePicker extends hx.EventEmitter
   getScreenTime: -> @_.localizer.time(@date(), @options.showSeconds)
 
   locale: (locale) ->
-    hx.deprecatedWarning 'hx.TimePicker::locale is deprecated. Use hx.preferences.locale instead.'
+    utils.deprecatedWarning 'hx.TimePicker::locale is deprecated. Use hx.preferences.locale instead.'
     if arguments.length > 0
-      hx.preferences.locale locale
+      preferences.locale locale
       this
     else
-      hx.preferences.locale()
+      preferences.locale()
 
   disabled: (disable) ->
     _ = @_
@@ -197,9 +204,14 @@ class TimePicker extends hx.EventEmitter
     else
       !!_.disabled
 
-hx.timePicker = (options) ->
-  selection = hx.detached('div')
+timePicker = (options) ->
+  selection = select.detached('div')
   new TimePicker(selection.node(), options)
   selection
 
-hx.TimePicker = TimePicker
+module.exports = timePicker
+module.exports.TimePicker = TimePicker
+module.exports.hx = {
+  timePicker,
+  TimePicker
+}

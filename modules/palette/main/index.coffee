@@ -6,17 +6,13 @@ paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info
 
 palette = {}
 
-#XXX: make hx.select do flattening
-flatSelect = (selector) ->
-  if selector instanceof select.Selection then selector else select(selector)
-
 context = (contextArray, contextPrefix) ->
   mappedContexts = contextArray
     .map((context) -> contextPrefix + '-' + context)
     .join(' ')
 
   (selector, context) ->
-    selection = flatSelect(selector)
+    selection = select(selector)
     if arguments.length > 1
       selection.classed(mappedContexts, false)
       if contextArray.indexOf(context) isnt -1

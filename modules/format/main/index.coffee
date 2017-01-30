@@ -55,6 +55,7 @@ strictCheck = (f, sf, strict) ->
     else
       (n) -> if utils.isString(n) then n else f(n, sf)
 
+# XXX [2.0.0] having factories instead of plain functions feels strange here - change to plain functions?
 format =
   round: (sf, strict) -> strictCheck formatRound, sf, strict
   si: (sf, strict) -> strictCheck formatSI, sf, strict

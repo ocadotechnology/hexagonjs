@@ -167,6 +167,7 @@ class DateTimeLocalizerMoment
     else
       new Date('Invalid Date')
 
+#XXX: [2.0.0] this doesn't need to be a function
 dateTimeLocalizer = -> if moment? then new DateTimeLocalizerMoment else new DateTimeLocalizer
 
 module.exports = dateTimeLocalizer

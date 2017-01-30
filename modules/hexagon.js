@@ -54,5 +54,17 @@ module.exports = window.hx = merge([
   require('./autocomplete-feed/main'),
   require('./picker/main'),
   require('./button-group/main'),
-  require('./plot/main')
+  require('./plot/main'),
+  require('./date-picker/main'),
+  require('./time-picker/main'),
+  require('./tag-input/main'),
+  require('./titlebar/main'),
+  require('./slider/main'),
+  require('./card/main'),
+  require('./toggle/main'),
+  require('./spinner/main'),
+  require('./layout/main'),
+  require('./notice/main'),
+  require('./input-group/main'),
+  require('./label/main')
 ])

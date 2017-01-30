@@ -1,7 +1,9 @@
 utils = require('modules/util/main/utils')
 select = require('modules/selection/main')
 
-#XXX [2.0.0]: move to another module (for dom-related utils)
+#XXX [2.0.0]: this whole module can be removed
+
+#XXX [2.0.0]: remove?
 cachedParseHtml = null
 parseHTML = (html) ->
   if not cachedParseHtml
@@ -21,7 +23,7 @@ parseHTML = (html) ->
         docFrag
   cachedParseHtml(html)
 
-#XXX [2.0.0]: move to another module (for dom-related utils)
+#XXX [2.0.0]: remove
 cleanNode = (node, recurse = true) ->
   n = node.childNodes.length - 1
   while n >= 0
@@ -74,7 +76,7 @@ scrollbarSize = ->
 
   cachedScrollbarSize
 
-#XXX [2.0.0]: move to another module (for dom-related utils)
+# XXX: [2.0.0]: replace with the simpler: hx.max(selection.parents().map(s => Number(s.style('z-index').filter(x => !isNaN(x)))))
 parentZIndex = (node, findMax) ->
   check = (node) ->
     index = Number select(node).style('z-index')
@@ -84,7 +86,7 @@ parentZIndex = (node, findMax) ->
 
   if findMax then utils.max(res) else res
 
-#XXX [2.0.0]: move to another module (for dom-related utils)
+#XXX [2.0.0]: replace with the simpler Selection::parents
 checkParents = (node, check, returnArray) ->
   if node?
     checkNode = node

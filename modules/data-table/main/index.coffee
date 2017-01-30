@@ -1145,48 +1145,6 @@ objectFeed = (data, options) ->
       cb(rowsByIdMap[id] for id in ids)
   }
 
-urlFeed = (url, options) ->
-  #XXX: when new calls come in, ignore the ongoing request if there is one / cancel the request if possible
-
-  options = hx.merge({
-    extra: undefined,
-    cache: false
-  }, options)
-
-  # creates a function that might perform caching, depending on the options.cache value
-  maybeCached = (fetcher) ->
-    if options.cache
-      value = undefined
-      (cb) ->
-        if value
-          cb(value)
-        else
-          fetcher (res) ->
-            value = res
-            cb(value)
-    else
-      (cb) -> fetcher(cb)
-
-  jsonCallback = (cb) ->
-    (err, value) ->
-      hx.consoleWarning(err) if err
-      cb(value)
-
-  {
-    url: url # for debugging
-    headers: maybeCached (cb) ->
-      hx.json url, { type: 'headers', extra: options.extra }, jsonCallback(cb)
-    totalCount: maybeCached (cb) ->
-      hx.json url, { type: 'totalCount', extra: options.extra }, (err, res) ->
-        jsonCallback(cb)(err, res.count)
-    rows: (range, cb) ->
-      hx.json url, { type: 'rows', range: range, extra: options.extra }, jsonCallback(cb)
-    rowsForIds: (ids, lookupRow, cb) ->
-      hx.json url, { type: 'rowsForIds', ids: ids, extra: options.extra }, jsonCallback(cb)
-  }
-
-
-
 hx.DataTable = DataTable
 
 hx.dataTable = (options) ->
@@ -1196,5 +1154,4 @@ hx.dataTable = (options) ->
   selection
 
 hx.dataTable.objectFeed = objectFeed
-hx.dataTable.urlFeed = urlFeed
 hx.dataTable.getAdvancedSearchFilter = getAdvancedSearchFilter

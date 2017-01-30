@@ -1,3 +1,5 @@
+# XXX: [2.0.0] Remove - this is too confusing to actually use
+
 class MorphSection extends hx.EventEmitter
   constructor: (@selector, options) ->
     super

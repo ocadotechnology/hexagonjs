@@ -27,14 +27,16 @@
           return bound;
         };
       }
-      })();
-    </script>
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.auto.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.2/fetch.js" charset="utf-8"></script>
   <script src="/node_modules/browser-test-runner/client.js"></script>
   <script type="text/javascript" src="/node_modules/mocha/mocha.js"></script>
   <script> mocha.setup('bdd') </script>
   <script type="text/javascript" src="/target/hexagon.test.js"></script>
   <script>
-    BrowserTestRunner.init({host: 'localhost', port: 10001})
+    BrowserTestRunner.init()
     mocha.run()
   </script>
 </body>

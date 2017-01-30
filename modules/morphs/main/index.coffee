@@ -2,6 +2,8 @@ animate = require('modules/animate/main')
 select = require('modules/selection/main')
 EventEmitter = require('modules/event-emitter/main')
 
+# XXX: [2.0.0] Remove
+
 # XXX: rather than modifying the global hx state, these should be exposed as functions/objects
 #      that can be used with the selection api in some way
 
