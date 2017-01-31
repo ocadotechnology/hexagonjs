@@ -232,48 +232,48 @@ describe 'hx-sort tests', ->
   localeCompareNullsLastTests = ->
     supportsOptions = ->
       try
-        'a'.localeCompareNullsLast('b', 'i')
+        'a'.localeCompare('b', {nullsLast: true})
       catch e
         e is 'RangeError'
       false
 
     it 'Strings should return the right value', ->
-      hx.sort.localeCompareNullsLast()('a', 'b').should.equal(-1)
-      hx.sort.localeCompareNullsLast()('b', 'a').should.equal(1)
-      hx.sort.localeCompareNullsLast()('a', 'a').should.equal(0)
-      hx.sort.localeCompareNullsLast()('a', undefined).should.equal(-1)
-      hx.sort.localeCompareNullsLast()(undefined, 'a').should.equal(1)
-      hx.sort.localeCompareNullsLast()('z', undefined).should.equal(-1)
-      hx.sort.localeCompareNullsLast()(undefined, 'z').should.equal(1)
-      hx.sort.localeCompareNullsLast()('a', null).should.equal(-1)
-      hx.sort.localeCompareNullsLast()(null, 'a').should.equal(1)
-      hx.sort.localeCompareNullsLast()('z', null).should.equal(-1)
-      hx.sort.localeCompareNullsLast()(null, 'z').should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})('a', 'b').should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})('b', 'a').should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})('a', 'a').should.equal(0)
+      hx.sort.localeCompare(undefined, {nullsLast: true})('a', undefined).should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(undefined, 'a').should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})('z', undefined).should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(undefined, 'z').should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})('a', null).should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(null, 'a').should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})('z', null).should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(null, 'z').should.equal(1)
 
     it 'Arrays should return the right value', ->
       array = ['c', 'a', 'b', 'aa', 'ab', 'ac', '1', '2']
-      array.sort(hx.sort.localeCompareNullsLast()).should.eql(['1', '2', 'a', 'aa', 'ab', 'ac', 'b', 'c'])
+      array.sort(hx.sort.localeCompare(undefined, {nullsLast: true})).should.eql(['1', '2', 'a', 'aa', 'ab', 'ac', 'b', 'c'])
       array = ['z', null, 'a', undefined, 'b', null, 'aa', undefined, '1', '2']
-      array.sort(hx.sort.localeCompareNullsLast()).should
+      array.sort(hx.sort.localeCompare(undefined, {nullsLast: true})).should
         .eql(['1', '2', 'a', 'aa', 'b', 'z', null, null, undefined, undefined])
       array = ['25', '10', '20', '42', '100']
-      array.sort(hx.sort.localeCompareNullsLast()).should.eql(['10', '20', '25', '42', '100'])
+      array.sort(hx.sort.localeCompare(undefined, {nullsLast: true})).should.eql(['10', '20', '25', '42', '100'])
       array = ['25', null, '10', undefined, '20', null, '42', undefined, '100']
-      array.sort(hx.sort.localeCompareNullsLast()).should
+      array.sort(hx.sort.localeCompare(undefined, {nullsLast: true})).should
         .eql(['10', '20', '25', '42', '100', null, null, undefined , undefined])
 
     it 'Numbers should return the right value', ->
-      hx.sort.localeCompareNullsLast()(1, 2).should.equal(-1)
-      hx.sort.localeCompareNullsLast()(2, 1).should.equal(1)
-      hx.sort.localeCompareNullsLast()(1, 1).should.equal(0)
-      hx.sort.localeCompareNullsLast()(1, undefined).should.equal(-1)
-      hx.sort.localeCompareNullsLast()(undefined, 1).should.equal(1)
-      hx.sort.localeCompareNullsLast()(1, null).should.equal(-1)
-      hx.sort.localeCompareNullsLast()(null, 1).should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(1, 2).should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(2, 1).should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(1, 1).should.equal(0)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(1, undefined).should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(undefined, 1).should.equal(1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(1, null).should.equal(-1)
+      hx.sort.localeCompare(undefined, {nullsLast: true})(null, 1).should.equal(1)
 
     it 'Arrays of numbers should return the right value', ->
       array = [100, null, 200, undefined, 1, null, 20, 2, 10]
-      array.sort(hx.sort.localeCompareNullsLast()).should.eql([1, 2, 10, 20, 100, 200, null, null, undefined])
+      array.sort(hx.sort.localeCompare(undefined, {nullsLast: true})).should.eql([1, 2, 10, 20, 100, 200, null, null, undefined])
 
     it 'Array with localised characters should return the right value', ->
       if navigator.userAgent.indexOf 'Phantom' > -1
@@ -281,21 +281,21 @@ describe 'hx-sort tests', ->
       else
         array = ['e', 'z', 'è', 'a', 'é', 'ä']
 
-        array.sort(hx.sort.localeCompareNullsLast()).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
+        array.sort(hx.sort.localeCompare(undefined, {nullsLast: true})).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
         if supportsOptions()
-          array.sort(hx.sort.localeCompareNullsLast('sv')).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
-          array.sort(hx.sort.localeCompareNullsLast('de')).should.eql(['a', 'e', 'é', 'è', 'z', 'ä'])
+          array.sort(hx.sort.localeCompareNullsLast('sv', {nullsLast: true})).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
+          array.sort(hx.sort.localeCompareNullsLast('de', {nullsLast: true})).should.eql(['a', 'e', 'é', 'è', 'z', 'ä'])
 
     it 'Arrays with localised characters and undefined values should sort null and undefined to the end', ->
       if navigator.userAgent.indexOf 'Phantom' > -1
         true.should.equal(true)
       else
         array = ['é', null, 'e', undefined, 'z', null, 'è', undefined, 'a', 'ä']
-        array.sort(hx.sort.localeCompareNullsLast()).should.eql(['a', 'ä', 'e', 'é', 'è', 'z', null, null, undefined, undefined])
+        array.sort(hx.sort.localeCompare(undefined, {nullsLast: true})).should.eql(['a', 'ä', 'e', 'é', 'è', 'z', null, null, undefined, undefined])
         if supportsOptions()
-          array.sort(hx.sort.localeCompareNullsLast('sv')).should
+          array.sort(hx.sort.localeCompareNullsLast('sv', {nullsLast: true})).should
             .eql(['a', 'ä', 'e', 'é', 'è', 'z', null, null, undefined, undefined])
-          array.sort(hx.sort.localeCompareNullsLast('de')).should
+          array.sort(hx.sort.localeCompareNullsLast('de', {nullsLast: true})).should
             .eql(['a', 'e', 'é', 'è', 'z', 'ä', null, null, undefined, undefined])
 
   describe 'using localeCompareNullsLast potentially with Intl.Collator. ', localeCompareNullsLastTests

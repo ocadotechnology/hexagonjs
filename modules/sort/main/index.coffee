@@ -41,20 +41,16 @@ localeCollatorFn = (locale, options) ->
 # slower than compare but enforces locale comparison for browsers that
 # dont support Intl.Collator.
 localeCompare = (locale, options) ->
-  options ?= {numeric: true}
+  options = hx.merge.defined(options, { numeric: true })
 
   localeCollator = localeCollatorFn(locale, options)
 
-  (a, b) ->
-    if a? and b? and not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
-    else localeCollator(a, b)
-
-localeCompareNullsLast = (locale, options) ->
-  options ?= {numeric: true}
-
-  localeCollator = localeCollatorFn(locale, options)
-  nullsLastCollator(localeCollator)
-
+  if options.nullsLast
+    nullsLastCollator(localeCollator)
+  else
+    (a, b) ->
+      if a? and b? and not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
+      else localeCollator(a, b)
 
 hx.sortBy = (arr, f) ->
   newArr = [arr...]
@@ -68,4 +64,3 @@ hx.sort = (arr) -> hx.sortBy arr, (x) -> x
 hx.sort.compare = compare
 hx.sort.compareNullsLast = compareNullsLast
 hx.sort.localeCompare = localeCompare
-hx.sort.localeCompareNullsLast = localeCompareNullsLast
