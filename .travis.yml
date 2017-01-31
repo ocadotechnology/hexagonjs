@@ -2,8 +2,8 @@ language: node_js
 node_js:
   - '7'
   - '6'
-  - '5'
-  - '4'
+  # - '5'
+  # - '4'
 script: npm test && npm run upload-coverage
 deploy:
   provider: npm
@@ -13,5 +13,5 @@ deploy:
   on:
     branch: master
     repo: ocadotechnology/hexagonjs
-    node: "4"
+    node: "6"
     tags: true

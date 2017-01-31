@@ -10,18 +10,18 @@ describe 'autocomplete', ->
     userFacingText('autoComplete','otherResults').should.equal('Other Results')
     userFacingText('autoComplete','pleaseEnterMinCharacters').should.equal('Please enter $minLength or more characters')
 
-  xit 'should sort items correctly when using objects', ->
+  it 'should sort items correctly when using objects', ->
     itemsObjects = utils.range(100).map((i) -> { id: i })
 
-    ac = new AutoComplete(selection.detached('div').node(), itemsObjects)
+    ac = new AutoComplete(selection.detached('div').node(), itemsObjects, { inputMap: ({id}) -> id })
 
     ac.show()
     ac._.menu.items().map(({id}) -> id).should.eql(utils.range(100))
 
-  xit 'should sort disabled items correctly', ->
+  it 'should sort disabled items correctly', ->
     itemsObjects = utils.range(100).map((i) -> { id: i, disabled: i % 2 == 0 })
 
-    ac = new AutoComplete(selection.detached('div').node(), itemsObjects)
+    ac = new AutoComplete(selection.detached('div').node(), itemsObjects, { inputMap: ({id}) -> id })
 
     ac.show()
     ac._.menu.items().slice(0, 50).map(({id}) -> id).should.eql(utils.range(50).map (i) -> 2 * i + 1)
