@@ -13,11 +13,6 @@ else
     else if String(a) < String(b) then -1
     else 1
 
-compare = (a, b) ->
-  hx._.sort.collator ?= collatorFn()
-  if a? and b? and not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
-  else hx._.sort.collator(a, b)
-
 nullsLastCollator = (collator) -> (a, b) ->
   if a is b then 0
   else if a is undefined then 1
@@ -27,6 +22,13 @@ nullsLastCollator = (collator) -> (a, b) ->
   else if not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
   else collator(a, b)
 
+defaultCollator = (collator) -> (a, b) ->
+  if a? and b? and not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
+  else collator(a, b)
+
+compare = (a, b) ->
+  hx._.sort.collator ?= collatorFn()
+  defaultCollator(hx._.sort.collator)(a, b)
 
 compareNullsLast = (a, b) ->
   hx._.sort.collator ?= collatorFn()
@@ -48,9 +50,7 @@ localeCompare = (locale, options) ->
   if options.nullsLast
     nullsLastCollator(localeCollator)
   else
-    (a, b) ->
-      if a? and b? and not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
-      else localeCollator(a, b)
+    defaultCollator(localeCollator)
 
 hx.sortBy = (arr, f) ->
   newArr = [arr...]
