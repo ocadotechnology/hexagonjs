@@ -4,27 +4,27 @@ describe 'dateTimeLocalizerMoment', ->
 describe 'dateTimeLocalizer', ->
   localizer = hx.dateTimeLocalizer()
   zeroPad = hx.format.zeroPad(2)
+  timezonesOffsetPattern = /(.)(\d{2}):(\d{2})$/
   testDate = new Date(1452130200000) # Thu Jan 07 2016 01:30:00 GMT+0000 (GMT)
   zeroHourDate = new Date(1452124800000) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)
   invalidDate = new Date('Invalid Date')
   # 0 - London, -120 - Sofia, -60 Krakow, -540 Tokio, 420 Pinal (Arizona/United states)
-  timezonesOfsets = [0, -120, -60, -540, 420]
+  timezonesOffsets = [0, -120, -60, -540, 420]
 
-  getHexaGonTimeZoneOffset = ->
-    hexagonTimeZoneOffset = hx.preferences.timezone().replace(/^UTC\+?/,'').split(":").map (item, index) ->
-      if index is 0
-        Number(item) * 60
-      else
-        Number(item)
-    .reduce (current, previous) ->
-      current + previous
-    hexagonTimeZoneOffset
+  getHexagonTimeZoneOffset = ->
+    timezonesOffsetParts = timezonesOffsetPattern.exec(hx.preferences.timezone())
+    if timezonesOffsetParts
+      [..., sign, hours, minutes] = timezonesOffsetParts;
+      (Number(sign + hours) * 60) + Number(minutes)
+    else
+      hx.consoleWarning('Cannot calculate Hexagon internal timezone offset')
+      false
 
   # This is helper function. It accepts
   # function as a argument and execute it
   # in all timezones that is provided
   executeFunctionInAllTimeZones = (func) ->
-    for currentOffset in timezonesOfsets
+    for currentOffset in timezonesOffsets
       oldDate = Date
       # This replace of date constructor
       # working properly under browser
@@ -123,7 +123,7 @@ describe 'dateTimeLocalizer', ->
     executeFunctionInAllTimeZones ->
       localeDate = new Date(testDate.getTime())
       expectedDate = zeroPad(localeDate.getDate()) + "/" + zeroPad(localeDate.getMonth() + 1) + "/" + zeroPad(localeDate.getFullYear())
-      localizer.date(localeDate).should.equal(expectedDate, getHexaGonTimeZoneOffset())
+      localizer.date(localeDate).should.equal(expectedDate, getHexagonTimeZoneOffset())
 
   it 'date: should localize a date object to return a date string of yyyy-mm-dd', ->
     expectedDate = zeroPad(testDate.getFullYear()) + "-" + zeroPad(testDate.getMonth() + 1) + "-" + zeroPad(testDate.getDate())
@@ -141,14 +141,14 @@ describe 'dateTimeLocalizer', ->
   it 'time: should localize a date object to return a time string of hh:mm in all timezones', ->
     executeFunctionInAllTimeZones ->
       localeDate = new Date(testDate.getTime())
-      localeDate.setTime(localeDate.getTime() + (getHexaGonTimeZoneOffset() * 60000))
-      localeDate = hx.preferences.handleTimeZoneOffsetDifferences(localeDate)
-      localeDate = localeDate.getHours() + ":" + localeDate.getMinutes()
-      localizer.time(testDate).should.equal(localeDate)
-      return
+      localeDate.setTime(localeDate.getTime() + (getHexagonTimeZoneOffset() * 60000))
+      localeDate.setTime(localeDate.getTime() + localeDate.getTimezoneOffset() * 60 * 1000)
+      localeDateString = localeDate.getHours() + ":" + localeDate.getMinutes()
+      localizer.time(testDate).should.equal(localeDateString)
 
   it 'time: should localize a date object to return a time string of hh:mm:ss', ->
-    localDate = hx.preferences.handleTimeZoneOffsetDifferences(testDate)
+    localDate = new Date(testDate.getTime())
+    localDate.setTime(localDate.getTime() + localDate.getTimezoneOffset() * 60 * 1000)
     localizer.time(localDate, true).should.equal('1:30:00')
 
   it 'checkTime: should return true when time is valid', ->

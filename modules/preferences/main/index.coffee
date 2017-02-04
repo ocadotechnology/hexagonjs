@@ -246,11 +246,10 @@ class Preferences extends hx.EventEmitter
         if @_.preferences['timezone'] isnt timezone
           @_.preferences['timezone'] = timezone
           @emit('timezonechange', timezone)
-        @_.preferences['timezone']
       else
         hx.consoleWarning('preferences.timezone:',
           timezone + ' is not a valid timezone')
-        this
+      this
     else
       @_.preferences['timezone']
 
@@ -260,27 +259,17 @@ class Preferences extends hx.EventEmitter
       if hx.isString(locale) and (localeObject = lookupLocale(locale))
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
+
           # moment doesn't look up the 'default' locale so we set it here
           # Moment issue: https://github.com/moment/moment/issues/2621
           moment?.locale(localeObject.value)
           @emit('localechange', localeObject.value)
-        @_.preferences['locale']
       else
         hx.consoleWarning('preferences.locale',
           locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon')
       this
     else
       @_.preferences['locale']
-
-  # The idea of this function is to isolate something
-  # really painfull. When we made calculation based on
-  # timezone offset every time, we need to precalculate
-  # the result according to current timezone.
-  # This issue not affect UTC 0.
-  handleTimeZoneOffsetDifferences: (inputDate) ->
-    if inputDate.getTimezoneOffset() isnt 0
-      inputDate.setTime(inputDate.getTime() + inputDate.getTimezoneOffset() * 60 * 1000)
-    new Date(inputDate.getTime())
 
   option = (name) ->
     (value) ->
@@ -295,10 +284,10 @@ class Preferences extends hx.EventEmitter
   supportedTimezones: option 'supportedTimezones'
   timezoneOffsetLookup: option 'timezoneOffsetLookup'
 
-  applyTimezoneOffset: (inputDate, offset) ->
-    offset ?= @_.timezoneOffsetLookup(@timezone(), inputDate.getTime()) || 0
-    resultDate = new Date(inputDate.getTime() + offset * 60 * 60 * 1000)
-    @handleTimeZoneOffsetDifferences resultDate
+  applyTimezoneOffset: (date, offset) ->
+    offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
+    utc = date.getTime() + (date.getTimezoneOffset() * 60000)
+    new Date(utc + offset * 60 * 60 * 1000)
 
   # sets the backingStore to use - currently the only one available is hx.preferences.localStorage
   # getting the backingStore should not be possible

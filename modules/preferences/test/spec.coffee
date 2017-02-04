@@ -54,7 +54,7 @@ describe 'hx-preferences', ->
 
     describe 'timezone', ->
       it 'setter/getter', ->
-        hx.preferences.timezone('UTC+01:00').should.equal('UTC+01:00')
+        hx.preferences.timezone('UTC+01:00').should.equal(hx.preferences)
         hx.preferences.timezone().should.equal('UTC+01:00')
 
       it 'dont emit when setting to the same value', ->
