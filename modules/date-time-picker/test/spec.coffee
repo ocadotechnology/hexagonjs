@@ -1,6 +1,9 @@
+select = require('modules/selection/main')
+DateTimePicker = require('modules/date-time-picker/main').DateTimePicker
+
 describe 'date-time-picker', ->
   describe 'test return types:', ->
-    dp = new hx.DateTimePicker(hx.detached('div').node())
+    dp = new DateTimePicker(select.detached('div').node())
 
     describe 'should return this for getter setters with parameters:', ->
       it 'datetimepicker.date', -> dp.date(new Date).should.equal(dp)

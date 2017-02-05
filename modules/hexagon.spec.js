@@ -52,6 +52,11 @@ describe('HexagonJS Test Suite', () => {
   require('modules/tag-input/test/spec')
   require('modules/titlebar/test/spec')
   require('modules/slider/test/spec')
+  require('modules/color-picker/test/spec')
+  require('modules/crumbtrail/test/spec')
+  require('modules/paginator/test/spec')
+  require('modules/time-slider/test/spec')
+  require('modules/date-time-picker/test/spec')
 
   describe('1.x.x backwards compatiblity tests', () => {
 
@@ -143,8 +148,6 @@ describe('HexagonJS Test Suite', () => {
       checkProperty('shallowClone')
       checkProperty('vendor')
       checkProperty('identity')
-      checkProperty('parseHTML')
-      checkProperty('cleanNode')
       checkProperty('scrollbarSize')
       checkProperty('parentZIndex')
       checkProperty('checkParents')
@@ -447,6 +450,31 @@ describe('HexagonJS Test Suite', () => {
 
     describe('label', () => {
       checkProperty('label')
+    })
+
+    describe('colorPicker', () => {
+      checkProperty('colorPicker')
+      checkProperty('ColorPicker')
+    })
+
+    describe('crumbtrail', () => {
+      checkProperty('crumbtrail')
+      checkProperty('Crumbtrail')
+    })
+
+    describe('paginator', () => {
+      checkProperty('paginator')
+      checkProperty('Paginator')
+    })
+
+    describe('timeSlider', () => {
+      checkProperty('timeSlider')
+      checkProperty('TimeSlider')
+    })
+
+    describe('dateTimePicker', () => {
+      checkProperty('dateTimePicker')
+      checkProperty('DateTimePicker')
     })
   })
 })

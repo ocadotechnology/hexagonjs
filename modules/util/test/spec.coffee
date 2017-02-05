@@ -589,30 +589,6 @@ describe "Util", ->
     }
     hx.vendor(obj, 'prop').should.equal('webkit')
 
-  it 'cleanNode: should remove all whitespace nodes', ->
-    container = document.createElement('div')
-    inner = document.createElement('div')
-
-    container.appendChild(document.createTextNode('\n'))
-    container.appendChild(document.createElement('div'))
-    container.appendChild(document.createTextNode('\t'))
-
-    inner.appendChild(document.createTextNode('Dave'))
-    inner.appendChild(document.createElement('div'))
-    inner.appendChild(document.createTextNode('\n'))
-
-    container.appendChild(inner)
-
-    container.childNodes.length.should.equal(4)
-    inner.childNodes.length.should.equal(3)
-    container = util.cleanNode(container)
-    container.childNodes.length.should.equal(2)
-    container.innerHTML.should.equal('<div></div><div>Dave<div></div></div>')
-    inner.childNodes.length.should.equal(2)
-    inner.innerHTML.should.equal('Dave<div></div>')
-    inner.childNodes[0].nodeValue.should.equal('Dave')
-    inner.childNodes[1].innerHTML.should.equal('')
-
   it 'defined: should return true for non-null and non-undefined values', ->
     util.defined(123).should.equal(true)
     util.defined("123").should.equal(true)

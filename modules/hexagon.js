@@ -66,5 +66,11 @@ module.exports = window.hx = merge([
   require('./layout/main'),
   require('./notice/main'),
   require('./input-group/main'),
-  require('./label/main')
+  require('./label/main'),
+  require('./color-picker/main'),
+  require('./crumbtrail/main'),
+  require('./fast-click/main'),
+  require('./paginator/main'),
+  require('./time-slider/main'),
+  require('./date-time-picker/main')
 ])

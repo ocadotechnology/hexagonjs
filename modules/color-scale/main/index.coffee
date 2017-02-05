@@ -1,3 +1,6 @@
+utils = require('modules/util/main/utils')
+color = require('modules/color/main')
+
 class ColorScale
   setFactor = (dMin, dMax, rMin, rMax) ->
     den = (dMax - dMin)
@@ -23,8 +26,8 @@ class ColorScale
             break
         mDiff = m - @rangeArr[point-1].val
         pointDiff = @rangeArr[point].val - @rangeArr[point-1].val
-        percentage = hx.clamp(0, 1, mDiff / pointDiff)
-        col = hx.color(@rangeArr[point-1].color).mix(hx.color(@rangeArr[point].color), percentage)
+        percentage = utils.clamp(0, 1, mDiff / pointDiff)
+        col = color(@rangeArr[point-1].color).mix(color(@rangeArr[point].color), percentage)
     col.toString()
 
   domain: (start, end) ->
@@ -38,4 +41,7 @@ class ColorScale
     @factor = setFactor(@domainMin, @domainMax, @rangeMin, @rangeMax)
     this
 
-hx.ColorScale = ColorScale
+module.exports = ColorScale
+module.exports.hx = {
+  ColorScale
+}

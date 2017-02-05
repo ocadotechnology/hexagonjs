@@ -1,8 +1,15 @@
-class DateTimePicker extends hx.EventEmitter
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+DatePicker = require('modules/date-picker/main').DatePicker
+TimePicker = require('modules/time-picker/main').TimePicker
+EventEmitter = require('modules/event-emitter/main')
+preferences = require('modules/preferences/main')
+
+class DateTimePicker extends EventEmitter
   constructor: (@selector, options) ->
     super
 
-    @options = hx.merge({
+    @options = utils.merge({
       datePickerOptions: {}
       timePickerOptions: {}
     }, options)
@@ -10,11 +17,11 @@ class DateTimePicker extends hx.EventEmitter
     # You can't select a range for a date-time picker.
     delete @options.datePickerOptions.selectRange
 
-    hx.component.register(@selector, this)
-
     @suppressCallback = false
 
-    @selection = hx.select(@selector).classed('hx-date-time-picker', true)
+    @selection = select(@selector)
+      .classed('hx-date-time-picker', true)
+      .api(this)
 
     dtNode = @selection.append('div').node()
     tpNode = @selection.append('div').node()
@@ -22,14 +29,15 @@ class DateTimePicker extends hx.EventEmitter
     # To prevent the two pickers being initialised with separate disabled properties.
     @options.timePickerOptions.disabled = @options.datePickerOptions.disabled
 
-    @datePicker = new hx.DatePicker(dtNode, @options.datePickerOptions)
-    @timePicker = new hx.TimePicker(tpNode, @options.timePickerOptions)
+    @datePicker = new DatePicker(dtNode, @options.datePickerOptions)
+    @timePicker = new TimePicker(tpNode, @options.timePickerOptions)
 
     @_ = {
-      uniqueId: hx.randomId()
+      uniqueId: utils.randomId()
     }
 
-    hx.preferences.on 'timezonechange', 'hx.date-time-picker-' + @_.uniqueId, -> updateDatePicker()
+    # XXX [2.0.0]: memory leak
+    preferences.on 'timezonechange', 'hx.date-time-picker-' + @_.uniqueId, -> updateDatePicker()
 
     @datePicker.pipe(this, 'date', ['show', 'hide'])
     @timePicker.pipe(this, 'time', ['show', 'hide'])
@@ -46,7 +54,7 @@ class DateTimePicker extends hx.EventEmitter
 
     updateDatePicker = (data) =>
       @datePicker.suppressed('change', true)
-      @datePicker.date(hx.preferences.applyTimezoneOffset(@date()))
+      @datePicker.date(preferences.applyTimezoneOffset(@date()))
       @datePicker.suppressed('change', false)
 
       if data?
@@ -102,13 +110,14 @@ class DateTimePicker extends hx.EventEmitter
   getScreenDate: -> @datePicker.getScreenDate()
   getScreenTime: -> @timePicker.getScreenTime()
 
+  # XXX [2.0.0]: remove
   locale: (locale) ->
-    hx.deprecatedWarning 'hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.'
+    utils.deprecatedWarning 'hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.'
     if arguments.length > 0
-      hx.preferences.locale locale
+      preferences.locale locale
       this
     else
-      hx.preferences.locale()
+      preferences.locale()
 
 
   disabled: (disable) ->
@@ -120,9 +129,14 @@ class DateTimePicker extends hx.EventEmitter
       dpDisabled
 
 
-hx.dateTimePicker = (options) ->
-  selection = hx.detached('div')
+dateTimePicker = (options) ->
+  selection = select.detached('div')
   new DateTimePicker(selection.node(), options)
   selection
 
-hx.DateTimePicker = DateTimePicker
+module.exports = dateTimePicker
+module.exports.DateTimePicker = DateTimePicker
+module.exports.hx = {
+  dateTimePicker,
+  DateTimePicker
+}

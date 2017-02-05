@@ -1,15 +1,17 @@
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+
 class Crumbtrail
 
   constructor: (@selector, options) ->
-    hx.component.register(@selector, this)
     self = this
 
-    section = hx.select(@selector)
+    section = select(@selector).api(this)
     section.classed('hx-crumbtrail', true)
 
-    @options = hx.merge.defined {
+    @options = utils.merge.defined {
       renderer: (node, data) ->
-        hx.select(node).text(data)
+        select(node).text(data)
       items: []
       separator: '/'
     }, options
@@ -38,14 +40,19 @@ class Crumbtrail
   items: (data) ->
     if data?
       @options.items = data
-      @view.apply hx.flatten(data.map((d) -> [d, 0])).slice(0, -1)
+      @view.apply utils.flatten(data.map((d) -> [d, 0])).slice(0, -1)
       this
     else
       @options.items
 
-hx.crumbtrail = (options) ->
-  selection = hx.detached('div')
+crumbtrail = (options) ->
+  selection = select.detached('div')
   new Crumbtrail(selection.node(), options)
   selection
 
-hx.Crumbtrail = Crumbtrail
+module.exports = crumbtrail
+module.exports.Crumbtrail = Crumbtrail
+module.exports.hx = {
+  crumbtrail,
+  Crumbtrail
+}

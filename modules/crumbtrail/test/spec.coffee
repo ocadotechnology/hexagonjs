@@ -1,4 +1,7 @@
-describe 'hx-crumbtrail tests', ->
+select = require('modules/selection/main')
+Crumbtrail = require('modules/crumbtrail/main').Crumbtrail
+
+describe 'hx-crumbtrail', ->
 
   it 'items() should return the appropriate values', ->
     items = [
@@ -7,7 +10,7 @@ describe 'hx-crumbtrail tests', ->
       'dave'
     ]
 
-    crumbtrail = new hx.Crumbtrail(hx.detached('div').node(), {
+    crumbtrail = new Crumbtrail(select.detached('div').node(), {
       items: items
     })
 

@@ -1,8 +1,13 @@
-zeroPad = hx.format.zeroPad(2)
+format = require('modules/format/main')
+Slider = require('modules/slider/main').Slider
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
 
-class TimeSlider extends hx.Slider
+zeroPad = format.zeroPad(2)
+
+class TimeSlider extends Slider
   constructor: (selector, opts = {}) ->
-    # no need to register this as a component - hx.Slider does that for us
+    # no need to register this as a component - Slider does that for us
 
     min = if opts.min?
       maybeDateToMillis(opts.min)
@@ -17,8 +22,8 @@ class TimeSlider extends hx.Slider
     max = if opts.max? then maybeDateToMillis(opts.max) else min + 24 * 60 * 60 * 1000 - 1
 
 
-    options = hx.merge({
-      renderer: (slider, elem, value) -> hx.select(elem).text(slider.options.formatter(new Date(value))),
+    options = utils.merge({
+      renderer: (slider, elem, value) -> select(elem).text(slider.options.formatter(new Date(value))),
     }, opts)
 
     options.min = min
@@ -58,9 +63,14 @@ class TimeSlider extends hx.Slider
 
   max: (max) -> if arguments.length > 0 then super(maybeDateToMillis(max)) else new Date(super())
 
-hx.timeSlider = (options) ->
-  selection = hx.detached('div')
+timeSlider = (options) ->
+  selection = select.detached('div')
   new TimeSlider(selection.node(), options)
   selection
 
-hx.TimeSlider = TimeSlider
+module.exports = timeSlider
+module.exports.TimeSlider = TimeSlider
+module.exports.hx = {
+  timeSlider,
+  TimeSlider
+}

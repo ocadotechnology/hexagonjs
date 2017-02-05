@@ -1,5 +1,8 @@
+select = require('modules/selection/main')
+utils = require('modules/util/main/utils')
+
 # removes the 200ms delay when clicking on mobiles
-if hx.supports('touch')
+if utils.supports('touch')
   DONT_PREVENT_DEFAULT_NODES = [
     'INPUT',
     'TEXTAREA',
@@ -58,7 +61,7 @@ if hx.supports('touch')
       node.removeEventListener 'touchmove', touchMoveHander
       node.removeEventListener 'touchend', touchEndHander
 
-  hx.select.addEventAugmenter({
+  select.addEventAugmenter({
     name: 'click',
     setup: setupFastClick
   })

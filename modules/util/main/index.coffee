@@ -44,8 +44,6 @@ module.exports = {
   shallowClone: utils.shallowClone
   vendor: utils.vendor
   identity: utils.identity
-  parseHTML: domUtils.parseHTML
-  cleanNode: domUtils.cleanNode
   scrollbarSize: domUtils.scrollbarSize
   parentZIndex: domUtils.parentZIndex
   checkParents: domUtils.checkParents

@@ -6,12 +6,6 @@ ClickDetector = require('modules/click-detector/main')
 EventEmitter = require('modules/event-emitter/main')
 calculateDropdownPosition = require('./positioning')
 
-# #XXX [modules]: how should this work with modules?
-# hx.theme = hx.theme || {}
-# hx.theme.dropdown = {
-#   spacing: 8
-# }
-
 config = {
   attachToSelector: 'body',
   dropdownAnimateSlideDistance: 8
