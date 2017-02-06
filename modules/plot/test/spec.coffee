@@ -10,6 +10,55 @@ describe "plot", ->
       array2 = [{x: 1, y1: 4, y2: 3}, {x: 2, y1: 3, y2: 4}, {x: 3, y1: 5, y2: 5}]
       array3 = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}, {x: 4, y: 2}]
 
+      it 'calculateYBounds: should not ignore non-auto parameters', ->
+        axis = new hx.Axis()
+        axis.calculateYBounds('auto', 'auto').should.eql { ymin: 0, ymax: 0 }
+        axis.calculateYBounds(1, 1).should.eql { ymin: 1, ymax: 1 }
+        axis.calculateYBounds(-1, 'auto').should.eql { ymin: -1, ymax: 0 }
+
+      it 'calculateYBounds: should correctly calculate y bounds when the data is sparse and the graph is stacked', ->
+        axis = new hx.Axis({
+          x: {
+            scaleType: 'discrete'
+          },
+          y: {
+            min: 0
+          },
+          series: [
+            {
+              type: 'bar',
+              options: {
+                title: 'Bob',
+                group: 'g0',
+                fillColor: hx.theme.plot.coldCol,
+                data: [{
+                  x: 'verybig',
+                  y: 10
+                }, {
+                  x: 'alwayspresesnt',
+                  y: 1
+                }]
+              }
+            },
+            {
+              type: 'bar',
+              options: {
+                title: 'Lazlo',
+                fillColor: hx.theme.plot.warmCol,
+                group: 'g0',
+                data: [{
+                  x: 'alwayspresesnt',
+                  y: 2
+                }]
+              }
+            }
+          ]
+  		})
+
+        axis.tagSeries()
+        { ymax } = axis.calculateYBounds('auto', 'auto')
+        ymax.should.eql(10)
+
       it 'doCollisionDetection: should hide text that gets in the way of other text', ->
         widthPx = 200
         intendedDistance = 2

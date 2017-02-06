@@ -1,3 +1,8 @@
+supportsGroup = (series) ->
+  series instanceof BarSeries or
+  series instanceof LineSeries
+
+
 doCollisionDetection = (nodesRaw) ->
   nodes = nodesRaw.map (node, index) ->
     { node, index, box: node.getBoundingClientRect() }
