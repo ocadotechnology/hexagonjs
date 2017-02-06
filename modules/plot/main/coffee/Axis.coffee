@@ -318,20 +318,9 @@ class Axis
       @yScale.domain(domain)
     else
 
-      { yMinMightBeAuto, yMaxMightBeAuto } = { yMaxMightBeAuto: @y.max(), yMinMightBeAuto: @y.min() }
-      { ymin, ymax } = if 'auto' in [yMaxMightBeAuto, yMinMightBeAuto]
-        { ymin, ymax } = @calculateYBounds()
-        yminscaled = if yMinMightBeAuto is 'auto' then scalePad(ymin, ymax - ymin, -@y.scalePaddingMin()) else yMinMightBeAuto
-        ymaxscaled = if yMaxMightBeAuto is 'auto' then scalePad(ymax, ymax - ymin, @y.scalePaddingMax()) else yMaxMightBeAuto
-        { ymin: yminscaled, ymax: ymaxscaled }
-      else
-        { ymin: yMinMightBeAuto, ymax: yMaxMightBeAuto }
-
-
-      ymin = if @y.min() is 'auto' then ymin else @y.min()
-      ymax = if @y.max() is 'auto' then ymax else @y.max()
-
-
+      yMinMightBeAuto = @y.min()
+      yMaxMightBeAuto = @y.max()
+      { ymin, ymax } = @calculateYBounds yMinMightBeAuto, yMaxMightBeAuto
 
       @yScale.domain(ymin, ymax)
 
@@ -544,53 +533,59 @@ class Axis
     else
       Math.max(start, 0)
 
-  calculateYBounds: ->
-    # XXX: band series?
-    allSeries = @series()
-    xScaleType = @x.scaleType()
+  calculateYBounds: (yMinMightBeAuto, yMaxMightBeAuto) ->
+    if 'auto' in [yMaxMightBeAuto, yMinMightBeAuto]
+      # XXX: band series?
+      allSeries = @series()
+      xScaleType = @x.scaleType()
 
-    initValue = { ymin: 0, ymax: 0 }
-    types = hx.groupBy(allSeries, (d) -> d._.type)
-    stackGroups = types.map ([type, series]) ->
-      type: type
-      group: hx.groupBy series, (s) -> if supportsGroup(s) then s.group() else undefined
+      initValue = { ymin: 0, ymax: 0 }
+      types = hx.groupBy(allSeries, (d) -> d._.type)
+      stackGroups = types.map ([type, series]) ->
+        type: type
+        group: hx.groupBy series, (s) -> if supportsGroup(s) then s.group() else undefined
   
   
-    typeGroupReductor = (type) ->
-      ({ ymin, ymax }, [seriesGroup, series]) ->
-        { yymin, yymax } = if seriesGroup == undefined
-          maybeys = allSeries.map (s) ->
-            data = s.data()
-            if s instanceof StraightLineSeries
-              if not data.dx and not data.dy and data.y
-                [data.y, data.y]
+      typeGroupReductor = (type) ->
+        ({ ymin, ymax }, [seriesGroup, series]) ->
+          { yymin, yymax } = if seriesGroup == undefined
+            maybeys = allSeries.map (s) ->
+              data = s.data()
+              if s instanceof StraightLineSeries
+                if not data.dx and not data.dy and data.y
+                  [data.y, data.y]
+                else
+                  undefined
+              else if s instanceof BandSeries
+                extent2(data, ((d) -> d.y1), (d) -> d.y2)
               else
-                undefined
-            else if s instanceof BandSeries
-              extent2(data, ((d) -> d.y1), (d) -> d.y2)
-            else
-              extent(data, (d) -> d.y)
-          ys = maybeys.filter((d) -> d?)
+                extent(data, (d) -> d.y)
+            ys = maybeys.filter((d) -> d?)
   
+            {
+              yymin: hx.min(ys.map((d) -> d[0]))
+              yymax: hx.max(ys.map((d) -> d[1]))
+            }
+          else
+            allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
+            stackHeights = allX.map (x) ->
+              maybeys = series.map (series) -> series.getY x, xScaleType is 'discrete'
+              hx.sum maybeys.filter hx.identity
+            {
+              yymin: hx.min stackHeights
+              yymax: hx.max stackHeights
+            }
           {
-            yymin: hx.min(ys.map((d) -> d[0]))
-            yymax: hx.max(ys.map((d) -> d[1]))
+            ymin: Math.min(ymin, yymin)
+            ymax: Math.max(ymax, yymax)
           }
-        else
-          allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
-          stackHeights = allX.map (x) ->
-            maybeys = series.map (series) -> series.getY x, xScaleType is 'discrete'
-            hx.sum maybeys.filter hx.identity
-          {
-            yymin: hx.min stackHeights
-            yymax: hx.max stackHeights
-          }
-        {
-          ymin: Math.min(ymin, yymin)
-          ymax: Math.max(ymax, yymax)
-        }
   
-    stackGroupReductor = (prev, { type, group }) ->
-      reductor = typeGroupReductor type
-      group.reduce reductor, prev
-    stackGroups.reduce stackGroupReductor, initValue
+      stackGroupReductor = (prev, { type, group }) ->
+        reductor = typeGroupReductor type
+        group.reduce reductor, prev
+      { ymin, ymax } = stackGroups.reduce stackGroupReductor, initValue
+      yminscaled = if yMinMightBeAuto is 'auto' then scalePad(ymin, ymax - ymin, -@y.scalePaddingMin()) else yMinMightBeAuto
+      ymaxscaled = if yMaxMightBeAuto is 'auto' then scalePad(ymax, ymax - ymin, @y.scalePaddingMax()) else yMaxMightBeAuto
+      { ymin: yminscaled, ymax: ymaxscaled }
+    else
+      { ymin: yMinMightBeAuto, ymax: yMaxMightBeAuto }
