@@ -2,6 +2,7 @@
   "dependencies": [
     "util",
     "dropdown",
-    "selection"
+    "selection",
+    "component"
   ]
 }

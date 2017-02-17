@@ -1,29 +1,34 @@
 class Tooltip
-  constructor: (selector, message = '', options = {}) ->
-    defaults = {
-      align: 'right'
-    }
-    resolvedOptions = hx.merge(defaults, options)
+  constructor: (selector, content) ->
 
-    content = (element) -> hx.select(element).text(message)
+    selection = hx.select(selector).api(this)
+
+    maybeWrapString = (content) ->
+      if hx.isString(content)
+        hx.div('hx-tooltip-text').text(content)
+      else
+        content
+
+    dropdownContent = (element) ->
+      if hx.isFunction(content)
+        hx.select(element).add(maybeWrapString(content()))
+      else
+        hx.select(element).add(maybeWrapString(content))
 
     dropdownOptions = {
-      mode: 'click',
+      mode: 'hover',
       matchWidth: false,
-      align: resolvedOptions.align,
+      align: 'right',
       ddClass: 'hx-tooltip'
     }
 
-    selection = hx.select(selector)
+    dropdown = new hx.Dropdown(selection, dropdownContent, dropdownOptions)
 
-    @_ = {
-      selection: selection,
-      dropdown: new hx.Dropdown(selection.node(), content, dropdownOptions)
-    }
+    @_ = { selection, dropdown }
 
   remove: ->
-    @dropdown.hide()
-    @dropdown.cleanUp()
+    @_.dropdown.hide()
+    @_.dropdown.cleanUp()
 
-hx.tooltip = (selector, message, options) ->
-  new Tooltip(selector, message, options)
+hx.tooltip = (selector, content) ->
+  new Tooltip(selector, content)
