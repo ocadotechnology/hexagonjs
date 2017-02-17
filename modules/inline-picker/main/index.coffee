@@ -1,18 +1,19 @@
 
 class InlinePicker extends hx.InlineMorphSection
   enterEditMode = (toggle, content) ->
-    @picker.value(@current?.value or @current)
+    _ = @_
+    _.picker.value(_.current?.value or _.current)
     hx.select(content).select('.hx-confirm').on 'click', 'hx.inline-picker', =>
-      @current = @picker.value()
-      @textSelection.text(@current.text or @current)
-      @emit('change', {api: false, value: @current})
+      _.current = _.picker.value()
+      _.selectedText.text(_.current.text or _.current)
+      @emit('change', {api: false, value: _.current})
       this.hide()
 
   exitEditMode = (toggle, content) ->
 
-  constructor: (@selector, options) ->
+  constructor: (selector, options) ->
     # MorphSection registers the component
-    options = hx.merge {
+    resolvedOptions = hx.merge {
       renderer: undefined
       items: []
       contextClass: 'hx-complement'
@@ -21,60 +22,65 @@ class InlinePicker extends hx.InlineMorphSection
       value: undefined
     }, options
 
-    # currently selected value
-    @current = undefined
+    selection = hx.select(selector).classed('hx-inline-picker', true)
+    pickerNode = hx.detached('button').class('hx-btn ' +  resolvedOptions.contextClass).node()
 
-    selection = hx.select(@selector).classed('hx-inline-picker', true)
-    pickerNode = hx.detached('button').class('hx-btn ' +  options.contextClass).node()
-
-    @textSelection = selection.append('a').class('hx-morph-toggle')
+    selectedText = selection.append('a').class('hx-morph-toggle')
     selection.append('div').class('hx-morph-content hx-input-group')
       .add pickerNode
       .add hx.detached('button').class('hx-btn hx-positive hx-confirm').add(hx.detached('i').class('hx-icon hx-icon-check'))
 
-    @picker = new hx.Picker(pickerNode, {
-      renderer: options.renderer
-      items: options.items
-      ddClass: options.ddClass
-      noValueText: options.noValueText
+    picker = new hx.Picker(pickerNode, {
+      renderer: resolvedOptions.renderer
+      items: resolvedOptions.items
+      ddClass: resolvedOptions.ddClass
+      noValueText: resolvedOptions.noValueText
     })
 
-    if not options.renderer?
-      options.renderer = @picker.renderer()
+    picker._.menu.dropdown.on 'showstart', 'hx.inline-picker', =>
+      @detector.addException(picker._.menu.dropdown._.dropdown.node())
 
-    @picker.menu.dropdown.on 'showstart', 'hx.inline-picker', =>
-      this.detector.addException(@picker.menu.dropdown._.dropdown.node())
+    @_ =
+      current: undefined
+      renderer: resolvedOptions.renderer
+      options: resolvedOptions
+      picker: picker
+      selector: selector
+      selectedText: selectedText
 
-    super(@selector, enterEditMode, exitEditMode, options)
+    if not @renderer()?
+      @renderer picker.renderer()
 
-    if @options.value?
-      @value @options.value
+    super(selector, enterEditMode, exitEditMode, resolvedOptions)
+
+    if resolvedOptions.value?
+      @value resolvedOptions.value
 
   renderer: (f) ->
     if f?
-      @options.renderer = f
-      @picker.renderer(@options.renderer)
+      @_.renderer = f
+      @_.picker.renderer(f)
       this
     else
-      @options.renderer
+      @_.renderer
 
   items: (items) ->
     if items?
-      @options.items = items
-      @picker.items(@options.items)
+      @_.items = items
+      @_.picker.items(items)
       this
     else
-      @options.items
+      @_.items
 
   value: (value) ->
     if arguments.length > 0
-      @picker.value(value)
-      @current = @picker.value()
-      @textSelection.text(@current.text or @current)
-      @emit('change', {api: true, value: @current})
+      @_.picker.value(value)
+      @_.current = @_.picker.value()
+      @_.selectedText.text(@_.current.text or @_.current)
+      @emit('change', {api: true, value: @_.current})
       this
     else
-      @current
+      @_.current
 
 
 hx.inlinePicker = (options) ->

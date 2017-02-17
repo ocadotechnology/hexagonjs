@@ -1,3 +1,8 @@
+hx.userFacingText({
+  form: {
+    pleaseSelectAValue: 'Please select a value from the list'
+  }
+})
 
 class Form extends hx.EventEmitter
   constructor: (@selector) ->
@@ -19,26 +24,21 @@ class Form extends hx.EventEmitter
     entry.append('label').attr("for", id).text(name)
     selection = entry.append(nodeType).attr("id",id)
     extras = f.call(selection) or {}
+    key = extras.key || name
+    # We don't want or need the key in the extras after this point
+    delete extras.key
 
     # Define the default function for enabling/disabling a form property
     extras.disable ?= (sel, disable) ->
       sel.attr('disabled', if disable then 'disabled' else undefined)
 
-    if extras.key?
-      key = extras.key
-      delete extras.key
-      @properties.set key,
-        type: type
-        node: selection.node()
-        extras: extras
-    else
-      @properties.set name,
-        type: type
-        node: selection.node()
-        extras: extras
+    @properties.set key,
+      type: type
+      node: selection.node()
+      extras: extras
 
-    if extras.hidden then @hidden name, extras.hidden
-    if extras.disabled then @disabled name, extras.disabled
+    if extras.hidden then @hidden key, extras.hidden
+    if extras.disabled then @disabled key, extras.disabled
     this
 
   addText: (name, options={}) ->
@@ -114,7 +114,7 @@ class Form extends hx.EventEmitter
       picker.value(values[0]) unless typeof options.required is 'boolean'
 
       if options.required
-        input.node().setCustomValidity('Please select a value from the list')
+        input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'))
         picker.on 'change', 'hx.form-builder', ->
           input.node().setCustomValidity('')
 
@@ -125,6 +125,37 @@ class Form extends hx.EventEmitter
         hidden: options.hidden
         disabled: options.disabled
         disable: (selection, disabled) -> picker.disabled(disabled)
+      }
+
+  addAutocompletePicker: (name, values, options = {}) ->
+    @add name, 'select', 'div', ->
+      elem = @append('button')
+        .attr('type', 'button')
+        .class(options.buttonClass)
+
+      autocompletePickerOptions = hx.merge({buttonClass: options.buttonClass}, options.autocompletePickerOptions)
+
+      if values.length > 0
+        autocompletePickerOptions.items = values
+
+      autocompletePicker = new hx.AutocompletePicker(elem.node(), values, autocompletePickerOptions)
+      input = @append('input').class('hx-hidden-form-input').attr('size', 0)
+      @style('position', 'relative')
+
+      autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'
+
+      if options.required
+        input.node().setCustomValidity('Please select a value from the list')
+        autocompletePicker.on 'change', 'hx.form-builder', ->
+          input.node().setCustomValidity('')
+
+      {
+        required: options.required
+        componentNode: elem.node()
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (selection, disabled) -> autocompletePicker.disabled(disabled)
       }
 
   addCheckbox: (name, options = {}) ->
@@ -242,6 +273,10 @@ class Form extends hx.EventEmitter
     self = this
     @add name, 'tagInput', 'div', ->
       elem = @append('div').node()
+      if options.placeholder
+        options.tagInputOptions ?= {}
+        options.tagInputOptions.placeholder ?= options.placeholder
+
       tagInput = new hx.TagInput(elem, options.tagInputOptions)
       {
         key: options.key
@@ -347,7 +382,7 @@ class Form extends hx.EventEmitter
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
           else hx.select(node).value(value)
       else
-        if not it.hidden and not it.disabled
+        if not it.hidden
           value = switch it.type
             when 'checkbox' then hx.select(it.node).prop('checked')
             when 'radio' then hx.select(it.node).select('input:checked').value()

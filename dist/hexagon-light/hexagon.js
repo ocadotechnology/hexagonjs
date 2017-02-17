@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.3.2
+ Version: 1.10.0
  Theme: hexagon-light
  Modules:
    set
@@ -20,54 +20,58 @@
    selection
    transition
    interpolate
+   component
+   sort
+   user-facing-text
    animate
-   pointer-events
    icon
    spinner
    view
-   sort
-   component
+   pointer-events
+   filter
+   form
+   modal
+   notify
+   format
    morphs
    click-detector
    base
-   modal
-   notify
-   filter
-   form
+   preferences
+   button
    dropdown
    collapsible
    palette
-   format
-   preferences
-   button
-   resize-events
-   menu
    input-group
    date-localizer
    number-picker
-   layout
-   drag-container
-   progress-bar
-   plot
-   sticky-table-headers
-   picker
-   button-group
-   request
-   table
+   menu
+   resize-events
+   autocomplete-feed
    date-picker
    time-picker
+   autocomplete
+   drag-container
+   layout
+   progress-bar
+   plot
+   button-group
    fluid
+   picker
+   request
+   sticky-table-headers
+   table
+   toggle
+   autocomplete-picker
+   date-time-picker
    tag-input
    morph-section
    titlebar
    slider
-   autocomplete
    card
    color-picker
    color-scale
    crumbtrail
    data-table
-   date-time-picker
    drawing
    error-pages
    fast-click
@@ -85,9 +89,7 @@
    sidebar
    tabs
    time-slider
-   toggle
    tree
-   user-facing-text
 */
 (function(){
 var hx = {"_": {}};
@@ -102,38 +104,20 @@ hx.theme = {
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "component": {},
+  "sort": {},
+  "userFacingText": {},
   "animate": {},
-  "pointerEvents": {},
   "icon": {},
   "spinner": {
     "spinnerCol": "#00ADA8"
   },
   "view": {},
-  "sort": {},
-  "component": {},
-  "morphs": {},
-  "clickDetector": {},
-  "base": {
-    "defaultFontFamily": "'Open Sans', sans-serif",
-    "headingFontFamily": "'Open Sans', sans-serif",
-    "bodyBackgroundCol": "rgb(247, 247, 249)",
-    "defaultTextCol": "#3D3D3D",
-    "headingTextCol": "#3D3D3D",
-    "inputBackgroundCol": "white",
-    "inputBorderCol": "#DADADA",
-    "inputTextCol": "#3D3D3D",
-    "inputFocusBorderCol": "#00ADA8",
-    "inputInvalidBorderCol": "#DE1A4A",
-    "inputBorderRadius": "2px",
-    "selectBackgroundCol": "#FAFAFA",
-    "selectBorderCol": "#D8D8D8",
-    "selectTextCol": "#3D3D3D",
-    "selectFocusBorderCol": "#B5B5B5",
-    "textSelectCol": "#B4B1B5",
-    "linkCol": "#00ADA8",
-    "dividerCol": "#D0D0D0",
-    "dividerStyle": "solid",
-    "defaultFontSize": "14px"
+  "pointerEvents": {},
+  "filter": {},
+  "form": {
+    "errorTextCol": "#F7F7F9",
+    "errorBackgroundCol": "#4A4E4E"
   },
   "modal": {
     "shadeCol": "rgba(0,0,0,0.5)",
@@ -166,10 +150,49 @@ hx.theme = {
     "containerBorderCol": "transparent",
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
-  "filter": {},
-  "form": {
-    "errorTextCol": "#F7F7F9",
-    "errorBackgroundCol": "#4A4E4E"
+  "format": {},
+  "morphs": {},
+  "clickDetector": {},
+  "base": {
+    "defaultFontFamily": "'Open Sans', sans-serif",
+    "headingFontFamily": "'Open Sans', sans-serif",
+    "bodyBackgroundCol": "rgb(247, 247, 249)",
+    "defaultTextCol": "#3D3D3D",
+    "headingTextCol": "#3D3D3D",
+    "inputBackgroundCol": "white",
+    "inputBorderCol": "#DADADA",
+    "inputTextCol": "#3D3D3D",
+    "inputFocusBorderCol": "#00ADA8",
+    "inputInvalidBorderCol": "#DE1A4A",
+    "inputBorderRadius": "2px",
+    "selectBackgroundCol": "#FAFAFA",
+    "selectBorderCol": "#D8D8D8",
+    "selectTextCol": "#3D3D3D",
+    "selectFocusBorderCol": "#B5B5B5",
+    "textSelectCol": "#B4B1B5",
+    "linkCol": "#00ADA8",
+    "dividerCol": "#D0D0D0",
+    "dividerStyle": "solid",
+    "defaultFontSize": "14px"
+  },
+  "preferences": {},
+  "button": {
+    "defaultCol": "#FFFFFF",
+    "actionCol": "#00ADA8",
+    "positiveCol": "#92BF17",
+    "warningCol": "#D69B24",
+    "negativeCol": "#EC3A65",
+    "infoCol": "#B36ABB",
+    "complementCol": "#F7F7F9",
+    "contrastCol": "#4A4E4E",
+    "disabledCol": "#FAFAFA",
+    "disabledTextCol": "#939393",
+    "invertCol": "#FDFDFD",
+    "invertTextCol": "gray",
+    "invertHoverCol": "#F2F2F2",
+    "invisibleTextCol": "#575757",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D"
   },
   "dropdown": {
     "spacing": "0",
@@ -203,27 +226,18 @@ hx.theme = {
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
-  "format": {},
-  "preferences": {},
-  "button": {
-    "defaultCol": "#FFFFFF",
-    "actionCol": "#00ADA8",
-    "positiveCol": "#92BF17",
-    "warningCol": "#D69B24",
-    "negativeCol": "#EC3A65",
-    "infoCol": "#B36ABB",
-    "complementCol": "#F7F7F9",
-    "contrastCol": "#4A4E4E",
-    "disabledCol": "#FAFAFA",
-    "disabledTextCol": "#939393",
-    "invertCol": "#FDFDFD",
-    "invertTextCol": "gray",
-    "invertHoverCol": "#F2F2F2",
-    "invisibleTextCol": "#575757",
-    "lightTextCol": "#F3F3F3",
-    "darkTextCol": "#3D3D3D"
+  "inputGroup": {
+    "inputBackgroundCol": "white",
+    "inputBorderCol": "#DADADA",
+    "inputInvalidOutlineCol": "#DE1A4A",
+    "inputFocusBorderCol": "#00ADA8",
+    "divBackgroundCol": "#FDFDFD",
+    "divBorderCol": "#DADADA",
+    "iconBackgroundCol": "#F9F9F9",
+    "iconBorderCol": "#DADADA"
   },
-  "resizeEvents": {},
+  "dateLocalizer": {},
+  "numberPicker": {},
   "menu": {
     "defaultCol": "#FFFFFF",
     "defaultHoverCol": "#F9F9F9",
@@ -245,18 +259,40 @@ hx.theme = {
     "defaultBorderCol": "transparent",
     "borderWidth": "2px"
   },
-  "inputGroup": {
+  "resizeEvents": {},
+  "autocompleteFeed": {},
+  "datePicker": {
+    "todayBackgroundCol": "#FFFFFF",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D",
+    "dayHoverBackgroundCol": "#00ADA8",
+    "rangeBackgroundCol": "#F9F9F9",
+    "selectedBackgroundCol": "#00ADA8",
+    "errorBackgroundCol": "#FCBFBF",
+    "errorOutlineCol": "#DE1A4A",
+    "dividerCol": "#D0D0D0",
+    "headerTextCol": "#3D3D3D",
+    "navigationIconCol": "#939393",
+    "navigationIconHoverCol": "#3D3D3D",
     "inputBackgroundCol": "white",
-    "inputBorderCol": "#DADADA",
-    "inputInvalidOutlineCol": "#DE1A4A",
-    "inputFocusBorderCol": "#00ADA8",
-    "divBackgroundCol": "#FDFDFD",
-    "divBorderCol": "#DADADA",
-    "iconBackgroundCol": "#F9F9F9",
-    "iconBorderCol": "#DADADA"
+    "dayBorderRadius": "2px",
+    "outOfRangeCol": "#939393",
+    "borderCol": "#DADADA",
+    "iconCol": "white",
+    "iconBackgroundCol": "#00ADA8"
   },
-  "dateLocalizer": {},
-  "numberPicker": {},
+  "timePicker": {
+    "errorBackgroundCol": "#FCBFBF",
+    "errorOutlineCol": "#DE1A4A",
+    "inputBackgroundCol": "white",
+    "borderCol": "#DADADA",
+    "iconCol": "white",
+    "iconBackgroundCol": "#00ADA8"
+  },
+  "autocomplete": {},
+  "dragContainer": {
+    "dragPlaceholderBorderCol": "#D0D0D0"
+  },
   "layout": {
     "contentMaxWidth": "1200px",
     "contentBreakpoint": "1300px, 900px",
@@ -265,9 +301,6 @@ hx.theme = {
     "namedClassMinWidth": "250px",
     "borderCol": "#D0D0D0",
     "contentBackgroundCol": "transparent"
-  },
-  "dragContainer": {
-    "dragPlaceholderBorderCol": "#D0D0D0"
   },
   "progressBar": {
     "borderCol": "none",
@@ -312,12 +345,13 @@ hx.theme = {
     "labelHeaderBackgroundCol": "#FFFFFF",
     "labelHeaderBorderCol": "#D0D0D0"
   },
+  "buttonGroup": {},
+  "fluid": {},
+  "picker": {},
+  "request": {},
   "stickyTableHeaders": {
     "scrollIndicatorShadowColor": "rgba(0,0,0,0.5)"
   },
-  "picker": {},
-  "buttonGroup": {},
-  "request": {},
   "table": {
     "headerBackgroundCol": "#FFFFFF",
     "headerTextCol": "#3D3D3D",
@@ -328,35 +362,16 @@ hx.theme = {
     "rowAltTextCol": "#3D3D3D",
     "borderCol": "#E2E1E1"
   },
-  "datePicker": {
-    "todayBackgroundCol": "#FFFFFF",
-    "lightTextCol": "#F3F3F3",
-    "darkTextCol": "#3D3D3D",
-    "dayHoverBackgroundCol": "#00ADA8",
-    "rangeBackgroundCol": "#F9F9F9",
-    "selectedBackgroundCol": "#00ADA8",
-    "errorBackgroundCol": "#FCBFBF",
-    "errorOutlineCol": "#DE1A4A",
-    "dividerCol": "#D0D0D0",
-    "headerTextCol": "#3D3D3D",
-    "navigationIconCol": "#939393",
-    "navigationIconHoverCol": "#3D3D3D",
-    "inputBackgroundCol": "white",
-    "dayBorderRadius": "2px",
-    "outOfRangeCol": "#939393",
-    "borderCol": "#DADADA",
-    "iconCol": "white",
-    "iconBackgroundCol": "#00ADA8"
+  "toggle": {
+    "backgroundOffCol": "#D5D5D5;",
+    "backgroundOnCol": "#D5D5D5;",
+    "toggleOffCol": "#ABABAB",
+    "toggleOnCol": "#B2BA32"
   },
-  "timePicker": {
-    "errorBackgroundCol": "#FCBFBF",
-    "errorOutlineCol": "#DE1A4A",
-    "inputBackgroundCol": "white",
-    "borderCol": "#DADADA",
-    "iconCol": "white",
-    "iconBackgroundCol": "#00ADA8"
+  "autocompletePicker": {},
+  "dateTimePicker": {
+    "borderCol": "#DADADA"
   },
-  "fluid": {},
   "tagInput": {
     "defaultCol": "#FFFFFF",
     "actionCol": "#00ADA8",
@@ -435,7 +450,6 @@ hx.theme = {
     "disabledCol": "#FAFAFA",
     "shadowCol": "transparent"
   },
-  "autocomplete": {},
   "card": {
     "backgroundCol": "#FFFFFF",
     "borderCol": "#E7E7E7",
@@ -471,9 +485,6 @@ hx.theme = {
     "compactRowHoverTextCol": "#3D3D3D",
     "loadingBackgroundCol": "rgba(255, 255, 255, 0.4)",
     "footerBackgroundCol": "#FFFFFF"
-  },
-  "dateTimePicker": {
-    "borderCol": "#DADADA"
   },
   "drawing": {
     "sidebarBorderCol": "#E7E7E7",
@@ -587,12 +598,6 @@ hx.theme = {
     "disabledTextCol": "#939393"
   },
   "timeSlider": {},
-  "toggle": {
-    "backgroundOffCol": "#D5D5D5;",
-    "backgroundOnCol": "#D5D5D5;",
-    "toggleOffCol": "#ABABAB",
-    "toggleOnCol": "#B2BA32"
-  },
   "tree": {
     "iconBackgroundCol": "#00ADA8",
     "iconBackgroundHoverCol": "#1DBFBB",
@@ -604,8 +609,7 @@ hx.theme = {
     "backgroundCol": "#FFFFFF",
     "shadowCol": "rgba(128, 128, 128, 0.17)",
     "iconDisabledCol": "#FAFAFA"
-  },
-  "userFacingText": {}
+  }
 };
 (function(){
 var Set, checkPrefix, prefix, prefixChar, prefixString,
@@ -705,7 +709,7 @@ Set = (function() {
       }
     }
     if (this.nan) {
-      items.push([NaN, NaN]);
+      items.push([0/0, 0/0]);
     }
     return items;
   };
@@ -826,7 +830,7 @@ Map = (function() {
       }
     }
     if (this.nan !== void 0) {
-      items.push([NaN, this.nan]);
+      items.push([0/0, this.nan]);
     }
     return items;
   };
@@ -1099,13 +1103,14 @@ hx.debounce = function(duration, fn) {
   var timeout;
   timeout = void 0;
   return function() {
-    var f;
+    var f, origArgs;
+    origArgs = arguments;
     if (timeout) {
       clearTimeout(timeout);
     }
     f = function() {
       timeout = void 0;
-      return fn();
+      return fn.apply(this, origArgs);
     };
     return timeout = setTimeout(f, duration);
   };
@@ -1152,14 +1157,12 @@ hx.minBy = function(values, f) {
   if (f) {
     min = values[0];
     minValue = f(min);
-    for (i = l = 1, ref = values.length - 1; l < ref; i = l += 1) {
+    for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
       v = values[i];
-      if (v !== void 0) {
-        fv = f(v);
-        if (fv !== void 0 && fv < minValue) {
-          min = v;
-          minValue = fv;
-        }
+      fv = f(v);
+      if (minValue === void 0 || (fv !== void 0 && fv < minValue)) {
+        min = v;
+        minValue = fv;
       }
     }
     return min;
@@ -1175,6 +1178,43 @@ hx.minBy = function(values, f) {
   }
 };
 
+hx.argmin = function(values, f) {
+  var i, l, m, minIndex, minValue, ref, ref1, v;
+  if ((values == null) || values.length === 0) {
+    return void 0;
+  }
+  minIndex = 0;
+  minValue = void 0;
+  if (f) {
+    minValue = f(values[0]);
+    if (values.length > 1) {
+      for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
+        v = f(values[i]);
+        if (minValue === void 0 || (v !== void 0 && v < minValue)) {
+          minValue = v;
+          minIndex = i;
+        }
+      }
+    }
+  } else {
+    minValue = values[0];
+    if (values.length > 1) {
+      for (i = m = 1, ref1 = values.length; m < ref1; i = m += 1) {
+        v = values[i];
+        if (minValue === void 0 || (v !== void 0 && v < minValue)) {
+          minValue = v;
+          minIndex = i;
+        }
+      }
+    }
+  }
+  if (minValue === void 0) {
+    return void 0;
+  } else {
+    return minIndex;
+  }
+};
+
 hx.max = function(values) {
   return Math.max.apply(null, values != null ? values.filter(hx.defined) : void 0);
 };
@@ -1187,14 +1227,12 @@ hx.maxBy = function(values, f) {
   if (f) {
     max = values[0];
     maxValue = f(max);
-    for (i = l = 1, ref = values.length - 1; l < ref; i = l += 1) {
+    for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
       v = values[i];
-      if (v !== void 0) {
-        fv = f(v);
-        if (fv !== void 0 && fv > maxValue) {
-          max = v;
-          maxValue = fv;
-        }
+      fv = f(v);
+      if (maxValue === void 0 || (fv !== void 0 && fv > maxValue)) {
+        max = v;
+        maxValue = fv;
       }
     }
     return max;
@@ -1207,6 +1245,43 @@ hx.maxBy = function(values, f) {
       }
     }
     return max;
+  }
+};
+
+hx.argmax = function(values, f) {
+  var i, l, m, maxIndex, maxValue, ref, ref1, v;
+  if ((values == null) || values.length === 0) {
+    return void 0;
+  }
+  maxIndex = 0;
+  maxValue = void 0;
+  if (f) {
+    maxValue = f(values[0]);
+    if (values.length > 1) {
+      for (i = l = 1, ref = values.length; l < ref; i = l += 1) {
+        v = f(values[i]);
+        if (maxValue === void 0 || (v !== void 0 && v > maxValue)) {
+          maxValue = v;
+          maxIndex = i;
+        }
+      }
+    }
+  } else {
+    maxValue = values[0];
+    if (values.length > 1) {
+      for (i = m = 1, ref1 = values.length; m < ref1; i = m += 1) {
+        v = values[i];
+        if (maxValue === void 0 || (v !== void 0 && v > maxValue)) {
+          maxValue = v;
+          maxIndex = i;
+        }
+      }
+    }
+  }
+  if (maxValue === void 0) {
+    return void 0;
+  } else {
+    return maxIndex;
   }
 };
 
@@ -1266,6 +1341,10 @@ hx.isObject = function(obj) {
 
 hx.isBoolean = function(x) {
   return x === true || x === false || typeof x === 'boolean';
+};
+
+hx.isNumber = function(x) {
+  return typeof x === 'number' || x instanceof Number;
 };
 
 hx.isPlainObject = function(obj) {
@@ -1466,7 +1545,7 @@ hx.vendor = function(obj, prop) {
   }
   for (l = 0, len1 = vendorPrefixes.length; l < len1; l++) {
     p = vendorPrefixes[l];
-    if ((prefixedProp = p + prop.charAt(0) + prop.slice(1)) in obj) {
+    if ((prefixedProp = p + prop.charAt(0).toUpperCase() + prop.slice(1)) in obj) {
       return obj[prefixedProp];
     }
   }
@@ -1479,7 +1558,7 @@ hx.identity = function(d) {
 hx_parseHTML = null;
 
 hx.parseHTML = function(html) {
-  var e, error;
+  var e;
   if (!hx_parseHTML) {
 
     /*
@@ -1627,6 +1706,12 @@ BasicEventEmitter = (function() {
     return this;
   };
 
+  BasicEventEmitter.prototype.isEmpty = function() {
+    return this.callbacks.values().every(function(list) {
+      return list.size === 0;
+    }) && this.allCallbacks.size === 0;
+  };
+
   BasicEventEmitter.prototype.on = function(name, callback) {
     if (name) {
       if (!this.callbacks.has(name)) {
@@ -1709,24 +1794,26 @@ EventEmitter = (function() {
     return be;
   };
 
-  removeEmitter = function(ee, namespace) {
-    if (ee.emittersMap.has(namespace)) {
+  removeEmitter = function(ee, be, namespace) {
+    var lookedUpNamespace, ref;
+    if (namespace && ee.emittersMap.has(namespace)) {
       ee.emittersMap["delete"](namespace);
-      ee.emitters.remove(ee);
+    } else {
+      lookedUpNamespace = (ref = ee.emittersMap.entries().filter(function(arg) {
+        var _, e;
+        _ = arg[0], e = arg[1];
+        return e === be;
+      })[0]) != null ? ref[0] : void 0;
+      if (lookedUpNamespace) {
+        ee.emittersMap["delete"](lookedUpNamespace);
+      }
     }
-    return ee;
+    return ee.emitters.remove(be);
   };
 
   EventEmitter.prototype.emit = function(name, data) {
-    var e, emitter, i, len, ref;
+    var emitter, i, len, ref;
     if (!this.suppressedMap.get(name)) {
-      if (this.deprecatedEvents != null) {
-        for (e in this.deprecatedEvents) {
-          if (this.deprecatedEvents[e].event === name) {
-            this.emit(e, data);
-          }
-        }
-      }
       ref = this.emitters.entries();
       for (i = 0, len = ref.length; i < len; i++) {
         emitter = ref[i];
@@ -1779,17 +1866,34 @@ EventEmitter = (function() {
   };
 
   EventEmitter.prototype.off = function(name, namespace, callback) {
-    var emitter, i, len, ref, ref1;
+    var be, emitters, emittersToRemove;
     if (hx.isString(namespace)) {
-      if ((ref = this.emittersMap.get(namespace)) != null) {
-        ref.off(name, callback);
+      if (this.emittersMap.has(namespace)) {
+        be = this.emittersMap.get(namespace);
+        be.off(name, callback);
+        if (be.isEmpty()) {
+          removeEmitter(this, be, namespace);
+        }
       }
     } else {
-      ref1 = this.emitters.entries();
-      for (i = 0, len = ref1.length; i < len; i++) {
-        emitter = ref1[i];
-        emitter.off(name, callback);
+      if (!callback && !hx.isString(namespace)) {
+        callback = namespace;
       }
+      emitters = this.emitters.entries();
+      emittersToRemove = [];
+      emitters.forEach((function(_this) {
+        return function(emitter) {
+          emitter.off(name, callback);
+          if (emitter !== _this.global && emitter.isEmpty()) {
+            return emittersToRemove.push(emitter);
+          }
+        };
+      })(this));
+      emittersToRemove.map((function(_this) {
+        return function(e) {
+          return removeEmitter(_this, e);
+        };
+      })(this));
     }
     return this;
   };
@@ -2208,29 +2312,35 @@ selectAll = function(selector, node) {
 };
 
 shallowSelectSingle = function(selector, node) {
-  var child, j, len, matchFn, ref;
-  matchFn = getMatches(node);
-  ref = node.children;
-  for (j = 0, len = ref.length; j < len; j++) {
-    child = ref[j];
-    if (matchFn.call(child, selector)) {
-      return child;
+  var child, j, len, matchFn, ref, ref1;
+  if ((ref = node.children) != null ? ref.length : void 0) {
+    matchFn = getMatches(node);
+    ref1 = node.children;
+    for (j = 0, len = ref1.length; j < len; j++) {
+      child = ref1[j];
+      if (matchFn.call(child, selector)) {
+        return child;
+      }
     }
   }
 };
 
 shallowSelectAll = function(selector, node) {
-  var child, j, len, matchFn, matchingNodes, ref;
-  matchFn = getMatches(node);
-  matchingNodes = [];
-  ref = node.children;
-  for (j = 0, len = ref.length; j < len; j++) {
-    child = ref[j];
-    if (matchFn.call(child, selector)) {
-      matchingNodes.push(child);
+  var child, j, len, matchFn, matchingNodes, ref, ref1;
+  if ((ref = node.children) != null ? ref.length : void 0) {
+    matchFn = getMatches(node);
+    matchingNodes = [];
+    ref1 = node.children;
+    for (j = 0, len = ref1.length; j < len; j++) {
+      child = ref1[j];
+      if (matchFn.call(child, selector)) {
+        matchingNodes.push(child);
+      }
     }
+    return matchingNodes;
+  } else {
+    return [];
   }
-  return matchingNodes;
 };
 
 getHexagonElementDataObject = function(element, createIfNotExists) {
@@ -2805,7 +2915,7 @@ Selection = (function() {
       if (data.listenerNamesRegistered == null) {
         data.listenerNamesRegistered = new hx.Set;
       }
-      if (!data.listenerNamesRegistered.has(name)) {
+      if (name.indexOf('pointer') !== 0 && !data.listenerNamesRegistered.has(name)) {
         handler = function(e) {
           return eventEmitter.emit(name, e);
         };
@@ -3165,6 +3275,230 @@ hx.interpolate = function(a, b) {
 
 })();
 (function(){
+hx.component = function(selector) {
+  var ref, ref1, ref2;
+  return (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
+};
+
+hx.components = function(selector) {
+  var components, ref, ref1;
+  components = (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? ref1.components : void 0 : void 0;
+  if (components) {
+    return components.slice();
+  } else {
+    return [];
+  }
+};
+
+hx.components.clear = function(selector) {
+  var node;
+  node = hx.select(selector).node();
+  if (node.__hx__ == null) {
+    node.__hx__ = {};
+  }
+  node.__hx__.components = [];
+};
+
+hx.component.register = function(selector, component) {
+  var base, node;
+  node = hx.select(selector).node();
+  if (node.__hx__ == null) {
+    node.__hx__ = {};
+  }
+  if ((base = node.__hx__).components == null) {
+    base.components = [];
+  }
+  node.__hx__.components.push(component);
+};
+
+if (hx.Selection) {
+  hx.Selection.prototype.component = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return hx.component(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(hx.component);
+    }
+  };
+  hx.Selection.prototype.components = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return hx.components(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(hx.components);
+    }
+  };
+  hx.Selection.prototype.api = function(api) {
+    if (arguments.length > 0) {
+      if (this.singleSelection) {
+        hx.component.register(this.nodes[0], api);
+      } else {
+        hx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection');
+      }
+      return this;
+    } else {
+      if (this.singleSelection) {
+        if (this.nodes[0]) {
+          return hx.component(this.nodes[0]);
+        }
+      } else {
+        return this.nodes.map(hx.component);
+      }
+    }
+  };
+}
+
+})();
+(function(){
+var collator, compare, hasCollator, localeCompare,
+  slice = [].slice;
+
+hasCollator = (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
+
+collator = hasCollator ? new Intl.Collator(void 0, {
+  numeric: true
+}).compare : function(a, b) {
+  if (a < b) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
+compare = function(a, b) {
+  if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+    return a - b;
+  } else {
+    return collator(a, b);
+  }
+};
+
+localeCompare = function(locale, options) {
+  var localeCollator;
+  if (options == null) {
+    options = {
+      numeric: true
+    };
+  }
+  localeCollator = hasCollator ? new Intl.Collator(locale, options).compare : function(a, b) {
+    return a.localeCompare(b, locale, options);
+  };
+  return function(a, b) {
+    if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return localeCollator(a, b);
+    }
+  };
+};
+
+hx.sortBy = function(arr, f) {
+  var newArr;
+  newArr = slice.call(arr);
+  newArr.sort(function(left, right) {
+    var fLeft, fRight;
+    fLeft = f(left);
+    fRight = f(right);
+    return compare(fLeft, fRight);
+  });
+  return newArr;
+};
+
+hx.sort = function(arr) {
+  return hx.sortBy(arr, function(x) {
+    return x;
+  });
+};
+
+hx.sort.compare = compare;
+
+hx.sort.localeCompare = localeCompare;
+
+})();
+(function(){
+var _, completeGetterSetter, isValid, partialGetterSetter, userFacingText, userFacingTextDefaults;
+
+_ = {
+  initialValues: {},
+  localisedText: {}
+};
+
+completeGetterSetter = function(object) {
+  var key, module;
+  if (arguments.length) {
+    if (hx.isPlainObject(object)) {
+      for (module in object) {
+        for (key in object[module]) {
+          partialGetterSetter(module, key, object[module][key]);
+        }
+      }
+      return void 0;
+    } else {
+      return hx.consoleWarning("hx.userFacingText: Expected a plain object but was instead passed: " + object);
+    }
+  } else {
+    return hx.clone(_.localisedText);
+  }
+};
+
+isValid = function(value) {
+  return hx.isString(value) && value.length;
+};
+
+partialGetterSetter = function(module, key, value) {
+  var base, base1, base2, ref, text;
+  if (isValid(module) && isValid(key)) {
+    if (isValid(value)) {
+      if ((base = _.localisedText)[module] == null) {
+        base[module] = {};
+      }
+      _.localisedText[module][key] = value;
+      if ((base1 = _.initialValues)[module] == null) {
+        base1[module] = {};
+      }
+      if ((base2 = _.initialValues[module])[key] == null) {
+        base2[key] = value;
+      }
+      return void 0;
+    } else if (value == null) {
+      text = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
+      if (text) {
+        return text;
+      } else {
+        return hx.consoleWarning("hx.userFacingText: No text was found for key: " + key + " in module: " + module);
+      }
+    } else {
+      return hx.consoleWarning("hx.userFacingText: The value provided must be a string but was passed value: " + value);
+    }
+  } else {
+    return hx.consoleWarning("hx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
+  }
+};
+
+userFacingText = function() {
+  if (arguments.length <= 1) {
+    return completeGetterSetter.apply(this, arguments);
+  } else {
+    return partialGetterSetter.apply(this, arguments);
+  }
+};
+
+userFacingTextDefaults = function() {
+  return hx.clone(_.initialValues);
+};
+
+hx.userFacingText = userFacingText;
+
+hx.userFacingText.defaults = userFacingTextDefaults;
+
+hx._.userFacingText = _;
+
+})();
+(function(){
 
 /* istanbul ignore next: ignore coffeescript generated code that can't be covered */
 var Animation, Morph, hx_morphs,
@@ -3500,83 +3834,6 @@ hx.morph.register = function(name, morph) {
 };
 
 })();
-(function(){
-var addAugmentor, addAugmentorWithLocation, addAugmentorWithoutLocation;
-
-addAugmentor = function(name, mouseName, touchNames, node, addEventAugmenter, mouseEventFactory, touchEventFactory) {
-  return hx.select.addEventAugmenter({
-    name: name,
-    setup: function(node, eventEmitter) {
-      var i, len, mouseHandler, touch, touchHandler, touchName;
-      mouseHandler = function(e) {
-        return eventEmitter.emit(name, mouseEventFactory(e));
-      };
-      node.addEventListener(mouseName, mouseHandler);
-      if (touch = hx.supports('touch')) {
-        touchHandler = function(e) {
-          return eventEmitter.emit(name, touchEventFactory(e));
-        };
-        for (i = 0, len = touchNames.length; i < len; i++) {
-          touchName = touchNames[i];
-          node.addEventListener(touchName, touchHandler);
-        }
-      }
-      return function() {
-        var j, len1, results;
-        node.removeEventListener(mouseName, mouseHandler);
-        if (touch) {
-          results = [];
-          for (j = 0, len1 = touchNames.length; j < len1; j++) {
-            touchName = touchNames[j];
-            results.push(node.removeEventListener(touchName, touchHandler));
-          }
-          return results;
-        }
-      };
-    }
-  });
-};
-
-addAugmentorWithLocation = function(name, mouseName, touchNames, node, eventEmitter) {
-  var mouseEventFactory, touchEventFactory;
-  mouseEventFactory = function(e) {
-    return {
-      x: e.clientX,
-      y: e.clientY,
-      event: e
-    };
-  };
-  touchEventFactory = function(e) {
-    return {
-      x: e.targetTouches[0].clientX,
-      y: e.targetTouches[0].clientY,
-      event: e
-    };
-  };
-  return addAugmentor(name, mouseName, touchNames, node, eventEmitter, mouseEventFactory, touchEventFactory);
-};
-
-addAugmentorWithoutLocation = function(name, mouseName, touchNames, node, eventEmitter) {
-  var handler;
-  handler = function(e) {
-    return {
-      event: e
-    };
-  };
-  return addAugmentor(name, mouseName, touchNames, node, eventEmitter, handler, handler);
-};
-
-addAugmentorWithLocation('pointerdown', 'mousedown', ['touchstart']);
-
-addAugmentorWithLocation('pointermove', 'mousemove', ['touchmove']);
-
-addAugmentorWithoutLocation('pointerup', 'mouseup', ['touchend', 'touchcancel']);
-
-addAugmentorWithoutLocation('pointerleave', 'mouseleave', ['touchleave']);
-
-addAugmentorWithoutLocation('pointerenter', 'mouseenter', ['touchenter']);
-
-})();
 
 
 (function(){
@@ -3624,7 +3881,7 @@ View = (function() {
       enterSet = [];
       updateSet = [];
       exitSet = [];
-      nodes = this.rootSelection.selectAll(this.selector).nodes;
+      nodes = this.rootSelection.shallowSelectAll(this.selector).nodes;
       if (key) {
         nodeByKey = new hx.Map;
         dataByKey = new hx.Map(data.map(function(datum) {
@@ -3714,7 +3971,7 @@ View = (function() {
         return function(d, i) {
           var element, hedo, isChild, isClassedCorrectly, ret;
           datum = d.datum;
-          element = _this["new"].call(_this.rootSelection, d.datum, i);
+          element = _this["new"].call(_this.rootSelection, datum, i, data.indexOf(datum));
           isChild = _this.rootSelection.node().contains(element);
           if (!isChild) {
             viewEnterWarning(element, _this.selector);
@@ -3761,130 +4018,957 @@ hx.Selection.prototype.view = function(selector, type) {
 
 })();
 (function(){
-var collator, compare, hasCollator, localeCompare,
-  slice = [].slice;
+var addAugmentor, addAugmentorWithLocation, addAugmentorWithoutLocation;
 
-hasCollator = (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
-
-collator = hasCollator ? new Intl.Collator(void 0, {
-  numeric: true
-}).compare : function(a, b) {
-  if (a < b) {
-    return -1;
-  } else if (a > b) {
-    return 1;
-  } else {
-    return 0;
-  }
-};
-
-compare = function(a, b) {
-  if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-    return a - b;
-  } else {
-    return collator(a, b);
-  }
-};
-
-localeCompare = function(locale, options) {
-  var localeCollator;
-  if (options == null) {
-    options = {
-      numeric: true
-    };
-  }
-  localeCollator = hasCollator ? new Intl.Collator(locale, options).compare : function(a, b) {
-    return a.localeCompare(b, locale, options);
-  };
-  return function(a, b) {
-    if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return localeCollator(a, b);
+addAugmentor = function(name, mouseName, touchNames, node, addEventAugmenter, mouseEventFactory, touchEventFactory) {
+  return hx.select.addEventAugmenter({
+    name: name,
+    setup: function(node, eventEmitter) {
+      var i, len, mouseHandler, touch, touchHandler, touchName;
+      mouseHandler = function(e) {
+        return eventEmitter.emit(name, mouseEventFactory(e));
+      };
+      node.addEventListener(mouseName, mouseHandler);
+      if (touch = hx.supports('touch')) {
+        touchHandler = function(e) {
+          return eventEmitter.emit(name, touchEventFactory(e));
+        };
+        for (i = 0, len = touchNames.length; i < len; i++) {
+          touchName = touchNames[i];
+          node.addEventListener(touchName, touchHandler);
+        }
+      }
+      return function() {
+        var j, len1, results;
+        node.removeEventListener(mouseName, mouseHandler);
+        if (touch) {
+          results = [];
+          for (j = 0, len1 = touchNames.length; j < len1; j++) {
+            touchName = touchNames[j];
+            results.push(node.removeEventListener(touchName, touchHandler));
+          }
+          return results;
+        }
+      };
     }
+  });
+};
+
+addAugmentorWithLocation = function(name, mouseName, touchNames, node, eventEmitter) {
+  var mouseEventFactory, touchEventFactory;
+  mouseEventFactory = function(e) {
+    return {
+      x: e.clientX,
+      y: e.clientY,
+      event: e
+    };
   };
+  touchEventFactory = function(e) {
+    return {
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+      event: e
+    };
+  };
+  return addAugmentor(name, mouseName, touchNames, node, eventEmitter, mouseEventFactory, touchEventFactory);
 };
 
-hx.sortBy = function(arr, f) {
-  var newArr;
-  newArr = slice.call(arr);
-  newArr.sort(function(left, right) {
-    var fLeft, fRight;
-    fLeft = f(left);
-    fRight = f(right);
-    return compare(fLeft, fRight);
-  });
-  return newArr;
+addAugmentorWithoutLocation = function(name, mouseName, touchNames, node, eventEmitter) {
+  var handler;
+  handler = function(e) {
+    return {
+      event: e
+    };
+  };
+  return addAugmentor(name, mouseName, touchNames, node, eventEmitter, handler, handler);
 };
 
-hx.sort = function(arr) {
-  return hx.sortBy(arr, function(x) {
-    return x;
-  });
-};
+addAugmentorWithLocation('pointerdown', 'mousedown', ['touchstart']);
 
-hx.sort.compare = compare;
+addAugmentorWithLocation('pointermove', 'mousemove', ['touchmove']);
 
-hx.sort.localeCompare = localeCompare;
+addAugmentorWithoutLocation('pointerup', 'mouseup', ['touchend', 'touchcancel']);
+
+addAugmentorWithoutLocation('pointerleave', 'mouseleave', ['touchleave']);
+
+addAugmentorWithoutLocation('pointerenter', 'mouseenter', ['touchenter']);
 
 })();
 (function(){
-hx.component = function(selector) {
-  var ref, ref1, ref2;
-  return (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
-};
+var buildFilter, filterCaseModifier, filterMatch;
 
-hx.components = function(selector) {
-  var components, ref, ref1;
-  components = (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? ref1.components : void 0 : void 0;
-  if (components) {
-    return components.slice();
+filterCaseModifier = function(caseSensitive) {
+  if (caseSensitive) {
+    return function(string) {
+      return string;
+    };
   } else {
-    return [];
+    return function(string) {
+      return string.toLowerCase();
+    };
   }
 };
 
-hx.components.clear = function(selector) {
-  var node;
-  node = hx.select(selector).node();
-  if (node.__hx__ == null) {
-    node.__hx__ = {};
-  }
-  node.__hx__.components = [];
-};
-
-hx.component.register = function(selector, component) {
-  var base, node;
-  node = hx.select(selector).node();
-  if (node.__hx__ == null) {
-    node.__hx__ = {};
-  }
-  if ((base = node.__hx__).components == null) {
-    base.components = [];
-  }
-  node.__hx__.components.push(component);
-};
-
-if (hx.Selection) {
-  hx.Selection.prototype.component = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return hx.component(this.nodes[0]);
+filterMatch = function(item, getIndex, options) {
+  var e, isMatch, j, len, ref, val;
+  val = 0;
+  isMatch = false;
+  if (options.searchValues != null) {
+    ref = options.searchValues(item);
+    for (j = 0, len = ref.length; j < len; j++) {
+      e = ref[j];
+      val += options.lookup(options.caseModifier(e.toString()));
+      if (val > -1) {
+        isMatch = true;
       }
+    }
+  } else {
+    val += options.lookup(options.caseModifier(item.toString()));
+  }
+  if (getIndex === true) {
+    return val;
+  } else if (isMatch || val > -1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+buildFilter = function(lookupType) {
+  return function(array, term, options) {
+    if (options == null) {
+      options = {};
+    }
+    options = hx.merge.defined({
+      caseSensitive: false,
+      searchValues: void 0,
+      sort: true
+    }, options);
+    options.caseModifier = filterCaseModifier(options.caseSensitive);
+    if (typeof term === 'string') {
+      term = options.caseModifier(term);
+    }
+    options.lookup = lookupType(term);
+    array = array.filter(function(d) {
+      return filterMatch(d, false, options);
+    });
+    if (options.sort === true) {
+      array = array.sort(function(a, b) {
+        var aArr, aI, bArr, bI, i, j, r, ref;
+        aI = filterMatch(a, true, options);
+        bI = filterMatch(b, true, options);
+        if (aI > bI) {
+          return 1;
+        } else if (aI < bI) {
+          return -1;
+        } else if (options.searchValues != null) {
+          r = 0;
+          aArr = options.searchValues(a);
+          bArr = options.searchValues(b);
+          for (i = j = 0, ref = aArr.length; j < ref; i = j += 1) {
+            r = hx.sort.compare(aArr[i], bArr[i]);
+            if (r !== 0) {
+              break;
+            }
+          }
+          return r;
+        } else {
+          return hx.sort.compare(a, b);
+        }
+      });
+    }
+    return array;
+  };
+};
+
+hx.filter = {
+  exact: buildFilter(function(term) {
+    return function(item) {
+      if (item === term) {
+        return term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  startsWith: buildFilter(function(term) {
+    return function(item) {
+      if (hx.startsWith(item, term)) {
+        return term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  contains: buildFilter(function(term) {
+    return function(item) {
+      var index;
+      index = item.indexOf(term);
+      if (index > -1) {
+        return index + term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  excludes: buildFilter(function(term) {
+    return function(item) {
+      var index;
+      index = item.indexOf(term);
+      if (index === -1) {
+        return term.length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  greater: buildFilter(function(term) {
+    return function(item) {
+      var val;
+      val = hx.sort.compare(item, term);
+      if (val !== -1) {
+        return val;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  less: buildFilter(function(term) {
+    return function(item) {
+      var val;
+      val = hx.sort.compare(term, item);
+      if (val !== -1) {
+        return val;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  fuzzy: buildFilter(function(term) {
+    var escapeRegExp, pattern, regStr;
+    escapeRegExp = function(str) {
+      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    };
+    regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?';
+    pattern = new RegExp(regStr);
+    return function(item) {
+      var match;
+      match = item.match(pattern);
+      if (match != null) {
+        return match.index + match[0].length;
+      } else {
+        return -1;
+      }
+    };
+  }),
+  regex: buildFilter(function(term) {
+    return function(item) {
+      var match;
+      match = item.match(term);
+      if (match != null) {
+        return match.index + match[0].length;
+      } else {
+        return -1;
+      }
+    };
+  })
+};
+
+})();
+(function(){
+var getValidationMessage, validateForm;
+
+hx.userFacingText({
+  form: {
+    missingRadioValue: 'Please select one of these options',
+    missingValue: 'Please fill in this field',
+    typeMismatch: 'Please enter a valid value for this field'
+  }
+});
+
+getValidationMessage = function(message, type) {
+  switch (message.toLowerCase()) {
+    case 'value missing':
+      if (type === 'radio') {
+        return hx.userFacingText('form', 'missingRadioValue');
+      } else {
+        return hx.userFacingText('form', 'missingValue');
+      }
+      break;
+    case 'type mismatch':
+      return hx.userFacingText('form', 'typeMismatch');
+    default:
+      return message;
+  }
+};
+
+validateForm = function(form, options) {
+  var element, error, errors, focusedElement, i, input, j, ref, type;
+  form = hx.select(form).node();
+  options = hx.merge.defined({
+    showMessage: true
+  }, options);
+  hx.select(form).selectAll('.hx-form-error').remove();
+  errors = [];
+  focusedElement = document.activeElement;
+  for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+    if (form.children[i].nodeName.toLowerCase() === 'div') {
+      element = form.children[i].children[1];
+      if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
+        if (!element.checkValidity()) {
+          type = hx.select(element).attr('type');
+          errors.push({
+            message: getValidationMessage(element.validationMessage, type),
+            node: element,
+            validity: element.validity,
+            focused: focusedElement === element
+          });
+        }
+      } else {
+        input = hx.select(element).select('input').node();
+        type = hx.select(element).select('input').attr('type');
+        if (input && !input.checkValidity()) {
+          errors.push({
+            message: getValidationMessage(input.validationMessage, type),
+            node: element,
+            validity: input.validity,
+            focused: focusedElement === input
+          });
+        }
+      }
+    }
+  }
+  if (options.showMessage && errors.length > 0) {
+    error = errors.filter(function(error) {
+      return error.focused;
+    })[0] || errors[0];
+    hx.select(error.node.parentNode).insertAfter('div')["class"]('hx-form-error').append('div').insertAfter('div')["class"]('hx-form-error-text-container').append('div')["class"]('hx-form-error-text').text(error.message);
+    hx.select(error.node).on('click', 'hx.form', function(e) {
+      var next;
+      next = hx.select(error.node.parentNode.nextElementSibling);
+      if (next.classed('hx-form-error')) {
+        next.remove();
+      }
+      return hx.select(error.node).off('click', 'hx.form');
+    });
+  }
+  return {
+    valid: errors.length === 0,
+    errors: errors
+  };
+};
+
+hx.validateForm = validateForm;
+
+})();
+(function(){
+var Modal, getHeaderRender, getTitleRender, makeButtons, modalDialog, modalInput,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Modal = (function(superClass) {
+  var closeModal;
+
+  extend(Modal, superClass);
+
+  closeModal = function(modal, event) {
+    var body;
+    body = hx.select('body').classed('hx-modal-open', false);
+    body.select('.hx-modal-container').remove();
+    body.select('.hx-modal-shade').remove();
+    modal.emit('hidestart');
+    modal.emit('hide', event);
+    return modal.emit('hideend');
+  };
+
+  function Modal(title1, setup1, options) {
+    this.title = title1;
+    this.setup = setup1;
+    Modal.__super__.constructor.apply(this, arguments);
+    this.options = hx.merge({
+      closeWithShadeEnabled: true,
+      closeButtonEnabled: true,
+      titlebarRenderer: function(node) {
+        return hx.select(node).text(this.title);
+      },
+      headerRenderer: function(node, titleNode, closeButtonNode) {
+        return hx.select(node).add(titleNode).add(closeButtonNode);
+      }
+    }, options);
+    this.contentContainer = null;
+  }
+
+  Modal.prototype.show = function(cb) {
+    var body, closeButton, modal, modalContainer, ref, self, shade, title, titleContainer;
+    if ((ref = document.activeElement) != null) {
+      ref.blur();
+    }
+    body = hx.select('body').classed('hx-modal-open', true);
+    shade = body.select('.hx-modal-shade');
+    if (shade.empty()) {
+      shade = body.append('div').attr('class', 'hx-modal-shade');
+      shade.style('opacity', 0).morph()["with"]('fadein', 150).go();
+    }
+    body.select('.hx-modal-container').remove();
+    modalContainer = body.append('div').attr('class', 'hx-modal-container');
+    modal = modalContainer.append('div').attr('class', 'hx-modal');
+    titleContainer = modal.append('div')["class"]('hx-modal-title-container hx-group hx-horizontal hx-header');
+    title = hx.detached('div')["class"]('hx-modal-title');
+    if (this.options.closeButtonEnabled) {
+      closeButton = hx.detached('div').add(hx.detached('i')["class"]('hx-icon hx-icon-close'))["class"]('hx-modal-close hx-fixed').on('click', 'hx.modal', (function(_this) {
+        return function() {
+          return closeModal(_this, {
+            cause: 'button'
+          });
+        };
+      })(this));
     } else {
-      return this.nodes.map(hx.component);
+      if ((this.title == null) || this.title.length === 0) {
+        titleContainer.classed('hx-modal-title-empty', true);
+      }
+    }
+    if (this.options.closeWithShadeEnabled) {
+      modalContainer.on('click', 'hx.modal', (function(_this) {
+        return function(e) {
+          if (!modal.contains(e.target) && hx.select('body').contains(e.target)) {
+            return closeModal(_this, {
+              cause: 'shade'
+            });
+          }
+        };
+      })(this));
+    }
+    this.options.titlebarRenderer.call(this, title.node(), this);
+    this.options.headerRenderer.call(this, titleContainer.node(), title.node(), closeButton != null ? closeButton.node() : void 0, this);
+    this.contentContainer = modal.append('div').attr('class', 'hx-modal-content');
+    if (this.setup) {
+      this.setup(this.contentContainer.node(), this);
+    }
+    this.emit('show', this.contentContainer.node());
+    this.emit('showstart');
+    self = this;
+    modal.style('opacity', 0).style('top', '-30px').morph()["with"]('fadein', 150).and(function() {
+      return modal.animate().style('top', '0px', 100);
+    }).then(function() {
+      self.emit('showend');
+      return typeof cb === "function" ? cb() : void 0;
+    }).go();
+    return this;
+  };
+
+  Modal.prototype.hide = function() {
+    closeModal(this, {
+      cause: 'api'
+    });
+    return this;
+  };
+
+  return Modal;
+
+})(hx.EventEmitter);
+
+makeButtons = function(container, buttons, modal, callback) {
+  buttons.forEach(function(d) {
+    return container.append('button').attr('type', 'button')["class"](d.classes).add(hx.detached('i')["class"](d.icon)).add(hx.detached('span').text(' ' + d.text)).on('click', 'hx.modal', function() {
+      if (typeof callback === "function") {
+        callback(d.value);
+      }
+      return modal.hide();
+    });
+  });
+};
+
+getTitleRender = function(icon) {
+  return function(elem, modal) {
+    elem = hx.select(elem);
+    if (icon != null) {
+      elem.append('i')["class"](icon);
+    }
+    return elem.append('span').text(this.title);
+  };
+};
+
+getHeaderRender = function(titleClass) {
+  return function(elem, title, button, modal) {
+    return hx.select(elem).classed('hx-background-' + titleClass, true).add(title).add(button);
+  };
+};
+
+modalDialog = function(title, message, callback, options) {
+  var modal, setup;
+  options = hx.merge.defined({
+    callback: void 0,
+    buttons: [
+      {
+        text: 'Cancel',
+        icon: 'hx-icon hx-icon-close',
+        value: false,
+        classes: 'hx-btn hx-negative'
+      }, {
+        text: 'Confirm',
+        icon: 'hx-icon hx-icon-check',
+        value: true,
+        classes: 'hx-btn hx-positive'
+      }
+    ],
+    titleClass: void 0,
+    icon: void 0
+  }, options);
+  setup = function(element) {
+    var buttonContainer, container;
+    container = hx.select(element);
+    message = container.append('div')["class"]('hx-modal-message').text(message);
+    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
+    return makeButtons(buttonContainer, options.buttons, this, callback);
+  };
+  modal = new Modal(title, setup, {
+    closeWithShadeEnabled: options.closeWithShadeEnabled,
+    closeButtonEnabled: options.closeButtonEnabled
+  });
+  if (options.titleClass != null) {
+    modal.options.headerRenderer = getHeaderRender(options.titleClass);
+    modal.options.titlebarRenderer = getTitleRender(options.icon);
+  }
+  modal.on('hide', 'hx.modal', function(d) {
+    if (d.cause !== 'api') {
+      return callback();
+    }
+  });
+  return modal.show();
+};
+
+modalInput = function(title, message, callback, options) {
+  var modal, setup;
+  options = hx.merge.defined({
+    value: ''
+  }, options);
+  setup = function(element) {
+    var buttonContainer, buttons, container, input;
+    buttons = [
+      {
+        text: 'Cancel',
+        icon: 'hx-icon hx-icon-close',
+        value: false,
+        classes: 'hx-btn hx-negative'
+      }, {
+        text: 'Confirm',
+        icon: 'hx-icon hx-icon-check',
+        value: true,
+        classes: 'hx-btn hx-positive'
+      }
+    ];
+    container = hx.select(element);
+    message = container.append('span')["class"]('hx-modal-message').text(message);
+    input = container.append('input')["class"]('hx-modal-input').text(this.options.value);
+    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
+    return makeButtons(buttonContainer, buttons, this, function(res) {
+      if (res) {
+        return callback(input.value());
+      } else {
+        return callback(res);
+      }
+    });
+  };
+  modal = new Modal(title, setup, {
+    closeWithShadeEnabled: options.closeWithShadeEnabled,
+    closeButtonEnabled: options.closeButtonEnabled
+  });
+  modal.on('close', 'hx.modal', function(d) {
+    if (d.cause !== 'api') {
+      return callback();
+    }
+  });
+  return modal.show();
+};
+
+hx.Modal = Modal;
+
+hx.modal = {
+  dialog: modalDialog,
+  input: modalInput
+};
+
+})();
+(function(){
+var Notification, NotificationManager, defaultRenderer, inbuiltNotificationManager, nextId, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus;
+
+setupNotification = function(notification, selection) {
+  var close, content, icon, msg, msgIsArrayOfNodes, msgIsNode, msgIsObject, msgIsString, pin;
+  icon = (notification.options.icon != null) && notification.options.icon.length > 0 ? hx.detached('div')["class"]('hx-notification-icon-container').add(hx.detached('i')["class"]('hx-notification-icon ' + notification.options.icon)) : void 0;
+  content = hx.detached('div')["class"]('hx-notification-content');
+  msg = notification.message;
+  msgIsString = hx.isString(msg) || hx.isNumber(msg);
+  msgIsNode = !msgIsString && ((msg instanceof hx.Selection) || (msg instanceof HTMLElement));
+  msgIsArrayOfNodes = msgIsNode || hx.isArray(msg) && msg.every(function(item) {
+    return (item instanceof hx.Selection) || (item instanceof HTMLElement);
+  });
+  msgIsObject = !msgIsString && !msgIsNode && !msgIsArrayOfNodes && hx.isObject(msg);
+  if (msgIsString) {
+    content.text(msg);
+  } else if (msgIsNode || msgIsArrayOfNodes) {
+    content.add(msg);
+  } else if (msgIsObject && notification.options.renderer) {
+    notification.options.renderer(content.node(), msg);
+  } else {
+    if (msgIsObject) {
+      hx.consoleWarning('Notification created using an object with invalid arguments\n', 'An object was passed to the notification without a renderer being defined\n', "message:", msg, "\nrenderer:", notification.options.renderer);
+    } else {
+      hx.consoleWarning('Notification created using an object with invalid arguments\n', 'The notification expected a String, Selection, HTMLElement or an Object with matching renderer but was passed:\n', "message:", msg);
+    }
+    content.text('ERROR CONSTRUCTING NOTIFICATION');
+  }
+  if (notification.options.pinnable) {
+    pin = hx.detached('div')["class"]('hx-notification-icon-container hx-notification-pin').on('click', 'hx.notify', function() {
+      return togglePin(notification);
+    }).add(hx.detached('i').attr('class', 'hx-icon hx-icon-thumb-tack'));
+    notification.domPin = pin;
+    updatePinnedStatus(notification);
+  }
+  close = hx.detached('div')["class"]('hx-notification-icon-container hx-notification-close').on('click', 'hx.notify', function() {
+    return notification.close();
+  }).add(hx.detached('i')["class"]('hx-icon hx-icon-close'));
+  return selection.add(icon).add(content).add(pin).add(close);
+};
+
+nextId = function(manager) {
+  return manager.currentId++;
+};
+
+redraw = function(manager) {
+  var container, selection, view;
+  selection = hx.select(manager.selector);
+  container = selection.select('#' + manager.uniqueId);
+  if (container.empty()) {
+    container = selection.append('div')["class"]('hx-notification-container').attr('id', manager.uniqueId);
+  }
+  view = container.view('.hx-notification');
+  view.enter(function(d) {
+    var optionalClass;
+    selection = this.append('div');
+    optionalClass = d.options.cssclass ? " " + d.options.cssclass : '';
+    selection["class"]("hx-notification" + optionalClass).forEach(function(node) {
+      setupNotification(d, selection);
+      return d.trueHeight = selection.style('height');
+    }).style('opacity', 0).style('height', 0).style('padding-top', 0).style('padding-bottom', 0).style('margin-top', 0).style('margin-bottom', 0).morph()["with"]('expandv').and('fadein').then(function() {
+      return selection.style('height', '');
+    }).go();
+    return selection.node();
+  });
+  view.exit(function() {
+    return this.style('overflow', 'hidden').morph()["with"]('fadeout', 100).then('collapsev', 100).then((function(_this) {
+      return function() {
+        return _this.remove();
+      };
+    })(this)).go();
+  });
+  return view.apply(manager.notifications, function(d) {
+    return d.id;
+  });
+};
+
+removeNotification = function(manager, notification) {
+  var i;
+  i = manager.notifications.indexOf(notification);
+  if (i >= 0) {
+    manager.notifications.splice(i, 1);
+  }
+  return redraw(manager);
+};
+
+startTimeout = function(notification, seconds) {
+  return notification.timeoutId = window.setTimeout(((function(_this) {
+    return function() {
+      return notification.close();
+    };
+  })(this)), seconds * 1000);
+};
+
+togglePin = function(notification) {
+  if (notification.pinned) {
+    return notification.unpin();
+  } else {
+    return notification.pin();
+  }
+};
+
+updatePinnedStatus = function(notification) {
+  return notification.domPin.classed('hx-notification-pin-pinned', notification.pinned);
+};
+
+defaultRenderer = function(node, message) {
+  return hx.select(node).text(message);
+};
+
+Notification = (function() {
+  function Notification(manager1, message1, options) {
+    this.manager = manager1;
+    this.message = message1;
+    this.options = hx.merge({
+      icon: void 0,
+      cssclass: void 0,
+      timeout: this.manager._.defaultTimeout,
+      pinnable: true,
+      renderer: void 0
+    }, options);
+    this.id = nextId(this.manager);
+    if (this.options.timeout) {
+      startTimeout(this, this.options.timeout);
+      this.pinned = false;
+    } else {
+      this.pinned = true;
+    }
+  }
+
+  Notification.prototype.close = function() {
+    removeNotification(this.manager, this);
+    return this;
+  };
+
+  Notification.prototype.pin = function() {
+    this.pinned = true;
+    window.clearTimeout(this.timeoutId);
+    updatePinnedStatus(this);
+    return this;
+  };
+
+  Notification.prototype.unpin = function() {
+    this.pinned = false;
+    startTimeout(this, 1);
+    updatePinnedStatus(this);
+    return this;
+  };
+
+  return Notification;
+
+})();
+
+NotificationManager = (function() {
+  var themedNotification;
+
+  function NotificationManager(selector) {
+    this.selector = selector != null ? selector : 'body';
+    this.currentId = 0;
+    this.notifications = [];
+    this.uniqueId = 'hx-notify-' + hx.randomId();
+    this._ = {
+      defaultTimeout: 5
+    };
+  }
+
+  NotificationManager.prototype.notify = function(message, options) {
+    var notification;
+    notification = new Notification(this, message, options);
+    this.notifications.push(notification);
+    redraw(this);
+    return notification;
+  };
+
+  themedNotification = function(manager, contextClass, iconClass, message, options) {
+    var mergedOptions, optionalClass;
+    mergedOptions = hx.merge({
+      icon: 'hx-icon ' + iconClass
+    }, options);
+    optionalClass = mergedOptions.cssclass ? " " + mergedOptions.cssclass : '';
+    mergedOptions.cssclass = "" + contextClass + optionalClass;
+    return manager.notify(message, mergedOptions);
+  };
+
+  NotificationManager.prototype.info = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return themedNotification(this, 'hx-info', 'hx-icon-info', message, options);
+  };
+
+  NotificationManager.prototype.warning = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return themedNotification(this, 'hx-warning', 'hx-icon-warning', message, options);
+  };
+
+  NotificationManager.prototype.negative = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return themedNotification(this, 'hx-negative', 'hx-icon-error', message, options);
+  };
+
+  NotificationManager.prototype.positive = function(message, options) {
+    if (options == null) {
+      options = {};
+    }
+    return themedNotification(this, 'hx-positive', 'hx-icon-check', message, options);
+  };
+
+  NotificationManager.prototype.loading = function(message) {
+    return this.notify(message, {
+      icon: 'hx-spinner',
+      cssclass: 'hx-loading',
+      timeout: void 0,
+      pinnable: false
+    });
+  };
+
+  NotificationManager.prototype.defaultTimeout = function(timeout) {
+    if (arguments.length > 0) {
+      this._.defaultTimeout = timeout || 5;
+      return this;
+    } else {
+      return this._.defaultTimeout;
     }
   };
-  hx.Selection.prototype.components = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return hx.components(this.nodes[0]);
+
+  return NotificationManager;
+
+})();
+
+hx.NotificationManager = NotificationManager;
+
+inbuiltNotificationManager = new NotificationManager;
+
+hx.notify = function(message, options) {
+  return inbuiltNotificationManager.notify(message, options);
+};
+
+hx.notify.info = function(message, options) {
+  return inbuiltNotificationManager.info(message, options);
+};
+
+hx.notify.positive = function(message, options) {
+  return inbuiltNotificationManager.positive(message, options);
+};
+
+hx.notify.warning = function(message, options) {
+  return inbuiltNotificationManager.warning(message, options);
+};
+
+hx.notify.negative = function(message, options) {
+  return inbuiltNotificationManager.negative(message, options);
+};
+
+hx.notify.loading = function(message) {
+  return inbuiltNotificationManager.loading(message);
+};
+
+hx.notify.defaultTimeout = function(timeout) {
+  return inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments);
+};
+
+})();
+(function(){
+var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
+
+siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+
+zeroPad = function(number, pad) {
+  var _, str, zeros;
+  str = number.toString();
+  if (str.length < pad) {
+    zeros = pad - str.length;
+    return ((function() {
+      var i, ref, results;
+      results = [];
+      for (_ = i = 0, ref = zeros - 1; 0 <= ref ? i <= ref : i >= ref; _ = 0 <= ref ? ++i : --i) {
+        results.push('0');
       }
-    } else {
-      return this.nodes.map(hx.components);
-    }
-  };
-}
+      return results;
+    })()).join('') + str;
+  } else {
+    return str;
+  }
+};
+
+precision = function(n) {
+  if (n) {
+    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
+  } else {
+    return 1;
+  }
+};
+
+roundPrecision = function(n, base, factor) {
+  if (factor >= 0) {
+    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
+  } else {
+    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
+  }
+};
+
+formatRound = function(n, sf) {
+  var factor;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  factor = precision(n) - sf + 1;
+  return roundPrecision(n, 10, factor).toString();
+};
+
+formatSI = function(n, sf) {
+  var p, siFactor, suffix, x;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  p = Math.min(precision(n), 26);
+  suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
+  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
+  if (p === -3) {
+    x = 1000;
+    suffix = siSuffixes[6];
+  }
+  siFactor = Math.pow(10, p - p % 3) / x;
+  return formatRound(n / siFactor, sf) + suffix;
+};
+
+formatExp = function(n, sf) {
+  var p;
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  p = precision(n);
+  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
+};
+
+formatFixed = function(n, digits) {
+  if (isNaN(n)) {
+    return 'NaN';
+  }
+  return n.toFixed(digits);
+};
+
+strictCheck = function(f, sf, strict) {
+  if (strict) {
+    return function(n) {
+      return f(n, sf);
+    };
+  } else {
+    return function(n) {
+      if (hx.isString(n)) {
+        return n;
+      } else {
+        return f(n, sf);
+      }
+    };
+  }
+};
+
+hx.format = {
+  round: function(sf, strict) {
+    return strictCheck(formatRound, sf, strict);
+  },
+  si: function(sf, strict) {
+    return strictCheck(formatSI, sf, strict);
+  },
+  exp: function(sf, strict) {
+    return strictCheck(formatExp, sf, strict);
+  },
+  fixed: function(digits, strict) {
+    return strictCheck(formatFixed, digits, strict);
+  },
+  zeroPad: function(length, strict) {
+    return strictCheck(zeroPad, length, strict);
+  }
+};
 
 })();
 (function(){
@@ -4192,1311 +5276,20 @@ hx.ClickDetector = ClickDetector;
 })();
 
 (function(){
-var Modal, getHeaderRender, getTitleRender, makeButtons, modalDialog, modalInput,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-Modal = (function(superClass) {
-  var closeModal;
-
-  extend(Modal, superClass);
-
-  closeModal = function(modal, event) {
-    var body;
-    body = hx.select('body').classed('hx-modal-open', false);
-    body.select('.hx-modal-container').remove();
-    body.select('.hx-modal-shade').remove();
-    modal.emit('hidestart');
-    modal.emit('hide', event);
-    return modal.emit('hideend');
-  };
-
-  function Modal(title1, setup1, options) {
-    this.title = title1;
-    this.setup = setup1;
-    Modal.__super__.constructor.apply(this, arguments);
-    this.options = hx.merge({
-      closeWithShadeEnabled: true,
-      closeButtonEnabled: true,
-      titlebarRenderer: function(node) {
-        return hx.select(node).text(this.title);
-      },
-      headerRenderer: function(node, titleNode, closeButtonNode) {
-        return hx.select(node).add(titleNode).add(closeButtonNode);
-      }
-    }, options);
-    this.contentContainer = null;
-  }
-
-  Modal.prototype.show = function(cb) {
-    var body, closeButton, modal, modalContainer, ref, self, shade, title, titleContainer;
-    if ((ref = document.activeElement) != null) {
-      ref.blur();
-    }
-    body = hx.select('body').classed('hx-modal-open', true);
-    shade = body.select('.hx-modal-shade');
-    if (shade.empty()) {
-      shade = body.append('div').attr('class', 'hx-modal-shade');
-      shade.style('opacity', 0).morph()["with"]('fadein', 150).go();
-    }
-    body.select('.hx-modal-container').remove();
-    modalContainer = body.append('div').attr('class', 'hx-modal-container');
-    modal = modalContainer.append('div').attr('class', 'hx-modal');
-    titleContainer = modal.append('div')["class"]('hx-modal-title-container hx-group hx-horizontal hx-header');
-    title = hx.detached('div')["class"]('hx-modal-title');
-    if (this.options.closeButtonEnabled) {
-      closeButton = hx.detached('div').add(hx.detached('i')["class"]('hx-icon hx-icon-close'))["class"]('hx-modal-close hx-fixed').on('click', 'hx.modal', (function(_this) {
-        return function() {
-          return closeModal(_this, {
-            cause: 'button'
-          });
-        };
-      })(this));
-    } else {
-      if ((this.title == null) || this.title.length === 0) {
-        titleContainer.classed('hx-modal-title-empty', true);
-      }
-    }
-    if (this.options.closeWithShadeEnabled) {
-      modalContainer.on('click', 'hx.modal', (function(_this) {
-        return function(e) {
-          if (!modal.contains(e.target) && hx.select('body').contains(e.target)) {
-            return closeModal(_this, {
-              cause: 'shade'
-            });
-          }
-        };
-      })(this));
-    }
-    this.options.titlebarRenderer.call(this, title.node(), this);
-    this.options.headerRenderer.call(this, titleContainer.node(), title.node(), closeButton != null ? closeButton.node() : void 0, this);
-    this.contentContainer = modal.append('div').attr('class', 'hx-modal-content');
-    if (this.setup) {
-      this.setup(this.contentContainer.node(), this);
-    }
-    this.emit('show', this.contentContainer.node());
-    this.emit('showstart');
-    self = this;
-    modal.style('opacity', 0).style('top', '-30px').morph()["with"]('fadein', 150).and(function() {
-      return modal.animate().style('top', '0px', 100);
-    }).then(function() {
-      self.emit('showend');
-      return typeof cb === "function" ? cb() : void 0;
-    }).go();
-    return this;
-  };
-
-  Modal.prototype.hide = function() {
-    closeModal(this, {
-      cause: 'api'
-    });
-    return this;
-  };
-
-  return Modal;
-
-})(hx.EventEmitter);
-
-makeButtons = function(container, buttons, modal, callback) {
-  buttons.forEach(function(d) {
-    return container.append('button').attr('type', 'button')["class"](d.classes).add(hx.detached('i')["class"](d.icon)).add(hx.detached('span').text(' ' + d.text)).on('click', 'hx.modal', function() {
-      if (typeof callback === "function") {
-        callback(d.value);
-      }
-      return modal.hide();
-    });
-  });
-};
-
-getTitleRender = function(icon) {
-  return function(elem, modal) {
-    elem = hx.select(elem);
-    if (icon != null) {
-      elem.append('i')["class"](icon);
-    }
-    return elem.append('span').text(this.title);
-  };
-};
-
-getHeaderRender = function(titleClass) {
-  return function(elem, title, button, modal) {
-    return hx.select(elem).classed('hx-background-' + titleClass, true).add(title).add(button);
-  };
-};
-
-modalDialog = function(title, message, callback, options) {
-  var modal, setup;
-  options = hx.merge.defined({
-    callback: void 0,
-    buttons: [
-      {
-        text: 'Cancel',
-        icon: 'hx-icon hx-icon-close',
-        value: false,
-        classes: 'hx-btn hx-negative'
-      }, {
-        text: 'Confirm',
-        icon: 'hx-icon hx-icon-check',
-        value: true,
-        classes: 'hx-btn hx-positive'
-      }
-    ],
-    titleClass: void 0,
-    icon: void 0
-  }, options);
-  setup = function(element) {
-    var buttonContainer, container;
-    container = hx.select(element);
-    message = container.append('div')["class"]('hx-modal-message').text(message);
-    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
-    return makeButtons(buttonContainer, options.buttons, this, callback);
-  };
-  modal = new Modal(title, setup, {
-    closeWithShadeEnabled: options.closeWithShadeEnabled,
-    closeButtonEnabled: options.closeButtonEnabled
-  });
-  if (options.titleClass != null) {
-    modal.options.headerRenderer = getHeaderRender(options.titleClass);
-    modal.options.titlebarRenderer = getTitleRender(options.icon);
-  }
-  modal.on('hide', 'hx.modal', function(d) {
-    if (d.cause !== 'api') {
-      return callback();
-    }
-  });
-  return modal.show();
-};
-
-modalInput = function(title, message, callback, options) {
-  var modal, setup;
-  options = hx.merge.defined({
-    value: ''
-  }, options);
-  setup = function(element) {
-    var buttonContainer, buttons, container, input;
-    buttons = [
-      {
-        text: 'Cancel',
-        icon: 'hx-icon hx-icon-close',
-        value: false,
-        classes: 'hx-btn hx-negative'
-      }, {
-        text: 'Confirm',
-        icon: 'hx-icon hx-icon-check',
-        value: true,
-        classes: 'hx-btn hx-positive'
-      }
-    ];
-    container = hx.select(element);
-    message = container.append('span')["class"]('hx-modal-message').text(message);
-    input = container.append('input')["class"]('hx-modal-input').text(this.options.value);
-    buttonContainer = container.append('div')["class"]('hx-modal-buttons');
-    return makeButtons(buttonContainer, buttons, this, function(res) {
-      if (res) {
-        return callback(input.value());
-      } else {
-        return callback(res);
-      }
-    });
-  };
-  modal = new Modal(title, setup, {
-    closeWithShadeEnabled: options.closeWithShadeEnabled,
-    closeButtonEnabled: options.closeButtonEnabled
-  });
-  modal.on('close', 'hx.modal', function(d) {
-    if (d.cause !== 'api') {
-      return callback();
-    }
-  });
-  return modal.show();
-};
-
-hx.Modal = Modal;
-
-hx.modal = {
-  dialog: modalDialog,
-  input: modalInput
-};
-
-})();
-(function(){
-var Notification, NotificationManager, inbuiltNotificationManager, nextId, redraw, removeNotification, setupNotification, startTimeout, togglePin, updatePinnedStatus;
-
-setupNotification = function(notification, selection) {
-  if ((notification.options.icon != null) && notification.options.icon.length > 0) {
-    selection.append('div')["class"]('hx-notification-icon-container hx-section hx-fixed hx-no-margin').append('i')["class"]('hx-notification-icon ' + notification.options.icon);
-  }
-  selection.append('div')["class"]('hx-notification-text hx-section hx-no-margin').text(notification.message);
-  if (notification.options.pinnable) {
-    notification.domPin = selection.append('div')["class"]('hx-notification-icon-container hx-notification-pin hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
-      return togglePin(notification);
-    });
-    notification.domPin.append('i').attr('class', 'hx-icon hx-icon-thumb-tack');
-    updatePinnedStatus(notification);
-  }
-  return selection.append('div')["class"]('hx-notification-icon-container hx-notification-close hx-section hx-fixed hx-no-margin').on('click', 'hx.notify', function() {
-    return notification.close();
-  }).append('i')["class"]('hx-icon hx-icon-close');
-};
-
-nextId = function(manager) {
-  return manager.currentId++;
-};
-
-redraw = function(manager) {
-  var container, selection, view;
-  selection = hx.select(manager.selector);
-  container = selection.select('#' + manager.uniqueId);
-  if (container.empty()) {
-    container = selection.append('div')["class"]('hx-notification-container').attr('id', manager.uniqueId);
-  }
-  view = container.view('.hx-notification');
-  view.enter(function(d) {
-    selection = this.append('div');
-    selection["class"]('hx-notification hx-group hx-horizontal ' + d.options.cssclass).forEach(function(node) {
-      setupNotification(d, selection);
-      return d.trueHeight = selection.style('height');
-    }).style('opacity', 0).style('height', 0).style('padding-top', 0).style('padding-bottom', 0).style('margin-top', 0).style('margin-bottom', 0).morph()["with"]('expandv').and('fadein').then(function() {
-      return selection.style('height', '');
-    }).go();
-    return selection.node();
-  });
-  view.exit(function() {
-    return this.style('overflow', 'hidden').morph()["with"]('fadeout', 100).then('collapsev', 100).then((function(_this) {
-      return function() {
-        return _this.remove();
-      };
-    })(this)).go();
-  });
-  return view.apply(manager.notifications, function(d) {
-    return d.id;
-  });
-};
-
-removeNotification = function(manager, notification) {
-  var i;
-  i = manager.notifications.indexOf(notification);
-  if (i >= 0) {
-    manager.notifications.splice(i, 1);
-  }
-  return redraw(manager);
-};
-
-startTimeout = function(notification, seconds) {
-  return notification.timeoutId = window.setTimeout(((function(_this) {
-    return function() {
-      return notification.close();
-    };
-  })(this)), seconds * 1000);
-};
-
-togglePin = function(notification) {
-  if (notification.pinned) {
-    return notification.unpin();
-  } else {
-    return notification.pin();
-  }
-};
-
-updatePinnedStatus = function(notification) {
-  return notification.domPin.classed('hx-notification-pin-pinned', notification.pinned);
-};
-
-Notification = (function() {
-  function Notification(manager1, message1, options) {
-    this.manager = manager1;
-    this.message = message1;
-    this.options = hx.merge({
-      icon: void 0,
-      cssClass: void 0,
-      timeout: this.manager._.defaultTimeout,
-      pinnable: true
-    }, options);
-    this.id = nextId(this.manager);
-    if (this.options.timeout) {
-      startTimeout(this, this.options.timeout);
-      this.pinned = false;
-    } else {
-      this.pinned = true;
-    }
-  }
-
-  Notification.prototype.close = function() {
-    removeNotification(this.manager, this);
-    return this;
-  };
-
-  Notification.prototype.pin = function() {
-    this.pinned = true;
-    window.clearTimeout(this.timeoutId);
-    updatePinnedStatus(this);
-    return this;
-  };
-
-  Notification.prototype.unpin = function() {
-    this.pinned = false;
-    startTimeout(this, 1);
-    updatePinnedStatus(this);
-    return this;
-  };
-
-  return Notification;
-
-})();
-
-NotificationManager = (function() {
-  function NotificationManager(selector) {
-    this.selector = selector != null ? selector : 'body';
-    this.currentId = 0;
-    this.notifications = [];
-    this.uniqueId = 'hx-notify-' + hx.randomId();
-    this._ = {
-      defaultTimeout: 5
-    };
-  }
-
-  NotificationManager.prototype.notify = function(message, options) {
-    var notification;
-    notification = new Notification(this, message, options);
-    this.notifications.push(notification);
-    redraw(this);
-    return notification;
-  };
-
-  NotificationManager.prototype.info = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-info',
-      cssclass: 'hx-info'
-    }, options));
-  };
-
-  NotificationManager.prototype.warning = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-warning',
-      cssclass: 'hx-warning'
-    }, options));
-  };
-
-  NotificationManager.prototype.negative = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-error',
-      cssclass: 'hx-negative'
-    }, options));
-  };
-
-  NotificationManager.prototype.positive = function(message, options) {
-    if (options == null) {
-      options = {};
-    }
-    return this.notify(message, hx.merge({
-      icon: 'hx-icon hx-icon-check',
-      cssclass: 'hx-positive'
-    }, options));
-  };
-
-  NotificationManager.prototype.loading = function(message) {
-    return this.notify(message, {
-      icon: 'hx-spinner',
-      cssclass: 'hx-loading',
-      timeout: void 0,
-      pinnable: false
-    });
-  };
-
-  NotificationManager.prototype.defaultTimeout = function(timeout) {
-    if (arguments.length > 0) {
-      this._.defaultTimeout = timeout || 5;
-      return this;
-    } else {
-      return this._.defaultTimeout;
-    }
-  };
-
-  return NotificationManager;
-
-})();
-
-hx.NotificationManager = NotificationManager;
-
-inbuiltNotificationManager = new NotificationManager;
-
-hx.notify = function(message, options) {
-  return inbuiltNotificationManager.notify(message, options);
-};
-
-hx.notify.info = function(message, options) {
-  return inbuiltNotificationManager.info(message, options);
-};
-
-hx.notify.positive = function(message, options) {
-  return inbuiltNotificationManager.positive(message, options);
-};
-
-hx.notify.warning = function(message, options) {
-  return inbuiltNotificationManager.warning(message, options);
-};
-
-hx.notify.negative = function(message, options) {
-  return inbuiltNotificationManager.negative(message, options);
-};
-
-hx.notify.loading = function(message) {
-  return inbuiltNotificationManager.loading(message);
-};
-
-hx.notify.defaultTimeout = function(timeout) {
-  return inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments);
-};
-
-})();
-(function(){
-var buildFilter, filterCaseModifier, filterMatch;
-
-filterCaseModifier = function(caseSensitive) {
-  if (caseSensitive) {
-    return function(string) {
-      return string;
-    };
-  } else {
-    return function(string) {
-      return string.toLowerCase();
-    };
-  }
-};
-
-filterMatch = function(item, getIndex, options) {
-  var e, isMatch, j, len, ref, val;
-  val = 0;
-  isMatch = false;
-  if (options.searchValues != null) {
-    ref = options.searchValues(item);
-    for (j = 0, len = ref.length; j < len; j++) {
-      e = ref[j];
-      val += options.lookup(options.caseModifier(e.toString()));
-      if (val > -1) {
-        isMatch = true;
-      }
-    }
-  } else {
-    val += options.lookup(options.caseModifier(item.toString()));
-  }
-  if (getIndex === true) {
-    return val;
-  } else if (isMatch || val > -1) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-buildFilter = function(lookupType) {
-  return function(array, term, options) {
-    if (options == null) {
-      options = {};
-    }
-    options = hx.merge.defined({
-      caseSensitive: false,
-      searchValues: void 0,
-      sort: true
-    }, options);
-    options.caseModifier = filterCaseModifier(options.caseSensitive);
-    if (typeof term === 'string') {
-      term = options.caseModifier(term);
-    }
-    options.lookup = lookupType(term);
-    array = array.filter(function(d) {
-      return filterMatch(d, false, options);
-    });
-    if (options.sort === true) {
-      array = array.sort(function(a, b) {
-        var aArr, aI, bArr, bI, i, j, r, ref;
-        aI = filterMatch(a, true, options);
-        bI = filterMatch(b, true, options);
-        if (aI > bI) {
-          return 1;
-        } else if (aI < bI) {
-          return -1;
-        } else if (options.searchValues != null) {
-          r = 0;
-          aArr = options.searchValues(a);
-          bArr = options.searchValues(b);
-          for (i = j = 0, ref = aArr.length; j < ref; i = j += 1) {
-            r = hx.sort.compare(aArr[i], bArr[i]);
-            if (r !== 0) {
-              break;
-            }
-          }
-          return r;
-        } else {
-          return hx.sort.compare(a, b);
-        }
-      });
-    }
-    return array;
-  };
-};
-
-hx.filter = {
-  exact: buildFilter(function(term) {
-    return function(item) {
-      if (item === term) {
-        return term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  startsWith: buildFilter(function(term) {
-    return function(item) {
-      if (hx.startsWith(item, term)) {
-        return term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  contains: buildFilter(function(term) {
-    return function(item) {
-      var index;
-      index = item.indexOf(term);
-      if (index > -1) {
-        return index + term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  excludes: buildFilter(function(term) {
-    return function(item) {
-      var index;
-      index = item.indexOf(term);
-      if (index === -1) {
-        return term.length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  greater: buildFilter(function(term) {
-    return function(item) {
-      var val;
-      val = hx.sort.compare(item, term);
-      if (val !== -1) {
-        return val;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  less: buildFilter(function(term) {
-    return function(item) {
-      var val;
-      val = hx.sort.compare(term, item);
-      if (val !== -1) {
-        return val;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  fuzzy: buildFilter(function(term) {
-    var escapeRegExp, pattern, regStr;
-    escapeRegExp = function(str) {
-      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    };
-    regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?';
-    pattern = new RegExp(regStr);
-    return function(item) {
-      var match;
-      match = item.match(pattern);
-      if (match != null) {
-        return match.index + match[0].length;
-      } else {
-        return -1;
-      }
-    };
-  }),
-  regex: buildFilter(function(term) {
-    return function(item) {
-      var match;
-      match = item.match(term);
-      if (match != null) {
-        return match.index + match[0].length;
-      } else {
-        return -1;
-      }
-    };
-  })
-};
-
-})();
-(function(){
-var getValidationMessage, validateForm;
-
-getValidationMessage = function(message, type) {
-  switch (message.toLowerCase()) {
-    case 'value missing':
-      if (type === 'radio') {
-        return 'Please select one of these options.';
-      } else {
-        return 'Please fill in this field.';
-      }
-      break;
-    case 'type mismatch':
-      return 'Please enter a valid ' + type + '.';
-    default:
-      return message;
-  }
-};
-
-validateForm = function(form, options) {
-  var element, error, errors, i, input, j, ref, type;
-  form = hx.select(form).node();
-  options = hx.merge.defined({
-    showMessage: true
-  }, options);
-  hx.select(form).selectAll('.hx-form-error').remove();
-  errors = [];
-  for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-    if (form.children[i].nodeName.toLowerCase() === 'div') {
-      element = form.children[i].children[1];
-      if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
-        if (!element.checkValidity()) {
-          type = hx.select(element).attr('type');
-          errors.push({
-            message: getValidationMessage(element.validationMessage, type),
-            node: element,
-            validity: element.validity
-          });
-        }
-      } else {
-        input = hx.select(element).select('input').node();
-        type = hx.select(element).select('input').attr('type');
-        if (input && !input.checkValidity()) {
-          errors.push({
-            message: getValidationMessage(input.validationMessage, type),
-            node: element,
-            validity: input.validity
-          });
-        }
-      }
-    }
-  }
-  if (options.showMessage && errors.length > 0) {
-    error = errors[0];
-    hx.select(error.node.parentNode).insertAfter('div')["class"]('hx-form-error').append('div').insertAfter('div')["class"]('hx-form-error-text-container').append('div')["class"]('hx-form-error-text').text(error.message);
-    hx.select(error.node).on('click', 'hx.form', function(e) {
-      var next;
-      next = hx.select(error.node.parentNode.nextElementSibling);
-      if (next.classed('hx-form-error')) {
-        next.remove();
-      }
-      return hx.select(error.node).off('click', 'hx.form');
-    });
-  }
-  return {
-    valid: errors.length === 0,
-    errors: errors
-  };
-};
-
-hx.validateForm = validateForm;
-
-})();
-(function(){
-var Dropdown, calculateDropdownPosition, checkFixedPos, dropdownAnimateSlideDistance,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-dropdownAnimateSlideDistance = 8;
-
-checkFixedPos = function(node) {
-  if (hx.select(node).style('position') === 'fixed') {
-    return true;
-  }
-};
-
-calculateDropdownPosition = function(alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) {
-  var direction, x, y;
-  direction = alignments[1] === alignments[3] && alignments[0] !== alignments[2] ? alignments[0] === 'l' ? 'left' : 'right' : alignments[3] === 't' ? 'down' : 'up';
-  x = selectionRect.x;
-  y = selectionRect.y;
-  if (alignments[0] === 'r') {
-    x += selectionRect.width;
-  }
-  if (alignments[1] === 'b') {
-    y += selectionRect.height;
-  }
-  if (alignments[2] === 'r') {
-    x -= dropdownRect.width;
-  }
-  if (alignments[3] === 'b') {
-    y -= dropdownRect.height;
-  }
-  if (direction === 'down' || direction === 'up') {
-    x = hx.clamp(0, windowRect.width - dropdownRect.width, x);
-  } else {
-    y = hx.clamp(0, windowRect.height - dropdownRect.height, y);
-  }
-  if (direction === 'down' && y > windowRect.height - dropdownRect.height && selectionRect.y - dropdownRect.height > 0) {
-    direction = 'up';
-    y = selectionRect.y - dropdownRect.height;
-    if (alignments[1] === alignments[3]) {
-      y += selectionRect.height;
-    }
-  } else if (direction === 'up' && y < 0 && selectionRect.y + selectionRect.height + dropdownRect.height < windowRect.height) {
-    direction = 'down';
-    y = selectionRect.y + selectionRect.height;
-    if (alignments[1] === alignments[3]) {
-      y -= selectionRect.height;
-    }
-  } else if (direction === 'right' && x > windowRect.width - dropdownRect.width && selectionRect.x - dropdownRect.width > 0) {
-    direction = 'left';
-    x = selectionRect.x - dropdownRect.width;
-  } else if (direction === 'left' && x < 0 && selectionRect.x + selectionRect.width + dropdownRect.width < windowRect.width) {
-    direction = 'right';
-    x = selectionRect.x + selectionRect.width;
-  }
-  return {
-    x: x,
-    y: y,
-    direction: direction
-  };
-};
-
-Dropdown = (function(superClass) {
-  extend(Dropdown, superClass);
-
-  function Dropdown(selector, dropdownContent, options) {
-    var alignQuad, alignments, clickDetector, onclick, onmouseout, onmouseover, selection, setupDropdown;
-    Dropdown.__super__.constructor.apply(this, arguments);
-    hx.component.register(selector, this);
-    this.options = hx.merge.defined({
-      mode: 'click',
-      align: 'lblt',
-      spacing: void 0,
-      matchWidth: true,
-      ddClass: ''
-    }, options);
-    setupDropdown = (function() {
-      switch (false) {
-        case !hx.isString(dropdownContent):
-          return function(node) {
-            return hx.select(node).html(dropdownContent);
-          };
-        case !hx.isFunction(dropdownContent):
-          return function(node) {
-            return dropdownContent(node);
-          };
-        default:
-          hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent);
-          return function() {};
-      }
-    })();
-    clickDetector = new hx.ClickDetector;
-    clickDetector.on('click', 'hx.dropdown', (function(_this) {
-      return function() {
-        return _this.hide();
-      };
-    })(this));
-    alignQuad = (function() {
-      switch (this.options.align) {
-        case 'up':
-          return 'ltlb';
-        case 'down':
-          return 'lblt';
-        case 'left':
-          return 'ltrt';
-        case 'right':
-          return 'rtlt';
-        default:
-          return this.options.align;
-      }
-    }).call(this);
-    alignments = alignQuad.split('');
-    onclick = (function(_this) {
-      return function() {
-        return _this.toggle();
-      };
-    })(this);
-    onmouseover = (function(_this) {
-      return function() {
-        return _this.show();
-      };
-    })(this);
-    onmouseout = (function(_this) {
-      return function() {
-        return _this.hide();
-      };
-    })(this);
-    selection = hx.select(selector);
-    this._ = {
-      setupDropdown: setupDropdown,
-      clickDetector: clickDetector,
-      alignments: alignments,
-      onclick: onclick,
-      onmouseover: onmouseover,
-      onmouseout: onmouseout,
-      visible: false,
-      dropdown: void 0,
-      selection: selection,
-      useScroll: false
-    };
-    if (this.options.mode === 'click' || this.options.mode === 'hover') {
-      selection.on('click', 'hx.dropdown', onclick);
-    }
-    if (this.options.mode === 'hover') {
-      selection.on('mouseover', 'hx.dropdown', onmouseover);
-      selection.on('mouseout', 'hx.dropdown', onmouseout);
-    }
-  }
-
-  Dropdown.prototype.addException = function(node) {
-    this._.clickDetector.addException(node);
-    return this;
-  };
-
-  Dropdown.prototype.removeException = function(node) {
-    this._.clickDetector.removeException(node);
-    return this;
-  };
-
-  Dropdown.prototype.toggle = function(cb) {
-    if (this.isOpen()) {
-      this.hide(cb);
-    } else {
-      this.show(cb);
-    }
-    return this;
-  };
-
-  Dropdown.prototype.show = function(cb) {
-    var _, ddMaxHeight, dropdownRect, parentFixed, parentZIndex, rect, ref, x, y;
-    _ = this._;
-    if (!_.visible) {
-      _.visible = true;
-      _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown');
-      if (this.options.ddClass.length > 0) {
-        _.dropdown.classed(this.options.ddClass, true);
-      }
-      _.setupDropdown(_.dropdown.node());
-      _.clickDetector.removeAllExceptions();
-      _.clickDetector.addException(_.dropdown.node());
-      _.clickDetector.addException(_.selection.node());
-      _.dropdown.style('display', 'block');
-      rect = _.selection.box();
-      dropdownRect = _.dropdown.box();
-      ddMaxHeight = _.dropdown.style('max-height').replace('px', '');
-      parentFixed = hx.checkParents(_.selection.node(), checkFixedPos);
-      parentZIndex = hx.parentZIndex(_.selection.node(), true);
-      ref = calculateDropdownPosition(_.alignments, {
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        height: rect.height
-      }, {
-        width: dropdownRect.width,
-        height: dropdownRect.height
-      }, {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }, ddMaxHeight, hx.scrollbarSize()), x = ref.x, y = ref.y;
-      if (!parentFixed) {
-        x += window.scrollX;
-        y += window.scrollY;
-      }
-      if (parentZIndex > 0) {
-        _.dropdown.style('z-index', parentZIndex + 1);
-      }
-      if (parentFixed) {
-        _.dropdown.style('position', 'fixed');
-      }
-      if (this.options.matchWidth) {
-        _.dropdown.style('min-width', rect.width + 'px');
-      }
-      _.dropdown.style('left', x + 'px').style('top', (y + dropdownAnimateSlideDistance) + 'px').style('height', '0px').style('opacity', 0).style('margin-top', this.options.dropdown).morph()["with"]('fadein', 150).and('expandv', 150).and((function(_this) {
-        return function() {
-          return _.dropdown.animate().style('top', y + 'px', 150);
-        };
-      })(this)).then((function(_this) {
-        return function() {
-          if (_.useScroll && (_.dropdown != null)) {
-            _.dropdown.style('overflow-y', 'auto');
-          }
-          _this.emit('showend');
-          return typeof cb === "function" ? cb() : void 0;
-        };
-      })(this)).go();
-      this.emit('showstart');
-      this.emit('change', true);
-    }
-    return this;
-  };
-
-  Dropdown.prototype.hide = function(cb) {
-    var _;
-    _ = this._;
-    if (_.visible) {
-      _.visible = false;
-      this.emit('hidestart');
-      this.emit('change', false);
-      this.emit('hideend');
-      if (typeof cb === "function") {
-        cb();
-      }
-      _.dropdown.remove();
-      _.dropdown = void 0;
-    }
-    return this;
-  };
-
-  Dropdown.prototype.isOpen = function() {
-    return this._.visible;
-  };
-
-  Dropdown.prototype.cleanUp = function() {
-    var _;
-    _ = this._;
-    _.clickDetector.cleanUp();
-    if (this.options.mode === 'click' || this.options.mode === 'hover') {
-      _.selection.off(_.onclick);
-    }
-    if (this.options.mode === 'hover') {
-      _.selection.off('mouseover', 'hx.dropdown', _.onmouseover);
-      _.selection.off('mouseout', 'hx.dropdown', _.onmouseout);
-    }
-    return this;
-  };
-
-  return Dropdown;
-
-})(hx.EventEmitter);
-
-hx.Dropdown = Dropdown;
-
-hx._.dropdown = {
-  attachToSelector: 'body',
-  calculateDropdownPosition: calculateDropdownPosition
-};
-
-})();
-(function(){
-
-/* istanbul ignore next: ignore the uncoverable coffee generated code */
-var Collapsible,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-Collapsible = (function(superClass) {
-  extend(Collapsible, superClass);
-
-  function Collapsible(selector, options) {
-    var content, header, toggleBtn;
-    Collapsible.__super__.constructor.apply(this, arguments);
-    this.options = hx.merge.defined({
-      lazyContent: void 0,
-      visible: false,
-      addIcon: true,
-      animate: true
-    }, options);
-    hx.component.register(selector, this);
-    this.lazyContentCreated = false;
-    this.selection = hx.select(selector).classed('hx-openable', true).classed('hx-collapsible', true);
-    header = this.selection.select('.hx-collapsible-heading');
-    if (!(toggleBtn = header.select('.hx-collapsible-toggle')).empty()) {
-      header.classed('hx-collapsible-heading-no-hover', true);
-      toggleBtn.on('click', 'hx.collapsible', (function(_this) {
-        return function() {
-          return _this.toggle();
-        };
-      })(this));
-    } else {
-      header.on('click', 'hx.collapsible', (function(_this) {
-        return function() {
-          return _this.toggle();
-        };
-      })(this));
-    }
-    content = this.selection.select('.hx-collapsible-content').style('height', 0).style('opacity', 0);
-    if (this.options.addIcon) {
-      if (toggleBtn.empty()) {
-        header.select('i').remove();
-        header.prepend('i')["class"]('hx-icon hx-icon-chevron-right hx-collapsible-icon');
-      } else {
-        toggleBtn.select('i').remove();
-        toggleBtn.prepend('i')["class"]('hx-icon hx-icon-chevron-right hx-collapsible-icon');
-      }
-    }
-    this.visible = void 0;
-    if (this.options.visible) {
-      this.show(false);
-    } else {
-      this.hide(false);
-    }
-  }
-
-  Collapsible.prototype.toggle = function(animate, cb) {
-    animate = animate != null ? animate : this.options.animate;
-    if (this.isOpen()) {
-      return this.hide(animate, cb);
-    } else {
-      return this.show(animate, cb);
-    }
-  };
-
-  Collapsible.prototype.show = function(animate, cb) {
-    var content, self;
-    animate = animate != null ? animate : this.options.animate;
-    if (!this.lazyContentCreated) {
-      this.lazyContentCreated = true;
-      if (this.options.lazyContent) {
-        this.options.lazyContent(this.selection.select('.hx-collapsible-content').node());
-      }
-    }
-    if (this.visible !== true) {
-      this.selection.classed('hx-collapsible-expanded', true).classed('hx-opened', true);
-      content = this.selection.select('.hx-collapsible-content');
-      if (animate) {
-        self = this;
-        content.morph()["with"]('expandv', 100).and('fadein', 100).then(function() {
-          self.emit('showend');
-          return typeof cb === "function" ? cb() : void 0;
-        }).go(true);
-        this.selection.select('.hx-collapsible-heading').select('.hx-collapsible-icon').morph()["with"]('rotate-90', 200).go(true);
-      } else {
-        content.style('display', '').style('height', '').style('opacity', '');
-        this.emit('showend');
-      }
-      this.visible = true;
-      this.emit('showstart');
-      this.emit('change', true);
-    }
-    return this;
-  };
-
-  Collapsible.prototype.hide = function(animate, cb) {
-    var self;
-    animate = animate != null ? animate : this.options.animate;
-    if (this.visible !== false) {
-      this.selection.classed('hx-collapsible-expanded', false).classed('hx-opened', false);
-      if (animate) {
-        self = this;
-        this.selection.select('.hx-collapsible-content').morph()["with"]('fadeout', 100).and('collapsev', 100).then(function() {
-          self.emit('hideend');
-          return typeof cb === "function" ? cb() : void 0;
-        }).go(true);
-        this.selection.select('.hx-collapsible-heading').select('.hx-collapsible-icon').morph()["with"]('rotate-0', 200).go(true);
-      } else {
-        this.selection.select('.hx-collapsible-content').style('display', 'none');
-        this.emit('hideend');
-      }
-      this.visible = false;
-      this.emit('hidestart');
-      this.emit('change', false);
-    }
-    return this;
-  };
-
-  Collapsible.prototype.isOpen = function() {
-    return this.visible;
-  };
-
-  return Collapsible;
-
-})(hx.EventEmitter);
-
-hx.Collapsible = Collapsible;
-
-hx.initializeCollapsibles = function(selector, options) {
-  return hx.selectAll(selector).nodes.map(function(d) {
-    return new Collapsible(d, options);
-  });
-};
-
-})();
-(function(){
-var context, contexts, flatSelect, paletteContexts;
-
-contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast'];
-
-paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast'];
-
-hx.palette = {};
-
-flatSelect = function(selector) {
-  if (selector instanceof hx.Selection) {
-    return selector;
-  } else {
-    return hx.select(selector);
-  }
-};
-
-context = function(contextArray, contextPrefix) {
-  var mappedContexts;
-  mappedContexts = contextArray.map(function(context) {
-    return contextPrefix + "-" + context;
-  }).join(' ');
-  return function(selector, context) {
-    var i, len, selection;
-    selection = flatSelect(selector);
-    if (arguments.length > 1) {
-      selection.classed(mappedContexts, false);
-      if (contextArray.indexOf(context) !== -1) {
-        selection.classed(contextPrefix + "-" + context, true);
-      } else if (context) {
-        hx.consoleWarning(context + " is not a known context! Accepted values are " + (contextArray.join(', ')));
-      }
-      return selection;
-    } else {
-      for (i = 0, len = paletteContexts.length; i < len; i++) {
-        context = paletteContexts[i];
-        if (selection.classed(contextPrefix + "-" + context)) {
-          return context;
-        }
-      }
-      return void 0;
-    }
-  };
-};
-
-hx.palette.context = context(contexts, 'hx');
-
-hx.palette.textContext = context(paletteContexts, 'hx-text');
-
-hx.palette.backgroundContext = context(paletteContexts, 'hx-background');
-
-hx.palette.borderContext = context(paletteContexts, 'hx-border');
-
-})();
-(function(){
-var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
-
-siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
-
-zeroPad = function(number, pad) {
-  var _, str, zeros;
-  str = number.toString();
-  if (str.length < pad) {
-    zeros = pad - str.length;
-    return ((function() {
-      var i, ref, results;
-      results = [];
-      for (_ = i = 0, ref = zeros - 1; 0 <= ref ? i <= ref : i >= ref; _ = 0 <= ref ? ++i : --i) {
-        results.push('0');
-      }
-      return results;
-    })()).join('') + str;
-  } else {
-    return str;
-  }
-};
-
-precision = function(n) {
-  if (n) {
-    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
-  } else {
-    return 1;
-  }
-};
-
-roundPrecision = function(n, base, factor) {
-  if (factor >= 0) {
-    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
-  } else {
-    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
-  }
-};
-
-formatRound = function(n, sf) {
-  var factor;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  factor = precision(n) - sf + 1;
-  return roundPrecision(n, 10, factor).toString();
-};
-
-formatSI = function(n, sf) {
-  var p, siFactor, suffix, x;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = Math.min(precision(n), 26);
-  suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
-  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
-  if (p === -3) {
-    x = 1000;
-    suffix = siSuffixes[6];
-  }
-  siFactor = Math.pow(10, p - p % 3) / x;
-  return formatRound(n / siFactor, sf) + suffix;
-};
-
-formatExp = function(n, sf) {
-  var p;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = precision(n);
-  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
-};
-
-formatFixed = function(n, digits) {
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  return n.toFixed(digits);
-};
-
-strictCheck = function(f, sf, strict) {
-  if (strict) {
-    return function(n) {
-      return f(n, sf);
-    };
-  } else {
-    return function(n) {
-      if (hx.isString(n)) {
-        return n;
-      } else {
-        return f(n, sf);
-      }
-    };
-  }
-};
-
-hx.format = {
-  round: function(sf, strict) {
-    return strictCheck(formatRound, sf, strict);
-  },
-  si: function(sf, strict) {
-    return strictCheck(formatSI, sf, strict);
-  },
-  exp: function(sf, strict) {
-    return strictCheck(formatExp, sf, strict);
-  },
-  fixed: function(digits, strict) {
-    return strictCheck(formatFixed, digits, strict);
-  },
-  zeroPad: function(length, strict) {
-    return strictCheck(zeroPad, length, strict);
-  }
-};
-
-})();
-(function(){
-var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, localeList, lookupLocale,
+var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, defaultTimezoneLookup, localeList, lookupLocale, zeroPad,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+hx.userFacingText({
+  preferences: {
+    locale: 'Locale',
+    preferences: 'Preferences',
+    preferencesSaved: 'Preferences Saved',
+    save: 'Save',
+    timezone: 'Timezone'
+  }
+});
 
 localeList = [
   {
@@ -5766,13 +5559,24 @@ lookupLocale = function(locale) {
   })[0];
 };
 
+zeroPad = hx.format.zeroPad(2);
+
+defaultTimezoneLookup = function(offset) {
+  var absOffset, hours, minutes, modifier;
+  modifier = offset > 0 ? '-' : '+';
+  absOffset = Math.abs(offset);
+  minutes = absOffset % 60;
+  hours = (absOffset - minutes) / 60;
+  return "UTC" + modifier + (zeroPad(hours)) + ":" + (zeroPad(minutes));
+};
+
 Preferences = (function(superClass) {
   var option;
 
   extend(Preferences, superClass);
 
   function Preferences() {
-    var defaultLocaleId, guessedMomentTimezone, modal, ref, setupModal;
+    var defaultLocaleId, guessedMomentTimezone, modal, ref, ref1, setupModal;
     Preferences.__super__.constructor.apply(this, arguments);
     setupModal = (function(_this) {
       return function(element) {
@@ -5801,7 +5605,7 @@ Preferences = (function(superClass) {
         }).on('change', function(item) {
           return locale = item.value;
         });
-        localeSection = hx.detached('div').add(hx.detached('label').text('Locale')).add(localeAutocompleteElement);
+        localeSection = hx.detached('div').add(hx.detached('label').text(hx.userFacingText('preferences', 'locale'))).add(localeAutocompleteElement);
         timezoneAutocompleteElement = hx.detached('input');
         timezoneAutocompleteElement.value(timezone);
         new hx.AutoComplete(timezoneAutocompleteElement.node(), _this._.supportedTimezones, {
@@ -5810,15 +5614,15 @@ Preferences = (function(superClass) {
         }).on('change', function(value) {
           return timezone = value;
         });
-        timezoneSection = hx.detached('div').add(hx.detached('label').text('Time Zone')).add(timezoneAutocompleteElement);
-        saveButton = hx.detached('button')["class"]('hx-btn hx-positive').add(hx.detached('i')["class"]('hx-icon hx-icon-check')).add(hx.detached('span').text(' Save')).on('click', function() {
+        timezoneSection = hx.detached('div').add(hx.detached('label').text(hx.userFacingText('preferences', 'timezone'))).add(timezoneAutocompleteElement);
+        saveButton = hx.detached('button')["class"]('hx-btn hx-positive').add(hx.detached('i')["class"]('hx-icon hx-icon-check')).add(hx.detached('span').text(' ' + hx.userFacingText('preferences', 'save'))).on('click', function() {
           _this.locale(locale);
           _this.timezone(timezone);
           return _this.save(function(err) {
             if (err) {
               return hx.notify.negative(err);
             } else {
-              hx.notify.positive("Preferences Saved");
+              hx.notify.positive(hx.userFacingText('preferences', 'preferencesSaved'));
               return modal.hide();
             }
           });
@@ -5826,7 +5630,7 @@ Preferences = (function(superClass) {
         return hx.select(element).append('div')["class"]('hx-form').add(localeSection).add(timezoneSection).add(saveButton);
       };
     })(this);
-    modal = new hx.Modal('Preferences', setupModal);
+    modal = new hx.Modal(hx.userFacingText('preferences', 'preferences'), setupModal);
     this._ = {
       backingStore: LocalStoragePreferencesStore,
       supportedTimezones: defaultTimezoneList,
@@ -5841,20 +5645,20 @@ Preferences = (function(superClass) {
       preferences: {},
       modal: modal
     };
-    defaultLocaleId = (typeof moment !== "undefined" && moment !== null ? moment.locale() : void 0) || navigator.language;
+    defaultLocaleId = ((ref = navigator.languages) != null ? ref[0] : void 0) || navigator.language;
     if (!(hx.isString(defaultLocaleId) && lookupLocale(defaultLocaleId))) {
       defaultLocaleId = 'en';
     }
     this.locale(defaultLocaleId);
-    guessedMomentTimezone = typeof moment !== "undefined" && moment !== null ? (ref = moment.tz) != null ? ref.guess() : void 0 : void 0;
+    guessedMomentTimezone = typeof moment !== "undefined" && moment !== null ? (ref1 = moment.tz) != null ? ref1.guess() : void 0 : void 0;
     if (guessedMomentTimezone != null) {
       this.supportedTimezones(moment.tz.names());
-      this.timezoneOffsetLookup(function(timezone, datestamp) {
+      this.timezoneOffsetLookup(function(timezone, timestamp) {
         return -(moment.tz.zone(timezone).offset(timestamp) / 60);
       });
       this.timezone(guessedMomentTimezone);
     } else {
-      this.timezone('UTC+00:00');
+      this.timezone(defaultTimezoneLookup((new Date()).getTimezoneOffset()));
     }
   }
 
@@ -5880,6 +5684,9 @@ Preferences = (function(superClass) {
       if (hx.isString(locale) && (localeObject = lookupLocale(locale))) {
         if (this._.preferences['locale'] !== localeObject.value) {
           this._.preferences['locale'] = localeObject.value;
+          if (typeof moment !== "undefined" && moment !== null) {
+            moment.locale(localeObject.value);
+          }
           this.emit('localechange', localeObject.value);
         }
       } else {
@@ -5925,7 +5732,7 @@ Preferences = (function(superClass) {
   };
 
   Preferences.prototype.save = function(cb) {
-    var e, error;
+    var e;
     try {
       return this._.backingStore.save(JSON.stringify(this._.preferences), function(err) {
         return typeof cb === "function" ? cb(err) : void 0;
@@ -5937,7 +5744,7 @@ Preferences = (function(superClass) {
   };
 
   Preferences.prototype.load = function(cb) {
-    var e, error;
+    var e;
     try {
       return this._.backingStore.load((function(_this) {
         return function(err, prefs) {
@@ -5966,611 +5773,504 @@ hx.preferences = new Preferences;
 
 hx.preferences.localStorageStore = LocalStoragePreferencesStore;
 
-})();
-
-(function(){
-var addResizeListener, initializeResizeListeners, removeResizeListener;
-
-addResizeListener = void 0;
-
-removeResizeListener = void 0;
-
-
-/**
-* Detect Element Resize
-*
-* https://github.com/sdecima/javascript-detect-element-resize
-* Sebastian Decima
-*
-* version: 0.5.3
-*
- */
-
-initializeResizeListeners = function() {
-  var animation, animationKeyframes, animationName, animationStyle, animationstartevent, animationstring, attachEvent, cancelFrame, checkTriggers, createStyles, domPrefixes, elm, i, keyframeprefix, pfx, requestFrame, resetTriggers, scrollListener, startEvents, stylesCreated;
-  attachEvent = document.attachEvent;
-  stylesCreated = false;
-  resetTriggers = function(element) {
-    var contract, expand, expandChild, triggers;
-    triggers = element.__resizeTriggers__;
-    expand = triggers.firstElementChild;
-    contract = triggers.lastElementChild;
-    expandChild = expand.firstElementChild;
-    contract.scrollLeft = contract.scrollWidth;
-    contract.scrollTop = contract.scrollHeight;
-    expandChild.style.width = expand.offsetWidth + 1 + 'px';
-    expandChild.style.height = expand.offsetHeight + 1 + 'px';
-    expand.scrollLeft = expand.scrollWidth;
-    expand.scrollTop = expand.scrollHeight;
-  };
-  checkTriggers = function(element) {
-    return element.offsetWidth !== element.__resizeLast__.width || element.offsetHeight !== element.__resizeLast__.height;
-  };
-  scrollListener = function(e) {
-    var element;
-    element = this;
-    resetTriggers(this);
-    if (this.__resizeRAF__) {
-      cancelFrame(this.__resizeRAF__);
-    }
-    this.__resizeRAF__ = requestFrame(function() {
-      if (checkTriggers(element)) {
-        element.__resizeLast__.width = element.offsetWidth;
-        element.__resizeLast__.height = element.offsetHeight;
-        element.__resizeListeners__.forEach(function(fn) {
-          fn.call(element, e);
-        });
-      }
-    });
-  };
-  createStyles = function() {
-    var css, head, style;
-    if (!stylesCreated) {
-      css = (animationKeyframes ? animationKeyframes : '') + '.resize-triggers { ' + (animationStyle ? animationStyle : '') + 'visibility: hidden; opacity: 0; z-index: -1;} ' + '.resize-triggers, .resize-triggers > div, .contract-trigger:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }';
-      head = document.head || document.getElementsByTagName('head')[0];
-      style = document.createElement('style');
-      style.type = 'text/css';
-      if (style.styleSheet) {
-        style.styleSheet.cssText = css;
-      } else {
-        style.appendChild(document.createTextNode(css));
-      }
-      head.appendChild(style);
-      stylesCreated = true;
-    }
-  };
-  if (!attachEvent) {
-    requestFrame = (function() {
-      var raf;
-      raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function(fn) {
-        return window.setTimeout(fn, 20);
-      };
-      return function(fn) {
-        return raf(fn);
-      };
-    })();
-    cancelFrame = (function() {
-      var cancel;
-      cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.clearTimeout;
-      return function(id) {
-        return cancel(id);
-      };
-    })();
-
-    /* Detect CSS Animations support to detect element display/re-attach */
-    animation = false;
-    animationstring = 'animation';
-    keyframeprefix = '';
-    animationstartevent = 'animationstart';
-    domPrefixes = 'Webkit Moz O ms'.split(' ');
-    startEvents = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' ');
-    pfx = '';
-    elm = document.createElement('fakeelement');
-    if (elm.style.animationName !== void 0) {
-      animation = true;
-    }
-    if (animation === false) {
-      i = 0;
-    }
-    while (i < domPrefixes.length) {
-      if (elm.style[domPrefixes[i] + 'AnimationName'] !== void 0) {
-        pfx = domPrefixes[i];
-        animationstring = pfx + 'Animation';
-        keyframeprefix = '-' + pfx.toLowerCase() + '-';
-        animationstartevent = startEvents[i];
-        animation = true;
-        break;
-      }
-      i++;
-    }
-    animationName = 'resizeanim';
-    animationKeyframes = '@' + keyframeprefix + 'keyframes ' + animationName + ' { from { opacity: 0; } to { opacity: 0; } } ';
-    animationStyle = keyframeprefix + 'animation: 1ms ' + animationName + '; ';
-  }
-  addResizeListener = function(element, fn) {
-    if (attachEvent) {
-      element.attachEvent('onresize', fn);
-    } else {
-      if (!element.__resizeTriggers__) {
-        if (getComputedStyle(element).position === 'static') {
-          element.style.position = 'relative';
-        }
-        createStyles();
-        element.__resizeLast__ = {};
-        element.__resizeListeners__ = [];
-        (element.__resizeTriggers__ = document.createElement('div')).className = 'resize-triggers';
-        element.__resizeTriggers__.innerHTML = '<div class="expand-trigger"><div></div></div>' + '<div class="contract-trigger"></div>';
-        element.appendChild(element.__resizeTriggers__);
-        resetTriggers(element);
-        element.addEventListener('scroll', scrollListener, true);
-
-        /* Listen for a css animation to detect element display/re-attach */
-        animationstartevent && element.__resizeTriggers__.addEventListener(animationstartevent, function(e) {
-          if (e.animationName === animationName) {
-            resetTriggers(element);
-          }
-        });
-      }
-      element.__resizeListeners__.push(fn);
-    }
-  };
-  removeResizeListener = function(element, fn) {
-    if (attachEvent) {
-      element.detachEvent('onresize', fn);
-    } else {
-      element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
-      if (!element.__resizeListeners__.length) {
-        element.removeEventListener('scroll', scrollListener);
-        element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__);
-      }
-    }
-  };
+hx._.preferences = {
+  defaultTimezoneLookup: defaultTimezoneLookup
 };
 
-hx.select.addEventAugmenter({
-  name: 'resize',
-  setup: function(node, eventEmitter) {
-    var handler;
-    if (typeof addResizeListener === "undefined" || addResizeListener === null) {
-      initializeResizeListeners();
-    }
-    handler = function(e) {
-      var box;
-      box = hx.select(node).box();
-      return eventEmitter.emit('resize', {
-        clientRect: box,
-        event: e
-      });
-    };
-    addResizeListener(node, handler);
-    return function() {
-      return removeResizeListener(node, handler);
-    };
-  }
-});
-
 })();
+
 (function(){
-var Menu, MenuItem, addItem, checkEvent, dealWithEvent, emitItem, getAllItems, moveSelectionDown, moveSelectionUp, populateNode, setActive, setupInner, toggleCollapsible,
+var Dropdown, calculateDropdownPosition, checkFixedPos, dropdownAnimateSlideDistance, dropdownContentToSetupDropdown,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-addItem = function(item, context, menu) {
-  var it;
-  it = new MenuItem(item, context, menu);
-  context._.menuItems.push(it);
-  return it;
-};
+dropdownAnimateSlideDistance = 8;
 
-setupInner = function(menu, dropdownData, current) {
-  var datum, it, j, len, results;
-  current._.menuItems = [];
-  results = [];
-  for (j = 0, len = dropdownData.length; j < len; j++) {
-    datum = dropdownData[j];
-    it = addItem(datum, current, menu);
-    if (datum.children) {
-      results.push(setupInner(menu, datum.children, it));
-    } else {
-      results.push(void 0);
-    }
-  }
-  return results;
-};
-
-populateNode = function(node, items) {
-  return hx.select(node).view('.hx-menu-item').update(function(d, element) {
-    return d.build(element);
-  }).apply(items);
-};
-
-getAllItems = function(menu) {
-  var allItems, pushItems;
-  allItems = [];
-  pushItems = function(arr, parentIndex) {
-    return arr.forEach(function(d, i) {
-      d.parentIndex = parentIndex;
-      allItems.push(d);
-      if (d._.menuItems) {
-        return pushItems(d._.menuItems, i);
-      }
-    });
-  };
-  pushItems(menu._.menuItems);
-  return allItems;
-};
-
-setActive = function(menu, pos, up, click) {
-  var allItems, collapsibleHeading, content, dNode, ddScroll, goUp, isEnabled, itemHeight, mNode, menuNode, node, offset, parentNode, parentOffset, ref, ref1, ref2, ref3, selectedItem, totalOffset;
-  if ((ref = menu.dropdown._.dropdown) != null) {
-    ref.selectAll('.hx-menu-item').classed('hx-menu-active', false);
-  }
-  if (pos >= 0) {
-    allItems = getAllItems(menu);
-    node = allItems[pos].node;
-    content = (ref1 = allItems[pos]) != null ? ref1.content : void 0;
-    isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
-    while ((node.offsetParent === null || !isEnabled) && !click) {
-      if (up) {
-        pos -= 1;
-      } else {
-        pos += 1;
-      }
-      content = (ref2 = allItems[pos]) != null ? ref2.content : void 0;
-      isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
-      if (allItems[pos] != null) {
-        node = allItems[pos].node;
-      } else {
-        goUp = true;
-        break;
-      }
-    }
-    if (goUp && !up) {
-      setActive(menu, pos - 1, true);
-      return void 0;
-    } else {
-      menu.cursorPos = pos;
-      if (((dNode = (ref3 = menu.dropdown._.dropdown) != null ? ref3.node() : void 0) != null) && !click) {
-        menuNode = hx.select(node).classed('hx-menu-active', true);
-        mNode = menuNode.node();
-        offset = mNode.offsetTop;
-        collapsibleHeading = menuNode.select('.hx-menu-collapsible');
-        itemHeight = collapsibleHeading.size() > 0 ? collapsibleHeading.node().clientHeight : mNode.clientHeight;
-        parentNode = hx.select(mNode.parentNode);
-        parentOffset = parentNode.classed('hx-collapsible-content') ? parentNode.node().offsetTop : 0;
-        totalOffset = offset + itemHeight + parentOffset;
-        ddScroll = totalOffset > dNode.clientHeight ? totalOffset - dNode.clientHeight : 0;
-        dNode.scrollTop = ddScroll;
-      }
-    }
-  }
-  if ((selectedItem = allItems != null ? allItems[menu.cursorPos] : void 0) != null) {
-    emitItem(menu, selectedItem, 'highlight', click ? 'click' : 'arrow');
-    if (click) {
-      return emitItem(menu, selectedItem, 'change', 'click');
-    }
+checkFixedPos = function(node) {
+  if (hx.select(node).style('position') === 'fixed') {
+    return true;
   }
 };
 
-moveSelectionUp = function(menu) {
-  var pos;
-  pos = menu.cursorPos;
-  if (pos > 0) {
-    pos -= 1;
-  } else if (pos === 0) {
-    pos = -1;
+calculateDropdownPosition = function(alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) {
+  var direction, x, y;
+  direction = alignments[1] === alignments[3] && alignments[0] !== alignments[2] ? alignments[0] === 'l' ? 'left' : 'right' : alignments[3] === 't' ? 'down' : 'up';
+  x = selectionRect.x;
+  y = selectionRect.y;
+  if (alignments[0] === 'r') {
+    x += selectionRect.width;
   }
-  menu.cursorPos = pos;
-  return setActive(menu, pos, true);
-};
-
-moveSelectionDown = function(menu) {
-  var allItems, pos;
-  pos = menu.cursorPos;
-  allItems = getAllItems(menu);
-  if (pos < allItems.length - 1) {
-    pos += 1;
+  if (alignments[1] === 'b') {
+    y += selectionRect.height;
   }
-  menu.cursorPos = pos;
-  return setActive(menu, pos, false);
-};
-
-toggleCollapsible = function(collapsible, force, cb) {
-  switch (force) {
-    case true:
-      return collapsible.show(true, cb);
-    case false:
-      return collapsible.hide(true, cb);
-    default:
-      return collapsible.toggle(true, cb);
+  if (alignments[2] === 'r') {
+    x -= dropdownRect.width;
   }
-};
-
-dealWithEvent = function(menu, force, eventType) {
-  var allItems, pos, ref, selectedItem;
-  if (eventType == null) {
-    eventType = 'enter';
+  if (alignments[3] === 'b') {
+    y -= dropdownRect.height;
   }
-  if (eventType === 'tab') {
-    pos = Math.max(menu.cursorPos, 0);
+  if (direction === 'down' || direction === 'up') {
+    x = hx.clamp(0, windowRect.width - dropdownRect.width, x);
   } else {
-    pos = menu.cursorPos;
+    y = hx.clamp(0, windowRect.height - dropdownRect.height, y);
   }
-  allItems = getAllItems(menu);
-  selectedItem = allItems[pos];
-  if ((force != null) && !force && ((selectedItem != null ? (ref = selectedItem.parent) != null ? ref.collapsible : void 0 : void 0) != null)) {
-    return toggleCollapsible(selectedItem.parent.collapsible, force, function() {
-      if (!selectedItem._.menuItems) {
-        return moveSelectionUp(menu);
-      }
-    });
-  } else if ((selectedItem != null ? selectedItem.collapsible : void 0) != null) {
-    return toggleCollapsible(selectedItem.collapsible, force);
-  } else if (((force != null) && force) || (force == null)) {
-    return emitItem(menu, selectedItem, 'change', eventType);
-  }
-};
-
-emitItem = function(menu, item, type, eventType) {
-  if (menu.has(type)) {
-    return menu.emit(type, {
-      eventType: eventType,
-      content: item != null ? item.content : void 0,
-      menu: menu
-    });
-  }
-};
-
-checkEvent = function(e, self) {
-  switch (e.which) {
-    case 9:
-      dealWithEvent(self, void 0, 'tab');
-      break;
-    case 13:
-      e.preventDefault();
-      dealWithEvent(self, void 0);
-      break;
-    case 37:
-      dealWithEvent(self, false);
-      break;
-    case 38:
-      e.preventDefault();
-      moveSelectionUp(self);
-      break;
-    case 39:
-      dealWithEvent(self, true);
-      break;
-    case 40:
-      e.preventDefault();
-      moveSelectionDown(self);
-  }
-  return self.emit('input', e);
-};
-
-MenuItem = (function() {
-  function MenuItem(content1, parent, menu1) {
-    this.content = content1;
-    this.parent = parent;
-    this.menu = menu1;
-    this._ = {};
-  }
-
-  MenuItem.prototype.build = function(container) {
-    var collapsibleNode, contentNode, headerNode, linkEnabled, ref;
-    this.node = container;
-    container = hx.select(container);
-    if (((ref = this._.menuItems) != null ? ref.length : void 0) > 0) {
-      container.view('.hx-collapsible').apply(this);
-      collapsibleNode = container.select('.hx-collapsible');
-      collapsibleNode.view('.hx-collapsible-heading').apply(this);
-      collapsibleNode.view('.hx-collapsible-content').update(function() {
-        return this.style('display', 'none');
-      }).apply(this);
-      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node();
-      contentNode = container.select('.hx-collapsible-content').node();
-      this.menu.options.renderer(headerNode, this.content);
-      this.collapsible = new hx.Collapsible(collapsibleNode.node());
-      return populateNode(contentNode, this._.menuItems);
-    } else {
-      linkEnabled = !this.content.unselectable && !this.content.disabled;
-      container.classed('hx-menu-link', linkEnabled).classed('hx-menu-item-disabled', this.content.disabled).classed('hx-menu-unselectable', this.content.unselectable);
-      return this.menu.options.renderer(container.node(), this.content);
+  if (direction === 'down' && y > windowRect.height - dropdownRect.height && selectionRect.y - dropdownRect.height > 0) {
+    direction = 'up';
+    y = selectionRect.y - dropdownRect.height;
+    if (alignments[1] === alignments[3]) {
+      y += selectionRect.height;
     }
+  } else if (direction === 'up' && y < 0 && selectionRect.y + selectionRect.height + dropdownRect.height < windowRect.height) {
+    direction = 'down';
+    y = selectionRect.y + selectionRect.height;
+    if (alignments[1] === alignments[3]) {
+      y -= selectionRect.height;
+    }
+  } else if (direction === 'right' && x > windowRect.width - dropdownRect.width && selectionRect.x - dropdownRect.width > 0) {
+    direction = 'left';
+    x = selectionRect.x - dropdownRect.width;
+  } else if (direction === 'left' && x < 0 && selectionRect.x + selectionRect.width + dropdownRect.width < windowRect.width) {
+    direction = 'right';
+    x = selectionRect.x + selectionRect.width;
+  }
+  return {
+    x: x,
+    y: y,
+    direction: direction
   };
+};
 
-  return MenuItem;
-
-})();
-
-Menu = (function(superClass) {
-  extend(Menu, superClass);
-
-  function Menu(selector, options) {
-    var colorClass, dropdownContent, isInput, selection, self, targetElem;
-    this.selector = selector;
-    if (options == null) {
-      options = {};
+dropdownContentToSetupDropdown = function(dropdownContent) {
+  var setupDropdown;
+  return setupDropdown = (function() {
+    switch (false) {
+      case !hx.isString(dropdownContent):
+        return function(node) {
+          return hx.select(node).html(dropdownContent);
+        };
+      case !hx.isFunction(dropdownContent):
+        return dropdownContent;
+      default:
+        hx.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent);
+        return function() {
+          return void 0;
+        };
     }
-    Menu.__super__.constructor.apply(this, arguments);
+  })();
+};
+
+Dropdown = (function(superClass) {
+  extend(Dropdown, superClass);
+
+  function Dropdown(selector, dropdownContent, options) {
+    var alignQuad, alignments, clickDetector, onclick, onmouseout, onmouseover, selection, setupDropdown;
+    Dropdown.__super__.constructor.apply(this, arguments);
+    hx.component.register(selector, this);
     this.options = hx.merge.defined({
-      dropdownOptions: {
-        align: void 0,
-        mode: 'click',
-        ddClass: '',
-        disabled: false
-      },
-      renderer: function(node, data) {
-        return hx.select(node).text(data.text ? data.text : data);
-      },
-      items: []
+      mode: 'click',
+      align: 'lblt',
+      spacing: void 0,
+      matchWidth: true,
+      ddClass: ''
     }, options);
-    self = this;
+    setupDropdown = dropdownContentToSetupDropdown(dropdownContent);
+    clickDetector = new hx.ClickDetector;
+    clickDetector.on('click', 'hx.dropdown', (function(_this) {
+      return function() {
+        return _this.hide();
+      };
+    })(this));
+    alignQuad = (function() {
+      switch (this.options.align) {
+        case 'up':
+          return 'ltlb';
+        case 'down':
+          return 'lblt';
+        case 'left':
+          return 'ltrt';
+        case 'right':
+          return 'rtlt';
+        default:
+          return this.options.align;
+      }
+    }).call(this);
+    alignments = alignQuad.split('');
+    onclick = (function(_this) {
+      return function() {
+        return _this.toggle();
+      };
+    })(this);
+    onmouseover = (function(_this) {
+      return function() {
+        return _this.show();
+      };
+    })(this);
+    onmouseout = (function(_this) {
+      return function() {
+        return _this.hide();
+      };
+    })(this);
+    selection = hx.select(selector);
     this._ = {
-      items: this.options.items,
-      itemsChanged: true
+      setupDropdown: setupDropdown,
+      clickDetector: clickDetector,
+      alignments: alignments,
+      onclick: onclick,
+      onmouseover: onmouseover,
+      onmouseout: onmouseout,
+      visible: false,
+      dropdown: void 0,
+      selection: selection,
+      useScroll: false
     };
-    hx.component.register(this.selector, this);
-    if ((this.options.dropdownOptions.ddClass != null) && this.options.dropdownOptions.ddClass.length === 0) {
-      colorClass = hx.palette.context(this.selector);
+    if (this.options.mode === 'click' || this.options.mode === 'hover') {
+      selection.on('click', 'hx.dropdown', onclick);
     }
-    this.options.dropdownOptions.ddClass = 'hx-menu ' + (colorClass != null ? 'hx-' + colorClass : this.options.dropdownOptions.ddClass);
-    dropdownContent = function(node) {
-      var doneFn, rawItems;
-      doneFn = function(items) {
-        if (self._.itemsChanged) {
-          self._.itemsChanged = false;
-          setupInner(self, items, self);
-        }
-        return populateNode(node, self._.menuItems);
-      };
-      rawItems = self._.items;
-      if (hx.isFunction(rawItems)) {
-        self._.itemsChanged = true;
-        rawItems(function(items) {
-          return doneFn(items);
-        });
-      } else {
-        doneFn(rawItems);
-      }
-    };
-    this.dropdown = new hx.Dropdown(this.selector, dropdownContent, this.options.dropdownOptions);
-    this.dropdown.on('showend', (function(_this) {
-      return function() {
-        var ddNode, node;
-        if (_this.dropdown._.dropdown != null) {
-          node = _this.dropdown._.dropdown.node();
-          ddNode = hx.select(node);
-          if (node.scrollTop < node.scrollHeight - node.clientHeight) {
-            ddNode.style('width', ddNode.width() + hx.scrollbarSize() + 'px');
-            if (_this.dropdown._.alignments[2] === 'r') {
-              return ddNode.style('left', Math.max(0, ddNode.box().left - hx.scrollbarSize()) + 'px');
-            }
-          }
-        }
-      };
-    })(this));
-    selection = hx.select(this.selector);
-    selection.off('click', 'hx.dropdown');
-    selection.on('click', 'hx.menu', (function(_this) {
-      return function() {
-        var loading;
-        if (!_this.options.disabled) {
-          if (_this.dropdown.isOpen()) {
-            return _this.dropdown.hide();
-          } else {
-            if (!_this.loading) {
-              if ((_this.data != null) && hx.isFunction(_this.data)) {
-                _this.loading = true;
-                loading = selection.prepend('span');
-                loading.append('i')["class"]('hx-menu-loading hx-icon hx-icon-spin hx-icon-spinner');
-                _this.data(function(data) {
-                  self.loading = false;
-                  loading.remove();
-                  return setupItems(self, data);
-                });
-              }
-              return _this.dropdown.show();
-            }
-          }
-        }
-      };
-    })(this));
-    if (selection.node().nodeName.toLowerCase() === 'input') {
-      isInput = true;
-      targetElem = selection;
-    }
-    this.dropdown.on('showstart', 'hx.menu', function() {
-      var ref;
-      self.cursorPos = -1;
-      if (!isInput) {
-        targetElem = self.dropdown._.dropdown;
-        targetElem.attr('tabindex', '-1');
-        targetElem.node().focus();
-      }
-      targetElem.on('keydown', 'hx.menu', function(e) {
-        if (self.dropdown.isOpen()) {
-          checkEvent(e, self);
-        }
-        return self.emit('keydown', e);
-      });
-      return (ref = self.dropdown._.dropdown) != null ? ref.on('click', 'hx.menu', function(e) {
-        var allItems, i, index, t, target;
-        target = hx.select(e.target).classed('hx-menu-link') ? e.target : hx.select(e.target).closest('.hx-menu-item').node();
-        if (target) {
-          index = -1;
-          t = hx.select(target);
-          if (t.classed('hx-menu-link')) {
-            allItems = getAllItems(self);
-            i = 0;
-            while (index < 0 && i < allItems.length) {
-              if (allItems[i].node === target) {
-                index = i;
-                break;
-              }
-              i += 1;
-            }
-            setActive(self, index, void 0, true);
-          }
-          return targetElem.node().focus();
-        }
-      }) : void 0;
-    });
-    this.dropdown.pipe(this, 'dropdown');
-    if (this.options.disabled) {
-      this.disabled(this.options.disabled);
+    if (this.options.mode === 'hover') {
+      selection.on('mouseover', 'hx.dropdown', onmouseover);
+      selection.on('mouseout', 'hx.dropdown', onmouseout);
     }
   }
 
-  Menu.prototype.renderer = function(f) {
-    if (arguments.length > 0) {
-      this.options.renderer = f;
+  Dropdown.prototype.dropdownContent = function(dropdownContent) {
+    var setupDropdown;
+    if (arguments.length) {
+      setupDropdown = dropdownContentToSetupDropdown(dropdownContent);
+      this._ = hx.shallowMerge(this._, {
+        setupDropdown: setupDropdown,
+        dropdownContent: dropdownContent
+      });
+      this.render();
       return this;
     } else {
-      return this.options.renderer;
+      return this._.dropdownContent;
     }
   };
 
-  Menu.prototype.addException = function(element) {
-    this.dropdown.clickDetector.addException(element);
+  Dropdown.prototype.addException = function(node) {
+    this._.clickDetector.addException(node);
     return this;
   };
 
-  Menu.prototype.hide = function() {
-    this.dropdown.hide();
+  Dropdown.prototype.removeException = function(node) {
+    this._.clickDetector.removeException(node);
     return this;
   };
 
-  Menu.prototype.items = function(items) {
-    if (arguments.length > 0) {
-      if (items == null) {
-        items = [];
-      }
-      this._.itemsChanged = true;
-      this._.items = items;
-      return this;
+  Dropdown.prototype.toggle = function(cb) {
+    if (this.isOpen()) {
+      this.hide(cb);
     } else {
-      return this._.items;
+      this.show(cb);
     }
+    return this;
   };
 
-  Menu.prototype.disabled = function(disabled) {
-    if (disabled != null) {
-      this.options.disabled = disabled;
-      hx.select(this.selector).attr('disabled', disabled ? true : void 0).classed('hx-disabled', disabled);
-      if (this.dropdown.isOpen() && disabled === true) {
-        this.hide();
-      }
-      return this;
-    } else {
-      return !!this.options.disabled;
-    }
+  Dropdown.prototype.render = function() {
+    this._.setupDropdown(this._.dropdown.node());
+    this.emit('render');
+    return this;
   };
 
-  return Menu;
+  Dropdown.prototype.show = function(cb) {
+    var _, ddMaxHeight, dropdownRect, parentFixed, parentZIndex, rect, ref, x, y;
+    _ = this._;
+    if (_.visible) {
+      this.render();
+      if (typeof cb === "function") {
+        cb();
+      }
+    } else {
+      _.visible = true;
+      _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown');
+      if (this.options.ddClass.length > 0) {
+        _.dropdown.classed(this.options.ddClass, true);
+      }
+      this.render();
+      _.clickDetector.removeAllExceptions();
+      _.clickDetector.addException(_.dropdown.node());
+      _.clickDetector.addException(_.selection.node());
+      _.dropdown.style('display', 'block');
+      rect = _.selection.box();
+      dropdownRect = _.dropdown.box();
+      ddMaxHeight = _.dropdown.style('max-height').replace('px', '');
+      parentFixed = hx.checkParents(_.selection.node(), checkFixedPos);
+      parentZIndex = hx.parentZIndex(_.selection.node(), true);
+      ref = calculateDropdownPosition(_.alignments, {
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      }, {
+        width: dropdownRect.width,
+        height: dropdownRect.height
+      }, {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }, ddMaxHeight, hx.scrollbarSize()), x = ref.x, y = ref.y;
+      if (!parentFixed) {
+        x += window.scrollX;
+        y += window.scrollY;
+      }
+      if (parentZIndex > 0) {
+        _.dropdown.style('z-index', parentZIndex + 1);
+      }
+      if (parentFixed) {
+        _.dropdown.style('position', 'fixed');
+      }
+      if (this.options.matchWidth) {
+        _.dropdown.style('min-width', rect.width + 'px');
+      }
+      _.dropdown.style('left', x + 'px').style('top', (y + dropdownAnimateSlideDistance) + 'px').style('height', '0px').style('opacity', 0).style('margin-top', this.options.dropdown).morph()["with"]('fadein', 150).and('expandv', 150).and(function() {
+        return _.dropdown.animate().style('top', y + 'px', 150);
+      }).then((function(_this) {
+        return function() {
+          if (_.useScroll && (_.dropdown != null)) {
+            _.dropdown.style('overflow-y', 'auto');
+          }
+          _this.emit('showend');
+          return typeof cb === "function" ? cb() : void 0;
+        };
+      })(this)).go();
+      this.emit('showstart');
+      this.emit('change', true);
+    }
+    return this;
+  };
+
+  Dropdown.prototype.hide = function(cb) {
+    var _;
+    _ = this._;
+    if (_.visible) {
+      _.visible = false;
+      this.emit('hidestart');
+      this.emit('change', false);
+      this.emit('hideend');
+      if (typeof cb === "function") {
+        cb();
+      }
+      _.dropdown.remove();
+      _.dropdown = void 0;
+    }
+    return this;
+  };
+
+  Dropdown.prototype.isOpen = function() {
+    return this._.visible;
+  };
+
+  Dropdown.prototype.cleanUp = function() {
+    var _;
+    _ = this._;
+    _.clickDetector.cleanUp();
+    if (this.options.mode === 'click' || this.options.mode === 'hover') {
+      _.selection.off(_.onclick);
+    }
+    if (this.options.mode === 'hover') {
+      _.selection.off('mouseover', 'hx.dropdown', _.onmouseover);
+      _.selection.off('mouseout', 'hx.dropdown', _.onmouseout);
+    }
+    return this;
+  };
+
+  return Dropdown;
 
 })(hx.EventEmitter);
 
-hx.Menu = Menu;
+hx.Dropdown = Dropdown;
+
+hx._.dropdown = {
+  attachToSelector: 'body',
+  calculateDropdownPosition: calculateDropdownPosition
+};
+
+})();
+(function(){
+
+/* istanbul ignore next: ignore the uncoverable coffee generated code */
+var Collapsible,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Collapsible = (function(superClass) {
+  extend(Collapsible, superClass);
+
+  function Collapsible(selector, options) {
+    var content, header, toggleBtn;
+    Collapsible.__super__.constructor.apply(this, arguments);
+    this.options = hx.merge.defined({
+      lazyContent: void 0,
+      visible: false,
+      addIcon: true,
+      animate: true
+    }, options);
+    hx.component.register(selector, this);
+    this.lazyContentCreated = false;
+    this.selection = hx.select(selector).classed('hx-openable', true).classed('hx-collapsible', true);
+    header = this.selection.select('.hx-collapsible-heading');
+    if (!(toggleBtn = header.select('.hx-collapsible-toggle')).empty()) {
+      header.classed('hx-collapsible-heading-no-hover', true);
+      toggleBtn.on('click', 'hx.collapsible', (function(_this) {
+        return function() {
+          return _this.toggle();
+        };
+      })(this));
+    } else {
+      header.on('click', 'hx.collapsible', (function(_this) {
+        return function() {
+          return _this.toggle();
+        };
+      })(this));
+    }
+    content = this.selection.select('.hx-collapsible-content').style('height', 0).style('opacity', 0);
+    if (this.options.addIcon) {
+      if (toggleBtn.empty()) {
+        header.select('i').remove();
+        header.prepend('i')["class"]('hx-icon hx-icon-chevron-right hx-collapsible-icon');
+      } else {
+        toggleBtn.select('i').remove();
+        toggleBtn.prepend('i')["class"]('hx-icon hx-icon-chevron-right hx-collapsible-icon');
+      }
+    }
+    this.visible = void 0;
+    if (this.options.visible) {
+      this.show(false);
+    } else {
+      this.hide(false);
+    }
+  }
+
+  Collapsible.prototype.toggle = function(animate, cb) {
+    animate = animate != null ? animate : this.options.animate;
+    if (this.isOpen()) {
+      return this.hide(animate, cb);
+    } else {
+      return this.show(animate, cb);
+    }
+  };
+
+  Collapsible.prototype.show = function(animate, cb) {
+    var content, self;
+    animate = animate != null ? animate : this.options.animate;
+    if (!this.lazyContentCreated) {
+      this.lazyContentCreated = true;
+      if (this.options.lazyContent) {
+        this.options.lazyContent(this.selection.select('.hx-collapsible-content').node());
+      }
+    }
+    if (this.visible !== true) {
+      this.selection.classed('hx-collapsible-expanded', true).classed('hx-opened', true);
+      content = this.selection.select('.hx-collapsible-content');
+      if (animate) {
+        self = this;
+        content.morph()["with"]('expandv', 100).and('fadein', 100).then(function() {
+          self.emit('showend');
+          return typeof cb === "function" ? cb() : void 0;
+        }).go(true);
+        this.selection.select('.hx-collapsible-heading').select('.hx-collapsible-icon').morph()["with"]('rotate-90', 200).go(true);
+      } else {
+        content.style('display', '').style('height', '').style('opacity', '');
+        this.emit('showend');
+      }
+      this.visible = true;
+      this.emit('showstart');
+      this.emit('change', true);
+    }
+    return this;
+  };
+
+  Collapsible.prototype.hide = function(animate, cb) {
+    var self;
+    animate = animate != null ? animate : this.options.animate;
+    if (this.visible !== false) {
+      this.selection.classed('hx-collapsible-expanded', false).classed('hx-opened', false);
+      if (animate) {
+        self = this;
+        this.selection.select('.hx-collapsible-content').morph()["with"]('fadeout', 100).and('collapsev', 100).then(function() {
+          self.emit('hideend');
+          return typeof cb === "function" ? cb() : void 0;
+        }).go(true);
+        this.selection.select('.hx-collapsible-heading').select('.hx-collapsible-icon').morph()["with"]('rotate-0', 200).go(true);
+      } else {
+        this.selection.select('.hx-collapsible-content').style('display', 'none');
+        this.emit('hideend');
+      }
+      this.visible = false;
+      this.emit('hidestart');
+      this.emit('change', false);
+    }
+    return this;
+  };
+
+  Collapsible.prototype.isOpen = function() {
+    return this.visible;
+  };
+
+  return Collapsible;
+
+})(hx.EventEmitter);
+
+hx.Collapsible = Collapsible;
+
+hx.initializeCollapsibles = function(selector, options) {
+  return hx.selectAll(selector).nodes.map(function(d) {
+    return new Collapsible(d, options);
+  });
+};
+
+})();
+(function(){
+var context, contexts, flatSelect, paletteContexts;
+
+contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled'];
+
+paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled'];
+
+hx.palette = {};
+
+flatSelect = function(selector) {
+  if (selector instanceof hx.Selection) {
+    return selector;
+  } else {
+    return hx.select(selector);
+  }
+};
+
+context = function(contextArray, contextPrefix) {
+  var mappedContexts;
+  mappedContexts = contextArray.map(function(context) {
+    return contextPrefix + "-" + context;
+  }).join(' ');
+  return function(selector, context) {
+    var i, len, selection;
+    selection = flatSelect(selector);
+    if (arguments.length > 1) {
+      selection.classed(mappedContexts, false);
+      if (contextArray.indexOf(context) !== -1) {
+        selection.classed(contextPrefix + "-" + context, true);
+      } else if (context) {
+        hx.consoleWarning(context + " is not a known context! Accepted values are " + (contextArray.join(', ')));
+      }
+      return selection;
+    } else {
+      for (i = 0, len = paletteContexts.length; i < len; i++) {
+        context = paletteContexts[i];
+        if (selection.classed(contextPrefix + "-" + context)) {
+          return context;
+        }
+      }
+      return void 0;
+    }
+  };
+};
+
+hx.palette.context = context(contexts, 'hx');
+
+hx.palette.textContext = context(paletteContexts, 'hx-text');
+
+hx.palette.backgroundContext = context(paletteContexts, 'hx-background');
+
+hx.palette.borderContext = context(paletteContexts, 'hx-border');
 
 })();
 
@@ -6851,23 +6551,61 @@ hx.dateTimeLocalizer = dateTimeLocalizer;
 
 })();
 (function(){
-var NumberPicker, checkValue,
+var NumberPicker, addHoldHandler, checkValue, getDisabled,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-checkValue = function(numberPicker, context) {
-  var max, min, oldValue, value;
-  value = oldValue = context.value();
-  max = numberPicker.max();
-  min = numberPicker.min();
+checkValue = function(value, min, max) {
   if (max !== void 0) {
     value = Math.min(value, max);
   }
   if (min !== void 0) {
     value = Math.max(value, min);
   }
-  if (value !== oldValue) {
-    return context.value(value);
+  return value;
+};
+
+getDisabled = function(disabled, val, edge) {
+  if (disabled || (val === edge)) {
+    return 'disabled';
+  } else {
+    return void 0;
+  }
+};
+
+addHoldHandler = function(incrementOnHold, incrementDelay, selection, incrementFn) {
+  var clearTimers, holdStart, holdTimeout, incrementInterval;
+  if (incrementOnHold) {
+    holdStart = void 0;
+    holdTimeout = void 0;
+    incrementInterval = void 0;
+    clearTimers = function() {
+      clearTimeout(holdTimeout);
+      return clearInterval(incrementInterval);
+    };
+    selection.on('pointerdown', 'hx.number-picker', function(e) {
+      var fn;
+      holdStart = Date.now();
+      document.activeElement.blur();
+      e.event.preventDefault();
+      fn = function() {
+        return incrementInterval = setInterval((function() {
+          return incrementFn();
+        }), incrementDelay);
+      };
+      return holdTimeout = setTimeout(fn, 200);
+    });
+    selection.on('pointerup', 'hx.number-picker', function() {
+      clearTimers();
+      if ((Date.now() - holdStart) < 200) {
+        return incrementFn();
+      }
+    });
+    return selection.on('pointerleave', 'hx.number-picker', clearTimers);
+  } else {
+    return selection.on('click', 'hx.number-picker', function() {
+      return incrementFn();
+    });
   }
 };
 
@@ -6875,7 +6613,7 @@ NumberPicker = (function(superClass) {
   extend(NumberPicker, superClass);
 
   function NumberPicker(selector, options) {
-    var button, container, select;
+    var container, decrementButton, incrementButton, selection;
     this.selector = selector;
     NumberPicker.__super__.constructor.apply(this, arguments);
     hx.component.register(this.selector, this);
@@ -6884,37 +6622,35 @@ NumberPicker = (function(superClass) {
       min: void 0,
       max: void 0,
       disabled: false,
-      value: 0
+      value: 0,
+      incrementOnHold: true,
+      incrementDelay: 50
     }, options);
     this._ = {};
     container = hx.select(this.selector);
-    select = container["class"]('hx-number-picker');
-    button = select.append('button').attr('type', 'button')["class"]('hx-btn ' + this.options.buttonClass);
-    button.append('i')["class"]('hx-icon hx-icon-chevron-up');
-    button.on('click', 'hx.number-picker', (function(_this) {
+    selection = container["class"]('hx-number-picker');
+    incrementButton = selection.append('button').attr('type', 'button')["class"]('hx-number-picker-increment hx-btn ' + this.options.buttonClass);
+    incrementButton.append('i')["class"]('hx-icon hx-icon-chevron-up');
+    addHoldHandler(this.options.incrementOnHold, this.options.incrementDelay, incrementButton, (function(_this) {
       return function() {
         return _this.increment();
       };
     })(this));
-    this.selectInput = select.append('input');
+    this.selectInput = selection.append('input');
     this.selectInput.attr('type', 'number');
     this.selectInput.on('blur', 'hx.number-picker', (function(_this) {
       return function() {
-        if (_this.selectInput.attr('readonly') == null) {
-          checkValue(_this, _this.selectInput);
-          _this.selectInput.attr('data-value', _this.selectInput.value());
+        if (_this.selectInput.attr('readonly') === void 0) {
+          _this.value(void 0, _this.selectInput.value());
+          return _this.emit('input-change', {
+            value: _this.value()
+          });
         }
-        _this.emit('input-change', {
-          value: _this.value()
-        });
-        return _this.emit('change', {
-          value: _this.value()
-        });
       };
     })(this));
-    button = select.append('button').attr('type', 'button')["class"]('hx-btn ' + this.options.buttonClass);
-    button.append('i')["class"]('hx-icon hx-icon-chevron-down');
-    button.on('click', 'hx.number-picker', (function(_this) {
+    decrementButton = selection.append('button').attr('type', 'button')["class"]('hx-number-picker-decrement hx-btn ' + this.options.buttonClass);
+    decrementButton.append('i')["class"]('hx-icon hx-icon-chevron-down');
+    addHoldHandler(this.options.incrementOnHold, this.options.incrementDelay, decrementButton, (function(_this) {
       return function() {
         return _this.decrement();
       };
@@ -6928,29 +6664,22 @@ NumberPicker = (function(superClass) {
     if (this.options.disabled) {
       this.disabled(this.options.disabled);
     }
-    this.selectInput.attr('data-value', this.options.value).value(this.options.value);
+    this.value(this.options.value);
   }
 
   NumberPicker.prototype.value = function(value, screenValue) {
-    var prevValue;
+    var newVal, prevValue, selection, valueToUse;
     if (arguments.length > 0) {
       prevValue = this.value();
-      if (this._.max !== void 0 && value > this._.max) {
-        value = this._.max;
-      }
-      if (this._.min !== void 0 && value < this._.min) {
-        value = this._.min;
-      }
-      if (screenValue && isNaN(screenValue)) {
-        this.selectInput.attr('type', 'text').attr('readonly', '');
-      } else {
-        this.selectInput.attr('type', 'number').node().removeAttribute('readonly');
-      }
-      this.selectInput.value(screenValue || value);
-      this.selectInput.attr('data-value', value);
-      if (prevValue !== value) {
+      valueToUse = (value == null) && screenValue ? Number(screenValue) : value;
+      newVal = checkValue(valueToUse, this.min(), this.max());
+      this.selectInput.attr('type', 'text').attr('data-value', newVal).attr('readonly', screenValue && isNaN(screenValue) ? 'readonly' : void 0).value((value != null) && (screenValue != null) ? screenValue : newVal);
+      selection = hx.select(this.selector);
+      selection.select('.hx-number-picker-decrement').attr('disabled', getDisabled(this.options.disabled, newVal, this.min()));
+      selection.select('.hx-number-picker-increment').attr('disabled', getDisabled(this.options.disabled, newVal, this.max()));
+      if (prevValue !== newVal) {
         this.emit('change', {
-          value: value
+          value: newVal
         });
       }
       return this;
@@ -6963,7 +6692,7 @@ NumberPicker = (function(superClass) {
     if (arguments.length > 0) {
       this._.min = val;
       this.selectInput.attr('min', val);
-      checkValue(this, this);
+      this.value(this.value());
       return this;
     } else {
       return this._.min;
@@ -6974,7 +6703,7 @@ NumberPicker = (function(superClass) {
     if (arguments.length > 0) {
       this._.max = val;
       this.selectInput.attr('max', val);
-      checkValue(this, this);
+      this.value(this.value());
       return this;
     } else {
       return this._.max;
@@ -6983,20 +6712,24 @@ NumberPicker = (function(superClass) {
 
   NumberPicker.prototype.increment = function() {
     var prevValue;
-    prevValue = this.value();
-    this.value(this.value() + 1);
-    if (prevValue !== this.value()) {
-      this.emit('increment');
+    if (!this.options.disabled) {
+      prevValue = this.value();
+      this.value(this.value() + 1);
+      if (prevValue !== this.value()) {
+        this.emit('increment');
+      }
     }
     return this;
   };
 
   NumberPicker.prototype.decrement = function() {
     var prevValue;
-    prevValue = this.value();
-    this.value(this.value() - 1);
-    if (prevValue !== this.value()) {
-      this.emit('decrement');
+    if (!this.options.disabled) {
+      prevValue = this.value();
+      this.value(this.value() - 1);
+      if (prevValue !== this.value()) {
+        this.emit('decrement');
+      }
     }
     return this;
   };
@@ -7005,11 +6738,12 @@ NumberPicker = (function(superClass) {
     var dis;
     if (disable != null) {
       this.options.disabled = disable;
-      dis = disable ? true : void 0;
+      dis = disable ? 'disabled' : void 0;
       hx.select(this.selector).selectAll('button').forEach(function(e) {
         return e.attr('disabled', dis);
       });
-      return this.selectInput.attr('disabled', dis);
+      this.selectInput.attr('disabled', dis);
+      return this;
     } else {
       return this.options.disabled;
     }
@@ -7029,4121 +6763,770 @@ hx.numberPicker = function(options) {
 hx.NumberPicker = NumberPicker;
 
 })();
-
 (function(){
-var DragContainer, containerChildren, drag, endDrag, getGrid, startDrag,
+var Menu, MenuItem, addItem, checkEvent, dealWithEvent, emitItem, getAllItems, moveSelectionDown, moveSelectionUp, populateNode, setActive, setupInner, toggleCollapsible,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-getGrid = function(container, elem) {
-  var count, grid;
-  grid = [];
-  count = -1;
-  containerChildren(container).forEach(function(e) {
-    var box;
-    e = hx.select(e);
-    box = e.box();
-    return grid.push({
-      index: count += 1,
-      x1: box.left,
-      x2: box.left + box.width,
-      y1: box.top,
-      y2: box.top + box.height,
-      width: e.style('width').replace('px', ''),
-      height: e.style('height').replace('px', ''),
-      elem: e
-    });
-  });
-  return grid;
+addItem = function(item, context, menu) {
+  var it;
+  it = new MenuItem(item, context, menu);
+  context._.menuItems.push(it);
+  return it;
 };
 
-startDrag = function(container, elem, controlElem, e) {
-  var _;
-  _ = container._;
-  e.event.preventDefault();
-  if (_.dragging) {
-    return endDrag(container, elem);
-  } else if (e.event.which < 2) {
-    hx.select(document).on('pointermove', 'hx.drag-container', function(e) {
-      return drag(container, elem, controlElem, e);
-    }).on('pointerup', 'hx.drag-container', function(e) {
-      return endDrag(container, elem, e);
-    });
-    _.origPageYOffset = window.pageYOffset;
-    _.origPageXOffset = window.pageXOffset;
-    _.dragging = true;
-    _.grid = getGrid(container);
-    _.origWidth = elem.style('width').replace('px', '');
-    _.origHeight = elem.style('height').replace('px', '');
-    _.placeholder = elem.insertAfter(elem.clone(true).clear()).classed('hx-drag-placeholder', true);
-    _.placeholder.style('height', _.origHeight + 'px').style('width', _.origWidth + 'px').style('max-height', _.origHeight + 'px').style('max-width', _.origWidth + 'px').style('min-height', _.origHeight + 'px').style('min-width', _.origWidth + 'px').append('div');
-    elem.classed('hx-drag-current', true).style('width', _.origWidth + 'px');
-    _.selectionBox = elem.box();
-    _.controlBox = controlElem.box();
-    _.containerBox = container.selection.box();
-    drag(container, elem, controlElem, e);
-    _.currentPos = -1;
-    return container.emit('dragstart', elem.node());
-  }
-};
-
-drag = function(container, elem, controlElem, e, preventGridMove) {
-  var _, before, box, controlOffsetX, controlOffsetY, inX, inY, j, len, ref, results, scrollOffsetX, scrollOffsetY, selectionOffsetX, selectionOffsetY, xPos, xVal, yPos, yVal;
-  _ = container._;
-  if (_.dragging) {
-    e.event.preventDefault();
-    controlOffsetX = _.controlBox.left + (_.controlBox.width / 2);
-    controlOffsetY = _.controlBox.top + (_.controlBox.height / 2);
-    selectionOffsetX = _.containerBox.left - _.selectionBox.left;
-    selectionOffsetY = _.containerBox.top - _.selectionBox.top;
-    scrollOffsetX = window.pageXOffset - _.origPageXOffset;
-    scrollOffsetY = window.pageYOffset - _.origPageYOffset;
-    xVal = e.x - selectionOffsetX - controlOffsetX + scrollOffsetX;
-    yVal = e.y - selectionOffsetY - controlOffsetY + scrollOffsetY;
-    elem.style('left', xVal + 'px');
-    elem.style('top', yVal + 'px');
-    if (!preventGridMove) {
-      xPos = e.x + scrollOffsetX;
-      yPos = e.y + scrollOffsetY;
-      before = true;
-      ref = _.grid;
-      results = [];
-      for (j = 0, len = ref.length; j < len; j++) {
-        box = ref[j];
-        inX = xPos >= box.x1 && xPos <= box.x2;
-        inY = yPos >= box.y1 && yPos <= box.y2;
-        if (box.elem.node() === elem.node()) {
-          before = false;
-        }
-        if (inX && inY) {
-          if (_.currentPos !== box.index && _.currentPos > -1) {
-            if (before) {
-              box.elem.insertBefore(_.placeholder);
-            } else {
-              box.elem.insertAfter(_.placeholder);
-            }
-            if (_.options.resizeOnDrag) {
-              _.placeholder.style('height', box.height + 'px').style('width', box.width + 'px').style('max-height', box.height + 'px').style('max-width', box.width + 'px').style('min-height', box.height + 'px').style('min-width', box.width + 'px');
-              elem.style('width', _.placeholder.style('width'));
-              _.selectionBox = elem.box();
-              _.controlBox = controlElem.box();
-              drag(container, elem, controlElem, e, true);
-            }
-            container.emit('drag', elem.node());
-          }
-          _.currentPos = box.index;
-          break;
-        } else {
-          results.push(void 0);
-        }
-      }
-      return results;
-    }
-  }
-};
-
-endDrag = function(container, elem) {
-  var _;
-  _ = container._;
-  if (_.dragging) {
-    _.dragging = false;
-    hx.select(document).off('pointermove', 'hx.drag-container').off('pointerup', 'hx.drag-container');
-    _.placeholder.insertAfter(elem);
-    _.placeholder.remove();
-    elem.style('top', '').style('left', '').style('width', '').classed('hx-drag-current', false);
-    return container.emit('dragend', elem.node());
-  }
-};
-
-containerChildren = function(container) {
-  var children, i, items;
-  children = container.selection.node().children;
-  items = (function() {
-    var j, ref, results;
-    results = [];
-    for (i = j = 0, ref = children.length; j <= ref; i = j += 1) {
-      if (children[i] != null) {
-        results.push(children[i]);
-      } else {
-        results.push(void 0);
-      }
-    }
-    return results;
-  })();
-  return items.filter(hx.defined);
-};
-
-DragContainer = (function(superClass) {
-  extend(DragContainer, superClass);
-
-  function DragContainer(selector, options) {
-    DragContainer.__super__.constructor.apply(this, arguments);
-    hx.component.register(selector, this);
-    this.selection = hx.select(selector).classed('hx-drag-container', true);
-    options = hx.merge({
-      lookup: function(node) {
-        return hx.select(node).attr('data-id');
-      },
-      resizeOnDrag: false,
-      order: void 0
-    }, options);
-    this._ = {};
-    this._.options = options;
-    this._.initialOrder = this.order();
-    if (options.order) {
-      this.order(options.order);
-    }
-    this.setup();
-  }
-
-  DragContainer.prototype.setup = function() {
-    this.selection.selectAll('.hx-drag-control').off('pointerdown', 'hx.drag-container');
-    containerChildren(this).forEach((function(_this) {
-      return function(elem) {
-        var controlElem;
-        elem = hx.select(elem);
-        if (elem.classed('hx-drag-element')) {
-          controlElem = hx.select(elem.select('.hx-drag-control').node() || elem.node());
-          return controlElem.classed('hx-drag-control', true).on('pointerdown', 'hx.drag-container', function(evt) {
-            if (!controlElem.classed('hx-drag-disabled')) {
-              return startDrag(_this, elem, controlElem, evt);
-            }
-          });
-        }
-      };
-    })(this));
-    return this;
-  };
-
-  DragContainer.prototype.order = function(order) {
-    var id, j, k, len, len1, map, node, ref;
-    if (arguments.length > 0) {
-      map = {};
-      if (order == null) {
-        order = this._.initialOrder;
-      }
-      ref = containerChildren(this);
-      for (j = 0, len = ref.length; j < len; j++) {
-        node = ref[j];
-        map[this.lookup()(node)] = node;
-      }
-      for (k = 0, len1 = order.length; k < len1; k++) {
-        id = order[k];
-        this.selection.append(map[id]);
-      }
-      return this;
-    } else {
-      return containerChildren(this).map(this.lookup()).filter(hx.defined);
-    }
-  };
-
-  DragContainer.prototype.lookup = function(fn) {
-    if (fn != null) {
-      this._.options.lookup = fn;
-      return this;
-    } else {
-      return this._.options.lookup;
-    }
-  };
-
-  return DragContainer;
-
-})(hx.EventEmitter);
-
-hx.dragContainer = function(options) {
-  var selection;
-  selection = hx.detached('div');
-  new DragContainer(selection.node(), options);
-  return selection;
-};
-
-hx.DragContainer = DragContainer;
-
-})();
-(function(){
-var ProgressBar;
-
-ProgressBar = (function() {
-  function ProgressBar(selector, options) {
-    this.selector = selector;
-    hx.component.register(this.selector, this);
-    options = hx.merge.defined({
-      segments: void 0,
-      value: 0,
-      animate: false
-    }, options);
-    this.selection = hx.select(this.selector).classed('hx-progress-bar', true);
-    this.innerBars = this.selection.append('div').attr('class', 'hx-progress-bar-inner');
-    this.value(options.value);
-    if (options.segments != null) {
-      this.segments(options.segments, true);
-    }
-    if (options.animate) {
-      this.selection.classed('hx-animate', true);
-    }
-  }
-
-  ProgressBar.prototype.value = function(value) {
-    if (arguments.length > 0) {
-      if (!isNaN(value)) {
-        this.progress = Math.max(0, Math.min(1, value));
-        this.innerBars.style('width', (this.progress * 100) + '%');
-      }
-      return this;
-    } else {
-      return this.progress;
-    }
-  };
-
-  ProgressBar.prototype.segments = function(segments, retainProgress) {
-    var runningTotal, total;
-    if (arguments.length > 0) {
-      if (segments != null) {
-        this.progressSegments = segments.filter(function(e) {
-          return (e.value != null) || (e.ratio != null) || (e["class"] != null);
-        });
-        if (this.progressSegments.length > 0) {
-          this.selection.selectAll('.hx-progress-bar-inner').remove();
-          if (!this.progressSegments.some(function(e) {
-            return e.value != null;
-          })) {
-            runningTotal = 0;
-            total = this.progressSegments.map(function(e) {
-              return e.ratio || 1;
-            }).reduce(function(a, b) {
-              return a + b;
-            });
-          } else {
-            this.progressSegments = this.progressSegments.sort(function(a, b) {
-              return (a.value || 1) - (b.value || 1);
-            });
-          }
-          this.progressSegments.forEach((function(_this) {
-            return function(segment, i) {
-              var bar, maxWidth;
-              bar = _this.selection.append('div').attr('class', 'hx-progress-bar-inner');
-              if (segment["class"] != null) {
-                bar.classed(segment["class"], true);
-              }
-              maxWidth = runningTotal == null ? (segment.value || 1) * 100 : (runningTotal += segment.ratio || 1, runningTotal / total * 100);
-              return bar.style('max-width', maxWidth + '%').style('z-index', _this.progressSegments.length - i);
-            };
-          })(this));
-        }
-      } else {
-        this.progressSegments = void 0;
-        this.selection.selectAll('.hx-progress-bar-inner').remove();
-        this.selection.append('div').attr('class', 'hx-progress-bar-inner');
-      }
-      this.innerBars = this.selection.selectAll('.hx-progress-bar-inner');
-      if (retainProgress) {
-        this.value(this.progress);
-      } else {
-        this.progress = 0;
-      }
-      return this;
-    } else {
-      return this.progressSegments;
-    }
-  };
-
-  return ProgressBar;
-
-})();
-
-hx.progressBar = function(options) {
-  var selection;
-  selection = hx.detached('div');
-  new ProgressBar(selection.node(), options);
-  return selection;
-};
-
-hx.ProgressBar = ProgressBar;
-
-})();
-(function(){
-var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, extent, extent2, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, stackSegments, svgCurve;
-
-svgCurve = function(data, close) {
-  var i, j, l, ref, segments;
-  if (data.length > 1) {
-    segments = new Array(data.length);
-    segments[0] = 'M' + data[0].x + ',' + data[0].y;
-    l = data.length - 1;
-    for (i = j = 1, ref = l; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
-      segments[i] = 'L' + data[i].x + ',' + data[i].y;
-    }
-    if (close) {
-      return segments.join('') + 'z';
-    } else {
-      return segments.join('');
-    }
-  } else {
-    return '';
-  }
-};
-
-arcCurveMinimumRadius = function(startRadians, endRadians, padding) {
-  var radians, theta;
-  radians = endRadians - startRadians;
-  theta = radians < Math.PI ? radians / 2 : Math.PI - radians / 2;
-  return padding / 2 / Math.sin(theta);
-};
-
-arcCurve = function(x, y, innerRadius, outerRadius, startRadians, endRadians, padding, dontCurveCenter) {
-  var pixelsToRadians, points, pointsRequired, pushPoints, radians;
-  radians = endRadians - startRadians;
-  pixelsToRadians = function(pixels, radius) {
-    return pixels / radius;
-  };
-  pushPoints = function(startPoint, endPoint, radius) {
-    var i, j, max, r, radpad, ref, ref1, results, theta;
-    radpad = pixelsToRadians(padding, radius);
-    max = Math.abs(endPoint - startPoint);
-    results = [];
-    for (i = j = ref = startPoint, ref1 = endPoint; ref <= ref1 ? j <= ref1 : j >= ref1; i = ref <= ref1 ? ++j : --j) {
-      r = radians - radpad;
-      theta = r > 0 ? startRadians + (radpad / 2) + ((i / max) * r) : endRadians - (radpad / 2) - ((i / max) * r);
-      theta = hx.clamp(startRadians, endRadians, theta);
-      results.push(points.push({
-        x: x + radius * Math.cos(theta),
-        y: y + radius * Math.sin(theta)
-      }));
-    }
-    return results;
-  };
-  pointsRequired = Math.min(100, Math.max(3, Math.floor(radians * Math.sqrt(outerRadius)) - 1));
-  points = [];
-  if (innerRadius === 0 || dontCurveCenter) {
-    points.push({
-      x: x + innerRadius * Math.cos((startRadians + endRadians) / 2),
-      y: y + innerRadius * Math.sin((startRadians + endRadians) / 2)
-    });
-  } else {
-    pushPoints(0, pointsRequired, innerRadius);
-  }
-  pushPoints(pointsRequired, 0, outerRadius);
-  return svgCurve(points, true);
-};
-
-extent = function(data, f) {
-  var d, j, len, max, min;
-  if (data.length > 0) {
-    min = f(data[0]);
-    max = f(data[0]);
-    for (j = 0, len = data.length; j < len; j++) {
-      d = data[j];
-      min = hx.min([min, f(d)]);
-      max = hx.max([max, f(d)]);
-    }
-    return [min, max];
-  } else {
-    return void 0;
-  }
-};
-
-extent2 = function(data, f, g) {
-  var d, j, len, max, min;
-  if (data.length > 0) {
-    min = f(data[0]);
-    max = f(data[0]);
-    for (j = 0, len = data.length; j < len; j++) {
-      d = data[j];
-      min = hx.min([min, f(d), g(d)]);
-      max = hx.max([max, f(d), g(d)]);
-    }
-    return [min, max];
-  } else {
-    return void 0;
-  }
-};
-
-splitData = function(data, defined) {
-  var awaitingReal, current, d, datas, j, l, len;
-  if (defined == null) {
-    defined = function() {};
-  }
-  l = data.length;
-  datas = [];
-  current = void 0;
-  awaitingReal = true;
-  for (j = 0, len = data.length; j < len; j++) {
-    d = data[j];
-    if (defined(d)) {
-      if (awaitingReal) {
-        current = [];
-        datas.push(current);
-        awaitingReal = false;
-      }
-      current.push(d);
-    } else {
-      awaitingReal = true;
-    }
-  }
-  return datas.filter(function(d) {
-    return d.length > 0;
-  });
-};
-
-splitAndFeather = function(data, maxSize, defined) {
-  var d, featherFactor, j, len, ref, results;
-  if (defined == null) {
-    defined = function() {};
-  }
-  if (maxSize) {
-    featherFactor = maxSize / data.length;
-    ref = splitData(data, defined);
-    results = [];
-    for (j = 0, len = ref.length; j < len; j++) {
-      d = ref[j];
-      results.push(LTTBFeather(d, Math.floor(d.length * featherFactor)));
-    }
-    return results;
-  } else {
-    return splitData(data, defined);
-  }
-};
-
-LTTBFeather = function(array, maxSize) {
-  var bucket, bucketSize, data1, data2, i, j, newData, originalLength, ref;
-  if (maxSize == null) {
-    maxSize = 200;
-  }
-  if (maxSize > 1) {
-    originalLength = array.length;
-    if (originalLength > maxSize) {
-      newData = new Array(maxSize);
-      newData[0] = array[0];
-      newData[maxSize - 1] = array[originalLength - 1];
-      bucketSize = (originalLength - 2) / (maxSize - 2);
-      for (i = j = 1, ref = maxSize - 1; j < ref; i = j += 1) {
-        data1 = newData[i - 1];
-        bucket = array.slice(Math.floor((i - 1) * bucketSize) + 1, Math.floor(i * bucketSize) + 1);
-        data2 = dataAverage(array.slice(Math.floor(i * bucketSize) + 1, Math.floor((i + 1) * bucketSize) + 1));
-        newData[i] = maxTriangle(data1, bucket, data2);
-      }
-      return newData;
-    } else {
-      return array.slice(0);
-    }
-  } else if (maxSize === 1 && array.length > 0) {
-    return [array[Math.floor(array.length / 2)]];
-  } else {
-    return [];
-  }
-};
-
-dataAverage = function(array) {
-  var length, sum;
-  length = array.length;
-  if (array[0].y !== void 0) {
-    sum = array.reduce(function(a, b) {
-      return {
-        x: a.x + b.x,
-        y: a.y + b.y
-      };
-    });
-    return {
-      x: sum.x / length,
-      y: sum.y / length
-    };
-  } else {
-    sum = array.reduce(function(a, b) {
-      return {
-        x: a.x + b.x,
-        y1: a.y1 + b.y1,
-        y2: a.y2 + b.y2
-      };
-    });
-    return {
-      x: sum.x / length,
-      y1: sum.y1 / length,
-      y2: sum.y2 / length
-    };
-  }
-};
-
-maxTriangle = function(data1, array, data2) {
-  var area, d, data, j, len, maxArea;
-  maxArea = -1;
-  for (j = 0, len = array.length; j < len; j++) {
-    d = array[j];
-    if (d.y !== void 0) {
-      area = Math.abs((data1.x - data2.x) * (d.y - data1.y) - (data2.y - data1.y) * (data1.x - d.x));
-    } else {
-      area = Math.abs((data1.x - data2.x) * (Math.abs(d.y1 - d.y2) - Math.abs(data1.y2 - data1.y1)) - (Math.abs(data2.y2 - data2.y1) - Math.abs(data1.y2 - data1.y1)) * (data1.x - d.x));
-    }
-    if (area > maxArea) {
-      maxArea = area;
-      data = d;
-    }
-  }
-  return data;
-};
-
-stackSegments = function(array, arrayNames, xvalue) {
-  var i, j, len, result, sum, y;
-  result = [];
-  sum = 0;
-  for (i = j = 0, len = array.length; j < len; i = ++j) {
-    y = array[i];
-    result.push({
-      y0: sum,
-      y1: sum + y.value,
-      yname: arrayNames[i],
-      y: y.value,
-      data: y,
-      x: xvalue
-    });
-    sum += y.value;
-  }
-  return result;
-};
-
-inefficientSearch = function(array, find, nearest, v) {
-  var i, j, ref;
-  for (i = j = 0, ref = array.length - 1; j < ref; i = j += 1) {
-    if ((v(array[i]) <= find && find <= v(array[i + 1]))) {
-      if (nearest) {
-        if (Math.abs(v(array[i]) - find) < Math.abs(v(array[i + 1]) - find)) {
-          return i;
-        } else {
-          return i + 1;
-        }
-      } else {
-        return i;
-      }
-    }
-  }
-  return -1;
-};
-
-search = function(array, find, lookup) {
-  var ibest, imax, imid, imin;
-  if (array.length < 2) {
-    return array.length - 1;
-  }
-  imin = 0;
-  imax = array.length - 1;
-  ibest = imin;
-  while (imin <= imax) {
-    imid = Math.floor((imax + imin) / 2);
-    if (lookup(array[imid]) < find) {
-      imin = imid + 1;
-    } else if (lookup(array[imid]) > find) {
-      imax = imid - 1;
-    } else {
-      return imid;
-    }
-    if (Math.abs(lookup(array[imid]) - find) < Math.abs(lookup(array[ibest]) - find)) {
-      ibest = imid;
-    }
-  }
-  return ibest;
-};
-
-findLabel = function(array, find, interpolate, interpolateValues) {
-  var atEdge, closest, dist, i, inLower, inUpper, interpolated, nextClosest;
-  i = search(array, find, function(d) {
-    return d.x;
-  });
-  if (i > -1) {
-    atEdge = i === 0 || i === array.length - 1;
-    if (interpolate) {
-      closest = array[i];
-      dist = find - closest.x;
-      inLower = dist < 0 && i > 0;
-      inUpper = dist > 0 && i < array.length - 1;
-      if (inLower || inUpper) {
-        nextClosest = array[inLower ? i - 1 : i + 1];
-        interpolated = interpolateValues(find, closest, nextClosest, function(yClosest, yNextClosest) {
-          return yClosest + (yClosest - yNextClosest) * dist / (closest.x - nextClosest.x);
-        });
-        if (interpolated != null) {
-          return interpolated;
-        } else if (!atEdge) {
-          return array[i];
-        }
-      } else if (!atEdge) {
-        return array[i];
-      }
-    } else if (!atEdge) {
-      return array[i];
-    }
-  }
-};
-
-createLabelPoint = function(series, x, y, interpolator) {
-  var bestDist, bestPoint, data, dist, j, len, point, ref, xx;
-  if (series.labelsEnabled()) {
-    bestPoint = void 0;
-    bestDist = -1;
-    xx = series.axis.xScale.inverse(x);
-    ref = series._.featheredData;
-    for (j = 0, len = ref.length; j < len; j++) {
-      data = ref[j];
-      point = findLabel(series.data(), xx, series.labelInterpolated(), interpolator);
-      if (point) {
-        dist = Math.abs(point.x - xx);
-        if (dist < bestDist || (bestPoint == null)) {
-          bestDist = dist;
-          bestPoint = point;
-        }
-      }
-    }
-    return bestPoint;
-  }
-};
-
-makeLabelDetails = function(series, point, yAccessor, xProperty, yProperty) {
-  if (xProperty == null) {
-    xProperty = 'x';
-  }
-  if (yProperty == null) {
-    yProperty = 'y';
-  }
-  return {
-    series: series,
-    title: series.title(),
-    x: series.axis.xScale.apply(point.x),
-    y: series.axis.yScale.apply(yAccessor(point)),
-    color: series.legendColor(),
-    values: series.labelValuesExtractor()(series, point, void 0, yAccessor, xProperty, yProperty)
-  };
-};
-
-boundLabel = function(label, graph) {
-  label.bounding = graph.plotArea;
-  return label;
-};
-
-createLinearGradient = function(parent, values, series) {
-  var gradientId, linearGradient;
-  gradientId = hx.randomId();
-  hx.select(parent).select('.hx-linear-gradient').remove();
-  linearGradient = hx.select(parent).append('linearGradient').attr('class', 'hx-linear-gradient').attr('id', gradientId).attr('gradientUnits', "userSpaceOnUse").attr('x1', 0).attr('x2', 0).attr('y1', series.axis.yScale.rangeMin).attr('y2', series.axis.yScale.rangeMax);
-  values.forEach(function(value) {
-    return linearGradient.append('stop').attr('offset', ((value.yValue - series.axis.yScale.domainMin) / (series.axis.yScale.domainMax - series.axis.yScale.domainMin) * 100) + '%').attr('stop-color', hx.color(value.color).alpha(1).toString()).attr('stop-opacity', hx.color(value.color).alpha());
-  });
-  return gradientId;
-};
-
-populateLegendSeries = function(selection, series) {
-  var background, width;
-  background = selection.select('.hx-legend-box');
-  if (background.size() === 0) {
-    background = selection.append('rect')["class"]('hx-legend-box');
-  }
-  selection.view('.hx-legend-entry', 'g').enter(function() {
-    selection = this.append('g')["class"]('hx-legend-entry');
-    selection.append('text');
-    selection.append('rect');
-    return selection.node();
-  }).update(function(s, e, i) {
-    this.select('text').text(hx.isFunction(s.title) ? s.title() : s.name).attr('y', i * 20 + 10).attr('x', 15);
-    return this.select('rect').text(hx.isFunction(s.title) ? s.title() : s.name).attr('y', i * 20).attr('x', 0).attr('width', 10).attr('height', 10).attr('fill', s.legendColor ? s.legendColor() : s.color);
-  }).apply(series);
-  width = hx.max(selection.selectAll('text').nodes.map(function(node) {
-    return node.getComputedTextLength();
-  }));
-  background.attr('width', width + 6 + 20);
-  background.attr('x', -5);
-  background.attr('height', series.length * 20);
-  background.attr('y', -5);
-  return selection;
-};
-
-optionSetterGetter = function(name) {
-  return function(value) {
-    if (arguments.length > 0) {
-      this._.options[name] = value;
-      return this;
-    } else {
-      return this._.options[name];
-    }
-  };
-};
-
-hx._.plot = {
-  dataAverage: dataAverage,
-  maxTriangle: maxTriangle,
-  LTTBFeather: LTTBFeather,
-  splitAndFeather: splitAndFeather
-};
-
-var Series,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-Series = (function(superClass) {
-  var defaultLabelValuesExtractor;
-
-  extend(Series, superClass);
-
-  defaultLabelValuesExtractor = function(series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) {
-    return [
-      {
-        name: series.axis.x.title(),
-        value: dataPoint[xProperty + 'Label'] || (xAccessor ? xAccessor(dataPoint) : dataPoint.x),
-        formatter: series.labelFormatter(xProperty) || series.axis.x.formatter()
-      }, {
-        name: series.axis.y.title(),
-        value: dataPoint[yProperty + 'Label'] || (yAccessor ? yAccessor(dataPoint) : dataPoint.y),
-        formatter: series.labelFormatter(yProperty) || series.axis.y.formatter()
-      }
-    ];
-  };
-
-  function Series(options) {
-    var base;
-    Series.__super__.constructor.apply(this, arguments);
-    this._ = {
-      options: hx.merge({
-        title: void 0,
-        data: void 0,
-        labelsEnabled: true,
-        labelRenderer: hx.plot.label.standard,
-        labelInterpolated: false,
-        labelFormatters: {},
-        "class": '',
-        type: void 0,
-        labelValuesExtractor: defaultLabelValuesExtractor
-      }, options),
-      featheredData: [],
-      axis: void 0,
-      seriesId: void 0
-    };
-    if ((base = this._.options).data == null) {
-      base.data = [];
-    }
-  }
-
-  Series.prototype.title = optionSetterGetter('title');
-
-  Series.prototype.data = optionSetterGetter('data');
-
-  Series.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
-
-  Series.prototype.labelRenderer = optionSetterGetter('labelRenderer');
-
-  Series.prototype.labelInterpolated = optionSetterGetter('labelInterpolated');
-
-  Series.prototype.labelValuesExtractor = optionSetterGetter('labelValuesExtractor');
-
-  Series.prototype.labelFormatter = function(name, value) {
-    if (arguments.length > 1) {
-      this._.options.labelFormatters[name] = value;
-      return this;
-    } else {
-      return this._.options.labelFormatters[name];
-    }
-  };
-
-  Series.prototype["class"] = optionSetterGetter('class');
-
-  Series.prototype.getX = function(y) {
-    var d, data, i;
-    data = this.data();
-    if (hx.isString(y)) {
-      d = hx.find(data, function(d) {
-        return d.y === y;
-      });
-      if (hx.defined(d)) {
-        return d.x;
-      } else {
-        return void 0;
-      }
-    } else {
-      i = inefficientSearch(data, y, true, function(d) {
-        return d.y;
-      });
-      return data[i].x;
-    }
-  };
-
-  Series.prototype.getY = function(x, isDiscrete) {
-    var d, data, i, x1, x2, y1, y2;
-    data = this.data();
-    if (hx.isString(x)) {
-      d = hx.find(data, function(d) {
-        return d.x === x;
-      });
-      if (hx.defined(d)) {
-        return d.y;
-      } else {
-        return void 0;
-      }
-    } else {
-      i = inefficientSearch(data, x, false, function(d) {
-        return d.x;
-      });
-      if ((0 <= i && i < data.length - 1)) {
-        x1 = data[i].x;
-        x2 = data[i + 1].x;
-        y1 = data[i].y;
-        y2 = data[i + 1].y;
-        return y1 + (y2 - y1) * (x - x1) / (x2 - x1);
-      } else {
-        if (x > data[data.length - 1].x) {
-          if (!isDiscrete) {
-            return data[data.length - 1].y;
-          }
-        } else {
-          return data[0].y;
-        }
-      }
-    }
-  };
-
-  Series.prototype.getLabelDetails = function(x, y) {};
-
-  Series.prototype.updateSvg = function(element) {};
-
-  Series.prototype.legendColor = function() {};
-
-  return Series;
-
-})(hx.EventEmitter);
-
-var Axis, dimension;
-
-dimension = function(axis, options) {
-  var setterGetter, state;
-  state = hx.merge({
-    scaleType: 'linear',
-    visible: true,
-    formatter: hx.format.si(2),
-    tickRotation: 0,
-    min: 'auto',
-    max: 'auto',
-    discretePadding: 0.1,
-    discreteLabels: void 0,
-    tickSpacing: 50,
-    title: null,
-    scalePaddingMin: 0,
-    scalePaddingMax: 0,
-    ticksAll: false,
-    gridLines: true,
-    nthTickVisible: 1,
-    axisTickLabelPosition: 'bottom',
-    showTicks: true
-  }, options);
-  setterGetter = function(name) {
-    return function(value) {
-      if (arguments.length > 0) {
-        state[name] = value;
-        return axis;
-      } else {
-        return state[name];
-      }
-    };
-  };
-  return {
-    scaleType: setterGetter('scaleType'),
-    visible: setterGetter('visible'),
-    formatter: setterGetter('formatter'),
-    tickRotation: setterGetter('tickRotation'),
-    min: setterGetter('min'),
-    max: setterGetter('max'),
-    discretePadding: setterGetter('discretePadding'),
-    discreteLabels: setterGetter('discreteLabels'),
-    tickSpacing: setterGetter('tickSpacing'),
-    title: setterGetter('title'),
-    scalePaddingMin: setterGetter('scalePaddingMin'),
-    scalePaddingMax: setterGetter('scalePaddingMax'),
-    ticksAll: setterGetter('ticksAll'),
-    gridLines: setterGetter('gridLines'),
-    nthTickVisible: setterGetter('nthTickVisible'),
-    axisTickLabelPosition: setterGetter('axisTickLabelPosition'),
-    showTicks: setterGetter('showTicks'),
-    axisSize: setterGetter('axisSize'),
-    titleHeight: setterGetter('titleHeight')
-  };
-};
-
-Axis = (function() {
-  var scalePad, supportsGroup;
-
-  function Axis(options) {
-    var opts, ref;
-    opts = hx.merge({
-      x: {
-        axisTickLabelPosition: 'bottom'
-      },
-      y: {
-        axisTickLabelPosition: 'left'
-      }
-    }, options);
-    this._ = {
-      series: new hx.List
-    };
-    this.x = dimension(this, hx.merge({
-      axisTickLabelPosition: 'bottom'
-    }, options != null ? options.x : void 0));
-    this.y = dimension(this, hx.merge({
-      axisTickLabelPosition: 'left'
-    }, options != null ? options.y : void 0));
-    this.xScale = new LinearScale(0, 1, 0, 1);
-    this.yScale = new LinearScale(0, 1, 0, 1);
-    this.graph = null;
-    this.xAxisSize = 50;
-    this.xTitleHeight = 0;
-    this.yAxisSize = 50;
-    this.yTitleHeight = 0;
-    if (options != null) {
-      if ((ref = options.series) != null) {
-        ref.forEach((function(_this) {
-          return function(seriesObj) {
-            return _this.addSeries(seriesObj.type, seriesObj.options);
-          };
-        })(this));
-      }
-    }
-  }
-
-  supportsGroup = function(series) {
-    return series instanceof BarSeries || series instanceof LineSeries;
-  };
-
-  Axis.prototype.addSeries = function(series, options) {
-    if (hx.isString(series)) {
-      series = (function() {
-        switch (series) {
-          case 'line':
-            return new LineSeries(options);
-          case 'band':
-            return new BandSeries(options);
-          case 'bar':
-            return new BarSeries(options);
-          case 'scatter':
-            return new ScatterSeries(options);
-          case 'straight-line':
-            return new StraightLineSeries(options);
-          default:
-            hx.consoleWarning(series + ' is not a valid series type');
-            return void 0;
-        }
-      })();
-      this._.series.add(series);
-      series.axis = this;
-      return series;
-    } else if (series instanceof Series) {
-      this._.series.add(series);
-      series.axis = this;
-      return series;
-    } else if (arguments.length === 0) {
-      series = new LineSeries;
-      this._.series.add(series);
-      series.axis = this;
-      return series;
-    } else {
-      hx.consoleWarning(series + ' is not a valid series type');
-    }
-  };
-
-  Axis.prototype.series = function(series) {
-    var k, len, s;
-    if (arguments.length > 0) {
-      this._.series = new hx.List(series);
-      for (k = 0, len = series.length; k < len; k++) {
-        s = series[k];
-        s.axis = this;
-      }
-      return this;
-    } else {
-      return this._.series.values();
-    }
-  };
-
-  Axis.prototype.removeSeries = function(series) {
-    if (this._.series.remove(series)) {
-      series.axis = void 0;
-      return series;
-    }
-  };
-
-  Axis.prototype.setupAxisSvg = function(element) {
-    var gridGroup, xAxisGroup, yAxisGroup;
-    gridGroup = hx.select(element).append('g')["class"]('hx-axis-grid');
-    xAxisGroup = hx.select(element).append('g')["class"]('hx-x-axis');
-    xAxisGroup.append('g')["class"]('hx-axis-scale');
-    yAxisGroup = hx.select(element).append('g')["class"]('hx-y-axis');
-    return yAxisGroup.append('g')["class"]('hx-axis-scale');
-  };
-
-  scalePad = function(value, range, padding) {
-    return value + (range || 1) * padding;
-  };
-
-  Axis.prototype.tagSeries = function() {
-    var groupTypeEntries, k, l, len, len1, ref, ref1, results, series, typeEntry, types;
-    groupTypeEntries = function(data) {
-      var entry, group, groups, i, internalGroupId, k, l, len, len1, len2, len3, m, n, ref, ref1, ref2, series, typeSize;
-      groups = new hx.Map;
-      for (k = 0, len = data.length; k < len; k++) {
-        series = data[k];
-        group = supportsGroup(series) ? series.group() : void 0;
-        if (!groups.has(group)) {
-          groups.set(group, new hx.List);
-        }
-        groups.get(group).add(series);
-      }
-      internalGroupId = 0;
-      typeSize = groups.size;
-      typeSize += groups.has(void 0) ? groups.get(void 0).size - 1 : 0;
-      ref = groups.entries();
-      for (l = 0, len1 = ref.length; l < len1; l++) {
-        entry = ref[l];
-        group = entry[0];
-        if (group === void 0) {
-          ref1 = entry[1].entries();
-          for (i = m = 0, len2 = ref1.length; m < len2; i = ++m) {
-            series = ref1[i];
-            series.groupId = internalGroupId;
-            internalGroupId++;
-            series._.seriesId = 0;
-            series.groupSize = 1;
-            series._.typeSize = typeSize;
-          }
-        } else {
-          ref2 = entry[1].entries();
-          for (i = n = 0, len3 = ref2.length; n < len3; i = ++n) {
-            series = ref2[i];
-            series.groupId = internalGroupId;
-            series._.seriesId = i;
-            series.groupSize = entry[1].size;
-            series._.typeSize = typeSize;
-          }
-          internalGroupId++;
-        }
-        entry;
-      }
-      return internalGroupId;
-    };
-    types = new hx.Map;
-    ref = this.series();
-    for (k = 0, len = ref.length; k < len; k++) {
-      series = ref[k];
-      if (!types.has(series._.type)) {
-        types.set(series._.type, new hx.List);
-      }
-      types.get(series._.type).add(series);
-    }
-    ref1 = types.entries();
-    results = [];
-    for (l = 0, len1 = ref1.length; l < len1; l++) {
-      typeEntry = ref1[l];
-      results.push(groupTypeEntries(typeEntry[1].entries()));
-    }
-    return results;
-  };
-
-  Axis.prototype.preupdateXAxisSvg = function(element) {
-    var alpha, alphaDeg, axisGroupSelection, d, data, domain, end, getXTicks, s, self, series, set, start, xLabelTickSize, xmax, xmin, xs;
-    self = this;
-    switch (this.x.scaleType()) {
-      case 'linear':
-        this.xScale = new LinearScale().range(0, this.graph.width);
-        break;
-      case 'discrete':
-        this.xScale = new DiscreteScale(this.x.discretePadding()).range(0, this.graph.width);
-        break;
-      case 'log':
-        this.xScale = new LogScale().range(0, this.graph.width);
-        break;
-      case 'date':
-        this.xScale = new DateScale().range(0, this.graph.width);
-    }
-    if (this.x.scaleType() === 'discrete') {
-      domain = (function() {
-        var k, l, len, len1, ref, ref1;
-        if (this.x.discreteLabels()) {
-          return this.x.discreteLabels();
-        } else {
-          set = new hx.Set;
-          ref = this.series();
-          for (k = 0, len = ref.length; k < len; k++) {
-            series = ref[k];
-            ref1 = series.data();
-            for (l = 0, len1 = ref1.length; l < len1; l++) {
-              d = ref1[l];
-              set.add(d.x);
-            }
-          }
-          return set.values();
-        }
-      }).call(this);
-      this.xScale.domain(domain);
-    } else {
-      xs = (function() {
-        var k, len, ref, results;
-        ref = this.series();
-        results = [];
-        for (k = 0, len = ref.length; k < len; k++) {
-          s = ref[k];
-          if (s instanceof StraightLineSeries) {
-            data = s.data();
-            if (!data.dx && !data.dy && data.x) {
-              results.push([data.x, data.x]);
-            } else {
-              results.push(void 0);
-            }
-          } else {
-            results.push(extent(s.data(), function(d) {
-              return d.x;
-            }));
-          }
-        }
-        return results;
-      }).call(this);
-      xs = xs.filter(hx.identity);
-      xmin = hx.min(xs.map(function(d) {
-        return d[0];
-      }));
-      xmax = hx.max(xs.map(function(d) {
-        return d[1];
-      }));
-      xmin = this.x.min() === 'auto' ? xmin : this.x.min();
-      xmax = this.x.max() === 'auto' ? xmax : this.x.max();
-      if (this.x.min() === 'auto') {
-        xmin = scalePad(xmin, xmax - xmin, -this.x.scalePaddingMin());
-      }
-      if (this.x.max() === 'auto') {
-        xmax = scalePad(xmax, xmax - xmin, this.x.scalePaddingMax());
-      }
-      start = xmin + (xmax - xmin) * this.graph.zoomRangeStart();
-      end = xmin + (xmax - xmin) * this.graph.zoomRangeEnd();
-      this.xScale.domain(start, end);
-    }
-    xLabelTickSize = 0;
-    if (!this.x.visible()) {
-      hx.select(element).select('.hx-x-axis').remove();
-    } else {
-      axisGroupSelection = hx.select(element).select('.hx-x-axis');
-      alphaDeg = this.x.tickRotation();
-      alpha = alphaDeg / 180 * Math.PI;
-      getXTicks = (function(_this) {
-        return function(scale) {
-          var k, l, len, len1, ref, ref1;
-          if (self.x.ticksAll()) {
-            set = new hx.Set;
-            ref = _this.series();
-            for (k = 0, len = ref.length; k < len; k++) {
-              series = ref[k];
-              ref1 = series.data();
-              for (l = 0, len1 = ref1.length; l < len1; l++) {
-                d = ref1[l];
-                set.add(d.x);
-              }
-            }
-            return set.values().map(function(d) {
-              return [d, scale.apply(d)];
-            });
-          } else {
-            return scale.ticks(self.x.tickSpacing());
-          }
-        };
-      })(this);
-      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
-        return this.view('.hx-tick', 'g').update(function(tick) {
-          return this.view('.hx-tick-text-x', 'text').update(function(t) {
-            var bbox, size;
-            this.text(self.x.formatter()(t));
-            bbox = this.node().getBBox();
-            size = bbox.height * Math.cos(alpha) + bbox.width * Math.sin(alpha);
-            xLabelTickSize = Math.max(xLabelTickSize, size);
-            if (alpha === 0) {
-              return this.attr("transform", "translate(" + (-bbox.width / 2) + "," + labelOffset + ")").style("dominant-baseline", "hanging");
-            } else {
-              return this.attr("transform", "translate(0," + labelOffset + ") rotate(" + alphaDeg + ")");
-            }
-          }).apply(tick[0]);
-        }).apply(getXTicks(scale));
-      }).apply(this.xScale);
-      if (this.x.title()) {
-        axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
-          return d.xTitleHeight = this.text(d.x.title()).height();
-        }).apply(this);
-        xLabelTickSize += this.xTitleHeight;
-      }
-      xLabelTickSize += labelOffset + axisPadding;
-    }
-    return this.xAxisSize = xLabelTickSize;
-  };
-
-  Axis.prototype.preupdateYAxisSvg = function(element, totalXAxisSize) {
-    var axisGroupSelection, d, data, domain, group, k, l, len, len1, len2, m, ref, ref1, rmin, s, self, series, set, stackGroups, stackHeight, topSeries, type, types, yLabelTickSize, ymax, ymin, ys, yymax, yymin;
-    self = this;
-    rmin = this.graph.height - totalXAxisSize;
-    switch (this.y.scaleType()) {
-      case 'linear':
-        this.yScale = new LinearScale().range(rmin, 0);
-        break;
-      case 'discrete':
-        this.yScale = new DiscreteScale(this.y.discretePadding()).range(rmin, 0);
-        break;
-      case 'log':
-        this.yScale = new LogScale().range(rmin, 0);
-        break;
-      case 'date':
-        this.yScale = new DateScale().range(rmin, 0);
-    }
-    if (this.y.scaleType() === 'discrete') {
-      domain = (function() {
-        var k, l, len, len1, ref, ref1;
-        if (this.yDiscreteLabels) {
-          return this.yDiscreteLabels;
-        } else {
-          set = new hx.Set;
-          ref = this.series();
-          for (k = 0, len = ref.length; k < len; k++) {
-            series = ref[k];
-            ref1 = series.data();
-            for (l = 0, len1 = ref1.length; l < len1; l++) {
-              d = ref1[l];
-              set.add(d.y);
-            }
-          }
-          return set.values();
-        }
-      }).call(this);
-      this.yScale.domain(domain);
-    } else {
-      ymin = void 0;
-      ymax = void 0;
-      types = hx.groupBy(this.series(), function(d) {
-        return d._.type;
-      });
-      stackGroups = types.map(function(d) {
-        return {
-          type: d[0],
-          group: hx.groupBy(d[1], function(s) {
-            if (supportsGroup(s)) {
-              return s.group();
-            } else {
-              return void 0;
-            }
-          })
-        };
-      });
-      for (k = 0, len = stackGroups.length; k < len; k++) {
-        type = stackGroups[k];
-        ref = type.group;
-        for (l = 0, len1 = ref.length; l < len1; l++) {
-          group = ref[l];
-          series = group[1];
-          if (group[0] === void 0) {
-            ys = (function() {
-              var len2, m, ref1, results;
-              ref1 = this.series();
-              results = [];
-              for (m = 0, len2 = ref1.length; m < len2; m++) {
-                s = ref1[m];
-                data = s.data();
-                if (s instanceof StraightLineSeries) {
-                  if (!data.dx && !data.dy && data.y) {
-                    results.push([data.y, data.y]);
-                  } else {
-                    results.push(void 0);
-                  }
-                } else if (s instanceof BandSeries) {
-                  results.push(extent2(data, (function(d) {
-                    return d.y1;
-                  }), function(d) {
-                    return d.y2;
-                  }));
-                } else {
-                  results.push(extent(data, function(d) {
-                    return d.y;
-                  }));
-                }
-              }
-              return results;
-            }).call(this);
-            ys = ys.filter(function(d) {
-              return d != null;
-            });
-            yymin = hx.min(ys.map(function(d) {
-              return d[0];
-            }));
-            yymax = hx.max(ys.map(function(d) {
-              return d[1];
-            }));
-            if (ymin === void 0 || yymin < ymin) {
-              ymin = yymin;
-            }
-            if (ymax === void 0 || yymax > ymax) {
-              ymax = yymax;
-            }
-          } else {
-            topSeries = series[series.length - 1];
-            if (ymin === void 0) {
-              ymin = 0;
-            } else {
-              ymin = Math.min(ymin, 0);
-            }
-            if (ymax === void 0) {
-              ymax = 0;
-            } else {
-              ymax = Math.max(ymax, 0);
-            }
-            ref1 = topSeries.data();
-            for (m = 0, len2 = ref1.length; m < len2; m++) {
-              d = ref1[m];
-              stackHeight = this.getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId + 1, this.yScale.domainMin);
-              if (ymin === void 0 || stackHeight < ymin) {
-                ymin = stackHeight;
-              }
-              if (ymax === void 0 || stackHeight > ymax) {
-                ymax = stackHeight;
-              }
-            }
-          }
-        }
-      }
-      ymin = this.y.min() === 'auto' ? ymin : this.y.min();
-      ymax = this.y.max() === 'auto' ? ymax : this.y.max();
-      if (this.y.min() === 'auto') {
-        ymin = scalePad(ymin, ymax - ymin, -this.y.scalePaddingMin());
-      }
-      if (this.y.max() === 'auto') {
-        ymax = scalePad(ymax, ymax - ymin, this.y.scalePaddingMax());
-      }
-      this.yScale.domain(ymin, ymax);
-    }
-    yLabelTickSize = 0;
-    if (!this.y.visible()) {
-      hx.select(element).select('.hx-y-axis').remove();
-    } else {
-      axisGroupSelection = hx.select(element).select('.hx-y-axis');
-      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
-        return this.view('.hx-tick', 'g').update(function(tick) {
-          return this.view('.hx-tick-text-y', 'text').update(function(t) {
-            var size;
-            size = this.text(self.y.formatter()(t)).attr('x', -labelOffset).width();
-            if (size > yLabelTickSize) {
-              return yLabelTickSize = size;
-            }
-          }).apply(tick[0]);
-        }).apply(scale.ticks(self.y.tickSpacing()));
-      }).apply(this.yScale);
-      if (this.y.title()) {
-        axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
-          return d.yTitleHeight = this.text(d.y.title()).attr('transform', 'rotate(90)').width();
-        }).apply(this);
-        yLabelTickSize += this.yTitleHeight;
-      }
-      yLabelTickSize += labelOffset + axisPadding;
-    }
-    return this.yAxisSize = yLabelTickSize;
-  };
-
-  Axis.prototype.updateAxisSvg = function(element, xOffset, yOffset, totalXOffset, totalYOffset) {
-    var axisGroupSelection, axisX, axisY, gridSelection, height, markerX, markerY, self, width, xline, yline;
-    self = this;
-    width = this.graph.width;
-    height = this.graph.height;
-    switch (this.x.scaleType()) {
-      case 'linear':
-      case 'date':
-        this.xScale.range(totalXOffset, width);
-        break;
-      case 'discrete':
-        this.xScale.range(totalXOffset, width);
-        break;
-      case 'log':
-        this.xScale.range(totalXOffset, width);
-    }
-    switch (this.y.scaleType()) {
-      case 'linear':
-      case 'date':
-        this.yScale.range(height - totalYOffset, 0);
-        break;
-      case 'discrete':
-        this.yScale.range(height - totalYOffset, 0);
-        break;
-      case 'log':
-        this.yScale.range(height - totalYOffset, 0);
-    }
-    gridSelection = hx.select(element).select('.hx-axis-grid');
-    if (!this.x.visible()) {
-      hx.select(element).select('.hx-x-axis').remove();
-    } else {
-      if (this.x.gridLines()) {
-        gridSelection.view('.hx-vertical-grid-line', 'line').update(function(tick) {
-          return this.attr('x1', tick[1]).attr('x2', tick[1]).attr('y1', self.yScale.rangeMax).attr('y2', self.yScale.rangeMin);
-        }).apply(this.xScale.ticks(self.x.tickSpacing()));
-      }
-      axisGroupSelection = hx.select(element).select('.hx-x-axis');
-      yline = this.yScale.apply(0);
-      if (isNaN(yline) || this.y.scaleType() === 'discrete') {
-        axisY = height - yOffset - this.xAxisSize;
-        markerY = height - yOffset - this.xAxisSize;
-      } else {
-        axisY = Math.min(height - yOffset - this.xAxisSize, yline);
-        if (this.x.axisTickLabelPosition() === 'axis') {
-          markerY = Math.min(height - yOffset - this.xAxisSize, yline);
-        } else {
-          markerY = height - yOffset - this.xAxisSize;
-        }
-      }
-      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
-        this.view('.hx-axis-line', 'line').update(function(s) {
-          this.attr('x1', s.rangeMin).attr('x2', s.rangeMax);
-          return this.attr('y1', axisY).attr('y2', axisY);
-        }).apply(scale);
-        return this.view('.hx-tick', 'g').update(function(tick, e, i) {
-          this.attr("transform", "translate(" + tick[1] + "," + markerY + ")");
-          this.view('.hx-tick-line', 'line').update(function(t) {
-            return this.attr('y1', 0).attr('y2', tickSize);
-          }).apply(this);
-          return this.view('.hx-tick-text-x', 'text').update(function(t) {
-            return this.text((i % self.x.nthTickVisible()) === 0 ? self.x.formatter()(t) : '');
-          }).apply(tick[0]);
-        }).apply(self.x.showTicks() ? scale.ticks(self.x.tickSpacing()) : []);
-      }).apply(this.xScale);
-      if (this.x.title()) {
-        axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
-          var translateX, translateY;
-          translateX = (width + totalXOffset) / 2;
-          translateY = markerY + d.xAxisSize - d.xTitleHeight / 2 - axisPadding / 2;
-          return this.attr('transform', 'translate(' + translateX + ', ' + translateY + ')').text(self.x.title());
-        }).apply(this);
-      }
-    }
-    if (!this.y.visible()) {
-      return hx.select(element).select('.hx-y-axis').remove();
-    } else {
-      if (this.y.gridLines()) {
-        gridSelection.view('.hx-horizontal-grid-line', 'line').update(function(tick) {
-          return this.attr('y1', tick[1]).attr('y2', tick[1]).attr('x1', self.xScale.rangeMax).attr('x2', self.xScale.rangeMin);
-        }).apply(this.yScale.ticks(self.y.tickSpacing()));
-      }
-      axisGroupSelection = hx.select(element).select('.hx-y-axis');
-      xline = this.xScale.apply(0);
-      if (isNaN(xline) || this.x.scaleType() === 'discrete') {
-        axisX = xOffset + this.yAxisSize;
-        markerX = xOffset + this.yAxisSize;
-      } else {
-        axisX = Math.max(xOffset + this.yAxisSize, xline);
-        if (this.y.axisTickLabelPosition() === 'axis') {
-          markerX = Math.max(xOffset + this.yAxisSize, xline);
-        } else {
-          markerX = xOffset + this.yAxisSize;
-        }
-      }
-      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
-        this.view('.hx-axis-line', 'line').update(function(s) {
-          return this.attr('y1', s.rangeMin).attr('y2', s.rangeMax).attr('x1', axisX).attr('x2', axisX);
-        }).apply(scale);
-        return this.view('.hx-tick', 'g').update(function(tick, e, i) {
-          this.attr("transform", "translate(" + markerX + "," + tick[1] + ")");
-          this.view('.hx-tick-line', 'line').update(function(t) {
-            return this.attr('x1', -tickSize).attr('x2', 0);
-          }).apply(this);
-          return this.view('.hx-tick-text-y', 'text').update(function(t) {
-            return this.attr('x', -labelOffset).text((i % self.y.nthTickVisible()) === 0 ? self.y.formatter()(t) : '');
-          }).apply(tick[0]);
-        }).apply(self.y.showTicks() ? scale.ticks(self.y.tickSpacing()) : []);
-      }).apply(this.yScale);
-      if (this.y.title()) {
-        return axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
-          var translateX, translateY;
-          translateX = markerX - d.yAxisSize + d.yTitleHeight / 2 + axisPadding / 2;
-          translateY = (height - totalYOffset) / 2;
-          return this.attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(-90)').text(self.y.title());
-        }).apply(this);
-      }
-    }
-  };
-
-  Axis.prototype.updateDataSvg = function(fillLayer, sparseLayer) {
-    var fill, i, k, len, ref, results, s, sparse;
-    fill = [];
-    sparse = [];
-    hx.select(fillLayer).view('.hx-series', 'g').update(function(d, e) {
-      return fill.push(e);
-    }).apply(this.series());
-    hx.select(sparseLayer).view('.hx-series', 'g').update(function(d, e) {
-      return sparse.push(e);
-    }).apply(this.series());
-    ref = this.series();
-    results = [];
-    for (i = k = 0, len = ref.length; k < len; i = ++k) {
-      s = ref[i];
-      results.push(s.updateSvg(fill[i], sparse[i]));
-    }
-    return results;
-  };
-
-  Axis.prototype.getLabelDetails = function(x, y) {
-    var labels;
-    labels = hx.flatten(this.series().map(function(series) {
-      return series.getLabelDetails(x, y);
-    }));
-    return labels.filter(function(d) {
-      return d;
-    });
-  };
-
-  Axis.prototype.getXStack = function(type, group, y, seriesId, start) {
-    var j, k, len, ref, series, xStack, xs;
-    if (start == null) {
-      start = 0;
-    }
-    if (group) {
-      xStack = Math.max(this.xScale.domainMin, 0);
-      ref = this.series();
-      for (j = k = 0, len = ref.length; k < len; j = ++k) {
-        series = ref[j];
-        if (series._.seriesId < seriesId && series.group() === group && series._.type === type) {
-          xs = series.getX(y);
-          if (hx.defined(xs)) {
-            xStack += xs;
-          }
-        }
-      }
-      return xStack;
-    } else {
-      return Math.max(start, 0);
-    }
-  };
-
-  Axis.prototype.getYStack = function(type, group, x, seriesId, start) {
-    var j, k, len, ref, series, yStack, ys;
-    if (start == null) {
-      start = 0;
-    }
-    if (group) {
-      yStack = Math.max(this.yScale.domainMin, 0);
-      ref = this.series();
-      for (j = k = 0, len = ref.length; k < len; j = ++k) {
-        series = ref[j];
-        if (series._.seriesId < seriesId && series.group() === group && series._.type === type) {
-          ys = series.getY(x, this.x.scaleType() === 'discrete');
-          if (hx.defined(ys)) {
-            yStack += ys;
-          }
-        }
-      }
-      return yStack;
-    } else {
-      return Math.max(start, 0);
-    }
-  };
-
-  return Axis;
-
-})();
-
-var Graph, axisPadding, labelOffset, tickSize,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-tickSize = 6;
-
-labelOffset = tickSize + 4;
-
-axisPadding = 4;
-
-Graph = (function(superClass) {
-  var clearLabels, getClosestMeta, updateLabels;
-
-  extend(Graph, superClass);
-
-  function Graph(selector, options) {
-    var clipPath, defs, id, ref, savedZoomEnd, savedZoomStart, selection, threshold, touchX1, touchX2;
-    this.selector = selector;
-    Graph.__super__.constructor.apply(this, arguments);
-    hx.component.register(this.selector, this);
-    this._ = {
-      options: hx.shallowMerge({
-        zoomRangeStart: 0,
-        zoomRangeEnd: 1,
-        labelsEnabled: true,
-        legendsEnabled: false,
-        legendLocation: 'auto'
-      }, options),
-      axes: new hx.List
-    };
-    id = hx.randomId();
-    selection = hx.select(this.selector).on('resize', 'hx.plot', (function(_this) {
-      return function() {
-        return _this.render();
-      };
-    })(this));
-    this.svgTarget = selection.append("svg").attr('class', 'hx-graph');
-    defs = this.svgTarget.append('defs');
-    this.axesTarget = this.svgTarget.append('g').attr('class', 'hx-axes');
-    this.plotTarget = this.svgTarget.append('g').attr('class', 'hx-plot');
-    clipPath = defs.append('clipPath').attr('id', 'clip-series-' + id);
-    this.clipRect = clipPath.append('rect');
-    this.plotTarget.attr('clip-path', 'url(#clip-series-' + id + ')');
-    touchX1 = 0;
-    touchX2 = 0;
-    savedZoomStart = 0;
-    savedZoomEnd = 1;
-    this.svgTarget.on('pointerdown', 'hx.plot', (function(_this) {
-      return function(p) {
-        var x, y;
-        x = Math.round(p.x - _this.svgTarget.box().left);
-        y = Math.round(p.y - _this.svgTarget.box().top);
-        updateLabels(_this, x, y);
-        if (p.event.targetTouches && p.event.targetTouches.length > 1) {
-          p.event.preventDefault();
-          p.event.stopPropagation();
-          touchX1 = p.event.targetTouches[0].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
-          touchX2 = p.event.targetTouches[1].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
-          savedZoomStart = _this.zoomRangeStart();
-          return savedZoomEnd = _this.zoomRangeEnd();
-        }
-      };
-    })(this));
-    threshold = 0.01;
-    this.svgTarget.on('touchmove', 'hx.plot', (function(_this) {
-      return function(e) {
-        var endFactor, startFactor, w, x1, x2, xhat, xn, z;
-        if (e.targetTouches.length > 1 && _this.zoomEnabled()) {
-          e.preventDefault();
-          e.stopPropagation();
-          w = _this.plotArea.x2 - _this.plotArea.x1;
-          x1 = e.targetTouches[0].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
-          x2 = e.targetTouches[1].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
-          xn = (touchX1 + touchX2) / (2 * w);
-          xhat = savedZoomStart + (savedZoomEnd - savedZoomStart) * xn;
-          z = Math.abs(touchX1 - touchX2) / Math.abs(x1 - x2);
-          startFactor = savedZoomStart - xhat;
-          endFactor = savedZoomEnd - xhat;
-          if (_this.zoomRangeEnd === 1 && startFactor > -threshold) {
-            startFactor = -threshold;
-          }
-          if (_this.zoomRangeStart() === 0 && endFactor < threshold) {
-            endFactor = threshold;
-          }
-          _this.zoomRangeStart(hx.clampUnit(xhat + z * startFactor));
-          _this.zoomRangeEnd(hx.clampUnit(xhat + z * endFactor));
-          _this.emit('zoom', {
-            start: _this.zoomRangeStart(),
-            end: _this.zoomRangeEnd()
-          });
-          return _this.render();
-        }
-      };
-    })(this));
-    this.svgTarget.on('mousemove', 'hx.plot', (function(_this) {
-      return function(p) {
-        var legendContainer, x, y;
-        x = Math.round(p.clientX - _this.svgTarget.box().left);
-        y = Math.round(p.clientY - _this.svgTarget.box().top);
-        if (_this.labelsEnabled()) {
-          updateLabels(_this, x, y);
-        }
-        if (_this.legendEnabled()) {
-          legendContainer = _this.svgTarget.select('.hx-legend-container');
-          if (_this.legendLocation() === 'hover') {
-            legendContainer.style('display', '');
-          }
-          if (_this.legendLocation() === 'auto' || _this.legendLocation() === 'hover') {
-            if (x - _this.plotArea.x1 < (_this.plotArea.x1 + _this.plotArea.x2) / 2) {
-              return legendContainer.attr('transform', 'translate(' + (_this.plotArea.x2 - 10 - legendContainer.width()) + ',' + (_this.plotArea.y1 + 10) + ')');
-            } else {
-              return legendContainer.attr('transform', 'translate(' + (_this.plotArea.x1 + 10) + ',' + (_this.plotArea.y1 + 10) + ')');
-            }
-          }
-        }
-      };
-    })(this));
-    this.svgTarget.on('mouseleave', 'hx.plot', (function(_this) {
-      return function() {
-        if (_this.legendEnabled() && _this.legendLocation() === 'hover') {
-          return _this.svgTarget.select('.hx-legend-container').style('display', 'none');
-        }
-      };
-    })(this));
-    this.svgTarget.on('pointerleave', 'hx.plot', function(p) {
-      return clearLabels();
-    });
-    this.svgTarget.on('click', 'hx.plot', (function(_this) {
-      return function(p) {
-        var data, labelMeta, x, y;
-        x = Math.round(p.x - _this.svgTarget.box().left);
-        y = Math.round(p.y - _this.svgTarget.box().top);
-        labelMeta = getClosestMeta(_this, x, y);
-        if (labelMeta) {
-          data = {
-            event: p,
-            data: labelMeta.values,
-            series: labelMeta.series
-          };
-          _this.emit('click', data);
-          return labelMeta.series.emit('click', data);
-        }
-      };
-    })(this));
-    this.svgTarget.on('wheel', 'hx.plot', (function(_this) {
-      return function(e) {
-        var delta, endFactor, startFactor, w, x, xhat, xn, z, zoomRangeEnd, zoomRangeStart;
-        if (_this.zoomEnabled()) {
-          e.preventDefault();
-          e.stopPropagation();
-          threshold = 0.01;
-          delta = -e.deltaY;
-          if (e.deltaMode === 1) {
-            delta *= 20;
-          }
-          zoomRangeStart = _this.zoomRangeStart();
-          zoomRangeEnd = _this.zoomRangeEnd();
-          x = e.clientX - _this.svgTarget.box().left - _this.plotArea.x1;
-          w = _this.plotArea.x2 - _this.plotArea.x1;
-          xn = hx.clampUnit(x / w);
-          xhat = zoomRangeStart + (zoomRangeEnd - zoomRangeStart) * xn;
-          z = 1 - delta / 600;
-          startFactor = zoomRangeStart - xhat;
-          endFactor = zoomRangeEnd - xhat;
-          if (zoomRangeEnd === 1 && startFactor > -threshold) {
-            startFactor = -threshold;
-          }
-          if (zoomRangeStart === 0 && endFactor < threshold) {
-            endFactor = threshold;
-          }
-          _this.zoomRangeStart(hx.clampUnit(xhat + z * startFactor));
-          _this.zoomRangeEnd(hx.clampUnit(xhat + z * endFactor));
-          _this.emit('zoom', {
-            start: _this.zoomRangeStart(),
-            end: _this.zoomRangeEnd()
-          });
-          return _this.render();
-        }
-      };
-    })(this));
-    if (options != null) {
-      if ((ref = options.axes) != null) {
-        ref.forEach((function(_this) {
-          return function(axis) {
-            return _this.addAxis(axis);
-          };
-        })(this));
-      }
-    }
-  }
-
-  Graph.prototype.zoomRangeStart = optionSetterGetter('zoomRangeStart');
-
-  Graph.prototype.zoomRangeEnd = optionSetterGetter('zoomRangeEnd');
-
-  Graph.prototype.zoomEnabled = optionSetterGetter('zoomEnabled');
-
-  Graph.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
-
-  Graph.prototype.legendEnabled = optionSetterGetter('legendEnabled');
-
-  Graph.prototype.legendLocation = optionSetterGetter('legendLocation');
-
-  Graph.prototype.axes = function(axes) {
-    if (arguments.length > 0) {
-      this._.axes = new hx.List(axes);
-      this.axes().forEach(function(a) {
-        return a.graph = this;
-      });
-      return this;
-    } else {
-      return this._.axes.values();
-    }
-  };
-
-  Graph.prototype.addAxis = function(options) {
-    var axis;
-    axis = options instanceof Axis ? options : new Axis(options);
-    axis.graph = this;
-    this._.axes.add(axis);
-    return axis;
-  };
-
-  Graph.prototype.removeAxis = function(axis) {
-    if (this._.axes.remove(axis)) {
-      axis.graph = null;
-      return axis;
-    }
-  };
-
-  Graph.prototype.render = function() {
-    var enter, hasData, legendContainer, legendContainerTransformX, legendContainerTransformY, selection, self, totalX, totalY, x, y;
-    selection = hx.select(this.selector);
-    this.width = Number(selection.width());
-    this.height = Number(selection.height());
-    if (this.width <= 0 || this.height <= 0) {
-      return;
-    }
-    hasData = this.axes().some(function(axis) {
-      return axis.series().some(function(series) {
-        var data;
-        data = series.data();
-        return hx.isObject(data) || data.length > 0;
-      });
-    });
-    self = this;
-    this.svgTarget.view('.hx-plot-no-data', 'text').update(function() {
-      return this.text('No Data').attr('x', self.width / 2).attr('y', self.height / 2);
-    }).apply(hasData ? [] : [true]);
-    this.axes().forEach(function(a) {
-      return a.tagSeries();
-    });
-    enter = function(d) {
-      var node;
-      node = this.append('g')["class"]('hx-axis').node();
-      d.setupAxisSvg(node);
-      return node;
-    };
-    totalX = 0;
-    this.axesTarget.view('.hx-axis', 'g').enter(enter).update(function(d, element) {
-      d.preupdateXAxisSvg(element);
-      return totalX += d.xAxisSize;
-    }).apply(this.axes());
-    totalY = 0;
-    this.axesTarget.view('.hx-axis', 'g').enter(enter).update(function(d, element) {
-      d.preupdateYAxisSvg(element, totalX);
-      return totalY += d.yAxisSize;
-    }).apply(this.axes());
-    x = 0;
-    y = 0;
-    this.axesTarget.view('.hx-axis', 'g').enter(enter).update(function(d, element) {
-      d.updateAxisSvg(element, y, x, totalY, totalX);
-      x += d.xAxisSize;
-      return y += d.yAxisSize;
-    }).apply(this.axes());
-    this.plotArea = {
-      x1: y,
-      y1: 0,
-      x2: this.width,
-      y2: this.height - x
-    };
-    if (((this.plotArea.x2 - this.plotArea.x1) <= 0) || ((this.plotArea.y2 - this.plotArea.y1) <= 0)) {
-      return;
-    }
-    this.plotTarget.view('.hx-axis-data', 'g').enter(function() {
-      var g;
-      g = this.append('g')["class"]('hx-axis-data');
-      g.append('g')["class"]('hx-graph-fill-layer');
-      g.append('g')["class"]('hx-graph-sparse-layer');
-      return g.node();
-    }).update(function(d, element) {
-      return d.updateDataSvg(this.select('.hx-graph-fill-layer').node(), this.select('.hx-graph-sparse-layer').node());
-    }).apply(this.axes());
-    if (this.legendEnabled()) {
-      legendContainer = this.svgTarget.select('.hx-legend-container');
-      if (legendContainer.size() === 0) {
-        legendContainer = this.svgTarget.append('g')["class"]('hx-legend-container');
-      }
-      populateLegendSeries(legendContainer, hx.flatten(this.axes().map(function(axis) {
-        return axis.series();
-      })));
-      switch (this.legendLocation()) {
-        case 'top-left':
-          legendContainer.attr('transform', 'translate(' + (this.plotArea.x1 + 10) + ',' + (this.plotArea.y1 + 10) + ')');
-          break;
-        case 'bottom-right':
-          legendContainerTransformX = this.plotArea.x2 - 10 - legendContainer.width();
-          legendContainerTransformY = this.plotArea.y2 - 5 - legendContainer.height();
-          legendContainer.attr('transform', 'translate(' + legendContainerTransformX + ',' + legendContainerTransformY + ')');
-          break;
-        case 'bottom-left':
-          legendContainer.attr('transform', 'translate(' + (this.plotArea.x1 + 10) + ',' + (this.plotArea.y2 - 5 - legendContainer.height()) + ')');
-          break;
-        case 'hover':
-          legendContainer.style('display', 'none');
-          break;
-        default:
-          legendContainer.attr('transform', 'translate(' + (this.plotArea.x2 - 10 - legendContainer.width()) + ',' + (this.plotArea.y1 + 10) + ')');
-      }
-    } else {
-      this.svgTarget.select('.hx-legend-container').remove();
-    }
-    this.clipRect.attr('x', this.plotArea.x1).attr('y', this.plotArea.y1).attr('width', this.plotArea.x2 - this.plotArea.x1).attr('height', this.plotArea.y2 - this.plotArea.y1);
-    this.emit('render');
-    return this;
-  };
-
-  getClosestMeta = function(graph, x, y) {
-    var bestDistance, bestMeta, distance, i, l, labels, len, xx, yy;
-    x = hx.clamp(graph.plotArea.x1, graph.plotArea.x2, x);
-    y = hx.clamp(graph.plotArea.y1, graph.plotArea.y2, y);
-    labels = hx.flatten(graph.axes().map(function(axis) {
-      return axis.getLabelDetails(x, y);
-    }));
-    labels = labels.filter(function(label) {
-      var ref, ref1;
-      return (graph.plotArea.x1 <= (ref = label.x) && ref <= graph.plotArea.x2) && (graph.plotArea.y1 <= (ref1 = label.y) && ref1 <= graph.plotArea.y2);
-    });
-    bestMeta = void 0;
-    bestDistance = void 0;
-    for (i = 0, len = labels.length; i < len; i++) {
-      l = labels[i];
-      xx = l.x - x;
-      yy = l.y - y;
-      distance = xx * xx + yy * yy;
-      if (bestDistance === void 0 || distance < bestDistance) {
-        bestMeta = l;
-        bestDistance = distance;
-      }
-    }
-    return bestMeta;
-  };
-
-  clearLabels = function() {
-    return hx.select('body').select('.hx-plot-label-container').clear();
-  };
-
-  updateLabels = function(graph, x, y) {
-    var bestMeta, updateLabel;
-    updateLabel = function(data, element) {
-      hx.select(element).style('left', Math.round(window.pageXOffset + graph.svgTarget.box().left + data.x) + 'px').style('top', Math.round(window.pageYOffset + graph.svgTarget.box().top + data.y) + 'px');
-      return data.series.labelRenderer()(element, data);
-    };
-    bestMeta = getClosestMeta(graph, x, y);
-    if (hx.select('body').select('.hx-plot-label-container').empty()) {
-      hx.select('body').append('div')["class"]('hx-plot-label-container');
-    }
-    return hx.select('body').select('.hx-plot-label-container').view('.hx-plot-label', 'div').update(updateLabel).apply(bestMeta ? boundLabel(bestMeta, graph) : []);
-  };
-
-  return Graph;
-
-})(hx.EventEmitter);
-
-var LinearScale;
-
-LinearScale = (function() {
-  function LinearScale(domainMin, domainMax, rangeMin, rangeMax) {
-    var den;
-    this.domainMin = domainMin != null ? domainMin : 0;
-    this.domainMax = domainMax != null ? domainMax : 10;
-    this.rangeMin = rangeMin != null ? rangeMin : 0;
-    this.rangeMax = rangeMax != null ? rangeMax : 10;
-    den = this.domainMax - this.domainMin;
-    this.factor = den !== 0 ? (this.rangeMax - this.rangeMin) / den : 1;
-  }
-
-  LinearScale.prototype.apply = function(v) {
-    return this.rangeMin + (v - this.domainMin) * this.factor;
-  };
-
-  LinearScale.prototype.inverse = function(v) {
-    return this.domainMin + (v - this.rangeMin) / this.factor;
-  };
-
-  LinearScale.prototype.domain = function(start, end) {
-    var den;
-    this.domainMin = start;
-    this.domainMax = end;
-    den = this.domainMax - this.domainMin;
-    this.factor = den !== 0 ? (this.rangeMax - this.rangeMin) / den : 1;
-    return this;
-  };
-
-  LinearScale.prototype.range = function(start, end) {
-    var den;
-    this.rangeMin = start;
-    this.rangeMax = end;
-    den = this.domainMax - this.domainMin;
-    this.factor = den !== 0 ? (this.rangeMax - this.rangeMin) / den : 1;
-    return this;
-  };
-
-  LinearScale.prototype.ticks = function(targetSpacing) {
-    var d, domainEnd, domainSpan, domainStart, error, i, j, niceCount, niceDomainSpacing, ref, results, targetCount;
-    domainSpan = this.domainMax - this.domainMin;
-    targetCount = Math.abs(this.rangeMax - this.rangeMin) / targetSpacing;
-    niceDomainSpacing = Math.pow(10, Math.floor(Math.log(domainSpan / targetCount) / Math.LN10));
-    error = domainSpan / (targetCount * niceDomainSpacing);
-    switch (false) {
-      case !(error >= 7.5):
-        niceDomainSpacing *= 10;
-        break;
-      case !(error >= 3):
-        niceDomainSpacing *= 5;
-        break;
-      case !(error >= 1.25):
-        niceDomainSpacing *= 2;
-    }
-    domainStart = Math.ceil(this.domainMin / niceDomainSpacing) * niceDomainSpacing;
-    domainEnd = (Math.floor(this.domainMax / niceDomainSpacing) + .5) * niceDomainSpacing;
-    niceCount = (domainEnd - domainStart) / niceDomainSpacing;
-    results = [];
-    for (i = j = 0, ref = niceCount; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      d = domainStart + i * niceDomainSpacing;
-      results.push([d, this.apply(d)]);
-    }
-    return results;
-  };
-
-  return LinearScale;
-
-})();
-
-var DiscreteScale;
-
-DiscreteScale = (function() {
-  function DiscreteScale(bandPadding) {
-    this.bandPadding = bandPadding != null ? bandPadding : 0.1;
-    this.domainCategories = [];
-    this.rangeMin = 0;
-    this.rangeMax = 10;
-  }
-
-  DiscreteScale.prototype.apply = function(v) {
-    var i;
-    i = this.domainCategories.indexOf(v);
-    if (i !== -1) {
-      return this.rangeMin + (i / this.domainCategories.length) * (this.rangeMax - this.rangeMin) + this.tickOffset() + this.tickWidth() / 2;
-    } else {
-      return void 0;
-    }
-  };
-
-  DiscreteScale.prototype.inverse = function(v) {
-    var i;
-    i = Math.floor(((v - this.tickOffset()) - this.rangeMin) / (this.rangeMax - this.rangeMin) * this.domainCategories.length);
-    if ((0 <= i && i < this.domainCategories.length)) {
-      return this.domainCategories[i];
-    } else {
-      return void 0;
-    }
-  };
-
-  DiscreteScale.prototype.domain = function(categories) {
-    this.domainCategories = categories;
-    return this;
-  };
-
-  DiscreteScale.prototype.range = function(start, end) {
-    this.rangeMin = start;
-    this.rangeMax = end;
-    return this;
-  };
-
-  DiscreteScale.prototype.ticks = function(targetSpacing) {
-    var c, j, len, ref, results;
-    if (targetSpacing == null) {
-      targetSpacing = 50;
-    }
-    ref = this.domainCategories;
-    results = [];
-    for (j = 0, len = ref.length; j < len; j++) {
-      c = ref[j];
-      results.push([c, this.apply(c)]);
-    }
-    return results;
-  };
-
-  DiscreteScale.prototype.tickWidth = function() {
-    return (this.rangeMax - this.rangeMin) / this.domainCategories.length * (1 - this.bandPadding);
-  };
-
-  DiscreteScale.prototype.tickOffset = function() {
-    return (this.rangeMax - this.rangeMin) / this.domainCategories.length * this.bandPadding / 2;
-  };
-
-  return DiscreteScale;
-
-})();
-
-var DateScale,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-DateScale = (function(superClass) {
-  extend(DateScale, superClass);
-
-  function DateScale(domainMin, domainMax, rangeMin, rangeMax) {
-    this.domainMin = domainMin;
-    this.domainMax = domainMax;
-    this.rangeMin = rangeMin;
-    this.rangeMax = rangeMax;
-    DateScale.__super__.constructor.apply(this, arguments);
-  }
-
-  DateScale.prototype.ticks = function(targetSpacing) {
-    var checkVal, d, domainEnd, domainSpan, domainStart, error, i, j, niceCount, niceDomainSpacing, ref, results, round, targetCount, timeStep, timeSteps;
-    timeSteps = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1e3, 5e3, 15e3, 3e4, 6e4, 3e5, 9e5, 18e5, 36e5, 108e5, 216e5, 432e5, 864e5, 1728e5, 6048e5, 2592e6, 7776e6, 31536e6];
-    domainSpan = this.domainMax - this.domainMin;
-    checkVal = function(val) {
-      var j, len, step;
-      for (j = 0, len = timeSteps.length; j < len; j++) {
-        step = timeSteps[j];
-        if (val <= step) {
-          return step;
-        }
-      }
-      return 1;
-    };
-    targetCount = Math.abs(this.rangeMax - this.rangeMin) / targetSpacing;
-    niceDomainSpacing = Math.pow(10, Math.floor(Math.log(domainSpan / targetCount) / Math.LN10));
-    error = domainSpan / (targetCount * niceDomainSpacing);
-    niceDomainSpacing *= error >= 7.5 ? 10 : error >= 3 ? 5 : error >= 2 ? 3 : error >= 1.25 ? 2 : error >= 1.025 ? 1.5 : 1;
-    domainStart = Math.ceil(this.domainMin / niceDomainSpacing) * niceDomainSpacing;
-    domainEnd = Math.floor(this.domainMax / niceDomainSpacing) * niceDomainSpacing;
-    round = function(val, ceil) {
-      if (ceil) {
-        return Math.ceil(val / timeStep) * timeStep;
-      } else {
-        return Math.floor(val / timeStep) * timeStep;
-      }
-    };
-    timeStep = checkVal(niceDomainSpacing);
-    niceDomainSpacing = round(niceDomainSpacing, true);
-    domainStart = round(domainStart);
-    if (domainStart < this.domainMin) {
-      domainStart += niceDomainSpacing;
-    }
-    niceCount = (domainEnd - domainStart) / niceDomainSpacing;
-    results = [];
-    for (i = j = 0, ref = niceCount; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-      d = domainStart + i * niceDomainSpacing;
-      results.push([d, this.apply(d)]);
-    }
-    return results;
-  };
-
-  return DateScale;
-
-})(LinearScale);
-
-var BandSeries,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-BandSeries = (function(superClass) {
-  var bandSeriesDataInterpolator, scale;
-
-  extend(BandSeries, superClass);
-
-  scale = function(data, axis) {
-    var d, i, len, results;
-    results = [];
-    for (i = 0, len = data.length; i < len; i++) {
-      d = data[i];
-      results.push({
-        x: axis.xScale.apply(d.x),
-        y: axis.yScale.apply(d.y)
-      });
-    }
-    return results;
-  };
-
-  function BandSeries(options) {
-    BandSeries.__super__.constructor.call(this, hx.merge({
-      fillColor: hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString(),
-      sampleThreshold: 200
-    }, options));
-    this._.type = 'band';
-  }
-
-  BandSeries.prototype.fillColor = optionSetterGetter('fillColor');
-
-  BandSeries.prototype.sampleThreshold = optionSetterGetter('sampleThreshold');
-
-  BandSeries.prototype.legendColor = function() {
-    return this._.options.fillColor;
-  };
-
-  BandSeries.prototype.updateSvg = function(fillLayer) {
-    var areas, data, fillCol, gradientCols, gradientId, preped, self;
-    self = this;
-    this._.featheredData = splitAndFeather(this.data(), this.sampleThreshold(), function(d) {
-      return d.y1 !== void 0 && d.y2 !== void 0;
-    });
-    areas = (function() {
-      var i, len, ref, results;
-      ref = this._.featheredData;
-      results = [];
-      for (i = 0, len = ref.length; i < len; i++) {
-        data = ref[i];
-        preped = data.map(function(d) {
-          return {
-            x: d.x,
-            y: d.y1
-          };
-        }).concat(data.slice(0).reverse().map(function(d) {
-          return {
-            x: d.x,
-            y: d.y2
-          };
-        }));
-        results.push(svgCurve(scale(preped, this.axis), true));
-      }
-      return results;
-    }).call(this);
-    if (Array.isArray(self.fillColor())) {
-      gradientCols = self.fillColor().map(function(d) {
-        return {
-          value: d.value,
-          color: d.color
-        };
-      });
-      gradientId = createLinearGradient(fillLayer, gradientCols, this);
-      fillCol = 'url(#' + gradientId + ')';
-    } else {
-      fillCol = self.fillColor();
-    }
-    return hx.select(fillLayer).view('.hx-series-data', 'path', 'hx-series-area').update(function(d) {
-      return this.attr('d', d)["class"]('hx-series-data ' + self["class"]()).attr('fill', fillCol);
-    }).apply(areas);
-  };
-
-  bandSeriesDataInterpolator = function(x, d1, d2, yInterp) {
-    if ((d1.y1 != null) && (d2.y1 != null) && (d1.y2 != null) && (d2.y2 != null)) {
-      return {
-        x: x,
-        y1: yInterp(d1.y1, d2.y1),
-        y2: yInterp(d1.y2, d2.y2)
-      };
-    }
-  };
-
-  BandSeries.prototype.getLabelDetails = function(x, y) {
-    var point;
-    if (point = createLabelPoint(this, x, y, bandSeriesDataInterpolator)) {
-      return [
-        makeLabelDetails(this, point, (function(d) {
-          return d.y1;
-        }), 'x', 'y1'), makeLabelDetails(this, point, (function(d) {
-          return d.y2;
-        }), 'x', 'y2')
-      ];
-    } else {
-      return [];
-    }
-  };
-
-  return BandSeries;
-
-})(Series);
-
-var BarSeries,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-BarSeries = (function(superClass) {
-  extend(BarSeries, superClass);
-
-  function BarSeries(options) {
-    BarSeries.__super__.constructor.call(this, hx.merge({
-      fillColor: hx.theme.plot.colors[1],
-      group: void 0
-    }, options));
-    this._.type = 'bar';
-  }
-
-  BarSeries.prototype.fillColor = optionSetterGetter('fillColor');
-
-  BarSeries.prototype.group = optionSetterGetter('group');
-
-  BarSeries.prototype.legendColor = function() {
-    return this._.options.fillColor;
-  };
-
-  BarSeries.prototype.updateSvg = function(fillLayer) {
-    var axis, self;
-    self = this;
-    axis = this.axis;
-    return hx.select(fillLayer).view('.hx-series-data', 'rect').update(function(d) {
-      var height, width, x, y;
-      if (axis.x.scaleType() === 'discrete') {
-        width = axis.xScale.tickWidth() / self._.typeSize;
-        x = axis.xScale.apply(d.x) - width * self._.typeSize / 2 + self.groupId * width;
-        height = Math.abs(axis.yScale.apply(d.y) - axis.yScale.apply(0));
-        y = axis.yScale.apply(axis.getYStack(self._.type, self.group(), d.x, self._.seriesId));
-        if (d.y > 0) {
-          y -= height;
-        }
-      } else {
-        width = Math.abs(axis.xScale.apply(d.x) - axis.xScale.apply(0));
-        x = axis.xScale.apply(axis.getXStack(self._.type, self.group(), d.y, self._.seriesId));
-        height = Math.abs(axis.yScale.tickWidth() / self._.typeSize);
-        y = axis.yScale.apply(d.y) - height * self._.typeSize / 2 + self.groupId * height;
-        if (d.y > 0) {
-          y -= height;
-        }
-      }
-      return this["class"]('hx-series-data hx-series-bar ' + self["class"]()).attr("y", y).attr("x", x).attr("height", Math.max(height, 0)).attr("width", Math.max(width, 0)).style("fill", d.color || self.fillColor());
-    }).apply(this.data());
-  };
-
-  BarSeries.prototype.getLabelDetails = function(x, y) {
-    var barData, barX, barY, height, max, meta, min, width, xx, yy;
-    if (this.labelsEnabled()) {
-      xx = this.axis.xScale.inverse(x);
-      yy = this.axis.yScale.inverse(y);
-      barData = hx.find(this.data(), function(d) {
-        return d.x === xx;
-      });
-      if (barData) {
-        width = this.axis.xScale.tickWidth() / this._.typeSize;
-        barX = this.axis.xScale.apply(barData.x) - width * this._.typeSize / 2 + this.groupId * width;
-        height = Math.abs(this.axis.yScale.apply(barData.y) - this.axis.yScale.apply(0));
-        barY = this.axis.yScale.apply(this.axis.getYStack(this._.type, this.group(), barData.x, this._.seriesId));
-        if (barData.y > 0) {
-          barY -= height;
-        }
-        if ((xx != null) && (yy != null) && (barData != null)) {
-          min = Math.min(barY, this.axis.yScale.apply(0));
-          max = Math.max(barY, barY + height);
-          yy = hx.clamp(min, max, this.axis.yScale.apply(yy));
-          meta = {
-            series: this,
-            title: this.title(),
-            x: barX + width / 2,
-            y: yy,
-            color: barData.color || this.fillColor(),
-            values: this.labelValuesExtractor()(this, barData)
-          };
-          return [meta];
-        } else {
-          return [];
-        }
-      } else {
-        return [];
-      }
-    } else {
-      return [];
-    }
-  };
-
-  return BarSeries;
-
-})(Series);
-
-var LineSeries, updatePath,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-updatePath = function(series, element, _class, data, type, update) {
-  return hx.select(element).view('.hx-series-data', 'g').update(function(d) {
-    return this["class"]('hx-series-data hx-series-line ' + series["class"]()).view(_class, type).update(update).apply(d);
-  }).apply(data);
-};
-
-LineSeries = (function(superClass) {
-  var lineSeriesDataInterpolator, scale;
-
-  extend(LineSeries, superClass);
-
-  scale = function(data, axis) {
-    var d, i, len, results;
-    results = [];
-    for (i = 0, len = data.length; i < len; i++) {
-      d = data[i];
-      results.push({
-        x: axis.xScale.apply(d.x),
-        y: axis.yScale.apply(d.y)
-      });
-    }
-    return results;
-  };
-
-  function LineSeries(options) {
-    LineSeries.__super__.constructor.call(this, hx.merge({
-      strokeEnabled: true,
-      strokeColor: hx.theme.plot.colors[0],
-      fillEnabled: false,
-      fillColor: void 0,
-      markersEnabled: false,
-      markerRadius: 2,
-      markerFillColor: void 0,
-      sampleThreshold: 200,
-      group: void 0
-    }, options));
-    this._.type = 'line';
-  }
-
-  LineSeries.prototype.strokeEnabled = optionSetterGetter('strokeEnabled');
-
-  LineSeries.prototype.strokeColor = optionSetterGetter('strokeColor');
-
-  LineSeries.prototype.fillEnabled = optionSetterGetter('fillEnabled');
-
-  LineSeries.prototype.fillColor = optionSetterGetter('fillColor');
-
-  LineSeries.prototype.markersEnabled = optionSetterGetter('markersEnabled');
-
-  LineSeries.prototype.markerRadius = optionSetterGetter('markerRadius');
-
-  LineSeries.prototype.markerFillColor = optionSetterGetter('markerFillColor');
-
-  LineSeries.prototype.sampleThreshold = optionSetterGetter('sampleThreshold');
-
-  LineSeries.prototype.group = optionSetterGetter('group');
-
-  LineSeries.prototype.legendColor = function() {
-    return this._.options.strokeColor;
-  };
-
-  LineSeries.prototype.updateSvg = function(fillLayer, sparseLayer) {
-    var applyStack, areas, axis, curves, data, featheredData, fillCol, fillPreparedData, fillToY, gradientCols, gradientId, preparedData, self, strokeCol;
-    self = this;
-    axis = this.axis;
-    featheredData = splitAndFeather(this.data(), this.sampleThreshold(), function(d) {
-      return d.y !== void 0;
-    });
-    this._.featheredData = featheredData;
-    applyStack = function(dataToStack, calculateBaseline) {
-      var d, i, len, results;
-      results = [];
-      for (i = 0, len = dataToStack.length; i < len; i++) {
-        d = dataToStack[i];
-        results.push({
-          x: d.x,
-          y: axis.getYStack(self._.type, self.group(), d.x, self._.seriesId) + (calculateBaseline ? 0 : d.y)
-        });
-      }
-      return results;
-    };
-    if (this.fillEnabled()) {
-      if (Array.isArray(self.fillColor() || self.strokeColor())) {
-        gradientCols = self.fillColor() || self.strokeColor().map(function(d) {
-          return {
-            value: d.value,
-            color: hx.color(d.color).alpha(0.1).toString('rgba')
-          };
-        });
-        gradientId = createLinearGradient(fillLayer, gradientCols, self);
-        fillCol = 'url(#' + gradientId + ')';
-      } else {
-        fillCol = self.fillColor() || hx.color(self.strokeColor()).alpha(0.1).toString();
-      }
-      fillToY = Math.max(Math.min(this.axis.yScale.domainMax, 0), this.axis.yScale.domainMin);
-      fillPreparedData = (function() {
-        var i, len, results;
-        results = [];
-        for (i = 0, len = featheredData.length; i < len; i++) {
-          data = featheredData[i];
-          results.push(applyStack(data).concat(applyStack(data.slice(0).reverse(), true)));
-        }
-        return results;
-      })();
-      areas = (function() {
-        var i, len, results;
-        results = [];
-        for (i = 0, len = fillPreparedData.length; i < len; i++) {
-          data = fillPreparedData[i];
-          results.push(svgCurve(scale(data, this.axis), true));
-        }
-        return results;
-      }).call(this);
-      updatePath(this, fillLayer, '.hx-series-line-fill', areas, 'path', function(d) {
-        return this.attr('d', d).attr('fill', fillCol);
-      });
-    }
-    if (this.strokeEnabled()) {
-      if (this.axis.y.scaleType() !== 'discrete') {
-        curves = (function() {
-          var i, len, results;
-          results = [];
-          for (i = 0, len = featheredData.length; i < len; i++) {
-            data = featheredData[i];
-            results.push(svgCurve(scale(applyStack(data), this.axis)));
-          }
-          return results;
-        }).call(this);
-      } else {
-        curves = (function() {
-          var i, len, results;
-          results = [];
-          for (i = 0, len = featheredData.length; i < len; i++) {
-            data = featheredData[i];
-            results.push(svgCurve(scale(data, this.axis)));
-          }
-          return results;
-        }).call(this);
-      }
-      if (Array.isArray(this.strokeColor())) {
-        gradientId = createLinearGradient(sparseLayer, this.strokeColor(), self);
-        strokeCol = 'url(#' + gradientId + ')';
-      } else {
-        strokeCol = self.strokeColor();
-      }
-      updatePath(this, sparseLayer, '.hx-series-line-stroke', curves, 'path', function(d) {
-        return this.attr('d', d).attr('stroke', strokeCol);
-      });
-    }
-    if (this.markersEnabled()) {
-      preparedData = this.axis.y.scaleType() !== 'discrete' ? applyStack(hx.flatten(featheredData)) : hx.flatten(featheredData);
-      return updatePath(this, sparseLayer, '.hx-series-line-markers', scale(preparedData, this.axis), 'circle', function(d) {
-        return this.attr('cx', d.x).attr('cy', d.y).attr('r', self.markerRadius()).attr('fill', self.markerFillColor() || self.strokeColor());
-      });
-    }
-  };
-
-  lineSeriesDataInterpolator = function(x, d1, d2, yInterp) {
-    if ((d1.y != null) && (d2.y != null)) {
-      return {
-        x: x,
-        y: yInterp(d1.y, d2.y)
-      };
-    }
-  };
-
-  LineSeries.prototype.getLabelDetails = function(x, y) {
-    var point;
-    if (point = createLabelPoint(this, x, y, lineSeriesDataInterpolator)) {
-      return [
-        makeLabelDetails(this, point, (function(_this) {
-          return function(d) {
-            return _this.axis.getYStack(_this._.type, _this.group(), d.x, _this._.seriesId) + d.y;
-          };
-        })(this))
-      ];
-    } else {
-      return [];
-    }
-  };
-
-  return LineSeries;
-
-})(Series);
-
-var ScatterSeries,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-ScatterSeries = (function(superClass) {
-  var filter, scale;
-
-  extend(ScatterSeries, superClass);
-
-  filter = function(data) {
-    return data.filter(function(d) {
-      return d.x !== void 0 && d.y !== void 0;
-    });
-  };
-
-  scale = function(data, axis) {
-    var d, i, len, results;
-    results = [];
-    for (i = 0, len = data.length; i < len; i++) {
-      d = data[i];
-      results.push({
-        x: axis.xScale.apply(d.x),
-        y: axis.yScale.apply(d.y),
-        radius: d.radius,
-        fillColor: d.fillColor,
-        color: d.color,
-        size: d.size
-      });
-    }
-    return results;
-  };
-
-  function ScatterSeries(options) {
-    ScatterSeries.__super__.constructor.call(this, hx.merge({
-      fillColor: hx.theme.plot.colors[3],
-      radius: 2
-    }, options));
-    this._.type = 'scatter';
-  }
-
-  ScatterSeries.prototype.fillColor = optionSetterGetter('fillColor');
-
-  ScatterSeries.prototype.radius = optionSetterGetter('radius');
-
-  ScatterSeries.prototype.legendColor = function() {
-    return this._.options.fillColor;
-  };
-
-  ScatterSeries.prototype.updateSvg = function(fillLayer, sparseLayer) {
-    var self;
-    self = this;
-    return hx.select(sparseLayer).view('.hx-series-data', 'circle').update(function(d) {
-      return this["class"]('hx-series-data hx-series-scatter ' + self["class"]()).attr('cx', d.x).attr('cy', d.y).attr('r', Math.max(d.radius || self.radius(), 0)).style('fill', d.fillColor || self.fillColor());
-    }).apply(scale(filter(this.data()), this.axis));
-  };
-
-  ScatterSeries.prototype.getLabelDetails = function(x, y) {
-    var best, bestSquaredDistance, d, i, len, meta, ref, squaredDistance;
-    if (this.labelsEnabled()) {
-      best = void 0;
-      bestSquaredDistance = 0;
-      ref = filter(this.data());
-      for (i = 0, len = ref.length; i < len; i++) {
-        d = ref[i];
-        squaredDistance = (this.axis.xScale.apply(d.x) - x) * (this.axis.xScale.apply(d.x) - x) + (this.axis.yScale.apply(d.y) - y) * (this.axis.yScale.apply(d.y) - y);
-        if (best === void 0 || squaredDistance < bestSquaredDistance) {
-          best = d;
-          bestSquaredDistance = squaredDistance;
-        }
-      }
-      if (best) {
-        meta = {
-          series: this,
-          title: this.title(),
-          x: this.axis.xScale.apply(best.x),
-          y: this.axis.yScale.apply(best.y),
-          color: best.color || this.fillColor(),
-          values: this.labelValuesExtractor()(this, best)
-        };
-        return [meta];
-      }
-    } else {
-      return [];
-    }
-  };
-
-  return ScatterSeries;
-
-})(Series);
-
-var StraightLineSeries,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-StraightLineSeries = (function(superClass) {
-  var endpoints;
-
-  extend(StraightLineSeries, superClass);
-
-  function StraightLineSeries(options) {
-    StraightLineSeries.__super__.constructor.call(this, hx.merge({
-      strokeColor: hx.theme.plot.colors[4],
-      data: {}
-    }, options));
-    this._.type = 'straight-line';
-  }
-
-  StraightLineSeries.prototype.strokeColor = optionSetterGetter('strokeColor');
-
-  StraightLineSeries.prototype.legendColor = function() {
-    return this._.options.strokeColor;
-  };
-
-  StraightLineSeries.prototype.updateSvg = function(fillLayer, sparseLayer) {
-    var data, self;
-    data = endpoints.call(this);
-    if (data) {
-      self = this;
-      return hx.select(sparseLayer).view('.hx-series-data', 'line').update(function(d) {
-        return this["class"]('hx-series-data hx-series-constant ' + self["class"]()).attr('x1', self.axis.xScale.apply(d[0].x)).attr('y1', self.axis.yScale.apply(d[0].y)).attr('x2', self.axis.xScale.apply(d[1].x)).attr('y2', self.axis.yScale.apply(d[1].y)).attr('d', d).attr('stroke', self.strokeColor());
-      }).apply([data]);
-    }
-  };
-
-  StraightLineSeries.prototype.getLabelDetails = function(x, y) {
-    var data, dx, dy, meta, xx, yy;
-    data = this.data();
-    if (this.labelsEnabled()) {
-      dx = data.dx || 0;
-      dy = data.dy || 0;
-      xx = this.axis.xScale.inverse(x);
-      yy = this.axis.yScale.inverse(y);
-      if (dx !== 0 && dy !== 0 && (data.x != null) && (data.y != null)) {
-        yy = data.y + (xx - data.x) * dy / dx;
-      } else if (data.x != null) {
-        xx = data.x;
-      } else if (data.y != null) {
-        yy = data.y;
-      }
-      if ((this.axis.xScale.domainMin < xx && xx < this.axis.xScale.domainMax) && (this.axis.yScale.domainMin < yy && yy < this.axis.yScale.domainMax)) {
-        meta = {
-          series: this,
-          title: this.title(),
-          x: this.axis.xScale.apply(xx),
-          y: this.axis.yScale.apply(yy),
-          color: this.strokeColor(),
-          values: this.labelValuesExtractor()(this, {
-            x: xx,
-            y: yy
-          })
-        };
-        return [meta];
-      } else {
-        return [];
-      }
-    } else {
-      return [];
-    }
-  };
-
-  endpoints = function() {
-    var data, domX1, domX2, domY1, domY2, domdx, domdy, dx, dy, i, j, len, len1, p1, p2, quotient, ref, ref1, results, results1, t, x, x0, x1, y, y0, y1;
-    data = this.data();
-    dx = data.dx || 0;
-    dy = data.dy || 0;
-    if (dx !== 0 && dy !== 0 && (data.x != null) && (data.y != null)) {
-      x = data.x || 0;
-      y = data.y || 0;
-      domX1 = this.axis.xScale.domainMin;
-      domX2 = this.axis.xScale.domainMax;
-      domY1 = this.axis.yScale.domainMin;
-      domY2 = this.axis.yScale.domainMax;
-      domdx = x - domX1;
-      domdy = y - domY1;
-      quotient = domdy * dx - dy * domdx;
-      p1 = (function() {
-        switch (false) {
-          case !(quotient > 0):
-            x0 = domX1;
-            t = (domX1 - x) / dx;
-            y0 = y + t * dy;
-            return {
-              x: x0,
-              y: y0
-            };
-          case quotient !== 0:
-            x0 = domX1;
-            y0 = domY1;
-            return {
-              x: x0,
-              y: y0
-            };
-          case !(quotient < 0):
-            y0 = domY1;
-            t = (domY1 - y) / dy;
-            x0 = x + t * dx;
-            return {
-              x: x0,
-              y: y0
-            };
-        }
-      })();
-      domdx = x - domX2;
-      domdy = y - domY2;
-      quotient = domdy * dx - dy * domdx;
-      p2 = (function() {
-        switch (false) {
-          case !(quotient < 0):
-            x1 = domX2;
-            t = (domX2 - x) / dx;
-            y1 = y + t * dy;
-            return {
-              x: x1,
-              y: y1
-            };
-          case quotient !== 0:
-            x1 = domX2;
-            y1 = domY2;
-            return {
-              x: x1,
-              y: y1
-            };
-          case !(quotient > 0):
-            y1 = domY2;
-            t = (domY2 - y) / dy;
-            x1 = x + t * dx;
-            return {
-              x: x1,
-              y: y1
-            };
-        }
-      })();
-      return [p1, p2];
-    } else if (data.x != null) {
-      ref = [this.axis.yScale.domainMin, this.axis.yScale.domainMax];
-      results = [];
-      for (i = 0, len = ref.length; i < len; i++) {
-        y = ref[i];
-        results.push({
-          x: data.x,
-          y: y
-        });
-      }
-      return results;
-    } else if (data.y != null) {
-      ref1 = [this.axis.xScale.domainMin, this.axis.xScale.domainMax];
-      results1 = [];
-      for (j = 0, len1 = ref1.length; j < len1; j++) {
-        x = ref1[j];
-        results1.push({
-          x: x,
-          y: data.y
-        });
-      }
-      return results1;
-    }
-  };
-
-  return StraightLineSeries;
-
-})(Series);
-
-var PieChart,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-PieChart = (function(superClass) {
-  var calculateTotal, clearLabels, defaultLabelFormatter, defaultLabelValuesExtractor, defaultSegmentTextFormatter, getClosestMeta, getSegmentSize, updateLabels;
-
-  extend(PieChart, superClass);
-
-  defaultLabelValuesExtractor = function(segment, ring, pie) {
-    return [
-      {
-        name: segment.name,
-        value: segment.size,
-        formatter: pie.labelFormatter()
-      }
-    ];
-  };
-
-  defaultSegmentTextFormatter = function(segment, segments) {
-    if (segment.size / hx.sum(segments.map(function(s) {
-      return s.size;
-    })) > 0.05) {
-      return segment.size;
-    } else {
-      return '';
-    }
-  };
-
-  defaultLabelFormatter = hx.format.si(2);
-
-  function PieChart(selector, options) {
-    this.selector = selector;
-    PieChart.__super__.constructor.apply(this, arguments);
-    hx.component.register(this.selector, this);
-    this._ = {
-      options: hx.merge({
-        segmentPadding: 0,
-        innerPadding: 0,
-        ringPadding: 0.1,
-        totalAngle: Math.PI * 2,
-        startAngle: 0,
-        fillColor: hx.theme.plot.colors[1],
-        labelsEnabled: true,
-        labelRenderer: hx.plot.label.standard,
-        labelValuesExtractor: defaultLabelValuesExtractor,
-        labelFormatter: defaultLabelFormatter,
-        segmentTextEnabled: false,
-        segmentTextFormatter: defaultSegmentTextFormatter,
-        legendEnabled: false,
-        legendLocation: 'auto'
-      }, options)
-    };
-  }
-
-  PieChart.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
-
-  PieChart.prototype.legendEnabled = optionSetterGetter('legendEnabled');
-
-  PieChart.prototype.legendLocation = optionSetterGetter('legendLocation');
-
-  PieChart.prototype.fillColor = optionSetterGetter('fillColor');
-
-  PieChart.prototype.segmentTextEnabled = optionSetterGetter('segmentTextEnabled');
-
-  PieChart.prototype.segmentTextFormatter = optionSetterGetter('segmentTextFormatter');
-
-  PieChart.prototype.labelValuesExtractor = optionSetterGetter('labelValuesExtractor');
-
-  PieChart.prototype.labelFormatter = optionSetterGetter('labelFormatter');
-
-  PieChart.prototype.labelRenderer = optionSetterGetter('labelRenderer');
-
-  PieChart.prototype.segmentPadding = optionSetterGetter('segmentPadding');
-
-  PieChart.prototype.innerPadding = optionSetterGetter('innerPadding');
-
-  PieChart.prototype.ringPadding = optionSetterGetter('ringPadding');
-
-  PieChart.prototype.totalAngle = optionSetterGetter('totalAngle');
-
-  PieChart.prototype.startAngle = optionSetterGetter('startAngle');
-
-  PieChart.prototype.data = optionSetterGetter('data');
-
-  calculateTotal = function(segments) {
-    var allZero, preTotal, total;
-    allZero = false;
-    preTotal = hx.sum(segments.map(function(x) {
-      return x.size;
-    }));
-    total = preTotal === 0 ? (allZero = true, segments.length) : hx.sum(segments.map(function(x) {
-      return getSegmentSize(x, preTotal);
-    }));
-    return {
-      total: total,
-      allZero: allZero
-    };
-  };
-
-  getSegmentSize = function(segment, total, allZero) {
-    if (allZero) {
-      return 1;
-    } else if (segment.size > 0) {
-      return segment.size;
-    } else {
-      return total / 100;
-    }
-  };
-
-  PieChart.prototype.render = function() {
-    var P, approxRingSize, data, diffX, diffY, enterChart, height, innerRadius, legendContainer, midpoint, outerRadius, r, radius, ringSize, segmentPadding, selection, self, startAngle, svgHeight, svgWidth, totalAngle, updateChart, updateRing, updateSegment, updateText, width;
-    self = this;
-    selection = hx.select(this.selector);
-    width = selection.width();
-    height = selection.height();
-    r = Math.min(width, height) / 2;
-    this.circle = {
-      x: width / 2,
-      y: height / 2,
-      r: r
-    };
-    startAngle = this.startAngle();
-    totalAngle = this.totalAngle();
-    P = Math.PI;
-    while (startAngle < 0) {
-      startAngle += 2 * P;
-    }
-    switch (false) {
-      case !(totalAngle === P && startAngle % (P / 2) === 0):
-        switch (false) {
-          case !(startAngle === 0 || startAngle % (2 * P) === 0 || startAngle % P === 0):
-            r = hx.clamp(0, height / 2, r * 2);
-            break;
-          case !(startAngle % (P * (3 / 2)) === 0 || startAngle % (P / 2) === 0):
-            r = hx.clamp(0, width / 2, r * 2);
-        }
-        switch (false) {
-          case !(startAngle === 0 || startAngle % (2 * P) === 0):
-            diffX = -r / 2;
-            diffY = 0;
-            break;
-          case startAngle % (P * (3 / 2)) !== 0:
-            diffX = 0;
-            diffY = r / 2;
-            break;
-          case startAngle % P !== 0:
-            diffX = r / 2;
-            diffY = 0;
-            break;
-          case startAngle % (P / 2) !== 0:
-            diffX = 0;
-            diffY = -r / 2;
-            break;
-          default:
-            diffX = 0;
-            diffY = 0;
-        }
-        this.circle.x += diffX;
-        this.circle.y += diffY;
-        this.circle.r = r;
-    }
-    data = this.data();
-    if (!Array.isArray(data)) {
-      data = [data];
-    }
-    approxRingSize = (r * (1 - this.innerPadding())) / data.length + (r * (1 - this.innerPadding()) / data.length * this.ringPadding() / data.length);
-    segmentPadding = approxRingSize * this.segmentPadding();
-    innerRadius = r * this.innerPadding();
-    radius = r - innerRadius;
-    outerRadius = r;
-    ringSize = radius / data.length + (radius / data.length * this.ringPadding() / data.length);
-    updateSegment = function(selection, size, color, runningTotal, total, ring, minimumInnerRadius) {
-      var actualInnerRadius, diameter, end, start, startOffset, straightInnerSegments;
-      startOffset = self.startAngle() + Math.PI * 1.5;
-      start = startOffset + runningTotal / total * self.totalAngle();
-      end = startOffset + (runningTotal + size) / total * self.totalAngle();
-      straightInnerSegments = ring === 0 && innerRadius === 0;
-      actualInnerRadius = straightInnerSegments ? Math.max(innerRadius + ringSize * ring, arcCurveMinimumRadius(start, end, segmentPadding)) : Math.max(innerRadius + ringSize * ring, minimumInnerRadius);
-      diameter = arcCurve(self.circle.x, self.circle.y, actualInnerRadius, innerRadius + ringSize * (ring + 1 - self.ringPadding()), start, end, segmentPadding, straightInnerSegments);
-      return selection.attr('d', diameter).attr('fill', color);
-    };
-    updateRing = function(d, e, i) {
-      var allZero, end, j, len, minimumInnerRadius, ref, ref1, runningTotal, segment, segments, size, start, startOffset, total;
-      segments = d.segments;
-      ref = calculateTotal(segments), total = ref.total, allZero = ref.allZero;
-      runningTotal = 0;
-      minimumInnerRadius = 0;
-      for (j = 0, len = segments.length; j < len; j++) {
-        segment = segments[j];
-        size = getSegmentSize(segment, total, allZero);
-        startOffset = self.startAngle() + Math.PI * 1.5;
-        start = startOffset + runningTotal / total * self.totalAngle();
-        end = startOffset + (runningTotal + size) / total * self.totalAngle();
-        minimumInnerRadius = Math.max(arcCurveMinimumRadius(start, end, segmentPadding), minimumInnerRadius);
-      }
-      ref1 = calculateTotal(segments), total = ref1.total, allZero = ref1.allZero;
-      runningTotal = 0;
-      return this.view('.hx-pie-segment', 'path').update(function(s) {
-        size = getSegmentSize(s, total, allZero);
-        updateSegment(this, size, s.fillColor, runningTotal, total, i, minimumInnerRadius);
-        return runningTotal += size;
-      }).apply(segments);
-    };
-    midpoint = function(size, runningTotal, total, ring, count) {
-      var end, start, startOffset;
-      startOffset = self.startAngle() + Math.PI * 1.5;
-      start = startOffset + runningTotal / total * self.totalAngle();
-      end = startOffset + (runningTotal + size) / total * self.totalAngle();
-      return {
-        x: self.circle.x + Math.cos((start + end) / 2) * (innerRadius + (ring + 0.5) * ringSize),
-        y: self.circle.y + Math.sin((start + end) / 2) * (innerRadius + (ring + 0.5) * ringSize)
-      };
-    };
-    updateText = function(d, e, i) {
-      var allZero, ref, runningTotal, segments, total;
-      segments = d.segments;
-      runningTotal = 0;
-      ref = calculateTotal(segments), total = ref.total, allZero = ref.allZero;
-      return this.view('.hx-pie-segment-text', 'text').update(function(s) {
-        var ref1, size, x, y;
-        size = getSegmentSize(s, total, allZero);
-        ref1 = midpoint(size, runningTotal, total, i, segments.length), x = ref1.x, y = ref1.y;
-        this.text(self.segmentTextFormatter()(s, segments)).attr('x', x).attr('y', y);
-        return runningTotal += size;
-      }).apply(segments);
-    };
-    enterChart = function(d) {
-      var labelGroup;
-      self.svgTarget = this.append('svg')["class"]('hx-graph');
-      self.plotTarget = self.svgTarget.append('g')["class"]('hx-plot');
-      labelGroup = self.svgTarget.append('g')["class"]('hx-label');
-      self.svgTarget.on('pointermove', 'hx.plot', function(p) {
-        var legendContainer, x, y;
-        x = Math.round(p.x - selection.box().left);
-        y = Math.round(p.y - selection.box().top);
-        if (self.labelsEnabled()) {
-          updateLabels(self, x, y);
-        }
-        if (self.legendEnabled()) {
-          legendContainer = self.svgTarget.select('.hx-legend-container');
-          if (self.legendLocation() === 'hover') {
-            legendContainer.style('display', '');
-          }
-          if (self.legendLocation() === 'auto' || self.legendLocation() === 'hover') {
-            width = self.svgTarget.width();
-            height = self.svgTarget.height();
-            if (x < width / 2) {
-              return legendContainer.attr('transform', 'translate(' + (width - 10 - legendContainer.width()) + ', 10)');
-            } else {
-              return legendContainer.attr('transform', 'translate(10, 10)');
-            }
-          }
-        }
-      });
-      self.svgTarget.on('pointerleave', 'hx.plot', function() {
-        if (self.legendEnabled() && self.legendLocation() === 'hover') {
-          return self.svgTarget.select('.hx-legend-container').style('display', 'none');
-        }
-      });
-      self.svgTarget.on('click', 'hx.plot', function(p) {
-        if (self.closestMeta != null) {
-          return self.emit('click', {
-            event: p,
-            data: self.closestMeta.values,
-            series: self.closestMeta.series
-          });
-        }
-      });
-      return self.svgTarget.node();
-    };
-    updateChart = function(d) {
-      data = d.data();
-      if (!Array.isArray(data)) {
-        data = [data];
-      }
-      this.select('.hx-plot').view('.hx-pie-ring', 'g').update(updateRing).apply(data);
-      return this.select('.hx-plot').view('.hx-pie-text', 'g').update(updateText).apply(self.segmentTextEnabled() ? data : []);
-    };
-    selection.view('.hx-graph', 'svg').enter(enterChart).update(updateChart).apply(this);
-    svgWidth = Number(this.svgTarget.style('width').slice(0, -2));
-    svgHeight = Number(this.svgTarget.style('height').slice(0, -2));
-    if (this.legendEnabled()) {
-      legendContainer = this.svgTarget.select('.hx-legend-container');
-      if (legendContainer.size() === 0) {
-        legendContainer = this.svgTarget.append('g')["class"]('hx-legend-container');
-      }
-      data = this.data();
-      if (!Array.isArray(data)) {
-        data = [data];
-      }
-      populateLegendSeries(legendContainer, hx.flatten(data.map(function(d) {
-        return d.segments;
-      })));
-      switch (this.legendLocation()) {
-        case 'top-left':
-          return legendContainer.attr('transform', 'translate(10, 10)');
-        case 'bottom-right':
-          return legendContainer.attr('transform', 'translate(' + (width - 10 - legendContainer.width()) + ',' + (height - 5 - legendContainer.height()) + ')');
-        case 'bottom-left':
-          return legendContainer.attr('transform', 'translate(10, ' + (height - 5 - legendContainer.height()) + ')');
-        case 'hover':
-          return legendContainer.style('display', 'none');
-        default:
-          return legendContainer.attr('transform', 'translate(' + (width - 10 - legendContainer.width()) + ', 10)');
-      }
-    } else {
-      return this.svgTarget.select('.hx-legend-container').remove();
-    }
-  };
-
-  getClosestMeta = function(pie, x, y) {
-    var a1, a2, allZero, angle, approxRingSize, chosenSegment, chosenSegmentAngleEnd, chosenSegmentAngleMid, chosenSegmentAngleStart, cx, cy, data, end, height, innerRadius, j, labelRadius, labelX, labelY, len, outerRadius, r, radius, ref, ref1, ring, ringSize, runningTotal, segment, segmentPadding, selection, size, start, total, whichRing, width;
-    data = pie.data();
-    if (!Array.isArray(data)) {
-      data = [data];
-    }
-    selection = hx.select(pie.selector);
-    width = selection.width();
-    height = selection.height();
-    r = pie.circle.r;
-    approxRingSize = (r * (1 - pie.innerPadding())) / pie.data.length + (r * (1 - pie.innerPadding()) / data.length * pie.ringPadding() / data.length);
-    segmentPadding = approxRingSize * pie.segmentPadding();
-    innerRadius = r * pie.innerPadding();
-    radius = r - innerRadius;
-    outerRadius = r;
-    ringSize = radius / data.length + (radius / data.length * pie.ringPadding() / data.length);
-    cx = pie.circle.x;
-    cy = pie.circle.y;
-    r = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
-    if (r < innerRadius || r > outerRadius) {
-      return;
-    }
-    whichRing = hx.clamp(0, data.length - 1, Math.floor((r + pie.ringPadding() * ringSize / 2 - innerRadius) / ringSize));
-    ring = data[whichRing];
-    angle = (Math.atan2(y - cy, x - cx) + Math.PI * 0.5) - pie.startAngle();
-    if (angle < 0) {
-      angle += Math.PI * 2;
-    }
-    chosenSegment = void 0;
-    runningTotal = 0;
-    ref = calculateTotal(ring.segments), total = ref.total, allZero = ref.allZero;
-    ref1 = ring.segments;
-    for (j = 0, len = ref1.length; j < len; j++) {
-      segment = ref1[j];
-      size = getSegmentSize(segment, total, allZero);
-      a1 = runningTotal / total * pie.totalAngle();
-      a2 = (runningTotal + size) / total * pie.totalAngle();
-      start = Math.min(a1, a2);
-      end = Math.max(a1, a2);
-      if ((start < angle && angle < end)) {
-        chosenSegment = segment;
-        chosenSegmentAngleStart = start;
-        chosenSegmentAngleEnd = end;
-        chosenSegmentAngleMid = (end - start) / 2 + start - (Math.PI / 2) + pie.startAngle();
-        break;
-      }
-      runningTotal += size;
-    }
-    if (chosenSegment) {
-      labelRadius = (ringSize * whichRing) + ((radius / data.length) / 2) + innerRadius;
-      labelX = cx + (labelRadius * Math.cos(chosenSegmentAngleMid));
-      labelY = cy + (labelRadius * Math.sin(chosenSegmentAngleMid));
-      return {
-        series: ring,
-        title: ring.title,
-        color: chosenSegment.fillColor || pie.fillColor(),
-        x: labelX,
-        y: labelY,
-        bounding: {
-          x1: 0,
-          x2: width,
-          y1: 0,
-          y2: height
-        },
-        values: pie.labelValuesExtractor()(chosenSegment, ring, pie)
-      };
-    }
-  };
-
-  clearLabels = function() {
-    return hx.select('body').select('.hx-plot-label-container').clear();
-  };
-
-  updateLabels = function(pie, x, y) {
-    var bestMeta, updateLabel;
-    updateLabel = function(data, element) {
-      hx.select(element).style('left', Math.round(window.pageXOffset + pie.svgTarget.box().left + data.x) + 'px').style('top', Math.round(window.pageYOffset + pie.svgTarget.box().top + data.y) + 'px');
-      return pie.labelRenderer()(element, data);
-    };
-    bestMeta = getClosestMeta(pie, x, y);
-    if (hx.select('body').select('.hx-plot-label-container').empty()) {
-      hx.select('body').append('div')["class"]('hx-plot-label-container');
-    }
-    return hx.select('body').select('.hx-plot-label-container').view('.hx-plot-label', 'div').update(updateLabel).apply(bestMeta ? bestMeta : []);
-  };
-
-  return PieChart;
-
-})(hx.EventEmitter);
-
-var hx_plot_label;
-
-hx_plot_label = {};
-
-hx_plot_label.standard = function(element, meta) {
-  var createEntry, details, header, midX, midY;
-  createEntry = function(value) {
-    return hx.detached('div')["class"]('hx-plot-label-details-entry').add(hx.detached('span')["class"]('hx-plot-label-details-entry-key').text(value.name)).add(hx.detached('span')["class"]('hx-plot-label-details-entry-value').text(value.formatter(value.value)));
-  };
-  header = hx.detached('div')["class"]('hx-plot-label-marker').style('background', meta.color);
-  details = hx.detached('div')["class"]('hx-plot-label-details').add(hx.detached('div')["class"]('hx-plot-label-details-header').text(meta.title)).add(meta.values.map(createEntry));
-  midX = (meta.bounding.x1 + meta.bounding.x2) / 2;
-  midY = (meta.bounding.y1 + meta.bounding.y2) / 2;
-  details.classed('hx-plot-label-details-left', meta.x >= midX);
-  details.classed('hx-plot-label-details-bottom', meta.y >= midY);
-  return hx.select(element).clear().add(header).add(details);
-};
-
-hx_plot_label.basic = function(element, meta) {
-  var details, marker, midX, midY, value;
-  marker = hx.detached('div')["class"]('hx-plot-label-marker').style('background', meta.color);
-  value = meta.values[1];
-  midX = (meta.bounding.x1 + meta.bounding.x2) / 2;
-  midY = (meta.bounding.y1 + meta.bounding.y2) / 2;
-  details = hx.detached('div')["class"]('hx-plot-label-details-basic').classed('hx-plot-label-details-left', meta.x >= midX).classed('hx-plot-label-details-bottom', meta.y >= midY).text(value.formatter(value.value));
-  return hx.select(element).clear().add(marker).add(details);
-};
-
-var Sparkline;
-
-Sparkline = (function() {
-  function Sparkline(selector, options) {
-    var axis, graph, innerLabelRenderer, opts, series;
-    opts = hx.merge.defined({
-      strokeColor: hx.theme.plot.colors[0],
-      data: [],
-      type: 'line',
-      labelRenderer: function(element, obj) {
-        return hx.select(element).text(obj.y + ' (' + obj.x + ')');
-      }
-    }, options);
-    innerLabelRenderer = function(element, meta) {
-      var details, labelNode, marker, midX, midY, xValue, yValue;
-      marker = hx.detached('div')["class"]('hx-plot-label-marker').style('background', meta.color);
-      xValue = meta.values[0];
-      yValue = meta.values[1];
-      midX = (meta.bounding.x1 + meta.bounding.x2) / 2;
-      midY = (meta.bounding.y1 + meta.bounding.y2) / 2;
-      labelNode = hx.detached('div').node();
-      opts.labelRenderer(labelNode, {
-        x: xValue.value,
-        y: yValue.value
-      });
-      details = hx.detached('div')["class"]('hx-plot-label-details-basic').classed('hx-plot-label-details-left', meta.x >= midX).classed('hx-plot-label-details-bottom', meta.y >= midY).add(hx.detached('span')["class"]('hx-plot-label-sparkline-x').add(labelNode));
-      return hx.select(element).clear().add(marker).add(details);
-    };
-    hx.components.clear(selector);
-    hx.component.register(selector, this);
-    graph = new hx.Graph(selector);
-    if (opts.type !== 'bar' && opts.type !== 'line') {
-      hx.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"');
-      this.render = function() {
-        return graph.render();
-      };
-      return;
-    }
-    axis = graph.addAxis({
-      x: {
-        scaleType: opts.type === 'bar' ? 'discrete' : 'linear',
-        visible: false
-      },
-      y: {
-        visible: false,
-        scalePaddingMin: 0.1,
-        scalePaddingMax: 0.1
-      }
-    });
-    series = axis.addSeries(opts.type, {
-      fillEnabled: true,
-      labelRenderer: innerLabelRenderer
-    });
-    this._ = {
-      options: opts,
-      graph: graph,
-      series: series
-    };
-  }
-
-  Sparkline.prototype.data = optionSetterGetter('data');
-
-  Sparkline.prototype.fillColor = optionSetterGetter('fillColor');
-
-  Sparkline.prototype.strokeColor = optionSetterGetter('strokeColor');
-
-  Sparkline.prototype.labelRenderer = optionSetterGetter('labelRenderer');
-
-  Sparkline.prototype.render = function() {
-    var self;
-    self = this;
-    this._.series.data(this.data());
-    if (this.fillColor() != null) {
-      this._.series.fillColor(this.fillColor());
-    }
-    if (this._.options.type === 'line') {
-      this._.series.strokeColor(this.strokeColor());
-    }
-    return this._.graph.render();
-  };
-
-  return Sparkline;
-
-})();
-
-hx.plot = {};
-
-hx.plot.label = hx_plot_label;
-
-hx.plot.arcCurve = arcCurve;
-
-hx.plot.svgCurve = svgCurve;
-
-hx.Axis = Axis;
-
-hx.Graph = Graph;
-
-hx.graph = function(options) {
-  var graph, selection;
-  selection = new hx.detached('div');
-  graph = new Graph(selection.node(), options);
-  return selection;
-};
-
-hx.LineSeries = LineSeries;
-
-hx.BandSeries = BandSeries;
-
-hx.ScatterSeries = ScatterSeries;
-
-hx.BarSeries = BarSeries;
-
-hx.StraightLineSeries = StraightLineSeries;
-
-hx.pieChart = function(options) {
-  var pieChart, selection;
-  selection = hx.detached('div');
-  pieChart = new PieChart(selection.node(), options);
-  pieChart.render();
-  return selection;
-};
-
-hx.PieChart = PieChart;
-
-hx.sparkline = function(options) {
-  var selection, sparkline;
-  selection = hx.detached('div').classed('hx-sparkline', true);
-  sparkline = new Sparkline(selection.node(), options);
-  sparkline.render();
-  return selection;
-};
-
-hx.Sparkline = Sparkline;
-
-})();
-(function(){
-var StickyTableHeaders, cloneEvents, createStickyHeaderNodes, getChildren, getChildrenFromTable, updateHeaderPositions, updateScrollIndicators;
-
-updateScrollIndicators = function(wrapper, top, right, bottom, left) {
-  var canScrollDown, canScrollLeft, canScrollRight, canScrollUp, node;
-  node = wrapper.node();
-  canScrollUp = node.scrollTop > 0;
-  canScrollDown = node.scrollTop < node.scrollHeight - node.clientHeight;
-  canScrollLeft = node.scrollLeft > 0;
-  canScrollRight = node.scrollLeft < node.scrollWidth - node.clientWidth;
-  top.style('display', canScrollUp ? 'block' : '');
-  right.style('display', canScrollRight ? 'block' : '');
-  bottom.style('display', canScrollDown ? 'block' : '');
-  return left.style('display', canScrollLeft ? 'block' : '');
-};
-
-updateHeaderPositions = function(container) {
-  var leftNode, leftOffset, node, topNode, topOffset;
-  node = getChildren(container, '.hx-sticky-table-wrapper')[0];
-  leftOffset = -node.scrollLeft;
-  topOffset = -node.scrollTop;
-  topNode = getChildren(container, '.hx-sticky-table-header-top')[0];
-  if (topNode != null) {
-    hx.select(topNode).select('.hx-table').style('left', leftOffset + 'px');
-  }
-  leftNode = getChildren(container, '.hx-sticky-table-header-left')[0];
-  if (leftNode != null) {
-    return hx.select(leftNode).select('.hx-table').style('top', topOffset + 'px');
-  }
-};
-
-cloneEvents = function(elem, clone) {
-  var cloneChildren, cloneElem, cloneEmitter, elemChildren, elemData, i, j, k, len, listener, listenerNamesRegistered, origEmitter, ref, ref1, results;
-  if ((elem != null) && (clone != null)) {
-    elemData = hx.select.getHexagonElementDataObject(elem);
-    listenerNamesRegistered = (ref = elemData.listenerNamesRegistered) != null ? ref.values() : void 0;
-    if (listenerNamesRegistered && listenerNamesRegistered.length > 0) {
-      origEmitter = elemData.eventEmitter;
-      cloneElem = hx.select(clone);
-      for (j = 0, len = listenerNamesRegistered.length; j < len; j++) {
-        listener = listenerNamesRegistered[j];
-        cloneElem.on(listener, function() {});
-      }
-      cloneEmitter = hx.select.getHexagonElementDataObject(clone).eventEmitter;
-      cloneEmitter.pipe(origEmitter);
-    }
-    elemChildren = elem.childNodes;
-    if (elemChildren) {
-      cloneChildren = clone.childNodes;
-      results = [];
-      for (i = k = 0, ref1 = elemChildren.length; 0 <= ref1 ? k <= ref1 : k >= ref1; i = 0 <= ref1 ? ++k : --k) {
-        results.push(cloneEvents(elemChildren[i], cloneChildren[i]));
-      }
-      return results;
-    }
-  }
-};
-
-getChildrenFromTable = function(t, body, single) {
-  var realParents;
-  realParents = getChildren(t.select(body ? 'tbody' : 'thead'), 'tr');
-  return hx.flatten(realParents.map(function(parent) {
-    return getChildren(hx.select(parent), 'th, td', single);
-  }));
-};
-
-getChildren = function(parent, selector, single) {
-  var children;
-  children = single ? parent.select(selector) : parent.selectAll(selector);
-  return children.filter(function(node) {
-    return node.node().parentNode === parent.node();
-  }).nodes;
-};
-
-createStickyHeaderNodes = function(real, cloned) {
-  var i, j, ref, results;
+setupInner = function(menu, dropdownData, current) {
+  var datum, it, j, len, results;
+  current._.menuItems = [];
   results = [];
-  for (i = j = 0, ref = real.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-    cloneEvents(real[i], cloned[i]);
-    results.push(hx.select(real[i]).classed('hx-sticky-table-invisible', true));
+  for (j = 0, len = dropdownData.length; j < len; j++) {
+    datum = dropdownData[j];
+    it = addItem(datum, current, menu);
+    if (datum.children) {
+      results.push(setupInner(menu, datum.children, it));
+    } else {
+      results.push(void 0);
+    }
   }
   return results;
 };
 
-StickyTableHeaders = (function() {
-  function StickyTableHeaders(selector, options) {
-    var bottomIndicator, container, leftIndicator, resolvedOptions, rightIndicator, selection, self, showScrollIndicators, table, tableIsRootElement, topIndicator, wrapper;
-    hx.component.register(selector, this);
-    resolvedOptions = hx.merge.defined({
-      stickTableHead: true,
-      stickFirstColumn: false,
-      useResponsive: true,
-      fullWidth: void 0,
-      containerClass: void 0
-    }, options);
-    selection = hx.select(selector);
-    table = selection.classed('hx-table') || selection.node().nodeName.toLowerCase() === 'table' ? (tableIsRootElement = true, selection) : (tableIsRootElement = false, selection.select('.hx-table'));
-    if (table.classed('hx-table-full') && (options.fullWidth == null)) {
-      options.fullWidth = true;
-    }
-    if (resolvedOptions.stickTableHead && table.select('thead').selectAll('tr').empty()) {
-      hx.consoleWarning('hx.StickyTableHeaders - ' + selector, 'Sticky table headers initialized with stickTableHead of true without a thead element present');
-      resolvedOptions.stickTableHead = false;
-    }
-    if (resolvedOptions.stickFirstColumn && table.select('tbody').select('tr').selectAll('th, td').empty()) {
-      hx.consoleWarning('hx.StickyTableHeaders - ' + selector, 'Sticky table headers initialized with stickFirstColumn of true without any columns to stick');
-      resolvedOptions.stickFirstColumn = false;
-    }
-    container = tableIsRootElement ? table.insertAfter('div')["class"]('hx-sticky-table-headers') : selection.classed('hx-sticky-table-headers', true);
-    if (resolvedOptions.containerClass) {
-      container.classed(resolvedOptions.containerClass, true);
-    }
-    wrapper = container.append('div')["class"]('hx-sticky-table-wrapper');
-    wrapper.append(table);
-    showScrollIndicators = hx.scrollbarSize() === 0;
-    if (showScrollIndicators) {
-      topIndicator = container.append('div')["class"]('hx-sticky-table-scroll-top');
-      rightIndicator = container.append('div')["class"]('hx-sticky-table-scroll-right');
-      bottomIndicator = container.append('div')["class"]('hx-sticky-table-scroll-bottom');
-      leftIndicator = container.append('div')["class"]('hx-sticky-table-scroll-left');
-    }
-    wrapper.on('scroll', 'hx.sticky-table-headers', function() {
-      if (showScrollIndicators) {
-        updateScrollIndicators(wrapper, topIndicator, rightIndicator, bottomIndicator, leftIndicator);
+populateNode = function(node, items) {
+  return hx.select(node).view('.hx-menu-item').update(function(d, element) {
+    return d.build(element);
+  }).apply(items);
+};
+
+getAllItems = function(menu) {
+  var allItems, pushItems;
+  allItems = [];
+  pushItems = function(arr, parentIndex) {
+    return arr.forEach(function(d, i) {
+      d.parentIndex = parentIndex;
+      allItems.push(d);
+      if (d._.menuItems) {
+        return pushItems(d._.menuItems, i);
       }
-      return updateHeaderPositions(container);
     });
-    this._ = {
-      options: resolvedOptions,
-      container: container,
-      wrapper: wrapper,
-      table: table,
-      selection: selection,
-      showScrollIndicators: showScrollIndicators
-    };
-    this.render();
-    if (resolvedOptions.useResponsive) {
-      self = this;
-      container.on('resize', 'hx.sticky-table-headers', function() {
-        self.render();
-        return setTimeout((function() {
-          return self.render();
-        }), 100);
-      });
-    }
-  }
-
-  StickyTableHeaders.prototype.render = function() {
-    var _, background, bottomIndicator, clonedNodes, container, hasHorizontalScroll, hasVerticalScroll, heightScrollbarOffset, leftHead, leftIndicator, leftTable, offsetHeight, offsetWidth, offsetWidthElem, options, origScroll, realNodes, rightIndicator, scrollOffsetHeight, scrollOffsetWidth, table, tableBox, tableClone, topHead, topIndicator, topLeftHead, topLeftTable, topTable, totalHeight, totalWidth, widthScrollbarOffset, wrapper, wrapperBox, wrapperNode;
-    _ = this._;
-    container = _.container;
-    wrapper = _.wrapper;
-    wrapperNode = wrapper.node();
-    table = _.table;
-    options = _.options;
-    origScroll = wrapperNode.scrollTop;
-    container.style('height', void 0).style('width', void 0);
-    wrapper.style('height', void 0).style('width', void 0).style('margin-top', void 0).style('margin-left', void 0).style('max-width', void 0).style('max-height', void 0);
-    table.style('margin-top', void 0).style('margin-left', void 0).style('min-width', void 0).style('min-height', void 0);
-    offsetHeight = 0;
-    offsetWidth = 0;
-    if (options.fullWidth) {
-      table.style('width', '100%');
-    }
-    if (options.stickTableHead) {
-      offsetHeight = table.select('thead').height();
-    }
-    if (options.stickFirstColumn) {
-      offsetWidthElem = hx.select(table.select('tbody').select('tr').select('th, td').nodes[0]);
-      offsetWidth = offsetWidthElem.width();
-    }
-    totalHeight = container.style('height').replace('px', '') - offsetHeight;
-    totalWidth = container.style('width').replace('px', '') - offsetWidth;
-    wrapper.style('width', totalWidth + 'px').style('height', totalHeight + 'px').style('margin-top', offsetHeight + 'px').style('margin-left', offsetWidth + 'px');
-    table.style('margin-top', -offsetHeight + 'px').style('margin-left', -offsetWidth + 'px');
-    tableBox = table.box();
-    hasVerticalScroll = wrapperNode.scrollHeight > wrapperNode.clientHeight;
-    hasHorizontalScroll = wrapperNode.scrollWidth > wrapperNode.clientWidth;
-    heightScrollbarOffset = hasHorizontalScroll ? hx.scrollbarSize() : 0;
-    widthScrollbarOffset = hasVerticalScroll ? hx.scrollbarSize() : 0;
-    wrapperBox = wrapper.box();
-    if (options.fullWidth) {
-      table.style('width', void 0).style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset - 1 + 'px');
-    } else {
-      wrapper.style('max-width', tableBox.width - offsetWidth + widthScrollbarOffset + 'px').style('max-height', tableBox.height - offsetHeight + heightScrollbarOffset + 'px');
-    }
-    tableClone = table.clone(true).style('height', table.style('height')).style('width', table.style('width'));
-    if (options.stickTableHead) {
-      topHead = container.select('.hx-sticky-table-header-top');
-      if (topHead.empty()) {
-        topHead = container.prepend('div')["class"]('hx-sticky-table-header-top');
-        if (!_.showScrollIndicators && options.fullWidth) {
-          background = table.select('th').style('background-color');
-          topHead.style('background-color', background);
-        }
-      }
-      topHead.clear();
-      topTable = topHead.append(tableClone.clone(true));
-      realNodes = getChildrenFromTable(table);
-      clonedNodes = getChildrenFromTable(topTable);
-      createStickyHeaderNodes(realNodes, clonedNodes);
-    }
-    if (options.stickFirstColumn) {
-      leftHead = container.select('.hx-sticky-table-header-left');
-      if (leftHead.empty()) {
-        leftHead = container.prepend('div')["class"]('hx-sticky-table-header-left');
-        if (!_.showScrollIndicators && options.fullWidth) {
-          background = table.select('th').style('background-color');
-          leftHead.style('background-color', background);
-        }
-      }
-      leftHead.clear();
-      leftTable = leftHead.append(tableClone.clone(true));
-      realNodes = getChildrenFromTable(table, true, true);
-      clonedNodes = getChildrenFromTable(leftTable, true, true);
-      createStickyHeaderNodes(realNodes, clonedNodes);
-    }
-    if (options.stickTableHead && options.stickFirstColumn) {
-      topLeftHead = container.select('.hx-sticky-table-header-top-left');
-      if (topLeftHead.empty()) {
-        topLeftHead = container.prepend('div')["class"]('hx-sticky-table-header-top-left');
-      }
-      topLeftHead.clear();
-      topLeftTable = topLeftHead.append(tableClone.clone(true));
-      realNodes = getChildrenFromTable(table, false, true);
-      clonedNodes = getChildrenFromTable(topLeftTable, false, true);
-      createStickyHeaderNodes(realNodes, clonedNodes);
-    }
-    if (topHead != null) {
-      topHead.style('height', offsetHeight + 'px').style('width', wrapperBox.width + 'px').style('left', offsetWidth + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
-    }
-    if (topTable != null) {
-      topTable.style('margin-left', -offsetWidth + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
-    }
-    if (leftHead != null) {
-      leftHead.style('height', wrapperBox.height + 'px').style('width', offsetWidth + 'px').style('top', offsetHeight + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
-    }
-    if (leftTable != null) {
-      leftTable.style('margin-top', -offsetHeight + 'px');
-    }
-    if (topLeftHead != null) {
-      topLeftHead.style('width', (leftHead != null ? leftHead.style('width') : void 0) || offsetWidth + 'px').style('height', (topHead != null ? topHead.style('height') : void 0) || offsetHeight + 'px').selectAll('.hx-sticky-table-invisible').classed('hx-sticky-table-invisible', false);
-    }
-    wrapperNode.scrollTop = origScroll;
-    if (_.showScrollIndicators) {
-      scrollOffsetWidth = offsetWidth - 1;
-      scrollOffsetHeight = offsetHeight - 1;
-      topIndicator = container.select('.hx-sticky-table-scroll-top').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
-      rightIndicator = container.select('.hx-sticky-table-scroll-right').style('top', scrollOffsetHeight + 'px').style('height', wrapperBox.height + 'px');
-      bottomIndicator = container.select('.hx-sticky-table-scroll-bottom').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
-      leftIndicator = container.select('.hx-sticky-table-scroll-left').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('height', wrapperBox.height + 'px');
-      updateScrollIndicators(wrapper, topIndicator, rightIndicator, bottomIndicator, leftIndicator);
-    }
-    return updateHeaderPositions(container);
   };
+  pushItems(menu._.menuItems);
+  return allItems;
+};
 
-  return StickyTableHeaders;
-
-})();
-
-hx.StickyTableHeaders = StickyTableHeaders;
-
-})();
-(function(){
-var Picker, setValue,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-setValue = function(picker, value, items, cause) {
-  var i, item, len, newVal;
-  if (cause == null) {
-    cause = 'api';
+setActive = function(menu, pos, up, click) {
+  var allItems, collapsibleHeading, content, dNode, ddScroll, goUp, isEnabled, itemHeight, mNode, menuNode, node, offset, parentNode, parentOffset, ref, ref1, ref2, ref3, selectedItem, totalOffset;
+  if ((ref = menu.dropdown._.dropdown) != null) {
+    ref.selectAll('.hx-menu-item').classed('hx-menu-active', false);
   }
-  newVal = void 0;
-  for (i = 0, len = items.length; i < len; i++) {
-    item = items[i];
-    if (item === value || (hx.isObject(item) && (item.value === value || item.value === (value != null ? value.value : void 0)))) {
-      newVal = item;
-      break;
+  if (pos >= 0) {
+    allItems = getAllItems(menu);
+    node = allItems[pos].node;
+    content = (ref1 = allItems[pos]) != null ? ref1.content : void 0;
+    isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
+    while ((node.offsetParent === null || !isEnabled) && !click) {
+      if (up) {
+        pos -= 1;
+      } else {
+        pos += 1;
+      }
+      content = (ref2 = allItems[pos]) != null ? ref2.content : void 0;
+      isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
+      if (allItems[pos] != null) {
+        node = allItems[pos].node;
+      } else {
+        goUp = true;
+        break;
+      }
+    }
+    if (goUp && !up) {
+      setActive(menu, pos - 1, true);
+      return void 0;
+    } else {
+      menu.cursorPos = pos;
+      if (((dNode = (ref3 = menu.dropdown._.dropdown) != null ? ref3.node() : void 0) != null) && !click) {
+        menuNode = hx.select(node).classed('hx-menu-active', true);
+        mNode = menuNode.node();
+        offset = mNode.offsetTop;
+        collapsibleHeading = menuNode.select('.hx-menu-collapsible');
+        itemHeight = collapsibleHeading.size() > 0 ? collapsibleHeading.node().clientHeight : mNode.clientHeight;
+        parentNode = hx.select(mNode.parentNode);
+        parentOffset = parentNode.classed('hx-collapsible-content') ? parentNode.node().offsetTop : 0;
+        totalOffset = offset + itemHeight + parentOffset;
+        ddScroll = totalOffset > dNode.clientHeight ? totalOffset - dNode.clientHeight : 0;
+        dNode.scrollTop = ddScroll;
+      }
     }
   }
-  if (newVal != null) {
-    picker.options.renderer(picker.selectedText.node(), newVal);
-  } else {
-    picker.selectedText.text(picker.options.noValueText);
+  if ((selectedItem = allItems != null ? allItems[menu.cursorPos] : void 0) != null) {
+    emitItem(menu, selectedItem, 'highlight', click ? 'click' : 'arrow');
+    if (click) {
+      return emitItem(menu, selectedItem, 'change', 'click');
+    }
   }
-  if (picker.current !== newVal) {
-    picker.current = newVal;
-    return picker.emit('change', {
-      value: newVal,
-      cause: cause
+};
+
+moveSelectionUp = function(menu) {
+  var pos;
+  pos = menu.cursorPos;
+  if (pos > 0) {
+    pos -= 1;
+  } else if (pos === 0) {
+    pos = -1;
+  }
+  menu.cursorPos = pos;
+  return setActive(menu, pos, true);
+};
+
+moveSelectionDown = function(menu) {
+  var allItems, pos;
+  pos = menu.cursorPos;
+  allItems = getAllItems(menu);
+  if (pos < allItems.length - 1) {
+    pos += 1;
+  }
+  menu.cursorPos = pos;
+  return setActive(menu, pos, false);
+};
+
+toggleCollapsible = function(collapsible, force, cb) {
+  switch (force) {
+    case true:
+      return collapsible.show(true, cb);
+    case false:
+      return collapsible.hide(true, cb);
+    default:
+      return collapsible.toggle(true, cb);
+  }
+};
+
+dealWithEvent = function(menu, force, eventType) {
+  var allItems, pos, ref, selectedItem;
+  if (eventType == null) {
+    eventType = 'enter';
+  }
+  if (eventType === 'tab') {
+    pos = Math.max(menu.cursorPos, 0);
+  } else {
+    pos = menu.cursorPos;
+  }
+  allItems = getAllItems(menu);
+  selectedItem = allItems[pos];
+  if ((force != null) && !force && ((selectedItem != null ? (ref = selectedItem.parent) != null ? ref.collapsible : void 0 : void 0) != null)) {
+    return toggleCollapsible(selectedItem.parent.collapsible, force, function() {
+      if (!selectedItem._.menuItems) {
+        return moveSelectionUp(menu);
+      }
+    });
+  } else if ((selectedItem != null ? selectedItem.collapsible : void 0) != null) {
+    return toggleCollapsible(selectedItem.collapsible, force);
+  } else if (((force != null) && force) || (force == null)) {
+    return emitItem(menu, selectedItem, 'change', eventType);
+  }
+};
+
+emitItem = function(menu, item, type, eventType) {
+  if (menu.has(type)) {
+    return menu.emit(type, {
+      eventType: eventType,
+      content: item != null ? item.content : void 0,
+      menu: menu
     });
   }
 };
 
-Picker = (function(superClass) {
-  extend(Picker, superClass);
+checkEvent = function(e, self) {
+  switch (e.which) {
+    case 9:
+      dealWithEvent(self, void 0, 'tab');
+      break;
+    case 13:
+      e.preventDefault();
+      dealWithEvent(self, void 0);
+      break;
+    case 37:
+      dealWithEvent(self, false);
+      break;
+    case 38:
+      e.preventDefault();
+      moveSelectionUp(self);
+      break;
+    case 39:
+      dealWithEvent(self, true);
+      break;
+    case 40:
+      e.preventDefault();
+      moveSelectionDown(self);
+  }
+  return self.emit('input', e);
+};
 
-  function Picker(selector, options) {
-    var button;
+MenuItem = (function() {
+  function MenuItem(content1, parent, menu1) {
+    this.content = content1;
+    this.parent = parent;
+    this.menu = menu1;
+    this._ = {};
+  }
+
+  MenuItem.prototype.build = function(container) {
+    var collapsibleNode, contentNode, headerNode, linkEnabled, ref;
+    this.node = container;
+    container = hx.select(container);
+    if (((ref = this._.menuItems) != null ? ref.length : void 0) > 0) {
+      container.view('.hx-collapsible').apply(this);
+      collapsibleNode = container.select('.hx-collapsible');
+      collapsibleNode.view('.hx-collapsible-heading').apply(this);
+      collapsibleNode.view('.hx-collapsible-content').update(function() {
+        return this.style('display', 'none');
+      }).apply(this);
+      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node();
+      contentNode = container.select('.hx-collapsible-content').node();
+      this.menu.options.renderer(headerNode, this.content);
+      this.collapsible = new hx.Collapsible(collapsibleNode.node());
+      return populateNode(contentNode, this._.menuItems);
+    } else {
+      linkEnabled = !this.content.unselectable && !this.content.disabled;
+      container.classed('hx-menu-link', linkEnabled).classed('hx-menu-item-disabled', this.content.disabled).classed('hx-menu-unselectable', this.content.unselectable);
+      return this.menu.options.renderer(container.node(), this.content);
+    }
+  };
+
+  return MenuItem;
+
+})();
+
+Menu = (function(superClass) {
+  extend(Menu, superClass);
+
+  function Menu(selector, options) {
+    var colorClass, dropdownContent, isInput, selection, self, targetElem;
+    this.selector = selector;
     if (options == null) {
       options = {};
     }
-    Picker.__super__.constructor.apply(this, arguments);
+    Menu.__super__.constructor.apply(this, arguments);
     this.options = hx.merge.defined({
-      dropdownOptions: {},
-      items: [],
-      noValueText: 'Choose a value...',
-      renderer: void 0,
-      value: void 0,
-      disabled: false
+      dropdownOptions: {
+        align: void 0,
+        mode: 'click',
+        ddClass: '',
+        disabled: false
+      },
+      renderer: function(node, data) {
+        return hx.select(node).text(data.text ? data.text : data);
+      },
+      items: []
     }, options);
-    hx.component.register(selector, this);
-    this.selection = hx.select(selector);
-    this.current = void 0;
-    button = this.selection.classed('hx-picker hx-btn', true).append('span')["class"]('hx-picker-inner').attr('type', 'button');
-    this.selectedText = button.append('span')["class"]('hx-picker-text');
-    button.append('span')["class"]('hx-picker-icon').append('i')["class"]('hx-icon hx-icon-caret-down');
-    this.menu = new hx.Menu(selector, {
-      dropdownOptions: this.options.dropdownOptions,
+    self = this;
+    this._ = {
       items: this.options.items,
-      renderer: this.options.renderer,
-      disabled: this.options.disabled
-    });
-    this.menu.on('change', 'hx.picker', (function(_this) {
-      return function(item) {
-        if ((item != null ? item.content : void 0) != null) {
-          setValue(_this, item.content, _this.items(), 'user');
-          return _this.menu.hide();
+      itemsChanged: true
+    };
+    hx.component.register(this.selector, this);
+    if ((this.options.dropdownOptions.ddClass != null) && this.options.dropdownOptions.ddClass.length === 0) {
+      colorClass = hx.palette.context(this.selector);
+    }
+    this.options.dropdownOptions.ddClass = 'hx-menu ' + (colorClass != null ? 'hx-' + colorClass : this.options.dropdownOptions.ddClass);
+    dropdownContent = function(node) {
+      var doneFn, elem, menuItems, rawItems;
+      elem = hx.select(node);
+      menuItems = elem.select('.hx-menu-items');
+      if (menuItems.empty()) {
+        menuItems = elem.append('div')["class"]('hx-menu-items');
+      }
+      doneFn = function(items) {
+        if (self._.itemsChanged) {
+          self._.itemsChanged = false;
+          setupInner(self, items, self);
+        }
+        return populateNode(menuItems.node(), self._.menuItems);
+      };
+      rawItems = self._.items;
+      if (hx.isFunction(rawItems)) {
+        self._.itemsChanged = true;
+        rawItems(function(items) {
+          return doneFn(items);
+        });
+      } else {
+        doneFn(rawItems);
+      }
+    };
+    this.dropdown = new hx.Dropdown(this.selector, dropdownContent, this.options.dropdownOptions);
+    this.dropdown.on('showend', (function(_this) {
+      return function() {
+        var ddNode, node;
+        if (_this.dropdown._.dropdown != null) {
+          node = _this.dropdown._.dropdown.node();
+          ddNode = hx.select(node);
+          if (node.scrollTop < node.scrollHeight - node.clientHeight) {
+            ddNode.style('width', ddNode.width() + hx.scrollbarSize() + 'px');
+            if (_this.dropdown._.alignments[2] === 'r') {
+              return ddNode.style('left', Math.max(0, ddNode.box().left - hx.scrollbarSize()) + 'px');
+            }
+          }
         }
       };
     })(this));
-    if (this.options.renderer == null) {
-      this.options.renderer = this.menu.renderer();
-    }
-    if (this.options.value != null) {
-      this.value(this.options.value);
-    }
-    if ((this.current == null) && (this.options.noValueText != null)) {
-      this.selectedText.text(this.options.noValueText);
-    }
-    this.menu.pipe(this, '', ['highlight']);
-    this.menu.dropdown.pipe(this, 'dropdown');
-  }
-
-  Picker.prototype.renderer = function(f) {
-    if (f != null) {
-      this.options.renderer = f;
-      this.menu.renderer(f);
-      return this;
-    } else {
-      return this.options.renderer;
-    }
-  };
-
-  Picker.prototype.items = function(items) {
-    if (items != null) {
-      this.options.items = items;
-      this.menu.items(items);
-      this.value(this.current);
-      return this;
-    } else {
-      return this.options.items;
-    }
-  };
-
-  Picker.prototype.value = function(value) {
-    var loading;
-    if (arguments.length > 0) {
-      if (hx.isFunction(this.items())) {
-        loading = this.selection.prepend('span');
-        loading.append('i')["class"]('hx-menu-loading hx-icon hx-icon-spin hx-icon-spinner');
-        this.items()((function(_this) {
-          return function(data) {
-            loading.remove();
-            return setValue(_this, value, data);
-          };
-        })(this));
-      } else {
-        setValue(this, value, this.items());
-      }
-      return this;
-    } else {
-      return this.current;
-    }
-  };
-
-  Picker.prototype.disabled = function(disable) {
-    var menuDisable;
-    menuDisable = this.menu.disabled(disable);
-    if (disable != null) {
-      return this;
-    } else {
-      return menuDisable;
-    }
-  };
-
-  return Picker;
-
-})(hx.EventEmitter);
-
-hx.picker = function(options) {
-  var selection;
-  selection = hx.detached('button');
-  new Picker(selection.node(), options);
-  return selection;
-};
-
-hx.Picker = Picker;
-
-})();
-(function(){
-var ButtonGroup,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-ButtonGroup = (function(superClass) {
-  extend(ButtonGroup, superClass);
-
-  function ButtonGroup(selector, options) {
-    var group, self;
-    ButtonGroup.__super__.constructor.apply(this, arguments);
-    self = this;
-    hx.component.register(selector, this);
-    this.options = hx.merge.defined({
-      buttonClass: 'hx-complement',
-      activeClass: 'hx-contrast',
-      fullWidth: false,
-      renderer: function(node, data, current) {
-        hx.select(node).text(data.value != null ? data.value : data);
-      },
-      items: [],
-      disabled: false
-    }, options);
-    this.current = void 0;
-    group = hx.select(selector).classed('hx-button-group', true).append('div')["class"]('hx-input-group').classed('hx-input-group-full-width', this.options.fullWidth);
-    this.view = group.view('button').enter(function() {
-      return this.append('button')["class"]('hx-btn').classed('hx-section hx-no-margin', self.options.fullWidth).classed(self.options.buttonClass, true).node();
-    }).update(function(item, node) {
-      var buttonClass;
-      buttonClass = (item.activeClass != null) && item === self.current ? item.activeClass : item === self.current ? self.options.activeClass : self.options.buttonClass;
-      this["class"]('hx-btn').classed('hx-section hx-no-margin', self.options.fullWidth).classed(buttonClass, true).attr('disabled', self.options.disabled ? true : void 0).on('click', 'hx.button-group', function() {
-        return self.value(item, true);
-      });
-      self.options.renderer(node, item, item === self.current);
-    });
-    if ((this.options.items != null) && this.options.items.length > 0) {
-      this.items(this.options.items);
-    }
-  }
-
-  ButtonGroup.prototype.renderer = function(f) {
-    if (f != null) {
-      this.options.renderer = f;
-      return this;
-    } else {
-      return this.options.renderer;
-    }
-  };
-
-  ButtonGroup.prototype.items = function(items) {
-    if (items != null) {
-      this.options.items = items;
-      this.view.apply(this.options.items);
-      return this;
-    } else {
-      return this.options.items;
-    }
-  };
-
-  ButtonGroup.prototype.value = function(value) {
-    var i, item, len, ref;
-    if (arguments.length > 0) {
-      ref = this.options.items;
-      for (i = 0, len = ref.length; i < len; i++) {
-        item = ref[i];
-        if (item === value || item.value === value) {
-          this.current = item;
-          this.view.apply(this.options.items);
-          this.emit('change', {
-            value: item,
-            cause: arguments[1] ? 'user' : 'api'
-          });
-          break;
+    selection = hx.select(this.selector);
+    selection.off('click', 'hx.dropdown');
+    selection.on('click', 'hx.menu', (function(_this) {
+      return function() {
+        var loading;
+        if (!_this.options.disabled) {
+          if (_this.dropdown.isOpen()) {
+            return _this.dropdown.hide();
+          } else {
+            if (!_this.loading) {
+              if ((_this.data != null) && hx.isFunction(_this.data)) {
+                _this.loading = true;
+                loading = selection.prepend('span');
+                loading.append('i')["class"]('hx-menu-loading hx-icon hx-icon-spin hx-icon-spinner');
+                _this.data(function(data) {
+                  self.loading = false;
+                  loading.remove();
+                  return setupItems(self, data);
+                });
+              }
+              return _this.dropdown.show();
+            }
+          }
         }
-      }
-      return this;
-    } else {
-      return this.current;
-    }
-  };
-
-  ButtonGroup.prototype.disabled = function(disabled) {
-    if (arguments.length > 0) {
-      this.options.disabled = disabled;
-      this.items(this.items());
-      return this;
-    } else {
-      return this.options.disabled;
-    }
-  };
-
-  return ButtonGroup;
-
-})(hx.EventEmitter);
-
-hx.buttonGroup = function(options) {
-  var selection;
-  selection = hx.detached('div');
-  new ButtonGroup(selection.node(), options);
-  return selection;
-};
-
-hx.ButtonGroup = ButtonGroup;
-
-})();
-(function(){
-var hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
-
-respondToRequest = function(request, url, data, callback, options, index) {
-  var e, error1, result, source, status;
-  status = request.status;
-  source = data != null ? {
-    url: url,
-    data: data
-  } : url;
-  if (status >= 200 && status < 300 || status === 304) {
-    try {
-      result = options.formatter(request);
-    } catch (error1) {
-      e = error1;
-      callback(e, void 0, source, index);
-      return;
-    }
-    callback(void 0, result, source, index);
-  } else {
-    callback(request, void 0, source, index);
-  }
-};
-
-sendRequest = function(request, url, data, options) {
-  var header, ref, sendData, value;
-  request.open(options.requestType, url, true);
-  ref = options.headers;
-  for (header in ref) {
-    value = ref[header];
-    request.setRequestHeader(header, value);
-  }
-  if (options.responseType) {
-    request.responseType = options.responseType;
-  }
-  if (options.contentType) {
-    request.overrideMimeType(options.contentType);
-  }
-  sendData = (data != null) && typeof data !== 'string' ? JSON.stringify(data) : data;
-  return request.send(sendData);
-};
-
-performRequest = function(url, data, callback, options, index) {
-  var base, base1, defaults, request, respond;
-  if (data == null) {
-    data = null;
-  }
-  if (options == null) {
-    options = {};
-  }
-  defaults = {
-    requestType: 'GET',
-    formatter: hx.identity,
-    headers: {}
-  };
-  options = hx.merge(defaults, options);
-  if (options.contentType) {
-    if ((base = options.headers)['Content-Type'] == null) {
-      base['Content-Type'] = options.contentType;
-    }
-    if ((base1 = options.headers)['accept'] == null) {
-      base1['accept'] = options.contentType + ',*/*';
-    }
-  }
-  if (options.requestType === 'GET' && data) {
-    options.requestType = 'POST';
-  }
-  request = new XMLHttpRequest();
-  respond = function() {
-    return respondToRequest(request, url, data, callback, options, index);
-  };
-  request.onload = request.onerror = respond;
-  return sendRequest(request, url, data, options);
-};
-
-hx_xhr = function(urlType, urls, data, callback, options) {
-  var buildResultArr, i, j, len, resultArr, results, url;
-  if (urlType === 'array') {
-    resultArr = [];
-    buildResultArr = function(error, result, source, index) {
-      var resultData, resultSource;
-      resultArr[index] = {
-        data: result,
-        source: source
       };
-      callback(error, result, source, index);
-      if (resultArr.filter(function(d) {
-        return d !== void 0;
-      }).length === urls.length) {
-        resultSource = resultArr.map(function(d) {
-          return d.source;
-        });
-        resultData = resultArr.map(function(d) {
-          return d.data;
-        });
-        return callback(error, resultData, resultSource, -1);
+    })(this));
+    if (selection.node().nodeName.toLowerCase() === 'input') {
+      isInput = true;
+      targetElem = selection;
+    }
+    this.dropdown.on('showstart', 'hx.menu', function() {
+      var ref;
+      self.cursorPos = -1;
+      if (!isInput) {
+        targetElem = self.dropdown._.dropdown;
+        targetElem.attr('tabindex', '-1');
+        targetElem.node().focus();
       }
-    };
-    results = [];
-    for (i = j = 0, len = urls.length; j < len; i = ++j) {
-      url = urls[i];
-      if (hx.isObject(url)) {
-        data = url.data || data;
-        url = url.url;
-      }
-      results.push(performRequest(url, data, buildResultArr, options, i));
-    }
-    return results;
-  } else {
-    if (urlType === 'object') {
-      data = urls.data || data;
-      url = urls.url;
-    } else {
-      url = urls;
-    }
-    return performRequest(url, data, callback, options);
-  }
-};
-
-hx.request = function() {
-  var callback, data, options, urlType, urls;
-  urls = arguments[0];
-  urlType = (function() {
-    switch (false) {
-      case !hx.isArray(urls):
-        return 'array';
-      case !hx.isObject(urls):
-        return 'object';
-      case !hx.isString(urls):
-        return 'string';
-    }
-  })();
-  if (!urlType || urlType === 'array' && urls.length === 0) {
-    console.error('Incorrect URL passed into hx.request: ', urls);
-    return;
-  }
-  if (hx.isFunction(arguments[1])) {
-    callback = arguments[1];
-    options = arguments[2];
-  } else {
-    data = arguments[1];
-    callback = arguments[2];
-    options = arguments[3];
-  }
-  return hx_xhr(urlType, urls, data || null, callback, options);
-};
-
-parsers = {
-  'application/json': function(text) {
-    if (text) {
-      return JSON.parse(text);
-    }
-  },
-  'text/html': function(text) {
-    return hx.parseHTML(text);
-  },
-  'text/plain': function(text) {
-    return text;
-  }
-};
-
-reshapedRequest = function(type) {
-  return function(urls, data, callback, options) {
-    var defaults, ref;
-    if (hx.isFunction(data)) {
-      ref = [void 0, data, callback], data = ref[0], callback = ref[1], options = ref[2];
-    }
-    defaults = type ? {
-      contentType: type,
-      formatter: function(xhr) {
-        return parsers[type](xhr.responseText);
-      }
-    } : {
-      formatter: function(xhr) {
-        var mimeType, parser;
-        mimeType = xhr.getResponseHeader('content-type').split(';')[0];
-        parser = parsers[mimeType];
-        if (parser) {
-          return parser(xhr.responseText);
-        } else {
-          hx.consoleWarning("Unknown parser for mime type " + mimeType + ", carrying on anyway");
-          return xhr;
+      targetElem.on('keydown', 'hx.menu', function(e) {
+        if (self.dropdown.isOpen()) {
+          checkEvent(e, self);
         }
+        return self.emit('keydown', e);
+      });
+      return (ref = self.dropdown._.dropdown) != null ? ref.on('click', 'hx.menu', function(e) {
+        var allItems, i, index, t, target;
+        target = hx.select(e.target).classed('hx-menu-link') ? e.target : hx.select(e.target).closest('.hx-menu-item').node();
+        if (target) {
+          index = -1;
+          t = hx.select(target);
+          if (t.classed('hx-menu-link')) {
+            allItems = getAllItems(self);
+            i = 0;
+            while (index < 0 && i < allItems.length) {
+              if (allItems[i].node === target) {
+                index = i;
+                break;
+              }
+              i += 1;
+            }
+            setActive(self, index, void 0, true);
+          }
+          return targetElem.node().focus();
+        }
+      }) : void 0;
+    });
+    this.dropdown.pipe(this, 'dropdown');
+    if (this.options.disabled) {
+      this.disabled(this.options.disabled);
+    }
+  }
+
+  Menu.prototype.renderer = function(f) {
+    if (arguments.length > 0) {
+      this.options.renderer = f;
+      return this;
+    } else {
+      return this.options.renderer;
+    }
+  };
+
+  Menu.prototype.addException = function(element) {
+    this.dropdown.clickDetector.addException(element);
+    return this;
+  };
+
+  Menu.prototype.hide = function() {
+    this.dropdown.hide();
+    return this;
+  };
+
+  Menu.prototype.items = function(items) {
+    if (arguments.length > 0) {
+      if (items == null) {
+        items = [];
       }
-    };
-    options = hx.merge(defaults, options);
-    return hx.request(urls, data, callback, options);
+      this._.itemsChanged = true;
+      this._.items = items;
+      return this;
+    } else {
+      return this._.items;
+    }
+  };
+
+  Menu.prototype.disabled = function(disabled) {
+    if (disabled != null) {
+      this.options.disabled = disabled;
+      hx.select(this.selector).attr('disabled', disabled ? true : void 0).classed('hx-disabled', disabled);
+      if (this.dropdown.isOpen() && disabled === true) {
+        this.hide();
+      }
+      return this;
+    } else {
+      return !!this.options.disabled;
+    }
+  };
+
+  return Menu;
+
+})(hx.EventEmitter);
+
+hx.Menu = Menu;
+
+})();
+(function(){
+var addResizeListener, initializeResizeListeners, removeResizeListener;
+
+addResizeListener = void 0;
+
+removeResizeListener = void 0;
+
+
+/**
+* Detect Element Resize
+*
+* https://github.com/sdecima/javascript-detect-element-resize
+* Sebastian Decima
+*
+* version: 0.5.3
+*
+ */
+
+initializeResizeListeners = function() {
+  var animation, animationKeyframes, animationName, animationStyle, animationstartevent, animationstring, attachEvent, cancelFrame, checkTriggers, createStyles, domPrefixes, elm, i, keyframeprefix, pfx, requestFrame, resetTriggers, scrollListener, startEvents, stylesCreated;
+  attachEvent = document.attachEvent;
+  stylesCreated = false;
+  resetTriggers = function(element) {
+    var contract, expand, expandChild, triggers;
+    triggers = element.__resizeTriggers__;
+    expand = triggers.firstElementChild;
+    contract = triggers.lastElementChild;
+    expandChild = expand.firstElementChild;
+    contract.scrollLeft = contract.scrollWidth;
+    contract.scrollTop = contract.scrollHeight;
+    expandChild.style.width = expand.offsetWidth + 1 + 'px';
+    expandChild.style.height = expand.offsetHeight + 1 + 'px';
+    expand.scrollLeft = expand.scrollWidth;
+    expand.scrollTop = expand.scrollHeight;
+  };
+  checkTriggers = function(element) {
+    return element.offsetWidth !== element.__resizeLast__.width || element.offsetHeight !== element.__resizeLast__.height;
+  };
+  scrollListener = function(e) {
+    var element;
+    element = this;
+    resetTriggers(this);
+    if (this.__resizeRAF__) {
+      cancelFrame(this.__resizeRAF__);
+    }
+    this.__resizeRAF__ = requestFrame(function() {
+      if (checkTriggers(element)) {
+        element.__resizeLast__.width = element.offsetWidth;
+        element.__resizeLast__.height = element.offsetHeight;
+        element.__resizeListeners__.forEach(function(fn) {
+          fn.call(element, e);
+        });
+      }
+    });
+  };
+  createStyles = function() {
+    var css, head, style;
+    if (!stylesCreated) {
+      css = (animationKeyframes ? animationKeyframes : '') + '.resize-triggers { ' + (animationStyle ? animationStyle : '') + 'visibility: hidden; opacity: 0; z-index: -1;} ' + '.resize-triggers, .resize-triggers > div, .contract-trigger:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }';
+      head = document.head || document.getElementsByTagName('head')[0];
+      style = document.createElement('style');
+      style.type = 'text/css';
+      if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
+      head.appendChild(style);
+      stylesCreated = true;
+    }
+  };
+  if (!attachEvent) {
+    requestFrame = (function() {
+      var raf;
+      raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function(fn) {
+        return window.setTimeout(fn, 20);
+      };
+      return function(fn) {
+        return raf(fn);
+      };
+    })();
+    cancelFrame = (function() {
+      var cancel;
+      cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.clearTimeout;
+      return function(id) {
+        return cancel(id);
+      };
+    })();
+
+    /* Detect CSS Animations support to detect element display/re-attach */
+    animation = false;
+    animationstring = 'animation';
+    keyframeprefix = '';
+    animationstartevent = 'animationstart';
+    domPrefixes = 'Webkit Moz O ms'.split(' ');
+    startEvents = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' ');
+    pfx = '';
+    elm = document.createElement('fakeelement');
+    if (elm.style.animationName !== void 0) {
+      animation = true;
+    }
+    if (animation === false) {
+      i = 0;
+    }
+    while (i < domPrefixes.length) {
+      if (elm.style[domPrefixes[i] + 'AnimationName'] !== void 0) {
+        pfx = domPrefixes[i];
+        animationstring = pfx + 'Animation';
+        keyframeprefix = '-' + pfx.toLowerCase() + '-';
+        animationstartevent = startEvents[i];
+        animation = true;
+        break;
+      }
+      i++;
+    }
+    animationName = 'resizeanim';
+    animationKeyframes = '@' + keyframeprefix + 'keyframes ' + animationName + ' { from { opacity: 0; } to { opacity: 0; } } ';
+    animationStyle = keyframeprefix + 'animation: 1ms ' + animationName + '; ';
+  }
+  addResizeListener = function(element, fn) {
+    if (attachEvent) {
+      element.attachEvent('onresize', fn);
+    } else {
+      if (!element.__resizeTriggers__) {
+        if (getComputedStyle(element).position === 'static') {
+          element.style.position = 'relative';
+        }
+        createStyles();
+        element.__resizeLast__ = {};
+        element.__resizeListeners__ = [];
+        (element.__resizeTriggers__ = document.createElement('div')).className = 'resize-triggers';
+        element.__resizeTriggers__.innerHTML = '<div class="expand-trigger"><div></div></div>' + '<div class="contract-trigger"></div>';
+        element.appendChild(element.__resizeTriggers__);
+        resetTriggers(element);
+        element.addEventListener('scroll', scrollListener, true);
+
+        /* Listen for a css animation to detect element display/re-attach */
+        animationstartevent && element.__resizeTriggers__.addEventListener(animationstartevent, function(e) {
+          if (e.animationName === animationName) {
+            resetTriggers(element);
+          }
+        });
+      }
+      element.__resizeListeners__.push(fn);
+    }
+  };
+  removeResizeListener = function(element, fn) {
+    if (attachEvent) {
+      element.detachEvent('onresize', fn);
+    } else {
+      element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
+      if (!element.__resizeListeners__.length) {
+        element.removeEventListener('scroll', scrollListener);
+        element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__);
+      }
+    }
   };
 };
 
-hx.json = reshapedRequest('application/json');
+hx.select.addEventAugmenter({
+  name: 'resize',
+  setup: function(node, eventEmitter) {
+    var handler;
+    if (typeof addResizeListener === "undefined" || addResizeListener === null) {
+      initializeResizeListeners();
+    }
+    handler = function(e) {
+      var box;
+      box = hx.select(node).box();
+      return eventEmitter.emit('resize', {
+        clientRect: box,
+        event: e
+      });
+    };
+    addResizeListener(node, handler);
+    return function() {
+      return removeResizeListener(node, handler);
+    };
+  }
+});
 
-hx.html = reshapedRequest('text/html');
+})();
+(function(){
+var AutocompleteFeed, sortActive, sortItems, trimTrailingSpaces,
+  slice = [].slice;
 
-hx.text = reshapedRequest('text/plain');
+sortItems = function(valueLookup) {
+  if (valueLookup == null) {
+    valueLookup = hx.identity;
+  }
+  return function(a, b) {
+    return hx.sort.compare(valueLookup(a), valueLookup(b));
+  };
+};
 
-hx.reshapedRequest = reshapedRequest();
+trimTrailingSpaces = function(term) {
+  var newTerm;
+  newTerm = term;
+  while (newTerm.lastIndexOf(' ') === newTerm.length - 1) {
+    newTerm = newTerm.slice(0, newTerm.length - 1);
+  }
+  return newTerm;
+};
+
+sortActive = function(items) {
+  var active, groupedActive, inactive;
+  groupedActive = new hx.Map(hx.groupBy(items, function(i) {
+    return !i.disabled;
+  }));
+  active = groupedActive.get(true) || [];
+  inactive = groupedActive.get(false) || [];
+  return {
+    active: active,
+    inactive: inactive
+  };
+};
+
+AutocompleteFeed = (function() {
+  function AutocompleteFeed(options) {
+    var defaults, resolvedOptions, self;
+    if (options == null) {
+      options = {};
+    }
+    self = this;
+    defaults = {
+      filter: void 0,
+      filterOptions: void 0,
+      matchType: 'contains',
+      useCache: true,
+      showOtherResults: false,
+      trimTrailingSpaces: false,
+      valueLookup: void 0
+    };
+    if (options.valueLookup != null) {
+      defaults.filterOptions = {
+        searchValues: function(datum) {
+          return [self._.options.valueLookup(datum)];
+        }
+      };
+    }
+    resolvedOptions = hx.merge.defined(defaults, options);
+    if (resolvedOptions.filter == null) {
+      resolvedOptions.filter = function(items, term) {
+        var active, filtered, inactive, ref;
+        filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions);
+        ref = sortActive(filtered), active = ref.active, inactive = ref.inactive;
+        return slice.call(active).concat(slice.call(inactive));
+      };
+    }
+    this._ = {
+      options: resolvedOptions,
+      resultsCache: new hx.Map
+    };
+  }
+
+  AutocompleteFeed.prototype.clearCache = function() {
+    this._.resultsCache = new hx.Map;
+    return this;
+  };
+
+  AutocompleteFeed.prototype.filter = function(term, callback) {
+    var _, cacheItemsThenCallback, cacheditems, filterAndCallback, thisFilter;
+    if (term == null) {
+      term = '';
+    }
+    _ = this._;
+    thisFilter = term + hx.randomId();
+    _.lastFilter = thisFilter;
+    cacheItemsThenCallback = (function(_this) {
+      return function(results, otherResults) {
+        if (otherResults == null) {
+          otherResults = [];
+        }
+        if (_.options.trimTrailingSpaces && results.length === 0 && term.lastIndexOf(' ') === term.length - 1) {
+          return _this.filter(trimTrailingSpaces(term), callback);
+        } else {
+          if (_.options.useCache) {
+            _.resultsCache.set(term, {
+              results: results,
+              otherResults: otherResults
+            });
+          }
+          if (thisFilter === _.lastFilter) {
+            return callback(results, otherResults);
+          }
+        }
+      };
+    })(this);
+    if (_.options.useCache && _.resultsCache.has(term)) {
+      cacheditems = _.resultsCache.get(term);
+      return callback(cacheditems.results, cacheditems.otherResults);
+    } else if (_.options.matchType === 'external' && hx.isFunction(_.items)) {
+      return _.items(term, cacheItemsThenCallback);
+    } else {
+      filterAndCallback = function(unfilteredItems) {
+        var active, filteredItems, inactive, otherResults, ref, unpartitioned;
+        filteredItems = _.options.filter(unfilteredItems, term);
+        if (_.options.showOtherResults) {
+          unpartitioned = unfilteredItems.filter(function(datum) {
+            return filteredItems.indexOf(datum) === -1;
+          }).sort(sortItems(_.options.valueLookup));
+          ref = sortActive(unpartitioned), active = ref.active, inactive = ref.inactive;
+          otherResults = slice.call(active).concat(slice.call(inactive));
+        }
+        return cacheItemsThenCallback(filteredItems, otherResults);
+      };
+      if (hx.isFunction(_.items)) {
+        return _.items(term, filterAndCallback);
+      } else if (term.length) {
+        return filterAndCallback(_.items);
+      } else {
+        return cacheItemsThenCallback(_.items);
+      }
+    }
+  };
+
+  AutocompleteFeed.prototype.validateItems = function(items) {
+    return hx.isArray(items) || hx.isFunction(items);
+  };
+
+  AutocompleteFeed.prototype.items = function(items) {
+    if (arguments.length) {
+      this._.items = items;
+      return this;
+    } else {
+      return this._.items;
+    }
+  };
+
+  return AutocompleteFeed;
 
 })();
 
+hx.AutocompleteFeed = AutocompleteFeed;
+
+})();
 (function(){
 var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates, zeroPad,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -12250,12 +8633,4018 @@ hx.TimePicker = TimePicker;
 
 })();
 (function(){
+var AutoComplete, buildAutoComplete, findTerm, showAutoComplete, sortActive,
+  slice = [].slice,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  autoComplete: {
+    loading: 'Loading...',
+    noResultsFound: 'No results found',
+    otherResults: 'Other Results',
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+  }
+});
+
+sortActive = function(items) {
+  var active, groupedActive, inactive;
+  groupedActive = new hx.Map(hx.groupBy(items, function(i) {
+    return !i.disabled;
+  }));
+  active = groupedActive.get(true) || [];
+  inactive = groupedActive.get(false) || [];
+  return {
+    active: active,
+    inactive: inactive
+  };
+};
+
+findTerm = function(term, forceMatch) {
+  var _, active, allData, data, dataMatches, filteredData, heading, inactive, matches, ref, remainingResults, self;
+  self = this;
+  _ = this._;
+  if (_.prevTerm == null) {
+    _.prevTerm = '';
+  }
+  allData = _.data.get(term);
+  if (term.length >= _.prevTerm.length) {
+    if (allData == null) {
+      allData = _.data.get(_.prevTerm);
+    }
+  }
+  if (allData == null) {
+    allData = _.data.get('');
+  }
+  _.prevTerm = term;
+  filteredData = this.options.matchType === 'external' ? allData : term.length === 0 && !this.options.showAll ? [] : this.options.filter(allData, term);
+  dataMatches = allData.length === filteredData.length && allData.length > 0;
+  if (this.options.showOtherResults && !forceMatch && !dataMatches) {
+    matches = filteredData.length > 0 ? filteredData : [
+      {
+        unselectable: true,
+        text: self.options.noResultsMessage
+      }
+    ];
+    heading = {
+      unselectable: true,
+      heading: true,
+      text: self.options.otherResultsMessage
+    };
+    remainingResults = filteredData.length === 0 ? allData : (data = allData.filter(function(d) {
+      if (filteredData.some(function(e) {
+        return e === d;
+      })) {
+        return false;
+      } else {
+        return true;
+      }
+    }), (this.options.filterOptions.sort == null) || this.options.filterOptions.sort ? this.options.inputMap != null ? data = data.sort(function(a, b) {
+      a = self.options.inputMap(a);
+      b = self.options.inputMap(b);
+      return hx.sort.compare(a, b);
+    }) : data = data.sort(hx.sort.compare) : void 0, data);
+    ref = sortActive(remainingResults), active = ref.active, inactive = ref.inactive;
+    filteredData = slice.call(matches).concat([heading], slice.call(active), slice.call(inactive));
+  }
+  return filteredData;
+};
+
+buildAutoComplete = function(searchTerm, fromCallback, loading) {
+  var _, filteredData, items, message, self, trimAndReload;
+  self = this;
+  _ = this._;
+  if ((_.callback != null) && !fromCallback) {
+    if (searchTerm.length < this.options.minLength || (!this.options.showAll && searchTerm.length === 0)) {
+      _.data.set(searchTerm, []);
+      buildAutoComplete.call(self, searchTerm, true);
+    } else {
+      buildAutoComplete.call(self, searchTerm, true, true);
+      _.currentSearch = searchTerm;
+      if (!_.data.get(searchTerm)) {
+        _.data.set(searchTerm, true);
+        _.callback.call(self, searchTerm, function(returnData) {
+          if (!_.cleanUp) {
+            _.data.set(searchTerm, returnData);
+            if (_.currentSearch === searchTerm) {
+              return buildAutoComplete.call(self, searchTerm, true);
+            }
+          }
+        });
+      } else {
+        buildAutoComplete.call(self, searchTerm, true);
+      }
+    }
+  } else {
+    _.menu.cursorPos = -1;
+    filteredData = !loading ? this.options.matchType === 'external' ? _.data.get(searchTerm) : findTerm.call(self, searchTerm) : void 0;
+    message = {
+      unselectable: true,
+      text: ''
+    };
+    _.menu.items([]);
+    items = [];
+    trimAndReload = false;
+    if (filteredData == null) {
+      message.text = this.options.loadingMessage;
+    } else if (searchTerm.length < this.options.minLength) {
+      message.text = this.options.pleaseEnterMinCharactersMessage.replace('$minLength', this.options.minLength);
+    } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
+      if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
+        trimAndReload = true;
+      } else if (this.options.noResultsMessage.length > 0 && (this.options.noResultsMessage != null)) {
+        message.text = this.options.noResultsMessage;
+      }
+    } else if (searchTerm.length >= this.options.minLength && filteredData.length > 0) {
+      items = items.concat(filteredData);
+    }
+    if (message.text.length > 0) {
+      items = [message].concat(items);
+    }
+    if (items.length > 0) {
+      _.menu.items(items);
+      if (_.menu.dropdown.isOpen()) {
+        _.menu.dropdown._.setupDropdown(_.menu.dropdown._.dropdown.node());
+      } else {
+        _.menu.dropdown.show();
+      }
+    } else {
+      _.menu.hide();
+    }
+    if (trimAndReload) {
+      _.input.value(_.input.value().substring(0, _.input.value().length - 1));
+      buildAutoComplete.call(self, _.input.value(), fromCallback, loading);
+    }
+  }
+  return void 0;
+};
+
+showAutoComplete = function() {
+  this._.cleanUp = false;
+  return buildAutoComplete.call(this, this._.input.value() || '');
+};
+
+AutoComplete = (function(superClass) {
+  extend(AutoComplete, superClass);
+
+  function AutoComplete(selector, data1, options1) {
+    var _, _filterOpts, base, base1, base2, input, menu, self, timeout;
+    this.selector = selector;
+    this.data = data1;
+    this.options = options1 != null ? options1 : {};
+    AutoComplete.__super__.constructor.apply(this, arguments);
+    this._ = _ = {};
+    hx.component.register(this.selector, this);
+    _.ignoreMatch = false;
+    _.ignoreNextFocus = false;
+    self = this;
+    _.data = new hx.Map();
+    if (hx.isFunction(this.data)) {
+      _.callback = this.data;
+    } else {
+      _.data.set('', this.data);
+    }
+    if (!hx.isArray(this.data) && !hx.isFunction(this.data)) {
+      hx.consoleWarning('AutoComplete - ', this.selector, ': data set incorrectly - you supplied: ', this.data, ' but should have been an array of items or a function');
+    } else {
+      this.options = hx.merge({
+        minLength: 0,
+        showAll: true,
+        trimTrailingSpaces: false,
+        mustMatch: false,
+        inputMap: void 0,
+        renderer: void 0,
+        matchType: 'contains',
+        placeholder: void 0,
+        filter: void 0,
+        filterOptions: void 0,
+        showOtherResults: false,
+        allowTabCompletion: true,
+        loadingMessage: hx.userFacingText('autoComplete', 'loading'),
+        noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound'),
+        otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults'),
+        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
+      }, this.options);
+      if (this.options.inputMap != null) {
+        _filterOpts = {
+          searchValues: function(d) {
+            return [self.options.inputMap(d)];
+          }
+        };
+      }
+      this.options.filterOptions = hx.merge({}, _filterOpts, this.options.filterOptions);
+      if ((base = this.options).filter == null) {
+        base.filter = (function(_this) {
+          return function(arr, term) {
+            var active, filtered, inactive, ref;
+            filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions);
+            ref = sortActive(filtered), active = ref.active, inactive = ref.inactive;
+            return slice.call(active).concat(slice.call(inactive));
+          };
+        })(this);
+      }
+      if ((base1 = this.options).renderer == null) {
+        base1.renderer = this.options.inputMap != null ? function(elem, item) {
+          return hx.select(elem).text(self.options.inputMap(item));
+        } : function(elem, item) {
+          return hx.select(elem).text(item);
+        };
+      }
+      if ((base2 = this.options).placeholder == null) {
+        base2.placeholder = this.options.minLength > 0 ? "Min length " + this.options.minLength + " characters" : void 0;
+      }
+      input = hx.select(this.selector);
+      menu = new hx.Menu(this.selector, {
+        dropdownOptions: {
+          ddClass: 'hx-autocomplete-dropdown'
+        }
+      });
+      menu.pipe(this, '', ['highlight']);
+      menu.dropdown.pipe(this, 'dropdown');
+      hx.select(this.selector).off('click', 'hx.menu');
+      menu.on('input', 'hx.autocomplete', function(e) {
+        if (self.options.allowTabCompletion) {
+          if ((e.which || e.keyCode) === 9) {
+            return e.preventDefault();
+          }
+        }
+      });
+      _.setInputValue = this.options.inputMap != null ? function(d) {
+        input.value(self.options.inputMap(d));
+        return self.emit('change', d);
+      } : function(d) {
+        input.value(d);
+        return self.emit('change', d);
+      };
+      if (this.options.placeholder != null) {
+        input.attr('placeholder', this.options.placeholder);
+      }
+      input.on('focus', 'hx.autocomplete', function(e) {
+        if (!_.ignoreNextFocus) {
+          _.cleanUp = false;
+          return self.show();
+        }
+      });
+      input.on('blur', 'hx.autocomplete', function(e) {
+        if (e.relatedTarget != null) {
+          self.hide();
+        }
+        return _.ignoreNextFocus = false;
+      });
+      timeout = void 0;
+      input.on('input', 'hx.autocomplete', function() {
+        _.cleanUp = false;
+        clearTimeout(timeout);
+        _.initialValue = input.value();
+        return timeout = setTimeout(function() {
+          if (input.value() !== _.prevTerm) {
+            return buildAutoComplete.call(self, input.value() || '');
+          }
+        }, 200);
+      });
+      menu.renderer(function(elem, item) {
+        var selection;
+        selection = hx.select(elem);
+        selection.style('font-weight', '');
+        if (item.unselectable || item.heading) {
+          selection.text(item.text).off();
+          if (item.heading) {
+            return selection.style('font-weight', '600');
+          }
+        } else {
+          return self.options.renderer(elem, item);
+        }
+      });
+      menu.on('change', 'hx.autocomplete', function(d) {
+        var content;
+        content = d != null ? d.content : void 0;
+        if (content != null) {
+          if (!(content != null ? content.unselectable : void 0) && !(content != null ? content.heading : void 0) && !(content != null ? content.disabled : void 0)) {
+            if (d.eventType === 'tab') {
+              if (self.options.allowTabCompletion) {
+                _.setInputValue(content);
+                _.ignoreMatch = true;
+                return self.hide();
+              }
+            } else if (menu.cursorPos === -1 && (_.initialValue != null)) {
+              return input.value(_.initialValue);
+            } else {
+              _.setInputValue(content);
+              if (d.eventType === 'click' || d.eventType === 'enter') {
+                _.ignoreMatch = true;
+                self.hide();
+                return _.ignoreNextFocus = true;
+              }
+            }
+          }
+        } else if (d.eventType === 'enter') {
+          _.ignoreMatch = false;
+          self.hide();
+          return _.ignoreNextFocus = true;
+        }
+      });
+      _.checkValidity = function() {
+        var exactMatch;
+        _.cleanUp = true;
+        if (!_.ignoreMatch) {
+          if (self.options.mustMatch) {
+            if (input.value().length > 0) {
+              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : findTerm.call(self, input.value(), true);
+              if (exactMatch !== true && (exactMatch != null ? exactMatch.length : void 0) > 0) {
+                exactMatch = exactMatch != null ? exactMatch.filter(function(e) {
+                  e = self.options.inputMap != null ? self.options.inputMap(e) : e;
+                  return e.toLowerCase() === input.value().toLowerCase();
+                }) : void 0;
+                if ((exactMatch != null ? exactMatch.length : void 0) > 0) {
+                  _.setInputValue(exactMatch[0]);
+                } else {
+                  input.value('');
+                }
+              } else {
+                input.value('');
+              }
+            }
+          }
+        }
+        _.ignoreMatch = false;
+        self.clearCache();
+        return self.emit('hide', input.value());
+      };
+      menu.on('dropdown.change', 'hx.autocomplete', function(visible) {
+        if (!!visible) {
+          _.initialValue = input.value();
+          return menu.dropdown._.useScroll = true;
+        } else {
+          _.checkValidity();
+        }
+      });
+      menu.on('click', 'hx.autocomplete', function() {
+        return _.ignoreMatch = true;
+      });
+      _.menu = menu;
+      _.input = input;
+    }
+    this;
+  }
+
+  AutoComplete.prototype.clearCache = function() {
+    this._.data = new hx.Map();
+    if ((this.data != null) && !hx.isFunction(this.data)) {
+      this._.data.set('', this.data);
+    }
+    return this;
+  };
+
+  AutoComplete.prototype.show = function() {
+    this._.ignoreNextFocus = false;
+    showAutoComplete.call(this);
+    return this;
+  };
+
+  AutoComplete.prototype.value = function(value) {
+    if (arguments.length > 0) {
+      this._.setInputValue(value);
+      this._.checkValidity();
+      return this;
+    } else {
+      return this._.input.value();
+    }
+  };
+
+  AutoComplete.prototype.hide = function() {
+    var _;
+    _ = this._;
+    _.ignoreNextFocus = false;
+    if (_.menu.dropdown.isOpen()) {
+      _.menu.hide();
+      _.prevTerm = void 0;
+      _.cleanUp = true;
+    }
+    return this;
+  };
+
+  return AutoComplete;
+
+})(hx.EventEmitter);
+
+hx.autoComplete = function(data, options) {
+  var selection;
+  selection = hx.detached('input');
+  new AutoComplete(selection.node(), data, options);
+  return selection;
+};
+
+hx.AutoComplete = AutoComplete;
+
+})();
+(function(){
+var DragContainer, containerChildren, drag, endDrag, getGrid, startDrag,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+getGrid = function(container, elem) {
+  var count, grid;
+  grid = [];
+  count = -1;
+  containerChildren(container).forEach(function(e) {
+    var box;
+    e = hx.select(e);
+    box = e.box();
+    return grid.push({
+      index: count += 1,
+      x1: box.left,
+      x2: box.left + box.width,
+      y1: box.top,
+      y2: box.top + box.height,
+      width: e.style('width').replace('px', ''),
+      height: e.style('height').replace('px', ''),
+      elem: e
+    });
+  });
+  return grid;
+};
+
+startDrag = function(container, elem, controlElem, e) {
+  var _;
+  _ = container._;
+  e.event.preventDefault();
+  if (_.dragging) {
+    return endDrag(container, elem);
+  } else if (e.event.which < 2) {
+    hx.select(document).on('pointermove', 'hx.drag-container', function(e) {
+      return drag(container, elem, controlElem, e);
+    }).on('pointerup', 'hx.drag-container', function(e) {
+      return endDrag(container, elem, e);
+    });
+    _.origPageYOffset = window.pageYOffset;
+    _.origPageXOffset = window.pageXOffset;
+    _.dragging = true;
+    _.grid = getGrid(container);
+    _.origWidth = elem.style('width').replace('px', '');
+    _.origHeight = elem.style('height').replace('px', '');
+    _.placeholder = elem.insertAfter(elem.clone(true).clear()).classed('hx-drag-placeholder', true);
+    _.placeholder.style('height', _.origHeight + 'px').style('width', _.origWidth + 'px').style('max-height', _.origHeight + 'px').style('max-width', _.origWidth + 'px').style('min-height', _.origHeight + 'px').style('min-width', _.origWidth + 'px').append('div');
+    elem.classed('hx-drag-current', true).style('width', _.origWidth + 'px');
+    _.selectionBox = elem.box();
+    _.controlBox = controlElem.box();
+    _.containerBox = container.selection.box();
+    drag(container, elem, controlElem, e);
+    _.currentPos = -1;
+    return container.emit('dragstart', elem.node());
+  }
+};
+
+drag = function(container, elem, controlElem, e, preventGridMove) {
+  var _, before, box, controlOffsetX, controlOffsetY, inX, inY, j, len, ref, results, scrollOffsetX, scrollOffsetY, selectionOffsetX, selectionOffsetY, xPos, xVal, yPos, yVal;
+  _ = container._;
+  if (_.dragging) {
+    e.event.preventDefault();
+    controlOffsetX = _.controlBox.left + (_.controlBox.width / 2);
+    controlOffsetY = _.controlBox.top + (_.controlBox.height / 2);
+    selectionOffsetX = _.containerBox.left - _.selectionBox.left;
+    selectionOffsetY = _.containerBox.top - _.selectionBox.top;
+    scrollOffsetX = window.pageXOffset - _.origPageXOffset;
+    scrollOffsetY = window.pageYOffset - _.origPageYOffset;
+    xVal = e.x - selectionOffsetX - controlOffsetX + scrollOffsetX;
+    yVal = e.y - selectionOffsetY - controlOffsetY + scrollOffsetY;
+    elem.style('left', xVal + 'px');
+    elem.style('top', yVal + 'px');
+    if (!preventGridMove) {
+      xPos = e.x + scrollOffsetX;
+      yPos = e.y + scrollOffsetY;
+      before = true;
+      ref = _.grid;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        box = ref[j];
+        inX = xPos >= box.x1 && xPos <= box.x2;
+        inY = yPos >= box.y1 && yPos <= box.y2;
+        if (box.elem.node() === elem.node()) {
+          before = false;
+        }
+        if (inX && inY) {
+          if (_.currentPos !== box.index && _.currentPos > -1) {
+            if (before) {
+              box.elem.insertBefore(_.placeholder);
+            } else {
+              box.elem.insertAfter(_.placeholder);
+            }
+            if (_.options.resizeOnDrag) {
+              _.placeholder.style('height', box.height + 'px').style('width', box.width + 'px').style('max-height', box.height + 'px').style('max-width', box.width + 'px').style('min-height', box.height + 'px').style('min-width', box.width + 'px');
+              elem.style('width', _.placeholder.style('width'));
+              _.selectionBox = elem.box();
+              _.controlBox = controlElem.box();
+              drag(container, elem, controlElem, e, true);
+            }
+            container.emit('drag', elem.node());
+          }
+          _.currentPos = box.index;
+          break;
+        } else {
+          results.push(void 0);
+        }
+      }
+      return results;
+    }
+  }
+};
+
+endDrag = function(container, elem) {
+  var _;
+  _ = container._;
+  if (_.dragging) {
+    _.dragging = false;
+    hx.select(document).off('pointermove', 'hx.drag-container').off('pointerup', 'hx.drag-container');
+    _.placeholder.insertAfter(elem);
+    _.placeholder.remove();
+    elem.style('top', '').style('left', '').style('width', '').classed('hx-drag-current', false);
+    return container.emit('dragend', elem.node());
+  }
+};
+
+containerChildren = function(container) {
+  var children, i, items;
+  children = container.selection.node().children;
+  items = (function() {
+    var j, ref, results;
+    results = [];
+    for (i = j = 0, ref = children.length; j <= ref; i = j += 1) {
+      if (children[i] != null) {
+        results.push(children[i]);
+      } else {
+        results.push(void 0);
+      }
+    }
+    return results;
+  })();
+  return items.filter(hx.defined);
+};
+
+DragContainer = (function(superClass) {
+  extend(DragContainer, superClass);
+
+  function DragContainer(selector, options) {
+    DragContainer.__super__.constructor.apply(this, arguments);
+    hx.component.register(selector, this);
+    this.selection = hx.select(selector).classed('hx-drag-container', true);
+    options = hx.merge({
+      lookup: function(node) {
+        return hx.select(node).attr('data-id');
+      },
+      resizeOnDrag: false,
+      order: void 0
+    }, options);
+    this._ = {};
+    this._.options = options;
+    this._.initialOrder = this.order();
+    if (options.order) {
+      this.order(options.order);
+    }
+    this.setup();
+  }
+
+  DragContainer.prototype.setup = function() {
+    this.selection.selectAll('.hx-drag-control').off('pointerdown', 'hx.drag-container');
+    containerChildren(this).forEach((function(_this) {
+      return function(elem) {
+        var controlElem;
+        elem = hx.select(elem);
+        if (elem.classed('hx-drag-element')) {
+          controlElem = hx.select(elem.select('.hx-drag-control').node() || elem.node());
+          return controlElem.classed('hx-drag-control', true).on('pointerdown', 'hx.drag-container', function(evt) {
+            if (!controlElem.classed('hx-drag-disabled')) {
+              return startDrag(_this, elem, controlElem, evt);
+            }
+          });
+        }
+      };
+    })(this));
+    return this;
+  };
+
+  DragContainer.prototype.order = function(order) {
+    var id, j, k, len, len1, map, node, ref;
+    if (arguments.length > 0) {
+      map = {};
+      if (order == null) {
+        order = this._.initialOrder;
+      }
+      ref = containerChildren(this);
+      for (j = 0, len = ref.length; j < len; j++) {
+        node = ref[j];
+        map[this.lookup()(node)] = node;
+      }
+      for (k = 0, len1 = order.length; k < len1; k++) {
+        id = order[k];
+        this.selection.append(map[id]);
+      }
+      return this;
+    } else {
+      return containerChildren(this).map(this.lookup()).filter(hx.defined);
+    }
+  };
+
+  DragContainer.prototype.lookup = function(fn) {
+    if (fn != null) {
+      this._.options.lookup = fn;
+      return this;
+    } else {
+      return this._.options.lookup;
+    }
+  };
+
+  return DragContainer;
+
+})(hx.EventEmitter);
+
+hx.dragContainer = function(options) {
+  var selection;
+  selection = hx.detached('div');
+  new DragContainer(selection.node(), options);
+  return selection;
+};
+
+hx.DragContainer = DragContainer;
+
+})();
+
+(function(){
+var ProgressBar;
+
+ProgressBar = (function() {
+  function ProgressBar(selector, options) {
+    this.selector = selector;
+    hx.component.register(this.selector, this);
+    options = hx.merge.defined({
+      segments: void 0,
+      value: 0,
+      animate: false
+    }, options);
+    this.selection = hx.select(this.selector).classed('hx-progress-bar', true);
+    this.innerBars = this.selection.append('div').attr('class', 'hx-progress-bar-inner');
+    this.value(options.value);
+    if (options.segments != null) {
+      this.segments(options.segments, true);
+    }
+    if (options.animate) {
+      this.selection.classed('hx-animate', true);
+    }
+  }
+
+  ProgressBar.prototype.value = function(value) {
+    if (arguments.length > 0) {
+      if (!isNaN(value)) {
+        this.progress = Math.max(0, Math.min(1, value));
+        this.innerBars.style('width', (this.progress * 100) + '%');
+      }
+      return this;
+    } else {
+      return this.progress;
+    }
+  };
+
+  ProgressBar.prototype.segments = function(segments, retainProgress) {
+    var runningTotal, total;
+    if (arguments.length > 0) {
+      if (segments != null) {
+        this.progressSegments = segments.filter(function(e) {
+          return (e.value != null) || (e.ratio != null) || (e["class"] != null);
+        });
+        if (this.progressSegments.length > 0) {
+          this.selection.selectAll('.hx-progress-bar-inner').remove();
+          if (!this.progressSegments.some(function(e) {
+            return e.value != null;
+          })) {
+            runningTotal = 0;
+            total = this.progressSegments.map(function(e) {
+              return e.ratio || 1;
+            }).reduce(function(a, b) {
+              return a + b;
+            });
+          } else {
+            this.progressSegments = this.progressSegments.sort(function(a, b) {
+              return (a.value || 1) - (b.value || 1);
+            });
+          }
+          this.progressSegments.forEach((function(_this) {
+            return function(segment, i) {
+              var bar, maxWidth;
+              bar = _this.selection.append('div').attr('class', 'hx-progress-bar-inner');
+              if (segment["class"] != null) {
+                bar.classed(segment["class"], true);
+              }
+              maxWidth = runningTotal == null ? (segment.value || 1) * 100 : (runningTotal += segment.ratio || 1, runningTotal / total * 100);
+              return bar.style('max-width', maxWidth + '%').style('z-index', _this.progressSegments.length - i);
+            };
+          })(this));
+        }
+      } else {
+        this.progressSegments = void 0;
+        this.selection.selectAll('.hx-progress-bar-inner').remove();
+        this.selection.append('div').attr('class', 'hx-progress-bar-inner');
+      }
+      this.innerBars = this.selection.selectAll('.hx-progress-bar-inner');
+      if (retainProgress) {
+        this.value(this.progress);
+      } else {
+        this.progress = 0;
+      }
+      return this;
+    } else {
+      return this.progressSegments;
+    }
+  };
+
+  return ProgressBar;
+
+})();
+
+hx.progressBar = function(options) {
+  var selection;
+  selection = hx.detached('div');
+  new ProgressBar(selection.node(), options);
+  return selection;
+};
+
+hx.ProgressBar = ProgressBar;
+
+})();
+(function(){
+var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, doCollisionDetection, extent, extent2, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, stackSegments, svgCurve;
+
+doCollisionDetection = function(nodesRaw) {
+  var distance, nodes, reductor;
+  nodes = nodesRaw.map(function(node, index) {
+    return {
+      node: node,
+      index: index,
+      box: node.getBoundingClientRect()
+    };
+  });
+  reductor = function(oldDistance, arg) {
+    var currBox, currentIndex, previousIndex, previousNodes, tuple;
+    currentIndex = arg.index, currBox = arg.box;
+    previousNodes = nodes.slice(0, currentIndex - oldDistance + 1);
+    tuple = hx.find(previousNodes, function(arg1) {
+      var prevBox, previousIndex;
+      previousIndex = arg1.index, prevBox = arg1.box;
+      return currBox.left < prevBox.right;
+    });
+    if (tuple) {
+      previousIndex = tuple.index;
+      return currentIndex - previousIndex;
+    } else {
+      return oldDistance;
+    }
+  };
+  distance = nodes.reduce(reductor, 1);
+  return nodes.forEach(function(arg) {
+    var currentIndex, node;
+    node = arg.node, currentIndex = arg.index;
+    if (currentIndex % (distance + 1)) {
+      return hx.select(node).text('');
+    }
+  });
+};
+
+svgCurve = function(data, close) {
+  var i, j, l, ref, segments;
+  if (data.length > 1) {
+    segments = new Array(data.length);
+    segments[0] = 'M' + data[0].x + ',' + data[0].y;
+    l = data.length - 1;
+    for (i = j = 1, ref = l; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
+      segments[i] = 'L' + data[i].x + ',' + data[i].y;
+    }
+    if (close) {
+      return segments.join('') + 'z';
+    } else {
+      return segments.join('');
+    }
+  } else {
+    return '';
+  }
+};
+
+arcCurveMinimumRadius = function(startRadians, endRadians, padding) {
+  var radians, theta;
+  radians = endRadians - startRadians;
+  theta = radians < Math.PI ? radians / 2 : Math.PI - radians / 2;
+  return padding / 2 / Math.sin(theta);
+};
+
+arcCurve = function(x, y, innerRadius, outerRadius, startRadians, endRadians, padding, dontCurveCenter) {
+  var pixelsToRadians, points, pointsRequired, pushPoints, radians;
+  radians = endRadians - startRadians;
+  pixelsToRadians = function(pixels, radius) {
+    return pixels / radius;
+  };
+  pushPoints = function(startPoint, endPoint, radius) {
+    var i, j, max, r, radpad, ref, ref1, results, theta;
+    radpad = pixelsToRadians(padding, radius);
+    max = Math.abs(endPoint - startPoint);
+    results = [];
+    for (i = j = ref = startPoint, ref1 = endPoint; ref <= ref1 ? j <= ref1 : j >= ref1; i = ref <= ref1 ? ++j : --j) {
+      r = radians - radpad;
+      theta = r > 0 ? startRadians + (radpad / 2) + ((i / max) * r) : endRadians - (radpad / 2) - ((i / max) * r);
+      theta = hx.clamp(startRadians, endRadians, theta);
+      results.push(points.push({
+        x: x + radius * Math.cos(theta),
+        y: y + radius * Math.sin(theta)
+      }));
+    }
+    return results;
+  };
+  pointsRequired = Math.min(100, Math.max(3, Math.floor(radians * Math.sqrt(outerRadius)) - 1));
+  points = [];
+  if (innerRadius === 0 || dontCurveCenter) {
+    points.push({
+      x: x + innerRadius * Math.cos((startRadians + endRadians) / 2),
+      y: y + innerRadius * Math.sin((startRadians + endRadians) / 2)
+    });
+  } else {
+    pushPoints(0, pointsRequired, innerRadius);
+  }
+  pushPoints(pointsRequired, 0, outerRadius);
+  return svgCurve(points, true);
+};
+
+extent = function(data, f) {
+  var d, j, len, max, min;
+  if (data.length > 0) {
+    min = f(data[0]);
+    max = f(data[0]);
+    for (j = 0, len = data.length; j < len; j++) {
+      d = data[j];
+      min = hx.min([min, f(d)]);
+      max = hx.max([max, f(d)]);
+    }
+    return [min, max];
+  } else {
+    return void 0;
+  }
+};
+
+extent2 = function(data, f, g) {
+  var d, j, len, max, min;
+  if (data.length > 0) {
+    min = f(data[0]);
+    max = f(data[0]);
+    for (j = 0, len = data.length; j < len; j++) {
+      d = data[j];
+      min = hx.min([min, f(d), g(d)]);
+      max = hx.max([max, f(d), g(d)]);
+    }
+    return [min, max];
+  } else {
+    return void 0;
+  }
+};
+
+splitData = function(data, defined) {
+  var awaitingReal, current, d, datas, j, l, len;
+  if (defined == null) {
+    defined = function() {};
+  }
+  l = data.length;
+  datas = [];
+  current = void 0;
+  awaitingReal = true;
+  for (j = 0, len = data.length; j < len; j++) {
+    d = data[j];
+    if (defined(d)) {
+      if (awaitingReal) {
+        current = [];
+        datas.push(current);
+        awaitingReal = false;
+      }
+      current.push(d);
+    } else {
+      awaitingReal = true;
+    }
+  }
+  return datas.filter(function(d) {
+    return d.length > 0;
+  });
+};
+
+splitAndFeather = function(data, maxSize, defined) {
+  var d, featherFactor, j, len, ref, results;
+  if (defined == null) {
+    defined = function() {};
+  }
+  if (maxSize) {
+    featherFactor = maxSize / data.length;
+    ref = splitData(data, defined);
+    results = [];
+    for (j = 0, len = ref.length; j < len; j++) {
+      d = ref[j];
+      results.push(LTTBFeather(d, Math.floor(d.length * featherFactor)));
+    }
+    return results;
+  } else {
+    return splitData(data, defined);
+  }
+};
+
+LTTBFeather = function(array, maxSize) {
+  var bucket, bucketSize, data1, data2, i, j, newData, originalLength, ref;
+  if (maxSize == null) {
+    maxSize = 200;
+  }
+  if (maxSize > 1) {
+    originalLength = array.length;
+    if (originalLength > maxSize) {
+      newData = new Array(maxSize);
+      newData[0] = array[0];
+      newData[maxSize - 1] = array[originalLength - 1];
+      bucketSize = (originalLength - 2) / (maxSize - 2);
+      for (i = j = 1, ref = maxSize - 1; j < ref; i = j += 1) {
+        data1 = newData[i - 1];
+        bucket = array.slice(Math.floor((i - 1) * bucketSize) + 1, Math.floor(i * bucketSize) + 1);
+        data2 = dataAverage(array.slice(Math.floor(i * bucketSize) + 1, Math.floor((i + 1) * bucketSize) + 1));
+        newData[i] = maxTriangle(data1, bucket, data2);
+      }
+      return newData;
+    } else {
+      return array.slice(0);
+    }
+  } else if (maxSize === 1 && array.length > 0) {
+    return [array[Math.floor(array.length / 2)]];
+  } else {
+    return [];
+  }
+};
+
+dataAverage = function(array) {
+  var length, sum;
+  length = array.length;
+  if (array[0].y !== void 0) {
+    sum = array.reduce(function(a, b) {
+      return {
+        x: a.x + b.x,
+        y: a.y + b.y
+      };
+    });
+    return {
+      x: sum.x / length,
+      y: sum.y / length
+    };
+  } else {
+    sum = array.reduce(function(a, b) {
+      return {
+        x: a.x + b.x,
+        y1: a.y1 + b.y1,
+        y2: a.y2 + b.y2
+      };
+    });
+    return {
+      x: sum.x / length,
+      y1: sum.y1 / length,
+      y2: sum.y2 / length
+    };
+  }
+};
+
+maxTriangle = function(data1, array, data2) {
+  var area, d, data, j, len, maxArea;
+  maxArea = -1;
+  for (j = 0, len = array.length; j < len; j++) {
+    d = array[j];
+    if (d.y !== void 0) {
+      area = Math.abs((data1.x - data2.x) * (d.y - data1.y) - (data2.y - data1.y) * (data1.x - d.x));
+    } else {
+      area = Math.abs((data1.x - data2.x) * (Math.abs(d.y1 - d.y2) - Math.abs(data1.y2 - data1.y1)) - (Math.abs(data2.y2 - data2.y1) - Math.abs(data1.y2 - data1.y1)) * (data1.x - d.x));
+    }
+    if (area > maxArea) {
+      maxArea = area;
+      data = d;
+    }
+  }
+  return data;
+};
+
+stackSegments = function(array, arrayNames, xvalue) {
+  var i, j, len, result, sum, y;
+  result = [];
+  sum = 0;
+  for (i = j = 0, len = array.length; j < len; i = ++j) {
+    y = array[i];
+    result.push({
+      y0: sum,
+      y1: sum + y.value,
+      yname: arrayNames[i],
+      y: y.value,
+      data: y,
+      x: xvalue
+    });
+    sum += y.value;
+  }
+  return result;
+};
+
+inefficientSearch = function(array, find, nearest, v) {
+  var i, j, ref;
+  for (i = j = 0, ref = array.length - 1; j < ref; i = j += 1) {
+    if ((v(array[i]) <= find && find <= v(array[i + 1]))) {
+      if (nearest) {
+        if (Math.abs(v(array[i]) - find) < Math.abs(v(array[i + 1]) - find)) {
+          return i;
+        } else {
+          return i + 1;
+        }
+      } else {
+        return i;
+      }
+    }
+  }
+  return -1;
+};
+
+search = function(array, find, lookup) {
+  var ibest, imax, imid, imin;
+  if (array.length < 2) {
+    return array.length - 1;
+  }
+  imin = 0;
+  imax = array.length - 1;
+  ibest = imin;
+  while (imin <= imax) {
+    imid = Math.floor((imax + imin) / 2);
+    if (lookup(array[imid]) < find) {
+      imin = imid + 1;
+    } else if (lookup(array[imid]) > find) {
+      imax = imid - 1;
+    } else {
+      return imid;
+    }
+    if (Math.abs(lookup(array[imid]) - find) < Math.abs(lookup(array[ibest]) - find)) {
+      ibest = imid;
+    }
+  }
+  return ibest;
+};
+
+findLabel = function(array, find, interpolate, interpolateValues) {
+  var closest, dist, i, inLower, inUpper, interpolated, nextClosest;
+  i = search(array, find, function(d) {
+    return d.x;
+  });
+  if (i > -1) {
+    if (interpolate) {
+      closest = array[i];
+      dist = find - closest.x;
+      inLower = dist < 0 && i > 0;
+      inUpper = dist > 0 && i < array.length - 1;
+      if (inLower || inUpper) {
+        nextClosest = array[inLower ? i - 1 : i + 1];
+        interpolated = interpolateValues(find, closest, nextClosest, function(yClosest, yNextClosest) {
+          return yClosest + (yClosest - yNextClosest) * dist / (closest.x - nextClosest.x);
+        });
+        if (interpolated != null) {
+          return interpolated;
+        } else {
+          return array[i];
+        }
+      } else {
+        return array[i];
+      }
+    } else {
+      return array[i];
+    }
+  }
+};
+
+createLabelPoint = function(series, x, y, interpolator) {
+  var bestDist, bestPoint, data, dist, j, len, point, ref, xx;
+  if (series.labelsEnabled()) {
+    bestPoint = void 0;
+    bestDist = -1;
+    xx = series.axis.xScale.inverse(x);
+    ref = series._.featheredData;
+    for (j = 0, len = ref.length; j < len; j++) {
+      data = ref[j];
+      point = findLabel(series.data(), xx, series.labelInterpolated(), interpolator);
+      if (point) {
+        dist = Math.abs(point.x - xx);
+        if (dist < bestDist || (bestPoint == null)) {
+          bestDist = dist;
+          bestPoint = point;
+        }
+      }
+    }
+    return bestPoint;
+  }
+};
+
+makeLabelDetails = function(series, point, yAccessor, xProperty, yProperty) {
+  if (xProperty == null) {
+    xProperty = 'x';
+  }
+  if (yProperty == null) {
+    yProperty = 'y';
+  }
+  return {
+    series: series,
+    title: series.title(),
+    x: series.axis.xScale.apply(point.x),
+    y: series.axis.yScale.apply(yAccessor(point)),
+    color: series.legendColor(),
+    values: series.labelValuesExtractor()(series, point, void 0, yAccessor, xProperty, yProperty)
+  };
+};
+
+boundLabel = function(label, graph) {
+  label.bounding = graph.plotArea;
+  return label;
+};
+
+createLinearGradient = function(parent, values, series) {
+  var gradientId, linearGradient;
+  gradientId = hx.randomId();
+  hx.select(parent).select('.hx-linear-gradient').remove();
+  linearGradient = hx.select(parent).append('linearGradient').attr('class', 'hx-linear-gradient').attr('id', gradientId).attr('gradientUnits', "userSpaceOnUse").attr('x1', 0).attr('x2', 0).attr('y1', series.axis.yScale.rangeMin).attr('y2', series.axis.yScale.rangeMax);
+  values.forEach(function(value) {
+    return linearGradient.append('stop').attr('offset', ((value.yValue - series.axis.yScale.domainMin) / (series.axis.yScale.domainMax - series.axis.yScale.domainMin) * 100) + '%').attr('stop-color', hx.color(value.color).alpha(1).toString()).attr('stop-opacity', hx.color(value.color).alpha());
+  });
+  return gradientId;
+};
+
+populateLegendSeries = function(selection, series) {
+  var background, width;
+  background = selection.select('.hx-legend-box');
+  if (background.size() === 0) {
+    background = selection.append('rect')["class"]('hx-legend-box');
+  }
+  selection.view('.hx-legend-entry', 'g').enter(function() {
+    selection = this.append('g')["class"]('hx-legend-entry');
+    selection.append('text');
+    selection.append('rect');
+    return selection.node();
+  }).update(function(s, e, i) {
+    this.select('text').text(hx.isFunction(s.title) ? s.title() : s.name).attr('y', i * 20 + 10).attr('x', 15);
+    return this.select('rect').text(hx.isFunction(s.title) ? s.title() : s.name).attr('y', i * 20).attr('x', 0).attr('width', 10).attr('height', 10).attr('fill', s.legendColor ? s.legendColor() : s.fillColor);
+  }).apply(series);
+  width = hx.max(selection.selectAll('text').nodes.map(function(node) {
+    return node.getComputedTextLength();
+  }));
+  background.attr('width', width + 6 + 20);
+  background.attr('x', -5);
+  background.attr('height', series.length * 20);
+  background.attr('y', -5);
+  return selection;
+};
+
+optionSetterGetter = function(name) {
+  return function(value) {
+    if (arguments.length > 0) {
+      this._.options[name] = value;
+      return this;
+    } else {
+      return this._.options[name];
+    }
+  };
+};
+
+hx._.plot = {
+  doCollisionDetection: doCollisionDetection,
+  dataAverage: dataAverage,
+  maxTriangle: maxTriangle,
+  LTTBFeather: LTTBFeather,
+  splitAndFeather: splitAndFeather
+};
+
+var Series,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Series = (function(superClass) {
+  var defaultLabelValuesExtractor;
+
+  extend(Series, superClass);
+
+  defaultLabelValuesExtractor = function(series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) {
+    return [
+      {
+        name: series.axis.x.title(),
+        value: dataPoint[xProperty + 'Label'] || (xAccessor ? xAccessor(dataPoint) : dataPoint.x),
+        formatter: series.labelFormatter(xProperty) || series.axis.x.formatter()
+      }, {
+        name: series.axis.y.title(),
+        value: dataPoint[yProperty + 'Label'] || (yAccessor ? yAccessor(dataPoint) : dataPoint.y),
+        formatter: series.labelFormatter(yProperty) || series.axis.y.formatter()
+      }
+    ];
+  };
+
+  function Series(options) {
+    var base;
+    Series.__super__.constructor.apply(this, arguments);
+    this._ = {
+      options: hx.merge({
+        title: void 0,
+        data: void 0,
+        labelsEnabled: true,
+        labelRenderer: hx.plot.label.standard,
+        labelInterpolated: false,
+        labelFormatters: {},
+        "class": '',
+        type: void 0,
+        labelValuesExtractor: defaultLabelValuesExtractor
+      }, options),
+      featheredData: [],
+      axis: void 0,
+      seriesId: void 0
+    };
+    if ((base = this._.options).data == null) {
+      base.data = [];
+    }
+  }
+
+  Series.prototype.title = optionSetterGetter('title');
+
+  Series.prototype.data = optionSetterGetter('data');
+
+  Series.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
+
+  Series.prototype.labelRenderer = optionSetterGetter('labelRenderer');
+
+  Series.prototype.labelInterpolated = optionSetterGetter('labelInterpolated');
+
+  Series.prototype.labelValuesExtractor = optionSetterGetter('labelValuesExtractor');
+
+  Series.prototype.labelFormatter = function(name, value) {
+    if (arguments.length > 1) {
+      this._.options.labelFormatters[name] = value;
+      return this;
+    } else {
+      return this._.options.labelFormatters[name];
+    }
+  };
+
+  Series.prototype["class"] = optionSetterGetter('class');
+
+  Series.prototype.getX = function(y) {
+    var d, data, i;
+    data = this.data();
+    if (hx.isString(y)) {
+      d = hx.find(data, function(d) {
+        return d.y === y;
+      });
+      if (hx.defined(d)) {
+        return d.x;
+      } else {
+        return void 0;
+      }
+    } else {
+      i = inefficientSearch(data, y, true, function(d) {
+        return d.y;
+      });
+      return data[i].x;
+    }
+  };
+
+  Series.prototype.getY = function(x, isDiscrete) {
+    var d, data, i, x1, x2, y1, y2;
+    data = this.data();
+    if (hx.isString(x)) {
+      d = hx.find(data, function(d) {
+        return d.x === x;
+      });
+      if (hx.defined(d)) {
+        return d.y;
+      } else {
+        return void 0;
+      }
+    } else {
+      i = inefficientSearch(data, x, false, function(d) {
+        return d.x;
+      });
+      if ((0 <= i && i < data.length - 1)) {
+        x1 = data[i].x;
+        x2 = data[i + 1].x;
+        y1 = data[i].y;
+        y2 = data[i + 1].y;
+        return y1 + (y2 - y1) * (x - x1) / (x2 - x1);
+      } else {
+        if (x > data[data.length - 1].x) {
+          if (!isDiscrete) {
+            return data[data.length - 1].y;
+          }
+        } else {
+          return data[0].y;
+        }
+      }
+    }
+  };
+
+  Series.prototype.getLabelDetails = function(x, y) {};
+
+  Series.prototype.updateSvg = function(element) {};
+
+  Series.prototype.legendColor = function() {};
+
+  return Series;
+
+})(hx.EventEmitter);
+
+var Axis, dimension;
+
+dimension = function(axis, options) {
+  var setterGetter, state;
+  state = hx.merge({
+    scaleType: 'linear',
+    visible: true,
+    formatter: hx.format.si(2),
+    tickRotation: 0,
+    doCollisionDetection: true,
+    min: 'auto',
+    max: 'auto',
+    discretePadding: 0.1,
+    discreteLabels: void 0,
+    tickSpacing: 50,
+    title: null,
+    scalePaddingMin: 0,
+    scalePaddingMax: 0,
+    ticksAll: false,
+    gridLines: true,
+    nthTickVisible: 1,
+    axisTickLabelPosition: 'bottom',
+    showTicks: true
+  }, options);
+  setterGetter = function(name) {
+    return function(value) {
+      if (arguments.length > 0) {
+        state[name] = value;
+        return axis;
+      } else {
+        return state[name];
+      }
+    };
+  };
+  return {
+    doCollisionDetection: setterGetter('doCollisionDetection'),
+    scaleType: setterGetter('scaleType'),
+    visible: setterGetter('visible'),
+    formatter: setterGetter('formatter'),
+    tickRotation: setterGetter('tickRotation'),
+    min: setterGetter('min'),
+    max: setterGetter('max'),
+    discretePadding: setterGetter('discretePadding'),
+    discreteLabels: setterGetter('discreteLabels'),
+    tickSpacing: setterGetter('tickSpacing'),
+    title: setterGetter('title'),
+    scalePaddingMin: setterGetter('scalePaddingMin'),
+    scalePaddingMax: setterGetter('scalePaddingMax'),
+    ticksAll: setterGetter('ticksAll'),
+    gridLines: setterGetter('gridLines'),
+    nthTickVisible: setterGetter('nthTickVisible'),
+    axisTickLabelPosition: setterGetter('axisTickLabelPosition'),
+    showTicks: setterGetter('showTicks'),
+    axisSize: setterGetter('axisSize'),
+    titleHeight: setterGetter('titleHeight')
+  };
+};
+
+Axis = (function() {
+  var scalePad, supportsGroup;
+
+  function Axis(options) {
+    var opts, ref;
+    opts = hx.merge({
+      x: {
+        axisTickLabelPosition: 'bottom'
+      },
+      y: {
+        axisTickLabelPosition: 'left'
+      }
+    }, options);
+    this._ = {
+      series: new hx.List
+    };
+    this.x = dimension(this, hx.merge({
+      axisTickLabelPosition: 'bottom'
+    }, options != null ? options.x : void 0));
+    this.y = dimension(this, hx.merge({
+      axisTickLabelPosition: 'left'
+    }, options != null ? options.y : void 0));
+    this.xScale = new LinearScale(0, 1, 0, 1);
+    this.yScale = new LinearScale(0, 1, 0, 1);
+    this.graph = null;
+    this.xAxisSize = 50;
+    this.xTitleHeight = 0;
+    this.yAxisSize = 50;
+    this.yTitleHeight = 0;
+    if (options != null) {
+      if ((ref = options.series) != null) {
+        ref.forEach((function(_this) {
+          return function(seriesObj) {
+            return _this.addSeries(seriesObj.type, seriesObj.options);
+          };
+        })(this));
+      }
+    }
+  }
+
+  supportsGroup = function(series) {
+    return series instanceof BarSeries || series instanceof LineSeries;
+  };
+
+  Axis.prototype.addSeries = function(series, options) {
+    if (hx.isString(series)) {
+      series = (function() {
+        switch (series) {
+          case 'line':
+            return new LineSeries(options);
+          case 'band':
+            return new BandSeries(options);
+          case 'bar':
+            return new BarSeries(options);
+          case 'scatter':
+            return new ScatterSeries(options);
+          case 'straight-line':
+            return new StraightLineSeries(options);
+          default:
+            hx.consoleWarning(series + ' is not a valid series type');
+            return void 0;
+        }
+      })();
+      this._.series.add(series);
+      series.axis = this;
+      return series;
+    } else if (series instanceof Series) {
+      this._.series.add(series);
+      series.axis = this;
+      return series;
+    } else if (arguments.length === 0) {
+      series = new LineSeries;
+      this._.series.add(series);
+      series.axis = this;
+      return series;
+    } else {
+      hx.consoleWarning(series + ' is not a valid series type');
+    }
+  };
+
+  Axis.prototype.series = function(series) {
+    var k, len, s;
+    if (arguments.length > 0) {
+      this._.series = new hx.List(series);
+      for (k = 0, len = series.length; k < len; k++) {
+        s = series[k];
+        s.axis = this;
+      }
+      return this;
+    } else {
+      return this._.series.values();
+    }
+  };
+
+  Axis.prototype.removeSeries = function(series) {
+    if (this._.series.remove(series)) {
+      series.axis = void 0;
+      return series;
+    }
+  };
+
+  Axis.prototype.setupAxisSvg = function(element) {
+    var gridGroup, xAxisGroup, yAxisGroup;
+    gridGroup = hx.select(element).append('g')["class"]('hx-axis-grid');
+    xAxisGroup = hx.select(element).append('g')["class"]('hx-x-axis');
+    xAxisGroup.append('g')["class"]('hx-axis-scale');
+    yAxisGroup = hx.select(element).append('g')["class"]('hx-y-axis');
+    return yAxisGroup.append('g')["class"]('hx-axis-scale');
+  };
+
+  scalePad = function(value, range, padding) {
+    return value + (range || 1) * padding;
+  };
+
+  Axis.prototype.tagSeries = function() {
+    var groupTypeEntries, k, l, len, len1, ref, ref1, results, series, typeEntry, types;
+    groupTypeEntries = function(data) {
+      var entry, group, groups, i, internalGroupId, k, l, len, len1, len2, len3, m, n, ref, ref1, ref2, series, typeSize;
+      groups = new hx.Map;
+      for (k = 0, len = data.length; k < len; k++) {
+        series = data[k];
+        group = supportsGroup(series) ? series.group() : void 0;
+        if (!groups.has(group)) {
+          groups.set(group, new hx.List);
+        }
+        groups.get(group).add(series);
+      }
+      internalGroupId = 0;
+      typeSize = groups.size;
+      typeSize += groups.has(void 0) ? groups.get(void 0).size - 1 : 0;
+      ref = groups.entries();
+      for (l = 0, len1 = ref.length; l < len1; l++) {
+        entry = ref[l];
+        group = entry[0];
+        if (group === void 0) {
+          ref1 = entry[1].entries();
+          for (i = m = 0, len2 = ref1.length; m < len2; i = ++m) {
+            series = ref1[i];
+            series.groupId = internalGroupId;
+            internalGroupId++;
+            series._.seriesId = 0;
+            series.groupSize = 1;
+            series._.typeSize = typeSize;
+          }
+        } else {
+          ref2 = entry[1].entries();
+          for (i = n = 0, len3 = ref2.length; n < len3; i = ++n) {
+            series = ref2[i];
+            series.groupId = internalGroupId;
+            series._.seriesId = i;
+            series.groupSize = entry[1].size;
+            series._.typeSize = typeSize;
+          }
+          internalGroupId++;
+        }
+        entry;
+      }
+      return internalGroupId;
+    };
+    types = new hx.Map;
+    ref = this.series();
+    for (k = 0, len = ref.length; k < len; k++) {
+      series = ref[k];
+      if (!types.has(series._.type)) {
+        types.set(series._.type, new hx.List);
+      }
+      types.get(series._.type).add(series);
+    }
+    ref1 = types.entries();
+    results = [];
+    for (l = 0, len1 = ref1.length; l < len1; l++) {
+      typeEntry = ref1[l];
+      results.push(groupTypeEntries(typeEntry[1].entries()));
+    }
+    return results;
+  };
+
+  Axis.prototype.preupdateXAxisSvg = function(element) {
+    var alpha, alphaDeg, axisGroupSelection, d, data, domain, end, getXTicks, s, self, series, set, start, xLabelTickSize, xmax, xmin, xs;
+    self = this;
+    switch (this.x.scaleType()) {
+      case 'linear':
+        this.xScale = new LinearScale().range(0, this.graph.width);
+        break;
+      case 'discrete':
+        this.xScale = new DiscreteScale(this.x.discretePadding()).range(0, this.graph.width);
+        break;
+      case 'log':
+        this.xScale = new LogScale().range(0, this.graph.width);
+        break;
+      case 'date':
+        this.xScale = new DateScale().range(0, this.graph.width);
+    }
+    if (this.x.scaleType() === 'discrete') {
+      domain = (function() {
+        var k, l, len, len1, ref, ref1;
+        if (this.x.discreteLabels()) {
+          return this.x.discreteLabels();
+        } else {
+          set = new hx.Set;
+          ref = this.series();
+          for (k = 0, len = ref.length; k < len; k++) {
+            series = ref[k];
+            ref1 = series.data();
+            for (l = 0, len1 = ref1.length; l < len1; l++) {
+              d = ref1[l];
+              set.add(d.x);
+            }
+          }
+          return set.values();
+        }
+      }).call(this);
+      this.xScale.domain(domain);
+    } else {
+      xs = (function() {
+        var k, len, ref, results;
+        ref = this.series();
+        results = [];
+        for (k = 0, len = ref.length; k < len; k++) {
+          s = ref[k];
+          if (s instanceof StraightLineSeries) {
+            data = s.data();
+            if (!data.dx && !data.dy && data.x) {
+              results.push([data.x, data.x]);
+            } else {
+              results.push(void 0);
+            }
+          } else {
+            results.push(extent(s.data(), function(d) {
+              return d.x;
+            }));
+          }
+        }
+        return results;
+      }).call(this);
+      xs = xs.filter(hx.identity);
+      xmin = hx.min(xs.map(function(d) {
+        return d[0];
+      }));
+      xmax = hx.max(xs.map(function(d) {
+        return d[1];
+      }));
+      xmin = this.x.min() === 'auto' ? xmin : this.x.min();
+      xmax = this.x.max() === 'auto' ? xmax : this.x.max();
+      if (this.x.min() === 'auto') {
+        xmin = scalePad(xmin, xmax - xmin, -this.x.scalePaddingMin());
+      }
+      if (this.x.max() === 'auto') {
+        xmax = scalePad(xmax, xmax - xmin, this.x.scalePaddingMax());
+      }
+      start = xmin + (xmax - xmin) * this.graph.zoomRangeStart();
+      end = xmin + (xmax - xmin) * this.graph.zoomRangeEnd();
+      this.xScale.domain(start, end);
+    }
+    xLabelTickSize = 0;
+    if (!this.x.visible()) {
+      hx.select(element).select('.hx-x-axis').remove();
+    } else {
+      axisGroupSelection = hx.select(element).select('.hx-x-axis');
+      alphaDeg = this.x.tickRotation();
+      alpha = alphaDeg / 180 * Math.PI;
+      getXTicks = (function(_this) {
+        return function(scale) {
+          var k, l, len, len1, ref, ref1;
+          if (self.x.ticksAll()) {
+            set = new hx.Set;
+            ref = _this.series();
+            for (k = 0, len = ref.length; k < len; k++) {
+              series = ref[k];
+              ref1 = series.data();
+              for (l = 0, len1 = ref1.length; l < len1; l++) {
+                d = ref1[l];
+                set.add(d.x);
+              }
+            }
+            return set.values().map(function(d) {
+              return [d, scale.apply(d)];
+            });
+          } else {
+            return scale.ticks(self.x.tickSpacing());
+          }
+        };
+      })(this);
+      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
+        return this.view('.hx-tick', 'g').update(function(tick) {
+          return this.view('.hx-tick-text-x', 'text').update(function(t) {
+            var bbox, size;
+            this.text(self.x.formatter()(t));
+            bbox = this.node().getBBox();
+            size = bbox.height * Math.cos(alpha) + bbox.width * Math.sin(alpha);
+            xLabelTickSize = Math.max(xLabelTickSize, size);
+            if (alpha === 0) {
+              return this.attr("transform", "translate(" + (-bbox.width / 2) + "," + labelOffset + ")").style("dominant-baseline", "hanging");
+            } else {
+              return this.attr("transform", "translate(0," + labelOffset + ") rotate(" + alphaDeg + ")");
+            }
+          }).apply(tick[0]);
+        }).apply(getXTicks(scale));
+      }).apply(this.xScale);
+      if (this.x.title()) {
+        axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
+          return d.xTitleHeight = this.text(d.x.title()).height();
+        }).apply(this);
+        xLabelTickSize += this.xTitleHeight;
+      }
+      xLabelTickSize += labelOffset + axisPadding;
+    }
+    return this.xAxisSize = xLabelTickSize;
+  };
+
+  Axis.prototype.preupdateYAxisSvg = function(element, totalXAxisSize) {
+    var axisGroupSelection, d, data, domain, group, k, l, len, len1, len2, m, ref, ref1, rmin, s, self, series, set, stackGroups, stackHeight, topSeries, type, types, yLabelTickSize, ymax, ymin, ys, yymax, yymin;
+    self = this;
+    rmin = this.graph.height - totalXAxisSize;
+    switch (this.y.scaleType()) {
+      case 'linear':
+        this.yScale = new LinearScale().range(rmin, 0);
+        break;
+      case 'discrete':
+        this.yScale = new DiscreteScale(this.y.discretePadding()).range(rmin, 0);
+        break;
+      case 'log':
+        this.yScale = new LogScale().range(rmin, 0);
+        break;
+      case 'date':
+        this.yScale = new DateScale().range(rmin, 0);
+    }
+    if (this.y.scaleType() === 'discrete') {
+      domain = (function() {
+        var k, l, len, len1, ref, ref1;
+        if (this.yDiscreteLabels) {
+          return this.yDiscreteLabels;
+        } else {
+          set = new hx.Set;
+          ref = this.series();
+          for (k = 0, len = ref.length; k < len; k++) {
+            series = ref[k];
+            ref1 = series.data();
+            for (l = 0, len1 = ref1.length; l < len1; l++) {
+              d = ref1[l];
+              set.add(d.y);
+            }
+          }
+          return set.values();
+        }
+      }).call(this);
+      this.yScale.domain(domain);
+    } else {
+      ymin = void 0;
+      ymax = void 0;
+      types = hx.groupBy(this.series(), function(d) {
+        return d._.type;
+      });
+      stackGroups = types.map(function(d) {
+        return {
+          type: d[0],
+          group: hx.groupBy(d[1], function(s) {
+            if (supportsGroup(s)) {
+              return s.group();
+            } else {
+              return void 0;
+            }
+          })
+        };
+      });
+      for (k = 0, len = stackGroups.length; k < len; k++) {
+        type = stackGroups[k];
+        ref = type.group;
+        for (l = 0, len1 = ref.length; l < len1; l++) {
+          group = ref[l];
+          series = group[1];
+          if (group[0] === void 0) {
+            ys = (function() {
+              var len2, m, ref1, results;
+              ref1 = this.series();
+              results = [];
+              for (m = 0, len2 = ref1.length; m < len2; m++) {
+                s = ref1[m];
+                data = s.data();
+                if (s instanceof StraightLineSeries) {
+                  if (!data.dx && !data.dy && data.y) {
+                    results.push([data.y, data.y]);
+                  } else {
+                    results.push(void 0);
+                  }
+                } else if (s instanceof BandSeries) {
+                  results.push(extent2(data, (function(d) {
+                    return d.y1;
+                  }), function(d) {
+                    return d.y2;
+                  }));
+                } else {
+                  results.push(extent(data, function(d) {
+                    return d.y;
+                  }));
+                }
+              }
+              return results;
+            }).call(this);
+            ys = ys.filter(function(d) {
+              return d != null;
+            });
+            yymin = hx.min(ys.map(function(d) {
+              return d[0];
+            }));
+            yymax = hx.max(ys.map(function(d) {
+              return d[1];
+            }));
+            if (ymin === void 0 || yymin < ymin) {
+              ymin = yymin;
+            }
+            if (ymax === void 0 || yymax > ymax) {
+              ymax = yymax;
+            }
+          } else {
+            topSeries = series[series.length - 1];
+            if (ymin === void 0) {
+              ymin = 0;
+            } else {
+              ymin = Math.min(ymin, 0);
+            }
+            if (ymax === void 0) {
+              ymax = 0;
+            } else {
+              ymax = Math.max(ymax, 0);
+            }
+            ref1 = topSeries.data();
+            for (m = 0, len2 = ref1.length; m < len2; m++) {
+              d = ref1[m];
+              stackHeight = this.getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId + 1, this.yScale.domainMin);
+              if (ymin === void 0 || stackHeight < ymin) {
+                ymin = stackHeight;
+              }
+              if (ymax === void 0 || stackHeight > ymax) {
+                ymax = stackHeight;
+              }
+            }
+          }
+        }
+      }
+      ymin = this.y.min() === 'auto' ? ymin : this.y.min();
+      ymax = this.y.max() === 'auto' ? ymax : this.y.max();
+      if (this.y.min() === 'auto') {
+        ymin = scalePad(ymin, ymax - ymin, -this.y.scalePaddingMin());
+      }
+      if (this.y.max() === 'auto') {
+        ymax = scalePad(ymax, ymax - ymin, this.y.scalePaddingMax());
+      }
+      this.yScale.domain(ymin, ymax);
+    }
+    yLabelTickSize = 0;
+    if (!this.y.visible()) {
+      hx.select(element).select('.hx-y-axis').remove();
+    } else {
+      axisGroupSelection = hx.select(element).select('.hx-y-axis');
+      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
+        return this.view('.hx-tick', 'g').update(function(tick) {
+          return this.view('.hx-tick-text-y', 'text').update(function(t) {
+            var size;
+            size = this.text(self.y.formatter()(t)).attr('x', -labelOffset).width();
+            if (size > yLabelTickSize) {
+              return yLabelTickSize = size;
+            }
+          }).apply(tick[0]);
+        }).apply(scale.ticks(self.y.tickSpacing()));
+      }).apply(this.yScale);
+      if (this.y.title()) {
+        axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
+          return d.yTitleHeight = this.text(d.y.title()).attr('transform', 'rotate(90)').width();
+        }).apply(this);
+        yLabelTickSize += this.yTitleHeight;
+      }
+      yLabelTickSize += labelOffset + axisPadding;
+    }
+    return this.yAxisSize = yLabelTickSize;
+  };
+
+  Axis.prototype.updateAxisSvg = function(element, xOffset, yOffset, totalXOffset, totalYOffset) {
+    var axisGroupSelection, axisUpdateFunc, axisX, axisY, gridSelection, height, markerX, markerY, self, width, xline, yline;
+    self = this;
+    width = this.graph.width;
+    height = this.graph.height;
+    switch (this.x.scaleType()) {
+      case 'linear':
+      case 'date':
+        this.xScale.range(totalXOffset, width);
+        break;
+      case 'discrete':
+        this.xScale.range(totalXOffset, width);
+        break;
+      case 'log':
+        this.xScale.range(totalXOffset, width);
+    }
+    switch (this.y.scaleType()) {
+      case 'linear':
+      case 'date':
+        this.yScale.range(height - totalYOffset, 0);
+        break;
+      case 'discrete':
+        this.yScale.range(height - totalYOffset, 0);
+        break;
+      case 'log':
+        this.yScale.range(height - totalYOffset, 0);
+    }
+    gridSelection = hx.select(element).select('.hx-axis-grid');
+    if (!this.x.visible()) {
+      hx.select(element).select('.hx-x-axis').remove();
+    } else {
+      if (this.x.gridLines()) {
+        gridSelection.view('.hx-vertical-grid-line', 'line').update(function(tick) {
+          return this.attr('x1', tick[1]).attr('x2', tick[1]).attr('y1', self.yScale.rangeMax).attr('y2', self.yScale.rangeMin);
+        }).apply(this.xScale.ticks(self.x.tickSpacing()));
+      }
+      axisGroupSelection = hx.select(element).select('.hx-x-axis');
+      yline = this.yScale.apply(0);
+      if (isNaN(yline) || this.y.scaleType() === 'discrete') {
+        axisY = height - yOffset - this.xAxisSize;
+        markerY = height - yOffset - this.xAxisSize;
+      } else {
+        axisY = Math.min(height - yOffset - this.xAxisSize, yline);
+        if (this.x.axisTickLabelPosition() === 'axis') {
+          markerY = Math.min(height - yOffset - this.xAxisSize, yline);
+        } else {
+          markerY = height - yOffset - this.xAxisSize;
+        }
+      }
+      axisUpdateFunc = function(scale) {
+        var nodes;
+        this.view('.hx-axis-line', 'line').update(function(s) {
+          this.attr('x1', s.rangeMin).attr('x2', s.rangeMax);
+          return this.attr('y1', axisY).attr('y2', axisY);
+        }).apply(scale);
+        this.view('.hx-tick', 'g').update(function(tick, e, i) {
+          this.attr("transform", "translate(" + tick[1] + "," + markerY + ")");
+          this.view('.hx-tick-line', 'line').update(function(t) {
+            return this.attr('y1', 0).attr('y2', tickSize);
+          }).apply(this);
+          return this.view('.hx-tick-text-x', 'text').update(function(t) {
+            return this.text((i % self.x.nthTickVisible()) === 0 ? self.x.formatter()(t) : '');
+          }).apply(tick[0]);
+        }).apply(self.x.showTicks() ? scale.ticks(self.x.tickSpacing()) : []);
+        if (self.x.showTicks() && self.x.doCollisionDetection()) {
+          nodes = this.selectAll('.hx-tick-text-x').filter(function(x) {
+            return x.text();
+          }).nodes;
+          if (nodes.length) {
+            return doCollisionDetection(nodes);
+          }
+        }
+      };
+      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(axisUpdateFunc).apply(this.xScale);
+      if (this.x.title()) {
+        axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
+          var translateX, translateY;
+          translateX = (width + totalXOffset) / 2;
+          translateY = markerY + d.xAxisSize - d.xTitleHeight / 2 - axisPadding / 2;
+          return this.attr('transform', 'translate(' + translateX + ', ' + translateY + ')').text(self.x.title());
+        }).apply(this);
+      }
+    }
+    if (!this.y.visible()) {
+      return hx.select(element).select('.hx-y-axis').remove();
+    } else {
+      if (this.y.gridLines()) {
+        gridSelection.view('.hx-horizontal-grid-line', 'line').update(function(tick) {
+          return this.attr('y1', tick[1]).attr('y2', tick[1]).attr('x1', self.xScale.rangeMax).attr('x2', self.xScale.rangeMin);
+        }).apply(this.yScale.ticks(self.y.tickSpacing()));
+      }
+      axisGroupSelection = hx.select(element).select('.hx-y-axis');
+      xline = this.xScale.apply(0);
+      if (isNaN(xline) || this.x.scaleType() === 'discrete') {
+        axisX = xOffset + this.yAxisSize;
+        markerX = xOffset + this.yAxisSize;
+      } else {
+        axisX = Math.max(xOffset + this.yAxisSize, xline);
+        if (this.y.axisTickLabelPosition() === 'axis') {
+          markerX = Math.max(xOffset + this.yAxisSize, xline);
+        } else {
+          markerX = xOffset + this.yAxisSize;
+        }
+      }
+      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
+        this.view('.hx-axis-line', 'line').update(function(s) {
+          return this.attr('y1', s.rangeMin).attr('y2', s.rangeMax).attr('x1', axisX).attr('x2', axisX);
+        }).apply(scale);
+        return this.view('.hx-tick', 'g').update(function(tick, e, i) {
+          this.attr("transform", "translate(" + markerX + "," + tick[1] + ")");
+          this.view('.hx-tick-line', 'line').update(function(t) {
+            return this.attr('x1', -tickSize).attr('x2', 0);
+          }).apply(this);
+          return this.view('.hx-tick-text-y', 'text').update(function(t) {
+            return this.attr('x', -labelOffset).text((i % self.y.nthTickVisible()) === 0 ? self.y.formatter()(t) : '');
+          }).apply(tick[0]);
+        }).apply(self.y.showTicks() ? scale.ticks(self.y.tickSpacing()) : []);
+      }).apply(this.yScale);
+      if (this.y.title()) {
+        return axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
+          var translateX, translateY;
+          translateX = markerX - d.yAxisSize + d.yTitleHeight / 2 + axisPadding / 2;
+          translateY = (height - totalYOffset) / 2;
+          return this.attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(-90)').text(self.y.title());
+        }).apply(this);
+      }
+    }
+  };
+
+  Axis.prototype.updateDataSvg = function(fillLayer, sparseLayer) {
+    var fill, i, k, len, ref, results, s, sparse;
+    fill = [];
+    sparse = [];
+    hx.select(fillLayer).view('.hx-series', 'g').update(function(d, e) {
+      return fill.push(e);
+    }).apply(this.series());
+    hx.select(sparseLayer).view('.hx-series', 'g').update(function(d, e) {
+      return sparse.push(e);
+    }).apply(this.series());
+    ref = this.series();
+    results = [];
+    for (i = k = 0, len = ref.length; k < len; i = ++k) {
+      s = ref[i];
+      results.push(s.updateSvg(fill[i], sparse[i]));
+    }
+    return results;
+  };
+
+  Axis.prototype.getLabelDetails = function(x, y) {
+    var labels;
+    labels = hx.flatten(this.series().map(function(series) {
+      return series.getLabelDetails(x, y);
+    }));
+    return labels.filter(function(d) {
+      return d;
+    });
+  };
+
+  Axis.prototype.getXStack = function(type, group, y, seriesId, start) {
+    var j, k, len, ref, series, xStack, xs;
+    if (start == null) {
+      start = 0;
+    }
+    if (group) {
+      xStack = Math.max(this.xScale.domainMin, 0);
+      ref = this.series();
+      for (j = k = 0, len = ref.length; k < len; j = ++k) {
+        series = ref[j];
+        if (series._.seriesId < seriesId && series.group() === group && series._.type === type) {
+          xs = series.getX(y);
+          if (hx.defined(xs)) {
+            xStack += xs;
+          }
+        }
+      }
+      return xStack;
+    } else {
+      return Math.max(start, 0);
+    }
+  };
+
+  Axis.prototype.getYStack = function(type, group, x, seriesId, start) {
+    var j, k, len, ref, series, yStack, ys;
+    if (start == null) {
+      start = 0;
+    }
+    if (group) {
+      yStack = Math.max(this.yScale.domainMin, 0);
+      ref = this.series();
+      for (j = k = 0, len = ref.length; k < len; j = ++k) {
+        series = ref[j];
+        if (series._.seriesId < seriesId && series.group() === group && series._.type === type) {
+          ys = series.getY(x, this.x.scaleType() === 'discrete');
+          if (hx.defined(ys)) {
+            yStack += ys;
+          }
+        }
+      }
+      return yStack;
+    } else {
+      return Math.max(start, 0);
+    }
+  };
+
+  return Axis;
+
+})();
+
+var Graph, axisPadding, labelOffset, tickSize,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  plot: {
+    noData: 'No Data'
+  }
+});
+
+tickSize = 6;
+
+labelOffset = tickSize + 4;
+
+axisPadding = 4;
+
+Graph = (function(superClass) {
+  var clearLabels, getClosestMeta, updateLabels;
+
+  extend(Graph, superClass);
+
+  function Graph(selector, options) {
+    var clipPath, defs, id, ref, savedZoomEnd, savedZoomStart, selection, threshold, touchX1, touchX2;
+    this.selector = selector;
+    Graph.__super__.constructor.apply(this, arguments);
+    hx.component.register(this.selector, this);
+    this._ = {
+      options: hx.shallowMerge({
+        zoomRangeStart: 0,
+        zoomRangeEnd: 1,
+        labelsEnabled: true,
+        legendsEnabled: false,
+        legendLocation: 'auto',
+        noDataText: hx.userFacingText('plot', 'noData'),
+        redrawOnResize: true
+      }, options),
+      axes: new hx.List
+    };
+    id = hx.randomId();
+    selection = hx.select(this.selector);
+    selection.on('resize', 'hx.plot', (function(_this) {
+      return function() {
+        if (_this._.options.redrawOnResize) {
+          return _this.render();
+        }
+      };
+    })(this));
+    this.svgTarget = selection.append("svg").attr('class', 'hx-graph');
+    defs = this.svgTarget.append('defs');
+    this.axesTarget = this.svgTarget.append('g').attr('class', 'hx-axes');
+    this.plotTarget = this.svgTarget.append('g').attr('class', 'hx-plot');
+    clipPath = defs.append('clipPath').attr('id', 'clip-series-' + id);
+    this.clipRect = clipPath.append('rect');
+    this.plotTarget.attr('clip-path', 'url(#clip-series-' + id + ')');
+    touchX1 = 0;
+    touchX2 = 0;
+    savedZoomStart = 0;
+    savedZoomEnd = 1;
+    this.svgTarget.on('pointerdown', 'hx.plot', (function(_this) {
+      return function(p) {
+        var x, y;
+        x = Math.round(p.x - _this.svgTarget.box().left);
+        y = Math.round(p.y - _this.svgTarget.box().top);
+        updateLabels(_this, x, y);
+        if (p.event.targetTouches && p.event.targetTouches.length > 1) {
+          p.event.preventDefault();
+          p.event.stopPropagation();
+          touchX1 = p.event.targetTouches[0].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
+          touchX2 = p.event.targetTouches[1].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
+          savedZoomStart = _this.zoomRangeStart();
+          return savedZoomEnd = _this.zoomRangeEnd();
+        }
+      };
+    })(this));
+    threshold = 0.01;
+    this.svgTarget.on('touchmove', 'hx.plot', (function(_this) {
+      return function(e) {
+        var endFactor, startFactor, w, x1, x2, xhat, xn, z;
+        if (e.targetTouches.length > 1 && _this.zoomEnabled()) {
+          e.preventDefault();
+          e.stopPropagation();
+          w = _this.plotArea.x2 - _this.plotArea.x1;
+          x1 = e.targetTouches[0].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
+          x2 = e.targetTouches[1].clientX - _this.svgTarget.box().left - _this.plotArea.x1;
+          xn = (touchX1 + touchX2) / (2 * w);
+          xhat = savedZoomStart + (savedZoomEnd - savedZoomStart) * xn;
+          z = Math.abs(touchX1 - touchX2) / Math.abs(x1 - x2);
+          startFactor = savedZoomStart - xhat;
+          endFactor = savedZoomEnd - xhat;
+          if (_this.zoomRangeEnd === 1 && startFactor > -threshold) {
+            startFactor = -threshold;
+          }
+          if (_this.zoomRangeStart() === 0 && endFactor < threshold) {
+            endFactor = threshold;
+          }
+          _this.zoomRangeStart(hx.clampUnit(xhat + z * startFactor));
+          _this.zoomRangeEnd(hx.clampUnit(xhat + z * endFactor));
+          _this.emit('zoom', {
+            start: _this.zoomRangeStart(),
+            end: _this.zoomRangeEnd()
+          });
+          return _this.render();
+        }
+      };
+    })(this));
+    this.svgTarget.on('mousemove', 'hx.plot', (function(_this) {
+      return function(p) {
+        var legendContainer, x, y;
+        x = Math.round(p.clientX - _this.svgTarget.box().left);
+        y = Math.round(p.clientY - _this.svgTarget.box().top);
+        if (_this.labelsEnabled()) {
+          updateLabels(_this, x, y);
+        }
+        if (_this.legendEnabled()) {
+          legendContainer = _this.svgTarget.select('.hx-legend-container');
+          if (_this.legendLocation() === 'hover') {
+            legendContainer.style('display', '');
+          }
+          if (_this.legendLocation() === 'auto' || _this.legendLocation() === 'hover') {
+            if (x - _this.plotArea.x1 < (_this.plotArea.x1 + _this.plotArea.x2) / 2) {
+              return legendContainer.attr('transform', 'translate(' + (_this.plotArea.x2 - 10 - legendContainer.width()) + ',' + (_this.plotArea.y1 + 10) + ')');
+            } else {
+              return legendContainer.attr('transform', 'translate(' + (_this.plotArea.x1 + 10) + ',' + (_this.plotArea.y1 + 10) + ')');
+            }
+          }
+        }
+      };
+    })(this));
+    this.svgTarget.on('mouseleave', 'hx.plot', (function(_this) {
+      return function() {
+        if (_this.legendEnabled() && _this.legendLocation() === 'hover') {
+          return _this.svgTarget.select('.hx-legend-container').style('display', 'none');
+        }
+      };
+    })(this));
+    this.svgTarget.on('pointerleave', 'hx.plot', function(p) {
+      return clearLabels();
+    });
+    this.svgTarget.on('click', 'hx.plot', (function(_this) {
+      return function(p) {
+        var data, labelMeta, x, y;
+        x = Math.round(p.x - _this.svgTarget.box().left);
+        y = Math.round(p.y - _this.svgTarget.box().top);
+        labelMeta = getClosestMeta(_this, x, y);
+        if (labelMeta) {
+          data = {
+            event: p,
+            data: labelMeta.values,
+            series: labelMeta.series
+          };
+          _this.emit('click', data);
+          return labelMeta.series.emit('click', data);
+        }
+      };
+    })(this));
+    this.svgTarget.on('wheel', 'hx.plot', (function(_this) {
+      return function(e) {
+        var delta, endFactor, startFactor, w, x, xhat, xn, z, zoomRangeEnd, zoomRangeStart;
+        if (_this.zoomEnabled()) {
+          e.preventDefault();
+          e.stopPropagation();
+          threshold = 0.01;
+          delta = -e.deltaY;
+          if (e.deltaMode === 1) {
+            delta *= 20;
+          }
+          zoomRangeStart = _this.zoomRangeStart();
+          zoomRangeEnd = _this.zoomRangeEnd();
+          x = e.clientX - _this.svgTarget.box().left - _this.plotArea.x1;
+          w = _this.plotArea.x2 - _this.plotArea.x1;
+          xn = hx.clampUnit(x / w);
+          xhat = zoomRangeStart + (zoomRangeEnd - zoomRangeStart) * xn;
+          z = 1 - delta / 600;
+          startFactor = zoomRangeStart - xhat;
+          endFactor = zoomRangeEnd - xhat;
+          if (zoomRangeEnd === 1 && startFactor > -threshold) {
+            startFactor = -threshold;
+          }
+          if (zoomRangeStart === 0 && endFactor < threshold) {
+            endFactor = threshold;
+          }
+          _this.zoomRangeStart(hx.clampUnit(xhat + z * startFactor));
+          _this.zoomRangeEnd(hx.clampUnit(xhat + z * endFactor));
+          _this.emit('zoom', {
+            start: _this.zoomRangeStart(),
+            end: _this.zoomRangeEnd()
+          });
+          return _this.render();
+        }
+      };
+    })(this));
+    if (options != null) {
+      if ((ref = options.axes) != null) {
+        ref.forEach((function(_this) {
+          return function(axis) {
+            return _this.addAxis(axis);
+          };
+        })(this));
+      }
+    }
+  }
+
+  Graph.prototype.zoomRangeStart = optionSetterGetter('zoomRangeStart');
+
+  Graph.prototype.zoomRangeEnd = optionSetterGetter('zoomRangeEnd');
+
+  Graph.prototype.zoomEnabled = optionSetterGetter('zoomEnabled');
+
+  Graph.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
+
+  Graph.prototype.legendEnabled = optionSetterGetter('legendEnabled');
+
+  Graph.prototype.legendLocation = optionSetterGetter('legendLocation');
+
+  Graph.prototype.redrawOnResize = optionSetterGetter('redrawOnResize');
+
+  Graph.prototype.axes = function(axes) {
+    if (arguments.length > 0) {
+      this._.axes = new hx.List(axes);
+      this.axes().forEach(function(a) {
+        return a.graph = this;
+      });
+      return this;
+    } else {
+      return this._.axes.values();
+    }
+  };
+
+  Graph.prototype.addAxis = function(options) {
+    var axis;
+    axis = options instanceof Axis ? options : new Axis(options);
+    axis.graph = this;
+    this._.axes.add(axis);
+    return axis;
+  };
+
+  Graph.prototype.removeAxis = function(axis) {
+    if (this._.axes.remove(axis)) {
+      axis.graph = null;
+      return axis;
+    }
+  };
+
+  Graph.prototype.render = function() {
+    var enter, hasData, legendContainer, legendContainerTransformX, legendContainerTransformY, selection, self, totalX, totalY, x, y;
+    selection = hx.select(this.selector);
+    this.width = Number(selection.width());
+    this.height = Number(selection.height());
+    if (this.width <= 0 || this.height <= 0) {
+      return;
+    }
+    hasData = this.axes().some(function(axis) {
+      return axis.series().some(function(series) {
+        var data;
+        data = series.data();
+        return hx.isObject(data) || data.length > 0;
+      });
+    });
+    self = this;
+    this.svgTarget.view('.hx-plot-no-data', 'text').update(function() {
+      return this.text(self._.options.noDataText).attr('x', self.width / 2).attr('y', self.height / 2);
+    }).apply(hasData ? [] : [true]);
+    this.axes().forEach(function(a) {
+      return a.tagSeries();
+    });
+    enter = function(d) {
+      var node;
+      node = this.append('g')["class"]('hx-axis').node();
+      d.setupAxisSvg(node);
+      return node;
+    };
+    totalX = 0;
+    this.axesTarget.view('.hx-axis', 'g').enter(enter).update(function(d, element) {
+      d.preupdateXAxisSvg(element);
+      return totalX += d.xAxisSize;
+    }).apply(this.axes());
+    totalY = 0;
+    this.axesTarget.view('.hx-axis', 'g').enter(enter).update(function(d, element) {
+      d.preupdateYAxisSvg(element, totalX);
+      return totalY += d.yAxisSize;
+    }).apply(this.axes());
+    x = 0;
+    y = 0;
+    this.axesTarget.view('.hx-axis', 'g').enter(enter).update(function(d, element) {
+      d.updateAxisSvg(element, y, x, totalY, totalX);
+      x += d.xAxisSize;
+      return y += d.yAxisSize;
+    }).apply(this.axes());
+    this.plotArea = {
+      x1: y,
+      y1: 0,
+      x2: this.width,
+      y2: this.height - x
+    };
+    if (((this.plotArea.x2 - this.plotArea.x1) <= 0) || ((this.plotArea.y2 - this.plotArea.y1) <= 0)) {
+      return;
+    }
+    this.plotTarget.view('.hx-axis-data', 'g').enter(function() {
+      var g;
+      g = this.append('g')["class"]('hx-axis-data');
+      g.append('g')["class"]('hx-graph-fill-layer');
+      g.append('g')["class"]('hx-graph-sparse-layer');
+      return g.node();
+    }).update(function(d, element) {
+      return d.updateDataSvg(this.select('.hx-graph-fill-layer').node(), this.select('.hx-graph-sparse-layer').node());
+    }).apply(this.axes());
+    if (this.legendEnabled()) {
+      legendContainer = this.svgTarget.select('.hx-legend-container');
+      if (legendContainer.size() === 0) {
+        legendContainer = this.svgTarget.append('g')["class"]('hx-legend-container');
+      }
+      populateLegendSeries(legendContainer, hx.flatten(this.axes().map(function(axis) {
+        return axis.series();
+      })));
+      switch (this.legendLocation()) {
+        case 'top-left':
+          legendContainer.attr('transform', 'translate(' + (this.plotArea.x1 + 10) + ',' + (this.plotArea.y1 + 10) + ')');
+          break;
+        case 'bottom-right':
+          legendContainerTransformX = this.plotArea.x2 - 10 - legendContainer.width();
+          legendContainerTransformY = this.plotArea.y2 - 5 - legendContainer.height();
+          legendContainer.attr('transform', 'translate(' + legendContainerTransformX + ',' + legendContainerTransformY + ')');
+          break;
+        case 'bottom-left':
+          legendContainer.attr('transform', 'translate(' + (this.plotArea.x1 + 10) + ',' + (this.plotArea.y2 - 5 - legendContainer.height()) + ')');
+          break;
+        case 'hover':
+          legendContainer.style('display', 'none');
+          break;
+        default:
+          legendContainer.attr('transform', 'translate(' + (this.plotArea.x2 - 10 - legendContainer.width()) + ',' + (this.plotArea.y1 + 10) + ')');
+      }
+    } else {
+      this.svgTarget.select('.hx-legend-container').remove();
+    }
+    this.clipRect.attr('x', this.plotArea.x1).attr('y', this.plotArea.y1).attr('width', this.plotArea.x2 - this.plotArea.x1).attr('height', this.plotArea.y2 - this.plotArea.y1);
+    this.emit('render');
+    return this;
+  };
+
+  getClosestMeta = function(graph, x, y) {
+    var bestDistance, bestMeta, distance, i, l, labels, len, xx, yy;
+    x = hx.clamp(graph.plotArea.x1, graph.plotArea.x2, x);
+    y = hx.clamp(graph.plotArea.y1, graph.plotArea.y2, y);
+    labels = hx.flatten(graph.axes().map(function(axis) {
+      return axis.getLabelDetails(x, y);
+    }));
+    labels = labels.filter(function(label) {
+      var ref, ref1;
+      return (graph.plotArea.x1 <= (ref = label.x) && ref <= graph.plotArea.x2) && (graph.plotArea.y1 <= (ref1 = label.y) && ref1 <= graph.plotArea.y2);
+    });
+    bestMeta = void 0;
+    bestDistance = void 0;
+    for (i = 0, len = labels.length; i < len; i++) {
+      l = labels[i];
+      xx = l.x - x;
+      yy = l.y - y;
+      distance = xx * xx + yy * yy;
+      if (bestDistance === void 0 || distance < bestDistance) {
+        bestMeta = l;
+        bestDistance = distance;
+      }
+    }
+    return bestMeta;
+  };
+
+  clearLabels = function() {
+    return hx.select('body').select('.hx-plot-label-container').clear();
+  };
+
+  updateLabels = function(graph, x, y) {
+    var bestMeta, updateLabel;
+    updateLabel = function(data, element) {
+      hx.select(element).style('left', Math.round(window.pageXOffset + graph.svgTarget.box().left + data.x) + 'px').style('top', Math.round(window.pageYOffset + graph.svgTarget.box().top + data.y) + 'px');
+      return data.series.labelRenderer()(element, data);
+    };
+    bestMeta = getClosestMeta(graph, x, y);
+    if (hx.select('body').select('.hx-plot-label-container').empty()) {
+      hx.select('body').append('div')["class"]('hx-plot-label-container');
+    }
+    return hx.select('body').select('.hx-plot-label-container').view('.hx-plot-label', 'div').update(updateLabel).apply(bestMeta ? boundLabel(bestMeta, graph) : []);
+  };
+
+  return Graph;
+
+})(hx.EventEmitter);
+
+var LinearScale;
+
+LinearScale = (function() {
+  function LinearScale(domainMin, domainMax, rangeMin, rangeMax) {
+    var den;
+    this.domainMin = domainMin != null ? domainMin : 0;
+    this.domainMax = domainMax != null ? domainMax : 10;
+    this.rangeMin = rangeMin != null ? rangeMin : 0;
+    this.rangeMax = rangeMax != null ? rangeMax : 10;
+    den = this.domainMax - this.domainMin;
+    this.factor = den !== 0 ? (this.rangeMax - this.rangeMin) / den : 1;
+  }
+
+  LinearScale.prototype.apply = function(v) {
+    return this.rangeMin + (v - this.domainMin) * this.factor;
+  };
+
+  LinearScale.prototype.inverse = function(v) {
+    return this.domainMin + (v - this.rangeMin) / this.factor;
+  };
+
+  LinearScale.prototype.domain = function(start, end) {
+    var den;
+    this.domainMin = start;
+    this.domainMax = end;
+    den = this.domainMax - this.domainMin;
+    this.factor = den !== 0 ? (this.rangeMax - this.rangeMin) / den : 1;
+    return this;
+  };
+
+  LinearScale.prototype.range = function(start, end) {
+    var den;
+    this.rangeMin = start;
+    this.rangeMax = end;
+    den = this.domainMax - this.domainMin;
+    this.factor = den !== 0 ? (this.rangeMax - this.rangeMin) / den : 1;
+    return this;
+  };
+
+  LinearScale.prototype.ticks = function(targetSpacing) {
+    var d, domainEnd, domainSpan, domainStart, error, i, j, niceCount, niceDomainSpacing, ref, results, targetCount;
+    domainSpan = this.domainMax - this.domainMin;
+    targetCount = Math.abs(this.rangeMax - this.rangeMin) / targetSpacing;
+    niceDomainSpacing = Math.pow(10, Math.floor(Math.log(domainSpan / targetCount) / Math.LN10));
+    error = domainSpan / (targetCount * niceDomainSpacing);
+    switch (false) {
+      case !(error >= 7.5):
+        niceDomainSpacing *= 10;
+        break;
+      case !(error >= 3):
+        niceDomainSpacing *= 5;
+        break;
+      case !(error >= 1.25):
+        niceDomainSpacing *= 2;
+    }
+    domainStart = Math.ceil(this.domainMin / niceDomainSpacing) * niceDomainSpacing;
+    domainEnd = (Math.floor(this.domainMax / niceDomainSpacing) + .5) * niceDomainSpacing;
+    niceCount = (domainEnd - domainStart) / niceDomainSpacing;
+    results = [];
+    for (i = j = 0, ref = niceCount; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      d = domainStart + i * niceDomainSpacing;
+      results.push([d, this.apply(d)]);
+    }
+    return results;
+  };
+
+  return LinearScale;
+
+})();
+
+var DiscreteScale;
+
+DiscreteScale = (function() {
+  function DiscreteScale(bandPadding) {
+    this.bandPadding = bandPadding != null ? bandPadding : 0.1;
+    this.domainCategories = [];
+    this.rangeMin = 0;
+    this.rangeMax = 10;
+  }
+
+  DiscreteScale.prototype.apply = function(v) {
+    var i;
+    i = this.domainCategories.indexOf(v);
+    if (i !== -1) {
+      return this.rangeMin + (i / this.domainCategories.length) * (this.rangeMax - this.rangeMin) + this.tickOffset() + this.tickWidth() / 2;
+    } else {
+      return void 0;
+    }
+  };
+
+  DiscreteScale.prototype.inverse = function(v) {
+    var i;
+    i = Math.floor(((v - this.tickOffset()) - this.rangeMin) / (this.rangeMax - this.rangeMin) * this.domainCategories.length);
+    if ((0 <= i && i < this.domainCategories.length)) {
+      return this.domainCategories[i];
+    } else {
+      return void 0;
+    }
+  };
+
+  DiscreteScale.prototype.domain = function(categories) {
+    this.domainCategories = categories;
+    return this;
+  };
+
+  DiscreteScale.prototype.range = function(start, end) {
+    this.rangeMin = start;
+    this.rangeMax = end;
+    return this;
+  };
+
+  DiscreteScale.prototype.ticks = function(targetSpacing) {
+    var c, j, len, ref, results;
+    if (targetSpacing == null) {
+      targetSpacing = 50;
+    }
+    ref = this.domainCategories;
+    results = [];
+    for (j = 0, len = ref.length; j < len; j++) {
+      c = ref[j];
+      results.push([c, this.apply(c)]);
+    }
+    return results;
+  };
+
+  DiscreteScale.prototype.tickWidth = function() {
+    return (this.rangeMax - this.rangeMin) / this.domainCategories.length * (1 - this.bandPadding);
+  };
+
+  DiscreteScale.prototype.tickOffset = function() {
+    return (this.rangeMax - this.rangeMin) / this.domainCategories.length * this.bandPadding / 2;
+  };
+
+  return DiscreteScale;
+
+})();
+
+var DateScale,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+DateScale = (function(superClass) {
+  extend(DateScale, superClass);
+
+  function DateScale(domainMin, domainMax, rangeMin, rangeMax) {
+    this.domainMin = domainMin;
+    this.domainMax = domainMax;
+    this.rangeMin = rangeMin;
+    this.rangeMax = rangeMax;
+    DateScale.__super__.constructor.apply(this, arguments);
+  }
+
+  DateScale.prototype.ticks = function(targetSpacing) {
+    var checkVal, d, domainEnd, domainSpan, domainStart, error, i, j, niceCount, niceDomainSpacing, ref, results, round, targetCount, timeStep, timeSteps;
+    timeSteps = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1e3, 5e3, 15e3, 3e4, 6e4, 3e5, 9e5, 18e5, 36e5, 108e5, 216e5, 432e5, 864e5, 1728e5, 6048e5, 2592e6, 7776e6, 31536e6];
+    domainSpan = this.domainMax - this.domainMin;
+    checkVal = function(val) {
+      var j, len, step;
+      for (j = 0, len = timeSteps.length; j < len; j++) {
+        step = timeSteps[j];
+        if (val <= step) {
+          return step;
+        }
+      }
+      return 1;
+    };
+    targetCount = Math.abs(this.rangeMax - this.rangeMin) / targetSpacing;
+    niceDomainSpacing = Math.pow(10, Math.floor(Math.log(domainSpan / targetCount) / Math.LN10));
+    error = domainSpan / (targetCount * niceDomainSpacing);
+    niceDomainSpacing *= error >= 7.5 ? 10 : error >= 3 ? 5 : error >= 2 ? 3 : error >= 1.25 ? 2 : error >= 1.025 ? 1.5 : 1;
+    domainStart = Math.ceil(this.domainMin / niceDomainSpacing) * niceDomainSpacing;
+    domainEnd = Math.floor(this.domainMax / niceDomainSpacing) * niceDomainSpacing;
+    round = function(val, ceil) {
+      if (ceil) {
+        return Math.ceil(val / timeStep) * timeStep;
+      } else {
+        return Math.floor(val / timeStep) * timeStep;
+      }
+    };
+    timeStep = checkVal(niceDomainSpacing);
+    niceDomainSpacing = round(niceDomainSpacing, true);
+    domainStart = round(domainStart);
+    if (domainStart < this.domainMin) {
+      domainStart += niceDomainSpacing;
+    }
+    niceCount = (domainEnd - domainStart) / niceDomainSpacing;
+    results = [];
+    for (i = j = 0, ref = niceCount; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      d = domainStart + i * niceDomainSpacing;
+      results.push([d, this.apply(d)]);
+    }
+    return results;
+  };
+
+  return DateScale;
+
+})(LinearScale);
+
+var BandSeries,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+BandSeries = (function(superClass) {
+  var bandSeriesDataInterpolator, scale;
+
+  extend(BandSeries, superClass);
+
+  scale = function(data, axis) {
+    var d, i, len, results;
+    results = [];
+    for (i = 0, len = data.length; i < len; i++) {
+      d = data[i];
+      results.push({
+        x: axis.xScale.apply(d.x),
+        y: axis.yScale.apply(d.y)
+      });
+    }
+    return results;
+  };
+
+  function BandSeries(options) {
+    BandSeries.__super__.constructor.call(this, hx.merge({
+      fillColor: hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString(),
+      sampleThreshold: 200
+    }, options));
+    this._.type = 'band';
+  }
+
+  BandSeries.prototype.fillColor = optionSetterGetter('fillColor');
+
+  BandSeries.prototype.sampleThreshold = optionSetterGetter('sampleThreshold');
+
+  BandSeries.prototype.legendColor = function() {
+    return this._.options.fillColor;
+  };
+
+  BandSeries.prototype.updateSvg = function(fillLayer) {
+    var areas, data, fillCol, gradientCols, gradientId, preped, self;
+    self = this;
+    this._.featheredData = splitAndFeather(this.data(), this.sampleThreshold(), function(d) {
+      return d.y1 !== void 0 && d.y2 !== void 0;
+    });
+    areas = (function() {
+      var i, len, ref, results;
+      ref = this._.featheredData;
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        data = ref[i];
+        preped = data.map(function(d) {
+          return {
+            x: d.x,
+            y: d.y1
+          };
+        }).concat(data.slice(0).reverse().map(function(d) {
+          return {
+            x: d.x,
+            y: d.y2
+          };
+        }));
+        results.push(svgCurve(scale(preped, this.axis), true));
+      }
+      return results;
+    }).call(this);
+    if (Array.isArray(self.fillColor())) {
+      gradientCols = self.fillColor().map(function(d) {
+        return {
+          value: d.value,
+          color: d.color
+        };
+      });
+      gradientId = createLinearGradient(fillLayer, gradientCols, this);
+      fillCol = 'url(#' + gradientId + ')';
+    } else {
+      fillCol = self.fillColor();
+    }
+    return hx.select(fillLayer).view('.hx-series-data', 'path', 'hx-series-area').update(function(d) {
+      return this.attr('d', d)["class"]('hx-series-data ' + self["class"]()).attr('fill', fillCol);
+    }).apply(areas);
+  };
+
+  bandSeriesDataInterpolator = function(x, d1, d2, yInterp) {
+    if ((d1.y1 != null) && (d2.y1 != null) && (d1.y2 != null) && (d2.y2 != null)) {
+      return {
+        x: x,
+        y1: yInterp(d1.y1, d2.y1),
+        y2: yInterp(d1.y2, d2.y2)
+      };
+    }
+  };
+
+  BandSeries.prototype.getLabelDetails = function(x, y) {
+    var point;
+    if (point = createLabelPoint(this, x, y, bandSeriesDataInterpolator)) {
+      return [
+        makeLabelDetails(this, point, (function(d) {
+          return d.y1;
+        }), 'x', 'y1'), makeLabelDetails(this, point, (function(d) {
+          return d.y2;
+        }), 'x', 'y2')
+      ];
+    } else {
+      return [];
+    }
+  };
+
+  return BandSeries;
+
+})(Series);
+
+var BarSeries,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+BarSeries = (function(superClass) {
+  extend(BarSeries, superClass);
+
+  function BarSeries(options) {
+    BarSeries.__super__.constructor.call(this, hx.merge({
+      fillColor: hx.theme.plot.colors[1],
+      group: void 0
+    }, options));
+    this._.type = 'bar';
+  }
+
+  BarSeries.prototype.fillColor = optionSetterGetter('fillColor');
+
+  BarSeries.prototype.group = optionSetterGetter('group');
+
+  BarSeries.prototype.legendColor = function() {
+    return this._.options.fillColor;
+  };
+
+  BarSeries.prototype.updateSvg = function(fillLayer) {
+    var axis, self;
+    self = this;
+    axis = this.axis;
+    return hx.select(fillLayer).view('.hx-series-data', 'rect').update(function(d) {
+      var height, width, x, y;
+      if (axis.x.scaleType() === 'discrete') {
+        width = axis.xScale.tickWidth() / self._.typeSize;
+        x = axis.xScale.apply(d.x) - width * self._.typeSize / 2 + self.groupId * width;
+        height = Math.abs(axis.yScale.apply(d.y) - axis.yScale.apply(0));
+        y = axis.yScale.apply(axis.getYStack(self._.type, self.group(), d.x, self._.seriesId));
+        if (d.y > 0) {
+          y -= height;
+        }
+      } else {
+        width = Math.abs(axis.xScale.apply(d.x) - axis.xScale.apply(0));
+        x = axis.xScale.apply(axis.getXStack(self._.type, self.group(), d.y, self._.seriesId));
+        height = Math.abs(axis.yScale.tickWidth() / self._.typeSize);
+        y = axis.yScale.apply(d.y) - height * self._.typeSize / 2 + self.groupId * height;
+        if (d.y > 0) {
+          y -= height;
+        }
+      }
+      return this["class"]('hx-series-data hx-series-bar ' + self["class"]()).attr("y", y).attr("x", x).attr("height", Math.max(height, 0)).attr("width", Math.max(width, 0)).style("fill", d.color || self.fillColor());
+    }).apply(this.data());
+  };
+
+  BarSeries.prototype.getLabelDetails = function(x, y) {
+    var barData, barX, barY, height, max, meta, min, width, xx, yy;
+    if (this.labelsEnabled()) {
+      xx = this.axis.xScale.inverse(x);
+      yy = this.axis.yScale.inverse(y);
+      barData = hx.find(this.data(), function(d) {
+        return d.x === xx;
+      });
+      if (barData) {
+        width = this.axis.xScale.tickWidth() / this._.typeSize;
+        barX = this.axis.xScale.apply(barData.x) - width * this._.typeSize / 2 + this.groupId * width;
+        height = Math.abs(this.axis.yScale.apply(barData.y) - this.axis.yScale.apply(0));
+        barY = this.axis.yScale.apply(this.axis.getYStack(this._.type, this.group(), barData.x, this._.seriesId));
+        if (barData.y > 0) {
+          barY -= height;
+        }
+        if ((xx != null) && (yy != null) && (barData != null)) {
+          min = Math.min(barY, this.axis.yScale.apply(0));
+          max = Math.max(barY, barY + height);
+          yy = hx.clamp(min, max, this.axis.yScale.apply(yy));
+          meta = {
+            series: this,
+            title: this.title(),
+            x: barX + width / 2,
+            y: yy,
+            color: barData.color || this.fillColor(),
+            values: this.labelValuesExtractor()(this, barData)
+          };
+          return [meta];
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    } else {
+      return [];
+    }
+  };
+
+  return BarSeries;
+
+})(Series);
+
+var LineSeries, updatePath,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+updatePath = function(series, element, _class, data, type, update) {
+  return hx.select(element).view('.hx-series-data', 'g').update(function(d) {
+    return this["class"]('hx-series-data hx-series-line ' + series["class"]()).view(_class, type).update(update).apply(d);
+  }).apply(data);
+};
+
+LineSeries = (function(superClass) {
+  var lineSeriesDataInterpolator, scale;
+
+  extend(LineSeries, superClass);
+
+  scale = function(data, axis) {
+    var d, i, len, results;
+    results = [];
+    for (i = 0, len = data.length; i < len; i++) {
+      d = data[i];
+      results.push({
+        x: axis.xScale.apply(d.x),
+        y: axis.yScale.apply(d.y)
+      });
+    }
+    return results;
+  };
+
+  function LineSeries(options) {
+    LineSeries.__super__.constructor.call(this, hx.merge({
+      strokeEnabled: true,
+      strokeColor: hx.theme.plot.colors[0],
+      fillEnabled: false,
+      fillColor: void 0,
+      markersEnabled: false,
+      markerRadius: 2,
+      markerFillColor: void 0,
+      sampleThreshold: 200,
+      group: void 0
+    }, options));
+    this._.type = 'line';
+  }
+
+  LineSeries.prototype.strokeEnabled = optionSetterGetter('strokeEnabled');
+
+  LineSeries.prototype.strokeColor = optionSetterGetter('strokeColor');
+
+  LineSeries.prototype.fillEnabled = optionSetterGetter('fillEnabled');
+
+  LineSeries.prototype.fillColor = optionSetterGetter('fillColor');
+
+  LineSeries.prototype.markersEnabled = optionSetterGetter('markersEnabled');
+
+  LineSeries.prototype.markerRadius = optionSetterGetter('markerRadius');
+
+  LineSeries.prototype.markerFillColor = optionSetterGetter('markerFillColor');
+
+  LineSeries.prototype.sampleThreshold = optionSetterGetter('sampleThreshold');
+
+  LineSeries.prototype.group = optionSetterGetter('group');
+
+  LineSeries.prototype.legendColor = function() {
+    return this._.options.strokeColor;
+  };
+
+  LineSeries.prototype.updateSvg = function(fillLayer, sparseLayer) {
+    var applyStack, areas, axis, curves, data, featheredData, fillCol, fillPreparedData, fillToY, gradientCols, gradientId, preparedData, self, strokeCol;
+    self = this;
+    axis = this.axis;
+    featheredData = splitAndFeather(this.data(), this.sampleThreshold(), function(d) {
+      return d.y !== void 0;
+    });
+    this._.featheredData = featheredData;
+    applyStack = function(dataToStack, calculateBaseline) {
+      var d, i, len, results;
+      results = [];
+      for (i = 0, len = dataToStack.length; i < len; i++) {
+        d = dataToStack[i];
+        results.push({
+          x: d.x,
+          y: axis.getYStack(self._.type, self.group(), d.x, self._.seriesId) + (calculateBaseline ? 0 : d.y)
+        });
+      }
+      return results;
+    };
+    if (this.fillEnabled()) {
+      if (Array.isArray(self.fillColor() || self.strokeColor())) {
+        gradientCols = self.fillColor() || self.strokeColor().map(function(d) {
+          return {
+            value: d.value,
+            color: hx.color(d.color).alpha(0.1).toString('rgba')
+          };
+        });
+        gradientId = createLinearGradient(fillLayer, gradientCols, self);
+        fillCol = 'url(#' + gradientId + ')';
+      } else {
+        fillCol = self.fillColor() || hx.color(self.strokeColor()).alpha(0.1).toString();
+      }
+      fillToY = Math.max(Math.min(this.axis.yScale.domainMax, 0), this.axis.yScale.domainMin);
+      fillPreparedData = (function() {
+        var i, len, results;
+        results = [];
+        for (i = 0, len = featheredData.length; i < len; i++) {
+          data = featheredData[i];
+          results.push(applyStack(data).concat(applyStack(data.slice(0).reverse(), true)));
+        }
+        return results;
+      })();
+      areas = (function() {
+        var i, len, results;
+        results = [];
+        for (i = 0, len = fillPreparedData.length; i < len; i++) {
+          data = fillPreparedData[i];
+          results.push(svgCurve(scale(data, this.axis), true));
+        }
+        return results;
+      }).call(this);
+      updatePath(this, fillLayer, '.hx-series-line-fill', areas, 'path', function(d) {
+        return this.attr('d', d).attr('fill', fillCol);
+      });
+    }
+    if (this.strokeEnabled()) {
+      if (this.axis.y.scaleType() !== 'discrete') {
+        curves = (function() {
+          var i, len, results;
+          results = [];
+          for (i = 0, len = featheredData.length; i < len; i++) {
+            data = featheredData[i];
+            results.push(svgCurve(scale(applyStack(data), this.axis)));
+          }
+          return results;
+        }).call(this);
+      } else {
+        curves = (function() {
+          var i, len, results;
+          results = [];
+          for (i = 0, len = featheredData.length; i < len; i++) {
+            data = featheredData[i];
+            results.push(svgCurve(scale(data, this.axis)));
+          }
+          return results;
+        }).call(this);
+      }
+      if (Array.isArray(this.strokeColor())) {
+        gradientId = createLinearGradient(sparseLayer, this.strokeColor(), self);
+        strokeCol = 'url(#' + gradientId + ')';
+      } else {
+        strokeCol = self.strokeColor();
+      }
+      updatePath(this, sparseLayer, '.hx-series-line-stroke', curves, 'path', function(d) {
+        return this.attr('d', d).attr('stroke', strokeCol);
+      });
+    }
+    if (this.markersEnabled()) {
+      preparedData = this.axis.y.scaleType() !== 'discrete' ? applyStack(hx.flatten(featheredData)) : hx.flatten(featheredData);
+      return updatePath(this, sparseLayer, '.hx-series-line-markers', scale(preparedData, this.axis), 'circle', function(d) {
+        return this.attr('cx', d.x).attr('cy', d.y).attr('r', self.markerRadius()).attr('fill', self.markerFillColor() || self.strokeColor());
+      });
+    }
+  };
+
+  lineSeriesDataInterpolator = function(x, d1, d2, yInterp) {
+    if ((d1.y != null) && (d2.y != null)) {
+      return {
+        x: x,
+        y: yInterp(d1.y, d2.y)
+      };
+    }
+  };
+
+  LineSeries.prototype.getLabelDetails = function(x, y) {
+    var point;
+    if (point = createLabelPoint(this, x, y, lineSeriesDataInterpolator)) {
+      return [
+        makeLabelDetails(this, point, (function(_this) {
+          return function(d) {
+            return _this.axis.getYStack(_this._.type, _this.group(), d.x, _this._.seriesId) + d.y;
+          };
+        })(this))
+      ];
+    } else {
+      return [];
+    }
+  };
+
+  return LineSeries;
+
+})(Series);
+
+var ScatterSeries,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+ScatterSeries = (function(superClass) {
+  var filter, scale;
+
+  extend(ScatterSeries, superClass);
+
+  filter = function(data) {
+    return data.filter(function(d) {
+      return d.x !== void 0 && d.y !== void 0;
+    });
+  };
+
+  scale = function(data, axis) {
+    var d, i, len, results;
+    results = [];
+    for (i = 0, len = data.length; i < len; i++) {
+      d = data[i];
+      results.push({
+        x: axis.xScale.apply(d.x),
+        y: axis.yScale.apply(d.y),
+        radius: d.radius,
+        fillColor: d.fillColor,
+        color: d.color,
+        size: d.size
+      });
+    }
+    return results;
+  };
+
+  function ScatterSeries(options) {
+    ScatterSeries.__super__.constructor.call(this, hx.merge({
+      fillColor: hx.theme.plot.colors[3],
+      radius: 2
+    }, options));
+    this._.type = 'scatter';
+  }
+
+  ScatterSeries.prototype.fillColor = optionSetterGetter('fillColor');
+
+  ScatterSeries.prototype.radius = optionSetterGetter('radius');
+
+  ScatterSeries.prototype.legendColor = function() {
+    return this._.options.fillColor;
+  };
+
+  ScatterSeries.prototype.updateSvg = function(fillLayer, sparseLayer) {
+    var self;
+    self = this;
+    return hx.select(sparseLayer).view('.hx-series-data', 'circle').update(function(d) {
+      return this["class"]('hx-series-data hx-series-scatter ' + self["class"]()).attr('cx', d.x).attr('cy', d.y).attr('r', Math.max(d.radius || self.radius(), 0)).style('fill', d.fillColor || self.fillColor());
+    }).apply(scale(filter(this.data()), this.axis));
+  };
+
+  ScatterSeries.prototype.getLabelDetails = function(x, y) {
+    var best, bestSquaredDistance, d, i, len, meta, ref, squaredDistance;
+    if (this.labelsEnabled()) {
+      best = void 0;
+      bestSquaredDistance = 0;
+      ref = filter(this.data());
+      for (i = 0, len = ref.length; i < len; i++) {
+        d = ref[i];
+        squaredDistance = (this.axis.xScale.apply(d.x) - x) * (this.axis.xScale.apply(d.x) - x) + (this.axis.yScale.apply(d.y) - y) * (this.axis.yScale.apply(d.y) - y);
+        if (best === void 0 || squaredDistance < bestSquaredDistance) {
+          best = d;
+          bestSquaredDistance = squaredDistance;
+        }
+      }
+      if (best) {
+        meta = {
+          series: this,
+          title: this.title(),
+          x: this.axis.xScale.apply(best.x),
+          y: this.axis.yScale.apply(best.y),
+          color: best.color || this.fillColor(),
+          values: this.labelValuesExtractor()(this, best)
+        };
+        return [meta];
+      }
+    } else {
+      return [];
+    }
+  };
+
+  return ScatterSeries;
+
+})(Series);
+
+var StraightLineSeries,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+StraightLineSeries = (function(superClass) {
+  var endpoints;
+
+  extend(StraightLineSeries, superClass);
+
+  function StraightLineSeries(options) {
+    StraightLineSeries.__super__.constructor.call(this, hx.merge({
+      strokeColor: hx.theme.plot.colors[4],
+      data: {}
+    }, options));
+    this._.type = 'straight-line';
+  }
+
+  StraightLineSeries.prototype.strokeColor = optionSetterGetter('strokeColor');
+
+  StraightLineSeries.prototype.legendColor = function() {
+    return this._.options.strokeColor;
+  };
+
+  StraightLineSeries.prototype.updateSvg = function(fillLayer, sparseLayer) {
+    var data, self;
+    data = endpoints.call(this);
+    if (data) {
+      self = this;
+      return hx.select(sparseLayer).view('.hx-series-data', 'line').update(function(d) {
+        return this["class"]('hx-series-data hx-series-constant ' + self["class"]()).attr('x1', self.axis.xScale.apply(d[0].x)).attr('y1', self.axis.yScale.apply(d[0].y)).attr('x2', self.axis.xScale.apply(d[1].x)).attr('y2', self.axis.yScale.apply(d[1].y)).attr('d', d).attr('stroke', self.strokeColor());
+      }).apply([data]);
+    }
+  };
+
+  StraightLineSeries.prototype.getLabelDetails = function(x, y) {
+    var data, dx, dy, meta, xx, yy;
+    data = this.data();
+    if (this.labelsEnabled()) {
+      dx = data.dx || 0;
+      dy = data.dy || 0;
+      xx = this.axis.xScale.inverse(x);
+      yy = this.axis.yScale.inverse(y);
+      if (dx !== 0 && dy !== 0 && (data.x != null) && (data.y != null)) {
+        yy = data.y + (xx - data.x) * dy / dx;
+      } else if (data.x != null) {
+        xx = data.x;
+      } else if (data.y != null) {
+        yy = data.y;
+      }
+      if ((this.axis.xScale.domainMin < xx && xx < this.axis.xScale.domainMax) && (this.axis.yScale.domainMin < yy && yy < this.axis.yScale.domainMax)) {
+        meta = {
+          series: this,
+          title: this.title(),
+          x: this.axis.xScale.apply(xx),
+          y: this.axis.yScale.apply(yy),
+          color: this.strokeColor(),
+          values: this.labelValuesExtractor()(this, {
+            x: xx,
+            y: yy
+          })
+        };
+        return [meta];
+      } else {
+        return [];
+      }
+    } else {
+      return [];
+    }
+  };
+
+  endpoints = function() {
+    var data, domX1, domX2, domY1, domY2, domdx, domdy, dx, dy, i, j, len, len1, p1, p2, quotient, ref, ref1, results, results1, t, x, x0, x1, y, y0, y1;
+    data = this.data();
+    dx = data.dx || 0;
+    dy = data.dy || 0;
+    if (dx !== 0 && dy !== 0 && (data.x != null) && (data.y != null)) {
+      x = data.x || 0;
+      y = data.y || 0;
+      domX1 = this.axis.xScale.domainMin;
+      domX2 = this.axis.xScale.domainMax;
+      domY1 = this.axis.yScale.domainMin;
+      domY2 = this.axis.yScale.domainMax;
+      domdx = x - domX1;
+      domdy = y - domY1;
+      quotient = domdy * dx - dy * domdx;
+      p1 = (function() {
+        switch (false) {
+          case !(quotient > 0):
+            x0 = domX1;
+            t = (domX1 - x) / dx;
+            y0 = y + t * dy;
+            return {
+              x: x0,
+              y: y0
+            };
+          case quotient !== 0:
+            x0 = domX1;
+            y0 = domY1;
+            return {
+              x: x0,
+              y: y0
+            };
+          case !(quotient < 0):
+            y0 = domY1;
+            t = (domY1 - y) / dy;
+            x0 = x + t * dx;
+            return {
+              x: x0,
+              y: y0
+            };
+        }
+      })();
+      domdx = x - domX2;
+      domdy = y - domY2;
+      quotient = domdy * dx - dy * domdx;
+      p2 = (function() {
+        switch (false) {
+          case !(quotient < 0):
+            x1 = domX2;
+            t = (domX2 - x) / dx;
+            y1 = y + t * dy;
+            return {
+              x: x1,
+              y: y1
+            };
+          case quotient !== 0:
+            x1 = domX2;
+            y1 = domY2;
+            return {
+              x: x1,
+              y: y1
+            };
+          case !(quotient > 0):
+            y1 = domY2;
+            t = (domY2 - y) / dy;
+            x1 = x + t * dx;
+            return {
+              x: x1,
+              y: y1
+            };
+        }
+      })();
+      return [p1, p2];
+    } else if (data.x != null) {
+      ref = [this.axis.yScale.domainMin, this.axis.yScale.domainMax];
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        y = ref[i];
+        results.push({
+          x: data.x,
+          y: y
+        });
+      }
+      return results;
+    } else if (data.y != null) {
+      ref1 = [this.axis.xScale.domainMin, this.axis.xScale.domainMax];
+      results1 = [];
+      for (j = 0, len1 = ref1.length; j < len1; j++) {
+        x = ref1[j];
+        results1.push({
+          x: x,
+          y: data.y
+        });
+      }
+      return results1;
+    }
+  };
+
+  return StraightLineSeries;
+
+})(Series);
+
+var PieChart,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+PieChart = (function(superClass) {
+  var calculateTotal, clearLabels, defaultLabelFormatter, defaultLabelValuesExtractor, defaultSegmentTextFormatter, getClosestMeta, getSegmentSize, updateLabels;
+
+  extend(PieChart, superClass);
+
+  defaultLabelValuesExtractor = function(segment, ring, pie) {
+    return [
+      {
+        name: segment.name,
+        value: segment.size,
+        formatter: pie.labelFormatter()
+      }
+    ];
+  };
+
+  defaultSegmentTextFormatter = function(segment, segments) {
+    if (segment.size / hx.sum(segments.map(function(s) {
+      return s.size;
+    })) > 0.05) {
+      return segment.size;
+    } else {
+      return '';
+    }
+  };
+
+  defaultLabelFormatter = hx.format.si(2);
+
+  function PieChart(selector, options) {
+    this.selector = selector;
+    PieChart.__super__.constructor.apply(this, arguments);
+    hx.select(this.selector).classed('hx-pie-chart', true).on('resize', 'hx.plot', (function(_this) {
+      return function() {
+        return _this.render();
+      };
+    })(this));
+    hx.component.register(this.selector, this);
+    this._ = {
+      options: hx.merge({
+        segmentPadding: 0,
+        innerPadding: 0,
+        ringPadding: 0.1,
+        totalAngle: Math.PI * 2,
+        startAngle: 0,
+        fillColor: hx.theme.plot.colors[1],
+        labelsEnabled: true,
+        labelRenderer: hx.plot.label.standard,
+        labelValuesExtractor: defaultLabelValuesExtractor,
+        labelFormatter: defaultLabelFormatter,
+        segmentTextEnabled: false,
+        segmentTextFormatter: defaultSegmentTextFormatter,
+        legendEnabled: false,
+        legendLocation: 'auto'
+      }, options)
+    };
+  }
+
+  PieChart.prototype.labelsEnabled = optionSetterGetter('labelsEnabled');
+
+  PieChart.prototype.legendEnabled = optionSetterGetter('legendEnabled');
+
+  PieChart.prototype.legendLocation = optionSetterGetter('legendLocation');
+
+  PieChart.prototype.fillColor = optionSetterGetter('fillColor');
+
+  PieChart.prototype.segmentTextEnabled = optionSetterGetter('segmentTextEnabled');
+
+  PieChart.prototype.segmentTextFormatter = optionSetterGetter('segmentTextFormatter');
+
+  PieChart.prototype.labelValuesExtractor = optionSetterGetter('labelValuesExtractor');
+
+  PieChart.prototype.labelFormatter = optionSetterGetter('labelFormatter');
+
+  PieChart.prototype.labelRenderer = optionSetterGetter('labelRenderer');
+
+  PieChart.prototype.segmentPadding = optionSetterGetter('segmentPadding');
+
+  PieChart.prototype.innerPadding = optionSetterGetter('innerPadding');
+
+  PieChart.prototype.ringPadding = optionSetterGetter('ringPadding');
+
+  PieChart.prototype.totalAngle = optionSetterGetter('totalAngle');
+
+  PieChart.prototype.startAngle = optionSetterGetter('startAngle');
+
+  PieChart.prototype.data = optionSetterGetter('data');
+
+  calculateTotal = function(segments) {
+    var allZero, preTotal, total;
+    allZero = false;
+    preTotal = hx.sum(segments.map(function(x) {
+      return x.size;
+    }));
+    total = preTotal === 0 ? (allZero = true, segments.length) : hx.sum(segments.map(function(x) {
+      return getSegmentSize(x, preTotal);
+    }));
+    return {
+      total: total,
+      allZero: allZero
+    };
+  };
+
+  getSegmentSize = function(segment, total, allZero) {
+    if (allZero) {
+      return 1;
+    } else if (segment.size > 0) {
+      return segment.size;
+    } else {
+      return total / 100;
+    }
+  };
+
+  PieChart.prototype.render = function() {
+    var P, approxRingSize, data, diffX, diffY, enterChart, height, innerRadius, legendContainer, midpoint, outerRadius, r, radius, ringSize, segmentPadding, selection, self, startAngle, svgHeight, svgWidth, totalAngle, updateChart, updateRing, updateSegment, updateText, width;
+    self = this;
+    selection = hx.select(this.selector);
+    width = selection.width();
+    height = selection.height();
+    r = Math.min(width, height) / 2;
+    this.circle = {
+      x: width / 2,
+      y: height / 2,
+      r: r
+    };
+    startAngle = this.startAngle();
+    totalAngle = this.totalAngle();
+    P = Math.PI;
+    while (startAngle < 0) {
+      startAngle += 2 * P;
+    }
+    switch (false) {
+      case !(totalAngle === P && startAngle % (P / 2) === 0):
+        switch (false) {
+          case !(startAngle === 0 || startAngle % (2 * P) === 0 || startAngle % P === 0):
+            r = hx.clamp(0, height / 2, r * 2);
+            break;
+          case !(startAngle % (P * (3 / 2)) === 0 || startAngle % (P / 2) === 0):
+            r = hx.clamp(0, width / 2, r * 2);
+        }
+        switch (false) {
+          case !(startAngle === 0 || startAngle % (2 * P) === 0):
+            diffX = -r / 2;
+            diffY = 0;
+            break;
+          case startAngle % (P * (3 / 2)) !== 0:
+            diffX = 0;
+            diffY = r / 2;
+            break;
+          case startAngle % P !== 0:
+            diffX = r / 2;
+            diffY = 0;
+            break;
+          case startAngle % (P / 2) !== 0:
+            diffX = 0;
+            diffY = -r / 2;
+            break;
+          default:
+            diffX = 0;
+            diffY = 0;
+        }
+        this.circle.x += diffX;
+        this.circle.y += diffY;
+        this.circle.r = r;
+    }
+    data = this.data();
+    if (!Array.isArray(data)) {
+      data = [data];
+    }
+    approxRingSize = (r * (1 - this.innerPadding())) / data.length + (r * (1 - this.innerPadding()) / data.length * this.ringPadding() / data.length);
+    segmentPadding = approxRingSize * this.segmentPadding();
+    innerRadius = r * this.innerPadding();
+    radius = r - innerRadius;
+    outerRadius = r;
+    ringSize = radius / data.length + (radius / data.length * this.ringPadding() / data.length);
+    updateSegment = function(selection, size, color, runningTotal, total, ring, minimumInnerRadius) {
+      var actualInnerRadius, diameter, end, start, startOffset, straightInnerSegments;
+      startOffset = self.startAngle() + Math.PI * 1.5;
+      start = startOffset + runningTotal / total * self.totalAngle();
+      end = startOffset + (runningTotal + size) / total * self.totalAngle();
+      straightInnerSegments = ring === 0 && innerRadius === 0;
+      actualInnerRadius = straightInnerSegments ? Math.max(innerRadius + ringSize * ring, arcCurveMinimumRadius(start, end, segmentPadding)) : Math.max(innerRadius + ringSize * ring, minimumInnerRadius);
+      diameter = arcCurve(self.circle.x, self.circle.y, actualInnerRadius, innerRadius + ringSize * (ring + 1 - self.ringPadding()), start, end, segmentPadding, straightInnerSegments);
+      return selection.attr('d', diameter).attr('fill', color);
+    };
+    updateRing = function(d, e, i) {
+      var allZero, end, j, len, minimumInnerRadius, ref, ref1, runningTotal, segment, segments, size, start, startOffset, total;
+      segments = d.segments;
+      ref = calculateTotal(segments), total = ref.total, allZero = ref.allZero;
+      runningTotal = 0;
+      minimumInnerRadius = 0;
+      for (j = 0, len = segments.length; j < len; j++) {
+        segment = segments[j];
+        size = getSegmentSize(segment, total, allZero);
+        startOffset = self.startAngle() + Math.PI * 1.5;
+        start = startOffset + runningTotal / total * self.totalAngle();
+        end = startOffset + (runningTotal + size) / total * self.totalAngle();
+        minimumInnerRadius = Math.max(arcCurveMinimumRadius(start, end, segmentPadding), minimumInnerRadius);
+      }
+      ref1 = calculateTotal(segments), total = ref1.total, allZero = ref1.allZero;
+      runningTotal = 0;
+      return this.view('.hx-pie-segment', 'path').update(function(s) {
+        size = getSegmentSize(s, total, allZero);
+        updateSegment(this, size, s.fillColor, runningTotal, total, i, minimumInnerRadius);
+        return runningTotal += size;
+      }).apply(segments);
+    };
+    midpoint = function(size, runningTotal, total, ring, count) {
+      var end, start, startOffset;
+      startOffset = self.startAngle() + Math.PI * 1.5;
+      start = startOffset + runningTotal / total * self.totalAngle();
+      end = startOffset + (runningTotal + size) / total * self.totalAngle();
+      return {
+        x: self.circle.x + Math.cos((start + end) / 2) * (innerRadius + (ring + 0.5) * ringSize),
+        y: self.circle.y + Math.sin((start + end) / 2) * (innerRadius + (ring + 0.5) * ringSize)
+      };
+    };
+    updateText = function(d, e, i) {
+      var allZero, ref, runningTotal, segments, total;
+      segments = d.segments;
+      runningTotal = 0;
+      ref = calculateTotal(segments), total = ref.total, allZero = ref.allZero;
+      return this.view('.hx-pie-segment-text', 'text').update(function(s) {
+        var ref1, size, x, y;
+        size = getSegmentSize(s, total, allZero);
+        ref1 = midpoint(size, runningTotal, total, i, segments.length), x = ref1.x, y = ref1.y;
+        this.text(self.segmentTextFormatter()(s, segments)).attr('x', x).attr('y', y);
+        return runningTotal += size;
+      }).apply(segments);
+    };
+    enterChart = function(d) {
+      var labelGroup;
+      self.svgTarget = this.append('svg')["class"]('hx-graph');
+      self.plotTarget = self.svgTarget.append('g')["class"]('hx-plot');
+      labelGroup = self.svgTarget.append('g')["class"]('hx-label');
+      self.svgTarget.on('pointermove', 'hx.plot', function(p) {
+        var legendContainer, x, y;
+        x = Math.round(p.x - selection.box().left);
+        y = Math.round(p.y - selection.box().top);
+        if (self.labelsEnabled()) {
+          updateLabels(self, x, y);
+        }
+        if (self.legendEnabled()) {
+          legendContainer = self.svgTarget.select('.hx-legend-container');
+          if (self.legendLocation() === 'hover') {
+            legendContainer.style('display', '');
+          }
+          if (self.legendLocation() === 'auto' || self.legendLocation() === 'hover') {
+            width = self.svgTarget.width();
+            height = self.svgTarget.height();
+            if (x < width / 2) {
+              return legendContainer.attr('transform', 'translate(' + (width - 10 - legendContainer.width()) + ', 10)');
+            } else {
+              return legendContainer.attr('transform', 'translate(10, 10)');
+            }
+          }
+        }
+      });
+      self.svgTarget.on('pointerleave', 'hx.plot', function() {
+        if (self.legendEnabled() && self.legendLocation() === 'hover') {
+          return self.svgTarget.select('.hx-legend-container').style('display', 'none');
+        }
+      });
+      self.svgTarget.on('click', 'hx.plot', function(p) {
+        if (self.closestMeta != null) {
+          return self.emit('click', {
+            event: p,
+            data: self.closestMeta.values,
+            series: self.closestMeta.series
+          });
+        }
+      });
+      return self.svgTarget.node();
+    };
+    updateChart = function(d) {
+      data = d.data();
+      if (!Array.isArray(data)) {
+        data = [data];
+      }
+      this.select('.hx-plot').view('.hx-pie-ring', 'g').update(updateRing).apply(data);
+      return this.select('.hx-plot').view('.hx-pie-text', 'g').update(updateText).apply(self.segmentTextEnabled() ? data : []);
+    };
+    selection.view('.hx-graph', 'svg').enter(enterChart).update(updateChart).apply(this);
+    svgWidth = Number(this.svgTarget.style('width').slice(0, -2));
+    svgHeight = Number(this.svgTarget.style('height').slice(0, -2));
+    if (this.legendEnabled()) {
+      legendContainer = this.svgTarget.select('.hx-legend-container');
+      if (legendContainer.size() === 0) {
+        legendContainer = this.svgTarget.append('g')["class"]('hx-legend-container');
+      }
+      data = this.data();
+      if (!Array.isArray(data)) {
+        data = [data];
+      }
+      populateLegendSeries(legendContainer, hx.flatten(data.map(function(d) {
+        return d.segments;
+      })));
+      switch (this.legendLocation()) {
+        case 'top-left':
+          return legendContainer.attr('transform', 'translate(10, 10)');
+        case 'bottom-right':
+          return legendContainer.attr('transform', 'translate(' + (width - 10 - legendContainer.width()) + ',' + (height - 5 - legendContainer.height()) + ')');
+        case 'bottom-left':
+          return legendContainer.attr('transform', 'translate(10, ' + (height - 5 - legendContainer.height()) + ')');
+        case 'hover':
+          return legendContainer.style('display', 'none');
+        default:
+          return legendContainer.attr('transform', 'translate(' + (width - 10 - legendContainer.width()) + ', 10)');
+      }
+    } else {
+      return this.svgTarget.select('.hx-legend-container').remove();
+    }
+  };
+
+  getClosestMeta = function(pie, x, y) {
+    var a1, a2, allZero, angle, approxRingSize, chosenSegment, chosenSegmentAngleEnd, chosenSegmentAngleMid, chosenSegmentAngleStart, cx, cy, data, end, height, innerRadius, j, labelRadius, labelX, labelY, len, outerRadius, r, radius, ref, ref1, ring, ringSize, runningTotal, segment, segmentPadding, selection, size, start, total, whichRing, width;
+    data = pie.data();
+    if (!Array.isArray(data)) {
+      data = [data];
+    }
+    selection = hx.select(pie.selector);
+    width = selection.width();
+    height = selection.height();
+    r = pie.circle.r;
+    approxRingSize = (r * (1 - pie.innerPadding())) / pie.data.length + (r * (1 - pie.innerPadding()) / data.length * pie.ringPadding() / data.length);
+    segmentPadding = approxRingSize * pie.segmentPadding();
+    innerRadius = r * pie.innerPadding();
+    radius = r - innerRadius;
+    outerRadius = r;
+    ringSize = radius / data.length + (radius / data.length * pie.ringPadding() / data.length);
+    cx = pie.circle.x;
+    cy = pie.circle.y;
+    r = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
+    if (r < innerRadius || r > outerRadius) {
+      return;
+    }
+    whichRing = hx.clamp(0, data.length - 1, Math.floor((r + pie.ringPadding() * ringSize / 2 - innerRadius) / ringSize));
+    ring = data[whichRing];
+    angle = (Math.atan2(y - cy, x - cx) + Math.PI * 0.5) - pie.startAngle();
+    if (angle < 0) {
+      angle += Math.PI * 2;
+    }
+    chosenSegment = void 0;
+    runningTotal = 0;
+    ref = calculateTotal(ring.segments), total = ref.total, allZero = ref.allZero;
+    ref1 = ring.segments;
+    for (j = 0, len = ref1.length; j < len; j++) {
+      segment = ref1[j];
+      size = getSegmentSize(segment, total, allZero);
+      a1 = runningTotal / total * pie.totalAngle();
+      a2 = (runningTotal + size) / total * pie.totalAngle();
+      start = Math.min(a1, a2);
+      end = Math.max(a1, a2);
+      if ((start < angle && angle < end)) {
+        chosenSegment = segment;
+        chosenSegmentAngleStart = start;
+        chosenSegmentAngleEnd = end;
+        chosenSegmentAngleMid = (end - start) / 2 + start - (Math.PI / 2) + pie.startAngle();
+        break;
+      }
+      runningTotal += size;
+    }
+    if (chosenSegment) {
+      labelRadius = (ringSize * whichRing) + ((radius / data.length) / 2) + innerRadius;
+      labelX = cx + (labelRadius * Math.cos(chosenSegmentAngleMid));
+      labelY = cy + (labelRadius * Math.sin(chosenSegmentAngleMid));
+      return {
+        series: ring,
+        title: ring.title,
+        color: chosenSegment.fillColor || pie.fillColor(),
+        x: labelX,
+        y: labelY,
+        bounding: {
+          x1: 0,
+          x2: width,
+          y1: 0,
+          y2: height
+        },
+        values: pie.labelValuesExtractor()(chosenSegment, ring, pie)
+      };
+    }
+  };
+
+  clearLabels = function() {
+    return hx.select('body').select('.hx-plot-label-container').clear();
+  };
+
+  updateLabels = function(pie, x, y) {
+    var bestMeta, updateLabel;
+    updateLabel = function(data, element) {
+      hx.select(element).style('left', Math.round(window.pageXOffset + pie.svgTarget.box().left + data.x) + 'px').style('top', Math.round(window.pageYOffset + pie.svgTarget.box().top + data.y) + 'px');
+      return pie.labelRenderer()(element, data);
+    };
+    bestMeta = getClosestMeta(pie, x, y);
+    if (hx.select('body').select('.hx-plot-label-container').empty()) {
+      hx.select('body').append('div')["class"]('hx-plot-label-container');
+    }
+    return hx.select('body').select('.hx-plot-label-container').view('.hx-plot-label', 'div').update(updateLabel).apply(bestMeta ? bestMeta : []);
+  };
+
+  return PieChart;
+
+})(hx.EventEmitter);
+
+var hx_plot_label;
+
+hx_plot_label = {};
+
+hx_plot_label.standard = function(element, meta) {
+  var createEntry, details, header, midX, midY;
+  createEntry = function(value) {
+    return hx.detached('div')["class"]('hx-plot-label-details-entry').add(hx.detached('span')["class"]('hx-plot-label-details-entry-key').text(value.name)).add(hx.detached('span')["class"]('hx-plot-label-details-entry-value').text(value.formatter(value.value)));
+  };
+  header = hx.detached('div')["class"]('hx-plot-label-marker').style('background', meta.color);
+  details = hx.detached('div')["class"]('hx-plot-label-details').add(hx.detached('div')["class"]('hx-plot-label-details-header').text(meta.title)).add(meta.values.map(createEntry));
+  midX = (meta.bounding.x1 + meta.bounding.x2) / 2;
+  midY = (meta.bounding.y1 + meta.bounding.y2) / 2;
+  details.classed('hx-plot-label-details-left', meta.x >= midX);
+  details.classed('hx-plot-label-details-bottom', meta.y >= midY);
+  return hx.select(element).clear().add(header).add(details);
+};
+
+hx_plot_label.basic = function(element, meta) {
+  var details, marker, midX, midY, value;
+  marker = hx.detached('div')["class"]('hx-plot-label-marker').style('background', meta.color);
+  value = meta.values[1];
+  midX = (meta.bounding.x1 + meta.bounding.x2) / 2;
+  midY = (meta.bounding.y1 + meta.bounding.y2) / 2;
+  details = hx.detached('div')["class"]('hx-plot-label-details-basic').classed('hx-plot-label-details-left', meta.x >= midX).classed('hx-plot-label-details-bottom', meta.y >= midY).text(value.formatter(value.value));
+  return hx.select(element).clear().add(marker).add(details);
+};
+
+var Sparkline;
+
+Sparkline = (function() {
+  function Sparkline(selector, options) {
+    var axis, axisOptions, graph, innerLabelRenderer, opts, series;
+    opts = hx.merge.defined({
+      strokeColor: hx.theme.plot.colors[0],
+      data: [],
+      type: 'line',
+      min: void 0,
+      max: void 0,
+      labelRenderer: function(element, obj) {
+        return hx.select(element).text(obj.y + ' (' + obj.x + ')');
+      },
+      redrawOnResize: true
+    }, options);
+    innerLabelRenderer = function(element, meta) {
+      var details, labelNode, marker, midX, midY, xValue, yValue;
+      marker = hx.detached('div')["class"]('hx-plot-label-marker').style('background', meta.color);
+      xValue = meta.values[0];
+      yValue = meta.values[1];
+      midX = (meta.bounding.x1 + meta.bounding.x2) / 2;
+      midY = (meta.bounding.y1 + meta.bounding.y2) / 2;
+      labelNode = hx.detached('div').node();
+      opts.labelRenderer(labelNode, {
+        x: xValue.value,
+        y: yValue.value
+      });
+      details = hx.detached('div')["class"]('hx-plot-label-details-basic').classed('hx-plot-label-details-left', meta.x >= midX).classed('hx-plot-label-details-bottom', meta.y >= midY).add(hx.detached('span')["class"]('hx-plot-label-sparkline-x').add(labelNode));
+      return hx.select(element).clear().add(marker).add(details);
+    };
+    hx.components.clear(selector);
+    hx.component.register(selector, this);
+    graph = new hx.Graph(selector, {
+      redrawOnResize: opts.redrawOnResize
+    });
+    if (opts.type !== 'bar' && opts.type !== 'line') {
+      hx.consoleWarning('options.type can only be "line" or "bar", you supplied "' + opts.type + '"');
+      this.render = function() {
+        return graph.render();
+      };
+      return;
+    }
+    axisOptions = {
+      x: {
+        scaleType: opts.type === 'bar' ? 'discrete' : 'linear',
+        visible: false
+      },
+      y: {
+        visible: false,
+        scalePaddingMin: 0.1,
+        scalePaddingMax: 0.1
+      }
+    };
+    if (opts.min != null) {
+      axisOptions.y.min = opts.min;
+    }
+    if (opts.max != null) {
+      axisOptions.y.max = opts.max;
+    }
+    axis = graph.addAxis(axisOptions);
+    series = axis.addSeries(opts.type, {
+      fillEnabled: true,
+      labelRenderer: innerLabelRenderer
+    });
+    this._ = {
+      options: opts,
+      graph: graph,
+      series: series
+    };
+  }
+
+  Sparkline.prototype.data = optionSetterGetter('data');
+
+  Sparkline.prototype.fillColor = optionSetterGetter('fillColor');
+
+  Sparkline.prototype.strokeColor = optionSetterGetter('strokeColor');
+
+  Sparkline.prototype.labelRenderer = optionSetterGetter('labelRenderer');
+
+  Sparkline.prototype.redrawOnResize = function(value) {
+    this._.graph.redrawOnResize(value);
+    return optionSetterGetter('redrawOnResize').apply(this, arguments);
+  };
+
+  Sparkline.prototype.render = function() {
+    var self;
+    self = this;
+    this._.series.data(this.data());
+    if (this.fillColor() != null) {
+      this._.series.fillColor(this.fillColor());
+    }
+    if (this._.options.type === 'line') {
+      this._.series.strokeColor(this.strokeColor());
+    }
+    return this._.graph.render();
+  };
+
+  return Sparkline;
+
+})();
+
+hx.plot = {};
+
+hx.plot.label = hx_plot_label;
+
+hx.plot.arcCurve = arcCurve;
+
+hx.plot.svgCurve = svgCurve;
+
+hx.Axis = Axis;
+
+hx.Graph = Graph;
+
+hx.graph = function(options) {
+  var graph, selection;
+  selection = new hx.detached('div');
+  graph = new Graph(selection.node(), options);
+  return selection;
+};
+
+hx.LineSeries = LineSeries;
+
+hx.BandSeries = BandSeries;
+
+hx.ScatterSeries = ScatterSeries;
+
+hx.BarSeries = BarSeries;
+
+hx.StraightLineSeries = StraightLineSeries;
+
+hx.pieChart = function(options) {
+  var pieChart, selection;
+  selection = hx.detached('div');
+  pieChart = new PieChart(selection.node(), options);
+  return selection;
+};
+
+hx.PieChart = PieChart;
+
+hx.sparkline = function(options) {
+  var selection, sparkline;
+  selection = hx.detached('div').classed('hx-sparkline', true);
+  sparkline = new Sparkline(selection.node(), options);
+  sparkline.render();
+  return selection;
+};
+
+hx.Sparkline = Sparkline;
+
+})();
+(function(){
+var ButtonGroup,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+ButtonGroup = (function(superClass) {
+  extend(ButtonGroup, superClass);
+
+  function ButtonGroup(selector, options) {
+    var group, self;
+    ButtonGroup.__super__.constructor.apply(this, arguments);
+    self = this;
+    hx.component.register(selector, this);
+    this.options = hx.merge.defined({
+      buttonClass: 'hx-complement',
+      activeClass: 'hx-contrast',
+      fullWidth: false,
+      renderer: function(node, data, current) {
+        hx.select(node).text(data.value != null ? data.value : data);
+      },
+      items: [],
+      disabled: false
+    }, options);
+    this.current = void 0;
+    group = hx.select(selector).classed('hx-button-group', true).append('div')["class"]('hx-input-group').classed('hx-input-group-full-width', this.options.fullWidth);
+    this.view = group.view('button').enter(function() {
+      return this.append('button')["class"]('hx-btn').classed('hx-section hx-no-margin', self.options.fullWidth).classed(self.options.buttonClass, true).node();
+    }).update(function(item, node) {
+      var buttonClass;
+      buttonClass = (item.activeClass != null) && item === self.current ? item.activeClass : item === self.current ? self.options.activeClass : self.options.buttonClass;
+      this["class"]('hx-btn').classed('hx-section hx-no-margin', self.options.fullWidth).classed(buttonClass, true).attr('disabled', self.options.disabled ? true : void 0).on('click', 'hx.button-group', function() {
+        return self.value(item, true);
+      });
+      self.options.renderer(node, item, item === self.current);
+    });
+    if ((this.options.items != null) && this.options.items.length > 0) {
+      this.items(this.options.items);
+    }
+  }
+
+  ButtonGroup.prototype.renderer = function(f) {
+    if (f != null) {
+      this.options.renderer = f;
+      return this;
+    } else {
+      return this.options.renderer;
+    }
+  };
+
+  ButtonGroup.prototype.items = function(items) {
+    if (items != null) {
+      this.options.items = items;
+      this.view.apply(this.options.items);
+      return this;
+    } else {
+      return this.options.items;
+    }
+  };
+
+  ButtonGroup.prototype.value = function(value) {
+    var i, item, len, ref;
+    if (arguments.length > 0) {
+      ref = this.options.items;
+      for (i = 0, len = ref.length; i < len; i++) {
+        item = ref[i];
+        if (item === value || item.value === value) {
+          this.current = item;
+          this.view.apply(this.options.items);
+          this.emit('change', {
+            value: item,
+            cause: arguments[1] ? 'user' : 'api'
+          });
+          break;
+        }
+      }
+      return this;
+    } else {
+      return this.current;
+    }
+  };
+
+  ButtonGroup.prototype.disabled = function(disabled) {
+    if (arguments.length > 0) {
+      this.options.disabled = disabled;
+      this.items(this.items());
+      return this;
+    } else {
+      return this.options.disabled;
+    }
+  };
+
+  return ButtonGroup;
+
+})(hx.EventEmitter);
+
+hx.buttonGroup = function(options) {
+  var selection;
+  selection = hx.detached('div');
+  new ButtonGroup(selection.node(), options);
+  return selection;
+};
+
+hx.ButtonGroup = ButtonGroup;
+
+})();
+(function(){
 var factory;
 
 factory = function(type, clasz) {
   return function() {
     return hx.detached(type)["class"](clasz);
   };
+};
+
+hx.div = function(cls) {
+  if (cls) {
+    return hx.detached('div')["class"](cls);
+  } else {
+    return hx.detached('div');
+  }
+};
+
+hx.span = function(cls) {
+  if (cls) {
+    return hx.detached('span')["class"](cls);
+  } else {
+    return hx.detached('span');
+  }
 };
 
 hx.inputGroup = factory('div', 'hx-input-group');
@@ -12300,9 +12689,1147 @@ hx.checkbox = function() {
 
 })();
 (function(){
-var TagInput,
+var Picker, setValue,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  picker: {
+    chooseValue: 'Choose a value...'
+  }
+});
+
+setValue = function(picker, value, items, cause) {
+  var i, item, len, newVal;
+  if (cause == null) {
+    cause = 'api';
+  }
+  newVal = void 0;
+  for (i = 0, len = items.length; i < len; i++) {
+    item = items[i];
+    if (item === value || (hx.isObject(item) && (item.value === value || item.value === (value != null ? value.value : void 0)))) {
+      newVal = item;
+      break;
+    }
+  }
+  if (newVal != null) {
+    picker._.renderer(picker._.selectedText.node(), newVal);
+  } else {
+    picker._.selectedText.text(picker._.options.noValueText);
+  }
+  if (picker._.current !== newVal) {
+    picker._.current = newVal;
+    return picker.emit('change', {
+      value: newVal,
+      cause: cause
+    });
+  }
+};
+
+Picker = (function(superClass) {
+  extend(Picker, superClass);
+
+  function Picker(selector, options) {
+    var button, menu, renderWrapper, resolvedOptions, selectedText;
+    if (options == null) {
+      options = {};
+    }
+    Picker.__super__.constructor.apply(this, arguments);
+    resolvedOptions = hx.merge.defined({
+      dropdownOptions: {},
+      items: [],
+      noValueText: hx.userFacingText('picker', 'chooseValue'),
+      renderer: void 0,
+      value: void 0,
+      disabled: false,
+      fullWidth: false
+    }, options);
+    hx.component.register(selector, this);
+    this.selection = hx.select(selector);
+    this.selection.classed('hx-picker-full-width', resolvedOptions.fullWidth);
+    button = this.selection.classed('hx-picker hx-btn', true).append('span')["class"]('hx-picker-inner').attr('type', 'button');
+    selectedText = button.append('span')["class"]('hx-picker-text');
+    button.append('span')["class"]('hx-picker-icon').append('i')["class"]('hx-icon hx-icon-caret-down');
+    renderWrapper = (function(_this) {
+      return function(node, item) {
+        return _this._.renderer(node, item);
+      };
+    })(this);
+    menu = new hx.Menu(selector, {
+      dropdownOptions: resolvedOptions.dropdownOptions,
+      items: resolvedOptions.items,
+      disabled: resolvedOptions.disabled
+    });
+    menu.pipe(this, '', ['highlight']);
+    menu.dropdown.pipe(this, 'dropdown');
+    menu.on('change', 'hx.picker', (function(_this) {
+      return function(item) {
+        if ((item != null ? item.content : void 0) != null) {
+          setValue(_this, item.content, _this.items(), 'user');
+          return menu.hide();
+        }
+      };
+    })(this));
+    this._ = {
+      menu: menu,
+      options: resolvedOptions,
+      renderer: resolvedOptions.renderer,
+      selectedText: selectedText,
+      current: void 0
+    };
+    if (resolvedOptions.renderer == null) {
+      this.renderer(menu.renderer());
+    }
+    menu.renderer(renderWrapper);
+    if (resolvedOptions.items != null) {
+      this.items(resolvedOptions.items);
+    }
+    if (resolvedOptions.value != null) {
+      this.value(resolvedOptions.value);
+    }
+    if ((this._.current == null) && (resolvedOptions.noValueText != null)) {
+      selectedText.text(resolvedOptions.noValueText);
+    }
+  }
+
+  Picker.prototype.renderer = function(f) {
+    if (f != null) {
+      this._.renderer = f;
+      return this;
+    } else {
+      return this._.renderer;
+    }
+  };
+
+  Picker.prototype.items = function(items) {
+    if (items != null) {
+      this._.items = items;
+      this._.menu.items(items);
+      this.value(this._.current);
+      return this;
+    } else {
+      return this._.items;
+    }
+  };
+
+  Picker.prototype.value = function(value) {
+    var loading;
+    if (arguments.length > 0) {
+      if (hx.isFunction(this.items())) {
+        loading = this.selection.prepend('span');
+        loading.append('i')["class"]('hx-menu-loading hx-icon hx-icon-spin hx-icon-spinner');
+        this.items()((function(_this) {
+          return function(data) {
+            loading.remove();
+            return setValue(_this, value, data);
+          };
+        })(this));
+      } else {
+        setValue(this, value, this.items());
+      }
+      return this;
+    } else {
+      return this._.current;
+    }
+  };
+
+  Picker.prototype.disabled = function(disable) {
+    var menuDisable;
+    menuDisable = this._.menu.disabled(disable);
+    if (disable != null) {
+      return this;
+    } else {
+      return menuDisable;
+    }
+  };
+
+  return Picker;
+
+})(hx.EventEmitter);
+
+hx.picker = function(options) {
+  var selection;
+  selection = hx.detached('button');
+  new Picker(selection.node(), options);
+  return selection;
+};
+
+hx.Picker = Picker;
+
+})();
+(function(){
+var hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
+
+respondToRequest = function(request, url, data, callback, options, index) {
+  var e, result, source, status;
+  status = request.status;
+  source = data != null ? {
+    url: url,
+    data: data
+  } : url;
+  if (status >= 200 && status < 300 || status === 304) {
+    try {
+      result = options.formatter(request);
+    } catch (error1) {
+      e = error1;
+      callback(e, void 0, source, index);
+      return;
+    }
+    callback(void 0, result, source, index);
+  } else {
+    callback(request, void 0, source, index);
+  }
+};
+
+sendRequest = function(request, url, data, options) {
+  var header, ref, sendData, value;
+  request.open(options.requestType, url, true);
+  ref = options.headers;
+  for (header in ref) {
+    value = ref[header];
+    request.setRequestHeader(header, value);
+  }
+  if (options.responseType) {
+    request.responseType = options.responseType;
+  }
+  if (options.contentType) {
+    request.overrideMimeType(options.contentType);
+  }
+  sendData = (data != null) && typeof data !== 'string' ? JSON.stringify(data) : data;
+  return request.send(sendData);
+};
+
+performRequest = function(url, data, callback, options, index) {
+  var base, base1, defaults, request, respond;
+  if (data == null) {
+    data = null;
+  }
+  if (options == null) {
+    options = {};
+  }
+  defaults = {
+    requestType: 'GET',
+    formatter: hx.identity,
+    headers: {}
+  };
+  options = hx.merge(defaults, options);
+  if (options.contentType) {
+    if ((base = options.headers)['Content-Type'] == null) {
+      base['Content-Type'] = options.contentType;
+    }
+    if ((base1 = options.headers)['accept'] == null) {
+      base1['accept'] = options.contentType + ',*/*';
+    }
+  }
+  if (options.requestType === 'GET' && data) {
+    options.requestType = 'POST';
+  }
+  request = new XMLHttpRequest();
+  respond = function() {
+    return respondToRequest(request, url, data, callback, options, index);
+  };
+  request.onload = request.onerror = respond;
+  return sendRequest(request, url, data, options);
+};
+
+hx_xhr = function(urlType, urls, data, callback, options) {
+  var buildResultArr, i, j, len, resultArr, results, url;
+  if (urlType === 'array') {
+    resultArr = [];
+    buildResultArr = function(error, result, source, index) {
+      var resultData, resultSource;
+      resultArr[index] = {
+        data: result,
+        source: source
+      };
+      callback(error, result, source, index);
+      if (resultArr.filter(function(d) {
+        return d !== void 0;
+      }).length === urls.length) {
+        resultSource = resultArr.map(function(d) {
+          return d.source;
+        });
+        resultData = resultArr.map(function(d) {
+          return d.data;
+        });
+        return callback(error, resultData, resultSource, -1);
+      }
+    };
+    results = [];
+    for (i = j = 0, len = urls.length; j < len; i = ++j) {
+      url = urls[i];
+      if (hx.isObject(url)) {
+        data = url.data || data;
+        url = url.url;
+      }
+      results.push(performRequest(url, data, buildResultArr, options, i));
+    }
+    return results;
+  } else {
+    if (urlType === 'object') {
+      data = urls.data || data;
+      url = urls.url;
+    } else {
+      url = urls;
+    }
+    return performRequest(url, data, callback, options);
+  }
+};
+
+hx.request = function() {
+  var callback, data, options, urlType, urls;
+  urls = arguments[0];
+  urlType = (function() {
+    switch (false) {
+      case !hx.isArray(urls):
+        return 'array';
+      case !hx.isObject(urls):
+        return 'object';
+      case !hx.isString(urls):
+        return 'string';
+    }
+  })();
+  if (!urlType || urlType === 'array' && urls.length === 0) {
+    console.error('Incorrect URL passed into hx.request: ', urls);
+    return;
+  }
+  if (hx.isFunction(arguments[1])) {
+    callback = arguments[1];
+    options = arguments[2];
+  } else {
+    data = arguments[1];
+    callback = arguments[2];
+    options = arguments[3];
+  }
+  return hx_xhr(urlType, urls, data || null, callback, options);
+};
+
+parsers = {
+  'application/json': function(text) {
+    if (text) {
+      return JSON.parse(text);
+    }
+  },
+  'text/html': function(text) {
+    return hx.parseHTML(text);
+  },
+  'text/plain': function(text) {
+    return text;
+  }
+};
+
+reshapedRequest = function(type) {
+  return function(urls, data, callback, options) {
+    var defaults, ref;
+    if (hx.isFunction(data)) {
+      ref = [void 0, data, callback], data = ref[0], callback = ref[1], options = ref[2];
+    }
+    defaults = type ? {
+      contentType: type,
+      formatter: function(xhr) {
+        return parsers[type](xhr.responseText);
+      }
+    } : {
+      formatter: function(xhr) {
+        var mimeType, parser;
+        mimeType = xhr.getResponseHeader('content-type').split(';')[0];
+        parser = parsers[mimeType];
+        if (parser) {
+          return parser(xhr.responseText);
+        } else {
+          hx.consoleWarning("Unknown parser for mime type " + mimeType + ", carrying on anyway");
+          return xhr;
+        }
+      }
+    };
+    options = hx.merge(defaults, options);
+    return hx.request(urls, data, callback, options);
+  };
+};
+
+hx.json = reshapedRequest('application/json');
+
+hx.html = reshapedRequest('text/html');
+
+hx.text = reshapedRequest('text/plain');
+
+hx.reshapedRequest = reshapedRequest();
+
+})();
+(function(){
+var StickyTableHeaders, cloneEvents, cloneTableAndNodeEvents, createStickyHeaderNodes, getChildren, getChildrenFromTable, updateHeaderPositions, updateScrollIndicators;
+
+updateScrollIndicators = function(wrapper, top, right, bottom, left) {
+  var canScrollDown, canScrollLeft, canScrollRight, canScrollUp, node;
+  node = wrapper.node();
+  canScrollUp = node.scrollTop > 0;
+  canScrollDown = node.scrollTop < node.scrollHeight - node.clientHeight;
+  canScrollLeft = node.scrollLeft > 0;
+  canScrollRight = node.scrollLeft < node.scrollWidth - node.clientWidth;
+  top.style('display', canScrollUp ? 'block' : '');
+  right.style('display', canScrollRight ? 'block' : '');
+  bottom.style('display', canScrollDown ? 'block' : '');
+  return left.style('display', canScrollLeft ? 'block' : '');
+};
+
+updateHeaderPositions = function(container, wrapperNode) {
+  var leftNode, leftOffset, topNode, topOffset;
+  leftOffset = -wrapperNode.scrollLeft;
+  topOffset = -wrapperNode.scrollTop;
+  topNode = container.shallowSelect('.hx-sticky-table-header-top');
+  if (topNode != null) {
+    topNode.select('.hx-table').style('left', leftOffset + 'px');
+  }
+  leftNode = container.shallowSelect('.hx-sticky-table-header-left');
+  if (leftNode != null) {
+    return leftNode.select('.hx-table').style('top', topOffset + 'px');
+  }
+};
+
+cloneEvents = function(elem, clone) {
+  var cloneChildren, cloneElem, cloneEmitter, elemChildren, elemData, i, j, k, len, listener, listenerNamesRegistered, origEmitter, ref, ref1, results;
+  if ((elem != null) && (clone != null)) {
+    elemData = hx.select.getHexagonElementDataObject(elem);
+    listenerNamesRegistered = (ref = elemData.listenerNamesRegistered) != null ? ref.values() : void 0;
+    if (listenerNamesRegistered && listenerNamesRegistered.length > 0) {
+      origEmitter = elemData.eventEmitter;
+      cloneElem = hx.select(clone);
+      for (j = 0, len = listenerNamesRegistered.length; j < len; j++) {
+        listener = listenerNamesRegistered[j];
+        cloneElem.on(listener, function() {});
+      }
+      cloneEmitter = hx.select.getHexagonElementDataObject(clone).eventEmitter;
+      cloneEmitter.pipe(origEmitter);
+    }
+    elemChildren = elem.childNodes;
+    if (elemChildren) {
+      cloneChildren = clone.childNodes;
+      results = [];
+      for (i = k = 0, ref1 = elemChildren.length; 0 <= ref1 ? k <= ref1 : k >= ref1; i = 0 <= ref1 ? ++k : --k) {
+        results.push(cloneEvents(elemChildren[i], cloneChildren[i]));
+      }
+      return results;
+    }
+  }
+};
+
+getChildrenFromTable = function(t, body, single) {
+  var realParents;
+  realParents = getChildren(t.select(body ? 'tbody' : 'thead'), 'tr');
+  return hx.flatten(realParents.map(function(parent) {
+    return getChildren(hx.select(parent), 'th, td', single);
+  }));
+};
+
+getChildren = function(parent, selector, single) {
+  var children;
+  children = single ? parent.select(selector) : parent.selectAll(selector);
+  return children.filter(function(node) {
+    return node.node().parentNode === parent.node();
+  }).nodes;
+};
+
+createStickyHeaderNodes = function(real, cloned) {
+  var i, j, ref, results;
+  results = [];
+  for (i = j = 0, ref = real.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+    cloneEvents(real[i], cloned[i]);
+    hx.select(real[i]).classed('hx-sticky-table-invisible', true);
+    results.push(hx.select(cloned[i]).classed('hx-sticky-table-invisible', false));
+  }
+  return results;
+};
+
+cloneTableAndNodeEvents = function(selection, realTable, tableClone, body, single) {
+  var clonedNodes, innerTableClone, realNodes;
+  innerTableClone = selection.append(tableClone.clone(true));
+  innerTableClone.selectAll('th, td').classed('hx-sticky-table-invisible', true);
+  realNodes = getChildrenFromTable(realTable, body, single);
+  clonedNodes = getChildrenFromTable(innerTableClone, body, single);
+  createStickyHeaderNodes(realNodes, clonedNodes);
+  return innerTableClone;
+};
+
+StickyTableHeaders = (function() {
+  function StickyTableHeaders(selector, options) {
+    var bottomIndicator, container, leftIndicator, resolvedOptions, rightIndicator, selection, self, showScrollIndicators, table, tableIsRootElement, topIndicator, wrapper;
+    hx.component.register(selector, this);
+    resolvedOptions = hx.merge.defined({
+      stickTableHead: true,
+      stickFirstColumn: false,
+      useResponsive: true,
+      fullWidth: void 0,
+      containerClass: void 0
+    }, options);
+    selection = hx.select(selector);
+    table = selection.classed('hx-table') || selection.node().nodeName.toLowerCase() === 'table' ? (tableIsRootElement = true, selection) : (tableIsRootElement = false, selection.select('.hx-table'));
+    if (table.classed('hx-table-full') && (options.fullWidth == null)) {
+      options.fullWidth = true;
+    }
+    if (resolvedOptions.stickTableHead && table.select('thead').selectAll('tr').empty()) {
+      hx.consoleWarning('hx.StickyTableHeaders - ' + selector, 'Sticky table headers initialized with stickTableHead of true without a thead element present');
+      resolvedOptions.stickTableHead = false;
+    }
+    if (resolvedOptions.stickFirstColumn && table.select('tbody').select('tr').selectAll('th, td').empty()) {
+      hx.consoleWarning('hx.StickyTableHeaders - ' + selector, 'Sticky table headers initialized with stickFirstColumn of true without any columns to stick');
+      resolvedOptions.stickFirstColumn = false;
+    }
+    container = tableIsRootElement ? table.insertAfter('div')["class"]('hx-sticky-table-headers') : selection.classed('hx-sticky-table-headers', true);
+    if (resolvedOptions.containerClass) {
+      container.classed(resolvedOptions.containerClass, true);
+    }
+    wrapper = container.append('div')["class"]('hx-sticky-table-wrapper');
+    wrapper.append(table);
+    showScrollIndicators = hx.scrollbarSize() === 0;
+    if (showScrollIndicators) {
+      topIndicator = container.append('div')["class"]('hx-sticky-table-scroll-top');
+      rightIndicator = container.append('div')["class"]('hx-sticky-table-scroll-right');
+      bottomIndicator = container.append('div')["class"]('hx-sticky-table-scroll-bottom');
+      leftIndicator = container.append('div')["class"]('hx-sticky-table-scroll-left');
+    }
+    wrapper.on('scroll', 'hx.sticky-table-headers', function() {
+      if (showScrollIndicators) {
+        updateScrollIndicators(wrapper, topIndicator, rightIndicator, bottomIndicator, leftIndicator);
+      }
+      return updateHeaderPositions(container, wrapper.node());
+    });
+    this._ = {
+      options: resolvedOptions,
+      container: container,
+      wrapper: wrapper,
+      table: table,
+      selection: selection,
+      showScrollIndicators: showScrollIndicators
+    };
+    this.render();
+    if (resolvedOptions.useResponsive) {
+      self = this;
+      container.on('resize', 'hx.sticky-table-headers', function() {
+        self.render();
+        return setTimeout((function() {
+          return self.render();
+        }), 100);
+      });
+    }
+  }
+
+  StickyTableHeaders.prototype.render = function() {
+    var _, background, bottomIndicator, container, hasHorizontalScroll, hasVerticalScroll, heightScrollbarOffset, leftHead, leftIndicator, leftTable, offsetHeight, offsetWidth, offsetWidthElem, options, origScroll, rightIndicator, scrollOffsetHeight, scrollOffsetWidth, table, tableBox, tableClone, topHead, topIndicator, topLeftHead, topLeftTable, topTable, totalHeight, totalWidth, widthScrollbarOffset, wrapper, wrapperBox, wrapperNode;
+    _ = this._;
+    container = _.container;
+    wrapper = _.wrapper;
+    wrapperNode = wrapper.node();
+    table = _.table;
+    options = _.options;
+    origScroll = wrapperNode.scrollTop;
+    container.style('height', void 0).style('width', void 0);
+    wrapper.style('height', void 0).style('width', void 0).style('margin-top', void 0).style('margin-left', void 0).style('max-width', void 0).style('max-height', void 0);
+    table.style('margin-top', void 0).style('margin-left', void 0).style('min-width', void 0).style('min-height', void 0);
+    offsetHeight = 0;
+    offsetWidth = 0;
+    if (options.fullWidth) {
+      table.style('width', '100%');
+    }
+    if (options.stickTableHead) {
+      offsetHeight = table.select('thead').height();
+    }
+    if (options.stickFirstColumn) {
+      offsetWidthElem = hx.select(table.select('tbody').select('tr').select('th, td').nodes[0]);
+      offsetWidth = offsetWidthElem.width();
+    }
+    totalHeight = container.style('height').replace('px', '') - offsetHeight;
+    totalWidth = container.style('width').replace('px', '') - offsetWidth;
+    wrapper.style('width', totalWidth + 'px').style('height', totalHeight + 'px').style('margin-top', offsetHeight + 'px').style('margin-left', offsetWidth + 'px');
+    table.style('margin-top', -offsetHeight + 'px').style('margin-left', -offsetWidth + 'px');
+    tableBox = table.box();
+    hasVerticalScroll = wrapperNode.scrollHeight > wrapperNode.clientHeight;
+    hasHorizontalScroll = wrapperNode.scrollWidth > wrapperNode.clientWidth;
+    heightScrollbarOffset = hasHorizontalScroll ? hx.scrollbarSize() : 0;
+    widthScrollbarOffset = hasVerticalScroll ? hx.scrollbarSize() : 0;
+    wrapperBox = wrapper.box();
+    if (options.fullWidth) {
+      table.style('width', void 0).style('min-width', wrapperBox.width + offsetWidth - widthScrollbarOffset - 1 + 'px');
+    } else {
+      wrapper.style('max-width', tableBox.width - offsetWidth + widthScrollbarOffset + 'px').style('max-height', tableBox.height - offsetHeight + heightScrollbarOffset + 'px');
+    }
+    tableClone = table.clone(true).style('height', table.style('height')).style('width', table.style('width'));
+    if (options.stickTableHead) {
+      topHead = container.shallowSelect('.hx-sticky-table-header-top');
+      if (topHead.empty()) {
+        topHead = container.prepend('div')["class"]('hx-sticky-table-header-top');
+        if (!_.showScrollIndicators && options.fullWidth) {
+          background = table.select('th').style('background-color');
+          topHead.style('background-color', background);
+        }
+      }
+      topHead.clear();
+      topTable = cloneTableAndNodeEvents(topHead, table, tableClone);
+    }
+    if (options.stickFirstColumn) {
+      leftHead = container.shallowSelect('.hx-sticky-table-header-left');
+      if (leftHead.empty()) {
+        leftHead = container.prepend('div')["class"]('hx-sticky-table-header-left');
+        if (!_.showScrollIndicators && options.fullWidth) {
+          background = table.select('th').style('background-color');
+          leftHead.style('background-color', background);
+        }
+      }
+      leftHead.clear();
+      leftTable = cloneTableAndNodeEvents(leftHead, table, tableClone, true, true);
+    }
+    if (options.stickTableHead && options.stickFirstColumn) {
+      topLeftHead = container.shallowSelect('.hx-sticky-table-header-top-left');
+      if (topLeftHead.empty()) {
+        topLeftHead = container.prepend('div')["class"]('hx-sticky-table-header-top-left');
+      }
+      topLeftHead.clear();
+      topLeftTable = cloneTableAndNodeEvents(topLeftHead, table, tableClone, false, true);
+    }
+    if (topHead != null) {
+      topHead.style('height', offsetHeight + 'px').style('width', wrapperBox.width + 'px').style('left', offsetWidth + 'px');
+    }
+    if (topTable != null) {
+      topTable.style('margin-left', -offsetWidth + 'px');
+    }
+    if (leftHead != null) {
+      leftHead.style('height', wrapperBox.height + 'px').style('width', offsetWidth + 'px').style('top', offsetHeight + 'px');
+    }
+    if (leftTable != null) {
+      leftTable.style('margin-top', -offsetHeight + 'px');
+    }
+    if (topLeftHead != null) {
+      topLeftHead.style('width', (leftHead != null ? leftHead.style('width') : void 0) || offsetWidth + 'px').style('height', (topHead != null ? topHead.style('height') : void 0) || offsetHeight + 'px');
+    }
+    wrapperNode.scrollTop = origScroll;
+    if (_.showScrollIndicators) {
+      scrollOffsetWidth = offsetWidth - 1;
+      scrollOffsetHeight = offsetHeight - 1;
+      topIndicator = container.shallowSelect('.hx-sticky-table-scroll-top').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
+      rightIndicator = container.shallowSelect('.hx-sticky-table-scroll-right').style('top', scrollOffsetHeight + 'px').style('height', wrapperBox.height + 'px');
+      bottomIndicator = container.shallowSelect('.hx-sticky-table-scroll-bottom').style('left', scrollOffsetWidth + 'px').style('width', wrapperBox.width + 'px');
+      leftIndicator = container.shallowSelect('.hx-sticky-table-scroll-left').style('top', scrollOffsetHeight + 'px').style('left', scrollOffsetWidth + 'px').style('height', wrapperBox.height + 'px');
+      updateScrollIndicators(wrapper, topIndicator, rightIndicator, bottomIndicator, leftIndicator);
+    }
+    return updateHeaderPositions(container, wrapper.node());
+  };
+
+  return StickyTableHeaders;
+
+})();
+
+hx.StickyTableHeaders = StickyTableHeaders;
+
+})();
+
+(function(){
+var Toggle,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Toggle = (function(superClass) {
+  extend(Toggle, superClass);
+
+  function Toggle(selector, options) {
+    Toggle.__super__.constructor.apply(this, arguments);
+    hx.component.register(selector, this);
+    this.options = hx.merge.defined({
+      value: false
+    }, options);
+    this.selection = hx.select(selector).classed('hx-toggle', true);
+    this.toggle = this.selection.append('div')["class"]('hx-toggle-box');
+    this.value(this.options.value);
+    this.selection.on('click', 'hx.toggle', (function(_this) {
+      return function(e) {
+        _this.value(!_this.value());
+        return _this.emit('change', _this.value());
+      };
+    })(this));
+  }
+
+  Toggle.prototype.value = function(val) {
+    if (val != null) {
+      this.options.value = val;
+      this.toggle.classed('hx-toggle-box-on', val);
+      return this;
+    } else {
+      return this.options.value;
+    }
+  };
+
+  return Toggle;
+
+})(hx.EventEmitter);
+
+hx.toggle = function(options) {
+  var selection;
+  selection = hx.detached('div');
+  new Toggle(selection.node(), options);
+  return selection;
+};
+
+hx.Toggle = Toggle;
+
+})();
+(function(){
+var AutocompletePicker, debounceDuration, enterKeyCode, setPickerValue, validateItems,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  autocompletePicker: {
+    chooseValue: 'Choose a value...',
+    loading: 'Loading...',
+    noResults: 'No Results Found',
+    otherResults: 'Other Results'
+  }
+});
+
+enterKeyCode = 13;
+
+debounceDuration = 200;
+
+validateItems = function(feed, items) {
+  if (!feed.validateItems(items)) {
+    hx.consoleWarning("hx.AutocompletePicker: the items was expected to be an array of items or a function, you supplied: " + items);
+    return false;
+  } else {
+    return true;
+  }
+};
+
+setPickerValue = function(picker, results, cause) {
+  var _;
+  _ = picker._;
+  _.valueText.clear();
+  if (results.length) {
+    _.current = results[0];
+    picker.emit('change', {
+      cause: cause,
+      value: results[0]
+    });
+    return _.renderer(_.valueText.node(), results[0]);
+  } else {
+    _.current = void 0;
+    return _.valueText.text(_.options.chooseValueText);
+  }
+};
+
+AutocompletePicker = (function(superClass) {
+  extend(AutocompletePicker, superClass);
+
+  function AutocompletePicker(selector, items, options) {
+    var debouncedPopulate, defaults, feed, feedOptions, input, loadingItem, menu, noResultsItem, otherResultsItem, populateMenu, renderMenu, renderWrapper, resolvedOptions, selection, setValue, valueText;
+    if (options == null) {
+      options = {};
+    }
+    AutocompletePicker.__super__.constructor.call(this);
+    hx.component.register(selector, this);
+    defaults = {
+      filter: void 0,
+      filterOptions: void 0,
+      matchType: void 0,
+      useCache: void 0,
+      showOtherResults: void 0,
+      trimTrailingSpaces: void 0,
+      valueLookup: void 0,
+      buttonClass: void 0,
+      disabled: false,
+      renderer: void 0,
+      value: void 0,
+      chooseValueText: hx.userFacingText('autocompletePicker', 'chooseValue'),
+      loadingText: hx.userFacingText('autocompletePicker', 'loading'),
+      noResultsText: hx.userFacingText('autocompletePicker', 'noResults'),
+      otherResultsText: hx.userFacingText('autocompletePicker', 'otherResults')
+    };
+    if (options.valueLookup) {
+      defaults.renderer = function(element, item) {
+        return hx.select(element).text(options.valueLookup(item));
+      };
+    }
+    resolvedOptions = hx.merge(defaults, options);
+    selection = hx.select(selector).classed('hx-autocomplete-picker hx-btn', true);
+    if (resolvedOptions.buttonClass) {
+      selection.classed(resolvedOptions.buttonClass, true);
+    }
+    valueText = selection.append('div')["class"]('hx-autocomplete-picker-text');
+    selection.append('span')["class"]('hx-autocomplete-picker-icon').append('i')["class"]('hx-icon hx-icon-caret-down');
+    feedOptions = {
+      filter: resolvedOptions.filter,
+      filterOptions: resolvedOptions.filterOptions,
+      matchType: resolvedOptions.matchType,
+      showOtherResults: resolvedOptions.showOtherResults,
+      trimTrailingSpaces: resolvedOptions.trimTrailingSpaces,
+      valueLookup: resolvedOptions.valueLookup
+    };
+    feed = new hx.AutocompleteFeed(feedOptions);
+    this._ = {
+      selection: selection,
+      options: resolvedOptions,
+      valueText: valueText,
+      feed: feed,
+      valueLookup: resolvedOptions.valueLookup || hx.identity
+    };
+    if (validateItems(feed, items)) {
+      feed.items(items);
+      renderWrapper = (function(_this) {
+        return function(element, item) {
+          selection = hx.select(element).clear().classed('hx-autocomplete-picker-heading', item.heading);
+          if (item.unselectable || item.heading) {
+            return hx.select(element).text(item.text).off();
+          } else {
+            return _this._.renderer(element, item);
+          }
+        };
+      })(this);
+      menu = new hx.Menu(selector, {
+        dropdownOptions: {
+          ddClass: 'hx-autocomplete-picker-dropdown'
+        }
+      });
+      this._.renderer = resolvedOptions.renderer || menu.renderer();
+      this._.menu = menu;
+      menu.renderer(renderWrapper);
+      noResultsItem = {
+        text: resolvedOptions.noResultsText,
+        unselectable: true
+      };
+      loadingItem = {
+        text: resolvedOptions.loadingText,
+        unselectable: true
+      };
+      otherResultsItem = {
+        text: resolvedOptions.otherResultsText,
+        unselectable: true,
+        heading: true
+      };
+      renderMenu = function(items) {
+        menu.items(items);
+        return menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node());
+      };
+      populateMenu = function(term) {
+        return feed.filter(term, function(results, otherResults) {
+          if (results.length === 0) {
+            results.push(noResultsItem);
+          }
+          if (otherResults.length > 0) {
+            otherResults = [otherResultsItem].concat(otherResults);
+          }
+          return renderMenu(results.concat(otherResults));
+        });
+      };
+      debouncedPopulate = hx.debounce(debounceDuration, populateMenu);
+      setValue = (function(_this) {
+        return function(item) {
+          setPickerValue(_this, [item], 'user');
+          return menu.hide();
+        };
+      })(this);
+      input = hx.detached('input')["class"]('hx-autocomplete-picker-input').on('input', function(e) {
+        renderMenu([loadingItem]);
+        return debouncedPopulate(e.target.value);
+      }).on('keydown', function(e) {
+        var topItem;
+        if (input.value().length) {
+          if ((e.which || e.keyCode) === enterKeyCode && menu.cursorPos === -1) {
+            topItem = menu.items()[0];
+            if (!topItem.unselectable) {
+              return setValue(topItem);
+            }
+          }
+        }
+      });
+      menu.dropdown.on('showstart', function() {
+        input.value('');
+        menu.dropdown._.dropdown.prepend(input);
+        renderMenu([loadingItem]);
+        return debouncedPopulate(input.value());
+      });
+      menu.dropdown.on('showend', function() {
+        return input.node().focus();
+      });
+      menu.on('change', (function(_this) {
+        return function(item) {
+          if ((item != null) && (item.content != null)) {
+            return setValue(item.content);
+          }
+        };
+      })(this));
+      menu.pipe(this, '', ['highlight']);
+      menu.dropdown.pipe(this, 'dropdown');
+      if (resolvedOptions.value) {
+        this.value(resolvedOptions.value);
+      } else {
+        valueText.text(resolvedOptions.chooseValueText);
+      }
+      if (resolvedOptions.disabled) {
+        this.disabled(resolvedOptions.disabled);
+      }
+    }
+  }
+
+  AutocompletePicker.prototype.clearCache = function() {
+    this._.feed.clearCache();
+    return this;
+  };
+
+  AutocompletePicker.prototype.hide = function() {
+    this._.menu.hide();
+    return this;
+  };
+
+  AutocompletePicker.prototype.disabled = function(disable) {
+    var menuDisable;
+    menuDisable = this._.menu.disabled(disable);
+    if (disable != null) {
+      return this;
+    } else {
+      return menuDisable;
+    }
+  };
+
+  AutocompletePicker.prototype.items = function(items) {
+    if (arguments.length) {
+      if (validateItems(this._.feed, items)) {
+        this._.feed.items(items);
+        this.value(this._.current);
+      }
+      return this;
+    } else {
+      return this._.feed.items();
+    }
+  };
+
+  AutocompletePicker.prototype.value = function(value, callback) {
+    var _;
+    _ = this._;
+    if (arguments.length) {
+      _.valueText.text(_.options.loadingText);
+      _.feed.filter(_.valueLookup(value), (function(_this) {
+        return function(results) {
+          setPickerValue(_this, results, 'api');
+          return typeof callback === "function" ? callback(results[0]) : void 0;
+        };
+      })(this));
+      return this;
+    } else {
+      return _.current;
+    }
+  };
+
+  AutocompletePicker.prototype.renderer = function(f) {
+    if (f != null) {
+      this._.renderer = f;
+      return this;
+    } else {
+      return this._.renderer;
+    }
+  };
+
+  return AutocompletePicker;
+
+})(hx.EventEmitter);
+
+hx.autocompletePicker = function(items, options) {
+  var selection;
+  selection = hx.detached('div');
+  new AutocompletePicker(selection.node(), items, options);
+  return selection;
+};
+
+hx.AutocompletePicker = AutocompletePicker;
+
+})();
+(function(){
+var DateTimePicker,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+DateTimePicker = (function(superClass) {
+  extend(DateTimePicker, superClass);
+
+  function DateTimePicker(selector, options) {
+    var dtNode, tpNode, updateDatePicker, updateTimePicker;
+    this.selector = selector;
+    DateTimePicker.__super__.constructor.apply(this, arguments);
+    this.options = hx.merge({
+      datePickerOptions: {},
+      timePickerOptions: {}
+    }, options);
+    delete this.options.datePickerOptions.selectRange;
+    hx.component.register(this.selector, this);
+    this.suppressCallback = false;
+    this.selection = hx.select(this.selector).classed('hx-date-time-picker', true);
+    dtNode = this.selection.append('div').node();
+    tpNode = this.selection.append('div').node();
+    this.options.timePickerOptions.disabled = this.options.datePickerOptions.disabled;
+    this.datePicker = new hx.DatePicker(dtNode, this.options.datePickerOptions);
+    this.timePicker = new hx.TimePicker(tpNode, this.options.timePickerOptions);
+    this._ = {
+      uniqueId: hx.randomId()
+    };
+    hx.preferences.on('timezonechange', 'hx.date-time-picker-' + this._.uniqueId, function() {
+      return updateDatePicker();
+    });
+    this.datePicker.pipe(this, 'date', ['show', 'hide']);
+    this.timePicker.pipe(this, 'time', ['show', 'hide']);
+    updateTimePicker = (function(_this) {
+      return function(data) {
+        _this.timePicker.suppressed('change', true);
+        _this.timePicker.date(_this.datePicker.date(), true);
+        _this.timePicker.suppressed('change', false);
+        if (data != null) {
+          _this.emit('date.change', data);
+          return _this.emit('change', _this.date());
+        }
+      };
+    })(this);
+    updateDatePicker = (function(_this) {
+      return function(data) {
+        _this.datePicker.suppressed('change', true);
+        _this.datePicker.date(hx.preferences.applyTimezoneOffset(_this.date()));
+        _this.datePicker.suppressed('change', false);
+        if (data != null) {
+          _this.emit('time.change', data);
+          return _this.emit('change', _this.date());
+        }
+      };
+    })(this);
+    this.datePicker.on('change', 'hx.date-time-picker', updateTimePicker);
+    this.timePicker.on('change', 'hx.date-time-picker', updateDatePicker);
+  }
+
+  DateTimePicker.prototype.date = function(val, retainTime) {
+    if (arguments.length > 0) {
+      this.timePicker.date(val, retainTime);
+      return this;
+    } else {
+      return this.timePicker.date();
+    }
+  };
+
+  DateTimePicker.prototype.year = function(val) {
+    if (arguments.length > 0) {
+      this.datePicker.year(val);
+      return this;
+    } else {
+      return this.datePicker.year();
+    }
+  };
+
+  DateTimePicker.prototype.month = function(val) {
+    if (arguments.length > 0) {
+      this.datePicker.month(val);
+      return this;
+    } else {
+      return this.datePicker.month();
+    }
+  };
+
+  DateTimePicker.prototype.day = function(val) {
+    if (arguments.length > 0) {
+      this.datePicker.day(val);
+      return this;
+    } else {
+      return this.datePicker.day();
+    }
+  };
+
+  DateTimePicker.prototype.hour = function(val) {
+    if (arguments.length > 0) {
+      this.timePicker.hour(val);
+      return this;
+    } else {
+      return this.timePicker.hour();
+    }
+  };
+
+  DateTimePicker.prototype.minute = function(val) {
+    if (arguments.length > 0) {
+      this.timePicker.minute(val);
+      return this;
+    } else {
+      return this.timePicker.minute();
+    }
+  };
+
+  DateTimePicker.prototype.second = function(val) {
+    if (arguments.length > 0) {
+      this.timePicker.second(val);
+      return this;
+    } else {
+      return this.timePicker.second();
+    }
+  };
+
+  DateTimePicker.prototype.getScreenDate = function() {
+    return this.datePicker.getScreenDate();
+  };
+
+  DateTimePicker.prototype.getScreenTime = function() {
+    return this.timePicker.getScreenTime();
+  };
+
+  DateTimePicker.prototype.locale = function(locale) {
+    hx.deprecatedWarning('hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.');
+    if (arguments.length > 0) {
+      hx.preferences.locale(locale);
+      return this;
+    } else {
+      return hx.preferences.locale();
+    }
+  };
+
+  DateTimePicker.prototype.disabled = function(disable) {
+    var dpDisabled;
+    dpDisabled = this.datePicker.disabled(disable);
+    this.timePicker.disabled(disable);
+    if (disable != null) {
+      return this;
+    } else {
+      return dpDisabled;
+    }
+  };
+
+  return DateTimePicker;
+
+})(hx.EventEmitter);
+
+hx.dateTimePicker = function(options) {
+  var selection;
+  selection = hx.detached('div');
+  new DateTimePicker(selection.node(), options);
+  return selection;
+};
+
+hx.DateTimePicker = DateTimePicker;
+
+})();
+(function(){
+var TagInput, createFilteredData,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  tagInput: {
+    placeholder: 'add tag...'
+  }
+});
+
+createFilteredData = function(filterFn, data) {
+  if (hx.isFunction(data)) {
+    return function(term, callback) {
+      return data(term, function(result) {
+        return callback(result.filter(filterFn));
+      });
+    };
+  } else if (hx.isArray(data)) {
+    return function(term, callback) {
+      return callback(data.filter(filterFn));
+    };
+  } else {
+    return data;
+  }
+};
 
 TagInput = (function(superClass) {
   var addTag;
@@ -12310,7 +13837,7 @@ TagInput = (function(superClass) {
   extend(TagInput, superClass);
 
   function TagInput(selector, options) {
-    var _, backspacedown, hasError;
+    var _, acData, backspacedown, filterFn, hasError, inputContainer, isInsideForm, isValid, validateForm, validationForm;
     this.selector = selector;
     TagInput.__super__.constructor.apply(this, arguments);
     _ = this._ = {};
@@ -12318,41 +13845,90 @@ TagInput = (function(superClass) {
       classifier: void 0,
       validator: void 0,
       draggable: true,
-      items: []
+      items: [],
+      placeholder: hx.userFacingText('tagInput', 'placeholder'),
+      autocompleteData: void 0,
+      autocompleteOptions: {},
+      excludeTags: true,
+      mustMatchAutocomplete: true
     }, options);
+    if (this.options.mustMatchAutocomplete) {
+      this.options.autocompleteOptions.mustMatch = true;
+    }
     hx.component.register(this.selector, this);
     this.selection = hx.select(this.selector).classed('hx-tag-input', true);
     this.tagContainer = this.selection.append('span')["class"]('hx-tags-container');
     if (this.options.draggable) {
       _.dragContainer = new hx.DragContainer(this.tagContainer.node());
     }
-    this.form = this.selection.append('form');
-    this.input = this.form.append('input').attr('placeholder', 'add tag...');
+    isInsideForm = !this.selection.closest('form').empty();
+    inputContainer = this.selection.append(isInsideForm ? 'div' : 'form')["class"]('hx-tag-input-container');
+    validationForm = isInsideForm ? this.selection.closest('.hx-form') : inputContainer;
+    this.input = inputContainer.append('input').attr('placeholder', this.options.placeholder);
+    if (this.options.autocompleteData != null) {
+      isValid = this.options.validator != null ? (function(_this) {
+        return function(item) {
+          return !_this.options.validator(item);
+        };
+      })(this) : hx.identity;
+      filterFn = this.options.excludeTags ? (function(_this) {
+        return function(item) {
+          return isValid(item) && !~_this.items().indexOf(item.toString());
+        };
+      })(this) : isValid;
+      acData = createFilteredData(filterFn, this.options.autocompleteData);
+      this._.autocomplete = new hx.AutoComplete(this.input.node(), acData, this.options.autocompleteOptions);
+      this._.autocomplete.on('change', 'hx.taginput', (function(_this) {
+        return function(value) {
+          _this.add(value);
+          return setTimeout((function() {
+            return _this._.autocomplete.show();
+          }), 0);
+        };
+      })(this));
+    }
     backspacedown = false;
     hasError = (function(_this) {
       return function() {
         var error, name;
         name = _this.input.value();
-        if (name === '') {
-          _this.input.node().setCustomValidity('');
-          return false;
-        } else if (_this.options.validator) {
+        _this.input.node().setCustomValidity('');
+        validateForm(true);
+        if (name !== '' && _this.options.validator) {
           error = _this.options.validator(name) || '';
           _this.input.node().setCustomValidity(error);
           return error.length > 0;
+        } else {
+          return false;
         }
       };
     })(this);
-    this.form.on('keypress', 'hx.tag-input', (function(_this) {
+    validateForm = (function(_this) {
+      return function(clear) {
+        if (isInsideForm) {
+          if (clear) {
+            return validationForm.selectAll('.hx-form-error').remove();
+          } else {
+            return hx.validateForm(validationForm.node()).valid;
+          }
+        } else {
+          return validationForm.node().checkValidity();
+        }
+      };
+    })(this);
+    this.input.on('keypress', 'hx.tag-input', (function(_this) {
       return function(event) {
         var name;
         if (event.keyCode === 13) {
-          if (_this.form.node().checkValidity()) {
+          validateForm();
+          if (_this.input.node().checkValidity()) {
             event.preventDefault();
-            name = _this.input.value();
-            if (name) {
-              _.userEvent = true;
-              return _this.add(name, void 0);
+            if (!_this._.autocomplete) {
+              name = _this.input.value();
+              if (name) {
+                _.userEvent = true;
+                return _this.add(name);
+              }
             }
           }
         }
@@ -12361,16 +13937,23 @@ TagInput = (function(superClass) {
     this.input.on('input', 'hx.tag-input', hasError);
     this.input.on('keydown', 'hx.tag-input', (function(_this) {
       return function(event) {
-        var nodeSelection, selection, value;
+        var nodeSelection, ref, ref1, selection, value;
         if (((event.keyCode || event.charCode) === 8) && !backspacedown) {
           backspacedown = true;
           _this.input.node().setCustomValidity('');
+          validateForm(true);
           if (_this.input.value() === '') {
             selection = _this.tagContainer.selectAll('.hx-tag');
             if (selection.size() > 0) {
+              if ((ref = _this._.autocomplete) != null) {
+                ref.hide();
+              }
               nodeSelection = hx.select(selection.node(selection.size() - 1));
               value = nodeSelection.text();
               nodeSelection.remove();
+              if ((ref1 = _this._.autocomplete) != null) {
+                ref1.show();
+              }
               return _this.emit('remove', {
                 value: value,
                 type: 'user'
@@ -12386,17 +13969,19 @@ TagInput = (function(superClass) {
         return true;
       }
     });
-    this.input.on('blur', 'hx.tag-input', (function(_this) {
-      return function(event) {
-        if (_this.input.value().length > 0 && !hasError()) {
-          return _this.add(_this.input.value(), void 0);
-        }
-      };
-    })(this));
+    if (!this._.autocomplete) {
+      this.input.on('blur', 'hx.tag-input', (function(_this) {
+        return function(event) {
+          if (_this.input.value().length > 0 && !hasError()) {
+            return _this.add(_this.input.value(), void 0);
+          }
+        };
+      })(this));
+    }
     this.input.on('focus', 'hx.tag-input', (function(_this) {
       return function(event) {
-        if (hasError()) {
-          return _this.form.node().checkValidity();
+        if (!isInsideForm && hasError()) {
+          return validateForm();
         }
       };
     })(this));
@@ -12451,8 +14036,10 @@ TagInput = (function(superClass) {
         n = name[i];
         addTag(this, n, cssclass);
       }
-    } else {
+    } else if (name) {
       addTag(this, name, cssclass);
+    } else {
+      hx.consoleWarning('TagInput.add was passed the wrong argument type', 'TagInput.add accepts an array or string argument, you supplied:', name);
     }
     this.input.value('');
     if (this.options.draggable) {
@@ -12495,7 +14082,11 @@ TagInput = (function(superClass) {
   TagInput.prototype.items = function(items, cssclass) {
     if (arguments.length > 0) {
       this.remove();
-      this.add(items, cssclass);
+      if (hx.isArray(items)) {
+        this.add(items, cssclass);
+      } else if (items) {
+        hx.consoleWarning('TagInput.items was passed the wrong argument type', 'TagInput.items only accepts an array argument, you supplied:', items);
+      }
       return this;
     } else {
       return this.tagContainer.selectAll('.hx-tag').select('.hx-tag-text').text();
@@ -12615,7 +14206,9 @@ InlineMorphSection = (function(superClass) {
       });
     });
     this.on('hide', 'hx.morph-section', function(data) {
-      exitEditMode.call(morphSection, data.toggle, data.content);
+      if (exitEditMode != null) {
+        exitEditMode.call(morphSection, data.toggle, data.content);
+      }
       return hx.select(data.toggle).style('display', '');
     });
   }
@@ -13097,399 +14690,6 @@ hx.Slider = Slider;
 
 })();
 (function(){
-var AutoComplete, buildAutoComplete, findTerm, showAutoComplete,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-findTerm = function(term, forceMatch) {
-  var _, allData, data, dataMatches, filteredData, heading, matches, remainingResults, self;
-  self = this;
-  _ = this._;
-  if (_.prevTerm == null) {
-    _.prevTerm = '';
-  }
-  allData = _.data.get(term);
-  if (term.length >= _.prevTerm.length) {
-    if (allData == null) {
-      allData = _.data.get(_.prevTerm);
-    }
-  }
-  if (allData == null) {
-    allData = _.data.get('');
-  }
-  _.prevTerm = term;
-  filteredData = this.options.matchType === 'external' ? allData : term.length === 0 && !this.options.showAll ? [] : this.options.filter(allData, term);
-  dataMatches = allData.length === filteredData.length && allData.length > 0;
-  if (this.options.showOtherResults && !forceMatch && !dataMatches) {
-    matches = filteredData.length > 0 ? filteredData : [
-      {
-        unselectable: true,
-        text: self.options.noResultsMessage
-      }
-    ];
-    heading = [
-      {
-        unselectable: true,
-        heading: true,
-        text: self.options.otherResultsMessage
-      }
-    ];
-    remainingResults = filteredData.length === 0 ? allData : (data = allData.filter(function(d) {
-      if (filteredData.some(function(e) {
-        return e === d;
-      })) {
-        return false;
-      } else {
-        return true;
-      }
-    }), (this.options.filterOptions.sort == null) || this.options.filterOptions.sort ? this.options.inputMap != null ? data = data.sort(function(a, b) {
-      a = self.options.inputMap(a);
-      b = self.options.inputMap(b);
-      return hx.sort.compare(a, b);
-    }) : data = data.sort(hx.sort.compare) : void 0, data);
-    remainingResults = heading.concat(remainingResults.sort(function(a, b) {
-      if (!a.disabled && b.disabled) {
-        return -1;
-      } else if (a.disabled && !b.disabled) {
-        return 1;
-      } else {
-        return hx.sort.compare(a.full, b.full);
-      }
-    }));
-    filteredData = matches.concat(remainingResults);
-  }
-  return filteredData;
-};
-
-buildAutoComplete = function(searchTerm, fromCallback, loading) {
-  var _, filteredData, items, message, self, trimAndReload;
-  self = this;
-  _ = this._;
-  if ((_.callback != null) && !fromCallback) {
-    if (searchTerm.length < this.options.minLength || (!this.options.showAll && searchTerm.length === 0)) {
-      _.data.set(searchTerm, []);
-      buildAutoComplete.call(self, searchTerm, true);
-    } else {
-      buildAutoComplete.call(self, searchTerm, true, true);
-      _.currentSearch = searchTerm;
-      if (!_.data.get(searchTerm)) {
-        _.data.set(searchTerm, true);
-        _.callback.call(self, searchTerm, function(returnData) {
-          if (!_.cleanUp) {
-            _.data.set(searchTerm, returnData);
-            if (_.currentSearch === searchTerm) {
-              return buildAutoComplete.call(self, searchTerm, true);
-            }
-          }
-        });
-      } else {
-        buildAutoComplete.call(self, searchTerm, true);
-      }
-    }
-  } else {
-    _.menu.cursorPos = -1;
-    filteredData = !loading ? this.options.matchType === 'external' ? _.data.get(searchTerm) : findTerm.call(self, searchTerm) : void 0;
-    message = {
-      unselectable: true,
-      text: ''
-    };
-    _.menu.items([]);
-    items = [];
-    trimAndReload = false;
-    if (filteredData == null) {
-      message.text = 'Loading...';
-    } else if (searchTerm.length < this.options.minLength) {
-      message.text = "Please enter " + this.options.minLength + " or more characters";
-    } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
-      if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
-        trimAndReload = true;
-      } else if (this.options.noResultsMessage.length > 0 && (this.options.noResultsMessage != null)) {
-        message.text = this.options.noResultsMessage;
-      }
-    } else if (searchTerm.length >= this.options.minLength && filteredData.length > 0) {
-      items = items.concat(filteredData);
-    }
-    if (message.text.length > 0) {
-      items = [message].concat(items);
-    }
-    if (items.length > 0) {
-      _.menu.items(items);
-      if (_.menu.dropdown.isOpen()) {
-        _.menu.dropdown._.setupDropdown(_.menu.dropdown._.dropdown.node());
-      } else {
-        _.menu.dropdown.show();
-      }
-    } else {
-      _.menu.hide();
-    }
-    if (trimAndReload) {
-      _.input.value(_.input.value().substring(0, _.input.value().length - 1));
-      buildAutoComplete.call(self, _.input.value(), fromCallback, loading);
-    }
-  }
-  return void 0;
-};
-
-showAutoComplete = function() {
-  this._.cleanUp = false;
-  return buildAutoComplete.call(this, this._.input.value() || '');
-};
-
-AutoComplete = (function(superClass) {
-  extend(AutoComplete, superClass);
-
-  function AutoComplete(selector, data1, options1) {
-    var _, _filterOpts, base, base1, base2, input, menu, self, timeout;
-    this.selector = selector;
-    this.data = data1;
-    this.options = options1 != null ? options1 : {};
-    AutoComplete.__super__.constructor.apply(this, arguments);
-    this._ = _ = {};
-    hx.component.register(this.selector, this);
-    _.ignoreMatch = false;
-    _.ignoreNextFocus = false;
-    self = this;
-    _.data = new hx.Map();
-    if (hx.isFunction(this.data)) {
-      _.callback = this.data;
-    } else {
-      _.data.set('', this.data);
-    }
-    if (!hx.isArray(this.data) && !hx.isFunction(this.data)) {
-      hx.consoleWarning('AutoComplete - ', this.selector, ': data set incorrectly - you supplied: ', this.data, ' but should have been an array of items or a function');
-    } else {
-      this.options = hx.merge({
-        minLength: 0,
-        showAll: true,
-        trimTrailingSpaces: false,
-        mustMatch: false,
-        inputMap: void 0,
-        renderer: void 0,
-        matchType: 'contains',
-        placeholder: void 0,
-        filter: void 0,
-        filterOptions: void 0,
-        showOtherResults: false,
-        allowTabCompletion: true,
-        noResultsMessage: 'No results found',
-        otherResultsMessage: 'Other Results'
-      }, this.options);
-      if (this.options.inputMap != null) {
-        _filterOpts = {
-          searchValues: function(d) {
-            return [self.options.inputMap(d)];
-          }
-        };
-      }
-      this.options.filterOptions = hx.merge({}, _filterOpts, this.options.filterOptions);
-      if ((base = this.options).filter == null) {
-        base.filter = function(arr, term) {
-          return hx.filter[self.options.matchType](arr, term, self.options.filterOptions).sort(function(a, b) {
-            if (!a.disabled && b.disabled) {
-              return -1;
-            } else if (a.disabled && !b.disabled) {
-              return 1;
-            } else {
-              return hx.sort.compare(a, b);
-            }
-          });
-        };
-      }
-      if ((base1 = this.options).renderer == null) {
-        base1.renderer = this.options.inputMap != null ? function(elem, item) {
-          return hx.select(elem).text(self.options.inputMap(item));
-        } : function(elem, item) {
-          return hx.select(elem).text(item);
-        };
-      }
-      if ((base2 = this.options).placeholder == null) {
-        base2.placeholder = this.options.minLength > 0 ? "Min length " + this.options.minLength + " characters" : void 0;
-      }
-      input = hx.select(this.selector);
-      menu = new hx.Menu(this.selector, {
-        dropdownOptions: {
-          ddClass: 'hx-autocomplete-dropdown'
-        }
-      });
-      menu.pipe(this, '', ['highlight']);
-      menu.dropdown.pipe(this, 'dropdown');
-      hx.select(this.selector).off('click', 'hx.menu');
-      menu.on('input', 'hx.autocomplete', function(e) {
-        if (self.options.allowTabCompletion) {
-          if ((e.which || e.keyCode) === 9) {
-            return e.preventDefault();
-          }
-        }
-      });
-      _.setInputValue = this.options.inputMap != null ? function(d) {
-        input.value(self.options.inputMap(d));
-        return self.emit('change', d);
-      } : function(d) {
-        input.value(d);
-        return self.emit('change', d);
-      };
-      if (this.options.placeholder != null) {
-        input.attr('placeholder', this.options.placeholder);
-      }
-      input.on('focus', 'hx.autocomplete', function(e) {
-        if (!_.ignoreNextFocus) {
-          _.cleanUp = false;
-          return self.show();
-        }
-      });
-      input.on('blur', 'hx.autocomplete', function(e) {
-        if (e.relatedTarget != null) {
-          self.hide();
-        }
-        return _.ignoreNextFocus = false;
-      });
-      timeout = void 0;
-      input.on('input', 'hx.autocomplete', function() {
-        _.cleanUp = false;
-        clearTimeout(timeout);
-        _.initialValue = input.value();
-        return timeout = setTimeout(function() {
-          if (input.value() !== _.prevTerm) {
-            return buildAutoComplete.call(self, input.value() || '');
-          }
-        }, 200);
-      });
-      menu.renderer(function(elem, item) {
-        var selection;
-        selection = hx.select(elem);
-        selection.style('font-weight', '');
-        if (item.unselectable || item.heading) {
-          selection.text(item.text).off();
-          if (item.heading) {
-            return selection.style('font-weight', '600');
-          }
-        } else {
-          return self.options.renderer(elem, item);
-        }
-      });
-      menu.on('change', 'hx.autocomplete', function(d) {
-        var content;
-        content = d != null ? d.content : void 0;
-        if (content != null) {
-          if (!(content != null ? content.unselectable : void 0) && !(content != null ? content.heading : void 0) && !(content != null ? content.disabled : void 0)) {
-            if (d.eventType === 'tab') {
-              if (self.options.allowTabCompletion) {
-                _.setInputValue(content);
-                _.ignoreMatch = true;
-                return self.hide();
-              }
-            } else if (menu.cursorPos === -1 && (_.initialValue != null)) {
-              return input.value(_.initialValue);
-            } else {
-              _.setInputValue(content);
-              if (d.eventType === 'click' || d.eventType === 'enter') {
-                _.ignoreMatch = true;
-                self.hide();
-                return _.ignoreNextFocus = true;
-              }
-            }
-          }
-        } else if (d.eventType === 'enter') {
-          _.ignoreMatch = false;
-          self.hide();
-          return _.ignoreNextFocus = true;
-        }
-      });
-      _.checkValidity = function() {
-        var exactMatch;
-        _.cleanUp = true;
-        if (!_.ignoreMatch) {
-          if (self.options.mustMatch) {
-            if (input.value().length > 0) {
-              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : findTerm.call(self, input.value(), true);
-              if (exactMatch !== true && (exactMatch != null ? exactMatch.length : void 0) > 0) {
-                exactMatch = exactMatch != null ? exactMatch.filter(function(e) {
-                  e = self.options.inputMap != null ? self.options.inputMap(e) : e;
-                  return e.toLowerCase() === input.value().toLowerCase();
-                }) : void 0;
-                if ((exactMatch != null ? exactMatch.length : void 0) > 0) {
-                  _.setInputValue(exactMatch[0]);
-                } else {
-                  input.value('');
-                }
-              } else {
-                input.value('');
-              }
-            }
-          }
-        }
-        _.ignoreMatch = false;
-        self.clearCache();
-        return self.emit('hide', input.value());
-      };
-      menu.on('dropdown.change', 'hx.autocomplete', function(visible) {
-        if (!!visible) {
-          _.initialValue = input.value();
-          return menu.dropdown._.useScroll = true;
-        } else {
-          _.checkValidity();
-        }
-      });
-      menu.on('click', 'hx.autocomplete', function() {
-        return _.ignoreMatch = true;
-      });
-      _.menu = menu;
-      _.input = input;
-    }
-    this;
-  }
-
-  AutoComplete.prototype.clearCache = function() {
-    this._.data = new hx.Map();
-    if ((this.data != null) && !hx.isFunction(this.data)) {
-      this._.data.set('', this.data);
-    }
-    return this;
-  };
-
-  AutoComplete.prototype.show = function() {
-    this._.ignoreNextFocus = false;
-    showAutoComplete.call(this);
-    return this;
-  };
-
-  AutoComplete.prototype.value = function(value) {
-    if (arguments.length > 0) {
-      this._.setInputValue(value);
-      this._.checkValidity();
-      return this;
-    } else {
-      return this._.input.value();
-    }
-  };
-
-  AutoComplete.prototype.hide = function() {
-    var _;
-    _ = this._;
-    _.ignoreNextFocus = false;
-    if (_.menu.dropdown.isOpen()) {
-      _.menu.hide();
-      _.prevTerm = void 0;
-      _.cleanUp = true;
-    }
-    return this;
-  };
-
-  return AutoComplete;
-
-})(hx.EventEmitter);
-
-hx.autoComplete = function(data, options) {
-  var selection;
-  selection = hx.detached('input');
-  new AutoComplete(selection.node(), data, options);
-  return selection;
-};
-
-hx.AutoComplete = AutoComplete;
-
-})();
-(function(){
 var backgroundContext, classContext, defineComponent, directions, div, fixes, getComponentParent, headers, i, joints, len, ref, size, sizes, span, textContext, textLikeComponent;
 
 div = function(clasz) {
@@ -13721,7 +14921,7 @@ hx.card.large.text = function(options) {
   return hx.card.text(options).classed('hx-card-large', true);
 };
 
-hx.card.title = textLikeComponent('div', 'hx-card-title hx-header');
+hx.card.title = textLikeComponent('span', 'hx-card-title hx-header');
 
 hx.card.small.title = function(options) {
   return hx.card.title(options).classed('hx-card-small', true);
@@ -14321,10 +15521,12 @@ var Crumbtrail;
 
 Crumbtrail = (function() {
   function Crumbtrail(selector, options) {
-    var self, update;
+    var section, self, update;
     this.selector = selector;
     hx.component.register(this.selector, this);
     self = this;
+    section = hx.select(this.selector);
+    section.classed('hx-crumbtrail', true);
     this.options = hx.merge.defined({
       renderer: function(node, data) {
         return hx.select(node).text(data);
@@ -14337,10 +15539,10 @@ Crumbtrail = (function() {
         this["class"]('hx-crumbtrail-node');
         return self.options.renderer(element, d);
       } else {
-        return this["class"]('hx-crumbtrail-separator').html(self.options.separator).node();
+        return this["class"]('hx-crumbtrail-separator').text(self.options.separator).node();
       }
     };
-    this.view = hx.select(this.selector).view('span', 'span').update(update);
+    this.view = section.view('span', 'span').update(update);
     if ((this.options.items != null) && this.options.items.length > 0) {
       this.items(this.options.items);
     }
@@ -14357,10 +15559,10 @@ Crumbtrail = (function() {
 
   Crumbtrail.prototype.items = function(data) {
     if (data != null) {
-      this.options.items = hx.flatten(data.map(function(d) {
+      this.options.items = data;
+      this.view.apply(hx.flatten(data.map(function(d) {
         return [d, 0];
-      })).slice(0, -1);
-      this.view.apply(this.options.items);
+      })).slice(0, -1));
       return this;
     } else {
       return this.options.items;
@@ -14382,13 +15584,225 @@ hx.Crumbtrail = Crumbtrail;
 
 })();
 (function(){
-var DataTable, collapseBreakPoint, fullWidthColSpan, objectFeed, urlFeed,
+var DataTable, collapseBreakPoint, columnOptionLookup, createAdvancedSearchView, createPageSizeBlock, createPaginationBlock, defaultTermLookup, fullWidthColSpan, getAdvancedSearchFilter, getFiltered, getRowSearchTerm, objectFeed, spacer, splitArray, stripLeadingAndTrailingWhitespaceRegex, urlFeed, whitespaceSplitRegex,
+  slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  dataTable: {
+    addFilter: 'Add Filter',
+    advancedSearch: 'Advanced Search',
+    and: 'and',
+    anyColumn: 'Any column',
+    clearFilters: 'Clear Filters',
+    clearSelection: 'clear selection',
+    loading: 'Loading',
+    noData: 'No Data',
+    noSort: 'No Sort',
+    or: 'or',
+    rowsPerPage: 'Rows Per Page',
+    search: 'Search',
+    selectedRows: '$selected of $total selected.',
+    sortBy: 'Sort By'
+  }
+});
 
 fullWidthColSpan = 999;
 
 collapseBreakPoint = 480;
+
+columnOptionLookup = function(options, name, id) {
+  if (options.columns !== void 0 && options.columns[id] !== void 0 && options.columns[id][name] !== void 0) {
+    return options.columns[id][name];
+  } else {
+    return options[name];
+  }
+};
+
+splitArray = function(array, index) {
+  var left, right;
+  left = index === 0 ? [] : array.slice(0, index);
+  right = index === array.length - 1 ? [] : array.slice(index + 1, array.length);
+  return [left, array[index], right];
+};
+
+createPaginationBlock = function(table) {
+  var back, container, forward, picker, pickerNode, totalRows;
+  container = hx.detached('div')["class"]('hx-data-table-paginator');
+  pickerNode = container.append('button')["class"]('hx-data-table-paginator-picker hx-btn hx-btn-invisible').node();
+  picker = new hx.Picker(pickerNode, {
+    dropdownOptions: {
+      align: 'rbrt'
+    }
+  }).on('change', 'hx.data-table', (function(_this) {
+    return function(d) {
+      if (d.cause === 'user') {
+        return table.page(d.value.value, void 0, d.cause);
+      }
+    };
+  })(this));
+  totalRows = container.append('span')["class"]('hx-data-table-paginator-total-rows');
+  back = container.append('button')["class"]('hx-data-table-paginator-back hx-btn hx-btn-invisible');
+  back.append('i')["class"]('hx-icon hx-icon-chevron-left');
+  back.on('click', 'hx.data-table', (function(_this) {
+    return function() {
+      if (!back.classed('hx-data-table-btn-disabled')) {
+        return table.page(table.page() - 1);
+      }
+    };
+  })(this));
+  forward = container.append('button')["class"]('hx-data-table-paginator-forward hx-btn hx-btn-invisible');
+  forward.append('i')["class"]('hx-icon hx-icon-chevron-right');
+  forward.on('click', 'hx.data-table', (function(_this) {
+    return function() {
+      if (!forward.classed('hx-data-table-btn-disabled')) {
+        return table.page(table.page() + 1);
+      }
+    };
+  })(this));
+  return [container, picker];
+};
+
+createPageSizeBlock = function(table, options) {
+  var container, node, picker;
+  container = hx.detached('div')["class"]('hx-data-table-page-size');
+  container.append('span').text(options.rowsPerPageText + ': ');
+  node = container.append('button')["class"]('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node();
+  picker = new hx.Picker(node, {
+    dropdownOptions: {
+      align: 'rbrt'
+    }
+  }).on('change', 'hx.data-table', function(d) {
+    if (d.cause === 'user') {
+      table.pageSize(d.value.value, void 0, 'user');
+      return table.page(1, void 0, 'user');
+    }
+  });
+  return [container, picker];
+};
+
+spacer = function() {
+  return hx.detached('div')["class"]('hx-data-table-spacer');
+};
+
+createAdvancedSearchView = function(selection, dataTable, options) {
+  var advancedSearchGroupEnter, advancedSearchGroupUpdate, advancedSearchRowEnter, advancedSearchRowUpdate;
+  advancedSearchRowEnter = function(filterGroup, filterGroupIndex) {
+    return function(filterRow, index, trueIndex) {
+      var anyColumn, columnItems, columnPickerOptions, columnPickerSel, columnRenderer, debouncedInput, removeBtn, termInput, typePickerOptions, typePickerSel;
+      typePickerOptions = {
+        items: [
+          {
+            text: hx.userFacingText('dataTable', 'and'),
+            value: 'and'
+          }, {
+            text: hx.userFacingText('dataTable', 'or'),
+            value: 'or'
+          }
+        ]
+      };
+      typePickerSel = hx.picker(typePickerOptions).classed('hx-data-table-advanced-search-type hx-section hx-fixed', true);
+      typePickerSel.component().on('change', function(data) {
+        var filter, j, leftAllButLast, leftFilterGroups, leftFilters, leftLast, newFilters, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        if (data.cause === 'user') {
+          prevFilters = dataTable.advancedSearch();
+          ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+          newFilters = data.value.value === 'or' ? ((ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2], ref1), slice.call(leftFilterGroups).concat([leftFilters], [[filter].concat(slice.call(rightFilters))], slice.call(rightFilterGroups))) : ((leftAllButLast = 2 <= leftFilterGroups.length ? slice.call(leftFilterGroups, 0, j = leftFilterGroups.length - 1) : (j = 0, []), leftLast = leftFilterGroups[j++], leftFilterGroups), slice.call(leftAllButLast).concat([slice.call(leftLast).concat(slice.call(filterGroup))], slice.call(rightFilterGroups)));
+          return dataTable.advancedSearch(newFilters);
+        }
+      });
+      anyColumn = {
+        text: options.anyColumnText,
+        value: 'any',
+        anyColumn: true
+      };
+      columnItems = filterRow.headers.map(function(header) {
+        return {
+          value: header.id,
+          orig: header
+        };
+      });
+      columnRenderer = function(element, cell) {
+        if (cell.anyColumn) {
+          return hx.select(element).text(cell.text);
+        } else {
+          return columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(element, cell.orig, filterRow.headers);
+        }
+      };
+      columnPickerOptions = {
+        items: [anyColumn].concat(slice.call(columnItems)),
+        renderer: columnRenderer
+      };
+      columnPickerSel = hx.picker(columnPickerOptions).classed('hx-data-table-advanced-search-column hx-section hx-fixed', true);
+      columnPickerSel.component().on('change', function(data) {
+        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        if (data.cause === 'user') {
+          prevFilters = dataTable.advancedSearch();
+          ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+          ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2];
+          newFilter = hx.merge(filter, {
+            column: data.value.value
+          });
+          return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
+        }
+      });
+      debouncedInput = hx.debounce(200, function(e) {
+        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        prevFilters = dataTable.advancedSearch();
+        ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+        ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2];
+        newFilter = hx.merge(filter, {
+          term: e.target.value
+        });
+        return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
+      });
+      termInput = hx.detached('input').attr('placeholder', options.advancedSearchPlaceholder)["class"]('hx-data-table-advanced-search-input hx-section').attr('required', 'required').on('input', debouncedInput);
+      removeBtn = hx.button({
+        context: 'negative'
+      }).classed('hx-data-table-advanced-search-remove hx-btn-invert', true).add(hx.icon({
+        "class": 'hx-icon hx-icon-close'
+      })).on('click', function() {
+        var _, filterToUse, filters, j, leftFilterGroup, leftFilterGroupLast, leftFilterGroups, leftFilters, newFilters, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        prevFilters = dataTable.advancedSearch();
+        ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+        ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], _ = ref1[1], rightFilters = ref1[2];
+        newFilters = trueIndex === 0 && filterGroupIndex === 0 ? [rightFilters].concat(slice.call(rightFilterGroups)) : trueIndex === 0 ? ((leftFilterGroup = 2 <= leftFilterGroups.length ? slice.call(leftFilterGroups, 0, j = leftFilterGroups.length - 1) : (j = 0, []), leftFilterGroupLast = leftFilterGroups[j++], leftFilterGroups), (_ = filterGroup[0], filters = 2 <= filterGroup.length ? slice.call(filterGroup, 1) : [], filterGroup), slice.call(leftFilterGroup).concat([slice.call(leftFilterGroupLast).concat(slice.call(filters))], slice.call(rightFilterGroups))) : slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat(slice.call(rightFilters))], slice.call(rightFilterGroups));
+        filterToUse = newFilters.filter((function(_this) {
+          return function(group) {
+            return group.length;
+          };
+        })(this));
+        return dataTable.advancedSearch(filterToUse.length ? filterToUse : void 0);
+      });
+      return this.append('div')["class"]('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width').add(typePickerSel).add(columnPickerSel).add(termInput).add(removeBtn).node();
+    };
+  };
+  advancedSearchRowUpdate = function(arg, element, index) {
+    var column, filterRowSel, term, validContext;
+    term = arg.term, column = arg.column;
+    filterRowSel = hx.select(element);
+    validContext = !term ? 'negative' : void 0;
+    filterRowSel.select('.hx-data-table-advanced-search-type').component().value(index === 0 ? 'or' : 'and');
+    filterRowSel.select('.hx-data-table-advanced-search-column').component().value(column || 'any');
+    return filterRowSel.select('.hx-data-table-advanced-search-input').value(term || '');
+  };
+  advancedSearchGroupEnter = function(dataTable) {
+    return function(filterGroup, index, trueIndex) {
+      var filterGroupSel, filterGroupView;
+      filterGroupSel = hx.detached('div')["class"]('hx-data-table-advanced-search-filter-group');
+      filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter').enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable)).update(advancedSearchRowUpdate);
+      hx.component.register(filterGroupSel.node(), {
+        filterGroupView: filterGroupView
+      });
+      return this.append(filterGroupSel).node();
+    };
+  };
+  advancedSearchGroupUpdate = function(filterGroup, element, index) {
+    return hx.component(element).filterGroupView.apply(filterGroup);
+  };
+  return selection.view('.hx-data-table-advanced-search-filter-group').enter(advancedSearchGroupEnter(this)).update(advancedSearchGroupUpdate);
+};
 
 DataTable = (function(superClass) {
   var columnOnlyOption, columnOption, option;
@@ -14396,7 +15810,7 @@ DataTable = (function(superClass) {
   extend(DataTable, superClass);
 
   function DataTable(selector, options) {
-    var content, filterInput, footer, onInput, pagePicker, pagePickerBack, pagePickerContainer, pagePickerForward, pagePickerNode, pagePickerTotalRows, pageSizeContainer, pageSizeNode, pageSizePicker, paginationContainer, randomId, resolvedOptions, selection, sortColPicker, sortDiv, statusBar;
+    var addFilter, advancedSearch, advancedSearchAddFilterButton, advancedSearchButtons, advancedSearchClearFilterButton, advancedSearchContainer, advancedSearchToggle, advancedSearchToggleButton, advancedSearchView, clearFilters, compactSort, content, controlPanel, controlPanelBottom, controlPanelCompact, controlPanelCompactToggle, controlPanelInner, filterContainer, filterInput, loadingDiv, onInput, pagePicker, pagePickerBottom, pagePickerCompact, pageSize, pageSizeBottom, pageSizePicker, pageSizePickerBottom, pagination, paginationBottom, paginationCompact, randomId, ref, ref1, ref2, ref3, ref4, resolvedOptions, selection, sortColPicker, statusBar, statusBarClear, statusBarText;
     DataTable.__super__.constructor.apply(this, arguments);
     hx.component.register(selector, this);
     resolvedOptions = hx.merge({
@@ -14404,9 +15818,12 @@ DataTable = (function(superClass) {
       compact: 'auto',
       displayMode: 'paginate',
       feed: void 0,
+      showSearchAboveTable: false,
       filter: void 0,
       filterEnabled: true,
-      noDataMessage: 'No Data',
+      showAdvancedSearch: false,
+      advancedSearchEnabled: false,
+      advancedSearch: void 0,
       pageSize: 15,
       pageSizeOptions: void 0,
       retainHorizontalScrollOnRender: true,
@@ -14434,21 +15851,34 @@ DataTable = (function(superClass) {
       headerCellRenderer: function(element, cell, headers) {
         return hx.select(element).text(cell.name);
       },
-      columns: {}
+      columns: {},
+      clearSelectionText: hx.userFacingText('dataTable', 'clearSelection'),
+      loadingText: hx.userFacingText('dataTable', 'loading'),
+      noDataMessage: hx.userFacingText('dataTable', 'noData'),
+      noSortText: hx.userFacingText('dataTable', 'noSort'),
+      rowsPerPageText: hx.userFacingText('dataTable', 'rowsPerPage'),
+      searchPlaceholder: hx.userFacingText('dataTable', 'search'),
+      selectedRowsText: hx.userFacingText('dataTable', 'selectedRows'),
+      sortByText: hx.userFacingText('dataTable', 'sortBy'),
+      addFilterText: hx.userFacingText('dataTable', 'addFilter'),
+      clearFiltersText: hx.userFacingText('dataTable', 'clearFilters'),
+      anyColumnText: hx.userFacingText('dataTable', 'anyColumn'),
+      advancedSearchText: hx.userFacingText('dataTable', 'advancedSearch'),
+      advancedSearchPlaceholder: hx.userFacingText('dataTable', 'search')
     }, options);
-    selection = hx.select(selector).classed('hx-data-table', true);
-    content = selection.append('div')["class"]('hx-data-table-content');
-    statusBar = selection.append('div')["class"]('hx-data-table-status-bar');
-    footer = selection.append('div')["class"]('hx-data-table-footer');
     resolvedOptions.pageSize = Math.min(resolvedOptions.pageSize, 1000);
-    onInput = hx.debounce(200, (function(_this) {
-      return function() {
-        return _this.filter(filterInput.value(), void 0, 'user');
-      };
-    })(this));
-    filterInput = footer.append('input')["class"]('hx-data-table-filter-control').attr('placeholder', 'Search').classed('hx-data-table-filter-visible', resolvedOptions.filterEnabled).on('input', 'hx.data-table', onInput);
-    selection.append('div')["class"]('hx-data-table-loading').append('div')["class"]('hx-data-table-loading-inner').append('div')["class"]('hx-spinner').insertAfter('span').text(' Loading');
-    statusBar.append('span')["class"]('hx-data-table-status-bar-text').insertAfter('span')["class"]('hx-data-table-status-bar-clear').text(' (clear selection)').on('click', 'hx.data-table', (function(_this) {
+    if (resolvedOptions.advancedSearch) {
+      resolvedOptions.advancedSearchEnabled = true;
+    }
+    if (resolvedOptions.advancedSearchEnabled) {
+      resolvedOptions.showAdvancedSearch = true;
+    }
+    selection = hx.select(selector).classed('hx-data-table', true);
+    content = hx.detached('div')["class"]('hx-data-table-content');
+    loadingDiv = hx.detached('div')["class"]('hx-data-table-loading').add(hx.detached('div')["class"]('hx-data-table-loading-inner').add(hx.detached('div')["class"]('hx-spinner')).add(hx.detached('span').text(' ' + resolvedOptions.loadingText)));
+    statusBar = hx.detached('div')["class"]('hx-data-table-status-bar');
+    statusBarText = hx.detached('span')["class"]('hx-data-table-status-bar-text');
+    statusBarClear = hx.detached('span')["class"]('hx-data-table-status-bar-clear').text(" (" + resolvedOptions.clearSelectionText + ")").on('click', 'hx.data-table', (function(_this) {
       return function() {
         _this._.selectedRows.clear();
         selection.select('.hx-data-table-content').selectAll('.hx-data-table-row-selected').classed('hx-data-table-row-selected', false);
@@ -14456,9 +15886,27 @@ DataTable = (function(superClass) {
         return _this.emit('selectedrowsclear');
       };
     })(this));
-    sortDiv = footer.append('div')["class"]('hx-data-table-sort-control').classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled);
-    sortDiv.append('span').text('Sort By: ');
-    sortColPicker = new hx.Picker(sortDiv.append('button')["class"]('hx-btn hx-btn-invisible').node());
+    controlPanelCompact = hx.detached('div')["class"]('hx-data-table-control-panel-compact');
+    controlPanelCompactToggle = hx.button().classed('hx-data-table-control-panel-compact-toggle hx-btn-invisible', true).add(hx.icon({
+      "class": 'hx-icon hx-icon-bars'
+    })).on('click', function() {
+      var toggleElem;
+      toggleElem = controlPanel;
+      if (toggleElem.classed('hx-data-table-compact-hide')) {
+        return toggleElem.classed('hx-data-table-compact-hide', false).style('height', '0px').morph()["with"]('expandv', 150).then(function() {
+          return controlPanelCompact.classed('hx-data-table-control-panel-compact-open', true);
+        }).go();
+      } else {
+        return toggleElem.morph()["with"]('collapsev', 50).then(function() {
+          toggleElem.classed('hx-data-table-compact-hide', true);
+          return controlPanelCompact.classed('hx-data-table-control-panel-compact-open', false);
+        }).thenStyle('display', '').go();
+      }
+    });
+    controlPanel = hx.detached('div')["class"]('hx-data-table-control-panel hx-data-table-compact-hide');
+    controlPanelInner = hx.detached('div')["class"]('hx-data-table-control-panel-inner');
+    compactSort = hx.detached('div')["class"]('hx-data-table-sort').classed('hx-data-table-sort-visible', resolvedOptions.sortEnabled).add(hx.detached('span').text(resolvedOptions.sortByText + ': '));
+    sortColPicker = new hx.Picker(compactSort.append('button')["class"]('hx-btn hx-btn-invisible').node());
     sortColPicker.on('change', 'hx.data-table', (function(_this) {
       return function(d) {
         if (d.cause === 'user') {
@@ -14469,67 +15917,73 @@ DataTable = (function(superClass) {
         }
       };
     })(this));
-    footer.append('div')["class"]('hx-data-table-footer-spacer');
-    paginationContainer = footer.append('div')["class"]('hx-data-table-pagination-block');
-    pagePickerContainer = paginationContainer.append('div')["class"]('hx-data-table-paginator');
-    pagePickerNode = pagePickerContainer.append('button')["class"]('hx-data-table-pagination-picker hx-btn hx-btn-invisible').node();
-    pagePicker = new hx.Picker(pagePickerNode, {
-      dropdownOptions: {
-        align: 'rbrt'
-      }
-    }).on('change', 'hx.data-table', (function(_this) {
-      return function(d) {
-        if (d.cause === 'user') {
-          return _this.page(d.value.value, void 0, d.cause);
-        }
-      };
-    })(this));
-    pagePickerTotalRows = pagePickerContainer.append('span')["class"]('hx-data-table-paginator-total-rows');
-    pagePickerBack = pagePickerContainer.append('button')["class"]('hx-data-table-paginator-back hx-btn hx-btn-invisible');
-    pagePickerBack.append('i')["class"]('hx-icon hx-icon-chevron-left');
-    pagePickerBack.on('click', 'hx.data-table', (function(_this) {
+    filterContainer = hx.detached('div')["class"]('hx-data-table-filter-container');
+    onInput = hx.debounce(200, (function(_this) {
       return function() {
-        if (!pagePickerBack.classed('hx-data-table-btn-disabled')) {
-          return _this.page(_this.page() - 1);
-        }
+        return _this.filter(filterInput.value(), void 0, 'user');
       };
     })(this));
-    pagePickerForward = pagePickerContainer.append('button')["class"]('hx-data-table-paginator-forward hx-btn hx-btn-invisible');
-    pagePickerForward.append('i')["class"]('hx-icon hx-icon-chevron-right');
-    pagePickerForward.on('click', 'hx.data-table', (function(_this) {
+    filterInput = hx.detached('input')["class"]('hx-data-table-filter').attr('placeholder', resolvedOptions.searchPlaceholder).classed('hx-data-table-filter-visible', resolvedOptions.filterEnabled).on('input', 'hx.data-table', onInput);
+    advancedSearchContainer = hx.detached('div')["class"]('hx-data-table-advanced-search-container');
+    advancedSearchToggle = hx.button()["class"]('hx-data-table-advanced-search-toggle hx-btn hx-btn-invisible').text(resolvedOptions.advancedSearchText);
+    advancedSearchToggleButton = new hx.Toggle(advancedSearchToggle.node());
+    advancedSearchToggleButton.on('change', (function(_this) {
+      return function(data) {
+        return _this.advancedSearchEnabled(data);
+      };
+    })(this));
+    advancedSearch = hx.detached('div')["class"]('hx-data-table-advanced-search');
+    advancedSearchView = createAdvancedSearchView(advancedSearch, this, resolvedOptions);
+    advancedSearchButtons = hx.detached('div')["class"]('hx-data-table-advanced-search-buttons');
+    addFilter = (function(_this) {
       return function() {
-        if (!pagePickerForward.classed('hx-data-table-btn-disabled')) {
-          return _this.page(_this.page() + 1);
-        }
+        var currentFilters, j, lastFilterGroup, newLastFilterGroup, previousFilterGroups;
+        currentFilters = _this.advancedSearch() || [[]];
+        previousFilterGroups = 2 <= currentFilters.length ? slice.call(currentFilters, 0, j = currentFilters.length - 1) : (j = 0, []), lastFilterGroup = currentFilters[j++];
+        newLastFilterGroup = slice.call(lastFilterGroup).concat([{
+            column: 'any',
+            term: ''
+          }]);
+        return _this.advancedSearch(slice.call(previousFilterGroups).concat([newLastFilterGroup]));
       };
-    })(this));
-    pageSizeContainer = paginationContainer.append('div')["class"]('hx-data-table-page-size');
-    pageSizeContainer.append('span').text('Rows per page: ');
-    pageSizeNode = pageSizeContainer.append('button')["class"]('hx-data-table-page-size-picker hx-btn hx-btn-invisible').node();
-    pageSizePicker = new hx.Picker(pageSizeNode, {
-      dropdownOptions: {
-        align: 'rbrt'
-      }
-    }).on('change', 'hx.data-table', (function(_this) {
-      return function(d) {
-        if (d.cause === 'user') {
-          _this.pageSize(d.value.value, void 0, 'user');
-          return _this.page(1, void 0, 'user');
-        }
+    })(this);
+    clearFilters = (function(_this) {
+      return function() {
+        return _this.advancedSearch(void 0);
       };
-    })(this));
+    })(this);
+    advancedSearchAddFilterButton = hx.button({
+      context: 'positive'
+    }).classed('hx-data-table-advanced-search-add-filter hx-data-table-advanced-search-button hx-btn-invert', true).add(hx.icon({
+      "class": 'hx-data-table-advanced-search-icon hx-icon hx-icon-plus hx-text-positive'
+    })).add(hx.detached('span').text(resolvedOptions.addFilterText)).on('click', addFilter);
+    advancedSearchClearFilterButton = hx.button({
+      context: 'negative'
+    }).classed('hx-data-table-advanced-search-clear-filters hx-data-table-advanced-search-button hx-btn-invert', true).add(hx.icon({
+      "class": 'hx-data-table-advanced-search-icon hx-icon hx-icon-close hx-text-negative'
+    })).add(hx.detached('span').text(resolvedOptions.clearFiltersText)).on('click', clearFilters);
+    ref = createPageSizeBlock(this, resolvedOptions), pageSize = ref[0], pageSizePicker = ref[1];
+    ref1 = createPageSizeBlock(this, resolvedOptions), pageSizeBottom = ref1[0], pageSizePickerBottom = ref1[1];
+    ref2 = createPaginationBlock(this), pagination = ref2[0], pagePicker = ref2[1];
+    ref3 = createPaginationBlock(this), paginationBottom = ref3[0], pagePickerBottom = ref3[1];
+    ref4 = createPaginationBlock(this), paginationCompact = ref4[0], pagePickerCompact = ref4[1];
+    pagination.classed('hx-data-table-compact-hide', true);
+    controlPanelBottom = hx.detached('div')["class"]('hx-data-table-control-panel-bottom');
+    selection.add(content).add(statusBar.add(statusBarText).add(statusBarClear)).add(controlPanelCompact.add(paginationCompact).add(spacer()).add(controlPanelCompactToggle)).add(controlPanel.add(controlPanelInner.add(compactSort).add(pagination).add(pageSize).add(spacer()).add(filterContainer.add(advancedSearchToggle).add(filterInput))).add(advancedSearchContainer.add(advancedSearch).add(advancedSearchButtons.add(advancedSearchAddFilterButton).add(advancedSearchClearFilterButton)))).add(controlPanelBottom.add(spacer()).add(pageSizeBottom).add(paginationBottom)).add(loadingDiv);
     this._ = {
       selection: selection,
       options: resolvedOptions,
       page: 1,
-      pagePicker: pagePicker,
-      pageSizePicker: pageSizePicker,
+      pagePickers: [pagePicker, pagePickerCompact, pagePickerBottom],
+      pageSizePickers: [pageSizePicker, pageSizePickerBottom],
       statusBar: statusBar,
       sortColPicker: sortColPicker,
       selectedRows: new hx.Set,
       expandedRows: new hx.Set,
       renderedCollapsibles: {},
-      compactState: (resolvedOptions.compact === 'auto' && selection.width() < collapseBreakPoint) || resolvedOptions.compact === true
+      compactState: (resolvedOptions.compact === 'auto' && selection.width() < collapseBreakPoint) || resolvedOptions.compact === true,
+      advancedSearchView: advancedSearchView,
+      advancedSearchToggleButton: advancedSearchToggleButton
     };
     selection.on('resize', 'hx.data-table', (function(_this) {
       return function() {
@@ -14593,6 +16047,14 @@ DataTable = (function(superClass) {
   DataTable.prototype.feed = option('feed');
 
   DataTable.prototype.filter = option('filter');
+
+  DataTable.prototype.advancedSearch = option('advancedSearch');
+
+  DataTable.prototype.showAdvancedSearch = option('showAdvancedSearch');
+
+  DataTable.prototype.advancedSearchEnabled = option('advancedSearchEnabled');
+
+  DataTable.prototype.showSearchAboveTable = option('showSearchAboveTable');
 
   DataTable.prototype.filterEnabled = option('filterEnabled');
 
@@ -14756,7 +16218,7 @@ DataTable = (function(superClass) {
   };
 
   DataTable.prototype.render = function(cb) {
-    var container, feed, getColumnOption, headerRow, options, rowToArray, selection, table, tbody, thead;
+    var advancedSearchVisibleAndEnabled, container, feed, getColumnOption, headerRow, options, ref, rowToArray, selection, showCompactControlPanelToggle, table, tbody, thead;
     if (this._.renderSuppressed) {
       return;
     }
@@ -14767,13 +16229,8 @@ DataTable = (function(superClass) {
     }
     selection = this._.selection;
     options = this._.options;
-    selection.select('.hx-data-table-pagination-block').classed('hx-data-table-pagination-block-visible', options.displayMode === 'paginate');
     getColumnOption = function(name, id) {
-      if (options.columns !== void 0 && options.columns[id] !== void 0 && options.columns[id][name] !== void 0) {
-        return options.columns[id][name];
-      } else {
-        return options[name];
-      }
+      return columnOptionLookup(options, name, id);
     };
     rowToArray = function(headers, obj) {
       return headers.map(function(header) {
@@ -14786,14 +16243,35 @@ DataTable = (function(superClass) {
     tbody = table.append('tbody')["class"]('hx-data-table-body');
     headerRow = thead.append('tr')["class"]('hx-data-table-row');
     selection.select('.hx-data-table-loading').style('display', '');
-    selection.select('.hx-data-table-filter-control').classed('hx-data-table-filter-visible', options.filterEnabled);
+    advancedSearchVisibleAndEnabled = (!options.filterEnabled || options.showAdvancedSearch) && options.advancedSearchEnabled;
+    selection.select('.hx-data-table-filter').classed('hx-data-table-filter-visible', options.filterEnabled && !advancedSearchVisibleAndEnabled).value(this.filter());
+    this._.advancedSearchToggleButton.value(options.advancedSearchEnabled);
+    selection.select('.hx-data-table-advanced-search-toggle').classed('hx-data-table-advanced-search-visible', options.filterEnabled && options.showAdvancedSearch);
+    selection.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible', advancedSearchVisibleAndEnabled);
+    selection.select('.hx-data-table-control-panel').classed('hx-data-table-filter-enabled', options.filterEnabled);
+    showCompactControlPanelToggle = options.filterEnabled || options.sortEnabled || options.advancedSearchEnabled || ((ref = options.pageSizeOptions) != null ? ref.length : void 0);
+    selection.select('.hx-data-table-control-panel-compact-toggle').classed('hx-data-table-control-panel-compact-toggle-visible', showCompactControlPanelToggle);
     feed.headers((function(_this) {
       return function(headers) {
-        selection.select('.hx-data-table-sort-control').classed('hx-data-table-sort-visible', options.sortEnabled || headers.some(function(header) {
+        var currentFilters;
+        if (advancedSearchVisibleAndEnabled) {
+          currentFilters = _this.advancedSearch() || [];
+          _this._.advancedSearchView.apply(currentFilters.filter(function(x) {
+            return x.length;
+          }).map(function(filterGroup) {
+            return filterGroup.map(function(filterRow) {
+              return hx.merge(filterRow, {
+                headers: headers,
+                getColumnOption: getColumnOption
+              });
+            });
+          }));
+        }
+        selection.select('.hx-data-table-sort').classed('hx-data-table-sort-visible', options.sortEnabled || headers.some(function(header) {
           return getColumnOption('sortEnabled', header.id);
         }));
         return feed.totalCount(function(totalCount) {
-          var end, start;
+          var end, range, start;
           if (options.displayMode === 'paginate') {
             start = (_this.page() - 1) * options.pageSize;
             end = _this.page() * options.pageSize - 1;
@@ -14801,32 +16279,36 @@ DataTable = (function(superClass) {
             start = void 0;
             end = void 0;
           }
-          selection.classed('hx-data-table-infinite', totalCount === void 0);
-          return feed.rows({
+          range = {
             start: start,
             end: end,
             sort: _this.sort(),
-            filter: _this.filter()
-          }, function(arg) {
-            var buildCollapsible, col, column, count, currentSort, filteredCount, groupedRow, headerCheckBox, headerControlBox, headerGroups, i, items, j, l, maxHeaderDepth, num, numText, pageSizeOptions, parent, prevCol, prevParent, ref, ref1, relevantHeaders, row, rows, scrollLeft, scrollTop, selectMulti, selectPageSize, selectRow, sortColumns, stickFirstColumn, stickyOpts, toggleCollapsible, wrapperNode;
+            filter: _this.filter(),
+            advancedSearch: _this.advancedSearch(),
+            useAdvancedSearch: options.showAdvancedSearch && options.advancedSearchEnabled
+          };
+          return feed.rows(range, function(arg) {
+            var buildCollapsible, col, column, count, currentSort, filteredCount, groupedRow, headerCheckBox, headerControlBox, headerGroups, i, items, j, l, maxHeaderDepth, multiPage, num, numText, pageSizeOptions, parent, prevCol, prevParent, ref1, ref2, ref3, relevantHeaders, row, rows, scrollLeft, scrollTop, selectMulti, selectPageSize, selectRow, sortColumns, stickFirstColumn, stickyOpts, toggleCollapsible, wrapperNode;
             rows = arg.rows, filteredCount = arg.filteredCount;
             if (options.displayMode === 'paginate') {
+              multiPage = false;
+              selection.classed('hx-data-table-infinite', filteredCount === void 0);
               if (filteredCount === void 0) {
                 _this._.numPages = void 0;
                 numText = (start + 1) + ' - ' + (end + 1);
-                selection.select('.hx-data-table-paginator').classed('hx-data-table-multi-page', true);
+                multiPage = true;
               } else {
                 _this._.numPages = Math.max(1, Math.ceil(filteredCount / options.pageSize));
                 if (_this.page() > _this._.numPages) {
                   _this.page(_this._.numPages);
                 }
-                selection.select('.hx-data-table-paginator').classed('hx-data-table-multi-page', _this._.numPages > 1);
+                multiPage = _this._.numPages > 1;
                 if (filteredCount > 0 && _this._.numPages > 1) {
                   numText = 'of ' + filteredCount;
                   items = (function() {
-                    var j, ref, results;
+                    var j, ref1, results;
                     results = [];
-                    for (i = j = 1, ref = this._.numPages; j <= ref; i = j += 1) {
+                    for (i = j = 1, ref1 = this._.numPages; j <= ref1; i = j += 1) {
                       num = i * options.pageSize;
                       results.push({
                         text: (num + 1 - options.pageSize) + ' - ' + Math.min(num, filteredCount),
@@ -14835,13 +16317,19 @@ DataTable = (function(superClass) {
                     }
                     return results;
                   }).call(_this);
-                  _this._.pagePicker.items(items).value(_this.page());
+                  _this._.pagePickers.forEach(function(picker) {
+                    return picker.items(items).value(_this.page());
+                  });
                 }
               }
-              selection.select('.hx-data-table-paginator-total-rows').text(numText || '');
-              selection.select('.hx-data-table-paginator-back').classed('hx-data-table-btn-disabled', _this.page() === 1);
-              selection.select('.hx-data-table-paginator-forward').classed('hx-data-table-btn-disabled', _this.page() === _this._.numPages);
+              selection.selectAll('.hx-data-table-paginator').classed('hx-data-table-paginator-visible', multiPage);
+              selection.selectAll('.hx-data-table-paginator-total-rows').text(numText || '');
+              selection.selectAll('.hx-data-table-paginator-back').classed('hx-data-table-btn-disabled', _this.page() === 1);
+              selection.selectAll('.hx-data-table-paginator-forward').classed('hx-data-table-btn-disabled', _this.page() === _this._.numPages);
             }
+            selection.select('.hx-data-table-control-panel-compact').classed('hx-data-table-control-panel-compact-visible', multiPage || showCompactControlPanelToggle);
+            selection.select('.hx-data-table-control-panel-bottom').classed('hx-data-table-control-panel-bottom-visible', multiPage || ((ref1 = options.pageSizeOptions) != null ? ref1.length : void 0));
+            selection.select('.hx-data-table-control-panel').classed('hx-data-table-control-panel-visible', multiPage || showCompactControlPanelToggle);
             if (headers.some(function(header) {
               return getColumnOption('sortEnabled', header.id);
             })) {
@@ -14874,7 +16362,7 @@ DataTable = (function(superClass) {
                 }
               }).items([
                 {
-                  text: 'No Sort',
+                  text: options.noSortText,
                   value: void 0
                 }
               ].concat(sortColumns));
@@ -14884,21 +16372,21 @@ DataTable = (function(superClass) {
                 });
               }
             }
-            if (filteredCount !== void 0 && filteredCount > 0) {
-              selectPageSize = (options.pageSizeOptions != null) && options.pageSizeOptions.length > 0;
-              selection.select('.hx-data-table-page-size').classed('hx-data-table-select-page-size', selectPageSize);
-              if (selectPageSize) {
-                if (options.pageSizeOptions.indexOf(options.pageSize) === -1) {
-                  options.pageSizeOptions.push(options.pageSize);
-                }
-                pageSizeOptions = options.pageSizeOptions.sort(hx.sort.compare).map(function(item) {
-                  return {
-                    text: item,
-                    value: item
-                  };
-                });
-                _this._.pageSizePicker.items(pageSizeOptions).value(options.pageSize);
+            selectPageSize = (options.pageSizeOptions != null) && options.pageSizeOptions.length > 0;
+            selection.selectAll('.hx-data-table-page-size').classed('hx-data-table-page-size-visible', selectPageSize);
+            if (selectPageSize) {
+              if (options.pageSizeOptions.indexOf(options.pageSize) === -1) {
+                options.pageSizeOptions.push(options.pageSize);
               }
+              pageSizeOptions = options.pageSizeOptions.sort(hx.sort.compare).map(function(item) {
+                return {
+                  text: item,
+                  value: item
+                };
+              });
+              _this._.pageSizePickers.forEach(function(picker) {
+                return picker.items(pageSizeOptions).value(options.pageSize);
+              });
             }
             if (headers.some(function(header) {
               return header.groups != null;
@@ -14917,13 +16405,13 @@ DataTable = (function(superClass) {
                 }
                 return groups;
               });
-              for (row = j = ref = maxHeaderDepth - 1; j >= 0; row = j += -1) {
+              for (row = j = ref2 = maxHeaderDepth - 1; j >= 0; row = j += -1) {
                 groupedRow = headerRow.insertBefore('tr');
                 if (options.selectEnabled || (options.collapsibleRenderer != null)) {
                   groupedRow.append('th')["class"]('hx-data-table-control');
                 }
                 count = 1;
-                for (column = l = 1, ref1 = headerGroups.length; l <= ref1; column = l += 1) {
+                for (column = l = 1, ref3 = headerGroups.length; l <= ref3; column = l += 1) {
                   col = headerGroups[column];
                   prevCol = headerGroups[column - 1];
                   if ((col != null) && (prevCol != null)) {
@@ -15005,13 +16493,13 @@ DataTable = (function(superClass) {
               selection.classed('hx-data-table-has-page-selection', pageHasSelection && !options.singleSelection);
               selection.classed('hx-data-table-has-selection', _this._.selectedRows.size > 0 && !options.singleSelection);
               if (totalCount !== void 0) {
-                return _this._.statusBar.select('.hx-data-table-status-bar-text').text(_this._.selectedRows.size + ' of ' + totalCount + ' selected.');
+                return _this._.statusBar.select('.hx-data-table-status-bar-text').text(options.selectedRowsText.replace('$selected', _this._.selectedRows.size).replace('$total', totalCount));
               }
             };
             selectMulti = function(start, end, force) {
-              var id, len, m, n, newRows, ref2, ref3;
+              var id, len, m, n, newRows, ref4, ref5;
               newRows = [];
-              for (i = m = ref2 = start, ref3 = end; m <= ref3; i = m += 1) {
+              for (i = m = ref4 = start, ref5 = end; m <= ref5; i = m += 1) {
                 newRows.push(rows[i]);
               }
               for (n = 0, len = newRows.length; n < len; n++) {
@@ -15096,7 +16584,7 @@ DataTable = (function(superClass) {
             };
             if (filteredCount === void 0 || filteredCount > 0) {
               rows.forEach(function(row, rowIndex) {
-                var cell, cellDiv, cellElem, checkbox, collapsibleControl, columnIndex, columnMaxWidth, controlDiv, keyDiv, len, m, ref2, results, rowIsCollapsible, tr;
+                var cell, cellDiv, cellElem, checkbox, collapsibleControl, columnIndex, columnMaxWidth, controlDiv, keyDiv, len, m, ref4, results, rowIsCollapsible, tr;
                 tr = tbody.append('tr')["class"]('hx-data-table-row').classed('hx-data-table-row-selected', _this._.selectedRows.has(options.rowIDLookup(row))).classed('hx-data-table-row-disabled', !options.rowEnabledLookup(row));
                 tr.on('click', 'hx.data-table', function(e) {
                   return _this.emit('rowclick', {
@@ -15138,10 +16626,10 @@ DataTable = (function(superClass) {
                     });
                   }
                 }
-                ref2 = rowToArray(headers, row);
+                ref4 = rowToArray(headers, row);
                 results = [];
-                for (columnIndex = m = 0, len = ref2.length; m < len; columnIndex = ++m) {
-                  cell = ref2[columnIndex];
+                for (columnIndex = m = 0, len = ref4.length; m < len; columnIndex = ++m) {
+                  cell = ref4[columnIndex];
                   keyDiv = hx.detached('div')["class"]('hx-data-table-cell-key');
                   getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers);
                   cellElem = tr.append('td')["class"]('hx-data-table-cell');
@@ -15171,7 +16659,7 @@ DataTable = (function(superClass) {
             _this._.oldPage = _this.page();
             selection.select('.hx-data-table-content').insertAfter(container);
             selection.select('.hx-data-table-content').remove();
-            selection.classed('hx-data-table-compact', ((options.compact === 'auto') && (selection.width() < collapseBreakPoint)) || (options.compact === true));
+            selection.classed('hx-data-table-compact', ((options.compact === 'auto') && (selection.width() < collapseBreakPoint)) || (options.compact === true)).classed('hx-data-table-show-search-above-content', options.showSearchAboveTable);
             stickFirstColumn = options.selectEnabled || (options.collapsibleRenderer != null);
             stickyOpts = {
               stickFirstColumn: stickFirstColumn && (filteredCount === void 0 || filteredCount > 0),
@@ -15184,7 +16672,7 @@ DataTable = (function(superClass) {
             if (scrollTop != null) {
               selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollTop = scrollTop;
             }
-            selection.select('.hx-data-table-loading').style('display', 'none');
+            selection.shallowSelect('.hx-data-table-loading').style('display', 'none');
             _this.emit('render');
             return typeof cb === "function" ? cb() : void 0;
           });
@@ -15214,39 +16702,82 @@ DataTable = (function(superClass) {
   There are predefined feeds for objects and urls.
  */
 
-objectFeed = function(data, options) {
-  var filterCacheTerm, filtered, rowsByIdMap, sortCacheTerm, sorted;
-  options = hx.merge({
-    filter: function(term, row) {
-      var j, k, len, part, ref, rowSearchTerm, v;
-      rowSearchTerm = ((function() {
-        var ref, results;
-        ref = row.cells;
-        results = [];
-        for (k in ref) {
-          v = ref[k];
-          results.push(v);
-        }
-        return results;
-      })()).join(' ').toLowerCase();
-      ref = term.toLowerCase().split(' ');
-      for (j = 0, len = ref.length; j < len; j++) {
-        part = ref[j];
-        if (rowSearchTerm.indexOf(part) === -1) {
-          return false;
-        }
-      }
-      return true;
-    },
-    compare: function(c1, c2) {
-      if (c1 > c2) {
-        return 1;
-      } else {
-        return -1;
-      }
+whitespaceSplitRegex = /\s+/;
+
+stripLeadingAndTrailingWhitespaceRegex = /^\s+|\s+$/g;
+
+getRowSearchTerm = function(cellValueLookup, row) {
+  var k, v;
+  return ((function() {
+    var ref, results;
+    ref = row.cells;
+    results = [];
+    for (k in ref) {
+      v = ref[k];
+      results.push(v);
     }
+    return results;
+  })()).map(cellValueLookup).join(' ').toLowerCase();
+};
+
+defaultTermLookup = function(term, rowSearchTerm) {
+  var arr, validPart;
+  arr = term.replace(stripLeadingAndTrailingWhitespaceRegex, '').split(whitespaceSplitRegex);
+  validPart = hx.find(arr, function(part) {
+    return ~rowSearchTerm.indexOf(part);
+  });
+  return hx.defined(validPart);
+};
+
+getAdvancedSearchFilter = function(cellValueLookup, termLookup) {
+  if (cellValueLookup == null) {
+    cellValueLookup = hx.identity;
+  }
+  if (termLookup == null) {
+    termLookup = defaultTermLookup;
+  }
+  return function(filters, row) {
+    var rowSearchTerm, validFilters;
+    rowSearchTerm = getRowSearchTerm(cellValueLookup, row);
+    validFilters = hx.find(filters, function(groupedFilters) {
+      var invalidFilter;
+      invalidFilter = hx.find(groupedFilters, function(filter) {
+        var searchTerm;
+        searchTerm = filter.column === 'any' ? rowSearchTerm : (cellValueLookup(row.cells[filter.column]) + '').toLowerCase();
+        return !termLookup(filter.term.toLowerCase(), searchTerm);
+      });
+      return !hx.defined(invalidFilter);
+    });
+    return hx.defined(validFilters);
+  };
+};
+
+getFiltered = function(rows, term, filterCache, filterCacheTerm, fn) {
+  if ((term != null ? term.length : void 0) && (filterCache === void 0 || filterCacheTerm !== term)) {
+    return rows.filter(fn);
+  } else if (filterCache === void 0 || !(term != null ? term.length : void 0)) {
+    return rows.slice();
+  } else {
+    return filterCache;
+  }
+};
+
+objectFeed = function(data, options) {
+  var filterCache, filterCacheTerm, rowsByIdMap, sortCacheTerm, sorted;
+  options = hx.merge({
+    cellValueLookup: hx.identity,
+    termLookup: defaultTermLookup,
+    compare: hx.sort.compare
   }, options);
-  filtered = void 0;
+  if (options.filter == null) {
+    options.filter = function(term, row) {
+      return options.termLookup(term.toLowerCase(), getRowSearchTerm(options.cellValueLookup, row));
+    };
+  }
+  if (options.advancedSearch == null) {
+    options.advancedSearch = getAdvancedSearchFilter(options.cellValueLookup, options.termLookup);
+  }
+  filterCache = void 0;
   filterCacheTerm = void 0;
   sorted = void 0;
   sortCacheTerm = {};
@@ -15260,23 +16791,29 @@ objectFeed = function(data, options) {
       return cb(data.rows.length);
     },
     rows: function(range, cb) {
-      var column, direction, ref, ref1, ref2, ref3, ref4;
+      var advancedSearchFilterFn, column, direction, filterFn, ref, ref1, ref2, ref3, ref4;
       if (((ref = range.sort) != null ? ref.column : void 0) !== sortCacheTerm.column) {
-        filtered = void 0;
+        filterCache = void 0;
       }
-      if (filtered === void 0 || filterCacheTerm !== range.filter) {
-        filtered = range.filter ? data.rows.filter(function(row) {
+      if (range.useAdvancedSearch) {
+        advancedSearchFilterFn = function(row) {
+          return options.advancedSearch(range.advancedSearch, row);
+        };
+        filterCache = getFiltered(data.rows, range.advancedSearch, filterCache, filterCacheTerm, advancedSearchFilterFn);
+        filterCacheTerm = range.advancedSearch;
+        sorted = void 0;
+      } else {
+        filterFn = function(row) {
           return options.filter(range.filter, row);
-        }) : data.rows.slice();
+        };
+        filterCache = getFiltered(data.rows, range.filter, filterCache, filterCacheTerm, filterFn);
         filterCacheTerm = range.filter;
         sorted = void 0;
       }
       if (sorted === void 0 || sortCacheTerm.column !== ((ref1 = range.sort) != null ? ref1.column : void 0) || sortCacheTerm.direction !== ((ref2 = range.sort) != null ? ref2.direction : void 0)) {
-        sorted = range.sort && range.sort.column ? (direction = range.sort.direction === 'asc' ? 1 : -1, column = range.sort.column, filtered.sort(function(r1, r2) {
+        sorted = range.sort && range.sort.column ? (direction = range.sort.direction === 'asc' ? 1 : -1, column = range.sort.column, filterCache.sort(function(r1, r2) {
           return direction * options.compare(r1.cells[column], r2.cells[column]);
-        }), filtered.sort(function(r1, r2) {
-          return direction * options.compare(r1.cells[column], r2.cells[column]);
-        }), filtered) : filtered;
+        }), filterCache) : filterCache;
         sortCacheTerm.column = (ref3 = range.sort) != null ? ref3.column : void 0;
         sortCacheTerm.direction = (ref4 = range.sort) != null ? ref4.direction : void 0;
       }
@@ -15337,7 +16874,7 @@ urlFeed = function(url, options) {
   jsonCallback = function(cb) {
     return function(err, value) {
       if (err) {
-        console.error(err);
+        hx.consoleWarning(err);
       }
       return cb(value);
     };
@@ -15391,170 +16928,7 @@ hx.dataTable.objectFeed = objectFeed;
 
 hx.dataTable.urlFeed = urlFeed;
 
-})();
-(function(){
-var DateTimePicker,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-DateTimePicker = (function(superClass) {
-  extend(DateTimePicker, superClass);
-
-  function DateTimePicker(selector, options) {
-    var dtNode, tpNode, updateDatePicker, updateTimePicker;
-    this.selector = selector;
-    DateTimePicker.__super__.constructor.apply(this, arguments);
-    this.options = hx.merge({
-      datePickerOptions: {},
-      timePickerOptions: {}
-    }, options);
-    delete this.options.datePickerOptions.selectRange;
-    hx.component.register(this.selector, this);
-    this.suppressCallback = false;
-    this.selection = hx.select(this.selector).classed('hx-date-time-picker', true);
-    dtNode = this.selection.append('div').node();
-    tpNode = this.selection.append('div').node();
-    this.options.timePickerOptions.disabled = this.options.datePickerOptions.disabled;
-    this.datePicker = new hx.DatePicker(dtNode, this.options.datePickerOptions);
-    this.timePicker = new hx.TimePicker(tpNode, this.options.timePickerOptions);
-    this._ = {
-      uniqueId: hx.randomId()
-    };
-    hx.preferences.on('timezonechange', 'hx.date-time-picker-' + this._.uniqueId, function() {
-      return updateDatePicker();
-    });
-    this.datePicker.pipe(this, 'date', ['show', 'hide']);
-    this.timePicker.pipe(this, 'time', ['show', 'hide']);
-    updateTimePicker = (function(_this) {
-      return function(data) {
-        _this.timePicker.suppressed('change', true);
-        _this.timePicker.date(_this.datePicker.date(), true);
-        _this.timePicker.suppressed('change', false);
-        if (data != null) {
-          _this.emit('date.change', data);
-          return _this.emit('change', _this.date());
-        }
-      };
-    })(this);
-    updateDatePicker = (function(_this) {
-      return function(data) {
-        _this.datePicker.suppressed('change', true);
-        _this.datePicker.date(hx.preferences.applyTimezoneOffset(_this.date()));
-        _this.datePicker.suppressed('change', false);
-        if (data != null) {
-          _this.emit('time.change', data);
-          return _this.emit('change', _this.date());
-        }
-      };
-    })(this);
-    this.datePicker.on('change', 'hx.date-time-picker', updateTimePicker);
-    this.timePicker.on('change', 'hx.date-time-picker', updateDatePicker);
-  }
-
-  DateTimePicker.prototype.date = function(val, retainTime) {
-    if (arguments.length > 0) {
-      this.timePicker.date(val, retainTime);
-      return this;
-    } else {
-      return this.timePicker.date();
-    }
-  };
-
-  DateTimePicker.prototype.year = function(val) {
-    if (arguments.length > 0) {
-      this.datePicker.year(val);
-      return this;
-    } else {
-      return this.datePicker.year();
-    }
-  };
-
-  DateTimePicker.prototype.month = function(val) {
-    if (arguments.length > 0) {
-      this.datePicker.month(val);
-      return this;
-    } else {
-      return this.datePicker.month();
-    }
-  };
-
-  DateTimePicker.prototype.day = function(val) {
-    if (arguments.length > 0) {
-      this.datePicker.day(val);
-      return this;
-    } else {
-      return this.datePicker.day();
-    }
-  };
-
-  DateTimePicker.prototype.hour = function(val) {
-    if (arguments.length > 0) {
-      this.timePicker.hour(val);
-      return this;
-    } else {
-      return this.timePicker.hour();
-    }
-  };
-
-  DateTimePicker.prototype.minute = function(val) {
-    if (arguments.length > 0) {
-      this.timePicker.minute(val);
-      return this;
-    } else {
-      return this.timePicker.minute();
-    }
-  };
-
-  DateTimePicker.prototype.second = function(val) {
-    if (arguments.length > 0) {
-      this.timePicker.second(val);
-      return this;
-    } else {
-      return this.timePicker.second();
-    }
-  };
-
-  DateTimePicker.prototype.getScreenDate = function() {
-    return this.datePicker.getScreenDate();
-  };
-
-  DateTimePicker.prototype.getScreenTime = function() {
-    return this.timePicker.getScreenTime();
-  };
-
-  DateTimePicker.prototype.locale = function(locale) {
-    hx.deprecatedWarning('hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.');
-    if (arguments.length > 0) {
-      hx.preferences.locale(locale);
-      return this;
-    } else {
-      return hx.preferences.locale();
-    }
-  };
-
-  DateTimePicker.prototype.disabled = function(disable) {
-    var dpDisabled;
-    dpDisabled = this.datePicker.disabled(disable);
-    this.timePicker.disabled(disable);
-    if (disable != null) {
-      return this;
-    } else {
-      return dpDisabled;
-    }
-  };
-
-  return DateTimePicker;
-
-})(hx.EventEmitter);
-
-hx.dateTimePicker = function(options) {
-  var selection;
-  selection = hx.detached('div');
-  new DateTimePicker(selection.node(), options);
-  return selection;
-};
-
-hx.DateTimePicker = DateTimePicker;
+hx.dataTable.getAdvancedSearchFilter = getAdvancedSearchFilter;
 
 })();
 (function(){
@@ -17774,6 +19148,15 @@ var FileInput, fileListToMap, fileValidator, getFileUID,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
+hx.userFacingText({
+  fileInput: {
+    chooseFile: 'Choose File',
+    chooseFiles: 'Choose Files',
+    filesSelected: 'Files Selected: $numFiles',
+    noFile: 'No File Chosen'
+  }
+});
+
 getFileUID = function(file) {
   return file.name + file.size + file.lastModified + file.type;
 };
@@ -17828,13 +19211,13 @@ FileInput = (function(superClass) {
       multiple: false,
       dragEnabled: true,
       buttonClass: 'hx-action',
-      noFilesText: 'No File Chosen',
-      filesSelectedText: 'Files Selected',
-      buttonText: 'Choose File'
+      buttonText: hx.userFacingText('fileInput', 'chooseFile'),
+      filesSelectedText: hx.userFacingText('fileInput', 'filesSelected'),
+      noFilesText: hx.userFacingText('fileInput', 'noFile')
     };
     resolvedOptions = hx.merge(defaults, options);
     if (resolvedOptions.multiple && !options.buttonText) {
-      resolvedOptions.buttonText = 'Choose Files';
+      resolvedOptions.buttonText = hx.userFacingText('fileInput', 'chooseFiles');
     }
     selection = hx.select(this.selector).classed('hx-file-input', true).classed('hx-file-input-full-width', resolvedOptions.fullWidth);
     if (((ref = resolvedOptions.acceptedExtensions) != null ? ref.length : void 0) > 0) {
@@ -17845,7 +19228,7 @@ FileInput = (function(superClass) {
     }
     input = hx.detached('input')["class"]('hx-file-input-hidden').attr('type', 'file').attr('accept', acceptedExtensionsString).attr('multiple', resolvedOptions.multiple ? 'multiple' : void 0);
     group = hx.detached('div')["class"]("hx-input-group hx-input-group-full-width hx-no-margin");
-    button = hx.detached('button')["class"]("hx-file-input-button hx-btn hx-no-margin " + resolvedOptions.buttonClass).on('click', function() {
+    button = hx.detached('button').attr('type', 'button')["class"]("hx-file-input-button hx-btn hx-no-margin " + resolvedOptions.buttonClass).on('click', function() {
       return input.node().click();
     }).add(hx.detached('i')["class"]('hx-file-input-icon hx-icon hx-icon-upload')).add(hx.detached('span').text(resolvedOptions.buttonText));
     noFilesTextDiv = hx.section().text(resolvedOptions.noFilesText);
@@ -17876,7 +19259,7 @@ FileInput = (function(superClass) {
     };
     handleFiles = (function(_this) {
       return function(fileMap) {
-        var length;
+        var filesSelectedText, length, localizedLength;
         selectedFiles.clear().classed('hx-btn', false).off('click', 'hx.file-input');
         length = fileMap.size;
         if (length) {
@@ -17886,7 +19269,9 @@ FileInput = (function(superClass) {
             }
             selectedFiles.append(filePreview(fileMap.values()[0]));
           } else {
-            selectedFiles.classed('hx-btn', true).add(hx.section().text(length + " " + resolvedOptions.filesSelectedText)).add(hx.detached('i')["class"]('hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down')).on('click', 'hx.file-input', function() {
+            localizedLength = length.toLocaleString(hx.preferences.locale());
+            filesSelectedText = resolvedOptions.filesSelectedText.replace('$numFiles', localizedLength);
+            selectedFiles.classed('hx-btn', true).add(hx.section().text(filesSelectedText)).add(hx.detached('i')["class"]('hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down')).on('click', 'hx.file-input', function() {
               return dropdown.show();
             });
           }
@@ -17998,6 +19383,12 @@ var Form,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
+hx.userFacingText({
+  form: {
+    pleaseSelectAValue: 'Please select a value from the list'
+  }
+});
+
 Form = (function(superClass) {
   extend(Form, superClass);
 
@@ -18023,31 +19414,23 @@ Form = (function(superClass) {
     entry.append('label').attr("for", id).text(name);
     selection = entry.append(nodeType).attr("id", id);
     extras = f.call(selection) || {};
+    key = extras.key || name;
+    delete extras.key;
     if (extras.disable == null) {
       extras.disable = function(sel, disable) {
         return sel.attr('disabled', disable ? 'disabled' : void 0);
       };
     }
-    if (extras.key != null) {
-      key = extras.key;
-      delete extras.key;
-      this.properties.set(key, {
-        type: type,
-        node: selection.node(),
-        extras: extras
-      });
-    } else {
-      this.properties.set(name, {
-        type: type,
-        node: selection.node(),
-        extras: extras
-      });
-    }
+    this.properties.set(key, {
+      type: type,
+      node: selection.node(),
+      extras: extras
+    });
     if (extras.hidden) {
-      this.hidden(name, extras.hidden);
+      this.hidden(key, extras.hidden);
     }
     if (extras.disabled) {
-      this.disabled(name, extras.disabled);
+      this.disabled(key, extras.disabled);
     }
     return this;
   };
@@ -18203,7 +19586,7 @@ Form = (function(superClass) {
         picker.value(values[0]);
       }
       if (options.required) {
-        input.node().setCustomValidity('Please select a value from the list');
+        input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'));
         picker.on('change', 'hx.form-builder', function() {
           return input.node().setCustomValidity('');
         });
@@ -18216,6 +19599,44 @@ Form = (function(superClass) {
         disabled: options.disabled,
         disable: function(selection, disabled) {
           return picker.disabled(disabled);
+        }
+      };
+    });
+  };
+
+  Form.prototype.addAutocompletePicker = function(name, values, options) {
+    if (options == null) {
+      options = {};
+    }
+    return this.add(name, 'select', 'div', function() {
+      var autocompletePicker, autocompletePickerOptions, elem, input;
+      elem = this.append('button').attr('type', 'button')["class"](options.buttonClass);
+      autocompletePickerOptions = hx.merge({
+        buttonClass: options.buttonClass
+      }, options.autocompletePickerOptions);
+      if (values.length > 0) {
+        autocompletePickerOptions.items = values;
+      }
+      autocompletePicker = new hx.AutocompletePicker(elem.node(), values, autocompletePickerOptions);
+      input = this.append('input')["class"]('hx-hidden-form-input').attr('size', 0);
+      this.style('position', 'relative');
+      if (typeof options.required !== 'boolean') {
+        autocompletePicker.value(values[0]);
+      }
+      if (options.required) {
+        input.node().setCustomValidity('Please select a value from the list');
+        autocompletePicker.on('change', 'hx.form-builder', function() {
+          return input.node().setCustomValidity('');
+        });
+      }
+      return {
+        required: options.required,
+        componentNode: elem.node(),
+        key: options.key,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(selection, disabled) {
+          return autocompletePicker.disabled(disabled);
         }
       };
     });
@@ -18391,8 +19812,16 @@ Form = (function(superClass) {
     }
     self = this;
     return this.add(name, 'tagInput', 'div', function() {
-      var elem, tagInput;
+      var base, elem, tagInput;
       elem = this.append('div').node();
+      if (options.placeholder) {
+        if (options.tagInputOptions == null) {
+          options.tagInputOptions = {};
+        }
+        if ((base = options.tagInputOptions).placeholder == null) {
+          base.placeholder = options.placeholder;
+        }
+      }
       tagInput = new hx.TagInput(elem, options.tagInputOptions);
       return {
         key: options.key,
@@ -18573,7 +20002,7 @@ Form = (function(superClass) {
             return hx.select(node).value(value);
         }
       } else {
-        if (!it.hidden && !it.disabled) {
+        if (!it.hidden) {
           value = (function() {
             switch (it.type) {
               case 'checkbox':
@@ -18622,43 +20051,69 @@ var InlineEditable,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
+hx.userFacingText({
+  inlineEditable: {
+    enterValue: 'Enter Value'
+  }
+});
+
 InlineEditable = (function(superClass) {
   var enterEditMode;
 
   extend(InlineEditable, superClass);
 
-  enterEditMode = function(toggle, content) {
-    hx.select(content).select('.hx-name').value(hx.select(toggle).text());
-    return hx.select(content).select('.hx-confirm').on('click', 'hx.inline-editable', (function(_this) {
+  enterEditMode = function(options) {
+    return function(toggle, content) {
+      var inputSel, value;
+      value = hx.select(toggle).text();
+      inputSel = hx.select(content).select('.hx-name');
+      if (value !== options.enterValueText) {
+        inputSel.value(value);
+      }
+      return inputSel.node().focus();
+    };
+  };
+
+  function InlineEditable(selector, opts) {
+    var confirm, defaultOptions, input, options, selection, setValue;
+    this.selector = selector;
+    selection = hx.select(this.selector).classed('hx-inline-editable', true);
+    defaultOptions = {
+      enterValueText: hx.userFacingText('inlineEditable', 'enterValue'),
+      value: selection.text()
+    };
+    options = hx.merge(defaultOptions, opts);
+    selection.text('');
+    this.textSelection = selection.append('a')["class"]('hx-morph-toggle').text(options.value || options.enterValueText);
+    input = hx.detached('input')["class"]('hx-name').attr('placeholder', options.enterValueText);
+    confirm = hx.detached('button')["class"]('hx-btn hx-positive hx-confirm').add(hx.detached('i')["class"]('hx-icon hx-icon-check'));
+    setValue = (function(_this) {
       return function() {
         var value;
-        value = hx.select(content).select('.hx-name').value();
-        _this.textSelection.text(value);
+        value = input.value();
+        _this.textSelection.text(value || options.enterValueText).classed('hx-inline-editable-no-value', !value.length);
         _this.emit('change', {
-          api: false,
+          cause: 'user',
           value: value
         });
         return _this.hide();
       };
-    })(this));
-  };
-
-  function InlineEditable(selector) {
-    var selection, text;
-    this.selector = selector;
-    selection = hx.select(this.selector).classed('hx-inline-editable', true);
-    text = selection.text();
-    selection.text('');
-    this.textSelection = selection.append('a')["class"]('hx-morph-toggle').text(text);
-    selection.append('div')["class"]('hx-morph-content hx-input-group').add(hx.detached('input')["class"]('hx-name')).add(hx.detached('button')["class"]('hx-btn hx-positive hx-confirm').add(hx.detached('i')["class"]('hx-icon hx-icon-check')));
-    InlineEditable.__super__.constructor.call(this, this.selector, enterEditMode, function() {});
+    })(this);
+    confirm.on('click', 'hx.inline-editable', setValue);
+    input.on('keydown', 'hx.inline-editable', function(e) {
+      if (e.key === 'Enter' || e.keyCode === 13 || e.which === 13) {
+        return setValue();
+      }
+    });
+    selection.append('div')["class"]('hx-morph-content hx-input-group').add(input).add(confirm);
+    InlineEditable.__super__.constructor.call(this, this.selector, enterEditMode(options));
   }
 
   InlineEditable.prototype.value = function(value) {
     if (value !== void 0) {
       this.textSelection.text(value);
       return this.emit('change', {
-        api: false,
+        cause: 'api',
         value: value
       });
     } else {
@@ -18691,15 +20146,16 @@ InlinePicker = (function(superClass) {
   extend(InlinePicker, superClass);
 
   enterEditMode = function(toggle, content) {
-    var ref;
-    this.picker.value(((ref = this.current) != null ? ref.value : void 0) || this.current);
+    var _, ref;
+    _ = this._;
+    _.picker.value(((ref = _.current) != null ? ref.value : void 0) || _.current);
     return hx.select(content).select('.hx-confirm').on('click', 'hx.inline-picker', (function(_this) {
       return function() {
-        _this.current = _this.picker.value();
-        _this.textSelection.text(_this.current.text || _this.current);
+        _.current = _.picker.value();
+        _.selectedText.text(_.current.text || _.current);
         _this.emit('change', {
           api: false,
-          value: _this.current
+          value: _.current
         });
         return _this.hide();
       };
@@ -18709,9 +20165,8 @@ InlinePicker = (function(superClass) {
   exitEditMode = function(toggle, content) {};
 
   function InlinePicker(selector, options) {
-    var pickerNode, selection;
-    this.selector = selector;
-    options = hx.merge({
+    var picker, pickerNode, resolvedOptions, selectedText, selection;
+    resolvedOptions = hx.merge({
       renderer: void 0,
       items: [],
       contextClass: 'hx-complement',
@@ -18719,63 +20174,70 @@ InlinePicker = (function(superClass) {
       noValueText: void 0,
       value: void 0
     }, options);
-    this.current = void 0;
-    selection = hx.select(this.selector).classed('hx-inline-picker', true);
-    pickerNode = hx.detached('button')["class"]('hx-btn ' + options.contextClass).node();
-    this.textSelection = selection.append('a')["class"]('hx-morph-toggle');
+    selection = hx.select(selector).classed('hx-inline-picker', true);
+    pickerNode = hx.detached('button')["class"]('hx-btn ' + resolvedOptions.contextClass).node();
+    selectedText = selection.append('a')["class"]('hx-morph-toggle');
     selection.append('div')["class"]('hx-morph-content hx-input-group').add(pickerNode).add(hx.detached('button')["class"]('hx-btn hx-positive hx-confirm').add(hx.detached('i')["class"]('hx-icon hx-icon-check')));
-    this.picker = new hx.Picker(pickerNode, {
-      renderer: options.renderer,
-      items: options.items,
-      ddClass: options.ddClass,
-      noValueText: options.noValueText
+    picker = new hx.Picker(pickerNode, {
+      renderer: resolvedOptions.renderer,
+      items: resolvedOptions.items,
+      ddClass: resolvedOptions.ddClass,
+      noValueText: resolvedOptions.noValueText
     });
-    if (options.renderer == null) {
-      options.renderer = this.picker.renderer();
-    }
-    this.picker.menu.dropdown.on('showstart', 'hx.inline-picker', (function(_this) {
+    picker._.menu.dropdown.on('showstart', 'hx.inline-picker', (function(_this) {
       return function() {
-        return _this.detector.addException(_this.picker.menu.dropdown._.dropdown.node());
+        return _this.detector.addException(picker._.menu.dropdown._.dropdown.node());
       };
     })(this));
-    InlinePicker.__super__.constructor.call(this, this.selector, enterEditMode, exitEditMode, options);
-    if (this.options.value != null) {
-      this.value(this.options.value);
+    this._ = {
+      current: void 0,
+      renderer: resolvedOptions.renderer,
+      options: resolvedOptions,
+      picker: picker,
+      selector: selector,
+      selectedText: selectedText
+    };
+    if (this.renderer() == null) {
+      this.renderer(picker.renderer());
+    }
+    InlinePicker.__super__.constructor.call(this, selector, enterEditMode, exitEditMode, resolvedOptions);
+    if (resolvedOptions.value != null) {
+      this.value(resolvedOptions.value);
     }
   }
 
   InlinePicker.prototype.renderer = function(f) {
     if (f != null) {
-      this.options.renderer = f;
-      this.picker.renderer(this.options.renderer);
+      this._.renderer = f;
+      this._.picker.renderer(f);
       return this;
     } else {
-      return this.options.renderer;
+      return this._.renderer;
     }
   };
 
   InlinePicker.prototype.items = function(items) {
     if (items != null) {
-      this.options.items = items;
-      this.picker.items(this.options.items);
+      this._.items = items;
+      this._.picker.items(items);
       return this;
     } else {
-      return this.options.items;
+      return this._.items;
     }
   };
 
   InlinePicker.prototype.value = function(value) {
     if (arguments.length > 0) {
-      this.picker.value(value);
-      this.current = this.picker.value();
-      this.textSelection.text(this.current.text || this.current);
+      this._.picker.value(value);
+      this._.current = this._.picker.value();
+      this._.selectedText.text(this._.current.text || this._.current);
       this.emit('change', {
         api: true,
-        value: this.current
+        value: this._.current
       });
       return this;
     } else {
-      return this.current;
+      return this._.current;
     }
   };
 
@@ -18796,11 +20258,22 @@ hx.InlinePicker = InlinePicker;
 
 
 (function(){
-var Meter;
+var Meter,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-Meter = (function() {
+hx.userFacingText({
+  meter: {
+    of: 'of'
+  }
+});
+
+Meter = (function(superClass) {
+  extend(Meter, superClass);
+
   function Meter(selector, options) {
     var _, container, innerText, randomId, selection, svg;
+    Meter.__super__.constructor.call(this);
     hx.component.register(selector, this);
     this._ = _ = {};
     _.data = {
@@ -18821,12 +20294,22 @@ Meter = (function() {
       progressCol: hx.theme.plot.positiveCol,
       trackerCol: hx.color(hx.theme.plot.positiveCol).alpha(0.5).toString(),
       trackerBackgroundCol: hx.color(hx.theme.palette.contrastCol).alpha(0.05).toString(),
-      markerCol: hx.theme.palette.contrastCol
+      markerCol: hx.theme.palette.contrastCol,
+      valueFormatter: function(value, isTotal) {
+        if (isTotal) {
+          return (hx.userFacingText('meter', 'of')) + " " + value;
+        } else {
+          return value;
+        }
+      },
+      redrawOnResize: true
     }, options);
     randomId = hx.randomId();
     _.selection = selection = hx.select(selector).classed('hx-meter', true).on('resize', (function(_this) {
       return function() {
-        return _this.render();
+        if (_this.options.redrawOnResize) {
+          return _this.render('user');
+        }
       };
     })(this));
     _.container = container = selection.append('div')["class"]('hx-meter-container');
@@ -18854,8 +20337,11 @@ Meter = (function() {
     }
   };
 
-  Meter.prototype.render = function() {
+  Meter.prototype.render = function(cause) {
     var _, container, data, endRadians, i, markerProgress, markerR1, markerR2, markerWidth, options, path, points, progress, progressR1, progressR2, radius, selection, size, startRadians, svg, textOffset, trackerProgress, trackerR1, trackerR2, updateArc, x, y;
+    if (cause == null) {
+      cause = 'api';
+    }
     _ = this._;
     options = this.options;
     data = _.data;
@@ -18865,80 +20351,86 @@ Meter = (function() {
     progress = Math.max(0, Math.min(1, (data.completed / data.total) || 0));
     trackerProgress = Math.max(0, Math.min(1, (data.tracker / data.total) || 0));
     markerProgress = Math.max(0, Math.min(1, (data.marker / data.total) || 0));
-    _.completedText.text(data.completed);
-    _.totalText.text('of ' + data.total);
+    _.completedText.text(options.valueFormatter(data.completed, false));
+    _.totalText.text(options.valueFormatter(data.total, true));
     _.typeText.text(data.unitText);
     size = Math.min(selection.width(), selection.height() * 2);
-    container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px');
-    textOffset = 10 * (size / 2) / 150;
-    x = size / 2;
-    y = size / 2;
-    markerR2 = 1 + options.markerOuterExtend;
-    trackerR2 = options.useMarker ? 1 - options.markerPadding : 1;
-    trackerR1 = trackerR2 - options.trackerWidth;
-    if (options.useTracker) {
-      progressR2 = trackerR1 - options.arcPadding;
-    } else {
-      progressR2 = options.useMarker ? 1 - options.markerPadding : 1;
-    }
-    progressR1 = progressR2 - options.progressWidth;
-    markerR1 = progressR1 - options.markerInnerExtend;
-    markerWidth = options.markerWidth;
-    updateArc = function(selection, start, end, r1, r2, col) {
-      var endRadians, innerRadius, outerRadius, padding, path, startRadians;
-      innerRadius = size / 2 * r1;
-      outerRadius = size / 2 * r2;
-      startRadians = Math.PI + Math.PI * start;
-      endRadians = Math.PI + Math.PI * end;
-      padding = 0;
-      path = hx.plot.arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding);
-      return selection.attr('d', path).attr('fill', col).style('visibility', void 0);
-    };
-    container.style('width', size + 'px');
-    container.style('height', size / 2 + 'px');
-    updateArc(_.progressArc, 0, progress, progressR1, progressR2, options.progressCol);
-    updateArc(_.progressBackgroundArc, progress, 1, progressR1, progressR2, options.progressBackgroundCol);
-    if (options.useTracker) {
-      updateArc(_.trackerArc, 0, trackerProgress, trackerR1, trackerR2, options.trackerCol);
-      updateArc(_.trackerBackgroundArc, trackerProgress, 1, trackerR1, trackerR2, options.trackerBackgroundCol);
-    } else {
-      _.trackerArc.style('visibility', 'hidden');
-      _.trackerBackgroundArc.style('visibility', 'hidden');
-    }
-    if (options.useMarker) {
-      startRadians = Math.PI;
-      endRadians = Math.PI * 2;
-      radius = size / 2 - textOffset;
-      points = (function() {
-        var j, results;
-        results = [];
-        for (i = j = 0; j <= 100; i = ++j) {
-          results.push({
-            x: x + radius * Math.cos((i / 100 + 1) * Math.PI),
-            y: y + radius * Math.sin((i / 100 + 1) * Math.PI)
-          });
-        }
-        return results;
-      })();
-      path = hx.plot.svgCurve(points, false);
-      _.markerTextCurve.attr('d', path);
-      if (markerProgress < 0.5) {
-        _.markerText.attr('startOffset', (markerProgress * 100 + 1) + '%').attr('text-anchor', 'start');
+    if (size > 0) {
+      container.style('font-size', Math.round(14 / 150 * (size / 2)) + 'px');
+      textOffset = 10 * (size / 2) / 150;
+      x = size / 2;
+      y = size / 2;
+      markerR2 = 1 + options.markerOuterExtend;
+      trackerR2 = options.useMarker ? 1 - options.markerPadding : 1;
+      trackerR1 = trackerR2 - options.trackerWidth;
+      if (options.useTracker) {
+        progressR2 = trackerR1 - options.arcPadding;
       } else {
-        _.markerText.attr('startOffset', (markerProgress * 100 - 1) + '%').attr('text-anchor', 'end');
+        progressR2 = options.useMarker ? 1 - options.markerPadding : 1;
       }
-      _.markerText.style('visibility', void 0).text(data.markerText);
-      updateArc(_.markerArc, markerProgress - options.markerSize / 2, markerProgress + options.markerSize / 2, markerR1, markerR2, this.options.markerCol);
-    } else {
-      _.markerArc.style('visibility', 'hidden');
-      _.markerText.style('visibility', 'hidden');
+      progressR1 = progressR2 - options.progressWidth;
+      markerR1 = progressR1 - options.markerInnerExtend;
+      markerWidth = options.markerWidth;
+      updateArc = function(selection, start, end, r1, r2, col) {
+        var endRadians, innerRadius, outerRadius, padding, path, startRadians;
+        innerRadius = size / 2 * r1;
+        outerRadius = size / 2 * r2;
+        startRadians = Math.PI + Math.PI * start;
+        endRadians = Math.PI + Math.PI * end;
+        padding = 0;
+        path = hx.plot.arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding);
+        return selection.attr('d', path).attr('fill', col).style('visibility', void 0);
+      };
+      container.style('width', size + 'px');
+      container.style('height', size / 2 + 'px');
+      updateArc(_.progressArc, 0, progress, progressR1, progressR2, options.progressCol);
+      updateArc(_.progressBackgroundArc, progress, 1, progressR1, progressR2, options.progressBackgroundCol);
+      if (options.useTracker) {
+        updateArc(_.trackerArc, 0, trackerProgress, trackerR1, trackerR2, options.trackerCol);
+        updateArc(_.trackerBackgroundArc, trackerProgress, 1, trackerR1, trackerR2, options.trackerBackgroundCol);
+      } else {
+        _.trackerArc.style('visibility', 'hidden');
+        _.trackerBackgroundArc.style('visibility', 'hidden');
+      }
+      if (options.useMarker) {
+        startRadians = Math.PI;
+        endRadians = Math.PI * 2;
+        radius = size / 2 - textOffset;
+        points = (function() {
+          var j, results;
+          results = [];
+          for (i = j = 0; j <= 100; i = ++j) {
+            results.push({
+              x: x + radius * Math.cos((i / 100 + 1) * Math.PI),
+              y: y + radius * Math.sin((i / 100 + 1) * Math.PI)
+            });
+          }
+          return results;
+        })();
+        path = hx.plot.svgCurve(points, false);
+        _.markerTextCurve.attr('d', path);
+        if (markerProgress < 0.5) {
+          _.markerText.attr('startOffset', (markerProgress * 100 + 1) + '%').attr('text-anchor', 'start');
+        } else {
+          _.markerText.attr('startOffset', (markerProgress * 100 - 1) + '%').attr('text-anchor', 'end');
+        }
+        _.markerText.style('visibility', void 0).text(data.markerText);
+        updateArc(_.markerArc, markerProgress - options.markerSize / 2, markerProgress + options.markerSize / 2, markerR1, markerR2, this.options.markerCol);
+      } else {
+        _.markerArc.style('visibility', 'hidden');
+        _.markerText.style('visibility', 'hidden');
+      }
+      this.emit('render', {
+        cause: cause,
+        data: data
+      });
     }
     return this;
   };
 
   return Meter;
 
-})();
+})(hx.EventEmitter);
 
 hx.meter = function(options) {
   var selection;
@@ -19478,44 +20970,119 @@ var Tabs, onTabSelected,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-onTabSelected = function(tabs, element, i) {
-  var context, selection;
+onTabSelected = function(tabs, element, i, cause) {
+  var context, item, rootSelection, selection, tabToSelect, tabToSelectSelector, tabsContent;
   tabs.selected = i;
   selection = hx.select(tabs.selector);
   selection.selectAll('.hx-tab').classed('hx-tab-active', false);
   hx.select(element).classed('hx-tab-active', true);
   context = hx.palette.context(element);
-  hx.palette.borderContext(selection.select('.hx-tabs-content'), context);
-  hx.select(tabs.selector).selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true);
-  hx.select('#' + hx.select(element).attr('data-content')).classed('hx-tab-content-hidden', false);
+  tabsContent = selection.select('.hx-tabs-content');
+  hx.palette.borderContext(tabsContent, context);
+  rootSelection = hx.select(tabs.selector);
+  rootSelection.selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true);
+  item = tabs.items()[i];
+  if (item != null) {
+    tabsContent.clear();
+    tabs._.options.contentRenderer(tabsContent.node(), item.content);
+  } else {
+    tabToSelectSelector = '#' + hx.select(element).attr('data-content');
+    tabToSelect = rootSelection.select(tabToSelectSelector);
+    tabToSelect.classed('hx-tab-content-hidden', false);
+  }
   return tabs.emit('change', {
-    id: i
+    id: i,
+    value: i,
+    cause: cause
   });
 };
 
 Tabs = (function(superClass) {
   extend(Tabs, superClass);
 
-  function Tabs(selector) {
-    var self;
+  function Tabs(selector, options) {
+    var defaultOpts, defaultRenderer, resolvedOptions, rootSel, self, tabsContent, titleRenderer;
     this.selector = selector;
     Tabs.__super__.constructor.apply(this, arguments);
+    defaultRenderer = function(node, value) {
+      return hx.select(node).text(value);
+    };
+    defaultOpts = {
+      items: [],
+      titleRenderer: defaultRenderer,
+      contentRenderer: defaultRenderer
+    };
+    resolvedOptions = hx.merge(defaultOpts, options);
+    this._ = {};
+    this._.options = resolvedOptions;
     hx.component.register(this.selector, this);
+    rootSel = hx.select(this.selector);
+    rootSel.classed('hx-tabs', true);
+    titleRenderer = resolvedOptions.titleRenderer;
+    tabsContent = rootSel.select('.hx-tabs-content');
+    if (tabsContent.empty()) {
+      tabsContent = rootSel.append('div')["class"]('hx-tabs-content');
+    }
     this.selected = -1;
     self = this;
-    hx.select(this.selector).selectAll('.hx-tab').forEach(function(node, i) {
-      return node.on('click', 'hx.tabs', function() {
-        return onTabSelected(self, node.node(), i);
+    if (resolvedOptions.items.length) {
+      this.items(resolvedOptions.items);
+    } else {
+      rootSel.selectAll('.hx-tab').forEach(function(node, i) {
+        return node.on('click', 'hx.tabs', function() {
+          return onTabSelected(self, node.node(), i, 'user');
+        });
       });
-    });
+    }
     this.select(0);
   }
+
+  Tabs.prototype.items = function(newItems) {
+    var root, tabsContent, titleBarsToAdd;
+    if (arguments.length) {
+      if (newItems.length === 0) {
+        hx.consoleWarning('Setting items to empty array');
+      } else {
+        root = hx.select(this.selector);
+        tabsContent = root.select('.hx-tabs-content');
+        root.selectAll('.hx-tab').remove();
+        tabsContent.clear();
+        titleBarsToAdd = newItems.map((function(_this) {
+          return function(arg, i) {
+            var content, context, tab, title;
+            title = arg.title, context = arg.context, content = arg.content;
+            tab = hx.detached('div')["class"]('hx-tab');
+            _this._.options.titleRenderer(tab.node(), title);
+            hx.palette.context(tab.node(), context);
+            tab.on('click', 'hx.tabs', function() {
+              return onTabSelected(_this, tab.node(), i, 'user');
+            });
+            return tab;
+          };
+        })(this));
+        tabsContent.insertBefore(titleBarsToAdd);
+        this.select(0, true);
+      }
+      this._.options.items = newItems;
+      return this;
+    } else {
+      return this._.options.items;
+    }
+  };
+
+  Tabs.prototype.value = function(newValue) {
+    if (arguments.length) {
+      return this.select(newValue, false);
+    } else {
+      return this.selected;
+    }
+  };
 
   Tabs.prototype.select = function(i, force) {
     var tab;
     if (this.selected !== i || force) {
       tab = hx.select(this.selector).selectAll('.hx-tab').nodes[i];
-      return onTabSelected(this, tab, i);
+      return onTabSelected(this, tab, i, 'api');
     }
   };
 
@@ -19524,6 +21091,13 @@ Tabs = (function(superClass) {
 })(hx.EventEmitter);
 
 hx.Tabs = Tabs;
+
+hx.tabs = function(opts) {
+  var ret, tabs;
+  ret = hx.detached('div');
+  tabs = new hx.Tabs(ret.node(), opts);
+  return ret;
+};
 
 })();
 (function(){
@@ -19633,61 +21207,55 @@ hx.TimeSlider = TimeSlider;
 
 })();
 (function(){
-var Toggle,
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
+var Tree, createChildren, createNodeView, createTreeNode, format, formatChildren, formatIcon, recurseUpTree;
 
-Toggle = (function(superClass) {
-  extend(Toggle, superClass);
-
-  function Toggle(selector, options) {
-    Toggle.__super__.constructor.apply(this, arguments);
-    hx.component.register(selector, this);
-    this.options = hx.merge.defined({
-      value: false
-    }, options);
-    this.selection = hx.select(selector).classed('hx-toggle', true);
-    this.toggle = this.selection.append('div')["class"]('hx-toggle-box');
-    this.value(this.options.value);
-    this.selection.on('click', 'hx.toggle', (function(_this) {
-      return function(e) {
-        _this.value(!_this.value());
-        return _this.emit('change', _this.value());
-      };
-    })(this));
-  }
-
-  Toggle.prototype.value = function(val) {
-    if (val != null) {
-      this.options.value = val;
-      this.toggle.classed('hx-toggle-box-on', val);
-      return this;
-    } else {
-      return this.options.value;
-    }
-  };
-
-  return Toggle;
-
-})(hx.EventEmitter);
-
-hx.toggle = function(options) {
-  var selection;
-  selection = hx.detached('div');
-  new Toggle(selection.node(), options);
-  return selection;
+createNodeView = function(node, renderer, lazy) {
+  return node.view('.hx-tree-node').enter(function(d) {
+    return this.append(createTreeNode(d, renderer, lazy)).node();
+  });
 };
 
-hx.Toggle = Toggle;
+createChildren = function(children, renderer, lazy) {
+  return children.map(function(child) {
+    return createTreeNode(child, renderer, lazy);
+  });
+};
 
-})();
-(function(){
-var Tree, format, formatIcon, recurseUpTree;
+createTreeNode = function(data, renderer, lazy) {
+  var childContainer, childView, nodeContent, treeNode;
+  treeNode = hx.detached('div')["class"]('hx-tree-node');
+  nodeContent = hx.detached('div').attr('class', 'hx-tree-node-content');
+  renderer(nodeContent.node(), data);
+  if ((data.children != null) && data.children.length > 0) {
+    childContainer = hx.detached('div')["class"]('hx-tree-node-children').style('display', 'none');
+    if (lazy) {
+      childView = createNodeView(childContainer, renderer, lazy);
+      hx.component.register(treeNode.node(), {
+        renderChildren: function() {
+          return childView.apply(data.children);
+        }
+      });
+    } else {
+      childContainer.append(createChildren(data.children, renderer, lazy));
+    }
+    return treeNode.add(hx.detached('div')["class"]('hx-tree-node-parent').add(nodeContent)).add(childContainer);
+  } else {
+    return treeNode.add(nodeContent);
+  }
+};
+
+formatChildren = function(tree, children, animate) {
+  return children.forEach((function(_this) {
+    return function(d) {
+      return format(tree, d.node(), animate);
+    };
+  })(this));
+};
 
 formatIcon = (function(_this) {
   return function(node, iconElement, animate) {
     var children, open;
-    children = hx.select(node).select('.hx-tree-node-children');
+    children = hx.select(node).shallowSelect('.hx-tree-node-children');
     if (!children.selectAll('.hx-tree-node').empty()) {
       open = children.style('display') === 'block';
       hx.select(node).classed('hx-tree-node-open', open);
@@ -19699,11 +21267,25 @@ formatIcon = (function(_this) {
 })(this);
 
 format = function(tree, element, animate) {
-  var elem, innerElem, newElem, openAllOrToggle, parent, selection, showDisabled, toggle;
+  var childTreeNodes, elem, innerElem, newElem, openAllOrToggle, parent, renderLazyChildren, selection, showDisabled, siblings, siblingsHaveChildren, siblingsHaveLazyChildren, toggle, treeNode, treeNodeComponent;
+  treeNode = hx.select(element);
+  treeNodeComponent = treeNode.component();
+  renderLazyChildren = function(rootNode, recursive) {
+    if ((rootNode.component() != null) && rootNode.selectAll('.hx-tree-node').empty()) {
+      rootNode.component().renderChildren();
+      formatChildren(tree, rootNode.selectAll('.hx-tree-node'), animate);
+    }
+    if (recursive) {
+      return rootNode.selectAll('.hx-tree-node').map(function(sel) {
+        return renderLazyChildren(sel, recursive);
+      });
+    }
+  };
   toggle = (function(_this) {
     return function(iconElement) {
       var display, selection;
-      selection = hx.select(element).select('.hx-tree-node-children');
+      selection = treeNode.select('.hx-tree-node-children');
+      renderLazyChildren(treeNode);
       display = selection.style('display') === 'none' ? 'block' : 'none';
       selection.style('display', display);
       return formatIcon(element, iconElement, tree.options.animate);
@@ -19711,30 +21293,23 @@ format = function(tree, element, animate) {
   })(this);
   openAllOrToggle = (function(_this) {
     return function(iconElement) {
-      var root, rootNode, selection;
-      selection = hx.select(element).selectAll('.hx-tree-node-children');
-      root = hx.select(element).select('.hx-tree-node-children');
-      rootNode = root.node();
-      if (root.style('display') === 'block') {
-        return selection.forEach(function(node) {
-          var parentNode;
-          if (node !== rootNode) {
-            if (node.style('display') !== 'block') {
-              parentNode = node.node().parentNode;
-              iconElement = hx.select(parentNode).select('.hx-tree-node-parent-icon').node();
-              node.style('display', 'block');
-              return formatIcon(parentNode, iconElement, tree.options.animate);
-            }
-          }
-        });
+      renderLazyChildren(treeNode, true);
+      treeNode.selectAll('.hx-tree-node-children').style('display', 'block');
+      if (treeNode.shallowSelect('.hx-tree-node-children').style('display') === 'block') {
+        return formatChildren(tree, treeNode.selectAll('.hx-tree-node'), animate);
       } else {
         return toggle(iconElement);
       }
     };
   })(this);
-  showDisabled = hx.select(element.parentNode).selectAll('.hx-tree-node').select('.hx-tree-node-children').selectAll('.hx-tree-node').size() > 0;
-  showDisabled = tree.options.hideDisabledButtons ? false : showDisabled;
-  if (hx.select(element).select('.hx-tree-node-children').selectAll('.hx-tree-node').size() > 0 || showDisabled) {
+  siblings = hx.select(element.parentNode).shallowSelectAll('.hx-tree-node');
+  siblingsHaveChildren = siblings.shallowSelect('.hx-tree-node-children').shallowSelectAll('.hx-tree-node').size() > 0;
+  siblingsHaveLazyChildren = siblingsHaveChildren || siblings.nodes.map(function(node) {
+    return hx.component(node) != null;
+  }).some(hx.identity);
+  showDisabled = tree.options.hideDisabledButtons ? false : siblingsHaveLazyChildren;
+  childTreeNodes = treeNode.select('.hx-tree-node-children');
+  if ((treeNodeComponent != null) || childTreeNodes.selectAll('.hx-tree-node').size() > 0 || showDisabled) {
     innerElem = hx.select(element).select('.hx-tree-node-parent');
     if (innerElem.size() > 0) {
       return innerElem.view('.hx-tree-node-parent-icon').enter(function() {
@@ -19761,8 +21336,8 @@ format = function(tree, element, animate) {
       }).apply(this);
     } else {
       parent = hx.select(element);
-      elem = parent.select(".hx-tree-node-content").node();
-      newElem = parent.append("div").attr("class", "hx-tree-node-parent").node();
+      elem = parent.select('.hx-tree-node-content').node();
+      newElem = parent.append('div').attr('class', 'hx-tree-node-parent').node();
       newElem.appendChild(elem);
       selection = hx.select(newElem).append('div');
       return selection.attr('class', 'hx-tree-node-parent-icon hx-tree-node-parent-icon-disabled').append('i').attr('class', 'hx-icon hx-icon-chevron-right');
@@ -19791,11 +21366,12 @@ Tree = (function() {
       hideDisabledButtons: false,
       animate: true,
       renderer: function(elem, data) {
-        return hx.select(elem).html(data);
+        return hx.select(elem).html(data.name || data);
       },
-      items: []
+      items: [],
+      lazy: false
     }, options);
-    this.selection = hx.select(this.selector).classed('hx-openable', true);
+    this.selection = hx.select(this.selector).classed('hx-tree hx-openable', true);
     if ((this.options.items != null) && this.options.items.length > 0) {
       this.items(this.options.items);
     }
@@ -19804,11 +21380,7 @@ Tree = (function() {
 
   Tree.prototype.refresh = function(animate) {
     animate = animate != null ? animate : this.options.animate;
-    this.selection.selectAll('.hx-tree-node').forEach((function(_this) {
-      return function(d) {
-        return format(_this, d.node(), animate);
-      };
-    })(this));
+    formatChildren(this, this.selection.selectAll('.hx-tree-node'), animate);
     return this;
   };
 
@@ -19822,33 +21394,10 @@ Tree = (function() {
   };
 
   Tree.prototype.items = function(data) {
-    var self, setup, setupNodeList;
     if (data != null) {
-      self = this;
       this.options.items = data;
-      setup = function(element, data) {
-        var content, parentContent;
-        if ((data.children != null) && data.children.length > 0) {
-          parentContent = hx.select(element).append('div').attr('class', 'hx-tree-node-parent').append('div').attr('class', 'hx-tree-node-content');
-          self.options.renderer(parentContent.node(), data);
-          content = hx.select(element).append('div').attr('class', 'hx-tree-node-children');
-          return setupNodeList(content, data.children);
-        } else {
-          content = hx.select(element).append('div').attr('class', 'hx-tree-node-content');
-          return self.options.renderer(content.node(), data);
-        }
-      };
-      setupNodeList = function(selection, data) {
-        var nodes;
-        return nodes = selection.view('.hx-tree-node').enter(function(d) {
-          var node;
-          node = this.append('div').attr('class', 'hx-tree-node').node();
-          setup(node, d);
-          return node;
-        }).apply(data);
-      };
-      this.selection.selectAll('.hx-tree-node').remove();
-      setupNodeList(this.selection, data);
+      this.selection.clear();
+      createNodeView(this.selection, this.renderer(), this.options.lazy).apply(data);
       this.refresh(false);
       return this;
     } else {
@@ -19909,91 +21458,6 @@ hx.initializeTrees = function(selector) {
     return new Tree(d);
   });
 };
-
-})();
-(function(){
-var _, completeGetterSetter, isValid, partialGetterSetter, userFacingText, userFacingTextDefaults;
-
-_ = {
-  initialValues: {},
-  localisedText: {}
-};
-
-completeGetterSetter = function(object) {
-  var key, module, results;
-  if (arguments.length) {
-    if (hx.isPlainObject(object)) {
-      results = [];
-      for (module in object) {
-        results.push((function() {
-          var results1;
-          results1 = [];
-          for (key in object[module]) {
-            results1.push(partialGetterSetter(module, key, object[module][key]));
-          }
-          return results1;
-        })());
-      }
-      return results;
-    } else {
-      return hx.consoleWarning("hx.userFacingText: Expected a plain object but was instead passed: " + object);
-    }
-  } else {
-    return hx.clone(_.localisedText);
-  }
-};
-
-isValid = function(value) {
-  return hx.isString(value) && value.length;
-};
-
-partialGetterSetter = function(module, key, value) {
-  var base, base1, base2, ref, text;
-  if (isValid(module) && isValid(key)) {
-    if (isValid(value)) {
-      if ((base = _.localisedText)[module] == null) {
-        base[module] = {};
-      }
-      _.localisedText[module][key] = value;
-      if ((base1 = _.initialValues)[module] == null) {
-        base1[module] = {};
-      }
-      if ((base2 = _.initialValues[module])[key] == null) {
-        base2[key] = value;
-      }
-      return true;
-    } else if (value == null) {
-      text = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
-      if (text) {
-        return text;
-      } else {
-        return hx.consoleWarning("hx.userFacingText: No text was found for key: " + key + " in module: " + module);
-      }
-    } else {
-      return hx.consoleWarning("hx.userFacingText: The value provided must be a string but was passed value: " + value);
-    }
-  } else {
-    return hx.consoleWarning("hx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
-  }
-};
-
-userFacingText = function() {
-  if (arguments.length <= 1) {
-    return completeGetterSetter.apply(this, arguments);
-  } else {
-    return partialGetterSetter.apply(this, arguments);
-  }
-};
-
-userFacingTextDefaults = function() {
-  return hx.clone(_.initialValues);
-};
-
-hx.userFacingText = userFacingText;
-
-hx.userFacingText.defaults = userFacingTextDefaults;
-
-hx.userFacingText._ = _;
 
 })();
 

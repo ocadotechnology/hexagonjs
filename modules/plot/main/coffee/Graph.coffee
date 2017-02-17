@@ -1,3 +1,9 @@
+hx.userFacingText({
+  plot: {
+    noData: 'No Data'
+  }
+})
+
 # XXX: hard coded config values - move these to a config file for the graphing api
 tickSize = 6
 labelOffset = tickSize + 4
@@ -16,7 +22,9 @@ class Graph extends hx.EventEmitter
         zoomRangeEnd: 1,
         labelsEnabled: true,
         legendsEnabled: false,
-        legendLocation: 'auto'
+        legendLocation: 'auto',
+        noDataText: hx.userFacingText('plot', 'noData')
+        redrawOnResize: true
       }, options),
       axes: new hx.List
     }
@@ -25,7 +33,11 @@ class Graph extends hx.EventEmitter
 
     id = hx.randomId()
 
-    selection = hx.select(@selector).on 'resize', 'hx.plot', => @render()
+    selection = hx.select(@selector)
+
+    selection.on 'resize', 'hx.plot', =>
+      @render() if @_.options.redrawOnResize
+
     @svgTarget = selection.append("svg").attr('class', 'hx-graph')
     defs = @svgTarget.append('defs')
     @axesTarget = @svgTarget.append('g').attr('class', 'hx-axes')
@@ -162,6 +174,7 @@ class Graph extends hx.EventEmitter
   labelsEnabled: optionSetterGetter('labelsEnabled')
   legendEnabled: optionSetterGetter('legendEnabled')
   legendLocation: optionSetterGetter('legendLocation')
+  redrawOnResize: optionSetterGetter('redrawOnResize')
 
   axes: (axes) ->
     if arguments.length > 0
@@ -199,7 +212,7 @@ class Graph extends hx.EventEmitter
     self = this
     @svgTarget.view('.hx-plot-no-data', 'text')
       .update ->
-        @text('No Data')
+        @text(self._.options.noDataText)
         .attr('x', self.width/2)
         .attr('y', self.height/2)
       .apply(if hasData then [] else [true])

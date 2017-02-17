@@ -1,3 +1,25 @@
+supportsGroup = (series) ->
+  series instanceof BarSeries or
+  series instanceof LineSeries
+
+
+doCollisionDetection = (nodesRaw) ->
+  nodes = nodesRaw.map (node, index) ->
+    { node, index, box: node.getBoundingClientRect() }
+  reductor = (oldDistance, { index: currentIndex, box: currBox }) ->
+    previousNodes = nodes.slice 0, (currentIndex - oldDistance + 1)
+    tuple = hx.find previousNodes, ({ index: previousIndex, box: prevBox }) ->
+      currBox.left < prevBox.right
+    if tuple
+      { index: previousIndex } = tuple
+      currentIndex - previousIndex
+    else
+      oldDistance
+  distance = nodes.reduce reductor, 1
+  nodes.forEach ({ node, index: currentIndex }) ->
+    if currentIndex % (distance + 1)
+      hx.select node
+        .text ''
 
 # encodes the data into an svg path string
 svgCurve = (data, close) ->
@@ -204,7 +226,6 @@ search = (array, find, lookup) ->
 findLabel = (array, find, interpolate, interpolateValues) ->
   i = search(array, find, (d) -> d.x)
   if i > -1
-    atEdge = i is 0 or i is array.length - 1
     if interpolate
       closest = array[i]
       dist = find - closest.x
@@ -214,9 +235,9 @@ findLabel = (array, find, interpolate, interpolateValues) ->
         nextClosest = array[if inLower then i-1 else i+1]
         interpolated = interpolateValues find, closest, nextClosest, (yClosest, yNextClosest) ->
           yClosest + (yClosest - yNextClosest) * dist / (closest.x - nextClosest.x)
-        if interpolated? then interpolated else if not atEdge then array[i]
-      else if not atEdge then array[i]
-    else if not atEdge then array[i]
+        if interpolated? then interpolated else array[i]
+      else array[i]
+    else array[i]
 
 # creates label canditate label points for all the sections of data in a series, then picks the
 # one that is closest to the mouse
@@ -293,7 +314,7 @@ populateLegendSeries = (selection, series) ->
         .attr('x', 0)
         .attr('width', 10)
         .attr('height', 10)
-        .attr('fill', if s.legendColor then s.legendColor() else s.color) # XXX: the else s.color is there for PieCharts... which should be fixed when pie charts are refactored
+        .attr('fill', if s.legendColor then s.legendColor() else s.fillColor) # XXX: the else s.fillColor is there for PieCharts... which should be fixed when pie charts are refactored
     .apply(series)
 
   width = hx.max(selection.selectAll('text').nodes.map((node) -> node.getComputedTextLength()))
@@ -314,6 +335,7 @@ optionSetterGetter = (name) ->
       @_.options[name]
 
 hx._.plot = {
+  doCollisionDetection: doCollisionDetection
   dataAverage: dataAverage
   maxTriangle: maxTriangle
   LTTBFeather: LTTBFeather

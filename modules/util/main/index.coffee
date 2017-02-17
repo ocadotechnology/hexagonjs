@@ -49,10 +49,11 @@ hx.supports = (name) ->
 hx.debounce = (duration, fn) ->
   timeout = undefined
   return ->
+    origArgs = arguments
     if timeout then clearTimeout(timeout)
     f = ->
       timeout = undefined
-      fn()
+      fn.apply(this, origArgs)
     timeout = setTimeout(f, duration)
 
 hx.clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
@@ -73,13 +74,12 @@ hx.minBy = (values, f) ->
   if f
     min = values[0]
     minValue = f(min)
-    for i in [1...values.length-1] by 1
+    for i in [1...values.length] by 1
       v = values[i]
-      if v isnt undefined
-        fv = f(v)
-        if fv isnt undefined and fv < minValue
-          min = v
-          minValue = fv
+      fv = f(v)
+      if minValue is undefined or (fv isnt undefined and fv < minValue)
+        min = v
+        minValue = fv
     min
   else
     min = values[0]
@@ -87,6 +87,30 @@ hx.minBy = (values, f) ->
       if v isnt undefined and v < min
         min = v
     min
+
+hx.argmin = (values, f) ->
+  if not values? or values.length is 0 then return undefined
+
+  minIndex = 0
+  minValue = undefined
+  if f
+    minValue = f(values[0])
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = f(values[i])
+        if minValue is undefined or (v isnt undefined and v < minValue)
+          minValue = v
+          minIndex = i
+  else
+    minValue = values[0]
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = values[i]
+        if minValue is undefined or (v isnt undefined and v < minValue)
+          minValue = v
+          minIndex = i
+
+  if minValue is undefined then undefined else minIndex
 
 hx.max = (values) -> Math.max.apply(null, values?.filter(hx.defined))
 
@@ -96,13 +120,12 @@ hx.maxBy = (values, f) ->
   if f
     max = values[0]
     maxValue = f(max)
-    for i in [1...values.length-1] by 1
+    for i in [1...values.length] by 1
       v = values[i]
-      if v isnt undefined
-        fv = f(v)
-        if fv isnt undefined and fv > maxValue
-          max = v
-          maxValue = fv
+      fv = f(v)
+      if maxValue is undefined or (fv isnt undefined and fv > maxValue)
+        max = v
+        maxValue = fv
     max
   else
     max = values[0]
@@ -110,6 +133,30 @@ hx.maxBy = (values, f) ->
       if v isnt undefined and v > max
         max = v
     max
+
+hx.argmax = (values, f) ->
+  if not values? or values.length is 0 then return undefined
+
+  maxIndex = 0
+  maxValue = undefined
+  if f
+    maxValue = f(values[0])
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = f(values[i])
+        if maxValue is undefined or (v isnt undefined and v > maxValue)
+          maxValue = v
+          maxIndex = i
+  else
+    maxValue = values[0]
+    if values.length > 1
+      for i in [1...values.length] by 1
+        v = values[i]
+        if maxValue is undefined or (v isnt undefined and v > maxValue)
+          maxValue = v
+          maxIndex = i
+
+  if maxValue is undefined then undefined else maxIndex
 
 hx.range = (length) -> (x for x in [0...length] by 1)
 
@@ -139,6 +186,8 @@ hx.isArray = (x) -> x instanceof Array
 hx.isObject = (obj) -> typeof obj is 'object' and not hx.isArray(obj) and obj isnt null
 
 hx.isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
+
+hx.isNumber = (x) -> typeof x is 'number' or x instanceof Number
 
 # Not plain objects:
 # - Anything created with new (or equivalent)
@@ -267,7 +316,7 @@ vendorPrefixes = ["webkit", "ms", "moz", "Moz", "o", "O"]
 hx.vendor = (obj, prop) ->
   if prop of obj then return obj[prop]
   for p in vendorPrefixes
-    if (prefixedProp = p + prop.charAt(0) + prop.slice(1)) of obj
+    if (prefixedProp = p + prop.charAt(0).toUpperCase() + prop.slice(1)) of obj
       return obj[prefixedProp]
 
 hx.identity = (d) -> d

@@ -1,3 +1,13 @@
+hx.userFacingText({
+  preferences: {
+    locale: 'Locale',
+    preferences: 'Preferences',
+    preferencesSaved: 'Preferences Saved',
+    save: 'Save',
+    timezone: 'Timezone'
+  }
+})
+
 localeList = [
   {value:"af", full:"Afrikaans"}
   {value:"sq", full:"Albanian"}
@@ -133,6 +143,14 @@ LocalStoragePreferencesStore = {
 
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
+zeroPad = hx.format.zeroPad(2)
+defaultTimezoneLookup = (offset) ->
+  modifier = if offset > 0 then '-' else '+'
+  absOffset = Math.abs(offset)
+  minutes = absOffset % 60
+  hours = (absOffset - minutes) / 60
+  "UTC#{modifier}#{zeroPad(hours)}:#{zeroPad(minutes)}"
+
 class Preferences extends hx.EventEmitter
   constructor: ->
     super
@@ -159,7 +177,7 @@ class Preferences extends hx.EventEmitter
       }).on 'change', (item) -> locale = item.value
 
       localeSection = hx.detached('div')
-        .add(hx.detached('label').text('Locale'))
+        .add(hx.detached('label').text(hx.userFacingText('preferences','locale')))
         .add(localeAutocompleteElement)
 
       # Timezone Stuff
@@ -172,12 +190,12 @@ class Preferences extends hx.EventEmitter
       }).on 'change', (value) -> timezone = value
 
       timezoneSection = hx.detached('div')
-        .add(hx.detached('label').text('Time Zone'))
+        .add(hx.detached('label').text(hx.userFacingText('preferences','timezone')))
         .add(timezoneAutocompleteElement)
 
       saveButton = hx.detached('button').class('hx-btn hx-positive')
         .add(hx.detached('i').class('hx-icon hx-icon-check'))
-        .add(hx.detached('span').text(' Save'))
+        .add(hx.detached('span').text(' ' + hx.userFacingText('preferences','save')))
         .on 'click', =>
           @locale(locale)
           @timezone(timezone)
@@ -185,7 +203,7 @@ class Preferences extends hx.EventEmitter
             if err
               hx.notify.negative(err)
             else
-              hx.notify.positive("Preferences Saved")
+              hx.notify.positive(hx.userFacingText('preferences','preferencesSaved'))
               modal.hide()
 
       hx.select(element)
@@ -194,7 +212,7 @@ class Preferences extends hx.EventEmitter
         .add(timezoneSection)
         .add(saveButton)
 
-    modal = new hx.Modal('Preferences', setupModal)
+    modal = new hx.Modal(hx.userFacingText('preferences','preferences'), setupModal)
 
     @_ = {
       backingStore: LocalStoragePreferencesStore
@@ -207,7 +225,8 @@ class Preferences extends hx.EventEmitter
       modal: modal
     }
 
-    defaultLocaleId = moment?.locale() or navigator.language
+    defaultLocaleId = navigator.languages?[0] or navigator.language
+
     if not (hx.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
     @locale defaultLocaleId
@@ -215,11 +234,11 @@ class Preferences extends hx.EventEmitter
     guessedMomentTimezone = moment?.tz?.guess()
     if guessedMomentTimezone?
       @supportedTimezones moment.tz.names()
-      @timezoneOffsetLookup (timezone, datestamp) ->
+      @timezoneOffsetLookup (timezone, timestamp) ->
         -(moment.tz.zone(timezone).offset(timestamp) / 60)
       @timezone guessedMomentTimezone
     else
-      @timezone 'UTC+00:00'
+      @timezone defaultTimezoneLookup((new Date()).getTimezoneOffset())
 
   timezone: (timezone) ->
     if arguments.length > 0
@@ -240,6 +259,10 @@ class Preferences extends hx.EventEmitter
       if hx.isString(locale) and (localeObject = lookupLocale(locale))
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
+
+          # moment doesn't look up the 'default' locale so we set it here
+          # Moment issue: https://github.com/moment/moment/issues/2621
+          moment?.locale(localeObject.value)
           @emit('localechange', localeObject.value)
       else
         hx.consoleWarning('preferences.locale',
@@ -260,7 +283,6 @@ class Preferences extends hx.EventEmitter
   supportedLocales: option 'supportedLocales'
   supportedTimezones: option 'supportedTimezones'
   timezoneOffsetLookup: option 'timezoneOffsetLookup'
-
 
   applyTimezoneOffset: (date, offset) ->
     offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
@@ -298,3 +320,7 @@ class Preferences extends hx.EventEmitter
 
 hx.preferences = new Preferences
 hx.preferences.localStorageStore = LocalStoragePreferencesStore
+
+hx._.preferences = {
+  defaultTimezoneLookup: defaultTimezoneLookup
+}

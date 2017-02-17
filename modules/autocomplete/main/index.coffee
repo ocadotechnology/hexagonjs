@@ -1,3 +1,20 @@
+hx.userFacingText({
+  autoComplete: {
+    loading: 'Loading...',
+    noResultsFound: 'No results found',
+    otherResults: 'Other Results',
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+  }
+})
+
+
+sortActive = (items) ->
+  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  active = groupedActive.get(true) || []
+  inactive = groupedActive.get(false) || []
+  { active, inactive }
+
+
 # Force match is used when closing the dd and options.mustMatch is true
 # It checks if the term is exactly a term in the data and should only
 # be called when the menu is hidden.
@@ -37,7 +54,7 @@ findTerm = (term, forceMatch) ->
     else [{unselectable:true, text:self.options.noResultsMessage}]
 
     # find values that are in the original data but not in the filtered data
-    heading = [{unselectable:true, heading: true, text: self.options.otherResultsMessage}]
+    heading = {unselectable:true, heading: true, text: self.options.otherResultsMessage}
 
     remainingResults =
       if filteredData.length is 0 then allData
@@ -54,15 +71,8 @@ findTerm = (term, forceMatch) ->
             data = data.sort hx.sort.compare
         data
 
-
-    remainingResults = heading.concat(
-      remainingResults.sort (a, b) ->
-        if not a.disabled and b.disabled then -1
-        else if a.disabled and not b.disabled then 1
-        else hx.sort.compare(a.full, b.full)
-    )
-
-    filteredData = matches.concat remainingResults
+    { active, inactive } = sortActive(remainingResults)
+    filteredData = [matches..., heading, active..., inactive...]
   filteredData
 
 
@@ -120,9 +130,9 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
 
     trimAndReload = false
     if not filteredData?
-      message.text = 'Loading...'
+      message.text = @options.loadingMessage
     else if searchTerm.length < @options.minLength
-      message.text = "Please enter #{@options.minLength} or more characters"
+      message.text = @options.pleaseEnterMinCharactersMessage.replace('$minLength', @options.minLength)
     else if (searchTerm.length > 0 or @options.showAll) and filteredData.length is 0
       if @options.trimTrailingSpaces and _.input.value().lastIndexOf(' ') is _.input.value().length - 1
         trimAndReload = true
@@ -198,8 +208,11 @@ class AutoComplete extends hx.EventEmitter
         filterOptions: undefined
         showOtherResults: false
         allowTabCompletion: true
-        noResultsMessage: 'No results found'
-        otherResultsMessage: 'Other Results'
+
+        loadingMessage: hx.userFacingText('autoComplete', 'loading')
+        noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
+        otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults')
+        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
       }, @options
 
       if @options.inputMap?
@@ -209,13 +222,10 @@ class AutoComplete extends hx.EventEmitter
 
       @options.filterOptions = hx.merge {}, _filterOpts, @options.filterOptions
 
-      @options.filter ?= (arr, term) ->
-        hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
-          .sort (a, b) ->
-            if not a.disabled and b.disabled then -1
-            else if a.disabled and not b.disabled then 1
-            else hx.sort.compare(a, b)
-
+      @options.filter ?= (arr, term) =>
+        filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
+        { active, inactive } = sortActive(filtered)
+        [active..., inactive...]
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?
@@ -353,7 +363,6 @@ class AutoComplete extends hx.EventEmitter
       _.input = input
 
 
-    this
 
   clearCache: ->
     @_.data = new hx.Map()

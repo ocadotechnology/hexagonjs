@@ -1,4 +1,5 @@
 describe "Util", ->
+  clockTime = (new Date(2013, 0, 1)).getTime()
 
   it "transpose: inverts a 2D array", ->
     array = [
@@ -85,6 +86,38 @@ describe "Util", ->
     hx.supports('touch').should.equal(hx.supports('touch'))
     hx.supports('date').should.equal(hx.supports('date'))
 
+  it 'identity: should return what it is passed', ->
+    a = {}
+    hx.identity(a).should.equal(a)
+    hx.identity(true).should.equal(true)
+    hx.identity('').should.equal('')
+    should.not.exist(hx.identity(undefined))
+
+  it 'debounce: should prevent a function being called multiple times in quick succession', ->
+    clock = sinon.useFakeTimers(clockTime)
+    fn = chai.spy()
+    debounce = hx.debounce(100, fn)
+    fn.should.not.have.been.called()
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(50)
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(50)
+    debounce()
+    fn.should.not.have.been.called()
+    clock.tick(101)
+    fn.should.have.been.called()
+
+  it 'debounce: shold pass through arguments', ->
+    clock = sinon.useFakeTimers(clockTime)
+    fn = chai.spy()
+    debounce = hx.debounce(100, fn)
+    fn.should.not.have.been.called()
+    debounce('bob')
+    clock.tick(101)
+    fn.should.have.been.called.with('bob')
+
   it 'deprecatedWarning', ->
     warn = chai.spy.on(console, 'warn')
     trace = chai.spy.on(console, 'trace')
@@ -134,28 +167,52 @@ describe "Util", ->
     hx.min([]).should.equal(Infinity)
     hx.min([1, 5, 2]).should.equal(1)
     hx.min([undefined, 5, 2]).should.equal(2)
+    hx.min([1, undefined, 5, 2]).should.equal(1)
 
   it 'minBy: should work', ->
     should.not.exist(hx.minBy())
     should.not.exist(hx.minBy([]))
+    should.not.exist(hx.minBy([undefined, undefined, undefined]))
     hx.minBy([1, 2, 3, 4]).should.equal(1)
     hx.minBy([1, undefined, 3, 4]).should.equal(1)
     hx.minBy([5, 2, 3, 4]).should.equal(2)
-    hx.minBy([1, 5, undefined, 3, 4], (d) -> -d).should.equal(5)
+    hx.minBy([5, 2, 3, 4, 1], (d) -> d).should.equal(1)
+    hx.minBy([1, 5, undefined, 3, 4], (d) -> if d is undefined then undefined else -d).should.equal(5)
+    hx.minBy([undefined, 1, 5, 3, 4], (d) -> if d is undefined then undefined else -d).should.equal(5)
+
+  it 'argmin: should return the index of the smallest defined value', ->
+    hx.argmin([1, 4, -5, 9]).should.equal(2)
+    hx.argmin([undefined, -5, 9]).should.equal(1)
+    hx.argmin([1, undefined, -5, 9]).should.equal(2)
+    should.not.exist(hx.argmin([undefined, undefined]))
+    should.not.exist(hx.argmin([]))
+    should.not.exist(hx.argmin())
 
   it 'max: should work', ->
     hx.max().should.equal(-Infinity)
     hx.max([]).should.equal(-Infinity)
     hx.max([1, 5, 2]).should.equal(5)
     hx.max([undefined, 5, 2]).should.equal(5)
+    hx.max([1, undefined, 5, 2]).should.equal(5)
 
   it 'maxBy: should work', ->
     should.not.exist(hx.maxBy())
     should.not.exist(hx.maxBy([]))
+    should.not.exist(hx.maxBy([undefined, undefined, undefined]))
     hx.maxBy([1, 2, 3, 4]).should.equal(4)
     hx.maxBy([1, undefined, 3, 4]).should.equal(4)
     hx.maxBy([1, 5, 3, 4]).should.equal(5)
-    hx.maxBy([5, 1, undefined, 5, 4], (d) -> -d).should.equal(1)
+    hx.maxBy([5, 2, 3, 4, 1], (d) -> -d).should.equal(1)
+    hx.maxBy([5, 1, undefined, 5, 4], (d) -> if d is undefined then undefined else -d).should.equal(1)
+    hx.maxBy([undefined, 5, 1, 5, 4], (d) -> if d is undefined then undefined else -d).should.equal(1)
+
+  it 'argmax: should return the index of the largest defined value', ->
+    hx.argmax([1, 4, -5, 9]).should.equal(3)
+    hx.argmax([undefined, -5, 9]).should.equal(2)
+    hx.argmax([1, undefined, -5, 9]).should.equal(3)
+    should.not.exist(hx.argmax([undefined, undefined]))
+    should.not.exist(hx.argmax([]))
+    should.not.exist(hx.argmax())
 
   it 'range should work', ->
     hx.range(10).should.eql([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -302,6 +359,23 @@ describe "Util", ->
     hx.isPlainObject([]).should.equal(false)
     hx.isPlainObject(null).should.equal(false)
     hx.isPlainObject(undefined).should.equal(false)
+
+  it 'isNumber: should work', ->
+    class A
+      constructor: ->
+
+    hx.isNumber(new A).should.equal(false)
+    hx.isNumber({}).should.equal(false)
+    hx.isNumber(document.createElement('div')).should.equal(false)
+    hx.isNumber(window).should.equal(false)
+    hx.isNumber(->).should.equal(false)
+    hx.isNumber("").should.equal(false)
+    hx.isNumber(123).should.equal(true)
+    hx.isNumber(NaN).should.equal(true)
+    hx.isNumber(/a/).should.equal(false)
+    hx.isNumber([]).should.equal(false)
+    hx.isNumber(undefined).should.equal(false)
+    hx.isNumber(null).should.equal(false)
 
   describe 'merge', ->
 
@@ -485,6 +559,19 @@ describe "Util", ->
     hx.clone(s).entries().should.eql(s.entries())
     hx.clone(m).entries().should.eql(m.entries())
 
+
+  it 'vendor: should find the property if it exists', ->
+    obj = {
+      prop: 'something'
+    }
+    hx.vendor(obj, 'prop').should.equal('something')
+
+
+  it 'vendor: should find a prefixed property if it exists', ->
+    obj = {
+      webkitProp: 'webkit'
+    }
+    hx.vendor(obj, 'prop').should.equal('webkit')
 
 
   it 'cleanNode: should remove all whitespace nodes', ->

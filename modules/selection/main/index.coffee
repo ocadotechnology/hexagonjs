@@ -30,18 +30,21 @@ selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, s
 selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
 
 shallowSelectSingle = (selector, node) ->
-  matchFn = getMatches(node)
-  for child in node.children
-    if matchFn.call(child, selector)
-      return child
+  if node.children?.length
+    matchFn = getMatches(node)
+    for child in node.children
+      if matchFn.call(child, selector)
+        return child
 
 shallowSelectAll = (selector, node) ->
-  matchFn = getMatches(node)
-  matchingNodes = []
-  for child in node.children
-    if matchFn.call(child, selector)
-      matchingNodes.push child
-  matchingNodes
+  if node.children?.length
+    matchFn = getMatches(node)
+    matchingNodes = []
+    for child in node.children
+      if matchFn.call(child, selector)
+        matchingNodes.push child
+    matchingNodes
+  else []
 
 
 getHexagonElementDataObject = (element, createIfNotExists = true) ->
@@ -381,7 +384,7 @@ class Selection
 
       data.listenerNamesRegistered ?= new hx.Set
 
-      if not data.listenerNamesRegistered.has(name)
+      if name.indexOf('pointer') isnt 0 and not data.listenerNamesRegistered.has(name)
         handler = (e) -> eventEmitter.emit(name, e)
         data.listenerNamesRegistered.add(name)
         getMethod(node, 'addEventListener').call(node, name, handler)
@@ -483,11 +486,6 @@ select = (selector, isArray) ->
 # expose
 hx.select = (selector) ->
   if selector instanceof Selection
-    hx.consoleWarning(
-      'hx.select was passed a selection',
-      'Calling hx.select on a selection returns the same selection',
-      selector
-    )
     selector
   else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or hx.isString(selector) or selector is document or selector is window)
     hx.consoleWarning(

@@ -1,4 +1,11 @@
 describe 'hx-preferences', ->
+  it 'should have user facing text defined', ->
+    hx.userFacingText('preferences', 'locale').should.equal('Locale')
+    hx.userFacingText('preferences', 'preferences').should.equal('Preferences')
+    hx.userFacingText('preferences', 'preferencesSaved').should.equal('Preferences Saved')
+    hx.userFacingText('preferences', 'save').should.equal('Save')
+    hx.userFacingText('preferences', 'timezone').should.equal('Timezone')
+
   describe 'api', ->
     it 'supportedLocales: setter/getter', ->
       list = ["uz", "vi", "cy"]
@@ -68,3 +75,13 @@ describe 'hx-preferences', ->
         spy = chai.spy.on(hx, 'consoleWarning')
         hx.preferences.timezone('America').should.equal(hx.preferences)
         spy.should.have.been.called()
+
+    describe 'defaultTimezoneLookup', ->
+      it 'should get the correct string timezone', ->
+        hx._.preferences.defaultTimezoneLookup(1).should.equal('UTC-00:01')
+        hx._.preferences.defaultTimezoneLookup(2).should.equal('UTC-00:02')
+        hx._.preferences.defaultTimezoneLookup(0).should.equal('UTC+00:00')
+        hx._.preferences.defaultTimezoneLookup(-1).should.equal('UTC+00:01')
+        hx._.preferences.defaultTimezoneLookup(-2).should.equal('UTC+00:02')
+        hx._.preferences.defaultTimezoneLookup(10).should.equal('UTC-00:10')
+        hx._.preferences.defaultTimezoneLookup(-100).should.equal('UTC+01:40')

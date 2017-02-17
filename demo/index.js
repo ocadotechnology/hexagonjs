@@ -30,7 +30,7 @@ var types = [
 var contexts = []
 var notices = []
 
-contextNames.forEach(function (ctx) {
+window.contextNames.forEach(function (ctx) {
   contexts.push({
     text: 'context ' + ctx,
     value: 'hx-background-' + ctx
@@ -40,7 +40,6 @@ contextNames.forEach(function (ctx) {
     value: 'hx-notice hx-' + ctx,
     contentClass: 'hx-notice-body'
   })
-
 })
 
 new hx.Picker('#viewMenu', {

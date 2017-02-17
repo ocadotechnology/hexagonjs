@@ -78,13 +78,13 @@ body.hx-titlebar-link-padding {
 .hx-titlebar-link {
   color: $link-text-col;
 
+  &.hx-selected {
+    border-bottom-color: $link-border-selected-col;
+  }
+
   &:hover {
     border-bottom-color: $link-border-hover-col;
     color: $link-text-hover-col;
-  }
-
-  &.hx-selected {
-    border-bottom-color: $link-border-selected-col;
   }
 }
 

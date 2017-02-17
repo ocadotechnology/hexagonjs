@@ -191,9 +191,29 @@
       <div class="hx-section exampleSection">
         <div class="example">
           <h3>Autocomplete</h3>
-          <input id="autocomplete"></input>
+          <input id="autocomplete"/>
+          <input id="autocomplete-async"/>
+          <input id="autocomplete-numbers"/>
           <script>
             new hx.AutoComplete('#autocomplete', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
+            new hx.AutoComplete('#autocomplete-async', function (term, callback) {
+              setTimeout(function () {
+                callback(['Bob', 'Kate', 'Steve', 'Ganesh', 'Lazlo'])
+              }, 1000)
+            })
+            const itemsObjects = hx.range(100).map((i) => ({id: i, disabled: (i % 2 == 0)})).reverse()
+            const ac = new hx.AutoComplete('#autocomplete-numbers', itemsObjects, { inputMap: (i) => i.id, showOtherResults: true })
+            console.log(ac._.menu.items().map(({id}) => id))
+          </script>
+        </div>
+      </div>
+
+      <div class="hx-section exampleSection">
+        <div class="example">
+          <h3>Autocomplete Picker</h3>
+          <div id="autocomplete-picker"></div>
+          <script>
+            new hx.AutocompletePicker('#autocomplete-picker', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
           </script>
         </div>
       </div>
@@ -253,10 +273,19 @@
           <button id="dropdownClick" class="hx-btn">Click Dropdown</button>
           <button id="dropdownHover" class="hx-btn">Hover Dropdown</button>
           <script>
-            function ddContent (element) {
-              hx.select(element).append('div').style('padding', '1em').text('Dropdown Content')
+            function ddContent (text) {
+              return function (element) {
+                sel = hx.select(element)
+                sel.clear()
+                sel.append('div').style('padding', '1em').text(text)
+              }
             }
-            new hx.Dropdown('#dropdownClick', ddContent)
+            var dropDown = new hx.Dropdown('#dropdownClick', ddContent('Bob'))
+            dropDown.on('showend', function () {
+              setTimeout(function () {
+                dropDown.dropdownContent(ddContent('Kate'))
+              }, 500)
+            })
             new hx.Dropdown('#dropdownHover', ddContent, {mode: 'hover'})
           </script>
         </div>
@@ -310,9 +339,9 @@
 
       <!-- tabs -->
       <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Tabs</h3>
-          <div id="tabs" class="hx-tabs">
+        <div class="example" class="hx-group hx-vertical">
+          <h3 class="hx-section">Tabs</h3>
+          <div id="tabs" class="hx-section hx-tabs">
             <div class="hx-tab" data-content="tab-content-1">Tab 1</div>
             <div class="hx-tab hx-action" data-content="tab-content-2">Tab 2</div>
             <div class="hx-tab hx-positive" data-content="tab-content-3">Tab 3</div>
@@ -333,7 +362,62 @@
             </div>
           </div>
           <script>
-            new hx.Tabs('#tabs')
+            var tabs = new hx.Tabs('#tabs')
+          </script>
+          <br>
+          <h3 class="hx-section">Fluid Tabs</h3>
+          <div class="hx-section" id="tabs-fluid"></div>
+          <script>
+            function tabsTitleRenderer(node, value) {
+              hx.select(node).text('Tab ' + value)
+            }
+
+            function tabsContentRenderer(node, value) {
+              hx.select(node)
+                .style('padding', '1em')
+                .add(hx.detached('span').text(value.name))
+                .add(hx.label().text(value.town))
+            }
+
+            var tabItems = [
+              {
+                title: 1,
+                context: 'action',
+                content: {
+                  town: 'Wheathampstead',
+                  name: 'Bob'
+                }
+              }, {
+                title: 2,
+                context: 'negative',
+                content: {
+                  town: 'Welwyn',
+                  name: 'Kate'
+                }
+              }, {
+                title: 3,
+                context: 'positive',
+                content: {
+                  town: 'Digswell',
+                  name: 'Ganesh'
+                }
+              }, {
+                title: 4,
+                content: {
+                  town: 'Essendon',
+                  name: 'Lazlo'
+                }
+              }
+            ]
+
+            var tabs = hx.tabs({
+              items: tabItems,
+              titleRenderer: tabsTitleRenderer,
+              contentRenderer: tabsContentRenderer
+            })
+
+            hx.select('#tabs-fluid')
+              .add(tabs)
           </script>
         </div>
       </div>
@@ -373,6 +457,18 @@
                 return (value.length !== 'default' ? 'hx-' + value : '')
               },
               items: ['default', 'action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
+            })
+          </script>
+        </div>
+      </div>
+
+      <div class="hx-section exampleSection">
+        <div class="example">
+          <h3>Autocompleted Tag Input</h3>
+          <div id="autocomplete-tag-input"></div>
+          <script>
+            new hx.TagInput('#autocomplete-tag-input', {
+              autocompleteData: ['Jane', 'Bob', 'Dan', 'Steve', 'Alejandro']
             })
           </script>
         </div>
@@ -672,16 +768,18 @@
       <div class="hx-section exampleSection">
         <div class="example">
           <h3>Number Pickers</h3>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
-          <div class="numberPicker"></div>
+          <div id="numberPickers">
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+            <div class="numberPicker"></div>
+          </div>
           <script>
-            hx.selectAll('.numberPicker').nodes.forEach(function (node, index) {
+            hx.select('#numberPickers').selectAll('.numberPicker').nodes.forEach(function (node, index) {
               new hx.NumberPicker(node, {
                 buttonClass: (contextNames[index - 1] ? 'hx-' + contextNames[index - 1] : '')
               }).value(0)
@@ -794,25 +892,70 @@
               pageSize: 2,
               feed: hx.dataTable.objectFeed({
                 headers: [
-                  { name: 'Name', id: 'name', groups: ['Child Group 1', 'Parent Group'] },
-                  { name: 'Age', id: 'age', groups: ['Child Group 1', 'Parent Group'] },
-                  { name: 'Profession', id: 'profession', groups: ['Child Group 2', 'Parent Group'] }
+                    {name: 'Name', id: 'name', groups: ['Child Group 1', 'Parent Group']},
+                    {name: 'Age', id: 'age', groups: ['Child Group 1', 'Parent Group']},
+                    {name: 'Profession', id: 'profession', groups: ['Child Group 2', 'Parent Group']}
                 ],
                 rows: [
                   {
                     id: 0, // hidden details can go here (not in the cells object)
-                    cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+                    cells: {'name': 'Bob', 'age': 25, 'profession': 'Developer'}
                   },
                   {
                     id: 1,
-                    cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
+                    cells: {'name': 'Jan', 'age': 41, 'profession': 'Artist'}
                   },
                   {
                     id: 2,
-                    cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
+                    cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder'}
                   }
                 ]
               })
+            }).render()
+          </script>
+        </div>
+      </div>
+
+      <!-- grouped header data table -->
+      <div class="hx-section exampleSection">
+        <div class="example">
+          <h3>Lazy Data Table</h3>
+          <div id="lazy-data-table"></div>
+          <script>
+            var finalSize = undefined
+            new hx.DataTable('#lazy-data-table', {
+              compact: false,
+              pageSizeOptions: [1, 2, 3, 10, 50],
+              pageSize: 2,
+              feed: {
+                headers: function (cb) {
+                  cb([
+                    { name: 'Name', id: 'name', groups: ['Child Group 1', 'Parent Group'] },
+                    { name: 'Age', id: 'age', groups: ['Child Group 1', 'Parent Group'] },
+                    { name: 'Profession', id: 'profession', groups: ['Child Group 2', 'Parent Group'] }
+                  ])
+                },
+                rows: function (range, cb) {
+                  cb({
+                    rows: [
+                      {
+                        id: 0, // hidden details can go here (not in the cells object)
+                        cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+                      },
+                      {
+                        id: 1,
+                        cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
+                      },
+                      {
+                        id: 2,
+                        cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
+                      }
+                    ].slice(range.start, range.end + 1),
+                    filteredCount: (finalSize !== undefined || range.end >= 2) ? finalSize = 3 : undefined
+                  })
+                },
+                totalCount: function (cb) { cb(undefined) }
+              }
             }).render()
           </script>
         </div>
@@ -1354,6 +1497,7 @@
         <div class="example">
           <h3>Plot (Graphs)</h3>
           <div id="graph" class="hx-margin"></div>
+          <div id="pie" class="hx-margin"></div>
           <script>
 
             var randomSign = function(){
@@ -1396,7 +1540,23 @@
               }
             }]
 
-            new hx.select('#graph').add(hx.graph({axes: axes}).classed('graph-example', true))
+            hx.select('#graph').add(hx.graph({axes: axes, legendEnabled: true}).classed('graph-example', true))
+
+            var data = {
+              title: "Hi",
+              segments: hx.range(6).map(function (i) {
+                return {
+                  name: "Segment " + i,
+                  size: i + 1,
+                  fillColor: hx.cycle(hx.theme.plot.colors, i)
+                }
+              })
+            }
+            hx.select('#pie').style('height', '100px').add(
+              hx.pieChart({legendEnabled: true, data: data}).style('width', '100%').style('height', '100%')
+            )
+
+
           </script>
         </div>
       </div>

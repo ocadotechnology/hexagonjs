@@ -121,3 +121,66 @@ describe 'hx-view', ->
     spy.should.have.been.called.with(3, 2)
     spy.should.have.been.called.with(4, 3)
     hx.consoleWarning.should.not.have.been.called()
+
+  it 'should only select direct children', ->
+    selection = hx.detached('div')
+
+    view = selection.view('div')
+      .enter(-> @append('div').add(hx.detached('span')).add(hx.detached('div')).node())
+      .update((d, e) -> hx.select(e).select('span').text(d))
+
+    view.apply(['a','b','c'])
+    selection.selectAll('div').text().should.eql(['a','','b','','c',''])
+    view.apply(['a','b','c'])
+    selection.selectAll('div').text().should.eql(['a','','b','','c',''])
+
+
+
+  it 'should allow recursive nesting', ->
+    selection = hx.detached('div')
+
+    viewEnter = ->
+      children = hx.detached('div')
+      text = hx.detached('span')
+
+      view = children.view('.child')
+        .enter(viewEnter)
+        .update(viewUpdate)
+
+      sel = hx.detached('div').class('child')
+        .add(text)
+        .add(children)
+
+      sel.api({
+        update: (item) ->
+          text.text(item.text)
+          view.apply(item.children || [])
+      })
+
+      this.append(sel).node()
+
+    viewUpdate = (item, elem) ->
+      hx.select(elem).api().update(item)
+
+    view = selection.view('.child')
+      .enter(viewEnter)
+      .update(viewUpdate)
+
+    items = [
+      {
+        text: 'Item 1',
+        children: [
+          {
+            text: 'Replaced with item 2 on second call'
+          }
+        ]
+      },
+      {
+        text: 'Item 2'
+      }
+    ]
+
+    view.apply(items)
+    selection.shallowSelectAll('.child').select('span').text().should.eql(['Item 1', 'Item 2'])
+    view.apply(items)
+    selection.shallowSelectAll('.child').select('span').text().should.eql(['Item 1', 'Item 2'])

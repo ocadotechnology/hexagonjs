@@ -1,3 +1,19 @@
+hx.userFacingText({
+  tagInput: {
+    placeholder: 'add tag...'
+  }
+})
+
+createFilteredData = (filterFn, data) ->
+  if hx.isFunction data
+    (term, callback) ->
+      data term, (result) ->
+        callback result.filter filterFn
+  else if hx.isArray data
+    (term, callback) -> callback data.filter filterFn
+  else
+    data
+
 class TagInput extends hx.EventEmitter
 
   constructor: (@selector, options) ->
@@ -10,7 +26,15 @@ class TagInput extends hx.EventEmitter
       validator: undefined
       draggable: true
       items: []
+      placeholder: hx.userFacingText('tagInput', 'placeholder')
+      autocompleteData: undefined
+      autocompleteOptions: {}
+      excludeTags: true
+      mustMatchAutocomplete: true
     }, options
+
+    if @options.mustMatchAutocomplete
+      @options.autocompleteOptions.mustMatch = true
 
     hx.component.register(@selector, this)
 
@@ -20,29 +44,59 @@ class TagInput extends hx.EventEmitter
     if @options.draggable
       _.dragContainer = new hx.DragContainer(@tagContainer.node())
 
-    @form = @selection.append('form')
-    @input = @form.append('input').attr('placeholder', 'add tag...')
+    isInsideForm = not @selection.closest('form').empty()
+
+    inputContainer = @selection.append(if isInsideForm then 'div' else 'form')
+      .class('hx-tag-input-container')
+
+    validationForm = if isInsideForm
+      @selection.closest('.hx-form')
+    else
+      inputContainer
+
+    @input = inputContainer.append('input').attr('placeholder', @options.placeholder)
+    if @options.autocompleteData?
+      isValid = if @options.validator? then (item) => not @options.validator(item) else hx.identity
+      filterFn = if @options.excludeTags then (item) => isValid(item) and not ~@items().indexOf(item.toString()) else isValid
+      acData = createFilteredData filterFn, @options.autocompleteData
+
+      @_.autocomplete = new hx.AutoComplete(@input.node(), acData, @options.autocompleteOptions)
+      @_.autocomplete.on 'change', 'hx.taginput', (value) =>  # add the item to the tag list on first enter/tab
+        @add value
+        setTimeout (=> @_.autocomplete.show()), 0
 
     backspacedown = false
 
     hasError = =>
       name = @input.value()
-      if name is ''
-        @input.node().setCustomValidity('')
-        false
-      else if @options.validator
+      @input.node().setCustomValidity('')
+      validateForm(true)
+      if name isnt '' and @options.validator
         error = @options.validator(name) or ''
         @input.node().setCustomValidity(error)
         error.length > 0
+      else
+        false
 
-    @form.on 'keypress', 'hx.tag-input', (event) =>
+    validateForm = (clear) =>
+      if isInsideForm
+        if clear
+          validationForm.selectAll('.hx-form-error').remove()
+        else
+          hx.validateForm(validationForm.node()).valid
+      else
+        validationForm.node().checkValidity()
+
+    @input.on 'keypress', 'hx.tag-input', (event) =>
       if event.keyCode is 13
-        if @form.node().checkValidity()
+        validateForm()
+        if @input.node().checkValidity()
           event.preventDefault()
-          name = @input.value()
-          if name
-            _.userEvent = true
-            @add(name, undefined)
+          if not @_.autocomplete
+            name = @input.value()
+            if name
+              _.userEvent = true
+              @add name
 
     @input.on 'input', 'hx.tag-input', hasError
 
@@ -50,13 +104,16 @@ class TagInput extends hx.EventEmitter
       if ((event.keyCode or event.charCode) is 8) and not backspacedown
         backspacedown = true
         @input.node().setCustomValidity('')
+        validateForm(true)
 
         if @input.value() is ''
           selection = @tagContainer.selectAll('.hx-tag')
           if selection.size() > 0
+            @_.autocomplete?.hide()
             nodeSelection = hx.select(selection.node(selection.size()-1))
             value = nodeSelection.text()
             nodeSelection.remove()
+            @_.autocomplete?.show()
             @emit 'remove', {value: value, type: 'user'}
 
     @input.on 'keyup', 'hx.tag-input', (event) ->
@@ -64,12 +121,13 @@ class TagInput extends hx.EventEmitter
         backspacedown = false
         true
 
-    @input.on 'blur', 'hx.tag-input', (event) =>
-      if @input.value().length > 0 and not hasError()
-        @add(@input.value(), undefined)
+    if not @_.autocomplete
+      @input.on 'blur', 'hx.tag-input', (event) =>
+        if @input.value().length > 0 and not hasError()
+          @add(@input.value(), undefined)
 
     @input.on 'focus', 'hx.tag-input', (event) =>
-      if hasError() then @form.node().checkValidity()
+      if not isInsideForm and hasError() then validateForm()
 
     if @options.disabled then @disabled(@options.disabled)
     if @options.items then @items(@options.items)
@@ -109,8 +167,14 @@ class TagInput extends hx.EventEmitter
   add: (name, cssclass) ->
     if hx.isArray(name)
       addTag(this, n, cssclass) for n in name
-    else
+    else if name
       addTag(this, name, cssclass)
+    else
+      hx.consoleWarning(
+        'TagInput.add was passed the wrong argument type',
+        'TagInput.add accepts an array or string argument, you supplied:',
+        name
+      )
     @input.value('')
     if @options.draggable then @_.dragContainer.setup()
     this
@@ -137,7 +201,14 @@ class TagInput extends hx.EventEmitter
   items: (items, cssclass) ->
     if arguments.length > 0
       @remove()
-      @add(items, cssclass)
+      if hx.isArray(items)
+        @add(items, cssclass)
+      else if items
+        hx.consoleWarning(
+          'TagInput.items was passed the wrong argument type',
+          'TagInput.items only accepts an array argument, you supplied:',
+          items
+        )
       this
     else
       @tagContainer.selectAll('.hx-tag').select('.hx-tag-text').text()

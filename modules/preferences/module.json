@@ -1,16 +1,15 @@
 {
   "dependencies": [
-    "selection",
+    "event-emitter",
+    "filter",
+    "form",
+    "icon",
     "modal",
     "notify",
-    "filter",
+    "selection",
     "sort",
-    "form",
+    "user-facing-text",
     "util",
-    "event-emitter",
-    "icon"
-  ],
-  "keywords": [
-    "preferences"
+    "format"
   ]
 }

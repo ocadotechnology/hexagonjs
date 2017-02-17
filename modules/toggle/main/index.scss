@@ -6,8 +6,8 @@
     position: relative;
     margin: 2px 8px;
     padding: 0;
-    width: 26px;
-    height: 16px;
+    width: 20px;
+    height: 10px;
     color: #555;
     line-height: 0;
     text-align: center;
@@ -22,11 +22,11 @@
       content: ' ';
       position: absolute;
       display: block;
-      left: -10px;
+      left: -5px;
       top: -5px;
       margin: 3px;
-      height: 20px;
-      width: 20px;
+      height: 14px;
+      width: 14px;
       border-radius: 50%;
       border: none;
       transform: scale(1);
@@ -43,7 +43,7 @@
   }
 
   &.hx-btn > .hx-toggle-box {
-    margin-left: 1em;
+    margin-left: 0.5em;
     margin-right: 0;
   }
 }

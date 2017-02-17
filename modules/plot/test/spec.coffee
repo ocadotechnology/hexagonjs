@@ -1,4 +1,6 @@
 describe "plot", ->
+  it 'should have user facing text defined', ->
+    hx.userFacingText('plot','noData').should.equal('No Data')
 
   describe "Graph", ->
 
@@ -7,6 +9,78 @@ describe "plot", ->
       array = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}]
       array2 = [{x: 1, y1: 4, y2: 3}, {x: 2, y1: 3, y2: 4}, {x: 3, y1: 5, y2: 5}]
       array3 = [{x: 1, y: 2}, {x: 2, y: 3}, {x: 3, y: 4}, {x: 4, y: 2}]
+
+      it 'calculateYBounds: should not ignore non-auto parameters', ->
+        axis = new hx.Axis()
+        axis.calculateYBounds('auto', 'auto').should.eql { ymin: 0, ymax: 0 }
+        axis.calculateYBounds(1, 1).should.eql { ymin: 1, ymax: 1 }
+        axis.calculateYBounds(-1, 'auto').should.eql { ymin: -1, ymax: 0 }
+
+      it 'calculateYBounds: should correctly calculate y bounds when the data is sparse and the graph is stacked', ->
+        axis = new hx.Axis({
+          x: {
+            scaleType: 'discrete'
+          },
+          y: {
+            min: 0
+          },
+          series: [
+            {
+              type: 'bar',
+              options: {
+                title: 'Bob',
+                group: 'g0',
+                fillColor: hx.theme.plot.coldCol,
+                data: [{
+                  x: 'verybig',
+                  y: 10
+                }, {
+                  x: 'alwayspresesnt',
+                  y: 1
+                }]
+              }
+            },
+            {
+              type: 'bar',
+              options: {
+                title: 'Lazlo',
+                fillColor: hx.theme.plot.warmCol,
+                group: 'g0',
+                data: [{
+                  x: 'alwayspresesnt',
+                  y: 2
+                }]
+              }
+            }
+          ]
+  		})
+
+        axis.tagSeries()
+        { ymax } = axis.calculateYBounds('auto', 'auto')
+        ymax.should.eql(10)
+
+      it 'doCollisionDetection: should hide text that gets in the way of other text', ->
+        widthPx = 200
+        intendedDistance = 2
+        createSuspiciousElement = (i) ->
+          hx.detached 'div'
+            .text i
+            .style 'left', "#{i * widthPx / intendedDistance}px"
+            .style 'width', "#{widthPx}px"
+            .style 'position', 'absolute'
+            .node()
+
+        suspiciousElements = hx.range(4).map createSuspiciousElement
+        suspiciousElementsSel = hx.selectAll suspiciousElements
+
+        expectedPrevText = ['0', '1', '2', '3']
+        # Sense check
+        suspiciousElementsSel.text().should.deep.equal expectedPrevText
+        hx._.plot.doCollisionDetection suspiciousElements
+
+        expectedCurrText = expectedPrevText.map (val, i) -> if i % intendedDistance then '' else val
+        suspiciousElementsSel.text().should.deep.equal expectedCurrText
+
 
       it 'dataAverage: should return the average data point in an array', ->
         s.dataAverage(array).should.eql({x: 2, y: 3})
@@ -87,6 +161,37 @@ describe "plot", ->
       axis = graph.addAxis(new hx.Axis({x: {scaleType: 'discrete'}, y: {scaleType: 'time'}}))
       axis.x.scaleType().should.equal('discrete')
       axis.y.scaleType().should.equal('time')
+
+    it 'should not redraw on resize when told not to', ->
+      selection = hx.select('body').append('div')
+        .style 'width', '500px'
+        .style 'height', '500px'
+      graph = new hx.Graph(selection.node(), redrawOnResize: false)
+      axis = graph.addAxis(x: { title: 'foo' }, y: { title: 'bar' })
+      axis.addSeries('line', data: [{ x: 0, y: 1 }])
+      graph.render()
+
+      renderSpy = chai.spy()
+      graph.on 'render', renderSpy
+      selection.style 'width', '400px'
+      testHelpers.fakeNodeEvent(selection.node(), 'resize')()
+      renderSpy.should.not.have.been.called()
+
+    it 'should redraw on resize by default', ->
+      selection = hx.select('body').append('div')
+        .style 'width', '500px'
+        .style 'height', '500px'
+      graph = new hx.Graph(selection.node())
+      axis = graph.addAxis(x: {title: 'foo'}, y: {title: 'bar'})
+      axis.addSeries('line', data: [{x: 0, y: 1}])
+      graph.render()
+
+      renderSpy = chai.spy()
+      graph.on 'render', renderSpy
+      selection.style 'width', '400px'
+      testHelpers.fakeNodeEvent(selection.node(), 'resize')()
+      renderSpy.should.have.been.called()
+
 
   describe "hx.Axis", ->
 
@@ -319,3 +424,30 @@ describe "plot", ->
       checkSetterGetterAndOption('ringPadding', [0, 5, 10])
       checkSetterGetterAndOption('totalAngle', [0, 5, 10])
       checkSetterGetterAndOption('startAngle', [0, 5, 10])
+
+  describe 'hx.Sparkline', ->
+    it 'should use the correct default value for redrawOnResize', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node())
+      sparkLine._.graph.redrawOnResize().should.equal(true)
+      sparkLine.redrawOnResize().should.equal(true)
+
+    it 'should pass the redrawOnResize option to its Graph', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node(), redrawOnResize: false)
+      sparkLine._.graph.redrawOnResize().should.equal(false)
+      sparkLine.redrawOnResize().should.equal(false)
+      sparkLine.redrawOnResize(true)
+      sparkLine._.graph.redrawOnResize().should.equal(true)
+      sparkLine.redrawOnResize().should.equal(true)
+
+    it 'should set the min value properly', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node(), {min: 5})
+      sparkLine._.graph.axes()[0].y.min().should.equal(5)
+
+    it 'should set the max value properly', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node(), {max: 5})
+      sparkLine._.graph.axes()[0].y.max().should.equal(5)
+
+    it 'should use auto for the default min/max values', ->
+      sparkLine = new hx.Sparkline(hx.detached('div').node())
+      sparkLine._.graph.axes()[0].y.min().should.equal('auto')
+      sparkLine._.graph.axes()[0].y.max().should.equal('auto')

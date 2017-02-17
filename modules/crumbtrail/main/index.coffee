@@ -4,6 +4,9 @@ class Crumbtrail
     hx.component.register(@selector, this)
     self = this
 
+    section = hx.select(@selector)
+    section.classed('hx-crumbtrail', true)
+
     @options = hx.merge.defined {
       renderer: (node, data) ->
         hx.select(node).text(data)
@@ -17,9 +20,9 @@ class Crumbtrail
         self.options.renderer(element, d)
       else
         @class('hx-crumbtrail-separator')
-          .html(self.options.separator).node()
+          .text(self.options.separator).node()
 
-    @view = hx.select(@selector).view('span', 'span')
+    @view = section.view('span', 'span')
       .update update
 
     if @options.items? and @options.items.length > 0
@@ -34,8 +37,8 @@ class Crumbtrail
 
   items: (data) ->
     if data?
-      @options.items = hx.flatten(data.map((d) -> [d, 0])).slice(0, -1)
-      @view.apply @options.items
+      @options.items = data
+      @view.apply hx.flatten(data.map((d) -> [d, 0])).slice(0, -1)
       this
     else
       @options.items

@@ -67,7 +67,6 @@ function resolveTheme (themeResources) {
     })
 
     return theme.flatten(resolved || {})
-
   })
 }
 
