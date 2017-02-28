@@ -1,0 +1,7 @@
+@version 1.10.1
+  @api Plot
+    @prototype hx.Axis
+      @bugfix
+        @issue 370
+        @description
+          Resolved an issue where the y bounds were being calculated using the topmost series instead of looking at the values for all series.
