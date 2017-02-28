@@ -1,5 +1,5 @@
 {
-  "dependencies": [],
+  "dependencies": [ "util" ],
   "keywords": [
     "sort"
   ]

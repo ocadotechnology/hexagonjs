@@ -17,7 +17,7 @@ describe 'autocomplete', ->
   it 'should sort disabled items correctly', ->
     itemsObjects = hx.range(100).map((i) -> { id: i, disabled: i % 2 == 0 })
 
-    ac = new hx.AutoComplete(hx.detached('div').node(), itemsObjects)
+    ac = new hx.AutoComplete(hx.detached('div').node(), itemsObjects, { inputMap: ({id}) -> id })
 
     ac.show()
     ac._.menu.items().slice(0, 50).map(({id}) -> id).should.eql(hx.range(50).map (i) -> 2 * i + 1)
