@@ -258,5 +258,15 @@
         @p: Made Inline Editables allow 'empty' values.
         @p: Fixed a selection of bugs.
 
+    @version 1.11.0
+      @description
+        @p
+          Fixed an issue where running the tests in a different timezone
+           caused them to fail unexpectedly and the associated bug in the timezone
+           logic.
+        @p
+          Fixed selections so calling hx.select on a Selection no longer
+           shows a warning (and instead performs a no-op)
+
   @h2: Key
   @changelog.key

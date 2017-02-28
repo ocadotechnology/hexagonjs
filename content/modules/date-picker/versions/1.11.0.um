@@ -1,0 +1,6 @@
+@version 1.11.0
+  @api Date Picker
+    @bugfix
+      @issue 378
+      @description
+        Resolved an issue with how the timezones worked when not in UTC
