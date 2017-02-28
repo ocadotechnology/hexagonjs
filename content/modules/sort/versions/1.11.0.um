@@ -52,4 +52,5 @@
 
         @param a [String/Number]: The first item to compare
         @param b [String/Number]: The second item to compare
-        @returns Number: 1 when b should be before a, -1 when a should be before b and 0 when the terms match.
+        @returns Number
+          1 when b should be before a, -1 when a should be before b where @code[defined < null < undefined] and 0 when the terms match.
