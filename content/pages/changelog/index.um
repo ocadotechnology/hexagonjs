@@ -258,7 +258,7 @@
         @p: Made Inline Editables allow 'empty' values.
         @p: Fixed a selection of bugs.
 
-    @version 1.10.1
+    @version 1.11.0
       @description
         @p
           Fixed an issue where running the tests in a different timezone

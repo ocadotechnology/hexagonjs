@@ -1,5 +1,4 @@
-@version 1.10.1
-  @api Plot
+@version 1.11.0
     @prototype hx.Axis
       @bugfix
         @issue 370
