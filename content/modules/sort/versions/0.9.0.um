@@ -44,10 +44,11 @@
 
       @property localeCompare [Function]
         @description
-          <p>A function to return a localised sort function to use directly when calling array.sort.</p>
-          <p>It takes into account the character order of text for a specific locale and the numeric order of numbers.</p>
-          <p>Some browsers don't support the @code[locale] and @code[options] parameters.</p>
-          <p>Browser support and accepted values for the <span class="pill">locale</span> and <span class="pill">options</span> parameters can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare">localeCompare</a> page of the MDN.</p>
+          @p: A function to return a localised sort function to use directly when calling array.sort.
+          @p: It takes into account the character order of text for a specific locale and the numeric order of numbers.
+          @p: Some browsers don't support the @code(js)[locale] and @code(js)[options] parameters.
+          @p: Browser support and accepted values for the @code(js)[locale] and @code(js)[options] parameters can be found on the @hyperlink(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)[localeCompare] page of the MDN.
+
           @codeblock js
             svCompare = hx.sort.localeCompare('sv')
             array.sort(svCompare)
