@@ -1,6 +1,7 @@
 Graph = require('./graph')
 select = require('modules/selection/main')
 utils = require('modules/util/main/utils')
+theme = require('modules/theme/main')()
 
 graphutils = require('./utils')
 

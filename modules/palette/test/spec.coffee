@@ -2,8 +2,6 @@ select = require('modules/selection/main')
 utils = require('modules/util/main/utils')
 palette = require('modules/palette/main')
 chai = require('chai')
-spies = require('chai-spies')
-chai.use(spies)
 should = chai.should()
 
 describe 'Palette', ->

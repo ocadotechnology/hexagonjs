@@ -1,11 +1,9 @@
-utils = require('modules/util/main/utils')
-select = require('modules/selection/main')
+import { max } from 'modules/utils/main'
+import { select, detached } from 'modules/selection/main'
 
-#XXX [2.0.0]: this whole module can be removed
-
-#XXX [2.0.0]: remove?
+#XXX [2.0.0]: remove - not used in hexagon anymore since request.html has gone
 cachedParseHtml = null
-parseHTML = (html) ->
+export parseHTML = (html) ->
   if not cachedParseHtml
     # This try/catch is only run once, the first time parseHTML is called.
     # Subsequent calls use the cached cachedParseHtml function
@@ -23,8 +21,8 @@ parseHTML = (html) ->
         docFrag
   cachedParseHtml(html)
 
-#XXX [2.0.0]: remove
-cleanNode = (node, recurse = true) ->
+#XXX [2.0.0]: remove - its not used in hexagon and is too specialist to be exposed
+export cleanNode = (node, recurse = true) ->
   n = node.childNodes.length - 1
   while n >= 0
     child = node.childNodes[n]
@@ -37,18 +35,18 @@ cleanNode = (node, recurse = true) ->
 
 #XXX [2.0.0]: move to another module (for dom-related utils)
 cachedScrollbarSize = undefined
-scrollbarSize = ->
+export scrollbarSize = ->
   if not cachedScrollbarSize?
     inner = document.createElement('p')
     inner.style.width = '100%'
     inner.style.height = '200px'
     outer = document.createElement('div')
 
-    inner = select.detached('p')
+    inner = detached('p')
       .style('width', '100%')
       .style('height', '200px')
 
-    outer = select.detached('div')
+    outer = detached('div')
       .style('position', 'absolute')
       .style('top', '0')
       .style('left', '0')
@@ -76,18 +74,22 @@ scrollbarSize = ->
 
   cachedScrollbarSize
 
-# XXX: [2.0.0]: replace with the simpler: hx.max(selection.parents().map(s => Number(s.style('z-index').filter(x => !isNaN(x)))))
-parentZIndex = (node, findMax) ->
+# XXX: [2.0.0]: If Selection::parents is added, this doesn't need to be a special function
+# zIndexes = selection.parents()
+#  .map(s => Number(s.style('z-index'))
+#  .filter(x => !isNaN(x))
+# parentZindex = hx.max(zIndexes)
+export parentZIndex = (node, findMax) ->
   check = (node) ->
     index = Number select(node).style('z-index')
     if !isNaN(index) and index > 0 then index
 
   res = checkParents(node, check, findMax)
-
-  if findMax then utils.max(res) else res
+  
+  if findMax then max(res) else res
 
 #XXX [2.0.0]: replace with the simpler Selection::parents
-checkParents = (node, check, returnArray) ->
+export checkParents = (node, check, returnArray) ->
   if node?
     checkNode = node
     resultArr = []
@@ -102,11 +104,3 @@ checkParents = (node, check, returnArray) ->
       if returnArray and checkNode.nodeType is 9
         return resultArr
     if returnArray then [] else false
-
-module.exports = {
-  parseHTML
-  cleanNode
-  scrollbarSize
-  parentZIndex
-  checkParents
-}

@@ -1,5 +1,6 @@
+import { clamp } from 'modules/utils/main'
 
-module.exports = (alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) ->
+export calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) ->
 
   # figure out the direction the drop-down should be revealed (for the animation)
   direction = if alignments[1] is alignments[3] and alignments[0] isnt alignments[2]
@@ -20,9 +21,9 @@ module.exports = (alignments, selectionRect, dropdownRect, windowRect, ddMaxHeig
 
   # slide into view (in the appropriate direction)
   if direction is 'down' or direction is 'up'
-    x = hx.clamp(0, windowRect.width - dropdownRect.width, x)
+    x = clamp(0, windowRect.width - dropdownRect.width, x)
   else
-    y = hx.clamp(0, windowRect.height - dropdownRect.height, y)
+    y = clamp(0, windowRect.height - dropdownRect.height, y)
 
   # flip from downwards to upwards (if needed and there is the space to)
   if direction is 'down' and y > windowRect.height - dropdownRect.height and selectionRect.y - dropdownRect.height > 0

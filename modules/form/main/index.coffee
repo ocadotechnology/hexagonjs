@@ -1,6 +1,6 @@
-userFacingText = require('modules/user-facing-text/main')
-select = require('modules/selection/main')
-util = require('modules/util/main/utils')
+import { userFacingText } from 'modules/user-facing-text/main'
+import { select } from 'modules/selection/main'
+import { mergeDefined } from 'modules/utils/main'
 
 userFacingText({
   form: {
@@ -23,13 +23,13 @@ getValidationMessage = (message, type) ->
     else
       message
 
-validate = (form, options) ->
+export validateForm = (form, options) ->
   form = select(form).node()
 
   defaultOptions = {
     showMessage: true
   }
-  options = util.merge.defined(defaultOptions, options)
+  options = mergeDefined(defaultOptions, options)
 
   select(form).selectAll('.hx-form-error').remove()
 
@@ -68,8 +68,6 @@ validate = (form, options) ->
     # Show the error for the focused element (if there is one) or the first error in the form
     error = errors.filter((error) -> error.focused)[0] or errors[0]
 
-    # XXX: This structure lets us jump out of the forced table layout. If we change
-    # to match the full-width aeris forms, this will need changing.
     select(error.node.parentNode)
       .insertAfter('div')
       .class('hx-form-error')
@@ -91,10 +89,3 @@ validate = (form, options) ->
     valid: errors.length is 0,
     errors: errors
   }
-
-module.exports = {
-  validate: validate,
-  hx: {
-    validateForm: validate
-  }
-}

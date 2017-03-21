@@ -11,14 +11,14 @@ else
     else if a > b then 1
     else 0
 
-compare = (a, b) ->
+export compare = (a, b) ->
   if not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
   else collator(a, b)
 
 
 # slower than compare but enforces locale comparison for browsers that
 # dont support Intl.Collator.
-localeCompare = (locale, options) ->
+export localeCompare = (locale, options) ->
   options ?= {numeric: true}
 
   localeCollator = if hasCollator
@@ -32,7 +32,7 @@ localeCompare = (locale, options) ->
     else localeCollator(a, b)
 
 
-sortBy = (arr, f) ->
+export sortBy = (arr, f) ->
   newArr = [arr...]
   newArr.sort (left, right) ->
     fLeft = f left
@@ -40,19 +40,4 @@ sortBy = (arr, f) ->
     compare fLeft, fRight
   newArr
 
-sort = (arr) -> sortBy(arr, (x) -> x)
-sort.compare = compare
-sort.localeCompare = localeCompare
-
-module.exports = {
-  sort: sort,
-  sortBy: sortBy,
-  compare: compare,
-  localeCompare: localeCompare
-}
-
-# XXX: backwards compat
-module.exports.hx = {
-  sort: sort,
-  sortBy: sortBy
-}
+export sort = (arr) -> sortBy(arr, (x) -> x)

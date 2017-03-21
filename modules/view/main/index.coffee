@@ -1,7 +1,6 @@
-
-HMap = require('modules/map/main')
-select = require('modules/selection/main')
-util = require('modules/util/main')
+import logger from 'modules/logger/main'
+import { Map as HMap } from 'modules/map/main'
+import { select, getHexagonElementDataObject, Selection } from 'modules/selection/main'
 
 class View
   constructor: (@rootSelection, @selector, @defaultType) ->
@@ -9,8 +8,8 @@ class View
     elementType = self.selector.split('.')[0]
     classes = self.selector.split('.').slice(1).join ' '
     @new = (datum) ->
-      @append elementType or self.defaultType
-        .class classes
+      @append(elementType or self.defaultType)
+        .class(classes)
         .node()
     @each = (datum, element) ->
     @old = (datum, element) -> @remove()
@@ -34,7 +33,7 @@ class View
 
         dataByKey = new HMap data.map (datum) -> [key(datum), datum]
         for node in nodes
-          nodeData = select.getHexagonElementDataObject(node)
+          nodeData = getHexagonElementDataObject(node)
           if nodeData.datum
             d = nodeData.datum
             k = key(d)
@@ -59,11 +58,11 @@ class View
         i = 0
         for node in nodes
           if i < data.length
-            nodeData = select.getHexagonElementDataObject(node)
+            nodeData = getHexagonElementDataObject(node)
             nodeData.datum = data[i]
             updateSet.push({element: node, datum: data[i]})
           else
-            nodeData = select.getHexagonElementDataObject(node, false)
+            nodeData = getHexagonElementDataObject(node, false)
             exitSet.push({element: node, datum: nodeData.datum})
           i++
         if i < data.length
@@ -71,7 +70,7 @@ class View
             enterSet.push({datum: data[j]})
 
       viewEnterWarning = (element, selector) ->
-        util.consoleWarning("view enter function returned", element, ". It didn't match selector", selector, ", so you may encounter odd behavior")
+        logger.warn("view enter function returned", element, ". It didn't match selector", selector, ", so you may encounter odd behavior")
 
       classes = @selector.split('.')
       selectorContainsClasses = classes.length > 1
@@ -90,7 +89,7 @@ class View
           isClassedCorrectly = select(element).classed(classString)
           if not isClassedCorrectly then viewEnterWarning(element, @selector)
 
-        hedo = select.getHexagonElementDataObject(element)
+        hedo = getHexagonElementDataObject(element)
         hedo.datum = datum
         ret = {
           element: element,
@@ -103,11 +102,7 @@ class View
 
       this
 
-module.exports = {
-  hx: {
-    init: ->
-      select.Selection::view = (selector, type='div') ->
-        if @size() == 0 then util.consoleWarning('.view() called on an empty selection')
-        new View(this, selector, type)
-  }
-}
+export initView = ->
+  Selection::view = (selector, type='div') ->
+    if @size() == 0 then logger.warn('.view() called on an empty selection')
+    new View(this, selector, type)

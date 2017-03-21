@@ -1,17 +1,19 @@
 # normalisation for mouse + touch events
 
-util = require('modules/util/main')
-select = require('modules/selection/main')
+import { supports } from 'modules/utils/main'
+import { addEventAugmenter } from 'modules/selection/main'
 
-init = ->
-  addAugmentor = (name, mouseName, touchNames, node, addEventAugmenter, mouseEventFactory, touchEventFactory) ->
-    select.addEventAugmenter({
+export initPointerEvents = ->
+  addAugmentor = (name, mouseName, touchNames, node, eventEmitter, mouseEventFactory, touchEventFactory) ->
+    addEventAugmenter({
       name: name,
       setup: (node, eventEmitter) ->
         mouseHandler = (e) -> eventEmitter.emit(name, mouseEventFactory(e))
         node.addEventListener mouseName, mouseHandler
 
-        if touch = util.supports('touch')
+        touch = supports('touch')
+
+        if touch
           touchHandler = (e) -> eventEmitter.emit(name, touchEventFactory(e))
           for touchName in touchNames
             node.addEventListener touchName, touchHandler
@@ -37,9 +39,3 @@ init = ->
   addAugmentorWithoutLocation('pointerup', 'mouseup', ['touchend', 'touchcancel'])
   addAugmentorWithoutLocation('pointerleave', 'mouseleave', ['touchleave'])
   addAugmentorWithoutLocation('pointerenter', 'mouseenter', ['touchenter'])
-
-module.exports = init
-
-module.exports.hx = {
-  init: init
-}

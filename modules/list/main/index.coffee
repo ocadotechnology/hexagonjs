@@ -1,6 +1,6 @@
 # Provides a layer over standard javascript arrays that makes adding and removing objects from a list easier
 
-class List
+export class List
 
   constructor: (@list = []) ->
     @size = @list.length
@@ -59,11 +59,3 @@ class List
 
   # the same as entries()
   values: -> @list
-
-
-module.exports = List
-
-# backwards compatibility
-module.exports.hx = {
-  List: List
-}

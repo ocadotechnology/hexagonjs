@@ -1,4 +1,4 @@
-utils = require('modules/util/main/utils')
+import { range, isString, clamp } from 'modules/utils/main'
 
 componentToHex = (c) ->
   hex = c.toString(16)
@@ -72,7 +72,7 @@ class Color
     (value) ->
       if arguments.length > 0
         if value? and not isNaN(value)
-          @_[prop] = utils.clamp(min, max, value)
+          @_[prop] = clamp(min, max, value)
           if not isAlphaValue then update(@_, isHSL)
         this
       else
@@ -158,8 +158,8 @@ class Color
   range: (numLight=3, numDark=3, maxRange = 0.5, outputFormat) ->
     step = maxRange / Math.max(numLight, numDark, 1)
     self = this
-    light = utils.range(numLight + 1).map((i) -> self.clone().lighten(step * i ))
-    dark = utils.range(numDark).reverse().map((i) -> self.clone().lighten(- step * (i + 1)))
+    light = range(numLight + 1).map((i) -> self.clone().lighten(step * i ))
+    dark = range(numDark).reverse().map((i) -> self.clone().lighten(- step * (i + 1)))
     list = dark.concat light
     if outputFormat
       if outputFormat is 'array'
@@ -172,7 +172,7 @@ class Color
 
 
 fromString = (str) ->
-  if not utils.isString(str) then return undefined
+  if not isString(str) then return undefined
 
   if str.indexOf('#') isnt -1
     str = str.substring(1)
@@ -207,7 +207,7 @@ fromString = (str) ->
 
   (new Color).rgb(rgb)
 
-color = ->
+export color = ->
   if arguments.length >= 3
     (new Color).rgb([arguments[0], arguments[1], arguments[2], arguments[3]])
   else if arguments.length is 1
@@ -219,17 +219,7 @@ color = ->
     new Color()
 
 # returns true if the string passed in represents a color
-isColorString = (str) -> fromString(str) isnt undefined
+export isColorString = (str) -> fromString(str) isnt undefined
 
 # check if an object is a Color instance
-isColor = (obj) -> obj instanceof Color
-
-module.exports = color
-module.exports.isColorString = isColorString
-module.exports.isColor = isColor
-
-module.exports.hx = {
-  color: color,
-  isColorString: isColorString,
-  isColor: isColor
-}
+export isColor = (obj) -> obj instanceof Color

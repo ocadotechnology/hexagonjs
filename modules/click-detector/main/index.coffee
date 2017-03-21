@@ -1,13 +1,12 @@
-EventEmitter = require('modules/event-emitter/main')
-utils = require('modules/util/main/utils')
-HList = require('modules/list/main')
-select = require('modules/selection/main')
+import { EventEmitter } from 'modules/event-emitter/main'
+import { randomId } from 'modules/utils/main'
+import { List as HList } from 'modules/list/main'
+import { select } from 'modules/selection/main'
 
-
-class ClickDetector extends EventEmitter
+export class ClickDetector extends EventEmitter
   constructor: ->
     super
-    @eventId = utils.randomId()
+    @eventId = randomId()
     @exceptions = new HList
 
     # the original element clicked
@@ -52,8 +51,3 @@ class ClickDetector extends EventEmitter
     select(document).off('pointerdown', 'hx.click-detector.' + @eventId, @downAction)
     select(document).off('pointerup', 'hx.click-detector.' + @eventId, @upAction)
     this
-
-module.exports = ClickDetector
-module.exports.hx = {
-  ClickDetector: ClickDetector
-}

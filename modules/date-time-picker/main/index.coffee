@@ -5,7 +5,7 @@ TimePicker = require('modules/time-picker/main').TimePicker
 EventEmitter = require('modules/event-emitter/main')
 preferences = require('modules/preferences/main')
 
-class DateTimePicker extends EventEmitter
+export class DateTimePicker extends EventEmitter
   constructor: (@selector, options) ->
     super
 
@@ -129,14 +129,7 @@ class DateTimePicker extends EventEmitter
       dpDisabled
 
 
-dateTimePicker = (options) ->
+export dateTimePicker = (options) ->
   selection = select.detached('div')
   new DateTimePicker(selection.node(), options)
   selection
-
-module.exports = dateTimePicker
-module.exports.DateTimePicker = DateTimePicker
-module.exports.hx = {
-  dateTimePicker,
-  DateTimePicker
-}

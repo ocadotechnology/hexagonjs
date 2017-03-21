@@ -2,6 +2,7 @@ EventEmitter = require('modules/event-emitter/main')
 select = require('modules/selection/main')
 utils = require('modules/util/main/utils')
 format = require('modules/format/main')
+theme = require('modules/theme/main')()
 
 labels = require('./labels')
 graphutils = require('./utils')

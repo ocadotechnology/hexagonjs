@@ -1,1 +1,2 @@
-describe 'modal', ->
+export default () ->
+  xdescribe 'modal', ->

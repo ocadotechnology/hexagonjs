@@ -1,5 +1,6 @@
 Series = require('../series')
 utils = require('modules/util/main/utils')
+theme = require('modules/theme/main')()
 
 graphutils = require('../utils')
 

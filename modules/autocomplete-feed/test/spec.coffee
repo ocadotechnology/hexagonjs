@@ -1,10 +1,7 @@
 AutocompleteFeed = require('modules/autocomplete-feed/main')
 chai = require('chai')
-
-spies = require('chai-spies')
 HMap = require('modules/map/main')
 fakeTime = require('test/utils/fake-time')
-chai.use(spies)
 
 should = chai.should()
 

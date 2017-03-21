@@ -1,4 +1,4 @@
-color = require('modules/color/main')
+import { color } from 'modules/color/main'
 
 splitString = (string) ->
   regex = new RegExp(/[-+]?(?:\d+\.?\d*|\.?\d+)|((?:[^-+\d])+|\D+)/g)
@@ -12,7 +12,7 @@ interpolateNumber = (a, b) ->
   b = +b
   (v) -> a * (1 - v) + b * v
 
-interpolate = (a, b) ->
+export interpolate = (a, b) ->
   if typeof a is "number" then return interpolateNumber(a,b)
 
   colA  = color(a)
@@ -38,8 +38,3 @@ interpolate = (a, b) ->
     else
       res = b.join('')
       (v) -> res
-
-module.exports = interpolate
-module.exports.hx = {
-  interpolate: interpolate
-}

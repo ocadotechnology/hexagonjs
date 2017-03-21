@@ -1,76 +1,149 @@
-const merge = (objs) => {
-  const res = {}
-  objs.forEach((obj) => {
-    if (obj) {
-      if (obj.hx) {
-        Object.keys(obj.hx).forEach((k) => {
-          res[k] = obj.hx[k]
-        })
-        if (obj.hx.init) {
-          obj.hx.init()
-        }
-      }
-    }
-  })
+'use strict'
 
-  return res
-}
+// Utils
+export { Set } from 'modules/set/main'
+export { Map } from 'modules/map/main'
+export { List } from 'modules/list/main'
+export {
+  hash,
+  transpose,
+  supports,
+  debounce,
+  clamp,
+  clampUnit,
+  randomId,
+  min,
+  minBy,
+  argmin,
+  max,
+  maxBy,
+  argmax,
+  range,
+  sum,
+  flatten,
+  cycle,
+  hashList,
+  find,
+  isNumber,
+  isString,
+  isFunction,
+  isArray,
+  isObject,
+  isBoolean,
+  isPlainObject,
+  groupBy,
+  unique,
+  endsWith,
+  startsWith,
+  tween,
+  defined,
+  zip,
+  extend,
+  mergeImpl,
+  merge,
+  mergeDefined,
+  shallowMerge,
+  shallowMergeDefined,
+  clone,
+  shallowClone,
+  vendor,
+  identity
+} from 'modules/utils/main'
+export { EventEmitter } from 'modules/event-emitter/main'
+export { color, isColor, isColorString } from 'modules/color/main'
+export {
+  select,
+  selectAll,
+  detached,
+  div,
+  span,
+  input,
+  button,
+  checkbox,
+  i
+} from 'modules/selection/main'
+export { loop, transition, ease } from 'modules/transition/main'
+export { interpolate } from 'modules/interpolate/main'
+export { animate, morph } from 'modules/animate/main'
+export { spinner, spinnerWide } from 'modules/spinner/main'
+export { sort, sortBy, compare, localeCompare } from 'modules/sort/main'
+export { ClickDetector } from 'modules/click-detector/main'
+export { Modal, modalDialog, modalInput } from 'modules/modal/main'
+export {
+  notify,
+  notifyInfo,
+  notifyPositive,
+  notifyWarning,
+  notifyNegative,
+  notifyLoading,
+  notifyDefaultTimeout,
+  NotificationManager
+} from 'modules/notify/main'
+export {
+  filterExact,
+  filterStartsWith,
+  filterContains,
+  filterExcludes,
+  filterGreater,
+  filterLess,
+  filterFuzzy,
+  filterRegex
+} from 'modules/filter/main'
+export { userFacingText } from 'modules/user-facing-text/main'
+export { validateForm } from 'modules/form/main'
+export { Dropdown } from 'modules/dropdown/main'
 
-module.exports = window.hx = merge([
-  require('./set/main'),
-  require('./map/main'),
-  require('./list/main'),
-  require('./color/main'),
-  require('./util/main'),
-  require('./event-emitter/main'),
-  require('./selection/main'),
-  require('./transition/main'),
-  require('./interpolate/main'),
-  require('./animate/main'),
-  require('./pointer-events/main'),
-  require('./view/main'),
-  require('./sort/main'),
-  require('./component/main'),
-  require('./morphs/main'),
-  require('./click-detector/main'),
-  require('./modal/main'),
-  require('./notify/main'),
-  require('./filter/main'),
-  require('./user-facing-text/main'),
-  require('./form/main'),
-  require('./dropdown/main'),
-  require('./collapsible/main'),
-  require('./palette/main'),
-  require('./format/main'),
-  require('./resize-events/main'),
-  require('./menu/main'),
-  require('./preferences/main'),
-  require('./date-localizer/main'),
-  require('./autocomplete/main'),
-  require('./number-picker/main'),
-  require('./drag-container/main'),
-  require('./progress-bar/main'),
-  require('./sticky-table-headers/main'),
-  require('./autocomplete-feed/main'),
-  require('./picker/main'),
-  require('./button-group/main'),
-  require('./plot/main'),
-  require('./date-picker/main'),
-  require('./time-picker/main'),
-  require('./tag-input/main'),
-  require('./titlebar/main'),
-  require('./slider/main'),
-  require('./card/main'),
-  require('./toggle/main'),
-  require('./spinner/main'),
-  require('./layout/main'),
-  require('./notice/main'),
-  require('./input-group/main'),
-  require('./label/main'),
-  require('./color-picker/main'),
-  require('./crumbtrail/main'),
-  require('./fast-click/main'),
-  require('./paginator/main'),
-  require('./time-slider/main'),
-  require('./date-time-picker/main')
-])
+// Components
+
+// Other things
+import { initAnimate } from 'modules/animate/main'
+import { initPointerEvents } from 'modules/pointer-events/main'
+import { initView } from 'modules/view/main'
+import { initMorphs } from 'modules/morphs/main'
+
+//XXX: these api should be opt-in
+initAnimate()       // XXX: remove
+initPointerEvents() // XXX: make into a selection middleware
+initView()          // XXX: remove?
+initMorphs()        // XXX: remove
+
+// module.exports = window.hx = merge([
+//   require('./filter/main'),
+//   require('./user-facing-text/main'),
+//   require('./form/main'),
+//   require('./dropdown/main'),
+//   require('./collapsible/main'),
+//   require('./palette/main'),
+//   require('./format/main'),
+//   require('./resize-events/main'),
+//   require('./menu/main'),
+//   require('./preferences/main'),
+//   require('./date-localizer/main'),
+//   require('./autocomplete/main'),
+//   require('./number-picker/main'),
+//   require('./drag-container/main'),
+//   require('./progress-bar/main'),
+//   require('./sticky-table-headers/main'),
+//   require('./autocomplete-feed/main'),
+//   require('./picker/main'),
+//   require('./button-group/main'),
+//   require('./plot/main'),
+//   require('./date-picker/main'),
+//   require('./time-picker/main'),
+//   require('./tag-input/main'),
+//   require('./titlebar/main'),
+//   require('./slider/main'),
+//   require('./card/main'),
+//   require('./toggle/main'),
+//   require('./spinner/main'),
+//   require('./layout/main'),
+//   require('./notice/main'),
+//   require('./input-group/main'),
+//   require('./label/main'),
+//   require('./color-picker/main'),
+//   require('./crumbtrail/main'),
+//   require('./fast-click/main'),
+//   require('./paginator/main'),
+//   require('./time-slider/main')
+//   require('./date-time-picker/main')
+// ])

@@ -1,31 +1,19 @@
-HSet = require('modules/set/main')
-HMap = require('modules/map/main')
-HList = require('modules/list/main')
-
-deprecatedWarning = (deprecatedItem, messages...) ->
-  heading = "Deprecation Warning: #{deprecatedItem}"
-  messages = ['Alternatives:'].concat messages.map (d) -> '  ' + d
-  messages = messages.map (d) -> '  ' + d
-  console.warn [heading].concat(messages).join('\n')
-  console.trace('Stack Trace')
-  return
-
-consoleWarning = (heading, messages...) ->
-  console.warn.apply(console, [heading].concat(messages))
-  console.trace('Stack Trace')
-  return
+import logger from 'modules/logger/main'
+import { Set as HSet} from 'modules/set/main'
+import { Map as HMap} from 'modules/map/main'
+import { List as HList} from 'modules/list/main'
 
 # consistent string to int hashing
-hash = (str, max) ->
+export hash = (str, maxValue) ->
   res = 0
   len = str.length-1
   for i in [0..len] by 1
     res = res * 31 + str.charCodeAt(i)
     res = res & res
-  if max then Math.abs(res) % max else res
+  if maxValue then Math.abs(res) % maxValue else res
 
 # transposes a 2d array
-transpose = (data) ->
+export transpose = (data) ->
   if not data.length? then return undefined
   w = data.length
   if w==0 or not data[0].length? then return data
@@ -40,7 +28,7 @@ transpose = (data) ->
 supportsTouch = undefined
 supportsDate = undefined
 
-supports = (name) ->
+export supports = (name) ->
   switch name
     when 'touch'
       supportsTouch ?= 'ontouchstart' of window
@@ -51,7 +39,7 @@ supports = (name) ->
         supportsDate = input.type != "text"
       supportsDate
 
-debounce = (duration, fn) ->
+export debounce = (duration, fn) ->
   timeout = undefined
   return ->
     if timeout then clearTimeout(timeout)
@@ -61,19 +49,19 @@ debounce = (duration, fn) ->
       fn.apply(fn, origArgs)
     timeout = setTimeout(f, duration)
 
-clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
+export clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
 
-clampUnit = (value) -> clamp(0, 1, value)
+export clampUnit = (value) -> clamp(0, 1, value)
 
-randomId = (size=16, alphabet='ABCEDEF0123456789') ->
+export randomId = (size=16, alphabet='ABCEDEF0123456789') ->
   chars = alphabet.split('')
   alphabetSize = chars.length
   v = (chars[Math.floor(Math.random() * alphabetSize)] for _ in [0...size] by 1)
   v.join('')
 
-min = (values) -> Math.min.apply(null, values?.filter(defined))
+export min = (values) -> Math.min.apply(null, values?.filter(defined))
 
-minBy = (values, f) ->
+export minBy = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   if f
@@ -93,7 +81,7 @@ minBy = (values, f) ->
         min = v
     min
 
-argmin = (values, f) ->
+export argmin = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   minIndex = 0
@@ -117,29 +105,29 @@ argmin = (values, f) ->
 
   if minValue is undefined then undefined else minIndex
 
-max = (values) -> Math.max.apply(null, values?.filter(defined))
+export max = (values) -> Math.max.apply(null, values?.filter(defined))
 
-maxBy = (values, f) ->
+export maxBy = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   if f
-    max = values[0]
-    maxValue = f(max)
+    maximum = values[0]
+    maxValue = f(maximum)
     for i in [1...values.length] by 1
       v = values[i]
       fv = f(v)
       if maxValue is undefined or (fv isnt undefined and fv > maxValue)
-        max = v
+        maximum = v
         maxValue = fv
-    max
+    maximum
   else
-    max = values[0]
+    maximum = values[0]
     for v in values
-      if v isnt undefined and v > max
-        max = v
-    max
+      if v isnt undefined and v > maximum
+        maximum = v
+    maximum
 
-argmax = (values, f) ->
+export argmax = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   maxIndex = 0
@@ -163,49 +151,49 @@ argmax = (values, f) ->
 
   if maxValue is undefined then undefined else maxIndex
 
-range = (length) -> (x for x in [0...length] by 1)
+export range = (length) -> (x for x in [0...length] by 1)
 
-sum = (values, f) -> values.reduce(((a, b) -> a + b), 0)
+export sum = (values, f) -> values.reduce(((a, b) -> a + b), 0)
 
-flatten = (arr) -> [].concat.apply([], arr)
+export flatten = (arr) -> [].concat.apply([], arr)
 
-cycle = (list, i) -> list[i%list.length]
+export cycle = (list, i) -> list[i%list.length]
 
-hashList = (list, str) -> list[hash(str, list.length)]
+export hashList = (list, str) -> list[hash(str, list.length)]
 
-find = (arr, f) ->
+export find = (arr, f) ->
   for d in arr
     if f(d) then return d
   undefined
 
-isNumber = (x) -> typeof x is 'number' or x instanceof Number
+export isNumber = (x) -> typeof x is 'number' or x instanceof Number
 
-isString = (x) -> typeof x == 'string' or x instanceof String
+export isString = (x) -> typeof x == 'string' or x instanceof String
 
-isFunction = (x) -> typeof x == "function"
+export isFunction = (x) -> typeof x == "function"
 
 #XXX: is this needed? should we just use Array.isArray?
-isArray = (x) -> x instanceof Array
+export isArray = (x) -> x instanceof Array
 
 # returns true if the thing passed in is an object, except for arrays
 # which technically are objects, but in the eyes of this function are not
 # objects
-isObject = (obj) -> typeof obj is 'object' and not isArray(obj) and obj isnt null
+export isObject = (obj) -> typeof obj is 'object' and not isArray(obj) and obj isnt null
 
-isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
+export isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
 
 # Not plain objects:
 # - Anything created with new (or equivalent)
 # - DOM nodes
 # - window
-isPlainObject = (obj) ->
+export isPlainObject = (obj) ->
   (typeof obj is 'object') and
   (obj isnt null) and
   (not obj.nodeType) and
   obj.constructor and
   obj.constructor.prototype.hasOwnProperty('isPrototypeOf')
 
-groupBy = (arr, f) ->
+export groupBy = (arr, f) ->
   map = new HMap
   for x in arr
     category = f(x)
@@ -215,18 +203,18 @@ groupBy = (arr, f) ->
   values.forEach((d) -> d[1] = d[1].entries())
   values
 
-unique = (list) -> new HSet(list).values()
+export unique = (list) -> new HSet(list).values()
 
-endsWith  = (string, suffix) ->
+export endsWith  = (string, suffix) ->
   string.indexOf(suffix, string.length - suffix.length) != -1
 
-startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
+export startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
 
-tween = (start, end, amount) -> start + (end - start) * amount
+export tween = (start, end, amount) -> start + (end - start) * amount
 
-defined = (x) -> x isnt undefined and x isnt null
+export defined = (x) -> x isnt undefined and x isnt null
 
-zip = (arrays) ->
+export zip = (arrays) ->
   if arrays
     if arrays.length > 0
       length = min(arrays.map (d) -> d.length or 0)
@@ -239,7 +227,7 @@ zip = (arrays) ->
 
 # gets all the things from the second object and plonks them into the first
 # this does mutation, which is why it is not exposed
-extend = (target, overlay, retainUndefined) ->
+export extend = (target, overlay, retainUndefined) ->
   for k, v of overlay
     if isPlainObject(v)
       target[k] ?= {}
@@ -248,7 +236,7 @@ extend = (target, overlay, retainUndefined) ->
       if v isnt undefined or retainUndefined
         target[k] = clone(v)
 
-mergeImpl = (deep, retainUndefined, objects) ->
+export mergeImpl = (deep, retainUndefined, objects) ->
   if deep
     res = {}
     for obj in objects
@@ -264,19 +252,21 @@ mergeImpl = (deep, retainUndefined, objects) ->
             res[k] = v
     res
 
-merge = (objects...) ->
+export merge = (objects...) ->
   mergeImpl(true, true, objects)
 
-merge.defined = (objects...) ->
+# XXX: This has changed from mergeDefined.defined
+export mergeDefined = (objects...) ->
   mergeImpl(true, false, objects)
 
-shallowMerge = (objects...) ->
+export shallowMerge = (objects...) ->
   mergeImpl(false, true, objects)
 
-shallowMerge.defined = (objects...) ->
+# XXX: This has changed from shallowMerge.defined
+export shallowMergeDefined = (objects...) ->
   mergeImpl(false, false, objects)
 
-clone = (obj) ->
+export clone = (obj) ->
   if isArray(obj)
     obj.map(clone)
   else if isPlainObject(obj)
@@ -290,13 +280,13 @@ clone = (obj) ->
   else if obj instanceof Date
     new Date obj.getTime()
   else if isObject(obj) and obj isnt null
-    consoleWarning("Trying to clone #{obj} with constructor
-                       #{obj?.constructor?.name},
-                       it isn't really cloneable! Carrying on anyway.")
+    logger.warn("Trying to clone #{obj} with constructor
+                 #{obj?.constructor?.name},
+                 it isn't really cloneable! Carrying on anyway.")
     {}
   else obj
 
-shallowClone = (obj) ->
+export shallowClone = (obj) ->
   if isArray(obj)
     obj.slice()
   else if isPlainObject(obj)
@@ -310,62 +300,18 @@ shallowClone = (obj) ->
   else if obj instanceof Date
     new Date obj.getTime()
   else if isObject(obj) and obj isnt null
-    consoleWarning("Trying to shallow clone #{obj} with constructor
-                       #{obj?.constructor?.name},
-                       it isn't really cloneable! Carrying on anyway.")
+    logger.warn("Trying to shallow clone #{obj} with constructor
+                 #{obj?.constructor?.name},
+                 it isn't really cloneable! Carrying on anyway.")
     {}
   else obj
 
 vendorPrefixes = ["webkit", "ms", "moz", "Moz", "o", "O"]
 
-vendor = (obj, prop) ->
+export vendor = (obj, prop) ->
   if prop of obj then return obj[prop]
   for p in vendorPrefixes
     if (prefixedProp = p + prop.charAt(0).toUpperCase() + prop.slice(1)) of obj
       return obj[prefixedProp]
 
-identity = (d) -> d
-
-module.exports = {
-  deprecatedWarning: deprecatedWarning
-  consoleWarning: consoleWarning
-  hash: hash
-  transpose: transpose
-  supports: supports
-  debounce: debounce
-  clamp: clamp
-  clampUnit: clampUnit
-  randomId: randomId
-  min: min
-  minBy: minBy
-  argmin: argmin
-  max: max
-  maxBy: maxBy
-  argmax: argmax
-  range: range
-  sum: sum
-  flatten: flatten
-  cycle: cycle
-  hashList: hashList
-  find: find
-  isNumber: isNumber
-  isString: isString
-  isFunction: isFunction
-  isArray: isArray
-  isObject: isObject
-  isBoolean: isBoolean
-  isPlainObject: isPlainObject
-  groupBy: groupBy
-  unique: unique
-  endsWith: endsWith
-  startsWith: startsWith
-  tween: tween
-  defined: defined
-  zip: zip
-  merge: merge
-  shallowMerge: shallowMerge
-  clone: clone
-  shallowClone: shallowClone
-  vendor: vendor
-  identity: identity
-}
+export identity = (d) -> d

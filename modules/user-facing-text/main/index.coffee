@@ -1,25 +1,30 @@
-utils = require('modules/util/main/utils')
+import logger from 'modules/logger/main'
+import { clone, isPlainObject, isString } from 'modules/utils/main'
 
-state = require('./state.coffee')
+# exported for tests
+export state = {
+  initialValues: {}
+  localisedText: {}
+}
 
 completeGetterSetter = (object) ->
   if arguments.length > 0
     # Setter - set multiple module/key values
-    if utils.isPlainObject(object)
+    if isPlainObject(object)
       for moduleName of object
         for key of object[moduleName]
           partialGetterSetter(moduleName, key, object[moduleName][key])
     else
-      utils.consoleWarning('hx.userFacingText: Expected a plain object but was instead passed:', object)
+      logger.warn('hx.userFacingText: Expected a plain object but was instead passed:', object)
     return
   else
     # Getter - get the entire set of localised text
-    utils.clone(state.localisedText)
+    clone(state.localisedText)
 
 partialGetterSetter = (moduleName, key, value) ->
-  if utils.isString(moduleName) and utils.isString(key)
+  if isString(moduleName) and isString(key)
     if arguments.length > 2
-      if utils.isString(value)
+      if isString(value)
         # Setter - set the localised text for a moduleName/key
         state.localisedText[moduleName] ?= {}
         state.localisedText[moduleName][key] = value
@@ -27,27 +32,22 @@ partialGetterSetter = (moduleName, key, value) ->
         state.initialValues[moduleName][key] ?= value
         return
       else
-        utils.consoleWarning("hx.userFacingText: The value provided must be a string but was passed value: #{value}")
+        logger.warn("hx.userFacingText: The value provided must be a string but was passed value: #{value}")
     else
       # Getter - get the localised text for a module/key
       text = state.localisedText[moduleName]?[key]
       if text
         return text
       else
-        utils.consoleWarning("hx.userFacingText: No text was found for key: #{key} in module: #{moduleName}")
+        logger.warn("hx.userFacingText: No text was found for key: #{key} in module: #{moduleName}")
   else
-    utils.consoleWarning("hx.userFacingText: A module and key are expected as strings but was passed module: #{moduleName} and key: #{key}")
+    logger.warn("hx.userFacingText: A module and key are expected as strings but was passed module: #{moduleName} and key: #{key}")
 
-userFacingText = ->
+export userFacingText = ->
   if arguments.length <= 1
     return completeGetterSetter.apply(this, arguments)
   else
     return partialGetterSetter.apply(this, arguments)
 
-defaults = -> utils.clone(state.initialValues)
-userFacingText.defaults = defaults
-
-module.exports = userFacingText
-module.exports.hx = {
-  userFacingText: userFacingText
-}
+export userFacingTextDefaults = ->
+  clone(state.initialValues)

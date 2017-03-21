@@ -1,15 +1,17 @@
-transition = require('modules/transition/main')
-EventEmitter = require('modules/event-emitter/main')
-interpolate = require('modules/interpolate/main')
-select = require('modules/selection/main')
-HMap = require('modules/map/main')
-util = require('modules/util/main')
+import logger from 'modules/logger/main'
+
+import { ease, transition } from 'modules/transition/main'
+import { EventEmitter } from 'modules/event-emitter/main'
+import { interpolate } from 'modules/interpolate/main'
+import { Selection, getHexagonElementDataObject } from 'modules/selection/main'
+import { Map as HMap } from 'modules/map/main'
+import { isFunction } from 'modules/utils/main'
 
 # XXX: [2.0.0] Remove, and replace with promise based transitions for props, attrs and style on selection
 
 # works on the single node given
 class Animation extends EventEmitter
-  constructor: (@node, @ease=transition.ease.linear) ->
+  constructor: (@node, @ease=ease.linear) ->
     super
     @cancelers = []
     @remaining = 0
@@ -23,7 +25,7 @@ class Animation extends EventEmitter
 
   doTransition = (iteration, duration) ->
     @remaining++
-    @cancelers.push(transition.transition(duration, iteration, @ease, @endCallback))
+    @cancelers.push(transition(duration, iteration, @ease, @endCallback))
     this
 
   style: (property, value, duration) ->
@@ -60,7 +62,7 @@ class Animation extends EventEmitter
       canceler()
     this
 
-animate = (node, ease) -> new Animation(node, ease)
+export animate = (node, ease) -> new Animation(node, ease)
 
 # class for chaining animations and things together
 class Morph extends EventEmitter
@@ -80,7 +82,7 @@ class Morph extends EventEmitter
         perform.call(this)
 
   and: (f, duration = 200) ->
-    if util.isFunction(f)
+    if isFunction(f)
       @actions.push f
     else
       if @node
@@ -88,7 +90,7 @@ class Morph extends EventEmitter
         if morphFactory
           @actions.push => morphFactory(@node, duration)
         else
-          util.consoleWarning(f + ' is not a registered morph', 'The available morphs are', hx_morphs.entries())
+          logger.warn(f + ' is not a registered morph', 'The available morphs are', hx_morphs.entries())
     this
 
   then: (f, duration = 200) ->
@@ -136,7 +138,7 @@ class Morph extends EventEmitter
       @emit 'cancelled'
       @cancelled = true
       for canceler in @cancelers
-        if util.isFunction(canceler.cancel) then canceler.cancel()
+        if isFunction(canceler.cancel) then canceler.cancel()
     this
 
   perform = ->
@@ -170,7 +172,7 @@ class Morph extends EventEmitter
     @start()
 
     if @node
-      obj = select.getHexagonElementDataObject(@node, true)
+      obj = getHexagonElementDataObject(@node, true)
       obj.morphs ?= []
 
       # remove all cancelled and finished morphs
@@ -182,7 +184,7 @@ class Morph extends EventEmitter
   # cancels ongoing morphs for this node
   cancelOngoing: ->
     if @node
-      obj = select.getHexagonElementDataObject(@node, false)
+      obj = getHexagonElementDataObject(@node, false)
       if obj
         if obj.morphs
           for morph in obj.morphs
@@ -191,19 +193,11 @@ class Morph extends EventEmitter
           obj.morphs = []
     this
 
-morph = (node) -> new Morph(node)
+export morph = (node) -> new Morph(node)
 
 hx_morphs = new HMap
-morph.register = (name, morph) -> hx_morphs.set(name, morph)
+export registerMorph = (name, morph) -> hx_morphs.set(name, morph)
 
-select.Selection::animate = (ease) -> animate(@nodes[0], ease)
-select.Selection::morph = -> new Morph(@nodes[0])
-
-module.exports = {
-  animate: animate,
-  morph: morph,
-  hx: {
-    animate: animate,
-    morph: morph
-  }
-}
+export initAnimate = ->
+  Selection::animate = (ease) -> animate(@nodes[0], ease)
+  Selection::morph = -> new Morph(@nodes[0])

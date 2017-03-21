@@ -3,12 +3,10 @@ select = require('modules/selection/main')
 userFacingText = require('modules/user-facing-text/main')
 TagInput = require('../main').TagInput
 
-chaiSpies = require('chai-spies')
 chai = require('chai')
 fakeTime = require('test/utils/fake-time')
 emitEvent = require('test/utils/emit-event')
 
-chai.use(chaiSpies)
 chai.should()
 
 describe 'tag-input', ->

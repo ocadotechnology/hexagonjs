@@ -2,6 +2,7 @@ Series = require('../series')
 select = require('modules/selection/main')
 color = require('modules/color/main')
 utils = require('modules/util/main/utils')
+theme = require('modules/theme/main')()
 
 graphutils = require('../utils')
 

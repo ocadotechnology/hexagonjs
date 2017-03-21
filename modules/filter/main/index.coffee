@@ -1,5 +1,5 @@
-sort = require('modules/sort/main')
-utils = require('modules/util/main/utils')
+import { compare } from 'modules/sort/main'
+import { startsWith, mergeDefined } from 'modules/utils/main'
 
 filterCaseModifier = (caseSensitive) ->
   if caseSensitive then (string) -> string
@@ -29,7 +29,7 @@ filterMatch = (item, getIndex, options) ->
 buildFilter = (lookupType) ->
   (array, term, opts = {}) ->
 
-    options = utils.merge.defined {
+    options = mergeDefined {
       caseSensitive: false
       searchValues: undefined
       sort: true
@@ -60,13 +60,13 @@ buildFilter = (lookupType) ->
           aArr = options.searchValues a
           bArr = options.searchValues b
           for i in [0...aArr.length] by 1
-            r = sort.compare(aArr[i], bArr[i])
+            r = compare(aArr[i], bArr[i])
             # If the two terms dont match (and there is one better than the
             # other) then we use that value, else we keep moving down the
             # properties until we find something that can be compared.
             if r isnt 0 then break
           r
-        else sort.compare(a, b)
+        else compare(a, b)
 
     # return the filtered/sorted array
     array
@@ -75,33 +75,33 @@ buildFilter = (lookupType) ->
 # All filter lookup functions should return the index + the length of
 # the term within the item, allowing us to sort based on the strength
 # of the match.
-exact = buildFilter (term) ->
+export filterExact = buildFilter (term) ->
   (item) -> if item is term then term.length else -1
 
-startsWith = buildFilter (term) ->
-  (item) -> if utils.startsWith(item, term) then term.length else -1
+export filterStartsWith = buildFilter (term) ->
+  (item) -> if startsWith(item, term) then term.length else -1
 
-contains = buildFilter (term) ->
+export filterContains = buildFilter (term) ->
   (item) ->
     index = item.indexOf(term)
     if index > -1 then index + term.length else -1
 
-excludes = buildFilter (term) ->
+export filterExcludes = buildFilter (term) ->
   (item) ->
     index = item.indexOf(term)
     if index is -1 then term.length else -1
 
-greater = buildFilter (term) ->
+export filterGreater = buildFilter (term) ->
   (item) ->
-    val = sort.compare(item, term)
+    val = compare(item, term)
     if val isnt -1 then val else -1
 
-less = buildFilter (term) ->
+export filterLess = buildFilter (term) ->
   (item) ->
-    val = sort.compare(term, item)
+    val = compare(term, item)
     if val isnt -1 then val else -1
 
-fuzzy = buildFilter (term) ->
+export filterFuzzy = buildFilter (term) ->
   escapeRegExp = (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
   regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?'
   pattern = new RegExp(regStr)
@@ -109,33 +109,7 @@ fuzzy = buildFilter (term) ->
     match = item.match(pattern)
     if match? then match.index + match[0].length else -1
 
-regex = buildFilter (term) ->
+export filterRegex = buildFilter (term) ->
   (item) ->
     match = item.match(term)
     if match? then match.index + match[0].length else -1
-
-
-module.exports = {
-  exact: exact,
-  startsWith: startsWith,
-  contains: contains,
-  excludes: excludes,
-  greater: greater,
-  less: less,
-  fuzzy: fuzzy,
-  regex: regex
-}
-
-# XXX: backwards compatiblity
-module.exports.hx = {
-  filter: {
-    exact: exact,
-    startsWith: startsWith,
-    contains: contains,
-    excludes: excludes,
-    greater: greater,
-    less: less,
-    fuzzy: fuzzy,
-    regex: regex
-  }
-}

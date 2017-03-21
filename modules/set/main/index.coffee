@@ -8,7 +8,7 @@ prefixChar = prefixString.charCodeAt(0)
 prefix = (string) -> prefixString + string
 checkPrefix = (string) -> string and string.charCodeAt(0) is prefixChar
 
-class Set
+export class Set
   constructor: (iterable) ->
     @size = 0
     @nan = false
@@ -87,11 +87,3 @@ class Set
 
   # get the items in the set
   values: -> (v[1] for v in @entries())
-
-# expose
-module.exports = Set
-
-# backwards compatibility
-module.exports.hx = {
-  Set: Set
-}

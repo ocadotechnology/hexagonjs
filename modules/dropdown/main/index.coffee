@@ -1,12 +1,12 @@
+import logger from 'modules/logger/main'
+import { select }  from 'modules/selection/main'
+import { isString, isFunction, mergeDefined, shallowMerge } from 'modules/utils/main'
+import { ClickDetector } from 'modules/click-detector/main'
+import { EventEmitter } from 'modules/event-emitter/main'
+import { checkParents, parentZIndex, scrollbarSize } from 'modules/dom-utils/main'
+import { calculateDropdownPosition } from './positioning'
 
-select = require('modules/selection/main')
-utils = require('modules/util/main')
-component = require('modules/component/main')
-ClickDetector = require('modules/click-detector/main')
-EventEmitter = require('modules/event-emitter/main')
-calculateDropdownPosition = require('./positioning')
-
-config = {
+export config = {
   attachToSelector: 'body',
   dropdownAnimateSlideDistance: 8
 }
@@ -38,7 +38,7 @@ checkFixedPos = (node) ->
     direction = 'right'
     x = selectionRect.x + selectionRect.width
 
-  {
+  return {
     x: x,
     y: y,
     direction: direction
@@ -46,26 +46,22 @@ checkFixedPos = (node) ->
 
 dropdownContentToSetupDropdown = (dropdownContent) ->
   setupDropdown = switch
-    when utils.isString dropdownContent
+    when isString dropdownContent
       (node) -> select(node).html(dropdownContent)
-    when utils.isFunction dropdownContent
+    when isFunction dropdownContent
       dropdownContent
     else
-      utils.consoleWarning('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
+      logger.warn('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
       -> undefined
 
-
-
-class Dropdown extends EventEmitter
+export class Dropdown extends EventEmitter
 
   constructor: (selector, dropdownContent, options) ->
     super
 
-    component.register(selector, this)
-
     # XXX [2.0.0]: this should not be part of the public api (but should use setterGetter methods instead)
     # it has been documented so will have to stay here for the 1.x.x series (it should be removed in 2.0.0)
-    @options = utils.merge.defined({
+    @options = mergeDefined({
       mode: 'click',
       align: 'lblt',
       spacing: undefined,
@@ -92,6 +88,7 @@ class Dropdown extends EventEmitter
     onmouseout = => @hide()
 
     selection = select(selector)
+      .api(this)
 
     @_ = {
       setupDropdown: setupDropdown,
@@ -116,7 +113,7 @@ class Dropdown extends EventEmitter
   dropdownContent: (dropdownContent) ->
     if arguments.length
       setupDropdown = dropdownContentToSetupDropdown dropdownContent
-      @_ = utils.shallowMerge(@_, {
+      @_ = shallowMerge(@_, {
         setupDropdown,
         dropdownContent
       })
@@ -167,8 +164,8 @@ class Dropdown extends EventEmitter
       rect = _.selection.box()
       dropdownRect = _.dropdown.box()
       ddMaxHeight = _.dropdown.style('max-height').replace('px','')
-      parentFixed = utils.checkParents(_.selection.node(), checkFixedPos)
-      parentZIndex = utils.parentZIndex(_.selection.node(), true)
+      parentFixed = checkParents(_.selection.node(), checkFixedPos)
+      zIndex = parentZIndex(_.selection.node(), true)
 
       # calculate the position of the dropdown
       {x, y} = calculateDropdownPosition(
@@ -177,7 +174,7 @@ class Dropdown extends EventEmitter
         { width: dropdownRect.width, height: dropdownRect.height },
         { width: window.innerWidth, height: window.innerHeight },
         ddMaxHeight,
-        utils.scrollbarSize()
+        scrollbarSize()
       )
 
       if not parentFixed
@@ -185,8 +182,8 @@ class Dropdown extends EventEmitter
         y += window.scrollY
 
       # update the styles for the dropdown
-      if parentZIndex > 0
-        _.dropdown.style('z-index', parentZIndex + 1)
+      if zIndex > 0
+        _.dropdown.style('z-index', zIndex + 1)
 
       if parentFixed
         _.dropdown.style('position', 'fixed')
@@ -245,9 +242,3 @@ class Dropdown extends EventEmitter
       _.selection.off('mouseout', 'hx.dropdown', _.onmouseout)
 
     this
-
-module.exports = Dropdown
-module.exports.config = config
-module.exports.hx = {
-  Dropdown: Dropdown
-}

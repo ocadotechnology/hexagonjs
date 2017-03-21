@@ -8,7 +8,7 @@ prefixChar = prefixString.charCodeAt(0)
 prefix = (string) -> prefixString + string
 checkPrefix = (string) -> string and string.charCodeAt(0) is prefixChar
 
-class Map
+export class Map
   constructor: (iterable) ->
     @size = 0
     @items = {}
@@ -101,10 +101,3 @@ class Map
 
   # get the values of the entries in the map
   values: -> (v[1] for v in @entries())
-
-module.exports = Map
-
-# backwards compatibility
-module.exports.hx = {
-  Map: Map
-}

@@ -1,10 +1,8 @@
 TitleBar = require('../main').TitleBar
 select = require('modules/selection/main')
 
-chaiSpies = require('chai-spies')
 chai = require('chai')
 
-chai.use(chaiSpies)
 chai.should()
 
 describe 'hx-titlebar', ->

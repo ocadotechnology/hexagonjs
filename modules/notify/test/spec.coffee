@@ -1,1 +1,2 @@
-describe 'notify', ->
+export default () ->
+  xdescribe 'notify', () ->

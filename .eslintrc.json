@@ -1,0 +1,27 @@
+{
+  "extends": "standard",
+  "plugins": [
+    "standard",
+    "promise"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-arrow-callback": ["error", {
+      "allowNamedFunctions": false,
+      "allowUnboundThis": true
+    }],
+    "no-param-reassign": ["error"],
+    "curly": ["error", "all"],
+    "init-declarations": ["error", "always"],
+    "no-undef-init": "off",
+    "quote-props": ["error", "consistent-as-needed"],
+    "operator-linebreak": ["error", "after"],
+    "func-style": ["error", "declaration"]
+  }
+}

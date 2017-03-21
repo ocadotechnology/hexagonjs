@@ -1,6 +1,6 @@
-util = require('modules/util/main/utils')
-HMap = require('modules/map/main')
-HList = require('modules/list/main')
+import { Map as HMap } from 'modules/map/main'
+import { List as HList } from 'modules/list/main'
+import { isString } from 'modules/utils/main'
 
 class BasicEventEmitter
   constructor: ->
@@ -65,7 +65,7 @@ class BasicEventEmitter
     this
 
 
-class EventEmitter
+export class EventEmitter
   constructor: ->
     @suppressedMap = new HMap
     @emitters = new HList
@@ -110,17 +110,11 @@ class EventEmitter
 
   # register a callback against the name given
   on: (name, namespace, callback) ->
-
-    # NOTE: Deprecated event check - This is useful to have if we need to deprecated events in the future
-    # if (dep = @deprecatedEvents?[name])?
-    #   deprecatedEventWarning(dep.module, name, dep.event)
-    #   name = dep.event
-
     if namespace is 'default'
-      util.consoleWarning('"default" is a reserved namespace. It can not be used as a namespace name.')
+      throw new Error('hx.EventEmitter: "default" is a reserved namespace. It can not be used as a namespace name.')
       return this
 
-    if util.isString(namespace)
+    if isString(namespace)
       ee = @emittersMap.get(namespace)
       if not ee
         ee = addEmitter(this, namespace)
@@ -137,14 +131,14 @@ class EventEmitter
 
   # deregisters a callback
   off: (name, namespace, callback) ->
-    if util.isString(namespace)
+    if isString(namespace)
       if @emittersMap.has(namespace)
         be = @emittersMap.get(namespace)
         be.off(name, callback)
         if be.isEmpty()
           removeEmitter(this, be, namespace)
     else
-      if not callback and not util.isString(namespace)
+      if not callback and not isString(namespace)
         callback = namespace
 
       emitters = @emitters.entries()
@@ -160,12 +154,3 @@ class EventEmitter
   pipe: (eventEmitter, prefix, filter) ->
     @global.pipe(eventEmitter, prefix, filter)
     this
-
-
-# export
-module.exports = EventEmitter
-
-# backwards compatiblity
-module.exports.hx = {
-  EventEmitter: EventEmitter
-}

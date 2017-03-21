@@ -1,12 +1,8 @@
-EventEmitter = require('modules/event-emitter/main')
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
+import { EventEmitter } from 'modules/event-emitter/main'
+import { select, detached } from 'modules/selection/main'
+import { merge, mergeDefined } from 'modules/utils/main'
 
-# NOTE: this is needed to force animate to be included before modal in the build
-# this workaround will go away once the animate api is made more sensible
-animate = require('modules/animate/main')
-
-class Modal extends EventEmitter
+export class Modal extends EventEmitter
 
   closeModal = (modal, event) ->
     body = select('body').classed('hx-modal-open', false)
@@ -19,7 +15,7 @@ class Modal extends EventEmitter
   constructor: (@title, @setup, options) ->
     super
 
-    @options = utils.merge {
+    @options = merge {
       closeWithShadeEnabled: true,
       closeButtonEnabled: true,
       titlebarRenderer: (node) -> select(node).text(@title),
@@ -44,11 +40,11 @@ class Modal extends EventEmitter
     modal = modalContainer.append('div').attr('class', 'hx-modal')
     titleContainer = modal.append('div')
       .class('hx-modal-title-container hx-group hx-horizontal hx-header')
-    title = select.detached('div').class('hx-modal-title')
+    title = detached('div').class('hx-modal-title')
 
     if @options.closeButtonEnabled
-      closeButton = select.detached('div')
-        .add(select.detached('i').class('hx-icon hx-icon-close'))
+      closeButton = detached('div')
+        .add(detached('i').class('hx-icon hx-icon-close'))
         .class('hx-modal-close hx-fixed')
           .on('click', 'hx.modal', => closeModal(this, {cause: 'button'}))
     else
@@ -94,8 +90,8 @@ makeButtons = (container, buttons, modal, callback) ->
     container.append('button')
       .attr('type', 'button')
       .class(d.classes)
-      .add(select.detached('i').class(d.icon))
-      .add(select.detached('span').text(' ' + d.text))
+      .add(detached('i').class(d.icon))
+      .add(detached('span').text(' ' + d.text))
       .on 'click', 'hx.modal', ->
         callback?(d.value)
         modal.hide()
@@ -114,8 +110,8 @@ getHeaderRender = (titleClass) ->
       .add(title)
       .add(button)
 
-modalDialog = (title, message, callback, options) ->
-  options = utils.merge.defined {
+export modalDialog = (title, message, callback, options) ->
+  options = mergeDefined {
     callback: undefined
     buttons: [
       {text: 'Cancel', icon: 'hx-icon hx-icon-close', value: false, classes: 'hx-btn hx-negative' }
@@ -141,8 +137,8 @@ modalDialog = (title, message, callback, options) ->
   modal.on 'hide', 'hx.modal', (d) -> if d.cause isnt 'api' then callback()
   modal.show()
 
-modalInput = (title, message, callback, options) ->
-  options = utils.merge.defined {
+export modalInput = (title, message, callback, options) ->
+  options = mergeDefined {
     value: ''
   }, options
 
@@ -164,20 +160,3 @@ modalInput = (title, message, callback, options) ->
   }
   modal.on 'close', 'hx.modal', (d) -> if d.cause isnt 'api' then callback()
   modal.show()
-
-module.exports = {
-  Modal: Modal,
-  modal: {
-    dialog: modalDialog,
-    input: modalInput
-  }
-}
-
-# XXX: backwards compatiblity
-module.exports.hx = {
-  Modal: Modal,
-  modal: {
-    dialog: modalDialog,
-    input: modalInput
-  }
-}

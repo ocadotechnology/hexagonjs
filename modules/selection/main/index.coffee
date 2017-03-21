@@ -1,9 +1,43 @@
-ElementSet = require('./element-set')
-util = require('modules/util/main/utils')
-getHexagonElementDataObject = require('./get-hexagon-element-data-object')
-HMap = require('modules/map/main')
-HSet = require('modules/set/main')
-EventEmitter = require('modules/event-emitter/main')
+import logger from 'modules/logger/main'
+import { Map as HMap } from 'modules/map/main'
+import { Set as HSet } from 'modules/set/main'
+import { List as HList } from 'modules/list/main'
+import { EventEmitter } from 'modules/event-emitter/main'
+import { isString, isArray, isObject, randomId, vendor, flatten } from 'modules/utils/main'
+
+export class ElementSet
+  constructor: ->
+    @elements = new HList
+    @ids = new HSet
+
+  add: (element) ->
+    d = getHexagonElementDataObject(element)
+    d.id ?= randomId()
+    id = d.id
+
+    if not @ids.has id
+      @ids.add id
+      @elements.add element
+
+  remove: (element) ->
+    d = getHexagonElementDataObject(element, false)
+    if d and d.id
+      if @ids.has d.id
+        @elements.remove element
+        @ids.delete d.id
+
+  entries: -> @elements.entries()
+
+  has: (element) ->
+    d = getHexagonElementDataObject(element)
+    d and d.id and @ids.has(d.id) or false
+
+export getHexagonElementDataObject = (element, createIfDoesNotExist = true) ->
+  if createIfDoesNotExist
+    element.__hx__ ?= {}
+    element.__hx__
+  else
+    if element.__hx__ then element.__hx__
 
 namespaces = {
   svg: 'http://www.w3.org/2000/svg'
@@ -30,10 +64,10 @@ matchPolyfill = (selector) ->
   [].slice.call(matchingNodes).indexOf(node) > -1
 
 getMatches = (node) ->
-  node.matches or hx.vendor(node, 'matchesSelector') or matchPolyfill
+  node.matches or vendor(node, 'matchesSelector') or matchPolyfill
 
-selectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, selector)
-selectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
+domSelectSingle = (selector, node) -> getMethod(node, 'querySelector').call(node, selector)
+domSelectAll = (selector, node) -> getMethod(node, 'querySelectorAll').call(node, selector)
 
 shallowSelectSingle = (selector, node) ->
   matchFn = getMatches(node)
@@ -100,76 +134,49 @@ reformed = (flatten, values) ->
 
 augmenters = []
 
-class Selection
-
+export class Selection
   constructor: (@nodes) ->
     @nodes = @nodes.filter((d) -> d?)
     @singleSelection = false
 
   # selects the first node matching the selector relative to this selection's nodes
   select: (selector) ->
-    if not util.isString(selector)
-      util.consoleWarning(
-        'Selection.select was passed the wrong argument type',
-        'Selection.select only accepts a string argument, you supplied:',
-        selector
-      )
-      new Selection([])
-    else
-      s = new Selection(@nodes.map((node) -> selectSingle(selector, node)))
-      s.singleSelection = @singleSelection
-      s
+    if not isString(selector)
+      throw new Error('Selection::select expects a string argument')
+
+    s = new Selection(@nodes.map((node) -> domSelectSingle(selector, node)))
+    s.singleSelection = @singleSelection
+    s
 
   # selects all nodes matching the selector relative to this selection's nodes
   selectAll: (selector) ->
-    if not util.isString(selector)
-      util.consoleWarning(
-        'Selection.selectAll was passed the wrong argument type',
-        'Selection.selectAll only accepts a string argument, you supplied:',
-        selector
-      )
-      new Selection([])
-    else
-      new Selection(flattenNodes(@nodes.map((node) -> selectAll(selector, node))))
+    if not isString(selector)
+      throw new Error('Selection::selectAll expects a string argument')
+
+    new Selection(flattenNodes(@nodes.map((node) -> domSelectAll(selector, node))))
 
   # selects the first node matching the selector that is a direct descendent of this selection
   shallowSelect: (selector) ->
-    if not util.isString(selector)
-      util.consoleWarning(
-        'Selection.selectAll was passed the wrong argument type',
-        'Selection.selectAll only accepts a string argument, you supplied:',
-        selector
-      )
-      new Selection([])
-    else
-      s = new Selection(@nodes.map((node) -> shallowSelectSingle(selector, node)))
-      s.singleSelection = @singleSelection
-      s
+    if not isString(selector)
+      throw new Error('Selection::shallowSelect expects a string argument')
+
+    s = new Selection(@nodes.map((node) -> shallowSelectSingle(selector, node)))
+    s.singleSelection = @singleSelection
+    s
 
   # selects all the nodes matching the selector that are a direct descendent of this selection
   shallowSelectAll: (selector) ->
-    if not util.isString(selector)
-      util.consoleWarning(
-        'Selection.selectAll was passed the wrong argument type',
-        'Selection.selectAll only accepts a string argument, you supplied:',
-        selector
-      )
-      new Selection([])
-    else
-      new Selection(flattenNodes(@nodes.map((node) -> shallowSelectAll(selector, node))))
+    if not isString(selector)
+      throw new Error('Selection::shallowSelectAll expects a string argument')
 
+    new Selection(flattenNodes(@nodes.map((node) -> shallowSelectAll(selector, node))))
 
   # traverses up the dom to find the closest matching element. returns a selection containing the result
   closest: (selector) ->
-    s = if not util.isString(selector)
-      util.consoleWarning(
-        'Selection.closest was passed the wrong argument type',
-        'Selection.closest only accepts a string argument, you supplied:',
-        selector
-      )
-      new Selection([])
-    else
-      new Selection(@nodes.map((node) -> closestParent(selector, node)))
+    if not isString(selector)
+      throw new Error('Selection::closest expects a string argument')
+
+    s = new Selection(@nodes.map((node) -> closestParent(selector, node)))
     s.singleSelection = @singleSelection
     s
 
@@ -177,14 +184,12 @@ class Selection
   attachSingle = (selection, element, attacher) ->
     if element is undefined
       return []
-    if not (util.isString(element) or (element instanceof Selection) or (element instanceof Element))
-      util.consoleWarning('Selection Api error when attaching element', 'Expecting an Element, Selection or string argument, you supplied:', element)
-      return []
+    if not (isString(element) or (element instanceof Selection) or (element instanceof Element))
+      throw new Error('Selection: Expecting an Element, Selection or string argument')
     if not selection.singleSelection and (element instanceof Element or element instanceof Selection)
-      util.consoleWarning('Selection Api error when attaching element', 'You can not attach an existing element to a selection with multiple elements')
-      return []
+      throw new Error('Selection: You can not attach an existing element to a selection with multiple elements')
     if selection.empty()
-      util.consoleWarning('Selection Api error when attaching element', 'You can not attach an element to an empty selection')
+      logger.warn('Selection: Attaching an element to an empty selection has no effect')
       return []
 
     if element instanceof Element
@@ -202,11 +207,11 @@ class Selection
 
   attach = (selection, name, attacher, reverse = false) ->
     singleSelection = selection.singleSelection
-    newNodes = if Array.isArray(name)
+    newNodes = if isArray(name)
       singleSelection = false
       dir = if reverse then -1 else 1
       ns = (attachSingle(selection, element, attacher) for element in name by dir)
-      util.flatten(if reverse then ns.reverse() else ns)
+      flatten(if reverse then ns.reverse() else ns)
     else
       attachSingle(selection, name, attacher)
 
@@ -337,7 +342,7 @@ class Selection
 
   # subscribe for dom events from the underlying nodes
   on: (name, namespace, f) ->
-    if not util.isString(namespace)
+    if not isString(namespace)
       f = namespace
       namespace = 'hx.selection'
 
@@ -376,7 +381,7 @@ class Selection
 
   # unsubscribe for dom events from the underlying nodes
   off: (name, namespace, f) ->
-    if not util.isString(namespace)
+    if not isString(namespace)
       f = namespace
       namespace = undefined
 
@@ -444,79 +449,67 @@ class Selection
       if getMethod(node, 'contains').call(node, element) then return true
     false
 
-select = (selector, isArray) ->
-  nodes = if isArray
+  api: (name, apiObject) ->
+    if not @singleSelection
+      throw new Error('Selection::api - can only be used for a single selection')
+
+    hedo = getHexagonElementDataObject(@nodes[0])
+    if arguments.length == 0
+      return hedo.defaultApi
+    else if arguments.length == 1
+      if isString(name)
+        return hedo.api?[name]
+      else if isObject(name)
+        hedo.defaultApi = arguments[0]
+        return this
+      else
+        throw new Error('Selection::api - the api passed in should be an object')
+    else if arguments.length == 2
+      if not isString(name)
+        throw new Error('Selection::api - name should be a string')
+      if not isObject(apiObject)
+        throw new Error('Selection::api - the api passed in should be an object')
+
+      hedo.api = hedo.api or {}
+      hedo.api[name] = apiObject
+      return this
+
+bareSelect = (selector, selectorIsArray) ->
+  nodes = if selectorIsArray
     selector
   else
-    if typeof selector is 'string' then [selectSingle(selector, document)] else [selector]
+    if typeof selector is 'string' then [domSelectSingle(selector, document)] else [selector]
   s = new Selection(nodes)
-  s.singleSelection = not isArray
+  s.singleSelection = not selectorIsArray
   s
 
 # expose
-hxSelect = (selector) ->
+export select = (selector) ->
   if selector instanceof Selection
     selector
-  else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or util.isString(selector) or selector is document or selector is window)
-    util.consoleWarning(
-      'hx.select was passed the wrong argument type',
-      'hx.select only accepts a HTMLElement, SVGElement or string argument, you supplied:',
-      selector
-    )
-    new Selection([])
+  else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or isString(selector) or selector is document or selector is window)
+    throw new Error('hx.select only accepts a HTMLElement, SVGElement or string argument')
   else
-    select(selector)
+    bareSelect(selector)
 
-hxSelect.getHexagonElementDataObject = getHexagonElementDataObject
+export addEventAugmenter = (augmenter) -> augmenters.push(augmenter)
 
-hxSelect.addEventAugmenter = (augmenter) -> augmenters.push augmenter
-
-hxSelectAll = (selector) ->
-  if not (util.isString(selector) or Array.isArray(selector))
-    util.consoleWarning(
-      'hx.selectAll was passed the wrong argument type',
-      'hx.selectAll only accepts a string argument, you supplied:',
-      selector
-    )
-    new Selection([])
+export selectAll = (selector) ->
+  if not (isString(selector) or isArray(selector))
+    throw new Error('hx.selectAll only accepts a string or array as its argument')
   else
-    if util.isArray(selector)
-      select(selector, true)
+    if isArray(selector)
+      bareSelect(selector, true)
     else
-      select(document).selectAll(selector)
+      bareSelect(document).selectAll(selector)
 
-detached = (name, namespace) ->
+export detached = (name, namespace) ->
   namespace = if namespaces.hasOwnProperty(name) then namespaces[name] else namespaces.xhtml
-  select(document.createElementNS(namespace, name))
+  bareSelect(document.createElementNS(namespace, name))
 
-
-# XXX: 2.0.0: these have all moved module - this needs documenting
-div = (cls) -> detached('div').class(cls)
-span = (cls) -> detached('span').class(cls)
-input = (cls) -> detached('input').class(cls)
-# XXX: 2.0.0: api has changed + moved module - this needs documenting
-button = (cls) -> detached('button').class(cls)
-checkbox = (cls) -> detached('input').attr('type', 'checkbox').class(cls)
-# XXX: 2.0.0: api has changed + moved module - this needs documenting
-icon = (cls) -> detached('i').class(cls)
-
-# expose
-module.exports = hxSelect
-module.exports.selectAll = hxSelectAll
-module.exports.detached = detached
-module.exports.Selection = Selection
-module.exports.div = div
-module.exports.span = span
-module.exports.input = input
-module.exports.button = button
-module.exports.checkbox = checkbox
-module.exports.icon = icon
-
-
-# backwards compatiblity
-module.exports.hx = {
-  select: hxSelect,
-  selectAll: hxSelectAll,
-  detached: detached,
-  Selection: Selection
-}
+export div = (cls) -> detached('div').class(cls)
+export span = (cls) -> detached('span').class(cls)
+export input = (cls) -> detached('input').class(cls)
+export button = (cls) -> detached('button').class(cls)
+export checkbox = (cls) -> detached('input').attr('type', 'checkbox').class(cls)
+export i = (cls) -> detached('i').class(cls)

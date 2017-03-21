@@ -1,2 +1,2 @@
-describe 'hx-pointer-events tests', ->
-  # ...
+export default () ->
+  xdescribe 'pointer-events', ->
