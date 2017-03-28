@@ -1,0 +1,40 @@
+@import "hexagon.base.css";
+@import "hexagon.theme.css";
+
+:root {
+  /* base */
+  --default-font-family: 'Open Sans', sans-serif;
+  --heading-font-family: 'Roboto Slab', sans-serif;
+  --body-background-col: #F0F0F0;
+  --default-text-col: #3D3D3D;
+  --heading-text-col: #4A536F;
+  --input-background-col: #FAFAFA;
+  --input-border-col: #D8D8D8;
+  --input-text-col: #3D3D3D;
+  --input-focus-border-col: #B5B5B5;
+  --input-invalid-border-col: #DE1A4A;
+  --input-border-radius: 2px;
+  --select-background-col: #FAFAFA;
+  --select-border-col: #D8D8D8;
+  --select-text-col: #3D3D3D;
+  --select-focus-border-col: #B5B5B5;
+  --text-select-col: #B4B1B5;
+  --link-col: #4E78A0;
+  --divider-col: #E2E1E1;
+  --divider-style: solid;
+  --default-font-size: 14px;
+
+  /* spinner */
+  --spinner-col: #6582A6;
+
+  /* modal */
+  --shade-col: rgba(0,0,0,0.5);
+  --background-col: #F7F7F7;
+  --title-background-col: #E6E6E6;
+  --title-text-col: #3D3D3D;
+  --title-font-size: 1em;
+  --shadow-col: rgba(0, 0, 0, 0.25);
+  --border-radius: 3px;
+  --border-color: #E6E6E6;
+
+}

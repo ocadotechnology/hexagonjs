@@ -39,7 +39,7 @@ export class Modal extends EventEmitter
     modalContainer = body.append('div').attr('class', 'hx-modal-container')
     modal = modalContainer.append('div').attr('class', 'hx-modal')
     titleContainer = modal.append('div')
-      .class('hx-modal-title-container hx-group hx-horizontal hx-header')
+      .class('hx-modal-title-container hx-header')
     title = detached('div').class('hx-modal-title')
 
     if @options.closeButtonEnabled

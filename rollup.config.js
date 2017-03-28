@@ -3,6 +3,7 @@ import coffee from 'rollup-plugin-coffee-script'
 import includePaths from 'rollup-plugin-includepaths'
 import buble from 'rollup-plugin-buble'
 import progress from 'rollup-plugin-progress'
+import json from 'rollup-plugin-json';
 
 const includePathOptions = {
   include: {},
@@ -17,6 +18,7 @@ export default {
   format: 'iife',
   moduleName: 'hx',
   plugins: [
+    json(),
     buble({
       exclude: ['**/*.coffee']
     }),

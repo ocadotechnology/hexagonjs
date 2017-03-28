@@ -1,9 +1,9 @@
 body.hx-modal-open {
   overflow-y: hidden;
+}
 
-  .hx-content {
-    pointer-events: none;
-  }
+body.hx-modal-open .hx-content {
+  pointer-events: none;
 }
 
 .hx-modal-shade {
@@ -42,16 +42,17 @@ body.hx-modal-open {
 .hx-modal-title-container {
   line-height: 1em;
   border-bottom: 1px solid transparent;
+  display: flex;
 }
 
 .hx-modal-title {
   padding: 0.8em;
   position: relative;
   flex: 1;
+}
 
-  > i:first-child {
-    margin-right: 0.4em;
-  }
+.hx-modal-title > i:first-child {
+  margin-right: 0.4em;
 }
 
 .hx-modal-close {

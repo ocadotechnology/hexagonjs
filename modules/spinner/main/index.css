@@ -1,3 +1,7 @@
+:root {
+  --hx-spinner-width: 100px;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -7,7 +11,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 .hx-spinner {
   animation-duration: 0.75s;
@@ -22,18 +25,15 @@
   position: relative;
 }
 
-$width: 100px;
-
 @keyframes slide {
   0% {
-    margin-left: -$width;
+    margin-left: -var(--hx-spinner-width);
   }
 
   100% {
     margin-left: calc(100%);
   }
 }
-
 
 .hx-spinner-wide {
   height: 4px;
@@ -47,7 +47,7 @@ $width: 100px;
   animation-iteration-count: infinite;
   animation-name: slide;
   animation-timing-function: linear;
-  width: $width;
+  width: var(--hx-spinner-width);
   height: 100%;
   display: inline-block;
   top: 0;

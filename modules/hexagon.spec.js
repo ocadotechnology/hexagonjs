@@ -21,14 +21,18 @@ import pointerEventTests from './pointer-events/test/spec'
 import viewTests from './view/test/spec'
 import sortTests from './sort/test/spec'
 import clickDetectorTests from './click-detector/test/spec'
-import modalTests from './modal/test/spec'
 import notifyTests from './notify/test/spec'
 import filterTests from './filter/test/spec'
 import userFacingTextTests from './user-facing-text/test/spec'
 import formTests from './form/test/spec'
-import dropdownTests from './dropdown/test/spec'
+import paletteTests from './palette/test/spec'
+import formatTests from './format/test/spec'
 
 // Components
+
+import modalTests from './modal/test/spec'
+import dropdownTests from './dropdown/test/spec'
+import collapsibleTests from './collapsible/test/spec'
 
 should()
 
@@ -139,7 +143,11 @@ describe('HexagonJS Test Suite', () => {
         'filterRegex',
         'userFacingText',
         'validateForm',
-        'Dropdown'
+        'Dropdown',
+        'Collapsible',
+        'initializeCollapsibles',
+        'palette',
+        'format'
       ])
     })
   })
@@ -168,15 +176,12 @@ describe('HexagonJS Test Suite', () => {
   userFacingTextTests()
   formTests()
   dropdownTests()
+  collapsibleTests()
+  paletteTests()
+  formatTests()
 
   // Components
 
-  // require('modules/user-facing-text/test/spec')
-  // require('modules/form/test/spec')
-  // require('modules/dropdown/test/spec')
-  // require('modules/collapsible/test/spec')
-  // require('modules/palette/test/spec')
-  // require('modules/format/test/spec')
   // require('modules/menu/test/spec')
   // require('modules/preferences/test/spec')
   // require('modules/autocomplete/test/spec')

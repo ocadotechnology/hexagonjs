@@ -1,0 +1,66 @@
+body {
+  font-family: var(--default-font-family);
+  font-size: var(--default-font-size);
+  background: var(--body-background-col);
+  color: var(--default-text-col);
+}
+
+button {
+  font-family: var(--default-font-family);
+  font-size: var(--default-font-size);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hx-header-large,
+.hx-header-medium,
+.hx-header-small,
+.hx-header {
+  font-family: var(--heading-font-family);
+  color: var(--heading-text-col);
+}
+
+textarea,
+input {
+  font-family: var(--default-font-family);
+  font-size: var(--default-font-size);
+  background-color: var(--input-background-col);
+  border-color: var(--input-border-col);
+  color: var(--input-text-col);
+  border-radius: var(--input-border-radius);
+
+  & :focus {
+    border-color: var(--input-focus-border-col);
+  }
+
+  & :invalid {
+    border-color: var(--input-invalid-border-col);
+  }
+}
+
+select {
+  border-color: var(--select-border-col);
+  background: var(--select-background-col);
+  color: var(--select-text-col);
+
+  & :focus {
+    border-color: var(--select-focus-border-col);
+  }
+}
+
+::selection {
+  background: var(--text-select-col);
+}
+
+a {
+  color: var(--link-col);
+}
+
+hr {
+  border-color: var(--divider-col);
+  border-style: var(--divider-style);
+}

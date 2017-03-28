@@ -22,17 +22,23 @@
   "scripts": {
     "start": "npm-run-all --parallel watch:*",
     "watch:browser-test-runner": "browser-test-runner watch test",
-    "watch:lib": "rollup -w -c rollup.config.js",
+    "watch:lib-js": "rollup -w -c rollup.config.js",
+    "watch:lib-css": "postcss modules/hexagon.css -w -c postcss.config.js -o target/hexagon.css",
     "watch:tests": "rollup -w -c rollup.config.test.js",
     "watch:tests-with-coverage": "rollup -w -c rollup.config.test.coverage.js",
-    "build:lib": "rollup -c rollup.config.js",
+    "watch:demo-js": "rollup -w -c rollup.config.demo.js",
+    "watch:demo-html": "cpx -w demo-new/index.html target",
+    "build:lib-js": "rollup -c rollup.config.js",
+    "build:lib-css": "postcss modules/hexagon.css -c postcss.config.js -o target/hexagon.css",
     "build:tests": "rollup -c rollup.config.test.js",
     "build:tests-no-coverage": "rollup -c rollup.config.test.nocoverage.js",
+    "build:demo-js": "rollup -c rollup.config.demo.js",
+    "build:demo-html": "cpx demo-new/index.html target",
     "dist": "node build/main/dist.js",
     "test": "npm run test-phantomjs",
     "test-saucelabs": "npm run build:tests && npm run run-tests-saucelabs",
     "test-phantomjs": "npm run build:tests && npm run run-local-tests:phantomjs",
-    "test-chrome": "npm run build:tests && npm run run-local-tests:phantomjs",
+    "test-chrome": "npm run build:tests && npm run run-local-tests:chrome",
     "test-firefox": "npm run build:tests && npm run run-local-tests:firefox",
     "test-safari": "npm run build:tests && npm run run-local-tests:safari",
     "test-all": "npm run build:tests && npm-run-all run-local-tests:*",
@@ -59,6 +65,10 @@
     "mocha": "^2.4.5",
     "npm-run-all": "^3.1.0",
     "phantomjs-prebuilt": "^2.0.0",
+    "postcss": "^5.2.6",
+    "postcss-cli": "^2.6.0",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-import": "^9.0.0",
     "rollup": "^0.41.4",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-coffee-script": "^1.1.0",
@@ -68,5 +78,9 @@
     "rollup-plugin-progress": "^0.2.1",
     "rollup-pluginutils": "^2.0.1",
     "sinon": "^1.17.1"
+  },
+  "dependencies": {
+    "cpx": "^1.5.0",
+    "rollup-plugin-json": "^2.1.0"
   }
 }

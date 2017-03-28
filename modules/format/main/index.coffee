@@ -1,5 +1,5 @@
 
-utils = require('modules/util/main/utils')
+import { isString } from 'modules/utils/main'
 
 siSuffixes = ['y','z','a','f','p','n','µ','','','K','M','G','T','P','E','Z','Y']
 
@@ -53,17 +53,13 @@ strictCheck = (f, sf, strict) ->
     if strict
       (n) -> f(n, sf)
     else
-      (n) -> if utils.isString(n) then n else f(n, sf)
+      (n) -> if isString(n) then n else f(n, sf)
 
 # XXX [2.0.0] having factories instead of plain functions feels strange here - change to plain functions?
-format =
-  round: (sf, strict) -> strictCheck formatRound, sf, strict
-  si: (sf, strict) -> strictCheck formatSI, sf, strict
-  exp: (sf, strict) -> strictCheck formatExp, sf, strict
-  fixed: (digits, strict) -> strictCheck formatFixed, digits, strict
-  zeroPad: (length, strict) -> strictCheck zeroPad, length, strict
-
-module.exports = format
-module.exports.hx = {
-  format: format
+export format = {
+  round: (sf, strict) -> strictCheck(formatRound, sf, strict),
+  si: (sf, strict) -> strictCheck(formatSI, sf, strict),
+  exp: (sf, strict) -> strictCheck(formatExp, sf, strict),
+  fixed: (digits, strict) -> strictCheck(formatFixed, digits, strict),
+  zeroPad: (length, strict) -> strictCheck(zeroPad, length, strict)
 }

@@ -1,5 +1,8 @@
 'use strict'
 
+// Include the version
+export { version } from '../package.json'
+
 // Utils
 export { Set } from 'modules/set/main'
 export { Map } from 'modules/map/main'
@@ -65,10 +68,8 @@ export {
 export { loop, transition, ease } from 'modules/transition/main'
 export { interpolate } from 'modules/interpolate/main'
 export { animate, morph } from 'modules/animate/main'
-export { spinner, spinnerWide } from 'modules/spinner/main'
 export { sort, sortBy, compare, localeCompare } from 'modules/sort/main'
 export { ClickDetector } from 'modules/click-detector/main'
-export { Modal, modalDialog, modalInput } from 'modules/modal/main'
 export {
   notify,
   notifyInfo,
@@ -91,9 +92,15 @@ export {
 } from 'modules/filter/main'
 export { userFacingText } from 'modules/user-facing-text/main'
 export { validateForm } from 'modules/form/main'
-export { Dropdown } from 'modules/dropdown/main'
+export { palette } from 'modules/palette/main'
+export { format } from 'modules/format/main'
 
 // Components
+
+export { spinner, spinnerWide } from 'modules/spinner/main'
+export { Modal, modalDialog, modalInput } from 'modules/modal/main'
+export { Dropdown } from 'modules/dropdown/main'
+export { Collapsible, initializeCollapsibles } from 'modules/collapsible/main'
 
 // Other things
 import { initAnimate } from 'modules/animate/main'
@@ -108,13 +115,6 @@ initView()          // XXX: remove?
 initMorphs()        // XXX: remove
 
 // module.exports = window.hx = merge([
-//   require('./filter/main'),
-//   require('./user-facing-text/main'),
-//   require('./form/main'),
-//   require('./dropdown/main'),
-//   require('./collapsible/main'),
-//   require('./palette/main'),
-//   require('./format/main'),
 //   require('./resize-events/main'),
 //   require('./menu/main'),
 //   require('./preferences/main'),

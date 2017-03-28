@@ -1,0 +1,24 @@
+.hx-modal-shade {
+  background: var(--shade-col);
+}
+
+.hx-modal {
+  box-shadow: 0 5px 10px var(--shadow-col);
+}
+
+.hx-modal-title-container {
+  font-size: var(--title-font-size);
+  background: var(--title-background-col);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  color: var(--title-text-col);
+  border-color: var(--border-color);
+}
+
+.hx-modal-content {
+  background: var(--background-col);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.hx-modal-title-empty + .hx-modal-content {
+  border-radius: var(--border-radius);
+}

@@ -1,10 +1,8 @@
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
+import logger from 'modules/logger/main'
+import { select } from 'modules/selection/main'
 
 contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
 paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
-
-palette = {}
 
 context = (contextArray, contextPrefix) ->
   mappedContexts = contextArray
@@ -18,19 +16,16 @@ context = (contextArray, contextPrefix) ->
       if contextArray.indexOf(context) isnt -1
         selection.classed(contextPrefix + '-' + context, true)
       else if context
-        utils.consoleWarning(context + ' is not a known context. Accepted values are ' + contextArray.join(', '))
+        logger.warn(context + ' is not a known context. Accepted values are ' + contextArray.join(', '))
       selection
     else
       for context in paletteContexts
         if selection.classed(contextPrefix + '-' + context) then return context
       return undefined
 
-palette.context = context(contexts, 'hx')
-palette.textContext = context(paletteContexts, 'hx-text')
-palette.backgroundContext = context(paletteContexts, 'hx-background')
-palette.borderContext = context(paletteContexts, 'hx-border')
-
-module.exports = palette
-module.exports.hx = {
-  palette: palette
+export palette = {
+  context: context(contexts, 'hx'),
+  textContext: context(paletteContexts, 'hx-text'),
+  backgroundContext: context(paletteContexts, 'hx-background'),
+  borderContext: context(paletteContexts, 'hx-border')
 }

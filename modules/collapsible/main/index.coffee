@@ -1,27 +1,25 @@
-EventEmitter = require('modules/event-emitter/main')
-utils = require('modules/util/main/utils')
-component = require('modules/component/main')
-select = require('modules/selection/main')
+import { EventEmitter } from 'modules/event-emitter/main'
+import { mergeDefined } from 'modules/utils/main'
+import { select, selectAll } from 'modules/selection/main'
 
-class Collapsible extends EventEmitter
+export class Collapsible extends EventEmitter
 
   constructor: (selector, options) ->
     super
 
-    @options = utils.merge.defined({
+    @options = mergeDefined({
       lazyContent: undefined
       visible: false
       addIcon: true
       animate: true
     }, options)
 
-    component.register(selector, this)
-
     @lazyContentCreated = false
 
     @selection = select(selector)
       .classed('hx-openable', true)
       .classed('hx-collapsible', true)
+      .api(this)
 
     header = @selection.select('.hx-collapsible-heading')
     if not (toggleBtn = header.select('.hx-collapsible-toggle')).empty()
@@ -130,14 +128,5 @@ class Collapsible extends EventEmitter
 
 
 # initialise all collapsibles that match the css selector, and return the result as an array of Collapsibles
-initializeCollapsibles = (selector, options) ->
-  select.selectAll(selector).nodes.map((d) -> new Collapsible(d, options))
-
-
-module.exports = Collapsible
-module.exports.initializeCollapsibles = initializeCollapsibles
-
-module.exports.hx = {
-  Collapsible: Collapsible,
-  initializeCollapsibles: initializeCollapsibles
-}
+export initializeCollapsibles = (selector, options) ->
+  selectAll(selector).nodes.map((d) -> new Collapsible(d, options))
