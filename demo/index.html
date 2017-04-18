@@ -1879,6 +1879,61 @@
         </div>
       </div>
 
+      <!-- tooltip -->
+      <div class="hx-section exampleSection">
+        <div class="example">
+          <h3>Tooltips</h3>
+          <form class="hx-form">
+            <div>
+              <label id="tooltip-text">Text</label>
+              <input type="text">
+            </div>
+            <div>
+              <label id="tooltip-email">Email</label>
+              <input type="email">
+            </div>
+            <div>
+              <label id="tooltip-number">Number</label>
+              <input type="number">
+            </div>
+            <div>
+              <label id="tooltip-url"</>Url</label>
+              <input type="url">
+            </div>
+            <div>
+              <label id="tooltip-radio">Radio</label>
+              <div id="group-1">
+                <div>
+                  <input type="radio" value="One" name="group-1">
+                  <label>One</label>
+                </div>
+                <div>
+                  <input type="radio" value="Two" name="group-1">
+                  <label>Two</label>
+                </div>
+                <div>
+                  <input type="radio" value="Three" name="group-1">
+                  <label>Three</label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label id="tooltip-checkbox">Checkbox</label>
+              <input type="checkbox">
+            </div>
+            <button type="submit" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
+          </form>
+          <script>
+            hx.tooltip('#tooltip-text', {align: 'rblb', message: 'This could be your name or something'})
+            hx.tooltip('#tooltip-email', {align: 'rblb', message: 'Enter email'})
+            hx.tooltip('#tooltip-number', {align: 'rblb', message: 'Enter number'})
+            hx.tooltip('#tooltip-url', {align: 'rblb', message: 'Enter url'})
+            hx.tooltip('#tooltip-radio', {align: 'rblb', message: 'Choose an option'})
+            hx.tooltip('#tooltip-checkbox', {align: 'rblb', message: 'Confirm option'})
+          </script>
+        </div>
+      </div>
+
     </div>
   </div>
 
