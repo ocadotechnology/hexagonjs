@@ -192,7 +192,7 @@ class StickyTableHeaders
     offsetHeight = 0
     offsetWidth = 0
 
-    if options.fullWidth
+    if options.fullWidth or table.classed('hx-table-full')
       table.style('width', '100%')
 
     if options.stickTableHead
