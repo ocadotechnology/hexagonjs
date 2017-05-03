@@ -270,7 +270,7 @@ class Selection
         removeChild.call(node, node.firstChild)
     this
 
-  # cleas the contents of a node and then adds the children passed in
+  # clears the contents of a node and then adds the children passed in
   set: (children) -> this.clear().add(children)
 
   # gets the nth node in the selection, defaulting to the first
