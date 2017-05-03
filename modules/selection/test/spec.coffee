@@ -614,6 +614,22 @@ describe 'Selection Api', ->
     selection = hx.select('#fixture')
     selection.clear().should.equal(selection)
 
+  it 'set works', ->
+    children = [
+      hx.detached('div'),
+      hx.detached('div'),
+      hx.detached('div')
+    ]
+
+    parent = hx.detached('div')
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+
+    parent.set(children).should.equal(parent)
+    parent.selectAll('span').size().should.equal(0)
+    parent.selectAll('div').size().should.equal(3)
+
   # getting / setting properties
 
   it 'get a property from a single selection', ->
