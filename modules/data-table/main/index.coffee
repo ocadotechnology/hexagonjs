@@ -170,6 +170,9 @@ createAdvancedSearchView = (selection, dataTable, options) ->
             })
             dataTable.advancedSearch([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
 
+      criteriaAnyPlaceholder = hx.div('hx-data-table-advanced-search-criteria-placeholder hx-text-disabled hx-background-disabled')
+        .text(hx.userFacingText('dataTable', 'contains'))
+
       debouncedInput = hx.debounce 200, (e) ->
         prevFilters = dataTable.advancedSearch()
         [leftFilterGroups, filterGroup, rightFilterGroups] = splitArray(prevFilters, filterGroupIndex)
@@ -207,6 +210,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
       @append('div').class('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width')
         .add(typePickerSel)
         .add(columnPickerSel)
+        .add(criteriaAnyPlaceholder)
         .add(criteriaPickerSel)
         .add(hx.div('hx-data-table-advanced-search-filter-input-container hx-input-group hx-no-pad hx-no-border')
           .add(termInput)
@@ -233,6 +237,8 @@ createAdvancedSearchView = (selection, dataTable, options) ->
       .items(toCriteriaItems(criteriaItems))
       .value(criteria || 'contains')
 
+    filterRowSel.select('.hx-data-table-advanced-search-criteria-placeholder')
+      .style('display', if criteriaItems.length is 1 then 'block' else 'none')
 
     filterRowSel.select('.hx-data-table-advanced-search-input')
       .value(term or '')
