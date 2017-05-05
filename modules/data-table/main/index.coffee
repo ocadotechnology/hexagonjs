@@ -144,8 +144,8 @@ createAdvancedSearchView = (selection, dataTable, options) ->
             [leftFilters, filter, rightFilters] = splitArray(filterGroup, trueIndex)
             newFilter = hx.merge(filter, {
               column: data.value.value
-              criteria: 'contains'
             })
+            delete newFilter.criteria
             columnCriteria = columnOptionLookup(options, 'advancedSearchCriteria', data.value.value) || []
             criteriaItems = ['contains', columnCriteria...]
             criteriaPickerSel.component()
@@ -1156,16 +1156,16 @@ defaultTermLookup = (term, rowSearchTerm, criteria = 'contains') ->
   lookupArr = if hx.isString(rowSearchTerm) then [rowSearchTerm] else rowSearchTerm
   arr = term.replace(stripLeadingAndTrailingWhitespaceRegex,'')
     .split whitespaceSplitRegex
-  validPart = hx.find arr, (part) -> hx.filter[criteria](lookupArr, part).length
+  validPart = hx.find arr, (part) -> hx.filter[criteria](lookupArr, part.toLowerCase()).length
   hx.defined validPart
 
 getAdvancedSearchFilter = (cellValueLookup = hx.identity, termLookup = defaultTermLookup) ->
   (filters, row) ->
-    rowSearchTerms = (v for k, v of row.cells).map(cellValueLookup)
+    rowSearchTerm = (v for k, v of row.cells).map(cellValueLookup).join(' ').toLowerCase()
     # If term is empty this will return false
     validFilters = hx.find filters, (groupedFilters) ->
       invalidFilter = hx.find groupedFilters, (filter) ->
-        searchTerm = if filter.column is 'any' then rowSearchTerms else (cellValueLookup(row.cells[filter.column]) + '').toLowerCase()
+        searchTerm = if filter.column is 'any' then rowSearchTerm else (cellValueLookup(row.cells[filter.column]) + '').toLowerCase()
         filter.term and not termLookup(filter.term.toLowerCase(), searchTerm, filter.criteria)
       not hx.defined invalidFilter
     hx.defined validFilters
