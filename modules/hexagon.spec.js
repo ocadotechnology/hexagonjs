@@ -50,6 +50,7 @@ describe('HexagonJS Test Suite', () => {
       // checks for each of these objects/functions should be done in the
       // module tests
       expect(hx).to.have.keys([
+        'version',
         'Set',
         'List',
         'Map',
@@ -102,6 +103,7 @@ describe('HexagonJS Test Suite', () => {
         'EventEmitter',
         'select',
         'selectAll',
+        'isSelection',
         'detached',
         'div',
         'span',

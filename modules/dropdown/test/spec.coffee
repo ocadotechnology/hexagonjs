@@ -1,7 +1,7 @@
 import chai from 'chai'
 import logger from 'modules/logger/main'
 import { Dropdown, config } from 'modules/dropdown/main'
-import { select, selectAll } from 'modules/selection/main'
+import { select, selectAll, div } from 'modules/selection/main'
 import { calculateDropdownPosition } from 'modules/dropdown/main/positioning'
 
 import { installFakeTimers } from 'test/utils/fake-time'
@@ -248,8 +248,7 @@ export default () ->
       dd._.dropdown.style('position').should.equal('fixed')
 
     it 'should render correctly using a function as content', ->
-      populate = (elem) ->
-        select(elem).append('div').class('bob').text('Dave')
+      populate = () -> div('bob').text('Dave')
 
       dd = new Dropdown(id, populate)
       dd.show()

@@ -1,58 +1,42 @@
-// View Menu - decide what background to use
+import { select, div, detached } from 'hexagon-js'
 
-var types = [
-  {
-    text: 'body',
-    value: ''
-  },
-  {
-    text: 'content',
-    value: 'hx-content'
-  },
-  {
-    text: 'card',
-    value: 'hx-card'
-  },
-  {
-    text: 'collapsible content',
-    value: 'hx-collapsible-content'
-  },
-  {
-    text: 'modal content',
-    value: 'hx-modal-content'
-  },
-  {
-    text: 'tab content',
-    value: 'hx-tabs-content'
-  }
-]
+import loadingSpinnerExamples from './examples/loading-spinner'
+import modalExamples from './examples/modal'
+import buttonExamples from './examples/button'
+import notifyExamples from './examples/notify'
+import formExamples from './examples/form'
+import dropdownExamples from './examples/dropdown'
+import collapsibleExamples from './examples/collapsible'
+import paletteExamples from './examples/palette'
 
-var contexts = []
-var notices = []
+function example(title) {
+  return div('example-section')
+    .add(detached('h2').text(title))
+}
 
-window.contextNames.forEach(function (ctx) {
-  contexts.push({
-    text: 'context ' + ctx,
-    value: 'hx-background-' + ctx
-  })
-  notices.push({
-    text: 'notice ' + ctx,
-    value: 'hx-notice hx-' + ctx,
-    contentClass: 'hx-notice-body'
-  })
-})
+//XXX should be part of hexagon (pending MR in the 1.x.x branch)
+function heading () {
+  return div('hx-heading')
+    .add(div('hx-titlebar')
+      .add(div('hx-titlebar-container')
+        .add(div('hx-titlebar-header')
+          .add(detached('a')
+            .class('hx-titlebar-icon')
+            .attr('href', '#')
+            .add(detached('img').class('hx-logo')))
+          .add(div('hx-titlebar-title').text('Title'))
+          .add(div('hx-titlebar-subtitle').text('Subtitle')))))
+}
 
-new hx.Picker('#viewMenu', {
-  items: types.concat(contexts).concat(notices),
-  value: '',
-  renderer: function (node, item) {
-    hx.select(node).text(item.text)
-  }
-})
-  .on('change', function (p) {
-    hx.select('#container').class('hx-group hx-horizontal view-' + p.value.text)
-      .selectAll('.exampleSection')
-      .class('hx-section exampleSection ' + p.value.value)
-      .selectAll('.example')
-      .class('example ' + (p.value.contentClass || ''))
-  })
+select('body')
+  .add(heading())
+  .add(div('hx-content').add([
+    example('Loading Spinners').add(loadingSpinnerExamples()),
+    example('Modals').add(modalExamples()),
+    example('Buttons').add(buttonExamples()),
+    example('Notify').add(notifyExamples()),
+    example('Form').add(formExamples()),
+    example('Dropdown').add(dropdownExamples()),
+    example('Collapsible').add(collapsibleExamples()),
+    example('Palette').add(paletteExamples())
+  ]))

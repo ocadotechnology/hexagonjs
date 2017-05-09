@@ -84,4 +84,5 @@ module.exports.hx = {
 }
 
 # set up the titlebar
-if select('.hx-heading').size() > 0 then module.exports.hx.titlebar = new TitleBar('.hx-heading')
+if select('.hx-heading').size() > 0
+  module.exports.hx.titlebar = new TitleBar('.hx-heading')

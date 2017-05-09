@@ -1,24 +1,24 @@
 .hx-modal-shade {
-  background: var(--shade-col);
+  background: var(--modal-shade-color);
 }
 
 .hx-modal {
-  box-shadow: 0 5px 10px var(--shadow-col);
+  box-shadow: 0 5px 10px var(--modal-shadow-color);
 }
 
 .hx-modal-title-container {
-  font-size: var(--title-font-size);
-  background: var(--title-background-col);
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-  color: var(--title-text-col);
-  border-color: var(--border-color);
+  font-size: var(--modal-title-font-size);
+  background: var(--modal-title-background-color);
+  border-radius: var(--modal-border-radius) var(--modal-border-radius) 0 0;
+  color: var(--modal-title-text-color);
+  border-color: var(--modal-border-color);
 }
 
 .hx-modal-content {
-  background: var(--background-col);
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  background: var(--modal-background-color);
+  border-radius: 0 0 var(--modal-border-radius) var(--modal-border-radius);
 }
 
 .hx-modal-title-empty + .hx-modal-content {
-  border-radius: var(--border-radius);
+  border-radius: var(--modal-border-radius);
 }

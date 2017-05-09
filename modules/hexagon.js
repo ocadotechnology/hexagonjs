@@ -57,6 +57,7 @@ export { color, isColor, isColorString } from 'modules/color/main'
 export {
   select,
   selectAll,
+  isSelection,
   detached,
   div,
   span,
@@ -108,7 +109,7 @@ import { initPointerEvents } from 'modules/pointer-events/main'
 import { initView } from 'modules/view/main'
 import { initMorphs } from 'modules/morphs/main'
 
-//XXX: these api should be opt-in
+// XXX: these api should be opt-in
 initAnimate()       // XXX: remove
 initPointerEvents() // XXX: make into a selection middleware
 initView()          // XXX: remove?

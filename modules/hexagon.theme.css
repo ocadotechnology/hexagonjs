@@ -1,3 +1,9 @@
 @import "spinner/main/theme";
 @import "base/main/theme";
 @import "modal/main/theme";
+@import "notify/main/theme";
+@import "button/main/theme";
+@import "form/main/theme";
+@import "dropdown/main/theme";
+@import "collapsible/main/theme";
+@import "palette/main/theme";

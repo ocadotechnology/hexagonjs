@@ -1,5 +1,5 @@
 import logger from 'modules/logger/main'
-import { select }  from 'modules/selection/main'
+import { select, isSelection }  from 'modules/selection/main'
 import { isString, isFunction, mergeDefined, shallowMerge } from 'modules/utils/main'
 import { ClickDetector } from 'modules/click-detector/main'
 import { EventEmitter } from 'modules/event-emitter/main'
@@ -46,10 +46,13 @@ checkFixedPos = (node) ->
 
 dropdownContentToSetupDropdown = (dropdownContent) ->
   setupDropdown = switch
-    when isString dropdownContent
+    when isSelection(dropdownContent)
+      (node) -> select(node).add(dropdownContent)
+    when isString(dropdownContent)
+      # XXX: [2.0.0] remove
       (node) -> select(node).html(dropdownContent)
-    when isFunction dropdownContent
-      dropdownContent
+    when isFunction(dropdownContent)
+      (node) -> select(node).add(dropdownContent())
     else
       logger.warn('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
       -> undefined

@@ -1,13 +1,13 @@
 body {
-  font-family: var(--default-font-family);
-  font-size: var(--default-font-size);
-  background: var(--body-background-col);
-  color: var(--default-text-col);
+  font-family: var(--base-default-font-family);
+  font-size: var(--base-default-font-size);
+  background: var(--base-body-background-color);
+  color: var(--base-default-text-color);
 }
 
 button {
-  font-family: var(--default-font-family);
-  font-size: var(--default-font-size);
+  font-family: var(--base-default-font-family);
+  font-size: var(--base-default-font-size);
 }
 
 h1,
@@ -20,47 +20,48 @@ h6,
 .hx-header-medium,
 .hx-header-small,
 .hx-header {
-  font-family: var(--heading-font-family);
-  color: var(--heading-text-col);
+  font-family: var(--base-heading-font-family);
+  color: var(--base-heading-text-color);
 }
 
 textarea,
 input {
-  font-family: var(--default-font-family);
-  font-size: var(--default-font-size);
-  background-color: var(--input-background-col);
-  border-color: var(--input-border-col);
-  color: var(--input-text-col);
-  border-radius: var(--input-border-radius);
+  font-family: var(--base-default-font-family);
+  font-size: var(--base-default-font-size);
+  background-color: var(--base-input-background-color);
+  border-color: var(--base-input-border-color);
+  color: var(--base-input-text-color);
+  border-radius: var(--base-input-border-radius);
 
   & :focus {
-    border-color: var(--input-focus-border-col);
+    border-color: var(--base-input-focus-border-color);
   }
 
   & :invalid {
-    border-color: var(--input-invalid-border-col);
+    border-color: var(--base-input-invalid-border-color);
   }
 }
 
 select {
-  border-color: var(--select-border-col);
-  background: var(--select-background-col);
-  color: var(--select-text-col);
-
-  & :focus {
-    border-color: var(--select-focus-border-col);
-  }
+  border-color: var(--base-select-border-color);
+  background: var(--base-select-background-color);
+  color: var(--base-select-text-color);
 }
 
+select:focus {
+  border-color: var(--base-select-focus-border-color);
+}
+
+
 ::selection {
-  background: var(--text-select-col);
+  background: var(--base-text-select-color);
 }
 
 a {
-  color: var(--link-col);
+  color: var(--base-link-color);
 }
 
 hr {
-  border-color: var(--divider-col);
-  border-style: var(--divider-style);
+  border-color: var(--base-divider-color);
+  border-style: var(--base-divider-style);
 }
