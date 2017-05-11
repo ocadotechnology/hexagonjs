@@ -38,8 +38,20 @@ toCriteriaItems = (list) ->
   new hx.Set(list).values().map (item) ->
     {
       value: item,
-      text: hx.userFacingText('dataTable', item) || item
+      text: hx.userFacingText('dataTable', item)
     }
+
+advancedSearchCriteriaValidate = (value) ->
+  allowedTypes = hx.filter.types()
+  if (hx.isArray(value) and value.every((c) -> ~allowedTypes.indexOf(c))) or value is undefined
+    value
+  else if hx.isArray(value)
+    invalidTypes = value.filter((c) -> not ~allowedTypes.indexOf(c))
+    hx.consoleWarning('Invalid Filter Criteria Specified:', invalidTypes, '\nPlease select a value from hx.filter.stringTypes()', allowedTypes)
+    []
+  else
+    hx.consoleWarning('Expected an array of filter criteria but was passed:', value)
+    []
 
 splitArray = (array, index) ->
   left = if index is 0 then [] else array[0...index]
@@ -147,13 +159,13 @@ createAdvancedSearchView = (selection, dataTable, options) ->
             })
             delete newFilter.criteria
             columnCriteria = columnOptionLookup(options, 'advancedSearchCriteria', data.value.value) || []
-            criteriaItems = ['contains', columnCriteria...]
+            criteriaItems = ['contains', advancedSearchCriteriaValidate(columnCriteria)...]
             criteriaPickerSel.component()
               .items(toCriteriaItems(criteriaItems))
             dataTable.advancedSearch([leftFilterGroups..., [leftFilters..., newFilter, rightFilters...], rightFilterGroups...])
 
       criteriaPickerOptions =
-        items: ['contains', options.advancedSearchCriteria...]
+        items: ['contains', advancedSearchCriteriaValidate(options.advancedSearchCriteria)...]
         fullWidth: true
 
       criteriaPickerSel = hx.picker(criteriaPickerOptions)
@@ -230,7 +242,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
       .value(trueColumn)
 
     columnCriteria = columnOptionLookup(options, 'advancedSearchCriteria', column) || []
-    criteriaItems = if trueColumn is 'any' then ['contains'] else ['contains', columnCriteria...]
+    criteriaItems = if trueColumn is 'any' then ['contains'] else ['contains', advancedSearchCriteriaValidate(columnCriteria)...]
     filterRowSel.select('.hx-data-table-advanced-search-criteria')
       .style('display', if criteriaItems.length is 1 then 'none' else 'block')
       .component()
@@ -280,7 +292,7 @@ class DataTable extends hx.EventEmitter
       filterCriteria: 'contains'
       showAdvancedSearch: false
       advancedSearchEnabled: false
-      advancedSearchCriteria: []
+      advancedSearchCriteria: undefined
       advancedSearch: undefined
       pageSize: 15
       pageSizeOptions: undefined  # supply an array of numbers to show the user
@@ -556,36 +568,6 @@ class DataTable extends hx.EventEmitter
   singleSelection: option('singleSelection')
   sort: option('sort')
 
-  setAdvancedSearchCriteria = (dt, obj, value, allowedTypes, callback, column) =>
-    if hx.isArray(value) and value.every((c) -> ~allowedTypes.indexOf(c))
-      obj.advancedSearchCriteria = value
-      dt.emit('advancedsearchcriteriachange', { column, value, cause: 'api' })
-      dt.render(callback)
-    else
-      if hx.isArray(value)
-        invalidTypes = value.filter((c) -> not ~allowedTypes.indexOf(c))
-        hx.consoleWarning('Invalid Filter Criteria Specified:', invalidTypes, '\nPlease select a value from hx.filter.stringTypes()', allowedTypes)
-      else
-        hx.consoleWarning('Expected an array of filter criteria but was passed:', value)
-    dt
-
-  advancedSearchCriteria: (columnId, value, cb) ->
-    options = @_.options
-    allowedTypes = hx.filter.types()
-    if hx.isArray(columnId)
-      # set global
-      setAdvancedSearchCriteria(this, options, arguments[0], allowedTypes, arguments[1])
-    else if not arguments.length
-      # get global
-      options.advancedSearchCriteria
-    else if hx.isArray(value)
-      # set column
-      options.columns[columnId] ?= {}
-      setAdvancedSearchCriteria(this, options.columns[columnId], value, allowedTypes, cb, columnId)
-    else if hx.isString(columnId)
-      # get column
-      options.columns[columnId]?.advancedSearchCriteria
-
   # general purpose function for setting / getting a column option (or the default option of the column id is not specified)
   columnOption = (name) ->
     (columnId, value, cb) ->
@@ -606,6 +588,7 @@ class DataTable extends hx.EventEmitter
           this
       else options[name]
 
+  advancedSearchCriteria: columnOption('advancedSearchCriteria')
   allowHeaderWrap: columnOption('allowHeaderWrap')
   cellRenderer: columnOption('cellRenderer')
   headerCellRenderer: columnOption('headerCellRenderer')
