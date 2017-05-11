@@ -35,7 +35,7 @@ columnOptionLookup = (options, name, id) ->
     options[name]
 
 toCriteriaItems = (list) ->
-  new hx.Set(list).values().map (item) ->
+  hx.unique(list).map (item) ->
     {
       value: item,
       text: hx.userFacingText('dataTable', item)
