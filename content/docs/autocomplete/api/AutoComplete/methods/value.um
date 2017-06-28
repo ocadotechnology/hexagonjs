@@ -1,0 +1,11 @@
+@method value
+  @added 0.13.0
+  @description: A method for getting the value of the auto complete.
+  @returns String: The input value
+
+@method value
+  @added 0.13.0
+  @description: A method for setting the value of the auto complete.
+  @param value [String]: The value to set the autocomplete to.
+  @returns AutoComplete
+    @description: This @type[Autocomplete].

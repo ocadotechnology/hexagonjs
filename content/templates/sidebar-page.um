@@ -4,9 +4,8 @@
   @content
     @if version: @stylesheet [/resources/hexagon/{{version}}/hexagon.css]
     @stylesheet [/resources/hexagon/docs/hexagon.css]
+    @stylesheet [https://fonts.googleapis.com/css?family=Open+Sans:100,400,700|Roboto+Slab:400,700|Source+Code+Pro:400,700]
     @stylesheet [/resources/font-awesome/css/font-awesome.min.css]
-    @stylesheet [/resources/fonts/fonts.css]
-    @stylesheet [/resources/docs.css]
     @stylesheet [/resources/docs-new.css]
 
     @if version: @script [/resources/hexagon/{{version}}/hexagon.js]
@@ -50,7 +49,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @header
-      @icon /resources/logo-v1.svg
+      @icon /resources/logo-mono-v1.svg
       @title HexagonJS
 
     @sidebarPage
@@ -69,7 +68,13 @@
             @page /guide/create-custom-themes: Creating Custom Themes
             @page /guide/printing: Print Styles
 
-          @section Modules
+          @section JavaScript Utils
+            @page /docs/animate: Animate
+
+          @section Style Utils
+
+          @section Components
+            @page /docs/autocomplete: AutoComplete
             @page /docs/button: Button
 
       @content

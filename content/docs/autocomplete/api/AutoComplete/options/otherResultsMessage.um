@@ -1,0 +1,19 @@
+@property otherResultsMessage [String]
+  @description
+    The text to display at the top of the other results when the
+    @code[showOtherResults] option is true.
+
+    The text must be set to a valid string, setting this option to
+    @code[undefined] or @code[''] will not prevent the heading from showing as
+    it acts as a divider between matching and non-matching results.
+
+  @updated
+    @issue 211
+    @description
+      The default text for @code[options.otherResultsMessage] is retrieved from
+      the userFacingText module
+
+  @default
+    @versioned
+      @version 0.9.0: @code['Other Results']
+      @version 1.4.0: @code[hx.userFacingText('autocomplete', 'otherResults')]

@@ -1,6 +1,0 @@
-@version 1.0.0
-  @api Autocomplete
-    @function hx.autoComplete
-      @description: Creates a new AutoComplete set up on a detached element, wrapped in a selection
-      @param options [Object]: See the options object for constructing AutoComplete
-      @returns Selection: A selection containing an element with an AutoComplete initialised on it

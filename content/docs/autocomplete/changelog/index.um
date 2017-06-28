@@ -1,13 +1,12 @@
-@inline ../../../templates/sidebar-page.um
+@inline /templates/sidebar-page.um
 
 @topSection
-  @title Autocomplete Changelog
+  @title AutoComplete Changelog
 
 @contentSection
   @changelogList
+    @groupByApi false
+    @reverseVisibleList true
     @process
-      @groupByApi false
-      @inline ../versions/*.um
-    @for v in versionList
-      @version {{v}}
-        @link /docs/{{v}}/autocomplete/
+      @inline ../api.um
+    @inline /templates/versions.um

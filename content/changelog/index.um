@@ -6,8 +6,9 @@
 @contentSection
   @changelogList
     @groupByApi true
+    @reverseVisibleList true
     @process
-      @inline ../docs/*/index.um
+      @inline ../docs/animate/index.um
 
     @version 0.9.0
       @description
@@ -362,10 +363,13 @@
 
     @version 1.8.0
       @description
-        @p: Added support for lazily loaded trees when building from json
-        @p: Allow HTML content inside notifications
-        @p: Disable the increment/decrement buttons for number pickers
-        @p: This release also includes a selection of bugfixes
+        Added support for lazily loaded trees when building from json
+
+        Allow HTML content inside notifications
+
+        Disable the increment/decrement buttons for number pickers
+
+        This release also includes a selection of bugfixes
 
     @version 1.8.1
       @description: Patch the issue introduced in the Notification module introduced in the previous version.

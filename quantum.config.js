@@ -1,5 +1,3 @@
-const Promise = require('bluebird')
-
 const html = require('quantum-html')
 const api = require('quantum-api')
 const version = require('quantum-version')
@@ -7,11 +5,21 @@ const template = require('quantum-template')
 const docs = require('quantum-docs')
 const codeHighlight = require('quantum-code-highlight')
 
-const transforms = require('./transforms/transforms')
+const entityTransforms = require('./transforms/transforms')
 
-const htmlOptions = {
-  embedAssets: false,
-  assetPath: '/assets'
+const typeLinks = {
+  'Array': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array',
+  'Boolean': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
+  'Function': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Function',
+  'Number': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number',
+  'Object': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object',
+  'String': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String',
+  'Element': 'https://developer.mozilla.org/docs/Web/API/Element',
+  'Node': 'https://developer.mozilla.org/docs/Web/API/Node',
+  'AutoComplete': '/docs/autocomplete/#autocomplete',
+  'EventEmitter': '/docs/event-emitter/#eventemitter',
+  'Animation': '/docs/animate/#animation',
+  'Morph': '/docs/animate/#morph'
 }
 
 //XXX: tidy and move this into quantum (with persistence)
@@ -28,96 +36,65 @@ function cachedTransforms (trans) {
     }
   }
 
-  const res = {}
-  Object.keys(trans).forEach(k => {
-    res[k] = {}
-    Object.keys(trans[k]).forEach(w => {
-      res[k][w] = cached(trans[k][w])
+  function processObj(obj) {
+    const res = {}
+    Object.keys(obj).forEach(k => {
+      if (typeof obj[k] === 'function') {
+        res[k] = cached(obj[k])
+      } else {
+        res[k] = processObj(obj[k])
+      }
     })
-  })
-  return res
+    return res
+  }
+
+  return processObj(trans)
 }
 
 const apiOptions = {
   languages: [
-    api.languages.javascript(),
+    api.languages.javascript({
+      typeLinks: typeLinks
+    }),
     api.languages.css()
   ],
   reverseVisibleList: true,
   issueUrl: (id) => 'https://github.com/ocadotechnology/hexagonjs/issues/' + id
 }
 
-const htmlTransforms = cachedTransforms({
-  html: html.transforms(),
-  api: api.transforms(apiOptions),
-  docs: docs.transforms(),
-  codeHighlight: codeHighlight.transforms(),
-  hxs: transforms
-})
-
-const versionOptions = {
-  versions: [
-    '0.9.0',
-    '0.10.0',
-    '0.11.0',
-    '0.12.0',
-    '0.12.1',
-    '0.12.2',
-    '0.12.3',
-    '0.12.4',
-    '0.12.5',
-    '0.12.6',
-    '0.12.7',
-    '0.12.8',
-    '0.12.9',
-    '0.12.10',
-    '0.13.0',
-    '0.14.0',
-    '0.14.1',
-    '0.15.0',
-    '0.15.1',
-    '0.15.2',
-    '0.15.3',
-    '1.0.0',
-    '1.0.4',
-    '1.1.0',
-    '1.2.0',
-    '1.2.1',
-    '1.3.0',
-    '1.3.1',
-    '1.3.2',
-    '1.3.3',
-    '1.4.0',
-    '1.4.1',
-    '1.4.2',
-    '1.5.0',
-    '1.5.1',
-    '1.6.0',
-    '1.7.0',
-    '1.8.0',
-    '1.8.1',
-    '1.8.2'
-  ]
+const htmlOptions = {
+  embedAssets: false,
+  baseUrl: '',
+  entityTransforms: cachedTransforms({
+    html: html.entityTransforms(),
+    api: api.entityTransforms(apiOptions),
+    docs: docs.entityTransforms(),
+    codeHighlight: codeHighlight.entityTransforms(),
+    hxs: entityTransforms
+  })
 }
 
-function customizedTemplate (page) {
+function customizedTemplate (file) {
   const templateOptions = {
     variables: {
-      version: page.meta.version
+      version: file.meta.version
     }
   }
-  return template(templateOptions)(page)
+
+  return template.fileTransform(templateOptions)(file)
 }
 
 module.exports = {
   pipeline: [
-    docs(),
-    api(apiOptions),
-    version(versionOptions),
     customizedTemplate,
-    html({ transforms: htmlTransforms })
+    api.fileTransform(apiOptions),
+    version.fileTransform(),
+    docs.fileTransform(),
+    html.fileTransform(htmlOptions)
   ],
   concurrency: 1,
+  resolveRoot: 'content',
+  dest: 'target',
   pages: [
     {
       files: 'content/**/index.um',
@@ -150,6 +127,5 @@ module.exports = {
       base: '.',
       watch: true
     }
-  ],
-  htmlTransforms: htmlTransforms
+  ]
 }
