@@ -1,7 +1,6 @@
-select = require('modules/selection/main')
-component = require('modules/component/main')
-utils = require('modules/util/main/utils')
-EventEmitter = require('modules/event-emitter/main')
+import { select, div } from 'modules/selection/main'
+import { mergeDefined } from 'modules/utils/main'
+import { EventEmitter } from 'modules/event-emitter/main'
 
 checkValue = (value, min, max) ->
   if max isnt undefined then value = Math.min(value, max)
@@ -38,13 +37,11 @@ addHoldHandler = (incrementOnHold, incrementDelay, selection, incrementFn) ->
     selection.on 'click', 'hx.number-picker', incrementFn
 
 
-class NumberPicker extends EventEmitter
+export class NumberPicker extends EventEmitter
   constructor: (@selector, options) ->
     super
 
-    component.component.register(@selector, this)
-
-    @options = utils.merge.defined({
+    @options = mergeDefined({
       buttonClass: ''
       min: undefined
       max: undefined
@@ -56,8 +53,9 @@ class NumberPicker extends EventEmitter
 
     @_ = {}
 
-    container = select(@selector)
-    selection = container.class('hx-number-picker')
+    selection = select(@selector)
+      .class('hx-number-picker')
+      .api(this)
 
     incrementButton = selection.append('button').attr('type', 'button').class('hx-number-picker-increment hx-btn ' + @options.buttonClass)
     incrementButton.append('i').class('hx-icon hx-icon-chevron-up')
@@ -152,14 +150,7 @@ class NumberPicker extends EventEmitter
     else
       @options.disabled
 
-numberPicker = (options) ->
-  selection = select.detached('div')
+export numberPicker = (options) ->
+  selection = div()
   new NumberPicker(selection.node(), options)
   selection
-
-module.exports = numberPicker
-module.exports.NumberPicker = NumberPicker
-module.exports.hx  = {
-  numberPicker: numberPicker
-  NumberPicker: NumberPicker
-}

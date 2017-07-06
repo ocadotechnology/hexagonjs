@@ -102,18 +102,28 @@ export { spinner, spinnerWide } from 'modules/spinner/main'
 export { Modal, modalDialog, modalInput } from 'modules/modal/main'
 export { Dropdown } from 'modules/dropdown/main'
 export { Collapsible, initializeCollapsibles } from 'modules/collapsible/main'
+export { TitleBar } from 'modules/titlebar/main'
+export { Menu } from 'modules/menu/main'
+export { autoComplete, AutoComplete } from 'modules/autocomplete/main'
+export { numberPicker, NumberPicker } from 'modules/number-picker/main'
 
 // Other things
 import { initAnimate } from 'modules/animate/main'
 import { initPointerEvents } from 'modules/pointer-events/main'
 import { initView } from 'modules/view/main'
 import { initMorphs } from 'modules/morphs/main'
+import { initTitleBar } from 'modules/titlebar/main'
 
-// XXX: these api should be opt-in
+initTitleBar()
+
+// XXX: these apis should be opt-in
 initAnimate()       // XXX: remove
 initPointerEvents() // XXX: make into a selection middleware
 initView()          // XXX: remove?
 initMorphs()        // XXX: remove
+
+
+
 
 // module.exports = window.hx = merge([
 //   require('./resize-events/main'),

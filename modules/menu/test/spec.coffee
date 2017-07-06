@@ -1,12 +1,13 @@
-Menu = require('modules/menu/main')
-select = require('modules/selection/main')
+import { Menu } from 'modules/menu/main'
+import { div } from 'modules/selection/main'
 
-describe 'menu', ->
-  describe 'api', ->
-    it 'should use the items passed in', ->
-      menu = new Menu(select.detached('div').node(), {items: [1, 2, 3]})
-      menu.items().should.eql([1, 2, 3])
+export default () ->
+  describe 'menu', ->
+    describe 'api', ->
+      it 'should use the items passed in', ->
+        menu = new Menu(div(), {items: [1, 2, 3]})
+        menu.items().should.eql([1, 2, 3])
 
-    it 'should use the disabled flag', ->
-      menu = new Menu(select.detached('div').node(), {disabled: true})
-      menu.disabled().should.equal(true)
+      it 'should use the disabled flag', ->
+        menu = new Menu(div(), {disabled: true})
+        menu.disabled().should.equal(true)

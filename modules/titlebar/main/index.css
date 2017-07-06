@@ -1,36 +1,32 @@
-// for apps that should use the full width of the screen (the default is to centre the content)
-body.hx-full-width {
-  .hx-titlebar-container {
-    max-width: 100%;
-  }
+/* for apps that should use the full width of the screen (the default is to centre the content) */
+body.hx-full-width .hx-titlebar-container {
+  max-width: 100%;
 }
 
-// for apps that should be fixed to the size of the screen
-body.hx-full-screen {
-  .hx-titlebar-container {
-    max-width: 100%;
-  }
+/* for apps that should be fixed to the size of the screen */
+body.hx-full-screen .hx-titlebar-container {
+  max-width: 100%;
 }
 
-// to fix the titlebar at the top of the screen (so it is always visible) when the content can be scrolled
-body.hx-heading-fixed,
-body.hx-full-screen {
-  &:before {
-    content: ' ';
-    display: block;
-    height: 1px;
-    margin-top: -1px;
-  }
+/* to fix the titlebar at the top of the screen (so it is always visible) when the content can be scrolled */
+body.hx-heading-fixed:before,
+body.hx-full-screen:before {
+  content: ' ';
+  display: block;
+  height: 1px;
+  margin-top: -1px;
+}
 
-  > .hx-heading {
-    position: fixed;
-    top: 0;
-    min-width: 100%;
-    z-index: 100;
-    // hack to prevent the header from jumping around on scroll
-    // when css animations are used in the page (webkit issue)
-    transform: translate3d(0, 0, 0);
-  }
+
+body.hx-heading-fixed > .hx-heading,
+body.hx-full-screen > .hx-heading {
+  position: fixed;
+  top: 0;
+  min-width: 100%;
+  z-index: 100;
+  /* hack to prevent the header from jumping around on scroll
+     when css animations are used in the page (webkit issue) */
+  transform: translate3d(0, 0, 0);
 }
 
 .hx-heading {
@@ -45,12 +41,12 @@ body.hx-full-screen {
   margin: 0;
   padding: 0;
   transition: background 0.5s;
+}
 
-  .hx-titlebar-icon {
-    transition: background 0.1s;
-    align-self: stretch;
-    display: flex;
-  }
+.hx-titlebar.hx-titlebar-icon {
+  transition: background 0.1s;
+  align-self: stretch;
+  display: flex;
 }
 
 .hx-titlebar-container {
@@ -81,10 +77,10 @@ body.hx-full-width .hx-titlebar-contents {
   padding-left: 8px;
   padding-right: 8px;
   flex-shrink: 0;
+}
 
-  a {
-    flex-shrink: 0;
-  }
+.hx-titlebar-header a {
+  flex-shrink: 0;
 }
 
 .hx-titlebar-title {
@@ -133,10 +129,10 @@ body.hx-full-width .hx-titlebar-contents {
   padding-left: 0.75em;
   padding-right: 0.75em;
   text-align: center;
+}
 
-  &:hover {
-    cursor: pointer;
-  }
+.hx-titlebar-menu-icon:hover {
+  cursor: pointer;
 }
 
 .hx-titlebar-icon {
@@ -144,11 +140,11 @@ body.hx-full-width .hx-titlebar-contents {
   vertical-align: middle;
   padding-left: 0.5em;
   padding-right: 0.5em;
+}
 
-  img {
-    vertical-align: middle;
-    align-self: center;
-  }
+.hx-titlebar-icon img {
+  vertical-align: middle;
+  align-self: center;
 }
 
 .hx-titlebar-menu-icon-mobile {
@@ -157,11 +153,11 @@ body.hx-full-width .hx-titlebar-contents {
   margin-right: 0.3em;
   opacity: 0.4;
   position: relative;
+}
 
-  &:hover {
-    cursor: pointer;
-    opacity: 0.75;
-  }
+.hx-titlebar-menu-icon-mobile:hover {
+  cursor: pointer;
+  opacity: 0.75;
 }
 
 .hx-titlebar-linkbar {
@@ -185,15 +181,16 @@ body.hx-full-width .hx-titlebar-contents {
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 3px;
-
-  &.hx-selected,
-  &:hover {
-    border-bottom: 2px solid transparent;
-    padding-bottom: 1px;
-  }
 }
 
-a.hx-titlebar-link, a.hx-titlebar-link:hover {
+.hx-titlebar-link.hx-selected,
+.hx-titlebar-link:hover {
+  border-bottom: 2px solid transparent;
+  padding-bottom: 1px;
+}
+
+a.hx-titlebar-link,
+a.hx-titlebar-link:hover {
   text-decoration: none;
 }
 
@@ -211,61 +208,58 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
     height: 46px;
     border-left-style: solid;
     border-left-width: 1px;
+  }
 
-    &:last-child {
-      border-right-style: solid;
-      border-right-width: 1px;
+  .hx-titlebar-menu-icon:last-child {
+    border-right-style: solid;
+    border-right-width: 1px;
+  }
 
-      &:hover {
-        span.hx-titlebar-menu-text {
-          margin-left: 28px;
-          transform: translateX(-100%);
+  .hx-titlebar-menu-icon:last-child:hover span.hx-titlebar-menu-text {
+    margin-left: 28px;
+    transform: translateX(-100%);
+  }
 
-          &:before {
-            left: auto;
-            right: 16px;
-          }
-        }
-      }
-    }
+  .hx-titlebar-menu-icon:last-child:hover span.hx-titlebar-menu-text:before {
+    left: auto;
+    right: 16px;
+  }
 
-    i {
-      margin: 0 -1em;
-    }
+  .hx-titlebar-menu-icon i {
+    margin: 0 -1em;
+  }
 
-    &:hover {
-      span.hx-titlebar-menu-text {
-        border-radius: 2px;
-        display: block;
-        font-size: 0.8em;
-        font-weight: 400;
-        margin-left: 7px;
-        margin-top: 8px;
-        padding: 3px 6px;
-        position: absolute;
-        text-align: center;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        line-height: 20px;
-        height: 20px;
+  .hx-titlebar-menu-icon:hover span.hx-titlebar-menu-text {
+    border-radius: 2px;
+    display: block;
+    font-size: 0.8em;
+    font-weight: 400;
+    margin-left: 7px;
+    margin-top: 8px;
+    padding: 3px 6px;
+    position: absolute;
+    text-align: center;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    line-height: 20px;
+    height: 20px;
+  }
 
-        &:before {
-          border: solid transparent;
-          border-color: rgba(136, 183, 213, 0);
-          border-width: 5px;
-          bottom: 100%;
-          content: ' ';
-          height: 0;
-          left: 50%;
-          margin-left: -5px;
-          pointer-events: none;
-          position: absolute;
-          width: 0;
-        }
-      }
-    }
+  .hx-titlebar-menu-icon:hover span.hx-titlebar-menu-text:before {
+    border: solid transparent;
+    border-color: rgba(136, 183, 213, 0);
+    border-width: 5px;
+    bottom: 100%;
+    content: ' ';
+    height: 0;
+    left: 50%;
+    margin-left: -5px;
+    pointer-events: none;
+    position: absolute;
+    width: 0;
   }
 }
+
 
 @media (max-width: 900px) {
   .hx-titlebar-menu-icons-container {

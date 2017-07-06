@@ -1,5 +1,5 @@
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
+import { select, selectAll } from 'modules/selection/main'
+import { isString } from 'modules/utils/main'
 
 setVisibility = (show, animate=true) ->
   if not @isMobileFriendly then return
@@ -26,7 +26,7 @@ setVisibility = (show, animate=true) ->
   animateTitlebar(select(@selector).selectAll('.hx-titlebar-linkbar'))
 
 
-class TitleBar
+export class TitleBar
   constructor: (@selector) ->
     @_ = {}
 
@@ -65,24 +65,19 @@ class TitleBar
 
   active: (id) ->
     if arguments.length > 0
-      selection = select.selectAll('.hx-titlebar-link').classed('hx-selected', false)
+      selection = selectAll('.hx-titlebar-link').classed('hx-selected', false)
       if id?
-        @_.active = if utils.isString(id)
-          select(id).classed('hx-selected', true)
+        if isString(id)
+          @_.active = select(id).classed('hx-selected', true)
         else
-          select(selection.node(id)).classed('hx-selected', true)
+          node = selection.node(id)
+          if node
+            @_.active = select(node).classed('hx-selected', true)
         this
     else
       @_.active
 
-module.exports = {
-  TitleBar
-}
-
-module.exports.hx = {
-  TitleBar
-}
-
-# set up the titlebar
-if select('.hx-heading').size() > 0
-  module.exports.hx.titlebar = new TitleBar('.hx-heading')
+export initTitleBar = () ->
+  # set up the titlebar
+  if select('.hx-heading').size() > 0
+    module.exports.hx.titlebar = new TitleBar('.hx-heading')

@@ -1,12 +1,12 @@
-userFacingText = require('modules/user-facing-text/main')
-sort = require('modules/sort/main')
-EventEmitter = require('modules/event-emitter/main')
-component = require('modules/component/main')
-utils = require('modules/util/main/utils')
-HMap = require('modules/map/main')
-filter = require('modules/filter/main')
-select = require('modules/selection/main')
-Menu = require('modules/menu/main')
+import { userFacingText } from 'modules/user-facing-text/main'
+import { sort } from 'modules/sort/main'
+import { EventEmitter } from 'modules/event-emitter/main'
+import { Map as HMap } from 'modules/map/main'
+import * as filter from 'modules/filter/main'
+import { select } from 'modules/selection/main'
+import { Menu } from 'modules/menu/main'
+import { groupBy, isFunction, isArray, merge } from 'modules/utils/main'
+import logger from 'modules/logger/main'
 
 userFacingText({
   autoComplete: {
@@ -19,7 +19,7 @@ userFacingText({
 
 
 sortActive = (items) ->
-  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new HMap(groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -163,7 +163,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
     if items.length > 0
       _.menu.items(items)
       if _.menu.dropdown.isOpen()
-        _.menu.dropdown._.setupDropdown _.menu.dropdown._.dropdown.node()
+        _.menu.dropdown._.setupDropdown(_.menu.dropdown._.dropdown.node())
       else
         _.menu.dropdown.show()
     else # Hide the dropdown as there are no items
@@ -179,14 +179,14 @@ showAutoComplete = ->
   buildAutoComplete.call this, @_.input.value() or ''
 
 
-class AutoComplete extends EventEmitter
+export class AutoComplete extends EventEmitter
 
   constructor: (@selector, @data, @options = {}) ->
     super
 
     @_ = _ = {}
 
-    component.component.register(@selector, this)
+    select(@selector).api(this)
 
     _.ignoreMatch = false
     _.ignoreNextFocus = false
@@ -196,20 +196,20 @@ class AutoComplete extends EventEmitter
     # create the data cache for storing the datasets based on their search term
     _.data = new HMap()
 
-    if utils.isFunction @data
+    if isFunction @data
       _.callback = @data
     else
       _.data.set('', @data)
 
      # do a sanity check on the data
-    if not Array.isArray(@data) and not utils.isFunction(@data)
-      utils.consoleWarning(
+    if not isArray(@data) and not isFunction(@data)
+      logger.warning(
         'AutoComplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
         ' but should have been an array of items or a function'
       )
     else
       # setup options
-      @options = utils.merge({
+      @options = merge({
         minLength: 0
         showAll: true
         trimTrailingSpaces: false
@@ -222,7 +222,6 @@ class AutoComplete extends EventEmitter
         filterOptions: undefined
         showOtherResults: false
         allowTabCompletion: true
-
         loadingMessage: userFacingText('autoComplete', 'loading')
         noResultsMessage: userFacingText('autoComplete', 'noResultsFound')
         otherResultsMessage: userFacingText('autoComplete', 'otherResults')
@@ -234,10 +233,12 @@ class AutoComplete extends EventEmitter
         _filterOpts =
           searchValues: (d) -> [self.options.inputMap(d)]
 
-      @options.filterOptions = utils.merge({}, _filterOpts, @options.filterOptions)
+      @options.filterOptions = merge({}, _filterOpts, @options.filterOptions)
 
       @options.filter ?= (arr, term) =>
-        filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
+        # XXX: this feels hacky. Maybe the api should be simplified for autocomplete?
+        filterName = 'filter' + self.options.matchType[0].toUpperCase() + self.options.matchType.slice(1)
+        filtered = filter[filterName](arr, term, self.options.filterOptions)
         { active, inactive } = sortActive(filtered)
         [active..., inactive...]
 
@@ -377,7 +378,7 @@ class AutoComplete extends EventEmitter
 
   clearCache: ->
     @_.data = new HMap()
-    if @data? and not utils.isFunction @data
+    if @data? and not isFunction @data
       @_.data.set('', @data)
     this
 
@@ -403,14 +404,7 @@ class AutoComplete extends EventEmitter
       _.cleanUp = true
     this
 
-autoComplete = (data, options) ->
+export autoComplete = (data, options) ->
   selection = select.detached('input')
   new AutoComplete(selection.node(), data, options)
   selection
-
-module.exports = autoComplete
-module.exports.AutoComplete = AutoComplete
-module.exports.hx = {
-  AutoComplete: AutoComplete,
-  autoComplete: autoComplete,
-}

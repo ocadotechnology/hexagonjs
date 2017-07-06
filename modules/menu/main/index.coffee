@@ -1,11 +1,10 @@
-EventEmitter = require('modules/event-emitter/main')
-select = require('modules/selection/main')
-Collapsible = require('modules/collapsible/main')
-Dropdown = require('modules/dropdown/main')
-utils = require('modules/util/main/utils')
-domUtils = require('modules/util/main/dom-utils')
-component = require('modules/component/main')
-palette = require('modules/palette/main')
+import { EventEmitter } from 'modules/event-emitter/main'
+import { select } from 'modules/selection/main'
+import { Collapsible } from 'modules/collapsible/main'
+import { Dropdown } from 'modules/dropdown/main'
+import { isFunction, mergeDefined } from 'modules/utils/main'
+import { scrollbarSize } from 'modules/dom-utils/main'
+import { palette } from 'modules/palette/main'
 
 addItem = (item, context, menu) ->
   it = new MenuItem(item, context, menu)
@@ -198,11 +197,11 @@ class MenuItem
 
 
 
-class Menu extends EventEmitter
+export class Menu extends EventEmitter
   constructor: (@selector, options = {}) ->
     super
 
-    @options = utils.merge.defined({
+    @options = mergeDefined({
       dropdownOptions: {
         align: undefined
         mode: 'click',
@@ -221,7 +220,7 @@ class Menu extends EventEmitter
       itemsChanged: true # First time in this should be true
     }
 
-    component.component.register(@selector, this)
+    select(@selector).api(this)
 
     if @options.dropdownOptions.ddClass? and @options.dropdownOptions.ddClass.length is 0
       colorClass = palette.context(@selector)
@@ -243,7 +242,7 @@ class Menu extends EventEmitter
       # Items as set by the user.
       rawItems = self._.items
 
-      if utils.isFunction(rawItems)
+      if isFunction(rawItems)
         self._.itemsChanged = true # Items have always changed when being returned from a function
         rawItems (items) -> doneFn(items)
       else
@@ -257,9 +256,9 @@ class Menu extends EventEmitter
         node = @dropdown._.dropdown.node()
         ddNode = select(node)
         if node.scrollTop < node.scrollHeight - node.clientHeight
-          ddNode.style('width', ddNode.width() + domUtils.scrollbarSize() + 'px')
+          ddNode.style('width', ddNode.width() + scrollbarSize() + 'px')
           if @dropdown._.alignments[2] is 'r'
-            ddNode.style('left', Math.max(0, ddNode.box().left - domUtils.scrollbarSize()) + 'px')
+            ddNode.style('left', Math.max(0, ddNode.box().left - scrollbarSize()) + 'px')
 
     selection = select(@selector)
 
@@ -271,7 +270,7 @@ class Menu extends EventEmitter
           @dropdown.hide()
         else
           if not @loading
-            if @data? and utils.isFunction(@data)
+            if @data? and isFunction(@data)
               @loading = true
               loading = selection.prepend('span')
               loading.append('i').class('hx-menu-loading hx-icon hx-icon-spin hx-icon-spinner')
@@ -363,9 +362,3 @@ class Menu extends EventEmitter
       this
     else
       !!@options.disabled
-
-
-module.exports = Menu
-module.exports.hx = {
-  Menu: Menu
-}

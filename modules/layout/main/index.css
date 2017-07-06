@@ -1,26 +1,22 @@
 // for apps that should use the full width of the screen (the default is to centre the content)
-.hx-full-width {
-  .hx-content {
-    overflow-x: hidden;
-    max-width: 100%;
-  }
+.hx-full-width .hx-content {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 // for apps that should be fixed to the size of the screen
-.hx-full-screen {
-  .hx-content {
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    max-width: 100%;
-  }
+.hx-full-screen .hx-content {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 100%;
 }
 
 .hx-content {

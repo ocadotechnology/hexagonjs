@@ -115,7 +115,7 @@ export class Dropdown extends EventEmitter
 
   dropdownContent: (dropdownContent) ->
     if arguments.length
-      setupDropdown = dropdownContentToSetupDropdown dropdownContent
+      setupDropdown = dropdownContentToSetupDropdown(dropdownContent)
       @_ = shallowMerge(@_, {
         setupDropdown,
         dropdownContent

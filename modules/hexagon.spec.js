@@ -33,6 +33,10 @@ import formatTests from './format/test/spec'
 import modalTests from './modal/test/spec'
 import dropdownTests from './dropdown/test/spec'
 import collapsibleTests from './collapsible/test/spec'
+import titlebarTests from './titlebar/test/spec'
+import menuTests from './menu/test/spec'
+import autoCompleteTests from './autocomplete/test/spec'
+import numberPickerTests from './number-picker/test/spec'
 
 should()
 
@@ -149,7 +153,13 @@ describe('HexagonJS Test Suite', () => {
         'Collapsible',
         'initializeCollapsibles',
         'palette',
-        'format'
+        'format',
+        'TitleBar',
+        'Menu',
+        'autoComplete',
+        'AutoComplete',
+        'numberPicker',
+        'NumberPicker'
       ])
     })
   })
@@ -172,17 +182,21 @@ describe('HexagonJS Test Suite', () => {
   viewTests()
   sortTests()
   clickDetectorTests()
-  modalTests()
   notifyTests()
   filterTests()
   userFacingTextTests()
-  formTests()
-  dropdownTests()
-  collapsibleTests()
   paletteTests()
   formatTests()
 
   // Components
+  modalTests()
+  formTests()
+  dropdownTests()
+  collapsibleTests()
+  titlebarTests()
+  menuTests()
+  autoCompleteTests()
+  numberPickerTests()
 
   // require('modules/menu/test/spec')
   // require('modules/preferences/test/spec')

@@ -228,4 +228,52 @@
   --palette-disabled-background-text-color: #939393;
   --palette-disabled-border-color: #EFEFEF;
 
+  /* titlebar */
+  --titlebar-default-background-color: #373D45;
+  --titlebar-action-background-color: var(--theme-action-color);
+  --titlebar-positive-background-color: var(--theme-positive-color);
+  --titlebar-warning-background-color: var(--theme-warning-color);
+  --titlebar-negative-background-color: var(--theme-negative-color);
+  --titlebar-info-background-color: var(--theme-info-color);
+  --titlebar-title-font-family: 'Roboto Slab', sans-serif;
+  --titlebar-heading-shadow-color: transparent;
+  --titlebar-heading-border-bottom-color: #DDDDDD;
+  --titlebar-heading-border-bottom-width: 0;
+  --titlebar-text-color: #F4F4F4;
+  --titlebar-icon-color: rgba(255,255,255,0.5);
+  --titlebar-icon-hover-color: rgba(255,255,255,0.75);
+  --titlebar-linkbar-background-color: #F2F2F2;
+  --titlebar-link-text-color: #3D3D3D;
+  --titlebar-link-text-hover-color: #3D3D3D;
+  --titlebar-link-border-hover-color: #777;
+  --titlebar-link-border-selected-color: #373D45;
+  --titlebar-mobile-view-icons-background-color: #424A54;
+  --titlebar-mobile-view-icons-text-color: #DADADA;
+  --titlebar-mobile-view-icons-text-hover-color: #EEEEEE;
+  --titlebar-title-font-size: 1.7em;
+  --titlebar-height: 46px;
+  --titlebar-linkbar-height: 40px;
+  --titlebar-menu-context-text-color: #FFF;
+  --titlebar-icon-tooltip-background-color: #000;
+  --titlebar-icon-tooltip-text-color: #FFF;
+  --titlebar-font-weight: 100;
+  --titlebar-icon-vertical-offset: 12px;
+  --titlebar-icon-background-color: transparent;
+  --titlebar-context-text-color: #F3F3F3;
+  --titlebar-context-icon-background: #373D45;
+  --titlebar-menu-context-border-color: rgba(255,255,255,0.1);
+  --titlebar-title-text-color: #F4F4F4;
+  --titlebar-context-icon-color: rgba(255, 255, 255, 0.5);
+  --titlebar-context-icon-hover-color: rgba(255, 255, 255, 0.85);
+
+
+  /* layout */
+  --layout-content-padding: 1em;
+  --layout-content-max-width: 1200px;
+  --layout-content-background-color: transparent;
+  --layout-margin: 0.3em;
+  --layout-border-color: #D0D0D0;
+  --layout-named-class-min-width: 250px;
+  --layout-content-breakpoint: 1300px;
+  --layout-content-breakpoint-width: 900px;
 }

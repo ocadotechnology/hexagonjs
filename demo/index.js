@@ -8,6 +8,7 @@ import formExamples from './examples/form'
 import dropdownExamples from './examples/dropdown'
 import collapsibleExamples from './examples/collapsible'
 import paletteExamples from './examples/palette'
+import numberPickerExamples from './examples/number-picker'
 
 function example(title) {
   return div('example-section')
@@ -38,5 +39,6 @@ select('body')
     example('Form').add(formExamples()),
     example('Dropdown').add(dropdownExamples()),
     example('Collapsible').add(collapsibleExamples()),
-    example('Palette').add(paletteExamples())
+    example('Palette').add(paletteExamples()),
+    example('Number Pickers').add(numberPickerExamples())
   ]))

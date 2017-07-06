@@ -1,3 +1,4 @@
+import chai from 'chai'
 import logger from 'modules/logger/main'
 
 export default () ->
