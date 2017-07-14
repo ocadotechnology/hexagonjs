@@ -64,9 +64,8 @@
           and then removing it:
 
           @@codeblock js
-            hx.select('.some-container')
-              .insertAfter(hx.div('my-content'))
-              .remove()
+            hx.select('.some-container').insertAfter(hx.div('my-content'))
+            hx.select('.some-container').remove()
 
         @param selection [Selection / Array[Selection] / Promise[Selection] / Promise[Array[Selection]]]
           @description
