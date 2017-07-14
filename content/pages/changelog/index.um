@@ -268,5 +268,10 @@
           Fixed selections so calling hx.select on a Selection no longer
            shows a warning (and instead performs a no-op)
 
+    @version 1.12.0
+      @description
+        Some utility methods on @code[Selection] have been added for replacing
+        DOM and setting the children of a @code[Selection].
+
   @h2: Key
   @changelog.key
