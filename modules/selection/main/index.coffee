@@ -271,7 +271,15 @@ class Selection
     this
 
   # clears the contents of a node and then adds the children passed in
-  set: (children) -> this.clear().add(children)
+  set: (children) ->
+    # The use of Promise.resolve can delay when the replacement happens, so
+    # check to only do this when needed. This makes testing nicer when adding
+    # non-promise content
+    if children.then
+      Promise.resolve(children).then((sel) => this.clear().add(sel))
+    else
+      this.clear().add(children)
+    return this
 
   # gets the nth node in the selection, defaulting to the first
   node: (i=0) -> @nodes[i]

@@ -630,6 +630,24 @@ describe 'Selection Api', ->
     parent.selectAll('span').size().should.equal(0)
     parent.selectAll('div').size().should.equal(3)
 
+  it 'set(Promise) works', () ->
+    children = Promise.resolve([
+      hx.detached('div'),
+      hx.detached('div'),
+      hx.detached('div')
+    ])
+
+    parent = hx.detached('div')
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+
+    parent.set(children).should.equal(parent)
+
+    return children.then () ->
+      parent.selectAll('span').size().should.equal(0)
+      parent.selectAll('div').size().should.equal(3)
+
   # getting / setting properties
 
   it 'get a property from a single selection', ->
