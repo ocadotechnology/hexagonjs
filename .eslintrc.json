@@ -5,7 +5,6 @@
     "promise"
   ],
   "env": {
-    "node": true,
     "es6": true,
     "mocha": true
   },
@@ -22,6 +21,9 @@
     "no-undef-init": "off",
     "quote-props": ["error", "consistent-as-needed"],
     "operator-linebreak": ["error", "after"],
-    "func-style": ["error", "declaration"]
+    "func-style": ["error", "declaration"],
+    "no-multi-spaces": ["error", {
+      "ignoreEOLComments": true
+    }]
   }
 }
