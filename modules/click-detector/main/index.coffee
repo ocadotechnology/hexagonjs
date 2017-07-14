@@ -1,7 +1,7 @@
-import { EventEmitter } from 'modules/event-emitter/main'
-import { randomId } from 'modules/utils/main'
-import { List as HList } from 'modules/list/main'
-import { select } from 'modules/selection/main'
+import { EventEmitter } from 'event-emitter/main'
+import { randomId } from 'utils/main'
+import { List as HList } from 'list/main'
+import { select } from 'selection/main'
 
 export class ClickDetector extends EventEmitter
   constructor: ->

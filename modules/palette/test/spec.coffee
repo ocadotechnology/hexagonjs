@@ -18,8 +18,8 @@ export default () ->
 
     testPaletteContextType = (type, testContexts, prefix) ->
       describe 'hx.palette.' + type + ' should correctly class an element', ->
-        testContext = (context) ->
-          it context, ->
+        testContext = (name, context) ->
+          it name, ->
             selection = div()
             palette[type](selection, context).should.equal(selection)
             if (context)
@@ -29,9 +29,9 @@ export default () ->
               should.not.exist(palette[type](selection.node()))
             logger.warn.should.not.have.been.called()
 
-        testContexts.forEach testContext
+        testContexts.forEach (d) -> testContext(d, d)
 
-        testContext(undefined)
+        testContext("undefined", undefined)
 
         it 'should return undefined if there is no context', ->
           should.not.exist(palette.context(div()))

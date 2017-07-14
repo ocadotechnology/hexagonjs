@@ -1,6 +1,6 @@
-import { EventEmitter } from 'modules/event-emitter/main'
-import { mergeDefined } from 'modules/utils/main'
-import { select, selectAll } from 'modules/selection/main'
+import { EventEmitter } from 'event-emitter/main'
+import { mergeDefined } from 'utils/main'
+import { select, selectAll } from 'selection/main'
 
 export class Collapsible extends EventEmitter
 

@@ -1,12 +1,19 @@
 'use strict'
 
+// Initialization
+import { initAnimate } from 'animate/main'
+import { initPointerEvents } from 'pointer-events/main'
+import { initView } from 'view/main'
+import { initMorphs } from 'morphs/main'
+import { initTitleBar } from 'titlebar/main'
+
 // Include the version
 export { version } from '../package.json'
 
 // Utils
-export { Set } from 'modules/set/main'
-export { Map } from 'modules/map/main'
-export { List } from 'modules/list/main'
+export { Set } from 'set/main'
+export { Map } from 'map/main'
+export { List } from 'list/main'
 export {
   hash,
   transpose,
@@ -51,9 +58,9 @@ export {
   shallowClone,
   vendor,
   identity
-} from 'modules/utils/main'
-export { EventEmitter } from 'modules/event-emitter/main'
-export { color, isColor, isColorString } from 'modules/color/main'
+} from 'utils/main'
+export { EventEmitter } from 'event-emitter/main'
+export { color, isColor, isColorString } from 'color/main'
 export {
   select,
   selectAll,
@@ -65,12 +72,12 @@ export {
   button,
   checkbox,
   i
-} from 'modules/selection/main'
-export { loop, transition, ease } from 'modules/transition/main'
-export { interpolate } from 'modules/interpolate/main'
-export { animate, morph } from 'modules/animate/main'
-export { sort, sortBy, compare, localeCompare } from 'modules/sort/main'
-export { ClickDetector } from 'modules/click-detector/main'
+} from 'selection/main'
+export { loop, transition, ease } from 'transition/main'
+export { interpolate } from 'interpolate/main'
+export { animate, morph } from 'animate/main'
+export { sort, sortBy, compare, localeCompare } from 'sort/main'
+export { ClickDetector } from 'click-detector/main'
 export {
   notify,
   notifyInfo,
@@ -80,7 +87,7 @@ export {
   notifyLoading,
   notifyDefaultTimeout,
   NotificationManager
-} from 'modules/notify/main'
+} from 'notify/main'
 export {
   filterExact,
   filterStartsWith,
@@ -90,29 +97,23 @@ export {
   filterLess,
   filterFuzzy,
   filterRegex
-} from 'modules/filter/main'
-export { userFacingText } from 'modules/user-facing-text/main'
-export { validateForm } from 'modules/form/main'
-export { palette } from 'modules/palette/main'
-export { format } from 'modules/format/main'
+} from 'filter/main'
+export { userFacingText } from 'user-facing-text/main'
+export { validateForm } from 'form/main'
+export { palette } from 'palette/main'
+export { format } from 'format/main'
 
 // Components
 
-export { spinner, spinnerWide } from 'modules/spinner/main'
-export { Modal, modalDialog, modalInput } from 'modules/modal/main'
-export { Dropdown } from 'modules/dropdown/main'
-export { Collapsible, initializeCollapsibles } from 'modules/collapsible/main'
-export { TitleBar } from 'modules/titlebar/main'
-export { Menu } from 'modules/menu/main'
-export { autoComplete, AutoComplete } from 'modules/autocomplete/main'
-export { numberPicker, NumberPicker } from 'modules/number-picker/main'
-
-// Other things
-import { initAnimate } from 'modules/animate/main'
-import { initPointerEvents } from 'modules/pointer-events/main'
-import { initView } from 'modules/view/main'
-import { initMorphs } from 'modules/morphs/main'
-import { initTitleBar } from 'modules/titlebar/main'
+export { spinner, spinnerWide } from 'spinner/main'
+export { Modal, modalDialog, modalInput } from 'modal/main'
+export { Dropdown } from 'dropdown/main'
+export { Collapsible, initializeCollapsibles } from 'collapsible/main'
+export { TitleBar } from 'titlebar/main'
+export { Menu } from 'menu/main'
+export { autoComplete, AutoComplete } from 'autocomplete/main'
+export { numberPicker, NumberPicker } from 'number-picker/main'
+export { buttonGroup, ButtonGroup } from 'button-group/main'
 
 initTitleBar()
 
@@ -121,9 +122,6 @@ initAnimate()       // XXX: remove
 initPointerEvents() // XXX: make into a selection middleware
 initView()          // XXX: remove?
 initMorphs()        // XXX: remove
-
-
-
 
 // module.exports = window.hx = merge([
 //   require('./resize-events/main'),

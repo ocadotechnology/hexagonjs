@@ -1,5 +1,5 @@
-import { ClickDetector } from 'modules/click-detector/main'
-import { select } from 'modules/selection/main'
+import { ClickDetector } from 'click-detector/main'
+import { select } from 'selection/main'
 
 export default () ->
   describe 'click-detector', ->

@@ -1,8 +1,8 @@
 import chai from 'chai'
-import logger from 'modules/logger/main'
-import { Dropdown, config } from 'modules/dropdown/main'
-import { select, selectAll, div } from 'modules/selection/main'
-import { calculateDropdownPosition } from 'modules/dropdown/main/positioning'
+import logger from 'logger/main'
+import { Dropdown, config } from 'dropdown/main'
+import { select, selectAll, div } from 'selection/main'
+import { calculateDropdownPosition } from 'dropdown/main/positioning'
 
 import { installFakeTimers } from 'test/utils/fake-time'
 

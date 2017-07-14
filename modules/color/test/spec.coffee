@@ -1,5 +1,5 @@
 import chai from 'chai'
-import { color, isColor, isColorString } from 'modules/color/main'
+import { color, isColor, isColorString } from 'color/main'
 
 should = chai.should()
 

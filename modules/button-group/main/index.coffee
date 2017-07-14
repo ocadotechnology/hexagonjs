@@ -1,16 +1,13 @@
-select = require('modules/selection/main')
-component = require('modules/component/main')
-utils = require('modules/util/main/utils')
-EventEmitter = require('modules/event-emitter/main')
+import { select, detached } from 'selection/main'
+import { mergeDefined } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
 
-class ButtonGroup extends EventEmitter
+export class ButtonGroup extends EventEmitter
   constructor: (selector, options) ->
     super
     self = this
 
-    component.register(selector, this)
-
-    @options = utils.merge.defined({
+    @options = mergeDefined({
       buttonClass: 'hx-complement'
       activeClass: 'hx-contrast'
       fullWidth: false
@@ -24,6 +21,7 @@ class ButtonGroup extends EventEmitter
     @current = undefined
 
     group = select(selector)
+      .api(this)
       .classed('hx-button-group', true)
       .append('div')
         .class('hx-input-group')
@@ -89,15 +87,7 @@ class ButtonGroup extends EventEmitter
     else
       @options.disabled
 
-buttonGroup = (options) ->
-  selection = select.detached('div')
+export buttonGroup = (options) ->
+  selection = detached('div')
   new ButtonGroup(selection.node(), options)
   selection
-
-module.exports = buttonGroup
-module.exports.ButtonGroup = ButtonGroup
-
-module.exports.hx = {
-  buttonGroup: buttonGroup,
-  ButtonGroup: ButtonGroup
-}

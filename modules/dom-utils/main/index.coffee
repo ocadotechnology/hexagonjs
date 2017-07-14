@@ -1,5 +1,5 @@
-import { max } from 'modules/utils/main'
-import { select, detached } from 'modules/selection/main'
+import { max } from 'utils/main'
+import { select, detached } from 'selection/main'
 
 #XXX [2.0.0]: remove - not used in hexagon anymore since request.html has gone
 cachedParseHtml = null
@@ -85,7 +85,7 @@ export parentZIndex = (node, findMax) ->
     if !isNaN(index) and index > 0 then index
 
   res = checkParents(node, check, findMax)
-  
+
   if findMax then max(res) else res
 
 #XXX [2.0.0]: replace with the simpler Selection::parents

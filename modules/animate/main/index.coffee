@@ -1,11 +1,11 @@
-import logger from 'modules/logger/main'
+import logger from 'logger/main'
 
-import { ease, transition } from 'modules/transition/main'
-import { EventEmitter } from 'modules/event-emitter/main'
-import { interpolate } from 'modules/interpolate/main'
-import { Selection, getHexagonElementDataObject } from 'modules/selection/main'
-import { Map as HMap } from 'modules/map/main'
-import { isFunction } from 'modules/utils/main'
+import { ease, transition } from 'transition/main'
+import { EventEmitter } from 'event-emitter/main'
+import { interpolate } from 'interpolate/main'
+import { Selection, getHexagonElementDataObject } from 'selection/main'
+import { Map as HMap } from 'map/main'
+import { isFunction } from 'utils/main'
 
 # XXX: [2.0.0] Remove, and replace with promise based transitions for props, attrs and style on selection
 

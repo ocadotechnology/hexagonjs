@@ -37,6 +37,7 @@ import titlebarTests from './titlebar/test/spec'
 import menuTests from './menu/test/spec'
 import autoCompleteTests from './autocomplete/test/spec'
 import numberPickerTests from './number-picker/test/spec'
+import buttonGroupTests from './button-group/test/spec'
 
 should()
 
@@ -159,7 +160,9 @@ describe('HexagonJS Test Suite', () => {
         'autoComplete',
         'AutoComplete',
         'numberPicker',
-        'NumberPicker'
+        'NumberPicker',
+        'buttonGroup',
+        'ButtonGroup'
       ])
     })
   })
@@ -197,6 +200,7 @@ describe('HexagonJS Test Suite', () => {
   menuTests()
   autoCompleteTests()
   numberPickerTests()
+  buttonGroupTests()
 
   // require('modules/menu/test/spec')
   // require('modules/preferences/test/spec')

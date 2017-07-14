@@ -1,12 +1,12 @@
-import { userFacingText } from 'modules/user-facing-text/main'
-import { sort } from 'modules/sort/main'
-import { EventEmitter } from 'modules/event-emitter/main'
-import { Map as HMap } from 'modules/map/main'
-import * as filter from 'modules/filter/main'
-import { select } from 'modules/selection/main'
-import { Menu } from 'modules/menu/main'
-import { groupBy, isFunction, isArray, merge } from 'modules/utils/main'
-import logger from 'modules/logger/main'
+import { userFacingText } from 'user-facing-text/main'
+import { sort } from 'sort/main'
+import { EventEmitter } from 'event-emitter/main'
+import { Map as HMap } from 'map/main'
+import * as filter from 'filter/main'
+import { select } from 'selection/main'
+import { Menu } from 'menu/main'
+import { groupBy, isFunction, isArray, merge } from 'utils/main'
+import logger from 'logger/main'
 
 userFacingText({
   autoComplete: {

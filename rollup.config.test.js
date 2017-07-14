@@ -7,7 +7,7 @@ import json from 'rollup-plugin-json';
 
 const includePathOptions = {
   include: {},
-  paths: [__dirname],
+  paths: [__dirname + '/modules', __dirname],
   external: [],
   extensions: ['.js', '.coffee']
 }

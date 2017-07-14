@@ -1,3 +1,4 @@
+
 # Proper sets are coming in ECMAScript 6 (which at time of writing has a scheduled release date of June 2015).
 # This set object tries to keep as close as possible to the currently planned spec for maps, which should make it
 # easy to swap out for the native implementation when it arrives and is well supported enough in browsers.

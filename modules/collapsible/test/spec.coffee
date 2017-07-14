@@ -1,5 +1,5 @@
-import { Collapsible, initializeCollapsibles } from 'modules/collapsible/main'
-import { select } from 'modules/selection/main'
+import { Collapsible, initializeCollapsibles } from 'collapsible/main'
+import { select } from 'selection/main'
 
 export default () ->
   describe 'collapsible', ->

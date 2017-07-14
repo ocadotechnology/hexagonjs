@@ -1,4 +1,4 @@
-import { range, isString, clamp } from 'modules/utils/main'
+import { range, isString, clamp } from 'utils/main'
 
 componentToHex = (c) ->
   hex = c.toString(16)

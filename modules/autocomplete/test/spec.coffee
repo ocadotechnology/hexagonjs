@@ -1,7 +1,7 @@
-import { userFacingText } from 'modules/user-facing-text/main'
-import { AutoComplete } from 'modules/autocomplete/main'
-import { range } from 'modules/utils/main'
-import { div } from 'modules/selection/main'
+import { userFacingText } from 'user-facing-text/main'
+import { AutoComplete } from 'autocomplete/main'
+import { range } from 'utils/main'
+import { div } from 'selection/main'
 
 export default () ->
   describe 'autocomplete', ->

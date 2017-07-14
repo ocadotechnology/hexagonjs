@@ -1,10 +1,10 @@
 import chai from 'chai'
 
-import logger from 'modules/logger/main'
-import { select, div } from 'modules/selection/main'
-import { animate, morph } from 'modules/animate/main'
-import { EventEmitter } from 'modules/event-emitter/main'
-import { ease } from 'modules/transition/main'
+import logger from 'logger/main'
+import { select, div } from 'selection/main'
+import { animate, morph } from 'animate/main'
+import { EventEmitter } from 'event-emitter/main'
+import { ease } from 'transition/main'
 
 import { installFakeTimers } from 'test/utils/fake-time'
 

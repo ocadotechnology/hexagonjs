@@ -1,9 +1,9 @@
-import logger from 'modules/logger/main'
-import { select, isSelection }  from 'modules/selection/main'
-import { isString, isFunction, mergeDefined, shallowMerge } from 'modules/utils/main'
-import { ClickDetector } from 'modules/click-detector/main'
-import { EventEmitter } from 'modules/event-emitter/main'
-import { checkParents, parentZIndex, scrollbarSize } from 'modules/dom-utils/main'
+import logger from 'logger/main'
+import { select, isSelection }  from 'selection/main'
+import { isString, isFunction, mergeDefined, shallowMerge } from 'utils/main'
+import { ClickDetector } from 'click-detector/main'
+import { EventEmitter } from 'event-emitter/main'
+import { checkParents, parentZIndex, scrollbarSize } from 'dom-utils/main'
 import { calculateDropdownPosition } from './positioning'
 
 export config = {
