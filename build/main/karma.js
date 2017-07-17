@@ -135,7 +135,8 @@ function runKarma (files, destDir, phantomOnly) {
     jsonReporter: jsonReporter,
     singleRun: true,
     browsers: null,
-    frameworks: ['mocha', 'sinon', 'chai-spies', 'chai'],
+    frameworks: ['mocha', 'sinon', 'chai-spies', 'chai', 'polyfill'],
+    polyfill: ['Promise'],
     autoWatch: false,
     reporters: ['coverage', 'html', 'json', 'mocha'],
     client: {
