@@ -1,6 +1,6 @@
-import logger from 'modules/logger/main'
-import { Map as HMap } from 'modules/map/main'
-import { select, getHexagonElementDataObject, Selection } from 'modules/selection/main'
+import logger from 'logger/main'
+import { Map as HMap } from 'map/main'
+import { select, getHexagonElementDataObject, Selection } from 'selection/main'
 
 class View
   constructor: (@rootSelection, @selector, @defaultType) ->

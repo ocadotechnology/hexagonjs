@@ -1,7 +1,7 @@
-import logger from 'modules/logger/main'
+import logger from 'logger/main'
 
-import { select, detached, div, i, Selection } from 'modules/selection/main'
-import { merge, isString, isNumber, isArray, isObject, randomId } from 'modules/utils/main'
+import { select, detached, div, i, Selection } from 'selection/main'
+import { merge, isString, isNumber, isArray, isObject, randomId } from 'utils/main'
 
 # utility method for setting up notifications
 setupNotification = (notification, selection) ->

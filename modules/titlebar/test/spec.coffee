@@ -1,5 +1,5 @@
-import { TitleBar } from 'modules/titlebar/main'
-import { select, selectAll } from 'modules/selection/main'
+import { TitleBar } from 'titlebar/main'
+import { select, selectAll } from 'selection/main'
 
 export default () ->
   describe 'hx-titlebar', ->

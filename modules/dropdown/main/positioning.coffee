@@ -1,4 +1,4 @@
-import { clamp } from 'modules/utils/main'
+import { clamp } from 'utils/main'
 
 export calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) ->
 

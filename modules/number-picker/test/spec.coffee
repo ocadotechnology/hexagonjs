@@ -1,7 +1,7 @@
 import chai from 'chai'
 
-import { div, Selection } from 'modules/selection/main'
-import { numberPicker, NumberPicker } from 'modules/number-picker/main'
+import { div, Selection } from 'selection/main'
+import { numberPicker, NumberPicker } from 'number-picker/main'
 
 import { installFakeTimers } from 'test/utils/fake-time'
 import { emit } from 'test/utils/fake-event'

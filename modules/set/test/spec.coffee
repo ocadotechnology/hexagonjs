@@ -1,4 +1,4 @@
-import { Set } from 'modules/set/main'
+import { Set } from 'set/main'
 
 export default () ->
   describe "set", ->

@@ -76,3 +76,53 @@ describe "Axis", ->
       axis.series().should.eql([a1, a2])
       axis.series([a2, a1]).should.eql(axis)
       axis.series().should.eql([a2, a1])
+
+    it 'calculateYBounds: should not ignore non-auto parameters', ->
+      axis = new Axis()
+      axis.calculateYBounds('auto', 'auto').should.eql { ymin: 0, ymax: 0 }
+      axis.calculateYBounds(1, 1).should.eql { ymin: 1, ymax: 1 }
+      axis.calculateYBounds(-1, 'auto').should.eql { ymin: -1, ymax: 0 }
+
+    it 'calculateYBounds: should correctly calculate y bounds when the data is sparse and the graph is stacked', ->
+      axis = new Axis({
+        x: {
+          scaleType: 'discrete'
+        },
+        y: {
+          min: 0
+        },
+        series: [
+          {
+            type: 'bar',
+            options: {
+              title: 'Bob',
+              group: 'g0',
+              fillColor: '#ffffff',
+              data: [{
+                x: 'verybig',
+                y: 10
+              }, {
+                x: 'alwayspresesnt',
+                y: 1
+              }]
+            }
+          },
+          {
+            type: 'bar',
+            options: {
+              title: 'Lazlo',
+              fillColor: '#ffffff',
+              group: 'g0',
+              data: [{
+                x: 'alwayspresesnt',
+                y: 2
+              }]
+            }
+          }
+        ]
+    })
+
+    axis.tagSeries()
+    { ymax } = axis.calculateYBounds('auto', 'auto')
+    ymax.should.eql(10)
+

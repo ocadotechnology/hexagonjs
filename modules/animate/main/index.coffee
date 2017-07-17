@@ -4,8 +4,9 @@ import { ease, transition } from 'transition/main'
 import { EventEmitter } from 'event-emitter/main'
 import { interpolate } from 'interpolate/main'
 import { Selection, getHexagonElementDataObject } from 'selection/main'
-import { Map as HMap } from 'map/main'
 import { isFunction } from 'utils/main'
+
+import { animateState } from './state'
 
 # XXX: [2.0.0] Remove, and replace with promise based transitions for props, attrs and style on selection
 
@@ -86,11 +87,12 @@ class Morph extends EventEmitter
       @actions.push f
     else
       if @node
-        morphFactory = hx_morphs.get(f)
+        console.log(animateState.morphs)
+        morphFactory = animateState.morphs.get(f)
         if morphFactory
           @actions.push => morphFactory(@node, duration)
         else
-          logger.warn(f + ' is not a registered morph', 'The available morphs are', hx_morphs.entries())
+          logger.warn(f + ' is not a registered morph', 'The available morphs are', animateState.morphs.entries())
     this
 
   then: (f, duration = 200) ->
@@ -194,10 +196,11 @@ class Morph extends EventEmitter
     this
 
 export morph = (node) -> new Morph(node)
-
-hx_morphs = new HMap
-export registerMorph = (name, morph) -> hx_morphs.set(name, morph)
+export registerMorph = (name, morph) ->
+  animateState.morphs.set(name, morph)
+  console.log(name, animateState.morphs)
 
 export initAnimate = ->
+  console.log('init animate')
   Selection::animate = (ease) -> animate(@nodes[0], ease)
   Selection::morph = -> new Morph(@nodes[0])

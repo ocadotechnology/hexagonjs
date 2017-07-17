@@ -23,4 +23,4 @@
 - [ ] I have updated the documentation accordingly. (This includes updating the changelog).
 - [ ] I have read the **CONTRIBUTING** document.
 - [ ] All my changes are covered by tests.
-- [ ] This request is ready to merge
+- [ ] This request is ready to review and merge

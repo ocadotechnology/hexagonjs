@@ -7,7 +7,7 @@ import {
   ElementSet,
   div,
   span
-} from 'modules/selection/main'
+} from 'selection/main'
 import { emit } from 'test/utils/fake-event'
 
 should = chai.should()
@@ -1214,6 +1214,74 @@ export default () ->
       result1.should.equal(false)
       result2.should.equal(true)
       result3.should.equal(true)
+
+    it 'set works', ->
+      children = [
+        detached('div'),
+        detached('div'),
+        detached('div')
+      ]
+
+      parent = detached('div')
+        .add(detached('span'))
+        .add(detached('span'))
+        .add(detached('span'))
+
+      parent.set(children).should.equal(parent)
+      parent.selectAll('span').size().should.equal(0)
+      parent.selectAll('div').size().should.equal(3)
+
+    it 'set(Promise) works', () ->
+      children = Promise.resolve([
+        detached('div'),
+        detached('div'),
+        detached('div')
+      ])
+
+      parent = detached('div')
+        .add(detached('span'))
+        .add(detached('span'))
+        .add(detached('span'))
+
+      parent.set(children).should.equal(parent)
+
+      return children.then () ->
+        parent.selectAll('span').size().should.equal(0)
+        parent.selectAll('div').size().should.equal(3)
+
+    it 'replace works', ->
+      children = [
+        detached('div').class('new-content'),
+        detached('div').class('new-content'),
+        detached('div').class('new-content')
+      ]
+
+      content = detached('div').class('content')
+
+      parent = detached('div')
+        .add(content)
+
+      content.replace(children).should.equal(content)
+      parent.selectAll('.content').size().should.equal(0)
+      parent.selectAll('.new-content').size().should.equal(3)
+
+    it 'replace(Promise) works', () ->
+      children = Promise.resolve([
+        detached('div').class('new-content'),
+        detached('div').class('new-content'),
+        detached('div').class('new-content')
+      ])
+
+      content = detached('div').class('.content')
+
+      parent = detached('div')
+        .add(content)
+
+      content.replace(children).should.equal(content)
+
+      children.then () ->
+        parent.selectAll('.content').size().should.equal(0)
+        parent.selectAll('.new-content').size().should.equal(3)
 
     describe 'common elements', ->
       describe 'div', ->

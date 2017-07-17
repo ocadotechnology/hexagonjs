@@ -76,7 +76,7 @@ export {
 export { loop, transition, ease } from 'transition/main'
 export { interpolate } from 'interpolate/main'
 export { animate, morph } from 'animate/main'
-export { sort, sortBy, compare, localeCompare } from 'sort/main'
+export { sort, sortBy, compare, compareNullsLast, localeCompare } from 'sort/main'
 export { ClickDetector } from 'click-detector/main'
 export {
   notify,
@@ -115,13 +115,13 @@ export { autoComplete, AutoComplete } from 'autocomplete/main'
 export { numberPicker, NumberPicker } from 'number-picker/main'
 export { buttonGroup, ButtonGroup } from 'button-group/main'
 
-initTitleBar()
-
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove
 initPointerEvents() // XXX: make into a selection middleware
 initView()          // XXX: remove?
 initMorphs()        // XXX: remove
+
+initTitleBar()
 
 // module.exports = window.hx = merge([
 //   require('./resize-events/main'),

@@ -113,10 +113,6 @@ module.exports = class Axis
     options?.series?.forEach (seriesObj) =>
       @addSeries seriesObj.type, seriesObj.options
 
-  supportsGroup = (series) ->
-    series instanceof BarSeries or
-    series instanceof LineSeries
-
   # series: string (which indicates the type of series to create) or a Series object, or nothing for a line series
   # possible types: line, area, area-stacked, bar, bar-stacked, scatter, constant (line)
   addSeries: (series, options) ->
@@ -176,7 +172,7 @@ module.exports = class Axis
 
       groups = new HMap
       for series in data
-        group = if supportsGroup(series) then series.group()
+        group = if graphutils.supportsGroup(series) then series.group()
         if not groups.has(group)
           groups.set(group, new HList)
         groups.get(group).add(series)
@@ -340,60 +336,9 @@ module.exports = class Axis
       @yScale.domain(domain)
     else
 
-      # OPTIM: this expensive calculation is not needed if the scales are non auto
-      # XXX: band series?
-
-      ymin = undefined
-      ymax = undefined
-
-      types = utils.groupBy(@series(), (d) -> d._.type)
-      stackGroups = types.map (d) ->
-        type: d[0]
-        group: utils.groupBy(d[1], (s) -> if supportsGroup(s) then s.group() else undefined)
-
-      for type in stackGroups
-        for group in type.group
-          series = group[1]
-          if group[0] == undefined
-
-            ys = for s in @series()
-              data = s.data()
-              if s instanceof StraightLineSeries
-                if not data.dx and not data.dy and data.y
-                  [data.y, data.y]
-                else
-                  undefined
-              else if s instanceof BandSeries
-                graphutils.extent2(data, ((d) -> d.y1), (d) -> d.y2)
-              else
-                graphutils.extent(data, (d) -> d.y)
-            ys = ys.filter((d) -> d?)
-
-            yymin = utils.min(ys.map((d) -> d[0]))
-            yymax = utils.max(ys.map((d) -> d[1]))
-            if (ymin == undefined or yymin < ymin) then ymin = yymin
-            if (ymax == undefined or yymax > ymax) then ymax = yymax
-          else
-            topSeries = series[series.length-1]
-            if ymin == undefined
-              ymin = 0
-            else
-              ymin = Math.min(ymin, 0)
-            if ymax == undefined
-              ymax = 0
-            else
-              ymax = Math.max(ymax, 0)
-            for d in topSeries.data()
-              stackHeight = @getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId+1, @yScale.domainMin)
-              if (ymin == undefined or stackHeight < ymin) then ymin = stackHeight
-              if (ymax == undefined or stackHeight > ymax) then ymax = stackHeight
-
-      ymin = if @y.min() is 'auto' then ymin else @y.min()
-      ymax = if @y.max() is 'auto' then ymax else @y.max()
-
-
-      if @y.min() is 'auto' then ymin = scalePad(ymin, ymax - ymin, -@y.scalePaddingMin())
-      if @y.max() is 'auto' then ymax = scalePad(ymax, ymax - ymin, @y.scalePaddingMax())
+      yMinMightBeAuto = @y.min()
+      yMaxMightBeAuto = @y.max()
+      { ymin, ymax } = @calculateYBounds yMinMightBeAuto, yMaxMightBeAuto
 
       @yScale.domain(ymin, ymax)
 
@@ -592,14 +537,73 @@ module.exports = class Axis
       xStack
     else Math.max(start, 0)
 
-  # gets the height of the stack for a particular type, group and x value (the seriesId is the series that you want to get the baseline for)
   getYStack: (type, group, x, seriesId, start = 0) ->
+    allSeries = @series()
+    xScaleType = @x.scaleType()
+    yScaleDomainMin = @yScale.domainMin
+
     if group
-      yStack = Math.max(@yScale.domainMin, 0)
-      for series, j in @series()
+      yStack = Math.max(yScaleDomainMin, 0)
+      maybeys = allSeries.map (series) ->
         if series._.seriesId < seriesId and series.group() == group and series._.type == type
-          ys = series.getY(x, @x.scaleType() is 'discrete')
-          if utils.defined(ys)
-            yStack += ys
-      yStack
-    else Math.max(start, 0)
+          series.getY(x, xScaleType is 'discrete')
+      yStack + hx.sum maybeys.filter hx.identity
+    else
+      Math.max(start, 0)
+
+  calculateYBounds: (yMinMightBeAuto, yMaxMightBeAuto) ->
+    if 'auto' in [yMaxMightBeAuto, yMinMightBeAuto]
+      # XXX: band series?
+      allSeries = @series()
+      xScaleType = @x.scaleType()
+
+      initValue = { ymin: 0, ymax: 0 }
+      types = hx.groupBy(allSeries, (d) -> d._.type)
+      stackGroups = types.map ([type, series]) ->
+        type: type
+        group: hx.groupBy series, (s) -> if graphutils.supportsGroup(s) then s.group() else undefined
+
+
+      typeGroupReductor = (type) ->
+        ({ ymin, ymax }, [seriesGroup, series]) ->
+          { yymin, yymax } = if seriesGroup == undefined
+            maybeys = allSeries.map (s) ->
+              data = s.data()
+              if s instanceof StraightLineSeries
+                if not data.dx and not data.dy and data.y
+                  [data.y, data.y]
+                else
+                  undefined
+              else if s instanceof BandSeries
+                extent2(data, ((d) -> d.y1), (d) -> d.y2)
+              else
+                extent(data, (d) -> d.y)
+            ys = maybeys.filter((d) -> d?)
+
+            {
+              yymin: hx.min(ys.map((d) -> d[0]))
+              yymax: hx.max(ys.map((d) -> d[1]))
+            }
+          else
+            allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
+            stackHeights = allX.map (x) ->
+              maybeys = series.map (series) -> series.getY x, xScaleType is 'discrete'
+              hx.sum maybeys.filter hx.identity
+            {
+              yymin: hx.min stackHeights
+              yymax: hx.max stackHeights
+            }
+          {
+            ymin: Math.min(ymin, yymin)
+            ymax: Math.max(ymax, yymax)
+          }
+
+      stackGroupReductor = (prev, { type, group }) ->
+        reductor = typeGroupReductor type
+        group.reduce reductor, prev
+      { ymin, ymax } = stackGroups.reduce stackGroupReductor, initValue
+      yminscaled = if yMinMightBeAuto is 'auto' then scalePad(ymin, ymax - ymin, -@y.scalePaddingMin()) else yMinMightBeAuto
+      ymaxscaled = if yMaxMightBeAuto is 'auto' then scalePad(ymax, ymax - ymin, @y.scalePaddingMax()) else yMaxMightBeAuto
+      { ymin: yminscaled, ymax: ymaxscaled }
+    else
+      { ymin: yMinMightBeAuto, ymax: yMaxMightBeAuto }

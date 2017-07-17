@@ -14,7 +14,7 @@ export default () ->
     it 'should sort items correctly when using objects', ->
       itemsObjects = range(100).map((i) -> { id: i })
 
-      ac = new AutoComplete(div().node(), itemsObjects, { inputMap: ({id}) -> id })
+      ac = new AutoComplete(div(), itemsObjects, { inputMap: ({id}) -> id })
 
       ac.show()
       ac._.menu.items().map(({id}) -> id).should.eql(range(100))
@@ -22,7 +22,7 @@ export default () ->
     it 'should sort disabled items correctly', ->
       itemsObjects = range(100).map((i) -> { id: i, disabled: i % 2 == 0 })
 
-      ac = new AutoComplete(div().node(), itemsObjects, { inputMap: ({id}) -> id })
+      ac = new AutoComplete(div(), itemsObjects, { inputMap: ({id}) -> id })
 
       ac.show()
       ac._.menu.items().slice(0, 50).map(({id}) -> id).should.eql(range(50).map (i) -> 2 * i + 1)

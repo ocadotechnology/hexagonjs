@@ -1,10 +1,10 @@
 import chai from 'chai'
 import { installFakeTimers } from 'test/utils/fake-time'
 
-import * as utils from 'modules/utils/main'
-import { Set as HSet } from 'modules/set/main'
-import { Map as HMap } from 'modules/map/main'
-import { List as HList } from 'modules/list/main'
+import * as utils from 'utils/main'
+import { Set as HSet } from 'set/main'
+import { Map as HMap } from 'map/main'
+import { List as HList } from 'list/main'
 
 should = chai.should()
 

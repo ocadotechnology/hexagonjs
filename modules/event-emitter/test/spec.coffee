@@ -1,5 +1,5 @@
 import chai from 'chai'
-import { EventEmitter } from 'modules/event-emitter/main'
+import { EventEmitter } from 'event-emitter/main'
 
 should = chai.should()
 

@@ -1,6 +1,12 @@
 select = require('modules/selection/main')
 color = require('modules/color/main')
 utils = require('modules/util/main/utils')
+BarSeries = require('./series/bar-series')
+LineSeries = require('./series/line-series')
+
+supportsGroup = (series) ->
+  series instanceof BarSeries or
+  series instanceof LineSeries
 
 doCollisionDetection = (nodesRaw) ->
   nodes = nodesRaw.map (node, index) ->
@@ -9,7 +15,7 @@ doCollisionDetection = (nodesRaw) ->
     previousNodes = nodes.slice 0, (currentIndex - oldDistance + 1)
     tuple = utils.find previousNodes, ({ index: previousIndex, box: prevBox }) ->
       currBox.left < prevBox.right
-    if tuple then currentIndex - tuple.index else oldDistance      
+    if tuple then currentIndex - tuple.index else oldDistance
   distance = nodes.reduce reductor, 1
   nodes.forEach ({ node, index: currentIndex }) ->
     if currentIndex % (distance + 1)
@@ -348,5 +354,6 @@ module.exports = {
   findLabel,
   createLabelPoint,
   makeLabelDetails,
-  doCollisionDetection
+  doCollisionDetection,
+  supportsGroup
 }

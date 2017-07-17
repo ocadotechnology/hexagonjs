@@ -105,11 +105,11 @@ const demoConfig = {
   moduleName: 'hx',
   plugins: [
     json(),
-    buble({
-      exclude: ['**/*.coffee', '**/*.json']
-    }),
     coffee({
       exclude: ['**/*.js', '**/*.json']
+    }),
+    buble({
+      exclude: ['**/*.coffee', '**/*.json']
     }),
     resolveHexagon(),
     includePaths(includePathOptions),

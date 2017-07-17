@@ -1,9 +1,9 @@
-import logger from 'modules/logger/main'
-import { Map as HMap } from 'modules/map/main'
-import { Set as HSet } from 'modules/set/main'
-import { List as HList } from 'modules/list/main'
-import { EventEmitter } from 'modules/event-emitter/main'
-import { isString, isArray, isObject, randomId, vendor, flatten } from 'modules/utils/main'
+import logger from 'logger/main'
+import { Map as HMap } from 'map/main'
+import { Set as HSet } from 'set/main'
+import { List as HList } from 'list/main'
+import { EventEmitter } from 'event-emitter/main'
+import { isString, isArray, isObject, randomId, vendor, flatten } from 'utils/main'
 
 export class ElementSet
   constructor: ->
@@ -244,6 +244,31 @@ export class Selection
       while node.firstChild
         removeChild.call(node, node.firstChild)
     this
+
+  # clears the contents of a node and then adds the children passed in
+  set: (children) ->
+    # The use of Promise.resolve can delay when the replacement happens, so
+    # check to only do this when needed. This makes testing nicer when adding
+    # non-promise content
+    if children.then
+      Promise.resolve(children).then((sel) => this.clear().add(sel))
+    else
+      this.clear().add(children)
+    return this
+
+  # replaces this selection with some other content
+  replace: (content) ->
+    # The use of Promise.resolve can delay when the replacement happens, so
+    # check to only do this when needed. This makes testing nicer when adding
+    # non-promise content
+    if content.then
+      Promise.resolve(content).then (sel) =>
+        this.insertAfter(sel)
+        this.remove()
+    else
+      this.insertAfter(content)
+      this.remove()
+    return this
 
   # gets the nth node in the selection, defaulting to the first
   node: (i=0) -> @nodes[i]

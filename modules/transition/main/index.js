@@ -1,4 +1,4 @@
-import { identity } from 'modules/utils/main'
+import { identity } from 'utils/main'
 
 function loopUpdate (f, g) {
   if (!f()) {

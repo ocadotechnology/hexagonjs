@@ -127,6 +127,7 @@ describe('HexagonJS Test Suite', () => {
         'sort',
         'sortBy',
         'compare',
+        'compareNullsLast',
         'localeCompare',
         'ClickDetector',
         'Modal',

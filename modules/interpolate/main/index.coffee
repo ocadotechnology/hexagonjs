@@ -1,4 +1,4 @@
-import { color } from 'modules/color/main'
+import { color } from 'color/main'
 
 splitString = (string) ->
   regex = new RegExp(/[-+]?(?:\d+\.?\d*|\.?\d+)|((?:[^-+\d])+|\D+)/g)

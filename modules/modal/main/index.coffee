@@ -1,6 +1,6 @@
-import { EventEmitter } from 'modules/event-emitter/main'
-import { select, detached } from 'modules/selection/main'
-import { merge, mergeDefined } from 'modules/utils/main'
+import { EventEmitter } from 'event-emitter/main'
+import { select, detached } from 'selection/main'
+import { merge, mergeDefined } from 'utils/main'
 
 export class Modal extends EventEmitter
 

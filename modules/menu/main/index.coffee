@@ -1,10 +1,10 @@
-import { EventEmitter } from 'modules/event-emitter/main'
-import { select } from 'modules/selection/main'
-import { Collapsible } from 'modules/collapsible/main'
-import { Dropdown } from 'modules/dropdown/main'
-import { isFunction, mergeDefined } from 'modules/utils/main'
-import { scrollbarSize } from 'modules/dom-utils/main'
-import { palette } from 'modules/palette/main'
+import { EventEmitter } from 'event-emitter/main'
+import { select, div } from 'selection/main'
+import { Collapsible } from 'collapsible/main'
+import { Dropdown } from 'dropdown/main'
+import { isFunction, mergeDefined } from 'utils/main'
+import { scrollbarSize } from 'dom-utils/main'
+import { palette } from 'palette/main'
 
 addItem = (item, context, menu) ->
   it = new MenuItem(item, context, menu)
@@ -228,7 +228,7 @@ export class Menu extends EventEmitter
     @options.dropdownOptions.ddClass = 'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
     dropdownContent = (node) ->
-      elem = select(node)
+      elem = div()
       menuItems = elem.select('.hx-menu-items')
       if menuItems.empty()
         menuItems = elem.append('div').class('hx-menu-items')

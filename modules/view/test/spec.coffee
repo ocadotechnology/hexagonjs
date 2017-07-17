@@ -1,7 +1,7 @@
 import chai from 'chai'
-import logger from 'modules/logger/main'
-import { select, div, span } from 'modules/selection/main'
-import { initView } from 'modules/view/main'
+import logger from 'logger/main'
+import { select, div, span } from 'selection/main'
+import { initView } from 'view/main'
 
 initView()
 

@@ -1,8 +1,8 @@
 import chai from 'chai'
 
-import logger from 'modules/logger/main'
-import { div } from 'modules/selection/main'
-import { palette } from 'modules/palette/main'
+import logger from 'logger/main'
+import { div } from 'selection/main'
+import { palette } from 'palette/main'
 
 should = chai.should()
 

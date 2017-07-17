@@ -1,4 +1,4 @@
-import { format } from 'modules/format/main'
+import { format } from 'format/main'
 
 export default () ->
   describe 'hx-format tests', ->

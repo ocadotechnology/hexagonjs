@@ -466,6 +466,7 @@
 
     .hx-data-table-control-panel-compact-visible {
       display: flex;
+      flex-shrink: 0;
     }
 
     .hx-data-table-control-panel-inner {

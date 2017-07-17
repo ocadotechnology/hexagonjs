@@ -1,5 +1,5 @@
-import { Menu } from 'modules/menu/main'
-import { div } from 'modules/selection/main'
+import { Menu } from 'menu/main'
+import { div } from 'selection/main'
 
 export default () ->
   describe 'menu', ->

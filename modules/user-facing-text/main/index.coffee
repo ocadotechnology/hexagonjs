@@ -1,5 +1,5 @@
-import logger from 'modules/logger/main'
-import { clone, isPlainObject, isString } from 'modules/utils/main'
+import logger from 'logger/main'
+import { clone, isPlainObject, isString } from 'utils/main'
 
 # exported for tests
 export state = {

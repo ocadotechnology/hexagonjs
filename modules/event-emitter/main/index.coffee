@@ -1,6 +1,6 @@
-import { Map as HMap } from 'modules/map/main'
-import { List as HList } from 'modules/list/main'
-import { isString } from 'modules/utils/main'
+import { Map as HMap } from 'map/main'
+import { List as HList } from 'list/main'
+import { isString } from 'utils/main'
 
 class BasicEventEmitter
   constructor: ->

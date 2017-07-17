@@ -7,7 +7,7 @@ import {
   filterLess,
   filterFuzzy,
   filterRegex
-} from 'modules/filter/main'
+} from 'filter/main'
 
 export default () ->
   describe 'filter', ->

@@ -1,5 +1,5 @@
-import { compare } from 'modules/sort/main'
-import { startsWith, mergeDefined } from 'modules/utils/main'
+import { compare } from 'sort/main'
+import { startsWith, mergeDefined } from 'utils/main'
 
 filterCaseModifier = (caseSensitive) ->
   if caseSensitive then (string) -> string

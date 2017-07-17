@@ -1,7 +1,7 @@
-import logger from 'modules/logger/main'
-import { Set as HSet} from 'modules/set/main'
-import { Map as HMap} from 'modules/map/main'
-import { List as HList} from 'modules/list/main'
+import logger from 'logger/main'
+import { Set as HSet} from 'set/main'
+import { Map as HMap} from 'map/main'
+import { List as HList} from 'list/main'
 
 # consistent string to int hashing
 export hash = (str, maxValue) ->

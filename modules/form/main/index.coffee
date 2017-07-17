@@ -1,6 +1,6 @@
-import { userFacingText } from 'modules/user-facing-text/main'
-import { select } from 'modules/selection/main'
-import { mergeDefined } from 'modules/utils/main'
+import { userFacingText } from 'user-facing-text/main'
+import { select } from 'selection/main'
+import { mergeDefined } from 'utils/main'
 
 userFacingText({
   form: {

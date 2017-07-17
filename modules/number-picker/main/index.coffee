@@ -1,6 +1,6 @@
-import { select, div } from 'modules/selection/main'
-import { mergeDefined } from 'modules/utils/main'
-import { EventEmitter } from 'modules/event-emitter/main'
+import { select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
 
 checkValue = (value, min, max) ->
   if max isnt undefined then value = Math.min(value, max)

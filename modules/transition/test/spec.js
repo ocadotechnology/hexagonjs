@@ -1,4 +1,4 @@
-import { loop, transition, ease } from 'modules/transition/main'
+import { loop, transition, ease } from 'transition/main'
 import { installFakeTimers } from 'test/utils/fake-time'
 
 export default () => {

@@ -1,5 +1,5 @@
 import chai from 'chai'
-import { List } from 'modules/list/main'
+import { List } from 'list/main'
 
 should = chai.should()
 

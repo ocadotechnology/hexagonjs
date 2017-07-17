@@ -1,8 +1,8 @@
 import chai from 'chai'
 
-import logger from 'modules/logger/main'
-import { clone } from 'modules/utils/main'
-import { userFacingText, userFacingTextDefaults, state } from 'modules/user-facing-text/main'
+import logger from 'logger/main'
+import { clone } from 'utils/main'
+import { userFacingText, userFacingTextDefaults, state } from 'user-facing-text/main'
 
 should = chai.should()
 

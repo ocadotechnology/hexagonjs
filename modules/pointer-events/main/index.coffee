@@ -1,7 +1,7 @@
 # normalisation for mouse + touch events
 
-import { supports } from 'modules/utils/main'
-import { addEventAugmenter } from 'modules/selection/main'
+import { supports } from 'utils/main'
+import { addEventAugmenter } from 'selection/main'
 
 export initPointerEvents = ->
   addAugmentor = (name, mouseName, touchNames, node, eventEmitter, mouseEventFactory, touchEventFactory) ->

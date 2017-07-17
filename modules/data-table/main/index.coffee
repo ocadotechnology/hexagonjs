@@ -625,9 +625,12 @@ class DataTable extends EventEmitter
 
     advancedSearchVisibleAndEnabled = (not options.filterEnabled or options.showAdvancedSearch) and options.advancedSearchEnabled
 
-    selection.select('.hx-data-table-filter')
+    filterSel = selection.select('.hx-data-table-filter')
       .classed('hx-data-table-filter-visible', options.filterEnabled and not advancedSearchVisibleAndEnabled)
-      .value(@filter())
+    nextFilterValue = @filter()
+    prevFilterValue = filterSel.value()
+    if nextFilterValue isnt prevFilterValue
+      filterSel.value(nextFilterValue)
 
     @_.advancedSearchToggleButton.value(options.advancedSearchEnabled)
 

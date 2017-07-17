@@ -1,4 +1,4 @@
-import { userFacingText } from 'modules/user-facing-text/main'
+import { userFacingText } from 'user-facing-text/main'
 
 export default () ->
   describe 'form', ->

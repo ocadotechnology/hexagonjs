@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.10.0
+ Version: 1.11.0
  Theme: hexagon-light
  Modules:
    set
@@ -3106,7 +3106,6 @@ select = function(selector, isArray) {
 
 hx.select = function(selector) {
   if (selector instanceof Selection) {
-    hx.consoleWarning('hx.select was passed a selection', 'Calling hx.select on a selection returns the same selection', selector);
     return selector;
   } else if (!((selector instanceof HTMLElement) || (selector instanceof SVGElement) || hx.isString(selector) || selector === document || selector === window)) {
     hx.consoleWarning('hx.select was passed the wrong argument type', 'hx.select only accepts a HTMLElement, SVGElement or string argument, you supplied:', selector);
@@ -3352,48 +3351,100 @@ if (hx.Selection) {
 
 })();
 (function(){
-var collator, compare, hasCollator, localeCompare,
+var collatorFn, compare, compareNullsLast, defaultCollator, hasCollator, localeCollatorFn, localeCompare, nullsLastCollator,
   slice = [].slice;
 
-hasCollator = (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
+hasCollator = function() {
+  return (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
+};
 
-collator = hasCollator ? new Intl.Collator(void 0, {
-  numeric: true
-}).compare : function(a, b) {
-  if (a < b) {
-    return -1;
-  } else if (a > b) {
-    return 1;
+hx._.sort = {};
+
+collatorFn = function() {
+  if (hasCollator()) {
+    return new Intl.Collator(void 0, {
+      numeric: true
+    }).compare;
   } else {
-    return 0;
+    return function(a, b) {
+      if (a === b) {
+        return 0;
+      } else if (String(a) < String(b)) {
+        return -1;
+      } else {
+        return 1;
+      }
+    };
   }
 };
 
+nullsLastCollator = function(collator) {
+  return function(a, b) {
+    if (a === b) {
+      return 0;
+    } else if (a === void 0) {
+      return 1;
+    } else if (b === void 0) {
+      return -1;
+    } else if (a === null) {
+      return 1;
+    } else if (b === null) {
+      return -1;
+    } else if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
+defaultCollator = function(collator) {
+  return function(a, b) {
+    if ((a != null) && (b != null) && !isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
 compare = function(a, b) {
-  if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-    return a - b;
+  var base;
+  if ((base = hx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return defaultCollator(hx._.sort.collator)(a, b);
+};
+
+compareNullsLast = function(a, b) {
+  var base;
+  if ((base = hx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return nullsLastCollator(hx._.sort.collator)(a, b);
+};
+
+localeCollatorFn = function(locale, options) {
+  if (hasCollator()) {
+    return new Intl.Collator(locale, options).compare;
   } else {
-    return collator(a, b);
+    return function(a, b) {
+      return String(a).localeCompare(String(b), locale, options);
+    };
   }
 };
 
 localeCompare = function(locale, options) {
   var localeCollator;
-  if (options == null) {
-    options = {
-      numeric: true
-    };
+  options = hx.merge.defined(options, {
+    numeric: true
+  });
+  localeCollator = localeCollatorFn(locale, options);
+  if (options.nullsLast) {
+    return nullsLastCollator(localeCollator);
+  } else {
+    return defaultCollator(localeCollator);
   }
-  localeCollator = hasCollator ? new Intl.Collator(locale, options).compare : function(a, b) {
-    return a.localeCompare(b, locale, options);
-  };
-  return function(a, b) {
-    if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return localeCollator(a, b);
-    }
-  };
 };
 
 hx.sortBy = function(arr, f) {
@@ -3415,6 +3466,8 @@ hx.sort = function(arr) {
 };
 
 hx.sort.compare = compare;
+
+hx.sort.compareNullsLast = compareNullsLast;
 
 hx.sort.localeCompare = localeCompare;
 
@@ -6377,7 +6430,7 @@ DateTimeLocalizer = (function() {
         }
       }
       if (daysValid && monthsValid && yearsValid) {
-        return new Date(year, month - 1, day);
+        return new Date(Date.UTC(year, month - 1, day));
       } else {
         return new Date('Invalid Date');
       }
@@ -8984,7 +9037,6 @@ AutoComplete = (function(superClass) {
       _.menu = menu;
       _.input = input;
     }
-    this;
   }
 
   AutoComplete.prototype.clearCache = function() {
@@ -9370,7 +9422,11 @@ hx.ProgressBar = ProgressBar;
 
 })();
 (function(){
-var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, doCollisionDetection, extent, extent2, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, stackSegments, svgCurve;
+var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, doCollisionDetection, extent, extent2, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, stackSegments, supportsGroup, svgCurve;
+
+supportsGroup = function(series) {
+  return series instanceof BarSeries || series instanceof LineSeries;
+};
 
 doCollisionDetection = function(nodesRaw) {
   var distance, nodes, reductor;
@@ -10007,7 +10063,7 @@ dimension = function(axis, options) {
 };
 
 Axis = (function() {
-  var scalePad, supportsGroup;
+  var scalePad;
 
   function Axis(options) {
     var opts, ref;
@@ -10045,10 +10101,6 @@ Axis = (function() {
       }
     }
   }
-
-  supportsGroup = function(series) {
-    return series instanceof BarSeries || series instanceof LineSeries;
-  };
 
   Axis.prototype.addSeries = function(series, options) {
     if (hx.isString(series)) {
@@ -10317,7 +10369,7 @@ Axis = (function() {
   };
 
   Axis.prototype.preupdateYAxisSvg = function(element, totalXAxisSize) {
-    var axisGroupSelection, d, data, domain, group, k, l, len, len1, len2, m, ref, ref1, rmin, s, self, series, set, stackGroups, stackHeight, topSeries, type, types, yLabelTickSize, ymax, ymin, ys, yymax, yymin;
+    var axisGroupSelection, d, domain, ref, rmin, self, series, set, yLabelTickSize, yMaxMightBeAuto, yMinMightBeAuto, ymax, ymin;
     self = this;
     rmin = this.graph.height - totalXAxisSize;
     switch (this.y.scaleType()) {
@@ -10354,106 +10406,9 @@ Axis = (function() {
       }).call(this);
       this.yScale.domain(domain);
     } else {
-      ymin = void 0;
-      ymax = void 0;
-      types = hx.groupBy(this.series(), function(d) {
-        return d._.type;
-      });
-      stackGroups = types.map(function(d) {
-        return {
-          type: d[0],
-          group: hx.groupBy(d[1], function(s) {
-            if (supportsGroup(s)) {
-              return s.group();
-            } else {
-              return void 0;
-            }
-          })
-        };
-      });
-      for (k = 0, len = stackGroups.length; k < len; k++) {
-        type = stackGroups[k];
-        ref = type.group;
-        for (l = 0, len1 = ref.length; l < len1; l++) {
-          group = ref[l];
-          series = group[1];
-          if (group[0] === void 0) {
-            ys = (function() {
-              var len2, m, ref1, results;
-              ref1 = this.series();
-              results = [];
-              for (m = 0, len2 = ref1.length; m < len2; m++) {
-                s = ref1[m];
-                data = s.data();
-                if (s instanceof StraightLineSeries) {
-                  if (!data.dx && !data.dy && data.y) {
-                    results.push([data.y, data.y]);
-                  } else {
-                    results.push(void 0);
-                  }
-                } else if (s instanceof BandSeries) {
-                  results.push(extent2(data, (function(d) {
-                    return d.y1;
-                  }), function(d) {
-                    return d.y2;
-                  }));
-                } else {
-                  results.push(extent(data, function(d) {
-                    return d.y;
-                  }));
-                }
-              }
-              return results;
-            }).call(this);
-            ys = ys.filter(function(d) {
-              return d != null;
-            });
-            yymin = hx.min(ys.map(function(d) {
-              return d[0];
-            }));
-            yymax = hx.max(ys.map(function(d) {
-              return d[1];
-            }));
-            if (ymin === void 0 || yymin < ymin) {
-              ymin = yymin;
-            }
-            if (ymax === void 0 || yymax > ymax) {
-              ymax = yymax;
-            }
-          } else {
-            topSeries = series[series.length - 1];
-            if (ymin === void 0) {
-              ymin = 0;
-            } else {
-              ymin = Math.min(ymin, 0);
-            }
-            if (ymax === void 0) {
-              ymax = 0;
-            } else {
-              ymax = Math.max(ymax, 0);
-            }
-            ref1 = topSeries.data();
-            for (m = 0, len2 = ref1.length; m < len2; m++) {
-              d = ref1[m];
-              stackHeight = this.getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId + 1, this.yScale.domainMin);
-              if (ymin === void 0 || stackHeight < ymin) {
-                ymin = stackHeight;
-              }
-              if (ymax === void 0 || stackHeight > ymax) {
-                ymax = stackHeight;
-              }
-            }
-          }
-        }
-      }
-      ymin = this.y.min() === 'auto' ? ymin : this.y.min();
-      ymax = this.y.max() === 'auto' ? ymax : this.y.max();
-      if (this.y.min() === 'auto') {
-        ymin = scalePad(ymin, ymax - ymin, -this.y.scalePaddingMin());
-      }
-      if (this.y.max() === 'auto') {
-        ymax = scalePad(ymax, ymax - ymin, this.y.scalePaddingMax());
-      }
+      yMinMightBeAuto = this.y.min();
+      yMaxMightBeAuto = this.y.max();
+      ref = this.calculateYBounds(yMinMightBeAuto, yMaxMightBeAuto), ymin = ref.ymin, ymax = ref.ymax;
       this.yScale.domain(ymin, ymax);
     }
     yLabelTickSize = 0;
@@ -10665,25 +10620,125 @@ Axis = (function() {
   };
 
   Axis.prototype.getYStack = function(type, group, x, seriesId, start) {
-    var j, k, len, ref, series, yStack, ys;
+    var allSeries, maybeys, xScaleType, yScaleDomainMin, yStack;
     if (start == null) {
       start = 0;
     }
+    allSeries = this.series();
+    xScaleType = this.x.scaleType();
+    yScaleDomainMin = this.yScale.domainMin;
     if (group) {
-      yStack = Math.max(this.yScale.domainMin, 0);
-      ref = this.series();
-      for (j = k = 0, len = ref.length; k < len; j = ++k) {
-        series = ref[j];
+      yStack = Math.max(yScaleDomainMin, 0);
+      maybeys = allSeries.map(function(series) {
         if (series._.seriesId < seriesId && series.group() === group && series._.type === type) {
-          ys = series.getY(x, this.x.scaleType() === 'discrete');
-          if (hx.defined(ys)) {
-            yStack += ys;
-          }
+          return series.getY(x, xScaleType === 'discrete');
         }
-      }
-      return yStack;
+      });
+      return yStack + hx.sum(maybeys.filter(hx.identity));
     } else {
       return Math.max(start, 0);
+    }
+  };
+
+  Axis.prototype.calculateYBounds = function(yMinMightBeAuto, yMaxMightBeAuto) {
+    var allSeries, initValue, ref, stackGroupReductor, stackGroups, typeGroupReductor, types, xScaleType, ymax, ymaxscaled, ymin, yminscaled;
+    if ('auto' === yMaxMightBeAuto || 'auto' === yMinMightBeAuto) {
+      allSeries = this.series();
+      xScaleType = this.x.scaleType();
+      initValue = {
+        ymin: 0,
+        ymax: 0
+      };
+      types = hx.groupBy(allSeries, function(d) {
+        return d._.type;
+      });
+      stackGroups = types.map(function(arg) {
+        var series, type;
+        type = arg[0], series = arg[1];
+        return {
+          type: type,
+          group: hx.groupBy(series, function(s) {
+            if (supportsGroup(s)) {
+              return s.group();
+            } else {
+              return void 0;
+            }
+          })
+        };
+      });
+      typeGroupReductor = function(type) {
+        return function(arg, arg1) {
+          var allX, maybeys, ref, series, seriesGroup, stackHeights, ymax, ymin, ys, yymax, yymin;
+          ymin = arg.ymin, ymax = arg.ymax;
+          seriesGroup = arg1[0], series = arg1[1];
+          ref = seriesGroup === void 0 ? (maybeys = allSeries.map(function(s) {
+            var data;
+            data = s.data();
+            if (s instanceof StraightLineSeries) {
+              if (!data.dx && !data.dy && data.y) {
+                return [data.y, data.y];
+              } else {
+                return void 0;
+              }
+            } else if (s instanceof BandSeries) {
+              return extent2(data, (function(d) {
+                return d.y1;
+              }), function(d) {
+                return d.y2;
+              });
+            } else {
+              return extent(data, function(d) {
+                return d.y;
+              });
+            }
+          }), ys = maybeys.filter(function(d) {
+            return d != null;
+          }), {
+            yymin: hx.min(ys.map(function(d) {
+              return d[0];
+            })),
+            yymax: hx.max(ys.map(function(d) {
+              return d[1];
+            }))
+          }) : (allX = hx.unique(hx.flatten(series.map(function(s) {
+            return s.data().map(function(arg2) {
+              var x;
+              x = arg2.x;
+              return x;
+            });
+          }))), stackHeights = allX.map(function(x) {
+            maybeys = series.map(function(series) {
+              return series.getY(x, xScaleType === 'discrete');
+            });
+            return hx.sum(maybeys.filter(hx.identity));
+          }), {
+            yymin: hx.min(stackHeights),
+            yymax: hx.max(stackHeights)
+          }), yymin = ref.yymin, yymax = ref.yymax;
+          return {
+            ymin: Math.min(ymin, yymin),
+            ymax: Math.max(ymax, yymax)
+          };
+        };
+      };
+      stackGroupReductor = function(prev, arg) {
+        var group, reductor, type;
+        type = arg.type, group = arg.group;
+        reductor = typeGroupReductor(type);
+        return group.reduce(reductor, prev);
+      };
+      ref = stackGroups.reduce(stackGroupReductor, initValue), ymin = ref.ymin, ymax = ref.ymax;
+      yminscaled = yMinMightBeAuto === 'auto' ? scalePad(ymin, ymax - ymin, -this.y.scalePaddingMin()) : yMinMightBeAuto;
+      ymaxscaled = yMaxMightBeAuto === 'auto' ? scalePad(ymax, ymax - ymin, this.y.scalePaddingMax()) : yMaxMightBeAuto;
+      return {
+        ymin: yminscaled,
+        ymax: ymaxscaled
+      };
+    } else {
+      return {
+        ymin: yMinMightBeAuto,
+        ymax: yMaxMightBeAuto
+      };
     }
   };
 
@@ -15256,8 +15311,8 @@ ColorPicker = (function(superClass) {
           return circleMoved(pos);
         };
         dragObject = function(elem, parent, min, max, startCallback, moveCallback, endCallback) {
-          var StartListening, StopListening, cursorStartPos, disposed, dragGo, dragStart, dragStop, dragStopHook, dragging, elementStartPos, listening, temp;
-          cursorStartPos = elementStartPos = dragging = listening = disposed = null;
+          var StartListening, StopListening, cursorStartPos, dragGo, dragStart, dragStop, dragStopHook, dragging, elementStartPos, listening, temp;
+          cursorStartPos = elementStartPos = dragging = listening = null;
           if (min !== null && max !== null) {
             temp = min.min(max);
             max = min.max(max);
@@ -15265,7 +15320,7 @@ ColorPicker = (function(superClass) {
           }
           dragStart = function(e) {
             e = e.event;
-            if (dragging || !listening || disposed) {
+            if (dragging || !listening) {
               return;
             }
             dragging = true;
@@ -15281,7 +15336,7 @@ ColorPicker = (function(superClass) {
           dragGo = function(e) {
             var newPos;
             e = e.event;
-            if (!dragging || disposed) {
+            if (!dragging) {
               return;
             }
             newPos = absoluteCursorPosition(e);
@@ -15299,7 +15354,7 @@ ColorPicker = (function(superClass) {
             return cancelEvent(e);
           };
           dragStop = function() {
-            if (!dragging || disposed) {
+            if (!dragging) {
               return true;
             }
             hx.select(document).off('pointermove', 'hx.color-picker', dragGo);
@@ -15310,25 +15365,15 @@ ColorPicker = (function(superClass) {
             }
             return dragging = false;
           };
-          ({
-            dispose: function() {
-              if (disposed) {
-                return;
-              }
-              this.StopListening(true);
-              elem = parent = min = max = startCallback = moveCallback = endCallback = null;
-              return disposed = true;
-            }
-          });
           StartListening = function() {
-            if (listening || disposed) {
+            if (listening) {
               return;
             }
             listening = true;
             return parent.on('pointerdown', 'hx.color-picker', dragStart);
           };
           StopListening = function() {
-            if (!listening || disposed) {
+            if (!listening) {
               return;
             }
             parent.off('pointerdown', 'hx.color-picker', dragStart);

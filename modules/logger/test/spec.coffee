@@ -1,5 +1,5 @@
 import chai from 'chai'
-import logger from 'modules/logger/main'
+import logger from 'logger/main'
 
 export default () ->
   describe 'logger', ->

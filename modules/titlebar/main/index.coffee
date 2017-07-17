@@ -1,5 +1,5 @@
-import { select, selectAll } from 'modules/selection/main'
-import { isString } from 'modules/utils/main'
+import { select, selectAll } from 'selection/main'
+import { isString } from 'utils/main'
 
 setVisibility = (show, animate=true) ->
   if not @isMobileFriendly then return

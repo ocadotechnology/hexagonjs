@@ -1,5 +1,5 @@
 
-import { isString } from 'modules/utils/main'
+import { isString } from 'utils/main'
 
 siSuffixes = ['y','z','a','f','p','n','µ','','','K','M','G','T','P','E','Z','Y']
 

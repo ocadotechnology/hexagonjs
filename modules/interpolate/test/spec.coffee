@@ -1,5 +1,5 @@
 
-import { interpolate } from 'modules/interpolate/main'
+import { interpolate } from 'interpolate/main'
 
 export default () ->
   describe 'interpolate', ->

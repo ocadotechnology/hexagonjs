@@ -1,5 +1,5 @@
 import chai from 'chai'
-import { Map } from 'modules/map/main'
+import { Map } from 'map/main'
 
 should = chai.should()
 

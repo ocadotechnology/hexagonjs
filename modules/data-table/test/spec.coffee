@@ -314,6 +314,7 @@ describe 'data-table', ->
           container.select('.hx-data-table-filter').size().should.equal(1)
           container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(true)
 
+
         it 'should not show collapsible expand icons', ->
           container.select('.hx-sticky-table-header-left').selectAll('.hx-data-table-collapsible-toggle').size().should.equal(0)
 
@@ -558,6 +559,25 @@ describe 'data-table', ->
           testTable {tableOptions: {filterEnabled: false}}, done, (container, dt, options, data) ->
             container.select('.hx-data-table-filter').size().should.equal(1)
             container.select('.hx-data-table-filter').classed('hx-data-table-filter-visible').should.equal(false)
+
+
+    describe 'filter', ->
+      it 'should do the filter table with the right position', (done) ->
+        testTable {tableOptions: {filterEnabled: true, filter: 'Bob'}}, (-> undefined), (container, dt, options, data) ->
+          # Sense checks
+          container.select('.hx-data-table-filter').value().should.equal('Bob')
+          container.select('.hx-data-table-filter').node().selectionStart.should.equal(3)
+
+          # Given
+          container.select('.hx-data-table-filter').node().selectionStart = 1
+          container.select('.hx-data-table-filter').node().selectionStart.should.equal(1)
+
+          # when
+          container.component().render ->
+            # then
+            container.select('.hx-data-table-filter').node().selectionStart.should.equal(1)
+            done()
+
 
 
 

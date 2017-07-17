@@ -1,6 +1,6 @@
-import { animate, registerMorph } from 'modules/animate/main'
-import { select } from 'modules/selection/main'
-import { EventEmitter } from 'modules/event-emitter/main'
+import { animate, registerMorph } from 'animate/main'
+import { select } from 'selection/main'
+import { EventEmitter } from 'event-emitter/main'
 
 # XXX: [2.0.0] Remove
 
