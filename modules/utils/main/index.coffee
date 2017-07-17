@@ -255,14 +255,14 @@ export mergeImpl = (deep, retainUndefined, objects) ->
 export merge = (objects...) ->
   mergeImpl(true, true, objects)
 
-# XXX: This has changed from mergeDefined.defined
+# XXX [2.0.0]: This has changed from mergeDefined.defined
 export mergeDefined = (objects...) ->
   mergeImpl(true, false, objects)
 
 export shallowMerge = (objects...) ->
   mergeImpl(false, true, objects)
 
-# XXX: This has changed from shallowMerge.defined
+# XXX [2.0.0]: This has changed from shallowMerge.defined
 export shallowMergeDefined = (objects...) ->
   mergeImpl(false, false, objects)
 

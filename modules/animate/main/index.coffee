@@ -5,10 +5,13 @@ import { EventEmitter } from 'event-emitter/main'
 import { interpolate } from 'interpolate/main'
 import { Selection, getHexagonElementDataObject } from 'selection/main'
 import { isFunction } from 'utils/main'
-
-import { animateState } from './state'
+import { Map as HMap } from 'map/main'
 
 # XXX: [2.0.0] Remove, and replace with promise based transitions for props, attrs and style on selection
+
+animateState = {
+  morphs: new HMap()
+}
 
 # works on the single node given
 class Animation extends EventEmitter
@@ -87,7 +90,6 @@ class Morph extends EventEmitter
       @actions.push f
     else
       if @node
-        console.log(animateState.morphs)
         morphFactory = animateState.morphs.get(f)
         if morphFactory
           @actions.push => morphFactory(@node, duration)
@@ -198,9 +200,7 @@ class Morph extends EventEmitter
 export morph = (node) -> new Morph(node)
 export registerMorph = (name, morph) ->
   animateState.morphs.set(name, morph)
-  console.log(name, animateState.morphs)
 
 export initAnimate = ->
-  console.log('init animate')
   Selection::animate = (ease) -> animate(@nodes[0], ease)
   Selection::morph = -> new Morph(@nodes[0])

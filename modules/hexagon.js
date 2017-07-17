@@ -125,17 +125,13 @@ initTitleBar()
 
 // module.exports = window.hx = merge([
 //   require('./resize-events/main'),
-//   require('./menu/main'),
 //   require('./preferences/main'),
 //   require('./date-localizer/main'),
-//   require('./autocomplete/main'),
-//   require('./number-picker/main'),
 //   require('./drag-container/main'),
 //   require('./progress-bar/main'),
 //   require('./sticky-table-headers/main'),
 //   require('./autocomplete-feed/main'),
 //   require('./picker/main'),
-//   require('./button-group/main'),
 //   require('./plot/main'),
 //   require('./date-picker/main'),
 //   require('./time-picker/main'),

@@ -3,7 +3,7 @@ import { sort } from 'sort/main'
 import { EventEmitter } from 'event-emitter/main'
 import { Map as HMap } from 'map/main'
 import * as filter from 'filter/main'
-import { select } from 'selection/main'
+import { select, detached } from 'selection/main'
 import { Menu } from 'menu/main'
 import { groupBy, isFunction, isArray, merge } from 'utils/main'
 import logger from 'logger/main'
@@ -16,7 +16,6 @@ userFacingText({
     pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
   }
 })
-
 
 sortActive = (items) ->
   groupedActive = new HMap(groupBy(items, (i) -> not i.disabled))
@@ -405,6 +404,6 @@ export class AutoComplete extends EventEmitter
     this
 
 export autoComplete = (data, options) ->
-  selection = select.detached('input')
-  new AutoComplete(selection.node(), data, options)
+  selection = detached('input')
+  new AutoComplete(selection, data, options)
   selection
