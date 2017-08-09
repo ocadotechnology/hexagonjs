@@ -614,6 +614,74 @@ describe 'Selection Api', ->
     selection = hx.select('#fixture')
     selection.clear().should.equal(selection)
 
+  it 'set works', ->
+    children = [
+      hx.detached('div'),
+      hx.detached('div'),
+      hx.detached('div')
+    ]
+
+    parent = hx.detached('div')
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+
+    parent.set(children).should.equal(parent)
+    parent.selectAll('span').size().should.equal(0)
+    parent.selectAll('div').size().should.equal(3)
+
+  it 'set(Promise) works', () ->
+    children = Promise.resolve([
+      hx.detached('div'),
+      hx.detached('div'),
+      hx.detached('div')
+    ])
+
+    parent = hx.detached('div')
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+      .add(hx.detached('span'))
+
+    parent.set(children).should.equal(parent)
+
+    return children.then () ->
+      parent.selectAll('span').size().should.equal(0)
+      parent.selectAll('div').size().should.equal(3)
+
+  it 'replace works', ->
+    children = [
+      hx.detached('div').class('new-content'),
+      hx.detached('div').class('new-content'),
+      hx.detached('div').class('new-content')
+    ]
+
+    content = hx.detached('div').class('content')
+
+    parent = hx.detached('div')
+      .add(content)
+
+    content.replace(children).should.equal(content)
+    parent.selectAll('.content').size().should.equal(0)
+    parent.selectAll('.new-content').size().should.equal(3)
+
+  it 'replace(Promise) works', () ->
+    children = Promise.resolve([
+      hx.detached('div').class('new-content'),
+      hx.detached('div').class('new-content'),
+      hx.detached('div').class('new-content')
+    ])
+
+    content = hx.detached('div').class('.content')
+
+    parent = hx.detached('div')
+      .add(content)
+
+    content.replace(children).should.equal(content)
+
+    children.then () ->
+      parent.selectAll('.content').size().should.equal(0)
+      parent.selectAll('.new-content').size().should.equal(3)
+
   # getting / setting properties
 
   it 'get a property from a single selection', ->
