@@ -57,7 +57,7 @@ class PivotTable extends hx.EventEmitter
         hx.select(element).text(data)
       useResponsive: true
       data: undefined,
-      fullWidth: false
+      fullWidth: undefined
     }, options)
 
     @_ = {}
