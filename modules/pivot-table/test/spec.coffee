@@ -70,7 +70,9 @@ describe 'Pivot Table', ->
       leftHead: leftHead
       topHead: topHead
 
-    pt = new hx.PivotTable(hx.detached('div').node(), {
+    sel = hx.detached('div')
+
+    pt = new hx.PivotTable(sel.node(), {
       data: data
       fullWidth: true
       stickyHeaders: false
@@ -78,3 +80,4 @@ describe 'Pivot Table', ->
 
     pt.options.fullWidth.should.equal(true)
     should.not.exist(pt.stickyTableHeaders)
+    sel.selectAll('.hx-table-full').size().should.equal(1)
