@@ -289,7 +289,6 @@ class DataTable extends hx.EventEmitter
       showSearchAboveTable: false
       filter: undefined
       filterEnabled: true
-      filterCriteria: 'contains'
       showAdvancedSearch: false
       advancedSearchEnabled: false
       advancedSearchCriteria: undefined
@@ -1195,9 +1194,9 @@ objectFeed = (data, options) ->
         filterCacheTerm = range.advancedSearch
         sorted = undefined
       else
-        filterFn = (row) -> options.filter(range.filter, row, range.filterCriteria)
+        filterFn = (row) -> options.filter(range.filter, row)
         filterCache = getFiltered(data.rows, range.filter, filterCache, filterCacheTerm, filterFn)
-        filterCacheTerm = range.filter + (range.filterCriteria or '')
+        filterCacheTerm = range.filter
         sorted = undefined
 
       if sorted is undefined or sortCacheTerm.column isnt range.sort?.column or sortCacheTerm.direction isnt range.sort?.direction
