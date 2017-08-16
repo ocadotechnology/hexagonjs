@@ -44,7 +44,7 @@ toCriteriaItems = (list) ->
 advancedSearchCriteriaValidate = (value) ->
   allowedTypes = hx.filter.types()
   if (hx.isArray(value) and value.every((c) -> ~allowedTypes.indexOf(c))) or value is undefined
-    value
+    value or []
   else if hx.isArray(value)
     invalidTypes = value.filter((c) -> not ~allowedTypes.indexOf(c))
     hx.consoleWarning('Invalid Filter Criteria Specified:', invalidTypes, '\nPlease select a value from hx.filter.stringTypes()', allowedTypes)
