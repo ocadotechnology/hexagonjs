@@ -3,7 +3,8 @@
     "component",
     "selection",
     "animate",
-    "morphs"
+    "morphs",
+    "fluid"
   ],
   "keywords": [
     "titlebar"

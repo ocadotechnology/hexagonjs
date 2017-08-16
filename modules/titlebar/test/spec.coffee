@@ -79,3 +79,33 @@ describe 'hx-titlebar', ->
     hx.selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([true, false, false, false, false])
     titlebar.active(undefined)
     hx.selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([false, false, false, false, false])
+
+  describe 'fluid', ->
+    it 'should create a fluid titlebar', ->
+      titlebar = hx.titleBar()
+      titlebar.api().should.be.an.instanceOf(hx.TitleBar)
+      titlebar.classed('hx-heading').should.equal(true)
+
+    it 'should be able to set the title', ->
+      titlebar = hx.titleBar({title: 'My Title'})
+      titlebar.select('.hx-titlebar-title').text().should.equal('My Title')
+
+    it 'should be able to set the subtitle', ->
+      titlebar = hx.titleBar({subtitle: 'My Subtitle'})
+      titlebar.select('.hx-titlebar-subtitle').text().should.equal('My Subtitle')
+
+    it 'should show icon by default', ->
+      titlebar = hx.titleBar()
+      titlebar.select('.hx-titlebar-icon').empty().should.equal(false)
+
+    it 'should not add the icon when showIcon is false', ->
+      titlebar = hx.titleBar({showIcon: false})
+      titlebar.select('.hx-titlebar-icon').empty().should.equal(true)
+
+    it 'should be able to set the icon link', ->
+      titlebar = hx.titleBar({iconLink: '/home'})
+      titlebar.select('.hx-titlebar-icon').attr('href').should.equal('/home')
+
+    it 'should be able to set the icon link', ->
+      titlebar = hx.titleBar({iconClass: 'my-icon-class'})
+      titlebar.select('.hx-titlebar-icon').select('img').classed('my-icon-class').should.equal(true)

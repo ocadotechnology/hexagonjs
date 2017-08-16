@@ -75,5 +75,32 @@ class TitleBar
 
 hx.TitleBar = TitleBar
 
+hx.titleBar = (options = {}) ->
+  {
+    title = 'Title',
+    subtitle = '',
+    showIcon = true,
+    iconLink = '#',
+    iconClass = 'hx-logo'
+  } = options
+
+  icon = if showIcon
+    hx.detached('a')
+      .class('hx-titlebar-icon')
+      .attr('href', iconLink)
+      .add(hx.detached('img').class(iconClass))
+
+  selection = hx.div('hx-heading')
+    .add(hx.div('hx-titlebar')
+      .add(hx.div('hx-titlebar-container')
+        .add(hx.div('hx-titlebar-header')
+          .add(icon)
+          .add(if title then hx.div('hx-titlebar-title').text(title))
+          .add(if subtitle then hx.div('hx-titlebar-subtitle').text(subtitle)))))
+
+  new hx.TitleBar(selection)
+
+  return selection
+
 # set up the titlebar
 if hx.select('.hx-heading').size() > 0 then hx.titlebar = new hx.TitleBar('.hx-heading')
