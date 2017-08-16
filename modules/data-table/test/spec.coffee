@@ -164,7 +164,7 @@ describe 'data-table', ->
           options.columns[columnId] ?= {}
           options.columns[columnId][name] = value
           dt = new hx.DataTable(hx.detached('div').node(), options)
-          dt[name](columnId).should.equal(value)
+          dt[name](columnId).should.eql(value)
 
       it 'should trigger render by default', ->
         for value in valuesToCheck
@@ -260,6 +260,9 @@ describe 'data-table', ->
     checkColumnOption('cellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('headerCellRenderer', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkColumnOption('sortEnabled', [true, false])
+
+  describe 'column options with validation', ->
+    checkColumnOption('advancedSearchCriteria', [['contains'], ['exact', 'fuzzy']])
 
   describe 'column only options', ->
     checkColumnOption('maxWidth', [10, 100], true)
@@ -1551,6 +1554,24 @@ describe 'data-table', ->
 
             emulatePickerValueChange(pickerNode, dt, 2, done, pickerExpectation)
 
+        it 'should update the advancedSearch when changing the criteria picker for a filter', (done) ->
+          tableOptions =
+            advancedSearchEnabled: true
+            advancedSearchCriteria: ['exact']
+            advancedSearch: [[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'c'}]]
+
+          testTable {tableOptions}, undefined, (container, dt, options, data) ->
+            filterRows = container.select('.hx-data-table-advanced-search-container').selectAll('.hx-data-table-advanced-search-filter')
+            filterRows.size().should.equal(3)
+
+            pickerNode = hx.select(filterRows.node(1))
+              .select('.hx-data-table-advanced-search-criteria').node()
+
+            pickerExpectation = ->
+              dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b', criteria: 'exact'}, {column: 'any', term: 'c'}]])
+
+            emulatePickerValueChange(pickerNode, dt, 1, done, pickerExpectation)
+
         it 'should update the advancedSearch when changing the term for a filter', (done) ->
           clock = sinon.useFakeTimers(clockTime)
           tableOptions =
@@ -1777,6 +1798,36 @@ describe 'data-table', ->
           advancedSearchFilter(filter, {cells: {name: 'Bob', surname: 'Steve'}}).should.equal(true)
           advancedSearchFilter(filter, {cells: {name: 'steve', surname: 'bob'}}).should.equal(true)
 
+
+    describe 'advancedSearchCriteria', ->
+      it 'should show a warning when setting an invalid type on creation', (done) ->
+        tableOptions =
+          advancedSearchCriteria: [
+            'something'
+          ],
+          advancedSearch: [[{column: 'name', term: 'b'}]]
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          hx.consoleWarning.should.have.been.called.with('Invalid Filter Criteria Specified:', ['something'], '\nPlease select a value from hx.filter.stringTypes()', hx.filter.types())
+
+      it 'should show a warning when setting an invalid type on creation', (done) ->
+        tableOptions =
+          advancedSearchCriteria: 'something'
+          advancedSearch: [[{column: 'name', term: 'b'}]]
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          hx.consoleWarning.should.have.been.called.with('Expected an array of filter criteria but was passed:', 'something')
+
+      it 'should show a warning when setting an invalid type on creation for a column', (done) ->
+        invalidValue = {}
+        tableOptions =
+          advancedSearch: [[{column: 'name', term: 'b'}]]
+          columns:
+            name:
+              advancedSearchCriteria: invalidValue
+
+        testTable {tableOptions}, done, (container, dt, options, data) ->
+          hx.consoleWarning.should.have.been.called.with('Expected an array of filter criteria but was passed:', invalidValue)
 
     describe 'option combinations', ->
       it 'advancedSearchEnabled (true) and showSearchAboveTable (true) should show the advanced search above the table', (done) ->
