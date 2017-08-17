@@ -207,6 +207,7 @@
     "borderCol": "#4E5355",
     "contentBackgroundCol": "transparent"
   },
+  "fluid": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -251,7 +252,6 @@
     "labelHeaderBorderCol": "#4E5355"
   },
   "buttonGroup": {},
-  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {
