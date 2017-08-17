@@ -3,6 +3,7 @@
     @object hx.filter
       @function stringTypes
         @added: @issue 401
+          @description: Added functions for getting the filter types
         @description: A function that returns the filter types that can be used when filtering strings:
           @@codeblock js
             [
@@ -17,6 +18,7 @@
 
       @function numberTypes
         @added: @issue 401
+          @description: Added functions for getting the filter types
         @description: A function that returns the filter types that can be used when filtering numbers:
           @@codeblock js
             [
@@ -28,6 +30,7 @@
 
       @function types
         @added: @issue 401
+          @description: Added functions for getting the filter types
         @description: A function that returns all the filter types:
           @@codeblock js
             [
