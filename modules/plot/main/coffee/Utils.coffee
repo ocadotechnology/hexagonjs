@@ -34,10 +34,14 @@ svgCurve = (data, close) ->
   else ''
 
 arcCurveMinimumRadius = (startRadians, endRadians, padding) ->
+  DELTA = 1e-4
   radians = endRadians - startRadians
   theta = if radians < Math.PI then radians / 2 else Math.PI - radians / 2
 
-  padding / 2 / Math.sin(theta)
+  if Math.abs(theta) < DELTA
+    return 0
+  else
+    return padding / 2 / Math.sin(theta)
 
 arcCurve = (x, y, innerRadius, outerRadius, startRadians, endRadians, padding, dontCurveCenter) ->
 
