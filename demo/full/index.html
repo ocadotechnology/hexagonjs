@@ -761,7 +761,119 @@
       <div class="demo-section">
         <h3>Data Table</h3>
         <div class="demo-section-examples">
-          TODO
+          <div class="hx-btn" id="compactToggle">Toggle Compact Mode</div>
+          <h4>Basic Example</h4>
+          <div id="dataTable1"></div>
+          <h4>Filter above table example</h4>
+          <div id="dataTable2"></div>
+          <h4>Advanced Search (with toggle for standard search)</h4>
+          <div id="dataTable3"></div>
+          <h4>Advanced Search with Criteria</h4>
+          <div id="dataTable4"></div>
+          <h4>Grouped Headings</h4>
+          <div id="dataTable5"></div>
+
+          <script>
+            const tableFeed = hx.dataTable.objectFeed({
+              headers: [
+                {name: 'Name', id: 'name'},
+                {name: 'Age', id: 'age'},
+                {name: 'Profession', id: 'profession'}
+              ],
+              rows: [
+                {
+                  id: 0, // hidden details can go here (not in the cells object)
+                  cells: {'name': 'Bob', 'age': 25, 'profession': 'Developer'}
+                },
+                {
+                  id: 1,
+                  cells: {'name': 'Jan', 'age': 41, 'profession': 'Artist'}
+                },
+                {
+                  id: 2,
+                  cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder'}
+                }
+              ]
+            })
+
+            const tableFeedGrouped = hx.dataTable.objectFeed({
+              headers: [
+                { id: 'name', name: 'Name', groups: ['Group 1']},
+                { id: 'age', name: 'Age' },
+                { id: 'gender', name: 'Gender', groups: ['Group 2']},
+                { id: 'dob', name: 'Date of Birth', groups: ['Group 2']},
+                { id: 'salary', name: 'Salary (£)', groups: ['Group 2']}
+              ],
+              rows: [
+                {
+                  id: 0, // hidden details can go here (not in the cells object)
+                  cells: {'name': 'Bob', 'age': 25, 'profession': 'Developer', dob: '01/01/1970', salary: '12345'}
+                },
+                {
+                  id: 1,
+                  cells: {'name': 'Jan', 'age': 41, 'profession': 'Artist', dob: '01/01/1970', salary: '12345'}
+                },
+                {
+                  id: 2,
+                  cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder', dob: '01/01/1970', salary: '12345'}
+                }
+              ]
+            })
+
+            const table1 = new hx.DataTable('#dataTable1', {
+              feed: tableFeed
+            }).render()
+
+            const table2 = new hx.DataTable('#dataTable2', {
+              feed: tableFeed,
+              showSearchAboveTable: true
+            }).render()
+
+            const table3 = new hx.DataTable('#dataTable3', {
+              feed: tableFeed,
+              advancedSearchEnabled: true,
+              advancedSearch: [
+                [
+                  {column: "age", term: "26", criteria: "greater"}
+                ],
+                [
+                  {column: "name", term: "Bob", criteria: "exact"}
+                ]
+              ],
+              filter: 'Bob'
+            }).render()
+
+            const table4 = new hx.DataTable('#dataTable4', {
+              feed: tableFeed,
+              advancedSearchEnabled: true,
+              advancedSearchCriteria: hx.filter.types(),
+              filterEnabled: false,
+              advancedSearch: [
+                [
+                  {column: "age", term: "26", criteria: "greater"}
+                ],
+                [
+                  {column: "name", term: "Bob", criteria: "exact"}
+                ]
+              ]
+            }).render()
+
+            const table5 = new hx.DataTable('#dataTable5', {
+              feed: tableFeedGrouped
+            }).render()
+
+            new hx.Toggle('#compactToggle')
+              .on('change', (value) => {
+                console.log(value)
+                table1.compact(value)
+                table2.compact(value)
+                table3.compact(value)
+                table4.compact(value)
+                table5.compact(value)
+              })
+
+          </script>
+
         </div>
       </div>
       <div class="demo-section">
@@ -828,12 +940,12 @@
           </script>
         </div>
       </div>
-      <div class="demo-section">
+      <!-- <div class="demo-section">
         <h3>Drawing</h3>
         <div class="demo-section-examples">
           TODO?
         </div>
-      </div>
+      </div> -->
       <div class="demo-section">
         <h3>Dropdown</h3>
         <div class="demo-section-examples">
@@ -1357,7 +1469,53 @@
       <div class="demo-section">
         <h3>Plot</h3>
         <div class="demo-section-examples">
-          TODO
+          <div id="graph" class="graph-example hx-margin"></div>
+          <script>
+            function randomSign () {
+              return Math.random() > 0.5 ? 1 : 0
+            }
+
+            function createData (a, b, c) {
+              const offset = 0.1 + Math.random()
+              return hx.range(50).map(i => ({
+                x: i,
+                y: Math.abs(offset + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + Math.sin(i/50) + Math.sin(i/100))
+              }))
+            }
+
+            function makeSeries (colour, index) {
+              return {
+                type: 'line',
+                options: {
+                  title: 'Series ' + (index + 1),
+                  data: createData(randomSign(), randomSign(), randomSign()),
+                  labelInterpolated: true,
+                  markersEnabled: true,
+                  strokeEnabled: true,
+                  strokeColor: colour,
+                  fillEnabled: true,
+                  fillColor: hx.color(colour).alpha(0.2).toString(),
+                  group: 'some-group'
+                }
+              }
+            }
+
+            const graph = new hx.Graph('#graph', {
+              axes: [
+                {
+                  x: {
+                    title: 'Time'
+                  },
+                  y: {
+                    title: 'Value',
+                    scalePaddingMax: 0.1
+                  },
+                  series: hx.theme.plot.colors.map(makeSeries)
+                }
+              ]
+            })
+            graph.render()
+          </script>
         </div>
       </div>
       <div class="demo-section">
@@ -1668,7 +1826,62 @@
       <div class="demo-section">
         <h3>Titlebar</h3>
         <div class="demo-section-examples">
-          TODO
+          <div class="hx-heading example-heading">
+            <div class="hx-titlebar">
+              <div class="hx-titlebar-container">
+                <div class="hx-titlebar-header">
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                  <div class="hx-titlebar-title">Title</div>
+                  <div class="hx-titlebar-subtitle">Subtitle</div>
+                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                </div>
+                <div class="hx-titlebar-menu-icons">
+                  <div class="hx-titlebar-menu-icons-container">
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hx-titlebar-linkbar">
+              <div class="hx-titlebar-contents">
+                <a class="hx-titlebar-link">Link 1</a>
+                <a class="hx-titlebar-link">Link 2</a>
+                <a class="hx-titlebar-link">Link 3</a>
+                <a class="hx-titlebar-link">Link 4</a>
+                <a class="hx-titlebar-link">Link 5</a>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="hx-heading example-heading">
+            <div class="hx-titlebar">
+              <div class="hx-titlebar-container">
+                <div class="hx-titlebar-header">
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                  <div class="hx-titlebar-title">Title</div>
+                  <div class="hx-titlebar-subtitle">Subtitle</div>
+                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                </div>
+                <div class="hx-titlebar-menu-icons">
+                  <div class="hx-titlebar-menu-content"> <!-- New div for other titlebar content -->
+                    <div class="hx-input-group">
+                      <input type="text" id="exampleInput">
+                      <button class="hx-btn hx-positive"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                  <div class="hx-titlebar-menu-icons-container">
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="demo-section">
