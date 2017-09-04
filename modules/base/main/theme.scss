@@ -1,15 +1,14 @@
 @mixin font {
   font-family: $default-font-family;
-  font-size: $default-font-size;
 }
 
 %font {
   font-family: $default-font-family;
-  font-size: $default-font-size;
 }
 
 body {
   @extend %font;
+  font-size: $default-font-size;
   background: $body-background-col;
   color: $default-text-col;
 }

@@ -119,11 +119,21 @@
         @warning-col: $warning-col
         @disabled-col: $disabled-col
 
+        @default-border-col: darken($default-col, 10%)
+        @action-border-col: darken($action-col, 10%)
+        @positive-border-col: darken($positive-col, 10%)
+        @negative-border-col: darken($negative-col, 10%)
+        @warning-border-col: darken($warning-col, 10%)
+        @info-border-col: darken($info-col, 10%)
+        @complement-border-col: darken($complement-col, 10%)
+        @contrast-border-col: darken($contrast-col, 10%)
+
         @light-text-col: $light-text-col
         @dark-text-col: $dark-text-col
         @disabled-text-col: $disabled-text-col
 
         @invert-col: #FDFDFD
+        @invert-border-col: darken(#FDFDFD, 10%)
         @invert-text-col: gray
         @invert-hover-col: #F2F2F2
         @invisible-text-col: #575757

@@ -17,10 +17,12 @@
         background: $row-alt-background-col;
         color: $row-alt-text-col;
       }
+    }
+  }
 
-      &:hover {
-        background: $row-hover-background-col;
-      }
+  &:not(.hx-table-no-hover) {
+    tbody tr:hover {
+      background: $row-background-col;
     }
   }
 }

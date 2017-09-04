@@ -22,8 +22,6 @@
     &:hover {
       background: $default-hover-col;
       color: $default-text-col;
-      border-color: $default-border-col;
-      border-width: $border-width;
     }
   }
 
@@ -33,7 +31,7 @@
   }
 }
 
-.hx-menu-items:not(:hover) {
+.hx-menu-items {
   .hx-menu-active {
     &.hx-menu-link,
     > .hx-collapsible > .hx-menu-collapsible {
@@ -55,15 +53,7 @@
 
 @mixin menu($class, $col) {
   &.#{$class} {
-
     .hx-menu-item {
-      &.hx-menu-link,
-      > .hx-collapsible > .hx-menu-collapsible {
-        &:hover {
-          border-color: $col;
-        }
-      }
-
       > .hx-collapsible > .hx-menu-collapsible {
         &:hover {
           background: getCollapsibleCol($col);
@@ -72,17 +62,15 @@
       }
     }
 
-    &:not(:hover) {
-      .hx-menu-active {
-        &.hx-menu-link,
-        > .hx-collapsible > .hx-menu-collapsible {
-          border-color: $col;
-        }
+    .hx-menu-active {
+      &.hx-menu-link,
+      > .hx-collapsible > .hx-menu-collapsible {
+        border-color: $col;
+      }
 
-        > .hx-collapsible > .hx-menu-collapsible {
-          background: getCollapsibleCol($col);
-          color: getTextColFromBG(getCollapsibleCol($col));
-        }
+      > .hx-collapsible > .hx-menu-collapsible {
+        background: getCollapsibleCol($col);
+        color: getTextColFromBG(getCollapsibleCol($col));
       }
     }
   }

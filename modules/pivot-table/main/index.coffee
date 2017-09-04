@@ -57,7 +57,8 @@ class PivotTable extends hx.EventEmitter
         hx.select(element).text(data)
       useResponsive: true
       data: undefined,
-      fullWidth: undefined
+      fullWidth: undefined,
+      highlightOnHover: true
     }, options)
 
     @_ = {}
@@ -65,6 +66,7 @@ class PivotTable extends hx.EventEmitter
     @selection = hx.select(@selector).classed('hx-pivot-table', true)
 
     @table = @selection.append('table').class('hx-table')
+      .classed('hx-table-no-hover', not @options.highlightOnHover)
 
     @tableHead = @table.append('thead')
     @tableBody = @table.append('tbody')
