@@ -65,8 +65,14 @@ new hx.Picker('#viewMenu', {
 
 const contents = hx.select('#contents')
 
+const titleBar = hx.select('#mainTitleBar')
+
 function slug (text) {
   return text.toLowerCase().split(' ').join('-')
+}
+
+if (titleBar.size()) {
+  new hx.TitleBar(titleBar)
 }
 
 if (contents.size()) {
@@ -93,3 +99,5 @@ if (contents.size()) {
   }))
   new hx.Collapsible('#contents-collapsible')
 }
+
+hx.select('body').classed('hx-titlebar-link-padding', false)

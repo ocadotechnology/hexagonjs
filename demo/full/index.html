@@ -4,6 +4,39 @@
 <head>
   <meta charset="UTF-8">
   <title>Demo | Hexagon.js</title>
+
+  <link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-touch-icon-57x57.png?v=0">
+  <link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-touch-icon-60x60.png?v=0">
+  <link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-touch-icon-72x72.png?v=0">
+  <link rel="apple-touch-icon" sizes="76x76" href="../favicon/apple-touch-icon-76x76.png?v=0">
+  <link rel="apple-touch-icon" sizes="114x114" href="../favicon/apple-touch-icon-114x114.png?v=0">
+  <link rel="apple-touch-icon" sizes="120x120" href="../favicon/apple-touch-icon-120x120.png?v=0">
+  <link rel="apple-touch-icon" sizes="144x144" href="../favicon/apple-touch-icon-144x144.png?v=0">
+  <link rel="apple-touch-icon" sizes="152x152" href="../favicon/apple-touch-icon-152x152.png?v=0">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon-180x180.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="../favicon/apple-touch-startup-image-1182x2208.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="../favicon/apple-touch-startup-image-1242x2148.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="../favicon/apple-touch-startup-image-1496x2048.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="../favicon/apple-touch-startup-image-1536x2008.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="../favicon/apple-touch-startup-image-320x460.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="../favicon/apple-touch-startup-image-640x1096.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="../favicon/apple-touch-startup-image-640x920.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="../favicon/apple-touch-startup-image-748x1024.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="../favicon/apple-touch-startup-image-750x1294.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="../favicon/apple-touch-startup-image-768x1004.png?v=0">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png?v=0">
+  <link rel="icon" type="image/png" sizes="230x230" href="../favicon/favicon-230x230.png?v=0">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png?v=0">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png?v=0">
+  <link rel="manifest" href="../favicon/manifest.json">
+  <link rel="yandex-tableau-widget" href="../favicon/yandex-browser-manifest.json">
+  <link rel="shortcut icon" type="image/x-icon" href="../favicon/favicon.ico?v=0">
+  <meta property="og:image" content="../favicon/open-graph.png?v=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="msapplication-TileColor" content="#FFF">
+  <meta name="msapplication-TileImage" content="../favicon/mstile-144x144.png?v=0">
+  <meta name="theme-color" content="#FFF">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="../hexagon.css">
   <link rel="stylesheet" media="print" type="text/css" href="../hexagon.print.css">
@@ -15,7 +48,7 @@
   <script>
   window.contextNames = ['action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
   </script>
-  <div class="hx-heading">
+  <div class="hx-heading" id="mainTitleBar">
     <div class="hx-titlebar">
       <div class="hx-titlebar-container">
         <div class="hx-titlebar-header">
@@ -26,7 +59,6 @@
         </div>
         <div class="hx-titlebar-menu-icons">
           <div class="hx-titlebar-menu-content">
-            <!-- New div for other titlebar content -->
             <div class="hx-input-group">
               <div class="menu">Background Mode:</div>
               <button id="viewMenu"></button>
@@ -92,7 +124,6 @@
           <button class="hx-btn hx-info">hx-info</button>
           <button class="hx-btn hx-complement">hx-complement</button>
           <button class="hx-btn hx-contrast">hx-contrast</button>
-          <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
           <br>
           <button class="hx-btn hx-btn-invert">hx-btn</button>
           <button class="hx-btn hx-btn-invert hx-action">hx-action</button>
@@ -102,6 +133,10 @@
           <button class="hx-btn hx-btn-invert hx-info">hx-info</button>
           <button class="hx-btn hx-btn-invert hx-complement">hx-complement</button>
           <button class="hx-btn hx-btn-invert hx-contrast">hx-contrast</button>
+          <br>
+          <button class="hx-btn hx-disabled">hx-disabled</button>
+          <button class="hx-btn" disabled>disabled attribute</button>
+          <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
         </div>
       </div>
       <div class="demo-section">
@@ -174,12 +209,21 @@
             <input type="text" value="input"/>
             <button class="hx-btn hx-positive"><i class="fa fa-arrow-right"></i></button>
           </div>
+          <br>
+          <br>
+          <div class="hx-input-group">
+            <input type="text" value="input"/>
+            <input type="text" value="input"/>
+            <input type="text" value="input"/>
+            <input type="text" value="input"/>
+          </div>
         </div>
       </div>
       <div class="demo-section">
         <h3>Label</h3>
         <div class="demo-section-examples">
           <span class="hx-label">hx-label</span>
+          <span class="hx-label hx-action">hx-action</span>
           <span class="hx-label hx-positive">hx-positive</span>
           <span class="hx-label hx-warning">hx-warning</span>
           <span class="hx-label hx-negative">hx-negative</span>
@@ -191,6 +235,28 @@
       <div class="demo-section">
         <h3>Layout</h3>
         <div class="demo-section-examples">
+          <h4>Layout Classes</h4>
+          <div class="hx-pad hx-border">hx-border</div>
+          <br>
+          <div class="hx-pad hx-border-top">hx-border-top</div>
+          <br>
+          <div class="hx-pad hx-border-right">hx-border-right</div>
+          <br>
+          <div class="hx-pad hx-border-bottom">hx-border-bottom</div>
+          <br>
+          <div class="hx-pad hx-border-left">hx-border-left</div>
+          <br>
+          <div class="hx-group hx-horizontal">
+            <div class="hx-section">
+              hx-section
+            </div>
+            <div class="hx-section hx-pad">
+              hx-section with hx-pad
+            </div>
+            <div class="hx-section hx-no-margin">
+              hx-section hx-no-margin
+            </div>
+          </div>
           <style>
             .docs-layout-demo .hx-section {
               background: #d6d6d6;
@@ -198,6 +264,7 @@
               min-height: 100px;
             }
           </style>
+          <h4>Layout Demo</h4>
           <div class="docs-layout-demo">
             <div class="hx-layout hx-group hx-horizontal">
               <div class="hx-section"></div>
@@ -280,6 +347,8 @@
         <div class="demo-section-examples">
           <p>Small Spinner</p>
           <span class="hx-spinner"></span>
+          <p>Large Spinner</p>
+          <span class="hx-spinner hx-spinner-large"></span>
           <p>Wide Spinner</p>
           <div class="hx-spinner-wide"></div>
         </div>
@@ -288,6 +357,43 @@
         <h3>Table</h3>
         <div class="demo-section-examples">
           <table class="hx-table">
+            <thead>
+              <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+                <th>Header 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Row 1 Cell 1</td>
+                <td>Row 1 Cell 2</td>
+                <td>Row 1 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 2 Cell 1</td>
+                <td>Row 2 Cell 2</td>
+                <td>Row 2 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 3 Cell 1</td>
+                <td>Row 3 Cell 2</td>
+                <td>Row 3 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 4 Cell 1</td>
+                <td>Row 4 Cell 2</td>
+                <td>Row 4 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 5 Cell 1</td>
+                <td>Row 5 Cell 2</td>
+                <td>Row 5 Cell 3</td>
+              </tr>
+            </tbody>
+          </table>
+          <br><br>
+          <table class="hx-table hx-table-no-hover">
             <thead>
               <tr>
                 <th>Header 1</th>
@@ -651,7 +757,86 @@
       <div class="demo-section">
         <h3>Card</h3>
         <div class="demo-section-examples">
-          <div id="card-container"></div>
+          <h4>HTML Cards</h4>
+          <div class="hx-group hx-horizontal">
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-card-header">
+                <span class="hx-header">Card Header</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-card-small hx-section">
+              <div class="hx-card-section hx-card-header">
+                <span class="hx-header">Small Card Header</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Small Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-header hx-card-group">
+                <div class="hx-card-section">
+                  <span class="hx-header">Grouped Card Header</span>
+                </div>
+                <div class="hx-card-section">
+                  <span class="hx-header">Grouped Card Header</span>
+                </div>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+          </div>
+          <h4>Card Context Classes</h4>
+          <div class="hx-group hx-horizontal">
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-action">
+                <span class="hx-header">Card Header (Action)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-positive">
+                <span class="hx-header">Card Header (Positive)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-warning">
+                <span class="hx-header">Card Header (Warning)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-negative">
+                <span class="hx-header">Card Header (Negative)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-info">
+                <span class="hx-header">Card Header (Info)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+          </div>
+          <h4>Card API</h4>
+          <div class="hx-group hx-horizontal">
+            <div id="card-container" class="hx-section"></div>
+          </div>
+
           <script>
             function titleText (title, text) {
               return hx.card.section()
@@ -693,8 +878,8 @@
 
             hx.select('#card-container')
               .add(statusCard('Instance 1', undefined))
-              .add(statusCard('Instance 2', 'positive'))
-              .add(statusCard('Instance 3', 'negative'))
+              // .add(statusCard('Instance 2', 'positive'))
+              // .add(statusCard('Instance 3', 'negative'))
           </script>
         </div>
       </div>
@@ -1007,18 +1192,18 @@
       <div class="demo-section">
         <h3>Inline Editable</h3>
         <div class="demo-section-examples">
-          Name: <span id="inline-editable">John Smith</span>. Click to edit.
+          Name: <span id="inline-editable-example">John Smith</span>. Click to edit.
           <script>
-            new hx.InlineEditable('#inline-editable')
+            new hx.InlineEditable('#inline-editable-example')
           </script>
         </div>
       </div>
       <div class="demo-section">
         <h3>Inline Picker</h3>
         <div class="demo-section-examples">
-          Color: <span id="inline-picker"></span>. Click to edit.
+          Color: <span id="inline-picker-example"></span>. Click to edit.
           <script>
-            new hx.InlinePicker('#inline-picker', {
+            new hx.InlinePicker('#inline-picker-example', {
               items: ['Red', 'Green', 'Blue'],
               value: 'Red'
             })
@@ -1161,59 +1346,94 @@
       <div class="demo-section">
         <h3>Modal</h3>
         <div class="demo-section-examples">
-          <button id="show-modal" class="hx-btn">Show Modal</button>
-          <button id="show-modal-dialog" class="hx-btn">Show Dialog</button>
-          <button id="show-modal-dialog-buttons" class="hx-btn">Show Dialog with Buttons</button>
-          <button id="show-modal-input" class="hx-btn">Show input dialog</button>
-          <br>
-          <button id="show-modal-positive" class="hx-btn hx-positive">Show positive dialog</button>
-          <button id="show-modal-warning" class="hx-btn hx-warning">Show warning dialog</button>
-          <button id="show-modal-negative" class="hx-btn hx-negative">Show negative dialog</button>
-          <button id="show-modal-info" class="hx-btn hx-info">Show info dialog</button>
-          <button id="show-modal-action" class="hx-btn hx-action">Show action dialog</button>
-          <script>
-            var setupModal = function (node) {
-              hx.select(node).text('Modal Text')
-            }
-
-            var modal = new hx.Modal('Modal Popup', setupModal)
-
-            hx.select('#show-modal').on('click', function () {
-              modal.show()
-            })
-
-            // callback function - val will be true/false by default.
-            var dialogCallback = function(val){
-              if (val){
-                hx.notify("You confirmed the action", {icon: "fa fa-thumbs-up", cssclass: "hx-notification hx-positive" })
-              } else {
-                hx.notify("You cancelled the action", {icon: "fa fa-thumbs-down", cssclass: "hx-notification hx-negative" })
+          <div>
+            <div>Default</div>
+              <button id="modal-default" class="hx-btn">Show Default</button>
+            </div>
+            <br>
+            <div>
+              <div>Context Classes</div>
+              <button class="modalButton hx-btn">Default</button>
+              <button class="modalButton hx-btn hx-action">Action</button>
+              <button class="modalButton hx-btn hx-positive">Positive</button>
+              <button class="modalButton hx-btn hx-warning ">Warning</button>
+              <button class="modalButton hx-btn hx-negative">Negative</button>
+              <button class="modalButton hx-btn hx-info">Info</button>
+              <button class="modalButton hx-btn hx-complement">Complement</button>
+              <button class="modalButton hx-btn hx-contrast">Contrast</button>
+            </div>
+            <br>
+            <div>
+              <div>Dialogs</div>
+              <button id="show-modal-dialog" class="hx-btn">Dialog</button>
+              <button id="show-modal-dialog-buttons" class="hx-btn">Dialog with Buttons</button>
+              <button id="show-modal-input" class="hx-btn">Input dialog</button>
+              <br>
+              <button id="show-modal-positive" class="hx-btn hx-positive">Positive dialog</button>
+              <button id="show-modal-warning" class="hx-btn hx-warning">Warning dialog</button>
+              <button id="show-modal-negative" class="hx-btn hx-negative">Negative dialog</button>
+              <button id="show-modal-info" class="hx-btn hx-info">Info dialog</button>
+            </div>
+            <script>
+            function modalContent(type) {
+              return function(node) {
+                hx.select(node).append('div').text('Modal Content');
               }
             }
 
-            // show the modal when the button is clicked
-            hx.select('#show-modal-dialog').on('click', function(){
+            function modalHeader(type) {
+              return function(node, title, button) {
+                hx.select(node).classed('hx-background-' + type, true)
+                  .add(title).add(button)
+              }
+            }
+
+            function makeModal(selection, title, type) {
+              var modal = new hx.Modal(title, modalContent(type), {
+                headerRenderer: modalHeader(type)
+              })
+
+              selection.on('click', function() {
+                modal.show()
+              })
+            }
+
+            makeModal(hx.select('#modal-default'), 'Default Modal', '')
+
+            hx.selectAll('.modalButton').forEach(function(selection) {
+              var type = selection.text()
+              makeModal(selection, type + ' Context Modal', type.toLowerCase())
+            })
+
+
+            var dialogCallback = function(val) {
+              if (val) {
+                hx.notify("You confirmed the action", { icon: "fa fa-check", cssclass: "hx-notification hx-positive" })
+              } else {
+                hx.notify("You cancelled the action", { icon: "fa fa-close", cssclass: "hx-notification hx-negative" })
+              }
+            }
+
+            hx.select('#show-modal-dialog').on('click', function() {
               hx.modal.dialog('Modal Dialog Example', 'Please click Confirm or Cancel', dialogCallback);
             });
 
-            // buttons to use in modal
-            var modalButtons = [
-              { text: "Green",  classes: "hx-btn hx-positive", value: 0 },
-              { text: "Red",    classes: "hx-btn hx-negative", value: 1 },
-              { text: "Yellow", classes: "hx-btn hx-warning",  value: 2 }
+            var buttons = [
+              { text: "Green", classes: "hx-btn hx-positive", value: 0 },
+              { text: "Red", classes: "hx-btn hx-negative", value: 1 },
+              { text: "Yellow", classes: "hx-btn hx-warning", value: 2 }
             ]
 
-            // callback function
-            var dialogCallbackButtons = function(val){
+            var dialogCallbackButtons = function(val) {
               switch (val) {
                 case 0:
-                  hx.notify("You clicked the green one", {icon: "fa fa-birthday-cake", cssclass: 'hx-positive'} );
+                  hx.notify("You clicked the green one", { icon: "fa fa-search", cssclass: 'hx-positive' });
                   break;
                 case 1:
-                  hx.notify("You clicked the red one", {icon: "fa fa-birthday-cake", cssclass: 'hx-negative'} );
+                  hx.notify("You clicked the red one", { icon: "fa fa-search", cssclass: 'hx-negative' });
                   break;
                 case 2:
-                  hx.notify("You clicked the yellow one", {icon: "fa fa-birthday-cake", cssclass: 'hx-warning'} );
+                  hx.notify("You clicked the yellow one", { icon: "fa fa-search", cssclass: 'hx-warning' });
                   break;
                 case undefined:
                   hx.notify.negative("You cancelled the action");
@@ -1221,21 +1441,15 @@
               }
             }
 
-            // show the modal when the button is clicked
-            hx.select('#show-modal-dialog-buttons').on('click', function(){
+            hx.select('#show-modal-dialog-buttons').on('click', function() {
               hx.modal.dialog('Modal Dialog Example', 'Pick a colored button:', dialogCallbackButtons, {
-                buttons: modalButtons
+                buttons: buttons
               });
             });
 
-            // show the modal when the button is clicked
-            hx.select('#show-modal-input').on('click', function(){
-
-              // callback function - val will be defined if sumbit was
-              // selected, false if cancel was selected and undefined if
-              // the modal was closed with no action selected
-              hx.modal.input('Modal Input Example', 'Enter some text:', function(val){
-                if (hx.isString(val)){
+            hx.select('#show-modal-input').on('click', function() {
+              hx.modal.input('Modal Input Example', 'Enter some text:', function(val) {
+                if (hx.isString(val)) {
                   hx.notify.info("You entered: " + val)
                 } else {
                   hx.notify.negative("You cancelled the action")
@@ -1244,45 +1458,34 @@
 
             });
 
-            // show the modal when the button is clicked
-            hx.select('#show-modal-warning').on('click', function () {
-              // callback function - val will be defined if sumbit was
-              // selected, false if cancel was selected and undefined if
-              // the modal was closed with no action selected
-              hx.modal.dialog('Modal Warning Example', 'You did something that caused a warning.', function (val) {}, {
+            hx.select('#show-modal-warning').on('click', function() {
+              hx.modal.dialog('Modal Warning Example', 'You did something that caused a warning.', function(val) {}, {
                 titleClass: 'warning',
                 icon: 'fa fa-warning'
-              })
-            })
+              });
+            });
 
-            hx.select('#show-modal-positive').on('click', function () {
-              hx.modal.dialog('Modal Positive Example', 'You did something positive.', function (val) {}, {
+            hx.select('#show-modal-positive').on('click', function() {
+              hx.modal.dialog('Modal Positive Example', 'You did something positive.', function(val) {}, {
                 titleClass: 'positive',
                 icon: 'fa fa-check'
-              })
-            })
+              });
+            });
 
-            hx.select('#show-modal-negative').on('click', function () {
-              hx.modal.dialog('Modal Negative Example', 'You did something negative.', function (val) {}, {
+            hx.select('#show-modal-negative').on('click', function() {
+              hx.modal.dialog('Modal Negative Example', 'You did something negative.', function(val) {}, {
                 titleClass: 'negative',
-                icon: 'fa fa-exclamation-circle'
-              })
-            })
+                icon: 'fa fa-error'
+              });
+            });
 
-            hx.select('#show-modal-info').on('click', function () {
-              hx.modal.dialog('Modal Info Example', 'You did something that has extra information.', function (val) {}, {
+            hx.select('#show-modal-info').on('click', function() {
+              hx.modal.dialog('Modal Info Example', 'You did something that has extra information.', function(val) {}, {
                 titleClass: 'info',
                 icon: 'fa fa-info'
-              })
-            })
-
-            hx.select('#show-modal-action').on('click', function () {
-              hx.modal.dialog('Modal Action Example', 'You did something that was an action.', function (val) {}, {
-                titleClass: 'action',
-                icon: 'fa fa-rocket'
-              })
-            })
-          </script>
+              });
+            });
+            </script>
         </div>
       </div>
       <div class="demo-section">
@@ -1297,23 +1500,47 @@
           <button class="hx-btn" onclick="hx.notify('Temporary');">Temporary</button>
           <button class="hx-btn" onclick="hx.notify('Permanent', {timeout: undefined});">Permanent</button>
           <br><br>
-          <style>
-            .notify-example {
-              position:relative;
-              height: 50px;
-              width: 500px;
-              border:1px solid rgba(150,150,150,0.3);
-              margin: 0 auto;
-              background: rgba(150,150,150,0.1);
-            }
-          </style>
           <p class="demo-comment">You can create custom notification managers when the default one is in the wrong place in the dom</p>
-          <div class="notify-example" id="example-notification"></div>
-          <button id="notify" class="hx-btn hx-positive">Notify</button>
+          <div id="notifyExample"></div>
+          <button class="notifyBtn hx-btn">Default</button>
+          <button class="notifyBtn hx-btn hx-positive">Positive</button>
+          <button class="notifyBtn hx-btn hx-warning">Warning</button>
+          <button class="notifyBtn hx-btn hx-negative">Negative</button>
+          <button class="notifyBtn hx-btn hx-info">Info</button>
+          <button class="notifyBtn hx-btn hx-action">Loading</button>
           <script>
-            var exampleNotificationManager = new hx.NotificationManager('#example-notification')
-            hx.select('#notify').on('click', function() {
-              exampleNotificationManager.notify('Clicked!')
+            const notificationManager = new hx.NotificationManager('#notifyExample')
+            const notifications = [{
+                type: 'notify',
+                message: 'Default Notification'
+              },
+              {
+                type: 'positive',
+                message: 'Positive Notification'
+              },
+              {
+                type: 'warning',
+                message: 'Warning Notification'
+              },
+              {
+                type: 'negative',
+                message: 'Negative Notification'
+              },
+              {
+                type: 'info',
+                message: 'Info Notification'
+              },
+              {
+                type: 'loading',
+                message: 'Loading Notification'
+              }
+            ]
+
+            hx.selectAll('.notifyBtn').forEach((selection, index) => {
+              selection.on('click', () => {
+                const notification = notifications[index]
+                notificationManager[notification.type](notification.message);
+              })
             })
           </script>
         </div>
@@ -1470,6 +1697,7 @@
         <h3>Plot</h3>
         <div class="demo-section-examples">
           <div id="graph" class="graph-example hx-margin"></div>
+          <div id="pie" class="hx-margin"></div>
           <script>
             function randomSign () {
               return Math.random() > 0.5 ? 1 : 0
@@ -1515,6 +1743,20 @@
               ]
             })
             graph.render()
+
+            const pieData = {
+              title: "Hi",
+              segments: hx.range(6).map(function (i) {
+                return {
+                  name: "Segment " + i,
+                  size: i + 1,
+                  fillColor: hx.cycle(hx.theme.plot.colors, i)
+                }
+              })
+            }
+            hx.select('#pie').style('height', '200px').add(
+              hx.pieChart({legendEnabled: true, data: pieData}).style('width', '100%').style('height', '100%')
+            )
           </script>
         </div>
       </div>
@@ -1522,20 +1764,22 @@
         <h3>Progress Bar</h3>
         <div class="demo-section-examples">
           <div id="pb1" class="hx-progress-bar"></div>
-          <div id="pb2" class="hx-progress-bar hx-positive"></div>
-          <div id="pb3" class="hx-progress-bar hx-warning"></div>
-          <div id="pb4" class="hx-progress-bar hx-negative"></div>
-          <div id="pb5" class="hx-progress-bar hx-info"></div>
-          <div id="pb6" class="hx-progress-bar hx-complement"></div>
-          <div id="pb7" class="hx-progress-bar hx-contrast"></div>
+          <div id="pb2" class="hx-progress-bar hx-action"></div>
+          <div id="pb3" class="hx-progress-bar hx-positive"></div>
+          <div id="pb4" class="hx-progress-bar hx-warning"></div>
+          <div id="pb5" class="hx-progress-bar hx-negative"></div>
+          <div id="pb6" class="hx-progress-bar hx-info"></div>
+          <div id="pb7" class="hx-progress-bar hx-complement"></div>
+          <div id="pb8" class="hx-progress-bar hx-contrast"></div>
           <script>
-            new hx.ProgressBar('#pb1', {value: 0.25})
-            new hx.ProgressBar('#pb2', {value: 0.33})
-            new hx.ProgressBar('#pb3', {value: 0.42})
-            new hx.ProgressBar('#pb4', {value: 0.5})
-            new hx.ProgressBar('#pb5', {value: 0.58})
-            new hx.ProgressBar('#pb6', {value: 0.67})
-            new hx.ProgressBar('#pb7', {value: 0.75})
+            new hx.ProgressBar('#pb1', {value: 0.11})
+            new hx.ProgressBar('#pb2', {value: 0.22})
+            new hx.ProgressBar('#pb3', {value: 0.33})
+            new hx.ProgressBar('#pb4', {value: 0.44})
+            new hx.ProgressBar('#pb5', {value: 0.55})
+            new hx.ProgressBar('#pb6', {value: 0.66})
+            new hx.ProgressBar('#pb7', {value: 0.77})
+            new hx.ProgressBar('#pb8', {value: 0.88})
           </script>
         </div>
       </div>
@@ -1640,12 +1884,29 @@
       <div class="demo-section">
         <h3>Slider</h3>
         <div class="demo-section-examples">
-          <div id="slider" class="hx-slider"></div>
-          <br><br>
-          <div id="slider2" class="hx-slider"></div>
+          <h4>Single Value</h4>
+          <div id="slider-example"></div>
+          <h4>Range</h4>
+          <div id="slider-range-example"></div>
+          <h4>Discrete Values</h4>
+          <div id="slider-discrete-example"></div>
           <script>
-            new hx.Slider('#slider');
-            new hx.Slider('#slider2', {type: 'range'});
+          new hx.Slider('#slider-example', {
+            renderer: function(slider, element, value) {
+              hx.select(element).text(Math.round(value * 100) + '%')
+            }
+          })
+
+          new hx.Slider('#slider-range-example', {
+            renderer: function(slider, element, value) {
+              hx.select(element).text(Math.round(value * 100) + '%')
+            },
+            type: 'range'
+          })
+
+          new hx.Slider('#slider-discrete-example', {
+            discreteValues: ['1 star. Whatever I am rating, it was terrible. I would give it no stars if I could.', '2 stars', '3 stars', '4 stars', '5 stars']
+          }).value('2 stars')
           </script>
         </div>
       </div>
@@ -1814,12 +2075,22 @@
       <div class="demo-section">
         <h3>Time Slider</h3>
         <div class="demo-section-examples">
-          <div id="timeslider" class="hx-slider"></div>
-          <br>
-          <div id="timeslider2" class="hx-slider"></div>
+          <h4>Single Value</h4>
+          <div id="time-slider-example"></div>
+          <h4>Range</h4>
+          <div id="time-slider-range-example"></div>
+          <h4>Discrete Values</h4>
+          <div id="time-slider-discrete-example"></div>
           <script>
-            new hx.TimeSlider('#timeslider')
-            new hx.TimeSlider('#timeslider2', {type: 'range'})
+            new hx.TimeSlider('#time-slider-example')
+
+            new hx.TimeSlider('#time-slider-range-example', {
+              type: 'range'
+            })
+
+            new hx.TimeSlider('#time-slider-discrete-example', {
+              step: 2 * 60 * 60 * 1000 // 2 hours
+            })
           </script>
         </div>
       </div>
@@ -1882,13 +2153,40 @@
               </div>
             </div>
           </div>
+          <br>
+          <div id="fluidTitleBars"></div>
+          <script>
+            hx.selectAll('.example-heading')
+              .map(sel => new hx.TitleBar(sel))
+            const titlebarContexts = [
+              'hx-action',
+              'hx-positive',
+              'hx-warning',
+              'hx-negative',
+              'hx-info'
+            ]
+            hx.select('#fluidTitleBars')
+              .set(hx.flatten(titlebarContexts.map(ctx => {
+                const tb = hx.titleBar({
+                  title: 'TitleBar.contextClass',
+                  subtitle: ctx
+                })
+                tb.component().contextClass(ctx)
+                return [
+                  tb,
+                  hx.detached('br').node()
+                ]
+              })))
+          </script>
         </div>
       </div>
       <div class="demo-section">
         <h3>Toggle</h3>
         <div class="demo-section-examples">
+          Some Text
           <div id="toggle"></div>
           <button id="toggle2" class="hx-btn">Toggle Button</button>
+          More Text
           <script>
             var toggle = new hx.Toggle("#toggle")
             toggle.on('change', function(value) {
@@ -1946,6 +2244,62 @@
               ]
             })
           </script>
+        </div>
+      </div>
+    </div>
+    <div class="demo-group">
+      <h2>Utils (Javascript)</h2>
+      <div class="demo-section">
+        <h3>Palette</h3>
+        <div class="demo-section-examples">
+          <style>
+            .palette-example {
+              min-width: 150px;
+              padding: 0.5em;
+              text-align: center;
+            }
+            .palette-example-border {
+              border: 1px solid transparent;
+            }
+          </style>
+          <h4>Text Classes</h4>
+          <div class="hx-layout hx-group hx-horizontal">
+            <div class="hx-section palette-example hx-text-default">hx-text-default</div>
+            <div class="hx-section palette-example hx-text-action">hx-text-action</div>
+            <div class="hx-section palette-example hx-text-positive">hx-text-positive</div>
+            <div class="hx-section palette-example hx-text-warning">hx-text-warning</div>
+            <div class="hx-section palette-example hx-text-negative">hx-text-negative</div>
+            <div class="hx-section palette-example hx-text-info">hx-text-info</div>
+            <div class="hx-section palette-example hx-text-complement">hx-text-complement</div>
+            <div class="hx-section palette-example hx-text-contrast">hx-text-contrast</div>
+            <div class="hx-section palette-example hx-text-disabled">hx-text-disabled</div>
+          </div>
+
+          <h4>Background Classes</h4>
+          <div class="hx-layout hx-group hx-horizontal">
+            <div class="hx-section palette-example hx-background-default">hx-background-default</div>
+            <div class="hx-section palette-example hx-background-action">hx-background-action</div>
+            <div class="hx-section palette-example hx-background-positive">hx-background-positive</div>
+            <div class="hx-section palette-example hx-background-warning">hx-background-warning</div>
+            <div class="hx-section palette-example hx-background-negative">hx-background-negative</div>
+            <div class="hx-section palette-example hx-background-info">hx-background-info</div>
+            <div class="hx-section palette-example hx-background-complement">hx-background-complement</div>
+            <div class="hx-section palette-example hx-background-contrast">hx-background-contrast</div>
+            <div class="hx-section palette-example hx-background-disabled">hx-background-disabled</div>
+          </div>
+
+          <h4>Border Classes</h4>
+          <div class="hx-layout hx-group hx-horizontal">
+            <div class="hx-section palette-example palette-example-border hx-border-default">hx-border-default</div>
+            <div class="hx-section palette-example palette-example-border hx-border-action">hx-border-action</div>
+            <div class="hx-section palette-example palette-example-border hx-border-positive">hx-border-positive</div>
+            <div class="hx-section palette-example palette-example-border hx-border-warning">hx-border-warning</div>
+            <div class="hx-section palette-example palette-example-border hx-border-negative">hx-border-negative</div>
+            <div class="hx-section palette-example palette-example-border hx-border-info">hx-border-info</div>
+            <div class="hx-section palette-example palette-example-border hx-border-complement">hx-border-complement</div>
+            <div class="hx-section palette-example palette-example-border hx-border-contrast">hx-border-contrast</div>
+            <div class="hx-section palette-example palette-example-border hx-border-disabled">hx-border-disabled</div>
+          </div>
         </div>
       </div>
     </div>
