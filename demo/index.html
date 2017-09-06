@@ -1,1116 +1,384 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+  <meta charset="UTF-8">
   <title>Demo | Hexagon.js</title>
+  <link rel="apple-touch-icon" sizes="57x57" href="./favicon/apple-touch-icon-57x57.png?v=0">
+  <link rel="apple-touch-icon" sizes="60x60" href="./favicon/apple-touch-icon-60x60.png?v=0">
+  <link rel="apple-touch-icon" sizes="72x72" href="./favicon/apple-touch-icon-72x72.png?v=0">
+  <link rel="apple-touch-icon" sizes="76x76" href="./favicon/apple-touch-icon-76x76.png?v=0">
+  <link rel="apple-touch-icon" sizes="114x114" href="./favicon/apple-touch-icon-114x114.png?v=0">
+  <link rel="apple-touch-icon" sizes="120x120" href="./favicon/apple-touch-icon-120x120.png?v=0">
+  <link rel="apple-touch-icon" sizes="144x144" href="./favicon/apple-touch-icon-144x144.png?v=0">
+  <link rel="apple-touch-icon" sizes="152x152" href="./favicon/apple-touch-icon-152x152.png?v=0">
+  <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon-180x180.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="./favicon/apple-touch-startup-image-1182x2208.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="./favicon/apple-touch-startup-image-1242x2148.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="./favicon/apple-touch-startup-image-1496x2048.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="./favicon/apple-touch-startup-image-1536x2008.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="./favicon/apple-touch-startup-image-320x460.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="./favicon/apple-touch-startup-image-640x1096.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="./favicon/apple-touch-startup-image-640x920.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="./favicon/apple-touch-startup-image-748x1024.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="./favicon/apple-touch-startup-image-750x1294.png?v=0">
+  <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="./favicon/apple-touch-startup-image-768x1004.png?v=0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png?v=0">
+  <link rel="icon" type="image/png" sizes="230x230" href="./favicon/favicon-230x230.png?v=0">
+  <link rel="icon" type="image/png" sizes="96x96" href="./favicon/favicon-96x96.png?v=0">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png?v=0">
+  <link rel="manifest" href="./favicon/manifest.json">
+  <link rel="yandex-tableau-widget" href="./favicon/yandex-browser-manifest.json">
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon/favicon.ico?v=0">
+  <meta property="og:image" content="./favicon/open-graph.png?v=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="msapplication-TileColor" content="#FFF">
+  <meta name="msapplication-TileImage" content="./favicon/mstile-144x144.png?v=0">
+  <meta name="theme-color" content="#FFF">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="hexagon.css">
-  <link rel="stylesheet" media="print" type="text/css" href="hexagon.print.css">
-  <link rel="stylesheet" type="text/css" href="index.css">
-  <script type="text/javascript" src="hexagon.js"></script>
-  <script>
-    window.contextNames = ['action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
-  </script>
+  <link rel="stylesheet" type="text/css" href="./hexagon.css">
+  <link rel="stylesheet" media="print" type="text/css" href="./hexagon.print.css">
+  <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
+
 <body class="hx-heading-fixed">
-  <div class="hx-heading example-heading">
+  <script type="text/javascript" src="./hexagon.js"></script>
+  <script>
+  window.contextNames = ['action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
+  </script>
+  <div class="hx-heading" id="mainTitleBar">
     <div class="hx-titlebar">
       <div class="hx-titlebar-container">
         <div class="hx-titlebar-header">
-          <a class="hx-titlebar-icon" href="/"><img class="hx-logo"/></a>
-          <div class="hx-titlebar-title">HexagonJS</div>
-          <div class="hx-titlebar-subtitle"></div>
+          <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+          <div class="hx-titlebar-title">Hexagon.js</div>
+          <div class="hx-titlebar-subtitle">Demo</div>
+          <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
         </div>
         <div class="hx-titlebar-menu-icons">
           <div class="hx-titlebar-menu-content">
-            <span style="line-height:34px;">Background Mode:</span> <button id="viewMenu" class="hx-btn" style="z-index:0;"></button>
+            <div class="hx-input-group">
+              <div class="menu">Background Mode:</div>
+              <button id="viewMenu"></button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="hx-content" style="background: transparent;">
-    <div id="container" class="hx-group hx-horizontal">
-
-      <!-- buttons -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Buttons</h3>
-          <button class="hx-btn ">Default</button>
-          <button class="hx-btn hx-action">Action</button>
-          <button class="hx-btn hx-positive">Positive</button>
-          <button class="hx-btn hx-warning ">Warning</button>
-          <button class="hx-btn hx-negative">Negative</button>
-          <button class="hx-btn hx-info">Info</button>
-          <button class="hx-btn hx-complement">Complement</button>
-          <button class="hx-btn hx-contrast">Contrast</button>
-          <button class="hx-btn hx-btn-invisible">Invisible</button>
-          <button class="hx-btn" disabled>Disabled</button>
+  <div class="hx-content">
+    <h1>Hexagon Demo Page</h1>
+    <p>This page is a demo of all the hexagon components and their options</p>
+    <div id="contents-collapsible">
+      <div class="hx-collapsible-heading">Contents</div>
+      <div class="hx-collapsible-content">
+        <div id="contents" style="padding:1em"></div>
+      </div>
+    </div>
+    <div class="demo-group">
+      <h2>CSS Components</h2>
+      <div class="demo-section">
+        <h3>Base</h3>
+        <div class="demo-section-examples">
+          <h1>h1</h1>
+          <h2>h2</h2>
+          <h3>h3</h3>
+          <h4>h4</h4>
+          <h5>h5</h5>
+          <h6>h6</h6>
+          <div class="hx-header-large">hx-header-large</div>
+          <div class="hx-header-medium">hx-header-medium</div>
+          <div class="hx-header-small">hx-header-small</div>
+          <div class="hx-header">hx-header</div>
+          <input></input>
+          <br>
+          <input type="radio"></input>
+          <br>
+          <input type="checkbox"></input>
+          <br>
+          <textarea></textarea>
+          <br>
+          <select>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+          </select>
         </div>
       </div>
-
-      <!-- anchors as buttons -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Anchors as Buttons</h3>
-
-          <a href="#" class="hx-btn ">Default</a>
-          <a href="#" class="hx-btn hx-action">Action</a>
-          <a href="#" class="hx-btn hx-positive">Positive</a>
-          <a href="#" class="hx-btn hx-warning ">Warning</a>
-          <a href="#" class="hx-btn hx-negative">Negative</a>
-          <a href="#" class="hx-btn hx-info">Info</a>
-          <a href="#" class="hx-btn hx-complement">Complement</a>
-          <a href="#" class="hx-btn hx-contrast">Contrast</a>
-          <a href="#" class="hx-btn hx-btn-invisible">Invisible</a>
-          <a href="#" class="hx-btn" disabled>Disabled</a>
+      <div class="demo-section">
+        <h3>Button</h3>
+        <div class="demo-section-examples">
+          <button class="hx-btn">hx-btn</button>
+          <button class="hx-btn hx-action">hx-action</button>
+          <button class="hx-btn hx-positive">hx-positive</button>
+          <button class="hx-btn hx-warning">hx-warning</button>
+          <button class="hx-btn hx-negative">hx-negative</button>
+          <button class="hx-btn hx-info">hx-info</button>
+          <button class="hx-btn hx-complement">hx-complement</button>
+          <button class="hx-btn hx-contrast">hx-contrast</button>
+          <br>
+          <button class="hx-btn hx-btn-invert">hx-btn</button>
+          <button class="hx-btn hx-btn-invert hx-action">hx-action</button>
+          <button class="hx-btn hx-btn-invert hx-positive">hx-positive</button>
+          <button class="hx-btn hx-btn-invert hx-warning">hx-warning</button>
+          <button class="hx-btn hx-btn-invert hx-negative">hx-negative</button>
+          <button class="hx-btn hx-btn-invert hx-info">hx-info</button>
+          <button class="hx-btn hx-btn-invert hx-complement">hx-complement</button>
+          <button class="hx-btn hx-btn-invert hx-contrast">hx-contrast</button>
+          <br>
+          <button class="hx-btn hx-disabled">hx-disabled</button>
+          <button class="hx-btn" disabled>disabled attribute</button>
+          <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
         </div>
       </div>
-
-
-      <!-- inverted buttons -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Inverted Buttons</h3>
-          <button class="hx-btn hx-btn-invert ">Default</button>
-          <button class="hx-btn hx-btn-invert hx-action">Action</button>
-          <button class="hx-btn hx-btn-invert hx-positive">Positive</button>
-          <button class="hx-btn hx-btn-invert hx-warning ">Warning</button>
-          <button class="hx-btn hx-btn-invert hx-negative">Negative</button>
-          <button class="hx-btn hx-btn-invert hx-info">Info</button>
-          <button class="hx-btn hx-btn-invert hx-complement">Complement</button>
-          <button class="hx-btn hx-btn-invert hx-contrast">Contrast</button>
-          <button class="hx-btn hx-btn-invert" disabled>Disabled</button>
-        </div>
-      </div>
-
-
-      <!-- labels -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Labels</h3>
-          <span class="hx-label">Default</span>
-          <span class="hx-label hx-action">Action</span>
-          <span class="hx-label hx-positive">Positive</span>
-          <span class="hx-label hx-warning ">Warning</span>
-          <span class="hx-label hx-negative">Negative</span>
-          <span class="hx-label hx-info">Info</span>
-          <span class="hx-label hx-complement">Complement</span>
-          <span class="hx-label hx-contrast">Contrast</span>
-        </div>
-      </div>
-
-
-      <!-- menu -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Menus</h3>
-          <button class="contextMenu hx-btn">Default</button>
-          <button class="contextMenu hx-btn hx-action">Action</button>
-          <button class="contextMenu hx-btn hx-positive">Positive</button>
-          <button class="contextMenu hx-btn hx-warning">Warning</button>
-          <button class="contextMenu hx-btn hx-negative">Negative</button>
-          <button class="contextMenu hx-btn hx-info">Info</button>
-          <button class="contextMenu hx-btn hx-complement">Complement</button>
-          <button class="contextMenu hx-btn hx-contrast">Contrast</button>
-          <button class="contextMenu hx-btn" disabled>Disabled</button>
-          <script>
-            hx.selectAll('.contextMenu').forEach(function (selection) {
-              new hx.Menu(selection.node(), {
-                items: ['item 1', 'item 2', 'item 3', {text: 'item 4', children: ['item 1', 'item 2']}]
-              })
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- input groups -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-        <h3>Input Groups</h3>
-          <div class="hx-pad">
-            <div class="hx-input-group">
-              <input placeholder="Search"></input>
-              <button class="hx-btn hx-info"><i class="fa fa-search"></i></button>
-            </div>
-          </div>
-          <div class="hx-pad">
-            <div class="hx-input-group">
-              <i class="fa fa-search"></i>
-              <input placeholder="Search"></input>
-              <div>Div</div>
+      <div class="demo-section">
+        <h3>Error Pages</h3>
+        <div class="demo-section-examples">
+          <div style="position: relative; height: 300px;">
+            <div class="hx-error-message">
+              <div class="hx-error-message-heading">
+                404
+              </div>
+              <div>
+                <p>The content you requested was not found</p>
+              </div>
+              <div>
+                <button class="hx-btn hx-positive">Go Back</button><a class="hx-btn hx-positive">Go to Home Page</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-
-      <!-- grouped buttons -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Grouped Buttons</h3>
+      <div class="demo-section">
+        <h3>Form</h3>
+        <div class="demo-section-examples">
+          <form class="hx-form hx-margin">
+            <div>
+              <label>Text</label>
+              <input type="text">
+            </div>
+            <div>
+              <label>Email</label>
+              <input type="email">
+            </div>
+            <div>
+              <label>Number</label>
+              <input type="number">
+            </div>
+            <div>
+              <label>Url</label>
+              <input type="url">
+            </div>
+            <div>
+              <label>Radio</label>
+              <div id="group-1">
+                <div>
+                  <input id="radio1" type="radio" value="One" name="group-1">
+                  <label for="radio1">One</label>
+                </div>
+                <div>
+                  <input id="radio2" type="radio" value="Two" name="group-1">
+                  <label for="radio2">Two</label>
+                </div>
+                <div>
+                  <input id="radio3" type="radio" value="Three" name="group-1">
+                  <label for="radio3">Three</label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="checkbox1">Checkbox</label>
+              <input id="checkbox1" type="checkbox">
+            </div>
+            <button type="submit" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Input Group</h3>
+        <div class="demo-section-examples">
           <div class="hx-input-group">
-            <button class="hx-btn">One</button>
-            <button class="hx-btn">Two</button>
-            <button class="hx-btn">Three</button>
+            <input type="text" value="input" />
+            <button class="hx-btn hx-positive"><i class="fa fa-arrow-right"></i></button>
+          </div>
+          <br>
+          <br>
+          <div class="hx-input-group">
+            <input type="text" value="input" />
+            <input type="text" value="input" />
+            <input type="text" value="input" />
+            <input type="text" value="input" />
           </div>
         </div>
       </div>
-
-
-      <!-- button group -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Button Group</h3>
-          <div id="button-group"></div>
-          <script>
-            var buttonGroup = new hx.ButtonGroup('#button-group')
-            buttonGroup.items([
-              {
-                value: 'Positive',
-                activeClass: 'hx-positive'
-              }, {
-                value: 'Warning',
-                activeClass: 'hx-warning'
-              }, {
-                value: 'Negative',
-                activeClass: 'hx-negative'
-              }, {
-                value: 'Info',
-                activeClass: 'hx-info'
-              },
-              'Other'
-            ])
-            buttonGroup.value('Positive')
-          </script>
+      <div class="demo-section">
+        <h3>Label</h3>
+        <div class="demo-section-examples">
+          <span class="hx-label">hx-label</span>
+          <span class="hx-label hx-action">hx-action</span>
+          <span class="hx-label hx-positive">hx-positive</span>
+          <span class="hx-label hx-warning">hx-warning</span>
+          <span class="hx-label hx-negative">hx-negative</span>
+          <span class="hx-label hx-info">hx-info</span>
+          <span class="hx-label hx-compliment">hx-compliment</span>
+          <span class="hx-label hx-contrast">hx-contrast</span>
         </div>
       </div>
-
-
-      <!-- autocomplete -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Autocomplete</h3>
-          <input id="autocomplete"/>
-          <input id="autocomplete-async"/>
-          <input id="autocomplete-numbers"/>
-          <script>
-            new hx.AutoComplete('#autocomplete', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
-            new hx.AutoComplete('#autocomplete-async', function (term, callback) {
-              setTimeout(function () {
-                callback(['Bob', 'Kate', 'Steve', 'Ganesh', 'Lazlo'])
-              }, 1000)
-            })
-            const itemsObjects = hx.range(100).map((i) => ({id: i, disabled: (i % 2 == 0)})).reverse()
-            const ac = new hx.AutoComplete('#autocomplete-numbers', itemsObjects, { inputMap: (i) => i.id, showOtherResults: true })
-            console.log(ac._.menu.items().map(({id}) => id))
-          </script>
-        </div>
-      </div>
-
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Autocomplete Picker</h3>
-          <div id="autocomplete-picker"></div>
-          <script>
-            new hx.AutocompletePicker('#autocomplete-picker', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
-          </script>
-        </div>
-      </div>
-
-
-      <!-- color picker -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Color Picker</h3>
-          <button id="color-picker" class="hx-btn">Pick Color</button>
-          <script>
-            new hx.ColorPicker('#color-picker')
-              .on('change', function (d) {
-                hx.select('#color-picker')
-                  .style('background', d.toString())
-                  .style('color', d.textCol())
-              })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- crumbtrail -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Crumb Trail</h3>
-          <div id="crumbtrail"></div>
-          <script>
-            new hx.Crumbtrail('#crumbtrail')
-              .items(['Docs', '1.0.5', 'buttons'], function (node, d) {
-                hx.select(node).text(d)
-              })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- picker -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Picker</h3>
-          <button class="hx-btn" id="picker-example"></button>
-          <script>
-            new hx.Picker('#picker-example', {
-              items: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other'],
-              value: 'Option 1'
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- dropdown -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Dropdowns</h3>
-          <button id="dropdownClick" class="hx-btn">Click Dropdown</button>
-          <button id="dropdownHover" class="hx-btn">Hover Dropdown</button>
-          <script>
-            function ddContent (text) {
-              return function (element) {
-                sel = hx.select(element)
-                sel.clear()
-                sel.append('div').style('padding', '1em').text(text)
-              }
-            }
-            var dropDown = new hx.Dropdown('#dropdownClick', ddContent('Bob'))
-            dropDown.on('showend', function () {
-              setTimeout(function () {
-                dropDown.dropdownContent(ddContent('Kate'))
-              }, 500)
-            })
-            new hx.Dropdown('#dropdownHover', ddContent, {mode: 'hover'})
-          </script>
-        </div>
-      </div>
-
-
-      <!-- drag-container -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Drag Container</h3>
-          The styles applied by drag container only affect the placeholder shown when dragging
-          <div id="drag-container">
-            <span class="hx-btn hx-drag-element">Drag Element</span><!--
-             --><span class="hx-btn hx-drag-element">Drag Element</span><!--
-             --><span class="hx-btn hx-drag-element">Drag Element</span>
+      <div class="demo-section">
+        <h3>Layout</h3>
+        <div class="demo-section-examples">
+          <h4>Layout Classes</h4>
+          <div class="hx-pad hx-border">hx-border</div>
+          <br>
+          <div class="hx-pad hx-border-top">hx-border-top</div>
+          <br>
+          <div class="hx-pad hx-border-right">hx-border-right</div>
+          <br>
+          <div class="hx-pad hx-border-bottom">hx-border-bottom</div>
+          <br>
+          <div class="hx-pad hx-border-left">hx-border-left</div>
+          <br>
+          <div class="hx-group hx-horizontal">
+            <div class="hx-section">
+              hx-section
+            </div>
+            <div class="hx-section hx-pad">
+              hx-section with hx-pad
+            </div>
+            <div class="hx-section hx-no-margin">
+              hx-section hx-no-margin
+            </div>
           </div>
-          <script>
-          new hx.DragContainer('#drag-container')
-          </script>
+          <style>
+          .docs-layout-demo .hx-section {
+            background: #d6d6d6;
+            min-width: 150px;
+            min-height: 100px;
+          }
+          </style>
+          <h4>Layout Demo</h4>
+          <div class="docs-layout-demo">
+            <div class="hx-layout hx-group hx-horizontal">
+              <div class="hx-section"></div>
+              <div class="hx-group hx-vertical">
+                <div class="hx-section"></div>
+                <div class="hx-section"></div>
+                <div class="hx-group hx-horizontal">
+                  <div class="hx-section"></div>
+                  <div class="hx-section"></div>
+                </div>
+              </div>
+              <div class="hx-section"></div>
+              <div class="hx-section"></div>
+            </div>
+          </div>
         </div>
       </div>
-
-
-      <!-- spinner -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Spinners</h3>
+      <div class="demo-section">
+        <h3>Logo</h3>
+        <div class="demo-section-examples">
+          <img class="hx-logo" />
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Notice</h3>
+        <div class="demo-section-examples">
+          <div class="hx-notice">
+            <div class="hx-notice-head">Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice hx-positive">
+            <div class="hx-notice-head">Positive Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice hx-action">
+            <div class="hx-notice-head">Action Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice hx-warning">
+            <div class="hx-notice-head">Warning Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice hx-negative">
+            <div class="hx-notice-head">Negative Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice hx-info">
+            <div class="hx-notice-head">Info Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice hx-compliment">
+            <div class="hx-notice-head">Compliment Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice hx-contrast">
+            <div class="hx-notice-head">Contrast Notice</div>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+          <div class="hx-notice">
+            <span class="hx-notice-head hx-group hx-horizontal hx-no-margin">
+              <div class="hx-section hx-no-margin">Notice with icon</div>
+              <div>
+                <i class="fa fa-rocket"></i>
+              </div>
+            </span>
+            <div class="hx-notice-body">Body Content</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Spinner</h3>
+        <div class="demo-section-examples">
+          <p>Small Spinner</p>
           <span class="hx-spinner"></span>
-          <br>
-          <br>
+          <p>Large Spinner</p>
+          <span class="hx-spinner hx-spinner-large"></span>
+          <p>Wide Spinner</p>
           <div class="hx-spinner-wide"></div>
         </div>
       </div>
-
-
-      <!-- date-picker / time-picker / date-time-picker -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Time and Date Pickers</h3>
-          <span id="time-picker"></span>
-          <span id="date-picker"></span>
-          <span id="date-time-picker"></span>
-          <script>
-            new hx.TimePicker('#time-picker')
-            new hx.DatePicker('#date-picker')
-            new hx.DateTimePicker('#date-time-picker')
-          </script>
-        </div>
-      </div>
-
-
-      <!-- tabs -->
-      <div class="hx-section exampleSection">
-        <div class="example" class="hx-group hx-vertical">
-          <h3 class="hx-section">Tabs</h3>
-          <div id="tabs" class="hx-section hx-tabs">
-            <div class="hx-tab" data-content="tab-content-1">Tab 1</div>
-            <div class="hx-tab hx-action" data-content="tab-content-2">Tab 2</div>
-            <div class="hx-tab hx-positive" data-content="tab-content-3">Tab 3</div>
-            <div class="hx-tab hx-warning" data-content="tab-content-4">Tab 4</div>
-            <div class="hx-tab hx-negative" data-content="tab-content-5">Tab 5</div>
-            <div class="hx-tab hx-info" data-content="tab-content-6">Tab 6</div>
-            <div class="hx-tab hx-complement" data-content="tab-content-7">Tab 7</div>
-            <div class="hx-tab hx-contrast" data-content="tab-content-8">Tab 8</div>
-            <div class="hx-tabs-content demo-tabs-content-padded">
-              <div id="tab-content-1" class="hx-tab-content" style="padding: 1em;">Stuff goes here 1</div>
-              <div id="tab-content-2" class="hx-tab-content" style="padding: 1em;">Stuff goes here 2</div>
-              <div id="tab-content-3" class="hx-tab-content" style="padding: 1em;">Stuff goes here 3</div>
-              <div id="tab-content-4" class="hx-tab-content" style="padding: 1em;">Stuff goes here 4</div>
-              <div id="tab-content-5" class="hx-tab-content" style="padding: 1em;">Stuff goes here 5</div>
-              <div id="tab-content-6" class="hx-tab-content" style="padding: 1em;">Stuff goes here 6</div>
-              <div id="tab-content-7" class="hx-tab-content" style="padding: 1em;">Stuff goes here 7</div>
-              <div id="tab-content-8" class="hx-tab-content" style="padding: 1em;">Stuff goes here 8</div>
-            </div>
-          </div>
-          <script>
-            var tabs = new hx.Tabs('#tabs')
-          </script>
-          <br>
-          <h3 class="hx-section">Fluid Tabs</h3>
-          <div class="hx-section" id="tabs-fluid"></div>
-          <script>
-            function tabsTitleRenderer(node, value) {
-              hx.select(node).text('Tab ' + value)
-            }
-
-            function tabsContentRenderer(node, value) {
-              hx.select(node)
-                .style('padding', '1em')
-                .add(hx.detached('span').text(value.name))
-                .add(hx.label().text(value.town))
-            }
-
-            var tabItems = [
-              {
-                title: 1,
-                context: 'action',
-                content: {
-                  town: 'Wheathampstead',
-                  name: 'Bob'
-                }
-              }, {
-                title: 2,
-                context: 'negative',
-                content: {
-                  town: 'Welwyn',
-                  name: 'Kate'
-                }
-              }, {
-                title: 3,
-                context: 'positive',
-                content: {
-                  town: 'Digswell',
-                  name: 'Ganesh'
-                }
-              }, {
-                title: 4,
-                content: {
-                  town: 'Essendon',
-                  name: 'Lazlo'
-                }
-              }
-            ]
-
-            var tabs = hx.tabs({
-              items: tabItems,
-              titleRenderer: tabsTitleRenderer,
-              contentRenderer: tabsContentRenderer
-            })
-
-            hx.select('#tabs-fluid')
-              .add(tabs)
-          </script>
-        </div>
-      </div>
-
-
-      <!-- progress-bar -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Progress Bars</h3>
-          <div class="hx-pad"><div class="progress-bar"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-action"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-positive"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-warning"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-negative"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-info"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-complement"></div></div>
-          <div class="hx-pad"><div class="progress-bar hx-contrast"></div></div>
-          <script>
-            var progressNodes = hx.selectAll('.progress-bar').nodes
-            progressNodes.forEach(function (node, index) {
-              new hx.ProgressBar(node).value((1 + index) / progressNodes.length)
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- tag input -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Tag Input</h3>
-          <div id="tag-input"></div>
-          <script>
-            new hx.TagInput('#tag-input', {
-              draggable: true,
-              classifier: function (value) {
-                return (value.length !== 'default' ? 'hx-' + value : '')
-              },
-              items: ['default', 'action', 'positive', 'warning', 'negative', 'info', 'complement', 'contrast']
-            })
-          </script>
-        </div>
-      </div>
-
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Autocompleted Tag Input</h3>
-          <div id="autocomplete-tag-input"></div>
-          <script>
-            new hx.TagInput('#autocomplete-tag-input', {
-              autocompleteData: ['Jane', 'Bob', 'Dan', 'Steve', 'Alejandro']
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- paginator -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Paginators</h3>
-          <div id="paginator"></div>
-          <script>
-          var paginator = new hx.Paginator('#paginator')
-          paginator.pageCount(20)
-          paginator.visibleCount(10)
-          </script>
-        </div>
-      </div>
-
-
-      <!-- titlebar -->
-      <div class="hx-section exampleSectionNoBg">
-        <div class="example">
-          <h3>Titlebar</h3>
-          <div class="hx-heading example-heading">
-            <div class="hx-titlebar">
-              <div class="hx-titlebar-container">
-                <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
-                  <div class="hx-titlebar-title">Title</div>
-                  <div class="hx-titlebar-subtitle">Subtitle</div>
-                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
-                </div>
-                <div class="hx-titlebar-menu-icons">
-                  <div class="hx-titlebar-menu-icons-container">
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-info"></i><span class="hx-titlebar-menu-text">Help</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-search"></i><span class="hx-titlebar-menu-text">Search</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-close"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="hx-titlebar-linkbar">
-              <div class="hx-titlebar-contents">
-                <a class="hx-titlebar-link">Link 1</a>
-                <a class="hx-titlebar-link">Link 2</a>
-                <a class="hx-titlebar-link">Link 3</a>
-                <a class="hx-titlebar-link">Link 4</a>
-                <a class="hx-titlebar-link">Link 5</a>
-              </div>
-            </div>
-          </div>
-          <script>
-            new hx.TitleBar('.example-heading')
-          </script>
-          <br>
-
-
-          <div class="hx-heading example-heading-action">
-            <div class="hx-titlebar hx-action">
-              <div class="hx-titlebar-container">
-                <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
-                  <div class="hx-titlebar-title">Title</div>
-                  <div class="hx-titlebar-subtitle">Subtitle</div>
-                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
-                </div>
-                <div class="hx-titlebar-menu-icons">
-                  <div class="hx-titlebar-menu-icons-container">
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-info"></i><span class="hx-titlebar-menu-text">Help</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-search"></i><span class="hx-titlebar-menu-text">Search</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-close"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="hx-titlebar-linkbar">
-              <div class="hx-titlebar-contents">
-                <a class="hx-titlebar-link">Link 1</a>
-                <a class="hx-titlebar-link">Link 2</a>
-                <a class="hx-titlebar-link">Link 3</a>
-                <a class="hx-titlebar-link">Link 4</a>
-                <a class="hx-titlebar-link">Link 5</a>
-              </div>
-            </div>
-          </div>
-          <script>
-            new hx.TitleBar('.example-heading-action')
-          </script>
-          <br>
-
-          <div class="hx-heading example-heading-positive">
-            <div class="hx-titlebar hx-positive">
-              <div class="hx-titlebar-container">
-                <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
-                  <div class="hx-titlebar-title">Title</div>
-                  <div class="hx-titlebar-subtitle">Subtitle</div>
-                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
-                </div>
-                <div class="hx-titlebar-menu-icons">
-                  <div class="hx-titlebar-menu-icons-container">
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-info"></i><span class="hx-titlebar-menu-text">Help</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-search"></i><span class="hx-titlebar-menu-text">Search</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-close"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="hx-titlebar-linkbar">
-              <div class="hx-titlebar-contents">
-                <a class="hx-titlebar-link">Link 1</a>
-                <a class="hx-titlebar-link">Link 2</a>
-                <a class="hx-titlebar-link">Link 3</a>
-                <a class="hx-titlebar-link">Link 4</a>
-                <a class="hx-titlebar-link">Link 5</a>
-              </div>
-            </div>
-          </div>
-          <script>
-            new hx.TitleBar('.example-heading-positive')
-          </script>
-          <br>
-
-          <div class="hx-heading example-heading-warning">
-            <div class="hx-titlebar hx-warning">
-              <div class="hx-titlebar-container">
-                <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
-                  <div class="hx-titlebar-title">Title</div>
-                  <div class="hx-titlebar-subtitle">Subtitle</div>
-                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
-                </div>
-                <div class="hx-titlebar-menu-icons">
-                  <div class="hx-titlebar-menu-icons-container">
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-info"></i><span class="hx-titlebar-menu-text">Help</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-search"></i><span class="hx-titlebar-menu-text">Search</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-close"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="hx-titlebar-linkbar">
-              <div class="hx-titlebar-contents">
-                <a class="hx-titlebar-link">Link 1</a>
-                <a class="hx-titlebar-link">Link 2</a>
-                <a class="hx-titlebar-link">Link 3</a>
-                <a class="hx-titlebar-link">Link 4</a>
-                <a class="hx-titlebar-link">Link 5</a>
-              </div>
-            </div>
-          </div>
-          <script>
-            new hx.TitleBar('.example-heading-warning')
-          </script>
-          <br>
-
-          <div class="hx-heading example-heading-negative">
-            <div class="hx-titlebar hx-negative">
-              <div class="hx-titlebar-container">
-                <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
-                  <div class="hx-titlebar-title">Title</div>
-                  <div class="hx-titlebar-subtitle">Subtitle</div>
-                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
-                </div>
-                <div class="hx-titlebar-menu-icons">
-                  <div class="hx-titlebar-menu-icons-container">
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-info"></i><span class="hx-titlebar-menu-text">Help</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-search"></i><span class="hx-titlebar-menu-text">Search</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-close"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="hx-titlebar-linkbar">
-              <div class="hx-titlebar-contents">
-                <a class="hx-titlebar-link">Link 1</a>
-                <a class="hx-titlebar-link">Link 2</a>
-                <a class="hx-titlebar-link">Link 3</a>
-                <a class="hx-titlebar-link">Link 4</a>
-                <a class="hx-titlebar-link">Link 5</a>
-              </div>
-            </div>
-          </div>
-          <script>
-            new hx.TitleBar('.example-heading-negative')
-          </script>
-          <br>
-
-          <div class="hx-heading example-heading-info">
-            <div class="hx-titlebar hx-info">
-              <div class="hx-titlebar-container">
-                <div class="hx-titlebar-header">
-                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
-                  <div class="hx-titlebar-title">Title</div>
-                  <div class="hx-titlebar-subtitle">Subtitle</div>
-                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
-                </div>
-                <div class="hx-titlebar-menu-icons">
-                  <div class="hx-titlebar-menu-icons-container">
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-info"></i><span class="hx-titlebar-menu-text">Help</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-search"></i><span class="hx-titlebar-menu-text">Search</span></a>
-                    <a class="hx-titlebar-menu-icon"><i class="fa fa-close"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="hx-titlebar-linkbar">
-              <div class="hx-titlebar-contents">
-                <a class="hx-titlebar-link">Link 1</a>
-                <a class="hx-titlebar-link">Link 2</a>
-                <a class="hx-titlebar-link">Link 3</a>
-                <a class="hx-titlebar-link">Link 4</a>
-                <a class="hx-titlebar-link">Link 5</a>
-              </div>
-            </div>
-          </div>
-          <script>
-            new hx.TitleBar('.example-heading-info')
-          </script>
-          <br>
-
-        </div>
-      </div>
-
-
-      <!-- inline-picker -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Inline Picker</h3>
-          Color: <span id="inline-picker"></span>. Click to edit.
-          <script>
-            new hx.InlinePicker('#inline-picker', {
-              items: ['Red', 'Green', 'Blue'],
-              value: 'Red'
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- inline-editable -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Inline Editable</h3>
-          Name: <span id="inline-editable">John Smith</span>. Click to edit.
-          <script>
-          new hx.InlineEditable('#inline-editable')
-          </script>
-        </div>
-      </div>
-
-
-      <!-- tree -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Tree</h3>
-          <div id="tree" class="hx-tree">
-            <div class="hx-tree-node">
-              <div class="hx-tree-node-parent"><div class="hx-tree-node-content">Parent 1</div></div>
-              <div class="hx-tree-node-children" style="display:none">
-                <div class="hx-tree-node">
-                  <div class="hx-tree-node-content">Item 1</div>
-                </div>
-                <div class="hx-tree-node">
-                  <div class="hx-tree-node-content">Item 2</div>
-                </div>
-                <div class="hx-tree-node">
-                  <div class="hx-tree-node-content">Item 3</div>
-                </div>
-                <div class="hx-tree-node">
-                  <div class="hx-tree-node-parent"><div class="hx-tree-node-content">Parent 2</div></div>
-                  <div class="hx-tree-node-children" style="display:none">
-                    <div class="hx-tree-node">
-                      <div class="hx-tree-node-content">Item 4</div>
-                    </div>
-                    <div class="hx-tree-node">
-                      <div class="hx-tree-node-content">Item 5</div>
-                    </div>
-                    <div class="hx-tree-node">
-                      <div class="hx-tree-node-content">Item 6</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <script>
-            new hx.Tree('#tree').show()
-          </script>
-        </div>
-      </div>
-
-
-      <!-- number-picker -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Number Pickers</h3>
-          <div id="numberPickers">
-            <div class="numberPicker"></div>
-            <div class="numberPicker"></div>
-            <div class="numberPicker"></div>
-            <div class="numberPicker"></div>
-            <div class="numberPicker"></div>
-            <div class="numberPicker"></div>
-            <div class="numberPicker"></div>
-            <div class="numberPicker"></div>
-          </div>
-          <script>
-            hx.select('#numberPickers').selectAll('.numberPicker').nodes.forEach(function (node, index) {
-              new hx.NumberPicker(node, {
-                buttonClass: (contextNames[index - 1] ? 'hx-' + contextNames[index - 1] : '')
-              }).value(0)
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- slider -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Sliders</h3>
-          <h4>Single Value</h4>
-          <div id="slider"></div>
-          <h4>Range</h4>
-          <div id="slider-range"></div>
-          <h4>Discrete Values</h4>
-          <div id="slider-discrete"></div>
-          <script>
-            new hx.Slider('#slider', {
-              renderer: function (slider, element, value) {
-                hx.select(element).text(Math.round(value * 100) + '%')
-              }
-            })
-
-            new hx.Slider('#slider-range', {
-              renderer: function (slider, element, value) {
-                hx.select(element).text(Math.round(value * 100) + '%')
-              },
-              type: 'range'
-            })
-
-            new hx.Slider('#slider-discrete', {
-              discreteValues: ['1 star. Whatever I am rating, it was terrible. I would give it no stars if I could.', '2 stars', '3 stars', '4 stars', '5 stars']
-            }).value('2 stars')
-          </script>
-        </div>
-      </div>
-
-
-      <!-- time-slider -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Time Sliders</h3>
-          <h4>Single Value</h4>
-          <div id="time-slider"></div>
-          <h4>Range</h4>
-          <div id="time-slider-range"></div>
-          <h4>Discrete Values</h4>
-          <div id="time-slider-discrete"></div>
-          <script>
-            new hx.TimeSlider('#time-slider')
-
-            new hx.TimeSlider('#time-slider-range', {
-              type: 'range'
-            })
-
-            new hx.TimeSlider('#time-slider-discrete', {
-              step: 2 * 60 * 60 * 1000 // 2 hours
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- data table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Data Table</h3>
-          <div id="data-table"></div>
-          <script>
-            new hx.DataTable('#data-table', {
-              compact: false,
-              feed: hx.dataTable.objectFeed({
-                headers: [
-                  { name: 'Name', id: 'name' },
-                  { name: 'Age', id: 'age' },
-                  { name: 'Profession', id: 'profession' }
-                ],
-                rows: [
-                  {
-                    id: 0, // hidden details can go here (not in the cells object)
-                    cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
-                  },
-                  {
-                    id: 1,
-                    cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
-                  },
-                  {
-                    id: 2,
-                    cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
-                  }
-                ]
-              })
-            }).render()
-          </script>
-        </div>
-      </div>
-
-      <!-- grouped header data table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Grouped Data Table</h3>
-          <div id="grouped-data-table"></div>
-          <script>
-            new hx.DataTable('#grouped-data-table', {
-              compact: false,
-              pageSizeOptions: [1, 10, 50],
-              pageSize: 2,
-              feed: hx.dataTable.objectFeed({
-                headers: [
-                    {name: 'Name', id: 'name', groups: ['Child Group 1', 'Parent Group']},
-                    {name: 'Age', id: 'age', groups: ['Child Group 1', 'Parent Group']},
-                    {name: 'Profession', id: 'profession', groups: ['Child Group 2', 'Parent Group']}
-                ],
-                rows: [
-                  {
-                    id: 0, // hidden details can go here (not in the cells object)
-                    cells: {'name': 'Bob', 'age': 25, 'profession': 'Developer'}
-                  },
-                  {
-                    id: 1,
-                    cells: {'name': 'Jan', 'age': 41, 'profession': 'Artist'}
-                  },
-                  {
-                    id: 2,
-                    cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder'}
-                  }
-                ]
-              })
-            }).render()
-          </script>
-        </div>
-      </div>
-
-      <!-- grouped header data table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Lazy Data Table</h3>
-          <div id="lazy-data-table"></div>
-          <script>
-            var finalSize = undefined
-            new hx.DataTable('#lazy-data-table', {
-              compact: false,
-              pageSizeOptions: [1, 2, 3, 10, 50],
-              pageSize: 2,
-              feed: {
-                headers: function (cb) {
-                  cb([
-                    { name: 'Name', id: 'name', groups: ['Child Group 1', 'Parent Group'] },
-                    { name: 'Age', id: 'age', groups: ['Child Group 1', 'Parent Group'] },
-                    { name: 'Profession', id: 'profession', groups: ['Child Group 2', 'Parent Group'] }
-                  ])
-                },
-                rows: function (range, cb) {
-                  cb({
-                    rows: [
-                      {
-                        id: 0, // hidden details can go here (not in the cells object)
-                        cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
-                      },
-                      {
-                        id: 1,
-                        cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
-                      },
-                      {
-                        id: 2,
-                        cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
-                      }
-                    ].slice(range.start, range.end + 1),
-                    filteredCount: (finalSize !== undefined || range.end >= 2) ? finalSize = 3 : undefined
-                  })
-                },
-                totalCount: function (cb) { cb(undefined) }
-              }
-            }).render()
-          </script>
-        </div>
-      </div>
-
-       <!-- selection data table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Selection Enabled Data Table</h3>
-          <div id="select-data-table"></div>
-          <script>
-            new hx.DataTable('#select-data-table', {
-              selectEnabled: true,
-              feed: hx.dataTable.objectFeed({
-                headers: [
-                  { name: 'Name', id: 'name' },
-                  { name: 'Age', id: 'age' },
-                  { name: 'Profession', id: 'profession' }
-                ],
-                rows: [
-                  {
-                    id: 0, // hidden details can go here (not in the cells object)
-                    cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
-                  },
-                  {
-                    id: 1,
-                    cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
-                  },
-                  {
-                    id: 2,
-                    cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
-                  }
-                ]
-              })
-            }).render()
-          </script>
-        </div>
-      </div>
-
-      <!-- mobile data table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Compact Data Table</h3>
-          <div id="compact-data-table"></div>
-          <script>
-            new hx.DataTable('#compact-data-table', {
-              compact: true,
-              pageSizeOptions: [1, 10, 50],
-              pageSize: 2,
-              feed: hx.dataTable.objectFeed({
-                headers: [
-                  { name: 'Name', id: 'name' },
-                  { name: 'Age', id: 'age' },
-                  { name: 'Profession', id: 'profession' }
-                ],
-                rows: [
-                  {
-                    id: 0, // hidden details can go here (not in the cells object)
-                    cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
-                  },
-                  {
-                    id: 1,
-                    cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
-                  },
-                  {
-                    id: 2,
-                    cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
-                  }
-                ]
-              })
-            }).render()
-          </script>
-        </div>
-      </div>
-
-      <!-- mobile data table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Compact Data Table</h3>
-          <div id="selection-compact-data-table"></div>
-          <script>
-            new hx.DataTable('#selection-compact-data-table', {
-              compact: true,
-              selectEnabled: true,
-              pageSizeOptions: [1, 10, 50],
-              pageSize: 2,
-              feed: hx.dataTable.objectFeed({
-                headers: [
-                  { name: 'Name', id: 'name' },
-                  { name: 'Age', id: 'age' },
-                  { name: 'Profession', id: 'profession' }
-                ],
-                rows: [
-                  {
-                    id: 0, // hidden details can go here (not in the cells object)
-                    cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
-                  },
-                  {
-                    id: 1,
-                    cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
-                  },
-                  {
-                    id: 2,
-                    cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
-                  }
-                ]
-              })
-            }).render()
-          </script>
-        </div>
-      </div>
-
-
-      <!-- collapsible -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Collapsibles</h3>
-          <div class="collapsibleExample">
-            <div class="hx-collapsible-heading">Header</div>
-            <div class="hx-collapsible-content">
-              <div style="padding:1em">Content</div>
-            </div>
-          </div>
-          <br>
-          <div class="collapsibleExample">
-            <div class="hx-collapsible-heading hx-collapsible-heading-no-hover hx-compact-group hx-horizontal">
-              <div class="hx-section hx-fixed hx-collapsible-toggle"></div>
-              <div class="hx-section hx-pad"><span>Header</span></div>
-            </div>
-            <div class="hx-collapsible-content">
-              <div style="padding:1em">Content</div>
-            </div>
-          </div>
-          <br>
-          <div class="collapsibleExample">
-            <div class="hx-collapsible-heading hx-collapsible-heading-no-hover hx-input-group hx-input-group-full-width">
-              <div class="hx-section hx-fixed hx-collapsible-toggle"></div>
-              <div class="hx-section">Header</div>
-            </div>
-            <div class="hx-collapsible-content">
-              <div style="padding:1em">Content</div>
-            </div>
-          </div>
-          <script>
-            new hx.initializeCollapsibles('.collapsibleExample')
-          </script>
-        </div>
-      </div>
-
-
-      <!-- table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Tables</h3>
+      <div class="demo-section">
+        <h3>Table</h3>
+        <div class="demo-section-examples">
           <table class="hx-table">
+            <thead>
+              <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+                <th>Header 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Row 1 Cell 1</td>
+                <td>Row 1 Cell 2</td>
+                <td>Row 1 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 2 Cell 1</td>
+                <td>Row 2 Cell 2</td>
+                <td>Row 2 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 3 Cell 1</td>
+                <td>Row 3 Cell 2</td>
+                <td>Row 3 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 4 Cell 1</td>
+                <td>Row 4 Cell 2</td>
+                <td>Row 4 Cell 3</td>
+              </tr>
+              <tr>
+                <td>Row 5 Cell 1</td>
+                <td>Row 5 Cell 2</td>
+                <td>Row 5 Cell 3</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <br>
+          <table class="hx-table hx-table-no-hover">
             <thead>
               <tr>
                 <th>Header 1</th>
@@ -1148,424 +416,909 @@
           </table>
         </div>
       </div>
-
-
-      <!-- pivot-table -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Pivot Tables</h3>
-          <div id="pivot-table"></div>
+    </div>
+    <div class="demo-group">
+      <h2>CSS + Javascript Components</h2>
+      <div class="demo-section">
+        <h3>Autocomplete</h3>
+        <div class="demo-section-examples">
+          <label for="autoComplete-Default">Default</label>
+          <input type="text" id="autoComplete-Default">
+          <br>
+          <label for="autoComplete-TrailingSpaces">Trim trailing spaces</label>
+          <input type="text" id="autoComplete-TrailingSpaces"> <span class="demo-comment">Try entering 'ba ', the space will be trimmed. However 'ow ' will not as results are found.</span>
+          <br>
+          <label for="autoComplete-Function">Data as a callback</label>
+          <input type="text" id="autoComplete-Function"> <span class="demo-comment">Try: entering 'b' as the first character, will return names beginning with 'b'</span>
+          <br>
+          <label for="autoComplete-ShowAll">Dont show all</label>
+          <input type="text" id="autoComplete-ShowAll">
+          <br>
+          <label for="autoComplete-InputMap">Custom InputMap</label>
+          <input type="text" id="autoComplete-InputMap">
+          <br>
+          <label for="autoComplete-Renderer">Custom Renderer</label>
+          <input type="text" id="autoComplete-Renderer">
+          <br>
+          <label for="autoComplete-Placeholder">Placeholder Text</label>
+          <input type="text" id="autoComplete-Placeholder">
+          <br>
+          <label for="autoComplete-Length">Min Length</label>
+          <input type="text" id="autoComplete-Length">
+          <br>
+          <label for="autoComplete-Case">Case Match</label>
+          <input type="text" id="autoComplete-Case"> <span class="demo-comment">Try: lowercase bo and uppercase Bo</span>
+          <br>
+          <label for="autoComplete-StartsWith">Starts With Match</label>
+          <input type="text" id="autoComplete-StartsWith">
+          <br>
+          <label for="autoComplete-StartsWithCase">Starts With Case Match</label>
+          <input type="text" id="autoComplete-StartsWithCase">
+          <br>
+          <label for="autoComplete-Exact">Exact Match</label>
+          <input type="text" id="autoComplete-Exact"> <span class="demo-comment">Try: typing bill stevens</span>
+          <br>
+          <label for="autoComplete-ExactCase">Exact Case Match</label>
+          <input type="text" id="autoComplete-ExactCase"> <span class="demo-comment">Try: typing Bill Stevens</span>
+          <br>
+          <label for="autoComplete-MustMatch">Must Match</label>
+          <input type="text" id="autoComplete-MustMatch">
+          <span class="demo-comment">Try: entering part of a name and clicking off the input</span>
+          <br>
+          <label for="autoComplete-External">External Matcher</label>
+          <input type="text" id="autoComplete-External"> <span class="demo-comment">Try: London</span>
+          <br>
+          <label for="autoComplete-ExternalMustMatch">External Matcher Must Match</label>
+          <input type="text" id="autoComplete-ExternalMustMatch"> <span class="demo-comment">Try: London</span>
+          <br>
+          <label for="autoComplete-Fuzzy">Fuzzy Match</label>
+          <input type="text" id="autoComplete-Fuzzy"> <span class="demo-comment">Try: is</span>
+          <br>
+          <label for="autoComplete-FuzzyCase">Fuzzy Case sensitive</label>
+          <input type="text" id="autoComplete-FuzzyCase"> <span class="demo-comment">Try: is and iS</span>
+          <br>
+          <label for="autoComplete-ShowOthers">Show Other Results</label>
+          <input type="text" id="autoComplete-ShowOthers">
           <script>
-            var pivotData = {
-              topHead: [
-                'Head 1',
-                'Head 2',
-                'Head 3'
-              ],
-              leftHead: [
-                'Head 1',
-                'Head 2',
-                'Head 3',
-                'Head 4',
-                'Head 5'
-              ],
-              body: [
-                [
-                  'Cell 1',
-                  'Cell 2',
-                  'Cell 3'
-                ],
-                [
-                  'Cell 1',
-                  'Cell 2',
-                  'Cell 3'
-                ],
-                [
-                  'Cell 1',
-                  'Cell 2',
-                  'Cell 3'
-                ],
-                [
-                  'Cell 1',
-                  'Cell 2',
-                  'Cell 3'
-                ],
-                [
-                  'Cell 1',
-                  'Cell 2',
-                  'Cell 3'
-                ]
-              ]
+          const nameData = [
+            'Bill Stevens',
+            'Bob Johnson',
+            'Steve Smith',
+            'Kevin Smith',
+            'Barry O\'Donnell',
+            'Kate Vera',
+            'Kelly Mars',
+            'Susan Child',
+            'Karen Moore',
+            'Natalie Reynolds'
+          ]
+          const nameAndLocationData = [
+            { name: 'Bill Stevens', location: 'New York' },
+            { name: 'Bob Johnson', location: 'London' },
+            { name: 'Steve Smith', location: 'Cairo' },
+            { name: 'Kevin Smith', location: 'Moscow' },
+            { name: 'Barry O\'Donnell', location: 'Tokyo' },
+            { name: 'Kate Vera', location: 'Paris' },
+            { name: 'Kelly Mars', location: 'Barcelona' },
+            { name: 'Susan Child', location: 'Sardinia' },
+            { name: 'Karen Moore', location: 'Los Angeles' },
+            { name: 'Natalie Reynolds', location: 'Brazil' }
+          ]
+          let data, options
+
+          new hx.AutoComplete('#autoComplete-Default', nameData)
+
+          new hx.AutoComplete('#autoComplete-TrailingSpaces', nameData, { trimTrailingSpaces: true })
+
+          function functionData(term, callback) {
+            if (term.indexOf('a') === 0) {
+              this.options.noResultsMessage = ''
+              callback(nameData.filter(d => d.toLowerCase().indexOf('y') === 0))
+            } else {
+              this.options.noResultsMessage = 'No results found...'
+              callback(nameData)
             }
-            new hx.PivotTable('#pivot-table')
-              .data(pivotData)
+          }
+          new hx.AutoComplete('#autoComplete-Function', functionData)
+
+          options = {
+            showAll: false
+          }
+          new hx.AutoComplete('#autoComplete-ShowAll', nameData, options)
+
+          options = {
+            inputMap: item => `${item.name}, ${item.location}`
+          }
+          new hx.AutoComplete('#autoComplete-InputMap', nameAndLocationData, options)
+
+          options = {
+            inputMap: item => item.name,
+            renderer: (elem, item) =>
+              hx.select(elem)
+              .text(item.name)
+              .append('span')
+              .class('hx-label hx-contrast')
+              .text(item.location)
+          }
+          new hx.AutoComplete('#autoComplete-Renderer', nameAndLocationData, options)
+
+          options = {
+            placeholder: 'Please enter a UK town...'
+          }
+          new hx.AutoComplete('#autoComplete-Placeholder', nameData, options)
+
+          options = {
+            minLength: 2
+          }
+          new hx.AutoComplete('#autoComplete-Length', nameData, options)
+
+          options = {
+            filterOptions: {
+              caseSensitive: true
+            }
+          }
+          new hx.AutoComplete('#autoComplete-Case', nameData, options)
+
+          options = {
+            matchType: 'startsWith'
+          }
+          new hx.AutoComplete('#autoComplete-StartsWith', nameData, options)
+
+          options = {
+            matchType: 'startsWith',
+            filterOptions: {
+              caseSensitive: true
+            }
+          }
+          new hx.AutoComplete('#autoComplete-StartsWithCase', nameData, options)
+
+          options = {
+            matchType: 'exact'
+          }
+          new hx.AutoComplete('#autoComplete-Exact', nameData, options)
+
+          options = {
+            mustMatch: true
+          }
+          new hx.AutoComplete('#autoComplete-MustMatch', nameData, options)
+
+          options = {
+            matchType: 'external',
+            inputMap: item => item.name,
+            renderer: (elem, item) => hx.select(elem).text(`${item.name}, ${item.location}`)
+          }
+          data = (term, callback) => {
+            if (term.length > 0) {
+              const delay = Math.round(Math.random() * 3000) + 1000
+              setTimeout(() => {
+                const data = hx.filter.contains(nameAndLocationData, term, { searchValues: (d) => [d.name, d.location] })
+                callback(data)
+              }, delay)
+            } else {
+              callback([])
+            }
+          }
+          new hx.AutoComplete('#autoComplete-External', data, options)
+
+          options = {
+            mustMatch: true,
+            matchType: 'external',
+            inputMap: item => item.name,
+            renderer: (elem, item) => hx.select(elem).text(`${item.name}, ${item.location}`)
+          }
+          data = (term, callback) => {
+            const delay = Math.round(Math.random() * 3000) + 1000
+            setTimeout(() => {
+              const data = hx.filter.contains(nameAndLocationData, term, { searchValues: (d) => [d.name, d.location] })
+              callback(data)
+            }, delay)
+          }
+          new hx.AutoComplete('#autoComplete-ExternalMustMatch', data, options)
+
+          options = {
+            matchType: 'fuzzy'
+          }
+          new hx.AutoComplete('#autoComplete-Fuzzy', nameData, options)
+
+          options = {
+            matchType: 'fuzzy',
+            filterOptions: {
+              caseSensitive: true
+            }
+          }
+          new hx.AutoComplete('#autoComplete-FuzzyCase', nameData, options)
+
+          options = {
+            matchType: 'contains',
+            showOtherResults: true,
+            otherResultsMessage: 'Other People'
+          }
+          new hx.AutoComplete('#autoComplete-ShowOthers', nameData, options)
+
+          options = undefined
+          data = undefined
           </script>
         </div>
       </div>
-
-
-      <!-- side-collapsible -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Side Collapsibles</h3>
-          <div class="example-container">
-            <div id="exampleLeft" class="example-left">
-              <div class="hx-side-collapsible-heading-closed">Closed Text</div>
-              <div class="hx-side-collapsible-heading-open">Open Text</div>
-              <div class="hx-side-collapsible-content">Content</div>
-            </div>
-
-            <div id="exampleRight" class="example-right">
-              <div class="hx-side-collapsible-heading-closed">Closed Text</div>
-              <div class="hx-side-collapsible-heading-open">Open Text</div>
-              <div class="hx-side-collapsible-content">Content</div>
-            </div>
-          </div>
+      <div class="demo-section">
+        <h3>Autocomplete Picker</h3>
+        <div class="demo-section-examples">
+          <label for="autocompletePicker">Default</label>
+          <div id="autocompletePicker"></div>
+          <br>
+          <label for="autocompletePicker-async">Async Data</label>
+          <div id="autocompletePicker-async"></div>
+          <br>
+          <label for="autocompletePicker-externalMatch">External Matching</label>
+          <div id="autocompletePicker-externalMatch"></div> <span class="demo-comment">Tip: try searcing for 'Kent'</span>
           <script>
-            new hx.SideCollapsible('#exampleLeft')
-            new hx.SideCollapsible('#exampleRight', {position: 'right', animate: false})
+          new hx.AutocompletePicker('#autocompletePicker', ['a', 'b', 'c'])
+
+          function delayedItems(searchTerm, callback) {
+            setTimeout(function() {
+              callback(['a', 'b', 'c'])
+            }, 3000)
+          }
+          new hx.AutocompletePicker('#autocompletePicker-async', delayedItems)
+
+          data = [{
+            name: 'Moorgate',
+            county: 'London'
+          }, {
+            name: 'Old Street',
+            county: 'London'
+          }, {
+            name: 'Canterbury',
+            county: 'Kent'
+          }, {
+            name: 'Dover',
+            county: 'Kent'
+          }]
+
+          function items(term, callback) {
+            if (term.length > 0) {
+              var a, county, d, name, i, len
+              a = []
+              len = data.length
+              for (i = 0; i < len; i++) {
+                d = data[i]
+                name = d.name.toLowerCase()
+                county = d.county.toLowerCase()
+                term = term.toLowerCase()
+                if (name.indexOf(term) > -1 || county.indexOf(term) > -1) {
+                  a.push(d)
+                }
+              }
+              return callback(a)
+            } else {
+              return callback(data)
+            }
+          }
+
+          function renderer(elem, item) {
+            hx.select(elem)
+              .add(hx.detached('span').text(item.name))
+              .add(hx.label().text(item.county))
+          }
+          new hx.AutocompletePicker('#autocompletePicker-externalMatch', items, {
+            renderer: renderer,
+            matchType: 'external'
+          })
           </script>
         </div>
       </div>
+      <div class="demo-section">
+        <h3>Button Group</h3>
+        <div class="demo-section-examples">
+          <div id="buttonGroup1"></div>
+          <br>
+          <div id="buttonGroup2"></div>
+          <script>
+          buttonGroup = new hx.ButtonGroup('#buttonGroup1')
+          buttonGroup.items(['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other']);
 
 
-      <!-- sidebar -->
-      <div class="hx-section exampleSectionNoBg">
-        <div class="example">
-          <h3>Sidebar</h3>
-          <div class="hx-sidebar-page sidebar-example">
-            <div class="hx-heading example-heading">
-              <div class="hx-titlebar">
-                <div class="hx-titlebar-container">
-                  <div class="hx-titlebar-header example-titlebar">
-                    <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
-                    <div class="hx-titlebar-title">Title</div>
-                    <div class="hx-titlebar-subtitle">Subtitle</div>
-                  </div>
+          // Full width example with individual active classes per-button
+          buttonGroup = new hx.ButtonGroup('#buttonGroup2', { fullWidth: true })
+          buttonGroup.items([{
+              value: 'Positive',
+              activeClass: 'hx-positive'
+            }, {
+              value: 'Warning',
+              activeClass: 'hx-warning'
+            }, {
+              value: 'Negative',
+              activeClass: 'hx-negative'
+            }, {
+              value: 'Info',
+              activeClass: 'hx-info'
+            },
+            'Other'
+          ]);
+          buttonGroup.value('Positive');
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Card</h3>
+        <div class="demo-section-examples">
+          <h4>HTML Cards</h4>
+          <div class="hx-group hx-horizontal">
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-card-header">
+                <span class="hx-header">Card Header</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-card-small hx-section">
+              <div class="hx-card-section hx-card-header">
+                <span class="hx-header">Small Card Header</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Small Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-header hx-card-group">
+                <div class="hx-card-section">
+                  <span class="hx-header">Grouped Card Header</span>
+                </div>
+                <div class="hx-card-section">
+                  <span class="hx-header">Grouped Card Header</span>
                 </div>
               </div>
-            </div>
-            <div class="hx-sidebar">
-              <div class="hx-sidebar-title">Title</div>
-              <div class="hx-sidebar-section">Section</div>
-              <a href="#">Link</a>
-              <div class="hx-sidebar-section hx-selected">Selected Section</div>
-              <div class="hx-collapsible">
-                <div class="hx-collapsible-heading">Collapsible</div>
-                <div class="hx-collapsible-content">
-                  <div class="hx-sidebar-section">Collapsible Content</div>
-                  <div class="hx-sidebar-section">Collapsible Content</div>
-                  <div class="hx-sidebar-section">Collapsible Content</div>
-                  <div class="hx-sidebar-section">Collapsible Content</div>
-                </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
               </div>
             </div>
           </div>
+          <h4>Card Context Classes</h4>
+          <div class="hx-group hx-horizontal">
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-action">
+                <span class="hx-header">Card Header (Action)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-positive">
+                <span class="hx-header">Card Header (Positive)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-warning">
+                <span class="hx-header">Card Header (Warning)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-negative">
+                <span class="hx-header">Card Header (Negative)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+            <div class="hx-card hx-section">
+              <div class="hx-card-section hx-background-info">
+                <span class="hx-header">Card Header (Info)</span>
+              </div>
+              <div class="hx-card-section">
+                <div class="hx-card-text">Card Content</div>
+              </div>
+            </div>
+          </div>
+          <h4>Card API</h4>
+          <div class="hx-group hx-horizontal">
+            <div id="card-container" class="hx-section"></div>
+          </div>
           <script>
-            var titlebar = new hx.TitleBar('.example-heading')
+          function titleText(title, text) {
+            return hx.card.section()
+              .add(hx.detached('div')
+                .add(hx.card.title({ text: title })))
+              .add(hx.detached('div')
+                .add(hx.card.text({ text: text })))
+          }
 
-            // the options are not normally needed when initialising the sidebar - they are
-            // required for this example since the sidebar is not in it's usual place within the dom
-            var sidebar = new hx.Sidebar('.hx-sidebar', {
-              headerSelector: '.example-titlebar',
-              contentSelector: '.example-content',
-              autoAddSidebarClass: false
-            })
+          function sparkline(options) {
+            return hx.card.group()
+              .add(hx.card.fixed.section().add(hx.card.text({ text: options.text })))
+              .add(hx.card.section().add(hx.sparkline({ strokeColor: options.sparklineColor, data: options.sparklineData })))
+          }
 
-            hx.select('.hx-sidebar').selectAll('.hx-collapsible').nodes.forEach(function (node) {
-              new hx.Collapsible(node)
-            })
+          function random(i) {
+            return {
+              x: i,
+              y: Math.random()
+            }
+          }
+
+          function statusCard(name, context) {
+            return hx.card()
+              .add(hx.card.header.section({ context: context })
+                .add(hx.card.title({ text: name })))
+              .add(hx.card.header.group()
+                .add(titleText('Status', 'Normal'))
+                .add(titleText('Uptime', '5 days'))
+                .add(titleText('Memory Usage', '482 MB'))
+                .add(titleText('Thread Count', '19'))
+                .add(titleText('Page Hits', '2236 / s')))
+              .add(hx.card.aligned()
+                .add(sparkline({ text: 'Memory Use', sparklineColor: hx.theme.plot.colors[0], sparklineData: hx.range(60).map(random) }))
+                .add(sparkline({ text: 'Thread Count', sparklineColor: hx.theme.plot.colors[1], sparklineData: hx.range(60).map(random) }))
+                .add(sparkline({ text: 'Page Hits', sparklineColor: hx.theme.plot.colors[2], sparklineData: hx.range(60).map(random) }))
+                .add(sparkline({ text: 'Messages Processed', sparklineColor: hx.theme.plot.colors[3], sparklineData: hx.range(60).map(random) })))
+          }
+
+          hx.select('#card-container')
+            .add(statusCard('Instance 1', undefined))
+          // .add(statusCard('Instance 2', 'positive'))
+          // .add(statusCard('Instance 3', 'negative'))
           </script>
         </div>
       </div>
-
-
-      <!-- toggle-button -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Toggle Button</h3>
-          <div>
-            <span class="toggleBtn"></span>
-            <span class="toggleBtnFalse"></span>
+      <div class="demo-section">
+        <h3>Collapsible</h3>
+        <div class="demo-section-examples">
+          <div id="collapsible-example">
+            <div class="hx-collapsible-heading">Default Collapsible</div>
+            <div class="hx-collapsible-content">
+              <div style="padding:1em;font-size:2em">
+                Content
+              </div>
+            </div>
+          </div>
+          <br>
+          <div id="collapsible-noicon">
+            <div class="hx-collapsible-heading">No Icon</div>
+            <div class="hx-collapsible-content">
+              <div style="padding:1em;font-size:2em">
+                Content
+              </div>
+            </div>
           </div>
           <script>
-            hx.selectAll('.toggleBtn').nodes.forEach(function (node) {
-              new hx.Toggle(node, {value: true})
-            })
-            hx.selectAll('.toggleBtnFalse').nodes.forEach(function (node) {
-              new hx.Toggle(node, {value: false})
-            })
+          new hx.Collapsible('#collapsible-example')
+          new hx.Collapsible('#collapsible-noicon', { addIcon: false })
           </script>
         </div>
       </div>
-
-
-      <!-- card -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Cards</h3>
-          <div class="hx-card hx-section">
-            <div class="hx-card-section hx-card-header">
-              <span class="hx-header">Card Header</span>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Card Content</div>
-            </div>
-          </div>
-          <div class="hx-card hx-card-small hx-section">
-            <div class="hx-card-section hx-card-header">
-              <span class="hx-header">Small Card Header</span>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Small Card Content</div>
-            </div>
-          </div>
-          <div class="hx-card hx-section">
-            <div class="hx-card-header hx-card-group">
-              <div class="hx-card-section">
-                <span class="hx-header">Grouped Card Header</span>
-              </div>
-              <div class="hx-card-section">
-                <span class="hx-header">Grouped Card Header</span>
-              </div>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Card Content</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- card -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Cards (context classes)</h3>
-          <div class="hx-card hx-section">
-            <div class="hx-card-section hx-background-action">
-              <span class="hx-header">Card Header (Action)</span>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Card Content</div>
-            </div>
-          </div>
-          <div class="hx-card hx-section">
-            <div class="hx-card-section hx-background-positive">
-              <span class="hx-header">Card Header (Positive)</span>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Card Content</div>
-            </div>
-          </div>
-          <div class="hx-card hx-section">
-            <div class="hx-card-section hx-background-warning">
-              <span class="hx-header">Card Header (Warning)</span>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Card Content</div>
-            </div>
-          </div>
-          <div class="hx-card hx-section">
-            <div class="hx-card-section hx-background-negative">
-              <span class="hx-header">Card Header (Negative)</span>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Card Content</div>
-            </div>
-          </div>
-          <div class="hx-card hx-section">
-            <div class="hx-card-section hx-background-info">
-              <span class="hx-header">Card Header (Info)</span>
-            </div>
-            <div class="hx-card-section">
-              <div class="hx-card-text">Card Content</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- notify -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Notify</h3>
-          <div id="notifyExample"></div>
-          <button class="notifyBtn hx-btn">Default</button>
-          <button class="notifyBtn hx-btn hx-positive">Positive</button>
-          <button class="notifyBtn hx-btn hx-warning">Warning</button>
-          <button class="notifyBtn hx-btn hx-negative">Negative</button>
-          <button class="notifyBtn hx-btn hx-info">Info</button>
-          <button class="notifyBtn hx-btn hx-action">Loading</button>
+      <div class="demo-section">
+        <h3>Color Picker</h3>
+        <div class="demo-section-examples">
+          <button class="hx-btn" id="basicPickerButton">Basic</button>
+          <button class="hx-btn" id="fullPickerButton">Full</button>
           <script>
-            var notificationManager = new hx.NotificationManager('#notifyExample')
-            var notifications = [
-              {
-                type: 'notify',
-                message: 'Default Notification'
+          new hx.ColorPicker("#basicPickerButton")
+          new hx.ColorPicker("#fullPickerButton", { showInputs: true })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Crumbtrail</h3>
+        <div class="demo-section-examples">
+          <span class="demo-comment">Static</span>
+          <br>
+          <div class="hx-crumbtrail">
+            <span class="hx-crumbtrail-node">First Node</span>
+            <span class="hx-crumbtrail-separator"><i class="fa fa-angle-right"></i></span>
+            <span class="hx-crumbtrail-node">Second Node</span>
+            <span class="hx-crumbtrail-separator"><i class="fa fa-angle-right"></i></span>
+            <span class="hx-crumbtrail-node">Third Node</span>
+          </div>
+          <br>
+          <span class="demo-comment">Dynamic</span>
+          <br>
+          <div id="crumbs" class="hx-crumbtrail"></div>
+          <script>
+          new hx.Crumbtrail("#crumbs", {
+            renderer: (element, datum) => hx.select(element).text(datum),
+            items: ["First Node", "Second Node", "Third Node"],
+            separator: '>>>>'
+          })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Data Table</h3>
+        <div class="demo-section-examples">
+          <div class="hx-btn" id="compactToggle">Toggle Compact Mode</div>
+          <h4>Basic Example</h4>
+          <div id="dataTable1"></div>
+          <h4>Filter above table example</h4>
+          <div id="dataTable2"></div>
+          <h4>Advanced Search (with toggle for standard search)</h4>
+          <div id="dataTable3"></div>
+          <h4>Advanced Search with Criteria</h4>
+          <div id="dataTable4"></div>
+          <h4>Grouped Headings</h4>
+          <div id="dataTable5"></div>
+          <script>
+          const tableFeed = hx.dataTable.objectFeed({
+            headers: [
+              { name: 'Name', id: 'name' },
+              { name: 'Age', id: 'age' },
+              { name: 'Profession', id: 'profession' }
+            ],
+            rows: [{
+                id: 0, // hidden details can go here (not in the cells object)
+                cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
               },
               {
-                type: 'positive',
-                message: 'Positive Notification'
+                id: 1,
+                cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
               },
               {
-                type: 'warning',
-                message: 'Warning Notification'
-              },
-              {
-                type: 'negative',
-                message: 'Negative Notification'
-              },
-              {
-                type: 'info',
-                message: 'Info Notification'
-              },
-              {
-                type: 'loading',
-                message: 'Loading Notification'
+                id: 2,
+                cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
               }
             ]
+          })
 
-            hx.selectAll('.notifyBtn').forEach(function (selection, index) {
-              selection.on('click', function (){
-                var notification = notifications[index]
-                notificationManager[notification.type](notification.message);
-              })
-            })
-
-          </script>
-        </div>
-      </div>
-
-
-      <!-- meter -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Meter</h3>
-          <div id="meter" class="meter-example"></div>
-          <script>
-            var meter = new hx.Meter('#meter')
-
-            meter.value({
-              unitText: 'Completed',
-              total: 1000,
-              completed: 642,
-              tracker: 570,
-              marker: 870,
-              markerText: 'Marker: ' + 870
-            })
-          </script>
-        </div>
-      </div>
-
-
-      <!-- layout -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Layout</h3>
-          The classes affected by theme variables in the layout module (margins/borders)
-          <br>
-          <br>
-          <div class="hx-content">
-            hx-content
-          </div>
-          <div class="hx-pad hx-border">hx-border</div>
-          <br>
-          <div class="hx-pad hx-border-top">hx-border-top</div>
-          <br>
-          <div class="hx-pad hx-border-right">hx-border-right</div>
-          <br>
-          <div class="hx-pad hx-border-bottom">hx-border-bottom</div>
-          <br>
-          <div class="hx-pad hx-border-left">hx-border-left</div>
-          <br>
-          <div class="hx-group hx-horizontal">
-            <div class="hx-section">
-              hx-section
-            </div>
-            <div class="hx-section hx-pad">
-              hx-section with hx-pad
-            </div>
-            <div class="hx-section hx-no-margin">
-              hx-section hx-no-margin
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- plot -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Plot (Graphs)</h3>
-          <div id="graph" class="hx-margin"></div>
-          <div id="pie" class="hx-margin"></div>
-          <script>
-
-            var randomSign = function(){
-              return Math.random() > 0.5 ? 1 : 0
-            }
-
-            var createData = function(a, b, c){
-              var offset = 0.1 + Math.random()
-              return hx.range(50).map(function(i){
-                return {
-                  x: i,
-                  y: Math.abs(offset + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + Math.sin(i/50) + Math.sin(i/100))
-                }
-              })
-            }
-
-            var axes = [{
-              series: hx.theme.plot.colors.map(function(col, i) {
-                return {
-                  type: 'line',
-                  options: {
-                    title: 'Series ' + (i+1),
-                    data: createData(randomSign(), randomSign(), randomSign()),
-                    labelInterpolated: true,
-                    markersEnabled: true,
-                    strokeEnabled: true,
-                    strokeColor: col,
-                    fillEnabled: true,
-                    fillColor: hx.color(col).alpha(0.2).toString(),
-                    group: 'some-group'
-                  }
-                }
-              }),
-              x: {
-                title: 'Time'
+          const tableFeedGrouped = hx.dataTable.objectFeed({
+            headers: [
+              { id: 'name', name: 'Name', groups: ['Group 1'] },
+              { id: 'age', name: 'Age' },
+              { id: 'gender', name: 'Gender', groups: ['Group 2'] },
+              { id: 'dob', name: 'Date of Birth', groups: ['Group 2'] },
+              { id: 'salary', name: 'Salary (£)', groups: ['Group 2'] }
+            ],
+            rows: [{
+                id: 0, // hidden details can go here (not in the cells object)
+                cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer', dob: '01/01/1970', salary: '12345' }
               },
-              y: {
-                title: 'Value',
-                scalePaddingMax: 0.1
+              {
+                id: 1,
+                cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist', dob: '01/01/1970', salary: '12345' }
+              },
+              {
+                id: 2,
+                cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder', dob: '01/01/1970', salary: '12345' }
               }
-            }]
+            ]
+          })
 
-            hx.select('#graph').add(hx.graph({axes: axes, legendEnabled: true}).classed('graph-example', true))
+          const table1 = new hx.DataTable('#dataTable1', {
+            feed: tableFeed
+          }).render()
 
-            var data = {
-              title: "Hi",
-              segments: hx.range(6).map(function (i) {
-                return {
-                  name: "Segment " + i,
-                  size: i + 1,
-                  fillColor: hx.cycle(hx.theme.plot.colors, i)
-                }
-              })
-            }
-            hx.select('#pie').style('height', '100px').add(
-              hx.pieChart({legendEnabled: true, data: data}).style('width', '100%').style('height', '100%')
-            )
+          const table2 = new hx.DataTable('#dataTable2', {
+            feed: tableFeed,
+            showSearchAboveTable: true
+          }).render()
 
+          const table3 = new hx.DataTable('#dataTable3', {
+            feed: tableFeed,
+            advancedSearchEnabled: true,
+            advancedSearch: [
+              [
+                { column: "age", term: "26", criteria: "greater" }
+              ],
+              [
+                { column: "name", term: "Bob", criteria: "exact" }
+              ]
+            ],
+            filter: 'Bob'
+          }).render()
 
+          const table4 = new hx.DataTable('#dataTable4', {
+            feed: tableFeed,
+            advancedSearchEnabled: true,
+            advancedSearchCriteria: hx.filter.types(),
+            filterEnabled: false,
+            advancedSearch: [
+              [
+                { column: "age", term: "26", criteria: "greater" }
+              ],
+              [
+                { column: "name", term: "Bob", criteria: "exact" }
+              ]
+            ]
+          }).render()
+
+          const table5 = new hx.DataTable('#dataTable5', {
+            feed: tableFeedGrouped
+          }).render()
+
+          new hx.Toggle('#compactToggle')
+            .on('change', (value) => {
+              console.log(value)
+              table1.compact(value)
+              table2.compact(value)
+              table3.compact(value)
+              table4.compact(value)
+              table5.compact(value)
+            })
           </script>
         </div>
       </div>
+      <div class="demo-section">
+        <h3>Date Picker</h3>
+        <div class="demo-section-examples">
+          <div id="datepickerExample1"></div> <span class="demo-comment">Calendar style</span>
+          <br>
+          <br>
+          <div id="datepickerExample2"></div> <span class="demo-comment">Number picker style</span>
+          <br>
+          <br>
+          <div id="dateRangePicker"></div> <span class="demo-comment">Date Range Picker</span>
+          <script>
+          new hx.DatePicker('#datepickerExample1');
+          new hx.DatePicker('#datepickerExample2', { type: 'datepicker' });
+          new hx.DatePicker('#dateRangePicker', { selectRange: true });
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Date Time Picker</h3>
+        <div class="demo-section-examples">
+          <div id="dateTimePickerExample"></div> <span class="demo-comment">Default style</span>
+          <br>
+          <br>
+          <div id="dateTimePickerExampleSeconds"></div> <span class="demo-comment">Calendar style</span>
+          <br>
+          <br>
+          <script>
+          new hx.DateTimePicker('#dateTimePickerExample')
+          new hx.DateTimePicker('#dateTimePickerExampleSeconds', { timePickerOptions: { showSeconds: true } })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Drag Container</h3>
+        <div class="demo-section-examples">
+          <div id="dragContainer" class="hx-group hx-horizontal">
+            <div data-id="green" class="hx-drag-element hx-section hx-pad hx-background-positive">
+              Draggable
+            </div>
+            <div data-id="yellow" class="hx-drag-element hx-section hx-pad hx-background-warning">
+              Draggable
+            </div>
+            <div data-id="red" class="hx-section hx-pad hx-background-negative">
+              Undraggable
+            </div>
+            <div data-id="purple" class="hx-drag-element hx-section hx-pad hx-background-info">
+              <span class="hx-drag-control"><i class="fa fa-arrows"></i></span> Draggable Control
+            </div>
+          </div>
+          <br>
+          <button id="resetOrder" class="hx-btn">Reset Order</button>
+          <button id="getOrder" class="hx-btn hx-positive">Get Order</button>
+          <script>
+          const dragContainer = new hx.DragContainer('#dragContainer')
 
+          hx.select('#resetOrder').on('click', function() {
+            dragContainer.order(undefined)
+          })
+          hx.select('#getOrder').on('click', function() {
+            hx.notify.info('The order is: ' + dragContainer.order().join(', '))
+          })
+          </script>
+        </div>
+      </div>
+      <!-- <div class="demo-section">
+        <h3>Drawing</h3>
+        <div class="demo-section-examples">
+          TODO?
+        </div>
+      </div> -->
+      <div class="demo-section">
+        <h3>Dropdown</h3>
+        <div class="demo-section-examples">
+          <button class="hx-btn" id="dropdown-example-1">Simple Dropdown</button>
+          <script>
+          dropdownExampleContent = "<div style='padding:10px;'>Example content!</div>"
+          dropdownExample1 = new hx.Dropdown("#dropdown-example-1", dropdownExampleContent)
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>File Input</h3>
+        <div class="demo-section-examples">
+          <div id="fileInputExample"></div>
+          <script>
+          new hx.FileInput('#fileInputExample')
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Fluid</h3>
+        <div class="demo-section-examples">
+          <div id="fluid-example"></div>
+          <script>
+          hx.select('#fluid-example')
+            .add(hx.checkbox())
+            .add(hx.button({ context: 'positive' }).text('Positive Button'))
+            .add(hx.button({ context: 'warning' }).text('Warning Button'))
+            .add(hx.button({ context: 'action' }).text('Action Button'))
+            .add(hx.icon({ class: 'fa fa-plus' }))
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Form Builder</h3>
+        <div class="demo-section-examples">
+          <form id="form"></form>
+          <script>
+          new hx.Form('#form')
+            .addText('Text', { required: true, placeholder: 'Name' })
+            .addTextArea('Text Area', { placeholder: 'Name' })
+            .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
+            .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
+            .addNumber('Number', { required: true })
+            .addPicker('Select', ['red', 'green', 'blue'])
+            .addCheckbox('Checkbox')
+            .addPassword('Password')
+            .addRadio('Radio', ['One', 'Two', 'Three'])
+            .addTagInput('Tag Input')
+            .addFileInput('File Input')
+            .addDatePicker('Date Picker')
+            .addTimePicker('Time Picker')
+            .addDateTimePicker('Date Time Picker')
+            .addSubmit('Submit', 'fa fa-check')
+            .on('submit', function(data) { console.log(data) })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Inline Editable</h3>
+        <div class="demo-section-examples">
+          Name: <span id="inline-editable-example">John Smith</span>. Click to edit.
+          <script>
+          new hx.InlineEditable('#inline-editable-example')
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Inline Picker</h3>
+        <div class="demo-section-examples">
+          Color: <span id="inline-picker-example"></span>. Click to edit.
+          <script>
+          new hx.InlinePicker('#inline-picker-example', {
+            items: ['Red', 'Green', 'Blue'],
+            value: 'Red'
+          })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Menu</h3>
+        <div class="demo-section-examples">
+          <button id="menuDefault" class="hx-btn">Default</button>
+          <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
+          <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
+          <button id="menuMixed" class="hx-btn">Mixed Items</button>
+          <button id="collapsibleMenu" class="hx-btn">Menu with children</button>
+          <br>
+          <button class="hx-btn hx-action menuButtonNamed">hx-action</button>
+          <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
+          <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
+          <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
+          <button class="hx-btn hx-info menuButtonNamed">hx-info</button>
+          <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
+          <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
+          <script>
+          new hx.Menu('#menuDefault', {
+            items: ["item 1", "item 2", "item 3"]
+          })
 
-      <!-- modals -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Modals</h3>
+          function menuRenderer(elem, item) {
+            hx.select(elem).text(item.name)
+          }
+
+          new hx.Menu('#menuDisabled', {
+            renderer: menuRenderer,
+            items: [{
+              name: 'Disabled Item 1',
+              disabled: true
+            }, {
+              name: 'Disabled Item 2',
+              disabled: true
+            }, {
+              name: 'Disabled Item 3',
+              disabled: true
+            }]
+          })
+
+          new hx.Menu('#menuNoSelect', {
+            renderer: menuRenderer,
+            items: [{
+              name: 'Unselectable Item 1',
+              unselectable: true
+            }, {
+              name: 'Unselectable Item 2',
+              unselectable: true
+            }, {
+              name: 'Unselectable Item 3',
+              unselectable: true
+            }]
+          })
+
+          new hx.Menu('#menuMixed', {
+            renderer: menuRenderer,
+            items: [{
+              name: 'Disabled Item 1',
+              disabled: true
+            }, {
+              name: 'Item 1'
+            }, {
+              name: 'Disabled Item 2',
+              disabled: true
+            }, {
+              name: 'Unselectable Item 1',
+              unselectable: true
+            }, {
+              name: 'Item 2'
+            }, {
+              name: 'Unselectable Item 2',
+              unselectable: true
+            }]
+          })
+
+          menuItems = ["item 1", "item 2", "item 3"]
+          hx.selectAll('.menuButtonNamed').forEach(function(node) {
+            new hx.Menu(node.node(), { items: menuItems })
+          });
+
+          new hx.Menu('#collapsibleMenu', {
+            renderer: (element, item) => hx.select(element).text(item.text || item),
+            items: [{
+                text: 'Item 1',
+                children: [
+                  'Sub item 1',
+                  'Sub item 2',
+                ]
+              },
+              {
+                text: 'Item 2',
+                children: [
+                  'Sub item 1',
+                  'Sub item 2',
+                ]
+              }
+            ]
+          });
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Meter</h3>
+        <div class="demo-section-examples">
+          <style>
+          .meter-example {
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+          }
+          </style>
+          <div id="meterExample" class="meter-example"></div>
+          <script>
+          var meter = new hx.Meter('#meterExample')
+
+          meter.value({
+            unitText: 'Completed',
+            total: 1000,
+            completed: 642,
+            tracker: 570,
+            marker: 870,
+            markerText: 'Marker: ' + 870
+          })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Modal</h3>
+        <div class="demo-section-examples">
           <div>
             <div>Default</div>
             <button id="modal-default" class="hx-btn">Show Default</button>
@@ -1595,429 +1348,1334 @@
             <button id="show-modal-info" class="hx-btn hx-info">Info dialog</button>
           </div>
           <script>
-            function modalContent (type) {
-              return function (node) {
-                hx.select(node).append('div').text('Modal Content');
-              }
+          function modalContent(type) {
+            return function(node) {
+              hx.select(node).append('div').text('Modal Content');
             }
+          }
 
-            function modalHeader (type) {
-              return function (node, title, button) {
-                hx.select(node).classed('hx-background-' + type, true)
-                  .add(title).add(button)
-              }
+          function modalHeader(type) {
+            return function(node, title, button) {
+              hx.select(node).classed('hx-background-' + type, true)
+                .add(title).add(button)
             }
+          }
 
-            function makeModal (selection, title, type) {
-              var modal = new hx.Modal(title, modalContent(type), {
-                headerRenderer: modalHeader(type)
-              })
-
-              selection.on('click', function () {
-                modal.show()
-              })
-            }
-
-            makeModal(hx.select('#modal-default'), 'Default Modal', '')
-
-            hx.selectAll('.modalButton').forEach(function (selection) {
-              var type = selection.text()
-              makeModal(selection, type + ' Context Modal', type.toLowerCase())
+          function makeModal(selection, title, type) {
+            var modal = new hx.Modal(title, modalContent(type), {
+              headerRenderer: modalHeader(type)
             })
 
+            selection.on('click', function() {
+              modal.show()
+            })
+          }
 
-            var dialogCallback = function(val){
-              if (val){
-                hx.notify("You confirmed the action", {icon: "fa fa-check", cssclass: "hx-notification hx-positive" })
+          makeModal(hx.select('#modal-default'), 'Default Modal', '')
+
+          hx.selectAll('.modalButton').forEach(function(selection) {
+            var type = selection.text()
+            makeModal(selection, type + ' Context Modal', type.toLowerCase())
+          })
+
+
+          var dialogCallback = function(val) {
+            if (val) {
+              hx.notify("You confirmed the action", { icon: "fa fa-check", cssclass: "hx-notification hx-positive" })
+            } else {
+              hx.notify("You cancelled the action", { icon: "fa fa-close", cssclass: "hx-notification hx-negative" })
+            }
+          }
+
+          hx.select('#show-modal-dialog').on('click', function() {
+            hx.modal.dialog('Modal Dialog Example', 'Please click Confirm or Cancel', dialogCallback);
+          });
+
+          var buttons = [
+            { text: "Green", classes: "hx-btn hx-positive", value: 0 },
+            { text: "Red", classes: "hx-btn hx-negative", value: 1 },
+            { text: "Yellow", classes: "hx-btn hx-warning", value: 2 }
+          ]
+
+          var dialogCallbackButtons = function(val) {
+            switch (val) {
+              case 0:
+                hx.notify("You clicked the green one", { icon: "fa fa-search", cssclass: 'hx-positive' });
+                break;
+              case 1:
+                hx.notify("You clicked the red one", { icon: "fa fa-search", cssclass: 'hx-negative' });
+                break;
+              case 2:
+                hx.notify("You clicked the yellow one", { icon: "fa fa-search", cssclass: 'hx-warning' });
+                break;
+              case undefined:
+                hx.notify.negative("You cancelled the action");
+                break;
+            }
+          }
+
+          hx.select('#show-modal-dialog-buttons').on('click', function() {
+            hx.modal.dialog('Modal Dialog Example', 'Pick a colored button:', dialogCallbackButtons, {
+              buttons: buttons
+            });
+          });
+
+          hx.select('#show-modal-input').on('click', function() {
+            hx.modal.input('Modal Input Example', 'Enter some text:', function(val) {
+              if (hx.isString(val)) {
+                hx.notify.info("You entered: " + val)
               } else {
-                hx.notify("You cancelled the action", {icon: "fa fa-close", cssclass: "hx-notification hx-negative" })
+                hx.notify.negative("You cancelled the action")
               }
-            }
-
-            hx.select('#show-modal-dialog').on('click', function(){
-              hx.modal.dialog('Modal Dialog Example', 'Please click Confirm or Cancel', dialogCallback);
             });
 
-            var buttons = [
-              { text: "Green",  classes: "hx-btn hx-positive", value: 0 },
-              { text: "Red",    classes: "hx-btn hx-negative", value: 1 },
-              { text: "Yellow", classes: "hx-btn hx-warning",  value: 2 }
-            ]
+          });
 
-            var dialogCallbackButtons = function(val){
-              switch (val) {
-                case 0:
-                  hx.notify("You clicked the green one", {icon: "fa fa-search", cssclass: 'hx-positive'} );
-                  break;
-                case 1:
-                  hx.notify("You clicked the red one", {icon: "fa fa-search", cssclass: 'hx-negative'} );
-                  break;
-                case 2:
-                  hx.notify("You clicked the yellow one", {icon: "fa fa-search", cssclass: 'hx-warning'} );
-                  break;
-                case undefined:
-                  hx.notify.negative("You cancelled the action");
-                  break;
-              }
-            }
-
-            hx.select('#show-modal-dialog-buttons').on('click', function(){
-              hx.modal.dialog('Modal Dialog Example', 'Pick a colored button:', dialogCallbackButtons, {
-                buttons: buttons
-              });
+          hx.select('#show-modal-warning').on('click', function() {
+            hx.modal.dialog('Modal Warning Example', 'You did something that caused a warning.', function(val) {}, {
+              titleClass: 'warning',
+              icon: 'fa fa-warning'
             });
+          });
 
-            hx.select('#show-modal-input').on('click', function(){
-              hx.modal.input('Modal Input Example', 'Enter some text:', function(val){
-                if (hx.isString(val)){
-                  hx.notify.info("You entered: " + val)
-                } else {
-                  hx.notify.negative("You cancelled the action")
-                }
-              });
-
+          hx.select('#show-modal-positive').on('click', function() {
+            hx.modal.dialog('Modal Positive Example', 'You did something positive.', function(val) {}, {
+              titleClass: 'positive',
+              icon: 'fa fa-check'
             });
+          });
 
-            hx.select('#show-modal-warning').on('click', function(){
-              hx.modal.dialog('Modal Warning Example', 'You did something that caused a warning.', function(val){}, {
-                titleClass: 'warning',
-                icon: 'fa fa-warning'
-              });
+          hx.select('#show-modal-negative').on('click', function() {
+            hx.modal.dialog('Modal Negative Example', 'You did something negative.', function(val) {}, {
+              titleClass: 'negative',
+              icon: 'fa fa-error'
             });
+          });
 
-            hx.select('#show-modal-positive').on('click', function(){
-              hx.modal.dialog('Modal Positive Example', 'You did something positive.', function(val){}, {
-                titleClass: 'positive',
-                icon: 'fa fa-check'
-              });
+          hx.select('#show-modal-info').on('click', function() {
+            hx.modal.dialog('Modal Info Example', 'You did something that has extra information.', function(val) {}, {
+              titleClass: 'info',
+              icon: 'fa fa-info'
             });
-
-            hx.select('#show-modal-negative').on('click', function(){
-              hx.modal.dialog('Modal Negative Example', 'You did something negative.', function(val){}, {
-                titleClass: 'negative',
-                icon: 'fa fa-error'
-              });
-            });
-
-            hx.select('#show-modal-info').on('click', function(){
-              hx.modal.dialog('Modal Info Example', 'You did something that has extra information.', function(val){}, {
-                titleClass: 'info',
-                icon: 'fa fa-info'
-              });
-            });
+          });
           </script>
         </div>
       </div>
-
-
-      <!-- palette -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Palette</h3>
-          <div class="hx-layout hx-group hx-horizontal">
-            <div class="hx-section palette hx-text-default">hx-text-default</div>
-            <div class="hx-section palette hx-text-action">hx-text-action</div>
-            <div class="hx-section palette hx-text-positive">hx-text-positive</div>
-            <div class="hx-section palette hx-text-warning">hx-text-warning</div>
-            <div class="hx-section palette hx-text-negative">hx-text-negative</div>
-            <div class="hx-section palette hx-text-info">hx-text-info</div>
-            <div class="hx-section palette hx-text-complement">hx-text-complement</div>
-            <div class="hx-section palette hx-text-contrast">hx-text-contrast</div>
-            <div class="hx-section palette hx-text-disabled">hx-text-disabled</div>
-          </div>
-
-          <div class="hx-layout hx-group hx-horizontal">
-            <div class="hx-section palette hx-background-default">hx-background-default</div>
-            <div class="hx-section palette hx-background-action">hx-background-action</div>
-            <div class="hx-section palette hx-background-positive">hx-background-positive</div>
-            <div class="hx-section palette hx-background-warning">hx-background-warning</div>
-            <div class="hx-section palette hx-background-negative">hx-background-negative</div>
-            <div class="hx-section palette hx-background-info">hx-background-info</div>
-            <div class="hx-section palette hx-background-complement">hx-background-complement</div>
-            <div class="hx-section palette hx-background-contrast">hx-background-contrast</div>
-            <div class="hx-section palette hx-background-disabled">hx-background-disabled</div>
-          </div>
-
-          <div class="hx-layout hx-group hx-horizontal">
-            <div class="hx-section palette palette-border hx-border-default">hx-border-default</div>
-            <div class="hx-section palette palette-border hx-border-action">hx-border-action</div>
-            <div class="hx-section palette palette-border hx-border-positive">hx-border-positive</div>
-            <div class="hx-section palette palette-border hx-border-warning">hx-border-warning</div>
-            <div class="hx-section palette palette-border hx-border-negative">hx-border-negative</div>
-            <div class="hx-section palette palette-border hx-border-info">hx-border-info</div>
-            <div class="hx-section palette palette-border hx-border-complement">hx-border-complement</div>
-            <div class="hx-section palette palette-border hx-border-contrast">hx-border-contrast</div>
-            <div class="hx-section palette palette-border hx-border-disabled">hx-border-disabled</div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- notices -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Notices</h3>
-          <div class="hx-notice">
-            <div class="hx-notice-header">Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-
-          <div class="hx-notice hx-action">
-            <div class="hx-notice-header">Action Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-
-          <div class="hx-notice hx-positive">
-            <div class="hx-notice-header">Positive Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-
-          <div class="hx-notice hx-warning">
-            <div class="hx-notice-header">Warning Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-
-          <div class="hx-notice hx-negative">
-            <div class="hx-notice-header">Negative Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-
-          <div class="hx-notice hx-info">
-            <div class="hx-notice-header">Info Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-
-          <div class="hx-notice hx-complement">
-            <div class="hx-notice-header">Complement Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-
-          <div class="hx-notice hx-contrast">
-            <div class="hx-notice-header">Contrast Notice</div>
-            <div class="hx-notice-body">Body Content</div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- base -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Base</h3>
-          <h1>h1</h1>
-          <h2>h2</h2>
-          <h3>h3</h3>
-          <h4>h4</h4>
-          <h5>h5</h5>
-          <h6>h6</h6>
-
-          <div class="hx-header-large">hx-header-large</div>
-          <div class="hx-header-medium">hx-header-medium</div>
-          <div class="hx-header-small">hx-header-small</div>
-          <div class="hx-header">hx-header</div>
-
-          <input></input>
+      <div class="demo-section">
+        <h3>Notify</h3>
+        <div class="demo-section-examples">
+          <p class="demo-comment">These notifications show using the default notification manager</p>
+          <button class="hx-btn hx-info" onclick="hx.notify.info('Info');">Info</button>
+          <button class="hx-btn hx-positive" onclick="hx.notify.positive('Positive');">Positive</button>
+          <button class="hx-btn hx-warning" onclick="hx.notify.warning('Warning');">Warning</button>
+          <button class="hx-btn hx-negative" onclick="hx.notify.negative('Negative');">Negative</button>
+          <button class="hx-btn" onclick="hx.notify.loading('Loading');">Loading</button>
+          <button class="hx-btn" onclick="hx.notify('Temporary');">Temporary</button>
+          <button class="hx-btn" onclick="hx.notify('Permanent', {timeout: undefined});">Permanent</button>
           <br>
-
-          <textarea></textarea>
           <br>
-
-          <select>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </select>
-        </div>
-      </div>
-
-
-      <!-- form-builder -->
-      <div class="hx-section exampleSection">
-        <div class="example">
-          <h3>Form Builder</h3>
-          <div id="form"></div>
+          <p class="demo-comment">You can create custom notification managers when the default one is in the wrong place in the dom</p>
+          <div id="notifyExample"></div>
+          <button class="notifyBtn hx-btn">Default</button>
+          <button class="notifyBtn hx-btn hx-positive">Positive</button>
+          <button class="notifyBtn hx-btn hx-warning">Warning</button>
+          <button class="notifyBtn hx-btn hx-negative">Negative</button>
+          <button class="notifyBtn hx-btn hx-info">Info</button>
+          <button class="notifyBtn hx-btn hx-action">Loading</button>
           <script>
-            new hx.Form('#form')
-              .addText('Text', { required:true, placeholder:'Name' })
-              .addTextArea('Text Area', { placeholder:'Name' })
-              .addEmail('Email', { required:true, placeholder:'your.name@ocado.com' })
-              .addUrl('Url', { placeholder:'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
-              .addNumber('Number', {required:true})
-              .addPicker('Select', ['red', 'green', 'blue'])
-              .addCheckbox('Checkbox')
-              .addPassword('Password')
-              .addRadio('Radio', ['One', 'Two', 'Three'])
-              .addTagInput('Tag Input')
-              .addDatePicker('Date Picker')
-              .addTimePicker('Time Picker')
-              .addDateTimePicker('Date Time Picker')
-              .addSubmit('Submit', 'fa fa-check')
-              .on('submit', function(data){console.log(data)})
+          const notificationManager = new hx.NotificationManager('#notifyExample')
+          const notifications = [{
+              type: 'notify',
+              message: 'Default Notification'
+            },
+            {
+              type: 'positive',
+              message: 'Positive Notification'
+            },
+            {
+              type: 'warning',
+              message: 'Warning Notification'
+            },
+            {
+              type: 'negative',
+              message: 'Negative Notification'
+            },
+            {
+              type: 'info',
+              message: 'Info Notification'
+            },
+            {
+              type: 'loading',
+              message: 'Loading Notification'
+            }
+          ]
+
+          hx.selectAll('.notifyBtn').forEach((selection, index) => {
+            selection.on('click', () => {
+              const notification = notifications[index]
+              notificationManager[notification.type](notification.message);
+            })
+          })
           </script>
         </div>
       </div>
+      <div class="demo-section">
+        <h3>Number Picker</h3>
+        <div class="demo-section-examples">
+          <div id="number-picker-1"></div>
+          <div id="number-picker-2"></div>
+          <div id="number-picker-3"></div>
+          <script>
+          var numPicker1 = new hx.NumberPicker('#number-picker-1');
+          var numPicker2 = new hx.NumberPicker('#number-picker-2', { buttonClass: 'hx-positive' });
+          var numPicker3 = new hx.NumberPicker('#number-picker-3', { buttonClass: 'hx-info' });
 
+          numPicker1.value(50);
+          numPicker2.value(1050);
 
-      <!-- error-pages -->
-      <div class="hx-section exampleSectionNoBg">
-        <div class="example">
-          <h3>Error Pages</h3>
-          This module should never be used on content with a background
-          <div style="position: relative; height: 500px;">
-            <div class="hx-error-message">
-              <div class="hx-error-message-heading">
-                Something went wrong
+          numPicker3
+            .value(-1)
+            .min(0)
+            .max(10);
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Paginator</h3>
+        <div class="demo-section-examples">
+          <div id="paginatorExample"></div>
+          <script>
+          new hx.Paginator('#paginatorExample', {
+            pageCount: 20,
+            visibleCount: 10
+          })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Picker</h3>
+        <div class="demo-section-examples">
+          <button id="picker-example" class="hx-btn"></button>
+          <script>
+          new hx.Picker('#picker-example', {
+            items: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other'],
+            startValue: 'Option 1'
+          })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Pivot Table</h3>
+        <div class="demo-section-examples">
+          <div id="pivot-table1"></div>
+          <br>
+          <div id="pivot-table2"></div>
+          <br>
+          <div id="pivot-table3"></div>
+          <br>
+          <div id="pivot-table4"></div>
+          <script>
+          var pivotTable1 = new hx.PivotTable('#pivot-table1')
+          var pivotTable2 = new hx.PivotTable('#pivot-table2')
+          var pivotTable3 = new hx.PivotTable('#pivot-table3')
+          var pivotTable4 = new hx.PivotTable('#pivot-table4', { fullWidth: true })
+
+          var data1 = {
+            topHead: [
+              'Head 1',
+              'Head 2',
+              'Head 3'
+            ],
+            leftHead: [
+              'Head 1',
+              'Head 2',
+              'Head 3'
+            ],
+            body: [
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ],
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ],
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ]
+            ]
+          }
+
+          var data2 = {
+            leftHead: [
+              'Head 1',
+              'Head 2',
+              'Head 3'
+            ],
+            body: [
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ],
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ],
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ]
+            ]
+          }
+
+          var data3 = {
+            topHead: [
+              'Head 1',
+              'Head 2',
+              'Head 3'
+            ],
+            body: [
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ],
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ],
+              [
+                'Cell 1',
+                'Cell 2',
+                'Cell 3'
+              ]
+            ]
+          }
+
+          pivotTable1.data(data1)
+          pivotTable2.data(data2)
+          pivotTable3.data(data3)
+          pivotTable4.data(data1)
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Plot</h3>
+        <div class="demo-section-examples">
+          <div id="graph" class="graph-example hx-margin"></div>
+          <div id="pie" class="hx-margin"></div>
+          <script>
+          function randomSign() {
+            return Math.random() > 0.5 ? 1 : 0
+          }
+
+          function createData(a, b, c) {
+            const offset = 0.1 + Math.random()
+            return hx.range(50).map(i => ({
+              x: i,
+              y: Math.abs(offset + a * Math.sin(i / 10) + b * Math.sin(i / 20) + c * Math.sin(i / 40) + Math.sin(i / 50) + Math.sin(i / 100))
+            }))
+          }
+
+          function makeSeries(colour, index) {
+            return {
+              type: 'line',
+              options: {
+                title: 'Series ' + (index + 1),
+                data: createData(randomSign(), randomSign(), randomSign()),
+                labelInterpolated: true,
+                markersEnabled: true,
+                strokeEnabled: true,
+                strokeColor: colour,
+                fillEnabled: true,
+                fillColor: hx.color(colour).alpha(0.2).toString(),
+                group: 'some-group'
+              }
+            }
+          }
+
+          const graph = new hx.Graph('#graph', {
+            axes: [{
+              x: {
+                title: 'Time'
+              },
+              y: {
+                title: 'Value',
+                scalePaddingMax: 0.1
+              },
+              series: hx.theme.plot.colors.map(makeSeries)
+            }]
+          })
+          graph.render()
+
+          const pieData = {
+            title: "Hi",
+            segments: hx.range(6).map(function(i) {
+              return {
+                name: "Segment " + i,
+                size: i + 1,
+                fillColor: hx.cycle(hx.theme.plot.colors, i)
+              }
+            })
+          }
+          hx.select('#pie').style('height', '200px').add(
+            hx.pieChart({ legendEnabled: true, data: pieData }).style('width', '100%').style('height', '100%')
+          )
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Progress Bar</h3>
+        <div class="demo-section-examples">
+          <div id="pb1" class="hx-progress-bar"></div>
+          <div id="pb2" class="hx-progress-bar hx-action"></div>
+          <div id="pb3" class="hx-progress-bar hx-positive"></div>
+          <div id="pb4" class="hx-progress-bar hx-warning"></div>
+          <div id="pb5" class="hx-progress-bar hx-negative"></div>
+          <div id="pb6" class="hx-progress-bar hx-info"></div>
+          <div id="pb7" class="hx-progress-bar hx-complement"></div>
+          <div id="pb8" class="hx-progress-bar hx-contrast"></div>
+          <script>
+          new hx.ProgressBar('#pb1', { value: 0.11 })
+          new hx.ProgressBar('#pb2', { value: 0.22 })
+          new hx.ProgressBar('#pb3', { value: 0.33 })
+          new hx.ProgressBar('#pb4', { value: 0.44 })
+          new hx.ProgressBar('#pb5', { value: 0.55 })
+          new hx.ProgressBar('#pb6', { value: 0.66 })
+          new hx.ProgressBar('#pb7', { value: 0.77 })
+          new hx.ProgressBar('#pb8', { value: 0.88 })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Side Collapsible</h3>
+        <div class="demo-section-examples">
+          <style>
+          .side-collapsible-example-container {
+            position: relative;
+            height: 300px;
+          }
+
+          .side-collapsible-example-left {
+            width: 500px;
+            height: 300px;
+            left: 0;
+            position: absolute;
+          }
+
+          .side-collapsible-example-right {
+            width: 500px;
+            height: 300px;
+            right: 0;
+            position: absolute;
+          }
+          </style>
+          <div class="side-collapsible-example-container">
+            <div id="side-collapsible-example-left" class="side-collapsible-example-left">
+              <div class="hx-side-collapsible-heading-closed">Closed Text</div>
+              <div class="hx-side-collapsible-heading-open">Open Text</div>
+              <div class="hx-side-collapsible-content">Content</div>
+            </div>
+            <div id="side-collapsible-example-right" class="side-collapsible-example-right">
+              <div class="hx-side-collapsible-heading-closed">Closed Text</div>
+              <div class="hx-side-collapsible-heading-open">Open Text</div>
+              <div class="hx-side-collapsible-content">Content</div>
+            </div>
+          </div>
+          <script>
+          new hx.SideCollapsible('#side-collapsible-example-left')
+          new hx.SideCollapsible('#side-collapsible-example-right', { position: 'right', animate: false })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Sidebar</h3>
+        <div class="demo-section-examples">
+          <style>
+          .sidebar-example {
+            position: relative;
+            height: 400px;
+          }
+
+          .sidebar-example .hx-sidebar {
+            position: absolute;
+          }
+
+          .sidebar-example .hx-content {
+            height: 354px;
+            overflow: auto;
+          }
+          </style>
+          <div class="hx-sidebar-page sidebar-example">
+            <div class="hx-heading" id="sidebar-titlebar">
+              <div class="hx-titlebar">
+                <div class="hx-titlebar-container">
+                  <div class="hx-titlebar-header" id="sidebar-titlebar-loc">
+                    <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
+                    <div class="hx-titlebar-title">Title</div>
+                    <div class="hx-titlebar-subtitle">Subtitle</div>
+                    <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p>The content you requested was not found</p>
+            </div>
+            <div class="hx-sidebar">
+              <div class="hx-sidebar-title">Docs</div>
+              <div id="collapsible1" class="hx-collapsible">
+                <div class="hx-collapsible-heading"><i class="fa fa-book"></i> Intro</div>
+                <div class="hx-collapsible-content">
+                  <div class="hx-sidebar-section">Getting Started</div>
+                  <div class="hx-sidebar-section">FAQs</div>
+                </div>
               </div>
-              <div>
-                <button onclick="javascript:window.history.back()" class="hx-btn">Go Back</button><a class="hx-btn" href="/">Go to Home Page</a>
+            </div>
+            <div class="hx-content" id="example-content"></div>
+          </div>
+          <script>
+          var titlebar = new hx.TitleBar('#sidebar-titlebar')
+
+          // the options are not normally needed when initialising the sidebar - they are
+          // required for this example since the sidebar is not in it's usual place within the dom
+          var sidebar = new hx.Sidebar('.hx-sidebar', {
+            headerSelector: '#sidebar-titlebar-loc',
+            contentSelector: '#example-content',
+            autoAddSidebarClass: false
+          })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Slider</h3>
+        <div class="demo-section-examples">
+          <h4>Single Value</h4>
+          <div id="slider-example"></div>
+          <h4>Range</h4>
+          <div id="slider-range-example"></div>
+          <h4>Discrete Values</h4>
+          <div id="slider-discrete-example"></div>
+          <script>
+          new hx.Slider('#slider-example', {
+            renderer: function(slider, element, value) {
+              hx.select(element).text(Math.round(value * 100) + '%')
+            }
+          })
+
+          new hx.Slider('#slider-range-example', {
+            renderer: function(slider, element, value) {
+              hx.select(element).text(Math.round(value * 100) + '%')
+            },
+            type: 'range'
+          })
+
+          new hx.Slider('#slider-discrete-example', {
+            discreteValues: ['1 star. Whatever I am rating, it was terrible. I would give it no stars if I could.', '2 stars', '3 stars', '4 stars', '5 stars']
+          }).value('2 stars')
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Sticky Table Headers</h3>
+        <div class="demo-section-examples">
+          <style>
+          .example-table {
+            max-height: 300px;
+            overflow: hidden;
+          }
+          </style>
+          <div id="table" class="example-table">
+            <table class="hx-table">
+              <thead>
+                <tr>
+                  <th>Head Text 1</th>
+                  <th>Head Text 2</th>
+                  <th>Head Text 3</th>
+                  <th>Head Text 4</th>
+                  <th>Head Text 5</th>
+                  <th>Head Text 6</th>
+                  <th>Head Text 7</th>
+                  <th>Head Text 8</th>
+                  <th>Head Text 9</th>
+                  <th>Head Text 10</th>
+                  <th>Head Text 11</th>
+                  <th>Head Text 12</th>
+                  <th>Head Text 13</th>
+                  <th>Head Text 14</th>
+                  <th>Head Text 15</th>
+                  <th>Head Text 16</th>
+                  <th>Head Text 17</th>
+                  <th>Head Text 18</th>
+                  <th>Head Text 19</th>
+                  <th>Head Text 20</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+                <tr>
+                  <td>Cell Text 1</td>
+                  <td>Cell Text 2</td>
+                  <td>Cell Text 3</td>
+                  <td>Cell Text 4</td>
+                  <td>Cell Text 5</td>
+                  <td>Cell Text 6</td>
+                  <td>Cell Text 7</td>
+                  <td>Cell Text 8</td>
+                  <td>Cell Text 9</td>
+                  <td>Cell Text 10</td>
+                  <td>Cell Text 11</td>
+                  <td>Cell Text 12</td>
+                  <td>Cell Text 13</td>
+                  <td>Cell Text 14</td>
+                  <td>Cell Text 15</td>
+                  <td>Cell Text 16</td>
+                  <td>Cell Text 17</td>
+                  <td>Cell Text 18</td>
+                  <td>Cell Text 19</td>
+                  <td>Cell Text 20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <script>
+          new hx.StickyTableHeaders('#table')
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Tabs</h3>
+        <div class="demo-section-examples">
+          <div id="tabs-example" class="hx-tabs">
+            <div id="tab1" class="hx-tab hx-positive" data-content="tab-content-1">Tab 1</div>
+            <div id="tab2" class="hx-tab hx-warning" data-content="tab-content-2">Tab 2</div>
+            <div id="tab3" class="hx-tab hx-negative" data-content="tab-content-3">Tab 3</div>
+            <div class="hx-tabs-content demo-tabs-content-padded">
+              <div id="tab-content-1" class="hx-tab-content" style="padding: 1em;">Stuff goes here 1</div>
+              <div id="tab-content-2" class="hx-tab-content" style="padding: 1em;">Stuff goes here 2</div>
+              <div id="tab-content-3" class="hx-tab-content" style="padding: 1em;">Stuff goes here 3</div>
+            </div>
+          </div>
+          <br>
+          <div id="tabs-script" class="hx-tabs">
+            <div id="tab1" class="hx-tab">Tab 1</div>
+            <div id="tab2" class="hx-tab hx-action">Tab 2</div>
+            <div id="tab3" class="hx-tab hx-positive">Tab 3</div>
+            <div id="tab4" class="hx-tab hx-warning">Tab 4</div>
+            <div id="tab5" class="hx-tab hx-negative">Tab 5</div>
+            <div id="tab6" class="hx-tab hx-info">Tab 6</div>
+            <div id="tab7" class="hx-tab hx-contrast">Tab 7</div>
+            <div class="hx-tabs-content" style="padding: 1em;"></div>
+          </div>
+          <script>
+          new hx.Tabs('#tabs-example');
+
+          var tabs = new hx.Tabs('#tabs-script');
+
+          tabs.on('change', function(data) {
+            hx.select('#tabs-script')
+              .select('.hx-tabs-content')
+              .text('Tab ' + (data.id + 1) + ' selected')
+          });
+
+          tabs.select(0, true);
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Tag Input</h3>
+        <div class="demo-section-examples">
+          <div id="tag-input"></div>
+          <br>
+          <div id="tag-input-2"></div>
+          <script>
+          new hx.TagInput('#tag-input', {
+            items: ['tag-1', 'tag-2', 'tag-3']
+          })
+
+          var tagInput = new hx.TagInput('#tag-input-2', {
+            classifier: function(value) {
+              switch (value) {
+                case 'hello':
+                  return 'hx-positive'
+                case 'goodbye':
+                  return 'hx-negative'
+              }
+            }
+          })
+          tagInput.add('hello', 'hx-positive')
+          tagInput.add('goodbye', 'hx-negative')
+          tagInput.add(['tag', 'tag2'])
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Time Picker</h3>
+        <div class="demo-section-examples">
+          <div id="timepicker"></div>
+          <br>
+          <div id="timepickerseconds"></div>
+          <script>
+          new hx.TimePicker('#timepicker')
+          new hx.TimePicker('#timepickerseconds', { showSeconds: true })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Time Slider</h3>
+        <div class="demo-section-examples">
+          <h4>Single Value</h4>
+          <div id="time-slider-example"></div>
+          <h4>Range</h4>
+          <div id="time-slider-range-example"></div>
+          <h4>Discrete Values</h4>
+          <div id="time-slider-discrete-example"></div>
+          <script>
+          new hx.TimeSlider('#time-slider-example')
+
+          new hx.TimeSlider('#time-slider-range-example', {
+            type: 'range'
+          })
+
+          new hx.TimeSlider('#time-slider-discrete-example', {
+            step: 2 * 60 * 60 * 1000 // 2 hours
+          })
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Titlebar</h3>
+        <div class="demo-section-examples">
+          <div class="hx-heading example-heading">
+            <div class="hx-titlebar">
+              <div class="hx-titlebar-container">
+                <div class="hx-titlebar-header">
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                  <div class="hx-titlebar-title">Title</div>
+                  <div class="hx-titlebar-subtitle">Subtitle</div>
+                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                </div>
+                <div class="hx-titlebar-menu-icons">
+                  <div class="hx-titlebar-menu-icons-container">
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hx-titlebar-linkbar">
+              <div class="hx-titlebar-contents">
+                <a class="hx-titlebar-link">Link 1</a>
+                <a class="hx-titlebar-link">Link 2</a>
+                <a class="hx-titlebar-link">Link 3</a>
+                <a class="hx-titlebar-link">Link 4</a>
+                <a class="hx-titlebar-link">Link 5</a>
               </div>
             </div>
           </div>
+          <br>
+          <div class="hx-heading example-heading">
+            <div class="hx-titlebar">
+              <div class="hx-titlebar-container">
+                <div class="hx-titlebar-header">
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                  <div class="hx-titlebar-title">Title</div>
+                  <div class="hx-titlebar-subtitle">Subtitle</div>
+                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                </div>
+                <div class="hx-titlebar-menu-icons">
+                  <div class="hx-titlebar-menu-content">
+                    <!-- New div for other titlebar content -->
+                    <div class="hx-input-group">
+                      <input type="text" id="exampleInput">
+                      <button class="hx-btn hx-positive"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                  <div class="hx-titlebar-menu-icons-container">
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div id="fluidTitleBars"></div>
+          <script>
+          hx.selectAll('.example-heading')
+            .map(sel => new hx.TitleBar(sel))
+          const titlebarContexts = [
+            'hx-action',
+            'hx-positive',
+            'hx-warning',
+            'hx-negative',
+            'hx-info'
+          ]
+          hx.select('#fluidTitleBars')
+            .set(hx.flatten(titlebarContexts.map(ctx => {
+              const tb = hx.titleBar({
+                title: 'TitleBar.contextClass',
+                subtitle: ctx
+              })
+              tb.component().contextClass(ctx)
+              return [
+                tb,
+                hx.detached('br').node()
+              ]
+            })))
+          </script>
         </div>
       </div>
+      <div class="demo-section">
+        <h3>Toggle</h3>
+        <div class="demo-section-examples">
+          Some Text
+          <div id="toggle"></div>
+          <button id="toggle2" class="hx-btn">Toggle Button</button>
+          More Text
+          <script>
+          var toggle = new hx.Toggle("#toggle")
+          toggle.on('change', function(value) {
+            hx.notify.info("Toggle value set to " + value)
+          })
 
+          new hx.Toggle("#toggle2")
+          </script>
+        </div>
+      </div>
+      <div class="demo-section">
+        <h3>Tree</h3>
+        <div class="demo-section-examples">
+          <div id="example-tree" class="hx-tree">
+            <div class="hx-tree-node">
+              <div class="hx-tree-node-parent">
+                <div class="hx-tree-node-content">Parent 1</div>
+              </div>
+              <div class="hx-tree-node-children" style="display:none">
+                <div class="hx-tree-node">
+                  <div class="hx-tree-node-content">Item 1</div>
+                </div>
+                <div class="hx-tree-node">
+                  <div class="hx-tree-node-parent">
+                    <div class="hx-tree-node-content">Parent 2</div>
+                  </div>
+                  <div class="hx-tree-node-children" style="display:none">
+                    <div class="hx-tree-node">
+                      <div class="hx-tree-node-content">Item 2</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div id="example-dynamic-tree"></div>
+          <script>
+          new hx.Tree('#example-tree')
+          new hx.Tree('#example-dynamic-tree', {
+            renderer: function(elem, data) { hx.select(elem).html(data.name) },
+            items: [{
+              name: 'Parent 1',
+              children: [{
+                  name: 'Item 1'
+                },
+                {
+                  name: 'Parent 2',
+                  children: [{
+                    name: 'Item 2'
+                  }]
+                }
+              ]
+            }]
+          })
+          </script>
+        </div>
+      </div>
     </div>
-  </div>
+    <div class="demo-group">
+      <h2>Utils (Javascript)</h2>
+      <div class="demo-section">
+        <h3>Palette</h3>
+        <div class="demo-section-examples">
+          <style>
+          .palette-example {
+            min-width: 150px;
+            padding: 0.5em;
+            text-align: center;
+          }
 
-
-<script type="text/javascript" src="index.js"></script>
-<script type="text/javascript" src="hexagon.print.js"></script>
-</body>
-</html>
-
-
-<!--
-  .hx-section.exampleSection>.example>h3
-
-  @div .hx-section.example
-    @h3: Paginator
-    @div #paginator
-    @js
-      new hx.Paginator('#paginator')
-
-  @div .hx-section.example
-    @h3: Progress Bars
-    @div .hx-pad: @div #progress-bar-1
-    @div .hx-pad: @div #progress-bar-2.hx-positive
-    @div .hx-pad: @div #progress-bar-3.hx-negative
-    @div .hx-pad: @div #progress-bar-4.hx-warning
-    @div .hx-pad: @div #progress-bar-5.hx-info
-    @div .hx-pad: @div #progress-bar-6.hx-complement
-    @div .hx-pad: @div #progress-bar-7.hx-contrast
-
-    @js
-      new hx.ProgressBar('#progress-bar-1').value(0.2)
-      new hx.ProgressBar('#progress-bar-2').value(0.3)
-      new hx.ProgressBar('#progress-bar-3').value(0.4)
-      new hx.ProgressBar('#progress-bar-4').value(0.5)
-      new hx.ProgressBar('#progress-bar-5').value(0.6)
-      new hx.ProgressBar('#progress-bar-6').value(0.7)
-      new hx.ProgressBar('#progress-bar-7').value(0.8)
-
-
-  @div .hx-section.example
-    @h3: Morph Section
-    @html
-      <div id="morph-section" class="hx-morph-section hx-margin">
-        <button class="hx-btn hx-info hx-morph-toggle">Register</button>
-        <div class="hx-morph-content hx-pad hx-border">
-          <form id="morph-form" class="hx-form"></form>
-        </div>
-      </div>
-    @js
-      new hx.Form('#morph-form')
-        .addEmail('Email')
-        .addPassword('Password')
-        .addSubmit('Sign up!')
-
-      new hx.MorphSection('#morph-section')
-
-  @div .hx-section.example
-    @h3: Tabs
-    @html
-      <div id="tabs2" class="hx-tabs">
-        <div id="tab1" class="hx-tab">Tab 1</div>
-        <div id="tab2" class="hx-tab hx-positive">Tab 2</div>
-        <div id="tab3" class="hx-tab hx-warning">Tab 3</div>
-        <div id="tab4" class="hx-tab hx-negative">Tab 4</div>
-        <div id="tab5" class="hx-tab hx-info">Tab 5</div>
-        <div id="tab6" class="hx-tab hx-contrast">Tab 7</div>
-        <div class="hx-tabs-content" style="padding: 1em;"></div>
-      </div>
-    @js
-      var tabs = new hx.Tabs('#tabs2');
-
-      tabs.on('change', function(data){
-        hx.select('#tabs2')
-          .select('.hx-tabs-content')
-          .text('Tab ' + (data.id+1) + ' selected')
-      });
-
-      tabs.select(0, true);
-
-  @div .hx-section.example
-    @h3: Toggle Button
-    @html
-      <button id="toggle1" class="hx-btn">Toggle Button</button>
-      <button id="toggle2" class="hx-btn hx-positive">Toggle Button</button>
-    @js
-      var toggle1 = new hx.Toggle('#toggle1')
-      var toggle2 = new hx.Toggle('#toggle2', {value: false})
-
-
-  @div .hx-section.example
-    @h3: Typography
-    @h1: Heading 1
-    @h2: Heading 2
-    @h3: Heading 3
-    @h4: Heading 4
-    @h5: Heading 5
-    @h6: Heading 6
-
-  @div .hx-section.example
-    @h3: Form
-    @html:
-      <form class="hx-form">
-        <div>
-          <label>Text</label>
-          <input type="text">
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="email">
-        </div>
-        <div>
-          <label>Number</label>
-          <input type="number">
-        </div>
-        <div>
-          <label>Url</label>
-          <input type="url">
-        </div>
-        <div>
-          <label>Radio</label>
-          <div id="group-1">
-            <div>
-              <input type="radio" value="One" name="group-1">
-              <label>One</label>
-            </div>
-            <div>
-              <input type="radio" value="Two" name="group-1">
-              <label>Two</label>
-            </div>
-            <div>
-              <input type="radio" value="Three" name="group-1">
-              <label>Three</label>
-            </div>
+          .palette-example-border {
+            border: 1px solid transparent;
+          }
+          </style>
+          <h4>Text Classes</h4>
+          <div class="hx-layout hx-group hx-horizontal">
+            <div class="hx-section palette-example hx-text-default">hx-text-default</div>
+            <div class="hx-section palette-example hx-text-action">hx-text-action</div>
+            <div class="hx-section palette-example hx-text-positive">hx-text-positive</div>
+            <div class="hx-section palette-example hx-text-warning">hx-text-warning</div>
+            <div class="hx-section palette-example hx-text-negative">hx-text-negative</div>
+            <div class="hx-section palette-example hx-text-info">hx-text-info</div>
+            <div class="hx-section palette-example hx-text-complement">hx-text-complement</div>
+            <div class="hx-section palette-example hx-text-contrast">hx-text-contrast</div>
+            <div class="hx-section palette-example hx-text-disabled">hx-text-disabled</div>
+          </div>
+          <h4>Background Classes</h4>
+          <div class="hx-layout hx-group hx-horizontal">
+            <div class="hx-section palette-example hx-background-default">hx-background-default</div>
+            <div class="hx-section palette-example hx-background-action">hx-background-action</div>
+            <div class="hx-section palette-example hx-background-positive">hx-background-positive</div>
+            <div class="hx-section palette-example hx-background-warning">hx-background-warning</div>
+            <div class="hx-section palette-example hx-background-negative">hx-background-negative</div>
+            <div class="hx-section palette-example hx-background-info">hx-background-info</div>
+            <div class="hx-section palette-example hx-background-complement">hx-background-complement</div>
+            <div class="hx-section palette-example hx-background-contrast">hx-background-contrast</div>
+            <div class="hx-section palette-example hx-background-disabled">hx-background-disabled</div>
+          </div>
+          <h4>Border Classes</h4>
+          <div class="hx-layout hx-group hx-horizontal">
+            <div class="hx-section palette-example palette-example-border hx-border-default">hx-border-default</div>
+            <div class="hx-section palette-example palette-example-border hx-border-action">hx-border-action</div>
+            <div class="hx-section palette-example palette-example-border hx-border-positive">hx-border-positive</div>
+            <div class="hx-section palette-example palette-example-border hx-border-warning">hx-border-warning</div>
+            <div class="hx-section palette-example palette-example-border hx-border-negative">hx-border-negative</div>
+            <div class="hx-section palette-example palette-example-border hx-border-info">hx-border-info</div>
+            <div class="hx-section palette-example palette-example-border hx-border-complement">hx-border-complement</div>
+            <div class="hx-section palette-example palette-example-border hx-border-contrast">hx-border-contrast</div>
+            <div class="hx-section palette-example palette-example-border hx-border-disabled">hx-border-disabled</div>
           </div>
         </div>
-        <div>
-          <label>Checkbox</label>
-          <input type="checkbox">
-        </div>
-        <button type="submit" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
-      </form>
- -->
+      </div>
+    </div>
+    <script type="text/javascript" src="./index.js"></script>
+    <script type="text/javascript" src="./hexagon.print.js"></script>
+  </div>
+</body>
+
+</html>
