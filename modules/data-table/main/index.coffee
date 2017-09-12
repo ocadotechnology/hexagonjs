@@ -301,6 +301,7 @@ class DataTable extends hx.EventEmitter
       singleSelection: false
       sort: undefined
       sortEnabled: true
+      highlightOnHover: true
 
       # functions used for getting row state
       rowIDLookup: (row) -> row.id
@@ -564,6 +565,7 @@ class DataTable extends hx.EventEmitter
   rowIDLookup: option('rowIDLookup')
   rowSelectableLookup: option('rowSelectableLookup')
   selectEnabled: option('selectEnabled')
+  highlightOnHover: option('highlightOnHover')
   singleSelection: option('singleSelection')
   sort: option('sort')
 
@@ -682,6 +684,7 @@ class DataTable extends hx.EventEmitter
     # build the main structure of the table in a detached container
     container = hx.detached('div').class('hx-data-table-content')
     table = container.append('table').class('hx-data-table-table hx-table')
+      .classed('hx-table-no-hover', not options.highlightOnHover)
     thead = table.append('thead').class('hx-data-table-head')
     tbody = table.append('tbody').class('hx-data-table-body')
     headerRow = thead.append('tr').class('hx-data-table-row')

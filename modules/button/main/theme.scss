@@ -8,11 +8,11 @@
   }
 }
 
-@mixin button($class, $color) {
+@mixin button($class, $color, $border-col) {
   &#{if($class, "." + $class, "")} {
     background: $color;
     color: getTextColFromBG($color);
-    border-color: darken($color, 10%);
+    border-color: $border-col;
 
     &:active,
     &:hover {
@@ -32,7 +32,7 @@
     &.hx-btn-invert {
       background: $invert-col;
       color: $invert-text-col;
-      border-color: darken($invert-col, 10%);
+      border-color: $invert-border-col;
 
       &:hover {
         background: $invert-hover-col;
@@ -53,14 +53,14 @@
 }
 
 .hx-btn {
-  @include button(false, $default-col);
-  @include button(hx-action, $action-col);
-  @include button(hx-positive, $positive-col);
-  @include button(hx-negative, $negative-col);
-  @include button(hx-warning, $warning-col);
-  @include button(hx-info, $info-col);
-  @include button(hx-complement, $complement-col);
-  @include button(hx-contrast, $contrast-col);
+  @include button(false, $default-col, $default-border-col);
+  @include button(hx-action, $action-col, $action-border-col);
+  @include button(hx-positive, $positive-col, $positive-border-col);
+  @include button(hx-negative, $negative-col, $negative-border-col);
+  @include button(hx-warning, $warning-col, $warning-border-col);
+  @include button(hx-info, $info-col, $info-border-col);
+  @include button(hx-complement, $complement-col, $complement-border-col);
+  @include button(hx-contrast, $contrast-col, $contrast-border-col);
 
   &.hx-btn-invisible {
     color: $invisible-text-col;

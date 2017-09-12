@@ -53,7 +53,7 @@ class TitleBar
     if arguments.length > 0
       if cls?
         @_.cls = undefined
-        for d in ['hx-positive', 'hx-negative', 'hx-warning', 'hx-info']
+        for d in ['hx-action', 'hx-positive', 'hx-negative', 'hx-warning', 'hx-info']
           if cls == d then @_.cls = d # Inside loop to confirm that the class being set is real.
           hx.select(@selector).select('.hx-titlebar').classed(d, cls == d)
       this
