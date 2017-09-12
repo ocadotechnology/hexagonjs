@@ -273,5 +273,9 @@
         Some utility methods on @code[Selection] have been added for replacing
         DOM and setting the children of a @code[Selection].
 
+    @version 1.13.0
+      @description
+        Add several new features and style tweaks based on UX discussion(s)
+
   @h2: Key
   @changelog.key
