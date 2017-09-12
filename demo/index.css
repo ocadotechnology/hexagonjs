@@ -1,3 +1,22 @@
+.menu {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.hx-titlebar-menu-content {
+  color: inherit;
+}
+
+.demo-section-examples {
+  margin: 0 0 0.5em 0;
+  padding: 0.4em;
+  border: 1px dashed #DDD;
+}
+
+.demo-comment {
+  color: #999;
+}
+
 #container {
   justify-content: center;
   min-width: 320px;
