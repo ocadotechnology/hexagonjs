@@ -1,4 +1,4 @@
-@version 1.13.0.um
+@version 1.13.0
   @api Data Table
     @prototype hx.DataTable
       @constructor

@@ -1,6 +1,6 @@
 {
   "name": "hexagon-site",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
     "Charlie Frater <charlie.frater@ocado.com>"
@@ -15,7 +15,7 @@
     "build-examples": "node build/buildexamples.js",
     "build-hexagon": "node build/index.js build-hexagon",
     "build-release": "node build/index.js build-release",
-    "upload": "gcloud app deploy target/app.yaml --project causal-galaxy-939 --version 29 --promote",
+    "upload": "gcloud app deploy target/app.yaml --project causal-galaxy-939 --version 30 --promote",
     "clean-npm": "rm -r node_modules; true && npm install",
     "prepare-release": "npm run clean && npm run clean-npm && npm run build-examples",
     "test": "npm run prepare-release && npm run build-all",
