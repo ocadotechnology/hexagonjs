@@ -1,4 +1,4 @@
-@inline ../templates/sidebar-page.um
+@inline /templates/sidebar-page.um
 
 @topSection
   @title Change Log
@@ -8,7 +8,7 @@
     @groupByApi true
     @reverseVisibleList true
     @process
-      @inline ../docs/animate/index.um
+      @inline /content/docs/**/index.um
 
     @version 0.9.0
       @description
@@ -372,7 +372,52 @@
         This release also includes a selection of bugfixes
 
     @version 1.8.1
-      @description: Patch the issue introduced in the Notification module introduced in the previous version.
+      @description
+        Patch the issue introduced in the Notification module introduced in the
+        previous version.
 
     @version 1.8.2
-      @description: Fix an issue with the autocomplete and autocomplete picker that caused it to break when there are no disabled items to filter.
+      @description
+          Fix an issue with the autocomplete and autocomplete picker that caused
+          it to break when there are no disabled items to filter.
+
+    @version 1.9.0
+      @description
+        Resolved an issue caused by the addition of
+        @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent)[PointerEvent]
+        in Chrome 55+.
+
+        The native @code[PointerEvent] has been disabled in this version
+        because of an incompatibility with the Hexagon pointer events. Native
+        support will be re-introduced in the next major release.
+
+
+    @version 1.10.0
+      @description
+        Resolved some issues with the data table sort/filter.
+
+        Added automatic label collision detection to graphs to prevent label
+        overlap.
+
+        Made Inline Editables allow 'empty' values.
+
+        Fixed a selection of bugs.
+
+
+    @version 1.11.0
+      @description
+        Fixed an issue where running the tests in a different timezone
+        caused them to fail unexpectedly and the associated bug in the timezone
+        logic.
+
+        Fixed selections so calling hx.select on a Selection no longer
+        shows a warning (and instead performs a no-op)
+
+    @version 1.12.0
+      @description
+        Some utility methods on @code[Selection] have been added for replacing
+        DOM and setting the children of a @code[Selection].
+
+    @version 1.13.0
+      @description
+        Add several new features and style tweaks based on UX discussion(s)

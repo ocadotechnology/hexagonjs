@@ -17,6 +17,7 @@ var backendRows = [
 new hx.DataTable('#lazy-example', {
   pageSize: 2,
   pageSizeOptions: [1, 2, 3, 10],
+  filterEnabled: false,
   feed: {
     headers: function (cb) {
       return cb([
@@ -28,7 +29,7 @@ new hx.DataTable('#lazy-example', {
     rows: function (range, cb) {
       return cb({
         rows: backendRows.slice(range.start, range.end + 1),
-        filteredCount: finalSize !== undefined || range.end >= 2 ? finalSize = 3 : undefined
+        filteredCount: (finalSize !== undefined || range.end >= 2) ? finalSize = 3 : undefined
       })
     },
     totalCount: function (cb) {
