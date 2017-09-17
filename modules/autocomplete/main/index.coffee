@@ -3,7 +3,7 @@ import { sort } from 'sort/main'
 import { EventEmitter } from 'event-emitter/main'
 import { Map as HMap } from 'map/main'
 import * as filter from 'filter/main'
-import { select, detached } from 'selection/main'
+import { select, detached, div } from 'selection/main'
 import { Menu } from 'menu/main'
 import { groupBy, isFunction, isArray, merge } from 'utils/main'
 import logger from 'logger/main'
@@ -162,7 +162,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
     if items.length > 0
       _.menu.items(items)
       if _.menu.dropdown.isOpen()
-        _.menu.dropdown._.setupDropdown(_.menu.dropdown._.dropdown.node())
+        _.menu.dropdown.render()
       else
         _.menu.dropdown.show()
     else # Hide the dropdown as there are no items
@@ -243,9 +243,9 @@ export class AutoComplete extends EventEmitter
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?
-        (elem, item) -> select(elem).text(self.options.inputMap(item))
+        (item) -> div().text(self.options.inputMap(item))
       else
-        (elem, item) -> select(elem).text(item)
+        (item) -> div().text(item.text or item)
 
       if @options.minLength > 0 and @options.placeholder is undefined
         @options.placeholder = "Min length #{@options.minLength} characters"
@@ -298,19 +298,9 @@ export class AutoComplete extends EventEmitter
         , 200)
 
       # set properties and functions for menu
-      menu.renderer (elem, item) ->
-        # if the item is a unselectable item or a heading, we use a set renderer
-        # and ignore the passed in renderer
-        selection = select(elem)
-        selection.style('font-weight','')
-        if item.unselectable or item.heading
-          selection
-            .text(item.text)
-            .off()
-          if item.heading
-            selection.style('font-weight','600')
-        else
-          self.options.renderer(elem, item)
+      menu.renderer (item) =>
+        return this.options.renderer(item)
+          .classed('hx-autocomplete-item-unselectable', item.unselectable or item.heading)
 
       # called when a menu item is selected. Updates the input field when using
       # the arrow keys.

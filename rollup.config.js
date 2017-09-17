@@ -18,10 +18,12 @@ const progressOptions = {
 }
 
 const libraryConfig = {
-  entry: 'modules/hexagon.js',
-  dest: 'target/hexagon.js',
-  format: 'iife',
-  moduleName: 'hx',
+  input: 'modules/hexagon.js',
+  output: {
+    file: 'target/hexagon.js',
+    format: 'iife'
+  },
+  name: 'hx',
   plugins: [
     json(),
     buble({
@@ -36,10 +38,12 @@ const libraryConfig = {
 }
 
 const testConfig = {
-  entry: 'modules/hexagon.spec.js',
-  dest: 'target/hexagon.test.js',
-  format: 'iife',
-  moduleName: 'hexagonSpec',
+  input: 'modules/hexagon.spec.js',
+  output: {
+    file: 'target/hexagon.test.js',
+    format: 'iife'
+  },
+  name: 'hexagonSpec',
   external: ['chai'],
   globals: {
     'chai': 'window.chai'
@@ -58,10 +62,12 @@ const testConfig = {
 }
 
 const testCoverageConfig = {
-  entry: 'modules/hexagon.spec.js',
-  dest: 'target/hexagon.test.coverage.js',
-  format: 'iife',
-  moduleName: 'hexagonSpec',
+  input: 'modules/hexagon.spec.js',
+  output: {
+    file: 'target/hexagon.test.coverage.js',
+    format: 'iife'
+  },
+  name: 'hexagonSpec',
   external: ['chai'],
   globals: {
     'chai': 'window.chai'
@@ -99,10 +105,12 @@ function resolveHexagon () {
 }
 
 const demoConfig = {
-  entry: 'demo/index.js',
-  dest: 'target/index.js',
-  format: 'iife',
-  moduleName: 'hx',
+  input: 'demo/index.js',
+  output: {
+    file: 'target/index.js',
+    format: 'iife'
+  },
+  name: 'hx',
   plugins: [
     json(),
     coffee({

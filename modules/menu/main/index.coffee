@@ -181,19 +181,22 @@ class MenuItem
       collapsibleNode.view('.hx-collapsible-heading').apply(this)
       collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
 
-      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
+      collapsibleNode.select('.hx-collapsible-heading')
+        .classed('hx-menu-collapsible', true)
+        .set(@menu.options.renderer(@content))
+
       contentNode = container.select('.hx-collapsible-content').node()
 
-      @menu.options.renderer(headerNode, @content)
-      @collapsible = new Collapsible(collapsibleNode.node())
+      @collapsible = new Collapsible(collapsibleNode)
 
       populateNode(contentNode, @_.menuItems)
     else
-      linkEnabled = not @content.unselectable and not @content.disabled
-      container.classed('hx-menu-link', linkEnabled)
+      container
+        .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
         .classed('hx-menu-item-disabled', @content.disabled)
         .classed('hx-menu-unselectable', @content.unselectable)
-      @menu.options.renderer(container.node(), @content)
+        .set(@menu.options.renderer(@content))
+
 
 
 
@@ -208,8 +211,8 @@ export class Menu extends EventEmitter
         ddClass: '',
         disabled: false
       }
-      renderer: (node, data) ->
-        select(node).text(if data.text then data.text else data)
+      renderer: (data) ->
+        return div().text(data.text or data)
       items: []
     }, options)
 
@@ -227,27 +230,25 @@ export class Menu extends EventEmitter
 
     @options.dropdownOptions.ddClass = 'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
-    dropdownContent = (node) ->
-      elem = div()
-      menuItems = elem.select('.hx-menu-items')
-      if menuItems.empty()
-        menuItems = elem.append('div').class('hx-menu-items')
+    dropdownContent = () ->
+      container = div('hx-menu-items')
 
-      doneFn = (items) ->
+      setup = (items) ->
         if self._.itemsChanged # We don't want to keep making lots of new menu items if the items haven't changed
           self._.itemsChanged = false
           setupInner(self, items, self)
-        populateNode(menuItems.node(), self._.menuItems)
+        populateNode(container.node(), self._.menuItems)
 
       # Items as set by the user.
       rawItems = self._.items
 
       if isFunction(rawItems)
         self._.itemsChanged = true # Items have always changed when being returned from a function
-        rawItems (items) -> doneFn(items)
+        rawItems((items) -> setup(items))
       else
-        doneFn(rawItems)
-      return
+        setup(rawItems)
+
+      return container
 
     @dropdown = new Dropdown(@selector, dropdownContent, @options.dropdownOptions)
 

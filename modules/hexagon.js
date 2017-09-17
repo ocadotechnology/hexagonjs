@@ -114,6 +114,7 @@ export { Menu } from 'menu/main'
 export { autoComplete, AutoComplete } from 'autocomplete/main'
 export { numberPicker, NumberPicker } from 'number-picker/main'
 export { buttonGroup, ButtonGroup } from 'button-group/main'
+export { Picker, picker } from 'picker/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

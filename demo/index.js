@@ -10,6 +10,7 @@ import collapsibleExamples from './examples/collapsible'
 import paletteExamples from './examples/palette'
 import numberPickerExamples from './examples/number-picker'
 import autoCompleteExamples from './examples/autocomplete'
+import pickerExamples from './examples/picker'
 
 function example(title) {
   return div('example-section')
@@ -42,5 +43,6 @@ select('body')
     example('Collapsible').add(collapsibleExamples()),
     example('Palette').add(paletteExamples()),
     example('Number Pickers').add(numberPickerExamples()),
-    example('Auto Complete').add(autoCompleteExamples())
+    example('Auto Complete').add(autoCompleteExamples()),
+    example('Picker').add(pickerExamples())
   ]))

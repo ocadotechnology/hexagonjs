@@ -266,7 +266,6 @@
   --titlebar-context-icon-color: rgba(255, 255, 255, 0.5);
   --titlebar-context-icon-hover-color: rgba(255, 255, 255, 0.85);
 
-
   /* layout */
   --layout-content-padding: 1em;
   --layout-content-max-width: 1200px;
@@ -276,4 +275,68 @@
   --layout-named-class-min-width: 250px;
   --layout-content-breakpoint: 1300px;
   --layout-content-breakpoint-width: 900px;
+
+  /* menu */
+  --menu-border-width: #ffffff;
+  --menu-collapsible-background-color: #ffffff;
+  --menu-collapsible-text-color: #ffffff;
+
+  --menu-disabled-background-color: #ffffff;
+  --menu-disabled-text-color: #ffffff;
+
+  --menu-default-border-color: #ffffff;
+  --menu-default-background-color: #ffffff;
+  --menu-default-text-color: var(--theme-default-text-color);
+  --menu-default-border-color-hover: #ffffff;
+  --menu-default-background-color-hover: #ffffff;
+  --menu-default-text-color-hover: #ffffff;
+
+  --menu-action-border-color: #ffffff;
+  --menu-action-background-color: #ffffff;
+  --menu-action-text-color: #ffffff;
+  --menu-action-border-color-hover: #ffffff;
+  --menu-action-background-color-hover: #ffffff;
+  --menu-action-text-color-hover: #ffffff;
+
+  --menu-positive-border-color: #ffffff;
+  --menu-positive-background-color: #ffffff;
+  --menu-positive-text-color: #ffffff;
+  --menu-positive-border-color-hover: #ffffff;
+  --menu-positive-background-color-hover: #ffffff;
+  --menu-positive-text-color-hover: #ffffff;
+
+  --menu-negative-border-color: #ffffff;
+  --menu-negative-background-color: #ffffff;
+  --menu-negative-text-color: #ffffff;
+  --menu-negative-border-color-hover: #ffffff;
+  --menu-negative-background-color-hover: #ffffff;
+  --menu-negative-text-color-hover: #ffffff;
+
+  --menu-warning-border-color: #ffffff;
+  --menu-warning-background-color: #ffffff;
+  --menu-warning-text-color: #ffffff;
+  --menu-warning-border-color-hover: #ffffff;
+  --menu-warning-background-color-hover: #ffffff;
+  --menu-warning-text-color-hover: #ffffff;
+
+  --menu-info-border-color: #ffffff;
+  --menu-info-background-color: #ffffff;
+  --menu-info-text-color: #ffffff;
+  --menu-info-border-color-hover: #ffffff;
+  --menu-info-background-color-hover: #ffffff;
+  --menu-info-text-color-hover: #ffffff;
+
+  --menu-complement-border-color: #ffffff;
+  --menu-complement-background-color: #ffffff;
+  --menu-complement-text-color: #ffffff;
+  --menu-complement-border-color-hover: #ffffff;
+  --menu-complement-background-color-hover: #ffffff;
+  --menu-complement-text-color-hover: #ffffff;
+
+  --menu-contrast-border-color: #ffffff;
+  --menu-contrast-background-color: #ffffff;
+  --menu-contrast-text-color: #ffffff;
+  --menu-contrast-border-color-hover: #ffffff;
+  --menu-contrast-background-color-hover: #ffffff;
+  --menu-contrast-text-color-hover: #ffffff;
 }

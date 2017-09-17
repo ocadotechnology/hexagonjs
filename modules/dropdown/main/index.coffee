@@ -45,14 +45,14 @@ checkFixedPos = (node) ->
   }
 
 dropdownContentToSetupDropdown = (dropdownContent) ->
-  setupDropdown = switch
+  return switch
     when isSelection(dropdownContent)
-      (node) -> select(node).add(dropdownContent)
+      (node) -> select(node).set(dropdownContent)
     when isString(dropdownContent)
       # XXX: [2.0.0] remove
       (node) -> select(node).html(dropdownContent)
     when isFunction(dropdownContent)
-      (node) -> select(node).add(dropdownContent())
+      (node) -> select(node).set(dropdownContent())
     else
       logger.warn('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
       -> undefined
@@ -138,8 +138,8 @@ export class Dropdown extends EventEmitter
     this
 
   render: ->
-    @_.setupDropdown @_.dropdown.node()
-    @emit 'render'
+    @_.setupDropdown(@_.dropdown.node())
+    @emit('render')
     this
 
   show: (cb) ->
