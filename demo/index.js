@@ -1,4 +1,4 @@
-import { select, div, detached } from 'hexagon-js'
+import { select, div, detached, titleBar } from 'hexagon-js'
 
 import loadingSpinnerExamples from './examples/loading-spinner'
 import modalExamples from './examples/modal'
@@ -17,22 +17,8 @@ function example(title) {
     .add(detached('h2').text(title))
 }
 
-//XXX should be part of hexagon (pending MR in the 1.x.x branch)
-function heading () {
-  return div('hx-heading')
-    .add(div('hx-titlebar')
-      .add(div('hx-titlebar-container')
-        .add(div('hx-titlebar-header')
-          .add(detached('a')
-            .class('hx-titlebar-icon')
-            .attr('href', '#')
-            .add(detached('img').class('hx-logo')))
-          .add(div('hx-titlebar-title').text('Title'))
-          .add(div('hx-titlebar-subtitle').text('Subtitle')))))
-}
-
 select('body')
-  .add(heading())
+  .add(titleBar({ title: 'Title', subtitle: 'Subtitle'}))
   .add(div('hx-content').add([
     example('Loading Spinners').add(loadingSpinnerExamples()),
     example('Modals').add(modalExamples()),
