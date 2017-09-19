@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.11.0
+ Version: 1.12.0
  Theme: hexagon-dark
  Modules:
    set
@@ -52,10 +52,10 @@
    autocomplete
    drag-container
    layout
+   fluid
    progress-bar
    plot
    button-group
-   fluid
    picker
    request
    sticky-table-headers
@@ -725,6 +725,7 @@ hr {
 .hx-border-left {
   border-left: solid 1px #4E5355; }
 
+
 .hx-progress-bar {
   border-color: none;
   border-width: 0;
@@ -845,7 +846,6 @@ hr {
 .hx-plot-label-marker {
   border-color: #252C2E;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25); }
-
 
 
 

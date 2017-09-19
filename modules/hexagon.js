@@ -109,12 +109,12 @@ export { spinner, spinnerWide } from 'spinner/main'
 export { Modal, modalDialog, modalInput } from 'modal/main'
 export { Dropdown } from 'dropdown/main'
 export { Collapsible, initializeCollapsibles } from 'collapsible/main'
-export { TitleBar } from 'titlebar/main'
+export { titleBar, TitleBar } from 'titlebar/main'
 export { Menu } from 'menu/main'
 export { autoComplete, AutoComplete } from 'autocomplete/main'
 export { numberPicker, NumberPicker } from 'number-picker/main'
 export { buttonGroup, ButtonGroup } from 'button-group/main'
-export { Picker, picker } from 'picker/main'
+export { picker, Picker } from 'picker/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

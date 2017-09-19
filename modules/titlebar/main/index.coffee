@@ -1,4 +1,4 @@
-import { select, selectAll } from 'selection/main'
+import { select, selectAll, detached, div } from 'selection/main'
 import { isString } from 'utils/main'
 
 setVisibility = (show, animate=true) ->
@@ -56,7 +56,7 @@ export class TitleBar
     if arguments.length > 0
       if cls?
         @_.cls = undefined
-        for d in ['hx-positive', 'hx-negative', 'hx-warning', 'hx-info']
+        for d in ['hx-action', 'hx-positive', 'hx-negative', 'hx-warning', 'hx-info']
           if cls == d then @_.cls = d # Inside loop to confirm that the class being set is real.
           select(@selector).select('.hx-titlebar').classed(d, cls == d)
       this
@@ -77,7 +77,43 @@ export class TitleBar
     else
       @_.active
 
+
 export initTitleBar = () ->
   # set up the titlebar
   if select('.hx-heading').size() > 0
-    module.exports.hx.titlebar = new TitleBar('.hx-heading')
+    titlebar = new TitleBar('.hx-heading')
+    # backwards compatibility
+    if window.hx
+      window.hx.titlebar = titlebar
+    return titlebar
+
+
+export titleBar = (options = {}) ->
+  {
+    title = 'Title',
+    subtitle = '',
+    showIcon = true,
+    iconLink = '#',
+    iconClass = 'hx-logo'
+  } = options
+
+  icon = if showIcon
+    detached('a')
+      .class('hx-titlebar-icon')
+      .attr('href', iconLink)
+      .add(detached('img').class(iconClass))
+
+  selection = div('hx-heading')
+    .add(div('hx-titlebar')
+      .add(div('hx-titlebar-container')
+        .add(div('hx-titlebar-header')
+          .add(icon)
+          .add(if title then div('hx-titlebar-title').text(title))
+          .add(if subtitle then div('hx-titlebar-subtitle').text(subtitle)))))
+
+  new TitleBar(selection)
+
+  return selection
+
+# set up the titlebar
+if select('.hx-heading').size() > 0 then titlebar = new TitleBar('.hx-heading')

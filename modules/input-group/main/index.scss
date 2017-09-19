@@ -70,6 +70,10 @@
         border-bottom-left-radius: 0.15em;
       }
 
+      &:not(:last-child) {
+        border-right-color: transparent;
+      }
+
       &:last-child {
         border-top-right-radius: 0.15em;
         border-bottom-right-radius: 0.15em;

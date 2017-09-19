@@ -25,6 +25,10 @@
   position: relative;
 }
 
+.hx-spinner-large {
+  font-size: 2.5em;
+}
+
 @keyframes slide {
   0% {
     margin-left: -var(--hx-spinner-width);

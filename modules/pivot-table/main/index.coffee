@@ -56,7 +56,9 @@ class PivotTable extends hx.EventEmitter
       cellRender: (data, element, isHead, column) ->
         hx.select(element).text(data)
       useResponsive: true
-      data: undefined
+      data: undefined,
+      fullWidth: undefined,
+      highlightOnHover: true
     }, options)
 
     @_ = {}
@@ -64,6 +66,7 @@ class PivotTable extends hx.EventEmitter
     @selection = hx.select(@selector).classed('hx-pivot-table', true)
 
     @table = @selection.append('table').class('hx-table')
+      .classed('hx-table-no-hover', not @options.highlightOnHover)
 
     @tableHead = @table.append('thead')
     @tableBody = @table.append('tbody')
@@ -110,15 +113,20 @@ class PivotTable extends hx.EventEmitter
 
       @tableBodyView.apply(bodyData)
 
+      @table.classed('hx-table-full', false)
+
       if @options.stickyHeaders
         if not @stickyTableHeaders
           @stickyTableHeaders = new hx.StickyTableHeaders(@selector, {
             stickTableHead: topData.length > 0
             stickFirstColumn: leftData.length > 0
-            useResponsive: @options.useResponsive
+            useResponsive: @options.useResponsive,
+            fullWidth: @options.fullWidth
           })
         else
           @stickyTableHeaders.render()
+      else if @options.fullWidth
+        @table.classed('hx-table-full', @options.fullWidth)
       this
     else
       @_.data

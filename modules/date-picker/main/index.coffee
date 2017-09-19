@@ -479,7 +479,7 @@ class DatePicker extends EventEmitter
         .append('i').class('hx-icon hx-icon-chevron-left')
 
       _.calendarHeadBtn = calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert hx-calendar-button')
+        .class('hx-btn hx-btn-invert')
         .on 'click', 'hx.date-picker', ->
           switch _.mode
             when 'd' then return

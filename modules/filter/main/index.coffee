@@ -113,3 +113,29 @@ export filterRegex = buildFilter (term) ->
   (item) ->
     match = item.match(term)
     if match? then match.index + match[0].length else -1
+
+export filterStringTypes = () -> [
+  'contains',
+  'exact'
+  'excludes',
+  'startsWith'
+  'regex',
+  'fuzzy'
+]
+
+export filterNumberTypes = () -> [
+  'exact',
+  'greater',
+  'less'
+]
+
+export filterTypes = () -> [
+  'contains',
+  'exact'
+  'greater',
+  'less',
+  'excludes',
+  'startsWith'
+  'regex',
+  'fuzzy'
+]

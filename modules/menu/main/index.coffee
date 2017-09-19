@@ -42,6 +42,8 @@ setActive = (menu, pos, up, click) ->
     allItems = getAllItems(menu)
     node = allItems[pos].node
 
+    hx.select(node).classed('hx-menu-active',true)
+
     content = allItems[pos]?.content
     isEnabled = not content?.disabled and not content?.unselectable
 

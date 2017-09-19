@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.11.0
+ Version: 1.12.0
  Theme: hexagon-dark
  Modules:
    set
@@ -52,10 +52,10 @@
    autocomplete
    drag-container
    layout
+   fluid
    progress-bar
    plot
    button-group
-   fluid
    picker
    request
    sticky-table-headers
@@ -303,6 +303,7 @@ hx.theme = {
     "borderCol": "#4E5355",
     "contentBackgroundCol": "transparent"
   },
+  "fluid": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -347,7 +348,6 @@ hx.theme = {
     "labelHeaderBorderCol": "#4E5355"
   },
   "buttonGroup": {},
-  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {
@@ -2659,6 +2659,34 @@ Selection = (function() {
     return this;
   };
 
+  Selection.prototype.set = function(children) {
+    if (children.then) {
+      Promise.resolve(children).then((function(_this) {
+        return function(sel) {
+          return _this.clear().add(sel);
+        };
+      })(this));
+    } else {
+      this.clear().add(children);
+    }
+    return this;
+  };
+
+  Selection.prototype.replace = function(content) {
+    if (content.then) {
+      Promise.resolve(content).then((function(_this) {
+        return function(sel) {
+          _this.insertAfter(sel);
+          return _this.remove();
+        };
+      })(this));
+    } else {
+      this.insertAfter(content);
+      this.remove();
+    }
+    return this;
+  };
+
   Selection.prototype.node = function(i) {
     if (i == null) {
       i = 0;
@@ -4326,6 +4354,18 @@ hx.filter = {
       }
     };
   })
+};
+
+hx.filter.stringTypes = function() {
+  return ['contains', 'exact', 'excludes', 'startsWith', 'regex', 'fuzzy'];
+};
+
+hx.filter.numberTypes = function() {
+  return ['exact', 'greater', 'less'];
+};
+
+hx.filter.types = function() {
+  return ['contains', 'exact', 'greater', 'less', 'excludes', 'startsWith', 'regex', 'fuzzy'];
 };
 
 })();
@@ -9322,6 +9362,72 @@ hx.DragContainer = DragContainer;
 })();
 
 (function(){
+var factory;
+
+factory = function(type, clasz) {
+  return function() {
+    return hx.detached(type)["class"](clasz);
+  };
+};
+
+hx.div = function(cls) {
+  if (cls) {
+    return hx.detached('div')["class"](cls);
+  } else {
+    return hx.detached('div');
+  }
+};
+
+hx.span = function(cls) {
+  if (cls) {
+    return hx.detached('span')["class"](cls);
+  } else {
+    return hx.detached('span');
+  }
+};
+
+hx.inputGroup = factory('div', 'hx-input-group');
+
+hx.notice = factory('div', 'hx-notice');
+
+hx.notice.head = factory('div', 'hx-notice-head');
+
+hx.notice.body = factory('div', 'hx-notice-body');
+
+hx.spinner = factory('span', 'hx-spinner');
+
+hx.spinner.wide = factory('div', 'hx-spinner-wide');
+
+hx.icon = function(options) {
+  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
+};
+
+hx.button = function(options) {
+  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
+};
+
+hx.label = function(options) {
+  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
+};
+
+hx.group = factory('div', 'hx-group hx-horizontal');
+
+hx.group.vertical = factory('div', 'hx-group hx-vertical');
+
+hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
+
+hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
+
+hx.section = factory('div', 'hx-section');
+
+hx.section.fixed = factory('div', 'hx-section hx-fixed');
+
+hx.checkbox = function() {
+  return hx.detached('input').attr('type', 'checkbox');
+};
+
+})();
+(function(){
 var ProgressBar;
 
 ProgressBar = (function() {
@@ -12679,72 +12785,6 @@ hx.ButtonGroup = ButtonGroup;
 
 })();
 (function(){
-var factory;
-
-factory = function(type, clasz) {
-  return function() {
-    return hx.detached(type)["class"](clasz);
-  };
-};
-
-hx.div = function(cls) {
-  if (cls) {
-    return hx.detached('div')["class"](cls);
-  } else {
-    return hx.detached('div');
-  }
-};
-
-hx.span = function(cls) {
-  if (cls) {
-    return hx.detached('span')["class"](cls);
-  } else {
-    return hx.detached('span');
-  }
-};
-
-hx.inputGroup = factory('div', 'hx-input-group');
-
-hx.notice = factory('div', 'hx-notice');
-
-hx.notice.head = factory('div', 'hx-notice-head');
-
-hx.notice.body = factory('div', 'hx-notice-body');
-
-hx.spinner = factory('span', 'hx-spinner');
-
-hx.spinner.wide = factory('div', 'hx-spinner-wide');
-
-hx.icon = function(options) {
-  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
-};
-
-hx.button = function(options) {
-  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
-};
-
-hx.label = function(options) {
-  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
-};
-
-hx.group = factory('div', 'hx-group hx-horizontal');
-
-hx.group.vertical = factory('div', 'hx-group hx-vertical');
-
-hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
-
-hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
-
-hx.section = factory('div', 'hx-section');
-
-hx.section.fixed = factory('div', 'hx-section hx-fixed');
-
-hx.checkbox = function() {
-  return hx.detached('input').attr('type', 'checkbox');
-};
-
-})();
-(function(){
 var Picker, setValue,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -14384,6 +14424,18 @@ TitleBar = (function() {
 
 hx.TitleBar = TitleBar;
 
+hx.titleBar = function(options) {
+  var icon, iconClass, iconLink, ref, ref1, ref2, ref3, ref4, selection, showIcon, subtitle, title;
+  if (options == null) {
+    options = {};
+  }
+  title = (ref = options.title) != null ? ref : 'Title', subtitle = (ref1 = options.subtitle) != null ? ref1 : '', showIcon = (ref2 = options.showIcon) != null ? ref2 : true, iconLink = (ref3 = options.iconLink) != null ? ref3 : '#', iconClass = (ref4 = options.iconClass) != null ? ref4 : 'hx-logo';
+  icon = showIcon ? hx.detached('a')["class"]('hx-titlebar-icon').attr('href', iconLink).add(hx.detached('img')["class"](iconClass)) : void 0;
+  selection = hx.div('hx-heading').add(hx.div('hx-titlebar').add(hx.div('hx-titlebar-container').add(hx.div('hx-titlebar-header').add(icon).add(title ? hx.div('hx-titlebar-title').text(title) : void 0).add(subtitle ? hx.div('hx-titlebar-subtitle').text(subtitle) : void 0))));
+  new hx.TitleBar(selection);
+  return selection;
+};
+
 if (hx.select('.hx-heading').size() > 0) {
   hx.titlebar = new hx.TitleBar('.hx-heading');
 }
@@ -15630,7 +15682,7 @@ hx.Crumbtrail = Crumbtrail;
 
 })();
 (function(){
-var DataTable, collapseBreakPoint, columnOptionLookup, createAdvancedSearchView, createPageSizeBlock, createPaginationBlock, defaultTermLookup, fullWidthColSpan, getAdvancedSearchFilter, getFiltered, getRowSearchTerm, objectFeed, spacer, splitArray, stripLeadingAndTrailingWhitespaceRegex, urlFeed, whitespaceSplitRegex,
+var DataTable, advancedSearchCriteriaValidate, collapseBreakPoint, columnOptionLookup, createAdvancedSearchView, createPageSizeBlock, createPaginationBlock, defaultTermLookup, fullWidthColSpan, getAdvancedSearchFilter, getFiltered, getRowSearchTerm, objectFeed, spacer, splitArray, stripLeadingAndTrailingWhitespaceRegex, toCriteriaItems, urlFeed, whitespaceSplitRegex,
   slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -15650,7 +15702,15 @@ hx.userFacingText({
     rowsPerPage: 'Rows Per Page',
     search: 'Search',
     selectedRows: '$selected of $total selected.',
-    sortBy: 'Sort By'
+    sortBy: 'Sort By',
+    contains: 'contains',
+    excludes: 'does not contain',
+    startsWith: 'starts with',
+    fuzzy: 'fuzzy matches',
+    regex: 'matches regex',
+    exact: 'is exactly',
+    greater: 'is greater than',
+    less: 'is less than'
   }
 });
 
@@ -15663,6 +15723,34 @@ columnOptionLookup = function(options, name, id) {
     return options.columns[id][name];
   } else {
     return options[name];
+  }
+};
+
+toCriteriaItems = function(list) {
+  return hx.unique(list).map(function(item) {
+    return {
+      value: item,
+      text: hx.userFacingText('dataTable', item)
+    };
+  });
+};
+
+advancedSearchCriteriaValidate = function(value) {
+  var allowedTypes, invalidTypes;
+  allowedTypes = hx.filter.types();
+  if ((hx.isArray(value) && value.every(function(c) {
+    return ~allowedTypes.indexOf(c);
+  })) || value === void 0) {
+    return value || [];
+  } else if (hx.isArray(value)) {
+    invalidTypes = value.filter(function(c) {
+      return !~allowedTypes.indexOf(c);
+    });
+    hx.consoleWarning('Invalid Filter Criteria Specified:', invalidTypes, '\nPlease select a value from hx.filter.stringTypes()', allowedTypes);
+    return [];
+  } else {
+    hx.consoleWarning('Expected an array of filter criteria but was passed:', value);
+    return [];
   }
 };
 
@@ -15736,7 +15824,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
   var advancedSearchGroupEnter, advancedSearchGroupUpdate, advancedSearchRowEnter, advancedSearchRowUpdate;
   advancedSearchRowEnter = function(filterGroup, filterGroupIndex) {
     return function(filterRow, index, trueIndex) {
-      var anyColumn, columnItems, columnPickerOptions, columnPickerSel, columnRenderer, debouncedInput, removeBtn, termInput, typePickerOptions, typePickerSel;
+      var anyColumn, columnItems, columnPickerOptions, columnPickerSel, columnRenderer, criteriaAnyPlaceholder, criteriaPickerOptions, criteriaPickerSel, debouncedInput, removeBtn, termInput, typePickerOptions, typePickerSel;
       typePickerOptions = {
         items: [
           {
@@ -15746,7 +15834,8 @@ createAdvancedSearchView = function(selection, dataTable, options) {
             text: hx.userFacingText('dataTable', 'or'),
             value: 'or'
           }
-        ]
+        ],
+        fullWidth: true
       };
       typePickerSel = hx.picker(typePickerOptions).classed('hx-data-table-advanced-search-type hx-section hx-fixed', true);
       typePickerSel.component().on('change', function(data) {
@@ -15778,11 +15867,12 @@ createAdvancedSearchView = function(selection, dataTable, options) {
       };
       columnPickerOptions = {
         items: [anyColumn].concat(slice.call(columnItems)),
-        renderer: columnRenderer
+        renderer: columnRenderer,
+        fullWidth: true
       };
       columnPickerSel = hx.picker(columnPickerOptions).classed('hx-data-table-advanced-search-column hx-section hx-fixed', true);
       columnPickerSel.component().on('change', function(data) {
-        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        var columnCriteria, criteriaItems, filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
           prevFilters = dataTable.advancedSearch();
           ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
@@ -15790,9 +15880,31 @@ createAdvancedSearchView = function(selection, dataTable, options) {
           newFilter = hx.merge(filter, {
             column: data.value.value
           });
+          delete newFilter.criteria;
+          columnCriteria = columnOptionLookup(options, 'advancedSearchCriteria', data.value.value) || [];
+          criteriaItems = ['contains'].concat(slice.call(advancedSearchCriteriaValidate(columnCriteria)));
+          criteriaPickerSel.component().items(toCriteriaItems(criteriaItems));
           return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
         }
       });
+      criteriaPickerOptions = {
+        items: ['contains'].concat(slice.call(advancedSearchCriteriaValidate(options.advancedSearchCriteria))),
+        fullWidth: true
+      };
+      criteriaPickerSel = hx.picker(criteriaPickerOptions).classed('hx-data-table-advanced-search-criteria hx-section hx-fixed', true);
+      criteriaPickerSel.component().on('change', function(data) {
+        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        if (data.cause === 'user') {
+          prevFilters = dataTable.advancedSearch();
+          ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+          ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2];
+          newFilter = hx.merge(filter, {
+            criteria: data.value.value
+          });
+          return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
+        }
+      });
+      criteriaAnyPlaceholder = hx.div('hx-data-table-advanced-search-criteria-placeholder hx-text-disabled hx-background-disabled').text(hx.userFacingText('dataTable', 'contains'));
       debouncedInput = hx.debounce(200, function(e) {
         var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         prevFilters = dataTable.advancedSearch();
@@ -15821,33 +15933,36 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         })(this));
         return dataTable.advancedSearch(filterToUse.length ? filterToUse : void 0);
       });
-      return this.append('div')["class"]('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width').add(typePickerSel).add(columnPickerSel).add(termInput).add(removeBtn).node();
+      return this.append('div')["class"]('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width').add(typePickerSel).add(columnPickerSel).add(criteriaAnyPlaceholder).add(criteriaPickerSel).add(hx.div('hx-data-table-advanced-search-filter-input-container hx-input-group hx-no-pad hx-no-border').add(termInput).add(removeBtn)).node();
     };
   };
   advancedSearchRowUpdate = function(arg, element, index) {
-    var column, filterRowSel, term, validContext;
-    term = arg.term, column = arg.column;
+    var column, columnCriteria, criteria, criteriaItems, filterRowSel, term, trueColumn, validContext;
+    term = arg.term, column = arg.column, criteria = arg.criteria;
     filterRowSel = hx.select(element);
     validContext = !term ? 'negative' : void 0;
     filterRowSel.select('.hx-data-table-advanced-search-type').component().value(index === 0 ? 'or' : 'and');
-    filterRowSel.select('.hx-data-table-advanced-search-column').component().value(column || 'any');
+    trueColumn = column || 'any';
+    filterRowSel.select('.hx-data-table-advanced-search-column').component().value(trueColumn);
+    columnCriteria = columnOptionLookup(options, 'advancedSearchCriteria', column) || [];
+    criteriaItems = trueColumn === 'any' ? ['contains'] : ['contains'].concat(slice.call(advancedSearchCriteriaValidate(columnCriteria)));
+    filterRowSel.select('.hx-data-table-advanced-search-criteria').style('display', criteriaItems.length === 1 ? 'none' : 'block').component().items(toCriteriaItems(criteriaItems)).value(criteria || 'contains');
+    filterRowSel.select('.hx-data-table-advanced-search-criteria-placeholder').style('display', criteriaItems.length === 1 ? 'block' : 'none');
     return filterRowSel.select('.hx-data-table-advanced-search-input').value(term || '');
   };
-  advancedSearchGroupEnter = function(dataTable) {
-    return function(filterGroup, index, trueIndex) {
-      var filterGroupSel, filterGroupView;
-      filterGroupSel = hx.detached('div')["class"]('hx-data-table-advanced-search-filter-group');
-      filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter').enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable)).update(advancedSearchRowUpdate);
-      hx.component.register(filterGroupSel.node(), {
-        filterGroupView: filterGroupView
-      });
-      return this.append(filterGroupSel).node();
-    };
+  advancedSearchGroupEnter = function(filterGroup, index, trueIndex) {
+    var filterGroupSel, filterGroupView;
+    filterGroupSel = hx.detached('div')["class"]('hx-data-table-advanced-search-filter-group');
+    filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter').enter(advancedSearchRowEnter(filterGroup, trueIndex)).update(advancedSearchRowUpdate);
+    hx.component.register(filterGroupSel.node(), {
+      filterGroupView: filterGroupView
+    });
+    return this.append(filterGroupSel).node();
   };
   advancedSearchGroupUpdate = function(filterGroup, element, index) {
     return hx.component(element).filterGroupView.apply(filterGroup);
   };
-  return selection.view('.hx-data-table-advanced-search-filter-group').enter(advancedSearchGroupEnter(this)).update(advancedSearchGroupUpdate);
+  return selection.view('.hx-data-table-advanced-search-filter-group').enter(advancedSearchGroupEnter).update(advancedSearchGroupUpdate);
 };
 
 DataTable = (function(superClass) {
@@ -15869,6 +15984,7 @@ DataTable = (function(superClass) {
       filterEnabled: true,
       showAdvancedSearch: false,
       advancedSearchEnabled: false,
+      advancedSearchCriteria: void 0,
       advancedSearch: void 0,
       pageSize: 15,
       pageSizeOptions: void 0,
@@ -16162,6 +16278,8 @@ DataTable = (function(superClass) {
     };
   };
 
+  DataTable.prototype.advancedSearchCriteria = columnOption('advancedSearchCriteria');
+
   DataTable.prototype.allowHeaderWrap = columnOption('allowHeaderWrap');
 
   DataTable.prototype.cellRenderer = columnOption('cellRenderer');
@@ -16264,7 +16382,7 @@ DataTable = (function(superClass) {
   };
 
   DataTable.prototype.render = function(cb) {
-    var advancedSearchVisibleAndEnabled, container, feed, getColumnOption, headerRow, options, ref, rowToArray, selection, showCompactControlPanelToggle, table, tbody, thead;
+    var advancedSearchVisibleAndEnabled, container, feed, filterSel, getColumnOption, headerRow, nextFilterValue, options, prevFilterValue, ref, rowToArray, selection, showCompactControlPanelToggle, table, tbody, thead;
     if (this._.renderSuppressed) {
       return;
     }
@@ -16290,7 +16408,12 @@ DataTable = (function(superClass) {
     headerRow = thead.append('tr')["class"]('hx-data-table-row');
     selection.select('.hx-data-table-loading').style('display', '');
     advancedSearchVisibleAndEnabled = (!options.filterEnabled || options.showAdvancedSearch) && options.advancedSearchEnabled;
-    selection.select('.hx-data-table-filter').classed('hx-data-table-filter-visible', options.filterEnabled && !advancedSearchVisibleAndEnabled).value(this.filter());
+    filterSel = selection.select('.hx-data-table-filter').classed('hx-data-table-filter-visible', options.filterEnabled && !advancedSearchVisibleAndEnabled);
+    nextFilterValue = this.filter();
+    prevFilterValue = filterSel.value();
+    if (nextFilterValue !== prevFilterValue) {
+      filterSel.value(nextFilterValue);
+    }
     this._.advancedSearchToggleButton.value(options.advancedSearchEnabled);
     selection.select('.hx-data-table-advanced-search-toggle').classed('hx-data-table-advanced-search-visible', options.filterEnabled && options.showAdvancedSearch);
     selection.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible', advancedSearchVisibleAndEnabled);
@@ -16766,11 +16889,15 @@ getRowSearchTerm = function(cellValueLookup, row) {
   })()).map(cellValueLookup).join(' ').toLowerCase();
 };
 
-defaultTermLookup = function(term, rowSearchTerm) {
-  var arr, validPart;
+defaultTermLookup = function(term, rowSearchTerm, criteria) {
+  var arr, lookupArr, validPart;
+  if (criteria == null) {
+    criteria = 'contains';
+  }
+  lookupArr = hx.isString(rowSearchTerm) ? [rowSearchTerm] : rowSearchTerm;
   arr = term.replace(stripLeadingAndTrailingWhitespaceRegex, '').split(whitespaceSplitRegex);
   validPart = hx.find(arr, function(part) {
-    return ~rowSearchTerm.indexOf(part);
+    return hx.filter[criteria](lookupArr, part.toLowerCase()).length;
   });
   return hx.defined(validPart);
 };
@@ -16783,14 +16910,23 @@ getAdvancedSearchFilter = function(cellValueLookup, termLookup) {
     termLookup = defaultTermLookup;
   }
   return function(filters, row) {
-    var rowSearchTerm, validFilters;
-    rowSearchTerm = getRowSearchTerm(cellValueLookup, row);
+    var k, rowSearchTerm, v, validFilters;
+    rowSearchTerm = ((function() {
+      var ref, results;
+      ref = row.cells;
+      results = [];
+      for (k in ref) {
+        v = ref[k];
+        results.push(v);
+      }
+      return results;
+    })()).map(cellValueLookup).join(' ').toLowerCase();
     validFilters = hx.find(filters, function(groupedFilters) {
       var invalidFilter;
       invalidFilter = hx.find(groupedFilters, function(filter) {
         var searchTerm;
         searchTerm = filter.column === 'any' ? rowSearchTerm : (cellValueLookup(row.cells[filter.column]) + '').toLowerCase();
-        return !termLookup(filter.term.toLowerCase(), searchTerm);
+        return filter.term && !termLookup(filter.term.toLowerCase(), searchTerm, filter.criteria);
       });
       return !hx.defined(invalidFilter);
     });
@@ -20718,7 +20854,8 @@ PivotTable = (function(superClass) {
         return hx.select(element).text(data);
       },
       useResponsive: true,
-      data: void 0
+      data: void 0,
+      fullWidth: void 0
     }, options);
     this._ = {};
     this.selection = hx.select(this.selector).classed('hx-pivot-table', true);
@@ -20765,16 +20902,20 @@ PivotTable = (function(superClass) {
         this.tableHeadView.apply([topData]);
       }
       this.tableBodyView.apply(bodyData);
+      this.table.classed('hx-table-full', false);
       if (this.options.stickyHeaders) {
         if (!this.stickyTableHeaders) {
           this.stickyTableHeaders = new hx.StickyTableHeaders(this.selector, {
             stickTableHead: topData.length > 0,
             stickFirstColumn: leftData.length > 0,
-            useResponsive: this.options.useResponsive
+            useResponsive: this.options.useResponsive,
+            fullWidth: this.options.fullWidth
           });
         } else {
           this.stickyTableHeaders.render();
         }
+      } else if (this.options.fullWidth) {
+        this.table.classed('hx-table-full', this.options.fullWidth);
       }
       return this;
     } else {

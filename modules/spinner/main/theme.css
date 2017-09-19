@@ -1,5 +1,5 @@
 .hx-spinner {
-  border: 3px solid var(--spinner-color);
+  border: 0.2em solid var(--spinner-color);
   border-right-color: transparent;
 }
 

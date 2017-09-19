@@ -1,4 +1,4 @@
-import { TitleBar } from 'titlebar/main'
+import { TitleBar, titleBar } from 'titlebar/main'
 import { select, selectAll } from 'selection/main'
 
 export default () ->
@@ -76,8 +76,39 @@ export default () ->
       selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([false, false, false, false, false])
 
     it 'should reset the active section correctly', ->
-      titlebar = new TitleBar(select('#fixture').select('.hx-heading'))
+      titlebar = new TitleBar(select('#fixture').select('.hx-heading').node())
       titlebar.active(0)
       selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([true, false, false, false, false])
       titlebar.active(undefined)
       selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([false, false, false, false, false])
+
+    describe 'fluid', ->
+      it 'should create a fluid titlebar', ->
+        titlebar = titleBar()
+        titlebar.api().should.be.an.instanceOf(TitleBar)
+        titlebar.classed('hx-heading').should.equal(true)
+
+      it 'should be able to set the title', ->
+        titlebar = titleBar({title: 'My Title'})
+        titlebar.select('.hx-titlebar-title').text().should.equal('My Title')
+
+      it 'should be able to set the subtitle', ->
+        titlebar = titleBar({subtitle: 'My Subtitle'})
+        titlebar.select('.hx-titlebar-subtitle').text().should.equal('My Subtitle')
+
+      it 'should show icon by default', ->
+        titlebar = titleBar()
+        titlebar.select('.hx-titlebar-icon').empty().should.equal(false)
+
+      it 'should not add the icon when showIcon is false', ->
+        titlebar = titleBar({showIcon: false})
+        titlebar.select('.hx-titlebar-icon').empty().should.equal(true)
+
+      it 'should be able to set the icon link', ->
+        titlebar = titleBar({iconLink: '/home'})
+        titlebar.select('.hx-titlebar-icon').attr('href').should.equal('/home')
+
+      it 'should be able to set the icon link', ->
+        titlebar = titleBar({iconClass: 'my-icon-class'})
+        titlebar.select('.hx-titlebar-icon').select('img').classed('my-icon-class').should.equal(true)
+
