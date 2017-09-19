@@ -128,6 +128,7 @@ export class Picker extends EventEmitter
 
 
 export picker = (options) ->
-  selection = button()
-  new Picker(selection.node(), options)
+  # XXX [2.0.0] added options.class
+  selection = button(options.class)
+  new Picker(selection, options)
   selection

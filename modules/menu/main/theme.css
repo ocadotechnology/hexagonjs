@@ -5,13 +5,13 @@
   background: var(--menu-default-background-color);
 }
 
-.hx-menu-item > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu-collapsible {
   background: var(--menu-collapsible-background-color);
   color: var(--menu-collapsible-text-color);
 }
 
 .hx-menu-item.hx-menu-link:hover,
-.hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu-collapsible:hover {
   background: var(--menu-default-background-color-hover);
   color: var(--menu-default-text-color-hover);
   border-color: var(--menu-default-border-color-hover);
@@ -41,11 +41,11 @@
 }
 
 .hx-menu.hx-action .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-action .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-action .hx-menu-collapsible:hover {
   border-color: var(--menu-action-border-color-hover);
 }
 
-.hx-menu.hx-action .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-action .hx-menu-collapsible:hover {
   background: var(--menu-action-background-color-hover);
   color: var(--menu-action-text-color-hover);
 }
@@ -63,11 +63,11 @@
 }
 
 .hx-menu.hx-positive .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-positive .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-positive .hx-menu-collapsible:hover {
   border-color: var(--menu-positive-border-color-hover);
 }
 
-.hx-menu.hx-positive .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-positive .hx-menu-collapsible:hover {
   background: var(--menu-positive-background-color-hover);
   color: var(--menu-positive-text-color-hover);
 }
@@ -84,11 +84,11 @@
 }
 
 .hx-menu.hx-negative .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-negative .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-negative .hx-menu-collapsible:hover {
   border-color: var(--menu-negative-border-color-hover);
 }
 
-.hx-menu.hx-negative .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-negative .hx-menu-collapsible:hover {
   background: var(--menu-negative-background-color-hover);
   color: var(--menu-negative-text-color-hover);
 }
@@ -105,11 +105,11 @@
 }
 
 .hx-menu.hx-warning .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-warning .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-warning .hx-menu-collapsible:hover {
   border-color: var(--menu-warning-border-color-hover);
 }
 
-.hx-menu.hx-warning .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-warning .hx-menu-collapsible:hover {
   background: var(--menu-warning-background-color-hover);
   color: var(--menu-warning-text-color-hover);
 }
@@ -126,11 +126,11 @@
 }
 
 .hx-menu.hx-info .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-info .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-info .hx-menu-collapsible:hover {
   border-color: var(--menu-info-border-color-hover);
 }
 
-.hx-menu.hx-info .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-info .hx-menu-collapsible:hover {
   background: var(--menu-info-background-color-hover);
   color: var(--menu-info-text-color-hover);
 }
@@ -147,11 +147,11 @@
 }
 
 .hx-menu.hx-complement .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-complement .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-complement .hx-menu-collapsible:hover {
   border-color: var(--menu-complement-border-color-hover);
 }
 
-.hx-menu.hx-complement .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-complement .hx-menu-collapsible:hover {
   background: var(--menu-complement-background-color-hover);
   color: var(--menu-complement-text-color-hover);
 }
@@ -168,11 +168,11 @@
 }
 
 .hx-menu.hx-contrast .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-contrast .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-contrast .hx-menu-collapsible:hover {
   border-color: var(--menu-contrast-border-color-hover);
 }
 
-.hx-menu.hx-contrast .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
+.hx-menu.hx-contrast .hx-menu-collapsible:hover {
   background: var(--menu-contrast-background-color-hover);
   color: var(--menu-contrast-text-color-hover);
 }

@@ -9,13 +9,13 @@ export default () => {
   ]
 
   return [
-    picker({ items }),
-    picker({ items }).classed('hx-positive', true),
-    picker({ items }).classed('hx-warning', true),
-    picker({ items }).classed('hx-negative', true),
-    picker({ items }).classed('hx-info', true),
-    picker({ items }).classed('hx-action', true),
-    picker({ items }).classed('hx-compliment', true),
-    picker({ items }).classed('hx-contrast', true)
+    picker({ items,  }),
+    picker({ items, class: 'hx-positive' }),
+    picker({ items, class: 'hx-warning' }),
+    picker({ items, class: 'hx-negative' }),
+    picker({ items, class: 'hx-info' }),
+    picker({ items, class: 'hx-action' }),
+    picker({ items, class: 'hx-compliment' }),
+    picker({ items, class: 'hx-contrast' })
   ]
 }

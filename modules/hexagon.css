@@ -229,17 +229,19 @@
   --palette-disabled-border-color: #EFEFEF;
 
   /* titlebar */
-  --titlebar-default-background-color: #373D45;
+  --titlebar-default-background-color: white;
   --titlebar-action-background-color: var(--theme-action-color);
   --titlebar-positive-background-color: var(--theme-positive-color);
   --titlebar-warning-background-color: var(--theme-warning-color);
   --titlebar-negative-background-color: var(--theme-negative-color);
   --titlebar-info-background-color: var(--theme-info-color);
   --titlebar-title-font-family: 'Roboto Slab', sans-serif;
-  --titlebar-heading-shadow-color: transparent;
+  --titlebar-title-font-size: 1.7em;
+  --titlebar-title-text-color: #3D3D3D;
+  --titlebar-heading-shadow-color: rgba(0, 0, 0, 0.05);
   --titlebar-heading-border-bottom-color: #DDDDDD;
   --titlebar-heading-border-bottom-width: 0;
-  --titlebar-text-color: #F4F4F4;
+  --titlebar-text-color: #3D3D3D;
   --titlebar-icon-color: rgba(255,255,255,0.5);
   --titlebar-icon-hover-color: rgba(255,255,255,0.75);
   --titlebar-linkbar-background-color: #F2F2F2;
@@ -250,7 +252,6 @@
   --titlebar-mobile-view-icons-background-color: #424A54;
   --titlebar-mobile-view-icons-text-color: #DADADA;
   --titlebar-mobile-view-icons-text-hover-color: #EEEEEE;
-  --titlebar-title-font-size: 1.7em;
   --titlebar-height: 46px;
   --titlebar-linkbar-height: 40px;
   --titlebar-menu-context-text-color: #FFF;
@@ -262,7 +263,6 @@
   --titlebar-context-text-color: #F3F3F3;
   --titlebar-context-icon-background: #373D45;
   --titlebar-menu-context-border-color: rgba(255,255,255,0.1);
-  --titlebar-title-text-color: #F4F4F4;
   --titlebar-context-icon-color: rgba(255, 255, 255, 0.5);
   --titlebar-context-icon-hover-color: rgba(255, 255, 255, 0.85);
 
@@ -291,18 +291,18 @@
   --menu-default-background-color-hover: #ffffff;
   --menu-default-text-color-hover: #ffffff;
 
-  --menu-action-border-color: #ffffff;
+  --menu-action-border-color: transparent;
   --menu-action-background-color: #ffffff;
-  --menu-action-text-color: #ffffff;
-  --menu-action-border-color-hover: #ffffff;
-  --menu-action-background-color-hover: #ffffff;
+  --menu-action-text-color: var(--theme-default-text-color);
+  --menu-action-border-color-hover: var(--theme-action-color);
+  --menu-action-background-color-hover: var(--theme-action-color);
   --menu-action-text-color-hover: #ffffff;
 
-  --menu-positive-border-color: #ffffff;
+  --menu-positive-border-color: transparent;
   --menu-positive-background-color: #ffffff;
-  --menu-positive-text-color: #ffffff;
-  --menu-positive-border-color-hover: #ffffff;
-  --menu-positive-background-color-hover: #ffffff;
+  --menu-positive-text-color: var(--theme-default-text-color);
+  --menu-positive-border-color-hover: var(--theme-positive-color);
+  --menu-positive-background-color-hover: var(--theme-positive-color);
   --menu-positive-text-color-hover: #ffffff;
 
   --menu-negative-border-color: #ffffff;
