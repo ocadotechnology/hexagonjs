@@ -1,178 +1,120 @@
-/* XXX: can these styles be made less specific? */
-
-.hx-menu-item {
-  color: var(--menu-default-text-color);
-  background: var(--menu-default-background-color);
-}
-
+/* default */
+.hx-menu-link,
 .hx-menu-collapsible {
-  background: var(--menu-collapsible-background-color);
-  color: var(--menu-collapsible-text-color);
+  border-width: var(--menu-border-width);
+  border-color: var(--menu-default-border-color);
+  background: var(--menu-default-background-color);
+  color: var(--menu-default-text-color);
 }
 
-.hx-menu-item.hx-menu-link:hover,
+.hx-menu-link:hover,
 .hx-menu-collapsible:hover {
+  border-color: var(--menu-default-border-color-hover);
   background: var(--menu-default-background-color-hover);
   color: var(--menu-default-text-color-hover);
-  border-color: var(--menu-default-border-color-hover);
-  border-width: var(--menu-border-width);
-}
-
-.hx-menu-item.hx-menu-item-disabled {
-  background: var(--menu-disabled-background-color);
-  color: var(--menu-disabled-text-color);
-}
-
-.hx-menu-items:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu-items:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
-  background: var(--menu-default-background-color);
-  border-color: var(--menu-default-border-color);
 }
 
 /* action */
-.hx-menu.hx-action .hx-menu-active.hx-menu-link,
-.hx-menu.hx-action .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-action .hx-menu-link,
+.hx-action .hx-menu-collapsible {
   border-color: var(--menu-action-border-color);
-}
-
-.hx-menu.hx-action:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: var(--menu-action-background-color);
   color: var(--menu-action-text-color);
 }
 
-.hx-menu.hx-action .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-action .hx-menu-collapsible:hover {
+.hx-action .hx-menu-link:hover,
+.hx-action .hx-menu-collapsible:hover {
   border-color: var(--menu-action-border-color-hover);
-}
-
-.hx-menu.hx-action .hx-menu-collapsible:hover {
   background: var(--menu-action-background-color-hover);
   color: var(--menu-action-text-color-hover);
 }
 
-
 /* positive */
-.hx-menu.hx-positive:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-positive:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-positive .hx-menu-link,
+.hx-positive .hx-menu-collapsible {
   border-color: var(--menu-positive-border-color);
-}
-
-.hx-menu.hx-positive:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: var(--menu-positive-background-color);
   color: var(--menu-positive-text-color);
 }
 
-.hx-menu.hx-positive .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-positive .hx-menu-collapsible:hover {
+.hx-positive .hx-menu-link:hover,
+.hx-positive .hx-menu-collapsible:hover {
   border-color: var(--menu-positive-border-color-hover);
-}
-
-.hx-menu.hx-positive .hx-menu-collapsible:hover {
   background: var(--menu-positive-background-color-hover);
   color: var(--menu-positive-text-color-hover);
 }
 
 /* negative */
-.hx-menu.hx-negative:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-negative:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-negative .hx-menu-link,
+.hx-negative .hx-menu-collapsible {
   border-color: var(--menu-negative-border-color);
-}
-
-.hx-menu.hx-negative:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: var(--menu-negative-background-color);
   color: var(--menu-negative-text-color);
 }
 
-.hx-menu.hx-negative .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-negative .hx-menu-collapsible:hover {
+.hx-negative .hx-menu-link:hover,
+.hx-negative .hx-menu-collapsible:hover {
   border-color: var(--menu-negative-border-color-hover);
-}
-
-.hx-menu.hx-negative .hx-menu-collapsible:hover {
   background: var(--menu-negative-background-color-hover);
   color: var(--menu-negative-text-color-hover);
 }
 
 /* warning */
-.hx-menu.hx-warning:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-warning:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-warning .hx-menu-link,
+.hx-warning .hx-menu-collapsible {
   border-color: var(--menu-warning-border-color);
-}
-
-.hx-menu.hx-warning:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: var(--menu-warning-background-color);
   color: var(--menu-warning-text-color);
 }
 
-.hx-menu.hx-warning .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-warning .hx-menu-collapsible:hover {
+.hx-warning .hx-menu-link:hover,
+.hx-warning .hx-menu-collapsible:hover {
   border-color: var(--menu-warning-border-color-hover);
-}
-
-.hx-menu.hx-warning .hx-menu-collapsible:hover {
   background: var(--menu-warning-background-color-hover);
   color: var(--menu-warning-text-color-hover);
 }
 
 /* info */
-.hx-menu.hx-info:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-info:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-info .hx-menu-link,
+.hx-info .hx-menu-collapsible {
   border-color: var(--menu-info-border-color);
-}
-
-.hx-menu.hx-info:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: var(--menu-info-background-color);
   color: var(--menu-info-text-color);
 }
 
-.hx-menu.hx-info .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-info .hx-menu-collapsible:hover {
+.hx-info .hx-menu-link:hover,
+.hx-info .hx-menu-collapsible:hover {
   border-color: var(--menu-info-border-color-hover);
-}
-
-.hx-menu.hx-info .hx-menu-collapsible:hover {
   background: var(--menu-info-background-color-hover);
   color: var(--menu-info-text-color-hover);
 }
 
 /* complement */
-.hx-menu.hx-complement:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-complement:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-complement .hx-menu-link,
+.hx-complement .hx-menu-collapsible {
   border-color: var(--menu-complement-border-color);
-}
-
-.hx-menu.hx-complement:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: var(--menu-complement-background-color);
   color: var(--menu-complement-text-color);
 }
 
-.hx-menu.hx-complement .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-complement .hx-menu-collapsible:hover {
+.hx-complement .hx-menu-link:hover,
+.hx-complement .hx-menu-collapsible:hover {
   border-color: var(--menu-complement-border-color-hover);
-}
-
-.hx-menu.hx-complement .hx-menu-collapsible:hover {
   background: var(--menu-complement-background-color-hover);
   color: var(--menu-complement-text-color-hover);
 }
 
 /* contrast */
-.hx-menu.hx-contrast:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-contrast:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-contrast .hx-menu-link,
+.hx-contrast .hx-menu-collapsible {
   border-color: var(--menu-contrast-border-color);
-}
-
-.hx-menu.hx-contrast:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: var(--menu-contrast-background-color);
   color: var(--menu-contrast-text-color);
 }
 
-.hx-menu.hx-contrast .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-contrast .hx-menu-collapsible:hover {
+.hx-contrast .hx-menu-link:hover,
+.hx-contrast .hx-menu-collapsible:hover {
   border-color: var(--menu-contrast-border-color-hover);
-}
-
-.hx-menu.hx-contrast .hx-menu-collapsible:hover {
   background: var(--menu-contrast-background-color-hover);
   color: var(--menu-contrast-text-color-hover);
 }

@@ -4,9 +4,14 @@
 }
 
 .hx-collapsible-toggle:hover,
-.hx-collapsible-heading:not(.hx-collapsible-heading-no-hover):hover {
+.hx-collapsible-heading:hover {
   background: var(--collapsible-toggle-hover-background-color);
   color: var(--collapsible-toggle-hover-text-color);
+}
+
+.hx-collapsible-heading.hx-collapsible-heading-no-hover:hover {
+  background: var(--collapsible-heading-background-color);
+  color: var(--collapsible-heading-text-color);
 }
 
 .hx-collapsible-toggle {

@@ -157,6 +157,7 @@ describe('HexagonJS Test Suite', () => {
         'initializeCollapsibles',
         'palette',
         'format',
+        'titleBar',
         'TitleBar',
         'Menu',
         'autoComplete',

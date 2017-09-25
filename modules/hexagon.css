@@ -287,9 +287,9 @@
   --menu-default-border-color: #ffffff;
   --menu-default-background-color: #ffffff;
   --menu-default-text-color: var(--theme-default-text-color);
-  --menu-default-border-color-hover: #ffffff;
-  --menu-default-background-color-hover: #ffffff;
-  --menu-default-text-color-hover: #ffffff;
+  --menu-default-border-color-hover: var(--theme-default-color);
+  --menu-default-background-color-hover: var(--theme-default-color);
+  --menu-default-text-color-hover: var(--theme-default-text-color);
 
   --menu-action-border-color: transparent;
   --menu-action-background-color: #ffffff;
@@ -305,38 +305,38 @@
   --menu-positive-background-color-hover: var(--theme-positive-color);
   --menu-positive-text-color-hover: #ffffff;
 
-  --menu-negative-border-color: #ffffff;
-  --menu-negative-background-color: #ffffff;
-  --menu-negative-text-color: #ffffff;
-  --menu-negative-border-color-hover: #ffffff;
-  --menu-negative-background-color-hover: #ffffff;
-  --menu-negative-text-color-hover: #ffffff;
-
-  --menu-warning-border-color: #ffffff;
+  --menu-warning-border-color: transparent;
   --menu-warning-background-color: #ffffff;
-  --menu-warning-text-color: #ffffff;
-  --menu-warning-border-color-hover: #ffffff;
-  --menu-warning-background-color-hover: #ffffff;
+  --menu-warning-text-color: var(--theme-default-text-color);
+  --menu-warning-border-color-hover: var(--theme-warning-color);
+  --menu-warning-background-color-hover: var(--theme-warning-color);
   --menu-warning-text-color-hover: #ffffff;
 
-  --menu-info-border-color: #ffffff;
+  --menu-negative-border-color: transparent;
+  --menu-negative-background-color: #ffffff;
+  --menu-negative-text-color: var(--theme-default-text-color);
+  --menu-negative-border-color-hover: var(--theme-negative-color);
+  --menu-negative-background-color-hover: var(--theme-negative-color);
+  --menu-negative-text-color-hover: #ffffff;
+
+  --menu-info-border-color: transparent;
   --menu-info-background-color: #ffffff;
-  --menu-info-text-color: #ffffff;
-  --menu-info-border-color-hover: #ffffff;
-  --menu-info-background-color-hover: #ffffff;
+  --menu-info-text-color: var(--theme-default-text-color);
+  --menu-info-border-color-hover: var(--theme-info-color);
+  --menu-info-background-color-hover: var(--theme-info-color);
   --menu-info-text-color-hover: #ffffff;
 
-  --menu-complement-border-color: #ffffff;
+  --menu-complement-border-color: transparent;
   --menu-complement-background-color: #ffffff;
-  --menu-complement-text-color: #ffffff;
-  --menu-complement-border-color-hover: #ffffff;
-  --menu-complement-background-color-hover: #ffffff;
-  --menu-complement-text-color-hover: #ffffff;
+  --menu-complement-text-color: var(--theme-default-text-color);
+  --menu-complement-border-color-hover: var(--theme-complement-color);
+  --menu-complement-background-color-hover: var(--theme-complement-color);
+  --menu-complement-text-color-hover: var(--theme-default-text-color);
 
-  --menu-contrast-border-color: #ffffff;
+  --menu-contrast-border-color: transparent;
   --menu-contrast-background-color: #ffffff;
-  --menu-contrast-text-color: #ffffff;
-  --menu-contrast-border-color-hover: #ffffff;
-  --menu-contrast-background-color-hover: #ffffff;
+  --menu-contrast-text-color: var(--theme-default-text-color);
+  --menu-contrast-border-color-hover: var(--theme-contrast-color);
+  --menu-contrast-background-color-hover: var(--theme-contrast-color);
   --menu-contrast-text-color-hover: #ffffff;
 }

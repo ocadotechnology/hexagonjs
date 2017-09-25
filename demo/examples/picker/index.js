@@ -15,7 +15,7 @@ export default () => {
     picker({ items, class: 'hx-negative' }),
     picker({ items, class: 'hx-info' }),
     picker({ items, class: 'hx-action' }),
-    picker({ items, class: 'hx-compliment' }),
+    picker({ items, class: 'hx-complement' }),
     picker({ items, class: 'hx-contrast' })
   ]
 }
