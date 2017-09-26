@@ -1,0 +1,34 @@
+@version 0.12.0
+  @api Form
+    @function hx.validateForm
+      @description:
+        @p: A helper function for validating forms. By default, it will show a message below the first error in the form but will return an array with all the errors.
+        @p: An example use of this function could be:
+        @codeblock js
+          hx.select('#form').select('button').on('click', function (event){
+            event.preventDefault(); // Stops the form from submitting natively
+            var validObj = hx.validateForm('#form');
+            if(validObj.valid){
+              // Do something on success
+            }
+            // Do nothing if the form isn't valid (as the validateForm function will show a message)
+          });
+      @arg form [String/HTMLElement]: A css selector that selects the form to validate, or the form element
+      @arg? showMessage [Boolean]: Whether to show the message when validating. When set to false, the validate function will only return the errors without modifying the form.
+        @default: true
+
+      @returns Object
+        @property valid [Boolean]: Whether or not the form is valid
+        @property errors [Array[Object]]:
+          @description: An array of error objects with a message, node and validity property. The node returned will be the div element containing the error that is directly inside the form element.
+
+  @theme
+    @option error-text-col
+      @description: The color of the text in the error message.
+      @type color
+      @default: white
+
+    @option error-background-col
+      @description: The background color of the error message.
+      @type color
+      @default: rgba(0,0,0,0.7)

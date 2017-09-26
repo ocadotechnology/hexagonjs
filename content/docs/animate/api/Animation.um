@@ -6,9 +6,9 @@
 
   @method style
     @description: Animates a style property on the @type[Node]
-    @param property [String]: The style property to animate
-    @param endValue [String/Number]: The value to animate the property to
-    @param? duration [Number]
+    @arg property [String]: The style property to animate
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg? duration [Number]
       @description: The length of the animation in milliseconds
       @default: 200
     @returns Animation
@@ -16,18 +16,18 @@
 
   @method style
     @description: Animates a style property on the @type[Node]
-    @param property [String]: The style property to animate
-    @param startValue [String/Number]: The value to animate the property from
-    @param endValue [String/Number]: The value to animate the property to
-    @param duration [Number]: The length of the animation in milliseconds
+    @arg property [String]: The style property to animate
+    @arg startValue [String/Number]: The value to animate the property from
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg duration [Number]: The length of the animation in milliseconds
     @returns Animation
       @description: This @type[Animation] for chaining
 
   @method attr
     @description: Animates an attribute on the @type[Node]
-    @param attribute [String]: The attribute to animate
-    @param endValue [String/Number]: The value to animate the attribute to
-    @param? duration [Number]
+    @arg attribute [String]: The attribute to animate
+    @arg endValue [String/Number]: The value to animate the attribute to
+    @arg? duration [Number]
       @description: The length of the animation in milliseconds
       @default: 200
     @returns Animation
@@ -35,10 +35,10 @@
 
   @method attr
     @description: Animates an attribute on the @type[Node]
-    @param attribute [String]: The attribute to animate
-    @param startValue [String/Number]: The value to animate the attribute from
-    @param endValue [String/Number]: The value to animate the attribute to
-    @param duration [Number]: The length of the animation in milliseconds
+    @arg attribute [String]: The attribute to animate
+    @arg startValue [String/Number]: The value to animate the attribute from
+    @arg endValue [String/Number]: The value to animate the attribute to
+    @arg duration [Number]: The length of the animation in milliseconds
     @returns Animation
       @description: This @type[Animation] for chaining
 

@@ -1,0 +1,14 @@
+@version 1.0.0
+  @examples
+    @example
+      @html: @inline 1.0.0/example.html
+
+      @js
+        var tagInput = new hx.TagInput('#tagInput')
+        tagInput.items(['a','b'])
+
+  @api Form
+    @function hx.validateForm
+      @arg form [String/HTMLElement]
+      @arg? options [Object]
+      @bugfix: Updated to include text areas in the error checking

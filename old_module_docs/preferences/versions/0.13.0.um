@@ -1,0 +1,126 @@
+@version 0.13.0
+  @examples
+    @example
+      @html
+        <button id="example" class="hx-btn hx-positive"><i class="fa fa-cog"></i> Preferences</button>
+      @js
+        hx.select('#example').on('click', function(){
+          hx.preferences.load(function() {
+            hx.preferences.show()
+          })
+        })
+
+
+  @api Preferences
+
+    @prototype UserPreferences
+      @removed
+
+        This has been replaced with the Preferences type
+
+    @property hx.preferences [UserPreferences]
+      @removed
+
+        This has been replaced with the Preferences type
+
+    @prototype Preferences
+      @extends EventEmitter
+      @description: A class for storing and retrieving user preferences such as timezone and locale preference.
+
+      @method timezone
+        @description: Sets the timezone preference. This will just set the value in memory, and should be persisted with the @code(js)[save()] method.
+        @arg timezone [String]: Should be a time zone identifier string in the following format: 'America/New_York'.
+        @returns Preferences: This Preferences
+
+      @method timezone
+        @description: Gets the timezone preference
+        @returns String: The time zone identifier
+
+      @method locale
+        @description: Sets the locale preference. This will just set the value in memory, and should be persisted with the @code(js)[save()] method.
+        @arg locale [String]: Should be a locale identifier in LCID format.
+        @returns Preferences: This Preferences
+
+      @method locale
+        @description: Gets the locale preference
+        @returns String: The locale identifier in LCID format.
+
+      @method show
+        @description: Shows the preferences modal
+        @returns Preferences: This Preferences
+
+      @method save
+        @description: Saves the preferences somewhere (the location of which depends on the store type in use)
+        @arg callback [Function]
+          @arg? error [Error]: If something went wrong in the loading process, the error will be supplied. If all was fine, this argument will be undefined.
+        @returns Preferences: This Preferences
+
+      @method load
+        @description: Loads the preferences from somewhere (the location of which depends on the store type in use). The loaded settings should be accessed through the normal getter methodspreferences.locale() and hx.preferences.timezone())
+        @arg callback [Function]
+          @arg? error [Error]: If something went wrong in the loading process, the error will be supplied. If all was fine, this argument will be undefined.
+        @returns Preferences: This Preferences
+
+      @method backingStore
+        @description: Sets the backing store to use.
+        @arg store [Object]: The store to use for storage of the preferences. By default this will be set to use local storage (hx.preferences.localStorageStore)
+          @property save [Function]
+            @description: Saves the preferences
+            @arg encodedPreferences [String]: The string to store that contains the user preferences (encoded as json)
+            @arg callback [Function]
+              @description: The callback to call when you have finished storing the preferences
+              @arg? error [Error]: If there was an error this will be defined
+          @property load [Function]
+            @description: Loads the preferences
+            @arg callback [Function]
+              @description: The callback to call when you have finished storing the preferences
+              @arg error [Error]: If there was an error this will be defined
+              @arg encodedPreferences [String]: The encoded preferences string that was retrieved from storage
+
+        @returns Preferences: This Preferences
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @arg name [String]: The event type to listen out for
+        @arg callback [Function]
+          @description: The function to call when an event occurs.
+          @arg data [Any]: The data sent along with the event (if any)
+
+        @event timezonechange
+          @description: Emitted when the time zone changes.
+          @data String: The time zone id.
+
+        @event localechange
+          @description: Emitted when the time zone changes.
+          @data String: The LCID locale identifier.
+
+        @returns Preferences: This Preferences
+
+      @method supportedLocales
+        @description: Sets the list of supported locales for this app
+        @arg locales [Array[String]]: An array of locale identifiers in LCID format.
+        @returns Preferences: This Preferences
+
+      @method supportedLocales
+        @description: Gets the list of supported locales for this app
+        @returns [Array[String]]: An array of locale identifiers in LCID format.
+
+    @property hx.preferences [Preferences]
+      @condensed
+      @description: Global instance of Preferences
+
+    @property hx.preferences.localStorageStore
+      @condensed
+      @description: The default backing store used by hx.preferences
+      @property save [Function]
+        @description: Saves the preferences
+        @arg encodedPreferences [String]: The string to store that contains the user preferences (encoded as json)
+        @arg callback [Function]
+          @description: The callback to call when you have finished storing the preferences
+          @arg? error [Error]: If there was an error this will be defined
+      @property load [Function]
+        @description: Loads the preferences
+        @arg callback [Function]
+          @description: The callback to call when you have finished storing the preferences
+          @arg error [Error]: If there was an error this will be defined
+          @arg encodedPreferences [String]: The encoded preferences string that was retrieved from storage

@@ -1,0 +1,442 @@
+@version 0.9.0
+
+  @description
+    A api for selecting and manipulating elements from the dom based upon querySelector and querySelectorAll.
+
+  @examples
+
+    @codeblock js
+      // selecting by id
+      hx.select('#some-id')
+
+      // selecting one element by class
+      hx.select('.some-class')
+
+      // selecting all elements by class
+      hx.selectAll('.some-class')
+
+      // selecting all elements by type
+      hx.selectAll('div')
+      hx.selectAll('button')
+      hx.select('input')
+
+      // chaining selects to limit selections to a certain part of the dom
+      hx.select('#some-id').selectAll('.some-class')
+
+      // setting a style property for a selection
+      hx.selectAll('.some-class').style('background', 'red')
+
+      // getting a style property for a selection
+      hx.selectAll('.some-class').style('background')
+
+      // get the height of an element
+      hx.select('#some-id').height()
+
+  @api Selection
+    @function hx.select
+      @description
+        Creates a selection from an Element or CSS selector. The selection will contain a single element.
+      @arg selector [Element/String]: The Element to select, or a CSS selector to use to find an element.
+      @returns Selection
+
+    @function hx.selectAll
+      @description
+        Creates a selection by finding all elements that match a CSS selector.
+      @arg selector [String]: A CSS selector.
+      @returns Selection
+
+    @function hx.detached
+      @description
+        Creates a new detached element, wrapped in a selection.
+      @arg type [String]: The tag type, eg 'div'
+      @arg? namespace [String]: The namespace to use, eg 'http://www.w3.org/1999/xhtml'
+        @default: [http://www.w3.org/1999/xhtml]
+      @returns Selection
+
+    @prototype Selection
+      @description
+        The type returned from hx.select and hx.selectAll.
+
+      @method select
+        @description
+          Returns a new Selection containing the first child element found that matches the css selector provided.
+        @arg selector [String]: A CSS selector
+        @returns Selection
+
+      @method selectAll
+        @description
+          Returns a new Selection containing all the child elements found that match the css selector provided.
+        @arg selector [String]: A CSS selector
+        @returns Selection
+
+      @method append
+        @description
+          Appends an element to all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code(html)[<div>] element for example.
+        @arg element [String/Element/Selection]: The element type to append, or the element to append, or a selection containing an element to append.
+        @returns Selection: A new Selection containing the new elements
+
+      @method prepend
+        @added
+        @description
+          Inserts an element at the start of all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code(html)[<div>] element for example.
+        @arg element [String/Element/Selection]: The element type to prepend, or the element to prepend, or a selection containing an element to prepend.
+        @returns Selection: A new Selection containing the new elements
+
+      @method insertBefore
+        @added
+        @description
+          Inserts an element before each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
+        @arg element [String/Element/Selection]: The element type to insert, or the element to insert, or a selection containing an element to insert.
+        @returns Selection: A new Selection containing the new elements
+
+      @method insertAfter
+        @added
+        @description
+          Inserts an element after each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
+        @arg element [String/Element/Selection]: The element type to insert, or the element to insert, or a selection containing an element to insert.
+        @returns Selection: A new Selection containing the new elements
+
+      @method remove
+        @description
+          Removes all selected elements from the dom. Returns an array of the removed element.
+        @returns [Array[Element]]
+
+      @method node
+        @description
+          Returns the first element in the selection.
+        @returns Element
+
+      @method prop
+        @description
+          Sets a property on the Elements selected.
+
+          @codeblock js
+            // will set the className property value to 'myclass'
+            // for the single element in the selection this will
+            // return the current selection for chaining
+            hx.select('#some-id').prop('className', 'myclass')
+
+          @codeblock js
+            // will set the className property value to 'myclass'
+            // for all the elements in the selection this will
+            // return the current selection for chaining
+            hx.selectAll('.some-class').prop('className', 'myclass')
+
+        @arg property [String]: The property to get, or if a value is being supplied the property to set the value of.
+        @arg value [Any]: The value to set the property to.
+        @returns Selection: This Selection
+
+      @method prop
+        @description
+          Gets a property on the Elements selected.
+
+          @codeblock js
+            // will return the className attribute for the selected element
+            hx.select('#some-id').prop('className')
+
+          @codeblock js
+            // will return an array of className attributes for all the selected elements
+            hx.selectAll('.some-class').prop('className')
+
+        @arg property [String]: The name of the property to get.
+        @returns [Any/Array[Any]]: The property value or values for a multiple selection
+
+      @method attr
+        @updated: Passing in undefined as the value will now remve the attribute from the element.
+
+        @description
+          Sets an attribute on the Elements selected.
+
+          @codeblock js
+            // will set the class attribute value to 'myclass' for the
+            // single element in the selection this will return the current
+            // selection for chaining
+            hx.select('#some-id').attr('placeholder', 'Enter Text...')
+
+          @codeblock js
+            // will set the class attribute value to 'myclass' for all the
+            // elements in the selection this will return the current selection
+            // for chaining
+            hx.selectAll('.some-class').attr('placeholder', 'Enter Text...')
+
+        @arg attribute [String]: The attribute to get, or if a value is being supplied the attribute to set the value of.
+        @arg value [String]: The value to set the attribute to.
+        @returns Selection: This Selection
+
+      @method attr
+
+        @description
+          Gets an attribute on the Elements selected.
+
+          @codeblock js
+            // will return the class attribute for the selected element
+            hx.select('#some-id').attr('class')
+
+          @codeblock js
+            // will return an array of class attributes for all the selected elements
+            hx.selectAll('.some-class').attr('class')
+
+        @arg attribute [String]: The name of the attribute to get.
+        @returns [String/Array[String]]: The attribute value or values for a multiple selection
+
+      @method style
+        @description
+          Sets a style property on the Elements selected.
+
+          @codeblock js
+            // will set the class style property value to 'myclass' for
+            // the single element in the selection this will return the
+            // current selection for chaining
+            hx.select('#some-id').style('background', 'red')
+
+          @codeblock js
+            // will set the class style property value to 'myclass' for
+            // all the elements in the selection this will return the current
+            // selection for chaining
+            hx.selectAll('.some-class').style('background', 'red')
+
+        @arg property [String]: The style property to get, or if a value is being supplied the style property to set the value of.
+        @arg value [String]: The value to set the style property to.
+        @returns Selection: This Selection
+
+      @method style
+        @description
+          Gets a style property on the Elements selected.
+
+          @codeblock js
+            // will return the class style property for the selected element
+            hx.select('#some-id').style('background')
+
+          @codeblock js
+            // will return an array of class style propertys for all the selected elements
+            hx.selectAll('.some-class').style('background')
+
+        @arg property [String]: The name of the style property to get the value of.
+        @returns [String/Array[String]]: The style property or properties if this is a multiple selection.
+
+      @method text
+        @description
+          @p: Sets text content of all the selected elements.
+          @p: Shorthand for @code(js)[selection.prop('textContent', value)]
+        @arg text [String]: The text to use.
+        @returns Selection: This Selection
+
+      @method text
+        @description
+          @p: Gets the text content of all the selected elements.
+          @p: Shorthand for @code(js)[selection.prop('textContent')]
+        @returns [String/Array[String]]: The text content of the selected element, or nodes if this is a multiple selection.
+
+      @method html
+        @description
+          @p: Sets the html content of all the selected elements
+          @p: Shorthand for @code(js)[selection.prop('innerHtml', value)]
+        @arg html [String]: The html to use.
+        @returns Selection: This Selection
+
+      @method html
+        @description
+          @p: Gets the html content of all the selected elements
+          @p: Shorthand for @code(js)[selection.prop('innerHtml')]
+        @returns [String/Array[String]]: The html content of the selected element, or nodes if this is a multiple selection.
+
+      @method class
+        @description
+          @p: Sets the class attribute for all of the selected elements
+          @p: Shorthand for  @code(js)[selection.attr('class', value)]
+        @arg class [String]: The class to set.
+        @returns Selection: This Selection
+
+      @method class
+        @description
+          @p: Gets the class attribute for all of the selected elements
+          @p: Shorthand for @code(js)[selection.attr('class')]
+        @returns [String/Array[String]]: The class of the selected element or list of classes if this is a multiple selection.
+
+      @method classed
+        @description
+          Adds or removes a class to the list of classes for all selected elements. Returns the current selection for chaining.
+        @arg class [String]: The class to add/remove.
+        @arg add [Boolean]: True to add the class, false to remove it.
+        @returns [Selection]
+
+      @method classed
+        @description
+          Checks if the selected element(s) have the class supplied.
+        @arg class [String]: The class to check existance of.
+        @returns [Boolean/Array[Boolean]]: Whether or not the elements have the class. True means they do.
+
+      @method value
+        @description
+          Sets the value property for input elements.
+        @arg value [String]: The value to set.
+        @returns Selection: This Selection
+
+      @method value
+        @description
+          Gets the value property for input elements.
+        @returns [String/Array[String]]: The value for the selected element, or values if this is a multiple selection.
+
+      @method on
+        @description
+          Registers a callback for an event type.
+          @codeblock js
+
+            hx.select('#button').on('click', function() {
+              // click handling code here
+            })
+
+        @arg name [String]: The event type to listen for
+        @arg callback [Function[Event]]: The callback that will be called every time this event happens.
+        @arg? retain [Boolean]: Pass true to keep all existing callbacks. If not specified or false is given, the existing handlers will be removed.
+        @returns Selection: This Selection
+
+      @method off
+        @description
+          Deregisters a callback for an event type.
+          @codeblock js
+
+            hx.select('#button').off('click')
+            hx.select('#button').off('click', handler)
+
+        @arg name [String]: The event type to remove the handler(s) for
+        @arg? callback [Function[Event]]: A specific callback to remove
+        @returns Selection: This Selection
+
+      @method view
+        @description
+          Creates a view on the current selection. See the View type for more information.
+        @arg selector [String]: A CSS selector
+        @arg? type [String]: The container node type to use. The default is 'div'
+        @returns View
+
+      @method each
+        @description
+          Calls a function for each element in the selection.
+        @arg f [Function[Element]]
+          @description: A function that takes a HTML element as its first parameter
+        @returns Selection: This Selection
+
+      @method map
+        @description
+          Calls a function for each element in the selection. Returns an array of the results of calling f on the elements. If used on a single selection the result will not be wrapped in an array.
+        @arg f [Function[Element]]
+          @description: A function that takes a HTML element as its first parameter
+        @returns [Any/Array[Any]]: The result of the function f
+
+      @method filter
+        @description
+          Returns a new selection by filtering on the elements in this selection.
+        @arg f [Function[Element]]
+          @description
+            A function that takes a HTML element as its first parameter and returns a Boolean. True to keep the element, False otherwise.
+        @returns Selection
+
+      @method box
+        @description
+          Returns the bounding boxes for the elements in the selection.
+        @returns [ClientRect/Array[ClientRect]]
+
+      @method width
+        @description
+          Returns the widths of the elements selected.
+        @returns [Number/Array[Number]]
+
+      @method height
+        @description
+          Returns the heights of the elements selected.
+        @returns [Number/Array[Number]]
+
+      @method size
+        @description
+          The number of nodes in the selection.
+        @returns Number
+
+      @method pointerDown
+        @description
+          Register a callback that will be called when the mouse button is pressed down, or a touch is started.
+        @arg callback [Object,Event]
+          @description
+            A callback for that will be called whenever the mouse button is pressed or a touch is started. The first argument is an object containing the position of the pointer, the second is the original event.
+        @returns Selection
+        @removed: Use selection.on("pointerdown", function(){}) instead.
+
+      @method pointerMove
+        @description
+          Register a callback that will be called when the mouse button is pressed down, or a touch is started. The first argument is an object containing the position of the pointer, the second is the original event.
+        @arg callback [Object,Event]: A callback for that will be called whenever the mouse or a touch is moved.
+        @returns Selection
+        @removed: Use selection.on("pointermove", function(){}) instead.
+
+      @method pointerUp
+        @description
+          Register a callback that will be called when the mouse button is released, or a touch is ended. The first argument is an object containing the position of the pointer, the second is the original event.
+        @arg callback [Object,Event]
+          A callback for that will be called whenever the mouse or a touch is moved. It should be checked that the first argument is defined - it may not be for touch events.
+        @returns Selection
+        @removed: Use selection.on("pointerup", function(){}) instead.
+
+      @method pointerLeave
+        @description
+          Register a callback that will be called when the mouse or a touch leaves the element's container. The first argument is an object containing the position of the pointer, the second is the original event.
+        @arg callback [Object,Event]
+          A callback for that will be called whenever the mouse or a touch is moved. It should be checked that the first argument is defined - it may not be for touch events.
+        @returns Selection
+        @removed: Use selection.on("pointerleave", function(){}) instead.
+
+      @method click
+        @description
+          Register a callback that will be called every time an element is clicked.
+        @arg callback [Event]: A callback for that will be called every time the element is select.
+        @arg? retain [Boolean]: Pass true to keep all existing click callbacks. If not specified or false is given, the existing handlers will be removed.
+        @returns Selection
+        @removed: Use selection.on("click", function(){}) instead.
+
+      @method transition
+        @description
+          Returns a new Selection that will animate any attributes or styles set.
+        @arg? callback [Function]: If supplied, this callback will be called at the end of the transition.
+        @returns Selection
+        @removed: Use selection.animate or selection.morph instead.
+
+      @method duration
+        @description: Changes the duration for transitions on this selection. Returns this Selection for chaining.
+        @arg duration [Number/Function]: The length of the transition in milliseconds, or a function that returns the duration to use on an element by element basis.
+        @returns Selection
+        @removed: Use selection.animate or selection.morph instead.
+
+      @method delay
+        @description
+          Changes the delay for transitions on this selection. Returns this Selection for chaining.
+        @arg delay [Number/Function]: The delay of the transition in milliseconds, or a function that returns the delay to use on an element by element basis.
+        @returns Selection
+        @removed: Use selection.animate or selection.morph instead.
+
+      @method ease
+        @description: Changes the ease for transitions on this selection. Returns this Selection for chaining.
+        @arg func [Function[Number]]: The easing function to use for transitions. hx.ease contains some default easing functions.
+        @returns Selection
+        @removed: Use selection.animate or selection.morph instead.
+
+      @method empty
+        @description: Returns true if the selection is empty, false if not.
+        @returns Boolean
+
+      @method closest
+        @description: Traverses up the dom to find the first parent element matching the selector given.
+        @arg selector [String]: The css selector to look for.
+        @returns Selection
+
+      @method animate
+        @description: Creates a new animation using the first node in the selection. Only available if the animate module is included.
+        @returns Animation
+
+      @method morph
+        @description
+          Creates a new morph using the first node in the selection. Only available if the animate module is included.
+        @returns Morph
+
+  @seeAlso
+    @hxModuleLink(hx-view)
+    @hxModuleLink(hx-animate)
+    @hxModuleLink(hx-morph)

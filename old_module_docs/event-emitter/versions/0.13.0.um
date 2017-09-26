@@ -1,0 +1,16 @@
+@version 0.13.0
+  @api Event Emitter
+    @prototype hx.EventEmitter
+
+      @method suppressed
+        @description: Sets whether events of a particular name should be suppressed (not emitted).
+        @arg name [String]: The event name to change the suppression state of.
+        @arg suppressed [Boolean]: True to prevent any events of the given name from being emitted, false to re-enable emission (which is the default behaviour).
+        @returns EventEmitter: This EventEmitter
+
+      @method suppressed
+        @description: Gets whether events of a particular name are being suppressed.
+        @arg name [String]: The event name to check the suppression state of.
+        @returns Boolean: True if the events of the given name are being suppressed, false if not.
+
+

@@ -1,0 +1,16 @@
+@version 0.12.0
+  @api Preferences
+    @prototype UserPreferences
+      @method setPreferences
+        @arg preferences [Object]
+        @arg? callback [Function]
+          @arg error [Object]
+          @arg data [Object]
+        @removed
+
+
+      @method getPreferences
+        @arg callback [Function]
+          @arg error [Object]
+          @arg data [Object]
+        @removed

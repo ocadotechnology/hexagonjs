@@ -1,0 +1,104 @@
+@version 1.0.0
+
+  @description
+    Helper functions for creating detached dom elements and some of the hexagon dom structures.
+
+  @examples
+    @example
+      @html
+        <div id="example"></div>
+      @js
+        hx.select('#example')
+          .add(hx.checkbox())
+          .add(hx.button({context: 'positive'}).text('Positive Button'))
+          .add(hx.button({context: 'warning'}).text('Warning Button'))
+          .add(hx.button({context: 'action'}).text('Action Button'))
+          .add(hx.icon({class: 'fa fa-plus'}))
+
+  @api Fluid
+
+    @function hx.checkbox
+      @added: Fluid api for constructing checkboxes
+      @description: Creates a detached input element with type 'checkbox', wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.inputGroup
+      @added: Fluid api for constructing input groups
+      @description: Creates a detached div, classed with hx-input-group, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.notice
+      @added: Fluid api for constructing notices
+      @description: Creates a detached div, classed with hx-notice, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.notice.head
+      @added: Fluid api for constructing notices
+      @description: Creates a detached div, classed with hx-notice-head, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.notice.body
+      @added: Fluid api for constructing notices
+      @description: Creates a detached div, classed with hx-notice-body, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.spinner
+      @added: Fluid api for constructing spinners
+      @description: Creates a detached span, classed with hx-spinner, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.spinner.wide
+      @added: Fluid api for constructing wide spinners
+      @description: Creates a detached span, classed with hx-spinner-wide, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.button
+      @added: Fluid api for constructing hexagon styled buttons
+      @arg? options [Object]
+        @property context [String]: The context class to apply to the button
+      @description: Creates a detached button wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.label
+      @added: Fluid api for constructing labels
+      @arg? options [Object]
+        @property context [String]: The context class to apply to the label
+      @description: Creates a detached span element, classed with hx-label, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.icon
+      @added: Fluid api for constructing icons
+      @arg? options [Object]
+        @property class [String]: The class to apply to the icon. This assumes you are using an icon font that uses classes (for example, font awsome)
+      @description: Creates a detached @code(js)[<i>] element wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.group
+      @added: Fluid api for constructing horizontal layout groups
+      @description: Creates a detached div, classed with hx-group and hx-horizontal, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.group.vertical
+      @added: Fluid api for constructing vertical layout groups
+      @description: Creates a detached div, classed with hx-group and hx-vertical, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.group.fixed
+      @added: Fluid api for constructing horizontal layout groups that don't grow
+      @description: Creates a detached div, classed with hx-group, hx-horizontal and hx-fixed, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.group.vertical.fixed
+      @added: Fluid api for constructing vertical layout groups that don't grow
+      @description: Creates a detached div, classed with hx-group, hx-vertical and hx-fixed, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.section
+      @added: Fluid api for constructing layout sections
+      @description: Creates a detached div, classed with hx-section, wrapped in a selection
+      @returns Selection: The selection containing the new element
+
+    @function hx.section.fixed
+      @added: Fluid api for constructing layout sections that don't grow
+      @description: Creates a detached div, classed with hx-section and hx-fixed, wrapped in a selection
+      @returns Selection: The selection containing the new element

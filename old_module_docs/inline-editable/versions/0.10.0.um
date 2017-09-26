@@ -1,0 +1,41 @@
+@version 0.10.0
+
+  @description
+    Makes text in a span editable.
+
+  @examples
+    @example
+      @html: @inline 0.10.0/example.html
+      @js: @inline 0.10.0/example.js
+
+  @api Inline Editable
+    @prototype hx.InlineEditable
+      @extends EventEmitter
+      @added
+      @constructor
+        @arg selector [String/HTMLElement]: A CSS selector that uniquely identifies the element, or an HTMLElement.
+
+      @method value
+        @description: Sets the text of the element.
+        @arg? value [String]: The text to give the element. If not specified the current value will be returned.
+        @returns String/InlineEditable: Returns the current value in the editable if a value is not speficied. If a value is specified, this InlineEditable is returned for chaining.
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @arg name [String]: The event type to listen out for.
+        @arg callback [Function]
+          @description
+            The function to call when the event occurs.
+          @arg data [Any]: The data sent along with the event.
+
+        @event change [Object]
+          @description: Emitted when the value is changed.
+
+          @property api [Boolean]: True if a call to the value method caused this change. False if it was a result of a user change.
+
+          @property value [String]: The new value.
+        @returns InlineEditable: This InlineEditable
+
+  @seeAlso
+    @moduleLink(inline-select)
+

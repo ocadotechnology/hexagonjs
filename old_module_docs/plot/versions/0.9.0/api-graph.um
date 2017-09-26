@@ -1,0 +1,56 @@
+@prototype hx.Graph
+  @description
+    Type for drawing graphs.
+
+  @constructor
+    @description
+      Creates a new graph object.
+
+    @arg selector [HTMLElement/String]
+      @description
+        An HTMLElement or CSS selector which selects the graph's container.
+
+
+  @method addAxis
+    @description
+      Creates a new axis for this graph with linear scales. Multiple axes can be added to a single graph. Returns the new Axis instance.
+
+    @returns Axis
+
+
+  @method addAxis
+    @description
+      Creates a new axis with the scale types specified and adds it to the graph. Returns the new Axis instance.
+
+    @arg xScaleType [String]
+      @description
+        The scale type to use for the x axis. Can currently be 'linear', 'discrete' or 'date'. When 'linear' and 'date' are used the data should be specified as a number. When 'discrete' is used, the data can be a number or a string. 'date' and 'linear' do the same thing, with the exception that 'date' will choose the tick values on the graph so that they align with common time intervals (1 min, 5 min, 30 min etc). 'date' scales expect the values to be specified in milliseconds.
+
+    @arg yScaleType [String]
+      @description
+        The scale type to use for the y axis. Can currently be 'linear', 'discrete' or 'date'. When 'linear' and 'date' are used the data should be specified as a number. When 'discrete' is used, the data can be a number or a string. 'date' and 'linear' do the same thing, with the exception that 'date' will choose the tick values on the graph so that they align with common time intervals (1 min, 5 min, 30 min etc). 'date' scales expect the values to be specified in milliseconds.
+
+    @returns Axis
+
+
+  @method addAxis
+    @description
+      Adds the axis supplied to this graph. An alternative to addAxis(xScaleType, yScaleType). Returns the Axis instance supplied.
+
+    @arg axis [Axis]: The axis to add.
+
+    @returns Axis
+
+
+  @method removeAxis
+    @description
+      Removes an axis from the graph.
+
+    @arg axis [Axis]
+      @description
+        The axis to remove.
+
+
+  @method render
+    @description
+      Redraws the graph.

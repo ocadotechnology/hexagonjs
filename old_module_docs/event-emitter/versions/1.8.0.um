@@ -1,0 +1,9 @@
+@version 1.8.0
+  @api Event Emitter
+    @prototype hx.EventEmitter
+      @method off
+        @bugfix: Updated the off method to clean up the internal objects when removing the last listener for a namespace
+          @issue 179
+        @arg? name [String]
+        @arg? namespace [String]
+        @arg? callback [Function]

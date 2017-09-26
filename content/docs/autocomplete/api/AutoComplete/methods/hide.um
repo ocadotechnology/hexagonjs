@@ -2,7 +2,7 @@
   @description
     A method to hide the autocomplete menu.
 
-  @param? suppressEvents [Boolean]
+  @arg? suppressEvents [Boolean]
     @description
       Whether to emit events when hiding the autocomplete.
 

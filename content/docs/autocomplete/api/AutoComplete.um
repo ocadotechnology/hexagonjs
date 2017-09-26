@@ -1,32 +1,3 @@
-@function hx.autoComplete
-  @added 1.0.0
-
-
-
-  @description
-    Creates a new AutoComplete set up on a detached element, wrapped in a
-    selection
-
-  @param data [Array/Function]
-    @added 1.3.0
-    @description
-      The data to use as suggestions for the input field. See the
-      @code[hx.AutoComplete] prototype constructor for more information
-      about the data.
-
-      This function previously did not work as it didn't pass the data to the
-      underlying @type[AutoComplete].
-
-  @param? options [Object]
-    @description
-      The options to use when building the @type[AutoComplete] instance
-
-    @inline AutoComplete/options/*um
-
-  @returns Selection
-    @description
-      A selection containing an element with an AutoComplete initialised on it
-
 @prototype AutoComplete
   @extends EventEmitter
   @added 0.9.0
@@ -53,6 +24,12 @@
       Fixed an issue where the filtering failed when there were no 'disabled'
       items in the list
 
+  @bugfix 1.10.0
+    @description
+      Resolved an issue where typing enter quickly before debouncing completes
+      allowed values that didn't match the current filter to be entered
+    @issue 346
+
   @description
     The AutoComplete class can be used to add an auto complete suggestion
     dropdown to any input field.
@@ -60,92 +37,32 @@
   @constructor
     @description
       Add an auto complete suggestions dropdown to an input box
-    @param selector [String/HTMLElement]
+    @arg selector [String/HTMLElement]
       The selector of the input box to add an auto complete to.
-    @param data [Array/Function]
-      @description
-        The data to use as suggestions for the input field. Data can be specified
-        as an array of items or as a function that returns an array of items.
 
-        The data must be in one of the following formats:
+    @arg items [Array/Function]
+      @inline AutoComplete/arguments/items.um
 
-        @subsection Array
-          @@codeblock json
-            [
-              "Bob",
-              "Steve",
-              ...
-            ]
-
-          By default, the data is expected as an array of string values. If
-          object based data is passed in, an @code[inputMap] must be provided
-          in the options:
-
-          @@codeblock js
-            data = [
-              {
-                name "Bob",
-                age: 21
-              },
-              {
-                name: "Steve",
-                age: 25
-              }
-            ]
-            options = {
-              inputMap: function(item){
-                return item.name + ', ' + item.age
-              }
-            }
-
-          A @code[renderer] and @code[filterOptions.searchValues] can also be
-          specified to change how the text is displayed and what data is
-          searchable, independent of the @code[inputMap].
-
-        @subsection Function
-
-          @@codeblock js
-            var data = function(term, callback){
-              hx.json('path/to/data?search='+term, function (e, r) {
-                callback(r.responseText)
-              })
-            }
-
-          A 'Loading...' message will be shown whilst the AutoComplete waits
-          for a response from this function.
-
-          It can be used in conjunction with the internal matching or be used
-          to match externally when setting the @code(js)[matchType] to 'external':
-
-          @@codeblock js
-            function data (term, callback) {
-              if (term.length > 0) {
-                return callback(townAndCountyData.filter(function (d) {
-                  var d = townAndCountyData[_i]
-                  var name = d.name.toLowerCase()
-                  var term = term.toLowerCase()
-                  var county = d.county.toLowerCase()
-                  return name.indexOf(term) > -1 || county.indexOf(term) > -1)
-                }))
-              } else {
-                return callback([])
-              }
-            }
-
-            options.matchType = 'external'
-
-          The term passed in is the current value of the input field (for use
-          as a search term).
-
-          The callback is the function that should be called to pass the data
-          back to the AutoComplete to display.
-
-          The callback must be called for the AutoComplete to show.
-
-    @param? options [Object]
-      @description: The options to use when building an auto complete box
-
+    @arg? options [Object]
       @inline AutoComplete/options/*um
 
   @inline AutoComplete/methods/*um
   @inline AutoComplete/events/*um
+
+@function hx.autoComplete
+  @added 1.0.0
+
+  @description
+    Creates a new AutoComplete set up on a detached element, wrapped in a
+    selection
+
+  @arg items [Array/Function]
+    @added 1.3.0
+    @inline AutoComplete/arguments/items.um
+
+  @arg? options [Object]
+    @inline AutoComplete/options/*um
+
+  @returns Selection
+    @description
+      A selection containing an element with an AutoComplete initialised on it

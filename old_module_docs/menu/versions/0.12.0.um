@@ -1,0 +1,11 @@
+@version 0.12.0
+  @api Menu
+    @prototype hx.Menu
+      @method addItem
+        @arg item [String]
+        @removed
+
+
+      @method addItems
+        @arg items [Array]
+        @removed

@@ -1,0 +1,74 @@
+@version 0.11.0
+  @api Time Slider
+    @prototype hx.TimeSlider
+      @constructor
+        @arg selection [String/HTMLElement]
+        @arg? type [String]
+        @arg? render [Function]
+          @arg slider [Slider]
+          @arg elem [HTMLElement]
+          @arg value [Number]
+          @arg update [Boolean]
+          @arg rangeStart [Boolean]
+        @removed
+
+
+      @method setRangeStartValue
+        @arg value [Number/Date]
+        @removed
+
+
+
+      @method setRangeEndValue
+        @arg value [Number/Date]
+        @removed
+
+
+      @method getRangeStartValue
+        @removed
+
+
+      @method getRangeEndValue
+        @removed
+
+
+      @method setValue
+        @arg value [Number/Date]
+        @deprecated
+
+          Use @code[value(value)] instead.
+
+      @method setValue
+        @arg value [Object]
+        @deprecated
+
+          Use @code[value(value)] instead.
+
+      @method getValue
+        @deprecated
+
+          Use @code[value()] instead.
+
+      @method value
+        @description: Sets the value / position of the slider. Returns this slider for chaining.
+        @arg value [Number]: A value between the minimum and maximum values for the slider specified in milliseconds.
+        @returns TimeSlider
+
+      @method value
+        @description: Sets the value / position of the slider. Returns this slider for chaining.
+        @arg value [Date]: A date between the minimum and maximum values for the slider.
+        @returns TimeSlider
+
+      @method value
+        @description: Sets the values for a range slider.
+        @arg value [Object]
+          @property? startValue [Number/Date]: A value between the minimum and maximum values for the slider.
+          @property? endValue [Number/Date]: A value between the minimum and maximum values for the slider.
+        @returns TimeSlider
+
+      @method value
+        @description: Returns the current value of the slider.
+        @returns [Date/Object]
+          For standard sliders, this will be a number. For range sliders, this will be an object with the below properties
+          @property startValue [Date]: The start value of the selected range slider
+          @property endValue [Date]: The end value of the selected range slider

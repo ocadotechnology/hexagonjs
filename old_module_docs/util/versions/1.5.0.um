@@ -1,0 +1,37 @@
+@version 1.5.0
+  @api Util
+    @function hx.argmin
+      @added: Added a function for getting the index of the item in an array with the lowest value
+      @description: A function for getting the index of the item in an array with the lowest value
+      @arg array [Array]: The array to find the min value of
+      @arg lookup [Function]: The function to use to lookup the value of an argument
+        @arg value [Any]: An item in the array
+        @returns Number: The value of the argument in the array
+      @returns Number: The index of the item in the array with the lowest value
+
+    @function hx.argmax
+      @added: Added a function for getting the index of the item in an array with the highest value
+      @description: A function for getting the index of the item in an array with the highest value
+      @arg array [Array]: The array to find the max value of
+      @arg lookup [Function]: The function to use to lookup the value of an argument
+        @arg value [Any]: An item in the array
+        @returns Number: The value of the argument in the array
+      @returns Number: The index of the item in the array with the lowest value
+
+    @function hx.minBy
+      @bugfix: Fix an issue where the last value in the array wasn't being checked
+      @arg array [Array]
+      @arg lookup [Function]
+        @arg value [Any]
+
+    @function hx.maxBy
+      @bugfix: Fix an issue where the last value in the array wasn't being checked
+      @arg array [Array]
+      @arg lookup [Function]
+        @arg value [Any]
+
+    @function hx.isNumber
+      @added: Added a function for checking if something is a Number
+        @issue 240
+      @arg value [Any]: The value to check
+      @returns Boolean: Whether the value passed in is a Number

@@ -1,0 +1,9 @@
+@version 0.14.0
+  @api Select
+    @prototype hx.Select
+      @deprecated: This has been renamed to hx.Picker to avoid confusion with the selection api. Rename all uses of hx.Select to hx.Picker (the api is the same).
+
+      @constructor
+        @arg selector [String/HTMLElement]
+        @arg? ddClass [String]
+        @removed: Use @code[hx.Picker(selector, options)] instead.

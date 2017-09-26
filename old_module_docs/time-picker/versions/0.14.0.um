@@ -1,0 +1,66 @@
+@version 0.14.0
+  @examples
+    @example
+      @html
+        <div id="timepicker"></div>
+        <div id="timepickerseconds"></div>
+      @js
+        new hx.TimePicker('#timepicker')
+        new hx.TimePicker('#timepickerseconds', {showSeconds: true})
+
+  @api Time Picker
+    @prototype hx.TimePicker
+      @constructor
+        @arg selector [String/HTMLElement]
+        @arg? showSeconds [Boolean]
+        @arg? buttonClass [String]
+        @removed
+          Use @code[hx.TimePicker(selector, options)] instead.
+
+      @method addHours
+        @arg hours [Number]
+        @removed: Use tp.hour(tp.hour() + hours) instead
+        @returns TimePicker: This TimePicker
+
+      @method addMinutes
+        @arg minutes [Number]
+        @removed: Use tp.minute(tp.minute() + minutes) instead
+        @returns TimePicker: This TimePicker
+
+      @method addSeconds
+        @arg seconds [Number]
+        @removed: Use tp.second(tp.second() + seconds) instead
+        @returns TimePicker: This TimePicker
+
+      @method date
+        @arg date [Date]
+        @arg? retainTime [Boolean]
+        @arg? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+      @method hour
+        @arg hour [Number]
+        @arg? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+
+      @method minute
+        @arg minute [Number]
+        @arg? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+
+      @method second
+        @arg second [Number]
+        @arg? suppressCallback [Boolean]
+        @removed
+          The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+
+      @method update
+        @arg? locale [String/Boolean]
+        @removed
+          Use @code[locale(locale)] instead.

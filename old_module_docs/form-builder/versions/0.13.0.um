@@ -1,0 +1,87 @@
+@version 0.13.0
+  @api Form Builder
+    @prototype hx.Form
+      @group Add Component Methods
+        @method addDatePicker
+          @arg name [String]
+          @arg? options [Object]
+            @property type [String]
+              @deprecated
+
+                Use @code[datePickerOptions] instead.
+            @property closeOnSelect [Boolean]
+              @deprecated
+
+                Use @code[datePickerOptions] instead.
+            @property selectRange [Boolean]
+              @deprecated
+
+                Use @code[datePickerOptions] instead.
+            @property datePickerOptions [Object
+              @description: The options to use for the date picker component. See the @link(../date-picker/)[Date Picker] constructor for the available options.
+
+
+        @method addTimePicker
+          @arg name [String]
+          @arg? options [Object]
+            @property showSeconds [Boolean]
+              @deprecated
+
+                Use @code[timePickerOptions] instead.
+            @property buttonClass [String]
+              @deprecated
+
+                Use @code[timePickerOptions] instead.
+            @property timePickerOptions [Object]
+              @description: The options to use for the time picker component. See the @link(../time-picker/)[Time Picker] constructor for the available options.
+
+        @method addDateTimePicker
+          @arg name [String]
+          @arg? options [Object]
+            @property type [String]
+              @deprecated
+
+                Use @code[dateTimePickerOptions] instead.
+            @property showSeconds [Boolean]
+              @deprecated
+
+                Use @code[dateTimePickerOptions] instead.
+            @property dateTimePickerOptions [Object]
+              @description: The options to use for the time picker component. See the @link(../date-time-picker/)[Date Time Picker] constructor for the available options.
+
+        @method addSelect
+          @arg name [String]
+          @arg values [Array[String]]
+          @arg? options [Object]
+            @property selectOptions [Object]
+              @description: The options to use for the select component. See the @link(../select/)[select] constructor for the available options.
+              @added
+
+
+        @method addSelect
+          @arg name [String]
+          @arg values [Array[Object]]
+          @arg? options [Object]
+            @property selectOptions [Object]
+              @description: The options to use for the select component. See the @link(../select/)[select] constructor for the available options.
+              @added
+
+
+        @method addTagInput
+          @arg name [String]
+          @arg? options [Object]
+            @property classifier [Function]
+              @deprecated
+
+                Use @code[tagInputOptions] instead.
+            @property validator [Function]
+              @deprecated
+
+                Use @code[tagInputOptions] instead.
+            @property tagInputOptions [Object]
+              @description: The options to use for the tg input component. See the @link(../tag-input/)[tag input] constructor for the available options.
+              @added
+
+
+      @method submit
+        @returns Form: This Form

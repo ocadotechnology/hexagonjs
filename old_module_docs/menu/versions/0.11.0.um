@@ -1,0 +1,22 @@
+@version 0.11.0
+  @api Menu
+    @prototype hx.Menu
+      @method addItem
+        @arg item [String]
+        @deprecated
+
+          Use @code[add(item)] instead.
+
+      @method addItems
+        @arg items [Array]
+        @deprecated
+
+          Use @code[add(items)] instead.
+
+      @method add
+        @description: Add an item to the menu. The format of the item can vary depending on the renderer that is defined.
+        @arg item [String]: An item to add.
+
+      @method add
+        @description: A method of adding multiple items from an array.
+        @arg items [Array]: An array of items to add.

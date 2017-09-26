@@ -1,0 +1,26 @@
+@version 0.12.3
+  @api Selection
+    @prototype Selection
+      @method on
+        @arg name [String]
+        @arg? namespace [String]
+        @arg callback [Function[Event]]
+        @arg? retain [Boolean]
+        @deprecated
+
+          The retain parameter has been deprecated use @code[on(name, namespace, callback)] with different namespaces to add multiple listeners to a selection instead.
+
+      @method on
+        @added
+        @description
+          Registers a callback for an event type.
+          @codeblock js
+
+            hx.select('#button').on('click', function() {
+              // click handling code here
+            })
+
+        @arg name [String]: The event type to listen for
+        @arg? namespace [String]: The namespace to register the handler under.
+        @arg callback [Function[Event]]: The callback that will be called every time this event happens.
+        @returns Selection: This Selection

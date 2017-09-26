@@ -1,0 +1,18 @@
+@version 0.14.0
+  @api Number Picker
+    @prototype hx.NumberPicker
+      @constructor
+        @removed
+          Use hx.NumberPicker(selector, options) instead.
+        @arg selector [String/HTMLElement]
+        @arg? buttonClass [String]
+
+      @method setMin
+        @arg min [Number]
+        @removed
+          Use @code[min(value)] instead.
+
+      @method setMax
+        @arg max [Number]
+        @removed
+          Use @code[max(value)] instead.

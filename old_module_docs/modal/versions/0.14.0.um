@@ -1,0 +1,45 @@
+@version 0.14.0
+  @examples
+    @inline 0.14.0/examples.um
+
+  @api Modal
+
+    @prototype hx.Modal
+
+      @constructor
+        @removed: Use hx.Modal(title, setup, [options]) instead.
+        @arg title [String]
+        @arg setup [Function[HTMLElement]]
+        @arg? isClosable [Boolean]
+
+      @property setupTitlebar [Function]
+        @arg element [HTMLElement]
+        @removed: Use options.titlebarRenderer instead.
+
+      @method close
+        @deprecated: Use modal.hide instead.
+
+      @method hide
+        @description: Hides the modal.
+        @returns Modal: This Modal
+
+
+    @object hx.modal
+      @function dialog
+        @removed: Use hx.modal.dialog(title, message, callback, options) instead.
+        @arg title [String]
+        @arg message [String]
+        @arg callback [Function]
+          @arg value [String/Boolean]
+        @arg? buttons [Array]
+        @arg? isClosable [Boolean]
+        @arg? titleClass [String]
+        @arg? icon [String]
+
+      @function input
+        @removed: Use hx.input(title, messsage, callback, options) instead.
+        @arg title [String]
+        @arg message [String]
+        @arg callback [Function]
+        @arg value [String]
+        @arg? isClosable [Boolean]

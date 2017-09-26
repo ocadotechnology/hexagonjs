@@ -1,0 +1,15 @@
+@version 0.13.0
+  @api Morph Section
+    @prototype hx.MorphSection
+      @constructor
+        @arg selector [String/HTMLELement]
+        @arg? animate [Boolean]
+        @deprecated
+
+          Use @code[hx.MorphSection(selector, options)] instead.
+
+      @constructor
+        @arg selector [String/HTMLELement]: A selector that uniquely identifies the element on the page.
+        @arg? options [Object]: The options to use when setting up the morph section
+          @property animate [Boolean]: Whether or not to animate the section transitions. True means that animation will happen.
+            @default: true

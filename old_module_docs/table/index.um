@@ -1,0 +1,2 @@
+@module Table
+  @inline versions/*.um

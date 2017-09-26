@@ -1,0 +1,23 @@
+@version 0.15.2
+  @api Palette
+    @added: Added the .hx-background-text-color class to allow child elements of elements with a hx-background- class the correct text color for that background.
+    @class hx-background-default
+      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.
+
+    @class hx-background-positive
+      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.
+
+    @class hx-background-warning
+      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.
+
+    @class hx-background-negative
+      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.
+
+    @class hx-background-info
+      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.
+
+    @class hx-background-compliment
+      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.
+
+    @class hx-background-contrast
+      @childclass hx-background-text-color: Applies the text color to a child element of any element with a background class.

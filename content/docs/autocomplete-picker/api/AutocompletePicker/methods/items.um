@@ -1,0 +1,8 @@
+@method items
+  @description: Gets the currently set items
+  @returns [Array/Function]: The currently set items
+
+@method items
+  @description: Sets the items to an array or function
+  @arg items [Array/Function]: The array or function to use. See the items constructor option for more information
+  @returns AutocompletePicker: The current autocomplete picker

@@ -1,0 +1,52 @@
+@version 0.11.0
+  @examples
+    @example
+      @html
+        <div id="pb1" class="hx-progress-bar"></div>
+        <div id="pb2" class="hx-progress-bar hx-positive"></div>
+        <div id="pb3" class="hx-progress-bar hx-warning"></div>
+        <div id="pb4" class="hx-progress-bar hx-negative"></div>
+        <div id="pb5" class="hx-progress-bar hx-info"></div>
+        <div id="pb6" class="hx-progress-bar hx-compliment"></div>
+        <div id="pb7" class="hx-progress-bar hx-contrast"></div>
+      @js
+        pb1 = new hx.ProgressBar('#pb1');
+        pb2 = new hx.ProgressBar('#pb2');
+        pb3 = new hx.ProgressBar('#pb3');
+        pb4 = new hx.ProgressBar('#pb4');
+        pb5 = new hx.ProgressBar('#pb5');
+        pb6 = new hx.ProgressBar('#pb6');
+        pb7 = new hx.ProgressBar('#pb7');
+
+        pb1.value(0.25);
+        pb2.value(0.33);
+        pb3.value(0.42);
+        pb4.value(0.5);
+        pb5.value(0.58);
+        pb6.value(0.67);
+        pb7.value(0.75);
+
+  @api Progress Bar
+    @prototype hx.ProgressBar
+      @method setProgress
+        @arg value [Number]
+        @deprecated
+
+          Use @code[progress(value)] instead.
+
+      @method getProgress
+        @deprecated
+
+          Use @code[progress()] instead.
+
+      @method value
+        @description: Set the value of the progress bar. Expects a value between 0 and 1.
+        @arg value [Number]: A value between 0 and 1.
+        @returns ProgressBar: This progressbar for chaining.
+
+      @method value
+        @description: Get the value of the progress bar.
+        @returns Number: A value between 0 and 1
+
+
+

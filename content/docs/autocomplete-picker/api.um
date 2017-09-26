@@ -1,0 +1,7 @@
+@api AutocompletePicker
+  @inline api/*.um
+
+  @bugfix 1.8.0
+    @description:
+      Fixed an issue where object based items were being sorted incorrectly
+    @issue 273

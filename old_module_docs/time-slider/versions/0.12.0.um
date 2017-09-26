@@ -1,0 +1,15 @@
+@version 0.12.0
+  @api Time Slider
+    @prototype hx.TimeSlider
+      @method setValue
+        @arg value [Number/Date]
+        @removed
+
+
+      @method setValue
+        @arg value [Object]
+        @removed
+
+
+      @method getValue
+        @removed

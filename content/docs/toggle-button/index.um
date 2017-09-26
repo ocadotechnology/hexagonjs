@@ -1,5 +1,0 @@
-@inline ../../templates/sidebar-page.um
-
-@contentSection
-  @module Toggle Button
-    @inline versions/*.um

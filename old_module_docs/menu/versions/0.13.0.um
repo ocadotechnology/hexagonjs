@@ -1,0 +1,187 @@
+@version 0.13.0
+  @examples
+    @inline 0.13.0/examples.um
+
+  @api Menu
+    @prototype hx.Menu
+      @constructor
+        @deprecated
+
+          Use @code[hx.Menu(selector, options)] instead.
+        @description
+        @arg selector [String]
+        @arg? align [String]
+        @arg? mode [String]
+        @arg? ddClass [String]
+
+      @constructor
+        @added
+
+        @description
+        @arg selector [String/HTMLElement]: The element that will call the menu when clicked or hovered over
+        @arg? options [Object]: The options to use when setting up the menu.
+          @property align [String]
+            @description: The alignment to use for the menu - see the @link(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
+          @property mode [String]
+            @description: The mode to use for showing the dropdown - see the @link(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
+          @property ddClass [String]: The additional class to add to the dropdown when creating it to allow specific styling if required.
+          @property items [Function/Array[Object]]: A function that provides the items, or an array of the items.
+          @property renderer [Function]
+            @description: The renderer function for an item
+            @arg element [HTMLElement]: The dropdown element
+            @arg item [Object]: The menu item to be rendered
+
+      @method items
+        @arg items [Array[Object]]
+        @returns Menu: This Menu
+          @added: Added a return type to the items method.
+
+
+      @property renderer
+        @arg element [HTMLElement]
+        @arg item [Object]
+        @deprecated: Deprecated the ability to set menu.renderer to a function.
+
+
+          Use @code[menu.renderer(render)] to set the renderer instead.
+
+      @method renderer
+        @added
+
+
+        @description
+          A method used to set a custom renderer for a menu
+          @codeblock js
+            menu = new hx.Menu('#selector');
+            menu.renderer(function(elem, item){
+              // do your render stuff
+            });
+            menu.render(data);
+        @arg render [Function]: The function to use as the renderer
+          @description: The function that converts an item into html and attaches it to the element supplied. This function is not intended to be called externally but can be redefined to change how the menu is created.
+          @arg element [HTMLElement]: The dropdown element
+          @arg item [Object]: The menu item to be rendered
+
+        @returns Menu: This Menu
+
+      @method renderer
+        @added
+
+
+
+        @description: Gets the current item renderer function
+
+        @returns Function
+          @arg render [Function]: The function to use as the renderer
+          @description: The function that converts an item into html and attaches it to the element supplied. This function is not intended to be called externally but can be redefined to change how the menu is created.
+          @arg element [HTMLElement]: The dropdown element
+          @arg item [Object]: The menu item to be rendered
+
+
+      @method add
+        @removed
+
+        @description: Add an item to the menu. The format of the item can vary depending on the renderer that is defined.
+        @arg item [String]: An item to add.
+
+      @method add
+        @removed
+
+        @description: A method of adding multiple items from an array.
+        @arg items [Array]: An array of items to add.
+
+      @method on
+        @arg name [String]
+        @arg callback [Function]
+          @arg data [Any]
+
+        @event select
+          @deprecated
+
+            Use the @code[change] event instead.
+
+        @event activeset
+          @deprecated
+
+            Use the @code[highlight] event instead.
+
+        @event change [Object]
+          @added: Added a new event to replace the 'select' event.
+          @description: The event called when a menu item is selected.
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                @item: 'click' - User clicked
+                @item: 'enter' - User pressed the enter key
+                @item: 'tab'   - User pressed the tab key
+          @property item [String/Object]: The menu item as it was passed into the menu.
+
+        @event highlight [Object]
+          @added: Added a new event to replace the 'activeset' event
+          @description: The event called when a menu item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
+          @property eventType [String]
+            @description:
+              The type of event that caused the selection:
+              @list:
+                @item: 'click' - User clicked
+                @item: 'arrow' - User used the arrow keys
+          @property item [String/Object]: The menu item as it was passed into the menu.
+
+        @event dropdown.showstart
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation starts. No data is sent with this event.
+
+        @event dropdown.showend
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation finishes. No data is sent with this event.
+
+        @event dropdown.hidestart
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation starts. No data is sent with this event.
+
+        @event dropdown.hideend
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown animation ends. No data is sent with this event.
+
+        @event dropdown.change [Boolean]
+          @added: Pipe the dropdown events through so they can be listened to directly.
+          @description: Emitted when the dropdown is shown or hidden. The data sent with this event is a boolean indicating whether or not the dropdown is visible. True means that the dropdown has just been shown, false means it has just been hidden.
+
+
+
+      @method items
+        @arg data [Function]
+          @arg callback [Function]
+            @arg data [Array[String/Object]]
+        @returns Menu: This Menu
+          @added: Added a return type to the items method.
+
+
+      @method items
+        @arg items [Array[Object]]
+        @returns Menu: This Menu
+          @added: Added a return type to the items method.
+
+
+      @method items
+        @added: Added a method for getting the current items for the menu.
+
+        @description: A method for getting the current items for the menu.
+        @returns Array/Function: The currently set items array of function for the menu.
+
+      @method hide
+        @returns Menu: This Menu
+          @added: Added a return type to the hide method.
+
+
+      @method clearItems
+        @deprecated
+
+          Use @code[hx.Menu.items] to set the items to an empty array instead.
+
+
+      @method addException
+        @arg element [HTMLElement]
+        @returns Menu: This Menu
+          @added: Added a return type to the addException method.

@@ -1,0 +1,8 @@
+@method disabled
+  @description: Gets the disabled state of the autocomplete picker
+  @returns Boolean: The current disabled state
+
+@method disabled
+  @description: Sets the disabled state of the autocomplete picker
+  @arg disabled [Boolean]: The disabled state to set
+  @returns AutocompletePicker: The current autocomplete picker

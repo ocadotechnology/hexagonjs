@@ -1,0 +1,12 @@
+@version 1.13.0
+  @api Data Table
+    @prototype hx.DataTable
+      @constructor
+        @arg selector [String/HTMLElement]
+        @arg? options [Object]
+          @property highlightOnHover [Boolean]
+            @added
+              @description: Added the ability to disable row hover for data tables
+            @description
+              Whether the row should hightlight when the user hovers over it
+            @default: true

@@ -1,0 +1,47 @@
+@version 1.12.0
+  @api Filter
+    @object hx.filter
+      @function stringTypes
+        @added: @issue 401
+          @description: Added functions for getting the filter types
+        @description: A function that returns the filter types that can be used when filtering strings:
+          @@codeblock js
+            [
+              'contains',
+              'exact'
+              'excludes',
+              'startsWith'
+              'regex',
+              'fuzzy'
+            ]
+        @returns [Array[String]]: The array of string filter types
+
+      @function numberTypes
+        @added: @issue 401
+          @description: Added functions for getting the filter types
+        @description: A function that returns the filter types that can be used when filtering numbers:
+          @@codeblock js
+            [
+              'exact',
+              'greater',
+              'less'
+            ]
+        @returns [Array[String]]: The array of number filter types
+
+      @function types
+        @added: @issue 401
+          @description: Added functions for getting the filter types
+        @description: A function that returns all the filter types:
+          @@codeblock js
+            [
+              'contains',
+              'exact'
+              'greater',
+              'less',
+              'excludes',
+              'startsWith'
+              'regex',
+              'fuzzy'
+            ]
+
+        @returns [Array[String]]: The array of all filter types

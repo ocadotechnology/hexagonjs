@@ -1,0 +1,17 @@
+@version 0.14.0
+  @api Util
+    @function hx.merge
+      @arg retainUndefined [Boolean]
+      @arg objects... [Object]
+      @removed
+        @alternate
+          hx.merge(true, objects...) has been replaced with hx.merge(objects...)
+          hx.merge(false, objects...) has been replaced with hx.merge.defined(objects...)
+
+    @function hx.shallowMerge
+      @arg retainUndefined [Boolean]
+      @arg objects... [Object]
+      @removed
+        @alternate
+          hx.shallowMerge(true, objects...) has been replaced with hx.shallowMerge(objects...)
+          hx.shallowMerge(false, objects...) has been replaced with hx.shallowMerge.defined(objects...)

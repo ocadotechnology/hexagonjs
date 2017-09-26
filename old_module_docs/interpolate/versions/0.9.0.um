@@ -1,0 +1,44 @@
+@version 0.9.0
+
+  @description
+    Linear interpolation for numbers and strings
+
+  @installation
+
+  @examples
+
+  @api Interpolate
+
+    @function hx.interpolate
+      @description
+        Returns a interpolator function for values between two numbers.
+
+        @codeblock js
+          hx.interpolate(100, 200)(0.5)// Returns 150
+
+      @arg a [Number]: The first number to compare
+      @arg b [Number]: The second number to compare
+      @returns Function
+        @description
+          A function that accepts a single value between 0 and 1 as a percentage point between the two values input in the interpolate function.
+        @arg alpha [Number]
+        @returns Number
+
+    @function hx.interpolate
+      @description
+        Returns a interpolator function for values between two strings. All comparable numbers embedded in the strings will be interpolated.
+
+        @codeblock js
+          hx.interpolate("rgba(255,0,0,1)", "rgba(0,0,255,1)")(0.5) // Returns rgba(128,0,128,1)"
+          hx.interpolate("Number 1: 500px;", "Number 1: 200px;")(0.5)// Returns "Number 1: 350px;"
+
+      @arg a [String]: The first string to compare
+      @arg b [String]: The second string to compare
+      @returns Function
+        @description
+          A function that accepts a single value between 0 and 1 as a percentage point between the two values input in the interpolate function.
+        @arg alpha [Number]
+        @returns String
+
+
+  @seeAlso

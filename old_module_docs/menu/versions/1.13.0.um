@@ -1,0 +1,5 @@
+@version 1.13.0
+  @api Menu
+    @enhancement
+      @description
+        Updated the display of the 'active' item to work as the user would expect

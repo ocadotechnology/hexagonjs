@@ -8,7 +8,7 @@
     @groupByApi true
     @reverseVisibleList true
     @process
-      @inline /content/docs/**/index.um
+      @inline ../docs/**/index.um
 
     @version 0.9.0
       @description

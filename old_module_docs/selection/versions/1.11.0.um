@@ -1,0 +1,7 @@
+@version 1.11.0
+  @api Selection
+    @prototype Selection
+      @enhancement
+        @issue 376
+        @description
+          Removed warning when calling hx.select on a Selection.

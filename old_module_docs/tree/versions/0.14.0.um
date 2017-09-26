@@ -1,0 +1,26 @@
+@version 0.14.0
+  @api Tree
+    @prototype hx.Tree
+      @bugfix
+
+        The options.items option has been fixed to not throw an error when used.
+
+
+      @method render
+        @arg data [Array[Object]]
+        @arg renderer [Function]
+          @arg node [HTMLElement]
+          @arg data [Any]
+        @removed
+          Use @code[items(data)] to set the data and @code[renderer(render)] to set the renderer or pass in options to the constructor.
+
+      @constructor
+        @arg selection [String/HTMLElement]
+        @arg? hideDisabledButtons [Boolean]
+        @removed
+          Use @code[hx.Tree(selector, options)] instead.
+
+    @function hx.initialiseTrees
+      @arg selector [String]
+      @removed
+        Use @code[hx.initializeTrees] instead.

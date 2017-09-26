@@ -1,0 +1,7 @@
+@version 0.14.0
+  @api Form
+    @function hx.validateForm
+      @arg form [String/HTMLElement]
+      @arg? showMessage [Boolean]
+      @removed
+        Use @code[hx.validateForm(selector, options)] instead.

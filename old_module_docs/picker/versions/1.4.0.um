@@ -1,0 +1,9 @@
+@version 1.4.0
+  @api Picker
+    @prototype hx.Picker
+      @constructor
+        @arg selector [String/HTMLElement]
+        @arg? options [Object]
+          @property noValueText [String]
+            @updated: @issue 211
+            @default: [hx.userFacingText('picker', 'chooseValue')]

@@ -1,0 +1,6 @@
+@method hide
+  @description
+    Hides the picker dropdown
+  @returns AutocompletePicker
+    @description
+      The current autocomplete picker

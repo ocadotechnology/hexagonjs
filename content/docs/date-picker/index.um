@@ -1,5 +1,0 @@
-@inline ../../templates/sidebar-page.um
-
-@contentSection
-  @module Date Picker
-    @inline versions/*.um

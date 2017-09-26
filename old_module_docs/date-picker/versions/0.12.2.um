@@ -1,0 +1,44 @@
+@version 0.12.2
+  @examples
+    @example
+      @html
+        <div id="datepickerExample1"></div> <div id="datepickerExample2"></div>
+      @js
+        new hx.DatePicker('#datepickerExample1');
+        new hx.DatePicker('#datepickerExample2', {type: 'datepicker'});
+
+    @example
+      @html
+        <div id="dateRangePicker"></div>
+
+      @js
+        new hx.DatePicker('#dateRangePicker', {selectRange: true});
+
+  @api Date Picker
+    @prototype hx.DatePicker
+      @enhancement: Updated the date picker to allow 'zooming out' to year/decade view by clicking the header and converted to use options object instead of multiple arguments.
+
+      @constructor
+        @arg selector [String/HTMLElement]
+        @arg type [String]
+        @arg? closeOnSelect [Boolean]
+        @arg? selectRange [Boolean]
+        @deprecated
+
+          Use @code[hx.DatePicker(selector, options)] instead.
+
+      @constructor
+        @added
+
+        @arg selector [String/HTMLElement]: The selector to use to build the date picker
+        @arg? options [Object]: The options to use when setting up the datepicker.
+          @property type [String]: The type of date picker to show, can be either 'datepicker' or 'calendar'
+            @default: 'calendar'
+          @property closeOnSelect [Boolean]: Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
+            @default: true
+          @property selectRange [Boolean]: Set to true to allow the selection of a date range. If this is set to true, the type is set to 'calendar' and showTodayButton is set to false as these properties cannot be used when in range selection mode.
+            @default: false
+          @property defaultView [String]: The default view to use when using the date picker. Can be 'm' for month view, 'y' for year view or 'd' for decade view.
+            @default: 'm'
+          @property showTodayButton [Boolean]: Whether to show the 'today' button when using the date picker. The today button allows the user to select today regardless of what view they are currently in.
+            @default: true

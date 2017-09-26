@@ -1,0 +1,7 @@
+@version 1.10.0
+  @api Card
+    @class hx-card
+      @childclass hx-card-section
+        @bugfix
+          @description: Resolved an issue with the vertical alignment of card sections
+          @issue 137

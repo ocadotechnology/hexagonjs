@@ -1,0 +1,26 @@
+@version 1.7.0
+  @examples
+    @example
+      @html: @inline 1.5.0/simple-example.html
+      @js: @inline 1.5.0/simple-example.js
+
+    @example
+      @html: @inline 1.5.0/advanced-search-example.html
+      @js: @inline 1.5.0/advanced-search-example.js
+
+    @example
+      @html: @inline 1.7.0/lazy-example.html
+      @js: @inline 1.7.0/lazy-example.js
+
+  @api Data Table
+    @object Feed
+      @function rows
+        @arg range [Object]
+        @arg callback [Function]
+          @arg data [Object]
+            @property filteredCount [Number]
+              @bugfix: Fixed issue with page-size-selector for lazy feeds
+                @issue 305
+              @bugfix: Fixed issue with page-selector for lazy feeds
+                @issue 306
+              @description: The number of all filtered rows in the feed. Can be undefined if the feed is lazy and the final size is unknown.

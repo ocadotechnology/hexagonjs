@@ -4,6 +4,6 @@
     when one of the @code[hx.filter] methods isn't suitable for
     filtering the data.
 
-  @param array [Array]: The array from the AutoComplete cache or data source
-  @param term [String]: The search term to use when filtering
+  @arg array [Array]: The array from the AutoComplete cache or data source
+  @arg term [String]: The search term to use when filtering
   @returns Array: The filtered data

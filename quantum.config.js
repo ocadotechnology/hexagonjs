@@ -85,6 +85,7 @@ function customizedTemplate (file) {
 }
 
 module.exports = {
+  port: 9000,
   pipeline: [
     customizedTemplate,
     api.fileTransform(apiOptions),

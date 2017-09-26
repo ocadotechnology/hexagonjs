@@ -1,0 +1,10 @@
+@method renderer
+  @description: Gets the renderer of the autocomplete picker
+  @returns Function: The currently set renderer
+
+@method renderer
+  @description: Sets the renderer of the autocomplete picker
+  @arg renderer [Function]: The renderer to use.
+    @arg element [HTMLElement]: The HTMLElement to populate
+    @arg item [Object]: The data item to populate the element with
+  @returns AutocompletePicker: The current autocomplete picker

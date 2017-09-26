@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.8.2
+ Version: 1.12.0
  Theme: hexagon-light
  Modules:
    set
@@ -20,6 +20,7 @@
    selection
    transition
    interpolate
+   component
    sort
    user-facing-text
    animate
@@ -32,7 +33,6 @@
    modal
    notify
    format
-   component
    morphs
    click-detector
    base
@@ -52,10 +52,10 @@
    autocomplete
    drag-container
    layout
+   fluid
    progress-bar
    plot
    button-group
-   fluid
    picker
    request
    sticky-table-headers
@@ -104,6 +104,7 @@ hx.theme = {
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "component": {},
   "sort": {},
   "userFacingText": {},
   "animate": {},
@@ -150,7 +151,6 @@ hx.theme = {
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "format": {},
-  "component": {},
   "morphs": {},
   "clickDetector": {},
   "base": {
@@ -302,6 +302,7 @@ hx.theme = {
     "borderCol": "#D0D0D0",
     "contentBackgroundCol": "transparent"
   },
+  "fluid": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -346,7 +347,6 @@ hx.theme = {
     "labelHeaderBorderCol": "#D0D0D0"
   },
   "buttonGroup": {},
-  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {
@@ -1545,7 +1545,7 @@ hx.vendor = function(obj, prop) {
   }
   for (l = 0, len1 = vendorPrefixes.length; l < len1; l++) {
     p = vendorPrefixes[l];
-    if ((prefixedProp = p + prop.charAt(0) + prop.slice(1)) in obj) {
+    if ((prefixedProp = p + prop.charAt(0).toUpperCase() + prop.slice(1)) in obj) {
       return obj[prefixedProp];
     }
   }
@@ -2312,29 +2312,35 @@ selectAll = function(selector, node) {
 };
 
 shallowSelectSingle = function(selector, node) {
-  var child, j, len, matchFn, ref;
-  matchFn = getMatches(node);
-  ref = node.children;
-  for (j = 0, len = ref.length; j < len; j++) {
-    child = ref[j];
-    if (matchFn.call(child, selector)) {
-      return child;
+  var child, j, len, matchFn, ref, ref1;
+  if ((ref = node.children) != null ? ref.length : void 0) {
+    matchFn = getMatches(node);
+    ref1 = node.children;
+    for (j = 0, len = ref1.length; j < len; j++) {
+      child = ref1[j];
+      if (matchFn.call(child, selector)) {
+        return child;
+      }
     }
   }
 };
 
 shallowSelectAll = function(selector, node) {
-  var child, j, len, matchFn, matchingNodes, ref;
-  matchFn = getMatches(node);
-  matchingNodes = [];
-  ref = node.children;
-  for (j = 0, len = ref.length; j < len; j++) {
-    child = ref[j];
-    if (matchFn.call(child, selector)) {
-      matchingNodes.push(child);
+  var child, j, len, matchFn, matchingNodes, ref, ref1;
+  if ((ref = node.children) != null ? ref.length : void 0) {
+    matchFn = getMatches(node);
+    matchingNodes = [];
+    ref1 = node.children;
+    for (j = 0, len = ref1.length; j < len; j++) {
+      child = ref1[j];
+      if (matchFn.call(child, selector)) {
+        matchingNodes.push(child);
+      }
     }
+    return matchingNodes;
+  } else {
+    return [];
   }
-  return matchingNodes;
 };
 
 getHexagonElementDataObject = function(element, createIfNotExists) {
@@ -2652,6 +2658,34 @@ Selection = (function() {
     return this;
   };
 
+  Selection.prototype.set = function(children) {
+    if (children.then) {
+      Promise.resolve(children).then((function(_this) {
+        return function(sel) {
+          return _this.clear().add(sel);
+        };
+      })(this));
+    } else {
+      this.clear().add(children);
+    }
+    return this;
+  };
+
+  Selection.prototype.replace = function(content) {
+    if (content.then) {
+      Promise.resolve(content).then((function(_this) {
+        return function(sel) {
+          _this.insertAfter(sel);
+          return _this.remove();
+        };
+      })(this));
+    } else {
+      this.insertAfter(content);
+      this.remove();
+    }
+    return this;
+  };
+
   Selection.prototype.node = function(i) {
     if (i == null) {
       i = 0;
@@ -2909,7 +2943,7 @@ Selection = (function() {
       if (data.listenerNamesRegistered == null) {
         data.listenerNamesRegistered = new hx.Set;
       }
-      if (!data.listenerNamesRegistered.has(name)) {
+      if (name.indexOf('pointer') !== 0 && !data.listenerNamesRegistered.has(name)) {
         handler = function(e) {
           return eventEmitter.emit(name, e);
         };
@@ -3100,7 +3134,6 @@ select = function(selector, isArray) {
 
 hx.select = function(selector) {
   if (selector instanceof Selection) {
-    hx.consoleWarning('hx.select was passed a selection', 'Calling hx.select on a selection returns the same selection', selector);
     return selector;
   } else if (!((selector instanceof HTMLElement) || (selector instanceof SVGElement) || hx.isString(selector) || selector === document || selector === window)) {
     hx.consoleWarning('hx.select was passed the wrong argument type', 'hx.select only accepts a HTMLElement, SVGElement or string argument, you supplied:', selector);
@@ -3269,48 +3302,177 @@ hx.interpolate = function(a, b) {
 
 })();
 (function(){
-var collator, compare, hasCollator, localeCompare,
-  slice = [].slice;
+hx.component = function(selector) {
+  var ref, ref1, ref2;
+  return (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
+};
 
-hasCollator = (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
-
-collator = hasCollator ? new Intl.Collator(void 0, {
-  numeric: true
-}).compare : function(a, b) {
-  if (a < b) {
-    return -1;
-  } else if (a > b) {
-    return 1;
+hx.components = function(selector) {
+  var components, ref, ref1;
+  components = (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? ref1.components : void 0 : void 0;
+  if (components) {
+    return components.slice();
   } else {
-    return 0;
+    return [];
   }
 };
 
-compare = function(a, b) {
-  if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-    return a - b;
+hx.components.clear = function(selector) {
+  var node;
+  node = hx.select(selector).node();
+  if (node.__hx__ == null) {
+    node.__hx__ = {};
+  }
+  node.__hx__.components = [];
+};
+
+hx.component.register = function(selector, component) {
+  var base, node;
+  node = hx.select(selector).node();
+  if (node.__hx__ == null) {
+    node.__hx__ = {};
+  }
+  if ((base = node.__hx__).components == null) {
+    base.components = [];
+  }
+  node.__hx__.components.push(component);
+};
+
+if (hx.Selection) {
+  hx.Selection.prototype.component = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return hx.component(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(hx.component);
+    }
+  };
+  hx.Selection.prototype.components = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return hx.components(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(hx.components);
+    }
+  };
+  hx.Selection.prototype.api = function(api) {
+    if (arguments.length > 0) {
+      if (this.singleSelection) {
+        hx.component.register(this.nodes[0], api);
+      } else {
+        hx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection');
+      }
+      return this;
+    } else {
+      if (this.singleSelection) {
+        if (this.nodes[0]) {
+          return hx.component(this.nodes[0]);
+        }
+      } else {
+        return this.nodes.map(hx.component);
+      }
+    }
+  };
+}
+
+})();
+(function(){
+var collatorFn, compare, compareNullsLast, defaultCollator, hasCollator, localeCollatorFn, localeCompare, nullsLastCollator,
+  slice = [].slice;
+
+hasCollator = function() {
+  return (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
+};
+
+hx._.sort = {};
+
+collatorFn = function() {
+  if (hasCollator()) {
+    return new Intl.Collator(void 0, {
+      numeric: true
+    }).compare;
   } else {
-    return collator(a, b);
+    return function(a, b) {
+      if (a === b) {
+        return 0;
+      } else if (String(a) < String(b)) {
+        return -1;
+      } else {
+        return 1;
+      }
+    };
+  }
+};
+
+nullsLastCollator = function(collator) {
+  return function(a, b) {
+    if (a === b) {
+      return 0;
+    } else if (a === void 0) {
+      return 1;
+    } else if (b === void 0) {
+      return -1;
+    } else if (a === null) {
+      return 1;
+    } else if (b === null) {
+      return -1;
+    } else if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
+defaultCollator = function(collator) {
+  return function(a, b) {
+    if ((a != null) && (b != null) && !isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
+compare = function(a, b) {
+  var base;
+  if ((base = hx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return defaultCollator(hx._.sort.collator)(a, b);
+};
+
+compareNullsLast = function(a, b) {
+  var base;
+  if ((base = hx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return nullsLastCollator(hx._.sort.collator)(a, b);
+};
+
+localeCollatorFn = function(locale, options) {
+  if (hasCollator()) {
+    return new Intl.Collator(locale, options).compare;
+  } else {
+    return function(a, b) {
+      return String(a).localeCompare(String(b), locale, options);
+    };
   }
 };
 
 localeCompare = function(locale, options) {
   var localeCollator;
-  if (options == null) {
-    options = {
-      numeric: true
-    };
+  options = hx.merge.defined(options, {
+    numeric: true
+  });
+  localeCollator = localeCollatorFn(locale, options);
+  if (options.nullsLast) {
+    return nullsLastCollator(localeCollator);
+  } else {
+    return defaultCollator(localeCollator);
   }
-  localeCollator = hasCollator ? new Intl.Collator(locale, options).compare : function(a, b) {
-    return a.localeCompare(b, locale, options);
-  };
-  return function(a, b) {
-    if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return localeCollator(a, b);
-    }
-  };
 };
 
 hx.sortBy = function(arr, f) {
@@ -3332,6 +3494,8 @@ hx.sort = function(arr) {
 };
 
 hx.sort.compare = compare;
+
+hx.sort.compareNullsLast = compareNullsLast;
 
 hx.sort.localeCompare = localeCompare;
 
@@ -3798,7 +3962,7 @@ View = (function() {
       enterSet = [];
       updateSet = [];
       exitSet = [];
-      nodes = this.rootSelection.selectAll(this.selector).nodes;
+      nodes = this.rootSelection.shallowSelectAll(this.selector).nodes;
       if (key) {
         nodeByKey = new hx.Map;
         dataByKey = new hx.Map(data.map(function(datum) {
@@ -4189,6 +4353,18 @@ hx.filter = {
       }
     };
   })
+};
+
+hx.filter.stringTypes = function() {
+  return ['contains', 'exact', 'excludes', 'startsWith', 'regex', 'fuzzy'];
+};
+
+hx.filter.numberTypes = function() {
+  return ['exact', 'greater', 'less'];
+};
+
+hx.filter.types = function() {
+  return ['contains', 'exact', 'greater', 'less', 'excludes', 'startsWith', 'regex', 'fuzzy'];
 };
 
 })();
@@ -4886,65 +5062,6 @@ hx.format = {
     return strictCheck(zeroPad, length, strict);
   }
 };
-
-})();
-(function(){
-hx.component = function(selector) {
-  var ref, ref1, ref2;
-  return (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
-};
-
-hx.components = function(selector) {
-  var components, ref, ref1;
-  components = (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? ref1.components : void 0 : void 0;
-  if (components) {
-    return components.slice();
-  } else {
-    return [];
-  }
-};
-
-hx.components.clear = function(selector) {
-  var node;
-  node = hx.select(selector).node();
-  if (node.__hx__ == null) {
-    node.__hx__ = {};
-  }
-  node.__hx__.components = [];
-};
-
-hx.component.register = function(selector, component) {
-  var base, node;
-  node = hx.select(selector).node();
-  if (node.__hx__ == null) {
-    node.__hx__ = {};
-  }
-  if ((base = node.__hx__).components == null) {
-    base.components = [];
-  }
-  node.__hx__.components.push(component);
-};
-
-if (hx.Selection) {
-  hx.Selection.prototype.component = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return hx.component(this.nodes[0]);
-      }
-    } else {
-      return this.nodes.map(hx.component);
-    }
-  };
-  hx.Selection.prototype.components = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return hx.components(this.nodes[0]);
-      }
-    } else {
-      return this.nodes.map(hx.components);
-    }
-  };
-}
 
 })();
 (function(){
@@ -6353,7 +6470,7 @@ DateTimeLocalizer = (function() {
         }
       }
       if (daysValid && monthsValid && yearsValid) {
-        return new Date(year, month - 1, day);
+        return new Date(Date.UTC(year, month - 1, day));
       } else {
         return new Date('Invalid Date');
       }
@@ -8960,7 +9077,6 @@ AutoComplete = (function(superClass) {
       _.menu = menu;
       _.input = input;
     }
-    this;
   }
 
   AutoComplete.prototype.clearCache = function() {
@@ -9245,6 +9361,72 @@ hx.DragContainer = DragContainer;
 })();
 
 (function(){
+var factory;
+
+factory = function(type, clasz) {
+  return function() {
+    return hx.detached(type)["class"](clasz);
+  };
+};
+
+hx.div = function(cls) {
+  if (cls) {
+    return hx.detached('div')["class"](cls);
+  } else {
+    return hx.detached('div');
+  }
+};
+
+hx.span = function(cls) {
+  if (cls) {
+    return hx.detached('span')["class"](cls);
+  } else {
+    return hx.detached('span');
+  }
+};
+
+hx.inputGroup = factory('div', 'hx-input-group');
+
+hx.notice = factory('div', 'hx-notice');
+
+hx.notice.head = factory('div', 'hx-notice-head');
+
+hx.notice.body = factory('div', 'hx-notice-body');
+
+hx.spinner = factory('span', 'hx-spinner');
+
+hx.spinner.wide = factory('div', 'hx-spinner-wide');
+
+hx.icon = function(options) {
+  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
+};
+
+hx.button = function(options) {
+  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
+};
+
+hx.label = function(options) {
+  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
+};
+
+hx.group = factory('div', 'hx-group hx-horizontal');
+
+hx.group.vertical = factory('div', 'hx-group hx-vertical');
+
+hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
+
+hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
+
+hx.section = factory('div', 'hx-section');
+
+hx.section.fixed = factory('div', 'hx-section hx-fixed');
+
+hx.checkbox = function() {
+  return hx.detached('input').attr('type', 'checkbox');
+};
+
+})();
+(function(){
 var ProgressBar;
 
 ProgressBar = (function() {
@@ -9346,7 +9528,46 @@ hx.ProgressBar = ProgressBar;
 
 })();
 (function(){
-var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, extent, extent2, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, stackSegments, svgCurve;
+var LTTBFeather, arcCurve, arcCurveMinimumRadius, boundLabel, createLabelPoint, createLinearGradient, dataAverage, doCollisionDetection, extent, extent2, findLabel, inefficientSearch, makeLabelDetails, maxTriangle, optionSetterGetter, populateLegendSeries, search, splitAndFeather, splitData, stackSegments, supportsGroup, svgCurve;
+
+supportsGroup = function(series) {
+  return series instanceof BarSeries || series instanceof LineSeries;
+};
+
+doCollisionDetection = function(nodesRaw) {
+  var distance, nodes, reductor;
+  nodes = nodesRaw.map(function(node, index) {
+    return {
+      node: node,
+      index: index,
+      box: node.getBoundingClientRect()
+    };
+  });
+  reductor = function(oldDistance, arg) {
+    var currBox, currentIndex, previousIndex, previousNodes, tuple;
+    currentIndex = arg.index, currBox = arg.box;
+    previousNodes = nodes.slice(0, currentIndex - oldDistance + 1);
+    tuple = hx.find(previousNodes, function(arg1) {
+      var prevBox, previousIndex;
+      previousIndex = arg1.index, prevBox = arg1.box;
+      return currBox.left < prevBox.right;
+    });
+    if (tuple) {
+      previousIndex = tuple.index;
+      return currentIndex - previousIndex;
+    } else {
+      return oldDistance;
+    }
+  };
+  distance = nodes.reduce(reductor, 1);
+  return nodes.forEach(function(arg) {
+    var currentIndex, node;
+    node = arg.node, currentIndex = arg.index;
+    if (currentIndex % (distance + 1)) {
+      return hx.select(node).text('');
+    }
+  });
+};
 
 svgCurve = function(data, close) {
   var i, j, l, ref, segments;
@@ -9748,6 +9969,7 @@ optionSetterGetter = function(name) {
 };
 
 hx._.plot = {
+  doCollisionDetection: doCollisionDetection,
   dataAverage: dataAverage,
   maxTriangle: maxTriangle,
   LTTBFeather: LTTBFeather,
@@ -9897,6 +10119,7 @@ dimension = function(axis, options) {
     visible: true,
     formatter: hx.format.si(2),
     tickRotation: 0,
+    doCollisionDetection: true,
     min: 'auto',
     max: 'auto',
     discretePadding: 0.1,
@@ -9922,6 +10145,7 @@ dimension = function(axis, options) {
     };
   };
   return {
+    doCollisionDetection: setterGetter('doCollisionDetection'),
     scaleType: setterGetter('scaleType'),
     visible: setterGetter('visible'),
     formatter: setterGetter('formatter'),
@@ -9945,7 +10169,7 @@ dimension = function(axis, options) {
 };
 
 Axis = (function() {
-  var scalePad, supportsGroup;
+  var scalePad;
 
   function Axis(options) {
     var opts, ref;
@@ -9983,10 +10207,6 @@ Axis = (function() {
       }
     }
   }
-
-  supportsGroup = function(series) {
-    return series instanceof BarSeries || series instanceof LineSeries;
-  };
 
   Axis.prototype.addSeries = function(series, options) {
     if (hx.isString(series)) {
@@ -10255,7 +10475,7 @@ Axis = (function() {
   };
 
   Axis.prototype.preupdateYAxisSvg = function(element, totalXAxisSize) {
-    var axisGroupSelection, d, data, domain, group, k, l, len, len1, len2, m, ref, ref1, rmin, s, self, series, set, stackGroups, stackHeight, topSeries, type, types, yLabelTickSize, ymax, ymin, ys, yymax, yymin;
+    var axisGroupSelection, d, domain, ref, rmin, self, series, set, yLabelTickSize, yMaxMightBeAuto, yMinMightBeAuto, ymax, ymin;
     self = this;
     rmin = this.graph.height - totalXAxisSize;
     switch (this.y.scaleType()) {
@@ -10292,106 +10512,9 @@ Axis = (function() {
       }).call(this);
       this.yScale.domain(domain);
     } else {
-      ymin = void 0;
-      ymax = void 0;
-      types = hx.groupBy(this.series(), function(d) {
-        return d._.type;
-      });
-      stackGroups = types.map(function(d) {
-        return {
-          type: d[0],
-          group: hx.groupBy(d[1], function(s) {
-            if (supportsGroup(s)) {
-              return s.group();
-            } else {
-              return void 0;
-            }
-          })
-        };
-      });
-      for (k = 0, len = stackGroups.length; k < len; k++) {
-        type = stackGroups[k];
-        ref = type.group;
-        for (l = 0, len1 = ref.length; l < len1; l++) {
-          group = ref[l];
-          series = group[1];
-          if (group[0] === void 0) {
-            ys = (function() {
-              var len2, m, ref1, results;
-              ref1 = this.series();
-              results = [];
-              for (m = 0, len2 = ref1.length; m < len2; m++) {
-                s = ref1[m];
-                data = s.data();
-                if (s instanceof StraightLineSeries) {
-                  if (!data.dx && !data.dy && data.y) {
-                    results.push([data.y, data.y]);
-                  } else {
-                    results.push(void 0);
-                  }
-                } else if (s instanceof BandSeries) {
-                  results.push(extent2(data, (function(d) {
-                    return d.y1;
-                  }), function(d) {
-                    return d.y2;
-                  }));
-                } else {
-                  results.push(extent(data, function(d) {
-                    return d.y;
-                  }));
-                }
-              }
-              return results;
-            }).call(this);
-            ys = ys.filter(function(d) {
-              return d != null;
-            });
-            yymin = hx.min(ys.map(function(d) {
-              return d[0];
-            }));
-            yymax = hx.max(ys.map(function(d) {
-              return d[1];
-            }));
-            if (ymin === void 0 || yymin < ymin) {
-              ymin = yymin;
-            }
-            if (ymax === void 0 || yymax > ymax) {
-              ymax = yymax;
-            }
-          } else {
-            topSeries = series[series.length - 1];
-            if (ymin === void 0) {
-              ymin = 0;
-            } else {
-              ymin = Math.min(ymin, 0);
-            }
-            if (ymax === void 0) {
-              ymax = 0;
-            } else {
-              ymax = Math.max(ymax, 0);
-            }
-            ref1 = topSeries.data();
-            for (m = 0, len2 = ref1.length; m < len2; m++) {
-              d = ref1[m];
-              stackHeight = this.getYStack(topSeries._.type, topSeries.group(), d.x, topSeries._.seriesId + 1, this.yScale.domainMin);
-              if (ymin === void 0 || stackHeight < ymin) {
-                ymin = stackHeight;
-              }
-              if (ymax === void 0 || stackHeight > ymax) {
-                ymax = stackHeight;
-              }
-            }
-          }
-        }
-      }
-      ymin = this.y.min() === 'auto' ? ymin : this.y.min();
-      ymax = this.y.max() === 'auto' ? ymax : this.y.max();
-      if (this.y.min() === 'auto') {
-        ymin = scalePad(ymin, ymax - ymin, -this.y.scalePaddingMin());
-      }
-      if (this.y.max() === 'auto') {
-        ymax = scalePad(ymax, ymax - ymin, this.y.scalePaddingMax());
-      }
+      yMinMightBeAuto = this.y.min();
+      yMaxMightBeAuto = this.y.max();
+      ref = this.calculateYBounds(yMinMightBeAuto, yMaxMightBeAuto), ymin = ref.ymin, ymax = ref.ymax;
       this.yScale.domain(ymin, ymax);
     }
     yLabelTickSize = 0;
@@ -10422,7 +10545,7 @@ Axis = (function() {
   };
 
   Axis.prototype.updateAxisSvg = function(element, xOffset, yOffset, totalXOffset, totalYOffset) {
-    var axisGroupSelection, axisX, axisY, gridSelection, height, markerX, markerY, self, width, xline, yline;
+    var axisGroupSelection, axisUpdateFunc, axisX, axisY, gridSelection, height, markerX, markerY, self, width, xline, yline;
     self = this;
     width = this.graph.width;
     height = this.graph.height;
@@ -10470,12 +10593,13 @@ Axis = (function() {
           markerY = height - yOffset - this.xAxisSize;
         }
       }
-      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(function(scale) {
+      axisUpdateFunc = function(scale) {
+        var nodes;
         this.view('.hx-axis-line', 'line').update(function(s) {
           this.attr('x1', s.rangeMin).attr('x2', s.rangeMax);
           return this.attr('y1', axisY).attr('y2', axisY);
         }).apply(scale);
-        return this.view('.hx-tick', 'g').update(function(tick, e, i) {
+        this.view('.hx-tick', 'g').update(function(tick, e, i) {
           this.attr("transform", "translate(" + tick[1] + "," + markerY + ")");
           this.view('.hx-tick-line', 'line').update(function(t) {
             return this.attr('y1', 0).attr('y2', tickSize);
@@ -10484,7 +10608,16 @@ Axis = (function() {
             return this.text((i % self.x.nthTickVisible()) === 0 ? self.x.formatter()(t) : '');
           }).apply(tick[0]);
         }).apply(self.x.showTicks() ? scale.ticks(self.x.tickSpacing()) : []);
-      }).apply(this.xScale);
+        if (self.x.showTicks() && self.x.doCollisionDetection()) {
+          nodes = this.selectAll('.hx-tick-text-x').filter(function(x) {
+            return x.text();
+          }).nodes;
+          if (nodes.length) {
+            return doCollisionDetection(nodes);
+          }
+        }
+      };
+      axisGroupSelection.select('.hx-axis-scale').view('.hx-axis-view', 'g').update(axisUpdateFunc).apply(this.xScale);
       if (this.x.title()) {
         axisGroupSelection.view('.hx-axis-title', 'text').update(function(d) {
           var translateX, translateY;
@@ -10593,25 +10726,125 @@ Axis = (function() {
   };
 
   Axis.prototype.getYStack = function(type, group, x, seriesId, start) {
-    var j, k, len, ref, series, yStack, ys;
+    var allSeries, maybeys, xScaleType, yScaleDomainMin, yStack;
     if (start == null) {
       start = 0;
     }
+    allSeries = this.series();
+    xScaleType = this.x.scaleType();
+    yScaleDomainMin = this.yScale.domainMin;
     if (group) {
-      yStack = Math.max(this.yScale.domainMin, 0);
-      ref = this.series();
-      for (j = k = 0, len = ref.length; k < len; j = ++k) {
-        series = ref[j];
+      yStack = Math.max(yScaleDomainMin, 0);
+      maybeys = allSeries.map(function(series) {
         if (series._.seriesId < seriesId && series.group() === group && series._.type === type) {
-          ys = series.getY(x, this.x.scaleType() === 'discrete');
-          if (hx.defined(ys)) {
-            yStack += ys;
-          }
+          return series.getY(x, xScaleType === 'discrete');
         }
-      }
-      return yStack;
+      });
+      return yStack + hx.sum(maybeys.filter(hx.identity));
     } else {
       return Math.max(start, 0);
+    }
+  };
+
+  Axis.prototype.calculateYBounds = function(yMinMightBeAuto, yMaxMightBeAuto) {
+    var allSeries, initValue, ref, stackGroupReductor, stackGroups, typeGroupReductor, types, xScaleType, ymax, ymaxscaled, ymin, yminscaled;
+    if ('auto' === yMaxMightBeAuto || 'auto' === yMinMightBeAuto) {
+      allSeries = this.series();
+      xScaleType = this.x.scaleType();
+      initValue = {
+        ymin: 0,
+        ymax: 0
+      };
+      types = hx.groupBy(allSeries, function(d) {
+        return d._.type;
+      });
+      stackGroups = types.map(function(arg) {
+        var series, type;
+        type = arg[0], series = arg[1];
+        return {
+          type: type,
+          group: hx.groupBy(series, function(s) {
+            if (supportsGroup(s)) {
+              return s.group();
+            } else {
+              return void 0;
+            }
+          })
+        };
+      });
+      typeGroupReductor = function(type) {
+        return function(arg, arg1) {
+          var allX, maybeys, ref, series, seriesGroup, stackHeights, ymax, ymin, ys, yymax, yymin;
+          ymin = arg.ymin, ymax = arg.ymax;
+          seriesGroup = arg1[0], series = arg1[1];
+          ref = seriesGroup === void 0 ? (maybeys = allSeries.map(function(s) {
+            var data;
+            data = s.data();
+            if (s instanceof StraightLineSeries) {
+              if (!data.dx && !data.dy && data.y) {
+                return [data.y, data.y];
+              } else {
+                return void 0;
+              }
+            } else if (s instanceof BandSeries) {
+              return extent2(data, (function(d) {
+                return d.y1;
+              }), function(d) {
+                return d.y2;
+              });
+            } else {
+              return extent(data, function(d) {
+                return d.y;
+              });
+            }
+          }), ys = maybeys.filter(function(d) {
+            return d != null;
+          }), {
+            yymin: hx.min(ys.map(function(d) {
+              return d[0];
+            })),
+            yymax: hx.max(ys.map(function(d) {
+              return d[1];
+            }))
+          }) : (allX = hx.unique(hx.flatten(series.map(function(s) {
+            return s.data().map(function(arg2) {
+              var x;
+              x = arg2.x;
+              return x;
+            });
+          }))), stackHeights = allX.map(function(x) {
+            maybeys = series.map(function(series) {
+              return series.getY(x, xScaleType === 'discrete');
+            });
+            return hx.sum(maybeys.filter(hx.identity));
+          }), {
+            yymin: hx.min(stackHeights),
+            yymax: hx.max(stackHeights)
+          }), yymin = ref.yymin, yymax = ref.yymax;
+          return {
+            ymin: Math.min(ymin, yymin),
+            ymax: Math.max(ymax, yymax)
+          };
+        };
+      };
+      stackGroupReductor = function(prev, arg) {
+        var group, reductor, type;
+        type = arg.type, group = arg.group;
+        reductor = typeGroupReductor(type);
+        return group.reduce(reductor, prev);
+      };
+      ref = stackGroups.reduce(stackGroupReductor, initValue), ymin = ref.ymin, ymax = ref.ymax;
+      yminscaled = yMinMightBeAuto === 'auto' ? scalePad(ymin, ymax - ymin, -this.y.scalePaddingMin()) : yMinMightBeAuto;
+      ymaxscaled = yMaxMightBeAuto === 'auto' ? scalePad(ymax, ymax - ymin, this.y.scalePaddingMax()) : yMaxMightBeAuto;
+      return {
+        ymin: yminscaled,
+        ymax: ymaxscaled
+      };
+    } else {
+      return {
+        ymin: yMinMightBeAuto,
+        ymax: yMaxMightBeAuto
+      };
     }
   };
 
@@ -12551,56 +12784,6 @@ hx.ButtonGroup = ButtonGroup;
 
 })();
 (function(){
-var factory;
-
-factory = function(type, clasz) {
-  return function() {
-    return hx.detached(type)["class"](clasz);
-  };
-};
-
-hx.inputGroup = factory('div', 'hx-input-group');
-
-hx.notice = factory('div', 'hx-notice');
-
-hx.notice.head = factory('div', 'hx-notice-head');
-
-hx.notice.body = factory('div', 'hx-notice-body');
-
-hx.spinner = factory('span', 'hx-spinner');
-
-hx.spinner.wide = factory('div', 'hx-spinner-wide');
-
-hx.icon = function(options) {
-  return hx.detached('i')["class"](options != null ? options["class"] : void 0);
-};
-
-hx.button = function(options) {
-  return hx.palette.context(hx.detached('button').attr('type', 'button')["class"]('hx-btn'), options != null ? options.context : void 0);
-};
-
-hx.label = function(options) {
-  return hx.palette.context(hx.detached('span')["class"]('hx-label'), options != null ? options.context : void 0);
-};
-
-hx.group = factory('div', 'hx-group hx-horizontal');
-
-hx.group.vertical = factory('div', 'hx-group hx-vertical');
-
-hx.group.fixed = factory('div', 'hx-group hx-horizontal hx-fixed');
-
-hx.group.vertical.fixed = factory('div', 'hx-group hx-vertical hx-fixed');
-
-hx.section = factory('div', 'hx-section');
-
-hx.section.fixed = factory('div', 'hx-section hx-fixed');
-
-hx.checkbox = function() {
-  return hx.detached('input').attr('type', 'checkbox');
-};
-
-})();
-(function(){
 var Picker, setValue,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -13419,7 +13602,6 @@ AutocompletePicker = (function(superClass) {
         return menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node());
       };
       populateMenu = function(term) {
-        renderMenu([loadingItem]);
         return feed.filter(term, function(results, otherResults) {
           if (results.length === 0) {
             results.push(noResultsItem);
@@ -13438,6 +13620,7 @@ AutocompletePicker = (function(superClass) {
         };
       })(this);
       input = hx.detached('input')["class"]('hx-autocomplete-picker-input').on('input', function(e) {
+        renderMenu([loadingItem]);
         return debouncedPopulate(e.target.value);
       }).on('keydown', function(e) {
         var topItem;
@@ -13453,6 +13636,7 @@ AutocompletePicker = (function(superClass) {
       menu.dropdown.on('showstart', function() {
         input.value('');
         menu.dropdown._.dropdown.prepend(input);
+        renderMenu([loadingItem]);
         return debouncedPopulate(input.value());
       });
       menu.dropdown.on('showend', function() {
@@ -14117,7 +14301,9 @@ InlineMorphSection = (function(superClass) {
       });
     });
     this.on('hide', 'hx.morph-section', function(data) {
-      exitEditMode.call(morphSection, data.toggle, data.content);
+      if (exitEditMode != null) {
+        exitEditMode.call(morphSection, data.toggle, data.content);
+      }
       return hx.select(data.toggle).style('display', '');
     });
   }
@@ -14236,6 +14422,18 @@ TitleBar = (function() {
 })();
 
 hx.TitleBar = TitleBar;
+
+hx.titleBar = function(options) {
+  var icon, iconClass, iconLink, ref, ref1, ref2, ref3, ref4, selection, showIcon, subtitle, title;
+  if (options == null) {
+    options = {};
+  }
+  title = (ref = options.title) != null ? ref : 'Title', subtitle = (ref1 = options.subtitle) != null ? ref1 : '', showIcon = (ref2 = options.showIcon) != null ? ref2 : true, iconLink = (ref3 = options.iconLink) != null ? ref3 : '#', iconClass = (ref4 = options.iconClass) != null ? ref4 : 'hx-logo';
+  icon = showIcon ? hx.detached('a')["class"]('hx-titlebar-icon').attr('href', iconLink).add(hx.detached('img')["class"](iconClass)) : void 0;
+  selection = hx.div('hx-heading').add(hx.div('hx-titlebar').add(hx.div('hx-titlebar-container').add(hx.div('hx-titlebar-header').add(icon).add(title ? hx.div('hx-titlebar-title').text(title) : void 0).add(subtitle ? hx.div('hx-titlebar-subtitle').text(subtitle) : void 0))));
+  new hx.TitleBar(selection);
+  return selection;
+};
 
 if (hx.select('.hx-heading').size() > 0) {
   hx.titlebar = new hx.TitleBar('.hx-heading');
@@ -15165,8 +15363,8 @@ ColorPicker = (function(superClass) {
           return circleMoved(pos);
         };
         dragObject = function(elem, parent, min, max, startCallback, moveCallback, endCallback) {
-          var StartListening, StopListening, cursorStartPos, disposed, dragGo, dragStart, dragStop, dragStopHook, dragging, elementStartPos, listening, temp;
-          cursorStartPos = elementStartPos = dragging = listening = disposed = null;
+          var StartListening, StopListening, cursorStartPos, dragGo, dragStart, dragStop, dragStopHook, dragging, elementStartPos, listening, temp;
+          cursorStartPos = elementStartPos = dragging = listening = null;
           if (min !== null && max !== null) {
             temp = min.min(max);
             max = min.max(max);
@@ -15174,7 +15372,7 @@ ColorPicker = (function(superClass) {
           }
           dragStart = function(e) {
             e = e.event;
-            if (dragging || !listening || disposed) {
+            if (dragging || !listening) {
               return;
             }
             dragging = true;
@@ -15190,7 +15388,7 @@ ColorPicker = (function(superClass) {
           dragGo = function(e) {
             var newPos;
             e = e.event;
-            if (!dragging || disposed) {
+            if (!dragging) {
               return;
             }
             newPos = absoluteCursorPosition(e);
@@ -15208,7 +15406,7 @@ ColorPicker = (function(superClass) {
             return cancelEvent(e);
           };
           dragStop = function() {
-            if (!dragging || disposed) {
+            if (!dragging) {
               return true;
             }
             hx.select(document).off('pointermove', 'hx.color-picker', dragGo);
@@ -15219,25 +15417,15 @@ ColorPicker = (function(superClass) {
             }
             return dragging = false;
           };
-          ({
-            dispose: function() {
-              if (disposed) {
-                return;
-              }
-              this.StopListening(true);
-              elem = parent = min = max = startCallback = moveCallback = endCallback = null;
-              return disposed = true;
-            }
-          });
           StartListening = function() {
-            if (listening || disposed) {
+            if (listening) {
               return;
             }
             listening = true;
             return parent.on('pointerdown', 'hx.color-picker', dragStart);
           };
           StopListening = function() {
-            if (!listening || disposed) {
+            if (!listening) {
               return;
             }
             parent.off('pointerdown', 'hx.color-picker', dragStart);
@@ -15493,7 +15681,7 @@ hx.Crumbtrail = Crumbtrail;
 
 })();
 (function(){
-var DataTable, collapseBreakPoint, columnOptionLookup, createAdvancedSearchView, createPageSizeBlock, createPaginationBlock, defaultTermLookup, fullWidthColSpan, getAdvancedSearchFilter, getRowSearchTerm, objectFeed, spacer, splitArray, stripLeadingAndTrailingWhitespaceRegex, urlFeed, whitespaceSplitRegex,
+var DataTable, advancedSearchCriteriaValidate, collapseBreakPoint, columnOptionLookup, createAdvancedSearchView, createPageSizeBlock, createPaginationBlock, defaultTermLookup, fullWidthColSpan, getAdvancedSearchFilter, getFiltered, getRowSearchTerm, objectFeed, spacer, splitArray, stripLeadingAndTrailingWhitespaceRegex, toCriteriaItems, urlFeed, whitespaceSplitRegex,
   slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -15513,7 +15701,15 @@ hx.userFacingText({
     rowsPerPage: 'Rows Per Page',
     search: 'Search',
     selectedRows: '$selected of $total selected.',
-    sortBy: 'Sort By'
+    sortBy: 'Sort By',
+    contains: 'contains',
+    excludes: 'does not contain',
+    startsWith: 'starts with',
+    fuzzy: 'fuzzy matches',
+    regex: 'matches regex',
+    exact: 'is exactly',
+    greater: 'is greater than',
+    less: 'is less than'
   }
 });
 
@@ -15526,6 +15722,34 @@ columnOptionLookup = function(options, name, id) {
     return options.columns[id][name];
   } else {
     return options[name];
+  }
+};
+
+toCriteriaItems = function(list) {
+  return hx.unique(list).map(function(item) {
+    return {
+      value: item,
+      text: hx.userFacingText('dataTable', item)
+    };
+  });
+};
+
+advancedSearchCriteriaValidate = function(value) {
+  var allowedTypes, invalidTypes;
+  allowedTypes = hx.filter.types();
+  if ((hx.isArray(value) && value.every(function(c) {
+    return ~allowedTypes.indexOf(c);
+  })) || value === void 0) {
+    return value || [];
+  } else if (hx.isArray(value)) {
+    invalidTypes = value.filter(function(c) {
+      return !~allowedTypes.indexOf(c);
+    });
+    hx.consoleWarning('Invalid Filter Criteria Specified:', invalidTypes, '\nPlease select a value from hx.filter.stringTypes()', allowedTypes);
+    return [];
+  } else {
+    hx.consoleWarning('Expected an array of filter criteria but was passed:', value);
+    return [];
   }
 };
 
@@ -15599,7 +15823,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
   var advancedSearchGroupEnter, advancedSearchGroupUpdate, advancedSearchRowEnter, advancedSearchRowUpdate;
   advancedSearchRowEnter = function(filterGroup, filterGroupIndex) {
     return function(filterRow, index, trueIndex) {
-      var anyColumn, columnItems, columnPickerOptions, columnPickerSel, columnRenderer, debouncedInput, removeBtn, termInput, typePickerOptions, typePickerSel;
+      var anyColumn, columnItems, columnPickerOptions, columnPickerSel, columnRenderer, criteriaAnyPlaceholder, criteriaPickerOptions, criteriaPickerSel, debouncedInput, removeBtn, termInput, typePickerOptions, typePickerSel;
       typePickerOptions = {
         items: [
           {
@@ -15609,7 +15833,8 @@ createAdvancedSearchView = function(selection, dataTable, options) {
             text: hx.userFacingText('dataTable', 'or'),
             value: 'or'
           }
-        ]
+        ],
+        fullWidth: true
       };
       typePickerSel = hx.picker(typePickerOptions).classed('hx-data-table-advanced-search-type hx-section hx-fixed', true);
       typePickerSel.component().on('change', function(data) {
@@ -15641,11 +15866,12 @@ createAdvancedSearchView = function(selection, dataTable, options) {
       };
       columnPickerOptions = {
         items: [anyColumn].concat(slice.call(columnItems)),
-        renderer: columnRenderer
+        renderer: columnRenderer,
+        fullWidth: true
       };
       columnPickerSel = hx.picker(columnPickerOptions).classed('hx-data-table-advanced-search-column hx-section hx-fixed', true);
       columnPickerSel.component().on('change', function(data) {
-        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        var columnCriteria, criteriaItems, filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
           prevFilters = dataTable.advancedSearch();
           ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
@@ -15653,9 +15879,31 @@ createAdvancedSearchView = function(selection, dataTable, options) {
           newFilter = hx.merge(filter, {
             column: data.value.value
           });
+          delete newFilter.criteria;
+          columnCriteria = columnOptionLookup(options, 'advancedSearchCriteria', data.value.value) || [];
+          criteriaItems = ['contains'].concat(slice.call(advancedSearchCriteriaValidate(columnCriteria)));
+          criteriaPickerSel.component().items(toCriteriaItems(criteriaItems));
           return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
         }
       });
+      criteriaPickerOptions = {
+        items: ['contains'].concat(slice.call(advancedSearchCriteriaValidate(options.advancedSearchCriteria))),
+        fullWidth: true
+      };
+      criteriaPickerSel = hx.picker(criteriaPickerOptions).classed('hx-data-table-advanced-search-criteria hx-section hx-fixed', true);
+      criteriaPickerSel.component().on('change', function(data) {
+        var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
+        if (data.cause === 'user') {
+          prevFilters = dataTable.advancedSearch();
+          ref = splitArray(prevFilters, filterGroupIndex), leftFilterGroups = ref[0], filterGroup = ref[1], rightFilterGroups = ref[2];
+          ref1 = splitArray(filterGroup, trueIndex), leftFilters = ref1[0], filter = ref1[1], rightFilters = ref1[2];
+          newFilter = hx.merge(filter, {
+            criteria: data.value.value
+          });
+          return dataTable.advancedSearch(slice.call(leftFilterGroups).concat([slice.call(leftFilters).concat([newFilter], slice.call(rightFilters))], slice.call(rightFilterGroups)));
+        }
+      });
+      criteriaAnyPlaceholder = hx.div('hx-data-table-advanced-search-criteria-placeholder hx-text-disabled hx-background-disabled').text(hx.userFacingText('dataTable', 'contains'));
       debouncedInput = hx.debounce(200, function(e) {
         var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         prevFilters = dataTable.advancedSearch();
@@ -15684,33 +15932,36 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         })(this));
         return dataTable.advancedSearch(filterToUse.length ? filterToUse : void 0);
       });
-      return this.append('div')["class"]('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width').add(typePickerSel).add(columnPickerSel).add(termInput).add(removeBtn).node();
+      return this.append('div')["class"]('hx-data-table-advanced-search-filter hx-section hx-input-group hx-input-group-full-width').add(typePickerSel).add(columnPickerSel).add(criteriaAnyPlaceholder).add(criteriaPickerSel).add(hx.div('hx-data-table-advanced-search-filter-input-container hx-input-group hx-no-pad hx-no-border').add(termInput).add(removeBtn)).node();
     };
   };
   advancedSearchRowUpdate = function(arg, element, index) {
-    var column, filterRowSel, term, validContext;
-    term = arg.term, column = arg.column;
+    var column, columnCriteria, criteria, criteriaItems, filterRowSel, term, trueColumn, validContext;
+    term = arg.term, column = arg.column, criteria = arg.criteria;
     filterRowSel = hx.select(element);
     validContext = !term ? 'negative' : void 0;
     filterRowSel.select('.hx-data-table-advanced-search-type').component().value(index === 0 ? 'or' : 'and');
-    filterRowSel.select('.hx-data-table-advanced-search-column').component().value(column || 'any');
+    trueColumn = column || 'any';
+    filterRowSel.select('.hx-data-table-advanced-search-column').component().value(trueColumn);
+    columnCriteria = columnOptionLookup(options, 'advancedSearchCriteria', column) || [];
+    criteriaItems = trueColumn === 'any' ? ['contains'] : ['contains'].concat(slice.call(advancedSearchCriteriaValidate(columnCriteria)));
+    filterRowSel.select('.hx-data-table-advanced-search-criteria').style('display', criteriaItems.length === 1 ? 'none' : 'block').component().items(toCriteriaItems(criteriaItems)).value(criteria || 'contains');
+    filterRowSel.select('.hx-data-table-advanced-search-criteria-placeholder').style('display', criteriaItems.length === 1 ? 'block' : 'none');
     return filterRowSel.select('.hx-data-table-advanced-search-input').value(term || '');
   };
-  advancedSearchGroupEnter = function(dataTable) {
-    return function(filterGroup, index, trueIndex) {
-      var filterGroupSel, filterGroupView;
-      filterGroupSel = hx.detached('div')["class"]('hx-data-table-advanced-search-filter-group');
-      filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter').enter(advancedSearchRowEnter(filterGroup, trueIndex, dataTable)).update(advancedSearchRowUpdate);
-      hx.component.register(filterGroupSel.node(), {
-        filterGroupView: filterGroupView
-      });
-      return this.append(filterGroupSel).node();
-    };
+  advancedSearchGroupEnter = function(filterGroup, index, trueIndex) {
+    var filterGroupSel, filterGroupView;
+    filterGroupSel = hx.detached('div')["class"]('hx-data-table-advanced-search-filter-group');
+    filterGroupView = filterGroupSel.view('.hx-data-table-advanced-search-filter').enter(advancedSearchRowEnter(filterGroup, trueIndex)).update(advancedSearchRowUpdate);
+    hx.component.register(filterGroupSel.node(), {
+      filterGroupView: filterGroupView
+    });
+    return this.append(filterGroupSel).node();
   };
   advancedSearchGroupUpdate = function(filterGroup, element, index) {
     return hx.component(element).filterGroupView.apply(filterGroup);
   };
-  return selection.view('.hx-data-table-advanced-search-filter-group').enter(advancedSearchGroupEnter(this)).update(advancedSearchGroupUpdate);
+  return selection.view('.hx-data-table-advanced-search-filter-group').enter(advancedSearchGroupEnter).update(advancedSearchGroupUpdate);
 };
 
 DataTable = (function(superClass) {
@@ -15732,6 +15983,7 @@ DataTable = (function(superClass) {
       filterEnabled: true,
       showAdvancedSearch: false,
       advancedSearchEnabled: false,
+      advancedSearchCriteria: void 0,
       advancedSearch: void 0,
       pageSize: 15,
       pageSizeOptions: void 0,
@@ -16025,6 +16277,8 @@ DataTable = (function(superClass) {
     };
   };
 
+  DataTable.prototype.advancedSearchCriteria = columnOption('advancedSearchCriteria');
+
   DataTable.prototype.allowHeaderWrap = columnOption('allowHeaderWrap');
 
   DataTable.prototype.cellRenderer = columnOption('cellRenderer');
@@ -16127,7 +16381,7 @@ DataTable = (function(superClass) {
   };
 
   DataTable.prototype.render = function(cb) {
-    var advancedSearchVisibleAndEnabled, container, feed, getColumnOption, headerRow, options, ref, rowToArray, selection, showCompactControlPanelToggle, table, tbody, thead;
+    var advancedSearchVisibleAndEnabled, container, feed, filterSel, getColumnOption, headerRow, nextFilterValue, options, prevFilterValue, ref, rowToArray, selection, showCompactControlPanelToggle, table, tbody, thead;
     if (this._.renderSuppressed) {
       return;
     }
@@ -16153,7 +16407,12 @@ DataTable = (function(superClass) {
     headerRow = thead.append('tr')["class"]('hx-data-table-row');
     selection.select('.hx-data-table-loading').style('display', '');
     advancedSearchVisibleAndEnabled = (!options.filterEnabled || options.showAdvancedSearch) && options.advancedSearchEnabled;
-    selection.select('.hx-data-table-filter').classed('hx-data-table-filter-visible', options.filterEnabled && !advancedSearchVisibleAndEnabled);
+    filterSel = selection.select('.hx-data-table-filter').classed('hx-data-table-filter-visible', options.filterEnabled && !advancedSearchVisibleAndEnabled);
+    nextFilterValue = this.filter();
+    prevFilterValue = filterSel.value();
+    if (nextFilterValue !== prevFilterValue) {
+      filterSel.value(nextFilterValue);
+    }
     this._.advancedSearchToggleButton.value(options.advancedSearchEnabled);
     selection.select('.hx-data-table-advanced-search-toggle').classed('hx-data-table-advanced-search-visible', options.filterEnabled && options.showAdvancedSearch);
     selection.select('.hx-data-table-advanced-search-container').classed('hx-data-table-advanced-search-visible', advancedSearchVisibleAndEnabled);
@@ -16629,11 +16888,15 @@ getRowSearchTerm = function(cellValueLookup, row) {
   })()).map(cellValueLookup).join(' ').toLowerCase();
 };
 
-defaultTermLookup = function(term, rowSearchTerm) {
-  var arr, validPart;
+defaultTermLookup = function(term, rowSearchTerm, criteria) {
+  var arr, lookupArr, validPart;
+  if (criteria == null) {
+    criteria = 'contains';
+  }
+  lookupArr = hx.isString(rowSearchTerm) ? [rowSearchTerm] : rowSearchTerm;
   arr = term.replace(stripLeadingAndTrailingWhitespaceRegex, '').split(whitespaceSplitRegex);
   validPart = hx.find(arr, function(part) {
-    return ~rowSearchTerm.indexOf(part);
+    return hx.filter[criteria](lookupArr, part.toLowerCase()).length;
   });
   return hx.defined(validPart);
 };
@@ -16646,14 +16909,23 @@ getAdvancedSearchFilter = function(cellValueLookup, termLookup) {
     termLookup = defaultTermLookup;
   }
   return function(filters, row) {
-    var rowSearchTerm, validFilters;
-    rowSearchTerm = getRowSearchTerm(cellValueLookup, row);
+    var k, rowSearchTerm, v, validFilters;
+    rowSearchTerm = ((function() {
+      var ref, results;
+      ref = row.cells;
+      results = [];
+      for (k in ref) {
+        v = ref[k];
+        results.push(v);
+      }
+      return results;
+    })()).map(cellValueLookup).join(' ').toLowerCase();
     validFilters = hx.find(filters, function(groupedFilters) {
       var invalidFilter;
       invalidFilter = hx.find(groupedFilters, function(filter) {
         var searchTerm;
         searchTerm = filter.column === 'any' ? rowSearchTerm : (cellValueLookup(row.cells[filter.column]) + '').toLowerCase();
-        return !termLookup(filter.term.toLowerCase(), searchTerm);
+        return filter.term && !termLookup(filter.term.toLowerCase(), searchTerm, filter.criteria);
       });
       return !hx.defined(invalidFilter);
     });
@@ -16661,8 +16933,18 @@ getAdvancedSearchFilter = function(cellValueLookup, termLookup) {
   };
 };
 
+getFiltered = function(rows, term, filterCache, filterCacheTerm, fn) {
+  if ((term != null ? term.length : void 0) && (filterCache === void 0 || filterCacheTerm !== term)) {
+    return rows.filter(fn);
+  } else if (filterCache === void 0 || !(term != null ? term.length : void 0)) {
+    return rows.slice();
+  } else {
+    return filterCache;
+  }
+};
+
 objectFeed = function(data, options) {
-  var filterCacheTerm, filtered, rowsByIdMap, sortCacheTerm, sorted;
+  var filterCache, filterCacheTerm, rowsByIdMap, sortCacheTerm, sorted;
   options = hx.merge({
     cellValueLookup: hx.identity,
     termLookup: defaultTermLookup,
@@ -16676,7 +16958,7 @@ objectFeed = function(data, options) {
   if (options.advancedSearch == null) {
     options.advancedSearch = getAdvancedSearchFilter(options.cellValueLookup, options.termLookup);
   }
-  filtered = void 0;
+  filterCache = void 0;
   filterCacheTerm = void 0;
   sorted = void 0;
   sortCacheTerm = {};
@@ -16690,29 +16972,31 @@ objectFeed = function(data, options) {
       return cb(data.rows.length);
     },
     rows: function(range, cb) {
-      var column, direction, ref, ref1, ref2, ref3, ref4, ref5;
+      var advancedSearchFilterFn, column, direction, filterFn, ref, ref1, ref2, ref3, ref4;
       if (((ref = range.sort) != null ? ref.column : void 0) !== sortCacheTerm.column) {
-        filtered = void 0;
+        filterCache = void 0;
       }
       if (range.useAdvancedSearch) {
-        filtered = ((ref1 = range.advancedSearch) != null ? ref1.length : void 0) && (filtered === void 0 || filterCacheTerm !== range.advancedSearch) ? data.rows.filter(function(row) {
+        advancedSearchFilterFn = function(row) {
           return options.advancedSearch(range.advancedSearch, row);
-        }) : data.rows.slice();
+        };
+        filterCache = getFiltered(data.rows, range.advancedSearch, filterCache, filterCacheTerm, advancedSearchFilterFn);
         filterCacheTerm = range.advancedSearch;
         sorted = void 0;
       } else {
-        filtered = range.filter && (filtered === void 0 || filterCacheTerm !== range.filter) ? data.rows.filter(function(row) {
+        filterFn = function(row) {
           return options.filter(range.filter, row);
-        }) : data.rows.slice();
+        };
+        filterCache = getFiltered(data.rows, range.filter, filterCache, filterCacheTerm, filterFn);
         filterCacheTerm = range.filter;
         sorted = void 0;
       }
-      if (sorted === void 0 || sortCacheTerm.column !== ((ref2 = range.sort) != null ? ref2.column : void 0) || sortCacheTerm.direction !== ((ref3 = range.sort) != null ? ref3.direction : void 0)) {
-        sorted = range.sort && range.sort.column ? (direction = range.sort.direction === 'asc' ? 1 : -1, column = range.sort.column, filtered.sort(function(r1, r2) {
+      if (sorted === void 0 || sortCacheTerm.column !== ((ref1 = range.sort) != null ? ref1.column : void 0) || sortCacheTerm.direction !== ((ref2 = range.sort) != null ? ref2.direction : void 0)) {
+        sorted = range.sort && range.sort.column ? (direction = range.sort.direction === 'asc' ? 1 : -1, column = range.sort.column, filterCache.sort(function(r1, r2) {
           return direction * options.compare(r1.cells[column], r2.cells[column]);
-        }), filtered) : filtered;
-        sortCacheTerm.column = (ref4 = range.sort) != null ? ref4.column : void 0;
-        sortCacheTerm.direction = (ref5 = range.sort) != null ? ref5.direction : void 0;
+        }), filterCache) : filterCache;
+        sortCacheTerm.column = (ref3 = range.sort) != null ? ref3.column : void 0;
+        sortCacheTerm.direction = (ref4 = range.sort) != null ? ref4.direction : void 0;
       }
       return cb({
         rows: sorted.slice(range.start, +range.end + 1 || 9e9),
@@ -19311,31 +19595,23 @@ Form = (function(superClass) {
     entry.append('label').attr("for", id).text(name);
     selection = entry.append(nodeType).attr("id", id);
     extras = f.call(selection) || {};
+    key = extras.key || name;
+    delete extras.key;
     if (extras.disable == null) {
       extras.disable = function(sel, disable) {
         return sel.attr('disabled', disable ? 'disabled' : void 0);
       };
     }
-    if (extras.key != null) {
-      key = extras.key;
-      delete extras.key;
-      this.properties.set(key, {
-        type: type,
-        node: selection.node(),
-        extras: extras
-      });
-    } else {
-      this.properties.set(name, {
-        type: type,
-        node: selection.node(),
-        extras: extras
-      });
-    }
+    this.properties.set(key, {
+      type: type,
+      node: selection.node(),
+      extras: extras
+    });
     if (extras.hidden) {
-      this.hidden(name, extras.hidden);
+      this.hidden(key, extras.hidden);
     }
     if (extras.disabled) {
-      this.disabled(name, extras.disabled);
+      this.disabled(key, extras.disabled);
     }
     return this;
   };
@@ -19907,7 +20183,7 @@ Form = (function(superClass) {
             return hx.select(node).value(value);
         }
       } else {
-        if (!it.hidden && !it.disabled) {
+        if (!it.hidden) {
           value = (function() {
             switch (it.type) {
               case 'checkbox':
@@ -19956,43 +20232,69 @@ var InlineEditable,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
+hx.userFacingText({
+  inlineEditable: {
+    enterValue: 'Enter Value'
+  }
+});
+
 InlineEditable = (function(superClass) {
   var enterEditMode;
 
   extend(InlineEditable, superClass);
 
-  enterEditMode = function(toggle, content) {
-    hx.select(content).select('.hx-name').value(hx.select(toggle).text());
-    return hx.select(content).select('.hx-confirm').on('click', 'hx.inline-editable', (function(_this) {
+  enterEditMode = function(options) {
+    return function(toggle, content) {
+      var inputSel, value;
+      value = hx.select(toggle).text();
+      inputSel = hx.select(content).select('.hx-name');
+      if (value !== options.enterValueText) {
+        inputSel.value(value);
+      }
+      return inputSel.node().focus();
+    };
+  };
+
+  function InlineEditable(selector, opts) {
+    var confirm, defaultOptions, input, options, selection, setValue;
+    this.selector = selector;
+    selection = hx.select(this.selector).classed('hx-inline-editable', true);
+    defaultOptions = {
+      enterValueText: hx.userFacingText('inlineEditable', 'enterValue'),
+      value: selection.text()
+    };
+    options = hx.merge(defaultOptions, opts);
+    selection.text('');
+    this.textSelection = selection.append('a')["class"]('hx-morph-toggle').text(options.value || options.enterValueText);
+    input = hx.detached('input')["class"]('hx-name').attr('placeholder', options.enterValueText);
+    confirm = hx.detached('button')["class"]('hx-btn hx-positive hx-confirm').add(hx.detached('i')["class"]('hx-icon hx-icon-check'));
+    setValue = (function(_this) {
       return function() {
         var value;
-        value = hx.select(content).select('.hx-name').value();
-        _this.textSelection.text(value);
+        value = input.value();
+        _this.textSelection.text(value || options.enterValueText).classed('hx-inline-editable-no-value', !value.length);
         _this.emit('change', {
-          api: false,
+          cause: 'user',
           value: value
         });
         return _this.hide();
       };
-    })(this));
-  };
-
-  function InlineEditable(selector) {
-    var selection, text;
-    this.selector = selector;
-    selection = hx.select(this.selector).classed('hx-inline-editable', true);
-    text = selection.text();
-    selection.text('');
-    this.textSelection = selection.append('a')["class"]('hx-morph-toggle').text(text);
-    selection.append('div')["class"]('hx-morph-content hx-input-group').add(hx.detached('input')["class"]('hx-name')).add(hx.detached('button')["class"]('hx-btn hx-positive hx-confirm').add(hx.detached('i')["class"]('hx-icon hx-icon-check')));
-    InlineEditable.__super__.constructor.call(this, this.selector, enterEditMode, function() {});
+    })(this);
+    confirm.on('click', 'hx.inline-editable', setValue);
+    input.on('keydown', 'hx.inline-editable', function(e) {
+      if (e.key === 'Enter' || e.keyCode === 13 || e.which === 13) {
+        return setValue();
+      }
+    });
+    selection.append('div')["class"]('hx-morph-content hx-input-group').add(input).add(confirm);
+    InlineEditable.__super__.constructor.call(this, this.selector, enterEditMode(options));
   }
 
   InlineEditable.prototype.value = function(value) {
     if (value !== void 0) {
       this.textSelection.text(value);
       return this.emit('change', {
-        api: false,
+        cause: 'api',
         value: value
       });
     } else {
@@ -20551,7 +20853,8 @@ PivotTable = (function(superClass) {
         return hx.select(element).text(data);
       },
       useResponsive: true,
-      data: void 0
+      data: void 0,
+      fullWidth: void 0
     }, options);
     this._ = {};
     this.selection = hx.select(this.selector).classed('hx-pivot-table', true);
@@ -20598,16 +20901,20 @@ PivotTable = (function(superClass) {
         this.tableHeadView.apply([topData]);
       }
       this.tableBodyView.apply(bodyData);
+      this.table.classed('hx-table-full', false);
       if (this.options.stickyHeaders) {
         if (!this.stickyTableHeaders) {
           this.stickyTableHeaders = new hx.StickyTableHeaders(this.selector, {
             stickTableHead: topData.length > 0,
             stickFirstColumn: leftData.length > 0,
-            useResponsive: this.options.useResponsive
+            useResponsive: this.options.useResponsive,
+            fullWidth: this.options.fullWidth
           });
         } else {
           this.stickyTableHeaders.render();
         }
+      } else if (this.options.fullWidth) {
+        this.table.classed('hx-table-full', this.options.fullWidth);
       }
       return this;
     } else {
@@ -20849,44 +21156,119 @@ var Tabs, onTabSelected,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-onTabSelected = function(tabs, element, i) {
-  var context, selection;
+onTabSelected = function(tabs, element, i, cause) {
+  var context, item, rootSelection, selection, tabToSelect, tabToSelectSelector, tabsContent;
   tabs.selected = i;
   selection = hx.select(tabs.selector);
   selection.selectAll('.hx-tab').classed('hx-tab-active', false);
   hx.select(element).classed('hx-tab-active', true);
   context = hx.palette.context(element);
-  hx.palette.borderContext(selection.select('.hx-tabs-content'), context);
-  hx.select(tabs.selector).selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true);
-  hx.select('#' + hx.select(element).attr('data-content')).classed('hx-tab-content-hidden', false);
+  tabsContent = selection.select('.hx-tabs-content');
+  hx.palette.borderContext(tabsContent, context);
+  rootSelection = hx.select(tabs.selector);
+  rootSelection.selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true);
+  item = tabs.items()[i];
+  if (item != null) {
+    tabsContent.clear();
+    tabs._.options.contentRenderer(tabsContent.node(), item.content);
+  } else {
+    tabToSelectSelector = '#' + hx.select(element).attr('data-content');
+    tabToSelect = rootSelection.select(tabToSelectSelector);
+    tabToSelect.classed('hx-tab-content-hidden', false);
+  }
   return tabs.emit('change', {
-    id: i
+    id: i,
+    value: i,
+    cause: cause
   });
 };
 
 Tabs = (function(superClass) {
   extend(Tabs, superClass);
 
-  function Tabs(selector) {
-    var self;
+  function Tabs(selector, options) {
+    var defaultOpts, defaultRenderer, resolvedOptions, rootSel, self, tabsContent, titleRenderer;
     this.selector = selector;
     Tabs.__super__.constructor.apply(this, arguments);
+    defaultRenderer = function(node, value) {
+      return hx.select(node).text(value);
+    };
+    defaultOpts = {
+      items: [],
+      titleRenderer: defaultRenderer,
+      contentRenderer: defaultRenderer
+    };
+    resolvedOptions = hx.merge(defaultOpts, options);
+    this._ = {};
+    this._.options = resolvedOptions;
     hx.component.register(this.selector, this);
+    rootSel = hx.select(this.selector);
+    rootSel.classed('hx-tabs', true);
+    titleRenderer = resolvedOptions.titleRenderer;
+    tabsContent = rootSel.select('.hx-tabs-content');
+    if (tabsContent.empty()) {
+      tabsContent = rootSel.append('div')["class"]('hx-tabs-content');
+    }
     this.selected = -1;
     self = this;
-    hx.select(this.selector).selectAll('.hx-tab').forEach(function(node, i) {
-      return node.on('click', 'hx.tabs', function() {
-        return onTabSelected(self, node.node(), i);
+    if (resolvedOptions.items.length) {
+      this.items(resolvedOptions.items);
+    } else {
+      rootSel.selectAll('.hx-tab').forEach(function(node, i) {
+        return node.on('click', 'hx.tabs', function() {
+          return onTabSelected(self, node.node(), i, 'user');
+        });
       });
-    });
+    }
     this.select(0);
   }
+
+  Tabs.prototype.items = function(newItems) {
+    var root, tabsContent, titleBarsToAdd;
+    if (arguments.length) {
+      if (newItems.length === 0) {
+        hx.consoleWarning('Setting items to empty array');
+      } else {
+        root = hx.select(this.selector);
+        tabsContent = root.select('.hx-tabs-content');
+        root.selectAll('.hx-tab').remove();
+        tabsContent.clear();
+        titleBarsToAdd = newItems.map((function(_this) {
+          return function(arg, i) {
+            var content, context, tab, title;
+            title = arg.title, context = arg.context, content = arg.content;
+            tab = hx.detached('div')["class"]('hx-tab');
+            _this._.options.titleRenderer(tab.node(), title);
+            hx.palette.context(tab.node(), context);
+            tab.on('click', 'hx.tabs', function() {
+              return onTabSelected(_this, tab.node(), i, 'user');
+            });
+            return tab;
+          };
+        })(this));
+        tabsContent.insertBefore(titleBarsToAdd);
+        this.select(0, true);
+      }
+      this._.options.items = newItems;
+      return this;
+    } else {
+      return this._.options.items;
+    }
+  };
+
+  Tabs.prototype.value = function(newValue) {
+    if (arguments.length) {
+      return this.select(newValue, false);
+    } else {
+      return this.selected;
+    }
+  };
 
   Tabs.prototype.select = function(i, force) {
     var tab;
     if (this.selected !== i || force) {
       tab = hx.select(this.selector).selectAll('.hx-tab').nodes[i];
-      return onTabSelected(this, tab, i);
+      return onTabSelected(this, tab, i, 'api');
     }
   };
 
@@ -20895,6 +21277,13 @@ Tabs = (function(superClass) {
 })(hx.EventEmitter);
 
 hx.Tabs = Tabs;
+
+hx.tabs = function(opts) {
+  var ret, tabs;
+  ret = hx.detached('div');
+  tabs = new hx.Tabs(ret.node(), opts);
+  return ret;
+};
 
 })();
 (function(){

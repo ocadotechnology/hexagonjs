@@ -1,0 +1,17 @@
+@version 0.14.0
+  @api Tag Input
+    @prototype hx.TagInput
+      @constructor
+        @description
+        @arg selector [String/HTMLElement]
+        @arg? classifier [Function]
+          @arg tag [String]
+          @returns String
+        @arg? validator [Function]
+          @arg tag [String]
+        @removed
+          Use @code[hx.TagInput(selector, options)] instead.
+
+      @method tags
+        @removed
+          Use @code[hx.TagInput.items()] instead.

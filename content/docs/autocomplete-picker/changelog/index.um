@@ -1,15 +1,12 @@
+@inline /templates/sidebar-page.um
 
-    @inline ../../../templates/sidebar-page.um
+@topSection
+  @title Autocomplete Picker Changelog
 
-    @topSection
-      @title Autocomplete Picker Changelog
-
-    @contentSection
-      @changelogList
-        @process
-          @dontGroup
-          @inline ../index.um
-        @for v in versionList
-          @version {{v}}
-            @link /docs/{{v}}/autocomplete-picker/
-    
+@contentSection
+  @changelogList
+    @groupByApi false
+    @reverseVisibleList true
+    @process
+      @inline ../api.um
+    @inline /templates/versions.um

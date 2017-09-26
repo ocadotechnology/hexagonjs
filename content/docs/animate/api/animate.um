@@ -2,12 +2,12 @@
   @added 0.9.0
   @description
     A factory function for creating @type[Animation] instances
-  @param node [Element]
-  @param? ease [Function]
+  @arg node [Element]
+  @arg? ease [Function]
     @description
       The easing function to use for the animations. See @code[hx.ease] for some
       pre-built easing functions
-    @param value [Number]: The input value
+    @arg value [Number]: The input value
     @returns Number
       @description
         The value after it has been transformed by the easing function

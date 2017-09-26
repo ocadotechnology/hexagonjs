@@ -18,7 +18,7 @@
   "private": true,
   "devDependencies": {
     "font-awesome": "^4.7.0",
-    "hexagon-js": "1.8.2",
+    "hexagon-js": "1.12.0",
     "quantum-api": "^2.0.0",
     "quantum-code-highlight": "^2.0.0",
     "quantum-docs": "^2.0.0",

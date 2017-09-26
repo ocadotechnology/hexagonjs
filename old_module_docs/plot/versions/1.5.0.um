@@ -1,0 +1,52 @@
+@version 1.5.0
+  @api Plot
+    @prototype hx.Graph
+      @constructor
+        @arg selector [HTMLElement/String]
+        @arg? options [Object]
+          @property redrawOnResize [Boolean]
+            @added: Added an option to disable automatic redraw when container is resized.
+              @issue 152
+            @description
+              Whether or not the graph should automatically be redrawn when the container is resized. By default true.
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Gets the currently set option for whether the graph should redraw on resizing the container
+        @returns Boolean: The currently set value for redrawOnResize
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Sets the option for whether the graph should redraw on resizing the container
+        @arg value [Boolean]: Whether the graph should redraw on resizing the container
+        @returns Graph: This Graph
+
+
+    @prototype hx.Sparkline
+      @constructor
+        @arg selector [HTMLElement/String]
+        @arg? options [Object]
+          @property redrawOnResize [Boolean]
+            @added: Added an option to disable automatic redraw when container is resized.
+              @issue 152
+            @description
+              Whether or not the sparkline should automatically be redrawn when the container is resized. By default true.
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Gets the currently set option for whether the sparkline should redraw on resizing the container
+        @returns Boolean: The currently set value for redrawOnResize
+
+      @method redrawOnResize
+        @added: Added an option to disable automatic redraw when container is resized.
+          @issue 152
+        @description: Sets the option for whether the sparkline should redraw on resizing the container
+        @arg value [Boolean]: Whether the sparkline should redraw on resizing the container
+        @returns Sparkline: This Sparkline
+
+
+    @prototype hx.PieChart
+      @bugfix: Resolved an issue in pie charts where the legend was not being displayed with the correct colors and was not rendering correctly

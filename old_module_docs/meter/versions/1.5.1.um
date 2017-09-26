@@ -1,0 +1,12 @@
+@version 1.5.1
+  @api Meter
+    @bugfix: Resolved an issue where calling render would thrown an error for 0 height/width meters
+      @issue 170
+
+    @prototype hx.Meter
+      @constructor
+        @arg selector [String/HTMLElement]
+        @arg? options [Object]
+          @property redrawOnResize [Boolean]: Whether to redraw the meter when the container is resized
+            @default: true
+            @added: Added an option to allow the meter to be redrawn manually

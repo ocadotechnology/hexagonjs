@@ -1,6 +1,0 @@
-@version 0.13.0
-  @api Palette
-    @enhancement
-      @description
-        Updated the context classes to use @code[!important] to ensure styles
-        are applied when the context classes are used.

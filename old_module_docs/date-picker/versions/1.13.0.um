@@ -1,0 +1,5 @@
+@version 1.13.0
+  @api Date Picker
+    @bugfix
+      @description
+        Resolved an issue with the styles that was causing the 'year' selection to display incorrectly

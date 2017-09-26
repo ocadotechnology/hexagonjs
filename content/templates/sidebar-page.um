@@ -57,6 +57,7 @@
     @sidebarPage
       @sidebar
         @navigationMenu
+          @page /changelog: Changelog
           @section Guides
             @page /guide/getting-started: Getting Started
             @page /guide/installation: Installation
@@ -77,6 +78,7 @@
 
           @section Components
             @page /docs/autocomplete: AutoComplete
+            @page /docs/autocomplete-picker: AutoCompletePicker
             @page /docs/button: Button
 
       @content

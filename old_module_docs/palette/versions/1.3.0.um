@@ -1,0 +1,53 @@
+@version 1.3.0
+  @api Palette
+    @function hx.palette.borderContext
+      @added: A function for setting the border context of an element
+        @issue 196
+      @description
+        Adds a border context class to an element.
+
+        @codeblock js
+          // adds the 'hx-border-positive' class to the element, and removes all other border context classes
+          hx.palette.context('.my-element', 'positive')
+
+      @arg selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @arg context [String]
+        @description
+          The context to apply. May be one of:
+
+          @codeblock js
+            hx.palette.borderContext('.my-element', undefined) // removes the border context class
+            hx.palette.borderContext('.my-element', 'default')
+            hx.palette.borderContext('.my-element', 'positive')
+            hx.palette.borderContext('.my-element', 'warning')
+            hx.palette.borderContext('.my-element', 'negative')
+            hx.palette.borderContext('.my-element', 'info')
+            hx.palette.borderContext('.my-element', 'action')
+            hx.palette.borderContext('.my-element', 'complement')
+            hx.palette.borderContext('.my-element', 'contrast')
+
+    @function hx.palette.borderContext
+      @added: A function for getting the border context of an element
+        @issue 196
+      @description
+        Gets the border context class of an element.
+
+        @codeblock js
+          // gets the context of the element (by looking at the class of the element)
+          hx.palette.borderContext('.my-element')
+
+      @arg selector [Element/String]: The element to add the context class to (or a css selector that selects it)
+      @returns [String]
+        @description
+          The border context of the element. May be one of:
+
+          @list
+            @item: @bold[undefined] - if the element has no context class
+            @item: @bold['default'] - the element has the 'hx-border-default' class
+            @item: @bold['positive'] - the element has the 'hx-border-positive' class
+            @item: @bold['warning'] - the element has the 'hx-border-warning' class
+            @item: @bold['negative'] - the element has the 'hx-border-negatibe' class
+            @item: @bold['info'] - the element has the 'hx-border-info' class
+            @item: @bold['action'] - the element has the 'hx-border-action' class
+            @item: @bold['complement'] - the element has the 'hx-border-complement' class
+            @item: @bold['contrast'] - the element has the 'hx-border-positive' class

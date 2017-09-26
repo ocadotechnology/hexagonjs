@@ -1,0 +1,50 @@
+@version 0.12.0
+  @api Date Picker
+    @prototype hx.DatePicker
+      @method disable
+        @description: A method for disabling a date picker so the user can't enter values.
+        @returns DatePicker: This DatePicker
+
+      @method enable
+        @description: A method for enabling a date picker so the user can enter values.
+        @returns DatePicker: This DatePicker
+
+      @method getDate
+        @removed
+
+
+      @method getRange
+        @removed
+
+
+      @method setDate
+        @arg date [Date]
+        @arg? dontSetupInput [Boolean]
+        @arg? suppressCallback [Boolean]
+        @removed
+
+
+      @method setDay
+        @arg day [Number]
+        @arg? suppressCallback [Boolean]
+        @removed
+
+
+      @method setMonth
+        @arg month [Number]
+        @arg? suppressCallback [Boolean]
+        @removed
+
+
+      @method setYear
+        @arg year [Number]
+        @arg? suppressCallback [Boolean]
+        @removed
+
+
+      @method setRange
+        @arg date1 [Date]
+        @arg date2 [Date]
+        @arg dontSetupInput [Boolean]
+        @arg? suppressCallback [Boolean]
+        @removed

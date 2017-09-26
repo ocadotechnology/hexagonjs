@@ -8,6 +8,7 @@
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "component": {},
   "sort": {},
   "userFacingText": {},
   "animate": {},
@@ -54,7 +55,6 @@
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "format": {},
-  "component": {},
   "morphs": {},
   "clickDetector": {},
   "base": {
@@ -206,6 +206,7 @@
     "borderCol": "#D0D0D0",
     "contentBackgroundCol": "transparent"
   },
+  "fluid": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -250,7 +251,6 @@
     "labelHeaderBorderCol": "#D0D0D0"
   },
   "buttonGroup": {},
-  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {

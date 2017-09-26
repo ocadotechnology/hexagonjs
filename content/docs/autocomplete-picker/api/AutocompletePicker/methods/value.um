@@ -1,0 +1,24 @@
+@method value
+  @description: Gets the value of the autocomplete picker
+  @returns Any: The currently set value
+
+@method value
+  @arg value [Any]
+    @description:
+
+      The value to set. If the value passed in is not one of the items, this value will be set to 'undefined' and the 'choose value' text will be displayed
+
+      Setting the value works in the same way as the autocomplete filter, it searches through the data and finds the first result that matches
+
+      The value can be set using the following:
+      @@codeblock js
+        autocompletePicker.value('Moorgate') // Value set to {name: 'Moorgate', county: 'London'}
+        autocompletePicker.value('London') // Value set to {name: 'Moorgate', county: 'London'}
+        autocompletePicker.value('Old') // Value set to {name: 'Old Street', county: 'London'}
+        autocompletePicker.value({name: 'Old Street', county: 'London'}) // Value set to {name: 'Old Street', county: 'London'}
+        autocompletePicker.value({name: 'Old Street'}) // Value set to {name: 'Old Street', county: 'London'}
+        autocompletePicker.value('Kent') // Value set to {name: 'Canterbury', county: 'Kent'}
+
+  @arg? callback [Function]: The function to call once the autocomplete picker has verified that the value is contained in the items. This is most useful when the 'items' is an asynchronous operation
+    @arg item [Any]: The new value for the autocomplete picker. If the value passed in is not one of the items, this value will be 'undefined'
+  @returns AutocompletePicker: The current autocomplete picker

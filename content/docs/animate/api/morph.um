@@ -2,7 +2,7 @@
   @added 0.9.0
   @description
     A factory function for creating @type[Morph] instances
-  @param node [Element]
+  @arg node [Element]
   @returns Morph
     @description: The newly constructed @type[Morph] object.
 
@@ -16,8 +16,8 @@
   @method and
     @description
       Adds an action that should happen concurrently with the previous action
-    @param morph [String]: The named morph to use.
-    @param? duration [Number]
+    @arg morph [String]: The named morph to use.
+    @arg? duration [Number]
       @description: The length of the animation in milliseconds
       @default: 200
     @returns Animation
@@ -26,7 +26,7 @@
   @method and
     @description
       Adds an action that should happen concurrently with the previous action
-    @param function [Function]
+    @arg function [Function]
       @description
         A function that gets called as part of the chain. If this function
         returns an @type[EventEmitter], the behaviour is to wait for that event
@@ -35,7 +35,7 @@
         Anything that is returned from this function that has a 'cancel' method
         will be called.
 
-      @param? done [Function]
+      @arg? done [Function]
         @description
           If specified in the argument list, this action will only complete when
           this function is called to complete the action.
@@ -49,8 +49,8 @@
 
   @method then
     @description: Adds an action that should happen after the previous action
-    @param morph [String]: The named morph to use.
-    @param? duration [Number]
+    @arg morph [String]: The named morph to use.
+    @arg? duration [Number]
       @description: The length of the animation in milliseconds
       @default: 200
     @returns Morph
@@ -60,7 +60,7 @@
 
   @method then
     @description: Adds an action that should happen after the previous action
-    @param function [Function]
+    @arg function [Function]
       @description
         A function that gets called as part of the chain. If this function
         returns an @type[EventEmitter], the behaviour is to wait for that
@@ -70,7 +70,7 @@
         Anything that is returned from this function that has a @code[cancel()]
         method will be called.
 
-      @param? done [Function]
+      @arg? done [Function]
         @description
           If specified in the argument list, this action will only complete when
           this function is called to complete the action.
@@ -90,9 +90,9 @@
     @description
       Adds an action that styles the element concurrently with the previous
       action
-    @param property [String]: The name of the css style property to animate
-    @param endValue [String/Number]: The value to animate the property to
-    @param? duration [Number]: The length of the animation in milliseconds
+    @arg property [String]: The name of the css style property to animate
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg? duration [Number]: The length of the animation in milliseconds
       @default: 200
     @returns Morph
       @description: This @type[Morph] for chaining
@@ -101,19 +101,19 @@
     @description
       Adds an action that styles the element concurrently with the previous
       action
-    @param property [String]: The name of the css style property to animate
-    @param startValue [String/Number]: The value to animate the property from
-    @param endValue [String/Number]: The value to animate the property to
-    @param duration [Number]: The length of the animation in milliseconds
+    @arg property [String]: The name of the css style property to animate
+    @arg startValue [String/Number]: The value to animate the property from
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg duration [Number]: The length of the animation in milliseconds
     @returns Morph
       @description: This @type[Morph] for chaining
 
   @method thenStyle
     @description
       Adds an action that styles the element after the previous action completes
-    @param property [String]: The name of the css style property to animate
-    @param endValue [String/Number]: The value to animate the property to
-    @param? duration [Number]: The length of the animation in milliseconds
+    @arg property [String]: The name of the css style property to animate
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg? duration [Number]: The length of the animation in milliseconds
       @default: 200
     @returns Morph
       @description
@@ -124,10 +124,10 @@
   @method thenStyle
     @description
       Adds an action that styles the element after the previous action completes
-    @param property [String]: The name of the css style property to animate
-    @param startValue [String/Number]: The value to animate the property from
-    @param endValue [String/Number]: The value to animate the property to
-    @param duration [Number]: The length of the animation in milliseconds.
+    @arg property [String]: The name of the css style property to animate
+    @arg startValue [String/Number]: The value to animate the property from
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg duration [Number]: The length of the animation in milliseconds.
     @returns Morph
       @description
         A new @type[Morph] object that is linked to the previous morph's end
@@ -138,9 +138,9 @@
     @description
       Adds an action that animates an attributes value on the element
       concurrently with the previous action.
-    @param property [String]: The name of the css style property to animate
-    @param endValue [String/Number]: The value to animate the property to
-    @param? duration [Number]: The length of the animation in milliseconds
+    @arg property [String]: The name of the css style property to animate
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg? duration [Number]: The length of the animation in milliseconds
       @default: 200
     @returns Morph
       @description: This @type[Morph] for chaining
@@ -149,10 +149,10 @@
     @description
       Adds an action that animates an attributes value on the element
       concurrently with the previous action.
-    @param property [String]: The name of the css style property to animate
-    @param startValue [String/Number]: The value to animate the property from
-    @param endValue [String/Number]: The value to animate the property to
-    @param duration [Number]: The length of the animation in milliseconds.
+    @arg property [String]: The name of the css style property to animate
+    @arg startValue [String/Number]: The value to animate the property from
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg duration [Number]: The length of the animation in milliseconds.
     @returns Morph
       @description: This @type[Morph] for chaining
 
@@ -160,9 +160,9 @@
     @description
       Adds an action that animates an attributes value on the element after the
       previous action completes.
-    @param property [String]: The name of the css style property to animate
-    @param endValue [String/Number]: The value to animate the property to
-    @param? duration [Number]: The length of the animation in milliseconds
+    @arg property [String]: The name of the css style property to animate
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg? duration [Number]: The length of the animation in milliseconds
       @default: 200
     @returns Morph
       @description
@@ -174,10 +174,10 @@
     @description
       Adds an action that animates an attributes value on the element after the
       previous action completes.
-    @param property [String]: The name of the css style property to animate
-    @param startValue [String/Number]: The value to animate the property from
-    @param endValue [String/Number]: The value to animate the property to
-    @param duration [Number]: The length of the animation in milliseconds.
+    @arg property [String]: The name of the css style property to animate
+    @arg startValue [String/Number]: The value to animate the property from
+    @arg endValue [String/Number]: The value to animate the property to
+    @arg duration [Number]: The length of the animation in milliseconds.
     @returns Morph
       @description
         A new @type[Morph] object that is linked to the previous morph's end
@@ -188,7 +188,7 @@
     @description
       Starts this morph. This should always be called at the end of the chain
       of actions.
-    @param? cancelOngoing [Boolean]
+    @arg? cancelOngoing [Boolean]
       @description: Stops any ongoing morphs for the selected node
       @default: false
     @returns Morph

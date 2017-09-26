@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.8.2
+ Version: 1.12.0
  Theme: hexagon-light
  Modules:
    set
@@ -20,6 +20,7 @@
    selection
    transition
    interpolate
+   component
    sort
    user-facing-text
    animate
@@ -32,7 +33,6 @@
    modal
    notify
    format
-   component
    morphs
    click-detector
    base
@@ -52,10 +52,10 @@
    autocomplete
    drag-container
    layout
+   fluid
    progress-bar
    plot
    button-group
-   fluid
    picker
    request
    sticky-table-headers
@@ -91,6 +91,7 @@
    time-slider
    tree
 */
+
 
 
 
@@ -176,7 +177,6 @@
   color: #00ADA8; }
   .dx-notification-pin-pinned:hover {
     color: #037774; }
-
 
 
 
@@ -805,6 +805,7 @@ hr {
 .dx-border-left {
   border-left: solid 1px #D0D0D0; }
 
+
 .dx-progress-bar {
   border-color: none;
   border-width: 0;
@@ -925,7 +926,6 @@ hr {
 .dx-plot-label-marker {
   border-color: #FDFDFD;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25); }
-
 
 
 
