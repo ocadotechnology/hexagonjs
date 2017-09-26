@@ -1,12 +1,5 @@
-const { div } = require('modules/selection/main')
+import { div } from 'modules/selection/main'
 
-function inputGroup () {
+export function inputGroup () {
   return div('hx-input-group')
-}
-
-module.exports = {
-  inputGroup,
-  hx: {
-    inputGroup
-  }
 }

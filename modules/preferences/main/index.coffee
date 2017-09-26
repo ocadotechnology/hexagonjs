@@ -1,11 +1,12 @@
-userFacingText = require('modules/user-facing-text/main')
-EventEmitter = require('modules/event-emitter/main')
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
-Modal = require('modules/modal/main').Modal
-Autocomplete = require('modules/autocomplete/main').Autocomplete
-notify = require('modules/notify/main')
-format = require('modules/format/main')
+import { userFacingText } from 'user-facing-text/main'
+import { EventEmitter } from 'event-emitter/main'
+import { select, detached, div } from 'selection/main'
+import { isString } from 'utils/main'
+import { Modal } from 'modal/main'
+import { AutoComplete } from 'autocomplete/main'
+import { notifyNegative, notifyPositive } from 'notify/main'
+import { format } from 'format/main'
+import logger from 'logger/main'
 
 userFacingText({
   preferences: {
@@ -145,7 +146,7 @@ defaultTimezoneList = [
   'UTC+14:00'
 ]
 
-LocalStoragePreferencesStore = {
+export LocalStoragePreferencesStore = {
   save: (prefs, cb) -> localStorage.setItem('hx_preferences', prefs); cb()
   load: (cb) -> cb(undefined, localStorage.getItem('hx_preferences'))
 }
@@ -153,7 +154,7 @@ LocalStoragePreferencesStore = {
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
 zeroPad = format.zeroPad(2)
-defaultTimezoneLookup = (offset) ->
+export defaultTimezoneLookup = (offset) ->
   modifier = if offset > 0 then '-' else '+'
   absOffset = Math.abs(offset)
   minutes = absOffset % 60
@@ -168,7 +169,7 @@ class Preferences extends EventEmitter
       locale = @locale()
       timezone = @timezone()
 
-      localeAutocompleteElement = select.detached('input')
+      localeAutocompleteElement = detached('input')
       localeAutocompleteElement.value(lookupLocale(locale)?.full)
 
       supportedLocales = localeList.map (l) =>
@@ -185,12 +186,12 @@ class Preferences extends EventEmitter
         mustMatch: true
       }).on 'change', (item) -> locale = item.value
 
-      localeSection = select.detached('div')
-        .add(select.detached('label').text(userFacingText('preferences','locale')))
+      localeSection = div()
+        .add(detached('label').text(userFacingText('preferences','locale')))
         .add(localeAutocompleteElement)
 
       # Timezone Stuff
-      timezoneAutocompleteElement = select.detached('input')
+      timezoneAutocompleteElement = detached('input')
       timezoneAutocompleteElement.value(timezone)
 
       new AutoComplete(timezoneAutocompleteElement.node(), @_.supportedTimezones, {
@@ -198,21 +199,21 @@ class Preferences extends EventEmitter
         mustMatch: true
       }).on 'change', (value) -> timezone = value
 
-      timezoneSection = select.detached('div')
-        .add(select.detached('label').text(userFacingText('preferences','timezone')))
+      timezoneSection = div()
+        .add(detached('label').text(userFacingText('preferences','timezone')))
         .add(timezoneAutocompleteElement)
 
-      saveButton = select.detached('button').class('hx-btn hx-positive')
-        .add(select.detached('i').class('hx-icon hx-icon-check'))
-        .add(select.detached('span').text(' ' + userFacingText('preferences','save')))
+      saveButton = detached('button').class('hx-btn hx-positive')
+        .add(detached('i').class('hx-icon hx-icon-check'))
+        .add(detached('span').text(' ' + userFacingText('preferences','save')))
         .on 'click', =>
           @locale(locale)
           @timezone(timezone)
           @save (err) ->
             if err
-              notify.negative(err)
+              notifyNegative(err)
             else
-              notify.positive(userFacingText('preferences','preferencesSaved'))
+              notifyPositive(userFacingText('preferences','preferencesSaved'))
               modal.hide()
 
       select(element)
@@ -236,7 +237,7 @@ class Preferences extends EventEmitter
 
     defaultLocaleId = navigator.languages?[0] or navigator.language
 
-    if not (utils.isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
+    if not (isString(defaultLocaleId) and lookupLocale(defaultLocaleId))
       defaultLocaleId = 'en'
     @locale defaultLocaleId
 
@@ -251,12 +252,12 @@ class Preferences extends EventEmitter
 
   timezone: (timezone) ->
     if arguments.length > 0
-      if utils.isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
+      if isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
         if @_.preferences['timezone'] isnt timezone
           @_.preferences['timezone'] = timezone
           @emit('timezonechange', timezone)
       else
-        utils.consoleWarning('preferences.timezone:', timezone + ' is not a valid timezone')
+        logger.warn('preferences.timezone:', timezone + ' is not a valid timezone')
       this
     else
       @_.preferences['timezone']
@@ -264,7 +265,7 @@ class Preferences extends EventEmitter
   locale: (locale) ->
     if arguments.length > 0
       # check that the locale being set is supported
-      if utils.isString(locale) and (localeObject = lookupLocale(locale))
+      if isString(locale) and (localeObject = lookupLocale(locale))
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
 
@@ -273,7 +274,7 @@ class Preferences extends EventEmitter
           moment?.locale(localeObject.value)
           @emit('localechange', localeObject.value)
       else
-        utils.consoleWarning('preferences.locale',
+        logger.warn('preferences.locale',
           locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon')
       this
     else
@@ -326,12 +327,4 @@ class Preferences extends EventEmitter
     @_.modal.show()
     this
 
-preferences = new Preferences
-
-module.exports = preferences
-module.exports.LocalStoragePreferencesStore = LocalStoragePreferencesStore
-module.exports.defaultTimezoneLookup = defaultTimezoneLookup
-module.exports.hx = {
-  preferences: preferences,
-  LocalStoragePreferencesStore: LocalStoragePreferencesStore
-}
+export preferences = new Preferences

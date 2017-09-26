@@ -11,6 +11,7 @@ import paletteExamples from './examples/palette'
 import numberPickerExamples from './examples/number-picker'
 import autoCompleteExamples from './examples/autocomplete'
 import pickerExamples from './examples/picker'
+import inputGroupExamples from './examples/input-group'
 
 function example(title) {
   return div('example-section')
@@ -30,5 +31,6 @@ select('body')
     example('Palette').add(paletteExamples()),
     example('Number Pickers').add(numberPickerExamples()),
     example('Auto Complete').add(autoCompleteExamples()),
-    example('Picker').add(pickerExamples())
+    example('Picker').add(pickerExamples()),
+    example('Input Group').add(inputGroupExamples())
   ]))

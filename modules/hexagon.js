@@ -6,6 +6,7 @@ import { initPointerEvents } from 'pointer-events/main'
 import { initView } from 'view/main'
 import { initMorphs } from 'morphs/main'
 import { initTitleBar } from 'titlebar/main'
+import { initResizeEvents } from 'resize-events/main'
 
 // Include the version
 export { version } from '../package.json'
@@ -102,6 +103,8 @@ export { userFacingText } from 'user-facing-text/main'
 export { validateForm } from 'form/main'
 export { palette } from 'palette/main'
 export { format } from 'format/main'
+export { preferences } from 'preferences/main'
+export { dateTimeLocalizer } from 'date-localizer/main'
 
 // Components
 
@@ -115,10 +118,12 @@ export { autoComplete, AutoComplete } from 'autocomplete/main'
 export { numberPicker, NumberPicker } from 'number-picker/main'
 export { buttonGroup, ButtonGroup } from 'button-group/main'
 export { picker, Picker } from 'picker/main'
+export { inputGroup } from 'input-group/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove
 initPointerEvents() // XXX: make into a selection middleware
+initResizeEvents()  // XXX: make into a selection middleware
 initView()          // XXX: remove?
 initMorphs()        // XXX: remove
 

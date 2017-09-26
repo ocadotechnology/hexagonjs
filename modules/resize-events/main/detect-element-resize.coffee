@@ -1,7 +1,7 @@
 # use http://js2.coffee/ to convert the js to coffee and replace
 # do ->
 #  with:
-# module.exports = ->
+# export default () ->
 
 # replace window.addResizeListener with addResizeListener
 # replace window.removeResizeListener with removeResizeListener
@@ -22,7 +22,7 @@
 *
 ###
 
-module.exports = ->
+export default () ->
   attachEvent = document.attachEvent
   stylesCreated = false
 

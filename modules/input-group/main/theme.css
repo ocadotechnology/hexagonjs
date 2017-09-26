@@ -1,0 +1,25 @@
+
+.hx-input-group > input {
+  border-color: var(--input-group-input-border-color);
+  background-color: var(--input-group-input-background-color);
+}
+
+.hx-input-group > input:invalid {
+  border-color: var(--input-group-input-invalid-outline-color);
+}
+
+.hx-input-group > input:focus {
+  border-color: var(--input-group-input-focus-border-color);
+}
+
+.hx-input-group > div,
+.hx-input-group > span,
+.hx-input-group > a {
+  border-color: var(--input-group-div-border-color);
+  background: var(--input-group-div-background-color);
+}
+
+.hx-input-group > i {
+  border-color: var(--input-group-icon-border-color);
+  background: var(--input-group-icon-background-color);
+}

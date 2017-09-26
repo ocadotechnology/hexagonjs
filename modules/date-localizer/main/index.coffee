@@ -1,5 +1,5 @@
-preferences = require('modules/preferences/main')
-format = require('modules/format/main')
+import { preferences } from 'preferences/main'
+import { format } from 'format/main'
 
 class DateTimeLocalizer
   zeroPad = format.zeroPad(2)
@@ -58,7 +58,6 @@ class DateTimeLocalizer
       split = dateString.split('/')
     allValid = split.length is 3 and not split.some (e) -> e is '' or e is '0'
     if allValid
-      format = ''
       for w, i in order
         part = split[i]
         switch w
@@ -136,8 +135,7 @@ class DateTimeLocalizerMoment
 
   time: (date, showSeconds) ->
     date = preferences.applyTimezoneOffset(date)
-    format = if showSeconds then 'H:mm:ss' else 'H:mm'
-    moment(date).locale(preferences.locale()).format(format)
+    moment(date).locale(preferences.locale()).format(if showSeconds then 'H:mm:ss' else 'H:mm')
 
   checkTime: (time) ->
     moment({hours: time[0], minutes: time[1], seconds: time[2]}).locale(preferences.locale()).isValid()
@@ -147,30 +145,25 @@ class DateTimeLocalizerMoment
     split = dateString.split('/')
     allValid = split.length is 3 and not split.some (e) -> e is '' or e is '0'
     if allValid
-      format = ''
+      fmt = ''
       for w, i in order
         part = split[i]
         switch w
           when 'DD'
             daysValid = part.length < 3 and part isnt ''
-            format += 'DD'
+            fmt += 'DD'
           when 'MM'
             monthsValid = part.length < 3 and part isnt ''
-            format += 'MM'
+            fmt += 'MM'
           when 'YYYY'
             yearsValid = part.length < 5 and part isnt ''
-            format += 'YYYY'
+            fmt += 'YYYY'
       if daysValid and monthsValid and yearsValid
-        moment(dateString, format, preferences.locale()).toDate()
+        moment(dateString, fmt, preferences.locale()).toDate()
       else
         new Date('Invalid Date')
     else
       new Date('Invalid Date')
 
 #XXX: [2.0.0] this doesn't need to be a function
-dateTimeLocalizer = -> if moment? then new DateTimeLocalizerMoment else new DateTimeLocalizer
-
-module.exports = dateTimeLocalizer
-module.exports.hx = {
-  dateTimeLocalizer: dateTimeLocalizer
-}
+export dateTimeLocalizer = -> if moment? then new DateTimeLocalizerMoment else new DateTimeLocalizer

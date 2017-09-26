@@ -339,4 +339,15 @@
   --menu-contrast-border-color-hover: var(--theme-contrast-color);
   --menu-contrast-background-color-hover: var(--theme-contrast-color);
   --menu-contrast-text-color-hover: #ffffff;
+
+  /* input-group */
+  --input-group-input-background-color: #FAFAFA;
+  --input-group-input-border-color: #D8D8D8;
+  --input-group-input-invalid-outline-color: #DE1A4A;
+  --input-group-input-focus-border-color: #B5B5B5;
+  --input-group-div-background-color: #FFF;
+  --input-group-div-border-color: #DDD;
+  --input-group-icon-background-color: #EAEAEA;
+  --input-group-icon-border-color: #DDD;
+
 }

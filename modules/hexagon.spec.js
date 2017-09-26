@@ -27,6 +27,8 @@ import userFacingTextTests from './user-facing-text/test/spec'
 import formTests from './form/test/spec'
 import paletteTests from './palette/test/spec'
 import formatTests from './format/test/spec'
+import preferencesTests from './preferences/test/spec'
+import dateTimeLocalizerTests from './date-localizer/test/spec'
 
 // Components
 
@@ -39,6 +41,7 @@ import autoCompleteTests from './autocomplete/test/spec'
 import numberPickerTests from './number-picker/test/spec'
 import buttonGroupTests from './button-group/test/spec'
 import pickerTests from './picker/test/spec'
+import inputGroupTests from './input-group/test/spec'
 
 should()
 
@@ -167,7 +170,10 @@ describe('HexagonJS Test Suite', () => {
         'buttonGroup',
         'ButtonGroup',
         'Picker',
-        'picker'
+        'picker',
+        'inputGroup',
+        'preferences',
+        'dateTimeLocalizer'
       ])
     })
   })
@@ -195,6 +201,8 @@ describe('HexagonJS Test Suite', () => {
   userFacingTextTests()
   paletteTests()
   formatTests()
+  preferencesTests()
+  dateTimeLocalizerTests()
 
   // Components
   modalTests()
@@ -207,6 +215,7 @@ describe('HexagonJS Test Suite', () => {
   numberPickerTests()
   buttonGroupTests()
   pickerTests()
+  inputGroupTests()
 
   // require('modules/menu/test/spec')
   // require('modules/preferences/test/spec')

@@ -1,27 +1,23 @@
-select = require('modules/selection/main')
-initializeResizeListeners = require('./detect-element-resize')
+import { select, addEventAugmenter} from 'selection/main'
+import initializeResizeListeners from './detect-element-resize'
 
-addResizeListener = undefined
-removeResizeListener = undefined
+export initResizeEvents = () ->
+  addResizeListener = undefined
+  removeResizeListener = undefined
 
-select.addEventAugmenter({
-  name: 'resize',
-  setup: (node, eventEmitter) ->
-    if addResizeListener is undefined
-      registers = initializeResizeListeners()
-      addResizeListener = registers.addResizeListener
-      removeResizeListener = registers.removeResizeListener
+  addEventAugmenter({
+    name: 'resize',
+    setup: (node, eventEmitter) ->
+      if addResizeListener is undefined
+        registers = initializeResizeListeners()
+        addResizeListener = registers.addResizeListener
+        removeResizeListener = registers.removeResizeListener
 
-    handler = (e) ->
-      box = select(node).box()
-      eventEmitter.emit('resize', ({clientRect: box, event: e}))
+      handler = (e) ->
+        box = select(node).box()
+        eventEmitter.emit('resize', ({clientRect: box, event: e}))
 
-    addResizeListener(node, handler)
+      addResizeListener(node, handler)
 
-    return -> removeResizeListener(node, handler)
-})
-
-
-module.exports = {
-  
-}
+      return -> removeResizeListener(node, handler)
+  })
