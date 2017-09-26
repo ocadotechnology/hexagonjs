@@ -111,3 +111,13 @@
     @type color
     @description: The border color shown between the label header and the label details
     @default: #E0E0E0
+
+  @option light-text-col
+    @type color
+    @description: The text color to use on dark button backgrounds
+    @default: #F3F3F3
+
+  @option dark-text-col
+    @type color
+    @description: The text color to use on dark button backgrounds
+    @default: #3D3D3D

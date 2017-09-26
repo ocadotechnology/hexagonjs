@@ -1,3 +1,13 @@
+@function getTextColFromBG($col) {
+  @if lightness($col) > 60 {
+    @return $dark-text-col;
+  }
+
+  @else {
+    @return $light-text-col;
+  }
+}
+
 .hx-axis-line {
   stroke: $axis-line-col;
 }
@@ -74,49 +84,52 @@
 }
 
 .hx-plot-background-warm {
-  color: white;
   background: $warm-col;
+  color: getTextColFromBG($warm-col);
 }
 
 .hx-plot-background-ambient {
-  color: white;
   background: $ambient-col;
+  color: getTextColFromBG($ambient-col);
 }
 
 .hx-plot-background-cold {
-  color: white;
   background: $cold-col;
+  color: getTextColFromBG($cold-col);
 }
 
 .hx-plot-background-positive {
-  color: white;
   background: $positive-col;
+  color: getTextColFromBG($positive-col);
 }
 
 .hx-plot-background-warning {
-  color: white;
   background: $warning-col;
+  color: getTextColFromBG($warning-col);
 }
 
 .hx-plot-background-negative {
-  color: white;
   background: $negative-col;
+  color: getTextColFromBG($negative-col);
 }
 
 // XXXL theme variables
 .hx-plot-label-details {
   background: $label-background-col;
   box-shadow: $label-box-shadow;
+  color: getTextColFromBG($label-background-col);
 }
 
 .hx-plot-label-details-basic {
   background: $label-background-col;
   box-shadow: $label-box-shadow;
+  color: getTextColFromBG($label-background-col);
 }
 
 .hx-plot-label-details-header {
   background: $label-header-background-col;
   border-color: $label-header-border-col;
+  color: getTextColFromBG($label-header-background-col);
 }
 
 .hx-plot-label-marker {
