@@ -7,12 +7,12 @@ export function installFakeTimers () {
   const theRealDateNow = Date.now
   const theRealRequestAnimationFrame = requestAnimationFrame
   window.setTimeout = (f, timeout) => {
-    const t = {f: f, time: time + timeout}
+    const t = { f: f, time: time + timeout }
     timers.push(t)
     return t
   }
   window.setInterval = (f, timeout) => {
-    const t = {f: f, start: time, timeout: timeout}
+    const t = { f: f, start: time, timeout: timeout }
     intervals.push(t)
     return t
   }
