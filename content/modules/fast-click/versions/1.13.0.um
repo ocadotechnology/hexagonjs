@@ -1,0 +1,5 @@
+@version 1.13.0
+  @api Fast Click
+    @bugfix
+      @description: Fixed an issue with the click handlers on iPads
+      @issue 418
