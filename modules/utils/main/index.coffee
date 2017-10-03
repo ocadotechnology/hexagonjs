@@ -172,8 +172,7 @@ export isString = (x) -> typeof x == 'string' or x instanceof String
 
 export isFunction = (x) -> typeof x == "function"
 
-#XXX: is this needed? should we just use Array.isArray?
-export isArray = (x) -> x instanceof Array
+export isArray = Array.isArray
 
 # returns true if the thing passed in is an object, except for arrays
 # which technically are objects, but in the eyes of this function are not
