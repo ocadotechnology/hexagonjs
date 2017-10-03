@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.12.0
+ Version: 1.13.0
  Theme: hexagon-dark
  Modules:
    set
@@ -256,6 +256,9 @@ i.hx-icon {
   display: inline-block;
   top: 2px;
   position: relative; }
+
+.hx-spinner-large {
+  font-size: 2.5em; }
 
 @-webkit-keyframes slide {
   0% {
@@ -812,6 +815,14 @@ a.hx-btn:hover {
     .hx-input-group > .hx-btn:first-child {
       border-top-left-radius: 0.15em;
       border-bottom-left-radius: 0.15em; }
+    .hx-input-group > input:not(:last-child),
+    .hx-input-group > div:not(:last-child),
+    .hx-input-group > button:not(:last-child),
+    .hx-input-group > span:not(:last-child),
+    .hx-input-group > i:not(:last-child),
+    .hx-input-group > a:not(:last-child),
+    .hx-input-group > .hx-btn:not(:last-child) {
+      border-right-color: transparent; }
     .hx-input-group > input:last-child,
     .hx-input-group > div:last-child,
     .hx-input-group > button:last-child,
@@ -3160,7 +3171,7 @@ img.hx-logo, img.hx-logo:after {
 
 
 .hx-spinner {
-  border: 3px solid #00ADA8;
+  border: 0.2em solid #00ADA8;
   border-right-color: transparent; }
 
 .hx-spinner-wide::after {
@@ -3237,10 +3248,10 @@ img.hx-logo, img.hx-logo:after {
 
 body, button, textarea,
 input {
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px; }
+  font-family: "Open Sans", sans-serif; }
 
 body {
+  font-size: 14px;
   background: #252C2E;
   color: white; }
 
@@ -3528,127 +3539,97 @@ hr {
   .hx-menu-item.hx-menu-link:hover,
   .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
     background: #42474A;
-    color: white;
-    border-color: transparent;
-    border-width: 2px; }
+    color: white; }
   .hx-menu-item.hx-menu-item-disabled {
     background: #FAFAFA;
     color: #939393; }
 
-.hx-menu-items:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu-items:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu-items .hx-menu-active.hx-menu-link,
+.hx-menu-items .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #42474A;
   border-color: transparent; }
 
-.hx-menu.hx-action .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-action .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
-  border-color: #00ADA8; }
-
 .hx-menu.hx-action .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
   background: #68f7f3;
   color: #3D3D3D; }
 
-.hx-menu.hx-action:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-action:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-action .hx-menu-active.hx-menu-link,
+.hx-menu.hx-action .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   border-color: #00ADA8; }
 
-.hx-menu.hx-action:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-action .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #68f7f3;
   color: #3D3D3D; }
-
-.hx-menu.hx-positive .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-positive .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
-  border-color: #92BF17; }
 
 .hx-menu.hx-positive .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
   background: #d7ec9c;
   color: #3D3D3D; }
 
-.hx-menu.hx-positive:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-positive:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-positive .hx-menu-active.hx-menu-link,
+.hx-menu.hx-positive .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   border-color: #92BF17; }
 
-.hx-menu.hx-positive:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-positive .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #d7ec9c;
   color: #3D3D3D; }
 
-.hx-menu.hx-negative .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-negative .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
-  border-color: #EC3A65; }
-
 .hx-menu.hx-negative .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
   background: #fadfe5;
   color: #3D3D3D; }
 
-.hx-menu.hx-negative:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-negative:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-negative .hx-menu-active.hx-menu-link,
+.hx-menu.hx-negative .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   border-color: #EC3A65; }
 
-.hx-menu.hx-negative:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-negative .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #fadfe5;
   color: #3D3D3D; }
-
-.hx-menu.hx-warning .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-warning .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
-  border-color: #D69B24; }
 
 .hx-menu.hx-warning .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
   background: #efdfbd;
   color: #3D3D3D; }
 
-.hx-menu.hx-warning:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-warning:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-warning .hx-menu-active.hx-menu-link,
+.hx-menu.hx-warning .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   border-color: #D69B24; }
 
-.hx-menu.hx-warning:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-warning .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #efdfbd;
   color: #3D3D3D; }
 
-.hx-menu.hx-info .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-info .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
-  border-color: #B36ABB; }
-
 .hx-menu.hx-info .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
   background: #f0e6f1;
   color: #3D3D3D; }
 
-.hx-menu.hx-info:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-info:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-info .hx-menu-active.hx-menu-link,
+.hx-menu.hx-info .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   border-color: #B36ABB; }
 
-.hx-menu.hx-info:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-info .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #f0e6f1;
   color: #3D3D3D; }
-
-.hx-menu.hx-complement .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-complement .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
-  border-color: #393D3D; }
 
 .hx-menu.hx-complement .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
   background: #949494;
   color: white; }
 
-.hx-menu.hx-complement:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-complement:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-complement .hx-menu-active.hx-menu-link,
+.hx-menu.hx-complement .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   border-color: #393D3D; }
 
-.hx-menu.hx-complement:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-complement .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #949494;
   color: white; }
-
-.hx-menu.hx-contrast .hx-menu-item.hx-menu-link:hover,
-.hx-menu.hx-contrast .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
-  border-color: #F7F7F9; }
 
 .hx-menu.hx-contrast .hx-menu-item > .hx-collapsible > .hx-menu-collapsible:hover {
   background: #d0d0d4;
   color: #3D3D3D; }
 
-.hx-menu.hx-contrast:not(:hover) .hx-menu-active.hx-menu-link,
-.hx-menu.hx-contrast:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-contrast .hx-menu-active.hx-menu-link,
+.hx-menu.hx-contrast .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   border-color: #F7F7F9; }
 
-.hx-menu.hx-contrast:not(:hover) .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
+.hx-menu.hx-contrast .hx-menu-active > .hx-collapsible > .hx-menu-collapsible {
   background: #d0d0d4;
   color: #3D3D3D; }
 
@@ -3862,40 +3843,43 @@ hr {
   color: #f15a71; }
 
 .hx-plot-background-warm {
-  color: white;
-  background: #faa95b; }
+  background: #faa95b;
+  color: #3D3D3D; }
 
 .hx-plot-background-ambient {
-  color: white;
-  background: #e2d440; }
+  background: #e2d440;
+  color: #F3F3F3; }
 
 .hx-plot-background-cold {
-  color: white;
-  background: #5a9bd4; }
+  background: #5a9bd4;
+  color: #F3F3F3; }
 
 .hx-plot-background-positive {
-  color: white;
-  background: #97c366; }
+  background: #97c366;
+  color: #F3F3F3; }
 
 .hx-plot-background-warning {
-  color: white;
-  background: #e2d440; }
+  background: #e2d440;
+  color: #F3F3F3; }
 
 .hx-plot-background-negative {
-  color: white;
-  background: #f15a71; }
+  background: #f15a71;
+  color: #3D3D3D; }
 
 .hx-plot-label-details {
   background: #252C2E;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25); }
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  color: #F3F3F3; }
 
 .hx-plot-label-details-basic {
   background: #252C2E;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25); }
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  color: #F3F3F3; }
 
 .hx-plot-label-details-header {
   background: #393D3D;
-  border-color: #4E5355; }
+  border-color: #4E5355;
+  color: #F3F3F3; }
 
 .hx-plot-label-marker {
   border-color: #252C2E;
@@ -3923,8 +3907,9 @@ hr {
   .hx-table tbody tr:nth-child(2n) {
     background: #2B3234;
     color: white; }
-  .hx-table tbody tr:hover {
-    background: #3D4346; }
+
+.hx-table:not(.hx-table-no-hover) tbody tr:hover {
+  background: #3D4346; }
 
 .hx-toggle > .hx-toggle-box {
   background: #495054; }

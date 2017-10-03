@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.12.0
+ Version: 1.13.0
  Theme: hexagon-light
  Modules:
    set
@@ -192,7 +192,16 @@ hx.theme = {
     "invertHoverCol": "#F2F2F2",
     "invisibleTextCol": "#575757",
     "lightTextCol": "#F3F3F3",
-    "darkTextCol": "#3D3D3D"
+    "darkTextCol": "#3D3D3D",
+    "defaultBorderCol": "darken($default-col, 10%)",
+    "actionBorderCol": "darken($action-col, 10%)",
+    "positiveBorderCol": "darken($positive-col, 10%)",
+    "warningBorderCol": "darken($warning-col, 10%)",
+    "negativeBorderCol": "darken($negative-col, 10%)",
+    "infoBorderCol": "darken($info-col, 10%)",
+    "complementBorderCol": "darken($complement-col, 10%)",
+    "contrastBorderCol": "darken($contrast-col, 10%)",
+    "invertBorderCol": "darken(#FDFDFD, 10%)"
   },
   "dropdown": {
     "spacing": "0",
@@ -344,7 +353,9 @@ hx.theme = {
     "pieSegmentTextCol": "rgba(255, 255, 255, 0.8)",
     "labelBoxShadow": "1px 1px 1px rgba(0, 0, 0, 0.25)",
     "labelHeaderBackgroundCol": "#FFFFFF",
-    "labelHeaderBorderCol": "#D0D0D0"
+    "labelHeaderBorderCol": "#D0D0D0",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D"
   },
   "buttonGroup": {},
   "picker": {},
@@ -1331,9 +1342,7 @@ hx.isFunction = function(x) {
   return typeof x === "function";
 };
 
-hx.isArray = function(x) {
-  return x instanceof Array;
-};
+hx.isArray = Array.isArray;
 
 hx.isObject = function(obj) {
   return typeof obj === 'object' && !hx.isArray(obj) && obj !== null;
@@ -6914,6 +6923,7 @@ setActive = function(menu, pos, up, click) {
   if (pos >= 0) {
     allItems = getAllItems(menu);
     node = allItems[pos].node;
+    hx.select(node).classed('hx-menu-active', true);
     content = (ref1 = allItems[pos]) != null ? ref1.content : void 0;
     isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
     while ((node.offsetParent === null || !isEnabled) && !click) {
@@ -8139,7 +8149,7 @@ DatePicker = (function(superClass) {
       calendarHeader.append('button')["class"]('hx-btn hx-btn-invert hx-calendar-back').on('click', 'hx.date-picker', function() {
         return changeVis(-1);
       }).append('i')["class"]('hx-icon hx-icon-chevron-left');
-      _.calendarHeadBtn = calendarHeader.append('button')["class"]('hx-btn hx-btn-invert hx-calendar-button').on('click', 'hx.date-picker', function() {
+      _.calendarHeadBtn = calendarHeader.append('button')["class"]('hx-btn hx-btn-invert').on('click', 'hx.date-picker', function() {
         switch (_.mode) {
           case 'd':
             break;
@@ -14068,6 +14078,7 @@ TagInput = (function(superClass) {
       this.input.on('blur', 'hx.tag-input', (function(_this) {
         return function(event) {
           if (_this.input.value().length > 0 && !hasError()) {
+            _.userEvent = true;
             return _this.add(_this.input.value(), void 0);
           }
         };
@@ -14144,20 +14155,14 @@ TagInput = (function(superClass) {
   };
 
   TagInput.prototype.remove = function(name) {
-    var returnValue, tags;
+    var returnValue, tagsToRemove;
     if (name != null) {
-      returnValue = this.tagContainer.selectAll('.hx-tag').filter(function(d) {
+      tagsToRemove = this.tagContainer.selectAll('.hx-tag').filter(function(d) {
         return d.text() === name;
-      }).forEach((function(_this) {
-        return function(d) {
-          return _this.emit('remove', {
-            value: d.text(),
-            type: 'api'
-          });
-        };
-      })(this)).remove().length;
-    } else {
-      tags = this.tagContainer.selectAll('.hx-tag').forEach((function(_this) {
+      });
+      returnValue = tagsToRemove.size();
+      tagsToRemove.remove();
+      tagsToRemove.forEach((function(_this) {
         return function(d) {
           return _this.emit('remove', {
             value: d.text(),
@@ -14165,8 +14170,18 @@ TagInput = (function(superClass) {
           });
         };
       })(this));
-      returnValue = tags.text();
-      tags.remove();
+    } else {
+      tagsToRemove = this.tagContainer.selectAll('.hx-tag');
+      returnValue = tagsToRemove.text();
+      tagsToRemove.remove();
+      tagsToRemove.forEach((function(_this) {
+        return function(d) {
+          return _this.emit('remove', {
+            value: d.text(),
+            type: 'api'
+          });
+        };
+      })(this));
     }
     if (this.options.draggable) {
       this._.dragContainer.setup();
@@ -14389,7 +14404,7 @@ TitleBar = (function() {
     if (arguments.length > 0) {
       if (cls != null) {
         this._.cls = void 0;
-        ref = ['hx-positive', 'hx-negative', 'hx-warning', 'hx-info'];
+        ref = ['hx-action', 'hx-positive', 'hx-negative', 'hx-warning', 'hx-info'];
         for (i = 0, len = ref.length; i < len; i++) {
           d = ref[i];
           if (cls === d) {
@@ -15836,7 +15851,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         ],
         fullWidth: true
       };
-      typePickerSel = hx.picker(typePickerOptions).classed('hx-data-table-advanced-search-type hx-section hx-fixed', true);
+      typePickerSel = hx.picker(typePickerOptions).classed('hx-btn-invert hx-data-table-advanced-search-type hx-section hx-fixed', true);
       typePickerSel.component().on('change', function(data) {
         var filter, j, leftAllButLast, leftFilterGroups, leftFilters, leftLast, newFilters, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
@@ -15869,7 +15884,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         renderer: columnRenderer,
         fullWidth: true
       };
-      columnPickerSel = hx.picker(columnPickerOptions).classed('hx-data-table-advanced-search-column hx-section hx-fixed', true);
+      columnPickerSel = hx.picker(columnPickerOptions).classed('hx-btn-invert hx-data-table-advanced-search-column hx-section hx-fixed', true);
       columnPickerSel.component().on('change', function(data) {
         var columnCriteria, criteriaItems, filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
@@ -15890,7 +15905,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         items: ['contains'].concat(slice.call(advancedSearchCriteriaValidate(options.advancedSearchCriteria))),
         fullWidth: true
       };
-      criteriaPickerSel = hx.picker(criteriaPickerOptions).classed('hx-data-table-advanced-search-criteria hx-section hx-fixed', true);
+      criteriaPickerSel = hx.picker(criteriaPickerOptions).classed('hx-btn-invert hx-data-table-advanced-search-criteria hx-section hx-fixed', true);
       criteriaPickerSel.component().on('change', function(data) {
         var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
@@ -15993,6 +16008,7 @@ DataTable = (function(superClass) {
       singleSelection: false,
       sort: void 0,
       sortEnabled: true,
+      highlightOnHover: true,
       rowIDLookup: function(row) {
         return row.id;
       },
@@ -16239,6 +16255,8 @@ DataTable = (function(superClass) {
 
   DataTable.prototype.selectEnabled = option('selectEnabled');
 
+  DataTable.prototype.highlightOnHover = option('highlightOnHover');
+
   DataTable.prototype.singleSelection = option('singleSelection');
 
   DataTable.prototype.sort = option('sort');
@@ -16401,7 +16419,7 @@ DataTable = (function(superClass) {
       });
     };
     container = hx.detached('div')["class"]('hx-data-table-content');
-    table = container.append('table')["class"]('hx-data-table-table hx-table');
+    table = container.append('table')["class"]('hx-data-table-table hx-table').classed('hx-table-no-hover', !options.highlightOnHover);
     thead = table.append('thead')["class"]('hx-data-table-head');
     tbody = table.append('tbody')["class"]('hx-data-table-body');
     headerRow = thead.append('tr')["class"]('hx-data-table-row');
@@ -19257,7 +19275,7 @@ var DONT_PREVENT_DEFAULT_NODES, setupFastClick,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 if (hx.supports('touch')) {
-  DONT_PREVENT_DEFAULT_NODES = ['INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+  DONT_PREVENT_DEFAULT_NODES = ['INPUT', 'TEXTAREA', 'SELECT', 'LABEL', 'A'];
   setupFastClick = function(node, eventEmitter) {
     var cancel, getCoords, resetTimer, scrollTolerance, startX, startY, tapHandling, touchEndHander, touchMoveHander, touchStartHander;
     tapHandling = cancel = resetTimer = null;
@@ -20854,11 +20872,12 @@ PivotTable = (function(superClass) {
       },
       useResponsive: true,
       data: void 0,
-      fullWidth: void 0
+      fullWidth: void 0,
+      highlightOnHover: true
     }, options);
     this._ = {};
     this.selection = hx.select(this.selector).classed('hx-pivot-table', true);
-    this.table = this.selection.append('table')["class"]('hx-table');
+    this.table = this.selection.append('table')["class"]('hx-table').classed('hx-table-no-hover', !this.options.highlightOnHover);
     this.tableHead = this.table.append('thead');
     this.tableBody = this.table.append('tbody');
     ref = createTableView(this, this.tableHead, this.tableBody), this.tableHeadView = ref[0], this.tableBodyView = ref[1];

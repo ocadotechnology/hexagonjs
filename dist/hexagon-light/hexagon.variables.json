@@ -96,7 +96,16 @@
     "invertHoverCol": "#F2F2F2",
     "invisibleTextCol": "#575757",
     "lightTextCol": "#F3F3F3",
-    "darkTextCol": "#3D3D3D"
+    "darkTextCol": "#3D3D3D",
+    "defaultBorderCol": "darken($default-col, 10%)",
+    "actionBorderCol": "darken($action-col, 10%)",
+    "positiveBorderCol": "darken($positive-col, 10%)",
+    "warningBorderCol": "darken($warning-col, 10%)",
+    "negativeBorderCol": "darken($negative-col, 10%)",
+    "infoBorderCol": "darken($info-col, 10%)",
+    "complementBorderCol": "darken($complement-col, 10%)",
+    "contrastBorderCol": "darken($contrast-col, 10%)",
+    "invertBorderCol": "darken(#FDFDFD, 10%)"
   },
   "dropdown": {
     "spacing": "0",
@@ -248,7 +257,9 @@
     "pieSegmentTextCol": "rgba(255, 255, 255, 0.8)",
     "labelBoxShadow": "1px 1px 1px rgba(0, 0, 0, 0.25)",
     "labelHeaderBackgroundCol": "#FFFFFF",
-    "labelHeaderBorderCol": "#D0D0D0"
+    "labelHeaderBorderCol": "#D0D0D0",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D"
   },
   "buttonGroup": {},
   "picker": {},
