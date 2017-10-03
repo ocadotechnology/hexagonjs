@@ -14,9 +14,6 @@ export default () ->
 
     runSpecsForSource = (array, options, type) ->
 
-      callFilter = (type, term, options) ->
-        filter[type](array, term, options)
-
       getResult = (terms) ->
         switch type
           when 'str'

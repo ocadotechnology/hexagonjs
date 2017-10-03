@@ -75,33 +75,33 @@ buildFilter = (lookupType) ->
 # All filter lookup functions should return the index + the length of
 # the term within the item, allowing us to sort based on the strength
 # of the match.
-export filterExact = buildFilter (term) ->
+filterExact = buildFilter (term) ->
   (item) -> if item is term then term.length else -1
 
-export filterStartsWith = buildFilter (term) ->
+filterStartsWith = buildFilter (term) ->
   (item) -> if startsWith(item, term) then term.length else -1
 
-export filterContains = buildFilter (term) ->
+filterContains = buildFilter (term) ->
   (item) ->
     index = item.indexOf(term)
     if index > -1 then index + term.length else -1
 
-export filterExcludes = buildFilter (term) ->
+filterExcludes = buildFilter (term) ->
   (item) ->
     index = item.indexOf(term)
     if index is -1 then term.length else -1
 
-export filterGreater = buildFilter (term) ->
+filterGreater = buildFilter (term) ->
   (item) ->
     val = compare(item, term)
     if val isnt -1 then val else -1
 
-export filterLess = buildFilter (term) ->
+filterLess = buildFilter (term) ->
   (item) ->
     val = compare(term, item)
     if val isnt -1 then val else -1
 
-export filterFuzzy = buildFilter (term) ->
+filterFuzzy = buildFilter (term) ->
   escapeRegExp = (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
   regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?'
   pattern = new RegExp(regStr)
@@ -109,12 +109,12 @@ export filterFuzzy = buildFilter (term) ->
     match = item.match(pattern)
     if match? then match.index + match[0].length else -1
 
-export filterRegex = buildFilter (term) ->
+filterRegex = buildFilter (term) ->
   (item) ->
     match = item.match(term)
     if match? then match.index + match[0].length else -1
 
-export filterStringTypes = () -> [
+filterStringTypes = () -> [
   'contains',
   'exact'
   'excludes',
@@ -123,13 +123,13 @@ export filterStringTypes = () -> [
   'fuzzy'
 ]
 
-export filterNumberTypes = () -> [
+filterNumberTypes = () -> [
   'exact',
   'greater',
   'less'
 ]
 
-export filterTypes = () -> [
+filterTypes = () -> [
   'contains',
   'exact'
   'greater',
@@ -139,3 +139,17 @@ export filterTypes = () -> [
   'regex',
   'fuzzy'
 ]
+
+export {
+  filterExact,
+  filterStartsWith,
+  filterContains,
+  filterExcludes,
+  filterGreater,
+  filterLess,
+  filterFuzzy,
+  filterRegex,
+  filterStringTypes,
+  filterNumberTypes,
+  filterTypes
+}

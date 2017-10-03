@@ -1,7 +1,0 @@
-@module drag-container
-  
-  @option drag-placeholder-border-col
-    @type color
-    @description: The color of the placeholder border shown when dragging an element.
-    @default: grey
-  

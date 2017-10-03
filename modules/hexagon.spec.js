@@ -5,6 +5,7 @@ import * as hx from './hexagon'
 
 // Internal utils
 import loggerTests from './logger/test/spec'
+import autoCompleteFeedTests from './autocomplete-feed/test/spec'
 
 // Utils
 import setTests from './set/test/spec'
@@ -42,6 +43,8 @@ import numberPickerTests from './number-picker/test/spec'
 import buttonGroupTests from './button-group/test/spec'
 import pickerTests from './picker/test/spec'
 import inputGroupTests from './input-group/test/spec'
+import dragContainerTests from './drag-container/test/spec'
+import progressBarTests from './progress-bar/test/spec'
 
 should()
 
@@ -153,6 +156,9 @@ describe('HexagonJS Test Suite', () => {
         'filterLess',
         'filterFuzzy',
         'filterRegex',
+        'filterStringTypes',
+        'filterNumberTypes',
+        'filterTypes',
         'userFacingText',
         'validateForm',
         'Dropdown',
@@ -173,13 +179,23 @@ describe('HexagonJS Test Suite', () => {
         'picker',
         'inputGroup',
         'preferences',
-        'dateTimeLocalizer'
+        'dateTimeLocalizer',
+        'group',
+        'section',
+        'dragContainer',
+        'DragContainer',
+        'progressBar',
+        'ProgressBar'
       ])
     })
   })
 
   // Internal utils
   loggerTests()
+  autoCompleteFeedTests()
+
+  // Internal Components
+  // ... none yet :)
 
   // Exposed Utils
   setTests()
@@ -204,7 +220,7 @@ describe('HexagonJS Test Suite', () => {
   preferencesTests()
   dateTimeLocalizerTests()
 
-  // Components
+  // Exposed Components
   modalTests()
   formTests()
   dropdownTests()
@@ -216,15 +232,9 @@ describe('HexagonJS Test Suite', () => {
   buttonGroupTests()
   pickerTests()
   inputGroupTests()
+  dragContainerTests()
+  progressBarTests()
 
-  // require('modules/menu/test/spec')
-  // require('modules/preferences/test/spec')
-  // require('modules/autocomplete/test/spec')
-  // require('modules/number-picker/test/spec')
-  // require('modules/drag-container/test/spec')
-  // require('modules/date-localizer/test/spec')
-  // require('modules/progress-bar/test/spec')
-  // require('modules/autocomplete-feed/test/spec')
   // require('modules/picker/test/spec')
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')

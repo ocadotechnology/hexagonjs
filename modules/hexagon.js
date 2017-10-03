@@ -7,6 +7,7 @@ import { initView } from 'view/main'
 import { initMorphs } from 'morphs/main'
 import { initTitleBar } from 'titlebar/main'
 import { initResizeEvents } from 'resize-events/main'
+import { initFastClick } from 'fast-click/main'
 
 // Include the version
 export { version } from '../package.json'
@@ -97,7 +98,10 @@ export {
   filterGreater,
   filterLess,
   filterFuzzy,
-  filterRegex
+  filterRegex,
+  filterStringTypes,
+  filterNumberTypes,
+  filterTypes
 } from 'filter/main'
 export { userFacingText } from 'user-facing-text/main'
 export { validateForm } from 'form/main'
@@ -119,42 +123,35 @@ export { numberPicker, NumberPicker } from 'number-picker/main'
 export { buttonGroup, ButtonGroup } from 'button-group/main'
 export { picker, Picker } from 'picker/main'
 export { inputGroup } from 'input-group/main'
+export { group, section } from 'layout/main'
+export { dragContainer, DragContainer } from 'drag-container/main'
+export { progressBar, ProgressBar } from 'progress-bar/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove
 initPointerEvents() // XXX: make into a selection middleware
 initResizeEvents()  // XXX: make into a selection middleware
+initFastClick()     // XXX: make into a selection middleware
 initView()          // XXX: remove?
 initMorphs()        // XXX: remove
 
 initTitleBar()
 
 // module.exports = window.hx = merge([
-//   require('./resize-events/main'),
-//   require('./preferences/main'),
-//   require('./date-localizer/main'),
-//   require('./drag-container/main'),
 //   require('./progress-bar/main'),
 //   require('./sticky-table-headers/main'),
-//   require('./autocomplete-feed/main'),
-//   require('./picker/main'),
 //   require('./plot/main'),
 //   require('./date-picker/main'),
 //   require('./time-picker/main'),
 //   require('./tag-input/main'),
-//   require('./titlebar/main'),
 //   require('./slider/main'),
 //   require('./card/main'),
 //   require('./toggle/main'),
-//   require('./spinner/main'),
-//   require('./layout/main'),
 //   require('./notice/main'),
-//   require('./input-group/main'),
 //   require('./label/main'),
 //   require('./color-picker/main'),
 //   require('./crumbtrail/main'),
-//   require('./fast-click/main'),
 //   require('./paginator/main'),
-//   require('./time-slider/main')
+//   require('./time-slider/main'),
 //   require('./date-time-picker/main')
 // ])

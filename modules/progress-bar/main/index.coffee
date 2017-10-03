@@ -1,18 +1,19 @@
-select = require('modules/selection/main')
-component = require('modules/component/main')
-utils = require('modules/util/main/utils')
+import { select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
 
 class ProgressBar
   constructor: (@selector, options) ->
-    component.register(@selector, this)
 
-    options = utils.merge.defined {
+    options = mergeDefined {
       segments: undefined
       value: 0
       animate: false
     }, options
 
-    @selection = select(@selector).classed('hx-progress-bar', true)
+    @selection = select(@selector)
+      .classed('hx-progress-bar', true)
+      .api(this)
+
     @innerBars = @selection.append('div').attr('class', 'hx-progress-bar-inner')
 
     @value(options.value)
@@ -83,14 +84,8 @@ class ProgressBar
       @progressSegments
 
 progressBar = (options) ->
-  selection = select.detached('div')
+  selection = div()
   new ProgressBar(selection.node(), options)
   selection
 
-module.exports = progressBar
-module.exports.ProgressBar = ProgressBar
-
-module.exports.hx = {
-  progressBar: progressBar,
-  ProgressBar: ProgressBar
-}
+export { progressBar, ProgressBar }

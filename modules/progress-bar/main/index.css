@@ -4,12 +4,10 @@
   border-radius: 3px;
   border: solid 1px transparent;
   z-index: 1;
+}
 
-  &.hx-animate {
-    .hx-progress-bar-inner {
-      transition: width ease 0.25s;
-    }
-  }
+.hx-progress-bar..hx-animate .hx-progress-bar-inner {
+  transition: width ease 0.25s;
 }
 
 .hx-progress-bar-inner {

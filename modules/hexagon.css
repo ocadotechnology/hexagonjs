@@ -350,4 +350,7 @@
   --input-group-icon-background-color: #EAEAEA;
   --input-group-icon-border-color: #DDD;
 
+  /* drag-container */
+  --drag-container-placeholder-border-col: #555555;
+
 }

@@ -1,67 +1,68 @@
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
+import { addEventAugmenter } from 'modules/selection/main'
+import { supports } from 'modules/utils/main'
 
-# removes the 200ms delay when clicking on mobiles
-if utils.supports('touch')
-  DONT_PREVENT_DEFAULT_NODES = [
-    'INPUT',
-    'TEXTAREA',
-    'SELECT',
-    'LABEL'
-  ]
+export initFastClick = () ->
+  # removes the 200ms delay when clicking on mobiles
+  if supports('touch')
+    DONT_PREVENT_DEFAULT_NODES = [
+      'INPUT',
+      'TEXTAREA',
+      'SELECT',
+      'LABEL'
+    ]
 
-  setupFastClick = (node, eventEmitter) ->
-    tapHandling = cancel = resetTimer = null
-    scrollTolerance = 10
+    setupFastClick = (node, eventEmitter) ->
+      tapHandling = cancel = resetTimer = null
+      scrollTolerance = 10
 
-    getCoords = (e) ->
-      ev = e.originalEvent or e
-      touches = ev.touches or ev.targetTouches
-      if touches then [ touches[0].pageX, touches[0].pageY ]
+      getCoords = (e) ->
+        ev = e.originalEvent or e
+        touches = ev.touches or ev.targetTouches
+        if touches then [ touches[0].pageX, touches[0].pageY ]
 
-    startX = undefined
-    startY = undefined
-    touchStartHander = (e) ->
-      if e.touches and e.touches.length > 1 || e.targetTouches and e.targetTouches.length > 1
-        return false
-      [startX, startY] = getCoords(e)
+      startX = undefined
+      startY = undefined
+      touchStartHander = (e) ->
+        if e.touches and e.touches.length > 1 || e.targetTouches and e.targetTouches.length > 1
+          return false
+        [startX, startY] = getCoords(e)
 
-    touchMoveHander = (e) ->
-      if not cancel
-        coords = getCoords(e)
-        if coords and ((Math.abs( startY - coords[1])) > scrollTolerance || (Math.abs( startX - coords[0])) > scrollTolerance)
-          cancel = true
+      touchMoveHander = (e) ->
+        if not cancel
+          coords = getCoords(e)
+          if coords and ((Math.abs( startY - coords[1])) > scrollTolerance || (Math.abs( startX - coords[0])) > scrollTolerance)
+            cancel = true
 
-    touchEndHander = (e) ->
-      clearTimeout(resetTimer)
-      resetTimer = setTimeout(() ->
-        tapHandling = false
-        cancel = false
-      , 1000)
+      touchEndHander = (e) ->
+        clearTimeout(resetTimer)
+        resetTimer = setTimeout(() ->
+          tapHandling = false
+          cancel = false
+        , 1000)
 
-      if ( e.which && e.which > 1 ) || e.shiftKey || e.altKey || e.metaKey || e.ctrlKey
-        return
+        if ( e.which && e.which > 1 ) || e.shiftKey || e.altKey || e.metaKey || e.ctrlKey
+          return
 
-      if cancel or tapHandling and tapHandling isnt e.type
-        cancel = false
-        return
+        if cancel or tapHandling and tapHandling isnt e.type
+          cancel = false
+          return
 
-      if node.contains(e.target) and not (e.target.nodeName in DONT_PREVENT_DEFAULT_NODES)
-        e.preventDefault()
+        if node.contains(e.target) and not (e.target.nodeName in DONT_PREVENT_DEFAULT_NODES)
+          e.preventDefault()
 
-      tapHandling = e.type
-      eventEmitter.emit('click', e)
+        tapHandling = e.type
+        eventEmitter.emit('click', e)
 
-    node.addEventListener 'touchstart', touchStartHander
-    node.addEventListener 'touchmove', touchMoveHander
-    node.addEventListener 'touchend', touchEndHander
+      node.addEventListener 'touchstart', touchStartHander
+      node.addEventListener 'touchmove', touchMoveHander
+      node.addEventListener 'touchend', touchEndHander
 
-    return ->
-      node.removeEventListener 'touchstart', touchStartHander
-      node.removeEventListener 'touchmove', touchMoveHander
-      node.removeEventListener 'touchend', touchEndHander
+      return ->
+        node.removeEventListener 'touchstart', touchStartHander
+        node.removeEventListener 'touchmove', touchMoveHander
+        node.removeEventListener 'touchend', touchEndHander
 
-  select.addEventAugmenter({
-    name: 'click',
-    setup: setupFastClick
-  })
+    addEventAugmenter({
+      name: 'click',
+      setup: setupFastClick
+    })

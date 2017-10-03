@@ -1,8 +1,0 @@
-{
-  "dependencies": [
-    "filter",
-    "map",
-    "sort",
-    "util"
-  ]
-}

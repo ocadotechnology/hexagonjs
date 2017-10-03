@@ -1,7 +1,6 @@
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
-component = require('modules/component/main')
-EventEmitter = require('modules/event-emitter/main')
+import { select, div } from 'modules/selection/main'
+import { merge, defined } from 'modules/utils/main'
+import { EventEmitter } from 'modules/event-emitter/main'
 
 # A function for getting the grid of widgets and supplying the positions for
 # each one to make working out where the placeholder should go while dragging.
@@ -167,16 +166,17 @@ containerChildren = (container) ->
   children = container.selection.node().children
   items = for i in [0..children.length] by 1
     if children[i]? then children[i]
-  items.filter(utils.defined)
+  items.filter(defined)
 
 
 class DragContainer extends EventEmitter
   constructor: (selector, options) ->
     super
-    component.component.register(selector, this)
-    @selection = select(selector).classed('hx-drag-container', true)
+    @selection = select(selector)
+      .classed('hx-drag-container', true)
+        .api(this)
 
-    options = utils.merge({
+    options = merge({
       lookup: (node) -> select(node).attr('data-id')
       resizeOnDrag: false
       order: undefined
@@ -211,7 +211,7 @@ class DragContainer extends EventEmitter
         @selection.append(map[id])
       this
     else
-      containerChildren(this).map(@lookup()).filter(utils.defined)
+      containerChildren(this).map(@lookup()).filter(defined)
 
 
   lookup: (fn) ->
@@ -222,13 +222,8 @@ class DragContainer extends EventEmitter
       @_.options.lookup
 
 dragContainer = (options) ->
-  selection = select.detached('div')
+  selection = div()
   new DragContainer(selection.node(), options)
   selection
 
-module.exports = dragContainer
-module.exports.DragContainer = DragContainer
-module.exports.hx = {
-  dragContainer: dragContainer,
-  DragContainer: DragContainer
-}
+export { dragContainer, DragContainer }

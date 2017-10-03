@@ -1,4 +1,4 @@
-const { div } = require('modules/selection/main')
+import { div } from 'modules/selection/main'
 
 // XXX 2.0.0: this has changed - needs documenting (it has moved module, and the api has changed)
 
@@ -23,11 +23,4 @@ function section (options = {}) {
     .classed('hx-fixed', fixed)
 }
 
-module.exports = {
-  group,
-  section,
-  hx: {
-    group,
-    section
-  }
-}
+export { group, section }

@@ -1,11 +1,17 @@
-sort = require('modules/sort/main')
-filter = require('modules/filter/main')
-utils = require('modules/util/main/utils')
-HMap = require('modules/map/main')
+import { compare } from 'sort/main'
+import * as filter from 'filter/main'
+import {
+  identity,
+  groupBy,
+  randomId,
+  mergeDefined,
+  isFunction
+} from 'utils/main'
+import { Map as HMap } from 'map/main'
 
 sortItems = (valueLookup) ->
-  valueLookup ?= utils.identity
-  (a, b) -> sort.compare(valueLookup(a), valueLookup(b))
+  valueLookup ?= identity
+  (a, b) -> compare(valueLookup(a), valueLookup(b))
 
 trimTrailingSpaces = (term) ->
   newTerm = term
@@ -14,7 +20,7 @@ trimTrailingSpaces = (term) ->
   newTerm
 
 sortActive = (items) ->
-  groupedActive = new HMap(utils.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new HMap(groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -37,11 +43,12 @@ class AutocompleteFeed
       defaults.filterOptions =
         searchValues: (datum) -> [self._.options.valueLookup(datum)]
 
-    resolvedOptions = utils.merge.defined defaults, options
+    resolvedOptions = mergeDefined(defaults, options)
 
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
-      filtered = filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
+      filterName = 'filter' + resolvedOptions.matchType[0].toUpperCase() + resolvedOptions.matchType.slice(1)
+      filtered = filter[filterName](items, term, resolvedOptions.filterOptions)
       { active, inactive } = sortActive(filtered)
       [active..., inactive...]
 
@@ -56,7 +63,7 @@ class AutocompleteFeed
 
   filter: (term = '', callback) ->
     _ = @_
-    thisFilter = term + utils.randomId()
+    thisFilter = term + randomId()
     _.lastFilter = thisFilter
 
     cacheItemsThenCallback = (results, otherResults = []) =>
@@ -78,7 +85,7 @@ class AutocompleteFeed
       # Get the result from the cache
       cacheditems = _.resultsCache.get(term)
       callback(cacheditems.results, cacheditems.otherResults)
-    else if _.options.matchType is 'external' and utils.isFunction(_.items)
+    else if _.options.matchType is 'external' and isFunction(_.items)
       # The matching is external so we don't filter here
       _.items(term, cacheItemsThenCallback)
     else
@@ -94,7 +101,7 @@ class AutocompleteFeed
 
         cacheItemsThenCallback(filteredItems, otherResults)
 
-      if utils.isFunction(_.items)
+      if isFunction(_.items)
         # Call the function then apply filtering
         _.items(term, filterAndCallback)
       else if term.length
@@ -104,7 +111,7 @@ class AutocompleteFeed
         # Skip filtering and return the entire itemsset
         cacheItemsThenCallback(_.items)
 
-  validateItems: (items) -> Array.isArray(items) or utils.isFunction(items)
+  validateItems: (items) -> Array.isArray(items) or isFunction(items)
 
   items: (items) ->
     # Validation should be external to the feed and show relevant error message(s)
@@ -115,7 +122,6 @@ class AutocompleteFeed
       @_.items
 
 
-module.exports = AutocompleteFeed
-module.exports.hx = {
-  AutocompleteFeed: AutocompleteFeed
+export {
+  AutocompleteFeed
 }
