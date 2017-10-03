@@ -22,7 +22,7 @@
 
   &:not(.hx-table-no-hover) {
     tbody tr:hover {
-      background: $row-background-col;
+      background: $row-hover-background-col;
     }
   }
 }

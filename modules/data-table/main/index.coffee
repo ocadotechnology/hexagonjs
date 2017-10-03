@@ -109,7 +109,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         fullWidth: true
 
       typePickerSel = hx.picker(typePickerOptions)
-        .classed('hx-data-table-advanced-search-type hx-section hx-fixed', true)
+        .classed('hx-btn-invert hx-data-table-advanced-search-type hx-section hx-fixed', true)
 
       typePickerSel.component()
         .on 'change', (data) ->
@@ -146,7 +146,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         fullWidth: true
 
       columnPickerSel = hx.picker(columnPickerOptions)
-        .classed('hx-data-table-advanced-search-column hx-section hx-fixed', true)
+        .classed('hx-btn-invert hx-data-table-advanced-search-column hx-section hx-fixed', true)
 
       columnPickerSel.component()
         .on 'change', (data) ->
@@ -169,7 +169,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         fullWidth: true
 
       criteriaPickerSel = hx.picker(criteriaPickerOptions)
-        .classed('hx-data-table-advanced-search-criteria hx-section hx-fixed', true)
+        .classed('hx-btn-invert hx-data-table-advanced-search-criteria hx-section hx-fixed', true)
 
       criteriaPickerSel.component()
         .on 'change', (data) ->
