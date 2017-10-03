@@ -124,6 +124,7 @@ class TagInput extends hx.EventEmitter
     if not @_.autocomplete
       @input.on 'blur', 'hx.tag-input', (event) =>
         if @input.value().length > 0 and not hasError()
+          _.userEvent = true
           @add(@input.value(), undefined)
 
     @input.on 'focus', 'hx.tag-input', (event) =>
