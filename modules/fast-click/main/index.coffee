@@ -4,7 +4,8 @@ if hx.supports('touch')
     'INPUT',
     'TEXTAREA',
     'SELECT',
-    'LABEL'
+    'LABEL',
+    'A'
   ]
 
   setupFastClick = (node, eventEmitter) ->
