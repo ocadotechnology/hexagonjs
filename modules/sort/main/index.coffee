@@ -5,7 +5,7 @@ import { mergeDefined } from 'utils/main'
 # using a collator is supposed to be faster than doing localeCompare
 hasCollator = -> Intl?.Collator?
 
-export state = {}
+state = {}
 
 collatorFn = -> if hasCollator()
   new Intl.Collator(undefined, {numeric: true}).compare
@@ -28,11 +28,11 @@ defaultCollator = (collator) -> (a, b) ->
   if a? and b? and not isNaN(Number(a)) and not isNaN(Number(b)) then a - b
   else collator(a, b)
 
-export compare = (a, b) ->
+compare = (a, b) ->
   state.collator ?= collatorFn()
   defaultCollator(state.collator)(a, b)
 
-export compareNullsLast = (a, b) ->
+compareNullsLast = (a, b) ->
   state.collator ?= collatorFn()
   nullsLastCollator(state.collator)(a, b)
 
@@ -44,7 +44,7 @@ localeCollatorFn = (locale, options) ->
 
 # slower than compare but enforces locale comparison for browsers that
 # dont support Intl.Collator.
-export localeCompare = (locale, options) ->
+localeCompare = (locale, options) ->
   options = mergeDefined({
     numeric: true
   }, options)
@@ -56,7 +56,7 @@ export localeCompare = (locale, options) ->
   else
     defaultCollator(localeCollator)
 
-export sortBy = (arr, f) ->
+sortBy = (arr, f) ->
   newArr = [arr...]
   newArr.sort (left, right) ->
     fLeft = f left
@@ -64,5 +64,14 @@ export sortBy = (arr, f) ->
     compare fLeft, fRight
   newArr
 
-export sort = (arr) -> sortBy(arr, (x) -> x)
+sort = (arr) -> sortBy(arr, (x) -> x)
 
+
+export {
+  state,
+  compare,
+  compareNullsLast,
+  localeCompare,
+  sortBy,
+  sort
+}
