@@ -39,6 +39,19 @@ describe 'number picker', ->
     np = new hx.NumberPicker(hx.detached('div').node())
     np.value(5).max(0).value().should.equal(0)
 
+  it 'should check the value when the max option is set', ->
+    np = new hx.NumberPicker(hx.detached('div').node())
+    np.value(5).max(0).value().should.equal(0)
+
+  it 'should have a default step of undefined', ->
+    np = new hx.NumberPicker(hx.detached('div').node())
+    should.not.exist(np.step())
+
+  it 'should set and get the step option properly', ->
+    np = new hx.NumberPicker(hx.detached('div').node(), { step: 5 })
+    np.step().should.equal(5)
+    np.step(3).step().should.equal(3)
+
   it 'should set and get the value properly', ->
     np = new hx.NumberPicker(hx.detached('div').node(), { value: 20 })
     np.value().should.equal(20)
