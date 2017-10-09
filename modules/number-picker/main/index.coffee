@@ -47,6 +47,7 @@ class NumberPicker extends hx.EventEmitter
       value: 0
       incrementOnHold: true
       incrementDelay: 50
+      step: undefined
     }, options)
 
     @_ = {}
@@ -71,6 +72,7 @@ class NumberPicker extends hx.EventEmitter
 
     if @options.max isnt undefined then @max @options.max
     if @options.min isnt undefined then @min @options.min
+    if @options.step isnt undefined then @step(@options.step)
     if @options.disabled then @disabled(@options.disabled)
     @value @options.value
 
@@ -124,7 +126,8 @@ class NumberPicker extends hx.EventEmitter
   increment: ->
     unless @options.disabled
       prevValue = @value()
-      @value(@value() + 1)
+      step = @options.step || 1
+      @value(@value() + step)
       if prevValue isnt @value()
         @emit 'increment'
     this
@@ -132,7 +135,8 @@ class NumberPicker extends hx.EventEmitter
   decrement: ->
     unless @options.disabled
       prevValue = @value()
-      @value(@value() - 1)
+      step = @options.step || 1
+      @value(@value() - step)
       if prevValue isnt @value()
         @emit 'decrement'
     this
@@ -146,6 +150,15 @@ class NumberPicker extends hx.EventEmitter
       this
     else
       @options.disabled
+
+  step: (val) ->
+    if val?
+      @options.step = val
+      @selectInput.attr('step', val)
+      @value(@value())
+      this
+    else
+      @options.step
 
 hx.numberPicker = (options) ->
   selection = hx.detached('div')
