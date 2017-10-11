@@ -133,6 +133,7 @@ class TagInput extends EventEmitter
     if not @_.autocomplete
       @input.on 'blur', 'hx.tag-input', (event) =>
         if @input.value().length > 0 and not hasError()
+          _.userEvent = true
           @add(@input.value(), undefined)
 
     @input.on 'focus', 'hx.tag-input', (event) =>
@@ -191,18 +192,22 @@ class TagInput extends EventEmitter
   # removes a tag by name
   remove: (name) ->
     if name?
-      returnValue = @tagContainer
+      tagsToRemove = @tagContainer
         .selectAll('.hx-tag')
         .filter((d) -> d.text() is name)
-        .forEach (d) => @emit 'remove', { value: d.text(), type: 'api' }
-        .remove()
-        .length
+
+      returnValue = tagsToRemove.size()
+      tagsToRemove.remove()
+      tagsToRemove.forEach (d) => @emit 'remove', { value: d.text(), type: 'api' }
+
     else
-      tags = @tagContainer
+      tagsToRemove = @tagContainer
         .selectAll('.hx-tag')
-        .forEach (d) => @emit 'remove', { value: d.text(), type: 'api' }
-      returnValue = tags.text()
-      tags.remove()
+
+      returnValue = tagsToRemove.text()
+      tagsToRemove.remove()
+      tagsToRemove.forEach (d) => @emit 'remove', { value: d.text(), type: 'api' }
+
     if @options.draggable then @_.dragContainer.setup()
     returnValue
 

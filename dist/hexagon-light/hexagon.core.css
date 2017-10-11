@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.12.0
+ Version: 1.13.0
  Theme: hexagon-light
  Modules:
    set
@@ -256,6 +256,9 @@ i.hx-icon {
   display: inline-block;
   top: 2px;
   position: relative; }
+
+.hx-spinner-large {
+  font-size: 2.5em; }
 
 @-webkit-keyframes slide {
   0% {
@@ -812,6 +815,14 @@ a.hx-btn:hover {
     .hx-input-group > .hx-btn:first-child {
       border-top-left-radius: 0.15em;
       border-bottom-left-radius: 0.15em; }
+    .hx-input-group > input:not(:last-child),
+    .hx-input-group > div:not(:last-child),
+    .hx-input-group > button:not(:last-child),
+    .hx-input-group > span:not(:last-child),
+    .hx-input-group > i:not(:last-child),
+    .hx-input-group > a:not(:last-child),
+    .hx-input-group > .hx-btn:not(:last-child) {
+      border-right-color: transparent; }
     .hx-input-group > input:last-child,
     .hx-input-group > div:last-child,
     .hx-input-group > button:last-child,

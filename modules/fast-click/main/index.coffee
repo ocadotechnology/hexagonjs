@@ -8,7 +8,8 @@ export initFastClick = () ->
       'INPUT',
       'TEXTAREA',
       'SELECT',
-      'LABEL'
+      'LABEL',
+      'A'
     ]
 
     setupFastClick = (node, eventEmitter) ->

@@ -50,6 +50,19 @@ export default () ->
       np = new NumberPicker(div())
       np.value(5).max(0).value().should.equal(0)
 
+    it 'should check the value when the max option is set', ->
+      np = new NumberPicker(div())
+      np.value(5).max(0).value().should.equal(0)
+
+    it 'should have a default step of undefined', ->
+      np = new NumberPicker(div())
+      should.not.exist(np.step())
+
+    it 'should set and get the step option properly', ->
+      np = new NumberPicker(div(), { step: 5 })
+      np.step().should.equal(5)
+      np.step(3).step().should.equal(3)
+
     it 'should set and get the value properly', ->
       np = new NumberPicker(div(), { value: 20 })
       np.value().should.equal(20)
