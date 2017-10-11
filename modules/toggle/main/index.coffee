@@ -1,14 +1,14 @@
-EventEmitter = require('modules/event-emitter/main')
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
+import { EventEmitter } from 'event-emitter/main'
+import { select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
 
 class Toggle extends EventEmitter
   constructor: (selector, options) ->
     super
 
-    @options = utils.merge.defined {
+    @options = mergeDefined({
       value: false
-    }, options
+    }, options)
 
     @selection = select(selector)
       .classed('hx-toggle', true)
@@ -32,14 +32,11 @@ class Toggle extends EventEmitter
       @options.value
 
 toggle = (options) ->
-  selection = select.detached('div')
+  selection = div()
   new Toggle(selection.node(), options)
   selection
 
-module.exports = toggle
-module.exports.Toggle = Toggle
-
-module.exports.hx = {
+export {
   toggle,
   Toggle
 }

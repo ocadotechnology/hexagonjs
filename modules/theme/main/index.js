@@ -16,7 +16,4 @@ function theme (t) {
   }
 }
 
-module.exports = theme
-module.exports.hx = {
-  theme
-}
+export { theme }

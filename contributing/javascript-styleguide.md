@@ -9,6 +9,7 @@ Always prefer using `const`. Only use `let` when you absolutely have to.
 
 ## Functions
 
+
 ### Prefer named functions
 
 This keeps it clear that things are functions (rather than something else),
@@ -26,6 +27,7 @@ creates better error messages when things go wrong, and is shorter to write.
 
     }
 
+
 ### Prefer arrow functions for anonymous functions
 
 **Bad**
@@ -37,6 +39,7 @@ creates better error messages when things go wrong, and is shorter to write.
 **Good**
 
     array.map(person => person.name)
+
 
 ### Prefer no argument parenthesis for single argument arrow functions
 
@@ -61,6 +64,7 @@ The same applies for multi-line functions:
     array.map(person => {
       return person.name
     })
+
 
 ### Prefer destructuring outside of the arguments list
 
@@ -94,3 +98,28 @@ you are destructuring is:
     poorlyNamedList.map(person => person.name)
     people.map(person => person.name)
     people.map(({name}) => name)
+
+
+## Exports should go at the end of the file
+
+This makes it easy to quickly find what is exported from a file - having
+the exports at the bottom makes the codebase more consistent and thus
+easier to navigate.
+
+**Bad**
+    export function tooltip () {
+
+    }
+
+    // Other code after the export
+    ...
+
+**Good**
+    function tooltip () {
+
+    }
+
+    // Other code here
+    ...
+
+    export { tooltip }

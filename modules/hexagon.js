@@ -109,6 +109,7 @@ export { palette } from 'palette/main'
 export { format } from 'format/main'
 export { preferences } from 'preferences/main'
 export { dateTimeLocalizer } from 'date-localizer/main'
+export { ColorScale } from 'color-scale/main'
 
 // Components
 
@@ -126,6 +127,8 @@ export { inputGroup } from 'input-group/main'
 export { group, section } from 'layout/main'
 export { dragContainer, DragContainer } from 'drag-container/main'
 export { progressBar, ProgressBar } from 'progress-bar/main'
+export { toggle, Toggle } from 'toggle/main'
+export { crumbtrail, Crumbtrail } from 'crumbtrail/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

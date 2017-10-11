@@ -12,3 +12,7 @@
 @import "menu/main/theme";
 @import "input-group/main/theme";
 @import "drag-container/main/theme";
+@import "progress-bar/main/theme";
+@import "error-pages/main/theme";
+@import "table/main/theme";
+@import "toggle/main/theme";

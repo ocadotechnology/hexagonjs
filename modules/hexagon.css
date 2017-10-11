@@ -16,6 +16,8 @@
   --theme-text-light-color: #EFEFEF;
   --theme-text-dark-color: #3D3D3D;
 
+  --theme-default-shadow-color: rgba(0, 0, 0, 0.05);
+
   /* base */
   --base-default-font-family: 'Open Sans', sans-serif;
   --base-heading-font-family: 'Roboto Slab', sans-serif;
@@ -352,5 +354,39 @@
 
   /* drag-container */
   --drag-container-placeholder-border-col: #555555;
+
+  /* progress-bar */
+  --progress-bar-border-color: transparent;
+  --progress-bar-border-width: 0;
+  --progress-bar-background-color: #F0F0F0;
+  --progress-bar-default-color: #3d3d3d;
+  --progress-bar-action-color: var(--theme-action-color);
+  --progress-bar-positive-color: var(--theme-positive-color);
+  --progress-bar-warning-color: var(--theme-warning-color);
+  --progress-bar-negative-color: var(--theme-negative-color);
+  --progress-bar-info-color: var(--theme-info-color);
+  --progress-bar-complement-color: var(--theme-complement-color);
+  --progress-bar-contrast-color: var(--theme-contrast-color);
+
+  /* error pages */
+  --error-pages-background-color: white;
+  --error-pages-shadow-color: var(--theme-default-shadow-color);
+  --error-pages-heading-text-color: var(--theme-default-text-color);
+
+  /* table */
+  --table-header-background-col: #FAFAFA;
+  --table-header-text-col: #3D3D3D;
+  --table-row-background-col: #F2F2F2;
+  --table-row-hover-background-col: #DDE8EE;
+  --table-row-alt-background-col: #EEE;
+  --table-row-text-col: black;
+  --table-row-alt-text-col: black;
+  --table-border-col: #E2E1E1;
+
+  /* toggle */
+  --toggle-background-off-color: #D5D5D5;
+  --toggle-background-on-color: #D5D5D5;
+  --toggle-toggle-off-color: #ABABAB;
+  --toggle-toggle-on-color: var(--theme-action-color);
 
 }

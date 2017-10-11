@@ -1,0 +1,33 @@
+
+.hx-table tr,
+.hx-table td,
+.hx-table th {
+  border-color: var(--table-border-col);
+}
+
+.hx-table th {
+  background: var(--table-header-background-col);
+  color: var(--table-header-text-col);
+}
+
+.hx-table tbody tr {
+  background: var(--table-row-background-col);
+  color: var(--table-row-text-col);
+}
+
+.hx-table tbody tr:nth-child(2n) {
+  background: var(--table-row-alt-background-col);
+  color: var(--table-row-alt-text-col);
+}
+
+.hx-table tbody tr:hover {
+  background: var(--table-row-background-col);
+}
+
+.hx-table.hx-table-no-hover tbody tr:hover {
+  background: var(--table-row-background-col);
+}
+
+.hx-table.hx-table-no-hover tbody tr:nth-child(2n):hover {
+  background: var(--table-row-alt-background-col);
+}

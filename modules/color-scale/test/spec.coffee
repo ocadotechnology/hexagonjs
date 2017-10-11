@@ -1,1 +1,3 @@
-describe "hx-color-scale", ->
+
+export default () ->
+  describe "color-scale", ->

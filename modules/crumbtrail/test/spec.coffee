@@ -1,17 +1,18 @@
-select = require('modules/selection/main')
-Crumbtrail = require('modules/crumbtrail/main').Crumbtrail
+import { div } from 'selection/main'
+import { Crumbtrail } from 'crumbtrail/main'
 
-describe 'hx-crumbtrail', ->
+export default () ->
+  describe 'crumbtrail', ->
 
-  it 'items() should return the appropriate values', ->
-    items = [
-      'bob'
-      'steve'
-      'dave'
-    ]
+    it 'items() should return the appropriate values', ->
+      items = [
+        'bob'
+        'steve'
+        'dave'
+      ]
 
-    crumbtrail = new Crumbtrail(select.detached('div').node(), {
-      items: items
-    })
+      crumbtrail = new Crumbtrail(div(), {
+        items: items
+      })
 
-    crumbtrail.items().should.not.contain(0)
+      crumbtrail.items().should.not.contain(0)

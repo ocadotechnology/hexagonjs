@@ -14,6 +14,10 @@ import pickerExamples from './examples/picker'
 import inputGroupExamples from './examples/input-group'
 import layoutExamples from './examples/layout'
 import dragContainerExamples from './examples/drag-container'
+import progressBarExamples from './examples/progress-bar'
+import errorPageExamples from './examples/error-page'
+import tableExamples from './examples/table'
+import toggleExamples from './examples/toggle'
 
 function example(title) {
   return div('example-section')
@@ -36,5 +40,9 @@ select('body')
     example('Picker').add(pickerExamples()),
     example('Input Group').add(inputGroupExamples()),
     example('Layout').add(layoutExamples()),
-    example('Drag Container').add(dragContainerExamples())
+    example('Drag Container').add(dragContainerExamples()),
+    example('Progress Bar').add(progressBarExamples()),
+    example('Error Page').add(errorPageExamples()),
+    example('Table').add(tableExamples()),
+    example('Toggle').add(toggleExamples())
   ]))

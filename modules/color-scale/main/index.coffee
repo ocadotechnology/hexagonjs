@@ -1,5 +1,5 @@
-utils = require('modules/util/main/utils')
-color = require('modules/color/main')
+import { clamp } from 'utils/main'
+import { color } from 'color/main'
 
 class ColorScale
   setFactor = (dMin, dMax, rMin, rMax) ->
@@ -41,7 +41,6 @@ class ColorScale
     @factor = setFactor(@domainMin, @domainMax, @rangeMin, @rangeMax)
     this
 
-module.exports = ColorScale
-module.exports.hx = {
+export {
   ColorScale
 }

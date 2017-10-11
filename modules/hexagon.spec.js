@@ -45,6 +45,7 @@ import pickerTests from './picker/test/spec'
 import inputGroupTests from './input-group/test/spec'
 import dragContainerTests from './drag-container/test/spec'
 import progressBarTests from './progress-bar/test/spec'
+import crumbtrailTests from './crumbtrail/test/spec'
 
 should()
 
@@ -185,7 +186,12 @@ describe('HexagonJS Test Suite', () => {
         'dragContainer',
         'DragContainer',
         'progressBar',
-        'ProgressBar'
+        'ProgressBar',
+        'ColorScale',
+        'toggle',
+        'Toggle',
+        'crumbtrail',
+        'Crumbtrail'
       ])
     })
   })
@@ -234,17 +240,15 @@ describe('HexagonJS Test Suite', () => {
   inputGroupTests()
   dragContainerTests()
   progressBarTests()
+  crumbtrailTests()
 
-  // require('modules/picker/test/spec')
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')
   // require('modules/date-picker/test/spec')
   // require('modules/time-picker/test/spec')
   // require('modules/tag-input/test/spec')
-  // require('modules/titlebar/test/spec')
   // require('modules/slider/test/spec')
   // require('modules/color-picker/test/spec')
-  // require('modules/crumbtrail/test/spec')
   // require('modules/paginator/test/spec')
   // require('modules/time-slider/test/spec')
   // require('modules/date-time-picker/test/spec')

@@ -4,7 +4,7 @@ import { Map as HMap} from 'map/main'
 import { List as HList} from 'list/main'
 
 # consistent string to int hashing
-export hash = (str, maxValue) ->
+hash = (str, maxValue) ->
   res = 0
   len = str.length-1
   for i in [0..len] by 1
@@ -13,7 +13,7 @@ export hash = (str, maxValue) ->
   if maxValue then Math.abs(res) % maxValue else res
 
 # transposes a 2d array
-export transpose = (data) ->
+transpose = (data) ->
   if not data.length? then return undefined
   w = data.length
   if w==0 or not data[0].length? then return data
@@ -28,7 +28,7 @@ export transpose = (data) ->
 supportsTouch = undefined
 supportsDate = undefined
 
-export supports = (name) ->
+supports = (name) ->
   switch name
     when 'touch'
       supportsTouch ?= 'ontouchstart' of window
@@ -39,7 +39,7 @@ export supports = (name) ->
         supportsDate = input.type != "text"
       supportsDate
 
-export debounce = (duration, fn) ->
+debounce = (duration, fn) ->
   timeout = undefined
   return ->
     if timeout then clearTimeout(timeout)
@@ -49,19 +49,19 @@ export debounce = (duration, fn) ->
       fn.apply(fn, origArgs)
     timeout = setTimeout(f, duration)
 
-export clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
+clamp = (min, max, value) -> Math.min(max, Math.max(min, value))
 
-export clampUnit = (value) -> clamp(0, 1, value)
+clampUnit = (value) -> clamp(0, 1, value)
 
-export randomId = (size=16, alphabet='ABCEDEF0123456789') ->
+randomId = (size=16, alphabet='ABCEDEF0123456789') ->
   chars = alphabet.split('')
   alphabetSize = chars.length
   v = (chars[Math.floor(Math.random() * alphabetSize)] for _ in [0...size] by 1)
   v.join('')
 
-export min = (values) -> Math.min.apply(null, values?.filter(defined))
+min = (values) -> Math.min.apply(null, values?.filter(defined))
 
-export minBy = (values, f) ->
+minBy = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   if f
@@ -81,7 +81,7 @@ export minBy = (values, f) ->
         min = v
     min
 
-export argmin = (values, f) ->
+argmin = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   minIndex = 0
@@ -105,9 +105,9 @@ export argmin = (values, f) ->
 
   if minValue is undefined then undefined else minIndex
 
-export max = (values) -> Math.max.apply(null, values?.filter(defined))
+max = (values) -> Math.max.apply(null, values?.filter(defined))
 
-export maxBy = (values, f) ->
+maxBy = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   if f
@@ -127,7 +127,7 @@ export maxBy = (values, f) ->
         maximum = v
     maximum
 
-export argmax = (values, f) ->
+argmax = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   maxIndex = 0
@@ -151,48 +151,48 @@ export argmax = (values, f) ->
 
   if maxValue is undefined then undefined else maxIndex
 
-export range = (length) -> (x for x in [0...length] by 1)
+range = (length) -> (x for x in [0...length] by 1)
 
-export sum = (values, f) -> values.reduce(((a, b) -> a + b), 0)
+sum = (values, f) -> values.reduce(((a, b) -> a + b), 0)
 
-export flatten = (arr) -> [].concat.apply([], arr)
+flatten = (arr) -> [].concat.apply([], arr)
 
-export cycle = (list, i) -> list[i%list.length]
+cycle = (list, i) -> list[i%list.length]
 
-export hashList = (list, str) -> list[hash(str, list.length)]
+hashList = (list, str) -> list[hash(str, list.length)]
 
-export find = (arr, f) ->
+find = (arr, f) ->
   for d in arr
     if f(d) then return d
   undefined
 
-export isNumber = (x) -> typeof x is 'number' or x instanceof Number
+isNumber = (x) -> typeof x is 'number' or x instanceof Number
 
-export isString = (x) -> typeof x == 'string' or x instanceof String
+isString = (x) -> typeof x == 'string' or x instanceof String
 
-export isFunction = (x) -> typeof x == "function"
+isFunction = (x) -> typeof x == "function"
 
-export isArray = Array.isArray
+isArray = Array.isArray
 
 # returns true if the thing passed in is an object, except for arrays
 # which technically are objects, but in the eyes of this function are not
 # objects
-export isObject = (obj) -> typeof obj is 'object' and not isArray(obj) and obj isnt null
+isObject = (obj) -> typeof obj is 'object' and not isArray(obj) and obj isnt null
 
-export isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
+isBoolean = (x) -> x is true or x is false or typeof x is 'boolean'
 
 # Not plain objects:
 # - Anything created with new (or equivalent)
 # - DOM nodes
 # - window
-export isPlainObject = (obj) ->
+isPlainObject = (obj) ->
   (typeof obj is 'object') and
   (obj isnt null) and
   (not obj.nodeType) and
   obj.constructor and
   obj.constructor.prototype.hasOwnProperty('isPrototypeOf')
 
-export groupBy = (arr, f) ->
+groupBy = (arr, f) ->
   map = new HMap
   for x in arr
     category = f(x)
@@ -202,18 +202,18 @@ export groupBy = (arr, f) ->
   values.forEach((d) -> d[1] = d[1].entries())
   values
 
-export unique = (list) -> new HSet(list).values()
+unique = (list) -> new HSet(list).values()
 
-export endsWith  = (string, suffix) ->
+endsWith  = (string, suffix) ->
   string.indexOf(suffix, string.length - suffix.length) != -1
 
-export startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
+startsWith = (string, substring) -> string.lastIndexOf(substring, 0) is 0
 
-export tween = (start, end, amount) -> start + (end - start) * amount
+tween = (start, end, amount) -> start + (end - start) * amount
 
-export defined = (x) -> x isnt undefined and x isnt null
+defined = (x) -> x isnt undefined and x isnt null
 
-export zip = (arrays) ->
+zip = (arrays) ->
   if arrays
     if arrays.length > 0
       length = min(arrays.map (d) -> d.length or 0)
@@ -226,7 +226,7 @@ export zip = (arrays) ->
 
 # gets all the things from the second object and plonks them into the first
 # this does mutation, which is why it is not exposed
-export extend = (target, overlay, retainUndefined) ->
+extend = (target, overlay, retainUndefined) ->
   for k, v of overlay
     if isPlainObject(v)
       target[k] ?= {}
@@ -235,7 +235,7 @@ export extend = (target, overlay, retainUndefined) ->
       if v isnt undefined or retainUndefined
         target[k] = clone(v)
 
-export mergeImpl = (deep, retainUndefined, objects) ->
+mergeImpl = (deep, retainUndefined, objects) ->
   if deep
     res = {}
     for obj in objects
@@ -251,21 +251,21 @@ export mergeImpl = (deep, retainUndefined, objects) ->
             res[k] = v
     res
 
-export merge = (objects...) ->
+merge = (objects...) ->
   mergeImpl(true, true, objects)
 
 # XXX [2.0.0]: This has changed from mergeDefined.defined
-export mergeDefined = (objects...) ->
+mergeDefined = (objects...) ->
   mergeImpl(true, false, objects)
 
-export shallowMerge = (objects...) ->
+shallowMerge = (objects...) ->
   mergeImpl(false, true, objects)
 
 # XXX [2.0.0]: This has changed from shallowMerge.defined
-export shallowMergeDefined = (objects...) ->
+shallowMergeDefined = (objects...) ->
   mergeImpl(false, false, objects)
 
-export clone = (obj) ->
+clone = (obj) ->
   if isArray(obj)
     obj.map(clone)
   else if isPlainObject(obj)
@@ -285,7 +285,7 @@ export clone = (obj) ->
     {}
   else obj
 
-export shallowClone = (obj) ->
+shallowClone = (obj) ->
   if isArray(obj)
     obj.slice()
   else if isPlainObject(obj)
@@ -307,10 +307,56 @@ export shallowClone = (obj) ->
 
 vendorPrefixes = ["webkit", "ms", "moz", "Moz", "o", "O"]
 
-export vendor = (obj, prop) ->
+vendor = (obj, prop) ->
   if prop of obj then return obj[prop]
   for p in vendorPrefixes
     if (prefixedProp = p + prop.charAt(0).toUpperCase() + prop.slice(1)) of obj
       return obj[prefixedProp]
 
-export identity = (d) -> d
+identity = (d) -> d
+
+export {
+  hash,
+  transpose,
+  supports,
+  debounce,
+  clamp,
+  clampUnit,
+  randomId,
+  min,
+  minBy,
+  argmin,
+  max,
+  maxBy,
+  argmax,
+  range,
+  sum,
+  flatten,
+  cycle,
+  hashList,
+  find,
+  isNumber,
+  isString,
+  isFunction,
+  isArray,
+  isObject,
+  isBoolean,
+  isPlainObject,
+  groupBy,
+  unique,
+  endsWith,
+  startsWith,
+  tween,
+  defined,
+  zip,
+  extend,
+  mergeImpl,
+  merge,
+  mergeDefined,
+  shallowMerge,
+  shallowMergeDefined,
+  clone,
+  shallowClone,
+  vendor,
+  identity
+}

@@ -6,7 +6,7 @@
   z-index: 1;
 }
 
-.hx-progress-bar..hx-animate .hx-progress-bar-inner {
+.hx-animate .hx-progress-bar-inner {
   transition: width ease 0.25s;
 }
 
