@@ -7,7 +7,7 @@ hx.userFacingText({
 class Meter extends hx.EventEmitter
   constructor: (selector, options) ->
     super()
-
+    hx.deprecatedWarning('hx.Meter is deprecated and will be removed from Hexagon in the next major release.')
     hx.component.register(selector, this)
 
     @_ = _ = {}
