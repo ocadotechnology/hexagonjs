@@ -113,10 +113,17 @@ class Form extends hx.EventEmitter
 
       picker.value(values[0]) unless typeof options.required is 'boolean'
 
-      if options.required
+      setValidity = () ->
         input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'))
-        picker.on 'change', 'hx.form-builder', ->
-          input.node().setCustomValidity('')
+
+      if options.required
+        setValidity()
+        picker.on 'change', 'hx.form-builder', ({ value, cause }) ->
+          console.log(value, cause)
+          if value is undefined
+            setValidity()
+          else
+            input.node().setCustomValidity('')
 
       {
         required: options.required
