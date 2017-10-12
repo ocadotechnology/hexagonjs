@@ -1,0 +1,22 @@
+@version 1.14.0
+  @api Form Builder
+    @prototype hx.Form
+      @group Add Component Methods
+        @method addPicker
+          @bugfix
+            @description
+              Resolved an issue with validation when un-setting picker values
+            @issue 304
+          @param name [String]
+          @param values [Array[String/Object]]
+          @param? options [Object]
+
+
+        @method addAutocompletePicker
+          @bugfix
+            @description
+              Resolved an issue with validation when un-setting picker values
+            @issue 304
+          @param name [String]
+          @param values [Array/Function]
+          @param? options [Object]
