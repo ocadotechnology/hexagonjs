@@ -50,20 +50,20 @@ describe 'hx-titlebar', ->
 
   it 'should set the active section by node correctly', ->
     titlebar = new hx.TitleBar(hx.select('#fixture').select('.hx-heading').node())
-    node = hx.selectAll('.hx-titlebar-link').nodes(3)
+    node = hx.selectAll('.hx-titlebar-link').node(3)
     titlebar.active(node)
     hx.selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([false, false, false, true, false])
 
   it 'should set the active section by ID correctly', ->
     titlebar = new hx.TitleBar(hx.select('#fixture').select('.hx-heading').node())
-    hx.select(hx.selectAll('.hx-titlebar-link').nodes(2))
+    hx.select(hx.selectAll('.hx-titlebar-link').node(2))
       .attr('id', '#titlebar-active-test')
     titlebar.active('#titlebar-active-test')
     hx.selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([false, false, true, false, false])
 
   it 'should set the active section by Selection correctly', ->
     titlebar = new hx.TitleBar(hx.select('#fixture').select('.hx-heading').node())
-    sel = hx.select(hx.selectAll('.hx-titlebar-link').nodes(2))
+    sel = hx.select(hx.selectAll('.hx-titlebar-link').node(2))
     titlebar.active(sel)
     hx.selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([false, false, true, false, false])
 
