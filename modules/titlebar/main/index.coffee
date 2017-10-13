@@ -23,6 +23,10 @@ setVisibility = (show, animate=true) ->
   animateTitlebar(hx.select(@selector).selectAll('.hx-titlebar-linkbar'))
 
 
+isElement = (obj) -> !!(obj and obj.nodeType is 1)
+
+isSelection = (obj) -> obj instanceof hx.Selection
+
 class TitleBar
   constructor: (@selector) ->
     hx.component.register(@selector, this)
@@ -66,8 +70,10 @@ class TitleBar
       if id?
         @_.active = if hx.isString(id)
           hx.select(id).classed('hx-selected', true)
-        else
+        else if hx.isNumber(id)
           hx.select(selection.node(id)).classed('hx-selected', true)
+        else if isElement(id) or isSelection(id)
+          hx.select(id).classed('hx-selected', true)
         this
     else
       @_.active
