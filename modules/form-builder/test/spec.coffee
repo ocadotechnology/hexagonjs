@@ -52,7 +52,7 @@ describe "hx-form-builder", ->
     form.hidden('hd2').should.equal(true)
 
   it 'should allow html fields to be initialised with a value', ->
-    form = new hx.Form(hx.div())
+    form = new hx.Form(hx.detached('div').node())
       .addText('Text', { value: 'Something'})
       .addTextArea('Text Area', { value: 'Something Else'})
       .addEmail('Email', { value: 'a@a.a'})
