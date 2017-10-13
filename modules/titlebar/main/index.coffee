@@ -68,12 +68,11 @@ class TitleBar
     if arguments.length > 0
       selection = hx.selectAll('.hx-titlebar-link').classed('hx-selected', false)
       if id?
-        @_.active = if hx.isString(id)
+        console.log('id', id, hx.select(id))
+        @_.active = if hx.isString(id) or isElement(id) or isSelection(id)
           hx.select(id).classed('hx-selected', true)
-        else if hx.isNumber(id)
+        else
           hx.select(selection.node(id)).classed('hx-selected', true)
-        else if isElement(id) or isSelection(id)
-          hx.select(id).classed('hx-selected', true)
         this
     else
       @_.active

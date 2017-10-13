@@ -57,7 +57,7 @@ describe 'hx-titlebar', ->
   it 'should set the active section by ID correctly', ->
     titlebar = new hx.TitleBar(hx.select('#fixture').select('.hx-heading').node())
     hx.select(hx.selectAll('.hx-titlebar-link').node(2))
-      .attr('id', '#titlebar-active-test')
+      .attr('id', 'titlebar-active-test')
     titlebar.active('#titlebar-active-test')
     hx.selectAll('.hx-titlebar-link').classed('hx-selected').should.eql([false, false, true, false, false])
 
