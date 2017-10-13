@@ -4,13 +4,13 @@
       @updated: @issue 211
         Updated the error text to use the user facing text module
 
-      @method addTagInput
-        @param name [String]
-        @param? options [Object]
-          @property placeholder [String]: The placeholder text for the tag input
-            @added: @issue 211
-
       @group Add Component Methods
+        @method addTagInput
+          @param name [String]
+          @param? options [Object]
+            @property placeholder [String]: The placeholder text for the tag input
+              @added: @issue 211
+
         @method addAutocompletePicker
           @added: @issue 17
           @description: Adds an autocomplete picker to the form.
