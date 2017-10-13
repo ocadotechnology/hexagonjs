@@ -67,7 +67,7 @@ describe "hx-form-builder", ->
       'Text Area': 'Something Else'
       'Email': 'a@a.a'
       'Url': 'http://www.a.co'
-      'Number': 10
+      'Number': '10'
       'Checkbox': true
       'Password': 'abc'
       'Radio': 'Two'
