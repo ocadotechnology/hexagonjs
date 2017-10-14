@@ -19,6 +19,7 @@ import errorPageExamples from './examples/error-page'
 import tableExamples from './examples/table'
 import toggleExamples from './examples/toggle'
 import buttonGroupExamples from './examples/button-group'
+import noticeExamples from './examples/notice'
 
 function example(title) {
   return div('example-section')
@@ -46,5 +47,6 @@ select('body')
     example('Error Page').add(errorPageExamples()),
     example('Table').add(tableExamples()),
     example('Toggle').add(toggleExamples()),
-    example('Button Group').add(buttonGroupExamples())
+    example('Button Group').add(buttonGroupExamples()),
+    example('Notice').add(noticeExamples())
   ]))

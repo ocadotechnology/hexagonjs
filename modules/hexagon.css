@@ -389,4 +389,39 @@
   --toggle-toggle-off-color: #ABABAB;
   --toggle-toggle-on-color: var(--theme-action-color);
 
+  /* notice */
+  --notice-shadow-color: var(--theme-default-shadow-color);
+  --notice-default-head-background-color: var(--theme-default-color);
+  --notice-default-head-text-color: var(--theme-text-dark-color);
+  --notice-default-body-background-color: white;
+  --notice-default-body-text-color: var(--theme-text-dark-color);
+  --notice-action-head-background-color: var(--theme-action-color);
+  --notice-action-head-text-color: var(--theme-text-light-color);
+  --notice-action-body-background-color: white;
+  --notice-action-body-text-color: var(--theme-text-dark-color);
+  --notice-positive-head-background-color: var(--theme-positive-color);
+  --notice-positive-head-text-color: var(--theme-text-light-color);
+  --notice-positive-body-background-color: white;
+  --notice-positive-body-text-color: var(--theme-text-dark-color);
+  --notice-warning-head-background-color: var(--theme-warning-color);
+  --notice-warning-head-text-color: var(--theme-text-light-color);
+  --notice-warning-body-background-color: white;
+  --notice-warning-body-text-color: var(--theme-text-dark-color);
+  --notice-negative-head-background-color: var(--theme-negative-color);
+  --notice-negative-head-text-color: var(--theme-text-light-color);
+  --notice-negative-body-background-color: white;
+  --notice-negative-body-text-color: var(--theme-text-dark-color);
+  --notice-info-head-background-color: var(--theme-info-color);
+  --notice-info-head-text-color: var(--theme-text-light-color);
+  --notice-info-body-background-color: white;
+  --notice-info-body-text-color: var(--theme-text-dark-color);
+  --notice-complement-head-background-color: var(--theme-complement-color);
+  --notice-complement-head-text-color: var(--theme-text-dark-color);
+  --notice-complement-body-background-color: white;
+  --notice-complement-body-text-color: var(--theme-text-dark-color);
+  --notice-contrast-head-background-color: var(--theme-contrast-color);
+  --notice-contrast-head-text-color: var(--theme-text-light-color);
+  --notice-contrast-body-background-color: white;
+  --notice-contrast-body-text-color: var(--theme-text-dark-color);
+
 }

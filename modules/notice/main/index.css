@@ -1,0 +1,12 @@
+.hx-notice {
+  margin: 0.4em 0;
+}
+
+.hx-notice-head {
+  padding: 0.4em;
+  font-weight: bold;
+}
+
+.hx-notice-body {
+  padding: 0.4em;
+}

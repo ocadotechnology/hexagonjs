@@ -191,7 +191,10 @@ describe('HexagonJS Test Suite', () => {
         'toggle',
         'Toggle',
         'crumbtrail',
-        'Crumbtrail'
+        'Crumbtrail',
+        'notice',
+        'noticeHead',
+        'noticeBody'
       ])
     })
   })

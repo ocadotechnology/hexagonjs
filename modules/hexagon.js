@@ -129,19 +129,19 @@ export { dragContainer, DragContainer } from 'drag-container/main'
 export { progressBar, ProgressBar } from 'progress-bar/main'
 export { toggle, Toggle } from 'toggle/main'
 export { crumbtrail, Crumbtrail } from 'crumbtrail/main'
+export { notice, noticeHead, noticeBody } from 'notice/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove
 initPointerEvents() // XXX: make into a selection middleware
 initResizeEvents()  // XXX: make into a selection middleware
 initFastClick()     // XXX: make into a selection middleware
-initView()          // XXX: remove?
+initView()          // XXX: remove view and replace with reactive lists and reactive objects?
 initMorphs()        // XXX: remove
 
 initTitleBar()
 
 // module.exports = window.hx = merge([
-//   require('./progress-bar/main'),
 //   require('./sticky-table-headers/main'),
 //   require('./plot/main'),
 //   require('./date-picker/main'),
@@ -149,11 +149,8 @@ initTitleBar()
 //   require('./tag-input/main'),
 //   require('./slider/main'),
 //   require('./card/main'),
-//   require('./toggle/main'),
-//   require('./notice/main'),
 //   require('./label/main'),
 //   require('./color-picker/main'),
-//   require('./crumbtrail/main'),
 //   require('./paginator/main'),
 //   require('./time-slider/main'),
 //   require('./date-time-picker/main')
