@@ -1,19 +1,18 @@
-import { select, detached } from 'selection/main'
+import { select, div } from 'selection/main'
 import { mergeDefined } from 'utils/main'
 import { EventEmitter } from 'event-emitter/main'
 
-export class ButtonGroup extends EventEmitter
+class ButtonGroup extends EventEmitter
   constructor: (selector, options) ->
     super
     self = this
 
     @options = mergeDefined({
       buttonClass: 'hx-complement'
-      activeClass: 'hx-contrast'
+      activeClass: 'hx-action'
       fullWidth: false
-      renderer: (node, data, current) ->
-        select(node).text(if data.value? then data.value else data)
-        return
+      renderer: (data, current) ->
+        return div().text(if data.value? then data.value else data)
       items: []
       disabled: false
     }, options)
@@ -43,10 +42,9 @@ export class ButtonGroup extends EventEmitter
           .classed('hx-section hx-no-margin', self.options.fullWidth)
           .classed(buttonClass, true)
           .attr('disabled', if self.options.disabled then true else undefined)
+          .set(self.options.renderer(item, item is self.current))
           .on 'click', 'hx.button-group', ->
             self.value(item, true)
-
-        self.options.renderer(node, item, item is self.current)
         return
 
     if @options.items? and @options.items.length > 0
@@ -82,12 +80,17 @@ export class ButtonGroup extends EventEmitter
   disabled: (disabled) ->
     if arguments.length > 0
       @options.disabled = disabled
-      @items @items()
-      this
+      @items(@items())
+      return this
     else
       @options.disabled
 
-export buttonGroup = (options) ->
-  selection = detached('div')
+buttonGroup = (options) ->
+  selection = div()
   new ButtonGroup(selection.node(), options)
   selection
+
+export {
+  buttonGroup,
+  ButtonGroup
+}

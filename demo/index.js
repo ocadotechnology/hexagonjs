@@ -18,6 +18,7 @@ import progressBarExamples from './examples/progress-bar'
 import errorPageExamples from './examples/error-page'
 import tableExamples from './examples/table'
 import toggleExamples from './examples/toggle'
+import buttonGroupExamples from './examples/button-group'
 
 function example(title) {
   return div('example-section')
@@ -44,5 +45,6 @@ select('body')
     example('Progress Bar').add(progressBarExamples()),
     example('Error Page').add(errorPageExamples()),
     example('Table').add(tableExamples()),
-    example('Toggle').add(toggleExamples())
+    example('Toggle').add(toggleExamples()),
+    example('Button Group').add(buttonGroupExamples())
   ]))
