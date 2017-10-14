@@ -42,7 +42,7 @@ setActive = (menu, pos, up, click) ->
     allItems = getAllItems(menu)
     node = allItems[pos].node
 
-    hx.select(node).classed('hx-menu-active',true)
+    select(node).classed('hx-menu-active',true)
 
     content = allItems[pos]?.content
     isEnabled = not content?.disabled and not content?.unselectable
@@ -225,7 +225,9 @@ export class Menu extends EventEmitter
       itemsChanged: true # First time in this should be true
     }
 
-    select(@selector).api(this)
+    select(@selector)
+      .api('menu', this)
+      .api(this)
 
     if @options.dropdownOptions.ddClass? and @options.dropdownOptions.ddClass.length is 0
       colorClass = palette.context(@selector)

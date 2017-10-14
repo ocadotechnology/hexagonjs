@@ -1,4 +1,12 @@
-hx.userFacingText({
+import { EventEmitter } from 'event-emitter/main'
+import { userFacingText } from 'user-facing-text/main'
+import { select, div, span, i, detached } from 'selection/main'
+import { merge, identity, debounce } from 'utils/main'
+import { AutocompleteFeed } from 'autocomplete-feed/main'
+import { Menu } from 'menu/main'
+import logger from 'logger/main'
+
+userFacingText({
   autocompletePicker:
     chooseValue: 'Choose a value...'
     loading: 'Loading...'
@@ -11,30 +19,27 @@ debounceDuration = 200
 
 validateItems = (feed, items) ->
   if not feed.validateItems(items)
-    hx.consoleWarning "hx.AutocompletePicker: the items was expected to be an array of items or a function, you supplied: #{items}"
-    false
+    logger.warn("hx.AutocompletePicker: the items was expected to be an array of items or a function, you supplied: #{items}")
+    return false
   else
-    true
+    return true
 
 setPickerValue = (picker, results, cause) ->
   _ = picker._
-  _.valueText.clear()
   if results.length
     _.current = results[0]
     picker.emit('change', {
       cause: cause
       value: results[0]
     })
-    _.renderer _.valueText.node(), results[0]
+    _.valueText.set(_.renderer(results[0]))
   else
     _.current = undefined
     _.valueText.text(_.options.chooseValueText)
 
-class AutocompletePicker extends hx.EventEmitter
+class AutocompletePicker extends EventEmitter
   constructor: (selector, items, options = {}) ->
     super()
-
-    hx.component.register(selector, this)
 
     defaults =
       # Options passed to the feed - defaults defined there
@@ -51,26 +56,27 @@ class AutocompletePicker extends hx.EventEmitter
       disabled: false
       renderer: undefined
       value: undefined
-      chooseValueText: hx.userFacingText('autocompletePicker', 'chooseValue')
-      loadingText: hx.userFacingText('autocompletePicker', 'loading')
-      noResultsText: hx.userFacingText('autocompletePicker', 'noResults')
-      otherResultsText: hx.userFacingText('autocompletePicker', 'otherResults')
+      chooseValueText: userFacingText('autocompletePicker', 'chooseValue')
+      loadingText: userFacingText('autocompletePicker', 'loading')
+      noResultsText: userFacingText('autocompletePicker', 'noResults')
+      otherResultsText: userFacingText('autocompletePicker', 'otherResults')
 
     if options.valueLookup
-      defaults.renderer = (element, item) ->
-        hx.select(element).text(options.valueLookup(item))
+      defaults.renderer = (item) ->
+        return div().text(options.valueLookup(item))
 
-    resolvedOptions = hx.merge defaults, options
+    resolvedOptions = merge(defaults, options)
 
-    selection = hx.select(selector)
+    selection = select(selector)
       .classed('hx-autocomplete-picker hx-btn', true)
 
     if resolvedOptions.buttonClass
       selection.classed(resolvedOptions.buttonClass, true)
 
-    valueText = selection.append('div').class('hx-autocomplete-picker-text')
-    selection.append('span').class('hx-autocomplete-picker-icon')
-      .append('i').class('hx-icon hx-icon-caret-down')
+    valueText = selection
+      .add(div('hx-autocomplete-picker-text'))
+      .add(span('hx-autocomplete-picker-icon')
+        .add(i('hx-icon hx-icon-caret-down')))
 
     feedOptions =
       filter: resolvedOptions.filter
@@ -80,103 +86,107 @@ class AutocompletePicker extends hx.EventEmitter
       trimTrailingSpaces: resolvedOptions.trimTrailingSpaces
       valueLookup: resolvedOptions.valueLookup
 
-    feed = new hx.AutocompleteFeed(feedOptions)
+    feed = new AutocompleteFeed(feedOptions)
 
     @_ =
       selection: selection
       options: resolvedOptions
       valueText: valueText
       feed: feed
-      valueLookup: resolvedOptions.valueLookup or hx.identity
+      valueLookup: resolvedOptions.valueLookup or identity
 
-    if validateItems(feed, items)
-      feed.items(items)
+    if not validateItems(feed, items)
+      return
 
-      renderWrapper = (element, item) =>
-        selection = hx.select(element)
-          .clear()
+    feed.items(items)
+
+    renderWrapper = (item) =>
+      if item.unselectable or item.heading
+        return div()
           .classed('hx-autocomplete-picker-heading', item.heading)
-        if item.unselectable or item.heading
-          hx.select(element)
-            .text(item.text)
-            .off()
-        else
-          @_.renderer(element, item)
-
-      menu = new hx.Menu(selector, {
-        dropdownOptions:
-          ddClass: 'hx-autocomplete-picker-dropdown'
-      })
-
-      @_.renderer = resolvedOptions.renderer or menu.renderer()
-      @_.menu = menu
-      menu.renderer(renderWrapper)
-
-      noResultsItem =
-        text: resolvedOptions.noResultsText
-        unselectable: true
-
-      loadingItem =
-        text: resolvedOptions.loadingText
-        unselectable: true
-
-      otherResultsItem =
-        text: resolvedOptions.otherResultsText
-        unselectable: true
-        heading: true
-
-      renderMenu = (items) ->
-        menu.items(items)
-        menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node())
-
-      populateMenu = (term) ->
-        feed.filter term, (results, otherResults) ->
-          if results.length is 0
-            results.push(noResultsItem)
-          if otherResults.length > 0
-            otherResults = [otherResultsItem].concat(otherResults)
-          renderMenu(results.concat(otherResults))
-
-      debouncedPopulate = hx.debounce debounceDuration, populateMenu
-
-      setValue = (item) =>
-        setPickerValue(this, [item], 'user')
-        menu.hide()
-
-      input = hx.detached('input').class('hx-autocomplete-picker-input')
-        .on 'input', (e) ->
-            renderMenu([loadingItem])
-            debouncedPopulate(e.target.value)
-        .on 'keydown', (e) ->
-          if input.value().length
-            if (e.which or e.keyCode) is enterKeyCode and menu.cursorPos is -1
-              topItem = menu.items()[0]
-              if not topItem.unselectable
-                setValue(topItem)
-
-      menu.dropdown.on 'showstart', ->
-        input.value('')
-        menu.dropdown._.dropdown.prepend(input)
-        renderMenu([loadingItem])
-        debouncedPopulate(input.value())
-
-      menu.dropdown.on 'showend', ->
-        input.node().focus()
-
-      menu.on 'change', (item) =>
-        if item? and item.content?
-          setValue(item.content)
-
-      menu.pipe this, '', ['highlight']
-      menu.dropdown.pipe this, 'dropdown'
-
-      if resolvedOptions.value
-        @value(resolvedOptions.value)
+          .text(item.text)
       else
-        valueText.text(resolvedOptions.chooseValueText)
+        return @_.renderer(item)
+          .classed('hx-autocomplete-picker-heading', item.heading)
 
-      if resolvedOptions.disabled
-        @disabled(resolvedOptions.disabled)
+    menu = new Menu(selector, {
+      dropdownOptions:
+        ddClass: 'hx-autocomplete-picker-dropdown'
+    })
+
+    @_.renderer = resolvedOptions.renderer or menu.renderer()
+    @_.menu = menu
+    menu.renderer(renderWrapper)
+
+    noResultsItem =
+      text: resolvedOptions.noResultsText
+      unselectable: true
+
+    loadingItem =
+      text: resolvedOptions.loadingText
+      unselectable: true
+
+    otherResultsItem =
+      text: resolvedOptions.otherResultsText
+      unselectable: true
+      heading: true
+
+    renderMenu = (items) ->
+      menu.items(items)
+      menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node())
+
+    populateMenu = (term) ->
+      feed.filter term, (results, otherResults) ->
+        if results.length is 0
+          results.push(noResultsItem)
+        if otherResults.length > 0
+          otherResults = [otherResultsItem].concat(otherResults)
+        renderMenu(results.concat(otherResults))
+
+    debouncedPopulate = debounce(debounceDuration, populateMenu)
+
+    setValue = (item) =>
+      setPickerValue(this, [item], 'user')
+      menu.hide()
+
+    input = detached('input').class('hx-autocomplete-picker-input')
+      .on 'input', (e) ->
+          renderMenu([loadingItem])
+          debouncedPopulate(e.target.value)
+      .on 'keydown', (e) ->
+        if input.value().length
+          if (e.which or e.keyCode) is enterKeyCode and menu.cursorPos is -1
+            topItem = menu.items()[0]
+            if not topItem.unselectable
+              setValue(topItem)
+
+    menu.dropdown.on 'showstart', ->
+      input.value('')
+      menu.dropdown._.dropdown.prepend(input)
+      renderMenu([loadingItem])
+      debouncedPopulate(input.value())
+
+    menu.dropdown.on 'showend', ->
+      input.node().focus()
+
+    menu.on 'change', (item) =>
+      if item? and item.content?
+        setValue(item.content)
+
+    menu.pipe this, '', ['highlight']
+    menu.dropdown.pipe this, 'dropdown'
+
+    if resolvedOptions.value
+      @value(resolvedOptions.value)
+    else
+      valueText.text(resolvedOptions.chooseValueText)
+
+    if resolvedOptions.disabled
+      @disabled(resolvedOptions.disabled)
+
+    selection
+      .api('autocomplete-picker', this)
+      .api(this)
 
 
   clearCache: ->
@@ -221,9 +231,12 @@ class AutocompletePicker extends hx.EventEmitter
       @_.renderer
 
 
-hx.autocompletePicker = (items, options) ->
-  selection = hx.detached('div')
-  new AutocompletePicker(selection.node(), items, options)
+autocompletePicker = (items, options) ->
+  selection = div()
+  new AutocompletePicker(selection, items, options)
   selection
 
-hx.AutocompletePicker = AutocompletePicker
+export {
+  autocompletePicker,
+  AutocompletePicker
+}

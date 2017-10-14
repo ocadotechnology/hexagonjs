@@ -91,6 +91,7 @@ export class Dropdown extends EventEmitter
     onmouseout = => @hide()
 
     selection = select(selector)
+      .api('dropdown', this)
       .api(this)
 
     @_ = {

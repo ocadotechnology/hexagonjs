@@ -130,6 +130,7 @@ export { progressBar, ProgressBar } from 'progress-bar/main'
 export { toggle, Toggle } from 'toggle/main'
 export { crumbtrail, Crumbtrail } from 'crumbtrail/main'
 export { notice, noticeHead, noticeBody } from 'notice/main'
+export { autocompletePicker } from 'autocomplete-picker/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove
