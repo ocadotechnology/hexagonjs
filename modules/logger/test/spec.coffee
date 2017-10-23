@@ -7,6 +7,7 @@ export default () ->
       trace = chai.spy.on(console, 'trace')
       logger.deprecated('something')
       trace.should.have.been.called()
+      chai.spy.restore()
 
     it 'deprecated should make the correct console calls (multi argument)', ->
       warn = chai.spy.on(console, 'warn')
@@ -14,11 +15,13 @@ export default () ->
       logger.deprecated('something', 'do something else')
       warn.should.have.been.called()
       trace.should.have.been.called()
+      chai.spy.restore()
 
     it 'warn should make the correct console calls (single argument)', ->
       trace = chai.spy.on(console, 'trace')
       logger.warn('something')
       trace.should.have.been.called()
+      chai.spy.restore()
 
     it 'warn should make the correct console calls (multi argument)', ->
       warn = chai.spy.on(console, 'warn')
@@ -26,3 +29,4 @@ export default () ->
       logger.warn('something', 'you are doing something silly')
       warn.should.have.been.called()
       trace.should.have.been.called()
+      chai.spy.restore()

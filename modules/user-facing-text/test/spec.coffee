@@ -73,29 +73,29 @@ export default () ->
     describe 'Errors', ->
       it 'when called with a module / key that does not exist', ->
         userFacingText('module')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText('module', 'key')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         userFacingText().should.eql({})
 
 
       it 'when called with an invalid module when getting', ->
         userFacingText(undefined)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText(undefined, 'key')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText(3.1415, 'key')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText(objectWithLength, 'key')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText().should.eql({})
@@ -103,16 +103,16 @@ export default () ->
 
       it 'when called with an invalid module when setting', ->
         userFacingText(undefined, 'key', 'value')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
         userFacingText().should.eql({})
 
         userFacingText(3.1415, 'key', 'value')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText(objectWithLength, 'key', 'value')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText().should.eql({})
@@ -120,15 +120,15 @@ export default () ->
 
       it 'when called with an invalid key when getting', ->
         userFacingText('module', undefined)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText('module', 3.1415)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText('module', objectWithLength)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText().should.eql({})
@@ -136,15 +136,15 @@ export default () ->
 
       it 'when called with an invalid key when setting', ->
         userFacingText('module', undefined, 'value')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText('module', 3.1415, 'value')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText('module', objectWithLength, 'value')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText().should.eql({})
@@ -152,15 +152,15 @@ export default () ->
 
       it 'when called with an invalid value', ->
         userFacingText('module', 'key', undefined)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText('module', 'key', 3.1415)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText('module', 'key', objectWithLength)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         userFacingText().should.eql({})
 
 
@@ -196,18 +196,18 @@ export default () ->
 
         testObj = new Test
         userFacingText(testObj)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         userFacingText().should.eql({})
 
       it 'when calling the global setter with an invalid value', ->
         userFacingText('module')
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText(undefined)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()
 
         userFacingText(3.1415)
-        logger.warn.should.have.been.called.once()
+        logger.warn.should.have.been.called.once
         logger.warn.reset()

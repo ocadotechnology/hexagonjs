@@ -217,7 +217,7 @@ export default () ->
         emit(buttonNode, 'pointerdown', fakePointerEvent)
         clock.tick(100)
         emit(buttonNode, 'pointerup', fakePointerEvent)
-        change.should.have.been.called.once()
+        change.should.have.been.called.once
         np.value().should.equal(-1)
 
       it 'increment: should emit when the user increments', ->
@@ -233,7 +233,7 @@ export default () ->
         emit(buttonNode, 'pointerdown', fakePointerEvent)
         clock.tick(100)
         emit(buttonNode, 'pointerup', fakePointerEvent)
-        change.should.have.been.called.once()
+        change.should.have.been.called.once
         np.value().should.equal(1)
 
     testButton = (method, selector, multiplier) ->

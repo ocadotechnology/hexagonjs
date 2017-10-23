@@ -114,7 +114,7 @@ export default () ->
         af.items(items)
         callback = chai.spy()
         af.filter('a', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(itemsArr, [])
 
 
@@ -128,17 +128,17 @@ export default () ->
         af.items(items)
 
         af.filter('a', callback)
-        spy.should.have.been.called.once()
-        callback.should.have.been.called.once()
+        spy.should.have.been.called.once
+        callback.should.have.been.called.once
         spy.should.have.been.called.with('a')
 
         af.filter('ab', callback)
-        spy.should.have.been.called.twice()
-        callback.should.have.been.called.twice()
+        spy.should.have.been.called.twice
+        callback.should.have.been.called.twice
         spy.should.have.been.called.with('ab')
 
         af.filter('a', callback)
-        spy.should.have.been.called.twice()
+        spy.should.have.been.called.twice
         callback.should.have.been.called.exactly(3)
 
 
@@ -149,7 +149,7 @@ export default () ->
         })
         af.items(['a'])
         af.filter('a', ->)
-        filter.should.have.been.called.once()
+        filter.should.have.been.called.once
         filter.should.have.been.called.with(['a'], 'a')
 
 
@@ -158,7 +158,7 @@ export default () ->
         af.items(['ba','b','a','c','d','ab','a'])
         callback = chai.spy()
         af.filter('a', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(['a','a','ab','ba'], [])
 
 
@@ -171,7 +171,7 @@ export default () ->
         af.items(items)
         callback = chai.spy()
         af.filter('a', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(['a','a','ab','ba'], ['b','c','d'])
 
 
@@ -192,7 +192,7 @@ export default () ->
         af.items(['ba','b','a','d','c','ab','a'])
         callback = chai.spy()
         af.filter('a', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(['a','a','ab','ba'], ['b','c','d'])
 
 
@@ -202,7 +202,7 @@ export default () ->
         af.items(itemsArr)
         callback = chai.spy()
         af.filter('', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(itemsArr, [])
 
 
@@ -219,7 +219,7 @@ export default () ->
         af.items(items)
         callback = chai.spy()
         af.filter('a ', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(['a','aa', 'ba'],[])
 
 
@@ -231,7 +231,7 @@ export default () ->
         af.items(items)
         callback = chai.spy()
         af.filter('a ', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(['a a'],[])
 
 
@@ -247,7 +247,7 @@ export default () ->
         af.items([aObj, bObj, cObj])
         callback = chai.spy()
         af.filter('a', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with([aObj, cObj])
 
 
@@ -263,7 +263,7 @@ export default () ->
         af.items([aObj, bObj, cObj])
         callback = chai.spy()
         af.filter('a', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with([aObj, cObj, bObj])
 
 
@@ -281,7 +281,7 @@ export default () ->
         af.items([aObj, bObj, cObj, dObj])
         callback = chai.spy()
         af.filter('d', callback)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with([], [aObj, dObj, cObj, bObj])
 
 
@@ -304,16 +304,16 @@ export default () ->
         af.filter('ab', cb)
 
         clock.tick(1000 / 3)
-        callCheck.should.have.been.called.once()
+        callCheck.should.have.been.called.once
         callCheck.should.have.been.called.with('abc')
         clock.tick(1000 / 2)
-        callCheck.should.have.been.called.twice()
+        callCheck.should.have.been.called.twice
         callCheck.should.have.been.called.with('ab')
         clock.tick(1000 / 1)
         callCheck.should.have.been.called.exactly(3)
         callCheck.should.have.been.called.with('a')
 
-        cb.should.have.been.called.once()
+        cb.should.have.been.called.once
         cb.should.have.been.called.with(['abb', 'abc'])
         clock.restore()
 
@@ -346,7 +346,7 @@ export default () ->
 
         af.filter('a', callback)
         af._.resultsCache.has.should.have.been.called.with('a')
-        af._.resultsCache.has.should.have.been.called.once()
+        af._.resultsCache.has.should.have.been.called.once
         af._.resultsCache.set.should.have.been.called.with('a', {
           results: ['a']
           otherResults: []
@@ -356,11 +356,11 @@ export default () ->
 
         af.filter('a', callback)
         af._.resultsCache.has.should.have.been.called.with('a')
-        af._.resultsCache.has.should.have.been.called.twice()
+        af._.resultsCache.has.should.have.been.called.twice
         af._.resultsCache.get.should.have.been.called.with('a')
-        af._.resultsCache.get.should.have.been.called.once()
+        af._.resultsCache.get.should.have.been.called.once
         callback.should.have.been.called.with(['a'],[])
-        callback.should.have.been.called.twice()
+        callback.should.have.been.called.twice
 
 
       it 'filter: should use the cache before attempting to get new data using a function', ->
@@ -376,23 +376,23 @@ export default () ->
 
         af.filter('a', callback)
         af._.resultsCache.has.should.have.been.called.with('a')
-        af._.resultsCache.has.should.have.been.called.once()
+        af._.resultsCache.has.should.have.been.called.once
         af._.resultsCache.set.should.have.been.called.with('a', {
           results: ['a']
           otherResults: []
         })
         af._.resultsCache.entries().length.should.equal(1)
         callback.should.have.been.called.with(['a'],[])
-        items.should.have.been.called.once()
+        items.should.have.been.called.once
 
         af.filter('a', callback)
         af._.resultsCache.has.should.have.been.called.with('a')
-        af._.resultsCache.has.should.have.been.called.twice()
+        af._.resultsCache.has.should.have.been.called.twice
         af._.resultsCache.get.should.have.been.called.with('a')
-        af._.resultsCache.get.should.have.been.called.once()
+        af._.resultsCache.get.should.have.been.called.once
         callback.should.have.been.called.with(['a'],[])
-        callback.should.have.been.called.twice()
-        items.should.have.been.called.once()
+        callback.should.have.been.called.twice
+        items.should.have.been.called.once
 
 
       it 'filter: should use the cache before attempting to get new data when using external matching', ->
@@ -410,20 +410,20 @@ export default () ->
 
         af.filter('a', callback)
         af._.resultsCache.has.should.have.been.called.with('a')
-        af._.resultsCache.has.should.have.been.called.once()
+        af._.resultsCache.has.should.have.been.called.once
         af._.resultsCache.set.should.have.been.called.with('a', {
           results: ['a','b','c']
           otherResults: ['d']
         })
         af._.resultsCache.entries().length.should.equal(1)
         callback.should.have.been.called.with(['a','b','c'],['d'])
-        items.should.have.been.called.once()
+        items.should.have.been.called.once
 
         af.filter('a', callback)
         af._.resultsCache.has.should.have.been.called.with('a')
-        af._.resultsCache.has.should.have.been.called.twice()
+        af._.resultsCache.has.should.have.been.called.twice
         af._.resultsCache.get.should.have.been.called.with('a')
-        af._.resultsCache.get.should.have.been.called.once()
+        af._.resultsCache.get.should.have.been.called.once
         callback.should.have.been.called.with(['a','b','c'],['d'])
-        callback.should.have.been.called.twice()
-        items.should.have.been.called.once()
+        callback.should.have.been.called.twice
+        items.should.have.been.called.once

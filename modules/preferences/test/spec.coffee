@@ -64,6 +64,7 @@ export default () ->
           preferences.locale('lemon').should.equal(preferences)
           preferences.locale().should.equal('vi')
           spy.should.have.been.called()
+          chai.spy.restore()
 
       describe 'timezone', ->
         afterEach ->

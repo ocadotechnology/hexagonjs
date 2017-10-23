@@ -54,7 +54,7 @@
     "browser-test-runner": "^0.5.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
-    "chai-spies": "^0.7.1",
+    "chai-spies-next": "^0.9.3",
     "coffee-script": "^1.12.7",
     "coveralls": "^2.13.1",
     "cpx": "^1.5.0",
