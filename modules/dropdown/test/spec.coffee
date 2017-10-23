@@ -13,7 +13,7 @@ export default () ->
 
     windowSize = 1000
     button = undefined
-    content = '<div style="padding:10px; width: 100px">Content</div>'
+    content = div().text('dropdown content')
     id = '#button'
 
     fixture = undefined
@@ -190,7 +190,7 @@ export default () ->
 
       dd._.visible.should.equal(true)
       select('.hx-dropdown').empty().should.equal(false)
-      select('.hx-dropdown').html().should.equal(content)
+      select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
 
     it 'should not do anything if show is called and the dropdown is already open', ->
       dd = new Dropdown(id, content)
@@ -200,12 +200,12 @@ export default () ->
       dd.show()
       dd._.visible.should.equal(true)
       select('.hx-dropdown').empty().should.equal(false)
-      select('.hx-dropdown').html().should.equal(content)
+      select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
 
       dd.show()
       dd._.visible.should.equal(true)
       select('.hx-dropdown').empty().should.equal(false)
-      select('.hx-dropdown').html().should.equal(content)
+      select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
 
     it 'should not do anything if hide is called and the dropdown is already closed', ->
       dd = new Dropdown(id, content)

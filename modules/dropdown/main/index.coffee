@@ -49,8 +49,7 @@ dropdownContentToSetupDropdown = (dropdownContent) ->
     when isSelection(dropdownContent)
       (node) -> select(node).set(dropdownContent)
     when isString(dropdownContent)
-      # XXX: [2.0.0] remove
-      (node) -> select(node).html(dropdownContent)
+      (node) -> select(node).text(dropdownContent)
     when isFunction(dropdownContent)
       (node) -> select(node).set(dropdownContent())
     else
