@@ -9,7 +9,7 @@ import dropdownExamples from './examples/dropdown'
 import collapsibleExamples from './examples/collapsible'
 import paletteExamples from './examples/palette'
 import numberPickerExamples from './examples/number-picker'
-import autoCompleteExamples from './examples/autocomplete'
+import autocompleteExamples from './examples/autocomplete'
 import pickerExamples from './examples/picker'
 import inputGroupExamples from './examples/input-group'
 import layoutExamples from './examples/layout'
@@ -38,7 +38,7 @@ select('body')
     example('Collapsible').add(collapsibleExamples()),
     example('Palette').add(paletteExamples()),
     example('Number Pickers').add(numberPickerExamples()),
-    example('Auto Complete').add(autoCompleteExamples()),
+    example('Autocomplete').add(autocompleteExamples()),
     example('Picker').add(pickerExamples()),
     example('Input Group').add(inputGroupExamples()),
     example('Layout').add(layoutExamples()),

@@ -5,7 +5,7 @@ import * as hx from './hexagon'
 
 // Internal utils
 import loggerTests from './logger/test/spec'
-import autoCompleteFeedTests from './autocomplete-feed/test/spec'
+import autocompleteFeedTests from './autocomplete-feed/test/spec'
 
 // Utils
 import setTests from './set/test/spec'
@@ -38,7 +38,7 @@ import dropdownTests from './dropdown/test/spec'
 import collapsibleTests from './collapsible/test/spec'
 import titlebarTests from './titlebar/test/spec'
 import menuTests from './menu/test/spec'
-import autoCompleteTests from './autocomplete/test/spec'
+import autocompleteTests from './autocomplete/test/spec'
 import numberPickerTests from './number-picker/test/spec'
 import buttonGroupTests from './button-group/test/spec'
 import pickerTests from './picker/test/spec'
@@ -63,6 +63,7 @@ describe('HexagonJS Test Suite', () => {
       // We just check the right things are being exposed here - actual type
       // checks for each of these objects/functions should be done in the
       // module tests
+
       expect(hx).to.have.keys([
         'version',
         'Set',
@@ -171,8 +172,8 @@ describe('HexagonJS Test Suite', () => {
         'titleBar',
         'TitleBar',
         'Menu',
-        'autoComplete',
-        'AutoComplete',
+        'autocomplete',
+        'Autocomplete',
         'numberPicker',
         'NumberPicker',
         'buttonGroup',
@@ -204,7 +205,7 @@ describe('HexagonJS Test Suite', () => {
 
   // Internal utils
   loggerTests()
-  autoCompleteFeedTests()
+  autocompleteFeedTests()
 
   // Internal Components
   // ... none yet :)
@@ -239,7 +240,7 @@ describe('HexagonJS Test Suite', () => {
   collapsibleTests()
   titlebarTests()
   menuTests()
-  autoCompleteTests()
+  autocompleteTests()
   numberPickerTests()
   buttonGroupTests()
   pickerTests()

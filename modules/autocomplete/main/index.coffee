@@ -9,7 +9,7 @@ import { groupBy, isFunction, isArray, merge } from 'utils/main'
 import logger from 'logger/main'
 
 userFacingText({
-  autoComplete: {
+  autocomplete: {
     loading: 'Loading...',
     noResultsFound: 'No results found',
     otherResults: 'Other Results',
@@ -89,7 +89,7 @@ findTerm = (term, forceMatch) ->
   filteredData
 
 
-buildAutoComplete = (searchTerm, fromCallback, loading) ->
+buildAutocomplete = (searchTerm, fromCallback, loading) ->
   # 'this' in this context is the autocomplete object, passed to callback
   self = this
   _ = @_
@@ -98,10 +98,10 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
   if _.callback? and !fromCallback
     if searchTerm.length < @options.minLength or (not @options.showAll and searchTerm.length is 0)
       _.data.set(searchTerm, [])
-      buildAutoComplete.call self, searchTerm ,true
+      buildAutocomplete.call self, searchTerm ,true
     else
       # call the autocomplete to show the loading message
-      buildAutoComplete.call self, searchTerm, true, true
+      buildAutocomplete.call self, searchTerm, true, true
 
       _.currentSearch = searchTerm
 
@@ -118,9 +118,9 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
             # check that the  Prevents calls that take a long time conflicting
             # when they return in a different order than they were called in.
             if _.currentSearch is searchTerm
-              buildAutoComplete.call self, searchTerm, true
+              buildAutocomplete.call self, searchTerm, true
       else
-        buildAutoComplete.call self, searchTerm, true
+        buildAutocomplete.call self, searchTerm, true
   else
     _.menu.cursorPos = -1
 
@@ -170,15 +170,15 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
 
     if trimAndReload
       _.input.value(_.input.value().substring(0, _.input.value().length - 1))
-      buildAutoComplete.call self, _.input.value(), fromCallback, loading
+      buildAutocomplete.call self, _.input.value(), fromCallback, loading
   undefined
 
-showAutoComplete = ->
+showAutocomplete = ->
   @_.cleanUp = false
-  buildAutoComplete.call this, @_.input.value() or ''
+  buildAutocomplete.call this, @_.input.value() or ''
 
 
-export class AutoComplete extends EventEmitter
+export class Autocomplete extends EventEmitter
 
   constructor: (@selector, @data, @options = {}) ->
     super
@@ -203,7 +203,7 @@ export class AutoComplete extends EventEmitter
      # do a sanity check on the data
     if not isArray(@data) and not isFunction(@data)
       logger.warning(
-        'AutoComplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
+        'Autocomplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
         ' but should have been an array of items or a function'
       )
     else
@@ -221,10 +221,10 @@ export class AutoComplete extends EventEmitter
         filterOptions: undefined
         showOtherResults: false
         allowTabCompletion: true
-        loadingMessage: userFacingText('autoComplete', 'loading')
-        noResultsMessage: userFacingText('autoComplete', 'noResultsFound')
-        otherResultsMessage: userFacingText('autoComplete', 'otherResults')
-        pleaseEnterMinCharactersMessage: userFacingText('autoComplete', 'pleaseEnterMinCharacters')
+        loadingMessage: userFacingText('autocomplete', 'loading')
+        noResultsMessage: userFacingText('autocomplete', 'noResultsFound')
+        otherResultsMessage: userFacingText('autocomplete', 'otherResults')
+        pleaseEnterMinCharactersMessage: userFacingText('autocomplete', 'pleaseEnterMinCharacters')
       }, @options)
 
       if @options.inputMap?
@@ -294,7 +294,7 @@ export class AutoComplete extends EventEmitter
         _.initialValue = input.value()
         timeout = setTimeout( ->
           if input.value() isnt _.prevTerm
-            buildAutoComplete.call self, input.value() or ''
+            buildAutocomplete.call self, input.value() or ''
         , 200)
 
       # set properties and functions for menu
@@ -373,7 +373,7 @@ export class AutoComplete extends EventEmitter
 
   show: ->
     @_.ignoreNextFocus = false
-    showAutoComplete.call(this)
+    showAutocomplete.call(this)
     this
 
   value: (value) ->
@@ -393,7 +393,7 @@ export class AutoComplete extends EventEmitter
       _.cleanUp = true
     this
 
-export autoComplete = (data, options) ->
+export autocomplete = (data, options) ->
   selection = detached('input')
-  new AutoComplete(selection, data, options)
+  new Autocomplete(selection, data, options)
   selection
