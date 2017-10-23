@@ -16,39 +16,7 @@
     @script [/resources/docs.js]
 
     @head
-      @html
-        <link rel="apple-touch-icon" sizes="57x57" href="/resources/hexagon/docs/favicon/apple-touch-icon-57x57.png?v=0">
-        <link rel="apple-touch-icon" sizes="60x60" href="/resources/hexagon/docs/favicon/apple-touch-icon-60x60.png?v=0">
-        <link rel="apple-touch-icon" sizes="72x72" href="/resources/hexagon/docs/favicon/apple-touch-icon-72x72.png?v=0">
-        <link rel="apple-touch-icon" sizes="76x76" href="/resources/hexagon/docs/favicon/apple-touch-icon-76x76.png?v=0">
-        <link rel="apple-touch-icon" sizes="114x114" href="/resources/hexagon/docs/favicon/apple-touch-icon-114x114.png?v=0">
-        <link rel="apple-touch-icon" sizes="120x120" href="/resources/hexagon/docs/favicon/apple-touch-icon-120x120.png?v=0">
-        <link rel="apple-touch-icon" sizes="144x144" href="/resources/hexagon/docs/favicon/apple-touch-icon-144x144.png?v=0">
-        <link rel="apple-touch-icon" sizes="152x152" href="/resources/hexagon/docs/favicon/apple-touch-icon-152x152.png?v=0">
-        <link rel="apple-touch-icon" sizes="180x180" href="/resources/hexagon/docs/favicon/apple-touch-icon-180x180.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1182x2208.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1242x2148.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1496x2048.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1536x2008.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-320x460.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-640x1096.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-640x920.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-748x1024.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-750x1294.png?v=0">
-        <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-768x1004.png?v=0">
-        <link rel="icon" type="image/png" sizes="32x32" href="/resources/hexagon/docs/favicon/favicon-32x32.png?v=0">
-        <link rel="icon" type="image/png" sizes="230x230" href="/resources/hexagon/docs/favicon/favicon-230x230.png?v=0">
-        <link rel="icon" type="image/png" sizes="96x96" href="/resources/hexagon/docs/favicon/favicon-96x96.png?v=0">
-        <link rel="icon" type="image/png" sizes="16x16" href="/resources/hexagon/docs/favicon/favicon-16x16.png?v=0">
-        <link rel="manifest" href="/resources/hexagon/docs/favicon/manifest.json">
-        <link rel="yandex-tableau-widget" href="/resources/hexagon/docs/favicon/yandex-browser-manifest.json">
-        <link rel="shortcut icon" type="image/x-icon" href="/resources/hexagon/docs/favicon/favicon.ico?v=0">
-        <meta property="og:image" content="/resources/hexagon/docs/favicon/open-graph.png?v=0">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="msapplication-TileColor" content="#FFF">
-        <meta name="msapplication-TileImage" content="/resources/hexagon/docs/favicon/mstile-144x144.png?v=0">
-        <meta name="theme-color" content="#FFF">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+      @html: @inline icons.html
 
     @header
       @icon /resources/logo-mono-v1.svg
