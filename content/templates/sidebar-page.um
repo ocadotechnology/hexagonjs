@@ -57,13 +57,22 @@
     @sidebarPage
       @sidebar
         @navigationMenu
-          @page /changelog: Changelog
-          @section Guides
-            @page /guide/getting-started: Getting Started
-            @page /guide/installation: Installation
-            @page /guide/core-concepts: Core Concepts
 
-          @section Topics
+          @section About
+            @page /guide/installation: Installation
+            @page /guide/getting-started: Getting Started
+            @page /guide/core-concepts: Core Concepts
+            @page /changelog: Changelog
+
+          @section Components
+            @page /docs/autocomplete: Autocomplete
+            @page /docs/autocomplete-picker: AutocompletePicker
+            @page /docs/button: Button
+
+          @section Utils
+            @page /docs/animate: Animate
+
+          @section Tutorials
             @page /guide/representing-data: Representing Data
             @page /guide/working-with-data: Working With Data
             @page /guide/working-with-dom: Working with the DOM
@@ -71,15 +80,9 @@
             @page /guide/create-custom-themes: Creating Custom Themes
             @page /guide/printing: Print Styles
 
-          @section JavaScript Utils
-            @page /docs/animate: Animate
 
-          @section Style Utils
 
-          @section Components
-            @page /docs/autocomplete: AutoComplete
-            @page /docs/autocomplete-picker: AutoCompletePicker
-            @page /docs/button: Button
+
 
       @content
         @templateContent

@@ -102,3 +102,8 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   color: #0193d0 !important;
 }
+
+.qm-docs-navigation-menu-section-title {
+  font-weight: normal;
+  text-align: center;
+}
