@@ -52,8 +52,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .qm-docs-navigation-menu-section-title {
-  color: rgba(255, 255, 255, 0.57) !important;
+  color: rgba(0, 0, 0, 0.57) !important;
   font-weight: bold;
+  padding: 6px 1em 6px 1em;
 }
 
 .qm-docs-navigation-menu-page {
@@ -79,4 +80,25 @@ h1, h2, h3, h4, h5, h6 {
 .docs-example {
   border: solid 1px whitesmoke;
   padding: 1em;
+}
+
+
+.qm-docs-sidebar {
+  background: #ffffff !important;
+}
+
+.qm-docs-navigation-menu-page {
+  display: block !important;
+  color: #505050 !important;
+  text-decoration: none;
+  padding: 6px 1em 6px 1em;
+  margin-top: 0px;
+  transition: background 0.2s, color 0.2s;
+  font-family: 'Roboto Slab', serif !important;
+}
+
+.qm-docs-navigation-menu-page:hover {
+  background: #f5f3f3;
+  text-decoration: none;
+  color: #0193d0 !important;
 }
