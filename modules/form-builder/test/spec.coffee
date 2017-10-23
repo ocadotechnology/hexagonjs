@@ -50,3 +50,25 @@ describe "hx-form-builder", ->
     form.disabled('hd2').should.equal(true)
     form.hidden('hd1').should.equal(true)
     form.hidden('hd2').should.equal(true)
+
+  it 'should allow html fields to be initialised with a value', ->
+    form = new hx.Form(hx.detached('div').node())
+      .addText('Text', { value: 'Something'})
+      .addTextArea('Text Area', { value: 'Something Else'})
+      .addEmail('Email', { value: 'a@a.a'})
+      .addUrl('Url', { value: 'http://www.a.co'})
+      .addNumber('Number', { value: 10 })
+      .addCheckbox('Checkbox', { value: true })
+      .addPassword('Password', { value: 'abc' })
+      .addRadio('Radio', ['One', 'Two', 'Three'], { value: 'Two' })
+
+    form.data().should.eql({
+      'Text': 'Something'
+      'Text Area': 'Something Else'
+      'Email': 'a@a.a'
+      'Url': 'http://www.a.co'
+      'Number': '10'
+      'Checkbox': true
+      'Password': 'abc'
+      'Radio': 'Two'
+    })

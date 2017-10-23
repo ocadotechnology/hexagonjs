@@ -54,6 +54,7 @@ class Form extends hx.EventEmitter
       if options.required then selection.attr('required', options.required)
       selection.attr(attr.type, attr.value) for attr in options.attrs
       if options.validator? then selection.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || "")
+      if options.value then selection.node().value = options.value
       {
         required: options.required
         key: options.key
@@ -70,6 +71,7 @@ class Form extends hx.EventEmitter
       if options.required then selection.attr('required', options.required)
       selection.attr(attr.type, attr.value) for attr in options.attrs
       if options.validator? then selection.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || "")
+      if options.value then selection.node().value = options.value
       {
         required: options.required
         key: options.key
@@ -162,6 +164,7 @@ class Form extends hx.EventEmitter
     @add name, 'checkbox', 'input', ->
       @attr('type', 'checkbox')
       if options.required? then @attr('required', options.required)
+      if options.value then @attr('checked', true)
       {
         required: options.required
         key: options.key
@@ -178,8 +181,10 @@ class Form extends hx.EventEmitter
         selection  = @append('div').class('hx-radio-container')
         input = selection.append('input').attr('type', 'radio').attr('name', id).attr("id",id+"-"+count).value(value)
         if options.required? then input.attr('required', options.required)
+        if options.value is value then input.attr('checked', true)
         selection.append('label').attr("for", id + "-" + count).text(value)
         count += 1
+
       {
         required: options.required
         key: options.key
