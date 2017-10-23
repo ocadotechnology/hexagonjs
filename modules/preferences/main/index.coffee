@@ -3,7 +3,7 @@ import { EventEmitter } from 'event-emitter/main'
 import { select, detached, div } from 'selection/main'
 import { isString } from 'utils/main'
 import { Modal } from 'modal/main'
-import { AutoComplete } from 'autocomplete/main'
+import { Autocomplete } from 'autocomplete/main'
 import { notifyNegative, notifyPositive } from 'notify/main'
 import { format } from 'format/main'
 import logger from 'logger/main'
@@ -179,7 +179,7 @@ class Preferences extends EventEmitter
           disabled: not (l.value in @_.supportedLocales)
         }
 
-      new AutoComplete(localeAutocompleteElement.node(), supportedLocales, {
+      new Autocomplete(localeAutocompleteElement.node(), supportedLocales, {
         renderer: (element, datum) -> select(element).text(datum.full)
         inputMap: (item) -> item.full
         showOtherResults: true
@@ -194,7 +194,7 @@ class Preferences extends EventEmitter
       timezoneAutocompleteElement = detached('input')
       timezoneAutocompleteElement.value(timezone)
 
-      new AutoComplete(timezoneAutocompleteElement.node(), @_.supportedTimezones, {
+      new Autocomplete(timezoneAutocompleteElement.node(), @_.supportedTimezones, {
         showOtherResults: true
         mustMatch: true
       }).on 'change', (value) -> timezone = value
