@@ -10,6 +10,7 @@ import collapsibleExamples from './examples/collapsible'
 import paletteExamples from './examples/palette'
 import numberPickerExamples from './examples/number-picker'
 import autocompleteExamples from './examples/autocomplete'
+import autocompletePickerExamples from './examples/autocomplete-picker'
 import pickerExamples from './examples/picker'
 import inputGroupExamples from './examples/input-group'
 import layoutExamples from './examples/layout'
@@ -39,6 +40,7 @@ select('body')
     example('Palette').add(paletteExamples()),
     example('Number Pickers').add(numberPickerExamples()),
     example('Autocomplete').add(autocompleteExamples()),
+    example('Autocomplete Picker').add(autocompletePickerExamples()),
     example('Picker').add(pickerExamples()),
     example('Input Group').add(inputGroupExamples()),
     example('Layout').add(layoutExamples()),

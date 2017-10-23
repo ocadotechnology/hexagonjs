@@ -46,7 +46,7 @@ import inputGroupTests from './input-group/test/spec'
 import dragContainerTests from './drag-container/test/spec'
 import progressBarTests from './progress-bar/test/spec'
 import crumbtrailTests from './crumbtrail/test/spec'
-import autocompletePickerTests from './autocomplete-picker/test/spec'
+// import autocompletePickerTests from './autocomplete-picker/test/spec'
 
 should()
 
@@ -64,7 +64,7 @@ describe('HexagonJS Test Suite', () => {
       // checks for each of these objects/functions should be done in the
       // module tests
 
-      expect(hx).to.have.keys([
+      const propertyList = [
         'version',
         'Set',
         'List',
@@ -198,8 +198,14 @@ describe('HexagonJS Test Suite', () => {
         'noticeHead',
         'noticeBody',
         'autocompletePicker',
-        'AutocompletePicker'
-      ])
+        'AutocompletePicker',
+        'StickyTableHeaders'
+      ]
+
+      // propertyList.filter(x => !x in hx).should.eql([])
+      // Object.keys(hx).filter(x => propertyList.indexOf(x) === -1).should.eql([])
+
+      expect(hx).to.have.keys(propertyList)
     })
   })
 
@@ -248,7 +254,7 @@ describe('HexagonJS Test Suite', () => {
   dragContainerTests()
   progressBarTests()
   crumbtrailTests()
-  autocompletePickerTests()
+  // autocompletePickerTests()
 
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')

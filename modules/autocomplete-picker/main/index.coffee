@@ -109,9 +109,22 @@ class AutocompletePicker extends EventEmitter
         return @_.renderer(item)
           .classed('hx-autocomplete-picker-heading', item.heading)
 
+    input = detached('input').class('hx-autocomplete-picker-input')
+      .on 'input', (e) ->
+          renderMenu([loadingItem])
+          debouncedPopulate(e.target.value)
+      .on 'keydown', (e) ->
+        if input.value().length
+          if (e.which or e.keyCode) is enterKeyCode and menu.cursorPos is -1
+            topItem = menu.items()[0]
+            if not topItem.unselectable
+              setValue(topItem)
+
     menu = new Menu(selector, {
-      dropdownOptions:
+      dropdownOptions: {
         ddClass: 'hx-autocomplete-picker-dropdown'
+      },
+      extraContent: input
     })
 
     @_.renderer = resolvedOptions.renderer or menu.renderer()
@@ -133,7 +146,7 @@ class AutocompletePicker extends EventEmitter
 
     renderMenu = (items) ->
       menu.items(items)
-      menu.dropdown._.setupDropdown(menu.dropdown._.dropdown.node())
+      menu.render()
 
     populateMenu = (term) ->
       feed.filter term, (results, otherResults) ->
@@ -149,22 +162,11 @@ class AutocompletePicker extends EventEmitter
       setPickerValue(this, [item], 'user')
       menu.hide()
 
-    input = detached('input').class('hx-autocomplete-picker-input')
-      .on 'input', (e) ->
-          renderMenu([loadingItem])
-          debouncedPopulate(e.target.value)
-      .on 'keydown', (e) ->
-        if input.value().length
-          if (e.which or e.keyCode) is enterKeyCode and menu.cursorPos is -1
-            topItem = menu.items()[0]
-            if not topItem.unselectable
-              setValue(topItem)
-
     menu.dropdown.on 'showstart', ->
       input.value('')
-      menu.dropdown._.dropdown.prepend(input)
       renderMenu([loadingItem])
-      debouncedPopulate(input.value())
+      populateMenu(input.value())
+      input.node().focus()
 
     menu.dropdown.on 'showend', ->
       input.node().focus()

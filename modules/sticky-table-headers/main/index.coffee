@@ -1,6 +1,7 @@
-select = require('modules/selection/main')
-util = require('modules/util/main')
-component = require('modules/component/main')
+import { select, getHexagonElementDataObject } from 'selection/main'
+import { mergeDefined, flatten } from 'utils/main'
+import { scrollbarSize } from 'dom-utils/main'
+import logger from 'logger/main'
 
 # XXX: webpack: how does the resize-events dependency work now?
 #      should there be a requirement on it here?
@@ -37,7 +38,7 @@ updateHeaderPositions = (container, wrapperNode) ->
 cloneEvents = (elem, clone) ->
   # Copy all events and recurse through children.
   if elem? and clone?
-    elemData = select.getHexagonElementDataObject(elem)
+    elemData = getHexagonElementDataObject(elem)
     listenerNamesRegistered = elemData.listenerNamesRegistered?.values()
 
     if listenerNamesRegistered and listenerNamesRegistered.length > 0
@@ -47,7 +48,7 @@ cloneEvents = (elem, clone) ->
       for listener in listenerNamesRegistered
         cloneElem.on listener, -> return
 
-      cloneEmitter = select.getHexagonElementDataObject(clone).eventEmitter
+      cloneEmitter = getHexagonElementDataObject(clone).eventEmitter
       cloneEmitter.pipe(origEmitter)
 
     elemChildren = elem.childNodes
@@ -57,7 +58,7 @@ cloneEvents = (elem, clone) ->
 
 getChildrenFromTable = (t, body, single) ->
   realParents = getChildren(t.select(if body then 'tbody' else 'thead'), 'tr')
-  util.flatten realParents.map (parent) -> getChildren(select(parent), 'th, td', single)
+  flatten realParents.map (parent) -> getChildren(select(parent), 'th, td', single)
 
 getChildren = (parent, selector, single) ->
   children = if single
@@ -85,9 +86,8 @@ cloneTableAndNodeEvents = (selection, realTable, tableClone, body, single) ->
 
 class StickyTableHeaders
   constructor: (selector, options) ->
-    component.register(selector, this)
 
-    resolvedOptions = util.merge.defined({
+    resolvedOptions = mergeDefined({
       stickTableHead: true # stick thead element
       stickFirstColumn: false # stick first column
       useResponsive: true
@@ -96,6 +96,7 @@ class StickyTableHeaders
     }, options)
 
     selection = select(selector)
+      .api(this)
 
     table = if selection.classed('hx-table') or selection.node().nodeName.toLowerCase() is 'table'
       tableIsRootElement = true
@@ -109,13 +110,13 @@ class StickyTableHeaders
 
     if resolvedOptions.stickTableHead and table.select('thead').selectAll('tr').empty()
       # Cant stick something that isn't there
-      util.consoleWarning 'hx.StickyTableHeaders - ' + selector,
+      logger.warn 'hx.StickyTableHeaders - ' + selector,
         'Sticky table headers initialized with stickTableHead of true without a thead element present'
       resolvedOptions.stickTableHead = false
 
     if resolvedOptions.stickFirstColumn and table.select('tbody').select('tr').selectAll('th, td').empty()
       # Cant stick something that isn't there
-      util.consoleWarning 'hx.StickyTableHeaders - ' + selector,
+      logger.warn 'hx.StickyTableHeaders - ' + selector,
         'Sticky table headers initialized with stickFirstColumn of true without any columns to stick'
       resolvedOptions.stickFirstColumn = false
 
@@ -137,7 +138,7 @@ class StickyTableHeaders
     # Put the original table into the wrapper.
     wrapper.append(table)
 
-    showScrollIndicators = util.scrollbarSize() is 0
+    showScrollIndicators = scrollbarSize() is 0
 
     if showScrollIndicators
       # We use four separate divs as using one overlay div prevents click-through
@@ -229,8 +230,8 @@ class StickyTableHeaders
 
     hasVerticalScroll = wrapperNode.scrollHeight > wrapperNode.clientHeight
     hasHorizontalScroll = wrapperNode.scrollWidth > wrapperNode.clientWidth
-    heightScrollbarOffset = if hasHorizontalScroll then util.scrollbarSize() else 0
-    widthScrollbarOffset = if hasVerticalScroll then util.scrollbarSize() else 0
+    heightScrollbarOffset = if hasHorizontalScroll then scrollbarSize() else 0
+    widthScrollbarOffset = if hasVerticalScroll then scrollbarSize() else 0
 
     wrapperBox = wrapper.box()
 
@@ -326,8 +327,6 @@ class StickyTableHeaders
 
     updateHeaderPositions(container, wrapper.node())
 
-
-module.exports = StickyTableHeaders = StickyTableHeaders
-module.exports.hx = {
-  StickyTableHeaders: StickyTableHeaders
+export {
+  StickyTableHeaders
 }

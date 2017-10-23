@@ -424,4 +424,6 @@
   --notice-contrast-body-background-color: white;
   --notice-contrast-body-text-color: var(--theme-text-dark-color);
 
+  /* Sticky Table Headers */
+  --sticky-table-headers-scroll-indicator-shadow-color: rgba(0,0,0,0.5);
 }

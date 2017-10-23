@@ -1,4 +1,4 @@
-import { select, div, Selection } from 'selection/main'
+import { select, div, button, Selection } from 'selection/main'
 import { autocompletePicker, AutocompletePicker } from 'autocomplete-picker/main'
 import { Menu } from 'menu/main'
 import { Dropdown, config as dropdownConfig } from 'dropdown/main'
@@ -20,11 +20,6 @@ export default ->
 
     clock = undefined
     fixture = undefined
-
-    fakeEvent = {
-      # fake some dom event stuff
-      stopPropagation: ->
-    }
 
     dropdownAnimationWait = 200
     inputDebounceWait = 200
@@ -49,13 +44,20 @@ export default ->
       logger.warn.reset()
       dropdownConfig.attachToSelector = origDropdownAttachSelector
       logger.warn = origLoggerWarning
+      chai.spy.restore()
 
     testAutocomplete = (openAutocomplete, items, options, test) ->
-      button = fixture.append('div').node()
-      ap = new AutocompletePicker(button, items, options)
+      btn = button('hx-btn')
+      fixture.add(btn)
+      ap = new AutocompletePicker(btn, items, options)
       logger.warn.should.not.have.been.called()
       if openAutocomplete
-        emit(button, 'click', fakeEvent)
+        fakeEvent = {
+          # fake some dom event stuff
+          stopPropagation: ->
+        }
+
+        emit(btn, 'click', fakeEvent)
         unless options?.disabled
           ap._.menu.dropdown.isOpen().should.equal(true)
         clock.tick(dropdownAnimationWait)
@@ -105,6 +107,7 @@ export default ->
       items = chai.spy()
       testOpenAutocomplete items, {disabled: true}, (ap) ->
         items.should.not.have.been.called()
+      chai.spy.restore()
 
 
     it 'should use the default renderer function if a valueLookup is defined', ->
@@ -115,10 +118,11 @@ export default ->
 
 
     it 'should correctly class the button', ->
-      button = fixture.append('div').class('bob')
-      ap = new AutocompletePicker(button.node(), trivialItems, {buttonClass: 'steve'})
+      btn = button('bob')
+      fixture.add(btn)
+      ap = new AutocompletePicker(btn, trivialItems, {buttonClass: 'steve'})
       logger.warn.should.not.have.been.called()
-      button.classed('bob hx-autocomplete-picker hx-btn steve').should.equal(true)
+      btn.classed('bob hx-autocomplete-picker hx-btn steve').should.equal(true)
 
 
     it 'should correctly set the renderer option', ->
@@ -143,6 +147,12 @@ export default ->
         input = document.activeElement
         input.value = 'a'
         ap.hide()
+
+        fakeEvent = {
+          # fake some dom event stuff
+          stopPropagation: ->
+        }
+
         emit(ap._.selection.node(), 'click', fakeEvent)
         input.value.should.equal('')
 
@@ -468,8 +478,9 @@ export default ->
 
 
       it 'should emit the dropdown events with the "dropdown." prefix', ->
-        button = fixture.append('div').node()
-        ap = new AutocompletePicker(button, trivialItems)
+        btn = button('hx-btn')
+        fixture.add(btn)
+        ap = new AutocompletePicker(btn, trivialItems)
         logger.warn.should.not.have.been.called()
 
         change = chai.spy()
@@ -484,7 +495,12 @@ export default ->
         ap.on 'dropdown.showend', showend
         ap.on 'dropdown.showstart', showstart
 
-        emit(button, 'click', fakeEvent)
+        fakeEvent = {
+          # fake some dom event stuff
+          stopPropagation: ->
+        }
+
+        emit(btn, 'click', fakeEvent)
         change.should.have.been.called.with(true)
         showstart.should.have.been.called()
 
