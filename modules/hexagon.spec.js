@@ -47,6 +47,7 @@ import dragContainerTests from './drag-container/test/spec'
 import progressBarTests from './progress-bar/test/spec'
 import crumbtrailTests from './crumbtrail/test/spec'
 // import autocompletePickerTests from './autocomplete-picker/test/spec'
+import plotTests from './plot/test/spec'
 
 should()
 
@@ -269,6 +270,7 @@ describe('HexagonJS Test Suite', () => {
   progressBarTests()
   crumbtrailTests()
   // autocompletePickerTests()
+  plotTests()
 
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')
