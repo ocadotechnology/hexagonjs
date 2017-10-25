@@ -4,6 +4,7 @@ import { userFacingText } from 'user-facing-text/main'
 import utilsTests from './utils.spec'
 import pieChartTests from './pie-chart.spec'
 import sparklineTests from './sparkline.spec'
+import seriesTests from './series.spec'
 
 export default () ->
   describe "plot", ->
@@ -13,6 +14,7 @@ export default () ->
     utilsTests()
     pieChartTests()
     sparklineTests()
+    seriesTests()
 
     # require('./graph.spec')
     # require('./axis.spec')
