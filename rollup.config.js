@@ -25,12 +25,8 @@ const libraryConfig = {
   name: 'hx',
   plugins: [
     json(),
-    buble({
-      exclude: ['**/*.coffee', '**/*.json']
-    }),
-    coffee({
-      exclude: ['**/*.js', '**/*.json']
-    }),
+    coffee(),
+    buble(),
     includePaths(includePathOptions),
     progress(progressOptions)
   ]
@@ -49,12 +45,8 @@ const testConfig = {
   },
   plugins: [
     json(),
-    buble({
-      exclude: ['**/*.coffee', '**/*.json']
-    }),
-    coffee({
-      exclude: ['**/*.js', '**/*.json']
-    }),
+    coffee(),
+    buble(),
     includePaths(includePathOptions),
     progress(progressOptions)
   ]
@@ -73,12 +65,8 @@ const testCoverageConfig = {
   },
   plugins: [
     json(),
-    buble({
-      exclude: ['**/*.coffee']
-    }),
-    coffee({
-      exclude: ['**/*.js']
-    }),
+    coffee(),
+    buble(),
     istanbul({
       exclude: ['test/**/*', '**/*spec*'],
       reporters: ['coverage'],
@@ -112,12 +100,8 @@ const demoConfig = {
   name: 'hx',
   plugins: [
     json(),
-    coffee({
-      exclude: ['**/*.js', '**/*.json']
-    }),
-    buble({
-      exclude: ['**/*.coffee', '**/*.json']
-    }),
+    coffee(),
+    buble(),
     resolveHexagon(),
     includePaths(includePathOptions),
     progress(progressOptions)
