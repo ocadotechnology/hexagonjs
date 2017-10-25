@@ -204,7 +204,7 @@ class MenuItem
 
 export class Menu extends EventEmitter
   constructor: (@selector, options = {}) ->
-    super
+    super()
 
     @options = mergeDefined({
       dropdownOptions: {

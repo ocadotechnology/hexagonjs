@@ -2,7 +2,7 @@
 
 class MorphSection extends hx.EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
     hx.component.register(@selector, this)
 
     @options = hx.merge.defined {

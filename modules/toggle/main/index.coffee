@@ -4,7 +4,7 @@ import { mergeDefined } from 'utils/main'
 
 class Toggle extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
     @options = mergeDefined({
       value: false

@@ -38,7 +38,7 @@ fileListToMap = (fileList, acceptedExtensions, emitter, options) ->
 
 class FileInput extends hx.EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
     hx.component.register(@selector, this)
     self = this
 

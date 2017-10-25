@@ -24,7 +24,7 @@ onTabSelected = (tabs, element, i, cause) ->
 class Tabs extends hx.EventEmitter
 
   constructor: (@selector, options) ->
-    super
+    super()
 
     defaultRenderer = (node, value) -> hx.select(node).text(value)
 

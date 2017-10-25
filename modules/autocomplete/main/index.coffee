@@ -178,10 +178,10 @@ showAutocomplete = ->
   buildAutocomplete.call this, @_.input.value() or ''
 
 
-export class Autocomplete extends EventEmitter
+class Autocomplete extends EventEmitter
 
   constructor: (@selector, @data, @options = {}) ->
-    super
+    super()
 
     @_ = _ = {}
 
@@ -393,7 +393,12 @@ export class Autocomplete extends EventEmitter
       _.cleanUp = true
     this
 
-export autocomplete = (data, options) ->
+autocomplete = (data, options) ->
   selection = detached('input')
   new Autocomplete(selection, data, options)
   selection
+
+export {
+  autocomplete,
+  Autocomplete
+}

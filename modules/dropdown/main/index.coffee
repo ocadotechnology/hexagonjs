@@ -59,7 +59,7 @@ dropdownContentToSetupDropdown = (dropdownContent) ->
 export class Dropdown extends EventEmitter
 
   constructor: (selector, dropdownContent, options) ->
-    super
+    super()
 
     # XXX [2.0.0]: this should not be part of the public api (but should use setterGetter methods instead)
     # it has been documented so will have to stay here for the 1.x.x series (it should be removed in 2.0.0)

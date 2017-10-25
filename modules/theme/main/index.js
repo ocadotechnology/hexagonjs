@@ -16,4 +16,6 @@ function theme (t) {
   }
 }
 
-export { theme }
+export {
+  theme
+}

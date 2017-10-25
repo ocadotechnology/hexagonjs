@@ -41,7 +41,7 @@ updateTimePicker = (timepicker, suppress) ->
 
 class TimePicker extends EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
 
     @options = utils.merge {
       showSeconds: false

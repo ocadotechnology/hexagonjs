@@ -146,7 +146,7 @@ defaultTimezoneList = [
   'UTC+14:00'
 ]
 
-export LocalStoragePreferencesStore = {
+LocalStoragePreferencesStore = {
   save: (prefs, cb) -> localStorage.setItem('hx_preferences', prefs); cb()
   load: (cb) -> cb(undefined, localStorage.getItem('hx_preferences'))
 }
@@ -154,7 +154,7 @@ export LocalStoragePreferencesStore = {
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
 zeroPad = format.zeroPad(2)
-export defaultTimezoneLookup = (offset) ->
+defaultTimezoneLookup = (offset) ->
   modifier = if offset > 0 then '-' else '+'
   absOffset = Math.abs(offset)
   minutes = absOffset % 60
@@ -163,7 +163,7 @@ export defaultTimezoneLookup = (offset) ->
 
 class Preferences extends EventEmitter
   constructor: ->
-    super
+    super()
 
     setupModal = (element) =>
       locale = @locale()
@@ -327,4 +327,10 @@ class Preferences extends EventEmitter
     @_.modal.show()
     this
 
-export preferences = new Preferences
+preferences = new Preferences
+
+export {
+  LocalStoragePreferencesStore,
+  defaultTimezoneLookup,
+  preferences
+}

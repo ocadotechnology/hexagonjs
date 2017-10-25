@@ -52,7 +52,7 @@ class Position
 
 class ColorPicker extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
     @options = utils.merge.defined {
       startColor: '#000'

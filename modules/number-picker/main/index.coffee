@@ -39,7 +39,7 @@ addHoldHandler = (incrementOnHold, incrementDelay, selection, incrementFn) ->
 
 export class NumberPicker extends EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
 
     @options = mergeDefined({
       buttonClass: ''

@@ -32,7 +32,7 @@ setValue = (picker, value, items, cause = 'api') ->
 
 export class Picker extends EventEmitter
   constructor: (selector, options = {}) ->
-    super
+    super()
 
     resolvedOptions = mergeDefined({
       dropdownOptions: {},

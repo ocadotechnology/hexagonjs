@@ -7,7 +7,7 @@ preferences = require('modules/preferences/main')
 
 export class DateTimePicker extends EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
 
     @options = utils.merge({
       datePickerOptions: {}

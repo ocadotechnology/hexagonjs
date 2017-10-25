@@ -215,7 +215,7 @@ export initMorphs = () ->
 
   class Delay extends EventEmitter
     constructor: (duration) ->
-      super
+      super()
       @timeout = setTimeout((=> @emit('end')), duration)
 
     cancel: => clearTimeout(@timeout)

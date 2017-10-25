@@ -1,6 +1,6 @@
 class SideCollapsible extends hx.EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
     hx.component.register(selector, this)
 

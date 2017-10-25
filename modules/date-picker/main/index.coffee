@@ -347,7 +347,7 @@ updateDatepicker = (datepicker, suppress) ->
 
 class DatePicker extends EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
 
     self = this
 

@@ -5,7 +5,7 @@ import { select, selectAll } from 'selection/main'
 export class Collapsible extends EventEmitter
 
   constructor: (selector, options) ->
-    super
+    super()
 
     @options = mergeDefined({
       lazyContent: undefined

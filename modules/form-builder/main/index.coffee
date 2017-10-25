@@ -6,7 +6,7 @@ hx.userFacingText({
 
 class Form extends hx.EventEmitter
   constructor: (@selector) ->
-    super
+    super()
     hx.component.register(@selector, this)
 
     @formId = "form-"+hx.randomId() + '-'

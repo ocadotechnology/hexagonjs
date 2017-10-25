@@ -16,7 +16,7 @@ animateState = {
 # works on the single node given
 class Animation extends EventEmitter
   constructor: (@node, @ease=ease.linear) ->
-    super
+    super()
     @cancelers = []
     @remaining = 0
 
@@ -66,13 +66,13 @@ class Animation extends EventEmitter
       canceler()
     this
 
-export animate = (node, ease) -> new Animation(node, ease)
+animate = (node, ease) -> new Animation(node, ease)
 
 # class for chaining animations and things together
 class Morph extends EventEmitter
 
   constructor: (@node, @trigger, start, cancellers) ->
-    super
+    super()
     @actions = []
     @start = start or (=> perform.call(this))
     @cancelers = cancellers or []
@@ -197,10 +197,18 @@ class Morph extends EventEmitter
           obj.morphs = []
     this
 
-export morph = (node) -> new Morph(node)
-export registerMorph = (name, morph) ->
+morph = (node) -> new Morph(node)
+
+registerMorph = (name, morph) ->
   animateState.morphs.set(name, morph)
 
-export initAnimate = ->
+initAnimate = ->
   Selection::animate = (ease) -> animate(@nodes[0], ease)
   Selection::morph = -> new Morph(@nodes[0])
+
+export {
+  animate,
+  morph,
+  registerMorph,
+  initAnimate
+}

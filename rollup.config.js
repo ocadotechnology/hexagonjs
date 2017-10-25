@@ -1,4 +1,3 @@
-// import commonjs from 'rollup-plugin-commonjs'
 import coffee from 'rollup-plugin-coffee-script'
 import includePaths from 'rollup-plugin-includepaths'
 import buble from 'rollup-plugin-buble'

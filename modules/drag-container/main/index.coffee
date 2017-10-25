@@ -171,7 +171,7 @@ containerChildren = (container) ->
 
 class DragContainer extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
     @selection = select(selector)
       .classed('hx-drag-container', true)
         .api(this)

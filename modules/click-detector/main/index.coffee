@@ -3,9 +3,9 @@ import { randomId } from 'utils/main'
 import { List as HList } from 'list/main'
 import { select } from 'selection/main'
 
-export class ClickDetector extends EventEmitter
+class ClickDetector extends EventEmitter
   constructor: ->
-    super
+    super()
     @eventId = randomId()
     @exceptions = new HList
 
@@ -51,3 +51,7 @@ export class ClickDetector extends EventEmitter
     select(document).off('pointerdown', 'hx.click-detector.' + @eventId, @downAction)
     select(document).off('pointerup', 'hx.click-detector.' + @eventId, @upAction)
     this
+
+export {
+  ClickDetector
+}

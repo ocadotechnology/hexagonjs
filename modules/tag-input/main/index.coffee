@@ -25,7 +25,7 @@ createFilteredData = (filterFn, data) ->
 class TagInput extends EventEmitter
 
   constructor: (@selector, options) ->
-    super
+    super()
 
     _ = @_ = {}
 

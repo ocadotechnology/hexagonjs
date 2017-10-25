@@ -2,7 +2,7 @@ import { EventEmitter } from 'event-emitter/main'
 import { select, detached } from 'selection/main'
 import { merge, mergeDefined } from 'utils/main'
 
-export class Modal extends EventEmitter
+class Modal extends EventEmitter
 
   closeModal = (modal, event) ->
     body = select('body').classed('hx-modal-open', false)
@@ -13,7 +13,7 @@ export class Modal extends EventEmitter
     modal.emit('hideend')
 
   constructor: (@title, @setup, options) ->
-    super
+    super()
 
     @options = merge {
       closeWithShadeEnabled: true,
@@ -110,7 +110,7 @@ getHeaderRender = (titleClass) ->
       .add(title)
       .add(button)
 
-export modalDialog = (title, message, callback, options) ->
+modalDialog = (title, message, callback, options) ->
   options = mergeDefined {
     callback: undefined
     buttons: [
@@ -137,7 +137,7 @@ export modalDialog = (title, message, callback, options) ->
   modal.on 'hide', 'hx.modal', (d) -> if d.cause isnt 'api' then callback()
   modal.show()
 
-export modalInput = (title, message, callback, options) ->
+modalInput = (title, message, callback, options) ->
   options = mergeDefined {
     value: ''
   }, options
@@ -160,3 +160,10 @@ export modalInput = (title, message, callback, options) ->
   }
   modal.on 'close', 'hx.modal', (d) -> if d.cause isnt 'api' then callback()
   modal.show()
+
+export {
+  Modal,
+  modal,
+  modalDialog,
+  modalInput
+}

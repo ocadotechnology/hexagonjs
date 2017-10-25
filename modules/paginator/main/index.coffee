@@ -54,7 +54,7 @@ select = (paginator, page, cause) ->
 
 class Paginator extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
     @container = select(selector)
       .classed('hx-paginator', true)

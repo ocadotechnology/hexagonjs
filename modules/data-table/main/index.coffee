@@ -290,7 +290,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
 
 class DataTable extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
     resolvedOptions = utils.merge({
       allowHeaderWrap: false

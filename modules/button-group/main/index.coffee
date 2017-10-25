@@ -4,7 +4,7 @@ import { EventEmitter } from 'event-emitter/main'
 
 class ButtonGroup extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
     self = this
 
     @options = mergeDefined({

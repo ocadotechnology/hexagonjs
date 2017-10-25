@@ -144,7 +144,7 @@ renderValues = ->
 
 class Slider extends EventEmitter
   constructor: (@selector, options = {}) ->
-    super
+    super()
 
     @options = utils.merge({
       type: 'slider'

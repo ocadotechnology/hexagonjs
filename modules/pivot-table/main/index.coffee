@@ -46,7 +46,7 @@ createTableView = (table, head, body) ->
 
 class PivotTable extends hx.EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
     self = this
     hx.component.register(@selector, this)
 
