@@ -4,7 +4,7 @@ import { EventEmitter } from 'event-emitter/main'
 import { shallowMerge, randomId, clampUnit, clamp, flatten, isObject } from 'utils/main'
 import { List as HList } from 'list/main'
 
-import { optionSetterGetter } from './utils'
+import { optionSetterGetter, boundLabel } from './utils'
 import { Axis } from './axis'
 
 userFacingText({
@@ -205,7 +205,7 @@ class Graph extends EventEmitter
     @width = Number(selection.width())
     @height = Number(selection.height())
 
-    if @width <= 0 or @height <= 0 then return
+    # if @width <= 0 or @height <= 0 then return
 
     hasData = @axes().some (axis) ->
       axis.series().some (series) ->

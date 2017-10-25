@@ -6,6 +6,7 @@ import pieChartTests from './pie-chart.spec'
 import sparklineTests from './sparkline.spec'
 import seriesTests from './series.spec'
 import axisTests from './axis.spec'
+import graphTests from './graph.spec'
 
 export default () ->
   describe "plot", ->
@@ -17,6 +18,4 @@ export default () ->
     sparklineTests()
     seriesTests()
     axisTests()
-
-    # require('./graph.spec')
-    # require('./axis.spec')
+    graphTests()
