@@ -1,15 +1,15 @@
-EventEmitter = require('modules/event-emitter/main')
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
-format = require('modules/format/main')
-theme = require('modules/theme/main')()
+import { EventEmitter } from 'event-emitter/main'
+import { select, div } from 'selection/main'
+import { sum, merge, clamp, flatten } from 'utils/main'
+import { format } from 'format/main'
+import { theme } from 'theme/main'
 
-labels = require('./labels')
-graphutils = require('./utils')
+import { plotLabelStandard } from './labels'
+import { optionSetterGetter } from './utils'
 
 # not part of the core graphing api, since polar coordinates are difficult to mix with axes
 
-module.exports = class PieChart extends EventEmitter
+class PieChart extends EventEmitter
 
   defaultLabelValuesExtractor = (segment, ring, pie) ->
     [
@@ -21,12 +21,12 @@ module.exports = class PieChart extends EventEmitter
     ]
 
   defaultSegmentTextFormatter = (segment, segments) ->
-    if segment.size / utils.sum(segments.map((s) -> s.size)) > 0.05 then segment.size else ''
+    if segment.size / sum(segments.map((s) -> s.size)) > 0.05 then segment.size else ''
 
   defaultLabelFormatter = format.si(2)
 
   constructor: (@selector, options) ->
-    super
+    super()
 
     selection = select(@selector)
       .classed('hx-pie-chart', true)
@@ -34,15 +34,15 @@ module.exports = class PieChart extends EventEmitter
       .api(this)
 
     @_ = {
-      options: utils.merge({
+      options: merge({
         segmentPadding: 0
         innerPadding: 0
         ringPadding: 0.1
         totalAngle: Math.PI * 2
         startAngle: 0
-        fillColor: theme.plotColor1
+        fillColor: theme().plotColor1
         labelsEnabled: true
-        labelRenderer: labels.standard
+        labelRenderer: plotLabelStandard
         labelValuesExtractor: defaultLabelValuesExtractor
         labelFormatter: defaultLabelFormatter
         segmentTextEnabled: false
@@ -53,32 +53,32 @@ module.exports = class PieChart extends EventEmitter
     }
 
 
-  labelsEnabled: graphutils.optionSetterGetter('labelsEnabled')
-  legendEnabled: graphutils.optionSetterGetter('legendEnabled')
-  legendLocation: graphutils.optionSetterGetter('legendLocation')
-  fillColor: graphutils.optionSetterGetter('fillColor')
-  segmentTextEnabled: graphutils.optionSetterGetter('segmentTextEnabled')
-  segmentTextFormatter: graphutils.optionSetterGetter('segmentTextFormatter')
-  labelValuesExtractor: graphutils.optionSetterGetter('labelValuesExtractor')
-  labelFormatter: graphutils.optionSetterGetter('labelFormatter')
-  labelRenderer: graphutils.optionSetterGetter('labelRenderer')
+  labelsEnabled: optionSetterGetter('labelsEnabled')
+  legendEnabled: optionSetterGetter('legendEnabled')
+  legendLocation: optionSetterGetter('legendLocation')
+  fillColor: optionSetterGetter('fillColor')
+  segmentTextEnabled: optionSetterGetter('segmentTextEnabled')
+  segmentTextFormatter: optionSetterGetter('segmentTextFormatter')
+  labelValuesExtractor: optionSetterGetter('labelValuesExtractor')
+  labelFormatter: optionSetterGetter('labelFormatter')
+  labelRenderer: optionSetterGetter('labelRenderer')
 
-  segmentPadding: graphutils.optionSetterGetter('segmentPadding')
-  innerPadding: graphutils.optionSetterGetter('innerPadding')
-  ringPadding: graphutils.optionSetterGetter('ringPadding')
-  totalAngle: graphutils.optionSetterGetter('totalAngle')
-  startAngle: graphutils.optionSetterGetter('startAngle')
+  segmentPadding: optionSetterGetter('segmentPadding')
+  innerPadding: optionSetterGetter('innerPadding')
+  ringPadding: optionSetterGetter('ringPadding')
+  totalAngle: optionSetterGetter('totalAngle')
+  startAngle: optionSetterGetter('startAngle')
 
-  data: graphutils.optionSetterGetter('data')
+  data: optionSetterGetter('data')
 
   calculateTotal = (segments) ->
     allZero = false
-    preTotal = utils.sum(segments.map((x) -> x.size))
+    preTotal = sum(segments.map((x) -> x.size))
     total = if preTotal is 0
       allZero = true
       segments.length
     else
-      utils.sum(segments.map((x) -> getSegmentSize(x, preTotal)))
+      sum(segments.map((x) -> getSegmentSize(x, preTotal)))
     {
       total: total,
       allZero: allZero
@@ -111,9 +111,9 @@ module.exports = class PieChart extends EventEmitter
       when totalAngle is P and startAngle % (P / 2) is 0
         switch
           when startAngle is 0 or startAngle % (2 * P) is 0 or startAngle % P is 0
-            r = utils.clamp(0, height / 2,r * 2)
+            r = clamp(0, height / 2,r * 2)
           when startAngle % (P * (3 / 2)) is 0 or startAngle % (P / 2) is 0
-            r = utils.clamp(0, width / 2,r * 2)
+            r = clamp(0, width / 2,r * 2)
         switch
           when startAngle is 0 or startAngle % (2 * P) is 0
             diffX =  - r / 2
@@ -288,7 +288,7 @@ module.exports = class PieChart extends EventEmitter
       data = @data()
       if not Array.isArray(data)
         data = [data]
-      populateLegendSeries(legendContainer, utils.flatten(data.map((d) -> d.segments)))
+      populateLegendSeries(legendContainer, flatten(data.map((d) -> d.segments)))
 
       switch @legendLocation()
         when 'top-left'
@@ -329,7 +329,7 @@ module.exports = class PieChart extends EventEmitter
       return
 
     # find out which ring we are in
-    whichRing = utils.clamp(0, data.length - 1, Math.floor((r + pie.ringPadding() * ringSize / 2 - innerRadius) / ringSize))
+    whichRing = clamp(0, data.length - 1, Math.floor((r + pie.ringPadding() * ringSize / 2 - innerRadius) / ringSize))
     ring = data[whichRing]
 
     # find out which segment we are in
@@ -402,3 +402,13 @@ module.exports = class PieChart extends EventEmitter
       .view('.hx-plot-label', 'div')
         .update(updateLabel)
         .apply(if bestMeta then bestMeta else [])
+
+pieChart = (options) ->
+  selection = div()
+  pieChart = new PieChart(selection.node(), options)
+  selection
+
+export {
+  pieChart,
+  PieChart
+}

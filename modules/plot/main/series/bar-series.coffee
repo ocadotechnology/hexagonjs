@@ -1,23 +1,23 @@
-Series = require('../series')
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
-theme = require('modules/theme/main')()
+import { Series } from '../series'
+import { select } from 'selection/main'
+import { merge, find, clamp } from 'utils/main'
+import { theme } from 'theme/main'
 
-graphutils = require('../utils')
+import { optionSetterGetter } from '../utils'
 
-module.exports = class BarSeries extends Series
+class BarSeries extends Series
 
   constructor: (options) ->
-    super(utils.merge({
-      fillColor: theme.plotColor2,
+    super(merge({
+      fillColor: theme().plotColor2,
       group: undefined
     }, options))
 
     @_.type = 'bar'
 
 
-  fillColor: graphutils.optionSetterGetter('fillColor')
-  group: graphutils.optionSetterGetter('group')
+  fillColor: optionSetterGetter('fillColor')
+  group: optionSetterGetter('group')
 
   legendColor: -> @_.options.fillColor
 
@@ -71,7 +71,7 @@ module.exports = class BarSeries extends Series
       xx = @axis.xScale.inverse(x)
       yy = @axis.yScale.inverse(y)
 
-      barData = utils.find(@data(), (d) -> d.x == xx)
+      barData = find(@data(), (d) -> d.x == xx)
 
       # XXX: this only works for vertically stacked bars
 
@@ -94,7 +94,7 @@ module.exports = class BarSeries extends Series
 
           min = Math.min(barY, @axis.yScale.apply(0))
           max = Math.max(barY, barY + height)
-          yy = utils.clamp(min, max, @axis.yScale.apply(yy))
+          yy = clamp(min, max, @axis.yScale.apply(yy))
 
           meta = {
             series: this,
@@ -111,3 +111,7 @@ module.exports = class BarSeries extends Series
         []
     else
       []
+
+export {
+  BarSeries
+}

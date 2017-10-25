@@ -1,4 +1,4 @@
-Axis = require('../main/axis')
+import { Axis } from '../main/axis'
 
 describe "Axis", ->
 

@@ -1,5 +1,3 @@
-module.exports = {
-  tickSize: 6
-  labelOffset: 10,
-  axisPadding: 4
-}
+export tickSize = 6
+export labelOffset = 10
+export axisPadding = 4

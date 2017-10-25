@@ -1,19 +1,13 @@
-select = require('modules/selection/main')
-color = require('modules/color/main')
-utils = require('modules/util/main/utils')
-BarSeries = require('./series/bar-series')
-LineSeries = require('./series/line-series')
-
-supportsGroup = (series) ->
-  series instanceof BarSeries or
-  series instanceof LineSeries
+import { select } from 'selection/main'
+import { color } from 'color/main'
+import { find, min, max, clamp, randomId, isFunction } from 'utils/main'
 
 doCollisionDetection = (nodesRaw) ->
   nodes = nodesRaw.map (node, index) ->
     { node, index, box: node.getBoundingClientRect() }
   reductor = (oldDistance, { index: currentIndex, box: currBox }) ->
-    previousNodes = nodes.slice 0, (currentIndex - oldDistance + 1)
-    tuple = utils.find previousNodes, ({ index: previousIndex, box: prevBox }) ->
+    previousNodes = nodes.slice(0, (currentIndex - oldDistance + 1))
+    tuple = find previousNodes, ({ index: previousIndex, box: prevBox }) ->
       currBox.left < prevBox.right
     if tuple then currentIndex - tuple.index else oldDistance
   distance = nodes.reduce reductor, 1
@@ -48,15 +42,15 @@ arcCurve = (x, y, innerRadius, outerRadius, startRadians, endRadians, padding, d
 
   pushPoints = (startPoint, endPoint, radius) ->
     radpad = pixelsToRadians(padding, radius)
-    max = Math.abs(endPoint - startPoint)
+    pmax = Math.abs(endPoint - startPoint)
     for i in [startPoint..endPoint]
       r = (radians - radpad)
       theta = if r > 0
-        startRadians + (radpad / 2) + ((i / max) * r)
+        startRadians + (radpad / 2) + ((i / pmax) * r)
       else
-        endRadians - (radpad / 2) - ((i / max) * r)
+        endRadians - (radpad / 2) - ((i / pmax) * r)
 
-      theta = utils.clamp(startRadians, endRadians, theta)
+      theta = clamp(startRadians, endRadians, theta)
       points.push {
         x: x + radius * Math.cos(theta)
         y: y + radius * Math.sin(theta)
@@ -81,23 +75,23 @@ arcCurve = (x, y, innerRadius, outerRadius, startRadians, endRadians, padding, d
 # calculates the min and max of some data using an accessor function to select the value to use
 extent = (data, f) ->
   if data.length > 0
-    min = f(data[0])
-    max = f(data[0])
+    dmin = f(data[0])
+    dmax = f(data[0])
     for d in data
-      min = utils.min([min, f(d)])
-      max = utils.max([max, f(d)])
-    [min, max]
+      dmin = min([dmin, f(d)])
+      dmax = max([dmax, f(d)])
+    [dmin, dmax]
   else
     undefined
 
 extent2 = (data, f, g) ->
   if data.length > 0
-    min = f(data[0])
-    max = f(data[0])
+    dmin = f(data[0])
+    dmax = f(data[0])
     for d in data
-      min = utils.min([min, f(d), g(d)])
-      max = utils.max([max, f(d), g(d)])
-    [min, max]
+      dmin = min([dmin, f(d), g(d)])
+      dmax = max([dmax, f(d), g(d)])
+    [dmin, dmax]
   else
     undefined
 
@@ -270,7 +264,7 @@ boundLabel = (label, graph) ->
   label
 
 createLinearGradient = (parent, values, series) ->
-  gradientId = utils.randomId()
+  gradientId = randomId()
 
   select(parent).select('.hx-linear-gradient').remove()
   linearGradient = select(parent).append('linearGradient')
@@ -303,12 +297,12 @@ populateLegendSeries = (selection, series) ->
       selection.node()
     .update (s, e, i) ->
       @select('text')
-        .text(if utils.isFunction(s.title) then s.title() else s.name)
+        .text(if isFunction(s.title) then s.title() else s.name)
         .attr('y', i*20 + 10)
         .attr('x', 15)
 
       @select('rect')
-        .text(if utils.isFunction(s.title) then s.title() else s.name)
+        .text(if isFunction(s.title) then s.title() else s.name)
         .attr('y', i*20)
         .attr('x', 0)
         .attr('width', 10)
@@ -316,7 +310,7 @@ populateLegendSeries = (selection, series) ->
         .attr('fill', if s.legendColor then s.legendColor() else s.fillColor) # XXX: the else s.fillColor is there for PieCharts... which should be fixed when pie charts are refactored
     .apply(series)
 
-  width = utils.max(selection.selectAll('text').nodes.map((node) -> node.getComputedTextLength()))
+  width = max(selection.selectAll('text').nodes.map((node) -> node.getComputedTextLength()))
 
   background.attr('width', width + 6 + 20)
   background.attr('x', -5)
@@ -333,7 +327,7 @@ optionSetterGetter = (name) ->
     else
       @_.options[name]
 
-module.exports = {
+export {
   svgCurve,
   dataAverage,
   maxTriangle,

@@ -132,6 +132,22 @@ export { crumbtrail, Crumbtrail } from 'crumbtrail/main'
 export { notice, noticeHead, noticeBody } from 'notice/main'
 export { autocompletePicker, AutocompletePicker } from 'autocomplete-picker/main'
 export { StickyTableHeaders } from 'sticky-table-headers/main'
+export {
+  graph,
+  Graph,
+  Axis,
+  pieChart,
+  PieChart,
+  sparkline,
+  Sparkline,
+  LineSeries,
+  BandSeries,
+  ScatterSeries,
+  BarSeries,
+  StraightLineSeries,
+  plotLabelStandard,
+  plotLabelBasic
+} from 'plot/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

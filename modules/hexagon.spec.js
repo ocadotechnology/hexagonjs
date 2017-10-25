@@ -199,7 +199,21 @@ describe('HexagonJS Test Suite', () => {
         'noticeBody',
         'autocompletePicker',
         'AutocompletePicker',
-        'StickyTableHeaders'
+        'StickyTableHeaders',
+        'graph',
+        'Graph',
+        'Axis',
+        'pieChart',
+        'PieChart',
+        'sparkline',
+        'Sparkline',
+        'LineSeries',
+        'BandSeries',
+        'ScatterSeries',
+        'BarSeries',
+        'StraightLineSeries',
+        'plotLabelStandard',
+        'plotLabelBasic'
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])

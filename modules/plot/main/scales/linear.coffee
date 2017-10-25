@@ -1,5 +1,5 @@
 
-module.exports = class LinearScale
+class LinearScale
 
   constructor: (@domainMin=0, @domainMax=10, @rangeMin=0, @rangeMax=10) ->
     den = (@domainMax - @domainMin)
@@ -46,3 +46,8 @@ module.exports = class LinearScale
     for i in [0...niceCount]
       d = domainStart + i * niceDomainSpacing
       [d, @apply(d)]
+
+
+export {
+  LinearScale
+}

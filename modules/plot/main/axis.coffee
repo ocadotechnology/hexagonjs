@@ -1,26 +1,42 @@
-utils = require('modules/util/main/utils')
-format = require('modules/format/main')
-select = require('modules/selection/main')
-HList = require('modules/list/main')
-HSet = require('modules/set/main')
-HMap = require('modules/map/main')
+import {
+  defined,
+  flatten,
+  groupBy,
+  identity,
+  isString,
+  max,
+  merge,
+  min,
+  sum,
+  unique
+} from 'utils/main'
+import { format } from 'format/main'
+import { select } from 'selection/main'
+import { List as HList } from 'list/main'
+import { Set as HSet } from 'set/main'
+import { Map as HMap } from 'map/main'
+import logger from 'logger/main'
 
-LinearScale = require('./scales/linear')
-DiscreteScale = require('./scales/discrete')
-DateScale = require('./scales/date')
+import { LinearScale } from './scales/linear'
+import { DiscreteScale } from './scales/discrete'
+import { DateScale } from './scales/date'
 
-Series = require('./series')
-LineSeries = require('./series/line-series')
-BandSeries = require('./series/band-series')
-ScatterSeries = require('./series/scatter-series')
-BarSeries = require('./series/bar-series')
-StraightLineSeries = require('./series/straight-line-series')
+import { Series } from './series'
+import { LineSeries } from './series/line-series'
+import { BandSeries } from './series/band-series'
+import { ScatterSeries } from './series/scatter-series'
+import { BarSeries } from './series/bar-series'
+import { StraightLineSeries } from './series/straight-line-series'
 
-graphconfig = require('./config')
-graphutils = require('./utils')
+import { labelOffset, axisPadding } from './config'
+import { extent } from './utils'
+
+supportsGroup = (series) ->
+  series instanceof BarSeries or
+  series instanceof LineSeries
 
 dimension = (axis, options) ->
-  state = utils.merge({
+  state = merge({
     scaleType: 'linear',
     visible: true,
     formatter: format.si(2)
@@ -73,11 +89,11 @@ dimension = (axis, options) ->
   }
 
 
-module.exports = class Axis
+class Axis
 
   constructor: (options) ->
 
-    opts = utils.merge({
+    opts = merge({
       x: {
         axisTickLabelPosition: 'bottom'
       },
@@ -90,11 +106,11 @@ module.exports = class Axis
       series: new HList
     }
 
-    @x = dimension(this, utils.merge({
+    @x = dimension(this, merge({
       axisTickLabelPosition: 'bottom'
     }, options?.x))
 
-    @y = dimension(this, utils.merge({
+    @y = dimension(this, merge({
       axisTickLabelPosition: 'left'
     }, options?.y))
 
@@ -117,7 +133,7 @@ module.exports = class Axis
   # possible types: line, area, area-stacked, bar, bar-stacked, scatter, constant (line)
   addSeries: (series, options) ->
 
-    if utils.isString(series)
+    if isString(series)
       series = switch series
         when 'line' then new LineSeries(options)
         when 'band' then new BandSeries(options)
@@ -125,7 +141,7 @@ module.exports = class Axis
         when 'scatter' then new ScatterSeries(options)
         when 'straight-line' then new StraightLineSeries(options)
         else
-          utils.consoleWarning(series + ' is not a valid series type')
+          logger.warn(series + ' is not a valid series type')
           undefined
       @_.series.add series
       series.axis = this
@@ -140,7 +156,7 @@ module.exports = class Axis
       series.axis = this
       series
     else
-      utils.consoleWarning(series + ' is not a valid series type')
+      logger.warn(series + ' is not a valid series type')
       return
 
   series: (series) ->
@@ -172,7 +188,7 @@ module.exports = class Axis
 
       groups = new HMap
       for series in data
-        group = if graphutils.supportsGroup(series) then series.group()
+        group = if supportsGroup(series) then series.group()
         if not groups.has(group)
           groups.set(group, new HList)
         groups.get(group).add(series)
@@ -246,10 +262,10 @@ module.exports = class Axis
           else
             undefined
         else
-          graphutils.extent(s.data(), (d) -> d.x)
-      xs = xs.filter(utils.identity)
-      xmin = utils.min(xs.map((d) -> d[0]))
-      xmax = utils.max(xs.map((d) -> d[1]))
+          extent(s.data(), (d) -> d.x)
+      xs = xs.filter(identity)
+      xmin = min(xs.map((d) -> d[0]))
+      xmax = max(xs.map((d) -> d[1]))
 
       xmin = if @x.min() is 'auto' then xmin else @x.min()
       xmax = if @x.max() is 'auto' then xmax else @x.max()
@@ -295,10 +311,10 @@ module.exports = class Axis
                     size =  bbox.height * Math.cos(alpha) + bbox.width * Math.sin(alpha)
                     xLabelTickSize = Math.max(xLabelTickSize, size)
                     if alpha is 0
-                      @attr("transform", "translate(#{-bbox.width / 2},#{graphconfig.labelOffset})")
+                      @attr("transform", "translate(#{-bbox.width / 2},#{labelOffset})")
                       .style("dominant-baseline", "hanging")
                     else
-                      @attr("transform", "translate(0,#{graphconfig.labelOffset}) rotate(#{alphaDeg})")
+                      @attr("transform", "translate(0,#{labelOffset}) rotate(#{alphaDeg})")
                   .apply(tick[0])
               .apply(getXTicks(scale))
           .apply(@xScale)
@@ -309,7 +325,7 @@ module.exports = class Axis
           .apply(this)
         xLabelTickSize += @xTitleHeight
 
-      xLabelTickSize += graphconfig.labelOffset + graphconfig.axisPadding
+      xLabelTickSize += labelOffset + axisPadding
 
     @xAxisSize = xLabelTickSize
 
@@ -356,7 +372,7 @@ module.exports = class Axis
               .update (tick) ->
                 @view('.hx-tick-text-y', 'text')
                   .update (t) ->
-                    size = @text(self.y.formatter()(t)).attr('x', -graphconfig.labelOffset).width()
+                    size = @text(self.y.formatter()(t)).attr('x', -labelOffset).width()
                     if size > yLabelTickSize then yLabelTickSize = size
                   .apply(tick[0])
               .apply(scale.ticks(self.y.tickSpacing()))
@@ -368,7 +384,7 @@ module.exports = class Axis
           .apply(this)
         yLabelTickSize += @yTitleHeight
 
-      yLabelTickSize += graphconfig.labelOffset + graphconfig.axisPadding
+      yLabelTickSize += labelOffset + axisPadding
 
     @yAxisSize = yLabelTickSize
 
@@ -452,7 +468,7 @@ module.exports = class Axis
         axisGroupSelection.view('.hx-axis-title', 'text')
           .update (d) ->
             translateX = (width+totalXOffset)/2
-            translateY = markerY + d.xAxisSize-d.xTitleHeight/2 - graphconfig.axisPadding/2
+            translateY = markerY + d.xAxisSize-d.xTitleHeight/2 - axisPadding/2
             @attr('transform', 'translate(' + translateX + ', ' + translateY + ')').text(self.x.title())
           .apply(this)
 
@@ -495,7 +511,7 @@ module.exports = class Axis
                   .update (t) -> @attr('x1', -tickSize).attr('x2', 0)
                   .apply(this)
                 @view('.hx-tick-text-y', 'text')
-                  .update (t) -> @attr('x', -graphconfig.labelOffset).text(if (i%self.y.nthTickVisible())==0 then self.y.formatter()(t) else '')
+                  .update (t) -> @attr('x', -labelOffset).text(if (i%self.y.nthTickVisible())==0 then self.y.formatter()(t) else '')
                   .apply(tick[0])
               .apply(if self.y.showTicks() then scale.ticks(self.y.tickSpacing()) else [])
           .apply(@yScale)
@@ -503,7 +519,7 @@ module.exports = class Axis
       if @y.title()
         axisGroupSelection.view('.hx-axis-title', 'text')
           .update (d) ->
-            translateX = markerX - d.yAxisSize + d.yTitleHeight/2 + graphconfig.axisPadding/2
+            translateX = markerX - d.yAxisSize + d.yTitleHeight/2 + axisPadding/2
             translateY = (height-totalYOffset)/2
             @attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(-90)').text(self.y.title())
           .apply(this)
@@ -522,7 +538,7 @@ module.exports = class Axis
   # the graph object may choose to ignore it if one of the other axes offers a better
   # alternative
   getLabelDetails: (x, y) ->
-    labels = utils.flatten @series().map (series) -> series.getLabelDetails(x, y)
+    labels = flatten @series().map (series) -> series.getLabelDetails(x, y)
     labels.filter((d) -> d)
 
   # gets the width of the stack for a particular type, group and x value (the seriesId is the series that you want to get the baseline for)
@@ -532,7 +548,7 @@ module.exports = class Axis
       for series, j in @series()
         if series._.seriesId < seriesId and series.group() == group and series._.type == type
           xs = series.getX(y)
-          if utils.defined(xs)
+          if defined(xs)
             xStack += xs
       xStack
     else Math.max(start, 0)
@@ -547,7 +563,7 @@ module.exports = class Axis
       maybeys = allSeries.map (series) ->
         if series._.seriesId < seriesId and series.group() == group and series._.type == type
           series.getY(x, xScaleType is 'discrete')
-      yStack + hx.sum maybeys.filter hx.identity
+      yStack + sum maybeys.filter identity
     else
       Math.max(start, 0)
 
@@ -558,10 +574,10 @@ module.exports = class Axis
       xScaleType = @x.scaleType()
 
       initValue = { ymin: 0, ymax: 0 }
-      types = hx.groupBy(allSeries, (d) -> d._.type)
+      types = groupBy(allSeries, (d) -> d._.type)
       stackGroups = types.map ([type, series]) ->
         type: type
-        group: hx.groupBy series, (s) -> if graphutils.supportsGroup(s) then s.group() else undefined
+        group: groupBy series, (s) -> if supportsGroup(s) then s.group() else undefined
 
 
       typeGroupReductor = (type) ->
@@ -581,17 +597,17 @@ module.exports = class Axis
             ys = maybeys.filter((d) -> d?)
 
             {
-              yymin: hx.min(ys.map((d) -> d[0]))
-              yymax: hx.max(ys.map((d) -> d[1]))
+              yymin: min(ys.map((d) -> d[0]))
+              yymax: max(ys.map((d) -> d[1]))
             }
           else
-            allX = hx.unique hx.flatten series.map (s) -> s.data().map ({ x }) -> x
+            allX = unique flatten series.map (s) -> s.data().map ({ x }) -> x
             stackHeights = allX.map (x) ->
               maybeys = series.map (series) -> series.getY x, xScaleType is 'discrete'
-              hx.sum maybeys.filter hx.identity
+              sum maybeys.filter identity
             {
-              yymin: hx.min stackHeights
-              yymax: hx.max stackHeights
+              yymin: min stackHeights
+              yymax: max stackHeights
             }
           {
             ymin: Math.min(ymin, yymin)
@@ -607,3 +623,7 @@ module.exports = class Axis
       { ymin: yminscaled, ymax: ymaxscaled }
     else
       { ymin: yMinMightBeAuto, ymax: yMaxMightBeAuto }
+
+export {
+  Axis
+}

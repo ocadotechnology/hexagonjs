@@ -1,19 +1,25 @@
-userFacingText = require('modules/user-facing-text/main')
-select = require('modules/selection/main')
-EventEmitter = require('modules/event-emitter/main')
-utils = require('modules/util/main/utils')
-HList = require('modules/list/main')
+import { userFacingText } from 'user-facing-text/main'
+import { select, div } from 'selection/main'
+import { EventEmitter } from 'event-emitter/main'
+import { shallowMerge, randomId, clampUnit, clamp, flatten, isObject } from 'utils/main'
+import { List as HList } from 'list/main'
 
-graphutils = require('./utils')
-Axis = require('./axis')
+import { optionSetterGetter } from './utils'
+import { Axis } from './axis'
 
-module.exports = class Graph extends EventEmitter
+userFacingText({
+  plot: {
+    noData: 'No Data'
+  }
+})
+
+class Graph extends EventEmitter
 
   constructor: (@selector, options) ->
-    super
+    super()
 
     @_ = {
-      options: utils.shallowMerge({
+      options: shallowMerge({
         zoomRangeStart: 0,
         zoomRangeEnd: 1,
         labelsEnabled: true,
@@ -27,7 +33,7 @@ module.exports = class Graph extends EventEmitter
 
     #XXX: move to the underscore object
 
-    id = utils.randomId()
+    id = randomId()
 
     selection = select(@selector)
       .api(this)
@@ -87,8 +93,8 @@ module.exports = class Graph extends EventEmitter
           startFactor = -threshold
         if @zoomRangeStart() == 0 and endFactor < threshold
           endFactor = threshold
-        @zoomRangeStart(utils.clampUnit(xhat + z * startFactor))
-        @zoomRangeEnd(utils.clampUnit(xhat + z * endFactor))
+        @zoomRangeStart(clampUnit(xhat + z * startFactor))
+        @zoomRangeEnd(clampUnit(xhat + z * endFactor))
         @emit('zoom', {start: @zoomRangeStart(), end: @zoomRangeEnd()})
 
         @render()
@@ -149,7 +155,7 @@ module.exports = class Graph extends EventEmitter
 
         x = e.clientX - @svgTarget.box().left - @plotArea.x1
         w = @plotArea.x2 - @plotArea.x1
-        xn = utils.clampUnit(x / w)
+        xn = clampUnit(x / w)
         xhat = zoomRangeStart + (zoomRangeEnd - zoomRangeStart) * xn
         z = 1 - delta / 600
         startFactor = (zoomRangeStart - xhat)
@@ -158,20 +164,20 @@ module.exports = class Graph extends EventEmitter
           startFactor = -threshold
         if zoomRangeStart == 0 and endFactor < threshold
           endFactor = threshold
-        @zoomRangeStart(utils.clampUnit(xhat + z * startFactor))
-        @zoomRangeEnd(utils.clampUnit(xhat + z * endFactor))
+        @zoomRangeStart(clampUnit(xhat + z * startFactor))
+        @zoomRangeEnd(clampUnit(xhat + z * endFactor))
         @emit('zoom', {start: @zoomRangeStart(), end: @zoomRangeEnd()})
 
         @render()
     options?.axes?.forEach (axis) => @addAxis axis
 
-  zoomRangeStart: graphutils.optionSetterGetter('zoomRangeStart')
-  zoomRangeEnd: graphutils.optionSetterGetter('zoomRangeEnd')
-  zoomEnabled: graphutils.optionSetterGetter('zoomEnabled')
-  labelsEnabled: graphutils.optionSetterGetter('labelsEnabled')
-  legendEnabled: graphutils.optionSetterGetter('legendEnabled')
-  legendLocation: graphutils.optionSetterGetter('legendLocation')
-  redrawOnResize: graphutils.optionSetterGetter('redrawOnResize')
+  zoomRangeStart: optionSetterGetter('zoomRangeStart')
+  zoomRangeEnd: optionSetterGetter('zoomRangeEnd')
+  zoomEnabled: optionSetterGetter('zoomEnabled')
+  labelsEnabled: optionSetterGetter('labelsEnabled')
+  legendEnabled: optionSetterGetter('legendEnabled')
+  legendLocation: optionSetterGetter('legendLocation')
+  redrawOnResize: optionSetterGetter('redrawOnResize')
 
   axes: (axes) ->
     if arguments.length > 0
@@ -204,7 +210,7 @@ module.exports = class Graph extends EventEmitter
     hasData = @axes().some (axis) ->
       axis.series().some (series) ->
         data = series.data()
-        utils.isObject(data) or data.length > 0
+        isObject(data) or data.length > 0
 
     self = this
     @svgTarget.view('.hx-plot-no-data', 'text')
@@ -281,7 +287,7 @@ module.exports = class Graph extends EventEmitter
         legendContainer = @svgTarget.append('g').class('hx-legend-container')
 
       # collect up the series and update the legend container
-      populateLegendSeries(legendContainer, utils.flatten(@axes().map((axis) -> axis.series())))
+      populateLegendSeries(legendContainer, flatten(@axes().map((axis) -> axis.series())))
 
       switch @legendLocation()
         when 'top-left'
@@ -311,10 +317,10 @@ module.exports = class Graph extends EventEmitter
     this
 
   getClosestMeta = (graph, x, y) ->
-    x = utils.clamp(graph.plotArea.x1, graph.plotArea.x2, x)
-    y = utils.clamp(graph.plotArea.y1, graph.plotArea.y2, y)
+    x = clamp(graph.plotArea.x1, graph.plotArea.x2, x)
+    y = clamp(graph.plotArea.y1, graph.plotArea.y2, y)
 
-    labels = utils.flatten graph.axes().map (axis) -> axis.getLabelDetails x, y
+    labels = flatten graph.axes().map (axis) -> axis.getLabelDetails x, y
 
     labels = labels.filter (label) ->
       graph.plotArea.x1 <= label.x <= graph.plotArea.x2 and graph.plotArea.y1 <= label.y <= graph.plotArea.y2
@@ -356,3 +362,16 @@ module.exports = class Graph extends EventEmitter
       .view('.hx-plot-label', 'div')
         .update(updateLabel)
         .apply(if bestMeta then boundLabel(bestMeta, graph) else [])
+
+
+graph = (options) ->
+  selection = div()
+  graph = new Graph(selection, options)
+  # There is no point rendering it now, the selection is of zero size.
+  # The resize event should trigger a render when the div is added to the document
+  selection
+
+export {
+  graph,
+  Graph
+}

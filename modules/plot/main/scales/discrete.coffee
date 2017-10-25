@@ -1,5 +1,5 @@
 
-module.exports = class DiscreteScale
+class DiscreteScale
 
   constructor: (@bandPadding=0.1) ->
     @domainCategories = []
@@ -33,3 +33,7 @@ module.exports = class DiscreteScale
   tickWidth: -> (@rangeMax - @rangeMin) / (@domainCategories.length) * (1 - @bandPadding)
 
   tickOffset: -> (@rangeMax - @rangeMin) / (@domainCategories.length) * @bandPadding / 2
+
+export {
+  DiscreteScale
+}

@@ -1,10 +1,9 @@
-EventEmitter = require('modules/event-emitter/main')
-labels = require('./labels')
-utils = require('modules/util/main/utils')
+import { EventEmitter } from 'event-emitter/main'
+import { merge, isString, find, defined } from 'utils/main'
+import { plotLabelStandard } from './labels'
+import { optionSetterGetter } from './utils'
 
-graphutils = require('./utils')
-
-module.exports = class Series extends EventEmitter
+class Series extends EventEmitter
 
   defaultLabelValuesExtractor = (series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) ->
     [
@@ -21,14 +20,14 @@ module.exports = class Series extends EventEmitter
     ]
 
   constructor: (options) ->
-    super
+    super()
 
     @_ = {
-      options: utils.merge({
+      options: merge({
         title: undefined,
         data: undefined,
         labelsEnabled: true,
-        labelRenderer: labels.standard,
+        labelRenderer: plotLabelStandard,
         labelInterpolated: false,
         labelFormatters: {}
         class: ''
@@ -42,12 +41,12 @@ module.exports = class Series extends EventEmitter
 
     @_.options.data ?= []
 
-  title: graphutils.optionSetterGetter('title')
-  data: graphutils.optionSetterGetter('data')
-  labelsEnabled: graphutils.optionSetterGetter('labelsEnabled')
-  labelRenderer: graphutils.optionSetterGetter('labelRenderer')
-  labelInterpolated: graphutils.optionSetterGetter('labelInterpolated')
-  labelValuesExtractor: graphutils.optionSetterGetter('labelValuesExtractor')
+  title: optionSetterGetter('title')
+  data: optionSetterGetter('data')
+  labelsEnabled: optionSetterGetter('labelsEnabled')
+  labelRenderer: optionSetterGetter('labelRenderer')
+  labelInterpolated: optionSetterGetter('labelInterpolated')
+  labelValuesExtractor: optionSetterGetter('labelValuesExtractor')
   labelFormatter: (name, value) ->
     if arguments.length > 1
       @_.options.labelFormatters[name] = value
@@ -55,22 +54,22 @@ module.exports = class Series extends EventEmitter
     else
       @_.options.labelFormatters[name]
 
-  class: graphutils.optionSetterGetter('class')
+  class: optionSetterGetter('class')
 
   getX: (y) ->
     data = @data()
-    if utils.isString(y)
-      d = utils.find data, (d) -> d.y==y
-      if utils.defined(d) then d.x else undefined
+    if isString(y)
+      d = find data, (d) -> d.y==y
+      if defined(d) then d.x else undefined
     else
       i = inefficientSearch(data, y, true, (d) -> d.y)
       data[i].x
 
   getY: (x, isDiscrete) ->
     data = @data()
-    if utils.isString(x)
-      d = utils.find data, (d) -> d.x==x
-      if utils.defined(d) then d.y else undefined
+    if isString(x)
+      d = find data, (d) -> d.x==x
+      if defined(d) then d.y else undefined
     else
       i = inefficientSearch(data, x, false, (d) -> d.x)
       if 0 <= i < data.length-1
@@ -95,3 +94,7 @@ module.exports = class Series extends EventEmitter
 
   legendColor: ->
     # Implemented by the series type - should return a colour to use for the legend
+
+export {
+  Series
+}

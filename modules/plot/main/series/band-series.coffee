@@ -1,24 +1,24 @@
-Series = require('../series')
-select = require('modules/selection/main')
-color = require('modules/color/main')
-utils = require('modules/util/main/utils')
-theme = require('modules/theme/main')()
+import { Series } from '../series'
+import { select } from 'selection/main'
+import { color } from 'color/main'
+import { merge } from 'utils/main'
+import { theme } from 'theme/main'
 
-graphutils = require('../utils')
+import { optionSetterGetter } from '../utils'
 
-module.exports = class BandSeries extends Series
+class BandSeries extends Series
   scale = (data, axis) -> {x: axis.xScale.apply(d.x), y: axis.yScale.apply(d.y)} for d in data
 
   constructor: (options) ->
-    super(utils.merge({
-      fillColor: color(theme.plotColor3).alpha(0.2).toString()
+    super(merge({
+      fillColor: color(theme().plotColor3).alpha(0.2).toString()
       sampleThreshold: 200
     }, options))
 
     @_.type = 'band'
 
-  fillColor: graphutils.optionSetterGetter('fillColor')
-  sampleThreshold: graphutils.optionSetterGetter('sampleThreshold')
+  fillColor: optionSetterGetter('fillColor')
+  sampleThreshold: optionSetterGetter('sampleThreshold')
 
   legendColor: -> @_.options.fillColor
 
@@ -64,3 +64,7 @@ module.exports = class BandSeries extends Series
         makeLabelDetails(this, point, ((d) -> d.y2), 'x', 'y2')
       ]
     else []
+
+export {
+  BandSeries
+}

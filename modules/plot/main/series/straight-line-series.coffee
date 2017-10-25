@@ -1,20 +1,20 @@
-Series = require('../series')
-utils = require('modules/util/main/utils')
-theme = require('modules/theme/main')()
+import { Series } from '../series'
+import { merge } from 'utils/main'
+import { theme } from 'theme/main'
 
-graphutils = require('../utils')
+import { optionSetterGetter } from '../utils'
 
-module.exports = class StraightLineSeries extends Series
+class StraightLineSeries extends Series
 
   constructor: (options) ->
-    super(utils.merge({
-      strokeColor: theme.plotColor5,
+    super(merge({
+      strokeColor: theme().plotColor5,
       data: {}
     }, options))
 
     @_.type = 'straight-line'
 
-  strokeColor: graphutils.optionSetterGetter('strokeColor')
+  strokeColor: optionSetterGetter('strokeColor')
 
   legendColor: -> @_.options.strokeColor
 
@@ -131,3 +131,8 @@ module.exports = class StraightLineSeries extends Series
       {x: data.x, y: y} for y in [@axis.yScale.domainMin, @axis.yScale.domainMax]
     else if data.y?
       {x: x, y: data.y} for x in [@axis.xScale.domainMin, @axis.xScale.domainMax]
+
+
+export {
+  StraightLineSeries
+}

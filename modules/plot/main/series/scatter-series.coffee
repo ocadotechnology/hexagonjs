@@ -1,26 +1,26 @@
-Series = require('../series')
-select = require('modules/selection/main')
-color = require('modules/color/main')
-utils = require('modules/util/main/utils')
+import { Series } from '../series'
+import { select } from 'selection/main'
+import { color } from 'color/main'
+import { merge } from 'utils/main'
 
-graphutils = require('../utils')
+import { optionSetterGetter } from '../utils'
 
-module.exports = class ScatterSeries extends Series
+class ScatterSeries extends Series
 
   # private functions
   filter = (data) -> data.filter((d) -> d.x!=undefined && d.y!=undefined)
   scale = (data, axis) -> {x: axis.xScale.apply(d.x), y: axis.yScale.apply(d.y), radius: d.radius, fillColor: d.fillColor, color: d.color, size: d.size} for d in data
 
   constructor: (options) ->
-    super(utils.merge({
+    super(merge({
       fillColor: ''
       radius: 2
     }, options))
 
     @_.type = 'scatter'
 
-  fillColor: graphutils.optionSetterGetter('fillColor')
-  radius: graphutils.optionSetterGetter('radius')
+  fillColor: optionSetterGetter('fillColor')
+  radius: optionSetterGetter('radius')
 
   legendColor: -> @_.options.fillColor
 
@@ -60,3 +60,8 @@ module.exports = class ScatterSeries extends Series
         [meta]
     else
       []
+
+
+export {
+  ScatterSeries
+}
