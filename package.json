@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "ajv": "^5.2.4",
-    "browser-test-runner": "^0.5.3",
+    "browser-test-runner": "^0.6.1",
     "caniuse-lite": "^1.0.30000749",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
