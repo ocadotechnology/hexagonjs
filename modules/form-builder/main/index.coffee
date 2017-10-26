@@ -54,6 +54,7 @@ class Form extends hx.EventEmitter
       if options.required then selection.attr('required', options.required)
       selection.attr(attr.type, attr.value) for attr in options.attrs
       if options.validator? then selection.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || "")
+      if options.value then selection.node().value = options.value
       {
         required: options.required
         key: options.key
@@ -70,6 +71,7 @@ class Form extends hx.EventEmitter
       if options.required then selection.attr('required', options.required)
       selection.attr(attr.type, attr.value) for attr in options.attrs
       if options.validator? then selection.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || "")
+      if options.value then selection.node().value = options.value
       {
         required: options.required
         key: options.key
@@ -113,10 +115,16 @@ class Form extends hx.EventEmitter
 
       picker.value(values[0]) unless typeof options.required is 'boolean'
 
-      if options.required
+      setValidity = () ->
         input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'))
-        picker.on 'change', 'hx.form-builder', ->
-          input.node().setCustomValidity('')
+
+      if options.required
+        setValidity()
+        picker.on 'change', 'hx.form-builder', ({ value, cause }) ->
+          if value is undefined
+            setValidity()
+          else
+            input.node().setCustomValidity('')
 
       {
         required: options.required
@@ -144,10 +152,16 @@ class Form extends hx.EventEmitter
 
       autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'
 
+      setValidity = () ->
+        input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'))
+
       if options.required
-        input.node().setCustomValidity('Please select a value from the list')
-        autocompletePicker.on 'change', 'hx.form-builder', ->
-          input.node().setCustomValidity('')
+        setValidity()
+        autocompletePicker.on 'change', 'hx.form-builder', ({ value, cause }) ->
+          if value is undefined
+            setValidity()
+          else
+            input.node().setCustomValidity('')
 
       {
         required: options.required
@@ -162,6 +176,7 @@ class Form extends hx.EventEmitter
     @add name, 'checkbox', 'input', ->
       @attr('type', 'checkbox')
       if options.required? then @attr('required', options.required)
+      if options.value then @attr('checked', true)
       {
         required: options.required
         key: options.key
@@ -178,8 +193,10 @@ class Form extends hx.EventEmitter
         selection  = @append('div').class('hx-radio-container')
         input = selection.append('input').attr('type', 'radio').attr('name', id).attr("id",id+"-"+count).value(value)
         if options.required? then input.attr('required', options.required)
+        if options.value is value then input.attr('checked', true)
         selection.append('label').attr("for", id + "-" + count).text(value)
         count += 1
+
       {
         required: options.required
         key: options.key

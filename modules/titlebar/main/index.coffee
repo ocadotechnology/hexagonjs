@@ -1,5 +1,6 @@
-import { select, selectAll, detached, div } from 'selection/main'
+import { select, selectAll, detached, div, isSelection } from 'selection/main'
 import { isString } from 'utils/main'
+import { isElement } from 'dom-utils/main'
 
 setVisibility = (show, animate=true) ->
   if not @isMobileFriendly then return
@@ -67,12 +68,10 @@ export class TitleBar
     if arguments.length > 0
       selection = selectAll('.hx-titlebar-link').classed('hx-selected', false)
       if id?
-        if isString(id)
-          @_.active = select(id).classed('hx-selected', true)
+        @_.active = if isString(id) or isElement(id) or isSelection(id)
+          select(id).classed('hx-selected', true)
         else
-          node = selection.node(id)
-          if node
-            @_.active = select(node).classed('hx-selected', true)
+          select(selection.node(id)).classed('hx-selected', true)
         this
     else
       @_.active

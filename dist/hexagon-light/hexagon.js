@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.13.0
+ Version: 1.14.0
  Theme: hexagon-light
  Modules:
    set
@@ -4416,26 +4416,28 @@ validateForm = function(form, options) {
   for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
     if (form.children[i].nodeName.toLowerCase() === 'div') {
       element = form.children[i].children[1];
-      if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
-        if (!element.checkValidity()) {
-          type = hx.select(element).attr('type');
-          errors.push({
-            message: getValidationMessage(element.validationMessage, type),
-            node: element,
-            validity: element.validity,
-            focused: focusedElement === element
-          });
-        }
-      } else {
-        input = hx.select(element).select('input').node();
-        type = hx.select(element).select('input').attr('type');
-        if (input && !input.checkValidity()) {
-          errors.push({
-            message: getValidationMessage(input.validationMessage, type),
-            node: element,
-            validity: input.validity,
-            focused: focusedElement === input
-          });
+      if (element.offsetParent !== null) {
+        if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
+          if (!element.checkValidity()) {
+            type = hx.select(element).attr('type');
+            errors.push({
+              message: getValidationMessage(element.validationMessage, type),
+              node: element,
+              validity: element.validity,
+              focused: focusedElement === element
+            });
+          }
+        } else {
+          input = hx.select(element).select('input').node();
+          type = hx.select(element).select('input').attr('type');
+          if (input && !input.checkValidity()) {
+            errors.push({
+              message: getValidationMessage(input.validationMessage, type),
+              node: element,
+              validity: input.validity,
+              focused: focusedElement === input
+            });
+          }
         }
       }
     }
@@ -6726,7 +6728,8 @@ NumberPicker = (function(superClass) {
       disabled: false,
       value: 0,
       incrementOnHold: true,
-      incrementDelay: 50
+      incrementDelay: 50,
+      step: void 0
     }, options);
     this._ = {};
     container = hx.select(this.selector);
@@ -6762,6 +6765,9 @@ NumberPicker = (function(superClass) {
     }
     if (this.options.min !== void 0) {
       this.min(this.options.min);
+    }
+    if (this.options.step !== void 0) {
+      this.step(this.options.step);
     }
     if (this.options.disabled) {
       this.disabled(this.options.disabled);
@@ -6813,10 +6819,11 @@ NumberPicker = (function(superClass) {
   };
 
   NumberPicker.prototype.increment = function() {
-    var prevValue;
+    var prevValue, step;
     if (!this.options.disabled) {
       prevValue = this.value();
-      this.value(this.value() + 1);
+      step = this.options.step || 1;
+      this.value(this.value() + step);
       if (prevValue !== this.value()) {
         this.emit('increment');
       }
@@ -6825,10 +6832,11 @@ NumberPicker = (function(superClass) {
   };
 
   NumberPicker.prototype.decrement = function() {
-    var prevValue;
+    var prevValue, step;
     if (!this.options.disabled) {
       prevValue = this.value();
-      this.value(this.value() - 1);
+      step = this.options.step || 1;
+      this.value(this.value() - step);
       if (prevValue !== this.value()) {
         this.emit('decrement');
       }
@@ -6848,6 +6856,17 @@ NumberPicker = (function(superClass) {
       return this;
     } else {
       return this.options.disabled;
+    }
+  };
+
+  NumberPicker.prototype.step = function(val) {
+    if (val != null) {
+      this.options.step = val;
+      this.selectInput.attr('step', val);
+      this.value(this.value());
+      return this;
+    } else {
+      return this.options.step;
     }
   };
 
@@ -9599,10 +9618,18 @@ svgCurve = function(data, close) {
 };
 
 arcCurveMinimumRadius = function(startRadians, endRadians, padding) {
-  var radians, theta;
+  var DELTA, radians, theta;
+  if (padding === 0) {
+    return 0;
+  }
+  DELTA = 1e-4;
   radians = endRadians - startRadians;
   theta = radians < Math.PI ? radians / 2 : Math.PI - radians / 2;
-  return padding / 2 / Math.sin(theta);
+  if (Math.abs(Math.sin(theta)) < DELTA) {
+    return 0;
+  } else {
+    return padding / 2 / Math.sin(theta);
+  }
 };
 
 arcCurve = function(x, y, innerRadius, outerRadius, startRadians, endRadians, padding, dontCurveCenter) {
@@ -14333,7 +14360,7 @@ hx.InlineMorphSection = InlineMorphSection;
 
 })();
 (function(){
-var TitleBar, setVisibility;
+var TitleBar, isElement, isSelection, setVisibility;
 
 setVisibility = function(show, animate) {
   var animateTitlebar;
@@ -14365,6 +14392,14 @@ setVisibility = function(show, animate) {
   };
   animateTitlebar(hx.select(this.selector).selectAll('.hx-titlebar-menu-icons'));
   return animateTitlebar(hx.select(this.selector).selectAll('.hx-titlebar-linkbar'));
+};
+
+isElement = function(obj) {
+  return !!(obj && obj.nodeType === 1);
+};
+
+isSelection = function(obj) {
+  return obj instanceof hx.Selection;
 };
 
 TitleBar = (function() {
@@ -14424,7 +14459,7 @@ TitleBar = (function() {
     if (arguments.length > 0) {
       selection = hx.selectAll('.hx-titlebar-link').classed('hx-selected', false);
       if (id != null) {
-        this._.active = hx.isString(id) ? hx.select(id).classed('hx-selected', true) : hx.select(selection.node(id)).classed('hx-selected', true);
+        this._.active = hx.isString(id) || isElement(id) || isSelection(id) ? hx.select(id).classed('hx-selected', true) : hx.select(selection.node(id)).classed('hx-selected', true);
         return this;
       }
     } else {
@@ -19668,6 +19703,9 @@ Form = (function(superClass) {
           };
         })(this);
       }
+      if (options.value) {
+        selection.node().value = options.value;
+      }
       return {
         required: options.required,
         key: options.key,
@@ -19707,6 +19745,9 @@ Form = (function(superClass) {
             return e.target.setCustomValidity(options.validator(e) || "");
           };
         })(this);
+      }
+      if (options.value) {
+        selection.node().value = options.value;
       }
       return {
         required: options.required,
@@ -19772,7 +19813,7 @@ Form = (function(superClass) {
       options = {};
     }
     return this.add(name, 'select', 'div', function() {
-      var elem, input, picker, pickerOptions;
+      var elem, input, picker, pickerOptions, setValidity;
       elem = this.append('button').attr('type', 'button')["class"](options.buttonClass);
       pickerOptions = hx.merge({}, options.pickerOptions);
       if (values.length > 0) {
@@ -19784,10 +19825,19 @@ Form = (function(superClass) {
       if (typeof options.required !== 'boolean') {
         picker.value(values[0]);
       }
+      setValidity = function() {
+        return input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'));
+      };
       if (options.required) {
-        input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'));
-        picker.on('change', 'hx.form-builder', function() {
-          return input.node().setCustomValidity('');
+        setValidity();
+        picker.on('change', 'hx.form-builder', function(arg) {
+          var cause, value;
+          value = arg.value, cause = arg.cause;
+          if (value === void 0) {
+            return setValidity();
+          } else {
+            return input.node().setCustomValidity('');
+          }
         });
       }
       return {
@@ -19808,7 +19858,7 @@ Form = (function(superClass) {
       options = {};
     }
     return this.add(name, 'select', 'div', function() {
-      var autocompletePicker, autocompletePickerOptions, elem, input;
+      var autocompletePicker, autocompletePickerOptions, elem, input, setValidity;
       elem = this.append('button').attr('type', 'button')["class"](options.buttonClass);
       autocompletePickerOptions = hx.merge({
         buttonClass: options.buttonClass
@@ -19822,10 +19872,19 @@ Form = (function(superClass) {
       if (typeof options.required !== 'boolean') {
         autocompletePicker.value(values[0]);
       }
+      setValidity = function() {
+        return input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'));
+      };
       if (options.required) {
-        input.node().setCustomValidity('Please select a value from the list');
-        autocompletePicker.on('change', 'hx.form-builder', function() {
-          return input.node().setCustomValidity('');
+        setValidity();
+        autocompletePicker.on('change', 'hx.form-builder', function(arg) {
+          var cause, value;
+          value = arg.value, cause = arg.cause;
+          if (value === void 0) {
+            return setValidity();
+          } else {
+            return input.node().setCustomValidity('');
+          }
         });
       }
       return {
@@ -19849,6 +19908,9 @@ Form = (function(superClass) {
       this.attr('type', 'checkbox');
       if (options.required != null) {
         this.attr('required', options.required);
+      }
+      if (options.value) {
+        this.attr('checked', true);
       }
       return {
         required: options.required,
@@ -19875,6 +19937,9 @@ Form = (function(superClass) {
         input = selection.append('input').attr('type', 'radio').attr('name', id).attr("id", id + "-" + count).value(value);
         if (options.required != null) {
           input.attr('required', options.required);
+        }
+        if (options.value === value) {
+          input.attr('checked', true);
         }
         selection.append('label').attr("for", id + "-" + count).text(value);
         count += 1;
@@ -20473,6 +20538,7 @@ Meter = (function(superClass) {
   function Meter(selector, options) {
     var _, container, innerText, randomId, selection, svg;
     Meter.__super__.constructor.call(this);
+    hx.deprecatedWarning('hx.Meter is deprecated and will be removed from Hexagon in the next major release.');
     hx.component.register(selector, this);
     this._ = _ = {};
     _.data = {

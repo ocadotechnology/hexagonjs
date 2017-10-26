@@ -104,3 +104,5 @@ export checkParents = (node, check, returnArray) ->
       if returnArray and checkNode.nodeType is 9
         return resultArr
     if returnArray then [] else false
+
+export isElement = (obj) -> !!(obj and obj.nodeType is 1)

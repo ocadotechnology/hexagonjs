@@ -42,27 +42,29 @@ export validateForm = (form, options) ->
     if form.children[i].nodeName.toLowerCase() is 'div'
       element = form.children[i].children[1]
 
-      # Deal with standard label/input pairs
-      if element.nodeName.toLowerCase() is 'input' or element.nodeName.toLowerCase() is 'textarea'
-        if not element.checkValidity()
-          type = select(element).attr('type')
-          errors.push({
-            message: getValidationMessage(element.validationMessage, type),
-            node: element,
-            validity: element.validity,
-            focused: focusedElement is element
-          })
-      else
-        # Deal with radio groups and other similar structured elements
-        input = select(element).select('input').node()
-        type  = select(element).select('input').attr('type')
-        if input and not input.checkValidity()
-          errors.push({
-            message: getValidationMessage(input.validationMessage, type),
-            node: element,
-            validity: input.validity,
-            focused: focusedElement is input
-          })
+      # Don't check the validity of hidden elements
+      if element.offsetParent isnt null
+        # Deal with standard label/input pairs
+        if element.nodeName.toLowerCase() is 'input' or element.nodeName.toLowerCase() is 'textarea'
+          if not element.checkValidity()
+            type = select(element).attr('type')
+            errors.push {
+              message: getValidationMessage element.validationMessage, type
+              node: element
+              validity: element.validity
+              focused: focusedElement is element
+            }
+        else
+          # Deal with radio groups and other similar structured elements
+          input = select(element).select('input').node()
+          type  = select(element).select('input').attr('type')
+          if input and not input.checkValidity()
+            errors.push {
+              message: getValidationMessage input.validationMessage, type
+              node: element
+              validity: input.validity
+              focused: focusedElement is input
+            }
 
   if options.showMessage and errors.length > 0
     # Show the error for the focused element (if there is one) or the first error in the form
