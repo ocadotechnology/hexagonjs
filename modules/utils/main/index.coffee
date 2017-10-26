@@ -65,21 +65,21 @@ minBy = (values, f) ->
   if not values? or values.length is 0 then return undefined
 
   if f
-    min = values[0]
-    minValue = f(min)
+    minimum = values[0]
+    minValue = f(minimum)
     for i in [1...values.length] by 1
       v = values[i]
       fv = f(v)
       if minValue is undefined or (fv isnt undefined and fv < minValue)
-        min = v
+        minimum = v
         minValue = fv
-    min
+    minimum
   else
-    min = values[0]
+    minimum = values[0]
     for v in values
-      if v isnt undefined and v < min
-        min = v
-    min
+      if v isnt undefined and v < minimum
+        minimum = v
+    minimum
 
 argmin = (values, f) ->
   if not values? or values.length is 0 then return undefined
