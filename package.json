@@ -21,7 +21,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel watch:*",
-    "watch:browser-test-runner": "browser-test-runner watch test",
+    "watch:browser-test-runner": "browser-test-runner start .",
     "watch:js": "rollup -w -c rollup.config.js",
     "watch:lib-css": "postcss modules/hexagon.css -w -c postcss.config.js -o target/hexagon.css",
     "watch:demo-css": "postcss demo/index.css -w -c postcss.config.js -o target/index.css",
