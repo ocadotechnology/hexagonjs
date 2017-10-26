@@ -234,27 +234,29 @@ export class Menu extends EventEmitter
 
     @options.dropdownOptions.ddClass = 'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
-    dropdownContent = () ->
-      container = div('hx-menu-items')
+    dropdownContainer = div('hx-menu-items')
 
-      setup = (items) ->
-        if self._.itemsChanged # We don't want to keep making lots of new menu items if the items haven't changed
-          self._.itemsChanged = false
-          setupInner(self, items, self)
-        populateNode(container.node(), self._.menuItems)
+    if options.extraContent
+      dropdownContainer.add(options.extraContent)
 
-      # Items as set by the user.
-      rawItems = self._.items
+    # Items as set by the user.
+    rawItems = self._.items
 
-      if isFunction(rawItems)
-        self._.itemsChanged = true # Items have always changed when being returned from a function
-        rawItems((items) -> setup(items))
-      else
-        setup(rawItems)
+    setup = (items) ->
+      if self._.itemsChanged # We don't want to keep making lots of new menu items if the items haven't changed
+        self._.itemsChanged = false
+        setupInner(self, items, self)
+      populateNode(dropdownContainer.node(), self._.menuItems)
 
-      return container
+    self._.setup = setup
 
-    @dropdown = new Dropdown(@selector, dropdownContent, @options.dropdownOptions)
+    if isFunction(rawItems)
+      self._.itemsChanged = true # Items have always changed when being returned from a function
+      rawItems((items) -> setup(items))
+    else
+      setup(rawItems)
+
+    @dropdown = new Dropdown(@selector, dropdownContainer, @options.dropdownOptions)
 
     @dropdown.on 'showend', =>
       if @dropdown._.dropdown?
@@ -332,6 +334,9 @@ export class Menu extends EventEmitter
     @dropdown.pipe(this, 'dropdown')
 
     if @options.disabled then @disabled(@options.disabled)
+
+  render: () ->
+    this._.setup(this.items())
 
   renderer: (f) ->
     if arguments.length > 0
