@@ -71,7 +71,9 @@ export class TitleBar
         @_.active = if isString(id) or isElement(id) or isSelection(id)
           select(id).classed('hx-selected', true)
         else
-          select(selection.node(id)).classed('hx-selected', true)
+          node = selection.node(id)
+          if node?
+            select(node).classed('hx-selected', true)
         this
     else
       @_.active
