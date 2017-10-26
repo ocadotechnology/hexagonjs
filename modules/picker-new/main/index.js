@@ -1,3 +1,4 @@
+/*
 import { EventEmitter } from 'event-emitter/main'
 import { select, div } from 'selection/main'
 import { isObject, isArray, isString, isFunction, isPromise } from 'utils/main'
@@ -78,7 +79,7 @@ class Picker extends Component {
       .api(this)
   }
 
-  /* Hides the dropdown */
+  // Hides the dropdown
   hide () {
 
   }
@@ -120,7 +121,6 @@ Component.addSetterGetters(Picker, properties)
 function render (picker) {
   const { selection } = picker[Component.private]
 
-
 }
 
 function builtInFilterExtractor (item) {
@@ -138,7 +138,7 @@ function builtInFilterExtractor (item) {
   }
 }
 
-/* Converts any of the allowed inputs for items into a function that yields a promise */
+// Converts any of the allowed inputs for items into a function that yields a promise
 function normalizeItems(items) {
   if (isArray(items)) {
     return (searchTerm) => {
@@ -166,3 +166,4 @@ export {
   picker,
   Picker
 }
+*/
