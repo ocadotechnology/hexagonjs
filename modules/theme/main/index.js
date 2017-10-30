@@ -1,11 +1,11 @@
 
 let currentTheme = {
-  plotColor1: '#000000',
-  plotColor2: '#000000',
-  plotColor3: '#000000',
-  plotColor4: '#000000',
-  plotColor5: '#000000',
-  plotColor6: '#000000'
+  plotColor1: 'rgb(177,119,190)',
+  plotColor2: 'rgb(90,155,212)',
+  plotColor3: 'rgb(241,90,113)',
+  plotColor4: 'rgb(151,195,102)',
+  plotColor5: 'rgb(250,169,91)',
+  plotColor6: 'rgb(226,212,64)'
 }
 
 function theme (t) {

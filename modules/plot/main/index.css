@@ -4,11 +4,9 @@
   font-size: 12px;
 }
 
-.hx-tick {
-  line {
-    stroke-width: 1px;
-    shape-rendering: crispEdges;
-  }
+.hx-tick line {
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
 }
 
 .hx-tick-line, .hx-axis-line {
@@ -66,7 +64,6 @@
   position: absolute;
 }
 
-// XXX: theme variables
 .hx-plot-label-details {
   transform: translate(10px, -50%);
   position: absolute;
@@ -114,10 +111,10 @@
 
 .hx-plot-label-details-left {
   transform: translateX(-100%) translateX(-10px);
+}
 
-  &.hx-plot-label-details-bottom {
-    transform: translateX(-100%) translate(-10px, -100%);
-  }
+.hx-plot-label-details-left .hx-plot-label-details-bottom {
+  transform: translateX(-100%) translate(-10px, -100%);
 }
 
 .hx-plot-label-marker {

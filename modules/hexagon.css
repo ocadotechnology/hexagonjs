@@ -426,4 +426,47 @@
 
   /* Sticky Table Headers */
   --sticky-table-headers-scroll-indicator-shadow-color: rgba(0,0,0,0.5);
+
+  /* Plot */
+
+  --plot-grid-line-color: white;
+  --plot-axis-line-color: white;
+  --plot-axis-title-text-color: white;
+  --plot-tick-line-color: white;
+  --plot-tick-text-color: white;
+  --plot-tick-text-size: white;
+  --plot-pie-segment-text-color: white;
+
+  --plot-label-background-color: white;
+  --plot-label-border-color: white;
+  --plot-label-box-shadow: white;
+  --plot-label-header-background-color: white;
+  --plot-label-header-border-color: white;
+  --plot-label-header-text-color: white;
+  --plot-label-key-text-color: white;
+  --plot-label-text-color: white;
+
+  --plot-negative-background-color: white;
+  --plot-negative-color: white;
+  --plot-negative-text-color: white;
+
+  --plot-positive-background-color: white;
+  --plot-positive-color: white;
+  --plot-positive-text-color: white;
+
+  --plot-warm-background-color: white;
+  --plot-warm-color: white;
+  --plot-warm-text-color: white;
+
+  --plot-ambient-background-color: white;
+  --plot-ambient-color: white;
+  --plot-ambient-text-color: white;
+
+  --plot-cold-background-color: white;
+  --plot-cold-color: white;
+  --plot-cold-text-color: white;
+
+  --plot-warning-background-color: white;
+  --plot-warning-color: white;
+  --plot-warning-text-color: white;
 }
