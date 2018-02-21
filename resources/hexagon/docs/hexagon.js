@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.12.0
+ Version: 1.14.0
  Theme: hexagon-light
  Modules:
    set
@@ -192,7 +192,16 @@ dx.theme = {
     "invertHoverCol": "#F2F2F2",
     "invisibleTextCol": "#575757",
     "lightTextCol": "#F3F3F3",
-    "darkTextCol": "#3D3D3D"
+    "darkTextCol": "#3D3D3D",
+    "defaultBorderCol": "darken($default-col, 10%)",
+    "actionBorderCol": "darken($action-col, 10%)",
+    "positiveBorderCol": "darken($positive-col, 10%)",
+    "warningBorderCol": "darken($warning-col, 10%)",
+    "negativeBorderCol": "darken($negative-col, 10%)",
+    "infoBorderCol": "darken($info-col, 10%)",
+    "complementBorderCol": "darken($complement-col, 10%)",
+    "contrastBorderCol": "darken($contrast-col, 10%)",
+    "invertBorderCol": "darken(#FDFDFD, 10%)"
   },
   "dropdown": {
     "spacing": "0",
@@ -344,7 +353,9 @@ dx.theme = {
     "pieSegmentTextCol": "rgba(255, 255, 255, 0.8)",
     "labelBoxShadow": "1px 1px 1px rgba(0, 0, 0, 0.25)",
     "labelHeaderBackgroundCol": "#FFFFFF",
-    "labelHeaderBorderCol": "#D0D0D0"
+    "labelHeaderBorderCol": "#D0D0D0",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D"
   },
   "buttonGroup": {},
   "picker": {},
@@ -1331,9 +1342,7 @@ dx.isFunction = function(x) {
   return typeof x === "function";
 };
 
-dx.isArray = function(x) {
-  return x instanceof Array;
-};
+dx.isArray = Array.isArray;
 
 dx.isObject = function(obj) {
   return typeof obj === 'object' && !dx.isArray(obj) && obj !== null;
@@ -4407,26 +4416,28 @@ validateForm = function(form, options) {
   for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
     if (form.children[i].nodeName.toLowerCase() === 'div') {
       element = form.children[i].children[1];
-      if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
-        if (!element.checkValidity()) {
-          type = dx.select(element).attr('type');
-          errors.push({
-            message: getValidationMessage(element.validationMessage, type),
-            node: element,
-            validity: element.validity,
-            focused: focusedElement === element
-          });
-        }
-      } else {
-        input = dx.select(element).select('input').node();
-        type = dx.select(element).select('input').attr('type');
-        if (input && !input.checkValidity()) {
-          errors.push({
-            message: getValidationMessage(input.validationMessage, type),
-            node: element,
-            validity: input.validity,
-            focused: focusedElement === input
-          });
+      if (element.offsetParent !== null) {
+        if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
+          if (!element.checkValidity()) {
+            type = dx.select(element).attr('type');
+            errors.push({
+              message: getValidationMessage(element.validationMessage, type),
+              node: element,
+              validity: element.validity,
+              focused: focusedElement === element
+            });
+          }
+        } else {
+          input = dx.select(element).select('input').node();
+          type = dx.select(element).select('input').attr('type');
+          if (input && !input.checkValidity()) {
+            errors.push({
+              message: getValidationMessage(input.validationMessage, type),
+              node: element,
+              validity: input.validity,
+              focused: focusedElement === input
+            });
+          }
         }
       }
     }
@@ -6717,7 +6728,8 @@ NumberPicker = (function(superClass) {
       disabled: false,
       value: 0,
       incrementOnHold: true,
-      incrementDelay: 50
+      incrementDelay: 50,
+      step: void 0
     }, options);
     this._ = {};
     container = dx.select(this.selector);
@@ -6753,6 +6765,9 @@ NumberPicker = (function(superClass) {
     }
     if (this.options.min !== void 0) {
       this.min(this.options.min);
+    }
+    if (this.options.step !== void 0) {
+      this.step(this.options.step);
     }
     if (this.options.disabled) {
       this.disabled(this.options.disabled);
@@ -6804,10 +6819,11 @@ NumberPicker = (function(superClass) {
   };
 
   NumberPicker.prototype.increment = function() {
-    var prevValue;
+    var prevValue, step;
     if (!this.options.disabled) {
       prevValue = this.value();
-      this.value(this.value() + 1);
+      step = this.options.step || 1;
+      this.value(this.value() + step);
       if (prevValue !== this.value()) {
         this.emit('increment');
       }
@@ -6816,10 +6832,11 @@ NumberPicker = (function(superClass) {
   };
 
   NumberPicker.prototype.decrement = function() {
-    var prevValue;
+    var prevValue, step;
     if (!this.options.disabled) {
       prevValue = this.value();
-      this.value(this.value() - 1);
+      step = this.options.step || 1;
+      this.value(this.value() - step);
       if (prevValue !== this.value()) {
         this.emit('decrement');
       }
@@ -6839,6 +6856,17 @@ NumberPicker = (function(superClass) {
       return this;
     } else {
       return this.options.disabled;
+    }
+  };
+
+  NumberPicker.prototype.step = function(val) {
+    if (val != null) {
+      this.options.step = val;
+      this.selectInput.attr('step', val);
+      this.value(this.value());
+      return this;
+    } else {
+      return this.options.step;
     }
   };
 
@@ -6914,6 +6942,7 @@ setActive = function(menu, pos, up, click) {
   if (pos >= 0) {
     allItems = getAllItems(menu);
     node = allItems[pos].node;
+    dx.select(node).classed('dx-menu-active', true);
     content = (ref1 = allItems[pos]) != null ? ref1.content : void 0;
     isEnabled = !(content != null ? content.disabled : void 0) && !(content != null ? content.unselectable : void 0);
     while ((node.offsetParent === null || !isEnabled) && !click) {
@@ -8139,7 +8168,7 @@ DatePicker = (function(superClass) {
       calendarHeader.append('button')["class"]('dx-btn dx-btn-invert dx-calendar-back').on('click', 'dx.date-picker', function() {
         return changeVis(-1);
       }).append('i')["class"]('dx-icon dx-icon-chevron-left');
-      _.calendarHeadBtn = calendarHeader.append('button')["class"]('dx-btn dx-btn-invert dx-calendar-button').on('click', 'dx.date-picker', function() {
+      _.calendarHeadBtn = calendarHeader.append('button')["class"]('dx-btn dx-btn-invert').on('click', 'dx.date-picker', function() {
         switch (_.mode) {
           case 'd':
             break;
@@ -9589,10 +9618,18 @@ svgCurve = function(data, close) {
 };
 
 arcCurveMinimumRadius = function(startRadians, endRadians, padding) {
-  var radians, theta;
+  var DELTA, radians, theta;
+  if (padding === 0) {
+    return 0;
+  }
+  DELTA = 1e-4;
   radians = endRadians - startRadians;
   theta = radians < Math.PI ? radians / 2 : Math.PI - radians / 2;
-  return padding / 2 / Math.sin(theta);
+  if (Math.abs(Math.sin(theta)) < DELTA) {
+    return 0;
+  } else {
+    return padding / 2 / Math.sin(theta);
+  }
 };
 
 arcCurve = function(x, y, innerRadius, outerRadius, startRadians, endRadians, padding, dontCurveCenter) {
@@ -14068,6 +14105,7 @@ TagInput = (function(superClass) {
       this.input.on('blur', 'dx.tag-input', (function(_this) {
         return function(event) {
           if (_this.input.value().length > 0 && !hasError()) {
+            _.userEvent = true;
             return _this.add(_this.input.value(), void 0);
           }
         };
@@ -14144,20 +14182,14 @@ TagInput = (function(superClass) {
   };
 
   TagInput.prototype.remove = function(name) {
-    var returnValue, tags;
+    var returnValue, tagsToRemove;
     if (name != null) {
-      returnValue = this.tagContainer.selectAll('.dx-tag').filter(function(d) {
+      tagsToRemove = this.tagContainer.selectAll('.dx-tag').filter(function(d) {
         return d.text() === name;
-      }).forEach((function(_this) {
-        return function(d) {
-          return _this.emit('remove', {
-            value: d.text(),
-            type: 'api'
-          });
-        };
-      })(this)).remove().length;
-    } else {
-      tags = this.tagContainer.selectAll('.dx-tag').forEach((function(_this) {
+      });
+      returnValue = tagsToRemove.size();
+      tagsToRemove.remove();
+      tagsToRemove.forEach((function(_this) {
         return function(d) {
           return _this.emit('remove', {
             value: d.text(),
@@ -14165,8 +14197,18 @@ TagInput = (function(superClass) {
           });
         };
       })(this));
-      returnValue = tags.text();
-      tags.remove();
+    } else {
+      tagsToRemove = this.tagContainer.selectAll('.dx-tag');
+      returnValue = tagsToRemove.text();
+      tagsToRemove.remove();
+      tagsToRemove.forEach((function(_this) {
+        return function(d) {
+          return _this.emit('remove', {
+            value: d.text(),
+            type: 'api'
+          });
+        };
+      })(this));
     }
     if (this.options.draggable) {
       this._.dragContainer.setup();
@@ -14318,7 +14360,7 @@ dx.InlineMorphSection = InlineMorphSection;
 
 })();
 (function(){
-var TitleBar, setVisibility;
+var TitleBar, isElement, isSelection, setVisibility;
 
 setVisibility = function(show, animate) {
   var animateTitlebar;
@@ -14350,6 +14392,14 @@ setVisibility = function(show, animate) {
   };
   animateTitlebar(dx.select(this.selector).selectAll('.dx-titlebar-menu-icons'));
   return animateTitlebar(dx.select(this.selector).selectAll('.dx-titlebar-linkbar'));
+};
+
+isElement = function(obj) {
+  return !!(obj && obj.nodeType === 1);
+};
+
+isSelection = function(obj) {
+  return obj instanceof dx.Selection;
 };
 
 TitleBar = (function() {
@@ -14389,7 +14439,7 @@ TitleBar = (function() {
     if (arguments.length > 0) {
       if (cls != null) {
         this._.cls = void 0;
-        ref = ['dx-positive', 'dx-negative', 'dx-warning', 'dx-info'];
+        ref = ['dx-action', 'dx-positive', 'dx-negative', 'dx-warning', 'dx-info'];
         for (i = 0, len = ref.length; i < len; i++) {
           d = ref[i];
           if (cls === d) {
@@ -14409,7 +14459,7 @@ TitleBar = (function() {
     if (arguments.length > 0) {
       selection = dx.selectAll('.dx-titlebar-link').classed('dx-selected', false);
       if (id != null) {
-        this._.active = dx.isString(id) ? dx.select(id).classed('dx-selected', true) : dx.select(selection.node(id)).classed('dx-selected', true);
+        this._.active = dx.isString(id) || isElement(id) || isSelection(id) ? dx.select(id).classed('dx-selected', true) : dx.select(selection.node(id)).classed('dx-selected', true);
         return this;
       }
     } else {
@@ -15836,7 +15886,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         ],
         fullWidth: true
       };
-      typePickerSel = dx.picker(typePickerOptions).classed('dx-data-table-advanced-search-type dx-section dx-fixed', true);
+      typePickerSel = dx.picker(typePickerOptions).classed('dx-btn-invert dx-data-table-advanced-search-type dx-section dx-fixed', true);
       typePickerSel.component().on('change', function(data) {
         var filter, j, leftAllButLast, leftFilterGroups, leftFilters, leftLast, newFilters, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
@@ -15869,7 +15919,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         renderer: columnRenderer,
         fullWidth: true
       };
-      columnPickerSel = dx.picker(columnPickerOptions).classed('dx-data-table-advanced-search-column dx-section dx-fixed', true);
+      columnPickerSel = dx.picker(columnPickerOptions).classed('dx-btn-invert dx-data-table-advanced-search-column dx-section dx-fixed', true);
       columnPickerSel.component().on('change', function(data) {
         var columnCriteria, criteriaItems, filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
@@ -15890,7 +15940,7 @@ createAdvancedSearchView = function(selection, dataTable, options) {
         items: ['contains'].concat(slice.call(advancedSearchCriteriaValidate(options.advancedSearchCriteria))),
         fullWidth: true
       };
-      criteriaPickerSel = dx.picker(criteriaPickerOptions).classed('dx-data-table-advanced-search-criteria dx-section dx-fixed', true);
+      criteriaPickerSel = dx.picker(criteriaPickerOptions).classed('dx-btn-invert dx-data-table-advanced-search-criteria dx-section dx-fixed', true);
       criteriaPickerSel.component().on('change', function(data) {
         var filter, leftFilterGroups, leftFilters, newFilter, prevFilters, ref, ref1, rightFilterGroups, rightFilters;
         if (data.cause === 'user') {
@@ -15993,6 +16043,7 @@ DataTable = (function(superClass) {
       singleSelection: false,
       sort: void 0,
       sortEnabled: true,
+      highlightOnHover: true,
       rowIDLookup: function(row) {
         return row.id;
       },
@@ -16239,6 +16290,8 @@ DataTable = (function(superClass) {
 
   DataTable.prototype.selectEnabled = option('selectEnabled');
 
+  DataTable.prototype.highlightOnHover = option('highlightOnHover');
+
   DataTable.prototype.singleSelection = option('singleSelection');
 
   DataTable.prototype.sort = option('sort');
@@ -16401,7 +16454,7 @@ DataTable = (function(superClass) {
       });
     };
     container = dx.detached('div')["class"]('dx-data-table-content');
-    table = container.append('table')["class"]('dx-data-table-table dx-table');
+    table = container.append('table')["class"]('dx-data-table-table dx-table').classed('dx-table-no-hover', !options.highlightOnHover);
     thead = table.append('thead')["class"]('dx-data-table-head');
     tbody = table.append('tbody')["class"]('dx-data-table-body');
     headerRow = thead.append('tr')["class"]('dx-data-table-row');
@@ -19257,7 +19310,7 @@ var DONT_PREVENT_DEFAULT_NODES, setupFastClick,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 if (dx.supports('touch')) {
-  DONT_PREVENT_DEFAULT_NODES = ['INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+  DONT_PREVENT_DEFAULT_NODES = ['INPUT', 'TEXTAREA', 'SELECT', 'LABEL', 'A'];
   setupFastClick = function(node, eventEmitter) {
     var cancel, getCoords, resetTimer, scrollTolerance, startX, startY, tapHandling, touchEndHander, touchMoveHander, touchStartHander;
     tapHandling = cancel = resetTimer = null;
@@ -19650,6 +19703,9 @@ Form = (function(superClass) {
           };
         })(this);
       }
+      if (options.value) {
+        selection.node().value = options.value;
+      }
       return {
         required: options.required,
         key: options.key,
@@ -19689,6 +19745,9 @@ Form = (function(superClass) {
             return e.target.setCustomValidity(options.validator(e) || "");
           };
         })(this);
+      }
+      if (options.value) {
+        selection.node().value = options.value;
       }
       return {
         required: options.required,
@@ -19754,7 +19813,7 @@ Form = (function(superClass) {
       options = {};
     }
     return this.add(name, 'select', 'div', function() {
-      var elem, input, picker, pickerOptions;
+      var elem, input, picker, pickerOptions, setValidity;
       elem = this.append('button').attr('type', 'button')["class"](options.buttonClass);
       pickerOptions = dx.merge({}, options.pickerOptions);
       if (values.length > 0) {
@@ -19766,10 +19825,19 @@ Form = (function(superClass) {
       if (typeof options.required !== 'boolean') {
         picker.value(values[0]);
       }
+      setValidity = function() {
+        return input.node().setCustomValidity(dx.userFacingText('form', 'pleaseSelectAValue'));
+      };
       if (options.required) {
-        input.node().setCustomValidity(dx.userFacingText('form', 'pleaseSelectAValue'));
-        picker.on('change', 'dx.form-builder', function() {
-          return input.node().setCustomValidity('');
+        setValidity();
+        picker.on('change', 'dx.form-builder', function(arg) {
+          var cause, value;
+          value = arg.value, cause = arg.cause;
+          if (value === void 0) {
+            return setValidity();
+          } else {
+            return input.node().setCustomValidity('');
+          }
         });
       }
       return {
@@ -19790,7 +19858,7 @@ Form = (function(superClass) {
       options = {};
     }
     return this.add(name, 'select', 'div', function() {
-      var autocompletePicker, autocompletePickerOptions, elem, input;
+      var autocompletePicker, autocompletePickerOptions, elem, input, setValidity;
       elem = this.append('button').attr('type', 'button')["class"](options.buttonClass);
       autocompletePickerOptions = dx.merge({
         buttonClass: options.buttonClass
@@ -19804,10 +19872,19 @@ Form = (function(superClass) {
       if (typeof options.required !== 'boolean') {
         autocompletePicker.value(values[0]);
       }
+      setValidity = function() {
+        return input.node().setCustomValidity(dx.userFacingText('form', 'pleaseSelectAValue'));
+      };
       if (options.required) {
-        input.node().setCustomValidity('Please select a value from the list');
-        autocompletePicker.on('change', 'dx.form-builder', function() {
-          return input.node().setCustomValidity('');
+        setValidity();
+        autocompletePicker.on('change', 'dx.form-builder', function(arg) {
+          var cause, value;
+          value = arg.value, cause = arg.cause;
+          if (value === void 0) {
+            return setValidity();
+          } else {
+            return input.node().setCustomValidity('');
+          }
         });
       }
       return {
@@ -19831,6 +19908,9 @@ Form = (function(superClass) {
       this.attr('type', 'checkbox');
       if (options.required != null) {
         this.attr('required', options.required);
+      }
+      if (options.value) {
+        this.attr('checked', true);
       }
       return {
         required: options.required,
@@ -19857,6 +19937,9 @@ Form = (function(superClass) {
         input = selection.append('input').attr('type', 'radio').attr('name', id).attr("id", id + "-" + count).value(value);
         if (options.required != null) {
           input.attr('required', options.required);
+        }
+        if (options.value === value) {
+          input.attr('checked', true);
         }
         selection.append('label').attr("for", id + "-" + count).text(value);
         count += 1;
@@ -20455,6 +20538,7 @@ Meter = (function(superClass) {
   function Meter(selector, options) {
     var _, container, innerText, randomId, selection, svg;
     Meter.__super__.constructor.call(this);
+    dx.deprecatedWarning('dx.Meter is deprecated and will be removed from Hexagon in the next major release.');
     dx.component.register(selector, this);
     this._ = _ = {};
     _.data = {
@@ -20854,11 +20938,12 @@ PivotTable = (function(superClass) {
       },
       useResponsive: true,
       data: void 0,
-      fullWidth: void 0
+      fullWidth: void 0,
+      highlightOnHover: true
     }, options);
     this._ = {};
     this.selection = dx.select(this.selector).classed('dx-pivot-table', true);
-    this.table = this.selection.append('table')["class"]('dx-table');
+    this.table = this.selection.append('table')["class"]('dx-table').classed('dx-table-no-hover', !this.options.highlightOnHover);
     this.tableHead = this.table.append('thead');
     this.tableBody = this.table.append('tbody');
     ref = createTableView(this, this.tableHead, this.tableBody), this.tableHeadView = ref[0], this.tableBodyView = ref[1];
