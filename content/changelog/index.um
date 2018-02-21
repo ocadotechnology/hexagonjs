@@ -421,3 +421,7 @@
     @version 1.13.0
       @description
         Add several new features and style tweaks based on UX discussion(s)
+
+    @version 1.14.0
+      @description
+        Deprecated @code[hx.Meter] and fixed a few bugs.

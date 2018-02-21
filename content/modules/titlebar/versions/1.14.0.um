@@ -1,0 +1,9 @@
+@version 1.14.0
+  @api Titlebar
+    @prototype hx.TitleBar
+      @method active
+        @bugfix
+          @description
+            Correctly allow the active element to be set using a Selection or HTMLElement
+          @issue 390
+        @param selector [String/HTMLElement]

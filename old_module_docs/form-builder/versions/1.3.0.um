@@ -11,18 +11,19 @@
         @bugfix: Fix to make the data method circular for tag input fields
           @issue 178
 
-      @method addFileInput
-        @added: New method for adding a FileInput
-          @issue 25
-        @description: Adds a @code(js)[hx.FileInput] field.
-        @arg name: The field name
-        @arg? options [Object]: The options to use when adding the FileInput.
-          @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
-            @default: false
-          @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
-            @default: false
-          @property key [String]: The property name to map the input value to when filling the form and when getting the data.
-          @property fileInputOptions [Object]
-            @description:
-              @p: The options to use for the FileInput component.
-              @p: See the @code(js)[hx.FileInput] prototype constructor for the available options.
+      @group Add Component Methods
+        @method addFileInput
+          @added: New method for adding a FileInput
+            @issue 25
+          @description: Adds a @code(js)[hx.FileInput] field.
+          @param name: The field name
+          @param? options [Object]: The options to use when adding the FileInput.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+              @default: false
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+              @default: false
+            @property key [String]: The property name to map the input value to when filling the form and when getting the data.
+            @property fileInputOptions [Object]
+              @description:
+                @p: The options to use for the FileInput component.
+                @p: See the @code(js)[hx.FileInput] prototype constructor for the available options.

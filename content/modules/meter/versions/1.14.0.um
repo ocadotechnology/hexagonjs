@@ -1,0 +1,7 @@
+@version 1.14.0
+  @api Meter
+    @prototype hx.Meter
+      @deprecated
+        @description
+          hx.Meter has been deprecated and will be removed in the next major release
+        @issue 380
