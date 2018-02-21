@@ -1,0 +1,12 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @title Hexagon.js - {{latestVersion}}
+  @description
+    A modular, themeable collection of components for modern browsers
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+
+@contentSection
+  @notice [TODO: Add better landing page]
+    This is a temporary landing page to make it easier to develop the docs

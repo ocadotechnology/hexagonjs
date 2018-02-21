@@ -6,6 +6,7 @@ const docs = require('quantum-docs')
 const codeHighlight = require('quantum-code-highlight')
 
 const entityTransforms = require('./transforms/transforms')
+const versions = require('./content/versions.json')
 
 const typeLinks = {
   'Array': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array',
@@ -77,7 +78,8 @@ const htmlOptions = {
 function customizedTemplate (file) {
   const templateOptions = {
     variables: {
-      version: file.meta.version
+      version: file.meta.version,
+      latestVersion: versions.latest
     }
   }
 
