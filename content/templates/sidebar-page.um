@@ -32,12 +32,15 @@
             @page /guide/core-concepts: Core Concepts
             @page /changelog: Changelog
 
-          @section Components
-            @page /docs/autocomplete: Autocomplete
-            @page /docs/autocomplete-picker: AutocompletePicker
+          @section CSS Modules
+            @page /docs/base: Base
             @page /docs/button: Button
 
-          @section Utils
+          @section Component Modules
+            @page /docs/autocomplete: Autocomplete
+            @page /docs/autocomplete-picker: AutocompletePicker
+
+          @section Utility Modules
             @page /docs/animate: Animate
 
           @section Tutorials

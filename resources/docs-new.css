@@ -82,6 +82,10 @@ h1, h2, h3, h4, h5, h6 {
   padding: 1em;
 }
 
+.docs-example-body {
+  line-height: normal;
+}
+
 
 .qm-docs-sidebar {
   background: #ffffff !important;

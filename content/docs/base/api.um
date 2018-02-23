@@ -1,0 +1,8 @@
+@api Base
+  @added 0.15.2
+    @description: Added classes for applying header styles to elements other than header elements (h1/h2 etc.)
+
+  @bugfix 1.13.0
+    @description: Fixed the font size inheritance for buttons
+
+  @inline api/*.um
