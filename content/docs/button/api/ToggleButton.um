@@ -1,0 +1,20 @@
+@prototype hx.ToggleButton
+  @added 0.12.10
+    @description:
+      Added a toggle button prototype to improve the usability of toggle
+      buttons.
+
+  @removed 0.15.2
+    @description
+      Moved hx.ToggleButton into it's own module (toggle-button)
+
+  @description: Creates a toggle button component
+
+  @constructor
+    @description
+    @arg selector [String/HTMLElement]: A css selector or element to use when constructing the toggle button
+    @arg? options [Object]
+      @description: The options to use when intialising the toggle buttons
+      @property value [Boolean]: The value to initialise the toggle button with. The default value depends on whether the element has the 'hx-btn-toggle-off' class. If it does, the default is false.
+
+  @inline ToggleButton/methods.um

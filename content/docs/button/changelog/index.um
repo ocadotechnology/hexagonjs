@@ -1,0 +1,12 @@
+@inline /templates/sidebar-page.um
+
+@topSection
+  @title Button Changelog
+
+@contentSection
+  @changelogList
+    @groupByApi false
+    @reverseVisibleList true
+    @process
+      @inline ../api.um
+    @inline /templates/versions.um

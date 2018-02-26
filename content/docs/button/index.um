@@ -1,0 +1,18 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @title Button
+  @description
+    Provides the default font styles and header classes
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+    @script [/resources/clicker.js]
+
+  @topic Api
+    @inline api.um
