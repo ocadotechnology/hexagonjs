@@ -1,0 +1,22 @@
+@method value
+  @description
+    Sets the currently selected item.
+
+  @arg value [Any]
+    @description
+      The value of the item to select. For objects items, this should be the
+      value of the 'value' property.
+
+  @returns ButtonGroup
+    @description
+      Returns this button group for chaining
+
+@method value
+  @description
+    Gets the currently selected item. If objects were set for the items, this
+    will return the entire object for the selected button (not just the value
+    string).
+
+  @returns Any
+    @description
+      The currently selected item.

@@ -1,0 +1,22 @@
+@method renderer
+  @description
+    A method for overriding the default button renderer.
+  @arg render [Function]
+    @inline ../arguments/renderer.um
+
+  @returns ButtonGroup
+    @description
+      Returns this button group for chaining
+
+@method renderer
+  @added 0.13.0
+    @description
+      Updated the renderer function to return the currently set renderer if no
+      arguments are provided.
+
+  @description
+    A method for getting the button renderer.
+
+  @returns Function
+    @description
+      The currently set renderer function.
