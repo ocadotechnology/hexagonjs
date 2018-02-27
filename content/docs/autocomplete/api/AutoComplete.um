@@ -1,5 +1,6 @@
 @prototype AutoComplete
   @extends EventEmitter
+
   @added 0.9.0
 
   @bugfix 1.2.1

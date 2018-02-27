@@ -4,8 +4,9 @@
     only be done by the keyboard or when the user clicks on an item
 
   @property eventType [String]
-    @description:
+    @description
       The type of event that caused the selection:
+
       @list
         @item: 'click' - User clicked
         @item: 'arrow' - User used the arrow keys

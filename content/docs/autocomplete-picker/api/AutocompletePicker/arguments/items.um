@@ -1,4 +1,3 @@
-
 @description
   The data to use for the picker. Data can be specified as an array of
   items or as a function that returns an array of items.
@@ -13,7 +12,8 @@
       "Steve"
     ]
 
-  By default, the data is expected as an array of string values. If object based data is passed in, a @code[valueLookup] must be provided in the options:
+  By default, the data is expected as an array of string values. If object
+  based data is passed in, a @code[valueLookup] must be provided in the options:
 
   @@codeblock js
     const data = [
@@ -71,8 +71,10 @@
       }
     }
 
-  The term passed in is the current value of the input field (for use as a search term).
+  The term passed in is the current value of the input field (for use as a
+  search term).
 
-  The callback is the function that should be called to pass the data back to the autocomplete picker to display.
+  The callback is the function that should be called to pass the data back to
+  the autocomplete picker to display.
 
   The callback must be called for the autocomplete picker to show.

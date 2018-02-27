@@ -1,3 +1,6 @@
 @property trimTrailingSpaces [Boolean]
-  @description: An option to enable whitespace trimming at the end of the input value if no results are found for that string
+  @description
+    An option to enable whitespace trimming at the end of the input value if
+    no results are found for that string
+
   @default: false

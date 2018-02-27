@@ -32,7 +32,11 @@
     A custom renderer can also be defined to change what displays in
     the dropdown.
 
-  @arg item [Any]: The data item passed from the AutoComplete data.
+  @arg item [Any]
+    @description
+      The data item passed from the AutoComplete data.
+
   @returns String
-    The text string to display in the input field, the dropdown and
-    to be searchable
+    @description
+      The text string to display in the input field, the dropdown and to be
+      searchable

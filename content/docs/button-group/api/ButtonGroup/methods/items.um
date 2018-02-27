@@ -7,7 +7,7 @@
 
   @returns ButtonGroup
     @description
-      Returns this button group for chaining
+      This @type[ButtonGroup] for chaining
 
 
 @method items

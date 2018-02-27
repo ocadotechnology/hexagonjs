@@ -11,5 +11,11 @@
           .text(item)
       }
 
-  @arg elem [HTMLElement]: The HTMLElement to populate
-  @arg item [Object]: The data item to populate the element with.
+  @arg elem [HTMLElement]
+    @description
+      The HTMLElement to populate
+
+  @arg item [Object]
+    @description
+      The data item to populate the element with.
+

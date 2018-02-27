@@ -2,10 +2,10 @@
 @inline /templates/versioned-page.um
 
 @topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title AutocompletePicker
   @description
     Provides a picker with an input box for finding items in the list
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
 
 @contentSection
   @added 1.4.0
@@ -83,4 +83,6 @@
 
 
   @topic Api
+    @hyperlink(/docs/autocomplete-picker/changelog)[Change Log]
+
     @inline api.um

@@ -8,4 +8,5 @@
     user types)
 
   @returns AutoComplete
-    @description: This @type[Autocomplete].
+    @description
+      This @type[AutoComplete] for chaining

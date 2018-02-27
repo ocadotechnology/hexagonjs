@@ -1,0 +1,10 @@
+@extraClass [hx-btn-[n]]
+  @deprecated 0.9.0
+    @description
+      All numbered color classes will be removed in a later version.: Use the
+      context classes instead.
+
+  @removed 0.10.0
+    @description
+      All numbered color classes have been removed. Use the context classes
+      instead.

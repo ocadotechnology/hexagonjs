@@ -1,0 +1,7 @@
+@method cancel
+  @description
+    Cancels this @type[Animation]
+
+  @returns Animation
+    @description
+      This @type[Animation] for chaining

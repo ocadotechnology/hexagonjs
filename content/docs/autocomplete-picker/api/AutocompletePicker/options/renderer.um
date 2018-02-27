@@ -5,5 +5,12 @@
     The default renderer sets the html to the item value using the valueLookup function.
 
     When overriding the renderer, the item passed to the render function is the same as the item passed in to the dataset
-  @arg elem [HTMLElement]: The element to populate
-  @arg item [Object]: The data item to populate the element with
+
+  @arg elem [HTMLElement]
+    @description
+      The element to populate
+
+  @arg item [Object]
+    @description
+      The data item to populate the element with
+

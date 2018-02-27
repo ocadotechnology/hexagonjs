@@ -7,6 +7,6 @@
   @changelogList
     @groupByApi false
     @reverseVisibleList true
+    @inline /templates/versions.um
     @process
       @inline ../api.um
-    @inline /templates/versions.um

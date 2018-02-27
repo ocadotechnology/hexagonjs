@@ -1,54 +1,17 @@
 @prototype Animation
   @extends EventEmitter
   @added 0.9.0
+
   @description
     A class for animating the styles and attributes of a @type[Node]
 
-  @method style
-    @description: Animates a style property on the @type[Node]
-    @arg property [String]: The style property to animate
-    @arg endValue [String/Number]: The value to animate the property to
-    @arg? duration [Number]
-      @description: The length of the animation in milliseconds
-      @default: 200
-    @returns Animation
-      @description: This @type[Animation] for chaining
+  @inline Animation/methods/*.um
+  @inline Animation/events/*.um
 
-  @method style
-    @description: Animates a style property on the @type[Node]
-    @arg property [String]: The style property to animate
-    @arg startValue [String/Number]: The value to animate the property from
-    @arg endValue [String/Number]: The value to animate the property to
-    @arg duration [Number]: The length of the animation in milliseconds
-    @returns Animation
-      @description: This @type[Animation] for chaining
 
-  @method attr
-    @description: Animates an attribute on the @type[Node]
-    @arg attribute [String]: The attribute to animate
-    @arg endValue [String/Number]: The value to animate the attribute to
-    @arg? duration [Number]
-      @description: The length of the animation in milliseconds
-      @default: 200
-    @returns Animation
-      @description: This @type[Animation] for chaining
 
-  @method attr
-    @description: Animates an attribute on the @type[Node]
-    @arg attribute [String]: The attribute to animate
-    @arg startValue [String/Number]: The value to animate the attribute from
-    @arg endValue [String/Number]: The value to animate the attribute to
-    @arg duration [Number]: The length of the animation in milliseconds
-    @returns Animation
-      @description: This @type[Animation] for chaining
 
-  @method cancel
-    @description: Cancels this @type[Animation]
-    @returns Animation
-      @description: This @type[Animation] for chaining
 
-  @event end
-    @description: Emitted when all of the animations specified have ended
-  @event cancelled
-    @description
-      Emitted when @code[cancel()] is called on this @type[Animation]
+
+
+

@@ -19,4 +19,5 @@
         of the @link(/docs/event-emitter)[Event Emitter] api.
 
   @returns AutoComplete
-    @description: This @type[Autocomplete].
+    @description
+      This @type[AutoComplete] for chaining

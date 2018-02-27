@@ -1,0 +1,27 @@
+@method thenStyle
+  @description
+    Adds an action that styles the element after the previous action completes
+
+  @inline ../../shared/arguments/style-a.um
+
+  @returns Morph
+    @description
+      A new @type[Morph] object that is linked to the previous morph's end
+      trigger. This morph will contain a single action - the one specified as
+      part of this call to then.
+
+
+@method thenStyle
+  @description
+    Adds an action that styles the element after the previous action completes
+  @arg property [String]
+    @description
+      The name of the css style property to animate
+
+  @inline ../../shared/arguments/style-b.um
+
+  @returns Morph
+    @description
+      A new @type[Morph] object that is linked to the previous morph's end
+      trigger. This morph will contain a single action - the one specified as
+      part of this call to then.

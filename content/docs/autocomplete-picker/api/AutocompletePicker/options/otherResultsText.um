@@ -1,3 +1,6 @@
 @property otherResultsText [String]
-  @description: The heading to display above other results when the @code[showOtherResults] option is enabled
+  @description
+    The  heading to display above other results when the
+    @code[showOtherResults] option is enabled
+
   @default: [hx.userFacingText('autocompletePicker', 'otherResults')]

@@ -14,6 +14,13 @@
       valueLookup = function (item){
         return item.name + ', ' + item.age;
       }
-  @arg item [Any]: The item to retrieve a value from
-  @returns String: The string for use when filtering results
+
+  @arg item [Any]
+    @description
+      The item to retrieve a value from
+
+  @returns String
+    @description
+      The string for use when filtering results
+
   @default: [hx.identity]

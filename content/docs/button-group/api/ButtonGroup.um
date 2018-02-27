@@ -1,15 +1,17 @@
-@prototype hx.ButtonGroup
-  @extends hx.EventEmitter
+@prototype ButtonGroup
+  @extends EventEmitter
 
   @added 0.12.4
 
   @constructor
     @arg selector [String/HTMLElement]
       @description
-        The target button to set the select up in.
+        A css selector or element to use when constructing the @type[ButtonGroup]
+
     @arg? options [Object]
       @description
         The options to use when creating the button group.
+
       @inline ButtonGroup/options/*.um
 
   @inline ButtonGroup/methods/*.um
@@ -19,17 +21,19 @@
 @function hx.buttonGroup
   @added 1.0.0
     @description
-      Fluid api version of ButtonGroup
+      Fluid api version of @type[ButtonGroup]
 
   @description
-    Creates a new ButtonGroup set up on a detached element, wrapped in a
+    Creates a new @type[ButtonGroup] set up on a detached element, wrapped in a
     selection
 
   @arg? options [Object]
     @description
       The options to use when creating the button group.
+
     @inline ButtonGroup/options/*.um
 
   @returns Selection
     @description
-      A selection containing an element with an ButtonGroup initialised on it
+      A selection containing an element with an @type[ButtonGroup] initialised
+      on it

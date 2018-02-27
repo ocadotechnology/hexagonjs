@@ -2,13 +2,20 @@
   @added 0.9.0
   @description
     Registers a named morph action.
-  @arg name [String]: The name to register the action under
+
+  @arg name [String]
+    @description
+      The name to register the action under
+
   @arg action [Function]
-    @description: A function that performs the action
+    @description
+      A function that performs the action
+
     @arg node [Element]
       @description
         The node to apply the action to (if it makes sense to apply the action
         to a node)
+
     @arg duration [Number]
       @description
         The length the action should take in milliseconds. The action being

@@ -2,10 +2,10 @@
 @inline /templates/versioned-page.um
 
 @topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title AutoComplete
   @description
     Provides typeahead / suggestions for input fields
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
 
 @contentSection
   @added 0.9.0
@@ -28,4 +28,6 @@
           new hx.AutoComplete("#auto-complete", data)
 
   @topic Api
+    @hyperlink(/docs/autocomplete/changelog)[Change Log]
+
     @inline api.um

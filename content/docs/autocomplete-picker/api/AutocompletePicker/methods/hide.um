@@ -3,4 +3,4 @@
     Hides the picker dropdown
   @returns AutocompletePicker
     @description
-      The current autocomplete picker
+      This @type[AutocompletePicker] for chaining

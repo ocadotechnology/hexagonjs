@@ -1,0 +1,19 @@
+@method value
+  @description
+    A method for setting the value of a toggle button.
+
+  @arg value [Boolean]
+    @description
+      The state to give the toggle button.
+
+  @returns ToggleButton
+    @description
+      This @type[ToggleButton] for chaining
+
+@method value
+  @description
+    A method for getting the value of a toggle button.
+
+  @returns Boolean
+    @description
+      The current state of the toggle button

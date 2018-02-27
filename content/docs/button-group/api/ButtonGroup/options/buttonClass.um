@@ -1,9 +1,17 @@
-@property buttonClass [String]: The button class to use for inactive buttons.
+@property buttonClass [String]
   @updated 1.0.0
     @description
       Updated the default value to use the renamed hx-complement class
+
+  @description
+    The button class to use for inactive buttons.
+
   @default
     @description
       @versioned
-        @version 0.12.4: 'hx-compliment'
-        @version 1.0.0: 'hx-complement'
+        @version 0.12.4
+          'hx-compliment'
+
+        @version 1.0.0
+          'hx-complement'
+

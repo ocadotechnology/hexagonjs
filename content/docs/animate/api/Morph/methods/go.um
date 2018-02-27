@@ -1,0 +1,14 @@
+@method go
+  @description
+    Starts this morph. This should always be called at the end of the chain
+    of actions.
+
+  @arg? cancelOngoing [Boolean]
+    @description
+      Stops any ongoing morphs for the selected node
+
+    @default: false
+
+  @returns Morph
+    @description
+      This @type[Morph] for chaining

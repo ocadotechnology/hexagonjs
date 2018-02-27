@@ -1,0 +1,2 @@
+@extraClass hx-btn-invisible
+  Removes all styles so that only the text can be seen.

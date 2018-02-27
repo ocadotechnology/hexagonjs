@@ -15,5 +15,9 @@
 
   @default
     @versioned
-      @version 0.9.0: @code['Other Results']
-      @version 1.4.0: @code[hx.userFacingText('autocomplete', 'otherResults')]
+      @version 0.9.0
+        @code['Other Results']
+
+      @version 1.4.0
+        @code[hx.userFacingText('autocomplete', 'otherResults')]
+

@@ -1,2 +1,5 @@
-@property activeClass [String]: The button class to use for the active button.
+@property activeClass [String]
+  @description
+    The button class to use for the active button.
+
   @default: 'hx-contrast'

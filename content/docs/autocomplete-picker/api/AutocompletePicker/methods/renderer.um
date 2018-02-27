@@ -1,10 +1,28 @@
 @method renderer
-  @description: Gets the renderer of the autocomplete picker
-  @returns Function: The currently set renderer
+  @description
+    Gets the renderer of the autocomplete picker
+
+  @returns Function
+    @description
+      The currently set renderer
+
 
 @method renderer
-  @description: Sets the renderer of the autocomplete picker
-  @arg renderer [Function]: The renderer to use.
-    @arg element [HTMLElement]: The HTMLElement to populate
-    @arg item [Object]: The data item to populate the element with
-  @returns AutocompletePicker: The current autocomplete picker
+  @description
+    Sets the renderer of the autocomplete picker
+
+  @arg renderer [Function]
+    @description
+      The renderer to use.
+
+    @arg element [HTMLElement]
+      @description
+        The HTMLElement to populate
+
+    @arg item [Object]
+      @description
+        The data item to populate the element with
+
+  @returns AutocompletePicker
+    @description
+      This @type[AutocompletePicker] for chaining

@@ -1,3 +1,5 @@
 @property noResultsText [String]
-  @description: The text to display when no results are found for a search term
+  @description
+    The text to display when no results are found for a search term
+
   @default: [hx.userFacingText('autocompletePicker', 'noResults')]

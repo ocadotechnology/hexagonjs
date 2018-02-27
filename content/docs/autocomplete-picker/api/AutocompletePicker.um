@@ -1,6 +1,7 @@
-@prototype hx.AutocompletePicker
+@prototype AutocompletePicker
   @added 1.4.0
     @issue 17
+
   @bugfix 1.8.2
     @description
       Fixed an issue where the filtering failed when there were no
@@ -26,7 +27,10 @@
 @function hx.autocompletePicker
   @added 1.4.0
     @issue 17
-  @description: Creates a new AutocompletePicker set up on a detached element, wrapped in a selection
+
+  @description
+    Creates a new AutocompletePicker set up on a detached element, wrapped in a
+    selection
 
   @arg items [Array/Function]
     @inline AutocompletePicker/arguments/items.um
