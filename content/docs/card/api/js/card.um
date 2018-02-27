@@ -1,0 +1,21 @@
+@function hx.card
+  @added 1.0.0
+    @description
+      Added the card api for creating cards and layout
+
+  @description
+    Creates a detached card element wrapped in a selection
+
+  @returns Selection
+    @description
+      The element wrapped in a hexagon selection
+
+@function hx.card.small
+  @description
+    Creates a detached card element wrapped in a selection with the
+    @code[hx-card-small] class applied to make the padding inside all child
+    @code[hx.card.section()] elements smaller.
+
+  @returns Selection
+    @description
+      The element wrapped in a hexagon selection

@@ -1,0 +1,4 @@
+@class hx-card-aligned
+  @description
+    A container that aligns sections inside groups. This should contain groups
+    that contain sections in order to work.
