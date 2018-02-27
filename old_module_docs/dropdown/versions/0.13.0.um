@@ -21,7 +21,7 @@
         @arg dropdownContent [String/Function]
           @description
             The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. An example string content could be:
-            @codeblock js
+            @@codeblock js
               ddContent = '<div>Some content</div>';
           @arg node [HTMLElement]: The dropdown node to populate.
         @arg? options [Object]: The options to use for the dropdown.
@@ -106,7 +106,7 @@
           @description
             The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. 
             An example string content could be
-            @codeblock js
+            @@codeblock js
               ddContent = '<div>Some content</div>';
           @arg node [HTMLElement]: The dropdown node to populate.
 

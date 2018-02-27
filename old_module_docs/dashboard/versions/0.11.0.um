@@ -44,15 +44,15 @@
 
       @method order
         @description:
-          @p: A method for organising the widgets in a dashboard after they have been added.
-          @p: Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
+          A method for organising the widgets in a dashboard after they have been added.
+          Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
         @arg order [Array]: An array containing the widget id's for the current dashboard in the desired order.
         @returns Dashboard: This dashboard
 
       @method order
         @description:
-          @p: A method for getting the order of widgets in a dashboard.
-          @p: Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
+          A method for getting the order of widgets in a dashboard.
+          Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
         @returns Array: An array of the widget id's in the order they are currently displayed in the dashboard.
 
   @theme

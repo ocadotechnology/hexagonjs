@@ -53,7 +53,7 @@
                   }
                 };
                 var tagInput = new hx.TagInput('#validated-tag-input', undefined, validator);
-            @codeblock
+            @@codeblock
               // example: only allow non number inputs
               var validator = function(name) {
                 if (!isNaN(Number(name))){

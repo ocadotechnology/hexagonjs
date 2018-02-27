@@ -2,13 +2,13 @@
   @api Sort
     @function hx.sort
       @description:
-        @p: Sorts an array without modifying it
+        Sorts an array without modifying it
       @arg arr [Array[Any]]: The array to sort
       @returns [Array[Any]]: The sorted array
 
     @function hx.sortBy
       @description:
-        @p: Sorts an array without modifying it. The resultant array is sorted by the value obtained by calling f on each member of the array.
+        Sorts an array without modifying it. The resultant array is sorted by the value obtained by calling f on each member of the array.
       @arg arr [Array[Any]]: The array to sort
       @arg f [Function]
         @description: A function that takes each element of an array and returns a value that can be compared using < and ==

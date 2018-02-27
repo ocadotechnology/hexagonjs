@@ -83,7 +83,7 @@
       @method valueToDate
         @description
           This function can be used in the render function to easily convert the @code[value] returned from the time slider into a date object. This function takes into account the start and end values to calculate the time.
-          @codeblock js
+          @@codeblock js
             var render = function(slider, elem, value, update, rangeStart){
               hx.select(elem).text(slider.valueToDate(value));
             }
@@ -93,7 +93,7 @@
       @method formatter
         @description
           This function can be used in the render function to format a date object for display on the time slider. In most cases, it should be used with the valueToDate method.
-          @codeblock js
+          @@codeblock js
             var render = function(slider, elem, value, update, rangeStart){
               hx.select(elem).text(slider.formatter(slider.valueToDate(value)))
             }
@@ -108,7 +108,7 @@
         @arg? render [Function]
           @description
             A function used to render the sliders
-            @codeblock js
+            @@codeblock js
               render = function(slider, elem, value, update, rangeStart){
                 formatter = hx.format.fixed(2)
                 hx.select(elem).text(formatter(value))

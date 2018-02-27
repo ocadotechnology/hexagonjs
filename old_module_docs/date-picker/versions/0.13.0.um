@@ -53,9 +53,9 @@
 
       @method validRange
         @description:
-          @p: Sets the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
+          Sets the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
 
-          @codeblock js
+          @@codeblock js
             datepicker.validRange({start: new Date}); // User can select any date after today
             datepicker.validRange({start: undefined, end: new Date()}); // User can select any date before today
             datepicker.validRange({start: new Date(), end: new Date()}); // User can only select today
@@ -107,8 +107,8 @@
 
       @method range
         @description
-          @p: A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
-          @p: When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
+          A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
+          When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
         @arg range [Object]: An object containing the date range to set. The start/end dates will be sorted internally if the end date is before the start date.
           @property start [Date]: The first date of the range
           @property end [Date]: The second date of the range
@@ -124,9 +124,9 @@
 
       @method locale
         @description
-          @p: A function for updating the locale used in the date picker.
-          @p: By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
-          @codeblock js
+          A function for updating the locale used in the date picker.
+          By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
+          @@codeblock js
             datepicker.locale('pl') // sets the datepicker's locale to Poland
         @arg locale [String]: The locale string to update the date picker with.
         @returns DatePicker: This DatePicker
@@ -141,8 +141,8 @@
         @arg? dontSetupInput [Boolean]
         @arg? suppressCallback [Boolean]
         @deprecated:
-          @p: The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api.
-          @p: The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
+          The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api.
+          The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
 
       @method day
         @arg day [Number]

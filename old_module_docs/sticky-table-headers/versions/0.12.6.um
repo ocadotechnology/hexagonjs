@@ -25,9 +25,9 @@
 
         @arg selector [String/HTMLElement]:
           @description:
-            @p: The selector of the table or table container to use when creating the sticky headers.
-            @p: Whilst this can be a table element, it's recommended to use a container for the table element as the selector as it reduces the potential issues:
-            @codeblock html
+            The selector of the table or table container to use when creating the sticky headers.
+            Whilst this can be a table element, it's recommended to use a container for the table element as the selector as it reduces the potential issues:
+            @@codeblock html
               <div id="table"> <!-- Use this container as the selector -->
                 <table class="hx-table">
                   <thead>

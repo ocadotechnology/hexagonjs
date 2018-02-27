@@ -4,7 +4,7 @@
     A module for adding pointer events to the selection api. The pointer events normalize touch and mouse events into a common api.
 
   @examples
-    @codeblock js
+    @@codeblock js
       hx.select('#body').on('pointerdown', function(event){
         // do something on mousedown/touchstart
       });

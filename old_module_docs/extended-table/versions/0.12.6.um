@@ -3,7 +3,7 @@
     @prototype hx.Table
       @bugfix: Fixed a styling bug where the selected row was not highlighted for mobile view
       @updated:
-        @p: Added the @code[rowSelectableLookup] function to determine whether a row is selectable after it has been clicked and added the ability to disable row selection entirely using the @code[unselectable] property in the row data.
+        Added the @code[rowSelectableLookup] function to determine whether a row is selectable after it has been clicked and added the ability to disable row selection entirely using the @code[unselectable] property in the row data.
 
       @method on
         @added: Added a 'rowclick' event for when a row in the table is clicked on.
@@ -28,11 +28,11 @@
           @added: Added a function that is called when a row is selected to determine whether the row should be able to be selected.
 
           @description
-            @p: A function for looking up whether a row is selectable when it is clicked or selected by the select all tick.
-            @p: This function should call the callback with true if the row is selectable and false if it is not, this will prevent the row being selected.
-            @p: A notification should be provided to the user that indicates that the row is not selectable.
-            @p: The default value is:
-            @codeblock js
+            A function for looking up whether a row is selectable when it is clicked or selected by the select all tick.
+            This function should call the callback with true if the row is selectable and false if it is not, this will prevent the row being selected.
+            A notification should be provided to the user that indicates that the row is not selectable.
+            The default value is:
+            @@codeblock js
               function (data, callback) {
                 callback(true)
               }
@@ -50,7 +50,7 @@
             The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
 
             @collapsible Object
-              @codeblock js
+              @@codeblock js
                 {
                   head:{ // header object
                     columns:[ // object for each column
@@ -70,7 +70,7 @@
 
               The data can also be specified with additional properties for the rows. The table will only look for data in the 'columns' property, any other values will be ignored. They will be returned as part of the row data in methods like 'getSelected':
 
-              @codeblock js
+              @@codeblock js
                 {
                   ...
                   "body":[
@@ -86,7 +86,7 @@
 
               Additionally, column data can also be specified in object format:
 
-              @codeblock js
+              @@codeblock js
                 {
                   ...
                   "body":[
@@ -98,7 +98,7 @@
 
 
             @collapsible Function
-              @codeblock js
+              @@codeblock js
                 var feed = function(request, callback) {
                   if (request.type == 'header') {
                     // available request properties:
@@ -135,14 +135,14 @@
 
 
             @collapsible Server Side
-              @codeblock js
+              @@codeblock js
                 table.setData('https://example.com/data', {id: 'my-table-id'})
 
               <b>Note</b> In this case, the server must respond correctly to the post requests that are made. The post request will contain some json that describes the data that should be returned. The possible types of request are:
 
               @h3: Header
               @h4: Request
-              @codeblock js
+              @@codeblock js
                 {
                   "type": "header",
                   "extra": {
@@ -151,9 +151,9 @@
                 }
 
 
-              @p: You should respond with the header info in json form:
+              You should respond with the header info in json form:
               @h4: Response
-              @codeblock js
+              @@codeblock js
                 {
                   head: {
                     columns:[ // object for each column
@@ -168,7 +168,7 @@
 
               @h3: Row count
               @h4: Request
-              @codeblock js
+              @@codeblock js
                 {
                   "type": "rowCount",
                   "extra": {
@@ -177,14 +177,14 @@
                 }
 
               @h4: Response
-              @codeblock js
+              @@codeblock js
                 {
                   "count": 12345, // the total number of rows in the data set
                 }
 
               @h3: Row data
               @h4: Request
-              @codeblock js
+              @@codeblock js
                 {
                   "type": "rows",
                   "startRow": 0,
@@ -200,7 +200,7 @@
                 }
 
               @h4: Response
-              @codeblock js
+              @@codeblock js
                 {
                   "rows": [
                     [
@@ -218,7 +218,7 @@
             @h3: Adding multi column / grouped headers
             However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
 
-            @codeblock js
+            @@codeblock js
               {
                 columns:[ // object for each column
                   { value:"Name", groups:["Group 1"]},
@@ -231,8 +231,8 @@
 
             @h3: Wrapping header text for individual columns
 
-            @p: It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the allowWrap property in the header colums:
-            @codeblock js
+            It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the allowWrap property in the header colums:
+            @@codeblock js
               {
                 head: {
                   columns:[ // object for each column
@@ -246,8 +246,8 @@
               }
 
             @h3: Making rows unselectable
-            @p: It is possible to prevent rows from being selected by providing the @code[unselectable] property in the row data. This will cause the row tick to be disabled and prevent the row from being selected by any means.
-            @codeblock js
+            It is possible to prevent rows from being selected by providing the @code[unselectable] property in the row data. This will cause the row tick to be disabled and prevent the row from being selected by any means.
+            @@codeblock js
               {
                 head:...
                 body: [
@@ -259,7 +259,7 @@
                   }
                 ]
               }
-            @p: If this value is set, the row will always be unselectable and as such will not be passed through the @code[rowSelectableLookup] function.
+            If this value is set, the row will always be unselectable and as such will not be passed through the @code[rowSelectableLookup] function.
 
         @arg? extra [Object]
 

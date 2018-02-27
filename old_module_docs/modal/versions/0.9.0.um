@@ -48,7 +48,7 @@
           @description
             <p>The array of buttons to show in the modal.</p>
             <p>The default buttons that are used if the buttons parameter is passed in as null or undefined is as follows:</p>
-            @codeblock js
+            @@codeblock js
               [
                 {
                   text: "Confirm"

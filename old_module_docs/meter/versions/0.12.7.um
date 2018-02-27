@@ -80,7 +80,7 @@
         @description
           Updates the various values in the meter. All the values are optional.
 
-          @codeblock js
+          @@codeblock js
             meter.value({
               unitText: 'Completed',
               total: 1000,

@@ -50,7 +50,7 @@
       @description
         An array of objects with x and y properties.
         The data should be of the form:
-        @codeblock json
+        @@codeblock json
           [
             {x: 0, y: 10},
             {x: 1, y: 11},

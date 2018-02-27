@@ -93,7 +93,7 @@
     @option disabled-col
       @added
 
-        @p: Added disabled context classes
+        Added disabled context classes
       @type color
       @description: The disabled color
       @default: #939393
@@ -102,7 +102,7 @@
     @option disabled-background-col
       @added
 
-        @p: Added disabled context classes
+        Added disabled context classes
       @type color
       @description: The disabled background color
       @default: #FAFAFA

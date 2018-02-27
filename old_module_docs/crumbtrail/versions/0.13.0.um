@@ -39,7 +39,7 @@
           @property renderer [Function]
             @description
               A function that turns object nodes to dom elements.
-              @codeblock js
+              @@codeblock js
                 crumbtrail = new hx.Crumbtrail("#crumbs-2");
                 renderer = function(element, data) {
                   hx.select(element).text(data);
@@ -66,7 +66,7 @@
         @arg render [Function]
           @description
             A function that turns object nodes to dom elements.
-            @codeblock js
+            @@codeblock js
               crumbtrail = new hx.Crumbtrail("#crumbs-2");
               renderer = function(element, data) {
                 hx.select(element).text(data);

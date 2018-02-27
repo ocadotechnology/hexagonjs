@@ -4,7 +4,7 @@
     A utility for filtering data using various methods such as 'exact' and 'contains'
 
   @examples
-    @codeblock js
+    @@codeblock js
       stringArray = [
         'Steve 34',
         'Kate 56',
@@ -25,7 +25,7 @@
       @function fuzzy
         @description
           A function that allows filtering of array values that contain the letters in a search term in the same order but not necessarily directly after each other.
-          @codeblock js
+          @@codeblock js
             array = ['Bob Stevenson', 'Steve Stevenson', 'Dave Peters']
             hx.filter.fuzzy(array, 'ss') // returns ['Steve Stevenson', 'Bob Stevenson'] as the match in Steve Stevenson is stronger.
         @arg array [Array]: The array to filter
@@ -40,7 +40,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -54,7 +54,7 @@
                 hx.filter.fuzzy(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...
@@ -83,7 +83,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -97,7 +97,7 @@
                 hx.filter.exact(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...
@@ -126,7 +126,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -140,7 +140,7 @@
                 hx.filter.startsWith(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...
@@ -169,7 +169,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -183,7 +183,7 @@
                 hx.filter.contains(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...
@@ -212,7 +212,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -226,7 +226,7 @@
                 hx.filter.less(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...
@@ -255,7 +255,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -269,7 +269,7 @@
                 hx.filter.greater(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...
@@ -298,7 +298,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -312,7 +312,7 @@
                 hx.filter.excludes(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...
@@ -333,7 +333,7 @@
         @arg term [String]
           @description
             The regular expression to filter with. It must be a regular expression string or object:
-            @codeblock js
+            @@codeblock js
               /bob/ //RegEx string
               new RegExp('bob') // RegEx Object
         @arg? options [Object]
@@ -346,7 +346,7 @@
           @property searchValues [Function]
             @description
               A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   {
                     name: 'Bob',
@@ -360,7 +360,7 @@
                 hx.filter.regex(array, 'bob', {searchValues: getValues});
 
               Nested arrays can also be searched by returning the item itself as the array:
-              @codeblock js
+              @@codeblock js
                 array = [
                   ['Bob', 12]
                   ...

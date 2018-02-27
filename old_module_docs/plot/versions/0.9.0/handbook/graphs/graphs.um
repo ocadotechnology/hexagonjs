@@ -2,34 +2,34 @@
 
   @section Creating a Graph
 
-    @p: A Graph can be created as follows.
+    A Graph can be created as follows.
 
-    @codeblock js
+    @@codeblock js
       var graph = new hx.Graph('#my-graph');
 
-    @p: The hx.Graph constructor expects a css selector or a HTMLElement.
+    The hx.Graph constructor expects a css selector or a HTMLElement.
 
   @section Creating an Axis
 
-    @p: Before anything can be plotted on this graph, an axis must be added.
+    Before anything can be plotted on this graph, an axis must be added.
 
-    @codeblock js
+    @@codeblock js
       var axis = graph.addAxis();
 
-    @p: This will give you a default axis which has linear scales for the x and y axes.
+    This will give you a default axis which has linear scales for the x and y axes.
 
   @section Creating a Series
 
-    @p: Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
+    Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
 
-    @codeblock js
+    @@codeblock js
       var series = axis.addSeries('line', 'Series Name');
 
   @section Setting the data in a Series
 
-    @p: The last step is to set the data that this series displays.
+    The last step is to set the data that this series displays.
 
-    @codeblock js
+    @@codeblock js
       // create some fake data
       var data = hx.range(100).map(function(i){return {x: i, y: Math.sin(i/20)} });
 
@@ -38,12 +38,12 @@
 
   @section Rendering the graph
 
-    @p: Now that the graph is set up, a call to .render() is needed to actually draw the graph.
+    Now that the graph is set up, a call to .render() is needed to actually draw the graph.
 
-    @codeblock js
+    @@codeblock js
       graph.render();
 
-    @p: The result is this:
+    The result is this:
 
     @html
       <div class="my-graph"></div>
@@ -64,4 +64,4 @@
 
   @section Colors
 
-    @p: When working with graphs the colors defined in @code(js)[hx.theme.plot.colors] should be used.
+    When working with graphs the colors defined in @code(js)[hx.theme.plot.colors] should be used.

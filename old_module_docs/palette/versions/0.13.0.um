@@ -1,4 +1,4 @@
 @version 0.13.0
   @api Palette
     @enhancement [Context Classes]:
-      @p: Updated to add @code[!important] flag to the styles added by palette to make sure when the palette classes are added, the colors are applied.
+      Updated to add @code[!important] flag to the styles added by palette to make sure when the palette classes are added, the colors are applied.

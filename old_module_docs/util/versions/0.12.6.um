@@ -2,7 +2,7 @@
   @api Util
     @function hx.scrollbarSize
       @description:
-        @p: A method for getting the offset amount of the scrollbars in the current browser.
-        @p: Different browsers implement scrollbars in different ways, with some changing the content size. This method returns the offset amount to allow for any structural changes that need to be made reliably across browsers.
+        A method for getting the offset amount of the scrollbars in the current browser.
+        Different browsers implement scrollbars in different ways, with some changing the content size. This method returns the offset amount to allow for any structural changes that need to be made reliably across browsers.
 
       @returns Number: The width of the browser scrollbars.

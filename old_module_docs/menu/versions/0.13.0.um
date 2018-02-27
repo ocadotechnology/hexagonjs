@@ -51,7 +51,7 @@
 
         @description
           A method used to set a custom renderer for a menu
-          @codeblock js
+          @@codeblock js
             menu = new hx.Menu('#selector');
             menu.renderer(function(elem, item){
               // do your render stuff

@@ -45,7 +45,7 @@
       @description
         The data that describes the pie chart.
         The data should be of the form:
-        @codeblock js
+        @@codeblock js
           {
             name: "Pie Chart"
             segments: [
@@ -68,7 +68,7 @@
           }
 
         For multi-ring pie charts, an array of the above object is expected:
-        @codeblock js
+        @@codeblock js
           [
             {
               name: "Series 1"

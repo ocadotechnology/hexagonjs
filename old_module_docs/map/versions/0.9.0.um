@@ -4,7 +4,7 @@
     A map collection type. Proper maps are coming in ECMAScript 6 (which at time of writing has a scheduled release date of June 2015). This map object tries to keep as close as possible to the currently planned spec for maps, which should make it easier to swap out for the native implementation when it arrives and is well supported enough in browsers.
 
   @examples
-    @codeblock js
+    @@codeblock js
       @inline 0.9.0/example.js
 
   @api Map

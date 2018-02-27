@@ -71,9 +71,9 @@
 
       @method locale
         @description
-          @p: A function for updating the locale used in the time picker.
-          @p: By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
-          @codeblock js
+          A function for updating the locale used in the time picker.
+          By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
+          @@codeblock js
             timepicker.locale('pl') // sets the timepicker's locale to Poland
         @arg locale [String]: The locale string to update the time picker with.
         @returns TimePicker: This DatePicker

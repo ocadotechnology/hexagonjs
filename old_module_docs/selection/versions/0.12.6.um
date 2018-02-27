@@ -5,7 +5,7 @@
         @arg f [Function[Element]]
 
         @deprecated:
-          @p: The each method for selections has been replaced to use a method that provides a selection as the argument to the @code[f] function Use @code[Selection.forEach(f)] instead.
+          The each method for selections has been replaced to use a method that provides a selection as the argument to the @code[f] function Use @code[Selection.forEach(f)] instead.
 
 
       @method forEach

@@ -50,8 +50,8 @@
 
       @method value
         @description
-          @p: A method for clearing the value of the FileInput.
-          @p: For security reasons, it is not possible to pass in any value other than @code(js)[undefined]
+          A method for clearing the value of the FileInput.
+          For security reasons, it is not possible to pass in any value other than @code(js)[undefined]
         @arg value [Undefined]: Undefined must be passed in. For security reasons, it is not possible to set the value of a FileInput, only clear it.
         @returns FileInput: This FileInput
 

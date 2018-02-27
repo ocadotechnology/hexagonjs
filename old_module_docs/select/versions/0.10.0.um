@@ -46,8 +46,8 @@
         @description: A method for setting a custom renderer for the select.
         @arg render [Function]
           @description
-            @p: A function that renders the data in the dropdown and the select button. The default value is:
-            @codeblock js
+            A function that renders the data in the dropdown and the select button. The default value is:
+            @@codeblock js
               function (node, data) {
                 hx.select(node).text(data);
               }

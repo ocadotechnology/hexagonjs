@@ -20,7 +20,7 @@
 
       @property renderer
         @description: The function that converts an item into html and attaches it to the element supplied. This function is not intended to be called externally but can be redefined to change how the menu is created.
-          @codeblock js
+          @@codeblock js
             menu = new hx.Menu('#selector');
             menu.renderer = function(elem, item){
               // do your render stuff

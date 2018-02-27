@@ -4,7 +4,7 @@
       @method off
         @description
           Deregisters a callback for an event type.
-          @codeblock js
+          @@codeblock js
 
             hx.select('#button').off('click')
             hx.select('#button').off('click', 'my-namespace')

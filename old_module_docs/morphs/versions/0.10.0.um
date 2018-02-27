@@ -2,7 +2,7 @@
 
   @examples
 
-    @codeblock js
+    @@codeblock js
       hx.select('#id').morph().with('expand')
       hx.select('#id').morph().with('collapse')
       hx.select('#id').morph().with('expandv')
@@ -17,7 +17,7 @@
 
     Chaining transitions is also possible:
 
-    @codeblock js
+    @@codeblock js
       hx.select('#id').morph()
         .with('expand', 100)
         .and('fadein', 100)

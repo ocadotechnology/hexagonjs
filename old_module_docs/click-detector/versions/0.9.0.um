@@ -4,7 +4,7 @@
     Provides a way to listen for clicks outside an element.
 
   @examples
-    @codeblock js
+    @@codeblock js
       detector = new hx.ClickDetector();
 
       detector.addException(hx.select('#titlebar').node());

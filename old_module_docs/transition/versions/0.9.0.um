@@ -4,7 +4,7 @@
     Utility functions for calling functions on a schedule.
 
   @examples
-    @codeblock js
+    @@codeblock js
       // linear easing function
       hx.ease.linear(0) // returns 0
       hx.ease.linear(0.5) // returns 0.5
@@ -60,7 +60,7 @@
         @description
           A function that can be called to cancel the transition.
 
-          @codeblock
+          @@codeblock
             var stop = hx.transition(1000, cb)
 
             // to stop/cancel the transition, the stop function can be called:
@@ -74,7 +74,7 @@
         @description
           The linear easing function is defined as
 
-          @codeblock
+          @@codeblock
             function(x) {
               return x;
             }
@@ -86,7 +86,7 @@
         @description
           The quadratic easing function is defined as
 
-          @codeblock
+          @@codeblock
             function(x) {
               return x*x;
             }
@@ -98,7 +98,7 @@
         @description
           The cubic easing function is defined as
 
-          @codeblock
+          @@codeblock
             function(x) {
               return x*x*x;
             }

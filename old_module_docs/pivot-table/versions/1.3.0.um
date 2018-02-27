@@ -13,11 +13,11 @@
             @added: Added the data option to pivot tables
               @issue 146
             @description:
-              @p: The data to render in the pivot table.
+              The data to render in the pivot table.
 
-              @p: The data should be an object with a @code[topHead], @code[leftHead] and @code[body].
+              The data should be an object with a @code[topHead], @code[leftHead] and @code[body].
 
-              @codeblock js
+              @@codeblock js
                 {
                   topHead: [
                     'Header',
@@ -35,4 +35,4 @@
                     ...// Body Data
                   ]
                 }
-              @p: The data does not have to have both a topHead and leftHead.
+              The data does not have to have both a topHead and leftHead.

@@ -21,7 +21,7 @@
         @arg dropdownContent [String/Function]
           @description
             The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. An example string content could be:
-            @codeblock js
+            @@codeblock js
               ddContent = '<div>Some content</div>';
           @arg node [HTMLElement]: The dropdown node to populate.
         @arg? mode [String]: The type of action that will show the dropdown, can be 'click' or 'hover' (the hover value will act as click for mobile devices without the hover event)
@@ -56,8 +56,8 @@
 
       @constructor
         @removed:
-          @p: The mode parameter has been moved after the dropdown content:
-          @codeblock js
+          The mode parameter has been moved after the dropdown content:
+          @@codeblock js
             // old way
             new hx.Dropdown(selector, mode, dropdownContent, align, spacing, matchWidth, ddClass)]
 
@@ -75,7 +75,7 @@
         @description
           The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. 
           An example string content could be
-          @codeblock js
+          @@codeblock js
             ddContent = '<div>Some content</div>';
         @arg node [HTMLElement]: The dropdown node to populate.
 

@@ -6,7 +6,7 @@
       @description
         Adds a border context class to an element.
 
-        @codeblock js
+        @@codeblock js
           // adds the 'hx-border-positive' class to the element, and removes all other border context classes
           hx.palette.context('.my-element', 'positive')
 
@@ -15,7 +15,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.borderContext('.my-element', undefined) // removes the border context class
             hx.palette.borderContext('.my-element', 'default')
             hx.palette.borderContext('.my-element', 'positive')
@@ -32,7 +32,7 @@
       @description
         Gets the border context class of an element.
 
-        @codeblock js
+        @@codeblock js
           // gets the context of the element (by looking at the class of the element)
           hx.palette.borderContext('.my-element')
 

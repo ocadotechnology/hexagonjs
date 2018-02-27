@@ -24,16 +24,16 @@
             @default('Choose a value...')
           @property items [Array/Function]
             @description:
-              @p: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
-              @p: This can also be set after the select has been constructed using the @code[items] method.
+              The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+              This can also be set after the select has been constructed using the @code[items] method.
           @property renderer [Function]
             @description:
-              @p: A function that renders the data in the dropdown and the select button. The default value is:
-              @codeblock js
+              A function that renders the data in the dropdown and the select button. The default value is:
+              @@codeblock js
                 function (node, data) {
                   hx.select(node).text(data);
                 }
-              @p: This can also be set after the select has been constructed using the @code[renderer] method.
+              This can also be set after the select has been constructed using the @code[renderer] method.
 
       @method items
         @added: Updated the items method to return the items if no arguments are provided.

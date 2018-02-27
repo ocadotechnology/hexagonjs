@@ -56,7 +56,7 @@
         @arg? render [Function]
           @description
             A function used to render the sliders
-            @codeblock js
+            @@codeblock js
               render = function(slider, elem, value, update, rangeStart){
                 formatter = hx.format.fixed(2)
                 hx.select(elem).text(formatter(value))

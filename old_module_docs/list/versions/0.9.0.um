@@ -4,7 +4,7 @@
     A list collection that wraps standard JavaScript Arrays. Best reserved for cases where you are doing a lot of array mutation. In most cases a normal JavaScript Array should suffice.
 
   @examples
-    @codeblock js
+    @@codeblock js
       @inline 0.9.0/example.js
 
   @api List

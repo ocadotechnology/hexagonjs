@@ -19,8 +19,8 @@
         @item: The undocumented Series.data property has been changed to a public method.
 
     @enhancement Plot now uses a new mechanism for displaying the hover labels
-      @p: Previously they were rendered in svg, which made them inflexible and limited them to displaying within the plot area. The new version uses floating divs which makes them easer to define and allows them to be displayed outside the plot area.
-      @p: This is something that is needed for the new Sparkline api, which is a simple wrapper around the Graph api for drawing tiny graphs. Series now have a labelRenderer method for setting custom labelRenderers. This matches the renderer pattern used throughout hexagon.
+      Previously they were rendered in svg, which made them inflexible and limited them to displaying within the plot area. The new version uses floating divs which makes them easer to define and allows them to be displayed outside the plot area.
+      This is something that is needed for the new Sparkline api, which is a simple wrapper around the Graph api for drawing tiny graphs. Series now have a labelRenderer method for setting custom labelRenderers. This matches the renderer pattern used throughout hexagon.
 
     @docs: Updated the handbook to use the new api.
 
@@ -105,7 +105,7 @@
 
           @property legendLocation [String]
             @description
-              @p: How to display the legend on the graph. Possible modes:
+              How to display the legend on the graph. Possible modes:
 
               @list
                 @item: 'auto' - moves the legend around to avoid the mouse
@@ -179,7 +179,7 @@
 
       @method legendLocation
         @description
-          @p: How to display the legend on the graph. Possible modes:
+          How to display the legend on the graph. Possible modes:
 
           @list
             @item: 'auto' - moves the legend around to avoid the mouse
@@ -194,7 +194,7 @@
 
       @method legendLocation
         @description:
-          @p: Gets the value of the legendLocation option. It should be one of the following:
+          Gets the value of the legendLocation option. It should be one of the following:
 
           @list
             @item: 'auto' - moves the legend around to avoid the mouse
@@ -252,13 +252,13 @@
 
             @property visible [Boolean]
               @description:
-                @p: Sets the visibility state
-                @p: Whether or not the x axis should be visible. The default is true.
+                Sets the visibility state
+                Whether or not the x axis should be visible. The default is true.
               @default: true
 
             @property formatter [Function]
               @description:
-                @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+                The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
               @arg value [Number]
               @returns String: The number formatted as a string.
               @default: hx.format.si
@@ -277,14 +277,14 @@
 
             @property discretePadding [Number]
               @description
-                @p: Sets the discretePadding property
-                @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+                Sets the discretePadding property
+                The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
               @default: 0,1
 
             @property discreteLabels [Array[String]]
               @description
-                @p: Sets the discreteLabels property
-                @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+                Sets the discreteLabels property
+                The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
               @default: 'auto'
 
             @property tickSpacing [Number]
@@ -317,8 +317,8 @@
 
             @property axisTickLabelPosition [Boolean]
               @description
-                @p: Sets the axisTickLabelPosi property
-                @p: Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
+                Sets the axisTickLabelPosi property
+                Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
               @default: 'bottom'
 
             @property showTicks [Boolean]
@@ -332,13 +332,13 @@
 
             @property visible [Boolean]
               @description:
-                @p: Sets the visibility state
-                @p: Whether or not the x axis should be visible. The default is true.
+                Sets the visibility state
+                Whether or not the x axis should be visible. The default is true.
               @default: true
 
             @property formatter [Function]
               @description:
-                @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+                The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
               @arg value [Number]
               @returns String: The number formatted as a string.
               @default: hx.format.si
@@ -357,14 +357,14 @@
 
             @property discretePadding [Number]
               @description
-                @p: Sets the discretePadding property
-                @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+                Sets the discretePadding property
+                The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
               @default: 0,1
 
             @property discreteLabels [Array[String]]
               @description
-                @p: Sets the discreteLabels property
-                @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+                Sets the discreteLabels property
+                The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
               @default: 'auto'
 
             @property tickSpacing [Number]
@@ -397,8 +397,8 @@
 
             @property axisTickLabelPosition [Boolean]
               @description
-                @p: Sets the axisTickLabelPosi property
-                @p: Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
+                Sets the axisTickLabelPosi property
+                Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
               @default: 'left'
 
             @property showTicks [Boolean]
@@ -502,21 +502,21 @@
 
         @method visible
           @description:
-            @p: Sets the visibility state
-            @p: Whether or not the x axis should be visible. The default is true.
+            Sets the visibility state
+            Whether or not the x axis should be visible. The default is true.
           @arg value [Boolean]
           @returns Axis: This Axis
 
         @method visible
           @description:
-            @p: Gets the visibility state
-            @p: Whether or not the x axis should be visible. The default is true.
+            Gets the visibility state
+            Whether or not the x axis should be visible. The default is true.
           @returns Boolean: The visible value.
 
         @method formatter
           @description:
-            @p: Sets the formatter
-            @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+            Sets the formatter
+            The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
           @arg formatter [Function]
             @arg value [Number]
             @returns String: The number formatted as a string.
@@ -524,21 +524,21 @@
 
         @method formatter
           @description:
-            @p: Gets the formatter
-            @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+            Gets the formatter
+            The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
           @returns Function: The formatter value.
             @arg value [Number]
             @returns String: The number formatted as a string.
 
         @method tickRotation
           @description:
-            @p: Sets the rotation of the ticks in degrees.
+            Sets the rotation of the ticks in degrees.
           @arg angle [Number]: The rotation of the tick labels in degrees.
           @returns Axis: This Axis
 
         @method tickRotation
           @description:
-            @p: Gets the rotation of the tick labels in degrees.
+            Gets the rotation of the tick labels in degrees.
           @returns Number: The tickRotation value.
 
         @method min
@@ -561,28 +561,28 @@
 
         @method discretePadding
           @description
-            @p: Sets the discretePadding property
-            @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+            Sets the discretePadding property
+            The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
           @arg value [Number]
           @returns Axis: This Axis
 
         @method discretePadding
           @description
-            @p: Gets the discretePadding property
-            @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+            Gets the discretePadding property
+            The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
           @returns Number: The discretePadding value.
 
         @method discreteLabels
           @description
-            @p: Sets the discreteLabels property
-            @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+            Sets the discreteLabels property
+            The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
           @arg value [Array[String]]
           @returns Axis: This Axis
 
         @method discreteLabels
           @description:
-            @p: Gets the discreteLabels property
-            @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+            Gets the discreteLabels property
+            The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
           @returns [Array[String]]: The discreteLabels value.
 
         @method tickSpacing
@@ -650,15 +650,15 @@
 
         @method axisTickLabelPosition
           @description
-            @p: Sets the axisTickLabelPosi property
-            @p: Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
+            Sets the axisTickLabelPosi property
+            Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
           @arg value [Boolean]
           @returns Axis: This Axis
 
         @method axisTickLabelPosition
           @description
-            @p: Gets the axisTickLabelPosi property
-            @p: Used for positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
+            Gets the axisTickLabelPosi property
+            Used for positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
           @returns Boolean: The axisTickLabelPosition value.
 
         @method showTicks
@@ -682,21 +682,21 @@
 
         @method visible
           @description:
-            @p: Sets the visibility state
-            @p: Whether or not the x axis should be visible. The default is true.
+            Sets the visibility state
+            Whether or not the x axis should be visible. The default is true.
           @arg value [Boolean]
           @returns Axis: This Axis
 
         @method visible
           @description:
-            @p: Gets the visibility state
-            @p: Whether or not the x axis should be visible. The default is true.
+            Gets the visibility state
+            Whether or not the x axis should be visible. The default is true.
           @returns Boolean: The visible value.
 
         @method formatter
           @description:
-            @p: Sets the formatter
-            @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+            Sets the formatter
+            The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
           @arg formatter [Function]
             @arg value [Number]
             @returns String: The number formatted as a string.
@@ -704,21 +704,21 @@
 
         @method formatter
           @description:
-            @p: Gets the formatter
-            @p: The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
+            Gets the formatter
+            The formatter is function that formats the strings that are displayed at the ticks of the axis. It is a function with first argument that will typically be a number (although it depends on the type of the values in your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
           @returns Function: The formatter value.
             @arg value [Number]
             @returns String: The number formatted as a string.
 
         @method tickRotation
           @description:
-            @p: Sets the rotation of the ticks in degrees.
+            Sets the rotation of the ticks in degrees.
           @arg angle [Number]: The rotation of the tick labels in degrees.
           @returns Axis: This Axis
 
         @method tickRotation
           @description:
-            @p: Gets the rotation of the tick labels in degrees.
+            Gets the rotation of the tick labels in degrees.
           @returns Number: The tickRotation value.
 
         @method min
@@ -741,28 +741,28 @@
 
         @method discretePadding
           @description
-            @p: Sets the discretePadding property
-            @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+            Sets the discretePadding property
+            The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
           @arg value [Number]
           @returns Axis: This Axis
 
         @method discretePadding
           @description
-            @p: Gets the discretePadding property
-            @p: The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
+            Gets the discretePadding property
+            The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
           @returns Number: The discretePadding value.
 
         @method discreteLabels
           @description
-            @p: Sets the discreteLabels property
-            @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+            Sets the discreteLabels property
+            The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
           @arg value [Array[String]]
           @returns Axis: This Axis
 
         @method discreteLabels
           @description:
-            @p: Gets the discreteLabels property
-            @p: The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
+            Gets the discreteLabels property
+            The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
           @returns [Array[String]]: The discreteLabels value.
 
         @method tickSpacing
@@ -830,15 +830,15 @@
 
         @method axisTickLabelPosition
           @description
-            @p: Sets the axisTickLabelPosi property
-            @p: Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
+            Sets the axisTickLabelPosi property
+            Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
           @arg value [Boolean]
           @returns Axis: This Axis
 
         @method axisTickLabelPosition
           @description
-            @p: Gets the axisTickLabelPosi property
-            @p: Used for positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
+            Gets the axisTickLabelPosi property
+            Used for positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
           @returns Boolean: The axisTickLabelPosition value.
 
         @method showTicks
@@ -906,7 +906,7 @@
 
           @property legendLocation [String]
             @description
-              @p: How to display the legend on the pie chart. Possible modes:
+              How to display the legend on the pie chart. Possible modes:
 
               @list
                 @item: 'auto' - moves the legend around to avoid the mouse
@@ -1097,9 +1097,9 @@
 
         @arg data [Object/Array[Object]]
           @description
-            @p: The data that describes the pie chart.
-            @p: The data should be of the form:
-            @codeblock js
+            The data that describes the pie chart.
+            The data should be of the form:
+            @@codeblock js
               {
                 title: "Pie Chart"
                 segments: [
@@ -1121,8 +1121,8 @@
                 ]
               }
 
-            @p: For multi-ring pie charts, an array of the above object is expected:
-            @codeblock js
+            For multi-ring pie charts, an array of the above object is expected:
+            @@codeblock js
               [
                 {
                   title: "Series 1"
@@ -1283,9 +1283,9 @@
 
           @property data [Array[Object]]
             @description
-              @p: An array of objects with x,y properties. The data should be of the form:
+              An array of objects with x,y properties. The data should be of the form:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y: 10},
                   {x: 1, y: 11},
@@ -1295,9 +1295,9 @@
 
           @property labelFormatters [Object]
             @description
-              @p: Optional label formatters for each label value.
+              Optional label formatters for each label value.
 
-              @codeblock js
+              @@codeblock js
                 new hx.LineSeries({
                   labelFormatters: {
                     'x': function(value) { return x },
@@ -1400,7 +1400,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Sets the group the series belongs to. Series with the same group will be stacked on top of each other.
+          Sets the group the series belongs to. Series with the same group will be stacked on top of each other.
         @arg group [String]: The class to give the series.
         @returns LineSeries: This LineSeries
 
@@ -1408,7 +1408,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Gets the group the series belongs to.
+          Gets the group the series belongs to.
         @returns String: The group.
 
       @method labelsEnabled
@@ -1513,7 +1513,7 @@
         @description:
           @notice Note
             The _new_ prefix will be dropped in 1.0.0.
-          @p: Sets the color to fill the series with
+          Sets the color to fill the series with
         @arg color [String]: A CSS color string.
         @returns LineSeries: This LineSeries
 
@@ -1521,14 +1521,14 @@
         @description:
           @notice Note
             The _new_ prefix will be dropped in 1.0.0.
-          @p: Gets the color used to fill the series with
+          Gets the color used to fill the series with
         @returns String: The color as a CSS color string
 
       @method _new_class
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Sets an additional class to give the series svg element.
+          Sets an additional class to give the series svg element.
         @arg class [String]: The class to give the series.
         @returns LineSeries: This LineSeries
 
@@ -1536,7 +1536,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Gets the additional class applied to the series svg element.
+          Gets the additional class applied to the series svg element.
         @returns String: The additional class applied to the series.
 
       @method markersEnabled
@@ -1571,9 +1571,9 @@
           Sets the data for this series
         @arg data [Array[Object]]
           @description
-            @p: n array of objects with x,y properties. The data should be of the form:
+            n array of objects with x,y properties. The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10},
                 {x: 1, y: 11},
@@ -1581,9 +1581,9 @@
                 {x: 3, y: 12}
               ]
 
-            @p: The color of the bars can also be set per bar as well:
+            The color of the bars can also be set per bar as well:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10, color: hx.color.graph[1]},
                 {x: 1, y: 11, color: hx.color.graph[2]},
@@ -1597,9 +1597,9 @@
           Sets the data for this series
         @returns [Array[Object]]
           @description
-            @p: n array of objects with x,y properties. The data should be of the form:
+            n array of objects with x,y properties. The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10},
                 {x: 1, y: 11},
@@ -1607,9 +1607,9 @@
                 {x: 3, y: 12}
               ]
 
-            @p: The color of the bars can also be set per bar as well:
+            The color of the bars can also be set per bar as well:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10, color: hx.color.graph[1]},
                 {x: 1, y: 11, color: hx.color.graph[2]},
@@ -1642,9 +1642,9 @@
 
           @property data [Array[Object]]
             @description
-              @p: n array of objects with x,y properties. The data should be of the form:
+              n array of objects with x,y properties. The data should be of the form:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y: 10},
                   {x: 1, y: 11},
@@ -1652,9 +1652,9 @@
                   {x: 3, y: 12}
                 ]
 
-              @p: The color of the bars can also be set per bar as well:
+              The color of the bars can also be set per bar as well:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y: 10, color: hx.color.graph[1]},
                   {x: 1, y: 11, color: hx.color.graph[2]},
@@ -1679,9 +1679,9 @@
 
           @property labelFormatters [Object]
             @description
-              @p: Optional label formatters for each label value.
+              Optional label formatters for each label value.
 
-              @codeblock js
+              @@codeblock js
                 new hx.BarSeries({
                   labelFormatters: {
                     'x': function(value) { return x },
@@ -1802,7 +1802,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Sets an additional class to give the series svg elements.
+          Sets an additional class to give the series svg elements.
         @arg class [String]: The class to give the series.
         @returns BarSeries: This BarSeries
 
@@ -1810,14 +1810,14 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Gets the additional class applied to the series svg elements.
+          Gets the additional class applied to the series svg elements.
         @returns String: The additional class applied to the series.
 
       @method _new_group
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Sets the group the series belongs to. Series with the same group will be visually grouped together.
+          Sets the group the series belongs to. Series with the same group will be visually grouped together.
         @arg group [String]: The class to give the series.
         @returns BarSeries: This BarSeries
 
@@ -1825,7 +1825,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Gets the group the series belongs to.
+          Gets the group the series belongs to.
         @returns String: The group.
 
       @method fillColor
@@ -1842,9 +1842,9 @@
           Sets the data for this series
         @arg data [Array[Object]]
           @description
-            @p: An array of objects with x,y properties. The data should be of the form:
+            An array of objects with x,y properties. The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10},
                 {x: 1, y: 11},
@@ -1852,9 +1852,9 @@
                 {x: 3, y: 12}
               ]
 
-            @p: The color of the bars can also be set per bar as well:
+            The color of the bars can also be set per bar as well:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10, color: hx.color.graph[1]},
                 {x: 1, y: 11, color: hx.color.graph[2]},
@@ -1869,9 +1869,9 @@
           Gets the data for this series
         @returns [Array[Object]]
           @description
-            @p: An array of objects with x,y properties. The data should be of the form:
+            An array of objects with x,y properties. The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10},
                 {x: 1, y: 11},
@@ -1879,9 +1879,9 @@
                 {x: 3, y: 12}
               ]
 
-            @p: The color of the bars can also be set per bar as well:
+            The color of the bars can also be set per bar as well:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10, color: hx.color.graph[1]},
                 {x: 1, y: 11, color: hx.color.graph[2]},
@@ -1914,9 +1914,9 @@
 
           @property data [Array[Object]]
             @description
-              @p: An array of objects with x,y properties. The data should be of the form:
+              An array of objects with x,y properties. The data should be of the form:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y: 10},
                   {x: 1, y: 11},
@@ -1924,9 +1924,9 @@
                   {x: 3, y: 12}
                 ]
 
-              @p: The color of the bars can also be set per bar as well:
+              The color of the bars can also be set per bar as well:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y: 10, color: hx.color.graph[1]},
                   {x: 1, y: 11, color: hx.color.graph[2]},
@@ -1954,9 +1954,9 @@
 
           @property labelFormatters [Object]
             @description
-              @p: Optional label formatters for each label value.
+              Optional label formatters for each label value.
 
-              @codeblock js
+              @@codeblock js
                 new hx.BandSeries({
                   labelFormatters: {
                     'x': function(value) { return x },
@@ -1995,7 +1995,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Sets an additional class to give the series svg element.
+          Sets an additional class to give the series svg element.
         @arg class [String]: The class to give the series.
         @returns BandSeries: This BandSeries
 
@@ -2003,7 +2003,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Gets the additional class applied to the series svg element.
+          Gets the additional class applied to the series svg element.
         @returns String: The additional class applied to the series.
 
       @property feather [Number]
@@ -2134,9 +2134,9 @@
           Sets the data for this series
         @arg data [Array[Object]]
           @description
-            @p: An array of objects with x, y1 and y2 properties.The data should be of the form:
+            An array of objects with x, y1 and y2 properties.The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y1: 10, y2: 16},
                 {x: 1, y1: 11, y2: 17},
@@ -2151,9 +2151,9 @@
           Gets the data for this series
         @returns [Array[Object]]
           @description
-            @p: An array of objects with x, y1 and y2 properties.The data should be of the form:
+            An array of objects with x, y1 and y2 properties.The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y1: 10, y2: 16},
                 {x: 1, y1: 11, y2: 17},
@@ -2186,9 +2186,9 @@
 
           @property data [Array[Object]]
             @description
-              @p: An array of objects with x, y1 and y2 properties.The data should be of the form:
+              An array of objects with x, y1 and y2 properties.The data should be of the form:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y1: 10, y2: 16},
                   {x: 1, y1: 11, y2: 17},
@@ -2214,9 +2214,9 @@
 
           @property labelFormatters [Object]
             @description
-              @p: Optional label formatters for each label value.
+              Optional label formatters for each label value.
 
-              @codeblock js
+              @@codeblock js
                 new hx.ScatterSeries({
                   labelFormatters: {
                     'x': function(value) { return x },
@@ -2338,7 +2338,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Sets an additional class to give the series svg elements.
+          Sets an additional class to give the series svg elements.
         @arg class [String]: The class to give the series.
         @returns ScatterSeries: This ScatterSeries
 
@@ -2346,7 +2346,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Gets the additional class applied to the series svg elements.
+          Gets the additional class applied to the series svg elements.
         @returns String: The additional class applied to the series.
 
       @method radius
@@ -2374,9 +2374,9 @@
           Sets the data for this series
         @arg data [Array[Object]]
           @description
-            @p: An array of objects with x, y properties. The data should be of the form:
+            An array of objects with x, y properties. The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10},
                 {x: 1, y: 11},
@@ -2384,9 +2384,9 @@
                 {x: 3, y: 12}
               ]
 
-            @p: The color and size of the points can also be supplied with the data:
+            The color and size of the points can also be supplied with the data:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10, fillColor: hx.color.graph[1], radius: 1},
                 {x: 1, y: 11, fillColor: hx.color.graph[2], radius: 2},
@@ -2400,9 +2400,9 @@
           Gets the data for this series
         @returns [Array[Object]]
           @description
-            @p: An array of objects with x, y properties. The data should be of the form:
+            An array of objects with x, y properties. The data should be of the form:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10},
                 {x: 1, y: 11},
@@ -2410,9 +2410,9 @@
                 {x: 3, y: 12}
               ]
 
-            @p: The color and size of the points can also be supplied with the data:
+            The color and size of the points can also be supplied with the data:
 
-            @codeblock js
+            @@codeblock js
               [
                 {x: 0, y: 10, fillColor: hx.color.graph[1], radius: 1},
                 {x: 1, y: 11, fillColor: hx.color.graph[2], radius: 2},
@@ -2441,9 +2441,9 @@
 
           @property data [Array[Object]]
             @description
-              @p: An array of objects with x, y properties. The data should be of the form:
+              An array of objects with x, y properties. The data should be of the form:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y: 10},
                   {x: 1, y: 11},
@@ -2451,9 +2451,9 @@
                   {x: 3, y: 12}
                 ]
 
-              @p: The color and size of the points can also be supplied with the data:
+              The color and size of the points can also be supplied with the data:
 
-              @codeblock js
+              @@codeblock js
                 [
                   {x: 0, y: 10, fillColor: hx.color.graph[1], radius: 1},
                   {x: 1, y: 11, fillColor: hx.color.graph[2], radius: 2},
@@ -2478,9 +2478,9 @@
 
           @property labelFormatters [Object]
             @description
-              @p: Optional label formatters for each label value.
+              Optional label formatters for each label value.
 
-              @codeblock js
+              @@codeblock js
                 new hx.StraightLineSeries({
                   labelFormatters: {
                     'x': function(value) { return x },
@@ -2599,7 +2599,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Sets an additional class to give the series svg element.
+          Sets an additional class to give the series svg element.
         @arg class [String]: The class to give the series.
         @returns StraightLineSeries: This StraightLineSeries
 
@@ -2607,7 +2607,7 @@
         @description
           @notice Note
             The _new_ prefix will be dropped in version 1.0.0.
-          @p: Gets the additional class applied to the series svg element.
+          Gets the additional class applied to the series svg element.
         @returns String: The additional class applied to the series.
 
       @method strokeColor
@@ -2624,21 +2624,21 @@
           Sets the data for this series
         @arg data [Array[Object]]
           @description
-            @p: An object describing the line to draw. The data should be of the form:
+            An object describing the line to draw. The data should be of the form:
 
-            @p: A line with a gradient:
+            A line with a gradient:
 
-            @codeblock js
+            @@codeblock js
               {x: 0, y: 10, dx: 2, dy: 3}
 
-            @p: Vertical line:
+            Vertical line:
 
-            @codeblock js
+            @@codeblock js
               {x: 50}
 
-            @p: Horizontal line:
+            Horizontal line:
 
-            @codeblock js
+            @@codeblock js
               {y: 70}
 
         @returns StraightLineSeries: This StraightLineSeries
@@ -2648,21 +2648,21 @@
           Gets the data for this series
         @returns [Array[Object]]
           @description
-            @p: An object describing the line to draw. The data should be of the form:
+            An object describing the line to draw. The data should be of the form:
 
-            @p: A line with a gradient:
+            A line with a gradient:
 
-            @codeblock js
+            @@codeblock js
               {x: 0, y: 10, dx: 2, dy: 3}
 
-            @p: Vertical line:
+            Vertical line:
 
-            @codeblock js
+            @@codeblock js
               {x: 50}
 
-            @p: Horizontal line:
+            Horizontal line:
 
-            @codeblock js
+            @@codeblock js
               {y: 70}
 
 

@@ -7,9 +7,9 @@
           @property autocompleteData [Array/Function]
             @added: @issue 194
             @description:
-              @p: The data to use as suggestions for the tag input. Data can be specified as an array of items or as a function that returns an array of items.
-              @p: See @hyperlink(../autocomplete)[Autocomplete] constructor for more information about what the data can be set to.
-              @p: By default, no autocompletion is provided.
+              The data to use as suggestions for the tag input. Data can be specified as an array of items or as a function that returns an array of items.
+              See @hyperlink(../autocomplete)[Autocomplete] constructor for more information about what the data can be set to.
+              By default, no autocompletion is provided.
           @property autocompleteOptions [Object]
             @added: @issue 194
             @description: Special options to be passed to the autocomplete. See the @hyperlink(../autocomplete)[Autocomplete] constructor for the available options.

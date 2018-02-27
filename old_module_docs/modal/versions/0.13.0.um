@@ -89,7 +89,7 @@
             @description
               <p>The array of buttons to show in the modal.</p>
               <p>The default buttons that are used if the buttons parameter is passed in as null or undefined is as follows:</p>
-              @codeblock js
+              @@codeblock js
                 [
                   {
                     text: "Confirm"
@@ -108,8 +108,8 @@
             @default: false
           @property titleClass [String]
             @description:
-              @p: The class to use when rendering the titlebar.
-              @p: This should be one of the @code['hx-background-'] classes but without the prefix, e.g. @code['positive'] or @code['negative']
+              The class to use when rendering the titlebar.
+              This should be one of the @code['hx-background-'] classes but without the prefix, e.g. @code['positive'] or @code['negative']
           @property icon [String]
             @description: The icon to add to the modal heading.
         @returns Modal: The newly constructed Modal

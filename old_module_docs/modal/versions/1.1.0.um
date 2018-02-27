@@ -9,8 +9,8 @@
         @arg setup [Function[HTMLElement]]
         @arg? options [Object]
         @removed:
-          @p: Added an additional parameter to the setup function, titlebarRenderer and headerRenderer.
-          @p: The existing API has not been modified and will continue to work.
+          Added an additional parameter to the setup function, titlebarRenderer and headerRenderer.
+          The existing API has not been modified and will continue to work.
           @issue 41
 
       @constructor
@@ -29,7 +29,7 @@
             @arg element [HTMLElement]: The node for the modal title.
             @arg modal [Modal]: The current modal
             @default
-              @codeblock js
+              @@codeblock js
                 function (node) {
                   hx.select(node).text(this.title)
                 }
@@ -40,7 +40,7 @@
             @arg? closeButtonNode [Element]: The node for the modal close button. If @code(js)[closeButtonEnabled] is false, this will be undefined.
             @arg modal [Modal]: The current modal
             @default
-              @codeblock js
+              @@codeblock js
                 function (node, titleNode, closeButtonNode) {
                   hx.select(node).add(titleNode).add(closeButtonNode)
                 }

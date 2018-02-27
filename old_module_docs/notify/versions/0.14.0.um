@@ -33,7 +33,7 @@
           <button class="hx-btn" onclick="hx.notify('Permanent', {timeout: undefined});">Permanent</button>
         </div>
 
-    @codeblock js
+    @@codeblock js
       // show an info notification that will disappear after 5 seconds by default
       hx.notify.info('Hello');
 
@@ -62,9 +62,9 @@
   @api Notify
     @prototype hx.NotificationManager
       @description:
-        @p: One of these can be created as a separate object if desired.
-        @p: The inbuilt notification manager can be accessed through the @code(js)[hx.notify] functions, e.g.
-        @codeblock js
+        One of these can be created as a separate object if desired.
+        The inbuilt notification manager can be accessed through the @code(js)[hx.notify] functions, e.g.
+        @@codeblock js
           hx.notify('Message')
           hx.notify.loading('Loading...')
       @method notify

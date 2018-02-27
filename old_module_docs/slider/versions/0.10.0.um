@@ -24,9 +24,9 @@
             @default: 'slider'
           @property render [Function]:
             @description:
-              @p: The render function to use when rendering the value of the slider.
-              @p: The default render function is:
-              @codeblock js
+              The render function to use when rendering the value of the slider.
+              The default render function is:
+              @@codeblock js
                 function render(slider, elem, value) {
                   hx.select(elem).text(hx.format.fixed(2)(value));
                 }

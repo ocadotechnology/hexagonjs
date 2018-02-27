@@ -5,7 +5,7 @@
         @added: @issue 401
           @description: Added functions for getting the filter types
         @description: A function that returns the filter types that can be used when filtering strings:
-          @@codeblock js
+          @@@codeblock js
             [
               'contains',
               'exact'
@@ -20,7 +20,7 @@
         @added: @issue 401
           @description: Added functions for getting the filter types
         @description: A function that returns the filter types that can be used when filtering numbers:
-          @@codeblock js
+          @@@codeblock js
             [
               'exact',
               'greater',
@@ -32,7 +32,7 @@
         @added: @issue 401
           @description: Added functions for getting the filter types
         @description: A function that returns all the filter types:
-          @@codeblock js
+          @@@codeblock js
             [
               'contains',
               'exact'

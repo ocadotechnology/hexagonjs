@@ -56,7 +56,7 @@
         The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
 
         The default value is
-        @codeblock js
+        @@codeblock js
           [
             'exact',
             'startsWith',
@@ -78,7 +78,7 @@
       @description
         When using object for cell data either this should be defined, or cellValueLookup should be defined for every column. This function makes it possible to specify which value in the cell objects to filter and sort by.
         This can be overridden on a column-by-column basis with options.cellValueLookup.
-        @codeblock js
+        @@codeblock js
           // table data
           data = {
             head : {
@@ -114,7 +114,7 @@
       @added
       @description
         Can be set to change the cell value lookup for a specific column:
-        @codeblock js
+        @@codeblock js
           // table data
           data = {
             head : {
@@ -173,7 +173,7 @@
       @added
       @description: Can be set to change the renderer for a given column.
 
-        @codeblock js
+        @@codeblock js
             // table data
             data = {
               head : {
@@ -283,9 +283,9 @@
     @arg? direction [String/Boolean]
       @description
         The sort direction.
-        @p: Values for ascending are: true, "asc" or "ascending"
-        @p: Values for descending are: false, "desc" or "descending"
-        @p: Values for clearing the sort: undefined or "none"
+        Values for ascending are: true, "asc" or "ascending"
+        Values for descending are: false, "desc" or "descending"
+        Values for clearing the sort: undefined or "none"
 
     @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
 
@@ -299,7 +299,7 @@
         The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
 
         @collapsible Object
-          @codeblock js
+          @@codeblock js
             {
               head:{ // header object
                 columns:[ // object for each column
@@ -319,7 +319,7 @@
 
           The data can also be specified with additional properties for the rows. The table will only look for data in the 'columns' property, any other values will be ignored. They will be returned as part of the row data in methods like 'getSelected':
 
-          @codeblock js
+          @@codeblock js
             {
               ...
               "body":[
@@ -335,7 +335,7 @@
 
           Additionally, column data can also be specified in object format:
 
-          @codeblock js
+          @@codeblock js
             {
               ...
               "body":[
@@ -347,7 +347,7 @@
 
 
         @collapsible Function
-          @codeblock js
+          @@codeblock js
             var feed = function(request, callback) {
               if (request.type == 'header') {
                 // available request properties:
@@ -384,14 +384,14 @@
 
 
         @collapsible Server Side
-          @codeblock js
+          @@codeblock js
             table.setData('https://example.com/data', {id: 'my-table-id'})
 
           <b>Note</b> In this case, the server must respond correctly to the post requests that are made. The post request will contain some json that describes the data that should be returned. The possible types of request are:
 
           @h3: Header
           @h4: Request
-          @codeblock js
+          @@codeblock js
             {
               "type": "header",
               "extra": {
@@ -400,9 +400,9 @@
             }
 
 
-          @p: You should respond with the header info in json form:
+          You should respond with the header info in json form:
           @h4: Response
-          @codeblock js
+          @@codeblock js
             {
               head: {
                 columns:[ // object for each column
@@ -417,7 +417,7 @@
 
           @h3: Row count
           @h4: Request
-          @codeblock js
+          @@codeblock js
             {
               "type": "rowCount",
               "extra": {
@@ -426,14 +426,14 @@
             }
 
           @h4: Response
-          @codeblock js
+          @@codeblock js
             {
               "count": 12345, // the total number of rows in the data set
             }
 
           @h3: Row data
           @h4: Request
-          @codeblock js
+          @@codeblock js
             {
               "type": "rows",
               "startRow": 0,
@@ -449,7 +449,7 @@
             }
 
           @h4: Response
-          @codeblock js
+          @@codeblock js
             {
               "rows": [
                 [
@@ -467,7 +467,7 @@
         @h3: Adding multi column / grouped headers
         However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
 
-        @codeblock js
+        @@codeblock js
           {
             columns:[ // object for each column
               { value:"Name", groups:["Group 1"]},

@@ -65,7 +65,7 @@
             @property key [String]: The property name to map the input value to when filling the form and when getting the data.
             @property validator [Function]
               @description: A function that is called when the 'oninput' function is called. It is passed the event object and should return an error message as a string:
-                @codeblock js
+                @@codeblock js
                   var validator = function(e){
                     if(e.target.value.length < 5){
                       "Please enter text longer than 5 characters"

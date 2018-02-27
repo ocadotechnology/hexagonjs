@@ -9,11 +9,11 @@
         @description
           Sets the children of the selected element.
 
-          @@codeblock js
+          @@@codeblock js
             hx.select('body')
               .set(hx.div('my-content'))
 
-          @@codeblock js
+          @@@codeblock js
             hx.select('body')
               .set([
                 hx.div('my-content-1'),
@@ -23,7 +23,7 @@
           Note that this is equivalent to clearing the childen and adding the
           new ones:
 
-          @@codeblock js
+          @@@codeblock js
             hx.select('body')
               .clear()
               .add(hx.div('my-content'))
@@ -46,11 +46,11 @@
         @description
           Replaces this selection in the DOM.
 
-          @@codeblock js
+          @@@codeblock js
             hx.select('.some-container')
               .replace(hx.div('my-content'))
 
-          @@codeblock js
+          @@@codeblock js
             hx.select('.some-container')
               .replace([
                 hx.div('my-content-1'),
@@ -63,7 +63,7 @@
           Note that this is equivalent to inserting after the current selection
           and then removing it:
 
-          @@codeblock js
+          @@@codeblock js
             hx.select('.some-container').insertAfter(hx.div('my-content'))
             hx.select('.some-container').remove()
 

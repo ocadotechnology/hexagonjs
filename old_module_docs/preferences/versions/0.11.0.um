@@ -25,9 +25,9 @@
           @arg data [Object]: The data object returned from the user's local storage. This will have the same properties as the preferences property.
             @property timeZone [String]
               @description
-                @p: The user's selected time zone.
-                @p: The time zone is intended to be used with @link(http://momentjs.com/timezone/)[Moment.js Timezone] and the full list of timezones is retrieved using @code[moment.tz.names()]
-                @p: The value is stored as a string and can be any value from the moment.tz list.
+                The user's selected time zone.
+                The time zone is intended to be used with @link(http://momentjs.com/timezone/)[Moment.js Timezone] and the full list of timezones is retrieved using @code[moment.tz.names()]
+                The value is stored as a string and can be any value from the moment.tz list.
             @property locale [String]: The user's selected locale.
 
       @method value

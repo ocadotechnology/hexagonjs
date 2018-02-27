@@ -1,7 +1,7 @@
 @section Other functionality and examples
-  @p: The @code[Color] prototype contains several methods to allow for modification of a color.
-  @p: The below examples show all the available methods and also use the @code[toString()] method to show the hex value and set the background color of the cells.
-  @p: In the below examples, @code[exCol] is the example color object that we are manipulating.
+  The @code[Color] prototype contains several methods to allow for modification of a color.
+  The below examples show all the available methods and also use the @code[toString()] method to show the hex value and set the background color of the cells.
+  In the below examples, @code[exCol] is the example color object that we are manipulating.
 
   @css
     .example-cell{
@@ -22,15 +22,15 @@
     exCol = hx.color(hx.theme.palette.positiveCol);
 
   @section Cloning
-    @p: The @code[clone()] function returns a new color with the same r, g, b and a values as the current color. Cloning a color object is useful for situations where you need a version of a color without modifying the original value. The methods on the @code[Color] class all modify the selected object. Cloning is useful for situations where you need a new version of a color without altering the original.
+    The @code[clone()] function returns a new color with the same r, g, b and a values as the current color. Cloning a color object is useful for situations where you need a version of a color without modifying the original value. The methods on the @code[Color] class all modify the selected object. Cloning is useful for situations where you need a new version of a color without altering the original.
 
-    @codeblock
+    @@codeblock
       newColor = exCol.clone()
 
-    @p: The @code[newColor] object can be modified freely without altering @code[exCol] color.
+    The @code[newColor] object can be modified freely without altering @code[exCol] color.
 
   @section Lightness
-    @p: The lightness functions are useful for creating variations of a color without changing them drastically. Below are examples of each of the lightness functions:
+    The lightness functions are useful for creating variations of a color without changing them drastically. Below are examples of each of the lightness functions:
 
     @table .hx-table.hx-table-centered
       @attr align: center
@@ -67,7 +67,7 @@
             setCellColor("lighten_lightness",exCol.clone().lightness(0.3))
 
   @section Saturation
-    @p: The saturation functions are useful for creating new colors that are of a similar lightness. Below are examples of each of the saturation functions:
+    The saturation functions are useful for creating new colors that are of a similar lightness. Below are examples of each of the saturation functions:
 
     @table .hx-table.hx-table-centered
       @attr align: center
@@ -104,7 +104,7 @@
             setCellColor("saturation_saturation",exCol.clone().saturation(0.1))
 
   @section Alpha
-    @p: The alpha functions are useful for making transparent colors where required or animating a color. Below are examples of each of the saturation functions. Note: The alpha channel is only supported with RGBA and HSLA. When outputting a color string, make sure you output to a type that accepts alpha values
+    The alpha functions are useful for making transparent colors where required or animating a color. Below are examples of each of the saturation functions. Note: The alpha channel is only supported with RGBA and HSLA. When outputting a color string, make sure you output to a type that accepts alpha values
     @table .hx-table.hx-table-centered
       @attr align: center
       @thead
@@ -140,7 +140,7 @@
             setCellColor("alpha_alpha",exCol.clone().alpha(0.7).alpha(0.3))
 
   @section Mix
-    @p: The mix function is used to create a mix of two colors. The mix amount indicates how much of the new color to mix with this color with lower values showing more of the current color and higher values showing more of the mixing color. Below is an example where we mix @code[exCol] with purple:
+    The mix function is used to create a mix of two colors. The mix amount indicates how much of the new color to mix with this color with lower values showing more of the current color and higher values showing more of the mixing color. Below is an example where we mix @code[exCol] with purple:
 
     @table .hx-table.hx-table-centered
       @attr align: center
@@ -179,18 +179,18 @@
             setCellColor("mix_thirty",exCol.clone().mix(exColAlt,0.3))
 
   @section Chaining methods
-    @p: It's possible to chain methods when using the Color api. For instance, to create a color that is 20% darker and 30% less saturated than the original, use:
-    @codeblock js
+    It's possible to chain methods when using the Color api. For instance, to create a color that is 20% darker and 30% less saturated than the original, use:
+    @@codeblock js
       newCol = exCol.clone().lighten(-0.2).saturate(-0.3)
-    @p: instead of
-    @codeblock js
+    instead of
+    @@codeblock js
       newCol = exCol.clone()
       newCol.lighten(-0.2)
       newCol.saturate(-0.3)
 
   @section Building a color range
-    @p: You can use the colorRange function to create a range of lighter or darker colors based on any color. The default values for the function returns an array of 7 color objects, 3 lighter, 3 darker and the original, in order of lightness.
-    @codeblock js
+    You can use the colorRange function to create a range of lighter or darker colors based on any color. The default values for the function returns an array of 7 color objects, 3 lighter, 3 darker and the original, in order of lightness.
+    @@codeblock js
       exCol.range()
 
     @css
@@ -229,9 +229,9 @@
       }
       buildList()
 
-    @p: You can use the function to build arrays of any length by specifying the numDark and numLight parameters.
+    You can use the function to build arrays of any length by specifying the numDark and numLight parameters.
 
-    @codeblock js
+    @@codeblock js
       exCol.range(5,5)
     @html
       <div id="color-range2" class="color-range"></div>
@@ -240,9 +240,9 @@
       list = exCol.range(5,5)
       buildList();
 
-    @p: If the numDark and numLight are not equal, the step between each color will be calculated using the maximum value. As you can see, the lightest color below matches the above ranges and the dark color does not.
+    If the numDark and numLight are not equal, the step between each color will be calculated using the maximum value. As you can see, the lightest color below matches the above ranges and the dark color does not.
 
-    @codeblock js
+    @@codeblock js
       exCol.range(3,1)
     @html
       <div id="color-range3" class="color-range"></div>
@@ -251,9 +251,9 @@
       list = exCol.range(3,1)
       buildList()
 
-    @p: You can also change the maxRange value to give greater increases/decreases in color
+    You can also change the maxRange value to give greater increases/decreases in color
 
-    @codeblock js
+    @@codeblock js
       exCol.range(3,3,0.75)
     @html
       <div id="color-range4" class="color-range"></div>

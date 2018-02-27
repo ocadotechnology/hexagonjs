@@ -11,7 +11,7 @@
           @description
             Adds a dropdown select input to the form. There is an alternative overload that accepts an array of strings as the values.
 
-            @codeblock js
+            @@codeblock js
               var values = [
                 { text: 'Hue', value: 'hue' } ,
                 { text: 'Saturation', value: 'saturation'},
@@ -25,8 +25,8 @@
             @property key [String]: The property name to map the input value to when filling the form and when getting the data.
             @property required [Boolean]
               @description
-                @p: Whether or not this is a required field.
-                @p: When the value is 'false', the select object will start with a blank value but is not required to be selected.
-                @p: When the value is 'true', the select object will start with a blank value and will not validate until a user has selected an option.
-                @p: When the value is not defined, the dropdown behaves as normal.
+                Whether or not this is a required field.
+                When the value is 'false', the select object will start with a blank value but is not required to be selected.
+                When the value is 'true', the select object will start with a blank value and will not validate until a user has selected an option.
+                When the value is not defined, the dropdown behaves as normal.
           @returns Form: This Form

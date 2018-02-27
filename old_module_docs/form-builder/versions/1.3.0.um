@@ -25,5 +25,5 @@
             @property key [String]: The property name to map the input value to when filling the form and when getting the data.
             @property fileInputOptions [Object]
               @description:
-                @p: The options to use for the FileInput component.
-                @p: See the @code(js)[hx.FileInput] prototype constructor for the available options.
+                The options to use for the FileInput component.
+                See the @code(js)[hx.FileInput] prototype constructor for the available options.

@@ -33,13 +33,13 @@
 
         @arg data [Object/String/Function]
           @updated:
-            @p: Added the ability to override the @code[allowHeaderWrap] setting for individual columns using the @code[allowWrap] property.
+            Added the ability to override the @code[allowHeaderWrap] setting for individual columns using the @code[allowWrap] property.
 
           @description
             The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
 
             @collapsible Object
-              @codeblock js
+              @@codeblock js
                 {
                   head:{ // header object
                     columns:[ // object for each column
@@ -59,7 +59,7 @@
 
               The data can also be specified with additional properties for the rows. The table will only look for data in the 'columns' property, any other values will be ignored. They will be returned as part of the row data in methods like 'getSelected':
 
-              @codeblock js
+              @@codeblock js
                 {
                   ...
                   "body":[
@@ -75,7 +75,7 @@
 
               Additionally, column data can also be specified in object format:
 
-              @codeblock js
+              @@codeblock js
                 {
                   ...
                   "body":[
@@ -87,7 +87,7 @@
 
 
             @collapsible Function
-              @codeblock js
+              @@codeblock js
                 var feed = function(request, callback) {
                   if (request.type == 'header') {
                     // available request properties:
@@ -124,14 +124,14 @@
 
 
             @collapsible Server Side
-              @codeblock js
+              @@codeblock js
                 table.setData('https://example.com/data', {id: 'my-table-id'})
 
               <b>Note</b> In this case, the server must respond correctly to the post requests that are made. The post request will contain some json that describes the data that should be returned. The possible types of request are:
 
               @h3: Header
               @h4: Request
-              @codeblock js
+              @@codeblock js
                 {
                   "type": "header",
                   "extra": {
@@ -140,9 +140,9 @@
                 }
 
 
-              @p: You should respond with the header info in json form:
+              You should respond with the header info in json form:
               @h4: Response
-              @codeblock js
+              @@codeblock js
                 {
                   head: {
                     columns:[ // object for each column
@@ -157,7 +157,7 @@
 
               @h3: Row count
               @h4: Request
-              @codeblock js
+              @@codeblock js
                 {
                   "type": "rowCount",
                   "extra": {
@@ -166,14 +166,14 @@
                 }
 
               @h4: Response
-              @codeblock js
+              @@codeblock js
                 {
                   "count": 12345, // the total number of rows in the data set
                 }
 
               @h3: Row data
               @h4: Request
-              @codeblock js
+              @@codeblock js
                 {
                   "type": "rows",
                   "startRow": 0,
@@ -189,7 +189,7 @@
                 }
 
               @h4: Response
-              @codeblock js
+              @@codeblock js
                 {
                   "rows": [
                     [
@@ -207,7 +207,7 @@
             @h3: Adding multi column / grouped headers
             However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
 
-            @codeblock js
+            @@codeblock js
               {
                 columns:[ // object for each column
                   { value:"Name", groups:["Group 1"]},
@@ -220,8 +220,8 @@
 
             @h3: Wrapping header text for individual columns
 
-            @p: It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the allowWrap property in the header colums:
-            @codeblock js
+            It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the allowWrap property in the header colums:
+            @@codeblock js
               {
                 head: {
                   columns:[ // object for each column

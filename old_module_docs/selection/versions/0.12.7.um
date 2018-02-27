@@ -3,12 +3,12 @@
     @prototype Selection
       @enhancement
 
-        @p: Selection now handles namespaced attributes (which are most prevalent in svg). eg
-        @codeblock js
+        Selection now handles namespaced attributes (which are most prevalent in svg). eg
+        @@codeblock js
           text.attr('xlink:href', '#curvePath')
 
       @enhancement
 
-        @p: Selection now handles removal of styles with undefined (so that it works in the same was as selection.attr). eg
-        @codeblock js
+        Selection now handles removal of styles with undefined (so that it works in the same was as selection.attr). eg
+        @@codeblock js
           text.style('color', undefined)

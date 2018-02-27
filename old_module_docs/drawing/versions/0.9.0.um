@@ -93,7 +93,7 @@
         @description: Creates a new object in the default layer.
         @arg type [String]
           @description
-            @p: The type of primitive to create, should be one of:
+            The type of primitive to create, should be one of:
 
             @list
               @item: rectangle
@@ -194,7 +194,7 @@
         @description: Creates a new object in this layer.
         @arg type [String]
           @description
-            @p: The type of primitive to create, should be one of:
+            The type of primitive to create, should be one of:
 
             @list
               @item: rectangle
@@ -246,7 +246,7 @@
         @description: Sets the value of one of the properties of this object, optionally animating the change.
         @arg name [String]
           @description
-            @p: The name of the property to set. The available properties are:
+            The name of the property to set. The available properties are:
 
             Properties that can be animated:
             @list
@@ -273,7 +273,7 @@
         @description: Gets the current value of one of the properties of this object.
         @arg name [String]
           @description
-            @p: The name of the property to get. The available properties are:
+            The name of the property to get. The available properties are:
             @list
               @item: position.x
               @item: position.y
@@ -293,7 +293,7 @@
         @description: Sets the value of one of the properties of this object, optionally animating the change.
         @arg name [String]
           @description
-            @p: The name of the property to set. The available properties are:
+            The name of the property to set. The available properties are:
 
             Properties that can be animated:
             @list
@@ -319,7 +319,7 @@
         @description: Gets the current value of one of the properties of this object.
         @arg name [String]
           @description
-            @p: The name of the property to get. The available properties are:
+            The name of the property to get. The available properties are:
 
             @list
               @item: position.x
@@ -340,7 +340,7 @@
         @description: Sets the value of one of the properties of this object, optionally animating the change.
         @arg name [String]
           @description
-            @p: The name of the property to set. The available properties are:
+            The name of the property to set. The available properties are:
 
             Properties that can be animated:
             @list
@@ -361,7 +361,7 @@
         @description: Gets the current value of one of the properties of this object.
         @arg name [String]
           @description
-            @p: The name of the property to get. The available properties are:
+            The name of the property to get. The available properties are:
             @list
               @item: start.x
               @item: start.y
@@ -379,7 +379,7 @@
         @description: Sets the value of one of the properties of this object, optionally animating the change.
         @arg name [String]
           @description
-            @p: The name of the property to set. The available properties are:
+            The name of the property to set. The available properties are:
 
             Properties that can be animated:
             @list
@@ -405,7 +405,7 @@
         @description: Gets the current value of one of the properties of this object.
         @arg name [String]
           @description:
-            @p: The name of the property to get. The available properties are:
+            The name of the property to get. The available properties are:
             @list
               @item: position.x
               @item: position.y
@@ -426,7 +426,7 @@
         @description: Sets the value of one of the properties of this object, optionally animating the change.
         @arg name [String]
           @description
-            @p: The name of the property to set. The available properties are:
+            The name of the property to set. The available properties are:
 
             Properties that can be animated:
             @list
@@ -456,7 +456,7 @@
         @description: Gets the current value of one of the properties of this object.
         @arg name [String]
           @description
-            @p: The name of the property to get. The available properties are:
+            The name of the property to get. The available properties are:
             @list
               @item: position.x
               @item: position.y
@@ -480,7 +480,7 @@
         @description: Sets the value of one of the properties of this object, optionally animating the change.
         @arg name [String]
           @description
-            @p: The name of the property to set. The available properties are:
+            The name of the property to set. The available properties are:
 
             Properties that can be animated:
             @list
@@ -508,7 +508,7 @@
         @description: Gets the current value of one of the properties of this object.
         @arg name [String]
           @description
-            @p: The name of the property to get. The available properties are:
+            The name of the property to get. The available properties are:
 
             @list
               @item: position.x
@@ -530,7 +530,7 @@
         @description: Sets the value of one of the properties of this object, optionally animating the change.
         @arg name [String]
           @description
-            @p: The name of the property to set. The available properties are:
+            The name of the property to set. The available properties are:
 
             Properties that can be animated:
             @list
@@ -550,7 +550,7 @@
         @description: Gets the current value of one of the properties of this object, or one of the nested objects.
         @arg name [String]
           @description
-            @p: The name of the property to get. The available properties are:
+            The name of the property to get. The available properties are:
 
             @list
               @item: position.x
@@ -565,7 +565,7 @@
         @description: Creates a new object in this composite object.
         @arg type [String]
           @description
-            @p: The type of primitive to create, should be one of:
+            The type of primitive to create, should be one of:
 
             @list
               @item: rectangle

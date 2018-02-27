@@ -52,7 +52,7 @@
         @arg selector [String/HTMLElement]
           @description:
             The .hx-heading section which contains the titlebar. Normally you would do something like this:
-            @codeblock js
+            @@codeblock js
               var titlebar = new hx.TitleBar(hx.select('hx-section').node());
 
       @method setActive

@@ -29,11 +29,11 @@
             @added: @issue 401
               @description: Added the ability to use filter types in the advanced search of data tables
             @description
-              @p: An array of types that the advanced search for the data table is allowed to use. The values that can be used can be found in @code[hx.filter.types()].
+              An array of types that the advanced search for the data table is allowed to use. The values that can be used can be found in @code[hx.filter.types()].
 
-              @p: Setting this to undefined disables the ability to change the filter criteria and uses 'contains' filtering.
+              Setting this to undefined disables the ability to change the filter criteria and uses 'contains' filtering.
 
-              @p: This value can be set per-column
+              This value can be set per-column
 
             @default: undefined
 

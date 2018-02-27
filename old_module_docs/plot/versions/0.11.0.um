@@ -16,7 +16,7 @@
 
         To color the line with a gradient, this may be set to an array:
 
-        @codeblock
+        @@codeblock
           series.series.color = [
             {
               yValue: 0,
@@ -86,7 +86,7 @@
 
         To color the line with a gradient, this may be set to an array:
 
-        @codeblock
+        @@codeblock
           series.series.color = [
             {
               yValue: 0,

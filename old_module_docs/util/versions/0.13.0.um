@@ -15,7 +15,7 @@
 
         The objects will be merged recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
 
-        @codeblock js
+        @@codeblock js
           // returns {'a': 2, 'b': 3}
           hx.merge({'a': 1}, {'a': 2}, {'b': 3})
 
@@ -32,7 +32,7 @@
 
         The objects will be merged recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
 
-        @codeblock js
+        @@codeblock js
           // returns {'a': 1, 'b': 3}
           hx.merge.defined({'a': 1}, {'a': undefined}, {'b': 3})
 
@@ -55,7 +55,7 @@
       @description
         Merges multiple objects together where the first level of references are copied, and returns the result as a new object.
 
-        @codeblock js
+        @@codeblock js
           // returns {'a': 2, 'b': 3}
           hx.shallowMerge({'a': 1}, {'a': 2}, {'b': 3})
 
@@ -70,7 +70,7 @@
       @description
         Merges multiple objects together where the first level of references are copied provided they are defined values (not undefined), and returns the result as a new object.
 
-        @codeblock js
+        @@codeblock js
           // returns {'a': 1, 'b': 3}
           hx.shallowMerge.defined({'a': 1}, {'a': undefined}, {'b': 3})
 
@@ -84,7 +84,7 @@
       @description:
         Returns true if the value passed in is a boolean
 
-        @codeblock js
+        @@codeblock js
           hx.isBoolean("i am a string")                // returns false
           hx.isBoolean({})                             // returns false
           hx.isBoolean(document.createElement('div'))  // returns false

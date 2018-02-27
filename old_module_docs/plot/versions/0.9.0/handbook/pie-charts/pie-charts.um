@@ -38,7 +38,7 @@
 
       Pie charts can be turned into donut charts by simply setting the innerPadding property on the pie chart object before rendering:
 
-      @codeblock js
+      @@codeblock js
         pie.innerPadding = 0.5
 
       @example
@@ -78,7 +78,7 @@
 
       When specifying the data, multiple series can specified. The data supplied must be an array in this case:
 
-      @codeblock js
+      @@codeblock js
         data = [
           {
             name: "Series 1",

@@ -4,7 +4,7 @@
     A module for adding a resize event to the selection api.
 
   @examples
-    @codeblock js
+    @@codeblock js
       hx.select('#body').on('resize', function(event){
         // do something when the element is resized.
       });

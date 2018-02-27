@@ -106,8 +106,8 @@
 
       @method range
         @description
-          @p: A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
-          @p: When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
+          A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
+          When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
         @arg date1 [Date]: The first date of the range
         @arg date2 [Date]: The second date of the range
         @arg? dontSetupInput [Boolean]: A value used to prevent the input being changed
@@ -119,10 +119,10 @@
         @added: Added the ability to specify a valid range for date pickers.
 
         @description:
-          @p: A method for setting the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
-          @p: To clear a valid range, this method can be called with no parameters.
-          @p: To set an end date without setting a start date, this method can be called with @code[undefined] as the first parameter
-          @codeblock js
+          A method for setting the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
+          To clear a valid range, this method can be called with no parameters.
+          To set an end date without setting a start date, this method can be called with @code[undefined] as the first parameter
+          @@codeblock js
             datepicker.validRange(new Date()); // User can select any date after today
             datepicker.validRange(undefined, new Date()); // User can select any date before today
             datepicker.validRange(new Date(), new Date()); // User can only select today

@@ -58,7 +58,7 @@
                     };
                   });
 
-              @codeblock
+              @@codeblock
                 // example: only allow non number inputs
                 new hx.TagInput('#validated-tag-input', {
                   validator: function(name) {

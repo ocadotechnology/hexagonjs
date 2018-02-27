@@ -4,18 +4,18 @@
     A module for manipulating colors.
 
   @examples
-    @codeblock js
+    @@codeblock js
       @inline 0.15.2/example.js
 
   @api Color
     @prototype Color
       @description
-        @p: This class should be created through the hx.color function.A class that can be used to create a color object with methods to manipulate the color such as changing the lightness, saturation and mixing with other colors. The object consists of multiple methods that allow the manipulation of color properties (e.g. red, green etc.) as well as other functions for modifying the color as a whole.
-        @p: The color object also allows conversion between hsl and rgb, however the conversions are not exact and are rounded to the nearest whole integer so it is suggested that conversions are only made in one direction to prevent a color being modified.
+        This class should be created through the hx.color function.A class that can be used to create a color object with methods to manipulate the color such as changing the lightness, saturation and mixing with other colors. The object consists of multiple methods that allow the manipulation of color properties (e.g. red, green etc.) as well as other functions for modifying the color as a whole.
+        The color object also allows conversion between hsl and rgb, however the conversions are not exact and are rounded to the nearest whole integer so it is suggested that conversions are only made in one direction to prevent a color being modified.
 
       @updated
-        @p: Updated the API to convert properties to getters/setters and also added some consistency between the hsl/rgb values by converting the hue, saturation and lightness values from unit values (between 0 and 1) to true values, between 0 and 360 for hue and 0 and 100 for saturation and lightness as these are the values used in CSS.
-        @p: The methods added for each property (e.g. red, green etc.) will also have aliased methods (e.g. r, g etc.) once the deprecated properties have been removed (as they share the same name)
+        Updated the API to convert properties to getters/setters and also added some consistency between the hsl/rgb values by converting the hue, saturation and lightness values from unit values (between 0 and 1) to true values, between 0 and 360 for hue and 0 and 100 for saturation and lightness as these are the values used in CSS.
+        The methods added for each property (e.g. red, green etc.) will also have aliased methods (e.g. r, g etc.) once the deprecated properties have been removed (as they share the same name)
 
 
       @method red

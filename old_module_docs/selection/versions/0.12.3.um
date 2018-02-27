@@ -14,7 +14,7 @@
         @added
         @description
           Registers a callback for an event type.
-          @codeblock js
+          @@codeblock js
 
             hx.select('#button').on('click', function() {
               // click handling code here

@@ -32,7 +32,7 @@
             @description
               A function that turns object nodes to dom elements.
               An example renderer:
-              @codeblock javascript
+              @@codeblock javascript
                 var renderer = function(element, datum) {
                   element.innerHTML = datum.name
                   element.style.color = datum.color || 'black'
@@ -46,7 +46,7 @@
             @description
               A nested array of objects that represent nodes in the tree.
               An array that takes the following form:
-              @codeblock js
+              @@codeblock js
                 @inline 0.13.0/exampleData.json
 
               The data object should be an array of objects that represent the first level of nodes in the tree. Each of these nodes can contain children - they can have a 'children' field which refers to an array of the child nodes. A node can also contain other properties, which will contain the information you wish to fill the node out with. If the example above, the "name" and "color" fields are properties that we have chosen to give to each node, and might used when rendering each node.
@@ -66,13 +66,13 @@
         @description: Set the items to build the tree from.
         @arg data [Array[Object]]
           @description
-            @p: A nested array of objects that represent nodes in the tree.
-            @p: An array that takes the following form:
-            @codeblock js
+            A nested array of objects that represent nodes in the tree.
+            An array that takes the following form:
+            @@codeblock js
               @inline 0.13.0/exampleData.json
 
-            @p: The data object should be an array of objects that represent the first level of nodes in the tree. Each of these nodes can contain children - they can have a 'children' field which refers to an array of the child nodes. A node can also contain other properties, which will contain the information you wish to fill the node out with. If the example above, the "name" and "color" fields are properties that we have chosen to give to each node, and might used when rendering each node.
-            @p: Note that other than the 'children' field, it is up to you what you call any other properties in each node.
+            The data object should be an array of objects that represent the first level of nodes in the tree. Each of these nodes can contain children - they can have a 'children' field which refers to an array of the child nodes. A node can also contain other properties, which will contain the information you wish to fill the node out with. If the example above, the "name" and "color" fields are properties that we have chosen to give to each node, and might used when rendering each node.
+            Note that other than the 'children' field, it is up to you what you call any other properties in each node.
         @returns Tree: This Tree
 
       @method renderer
@@ -92,16 +92,16 @@
         @description: Sets the function used to convert tree items into DOM elements.
         @arg render [Function]
           @description
-            @p: A function that turns object nodes to dom elements.
-            @p: An example renderer:
-            @codeblock javascript
+            A function that turns object nodes to dom elements.
+            An example renderer:
+            @@codeblock javascript
               var renderer = function(element, datum) {
                 element.innerHTML = datum.name
                 element.style.color = datum.color || 'black'
               }
 
-            @p: This will set the text of each node to the property 'name' in the json data, and will set the color of the node to the 'color' property if it is present.
-            @p: Note that you can do anything here - you can append new elements to the element supplied and fill out the node with arbitrary blocks of html. This is the part where you define what the contents of each node is going to look like.
+            This will set the text of each node to the property 'name' in the json data, and will set the color of the node to the 'color' property if it is present.
+            Note that you can do anything here - you can append new elements to the element supplied and fill out the node with arbitrary blocks of html. This is the part where you define what the contents of each node is going to look like.
 
           @arg node [HTMLElement]: The element to populate.
           @arg data [Object]: The data to populate the element with.

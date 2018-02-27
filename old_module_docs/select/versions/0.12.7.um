@@ -31,16 +31,16 @@
           @property ddClass [String]: The additional class to add to the dropdown when creating it.
           @property items [Array/Function]
             @description:
-              @p: The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
-              @p: This can also be set after the select has been constructed using the @code[items] method.
+              The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+              This can also be set after the select has been constructed using the @code[items] method.
           @property renderer [Function]
             @description:
-              @p: A function that renders the data in the dropdown and the select button. The default value is:
-              @codeblock js
+              A function that renders the data in the dropdown and the select button. The default value is:
+              @@codeblock js
                 function (node, data) {
                   hx.select(node).text(data);
                 }
-              @p: This can also be set after the select has been constructed using the @code[renderer] method.
+              This can also be set after the select has been constructed using the @code[renderer] method.
           @property startValue [String]: The value to use when initialising the select.
           @property noValueText [String]: The text to use when no value is selected.
             @default('Choose a value...')
@@ -57,7 +57,7 @@
         @description: Set the items for the select using a function that returns the data.
         @arg dataFetcher [Function]
           @description:
-            @p: The function to call to get the data. This will be called whenever the value is set or the select is opened, allowing the data to be changed easily.
-            @p: It is recommended that the data for a select be cached where possible when using the function to set the data.
+            The function to call to get the data. This will be called whenever the value is set or the select is opened, allowing the data to be changed easily.
+            It is recommended that the data for a select be cached where possible when using the function to set the data.
           @arg callback [Function]: The function to call when the data has loaded
             @arg data [Array[String/Object]]: The items to add to the select.

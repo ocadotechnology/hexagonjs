@@ -11,9 +11,9 @@
           @property columns [Object]
             @property maxWidth [Number]
               @description:
-                @p: A value that can be used to set the max width for a column to enable more structured table layouts.
-                @p: The max width does not take into account the padding applied to the cells and will stretch to fit the heading if there is not enough room for the heading text and icon
-                @p: At least one column must not have the max width set otherwise the table will ignore all values.
+                A value that can be used to set the max width for a column to enable more structured table layouts.
+                The max width does not take into account the padding applied to the cells and will stretch to fit the heading if there is not enough room for the heading text and icon
+                At least one column must not have the max width set otherwise the table will ignore all values.
               @added: Added an option for setting the max width for a column
                 @issue 11
 

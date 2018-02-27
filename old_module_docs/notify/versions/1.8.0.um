@@ -3,15 +3,15 @@
   @property cssclass [String]: The css class or classes to give the notification.
   @property timeout [Number]
     @description
-      @p: How long (in seconds) the notification should hang around for before it dismisses itself.
-      @p: If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
-      @p: If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+      How long (in seconds) the notification should hang around for before it dismisses itself.
+      If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+      If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
   @property pinnable [Boolean]: Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
   @property renderer [Function]
     @description:
-      @p: The renderer to use when creating the notification.
-      @p: It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
-      @p: It must be provided when passing in a message Object otherwise the notification will fail to render.
+      The renderer to use when creating the notification.
+      It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+      It must be provided when passing in a message Object otherwise the notification will fail to render.
     @arg element [HTMLElement]: The notification content element to populate.
     @arg message [String/Object]: The message passed into the notification.
 
@@ -20,9 +20,9 @@
   @added: @issue 299
   @arg message [String/Selection/HTMLElement/Object]:
     @description:
-      @p: The message to display in the notification.
-      @p: It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
-      @codeblock js
+      The message to display in the notification.
+      It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+      @@codeblock js
         // String
         hx.notify('Message to display')
 
@@ -36,8 +36,8 @@
         hx.notify(message)
 
 
-      @p: When using an Object as the message, a @code(js)[renderer] must be provided in the options.
-      @codeblock js
+      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+      @@codeblock js
         var options = {
           renderer: function (element, message) {
             hx.select(element)
@@ -56,8 +56,8 @@
 @version 1.8.0
   @api Notify
     @info:
-      @p: Updated the notification functions and methods so that the message can be an HTMLElement, Selection or an Object and added a renderer to the notification options for rendering Object messages.
-      @p: The notifications will behave as they did previously with strings but now accept additional types for the message.
+      Updated the notification functions and methods so that the message can be an HTMLElement, Selection or an Object and added a renderer to the notification options for rendering Object messages.
+      The notifications will behave as they did previously with strings but now accept additional types for the message.
       @issue 299
 
     @function hx.notify
@@ -78,9 +78,9 @@
 
       @arg? options [Object]: The options to use when setting up the notification.
         @description
-          @p: The options to use when setting up the notification.
-          @p: The default value for the options object is:
-          @codeblock js
+          The options to use when setting up the notification.
+          The default value for the options object is:
+          @@codeblock js
             {
               icon: 'fa fa-info',
               cssclass: 'hx-info',
@@ -95,9 +95,9 @@
 
       @arg? options [Object]: The options to use when setting up the notification.
         @description
-          @p: The options to use when setting up the notification.
-          @p: The default value for the options object is:
-          @codeblock js
+          The options to use when setting up the notification.
+          The default value for the options object is:
+          @@codeblock js
             {
               icon: 'fa fa-warning',
               cssclass: 'hx-warning',
@@ -112,9 +112,9 @@
 
       @arg? options [Object]: The options to use when setting up the notification.
         @description
-          @p: The options to use when setting up the notification.
-          @p: The default value for the options object is:
-          @codeblock js
+          The options to use when setting up the notification.
+          The default value for the options object is:
+          @@codeblock js
             {
               icon: 'fa fa-error',
               cssclass: 'hx-negative',
@@ -129,9 +129,9 @@
 
       @arg? options [Object]: The options to use when setting up the notification.
         @description
-          @p: The options to use when setting up the notification.
-          @p: The default value for the options object is:
-          @codeblock js
+          The options to use when setting up the notification.
+          The default value for the options object is:
+          @@codeblock js
             {
               icon: 'fa fa-check',
               cssclass: 'hx-positive',
@@ -188,9 +188,9 @@
 
         @arg? options [Object]: The options to use when setting up the notification.
           @description
-            @p: The options to use when setting up the notification.
-            @p: The default value for the options object is:
-            @codeblock js
+            The options to use when setting up the notification.
+            The default value for the options object is:
+            @@codeblock js
               {
                 icon: 'fa fa-info',
                 cssclass: 'hx-info',
@@ -205,9 +205,9 @@
 
         @arg? options [Object]: The options to use when setting up the notification.
           @description
-            @p: The options to use when setting up the notification.
-            @p: The default value for the options object is:
-            @codeblock js
+            The options to use when setting up the notification.
+            The default value for the options object is:
+            @@codeblock js
               {
                 icon: 'fa fa-warning',
                 cssclass: 'hx-warning',
@@ -222,9 +222,9 @@
 
         @arg? options [Object]: The options to use when setting up the notification.
           @description
-            @p: The options to use when setting up the notification.
-            @p: The default value for the options object is:
-            @codeblock js
+            The options to use when setting up the notification.
+            The default value for the options object is:
+            @@codeblock js
               {
                 icon: 'fa fa-error',
                 cssclass: 'hx-negative',
@@ -239,9 +239,9 @@
 
         @arg? options [Object]: The options to use when setting up the notification.
           @description
-            @p: The options to use when setting up the notification.
-            @p: The default value for the options object is:
-            @codeblock js
+            The options to use when setting up the notification.
+            The default value for the options object is:
+            @@codeblock js
               {
                 icon: 'fa fa-check',
                 cssclass: 'hx-positive',

@@ -91,7 +91,7 @@
       @description
         Adds a context class to an element.
 
-        @codeblock js
+        @@codeblock js
           // adds the 'hx-positive' class to the element, and removes all other context classes
           hx.palette.context('.my-element', 'positive')
 
@@ -100,7 +100,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.context('.my-element', 'positive')
             hx.palette.context('.my-element', 'warning')
             hx.palette.context('.my-element', 'negative')
@@ -113,7 +113,7 @@
       @description
         Gets a context class of an element.
 
-        @codeblock js
+        @@codeblock js
           // gets the context of the element (by looking at the class of the element)
           hx.palette.context('.my-element')
 
@@ -136,7 +136,7 @@
       @description
         Adds a text context class to an element.
 
-        @codeblock js
+        @@codeblock js
           // adds the 'hx-text-positive' class to the element, and removes all other text context classes
           hx.palette.context('.my-element', 'positive')
 
@@ -145,7 +145,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.textContext('.my-element', undefined) // removes the text context class
             hx.palette.textContext('.my-element', 'default')
             hx.palette.textContext('.my-element', 'positive')
@@ -160,7 +160,7 @@
       @description
         Gets the text context class of an element.
 
-        @codeblock js
+        @@codeblock js
           // gets the context of the element (by looking at the class of the element)
           hx.palette.textContext('.my-element')
 
@@ -184,7 +184,7 @@
       @description
         Adds a background context class to an element.
 
-        @codeblock js
+        @@codeblock js
           // adds the 'hx-background-positive' class to the element, and removes all other background context classes
           hx.palette.context('.my-element', 'positive')
 
@@ -193,7 +193,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.backgroundContext('.my-element', undefined) // removes the background context class
             hx.palette.backgroundContext('.my-element', 'default')
             hx.palette.backgroundContext('.my-element', 'positive')
@@ -208,7 +208,7 @@
       @description
         Gets the background context class of an element.
 
-        @codeblock js
+        @@codeblock js
           // gets the context of the element (by looking at the class of the element)
           hx.palette.backgroundContext('.my-element')
 

@@ -12,7 +12,7 @@
       @description
         Hashes a string to an integer
 
-        @codeblock js
+        @@codeblock js
           // returns a number
           hx.hash('some-string');
 
@@ -33,7 +33,7 @@
           result[j][i] = data[i][j]
         . The result is returned as a new array.
 
-        @codeblock js
+        @@codeblock js
           // returns [[1, 4], [2, 5], [3, 6]]
           hx.transpose([[1, 2, 3], [4, 5, 6]]);
 
@@ -55,7 +55,7 @@
         Provides a way to find out if the browser supports a feature.
       @arg name [String]: The name of the feature to check
 
-        @codeblock js
+        @@codeblock js
           // this is the list of checks that are currently available
           hx.supports('touch') // touch events
           hx.supports('date')  // date input type
@@ -66,7 +66,7 @@
       @description
         Restricts a value to an interval
 
-        @codeblock js
+        @@codeblock js
           hx.clamp(0, 100, 105) // returns 100
           hx.clamp(0, 100, -50) // returns 0
           hx.clamp(0, 100, 75)  // returns 75
@@ -80,7 +80,7 @@
       @description
         Restricts a value to the unit interval [0, 1]
 
-        @codeblock js
+        @@codeblock js
           hx.clampUnit(0.15) // returns 0.15
           hx.clampUnit(-0.1) // returns 0
           hx.clampUnit(2.5)  // returns 1
@@ -92,7 +92,7 @@
       @description
         Returns a random string using the length and alphabet provided
 
-        @codeblock js
+        @@codeblock js
           hx.randomId() // returns a 16-character hex string
           hx.randomId(24) // returns a 24-character hex string
           hx.randomId(10, 'abc') // returns a 10-character string using the letters a, b and c
@@ -105,7 +105,7 @@
 
     @function hx.min
       @removed: Apply transformations before passing into min
-        @codeblock js
+        @@codeblock js
           // old way
           hx.min(array, f)
 
@@ -115,7 +115,7 @@
       @description
         Returns the minimum value in the array
 
-        @codeblock js
+        @@codeblock js
           // returns 3
           hx.min([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
             return d.v;
@@ -132,7 +132,7 @@
       @description
         Returns the minimum value in the array
 
-        @codeblock js
+        @@codeblock js
           hx.min([7, 6, 3, 5]) // returns 3
 
       @arg array [Array]: An array of numbers
@@ -140,7 +140,7 @@
 
     @function hx.max
       @removed: Apply transformations before passing into max
-        @codeblock js
+        @@codeblock js
           // old way
           hx.max(array, f)
 
@@ -150,7 +150,7 @@
       @description
         Returns the maximum value in the array
 
-        @codeblock js
+        @@codeblock js
           // returns 7
           hx.max([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
             return d.v;
@@ -167,7 +167,7 @@
       @description
         Returns the maximum value in the array
 
-        @codeblock js
+        @@codeblock js
           hx.max([7, 6, 3, 5]) // returns 7
 
       @arg array [Array]: An array of numbers
@@ -177,7 +177,7 @@
       @description
         Returns the minimum value in the array according to a extracted or computed value
 
-        @codeblock js
+        @@codeblock js
           // returns {v: 3}
           hx.min([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
             return d.v;
@@ -193,7 +193,7 @@
       @description
         Returns the maximum value in the array according to a extracted or computed value
 
-        @codeblock js
+        @@codeblock js
           // returns {v: 7}
           hx.max([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
             return d.v;
@@ -209,7 +209,7 @@
       @description:
         Creates an array of values from 0 - length.
 
-        @codeblock js
+        @@codeblock js
           //returns [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
           hx.range(10);
 
@@ -220,7 +220,7 @@
       @description:
         Calculates the sum of an array
 
-        @codeblock js
+        @@codeblock js
           //returns 45
           hx.sum([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
@@ -231,7 +231,7 @@
       @description
         Flattens a 2D array into a 1D array.
 
-        @codeblock js
+        @@codeblock js
           //returns [1, 2, 3, 4, 5, 6]
           hx.flatten([[1, 2], [3, 4], [5, 6]])
 
@@ -242,7 +242,7 @@
       @description:
         Provides a way to access an array where the index loops round
 
-        @codeblock js
+        @@codeblock js
           hx.cycle([0, 1, 2], 0); // returns 0
           hx.cycle([0, 2, 4], 1); // returns 2
           hx.cycle([0, 2, 4], 2); // returns 4
@@ -260,7 +260,7 @@
       @description:
         Hashes a string onto an item in a list
 
-        @codeblock js
+        @@codeblock js
           // returns a value from the list - for the same string, the value returned will always be the same
           hx.hashList([0, 1, 2], "some-string");
 
@@ -272,7 +272,7 @@
       @description:
         Finds an item in an array using an indicator function. Returns the first match
 
-        @codeblock js
+        @@codeblock js
           // returns {v: 3}
           hx.find([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
             return d.v === 3;
@@ -288,7 +288,7 @@
       @description:
         Returns true if the value passed in is a string
 
-        @codeblock js
+        @@codeblock js
           hx.isString("i am a string")                // returns true
           hx.isString({})                             // returns false
           hx.isString(document.createElement('div'))  // returns false
@@ -303,7 +303,7 @@
       @description:
         Returns true if the value passed in is a function
 
-        @codeblock js
+        @@codeblock js
           hx.isFunction("i am a string")                // returns false
           hx.isFunction({})                             // returns false
           hx.isFunction(document.createElement('div'))  // returns false
@@ -318,7 +318,7 @@
       @description:
         Returns true if the value passed in is an array
 
-        @codeblock js
+        @@codeblock js
           hx.isArray("i am a string")                 // returns false
           hx.isArray({})                              // returns false
           hx.isArray(document.createElement('div'))   // returns false
@@ -333,7 +333,7 @@
       @description:
         Returns true if the value passed in is an object
 
-        @codeblock js
+        @@codeblock js
           hx.isObject("i am a string")                // returns false
           hx.isObject({})                             // returns true
           hx.isObject(document.createElement('div'))  // returns true
@@ -353,7 +353,7 @@
           @item: DOM nodes
           @item: window
 
-        @codeblock js
+        @@codeblock js
           hx.isPlainObject("i am a string")                // returns false
           hx.isPlainObject({})                             // returns true
           hx.isPlainObject(document.createElement('div'))  // returns false
@@ -369,7 +369,7 @@
       @description
         Groups items in an array according to some classifier function.
 
-        @codeblock js
+        @@codeblock js
           var items = [
             { type: 'a', value: 1 },
             { type: 'a', value: 2 },
@@ -417,7 +417,7 @@
       @description
         Returns a copy of the list supplied with duplicates removed
 
-        @codeblock js
+        @@codeblock js
           //returns [1, 2, 3]
           hx.unique([1, 2, 1, 3, 3, 2, 2, 1, 3])
 
@@ -428,7 +428,7 @@
       @description
         Returns true if a string ends with a value
 
-        @codeblock js
+        @@codeblock js
           hx.endsWith('some-string', 'ing')  // returns true
           hx.endsWith('some-string', 'some') // returns false
           hx.endsWith('some-string', '')     // returns true
@@ -441,7 +441,7 @@
       @description
         Returns true if a string starts with a value
 
-        @codeblock js
+        @@codeblock js
           hx.startsWith('some-string', 'ing')  // returns false
           hx.startsWith('some-string', 'some') // returns true
           hx.startsWith('some-string', '')     // returns true
@@ -454,7 +454,7 @@
       @description
         Interpolates a value using linear interpolation
 
-        @codeblock js
+        @@codeblock js
           hx.tween(0, 5, 0.5)  // returns 2.5
           hx.tween(0, 5, 0.1)  // returns 0.5
           hx.tween(1, 5, 0)    // returns 0
@@ -469,7 +469,7 @@
       @description
         Checks if a value is defined
 
-        @codeblock js
+        @@codeblock js
           hx.defined(123)       // true
           hx.defined([])        // true
           hx.defined({})        // true
@@ -482,7 +482,7 @@
       @description
         Combines multiple arrays, so that the first element is an array containing all the first elements from the arrays provided, the second element is another array with all the second elements from the arrays provided, and so on.
 
-        @codeblock js
+        @@codeblock js
           // returns [[1, 4], [2, 5], [3, 6]]
           var result = hx.zip([[1, 2, 3], [4, 5, 6]]);
 
@@ -496,7 +496,7 @@
 
         The objects will be merged recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
 
-        @codeblock js
+        @@codeblock js
           // returns {'a': 2, 'b': 3}
           hx.merge(false, {'a': 1}, {'a': 2}, {'b': 3})
 
@@ -512,7 +512,7 @@
       @description
         Merges multiple objects together where the first level of references are copied, and returns the result as a new object.
 
-        @codeblock js
+        @@codeblock js
           // returns {'a': 2, 'b': 3}
           hx.merge(false, {'a': 1}, {'a': 2}, {'b': 3})
 

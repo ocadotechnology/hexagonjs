@@ -16,13 +16,13 @@
         An object describing the line to draw.
         The data should be of the form:
         A line with a gradient:
-        @codeblock json
+        @@codeblock json
           {x: 0, y: 10, dx: 2, dy: 3}
 
         Vertical line:
-        @codeblock json
+        @@codeblock json
           {x: 50}
 
         Horizontal line:
-        @codeblock json
+        @@codeblock json
           {y: 70}

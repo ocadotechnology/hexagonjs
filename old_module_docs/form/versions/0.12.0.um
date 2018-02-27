@@ -2,9 +2,9 @@
   @api Form
     @function hx.validateForm
       @description:
-        @p: A helper function for validating forms. By default, it will show a message below the first error in the form but will return an array with all the errors.
-        @p: An example use of this function could be:
-        @codeblock js
+        A helper function for validating forms. By default, it will show a message below the first error in the form but will return an array with all the errors.
+        An example use of this function could be:
+        @@codeblock js
           hx.select('#form').select('button').on('click', function (event){
             event.preventDefault(); // Stops the form from submitting natively
             var validObj = hx.validateForm('#form');

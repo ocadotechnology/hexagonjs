@@ -16,7 +16,7 @@
           <button class="hx-btn" onclick="hx.notify().permanent('Permanent', 'fa fa-bell');">Permanent</button>
         </div>
 
-    @codeblock js
+    @@codeblock js
       // show an info notification that will disappear after 5 seconds by default
       hx.notify().info('Hello');
 
@@ -50,7 +50,7 @@
 
       @constructor
         @description:
-          @p: Create a new notification manager inside the given container.
+          Create a new notification manager inside the given container.
         @arg? selector [String/Element]: The selector to append the notification container to.
           @default: 'body'
 

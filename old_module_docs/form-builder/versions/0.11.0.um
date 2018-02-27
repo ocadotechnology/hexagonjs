@@ -76,7 +76,7 @@
         @arg data [Object]:
           @description
             The values to fill the form with. The expected format of the data is a an object where the keys match the labels, and the values are the values to set the input to:
-            @codeblock js
+            @@codeblock js
               {
                 'Field 1': 25,
                 'Field 2': 'green',
@@ -87,13 +87,13 @@
 
       @method data
         @description:
-          @p: Returns the data in the form as an object containing key/value pairs.
-          @p: If no keys are provided in the options, the name of each field will be used as the key.
+          Returns the data in the form as an object containing key/value pairs.
+          If no keys are provided in the options, the name of each field will be used as the key.
         @returns Object
           @description
             The data currently filled out in the form. It will look something like this:
 
-            @codeblock js
+            @@codeblock js
               {
                 'Field 1': 25,
                 'Field 2': 'green',

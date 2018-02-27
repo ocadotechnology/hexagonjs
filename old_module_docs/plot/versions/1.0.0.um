@@ -476,7 +476,7 @@
       @method class
         @description
           @notice Note
-          @p: Sets an additional class to give the series svg elements.
+          Sets an additional class to give the series svg elements.
         @arg class [String]: The class to give the series.
         @returns BarSeries: This BarSeries
 

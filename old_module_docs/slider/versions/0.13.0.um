@@ -14,9 +14,9 @@
 
           @property renderer [Function]
             @description:
-              @p: The render function to use when rendering the value of the slider.
-              @p: The default render function is:
-              @codeblock js
+              The render function to use when rendering the value of the slider.
+              The default render function is:
+              @@codeblock js
                 function (slider, elem, value) {
                   hx.select(elem).text(hx.format.fixed(2)(value));
                 }
@@ -76,9 +76,9 @@
         @description: Sets the renderer function
         @arg render [Function]
           @description:
-            @p: The render function used to display the value of the slider.
-            @p: The default render function is:
-            @codeblock js
+            The render function used to display the value of the slider.
+            The default render function is:
+            @@codeblock js
               function (slider, elem, value) {
                 hx.select(elem).text(hx.format.fixed(2)(value));
               }
@@ -94,7 +94,7 @@
 
         @returns Function
           @description:
-            @p: The render function used to display the value of the slider.
+            The render function used to display the value of the slider.
           @arg slider [Slider]: The current slider object.
           @arg elem [HTMLElement]: The node of the slider value.
           @arg value [Number]: The current value of the selected slider control.

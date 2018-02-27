@@ -5,7 +5,7 @@
 
   @examples
 
-    @codeblock js
+    @@codeblock js
       // selecting by id
       hx.select('#some-id')
 
@@ -110,13 +110,13 @@
         @description
           Sets a property on the Elements selected.
 
-          @codeblock js
+          @@codeblock js
             // will set the className property value to 'myclass'
             // for the single element in the selection this will
             // return the current selection for chaining
             hx.select('#some-id').prop('className', 'myclass')
 
-          @codeblock js
+          @@codeblock js
             // will set the className property value to 'myclass'
             // for all the elements in the selection this will
             // return the current selection for chaining
@@ -130,11 +130,11 @@
         @description
           Gets a property on the Elements selected.
 
-          @codeblock js
+          @@codeblock js
             // will return the className attribute for the selected element
             hx.select('#some-id').prop('className')
 
-          @codeblock js
+          @@codeblock js
             // will return an array of className attributes for all the selected elements
             hx.selectAll('.some-class').prop('className')
 
@@ -147,13 +147,13 @@
         @description
           Sets an attribute on the Elements selected.
 
-          @codeblock js
+          @@codeblock js
             // will set the class attribute value to 'myclass' for the
             // single element in the selection this will return the current
             // selection for chaining
             hx.select('#some-id').attr('placeholder', 'Enter Text...')
 
-          @codeblock js
+          @@codeblock js
             // will set the class attribute value to 'myclass' for all the
             // elements in the selection this will return the current selection
             // for chaining
@@ -168,11 +168,11 @@
         @description
           Gets an attribute on the Elements selected.
 
-          @codeblock js
+          @@codeblock js
             // will return the class attribute for the selected element
             hx.select('#some-id').attr('class')
 
-          @codeblock js
+          @@codeblock js
             // will return an array of class attributes for all the selected elements
             hx.selectAll('.some-class').attr('class')
 
@@ -183,13 +183,13 @@
         @description
           Sets a style property on the Elements selected.
 
-          @codeblock js
+          @@codeblock js
             // will set the class style property value to 'myclass' for
             // the single element in the selection this will return the
             // current selection for chaining
             hx.select('#some-id').style('background', 'red')
 
-          @codeblock js
+          @@codeblock js
             // will set the class style property value to 'myclass' for
             // all the elements in the selection this will return the current
             // selection for chaining
@@ -203,11 +203,11 @@
         @description
           Gets a style property on the Elements selected.
 
-          @codeblock js
+          @@codeblock js
             // will return the class style property for the selected element
             hx.select('#some-id').style('background')
 
-          @codeblock js
+          @@codeblock js
             // will return an array of class style propertys for all the selected elements
             hx.selectAll('.some-class').style('background')
 
@@ -216,41 +216,41 @@
 
       @method text
         @description
-          @p: Sets text content of all the selected elements.
-          @p: Shorthand for @code(js)[selection.prop('textContent', value)]
+          Sets text content of all the selected elements.
+          Shorthand for @code(js)[selection.prop('textContent', value)]
         @arg text [String]: The text to use.
         @returns Selection: This Selection
 
       @method text
         @description
-          @p: Gets the text content of all the selected elements.
-          @p: Shorthand for @code(js)[selection.prop('textContent')]
+          Gets the text content of all the selected elements.
+          Shorthand for @code(js)[selection.prop('textContent')]
         @returns [String/Array[String]]: The text content of the selected element, or nodes if this is a multiple selection.
 
       @method html
         @description
-          @p: Sets the html content of all the selected elements
-          @p: Shorthand for @code(js)[selection.prop('innerHtml', value)]
+          Sets the html content of all the selected elements
+          Shorthand for @code(js)[selection.prop('innerHtml', value)]
         @arg html [String]: The html to use.
         @returns Selection: This Selection
 
       @method html
         @description
-          @p: Gets the html content of all the selected elements
-          @p: Shorthand for @code(js)[selection.prop('innerHtml')]
+          Gets the html content of all the selected elements
+          Shorthand for @code(js)[selection.prop('innerHtml')]
         @returns [String/Array[String]]: The html content of the selected element, or nodes if this is a multiple selection.
 
       @method class
         @description
-          @p: Sets the class attribute for all of the selected elements
-          @p: Shorthand for  @code(js)[selection.attr('class', value)]
+          Sets the class attribute for all of the selected elements
+          Shorthand for  @code(js)[selection.attr('class', value)]
         @arg class [String]: The class to set.
         @returns Selection: This Selection
 
       @method class
         @description
-          @p: Gets the class attribute for all of the selected elements
-          @p: Shorthand for @code(js)[selection.attr('class')]
+          Gets the class attribute for all of the selected elements
+          Shorthand for @code(js)[selection.attr('class')]
         @returns [String/Array[String]]: The class of the selected element or list of classes if this is a multiple selection.
 
       @method classed
@@ -280,7 +280,7 @@
       @method on
         @description
           Registers a callback for an event type.
-          @codeblock js
+          @@codeblock js
 
             hx.select('#button').on('click', function() {
               // click handling code here
@@ -294,7 +294,7 @@
       @method off
         @description
           Deregisters a callback for an event type.
-          @codeblock js
+          @@codeblock js
 
             hx.select('#button').off('click')
             hx.select('#button').off('click', handler)

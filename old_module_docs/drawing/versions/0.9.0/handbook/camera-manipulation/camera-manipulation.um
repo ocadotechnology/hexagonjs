@@ -4,7 +4,7 @@
 
     Enabling the drawing to be controlled with the mouse / touch can be done as follows:
 
-    @codeblock js
+    @@codeblock js
       var drawing = new hx.Drawing('#drawing-id');
 
       // enable panning
@@ -17,7 +17,7 @@
 
     The position of the camera can be set directly using the following:
 
-    @codeblock js
+    @@codeblock js
       drawing.camera.position.x = 100;
       drawing.camera.position.y = 250;
 
@@ -25,7 +25,7 @@
 
     The position and zoom of the camera can be changed so that a chosen object appears at the centre of the screen:
 
-    @codeblock js
+    @@codeblock js
       drawing.show(obj);
 
     See the api docs for more details.
@@ -34,7 +34,7 @@
 
     The camera can also be set to follow an object using:
 
-    @codeblock js
+    @@codeblock js
       drawing.follow(obj);
 
     Again, see the api docs for more details.
@@ -42,7 +42,7 @@
   @section Limiting the camera's movements
     The minimum and maximum zoom of the camera can be set to limit the zoom range:
 
-    @codeblock js
+    @@codeblock js
       drawing.camera.zoomMin = 0.5;
       drawing.camera.zoomMax = 1.5;
 
@@ -50,7 +50,7 @@
 
     The area that the camera can pan around can also be limited by setting the xMin, xMax, yMin and yMax properties on the camera object:
 
-    @codeblock js
+    @@codeblock js
       drawing.camera.xMin = -100;
       drawing.camera.xMax = -100;
       drawing.camera.yMin = 100;

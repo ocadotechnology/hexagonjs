@@ -60,7 +60,7 @@
             Whether or not to animate the collapsible state transition. The default value is determined by the @code[animate] property passed in when creating the collapsible.
           @default: true
             @removed
-              @p: The default is now determined by @code[options.animate]
+              The default is now determined by @code[options.animate]
         @arg? callback [Function]
           @description: Called when the animation finishes. The callback will only be run if the state changes.
         @returns Collapsible: This Collapsible
@@ -73,7 +73,7 @@
             Whether or not to animate the collapsible state transition. The default value is determined by the @code[animate] property passed in when creating the collapsible.
           @default: true
             @removed
-              @p: The default is now determined by @code[options.animate]
+              The default is now determined by @code[options.animate]
         @arg? callback [Function]
           @description: Called when the animation finishes. The callback will only be run if the state changes.
         @returns Collapsible: This Collapsible
@@ -86,7 +86,7 @@
             Whether or not to animate the collapsible state transition. The default value is determined by the @code[animate] property passed in when creating the collapsible.
           @default: true
             @removed
-              @p: The default is now determined by @code[options.animate]
+              The default is now determined by @code[options.animate]
         @arg? callback [Function]
           @description: Called when the animation finishes
         @returns Collapsible: This Collapsible

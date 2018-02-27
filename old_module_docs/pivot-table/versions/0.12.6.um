@@ -29,16 +29,16 @@
 
           @property topLeftCellRender [Function]:
             @description:
-              @p: A function for rendering the top left cell (the division between row headers and column headers)
-              @p: By default this function does not have a value and will be rendered as an empty cell.
+              A function for rendering the top left cell (the division between row headers and column headers)
+              By default this function does not have a value and will be rendered as an empty cell.
 
             @arg element [HTMLElement]: The @code[th] node of the top left cell. Values entered in this cell will affect the sizes of the left/top headings.
 
           @property cellRender [Function]:
             @description:
-              @p: A function for rendering the cells in the table body.
-              @p: The default value of this function is as follows:
-              @codeblock js
+              A function for rendering the cells in the table body.
+              The default value of this function is as follows:
+              @@codeblock js
                 function (data, element, isHead, column) {
                   hx.select(element).text(data)
                 }
@@ -55,11 +55,11 @@
         @description: A method for providing a pivot table with data
         @arg data [Object]
           @description:
-            @p: The data to render in the pivot table.
+            The data to render in the pivot table.
 
-            @p: The data should be an object with a @code[topHead], @code[leftHead] and @code[body].
+            The data should be an object with a @code[topHead], @code[leftHead] and @code[body].
 
-            @codeblock js
+            @@codeblock js
               {
                 topHead: [
                   'Header',
@@ -77,7 +77,7 @@
                   ...// Body Data
                 ]
               }
-            @p: The data does not have to have both a topHead and leftHead.
+            The data does not have to have both a topHead and leftHead.
 
         @returns PivotTable: This pivot table for chaining
 

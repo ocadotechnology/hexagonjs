@@ -4,7 +4,7 @@
       @div: The @link(../drag-container)[Drag Container] module can be used as a replacement for the drag/drop functionality.
       @div: The @link(../card)[Card] module can be used as a replacement for the styles
 
-    @p: Styles for creating dashboard layouts.
+    Styles for creating dashboard layouts.
 
   @examples
     @removed
@@ -12,9 +12,9 @@
   @api Dashboard
     @deprecated
 
-      @p: The dashboard module is deprecated in this version.
-      @p: The @link(/docs/0.15.2/drag-container/)[Drag Container] module can be used as a replacement for the drag/drop functionality.
-      @p: The @link(/docs/0.15.2/card/)[Card] module can be used as a replacement for the styles
+      The dashboard module is deprecated in this version.
+      The @link(/docs/0.15.2/drag-container/)[Drag Container] module can be used as a replacement for the drag/drop functionality.
+      The @link(/docs/0.15.2/card/)[Card] module can be used as a replacement for the styles
 
     @prototype DashboardWidget
       @deprecated

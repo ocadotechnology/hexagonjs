@@ -1,12 +1,12 @@
 @version 1.4.0
   @description
-    @p: A module used for defining the default text for hexagon modules.
-    @p: All the default text within hexagon is now defined using this module. It can be overriden for each instance if required using the options for each component.
-    @p: This module can also be used as a method for localisation of user facing text.
-    @p: Hexagon provides all text in English.
+    A module used for defining the default text for hexagon modules.
+    All the default text within hexagon is now defined using this module. It can be overriden for each instance if required using the options for each component.
+    This module can also be used as a method for localisation of user facing text.
+    Hexagon provides all text in English.
 
   @examples
-    @codeblock js
+    @@codeblock js
       // Get and set inbuilt values:
       hx.userFacingText('form', 'missingValue') // Get the text for the 'form' module and 'missingValue' key
       hx.userFacingText('form', 'missingValue', 'Value Missing') // Set the text
@@ -38,8 +38,8 @@
 
     @function hx.userFacingText
       @description:
-        @p: Sets multiple module text keys:
-        @codeblock js
+        Sets multiple module text keys:
+        @@codeblock js
           var text = {
             picker: {
               chooseValue: 'Text'
@@ -51,8 +51,8 @@
           }
           hx.userFacingText(text)
 
-        @p: It can also be used to reset the text to the default values
-        @codeblock js
+        It can also be used to reset the text to the default values
+        @@codeblock js
           hx.userFacingText(hx.userFacingText.defaults())
       @arg text [Object]: The object with module/key objects to set.
 

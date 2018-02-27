@@ -51,8 +51,8 @@
   @api Color Picker
     @prototype hx.ColorPicker
       @enhancement:
-        @p: Moved the @code[showInputs] and @code[currentColor] to be accessible as @code[options.showInputs] and @code[value()]
-        @p: The value can now also be set with the @code[value(color)] method.
+        Moved the @code[showInputs] and @code[currentColor] to be accessible as @code[options.showInputs] and @code[value()]
+        The value can now also be set with the @code[value(color)] method.
 
 
       @constructor

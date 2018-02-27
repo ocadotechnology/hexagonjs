@@ -1,8 +1,8 @@
 @version 0.9.0
 
   @description
-    @p: Styling for forms using the @code(html)[hx-form] class using a specified structure.
-    @p: Components such as date pickers etc. or custom content should be added inside a container div to prevent style conflicts
+    Styling for forms using the @code(html)[hx-form] class using a specified structure.
+    Components such as date pickers etc. or custom content should be added inside a container div to prevent style conflicts
 
   @examples
     @example

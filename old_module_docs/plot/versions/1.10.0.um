@@ -17,8 +17,8 @@
           Added an option to enable collision detection to prevent labels overlapping on graphs. By default, this value is true.
         @issue 353
       @description
-        @p: Gets the doCollisionDetection property
-        @p: Used for enabling collision detecion for labels to prevent them from overlapping
+        Gets the doCollisionDetection property
+        Used for enabling collision detecion for labels to prevent them from overlapping
       @returns Boolean: The doCollisionDetection value.
 
     @method doCollisionDetection
@@ -27,8 +27,8 @@
           Added an option to enable collision detection to prevent labels overlapping on graphs. By default, this value is true.
         @issue 353
       @description
-        @p: Sets the doCollisionDetection property
-        @p: Used for enabling collision detecion for labels to prevent them from overlapping
+        Sets the doCollisionDetection property
+        Used for enabling collision detecion for labels to prevent them from overlapping
       @arg value [Boolean]
       @returns Axis: This Axis
 

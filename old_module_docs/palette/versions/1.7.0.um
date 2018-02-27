@@ -9,7 +9,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.context('.my-element', 'positive')
             hx.palette.context('.my-element', 'warning')
             hx.palette.context('.my-element', 'negative')
@@ -48,7 +48,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.textContext('.my-element', undefined) // removes the text context class
             hx.palette.textContext('.my-element', 'default')
             hx.palette.textContext('.my-element', 'positive')
@@ -90,7 +90,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.backgroundContext('.my-element', undefined) // removes the background context class
             hx.palette.backgroundContext('.my-element', 'default')
             hx.palette.backgroundContext('.my-element', 'positive')
@@ -132,7 +132,7 @@
         @description
           The context to apply. May be one of:
 
-          @codeblock js
+          @@codeblock js
             hx.palette.borderContext('.my-element', undefined) // removes the border context class
             hx.palette.borderContext('.my-element', 'default')
             hx.palette.borderContext('.my-element', 'positive')

@@ -7,7 +7,7 @@
       @description
         Checks if a value is defined
 
-        @codeblock js
+        @@codeblock js
           hx.defined(123)       // true
           hx.defined([])        // true
           hx.defined({})        // true

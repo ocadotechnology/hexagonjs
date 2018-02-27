@@ -46,8 +46,8 @@
 
       @method errorMessage
         @description:
-          @p: A method for setting custom error messages for form fields. If the message is set to anything other than an empty string, the form input will be classed as invalid and show a validation message.
-          @codeblock js
+          A method for setting custom error messages for form fields. If the message is set to anything other than an empty string, the form input will be classed as invalid and show a validation message.
+          @@codeblock js
             form.errorMessage('Text', 'Please enter something sensible') // Form will not validate with message 'Please enter something sensible'
             form.errorMessage('Text', undefined) // Clears validation message.
         @arg property [String]: The property/key to use.

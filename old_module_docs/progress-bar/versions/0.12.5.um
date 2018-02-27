@@ -8,11 +8,11 @@
         @description: A method for applying an array of segments to a progress bar.
         @arg segments [Array]
           @description:
-            @p: The array of segments to apply. It should be in the format of an array of objects with a value or ratio property and an optional class property.
-            @p: Every segment must have either a value or a ratio and every item in the array of segments must have the same property, values and ratios can not be used in conjunction with one another.
+            The array of segments to apply. It should be in the format of an array of objects with a value or ratio property and an optional class property.
+            Every segment must have either a value or a ratio and every item in the array of segments must have the same property, values and ratios can not be used in conjunction with one another.
 
-            @p: If only a class is provided for each segment, the progressbar will use a default ratio of 1:1 for every segment.
-            @codeblock js
+            If only a class is provided for each segment, the progressbar will use a default ratio of 1:1 for every segment.
+            @@codeblock js
               [
                 { // Segment would be 25% of the total size of the progress bar and positive
                   "class": "hx-positive"
@@ -23,8 +23,8 @@
                 }
               ]
 
-            @p: The below segments array would give one negative segment of 60% width, one warning segment of 20% width and one positive segment of 20% width.
-            @codeblock js
+            The below segments array would give one negative segment of 60% width, one warning segment of 20% width and one positive segment of 20% width.
+            @@codeblock js
               [
                 {
                   "class": "hx-negative"

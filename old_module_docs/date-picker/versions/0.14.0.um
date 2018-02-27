@@ -63,8 +63,8 @@
         @arg? dontSetupInput [Boolean]
         @arg? suppressCallback [Boolean]
         @removed:
-          @p: The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api.
-          @p: The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
+          The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api.
+          The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
 
       @method day
         @arg day [Number]

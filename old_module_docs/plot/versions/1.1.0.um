@@ -5,9 +5,9 @@
         @arg? options [Object]
           @property series [Array[Object]]
             @description
-              @p: An array of series objects. Each item in the array is equivalent to a series created using @code(um)[hx.Axis::addSeries]
-              @p: A series is defined as an object with two properties:
-              @codeblock js
+              An array of series objects. Each item in the array is equivalent to a series created using @code(um)[hx.Axis::addSeries]
+              A series is defined as an object with two properties:
+              @@codeblock js
                 {
                   type: 'line',   // The series type
                   options: {...}  // The series options
@@ -21,9 +21,9 @@
         @arg? options [Object]
           @property axes [Array[Object]]
             @description
-              @p: An array of axes objects. Each item in the array is equivalent to an axis created using @code(um)][hx.Axis]
-              @p: See the @code(um)][hx.Axis] prototype constructor for details on the available axis options
-              @codeblock js
+              An array of axes objects. Each item in the array is equivalent to an axis created using @code(um)][hx.Axis]
+              See the @code(um)][hx.Axis] prototype constructor for details on the available axis options
+              @@codeblock js
                 {
                   x: {...},
                   y: {...},
@@ -48,13 +48,13 @@
 
     @function hx.graph
       @description:
-        @p: Creates a new Graph, set up on a detached element, wrapped in a selection.
-        @p: Axes and series can be added using the options argument.
+        Creates a new Graph, set up on a detached element, wrapped in a selection.
+        Axes and series can be added using the options argument.
 
       @arg options [Object]
         @description
-          @p: The options to use when setting up the graph.
-          @p: See the options defined in the @code(um)[hx.Graph] prototype constructor for details on the available option
+          The options to use when setting up the graph.
+          See the options defined in the @code(um)[hx.Graph] prototype constructor for details on the available option
 
       @added: Added a fluid api for graphs.
 

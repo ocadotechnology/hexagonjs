@@ -7,7 +7,7 @@
           @description
             The default compare function to use when sorting columns. The default is hx.sort.localeCompare()
 
-            @codeblock js
+            @@codeblock js
               table.options.defaultCompare = function(a, b) {
                 return a > b ? 1 : -1;
               }
@@ -19,7 +19,7 @@
           @description:
             Overrides the compare function for specific columns.
 
-            @codeblock js
+            @@codeblock js
               table.options.columnCompare['age'] = function(a, b) {
                 return a > b ? 1 : -1;
               }
@@ -36,7 +36,7 @@
 
       @method restoreSelected
         @description
-          @p: A method for restoring a set of selected rows to a table that was retrieved using the @code[getSelected] method.
-          @p: When restoring the selected rows, ensure that the sorts/filters that were active when the data was retrieved are restored first as otherwise incorrect rows may be selected.
+          A method for restoring a set of selected rows to a table that was retrieved using the @code[getSelected] method.
+          When restoring the selected rows, ensure that the sorts/filters that were active when the data was retrieved are restored first as otherwise incorrect rows may be selected.
         @arg array [Array[Object]]: An array of objects returned from the @code[getSelected] method.
 

@@ -23,7 +23,7 @@
             @description: Renderer function for the titlebar. The this context for the function is this modal.
             @arg element [HTMLElement]
             @default
-              @codeblock js
+              @@codeblock js
                 function (node) {
                   hx.select(node).text(this.title)
                 }
@@ -36,7 +36,7 @@
             @arg titleNode [Element]: The node for the modal title
             @arg? closeButtonNode [Element]: The node for the modal close button. If @code(js)[closeButtonEnabled] is false, this will be undefined.
             @default
-              @codeblock js
+              @@codeblock js
                 function (node, titleNode, closeButtonNode) {
                   hx.select(node).add(titleNode).add(closeButtonNode)
                 }

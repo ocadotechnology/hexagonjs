@@ -17,15 +17,15 @@
           @param name [String]: The field name.
           @param values [Array/Function]
             @description
-              @p: An array of items or a function that supplies a list of items. See the @hyperlink(../autocomplete-picker/)[autocomplete-picker] constructor for more information about what the items can be set to.
+              An array of items or a function that supplies a list of items. See the @hyperlink(../autocomplete-picker/)[autocomplete-picker] constructor for more information about what the items can be set to.
           @param? options [Object]
             @property key [String]: The property name to map the input value to when filling the form and when getting the data.
             @property required [Boolean]
               @description:
-                @p: Whether or not this is a required field.
-                @p: When the value is 'false', the picker object will start with a blank value but is not required to be selected.
-                @p: When the value is 'true', the picker object will start with a blank value and will not validate until a user has selected an option.
-                @p: When the value is not defined, the picker behaves as normal.
+                Whether or not this is a required field.
+                When the value is 'false', the picker object will start with a blank value but is not required to be selected.
+                When the value is 'true', the picker object will start with a blank value and will not validate until a user has selected an option.
+                When the value is not defined, the picker behaves as normal.
             @property autocompletePickerOptions [Object]
               @description: The options to use for the picker component. See the @hyperlink(../autocomplete-picker/)[autocomplete-picker] constructor for the available options.
             @property disabled [Boolean]: Whether the picker should be disabled.

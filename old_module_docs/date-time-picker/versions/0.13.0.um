@@ -17,13 +17,13 @@
         @arg? options [Object]: The options to use when setting up the date/time picker.
           @property datePickerOptions [Object]:
             @description:
-              @p: The options to use for the date picker.
-              @p: See the @link(../date-picker)[Date Picker] module for information about the available options.
-              @p: The @code[selectRange] option is ignored when using a date/time picker.
+              The options to use for the date picker.
+              See the @link(../date-picker)[Date Picker] module for information about the available options.
+              The @code[selectRange] option is ignored when using a date/time picker.
           @property timePickerOptions [Object]
             @description:
-              @p: The options to use for the time picker.
-              @p: See the @link(../time-picker)[Time Picker] module for information about the available options.
+              The options to use for the time picker.
+              See the @link(../time-picker)[Time Picker] module for information about the available options.
 
       @method addDays
         @deprecated
@@ -142,9 +142,9 @@
 
       @method locale
         @description
-          @p: A function for updating the locale used in the datetimepicker.
-          @p: By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
-          @codeblock js
+          A function for updating the locale used in the datetimepicker.
+          By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
+          @@codeblock js
             datetimepicker.locale('pl') // sets the datetimepicker's locale to Poland
         @arg locale [String]: The locale string to update the datetimepicker with.
         @returns DateTimePicker: This DateTimePicker

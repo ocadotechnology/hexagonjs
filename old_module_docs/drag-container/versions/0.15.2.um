@@ -50,9 +50,9 @@
         @arg? options [Object]: The options to use when creating the drag container
           @property lookup [Function]
             @description:
-              @p: The lookup function to use to get the ids when ordering the elements.
-              @p: Default:
-              @codeblock js
+              The lookup function to use to get the ids when ordering the elements.
+              Default:
+              @@codeblock js
                 function (node) {
                   return hx.select(node).attr('data-id')
                 }

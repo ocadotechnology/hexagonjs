@@ -4,7 +4,7 @@
     An interface for emitting and subscribing to events.
 
   @examples
-    @codeblock js
+    @@codeblock js
       @inline 0.9.0/example.js
 
   @api Event Emitter
@@ -59,7 +59,7 @@
           @description
             A string to append to the names of events that get piped through
 
-            @codeblock js
+            @@codeblock js
               var ee1 = new hx.EventEmitter;
               var ee2 = new hx.EventEmitter;
 
@@ -78,7 +78,7 @@
           @description
             An array of event names to pipe through
 
-            @codeblock js
+            @@codeblock js
               var ee1 = new hx.EventEmitter;
               var ee2 = new hx.EventEmitter;
 

@@ -4,7 +4,7 @@
     A module for manipulating colors.
 
   @examples
-    @codeblock js
+    @@codeblock js
       @inline 0.9.0/example.js
 
   @api Color
@@ -27,9 +27,9 @@
       @condensed
       @description: Constructs a Color instance from an array.
       @arg array [Array[Number]]: An array containing the rgb or rgba values
-        @codeblock
+        @@codeblock
           hx.color([255, 255, 255])
-        @codeblock
+        @@codeblock
           hx.color([255, 255, 255, 1])
       @returns Color
 
@@ -39,9 +39,9 @@
       @description:
         Constructs a Color instance from a list of rgb values.
 
-        @codeblock
+        @@codeblock
           hx.color(255, 255, 255)
-        @codeblock
+        @@codeblock
           hx.color(255, 255, 255, 1)
 
       @arg r [Number]: The red component of the color, given in the range [0, 255]

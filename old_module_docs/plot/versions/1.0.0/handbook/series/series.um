@@ -1,6 +1,6 @@
 @section Series
 
-  @p: Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
+  Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
 
   @css
     .docs-graph {
@@ -30,9 +30,9 @@
         graph.render();
 
 
-    @p: The data a line series expects is an array of objects with x and y properties:
+    The data a line series expects is an array of objects with x and y properties:
 
-    @codeblock json
+    @@codeblock json
       [
         {x: 0, y: 10},
         {x: 1, y: 11},
@@ -73,9 +73,9 @@
 
         graph.render();
 
-    @p: The data a bar series expects is an array of objects with x and y properties:
+    The data a bar series expects is an array of objects with x and y properties:
 
-    @codeblock json
+    @@codeblock json
       [
         {x: 0, y: 10},
         {x: 1, y: 11},
@@ -83,13 +83,13 @@
         {x: 3, y: 12}
       ]
 
-    @p: The optional color property can be set per data point for bar series. If set, it should be a css color string.
+    The optional color property can be set per data point for bar series. If set, it should be a css color string.
 
   @section Stacked Area and Stacked Bar charts
 
-    @p: Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
+    Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
 
-    @p: Stacked Area/Line example:
+    Stacked Area/Line example:
 
     @example
       @html
@@ -122,7 +122,7 @@
 
         graph.render()
 
-    @p: Stacked Bar example:
+    Stacked Bar example:
 
     @example
 
@@ -185,9 +185,9 @@
 
         graph.render();
 
-    @p: The data a band series expects is an array of objects with x and y1 and y2 properties. y1 is expected to be smaller than y2:
+    The data a band series expects is an array of objects with x and y1 and y2 properties. y1 is expected to be smaller than y2:
 
-    @codeblock json
+    @@codeblock json
       [
         {x: 0, y1: 10, y2: 16},
         {x: 1, y1: 11, y2: 17},
@@ -227,13 +227,13 @@
 
         graph.render();
 
-    @codeblock js
+    @@codeblock js
       series = axis.addSeries('scatter', 'Series Name')
       series.setData(...)
 
-    @p: The data a scatter series expects is an array of objects with x and y properties:
+    The data a scatter series expects is an array of objects with x and y properties:
 
-    @codeblock json
+    @@codeblock json
       [
         {x: 0, y: 10},
         {x: 1, y: 11},
@@ -241,7 +241,7 @@
         {x: 3, y: 12}
       ]
 
-    @p: Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
+    Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
 
   @section Straight Line Series
     @example
@@ -268,17 +268,17 @@
 
         graph.render();
 
-    @p: The data a line series expects is an object which has the properties x, y, dx and dy.
+    The data a line series expects is an object which has the properties x, y, dx and dy.
 
-    @codeblock json
+    @@codeblock json
       {x: 50, y: 20, dx: 1, dy: 2}
 
-    @p: You can also specify just an x value or a y value to draw lines aligned with the axes.
+    You can also specify just an x value or a y value to draw lines aligned with the axes.
 
-    @p: Vertical line:
-    @codeblock json
+    Vertical line:
+    @@codeblock json
       {x: 50}
 
-    @p: Horizontal line:
-    @codeblock json
+    Horizontal line:
+    @@codeblock json
       {y: 70}

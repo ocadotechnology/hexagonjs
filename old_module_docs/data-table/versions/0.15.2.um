@@ -27,12 +27,12 @@
           Use @code[renderSuppressed(value)] instead
 
       @method renderSuppressed
-        @added: @p: Added a new method to replace @code[suppressRender] as the name did not make it clear that it was a setter/getter.
+        @added: Added a new method to replace @code[suppressRender] as the name did not make it clear that it was a setter/getter.
         @description: A method for getting the suppressed state of the table.
         @returns Boolean: Whether the table render is suppressed
 
       @method renderSuppressed
-        @added: @p: Added a new method to replace @code[suppressRender] as the name did not make it clear that it was a setter/getter.
+        @added: Added a new method to replace @code[suppressRender] as the name did not make it clear that it was a setter/getter.
         @description: A method for preventing the render from changing anything until unsuppressed.
         @arg suppress [Boolean]: Whether to suppress the render
         @returns DataTable: This DataTable

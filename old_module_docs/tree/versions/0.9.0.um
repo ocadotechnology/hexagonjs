@@ -20,7 +20,7 @@
           @description
             A nested array of objects that represent nodes in the tree.
             An array that takes the following form:
-            @codeblock js
+            @@codeblock js
               @inline 0.9.0/exampleData.json
 
             The data object should be an array of objects that represent the first level of nodes in the tree. Each of these nodes can contain children - they can have a 'children' field which refers to an array of the child nodes. A node can also contain other properties, which will contain the information you wish to fill the node out with. If the example above, the "name" and "color" fields are properties that we have chosen to give to each node, and might used when rendering each node.
@@ -29,7 +29,7 @@
           @description
             A function that turns object nodes to dom elements.
             An example renderer:
-            @codeblock javascript
+            @@codeblock javascript
               var renderer = function(element, datum) {
                 element.innerHTML = datum.name
                 element.style.color = datum.color || 'black'

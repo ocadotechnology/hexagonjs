@@ -157,16 +157,16 @@
 
       @method update
         @description
-          @p: A function for updating the display of the DateTimePicker when moment.js is present on the page.
-          @p: The DateTimePicker now looks for moment.js on the page and shows a localised DateTimePicker based on moment's current locale setting.
-          @p: To update the locale setting, a locale can either be passed in or the function can be called with no arguments to pick up the currently set @code[moment.locale].
-          @codeblock js: DateTimePicker.update('pl') // sets the DateTimePicker's locale to Poland without affecting the rest of the page.
-          @codeblock js
+          A function for updating the display of the DateTimePicker when moment.js is present on the page.
+          The DateTimePicker now looks for moment.js on the page and shows a localised DateTimePicker based on moment's current locale setting.
+          To update the locale setting, a locale can either be passed in or the function can be called with no arguments to pick up the currently set @code[moment.locale].
+          @@codeblock js: DateTimePicker.update('pl') // sets the DateTimePicker's locale to Poland without affecting the rest of the page.
+          @@codeblock js
             moment.locale('pl') // sets the page locale to Poland
             DateTimePicker.update() // refreshes the display of the selected DateTimePicker using moment.locale() of 'pl'
         @arg? locale [String/Boolean]
           @description
-            @p: The locale string to update the DateTimePicker with.
-            @p: If a value is not passed in, the currently set moment.locale() will be used.
-            @p: If @code[true] is passed in, the picker will be updated using it's currently set locale.
+            The locale string to update the DateTimePicker with.
+            If a value is not passed in, the currently set moment.locale() will be used.
+            If @code[true] is passed in, the picker will be updated using it's currently set locale.
         @returns DateTimePicker: This DateTimePicker

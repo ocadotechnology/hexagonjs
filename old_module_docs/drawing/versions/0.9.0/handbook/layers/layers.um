@@ -2,9 +2,9 @@
 
   @section Toggling layer visibilty
 
-    @p: Drawings internally by default all draw to a layer that is created by default. More layers-zoom can be added to a drawing via the createLayer method. Layers do one thing: allow you to hide or show groups of objects.
+    Drawings internally by default all draw to a layer that is created by default. More layers-zoom can be added to a drawing via the createLayer method. Layers do one thing: allow you to hide or show groups of objects.
 
-    @p: The following example allows you to toggle between two layers which show alternative views of something:
+    The following example allows you to toggle between two layers which show alternative views of something:
 
     @example
       @html
@@ -15,7 +15,7 @@
 
   @section Linking zoom level to layer visibility
 
-    @p: The visibility of a layer can also be linked to the zoom level of the camera. This make it possible to create diagrams which reveal more detail when zoomed in close, and show an overview when zoomed out.
+    The visibility of a layer can also be linked to the zoom level of the camera. This make it possible to create diagrams which reveal more detail when zoomed in close, and show an overview when zoomed out.
 
     @example:
       @html

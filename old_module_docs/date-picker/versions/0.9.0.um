@@ -107,8 +107,8 @@
           <p>A function for updating the display of the datepicker when moment.js is present on the page.</p>
           <p>The datepicker now looks for moment.js on the page and shows a localised datepicker based on moment's current locale setting.</p>
           <p>To update the locale setting, a locale can either be passed in or the function can be called with no arguments to pick up the currently set @code[moment.locale].</p>
-          @codeblock js: datepicker.update('pl') // sets the datepicker's locale to Poland without affecting the rest of the page.
-          @codeblock js
+          @@codeblock js: datepicker.update('pl') // sets the datepicker's locale to Poland without affecting the rest of the page.
+          @@codeblock js
             moment.locale('pl') // sets the page locale to Poland
             datepicker.update() // refreshes the display of the selected datepicker using moment.locale() of 'pl'
         @arg? locale [String/Boolean]
