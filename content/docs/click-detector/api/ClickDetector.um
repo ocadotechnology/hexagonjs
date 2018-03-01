@@ -1,0 +1,20 @@
+@prototype ClickDetector
+  @extends EventEmitter
+
+  @bugfix 0.12.6
+    @description
+      Added detection for whether the target is still in the DOM on pointerup.
+
+  @updated 0.13.0
+    @description
+      Added return values to functions to return this ClickDetector and allow
+      chaining of methods.
+
+
+  @constructor
+    @description
+      Creates a component that provides a way to listen for clicks outside an
+      element.
+
+  @inline ClickDetector/methods/*.um
+  @inline ClickDetector/events/*.um
