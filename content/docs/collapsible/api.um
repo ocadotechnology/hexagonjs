@@ -1,0 +1,4 @@
+@api Collapsible
+
+  @inline api/js/*.um
+  @inline api/classes/*.um

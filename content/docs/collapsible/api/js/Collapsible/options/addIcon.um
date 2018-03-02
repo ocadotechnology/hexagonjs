@@ -1,0 +1,6 @@
+@property addIcon [Boolean]
+  @description
+    Supply false to prevent the arrow icon being added to the start of the
+    collapsable header.
+
+  @default: true

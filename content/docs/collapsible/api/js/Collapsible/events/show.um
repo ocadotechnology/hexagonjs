@@ -1,0 +1,11 @@
+@event show
+  @deprecated 0.13.0
+    @description
+      Use @code[showstart] instead
+
+  @removed 0.14.0
+    @description
+      Use @code[showstart] instead
+
+  @description
+    Emitted when the collapsible is opened. No extra data with this event type
