@@ -2,8 +2,8 @@
   @api Menu
     @prototype hx.Menu
       @method render
-        @description: A method for setting the data for the menu using a function.
         @added: Added a method for setting the data for the menu using a function.
+        @description: Sets the data for the menu using a function.
 
         @arg data [Function]
           @description:

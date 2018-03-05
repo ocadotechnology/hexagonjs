@@ -62,7 +62,7 @@
 
       @method renderer
         @added: Added a method for setting the renderer for a crumbtrail.
-        @description: A method for setting the renderer for a crumbtrail.
+        @description: Sets the renderer for a crumbtrail.
         @arg render [Function]
           @description
             A function that turns object nodes to dom elements.
@@ -78,16 +78,16 @@
 
       @method renderer
         @added: Added a method for getting the renderer for a crumbtrail.
-        @description: A method for getting the renderer for a crumbtrail.
+        @description: Gets the renderer for a crumbtrail.
         @returns Function: The currently set renderer
 
       @method items
         @added: Added a method for setting the items for a crumbtrail.
-        @description: A method for setting the items for a crumbtrail.
+        @description: Sets the items for a crumbtrail.
         @arg items [Array]: A nested array of objects that represent nodes in the crumbtrail.
         @returns Crumbtrail/Array: This Crumbtrail.
 
       @method items
         @added: Added a method for getting the items for a crumbtrail.
-        @description: A method for getting the items for a crumbtrail.
+        @description: Gets the items for a crumbtrail.
         @returns Array: The currently set items.

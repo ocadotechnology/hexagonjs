@@ -3,12 +3,12 @@
     @prototype hx.Form
 
       @method value
-        @description: A method for getting the value for a single property in a form.
+        @description: Gets the value for a single property in a form.
         @arg property [String]: The property/key to use.
         @returns Any: The property value.
 
       @method value
-        @description: A method for setting the value for a single property in a form.
+        @description: Sets the value for a single property in a form.
         @arg property [String]: The property/key to use.
         @arg value [Any]: The value to set.
         @returns Form: This Form
@@ -39,14 +39,14 @@
 
 
       @method node
-        @description: A method for getting the node for a form property
+        @description: Gets the node for a form property
         @arg property [String]: The property/key to use.
         @returns HTMLElement: The selected node
 
 
       @method errorMessage
         @description:
-          A method for setting custom error messages for form fields. If the message is set to anything other than an empty string, the form input will be classed as invalid and show a validation message.
+          Sets custom error messages for form fields. If the message is set to anything other than an empty string, the form input will be classed as invalid and show a validation message.
           @@codeblock js
             form.errorMessage('Text', 'Please enter something sensible') // Form will not validate with message 'Please enter something sensible'
             form.errorMessage('Text', undefined) // Clears validation message.
@@ -55,7 +55,7 @@
         @returns Form: This Form
 
       @method errorMessage
-        @description: A method for getting the error message for a form field. This will include messages set with the @code[errorMessage] method as well as inbuilt errors, such as those shown for required fields.
+        @description: Gets the error message for a form field. This will include messages set with the @code[errorMessage] method as well as inbuilt errors, such as those shown for required fields.
         @arg property [String]: The property/key to use.
         @returns String: The error message for the property.
 

@@ -77,16 +77,16 @@
             @default: lblt
 
       @method value
-        @added: Added a method for setting the current color
+        @added: Added Sets the current color
 
-        @description: A method for setting the value of a color picker
+        @description: Sets the value of a color picker
         @arg value [String/Color]: The color to set the color picker to.
         @returns ColorPicker: This ColorPicker
 
       @method value
-        @added: Added a method for getting the current color
+        @added: Added Gets the current color
 
-        @description: A method for getting the value of a color picker
+        @description: Gets the value of a color picker
         @returns String: The currently set color value.
 
       @property currentColor [Color]

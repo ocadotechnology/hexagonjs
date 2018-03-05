@@ -42,7 +42,7 @@
           A sort function that sorts nulls to the end of an array.
 
         @extra
-          @@@codeblock js
+          @@codeblock js
             const array = [0, null, '1', undefined, 'string', 'abc']
             array.slice(0).sort(hx.sort.compare)
             // Returns: [0, "1", "abc", null, "string", undefined]

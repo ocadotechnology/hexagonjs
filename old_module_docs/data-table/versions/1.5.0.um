@@ -186,7 +186,7 @@
       @function getAdvancedSearchFilter
         @added: Added a helper for creating custom feeds using the advanced search
           @issue 49
-        @description: A helper method for getting an advanced search filter when using a custom feed
+        @description: Gets an advanced search filter when using a custom feed
         @arg cellValueLookup [Function]
           @description: The function used to get a searchable string from a cell with it's value as an object
           @arg cell [Any]: The cell from the data being searched for a given column

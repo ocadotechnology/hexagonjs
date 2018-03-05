@@ -71,13 +71,13 @@
             @returns String: The error to show to the user. If no error exists, the return value should be an empty string.
 
       @method items
-        @description: A method for setting the tags
+        @description: Sets the tags
         @arg items [Array[String]]: The array of tags to set
         @arg? class [String]: The CSS class to give the tag.
         @returns TagInput: This tag input for chaining
 
       @method items
-        @description: A method for getting the tags
+        @description: Gets the tags
         @returns [Array[String]]: The current set of tags.
 
       @method tags

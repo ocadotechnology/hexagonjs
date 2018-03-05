@@ -29,5 +29,5 @@
       @method disabled
         @added: Added the ability to get the disabled state of a date time picker
 
-        @description: A method for getting the disabled state of a date time picker
+        @description: Gets the disabled state of a date time picker
         @returns Boolean: Whether the button group is disabled

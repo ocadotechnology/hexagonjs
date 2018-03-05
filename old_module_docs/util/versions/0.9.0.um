@@ -408,7 +408,7 @@
 
       @arg array [Array]: An array of any type
       @arg classifier [Function]
-        @description: A function that returns the category that an item should be grouped into
+        @description: Gets the category that an item should be grouped into
         @arg item [Any]: The item to classify
         @returns Any: The category to group the item into
       @returns Array: An array of tuples where the first element of each tuple is the category, and the second element is an array of grouped values

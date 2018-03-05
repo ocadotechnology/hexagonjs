@@ -22,7 +22,7 @@
       @method disabled
         @added: Added the ability to get the disabled state of a slider
 
-        @description: A method for getting the disabled state of a slider
+        @description: Gets the disabled state of a slider
         @returns Boolean: Whether the slider is disabled
 
   @theme

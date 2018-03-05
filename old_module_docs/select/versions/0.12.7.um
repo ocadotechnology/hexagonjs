@@ -54,7 +54,7 @@
           Use @code[hx.Select(selector, options)] instead.
 
       @method items
-        @description: Set the items for the select using a function that returns the data.
+        @description: Set the items for the select using Gets the data.
         @arg dataFetcher [Function]
           @description:
             The function to call to get the data. This will be called whenever the value is set or the select is opened, allowing the data to be changed easily.

@@ -106,7 +106,7 @@
 
       @method range
         @description
-          A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
+          Sets the selected date range when the @code[selectRange] argument was passed into the constructor.
           When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
         @arg date1 [Date]: The first date of the range
         @arg date2 [Date]: The second date of the range
@@ -119,7 +119,7 @@
         @added: Added the ability to specify a valid range for date pickers.
 
         @description:
-          A method for setting the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
+          Sets the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
           To clear a valid range, this method can be called with no parameters.
           To set an end date without setting a start date, this method can be called with @code[undefined] as the first parameter
           @@codeblock js

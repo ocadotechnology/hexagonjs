@@ -158,7 +158,7 @@
             @arg row [Object]: The data for the current row.
             @returns Boolean: Whether the row should be disabled. True means that the row should be enabled, false means it should be disabled.
 
-          @property rowIDLookup [Function]: A function for getting the unique id for a row.
+          @property rowIDLookup [Function]: Gets the unique id for a row.
             @default
               @@codeblock js
                 function (row) {
@@ -539,7 +539,7 @@
       # -------------------------------------------
 
       @method suppressRender
-        @description: A method for getting the suppressed state of the table.
+        @description: Gets the suppressed state of the table.
         @returns Boolean: Whether the table is suppressed
 
       @method suppressRender
@@ -781,7 +781,7 @@
 
       @function rowsForIds
         @description
-          A function for getting the rows for an array of id's in the data.
+          Gets the rows for an array of id's in the data.
           This is used when @code(js)[DataTable::rowsForIds] is called.
         @arg ids [Array[String]]: The array of row id's to lookup.
         @arg lookupRow [Function]: The row id lookup function for the table

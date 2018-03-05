@@ -43,7 +43,7 @@
         @returns ProgressBar: This progressbar for chaining.
 
       @method segments
-        @description: A method for getting the segments in a progressbar
+        @description: Gets the segments in a progressbar
         @returns Array: The currently set segments for the progressbar
 
     @class hx-progress-bar

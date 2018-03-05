@@ -167,7 +167,7 @@
       @method items
         @added: Added a method for getting the current items for the menu.
 
-        @description: A method for getting the current items for the menu.
+        @description: Gets the current items for the menu.
         @returns Array/Function: The currently set items array of function for the menu.
 
       @method hide

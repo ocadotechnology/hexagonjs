@@ -48,5 +48,5 @@
         @returns PivotTable: This pivot table for chaining
 
       @method data
-        @description: A method for getting the data set in the current pivot table
+        @description: Gets the data set in the current pivot table
         @returns Any: The data for the current pivot table.

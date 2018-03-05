@@ -67,16 +67,16 @@
         @returns DragContainer: This DragContainer
 
       @method order
-        @description: The method for getting the current order of the nodes.
+        @description: Gets the current order of the nodes.
         @returns [Array[String]]: An array of id's as returned from the lookup function.
 
       @method order
-        @description: The method for setting the current order of the nodes.
+        @description: Sets the current order of the nodes.
         @arg order [Array[String]]: The array of id's to order the nodes to. If @code(js)[undefined] is passed in, the order is set to the order the nodes were in when the drag container was created.
         @returns DragContainer: This DragContainer
 
       @method lookup
-        @description: The method for getting the currently set lookup function.
+        @description: Gets the currently set lookup function.
         @returns Function: The lookup function currently set.
 
       @method lookup

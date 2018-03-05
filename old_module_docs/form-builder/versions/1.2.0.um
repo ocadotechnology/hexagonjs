@@ -4,23 +4,23 @@
       @bugfix: Updated the hidden/disabled state for properties so they can be hidden/disabled when added using the options and also using the hidden/disabled methods after they have been added.
 
       @method disabled
-        @description: A method for getting the disabled state of a property in a form.
+        @description: Gets the disabled state of a property in a form.
         @arg property [String]: The property/key to use.
         @returns Boolean: The disabled state of the property. If the property does not exist, returns undefined.
 
       @method disabled
-        @description: A method for getting the disabled state for an array of properties in a form.
+        @description: Gets the disabled state for an array of properties in a form.
         @arg properties [Array[String]]: The array of properties/keys to use.
         @returns [Array[Boolean]]: An array indicating the disabled state of each property in the array of properties. If a property does not exist, it's value will be undefined.
 
       @method disabled
-        @description: A method for setting the disabled state for a property in a form.
+        @description: Sets the disabled state for a property in a form.
         @arg property [String]: The property/key to use.
         @arg disabled [Boolean]
         @returns Form: The current form
 
       @method disabled
-        @description: A method for setting the disabled state for an array of properties in a form.
+        @description: Sets the disabled state for an array of properties in a form.
         @arg properties [Array[String]]: The array of properties/keys to use.
         @arg disabled [Boolean]
         @returns Form: The current form

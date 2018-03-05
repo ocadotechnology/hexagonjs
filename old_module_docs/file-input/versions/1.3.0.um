@@ -36,7 +36,7 @@
             @default: 'Choose File'
 
       @method disabled
-        @description: A method for getting the disabled state of a FileInput
+        @description: Gets the disabled state of a FileInput
         @returns Boolean: Whether the FileInput is disavbled
 
       @method disabled

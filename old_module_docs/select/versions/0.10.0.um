@@ -43,7 +43,7 @@
           @data [String]: The value that was selected.
 
       @method renderer
-        @description: A method for setting a custom renderer for the select.
+        @description: Sets a custom renderer for the select.
         @arg render [Function]
           @description
             A function that renders the data in the dropdown and the select button. The default value is:

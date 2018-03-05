@@ -19,7 +19,7 @@
       @method disabled
         @added: Added the ability to get the disabled state of a tag input
 
-        @description: A method for getting the disabled state of a tag input
+        @description: Gets the disabled state of a tag input
         @returns Boolean: Whether the tag input is disabled
 
   @theme

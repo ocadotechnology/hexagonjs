@@ -175,7 +175,7 @@
         The maximum y level allowed. position.y cannot be set to a value larger than this.
 
       @method setupBounds
-        @description: A helper method for setting up the bounds for camera position and zoom levels (xMin, xMax, ..., zoomMin, zoomMax)
+        @description: Sets up the bounds for camera position and zoom levels (xMin, xMax, ..., zoomMin, zoomMax)
         @arg zoomMin [Number]
         @arg zoomMax [Number]
         @arg xMin [Number]

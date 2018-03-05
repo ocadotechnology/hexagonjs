@@ -150,7 +150,7 @@
         @returns DateTimePicker: This DateTimePicker
 
       @method locale
-        @description: A method for getting the currently set locale.
+        @description: Gets the currently set locale.
         @returns String: The currently set locale.
 
 

@@ -6,6 +6,6 @@
           Added the component method to replace @code[form.properties.get('Name of Property').extras.<componentType>] as the way to get the component for a form element.
           The component types have also been removed from the properties and should be accesed with @code[form.component('Name of Property')] instead.
 
-        @description: A method for getting the component for a form property. If the property provided doesn't exist or does not have a component, this function will return undefined.
+        @description: Gets the component for a form property. If the property provided doesn't exist or does not have a component, this function will return undefined.
         @arg property [String]: The form property to get the component for.
         @returns Object: The component for a property if one exists.

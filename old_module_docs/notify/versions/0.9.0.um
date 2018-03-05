@@ -144,11 +144,11 @@
         @description: Unpins a notification - causing it to disappear shortly after.
 
     @function hx.notify
-      @description: A function for getting the inbuilt notification manager
+      @description: Gets the inbuilt notification manager
       @returns NotificationManager
 
     @function hx.getNotificationManager
-      @description: A function for getting the inbuilt notification manager
+      @description: Gets the inbuilt notification manager
       @returns NotificationManager
 
     @class hx-notification

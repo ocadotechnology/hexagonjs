@@ -19,7 +19,7 @@
       @method disabled
         @added: Added the ability to get the disabled state of a picker
 
-        @description: A method for getting the disabled state of a picker
+        @description: Gets the disabled state of a picker
         @returns Boolean: Whether the picker is disabled
 
       @method value

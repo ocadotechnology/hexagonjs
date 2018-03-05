@@ -16,7 +16,7 @@
 
       @method items
         @added: Replacement for menu.render.
-        @description: A method for setting the data for the menu using a function.
+        @description: Sets the data for the menu using a function.
 
         @arg data [Function]
           @description:

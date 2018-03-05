@@ -107,7 +107,7 @@
 
       @method range
         @description
-          A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
+          Sets the selected date range when the @code[selectRange] argument was passed into the constructor.
           When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
         @arg range [Object]: An object containing the date range to set. The start/end dates will be sorted internally if the end date is before the start date.
           @property start [Date]: The first date of the range
@@ -132,7 +132,7 @@
         @returns DatePicker: This DatePicker
 
       @method locale
-        @description: A method for getting the currently set locale.
+        @description: Gets the currently set locale.
         @returns String: The currently set locale.
 
 

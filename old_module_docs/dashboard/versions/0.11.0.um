@@ -51,7 +51,7 @@
 
       @method order
         @description:
-          A method for getting the order of widgets in a dashboard.
+          Gets the order of widgets in a dashboard.
           Every widget must have the @code[id] option specified when adding it using the @code[createWidget] method for this method to work.
         @returns Array: An array of the widget id's in the order they are currently displayed in the dashboard.
 

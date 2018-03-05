@@ -37,5 +37,5 @@
       @method disabled
         @added: Added the ability to get the disabled state of a menu
 
-        @description: A method for getting the disabled state of a menu
+        @description: Gets the disabled state of a menu
         @returns Boolean: Whether the menu is disabled

@@ -19,5 +19,5 @@
       @method disabled
         @added: Added the ability to get the disabled state of a number picker
 
-        @description: A method for getting the disabled state of a number picker
+        @description: Gets the disabled state of a number picker
         @returns Boolean: Whether the number picker is disabled

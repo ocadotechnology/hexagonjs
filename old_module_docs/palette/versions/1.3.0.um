@@ -1,7 +1,7 @@
 @version 1.3.0
   @api Palette
     @function hx.palette.borderContext
-      @added: A function for setting the border context of an element
+      @added: Sets the border context of an element
         @issue 196
       @description
         Adds a border context class to an element.
@@ -27,7 +27,7 @@
             hx.palette.borderContext('.my-element', 'contrast')
 
     @function hx.palette.borderContext
-      @added: A function for getting the border context of an element
+      @added: Gets the border context of an element
         @issue 196
       @description
         Gets the border context class of an element.

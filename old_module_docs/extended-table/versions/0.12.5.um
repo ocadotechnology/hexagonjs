@@ -23,7 +23,7 @@
       @method page
         @added
 
-        @description: A method for setting the currently selected page of a table.
+        @description: Sets the currently selected page of a table.
         @arg page [Number]: The page to select.
         @arg? callback [Function]: A function to call once the table has finished rendering the page.
 
