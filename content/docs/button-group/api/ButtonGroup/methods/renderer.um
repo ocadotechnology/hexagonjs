@@ -15,7 +15,7 @@
       arguments are provided.
 
   @description
-    A method for getting the button renderer.
+    Gets the button renderer.
 
   @returns Function
     @description
