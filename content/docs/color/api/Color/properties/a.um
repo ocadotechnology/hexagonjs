@@ -1,0 +1,13 @@
+@property a [Number]
+  @deprecated 0.15.2
+    @description
+      Use @code[alpha()] to get and @code[alpha(value)] to set the alpha
+      property.
+
+  @removed 1.0.0
+    @description
+      Use @code[red()] to get and @code[red(value)] to set the red property.
+
+  @description
+    The alpha value for the current color in the 0-1 range. This value is
+    a float with no rounding on decimals.

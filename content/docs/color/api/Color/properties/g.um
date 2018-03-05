@@ -1,0 +1,14 @@
+@property g [Number]
+  @deprecated 0.15.2
+    @description
+      Use @code[green()] to get and @code[green(value)] to set the green
+      property.
+
+  @removed 1.0.0
+    @description
+      Use @code[green()] to get and @code[green(value)] to set the green
+      property.
+
+
+  @description
+    The green value for the current color in the 0-255 range.
