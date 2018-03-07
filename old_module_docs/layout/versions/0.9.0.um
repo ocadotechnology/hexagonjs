@@ -44,13 +44,13 @@
       @description: Give to the outermost hx-group class in a layout to have it's margin match the margin of the sections. This class is not required when using hx-group/section.
 
     @class hx-group
-      @description: Given to a div that can contains several sections (or possibly more nested groups). Can be specified on the same div as @code(css)[hx-layout]
+      @description: Given to a div that can contains several sections (or possibly more nested groups). Can be specified on the same div as @code[hx-layout]
 
       @extraclass hx-vertical
-        @description: Used in conjunction with the @code(css)[hx-group] class to indicate that the content inside it should be stacked vertically
+        @description: Used in conjunction with the @code[hx-group] class to indicate that the content inside it should be stacked vertically
 
       @extraclass hx-horizontal
-        @description: Used in conjunction with the @code(css)[hx-group] class to indicate that the content inside it should be displayed horizontally on one line
+        @description: Used in conjunction with the @code[hx-group] class to indicate that the content inside it should be displayed horizontally on one line
 
     @class hx-section
       @description: Given to a div that that will actually contain some content.
@@ -228,7 +228,7 @@
       @default: 4px
 
     @option named-class-min-width
-      @description: The minimum width for named sections to prevent them getting too small (as they are percentage based). The named classes are: @code(css)[hx-small], @code(css)[hx-medium], @code(css)[hx-large].
+      @description: The minimum width for named sections to prevent them getting too small (as they are percentage based). The named classes are: @code[hx-large].
       @type size
       @default: 250px
 

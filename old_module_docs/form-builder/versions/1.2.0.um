@@ -29,105 +29,105 @@
         @method addCheckbox
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addDatePicker
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addDateTimePicker
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addEmail
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addNumber
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addPassword
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addPicker
           @arg name [String]
           @arg values [Array[String/Object]]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addRadio
           @arg name [String]
           @arg values [Array[String]]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addTagInput
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addText
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addTextArea
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addTimePicker
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false
 
         @method addUrl
           @arg name [String]
           @arg? options [Object]
-            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code(js)[disabled(property, disabled)] method.
+            @property disabled [Boolean]: Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
               @default: false
-            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code(js)[hidden(property, hidden)] method.
+            @property hidden [Boolean]: Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
               @default: false

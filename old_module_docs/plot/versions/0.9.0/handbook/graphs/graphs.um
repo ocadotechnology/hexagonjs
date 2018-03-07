@@ -64,4 +64,4 @@
 
   @section Colors
 
-    When working with graphs the colors defined in @code(js)[hx.theme.plot.colors] should be used.
+    When working with graphs the colors defined in @code[hx.theme.plot.colors] should be used.

@@ -54,16 +54,16 @@
       @description: An alternative to the titlebar linkbar. Pages that use the sidebar should not use the hx-titlebar-linkbar titlebar section. Buttons, collapsibles and links all have extra styling defined for sidebars. The sidebar div should be placed between the hx-heading element and the hx-content element.
 
       @childclass hx-sidebar-section
-        @description: Should be added to items in the sidebar. Buttons, links @code(html)[<a>] and collapsibles can be used - there are extra styles defined for these when used in a sidebar.
+        @description: Should be added to items in the sidebar. Buttons, links @code[<a>] and collapsibles can be used - there are extra styles defined for these when used in a sidebar.
 
         @extraclass hx-selected
           @description: Indicates that the section is the current active one - useful if the sidebar is used for navigation.
 
       @childclass hx-sidebar-title
-        @description: Styles a @code(html)[<div>] element as a title within the sidebar.
+        @description: Styles a @code[<div>] element as a title within the sidebar.
 
     @class hx-sidebar-page
-      @description: Should be given to the @code(html)[<body>] tag for pages that use the sidebar. This will be done automatically when initialising the sidebar class (unless addSidebarClass has been explicitly set to false)
+      @description: Should be given to the @code[<body>] tag for pages that use the sidebar. This will be done automatically when initialising the sidebar class (unless addSidebarClass has been explicitly set to false)
 
   @theme
     @option animation-duration

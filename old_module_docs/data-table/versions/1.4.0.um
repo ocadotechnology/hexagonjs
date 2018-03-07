@@ -32,7 +32,7 @@
             @added: @issue 211
             @description:
               The text to display in the selected rows information bar.
-              The @code(js)['$selected'] and @code(js)['$total'] variables can be substituted in, e.g for a table with 3 rows and 1 row selected:
+              The @code['$total'] variables can be substituted in, e.g for a table with 3 rows and 1 row selected:
               @@codeblock js
                 options = {
                   selectedRowsText: '$selected of $total selected.'

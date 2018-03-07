@@ -63,7 +63,7 @@
     @prototype hx.NotificationManager
       @description:
         One of these can be created as a separate object if desired.
-        The inbuilt notification manager can be accessed through the @code(js)[hx.notify] functions, e.g.
+        The inbuilt notification manager can be accessed through the @code[hx.notify] functions, e.g.
         @@codeblock js
           hx.notify('Message')
           hx.notify.loading('Loading...')

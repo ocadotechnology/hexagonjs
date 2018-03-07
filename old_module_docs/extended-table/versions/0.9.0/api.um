@@ -53,7 +53,7 @@
       @updated
       @description
         The list of filter types that will be shown in the filter dropdown if filtering is enabled.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
 
         The default value is
         @@codeblock js
@@ -217,12 +217,12 @@
     @arg selector [String/HTMLElement]
       @description
         The selector for the table object.
-        The table is created inside this element and any additional table-classes (such as @code(css)[hx-table]) should be applied to this element.
-        The @code(css)[hx-table] class is added automatically when the table is rendered.
+        The table is created inside this element and any additional table-classes (such as @code[hx-table]) should be applied to this element.
+        The @code[hx-table] class is added automatically when the table is rendered.
 
     @arg? options [Object]
       @description
-        The options to use when creating the table. See the @code(js)[options]property for the available options.
+        The options to use when creating the table. See the @code[options]property for the available options.
 
 
   @method getSelected
@@ -465,7 +465,7 @@
             }
 
         @h3: Adding multi column / grouped headers
-        However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
+        However the data is set, it is possible to add grouping to headers by specifying a @code[columns]
 
         @@codeblock js
           {
@@ -526,7 +526,7 @@
     @arg? type [String]
       @description
         The filter type to add.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
       @default: 'contains'
 
     @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
@@ -555,7 +555,7 @@
     @arg? type [String]
       @description
         The filter type to add.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
       @default: 'contains'
 
     @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
@@ -583,7 +583,7 @@
     @arg? type [String]
       @description
         The filter type to add.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
       @default: 'contains'
 
     @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.

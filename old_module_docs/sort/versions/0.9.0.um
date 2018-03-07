@@ -46,8 +46,8 @@
         @description
           A function to return a localised sort function to use directly when calling array.sort.
           It takes into account the character order of text for a specific locale and the numeric order of numbers.
-          Some browsers don't support the @code(js)[locale] and @code(js)[options] parameters.
-          Browser support and accepted values for the @code(js)[locale] and @code(js)[options] parameters can be found on the @hyperlink(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)[localeCompare] page of the MDN.
+          Some browsers don't support the @code[options] parameters.
+          Browser support and accepted values for the @code[localeCompare] page of the MDN.
 
           @@codeblock js
             svCompare = hx.sort.localeCompare('sv')

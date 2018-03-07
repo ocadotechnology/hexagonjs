@@ -24,9 +24,9 @@
 
       @method value
         @bugfix:
-          Made it possible to clear the value of a picker by passing in @code(js)[undefined]
+          Made it possible to clear the value of a picker by passing in @code[undefined]
 
-        @description: Sets the currently selected item. Passing in @code(js)[undefined] will clear the value, unless an item is found with a value of @code(js)[undefined]
+        @description: Sets the currently selected item. Passing in @code[undefined]
         @arg value [String]: The value of the item to select.
         @returns Picker: This Picker.
 
@@ -34,5 +34,5 @@
         @bugfix:
           Fixed a bug where the items setter was not updating the value when a new list of items was passed in.
 
-        @description: Sets the list of items that will be shown in the select dropdown. If the current value is present in the new list of items, the value will be retained. Otherwise, the value will be set to @code(js)[undefined]
+        @description: Sets the list of items that will be shown in the select dropdown. If the current value is present in the new list of items, the value will be retained. Otherwise, the value will be set to @code[undefined]
         @arg items [Array[Any]]

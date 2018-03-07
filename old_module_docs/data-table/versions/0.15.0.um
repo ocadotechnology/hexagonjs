@@ -756,7 +756,7 @@
           @property start [Number]: The start of the range. Might be undefined if the all displayMode is used.
           @property end [Number]: The end of the range. Might be undefined if the all displayMode is used.
           @property sort [Object]: The sort being used.
-            @property column [String]: The column being sorted. Can be a column id or @code(js)[undefined] indicating no sort.
+            @property column [String]: The column being sorted. Can be a column id or @code[undefined] indicating no sort.
             @property direction [String]: The sort direction. Can be "asc", "desc" or undefined.
           @property filter [String]: The filter being used.
 
@@ -782,7 +782,7 @@
       @function rowsForIds
         @description
           Gets the rows for an array of id's in the data.
-          This is used when @code(js)[DataTable::rowsForIds] is called.
+          This is used when @code[DataTable::rowsForIds] is called.
         @arg ids [Array[String]]: The array of row id's to lookup.
         @arg lookupRow [Function]: The row id lookup function for the table
         @arg callback [Function]: The function to call once the data has been retrieved.
@@ -1007,7 +1007,7 @@
         ]
 
     @section Creating a custom feed
-      In situations where the feeds provided in the @code(js)[hx.dataTable] object are not suitable, custom feeds can be created.
+      In situations where the feeds provided in the @code[hx.dataTable] object are not suitable, custom feeds can be created.
       For instance, if using @code[POST] is not suitable, an alternative could be created:
 
       @@codeblock js
@@ -1053,7 +1053,7 @@
     As well as the options available on the data table prototype, there are a few extra options when setting the data that can change the table behaviour by default.
 
     @section Multi column / grouped headers
-      It is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
+      It is possible to add grouping to headers by specifying a @code[columns]
 
       @@codeblock js
         {

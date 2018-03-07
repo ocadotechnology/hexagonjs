@@ -7,7 +7,7 @@
 
 
       @extraclass hx-compliment
-        @removed: Use @code(css)[.hx-complement] instead
+        @removed: Use @code[.hx-complement] instead
 
       @extraclass hx-complement: Styles the label with complement colors
 

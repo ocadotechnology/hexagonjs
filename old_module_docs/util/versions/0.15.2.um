@@ -3,7 +3,7 @@
     @function hx.checkParents
       @description
         A function for checking a node and it's parents for properties or contents.
-        This function will return the first non-undefined result by default or an array of all the non-undefined results if @code(js)[returnArray] is true.
+        This function will return the first non-undefined result by default or an array of all the non-undefined results if @code[returnArray] is true.
 
       @arg node [HTMLElement]: The node to start checking from
       @arg check [Function]: The check to run

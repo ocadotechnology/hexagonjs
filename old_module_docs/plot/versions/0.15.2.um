@@ -75,7 +75,7 @@
     @prototype hx.Graph
 
       @constructor
-        @removed: A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code(js)[new hx.Graph(selector)] will still work
+        @removed: A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code[new hx.Graph(selector)] will still work
         @arg selector [HTMLElement/String]
 
       @constructor
@@ -216,7 +216,7 @@
         @returns Graph: This Graph
 
       @method addAxis
-        @deprecated: Use @code(js)[graph.addAxis(options)] instead.
+        @deprecated: Use @code[graph.addAxis(options)] instead.
         @arg xScaleType [String]
         @arg yScaleType [String]
         @returns Axis
@@ -240,7 +240,7 @@
       @constructor
         @arg? xScaleType [String]
         @arg? yScaleType [String]
-        @deprecated: Use @code(js)[hx.Axis(options)] instead.
+        @deprecated: Use @code[hx.Axis(options)] instead.
 
       @constructor
         @description: Creates a new Axis instance. This should normally be done via graph.addAxis(options) instead.
@@ -408,7 +408,7 @@
       @method addSeries
         @arg type [String]
         @arg? name [String]
-        @deprecated: Use @code(js)[addSeries(type, {title: "name"})] instead.
+        @deprecated: Use @code[addSeries(type, {title: "name"})] instead.
 
       @method addSeries
         @description
@@ -431,63 +431,63 @@
         @returns Axis: This Axis
 
       @property xAxisTickLabelPosition [String]
-        @deprecated: Use @code(js)[Axis.x.axisTickLabelPosition()] instead. @code(js)[Axis.x.axisTickLabelPosition()] to get, @code(js)[Axis.x.axisTickLabelPosition(value)] to set.
+        @deprecated: Use @code[Axis.x.axisTickLabelPosition(value)] to set.
       @property xDiscreteLabels [Array]
-        @deprecated: Use @code(js)[Axis.x.discreteLabels()] instead. @code(js)[Axis.x.discreteLabels()] to get, @code(js)[Axis.x.discreteLabels(value)] to set.
+        @deprecated: Use @code[Axis.x.discreteLabels(value)] to set.
       @property xDiscretePadding [Number]
-        @deprecated: Use @code(js)[Axis.x.discretePadding()] instead. @code(js)[Axis.x.discretePadding()] to get, @code(js)[Axis.x.discretePadding(value)] to set.
+        @deprecated: Use @code[Axis.x.discretePadding(value)] to set.
       @property xFormatter [Function]
-        @deprecated: Use @code(js)[Axis.x.formatter()] instead. @code(js)[Axis.x.formatter()] to get, @code(js)[Axis.x.formatter(value)] to set.
+        @deprecated: Use @code[Axis.x.formatter(value)] to set.
         @arg input [Any]
       @property xGridLines [Boolean]
-        @deprecated: Use @code(js)[Axis.x.gridLines()] instead. @code(js)[Axis.x.gridLines()] to get, @code(js)[Axis.x.gridLines(value)] to set.
+        @deprecated: Use @code[Axis.x.gridLines(value)] to set.
       @property xMax [Number]
-        @deprecated: Use @code(js)[Axis.x.max()] instead. @code(js)[Axis.x.max()] to get, @code(js)[Axis.x.max(value)] to set.
+        @deprecated: Use @code[Axis.x.max(value)] to set.
       @property xMin [Number]
-        @deprecated: Use @code(js)[Axis.x.min()] instead. @code(js)[Axis.x.min()] to get, @code(js)[Axis.x.min(value)] to set.
+        @deprecated: Use @code[Axis.x.min(value)] to set.
       @property xNthTickVisible [Number]
-        @deprecated: Use @code(js)[Axis.x.nthTickVisible()] instead. @code(js)[Axis.x.nthTickVisible()] to get, @code(js)[Axis.x.nthTickVisible(value)] to set.
+        @deprecated: Use @code[Axis.x.nthTickVisible(value)] to set.
       @property xScalePaddingMax [Number]
-        @deprecated: Use @code(js)[Axis.x.scalePaddingMax()] instead. @code(js)[Axis.x.scalePaddingMax()] to get, @code(js)[Axis.x.scalePaddingMax(value)] to set.
+        @deprecated: Use @code[Axis.x.scalePaddingMax(value)] to set.
       @property xScalePaddingMin [Number]
-        @deprecated: Use @code(js)[Axis.x.scalePaddingMin()] instead. @code(js)[Axis.x.scalePaddingMin()] to get, @code(js)[Axis.x.scalePaddingMin(value)] to set.
+        @deprecated: Use @code[Axis.x.scalePaddingMin(value)] to set.
       @property xShowTicks [Boolean]
-        @deprecated: Use @code(js)[Axis.x.showTicks()] instead. @code(js)[Axis.x.showTicks()] to get, @code(js)[Axis.x.showTicks(value)] to set.
+        @deprecated: Use @code[Axis.x.showTicks(value)] to set.
       @property xTickSpacing [Number]
-        @deprecated: Use @code(js)[Axis.x.tickSpacing()] instead. @code(js)[Axis.x.tickSpacing()] to get, @code(js)[Axis.x.tickSpacing(value)] to set.
+        @deprecated: Use @code[Axis.x.tickSpacing(value)] to set.
       @property xTitle [String]
-        @deprecated: Use @code(js)[Axis.x.title()] instead. @code(js)[Axis.x.title()] to get, @code(js)[Axis.x.title(value)] to set.
+        @deprecated: Use @code[Axis.x.title(value)] to set.
       @property xVisible [Boolean]
-        @deprecated: Use @code(js)[Axis.x.visible()] instead. @code(js)[Axis.x.visible()] to get, @code(js)[Axis.x.visible(value)] to set.
+        @deprecated: Use @code[Axis.x.visible(value)] to set.
       @property yAxisTickLabelPosition [String]
-        @deprecated: Use @code(js)[Axis.y.axisTickLabelPosition()] instead. @code(js)[Axis.y.axisTickLabelPosition()] to get, @code(js)[Axis.y.axisTickLabelPosition(value)] to set.
+        @deprecated: Use @code[Axis.y.axisTickLabelPosition(value)] to set.
       @property yDiscreteLabels [Array]
-        @deprecated: Use @code(js)[Axis.y.discreteLabels()] instead. @code(js)[Axis.y.discreteLabels()] to get, @code(js)[Axis.y.discreteLabels(value)] to set.
+        @deprecated: Use @code[Axis.y.discreteLabels(value)] to set.
       @property yDiscretePadding [Number]
-        @deprecated: Use @code(js)[Axis.y.discretePadding()] instead. @code(js)[Axis.y.discretePadding()] to get, @code(js)[Axis.y.discretePadding(value)] to set.
+        @deprecated: Use @code[Axis.y.discretePadding(value)] to set.
       @property yFormatter [Function]
-        @deprecated: Use @code(js)[Axis.y.formatter()] instead. @code(js)[Axis.y.formatter()] to get, @code(js)[Axis.y.formatter(value)] to set.
+        @deprecated: Use @code[Axis.y.formatter(value)] to set.
         @arg input [Any]
       @property yGridLines [Boolean]
-        @deprecated: Use @code(js)[Axis.y.gridLines()] instead. @code(js)[Axis.y.gridLines()] to get, @code(js)[Axis.y.gridLines(value)] to set.
+        @deprecated: Use @code[Axis.y.gridLines(value)] to set.
       @property yMax [Number]
-        @deprecated: Use @code(js)[Axis.y.max()] instead. @code(js)[Axis.y.max()] to get, @code(js)[Axis.y.max(value)] to set.
+        @deprecated: Use @code[Axis.y.max(value)] to set.
       @property yMin [Number]
-        @deprecated: Use @code(js)[Axis.y.min()] instead. @code(js)[Axis.y.min()] to get, @code(js)[Axis.y.min(value)] to set.
+        @deprecated: Use @code[Axis.y.min(value)] to set.
       @property yNthTickVisible [Number]
-        @deprecated: Use @code(js)[Axis.y.nthTickVisible()] instead. @code(js)[Axis.y.nthTickVisible()] to get, @code(js)[Axis.y.nthTickVisible(value)] to set.
+        @deprecated: Use @code[Axis.y.nthTickVisible(value)] to set.
       @property yScalePaddingMax [Number]
-        @deprecated: Use @code(js)[Axis.y.scalePaddingMax()] instead. @code(js)[Axis.y.scalePaddingMax()] to get, @code(js)[Axis.y.scalePaddingMax(value)] to set.
+        @deprecated: Use @code[Axis.y.scalePaddingMax(value)] to set.
       @property yScalePaddingMin [Number]
-        @deprecated: Use @code(js)[Axis.y.scalePaddingMin()] instead. @code(js)[Axis.y.scalePaddingMin()] to get, @code(js)[Axis.y.scalePaddingMin(value)] to set.
+        @deprecated: Use @code[Axis.y.scalePaddingMin(value)] to set.
       @property yShowTicks [String]
-        @deprecated: Use @code(js)[Axis.y.showTicks()] instead. @code(js)[Axis.y.showTicks()] to get, @code(js)[Axis.y.showTicks(value)] to set.
+        @deprecated: Use @code[Axis.y.showTicks(value)] to set.
       @property yTickSpacing [Number]
-        @deprecated: Use @code(js)[Axis.y.tickSpacing()] instead. @code(js)[Axis.y.tickSpacing()] to get, @code(js)[Axis.y.tickSpacing(value)] to set.
+        @deprecated: Use @code[Axis.y.tickSpacing(value)] to set.
       @property yTitle [String]
-        @deprecated: Use @code(js)[Axis.y.title()] instead. @code(js)[Axis.y.title()] to get, @code(js)[Axis.y.title(value)] to set.
+        @deprecated: Use @code[Axis.y.title(value)] to set.
       @property yVisible [Boolean]
-        @deprecated: Use @code(js)[Axis.y.visible()] instead. @code(js)[Axis.y.visible()] to get, @code(js)[Axis.y.visible(value)] to set.
+        @deprecated: Use @code[Axis.y.visible(value)] to set.
 
 
       @property x [Object]
@@ -862,7 +862,7 @@
     @prototype hx.PieChart
 
       @constructor
-        @removed: A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code(js)[new hx.PieChart(selector)] will still work
+        @removed: A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code[new hx.PieChart(selector)] will still work
         @arg selector [HTMLElement/String]
 
 
@@ -1348,44 +1348,44 @@
           @returns String: The formatted String
 
       @property feather [Number]
-        @deprecated: Use @code(js)[sampleThreshold()] to get the feather value, @code(js)[sampleThreshold(value)] to set it.
+        @deprecated: Use @code[sampleThreshold(value)] to set it.
 
       @method setData
         @arg data [Data]
-        @deprecated: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @deprecated: Use @code[series.data()] to get the current data.
 
       @property name [String]
-        @deprecated: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @deprecated: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @deprecated: Use @code(js)[series._new_class(class)] to set the title. This method will be renamed to @code(js)[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code(js)[series._new_class()].
+        @deprecated: Use @code[series._new_class()].
 
       @property group [String]
-        @deprecated: Use @code(js)[series._new_group("group-name")] to set the group, @code(js)[series.new_group()] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
+        @deprecated: Use @code[series.new_group()] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
 
       @property color [String]
-        @deprecated: Use @code(js)[series.strokeColor(color)] to set the color, @code(js)[series.strokeColor()] to get the color.
+        @deprecated: Use @code[series.strokeColor()] to get the color.
 
       @property fillColor [String]
-        @deprecated: Use @code(js)[series._new_fillColor(color)] to set the color, @code(js)[series._new_fillColor()] to get the color.
+        @deprecated: Use @code[series._new_fillColor()] to get the color.
 
       @property color [Array[String]]
-        @deprecated: Use @code(js)[series.strokeColor(color)] to set the color, @code(js)[series.strokeColor()] to get the color.
+        @deprecated: Use @code[series.strokeColor()] to get the color.
 
       @property stroke [Boolean]
-        @deprecated: Use @code(js)[series.strokeEnabled(enabled)] to set the state, @code(js)[series.strokeEnabled()] to get it.
+        @deprecated: Use @code[series.strokeEnabled()] to get it.
 
       @property fill [Boolean]
-        @deprecated: Use @code(js)[series.fillEnabled(enabled)] to set the state, @code(js)[series.fillEnabled()] to get it.
+        @deprecated: Use @code[series.fillEnabled()] to get it.
 
       @property markers [Boolean]
-        @deprecated: Use @code(js)[series.markersEnabled(enabled)] to set the state, @code(js)[series.markersEnabled()] to get it.
+        @deprecated: Use @code[series.markersEnabled()] to get it.
 
       @property markerColor [String]
-        @deprecated: Use @code(js)[seriesmarkerFillColor(color)] to set the color, @code(js)[seriesmarkerFillColor()] to get the color.
+        @deprecated: Use @code[seriesmarkerFillColor()] to get the color.
 
       @property markerRadius [Number]
-        @deprecated: Use @code(js)[_new_markerRadius(radius)] to set the radius, @code(js)[_new_markerRadius()] to get the radius.
+        @deprecated: Use @code[_new_markerRadius()] to get the radius.
 
       @method title
         @description: Sets the title of the series
@@ -1752,7 +1752,7 @@
 
       @method setData
         @arg data [Data]
-        @deprecated: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @deprecated: Use @code[series.data()] to get the current data.
 
       @method labelsEnabled
         @description: Sets whether labels should be used for this series
@@ -1778,16 +1778,16 @@
           @arg data [Object]: The data provided for rendering the label
 
       @property name [String]
-        @deprecated: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @deprecated: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @deprecated: Use @code(js)[series._new_class(class)] to set the title. This method will be renamed to @code(js)[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code(js)[series._new_class()].
+        @deprecated: Use @code[series._new_class()].
 
       @property group [String]
-        @deprecated: Use @code(js)[series._new_group("group-name")] to set the group, @code(js)[series.new_group()] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
+        @deprecated: Use @code[series.new_group()] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
 
       @property color [String]
-        @deprecated: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @deprecated: Use @code[series.fillColor()] to get the color.
 
       @method title
         @description: Sets the title of the series
@@ -2007,7 +2007,7 @@
         @returns String: The additional class applied to the series.
 
       @property feather [Number]
-        @deprecated: Use @code(js)[sampleThreshold()] to get the feather value, @code(js)[sampleThreshold(value)] to set it.
+        @deprecated: Use @code[sampleThreshold(value)] to set it.
 
       @method sampleThreshold
         @description: Sets the maximum number of data points to render when displaying the graph. If there are more data points in the series data than this value, the data will be sampled.
@@ -2083,7 +2083,7 @@
 
       @method setData
         @arg data [Data]
-        @deprecated: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @deprecated: Use @code[series.data()] to get the current data.
 
       @method labelsEnabled
         @description: Sets whether labels should be used for this series
@@ -2118,16 +2118,16 @@
         @returns Boolean: True if the labels are interpolated between data points, false if the labels snap to the closest data point.
 
       @property name [String]
-        @deprecated: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @deprecated: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @deprecated: Use @code(js)[series._new_class(class)] to set the title. This method will be renamed to @code(js)[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code(js)[series._new_class()].
+        @deprecated: Use @code[series._new_class()].
 
       @property color [String]
-        @deprecated: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @deprecated: Use @code[series.fillColor()] to get the color.
 
       @property color [String/Array]
-        @deprecated: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @deprecated: Use @code[series.fillColor()] to get the color.
 
       @method data
         @description
@@ -2288,7 +2288,7 @@
 
       @method setData
         @arg data [Data]
-        @deprecated: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @deprecated: Use @code[series.data()] to get the current data.
 
       @method labelsEnabled
         @description: Sets whether labels should be used for this series
@@ -2314,16 +2314,16 @@
           @arg data [Object]: The data provided for rendering the label
 
       @property name [String]
-        @deprecated: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @deprecated: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @deprecated: Use @code(js)[series._new_class(class)] to set the title. This method will be renamed to @code(js)[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code(js)[series._new_class()].
+        @deprecated: Use @code[series._new_class()].
 
       @property color [String]
-        @deprecated: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @deprecated: Use @code[series.fillColor()] to get the color.
 
       @property size [Number]
-        @deprecated: Use @code(js)[series.radius(size)] to set the size, @code(js)[series.radius()] to get the size.
+        @deprecated: Use @code[series.radius()] to get the size.
 
       @method title
         @description: Sets the title of the series
@@ -2552,7 +2552,7 @@
 
       @method setData
         @arg data [Data]
-        @deprecated: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @deprecated: Use @code[series.data()] to get the current data.
 
       @method labelsEnabled
         @description: Sets whether labels should be used for this series
@@ -2578,13 +2578,13 @@
           @arg data [Object]: The data provided for rendering the label
 
       @property name [String]
-        @deprecated: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @deprecated: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @deprecated: Use @code(js)[series._new_class(class)] to set the title. This method will be renamed to @code(js)[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code(js)[series._new_class()].
+        @deprecated: Use @code[series._new_class()].
 
       @property color [String]
-        @deprecated: Use @code(js)[series.strokeColor(color)] to set the color, @code(js)[series.strokeColor()] to get the color.
+        @deprecated: Use @code[series.strokeColor()] to get the color.
 
       @method title
         @description: Sets the title of the series

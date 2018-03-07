@@ -48,19 +48,19 @@
 
           @property addFilterText [String]: The text to display on the add filter button
             @added: @issue 49
-            @default: @code(js)[hx.userFacingText('dataTable', 'addFilter')]
+            @default: @code[hx.userFacingText('dataTable', 'addFilter')]
           @property clearFiltersText [String]: The text to display on the clear filters button
             @added: @issue 49
-            @default: @code(js)[hx.userFacingText('dataTable', 'clearFilters')]
+            @default: @code[hx.userFacingText('dataTable', 'clearFilters')]
           @property anyColumnText [String]: The text to display for the 'any column' option when creating advanced search filters
             @added: @issue 49
-            @default: @code(js)[hx.userFacingText('dataTable', 'anyColumn')]
+            @default: @code[hx.userFacingText('dataTable', 'anyColumn')]
           @property advancedSearchText [String]: The text to display on the advanced search toggle
             @added: @issue 49
-            @default: @code(js)[hx.userFacingText('dataTable', 'advancedSearch')]
+            @default: @code[hx.userFacingText('dataTable', 'advancedSearch')]
           @property advancedSearchPlaceholder [String]: The text to display in the advanced search filter input boxes
             @added: @issue 49
-            @default: @code(js)[hx.userFacingText('dataTable', 'search')]
+            @default: @code[hx.userFacingText('dataTable', 'search')]
 
       @group Options
         @method showAdvancedSearch
@@ -350,7 +350,7 @@
         ]
 
     @section Creating a custom feed
-      In situations where the feeds provided in the @code(js)[hx.dataTable] object are not suitable, custom feeds can be created.
+      In situations where the feeds provided in the @code[hx.dataTable] object are not suitable, custom feeds can be created.
       For instance, if using @code[POST] is not suitable, an alternative could be created:
 
       @@codeblock js
@@ -395,7 +395,7 @@
     As well as the options available on the data table prototype, there are a few extra options when setting the data that can change the table behaviour by default.
 
     @section Multi column / grouped headers
-      It is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
+      It is possible to add grouping to headers by specifying a @code[columns]
 
       @@codeblock js
         {

@@ -216,7 +216,7 @@
                 }
 
             @h3: Adding multi column / grouped headers
-            However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
+            However the data is set, it is possible to add grouping to headers by specifying a @code[columns]
 
             @@codeblock js
               {

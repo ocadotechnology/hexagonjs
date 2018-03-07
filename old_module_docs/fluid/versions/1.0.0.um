@@ -70,7 +70,7 @@
       @added: Fluid api for constructing icons
       @arg? options [Object]
         @property class [String]: The class to apply to the icon. This assumes you are using an icon font that uses classes (for example, font awsome)
-      @description: Creates a detached @code(js)[<i>] element wrapped in a selection
+      @description: Creates a detached @code[<i>] element wrapped in a selection
       @returns Selection: The selection containing the new element
 
     @function hx.group

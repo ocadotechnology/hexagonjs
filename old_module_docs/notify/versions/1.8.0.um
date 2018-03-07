@@ -10,7 +10,7 @@
   @property renderer [Function]
     @description:
       The renderer to use when creating the notification.
-      It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+      It is not required when using a String, HTMLElement or Selection and is @code[undefined] by default.
       It must be provided when passing in a message Object otherwise the notification will fail to render.
     @arg element [HTMLElement]: The notification content element to populate.
     @arg message [String/Object]: The message passed into the notification.
@@ -36,7 +36,7 @@
         hx.notify(message)
 
 
-      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+      When using an Object as the message, a @code[renderer] must be provided in the options.
       @@codeblock js
         var options = {
           renderer: function (element, message) {

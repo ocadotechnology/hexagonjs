@@ -1,4 +1,4 @@
 @version 1.5.1
   @api Tag Input
-    @bugfix: Updated the tag input to correctly handle @code(js)[undefined] values
+    @bugfix: Updated the tag input to correctly handle @code[undefined] values
       @issue 264

@@ -254,7 +254,7 @@
 
       @arg array [Array[Number]]: The array to cycle over
       @arg index [Number]: The index to access
-      @returns Number: The value at @code(js)[(index % array.length)]
+      @returns Number: The value at @code[(index % array.length)]
 
     @function hx.hashList
       @description:

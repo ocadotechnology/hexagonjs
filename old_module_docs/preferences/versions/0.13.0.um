@@ -28,7 +28,7 @@
       @description: A class for storing and retrieving user preferences such as timezone and locale preference.
 
       @method timezone
-        @description: Sets the timezone preference. This will just set the value in memory, and should be persisted with the @code(js)[save()] method.
+        @description: Sets the timezone preference. This will just set the value in memory, and should be persisted with the @code[save()] method.
         @arg timezone [String]: Should be a time zone identifier string in the following format: 'America/New_York'.
         @returns Preferences: This Preferences
 
@@ -37,7 +37,7 @@
         @returns String: The time zone identifier
 
       @method locale
-        @description: Sets the locale preference. This will just set the value in memory, and should be persisted with the @code(js)[save()] method.
+        @description: Sets the locale preference. This will just set the value in memory, and should be persisted with the @code[save()] method.
         @arg locale [String]: Should be a locale identifier in LCID format.
         @returns Preferences: This Preferences
 

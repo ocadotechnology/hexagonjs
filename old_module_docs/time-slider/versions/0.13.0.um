@@ -120,4 +120,4 @@
 
       @method valueToDate
         @arg value [Number]
-        @deprecated: @code(js)[timeslider.valueToDate(value)] should be replaced with @code(js)[new Date(value)]
+        @deprecated: @code[new Date(value)]

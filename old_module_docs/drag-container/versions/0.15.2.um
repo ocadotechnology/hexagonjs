@@ -72,7 +72,7 @@
 
       @method order
         @description: Sets the current order of the nodes.
-        @arg order [Array[String]]: The array of id's to order the nodes to. If @code(js)[undefined] is passed in, the order is set to the order the nodes were in when the drag container was created.
+        @arg order [Array[String]]: The array of id's to order the nodes to. If @code[undefined] is passed in, the order is set to the order the nodes were in when the drag container was created.
         @returns DragContainer: This DragContainer
 
       @method lookup

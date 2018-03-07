@@ -82,105 +82,105 @@
         @arg xScaleType [String]
         @arg yScaleType [String]
         @returns Axis
-        @removed: Use @code(js)[graph.addAxis(options)] instead.
+        @removed: Use @code[graph.addAxis(options)] instead.
 
     @prototype hx.Axis
 
       @constructor
         @arg? xScaleType [String]
         @arg? yScaleType [String]
-        @removed: Use @code(js)[hx.Axis(options)] instead.
+        @removed: Use @code[hx.Axis(options)] instead.
 
       @method addSeries
         @arg type [String]
         @arg? name [String]
-        @removed: Use @code(js)[addSeries(type, {title: "name"})] instead.
+        @removed: Use @code[addSeries(type, {title: "name"})] instead.
 
       @property xAxisTickLabelPosition [String]
-        @removed: Use @code(js)[Axis.x.axisTickLabelPosition()] instead. @code(js)[Axis.x.axisTickLabelPosition()] to get, @code(js)[Axis.x.axisTickLabelPosition(value)] to set.
+        @removed: Use @code[Axis.x.axisTickLabelPosition(value)] to set.
 
       @property xDiscreteLabels [Array]
-        @removed: Use @code(js)[Axis.x.discreteLabels()] instead. @code(js)[Axis.x.discreteLabels()] to get, @code(js)[Axis.x.discreteLabels(value)] to set.
+        @removed: Use @code[Axis.x.discreteLabels(value)] to set.
 
       @property xDiscretePadding [Number]
-        @removed: Use @code(js)[Axis.x.discretePadding()] instead. @code(js)[Axis.x.discretePadding()] to get, @code(js)[Axis.x.discretePadding(value)] to set.
+        @removed: Use @code[Axis.x.discretePadding(value)] to set.
 
       @property xFormatter [Function]
-        @removed: Use @code(js)[Axis.x.formatter()] instead. @code(js)[Axis.x.formatter()] to get, @code(js)[Axis.x.formatter(value)] to set.
+        @removed: Use @code[Axis.x.formatter(value)] to set.
         @arg input [Any]
 
       @property xGridLines [Boolean]
-        @removed: Use @code(js)[Axis.x.gridLines()] instead. @code(js)[Axis.x.gridLines()] to get, @code(js)[Axis.x.gridLines(value)] to set.
+        @removed: Use @code[Axis.x.gridLines(value)] to set.
 
       @property xMax [Number]
-        @removed: Use @code(js)[Axis.x.max()] instead. @code(js)[Axis.x.max()] to get, @code(js)[Axis.x.max(value)] to set.
+        @removed: Use @code[Axis.x.max(value)] to set.
 
       @property xMin [Number]
-        @removed: Use @code(js)[Axis.x.min()] instead. @code(js)[Axis.x.min()] to get, @code(js)[Axis.x.min(value)] to set.
+        @removed: Use @code[Axis.x.min(value)] to set.
 
       @property xNthTickVisible [Number]
-        @removed: Use @code(js)[Axis.x.nthTickVisible()] instead. @code(js)[Axis.x.nthTickVisible()] to get, @code(js)[Axis.x.nthTickVisible(value)] to set.
+        @removed: Use @code[Axis.x.nthTickVisible(value)] to set.
 
       @property xScalePaddingMax [Number]
-        @removed: Use @code(js)[Axis.x.scalePaddingMax()] instead. @code(js)[Axis.x.scalePaddingMax()] to get, @code(js)[Axis.x.scalePaddingMax(value)] to set.
+        @removed: Use @code[Axis.x.scalePaddingMax(value)] to set.
 
       @property xScalePaddingMin [Number]
-        @removed: Use @code(js)[Axis.x.scalePaddingMin()] instead. @code(js)[Axis.x.scalePaddingMin()] to get, @code(js)[Axis.x.scalePaddingMin(value)] to set.
+        @removed: Use @code[Axis.x.scalePaddingMin(value)] to set.
 
       @property xShowTicks [Boolean]
-        @removed: Use @code(js)[Axis.x.showTicks()] instead. @code(js)[Axis.x.showTicks()] to get, @code(js)[Axis.x.showTicks(value)] to set.
+        @removed: Use @code[Axis.x.showTicks(value)] to set.
 
       @property xTickSpacing [Number]
-        @removed: Use @code(js)[Axis.x.tickSpacing()] instead. @code(js)[Axis.x.tickSpacing()] to get, @code(js)[Axis.x.tickSpacing(value)] to set.
+        @removed: Use @code[Axis.x.tickSpacing(value)] to set.
 
       @property xTitle [String]
-        @removed: Use @code(js)[Axis.x.title()] instead. @code(js)[Axis.x.title()] to get, @code(js)[Axis.x.title(value)] to set.
+        @removed: Use @code[Axis.x.title(value)] to set.
 
       @property xVisible [Boolean]
-        @removed: Use @code(js)[Axis.x.visible()] instead. @code(js)[Axis.x.visible()] to get, @code(js)[Axis.x.visible(value)] to set.
+        @removed: Use @code[Axis.x.visible(value)] to set.
 
       @property yAxisTickLabelPosition [String]
-        @removed: Use @code(js)[Axis.y.axisTickLabelPosition()] instead. @code(js)[Axis.y.axisTickLabelPosition()] to get, @code(js)[Axis.y.axisTickLabelPosition(value)] to set.
+        @removed: Use @code[Axis.y.axisTickLabelPosition(value)] to set.
 
       @property yDiscreteLabels [Array]
-        @removed: Use @code(js)[Axis.y.discreteLabels()] instead. @code(js)[Axis.y.discreteLabels()] to get, @code(js)[Axis.y.discreteLabels(value)] to set.
+        @removed: Use @code[Axis.y.discreteLabels(value)] to set.
 
       @property yDiscretePadding [Number]
-        @removed: Use @code(js)[Axis.y.discretePadding()] instead. @code(js)[Axis.y.discretePadding()] to get, @code(js)[Axis.y.discretePadding(value)] to set.
+        @removed: Use @code[Axis.y.discretePadding(value)] to set.
 
       @property yFormatter [Function]
         @arg input [Any]
-        @removed: Use @code(js)[Axis.y.formatter()] instead. @code(js)[Axis.y.formatter()] to get, @code(js)[Axis.y.formatter(value)] to set.
+        @removed: Use @code[Axis.y.formatter(value)] to set.
 
       @property yGridLines [Boolean]
-        @removed: Use @code(js)[Axis.y.gridLines()] instead. @code(js)[Axis.y.gridLines()] to get, @code(js)[Axis.y.gridLines(value)] to set.
+        @removed: Use @code[Axis.y.gridLines(value)] to set.
 
       @property yMax [Number]
-        @removed: Use @code(js)[Axis.y.max()] instead. @code(js)[Axis.y.max()] to get, @code(js)[Axis.y.max(value)] to set.
+        @removed: Use @code[Axis.y.max(value)] to set.
 
       @property yMin [Number]
-        @removed: Use @code(js)[Axis.y.min()] instead. @code(js)[Axis.y.min()] to get, @code(js)[Axis.y.min(value)] to set.
+        @removed: Use @code[Axis.y.min(value)] to set.
 
       @property yNthTickVisible [Number]
-        @removed: Use @code(js)[Axis.y.nthTickVisible()] instead. @code(js)[Axis.y.nthTickVisible()] to get, @code(js)[Axis.y.nthTickVisible(value)] to set.
+        @removed: Use @code[Axis.y.nthTickVisible(value)] to set.
 
       @property yScalePaddingMax [Number]
-        @removed: Use @code(js)[Axis.y.scalePaddingMax()] instead. @code(js)[Axis.y.scalePaddingMax()] to get, @code(js)[Axis.y.scalePaddingMax(value)] to set.
+        @removed: Use @code[Axis.y.scalePaddingMax(value)] to set.
 
       @property yScalePaddingMin [Number]
-        @removed: Use @code(js)[Axis.y.scalePaddingMin()] instead. @code(js)[Axis.y.scalePaddingMin()] to get, @code(js)[Axis.y.scalePaddingMin(value)] to set.
+        @removed: Use @code[Axis.y.scalePaddingMin(value)] to set.
 
       @property yShowTicks [String]
-        @removed: Use @code(js)[Axis.y.showTicks()] instead. @code(js)[Axis.y.showTicks()] to get, @code(js)[Axis.y.showTicks(value)] to set.
+        @removed: Use @code[Axis.y.showTicks(value)] to set.
 
       @property yTickSpacing [Number]
-        @removed: Use @code(js)[Axis.y.tickSpacing()] instead. @code(js)[Axis.y.tickSpacing()] to get, @code(js)[Axis.y.tickSpacing(value)] to set.
+        @removed: Use @code[Axis.y.tickSpacing(value)] to set.
 
       @property yTitle [String]
-        @removed: Use @code(js)[Axis.y.title()] instead. @code(js)[Axis.y.title()] to get, @code(js)[Axis.y.title(value)] to set.
+        @removed: Use @code[Axis.y.title(value)] to set.
 
       @property yVisible [Boolean]
-        @removed: Use @code(js)[Axis.y.visible()] instead. @code(js)[Axis.y.visible()] to get, @code(js)[Axis.y.visible(value)] to set.
+        @removed: Use @code[Axis.y.visible(value)] to set.
 
     @prototype hx.PieChart
 
@@ -427,44 +427,44 @@
         @removed: Use labelValuesExtractor() instead.
 
       @property feather [Number]
-        @removed: Use @code(js)[sampleThreshold()] to get the feather value, @code(js)[sampleThreshold(value)] to set it.
+        @removed: Use @code[sampleThreshold(value)] to set it.
 
       @method setData
         @arg data [Data]
-        @removed: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @removed: Use @code[series.data()] to get the current data.
 
       @property name [String]
-        @removed: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @removed: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @removed: Use @code(js)[series.class(class)] to set the series class, @code(js)[series.class()] to get the class.
+        @removed: Use @code[series.class()] to get the class.
 
       @property group [String]
-        @removed: Use @code(js)[series.group(name)] to set the series group, @code(js)[series.group()] to get the group.
+        @removed: Use @code[series.group()] to get the group.
 
       @property color [String]
-        @removed: Use @code(js)[series.strokeColor(color)] to set the color, @code(js)[series.strokeColor()] to get the color.
+        @removed: Use @code[series.strokeColor()] to get the color.
 
       @property fillColor [String]
-        @removed: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @removed: Use @code[series.fillColor()] to get the color.
 
       @property color [Array[String]]
-        @removed: Use @code(js)[series.strokeColor(color)] to set the color, @code(js)[series.strokeColor()] to get the color.
+        @removed: Use @code[series.strokeColor()] to get the color.
 
       @property stroke [Boolean]
-        @removed: Use @code(js)[series.strokeEnabled(enabled)] to set the state, @code(js)[series.strokeEnabled()] to get it.
+        @removed: Use @code[series.strokeEnabled()] to get it.
 
       @property fill [Boolean]
-        @removed: Use @code(js)[series.fillEnabled(enabled)] to set the state, @code(js)[series.fillEnabled()] to get it.
+        @removed: Use @code[series.fillEnabled()] to get it.
 
       @property markers [Boolean]
-        @removed: Use @code(js)[series.markersEnabled(enabled)] to set the state, @code(js)[series.markersEnabled()] to get it.
+        @removed: Use @code[series.markersEnabled()] to get it.
 
       @property markerColor [String]
-        @removed: Use @code(js)[seriesmarkerFillColor(color)] to set the color, @code(js)[seriesmarkerFillColor()] to get the color.
+        @removed: Use @code[seriesmarkerFillColor()] to get the color.
 
       @property markerRadius [Number]
-        @removed: Use @code(js)[_new_markerRadius(radius)] to set the radius, @code(js)[_new_markerRadius()] to get the radius.
+        @removed: Use @code[_new_markerRadius()] to get the radius.
 
     @prototype BarSeries
 
@@ -514,19 +514,19 @@
 
       @method setData
         @arg data [Data]
-        @removed: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @removed: Use @code[series.data()] to get the current data.
 
       @property name [String]
-        @removed: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @removed: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @removed: Use @code(js)[series.class(class)] to set the series class, @code(js)[series.class()] to get the class.
+        @removed: Use @code[series.class()] to get the class.
 
       @property group [String]
-        @removed: Use @code(js)[series.group(group)] to set the series group, @code(js)[series.group()] to get the group.
+        @removed: Use @code[series.group()] to get the group.
 
       @property color [String]
-        @removed: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @removed: Use @code[series.fillColor()] to get the color.
 
 
     @prototype BandSeries
@@ -550,7 +550,7 @@
         @returns String: The additional class applied to the series.
 
       @property feather [Number]
-        @removed: Use @code(js)[series.sampleThreshold()] to get the feather value, @code(js)[series.sampleThreshold(value)] to set it.
+        @removed: Use @code[series.sampleThreshold(value)] to set it.
 
       @method createLabelValues [Function]
         @arg dataPoint [Object]
@@ -562,19 +562,19 @@
 
       @method setData
         @arg data [Data]
-        @removed: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @removed: Use @code[series.data()] to get the current data.
 
       @property name [String]
-        @removed: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @removed: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @removed: Use @code(js)[series.class(class)] to set the class, @code(js)[series.class()] to get the class.
+        @removed: Use @code[series.class()] to get the class.
 
       @property color [String]
-        @removed: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @removed: Use @code[series.fillColor()] to get the color.
 
       @property color [String/Array]
-        @removed: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @removed: Use @code[series.fillColor()] to get the color.
 
     @prototype ScatterSeries
 
@@ -604,19 +604,19 @@
 
       @method setData
         @arg data [Data]
-        @removed: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @removed: Use @code[series.data()] to get the current data.
 
       @property name [String]
-        @removed: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @removed: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @removed: Use @code(js)[series.class(class)] to set the series class, @code(js)[series.class()] to get the class.
+        @removed: Use @code[series.class()] to get the class.
 
       @property color [String]
-        @removed: Use @code(js)[series.fillColor(color)] to set the color, @code(js)[series.fillColor()] to get the color.
+        @removed: Use @code[series.fillColor()] to get the color.
 
       @property size [Number]
-        @removed: Use @code(js)[series.radius(size)] to set the size, @code(js)[series.radius()] to get the size.
+        @removed: Use @code[series.radius()] to get the size.
 
 
     @prototype StraightLineSeries
@@ -648,16 +648,16 @@
 
       @method setData
         @arg data [Data]
-        @removed: Use @code(js)[series.data(data)] to set new data, @code(js)[series.data()] to get the current data.
+        @removed: Use @code[series.data()] to get the current data.
 
       @property name [String]
-        @removed: Use @code(js)[series.title(name)] to set the series name, @code(js)[series.title()] to get the name.
+        @removed: Use @code[series.title()] to get the name.
 
       @property class [String]
-        @removed: Use @code(js)[series.class(class)] to set the series class, @code(js)[series.class()] to get the class.
+        @removed: Use @code[series.class()] to get the class.
 
       @property color [String]
-        @removed: Use @code(js)[series.strokeColor(color)] to set the color, @code(js)[series.strokeColor()] to get the color.
+        @removed: Use @code[series.strokeColor()] to get the color.
 
   @extra
     @h1 .docs-module-section: Getting Started

@@ -41,5 +41,5 @@
           @childclass hx-titlebar-header
             @childclass hx-titlebar-icon
               @updated: Moved the titlebar icon to it's own module.
-              @info: The @code(html)[<img />] tag inside this element will now need to use the @code[hx-logo] class to display the theme logo.
-              @description: The site icon. It can be a link element or a @code[<div>]. To display the theme logo, an empty image tag with the class @code[hx-logo] can be used, e.g. @code(html)[<img class="hx-logo" />]
+              @info: The @code[<img />] tag inside this element will now need to use the @code[hx-logo] class to display the theme logo.
+              @description: The site icon. It can be a link element or a @code[<div>]. To display the theme logo, an empty image tag with the class @code[hx-logo] can be used, e.g. @code[<img class="hx-logo" />]

@@ -71,14 +71,14 @@
 
       @method append
         @description
-          Appends an element to all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code(html)[<div>] element for example.
+          Appends an element to all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code[<div>] element for example.
         @arg element [String/Element/Selection]: The element type to append, or the element to append, or a selection containing an element to append.
         @returns Selection: A new Selection containing the new elements
 
       @method prepend
         @added
         @description
-          Inserts an element at the start of all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code(html)[<div>] element for example.
+          Inserts an element at the start of all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code[<div>] element for example.
         @arg element [String/Element/Selection]: The element type to prepend, or the element to prepend, or a selection containing an element to prepend.
         @returns Selection: A new Selection containing the new elements
 
@@ -217,40 +217,40 @@
       @method text
         @description
           Sets text content of all the selected elements.
-          Shorthand for @code(js)[selection.prop('textContent', value)]
+          Shorthand for @code[selection.prop('textContent', value)]
         @arg text [String]: The text to use.
         @returns Selection: This Selection
 
       @method text
         @description
           Gets the text content of all the selected elements.
-          Shorthand for @code(js)[selection.prop('textContent')]
+          Shorthand for @code[selection.prop('textContent')]
         @returns [String/Array[String]]: The text content of the selected element, or nodes if this is a multiple selection.
 
       @method html
         @description
           Sets the html content of all the selected elements
-          Shorthand for @code(js)[selection.prop('innerHtml', value)]
+          Shorthand for @code[selection.prop('innerHtml', value)]
         @arg html [String]: The html to use.
         @returns Selection: This Selection
 
       @method html
         @description
           Gets the html content of all the selected elements
-          Shorthand for @code(js)[selection.prop('innerHtml')]
+          Shorthand for @code[selection.prop('innerHtml')]
         @returns [String/Array[String]]: The html content of the selected element, or nodes if this is a multiple selection.
 
       @method class
         @description
           Sets the class attribute for all of the selected elements
-          Shorthand for  @code(js)[selection.attr('class', value)]
+          Shorthand for  @code[selection.attr('class', value)]
         @arg class [String]: The class to set.
         @returns Selection: This Selection
 
       @method class
         @description
           Gets the class attribute for all of the selected elements
-          Shorthand for @code(js)[selection.attr('class')]
+          Shorthand for @code[selection.attr('class')]
         @returns [String/Array[String]]: The class of the selected element or list of classes if this is a multiple selection.
 
       @method classed

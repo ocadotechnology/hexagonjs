@@ -34,7 +34,7 @@
             @description: Renderer function for the modal header. The header contains both the titlebar and the close button for a modal.
             @arg node [Element]: The node for the modal header
             @arg titleNode [Element]: The node for the modal title
-            @arg? closeButtonNode [Element]: The node for the modal close button. If @code(js)[closeButtonEnabled] is false, this will be undefined.
+            @arg? closeButtonNode [Element]: The node for the modal close button. If @code[closeButtonEnabled] is false, this will be undefined.
             @default
               @@codeblock js
                 function (node, titleNode, closeButtonNode) {

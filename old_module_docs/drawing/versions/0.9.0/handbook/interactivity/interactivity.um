@@ -17,7 +17,7 @@
     @@codeblock js
       drawing.enableSelection();
 
-    The selected objects can be accessed via the @code(js)[selected] method on the drawing:
+    The selected objects can be accessed via the @code[selected] method on the drawing:
 
     @@codeblock js
       var selected = drawing.selected();

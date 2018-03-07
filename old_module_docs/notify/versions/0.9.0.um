@@ -74,7 +74,7 @@
         @returns Notification: The newly created Notification
 
       @method info
-        @removed: The icon now automatically gets set for info notifications. If you wish to customise the icon use @code(js)[NotificationManager.permanent] or @code(js)[NotificationManager.temporary].
+        @removed: The icon now automatically gets set for info notifications. If you wish to customise the icon use @code[NotificationManager.temporary].
         @description
           Shows an information notification and returns a Notification object. This is a temporary notification that will dismiss itself after some time (5 seconds by default). There is the option to supply an icon to display in the top left of the notification. This notification type has the styling predefined for it in the hx-notification-info css class.
         @arg message [String]: The text to display in the notification
@@ -98,7 +98,7 @@
         @returns Notification: The newly created Notification
 
       @method error
-        @deprecated: Use @code(js)[NotificationManager.negative] instead.
+        @deprecated: Use @code[NotificationManager.negative] instead.
         @description
           Shows an error notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-negative css class, and uses a predefined icon.
         @arg message [String]: The text to display in the notification

@@ -14,7 +14,7 @@
     @prototype hx.Paginator
       @constructor
         @arg selection [String/HTMLElement]
-        @removed: Use @code(js)[hx.Paginator(selector, options)]
+        @removed: Use @code[hx.Paginator(selector, options)]
 
 
       @constructor

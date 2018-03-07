@@ -38,4 +38,4 @@
 
       @method valueToDate
         @arg value [Number]
-        @removed: @code(js)[timeslider.valueToDate(value)] should be replaced with @code(js)[new Date(value)]
+        @removed: @code[new Date(value)]

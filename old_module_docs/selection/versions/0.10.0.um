@@ -12,7 +12,7 @@
 
       @method add
         @description
-          Appends an element to all elements currently selected and returns the original Selection. Use 'div' to append a @code(html)[<div>] element for example.
+          Appends an element to all elements currently selected and returns the original Selection. Use 'div' to append a @code[<div>] element for example.
         @arg element [String/Element/Selection]: The element type to append, or the element to append, or a selection containing an element to append.
         @returns Selection: This Selection
 

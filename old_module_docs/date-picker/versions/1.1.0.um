@@ -4,17 +4,17 @@
       @issue 35
 
     @prototype hx.DatePicker
-      @updated: Date pickers now listen for changes in @code(js)[hx.preferences.locale] and @code(js)[hx.preferences.timezone] and automatically update
+      @updated: Date pickers now listen for changes in @code[hx.preferences.timezone] and automatically update
         @issue 23
         @issue 24
 
       @method locale
-        @deprecated: Use @code(js)[hx.preferences.locale] to set the locale for a page.
+        @deprecated: Use @code[hx.preferences.locale] to set the locale for a page.
           @issue 23
           @issue 24
 
       @method locale
         @arg locale [String]
-        @deprecated: Use @code(js)[hx.preferences.locale] to get the locale for a page.
+        @deprecated: Use @code[hx.preferences.locale] to get the locale for a page.
           @issue 23
           @issue 24

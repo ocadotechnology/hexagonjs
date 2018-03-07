@@ -1,5 +1,5 @@
 @version 1.3.0
-  @description: A component that extends the native functionality of @code(html)[<input type="file">] to add additional functionality and a hexagon theme
+  @description: A component that extends the native functionality of @code[<input type="file">] to add additional functionality and a hexagon theme
 
   @examples
     @example
@@ -13,7 +13,7 @@
     @added: New FileInput component and fluid api function
       @issue 25
     @prototype hx.FileInput
-      @description: A component that extends the native functionality of @code(html)[<input type="file">] to add additional functionality and a hexagon theme
+      @description: A component that extends the native functionality of @code[<input type="file">] to add additional functionality and a hexagon theme
       @constructor
         @description: Creates a FileInput using a selector and some options.
         @arg selector [String/HTMLElement]: A CSS selector string which uniquely identifies the element to create the FileInput in, or the Element to create the FileInput in.
@@ -23,7 +23,7 @@
           @property fullWidth [Boolean]: Whether the FileInput should be full width
             @default: false
           @property acceptedExtensions [Array[String]]
-            @description: An array of file extensions, e.g. @code(js)[['png', 'jpeg']]
+            @description: An array of file extensions, e.g. @code[['png', 'jpeg']]
           @property multiple [Boolean]: Whether multiple files can be selected
             @default: false
           @property dragEnabled [Boolean]: Whether the user can drag and drop files to the input to upload
@@ -51,7 +51,7 @@
       @method value
         @description
           A method for clearing the value of the FileInput.
-          For security reasons, it is not possible to pass in any value other than @code(js)[undefined]
+          For security reasons, it is not possible to pass in any value other than @code[undefined]
         @arg value [Undefined]: Undefined must be passed in. For security reasons, it is not possible to set the value of a FileInput, only clear it.
         @returns FileInput: This FileInput
 
@@ -59,5 +59,5 @@
       @description: Creates a new FileInput set up on a detached element, wrapped in a selection
       @arg? options [Object]
         @description:
-          See the options object for the @code(js)[hx.FileInput] prototype constructor for more information on the available options
+          See the options object for the @code[hx.FileInput] prototype constructor for more information on the available options
       @returns Selection: A selection containing an element with an FileInput initialised on it

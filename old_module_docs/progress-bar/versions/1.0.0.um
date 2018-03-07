@@ -21,7 +21,7 @@
 
   @api Progress Bar
     @class hx-progress-bar
-      @bugfix: Updated the progress bar styles to remove the need for @code(css)[!important] flags.
+      @bugfix: Updated the progress bar styles to remove the need for @code[!important] flags.
 
       @extraclass hx-action
         @description: Styles the progress bar with action colors
@@ -29,7 +29,7 @@
 
 
       @extraclass hx-compliment
-        @removed: Use @code(css)[.hx-complement] instead
+        @removed: Use @code[.hx-complement] instead
 
       @extraclass hx-complement: Styles the progress bar with complement colors
 

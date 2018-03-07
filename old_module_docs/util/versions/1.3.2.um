@@ -15,4 +15,4 @@
           hx.defined(null)      // false
 
       @arg value [Any]: The value to check
-      @returns Boolean: False if the value is @code(js)[undefined] or @code(js)[null].
+      @returns Boolean: False if the value is @code[null].

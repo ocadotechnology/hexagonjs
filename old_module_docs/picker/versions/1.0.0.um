@@ -10,7 +10,7 @@
         @arg selector [String/HTMLElement]
         @arg? options [Object]
           @property startValue [String]: The value to use when initialising the select.
-            @removed: Use @code(js)[value] instead.
+            @removed: Use @code[value] instead.
 
           @property ddClass [String]
             @removed

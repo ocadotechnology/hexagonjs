@@ -5,7 +5,7 @@
         @arg? options [Object]
           @property series [Array[Object]]
             @description
-              An array of series objects. Each item in the array is equivalent to a series created using @code(um)[hx.Axis::addSeries]
+              An array of series objects. Each item in the array is equivalent to a series created using @code[hx.Axis::addSeries]
               A series is defined as an object with two properties:
               @@codeblock js
                 {
@@ -54,7 +54,7 @@
       @arg options [Object]
         @description
           The options to use when setting up the graph.
-          See the options defined in the @code(um)[hx.Graph] prototype constructor for details on the available option
+          See the options defined in the @code[hx.Graph] prototype constructor for details on the available option
 
       @added: Added a fluid api for graphs.
 
