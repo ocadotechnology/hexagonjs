@@ -1,7 +1,7 @@
 @version 0.11.0
   @api Extended Table
     @prototype hx.Table
-      @enhancement: Added resize listener to make tables re-render when the container is resized.
+      @updated: Added resize listener to make tables re-render when the container is resized.
 
       @bugfix: Fixed an issue with the mobile view where the table does not correctly handle the data being undefined
 

@@ -1,9 +1,9 @@
 @version 0.11.0
   @api Paginator
     @prototype hx.Paginator
-      @enhancement: Added resize listener to make paginators re-render when the container is resized.
+      @updated: Added resize listener to make paginators re-render when the container is resized.
 
-      @enhancement: Updated the paginator so that it detects the size of its container and changes the number of visible buttons accordingly. Also changed it so that the button widths resize depending on their character length to prevent paginators wrapping onto multiple lines.
+      @updated: Updated the paginator so that it detects the size of its container and changes the number of visible buttons accordingly. Also changed it so that the button widths resize depending on their character length to prevent paginators wrapping onto multiple lines.
 
       @method setPage
         @arg index [Number]

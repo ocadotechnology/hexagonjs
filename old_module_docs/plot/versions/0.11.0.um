@@ -4,7 +4,7 @@
 
     @prototype LineSeries
       @extends EventEmitter
-      @enhancement: Gradient stroke and fill is now possible (by using an array for the color properties)
+      @updated: Gradient stroke and fill is now possible (by using an array for the color properties)
 
 
       @property feather [Number]
@@ -74,7 +74,7 @@
       @bugfix: Fixed issue where existing band series weren't being cleared when a graph was re-renderered.
 
 
-      @enhancement: Gradient fill is now possible (by using an array for the color property)
+      @updated: Gradient fill is now possible (by using an array for the color property)
 
 
       @property feather [Number]
@@ -235,7 +235,7 @@
 
     @prototype hx.Graph
       @extends EventEmitter
-      @enhancement: Added resize listener to make graphs re-render when the container is resized.
+      @updated: Added resize listener to make graphs re-render when the container is resized.
 
 
       @added: Added the ability to set a global zoom for all axes at once with the zoomStart and zoomEnd properties. Zooming with the mouse wheel can be enabled by setting the useZoom property to true.
@@ -292,7 +292,7 @@
         @default: auto
 
     @prototype hx.PieChart
-      @enhancement: Added resize listener to make pie charts re-render when the container is resized.
+      @updated: Added resize listener to make pie charts re-render when the container is resized.
 
       @bugfix: Updated the pie chart labels to help prevent them flowing outside the bounding box of the svg.
 

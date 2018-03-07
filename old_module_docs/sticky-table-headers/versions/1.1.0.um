@@ -1,6 +1,6 @@
 @version 1.1.0
   @api Sticky Table Headers
-    @enhancement: Added a warning message when sticky table headers are used on a table without any columns
+    @updated: Added a warning message when sticky table headers are used on a table without any columns
       @issue 9
 
     @bugfix: Fix for static tables with sticky headers applied

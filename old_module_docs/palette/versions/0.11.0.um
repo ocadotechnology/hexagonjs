@@ -1,22 +1,22 @@
 @version 0.11.0
   @api Palette
     @class hx-background-default
-      @enhancement: Updated the background classes to override the link color
+      @updated: Updated the background classes to override the link color
 
     @class hx-background-positive
-      @enhancement: Updated the background classes to override the link color
+      @updated: Updated the background classes to override the link color
 
     @class hx-background-warning
-      @enhancement: Updated the background classes to override the link color
+      @updated: Updated the background classes to override the link color
 
     @class hx-background-negative
-      @enhancement: Updated the background classes to override the link color
+      @updated: Updated the background classes to override the link color
 
     @class hx-background-info
-      @enhancement: Updated the background classes to override the link color
+      @updated: Updated the background classes to override the link color
 
     @class hx-background-compliment
-      @enhancement: Updated the background classes to override the link color
+      @updated: Updated the background classes to override the link color
 
     @class hx-background-contrast
-      @enhancement: Updated the background classes to override the link color
+      @updated: Updated the background classes to override the link color

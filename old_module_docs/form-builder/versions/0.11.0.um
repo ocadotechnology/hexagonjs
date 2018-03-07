@@ -48,7 +48,7 @@
           @arg name [String]
           @arg values [Array[String]]
           @arg? options [Object]
-          @enhancement: Updated the form builder to use the new hx.Select element.
+          @updated: Updated the form builder to use the new hx.Select element.
 
           @returns Form: This Form
 
@@ -56,7 +56,7 @@
           @arg name [String]
           @arg values [Array[Object]]
           @arg? options [Object]
-          @enhancement: Updated the form builder to use the new hx.Select element.
+          @updated: Updated the form builder to use the new hx.Select element.
 
           @returns Form: This Form
 

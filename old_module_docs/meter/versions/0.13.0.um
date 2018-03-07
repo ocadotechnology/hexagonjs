@@ -25,5 +25,5 @@
 
   @api Meter
     @prototype hx.Meter
-      @enhancement: Will now center itself in its container.
+      @updated: Will now center itself in its container.
 

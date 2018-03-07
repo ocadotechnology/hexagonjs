@@ -1,7 +1,7 @@
 @version 1.0.0
   @api Tag Input
     @prototype hx.TagInput
-      @enhancement: Updated the tag input to add the text in the field as a tag when clearing focus
+      @updated: Updated the tag input to add the text in the field as a tag when clearing focus
 
       @constructor
         @arg selector [String/HTMLElement]

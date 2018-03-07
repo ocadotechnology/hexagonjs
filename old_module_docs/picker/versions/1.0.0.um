@@ -1,6 +1,6 @@
 @version 1.0.0
   @api Picker
-    @enhancement: The button type of pickers is now 'button'
+    @updated: The button type of pickers is now 'button'
 
     @bugfix: Fixed an issue with the picker not rendering values correcly
 

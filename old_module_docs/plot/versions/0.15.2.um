@@ -18,7 +18,7 @@
       @list
         @item: The undocumented Series.data property has been changed to a public method.
 
-    @enhancement Plot now uses a new mechanism for displaying the hover labels
+    @updated Plot now uses a new mechanism for displaying the hover labels
       Previously they were rendered in svg, which made them inflexible and limited them to displaying within the plot area. The new version uses floating divs which makes them easer to define and allows them to be displayed outside the plot area.
       This is something that is needed for the new Sparkline api, which is a simple wrapper around the Graph api for drawing tiny graphs. Series now have a labelRenderer method for setting custom labelRenderers. This matches the renderer pattern used throughout hexagon.
 

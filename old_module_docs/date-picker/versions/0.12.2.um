@@ -16,7 +16,7 @@
 
   @api Date Picker
     @prototype hx.DatePicker
-      @enhancement: Updated the date picker to allow 'zooming out' to year/decade view by clicking the header and converted to use options object instead of multiple arguments.
+      @updated: Updated the date picker to allow 'zooming out' to year/decade view by clicking the header and converted to use options object instead of multiple arguments.
 
       @constructor
         @arg selector [String/HTMLElement]

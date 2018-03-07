@@ -1,7 +1,7 @@
 @version 1.10.0
   @api Inline Editable
     @prototype hx.InlineEditable
-      @enhancement
+      @updated
         @description: Made the input take focus when the editable is 'opened' and made it possible to press 'enter' to set the value.
         @issue 351
       @constructor

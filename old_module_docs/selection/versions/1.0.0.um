@@ -1,6 +1,6 @@
 @version 1.0.0
   @api Selection
-    @enhancement: Appending @code[<undefined>] element to the DOM
+    @updated: Appending @code[<undefined>] element to the DOM
 
     @prototype Selection
       @method map

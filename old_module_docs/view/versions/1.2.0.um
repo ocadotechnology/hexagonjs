@@ -1,4 +1,4 @@
 @version 1.2.0
   @api View
-    @enhancement: Improve the performance of view
+    @updated: Improve the performance of view
       @issue 148

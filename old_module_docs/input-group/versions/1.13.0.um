@@ -1,4 +1,4 @@
 @version 1.13.0
   @api Input Group
-    @enhancement
+    @updated
       @description: Updated the styles to prevent 'double borders'

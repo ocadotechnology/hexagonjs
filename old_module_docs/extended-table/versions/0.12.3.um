@@ -1,6 +1,6 @@
 @version 0.12.3
   @api Extended Table
     @prototype hx.Table
-      @enhancement: Improved the stlying for collapsible rows and for grouped headers.
+      @updated: Improved the stlying for collapsible rows and for grouped headers.
 
 

@@ -3,7 +3,7 @@
     @inline 1.0.0/examples.um
 
   @api Modal
-    @enhancement: Updated the structure and style of modal popups to allow the modal content to be used as a notification container.
+    @updated: Updated the structure and style of modal popups to allow the modal content to be used as a notification container.
 
 
     @prototype hx.Modal

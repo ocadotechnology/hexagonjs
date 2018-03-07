@@ -2,7 +2,7 @@
   @api Plot
     @updated: Removed the deprecated content from all the Plot api's as well as the declarative graphing api (hx.plot), including replacing all of the _new_ prefixed methods/properties with their unprefixed alternatives.
 
-    @enhancement: The plot api uses a new sampling method in this version called the 'Largest Three Buckets' algorithm. This should produce graphs that more faithfully represent the original data when downsampling.
+    @updated: The plot api uses a new sampling method in this version called the 'Largest Three Buckets' algorithm. This should produce graphs that more faithfully represent the original data when downsampling.
 
     @function hx.plot
       @removed: The standard api provides a more declarative way of constructing graphs via the options object, so this api is no longer needed.

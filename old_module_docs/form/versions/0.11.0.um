@@ -1,4 +1,4 @@
 @version 0.11.0
   @api Form
     @class hx-form
-      @enhancement: Updated the form styles to make the different types of field have a more consistent layout.
+      @updated: Updated the form styles to make the different types of field have a more consistent layout.

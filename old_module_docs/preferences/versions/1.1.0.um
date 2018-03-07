@@ -3,7 +3,7 @@
     @prototype Preferences
       @method timezone
         @arg timezone [String]
-        @enhancement: Updated the list of acceptable timezones and added a helper for converting a date to display with the currently set timezone.
+        @updated: Updated the list of acceptable timezones and added a helper for converting a date to display with the currently set timezone.
           @issue 23
 
       @method applyTimezoneOffset

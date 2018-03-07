@@ -1,7 +1,7 @@
 @version 0.12.5
   @api Extended Table
     @prototype hx.Table
-      @enhancement: Updated the table paginator to be more inline with paginators used in other tables and to make it make more sense.
+      @updated: Updated the table paginator to be more inline with paginators used in other tables and to make it make more sense.
 
       @property options [Object]
         @property allowHeaderWrap [Boolean]: A boolean value that determines whether the header text should be allowed to wrap or not.

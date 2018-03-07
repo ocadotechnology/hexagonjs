@@ -2,6 +2,6 @@
   @api Selection
     @prototype Selection
       @method classed
-        @enhancement: Selection.classed now supports adding and removing lists of space separated classes
+        @updated: Selection.classed now supports adding and removing lists of space separated classes
         @arg class [String]
         @arg add [Boolean]

@@ -1,9 +1,9 @@
 @version 0.11.0
   @api Drawing
     @prototype hx.Drawing
-      @enhancement: Added resize listener to make drawings re-render when the container is resized.
+      @updated: Added resize listener to make drawings re-render when the container is resized.
 
-      @enhancement: Added sidebar method and themes to allow for better overlays
+      @updated: Added sidebar method and themes to allow for better overlays
 
 
       @method enableSidebar

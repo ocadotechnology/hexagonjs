@@ -52,7 +52,7 @@
 
   @api Notify
     @prototype hx.NotificationManager
-      @enhancement: The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
+      @updated: The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
 
 
       @method temporary
