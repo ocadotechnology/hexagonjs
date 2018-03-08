@@ -1,5 +1,0 @@
-@version 1.8.0
-  @api Data Table
-    @prototype hx.DataTable
-      @bugfix: Resolved an issue where nested tables would never hide their 'Loading' overlay
-        @issue 323
