@@ -1,7 +1,7 @@
 @inline /templates/sidebar-page.um
 
 @topSection
-  @title AutoComplete Changelog
+  @title Autocomplete Changelog
 
 @contentSection
   @changelogList

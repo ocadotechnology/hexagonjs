@@ -1,0 +1,40 @@
+# Built with npm run build-examples - do not edit manually
+@inline ../../shared/common.um
+@titlebar Examples
+@div .dx-content
+  @h1: Examples
+  @div .docs-example-link-container
+    @div .docs-example-link
+      @hyperlink(/examples/animated-drawing/)[Animated Drawing]
+    @div .docs-example-link
+      @hyperlink(/examples/auto-complete/)[Auto Complete]
+    @div .docs-example-link
+      @hyperlink(/examples/collapsible-table-rows/)[Collapsible Table Rows]
+    @div .docs-example-link
+      @hyperlink(/examples/date-picker-with-timeslider/)[Date Picker with Timeslider]
+    @div .docs-example-link
+      @hyperlink(/examples/device-targeting/)[Device Targeting]
+    @div .docs-example-link
+      @hyperlink(/examples/drawing/)[Drawing]
+    @div .docs-example-link
+      @hyperlink(/examples/graph-and-chart/)[Graph and Chart]
+    @div .docs-example-link
+      @hyperlink(/examples/meter/)[Meter]
+    @div .docs-example-link
+      @hyperlink(/examples/morph-collapsible/)[Morph Collapsible]
+    @div .docs-example-link
+      @hyperlink(/examples/morphing-sections/)[Morphing Sections]
+    @div .docs-example-link
+      @hyperlink(/examples/morphing-sections-popup/)[Morphing Sections Popup]
+    @div .docs-example-link
+      @hyperlink(/examples/mutliple-collapsible-initialization/)[Mutliple Collapsible Initialization]
+    @div .docs-example-link
+      @hyperlink(/examples/progress-bar/)[Progress Bar]
+    @div .docs-example-link
+      @hyperlink(/examples/split-buttons/)[Split Buttons]
+    @div .docs-example-link
+      @hyperlink(/examples/sticky-table-headers/)[Sticky Table Headers]
+    @div .docs-example-link
+      @hyperlink(/examples/tree-with-dynamic-content/)[Tree with Dynamic Content]
+    @div .docs-example-link
+      @hyperlink(/examples/view/)[View]

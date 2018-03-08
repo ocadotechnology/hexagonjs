@@ -1,0 +1,6 @@
+@inline ../../../shared/common.um
+@titlebar Designing for Mobiles
+
+@div .dx-content
+  @h1: Designing for Mobiles
+

@@ -8,7 +8,8 @@
     @groupByApi true
     @reverseVisibleList true
     @process
-      @inline ../docs/**/index.um
+      # @inline ../docs/data-table/api.um
+      @inline ../docs/**/api.um
 
     @version 0.9.0
       @description

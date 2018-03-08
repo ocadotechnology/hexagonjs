@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar Table Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: Table Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/table/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/table/

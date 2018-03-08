@@ -1,0 +1,3325 @@
+@class hx-card
+  @added 0.15.2
+  @description 
+    The class to give to a card. A card should only contain @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements.
+
+  @extraClass hx-card-small
+    @description 
+      A class given to a @code(css)[.hx-card] to make all child @code(css)[.hx-card-section] elements have less padding.
+
+      This can be overriden for individual @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements by giving them the @code(css)[.hx-card-normal] class.
+
+  @class hx-card-section
+    @bugfix 1.10.0
+      @issue 137
+      @description 
+        Resolved an issue with the vertical alignment of card sections
+
+    @description 
+      The class to give to elements within a card that will contain content, such as text or icons. All content within a card must be within a @code(css)[.hx-card-section] @extraClass hx-card-joint
+      @description 
+        A class for joining a @code(css)[.hx-card-section] with the next @code(css)[.hx-card-section] or @code(css)[.hx-card-group] element and removing the border between them.
+
+    @extraClass hx-card-header
+      @description 
+        A class for styling a @code(css)[.hx-card-section] as a card header.
+
+    @extraClass hx-card-small
+      @description 
+        A class that can be given to @code(css)[.hx-card-section] elements to make them have less padding.
+
+    @extraClass hx-card-normal
+      @description 
+        A class that can be given to @code(css)[.hx-card-section] elements to make them have the default padding.
+
+    @extraClass hx-card-fixed
+      @description 
+        A class that can be given to a @code(css)[.hx-card-section] element within a @code(css)[.hx-card-group] to prevent it from stretching to fill the available space.
+
+  @class hx-card-group
+    @description 
+      The class to give to elements to create a group of @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements.
+
+      By default, the group will be displayed horizontally and card sections within a group will be stretched to fill the available space, depending on their content.
+
+      Depending on the content and the available space in a card, children of a card group may be displayed on top of each other.
+
+    @extraClass hx-card-vertical
+      @description 
+        The class used to turn a @code(css)[.hx-card-group] into a vertical group.
+
+        Children will be displayed stacked on top of each other instead of next to each other.
+
+    @extraClass hx-card-joint
+      @description 
+        A class for joining a @code(css)[.hx-card-group] with the next @code(css)[.hx-card-section] or @code(css)[.hx-card-group] element and removing the border between them.
+
+    @extraClass hx-card-header
+      @description 
+        A class for styling a @code(css)[.hx-card-group] as a card header.
+
+    @extraClass hx-card-small
+      @description 
+        A class given to a @code(css)[.hx-card-group] element to give all the child @code(css)[.hx-card-section] elements less padding.
+
+        This can be overriden for individual @code(css)[.hx-card-section] or @code(css)[.hx-card-group] elements by giving them the @code(css)[.hx-card-normal] class.
+
+    @extraClass hx-card-normal
+      @description 
+        A class given to a @code(css)[.hx-card-group] element to give all the child @code(css)[.hx-card-section] elements the default padding.
+
+    @extraClass hx-card-fixed
+      @description 
+        A class that can be given to a @code(css)[.hx-card-group] element within a @code(css)[.hx-card-group] to prevent it from stretching to fill the available space.
+
+  @class hx-card-aligned
+    @added 1.0.0
+    @description 
+      A container that aligns sections inside groups. This should contain groups that contain sections in order to work.
+
+@function hx.card
+  @added 1.0.0
+  @description 
+    Creates a detached card element wrapped in a selection
+
+  @returns [Selection]
+    @description 
+      The element wrapped in a hexagon selection
+      
+
+@group Empty [Sections]
+  @function hx.card.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.joint.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.joint.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.joint.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.joint.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.fixed.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.fixed.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.joint.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.fixed.joint.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.joint.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.fixed.joint.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.small.fixed.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.small.fixed.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.joint.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.small.fixed.joint.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.joint.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.small.fixed.joint.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.normal.fixed.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.normal.fixed.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.joint.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.normal.fixed.joint.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.joint.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.normal.fixed.joint.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.slim.fixed.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.slim.fixed.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.joint.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.slim.fixed.joint.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.joint.header.section
+    @description 
+      Creates a card section. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var section = hx.card.slim.fixed.joint.header.section()
+            var api = section.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the section
+
+          @returns [String]
+            @description 
+              The context of the section (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the section
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+@group Empty [Groups]
+  @function hx.card.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.joint.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.joint.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.joint.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.joint.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.joint.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.joint.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.joint.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.joint.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.fixed.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.fixed.joint.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.joint.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.joint.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.joint.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.joint.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.joint.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.fixed.joint.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.fixed.joint.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.small.fixed.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.joint.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.joint.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.joint.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.joint.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.joint.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.joint.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.fixed.joint.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.small.fixed.joint.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.normal.fixed.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.joint.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.joint.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.joint.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.joint.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.joint.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.joint.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.normal.fixed.joint.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.normal.fixed.joint.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.slim.fixed.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.joint.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.joint.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.joint.vertical.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.joint.vertical.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.joint.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.joint.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.slim.fixed.joint.vertical.header.group
+    @description 
+      Creates a card group. Cards can be made up of multiple sections and groups.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var group = hx.card.slim.fixed.joint.vertical.header.group()
+            var api = group.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the group
+
+          @returns [String]
+            @description 
+              The context of the group (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the group
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.aligned
+    @description 
+      Creates a container that aligns sections inside groups. This should contain groups that contain sections in order to work.
+
+    @returns [Selection]
+      @description 
+        The container wrapped in a selection
+        
+
+
+@group Prebuild [Cards]
+  @description 
+    Ready made cards, that just need configuring.
+
+  @function hx.card.notice
+    @description 
+      Creates a notice card
+
+    @arg options [Object]
+      @property context [String]
+        @description 
+          The context of the notice
+          
+
+      @property title [String]
+        @description 
+          The title of the notice
+          
+
+      @property message [String]
+        @description 
+          The message in the notice
+          
+
+    @returns [Selection]
+      @description 
+        The selection containing the card
+        
+
+@group Prebuilt [Sections]
+  @description 
+    Ready made sections, that just need configuring.
+
+  @function hx.card.action.icon.section
+    @description 
+      Creates an action section with an icon after the text. Action sections are for defining links/buttons within cards.
+
+    @arg? options [Object]
+      @property context [String]
+        @description 
+          The context of the action section
+          
+
+      @property text [String]
+        @description 
+          The text of the action section
+          
+
+      @property icon [String]
+        @description 
+          The class of the icon
+          
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+  @function hx.card.icon.action.section
+    @description 
+      Creates an action section with an icon before the text. Action sections are for defining links/buttons within cards.
+
+    @arg? options [Object]
+      @property context [String]
+        @description 
+          The context of the action section
+          
+
+      @property text [String]
+        @description 
+          The text of the action section
+          
+
+      @property icon [String]
+        @description 
+          The class of the icon
+          
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+  @function hx.card.action.section
+    @description 
+      Creates an action section without an icon. Action sections are for defining links/buttons within cards.
+
+    @arg? options [Object]
+      @property context [String]
+        @description 
+          The context of the action section
+          
+
+      @property text [String]
+        @description 
+          The text of the action section
+          
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+@group Building [blocks]
+  
+  @function hx.card.text
+    @description 
+      Creates an element for entering text.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var text = hx.card.text()
+            var api = text.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the text component
+
+          @returns [String]
+            @description 
+              The context of the text component (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the text component
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property text [Function]
+          @description 
+            Gets the text of the text component
+
+          @returns [String]
+            @description 
+              The text of the text component
+              
+
+        @property text [Function]
+          @description 
+            Sets the text of the text component
+
+          @arg text [String]
+            @description 
+              The text to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.text
+    @description 
+      Creates an element for entering text.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var text = hx.card.small.text()
+            var api = text.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the text component
+
+          @returns [String]
+            @description 
+              The context of the text component (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the text component
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property text [Function]
+          @description 
+            Gets the text of the text component
+
+          @returns [String]
+            @description 
+              The text of the text component
+              
+
+        @property text [Function]
+          @description 
+            Sets the text of the text component
+
+          @arg text [String]
+            @description 
+              The text to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.large.text
+    @description 
+      Creates an element for entering text.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var text = hx.card.large.text()
+            var api = text.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the text component
+
+          @returns [String]
+            @description 
+              The context of the text component (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the text component
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property text [Function]
+          @description 
+            Gets the text of the text component
+
+          @returns [String]
+            @description 
+              The text of the text component
+              
+
+        @property text [Function]
+          @description 
+            Sets the text of the text component
+
+          @arg text [String]
+            @description 
+              The text to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.title
+    @updated 1.4.0
+      @issue 245
+      @description 
+        Changed the function to create a span rather than a div
+        
+
+    @description 
+      Creates an element for entering a title.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var a title = hx.card.title()
+            var api = a title.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the a title component
+
+          @returns [String]
+            @description 
+              The context of the a title component (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the a title component
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property text [Function]
+          @description 
+            Gets the text of the a title component
+
+          @returns [String]
+            @description 
+              The text of the a title component
+              
+
+        @property text [Function]
+          @description 
+            Sets the text of the a title component
+
+          @arg text [String]
+            @description 
+              The text to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.title
+    @description 
+      Creates an element for entering a title.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var a title = hx.card.small.title()
+            var api = a title.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the a title component
+
+          @returns [String]
+            @description 
+              The context of the a title component (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the a title component
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property text [Function]
+          @description 
+            Gets the text of the a title component
+
+          @returns [String]
+            @description 
+              The text of the a title component
+              
+
+        @property text [Function]
+          @description 
+            Sets the text of the a title component
+
+          @arg text [String]
+            @description 
+              The text to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.large.title
+    @description 
+      Creates an element for entering a title.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var a title = hx.card.large.title()
+            var api = a title.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the a title component
+
+          @returns [String]
+            @description 
+              The context of the a title component (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the a title component
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property text [Function]
+          @description 
+            Gets the text of the a title component
+
+          @returns [String]
+            @description 
+              The text of the a title component
+              
+
+        @property text [Function]
+          @description 
+            Sets the text of the a title component
+
+          @arg text [String]
+            @description 
+              The text to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  
+  @function hx.card.icon
+    @description 
+      Creates an icon.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var icon = hx.card.icon()
+            var api = icon.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the icon
+
+          @returns [String]
+            @description 
+              The context (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the icon
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property icon [Function]
+          @description 
+            Gets the icon class
+
+          @returns [String]
+            @description 
+              The icon class
+              
+
+        @property icon [Function]
+          @description 
+            Sets the icon class
+
+          @arg icon [String]
+            @description 
+              The icon class to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.small.icon
+    @description 
+      Creates a small icon.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var icon = hx.card.small.icon()
+            var api = icon.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the icon
+
+          @returns [String]
+            @description 
+              The context (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the icon
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property icon [Function]
+          @description 
+            Gets the icon class
+
+          @returns [String]
+            @description 
+              The icon class
+              
+
+        @property icon [Function]
+          @description 
+            Sets the icon class
+
+          @arg icon [String]
+            @description 
+              The icon class to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+
+  @function hx.card.large.icon
+    @description 
+      Creates a large icon.
+
+    @returns [Selection]
+      @description 
+        Returns a selection containing the detached element
+        
+
+    @group Component
+      @object api
+        @description 
+          This api can be obtained like this
+          
+          @@codeblock js
+            var icon = hx.card.large.icon()
+            var api = icon.component()
+
+        @property context [Function]
+          @description 
+            Gets the context of the icon
+
+          @returns [String]
+            @description 
+              The context (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+        @property context [Function]
+          @description 
+            Sets the context of the icon
+
+          @arg context [String]
+            @description 
+              The context to set (can be one of the standard hexagon contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+        @property icon [Function]
+          @description 
+            Gets the icon class
+
+          @returns [String]
+            @description 
+              The icon class
+              
+
+        @property icon [Function]
+          @description 
+            Sets the icon class
+
+          @arg icon [String]
+            @description 
+              The icon class to set
+              
+
+          @returns [Object]
+            @description 
+              Returns this api object.
+              
+
+

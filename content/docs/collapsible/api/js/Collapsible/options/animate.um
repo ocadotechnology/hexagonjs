@@ -1,6 +1,0 @@
-@property animate [Boolean]
-  @description
-    Whether or not to animate the collapsible state transition. The default
-    is true - which means animation will be used.
-
-  @default: true

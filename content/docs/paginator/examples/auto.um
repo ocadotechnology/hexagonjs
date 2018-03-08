@@ -1,0 +1,34 @@
+@version 0.13.0
+  @examples 
+    @example 
+      @html 
+        <div id="example"></div>
+
+      @js js
+        var paginator = new hx.Paginator('#example');
+        paginator.pageCount(20)
+        paginator.visibleCount(10)
+
+@version 0.9.0
+  @examples 
+    @example 
+      @html 
+        <div id="example"></div>
+
+      @js js
+        var paginator = new hx.Paginator('#example');
+        paginator.setPageCount(20)
+        paginator.setVisibleCount(10)
+
+@version 1.0.0
+  @examples 
+    @example 
+      @html 
+        <div id="example"></div>
+
+      @js 
+        var paginator = new hx.Paginator('#example', {
+          pageCount: 20,
+          visibleCount: 10
+        })
+

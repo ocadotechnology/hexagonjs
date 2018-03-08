@@ -1,0 +1,17 @@
+@class hx-table
+  @description 
+    The class to give to table elements or a container with a table element directly inside it.
+
+  @extraClass hx-table-full
+    @description 
+      A class to make the table full width
+
+  @extraClass hx-table-centered
+    @description 
+      A class to center the table within its container.
+
+  @class hx-table-header-allow-wrap
+    @added 0.12.5
+    @description 
+      A class that can be added to th elements that allows the text to wrap onto multiple lines.
+

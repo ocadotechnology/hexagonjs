@@ -1,0 +1,19 @@
+@version 0.12.6
+  @api Selection
+    @prototype Selection
+      @method each
+        @arg f [Function[Element]]
+
+        @deprecated:
+          @p: The each method for selections has been replaced to use a method that provides a selection as the argument to the @code[f] function Use @code[Selection.forEach(f)] instead.
+
+
+      @method forEach
+        @added: Added a new function that uses selections instead of nodes when iterating over the nodes to make it easier to set properties for elements in a selection.
+
+        @description
+          Calls a function for each element in the selection. Returns this selection for chaining.
+        @arg f [Function[Selection]]
+          @description: A function that takes a selected node as its first parameter
+        @returns Selection: This Selection
+

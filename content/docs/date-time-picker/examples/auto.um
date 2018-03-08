@@ -1,0 +1,10 @@
+@version 0.9.0
+  @examples 
+    @example 
+      @html 
+        <div id="dateTimePickerExample"></div>
+
+      
+      @js 
+        new hx.DateTimePicker('#dateTimePickerExample')
+

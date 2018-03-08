@@ -4,8 +4,12 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Data Table
-  @description
-    Tables for displaying data with sorting, filtering, selection and pagination.
+  @versioned 
+    @version 0.15.0
+      @description 
+        Tables for displaying data with sorting, filtering, selection and pagination.
+
+
 
 @contentSection
   @topic Examples
@@ -18,6 +22,6 @@
 
     @inline api.um
 
-  @topic Extra
+  @topic Additional Guidelines
     @versioned
       @inline extra/*.um

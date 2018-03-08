@@ -1,0 +1,9 @@
+@version 1.14.0
+  @api Form
+    @function hx.validateForm
+      @bugfix
+        @description
+          Fixed an issue where the validateForm function would validate against hidden elements
+        @issue 301
+      @arg form [String/HTMLElement]
+      @arg? options [Object]

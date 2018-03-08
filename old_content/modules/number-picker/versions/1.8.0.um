@@ -1,0 +1,15 @@
+@version 1.8.0
+  @api Number Picker
+    @prototype hx.NumberPicker
+      @bugfix: Fixed an issue where the value would not adhere to the min/max when changing via the input
+        @issue 328
+      @enhancement: Disable the increment/decrement buttons when the value is at min/max
+        @issue 159
+
+      @method on
+        @arg name [String]
+        @arg callback [Function]
+          @arg data [Any]
+
+        @bugfix: Fix an issue with the 'change' event being fired with the wrong value when entering a value from the input
+          @issue 328

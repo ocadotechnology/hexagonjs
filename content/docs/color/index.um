@@ -4,25 +4,28 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Color
-  @description
-    A module for manipulating colors.
+  @versioned 
+    @version 0.15.2
+      @description 
+        A module for manipulating colors.
+
+    @version 0.9.0
+      @description 
+        A module for manipulating colors.
+
+
 
 @contentSection
   @topic Examples
     @examples
       @versioned
-        @inline examples/0.9.0.um
-        @inline examples/0.15.2.um
-        @inline examples/1.0.0.um
-
+        @inline examples/*.um
 
   @topic Api
     @hyperlink(/docs/color/changelog)[Change Log]
 
     @inline api.um
 
-  @topic More Information
+  @topic Additional Guidelines
     @versioned
-      @inline extra/0.9.0.um
-      @inline extra/0.15.2.um
-      @inline extra/1.0.0.um
+      @inline extra/*.um

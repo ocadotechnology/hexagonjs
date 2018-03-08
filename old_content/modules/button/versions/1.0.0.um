@@ -1,0 +1,50 @@
+@version 1.0.0
+
+  @examples
+    @example
+      @html
+        <button class="hx-btn">hx-btn</button>
+        <button class="hx-btn hx-action">hx-action</button>
+        <button class="hx-btn hx-positive">hx-positive</button>
+        <button class="hx-btn hx-warning">hx-warning</button>
+        <button class="hx-btn hx-negative">hx-negative</button>
+        <button class="hx-btn hx-info">hx-info</button>
+        <button class="hx-btn hx-complement">hx-complement</button>
+        <button class="hx-btn hx-contrast">hx-contrast</button>
+        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
+
+    @example
+      @html
+        <button id="button-example" class="hx-btn hx-positive">
+          <i class="fa fa-check"></i> Click Me
+        </button>
+      @js
+        hx.select('#button-example').on('click', function(){
+          hx.notify.info('Button clicked');
+        });
+
+  @api Button
+    @class hx-btn
+      @extraClass hx-action
+        @description: Styles the button with action colors
+        @added: Added new action context class and updated default styles.
+
+
+      @extraClass hx-btn-invert
+        @enhancement: Updated the invert styles for buttons to work nicer across different themes
+
+
+      @extraClass hx-compliment
+        @removed: Use @code(css)[.hx-complement] instead
+
+      @extraClass hx-complement: Styles the button with a color that complements the theme (light for a light theme, dark for a dark theme)
+
+  @theme
+    @option compliment-col
+      @removed
+        Use complement-col instead.
+
+    @option complement-col
+      @type color
+      @description: The base complimentary button color
+      @default: #FDFDFD

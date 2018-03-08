@@ -1,0 +1,3 @@
+@api Table
+
+  @inline api/*.um

@@ -1,0 +1,33 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Fast Click
+  @versioned 
+    @version 0.9.0
+      @description 
+        A module for improving user experience with Hexagon on mobile devices by removing the 200ms delay when clicking whilst maintaining scroll capabilities.
+
+        
+        Including this module will enable the functionality for touch devices which will emit a 'click' event alongside the touchstart/touchend events if the user hasn't scrolled.
+
+        
+        It is generally recommended that you enable this module.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/fast-click/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

@@ -1,0 +1,100 @@
+@version 0.11.0
+  @examples 
+    @example 
+      @html 
+        <div id="pb1" class="hx-progress-bar"></div>
+        <div id="pb2" class="hx-progress-bar hx-positive"></div>
+        <div id="pb3" class="hx-progress-bar hx-warning"></div>
+        <div id="pb4" class="hx-progress-bar hx-negative"></div>
+        <div id="pb5" class="hx-progress-bar hx-info"></div>
+        <div id="pb6" class="hx-progress-bar hx-compliment"></div>
+        <div id="pb7" class="hx-progress-bar hx-contrast"></div>
+
+      @js 
+        pb1 = new hx.ProgressBar('#pb1');
+        pb2 = new hx.ProgressBar('#pb2');
+        pb3 = new hx.ProgressBar('#pb3');
+        pb4 = new hx.ProgressBar('#pb4');
+        pb5 = new hx.ProgressBar('#pb5');
+        pb6 = new hx.ProgressBar('#pb6');
+        pb7 = new hx.ProgressBar('#pb7');
+        
+        pb1.value(0.25);
+        pb2.value(0.33);
+        pb3.value(0.42);
+        pb4.value(0.5);
+        pb5.value(0.58);
+        pb6.value(0.67);
+        pb7.value(0.75);
+
+@version 0.13.0
+  @examples 
+    @example 
+      @html 
+        <div id="pb1" class="hx-progress-bar"></div>
+        <div id="pb2" class="hx-progress-bar hx-positive"></div>
+        <div id="pb3" class="hx-progress-bar hx-warning"></div>
+        <div id="pb4" class="hx-progress-bar hx-negative"></div>
+        <div id="pb5" class="hx-progress-bar hx-info"></div>
+        <div id="pb6" class="hx-progress-bar hx-compliment"></div>
+        <div id="pb7" class="hx-progress-bar hx-contrast"></div>
+
+      @js 
+        new hx.ProgressBar('#pb1', {value: 0.25})
+        new hx.ProgressBar('#pb2', {value: 0.33})
+        new hx.ProgressBar('#pb3', {value: 0.42})
+        new hx.ProgressBar('#pb4', {value: 0.5})
+        new hx.ProgressBar('#pb5', {value: 0.58})
+        new hx.ProgressBar('#pb6', {value: 0.67})
+        new hx.ProgressBar('#pb7', {value: 0.75})
+
+@version 0.9.0
+  @examples 
+    @example 
+      @html 
+        <div id="pb1" class="hx-progress-bar"></div>
+        <div id="pb2" class="hx-progress-bar hx-positive"></div>
+        <div id="pb3" class="hx-progress-bar hx-warning"></div>
+        <div id="pb4" class="hx-progress-bar hx-negative"></div>
+        <div id="pb5" class="hx-progress-bar hx-info"></div>
+        <div id="pb6" class="hx-progress-bar hx-compliment"></div>
+        <div id="pb7" class="hx-progress-bar hx-contrast"></div>
+
+      @js 
+        pb1 = new hx.ProgressBar('#pb1');
+        pb2 = new hx.ProgressBar('#pb2');
+        pb3 = new hx.ProgressBar('#pb3');
+        pb4 = new hx.ProgressBar('#pb4');
+        pb5 = new hx.ProgressBar('#pb5');
+        pb6 = new hx.ProgressBar('#pb6');
+        pb7 = new hx.ProgressBar('#pb7');
+        
+        pb1.setProgress(0.25);
+        pb2.setProgress(0.33);
+        pb3.setProgress(0.42);
+        pb4.setProgress(0.5);
+        pb5.setProgress(0.58);
+        pb6.setProgress(0.67);
+        pb7.setProgress(0.75);
+
+@version 1.0.0
+  @examples 
+    @example 
+      @html 
+        <div id="pb1" class="hx-progress-bar"></div>
+        <div id="pb2" class="hx-progress-bar hx-positive"></div>
+        <div id="pb3" class="hx-progress-bar hx-warning"></div>
+        <div id="pb4" class="hx-progress-bar hx-negative"></div>
+        <div id="pb5" class="hx-progress-bar hx-info"></div>
+        <div id="pb6" class="hx-progress-bar hx-complement"></div>
+        <div id="pb7" class="hx-progress-bar hx-contrast"></div>
+
+      @js 
+        new hx.ProgressBar('#pb1', {value: 0.25})
+        new hx.ProgressBar('#pb2', {value: 0.33})
+        new hx.ProgressBar('#pb3', {value: 0.42})
+        new hx.ProgressBar('#pb4', {value: 0.5})
+        new hx.ProgressBar('#pb5', {value: 0.58})
+        new hx.ProgressBar('#pb6', {value: 0.67})
+        new hx.ProgressBar('#pb7', {value: 0.75})
+

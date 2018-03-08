@@ -1,0 +1,104 @@
+@prototype hx.InlineEditable
+  @updated 1.10.0
+    @issue 351
+    @description 
+      Made the input take focus when the editable is 'opened' and made it possible to press 'enter' to set the value.
+
+  @added 0.10.0
+  @extends EventEmitter
+  @constructor 
+    @removed 1.10.0
+      @issue 351
+      @description 
+        Added the 'options' parameter to the constructor
+
+    @arg selector [String/HTMLElement]
+      @description 
+        A CSS selector that uniquely identifies the element, or an HTMLElement.
+        
+
+  
+  @method value
+    @description 
+      Sets the text of the element.
+
+    @arg? value [String]
+      @description 
+        The text to give the element. If not specified the current value will be returned.
+        
+
+    @returns [String/InlineEditable]
+      @description 
+        Returns the current value in the editable if a value is not speficied. If a value is specified, this InlineEditable is returned for chaining.
+        
+
+  
+  
+  @constructor 
+    @added 1.10.0
+      @issue 351
+      @description 
+        Added the options parameter to the constructor to allow the 'enter value' text to be set
+
+    @arg selector [String/HTMLElement]
+      @description 
+        A CSS selector that uniquely identifies the element, or an HTMLElement.
+        
+
+    @arg? options [Object]
+      @property enterValueText [String]
+        @description 
+          The text to display when no value has been entered to prompt the user to enter something
+
+      @property value [String]
+        @description 
+          The initial value of the inline editable. The default is the text in the selection at the point of creation.
+
+  
+  @event change [Object]
+    @description 
+      Emitted when the value is changed.
+
+    @property api [Boolean]
+      @removed 1.10.0
+        @issue 351
+        @description 
+          The api property was always set to false. It has been removed and replaced with the standard 'cause' property
+
+      @description 
+        True if a call to the value method caused this change. False if it was a result of a user change.
+        
+
+    @property value [String]
+      @description 
+        The new value.
+        
+
+    @property cause [String]
+      @added 1.10.0
+        @issue 351
+        @description 
+          Replaced the broken 'api' property
+
+      @description 
+        Can be 'user' or 'api', depending on what caused the change. 'api' means a call to the javascript api caused the change, 'user' means that the change was caused by inputting
+
+@function hx.inlineEditable
+  @added 1.0.0
+    @description 
+      Fluid api version of InlineEditable
+      
+
+  @description 
+    Creates a new InlineEditable set up on a detached element, wrapped in a selection
+
+  @arg options [Object]
+    @description 
+      See the options object for constructing InlineEditable
+      
+
+  @returns [Selection]
+    @description 
+      A selection containing an element with an InlineEditable initialised on it
+      
+

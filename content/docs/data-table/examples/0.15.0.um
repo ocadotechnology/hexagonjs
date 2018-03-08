@@ -1,4 +1,0 @@
-@version 0.15.0
-  @example
-    @html: @inline files/0.15.0/simple-example.html
-    @js: @inline files/0.15.0/simple-example.html

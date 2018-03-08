@@ -1,0 +1,30 @@
+@version 0.10.0
+  @api Label
+    @class hx-label
+      @updated: Removed module-specific classes in favor of generic classes
+
+
+      @extraClass hx-label-positive
+        @removed: Use hx-positive with hx-label instead
+
+      @extraClass hx-label-warning
+        @removed: Use hx-warning with hx-label instead
+
+      @extraClass hx-label-negative
+        @removed: Use hx-negative with hx-label instead
+
+      @extraClass hx-label-info
+        @removed: Use hx-info with hx-label instead
+
+      @extraClass hx-label-contrast
+        @removed: Use hx-contrast with hx-label instead
+
+      @extraClass hx-label-compliment
+        @removed: Use hx-compliment with hx-label instead
+
+      @extraClass [hx-label-[n]]
+        @removed
+
+  @theme
+    @option colors
+      @removed

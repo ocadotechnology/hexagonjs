@@ -1,0 +1,53 @@
+@section Getting Started
+
+  @section Intro
+
+    @p: The drawing api exposes a simple api for drawing diagrams in the browser. It uses a model-view set-up for describing the drawings - you have to create the objects you want to display, and manipulate their properties, and the drawing api will ensure that the objects described in your diagram get rendered to the screen.
+
+    @p: It currently uses the canvas element to do the drawing, although there is no reason it couldn't be extended to support SVG or WebGL rendering in the future. For large diagrams (that are bigger than the screen) with relatively few objects, SVG has the potential to perform better.
+
+  @section Creating a blank canvas
+
+    @p: The following example sets up an empty drawing
+
+    @example
+      @html: <div id="empty-drawing"></div>
+      @js: @inline examples/empty-drawing.js
+
+    @p: Pretty boring, right?
+
+    @p: Note that a border has been added to all the examples on this page to make it easier to see. This isn't something that is necessary for normal apps.
+
+  @section Adding something to the drawing
+
+    @p: Adding a rectangle to the drawing is almost as easy.
+
+    @example
+      @html: <div id="rectangle-drawing"></div>
+      @js: @inline examples/rectangle-drawing.js
+
+    @p: The drawing will redraw at 60fps (or as close to that as it can achieve). Having the drawing redraw constantly like this allows animations to appear smooth.
+
+    @notice Note
+      The render loop will eventually be able to turn off when there are no changes to display. This will result in less cpu consumption and save the battery life for mobile devices. This functionality has not yet been added - however this is something that will happen internally, so there will be no change to the api in order for this optimisation to happen.
+
+  @section Enabling mouse controls
+
+    @p: Enabling mouse and touch controls can be done with the enablePan and enableZoom methods on the drawing object.
+
+    @example
+      @html: <div id="controlled-drawing"></div>
+      @js: @inline examples/controlled-drawing.js
+
+
+    @section What does the drawing api provide over using bare canvas/SVG?
+
+      @p: The drawing api exposes a set of features that are not dependent on the type of drawing engine being used. This gives the advantage that we could in theory swap all rendering over to use WebGL in the future once browser support is mature enough.
+
+      @p: The drawing api also takes care of all the conversions from drawing coordinates to screen coordinates. This allows you to draw things at any scale, and have the api scale them to fit on the page for you.
+
+      @p: The drawing api also comes with a built in camera object, which allows panning and zooming on the diagram, and also ways to detect clicks on objects in the drawing.
+
+      @p: The api is also designed around the idea that diagrams will be being updated via a live feed, most probably using websockets.
+
+      @p: These are all features that do not come natively with the canvas element (since the canvas element is essentially just a bitmap).

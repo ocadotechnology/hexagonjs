@@ -1,0 +1,474 @@
+@prototype hx.Dropdown
+  @bugfix 0.12.8
+    @description 
+      Updated the z-index checking so that it gets the highest of all the parent z-index, not just the closest parent's z-index.
+      
+
+  @description 
+    An api for creating a dropdown that shows when the user either clicks or hovers over an element.
+
+  @extends EventEmitter
+  @constructor 
+    @removed 0.14.0
+      @description 
+        Use @code[hx.Dropdown(selector, dropdownContent, options)] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.Dropdown(selector, dropdownContent, options)] instead.
+        
+
+    @added 0.9.0
+    @arg selector [String/HTMLElement]
+      @description 
+        The element the user has to click or hover over to show the dropdown
+        
+
+    @arg dropdownContent [String/Function]
+      @description 
+        The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. An example string content could be:
+        @@codeblock js
+          ddContent = '<div>Some content</div>';
+
+      @arg node [HTMLElement]
+        @description 
+          The dropdown node to populate.
+          
+
+    @arg? mode [String]
+      @description 
+        The type of action that will show the dropdown, can be 'click' or 'hover' (the hover value will act as click for mobile devices without the hover event)
+        @default 
+          'click'
+        
+
+    @arg? align [String]
+      @description 
+        The alignment value for the dropdown. The complete list of all alignment properties that should be used can be seen below:
+        @list 
+          @item['up']
+          @item['down']
+          @item['left']
+          @item['right']
+          @item['lblt']
+          @item['lbrt']
+          @item['lbrb']
+          @item['ltlb']
+          @item['ltrt']
+          @item['ltrb']
+          @item['rblt']
+          @item['rblb']
+          @item['rbrt']
+          @item['rtlt']
+          @item['rtlb']
+          @item['rtrb']
+
+        Aside from 'up', 'down', 'left' and 'right', the other values use the first two characters to select a corner from the selection and the second two characters to select a corner from the dropdown and then align those corners so they are closest to each other.
+
+    @arg? spacing [Number]
+      @description 
+        How much space to show between the dropdown and the selector
+        @default 
+          theme.spacing
+        
+
+    @arg? matchWidth [Boolean]
+      @description 
+        If set to true, the dropdown width will always be the same as or greater than the width of the selector
+        @default 
+          true
+        
+
+    @arg? ddClass [String]
+      @description 
+        An additional class to add to the dropdown when creating it.
+        
+
+  @constructor 
+    @removed 0.9.0
+      @description 
+        The mode parameter has been moved after the dropdown content:
+
+        @@codeblock js
+          // old way
+          new hx.Dropdown(selector, mode, dropdownContent, align, spacing, matchWidth, ddClass)]
+          
+          // new way
+          new hx.Dropdown(selector, dropdownContent, mode, align, spacing, matchWidth, ddClass)]
+        
+
+    @arg selector [String/HTMLElement]
+    @arg mode [String]
+    @arg dropdownContent [String/Function]
+    @arg? align [String]
+    @arg? spacing [Number]
+    @arg? matchWidth [Boolean]
+    @arg? ddClass [String]
+
+  @property dropdownContent [String/Function]
+    @removed 0.13.0
+      @description 
+        dropdownContent has been moved to the options object
+        
+
+    @description 
+      The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. 
+      An example string content could be
+      @@codeblock js
+        ddContent = '<div>Some content</div>';
+
+    @arg node [HTMLElement]
+      @description 
+        The dropdown node to populate.
+        
+
+  @property spacing [Number]
+    @removed 0.13.0
+      @description 
+        spacing has been moved to the options object
+        
+
+    @description 
+      How much space to show between the dropdown and the selector
+
+  @property matchWidth [Boolean]
+    @removed 0.13.0
+      @description 
+        matchWidth has been moved to the options object
+        
+
+    @description 
+      If set to true, the dropdown width will always be the same as or greater than the width of the selector
+
+  @property ddClass [String]
+    @removed 0.13.0
+      @description 
+        ddClass has been moved to the options object
+        
+
+    @description 
+      An additional class to add to the dropdown when creating it.
+
+  @method toggle
+    @removed 0.13.0
+    @description 
+      Toggles the visibility of the dropdown.
+
+  @method show
+    @removed 0.13.0
+    @description 
+      Shows the dropdown
+
+  @method hide
+    @removed 0.13.0
+    @description 
+      Hides the dropdown
+
+  @method isOpen
+    @description 
+      Returns whether the dropdown is visible or not.
+
+    @returns [Boolean]
+
+  @method cleanUp
+    @description 
+      Called when the dropdown is removed from the page. It is unlikely that this will be needed, however if you are using dropdowns in dynamic content it may be required.
+
+    @returns [Dropdown]
+      @added 0.13.0
+      @description 
+        This Dropdown
+        
+
+  @constructor 
+    @added 0.13.0
+    
+    @arg selector [String/HTMLElement]
+      @description 
+        The element the user has to click or hover over to show the dropdown
+        
+
+    @arg dropdownContent [String/Function]
+      @description 
+        The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. An example string content could be:
+        @@codeblock js
+          ddContent = '<div>Some content</div>';
+
+      @arg node [HTMLElement]
+        @description 
+          The dropdown node to populate.
+          
+
+    @arg? options [Object]
+      @description 
+        The options to use for the dropdown.
+        
+
+      @property mode [String]
+        @description 
+          The type of action that will show the dropdown, can be 'click' or 'hover' (the hover value will act as click for mobile devices without the hover event)
+          @default 
+            'click'
+          
+
+      @property align [String]
+        @description 
+          The alignment value for the dropdown. The complete list of all alignment properties that should be used can be seen below:
+          @list 
+            @item['up']
+            @item['down']
+            @item['left']
+            @item['right']
+            @item['lblt']
+            @item['lbrt']
+            @item['lbrb']
+            @item['ltlb']
+            @item['ltrt']
+            @item['ltrb']
+            @item['rblt']
+            @item['rblb']
+            @item['rbrt']
+            @item['rtlt']
+            @item['rtlb']
+            @item['rtrb']
+
+          Aside from 'up', 'down', 'left' and 'right', the other values use the first two characters to select a corner from the selection and the second two characters to select a corner from the dropdown and then align those corners so they are closest to each other.
+
+      @property spacing [Number]
+        @description 
+          How much space to show between the dropdown and the selector
+          @default 
+            theme.spacing
+          
+
+      @property matchWidth [Boolean]
+        @description 
+          If set to true, the dropdown width will always be the same as or greater than the width of the selector
+          @default 
+            true
+          
+
+      @property ddClass [String]
+        @description 
+          An additional class to add to the dropdown when creating it.
+          
+
+  @property options [Object]
+    @added 0.13.0
+    @property dropdownContent [String/Function]
+      @description 
+        The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. 
+        An example string content could be
+        @@codeblock js
+          ddContent = '<div>Some content</div>';
+
+      @arg node [HTMLElement]
+        @description 
+          The dropdown node to populate.
+          
+
+    
+    @property spacing [Number]
+      @description 
+        How much space to show between the dropdown and the selector
+
+    
+    @property matchWidth [Boolean]
+      @description 
+        If set to true, the dropdown width will always be the same as or greater than the width of the selector
+
+    
+    @property ddClass [String]
+      @description 
+        An additional class to add to the dropdown when creating it.
+
+  @method toggle
+    @added 0.13.0
+    @description 
+      Toggles the visibility of the dropdown.
+
+    @arg? callback [Function]
+      @description 
+        Called when the animation finishes.
+
+    @returns [Dropdown]
+      @description 
+        This Dropdown
+        
+
+  @method show
+    @added 0.13.0
+    @description 
+      Shows the dropdown
+
+    @arg? callback [Function]
+      @description 
+        Called when the animation finishes.
+
+    @returns [Dropdown]
+      @description 
+        This Dropdown
+        
+
+  @method hide
+    @added 0.13.0
+    @description 
+      Hides the dropdown
+
+    @arg? callback [Function]
+      @description 
+        Called when the animation finishes.
+
+    @returns [Dropdown]
+      @description 
+        This Dropdown
+        
+
+  @method addException
+    @added 1.0.0
+      @description 
+        A method for adding exceptions to dropdowns - this means if the element provided is clicked, it will not cause the dropdown to close.
+        
+
+    @description 
+      Adds an exception to the click detector for this dropdown.
+
+    @arg element [Element]
+      @description 
+        The element to add as an exception
+        
+
+    @returns [Dropdown]
+      @description 
+        This Dropdown
+        
+
+  @method removeException
+    @added 1.0.0
+      @description 
+        A method for removing exceptions from dropdowns.
+        
+
+    @description 
+      Removes an exception from the click detector for this dropdown.
+
+    @arg element [Element]
+      @description 
+        The element to remove as an exception
+        
+
+    @returns [Dropdown]
+      @description 
+        This Dropdown
+        
+
+  @method render
+    @added 1.6.0
+      @issue 180
+      @description 
+        Added a new method for re-rendering the dropdown whilst it is open
+        
+
+    @description 
+      A method for re-rendering the dropdown whilst it is already open to allow the content to be updated without hiding/showing the dropdown.
+
+    @returns [Dropdown]
+      @description 
+        This dropdown
+        
+
+  @method dropdownContent
+    @added 1.6.0
+      @issue 180
+      @description 
+        Added a new method for getting the currently set dropdown content
+        
+
+    @description 
+      A method for getting the current dropdown content
+
+    @returns [String/Function]
+      @description 
+        The currently set dropdown content
+        
+
+  @method dropdownContent
+    @added 1.6.0
+      @issue 180
+      @description 
+        Added a new method for getting the currently set dropdown content
+        
+
+    @description 
+      A method for setting the current dropdown content. Calling this whilst the dropdown is open will cause the dropdown to re-render with the content provided.
+
+    @arg content [String/Function]
+      @description 
+        The dropdown content to set
+        
+
+    @returns [Dropdown]
+      @description 
+        This dropdown
+        
+
+  @event show
+    @removed 0.14.0
+      @description 
+        Use @code[showstart] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[showstart] instead.
+        
+
+    @description 
+      Emitted when the dropdown is shown. No data is sent with this event.
+
+  @event hide
+    @removed 0.14.0
+      @description 
+        Use @code[hidestart] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hidestart] instead.
+        
+
+    @description 
+      Emitted when the dropdown is hidden. No data is sent with this event.
+
+  @event change [Boolean]
+    @description 
+      Emitted when the dropdown is shown or hidden. The data with the event is a boolean indicating whether or not the dropdown is visible. True means that the dropdown has just been shown, false means that it has just been hidden.
+
+  @event showstart
+    @added 0.13.0
+    @description 
+      Emitted when the dropdown animation starts. No data is sent with this event.
+
+  @event showend
+    @added 0.13.0
+    @description 
+      Emitted when the dropdown animation finishes. No data is sent with this event.
+
+  @event hidestart
+    @added 0.13.0
+    @description 
+      Emitted when the dropdown animation starts. No data is sent with this event.
+
+  @event hideend
+    @added 0.13.0
+    @description 
+      Emitted when the dropdown animation ends. No data is sent with this event.
+
+  @event render
+    @added 1.6.0
+      @issue 180
+      @description 
+        A new event fired when the dropdown has finished rendering
+        
+

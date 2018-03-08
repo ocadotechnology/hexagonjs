@@ -1,0 +1,98 @@
+@function hx.component
+  @added 0.12.4
+    @description 
+      A new method for retrieving the component object backing an element
+      
+
+  @description 
+    Returns the component backing the element passed in.
+
+  @arg node [String/HTMLElement]
+    @description 
+      The element to retrieve the component from (or a css selector that uniquly identifies an element)
+      
+
+  @returns [Object]
+    @description 
+      The object backing the element passed in.
+      
+
+@function hx.components
+  @added 0.12.4
+    @description 
+      A new method for retrieving all the components objects backing an element
+      
+
+  @description 
+    Returns the components backing the element passed in.
+
+  @arg node [String/HTMLElement]
+    @description 
+      The element to retrieve the components from (or a css selector that uniquly identifies an element)
+      
+
+  @returns [Array[Object]]
+    @description 
+      The objects backing the element passed in.
+      
+
+@function hx.component.register
+  @added 0.12.4
+    @description 
+      A new method for applying a component to an element
+      
+
+  @description 
+    Registers a component to the element passed in.
+
+  @arg node [String/HTMLElement]
+    @description 
+      The element to register the component for (or a css selector that uniquly identifies an element)
+      
+
+  @arg component [Object]
+    @description 
+      An object containing properties or methods that should be accessible on an element's component.
+      
+
+@prototype Selection
+  @added 0.15.0
+  @method component
+    @added 0.15.0
+      @description 
+        A new method for retrieving the component object backing an element from a selection
+        
+
+    @description 
+      Returns the component backing the first element in the selection.
+
+    @returns [Object/Array[Object]]
+      @description 
+        The objects backing the selected element.
+        
+
+  
+  @method components
+    @added 0.15.0
+      @description 
+        A new method for retrieving the components object backing an element from a selection
+        
+
+    @description 
+      Returns the components backing the selected elements.
+
+    @returns [Array[Object] / Array[Array[Object]]]
+      @description 
+        The objects backing the selected element.
+        
+
+@function hx.components.clear
+  @added 1.0.0
+  @description 
+    Clears all components from an element
+
+  @arg selector [Element/String]
+    @description 
+      The element to remove all components from
+      
+

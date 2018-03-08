@@ -1,6 +1,3 @@
 @api Animate
-  @inline api/animate.um
-  @inline api/Animation.um
-  @inline api/morph.um
-  @inline api/morph.register.um
-  @inline api/Selection.um
+
+  @inline api/*.um

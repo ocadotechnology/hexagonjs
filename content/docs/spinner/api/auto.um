@@ -1,0 +1,16 @@
+@class hx-spinner
+  @description 
+    Use with a @code[<span>] for an inline spinner
+
+  @extraClass hx-spinner-large
+    @added 1.13.0
+      @description 
+        Added a large spinner
+
+    @description 
+      Use with a @code[<span>] for a large inline spinner
+
+@class hx-spinner-wide
+  @description 
+    Use with a @code[<div>] for a wide spinner
+

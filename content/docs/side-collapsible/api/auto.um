@@ -1,0 +1,198 @@
+@prototype hx.SideCollapsible
+  @added 0.12.8
+  @description 
+  @extends EventEmitter
+  @constructor 
+    @arg selector [String/HTMLElement]
+    @arg? options [Object]
+      @property animate [Boolean]
+        @description 
+          Whether the collapsible should animate by default.
+          @default 
+            true
+          
+
+      @property position [String]
+        @description 
+          What side the collapsible should be on, can be either 'left' or 'right'
+          @default 
+            'Left'
+          
+
+      @property visible [Boolean]
+        @description 
+          Whether the side collapsible should be open or closed when initialising.
+          @default 
+            false
+          
+
+      @property rotateHeading [Boolean]
+        @description 
+          Whether the closed heading should be rotated
+          @default 
+            true
+          
+
+  @method show
+    @removed 0.13.0
+      @description 
+        Additional optional callback parameter added for executing code when the animation finishes.
+        
+
+    @description 
+      Show the collapsible content
+
+    @arg? animate [Boolean]
+      @description 
+        Whether or not to animate the open action. Defaults to the animate option passed in when constructing the collapsible.
+        
+
+    @returns [SideCollapsible]
+      @description 
+        This SideCollapsible
+        
+
+  @method hide
+    @removed 0.13.0
+      @description 
+        Additional optional callback parameter added for executing code when the animation finishes.
+        
+
+    @description 
+      Hide the collapsible content
+
+    @arg? animate [Boolean]
+      @description 
+        Whether or not to animate the close action. Defaults to the animate option passed in when constructing the collapsible.
+        
+
+    @returns [SideCollapsible]
+      @description 
+        This SideCollapsible
+        
+
+  @method toggle
+    @removed 0.13.0
+      @description 
+        Additional optional callback parameter added for executing code when the animation finishes.
+        
+
+    @description 
+      Toggles the visiblity of the collapsible content.
+
+    @arg? animate [Boolean]
+      @description 
+        Whether or not to animate the action. Defaults to the animate option passed in when constructing the collapsible.
+        
+
+    @returns [SideCollapsible]
+      @description 
+        This SideCollapsible
+        
+
+  @method show
+    @added 0.13.0
+    @description 
+      Show the collapsible content
+
+    @arg? animate [Boolean]
+      @description 
+        Whether or not to animate the open action. Defaults to the animate option passed in when constructing the collapsible.
+        
+
+    @arg? callback [Function]
+      @description 
+        Called when the animation finishes. The callback will only be run if the state changes.
+
+    @returns [SideCollapsible]
+      @description 
+        This SideCollapsible
+        
+
+  @method hide
+    @added 0.13.0
+    @description 
+      Hide the collapsible content
+
+    @arg? animate [Boolean]
+      @description 
+        Whether or not to animate the close action. Defaults to the animate option passed in when constructing the collapsible.
+        
+
+    @arg? callback [Function]
+      @description 
+        Called when the animation finishes. The callback will only be run if the state changes.
+
+    @returns [SideCollapsible]
+      @description 
+        This SideCollapsible
+        
+
+  @method toggle
+    @added 0.13.0
+    @description 
+      Toggles the visiblity of the collapsible content.
+
+    @arg? animate [Boolean]
+      @description 
+        Whether or not to animate the action. Defaults to the animate option passed in when constructing the collapsible.
+        
+
+    @arg? callback [Function]
+      @description 
+        Called when the animation finishes. The callback will only be run if the state changes.
+
+    @returns [SideCollapsible]
+      @description 
+        This SideCollapsible
+        
+
+  @event showstart
+    @description 
+      Emitted when the collapsible is opened. No extra data with this event type
+
+  @event hidestart
+    @description 
+      Emitted when the collapsible is hidden. No extra data with this event type
+
+  @event change [Boolean]
+    @description 
+      Emitted when the collapsible's state changes. The data that comes with this event is a boolean.
+
+    @data Boolean
+      @description 
+        True means that the collapsible has just been opened, false means it has just been closed.
+        
+
+  @event showend
+    @description 
+      Emitted when the collapsible is opened and animations have finished. No extra data with this event type
+
+  @event hideend
+    @description 
+      Emitted when the collapsible is closed and animations have finished. No extra data with this event type
+
+@class hx-side-collapsible
+  @description 
+    The class added to the side collapsible container
+
+  @class hx-side-collapsible-heading-open
+    @description 
+      The class to add to the heading to show when the collapsible is open.
+
+    @extraClass hx-side-collapsible-heading-no-hover
+      @description 
+        The class to add to the collapsible heading to disable the hover styles.
+
+  @class hx-side-collapsible-heading-closed
+    @description 
+      The class to add to the heading to show when the collapsible is closed. This is rotated through 90 degrees.
+
+    @extraClass hx-side-collapsible-heading-no-hover
+      @description 
+        The class to add to the collapsible heading to disable the hover styles.
+
+  @class hx-side-collapsible-content
+    @description 
+      The class to add to the content to show when the collapsible is open.
+

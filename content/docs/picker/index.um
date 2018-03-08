@@ -1,0 +1,27 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Picker
+  @versioned 
+    @version 0.14.0
+      @description 
+        An alternative to the @code(html)[<select>] element. Essentially a button and a menu glued together with useful functions for setting and getting the currently selected value.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/picker/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

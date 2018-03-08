@@ -1,3 +1,0 @@
-@property value [Any]
-  @description
-    The initial value of the autocomplete picker

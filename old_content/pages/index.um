@@ -1,0 +1,82 @@
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
+@inline ../shared/common.um
+
+@keywords [hexagon js, modular themeable collection of components for modern browsers]
+
+@titlebar
+
+@coffee: @inline index.coffee
+@css: @inline index.css
+
+@div .title-section
+  @div .background
+    @div #background
+
+  @div .dx-group.dx-vertical.container
+    @div .header-container.dx-group.dx-horizontal
+      @div .logo
+      @div .title
+        @div .text
+          @span: HEXAGON@span(.js)[.js]
+          @div .version: {{version}}
+
+  @div .what-it-is: A modular, themeable collection of components for modern browsers
+
+@div .description
+  @div .dx-content
+
+    @div .docs-git-link
+      @p
+        @a .hx-btn
+          @attr style: padding: 0.6em;
+          @attr href: https://github.com/ocadotechnology/hexagonjs
+          @attr title: Hexagon.js on GitHub
+          View on
+          @img
+            @attr src: https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png
+            @attr style: height: 0.9em; margin-left: 8px;
+            @attr title: GitHub Logo
+
+    @div .dx-group.dx-horizontal
+      @div .dx-section.docs-selling-point.dx-card
+        @div .dx-card-section.docs-statement: Themeable.
+        @div .dx-card-section.docs-explanation
+          @p: Create custom themes with variable-driven theme files.
+          @p: Quickly create new themes by extending existing ones, or create something more bespoke by entirely replacing the default theme css on a per-module basis.
+
+      @div .dx-section.docs-selling-point.dx-card
+        @div .dx-card-section.docs-statement: Preprocessor-friendly.
+        @div .dx-card-section.docs-explanation:
+          @p: Export theme variables to sass, less and stylus to share your color palette.
+          @div .dx-group.docs-preprocessor-logo-group
+
+            @div .docs-preprocessor-logo
+              @img
+                @attr src: /resources/sass.svg
+                @attr style: width:70px;height:auto;
+
+            @div .docs-preprocessor-logo
+              @img
+                @attr src: /resources/less.svg
+                @attr style: width:70px;height:auto;
+
+            @div .docs-preprocessor-logo
+              @img
+                @attr src: /resources/stylus.svg
+                @attr style: width:70px;height:auto;
+
+      @div .dx-section.docs-selling-point.dx-card
+        @div .dx-card-section.docs-statement: Modular.
+        @div .dx-card-section.docs-explanation: Include just the parts you need, throw away everything else. For faster load times.
+
+    @div .docs-components
+      @div .docs-statement: Components.
+      @inline ../shared/examples.um
+
+
+
+
+@footer
+
+

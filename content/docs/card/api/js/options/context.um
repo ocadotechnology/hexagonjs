@@ -1,4 +1,0 @@
-@property context [String]
-  @description
-    The context to set (can be one of the standard hexagon contexts -
-    'positive', 'negative', 'warning', 'info', 'action', etc)

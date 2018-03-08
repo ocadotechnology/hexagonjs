@@ -1,0 +1,6 @@
+@inline ../../../shared/common.um
+@titlebar Working with data
+
+@div .dx-content
+  @h1: Working with data
+

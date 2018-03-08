@@ -1,0 +1,28 @@
+@prototype Selection
+  @description 
+    The resize event extends selection events using the 'on' method
+
+  @event resize
+    @added 0.11.0
+      @description 
+        Added a resize event for listening for when elements are resized.
+        
+
+    @description 
+      Emitted on resize events.
+
+    @data Object
+      @description 
+        An object containing event data.
+        
+
+      @property clientRect
+        @description 
+          The clientRect of the resized element.
+          
+
+      @property event
+        @description 
+          The entire event object.
+          
+

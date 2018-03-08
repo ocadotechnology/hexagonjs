@@ -1,4 +1,0 @@
-@extraClass hx-contrast
-  @added 0.9.0
-  @description
-    Styles the button with a contrasting color to the theme

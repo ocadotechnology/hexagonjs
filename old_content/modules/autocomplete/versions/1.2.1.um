@@ -1,0 +1,5 @@
+@version 1.2.1
+  @api Autocomplete
+    @prototype hx.AutoComplete
+      @bugfix: Fixed a breaking issue with the autocomplete that caused it not to autocomplete and external matchers to break.
+        @issue 172

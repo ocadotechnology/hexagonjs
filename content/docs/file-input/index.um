@@ -1,0 +1,27 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title File Input
+  @versioned 
+    @version 1.3.0
+      @description 
+        A component that extends the native functionality of @code(html)[<input type="file">] to add additional functionality and a hexagon theme
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/file-input/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

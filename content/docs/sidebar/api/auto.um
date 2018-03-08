@@ -1,0 +1,136 @@
+
+@prototype hx.Sidebar
+  @description 
+    Initialises the sidebar
+
+  @constructor 
+    @removed 0.14.0
+      @description 
+        Use @code[hx.Sidebar(selector, options)] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.Sidebar(selector, options)] instead.
+        
+
+    @description 
+    @arg selector [String/HTMLElement]
+      @description 
+        A selector for the sidebar container element
+        
+
+    @arg? headerSelector [String/HTMLElement]
+      @description 
+        A selector for the titlebar header element
+        @default 
+          '.hx-titlebar-header'
+        
+
+    @arg? contentSelector [String/HTMLElement]
+      @description 
+        A selector for the hx-content section
+        @default 
+          '.hx-content'
+        
+
+    @arg? addSidebarClass [Boolean]
+      @description 
+        Whether or not to add the hx-sidebar-page class to the body element.
+        @default 
+          true
+        
+
+  @method toggle
+    @description 
+      Toggles the opened state of the sidebar
+
+    @returns [Sidebar]
+      @description 
+        This Sidebar
+        
+
+  @method hide
+    @description 
+      Hides the sidebar
+
+    @returns [Sidebar]
+      @description 
+        This Sidebar
+        
+
+  @method show
+    @description 
+      Shows the sidebar
+
+    @returns [Sidebar]
+      @description 
+        This Sidebar
+        
+
+  @constructor 
+    @added 0.13.0
+      @description 
+        Added new standardised constructor.
+        
+
+    
+    @arg selector [String/HTMLElement]
+      @description 
+        A selector for the sidebar container element
+        
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the sidebar.
+        
+
+      @property headerSelector [String/HTMLElement]
+        @description 
+          A selector for the titlebar header element
+          @default 
+            '.hx-titlebar-header'
+          
+
+      @property contentSelector [String/HTMLElement]
+        @description 
+          A selector for the hx-content section
+          @default 
+            '.hx-content'
+          
+
+      @property addSidebarClass [Boolean]
+        @description 
+          Whether or not to add the hx-sidebar-page class to the body element.
+          @default 
+            true
+          
+
+  @event show
+    @description 
+      Emitted when the sidebar is opened. No extra data with this event type.
+
+  @event hide
+    @description 
+      Emitted when the sidebar is hidden. No extra data with this event type.
+
+@class hx-sidebar
+  @description 
+    An alternative to the titlebar linkbar. Pages that use the sidebar should not use the hx-titlebar-linkbar titlebar section. Buttons, collapsibles and links all have extra styling defined for sidebars. The sidebar div should be placed between the hx-heading element and the hx-content element.
+
+  @class hx-sidebar-section
+    @description 
+      Should be added to items in the sidebar. Buttons, links @code(html)[<a>] and collapsibles can be used - there are extra styles defined for these when used in a sidebar.
+
+    @extraClass hx-selected
+      @description 
+        Indicates that the section is the current active one - useful if the sidebar is used for navigation.
+
+  @class hx-sidebar-title
+    @description 
+      Styles a @code(html)[<div>] element as a title within the sidebar.
+
+@class hx-sidebar-page
+  @description 
+    Should be given to the @code(html)[<body>] tag for pages that use the sidebar. This will be done automatically when initialising the sidebar class (unless addSidebarClass has been explicitly set to false)
+

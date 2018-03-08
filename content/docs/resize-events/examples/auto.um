@@ -1,0 +1,7 @@
+@version 0.11.0
+  @examples 
+    @@codeblock js
+      hx.select('#body').on('resize', function(event){
+        // do something when the element is resized.
+      });
+

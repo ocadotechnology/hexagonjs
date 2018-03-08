@@ -4,8 +4,12 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Collapsible
-  @description
-    A container for hiding and showing content
+  @versioned 
+    @version 0.9.0
+      @description 
+        Container for hiding and showing content.
+
+
 
 @contentSection
   @topic Examples
@@ -17,3 +21,7 @@
     @hyperlink(/docs/collapsible/changelog)[Change Log]
 
     @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

@@ -1,0 +1,593 @@
+@prototype hx.Table
+  @extends EventEmitter
+  @description
+    A component to allow tables to be created dynamically using Javascript that contains features such as filtering, sorting and pagination.
+
+  @property options [Object]
+    @updated
+    @description
+      The options to use when creating the table. Changing these options and then calling the @code[render] or @code[setData] method will show the table with the new options.
+
+    @property rowsPerPage [Number]
+      @description
+        The maximum number of rows on a page - if there are more rows in the data than this value, the pagination will be shown automatically.
+      @default: 100
+
+    @property showSorts [Boolean]
+      @description
+        Whether to show the sorts on the table columns.
+      @default: true
+
+    @property showFilters [Boolean]
+      @description
+        Whether to show the filters on the table columns.
+      @default: true
+
+    @property showSelection [Boolean]
+      @description
+        Whether to allow rows to be selected and show the ticks at the side of the table.
+      @default: false
+
+    @property rowSelectable [Boolean]
+      @description
+        If showSelection is set to true, this value determines if the entire row should be clickable or just the tick box.
+      @default: true
+
+    @property collapsibleRow [Function]
+      @description
+        The function used to populate the collapsible row when it is clicked.
+      @arg node [HTMLElement]: The content node to populate.
+      @arg rowData [Object]: The data of the selected row.
+
+    @property alwaysMobile [Boolean]
+      @description
+        Whether to always show the table in 'mobile' mode. This is a mode that enables mobile users to see the data in a more sensible layout.
+      @default: false
+
+    @property useResponsive [Boolean]
+      @description
+        Whether to switch to 'mobile' mode when the container for the table is below 480px.
+      @default: true
+
+    @property enabledFilters [Array]
+      @updated
+      @description
+        The list of filter types that will be shown in the filter dropdown if filtering is enabled.
+        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+
+        The default value is
+        @codeblock js
+          [
+            'exact',
+            'startsWith',
+            'less',
+            'greater',
+            'excludes'
+          ]
+
+        Note: The contains filter type is always enabled, the 'enabledFilters' will show in a 'more' section.
+
+    @property noDataMessage [String]
+      @added
+      @description
+        The message to display when there is no data.
+      @default: 'No Data'.
+
+    @property defaultCellValueLookup [Function]
+      @added
+      @description
+        When using object for cell data either this should be defined, or cellValueLookup should be defined for every column. This function makes it possible to specify which value in the cell objects to filter and sort by.
+        This can be overridden on a column-by-column basis with options.cellValueLookup.
+        @codeblock js
+          // table data
+          data = {
+            head : {
+              columns: [
+                {value: "Column 1"},
+                {value: "Column 2"},
+                {value: "Column 3"}
+              ]
+            },
+            body: [
+              [{value: 1, formatted: "1.0"}, {value: 4, formatted: "4.0"}, {value: 8, formatted: "8.0"}],
+              [{value: 7, formatted: "7.0"}, {value: 9, formatted: "9.0"}, {value: 3, formatted: "3.0"}],
+              [{value: 1, formatted: "1.0"}, {value: 8, formatted: "8.0"}, {value: 5, formatted: "5.0"}],
+              ...
+            ]
+          }
+
+          // the table can be instructed to, by default, use the 'value' property of the cell objects for sorting and filtering for:
+          options.defaultCellValueLookup = function(datum) {
+            return datum.value;
+          }
+
+
+      @arg datum [Object]
+        @description
+          The data for a cell
+
+      @returns Any
+        @description
+          The value you wish to filter and sort by
+
+    @property cellValueLookup [Object]
+      @added
+      @description
+        Can be set to change the cell value lookup for a specific column:
+        @codeblock js
+          // table data
+          data = {
+            head : {
+              columns: [
+                {value: "Column 1"},
+                {value: "Column 2"},
+                {value: "Column 3"}
+              ]
+            },
+            body: [
+              [{value: 1, formatted: "1.0"}, {value: 4, formatted: "4.0"}, {value: 8, formatted: "8.0"}],
+              [{value: 7, formatted: "7.0"}, {value: 9, formatted: "9.0"}, {value: 3, formatted: "3.0"}],
+              [{value: 1, formatted: "1.0"}, {value: 8, formatted: "8.0"}, {value: 5, formatted: "5.0"}],
+              ...
+            ]
+          }
+
+          // the table can be instructed to use the 'value' property of the objects for sorting and filtering for 'Column 1' like this:
+          options.cellValueLookup = {
+            'Column 1': function(datum) {
+               return datum.value;
+            }
+          }
+
+    @property defaultCellSortValueLookup [Function]
+      @added
+      @description: Carries out the same functionality as the defaultCellValueLookup function but only applies when sorting the data.
+      @arg datum [Object]
+        @description
+          The data for a cell
+
+      @returns Any
+        @description
+          The value you wish to sort by
+
+    @property cellSortValueLookup [Object]
+      @added
+      @description: Works the same way as cellValueLookup but only applies when sorting the data.
+
+    @property defaultCellFilterValueLookup [Function]
+      @added
+      @description: Carries out the same functionality as the defaultCellValueLookup function but only applies when filtering the data.
+      @arg datum [Object]
+        @description
+          The data for a cell
+
+      @returns Any
+        @description
+          The value you wish to filter by
+
+    @property cellFilterValueLookup [Object]
+      @added
+      @description: Works the same way as cellValueLookup but only applies when filtering the data.
+
+    @property cellRenderers [Object]
+      @added
+      @description: Can be set to change the renderer for a given column.
+
+        @codeblock js
+            // table data
+            data = {
+              head : {
+                columns: [
+                  {value: "Column 1"},
+                  {value: "Column 2"},
+                  {value: "Column 3"}
+                ]
+              },
+              body: [
+                [1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9],
+                ...
+              ]
+            }
+
+            // The table can be instructed to render values in 'Column 1' like this:
+            options.cellValueLookup = {
+              'Column 1': function(datum, element, index) {
+                 return (datum != 1 ? datum + 's' : datum);
+              }
+            }
+
+
+    @property defaultCellRenderer [Function]
+      @added
+      @description: Can be set to change the renderer for all the columns in a table.
+      @arg datum [Object]: The data for a cell
+      @arg element [HTMLElement]: The node of the table cell.
+      @arg index [Number]: The current row index.
+
+  @method clearSelection
+    @description: Clears the currently selected rows from the entire table.
+
+
+  @constructor
+    @description
+      Creates a table object using a selector and some options.
+
+    @arg selector [String/HTMLElement]
+      @description
+        The selector for the table object.
+        The table is created inside this element and any additional table-classes (such as @code(css)[hx-table]) should be applied to this element.
+        The @code(css)[hx-table] class is added automatically when the table is rendered.
+
+    @arg? options [Object]
+      @description
+        The options to use when creating the table. See the @code(js)[options]property for the available options.
+
+
+  @method getSelected
+    @description
+      Returns the rows that have been selected in the form of an array of row data
+
+    @returns Array
+      @description
+        An array containing the rows that are selected (each row is itself an array)
+
+
+  @method on
+    @description: Register a function that should be called every time an event of the given name happens.
+    @arg name [String]: The event type to listen out for
+    @arg callback [Function]
+      @description: The function to call when an event occurs.
+      @arg data [Any]: The data sent along with the event (if any)
+
+    @event sort
+      @description
+        The event called when the table is sorted. Passes the direction and column as the data.
+
+    @event filter
+      @description
+        The event called when the table is filtered. Passes the filter object as the data.
+
+    @event rowselect
+      @description
+        The event called when a row is selected or deselected. Passes the row data and whether the action was to select or deselect the row. Will only be passed if the selected state changes.
+
+    @event rowcollapsible
+      @description
+        The event called when a row collapsible is opened/closed. It is passed the row data (Object) and whether or not the row is open (Boolean)
+
+    @event render
+      @description
+        The event called when the data has been loaded and the table has finished rendering.
+
+
+  @property paginator [Paginator]
+    @description
+      The paginator widget that controls the current page the table shows.
+
+  @method sort
+    @removed: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @arg column [String]
+    @arg? direction [String/Boolean]
+
+  @method sort
+    @added: Optional callback parameter added
+    @description
+      A method for sorting or clearing the sort from a column.
+
+    @arg column [String]
+      @description
+        The title of the column to sort by.
+
+    @arg? direction [String/Boolean]
+      @description
+        The sort direction.
+        @p: Values for ascending are: true, "asc" or "ascending"
+        @p: Values for descending are: false, "desc" or "descending"
+        @p: Values for clearing the sort: undefined or "none"
+
+    @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
+
+
+  @method setData
+    @description
+      Sets for the table to use.
+
+    @arg data [Object/String/Function]
+      @description
+        The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
+
+        @collapsible Object
+          @codeblock js
+            {
+              head:{ // header object
+                columns:[ // object for each column
+                  { value:"Name" },
+                  { value:"Age" },
+                  { value:"Gender" },
+                  { value:"Date of Birth" },
+                  { value:"Salary (£)" }
+                ]
+              },
+              "body":[
+                [ "Bob", "23", "Male", "1970-01-01", "20001" ],
+                [ "Jane", "27", "Female", "1971-02-03", "21345" ],
+                ... // Additional Rows
+              ]
+            }
+
+          The data can also be specified with additional properties for the rows. The table will only look for data in the 'columns' property, any other values will be ignored. They will be returned as part of the row data in methods like 'getSelected':
+
+          @codeblock js
+            {
+              ...
+              "body":[
+                [
+                  {
+                    prop: 'id',
+                    columns: [ "Bob", "23", "Male", "1970-01-01", "20001" ]
+                  },
+                  ...
+                ]
+              ]
+            }
+
+          Additionally, column data can also be specified in object format:
+
+          @codeblock js
+            {
+              ...
+              "body":[
+                [{value: 1, formatted: "1.0"}, {value: 4, formatted: "4.0"}, {value: 8, formatted: "8.0"}],
+              ]
+            }
+
+          If data is provided in this format, a cellValueLookup (or similar function) must be provided.
+
+
+        @collapsible Function
+          @codeblock js
+            var feed = function(request, callback) {
+              if (request.type == 'header') {
+                // available request properties:
+                // request.type
+                // request.extra
+                var headerData = ... // get the header data from somewhere
+                callback(headerData);
+              }
+              if (request.type == 'rowCount') {
+                // available request properties:
+                // request.type
+                // request.extra
+                var rowCount = ... // get the total number of rows from somewhere
+                callback(rowCount);
+              }
+              if (request.type == 'rows') {
+                // available request properties:
+                // request.type
+                // request.extra
+                // request.startRow
+                // request.endRow
+                // request.filters
+                // request.sortColumn
+                // request.sortDirection
+                // get the total number of rows from somewhere
+                var rows = ...
+                // get the total number of rows from somewhere
+                var totalProcessedSize = ...
+                callback(rows, totalProcessedSize);
+              }
+            }
+            table.setData(feed, {id: 'my-table-id'})
+
+
+
+        @collapsible Server Side
+          @codeblock js
+            table.setData('https://example.com/data', {id: 'my-table-id'})
+
+          <b>Note</b> In this case, the server must respond correctly to the post requests that are made. The post request will contain some json that describes the data that should be returned. The possible types of request are:
+
+          @h3: Header
+          @h4: Request
+          @codeblock js
+            {
+              "type": "header",
+              "extra": {
+                // the extra object that was supplied when calling setData
+              }
+            }
+
+
+          @p: You should respond with the header info in json form:
+          @h4: Response
+          @codeblock js
+            {
+              head: {
+                columns:[ // object for each column
+                  { value:"Name" },
+                  { value:"Age" },
+                  { value:"Gender" },
+                  { value:"Date of Birth"},
+                  { value:"Salary (£)" }
+                ]
+              }
+            }
+
+          @h3: Row count
+          @h4: Request
+          @codeblock js
+            {
+              "type": "rowCount",
+              "extra": {
+                // the extra object that was supplied when calling setData
+              }
+            }
+
+          @h4: Response
+          @codeblock js
+            {
+              "count": 12345, // the total number of rows in the data set
+            }
+
+          @h3: Row data
+          @h4: Request
+          @codeblock js
+            {
+              "type": "rows",
+              "startRow": 0,
+              "endRow": 99,
+              "filters": {
+                "age": "10"
+              },
+              "sortColumn": "name",
+              "sortDirection": true,
+              "extra": {
+                // the extra object that was supplied when calling setData
+              }
+            }
+
+          @h4: Response
+          @codeblock js
+            {
+              "rows": [
+                [
+                  "Bob",
+                  "23",
+                  "Male",
+                  "1970-01-01",
+                  "20001"
+                ],
+                ... // Additional Rows
+              ],
+              "processedSize": 1050 // the total number of rows in the processed (filtered and sorted) data set
+            }
+
+        @h3: Adding multi column / grouped headers
+        However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
+
+        @codeblock js
+          {
+            columns:[ // object for each column
+              { value:"Name", groups:["Group 1"]},
+              { value:"Age" },
+              { value:"Gender", groups:["Group 2"]},
+              { value:"Date of Birth", groups:["Group 2"]},
+              { value:"Salary (£)", groups:["Group 2"]}
+            ]
+          }
+
+    @arg? extra [Object]
+      @description
+        Any extra information that should be fed through to server side and function requests. Not needed for object based data.
+
+    @arg? clearSorts [Boolean]: A boolean value that determines whether sorts should be reset when setting the data.
+      @default: false
+
+    @arg? clearFilters [Boolean]: A boolean value that determines whether filters should be reset when setting the data.
+      @default: false
+
+    @arg? callback [Function]
+      @description: A function to be called once the table has fetched all data and has finished rendering.
+
+
+  @method render
+    @removed: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @returns Table: returns this table for chaining
+
+  @method render
+    @added: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @description
+      Forces the table to re-render. This should only be necessary when you want to force the table to re-render changes to config. Any changes to data, sorting or filtering do not require a call to render - the table will automatically update for these.
+    @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
+    @returns Table: returns this table for chaining
+
+
+  @method addFilter
+    @removed: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @arg column [String/Number]
+    @arg filter [String]
+    @arg? type [String]
+
+  @method addFilter
+    @added: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @description
+      Adds filters to a column in the table.
+
+    @arg column [String/Number]
+      @description
+        The column title or array index to add a filter to.
+
+    @arg filter [String]
+      @description
+        The filter to add to the selected column.
+
+    @arg? type [String]
+      @description
+        The filter type to add.
+        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+      @default: 'contains'
+
+    @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
+
+  @method removeFilter
+    @removed: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @arg? column [String/Number]
+    @arg? filter [String]
+    @arg? type [String]
+
+  @method removeFilter
+    @added: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @description
+      A method to remove filters from columns in the table. Can be used to remove specific filters from a single column, specific filters from all columns, all filters from a single column and all filters from the whole table.
+
+    @arg? column [String/Number]
+      @description
+        The column title or array index to remove a filter from.
+        If a column value is not specified or is passed in as undefined, this function will affect all columns.
+
+    @arg? filter [String]
+      @description
+        The filter to remove from to the selected column.
+        If a filter isnt specified, all filters are removed from the column(s) selected.
+
+    @arg? type [String]
+      @description
+        The filter type to add.
+        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+      @default: 'contains'
+
+    @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
+
+
+  @method filter
+    @removed: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @arg column [String]
+    @arg filter [String]
+    @arg? type [String]
+
+  @method filter
+    @added: An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
+    @description
+      Sets the filters for a specific column. It will remove all previous filter values and set to the given value.
+
+    @arg column [String]
+      @description
+        The column title to set the filters for.
+
+    @arg filter [String]
+      @description
+        The filter string to set for the given column.
+
+    @arg? type [String]
+      @description
+        The filter type to add.
+        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+      @default: 'contains'
+
+    @arg? callback [Function]: This will be called once the table has fetched all data and has finished rendering.
+
+
+
+

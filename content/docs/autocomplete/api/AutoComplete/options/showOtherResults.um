@@ -1,8 +1,0 @@
-@property showOtherResults [Boolean]
-  @description
-    Determines whether to show results under an 'other results' heading
-    that are in the data but don't match the input text.
-
-    Only used when not using external matching.
-
-  @default: false

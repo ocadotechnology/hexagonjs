@@ -1,7 +1,0 @@
-@method clone
-  @description
-    Returns a duplicate object. Useful for creating new colors based on a
-    palette without modifying the originals.
-  @returns Color
-    @description
-      A duplicate color object.

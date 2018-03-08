@@ -1,0 +1,27 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Sticky Table Headers
+  @versioned 
+    @version 0.12.6
+      @description 
+        A module for giving tables sticky headers that stay in place when scrolling on the table.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/sticky-table-headers/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

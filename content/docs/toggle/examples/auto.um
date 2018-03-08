@@ -1,0 +1,16 @@
+@version 1.0.0
+  @examples 
+    @example 
+      @html 
+        <div id="toggle"></div>
+        <button id="toggle2" class="hx-btn">Toggle Button</button>
+
+      
+      @js 
+        var toggle = new hx.Toggle("#toggle")
+        toggle.on('change', function(value) {
+          hx.notify.info("Toggle value set to " + value)
+        })
+        
+        new hx.Toggle("#toggle2")
+

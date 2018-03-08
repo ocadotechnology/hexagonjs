@@ -1,5 +1,0 @@
-@method isOpen
-  @description
-    Returns true if the collapsible is currently open. False if not.
-
-  @returns Boolean

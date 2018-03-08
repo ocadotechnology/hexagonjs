@@ -1,0 +1,32 @@
+@version 0.9.0
+  @examples 
+    @example 
+      @expanded 
+      @html 
+        <span class="hx-spinner"></span>
+
+    
+    @example 
+      @expanded 
+      @html 
+        <div class="hx-spinner-wide"></div>
+
+@version 1.13.0
+  @examples 
+    @example 
+      @expanded 
+      @html 
+        <span class="hx-spinner"></span>
+
+    
+    @example 
+      @expanded 
+      @html 
+        <span class="hx-spinner hx-spinner-large"></span>
+
+    
+    @example 
+      @expanded 
+      @html 
+        <div class="hx-spinner-wide"></div>
+

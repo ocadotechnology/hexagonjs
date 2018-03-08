@@ -1,4 +1,0 @@
-@version 1.2.0
-  @api View
-    @updated: Improve the performance of view
-      @issue 148

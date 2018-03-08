@@ -1,5 +1,0 @@
-@property placeholder [String]
-  @description
-    The placeholder text for the input.
-    If the placeholder is undefiend and a min-length is specified, a
-    placeholder of 'Min length {x} characters' is used.

@@ -1,0 +1,3 @@
+@api Modal
+
+  @inline api/*.um

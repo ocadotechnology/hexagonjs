@@ -1,0 +1,7 @@
+@version 1.0.0
+  @api Crumbtrail
+    @function hx.crumbtrail
+      @added: Fluid api version of Crumbtrail
+      @description: Creates a new Crumbtrail set up on a detached element, wrapped in a selection
+      @arg options [Object]: See the options object for constructing Crumbtrail
+      @returns Selection: A selection containing an element with an Crumbtrail initialised on it

@@ -1,4 +1,0 @@
-@event showend
-  @description
-    Emitted when the collapsible is opened and animations have finished. No
-    extra data with this event type

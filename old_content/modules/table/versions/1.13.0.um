@@ -1,0 +1,7 @@
+@version 1.13.0.um
+  @api Table
+    @class hx-table
+      @extraClass hx-table-no-hover
+        @added
+          @description: Added the ability to disable row hover for tables
+        @description: A class to disable the row highlighting when a user hovers

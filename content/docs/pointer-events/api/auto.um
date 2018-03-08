@@ -1,0 +1,134 @@
+@bugfix 0.12.10
+  @description 
+    Correct the return statement for pointer events to prevent selection.off falling over
+    
+
+@bugfix 0.12.9
+  @description 
+    Fixed an issue that caused touch events to not be registered at all for pointer events
+    
+
+@prototype Selection
+  @description 
+    The pointer events extend selection events using the 'on' method
+
+  @event pointerdown
+    @description 
+      Emitted on mousedown/touchstart events.
+
+    @data Object
+      @description 
+        An object containing event data
+        
+
+      @property x
+        @description 
+          The x-coordinate of the event.
+          
+
+      @property y
+        @description 
+          The y-coordinate of the event.
+          
+
+      @property event
+        @description 
+          The entire event object - this may differ between touch and non-touch based events.
+          
+
+  @event pointerup
+    @description 
+      Emitted on mouseup/touchend/touchcancel events.
+
+    @data Object
+      @description 
+        An object containing event data
+        
+
+      @property x
+        @description 
+          The x-coordinate of the event.
+          
+
+      @property y
+        @description 
+          The y-coordinate of the event.
+          
+
+      @property event
+        @description 
+          The entire event object - this may differ between touch and non-touch based events.
+          
+
+  @event pointermove
+    @description 
+      Emitted on mousemove/touchmove events.
+
+    @data Object
+      @description 
+        An object containing event data
+        
+
+      @property x
+        @description 
+          The x-coordinate of the event.
+          
+
+      @property y
+        @description 
+          The y-coordinate of the event.
+          
+
+      @property event
+        @description 
+          The entire event object - this may differ between touch and non-touch based events.
+          
+
+  @event pointerleave
+    @description 
+      Emitted on mouseleave/touchleave events.
+
+    @data Object
+      @description 
+        An object containing event data
+        
+
+      @property x
+        @description 
+          The x-coordinate of the event.
+          
+
+      @property y
+        @description 
+          The y-coordinate of the event.
+          
+
+      @property event
+        @description 
+          The entire event object - this may differ between touch and non-touch based events.
+          
+
+  @event pointerenter
+    @description 
+      Emitted on mouseenter/touchenter events.
+
+    @data Object
+      @description 
+        An object containing event data
+        
+
+      @property x
+        @description 
+          The x-coordinate of the event.
+          
+
+      @property y
+        @description 
+          The y-coordinate of the event.
+          
+
+      @property event
+        @description 
+          The entire event object - this may differ between touch and non-touch based events.
+          
+

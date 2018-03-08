@@ -1,6 +1,0 @@
-@method hide
-  @description
-    Hides the picker dropdown
-  @returns AutocompletePicker
-    @description
-      This @type[AutocompletePicker] for chaining

@@ -1,0 +1,348 @@
+@updated 1.0.0
+  @description 
+    The button type of pickers is now 'button'
+    
+
+@bugfix 1.0.0
+  @description 
+    Fixed an issue with the picker not rendering values correcly
+    
+
+@prototype hx.Picker
+  @added 0.14.0
+  @description 
+  @extends EventEmitter
+  @constructor 
+    @arg selector [String/HTMLElement]
+      @description 
+        The target button to set the select up in.
+        
+
+    @arg? options [Object]
+      @property ddClass [String]
+        @removed 1.0.0
+          @description 
+            Use @code[dropdownOptions.ddClass] instead.
+            
+
+        @deprecated 0.15.0
+          @description 
+            Use @code[dropdownOptions.ddClass] instead.
+            
+
+        @description 
+          The additional class to add to the dropdown when creating it.
+          
+
+      @property items [Array/Function]
+        @description 
+          The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+
+          This can also be set after the select has been constructed using the @code[items] method.
+
+      @property renderer [Function]
+        @description 
+          A function that renders the data in the dropdown and the select button. The default value is:
+
+          @@codeblock js
+            function (node, data) {
+              hx.select(node).text(data);
+            }
+
+          This can also be set after the select has been constructed using the @code[renderer] method.
+
+      @property startValue [String]
+        @removed 1.0.0
+          @description 
+            Use @code(js)[value] instead.
+            
+
+        @description 
+          The value to use when initialising the select.
+          
+
+      @property noValueText [String]
+        @updated 1.4.0
+          @issue 211
+
+        @description 
+          The text to use when no value is selected.
+          @default 'Choose [a value...']
+          @default 
+            [hx.userFacingText('picker', 'chooseValue')]
+          
+
+      @property dropdownOptions [Object]
+        @added 0.15.0
+          @description 
+            Added a dropdownOptions object to the picker options to allow the setting of all the dropdown options.
+            
+
+        @description 
+          The options to use for the dropdown. See the  See the @link(../dropdown/)[dropdown] constructor for the available options.
+
+      @property disabled [Boolean]
+        @added 0.15.2
+          @description 
+            Added the ability to disable a picker in the options
+            
+
+        @description 
+          Whether the picker should be disabled
+          @default 
+            false
+          
+
+      
+      @property value [String]
+        @added 1.0.0
+        @description 
+          The value to use when initialising the select.
+          
+
+      @property fullWidth [Boolean]
+        @added 1.8.0
+          @issue 275
+          @description 
+            Added a full width option for pickers
+            
+
+        @description 
+          Whether the picker should be the full width of the container
+
+  @method items
+    @description 
+      Set the items for the select using a function that returns the data.
+
+    @arg dataFetcher [Function]
+      @description 
+        The function to call to get the data. This will be called whenever the value is set or the select is opened, allowing the data to be changed easily.
+
+        It is recommended that the data for a select be cached where possible when using the function to set the data.
+
+      @arg callback [Function]
+        @description 
+          The function to call when the data has loaded
+          
+
+        @arg data [Array[String/Object]]
+          @description 
+            The items to add to the select.
+            
+
+    @returns [Picker]
+
+  @method items
+    @bugfix 0.15.2
+      @description 
+        Fixed a bug where the items setter was not updating the value when a new list of items was passed in.
+        
+
+    @description 
+      Sets the list of items that will be shown in the select dropdown. If the current value is present in the new list of items, the value will be retained. Otherwise, the value will be set to @code(js)[undefined] @arg items [Array[Any]]
+      @description 
+        The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+        
+
+    @returns [Picker]
+      @description 
+        This Picker
+        
+
+  @method items
+    @description 
+      Gets the list of items that will be shown in the select dropdown, or if a function has been set it will return that.
+
+    @returns [Array[Any]/Function]
+      @description 
+        The currently set items.
+        
+
+  @method value
+    @bugfix 0.15.2
+      @description 
+        Made it possible to clear the value of a picker by passing in @code(js)[undefined]
+        
+
+    @description 
+      Sets the currently selected item. Passing in @code(js)[undefined] will clear the value, unless an item is found with a value of @code(js)[undefined] @arg value [String]
+      @description 
+        The value of the item to select.
+        
+
+    @returns [Picker]
+      @description 
+        This Picker.
+        
+
+  @method value
+    @description 
+      Gets the currently selected item.
+
+    @returns [Any]
+      @description 
+        The currently selected item.
+        
+
+  @method renderer
+    @description 
+      Gets the current item renderer function.
+
+    @returns [Function]
+      @description 
+        The current renderer if no arguments are provided.
+        
+
+  @method renderer
+    @description 
+      Sets the item renderer function.
+
+    @arg render [Function]
+      @arg node [HTMLElement]
+      @arg data [Any]
+
+    @returns [Picker]
+      @description 
+        This Picker
+        
+
+  @method disabled
+    @added 0.15.2
+      @description 
+        Added the ability to disable/enable a picker
+        
+
+    @description 
+      A method for disabling or enabling a picker
+
+    @arg value [Boolean]
+      @description 
+        Whether the picker should be disabled
+        
+
+    @returns [Picker]
+      @description 
+        This picker
+        
+
+  @method disabled
+    @added 0.15.2
+      @description 
+        Added the ability to get the disabled state of a picker
+        
+
+    @description 
+      A method for getting the disabled state of a picker
+
+    @returns [Boolean]
+      @description 
+        Whether the picker is disabled
+        
+
+  @event highlight [Object]
+    @description 
+      The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
+
+    @property eventType [String]
+      @description 
+        The type of event that caused the selection:
+        @list 
+          @item['click' - User clicked]
+          @item['arrow' - User used the arrow keys]
+
+    @property item [String/Object]
+      @description 
+        The item as it was passed into the select.
+        
+
+  @event change [Object]
+    @updated 0.15.0
+      @description 
+        Now emits an object instead of a value.
+        
+
+    @description 
+      Emitted when the dropdown is shown or hidden
+
+    @data Object
+      @description 
+        The item that was selected.
+        
+
+    @property cause [String]
+      @added 0.15.0
+      @description 
+        Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
+        
+
+    @property value [Any]
+      @added 0.15.0
+      @description 
+        The item that was selected.
+        
+
+  @event dropdown.showstart
+    @added 0.14.0
+      @description 
+        Pipe the dropdown events through so they can be listened to directly.
+        
+
+    @description 
+      Emitted when the dropdown animation starts. No data is sent with this event.
+
+  @event dropdown.showend
+    @added 0.14.0
+      @description 
+        Pipe the dropdown events through so they can be listened to directly.
+        
+
+    @description 
+      Emitted when the dropdown animation finishes. No data is sent with this event.
+
+  @event dropdown.hidestart
+    @added 0.14.0
+      @description 
+        Pipe the dropdown events through so they can be listened to directly.
+        
+
+    @description 
+      Emitted when the dropdown animation starts. No data is sent with this event.
+
+  @event dropdown.hideend
+    @added 0.14.0
+      @description 
+        Pipe the dropdown events through so they can be listened to directly.
+        
+
+    @description 
+      Emitted when the dropdown animation ends. No data is sent with this event.
+
+  @event dropdown.change [Boolean]
+    @added 0.14.0
+      @description 
+        Pipe the dropdown events through so they can be listened to directly.
+        
+
+    @description 
+      Emitted when the dropdown is shown or hidden. The data with the event is a boolean indicating whether or not the dropdown is visible. True means it has
+
+
+@function hx.picker
+  @added 1.0.0
+    @description 
+      Fluid api version of Picker
+      
+
+  @description 
+    Creates a new Picker set up on a detached element, wrapped in a selection
+
+  @arg options [Object]
+    @description 
+      See the options object for constructing Picker
+      
+
+  @returns [Selection]
+    @description 
+      A selection containing an element with an Picker initialised on it
+      
+

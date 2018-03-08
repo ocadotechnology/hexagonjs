@@ -1,0 +1,27 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Palette
+  @versioned 
+    @version 0.9.0
+      @description 
+        Gives access to the theme's color palette and adds classes for coloring elements with the theme colors.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/palette/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

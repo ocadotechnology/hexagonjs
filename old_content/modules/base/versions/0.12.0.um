@@ -1,0 +1,8 @@
+@version 0.12.0
+
+  @theme
+    @option default-font-size
+      @description: The global default font size
+      @type string
+      @default: 14px
+

@@ -1,9 +1,0 @@
-@method removeAllExceptions
-  @description
-    Removes all exceptions from this ClickDetector
-
-  @returns ClickDetector
-    @added 0.13.0
-
-    @description
-      This @type[ClickDetector] for chaining

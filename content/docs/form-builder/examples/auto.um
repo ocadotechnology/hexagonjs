@@ -1,0 +1,150 @@
+@version 0.10.0
+  @examples 
+    @example 
+      @html 
+        <form id="form"></form>
+
+      @js 
+        var form = new hx.Form('#form')
+          .addText('Text', {required: true, placeholder: 'Name'})
+          .addEmail('Email', {required: true, placeholder: 'your.name@ocado.com'})
+          .addUrl('Url', {placeholder: 'http://www.example.co.uk/'}) // Allows blank or valid URL (with http:// prefix)
+          .addNumber('Number', {required: true})
+          .addSelect('Default Select', ['red', 'green', 'blue'])
+          .addSelect('Select Blank Start', ['cyan', 'magenta', 'yellow'], {required: false})
+          .addSelect('Required Select', [
+            { text: 'Hue', value: 'hue' } ,
+            { text: 'Saturation', value: 'saturation'},
+            { text: 'Lightness', value: 'lightness'}
+          ], {required: true}) // Will not validate unless a value is selected
+          .addCheckbox('Checkbox')
+          .addPassword('Password')
+          .addRadio('Radio', ['One', 'Two', 'Three'], {required: true})
+          .addTagInput('Tag Input')
+          .addSubmit('Submit', 'fa fa-check')
+          .on('submit', function (data) {console.log(data)})
+        
+
+@version 0.11.0
+  @examples 
+    @example 
+      @html 
+        <form id="form"></form>
+
+      @js 
+        var form = new hx.Form('#form')
+          .addText('Text', {required: true, placeholder: 'Name'})
+          .addEmail('Email', {required: true, placeholder: 'your.name@ocado.com'})
+          .addUrl('Url', {placeholder: 'http://www.example.co.uk/'}) // Allows blank or valid URL (with http:// prefix)
+          .addNumber('Number', {required: true})
+          .addSelect('Select', ['red', 'green', 'blue'])
+          .addCheckbox('Checkbox')
+          .addPassword('Password')
+          .addRadio('Radio', ['One', 'Two', 'Three'])
+          .addTagInput('Tag Input')
+          .addDatePicker('Date Picker')
+          .addTimePicker('Time Picker')
+          .addDateTimePicker('Date Time Picker')
+          .addSubmit('Submit', 'fa fa-check')
+          .on('submit', function (data) {console.log(data)})
+        
+
+@version 0.14.0
+  @examples 
+    @example 
+      @html 
+        <form id="form"></form>
+
+      @js 
+        var form = new hx.Form('#form')
+          .addText('Text', { required: true, placeholder: 'Name' })
+          .addTextArea('Text Area', { placeholder: 'Name' })
+          .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
+          .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
+          .addNumber('Number', {required: true})
+          .addSelect('Select', ['red', 'green', 'blue'])
+          .addCheckbox('Checkbox')
+          .addPassword('Password')
+          .addRadio('Radio', ['One', 'Two', 'Three'])
+          .addTagInput('Tag Input')
+          .addDatePicker('Date Picker')
+          .addTimePicker('Time Picker')
+          .addDateTimePicker('Date Time Picker')
+          .addSubmit('Submit', 'fa fa-check')
+          .on('submit', function (data) {console.log(data)})
+        
+
+@version 0.15.0
+  @examples 
+    @example 
+      @html 
+        <form id="form"></form>
+
+      @js 
+        var form = new hx.Form('#form')
+          .addText('Text', { required: true, placeholder: 'Name' })
+          .addTextArea('Text Area', { placeholder: 'Name' })
+          .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
+          .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
+          .addNumber('Number', {required: true})
+          .addPicker('Select', ['red', 'green', 'blue'])
+          .addCheckbox('Checkbox')
+          .addPassword('Password')
+          .addRadio('Radio', ['One', 'Two', 'Three'])
+          .addTagInput('Tag Input')
+          .addDatePicker('Date Picker')
+          .addTimePicker('Time Picker')
+          .addDateTimePicker('Date Time Picker')
+          .addSubmit('Submit', 'fa fa-check')
+          .on('submit', function (data) {console.log(data)})
+        
+
+@version 0.9.0
+  @examples 
+    @example 
+      @html 
+        <form id="form"></form>
+
+      @js 
+        var form = new hx.Form('#form')
+          .addText('Text', {required: true, placeholder: 'Name'})
+          .addEmail('Email', {required: true, placeholder: 'your.name@ocado.com'})
+          .addUrl('Url', {placeholder: 'http://www.example.co.uk/'}) // Allows blank or valid URL (with http:// prefix)
+          .addNumber('Number', {required: true})
+          .addSelect('Default Select', ['red', 'green', 'blue'])
+          .addSelect('Select Blank Start', ['cyan', 'magenta', 'yellow'], {required: false})
+          .addSelect('Required Select', ['hue', 'saturation', 'lightness'], {required: true}) // Will not validate unless a value is selected
+          .addCheckbox('Checkbox')
+          .addPassword('Password')
+          .addRadio('Radio', ['One', 'Two', 'Three'], {required: true})
+          .addTagInput('Tag Input')
+          .addSubmit('Submit', 'fa fa-check')
+          .on('submit', function (data) {console.log(data)})
+        
+
+@version 1.3.0
+  @examples 
+    @example 
+      @html 
+        <form id="form"></form>
+
+      @js 
+        var form = new hx.Form('#form')
+          .addText('Text', { required: true, placeholder: 'Name' })
+          .addTextArea('Text Area', { placeholder: 'Name' })
+          .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
+          .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
+          .addNumber('Number', {required: true})
+          .addPicker('Select', ['red', 'green', 'blue'])
+          .addCheckbox('Checkbox')
+          .addPassword('Password')
+          .addRadio('Radio', ['One', 'Two', 'Three'])
+          .addTagInput('Tag Input')
+          .addFileInput('File Input')
+          .addDatePicker('Date Picker')
+          .addTimePicker('Time Picker')
+          .addDateTimePicker('Date Time Picker')
+          .addSubmit('Submit', 'fa fa-check')
+          .on('submit', function (data) {console.log(data)})
+        
+

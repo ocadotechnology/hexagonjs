@@ -1,0 +1,93 @@
+@version 0.13.0
+  @examples
+    @example
+      @html
+        <div id="crumbs" class="hx-crumbtrail">
+          <span class="hx-crumbtrail-node">First Node</span>
+          <span class="hx-crumbtrail-separator"><i class="fa fa-angle-right"></i></span>
+          <span class="hx-crumbtrail-node">Second Node</span>
+          <span class="hx-crumbtrail-separator"><i class="fa fa-angle-right"></i></span>
+          <span class="hx-crumbtrail-node">Third Node</span>
+        </div>
+
+    @example
+      @html
+        <div id="crumbs-2" class="hx-crumbtrail"></div>
+
+      @js
+        new hx.Crumbtrail("#crumbs-2", {
+          renderer: function(element, datum) {
+            hx.select(element).text(datum)
+          },
+          items: ["First Node", "Second Node", "Third Node"],
+          separator: '>>>>'
+        })
+
+
+  @api Crumbtrail
+    @prototype hx.Crumbtrail
+      @constructor
+        @description: Creates a crumbtrail element for rendering a crumbtrail from JSON. Not required when building a HTML crumbtrail.
+        @arg selector [String/HTMLElement]: An HTMLElement or CSS selector that uniquely identifies your crumbtrail.
+        @removed: Added an options argument as a second parameter.
+          Use @code[hx.Crumbtrail(selector, options)].
+
+      @constructor
+        @description: Creates a crumbtrail element for rendering a crumbtrail from JSON. Not required when building a HTML crumbtrail.
+        @arg selector [String/HTMLElement]: An HTMLElement or CSS selector that uniquely identifies your crumbtrail.
+        @arg? options [Object]: The options to use when creating the crumbtrail
+          @property renderer [Function]
+            @description
+              A function that turns object nodes to dom elements.
+              @codeblock js
+                crumbtrail = new hx.Crumbtrail("#crumbs-2");
+                renderer = function(element, data) {
+                  hx.select(element).text(data);
+                }
+                crumbtrail.render(data, renderer);
+            @arg element [HTMLElement]: The node of the crumbtrail.
+            @arg data [Any]: The data related to the current crumbtrail node.
+          @property items [Array]: A nested array of objects that represent nodes in the crumbtrail.
+          @property separator [String]: A string or some html that separates each element in the crumbtrail. Defaults to '/'
+
+      @method render
+        @arg data [Array]
+        @arg? separator [String]
+        @arg renderer [Function]
+          @arg element [HTMLElement]
+          @arg data [Any]
+        @deprecated
+
+          Use @code[items(items)] and @code[renderer(render)] to set the data and the renderer individually or pass in the correct values as options when constructing the crumbtrail.
+
+      @method renderer
+        @added: Added a method for setting the renderer for a crumbtrail.
+        @description: A method for setting the renderer for a crumbtrail.
+        @arg render [Function]
+          @description
+            A function that turns object nodes to dom elements.
+            @codeblock js
+              crumbtrail = new hx.Crumbtrail("#crumbs-2");
+              renderer = function(element, data) {
+                hx.select(element).text(data);
+              }
+              crumbtrail.render(data, renderer);
+          @arg element [HTMLElement]: The node of the crumbtrail.
+          @arg data [Any]: The data related to the current crumbtrail node.
+        @returns Crumbtrail: This Crumbtrail.
+
+      @method renderer
+        @added: Added a method for getting the renderer for a crumbtrail.
+        @description: A method for getting the renderer for a crumbtrail.
+        @returns Function: The currently set renderer
+
+      @method items
+        @added: Added a method for setting the items for a crumbtrail.
+        @description: A method for setting the items for a crumbtrail.
+        @arg items [Array]: A nested array of objects that represent nodes in the crumbtrail.
+        @returns Crumbtrail/Array: This Crumbtrail.
+
+      @method items
+        @added: Added a method for getting the items for a crumbtrail.
+        @description: A method for getting the items for a crumbtrail.
+        @returns Array: The currently set items.

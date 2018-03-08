@@ -1,0 +1,131 @@
+
+@prototype hx.List
+  @description 
+    A wrapper around standard JavaScript Arrays, with methods for adding and removing items.
+
+  @constructor 
+    @arg? array [Array]
+      @description 
+        An array containing the values to initialise the list with
+        
+
+  @property size [Number]
+    @description 
+      The current size of the list
+      
+
+  @method add
+    @description 
+      Adds an object to the list. Returns this List for chaining.
+
+    @arg item [Any]
+      @description 
+        The item to add.
+        
+
+    @returns [List]
+      @description 
+        This list for chaining
+        
+
+  @method clear
+    @description 
+      Removes all items from the list, resulting in an empty list with size 0. Returns this List for chaining.
+
+    @returns [List]
+      @description 
+        This list for chaining
+        
+
+  @method delete
+    @description 
+      Removes an entry from the list by position. Returns true if an item was removed, false otherwise.
+
+    @arg index [Number]
+      @description 
+        The index to remove.
+        
+
+    @returns [Boolean]
+
+  @method entries
+    @description 
+      Returns the items in the list as an array.
+
+    @returns [Array]
+
+  @method forEach
+    @description 
+      Calls the function supplied for each item in the list. Returns this list for chaining.
+
+    @arg f [Function]
+      @description 
+        The function that should be called for each item.
+        
+
+      @arg value [Any]
+        @description 
+          The value being considered from the list.
+          
+
+    @arg? thisArg [Object]
+      @description 
+        A parameter which lets you supply the 'this' context to be used when calling f. The default is to use this List.
+        
+
+  @method get
+    @description 
+      Gets an item by position.
+
+    @arg index [Number]
+      @description 
+        A 0 based index which should be between 0 and list.size (exclusive). If the index is out of this range, then undefined will be returned.
+        
+
+    @returns [Any]
+
+  @method has
+    @description 
+      Checks if the list contains a value. Returns true if the value is in the list, false otherwise.
+
+    @arg value [Any]
+      @description 
+        The value to look for in the list.
+        
+
+    @returns [Boolean]
+      @description 
+        True if the value is in the list
+        
+
+  @method remove
+    @description 
+      Removes the first occurrence of a value from the list. Returns true if a value was removed, false otherwise.
+
+    @arg value [Any]
+      @description 
+        The value to remove from the list.
+        
+
+    @returns [Boolean]
+      @description 
+        True if the value was removed
+        
+
+  @method removeAll
+    @description 
+      Removes all occurrences of a value from the list. Returns the number of items removed.
+
+    @arg value [Any]
+      @description 
+        The value to remove from the list.
+        
+
+    @returns [Number]
+
+  @method values
+    @description 
+      Returns the items in the list as an array - does the same as entries().
+
+    @returns [Array]
+

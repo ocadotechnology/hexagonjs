@@ -1,0 +1,18 @@
+@version 0.14.0
+  @api Color Picker
+    @prototype hx.ColorPicker
+      @constructor
+        @arg selector [String]
+        @arg? startColor [Color]
+        @arg? showInputs [Boolean]
+        @arg? align [String]
+        @removed
+          Use @code[hx.ColorPicker(selector, options)] instead.
+
+      @property currentColor [Color]
+        @removed
+          Use the value() method
+
+      @property showInputs [Boolean]
+        @removed
+          Use options.showInputs instead

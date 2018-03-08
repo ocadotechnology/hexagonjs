@@ -1,4 +1,0 @@
-@event hideend
-  @description
-    Emitted when the collapsible is closed and animations have finished. No
-    extra data with this event type

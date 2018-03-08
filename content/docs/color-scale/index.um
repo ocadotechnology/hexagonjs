@@ -4,10 +4,12 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Color Scale
-  @description
-    A function for mapping from a number domain to a color range. The range is
-    specified as a list of points, and linear interpolation is used to
-    calculate colors in the range.
+  @versioned 
+    @version 0.9.0
+      @description 
+        A function for mapping from a number domain to a color range. The range is specified as a list of points, and linear interpolation is used to calculate colors in the range.
+
+
 
 @contentSection
   @topic Examples
@@ -19,3 +21,7 @@
     @hyperlink(/docs/color-scale/changelog)[Change Log]
 
     @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

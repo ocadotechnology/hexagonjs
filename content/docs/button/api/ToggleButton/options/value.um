@@ -1,5 +1,0 @@
-@property value [Boolean]
-  @description
-    The value to initialise the toggle button with. The default value depends on
-    whether the element has the 'hx-btn-toggle-off' class. If it does, the
-    default is false.

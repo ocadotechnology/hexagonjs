@@ -1,9 +1,0 @@
-@arg? callback [Function]
-  @added 0.13.0
-    @description
-      Added a callback for when the animation finishes
-
-  @description
-    Called when the animation finishes. The callback will only be run if the
-    state changes.
-

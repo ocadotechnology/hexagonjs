@@ -1,0 +1,20 @@
+@version 0.10.0
+  @examples 
+    @example 
+      @html 
+        <div id="container" class="hx-morph-section hx-margin">
+          <button class="hx-btn hx-positive hx-morph-toggle">Register</button>
+          <div class="hx-morph-content hx-pad hx-border">
+            <form id="form" class="hx-form"></form>
+          </div>
+        </div>
+
+      @js 
+        new hx.Form('#form')
+          .addEmail('Email')
+          .addPassword('Password')
+          .addSubmit('Submit')
+        
+        new hx.MorphSection('#container')
+        
+

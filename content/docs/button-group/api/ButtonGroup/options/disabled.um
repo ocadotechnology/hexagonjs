@@ -1,9 +1,0 @@
-@property disabled [Boolean]
-  @added 0.15.2
-    @description
-      Added the ability to disable a button group in the options
-
-  @description
-    Whether the button group should be disabled
-
-  @default: false

@@ -1,0 +1,4 @@
+@version 0.15.3
+  @api Data Table
+    @bugfix: Fix an issue with data-tables not using custom renderers in mobile mode.
+

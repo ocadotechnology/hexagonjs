@@ -1,5 +1,0 @@
-@property chooseValueText [String]
-  @description
-    The text to display on the button when no value is selected
-
-  @default: [hx.userFacingText('autocompletePicker', 'chooseValue')]

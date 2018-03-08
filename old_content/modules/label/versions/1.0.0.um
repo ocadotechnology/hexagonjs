@@ -1,0 +1,21 @@
+@version 1.0.0
+  @api Label
+    @class hx-label
+      @extraClass hx-action
+        @description: Styles the label with action colors
+        @added: Added new action context class and updated default styles.
+
+
+      @extraClass hx-compliment
+        @removed: Use @code(css)[.hx-complement] instead
+
+      @extraClass hx-complement: Styles the label with complement colors
+
+  @theme
+    @option compliment-col
+      @removed: Use complement-col instead
+
+    @option complement-col
+      @type color
+      @description: The base compliment label color
+      @default: #FDFDFD

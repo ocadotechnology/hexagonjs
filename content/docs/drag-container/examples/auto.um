@@ -1,0 +1,33 @@
+@version 0.15.2
+  @examples 
+    @example 
+      @html 
+        <div id="container" class="hx-group hx-horizontal">
+          <div data-id="green" class="hx-drag-element hx-section hx-pad hx-background-positive">
+            Draggable
+          </div>
+          <div data-id="yellow" class="hx-drag-element hx-section hx-pad hx-background-warning">
+            Draggable
+          </div>
+          <div data-id="red" class="hx-section hx-pad hx-background-negative">
+            Undraggable
+          </div>
+          <div data-id="purple" class="hx-drag-element hx-section hx-pad hx-background-info">
+            <span class="hx-drag-control"><i class="fa fa-arrows"></i></span> Draggable Control
+          </div>
+        </div>
+        <br>
+        <button id="resetOrder" class="hx-btn">Reset Order</button>
+        <button id="getOrder" class="hx-btn hx-positive">Get Order</button>
+
+      
+      @js 
+        var dragContainer = new hx.DragContainer('#container')
+        
+        hx.select('#resetOrder').on('click', function() {
+          dragContainer.order(undefined)
+        })
+        hx.select('#getOrder').on('click', function() {
+          hx.notify.info('The order is: ' + dragContainer.order().join(', '))
+        })
+

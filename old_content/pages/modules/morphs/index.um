@@ -1,0 +1,8 @@
+@stylesheet /resources/hexagon/__version__/hexagon.css
+@script /resources/hexagon/__version__/hexagon.js
+@inline ../../../shared/common.um
+@keywords morphs animation tranition util
+@titlebar Morphs
+
+@div .dx-content
+  @inline ../../../modules/morphs/index.um

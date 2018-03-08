@@ -1,0 +1,121 @@
+@updated 0.12.1
+  @description 
+    Sets can now handle items with the same toString
+    
+
+@prototype hx.Set
+  @constructor 
+    @description 
+      A set collection type.
+
+    @arg? array [Array]
+      @description 
+        An optional array containing the values to initialise the set with
+        
+
+  
+  @property size [Number]
+    @description 
+      The current size of the Set
+      
+
+  
+  @method add
+    @description 
+      Adds the value to the set. Returns this Set for chaining.
+
+    @arg value [Any]
+      @description 
+        The key to add.
+        
+
+    @returns [Set]
+      @description 
+        This Set for chaining
+        
+
+  
+  @method clear
+    @description 
+      Removes all entries from the Set, resulting in an empty set with size 0. Returns undefined.
+
+  
+  @method delete
+    @description 
+      Removes an entry from the Set.
+
+    @arg item [Any]
+      @description 
+        The item to remove.
+        
+
+    @returns [Boolean]
+      @description 
+        Whether or not the value was removed (true if it was)
+        
+
+  
+  @method entries
+    @description 
+      Returns the items in the set as an array of 2-element arrays. The first entry in each of these arrays is the value, the second entry is also the value. This is just how the ES6 spec currently says to do things, presumably to stay consistent with the Map collection.
+
+    @returns [Array]
+      @description 
+        An array of all the values from the set
+        
+
+  
+  @method forEach
+    @description 
+      Calls the function supplied for each entry in the set. Returns this Set for chaining.
+
+    @arg f [Function]
+      @description 
+        The function that should be called for each entry
+        
+
+      @arg value [Any]
+        @description 
+          A value from the set.
+          
+
+    @arg? thisArg [Object]
+      @description 
+        An optional parameter which lets you supply the 'this' context to be used when calling f. The default is to use this Set.
+        
+
+  
+  @method has
+    @description 
+      Checks if the set contains an item. Returns true if the value is in the set, false otherwise.
+
+    @arg item [Any]
+      @description 
+        The item to check existence of.
+        
+
+    @returns [Boolean]
+      @description 
+        True if the value is in the set
+        
+
+  
+  @method keys
+    @description 
+      Does the same as values()
+
+    @returns [Array]
+      @description 
+        An array of all the values from the set
+        
+
+  
+  @method values
+    @description 
+      Returns an array of the items in this Set.
+
+    @returns [Array]
+      @description 
+        An array of all the values from the set
+        
+

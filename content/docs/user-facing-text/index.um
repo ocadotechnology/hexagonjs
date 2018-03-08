@@ -1,0 +1,33 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title User Facing Text
+  @versioned 
+    @version 1.4.0
+      @description 
+        A module used for defining the default text for hexagon modules.
+
+        All the default text within hexagon is now defined using this module. It can be overriden for each instance if required using the options for each component.
+
+        This module can also be used as a method for localisation of user facing text.
+
+        Hexagon provides all text in English.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/user-facing-text/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

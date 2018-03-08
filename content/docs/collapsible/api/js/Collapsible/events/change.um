@@ -1,5 +1,0 @@
-@event change [Boolean]
-  @description
-    Emitted when the state of the collapsible is changed. The data provided
-    with the event is a boolean - true when the collapsible has just been
-    opened, false when it has just been closed.

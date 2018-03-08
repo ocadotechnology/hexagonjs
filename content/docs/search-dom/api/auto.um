@@ -1,0 +1,78 @@
+@removed 1.0.0
+  @description 
+    This module was removed in this version
+    
+
+@deprecated 0.15.2
+  @description 
+    This module will be removed in version 1.0.0
+    
+
+@function hx.searchDOM
+  @removed 1.0.0
+  @deprecated 0.15.2
+  @description 
+    A function that allows the searching of DOM pages within openable elements such as trees or collapsibles.
+
+  @arg selector [String/HTMLElement]
+    @description 
+      The selector to search within
+      
+
+  @arg term [String]
+    @description 
+      The term to search for
+      
+
+  @arg? callback [Function]
+    @description 
+      The callback to call when searching has finished
+      
+
+    @arg count [Number]
+      @description 
+        The total number of results found, if any.
+        
+
+  @arg? options [Object]
+    @description 
+      The options to use when searching
+      
+
+    @property minLength [Number]
+      @description 
+        The minimum length for the search term before searching will commence. This helps reduce the potential number of matches and help keep the search running quickly.
+        @default 
+          2
+        
+
+    @property elemMatch [Function]
+      @description 
+        A function for deciding what to do with an element if a match is found
+        
+
+      @arg elem [HTMLElement]
+        @description 
+          The selected element
+          
+
+      @arg match [Boolean]
+        @description 
+          True if the element contains a match, false if it doesn't.
+          
+
+
+@function hx.clearSearch
+  @removed 1.0.0
+  @deprecated 0.15.2
+  @description 
+    A helper function for clearing the search from a selector
+
+  @arg? selector [String/HTMLElement]
+    @description 
+      The selector to clear the search results for.
+      @default 
+        'body'
+      
+
+

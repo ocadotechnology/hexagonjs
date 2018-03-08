@@ -1,6 +1,0 @@
-@version 0.12.6
-  @api Date Picker
-    @prototype hx.DatePicker
-      @bugfix: Fixed an issue where the date picker was throwing an error when changing the input value of a 'datepicker' type.
-
-      @updated: Updated the inbuilt localiser so it is no longer browser dependent. The date picker will display in DD/MM/YYYY with UK day/month names by default. Localisation with moment.js is still possible.

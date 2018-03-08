@@ -1,0 +1,6 @@
+@version 1.0.0
+  @examples 
+    @example 
+      @html 
+        <img class="hx-logo" />
+

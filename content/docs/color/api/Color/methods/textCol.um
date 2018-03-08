@@ -1,8 +1,0 @@
-@method textCol
-  @description
-    A method to return the best text color (either black or white) when using
-    the current color as a background.
-
-  @returns String
-    @description
-      'black' or 'white' depending on the color.

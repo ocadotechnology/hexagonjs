@@ -1,9 +1,0 @@
-@method hide
-
-  @description
-    Causes the collapsible to collapse, hiding its contents.
-
-  @inline ../arguments/animate.um
-  @inline ../arguments/callback.um
-
-  @inline ../arguments/returns.um

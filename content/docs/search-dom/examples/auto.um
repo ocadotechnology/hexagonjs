@@ -1,0 +1,24 @@
+@version 0.9.0
+  @examples 
+    Try entering some text in input below to search the example text.
+    @example 
+      @html 
+        <input type="text" id="searchExample">
+        Total results: <span id="numResults"></span>
+        <p id='searchContent'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar sem leo, at euismod elit vestibulum in. Nullam laoreet dolor sed malesuada sagittis. Praesent condimentum commodo hendrerit. Vivamus convallis, diam vel cursus facilisis, nibh libero commodo dolor, nec auctor quam sapien vitae est. Suspendisse ultrices, arcu eget iaculis viverra, felis lacus fermentum ex, sed rhoncus nisi sem ut velit. Etiam tempor nulla et pellentesque elementum. Duis vulputate felis sed nunc ornare eleifend. Aenean ultrices dolor eget neque semper, nec suscipit metus dignissim. Phasellus metus ipsum, fermentum sed nibh ac, iaculis rutrum dolor.</p>
+
+      
+      @js 
+        var timeout,
+            doneFn = function(found){
+              hx.select('#numResults').text(found);
+            };
+        
+        hx.select('#searchExample')
+          .on('input', function(e) {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+              hx.searchDOM('#searchContent', e.target.value, doneFn);
+            }, 500);
+          });
+

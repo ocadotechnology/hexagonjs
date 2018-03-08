@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar Extended Table Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: Extended Table Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/extended-table/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/extended-table/

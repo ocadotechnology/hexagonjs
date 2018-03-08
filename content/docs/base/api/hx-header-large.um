@@ -1,5 +1,0 @@
-@class hx-header-large
-  @added 0.15.2
-  @description
-    A class for applying the base header font and text color to an element as
-    well as giving the element a font size equivalent to a @code[<h1>] element.

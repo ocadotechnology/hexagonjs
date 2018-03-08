@@ -1,0 +1,2349 @@
+@bugfix 1.8.1
+  @description 
+    Fix an issue with the notifications that broke the string-based functionality
+    
+
+@info 1.8.0
+  @issue 299
+  @description 
+    Updated the notification functions and methods so that the message can be an HTMLElement, Selection or an Object and added a renderer to the notification options for rendering Object messages.
+
+    The notifications will behave as they did previously with strings but now accept additional types for the message.
+    
+
+@bugfix 1.5.1
+  @issue 280
+  @description 
+    Fixed the flex styles for notifications
+    
+
+@updated 1.1.0
+  @issue 69
+  @description 
+    Updated the styles so that notifications show on top of modals when they are on screen without looking like they're floating in a strange manner.
+    
+
+@bugfix 0.14.1
+  @description 
+    Fixed a style issue where long messages changed the layout of a notification
+    
+
+@prototype hx.NotificationManager
+  @bugfix 0.15.2
+    @description 
+      Updated so that the notification containers have unique ID's so they don't cause the inbuilt notifications to display inside custom notification mangers
+      
+
+  @updated 0.13.0
+    @description 
+      The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
+      
+
+  @description 
+    One of these can be created as a separate object if desired.
+
+    The inbuilt notification manager can be accessed through the @code(js)[hx.notify] functions, e.g.
+
+    @@codeblock js
+      hx.notify('Message')
+      hx.notify.loading('Loading...')
+
+  @constructor 
+    @description 
+      Create a new notification manager inside the given container.
+
+    @arg? selector [String/Element]
+      @description 
+        The selector to append the notification container to.
+        @default 
+          'body'
+        
+
+  @method temporary
+    @removed 0.14.0
+      @description 
+        Use @code[hx.notify(message, options)] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.notify(message, options)] instead.
+        
+
+    @description 
+      Shows a temporary notification and returns the corresponding Notification object.
+
+      This will show an unstyled notification by default, but accepts a css class as an argument for custom styling. This type of notification will disappear after 5 seconds by default.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @arg? cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @arg? timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method permanent
+    @removed 0.14.0
+      @description 
+        Use @code[hx.notify(message, options)] instead, setting @code[options.timeout] as @code[undefined]
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.notify(message, options)] instead, setting @code[options.timeout] as @code[undefined]
+        
+
+    @description 
+      Shows a permanent notification and returns the corresponding Notification object. This will show an unstyled notification by default, but accepts a css class as an argument for custom styling. This type of notification will stay in the notification list until it is explicitly closed by the user, or is closed via javascript.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @arg? cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method info
+    @removed 0.9.0
+      @description 
+        The icon now automatically gets set for info notifications. If you wish to customise the icon use @code(js)[NotificationManager.permanent] or @code(js)[NotificationManager.temporary] .
+        
+
+    @description 
+      Shows an information notification and returns a Notification object. This is a temporary notification that will dismiss itself after some time (5 seconds by default). There is the option to supply an icon to display in the top left of the notification. This notification type has the styling predefined for it in the hx-notification-info css class.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @arg? timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method info
+    @removed 0.14.0
+      @description 
+        Use @code[hx.notify.info(message, options)] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.notify.info(message, options)] instead.
+        
+
+    @added 0.9.0
+    @description 
+      Shows an information notification and returns a Notification object. This is a temporary notification that will dismiss itself after some time (5 seconds by default). There is the option to supply an icon to display in the top left of the notification. This notification type has the styling predefined for it in the hx-notification-info css class, and uses a predefined icon.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method warning
+    @removed 0.14.0
+      @description 
+        Use @code[hx.notify.warning(message, options)] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.notify.warning(message, options)] instead.
+        
+
+    @description 
+      Shows a warning notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-warning css class, and uses a predefined icon.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method error
+    @removed 0.11.0
+    @deprecated 0.9.0
+      @description 
+        Use @code(js)[NotificationManager.negative] instead.
+        
+
+    @description 
+      Shows an error notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-negative css class, and uses a predefined icon.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method negative
+    @removed 0.14.0
+      @description 
+        Use @code[hx.notify.negative(message, options)] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.notify.negative(message, options)] instead.
+        
+
+    @added 0.9.0
+    @description 
+      Shows an negative notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-negative css class, and uses a predefined icon.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method positive
+    @removed 0.14.0
+      @description 
+        Use @code[hx.notify.positive(message, options)] instead.
+        
+
+    @deprecated 0.13.0
+      @description 
+        Use @code[hx.notify.positive(message, options)] instead.
+        
+
+    @added 0.9.0
+    @description 
+      Shows an positive notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-positive css class, and uses a predefined icon.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method loading
+    @removed 1.8.0
+      @issue 299
+
+    @description 
+      Shows a loading notification and returns a Notification object. This is actually just a permanent notification with hexagon's default loading spinner for the icon. Notifications of this type have the class 'hx-notification-loading'. This notification must be closed via javascript or by the user.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method notify
+    @removed 1.8.0
+      @issue 299
+
+    @added 0.13.0
+    @description 
+      A method for showing a notification for a notification manager.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+        
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself. If false is supplied, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+          @default 
+            5
+          
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+  @method info
+    @removed 1.8.0
+      @issue 299
+
+    @added 0.13.0
+    @description 
+      Shows an information notification and returns a Notification object.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-info',
+            cssclass: 'hx-info',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method warning
+    @removed 1.8.0
+      @issue 299
+
+    @added 0.13.0
+    @description 
+      Shows a warning notification and returns a Notification object.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-warning',
+            cssclass: 'hx-warning',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method negative
+    @removed 1.8.0
+      @issue 299
+
+    @added 0.13.0
+    @description 
+      Shows an negative notification and returns a Notification object.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-error',
+            cssclass: 'hx-negative',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method positive
+    @removed 1.8.0
+      @issue 299
+
+    @added 0.13.0
+    @description 
+      Shows an positive notification and returns a Notification object.
+
+    @arg message [String]
+      @description 
+        The text to display in the notification
+        
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-check',
+            cssclass: 'hx-positive',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method defaultTimeout
+    @added 0.13.0
+    @description 
+      A method for getting or setting the default timeout for notifications added to the current notification manager.
+
+    @arg? timeout [Number]
+      @description 
+        The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
+        
+
+    @returns [Number]
+      @description 
+        The default timeout when the timeout option is not specified.
+        
+
+  @method notify
+    @added 1.8.0
+      @issue 299
+
+    @description 
+      Shows a notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[notify] method.
+
+    @arg message [String/Selection/HTMLElement/Object]
+      @description 
+        The message to display in the notification.
+
+        It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+        @@codeblock js
+          // String
+          hx.notify('Message to display')
+          
+          // Selection
+          message = hx.detached('div').text('Text to display')
+          hx.notify(message)
+          
+          // HTMLElement
+          message = document.createElement('div')
+          message.appendChild(document.createTextNode('Text To Display'))
+          hx.notify(message)
+
+        
+        
+        When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+        @@codeblock js
+          var options = {
+            renderer: function (element, message) {
+              hx.select(element)
+                .add(hx.detached('div').text(message.header))
+                .add(hx.detached('div').text(message.body))
+            }
+          }
+          
+          var message = {
+            header: 'Notification Header',
+            body: 'Notification Body'
+          }
+          
+          hx.notify(message, options)
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+        
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method loading
+    @added 1.8.0
+      @issue 299
+
+    @description 
+      Shows a loading notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[loading] method.
+
+    @arg message [String/Selection/HTMLElement/Object]
+      @description 
+        The message to display in the notification.
+
+        It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+        @@codeblock js
+          // String
+          hx.notify('Message to display')
+          
+          // Selection
+          message = hx.detached('div').text('Text to display')
+          hx.notify(message)
+          
+          // HTMLElement
+          message = document.createElement('div')
+          message.appendChild(document.createTextNode('Text To Display'))
+          hx.notify(message)
+
+        
+        
+        When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+        @@codeblock js
+          var options = {
+            renderer: function (element, message) {
+              hx.select(element)
+                .add(hx.detached('div').text(message.header))
+                .add(hx.detached('div').text(message.body))
+            }
+          }
+          
+          var message = {
+            header: 'Notification Header',
+            body: 'Notification Body'
+          }
+          
+          hx.notify(message, options)
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method info
+    @added 1.8.0
+      @issue 299
+
+    @description 
+      Shows an information notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[info] method.
+
+    @arg message [String/Selection/HTMLElement/Object]
+      @description 
+        The message to display in the notification.
+
+        It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+        @@codeblock js
+          // String
+          hx.notify('Message to display')
+          
+          // Selection
+          message = hx.detached('div').text('Text to display')
+          hx.notify(message)
+          
+          // HTMLElement
+          message = document.createElement('div')
+          message.appendChild(document.createTextNode('Text To Display'))
+          hx.notify(message)
+
+        
+        
+        When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+        @@codeblock js
+          var options = {
+            renderer: function (element, message) {
+              hx.select(element)
+                .add(hx.detached('div').text(message.header))
+                .add(hx.detached('div').text(message.body))
+            }
+          }
+          
+          var message = {
+            header: 'Notification Header',
+            body: 'Notification Body'
+          }
+          
+          hx.notify(message, options)
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-info',
+            cssclass: 'hx-info',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method warning
+    @added 1.8.0
+      @issue 299
+
+    @description 
+      Shows a warning notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[warning] method.
+
+    @arg message [String/Selection/HTMLElement/Object]
+      @description 
+        The message to display in the notification.
+
+        It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+        @@codeblock js
+          // String
+          hx.notify('Message to display')
+          
+          // Selection
+          message = hx.detached('div').text('Text to display')
+          hx.notify(message)
+          
+          // HTMLElement
+          message = document.createElement('div')
+          message.appendChild(document.createTextNode('Text To Display'))
+          hx.notify(message)
+
+        
+        
+        When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+        @@codeblock js
+          var options = {
+            renderer: function (element, message) {
+              hx.select(element)
+                .add(hx.detached('div').text(message.header))
+                .add(hx.detached('div').text(message.body))
+            }
+          }
+          
+          var message = {
+            header: 'Notification Header',
+            body: 'Notification Body'
+          }
+          
+          hx.notify(message, options)
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-warning',
+            cssclass: 'hx-warning',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method negative
+    @added 1.8.0
+      @issue 299
+
+    @description 
+      Shows a negative notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[negative] method.
+
+    @arg message [String/Selection/HTMLElement/Object]
+      @description 
+        The message to display in the notification.
+
+        It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+        @@codeblock js
+          // String
+          hx.notify('Message to display')
+          
+          // Selection
+          message = hx.detached('div').text('Text to display')
+          hx.notify(message)
+          
+          // HTMLElement
+          message = document.createElement('div')
+          message.appendChild(document.createTextNode('Text To Display'))
+          hx.notify(message)
+
+        
+        
+        When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+        @@codeblock js
+          var options = {
+            renderer: function (element, message) {
+              hx.select(element)
+                .add(hx.detached('div').text(message.header))
+                .add(hx.detached('div').text(message.body))
+            }
+          }
+          
+          var message = {
+            header: 'Notification Header',
+            body: 'Notification Body'
+          }
+          
+          hx.notify(message, options)
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-error',
+            cssclass: 'hx-negative',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+  @method positive
+    @added 1.8.0
+      @issue 299
+
+    @description 
+      Shows a positive notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[positive] method.
+
+    @arg message [String/Selection/HTMLElement/Object]
+      @description 
+        The message to display in the notification.
+
+        It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+        @@codeblock js
+          // String
+          hx.notify('Message to display')
+          
+          // Selection
+          message = hx.detached('div').text('Text to display')
+          hx.notify(message)
+          
+          // HTMLElement
+          message = document.createElement('div')
+          message.appendChild(document.createTextNode('Text To Display'))
+          hx.notify(message)
+
+        
+        
+        When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+        @@codeblock js
+          var options = {
+            renderer: function (element, message) {
+              hx.select(element)
+                .add(hx.detached('div').text(message.header))
+                .add(hx.detached('div').text(message.body))
+            }
+          }
+          
+          var message = {
+            header: 'Notification Header',
+            body: 'Notification Body'
+          }
+          
+          hx.notify(message, options)
+
+    @arg? options [Object]
+      @description 
+        The options to use when setting up the notification.
+
+        The default value for the options object is:
+
+        @@codeblock js
+          {
+            icon: 'fa fa-check',
+            cssclass: 'hx-positive',
+            pinnable: true
+          }
+
+      @property icon [String]
+        @description 
+          The icon to display in the notification (expects a font awesome fa- icon).
+          
+
+      @property cssclass [String]
+        @description 
+          The css class or classes to give the notification.
+          
+
+      @property timeout [Number]
+        @description 
+          How long (in seconds) the notification should hang around for before it dismisses itself.
+
+          If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+          If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+      @property pinnable [Boolean]
+        @description 
+          Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+          
+
+      @property renderer [Function]
+        @description 
+          The renderer to use when creating the notification.
+
+          It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+          It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+        @arg element [HTMLElement]
+          @description 
+            The notification content element to populate.
+            
+
+        @arg message [String/Object]
+          @description 
+            The message passed into the notification.
+            
+
+    @returns [Notification]
+      @description 
+        The newly created Notification
+        
+
+
+@prototype Notification
+  @description 
+    Returned by the notification manager whenever a notification is created. This object provides a method of closing a notification once it is opened.
+
+  @method close
+    @description 
+      Dismisses the notification, and causes it to be removed from the notification list.
+
+    @returns [Notification]
+      @added 0.13.0
+      @description 
+        This Notification
+        
+
+  @method pin
+    @added 0.9.0
+    @description 
+      Makes the notification stick around until it is unpinned.
+
+    @returns [Notification]
+      @added 0.13.0
+      @description 
+        This Notification
+        
+
+  @method unpin
+    @added 0.9.0
+    @description 
+      Unpins a notification - causing it to disappear shortly after.
+
+    @returns [Notification]
+      @added 0.13.0
+      @description 
+        This Notification
+        
+
+@function hx.notify
+  @removed 0.14.0
+    @description 
+      The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
+      
+
+  @deprecated 0.13.0
+    @description 
+      The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
+      
+
+  @description 
+    A function for getting the inbuilt notification manager
+
+  @returns [NotificationManager]
+  @returns [Notification]
+    @added 0.13.0
+    @description 
+      The newly created Notification
+      
+
+@function hx.getNotificationManager
+  @removed 0.12.0
+  @deprecated 0.11.0
+    @description 
+      Use @code[hx.notify()] instead.
+      
+
+  @description 
+    A function for getting the inbuilt notification manager
+
+  @returns [NotificationManager]
+
+@class hx-notification
+  @description 
+    The class applied to notifications when they are created. This should not be applied manually, however there are several additional classes that can be added when creating the notifications using the cssclass parameter of the temporary and permanent notification functions.
+
+  @extraClass hx-positive
+    @added 0.9.0
+    @description 
+      The class to add to style the notification with the theme's positive color.
+
+  @extraClass hx-negative
+    @added 0.9.0
+    @description 
+      The class to add to style the notification with the theme's negative color.
+
+  @extraClass hx-warning
+    @added 0.9.0
+    @description 
+      The class to add to style the notification with the theme's warning color.
+
+  @extraClass hx-info
+    @added 0.9.0
+    @description 
+      The class to add to style the notification with the theme's info color.
+
+  @extraClass hx-loading
+    @added 0.9.0
+    @description 
+      The class to add to style the notification with the theme's loading color.
+
+@function hx.notify.setDefaultTimeout
+  @removed 0.12.0
+  @deprecated 0.11.0
+    @description 
+      Use @code[hx.notify.defaultTimeout(timeout)] instead.
+      
+
+  @added 0.10.0
+  @description 
+    A function for changing the default time out for notifications
+
+  @arg timeout [Number]
+    @description 
+      The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
+      
+
+@function hx.getNotificationManager.setDefaultTimeout
+  @removed 0.12.0
+  @deprecated 0.11.0
+    @description 
+      Use @code[hx.notify.defaultTimeout(timeout)] instead.
+      
+
+  @added 0.10.0
+  @description 
+    A function for changing the default time out for notifications
+
+  @arg timeout [Number]
+    @description 
+      The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
+      
+
+
+@function hx.notify.defaultTimeout
+  @added 0.11.0
+  @description 
+    A function for getting or setting the default time out for notifications.
+
+  @condensed 
+  @arg? timeout [Number]
+    @description 
+      The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
+      
+
+  @returns [Number]
+    @description 
+      The default timeout when the timeout parameter is not specified.
+      
+
+
+
+@function hx.notify
+  @removed 1.8.0
+    @issue 299
+
+  @added 0.13.0
+  @description 
+    Shows a notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[notify] method.
+
+  @arg message [String]
+    @description 
+      The text to display in the notification
+      
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+      
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.info
+  @removed 1.8.0
+    @issue 299
+
+  @added 0.13.0
+  @description 
+    Shows an information notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[info] method.
+
+  @arg message [String]
+    @description 
+      The text to display in the notification
+      
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-info',
+          cssclass: 'hx-info',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.loading
+  @removed 1.8.0
+    @issue 299
+
+  @added 0.13.0
+  @description 
+    Shows a loading notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[loading] method.
+
+  @arg message [String]
+    @description 
+      The text to display in the notification
+      
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.warning
+  @removed 1.8.0
+    @issue 299
+
+  @added 0.13.0
+  @description 
+    Shows a warning notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[warning] method.
+
+  @arg message [String]
+    @description 
+      The text to display in the notification
+      
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-warning',
+          cssclass: 'hx-warning',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.negative
+  @removed 1.8.0
+    @issue 299
+
+  @added 0.13.0
+  @description 
+    Shows a negative notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[negative] method.
+
+  @arg message [String]
+    @description 
+      The text to display in the notification
+      
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-error',
+          cssclass: 'hx-negative',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.positive
+  @removed 1.8.0
+    @issue 299
+
+  @added 0.13.0
+  @description 
+    Shows a positive notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[positive] method.
+
+  @arg message [String]
+    @description 
+      The text to display in the notification
+      
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-check',
+          cssclass: 'hx-positive',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+
+@option loading-col
+  @removed 0.14.0
+
+@function hx.notify
+  @added 1.8.0
+    @issue 299
+
+  @description 
+    Shows a notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[notify] method.
+
+  @arg message [String/Selection/HTMLElement/Object]
+    @description 
+      The message to display in the notification.
+
+      It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+      @@codeblock js
+        // String
+        hx.notify('Message to display')
+        
+        // Selection
+        message = hx.detached('div').text('Text to display')
+        hx.notify(message)
+        
+        // HTMLElement
+        message = document.createElement('div')
+        message.appendChild(document.createTextNode('Text To Display'))
+        hx.notify(message)
+
+      
+      
+      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+      @@codeblock js
+        var options = {
+          renderer: function (element, message) {
+            hx.select(element)
+              .add(hx.detached('div').text(message.header))
+              .add(hx.detached('div').text(message.body))
+          }
+        }
+        
+        var message = {
+          header: 'Notification Header',
+          body: 'Notification Body'
+        }
+        
+        hx.notify(message, options)
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+      
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.loading
+  @added 1.8.0
+    @issue 299
+
+  @description 
+    Shows a loading notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[loading] method.
+
+  @arg message [String/Selection/HTMLElement/Object]
+    @description 
+      The message to display in the notification.
+
+      It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+      @@codeblock js
+        // String
+        hx.notify('Message to display')
+        
+        // Selection
+        message = hx.detached('div').text('Text to display')
+        hx.notify(message)
+        
+        // HTMLElement
+        message = document.createElement('div')
+        message.appendChild(document.createTextNode('Text To Display'))
+        hx.notify(message)
+
+      
+      
+      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+      @@codeblock js
+        var options = {
+          renderer: function (element, message) {
+            hx.select(element)
+              .add(hx.detached('div').text(message.header))
+              .add(hx.detached('div').text(message.body))
+          }
+        }
+        
+        var message = {
+          header: 'Notification Header',
+          body: 'Notification Body'
+        }
+        
+        hx.notify(message, options)
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.info
+  @added 1.8.0
+    @issue 299
+
+  @description 
+    Shows an information notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[info] method.
+
+  @arg message [String/Selection/HTMLElement/Object]
+    @description 
+      The message to display in the notification.
+
+      It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+      @@codeblock js
+        // String
+        hx.notify('Message to display')
+        
+        // Selection
+        message = hx.detached('div').text('Text to display')
+        hx.notify(message)
+        
+        // HTMLElement
+        message = document.createElement('div')
+        message.appendChild(document.createTextNode('Text To Display'))
+        hx.notify(message)
+
+      
+      
+      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+      @@codeblock js
+        var options = {
+          renderer: function (element, message) {
+            hx.select(element)
+              .add(hx.detached('div').text(message.header))
+              .add(hx.detached('div').text(message.body))
+          }
+        }
+        
+        var message = {
+          header: 'Notification Header',
+          body: 'Notification Body'
+        }
+        
+        hx.notify(message, options)
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-info',
+          cssclass: 'hx-info',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.warning
+  @added 1.8.0
+    @issue 299
+
+  @description 
+    Shows a warning notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[warning] method.
+
+  @arg message [String/Selection/HTMLElement/Object]
+    @description 
+      The message to display in the notification.
+
+      It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+      @@codeblock js
+        // String
+        hx.notify('Message to display')
+        
+        // Selection
+        message = hx.detached('div').text('Text to display')
+        hx.notify(message)
+        
+        // HTMLElement
+        message = document.createElement('div')
+        message.appendChild(document.createTextNode('Text To Display'))
+        hx.notify(message)
+
+      
+      
+      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+      @@codeblock js
+        var options = {
+          renderer: function (element, message) {
+            hx.select(element)
+              .add(hx.detached('div').text(message.header))
+              .add(hx.detached('div').text(message.body))
+          }
+        }
+        
+        var message = {
+          header: 'Notification Header',
+          body: 'Notification Body'
+        }
+        
+        hx.notify(message, options)
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-warning',
+          cssclass: 'hx-warning',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.negative
+  @added 1.8.0
+    @issue 299
+
+  @description 
+    Shows a negative notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[negative] method.
+
+  @arg message [String/Selection/HTMLElement/Object]
+    @description 
+      The message to display in the notification.
+
+      It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+      @@codeblock js
+        // String
+        hx.notify('Message to display')
+        
+        // Selection
+        message = hx.detached('div').text('Text to display')
+        hx.notify(message)
+        
+        // HTMLElement
+        message = document.createElement('div')
+        message.appendChild(document.createTextNode('Text To Display'))
+        hx.notify(message)
+
+      
+      
+      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+      @@codeblock js
+        var options = {
+          renderer: function (element, message) {
+            hx.select(element)
+              .add(hx.detached('div').text(message.header))
+              .add(hx.detached('div').text(message.body))
+          }
+        }
+        
+        var message = {
+          header: 'Notification Header',
+          body: 'Notification Body'
+        }
+        
+        hx.notify(message, options)
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-error',
+          cssclass: 'hx-negative',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+@function hx.notify.positive
+  @added 1.8.0
+    @issue 299
+
+  @description 
+    Shows a positive notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[positive] method.
+
+  @arg message [String/Selection/HTMLElement/Object]
+    @description 
+      The message to display in the notification.
+
+      It can be either a String, Selection or HTMLElement by default. The text or element will be inserted into the notification content.
+
+      @@codeblock js
+        // String
+        hx.notify('Message to display')
+        
+        // Selection
+        message = hx.detached('div').text('Text to display')
+        hx.notify(message)
+        
+        // HTMLElement
+        message = document.createElement('div')
+        message.appendChild(document.createTextNode('Text To Display'))
+        hx.notify(message)
+
+      
+      
+      When using an Object as the message, a @code(js)[renderer] must be provided in the options.
+
+      @@codeblock js
+        var options = {
+          renderer: function (element, message) {
+            hx.select(element)
+              .add(hx.detached('div').text(message.header))
+              .add(hx.detached('div').text(message.body))
+          }
+        }
+        
+        var message = {
+          header: 'Notification Header',
+          body: 'Notification Body'
+        }
+        
+        hx.notify(message, options)
+
+  @arg? options [Object]
+    @description 
+      The options to use when setting up the notification.
+
+      The default value for the options object is:
+
+      @@codeblock js
+        {
+          icon: 'fa fa-check',
+          cssclass: 'hx-positive',
+          pinnable: true
+        }
+
+    @property icon [String]
+      @description 
+        The icon to display in the notification (expects a font awesome fa- icon).
+        
+
+    @property cssclass [String]
+      @description 
+        The css class or classes to give the notification.
+        
+
+    @property timeout [Number]
+      @description 
+        How long (in seconds) the notification should hang around for before it dismisses itself.
+
+        If passed in as undefined, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
+
+        If not provided, this will use the timeout as provided by `hx.notify.defaultTimeout()`
+
+    @property pinnable [Boolean]
+      @description 
+        Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
+        
+
+    @property renderer [Function]
+      @description 
+        The renderer to use when creating the notification.
+
+        It is not required when using a String, HTMLElement or Selection and is @code(js)[undefined] by default.
+
+        It must be provided when passing in a message Object otherwise the notification will fail to render.
+
+      @arg element [HTMLElement]
+        @description 
+          The notification content element to populate.
+          
+
+      @arg message [String/Object]
+        @description 
+          The message passed into the notification.
+          
+
+  @returns [Notification]
+    @description 
+      The newly created Notification
+      
+
+
+

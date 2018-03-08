@@ -1,0 +1,23 @@
+@version 0.15.2
+  @api Button Group
+    @prototype hx.ButtonGroup
+      @constructor
+        @arg selector [String/HTMLElement]
+        @arg? options [Object]
+          @property disabled [Boolean]: Whether the button group should be disabled
+            @added: Added the ability to disable a button group in the options
+
+            @default: false
+
+      @method disabled
+        @added: Added the ability to disable/enable a button group
+
+        @description: A method for disabling or enabling a button group
+        @arg value [Boolean]: Whether the button group should be disabled
+        @returns ButtonGroup: This button group
+
+      @method disabled
+        @added: Added the ability to get the disabled state of a button group
+
+        @description: A method for getting the disabled state of a button group
+        @returns Boolean: Whether the button group is disabled

@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar User Facing Text Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: User Facing Text Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/user-facing-text/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/user-facing-text/

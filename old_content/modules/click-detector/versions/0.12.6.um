@@ -1,0 +1,4 @@
+@version 0.12.6
+  @api Click Detector
+    @prototype hx.ClickDetector
+      @bugfix: Added detection for whether the target is still in the DOM on pointerup.

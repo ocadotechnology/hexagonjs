@@ -1,0 +1,17 @@
+@version 1.0.0
+  @description
+    This module was removed in version 1.0.0.
+    @p: The Drag Container module can be used as a replacement for the drag/drop functionality.
+    @p: The Card module can be used as a replacement for the styles
+
+  @api Dashboard
+    @removed
+      @p: This module was removed in this version
+      @p: The Drag Container module can be used as a replacement for the drag/drop functionality.
+      @p: The Card module can be used as a replacement for the styles
+
+    @prototype hx.Dashboard
+      @removed
+
+    @prototype DashboardWidget
+      @removed

@@ -1,0 +1,8 @@
+@stylesheet /resources/hexagon/__version__/hexagon.css
+@script /resources/hexagon/__version__/hexagon.js
+@inline ../../../shared/common.um
+@keywords date picker component
+@titlebar Date Picker
+
+@div .dx-content
+  @inline ../../../modules/date-picker/index.um

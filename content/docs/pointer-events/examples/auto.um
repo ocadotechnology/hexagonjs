@@ -1,0 +1,19 @@
+@version 0.9.0
+  @examples 
+    @@codeblock js
+      hx.select('#body').on('pointerdown', function(event){
+        // do something on mousedown/touchstart
+      });
+      hx.select('#body').on('pointerup', function(event){
+        // do something on mouseup/touchend/touchcancel
+      });
+      hx.select('#body').on('pointermove', function(event){
+        // do something on mousemove/touchmove
+      });
+      hx.select('#body').on('pointerleave', function(event){
+        // do something on mouseleave/touchleave
+      });
+      hx.select('#body').on('pointerenter', function(event){
+        // do something on mouseenter/touchenter
+      });
+

@@ -1,0 +1,8 @@
+@stylesheet /resources/hexagon/__version__/hexagon.css
+@script /resources/hexagon/__version__/hexagon.js
+@inline ../../../shared/common.um
+@keywords view join data dom util
+@titlebar View
+
+@div .dx-content
+  @inline ../../../modules/view/index.um

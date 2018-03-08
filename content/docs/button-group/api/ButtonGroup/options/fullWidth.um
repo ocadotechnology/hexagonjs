@@ -1,5 +1,0 @@
-@property fullWidth [Boolean]
-  @description
-    Whether the group should span the full width of its container.
-
-  @default: false

@@ -1,0 +1,157 @@
+@added 1.0.0
+  @description 
+    Renamed the inline select module to be inline-picker
+    
+
+@prototype hx.InlinePicker
+  @extends EventEmitter
+  @constructor 
+    @description 
+    @arg selector [String/HTMLElement]
+      @description 
+        A CSS selector that uniquely identifies the element, or an HTMLElement.
+        
+
+    @arg? options [Object]
+      @description 
+        The options to use when constructing the inline picker
+        
+
+      @property contextClass [String]
+        @description 
+          The class to use for the button when the picker is active.
+          
+
+      @property ddClass [String]
+        @description 
+          The additional class to add to the dropdown when creating it.
+          
+
+      @property startValue [String]
+        @removed 1.0.0
+          @description 
+            The startValue option has been renamed to value
+            
+
+      @property value [String]
+        @added 1.0.0
+        @description 
+          The value to use when initialising the select.
+          
+
+      @property noValueText [String]
+        @description 
+          The text to use when no value is selected.
+          @default 'Choose [a value...']
+          
+
+      @property items [Array/Function]
+        @description 
+          The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+
+          This can also be set after the picker has been constructed using the @code[items] method.
+
+      @property renderer
+        @description 
+          A function that renders the data in the dropdown and the picker button.
+
+          This can also be set after the picker has been constructed using the @code[renderer] method.
+
+  
+  
+  @method renderer
+    @returns [Function]
+      @description 
+        Returns the currently set renderer function.
+        
+
+  
+  @method renderer
+    @description 
+      Sets the renderer function for the underlying picker.
+
+    @arg render [Function]
+      @arg node [HTMLElement]
+        @description 
+          The element to populate
+          
+
+      @arg data [Any]
+        @description 
+          The data to populate the element with
+          
+
+    @returns [InlinePicker]
+      @description 
+        Returns this picker for chaining.
+        
+
+  
+  
+  @method items
+    @description 
+      Sets the list of items that will be shown in the picker dropdown.
+
+    @returns [Array]
+      @description 
+        The currently set items
+        
+
+  
+  @method items
+    @description 
+      Sets the list of items that will be shown in the picker dropdown.
+
+    @arg items [Array[String]]
+      @description 
+        The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
+        
+
+    @returns [InlinePicker]
+      @description 
+        Returns this InlinePicker for chaining
+        
+
+  
+  
+  @method value
+    @description 
+      Sets the value of the element.
+
+    @arg value [String]
+      @description 
+        The value to give the element. If not specified the current value will be returned.
+        
+
+    @returns [InlinePicker]
+      @description 
+        This InlinePicker is returned for chaining.
+        
+
+  
+  @method value
+    @description 
+      Gets the value of the element.
+
+    @returns [String]
+      @description 
+        Returns the current value in the editable.
+        
+
+  
+  
+  @event change
+    @description 
+      Emitted when the value is changed.
+
+    @object data
+      @property api [Boolean]
+        @description 
+          True if a call to the value method caused this change. False if it was a result of a user change.
+          
+
+      @property value [String]
+        @description 
+          The new value.
+          
+

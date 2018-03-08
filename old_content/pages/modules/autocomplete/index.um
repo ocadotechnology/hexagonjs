@@ -1,0 +1,8 @@
+@stylesheet /resources/hexagon/__version__/hexagon.css
+@script /resources/hexagon/__version__/hexagon.js
+@inline ../../../shared/common.um
+@keywords autocomplete complete typeahead suggestion component
+@titlebar Autocomplete
+
+@div .dx-content
+  @inline ../../../modules/autocomplete/index.um

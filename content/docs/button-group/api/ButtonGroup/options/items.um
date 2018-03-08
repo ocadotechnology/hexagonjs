@@ -1,3 +1,0 @@
-@property items [Array[Any]]
-  @added 0.13.0
-  @inline ../arguments/items.um

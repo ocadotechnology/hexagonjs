@@ -1,0 +1,10 @@
+@version 0.9.0
+  @examples 
+    @example 
+      @html 
+        <button class="hx-btn hx-positive" id="dropdown-example-1">Button</button>
+
+      @js 
+        dropdownExampleContent = "<div style='padding:10px;'>Example content!</div>"
+        dropdownExample1 = new hx.Dropdown("#dropdown-example-1", dropdownExampleContent)
+

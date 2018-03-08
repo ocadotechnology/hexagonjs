@@ -1,0 +1,14 @@
+@inline ../../../../shared/common.um
+@titlebar Select Changelog
+
+@div .dx-content.docs-changelog
+  @h1 .docs-module-section: Select Changelog
+    @div .docs-module-changelog-link
+      @hyperlink /changelog/: Complete Changelog
+  @changelog.wrapper
+    @process
+      @renderSingleItemInRoot
+      @inline ../../../../modules/select/index.um
+    @for v in versionList
+      @version {{v}}
+        @link /docs/{{v}}/select/

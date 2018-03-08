@@ -1,0 +1,285 @@
+@inline ../../shared/common.um
+@titlebar Changelog
+
+@div .dx-content
+  @h1 .docs-module-section: Changelog
+
+  @changelog.wrapper
+    @process
+      @inline ../modules/*/index.um
+
+    @version 0.9.0
+      @description
+        @p: This release mainly consists of the standardisation of the colour classes across all the modules, converting things like @code(css)[hx-btn-positive] to @code(css)[hx-positive] and converting from light/dark to compliment/contrast to make the theming of hexagon easier.
+        @p: The numbered color classes for each module have also been deprecated in favour of the named classes: hx-positive, hx-warning, hx-negative, hx-info, hx-compliment, hx-contrast. The classes have been deprecated in this version and will be removed in a later version.
+        @p: All references to @code(js)[hx.Collapseable] (and similarly mispelt collapseables) have been deprecated in favor of the correct spelling, collapsible.
+
+    @version 0.10.0
+      @description
+        @p: This release consists of several new modules and features including inline editables, inline selects and morphing sections as well as a re-styling of the Slider to make it more user friendly.
+        @p: The previously deprecated color classes have also been removed, as well as all references to the mis-spelled @code(js)[hx.Collapseable]
+
+    @version 0.11.0
+      @description
+        @p: This release consists mainly of the standardisation of the setters/getters for modules. All the old setters and getters have been deprecated and will be removed in a later release. The new pattern for getting and setting values has changed from this:
+
+        @codeblock js
+          var value = component.getValue();
+          component.setValue(100);
+
+        To this:
+
+        @codeblock js
+          var value = component.value();
+          component.value(100);
+
+        @p: Another addition are resize events for elements.
+
+        @codeblock js
+          selection.on('resize', function (e){
+            console.log('resized!');
+          });
+
+        @p: This change allows graphs, tables and paginator modules to automatically redraw when they are resized.
+
+        @p: The graph api has been given legends, zoom with mousewheel, and better labels for pie charts.
+
+    @version 0.12.0
+      @description
+        @p: The 0.12 version of hexagon will be released over a series of smaller releases so that new features and bug fixes can be pushed out quicker.
+
+        @p: The OSP light theme has started being aligned with Aeris in this release. The OSP dark theme remains the same for now, but will receive similar treatment in a following release. The OSP light theme has also been given a new loading spinner.
+
+        @p: The default font size has also been reduced in size from 16px to 14px.
+
+        @p: Forms have had some improvements, including form validation that works on Safari and better support for disabling inputs.
+
+        @p: Previously deprecated setter and getter methods have also been removed.
+
+    @version 0.12.1
+      @description
+        @p: Installing hexagon via npm with the --production flag will no longer install phantomjs.
+
+        @p: Maps and Sets can now deal with objects with the same toString
+
+    @version 0.12.2
+      @description
+        @p: Improved datepickers and bugfixes.
+
+    @version 0.12.3
+      @description
+        @p: Style changes and bugfixes. The retain parameter for selection.on has also been deprecated.
+
+    @version 0.12.4
+      @description
+        @p: Added @code[form.component(property)] to the Form Builder as a method of getting the component for a property of the form (e.g. a tag input). As part of this process, components stored in the 'extras' object have been removed and are no longer accessible with @code[form.properties.get('Name of Property').extras.<componentType>].
+        @p: Updated the DatePicker, TimePicker and DateTimePicker to include events for when the dropdown is shown/hidden and in the case of the DateTimePicker, individual events for when the date or time is changed, shown or hidden.
+
+        @p: The hexagon builder module should no longer throw an error when useCDNs: true is supplied
+
+    @version 0.12.5
+      @description
+        @p: The time picker (and by extension the date time picker) have had the setTime parameter inverted and renamed to retainTime for the date method. The default behaviour was changed as if you're using the date method, the majority of the times it's used will be setting the entire date/time instead of just the date.
+
+    @version 0.12.6
+      @description
+        @p: All events added by hexagon (using the @code[on] method of event emitters) have been namespaced to prevent external events overwriting hexagon functionality and vice versa. Events have been namespaced with @code[hx.<module-name>], e.g. for the Button Group module:
+        @codeblock js
+          element.on('click', 'hx.button-group', function () {...});
+        @p: Added an alternative way of showing nested tabular data @hyperlink(/examples/table-in-table-2/)[here].
+
+    @version 0.12.7
+      @description
+        @p: A new meter component type has been added for displaying progress of something.
+        @p: Selects and Menus now accept functions that supply the list of items - for lazy and dynamically changing data.
+
+    @version 0.12.8
+      @description
+        @p: Added the SideCollapsible component as well as adding border color context classes to the Palette module and the ability to place the x axis in a different position on graphs in the Plot module.
+        @p: Also updated various components and fixed several bugs caused by internal changes to the event emitters.
+
+    @version 0.12.9
+      @description
+
+        @p: Fixed some breaking issues with Menu and Pointer Events as well as updating the @hyperlink(/examples/morphing-sections-popup/)[Morphing Sections Popup] example so it no longer requires overriding styles with !important.
+
+    @version 0.12.10
+      @description
+        @p: Fixed some more issues with Pointer events as well as adding a new ToggleButton class to give a more user friendly API.
+        @p: Also added some options to graphs to allow tick markers to be disabled.
+
+    @version 0.13.0
+      @description
+        @p: This version includes a lot of changes to modules to standardise the api's and documentation across all the modules.
+        @p: Most of the changes are to constructors, converting from several optional arguments to a single options object, or changing module names to be consistent (e.g. using @code[items] when setting data instead of module-specific names).
+        @p: Additional changes include splitting hx.merge into two functions (hx.merge and hx.merge.defined), updating events fired for show/hide to be consistent and refactoring the internals of the DatePicker, TimePicker and DateTimePicker modules.
+        @p: Another addition is the @code[suppressed] method as part of event emitters. Modules that use the 'on' method now all have the ability to have their events suppressed/un-suppressed with this method and modules that previously used a function argument to suppress events have had this functionality deprecated, to be replaced with the @code[suppressed] method.
+
+    @version 0.14.0
+      @description
+        @p: Most of the functionality that was deprecated in 0.13.0 has been removed. If upgrading to this version from a version earlier than 0.13.0 it is recommended that you upgrade to 0.13.0 first to get the deprecation warnings - it should make the upgrade easier.
+
+        @p: Other changes are fairly minor, mostly bug fixes. It should be noted that the hx.Select component has been renamed to hx.Picker - this is to avoid confusion with the selection api, and to avoid name clashing in the future.
+
+    @version 0.14.1
+      @description
+        @p: This release contains several bug fixes that may have caused issues in applications. The main fix is for the date/time/date-time picker events.
+
+    @version 0.15.0
+      @description
+        @p: The extended-table module has been deprecated in this release. The data-table module is the replacement. The data-table module provides mostly the same functionality as the extended table module, but has the ability to retain selections when sorting and filtering. Restoration of selections is now possible, and the per-column filter input boxes have been replaced with a single, easier to use filter box. The data-table module also has better support for mobiles - showing the filter and sort options at the top of the table when in mobile mode.
+
+        @p: The Select module has been removed in this release - hx.Picker should be used instead.
+
+    @version 0.15.1
+      @description
+        @p: Fix some bugs in extended tables. Fix some deprecated warnings across several modules.
+
+    @version 0.15.2
+      @description
+        @p: The Color and Plot modules have been standardised in this release, with a lot of deprecations being made that will be removed in version 1.0.0.
+        @p: All the components that allow input in some way can now be disabled using the api
+        @p: The hx.ToggleButton prototype has been moved from the Button to its own module.
+        @p: Several bugfixes have also been made, as well as improving some of the general documentation and changelog entries.
+
+    @version 0.15.3
+      @description
+        @p: Bug fixes. Fix issues with node-sass.
+
+    @version 1.0.0
+      @description
+        @p: Final standardisation of the api. Features deprecated in the 0.x.x series have been removed. From this point on breaking changes are indicated by a major version.
+
+        @p: The builder api for hexagon has changed in this version to make theming easier. The builder can now export the theme variables in a variety of formats (sass, less, stylus, css variables, json, quantum).
+
+    @version 1.0.1
+      @description
+        @p: An update to the builder to resolve some dependency issues and fix the bower config
+
+    @version 1.0.2
+      @description
+        @p: Fix for the module dependency calculation. If an explicit list of modules is included, the build will now include those modules and all the modules thet they depend on.
+
+    @version 1.0.3
+      @description
+        @p: Update the build config for the themes to allow the theme fonts to be embedded in the css using the @code[embedAssets] option.
+
+    @version 1.0.4
+      @description
+        @p: Fix several bug fixes that were causing visual issues
+
+    @version 1.1.0
+      @description
+        @p: Added a timezone api to preferences and updated date/time pickers to listen to changes in timezone/locale automatically, added @code[hx.graph] as a fluid api version for creating graphs, added @code[hx.text] as a new wrapper for @code[hx.request] and made several bugfixes and improvements to the underlying code.
+        @p: Also added @hyperlink(/guide/printing/)[print styles] to hexagon builds as additional resources.
+
+    @version 1.2.0
+      @description
+        @p: Several enhancements and bugfixes to do with the more commonly used components such as View and Data Table as well as additional functionality for Form Builder.
+
+    @version 1.2.1
+      @description
+        @p: Includes some bugfixes and improvements to under-the-hood behaviour.
+
+    @version 1.3.0
+      @description
+        @p: Fix multiple bugs and add the @code(js)[shallowSelect] functionality as well as a new File Input module.
+
+    @version 1.3.1
+      @description
+        @p: Fix the file input options.
+
+    @version 1.3.2
+      @description
+        @p: Fix for hx.defined.
+
+    @version 1.3.3
+      @description
+        @p: Change the preferences module to prefer navigator.languages over navigator.language
+
+    @version 1.4.0
+      @description
+        @p: Added the Autocomplete Picker module, a hybrid of an AutoComplete and a Picker.
+        @p: Added the User Facing Text module for defining the default text for Hexagon modules.
+
+    @version 1.4.1
+      @description
+        @p: Several bugfixes, including changes to how the default locale is set when using @code[moment]
+
+    @version 1.4.2
+      @description
+        @p: Fix an issue with the code using the wrong option variables in AutoComplete
+        @p: Also added CSS support for iOS 7/8 to resolve some style and layout issues on older iPads
+
+    @version 1.5.0
+      @description
+        @p: Added the ability to search across multiple columns in DataTables.
+        @p: Added the ability to show the search above the table content in the data table options.
+        @p: Changes to the structure of the DataTable to improve @code[compact] mode, including adding a compact 'menu' to reduce the amount of space data tables take up when in compact mode
+        @p: Added some new utility functions for checking the type of values and getting the argmin/argmax.
+
+    @version 1.5.1
+      @description
+        Fixed a selection of bugs including an issue caused by meters when rendering with 0 width/height, button alignment in forms and notification flex styles.
+
+    @version 1.6.0
+      @description
+        @p: Added a selection of new features including the addition of autocomplete to tag inputs, the ability to press and hold to increment/decrement Number Pickers, improved reusability of Dropdowns and the addition of min/max options to Sparklines.
+
+    @version 1.7.0
+      @description
+        @p: Added support for lazily loaded data table feeds
+        @p: Added the @code[disabled] context class to @code(js)[hx.palette.context]
+        @p: Fixed a bug in sticky table headers that prevented nested sticky tables being created
+
+    @version 1.8.0
+      @description
+        @p: Added support for lazily loaded trees when building from json
+        @p: Allow HTML content inside notifications
+        @p: Disable the increment/decrement buttons for number pickers
+        @p: This release also includes a selection of bugfixes
+
+    @version 1.8.1
+      @description: Patch the issue introduced in the Notification module introduced in the previous version.
+
+    @version 1.8.2
+      @description: Fix an issue with the autocomplete and autocomplete picker that caused it to break when there are no disabled items to filter.
+
+    @version 1.9.0
+      @description
+        @p: Resolved an issue caused by the addition of @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent)[PointerEvent] in Chrome 55+.
+
+        @p: The native @code[PointerEvent] has been disabled in this version because of an incompatibility with the Hexagon pointer events. Native support will be re-introduced in the next major release.
+
+    @version 1.10.0
+      @description
+        @p: Resolved some issues with the data table sort/filter.
+        @p: Added automatic label collision detection to graphs to prevent label overlap.
+        @p: Made Inline Editables allow 'empty' values.
+        @p: Fixed a selection of bugs.
+
+    @version 1.11.0
+      @description
+        @p
+          Fixed an issue where running the tests in a different timezone
+           caused them to fail unexpectedly and the associated bug in the timezone
+           logic.
+        @p
+          Fixed selections so calling hx.select on a Selection no longer
+           shows a warning (and instead performs a no-op)
+
+    @version 1.12.0
+      @description
+        Some utility methods on @code[Selection] have been added for replacing
+        DOM and setting the children of a @code[Selection].
+
+    @version 1.13.0
+      @description
+        Add several new features and style tweaks based on UX discussion(s)
+
+    @version 1.14.0
+      @description
+        Deprecated @code[hx.Meter] and fixed a few bugs.
+
+  @h2: Key
+  @changelog.key

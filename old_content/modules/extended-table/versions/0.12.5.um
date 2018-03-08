@@ -1,0 +1,243 @@
+@version 0.12.5
+  @api Extended Table
+    @prototype hx.Table
+      @enhancement: Updated the table paginator to be more inline with paginators used in other tables and to make it make more sense.
+
+      @property options [Object]
+        @property allowHeaderWrap [Boolean]: A boolean value that determines whether the header text should be allowed to wrap or not.
+          @default: false
+          @added
+
+        @property userSelectRowsPerPage [Boolean]: A boolean value that determines whether the dropdown for selecting the number of rows per page should be shown.
+          @added
+
+          @default: false
+
+        @property singleSelectionMode [Boolean]: A boolean value that determines whether the table should be in single selection mode, only allowing one row to be selected at a time.
+          @default: false
+
+      @property paginator [Paginator]
+        @removed: The paginator element is no longer used by the table. Use the @code[page(page)] to set the page.
+
+
+      @method page
+        @added
+
+        @description: A method for setting the currently selected page of a table.
+        @arg page [Number]: The page to select.
+        @arg? callback [Function]: A function to call once the table has finished rendering the page.
+
+      @method setData
+        @description
+          Sets for the table to use.
+
+        @arg data [Object/String/Function]
+          @updated:
+            @p: Added the ability to override the @code[allowHeaderWrap] setting for individual columns using the @code[allowWrap] property.
+
+          @description
+            The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
+
+            @collapsible Object
+              @codeblock js
+                {
+                  head:{ // header object
+                    columns:[ // object for each column
+                      { value:"Name" },
+                      { value:"Age" },
+                      { value:"Gender" },
+                      { value:"Date of Birth" },
+                      { value:"Salary (£)" }
+                    ]
+                  },
+                  "body":[
+                    [ "Bob", "23", "Male", "1970-01-01", "20001" ],
+                    [ "Jane", "27", "Female", "1971-02-03", "21345" ],
+                    ... // Additional Rows
+                  ]
+                }
+
+              The data can also be specified with additional properties for the rows. The table will only look for data in the 'columns' property, any other values will be ignored. They will be returned as part of the row data in methods like 'getSelected':
+
+              @codeblock js
+                {
+                  ...
+                  "body":[
+                    [
+                      {
+                        prop: 'id',
+                        columns: [ "Bob", "23", "Male", "1970-01-01", "20001" ]
+                      },
+                      ...
+                    ]
+                  ]
+                }
+
+              Additionally, column data can also be specified in object format:
+
+              @codeblock js
+                {
+                  ...
+                  "body":[
+                    [{value: 1, formatted: "1.0"}, {value: 4, formatted: "4.0"}, {value: 8, formatted: "8.0"}],
+                  ]
+                }
+
+              If data is provided in this format, a cellValueLookup (or similar function) must be provided.
+
+
+            @collapsible Function
+              @codeblock js
+                var feed = function(request, callback) {
+                  if (request.type == 'header') {
+                    // available request properties:
+                    // request.type
+                    // request.extra
+                    var headerData = ... // get the header data from somewhere
+                    callback(headerData);
+                  }
+                  if (request.type == 'rowCount') {
+                    // available request properties:
+                    // request.type
+                    // request.extra
+                    var rowCount = ... // get the total number of rows from somewhere
+                    callback(rowCount);
+                  }
+                  if (request.type == 'rows') {
+                    // available request properties:
+                    // request.type
+                    // request.extra
+                    // request.startRow
+                    // request.endRow
+                    // request.filters
+                    // request.sortColumn
+                    // request.sortDirection
+                    // get the total number of rows from somewhere
+                    var rows = ...
+                    // get the total number of rows from somewhere
+                    var totalProcessedSize = ...
+                    callback(rows, totalProcessedSize);
+                  }
+                }
+                table.setData(feed, {id: 'my-table-id'})
+
+
+
+            @collapsible Server Side
+              @codeblock js
+                table.setData('https://example.com/data', {id: 'my-table-id'})
+
+              <b>Note</b> In this case, the server must respond correctly to the post requests that are made. The post request will contain some json that describes the data that should be returned. The possible types of request are:
+
+              @h3: Header
+              @h4: Request
+              @codeblock js
+                {
+                  "type": "header",
+                  "extra": {
+                    // the extra object that was supplied when calling setData
+                  }
+                }
+
+
+              @p: You should respond with the header info in json form:
+              @h4: Response
+              @codeblock js
+                {
+                  head: {
+                    columns:[ // object for each column
+                      { value:"Name" },
+                      { value:"Age" },
+                      { value:"Gender" },
+                      { value:"Date of Birth"},
+                      { value:"Salary (£)" }
+                    ]
+                  }
+                }
+
+              @h3: Row count
+              @h4: Request
+              @codeblock js
+                {
+                  "type": "rowCount",
+                  "extra": {
+                    // the extra object that was supplied when calling setData
+                  }
+                }
+
+              @h4: Response
+              @codeblock js
+                {
+                  "count": 12345, // the total number of rows in the data set
+                }
+
+              @h3: Row data
+              @h4: Request
+              @codeblock js
+                {
+                  "type": "rows",
+                  "startRow": 0,
+                  "endRow": 99,
+                  "filters": {
+                    "age": "10"
+                  },
+                  "sortColumn": "name",
+                  "sortDirection": true,
+                  "extra": {
+                    // the extra object that was supplied when calling setData
+                  }
+                }
+
+              @h4: Response
+              @codeblock js
+                {
+                  "rows": [
+                    [
+                      "Bob",
+                      "23",
+                      "Male",
+                      "1970-01-01",
+                      "20001"
+                    ],
+                    ... // Additional Rows
+                  ],
+                  "processedSize": 1050 // the total number of rows in the processed (filtered and sorted) data set
+                }
+
+            @h3: Adding multi column / grouped headers
+            However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns]
+
+            @codeblock js
+              {
+                columns:[ // object for each column
+                  { value:"Name", groups:["Group 1"]},
+                  { value:"Age" },
+                  { value:"Gender", groups:["Group 2"]},
+                  { value:"Date of Birth", groups:["Group 2"]},
+                  { value:"Salary (£)", groups:["Group 2"]}
+                ]
+              }
+
+            @h3: Wrapping header text for individual columns
+
+            @p: It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the allowWrap property in the header colums:
+            @codeblock js
+              {
+                head: {
+                  columns:[ // object for each column
+                    { value:"Name" },
+                    { value:"Age" },
+                    { value:"Gender" },
+                    { value:"Date of Birth", allowWrap: true}, // Column will wrap if needed
+                    { value:"Salary (£)", allowWrap: false } // Column will never wrap
+                  ]
+                }
+              }
+
+        @arg? extra [Object]
+
+        @arg? clearSorts [Boolean]
+
+        @arg? clearFilters [Boolean]
+
+        @arg? callback [Function]

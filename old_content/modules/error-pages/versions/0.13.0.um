@@ -1,0 +1,27 @@
+@version 0.13.0
+
+  @examples
+    @example
+      @html
+        <div style="position: relative; height: 500px;">
+          <div class="hx-error-message">
+            <div class="hx-error-message-heading">
+              404
+            </div>
+            <div>
+              <p>The content you requested was not found</p>
+            </div>
+            <div>
+              <button onclick="javascript:window.history.back()" class="hx-btn hx-positive">Go Back</button><a class="hx-btn hx-positive" href="/">Go to Home Page</a>
+            </div>
+          </div>
+        </div>
+
+  @api Error Pages
+    @class hx-error-message
+      @class hx-error-message-heading
+      @class hx-error-message-text
+        @removed
+      @class hx-error-message-buttons
+        @removed
+

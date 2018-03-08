@@ -1,0 +1,15 @@
+@version 0.11.0
+  @api Event Emitter
+    @prototype hx.EventEmitter
+      @method deregister
+        @removed:
+          @codeblock
+            eventEmitter.off('event-name', [callback])
+        @arg name [String]
+        @arg callback [Function]
+
+      @method deregisterAll
+        @removed:
+          @codeblock
+            eventEmitter.off()
+        @arg? name [String]

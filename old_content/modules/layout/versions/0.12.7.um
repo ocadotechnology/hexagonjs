@@ -1,0 +1,4 @@
+@version 0.12.7
+  @api Layout
+    @class hx-group
+      @enhancement: Will now not exceed the width of the parent container (has max-width: 100% applied).

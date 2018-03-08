@@ -4,8 +4,12 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Button Group
-  @description
-    A method of selecting a value from a range of values using grouped buttons
+  @versioned 
+    @version 0.12.4
+      @description 
+        A method of selecting a value from a range of values using grouped buttons.
+
+
 
 @contentSection
   @topic Examples
@@ -14,4 +18,10 @@
         @inline examples/*.um
 
   @topic Api
+    @hyperlink(/docs/button-group/changelog)[Change Log]
+
     @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

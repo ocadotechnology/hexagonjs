@@ -1,0 +1,148 @@
+@version 0.9.0
+
+  @description
+    A combined date/time picker component, for selecting both date and time at the same time.
+
+  @examples
+    @example
+      @html
+        <div id="dateTimePickerExample"></div>
+
+      @js
+        new hx.DateTimePicker('#dateTimePickerExample')
+
+  @api Date Time Picker
+    @prototype hx.DateTimePicker
+      @extends EventEmitter
+      @description: A class used to combine a date picker and a time picker so that they work toghether.
+
+      @constructor
+        @description: Creates a datepicker and a timepicker and appends them to the selected element.
+        @arg selector [String/HTMLElement]: The selector to use to build the date/time picker
+        @arg? type [String]
+          @description: The type of datepicker to show, can be either 'datepicker' or 'calendar'
+          @default: 'calendar'
+        @arg? showSeconds [Boolean]
+          @description: Whether to show the seconds in the timepicker.
+          @default: false
+
+      @method setDate
+        @description: Sets the date for the DateTimePicker. It can be used to set only the date or the date and the time.
+        @arg date [Date]: The date to set the timepicker to.
+        @arg? setTime [Boolean]
+          @description: Whether to set the time as well as the date. Only the day/month/year will be updated unless this is passed in as true.
+          @default: false
+        @arg? suppressCallback [Boolean]
+          @description: A value used to prevent the change event being emitted.
+          @default: false
+
+      @method setDay
+        @description: A function used to set the currently selected day
+        @arg day [Number]: The day of the month to set
+        @arg? suppressCallback [Boolean]
+          @description: A value used to prevent the change event being emitted.
+          @default: false
+
+      @method setMonth
+        @description: Sets the currently selected month
+        @arg month [Number]: The month to show
+        @arg? suppressCallback [Boolean]
+          @description: A value used to prevent the change event being emitted.
+          @default: false
+
+      @method setYear
+        @description: Sets the currently selected year
+        @arg year [Number]: The year to set the date picker to
+        @arg? suppressCallback [Boolean]
+          @description: A value used to prevent the change event being emitted.
+          @default: false
+
+      @method setHour
+        @description: Sets the currently selected hour
+        @arg hour [Number]: The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the timepicker to cycle into the next/previous day.
+        @arg? suppressCallback [Boolean]
+          @description: A value used to prevent the change event being emitted.
+          @default: false
+
+      @method setMinute
+        @description: Sets the currently selected minute
+        @arg minute [Number]: The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous hour.
+        @arg? suppressCallback [Boolean]
+          @description: A value used to prevent the change event being emitted.
+          @default: false
+
+      @method setSecond
+        @description: Sets the currently selected second
+        @arg second [Number]: The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous minute.
+        @arg? suppressCallback [Boolean]
+          @description: A value used to prevent the change event being emitted.
+          @default: false
+
+      @method addDays
+        @description: A function to add days to the currently selected date
+        @arg days [Number]: The number of days to add
+
+      @method addMonths
+        @description: A function to add months to the currently selected date
+        @arg months [Number]: The number of months to add
+
+      @method addYears
+        @description: A function to add years to the currently selected date
+        @arg years [Number]: The number of years to add
+
+      @method addHours
+        @description: A function to add hours to the currently selected date
+        @arg hours [Number]: The number of hours to add. Can be a negative number and will cycle to the next/previous day if the resulting value is not in the range of 0 - 23.
+
+      @method addMinutes
+        @description: A function to add minutes to the currently selected date
+        @arg minutes [Number]: The number of hours to add. Can be a negative number and will cycle to the next/previous hour if the resulting value is not in the range of 0 - 59.
+
+      @method addSeconds
+        @description: A function to add seconds to the currently selected date
+        @arg seconds [Number]: The number of hours to add. Can be a negative number and will cycle to the next/previous minute if the resulting value is not in the range of 0 - 59.
+
+      @method getDate
+        @description: A function to return the currently selected date.
+        @returns Date
+
+      @method getHour
+        @description: Get the currently selected hour
+        @returns Number
+
+      @method getMinute
+        @description: Get the currently selected minute
+        @returns Number
+
+      @method getSecond
+        @description: Get the currently selected second
+        @returns Number
+
+      @method getScreenDate
+        @description: Gets the concatenated date/time string, as shown in the input fields. When using moment.js, this will include localised characters.
+        @returns String
+
+      @method getScreenTime
+        @description: Get the time as it is displayed in the timepicker input box. When using moment.js, this will include localised characters.
+        @returns String
+
+      @method update
+        @description: Used to refresh the date/time picker if the locale has been updated and moment.js is being used.
+
+      @method on
+        @description: Register a function that should be called every time an event of the given name happens.
+        @arg name [String]: The event type to listen out for
+        @arg callback [Function]
+          @description: The function to call when an event occurs.
+          @arg data [Any]: The data sent along with the event (if any)
+
+        @event change [Date]
+          @description: Emitted when the date or time is changed. The data with the event is the currently selected date.
+
+        @returns DateTimePicker: This DateTimePicker
+
+  @theme
+
+  @seeAlso
+    @hxModuleLink(date-picker)
+    @hxModuleLink(time-picker)

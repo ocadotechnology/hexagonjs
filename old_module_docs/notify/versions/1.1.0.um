@@ -1,4 +1,0 @@
-@version 1.1.0
-  @api Notify
-    @updated: Updated the styles so that notifications show on top of modals when they are on screen without looking like they're floating in a strange manner.
-      @issue 69

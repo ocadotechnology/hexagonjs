@@ -1,0 +1,3 @@
+@api Menu
+
+  @inline api/*.um

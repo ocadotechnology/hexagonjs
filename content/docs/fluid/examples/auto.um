@@ -1,0 +1,14 @@
+@version 1.0.0
+  @examples 
+    @example 
+      @html 
+        <div id="example"></div>
+
+      @js 
+        hx.select('#example')
+          .add(hx.checkbox())
+          .add(hx.button({context: 'positive'}).text('Positive Button'))
+          .add(hx.button({context: 'warning'}).text('Warning Button'))
+          .add(hx.button({context: 'action'}).text('Action Button'))
+          .add(hx.icon({class: 'fa fa-plus'}))
+

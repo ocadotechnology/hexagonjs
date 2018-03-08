@@ -1,0 +1,24 @@
+@version 1.13.0
+  @examples
+    @example
+      @expanded
+      @html
+        <span class="hx-spinner"></span>
+
+    @example
+      @expanded
+      @html
+        <span class="hx-spinner hx-spinner-large"></span>
+
+    @example
+      @expanded
+      @html
+        <div class="hx-spinner-wide"></div>
+
+  @api Spinner
+    @class hx-spinner
+      @extraClass hx-spinner-large
+        @added
+          @description
+            Added a large spinner
+        @description: Use with a @code[<span>] for a large inline spinner

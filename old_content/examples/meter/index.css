@@ -1,0 +1,8 @@
+#example {
+  width: 100%;
+  height: 300px;
+}
+
+.text {
+  max-width: 60px;
+}

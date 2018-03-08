@@ -1,0 +1,97 @@
+@version 1.0.0
+  @api Color
+    @prototype Color
+
+      @property r [Number]
+        @removed
+          Use @code[red()] to get and @code[red(value)] to set the red property.
+
+
+      @property g [Number]
+        @removed
+          Use @code[green()] to get and @code[green(value)] to set the green property.
+
+
+      @property b [Number]
+        @removed
+          Use @code[blue()] to get and @code[blue(value)] to set the blue property.
+
+
+      @property h [Number]
+        @removed
+          Use @code[hue()] to get and @code[hue(value)] to set the hue property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 360 instead of a value between 0 and 1.
+
+
+      @property s [Number]
+        @removed
+          Use @code[saturation()] to get and @code[saturation(value)] to set the saturation property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
+
+
+      @property l [Number]
+        @removed
+          Use @code[lightness()] to get and @code[lightness(value)] to set the lightness property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
+
+
+      @property a [Number]
+        @removed
+          Use @code[alpha()] to get and @code[alpha(value)] to set the alpha property.
+
+
+
+      @method darken
+        @removed
+          Use @code[lighten(-value)] instead.
+
+        @arg amount [Number]
+
+      @method desaturate
+        @removed
+          Use @code[saturate(-value)] instead.
+
+        @arg amount [Number]
+
+      @method fadeIn
+        @removed
+          Use @code[fade(value)] instead.
+
+        @arg amount [Number]
+
+      @method fadeOut
+        @removed
+          Use @code[fade(-value)] instead.
+
+        @arg amount [Number]
+
+      @method setRGB
+        @removed
+          Use @code[rgb(value)] instead.
+
+        @arg arr [Array[Number]]
+
+      @method setHSL
+        @removed
+          Use @code[hsl(value)] instead.
+
+        @arg arr [Array[Number]]
+
+      @method getTextCol
+        @removed
+          Use @code[textCol()] instead.
+
+
+      @method toArray
+        @removed
+          Use @code[rgb()] or @code[hsl()] instead.
+
+
+      @method lightness
+        @removed
+          Use @code[lightness(value)] with a value between 0 and 100 instead of 0 and 1
+        @arg lightness [Number]
+
+      @method saturation
+        @removed
+          Use @code[saturation(value)] with a value between 0 and 100 instead of 0 and 1
+        @arg saturation [Number]
+
+  @extra: @inline 1.0.0/extra.um

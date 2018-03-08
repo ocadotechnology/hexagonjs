@@ -1,0 +1,3 @@
+@api Tabs
+
+  @inline api/*.um

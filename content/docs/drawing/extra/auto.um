@@ -1,0 +1,786 @@
+@version 0.9.0
+  @section Getting [Started]
+    
+    @section Intro
+      
+      The drawing api exposes a simple api for drawing diagrams in the browser. It uses a model-view set-up for describing the drawings - you have to create the objects you want to display, and manipulate their properties, and the drawing api will ensure that the objects described in your diagram get rendered to the screen.
+
+      
+      It currently uses the canvas element to do the drawing, although there is no reason it couldn't be extended to support SVG or WebGL rendering in the future. For large diagrams (that are bigger than the screen) with relatively few objects, SVG has the potential to perform better.
+
+    
+    @section Creating [a blank canvas]
+      
+      The following example sets up an empty drawing
+
+      
+      @example 
+        @html 
+          <div id="empty-drawing"></div>
+
+        @js 
+          var drawing = new hx.Drawing('#empty-drawing');
+
+      
+      Pretty boring, right?
+
+      
+      Note that a border has been added to all the examples on this page to make it easier to see. This isn't something that is necessary for normal apps.
+
+    
+    @section Adding [something to the drawing]
+      
+      Adding a rectangle to the drawing is almost as easy.
+
+      
+      @example 
+        @html 
+          <div id="rectangle-drawing"></div>
+
+        @js 
+          var drawing = new hx.Drawing('#rectangle-drawing');
+          
+          var rect = drawing.create('rectangle');
+          rect.set('position.x', -25)
+          rect.set('position.y', -25)
+          rect.set('width', 50);
+          rect.set('height', 50);
+          rect.set('fill.color', '#776655');
+
+      
+      The drawing will redraw at 60fps (or as close to that as it can achieve). Having the drawing redraw constantly like this allows animations to appear smooth.
+
+      
+      @notice(Note)[The render loop will eventually be able to turn off when there are no changes to display. This will result in less cpu consumption and save the battery life for mobile devices. This functionality has not yet been added - however this is something that will happen internally, so there will be no change to the api in order for this optimisation to happen.]
+
+    
+    @section Enabling [mouse controls]
+      
+      Enabling mouse and touch controls can be done with the enablePan and enableZoom methods on the drawing object.
+
+      
+      @example 
+        @html 
+          <div id="controlled-drawing"></div>
+
+        @js 
+          var drawing = new hx.Drawing('#controlled-drawing');
+          
+          drawing.enablePan();
+          drawing.enableZoom();
+          
+          var rect = drawing.create('rectangle');
+          rect.set('position.x', -25)
+          rect.set('position.y', -25)
+          rect.set('width', 50);
+          rect.set('height', 50);
+          rect.set('fill.color', '#335544');
+          
+
+      
+      
+      @section What [does the drawing api provide over using bare canvas/SVG?]
+        
+        The drawing api exposes a set of features that are not dependent on the type of drawing engine being used. This gives the advantage that we could in theory swap all rendering over to use WebGL in the future once browser support is mature enough.
+
+        
+        The drawing api also takes care of all the conversions from drawing coordinates to screen coordinates. This allows you to draw things at any scale, and have the api scale them to fit on the page for you.
+
+        
+        The drawing api also comes with a built in camera object, which allows panning and zooming on the diagram, and also ways to detect clicks on objects in the drawing.
+
+        
+        The api is also designed around the idea that diagrams will be being updated via a live feed, most probably using websockets.
+
+        
+        These are all features that do not come natively with the canvas element (since the canvas element is essentially just a bitmap).
+
+  @section Primitives
+    
+    @section Available [Types]
+      
+      There are currently 7 different primitives drawing types in the api:
+
+      
+      @list 
+        @item[Circle]
+        @item[Rectangle]
+        @item[Text]
+        @item[Line]
+        @item[Grid]
+        @item[Shape]
+        @item[Composite]
+
+      
+      These can all be created through the 'create' method on the drawing object. Each primitive type has it's own class which is described in the api section.
+
+    
+    @section Example
+      
+      This example shows how each primitive can be created, and shows use of some of the properties.
+
+      
+      @example 
+        @js 
+          var drawing = new hx.Drawing('#drawing-example');
+          drawing.enablePan();
+          drawing.enableZoom();
+          drawing.camera.setupBounds(0.25, 10, -100, -100, 100, 100);
+          
+          
+          var colors = [
+            'rgb(192,46,29)',
+            'rgb(241,108,32)',
+            'rgb(236,170,56)',
+            'rgb(92,167,147)',
+            'rgb(17,120,153)',
+            'rgb(13,60,85)'
+          ];
+          
+          // create a circle
+          var circle = drawing.create('circle');
+          circle.set('position.x', -80);
+          circle.set('fill.color', colors[0]);
+          circle.set('radius', 10);
+          
+          // create a rectangle
+          var rectangle = drawing.create('rectangle');
+          rectangle.set('position.x', -60);
+          rectangle.set('position.y', -10);
+          rectangle.set('height', 20);
+          rectangle.set('width', 20);
+          rectangle.set('fill.color', colors[1]);
+          
+          // create a text object
+          var text = drawing.create('text');
+          text.set('position.x', -35);
+          text.set('color', colors[2]);
+          text.set('text', 'text');
+          text.set('align.y', 'middle');
+          
+          // create a line
+          var line = drawing.create('line');
+          line.set('start.x', -5);
+          line.set('end.x', 15);
+          line.set('color', colors[3]);
+          
+          // create a grid
+          var grid = drawing.create('grid');
+          grid.set('position.x', 20);
+          grid.set('position.y', -12.5);
+          grid.set('gridSize.x', 5);
+          grid.set('gridSize.y', 5);
+          grid.set('cellSize.x', 5);
+          grid.set('cellSize.y', 5);
+          grid.set('gridLines.color', colors[4]);
+          
+          // create a shape (described with a cubic curve)
+          var shape = drawing.create('shape');
+          shape.set('position.x', 60);
+          shape.set('fill.color', colors[5]);
+          
+          var edges = 10;
+          var size = 10;
+          
+          //construct a curve to draw
+          var curve = hx.range(edges+1).map(function(i){
+            return [
+              Math.sin((2*i + 1) * Math.PI / edges) * size,
+              Math.cos((2*i + 1) * Math.PI / edges) * size,
+              Math.sin((2*i + 2) * Math.PI / edges) * size*0.5,
+              Math.cos((2*i + 2) * Math.PI / edges) * size*0.5
+            ]
+          });
+          
+          shape.set('curve', curve);
+          
+          // make the drawing fit the canvas
+          drawing.show(drawing, 2);
+
+        @html 
+          <div id="drawing-example" class="docs-drawing"></div>
+
+        @css 
+          .docs-drawing {
+            height: 200px;
+          }
+
+    
+    @section Setting [Properties]
+      
+      The primitives each have a separate set of properties that can be set. However, the method for setting the properties is always the same: using the set method:
+
+      
+      @@codeblock js
+        obj.set('property', value);
+
+      
+      The properties that are available to set are described in the api section - they differ for each primitive type.
+
+    
+    
+    @section Composite [Objects]
+      
+      Objects can be grouped together using composite objects. This makes it possible to create more detailed objects in the scene (rather than having just a simple rectangle for displaying something, for example). Composite objects are intended to be used for small, reusable drawing objects.
+
+      
+      The objects contained in the composite object can be referenced through the composite objects set and get methods.
+
+      
+      @example 
+        @js 
+          var drawing = new hx.Drawing('#composite-example');
+          
+          drawing.enablePan();
+          drawing.enableZoom();
+          drawing.camera.setupBounds(0.25, 10, -100, -100, 100, 100);
+          
+          function createFace() {
+            var composite = drawing.create('composite');
+          
+            composite.create('rectangle', 'face');
+            composite.create('rectangle', 'lefteye');
+            composite.create('rectangle', 'righteye');
+            composite.create('rectangle', 'lips');
+          
+            composite.set('face.width', 10);
+            composite.set('face.height', 10);
+            composite.set('face.position.x', -5);
+            composite.set('face.position.y', -5);
+            composite.set('face.fill.color', '#996622');
+          
+            composite.set('lefteye.width', 2);
+            composite.set('lefteye.height', 2);
+            composite.set('lefteye.position.x', -3);
+            composite.set('lefteye.position.y', -3);
+            composite.set('lefteye.fill.color', '#FFF');
+          
+            composite.set('righteye.width', 2);
+            composite.set('righteye.height', 2);
+            composite.set('righteye.position.x', 1);
+            composite.set('righteye.position.y', -3);
+            composite.set('righteye.fill.color', '#FFF');
+          
+            composite.set('lips.width', 6);
+            composite.set('lips.height', 1);
+            composite.set('lips.position.x', -3);
+            composite.set('lips.position.y', 2);
+            composite.set('lips.fill.color', '#FFF');
+          
+            return composite;
+          }
+          
+          
+          var face1 = createFace();
+          var face2 = createFace();
+          var face3 = createFace();
+          
+          // each composite objects that have been created can be acted on as if they are a single object
+          face1.set('face.fill.color', '#225599');
+          face1.set('position.x', 0);
+          face1.set('angle', -0.5);
+          
+          face2.set('face.fill.color', '#552299');
+          face2.set('position.x', 20);
+          face2.set('scale', 1.5);
+          
+          face3.set('face.fill.color', '#995522');
+          face3.set('position.x', 40);
+          face3.set('angle', 0.5);
+          
+          
+          // make the drawing fit the canvas
+          drawing.show(drawing, 1.5);
+
+        @html 
+          <div id="composite-example" class="docs-drawing"></div>
+
+  @section Camera [Manipulation]
+    
+    @section Enabling [mouse controls]
+      
+      Enabling the drawing to be controlled with the mouse / touch can be done as follows:
+      
+      @@codeblock js
+        var drawing = new hx.Drawing('#drawing-id');
+        
+        // enable panning
+        drawing.enablePan();
+        
+        // enable mouse-wheel zoom, and pinch zoom on touch devices.
+        drawing.enableZoom();
+
+    
+    @section Moving [the camera]
+      
+      The position of the camera can be set directly using the following:
+      
+      @@codeblock js
+        drawing.camera.position.x = 100;
+        drawing.camera.position.y = 250;
+
+    
+    @section Showing [an object]
+      
+      The position and zoom of the camera can be changed so that a chosen object appears at the centre of the screen:
+      
+      @@codeblock js
+        drawing.show(obj);
+
+      
+      See the api docs for more details.
+
+    
+    @section Following [an object]
+      
+      The camera can also be set to follow an object using:
+      
+      @@codeblock js
+        drawing.follow(obj);
+
+      
+      Again, see the api docs for more details.
+
+    
+    @section Limiting [the camera's movements]
+      The minimum and maximum zoom of the camera can be set to limit the zoom range:
+      
+      @@codeblock js
+        drawing.camera.zoomMin = 0.5;
+        drawing.camera.zoomMax = 1.5;
+
+      
+      Both zoomMin and zoomMax are scale factors - so 1 represents no zooming, 0.5 represents zooming out, and showing everything at 50% scale, and 1.5 represents zooming in, showing everything at 150% scale.
+      
+      The area that the camera can pan around can also be limited by setting the xMin, xMax, yMin and yMax properties on the camera object:
+      
+      @@codeblock js
+        drawing.camera.xMin = -100;
+        drawing.camera.xMax = -100;
+        drawing.camera.yMin = 100;
+        drawing.camera.yMax = 100;
+
+  @section Animation
+    
+    @section Animating [properties]
+      
+      Animations are a useful way to convey changing state to a user. Animated drawings don't just make a page more engaging; an animated drawing contains more information than a static one.
+
+      
+      Almost every property of a drawing object can be animated. This means you can animate positions, sizes, colors, and even text containing numbers. There are a couple of properties where it does not make sense to be able to animate, and these are outlined in the api docs.
+
+      
+      
+      <div class="hx-layout hx-group hx-horizontal">
+      <div class="hx-section hx-medium">
+      @section Static
+        @example 
+          @html 
+            <div id="basic-drawing"></div>
+
+          @js 
+            var drawing = new hx.Drawing('#basic-drawing');
+            
+            var colors = [
+              'rgb(192,46,29)',
+              'rgb(241,108,32)',
+              'rgb(236,170,56)',
+              'rgb(92,167,147)',
+              'rgb(17,120,153)',
+              'rgb(13,60,85)'
+            ];
+            
+            var circle = drawing.create('circle');
+            circle.set('fill.color', colors[5]);
+            
+            function randomCol() {
+              return colors[Math.floor(Math.random()*6)];
+            }
+            
+            drawing.on('update', function(i) {
+              if(i%120==0){
+            
+                var x = (Math.random() - 0.5) * 200;
+                var y = (Math.random() - 0.5) * 150;
+            
+                circle.set('position.x', x);
+                circle.set('position.y', y);
+                circle.set('fill.color', randomCol());
+            
+              }
+            });
+
+      </div>
+      
+      <div class="hx-section hx-medium">
+      @section Animated
+        @example 
+          @html 
+            <div id="animated-drawing"></div>
+
+          @js 
+            var drawing = new hx.Drawing('#animated-drawing');
+            
+            var colors = [
+              'rgb(192,46,29)',
+              'rgb(241,108,32)',
+              'rgb(236,170,56)',
+              'rgb(92,167,147)',
+              'rgb(17,120,153)',
+              'rgb(13,60,85)'
+            ];
+            
+            var circle = drawing.create('circle');
+            circle.set('fill.color', colors[5]);
+            
+            function randomCol() {
+              return colors[Math.floor(Math.random()*6)];
+            }
+            
+            drawing.on('update', function(i) {
+              if(i%120==0){
+            
+                var x = (Math.random() - 0.5) * 200;
+                var y = (Math.random() - 0.5) * 150;
+            
+                circle.set('position.x', x, 2000);
+                circle.set('position.y', y, 2000);
+                circle.set('fill.color', randomCol(), 2000);
+            
+              }
+            });
+
+      </div>
+      </div>
+      
+      The same method used to set property values is used to animate them. The third parameter to the set method is the duration in milliseconds that the transition should take. The animation will always start from it's current value and end at the value provided.
+
+      
+      @@codeblock js
+        obj.set('property', value, duration);
+
+      
+      If a property is set half way through an animation, the animation will be discarded, and the property value will be set. If another animation is applied whilst another animation is running, the current animation will stop, and the new one will start from the current state.
+
+    
+    @section End [of animation callback]
+      
+      @@codeblock js
+        obj.set('property', value, duration, function(){
+          // gets called when the animation finishes
+        });
+
+      
+      An optional callback can be supplied to be called at the end of a property animation. This callback will also be called if the animation is interrupted. See the api section for more details.
+
+  @section Interactivity
+    
+    @section Making [objects selectable]
+      
+      @example 
+        @html 
+          <div id="selection-example" class="docs-drawing"></div>
+
+        @js 
+          var drawing = new hx.Drawing('#selection-example');
+          drawing.enablePan();
+          drawing.enableZoom();
+          drawing.enableSelection();
+          
+          drawing.camera.zoomMin = 0.25;
+          drawing.camera.zoomMax = 10.0;
+          drawing.camera.xMin = -100;
+          drawing.camera.yMin = -50;
+          drawing.camera.xMax = 100;
+          drawing.camera.yMax = 50;
+          
+          // create a circle
+          var circle = drawing.create('circle');
+          circle.set('position.x', -25);
+          circle.set('fill.color', '#224466');
+          circle.set('radius', 10);
+          circle.set('selectable', true);
+          
+          var circle = drawing.create('circle');
+          circle.set('position.x', 0);
+          circle.set('fill.color', '#446622');
+          circle.set('radius', 10);
+          circle.set('selectable', true);
+          
+          
+          var circle = drawing.create('circle');
+          circle.set('position.x', 25);
+          circle.set('fill.color', '#664422');
+          circle.set('radius', 10);
+          circle.set('selectable', true);
+          
+          // make the drawing fit the canvas
+          drawing.show(drawing, 2);
+
+      
+      Objects can be made selectable by calling:
+
+      
+      @@codeblock js
+        obj.set('selectable', true);
+
+      
+      In addition to this, the drawing must also have selection enabled:
+
+      
+      @@codeblock js
+        drawing.enableSelection();
+
+      
+      The selected objects can be accessed via the @code(js)[selected] method on the drawing:
+
+      
+      @@codeblock js
+        var selected = drawing.selected();
+
+      
+      Objects can also be selected using the .select method on the drawing object:
+
+      
+      @@codeblock js
+        var circle = drawing.create('circle');
+        ...
+        
+        drawing.select(circle);
+
+    
+    
+    @section Detecting [clicks]
+      
+      The drawing object is an event emitter, which enables you to detect clicks as follows:
+
+      
+      @@codeblock js
+        drawing.on('click', function(position){
+          // position is an object with x and y properties which give
+          // the screen coordinates relative to the drawing and wx and
+          // wy properties which give world coordinates.
+          console.log(position);
+        })
+
+    
+    @section Enabling [the search box]
+      
+      Drawings can be given a search box to give users a way to search for objects within the drawing:
+
+      
+      @@codeblock js
+        drawing.enableSearchbox();
+
+      
+      This on it's own won't actually do anything. It simply causes a box to be displayed on the drawing that the user can input searches to. To act on these searches, you must listen out for search events being emitted on the drawing object. Here is one way you could act on a search event being emitted.
+
+      
+      @@codeblock js
+        drawing.on('search', function(searchString){
+          var obj = drawing.findBy(function(obj){
+            obj.get('attr.name') == searchString
+          });
+        
+          if (obj) {
+            drawing.select(obj);
+            drawing.follow(obj);
+          }
+        });
+
+      
+      
+      Example: try searching for circle-1, circle-2 or circle-3 in this drawing:
+
+      
+      @example 
+        @html 
+          <div id="search-example" class="docs-drawing"></div>
+
+        @js 
+          var drawing = new hx.Drawing('#search-example');
+          drawing.enablePan();
+          drawing.enableZoom();
+          drawing.enableSelection();
+          drawing.enableSearchbox();
+          
+          // helper for setting up the bounds for the camera
+          drawing.camera.setupBounds(0.25, 10, -100, -50, 100, 50);
+          
+          drawing.on('search', function(searchTerm){
+            var obj = drawing.find(searchTerm);
+            if (obj) {
+              drawing.select(obj);
+              drawing.show(obj);
+            }
+          });
+          
+          // create a circle
+          var circle = drawing.create('circle', 'circle-1');
+          circle.set('position.x', -25);
+          circle.set('fill.color', '#224466');
+          circle.set('radius', 10);
+          circle.set('selectable', true);
+          
+          var circle = drawing.create('circle', 'circle-2');
+          circle.set('position.x', 0);
+          circle.set('fill.color', '#446622');
+          circle.set('radius', 10);
+          circle.set('selectable', true);
+          
+          
+          var circle = drawing.create('circle', 'circle-3');
+          circle.set('position.x', 25);
+          circle.set('fill.color', '#664422');
+          circle.set('radius', 10);
+          circle.set('selectable', true);
+          
+          // make the drawing fit the canvas
+          drawing.show(drawing, 2);
+
+  @section Layers
+    
+    @section Toggling [layer visibilty]
+      
+      Drawings internally by default all draw to a layer that is created by default. More layers-zoom can be added to a drawing via the createLayer method. Layers do one thing: allow you to hide or show groups of objects.
+
+      
+      The following example allows you to toggle between two layers which show alternative views of something:
+
+      
+      @example 
+        @html 
+          <button id="toggle" class="hx-btn hx-btn-toggle hx-positive">Toggle Layers</button>
+          <div id="layers-example" class="docs-drawing"></div>
+
+        @js 
+          var drawing = new hx.Drawing('#layers-example');
+          
+          var colors = [
+            'rgb(192,46,29)',
+            'rgb(241,108,32)',
+            'rgb(236,170,56)',
+            'rgb(92,167,147)',
+            'rgb(17,120,153)',
+            'rgb(13,60,85)'
+          ];
+          
+          var layer1 = drawing.createLayer();
+          var layer2 = drawing.createLayer();
+          
+          createArea = function(x, colIndex) {
+            var circle = layer1.create('circle');
+            circle.set('position.x', x);
+            circle.set('fill.color', colors[colIndex]);
+            circle.set('radius', 10);
+            circle.set('selectable', true);
+          
+            hx.range(100).forEach(function(){
+              var miniCircle = layer2.create('circle');
+          
+              var normal = colors[colIndex]
+              var lighter = hx.color(colors[colIndex]).lighten(0.5).toString()
+              var cr = function(x) {
+                return  hx.color(normal).mix(hx.color(lighter), x).toString()
+              }
+          
+              dist = Math.random()*9.5
+              angle = Math.random()*Math.PI*2
+              miniCircle.set('position.x', x + Math.cos(angle)*dist);
+              miniCircle.set('position.y', Math.sin(angle)*dist);
+              miniCircle.set('fill.color', cr(Math.random()));
+              miniCircle.set('radius', 0.5);
+              miniCircle.set('selectable', true);
+            });
+          }
+          
+          createArea(-25, 1);
+          createArea(0, 2);
+          createArea(25, 3);
+          
+          drawing.show(drawing, 1.1);
+          
+          drawing.showLayer(layer1);
+          
+          hx.select('#toggle').on('click', function(){
+            if(hx.select('#toggle').attr('data')=='true'){
+              drawing.showLayer(layer1);
+            } else {
+              drawing.showLayer(layer2);
+            }
+          }, true);
+
+    
+    
+    @section Linking [zoom level to layer visibility]
+      
+      The visibility of a layer can also be linked to the zoom level of the camera. This make it possible to create diagrams which reveal more detail when zoomed in close, and show an overview when zoomed out.
+
+      
+      @example 
+        @html 
+          <div id="layers-zoom-example" class="docs-drawing"></div>
+
+        @js 
+          var drawing = new hx.Drawing('#layers-zoom-example');
+          
+          var colors = [
+            'rgb(192,46,29)',
+            'rgb(241,108,32)',
+            'rgb(236,170,56)',
+            'rgb(92,167,147)',
+            'rgb(17,120,153)',
+            'rgb(13,60,85)'
+          ];
+          
+          drawing.enableZoom();
+          
+          drawing.camera.zoomMin = 0.25;
+          drawing.camera.zoomMax = 10.0;
+          
+          var layer1 = drawing.createLayer();
+          var layer2 = drawing.createLayer();
+          
+          createArea = function(x, colIndex) {
+            var circle = layer1.create('circle');
+            circle.set('position.x', x);
+            circle.set('fill.color', colors[colIndex]);
+            circle.set('radius', 10);
+            circle.set('selectable', true);
+          
+            hx.range(100).forEach(function(){
+              var miniCircle = layer2.create('circle');
+          
+              var normal = colors[colIndex]
+              var lighter = hx.color(colors[colIndex]).lighten(0.5).toString()
+              var cr = function(x) {
+                return  hx.color(normal).mix(hx.color(lighter), x).toString()
+              }
+          
+              dist = Math.random()*9.5
+              angle = Math.random()*Math.PI*2
+              miniCircle.set('position.x', x + Math.cos(angle)*dist);
+              miniCircle.set('position.y', Math.sin(angle)*dist);
+              miniCircle.set('fill.color', cr(Math.random()));
+              miniCircle.set('radius', 0.5);
+              miniCircle.set('selectable', true);
+            });
+          }
+          
+          createArea(-25, 1);
+          createArea(0, 2);
+          createArea(25, 3);
+          
+          drawing.show(drawing, 1.1);
+          
+          
+          layer1.setAlphaCurve('ramp', 2, 1);
+          layer2.setAlphaCurve('ramp', 1, 2);
+
+  @section Overlays
+    
+    @notice Note
+      Drawings will receive an update in the future to enable showing overlays that contain regular html elements. This will provide a way to display information on an object that has been selected in drawing.
+      
+      This will be necessary since selection of text isn't possible when using canvas.
+

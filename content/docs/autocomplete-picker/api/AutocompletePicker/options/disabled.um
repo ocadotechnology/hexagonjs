@@ -1,5 +1,0 @@
-@property disabled [Boolean]
-  @description
-    The initial disabled state of the autocomplete picker
-
-  @default: false

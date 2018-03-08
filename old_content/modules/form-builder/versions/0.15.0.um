@@ -1,0 +1,48 @@
+@version 0.15.0
+  @examples
+    @example
+      @html: <form id="form"></form>
+      @js: @inline 0.14.2/example.js
+
+  @api Form Builder
+    @prototype hx.Form
+      @group Add Component Methods
+        @method addPicker
+          @description: Adds a picker to the form.
+          @arg name [String]: The field name.
+          @arg values [Array[String/Object]]
+            @description
+              @p: An array of the possible options in the picker. It can be an array of strings or an array of objects, e.g.:
+              @codeblock js
+                [ "Hue", "Saturation", "Lightness"]
+              @codeblock js
+                var values = [
+                  { text: 'Hue', value: 'hue' } ,
+                  { text: 'Saturation', value: 'saturation'},
+                  { text: 'Lightness', value: 'lightness'}
+                ];
+                form.addSelect('Select', values)
+          @arg? options [Object]
+            @property key [String]: The property name to map the input value to when filling the form and when getting the data.
+            @property required [Boolean]
+              @description:
+                @p: Whether or not this is a required field.
+                @p: When the value is 'false', the picker object will start with a blank value but is not required to be selected.
+                @p: When the value is 'true', the picker object will start with a blank value and will not validate until a user has selected an option.
+                @p: When the value is not defined, the picker behaves as normal.
+            @property pickerOptions [Object]
+              @description: The options to use for the picker component. See the @link(../picker/)[picker] constructor for the available options.
+            @property disabled [Boolean]: Whether the picker should be disabled.
+          @returns Form: This Form
+
+        @method addSelect
+          @arg name [String]
+          @arg values [Array[Object]]
+          @arg? options [Object]
+          @removed: Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.
+
+        @method addSelect
+          @arg name [String]
+          @arg values [Array[String]]
+          @arg? options [Object]
+          @removed: Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.

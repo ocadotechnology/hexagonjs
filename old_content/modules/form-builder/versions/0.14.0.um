@@ -1,0 +1,76 @@
+@version 0.14.0
+  @examples
+    @example
+      @html: <form id="form"></form>
+      @js: @inline 0.14.0/example.js
+
+  @api Form Builder
+    @prototype hx.Form
+      @group Add Component Methods
+        @method addDatePicker
+          @arg name [String]
+          @arg? options [Object]
+            @property type [String]
+              @removed
+                Use @code[datePickerOptions] instead.
+            @property closeOnSelect [Boolean]
+              @removed
+                Use @code[datePickerOptions] instead.
+            @property selectRange [Boolean]
+              @removed
+                Use @code[datePickerOptions] instead.
+
+
+        @method addTimePicker
+          @arg name [String]
+          @arg? options [Object]
+            @property showSeconds [Boolean]
+              @removed
+                Use @code[timePickerOptions] instead.
+            @property buttonClass [String]
+              @removed
+                Use @code[timePickerOptions] instead.
+
+
+        @method addDateTimePicker
+          @arg name [String]
+          @arg? options [Object]
+            @property type [String]
+              @removed
+                Use @code[dateTimePickerOptions] instead.
+            @property showSeconds [Boolean]
+              @removed
+                Use @code[dateTimePickerOptions] instead.
+
+        @method addTagInput
+          @arg name [String]
+          @arg? options [Object]
+            @property classifier [Function]
+              @removed
+                Use @code[tagInputOptions] instead.
+            @property validator [Function]
+              @removed
+                Use @code[tagInputOptions] instead.
+
+        @method addTextArea
+          @description: Adds a textarea field to the form.
+          @arg name [String]: The field name.
+          @arg? options [Object]
+            @description: The options to use when creating the textarea field.
+            @property required [Boolean]: Whether or not this is a required field.
+            @property disabled [Boolean]: Whether the field should have the disabled attribute.
+            @property placeholder [String]: The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
+            @property type [String]: The type of text field - the default is 'textarea'.
+            @property attrs [Array]: Additional attributes to give the textarea input. This should be an array of objects with type and value properties.
+            @property key [String]: The property name to map the input value to when filling the form and when getting the data.
+            @property validator [Function]
+              @description: A function that is called when the 'oninput' function is called. It is passed the event object and should return an error message as a string:
+                @codeblock js
+                  var validator = function(e){
+                    if(e.target.value.length < 5){
+                      "Please enter text longer than 5 characters"
+                    }
+                  }
+              @arg event [Event]: The input event emitted from the textarea.
+              @returns String: The error string to display if the string did not validate, or undefined if the contents of the input was valid.
+          @returns Form: This Form

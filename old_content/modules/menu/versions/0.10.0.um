@@ -1,0 +1,9 @@
+@version 0.10.0
+  @api Menu
+    @class hx-menu
+      @extraClass [hx-color-[n]]
+        @removed
+
+  @theme
+    @option colors
+      @removed

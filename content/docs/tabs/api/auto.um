@@ -1,0 +1,124 @@
+@prototype hx.Tabs
+  @description 
+    A layout type for displaying multiple pieces of content in the same area of the page.
+
+  @extends EventEmitter
+  @constructor 
+    @description 
+      Sets up a tabs layout.
+
+    @arg selection [String/HTMLElement]
+      @description 
+        A unique css selector or a HTMLElement that identifies the tabs section.
+        
+
+  @property selected [Number]
+    @description 
+      The index of the selected tab.
+
+  @method select
+    @description 
+      Selects a tab by index.
+
+    @arg index [Number]
+      @description 
+        The index of the tab to select. This will reveal the content for that tab.
+        
+
+    @arg? force [Boolean]
+      @description 
+        By default selections that do not actually change the selected tab will be ignored. Supply true here to force the selection to be updated even if it is the same (and thus cause a 'change' event to be emitted).
+        
+
+    @returns [Tabs]
+      @description 
+        This Tabs
+        
+
+  @event change
+    @description 
+      Emitted when the selected tab is changed.
+
+    @data Number
+      @description 
+        The index of the selected tab.
+        
+
+@class hx-tabs
+  @description 
+    The class to give to the tabs container
+
+  @class hx-tab
+    @updated 0.10.0
+      @description 
+        Removed module-specific classes in favor of generic classes
+        
+
+    @description 
+      The class to give to each tab in the tabs container
+
+    @extraClass hx-positive
+      @added 0.9.0
+      @description 
+        Colors the tab with the positive color.
+        
+
+    @extraClass hx-negative
+      @added 0.9.0
+      @description 
+        Colors the tab with the negative color.
+        
+
+    @extraClass hx-warning
+      @added 0.9.0
+      @description 
+        Colors the tab with the warning color.
+        
+
+    @extraClass hx-compliment
+      @removed 1.0.0
+        @description 
+          Use hx-complement instead
+          
+
+      @description 
+        Colors the tab with the compliment color.
+        
+
+    @extraClass hx-contrast
+      @added 0.9.0
+      @description 
+        Colors the tab with the contrast color.
+        
+
+    @extraClass hx-info
+      @added 0.9.0
+      @description 
+        Colors the tab with the info color.
+        
+
+    @extraClass hx-tab-color-[n]
+      @removed 0.10.0
+      @deprecated 0.9.0
+        @description 
+          All numbered color classes will be removed in a later version. Use the context classes instead.
+          
+
+      @description 
+        The color class to give to a tab.
+        
+
+    @extraClass hx-action
+      @added 1.0.0
+        @description 
+          Added new action context class and updated default styles.
+          
+
+      @description 
+        Colors the tab with the action color.
+
+    @extraClass hx-complement
+      @description 
+        Colors the tab with the complement color.
+        
+

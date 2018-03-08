@@ -1,0 +1,31 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Extended Table
+  @versioned 
+    @version 0.9.0
+      @description 
+        Tables with pages, row selection, filtering and sorting.
+
+    @version 1.0.0
+      @description 
+        This module was replaced with the data table module in version 1.0.0.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/extended-table/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Additional Guidelines
+    @versioned
+      @inline extra/*.um

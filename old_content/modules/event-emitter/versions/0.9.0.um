@@ -1,0 +1,96 @@
+@version 0.9.0
+
+  @description
+    An interface for emitting and subscribing to events.
+
+  @examples
+    @codeblock js
+      @inline 0.9.0/example.js
+
+  @api Event Emitter
+
+    @prototype hx.EventEmitter
+      @description
+        A class that can be extended or used standalone to provide a way of emitting events to named registered callbacks. This is generally used internally to give objects the .on method for listening for events, but can be used as a standalone object if desired.
+
+      @constructor
+        @description: Creates a new EventEmitter instance.
+
+      @method emit
+        @description: Emits an event to all listeners registered under the name supplied.
+        @arg name [String]: The event type to emit.
+        @arg data [Object]: Any data that should be sent along with the event
+        @returns EventEmitter: This event emitter
+
+      @method on
+        @description
+          Register a callback that will be called whenever an event is emitted under the given name
+        @arg name [String]: The event type to listen out for
+        @arg callback [Function]
+          @description: The function to call when the event occurs
+          @arg data [EventData]: The data sent along with the event
+        @returns EventEmitter: This event emitter
+
+      @method off
+        @description
+          De-register a callback that was registered under the given name
+        @arg? name [String]: The event type this callback was registered under.
+        @arg? callback [Function]: The callback function to remove.
+        @returns EventEmitter: This event emitter
+
+      @method deregister
+        @description
+          De-register a callback that was registered under the given name
+        @arg name [String]: The event type this callback was registered under.
+        @arg callback [Function]: The callback function to remove.
+        @returns EventEmitter: This event emitter
+
+      @method deregisterAll
+        @description
+          De-registers all callbacks registered under a particular name, or, if no name is supplied de-register all callbacks.
+        @arg? name [String]: The event type to de-register callbacks for. If not specified, all callbacks for all names will be removed.
+        @returns EventEmitter: This event emitter
+
+      @method pipe
+        @description
+          Pipes events from this event emitter into another. This makes it possible to chain multiple event emitters together if wanted.
+        @arg eventEmitter [EventEmitter]: The event emitter to send events to.
+        @arg? prefix [String]
+          @description
+            A string to append to the names of events that get piped through
+
+            @codeblock js
+              var ee1 = new hx.EventEmitter;
+              var ee2 = new hx.EventEmitter;
+
+              // pipe events from ee1 into ee2 with prefix `my-prefix`
+              ee1.pipe(ee2, 'my-prefix');
+
+              // listen for events from ee1 being piped through
+              ee2.on('my-prefix.click', function(){
+                console.log('got here');
+              });
+
+              // will cause 'got here' to be logged
+              ee1.emit('click');
+
+        @arg? filter [Array[String]]
+          @description
+            An array of event names to pipe through
+
+            @codeblock js
+              var ee1 = new hx.EventEmitter;
+              var ee2 = new hx.EventEmitter;
+
+              // only pipe the 'click' and 'move' events from ee1 into ee2. ignore the rest
+              ee1.pipe(ee2, undefined, ['click', 'move']);
+
+
+        @returns EventEmitter: This event emitter
+
+      @method has
+        @description: Checks if there are any callbacks registered for an event type.
+        @arg name [String]: The event type to check.
+        @returns Boolean: True if the event type has some callbacks registered.
+
+  @seeAlso

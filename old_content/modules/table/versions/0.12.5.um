@@ -1,0 +1,6 @@
+@version 0.12.5
+  @api Table
+    @class hx-table
+      @class hx-table-header-allow-wrap
+        @description: A class that can be added to th elements that allows the text to wrap onto multiple lines.
+        @added

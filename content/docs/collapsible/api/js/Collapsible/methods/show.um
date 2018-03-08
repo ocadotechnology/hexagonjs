@@ -1,6 +1,0 @@
-@method show
-  @description
-    Causes the collapsible to open, revealing its contents.
-
-  @inline ../arguments/animate.um
-  @inline ../arguments/returns.um

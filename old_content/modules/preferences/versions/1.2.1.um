@@ -1,0 +1,3 @@
+@version 1.2.1
+  @api Preferences
+    @enhancement: Improved the way preferences determines the locale when it is loaded so that it always uses a supported locale.
