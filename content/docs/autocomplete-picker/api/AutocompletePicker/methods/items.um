@@ -1,0 +1,19 @@
+@method items
+  @description
+    Gets the currently set items
+
+  @returns [Array/Function]
+    @description
+      The currently set items
+
+
+@method items
+  @description
+    Sets the items to an array or function
+
+  @arg items [Array/Function]
+    @inline ../arguments/items.um
+
+  @returns AutocompletePicker
+    @description
+      This @type[AutocompletePicker] for chaining

@@ -1,0 +1,13 @@
+@event hide [String]
+  @description
+    The event called when the auto complete is hidden, either by
+    changing focus or by manually calling the 'hide' method. The data
+    is the value of the input field
+
+  @deprecated 0.13.0
+    @description
+      Use the @code[dropdown.hidestart] or @code[dropdown.hideend] event instead.
+
+  @removed 0.14.0
+    @description
+      Use the @code[dropdown.hidestart] or @code[dropdown.hideend] event instead.

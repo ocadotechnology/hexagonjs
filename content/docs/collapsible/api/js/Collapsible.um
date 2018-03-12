@@ -1,0 +1,50 @@
+@prototype Collapseable
+  @extends EventEmitter
+  @deprecated 0.9.0
+    @description
+      This has been replaced with @type[Collapsible]
+
+  @removed 0.10.0
+    @description
+      This has been replaced with @type[Collapsible]
+
+@prototype Collapsible
+  @extends EventEmitter
+
+  @description
+    Create one of these for each collapsible in your page to make it respond to
+    mouse clicks. This object also provides ways to open and close the
+    collapsible programmatically, listen for changes in the state of the
+    collapsible and check the state at any time.
+
+  @constructor
+    @deprecated 0.13.0
+      @description
+        Use @code[hx.Collapsible(selector, options)] instead.
+
+    @removed 0.14.0
+      @description
+        Use @code[hx.Collapsible(selector, options)] instead.
+
+    @arg selector [String]
+      @description
+        A css selector that uniquely identifies the collapsible in the DOM.
+
+    @inline Collapsible/arguments/lazyContent.um
+    @inline Collapsible/arguments/visible.um
+    @inline Collapsible/arguments/addIcon.um
+
+  @constructor
+    @added 0.13.0
+      @description
+        Standardise the constructor APIs
+
+    @arg selector [String]
+      @description
+        A css selector that uniquely identifies the collapsible in the DOM.
+
+    @arg? options [Object]
+      @inline Collapsible/options/*.um
+
+  @inline Collapsible/methods/*.um
+  @inline Collapsible/events/*.um

@@ -4,24 +4,19 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Base
-  @versioned 
-    @version 0.9.0
-      @description 
-        Base styles (font, body background, default input styles etc).
-
-
+  @description
+    Provides the default font styles and header classes
 
 @contentSection
   @topic Examples
     @examples
       @versioned
-        @inline examples/*.um
+        # @inline examples/*.um
+
+        @inline examples/0.9.0.um
+        @inline examples/0.15.2.um
 
   @topic Api
     @hyperlink(/docs/base/changelog)[Change Log]
 
     @inline api.um
-
-  @topic Additional Guidelines
-    @versioned
-      @inline extra/*.um

@@ -1,0 +1,15 @@
+@method fade
+  @added 0.15.2
+    @description
+      Merged fadeIn and fadeOut into one function.
+
+  @description
+    A method for changing the alpha value of a color by a given percentage amount
+
+  @arg amount [Number]
+    @description
+      A value from 0-1 as a percentage.
+
+  @returns Color
+    @description
+      This Color

@@ -1,0 +1,5 @@
+@property filterOptions [Object]
+  @description
+    The options to use when filtering internally. The available options
+    can be found on the @moduleLink(hx-filter) page. The default
+    @code[searchValues] option uses the passed in input map to search on.

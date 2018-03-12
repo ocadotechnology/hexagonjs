@@ -1,0 +1,62 @@
+@function [hx.card.[small | large].icon]
+  @description
+    Creates an icon
+
+  @extra
+    @example
+      @html
+        <div id="icon-example"></div>
+
+      @js
+        hx.select('#icon-example')
+          .add(hx.card()
+            .add(hx.card.section()
+              .add(hx.card.icon({ icon: 'hx-icon hx-icon-check' })))
+            .add(hx.card.section()
+              .add(hx.card.small.icon({ icon: 'hx-icon hx-icon-check' })))
+            .add(hx.card.section()
+              .add(hx.card.large.icon({ icon: 'hx-icon hx-icon-check' })))
+            .add(hx.card.section()
+              .add(hx.card.icon({ icon: 'hx-icon hx-icon-check', context: 'negative'}))))
+
+  @arg? options [Object]
+    @property icon [String]
+      @description
+        The icon class to set
+
+
+  @returns Selection
+    @description
+      Returns a selection containing the detached element
+
+  @group Component
+    @object api
+      @description
+        This api can be obtained like this
+
+        @@codeblock js
+          var icon = hx.card.icon()
+          var api = icon.component()
+
+      @inline Component/context.um
+
+      @property icon [Function]
+        @description
+          Gets the icon class
+
+        @returns String
+          @description
+            The icon class
+
+      @property icon [Function]
+        @description
+          Sets the icon class
+
+        @arg icon [String]
+          @description
+            The icon class to set
+
+        @returns Object
+          @description
+            Returns this api object.
+

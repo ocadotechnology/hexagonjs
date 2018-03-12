@@ -1,0 +1,9 @@
+@extraClass hx-btn-invert
+  @added 0.9.0
+  @updated 1.0.0
+    @description
+      Updated the invert styles for buttons to work nicer across different
+      themes
+  @description
+    Gives the button an inverted style, so that the text is colored rather
+    than the background.

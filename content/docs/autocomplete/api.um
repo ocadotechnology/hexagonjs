@@ -1,2 +1,2 @@
-@api Autocomplete
+@api AutoComplete
   @inline api/*.um

@@ -1,0 +1,6 @@
+@method toggle
+  @description
+    Causes the collapsible to open or close, depending on its current state.
+
+  @inline ../arguments/animate.um
+  @inline ../arguments/returns.um

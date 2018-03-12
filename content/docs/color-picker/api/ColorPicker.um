@@ -1,0 +1,231 @@
+@prototype hx.ColorPicker
+  @extends EventEmitter
+
+  @updated 0.13.0
+    @description
+      Moved the @code[showInputs] and @code[currentColor] to be accessible as
+      @code[options.showInputs] and @code[value()]
+
+      The value can now also be set with the @code[value(color)] method.
+
+  @description
+    The ColorPicker class can be used to allow a user to select a color with a
+    visual representation.
+
+  @constructor
+    @deprecated 0.13.0
+      @description
+        Use @code[hx.ColorPicker(selector, options)] instead.
+
+    @removed 0.14.0
+      @description
+        Use @code[hx.ColorPicker(selector, options)] instead.
+
+    @arg selector [String]
+      @description
+        The selector to show the color picker for.
+
+    @arg? startColor [Color]
+      @description
+        The start color to use when creating the color picker.
+
+      @default: #000000
+
+    @arg? showInputs [Boolean]
+      @description
+        Boolean to decide whether or not to show the input boxes for the hex,
+        red, green, blue, hue, saturation and lightness values.
+
+      @default: false
+
+    @arg? align [String]
+      @description
+        The alignment of the dropdown (options can be found in the dropdown
+        documentation)
+
+      @default: lblt
+
+  @constructor
+    @added 0.13.0
+
+    @arg selector [String/HTMLElement]
+      @description
+        The selector to show the color picker for.
+
+    @arg? options [Object]
+      @description
+        The options to use when setting up the color picker
+
+      @property startColor [Color]
+        @description
+          The start color to use when creating the color picker.
+        @default: #000000
+
+      @property showInputs [Boolean]
+        @description
+          Boolean to decide whether or not to show the input boxes for the hex,
+          red, green, blue, hue, saturation and lightness values.
+
+        @default: false
+
+      @property align [String]
+        @description
+          The alignment of the dropdown (options can be found in the dropdown
+          documentation)
+
+        @default: lblt
+
+      @property disabled [Boolean]
+        @description
+          Whether the color picker should be disabled
+
+        @added 0.15.2
+          @description
+            Added the ability to disable a color picker in the options
+
+        @default: false
+
+  @property currentColor [Color]
+    @deprecated 0.13.0
+      @description
+        Use the value() method
+
+    @removed 0.14.0
+      @description
+        Use the value() method
+
+    @description
+      The color the picker is currently set to. When building a picker without
+      a color defined, the value is set to '#000000'.
+
+  @property showInputs [Boolean]
+    @deprecated 0.13.0
+      @description
+        Use options.showInputs instead
+
+    @removed 0.14.0
+      @description
+        Use options.showInputs instead
+
+    @description
+      This value determines whether the color picker will show the input boxes
+      as well as the picker.
+
+  @method value
+    @added 0.13.0
+
+    @description
+      Sets the value of a color picker
+
+    @arg value [String/Color]
+      @description
+        The color to set the color picker to.
+    @returns ColorPicker
+      @description
+        This ColorPicker
+
+  @method value
+    @added 0.13.0
+
+    @description
+      Gets the value of a color picker
+
+    @returns String
+      @description
+        The currently set color value.
+
+  @method disabled
+    @added 0.15.2
+      @description
+        Added the ability to disable/enable a color picker
+
+    @description
+      A method for disabling or enabling a color picker
+
+    @arg value [Boolean]
+      @description
+        Whether the color picker should be disabled
+    @returns ColorPicker
+      @description
+        This color picker
+
+  @method disabled
+    @added 0.15.2
+      @description
+        Added the ability to get the disabled state of a color picker
+
+    @description
+      Gets the disabled state of a color picker
+
+    @returns Boolean
+      @description
+        Whether the button group is disabled
+
+  @event change [Color]
+    @description
+      Emitted when the dropdown is opened, whilst the color is changed and when the color has finished changing. The data emitted with the event is the current color selected.
+
+  @event changeend [Color]
+    @description
+      Emitted when the color has finished being changed (either by the visual method or by the input boxes). The data emitted with the event is the current color selected.
+
+  @event dropdown.showstart
+    @added 0.13.0
+      @description
+        Pipe the dropdown events through so they can be listened to directly.
+
+    @description
+      Emitted when the dropdown animation starts. No data is sent with this event.
+
+
+  @event dropdown.showend
+    @added 0.13.0
+      @description
+        Pipe the dropdown events through so they can be listened to directly.
+
+    @description
+      Emitted when the dropdown animation finishes. No data is sent with this event.
+
+
+  @event dropdown.hidestart
+    @added 0.13.0
+      @description
+        Pipe the dropdown events through so they can be listened to directly.
+
+    @description
+      Emitted when the dropdown animation starts. No data is sent with this event.
+
+
+  @event dropdown.hideend
+    @added 0.13.0
+      @description
+        Pipe the dropdown events through so they can be listened to directly.
+
+    @description
+      Emitted when the dropdown animation ends. No data is sent with this event.
+
+
+  @event dropdown.change [Boolean]
+    @added 0.13.0
+      @description
+        Pipe the dropdown events through so they can be listened to directly.
+
+    @description
+      Emitted when the dropdown is shown or hidden. The data that comes with the event is a boolean indicating whether or not the dropdown is hidden. True means that the dropdown has just been shown, false means that it has just been hidden.
+
+
+
+@function hx.colorPicker
+  @added 1.0.0
+    @description
+      Fluid api version of ColorPicker
+
+  @description
+    Creates a new ColorPicker set up on a detached element, wrapped in a selection
+
+  @arg options [Object]
+    @description
+      See the options object for constructing ColorPicker
+  @returns Selection
+    @description
+      A selection containing an element with an ColorPicker initialised on it

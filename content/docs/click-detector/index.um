@@ -4,12 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Click Detector
-  @versioned 
-    @version 0.9.0
-      @description 
-        Provides a way to listen for clicks outside an element.
-
-
+  @description
+    Provides a way to listen for clicks outside an element.
 
 @contentSection
   @topic Examples
@@ -21,7 +17,3 @@
     @hyperlink(/docs/click-detector/changelog)[Change Log]
 
     @inline api.um
-
-  @topic Additional Guidelines
-    @versioned
-      @inline extra/*.um

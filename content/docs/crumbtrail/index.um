@@ -4,12 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Crumbtrail
-  @versioned 
-    @version 0.9.0
-      @description 
-        A crumbtrail component, used to illustrate where you are in relation to the root of a project or website.
-
-
+  @description
+    A crumbtrail component, used to illustrate where you are in relation to the root of a project or website.
 
 @contentSection
   @topic Examples
@@ -21,7 +17,3 @@
     @hyperlink(/docs/crumbtrail/changelog)[Change Log]
 
     @inline api.um
-
-  @topic Additional Guidelines
-    @versioned
-      @inline extra/*.um

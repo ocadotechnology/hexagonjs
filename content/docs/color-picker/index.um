@@ -4,12 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Color Picker
-  @versioned 
-    @version 0.9.0
-      @description 
-        A component for selecting colors.
-
-
+  @description
+    A component for selecting colors
 
 @contentSection
   @topic Examples
@@ -21,7 +17,3 @@
     @hyperlink(/docs/color-picker/changelog)[Change Log]
 
     @inline api.um
-
-  @topic Additional Guidelines
-    @versioned
-      @inline extra/*.um

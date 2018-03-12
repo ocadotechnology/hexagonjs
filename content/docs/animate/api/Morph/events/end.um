@@ -1,0 +1,3 @@
+@event end
+  @description
+    Emitted when the entire chain of actions have finished for this @type[Morph]

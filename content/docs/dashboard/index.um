@@ -4,43 +4,38 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Dashboard
-  @versioned 
-    @version 0.15.2
-      @description 
-        @notice The [dashboard module is deprecated in this version.]
-          @div 
-            The @link(../drag-container)[Drag Container] module can be used as a replacement for the drag/drop functionality.
-
-          @div 
-            The @link(../card)[Card] module can be used as a replacement for the styles
-
-        
+  @description
+    @versioned
+      @version 0.9.0
         Styles for creating dashboard layouts.
+      @version 0.15.2
+        @notice [The dashboard module is deprecated in this version]
+          The @code[Drag Container] module can be used as a replacement for the
+          drag/drop functionality.
 
-    @version 0.9.0
-      @description 
+          The @code[Card] module can be used as a replacement for the styles
+
         Styles for creating dashboard layouts.
+      @version 1.0.0
+        @notice [This module was removed in version 1.0.0]
+          The @code[Drag Container] module can be used as a replacement for the
+          drag/drop functionality.
 
-    @version 1.0.0
-      @description 
-        This module was removed in version 1.0.0.
-        The Drag Container module can be used as a replacement for the drag/drop functionality.
-
-        The Card module can be used as a replacement for the styles
-
+          The @code[Card] module can be used as a replacement for the styles
 
 
 @contentSection
-  @topic Examples
-    @examples
-      @versioned
-        @inline examples/*.um
+  @versioned
+    @version 0.9.0
+      @topic Examples
+        @examples
+          @versioned
+            @inline examples/*.um
 
-  @topic Api
-    @hyperlink(/docs/dashboard/changelog)[Change Log]
+      @topic Api
+        @hyperlink(/docs/dashboard/changelog)[Change Log]
 
-    @inline api.um
+        @inline api.um
 
-  @topic Additional Guidelines
-    @versioned
-      @inline extra/*.um
+    @version 1.0.0
+

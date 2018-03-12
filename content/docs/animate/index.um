@@ -1,27 +1,83 @@
 @inline /templates/sidebar-page.um
 @inline /templates/versioned-page.um
 
+@search
+  @keyword animate
+
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Animate
-  @versioned 
-    @version 0.9.0
-      @description 
-        Animate element's styles and attributes.
-
-
+  @description
+    Animate element's styles and attributes
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
 
 @contentSection
+  @added 0.9.0
+
+  @topic About
+    The Animation class lets you do a one shot animation on an element. No
+    scheduling is possible with animation - all changes happen in one go. To
+    perform animations one after another, morphs are required.
+
   @topic Examples
-    @examples
-      @versioned
-        @inline examples/*.um
+    @section Animations
+      @example
+        @@html
+          <button id="demo-1" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
+          <button id="demo-1-reset" class="hx-btn hx-contrast"><i class="fa fa-refresh"></i> Reset</button>
+
+        @@js
+          hx.select('#demo-1').on('click', function () {
+            hx.select('body')
+              .animate()
+              .style('background-color', '#000000', 500)
+          })
+
+          hx.select('#demo-1-reset').on('click', function () {
+            hx.select('body').style('background-color', undefined)
+          })
+
+    @section Morphs
+      The Morph class lets you chain animations together so that they happen one after another.
+
+      @example
+        @@html
+          <button id="demo-3" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
+        @@js
+          hx.select('#demo-3').on('click', function () {
+            hx.select('body').morph()
+              .then(function () {
+                return hx.select('body').animate().style('background-color', '#ff0000', 500)
+              })
+              .then(function () {
+                return hx.select('body').animate().style('background-color', '#00ff00', 500)
+              })
+              .then(function () {
+                return hx.select('body').animate().style('background-color', '#0000ff', 500)
+              })
+              .then(function () {
+                hx.select('body').style('background-color', undefined)
+              })
+              .go()
+          })
+
+      This is the same as above - just using some methods on Morph that allow more concise code.
+
+      @example
+        @@html
+          <button id="demo-4" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
+        @@js
+          hx.select('#demo-4').on('click', function () {
+            hx.select('body').morph()
+            .thenStyle('background-color', '#ff0000', 500)
+            .thenStyle('background-color', '#00ff00', 500)
+            .thenStyle('background-color', '#0000ff', 500)
+            .then(function () {
+              hx.select('body').style('background-color', undefined)
+            })
+            .go()
+          })
 
   @topic Api
     @hyperlink(/docs/animate/changelog)[Change Log]
 
     @inline api.um
-
-  @topic Additional Guidelines
-    @versioned
-      @inline extra/*.um
