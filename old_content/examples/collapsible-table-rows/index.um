@@ -1,3 +1,0 @@
-@example
-  @html: @inline index.html
-  @coffee: @inline index.coffee

@@ -1,9 +1,0 @@
-@inline ../../shared/common.um
-@titlebar Themes
-@div .dx-content
-  @h1: Themes
-  @div .docs-example-link-container
-    @div .docs-example-link
-      @hyperlink(/themes/light/)[Light Theme]
-    @div .docs-example-link
-      @hyperlink(/themes/dark/)[Dark Theme]

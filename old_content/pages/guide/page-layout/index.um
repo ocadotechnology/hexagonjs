@@ -1,6 +1,0 @@
-@inline ../../../shared/common.um
-@titlebar Page Layout
-
-@div .dx-content
-  @h1: Page Layout
-

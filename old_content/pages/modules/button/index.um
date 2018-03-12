@@ -1,8 +1,0 @@
-@stylesheet /resources/hexagon/__version__/hexagon.css
-@script /resources/hexagon/__version__/hexagon.js
-@inline ../../../shared/common.um
-@keywords button styles
-@titlebar Button
-
-@div .dx-content
-  @inline ../../../modules/button/index.um

@@ -1,6 +1,0 @@
-@version 1.8.0
-  @api Form
-    @function hx.validateForm
-      @enhancement: Updated the validation to show the error for the focused element instead of the first error it finds
-      @arg form [String/HTMLElement]
-      @arg? options [Object]

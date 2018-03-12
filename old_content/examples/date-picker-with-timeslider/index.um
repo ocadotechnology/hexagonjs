@@ -1,4 +1,0 @@
-@example
-  @html: @inline datepicker-with-timeslider.html
-  @coffee: @inline datepicker-with-timeslider.coffee
-  @css: @inline datepicker-with-timeslider.css

@@ -1,4 +1,0 @@
-@example
-  @html: @inline index.html
-  @js: @inline index.js
-  @css: @inline index.css

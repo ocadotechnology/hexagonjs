@@ -1,7 +1,0 @@
-@version 1.0.0
-  @description: This module was replaced with the inline picker module in version 1.0.0.
-
-  @examples
-
-  @api Inline Select
-    @removed: This module was replaced with the inline picker module in this version

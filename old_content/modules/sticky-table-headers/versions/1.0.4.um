@@ -1,5 +1,0 @@
-@version 1.0.4
-  @api Sticky Table Headers
-    @prototype hx.StickyTableHeaders
-      @bugfix: Updated the constructor so it no longer ignores the @code[containerClass] option
-        @issue 53

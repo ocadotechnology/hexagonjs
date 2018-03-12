@@ -1,6 +1,0 @@
-@version 0.15.1
-  @api Extended Table
-    @prototype hx.Table
-      @bugfix
-
-        Fix for tables when in compact mode with no data. Also update pickers to use the new event types which was causing an infinite loop in 0.15.0. Squash deprecated warnings for tables.

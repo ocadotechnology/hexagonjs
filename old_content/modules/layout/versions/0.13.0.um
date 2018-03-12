@@ -1,4 +1,0 @@
-@version 0.12.7
-  @api Layout
-    @class hx-section
-      @enhancement: The flex-shrink property has been added to hx-sections.

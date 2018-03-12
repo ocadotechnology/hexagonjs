@@ -1,4 +1,0 @@
-@version 1.13.0
-  @api Base
-    @bugfix
-      @description: Fixed the font size inheritance for buttons

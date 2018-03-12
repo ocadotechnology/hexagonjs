@@ -1,7 +1,0 @@
-@version 0.14.0
-  @api Pivot Table
-    @prototype hx.PivotTable
-      @method setData
-        @arg data [Object]
-        @removed
-          Use @code[data(data)] instead.

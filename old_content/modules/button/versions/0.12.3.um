@@ -1,4 +1,0 @@
-@version 0.12.3
-  @api Button
-    @class hx-btn
-      @enhancement: Changed the top padding to make the text line up in the buttons better

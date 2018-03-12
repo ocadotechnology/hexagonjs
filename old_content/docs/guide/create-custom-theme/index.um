@@ -1,6 +1,0 @@
-@inline ../../../shared/common.um
-@titlebar Creating a Custom Theme
-
-@div .dx-content
-  @h1: Creating a Custom Theme
-

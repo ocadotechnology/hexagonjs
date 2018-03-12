@@ -1,4 +1,0 @@
-@version 0.12.2
-  @api Menu
-    @prototype hx.Menu
-      @bugfix: Added code to prevent recursion when adding arrays of items.

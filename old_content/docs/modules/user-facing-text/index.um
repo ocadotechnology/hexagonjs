@@ -1,8 +1,0 @@
-@stylesheet /resources/hexagon/__version__/hexagon.css
-@script /resources/hexagon/__version__/hexagon.js
-@inline ../../../shared/common.um
-@keywords user facing text localisation util
-@titlebar User Facing Text
-
-@div .dx-content
-  @inline ../../../modules/user-facing-text/index.um

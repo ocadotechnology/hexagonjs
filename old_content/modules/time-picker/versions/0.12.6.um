@@ -1,4 +1,0 @@
-@version 0.12.6
-  @api Time Picker
-    @prototype hx.TimePicker
-      @enhancement: Added a delay to the time picker input to make it easier to enter a time manually.

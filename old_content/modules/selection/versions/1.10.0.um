@@ -1,5 +1,0 @@
-@version 1.10.0
-  @api Selection
-    @prototype Selection
-      @bugfix
-        @description: Resolved a bug with shallowSelect when calling it on nodes without children.

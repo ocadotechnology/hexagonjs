@@ -1,4 +1,0 @@
-@version 1.8.0
-  @api Plot
-    @bugfix: Prevent text wrapping in basic labels (e.g. sparklines)
-      @issue 290
