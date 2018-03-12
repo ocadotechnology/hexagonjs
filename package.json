@@ -27,8 +27,5 @@
     "quantum-core": "^2.0.0",
     "quantum-template": "^2.0.0",
     "quantum-version": "^2.0.0"
-  },
-  "dependencies": {
-    "progress": "^2.0.0"
   }
 }

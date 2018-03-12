@@ -100,7 +100,6 @@ module.exports = {
   dest: 'target',
   pages: [
     {
-      // files: 'content/changelog/index.um',
       files: 'content/**/index.um',
       base: 'content',
       watch: true
