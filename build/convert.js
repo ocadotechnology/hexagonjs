@@ -258,7 +258,7 @@ function convertToNewFormat (objs) {
           ]
         })
         .map(({ filename, content }) => {
-          if (content) {
+          if (content && content.length) {
             const p = path.join('content/docs', module, filename)
             return fs.readFileAsync(p, 'utf8')
               .then(existing => {

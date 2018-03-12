@@ -1,3 +1,2 @@
 @api Component
-
   @inline api/*.um
