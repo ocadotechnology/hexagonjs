@@ -1,78 +1,78 @@
 @removed 0.15.0
-  @description 
+  @description
     This module was removed in this version.
-    
+
 
 @prototype hx.Select
   @removed 0.15.0
-    @description 
+    @description
       Use @code[hx.Picker(selector, options)] instead.
-      
+
 
   @deprecated 0.14.0
-    @description 
+    @description
       This has been renamed to hx.Picker to avoid confusion with the selection api. Rename all uses of hx.Select to hx.Picker (the api is the same).
-      
+
 
   @updated 0.12.7
-    @description 
+    @description
       Updated the select to allow lazy loading of data and also use an options object in the constructor.
-      
+
 
   @added 0.10.0
-  @description 
+  @description
   @extends EventEmitter
-  @constructor 
+  @constructor
     @removed 0.12.5
-      @description 
+      @description
         This constructor will still work, the ddClass parameter has been added and is optional.Added the optional 'ddClass' parameter to the constructor.
-        
+
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The target button to set the select up in.
-        
+
 
   @method items
     @removed 0.13.0
     @added 0.13.0
-      @description 
+      @description
         Made the items parameter optional. If it is not passed in, the currently set items are returned.
-        
 
-    @description 
+
+    @description
       Sets the list of items that will be shown in the select dropdown.
 
     @arg items [Array[Any]]
-      @description 
+      @description
         The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
-        
+
 
     @returns [Select]
-      @description 
+      @description
         This Select
-        
+
 
   @method value
-    @description 
+    @description
       Sets or gets the currently selected item.
 
     @arg? value [String]
-      @description 
+      @description
         The value of the item to select.
-        
+
 
     @returns [String/Select]
-      @description 
+      @description
         The currently selected item, or this select for chaining.
-        
+
 
   @method renderer
-    @description 
+    @description
       Sets the item renderer function.
 
     @arg render [Function]
-      @description 
+      @description
         A function that renders the data in the dropdown and the select button. The default value is:
 
         @@codeblock js
@@ -81,71 +81,71 @@
           }
 
       @arg node [HTMLElement]
-        @description 
+        @description
           The element to edit. Can be either a menu item or a span inside the select button.
-          
+
 
       @arg data [Any]
-        @description 
+        @description
           The data to render.
-          
+
 
     @returns [Select]
       @added 0.13.0
-      @description 
+      @description
         This Select
-        
 
-  @constructor 
+
+  @constructor
     @removed 0.14.0
-      @description 
+      @description
         Use @code[hx.Picker(selector, options)] instead.
-        
+
 
     @deprecated 0.12.7
-      @description 
+      @description
         Use @code[hx.Select(selector, options)] instead.
-        
+
 
     @added 0.12.5
-    @description 
+    @description
       Creates a select element.
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The target button to set the select up in.
-        
+
 
     @arg? ddClass [String]
-      @description 
+      @description
         The additional class to add to the dropdown when creating it.
-        
 
-  @constructor 
+
+  @constructor
     @added 0.12.7
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The target button to set the select up in.
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when setting up the select element
-        
+
 
       @property ddClass [String]
-        @description 
+        @description
           The additional class to add to the dropdown when creating it.
-          
+
 
       @property items [Array/Function]
-        @description 
+        @description
           The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
           This can also be set after the select has been constructed using the @code[items] method.
 
       @property renderer [Function]
-        @description 
+        @description
           A function that renders the data in the dropdown and the select button. The default value is:
 
           @@codeblock js
@@ -156,135 +156,135 @@
           This can also be set after the select has been constructed using the @code[renderer] method.
 
       @property startValue [String]
-        @description 
+        @description
           The value to use when initialising the select.
-          
+
 
       @property noValueText [String]
-        @description 
+        @description
           The text to use when no value is selected.
           @default 'Choose [a value...']
-          
+
 
   @method items
     @added 0.12.7
-    @description 
+    @description
       Set the items for the select using a function that returns the data.
 
     @arg dataFetcher [Function]
-      @description 
+      @description
         The function to call to get the data. This will be called whenever the value is set or the select is opened, allowing the data to be changed easily.
 
         It is recommended that the data for a select be cached where possible when using the function to set the data.
 
       @arg callback [Function]
-        @description 
+        @description
           The function to call when the data has loaded
-          
+
 
         @arg data [Array[String/Object]]
-          @description 
+          @description
             The items to add to the select.
-            
+
 
   @method items
     @added 0.13.0
-      @description 
+      @description
         Made the items parameter optional. If it is not passed in, the currently set items are returned.
-        
 
-    @description 
+
+    @description
       Gets the list of items that will be shown in the select dropdown, or if a function has been set it will return that.
 
     @returns [Array[Any]/Function]
-      @description 
+      @description
         The currently set items.
-        
+
 
   @method renderer
     @added 0.13.0
-    @description 
+    @description
       Gets the current item renderer function.
 
     @returns [Function]
-      @description 
+      @description
         The current renderer if no arguments are provided.
-        
+
 
   @event change
-    @description 
+    @description
       The event called when the selected item is changed.
 
     @data String
-      @description 
+      @description
         The value that was selected.
-        
+
 
   @event highlight
     @added 0.13.0
-    @description 
+    @description
       The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
 
     @data Object
       @property eventType [String]
-        @description 
+        @description
           The type of event that caused the selection:
-          @list 
+          @list
             @item['click' - User clicked]
             @item['arrow' - User used the arrow keys]
 
       @property item [String/Object]
-        @description 
+        @description
           The item as it was passed into the select.
-          
+
 
   @event dropdown.showstart
     @added 0.13.0
-      @description 
+      @description
         Pipe the dropdown events through so they can be listened to directly.
-        
 
-    @description 
+
+    @description
       Emitted when the dropdown animation starts. No data is sent with this event.
 
   @event dropdown.showend
     @added 0.13.0
-      @description 
+      @description
         Pipe the dropdown events through so they can be listened to directly.
-        
 
-    @description 
+
+    @description
       Emitted when the dropdown animation finishes. No data is sent with this event.
 
   @event dropdown.hidestart
     @added 0.13.0
-      @description 
+      @description
         Pipe the dropdown events through so they can be listened to directly.
-        
 
-    @description 
+
+    @description
       Emitted when the dropdown animation starts. No data is sent with this event.
 
   @event dropdown.hideend
     @added 0.13.0
-      @description 
+      @description
         Pipe the dropdown events through so they can be listened to directly.
-        
 
-    @description 
+
+    @description
       Emitted when the dropdown animation ends. No data is sent with this event.
 
   @event dropdown.change [Boolean]
     @added 0.13.0
-      @description 
+      @description
         Pipe the dropdown events through so they can be listened to directly.
-        
 
-    @description 
+
+    @description
       Emitted when the dropdown is shown or hidden
 
     @data Boolean
-      @description 
+      @description
         A boolean indicating whether or not the dropdown is hidden.
-        
+
 

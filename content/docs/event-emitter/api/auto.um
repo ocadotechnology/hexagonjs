@@ -1,231 +1,231 @@
 
 @prototype hx.EventEmitter
-  @description 
+  @description
     A class that can be extended or used standalone to provide a way of emitting events to named registered callbacks. This is generally used internally to give objects the .on method for listening for events, but can be used as a standalone object if desired.
 
-  @constructor 
-    @description 
+  @constructor
+    @description
       Creates a new EventEmitter instance.
 
   @method emit
-    @description 
+    @description
       Emits an event to all listeners registered under the name supplied.
 
     @arg name [String]
-      @description 
+      @description
         The event type to emit.
-        
+
 
     @arg data [Object]
-      @description 
+      @description
         Any data that should be sent along with the event
-        
+
 
     @returns [EventEmitter]
-      @description 
+      @description
         This event emitter
-        
+
 
   @method off
     @removed 0.10.0
-      @description 
+      @description
         The new off method has an optional namespace parameter
-        
 
-    @description 
+
+    @description
       De-register a callback that was registered under the given name
 
     @arg? name [String]
-      @description 
+      @description
         The event type this callback was registered under.
-        
+
 
     @arg? callback [Function]
-      @description 
+      @description
         The callback function to remove.
-        
+
 
     @returns [EventEmitter]
-      @description 
+      @description
         This event emitter
-        
+
 
   @method deregister
     @removed 0.11.0
-      @description 
-        @@codeblock 
+      @description
+        @@codeblock
           eventEmitter.off('event-name', [callback])
-        
+
 
     @deprecated 0.10.0
-      @description 
+      @description
         Use eventEmitter.off('event-name', [callback]) instead.
-        
 
-    @description 
+
+    @description
       De-register a callback that was registered under the given name
 
     @arg name [String]
-      @description 
+      @description
         The event type this callback was registered under.
-        
+
 
     @arg callback [Function]
-      @description 
+      @description
         The callback function to remove.
-        
+
 
     @returns [EventEmitter]
-      @description 
+      @description
         This event emitter
-        
+
 
   @method deregisterAll
     @removed 0.11.0
-      @description 
-        @@codeblock 
+      @description
+        @@codeblock
           eventEmitter.off()
-        
+
 
     @deprecated 0.10.0
-      @description 
+      @description
         Use eventEmitter.off() instead
-        
 
-    @description 
+
+    @description
       De-registers all callbacks registered under a particular name, or, if no name is supplied de-register all callbacks.
 
     @arg? name [String]
-      @description 
+      @description
         The event type to de-register callbacks for. If not specified, all callbacks for all names will be removed.
-        
+
 
     @returns [EventEmitter]
-      @description 
+      @description
         This event emitter
-        
+
 
   @method pipe
-    @description 
+    @description
       Pipes events from this event emitter into another. This makes it possible to chain multiple event emitters together if wanted.
 
     @arg eventEmitter [EventEmitter]
-      @description 
+      @description
         The event emitter to send events to.
-        
+
 
     @arg? prefix [String]
-      @description 
+      @description
         A string to append to the names of events that get piped through
-        
+
         @@codeblock js
           var ee1 = new hx.EventEmitter;
           var ee2 = new hx.EventEmitter;
-          
+
           // pipe events from ee1 into ee2 with prefix `my-prefix`
           ee1.pipe(ee2, 'my-prefix');
-          
+
           // listen for events from ee1 being piped through
           ee2.on('my-prefix.click', function(){
             console.log('got here');
           });
-          
+
           // will cause 'got here' to be logged
           ee1.emit('click');
 
     @arg? filter [Array[String]]
-      @description 
+      @description
         An array of event names to pipe through
-        
+
         @@codeblock js
           var ee1 = new hx.EventEmitter;
           var ee2 = new hx.EventEmitter;
-          
+
           // only pipe the 'click' and 'move' events from ee1 into ee2. ignore the rest
           ee1.pipe(ee2, undefined, ['click', 'move']);
 
     @returns [EventEmitter]
-      @description 
+      @description
         This event emitter
-        
+
 
   @method has
-    @description 
+    @description
       Checks if there are any callbacks registered for an event type.
 
     @arg name [String]
-      @description 
+      @description
         The event type to check.
-        
+
 
     @returns [Boolean]
-      @description 
+      @description
         True if the event type has some callbacks registered.
-        
+
 
   @method off
     @bugfix 1.8.0
       @issue 179
-      @description 
+      @description
         Updated the off method to clean up the internal objects when removing the last listener for a namespace
-        
+
 
     @added 0.10.0
-    @description 
+    @description
       De-register a callback that was registered under the given name. If called with no arguments, all handlers will be removed from the event emitter for all names and namespaces.
 
     @arg? name [String]
-      @description 
+      @description
         The event type this callback was registered under.
-        
+
 
     @arg? namespace [String]
-      @description 
+      @description
         The namespace to remove handlers from. If not specified handlers will be removed from all namespaces. To remove handlers from the default handler supply "default" for the namespace name.
-        
+
 
     @arg? callback [Function]
-      @description 
+      @description
         The callback function to remove.
-        
+
 
     @returns [EventEmitter]
-      @description 
+      @description
         This event emitter
-        
+
 
   @method suppressed
     @added 0.13.0
-    @description 
+    @description
       Sets whether events of a particular name should be suppressed (not emitted).
 
     @arg name [String]
-      @description 
+      @description
         The event name to change the suppression state of.
-        
+
 
     @arg suppressed [Boolean]
-      @description 
+      @description
         True to prevent any events of the given name from being emitted, false to re-enable emission (which is the default behaviour).
-        
+
 
     @returns [EventEmitter]
-      @description 
+      @description
         This EventEmitter
-        
+
 
   @method suppressed
     @added 0.13.0
-    @description 
+    @description
       Gets whether events of a particular name are being suppressed.
 
     @arg name [String]
-      @description 
+      @description
         The event name to check the suppression state of.
-        
+
 
     @returns [Boolean]
-      @description 
+      @description
         True if the events of the given name are being suppressed, false if not.
-        
+
 

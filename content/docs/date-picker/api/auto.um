@@ -1,358 +1,358 @@
 @bugfix 1.13.0
-  @description 
+  @description
     Resolved an issue with the styles that was causing the 'year' selection to display incorrectly
 
 @bugfix 1.11.0
   @issue 378
-  @description 
+  @description
     Resolved an issue with how the timezones worked when not in UTC
 
 @bugfix 1.1.0
   @issue 35
-  @description 
+  @description
     Update the icon styles for range pickers so they aren't inconsistent
-    
+
 
 @bugfix 0.14.1
-  @description 
+  @description
     Fixed an issue where the events were firing out of order.
-    
+
 
 @prototype hx.DatePicker
   @updated 1.1.0
     @issue 23
     @issue 24
-    @description 
-      Date pickers now listen for changes in @code(js)[hx.preferences.locale] and @code(js)[hx.preferences.timezone] and automatically update
-      
+    @description
+      Date pickers now listen for changes in @code[hx.preferences.timezone] and automatically update
+
 
   @updated 0.13.0
-    @description 
+    @description
       Updated the internals of the datepicker to make it more consistent (and less confusing). As part of this, multiple api changes have been made, including changes to the way events are suppressed and handled.
-      
+
 
   @bugfix 0.12.9
-    @description 
+    @description
       Fixed a bug with moment.js causing 'inbuilt' date pickers not to work properly by disabling the inbuilt functionality when moment is present.
-      
+
 
   @bugfix 0.12.6
-    @description 
+    @description
       Fixed an issue where the date picker was throwing an error when changing the input value of a 'datepicker' type.
-      
+
 
   @updated 0.12.6
-    @description 
+    @description
       Updated the inbuilt localiser so it is no longer browser dependent. The date picker will display in DD/MM/YYYY with UK day/month names by default. Localisation with moment.js is still possible.
-      
+
 
   @bugfix 0.12.5
-    @description 
+    @description
       Added fixes for 'inbuilt' datepickers that are shown on devices that support the 'date' attribute and the 'touch' event (e.g. mobile devices, iPads etc.)
-      
+
 
   @updated 0.12.2
-    @description 
+    @description
       Updated the date picker to allow 'zooming out' to year/decade view by clicking the header and converted to use options object instead of multiple arguments.
-      
+
 
   @updated 0.11.0
-    @description 
+    @description
       All instances of supressCallback have been converted to suppressCallback.
-      
+
 
   @bugfix 0.11.0
-    @description 
+    @description
       Fixed an issue where setting the values for the date picker and then getting the value would result in the wrong value being returned.
-      
 
-  @description 
+
+  @description
     The date picker can be used to create an interactive dropdown to let the user select a date.
 
   @extends EventEmitter
-  @constructor 
+  @constructor
     @removed 0.14.0
-      @description 
+      @description
         Use @code[hx.DatePicker(selector, options)] instead.
-        
+
 
     @deprecated 0.12.2
-      @description 
+      @description
         Use @code[hx.DatePicker(selector, options)] instead.
-        
+
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The selector to use to build the date picker
-        
+
 
     @arg type [String]
-      @description 
+      @description
         The type of date picker to show, can be either 'datepicker' or 'calendar'
-        
+
 
     @arg? closeOnSelect [Boolean]
-      @description 
+      @description
         Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
-        @default 
+        @default
           true
-        
+
 
     @arg? selectRange [Boolean]
-      @description 
+      @description
         Set to true to allow the selection of a date range.
-        @default 
+        @default
           false
-        
+
 
   @method showMonth
     @removed 0.14.0
-      @description 
+      @description
         Use datepicker.visibleMonth instead (method has been renamed to make its purpose clearer)
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use datepicker.visibleMonth instead (method has been renamed to make its purpose clearer)
-        
+
 
     @updated 0.11.0
-      @description 
+      @description
         Converted the month property to be 1-based instead of 0-based.
-        
 
-    @description 
+
+    @description
       A function used to show the month specified without affecting the date selection
 
     @arg month [Number]
-      @description 
+      @description
         The month to set. The value is 1-based (e.g. 1 = January).
-        
+
 
     @arg year [Number]
-      @description 
+      @description
         The year to show
-        
+
 
     @returns [DatePicker]
       @added 0.11.0
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method setDate
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[date(date, dontSetupInput, suppressCallback)] instead.
-        
 
-    @description 
+
+    @description
       A function used to select a date in the date picker.
 
     @arg date [Date]
-      @description 
+      @description
         The date to set the date picker to
-        
+
 
     @arg? dontSetupInput [Boolean]
-      @description 
+      @description
         A value used to prevent the input being changed
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
   @method setDay
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[day(day, suppressCallback)] instead.
-        
 
-    @description 
+
+    @description
       A function used to set the day in the date picker
 
     @arg day [Number]
-      @description 
+      @description
         The day of the month to set
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted
-        @default 
+        @default
           false
-        
+
 
   @method setMonth
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[month(month, suppressCallback)] instead.
-        
 
-    @description 
+
+    @description
       Sets the month of the date picker
 
     @arg month [Number]
-      @description 
+      @description
         The month to show
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted
-        @default 
+        @default
           false
-        
+
 
   @method setYear
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[year(year, suppressCallback)] instead.
-        
 
-    @description 
+
+    @description
       Sets the year of the date picker
 
     @arg year [Number]
-      @description 
+      @description
         The year to set the date picker to
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted
-        @default 
+        @default
           false
-        
+
 
   @method setRange
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[range(date1, date2, dontSetupInput, suppressCallback)] instead.
-        
 
-    @description 
+
+    @description
       A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
 
       When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
 
     @arg date1 [Date]
-      @description 
+      @description
         The first date of the range
-        
+
 
     @arg date2 [Date]
-      @description 
+      @description
         The second date of the range
-        
+
 
     @arg dontSetupInput [Boolean]
-      @description 
+      @description
         A value used to prevent the input being changed
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
   @method addDays
     @removed 0.14.0
-      @description 
+      @description
         Use datepicker.day(datepicker.day() + days) instead
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use datepicker.day(datepicker.day() + days) instead
-        
 
-    @description 
+
+    @description
       A function to add days to the date picker
 
     @arg days [Number]
-      @description 
+      @description
         The number of days to add
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method addMonths
     @removed 0.14.0
-      @description 
+      @description
         Use datepicker.month(datepicker.month() + months) instead
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use datepicker.month(datepicker.month() + months) instead
-        
 
-    @description 
+
+    @description
       A function to add months to the date picker
 
     @arg months [Number]
-      @description 
+      @description
         The number of months to add
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method addYears
     @removed 0.14.0
-      @description 
+      @description
         Use datepicker.year(datepicker.year() + years) instead
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use datepicker.year(datepicker.year() + years) instead
-        
 
-    @description 
+
+    @description
       A function to add years to the date picker
 
     @arg years [Number]
-      @description 
+      @description
         The number of years to add
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method getDate
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[date()] instead.
-        
 
-    @description 
+
+    @description
       A function to return the current date
 
     @returns [Date]
 
   @method getScreenDate
-    @description 
+    @description
       Gets the date string as shown in the datepicker input. When using moment.js, this will include localised characters.
 
     @returns [String]
@@ -360,41 +360,41 @@
   @method getRange
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[range()] instead.
-        
 
-    @description 
+
+    @description
       A method for getting the selected date range.
 
     @returns [Object]
       @property start [Date]
-        @description 
+        @description
           The start date of the range
-          
+
 
       @property end [Date]
-        @description 
+        @description
           The end date of the range
-          
+
 
       @property count [Number]
-        @description 
+        @description
           The total number of selected days, including the start and end day.
-          
+
 
   @method update
     @removed 0.14.0
-      @description 
+      @description
         Use @code[locale(locale)] instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use @code[locale(locale)] instead.
-        
 
-    @description 
+
+    @description
       A function for updating the display of the datepicker when moment.js is present on the page.
 
       The datepicker now looks for moment.js on the page and shows a localised datepicker based on moment's current locale setting.
@@ -409,7 +409,7 @@
         datepicker.update() // refreshes the display of the selected datepicker using moment.locale() of 'pl'
 
     @arg? locale [String/Boolean]
-      @description 
+      @description
         The locale string to update the date picker with.
 
         If a value is not passed in, the currently set moment.locale() will be used.
@@ -417,267 +417,267 @@
         If @code[true] is passed in, the picker will be updated using it's currently set locale.
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method date
     @added 0.11.0
-    @description 
+    @description
       A function to return the current date
 
     @returns [Date]
 
   @method date
     @removed 0.14.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api.
 
         The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api.
 
         The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
-        
+
 
     @added 0.11.0
-    @description 
+    @description
       A function used to set the currently selected date.
 
     @arg date [Date]
-      @description 
+      @description
         The date to set.
-        
+
 
     @arg? dontSetupInput [Boolean]
-      @description 
+      @description
         A value used to prevent the input being changed.
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method day
     @added 0.11.0
-    @description 
+    @description
       A function to return the currently selected day of the month.
 
     @returns [Number]
 
   @method day
     @removed 0.14.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
-        
+
 
     @added 0.11.0
-    @description 
+    @description
       A function used to set the currently selected day.
 
     @arg day [Number]
-      @description 
+      @description
         The day to set.
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method month
     @added 0.11.0
-    @description 
+    @description
       A function to return the currently selected month.
 
     @returns [Number]
 
   @method month
     @removed 0.14.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
-        
+
 
     @added 0.11.0
-    @description 
+    @description
       Sets the currently selected month.
 
     @arg month [Number]
-      @description 
+      @description
         The month to set. The value is 1-based (e.g. 1 = January).
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method year
     @added 0.11.0
-    @description 
+    @description
       A function to return the currently selected year.
 
     @returns [Number]
 
   @method year
     @removed 0.14.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
-        
+
 
     @added 0.11.0
-    @description 
+    @description
       Sets the currently selected year.
 
     @arg year [Number]
-      @description 
+      @description
         The year to set.
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method range
     @added 0.11.0
-    @description 
+    @description
       A function to return the selected date range when the @code[selectRange] argument was passed into the constructor.
 
     @returns [Object]
       @property start [Date]
-        @description 
+        @description
           The start date of the range
-          
+
 
       @property end [Date]
-        @description 
+        @description
           The end date of the range
-          
+
 
       @property count [Number]
         @removed 0.14.0
-          @description 
+          @description
             This property will be removed - use  @code[1 + Math.floor((range.end.getTime() - range.start.getTime())/86400000)] to get the number of days in the range
-            
+
 
         @deprecated 0.13.0
-          @description 
+          @description
             This property will be removed - use  @code[1 + Math.floor((range.end.getTime() - range.start.getTime())/86400000)] to get the number of days in the range
-            
 
-        @description 
+
+        @description
           The total number of selected days, including the start and end day.
-          
+
 
   @method range
     @removed 0.14.0
-      @description 
+      @description
         Use @code[range(range, dontSetupInput)] instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use @code[range(range, dontSetupInput)] instead.
-        
+
 
     @added 0.11.0
-    @description 
+    @description
       A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
 
       When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
 
     @arg date1 [Date]
-      @description 
+      @description
         The first date of the range
-        
+
 
     @arg date2 [Date]
-      @description 
+      @description
         The second date of the range
-        
+
 
     @arg? dontSetupInput [Boolean]
-      @description 
+      @description
         A value used to prevent the input being changed
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method validRange
     @removed 0.14.0
-      @description 
+      @description
         Use validRange(obj) instead
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use validRange(obj) instead
-        
+
 
     @added 0.11.0
-      @description 
+      @description
         Added the ability to specify a valid range for date pickers.
-        
 
-    @description 
+
+    @description
       A method for setting the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
 
       To clear a valid range, this method can be called with no parameters.
@@ -691,202 +691,202 @@
         datepicker.validRange(); // Clear valid range (all dates are valid)
 
     @arg? start [Date]
-      @description 
+      @description
         The start date of the valid range. Any dates before this date are not valid and cannot be selected.
-        
+
 
     @arg? end [Date]
-      @description 
+      @description
         The start date of the valid range. Any dates after this date are not valid and cannot be selected.
-        
+
 
     @arg? suppressCallback [Boolean]
-      @description 
+      @description
         A value used to prevent the change event being emitted.
-        @default 
+        @default
           false
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method disable
     @removed 1.0.0
-      @description 
+      @description
         Use @code[disabled(true)] instead.
-        
+
 
     @deprecated 0.15.2
-      @description 
+      @description
         Use @code[disabled(true)] instead.
-        
+
 
     @added 0.12.0
-    @description 
+    @description
       A method for disabling a date picker so the user can't enter values.
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method enable
     @removed 1.0.0
-      @description 
+      @description
         Use @code[disabled(false)] instead.
-        
+
 
     @deprecated 0.15.2
-      @description 
+      @description
         Use @code[disabled(false)] instead.
-        
+
 
     @added 0.12.0
-    @description 
+    @description
       A method for enabling a date picker so the user can enter values.
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
 
-  @constructor 
+
+  @constructor
     @updated 0.13.0
-      @description 
+      @description
         Added options for initialising the datepicker as disabled or preventing the inbuilt datepicker.
-        
+
 
     @added 0.12.2
-    
+
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The selector to use to build the date picker
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when setting up the datepicker.
-        
+
 
       @property type [String]
-        @description 
+        @description
           The type of date picker to show, can be either 'datepicker' or 'calendar'
-          @default 
+          @default
             'calendar'
-          
+
 
       @property closeOnSelect [Boolean]
-        @description 
+        @description
           Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
-          @default 
+          @default
             true
-          
+
 
       @property selectRange [Boolean]
-        @description 
+        @description
           Set to true to allow the selection of a date range. If this is set to true, the type is set to 'calendar' and showTodayButton is set to false as these properties cannot be used when in range selection mode.
-          @default 
+          @default
             false
-          
+
 
       @property defaultView [String]
-        @description 
+        @description
           The default view to use when using the date picker. Can be 'm' for month view, 'y' for year view or 'd' for decade view.
-          @default 
+          @default
             'm'
-          
+
 
       @property showTodayButton [Boolean]
-        @description 
+        @description
           Whether to show the 'today' button when using the date picker. The today button allows the user to select today regardless of what view they are currently in.
-          @default 
+          @default
             true
-          
+
 
       @property allowInbuiltPicker [Boolean]
         @added 0.13.0
-        @description 
+        @description
           Whether to allow the inbuilt datepicker for touch devices. Generally this should be allowed as the inbuilt picker is generally more suited to the device.
-          @default 
+          @default
             true
-          
+
 
       @property disabled [Boolean]
         @updated 0.15.2
-          @description 
+          @description
             Added the ability to disable a date picker in the options
-            
 
-        @description 
+
+        @description
           Whether the date picker should be disabled
-          @default 
+          @default
             false
-          
+
 
   @method visibleMonth
     @added 0.13.0
-    @description 
+    @description
       A function used to show the month specified without affecting the date selection
 
     @arg month [Number]
-      @description 
+      @description
         The month to set. The value is 1-based (e.g. 1 = January).
-        
+
 
     @arg? year [Number]
-      @description 
+      @description
         The year to show. This value will default to the currently set year if no year is provided.
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method visibleMonth
     @added 0.13.0
-    @description 
+    @description
       A function used to show the month specified without affecting the date selection
 
     @returns [Object]
       @property month [Number]
-        @description 
+        @description
           The month set. The value is 1-based (e.g. 1 = January).
-          
+
 
       @property year [Number]
-        @description 
+        @description
           The year set.
-          
+
 
   @method show
     @added 0.13.0
-    @description 
+    @description
       Shows the datepicker dropdown
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method hide
     @added 0.13.0
-    @description 
+    @description
       Hides the datepicker dropdown
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method validRange
     @added 0.13.0
-    @description 
+    @description
       Sets the range in which dates can be selected. For calendar pickers, this will grey out any dates that are outside the range. For datepickers, this will prevent the dates from being entered or selected with the up/down buttons.
 
-      
+
       @@codeblock js
         datepicker.validRange({start: new Date}); // User can select any date after today
         datepicker.validRange({start: undefined, end: new Date()}); // User can select any date before today
@@ -894,89 +894,89 @@
         datepicker.validRange({}); // Clear valid range (all dates are valid)
 
     @arg range [Object]
-      @description 
+      @description
         The range to set.
-        
+
 
       @property? start [Date]
-        @description 
+        @description
           The start date for the range. Use undefined to clear the start date for the range. If this value isn't supplied, then the start of the valid range will not be affected.
-          
+
 
       @property? end [Date]
-        @description 
+        @description
           The end date for the range. Use undefined to clear the end date for the range. If this value isn't supplied, then the end of the valid range will not be affected.
-          
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method validRange
     @added 0.13.0
-    @description 
+    @description
       Gets the currently set valid range for this date picker.
 
     @returns [Object]
-      @description 
+      @description
         The range
-        
+
 
       @property start [Date]
-        @description 
+        @description
           The start date for the valid range. Will be set to undefined if no start date has been set.
-          
+
 
       @property end [Date]
-        @description 
+        @description
           The end date for the valid range. Will be set to undefined if no end date has been set.
-          
+
 
   @method range
     @added 0.13.0
-    @description 
+    @description
       A method for setting the selected date range when the @code[selectRange] argument was passed into the constructor.
 
       When providing dates, the order of the dates is not relevant. The date picker will decide which is the start and which is the end date and set the range accordingly.
 
     @arg range [Object]
-      @description 
+      @description
         An object containing the date range to set. The start/end dates will be sorted internally if the end date is before the start date.
-        
+
 
       @property start [Date]
-        @description 
+        @description
           The first date of the range
-          
+
 
       @property end [Date]
-        @description 
+        @description
           The second date of the range
-          
+
 
     @arg? dontSetupInput [Boolean]
-      @description 
+      @description
         A value used to prevent the input being changed
-        @default 
+        @default
           false
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method locale
     @deprecated 1.1.0
       @issue 23
       @issue 24
-      @description 
-        Use @code(js)[hx.preferences.locale] to get the locale for a page.
-        
+      @description
+        Use @code[hx.preferences.locale] to get the locale for a page.
+
 
     @added 0.13.0
-    @description 
+    @description
       A function for updating the locale used in the date picker.
 
       By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
@@ -985,167 +985,167 @@
         datepicker.locale('pl') // sets the datepicker's locale to Poland
 
     @arg locale [String]
-      @description 
+      @description
         The locale string to update the date picker with.
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method locale
     @deprecated 1.1.0
       @issue 23
       @issue 24
-      @description 
-        Use @code(js)[hx.preferences.locale] to set the locale for a page.
-        
+      @description
+        Use @code[hx.preferences.locale] to set the locale for a page.
+
 
     @added 0.13.0
-    @description 
+    @description
       A method for getting the currently set locale.
 
     @returns [String]
-      @description 
+      @description
         The currently set locale.
-        
+
 
   @method date
     @added 0.13.0
-    @description 
+    @description
       A function used to set the currently selected date.
 
     @arg date [Date]
-      @description 
+      @description
         The date to set.
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method day
     @added 0.13.0
-    @description 
+    @description
       A function used to set the currently selected day.
 
     @arg day [Number]
-      @description 
+      @description
         The day to set.
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method month
     @added 0.13.0
-    @description 
+    @description
       Sets the currently selected month.
 
     @arg month [Number]
-      @description 
+      @description
         The month to set. The value is 1-based (e.g. 1 = January).
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method year
     @added 0.13.0
-    @description 
+    @description
       Sets the currently selected year.
 
     @arg year [Number]
-      @description 
+      @description
         The year to set.
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This DatePicker
-        
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to disable/enable a date picker
-        
 
-    @description 
+
+    @description
       A method for disabling or enabling a date picker
 
     @arg value [Boolean]
-      @description 
+      @description
         Whether the date picker should be disabled
-        
+
 
     @returns [DatePicker]
-      @description 
+      @description
         This date picker
-        
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to get the disabled state of a date picker
-        
 
-    @description 
+
+    @description
       A method for getting the disabled state of a date picker
 
     @returns [Boolean]
-      @description 
+      @description
         Whether the button group is disabled
-        
+
 
   @event change
-    @description 
+    @description
       Emitted when the date is changed.
-      
+
 
   @event show
-    @description 
+    @description
       Emitted when the date picker is shown.
-      
+
 
   @event hide
-    @description 
+    @description
       Emitted when the date picker is hidden.
-      
+
 
   @event change [Object]
     @added 0.13.0
-    @description 
+    @description
       Emitted when the date is changed.
 
     @property type [String]
-      @description 
+      @description
         The type of event that fired the change. Can be 'user' (when the user clicks something to change the date) or 'api' (when a method call is used to change the api.)
-        
+
 
 
 @function hx.datePicker
   @added 1.0.0
-    @description 
+    @description
       Fluid api version of DatePicker
-      
 
-  @description 
+
+  @description
     Creates a new DatePicker set up on a detached element, wrapped in a selection
 
   @arg options [Object]
-    @description 
+    @description
       See the options object for constructing DatePicker
-      
+
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an element with an DatePicker initialised on it
-      
+
 

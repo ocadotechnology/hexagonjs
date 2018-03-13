@@ -1,115 +1,115 @@
 @removed 1.0.0
-  @description 
+  @description
     This module was replaced with the inline picker module in this version
-    
+
 
 @prototype hx.InlineSelect
   @added 0.10.0
-  @description 
+  @description
   @extends EventEmitter
-  @constructor 
+  @constructor
     @removed 0.13.0
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
-        
+
 
   @method renderer
-    @description 
+    @description
       Sets the renderer function for the underlying select.
 
     @arg render [Function]
       @arg node [HTMLElement]
-        @description 
+        @description
           The element to populate
-          
+
 
       @arg data [Any]
-        @description 
+        @description
           The data to populate the element with
-          
+
 
     @returns [InlineSelect]
       @added 0.13.0
       @updated 0.13.0
-        @description 
+        @description
           Updated the renderer method to return the renderer if no arguments are provided.
-          
 
-      @description 
+
+      @description
         Returns this select for chaining.
-        
+
 
   @method items
-    @description 
+    @description
       Sets the list of items that will be shown in the select dropdown.
 
     @arg items [Array[String]]
-      @description 
+      @description
         The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
-        
+
 
     @returns [InlineSelect]
-      @description 
+      @description
         Returns this InlineSelect for chaining
-        
+
 
   @method value
-    @description 
+    @description
       Sets the text of the element.
 
     @arg? value [String]
-      @description 
+      @description
         The text to give the element. If not specified the current value will be returned.
-        
+
 
     @returns [String/InlineSelect]
-      @description 
+      @description
         Returns the current value in the editable if a value is not speficied. If a value is specified, this InlineSelect is returned for chaining.
-        
 
-  @constructor 
+
+  @constructor
     @added 0.13.0
-    @description 
+    @description
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when constructing the inline select
-        
+
 
       @property contextClass [String]
-        @description 
+        @description
           The class to use for the button when the select is active.
-          
+
 
       @property ddClass [String]
-        @description 
+        @description
           The additional class to add to the dropdown when creating it.
-          
+
 
       @property startValue [String]
-        @description 
+        @description
           The value to use when initialising the select.
-          
+
 
       @property noValueText [String]
-        @description 
+        @description
           The text to use when no value is selected.
           @default 'Choose [a value...']
-          
+
 
       @property items [Array/Function]
-        @description 
+        @description
           The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
           This can also be set after the select has been constructed using the @code[items] method.
 
       @property renderer [Function]
-        @description 
+        @description
           A function that renders the data in the dropdown and the select button. The default value is:
 
           @@codeblock js
@@ -121,41 +121,41 @@
 
   @method items
     @added 0.13.0
-      @description 
+      @description
         Updated the items method to return the items if no arguments are provided.
-        
 
-    @description 
+
+    @description
       Sets the list of items that will be shown in the select dropdown.
 
     @returns [Array]
-      @description 
+      @description
         The currently set items
-        
+
 
   @method renderer
     @added 0.13.0
-      @description 
+      @description
         Updated the renderer method to return the renderer if no arguments are provided.
-        
+
 
     @returns [Function]
-      @description 
+      @description
         Returns the currently set renderer function.
-        
+
 
   @event change
-    @description 
+    @description
       Emitted when the value is changed.
 
     @object data
       @property api [Boolean]
-        @description 
+        @description
           True if a call to the value method caused this change. False if it was a result of a user change.
-          
+
 
       @property value [String]
-        @description 
+        @description
           The new value.
-          
+
 

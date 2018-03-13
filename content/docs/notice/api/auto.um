@@ -1,78 +1,78 @@
 @class hx-notice
   @added 0.14.1
-  @description 
+  @description
     Styles a div with styles for
 
   @extraClass hx-positive
-    @description 
+    @description
       Adds styling indicative of success, confirmation or something positive
-      
+
 
   @extraClass hx-negative
-    @description 
+    @description
       Adds styling indicative of failure, danger or something negative
-      
+
 
   @extraClass hx-warning
-    @description 
+    @description
       Adds styling indicative of warning, to suggest the user should use caution
-      
+
 
   @extraClass hx-compliment
     @removed 1.0.0
-      @description 
-        Use @code(css)[.hx-complement] instead
-        
+      @description
+        Use @code[.hx-complement] instead
 
-    @description 
+
+    @description
       Styles the notice with compliment colors
-      
+
 
   @extraClass hx-contrast
-    @description 
+    @description
       Styles the notice with contrast colors
-      
+
 
   @extraClass hx-info
-    @description 
+    @description
       Styles the notice to indicate that clicking it will lead to some form of documentation / information.
-      
+
 
   @class hx-notice-header
     @deprecated 1.4.1
       @issue 225
-      @description 
+      @description
         This class will be replaced by @code[hx-notice-head]
-        
 
-    @description 
+
+    @description
       The header section of the notice
-      
+
 
   @class hx-notice-body
-    @description 
+    @description
       The body section of the notice
-      
+
 
   @extraClass hx-action
     @added 1.0.0
-      @description 
+      @description
         Added new action context class and updated default styles.
-        
 
-    @description 
+
+    @description
       Styles the notice with action colors
 
   @extraClass hx-complement
-    @description 
+    @description
       Styles the notice with complement colors
-      
+
 
   @class hx-notice-head
     @added 1.4.1
       @issue 225
 
-    @description 
+    @description
       The header section of the Notice
-      
+
 

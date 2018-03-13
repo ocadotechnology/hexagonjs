@@ -1,92 +1,92 @@
 @bugfix 1.13.0
   @issue 406
-  @description 
+  @description
     Fixed the order the events are fired in.
 
 @bugfix 1.13.0
   @issue 410
-  @description 
+  @description
     Fixed the event type of the 'add tag' event when added by a user
 
 @bugfix 1.5.1
   @issue 264
-  @description 
-    Updated the tag input to correctly handle @code(js)[undefined] values
-    
+  @description
+    Updated the tag input to correctly handle @code[undefined] values
+
 
 @bugfix 1.3.0
   @issue 202
-  @description 
+  @description
     Make it so the tag inoput validator doesn't have to return anything for valid tags
-    
+
 
 @prototype hx.TagInput
   @bugfix 1.8.0
     @issue 203
-    @description 
+    @description
       Updated the tag input so that the validator behaves the same regardless of whether it is inside a form
-      
+
 
   @bugfix 1.8.0
     @issue 313
-    @description 
+    @description
       Fixed an issue where using an autocomplete allowed multiple tags to be entered at once
-      
+
 
   @updated 1.0.0
-    @description 
+    @description
       Updated the tag input to add the text in the field as a tag when clearing focus
-      
+
 
   @bugfix 0.11.0
-    @description 
+    @description
       Removed the dependency on input groups and made the styles tag-input specific.
-      
 
-  @description 
+
+  @description
     Initialises a tag input.
 
   @extends EventEmitter
-  @constructor 
+  @constructor
     @removed 0.14.0
-      @description 
+      @description
         Use @code[hx.TagInput(selector, options)] instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use @code[hx.TagInput(selector, options)] instead.
-        
 
-    @description 
+
+    @description
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         A css selector that uniquely identifies the collapsible in the DOM.
-        
+
 
     @arg? classifier [Function]
-      @description 
+      @description
         Provides a way to apply css classes to tags.
-        
+
 
       @arg tag [String]
-        @description 
+        @description
           The tag to classify
-          
+
 
       @returns [String]
-        @description 
+        @description
           The css class to give a tag.
-          
+
 
     @arg? validator [Function]
-      @description 
+      @description
         A function to prevent the user from adding certain tags.
-        @html 
+        @html
           <div id="validated-tag-input"></div>
 
-        @js 
-          @description 
+        @js
+          @description
             // example: only allow non number inputs
             var validator = function(name) {
               if (!isNaN(Number(name))){
@@ -95,7 +95,7 @@
             };
             var tagInput = new hx.TagInput('#validated-tag-input', undefined, validator);
 
-        @@codeblock 
+        @@codeblock
           // example: only allow non number inputs
           var validator = function(name) {
             if (!isNaN(Number(name))){
@@ -105,137 +105,137 @@
           var tagInput = new hx.TagInput('#validated-tag-input', undefined, validator);
 
       @arg tag [String]
-        @description 
+        @description
           The tag that is being added
-          
+
 
       @returns [String]
-        @description 
+        @description
           The error to show to the user. If no error exists, the return value should be an empty string.
-          
+
 
   @method add
-    @description 
+    @description
       Adds a tag.
 
     @arg name [String]
-      @description 
+      @description
         The tag to add
-        
+
 
     @arg? class [String]
-      @description 
+      @description
         The CSS class to give the tag.
-        
+
 
     @returns [TagInput]
       @added 0.13.0
-      @description 
+      @description
         This TagInput
-        
+
 
   @method add
-    @description 
+    @description
       Adds an array of tags.
 
     @arg tags [Array[String]]
-      @description 
+      @description
         An array of tag names to add.
-        
+
 
     @arg? class [String]
-      @description 
+      @description
         The CSS class to give the tag.
-        
+
 
     @returns [TagInput]
       @added 0.13.0
-      @description 
+      @description
         This TagInput
-        
+
 
   @method remove
-    @description 
+    @description
       Removes all tags of a given value. Returns the number of tags removed.
 
     @arg name [String]
-      @description 
+      @description
         The tag to remove.
-        
+
 
     @returns [Number]
 
   @method removeAll
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[remove()] instead.
-        
 
-    @description 
+
+    @description
       Removes all tags from the input. Returns an array of the tags removed.
 
     @returns [Array[String]]
 
   @method tags
     @removed 0.14.0
-      @description 
+      @description
         Use @code[hx.TagInput.items()] instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use @code[hx.TagInput.items()] instead.
-        
 
-    @description 
+
+    @description
       Returns an array of the tags as strings.
 
     @returns [Array[String]]
 
   @method remove
     @added 0.11.0
-    @description 
+    @description
       Removes all tags from the input. Returns an array of the tags removed.
 
     @returns [Array[String]]
 
-  @constructor 
+  @constructor
     @added 0.13.0
-    @description 
+    @description
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         A css selector that uniquely identifies the collapsible in the DOM.
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when creating the tag input.
-        
+
 
       @property classifier [Function]
-        @description 
+        @description
           Provides a way to apply css classes to tags.
-          
+
 
         @arg tag [String]
-          @description 
+          @description
             The tag to classify
-            
+
 
         @returns [String]
-          @description 
+          @description
             The css class to give a tag.
-            
+
 
       @property validator [Function]
-        @description 
+        @description
           A function to prevent the user from adding certain tags.
-          @html 
+          @html
             <div id="validated-tag-input"></div>
 
-          @js 
-            @description 
+          @js
+            @description
               new hx.TagInput('#validated-tag-input', {
                 validator: function(name) {
                   if (!isNaN(Number(name))){
@@ -244,8 +244,8 @@
                 };
               });
 
-          
-          @@codeblock 
+
+          @@codeblock
             // example: only allow non number inputs
             new hx.TagInput('#validated-tag-input', {
               validator: function(name) {
@@ -256,65 +256,65 @@
             });
 
         @arg tag [String]
-          @description 
+          @description
             The tag that is being added
-            
+
 
         @returns [String]
-          @description 
+          @description
             The error to show to the user. If no error exists, the return value should be an empty string.
-            
+
 
       @property disabled [Boolean]
         @added 0.15.2
-          @description 
+          @description
             Added the ability to disable a tag input in the options
-            
 
-        @description 
+
+        @description
           Whether the tag input should be disabled
-          @default 
+          @default
             false
-          
+
 
       @property draggable [Boolean]
         @added 1.0.0
-          @description 
+          @description
             Added the option to allow the tags to be re-ordered by dragging them
-            
 
-        @description 
+
+        @description
           Whether the tags can be dragged and re-ordered.
-          @default 
+          @default
             true
-          
+
 
       @property items [Array[String]]
         @added 1.0.0
         @bugfix 1.0.0
-          @description 
+          @description
             Added the items option to further standardise the API
-            
 
-        @description 
+
+        @description
           The array of tags to initialise the tag input with.
-          
+
 
       @property placeholder
         @added 1.4.0
           @issue 211
 
-        @description 
+        @description
           The placeholder for the input field when it has no text
 
       @property autocompleteData [Array/Function]
         @added 1.6.0
           @issue 194
 
-        @description 
+        @description
           The data to use as suggestions for the tag input. Data can be specified as an array of items or as a function that returns an array of items.
 
-          See 
+          See
 
           @hyperlink(../autocomplete)[Autocomplete]
 
@@ -326,8 +326,8 @@
         @added 1.6.0
           @issue 194
 
-        @description 
-          Special options to be passed to the autocomplete. See the 
+        @description
+          Special options to be passed to the autocomplete. See the
           @hyperlink(../autocomplete)[Autocomplete]
            constructor for the available options.
 
@@ -335,215 +335,215 @@
         @added 1.6.0
           @issue 194
 
-        @description 
+        @description
           Determines whether existing tags should be excluded from the autocompletion.
 
       @property mustMatchAutocomplete [Boolean]
         @added 1.6.0
           @issue 194
 
-        @description 
+        @description
           Determines whether the TagInput should only allow inputs that come from the autocomplete (if defined). Be default true.
 
   @method items
     @added 0.13.0
-    @description 
+    @description
       A method for setting the tags
 
     @arg items [Array[String]]
-      @description 
+      @description
         The array of tags to set
-        
+
 
     @arg? class [String]
-      @description 
+      @description
         The CSS class to give the tag.
-        
+
 
     @returns [TagInput]
-      @description 
+      @description
         This tag input for chaining
-        
+
 
   @method items
     @added 0.13.0
-    @description 
+    @description
       A method for getting the tags
 
     @returns [Array[String]]
-      @description 
+      @description
         The current set of tags.
-        
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to disable/enable a tag input
-        
 
-    @description 
+
+    @description
       A method for disabling or enabling a tag input
 
     @arg value [Boolean]
-      @description 
+      @description
         Whether the tag input should be disabled
-        
+
 
     @returns [TagInput]
-      @description 
+      @description
         This tag input
-        
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to get the disabled state of a tag input
-        
 
-    @description 
+
+    @description
       A method for getting the disabled state of a tag input
 
     @returns [Boolean]
-      @description 
+      @description
         Whether the tag input is disabled
-        
+
 
   @event add
-    @description 
+    @description
       Emitted when a tag is added.
-      
+
 
     @data Object
       @property value
-        @description 
+        @description
           The value of the tag
-          
+
 
       @property type
-        @description 
+        @description
           The type of event that fired this event. Can be 'user' or 'api';
-          
+
 
   @event remove
-    @description 
+    @description
       Emitted when a tag is removed.
-      
+
 
     @data Object
       @property value
-        @description 
+        @description
           The value of the tag
-          
+
 
       @property type
-        @description 
+        @description
           The type of event that fired this event. Can be 'user' or 'api';
-          
+
 
 
 @class hx-tag
   @updated 0.10.0
-    @description 
+    @description
       Removed module-specific classes in favor of generic classes
-      
 
-  @description 
+
+  @description
     The base class given to tags in the tag input.
 
   @extraClass hx-positive
-    @description 
+    @description
       The additional class to give to positive tags.
-      
+
 
   @extraClass hx-negative
-    @description 
+    @description
       The additional class to give to negative tags.
-      
+
 
   @extraClass hx-warning
-    @description 
+    @description
       The additional class to give to warning tags.
-      
+
 
   @extraClass hx-info
-    @description 
+    @description
       The additional class to give to info tags.
-      
+
 
   @extraClass hx-light
     @removed 0.10.0
     @deprecated 0.9.0
-      @description 
+      @description
         Use hx-compliment instead.
-        
 
-    @description 
+
+    @description
       The additional class to give to light tags.
-      
+
 
   @extraClass hx-dark
     @removed 0.10.0
     @deprecated 0.9.0
-      @description 
+      @description
         Use hx-contrast instead.
-        
 
-    @description 
+
+    @description
       The additional class to give to dark tags.
-      
+
 
   @extraClass hx-color-[n]
     @removed 0.10.0
     @deprecated 0.9.0
-      @description 
+      @description
         All numbered color classes will be removed in a later version.Use the context classes instead.
-        
+
 
   @extraClass hx-compliment
     @removed 1.0.0
-      @description 
-        Use @code(css)[.hx-complement] instead
-        
+      @description
+        Use @code[.hx-complement] instead
 
-    @description 
+
+    @description
       The additional class to give tags a complimenting color to the base theme color.
-      
+
 
   @extraClass hx-contrast
-    @description 
+    @description
       The additional class to give tags a contrasting color to the base theme color.
-      
+
 
   @extraClass hx-action
     @added 1.0.0
-      @description 
+      @description
         Added new action context class and updated default styles.
-        
 
-    @description 
+
+    @description
       The additional class to give to action tags.
 
   @extraClass hx-complement
-    @description 
+    @description
       The additional class to give tags a complementary color to the base theme color.
-      
+
 
 @function hx.tagInput
   @added 1.0.0
-    @description 
+    @description
       Fluid api version of TagInput
-      
 
-  @description 
+
+  @description
     Creates a new TagInput set up on a detached element, wrapped in a selection
 
   @arg options [Object]
-    @description 
+    @description
       See the options object for constructing TagInput
-      
+
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an element with an TagInput initialised on it
-      
+
 

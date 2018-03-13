@@ -1,291 +1,291 @@
 @bugfix 1.13.0
-  @description 
+  @description
     Added the missing 'action' context to the titlebar
 
 @bugfix 1.5.1
   @issue 248
-  @description 
+  @description
     Resolved an issue with the precedence of the link styles
-    
+
 
 @property hx.titlebar [TitleBar]
-  @description 
+  @description
     Provided there is a hx-heading section on the page when hexagon.js loads, hexagon will create a titlebar instance for you, and will store it on this property.
 
-  @condensed 
+  @condensed
 
 @prototype hx.TitleBar
-  @description 
-  @constructor 
-    @description 
+  @description
+  @constructor
+    @description
       Constructs a new TitleBar instance
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The .hx-heading section which contains the titlebar. Normally you would do something like this:
         @@codeblock js
           var titlebar = new hx.TitleBar(hx.select('hx-section').node());
 
   @method setActive
     @removed 0.14.0
-      @description 
+      @description
         Use @code[active(selector)] instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use @code[active(selector)] instead.
-        
+
 
     @added 0.9.0
-    @description 
+    @description
       Sets the active titlebar link, causing the underline to show all the time instead of just when the link is hovered over.
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The titlebar link to apply the selected class to. Must be a selector that returns a single node (e.g. an ID rather than a class)
-        
+
 
   @method setContextClass
     @removed 0.14.0
-      @description 
+      @description
         Use @code[contextClass(class)] instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use @code[contextClass(class)] instead.
-        
+
 
     @added 0.10.0
-    @description 
+    @description
       Sets the context class for the titlebar, removing any other existing context classes in the process.
 
     @arg class [String]
-      @description 
+      @description
         The context class to give the titlebar - can be one of hx-positive, hx-negative, hx-warning, hx-info. If undefined is supplied the titlebar will return to its normal color scheme.
-        
+
 
   @method contextClass
     @added 0.13.0
-    @description 
+    @description
       Sets the context class for the titlebar, removing any other existing context classes in the process.
 
     @arg class [String]
-      @description 
+      @description
         The context class to give the titlebar - can be one of hx-positive, hx-negative, hx-warning, hx-info. If undefined is supplied the titlebar will return to its normal color scheme.
-        
+
 
     @returns [TitleBar]
-      @description 
+      @description
         This titlebar for chaining.
-        
+
 
   @method contextClass
     @added 0.13.0
-    @description 
+    @description
       Gets the context class for the titlebar
 
     @returns [String]
-      @description 
+      @description
         The currently set context class.
-        
+
 
   @method active
     @bugfix 1.14.0
       @issue 390
-      @description 
+      @description
         Correctly allow the active element to be set using a Selection or HTMLElement
 
     @added 0.13.0
-    @description 
+    @description
       Sets the active titlebar link, causing the underline to show all the time instead of just when the link is hovered over.
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The titlebar link to apply the selected class to. Must be a selector that returns a single node (e.g. an ID rather than a class)
-        
+
 
     @returns [TitleBar]
-      @description 
+      @description
         This titlebar for chaining.
-        
+
 
   @method active
     @added 0.13.0
-    @description 
+    @description
       Gets the currently active titlebar link.
 
     @returns [Selection]
-      @description 
+      @description
         The currently selected titlebar link.
-        
+
 
 
 @class hx-heading
   @updated 0.11.0
-    @description 
+    @description
       Updated menu icon tooltip styles so the last tooltip won't be able to flow outside the the titlebar area.
-      
 
-  @description 
+
+  @description
     The titlebar container. The structure must follow this hierarchy to allow the mobile responsiveness to work correctly.
 
   @class hx-titlebar
-    @description 
+    @description
       The top part of the titlebar that includes the icon, title, subtitle and any menu icons.
 
     @class hx-titlebar-container
-      @description 
+      @description
         The container for all the titlebar contents.
-        
+
 
       @class hx-titlebar-header
-        @description 
+        @description
           The header container that includes the icon, title and subtitle.
-          
+
 
         @class hx-titlebar-icon
           @updated 1.0.0
-            @description 
+            @description
               Moved the titlebar icon to it's own module.
-              
+
 
           @info 1.0.0
-            @description 
-              The @code(html)[<img />] tag inside this element will now need to use the @code[hx-logo] class to display the theme logo.
-              
+            @description
+              The @code[<img />] tag inside this element will now need to use the @code[hx-logo] class to display the theme logo.
 
-          @description 
-            The site icon. It can be a link element or a @code[<div>] . To display the theme logo, an empty image tag with the class @code[hx-logo] can be used, e.g. @code(html)[<img class="hx-logo" />] @class hx-titlebar-icon-ocado-dots
+
+          @description
+            The site icon. It can be a link element or a @code[<div>] . To display the theme logo, an empty image tag with the class @code[hx-logo] can be used, e.g. @code[<img class="hx-logo" />] @class hx-titlebar-icon-ocado-dots
             @removed 0.9.0
-              @description 
+              @description
                 This class no longer needs to be on the image tag
-                
+
 
         @class hx-titlebar-title
-          @description 
+          @description
             The element that contains the page title.
-            
+
 
         @class hx-titlebar-subtitle
-          @description 
+          @description
             The element that contains the site subtitle. This element is not required
-            
+
 
         @class hx-titlebar-menu-icon-mobile
-          @description 
+          @description
             The element that is shown on mobile devices to show/hide the titlebar menu icons.
-            
+
 
       @class hx-titlebar-menu-icons
-        @description 
+        @description
           An element containing a set of menu icons to perform actions (such as login, preferences etc.)
-          
+
 
         @class hx-titlebar-menu-icons-container
-          @description 
+          @description
             The container for all the menu icons.
-            
+
 
           @class hx-titlebar-menu-icon
-            @description 
+            @description
               The class to give to each menu icon.
-              
+
 
             @class hx-titlebar-menu-text
-              @description 
+              @description
                 The class to give to a @code[<span>] element inside the menu icon which will display as the tooltip text for the icon.
 
 
     @extraClass hx-positive
       @added 0.10.0
-      @description 
+      @description
         Gives the titlebar the positive color.
 
     @extraClass hx-warning
       @added 0.10.0
-      @description 
+      @description
         Gives the titlebar the warning color.
 
     @extraClass hx-negative
       @added 0.10.0
-      @description 
+      @description
         Gives the titlebar the negative color.
 
     @extraClass hx-info
       @added 0.10.0
-      @description 
+      @description
         Gives the titlebar the info color.
 
   @class hx-titlebar-linkbar
-    @description 
+    @description
       The linkbar that contains any links that will display underneath the titlebar.
-      
+
 
     @class hx-titlebar-contents
-      @description 
+      @description
         The contents of the linkbar
-        
+
 
       @class hx-titlebar-link
-        @description 
+        @description
           The class to give to each link element inside the linkbar contents.
-          
+
 
 
 @class hx-titlebar-fixed
   @removed 1.0.0
-    @description 
+    @description
       Use hx-heading-fixed instead.
-      
+
 
   @deprecated 0.15.2
-    @description 
+    @description
       Use hx-heading-fixed instead.
-      
 
-  @description 
+
+  @description
     The class to give to the body to fix the titlebar to the top of the page.
-    
+
 
 @class hx-heading-fixed
   @added 0.15.2
-    @description 
+    @description
       Added a new class to replace hx-titlebar-fixed as it applies to the hx-heading element, not the hx-titlebar within the heading.
-      
 
-  @description 
+
+  @description
     The class to give to the body to fix the heading to the top of the page.
-    
+
 
 @function hx.titleBar
   @added 1.12.0
     @issue 399
-    @description 
+    @description
       Added a minimal fluid version of the titlebar
 
   @arg options [Object]
-    @description 
+    @description
       The options for the titlebar
 
     @property title [String]
-      @description 
+      @description
         The title to display in the titlebar
 
     @property subtitle [String]
-      @description 
+      @description
         The subtitle to display
 
     @property showIcon [Boolean]
-      @description 
+      @description
         Whether to show the icon in the titlebar
 
     @property iconLink [String]
-      @description 
+      @description
         The link to add to the icon
 
     @property iconClass [String]
-      @description 
+      @description
         The icon class to use
 

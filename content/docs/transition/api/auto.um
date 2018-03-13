@@ -1,121 +1,121 @@
 @function hx.loop
-  @description 
+  @description
     Calls a function every frame until it returns true. This will attempt to use @code[requestAnimationFrame] , falling back to @code[setTimeout] if @code[requestAnimationFrame] is unavailable.
 
   @arg callback [Function]
-    @description 
+    @description
       Return true to end the loop
 
     @returns [Boolean]
 
 @function hx.transition
-  @description 
+  @description
     Calls a function every frame for an amount of time, providing the progress to the callback. This will attempt to use @code[requestAnimationFrame] , falling back to @code[setTimeout] if @code[requestAnimationFrame] is unavailable.
 
   @arg millis [Number]
-    @description 
+    @description
       The transition's duration in milliseconds
-      
+
 
   @arg callback [Function]
-    @description 
+    @description
       The function that gets called each frame
 
     @arg? cancelled [Boolean]
-      @description 
+      @description
         If the transition has been cancelled and this is the final call, then cancelled will be true, otherwise it will be false.
-        
+
 
     @arg progress [Number]
 
   @arg? ease [Function]
-    @description 
+    @description
       The easing function to use. You can use one of the predefined functions on hx.ease, or you can define your own.
 
     @arg input [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 
     @returns [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 
   @arg? endCallback [Function]
     @arg cancelled [Boolean]
-      @description 
+      @description
         Will be true if the transition was cancelled using the returned cancel function, otherwise will be true
-        
+
 
   @returns [Function]
-    @description 
+    @description
       A function that can be called to cancel the transition.
-      
-      @@codeblock 
+
+      @@codeblock
         var stop = hx.transition(1000, cb)
-        
+
         // to stop/cancel the transition, the stop function can be called:
         stop()
 
 @object ease
-  @description 
+  @description
     A collection of easing functions that map from domain [0, 1] to range [0, 1]
 
   @function linear
-    @description 
+    @description
       The linear easing function is defined as
-      
-      @@codeblock 
+
+      @@codeblock
         function(x) {
           return x;
         }
 
     @arg input [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 
     @returns [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 
   @function quad
-    @description 
+    @description
       The quadratic easing function is defined as
-      
-      @@codeblock 
+
+      @@codeblock
         function(x) {
           return x*x;
         }
 
     @arg input [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 
     @returns [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 
   @function cubic
-    @description 
+    @description
       The cubic easing function is defined as
-      
-      @@codeblock 
+
+      @@codeblock
         function(x) {
           return x*x*x;
         }
 
     @arg input [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 
     @returns [Number]
-      @description 
+      @description
         A value between 0 and 1
-        
+
 

@@ -1,6 +1,6 @@
 @version 0.10.0
-  @examples 
-    
+  @examples
+
     @@codeblock js
       hx.select('#id').morph().with('expand')
       hx.select('#id').morph().with('collapse')
@@ -14,21 +14,21 @@
       hx.select('#id').morph().with('rotate-0')
       hx.select('#id').morph().with('delay')
 
-    
+
     Chaining transitions is also possible:
-    
+
     @@codeblock js
       hx.select('#id').morph()
         .with('expand', 100)
         .and('fadein', 100)
-      
+
       hx.select('#id').morph()
         .with('fadeout', 100)
         .then('collapse', 100)
 
 @version 0.9.0
-  @examples 
-    
+  @examples
+
     @@codeblock js
       hx.select('#id').morph().with('expand')
       hx.select('#id').morph().with('collapse')
@@ -38,14 +38,14 @@
       hx.select('#id').morph().with('rotate-0')
       hx.select('#id').morph().with('delay')
 
-    
+
     Chaining transitions is also possible:
-    
+
     @@codeblock js
       hx.select('#id').morph()
         .with('expand', 100)
         .and('fadein', 100)
-      
+
       hx.select('#id').morph()
         .with('fadeout', 100)
         .then('collapse', 100)

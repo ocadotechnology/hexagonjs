@@ -1,105 +1,105 @@
 @class hx-label
   @updated 0.10.0
-    @description 
+    @description
       Removed module-specific classes in favor of generic classes
-      
 
-  @description 
+
+  @description
     Applies styling to @code[<span>] elements.
 
   @extraClass hx-positive
-    @description 
+    @description
       Adds styling indicative of success, confirmation or something positive
-      
+
 
   @extraClass hx-negative
-    @description 
+    @description
       Adds styling indicative of failure, danger or something negative
-      
+
 
   @extraClass hx-warning
-    @description 
+    @description
       Adds styling indicative of warning, to suggest the user should use caution
-      
+
 
   @extraClass hx-compliment
     @removed 1.0.0
-      @description 
-        Use @code(css)[.hx-complement] instead
-        
+      @description
+        Use @code[.hx-complement] instead
 
-    @description 
+
+    @description
       Styles the label with compliment colors
-      
+
 
   @extraClass hx-contrast
-    @description 
+    @description
       Styles the label with contrast colors
-      
+
 
   @extraClass hx-info
-    @description 
+    @description
       Styles the label to indicate that clicking it will lead to some form of documentation / information.
-      
+
 
   @extraClass hx-label-[n]
     @removed 0.10.0
     @deprecated 0.9.0
-      @description 
+      @description
         All numbered color classes will be removed in a later version. Use the context classes instead.
-        
 
-    @description 
+
+    @description
       The numbered labels classes - the number available depends on the theme being used.
-      
+
 
   @extraClass hx-label-positive
     @removed 0.10.0
-      @description 
+      @description
         Use hx-positive with hx-label instead
-        
+
 
   @extraClass hx-label-warning
     @removed 0.10.0
-      @description 
+      @description
         Use hx-warning with hx-label instead
-        
+
 
   @extraClass hx-label-negative
     @removed 0.10.0
-      @description 
+      @description
         Use hx-negative with hx-label instead
-        
+
 
   @extraClass hx-label-info
     @removed 0.10.0
-      @description 
+      @description
         Use hx-info with hx-label instead
-        
+
 
   @extraClass hx-label-contrast
     @removed 0.10.0
-      @description 
+      @description
         Use hx-contrast with hx-label instead
-        
+
 
   @extraClass hx-label-compliment
     @removed 0.10.0
-      @description 
+      @description
         Use hx-compliment with hx-label instead
-        
+
 
   @extraClass hx-action
     @added 1.0.0
-      @description 
+      @description
         Added new action context class and updated default styles.
-        
 
-    @description 
+
+    @description
       Styles the label with action colors
 
   @extraClass hx-complement
-    @description 
+    @description
       Styles the label with complement colors
-      
+
 

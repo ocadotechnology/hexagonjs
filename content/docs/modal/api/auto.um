@@ -1,371 +1,371 @@
 @bugfix 1.1.0
   @issue 8
-  @description 
+  @description
     Added some styles to modals so they no longer overflow on small devices
-    
+
 
 @updated 1.0.0
-  @description 
+  @description
     Updated the structure and style of modal popups to allow the modal content to be used as a notification container.
-    
+
 
 @prototype hx.Modal
   @bugfix 1.2.1
     @issue 142
-    @description 
+    @description
       Fixed an issue where modal content would be duplicated when calling modal.show() multiple times.
-      
 
-  @description 
+
+  @description
     For displaying pop-up content. They are best reserved for cases when the user is doing something out of the ordinary, as a one off task. If there is a sensible place to display the same content on the page itself, do that instead.
 
-  @constructor 
+  @constructor
     @removed 0.9.0
-      @description 
+      @description
         The maxWidth parameter has been removed - the modal will now fit the content automatically.
-        
 
-    @description 
+
+    @description
       Creates a new Modal object for displaying pop up content.
 
     @arg title [String]
-      @description 
+      @description
         The title that should be shown in the modal's title bar.
-        
+
 
     @arg setup [Function[HTMLElement]]
-      @description 
+      @description
         A function that takes an HTMLElement as it's first argument, and sets up the content of the modal using that element.
-        
+
 
     @arg? isClosable [Boolean]
-      @description 
+      @description
         Whether or not the modal should display a button in the top left for closing the modal.
-        @default 
+        @default
           true
-        
+
 
     @arg? maxWidth [Number]
-      @description 
+      @description
         The maximum width the modal should take in pixels.
-        @default 
+        @default
           480
-        
 
-  @constructor 
+
+  @constructor
     @removed 0.14.0
-      @description 
+      @description
         Use hx.Modal(title, setup, [options]) instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         User hx.Modal(title, setup, [options]) instead.
-        
+
 
     @added 0.9.0
-    @description 
+    @description
       Creates a new Modal object for displaying pop up content.
 
     @arg title [String]
-      @description 
+      @description
         The title that should be shown in the modal's title bar.
-        
+
 
     @arg setup [Function[HTMLElement]]
-      @description 
+      @description
         A function that takes an HTMLElement as it's first argument, and sets up the content of the modal using that element.
-        
+
 
     @arg? isClosable [Boolean]
-      @description 
+      @description
         Whether or not the modal should display a button in the top left for closing the modal.
-        @default 
+        @default
           true
-        
+
 
   @method show
-    @description 
+    @description
       Shows the modal.
 
     @returns [Modal]
-      @description 
+      @description
         This Modal
-        
+
 
   @method close
     @removed 0.15.0
-      @description 
+      @description
         Use modal.hide instead.
-        
+
 
     @deprecated 0.14.0
-      @description 
+      @description
         Use modal.hide instead.
-        
 
-    @description 
+
+    @description
       Hides the modal.
 
     @returns [Modal]
-      @description 
+      @description
         This Modal
-        
+
 
   @property setupTitlebar [Function]
     @removed 0.14.0
-      @description 
+      @description
         Use options.titlebarRenderer instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use options.titlebarRenderer instead.
-        
+
 
     @added 0.10.0
-    @description 
+    @description
       Renderer function for the titlebar. The default renderer gives the node the title text. The this context for the function is this modal.
 
     @arg element [HTMLElement]
 
   @extends EventEmitter
-  @constructor 
+  @constructor
     @removed 1.1.0
       @issue 41
-      @description 
+      @description
         Added an additional parameter to the setup function, titlebarRenderer and headerRenderer.
 
         The existing API has not been modified and will continue to work.
-        
+
 
     @added 0.13.0
-    @description 
+    @description
       Creates a new Modal object for displaying pop up content.
 
     @arg title [String]
-      @description 
+      @description
         The title that should be shown in the modal's title bar.
-        
+
 
     @arg setup [Function[HTMLElement]]
-      @description 
+      @description
         A function that takes an HTMLElement as it's first argument, and sets up the content of the modal using that element.
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         Configuration options for the modal.
 
       @property titlebarRenderer [Function]
-        @description 
+        @description
           Renderer function for the titlebar. The this context for the function is this modal.
 
         @arg element [HTMLElement]
 
       @property isClosable [Boolean]
         @removed 1.0.0
-          @description 
+          @description
             This property has been replaced by @code[closeWithShadeEnabled] and @code[closeButtonEnabled]
-            
 
-        @description 
+
+        @description
           Whether or not the modal shows the x button for closing the modal. True means that the button will be shown, and that clicking the area surrounding the modal will cause the modal to close.
-          @default 
+          @default
             true
 
       @property closeWithShadeEnabled [Boolean]
         @added 1.0.0
-        @description 
+        @description
           Whether clicking on the shaded background around the modal should close it
-          
+
 
       @property closeButtonEnabled [Boolean]
         @added 1.0.0
-        @description 
+        @description
           Whether the modal should have a close button
-          
+
 
       @property headerRenderer [Function]
         @added 1.0.0
-          @description 
+          @description
             Added a new header renderer for modals so that the close button no longer has to be absolutely positioned in the title.
-            
 
-        @description 
+
+        @description
           Renderer function for the modal header. The header contains both the titlebar and the close button for a modal.
 
         @arg node [Element]
-          @description 
+          @description
             The node for the modal header
-            
+
 
         @arg titleNode [Element]
-          @description 
+          @description
             The node for the modal title
-            
+
 
         @arg? closeButtonNode [Element]
-          @description 
-            The node for the modal close button. If @code(js)[closeButtonEnabled] is false, this will be undefined.
-            
+          @description
+            The node for the modal close button. If @code[closeButtonEnabled] is false, this will be undefined.
+
 
   @property options [Object]
     @added 0.13.0
-    @description 
+    @description
       Configuration options for the modal. See the options parameter of the constructor for the available options.
 
   @method hide
     @added 0.14.0
-    @description 
+    @description
       Hides the modal.
 
     @returns [Modal]
-      @description 
+      @description
         This Modal
-        
 
-  @constructor 
+
+  @constructor
     @added 1.1.0
       @issue 41
-      @description 
+      @description
         Added the modal parameter to the setup function passed into the modal constructor as well as the titlebarRenderer and headerRenderer functions.
-        
+
 
     @arg title [String]
-      @description 
+      @description
         The title that should be shown in the modal's title bar.
-        
+
 
     @arg setup [Function]
-      @description 
+      @description
         A function that takes an HTMLElement as it's first argument, and sets up the content of the modal using that element.
-        
+
 
       @arg element [HTMLElement]
-        @description 
+        @description
           The modal content element to populate.
-          
+
 
       @arg modal [Modal]
-        @description 
+        @description
           The current modal
-          
 
-    
+
+
     @arg? options [Object]
-      @description 
+      @description
         Configuration options for the modal.
-        
+
 
       @property closeWithShadeEnabled [Boolean]
-        @description 
+        @description
           Whether clicking on the shaded background around the modal should close it
-          
+
 
       @property closeButtonEnabled [Boolean]
-        @description 
+        @description
           Whether the modal should have a close button
-          
+
 
       @property titlebarRenderer [Function]
-        @description 
+        @description
           Renderer function for the titlebar. The this context for the function is this modal.
 
         @arg element [HTMLElement]
-          @description 
+          @description
             The node for the modal title.
-            
+
 
         @arg modal [Modal]
-          @description 
+          @description
             The current modal
-            
+
 
       @property headerRenderer [Function]
-        @description 
+        @description
           Renderer function for the modal header. The header contains both the titlebar and the close button for a modal.
 
         @arg node [Element]
-          @description 
+          @description
             The node for the modal header. This contains the title and the close button.
-            
+
 
         @arg titleNode [Element]
-          @description 
+          @description
             The node for the modal title.
-            
+
 
         @arg? closeButtonNode [Element]
-          @description 
-            The node for the modal close button. If @code(js)[closeButtonEnabled] is false, this will be undefined.
-            
+          @description
+            The node for the modal close button. If @code[closeButtonEnabled] is false, this will be undefined.
+
 
         @arg modal [Modal]
-          @description 
+          @description
             The current modal
-            
+
 
   @event showstart
-    @description 
+    @description
       Emitted when the modal show animation starts. No data is sent with this event.
 
   @event showend
-    @description 
+    @description
       Emitted when the modal show animation finishes. No data is sent with this event.
 
   @event hidestart
-    @description 
+    @description
       Emitted when the modal hide animation starts. No data is sent with this event.
 
   @event hideend
-    @description 
+    @description
       Emitted when the modal hide animation ends. No data is sent with this event.
 
   @event show
-    @description 
+    @description
       Emitted when the modal is shown. No data is sent with this event.
 
   @event hide
-    @description 
+    @description
       Emitted when the modal is hidden. No data is sent with this event.
 
 @object hx.modal
   @bugfix 0.12.2
-    @description 
+    @description
       Clicking on an element that subsequently gets detached will no longer cause the modal to close.
-      
 
-  @description 
+
+  @description
     An object containing functions for creating common modals.
 
   @function dialog
     @removed 0.11.0
-    @description 
+    @description
       A function for creating a simple modal popup with a title, a message and some buttons.
 
     @arg title [String]
-      @description 
+      @description
         The title for the modal.
-        
+
 
     @arg message [String]
-      @description 
+      @description
         The message for the modal.
-        
+
 
     @arg callback [Function]
-      @description 
+      @description
         The function that gets called when a button is clicked.
-        
+
 
       @arg value [String/Boolean]
-        @description 
+        @description
           The value of the button clicked. Default values are true/false but can be set to anything using the buttons parameter.
-          
+
 
     @arg? buttons [Array]
-      @description 
+      @description
         The array of buttons to show in the modal.
 
         The default buttons that are used if the buttons parameter is passed in as null or undefined is as follows:
@@ -386,100 +386,100 @@
           ]
 
     @arg? isClosable [Boolean]
-      @description 
+      @description
         Whether or not the modal should show a close button.
-        @default 
+        @default
           false
-        
+
 
   @function input
     @removed 0.14.0
-      @description 
+      @description
         Use hx.input(title, messsage, callback, options) instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use hx.input(title, messsage, callback, options) instead.
-        
 
-    @description 
+
+    @description
       A function for creating a simple modal popup with a title, a message and an input box (and confirm and cancel buttons).
 
     @arg title [String]
-      @description 
+      @description
         The title for the modal.
-        
+
 
     @arg message [String]
-      @description 
+      @description
         The message for the modal.
-        
+
 
     @arg callback [Function]
-      @description 
+      @description
         The function that gets called when a button is clicked.
-        
+
 
     @arg value [String]
-      @description 
+      @description
         The string value entered into the modal's input box, or false if the cancel button was clicked, or undefined if the close button was clicked in the titlebar of the modal.
-        
+
 
     @arg? isClosable [Boolean]
-      @description 
+      @description
         Whether or not the modal should show a close button.
-        @default 
+        @default
           true
-        
+
 
     @returns [Modal]
       @added 0.13.0
-      @description 
+      @description
         The newly constructed Modal
-        
+
 
   @function dialog
     @removed 0.14.0
-      @description 
+      @description
         Use hx.modal.dialog(title, message, callback, options) instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use hx.modal.dialog(title, message, callback, options) instead.
-        
+
 
     @added 0.11.0
-      @description 
+      @description
         Added extra parameters to the dialog function to enable a class and icon to be passed to the titlebar.
-        
 
-    @description 
+
+    @description
       A function for creating a simple modal popup with a title, a message and some buttons.
 
     @arg title [String]
-      @description 
+      @description
         The title for the modal.
-        
+
 
     @arg message [String]
-      @description 
+      @description
         The message for the modal.
-        
+
 
     @arg callback [Function]
-      @description 
+      @description
         The function that gets called when a button is clicked.
-        
+
 
       @arg value [String/Boolean]
-        @description 
+        @description
           The value of the button clicked. Default values are true/false but can be set to anything using the buttons parameter.
-          
+
 
     @arg? buttons [Array]
-      @description 
+      @description
         The array of buttons to show in the modal.
 
         The default buttons that are used if the buttons parameter is passed in as null or undefined is as follows:
@@ -500,57 +500,57 @@
           ]
 
     @arg? isClosable [Boolean]
-      @description 
+      @description
         Whether or not the modal should show a close button.
-        @default 
+        @default
           false
-        
+
 
     @arg? titleClass [String]
-      @description 
+      @description
         The class to use when rendering the titlebar.
 
         This should be one of the @code['hx-background-'] classes but without the prefix, e.g. @code['positive'] or @code['negative'] @arg? icon [String]
-      @description 
+      @description
         The icon to add to the modal heading.
 
     @returns [Modal]
       @added 0.13.0
-      @description 
+      @description
         The newly constructed Modal
-        
+
 
   @function dialog
     @added 0.13.0
-    @description 
+    @description
       A function for creating a simple modal popup with a title, a message and some buttons.
 
     @arg title [String]
-      @description 
+      @description
         The title for the modal.
-        
+
 
     @arg message [String]
-      @description 
+      @description
         The message for the modal.
-        
+
 
     @arg callback [Function]
-      @description 
+      @description
         The function that gets called when a button is clicked.
-        
+
 
       @arg value [String/Boolean]
-        @description 
+        @description
           The value of the button clicked. Default values are true/false but can be set to anything using the buttons parameter.
-          
+
 
     @arg? options [Object]
-      @description 
+      @description
         Options for configuring the dialog.
 
       @property buttons
-        @description 
+        @description
           The array of buttons to show in the modal.
 
           The default buttons that are used if the buttons parameter is passed in as null or undefined is as follows:
@@ -571,99 +571,99 @@
             ]
 
       @property isClosable [Boolean]
-        @description 
+        @description
           Whether or not the modal should show a close button.
-          @default 
+          @default
             false
-          
+
 
       @property titleClass [String]
-        @description 
+        @description
           The class to use when rendering the titlebar.
 
           This should be one of the @code['hx-background-'] classes but without the prefix, e.g. @code['positive'] or @code['negative'] @property icon [String]
-        @description 
+        @description
           The icon to add to the modal heading.
 
     @returns [Modal]
-      @description 
+      @description
         The newly constructed Modal
-        
+
 
   @function input
     @added 0.13.0
-    @description 
+    @description
       A function for creating a simple modal popup with a title, a message and an input box (and confirm and cancel buttons).
 
     @arg title [String]
-      @description 
+      @description
         The title for the modal.
-        
+
 
     @arg message [String]
-      @description 
+      @description
         The message for the modal.
-        
+
 
     @arg callback [Function]
-      @description 
+      @description
         The function that gets called when a button is clicked.
-        
+
 
       @arg value [String]
-        @description 
+        @description
           The string value entered into the modal's input box, or false if the cancel button was clicked, or undefined if the close button was clicked in the titlebar of the modal.
-          
+
 
     @arg? options [Object]
       @property isClosable [Boolean]
-        @description 
+        @description
           Whether or not the modal should show a close button.
-          @default 
+          @default
             true
-          
+
 
       @property value [String]
-        @description 
+        @description
           Initial text to place in the input box.
-          
+
 
     @returns [Modal]
-      @description 
+      @description
         The newly constructed Modal
-        
+
 
 @class hx-modal-shade
-  @description 
+  @description
     The class given to the semi-transparent overlay shown over the page.
 
 @class hx-modal-container
-  @description 
+  @description
     The class given to the modal container.
 
   @class hx-modal
-    @description 
+    @description
       The class given to the modal itself, containing all the modal content.
 
     @class hx-modal-title
-      @description 
+      @description
         The class given to the modal titlebar. Also includes the close button.
 
       @class hx-modal-close
-        @description 
+        @description
           The class given to the close button if it is present.
 
       @extraClass hx-modal-title-empty
         @added 0.12.6
-          @description 
+          @description
             Added a class to identify when a title with no length or an undefined title is passed in.
-            
 
-        @description 
+
+        @description
           The class given to the modal titlebar when the title provided is null, undefined or has a length of 0 to determine that it has no content.
 
     @class hx-modal-content
-      @description 
+      @description
         The class given to the modal content.
 
 

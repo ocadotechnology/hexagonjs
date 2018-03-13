@@ -1,13 +1,13 @@
-@inline ../../templates/sidebar-page.um
+@inline /templates/sidebar-page.um
 
 @titlebar Printing
 
 @div .dx-content
   @h1: Printing
 
-  @p: Hexagon is built with a print stylesheet included alongside the other hexagon files called @code(um)[hexagon.print.css].
+  @p: Hexagon is built with a print stylesheet included alongside the other hexagon files called @code[hexagon.print.css].
   @p: It can be included on any page using the following:
-  @codeblock html
+  @@codeblock html
     <link rel="stylesheet" href="path_to_hexagon/hexagon.print.css" media="print">
 
   @p: The styles applied are commonly used to help resolve potential layout issues and try to improve the final result.

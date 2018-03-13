@@ -1,8 +1,8 @@
 @class hx-logo
   @added 1.0.0
-    @description 
+    @description
       Added a new class to allow the addition of the theme logo in places other than the titlebar.
-      
 
-  @description 
-    The class to give to an @code[<img>] tag to add the theme logo to the page, e.g. @code(html)[<img class="hx-logo" />] 
+
+  @description
+    The class to give to an @code[<img>] tag to add the theme logo to the page, e.g. @code[<img class="hx-logo" />]

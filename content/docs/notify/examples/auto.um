@@ -1,7 +1,7 @@
 @version 0.13.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div>
           <button class="hx-btn hx-info" onclick="hx.notify.info('Info');">Info</button>
           <button class="hx-btn hx-positive" onclick="hx.notify.positive('Positive');">Positive</button>
@@ -12,50 +12,50 @@
           <button class="hx-btn" onclick="hx.notify('Permanent', {timeout: undefined});">Permanent</button>
         </div>
 
-    
+
     @@codeblock js
       // show an info notification that will disappear after 5 seconds by default
       hx.notify.info('Hello');
-      
-      
+
+
       // show an info notification that will disappear after 20 seconds
       hx.notify.info('Hello for longer', {timeout: 20});
-      
-      
+
+
       // show a warning notification
       hx.notify.warning('Something might be broken');
-      
-      
+
+
       // show an negative notification
       hx.notify.negative('Uh oh. Something went wrong');
-      
-      
+
+
       // show a loading notification
       loadingNotification = hx.notify.loading('Doing something...');
-      
+
       // hide the notification when the loading is complete
       onLoadingThingFinished(function() {
         loadingNotification.close();
       });
-      
+
       // show a notification that must be either dismissed by the user, or closed programatically
       hx.notify.permanent('No timeout here');
 
 @version 0.14.0
-  @examples 
-    
-    @example 
-      @js 
+  @examples
+
+    @example
+      @js
         var exampleNotificationManager = new hx.NotificationManager('#example')
         hx.select('#notify').on('click', function() {
           exampleNotificationManager.notify('Clicked!')
         })
 
-      @html 
+      @html
         <div class="notify-example" id="example"></div>
         <button id="notify" class="hx-btn hx-positive">Notify</button>
 
-      @css 
+      @css
         .notify-example {
           position:relative;
           height: 50px;
@@ -65,9 +65,9 @@
           background: rgba(150,150,150,0.1);
         }
 
-    
-    @example 
-      @html 
+
+    @example
+      @html
         <div>
           <button class="hx-btn hx-info" onclick="hx.notify.info('Info');">Info</button>
           <button class="hx-btn hx-positive" onclick="hx.notify.positive('Positive');">Positive</button>
@@ -78,36 +78,36 @@
           <button class="hx-btn" onclick="hx.notify('Permanent', {timeout: undefined});">Permanent</button>
         </div>
 
-    
+
     @@codeblock js
       // show an info notification that will disappear after 5 seconds by default
       hx.notify.info('Hello');
-      
-      
+
+
       // show an info notification that will disappear after 20 seconds
       hx.notify.info('Hello for longer', {timeout: 20});
-      
-      
+
+
       // show a warning notification
       hx.notify.warning('Something might be broken');
-      
-      
+
+
       // show an negative notification
       hx.notify.negative('Uh oh. Something went wrong');
-      
-      
+
+
       // show a loading notification
       loadingNotification = hx.notify.loading('Doing something...');
-      
+
       // hide the notification when the loading is complete
       onLoadingThingFinished(function() {
         loadingNotification.close();
       });
 
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div>
           <button class="hx-btn hx-info" onclick="hx.notify().info('Info');">Info</button>
           <button class="hx-btn hx-positive" onclick="hx.notify().positive('Positive');">Positive</button>
@@ -118,32 +118,32 @@
           <button class="hx-btn" onclick="hx.notify().permanent('Permanent', 'fa fa-bell');">Permanent</button>
         </div>
 
-    
+
     @@codeblock js
       // show an info notification that will disappear after 5 seconds by default
       hx.notify().info('Hello');
-      
-      
+
+
       // show an info notification that will disappear after 20 seconds
       hx.notify().info('Hello for longer', 20);
-      
-      
+
+
       // show a warning notification
       hx.notify().warning('Something might be broken');
-      
-      
+
+
       // show an negative notification
       hx.notify().negative('Uh oh. Something went wrong');
-      
-      
+
+
       // show a loading notification
       loadingNotification = hx.notify().loading('Doing something...');
-      
+
       // hide the notification when the loading is complete
       onLoadingThingFinished(function() {
         loadingNotification.close();
       });
-      
+
       // show a notification that must be either dismissed by the user, or closed programatically
       hx.notify().permanent('No timeout here');
 

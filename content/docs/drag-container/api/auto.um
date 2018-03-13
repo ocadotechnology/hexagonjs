@@ -1,28 +1,28 @@
 @added 0.15.2
-  @description 
+  @description
     Added a module that allows elements to be dragged and ordered. This replicates the functionality of dashboard in a general purpose way.
-    
+
 
 @prototype hx.DragContainer
   @added 0.15.2
-  @description 
+  @description
     A prototype for creating a container with draggable elements inside.
 
   @extends EventEmitter
-  @constructor 
-    @description 
+  @constructor
+    @description
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The selector for the drag container
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when creating the drag container
-        
+
 
       @property lookup [Function]
-        @description 
+        @description
           The lookup function to use to get the ids when ordering the elements.
 
           Default:
@@ -33,134 +33,134 @@
             }
 
         @arg node [HTMLElement]
-          @description 
+          @description
             The draggable node. Will always be a direct child of the drag container.
-            
+
 
         @returns [String]
-          @description 
+          @description
             The unique id for the current node.
-            
+
 
       @property order [Array]
-        @description 
+        @description
           The array of ids to use to order the elements.
-          
+
 
       @property resizeOnDrag [Boolean]
-        @description 
+        @description
           Whether the element being dragged should be resized to fit into the space currently selected.
-          @default 
+          @default
             false
-          
+
 
   @method setup
-    @description 
+    @description
       The method used to set up the drag control listeners for the container. This should be called whenever an element is added to the drag container that has a drag control inside it.
 
     @returns [DragContainer]
-      @description 
+      @description
         This DragContainer
-        
+
 
   @method order
-    @description 
+    @description
       The method for getting the current order of the nodes.
 
     @returns [Array[String]]
-      @description 
+      @description
         An array of id's as returned from the lookup function.
-        
+
 
   @method order
-    @description 
+    @description
       The method for setting the current order of the nodes.
 
     @arg order [Array[String]]
-      @description 
-        The array of id's to order the nodes to. If @code(js)[undefined] is passed in, the order is set to the order the nodes were in when the drag container was created.
-        
+      @description
+        The array of id's to order the nodes to. If @code[undefined] is passed in, the order is set to the order the nodes were in when the drag container was created.
+
 
     @returns [DragContainer]
-      @description 
+      @description
         This DragContainer
-        
+
 
   @method lookup
-    @description 
+    @description
       The method for getting the currently set lookup function.
 
     @returns [Function]
-      @description 
+      @description
         The lookup function currently set.
-        
+
 
   @method lookup
-    @description 
+    @description
       The method for gsetting the currently set lookup function.
 
     @arg fn [Function]
-      @description 
+      @description
         The lookup function to set. It should return a unique id for each node in the drag container.
 
       @arg node [HTMLElement]
-        @description 
+        @description
           The draggable node. Will always be a direct child of the drag container.
-          
+
 
       @returns [String]
-        @description 
+        @description
           The unique id for the current node.
-          
+
 
     @returns [DragContainer]
-      @description 
+      @description
         This DragContainer
-        
+
 
   @event drag [HTMLElement]
-    @description 
+    @description
       The event emitted whilst an element is being dragged. The data with the event is the element that is being dragged.
 
   @event dragstart [HtTMLElement]
-    @description 
+    @description
       The event emitted at the start of an element being dragged. The data with the event is the element that is being dragged.
 
   @event dragend [HtTMLElement]
-    @description 
+    @description
       The event emitted at the end of an element being dragged. The data with the event is the element that is being dragged.
 
 @class hx-drag-container
-  @description 
+  @description
     The class applied to the drag container.
-    
+
 
   @class hx-drag-element
-    @description 
+    @description
       The class to apply to elements that should be draggable
-      
+
 
     @class hx-drag-control
-      @description 
+      @description
         The class to give to the drag control for a draggable element
-        
+
 
 @function hx.dragContainer
   @added 1.0.0
-    @description 
+    @description
       Fluid api version of DragContainer
-      
 
-  @description 
+
+  @description
     Creates a new DragContainer set up on a detached element, wrapped in a selection
 
   @arg options [Object]
-    @description 
+    @description
       See the options object for constructing DragContainer
-      
+
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an element with an DragContainer initialised on it
-      
+
 

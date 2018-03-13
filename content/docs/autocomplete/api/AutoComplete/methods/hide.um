@@ -15,7 +15,7 @@
     @removed 0.14.0
       @description
         Suppressing events is now possible with
-        @code(js)[AutoComplete::suppressed(eventName, suppress)]. This is part
+        @code]. This is part
         of the @link(/docs/event-emitter)[Event Emitter] api.
 
   @returns AutoComplete

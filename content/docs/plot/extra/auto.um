@@ -1,70 +1,70 @@
 @version 0.15.2
   @h1(.docs-module-section)[Getting Started]
   @section Graphs
-    
+
     @section Creating [a Graph]
-      
+
       A Graph can be created as follows.
 
-      
+
       @@codeblock js
         var graph = new hx.Graph('#my-graph');
 
-      
+
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
-    
+
     @section Creating [an Axis]
-      
+
       Before anything can be plotted on this graph, an axis must be added.
 
-      
+
       @@codeblock js
         var axis = graph.addAxis();
 
-      
+
       This will give you a default axis which has linear scales for the x and y axes.
 
-    
+
     @section Creating [a Series]
-      
+
       Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
 
-      
+
       @@codeblock js
         var series = axis.addSeries('line', {title: 'Series Name'});
 
-    
+
     @section Setting [the data in a Series]
-      
+
       The last step is to set the data that this series displays.
 
-      
+
       @@codeblock js
         // create some fake data
         var data = hx.range(100).map(function(i){return {x: i, y: Math.sin(i/20)} });
-        
+
         // set the series' data
         series.data(data);
 
-    
+
     @section Rendering [the graph]
-      
+
       Now that the graph is set up, a call to .render() is needed to actually draw the graph.
 
-      
+
       @@codeblock js
         graph.render();
 
-      
+
       The result is this:
 
-      
-      @html 
+
+      @html
         <div class="my-graph"></div>
 
-      
-      @js 
+
+      @js
         var graph = new hx.Graph('.my-graph');
         var axis = graph.addAxis();
         var series = axis.addSeries('line', {title: 'Series Name' });
@@ -72,39 +72,39 @@
         series.data(data);
         graph.render();
 
-      
-      @css 
+
+      @css
         .my-graph {
           height: 300px;
         }
 
-    
-    
+
+
     @section Colors
-      
-      When working with graphs the colors defined in @code(js)[hx.theme.plot.colors] can be used.
+
+      When working with graphs the colors defined in @code[hx.theme.plot.colors] can be used.
 
   @section Axes
-    
+
     @section Using [Axis objects]
-      
+
       An Axis is created with default values for all of its parameters. These can be altered to change the behaviour of the Axis. The Api section below describes all of the properties that can be changed.
 
-      
+
       In the same way that Axis objects are created/added to Graphs, Series can be added to an Axis. When creating a series, a type and name is expected. The name will be displayed on the graph, and so should be formatted nicely if possible.
 
-      
+
       @@codeblock js
         var graph = new hx.Graph('#my-graph')
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
   @section Series
-    
+
     Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
 
-    
-    @css 
+
+    @css
       .docs-graph {
         height: 200px;
         max-width: 500px;
@@ -112,32 +112,32 @@
         margin-right: auto;
       }
 
-    
+
     @section Line [Series]
-      
-      @example 
-        
-        @html 
+
+      @example
+
+        @html
           <div id='line-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#line-series');
           var axis = graph.addAxis({
             y: {
               scalePaddingMax: 0.1
             }
           });
-          
+
           var series = axis.addSeries('line', { title: 'Line Series' });
-          
+
           series.data(hx.range(50).map(function(d){ return {x: d, y: Math.cos(d/20)}}));
           graph.render();
 
-      
-      
+
+
       The data a line series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -146,17 +146,17 @@
           {x: 3, y: 12}
         ]
 
-    
+
     @section Bar [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='bar-series' class='docs-graph'></div>
 
-        @js 
-          
+        @js
+
           var graph = new hx.Graph('#bar-series')
-          
+
           var axis = graph.addAxis({
             x: {
               scaleType: 'discrete'
@@ -167,7 +167,7 @@
               yMin: 0
             }
           });
-          
+
           axis.addSeries('bar', {
             title: 'Bar Series',
             data: hx.range(7).map(function (d) {
@@ -178,13 +178,13 @@
               }
             })
           });
-          
+
           graph.render();
 
-      
+
       The data a bar series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -193,31 +193,31 @@
           {x: 3, y: 12}
         ]
 
-      
+
       The optional color property can be set per data point for bar series. If set, it should be a css color string.
 
-    
+
     @section Stacked [Area and Stacked Bar charts]
-      
+
       Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
 
-      
+
       Stacked Area/Line example:
 
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='stacked-line-example' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#stacked-line-example');
-          
+
           var axis = graph.addAxis({
             y: {
               scalePaddingMax: 0.1
             }
           });
-          
+
           axis.addSeries('line', {
             title: 'Line Series 1',
             group: 'group-1',
@@ -225,7 +225,7 @@
             strokeColor: hx.theme.plot.colors[0],
             data: hx.range(200).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
+
           axis.addSeries('line', {
             title: 'Line Series 2',
             group: 'group-1',
@@ -233,22 +233,22 @@
             strokeColor: hx.theme.plot.colors[1],
             data: hx.range(200).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
-          
+
+
           graph.render()
 
-      
+
       Stacked Bar example:
 
-      
-      @example 
-        
-        @html 
+
+      @example
+
+        @html
           <div id='stacked-bar-example' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#stacked-bar-example');
-          
+
           var axis = graph.addAxis({
             x: {
               scaleType: 'discrete'
@@ -257,32 +257,32 @@
               scalePaddingMax: 0.1
             }
           });
-          
+
           axis.addSeries('bar', {
             title: 'Bar Series 1',
             group: 'group-1',
             fillColor: hx.theme.plot.colors[2],
             data: hx.range(20).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
+
           axis.addSeries('bar', {
             title: 'Bar Series 2',
             group: 'group-1',
             fillColor: hx.theme.plot.colors[3],
             data: hx.range(20).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
+
           graph.render()
 
-    
-    
+
+
     @section Band [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='band-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#band-series')
           var axis = graph.addAxis({
             y: {
@@ -291,7 +291,7 @@
               scalePaddingMax: 0.1
             }
           });
-          
+
           var series = axis.addSeries('band', {
             title: 'Band Series',
             data: hx.range(200).map(function(d){
@@ -302,13 +302,13 @@
               }
             })
           });
-          
+
           graph.render();
 
-      
+
       The data a band series expects is an array of objects with x and y1 and y2 properties. y1 is expected to be smaller than y2:
 
-      
+
       @@codeblock json
         [
           {x: 0, y1: 10, y2: 16},
@@ -317,16 +317,16 @@
           {x: 3, y1: 12, y2: 14}
         ]
 
-    
+
     @section Scatter [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='scatter-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#scatter-series')
-          
+
           var axis = graph.addAxis({
             x: {
               scalePaddingMin: 0.1,
@@ -337,7 +337,7 @@
               scalePaddingMax: 0.1
             }
           });
-          
+
           var series = axis.addSeries('scatter', {
             title: 'Scatter Series',
             data: hx.range(100).map(function(d){
@@ -348,18 +348,18 @@
               }
             })
           });
-          
+
           graph.render();
 
-      
+
       @@codeblock js
         series = axis.addSeries('scatter', 'Series Name')
         series.setData(...)
 
-      
+
       The data a scatter series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -368,18 +368,18 @@
           {x: 3, y: 12}
         ]
 
-      
+
       Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
 
-    
+
     @section Straight [Line Series]
-      @example 
-        @html 
+      @example
+        @html
           <div id='straight-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#straight-series')
-          
+
           var axis = graph.addAxis({
             x: {
               min: 0,
@@ -390,51 +390,51 @@
               max: 5
             }
           });
-          
+
           var series = axis.addSeries('straight-line', {
             title: 'Straight Line Series',
             data: {x: 0, y: 2, dx: 1, dy: 0.5}
           });
-          
+
           graph.render();
 
-      
+
       The data a line series expects is an object which has the properties x, y, dx and dy.
 
-      
+
       @@codeblock json
         {x: 50, y: 20, dx: 1, dy: 2}
 
-      
+
       You can also specify just an x value or a y value to draw lines aligned with the axes.
 
-      
+
       Vertical line:
 
       @@codeblock json
         {x: 50}
 
-      
+
       Horizontal line:
 
       @@codeblock json
         {y: 70}
 
   @section Pie [Charts]
-    
+
     @section Creating [a pie chart]
-      
+
       Example showing creation of a simple pie chart.
 
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id="docs-pie" style="height:200px"></div>
 
-        
-        @js 
+
+        @js
           pie = new hx.PieChart('#docs-pie');
-          
+
           pie.data({
             title: "Pie Chart",
             segments: [
@@ -455,31 +455,31 @@
               }
             ]
           });
-          
+
           pie.render();
 
-      
+
       @section Donut [Charts]
-        
+
         Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
 
-        
+
         @@codeblock js
           new hx.PieChart('#docs-pie2',{
             innerPadding: 0.5
           });
 
-        
-        @example 
-          @html 
+
+        @example
+          @html
             <div id="docs-pie2" style="height:200px"></div>
 
-          
-          @js 
+
+          @js
             pie = new hx.PieChart('#docs-pie2',{
               innerPadding: 0.5
             });
-            
+
             pie.data({
               title: "Pie Chart",
               segments: [
@@ -500,16 +500,16 @@
                 }
               ]
             });
-            
+
             pie.render();
 
-      
-      
+
+
       @section Multiple [ring pie charts]
-        
+
         When specifying the data, multiple series can specified. The data supplied must be an array in this case:
 
-        
+
         @@codeblock js
           data = [
             {
@@ -554,18 +554,18 @@
             }
           ]
 
-        
+
         This would produce the following:
 
-        
-        @example 
-          @html 
+
+        @example
+          @html
             <div id="docs-pie3" style="height:200px"></div>
 
-          
-          @js 
+
+          @js
             pie = new hx.PieChart('#docs-pie3');
-            
+
             pie.data([
               {
                 title: "Series 1",
@@ -608,77 +608,77 @@
                 ]
               }
             ]);
-            
+
             pie.render();
 
 
 @version 0.9.0
   @h1(.docs-module-section)[Getting Started]
   @section Graphs
-    
+
     @section Creating [a Graph]
-      
+
       A Graph can be created as follows.
 
-      
+
       @@codeblock js
         var graph = new hx.Graph('#my-graph');
 
-      
+
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
-    
+
     @section Creating [an Axis]
-      
+
       Before anything can be plotted on this graph, an axis must be added.
 
-      
+
       @@codeblock js
         var axis = graph.addAxis();
 
-      
+
       This will give you a default axis which has linear scales for the x and y axes.
 
-    
+
     @section Creating [a Series]
-      
+
       Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
 
-      
+
       @@codeblock js
         var series = axis.addSeries('line', 'Series Name');
 
-    
+
     @section Setting [the data in a Series]
-      
+
       The last step is to set the data that this series displays.
 
-      
+
       @@codeblock js
         // create some fake data
         var data = hx.range(100).map(function(i){return {x: i, y: Math.sin(i/20)} });
-        
+
         // set the series' data
         series.setData(data);
 
-    
+
     @section Rendering [the graph]
-      
+
       Now that the graph is set up, a call to .render() is needed to actually draw the graph.
 
-      
+
       @@codeblock js
         graph.render();
 
-      
+
       The result is this:
 
-      
-      @html 
+
+      @html
         <div class="my-graph"></div>
 
-      
-      @js 
+
+      @js
         var graph = new hx.Graph('.my-graph');
         var axis = graph.addAxis();
         var series = axis.addSeries('line', 'Series Name');
@@ -686,39 +686,39 @@
         series.setData(data);
         graph.render();
 
-      
-      @css 
+
+      @css
         .my-graph {
           height: 300px;
         }
 
-    
-    
+
+
     @section Colors
-      
-      When working with graphs the colors defined in @code(js)[hx.theme.plot.colors] should be used.
+
+      When working with graphs the colors defined in @code[hx.theme.plot.colors] should be used.
 
   @section Axes
-    
+
     @section Using [Axis objects]
-      
+
       An Axis is created with default values for all of its parameters. These can be altered to change the behaviour of the Axis. The Api section below describes all of the properties that can be changed.
 
-      
+
       In the same way that Axis objects are created/added to Graphs, Series can be added to an Axis. When creating a series, a type and name is expected. The name will be displayed on the graph, and so should be formatted nicely if possible.
 
-      
+
       @@codeblock js
         var graph = new hx.Graph('#my-graph')
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
   @section Series
-    
+
     Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
 
-    
-    @css 
+
+    @css
       .docs-graph {
         height: 200px;
         max-width: 500px;
@@ -726,29 +726,29 @@
         margin-right: auto;
       }
 
-    
+
     @section Line [Series]
-      
-      @example 
-        
-        @html 
+
+      @example
+
+        @html
           <div id='line-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#line-series');
           var axis = graph.addAxis();
           axis.yScalePaddingMax = 0.1;
-          
+
           var series = axis.addSeries('line', 'Line Series');
-          
+
           series.setData(hx.range(50).map(function(d){ return {x: d, y: Math.cos(d/20)}}));
           graph.render();
 
-      
-      
+
+
       The data a line series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -757,14 +757,14 @@
           {x: 3, y: 12}
         ]
 
-    
+
     @section Bar [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='bar-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#bar-series')
           var axis = graph.addAxis('discrete', 'linear');
           axis.yScalePaddingMax = 0.1
@@ -779,10 +779,10 @@
           }));
           graph.render();
 
-      
+
       The data a bar series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -791,82 +791,82 @@
           {x: 3, y: 12}
         ]
 
-      
+
       The optional color property can be set per data point for bar series. If set, it should be a css color string.
 
-    
+
     @section Stacked [Area and Stacked Bar charts]
-      
+
       Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
 
-      
+
       Stacked Area/Line example:
 
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='stacked-line-example' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#stacked-line-example');
-          
+
           var axis = graph.addAxis();
           axis.yScalePaddingMax = 0.1;
-          
+
           var series1 = axis.addSeries('line', 'Line Series 1')
           var series2 = axis.addSeries('line', 'Line Series 2')
-          
+
           series1.setData(hx.range(200).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}}))
           series2.setData(hx.range(200).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}}))
-          
+
           series1.group = 'group1'
           series1.fill = true
           series1.color = hx.theme.plot.colors[0]
           series2.group = 'group1'
           series2.fill = true
           series2.color = hx.theme.plot.colors[1]
-          
+
           graph.render()
 
-      
+
       Stacked Bar example:
 
-      
-      @example 
-        
-        @html 
+
+      @example
+
+        @html
           <div id='stacked-bar-example' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#stacked-bar-example');
-          
+
           var axis = graph.addAxis('discrete', 'linear');
           axis.yScalePaddingMax = 0.1;
-          
+
           var series1 = axis.addSeries('bar', 'Bar Series 1')
           var series2 = axis.addSeries('bar', 'Bar Series 2')
-          
+
           series1.setData(hx.range(20).map(function(d){ return {x: d, y: (1 - Math.sin(d/10))}}))
           series2.setData(hx.range(20).map(function(d){ return {x: d, y: (1 - Math.sin(d/10))}}))
-          
+
           series1.group = 'group1'
           series1.fill = true
           series1.color = hx.theme.plot.colors[2]
           series2.group = 'group1'
           series2.fill = true
           series2.color = hx.theme.plot.colors[3]
-          
+
           graph.render()
 
-    
-    
+
+
     @section Band [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='band-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#band-series')
           var axis = graph.addAxis();
           axis.yScalePaddingMin = 0.1;
@@ -881,10 +881,10 @@
           }));
           graph.render();
 
-      
+
       The data a band series expects is an array of objects with x and y1 and y2 properties. y1 is expected to be smaller than y2:
 
-      
+
       @@codeblock json
         [
           {x: 0, y1: 10, y2: 16},
@@ -893,14 +893,14 @@
           {x: 3, y1: 12, y2: 14}
         ]
 
-    
+
     @section Scatter [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='scatter-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#scatter-series')
           var axis = graph.addAxis();
           axis.xScalePaddingMax = 0.1
@@ -917,15 +917,15 @@
           }));
           graph.render();
 
-      
+
       @@codeblock js
         series = axis.addSeries('scatter', 'Series Name')
         series.setData(...)
 
-      
+
       The data a scatter series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -934,16 +934,16 @@
           {x: 3, y: 12}
         ]
 
-      
+
       Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
 
-    
+
     @section Straight [Line Series]
-      @example 
-        @html 
+      @example
+        @html
           <div id='straight-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#straight-series')
           var axis = graph.addAxis();
           axis.xMin = 0
@@ -954,42 +954,42 @@
           series.setData({x: 0, y: 2, dx: 1, dy: 0.5});
           graph.render();
 
-      
+
       The data a line series expects is an object which has the properties x, y, dx and dy.
 
-      
+
       @@codeblock json
         {x: 50, y: 20, dx: 1, dy: 2}
 
-      
+
       You can also specify just an x value or a y value to draw lines aligned with the axes.
 
-      
+
       Vertical line:
 
       @@codeblock json
         {x: 50}
 
-      
+
       Horizontal line:
 
       @@codeblock json
         {y: 70}
 
   @section Pie [Charts]
-    
+
     @section Creating [a pie chart]
-      
+
       Example showing creation of a simple pie chart.
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id="docs-pie" style="height:200px"></div>
 
-        
-        @js 
+
+        @js
           pie = new hx.PieChart('#docs-pie');
-          
+
           pie.setData({
             name: "Pie Chart",
             segments: [
@@ -1010,28 +1010,28 @@
               }
             ]
           });
-          
+
           pie.render();
 
-      
+
       @section Donut [Charts]
-        
+
         Pie charts can be turned into donut charts by simply setting the innerPadding property on the pie chart object before rendering:
-        
+
         @@codeblock js
           pie.innerPadding = 0.5
 
-        
-        @example 
-          @html 
+
+        @example
+          @html
             <div id="docs-pie2" style="height:200px"></div>
 
-          
-          @js 
+
+          @js
             pie = new hx.PieChart('#docs-pie2');
-            
+
             pie.innerPadding = 0.5;
-            
+
             pie.setData({
               name: "Pie Chart",
               segments: [
@@ -1052,15 +1052,15 @@
                 }
               ]
             });
-            
+
             pie.render();
 
-      
-      
+
+
       @section Multiple [ring pie charts]
-        
+
         When specifying the data, multiple series can specified. The data supplied must be an array in this case:
-        
+
         @@codeblock js
           data = [
             {
@@ -1105,17 +1105,17 @@
             }
           ]
 
-        
+
         This would produce the following:
-        
-        @example 
-          @html 
+
+        @example
+          @html
             <div id="docs-pie3" style="height:200px"></div>
 
-          
-          @js 
+
+          @js
             pie = new hx.PieChart('#docs-pie3');
-            
+
             pie.setData([
               {
                 name: "Series 1",
@@ -1158,77 +1158,77 @@
                 ]
               }
             ]);
-            
+
             pie.render();
 
 
 @version 1.0.0
   @h1(.docs-module-section)[Getting Started]
   @section Graphs
-    
+
     @section Creating [a Graph]
-      
+
       A Graph can be created as follows.
 
-      
+
       @@codeblock js
         var graph = new hx.Graph('#my-graph');
 
-      
+
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
-    
+
     @section Creating [an Axis]
-      
+
       Before anything can be plotted on this graph, an axis must be added.
 
-      
+
       @@codeblock js
         var axis = graph.addAxis();
 
-      
+
       This will give you a default axis which has linear scales for the x and y axes.
 
-    
+
     @section Creating [a Series]
-      
+
       Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
 
-      
+
       @@codeblock js
         var series = axis.addSeries('line', {title: 'Series Name'});
 
-    
+
     @section Setting [the data in a Series]
-      
+
       The last step is to set the data that this series displays.
 
-      
+
       @@codeblock js
         // create some fake data
         var data = hx.range(100).map(function(i){return {x: i, y: Math.sin(i/20)} });
-        
+
         // set the series' data
         series.data(data);
 
-    
+
     @section Rendering [the graph]
-      
+
       Now that the graph is set up, a call to .render() is needed to actually draw the graph.
 
-      
+
       @@codeblock js
         graph.render();
 
-      
+
       The result is this:
 
-      
-      @html 
+
+      @html
         <div class="my-graph"></div>
 
-      
-      @js 
+
+      @js
         var graph = new hx.Graph('.my-graph');
         var axis = graph.addAxis();
         var series = axis.addSeries('line', {title: 'Series Name' });
@@ -1236,39 +1236,39 @@
         series.data(data);
         graph.render();
 
-      
-      @css 
+
+      @css
         .my-graph {
           height: 300px;
         }
 
-    
-    
+
+
     @section Colors
-      
-      When working with graphs the colors defined in @code(js)[hx.theme.plot.colors] can be used.
+
+      When working with graphs the colors defined in @code[hx.theme.plot.colors] can be used.
 
   @section Axes
-    
+
     @section Using [Axis objects]
-      
+
       An Axis is created with default values for all of its parameters. These can be altered to change the behaviour of the Axis. The Api section below describes all of the properties that can be changed.
 
-      
+
       In the same way that Axis objects are created/added to Graphs, Series can be added to an Axis. When creating a series, a type and name is expected. The name will be displayed on the graph, and so should be formatted nicely if possible.
 
-      
+
       @@codeblock js
         var graph = new hx.Graph('#my-graph')
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
   @section Series
-    
+
     Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
 
-    
-    @css 
+
+    @css
       .docs-graph {
         height: 200px;
         max-width: 500px;
@@ -1276,32 +1276,32 @@
         margin-right: auto;
       }
 
-    
+
     @section Line [Series]
-      
-      @example 
-        
-        @html 
+
+      @example
+
+        @html
           <div id='line-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#line-series');
           var axis = graph.addAxis({
             y: {
               scalePaddingMax: 0.1
             }
           });
-          
+
           var series = axis.addSeries('line', { title: 'Line Series' });
-          
+
           series.data(hx.range(50).map(function(d){ return {x: d, y: Math.cos(d/20)}}));
           graph.render();
 
-      
-      
+
+
       The data a line series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -1310,17 +1310,17 @@
           {x: 3, y: 12}
         ]
 
-    
+
     @section Bar [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='bar-series' class='docs-graph'></div>
 
-        @js 
-          
+        @js
+
           var graph = new hx.Graph('#bar-series')
-          
+
           var axis = graph.addAxis({
             x: {
               scaleType: 'discrete'
@@ -1331,7 +1331,7 @@
               yMin: 0
             }
           });
-          
+
           axis.addSeries('bar', {
             title: 'Bar Series',
             data: hx.range(7).map(function (d) {
@@ -1342,13 +1342,13 @@
               }
             })
           });
-          
+
           graph.render();
 
-      
+
       The data a bar series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -1357,31 +1357,31 @@
           {x: 3, y: 12}
         ]
 
-      
+
       The optional color property can be set per data point for bar series. If set, it should be a css color string.
 
-    
+
     @section Stacked [Area and Stacked Bar charts]
-      
+
       Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
 
-      
+
       Stacked Area/Line example:
 
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='stacked-line-example' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#stacked-line-example');
-          
+
           var axis = graph.addAxis({
             y: {
               scalePaddingMax: 0.1
             }
           });
-          
+
           axis.addSeries('line', {
             title: 'Line Series 1',
             group: 'group-1',
@@ -1389,7 +1389,7 @@
             strokeColor: hx.theme.plot.colors[0],
             data: hx.range(200).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
+
           axis.addSeries('line', {
             title: 'Line Series 2',
             group: 'group-1',
@@ -1397,22 +1397,22 @@
             strokeColor: hx.theme.plot.colors[1],
             data: hx.range(200).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
-          
+
+
           graph.render()
 
-      
+
       Stacked Bar example:
 
-      
-      @example 
-        
-        @html 
+
+      @example
+
+        @html
           <div id='stacked-bar-example' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#stacked-bar-example');
-          
+
           var axis = graph.addAxis({
             x: {
               scaleType: 'discrete'
@@ -1421,32 +1421,32 @@
               scalePaddingMax: 0.1
             }
           });
-          
+
           axis.addSeries('bar', {
             title: 'Bar Series 1',
             group: 'group-1',
             fillColor: hx.theme.plot.colors[2],
             data: hx.range(20).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
+
           axis.addSeries('bar', {
             title: 'Bar Series 2',
             group: 'group-1',
             fillColor: hx.theme.plot.colors[3],
             data: hx.range(20).map(function(d){ return {x: d, y: (1 - Math.sin(d/20))}})
           })
-          
+
           graph.render()
 
-    
-    
+
+
     @section Band [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='band-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#band-series')
           var axis = graph.addAxis({
             y: {
@@ -1455,7 +1455,7 @@
               scalePaddingMax: 0.1
             }
           });
-          
+
           var series = axis.addSeries('band', {
             title: 'Band Series',
             data: hx.range(200).map(function(d){
@@ -1466,13 +1466,13 @@
               }
             })
           });
-          
+
           graph.render();
 
-      
+
       The data a band series expects is an array of objects with x and y1 and y2 properties. y1 is expected to be smaller than y2:
 
-      
+
       @@codeblock json
         [
           {x: 0, y1: 10, y2: 16},
@@ -1481,16 +1481,16 @@
           {x: 3, y1: 12, y2: 14}
         ]
 
-    
+
     @section Scatter [Series]
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id='scatter-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#scatter-series')
-          
+
           var axis = graph.addAxis({
             x: {
               scalePaddingMin: 0.1,
@@ -1501,7 +1501,7 @@
               scalePaddingMax: 0.1
             }
           });
-          
+
           var series = axis.addSeries('scatter', {
             title: 'Scatter Series',
             data: hx.range(100).map(function(d){
@@ -1512,18 +1512,18 @@
               }
             })
           });
-          
+
           graph.render();
 
-      
+
       @@codeblock js
         series = axis.addSeries('scatter', 'Series Name')
         series.setData(...)
 
-      
+
       The data a scatter series expects is an array of objects with x and y properties:
 
-      
+
       @@codeblock json
         [
           {x: 0, y: 10},
@@ -1532,18 +1532,18 @@
           {x: 3, y: 12}
         ]
 
-      
+
       Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
 
-    
+
     @section Straight [Line Series]
-      @example 
-        @html 
+      @example
+        @html
           <div id='straight-series' class='docs-graph'></div>
 
-        @js 
+        @js
           var graph = new hx.Graph('#straight-series')
-          
+
           var axis = graph.addAxis({
             x: {
               min: 0,
@@ -1554,51 +1554,51 @@
               max: 5
             }
           });
-          
+
           var series = axis.addSeries('straight-line', {
             title: 'Straight Line Series',
             data: {x: 0, y: 2, dx: 1, dy: 0.5}
           });
-          
+
           graph.render();
 
-      
+
       The data a line series expects is an object which has the properties x, y, dx and dy.
 
-      
+
       @@codeblock json
         {x: 50, y: 20, dx: 1, dy: 2}
 
-      
+
       You can also specify just an x value or a y value to draw lines aligned with the axes.
 
-      
+
       Vertical line:
 
       @@codeblock json
         {x: 50}
 
-      
+
       Horizontal line:
 
       @@codeblock json
         {y: 70}
 
   @section Pie [Charts]
-    
+
     @section Creating [a pie chart]
-      
+
       Example showing creation of a simple pie chart.
 
-      
-      @example 
-        @html 
+
+      @example
+        @html
           <div id="docs-pie" style="height:200px"></div>
 
-        
-        @js 
+
+        @js
           pie = new hx.PieChart('#docs-pie');
-          
+
           pie.data({
             title: "Pie Chart",
             segments: [
@@ -1619,31 +1619,31 @@
               }
             ]
           });
-          
+
           pie.render();
 
-      
+
       @section Donut [Charts]
-        
+
         Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
 
-        
+
         @@codeblock js
           new hx.PieChart('#docs-pie2',{
             innerPadding: 0.5
           });
 
-        
-        @example 
-          @html 
+
+        @example
+          @html
             <div id="docs-pie2" style="height:200px"></div>
 
-          
-          @js 
+
+          @js
             pie = new hx.PieChart('#docs-pie2',{
               innerPadding: 0.5
             });
-            
+
             pie.data({
               title: "Pie Chart",
               segments: [
@@ -1664,16 +1664,16 @@
                 }
               ]
             });
-            
+
             pie.render();
 
-      
-      
+
+
       @section Multiple [ring pie charts]
-        
+
         When specifying the data, multiple series can specified. The data supplied must be an array in this case:
 
-        
+
         @@codeblock js
           data = [
             {
@@ -1718,18 +1718,18 @@
             }
           ]
 
-        
+
         This would produce the following:
 
-        
-        @example 
-          @html 
+
+        @example
+          @html
             <div id="docs-pie3" style="height:200px"></div>
 
-          
-          @js 
+
+          @js
             pie = new hx.PieChart('#docs-pie3');
-            
+
             pie.data([
               {
                 title: "Series 1",
@@ -1772,6 +1772,6 @@
                 ]
               }
             ]);
-            
+
             pie.render();
 

@@ -1,183 +1,183 @@
-@condensed 
+@condensed
 
 @function hx.hash
-  @description 
+  @description
     Hashes a string to an integer
-    
+
     @@codeblock js
       // returns a number
       hx.hash('some-string');
-      
+
       // calling it again with the same input will give the same result
       hx.hash('some-string');
-      
+
       // returns an integer in the range [0, 5). So this could return 0, 1, 2, 3 or 4
       hx.hash('some-string', 5);
 
   @arg str [String]
-    @description 
+    @description
       The string to hash
-      
+
 
   @arg? max [Integer]
-    @description 
+    @description
       The maximum value the hash should take. You can leave this undefined
-      
+
 
   @returns [Number]
 
 @function hx.transpose
-  @description 
-    Flips a 2D array so that@code(js)[result[j][i] = data[i][j]] . The result is returned as a new array.
-    
+  @description
+    Flips a 2D array so that@code[result[j][i] = data[i][j]] . The result is returned as a new array.
+
     @@codeblock js
       // returns [[1, 4], [2, 5], [3, 6]]
       hx.transpose([[1, 2, 3], [4, 5, 6]]);
 
   @arg data [Array[Array]]
-    @description 
+    @description
       A 2D array
-      
+
 
   @returns [Array[Array]]
 
 @function hx.deprecatedWarning
-  @description 
+  @description
     Logs a hexagon deprecation warning to the console (with a stack trace)
 
   @arg name [String]
-    @description 
+    @description
       Name of the deprecated thing
-      
+
 
   @arg alternative... [String]
-    @description 
+    @description
       A description of the alternative that should be used.
-      
+
 
 @function hx.consoleWarning
-  @description 
+  @description
     Logs a hexagon warning to the console (with a stack trace)
 
   @arg message [String]
-    @description 
+    @description
       The message to display
-      
+
 
   @arg messages... [String]
-    @description 
+    @description
       Additional messages to display.
-      
+
 
 @function hx.supports
-  @description 
+  @description
     Provides a way to find out if the browser supports a feature.
 
   @arg name [String]
-    @description 
+    @description
       The name of the feature to check
       @@codeblock js
         // this is the list of checks that are currently available
         hx.supports('touch') // touch events
         hx.supports('date')  // date input type
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the feature is supported
-      
+
 
 @function hx.clamp
-  @description 
+  @description
     Restricts a value to an interval
-    
+
     @@codeblock js
       hx.clamp(0, 100, 105) // returns 100
       hx.clamp(0, 100, -50) // returns 0
       hx.clamp(0, 100, 75)  // returns 75
 
   @arg min [Number]
-    @description 
+    @description
       The minimum value the result can take
-      
+
 
   @arg max [Number]
-    @description 
+    @description
       The maximum value the result can take
-      
+
 
   @arg value [Number]
-    @description 
+    @description
       The number to clamp
-      
+
 
   @returns [Number]
-    @description 
+    @description
       The value, clamped to the range [min, max]
-      
+
 
 @function hx.clampUnit
-  @description 
+  @description
     Restricts a value to the unit interval [0, 1]
-    
+
     @@codeblock js
       hx.clampUnit(0.15) // returns 0.15
       hx.clampUnit(-0.1) // returns 0
       hx.clampUnit(2.5)  // returns 1
 
   @arg value [Number]
-    @description 
+    @description
       The number to clamp
-      
+
 
   @returns [Number]
-    @description 
+    @description
       The value, clamped to the range [0, 1]
-      
+
 
 @function hx.randomId
-  @description 
+  @description
     Returns a random string using the length and alphabet provided
-    
+
     @@codeblock js
       hx.randomId() // returns a 16-character hex string
       hx.randomId(24) // returns a 24-character hex string
       hx.randomId(10, 'abc') // returns a 10-character string using the letters a, b and c
 
   @arg? length [Number]
-    @description 
+    @description
       The length of the string to generate
-      @default 
+      @default
         16
-      
+
 
   @arg? alphabet [String]
-    @description 
+    @description
       The alphabet to use. Defaults to hex
-      @default 
+      @default
         ABCEDEF0123456789
-      
+
 
   @returns [Number]
-    @description 
+    @description
       The value, clamped to the range [0, 1]
-      
+
 
 @function hx.min
   @removed 0.9.0
-    @description 
+    @description
       Apply transformations before passing into min
       @@codeblock js
         // old way
         hx.min(array, f)
-        
+
         // new way
         hx.min(array.map(f))
-      
 
-  @description 
+
+  @description
     Returns the minimum value in the array
-    
+
     @@codeblock js
       // returns 3
       hx.min([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
@@ -185,63 +185,63 @@
       })
 
   @arg array [Array]
-    @description 
+    @description
       An array of numbers or objects
-      
+
 
   @arg? lookup [Function]
-    @description 
+    @description
       A function which maps the values before applying the min
-      
+
 
     @arg value [Any]
-      @description 
+      @description
         An object from the array
-        
+
 
     @returns [Number]
-      @description 
+      @description
         The number to compare by
-        
+
 
   @returns [Number]
-    @description 
+    @description
       The minimum value in the array
-      
+
 
 @function hx.min
   @added 0.9.0
-  @description 
+  @description
     Returns the minimum value in the array
-    
+
     @@codeblock js
       hx.min([7, 6, 3, 5]) // returns 3
 
   @arg array [Array]
-    @description 
+    @description
       An array of numbers
-      
+
 
   @returns [Number]
-    @description 
+    @description
       The minimum value in the array
-      
+
 
 @function hx.max
   @removed 0.9.0
-    @description 
+    @description
       Apply transformations before passing into max
       @@codeblock js
         // old way
         hx.max(array, f)
-        
+
         // new way
         hx.max(array.map(f))
-      
 
-  @description 
+
+  @description
     Returns the maximum value in the array
-    
+
     @@codeblock js
       // returns 7
       hx.max([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
@@ -249,57 +249,57 @@
       })
 
   @arg array [Array]
-    @description 
+    @description
       An array of numbers or objects
-      
+
 
   @arg? lookup [Function]
-    @description 
+    @description
       A function which maps the values before applying the max
-      
+
 
     @arg value [Any]
-      @description 
+      @description
         An object from the array
-        
+
 
     @returns [Number]
-      @description 
+      @description
         The number to compare by
-        
+
 
   @returns [Number]
-    @description 
+    @description
       The maximum value in the array
-      
+
 
 @function hx.max
   @added 0.9.0
-  @description 
+  @description
     Returns the maximum value in the array
-    
+
     @@codeblock js
       hx.max([7, 6, 3, 5]) // returns 7
 
   @arg array [Array]
-    @description 
+    @description
       An array of numbers
-      
+
 
   @returns [Number]
-    @description 
+    @description
       The maximum value in the array
-      
+
 
 @function hx.minBy
   @bugfix 1.5.0
-    @description 
+    @description
       Fix an issue where the last value in the array wasn't being checked
-      
 
-  @description 
+
+  @description
     Returns the minimum value in the array according to a extracted or computed value
-    
+
     @@codeblock js
       // returns {v: 3}
       hx.min([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
@@ -307,39 +307,39 @@
       })
 
   @arg array [Array]
-    @description 
+    @description
       An array of any type
-      
+
 
   @arg lookup [Function]
-    @description 
+    @description
       A function which extracts or computes the value to be compared
-      
+
 
     @arg value [Any]
-      @description 
+      @description
         An item from the array
-        
+
 
     @returns [Number]
-      @description 
+      @description
         The number to compare by
-        
+
 
   @returns [Any]
-    @description 
+    @description
       The item with the corresponding minimum value
-      
+
 
 @function hx.maxBy
   @bugfix 1.5.0
-    @description 
+    @description
       Fix an issue where the last value in the array wasn't being checked
-      
 
-  @description 
+
+  @description
     Returns the maximum value in the array according to a extracted or computed value
-    
+
     @@codeblock js
       // returns {v: 7}
       hx.max([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
@@ -347,82 +347,82 @@
       })
 
   @arg array [Array]
-    @description 
+    @description
       An array of any type
-      
+
 
   @arg lookup [Function]
-    @description 
+    @description
       A function which extracts or computes the value to be compared
-      
+
 
     @arg value [Any]
-      @description 
+      @description
         An item from the array
-        
+
 
     @returns [Number]
-      @description 
+      @description
         The number to compare by
-        
+
 
   @returns [Any]
-    @description 
+    @description
       The item with the corresponding maximum value
-      
+
 
 @function hx.range
-  @description 
+  @description
     Creates an array of values from 0 - length.
-    
+
     @@codeblock js
       //returns [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
       hx.range(10);
 
   @arg length [Number]
-    @description 
+    @description
       The length of the array to create.
-      
+
 
   @returns [Array]
 
 @function hx.sum
-  @description 
+  @description
     Calculates the sum of an array
-    
+
     @@codeblock js
       //returns 45
       hx.sum([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   @arg array [Array[Number]]
-    @description 
+    @description
       The array to sum
-      
+
 
   @returns [Number]
-    @description 
+    @description
       The resulting summed value
-      
+
 
 @function hx.flatten
-  @description 
+  @description
     Flattens a 2D array into a 1D array.
-    
+
     @@codeblock js
       //returns [1, 2, 3, 4, 5, 6]
       hx.flatten([[1, 2], [3, 4], [5, 6]])
 
   @arg list [Array]
-    @description 
+    @description
       A 2D array.
-      
+
 
   @returns [Array]
 
 @function hx.cycle
-  @description 
+  @description
     Provides a way to access an array where the index loops round
-    
+
     @@codeblock js
       hx.cycle([0, 1, 2], 0); // returns 0
       hx.cycle([0, 2, 4], 1); // returns 2
@@ -430,51 +430,51 @@
       hx.cycle([0, 2, 4], 3); // returns 0
       hx.cycle([0, 2, 4], 4); // returns 2
       hx.cycle([0, 2, 4], 5); // returns 4
-      
+
       hx.cycle([0, 2, 4], 400); // returns 2
 
   @arg array [Array[Number]]
-    @description 
+    @description
       The array to cycle over
-      
+
 
   @arg index [Number]
-    @description 
+    @description
       The index to access
-      
+
 
   @returns [Number]
-    @description 
-      The value at @code(js)[(index % array.length)]
-      
+    @description
+      The value at @code]
+
 
 @function hx.hashList
-  @description 
+  @description
     Hashes a string onto an item in a list
-    
+
     @@codeblock js
       // returns a value from the list - for the same string, the value returned will always be the same
       hx.hashList([0, 1, 2], "some-string");
 
   @arg array [Array[Any]]
-    @description 
+    @description
       The array to hash onto
-      
+
 
   @arg index [String]
-    @description 
+    @description
       The string to hash
-      
+
 
   @returns [Any]
-    @description 
+    @description
       The item retrieved from the array
-      
+
 
 @function hx.find
-  @description 
+  @description
     Finds an item in an array using an indicator function. Returns the first match
-    
+
     @@codeblock js
       // returns {v: 3}
       hx.find([{v: 7}, {v: 6}, {v: 3}, {v: 5}], function(d){
@@ -482,34 +482,34 @@
       });
 
   @arg array [Array[Any]]
-    @description 
+    @description
       The array to hash onto
-      
+
 
   @arg indictor [Function]
-    @description 
+    @description
       The indicator function
-      
+
 
     @arg item [Any]
-      @description 
+      @description
         An item from the array
-        
+
 
     @returns [Boolean]
-      @description 
+      @description
         True if the item is the one you are looking for, false if not.
-        
+
 
   @returns [Any]
-    @description 
+    @description
       The item found in the array. Returns undefined if no match was found.
-      
+
 
 @function hx.isString
-  @description 
+  @description
     Returns true if the value passed in is a string
-    
+
     @@codeblock js
       hx.isString("i am a string")                // returns true
       hx.isString({})                             // returns false
@@ -519,19 +519,19 @@
       hx.isString(function(){})                   // returns false
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value is a string. False if not
-      
+
 
 @function hx.isFunction
-  @description 
+  @description
     Returns true if the value passed in is a function
-    
+
     @@codeblock js
       hx.isFunction("i am a string")                // returns false
       hx.isFunction({})                             // returns false
@@ -541,19 +541,19 @@
       hx.isFunction(function(){})                   // returns true
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value is a function. False if not
-      
+
 
 @function hx.isArray
-  @description 
+  @description
     Returns true if the value passed in is an array
-    
+
     @@codeblock js
       hx.isArray("i am a string")                 // returns false
       hx.isArray({})                              // returns false
@@ -563,19 +563,19 @@
       hx.isArray(function(){})                    // returns false
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value is a array. False if not
-      
+
 
 @function hx.isObject
-  @description 
+  @description
     Returns true if the value passed in is an object
-    
+
     @@codeblock js
       hx.isObject("i am a string")                // returns false
       hx.isObject({})                             // returns true
@@ -585,25 +585,25 @@
       hx.isObject(function(){})                   // returns false
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value is a object. False if not
-      
+
 
 @function hx.isPlainObject
-  @description 
+  @description
     Returns true if the value passed in is a plain object, where a plain objects is defined as:
-    
-    @list 
+
+    @list
       @item[Anything created with new (or equivalent)]
       @item[DOM nodes]
       @item[window]
 
-    
+
     @@codeblock js
       hx.isPlainObject("i am a string")                // returns false
       hx.isPlainObject({})                             // returns true
@@ -613,19 +613,19 @@
       hx.isPlainObject(function(){})                   // returns false
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value is a plain object. False if not
-      
+
 
 @function hx.groupBy
-  @description 
+  @description
     Groups items in an array according to some classifier function.
-    
+
     @@codeblock js
       var items = [
         { type: 'a', value: 1 },
@@ -635,7 +635,7 @@
         { type: 'b', value: 5 },
         { type: 'c', value: 6 }
       ]
-      
+
       /* returns
         [
           [
@@ -663,99 +663,99 @@
       })
 
   @arg array [Array]
-    @description 
+    @description
       An array of any type
-      
+
 
   @arg classifier [Function]
-    @description 
+    @description
       A function that returns the category that an item should be grouped into
 
     @arg item [Any]
-      @description 
+      @description
         The item to classify
-        
+
 
     @returns [Any]
-      @description 
+      @description
         The category to group the item into
-        
+
 
   @returns [Array]
-    @description 
+    @description
       An array of tuples where the first element of each tuple is the category, and the second element is an array of grouped values
-      
+
 
 @function hx.unique
-  @description 
+  @description
     Returns a copy of the list supplied with duplicates removed
-    
+
     @@codeblock js
       //returns [1, 2, 3]
       hx.unique([1, 2, 1, 3, 3, 2, 2, 1, 3])
 
   @arg list [Array]
-    @description 
+    @description
       The list, from which a copy will be created with only unique values.
-      
+
 
   @returns [Array]
-    @description 
+    @description
       A copy of the list supplied with duplicates removed
-      
+
 
 @function hx.endsWith
-  @description 
+  @description
     Returns true if a string ends with a value
-    
+
     @@codeblock js
       hx.endsWith('some-string', 'ing')  // returns true
       hx.endsWith('some-string', 'some') // returns false
       hx.endsWith('some-string', '')     // returns true
 
   @arg value [String]
-    @description 
+    @description
       The string to check against
-      
+
 
   @arg suffix [String]
-    @description 
+    @description
       The suffix to check for
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value ends with suffix, otherwise false.
-      
+
 
 @function hx.startsWith
-  @description 
+  @description
     Returns true if a string starts with a value
-    
+
     @@codeblock js
       hx.startsWith('some-string', 'ing')  // returns false
       hx.startsWith('some-string', 'some') // returns true
       hx.startsWith('some-string', '')     // returns true
 
   @arg value [String]
-    @description 
+    @description
       The string to check against
-      
+
 
   @arg prefix [String]
-    @description 
+    @description
       The prefix to check for
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value starts with prefix, otherwise false.
-      
+
 
 @function hx.tween
-  @description 
+  @description
     Interpolates a value using linear interpolation
-    
+
     @@codeblock js
       hx.tween(0, 5, 0.5)  // returns 2.5
       hx.tween(0, 5, 0.1)  // returns 0.5
@@ -763,35 +763,35 @@
       hx.tween(1, 5, 1)    // returns 5
 
   @arg start [Number]
-    @description 
+    @description
       The start value
-      
+
 
   @arg end [Number]
-    @description 
+    @description
       The end value
-      
+
 
   @arg alpha [Number]
-    @description 
+    @description
       The amount to mix the values by. Usually a value between 0 and 1.
-      
+
 
   @returns [Number]
-    @description 
+    @description
       The interpolated value
-      
+
 
 @function hx.defined
   @bugfix 1.3.2
     @issue 226
-    @description 
+    @description
       Will now returns @code[false] when @code[null] is passed in
-      
 
-  @description 
+
+  @description
     Checks if a value is defined
-    
+
     @@codeblock js
       hx.defined(123)       // true
       hx.defined([])        // true
@@ -800,335 +800,335 @@
       hx.defined(null)      // false
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
-      False if the value is @code(js)[undefined] or @code(js)[null] .
-      
+    @description
+      False if the value is @code[null] .
+
 
 @function hx.zip
-  @description 
+  @description
     Combines multiple arrays, so that the first element is an array containing all the first elements from the arrays provided, the second element is another array with all the second elements from the arrays provided, and so on.
-    
+
     @@codeblock js
       // returns [[1, 4], [2, 5], [3, 6]]
       var result = hx.zip([[1, 2, 3], [4, 5, 6]]);
 
   @arg arrays [Array[Array]]
-    @description 
+    @description
       The arrays that should be zipped together.
-      
+
 
   @returns [Array[Array]]
-    @description 
+    @description
       The arrays that have been zipped together.
-      
+
 
 @function hx.merge
   @removed 0.14.0
-    @alternate 
-      @description 
+    @alternate
+      @description
         hx.merge(true, objects...) has been replaced with hx.merge(objects...)
         hx.merge(false, objects...) has been replaced with hx.merge.defined(objects...)
-        
+
 
   @deprecated 0.13.0
-    @alternate 
-      @description 
+    @alternate
+      @description
         hx.merge(true, objects...) has been replaced with hx.merge(objects...)
         hx.merge(false, objects...) has been replaced with hx.merge.defined(objects...)
-        
+
 
   @added 0.9.0
-  @description 
+  @description
     Merges multiple objects together, and returns the result as a new object.
-    
+
     The objects will be merged recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
-    
+
     @@codeblock js
       // returns {'a': 2, 'b': 3}
       hx.merge(false, {'a': 1}, {'a': 2}, {'b': 3})
-      
+
       // returns {a: {b: 'hello', c: {d: 4, e: 'value'}}}
       hx.merge(true, {a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
   @arg retainUndefined [Boolean]
-    @description 
+    @description
       Whether or not undefined values should overwrite existing properties. True means that they will override, false means that they will be ignored.
-      
+
 
   @arg objects... [Object]
-    @description 
+    @description
       The objects to combine
-      
+
 
   @returns [Object]
-    @description 
+    @description
       The combined object
-      
+
 
 @function hx.shallowMerge
   @removed 0.14.0
-    @alternate 
-      @description 
+    @alternate
+      @description
         hx.shallowMerge(true, objects...) has been replaced with hx.shallowMerge(objects...)
         hx.shallowMerge(false, objects...) has been replaced with hx.shallowMerge.defined(objects...)
-        
+
 
   @deprecated 0.13.0
-    @alternate 
-      @description 
+    @alternate
+      @description
         hx.shallowMerge(true, objects...) has been replaced with hx.shallowMerge(objects...)
         hx.shallowMerge(false, objects...) has been replaced with hx.shallowMerge.defined(objects...)
-        
+
 
   @added 0.9.0
-  @description 
+  @description
     Merges multiple objects together where the first level of references are copied, and returns the result as a new object.
-    
+
     @@codeblock js
       // returns {'a': 2, 'b': 3}
       hx.merge(false, {'a': 1}, {'a': 2}, {'b': 3})
-      
+
       // returns {a: {b: 'hello', c: {d: 4, e: 'value'}}}
       hx.merge(true, {a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
   @arg retainUndefined [Boolean]
-    @description 
+    @description
       Whether or not undefined values should overwrite existing properties. True means that they will override, false means that they will be ignored.
-      
+
 
   @arg objects... [Object]
-    @description 
+    @description
       The objects to combine
-      
+
 
   @returns [Object]
-    @description 
+    @description
       The combined object
-      
+
 
 @function hx.clone
   @removed 0.9.0
-  @description 
+  @description
     Clones an object or array.
-    
+
     For shallow clones, references will only be copied. For deep object clones the objects will be cloned recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
-    
+
     For deep array clones, items in the array will also be cloned.
 
   @arg object [Object/Array]
-    @description 
+    @description
       The object/array to clone
-      
+
 
   @arg? deep [Boolean]
-    @description 
+    @description
       Whether or not a deep clone should be performed.
-      @default 
+      @default
         false
-      
+
 
   @returns [Object/Array]
-    @description 
+    @description
       The cloned object/array
-      
+
 
 @function hx.clone
   @added 0.9.0
-  @description 
+  @description
     Clones an object or array. Items in arrays will also be cloned.
 
   @arg object [Object/Array]
-    @description 
+    @description
       The object/array to clone
-      
+
 
   @returns [Object/Array]
-    @description 
+    @description
       The cloned object/array
-      
+
 
 @function hx.shallowClone
   @added 0.9.0
-  @description 
+  @description
     Clones an object or array. Only the first level of values in the objects will be copied - this function will not recursively clone items - meaning references will be copied.
 
   @arg object [Object/Array]
-    @description 
+    @description
       The object/array to clone
-      
+
 
   @returns [Object/Array]
-    @description 
+    @description
       The cloned object/array
-      
+
 
 @function hx.extend
   @removed 0.9.0
-    @description 
+    @description
       Use hx.merge or hx.shallowMerge
-      
+
 
 @function hx.identity
-  @description 
+  @description
     A function for returning the passed in value, useful for overriding formatters or as a default formatter.
 
   @arg item [Any]
-    @description 
+    @description
       The item to return.
-      
+
 
   @returns [item Any]
-    @description 
+    @description
       The passed in item.
-      
+
 
 @function hx.parseHTML
-  @description 
+  @description
     A function for parsing a string to a DocumentFragment. Note: any script tags in the html string will be executed immediately - if you do not want this to happen, sanitize the string before passing into this function or remove the script tags from the document fragment created.
 
   @arg html [String]
-    @description 
+    @description
       The html string to parse
-      
+
 
   @returns [DocumentFragment]
-    @description 
+    @description
       A document fragment containing the parsed html.
-      
+
 
 @function hx.cleanNode
-  @description 
+  @description
     A function for removing whitespace only nodes from a node. Useful when using multiline strings to generate html using @code[hx.parseHTML] @arg node [HTMLElement]
-    @description 
+    @description
       The node to clean
-      
+
 
   @arg? recurse [Boolean]
-    @description 
+    @description
       Whether to recursively clean child nodes
-      @default 
+      @default
         true
-      
+
 
   @returns [node]
-    @description 
+    @description
       The cleaned node.
-      
+
 
 @function hx.scrollbarSize
   @added 0.12.6
-  @description 
+  @description
     A method for getting the offset amount of the scrollbars in the current browser.
 
     Different browsers implement scrollbars in different ways, with some changing the content size. This method returns the offset amount to allow for any structural changes that need to be made reliably across browsers.
 
   @returns [Number]
-    @description 
+    @description
       The width of the browser scrollbars.
-      
+
 
 @function hx.merge
   @added 0.13.0
-  @description 
+  @description
     Merges multiple objects together, and returns the result as a new object.
-    
+
     The objects will be merged recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
-    
+
     @@codeblock js
       // returns {'a': 2, 'b': 3}
       hx.merge({'a': 1}, {'a': 2}, {'b': 3})
-      
+
       // returns {a: {b: 'hello', c: {d: 4, e: 'value'}}}
       hx.merge({a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
   @arg objects... [Object]
-    @description 
+    @description
       The objects to combine
-      
+
 
   @returns [Object]
-    @description 
+    @description
       The combined object
-      
+
 
 @function hx.merge.defined
   @added 0.13.0
-  @description 
+  @description
     Merges multiple objects together, only copying across defined values and returns the result as a new object.
-    
+
     The objects will be merged recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
-    
+
     @@codeblock js
       // returns {'a': 1, 'b': 3}
       hx.merge.defined({'a': 1}, {'a': undefined}, {'b': 3})
-      
+
       // returns {a: {b: 2, c: {d: 4, e: 'value'}}}
       hx.merge.defined({a: {b: 2, c: {d: 3}}}, {a: {b: undefined, c: {d: 4, e: 'value'}}})
 
   @arg objects... [Object]
-    @description 
+    @description
       The objects to combine
-      
+
 
   @returns [Object]
-    @description 
+    @description
       The combined object
-      
+
 
 @function hx.shallowMerge
   @added 0.13.0
-  @description 
+  @description
     Merges multiple objects together where the first level of references are copied, and returns the result as a new object.
-    
+
     @@codeblock js
       // returns {'a': 2, 'b': 3}
       hx.shallowMerge({'a': 1}, {'a': 2}, {'b': 3})
-      
+
       // returns {a: {b: 'hello', c: {d: 4, e: 'value'}}}
       hx.shallowMerge({a: {b: 2, c: {d: 3}}}, {a: {b: 'hello', c: {d: 4, e: 'value'}}})
 
   @arg objects... [Object]
-    @description 
+    @description
       The objects to combine
-      
+
 
   @returns [Object]
-    @description 
+    @description
       The combined object
-      
+
 
 @function hx.shallowMerge.defined
   @added 0.13.0
-  @description 
+  @description
     Merges multiple objects together where the first level of references are copied provided they are defined values (not undefined), and returns the result as a new object.
-    
+
     @@codeblock js
       // returns {'a': 1, 'b': 3}
       hx.shallowMerge.defined({'a': 1}, {'a': undefined}, {'b': 3})
-      
+
       // returns {a: {b: undefined, c: {d: 4, e: "value" }}}
       hx.shallowMerge.defined({a: {b: 2, c: {d: 3}}}, {a: {b: undefined, c: {d: 4, e: 'value'}}})
 
   @arg objects... [Object]
-    @description 
+    @description
       The objects to combine
-      
+
 
   @returns [Object]
-    @description 
+    @description
       The combined object
-      
+
 
 @function hx.isBoolean
   @added 0.13.0
-  @description 
+  @description
     Returns true if the value passed in is a boolean
-    
+
     @@codeblock js
       hx.isBoolean("i am a string")                // returns false
       hx.isBoolean({})                             // returns false
@@ -1140,166 +1140,166 @@
       hx.isBoolean(false)                          // returns true
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       True if the value is a boolean. False if not
-      
+
 
 @function hx.checkParents
   @added 0.15.2
-  @description 
+  @description
     A function for checking a node and it's parents for properties or contents.
 
-    This function will return the first non-undefined result by default or an array of all the non-undefined results if @code(js)[returnArray] is true.
+    This function will return the first non-undefined result by default or an array of all the non-undefined results if @code[returnArray] is true.
 
   @arg node [HTMLElement]
-    @description 
+    @description
       The node to start checking from
-      
+
 
   @arg check [Function]
-    @description 
+    @description
       The check to run
-      
+
 
     @arg node [HTMLElement]
-      @description 
+      @description
         The current node being checked
-        
+
 
     @return result
-      @description 
+      @description
         The result of the check
-        
+
 
   @arg? returnArray [Boolean]
-    @description 
+    @description
       If this value is true, the check will run all the way until the document element and return all the non-undefined results as an array.
-      @default 
+      @default
         false
-      
+
 
 @function hx.parentZIndex
   @added 0.15.2
-  @description 
+  @description
     A function for checking a node's parents to find the first element with a z-index.
 
   @arg node [HTMLElement]
-    @description 
+    @description
       The node to start checking from
-      
+
 
   @arg? findMax [Boolean]
-    @description 
+    @description
       If this value is true, the maximum z-index from all the parents (up to the document element) will be returned.
-      @default 
+      @default
         false
-      
+
 
 @function hx.debounce
   @added 0.15.2
-  @description 
+  @description
     A function that prevents multiple calls to a function from being called in quick succession.
 
     This is useful for calling an event when a user is inputting data, such as typing in an input field, to prevent a callback being run for every character entered.
 
   @arg duration [Number]
-    @description 
+    @description
       The duration to wait in milliseconds before making a function call.
-      
+
 
   @arg fn [Function]
-    @description 
+    @description
       The function to call.
-      
+
 
 @function hx.argmin
   @added 1.5.0
-    @description 
+    @description
       Added a function for getting the index of the item in an array with the lowest value
-      
 
-  @description 
+
+  @description
     A function for getting the index of the item in an array with the lowest value
 
   @arg array [Array]
-    @description 
+    @description
       The array to find the min value of
-      
+
 
   @arg lookup [Function]
-    @description 
+    @description
       The function to use to lookup the value of an argument
-      
+
 
     @arg value [Any]
-      @description 
+      @description
         An item in the array
-        
+
 
     @returns [Number]
-      @description 
+      @description
         The value of the argument in the array
-        
+
 
   @returns [Number]
-    @description 
+    @description
       The index of the item in the array with the lowest value
-      
+
 
 @function hx.argmax
   @added 1.5.0
-    @description 
+    @description
       Added a function for getting the index of the item in an array with the highest value
-      
 
-  @description 
+
+  @description
     A function for getting the index of the item in an array with the highest value
 
   @arg array [Array]
-    @description 
+    @description
       The array to find the max value of
-      
+
 
   @arg lookup [Function]
-    @description 
+    @description
       The function to use to lookup the value of an argument
-      
+
 
     @arg value [Any]
-      @description 
+      @description
         An item in the array
-        
+
 
     @returns [Number]
-      @description 
+      @description
         The value of the argument in the array
-        
+
 
   @returns [Number]
-    @description 
+    @description
       The index of the item in the array with the lowest value
-      
+
 
 
 @function hx.isNumber
   @added 1.5.0
     @issue 240
-    @description 
+    @description
       Added a function for checking if something is a Number
-      
+
 
   @arg value [Any]
-    @description 
+    @description
       The value to check
-      
+
 
   @returns [Boolean]
-    @description 
+    @description
       Whether the value passed in is a Number
-      
+
 

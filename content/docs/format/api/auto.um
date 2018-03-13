@@ -1,151 +1,151 @@
 @object hx.format
-  @description 
+  @description
     An object containing a set of functions to create number formatting functions.
 
   @function round
-    @description 
+    @description
       A function to round a number to a specific number of significant figures.
       @@codeblock js
         hx.format.round(4)(3.1415926) // Returns "3.142"
 
     @arg sf [Number]
-      @description 
+      @description
         The number of significant figures to use.
-        
+
 
     @arg? strict [Boolean]
-      @description 
+      @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default 
+        @default
           false
-        
+
 
     @returns [Function]
       @arg number [Number]
-        @description 
+        @description
           The number to format.
-          
+
 
       @returns String
-        @description 
+        @description
           The formatted string
-          
+
 
   @function si
-    @description 
+    @description
       A function to format a number with a SI prefix or unit prefix
       @@codeblock js
         hx.format.si(1)(10000) // Returns "10K"
 
     @arg sf [Number]
-      @description 
+      @description
         The number of significant figures to use.
-        
+
 
     @arg? strict [Boolean]
-      @description 
+      @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default 
+        @default
           false
-        
+
 
     @returns [Function]
       @arg number [Number]
-        @description 
+        @description
           The number to format.
-          
+
 
       @returns String
-        @description 
+        @description
           The formatted string
-          
+
 
   @function exp
-    @description 
+    @description
       A function to format a number in E notation form
       @@codeblock js
         hx.format.exp(2)(111111) // Returns "1.1e5"
 
     @arg sf [Number]
-      @description 
+      @description
         The number of significant figures to use.
-        
+
 
     @arg? strict [Boolean]
-      @description 
+      @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default 
+        @default
           false
-        
+
 
     @returns [Function]
       @arg number [Number]
-        @description 
+        @description
           The number to format.
-          
+
 
       @returns String
-        @description 
+        @description
           The formatted string
-          
+
 
   @function fixed
-    @description 
+    @description
       A function to format a number to a specific number of decimal places.
       @@codeblock js
         hx.format.fixed(3)(999) // Returns "999.000"
         hx.format.fixed(3)(12.123123) // Returns "12.123"
 
     @arg digits [Number]
-      @description 
+      @description
         The number of digits to limit the number to.
-        
+
 
     @arg? strict [Boolean]
-      @description 
+      @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default 
+        @default
           false
-        
+
 
     @returns [Function]
       @arg number [Number]
-        @description 
+        @description
           The number to format.
-          
+
 
       @returns String
-        @description 
+        @description
           The formatted string
-          
+
 
   @function zeroPad
-    @description 
+    @description
       A function to pad numbers to return a string of zeros followed by the passed in number.
       @@codeblock js
         hx.format.zeroPad(2)(1)   // returns "01"
         hx.format.zeroPad(10)(100)  // returns "0000000100"
 
     @arg length [Number]
-      @description 
+      @description
         The length of the output string
-        
+
 
     @arg? strict [Boolean]
-      @description 
+      @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default 
+        @default
           false
-        
+
 
     @returns [Function]
       @arg number [Number]
-        @description 
+        @description
           The number to format.
-          
+
 
       @returns String
-        @description 
+        @description
           The formatted string
-          
+
 

@@ -1,134 +1,134 @@
 @removed 1.0.0
-  @description 
+  @description
     This module was replaced with the data table module in this version.
-    
+
 
 @prototype hx.Table
   @updated 0.12.6
-    @description 
+    @description
       Added the @code[rowSelectableLookup] function to determine whether a row is selectable after it has been clicked and added the ability to disable row selection entirely using the @code[unselectable] property in the row data.
-      
+
 
   @removed 1.0.0
   @bugfix 0.12.8
-    @description 
+    @description
       Fixed a bug where the rowselect event was not being emmitted when a row was unselected.
-      
+
 
   @bugfix 0.11.0
-    @description 
+    @description
       Fixed an issue with the collapsibles that was causing the wrong data to be sent out to the collapsible render function. Also renamed hx-collapsible-content to hx-table-collapsible-content to prevent style conflicts.
-      
+
 
   @bugfix 0.12.4
-    @description 
+    @description
       Fix sticky header alignment issue when the container resizes.
-      
+
 
   @updated 0.12.5
-    @description 
+    @description
       Updated the table paginator to be more inline with paginators used in other tables and to make it make more sense.
-      
+
 
   @bugfix 0.12.6
-    @description 
+    @description
       Fixed a styling bug where the selected row was not highlighted for mobile view
-      
+
 
   @bugfix 0.11.0
-    @description 
+    @description
       Fixed an issue with the mobile view where the table does not correctly handle the data being undefined
-      
+
 
   @updated 0.12.3
-    @description 
+    @description
       Improved the stlying for collapsible rows and for grouped headers.
-      
+
 
   @deprecated 0.15.0
-    @description 
+    @description
       This module has been deprecated in favor of the data-table module. This module will be removed in version 2.0.0 of hexagon.
-      
+
 
     @hxModuleLink data-table
 
   @bugfix 0.15.1
-    @description 
+    @description
       Fix for tables when in compact mode with no data. Also update pickers to use the new event types which was causing an infinite loop in 0.15.0. Squash deprecated warnings for tables.
-      
+
 
   @bugfix 0.15.2
-    @description 
+    @description
       Fix for issue when setting sorts/filters before setting the data for a table
-      
+
 
   @bugfix 0.15.3
-    @description 
+    @description
       Normalise cell renderer keys to lower case
-      
+
 
   @updated 0.11.0
-    @description 
+    @description
       Added resize listener to make tables re-render when the container is resized.
-      
 
-  @description 
+
+  @description
     A component to allow tables to be created dynamically using Javascript that contains features such as filtering, sorting and pagination.
 
   @extends EventEmitter
   @property options [Object]
     @updated 0.9.0
-    @description 
+    @description
       The options to use when creating the table. Changing these options and then calling the @code[render] or @code[setData] method will show the table with the new options.
 
     @property rowsPerPage [Number]
-      @description 
+      @description
         The maximum number of rows on a page - if there are more rows in the data than this value, the pagination will be shown automatically.
 
     @property showSorts [Boolean]
-      @description 
+      @description
         Whether to show the sorts on the table columns.
 
     @property showFilters [Boolean]
-      @description 
+      @description
         Whether to show the filters on the table columns.
 
     @property showSelection [Boolean]
-      @description 
+      @description
         Whether to allow rows to be selected and show the ticks at the side of the table.
 
     @property rowSelectable [Boolean]
-      @description 
+      @description
         If showSelection is set to true, this value determines if the entire row should be clickable or just the tick box.
 
     @property collapsibleRow [Function]
-      @description 
+      @description
         The function used to populate the collapsible row when it is clicked.
 
       @arg node [HTMLElement]
-        @description 
+        @description
           The content node to populate.
-          
+
 
       @arg rowData [Object]
-        @description 
+        @description
           The data of the selected row.
-          
+
 
     @property alwaysMobile [Boolean]
-      @description 
+      @description
         Whether to always show the table in 'mobile' mode. This is a mode that enables mobile users to see the data in a more sensible layout.
 
     @property useResponsive [Boolean]
-      @description 
+      @description
         Whether to switch to 'mobile' mode when the container for the table is below 480px.
 
     @property enabledFilters [Array]
       @updated 0.9.0
-      @description 
+      @description
         The list of filter types that will be shown in the filter dropdown if filtering is enabled.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
-        
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+
         The default value is
         @@codeblock js
           [
@@ -139,17 +139,17 @@
             'excludes'
           ]
 
-        
+
         Note: The contains filter type is always enabled, the 'enabledFilters' will show in a 'more' section.
 
     @property noDataMessage [String]
       @added 0.9.0
-      @description 
+      @description
         The message to display when there is no data.
 
     @property defaultCellValueLookup [Function]
       @added 0.9.0
-      @description 
+      @description
         When using object for cell data either this should be defined, or cellValueLookup should be defined for every column. This function makes it possible to specify which value in the cell objects to filter and sort by.
         This can be overridden on a column-by-column basis with options.cellValueLookup.
         @@codeblock js
@@ -169,23 +169,23 @@
               ...
             ]
           }
-          
+
           // the table can be instructed to, by default, use the 'value' property of the cell objects for sorting and filtering for:
           options.defaultCellValueLookup = function(datum) {
             return datum.value;
           }
 
       @arg datum [Object]
-        @description 
+        @description
           The data for a cell
 
       @returns [Any]
-        @description 
+        @description
           The value you wish to filter and sort by
 
     @property cellValueLookup [Object]
       @added 0.9.0
-      @description 
+      @description
         Can be set to change the cell value lookup for a specific column:
         @@codeblock js
           // table data
@@ -204,7 +204,7 @@
               ...
             ]
           }
-          
+
           // the table can be instructed to use the 'value' property of the objects for sorting and filtering for 'Column 1' like this:
           options.cellValueLookup = {
             'Column 1': function(datum) {
@@ -214,45 +214,45 @@
 
     @property defaultCellSortValueLookup [Function]
       @added 0.9.0
-      @description 
+      @description
         Carries out the same functionality as the defaultCellValueLookup function but only applies when sorting the data.
 
       @arg datum [Object]
-        @description 
+        @description
           The data for a cell
 
       @returns [Any]
-        @description 
+        @description
           The value you wish to sort by
 
     @property cellSortValueLookup [Object]
       @added 0.9.0
-      @description 
+      @description
         Works the same way as cellValueLookup but only applies when sorting the data.
 
     @property defaultCellFilterValueLookup [Function]
       @added 0.9.0
-      @description 
+      @description
         Carries out the same functionality as the defaultCellValueLookup function but only applies when filtering the data.
 
       @arg datum [Object]
-        @description 
+        @description
           The data for a cell
 
       @returns [Any]
-        @description 
+        @description
           The value you wish to filter by
 
     @property cellFilterValueLookup [Object]
       @added 0.9.0
-      @description 
+      @description
         Works the same way as cellValueLookup but only applies when filtering the data.
 
     @property cellRenderers [Object]
       @added 0.9.0
-      @description 
+      @description
         Can be set to change the renderer for a given column.
-        
+
         @@codeblock js
           // table data
           data = {
@@ -270,7 +270,7 @@
               ...
             ]
           }
-          
+
           // The table can be instructed to render values in 'Column 1' like this:
           options.cellValueLookup = {
             'Column 1': function(datum, element, index) {
@@ -280,54 +280,54 @@
 
     @property defaultCellRenderer [Function]
       @added 0.9.0
-      @description 
+      @description
         Can be set to change the renderer for all the columns in a table.
 
       @arg datum [Object]
-        @description 
+        @description
           The data for a cell
-          
+
 
       @arg element [HTMLElement]
-        @description 
+        @description
           The node of the table cell.
-          
+
 
       @arg index [Number]
-        @description 
+        @description
           The current row index.
-          
+
 
     @property defaultCompare [Function]
       @added 0.10.0
-      @description 
+      @description
         The default compare function to use when sorting columns. The default is hx.sort.localeCompare()
-        
+
         @@codeblock js
           table.options.defaultCompare = function(a, b) {
             return a > b ? 1 : -1;
           }
 
       @arg a [Any]
-        @description 
+        @description
           The first item to compare
-          
+
 
       @arg b [Any]
-        @description 
+        @description
           the second item to compare
-          
+
 
       @returns [Number]
-        @description 
+        @description
           -1 if a is less than b, 0 if it is the same, 1 if a is greater than b.
-          
+
 
     @property columnCompare [Object]
       @added 0.10.0
-      @description 
+      @description
         Overrides the compare function for specific columns.
-        
+
         @@codeblock js
           table.options.columnCompare['age'] = function(a, b) {
             return a > b ? 1 : -1;
@@ -335,35 +335,35 @@
 
     @property allowHeaderWrap [Boolean]
       @added 0.12.5
-      @description 
+      @description
         A boolean value that determines whether the header text should be allowed to wrap or not.
-        @default 
+        @default
           false
-        
+
 
     @property userSelectRowsPerPage [Boolean]
       @added 0.12.5
-      @description 
+      @description
         A boolean value that determines whether the dropdown for selecting the number of rows per page should be shown.
-        @default 
+        @default
           false
-        
+
 
     @property singleSelectionMode [Boolean]
       @added 0.12.5
-      @description 
+      @description
         A boolean value that determines whether the table should be in single selection mode, only allowing one row to be selected at a time.
-        @default 
+        @default
           false
-        
+
 
     @property rowSelectableLookup [Function]
       @added 0.12.6
-        @description 
+        @description
           Added a function that is called when a row is selected to determine whether the row should be able to be selected.
-          
 
-      @description 
+
+      @description
         A function for looking up whether a row is selectable when it is clicked or selected by the select all tick.
 
         This function should call the callback with true if the row is selectable and false if it is not, this will prevent the row being selected.
@@ -378,86 +378,86 @@
           }
 
       @arg data [Array/Object]
-        @description 
+        @description
           The row data object
-          
+
 
       @arg callback [Function]
-        @description 
+        @description
           The callback function to call with the result
-          
+
 
   @method clearSelection
-    @description 
+    @description
       Clears the currently selected rows from the entire table.
 
-  @constructor 
-    @description 
+  @constructor
+    @description
       Creates a table object using a selector and some options.
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The selector for the table object.
-        The table is created inside this element and any additional table-classes (such as @code(css)[hx-table] ) should be applied to this element.
-        The @code(css)[hx-table] class is added automatically when the table is rendered.
+        The table is created inside this element and any additional table-classes (such as @code should be applied to this element.
+        The @code[hx-table] class is added automatically when the table is rendered.
 
     @arg? options [Object]
-      @description 
-        The options to use when creating the table. See the @code(js)[options] property for the available options.
+      @description
+        The options to use when creating the table. See the @code[options] property for the available options.
 
   @method getSelected
-    @description 
+    @description
       Returns the rows that have been selected in the form of an array objects with an index and data property.
 
     @returns [Array]
-      @description 
+      @description
         An array containing the rows that are selected and the index of the row in the dataset it was selected from.
 
       @property index [Number]
         @added 0.10.0
-        @description 
+        @description
           The index of the selected row in relation to the sorted/filtered dataset it was selected from.
-          
+
 
       @property data [Array]
         @added 0.10.0
-        @description 
+        @description
           An array containing the row data as it was passed in.
-          
+
 
   @property paginator [Paginator]
     @removed 0.12.5
-      @description 
+      @description
         The paginator element is no longer used by the table. Use the @code[page(page)] to set the page.
-        
 
-    @description 
+
+    @description
       The paginator widget that controls the current page the table shows.
 
   @method sort
     @removed 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
+
 
     @arg column [String]
     @arg? direction [String/Boolean]
 
   @method sort
     @added 0.9.0
-      @description 
+      @description
         Optional callback parameter added
-        
 
-    @description 
+
+    @description
       A method for sorting or clearing the sort from a column.
 
     @arg column [String]
-      @description 
+      @description
         The title of the column to sort by.
 
     @arg? direction [String/Boolean]
-      @description 
+      @description
         The sort direction.
         Values for ascending are: true, "asc" or "ascending"
 
@@ -466,28 +466,28 @@
         Values for clearing the sort: undefined or "none"
 
     @arg? callback [Function]
-      @description 
+      @description
         This will be called once the table has fetched all data and has finished rendering.
-        
+
 
   @method setData
-    @description 
+    @description
       Sets for the table to use.
 
     @arg data [Object/String/Function]
       @updated 0.12.6
-        @description 
+        @description
           Added the ability to make rows unselectable when rendering the table.
-          
+
 
       @updated 0.12.5
-        @description 
+        @description
           Added the ability to override the @code[allowHeaderWrap] setting for individual columns using the @code[allowWrap] property.
-          
 
-      @description 
+
+      @description
         The data source to use for the table. When using function or server side data feeds, you are responsible for filtering and sorting the data (since it will typically be done on the server). For an object data source the table will take care of the filtering and sorting. The data must be in one of the following formats:
-        
+
         @collapsible Object
           @@codeblock js
             {
@@ -507,9 +507,9 @@
               ]
             }
 
-          
+
           The data can also be specified with additional properties for the rows. The table will only look for data in the 'columns' property, any other values will be ignored. They will be returned as part of the row data in methods like 'getSelected':
-          
+
           @@codeblock js
             {
               ...
@@ -524,9 +524,9 @@
               ]
             }
 
-          
+
           Additionally, column data can also be specified in object format:
-          
+
           @@codeblock js
             {
               ...
@@ -535,11 +535,11 @@
               ]
             }
 
-          
+
           If data is provided in this format, a cellValueLookup (or similar function) must be provided.
 
-        
-        
+
+
         @collapsible Function
           @@codeblock js
             var feed = function(request, callback) {
@@ -575,16 +575,16 @@
             }
             table.setData(feed, {id: 'my-table-id'})
 
-        
-        
-        
+
+
+
         @collapsible Server [Side]
           @@codeblock js
             table.setData('https://example.com/data', {id: 'my-table-id'})
 
-          
+
           <b>Note</b> In this case, the server must respond correctly to the post requests that are made. The post request will contain some json that describes the data that should be returned. The possible types of request are:
-          
+
           @h3[Header]
           @h4[Request]
           @@codeblock js
@@ -595,8 +595,8 @@
               }
             }
 
-          
-          
+
+
           You should respond with the header info in json form:
 
           @h4[Response]
@@ -613,7 +613,7 @@
               }
             }
 
-          
+
           @h3[Row count]
           @h4[Request]
           @@codeblock js
@@ -624,14 +624,14 @@
               }
             }
 
-          
+
           @h4[Response]
           @@codeblock js
             {
               "count": 12345, // the total number of rows in the data set
             }
 
-          
+
           @h3[Row data]
           @h4[Request]
           @@codeblock js
@@ -649,7 +649,7 @@
               }
             }
 
-          
+
           @h4[Response]
           @@codeblock js
             {
@@ -666,9 +666,9 @@
               "processedSize": 1050 // the total number of rows in the processed (filtered and sorted) data set
             }
 
-        
+
         @h3[Adding multi column / grouped headers]
-        However the data is set, it is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns] @@codeblock js
+        However the data is set, it is possible to add grouping to headers by specifying a @code[columns] @@codeblock js
           {
             columns:[ // object for each column
               { value:"Name", groups:["Group 1"]},
@@ -679,9 +679,9 @@
             ]
           }
 
-        
+
         @h3[Wrapping header text for individual columns]
-        
+
         It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the allowWrap property in the header colums:
 
         @@codeblock js
@@ -697,7 +697,7 @@
             }
           }
 
-        
+
         @h3[Making rows unselectable]
         It is possible to prevent rows from being selected by providing the @code[unselectable] property in the row data. This will cause the row tick to be disabled and prevent the row from being selected by any means.
 
@@ -717,62 +717,62 @@
         If this value is set, the row will always be unselectable and as such will not be passed through the @code[rowSelectableLookup] function.
 
     @arg? extra [Object]
-      @description 
+      @description
         Any extra information that should be fed through to server side and function requests. Not needed for object based data.
 
     @arg? clearSorts [Boolean]
-      @description 
+      @description
         A boolean value that determines whether sorts should be reset when setting the data.
-        @default 
+        @default
           false
-        
+
 
     @arg? clearFilters [Boolean]
-      @description 
+      @description
         A boolean value that determines whether filters should be reset when setting the data.
-        @default 
+        @default
           false
-        
+
 
     @arg? callback [Function]
-      @description 
+      @description
         A function to be called once the table has fetched all data and has finished rendering.
 
   @method render
     @removed 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
+
 
     @returns [Table]
-      @description 
+      @description
         returns this table for chaining
-        
+
 
   @method render
     @added 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
 
-    @description 
+
+    @description
       Forces the table to re-render. This should only be necessary when you want to force the table to re-render changes to config. Any changes to data, sorting or filtering do not require a call to render - the table will automatically update for these.
 
     @arg? callback [Function]
-      @description 
+      @description
         This will be called once the table has fetched all data and has finished rendering.
-        
+
 
     @returns [Table]
-      @description 
+      @description
         returns this table for chaining
-        
+
 
   @method addFilter
     @removed 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
+
 
     @arg column [String/Number]
     @arg filter [String]
@@ -780,36 +780,36 @@
 
   @method addFilter
     @added 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
 
-    @description 
+
+    @description
       Adds filters to a column in the table.
 
     @arg column [String/Number]
-      @description 
+      @description
         The column title or array index to add a filter to.
 
     @arg filter [String]
-      @description 
+      @description
         The filter to add to the selected column.
 
     @arg? type [String]
-      @description 
+      @description
         The filter type to add.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
 
     @arg? callback [Function]
-      @description 
+      @description
         This will be called once the table has fetched all data and has finished rendering.
-        
+
 
   @method removeFilter
     @removed 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
+
 
     @arg? column [String/Number]
     @arg? filter [String]
@@ -817,38 +817,38 @@
 
   @method removeFilter
     @added 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
 
-    @description 
+
+    @description
       A method to remove filters from columns in the table. Can be used to remove specific filters from a single column, specific filters from all columns, all filters from a single column and all filters from the whole table.
 
     @arg? column [String/Number]
-      @description 
+      @description
         The column title or array index to remove a filter from.
         If a column value is not specified or is passed in as undefined, this function will affect all columns.
 
     @arg? filter [String]
-      @description 
+      @description
         The filter to remove from to the selected column.
         If a filter isnt specified, all filters are removed from the column(s) selected.
 
     @arg? type [String]
-      @description 
+      @description
         The filter type to add.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
 
     @arg? callback [Function]
-      @description 
+      @description
         This will be called once the table has fetched all data and has finished rendering.
-        
+
 
   @method filter
     @removed 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
+
 
     @arg column [String]
     @arg filter [String]
@@ -856,90 +856,90 @@
 
   @method filter
     @added 0.9.0
-      @description 
+      @description
         An optional callback parameter has been added. This callback gets called once the rendering of the table is complete.
-        
 
-    @description 
+
+    @description
       Sets the filters for a specific column. It will remove all previous filter values and set to the given value.
 
     @arg column [String]
-      @description 
+      @description
         The column title to set the filters for.
 
     @arg filter [String]
-      @description 
+      @description
         The filter string to set for the given column.
 
     @arg? type [String]
-      @description 
+      @description
         The filter type to add.
-        The full list of available filters can be found on the @code(js)[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+        The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
 
     @arg? callback [Function]
-      @description 
+      @description
         This will be called once the table has fetched all data and has finished rendering.
-        
+
 
   @method restoreSelected
     @added 0.10.0
-    @description 
+    @description
       A method for restoring a set of selected rows to a table that was retrieved using the @code[getSelected] method.
 
       When restoring the selected rows, ensure that the sorts/filters that were active when the data was retrieved are restored first as otherwise incorrect rows may be selected.
 
     @arg array [Array[Object]]
-      @description 
+      @description
         An array of objects returned from the @code[getSelected] method.
-        
+
 
   @method page
     @added 0.12.5
-    @description 
+    @description
       A method for setting the currently selected page of a table.
 
     @arg page [Number]
-      @description 
+      @description
         The page to select.
-        
+
 
     @arg? callback [Function]
-      @description 
+      @description
         A function to call once the table has finished rendering the page.
-        
+
 
   @event sort
-    @description 
+    @description
       The event called when the table is sorted. Passes the direction and column as the data.
 
   @event filter
-    @description 
+    @description
       The event called when the table is filtered. Passes the filter object as the data.
 
   @event rowselect
-    @description 
+    @description
       The event called when a row is selected or deselected. Passes the row data and whether the action was to select or deselect the row. Will only be passed if the selected state changes.
 
   @event rowcollapsible
-    @description 
+    @description
       The event called when a row collapsible is opened/closed. It is passed the row data (Object) and whether or not the row is open (Boolean)
 
   @event render
-    @description 
+    @description
       The event called when the data has been loaded and the table has finished rendering.
 
   @event rowclick [Object]
     @added 0.12.6
-    @description 
+    @description
       An event called when a row is clicked
 
     @property data [Object/Array]
-      @description 
+      @description
         The row data
-        
+
 
     @property node [Node]
-      @description 
+      @description
         The row node
-        
+
 

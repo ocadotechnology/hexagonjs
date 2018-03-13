@@ -1,11 +1,11 @@
 @version 0.15.0
   @h1(.docs-module-section)[Using Feeds]
-  
+
   Data tables contain multiple options for displaying the data, as well as flexibility in how the data is provided.
 
   There are two functions that are available for creating feeds, however custom feeds can also be created.
 
-  
+
   @section Using [hx.dataTable.objectFeed]
     An object feed expects the data to be provided as a whole when the feed is created.
 
@@ -36,7 +36,7 @@
       var table = new hx.DataTable('#selector')
       table.feed(hx.dataTable.objectFeed(tableData))
 
-    
+
     Alternatively, if the data is returned from a URL request, it can be set as follows:
 
     @@codeblock js
@@ -44,11 +44,11 @@
         if (!err) table.feed(hx.dataTable.objectFeed(tableData));
       })
 
-    
+
     The object feed handles the sorting and filtering of the data internally making it the preferred choice for small or static data sets.
 
-  
-  
+
+
   @section Using [hx.dataTable.urlFeed]
     A url feed expects a single url to handle multiple requests and return different types of data.
 
@@ -62,7 +62,7 @@
 
     There are four different request types made by the url feed, all of which will be @code[POST] requests:
 
-    
+
     @h4[headers]
     @@codeblock js
       {
@@ -81,7 +81,7 @@
         ... // Additional headers
       ]
 
-    
+
     @h4[totalCount]
     @@codeblock js
       {
@@ -98,7 +98,7 @@
 
     If the total is unknown, this can return undefined.
 
-    
+
     @h4[rows]
     The URL feed expects the server to perform any sorting/filtering as part of the 'rows' request.
 
@@ -134,7 +134,7 @@
         ]
       }
 
-    
+
     @h4[rowsForIds]
     @@codeblock js
       {
@@ -157,13 +157,13 @@
         ... // Additional rows
       ]
 
-  
+
   @section Creating [a custom feed]
-    In situations where the feeds provided in the @code(js)[hx.dataTable] object are not suitable, custom feeds can be created.
+    In situations where the feeds provided in the @code[hx.dataTable] object are not suitable, custom feeds can be created.
 
     For instance, if using @code[POST] is not suitable, an alternative could be created:
 
-    
+
     @@codeblock js
       // Serializes an object into param=value&param[child]=value
       function serialize (obj, prefix) {
@@ -178,13 +178,13 @@
         }
         return arr.join('&')
       }
-      
+
       function createCustomURLFeed (url) {
         var fetcher = function (data, cb) {
           // Serializes the data so it can be passed over as a GET request
           hx.json(url + '?' + serialize(data), function (err, data) { cb(data) })
         }
-      
+
         // Return the feed object with headers, rows, rowsForIds and totalCount properties
         return {
           headers: function (cb) {
@@ -202,14 +202,14 @@
         }
       }
 
-  
-  
+
+
   @h1(.docs-module-section)[Additional options]
   As well as the options available on the data table prototype, there are a few extra options when setting the data that can change the table behaviour by default.
 
-  
+
   @section Multi [column / grouped headers]
-    It is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns] @@codeblock js
+    It is possible to add grouping to headers by specifying a @code[columns] @@codeblock js
       {
         headers:[
           { id: 'name', name: 'Name', groups: ['Group 1']},
@@ -223,7 +223,7 @@
         ]
       }
 
-  
+
   @section Wrapping [header text for indivual columns]
     It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the @code[allowWrap] property in the header colums:
 
@@ -241,7 +241,7 @@
         ]
       }
 
-  
+
   @section Disabling [rows]
     When a row is rendered, the @code[rowEnabledLookup] function is called. If it returns false, the row will visually disabled and unselectable.
 
@@ -261,7 +261,7 @@
 
     This does not disable row collapsibles.
 
-  
+
   @section Making [Rows unselectable]
     When a row is selected, the @code[rowSelectableLookup] function is called to check whether the row is selectable. If it returns false, the row will not be selected.
 
@@ -286,12 +286,12 @@
 
 @version 1.5.0
   @h1(.docs-module-section)[Using Feeds]
-  
+
   Data tables contain multiple options for displaying the data, as well as flexibility in how the data is provided.
 
   There are two functions that are available for creating feeds, however custom feeds can also be created.
 
-  
+
   @section Using [hx.dataTable.objectFeed]
     An object feed expects the data to be provided as a whole when the feed is created.
 
@@ -322,7 +322,7 @@
       var table = new hx.DataTable('#selector')
       table.feed(hx.dataTable.objectFeed(tableData))
 
-    
+
     Alternatively, if the data is returned from a URL request, it can be set as follows:
 
     @@codeblock js
@@ -330,11 +330,11 @@
         if (!err) table.feed(hx.dataTable.objectFeed(tableData));
       })
 
-    
+
     The object feed handles the sorting and filtering of the data internally making it the preferred choice for small or static data sets.
 
-  
-  
+
+
   @section Using [hx.dataTable.urlFeed]
     A url feed expects a single url to handle multiple requests and return different types of data.
 
@@ -348,7 +348,7 @@
 
     There are four different request types made by the url feed, all of which will be @code[POST] requests:
 
-    
+
     @h4[headers]
     @@codeblock js
       {
@@ -367,7 +367,7 @@
         ... // Additional headers
       ]
 
-    
+
     @h4[totalCount]
     @@codeblock js
       {
@@ -384,7 +384,7 @@
 
     If the total is unknown, this can return undefined.
 
-    
+
     @h4[rows]
     The URL feed expects the server to perform any sorting/filtering as part of the 'rows' request.
 
@@ -422,7 +422,7 @@
         ]
       }
 
-    
+
     @h4[rowsForIds]
     @@codeblock js
       {
@@ -445,13 +445,13 @@
         ... // Additional rows
       ]
 
-  
+
   @section Creating [a custom feed]
-    In situations where the feeds provided in the @code(js)[hx.dataTable] object are not suitable, custom feeds can be created.
+    In situations where the feeds provided in the @code[hx.dataTable] object are not suitable, custom feeds can be created.
 
     For instance, if using @code[POST] is not suitable, an alternative could be created:
 
-    
+
     @@codeblock js
       // Serializes an object into param=value&param[child]=value
       function serialize (obj, prefix) {
@@ -466,13 +466,13 @@
         }
         return arr.join('&')
       }
-      
+
       function createCustomURLFeed (url) {
         var fetcher = function (data, cb) {
           // Serializes the data so it can be passed over as a GET request
           hx.json(url + '?' + serialize(data), function (err, data) { cb(data) })
         }
-      
+
         // Return the feed object with headers, rows, rowsForIds and totalCount properties
         return {
           headers: function (cb) {
@@ -490,13 +490,13 @@
         }
       }
 
-  
+
   @h1(.docs-module-section)[Additional options]
   As well as the options available on the data table prototype, there are a few extra options when setting the data that can change the table behaviour by default.
 
-  
+
   @section Multi [column / grouped headers]
-    It is possible to add grouping to headers by specifying a @code(js)[groups] array for the header @code(js)[columns] @@codeblock js
+    It is possible to add grouping to headers by specifying a @code[columns] @@codeblock js
       {
         headers:[
           { id: 'name', name: 'Name', groups: ['Group 1']},
@@ -510,7 +510,7 @@
         ]
       }
 
-  
+
   @section Wrapping [header text for indivual columns]
     It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the @code[allowWrap] property in the header colums:
 
@@ -528,7 +528,7 @@
         ]
       }
 
-  
+
   @section Disabling [rows]
     When a row is rendered, the @code[rowEnabledLookup] function is called. If it returns false, the row will visually disabled and unselectable.
 
@@ -548,7 +548,7 @@
 
     This does not disable row collapsibles.
 
-  
+
   @section Making [Rows unselectable]
     When a row is selected, the @code[rowSelectableLookup] function is called to check whether the row is selectable. If it returns false, the row will not be selected.
 
@@ -571,16 +571,16 @@
         ... // Additional rows
       ]
 
-  
+
   @pageLink using-the-advanced-search
   @h1(.docs-module-section)[Using the Advanced Search]
-  
+
   The advanced search is a feature that enables filtering across multiple columns.
 
-  
+
   There are several ways to use the advanced search. It can be used on it's own or can be toggled on/off by the user.
 
-  
+
   To show the advanced search toggle, the data table can be set up with:
 
   @@codeblock js
@@ -589,13 +589,13 @@
       showAdvancedSearch: true
     }
 
-  
-  @example 
-    @html 
+
+  @example
+    @html
       <div id="advanced-search-toggle"></div>
 
-    
-    @js 
+
+    @js
       var dt = new hx.DataTable('#advanced-search-toggle', {
         feed: tableFeed,
         filterEnabled: true,
@@ -603,11 +603,11 @@
       })
       dt.render()
 
-  
+
   This creates the table with the advanced search available but still shows the standard filter until the user enables the advanced search.
 
-  
-  
+
+
   The advanced search can also be used on it's own. To do this, use the following:
 
   @@codeblock js
@@ -616,15 +616,15 @@
       advancedSearchEnabled: true
     }
 
-  
+
   The @code[advancedSearchEnabled] option is used here. It causes @code[showAdvancedSearch] to be true and shows the advanced search.
 
-  @example 
-    @html 
+  @example
+    @html
       <div id="advanced-search-only"></div>
 
-    
-    @js 
+
+    @js
       var dt = new hx.DataTable('#advanced-search-only', {
         feed: tableFeed,
         filterEnabled: false,
@@ -632,18 +632,18 @@
       })
       dt.render()
 
-  
+
   @section How [the advanced search works]
-  
+
   The advanced search uses an array of nested arrays of objects with a @code[column] and @code[term] property
 
-  The logic behind the filtering uses 
+  The logic behind the filtering uses
 
   @hyperlink(https://en.wikipedia.org/wiki/Disjunctive_normal_form)[Disjunctive Normal Form]
 
    (an @code[OR] of @code[AND] s)
 
-  
+
   Below is an example of an advanced search:
 
   @@codeblock js
@@ -659,23 +659,23 @@
       ]
     ]
 
-  
+
   This would search for rows that match the following criteria:
 
-  
+
   @@codeblock js
     (Any column contains 'a' and the name column contains 'b') or (The profession column contains 'c')
 
-  
+
   The table user interface mirrors this functionality, allowing the user to add filters row by row and decide whether they are @code[AND] or @code[OR] filters and splits the array(s) accordingly.
 
-  
-  @example 
-    @html 
+
+  @example
+    @html
       <div id="advanced-search-with-data"></div>
 
-    
-    @js 
+
+    @js
       var dt = new hx.DataTable('#advanced-search-with-data', {
         feed: tableFeed,
         advancedSearch: [
@@ -690,12 +690,12 @@
       })
       dt.render()
 
-  
+
   @section Using [the feeds with advanced search]
-  
+
   When using the advanced search, the @code[rows] function will be given some additional properties as part of the @code[range] object:
 
-  
+
   The URL feed expects the server to perform any sorting/filtering as part of the 'rows' request.
 
   @@codeblock js
@@ -723,7 +723,7 @@
       extra: {}
     }
 
-  
+
   As the advanced search and filter can be used interchangeably, the properties will be passed over with each request.
 
   The @code[useAdvancedSearch] should be used to determine whether to filter using the advanced search or the regular filter.

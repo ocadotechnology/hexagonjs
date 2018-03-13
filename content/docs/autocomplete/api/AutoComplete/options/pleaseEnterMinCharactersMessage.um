@@ -1,13 +1,13 @@
 @property pleaseEnterMinCharactersMessage [String]
   @added 1.4.0
-  
+
   @description
     The text to display when the user has not entered enough text.
 
     When setting this, the minimum number of characters can be substituted
-    in using the @code(js)['$minLength'] variable, e.g.
+    in using the @code['$minLength'] variable, e.g.
 
-    @codeblock js
+    @@codeblock js
       options = {
         minLength: 3,
         pleaseEnterMinCharactersMessage = 'Please enter $minLength characters'
@@ -15,4 +15,4 @@
       // Evaluates to 'Please enter 3 characters'
 
   @default
-    @code(js)[hx.userFacingText('autocomplete', 'pleaseEnterMinCharacters')]
+    @code]

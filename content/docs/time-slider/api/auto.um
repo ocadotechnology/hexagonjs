@@ -1,31 +1,31 @@
 
 @prototype hx.TimeSlider
-  @description 
+  @description
     A widget type for selecting a value from a range of dates, or a date range from a range of date.
 
   @extends EventEmitter
   @property start [Number]
-    @description 
+    @description
       The start date set for this time slider (in milliseconds). This value should only be read, and not set. Use setRange to change the start and end properties.
 
   @property end [Number]
-    @description 
+    @description
       The end date set for this time slider (in milliseconds). This value should only be read, and not set. Use setRange to change the start and end properties.
 
   @method setValue
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[value(value)] instead.
-        
 
-    @description 
+
+    @description
       Sets the value / position of the slider. Returns this slider for chaining.
 
     @arg value [Number/Date]
-      @description 
+      @description
         A value between the minimum and maximum values for the slider.
-        
+
 
     @returns [TimeSlider]
     @returns [Slider]
@@ -34,70 +34,70 @@
   @method getValue
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[value()] instead.
-        
 
-    @description 
+
+    @description
       Returns the current value of the slider.
 
     @returns [Date]
-      @description 
+      @description
         For standard sliders, this will be a number. For range sliders, this will be an object with the below properties
-        
+
 
       @property startValue [Date]
-        @description 
+        @description
           The start value of the selected range slider
-          
+
 
       @property endValue [Date]
-        @description 
+        @description
           The end value of the selected range slider
-          
+
 
   @method setRangeStartValue
     @removed 0.11.0
     @deprecated 0.10.0
-      @description 
+      @description
         Use @code[setValue({startValue: <value>})] instead.
-        
 
-    @description 
+
+    @description
       Sets the value / position of the start point of a range slider. Returns this slider for chaining.
 
     @arg value [Number/Date]
-      @description 
+      @description
         A value between 0 and 1 or a date between the start and end dates set.
-        
+
 
     @returns [TimeSlider]
 
   @method setRangeEndValue
     @removed 0.11.0
     @deprecated 0.10.0
-      @description 
+      @description
         Use @code[setValue({endValue: <value>})] instead.
-        
 
-    @description 
+
+    @description
       Sets the value / position of the start point of a range slider. Returns this slider for chaining.
 
     @arg value [Number/Date]
-      @description 
+      @description
         A value between 0 and 1 or a date between the start and end dates set.
-        
+
 
     @returns [TimeSlider]
 
   @method getRangeStartValue
     @removed 0.11.0
     @deprecated 0.10.0
-      @description 
+      @description
         Use @code[getValue().startValue] instead.
-        
 
-    @description 
+
+    @description
       Gets the start value of a range slider. Returns a date between the start and end dates specified.
 
     @returns [Date]
@@ -105,51 +105,51 @@
   @method getRangeEndValue
     @removed 0.11.0
     @deprecated 0.10.0
-      @description 
+      @description
         Use @code[getValue().endValue] instead.
-        
 
-    @description 
+
+    @description
       Gets the end value of a range slider. Returns a date between the start and end dates specified.
 
     @returns [Date]
 
   @method setRange
     @removed 0.14.0
-      @description 
+      @description
         Use @code[hx.TimeSlider.min/max] instead.
-        
+
 
     @deprecated 0.13.0
-      @description 
+      @description
         Use @code[hx.TimeSlider.min/max] instead.
-        
 
-    @description 
+
+    @description
       Sets the range of values that the time slider can slide between.
 
     @arg start [Date]
-      @description 
+      @description
         The start date for this TimeSlider
-        
+
 
     @arg end [Date]
-      @description 
+      @description
         The start date for this TimeSlider
-        
+
 
     @returns [TimeSlider]
 
   @method valueToDate
     @removed 0.14.0
-      @description @code(js)[timeslider.valueToDate(value)] should be replaced with @code(js)[new Date(value)]
-        
+      @description @code]
+
 
     @deprecated 0.13.0
-      @description @code(js)[timeslider.valueToDate(value)] should be replaced with @code(js)[new Date(value)]
-        
+      @description @code]
 
-    @description 
+
+    @description
       This function can be used in the render function to easily convert the @code[value] returned from the time slider into a date object. This function takes into account the start and end values to calculate the time.
       @@codeblock js
         var render = function(slider, elem, value, update, rangeStart){
@@ -157,14 +157,14 @@
         }
 
     @arg value [Number]
-      @description 
+      @description
         The number (between 0 and 1) to convert to a date for the selected slider.
-        
+
 
     @returns [Date]
 
   @method formatter
-    @description 
+    @description
       This function can be used in the render function to format a date object for display on the time slider. In most cases, it should be used with the valueToDate method.
       @@codeblock js
         var render = function(slider, elem, value, update, rangeStart){
@@ -174,37 +174,37 @@
       By default, this function will use moment.js (if available) with the 'HH:mm' format or will convert the date to 24 hour 'HH:mm' if moment.js is not available.
 
     @arg date [Date]
-      @description 
+      @description
         The date to format.
-        
+
 
     @returns [String]
-      @description 
+      @description
         A formatted string.
-        
 
-  @constructor 
+
+  @constructor
     @removed 0.11.0
     @deprecated 0.10.0
-      @description 
+      @description
         Use @code[new hx.TimeSlider(selector, options)] instead.
-        
 
-    @description 
+
+    @description
       Sets up a slider.
 
     @arg selection [String/HTMLElement]
-      @description 
+      @description
         A unique css selector or a HTMLElement that identifies your slider.
-        
+
 
     @arg? type [String]
-      @description 
+      @description
         The type slider. Can be 'slider' for a normal slider or 'range' for a range slider.
-        
+
 
     @arg? render [Function]
-      @description 
+      @description
         A function used to render the sliders
         @@codeblock js
           render = function(slider, elem, value, update, rangeStart){
@@ -213,76 +213,76 @@
           }
 
       @arg slider [Slider]
-        @description 
+        @description
           The current hx.TimeSlider
-          
+
 
       @arg elem [HTMLElement]
-        @description 
+        @description
           The node of the selected slider
-          
+
 
       @arg value [Number]
-        @description 
+        @description
           The value of the slider. Will always be a number between 0 and 1.
-          
+
 
       @arg update [Boolean]
-        @description 
+        @description
           Whether the renderer is being called by dragging the slider or when it created the slider.
           The value is <span class="pill">true</span> when dragging, <span class="pill">false</span> when building
 
       @arg rangeStart [Boolean]
-        @description 
+        @description
           Whether the selected slider is the start node in the slider.
           <span class="pill">true</span> if it's the start node, <span class="pill">false</span> if it's the end node, <span class="pill">undefined</span> if the slider isn't a range slider.
 
-  @constructor 
+  @constructor
     @added 0.10.0
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The element used to create the slider
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when creating the slider
-        
+
 
       @property type [String]
-        @description 
+        @description
           The type of the slider. Can be 'range' or 'slider'
-          @default 
+          @default
             'slider'
-          
+
 
       @property min [Date]
-        @description 
+        @description
           The minimum value of the slider.
-          
+
 
       @property max [Date]
-        @description 
+        @description
           The maximum value of the slider.
-          
+
 
       @property step [Number]
-        @description 
+        @description
           The step to use when building the slider. The slider will display with points at intervals at the step value, starting from the minimum value. The maximum step will always be less than or equal to the maximum value of the slider.
-          
+
 
       @property render [Function]
         @removed 0.14.0
-          @description 
+          @description
             Use @code[options.renderer] instead
-            
+
 
         @deprecated 0.13.0
-          @description 
+          @description
             Use @code[options.renderer] instead
-            
 
-        @description 
+
+        @description
           The render function to use when rendering the value of the slider.
 
           The default render function is:
@@ -295,33 +295,33 @@
           See the formatter method for information on the slider.formatter.
 
         @arg slider [Slider]
-          @description 
+          @description
             The current slider object.
-            
+
 
         @arg elem [HTMLElement]
-          @description 
+          @description
             The node of the slider value.
-            
+
 
         @arg value [Number]
-          @description 
+          @description
             The current value of the selected slider control.
-            
+
 
         @arg date [Date]
-          @description 
+          @description
             The currently selected date value of the slider.
-            
+
 
         @returns [String]
-          @description 
+          @description
             A string in the desired output format.
-            
+
 
       @property renderer [Function]
         @added 0.13.0
-        @description 
+        @description
           The render function to use when rendering the value of the slider.
 
           The default render function is:
@@ -334,262 +334,262 @@
           See the formatter method for information on the slider.formatter.
 
         @arg slider [Slider]
-          @description 
+          @description
             The current slider object.
-            
+
 
         @arg elem [HTMLElement]
-          @description 
+          @description
             The node of the slider value.
-            
+
 
         @arg value [Number]
-          @description 
+          @description
             The current value of the selected slider control.
-            
+
 
         @arg date [Date]
-          @description 
+          @description
             The currently selected date value of the slider.
-            
+
 
         @returns [String]
-          @description 
+          @description
             A string in the desired output format.
-            
+
 
       @property disabled [Boolean]
         @added 0.15.2
-          @description 
+          @description
             Added the ability to disable a a time slider in the options
-            
 
-        @description 
+
+        @description
           Whether the time slider should be disabled
-          @default 
+          @default
             false
-          
+
 
   @method setValue
     @removed 0.12.0
     @deprecated 0.11.0
-      @description 
+      @description
         Use @code[value(value)] instead.
-        
+
 
     @added 0.10.0
-    @description 
+    @description
       Sets the values for a range slider.
 
     @arg value [Object]
       @property? startValue [Number/Date]
-        @description 
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
       @property? endValue [Number/Date]
-        @description 
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
     @returns [Slider]
 
   @method value
     @added 0.11.0
-    @description 
+    @description
       Sets the value / position of the slider. Returns this slider for chaining.
 
     @arg value [Number]
-      @description 
+      @description
         A value between the minimum and maximum values for the slider specified in milliseconds.
-        
+
 
     @returns [TimeSlider]
 
   @method value
     @added 0.11.0
-    @description 
+    @description
       Sets the value / position of the slider. Returns this slider for chaining.
 
     @arg value [Date]
-      @description 
+      @description
         A date between the minimum and maximum values for the slider.
-        
+
 
     @returns [TimeSlider]
 
   @method value
     @added 0.11.0
-    @description 
+    @description
       Sets the values for a range slider.
 
     @arg value [Object]
       @property? startValue [Number/Date]
         @removed 0.14.0
-          @description 
+          @description
             Use start instead
-            
+
 
         @deprecated 0.13.0
-          @description 
+          @description
             Use start instead
-            
 
-        @description 
+
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
       @property? endValue [Number/Date]
         @removed 0.14.0
-          @description 
+          @description
             Use end instead
-            
+
 
         @deprecated 0.13.0
-          @description 
+          @description
             Use end instead
-            
 
-        @description 
+
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
       @property? start [Number/Date]
         @added 0.13.0
-        @description 
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
       @property? end [Number/Date]
         @added 0.13.0
-        @description 
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
     @returns [TimeSlider]
 
   @method value
     @added 0.11.0
-    @description 
+    @description
       Returns the current value of the slider.
 
     @returns [Date/Object]
-      @description 
+      @description
         For standard sliders, this will be a number. For range sliders, this will be an object with the below properties
-        
+
 
       @property startValue [Date]
         @removed 0.14.0
-          @description 
+          @description
             Use start instead
-            
 
-        @description 
+
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
       @property endValue [Date]
         @removed 0.14.0
-          @description 
+          @description
             Use end instead
-            
 
-        @description 
+
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
       @property start [Date]
-        @description 
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
       @property end [Date]
-        @description 
+        @description
           A value between the minimum and maximum values for the slider.
-          
+
 
   @method min
     @added 0.13.0
-    @description 
+    @description
       Sets the minimum date of the slider.
 
     @arg min [Date]
-      @description 
+      @description
         The minimum date to set
-        
+
 
     @returns [TimeSlider]
-      @description 
+      @description
         This TimeSlider
-        
+
 
   @method min
     @added 0.13.0
-    @description 
+    @description
       Gets the minimum date of the slider.
 
     @returns [Date]
-      @description 
+      @description
         The minimum date of the slider.
-        
+
 
   @method max
     @added 0.13.0
-    @description 
+    @description
       Sets the maximum date of the slider.
 
     @arg max [Date]
-      @description 
+      @description
         The maximum date to set
-        
+
 
     @returns [TimeSlider]
-      @description 
+      @description
         This TimeSlider
-        
+
 
   @method max
     @added 0.13.0
-    @description 
+    @description
       Gets the maximum date of the slider.
 
     @returns [Date]
-      @description 
+      @description
         The maximum date of the slider.
-        
+
 
   @method step
     @added 0.13.0
-    @description 
+    @description
       Sets the step size of the slider in milliseconds.
 
     @arg step [Number]
-      @description 
+      @description
         The step size of the slider.
-        
+
 
     @returns [TimeSlider]
-      @description 
+      @description
         This TimeSlider
-        
+
 
   @method step
     @added 0.13.0
-    @description 
+    @description
       Gets the step size of the slider in milliseconds.
 
     @returns [Number]
-      @description 
+      @description
         The step size of the slider.
-        
+
 
   @method renderer
     @added 0.13.0
-    @description 
+    @description
       Sets the renderer function
 
     @arg? render [Function]
-      @description 
+      @description
         The render function used to display the value of the slider.
 
         The default render function is:
@@ -600,32 +600,32 @@
           }
 
       @arg slider [Slider]
-        @description 
+        @description
           The current slider object.
-          
+
 
       @arg elem [HTMLElement]
-        @description 
+        @description
           The node of the slider value.
-          
+
 
       @arg value [Number]
-        @description 
+        @description
           The current value of the selected slider control.
-          
+
 
     @returns [TimeSlider]
-      @description 
+      @description
         This TimeSlider
-        
+
 
   @method renderer
     @added 0.13.0
-    @description 
+    @description
       Gets the current renderer function
 
     @returns [Function]
-      @description 
+      @description
         The render function used to display the value of the slider.
 
         The default render function is:
@@ -636,158 +636,158 @@
           }
 
       @arg slider [Slider]
-        @description 
+        @description
           The current slider object.
-          
+
 
       @arg elem [HTMLElement]
-        @description 
+        @description
           The node of the slider value.
-          
+
 
       @arg value [Number]
-        @description 
+        @description
           The current value of the selected slider control.
-          
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to disable/enable a time slider
-        
 
-    @description 
+
+    @description
       A method for disabling or enabling a time slider
 
     @arg value [Boolean]
-      @description 
+      @description
         Whether the time slider should be disabled
-        
+
 
     @returns [TimeSlider]
-      @description 
+      @description
         This time slider
-        
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to get the disabled state of a time slider
-        
 
-    @description 
+
+    @description
       A method for getting the disabled state of a time slider
 
     @returns [Boolean]
-      @description 
+      @description
         Whether the time slider is disabled
-        
+
 
   @event slide
     @removed 0.10.0
-    @description 
+    @description
       Emitted when the slider is moved.
-      
+
 
     @data value
-      @description 
+      @description
         The current value (or range value) of the slider.
-        
+
 
   @event slidestart
-    @description 
+    @description
       Emitted when the slider finishes moving.
-      
+
 
     @data value
-      @description 
+      @description
         The value emitted for standard sliders
-        
+
 
     @data Object
       @added 0.10.0
-      @description 
+      @description
         The value emitted for range sliders
-        
+
 
       @property startValue [Date]
-        @description 
+        @description
           The start value of the slider
-          
+
 
       @property endValue [Date]
-        @description 
+        @description
           The end value of the slider
-          
+
 
   @event slideend
-    @description 
+    @description
       Emitted when the slider finishes moving.
-      
+
 
     @data value
-      @description 
+      @description
         The value emitted for standard sliders
-        
+
 
     @data Object
       @added 0.10.0
-      @description 
+      @description
         The value emitted for range sliders
-        
+
 
       @property startValue [Date]
-        @description 
+        @description
           The start value of the slider
-          
+
 
       @property endValue [Date]
-        @description 
+        @description
           The end value of the slider
-          
+
 
   @event change
-    @description 
+    @description
       Emitted when the slider value is changed.
-      
+
 
     @data value
-      @description 
+      @description
         The value emitted for standard sliders
-        
+
 
     @data Object
       @added 0.10.0
-      @description 
+      @description
         The value emitted for range sliders
-        
+
 
       @property startValue [Date]
-        @description 
+        @description
           The start value of the slider
-          
+
 
       @property endValue [Date]
-        @description 
+        @description
           The end value of the slider
-          
+
 
 @function hx.timeSlider
   @added 1.0.0
-    @description 
+    @description
       Fluid api version of TimeSlider
-      
 
-  @description 
+
+  @description
     Creates a new TimeSlider set up on a detached element, wrapped in a selection
 
   @arg options [Object]
-    @description 
+    @description
       See the options object for constructing TimeSlider
-      
+
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an element with an TimeSlider initialised on it
-      
+
 

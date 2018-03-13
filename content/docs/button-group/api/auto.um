@@ -1,42 +1,42 @@
 @prototype hx.ButtonGroup
   @added 0.12.4
-  @description 
+  @description
   @extends EventEmitter
-  @constructor 
+  @constructor
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The target button to set the select up in.
-        
+
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when creating the button group.
-        
+
 
       @property activeClass [String]
-        @description 
+        @description
           The button class to use for the active button.
-          @default 
+          @default
             'hx-contrast'
-          
+
 
       @property buttonClass [String]
-        @description 
+        @description
           The button class to use for inactive buttons.
-          @default 
+          @default
             'hx-complement'
-          
+
 
       @property fullWidth [Boolean]
-        @description 
+        @description
           Whether the group should span the full width of its container.
-          @default 
+          @default
             false
-          
+
 
       @property renderer [Function]
         @added 0.13.0
-        @description 
+        @description
           The render function to call when rendering the buttons
 
           The default render function is as follows:
@@ -49,23 +49,23 @@
           Setting a custom renderer will not change the 'click' method for setting the data or how the classes are added to the buttons.
 
         @arg node [HTMLElement]
-          @description 
+          @description
             The button node.
-            
+
 
         @arg data [String/Object]
-          @description 
+          @description
             The data for the item, as passed into the 'items' method
-            
+
 
         @arg current [Boolean]
-          @description 
+          @description
             Whether the element is the currently selected element.
-            
+
 
       @property items [Array[String]]
         @added 0.13.0
-        @description 
+        @description
           The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items).
 
           In addition to the value property, an activeClass property can also be provided that will be applied when a button is clicked instead of the activeClass provided in the constructor.
@@ -86,22 +86,22 @@
 
       @property disabled [Boolean]
         @added 0.15.2
-          @description 
+          @description
             Added the ability to disable a button group in the options
-            
 
-        @description 
+
+        @description
           Whether the button group should be disabled
-          @default 
+          @default
             false
-          
+
 
   @method items
-    @description 
+    @description
       Sets the list of items that will be shown in the button group
 
     @arg items [Array[Any]]
-      @description 
+      @description
         The list of items that can be selected. This can either be an array of string, or an array of objects with value properties (and other information for displaying the items).
 
         In addition to the value property, an activeClass property can also be provided that will be applied when a button is clicked instead of the activeClass provided in the constructor.
@@ -121,44 +121,44 @@
         A custom renderer may be set if alternative object structures are required.
 
     @returns [ButtonGroup]
-      @description 
+      @description
         Returns this button group for chaining
-        
+
 
   @method value
-    @description 
+    @description
       Sets or gets the currently selected item.
 
     @arg? value [String]
-      @description 
+      @description
         The value of the item to select. For objects items, this should be the value of the 'value' property.
-        
+
 
     @returns [ButtonGroup]
-      @description 
+      @description
         This ButtonGroup.
-        
+
 
   @method value
-    @description 
+    @description
       Gets the currently selected item. If objects were set for the items, this will return the entire object for the selected button (not just the value string).
 
     @returns [Any]
-      @description 
+      @description
         The currently selected item.
-        
+
 
   @method renderer
     @updated 0.13.0
-      @description 
+      @description
         Updated to return the current button group when setting the renderer.
-        
 
-    @description 
+
+    @description
       A method for overriding the default button renderer.
 
     @arg render [Function]
-      @description 
+      @description
         The render function to call when rendering the buttons
 
         The default render function is as follows:
@@ -171,122 +171,122 @@
         Setting a custom renderer will not change the 'click' method for setting the data or how the classes are added to the buttons.
 
       @arg node [HTMLElement]
-        @description 
+        @description
           The button node.
-          
+
 
       @arg data [String/Object]
-        @description 
+        @description
           The data for the item, as passed into the 'items' method
-          
+
 
       @arg current [Boolean]
-        @description 
+        @description
           Whether the element is the currently selected element.
-          
+
 
     @returns [ButtonGroup]
       @added 0.13.0
-      @description 
+      @description
         This ButtonGroup
-        
+
 
   @method renderer
     @added 0.13.0
-      @description 
+      @description
         Updated the renderer function to return the currently set renderer if no arguments are provided.
-        
 
-    @description 
+
+    @description
       A method for getting the button renderer.
 
     @returns [Function]
-      @description 
+      @description
         The currently set renderer function.
-        
+
 
   @method items
     @added 0.13.0
-      @description 
+      @description
         Updated the items function to return the currently set items if no arguments are provided.
-        
 
-    @description 
+
+    @description
       Sets the list of items that will be shown in the button group
 
     @returns [Array[Any]]
-      @description 
+      @description
         The currently set items if no arguments are provided.
-        
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to disable/enable a button group
-        
 
-    @description 
+
+    @description
       A method for disabling or enabling a button group
 
     @arg value [Boolean]
-      @description 
+      @description
         Whether the button group should be disabled
-        
+
 
     @returns [ButtonGroup]
-      @description 
+      @description
         This button group
-        
+
 
   @method disabled
     @added 0.15.2
-      @description 
+      @description
         Added the ability to get the disabled state of a button group
-        
 
-    @description 
+
+    @description
       A method for getting the disabled state of a button group
 
     @returns [Boolean]
-      @description 
+      @description
         Whether the button group is disabled
-        
+
 
   @event change [String]
-    @description 
+    @description
       The event called when the selected item is changed. The data is the value that was selected.
 
   @event change [Object]
     @added 0.15.0
-    @description 
+    @description
       The event called when the selected item is changed.
 
     @property value [Any]
-      @description 
+      @description
         The item that was selected.
-        
+
 
     @property cause [String]
-      @description 
+      @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-        
+
 
 @function hx.buttonGroup
   @added 1.0.0
-    @description 
+    @description
       Fluid api version of ButtonGroup
-      
 
-  @description 
+
+  @description
     Creates a new ButtonGroup set up on a detached element, wrapped in a selection
 
   @arg options [Object]
-    @description 
+    @description
       See the options object for constructing ButtonGroup
-      
+
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an element with an ButtonGroup initialised on it
-      
+
 

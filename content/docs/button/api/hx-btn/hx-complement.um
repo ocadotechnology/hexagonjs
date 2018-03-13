@@ -2,7 +2,7 @@
   @added 0.9.0
   @removed 1.0.0
     @description
-      Use @code(css)[.hx-complement] instead
+      Use @code[.hx-complement] instead
   @description
     Styles the button with a color that compliments the theme (light for a
     light theme, dark for a dark theme)

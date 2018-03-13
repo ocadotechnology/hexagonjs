@@ -1,26 +1,26 @@
 @function hx.xhr
   @removed 0.11.0
-    @description 
+    @description
       Given a more descriptive name: hx.request
-      
+
 
   @deprecated 0.9.0
-    @description 
+    @description
       Given a more descriptive name: hx.request
-      
 
-  @description 
+
+  @description
     The core part of Hexagon's request API. This function lets you request data from a server with various options as well as making multiple requests with one call.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
       @h3[String]
       Any standard url string.
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
       @@codeblock js
@@ -28,7 +28,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -37,17 +37,17 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -57,7 +57,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -73,39 +73,39 @@
         ]
 
   @arg data [Any]
-    @description 
+    @description
       The data to send with the request. It can be a string or a javascript object.
 
       Objects will be passed through JSON.stringify before being sent with the request and strings will be passed straight through.
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
       For string and object based urls, the callback will be called once when the url has finished.
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
         If the error is returned from the request, the error returned will be the entire response object.
         If the error is returned from the formatter, the error will be a javascript Error object.
         If an error is present, the response will always be undefined.
-        
+
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
         If a formatter is defined, only the result of the formatter is returned.
-        
+
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -115,52 +115,52 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
         If the requests return out of order, the index will always match the index of the source url in the url array.
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
-        
+
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
-      
+
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property formatter [Function]
-      @description 
+      @description
         The function to use when formatting the response data. It can be used to get the response text so the callback does not have to or convert the response into a useful format.
-        
+
 
       @arg response [Object]
-        @description 
+        @description
           The unformatted response from the request.
-          
+
 
       @returns [Any]
-        @description 
+        @description
           The formatted response object
-          
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
-        
+
         @@codeblock js
           headers = {
             'Content-Type': 'text/plain', // explicitly set the content type ot text/plain, can also be set with the 'contentType' option
@@ -171,27 +171,27 @@
 
 @function hx.xhr
   @removed 0.11.0
-    @description 
+    @description
       Given a more descriptive name: hx.request
-      
+
 
   @deprecated 0.9.0
-    @description 
+    @description
       Given a more descriptive name: hx.request
-      
 
-  @description 
+
+  @description
     The core part of Hexagon's request API. This function lets you request data from a server with various options as well as making multiple requests with one call.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
       @h3[String]
       Any standard url string.
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
       @@codeblock js
@@ -199,7 +199,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -208,17 +208,17 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -228,7 +228,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -244,33 +244,33 @@
         ]
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
       For string and object based urls, the callback will be called once when the url has finished.
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
         If the error is returned from the request, the error returned will be the entire response object.
         If the error is returned from the formatter, the error will be a javascript Error object.
         If an error is present, the response will always be undefined.
-        
+
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
         If a formatter is defined, only the result of the formatter is returned.
-        
+
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -280,52 +280,52 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
         If the requests return out of order, the index will always match the index of the source url in the url array.
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
-        
+
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
-      
+
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property formatter [Function]
-      @description 
+      @description
         The function to use when formatting the response data. It can be used to get the response text so the callback does not have to or convert the response into a useful format.
-        
+
 
       @arg response [Object]
-        @description 
+        @description
           The unformatted response from the request.
-          
+
 
       @returns [Any]
-        @description 
+        @description
           The formatted response object
-          
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
-        
+
         @@codeblock js
           headers = {
             'Content-Type': 'text/plain', // explicitly set the content type ot text/plain, can also be set with the 'contentType' option
@@ -336,18 +336,18 @@
 
 @function hx.request
   @added 0.9.0
-  @description 
+  @description
     Makes a http request to the resource specified.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
       @h3[String]
       Any standard url string.
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
       @@codeblock js
@@ -355,7 +355,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -364,17 +364,17 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -384,7 +384,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -400,37 +400,37 @@
         ]
 
   @arg data [Any]
-    @description 
+    @description
       The data to send in the body of the request. It can be a string or a javascript object.
 
       Objects will be passed through JSON.stringify before being sent with the request and strings will be passed straight through.
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
         If the error is returned from the request, the error returned will be the entire response object.
         If the error is returned from the formatter, the error will be a javascript Error object.
         If an error is present, the response will always be undefined.
-        
+
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
         If a formatter is defined, only the result of the formatter is returned.
-        
+
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -439,56 +439,56 @@
             }
           }
 
-        
+
         If this is a request to muliple urls and this is the final call to the callback, then the source will be an array of all the source objects
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
         If the requests return out of order, the index will always match the index of the source url in the url array.
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
-        
+
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
-      
+
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property formatter [Function]
-      @description 
+      @description
         The function to use when formatting the response data. It can be used to get the response text so the callback does not have to or convert the response into a useful format.
-        
+
 
       @arg response [Object]
-        @description 
+        @description
           The unformatted response from the request.
-          
+
 
       @returns [Any]
-        @description 
+        @description
           The formatted response object
-          
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
-        
+
         @@codeblock js
           headers = {
             'Content-Type': 'text/plain', // explicitly set the content type ot text/plain, can also be set with the 'contentType' option
@@ -499,18 +499,18 @@
 
 @function hx.request
   @added 0.9.0
-  @description 
+  @description
     Makes a http request to the resource specified.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
       @h3[String]
       Any standard url string.
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
       @@codeblock js
@@ -518,7 +518,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -527,17 +527,17 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -547,7 +547,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -563,31 +563,31 @@
         ]
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
         If the error is returned from the request, the error returned will be the entire response object.
         If the error is returned from the formatter, the error will be a javascript Error object.
         If an error is present, the response will always be undefined.
-        
+
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
         If a formatter is defined, only the result of the formatter is returned.
-        
+
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -596,56 +596,56 @@
             }
           }
 
-        
+
         If this is a request to muliple urls and this is the final call to the callback, then the source will be an array of all the source objects
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
         If the requests return out of order, the index will always match the index of the source url in the url array.
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
-        
+
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
-      
+
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property formatter [Function]
-      @description 
+      @description
         The function to use when formatting the response data. It can be used to get the response text so the callback does not have to or convert the response into a useful format.
-        
+
 
       @arg response [Object]
-        @description 
+        @description
           The unformatted response from the request.
-          
+
 
       @returns [Any]
-        @description 
+        @description
           The formatted response object
-          
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
-        
+
         @@codeblock js
           headers = {
             'Content-Type': 'text/plain', // explicitly set the content type ot text/plain, can also be set with the 'contentType' option
@@ -655,11 +655,11 @@
 
 
 @function hx.html
-  @description 
+  @description
     A wrapper for hx.request that supplies a formatter to return a DocumentFragment instead of the response object.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
 
       @h3[String]
@@ -668,7 +668,7 @@
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
 
@@ -677,7 +677,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -686,18 +686,18 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
 
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -707,7 +707,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -723,13 +723,13 @@
         ]
 
   @arg data [Any]
-    @description 
+    @description
       The data to send with the request. It can be a string or a javascript object.
 
       Objects will be passed through JSON.stringify before being sent with the request and strings will be passed straight through.
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
       For string and object based urls, the callback will be called once when the url has finished.
@@ -737,7 +737,7 @@
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
 
         If the error is returned from the request, the error returned will be the entire response object.
@@ -747,13 +747,13 @@
         If an error is present, the response will always be undefined.
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
 
         If a formatter is defined, only the result of the formatter is returned.
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
 
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
@@ -761,7 +761,7 @@
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -771,7 +771,7 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
 
         If the requests return out of order, the index will always match the index of the source url in the url array.
@@ -779,26 +779,26 @@
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
 
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
@@ -812,11 +812,11 @@
 
 
 @function hx.html
-  @description 
+  @description
     A wrapper for hx.request that supplies a formatter to return a DocumentFragment instead of the response object.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
 
       @h3[String]
@@ -825,7 +825,7 @@
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
 
@@ -834,7 +834,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -843,18 +843,18 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
 
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -864,7 +864,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -880,7 +880,7 @@
         ]
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
       For string and object based urls, the callback will be called once when the url has finished.
@@ -888,7 +888,7 @@
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
 
         If the error is returned from the request, the error returned will be the entire response object.
@@ -898,13 +898,13 @@
         If an error is present, the response will always be undefined.
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
 
         If a formatter is defined, only the result of the formatter is returned.
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
 
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
@@ -912,7 +912,7 @@
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -922,7 +922,7 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
 
         If the requests return out of order, the index will always match the index of the source url in the url array.
@@ -930,26 +930,26 @@
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
 
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
@@ -962,11 +962,11 @@
           }
 
 @function hx.json
-  @description 
+  @description
     A wrapper for hx.request that supplies a formatter to return a JSON parsed javascript object instead of the response object.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
 
       @h3[String]
@@ -975,7 +975,7 @@
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
 
@@ -984,7 +984,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -993,18 +993,18 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
 
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -1014,7 +1014,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -1030,13 +1030,13 @@
         ]
 
   @arg data [Any]
-    @description 
+    @description
       The data to send with the request. It can be a string or a javascript object.
 
       Objects will be passed through JSON.stringify before being sent with the request and strings will be passed straight through.
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
       For string and object based urls, the callback will be called once when the url has finished.
@@ -1044,7 +1044,7 @@
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
 
         If the error is returned from the request, the error returned will be the entire response object.
@@ -1054,13 +1054,13 @@
         If an error is present, the response will always be undefined.
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
 
         If a formatter is defined, only the result of the formatter is returned.
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
 
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
@@ -1068,7 +1068,7 @@
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -1078,7 +1078,7 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
 
         If the requests return out of order, the index will always match the index of the source url in the url array.
@@ -1086,26 +1086,26 @@
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
 
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
@@ -1119,11 +1119,11 @@
 
 
 @function hx.json
-  @description 
+  @description
     A wrapper for hx.request that supplies a formatter to return a JSON parsed javascript object instead of the response object.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
 
       @h3[String]
@@ -1132,7 +1132,7 @@
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
 
@@ -1141,7 +1141,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -1150,18 +1150,18 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
 
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -1171,7 +1171,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -1187,7 +1187,7 @@
         ]
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
       For string and object based urls, the callback will be called once when the url has finished.
@@ -1195,7 +1195,7 @@
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
 
         If the error is returned from the request, the error returned will be the entire response object.
@@ -1205,13 +1205,13 @@
         If an error is present, the response will always be undefined.
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
 
         If a formatter is defined, only the result of the formatter is returned.
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
 
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
@@ -1219,7 +1219,7 @@
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -1229,7 +1229,7 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
 
         If the requests return out of order, the index will always match the index of the source url in the url array.
@@ -1237,26 +1237,26 @@
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
 
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
@@ -1271,11 +1271,11 @@
 
 @function hx.text
   @added 1.1.0
-  @description 
+  @description
     A wrapper for hx.request that supplies a formatter to return plain text instead of the response object.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
 
       @h3[String]
@@ -1284,7 +1284,7 @@
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
 
@@ -1293,7 +1293,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -1302,18 +1302,18 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
 
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -1323,7 +1323,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -1339,13 +1339,13 @@
         ]
 
   @arg data [Any]
-    @description 
+    @description
       The data to send with the request. It can be a string or a javascript object.
 
       Objects will be passed through JSON.stringify before being sent with the request and strings will be passed straight through.
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
       For string and object based urls, the callback will be called once when the url has finished.
@@ -1353,7 +1353,7 @@
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
 
         If the error is returned from the request, the error returned will be the entire response object.
@@ -1363,13 +1363,13 @@
         If an error is present, the response will always be undefined.
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
 
         If a formatter is defined, only the result of the formatter is returned.
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
 
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
@@ -1377,7 +1377,7 @@
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -1387,7 +1387,7 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
 
         If the requests return out of order, the index will always match the index of the source url in the url array.
@@ -1395,26 +1395,26 @@
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
 
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'
@@ -1429,11 +1429,11 @@
 
 @function hx.text
   @added 1.1.0
-  @description 
+  @description
     A wrapper for hx.request that supplies a formatter to return plain text instead of the response object.
 
   @arg url [Any]
-    @description 
+    @description
       The url to request data from. The URL can be in several formats which can be used interchangably. The below examples illustrate the different types of url that can be specified
 
       @h3[String]
@@ -1442,7 +1442,7 @@
       @@codeblock js
         'http://your-server/'
 
-      
+
       @h3[Object]
       An object with url and data properties.
 
@@ -1451,7 +1451,7 @@
         {
           url: 'http://your-server/'
         }
-        
+
         // Object with url and data
         {
           url: 'http://your-server/',
@@ -1460,18 +1460,18 @@
           }
         }
 
-      
+
       @h3[Array]
       An array of string or object urls. The data property can be specified per-url or using the data parameter. Data specified on a url will always override the data passed in with the params.
 
       @@codeblock js
-        
+
         // Array of strings
         [
           'http://your-server-1/',
           'http://your-server-1/'
         ]
-        
+
         // Array of objects
         [
           {
@@ -1481,7 +1481,7 @@
             url: 'http://your-server-2/'
           }
         ]
-        
+
         // Mixed Array
         [
           'http://your-server/',
@@ -1497,7 +1497,7 @@
         ]
 
   @arg callback [Function]
-    @description 
+    @description
       The function to call when a request is complete.
 
       For string and object based urls, the callback will be called once when the url has finished.
@@ -1505,7 +1505,7 @@
       For arrays, the callback will be called for each response with an index and then again once all the requests have returned with an array containing all the responses.
 
     @arg error [Object]
-      @description 
+      @description
         The error returned from the request (if present). This will include any status related errors as well as errors with the formatter.
 
         If the error is returned from the request, the error returned will be the entire response object.
@@ -1515,13 +1515,13 @@
         If an error is present, the response will always be undefined.
 
     @arg response [Object / Any]
-      @description 
+      @description
         The response from the request. If a formatter is not defined, the response will contain the entire request, making the responseText, status and other properties available.
 
         If a formatter is defined, only the result of the formatter is returned.
 
     @arg source [Any]
-      @description 
+      @description
         The source url/data that was sent with the request.
 
         If the source is a url string and there is no data provided, the source will be returned as a string. If data is provided, the source will be in the form of an object.
@@ -1529,7 +1529,7 @@
         @@codeblock js
           // No data provided
           'http://your-server/'
-          
+
           // Data provided
           {
             url: 'http://your-server/'
@@ -1539,7 +1539,7 @@
           }
 
     @arg? index [Number]
-      @description 
+      @description
         The index of the response with regard to the passed in url array.
 
         If the requests return out of order, the index will always match the index of the source url in the url array.
@@ -1547,26 +1547,26 @@
         When all of the array of urls have returned, the callback will be called with an index of -1 and will be passed an array of all the responses and an array of all the sources, in the same order that they were specified in the url array passed in to the request.
 
   @arg? options [Object]
-    @description 
+    @description
       The options for the request
 
     @property contentType [String]
-      @description 
+      @description
         The content type for the request. This value will be passed to the headers and used as the default response type as well as the 'Content-Type' and 'accepts' headers. These values can be overridden with the headers option if required. The content type is not defined by default.
-        
+
 
     @property responseType [String]
-      @description 
+      @description
         The desired response type for the request.
-        
+
 
     @property requestType [String]
-      @description 
+      @description
         The http request type for the request. The default value is 'GET' if no data is provided and 'POST' if data is provided.
-        
+
 
     @property headers [Object]
-      @description 
+      @description
         An object that is used to populate the headers object with explicit values.
 
         It can be used to override or specify headers other than 'Content-Type' or 'accepts'

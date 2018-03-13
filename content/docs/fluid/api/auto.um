@@ -1,243 +1,243 @@
 
 @function hx.checkbox
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing checkboxes
-      
 
-  @description 
+
+  @description
     Creates a detached input element with type 'checkbox', wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.inputGroup
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing input groups
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-input-group, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.notice
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing notices
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-notice, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.notice.head
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing notices
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-notice-head, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.notice.body
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing notices
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-notice-body, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.spinner
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing spinners
-      
 
-  @description 
+
+  @description
     Creates a detached span, classed with hx-spinner, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.spinner.wide
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing wide spinners
-      
 
-  @description 
+
+  @description
     Creates a detached span, classed with hx-spinner-wide, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.button
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing hexagon styled buttons
-      
 
-  @description 
+
+  @description
     Creates a detached button wrapped in a selection
 
   @arg? options [Object]
     @property context [String]
-      @description 
+      @description
         The context class to apply to the button
-        
+
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.label
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing labels
-      
 
-  @description 
+
+  @description
     Creates a detached span element, classed with hx-label, wrapped in a selection
 
   @arg? options [Object]
     @property context [String]
-      @description 
+      @description
         The context class to apply to the label
-        
+
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.icon
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing icons
-      
 
-  @description 
-    Creates a detached @code(js)[<i>] element wrapped in a selection
+
+  @description
+    Creates a detached @code[<i>] element wrapped in a selection
 
   @arg? options [Object]
     @property class [String]
-      @description 
+      @description
         The class to apply to the icon. This assumes you are using an icon font that uses classes (for example, font awsome)
-        
+
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.group
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing horizontal layout groups
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-group and hx-horizontal, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.group.vertical
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing vertical layout groups
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-group and hx-vertical, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.group.fixed
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing horizontal layout groups that don't grow
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-group, hx-horizontal and hx-fixed, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.group.vertical.fixed
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing vertical layout groups that don't grow
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-group, hx-vertical and hx-fixed, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.section
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing layout sections
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-section, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 
 @function hx.section.fixed
   @added 1.0.0
-    @description 
+    @description
       Fluid api for constructing layout sections that don't grow
-      
 
-  @description 
+
+  @description
     Creates a detached div, classed with hx-section and hx-fixed, wrapped in a selection
 
   @returns [Selection]
-    @description 
+    @description
       The selection containing the new element
-      
+
 

@@ -1,41 +1,41 @@
 @bugfix 1.8.0
   @issue 273
-  @description 
+  @description
     Fixed an issue where object based items were being sorted incorrectly
-    
+
 
 @prototype hx.AutocompletePicker
   @bugfix 1.10.0
     @issue 346
-    @description 
+    @description
       Resolved an issue where typing enter quickly before debouncing completes allowed values that didn't match the current filter to be entered
 
   @bugfix 1.8.2
     @issue 343
-    @description 
+    @description
       Fixed an issue where the filtering failed when there were no 'disabled' items in the list
-      
+
 
   @added 1.4.0
     @issue 17
 
-  @constructor 
-    @description 
+  @constructor
+    @description
       Creates an autocomplete picker element inside the passed in selector
 
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         The selector of the element to populate
-        
+
 
     @arg items [Array/Function]
-      @description 
+      @description
         The data to use for the picker. Data can be specified as an array of items or as a function that returns an array of items.
 
         The data must be in one of the following formats:
 
         @h4[Array]
-        
+
         @@codeblock json
           [
             "Bob",
@@ -43,7 +43,7 @@
             ...
           ]
 
-        
+
         By default, the data is expected as an array of string values. If object based data is passed in, a @code[valueLookup] must be provided in the options:
         @@codeblock js
           data = [
@@ -62,8 +62,8 @@
             }
           };
 
-        
-        
+
+
         @h4[Function]
         @@codeblock js
           var data = function(term, callback){
@@ -72,10 +72,10 @@
             });
           }
 
-        
+
         A 'Loading...' message will be shown whilst the autocomplete picker waits for a response from this function.
 
-        It can be used in conjunction with the internal matching or be used to match externally when setting the @code(js)[matchType] to 'external':
+        It can be used in conjunction with the internal matching or be used to match externally when setting the @code[matchType] to 'external':
 
         @@codeblock js
           var data = function(term, callback) {
@@ -98,7 +98,7 @@
           };
           options.matchType = 'external'
 
-        
+
         The term passed in is the current value of the input field (for use as a search term).
 
         The callback is the function that should be called to pass the data back to the autocomplete picker to display.
@@ -107,28 +107,28 @@
 
     @arg? options [Object]
       @property filter [Function]
-        @description 
+        @description
           The function to use when filtering internally. Should only be used when one of the @code[hx.filter] methods isn't suitable for filtering the data.
 
         @arg array [Array]
-          @description 
+          @description
             The array from the autocomplete picker cache or data source
-            
+
 
         @arg term [String]
-          @description 
+          @description
             The search term to use when filtering
-            
+
 
         @returns [Array]
-          @description 
+          @description
             The filtered data
-            
 
-      
+
+
       @property filterOptions [Object]
-        @description 
-          The options to use when filtering internally. The available options can be found on the 
+        @description
+          The options to use when filtering internally. The available options can be found on the
 
           @hyperlink(../filter)[Filter]
 
@@ -136,35 +136,35 @@
 
           The default @code[searchValues] option uses the passed in valueLookup to search on
 
-      
+
       @property matchType [String]
-        @description 
+        @description
           The type of filtering the autocomplete picker should use when filtering internally
 
           The internal filter uses the @code[hx.filter] functions. All the filter types can be specified as the match type (e.g. 'startsWith', 'exact' or 'fuzzy') and the default value is 'contains'
 
           In addition to the internal filter, external matching can be used (where the data returned from the callback is used directly and not sorted/filtered internally) by setting the match type to 'external'
 
-      
+
       @property useCache [Boolean]
-        @description 
+        @description
           Determines whether the autocomplete should attempt to cache results. This can be set to @code[false] non-static datasets or when using external matching
 
-      
+
       @property showOtherResults [Boolean]
-        @description 
+        @description
           Determines whether to show results under an 'other results' heading that are in the data but don't match the input text.
 
           Only used when not using external matching.
 
-      
+
       @property trimTrailingSpaces [Boolean]
-        @description 
+        @description
           An option to enable whitespace trimming at the end of the input value if no results are found for that string
 
-      
+
       @property valueLookup [Function]
-        @description 
+        @description
           A function used to convert objects or nested arrays passed to the autocomplete pikcer data into filterable strings.
 
           For example, the following allows both the 'name' and 'age' properties to be filtered:
@@ -182,28 +182,28 @@
             }
 
         @arg item [Any]
-          @description 
+          @description
             The item to retrieve a value from
-            
+
 
         @returns [String]
-          @description 
+          @description
             The string for use when filtering results
-            
 
-      
+
+
       @property buttonClass [String]
-        @description 
-          The additional class to give to the picker button. By default, it is given the @code(html)[hx-btn] class in addition to the value passed in here
+        @description
+          The additional class to give to the picker button. By default, it is given the @code[hx-btn] class in addition to the value passed in here
 
-      
+
       @property disabled [Boolean]
-        @description 
+        @description
           The initial disabled state of the autocomplete picker
 
-      
+
       @property renderer [Function]
-        @description 
+        @description
           A function used to render the items in the dropdown and the picker
 
           The default renderer sets the html to the item value using the valueLookup function.
@@ -211,128 +211,128 @@
           When overriding the renderer, the item passed to the render function is the same as the item passed in to the dataset
 
         @arg elem [HTMLElement]
-          @description 
+          @description
             The element to populate
-            
+
 
         @arg item [Object]
-          @description 
+          @description
             The data item to populate the element with
-            
 
-      
+
+
       @property value [Any]
-        @description 
+        @description
           The initial value of the autocomplete picker
 
-      
+
       @property chooseValueText [String]
-        @description 
+        @description
           The text to display on the button when no value is selected
 
-      
+
       @property loadingText [String]
-        @description 
+        @description
           The loading text to display
 
-      
+
       @property noResultsText [String]
-        @description 
+        @description
           The text to display when no results are found for a search term
 
-      
+
       @property otherResultsText [String]
-        @description 
+        @description
           The heading to display above other results when the @code[showOtherResults] option is enabled
 
-  
-  
+
+
   @method clearCache
-    @description 
+    @description
       Clears the cache of search terms / results currently stored by the autocomplete picker
 
     @returns [AutocompletePicker]
-      @description 
+      @description
         The current autocomplete picker
-        
 
-  
+
+
   @method hide
-    @description 
+    @description
       Hides the picker dropdown
 
     @returns [AutocompletePicker]
-      @description 
+      @description
         The current autocomplete picker
-        
 
-  
-  
+
+
+
   @method disabled
-    @description 
+    @description
       Gets the disabled state of the autocomplete picker
 
     @returns [Boolean]
-      @description 
+      @description
         The current disabled state
-        
 
-  
+
+
   @method disabled
-    @description 
+    @description
       Sets the disabled state of the autocomplete picker
 
     @arg disabled [Boolean]
-      @description 
+      @description
         The disabled state to set
-        
+
 
     @returns [AutocompletePicker]
-      @description 
+      @description
         The current autocomplete picker
-        
 
-  
-  
+
+
+
   @method items
-    @description 
+    @description
       Gets the currently set items
 
     @returns [Array/Function]
-      @description 
+      @description
         The currently set items
-        
 
-  
+
+
   @method items
-    @description 
+    @description
       Sets the items to an array or function
 
     @arg items [Array/Function]
-      @description 
+      @description
         The array or function to use. See the items constructor option for more information
-        
+
 
     @returns [AutocompletePicker]
-      @description 
+      @description
         The current autocomplete picker
-        
 
-  
-  
+
+
+
   @method value
-    @description 
+    @description
       Gets the value of the autocomplete picker
 
     @returns [Any]
-      @description 
+      @description
         The currently set value
-        
 
-  
+
+
   @method value
     @arg value [Any]
-      @description 
+      @description
         The value to set. If the value passed in is not one of the items, this value will be set to 'undefined' and the 'choose value' text will be displayed
 
         Setting the value works in the same way as the autocomplete filter, it searches through the data and finds the first result that matches
@@ -353,7 +353,7 @@
             name: 'Dover',
             county: 'Kent'
           }]
-          
+
           function items (term, callback) {
             if (term.length > 0) {
               var a, county, d, name, i, len
@@ -382,9 +382,9 @@
             renderer: renderer,
             matchType: 'external'
           })
-          
 
-        
+
+
         The value can be set using the following:
 
         @@codeblock js
@@ -396,127 +396,127 @@
           autocompletePicker.value('Kent') // Value set to {name: 'Canterbury', county: 'Kent'}
 
     @arg? callback [Function]
-      @description 
+      @description
         The function to call once the autocomplete picker has verified that the value is contained in the items. This is most useful when the 'items' is an asynchronous operation
-        
+
 
       @arg item [Any]
-        @description 
+        @description
           The new value for the autocomplete picker. If the value passed in is not one of the items, this value will be 'undefined'
-          
+
 
     @returns [AutocompletePicker]
-      @description 
+      @description
         The current autocomplete picker
-        
 
-  
-  
+
+
+
   @method renderer
-    @description 
+    @description
       Gets the renderer of the autocomplete picker
 
     @returns [Function]
-      @description 
+      @description
         The currently set renderer
-        
 
-  
+
+
   @method renderer
-    @description 
+    @description
       Sets the renderer of the autocomplete picker
 
     @arg renderer [Function]
-      @description 
+      @description
         The renderer to use.
-        
+
 
       @arg element [HTMLElement]
-        @description 
+        @description
           The HTMLElement to populate
-          
+
 
       @arg item [Object]
-        @description 
+        @description
           The data item to populate the element with
-          
+
 
     @returns [AutocompletePicker]
-      @description 
+      @description
         The current autocomplete picker
-        
 
-  
-  
+
+
+
   @event change [String]
-    @description 
+    @description
       The event called whenever the value is updated
 
     @property cause [String]
-      @description 
+      @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-        
+
 
     @property value [Any]
-      @description 
+      @description
         The item that was selected.
-        
+
 
   @event highlight [Object]
-    @description 
+    @description
       The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
 
     @property eventType [String]
-      @description 
+      @description
         The type of event that caused the selection:
-        @list 
+        @list
           @item['click' - User clicked]
           @item['arrow' - User used the arrow keys]
 
     @property item [String/Object]
-      @description 
+      @description
         The item as it was passed into the select
-        
+
 
   @event dropdown.showstart
-    @description 
+    @description
       Emitted when the dropdown animation starts. No data is sent with this event
 
   @event dropdown.showend
-    @description 
+    @description
       Emitted when the dropdown animation finishes. No data is sent with this event
 
   @event dropdown.hidestart
-    @description 
+    @description
       Emitted when the dropdown animation starts. No data is sent with this event
 
   @event dropdown.hideend
-    @description 
+    @description
       Emitted when the dropdown animation ends. No data is sent with this event
 
   @event dropdown.change [Boolean]
-    @description 
+    @description
       Emitted when the dropdown is shown or hidden. The data with the event is a boolean indicating whether or not the dropdown is visible. True means it has
 
 @function hx.autocompletePicker
   @added 1.4.0
     @issue 17
 
-  @description 
+  @description
     Creates a new AutocompletePicker set up on a detached element, wrapped in a selection
 
   @arg items [Array/Function]
-    @description 
+    @description
       The items to use for the picker
 
       See the @code[hx.AutocompletePicker] prototype constructor for more information about the items
 
   @arg? options [Object]
-    @description 
+    @description
       See the @code[hx.AutocompletePicker] prototype constructor for more information about the options
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an AutocompletePicker
-      
+
 

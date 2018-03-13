@@ -30,7 +30,7 @@
 
     The following template can be used:
 
-    @codeblock md
+    @@codeblock md
       Title: Module Name: short description
 
       Hexagon version: x.x.x

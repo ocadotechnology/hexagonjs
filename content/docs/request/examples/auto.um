@@ -1,5 +1,5 @@
 @version 0.9.0
-  @examples 
+  @examples
     @@codeblock js
       hx.request("/file.txt", "text/plain", function(error, data){
         // do something
@@ -7,8 +7,8 @@
       hx.request("/file.txt",{data:11010000}, function(error, data){
         // do something
       })
-      
-      
+
+
       // Load multiple urls with one call to hx.request and one callback
       urls = [
         '/file1.txt',

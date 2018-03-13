@@ -1,17 +1,17 @@
 @version 1.4.0
-  @examples 
+  @examples
     @@codeblock js
       // Get and set inbuilt values:
       hx.userFacingText('form', 'missingValue') // Get the text for the 'form' module and 'missingValue' key
       hx.userFacingText('form', 'missingValue', 'Value Missing') // Set the text
-      
+
       // Get and set custom values
       hx.userFacingText('yourComponentName', 'yourKeyValue', 'Some Text') // Set a custom user facing text
       hx.userFacingText('yourComponentName', 'yourKeyValue') // Returns: "Some Text"
-      
+
       // Get all set values
       hx.userFacingText()
-      
+
       // Set multiple values
       var text = {
         form: {

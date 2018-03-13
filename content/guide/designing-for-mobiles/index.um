@@ -1,4 +1,4 @@
-@inline ../../templates/sidebar-page.um
+@inline /templates/sidebar-page.um
 
 @titlebar
 

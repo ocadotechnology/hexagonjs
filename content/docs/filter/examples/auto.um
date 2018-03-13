@@ -1,5 +1,5 @@
 @version 0.9.0
-  @examples 
+  @examples
     @@codeblock js
       stringArray = [
         'Steve 34',
