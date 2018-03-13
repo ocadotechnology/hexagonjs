@@ -116,6 +116,11 @@ module.exports = {
       watch: false
     },
     {
+      files: 'content/guide/**/*.html',
+      base: 'content',
+      watch: false
+    },
+    {
       files: 'resources/hexagon/**/*',
       base: '.',
       watch: false
