@@ -23,6 +23,30 @@
       @description
         This event emitter
 
+  @method on
+    @removed 0.10.0
+      @description
+        The new on method has an optional namespace parameter
+
+    @description
+      Register a callback that will be called whenever an event is emitted under the given name
+
+    @arg name [String]
+      @description
+        The event type to listen out for
+
+    @arg callback [Function]
+      @description
+        The function to call when the event occurs
+
+      @arg data [EventData]
+        @description
+          The data sent along with the event
+
+    @returns [EventEmitter]
+      @description
+        This event emitter
+
   @method off
     @removed 0.10.0
       @description
@@ -142,6 +166,31 @@
     @returns [Boolean]
       @description
         True if the event type has some callbacks registered.
+
+  @method on
+    @added 0.10.0
+    @description
+      Register a callback that will be called whenever an event is emitted under the given name
+
+    @arg name [String]
+      @description
+        The event type to listen out for
+
+    @arg? namespace [String]
+      @description
+        The namespace to register the handler under. Namespaces isolate groups of handlers. Handlers can be removed by namespace without affecting handlers in other namespaces. The value "default" is reserved and may not be used as a namespace name.
+
+    @arg callback [Function]
+      @description
+        The function to call when the event occurs
+
+      @arg data [EventData]
+        @description
+          The data sent along with the event
+
+    @returns [EventEmitter]
+      @description
+        This event emitter
 
   @method off
     @added 0.10.0

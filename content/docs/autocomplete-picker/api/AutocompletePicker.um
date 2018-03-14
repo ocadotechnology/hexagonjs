@@ -1,4 +1,4 @@
-@prototype AutocompletePicker
+@prototype hx.AutocompletePicker
   @added 1.4.0
     @issue 17
 

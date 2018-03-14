@@ -1122,7 +1122,7 @@
 
       @arg values [Array[String/Object]]
         @description
-          An array of the possible options in the picker. It can be an array of strings or an array of objects, e.g.:
+          An array of the possible options in the picker. It can be an array of strings or an array of objects, e.g:
 
           @@codeblock js
             [ "Hue", "Saturation", "Lightness"]

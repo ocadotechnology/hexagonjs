@@ -1,4 +1,4 @@
-@prototype ColorScale
+@prototype hx.ColorScale
   @constructor
     @description
       A class for converting a number to a color, using a mapping from a linear

@@ -1,7 +1,7 @@
 @class hx-notice
   @added 0.14.1
   @description
-    Styles a div with styles for
+    Styles a div to show a notice
 
   @extraClass hx-positive
     @description
@@ -33,7 +33,7 @@
 
   @class hx-notice-header
     @deprecated 1.4.1
-      @issue 225
+      @issue 232
       @description
         This class will be replaced by @code[hx-notice-head]
 
@@ -58,7 +58,7 @@
 
   @class hx-notice-head
     @added 1.4.1
-      @issue 225
+      @issue 232
 
     @description
       The header section of the Notice

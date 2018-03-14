@@ -2272,7 +2272,7 @@
       @description
         An array of objects with x, y properties.
         The data should be of the form:
-        @@codeblock json
+        @@codeblock js
           [
             {x: 0, y: 10},
             {x: 1, y: 11},
@@ -2281,7 +2281,7 @@
           ]
 
         The color of the bars can be set per bar as well:
-        @@codeblock json
+        @@codeblock js
           [
             {x: 0, y: 10, color: hx.color.graph[1]},
             {x: 1, y: 11, color: hx.color.graph[2]},
@@ -2673,7 +2673,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Sets an additional class to give the series svg elements.
 
     @arg class [String]
@@ -2688,7 +2690,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Gets the additional class applied to the series svg elements.
 
     @returns [String]
@@ -2699,7 +2703,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Sets the group the series belongs to. Series with the same group will be visually grouped together.
 
     @arg group [String]
@@ -2714,7 +2720,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Gets the group the series belongs to.
 
     @returns [String]
@@ -3015,7 +3023,7 @@
       @description
         An array of objects with x and y properties.
         The data should be of the form:
-        @@codeblock json
+        @@codeblock js
           [
             {x: 0, y: 10},
             {x: 1, y: 11},
@@ -3348,7 +3356,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Sets the group the series belongs to. Series with the same group will be stacked on top of each other.
 
     @arg group [String]
@@ -3363,7 +3373,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Gets the group the series belongs to.
 
     @returns [String]
@@ -3622,7 +3634,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in 1.0.0.
+
       Sets the color to fill the series with
 
     @arg color [String]
@@ -3637,7 +3651,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in 1.0.0.
+
       Gets the color used to fill the series with
 
     @returns [String]
@@ -3648,7 +3664,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Sets an additional class to give the series svg element.
 
     @arg class [String]
@@ -3663,7 +3681,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Gets the additional class applied to the series svg element.
 
     @returns [String]
@@ -3968,7 +3988,7 @@
       @description
         An array of objects with x, y1 and y2 properties.
         The data should be of the form:
-        @@codeblock json
+        @@codeblock js
           [
             {x: 0, y1: 10, y2: 16},
             {x: 1, y1: 11, y2: 17},
@@ -4282,7 +4302,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Sets an additional class to give the series svg element.
 
     @arg class [String]
@@ -4297,7 +4319,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Gets the additional class applied to the series svg element.
 
     @returns [String]
@@ -4680,7 +4704,7 @@
       @description
         An array of objects with x, y properties.
         The data should be of the form:
-        @@codeblock json
+        @@codeblock js
           [
             {x: 0, y: 10},
             {x: 1, y: 11},
@@ -4689,7 +4713,7 @@
           ]
 
         The color and size of the points can also be supplied with the data:
-        @@codeblock json
+        @@codeblock js
           [
             {x: 0, y: 10, color: hx.color.graph[1], size: 1},
             {x: 1, y: 11, color: hx.color.graph[2], size: 2},
@@ -5091,7 +5115,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Sets an additional class to give the series svg elements.
 
     @arg class [String]
@@ -5106,7 +5132,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Gets the additional class applied to the series svg elements.
 
     @returns [String]
@@ -5286,15 +5314,15 @@
         An object describing the line to draw.
         The data should be of the form:
         A line with a gradient:
-        @@codeblock json
+        @@codeblock js
           {x: 0, y: 10, dx: 2, dy: 3}
 
         Vertical line:
-        @@codeblock json
+        @@codeblock js
           {x: 50}
 
         Horizontal line:
-        @@codeblock json
+        @@codeblock js
           {y: 70}
 
   @extends EventEmitter
@@ -5701,7 +5729,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Sets an additional class to give the series svg element.
 
     @arg class [String]
@@ -5716,7 +5746,9 @@
     @added 0.15.2
     @removed 1.0.0
     @description
-      @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
+      @notice Note
+        The _new_ prefix will be dropped in version 1.0.0.
+
       Gets the additional class applied to the series svg element.
 
     @returns [String]

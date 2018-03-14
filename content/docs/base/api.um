@@ -1,6 +1,4 @@
 @api Base
-  @added 0.9.0
-
   @updated 0.15.2
     @description
       Added classes for applying header styles to elements other than header

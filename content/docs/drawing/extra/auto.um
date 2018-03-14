@@ -42,7 +42,8 @@
 
       The drawing will redraw at 60fps (or as close to that as it can achieve). Having the drawing redraw constantly like this allows animations to appear smooth.
 
-      @notice(Note)[The render loop will eventually be able to turn off when there are no changes to display. This will result in less cpu consumption and save the battery life for mobile devices. This functionality has not yet been added - however this is something that will happen internally, so there will be no change to the api in order for this optimisation to happen.]
+      @notice Note
+        The render loop will eventually be able to turn off when there are no changes to display. This will result in less cpu consumption and save the battery life for mobile devices. This functionality has not yet been added - however this is something that will happen internally, so there will be no change to the api in order for this optimisation to happen.
 
     @section Enabling mouse controls
 

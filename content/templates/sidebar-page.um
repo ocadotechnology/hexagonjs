@@ -40,12 +40,12 @@
             @page /guide/printing: Print Styles
 
           @section Css Components
-            @page /docs/label/: Label
             @page /docs/base/: Base
+            @page /docs/button/: Button
             @page /docs/error-pages/: Error Pages
             @page /docs/form/: Form
             @page /docs/input-group/: Input Group
-            @page /docs/button/: Button
+            @page /docs/label/: Label
             @page /docs/layout/: Layout
             @page /docs/logo/: Logo
             @page /docs/notice/: Notice
@@ -53,7 +53,7 @@
             @page /docs/table/: Table
 
           @section Js Components
-            @page /docs/meter/: Meter
+            @page /docs/autocomplete-picker/: Autocomplete Picker
             @page /docs/autocomplete/: Autocomplete
             @page /docs/button-group/: Button Group
             @page /docs/card/: Card
@@ -74,7 +74,7 @@
             @page /docs/inline-picker/: Inline Picker
             @page /docs/inline-select/: Inline Select
             @page /docs/menu/: Menu
-            @page /docs/autocomplete-picker/: Autocomplete Picker
+            @page /docs/meter/: Meter
             @page /docs/modal/: Modal
             @page /docs/notify/: Notify
             @page /docs/number-picker/: Number Picker
@@ -92,15 +92,15 @@
             @page /docs/time-picker/: Time Picker
             @page /docs/time-slider/: Time Slider
             @page /docs/titlebar/: Titlebar
-            @page /docs/toggle/: Toggle
             @page /docs/toggle-button/: Toggle Button
+            @page /docs/toggle/: Toggle
             @page /docs/tree/: Tree
 
           @section Utilities
-            @page /docs/palette/: Palette
             @page /docs/animate/: Animate
-            @page /docs/color/: Color
+            @page /docs/click-detector/: Click Detector
             @page /docs/color-scale/: Color Scale
+            @page /docs/color/: Color
             @page /docs/component/: Component
             @page /docs/event-emitter/: Event Emitter
             @page /docs/fast-click/: Fast Click
@@ -111,7 +111,7 @@
             @page /docs/map/: Map
             @page /docs/morph-section/: Morph Section
             @page /docs/morphs/: Morphs
-            @page /docs/click-detector/: Click Detector
+            @page /docs/palette/: Palette
             @page /docs/pointer-events/: Pointer Events
             @page /docs/preferences/: Preferences
             @page /docs/request/: Request

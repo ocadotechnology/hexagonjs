@@ -1,4 +1,4 @@
-@prototype ToggleButton
+@prototype hx.ToggleButton
   @extends EventEmitter
 
   @added 0.12.10
