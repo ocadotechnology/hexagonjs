@@ -428,45 +428,33 @@
   --sticky-table-headers-scroll-indicator-shadow-color: rgba(0,0,0,0.5);
 
   /* Plot */
-
-  --plot-grid-line-color: white;
-  --plot-axis-line-color: white;
-  --plot-axis-title-text-color: white;
-  --plot-tick-line-color: white;
-  --plot-tick-text-color: white;
-  --plot-tick-text-size: white;
-  --plot-pie-segment-text-color: white;
+  --plot-grid-line-color: #E7E7E7;
+  --plot-axis-line-color: #D0D0D0;
+  --plot-axis-title-text-color: #3D3D3D;
+  --plot-tick-line-color: #D0D0D0;
+  --plot-tick-text-color: #3D3D3D;
+  --plot-tick-text-size: 10px;
+  --plot-pie-segment-text-color: rgba(255, 255, 255, 0.8);
 
   --plot-label-background-color: white;
-  --plot-label-border-color: white;
-  --plot-label-box-shadow: white;
-  --plot-label-header-background-color: white;
-  --plot-label-header-border-color: white;
-  --plot-label-header-text-color: white;
-  --plot-label-key-text-color: white;
-  --plot-label-text-color: white;
+  --plot-label-border-color: #D0D0D0;
+  --plot-label-box-shadow-color: rgba(0, 0, 0, 0.25);
+  --plot-label-header-background-color: #F3F3F3;
+  --plot-label-header-border-color: #E0E0E0;
+  --plot-label-header-text-color: #3D3D3D;
+  --plot-label-key-text-color: #3D3D3D;
+  --plot-label-text-color: #3D3D3D;
 
-  --plot-negative-background-color: white;
-  --plot-negative-color: white;
-  --plot-negative-text-color: white;
-
-  --plot-positive-background-color: white;
-  --plot-positive-color: white;
-  --plot-positive-text-color: white;
-
-  --plot-warm-background-color: white;
-  --plot-warm-color: white;
-  --plot-warm-text-color: white;
-
-  --plot-ambient-background-color: white;
-  --plot-ambient-color: white;
-  --plot-ambient-text-color: white;
-
-  --plot-cold-background-color: white;
-  --plot-cold-color: white;
-  --plot-cold-text-color: white;
-
-  --plot-warning-background-color: white;
-  --plot-warning-color: white;
-  --plot-warning-text-color: white;
+  --plot-negative-color: rgb(241,90,113);
+  --plot-negative-text-color: #F3F3F3;
+  --plot-warning-color: rgb(226,212,64);
+  --plot-warning-text-color: #F3F3F3;
+  --plot-positive-color: rgb(151,195,102);
+  --plot-positive-text-color: #F3F3F3;
+  --plot-cold-color: rgb(90,155,212);
+  --plot-cold-text-color: #F3F3F3;
+  --plot-ambient-color: rgb(226,212,64);
+  --plot-ambient-text-color: #F3F3F3;
+  --plot-warm-color: rgb(250,169,91);
+  --plot-warm-text-color: #F3F3F3;
 }

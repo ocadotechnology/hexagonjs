@@ -59,44 +59,44 @@
 }
 
 .hx-plot-background-warm {
-  background: var(--plot-warm-background-color);
+  background: var(--plot-warm-color);
   color: var(--plot-warm-text-color);
 }
 
 .hx-plot-background-ambient {
-  background: var(--plot-ambient-background-color);
+  background: var(--plot-ambient-color);
   color: var(--plot-ambient-text-color);
 }
 
 .hx-plot-background-cold {
-  background: var(--plot-cold-background-color);
+  background: var(--plot-cold-color);
   color: var(--plot-cold-text-color);
 }
 
 .hx-plot-background-positive {
-  background: var(--plot-positive-background-color);
+  background: var(--plot-positive-color);
   color: var(--plot-positive-text-color);
 }
 
 .hx-plot-background-warning {
-  background: var(--plot-warning-background-color);
+  background: var(--plot-warning-color);
   color: var(--plot-warning-text-color);
 }
 
 .hx-plot-background-negative {
-  background: var(--plot-negative-background-color);
+  background: var(--plot-negative-color);
   color: var(--plot-negative-text-color);
 }
 
 .hx-plot-label-details {
   background: var(--plot-label-background-color);
-  box-shadow: var(--plot-label-box-shadow);
+  box-shadow: 1px 1px 1px 1px var(--plot-label-box-shadow-color);
   color: var(--plot-label-text-color);
 }
 
 .hx-plot-label-details-basic {
   background: var(--plot-label-background-color);
-  box-shadow: var(--plot-label-box-shadow);
+  box-shadow: 1px 1px 1px 1px var(--plot-label-box-shadow-color);
   color: var(--plot-label-text-color);
 }
 
@@ -108,5 +108,5 @@
 
 .hx-plot-label-marker {
   border-color: var(--plot-label-background-color);
-  box-shadow: var(--plot-label-box-shadow);
+  box-shadow: 1px 1px 1px 1px var(--plot-label-box-shadow-color);
 }

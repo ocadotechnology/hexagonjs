@@ -29,7 +29,7 @@ import { BarSeries } from './series/bar-series'
 import { StraightLineSeries } from './series/straight-line-series'
 
 import { labelOffset, axisPadding, tickSize } from './config'
-import { extent } from './utils'
+import { extent, doCollisionDetection } from './utils'
 
 supportsGroup = (series) ->
   series instanceof BarSeries or

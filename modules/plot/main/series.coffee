@@ -1,7 +1,7 @@
 import { EventEmitter } from 'event-emitter/main'
 import { merge, isString, find, defined } from 'utils/main'
 import { plotLabelStandard } from './labels'
-import { optionSetterGetter } from './utils'
+import { optionSetterGetter, inefficientSearch } from './utils'
 
 class Series extends EventEmitter
 

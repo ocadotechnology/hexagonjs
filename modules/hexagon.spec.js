@@ -214,7 +214,8 @@ describe('HexagonJS Test Suite', () => {
         'BarSeries',
         'StraightLineSeries',
         'plotLabelStandard',
-        'plotLabelBasic'
+        'plotLabelBasic',
+        'theme'
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])
