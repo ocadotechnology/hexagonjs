@@ -4,21 +4,18 @@
     Initialises the sidebar
 
   @constructor
-    @removed 0.14.0
-      @description
-        Use @code[hx.Sidebar(selector, options)] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.Sidebar(selector, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.Sidebar(selector, options)] instead.
 
     @description
     @arg selector [String/HTMLElement]
       @description
         A selector for the sidebar container element
-
 
     @arg? headerSelector [String/HTMLElement]
       @description
@@ -26,20 +23,17 @@
         @default
           '.hx-titlebar-header'
 
-
     @arg? contentSelector [String/HTMLElement]
       @description
         A selector for the hx-content section
         @default
           '.hx-content'
 
-
     @arg? addSidebarClass [Boolean]
       @description
         Whether or not to add the hx-sidebar-page class to the body element.
         @default
           true
-
 
   @method toggle
     @description
@@ -49,7 +43,6 @@
       @description
         This Sidebar
 
-
   @method hide
     @description
       Hides the sidebar
@@ -57,7 +50,6 @@
     @returns [Sidebar]
       @description
         This Sidebar
-
 
   @method show
     @description
@@ -67,23 +59,18 @@
       @description
         This Sidebar
 
-
   @constructor
     @added 0.13.0
       @description
         Added new standardised constructor.
 
-
-
     @arg selector [String/HTMLElement]
       @description
         A selector for the sidebar container element
 
-
     @arg? options [Object]
       @description
         The options to use when setting up the sidebar.
-
 
       @property headerSelector [String/HTMLElement]
         @description
@@ -91,20 +78,17 @@
           @default
             '.hx-titlebar-header'
 
-
       @property contentSelector [String/HTMLElement]
         @description
           A selector for the hx-content section
           @default
             '.hx-content'
 
-
       @property addSidebarClass [Boolean]
         @description
           Whether or not to add the hx-sidebar-page class to the body element.
           @default
             true
-
 
   @event show
     @description
@@ -132,5 +116,5 @@
 
 @class hx-sidebar-page
   @description
-    Should be given to the @code
+    Should be given to the @code[<body>] tag for pages that use the sidebar. This will be done automatically when initialising the sidebar class (unless addSidebarClass has been explicitly set to false)
 

@@ -1,29 +1,25 @@
 
 @prototype hx.Tree
-  @bugfix 0.14.0
-    @description
-      The options.items option has been fixed to not throw an error when used.
-
-
   @bugfix 0.11.0
     @description
       Fixed an issue where show/hide were not changing the rotation of the arrow icons in trees.
 
+  @bugfix 0.14.0
+    @description
+      The options.items option has been fixed to not throw an error when used.
 
   @description
     Create one of these for each tree layout in your page. This object provides a way to fill out tree layouts from an array of objects, and also makes it possible to listen out for tree expansion and contraction events. It also makes it possible to expand / collapse parts of the tree using the api.
 
   @method render
-    @removed 0.14.0
-      @description
-        Use @code[items(data)] to set the data and @code[renderer(render)] to set the renderer or pass in options to the constructor.
-
-
     @deprecated 0.13.0
       @description
         Deprecated as part of API standardisation
         Use @code[items(data)] to set the data and @code[renderer(render)] to set the renderer or pass in options to the constructor.
 
+    @removed 0.14.0
+      @description
+        Use @code[items(data)] to set the data and @code[renderer(render)] to set the renderer or pass in options to the constructor.
 
     @description
       Sets up a tree layout from a nested array of javascript objects.
@@ -47,7 +43,6 @@
             element.style.color = datum.color || 'black'
           }
 
-
         This will set the text of each node to the property 'name' in the json data, and will set the color of the node to the 'color' property if it is present.
         Note that you can do anything here - you can append new elements to the element supplied and fill out the node with arbitrary blocks of html. This is the part where you define what the contents of each node is going to look like.
 
@@ -55,23 +50,19 @@
         @description
           The element to populate.
 
-
       @arg data [Any]
         @description
           The data to populate the element with.
 
-
   @constructor
-    @removed 0.14.0
-      @description
-        Use @code[hx.Tree(selector, options)] instead.
-
-
     @deprecated 0.13.0
       @description
         Deprecated as part of API standardisation
         Use @code[hx.Tree(selector, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.Tree(selector, options)] instead.
 
     @description
       Sets up / prepares a selection for displaying data in an expandable tree.
@@ -80,13 +71,11 @@
       @description
         A unique css selector or a HTMLElement that identifies your tree.
 
-
     @arg? hideDisabledButtons [Boolean]
       @description
         A parameter that hides the 'disabled' buttons added to the tree.
         @default
           false
-
 
   @method show
     @description
@@ -102,7 +91,6 @@
       @description
         This Tree
 
-
   @method show
     @description
       Shows a specific tree node's children.
@@ -110,7 +98,6 @@
     @arg animate [Boolean]
       @description
         Whether or not to animate the toggle when showing the branch of the tree.
-
 
     @arg node [HTMLElement]
       @description
@@ -120,7 +107,6 @@
     @returns [Tree]
       @description
         This Tree
-
 
   @method hide
     @description
@@ -136,7 +122,6 @@
       @description
         This Tree
 
-
   @method hide
     @description
       Shows a specific tree node's children.
@@ -145,16 +130,13 @@
       @description
         Whether or not to animate the toggle when hiding the branch of the tree.
 
-
     @arg node [HTMLElement]
       @description
         Specifies a node for which to hide the content. Must be passed a <span class="pill">hx-tree-node</span> node.
 
-
     @returns [Tree]
       @description
         This Tree
-
 
   @constructor
     @added 0.13.0
@@ -165,11 +147,9 @@
       @description
         A unique css selector or a HTMLElement that identifies your tree.
 
-
     @arg? options [Object]
       @description
         The options to use when constructing the tree
-
 
       @property hideDisabledButtons [Boolean]
         @description
@@ -177,11 +157,9 @@
           @default
             false
 
-
       @property animate [Boolean]
         @description
           A parameter that determines whether to animate the arrows when tree children are shown/hidden.
-
 
       @property renderer [Function]
         @description
@@ -193,7 +171,6 @@
               element.style.color = datum.color || 'black'
             }
 
-
           This will set the text of each node to the property 'name' in the json data, and will set the color of the node to the 'color' property if it is present.
           Note that you can do anything here - you can append new elements to the element supplied and fill out the node with arbitrary blocks of html. This is the part where you define what the contents of each node is going to look like.
 
@@ -201,11 +178,9 @@
           @description
             The element to populate.
 
-
         @arg data [Any]
           @description
             The data to populate the element with.
-
 
       @property items [Array[Object]]
         @description
@@ -222,7 +197,6 @@
           @description
             Added an option for lazily rendering tree nodes when building from JSON
 
-
         @description
           Whether to lazily render the tree nodes when building from JSON.
 
@@ -236,7 +210,6 @@
     @returns [Array[Object]]
       @description
         The tree items
-
 
   @method items
     @added 0.13.0
@@ -259,7 +232,6 @@
       @description
         This Tree
 
-
   @method renderer
     @added 0.13.0
     @description
@@ -273,11 +245,9 @@
         @description
           The element to populate.
 
-
       @arg data [Object]
         @description
           The data to populate the element with.
-
 
   @method renderer
     @added 0.13.0
@@ -296,7 +266,6 @@
             element.style.color = datum.color || 'black'
           }
 
-
         This will set the text of each node to the property 'name' in the json data, and will set the color of the node to the 'color' property if it is present.
 
         Note that you can do anything here - you can append new elements to the element supplied and fill out the node with arbitrary blocks of html. This is the part where you define what the contents of each node is going to look like.
@@ -305,27 +274,22 @@
         @description
           The element to populate.
 
-
       @arg data [Object]
         @description
           The data to populate the element with.
-
 
     @returns [Tree]
       @description
         This Tree
 
-
 @function hx.initialiseTrees
-  @removed 0.14.0
-    @description
-      Use @code[hx.initializeTrees] instead.
-
-
   @deprecated 0.13.0
     @description
       Use @code[hx.initializeTrees] instead.
 
+  @removed 0.14.0
+    @description
+      Use @code[hx.initializeTrees] instead.
 
   @description
     Initialises all the trees that match a css selector in a page and returns the Tree objects as an array.
@@ -334,12 +298,10 @@
     @description
       A css selector that selects the tab groups you wish to initialise.
 
-
 @class hx-tree
   @updated 0.10.0
     @description
       Removed module-specific classes in favor of generic classes
-
 
   @description
     The class to give to tree elements. When building trees using the @code[items] method, these classes will be added to content automatically.
@@ -348,37 +310,30 @@
     @description
       The class to give to tree nodes. These should be directly inside @code[hx-tree] or @code[hx-tree-node-children] elements.
 
-
     @class hx-tree-node-parent
       @description
         The class to give to the parent element for a tree. This should always be placed directly inside a @code[hx-tree-node] and before a @code[hx-tree-node-children] element.
-
 
       @class hx-tree-node-content
         @description
           The content for the parent element. Should always be placed directly inside a @code[hx-tree-node-parent] element.
 
-
     @class hx-tree-node-children
       @description
         The class to give to the children element for a tree. This should always be placed directly inside a @code[hx-tree-node] and after a @code[hx-tree-node-parent] element.
-
 
     @class hx-tree-node-content
       @description
         The class to give to any content within a tree node, should be placed directly inside a @code[hx-tree-node] that doesn't include @code[hx-tree-node-parent] or @code[hx-tree-node-children] .
 
-
   @extraClass hx-tree-[n]
-    @removed 0.10.0
     @deprecated 0.9.0
       @description
         All numbered color classes will be removed in a later version.Use the context classes instead.
 
-
+    @removed 0.10.0
     @description
       Numbered classes for coloring the tree icons.
-
 
 @function hx.initializeTrees
   @added 0.13.0
@@ -389,13 +344,10 @@
     @description
       A css selector that selects the tab groups you wish to initialise.
 
-
-
 @function hx.tree
   @added 1.0.0
     @description
       Fluid api version of Tree
-
 
   @description
     Creates a new Tree set up on a detached element, wrapped in a selection
@@ -404,9 +356,7 @@
     @description
       See the options object for constructing Tree
 
-
   @returns [Selection]
     @description
       A selection containing an element with an Tree initialised on it
-
 

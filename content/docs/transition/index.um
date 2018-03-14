@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Transition
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         Utility functions for calling functions on a schedule.
 
 

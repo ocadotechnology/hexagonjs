@@ -4,13 +4,13 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Extended Table
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         Tables with pages, row selection, filtering and sorting.
 
     @version 1.0.0
-      @description 
+      @description
         This module was replaced with the data table module in version 1.0.0.
 
 

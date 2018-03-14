@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Pointer Events
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         A module for adding pointer events to the selection api. The pointer events normalize touch and mouse events into a common api.
 
 

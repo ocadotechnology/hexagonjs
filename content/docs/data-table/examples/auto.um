@@ -1,42 +1,11 @@
-@version 0.15.0
-  @examples 
-    @example 
-      @html 
-        <div id="example"></div>
-
-      @js 
-        var table = new hx.DataTable('#example')
-        table.feed(hx.dataTable.objectFeed({
-          headers: [
-            { name: 'Name', id: 'name' },
-            { name: 'Age', id: 'age' },
-            { name: 'Profession', id: 'profession' }
-          ],
-          rows: [
-            {
-              id: 0, // hidden details can go here (not in the cells object)
-              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
-            },
-            {
-              id: 1,
-              cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
-            },
-            {
-              id: 2,
-              cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
-            }
-          ]
-        }))
-
 @version 1.12.0
-  @examples 
-    @example 
+  @examples
+    @example
       @h4[Simple example]
-      @html 
+      @html
         <div id="example"></div>
-        
 
-      @js 
+      @js
         var table = new hx.DataTable('#example')
         table.feed(hx.dataTable.objectFeed({
           headers: [
@@ -59,16 +28,13 @@
             }
           ]
         }))
-        
 
-    
-    @example 
+    @example
       @h4[Lazy Loading Example]
-      @html 
+      @html
         <div id="lazy-example"></div>
-        
 
-      @js 
+      @js
         var finalSize = undefined
         var backendRows = [
           {
@@ -84,7 +50,7 @@
             cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder'}
           }
         ]
-        
+
         new hx.DataTable('#lazy-example', {
           pageSize: 2,
           pageSizeOptions: [1, 2, 3, 10],
@@ -108,16 +74,13 @@
             }
           }
         }).render()
-        
 
-    
-    @example 
+    @example
       @h4[Advanced Search Example]
-      @html 
+      @html
         <div id="advanced-search-example-container"></div>
-        
 
-      @js 
+      @js
         var tableFeed = hx.dataTable.objectFeed({
           headers: [
             { name: 'Name', id: 'name' },
@@ -139,7 +102,7 @@
             }
           ]
         })
-        
+
         // Use the fluid api to append the content
         hx.select('#advanced-search-example-container')
           .add(hx.dataTable({
@@ -148,16 +111,13 @@
             showSearchAboveTable: true, // Show the search above the table instead of below
             advancedSearchEnabled: true // Enable the advanced search
           }))
-        
 
-    
-    @example 
+    @example
       @h4[Advanced Search Criteria Example]
-      @html 
+      @html
         <div id="advanced-criteria-example"></div>
-        
 
-      @js 
+      @js
         var tableFeed = hx.dataTable.objectFeed({
           headers: [
             { name: 'Name', id: 'name' },
@@ -179,7 +139,7 @@
             }
           ]
         })
-        
+
         // Use the fluid api to append the content
         hx.select('#advanced-criteria-example')
           .add(hx.dataTable({
@@ -196,16 +156,44 @@
               ]
             ]
           }))
-        
+
+@version 0.15.0
+  @examples
+    @example
+      @html
+        <div id="example"></div>
+
+      @js
+        var table = new hx.DataTable('#example')
+        table.feed(hx.dataTable.objectFeed({
+          headers: [
+            { name: 'Name', id: 'name' },
+            { name: 'Age', id: 'age' },
+            { name: 'Profession', id: 'profession' }
+          ],
+          rows: [
+            {
+              id: 0, // hidden details can go here (not in the cells object)
+              cells: { 'name': 'Bob', 'age': 25, 'profession': 'Developer' }
+            },
+            {
+              id: 1,
+              cells: { 'name': 'Jan', 'age': 41, 'profession': 'Artist' }
+            },
+            {
+              id: 2,
+              cells: { 'name': 'Dan', 'age': 41, 'profession': 'Builder' }
+            }
+          ]
+        }))
 
 @version 1.5.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="example"></div>
-        
 
-      @js 
+      @js
         var table = new hx.DataTable('#example')
         table.feed(hx.dataTable.objectFeed({
           headers: [
@@ -228,15 +216,12 @@
             }
           ]
         }))
-        
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div id="advanced-search-example-container"></div>
-        
 
-      @js 
+      @js
         var tableFeed = hx.dataTable.objectFeed({
           headers: [
             { name: 'Name', id: 'name' },
@@ -258,7 +243,7 @@
             }
           ]
         })
-        
+
         // Use the fluid api to append the content
         hx.select('#advanced-search-example-container')
           .add(hx.dataTable({
@@ -267,16 +252,14 @@
             showSearchAboveTable: true, // Show the search above the table instead of below
             advancedSearchEnabled: true // Enable the advanced search
           }))
-        
 
 @version 1.7.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="example"></div>
-        
 
-      @js 
+      @js
         var table = new hx.DataTable('#example')
         table.feed(hx.dataTable.objectFeed({
           headers: [
@@ -299,15 +282,12 @@
             }
           ]
         }))
-        
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div id="advanced-search-example-container"></div>
-        
 
-      @js 
+      @js
         var tableFeed = hx.dataTable.objectFeed({
           headers: [
             { name: 'Name', id: 'name' },
@@ -329,7 +309,7 @@
             }
           ]
         })
-        
+
         // Use the fluid api to append the content
         hx.select('#advanced-search-example-container')
           .add(hx.dataTable({
@@ -338,15 +318,12 @@
             showSearchAboveTable: true, // Show the search above the table instead of below
             advancedSearchEnabled: true // Enable the advanced search
           }))
-        
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div id="lazy-example"></div>
-        
 
-      @js 
+      @js
         var finalSize = undefined
         var backendRows = [
           {
@@ -362,7 +339,7 @@
             cells: {'name': 'Dan', 'age': 41, 'profession': 'Builder'}
           }
         ]
-        
+
         new hx.DataTable('#lazy-example', {
           pageSize: 2,
           pageSizeOptions: [1, 2, 3, 10],
@@ -386,5 +363,4 @@
             }
           }
         }).render()
-        
 

@@ -3,7 +3,6 @@
   @description
     Updated the progressbar background color to add more contrast
 
-
 @prototype hx.ProgressBar
   @description
     Create one of these for each progress bar in your page. This object provides methods to get and set the value of the progressbar.
@@ -13,7 +12,6 @@
       @description
         Added options to the constructor
 
-
     @description
       Creates a progress bar
 
@@ -21,14 +19,12 @@
       @description
         The selector to create the progressbar inside.
 
-
   @method setProgress
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[progress(value)] instead.
 
-
+    @removed 0.12.0
     @description
       Set the value of the progress bar. Expects a value between 0 and 1.
 
@@ -36,21 +32,18 @@
       @description
         A value between 0 and 1.
 
-
   @method getProgress
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[progress()] instead.
 
-
+    @removed 0.12.0
     @description
       Get the value of the progress bar.
 
     @returns [Number]
       @description
         A value between 0 and 1
-
 
   @method value
     @added 0.11.0
@@ -60,13 +53,11 @@
     @arg value [Number]
       @description
         A value between 0 and 1.
-
 
     @returns [ProgressBar]
       @description
         This progressbar for chaining.
 
-
   @method value
     @added 0.11.0
     @description
@@ -76,12 +67,10 @@
       @description
         A value between 0 and 1
 
-
   @method segments
     @added 0.12.5
       @description
         Added a way to create multi-segment progress bars
-
 
     @description
       A method for applying an array of segments to a progress bar.
@@ -91,12 +80,10 @@
         @description
           Added the ability to clear the segments by passing in undefined as the segments parameter.
 
-
       @description
         The array of segments to apply. It should be in the format of an array of objects with a value or ratio property and an optional class property.
 
         Every segment must have either a value or a ratio and every item in the array of segments must have the same property, values and ratios can not be used in conjunction with one another.
-
 
         If only a class is provided for each segment, the progressbar will use a default ratio of 1:1 for every segment.
 
@@ -110,7 +97,6 @@
               "value": 0.75
             }
           ]
-
 
         The below segments array would give one negative segment of 60% width, one warning segment of 20% width and one positive segment of 20% width.
 
@@ -137,11 +123,9 @@
         @default
           false
 
-
     @returns [ProgressBar]
       @description
         This progressbar for chaining.
-
 
   @method segments
     @added 0.12.5
@@ -152,12 +136,10 @@
       @description
         The currently set segments for the progressbar
 
-
   @constructor
     @added 0.13.0
       @description
         Added options to the constructor
-
 
     @description
       Creates a progress bar
@@ -166,16 +148,13 @@
       @description
         The selector to create the progressbar inside.
 
-
     @arg? options [Object]
       @description
         The options to use when setting up the progressbar.
 
-
       @property segments [Array]
         @description
           The array of segments to initialise the progressbar with.
-
 
       @property value [Number]
         @description
@@ -183,41 +162,34 @@
           @default
             0
 
-
       @property animate [Boolean]
         @description
           Whether to animate the progress changes for the progressbar by adding the hx-animate class.
           @default
             false
 
-
-
 @class hx-progressbar
-  @removed 0.10.0
-    @description
-      Use hx-progress-bar instead.
-
-
   @deprecated 0.9.0
     @description
       Use hx-progress-bar instead.
 
+  @removed 0.10.0
+    @description
+      Use hx-progress-bar instead.
 
   @description
     The class applied to the selector.
 
 @class hx-progress-bar
-  @bugfix 1.0.0
-    @description
-      Updated the progress bar styles to remove the need for @code[!important] flags.
-
-
+  @added 0.9.0
   @updated 0.10.0
     @description
       Removed module-specific classes in favor of generic classes
 
+  @bugfix 1.0.0
+    @description
+      Updated the progress bar styles to remove the need for @code[!important] flags.
 
-  @added 0.9.0
   @description
     The class given to the root element of a progress bar
 
@@ -225,49 +197,41 @@
     @description
       Adds progress bar styling indicative of success, confirmation or something positive.
 
-
   @extraClass hx-negative
     @description
       Adds progress bar styling indicative of failure, danger or something negative.
 
-
   @extraClass hx-warning
     @description
       Adds progress bar styling indicative of warning.
-
 
   @extraClass hx-compliment
     @removed 1.0.0
       @description
         Use @code[.hx-complement] instead
 
-
     @description
       Styles the progress bar with a light color on a light theme, and a dark color on a dark theme.
-
 
   @extraClass hx-contrast
     @description
       Styles the progress bar with a dark color on a light theme, and a light color on a dark theme.
 
-
   @extraClass hx-info
     @description
       Styles the progress bar to indicate that clicking it will lead to some form of documentation / information.
 
-
   @extraClass hx-progressbar-[n]
-    @removed 0.10.0
     @deprecated 0.9.0
       @description
         All numbered color classes will be removed in a later version.Use the context classes instead.
 
+    @removed 0.10.0
 
   @extraClass hx-animate
     @added 0.12.5
       @description
         Added a class to animate the changes in progress of the progress bar to give a smooth motion.
-
 
     @description
       A class that changes the progressbar to use CSS animations when changing the progress to give smooth motion.
@@ -277,7 +241,6 @@
       @description
         Added new action context class and updated default styles.
 
-
     @description
       Styles the progress bar with action colors
 
@@ -285,13 +248,10 @@
     @description
       Styles the progress bar with complement colors
 
-
-
 @function hx.progressBar
   @added 1.0.0
     @description
       Fluid api version of ProgressBar
-
 
   @description
     Creates a new ProgressBar set up on a detached element, wrapped in a selection
@@ -300,9 +260,7 @@
     @description
       See the options object for constructing ProgressBar
 
-
   @returns [Selection]
     @description
       A selection containing an element with an ProgressBar initialised on it
-
 

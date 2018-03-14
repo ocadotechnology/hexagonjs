@@ -8,7 +8,6 @@
         // do something
       })
 
-
       // Load multiple urls with one call to hx.request and one callback
       urls = [
         '/file1.txt',

@@ -9,7 +9,6 @@
       hx.select('body').animate()
         .style('background-color', '#000000', 500)
 
-
     @html
       <button id="demo-1" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
       <button id="demo-1-reset" class="hx-btn hx-contrast"><i class="fa fa-refresh"></i> Reset</button>
@@ -24,7 +23,6 @@
         hx.select('body').style('background-color', '');
       });
 
-
     @@codeblock js
       // specifying a start and end value
       hx.select('body').animate()
@@ -34,7 +32,6 @@
           'perspective(1000px) rotateX(360deg) rotateY(360deg)',
           1000
         )
-
 
     @html
       <button id="demo-2" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
@@ -51,8 +48,6 @@
             hx.select('body').style('transform', '');
           })
       });
-
-
 
     @h2[Morphs]
 
@@ -73,7 +68,6 @@
           hx.select('body').style('background-color', '')
         })
         .go()
-
 
     @html
       <button id="demo-3" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>
@@ -96,7 +90,6 @@
           .go()
       });
 
-
     This is the same as above - just using some methods on Morph that allow more concise code.
 
     @@codeblock js
@@ -106,7 +99,6 @@
         .thenStyle('background-color', '#0000ff', 500)
         .then(function(){ hx.select('body').style('background-color', '') })
         .go()
-
 
     @html
       <button id="demo-4" class="hx-btn hx-positive"><i class="fa fa-play-circle-o"></i> Run</button>

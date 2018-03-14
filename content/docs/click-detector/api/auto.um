@@ -1,71 +1,63 @@
 @prototype hx.ClickDetector
-  @updated 0.13.0
-    @description 
-      Added return values to functions to return this ClickDetector and allow chaining of methods.
-      
-
   @bugfix 0.12.6
-    @description 
+    @description
       Added detection for whether the target is still in the DOM on pointerup.
-      
 
-  @description 
+  @updated 0.13.0
+    @description
+      Added return values to functions to return this ClickDetector and allow chaining of methods.
+
+  @description
   @extends EventEmitter
-  @constructor 
-    @description 
+  @constructor
+    @description
       Creates a new click detector.
 
   @method addException
-    @description 
+    @description
       Adds an exception to the click detector so that the element (or any of it's children) do not fire the on click event.
 
     @arg element [Element]
-      @description 
+      @description
         The element to add as an exception
-        
 
     @returns [ClickDetector]
       @added 0.13.0
-      @description 
+      @description
         This ClickDetector
-        
 
   @method removeAllExceptions
-    @description 
+    @description
       Removes all exceptions from this ClickDetector
 
     @returns [ClickDetector]
       @added 0.13.0
-      @description 
+      @description
         This ClickDetector
-        
 
   @method cleanUp
-    @description 
+    @description
       Deregisters the listeners that were added when the ClickDetector was created. After calling this the click detector should not be used any more.
 
     @returns [ClickDetector]
       @added 0.13.0
-      @description 
+      @description
         This ClickDetector
-        
 
   @method removeException
     @added 1.0.0
-    @description 
+    @description
       Removes an exception from the click detector.
 
     @arg element [Element]
-      @description 
+      @description
         The element to remove as an exception
-        
 
     @returns [ClickDetector]
-      @description 
+      @description
         This ClickDetector
-        
 
   @event click
-    @description 
+    @description
       Emitted when a click occurs outside all of the exceptions.
 

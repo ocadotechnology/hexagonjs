@@ -10,11 +10,9 @@
     @description
       The first number to compare
 
-
   @arg b [Number]
     @description
       The second number to compare
-
 
   @returns [Function]
     @description
@@ -35,11 +33,9 @@
     @description
       The first string to compare
 
-
   @arg b [String]
     @description
       The second string to compare
-
 
   @returns [Function]
     @description

@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Modal
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         Displays content in a popup box.
 
 

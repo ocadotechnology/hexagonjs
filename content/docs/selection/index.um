@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Selection
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         A api for selecting and manipulating elements from the dom based upon querySelector and querySelectorAll.
 
 

@@ -1,20 +1,17 @@
 @version 1.4.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="autocompletePicker"></div>
 
-      
-      @js 
+      @js
         new hx.AutocompletePicker('#autocompletePicker', ['a','b','c'])
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div id="autocompletePicker-async"></div>
 
-      
-      @js 
+      @js
         function delayedItems (searchTerm, callback) {
           setTimeout(function () {
             callback(['a','b','c'])
@@ -22,14 +19,12 @@
         }
         new hx.AutocompletePicker('#autocompletePicker-async', delayedItems)
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div>Tip: try searcing for 'Kent'</div>
         <div id="autocompletePicker-externalMatch"></div>
 
-      
-      @js 
+      @js
         var data = [{
           name: 'Moorgate',
           county: 'London'
@@ -43,7 +38,7 @@
           name: 'Dover',
           county: 'Kent'
         }]
-        
+
         function items (term, callback) {
           if (term.length > 0) {
             var a, county, d, name, i, len
@@ -72,5 +67,4 @@
           renderer: renderer,
           matchType: 'external'
         })
-        
 

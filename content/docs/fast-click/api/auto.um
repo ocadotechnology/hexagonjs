@@ -1,10 +1,9 @@
+@bugfix 0.12.10
+  @description
+    Resolve an issue where inputs are not selectable in modals due to event interception.
+
 @bugfix 1.13.0
   @issue 418
-  @description 
+  @description
     Fixed an issue with the click handlers on iPads
-
-@bugfix 0.12.10
-  @description 
-    Resolve an issue where inputs are not selectable in modals due to event interception.
-    
 

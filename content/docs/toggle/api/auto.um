@@ -1,91 +1,79 @@
-@updated 1.5.0
-  @description 
-    Updated the styles to make the toggle icon slightly smaller and more compact
-    
-
 @added 1.0.0
-  @description 
+  @description
     Added a new module for creating a toggle element
-    
+
+@updated 1.5.0
+  @description
+    Updated the styles to make the toggle icon slightly smaller and more compact
 
 @prototype hx.Toggle
   @bugfix 1.0.4
     @issue 10
     @issue 12
-    @description 
+    @description
       Updated the styles and structure to use a @code[<div>] element instead of a checkbox
-      
 
-  @description 
+  @description
     Creates a toggle component
 
   @extends EventEmitter
-  @constructor 
-    @description 
+  @constructor
+    @description
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         A css selector or element to use when constructing the toggle
-        
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when intialising the toggle
 
       @property value [Boolean]
-        @description 
+        @description
           The value to initialise the toggle with.
-          @default 
+          @default
             false
-          
 
   @method value
-    @description 
+    @description
       A method for setting the value of a toggle.
 
     @arg value [Boolean]
-      @description 
+      @description
         The state to give the toggle.
-        
 
     @returns [Toggle]
-      @description 
+      @description
         This toggle
-        
 
   @method value
-    @description 
+    @description
       A method for getting the value of a toggle.
 
     @returns [Boolean]
-      @description 
+      @description
         The current state of the toggle
-        
 
   @event change
-    @description 
+    @description
       The event emitted when a toggle is changed.
 
     @data Boolean
-      @description 
+      @description
         The state of the currently selected.
-        
 
 @class hx-toggle
-  @description 
+  @description
     The class given to a toggle element.
-    
 
 @function hx.toggle
-  @description 
+  @description
     Creates a new Toggle set up on a detached element, wrapped in a selection
 
   @arg options [Object]
-    @description 
+    @description
       See the options object for constructing a Toggle
-      
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an element with a Toggle initialised on it
-      
 

@@ -1,6 +1,37 @@
+@version 0.9.0
+  @examples
+    @css
+      .example {
+        min-width: 200px;
+        font-size: 1.5em;
+        padding: 0.5em;
+        text-align: center;
+      }
+
+    @html
+      <div class="hx-layout hx-group hx-horizontal">
+        <div class="hx-section example hx-text-default">hx-text-default</div>
+        <div class="hx-section example hx-text-positive">hx-text-positive</div>
+        <div class="hx-section example hx-text-warning">hx-text-warning</div>
+        <div class="hx-section example hx-text-negative">hx-text-negative</div>
+        <div class="hx-section example hx-text-info">hx-text-info</div>
+        <div class="hx-section example hx-text-compliment">hx-text-compliment</div>
+        <div class="hx-section example hx-text-contrast">hx-text-contrast</div>
+      </div>
+
+      <div class="hx-layout hx-group hx-horizontal">
+        <div class="hx-section example hx-background-default">hx-background-default</div>
+        <div class="hx-section example hx-background-positive">hx-background-positive</div>
+        <div class="hx-section example hx-background-warning">hx-background-warning</div>
+        <div class="hx-section example hx-background-negative">hx-background-negative</div>
+        <div class="hx-section example hx-background-info">hx-background-info</div>
+        <div class="hx-section example hx-background-compliment">hx-background-compliment</div>
+        <div class="hx-section example hx-background-contrast">hx-background-contrast</div>
+      </div>
+
 @version 0.12.8
-  @examples 
-    @css 
+  @examples
+    @css
       .example {
         min-width: 200px;
         font-size: 1.5em;
@@ -11,7 +42,7 @@
         border: 1px solid transparent;
       }
 
-    @html 
+    @html
       <div class="hx-layout hx-group hx-horizontal">
         <div class="hx-section example hx-text-default">hx-text-default</div>
         <div class="hx-section example hx-text-positive">hx-text-positive</div>
@@ -22,7 +53,7 @@
         <div class="hx-section example hx-text-contrast">hx-text-contrast</div>
         <div class="hx-section example hx-text-disabled">hx-text-disabled</div>
       </div>
-      
+
       <div class="hx-layout hx-group hx-horizontal">
         <div class="hx-section example hx-background-default">hx-background-default</div>
         <div class="hx-section example hx-background-positive">hx-background-positive</div>
@@ -33,7 +64,7 @@
         <div class="hx-section example hx-background-contrast">hx-background-contrast</div>
         <div class="hx-section example hx-background-disabled">hx-background-disabled</div>
       </div>
-      
+
       <div class="hx-layout hx-group hx-horizontal">
         <div class="hx-section example example-border hx-border-default">hx-border-default</div>
         <div class="hx-section example example-border hx-border-positive">hx-border-positive</div>
@@ -45,40 +76,9 @@
         <div class="hx-section example example-border hx-border-disabled">hx-border-disabled</div>
       </div>
 
-@version 0.9.0
-  @examples 
-    @css 
-      .example {
-        min-width: 200px;
-        font-size: 1.5em;
-        padding: 0.5em;
-        text-align: center;
-      }
-
-    @html 
-      <div class="hx-layout hx-group hx-horizontal">
-        <div class="hx-section example hx-text-default">hx-text-default</div>
-        <div class="hx-section example hx-text-positive">hx-text-positive</div>
-        <div class="hx-section example hx-text-warning">hx-text-warning</div>
-        <div class="hx-section example hx-text-negative">hx-text-negative</div>
-        <div class="hx-section example hx-text-info">hx-text-info</div>
-        <div class="hx-section example hx-text-compliment">hx-text-compliment</div>
-        <div class="hx-section example hx-text-contrast">hx-text-contrast</div>
-      </div>
-      
-      <div class="hx-layout hx-group hx-horizontal">
-        <div class="hx-section example hx-background-default">hx-background-default</div>
-        <div class="hx-section example hx-background-positive">hx-background-positive</div>
-        <div class="hx-section example hx-background-warning">hx-background-warning</div>
-        <div class="hx-section example hx-background-negative">hx-background-negative</div>
-        <div class="hx-section example hx-background-info">hx-background-info</div>
-        <div class="hx-section example hx-background-compliment">hx-background-compliment</div>
-        <div class="hx-section example hx-background-contrast">hx-background-contrast</div>
-      </div>
-
 @version 1.0.0
-  @examples 
-    @css 
+  @examples
+    @css
       .example {
         min-width: 150px;
         padding: 0.5em;
@@ -88,7 +88,7 @@
         border: 1px solid transparent;
       }
 
-    @html 
+    @html
       <h3>Text Classes</h3>
       <div class="hx-layout hx-group hx-horizontal">
         <div class="hx-section example hx-text-default">hx-text-default</div>
@@ -101,7 +101,7 @@
         <div class="hx-section example hx-text-contrast">hx-text-contrast</div>
         <div class="hx-section example hx-text-disabled">hx-text-disabled</div>
       </div>
-      
+
       <h3>Background Classes</h3>
       <div class="hx-layout hx-group hx-horizontal">
         <div class="hx-section example hx-background-default">hx-background-default</div>
@@ -114,7 +114,7 @@
         <div class="hx-section example hx-background-contrast">hx-background-contrast</div>
         <div class="hx-section example hx-background-disabled">hx-background-disabled</div>
       </div>
-      
+
       <h3>Border Classes</h3>
       <div class="hx-layout hx-group hx-horizontal">
         <div class="hx-section example example-border hx-border-default">hx-border-default</div>

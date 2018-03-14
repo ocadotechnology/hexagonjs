@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Fluid
-  @versioned 
+  @versioned
     @version 1.0.0
-      @description 
+      @description
         Helper functions for creating detached dom elements and some of the hexagon dom structures.
 
 

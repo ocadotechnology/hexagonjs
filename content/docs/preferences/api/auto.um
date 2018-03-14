@@ -1,48 +1,40 @@
-@updated 1.8.0
-  @issue 254
+@updated 1.2.1
   @description
-    Added logic to update the current timezone in @code[Moment.js]
-
-
-@bugfix 1.4.1
-  @issue 222
-  @description
-    Fix an incorrectly named variable
-
-
-@updated 1.4.1
-  @description
-    Updated the default locale when using @code[moment] as moment doesn't guess the current locale correctly
-
-
-@updated 1.4.0
-  @issue 211
-  @description
-    Updated the text to be defined in the userFacingText module
-
-
-@bugfix 1.3.3
-  @issue 251
-  @description
-    Prefer navigator.languages over navigator.language
-
+    Improved the way preferences determines the locale when it is loaded so that it always uses a supported locale.
 
 @bugfix 1.3.0
   @issue 133
   @description
     Update the preferences default timezone lookup to work correctly with Moment.js
 
-
-@updated 1.2.1
+@bugfix 1.3.3
+  @issue 251
   @description
-    Improved the way preferences determines the locale when it is loaded so that it always uses a supported locale.
+    Prefer navigator.languages over navigator.language
 
+@updated 1.4.0
+  @issue 211
+  @description
+    Updated the text to be defined in the userFacingText module
+
+@bugfix 1.4.1
+  @issue 222
+  @description
+    Fix an incorrectly named variable
+
+@updated 1.4.1
+  @description
+    Updated the default locale when using @code[moment] as moment doesn't guess the current locale correctly
+
+@updated 1.8.0
+  @issue 254
+  @description
+    Added logic to update the current timezone in @code[hx.preferences] when not using @code[Moment.js]
 
 @property hx.preferences [UserPreferences]
   @removed 0.13.0
     @description
       This has been replaced with the Preferences type
-
 
   @description
     An object for getting and setting user preferences
@@ -54,7 +46,6 @@
     @description
       This has been replaced with the Preferences type
 
-
   @description
     A class for getting and setting user preferences for the current domain.
 
@@ -63,19 +54,16 @@
     @description
       Shows the preferences modal
 
-
   @method hide
     @description
       Hides the preferences modal
 
-
   @method getPreferences
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[value(callback)] instead.
 
-
+    @removed 0.12.0
     @description
       Gets the users preferences
 
@@ -83,16 +71,13 @@
       @description
         The function to call when the preferences have been retrieved.
 
-
       @arg error [Object]
         @description
           The error returned when getting the data. Passed as 'undefined' when no error has occured.
 
-
       @arg data [Object]
         @description
           The data object returned from the user's local storage. This will have the same properties as the preferences property.
-
 
         @property timeZone [String]
           @description
@@ -104,21 +89,18 @@
           @description
             The user's selected locale.
 
-
   @method setPreferences
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[value(data, callback)] instead.
 
-
+    @removed 0.12.0
     @description
       Sets the user preferences
 
     @arg preferences [Object]
       @description
         The preferences object to set the preferences to. The object must contain all the properties from the user's preferences, as described in the preferences property.
-
 
     @arg? callback [Function]
       @description
@@ -128,11 +110,9 @@
         @description
           The error returned when setting the data. Passed as 'undefined' when no error has occured.
 
-
       @arg data [Object]
         @description
           The preferences object returned from the user's local storage. This will have the same properties as the preferences property.
-
 
   @method clearPreferences
     @description
@@ -155,7 +135,6 @@
       @description
         The list of all the locales listed by Moment.js
 
-
   @method value
     @added 0.11.0
     @description
@@ -165,16 +144,13 @@
       @description
         The function to call when the preferences have been retrieved.
 
-
       @arg error [Object]
         @description
           The error returned when getting the data. Passed as 'undefined' when no error has occured.
 
-
       @arg data [Object]
         @description
           The data object returned from the user's local storage. This will have the same properties as the preferences property.
-
 
         @property timeZone [String]
           @description
@@ -186,7 +162,6 @@
           @description
             The user's selected locale.
 
-
   @method value
     @added 0.11.0
     @description
@@ -196,7 +171,6 @@
       @description
         The preferences object to set the preferences to. The object must contain all the properties from the user's preferences, as described in the preferences property.
 
-
     @arg? callback [Function]
       @description
         The function to call when the preferences have been retrieved.
@@ -205,20 +179,16 @@
         @description
           The error returned when setting the data. Passed as 'undefined' when no error has occured.
 
-
       @arg data [Object]
         @description
           The preferences object returned from the user's local storage. This will have the same properties as the preferences property.
 
-
-
 @prototype Preferences
+  @added 0.13.0
   @updated 0.14.0
     @description
       Added the en-us locale to the list of valid locales
 
-
-  @added 0.13.0
   @description
     A class for storing and retrieving user preferences such as timezone and locale preference.
 
@@ -229,19 +199,16 @@
       @description
         Updated the list of acceptable timezones and added a helper for converting a date to display with the currently set timezone.
 
-
     @description
-      Sets the timezone preference. This will just set the value in memory, and should be persisted with the @code] method.
+      Sets the timezone preference. This will just set the value in memory, and should be persisted with the @code[save()] method.
 
     @arg timezone [String]
       @description
         Should be a time zone identifier string in the following format: 'America/New_York'.
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method timezone
     @description
@@ -251,30 +218,25 @@
       @description
         The time zone identifier
 
-
   @method locale
     @updated 0.14.0
       @description
         locale will now log an error if you attempt to pass in an invalid locale.
 
-
     @updated 0.14.0
       @description
         locale now accepts undefined as the locale for clearning the user preference.
 
-
     @description
-      Sets the locale preference. This will just set the value in memory, and should be persisted with the @code] method.
+      Sets the locale preference. This will just set the value in memory, and should be persisted with the @code[save()] method.
 
     @arg locale [String]
       @description
         Should be a locale identifier in LCID format.
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method locale
     @description
@@ -284,7 +246,6 @@
       @description
         The locale identifier in LCID format.
 
-
   @method show
     @description
       Shows the preferences modal
@@ -292,7 +253,6 @@
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method save
     @description
@@ -303,11 +263,9 @@
         @description
           If something went wrong in the loading process, the error will be supplied. If all was fine, this argument will be undefined.
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method load
     @description
@@ -318,11 +276,9 @@
         @description
           If something went wrong in the loading process, the error will be supplied. If all was fine, this argument will be undefined.
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method backingStore
     @description
@@ -332,7 +288,6 @@
       @description
         The store to use for storage of the preferences. By default this will be set to use local storage (hx.preferences.localStorageStore)
 
-
       @property save [Function]
         @description
           Saves the preferences
@@ -341,7 +296,6 @@
           @description
             The string to store that contains the user preferences (encoded as json)
 
-
         @arg callback [Function]
           @description
             The callback to call when you have finished storing the preferences
@@ -349,7 +303,6 @@
           @arg? error [Error]
             @description
               If there was an error this will be defined
-
 
       @property load [Function]
         @description
@@ -363,16 +316,13 @@
             @description
               If there was an error this will be defined
 
-
           @arg encodedPreferences [String]
             @description
               The encoded preferences string that was retrieved from storage
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method supportedLocales
     @description
@@ -382,11 +332,9 @@
       @description
         An array of locale identifiers in LCID format.
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method supportedLocales
     @description
@@ -395,7 +343,6 @@
     @returns [Array[String]]
       @description
         An array of locale identifiers in LCID format.
-
 
   @method applyTimezoneOffset
     @added 1.1.0
@@ -408,16 +355,13 @@
       @description
         The date to offset
 
-
     @arg? offset [Number]
       @description
         The offset to apply. If this is not provided, the offset is retrieved from the currently set timezone.
 
-
     @returns [Date]
       @description
         The date, offset by the timezone amount.
-
 
   @method supportedTimezones
     @added 1.1.0
@@ -430,7 +374,6 @@
       @description
         The array of supported timeszones
 
-
   @method supportedTimezones
     @added 1.1.0
       @issue 23
@@ -442,11 +385,9 @@
       @description
         The array of timezones to set. The default list of timezones is in the format of "UTC+00:00". If timezones in different formats are required, a new timezoneOffsetLookup function must be set.
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @method timezoneOffsetLookup
     @added 1.1.0
@@ -459,7 +400,6 @@
       @description
         The currently set timezoneOffsetLookup function
 
-
   @method timezoneOffsetLookup
     @added 1.1.0
       @issue 23
@@ -471,26 +411,21 @@
       @description
         A function that takes a timezone and a datestamp and returns the offset amount (in hours) for that timezone at that time.
 
-
       @arg timezone [String]
         @description
           The timezone to get the offset for. Should always be one of the timezones listed in supportedTimezones.
-
 
       @arg datestamp [Number]
         @description
           A datestamp in ms. Can be used to get an exact timezone offset when using libraries like Moment.js for offset lookup.
 
-
       @returns [Number]
         @description
           The timezone offset in hours. E.g. "UTC+01:00" = 1
 
-
     @returns [Preferences]
       @description
         This Preferences
-
 
   @event timezonechange
     @description
@@ -500,7 +435,6 @@
       @description
         The time zone id.
 
-
   @event localechange
     @description
       Emitted when the time zone changes.
@@ -508,7 +442,6 @@
     @data String
       @description
         The LCID locale identifier.
-
 
 @property hx.preferences [Preferences]
   @added 0.13.0
@@ -531,7 +464,6 @@
       @description
         The string to store that contains the user preferences (encoded as json)
 
-
     @arg callback [Function]
       @description
         The callback to call when you have finished storing the preferences
@@ -539,7 +471,6 @@
       @arg? error [Error]
         @description
           If there was an error this will be defined
-
 
   @property load [Function]
     @description
@@ -553,9 +484,7 @@
         @description
           If there was an error this will be defined
 
-
       @arg encodedPreferences [String]
         @description
           The encoded preferences string that was retrieved from storage
-
 

@@ -1,7 +1,7 @@
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="example">
           <div class="hx-collapsible-heading">Header</div>
           <div class="hx-collapsible-content"><div style="padding:1em;font-size:2em">
@@ -10,7 +10,6 @@
           </div>
         </div>
 
-      
       @js js
         var collapsible = new hx.Collapsible('#example')
 

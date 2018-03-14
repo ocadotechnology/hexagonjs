@@ -16,7 +16,6 @@
     @description
       The transition's duration in milliseconds
 
-
   @arg callback [Function]
     @description
       The function that gets called each frame
@@ -24,7 +23,6 @@
     @arg? cancelled [Boolean]
       @description
         If the transition has been cancelled and this is the final call, then cancelled will be true, otherwise it will be false.
-
 
     @arg progress [Number]
 
@@ -36,17 +34,14 @@
       @description
         A value between 0 and 1
 
-
     @returns [Number]
       @description
         A value between 0 and 1
-
 
   @arg? endCallback [Function]
     @arg cancelled [Boolean]
       @description
         Will be true if the transition was cancelled using the returned cancel function, otherwise will be true
-
 
   @returns [Function]
     @description
@@ -75,11 +70,9 @@
       @description
         A value between 0 and 1
 
-
     @returns [Number]
       @description
         A value between 0 and 1
-
 
   @function quad
     @description
@@ -94,11 +87,9 @@
       @description
         A value between 0 and 1
 
-
     @returns [Number]
       @description
         A value between 0 and 1
-
 
   @function cubic
     @description
@@ -113,9 +104,7 @@
       @description
         A value between 0 and 1
 
-
     @returns [Number]
       @description
         A value between 0 and 1
-
 

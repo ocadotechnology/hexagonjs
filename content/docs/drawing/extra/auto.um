@@ -5,14 +5,11 @@
 
       The drawing api exposes a simple api for drawing diagrams in the browser. It uses a model-view set-up for describing the drawings - you have to create the objects you want to display, and manipulate their properties, and the drawing api will ensure that the objects described in your diagram get rendered to the screen.
 
-
       It currently uses the canvas element to do the drawing, although there is no reason it couldn't be extended to support SVG or WebGL rendering in the future. For large diagrams (that are bigger than the screen) with relatively few objects, SVG has the potential to perform better.
-
 
     @section Creating [a blank canvas]
 
       The following example sets up an empty drawing
-
 
       @example
         @html
@@ -21,17 +18,13 @@
         @js
           var drawing = new hx.Drawing('#empty-drawing');
 
-
       Pretty boring, right?
 
-
       Note that a border has been added to all the examples on this page to make it easier to see. This isn't something that is necessary for normal apps.
-
 
     @section Adding [something to the drawing]
 
       Adding a rectangle to the drawing is almost as easy.
-
 
       @example
         @html
@@ -47,17 +40,13 @@
           rect.set('height', 50);
           rect.set('fill.color', '#776655');
 
-
       The drawing will redraw at 60fps (or as close to that as it can achieve). Having the drawing redraw constantly like this allows animations to appear smooth.
 
-
       @notice(Note)[The render loop will eventually be able to turn off when there are no changes to display. This will result in less cpu consumption and save the battery life for mobile devices. This functionality has not yet been added - however this is something that will happen internally, so there will be no change to the api in order for this optimisation to happen.]
-
 
     @section Enabling [mouse controls]
 
       Enabling mouse and touch controls can be done with the enablePan and enableZoom methods on the drawing object.
-
 
       @example
         @html
@@ -76,22 +65,15 @@
           rect.set('height', 50);
           rect.set('fill.color', '#335544');
 
-
-
-
       @section What [does the drawing api provide over using bare canvas/SVG?]
 
         The drawing api exposes a set of features that are not dependent on the type of drawing engine being used. This gives the advantage that we could in theory swap all rendering over to use WebGL in the future once browser support is mature enough.
 
-
         The drawing api also takes care of all the conversions from drawing coordinates to screen coordinates. This allows you to draw things at any scale, and have the api scale them to fit on the page for you.
-
 
         The drawing api also comes with a built in camera object, which allows panning and zooming on the diagram, and also ways to detect clicks on objects in the drawing.
 
-
         The api is also designed around the idea that diagrams will be being updated via a live feed, most probably using websockets.
-
 
         These are all features that do not come natively with the canvas element (since the canvas element is essentially just a bitmap).
 
@@ -100,7 +82,6 @@
     @section Available [Types]
 
       There are currently 7 different primitives drawing types in the api:
-
 
       @list
         @item[Circle]
@@ -111,14 +92,11 @@
         @item[Shape]
         @item[Composite]
 
-
       These can all be created through the 'create' method on the drawing object. Each primitive type has it's own class which is described in the api section.
-
 
     @section Example
 
       This example shows how each primitive can be created, and shows use of some of the properties.
-
 
       @example
         @js
@@ -126,7 +104,6 @@
           drawing.enablePan();
           drawing.enableZoom();
           drawing.camera.setupBounds(0.25, 10, -100, -100, 100, 100);
-
 
           var colors = [
             'rgb(192,46,29)',
@@ -205,27 +182,20 @@
             height: 200px;
           }
 
-
     @section Setting [Properties]
 
       The primitives each have a separate set of properties that can be set. However, the method for setting the properties is always the same: using the set method:
 
-
       @@codeblock js
         obj.set('property', value);
 
-
       The properties that are available to set are described in the api section - they differ for each primitive type.
-
-
 
     @section Composite [Objects]
 
       Objects can be grouped together using composite objects. This makes it possible to create more detailed objects in the scene (rather than having just a simple rectangle for displaying something, for example). Composite objects are intended to be used for small, reusable drawing objects.
 
-
       The objects contained in the composite object can be referenced through the composite objects set and get methods.
-
 
       @example
         @js
@@ -270,7 +240,6 @@
             return composite;
           }
 
-
           var face1 = createFace();
           var face2 = createFace();
           var face3 = createFace();
@@ -287,7 +256,6 @@
           face3.set('face.fill.color', '#995522');
           face3.set('position.x', 40);
           face3.set('angle', 0.5);
-
 
           // make the drawing fit the canvas
           drawing.show(drawing, 1.5);
@@ -310,7 +278,6 @@
         // enable mouse-wheel zoom, and pinch zoom on touch devices.
         drawing.enableZoom();
 
-
     @section Moving [the camera]
 
       The position of the camera can be set directly using the following:
@@ -319,7 +286,6 @@
         drawing.camera.position.x = 100;
         drawing.camera.position.y = 250;
 
-
     @section Showing [an object]
 
       The position and zoom of the camera can be changed so that a chosen object appears at the centre of the screen:
@@ -327,9 +293,7 @@
       @@codeblock js
         drawing.show(obj);
 
-
       See the api docs for more details.
-
 
     @section Following [an object]
 
@@ -338,9 +302,7 @@
       @@codeblock js
         drawing.follow(obj);
 
-
       Again, see the api docs for more details.
-
 
     @section Limiting [the camera's movements]
       The minimum and maximum zoom of the camera can be set to limit the zoom range:
@@ -348,7 +310,6 @@
       @@codeblock js
         drawing.camera.zoomMin = 0.5;
         drawing.camera.zoomMax = 1.5;
-
 
       Both zoomMin and zoomMax are scale factors - so 1 represents no zooming, 0.5 represents zooming out, and showing everything at 50% scale, and 1.5 represents zooming in, showing everything at 150% scale.
 
@@ -366,10 +327,7 @@
 
       Animations are a useful way to convey changing state to a user. Animated drawings don't just make a page more engaging; an animated drawing contains more information than a static one.
 
-
       Almost every property of a drawing object can be animated. This means you can animate positions, sizes, colors, and even text containing numbers. There are a couple of properties where it does not make sense to be able to animate, and these are outlined in the api docs.
-
-
 
       <div class="hx-layout hx-group hx-horizontal">
       <div class="hx-section hx-medium">
@@ -455,13 +413,10 @@
 
       The same method used to set property values is used to animate them. The third parameter to the set method is the duration in milliseconds that the transition should take. The animation will always start from it's current value and end at the value provided.
 
-
       @@codeblock js
         obj.set('property', value, duration);
 
-
       If a property is set half way through an animation, the animation will be discarded, and the property value will be set. If another animation is applied whilst another animation is running, the current animation will stop, and the new one will start from the current state.
-
 
     @section End [of animation callback]
 
@@ -469,7 +424,6 @@
         obj.set('property', value, duration, function(){
           // gets called when the animation finishes
         });
-
 
       An optional callback can be supplied to be called at the end of a property animation. This callback will also be called if the animation is interrupted. See the api section for more details.
 
@@ -507,7 +461,6 @@
           circle.set('radius', 10);
           circle.set('selectable', true);
 
-
           var circle = drawing.create('circle');
           circle.set('position.x', 25);
           circle.set('fill.color', '#664422');
@@ -517,30 +470,22 @@
           // make the drawing fit the canvas
           drawing.show(drawing, 2);
 
-
       Objects can be made selectable by calling:
-
 
       @@codeblock js
         obj.set('selectable', true);
 
-
       In addition to this, the drawing must also have selection enabled:
-
 
       @@codeblock js
         drawing.enableSelection();
 
-
       The selected objects can be accessed via the @code[selected] method on the drawing:
-
 
       @@codeblock js
         var selected = drawing.selected();
 
-
       Objects can also be selected using the .select method on the drawing object:
-
 
       @@codeblock js
         var circle = drawing.create('circle');
@@ -548,12 +493,9 @@
 
         drawing.select(circle);
 
-
-
     @section Detecting [clicks]
 
       The drawing object is an event emitter, which enables you to detect clicks as follows:
-
 
       @@codeblock js
         drawing.on('click', function(position){
@@ -563,18 +505,14 @@
           console.log(position);
         })
 
-
     @section Enabling [the search box]
 
       Drawings can be given a search box to give users a way to search for objects within the drawing:
 
-
       @@codeblock js
         drawing.enableSearchbox();
 
-
       This on it's own won't actually do anything. It simply causes a box to be displayed on the drawing that the user can input searches to. To act on these searches, you must listen out for search events being emitted on the drawing object. Here is one way you could act on a search event being emitted.
-
 
       @@codeblock js
         drawing.on('search', function(searchString){
@@ -588,10 +526,7 @@
           }
         });
 
-
-
       Example: try searching for circle-1, circle-2 or circle-3 in this drawing:
-
 
       @example
         @html
@@ -628,7 +563,6 @@
           circle.set('radius', 10);
           circle.set('selectable', true);
 
-
           var circle = drawing.create('circle', 'circle-3');
           circle.set('position.x', 25);
           circle.set('fill.color', '#664422');
@@ -644,9 +578,7 @@
 
       Drawings internally by default all draw to a layer that is created by default. More layers-zoom can be added to a drawing via the createLayer method. Layers do one thing: allow you to hide or show groups of objects.
 
-
       The following example allows you to toggle between two layers which show alternative views of something:
-
 
       @example
         @html
@@ -710,12 +642,9 @@
             }
           }, true);
 
-
-
     @section Linking [zoom level to layer visibility]
 
       The visibility of a layer can also be linked to the zoom level of the camera. This make it possible to create diagrams which reveal more detail when zoomed in close, and show an overview when zoomed out.
-
 
       @example
         @html
@@ -772,7 +701,6 @@
           createArea(25, 3);
 
           drawing.show(drawing, 1.1);
-
 
           layer1.setAlphaCurve('ramp', 2, 1);
           layer2.setAlphaCurve('ramp', 1, 2);

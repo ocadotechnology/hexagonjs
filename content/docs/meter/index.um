@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Meter
-  @versioned 
+  @versioned
     @version 0.12.7
-      @description 
+      @description
         A component for displaying the progress of an activity.
 
 

@@ -1,22 +1,22 @@
 @version 0.14.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="timepicker"></div>
         <div id="timepickerseconds"></div>
 
-      @js 
+      @js
         new hx.TimePicker('#timepicker')
         new hx.TimePicker('#timepickerseconds', {showSeconds: true})
 
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="timepicker"></div>
         <div id="timepickerseconds"></div>
 
-      @js 
+      @js
         new hx.TimePicker('#timepicker')
         new hx.TimePicker('#timepickerseconds', true)
 

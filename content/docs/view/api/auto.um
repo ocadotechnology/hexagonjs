@@ -1,14 +1,12 @@
-@updated 1.2.0
-  @issue 148
-  @description
-    Improve the performance of view
-
-
 @updated 1.1.0
   @issue 14
   @description
     Views will now show a warning if the element returned from the enter method does not match the expectation of the view
 
+@updated 1.2.0
+  @issue 148
+  @description
+    Improve the performance of view
 
 @prototype View
   @bugfix 1.10.0
@@ -30,7 +28,6 @@
         view.enter(function(datum, i) {
           return this.append('div').classed('some-view').node()
         });
-
 
       Every time a new node is needed in the page this function will be called. The 'this' context for the function will be a Selection to which you can append your new element. The first argument to the function will be the piece of data that you are transforming into dom elements, and the second argument is an index.
 
@@ -60,7 +57,6 @@
           this.remove()
         });
 
-
       In most cases this should be sufficient. Should you want to apply some transition when elements are removed, then a different exit function can be provided that changed the way that elements are removed.
 
       The enter function supplied has a this context which is a Selection which has the element that is to be removed selected. This is why this.remove() is called as the default behaviour. The first argument is the data that the element used to represent. Remember that this element is no longer 'linked' to any data in any way, since it is being removed. The second argument is the HTMLElement that is to be removed. This is the same element that is selected in the selection provided via 'this'. The third argument is an index.
@@ -68,7 +64,6 @@
     @arg func [Function]
       @description
         The exit function to use when calling .apply()
-
 
     @returns [View]
 
@@ -83,7 +78,6 @@
           this.text(datum.name)
         });
 
-
       Calling view.update(function...) does nothing on its own. It simply sets the update function to use when view.apply() is called.
 
       The this context for the update function is a Selection with the element to be updated selected. The first argument to the function is the data to update the element with. The second argument is the same element to be updated (the same element selected in the selection provided by 'this'). The third argument is an index.
@@ -93,7 +87,6 @@
     @arg func [Function]
       @description
         The update function to use when calling .apply()
-
 
     @returns [View]
 
@@ -106,7 +99,6 @@
     @arg data [Array[Object] / Object]
       @description
         The data to apply to this view.
-
 
     @arg? key [Function[Object]]
       @description

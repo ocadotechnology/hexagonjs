@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Morphs
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         A standard collection of transitions for entering and exiting elements
 
 

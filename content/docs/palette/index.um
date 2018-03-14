@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Palette
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         Gives access to the theme's color palette and adds classes for coloring elements with the theme colors.
 
 

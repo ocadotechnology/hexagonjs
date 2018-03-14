@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Time Slider
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         An extension of the standard slider, customised for time selection.
 
 

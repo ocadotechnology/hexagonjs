@@ -4,13 +4,13 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Number Picker
-  @versioned 
+  @versioned
     @version 0.10.0
-      @description 
+      @description
         A number picker component - for picking an integer value.
 
     @version 0.9.0
-      @description 
+      @description
         A number picker component - for picking an integer value.
 
 

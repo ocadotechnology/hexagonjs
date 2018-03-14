@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Morph Section
-  @versioned 
+  @versioned
     @version 0.10.0
-      @description 
+      @description
         Two classes for creating elements that transform.
 
 

@@ -1,7 +1,7 @@
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="example" class="hx-tree">
           <div class="hx-tree-node">
             <div class="hx-tree-node-parent"><div class="hx-tree-node-content">Parent 1</div></div>
@@ -25,9 +25,9 @@
         var tree = new hx.Tree('#example')
 
 @version 1.0.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="example" class="hx-tree">
           <div class="hx-tree-node">
             <div class="hx-tree-node-parent"><div class="hx-tree-node-content">Parent 1</div></div>
@@ -47,17 +47,14 @@
           </div>
         </div>
 
-      
-      @js 
+      @js
         var tree = new hx.Tree('#example')
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div id="example-dynamic"></div>
 
-      
-      @js 
+      @js
         var tree = new hx.Tree('#example-dynamic', {
           renderer: function (elem, data) { hx.select(elem).html(data.name) },
           items: [

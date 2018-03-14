@@ -1,161 +1,145 @@
 @prototype hx.Drawing
   @updated 0.11.0
-    @description 
+    @description
       Added resize listener to make drawings re-render when the container is resized.
-      
 
   @updated 0.11.0
-    @description 
+    @description
       Added sidebar method and themes to allow for better overlays
-      
 
-  @description 
+  @description
     Used to create interactive drawings.
 
   @extends EventEmitter
-  @constructor 
-    @description 
+  @constructor
+    @description
       Creates a new Drawing.
 
     @arg selector [String]
-      @description 
+      @description
         A CSS selector which uniquely identifies the element to create the drawing in.
-        
 
-  @constructor 
-    @description 
+  @constructor
+    @description
       Creates a new Drawing.
 
     @arg selector [HTMLElement]
-      @description 
+      @description
         The HTMLElement where the drawing should be created.
-        
 
   @property camera [Camera]
-    @description 
+    @description
       The camera object used by this drawing. See the Camera class docs for more details.
-      
 
   @method resume
-    @description 
+    @description
       Resumes the drawing after stop has been called.
 
   @method stop
-    @description 
+    @description
       Stops the drawing from updating (until resume is called). This should be also be called when removing a drawing from the page, as could happen in single page apps.
 
   @method find
-    @description 
+    @description
       Find a drawing object by id. This is an O(1) lookup.
 
     @arg id [String]
-      @description 
+      @description
         The id of the object to find. This will be the random id that gets generated automatically for an object, or the custom id that was supplied when it was created. See the create method for more details.
-        
 
     @returns [DrawingObject]
-      @description 
+      @description
         the drawing object with the id provided, or undefined if no object with that id was found.
-        
 
   @method findBy
-    @description 
+    @description
       Find an object using an indicator function. This will loop through all objects in the drawing and find the first that satisfies the condition. This is an O(n) (where n is the number of objects in the drawing)
 
     @arg indicator [Function]
       @arg obj [DrawingObject]
       @returns [Boolean]
-        @description 
+        @description
           true if the object satisfies the conditions being searched for.
-          
 
     @returns [DrawingObject]
-      @description 
+      @description
         the first drawing object that satisfied the indicator function, or undefined if none was found.
-        
 
   @method createLayer
-    @description 
+    @description
       Creates a new layer in this drawing.
 
     @returns [Layer]
-      @description 
+      @description
         The newly created layer
-        
 
   @method showLayer
-    @description 
+    @description
       Shows the layer supplied, and hides all other layers.
 
   @method follow
-    @description 
+    @description
       Make the camera follow an object as it moves around the drawing. If the user pans with the mouse, then this follow instruction is cancelled.
 
     @arg obj [DrawingObject]
-      @description 
+      @description
         The drawing object to follow.
-        
 
     @arg? zoomOut [Number]
-      @description 
+      @description
         How much to zoom the camera out by when following the object.
-        
 
       @defaultValue 1
 
     @arg? continuallyEvaluateZoom
-      @description 
+      @description
         Whether or not the zoom level should be re-evaluated every update when following an object.
-        
 
       @defaultValue false
 
   @method show
-    @description 
+    @description
       Make the camera show an object. This is the same as follow, except that the camera will not continue to follow the object after showing it in view.
 
     @arg obj [DrawingObject]
-      @description 
+      @description
         The drawing object to show.
-        
 
     @arg? zoomOut [Number]
-      @description 
+      @description
         How much to zoom the camera out by when showing the object.
-        
 
       @defaultValue 1
 
   @method enablePan
-    @description 
+    @description
       Enables mouse/touch control for panning around the drawing.
 
   @method enableZoom
-    @description 
+    @description
       Enables mouse wheel/pinch-to-zoom control for zooming in on drawings.
 
   @method enableSelection
-    @description 
+    @description
       Allows objects to be selected by clicking on them. Selection is disabled by default as there is a performance penalty when clicking drawings with many (hundreds of thousands) of objects. Individual objects must also have selection enabled using .set('selectable', true) in order to be selectable.
 
   @method enablePerformanceGauge
-    @description 
+    @description
       Shows a performance gauge in the corner of the drawing, displaying how many frames per second the drawing is achieving, and how long a frame takes to render in milliseconds.
 
   @method enableSearchbox
-    @description 
+    @description
       Shows a search box in the corner of the drawing, and causes the drawing to emit 'search' events when the user performs a search.
 
   @method create
-    @description 
+    @description
       Creates a new object in the default layer.
 
     @arg type [String]
-      @description 
+      @description
         The type of primitive to create, should be one of:
 
-        
-        @list 
+        @list
           @item[rectangle]
           @item[circle]
           @item[line]
@@ -165,172 +149,148 @@
           @item[composite]
 
     @arg? id [String]
-      @description 
+      @description
         By default a random id is created for each new object. To override this behaviour, supply an id here.
-        
 
       @defaultValue hx.randomId()
 
     @returns [DrawingObject]
-      @description 
+      @description
         Returns one of Rectangle, Circle, Line, Text, Grid, Shape or Composite, depending on the type given.
-        
 
   @method delete
-    @description 
+    @description
       Removes an object from the drawing
 
     @arg obj [DrawingObject]
-      @description 
+      @description
         The object to remove
-        
 
   @method select
-    @description 
+    @description
       Select an object in the drawing. This requires that enableSelection has been called in order to work.
 
     @arg obj [DrawingObject]
-      @description 
+      @description
         The object to select
-        
 
   @method unselect
-    @description 
+    @description
       Unselects an object in the drawing.
 
   @method unselectAll
-    @description 
+    @description
       Unselects all selected objects in the drawing.
 
   @method selected
-    @description 
+    @description
       Returns the list of selected drawing objects.
 
     @returns [Array[DrawingObject]]
 
   @method deleteAll
-    @description 
+    @description
       Removes all objects from the drawing
 
   @method enableSidebar
     @added 0.11.0
-    @description 
+    @description
       A function for enabling and populating the drawing sidebar.
 
     @arg position [String]
-      @description 
+      @description
         The position of the sidebar. Accepted values are 't', 'r', 'b', 'l' and correspond to top, right, bottom and left respectively.
-        
 
     @arg? togglePosition [String]
-      @description 
+      @description
         The position of the toggle button for opening/closing the sidebar. This consists of a two character string (e.g. 'bl') which corresponds to one of the corners of the drawing. If this value is not provided, no toggle button is shown and the second argument becomes the populate function.
-        
 
     @arg populate [Function]
-      @description 
+      @description
         The function called to populate the sidebar. It is called when the sidebar is enabled to give the sidebar content.
-        
 
       @arg elem [HTMLElement]
-        @description 
+        @description
           The sidebar element to populate.
-          
 
   @property sidebar
     @added 0.11.0
-    @description 
+    @description
       A property that is added after the sidebar is enabled with the @code[enableSidebar] method.
 
     @property selection [Selection]
-      @description 
+      @description
         A selection containing the sidebar element.
-        
 
     @property visible [Boolean]
-      @description 
+      @description
         Whether or not the sidebar is visible.
-        
 
     @method show [Function]
-      @description 
+      @description
         A method for showing the sidebar. It is aliased to @code[showSidebar] as a method on hx.Drawing.
-        
 
     @method hide [Function]
-      @description 
+      @description
         A method for hiding the sidebar. It is aliased to @code[hideSidebar] as a method on hx.Drawing.
-        
 
     @method toggle [Function]
-      @description 
+      @description
         A method for toggling the sidebar. It is aliased to @code[toggleSidebar] as a method on hx.Drawing.
-        
 
   @method showSidebar
     @added 0.11.0
-    @description 
+    @description
       A method for showing the sidebar once @code[enableSidebar] has been called.
-      
 
   @method hideSidebar
     @added 0.11.0
-    @description 
+    @description
       A method for hiding the sidebar once @code[enableSidebar] has been called.
-      
 
   @method toggleSidebar
     @added 0.11.0
-    @description 
+    @description
       A method for toggling the sidebar once @code[enableSidebar] has been called.
-      
 
 @prototype Camera
-  @description 
+  @description
     Every drawing has one of these camera instances accessible at drawing.camera.
 
   @property zoom [Number]
-    @description 
+    @description
       The zoom level of the camera. 1 shows everything at normal scale, 0.5 shows everything at 50% scale (zoomed out), 150% shows things at 150% scale (zoomed in).
-      
 
   @property position [Object]
-    @description 
+    @description
       An object with x and y properties that contain the position of the camera.
-      
 
   @property zoomMin [Number]
-    @description 
+    @description
       The minimum zoom level allowed. zoom cannot be set to a value smaller than this.
-      
 
   @property zoomMax [Number]
-    @description 
+    @description
       The maximum zoom level allowed. zoom cannot be set to a value larger than this.
-      
 
   @property xMin [Number]
-    @description 
+    @description
       The minimum x level allowed. position.x cannot be set to a value smaller than this.
-      
 
   @property yMin [Number]
-    @description 
+    @description
       The minimum y level allowed. position.y cannot be set to a value smaller than this.
-      
 
   @property xMax [Number]
-    @description 
+    @description
       The maximum x level allowed. position.x cannot be set to a value larger than this.
-      
 
   @property yMax [Number]
-    @description 
+    @description
       The maximum y level allowed. position.y cannot be set to a value larger than this.
-      
 
   @method setupBounds
-    @description 
+    @description
       A helper method for setting up the bounds for camera position and zoom levels (xMin, xMax, ..., zoomMin, zoomMax)
 
     @arg zoomMin [Number]
@@ -341,29 +301,26 @@
     @arg yMax [Number]
 
 @prototype Layer
-  @description 
+  @description
     Returned from Drawing.createLayer
 
   @property visible [Boolean]
-    @description 
+    @description
       Whether or not this layer is visible. The default is true (visible).
-      
 
   @property alpha [Number]
-    @description 
+    @description
       The opacity of the layer. A value between 0 and 1.
-      
 
   @method create
-    @description 
+    @description
       Creates a new object in this layer.
 
     @arg type [String]
-      @description 
+      @description
         The type of primitive to create, should be one of:
 
-        
-        @list 
+        @list
           @item[rectangle]
           @item[circle]
           @item[line]
@@ -373,98 +330,87 @@
           @item[composite]
 
     @arg? id [String]
-      @description 
+      @description
         By default a random id is created for each new object. To override this behaviour, supply an id here.
-        
 
       @defaultValue hx.randomId()
 
     @returns [DrawingObject]
-      @description 
+      @description
         Returns one of Rectangle, Circle, Line, Text, Grid, Shape or Composite, depending on the type given.
-        
 
   @method delete
-    @description 
+    @description
       Removes an object from the layer
 
     @arg obj [DrawingObject]
-      @description 
+      @description
         The object to remove
-        
 
   @method find
-    @description 
+    @description
       Find a drawing object by id within this layer. This is an O(1) lookup.
 
     @arg id [String]
-      @description 
+      @description
         The id of the object to find. This will be the random id that gets generated automatically for an object, or the custom id that was supplied when it was created. See the create method for more details.
-        
 
     @returns [DrawingObject]
-      @description 
+      @description
         the drawing object with the id provided, or undefined if no object with that id was found.
-        
 
   @method findBy
-    @description 
+    @description
       Find an object using an indicator function within this layer. This will loop through all objects in the layer and find the first that satisfies the condition. This is an O(n) (where n is the number of objects in the layer)
 
     @arg indicator [Function]
       @arg obj [DrawingObject]
       @returns [Boolean]
-        @description 
+        @description
           true if the object satisfies the conditions being searched for.
-          
 
     @returns [DrawingObject]
-      @description 
+      @description
         the first drawing object that satisfied the indicator function, or undefined if none was found.
-        
 
   @method setAlphaCurve
-    @description 
+    @description
       Links the alpha value of this layer to the zoom level of the drawing.
 
     @arg type [String]
-      @description 
+      @description
         The type of curve to use, currently the available types are <a href="http://en.wikipedia.org/wiki/Triangular_function">'triangle'</a> and <a href="http://en.wikipedia.org/wiki/Ramp_function">'ramp'</a>.
-        
 
     @arg start [Number]
-      @description 
+      @description
         The start point of the ramp or triangle.
-        
 
     @arg end [Number]
-      @description 
+      @description
         The end point of the ramp or triangle.
-        
 
   @method deleteAll
-    @description 
+    @description
       Removes all objects from the layer
 
 @prototype DrawingObject
-  @description 
+  @description
     The base class for all primitives
 
 @prototype Rectangle
-  @description 
+  @description
     A primitive type for drawing a rectangle. Create with drawing.create('rectangle') or layer.create('rectangle').
 
   @method set
-    @description 
+    @description
       Sets the value of one of the properties of this object, optionally animating the change.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to set. The available properties are:
 
-        
         Properties that can be animated:
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[width]
@@ -473,46 +419,40 @@
           @item[outline.color]
           @item[outline.width]
 
-        
         Properties that can't be animated:
-        @list 
+        @list
           @item[fill.enabled]
           @item[outline.enabled]
 
     @arg value [Any]
-      @description 
+      @description
         The value to set the property to.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         If set, the property will be animated to this value, and the animation will take duration milliseconds.
-        
 
     @arg? animationEnd [Function]
-      @description 
+      @description
         A function to call at the end of the animation.
-        
 
       @arg complete [Boolean]
-        @description 
+        @description
           true if the animation completed
-          
 
       @arg? valueAtInterrupt [Any]
-        @description 
+        @description
           If complete is false, then this will contain the value of the property when the animation was interrupted.
-          
 
   @method get
-    @description 
+    @description
       Gets the current value of one of the properties of this object.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to get. The available properties are:
 
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[width]
@@ -524,25 +464,23 @@
           @item[outline.width]
 
     @returns [Any]
-      @description 
+      @description
         The value of the property
-        
 
 @prototype Circle
-  @description 
+  @description
     A primitive type for drawing a circle. Create with drawing.create('circle') or layer.create('circle').
 
   @method set
-    @description 
+    @description
       Sets the value of one of the properties of this object, optionally animating the change.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to set. The available properties are:
 
-        
         Properties that can be animated:
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[radius]
@@ -550,47 +488,40 @@
           @item[outline.color]
           @item[outline.width]
 
-        
         Properties that can't be animated:
-        @list 
+        @list
           @item[fill.enabled]
           @item[outline.enabled]
 
     @arg value [Any]
-      @description 
+      @description
         The value to set the property to.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         If set, the property will be animated to this value, and the animation will take duration milliseconds.
-        
 
     @arg? animationEnd [Function]
-      @description 
+      @description
         A function to call at the end of the animation.
-        
 
       @arg complete [Boolean]
-        @description 
+        @description
           true if the animation completed
-          
 
       @arg? valueAtInterrupt [Any]
-        @description 
+        @description
           If complete is false, then this will contain the value of the property when the animation was interrupted.
-          
 
   @method get
-    @description 
+    @description
       Gets the current value of one of the properties of this object.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to get. The available properties are:
 
-        
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[radius]
@@ -601,25 +532,23 @@
           @item[outline.width]
 
     @returns [Any]
-      @description 
+      @description
         The value of the property
-        
 
 @prototype Line
-  @description 
+  @description
     A primitive type for drawing a line. Create with drawing.create('line') or layer.create('line').
 
   @method set
-    @description 
+    @description
       Sets the value of one of the properties of this object, optionally animating the change.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to set. The available properties are:
 
-        
         Properties that can be animated:
-        @list 
+        @list
           @item[start.x]
           @item[start.y]
           @item[end.x]
@@ -628,39 +557,34 @@
           @item[width]
 
     @arg value [Any]
-      @description 
+      @description
         The value to set the property to.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         If set, the property will be animated to this value, and the animation will take duration milliseconds.
-        
 
     @arg? animationEnd [Function]
-      @description 
+      @description
         A function to call at the end of the animation.
-        
 
       @arg complete [Boolean]
-        @description 
+        @description
           true if the animation completed
-          
 
       @arg? valueAtInterrupt [Any]
-        @description 
+        @description
           If complete is false, then this will contain the value of the property when the animation was interrupted.
-          
 
   @method get
-    @description 
+    @description
       Gets the current value of one of the properties of this object.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to get. The available properties are:
 
-        @list 
+        @list
           @item[start.x]
           @item[start.y]
           @item[end.x]
@@ -669,72 +593,64 @@
           @item[width]
 
     @returns [Any]
-      @description 
+      @description
         The value of the property
-        
 
 @prototype Text
-  @description 
+  @description
      A primitive type for drawing text. Create with drawing.create('text') or layer.create('text').
 
   @method set
-    @description 
+    @description
       Sets the value of one of the properties of this object, optionally animating the change.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to set. The available properties are:
 
-        
         Properties that can be animated:
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[color]
           @item[size]
           @item[text]
 
-        
         Properties that can't be animated:
-        @list 
+        @list
           @item[font]
           @item[align.x]
           @item[align.y]
 
     @arg value [Any]
-      @description 
+      @description
         The value to set the property to.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         If set, the property will be animated to this value, and the animation will take duration milliseconds.
-        
 
     @arg? animationEnd [Function]
-      @description 
+      @description
         A function to call at the end of the animation.
-        
 
       @arg complete [Boolean]
-        @description 
+        @description
           true if the animation completed
-          
 
       @arg? valueAtInterrupt [Any]
-        @description 
+        @description
           If complete is false, then this will contain the value of the property when the animation was interrupted.
-          
 
   @method get
-    @description 
+    @description
       Gets the current value of one of the properties of this object.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to get. The available properties are:
 
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[color]
@@ -745,26 +661,23 @@
           @item[align.y]
 
     @returns [Any]
-      @description 
+      @description
         The value of the property
-        
-
 
 @prototype Grid
-  @description 
+  @description
     A primitive type for drawing a grid. Create with drawing.create('grid') or layer.create('grid').
 
   @method set
-    @description 
+    @description
       Sets the value of one of the properties of this object, optionally animating the change.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to set. The available properties are:
 
-        
         Properties that can be animated:
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[cellSize.x]
@@ -772,9 +685,8 @@
           @item[gridLines.color]
           @item[gridLines.width]
 
-        
         Properties that can't be animated:
-        @list 
+        @list
           @item[gridLines.enabled]
           @item[cells.enabled]
           @item[cells.states]
@@ -783,39 +695,34 @@
           @item[gridSize.y]
 
     @arg value [Any]
-      @description 
+      @description
         The value to set the property to.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         If set, the property will be animated to this value, and the animation will take duration milliseconds.
-        
 
     @arg? animationEnd [Function]
-      @description 
+      @description
         A function to call at the end of the animation.
-        
 
       @arg complete [Boolean]
-        @description 
+        @description
           true if the animation completed
-          
 
       @arg? valueAtInterrupt [Any]
-        @description 
+        @description
           If complete is false, then this will contain the value of the property when the animation was interrupted.
-          
 
   @method get
-    @description 
+    @description
       Gets the current value of one of the properties of this object.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to get. The available properties are:
 
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[cellSize.x]
@@ -830,74 +737,65 @@
           @item[cells.palette]
 
     @returns [Any]
-      @description 
+      @description
         The value of the property
-        
 
 @prototype Shape
-  @description 
+  @description
     A primitive type for drawing an arbitrary shape. Create with drawing.create('shape') or layer.create('shape').
 
   @method set
-    @description 
+    @description
       Sets the value of one of the properties of this object, optionally animating the change.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to set. The available properties are:
 
-        
         Properties that can be animated:
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[fill.color]
           @item[outline.width]
           @item[outline.color]
 
-        
         Properties that can't be animated:
-        @list 
+        @list
           @item[fill.enabled]
           @item[outline.enabled]
           @item[curve]
           @item[polygon]
 
     @arg value [Any]
-      @description 
+      @description
         The value to set the property to.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         If set, the property will be animated to this value, and the animation will take duration milliseconds.
-        
 
     @arg? animationEnd [Function]
-      @description 
+      @description
         A function to call at the end of the animation.
-        
 
       @arg complete [Boolean]
-        @description 
+        @description
           true if the animation completed
-          
 
       @arg? valueAtInterrupt [Any]
-        @description 
+        @description
           If complete is false, then this will contain the value of the property when the animation was interrupted.
-          
 
   @method get
-    @description 
+    @description
       Gets the current value of one of the properties of this object.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to get. The available properties are:
 
-        
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[fill.enabled]
@@ -909,25 +807,23 @@
           @item[polygon]
 
     @returns [Any]
-      @description 
+      @description
         The value of the property
-        
 
 @prototype Composite
-  @description 
+  @description
     A primitive type for grouping other primitives together. Create with drawing.create('composite') or layer.create('composite').
 
   @method set
-    @description 
+    @description
       Sets the value of one of the properties of this object, optionally animating the change.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to set. The available properties are:
 
-        
         Properties that can be animated:
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[angle]
@@ -935,40 +831,34 @@
           @item[objectName._ (these properties can only be animated if the property of the nested object being referred to supports animation)]
 
     @arg value [Any]
-      @description 
+      @description
         The value to set the property to.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         If set, the property will be animated to this value, and the animation will take duration milliseconds.
-        
 
     @arg? animationEnd [Function]
-      @description 
+      @description
         A function to call at the end of the animation.
-        
 
       @arg complete [Boolean]
-        @description 
+        @description
           true if the animation completed
-          
 
       @arg? valueAtInterrupt [Any]
-        @description 
+        @description
           If complete is false, then this will contain the value of the property when the animation was interrupted.
-          
 
   @method get
-    @description 
+    @description
       Gets the current value of one of the properties of this object, or one of the nested objects.
 
     @arg name [String]
-      @description 
+      @description
         The name of the property to get. The available properties are:
 
-        
-        @list 
+        @list
           @item[position.x]
           @item[position.y]
           @item[angle]
@@ -976,20 +866,18 @@
           @item[objectName._]
 
     @returns [Any]
-      @description 
+      @description
         The value of the property
-        
 
   @method create
-    @description 
+    @description
       Creates a new object in this composite object.
 
     @arg type [String]
-      @description 
+      @description
         The type of primitive to create, should be one of:
 
-        
-        @list 
+        @list
           @item[rectangle]
           @item[circle]
           @item[line]
@@ -999,53 +887,47 @@
           @item[composite]
 
     @arg name [String]
-      @description 
+      @description
         The name which can be used to access the object.
-        
 
     @returns [DrawingObject]
-      @description 
+      @description
         Returns one of Rectangle, Circle, Line, Text, Grid, Shape or Composite, depending on the type given.
-        
 
   @method delete
-    @description 
+    @description
       Removes an object from this composite object.
 
     @arg name [String]
-      @description 
+      @description
         The name of the object to remove.
-        
 
 @class hx-drawing-sidebar
   @added 0.11.0
-  @description 
+  @description
     The class given to the sidebar element when it is created.
 
   @class hx-drawing-sidebar-title
-    @description 
+    @description
       The class to give to title elements to show within the drawing sidebar. It adds padding and a background color to the element.
 
   @class hx-drawing-sidebar-content
-    @description 
+    @description
       A class to give to the sidebar content when populating the sidebar.
 
 @function hx.drawing
   @added 1.0.0
-    @description 
+    @description
       Fluid api version of Drawing
-      
 
-  @description 
+  @description
     Creates a new Drawing set up on a detached element, wrapped in a selection
 
   @arg options [Object]
-    @description 
+    @description
       See the options object for constructing Drawing
-      
 
   @returns [Selection]
-    @description 
+    @description
       A selection containing an element with an Drawing initialised on it
-      
 

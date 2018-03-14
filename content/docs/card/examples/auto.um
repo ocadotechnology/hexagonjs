@@ -1,8 +1,8 @@
 @version 0.15.2
-  @examples 
-    
-    @example 
-      @html 
+  @examples
+
+    @example
+      @html
         <div class="cardExample hx-group hx-horizontal">
           <div class="hx-card hx-section">
             <div class="hx-card-section hx-card-header">
@@ -35,39 +35,38 @@
           </div>
         </div>
 
-      
-      @css 
+      @css
         .cardExample {
           /* Make the cards only take up as much height as they need */
           align-items: flex-start;
         }
 
 @version 1.0.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="card-container"></div>
 
-      @js 
+      @js
         function titleText (title, text) {
           return hx.card.section()
             .add(hx.card.title({text: title}))
             .add(hx.card.text({text: text}))
         }
-        
+
         function sparkline (options) {
           return hx.card.group()
             .add(hx.card.fixed.section().add(hx.card.text({text: options.text})))
             .add(hx.card.section().add(hx.sparkline({strokeColor: options.sparklineColor, data: options.sparklineData})))
         }
-        
+
         function random (i) {
           return {
             x: i,
             y: Math.random()
           }
         }
-        
+
         function statusCard (name, context) {
           return hx.card()
             .add(hx.card.header.section({ context: context})
@@ -84,20 +83,19 @@
               .add(sparkline({text: 'Page Hits', sparklineColor: hx.theme.plot.colors[2], sparklineData: hx.range(60).map(random)}))
               .add(sparkline({text: 'Messages Processed', sparklineColor: hx.theme.plot.colors[3], sparklineData: hx.range(60).map(random)})))
         }
-        
+
         hx.select('#card-container')
           .add(statusCard('Instance 1', undefined))
           .add(statusCard('Instance 2', 'positive'))
           .add(statusCard('Instance 3', 'negative'))
-        
 
 @version 1.4.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="card-container"></div>
 
-      @js 
+      @js
         function titleText (title, text) {
           return hx.card.section()
             .add(hx.detached('div')
@@ -105,20 +103,20 @@
             .add(hx.detached('div')
             .add(hx.card.text({text: text})))
         }
-        
+
         function sparkline (options) {
           return hx.card.group()
             .add(hx.card.fixed.section().add(hx.card.text({text: options.text})))
             .add(hx.card.section().add(hx.sparkline({strokeColor: options.sparklineColor, data: options.sparklineData})))
         }
-        
+
         function random (i) {
           return {
             x: i,
             y: Math.random()
           }
         }
-        
+
         function statusCard (name, context) {
           return hx.card()
             .add(hx.card.header.section({ context: context})
@@ -135,10 +133,9 @@
               .add(sparkline({text: 'Page Hits', sparklineColor: hx.theme.plot.colors[2], sparklineData: hx.range(60).map(random)}))
               .add(sparkline({text: 'Messages Processed', sparklineColor: hx.theme.plot.colors[3], sparklineData: hx.range(60).map(random)})))
         }
-        
+
         hx.select('#card-container')
           .add(statusCard('Instance 1', undefined))
           .add(statusCard('Instance 2', 'positive'))
           .add(statusCard('Instance 3', 'negative'))
-        
 

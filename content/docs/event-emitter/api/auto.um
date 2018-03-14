@@ -15,22 +15,18 @@
       @description
         The event type to emit.
 
-
     @arg data [Object]
       @description
         Any data that should be sent along with the event
-
 
     @returns [EventEmitter]
       @description
         This event emitter
 
-
   @method off
     @removed 0.10.0
       @description
         The new off method has an optional namespace parameter
-
 
     @description
       De-register a callback that was registered under the given name
@@ -39,28 +35,23 @@
       @description
         The event type this callback was registered under.
 
-
     @arg? callback [Function]
       @description
         The callback function to remove.
-
 
     @returns [EventEmitter]
       @description
         This event emitter
 
-
   @method deregister
-    @removed 0.11.0
-      @description
-        @@codeblock
-          eventEmitter.off('event-name', [callback])
-
-
     @deprecated 0.10.0
       @description
         Use eventEmitter.off('event-name', [callback]) instead.
 
+    @removed 0.11.0
+      @description
+        @@codeblock
+          eventEmitter.off('event-name', [callback])
 
     @description
       De-register a callback that was registered under the given name
@@ -69,28 +60,23 @@
       @description
         The event type this callback was registered under.
 
-
     @arg callback [Function]
       @description
         The callback function to remove.
-
 
     @returns [EventEmitter]
       @description
         This event emitter
 
-
   @method deregisterAll
-    @removed 0.11.0
-      @description
-        @@codeblock
-          eventEmitter.off()
-
-
     @deprecated 0.10.0
       @description
         Use eventEmitter.off() instead
 
+    @removed 0.11.0
+      @description
+        @@codeblock
+          eventEmitter.off()
 
     @description
       De-registers all callbacks registered under a particular name, or, if no name is supplied de-register all callbacks.
@@ -99,11 +85,9 @@
       @description
         The event type to de-register callbacks for. If not specified, all callbacks for all names will be removed.
 
-
     @returns [EventEmitter]
       @description
         This event emitter
-
 
   @method pipe
     @description
@@ -112,7 +96,6 @@
     @arg eventEmitter [EventEmitter]
       @description
         The event emitter to send events to.
-
 
     @arg? prefix [String]
       @description
@@ -148,7 +131,6 @@
       @description
         This event emitter
 
-
   @method has
     @description
       Checks if there are any callbacks registered for an event type.
@@ -157,20 +139,17 @@
       @description
         The event type to check.
 
-
     @returns [Boolean]
       @description
         True if the event type has some callbacks registered.
 
-
   @method off
+    @added 0.10.0
     @bugfix 1.8.0
       @issue 179
       @description
         Updated the off method to clean up the internal objects when removing the last listener for a namespace
 
-
-    @added 0.10.0
     @description
       De-register a callback that was registered under the given name. If called with no arguments, all handlers will be removed from the event emitter for all names and namespaces.
 
@@ -178,21 +157,17 @@
       @description
         The event type this callback was registered under.
 
-
     @arg? namespace [String]
       @description
         The namespace to remove handlers from. If not specified handlers will be removed from all namespaces. To remove handlers from the default handler supply "default" for the namespace name.
-
 
     @arg? callback [Function]
       @description
         The callback function to remove.
 
-
     @returns [EventEmitter]
       @description
         This event emitter
-
 
   @method suppressed
     @added 0.13.0
@@ -203,16 +178,13 @@
       @description
         The event name to change the suppression state of.
 
-
     @arg suppressed [Boolean]
       @description
         True to prevent any events of the given name from being emitted, false to re-enable emission (which is the default behaviour).
 
-
     @returns [EventEmitter]
       @description
         This EventEmitter
-
 
   @method suppressed
     @added 0.13.0
@@ -223,9 +195,7 @@
       @description
         The event name to check the suppression state of.
 
-
     @returns [Boolean]
       @description
         True if the events of the given name are being suppressed, false if not.
-
 

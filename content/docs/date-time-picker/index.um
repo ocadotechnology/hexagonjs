@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Date Time Picker
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         A combined date/time picker component, for selecting both date and time at the same time.
 
 

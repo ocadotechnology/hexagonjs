@@ -1,74 +1,63 @@
-@bugfix 1.2.0
-  @issue 85
-  @issue 135
+@bugfix 0.15.3
   @description
-    Fixed the table row selection so that single row selection works properly
-
-
-@bugfix 1.2.0
-  @issue 154
-  @description
-    Update hx.dataTable.urlFeed so that it uses the correct callback format from hx.json
-
+    Fix an issue with data-tables not using custom renderers in mobile mode.
 
 @updated 1.1.0
   @issue 60
   @description
     Updated the cell styles for data tables so that changing the background color in the cellRenderer does not display with incorrect padding
 
-@bugfix 0.15.3
+@bugfix 1.2.0
+  @issue 85
+  @issue 135
   @description
-    Fix an issue with data-tables not using custom renderers in mobile mode.
+    Fixed the table row selection so that single row selection works properly
 
+@bugfix 1.2.0
+  @issue 154
+  @description
+    Update hx.dataTable.urlFeed so that it uses the correct callback format from hx.json
 
 @prototype hx.DataTable
-  @bugfix 1.10.0
-    @issue 352
+  @added 0.15.0
     @description
-      Resolved an issue where setting the filter with the api would not update the filter input.
+      Added a new module for creating data tables to replace the Extended Table module.
 
-  @bugfix 1.8.0
-    @issue 323
+  @bugfix 0.15.2
     @description
-      Resolved an issue where nested tables would never hide their 'Loading' overlay
+      Fixed a bug where the sort controls were showing in compact mode when sorting had been disabled.
 
+  @bugfix 1.0.0
+    @description
+      Updated the compact sort picker to use the @code[headerCellRenderer] for each column
+
+  @bugfix 1.0.0
+    @description
+      Updated the styles to make the compact mode more compact
 
   @updated 1.5.0
     @description
       Updated the compact view to have a collapsible control panel that houses the search, sort and advanced search controls so that compact tables take up less space
-
 
   @updated 1.5.0
     @issue 49
     @description
       Updated the data table to include options for Advanced searching (multi-column filtering) as well as showing the search above the table
 
-
   @bugfix 1.5.0
     @issue 252
     @description
       Resolved an issue where the classes for showing/hiding the sort were not being applied correctly
 
-
-  @bugfix 1.0.0
+  @bugfix 1.8.0
+    @issue 323
     @description
-      Updated the compact sort picker to use the @code[headerCellRenderer] for each column
+      Resolved an issue where nested tables would never hide their 'Loading' overlay
 
-
-  @bugfix 1.0.0
+  @bugfix 1.10.0
+    @issue 352
     @description
-      Updated the styles to make the compact mode more compact
-
-
-  @bugfix 0.15.2
-    @description
-      Fixed a bug where the sort controls were showing in compact mode when sorting had been disabled.
-
-
-  @added 0.15.0
-    @description
-      Added a new module for creating data tables to replace the Extended Table module.
-
+      Resolved an issue where setting the filter with the api would not update the filter input.
 
   @description
     A component to allow tables to be created dynamically using Javascript that contains features such as filtering, sorting and pagination.
@@ -82,18 +71,15 @@
       @description
         A CSS selector string which uniquely identifies the element to create the table in, or the Element to create the table in.
 
-
     @arg? options [Object]
       @description
         The options to use when creating the data table
-
 
       @property allowHeaderWrap [Boolean]
         @description
           A boolean to determine whether table headers should be allowed to wrap onto multiple lines.
           @default
             false
-
 
       @property cellRenderer [Function]
         @description
@@ -104,36 +90,29 @@
                 hx.select(element).text(cell);
               }
 
-
         @arg element [HTMLElement]
           @description
             The element that is being populated.
-
 
         @arg cell [Object]
           @description
             The data for the cell.
 
-
         @arg row [Object]
           @description
             The entire row object.
-
 
       @property collapsibleRenderer [Function]
         @description
           A function for rendering collapsibles. For rows to be collapsible, this function must be provided.
 
-
         @arg element [HTMLElement]
           @description
             The collapsible content that is being populated.
 
-
         @arg row [Object]
           @description
             The entire row object
-
 
       @property columns [Object]
         @description
@@ -157,58 +136,47 @@
           @description
             Column specific version of the allowHeaderWrap option
 
-
         @property sortEnabled [Boolean]
           @description
             Column specific version of the sortEnabled option
-
 
         @property cellRenderer [Function]
           @description
             Column specific version of the cellRenderer option
 
-
           @arg element [HTMLElement]
             @description
               The element that is being populated.
 
-
           @arg cell [Object]
             @description
               The data for the cell.
-
 
           @arg row [Object]
             @description
               The entire row object.
 
-
         @property headerCellRenderer [Function]
           @description
             Column specific version of the headerCellRenderer option
-
 
           @arg element [HTMLElement]
             @description
               The element that is being populated.
 
-
           @arg cell [Object]
             @description
               The data for the cell.
 
-
           @arg headers [Object]
             @description
               The entire headers object.
-
 
         @property maxWidth [Number]
           @added 1.1.0
             @issue 11
             @description
               Added an option for setting the max width for a column
-
 
           @description
             A value that can be used to set the max width for a column to enable more structured table layouts.
@@ -246,13 +214,11 @@
         @description
           The filter to apply when creating the table
 
-
       @property filterEnabled [Boolean]
         @description
           A boolean to determine whether filtering should be enabled.
           @default
             true
-
 
       @property headerCellRenderer [Function]
         @description
@@ -263,21 +229,17 @@
                 hx.select(element).text(cell.name);
               }
 
-
         @arg element [HTMLElement]
           @description
             The element that is being populated.
-
 
         @arg cell [Object]
           @description
             The data for the cell.
 
-
         @arg headers [Object]
           @description
             The entire headers object.
-
 
       @property noDataMessage [String]
         @updated 1.4.0
@@ -285,19 +247,16 @@
           @description
             The default text is now taken from the user facing text module.
 
-
         @description
           A string that is displayed when there is no data in the table.
           @default
             [hx.userFacingText('dataTable','noData')]
-
 
       @property pageSize [Number]
         @description
           A number to determine how many rows should be shown on a page.
           @default
             15
-
 
       @property pageSizeOptions [Array[Number]]
         @description
@@ -311,13 +270,11 @@
           @default
             true
 
-
       @property retainVerticalScrollOnRender [Boolean]
         @description
           A boolean to determine whether the vertical scroll should be retained when re-rendering the current page of data.
           @default
             false
-
 
       @property rowCollapsibleLookup [Function]
         @description
@@ -328,16 +285,13 @@
                 return false;
               }
 
-
         @arg row [Object]
           @description
             The data for the current row.
 
-
         @returns [Boolean]
           @description
             Whether the row should have a collapsible
-
 
       @property rowEnabledLookup [Function]
         @description
@@ -348,16 +302,13 @@
                 return !row.disabled;
               }
 
-
         @arg row [Object]
           @description
             The data for the current row.
 
-
         @returns [Boolean]
           @description
             Whether the row should be disabled. True means that the row should be enabled, false means it should be disabled.
-
 
       @property rowIDLookup [Function]
         @description
@@ -370,16 +321,13 @@
 
             This could be changed to use one of the column values as the id (providing it is unique across all the data in the table)
 
-
         @arg row [Object]
           @description
             The data for the current row.
 
-
         @returns [String]
           @description
             The id of the row provided
-
 
       @property rowSelectableLookup [Function]
         @description
@@ -390,23 +338,19 @@
                 return true;
               }
 
-
         @arg row [Object]
           @description
             The data for the current row.
 
-
         @returns [Boolean]
           @description
             Whether the row can be selected.
-
 
       @property selectEnabled [Boolean]
         @description
           A boolean to determine whether the selection of rows should be enabled.
           @default
             false
-
 
       @property singleSelection [Boolean]
         @description
@@ -418,11 +362,9 @@
         @description
           The sort to apply when creating the table. No sorting is applied by default
 
-
         @property column [String]
           @description
             The column id to sort on
-
 
         @property direction [String]
           @description
@@ -472,7 +414,7 @@
         @description
           The text to display in the selected rows information bar.
 
-          The @code['$total'] variables can be substituted in, e.g for a table with 3 rows and 1 row selected:
+          The @code['$selected'] and @code['$total'] variables can be substituted in, e.g for a table with 3 rows and 1 row selected:
 
           @@codeblock js
             options = {
@@ -541,15 +483,13 @@
           @default
             false
 
-
       @property addFilterText [String]
         @added 1.5.0
           @issue 49
 
         @description
           The text to display on the add filter button
-          @default @code]
-
+          @default @code[hx.userFacingText('dataTable', 'addFilter')]
 
       @property clearFiltersText [String]
         @added 1.5.0
@@ -557,8 +497,7 @@
 
         @description
           The text to display on the clear filters button
-          @default @code]
-
+          @default @code[hx.userFacingText('dataTable', 'clearFilters')]
 
       @property anyColumnText [String]
         @added 1.5.0
@@ -566,8 +505,7 @@
 
         @description
           The text to display for the 'any column' option when creating advanced search filters
-          @default @code]
-
+          @default @code[hx.userFacingText('dataTable', 'anyColumn')]
 
       @property advancedSearchText [String]
         @added 1.5.0
@@ -575,8 +513,7 @@
 
         @description
           The text to display on the advanced search toggle
-          @default @code]
-
+          @default @code[hx.userFacingText('dataTable', 'advancedSearch')]
 
       @property advancedSearchPlaceholder [String]
         @added 1.5.0
@@ -584,8 +521,7 @@
 
         @description
           The text to display in the advanced search filter input boxes
-          @default @code]
-
+          @default @code[hx.userFacingText('dataTable', 'search')]
 
       @property advancedSearchCriteria [Array[String]]
         @added 1.12.0
@@ -596,9 +532,7 @@
         @description
           An array of types that the advanced search for the data table is allowed to use. The values that can be used can be found in @code[hx.filter.types()] .
 
-
           Setting this to undefined disables the ability to change the filter criteria and uses 'contains' filtering.
-
 
           This value can be set per-column
 
@@ -624,7 +558,6 @@
         @description
           The collapsibleRenderer option
 
-
     @method collapsibleRenderer
       @description
         Sets the collapsibleRenderer option
@@ -633,16 +566,13 @@
         @description
           The value for the collapsibleRenderer option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method compact
       @description
@@ -652,7 +582,6 @@
         @description
           The compact option
 
-
     @method compact
       @description
         Sets the compact option
@@ -661,16 +590,13 @@
         @description
           The value for the compact option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method displayMode
       @description
@@ -680,7 +606,6 @@
         @description
           The displayMode option
 
-
     @method displayMode
       @description
         Sets the displayMode option
@@ -689,16 +614,13 @@
         @description
           The value for the displayMode option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method feed
       @description
@@ -708,7 +630,6 @@
         @description
           The feed option
 
-
     @method feed
       @description
         Sets the feed option
@@ -717,16 +638,13 @@
         @description
           The value for the feed option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method filter
       @description
@@ -736,7 +654,6 @@
         @description
           The filter option
 
-
     @method filter
       @description
         Sets the filter option
@@ -745,16 +662,13 @@
         @description
           The value for the filter option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method filterEnabled
       @description
@@ -764,7 +678,6 @@
         @description
           The filterEnabled option
 
-
     @method filterEnabled
       @description
         Sets the filterEnabled option
@@ -773,16 +686,13 @@
         @description
           The value for the filterEnabled option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method noDataMessage
       @description
@@ -792,7 +702,6 @@
         @description
           The noDataMessage option
 
-
     @method noDataMessage
       @description
         Sets the noDataMessage option
@@ -801,16 +710,13 @@
         @description
           The value for the noDataMessage option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method pageSize
       @description
@@ -820,7 +726,6 @@
         @description
           The pageSize option
 
-
     @method pageSize
       @description
         Sets the pageSize option
@@ -829,16 +734,13 @@
         @description
           The value for the pageSize option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method pageSizeOptions
       @description
@@ -848,7 +750,6 @@
         @description
           The pageSizeOptions option
 
-
     @method pageSizeOptions
       @description
         Sets the pageSizeOptions option
@@ -857,16 +758,13 @@
         @description
           The value for the pageSizeOptions option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method retainHorizontalScrollOnRender
       @description
@@ -876,7 +774,6 @@
         @description
           The retainHorizontalScrollOnRender option
 
-
     @method retainHorizontalScrollOnRender
       @description
         Sets the retainHorizontalScrollOnRender option
@@ -885,16 +782,13 @@
         @description
           The value for the retainHorizontalScrollOnRender option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method retainVerticalScrollOnRender
       @description
@@ -904,7 +798,6 @@
         @description
           The retainVerticalScrollOnRender option
 
-
     @method retainVerticalScrollOnRender
       @description
         Sets the retainVerticalScrollOnRender option
@@ -913,16 +806,13 @@
         @description
           The value for the retainVerticalScrollOnRender option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method rowCollapsibleLookup
       @description
@@ -932,7 +822,6 @@
         @description
           The rowCollapsibleLookup option
 
-
     @method rowCollapsibleLookup
       @description
         Sets the rowCollapsibleLookup option
@@ -941,16 +830,13 @@
         @description
           The value for the rowCollapsibleLookup option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method rowEnabledLookup
       @description
@@ -960,7 +846,6 @@
         @description
           The rowEnabledLookup option
 
-
     @method rowEnabledLookup
       @description
         Sets the rowEnabledLookup option
@@ -969,16 +854,13 @@
         @description
           The value for the rowEnabledLookup option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method rowIDLookup
       @description
@@ -988,7 +870,6 @@
         @description
           The rowIDLookup option
 
-
     @method rowIDLookup
       @description
         Sets the rowIDLookup option
@@ -997,16 +878,13 @@
         @description
           The value for the rowIDLookup option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method rowSelectableLookup
       @description
@@ -1016,7 +894,6 @@
         @description
           The rowSelectableLookup option
 
-
     @method rowSelectableLookup
       @description
         Sets the rowSelectableLookup option
@@ -1025,16 +902,13 @@
         @description
           The value for the rowSelectableLookup option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method selectEnabled
       @description
@@ -1044,7 +918,6 @@
         @description
           The selectEnabled option
 
-
     @method selectEnabled
       @description
         Sets the selectEnabled option
@@ -1053,16 +926,13 @@
         @description
           The value for the selectEnabled option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method singleSelection
       @description
@@ -1072,7 +942,6 @@
         @description
           The singleSelection option
 
-
     @method singleSelection
       @description
         Sets the singleSelection option
@@ -1081,16 +950,13 @@
         @description
           The value for the singleSelection option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method sort
       @description
@@ -1100,7 +966,6 @@
         @description
           The sort option
 
-
     @method sort
       @description
         Sets the sort option
@@ -1109,16 +974,13 @@
         @description
           The value for the sort option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method allowHeaderWrap
       @description
@@ -1128,7 +990,6 @@
         @description
           The allowHeaderWrap option
 
-
     @method allowHeaderWrap
       @description
         Sets the allowHeaderWrap option
@@ -1137,16 +998,13 @@
         @description
           The value for the allowHeaderWrap option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method allowHeaderWrap
       @description
@@ -1156,11 +1014,9 @@
         @description
           The id of the column to get the allowHeaderWrap value for
 
-
       @returns [Boolean]
         @description
           The allowHeaderWrap option for the column
-
 
     @method allowHeaderWrap
       @description
@@ -1170,21 +1026,17 @@
         @description
           The id of the column to set the allowHeaderWrap value for
 
-
       @arg value [Boolean]
         @description
           The value to set
-
 
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method cellRenderer
       @description
@@ -1194,7 +1046,6 @@
         @description
           The cellRenderer option
 
-
     @method cellRenderer
       @description
         Sets the cellRenderer option
@@ -1203,16 +1054,13 @@
         @description
           The value for the cellRenderer option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method cellRenderer
       @description
@@ -1222,11 +1070,9 @@
         @description
           The id of the column to get the cellRenderer value for
 
-
       @returns [Function]
         @description
           The cellRenderer option for the column
-
 
     @method cellRenderer
       @description
@@ -1236,21 +1082,17 @@
         @description
           The id of the column to set the cellRenderer value for
 
-
       @arg value [Function]
         @description
           The value to set
-
 
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method headerCellRenderer
       @description
@@ -1260,7 +1102,6 @@
         @description
           The headerCellRenderer option
 
-
     @method headerCellRenderer
       @description
         Sets the headerCellRenderer option
@@ -1269,16 +1110,13 @@
         @description
           The value for the headerCellRenderer option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method headerCellRenderer
       @description
@@ -1288,11 +1126,9 @@
         @description
           The id of the column to get the headerCellRenderer value for
 
-
       @returns [Function]
         @description
           The headerCellRenderer option for the column
-
 
     @method headerCellRenderer
       @description
@@ -1302,21 +1138,17 @@
         @description
           The id of the column to set the headerCellRenderer value for
 
-
       @arg value [Function]
         @description
           The value to set
-
 
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method sortEnabled
       @description
@@ -1326,7 +1158,6 @@
         @description
           The sortEnabled option
 
-
     @method sortEnabled
       @description
         Sets the sortEnabled option
@@ -1335,16 +1166,13 @@
         @description
           The value for the sortEnabled option
 
-
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method sortEnabled
       @description
@@ -1354,11 +1182,9 @@
         @description
           The id of the column to get the sortEnabled value for
 
-
       @returns [Boolean]
         @description
           The sortEnabled option for the column
-
 
     @method sortEnabled
       @description
@@ -1368,21 +1194,17 @@
         @description
           The id of the column to set the sortEnabled value for
 
-
       @arg value [Boolean]
         @description
           The value to set
-
 
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method maxWidth
       @added 1.1.0
@@ -1395,11 +1217,9 @@
         @description
           The id of the column to get the maxWidth value for
 
-
       @returns [Number]
         @description
           The maxWidth option for the column
-
 
     @method maxWidth
       @added 1.1.0
@@ -1412,21 +1232,17 @@
         @description
           The id of the column to set the maxWidth value for
 
-
       @arg value [Number]
         @description
           The value to set
-
 
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
     @method showAdvancedSearch
       @added 1.5.0
@@ -1439,11 +1255,9 @@
         @description
           The value for the showAdvancedSearch option
 
-
       @returns [DataTable]
         @description
           This data table
-
 
     @method showAdvancedSearch
       @added 1.5.0
@@ -1456,7 +1270,6 @@
         @description
           The value of the showAdvancedSearch option
 
-
     @method advancedSearchEnabled
       @added 1.5.0
         @issue 49
@@ -1468,11 +1281,9 @@
         @description
           The value for the advancedSearchEnabled option
 
-
       @returns [DataTable]
         @description
           This data table
-
 
     @method advancedSearchEnabled
       @added 1.5.0
@@ -1485,7 +1296,6 @@
         @description
           The value of the advancedSearchEnabled option
 
-
     @method showSearchAboveTable
       @added 1.5.0
         @issue 49
@@ -1497,11 +1307,9 @@
         @description
           The value for the showSearchAboveTable option
 
-
       @returns [DataTable]
         @description
           This data table
-
 
     @method showSearchAboveTable
       @added 1.5.0
@@ -1514,7 +1322,6 @@
         @description
           The value of the showSearchAboveTable option
 
-
     @method advancedSearch
       @added 1.5.0
         @issue 49
@@ -1525,7 +1332,6 @@
       @returns [Array[Array[Object]]]
         @description
           The currently set array of advanced search filter
-
 
     @method advancedSearch
       @added 1.5.0
@@ -1538,11 +1344,9 @@
         @description
           The advanced search array to set
 
-
       @returns [DataTable]
         @description
           This data table
-
 
     @method advancedSearchCriteria
       @added 1.12.0
@@ -1557,7 +1361,6 @@
         @description
           The currently set array of advancedSearchCriteria filter
 
-
     @method advancedSearchCriteria
       @added 1.12.0
         @issue 401
@@ -1571,11 +1374,9 @@
         @description
           The advancedSearchCriteria array to set
 
-
       @returns [DataTable]
         @description
           This data table
-
 
     @method advancedSearchCriteria
       @added 1.12.0
@@ -1590,11 +1391,9 @@
         @description
           The id of the column to get the advancedSearchCriteria value for
 
-
       @returns [Array[String]]
         @description
           The advancedSearchCriteria option for the column
-
 
     @method advancedSearchCriteria
       @added 1.12.0
@@ -1609,21 +1408,17 @@
         @description
           The id of the column to set the advancedSearchCriteria value for
 
-
       @arg value [Array[String]]
         @description
           The value to set
-
 
       @arg? callback [Function]
         @description
           The function to call once rendering is complete
 
-
       @returns [DataTable]
         @description
           This DataTable
-
 
   @method page
     @description
@@ -1633,7 +1428,6 @@
       @description
         The currently selected page
 
-
   @method page
     @description
       Sets the current page
@@ -1642,16 +1436,13 @@
       @description
         The current page to set
 
-
     @arg? callback [Function]
       @description
         The function to call once rendering is complete
 
-
     @returns [DataTable]
       @description
         This DataTable
-
 
   @method selectedRows
     @description
@@ -1661,7 +1452,6 @@
       @description
         The array of selected row ids
 
-
   @method selectedRows
     @description
       Sets the selected rows
@@ -1670,16 +1460,13 @@
       @description
         The array of row ids to set as selected
 
-
     @arg? callback [Function]
       @description
         The function to call once rendering is complete
 
-
     @returns [DataTable]
       @description
         This DataTable
-
 
   @method expandedRows
     @description
@@ -1689,7 +1476,6 @@
       @description
         The array of expanded row ids
 
-
   @method expandedRows
     @description
       Sets the expanded rows
@@ -1698,16 +1484,13 @@
       @description
         The array of row ids to set as expanded
 
-
     @arg? callback [Function]
       @description
         The function to call once rendering is complete
 
-
     @returns [DataTable]
       @description
         This DataTable
-
 
   @method rowsForIds
     @description
@@ -1717,27 +1500,22 @@
       @description
         The array of row ids to get from the data
 
-
     @arg callback [Function]
       @description
         The function to call once the rows have been retrieved
-
 
       @arg rows [Array[Object]]
         @description
           The array of row objects returned from the feed
 
-
   @method suppressRender
-    @removed 1.0.0
-      @description
-        Use @code[renderSuppressed()] instead
-
-
     @deprecated 0.15.2
       @description
         Use @code[renderSuppressed()] instead
 
+    @removed 1.0.0
+      @description
+        Use @code[renderSuppressed()] instead
 
     @description
       A method for getting the suppressed state of the table.
@@ -1746,17 +1524,14 @@
       @description
         Whether the table is suppressed
 
-
   @method suppressRender
-    @removed 1.0.0
-      @description
-        Use @code[renderSuppressed(value)] instead
-
-
     @deprecated 0.15.2
       @description
         Use @code[renderSuppressed(value)] instead
 
+    @removed 1.0.0
+      @description
+        Use @code[renderSuppressed(value)] instead
 
     @description
       A method for preventing the render from changing anything until unsuppressed.
@@ -1765,11 +1540,9 @@
       @description
         Whether to suppress the render.
 
-
     @returns [DataTable]
       @description
         This DataTable
-
 
   @method render
     @description
@@ -1779,17 +1552,14 @@
       @description
         The function to call once rendering is complete
 
-
     @returns [DataTable]
       @description
         This DataTable
-
 
   @method renderSuppressed
     @added 0.15.2
       @description
         Added a new method to replace @code[suppressRender] as the name did not make it clear that it was a setter/getter.
-
 
     @description
       A method for getting the suppressed state of the table.
@@ -1798,12 +1568,10 @@
       @description
         Whether the table render is suppressed
 
-
   @method renderSuppressed
     @added 0.15.2
       @description
         Added a new method to replace @code[suppressRender] as the name did not make it clear that it was a setter/getter.
-
 
     @description
       A method for preventing the render from changing anything until unsuppressed.
@@ -1812,11 +1580,9 @@
       @description
         Whether to suppress the render
 
-
     @returns [DataTable]
       @description
         This DataTable
-
 
   @event selectedrowschange [Object]
     @description
@@ -1826,21 +1592,17 @@
       @description
         The selected rows (a list of ids).
 
-
     @property? row [Object]
       @description
         The row that was selected (if this event was caused by the user clicking on the row check)
-
 
     @property? rowValue [Boolean]
       @description
         Whether or not the row that was clicked on is now selected (if this event was caused by the user clicking on the row check)
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event selectedrowsclear
     @description
@@ -1854,27 +1616,22 @@
       @description
         The expanded rows (a list of ids).
 
-
     @property? row [Object]
       @description
         The row that was expanded or collapsed (if this event was caused by the user clicking on the expand toggle)
-
 
     @property? rowValue [Boolean]
       @description
         Whether or not the row that was clicked on is now expanded  (if this event was caused by the user clicking on the expand toggle)
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event rowclick [Object]
     @bugfix 0.15.2
       @description
         Updated the row click event data to include the row data as well as the row node
-
 
     @description
       An object containing the row data and the row node.
@@ -1884,12 +1641,10 @@
       @description
         The data for the row
 
-
     @property node [HTMLElement]
       @added 0.15.2
       @description
         The node for the row
-
 
   @event render
     @description
@@ -1903,11 +1658,9 @@
       @description
         The selected page number, starting from 1.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means a call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event collapsiblerendererchange [Object]
     @description
@@ -1917,11 +1670,9 @@
       @description
         The value of the collapsibleRenderer option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event compactchange [Object]
     @description
@@ -1931,16 +1682,13 @@
       @description
         The value of the compact option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
 
-
     @property? mode [Boolean]
       @description
         If the cause is 'user', and the value is 'auto', this value will contain the actual compact mode (it will be true for compact, false for desktop)
-
 
   @event displaymodechange [Object]
     @description
@@ -1950,11 +1698,9 @@
       @description
         The value of the displayMode option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event feedchange [Object]
     @description
@@ -1964,11 +1710,9 @@
       @description
         The value of the feed option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event filterchange [Object]
     @description
@@ -1978,11 +1722,9 @@
       @description
         The value of the filter option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event filterenabledchange [Object]
     @description
@@ -1992,11 +1734,9 @@
       @description
         The value of the filterEnabled option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event nodatamessagechange [Object]
     @description
@@ -2006,11 +1746,9 @@
       @description
         The value of the noDataMessage option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event pagesizechange [Object]
     @description
@@ -2020,11 +1758,9 @@
       @description
         The value of the pageSize option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event pagesizeoptionschange [Object]
     @description
@@ -2034,11 +1770,9 @@
       @description
         The value of the pageSizeOptions option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event retainhorizontalscrollonrenderchange [Object]
     @description
@@ -2048,11 +1782,9 @@
       @description
         The value of the retainHorizontalScrollOnRender option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event retainverticalscrollonrenderchange [Object]
     @description
@@ -2062,11 +1794,9 @@
       @description
         The value of the retainVerticalScrollOnRender option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event rowcollapsiblelookupchange [Object]
     @description
@@ -2076,11 +1806,9 @@
       @description
         The value of the rowCollapsibleLookup option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event rowenabledlookupchange [Object]
     @description
@@ -2090,11 +1818,9 @@
       @description
         The value of the rowEnabledLookup option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event rowidlookupchange [Object]
     @description
@@ -2104,11 +1830,9 @@
       @description
         The value of the rowIDLookup option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event rowselectablelookupchange [Object]
     @description
@@ -2118,11 +1842,9 @@
       @description
         The value of the rowSelectableLookup option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event selectenabledchange [Object]
     @description
@@ -2132,11 +1854,9 @@
       @description
         The value of the selectEnabled option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event singleselectionchange [Object]
     @description
@@ -2146,11 +1866,9 @@
       @description
         The value of the singleSelection option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event sortchange [Object]
     @description
@@ -2160,11 +1878,9 @@
       @description
         The value of the sort option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event allowheaderwrapchange [Object]
     @description
@@ -2174,11 +1890,9 @@
       @description
         The value of the allowHeaderWrap option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event cellrendererchange [Object]
     @description
@@ -2188,11 +1902,9 @@
       @description
         The value of the cellRenderer option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event headercellrendererchange [Object]
     @description
@@ -2202,11 +1914,9 @@
       @description
         The value of the headerCellRenderer option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
 
   @event sortenabledchange [Object]
     @description
@@ -2216,12 +1926,9 @@
       @description
         The value of the sortEnabled option.
 
-
     @property cause [String]
       @description
         Can be 'user' or 'api', depending on what caused the change. 'api' means an call to the javascript api caused the change, 'user' means that the change was caused by inputting
-
-
 
 @object Feed
   @description
@@ -2247,11 +1954,9 @@
     @description
       Gets a list of header objects
 
-
     @arg callback [Function]
       @description
         The function to call once the data has been retrieved.
-
 
       @arg data [Array[Object]]
         @description
@@ -2270,28 +1975,23 @@
     @description
       Gets the total number of rows in the data set.
 
-
     @arg callback [Function]
       @description
         The function to call once the data has been retrieved.
-
 
       @arg data [Number]
         @description
           The total number of rows. This can be undefined if you don't know the total number of rows in the data set.
 
-
   @function rows
     @description
       Gets the row data for the range object specified along with the filtered count
-
 
     @arg range [Object]
       @updated 1.5.0
         @issue 49
         @description
           Updated the range parameter to include new advanced search properties
-
 
       @description
         The range to get the rows for. An example object can be seen below:
@@ -2313,43 +2013,35 @@
             ]
           }
 
-
         The above example would be expected to return the first 15 rows of data, sorted by the 'name' column in descending order.
 
       @property start [Number]
         @description
           The start of the range. Might be undefined if the all displayMode is used.
 
-
       @property end [Number]
         @description
           The end of the range. Might be undefined if the all displayMode is used.
-
 
       @property sort [Object]
         @description
           The sort being used.
 
-
         @property column [String]
           @description
             The column being sorted. Can be a column id or @code[undefined] indicating no sort.
-
 
         @property direction [String]
           @description
             The sort direction. Can be "asc", "desc" or undefined.
 
-
       @property filter [String]
         @description
           The filter being used.
 
-
     @arg callback [Function]
       @description
         The function to call once the data has been retrieved.
-
 
       @arg data [Object]
         @property filteredCount [Number]
@@ -2358,12 +2050,10 @@
             @description
               Fixed issue with page-size-selector for lazy feeds
 
-
           @bugfix 1.7.0
             @issue 306
             @description
               Fixed issue with page-selector for lazy feeds
-
 
           @description
             The number of all filtered rows in the feed. Can be undefined if the feed is lazy and the final size is unknown.
@@ -2386,7 +2076,6 @@
 
             A cell value must be provided for each column id for every row
 
-
   @function rowsForIds
     @description
       A function for getting the rows for an array of id's in the data.
@@ -2397,27 +2086,21 @@
       @description
         The array of row id's to lookup.
 
-
     @arg lookupRow [Function]
       @description
         The row id lookup function for the table
-
 
     @arg callback [Function]
       @description
         The function to call once the data has been retrieved.
 
-
       @arg data [Array[Object]]
         @description
           The array of row data retrieved from the id lookup
 
-
-
 @object hx.dataTable
   @description
     An object containing the default Feed object constructors and helpers for making custom feeds.
-
 
     See the Using Feeds section for more information about using and creating Feeds.
 
@@ -2435,7 +2118,6 @@
         The data to use in the feed.
 
         The data is expected in the following format:
-
 
         @@codeblock js
           {
@@ -2460,7 +2142,6 @@
       @description
         The options to use in the feed.
 
-
       @property filter [Function]
         @description
           Determines if the row should be included in the filtered data set.
@@ -2471,18 +2152,15 @@
           @description
             The search term
 
-
         @arg row [Object]
           @description
             The row data
-
 
       @property compare [Function]
         @updated 1.5.0
           @issue 49
           @description
             Updated the default sort function to use @code[hx.sort.compare] to provide better sorting
-
 
         @description
           The compare function used to sort the rows.
@@ -2491,23 +2169,19 @@
           @description
             The first cell value to compare
 
-
         @arg cell2 [String]
           @description
             The second cell value to compare
 
-
         @returns [Number]
           @description
             -1 if cell1 should be ordered before cell2, 0 if it is the same, +1 if it should be ordered after cell2
-
 
       @property cellValueLookup [Function]
         @added 1.5.0
           @issue 49
           @description
             Added options to the object feed to make it more configurable
-
 
         @description
           The function used to get a searchable string from a cell with it's value as an object
@@ -2516,18 +2190,15 @@
           @description
             The cell from the data being searched for a given column
 
-
         @returns [String]
           @description
             A searcheable string
-
 
       @property termLookup [Function]
         @added 1.5.0
           @issue 49
           @description
             Added options to the object feed to make it more configurable
-
 
         @description
           The function used to determine whether a row should be shown in the results
@@ -2543,26 +2214,21 @@
                 return hx.defined(validPart)
               }
 
-
         @arg filterTerm [String]
           @description
             The term entered in the filter
-
 
         @arg rowSearchTerm [String]
           @description
             The term for the given row/column value
 
-
         @returns [Boolean]
           @description
             A boolean to indicate whether the term has been found in the row
 
-
     @returns [Feed]
       @description
         A feed object. See the @code[Feed] object for more information on what a feed contains.
-
 
   @function urlFeed
     @description
@@ -2572,16 +2238,13 @@
       @description
         The url to use in the feed.
 
-
     @arg? options [Object]
       @description
         The options to use in the feed.
 
-
       @property extra [Any]
         @description
           Extra information to pass through to the requests made for data. This can be useful for identifying the table, or providing extra options when requesting data from the server.
-
 
       @property cache [Boolean]
         @description
@@ -2589,18 +2252,15 @@
           @default
             false
 
-
     @returns [Feed]
       @description
         A feed object. See the @code[Feed] object for more information on what a feed contains.
-
 
   @function getAdvancedSearchFilter
     @added 1.5.0
       @issue 49
       @description
         Added a helper for creating custom feeds using the advanced search
-
 
     @description
       A helper method for getting an advanced search filter when using a custom feed
@@ -2613,11 +2273,9 @@
         @description
           The cell from the data being searched for a given column
 
-
       @returns [String]
         @description
           A searcheable string
-
 
     @arg termLookup [Function]
       @description
@@ -2634,49 +2292,39 @@
               return hx.defined(validPart)
             }
 
-
       @arg filterTerm [String]
         @description
           The term entered in the filter
-
 
       @arg rowSearchTerm [String]
         @description
           The term for the given row/column value
 
-
       @returns [Boolean]
         @description
           A boolean to indicate whether the term has been found in the row
-
 
     @returns [Function]
       @description
         The function for checking if a single row matches the filters
 
-
       @arg filters [Array[Array[Object]]]
         @description
           The advanced search filters
-
 
       @arg row [Object]
         @description
           The row object
 
-
-
 @function hx.dataTable
-  @updated 1.1.0
-    @issue 59
-    @description
-      Make the fluid api data table function render the table if a feed is provided
-
-
   @added 1.0.0
     @description
       Fluid api version of DataTable
 
+  @updated 1.1.0
+    @issue 59
+    @description
+      Make the fluid api data table function render the table if a feed is provided
 
   @description
     Creates a new DataTable set up on a detached element, wrapped in a selection
@@ -2685,10 +2333,7 @@
     @description
       See the options object for constructing DataTable
 
-
   @returns [Selection]
     @description
       A selection containing an element with an DataTable initialised on it
-
-
 

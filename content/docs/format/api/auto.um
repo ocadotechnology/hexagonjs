@@ -12,24 +12,20 @@
       @description
         The number of significant figures to use.
 
-
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
         @default
           false
 
-
     @returns [Function]
       @arg number [Number]
         @description
           The number to format.
 
-
       @returns String
         @description
           The formatted string
-
 
   @function si
     @description
@@ -41,24 +37,20 @@
       @description
         The number of significant figures to use.
 
-
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
         @default
           false
 
-
     @returns [Function]
       @arg number [Number]
         @description
           The number to format.
 
-
       @returns String
         @description
           The formatted string
-
 
   @function exp
     @description
@@ -70,24 +62,20 @@
       @description
         The number of significant figures to use.
 
-
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
         @default
           false
 
-
     @returns [Function]
       @arg number [Number]
         @description
           The number to format.
 
-
       @returns String
         @description
           The formatted string
-
 
   @function fixed
     @description
@@ -100,24 +88,20 @@
       @description
         The number of digits to limit the number to.
 
-
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
         @default
           false
 
-
     @returns [Function]
       @arg number [Number]
         @description
           The number to format.
 
-
       @returns String
         @description
           The formatted string
-
 
   @function zeroPad
     @description
@@ -130,22 +114,18 @@
       @description
         The length of the output string
 
-
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
         @default
           false
 
-
     @returns [Function]
       @arg number [Number]
         @description
           The number to format.
 
-
       @returns String
         @description
           The formatted string
-
 

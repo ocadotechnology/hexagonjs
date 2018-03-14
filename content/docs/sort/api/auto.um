@@ -21,16 +21,13 @@
       @description
         The first item to compare
 
-
     @arg b [String/Number]
       @description
         The second item to compare
 
-
     @returns [Number]
       @description
         1 when b should be before a, -1 when a should be before b and 0 when the terms match.
-
 
   @property localeCompare [Function]
     @bugfix 1.11.0
@@ -44,19 +41,17 @@
 
       It takes into account the character order of text for a specific locale and the numeric order of numbers.
 
-      Some browsers don't support the @code[options] parameters.
+      Some browsers don't support the @code[locale] and @code[options] parameters.
 
-      Browser support and accepted values for the @code[options] parameters can be found on the
+      Browser support and accepted values for the @code[locale] and @code[options] parameters can be found on the
 
       @hyperlink(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)[localeCompare]
 
        page of the MDN.
 
-
       @@codeblock js
         svCompare = hx.sort.localeCompare('sv')
         array.sort(svCompare)
-
 
       svCompare in the above example would evaluate to:
       @@codeblock js
@@ -68,11 +63,9 @@
       @description
         The locale to use when sorting
 
-
     @arg? options [Object]
       @description
         The options to use when sorting
-
 
       @property nullsLast [Boolean]
         @added 1.11.0
@@ -88,21 +81,17 @@
       @description
         A function that compares two strings based on the passed in locale and options. To be passed into Array.sort.
 
-
       @arg a [String]
         @description
           The first item to compare
-
 
       @arg b [String]
         @description
           The second item to compare
 
-
       @returns Number
         @description
           1 when b should be before a, -1 when a should be before b and 0 when the terms match.
-
 
   @property compareNullsLast [Function]
     @added 1.11.0
@@ -117,11 +106,9 @@
       @description
         The first item to compare
 
-
     @arg b [String/Number]
       @description
         The second item to compare
-
 
     @returns [Number]
       @description
@@ -136,11 +123,9 @@
     @description
       The array to sort
 
-
   @returns [Array[Any]]
     @description
       The sorted array
-
 
 @function hx.sortBy
   @added 1.0.0
@@ -151,7 +136,6 @@
     @description
       The array to sort
 
-
   @arg f [Function]
     @description
       A function that takes each element of an array and returns a value that can be compared using < and ==
@@ -160,14 +144,11 @@
       @description
         The item to extract the value from
 
-
     @returns [item Any]
       @description
         The extracted item to sort by
 
-
   @returns [Array[Any]]
     @description
       The sorted array.
-
 

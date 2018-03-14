@@ -1,10 +1,10 @@
 @version 1.0.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="example"></div>
 
-      @js 
+      @js
         hx.select('#example')
           .add(hx.checkbox())
           .add(hx.button({context: 'positive'}).text('Positive Button'))

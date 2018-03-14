@@ -1,7 +1,16 @@
-@bugfix 1.8.1
+@bugfix 0.14.1
   @description
-    Fix an issue with the notifications that broke the string-based functionality
+    Fixed a style issue where long messages changed the layout of a notification
 
+@updated 1.1.0
+  @issue 69
+  @description
+    Updated the styles so that notifications show on top of modals when they are on screen without looking like they're floating in a strange manner.
+
+@bugfix 1.5.1
+  @issue 280
+  @description
+    Fixed the flex styles for notifications
 
 @info 1.8.0
   @issue 299
@@ -10,34 +19,18 @@
 
     The notifications will behave as they did previously with strings but now accept additional types for the message.
 
-
-@bugfix 1.5.1
-  @issue 280
+@bugfix 1.8.1
   @description
-    Fixed the flex styles for notifications
-
-
-@updated 1.1.0
-  @issue 69
-  @description
-    Updated the styles so that notifications show on top of modals when they are on screen without looking like they're floating in a strange manner.
-
-
-@bugfix 0.14.1
-  @description
-    Fixed a style issue where long messages changed the layout of a notification
-
+    Fix an issue with the notifications that broke the string-based functionality
 
 @prototype hx.NotificationManager
-  @bugfix 0.15.2
-    @description
-      Updated so that the notification containers have unique ID's so they don't cause the inbuilt notifications to display inside custom notification mangers
-
-
   @updated 0.13.0
     @description
       The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
 
+  @bugfix 0.15.2
+    @description
+      Updated so that the notification containers have unique ID's so they don't cause the inbuilt notifications to display inside custom notification mangers
 
   @description
     One of these can be created as a separate object if desired.
@@ -58,17 +51,14 @@
         @default
           'body'
 
-
   @method temporary
-    @removed 0.14.0
-      @description
-        Use @code[hx.notify(message, options)] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.notify(message, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.notify(message, options)] instead.
 
     @description
       Shows a temporary notification and returns the corresponding Notification object.
@@ -79,37 +69,30 @@
       @description
         The text to display in the notification
 
-
     @arg? icon [String]
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
-
 
     @arg? cssclass [String]
       @description
         The css class or classes to give the notification.
 
-
     @arg? timeout [Number]
       @description
         How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method permanent
-    @removed 0.14.0
-      @description
-        Use @code[hx.notify(message, options)] instead, setting @code[options.timeout] as @code[undefined]
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.notify(message, options)] instead, setting @code[options.timeout] as @code[undefined]
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.notify(message, options)] instead, setting @code[options.timeout] as @code[undefined]
 
     @description
       Shows a permanent notification and returns the corresponding Notification object. This will show an unstyled notification by default, but accepts a css class as an argument for custom styling. This type of notification will stay in the notification list until it is explicitly closed by the user, or is closed via javascript.
@@ -118,27 +101,22 @@
       @description
         The text to display in the notification
 
-
     @arg? icon [String]
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
-
 
     @arg? cssclass [String]
       @description
         The css class or classes to give the notification.
 
-
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method info
     @removed 0.9.0
       @description
-        The icon now automatically gets set for info notifications. If you wish to customise the icon use @code[NotificationManager.temporary] .
-
+        The icon now automatically gets set for info notifications. If you wish to customise the icon use @code[NotificationManager.permanent] or @code[NotificationManager.temporary] .
 
     @description
       Shows an information notification and returns a Notification object. This is a temporary notification that will dismiss itself after some time (5 seconds by default). There is the option to supply an icon to display in the top left of the notification. This notification type has the styling predefined for it in the hx-notification-info css class.
@@ -147,34 +125,28 @@
       @description
         The text to display in the notification
 
-
     @arg? icon [String]
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
-
 
     @arg? timeout [Number]
       @description
         How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
 
-
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method info
-    @removed 0.14.0
-      @description
-        Use @code[hx.notify.info(message, options)] instead.
-
-
+    @added 0.9.0
     @deprecated 0.13.0
       @description
         Use @code[hx.notify.info(message, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.notify.info(message, options)] instead.
 
-    @added 0.9.0
     @description
       Shows an information notification and returns a Notification object. This is a temporary notification that will dismiss itself after some time (5 seconds by default). There is the option to supply an icon to display in the top left of the notification. This notification type has the styling predefined for it in the hx-notification-info css class, and uses a predefined icon.
 
@@ -182,27 +154,22 @@
       @description
         The text to display in the notification
 
-
     @arg? timeout [Number]
       @description
         How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method warning
-    @removed 0.14.0
-      @description
-        Use @code[hx.notify.warning(message, options)] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.notify.warning(message, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.notify.warning(message, options)] instead.
 
     @description
       Shows a warning notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-warning css class, and uses a predefined icon.
@@ -211,24 +178,20 @@
       @description
         The text to display in the notification
 
-
     @arg? timeout [Number]
       @description
         How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method error
-    @removed 0.11.0
     @deprecated 0.9.0
       @description
         Use @code[NotificationManager.negative] instead.
 
-
+    @removed 0.11.0
     @description
       Shows an error notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-negative css class, and uses a predefined icon.
 
@@ -236,29 +199,24 @@
       @description
         The text to display in the notification
 
-
     @arg? timeout [Number]
       @description
         How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method negative
-    @removed 0.14.0
-      @description
-        Use @code[hx.notify.negative(message, options)] instead.
-
-
+    @added 0.9.0
     @deprecated 0.13.0
       @description
         Use @code[hx.notify.negative(message, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.notify.negative(message, options)] instead.
 
-    @added 0.9.0
     @description
       Shows an negative notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-negative css class, and uses a predefined icon.
 
@@ -266,29 +224,24 @@
       @description
         The text to display in the notification
 
-
     @arg? timeout [Number]
       @description
         How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method positive
-    @removed 0.14.0
-      @description
-        Use @code[hx.notify.positive(message, options)] instead.
-
-
+    @added 0.9.0
     @deprecated 0.13.0
       @description
         Use @code[hx.notify.positive(message, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.notify.positive(message, options)] instead.
 
-    @added 0.9.0
     @description
       Shows an positive notification and returns a Notification object. This is a temporary notification, and so will dismiss itself after some time (5 seconds by default). This notification type has the styling predefined for it in the hx-notification-positive css class, and uses a predefined icon.
 
@@ -296,16 +249,13 @@
       @description
         The text to display in the notification
 
-
     @arg? timeout [Number]
       @description
         How long (in seconds) the notification should hang around for before it dismisses itself. The default value is 5 seconds.
 
-
     @returns [Notification]
       @description
         The newly created Notification
-
 
   @method loading
     @removed 1.8.0
@@ -318,17 +268,15 @@
       @description
         The text to display in the notification
 
-
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method notify
+    @added 0.13.0
     @removed 1.8.0
       @issue 299
 
-    @added 0.13.0
     @description
       A method for showing a notification for a notification manager.
 
@@ -336,21 +284,17 @@
       @description
         The text to display in the notification
 
-
     @arg? options [Object]
       @description
         The options to use when setting up the notification.
-
 
       @property icon [String]
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -358,11 +302,9 @@
           @default
             5
 
-
       @property pinnable [Boolean]
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
-
 
       @property renderer [Function]
         @description
@@ -376,24 +318,21 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
 
-
   @method info
+    @added 0.13.0
     @removed 1.8.0
       @issue 299
 
-    @added 0.13.0
     @description
       Shows an information notification and returns a Notification object.
 
     @arg message [String]
       @description
         The text to display in the notification
-
 
     @arg? options [Object]
       @description
@@ -412,11 +351,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -430,7 +367,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -443,29 +379,25 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method warning
+    @added 0.13.0
     @removed 1.8.0
       @issue 299
 
-    @added 0.13.0
     @description
       Shows a warning notification and returns a Notification object.
 
     @arg message [String]
       @description
         The text to display in the notification
-
 
     @arg? options [Object]
       @description
@@ -484,11 +416,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -502,7 +432,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -515,29 +444,25 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method negative
+    @added 0.13.0
     @removed 1.8.0
       @issue 299
 
-    @added 0.13.0
     @description
       Shows an negative notification and returns a Notification object.
 
     @arg message [String]
       @description
         The text to display in the notification
-
 
     @arg? options [Object]
       @description
@@ -556,11 +481,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -574,7 +497,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -587,29 +509,25 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
-
 
     @returns [Notification]
       @description
         The newly created Notification
 
-
   @method positive
+    @added 0.13.0
     @removed 1.8.0
       @issue 299
 
-    @added 0.13.0
     @description
       Shows an positive notification and returns a Notification object.
 
     @arg message [String]
       @description
         The text to display in the notification
-
 
     @arg? options [Object]
       @description
@@ -628,11 +546,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -646,7 +562,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -659,16 +574,13 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
 
-
     @returns [Notification]
       @description
         The newly created Notification
-
 
   @method defaultTimeout
     @added 0.13.0
@@ -679,11 +591,9 @@
       @description
         The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
 
-
     @returns [Number]
       @description
         The default timeout when the timeout option is not specified.
-
 
   @method notify
     @added 1.8.0
@@ -711,8 +621,6 @@
           message.appendChild(document.createTextNode('Text To Display'))
           hx.notify(message)
 
-
-
         When using an Object as the message, a @code[renderer] must be provided in the options.
 
         @@codeblock js
@@ -735,16 +643,13 @@
       @description
         The options to use when setting up the notification.
 
-
       @property icon [String]
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -758,7 +663,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -771,16 +675,13 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
 
-
     @returns [Notification]
       @description
         The newly created Notification
-
 
   @method loading
     @added 1.8.0
@@ -808,8 +709,6 @@
           message.appendChild(document.createTextNode('Text To Display'))
           hx.notify(message)
 
-
-
         When using an Object as the message, a @code[renderer] must be provided in the options.
 
         @@codeblock js
@@ -831,7 +730,6 @@
     @returns [Notification]
       @description
         The newly created Notification
-
 
   @method info
     @added 1.8.0
@@ -858,8 +756,6 @@
           message = document.createElement('div')
           message.appendChild(document.createTextNode('Text To Display'))
           hx.notify(message)
-
-
 
         When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -896,11 +792,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -914,7 +808,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -927,16 +820,13 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
 
-
     @returns [Notification]
       @description
         The newly created Notification
-
 
   @method warning
     @added 1.8.0
@@ -963,8 +853,6 @@
           message = document.createElement('div')
           message.appendChild(document.createTextNode('Text To Display'))
           hx.notify(message)
-
-
 
         When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -1001,11 +889,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -1019,7 +905,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -1032,16 +917,13 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
 
-
     @returns [Notification]
       @description
         The newly created Notification
-
 
   @method negative
     @added 1.8.0
@@ -1068,8 +950,6 @@
           message = document.createElement('div')
           message.appendChild(document.createTextNode('Text To Display'))
           hx.notify(message)
-
-
 
         When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -1106,11 +986,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -1124,7 +1002,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -1137,16 +1014,13 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
 
-
     @returns [Notification]
       @description
         The newly created Notification
-
 
   @method positive
     @added 1.8.0
@@ -1173,8 +1047,6 @@
           message = document.createElement('div')
           message.appendChild(document.createTextNode('Text To Display'))
           hx.notify(message)
-
-
 
         When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -1211,11 +1083,9 @@
         @description
           The icon to display in the notification (expects a font awesome fa- icon).
 
-
       @property cssclass [String]
         @description
           The css class or classes to give the notification.
-
 
       @property timeout [Number]
         @description
@@ -1229,7 +1099,6 @@
         @description
           Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
       @property renderer [Function]
         @description
           The renderer to use when creating the notification.
@@ -1242,17 +1111,13 @@
           @description
             The notification content element to populate.
 
-
         @arg message [String/Object]
           @description
             The message passed into the notification.
 
-
     @returns [Notification]
       @description
         The newly created Notification
-
-
 
 @prototype Notification
   @description
@@ -1267,7 +1132,6 @@
       @description
         This Notification
 
-
   @method pin
     @added 0.9.0
     @description
@@ -1277,7 +1141,6 @@
       @added 0.13.0
       @description
         This Notification
-
 
   @method unpin
     @added 0.9.0
@@ -1289,17 +1152,14 @@
       @description
         This Notification
 
-
 @function hx.notify
-  @removed 0.14.0
-    @description
-      The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
-
-
   @deprecated 0.13.0
     @description
       The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
 
+  @removed 0.14.0
+    @description
+      The inbuild notification manager functions are accessible under the @code[hx.notify] object, e.g. @code[hx.notify(message, options)] or @code[hx.notify.info(message, options)] etc.
 
   @description
     A function for getting the inbuilt notification manager
@@ -1310,14 +1170,12 @@
     @description
       The newly created Notification
 
-
 @function hx.getNotificationManager
-  @removed 0.12.0
   @deprecated 0.11.0
     @description
       Use @code[hx.notify()] instead.
 
-
+  @removed 0.12.0
   @description
     A function for getting the inbuilt notification manager
 
@@ -1353,37 +1211,32 @@
       The class to add to style the notification with the theme's loading color.
 
 @function hx.notify.setDefaultTimeout
-  @removed 0.12.0
+  @added 0.10.0
   @deprecated 0.11.0
     @description
       Use @code[hx.notify.defaultTimeout(timeout)] instead.
 
-
-  @added 0.10.0
+  @removed 0.12.0
   @description
     A function for changing the default time out for notifications
 
   @arg timeout [Number]
     @description
       The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
-
 
 @function hx.getNotificationManager.setDefaultTimeout
-  @removed 0.12.0
+  @added 0.10.0
   @deprecated 0.11.0
     @description
       Use @code[hx.notify.defaultTimeout(timeout)] instead.
 
-
-  @added 0.10.0
+  @removed 0.12.0
   @description
     A function for changing the default time out for notifications
 
   @arg timeout [Number]
     @description
       The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
-
-
 
 @function hx.notify.defaultTimeout
   @added 0.11.0
@@ -1395,19 +1248,15 @@
     @description
       The default time out in seconds. Supplying undefined will revert the default back to its original value (5 seconds)
 
-
   @returns [Number]
     @description
       The default timeout when the timeout parameter is not specified.
 
-
-
-
 @function hx.notify
+  @added 0.13.0
   @removed 1.8.0
     @issue 299
 
-  @added 0.13.0
   @description
     Shows a notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[notify] method.
 
@@ -1415,21 +1264,17 @@
     @description
       The text to display in the notification
 
-
   @arg? options [Object]
     @description
       The options to use when setting up the notification.
-
 
     @property icon [String]
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -1443,7 +1288,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -1456,29 +1300,25 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
-
 
   @returns [Notification]
     @description
       The newly created Notification
 
-
 @function hx.notify.info
+  @added 0.13.0
   @removed 1.8.0
     @issue 299
 
-  @added 0.13.0
   @description
     Shows an information notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[info] method.
 
   @arg message [String]
     @description
       The text to display in the notification
-
 
   @arg? options [Object]
     @description
@@ -1497,11 +1337,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -1515,7 +1353,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -1528,22 +1365,19 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
-
 
   @returns [Notification]
     @description
       The newly created Notification
 
-
 @function hx.notify.loading
+  @added 0.13.0
   @removed 1.8.0
     @issue 299
 
-  @added 0.13.0
   @description
     Shows a loading notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[loading] method.
 
@@ -1551,24 +1385,21 @@
     @description
       The text to display in the notification
 
-
   @returns [Notification]
     @description
       The newly created Notification
 
-
 @function hx.notify.warning
+  @added 0.13.0
   @removed 1.8.0
     @issue 299
 
-  @added 0.13.0
   @description
     Shows a warning notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[warning] method.
 
   @arg message [String]
     @description
       The text to display in the notification
-
 
   @arg? options [Object]
     @description
@@ -1587,11 +1418,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -1605,7 +1434,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -1618,29 +1446,25 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
-
 
   @returns [Notification]
     @description
       The newly created Notification
 
-
 @function hx.notify.negative
+  @added 0.13.0
   @removed 1.8.0
     @issue 299
 
-  @added 0.13.0
   @description
     Shows a negative notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[negative] method.
 
   @arg message [String]
     @description
       The text to display in the notification
-
 
   @arg? options [Object]
     @description
@@ -1659,11 +1483,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -1677,7 +1499,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -1690,29 +1511,25 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
-
 
   @returns [Notification]
     @description
       The newly created Notification
 
-
 @function hx.notify.positive
+  @added 0.13.0
   @removed 1.8.0
     @issue 299
 
-  @added 0.13.0
   @description
     Shows a positive notification using the inbuilt notification manager and returns a Notification object. An alias for the inbuilt notification manager's @code[positive] method.
 
   @arg message [String]
     @description
       The text to display in the notification
-
 
   @arg? options [Object]
     @description
@@ -1731,11 +1548,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -1749,7 +1564,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -1762,17 +1576,13 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
 
-
   @returns [Notification]
     @description
       The newly created Notification
-
-
 
 @option loading-col
   @removed 0.14.0
@@ -1803,8 +1613,6 @@
         message.appendChild(document.createTextNode('Text To Display'))
         hx.notify(message)
 
-
-
       When using an Object as the message, a @code[renderer] must be provided in the options.
 
       @@codeblock js
@@ -1827,16 +1635,13 @@
     @description
       The options to use when setting up the notification.
 
-
     @property icon [String]
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -1850,7 +1655,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -1863,16 +1667,13 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
 
-
   @returns [Notification]
     @description
       The newly created Notification
-
 
 @function hx.notify.loading
   @added 1.8.0
@@ -1900,8 +1701,6 @@
         message.appendChild(document.createTextNode('Text To Display'))
         hx.notify(message)
 
-
-
       When using an Object as the message, a @code[renderer] must be provided in the options.
 
       @@codeblock js
@@ -1923,7 +1722,6 @@
   @returns [Notification]
     @description
       The newly created Notification
-
 
 @function hx.notify.info
   @added 1.8.0
@@ -1950,8 +1748,6 @@
         message = document.createElement('div')
         message.appendChild(document.createTextNode('Text To Display'))
         hx.notify(message)
-
-
 
       When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -1988,11 +1784,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -2006,7 +1800,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -2019,16 +1812,13 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
 
-
   @returns [Notification]
     @description
       The newly created Notification
-
 
 @function hx.notify.warning
   @added 1.8.0
@@ -2055,8 +1845,6 @@
         message = document.createElement('div')
         message.appendChild(document.createTextNode('Text To Display'))
         hx.notify(message)
-
-
 
       When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -2093,11 +1881,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -2111,7 +1897,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -2124,16 +1909,13 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
 
-
   @returns [Notification]
     @description
       The newly created Notification
-
 
 @function hx.notify.negative
   @added 1.8.0
@@ -2160,8 +1942,6 @@
         message = document.createElement('div')
         message.appendChild(document.createTextNode('Text To Display'))
         hx.notify(message)
-
-
 
       When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -2198,11 +1978,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -2216,7 +1994,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -2229,16 +2006,13 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
 
-
   @returns [Notification]
     @description
       The newly created Notification
-
 
 @function hx.notify.positive
   @added 1.8.0
@@ -2265,8 +2039,6 @@
         message = document.createElement('div')
         message.appendChild(document.createTextNode('Text To Display'))
         hx.notify(message)
-
-
 
       When using an Object as the message, a @code[renderer] must be provided in the options.
 
@@ -2303,11 +2075,9 @@
       @description
         The icon to display in the notification (expects a font awesome fa- icon).
 
-
     @property cssclass [String]
       @description
         The css class or classes to give the notification.
-
 
     @property timeout [Number]
       @description
@@ -2321,7 +2091,6 @@
       @description
         Whether or not the pin icon should be shown to allow the user to pin/unpin the notification.
 
-
     @property renderer [Function]
       @description
         The renderer to use when creating the notification.
@@ -2334,16 +2103,11 @@
         @description
           The notification content element to populate.
 
-
       @arg message [String/Object]
         @description
           The message passed into the notification.
 
-
   @returns [Notification]
     @description
       The newly created Notification
-
-
-
 

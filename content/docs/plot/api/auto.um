@@ -1,36 +1,8 @@
-@bugfix 1.8.0
-  @issue 290
-  @description
-    Prevent text wrapping in basic labels (e.g. sparklines)
-
-
-@bugfix 1.4.1
-  @issue 139
-  @description
-    Fix the styles for plot labels to prevent them causing a scrollbar
-
-
-@updated 1.0.0
-  @description
-    Removed the deprecated content from all the Plot api's as well as the declarative graphing api (hx.plot), including replacing all of the _new_ prefixed methods/properties with their unprefixed alternatives.
-
-
-@updated 1.0.0
-  @description
-    The plot api uses a new sampling method in this version called the 'Largest Three Buckets' algorithm. This should produce graphs that more faithfully represent the original data when downsampling.
-
-
-@bugfix 0.15.3
-  @description
-    Fix hover labels not appearing in the right position on the page
-
-
 @info 0.15.2
   @list
     @item
       @description
         The undocumented Series.data property has been changed to a public method.
-
 
 @updated 0.15.2
   @description
@@ -38,69 +10,78 @@
 
     This is something that is needed for the new Sparkline api, which is a simple wrapper around the Graph api for drawing tiny graphs. Series now have a labelRenderer method for setting custom labelRenderers. This matches the renderer pattern used throughout hexagon.
 
-
 @docs 0.15.2
   @description
     Updated the handbook to use the new api.
 
+@bugfix 0.15.3
+  @description
+    Fix hover labels not appearing in the right position on the page
+
+@updated 1.0.0
+  @description
+    Removed the deprecated content from all the Plot api's as well as the declarative graphing api (hx.plot), including replacing all of the _new_ prefixed methods/properties with their unprefixed alternatives.
+
+@updated 1.0.0
+  @description
+    The plot api uses a new sampling method in this version called the 'Largest Three Buckets' algorithm. This should produce graphs that more faithfully represent the original data when downsampling.
+
+@bugfix 1.4.1
+  @issue 139
+  @description
+    Fix the styles for plot labels to prevent them causing a scrollbar
+
+@bugfix 1.8.0
+  @issue 290
+  @description
+    Prevent text wrapping in basic labels (e.g. sparklines)
 
 @object hx.theme.plot
   @property colors [Array[String]]
     @description
       A list of graph colors
 
-
   @property warmCol [String]
     @description
       A warm color from the graph palette (red or orange)
-
 
   @property ambientCol [String]
     @description
       An ambient color from the graph palette
 
-
   @property coldCol [String]
     @description
       A colds color from the graph palette (most likely a shade of blue)
-
 
   @property positiveCol [String]
     @description
       A positive color from the graph palette (a shade of green)
 
-
   @property warningCol [String]
     @description
       A warning color from the graph palette (a shade of orange / yellow)
-
 
   @property negativeCol [String]
     @description
       A negative color from the graph palette (a shade of red)
 
-
 @prototype hx.Graph
-  @updated 1.4.0
-    @issue 211
-    @description
-      Updated the no data text to be defined in userFacingText
-
-
-  @bugfix 0.12.2
-    @description
-      Automatic scale calculation, stacking and grouping were broken in the 0.12.1 release. These have been fixed.
-
-
   @updated 0.11.0
     @description
       Added resize listener to make graphs re-render when the container is resized.
-
 
   @added 0.11.0
     @description
       Added the ability to set a global zoom for all axes at once with the zoomStart and zoomEnd properties. Zooming with the mouse wheel can be enabled by setting the useZoom property to true.
 
+  @bugfix 0.12.2
+    @description
+      Automatic scale calculation, stacking and grouping were broken in the 0.12.1 release. These have been fixed.
+
+  @updated 1.4.0
+    @issue 211
+    @description
+      Updated the no data text to be defined in userFacingText
 
   @description
     Type for drawing graphs.
@@ -108,8 +89,7 @@
   @constructor
     @removed 0.15.2
       @description
-        A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code] will still work
-
+        A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code[new hx.Graph(selector)] will still work
 
     @description
       Creates a new graph object.
@@ -125,15 +105,13 @@
     @returns [Axis]
 
   @method addAxis
-    @removed 1.0.0
-      @description
-        Use @code] instead.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] instead.
+        Use @code[graph.addAxis(options)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[graph.addAxis(options)] instead.
 
     @description
       Creates a new axis with the scale types specified and adds it to the graph. Returns the new Axis instance.
@@ -156,7 +134,6 @@
       @description
         The axis to add.
 
-
     @returns [Axis]
 
   @method removeAxis
@@ -172,7 +149,6 @@
       @description
         The removed axis if it was removed, or undefined if it was not removed (because it was not a member of the graph)
 
-
   @method render
     @description
       Redraws the graph.
@@ -182,95 +158,82 @@
       @description
         This Graph
 
-
   @extends EventEmitter
   @property useZoom [Boolean]
-    @removed 1.0.0
-      @description
-        Use graph.zoomEnabled() instead. zoomEnabled(value) to set, zoomEnabled() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use graph.zoomEnabled() instead. zoomEnabled(value) to set, zoomEnabled() to get.
 
+    @removed 1.0.0
+      @description
+        Use graph.zoomEnabled() instead. zoomEnabled(value) to set, zoomEnabled() to get.
 
-    @added 0.11.0
     @description
       Whether or not to enable zoom controls for the graph
 
   @property zoomStart [Number]
-    @removed 1.0.0
-      @description
-        Use graph.zoomRangeStart() instead. zoomRangeStart(value) to set, zoomRangeStart() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use graph.zoomRangeStart() instead. zoomRangeStart(value) to set, zoomRangeStart() to get.
 
+    @removed 1.0.0
+      @description
+        Use graph.zoomRangeStart() instead. zoomRangeStart(value) to set, zoomRangeStart() to get.
 
-    @added 0.11.0
     @description
       The start or the zoomed region - specified on the 0 to 1 scale.
 
   @property zoomEnd [Number]
-    @removed 1.0.0
-      @description
-        Use graph.zoomRangeEnd() instead. zoomRangeEnd(value) to set, zoomRangeEnd() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use graph.zoomRangeEnd() instead. zoomRangeEnd(value) to set, zoomRangeEnd() to get.
 
+    @removed 1.0.0
+      @description
+        Use graph.zoomRangeEnd() instead. zoomRangeEnd(value) to set, zoomRangeEnd() to get.
 
-    @added 0.11.0
     @description
       The end or the zoomed region - specified on the 0 to 1 scale.
 
   @property useLabels [Boolean]
-    @removed 1.0.0
-      @description
-        Use graph.labelsEnabled() instead. labelsEnabled(value) to set, labelsEnabled() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use graph.labelsEnabled() instead. labelsEnabled(value) to set, labelsEnabled() to get.
 
+    @removed 1.0.0
+      @description
+        Use graph.labelsEnabled() instead. labelsEnabled(value) to set, labelsEnabled() to get.
 
-    @added 0.11.0
     @description
       Whether or not to display labels on hover
 
   @property useLegend [Boolean]
-    @removed 1.0.0
-      @description
-        Use graph.legendEnabled() instead. legendEnabled(value) to set, legendEnabled() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use graph.legendEnabled() instead. legendEnabled(value) to set, legendEnabled() to get.
 
+    @removed 1.0.0
+      @description
+        Use graph.legendEnabled() instead. legendEnabled(value) to set, legendEnabled() to get.
 
-    @added 0.11.0
     @description
       Whether or not to display the legend
 
   @property legendPosition [String]
-    @removed 1.0.0
-      @description
-        Use graph.legendLocation() instead. legendLocation(value) to set, legendLocation() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use graph.legendLocation() instead. legendLocation(value) to set, legendLocation() to get.
 
+    @removed 1.0.0
+      @description
+        Use graph.legendLocation() instead. legendLocation(value) to set, legendLocation() to get.
 
-    @added 0.11.0
     @description
       How to display the legend on the graph. Possible modes:
 
@@ -294,31 +257,25 @@
         @description
           Sets the start of the zoomed region - specified on the 0 to 1 scale where 0 is the left-most value on the x axis, and 1 means the right-most value of the x axis (setting it to 1 will always result in the graph showing nothing).
 
-
       @property zoomRangeEnd [Number]
         @description
           Sets the end of the zoomed region - specified on the 0 to 1 scale where 0 is the left-most value on the x axis, and 1 means the right-most value of the x axis (setting it to 1 will always result in the graph showing nothing).
-
 
       @property zoomEnabled [Boolean]
         @description
           Enables or disables the zoom with mouse feature. Supplying true enables zoom, false disables it.
 
-
       @property labelsEnabled [Boolean]
         @description
           Enables or disables labels. Supplying true enables zoom, false disables it.
-
 
       @property legendEnabled [Boolean]
         @description
           Enables or disables the legends. Supplying true enables zoom, false disables it.
 
-
       @property legendLocation [String]
         @description
           How to display the legend on the graph. Possible modes:
-
 
           @list
             @item['auto' - moves the legend around to avoid the mouse]
@@ -332,7 +289,6 @@
         @added 1.1.0
           @description
             Added an axes option to hx.Graph to allow graphs to be created with the fluid api.
-
 
         @description
           An array of axes objects. Each item in the array is equivalent to an axis created using
@@ -365,7 +321,6 @@
           @description
             Added an option to disable automatic redraw when container is resized.
 
-
         @description
           Whether or not the graph should automatically be redrawn when the container is resized. By default true.
 
@@ -378,11 +333,9 @@
       @description
         A value between 0 and 1
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @method zoomRangeStart
     @added 0.15.2
@@ -400,11 +353,9 @@
       @description
         A value between 0 and 1
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @method zoomRangeEnd
     @added 0.15.2
@@ -422,11 +373,9 @@
       @description
         Wheter or not zoom should be enabled; true for enabled, false for disabled.
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @method zoomEnabled
     @added 0.15.2
@@ -437,18 +386,15 @@
       @description
         True if zoom is enabled, false if it is disabled.
 
-
   @method labelsEnabled
     @added 0.15.2
     @arg value [Boolean]
       @description
         Wheter or not labels should be enabled; true for enabled, false for disabled.
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -459,18 +405,15 @@
       @description
         True if labels are enabled, false if disabled.
 
-
   @method legendEnabled
     @added 0.15.2
     @arg value [Boolean]
       @description
         Wheter or the legend should be enabled; true for enabled, false for disabled.
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @method legendEnabled
     @added 0.15.2
@@ -481,12 +424,10 @@
       @description
         True if legends are enabled, false if they are disabled.
 
-
   @method legendLocation
     @added 0.15.2
     @description
       How to display the legend on the graph. Possible modes:
-
 
       @list
         @item['auto' - moves the legend around to avoid the mouse]
@@ -500,17 +441,14 @@
       @description
         One of the position modes from the list above.
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @method legendLocation
     @added 0.15.2
     @description
       Gets the value of the legendLocation option. It should be one of the following:
-
 
       @list
         @item['auto' - moves the legend around to avoid the mouse]
@@ -524,7 +462,6 @@
       @description
         The location
 
-
   @method axes
     @added 0.15.2
     @description
@@ -533,7 +470,6 @@
     @returns [Array[Axis]]
       @description
         The list of Axis instances attached to the graph.
-
 
   @method axes
     @added 0.15.2
@@ -544,11 +480,9 @@
       @description
         The list of Axis instances the graph should have.
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @method addAxis
     @added 0.15.2
@@ -564,7 +498,6 @@
       @description
         Added an option to disable automatic redraw when container is resized.
 
-
     @description
       Gets the currently set option for whether the graph should redraw on resizing the container
 
@@ -572,13 +505,11 @@
       @description
         The currently set value for redrawOnResize
 
-
   @method redrawOnResize
     @added 1.5.0
       @issue 152
       @description
         Added an option to disable automatic redraw when container is resized.
-
 
     @description
       Sets the option for whether the graph should redraw on resizing the container
@@ -587,11 +518,9 @@
       @description
         Whether the graph should redraw on resizing the container
 
-
     @returns [Graph]
       @description
         This Graph
-
 
   @event click [Object]
     @description
@@ -601,22 +530,18 @@
       @description
         The click event data.
 
-
     @property data
       @description
         The data of the point or element that was clicked.
-
 
     @property series
       @description
         The selected series.
 
-
   @event zoom
     @added 0.12.0
       @description
         Added a zoom event when the zoom is changed by the user
-
 
     @description
       The event emitted when a series is clicked.
@@ -626,41 +551,34 @@
         @description
           The start of the zoom range on the scale 0-1.
 
-
       @property end [Number]
         @description
           The start of the zoom range on the scale 0-1.
-
 
   @event render
     @added 1.1.0
       @description
         Added an event to allow listening to when a graph is rendered.
 
-
     @description
       The event emitted when a graph is rendered.
-
 
 @prototype hx.Axis
   @bugfix 0.15.2
     @description
       Fixed an issue with how the axes were being positioned for xAxisTickLabelPosition/yAxisTickLabelPosition
 
-
   @description
     Typically this object will be created via graph.addAxis() or graph.addAxis(xScaleType, yScaleType).
 
   @constructor
-    @removed 1.0.0
-      @description
-        Use @code] instead.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] instead.
+        Use @code[hx.Axis(options)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[hx.Axis(options)] instead.
 
     @description
       Creates a new Axis instance. Prefer using graph.addAxis(xScaleType, yScaleType) over using this directly.
@@ -674,30 +592,25 @@
         The scale type to use for the x axis. Can currently be 'linear', 'discrete' or 'date'. When 'linear' and 'date' are used the data should be specified as a number. When 'discrete' is used, the data can be a number or a string. 'date' and 'linear' do the same thing, with the exception that 'date' will choose the tick values on the graph so that they align with common time intervals (1 min, 5 min, 30 min etc). 'date' scales expect the values to be specified in milliseconds.
 
   @property xVisible [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.visible()] instead. @code[Axis.x.visible()] to get, @code[Axis.x.visible(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.visible()] instead. @code[Axis.x.visible()] to get, @code[Axis.x.visible(value)] to set.
 
     @description
       Whether or not the x axis should be visible. The default is true.
 
-
   @property xFormatter [Function]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.formatter()] instead. @code[Axis.x.formatter()] to get, @code[Axis.x.formatter(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.formatter()] instead. @code[Axis.x.formatter()] to get, @code[Axis.x.formatter(value)] to set.
 
     @description
       A function that formats the strings that are displayed at the ticks of the x axis. It is a function with first argument that will typically be a number (although it depends on the type of the x values of your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
@@ -707,188 +620,152 @@
       @description
         The formatted string
 
-
   @property xMin [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.min()] instead. @code[Axis.x.min()] to get, @code[Axis.x.min(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.min()] instead. @code[Axis.x.min()] to get, @code[Axis.x.min(value)] to set.
 
     @description
       The minimum value the x axis should show. If set to 'auto' the minimum value will calculated from the data in the series. The default is 'auto'.
 
-
   @property xMax [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.max()] instead. @code[Axis.x.max()] to get, @code[Axis.x.max(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.max()] instead. @code[Axis.x.max()] to get, @code[Axis.x.max(value)] to set.
 
     @description
       The maximum value the x axis should show. If set to 'auto' the maximum value will calculated from the data in the series. The default is 'auto'.
 
-
   @property xDiscretePadding [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.discretePadding()] instead. @code[Axis.x.discretePadding()] to get, @code[Axis.x.discretePadding(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.discretePadding()] instead. @code[Axis.x.discretePadding()] to get, @code[Axis.x.discretePadding(value)] to set.
 
     @description
       The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
 
-
   @property xDiscreteLabels [Array]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.discreteLabels()] instead. @code[Axis.x.discreteLabels()] to get, @code[Axis.x.discreteLabels(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.discreteLabels()] instead. @code[Axis.x.discreteLabels()] to get, @code[Axis.x.discreteLabels(value)] to set.
 
     @description
       The set of labels to use for a discrete x axis. This is similar to setting the xMin and xMax in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
 
-
   @property xTickSpacing [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.tickSpacing()] instead. @code[Axis.x.tickSpacing()] to get, @code[Axis.x.tickSpacing(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.tickSpacing()] instead. @code[Axis.x.tickSpacing()] to get, @code[Axis.x.tickSpacing(value)] to set.
 
     @description
       The preferred spacing (in pixels) between ticks on the x axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the xMin, xMax and having 'nice' vales at the ticks. The default is 50.
 
-
   @property xTitle [String]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.title()] instead. @code[Axis.x.title()] to get, @code[Axis.x.title(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.title()] instead. @code[Axis.x.title()] to get, @code[Axis.x.title(value)] to set.
 
     @description
       The title to give the x axis.
 
-
   @property xScalePaddingMin [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.scalePaddingMin()] instead. @code[Axis.x.scalePaddingMin()] to get, @code[Axis.x.scalePaddingMin(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.scalePaddingMin()] instead. @code[Axis.x.scalePaddingMin()] to get, @code[Axis.x.scalePaddingMin(value)] to set.
 
     @description
       Padding to apply to the start of the x axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the start of the x domain. The default value is 0, which applies no padding. It typically makes more sense to apply this to the y axis than the x axis.
 
-
   @property xScalePaddingMax [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.scalePaddingMax()] instead. @code[Axis.x.scalePaddingMax()] to get, @code[Axis.x.scalePaddingMax(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.scalePaddingMax()] instead. @code[Axis.x.scalePaddingMax()] to get, @code[Axis.x.scalePaddingMax(value)] to set.
 
     @description
       Padding to apply to the end of the x axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the x domain. The default value is 0, which applies no padding. It typically makes more sense to apply this to the y axis than the x axis.
 
-
   @property xGridLines [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
+    @added 0.9.0
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.gridLines()] instead. @code[Axis.x.gridLines()] to get, @code[Axis.x.gridLines(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.gridLines()] instead. @code[Axis.x.gridLines()] to get, @code[Axis.x.gridLines(value)] to set.
 
-    @added 0.9.0
     @description
       Whether or not to show grid lines for the x axis ticks. True means the grid lines will be shown.
       @default
         true
 
-
   @property xNthTickVisible [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
+    @added 0.9.0
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.x.nthTickVisible()] instead. @code[Axis.x.nthTickVisible()] to get, @code[Axis.x.nthTickVisible(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.nthTickVisible()] instead. @code[Axis.x.nthTickVisible()] to get, @code[Axis.x.nthTickVisible(value)] to set.
 
-    @added 0.9.0
     @description
       Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
       @default
         1
 
-
   @property yVisible [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.visible()] instead. @code[Axis.y.visible()] to get, @code[Axis.y.visible(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.visible()] instead. @code[Axis.y.visible()] to get, @code[Axis.y.visible(value)] to set.
 
     @description
       Whether or not the y axis should be visible. The default is true.
 
-
   @property yFormatter [Function]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.formatter()] instead. @code[Axis.y.formatter()] to get, @code[Axis.y.formatter(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.formatter()] instead. @code[Axis.y.formatter()] to get, @code[Axis.y.formatter(value)] to set.
 
     @description
       A function that formats the strings that are displayed at the ticks of the y axis. It is a function with first argument that will typically be a number (although it depends on the type of the y values of your data), and should return a string. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
@@ -898,173 +775,140 @@
       @description
         The formatted string
 
-
   @property yMin [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.min()] instead. @code[Axis.y.min()] to get, @code[Axis.y.min(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.min()] instead. @code[Axis.y.min()] to get, @code[Axis.y.min(value)] to set.
 
     @description
       The minimum value the y axis should show. If set to 'auto' the minimum value will calculated from the data in the series. The default is 'auto'.
 
-
   @property yMax [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.max()] instead. @code[Axis.y.max()] to get, @code[Axis.y.max(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.max()] instead. @code[Axis.y.max()] to get, @code[Axis.y.max(value)] to set.
 
     @description
       The maximum value the y axis should show. If set to 'auto' the maximum value will calculated from the data in the series. The default is 'auto'.
 
-
   @property yDiscretePadding [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.discretePadding()] instead. @code[Axis.y.discretePadding()] to get, @code[Axis.y.discretePadding(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.discretePadding()] instead. @code[Axis.y.discretePadding()] to get, @code[Axis.y.discretePadding(value)] to set.
 
     @description
       The padding between discrete values on the y axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
 
-
   @property yDiscreteLabels [Array]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.discreteLabels()] instead. @code[Axis.y.discreteLabels()] to get, @code[Axis.y.discreteLabels(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.discreteLabels()] instead. @code[Axis.y.discreteLabels()] to get, @code[Axis.y.discreteLabels(value)] to set.
 
     @description
       The set of labels to use for a discrete y axis. This is similar to setting the yMin and yMax in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
 
-
   @property yTickSpacing [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.tickSpacing()] instead. @code[Axis.y.tickSpacing()] to get, @code[Axis.y.tickSpacing(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.tickSpacing()] instead. @code[Axis.y.tickSpacing()] to get, @code[Axis.y.tickSpacing(value)] to set.
 
     @description
       The preferred spacing (in pixels) between ticks on the y axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the yMin, yMax and having 'nice' vales at the ticks. The default is 50.
 
-
   @property yTitle [String]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.title()] instead. @code[Axis.y.title()] to get, @code[Axis.y.title(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.title()] instead. @code[Axis.y.title()] to get, @code[Axis.y.title(value)] to set.
 
     @description
       The title to give the y axis.
 
-
   @property yScalePaddingMin [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.scalePaddingMin()] instead. @code[Axis.y.scalePaddingMin()] to get, @code[Axis.y.scalePaddingMin(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.scalePaddingMin()] instead. @code[Axis.y.scalePaddingMin()] to get, @code[Axis.y.scalePaddingMin(value)] to set.
 
     @description
       Padding to apply to the start of the y axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the start of the y domain. The default value is 0, which applies no padding.
 
-
   @property yScalePaddingMax [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.scalePaddingMax()] instead. @code[Axis.y.scalePaddingMax()] to get, @code[Axis.y.scalePaddingMax(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.scalePaddingMax()] instead. @code[Axis.y.scalePaddingMax()] to get, @code[Axis.y.scalePaddingMax(value)] to set.
 
     @description
       Padding to apply to the end of the y axis domain. This makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the y domain. The default value is 0, which applies no padding.
 
-
   @property yGridLines [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
+    @added 0.9.0
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.gridLines()] instead. @code[Axis.y.gridLines()] to get, @code[Axis.y.gridLines(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.gridLines()] instead. @code[Axis.y.gridLines()] to get, @code[Axis.y.gridLines(value)] to set.
 
-    @added 0.9.0
     @description
       Whether or not to show grid lines for the y axis ticks. True means the grid lines will be shown.
       @default
         true
 
-
   @property yNthTickVisible [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
+    @added 0.9.0
     @deprecated 0.15.2
       @description
-        Use @code] to set.
+        Use @code[Axis.y.nthTickVisible()] instead. @code[Axis.y.nthTickVisible()] to get, @code[Axis.y.nthTickVisible(value)] to set.
 
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.nthTickVisible()] instead. @code[Axis.y.nthTickVisible()] to get, @code[Axis.y.nthTickVisible(value)] to set.
 
-    @added 0.9.0
     @description
       Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
       @default
         1
 
-
   @method addSeries
-    @removed 1.0.0
-      @description
-        Use @code] instead.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] instead.
+        Use @code[addSeries(type, {title: "name"})] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[addSeries(type, {title: "name"})] instead.
 
     @description
       Creates a new Series with the given type, and adds it to the axis. The new Series instance is returned.
@@ -1073,11 +917,9 @@
       @description
         The type of series to add. Can be one of 'line', 'bar', 'band', 'scatter' and 'straight-line'
 
-
     @arg? name [String]
       @description
         The name to give the series. This will be displayed on the graph, and so should be nicely formatted if possible.
-
 
     @returns [Series]
 
@@ -1099,85 +941,71 @@
       @description
         The Series to remove.
 
-
     @returns [Series]
       @added 0.15.2
       @description
         The Series removed, or undefined if it was not removed.
 
-
   @property xAxisTickLabelPosition [String]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
-    @deprecated 0.15.2
-      @description
-        Use @code] to set.
-
-
     @added 0.12.8
       @description
         An option for choosing where the x axis tick labels should be positioned
 
+    @deprecated 0.15.2
+      @description
+        Use @code[Axis.x.axisTickLabelPosition()] instead. @code[Axis.x.axisTickLabelPosition()] to get, @code[Axis.x.axisTickLabelPosition(value)] to set.
+
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.axisTickLabelPosition()] instead. @code[Axis.x.axisTickLabelPosition()] to get, @code[Axis.x.axisTickLabelPosition(value)] to set.
 
     @description
       Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis (at y=0), 'bottom' will cause the labels to stay at the bottom of the graph area.
 
   @property yAxisTickLabelPosition [String]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
-    @deprecated 0.15.2
-      @description
-        Use @code] to set.
-
-
     @added 0.12.8
       @description
         An option for choosing where the y axis tick labels should be positioned
 
+    @deprecated 0.15.2
+      @description
+        Use @code[Axis.y.axisTickLabelPosition()] instead. @code[Axis.y.axisTickLabelPosition()] to get, @code[Axis.y.axisTickLabelPosition(value)] to set.
+
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.axisTickLabelPosition()] instead. @code[Axis.y.axisTickLabelPosition()] to get, @code[Axis.y.axisTickLabelPosition(value)] to set.
 
     @description
       Allows positioning of the tick labels. The options are 'axis' or 'left'. 'axis' will cause the labels to stick to the axis (at x=0), 'left' will cause the labels to stay at the bottom of the graph area.
 
   @property xShowTicks [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
-    @deprecated 0.15.2
-      @description
-        Use @code] to set.
-
-
     @added 0.12.10
       @description
         An option to show/hide x tick markers
 
+    @deprecated 0.15.2
+      @description
+        Use @code[Axis.x.showTicks()] instead. @code[Axis.x.showTicks()] to get, @code[Axis.x.showTicks(value)] to set.
+
+    @removed 1.0.0
+      @description
+        Use @code[Axis.x.showTicks()] instead. @code[Axis.x.showTicks()] to get, @code[Axis.x.showTicks(value)] to set.
 
     @description
       If true, the x axis ticks (text and tick marker) will be visible, if false they will be hidden
 
   @property yShowTicks [String]
-    @removed 1.0.0
-      @description
-        Use @code] to set.
-
-
-    @deprecated 0.15.2
-      @description
-        Use @code] to set.
-
-
     @added 0.12.10
       @description
         An option to show/hide y tick markers
 
+    @deprecated 0.15.2
+      @description
+        Use @code[Axis.y.showTicks()] instead. @code[Axis.y.showTicks()] to get, @code[Axis.y.showTicks(value)] to set.
+
+    @removed 1.0.0
+      @description
+        Use @code[Axis.y.showTicks()] instead. @code[Axis.y.showTicks()] to get, @code[Axis.y.showTicks(value)] to set.
 
     @description
       If true, the y axis ticks (text and tick marker) will be visible, if false they will be hidden
@@ -1193,13 +1021,11 @@
           @description
             The scale type to use. Should be one of 'linear', 'discrete' or 'time'. 'discrete' should be used for bar charts, and 'linear' and 'time' for line graphs (in general). The 'time' scale type is similar to linear, but picks the ticks so that they align on sensible times.
 
-
         @property visible [Boolean]
           @description
             Sets the visibility state
 
             Whether or not the x axis should be visible. The default is true.
-
 
         @property formatter [Function]
           @description
@@ -1210,22 +1036,17 @@
             @description
               The number formatted as a string.
 
-
-
         @property tickRotation [Number]
           @description
             Sets the rotation of the ticks in degrees.
-
 
         @property min [Number/String]
           @description
             Sets the minimum value the axis should show. If set to 'auto' the minimum value will calculated from the data in the series.
 
-
         @property max [Number/String]
           @description
             Sets the maximum value the axis should show. If set to 'auto' the maximum value will calculated from the data in the series.
-
 
         @property discretePadding [Number]
           @description
@@ -1233,55 +1054,45 @@
 
             The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
 
-
         @property discreteLabels [Array[String]]
           @description
             Sets the discreteLabels property
 
             The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
 
-
         @property tickSpacing [Number]
           @description
             Sets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks.
-
 
         @property title [String]
           @description
             Sets the title of the axis
 
-
         @property scalePaddingMin [Number]
           @description
             Sets the scalePaddingMin property
-
 
         @property scalePaddingMax [Number]
           @description
             Sets the padding to apply to the end of the axis domain. This option makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the domain. The default value is 0, which applies no padding.
 
-
         @property ticksAll [Boolean]
           @description
             Sets whether ticks should be shown for every data point.
-
 
         @property gridLines [Boolean]
           @description
             Sets whether or not grid lines should be used for the axis ticks. True means the grid lines will be shown.
 
-
         @property nthTickVisible [Number]
           @description
             Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
-
 
         @property axisTickLabelPosition [Boolean]
           @description
             Sets the axisTickLabelPosi property
 
             Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
-
 
         @property showTicks [Boolean]
           @description
@@ -1297,7 +1108,6 @@
             An option for enabling collision detection on labels.
 
             When this is enabled, labels will be prevented from overlapping by dynamically changing the @code[nthTickVisible] property.
-
 
         @define doCollisionDetectionMethod
           @method doCollisionDetection
@@ -1315,8 +1125,6 @@
               @description
                 The doCollisionDetection value.
 
-
-
           @method doCollisionDetection
             @added 1.10.0
               @issue 353
@@ -1332,21 +1140,17 @@
             @returns [Axis]
               @description
                 This Axis
-
-
 
       @property y [Object]
         @property scaleType [String]
           @description
             The scale type to use. Should be one of 'linear', 'discrete' or 'time'. 'discrete' should be used for bar charts, and 'linear' and 'time' for line graphs (in general). The 'time' scale type is similar to linear, but picks the ticks so that they align on sensible times.
 
-
         @property visible [Boolean]
           @description
             Sets the visibility state
 
             Whether or not the x axis should be visible. The default is true.
-
 
         @property formatter [Function]
           @description
@@ -1357,22 +1161,17 @@
             @description
               The number formatted as a string.
 
-
-
         @property tickRotation [Number]
           @description
             Sets the rotation of the ticks in degrees.
-
 
         @property min [Number/String]
           @description
             Sets the minimum value the axis should show. If set to 'auto' the minimum value will calculated from the data in the series.
 
-
         @property max [Number/String]
           @description
             Sets the maximum value the axis should show. If set to 'auto' the maximum value will calculated from the data in the series.
-
 
         @property discretePadding [Number]
           @description
@@ -1380,55 +1179,45 @@
 
             The padding between discrete values on the x axis. Should be a value between 0 and 1. This will affect anything that uses the band width of a tick (ie bar series). The default is 0.1, which results in reserving 10% of the band width for padding, resulting in separation of groups of bar series.
 
-
         @property discreteLabels [Array[String]]
           @description
             Sets the discreteLabels property
 
             The set of labels to use for a discrete x axis. This is similar to setting the min and max in linear scale case. The default is 'auto', which will mean that the axis works out it's labels from the series data.
 
-
         @property tickSpacing [Number]
           @description
             Sets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks.
-
 
         @property title [String]
           @description
             Sets the title of the axis
 
-
         @property scalePaddingMin [Number]
           @description
             Sets the scalePaddingMin property
-
 
         @property scalePaddingMax [Number]
           @description
             Sets the padding to apply to the end of the axis domain. This option makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the domain. The default value is 0, which applies no padding.
 
-
         @property ticksAll [Boolean]
           @description
             Sets whether ticks should be shown for every data point.
-
 
         @property gridLines [Boolean]
           @description
             Sets whether or not grid lines should be used for the axis ticks. True means the grid lines will be shown.
 
-
         @property nthTickVisible [Number]
           @description
             Sets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
-
 
         @property axisTickLabelPosition [Boolean]
           @description
             Sets the axisTickLabelPosi property
 
             Allows positioning of the tick labels. The options are 'axis' or 'bottom'. 'axis' will cause the labels to stick to the axis, 'bottom' will cause the labels to stay at the bottom of the graph area.
-
 
         @property showTicks [Boolean]
           @description
@@ -1444,7 +1233,6 @@
             An option for enabling collision detection on labels.
 
             When this is enabled, labels will be prevented from overlapping by dynamically changing the @code[nthTickVisible] property.
-
 
         @define doCollisionDetectionMethod
           @method doCollisionDetection
@@ -1462,8 +1250,6 @@
               @description
                 The doCollisionDetection value.
 
-
-
           @method doCollisionDetection
             @added 1.10.0
               @issue 353
@@ -1480,12 +1266,10 @@
               @description
                 This Axis
 
-
       @property series [Array[Object]]
         @added 1.1.0
           @description
             Added a series option to hx.Axis to allow graphs to be created with the fluid api.
-
 
         @description
           An array of series objects. Each item in the array is equivalent to a series created using @code[hx.Axis::addSeries] A series is defined as an object with two properties:
@@ -1505,16 +1289,13 @@
       @description
         The type of series to add. Can be one of 'line', 'bar', 'band', 'scatter' and 'straight-line'
 
-
     @arg? options [Object]
       @description
         The options to pass to the series when constructing.
 
-
     @returns [Series]
       @description
         Returns a Series instance - LineSeries, BarSeries, BandSeries, ScatterSeries and StraightLineSeries are all instances of Series - one of these types will be returned.
-
 
   @method series
     @added 0.15.2
@@ -1525,7 +1306,6 @@
       @description
         The list of series
 
-
   @method series
     @added 0.15.2
     @description
@@ -1535,11 +1315,9 @@
       @description
         The series objects this axis should use.
 
-
     @returns [Axis]
       @description
         This Axis
-
 
   @property x [Object]
     @added 0.15.2
@@ -1552,8 +1330,6 @@
         @description
           This Axis
 
-
-
     @method scaleType
       @description
         Gets the scaleType. Will be one of 'linear', 'discrete' or 'time'.
@@ -1561,8 +1337,6 @@
       @returns [String]
         @description
           The scaleType value.
-
-
 
     @method visible
       @description
@@ -1575,8 +1349,6 @@
         @description
           This Axis
 
-
-
     @method visible
       @description
         Gets the visibility state
@@ -1586,8 +1358,6 @@
       @returns [Boolean]
         @description
           The visible value.
-
-
 
     @method formatter
       @description
@@ -1601,12 +1371,9 @@
           @description
             The number formatted as a string.
 
-
       @returns [Axis]
         @description
           This Axis
-
-
 
     @method formatter
       @description
@@ -1618,13 +1385,10 @@
         @description
           The formatter value.
 
-
         @arg value [Number]
         @returns String
           @description
             The number formatted as a string.
-
-
 
     @method tickRotation
       @description
@@ -1634,12 +1398,9 @@
         @description
           The rotation of the tick labels in degrees.
 
-
       @returns [Axis]
         @description
           This Axis
-
-
 
     @method tickRotation
       @description
@@ -1648,8 +1409,6 @@
       @returns [Number]
         @description
           The tickRotation value.
-
-
 
     @method min
       @description
@@ -1660,8 +1419,6 @@
         @description
           This Axis
 
-
-
     @method min
       @description
         Gets the minimum value the axis should show. If set to 'auto' the minimum value will calculated from the data in the series. The default is 'auto'.
@@ -1669,8 +1426,6 @@
       @returns [Number/String]
         @description
           The min value.
-
-
 
     @method max
       @description
@@ -1681,8 +1436,6 @@
         @description
           This Axis
 
-
-
     @method max
       @description
         Gets the maximum value the axis should show. If set to 'auto' the maximum value will calculated from the data in the series. The default is 'auto'.
@@ -1690,8 +1443,6 @@
       @returns [Number/String]
         @description
           The max value.
-
-
 
     @method discretePadding
       @description
@@ -1704,8 +1455,6 @@
         @description
           This Axis
 
-
-
     @method discretePadding
       @description
         Gets the discretePadding property
@@ -1715,8 +1464,6 @@
       @returns [Number]
         @description
           The discretePadding value.
-
-
 
     @method discreteLabels
       @description
@@ -1729,8 +1476,6 @@
         @description
           This Axis
 
-
-
     @method discreteLabels
       @description
         Gets the discreteLabels property
@@ -1741,8 +1486,6 @@
         @description
           The discreteLabels value.
 
-
-
     @method tickSpacing
       @description
         Sets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks. The default is 50.
@@ -1752,8 +1495,6 @@
         @description
           This Axis
 
-
-
     @method tickSpacing
       @description
         Gets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks. The default is 50.
@@ -1761,8 +1502,6 @@
       @returns [Number]
         @description
           The tickSpacing value.
-
-
 
     @method title
       @description
@@ -1773,8 +1512,6 @@
         @description
           This Axis
 
-
-
     @method title
       @description
         Gets the title of the axis
@@ -1782,8 +1519,6 @@
       @returns [String]
         @description
           The title value.
-
-
 
     @method scalePaddingMin
       @description
@@ -1794,8 +1529,6 @@
         @description
           This Axis
 
-
-
     @method scalePaddingMin
       @description
         Gets the scalePaddingMin property
@@ -1803,8 +1536,6 @@
       @returns [Number]
         @description
           The scalePaddingMin value.
-
-
 
     @method scalePaddingMax
       @description
@@ -1815,8 +1546,6 @@
         @description
           This Axis
 
-
-
     @method scalePaddingMax
       @description
         Gets the padding applied to the end of the axis domain. This option makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the domain. The default value is 0, which applies no padding.
@@ -1824,8 +1553,6 @@
       @returns [Number]
         @description
           The scalePaddingMax value.
-
-
 
     @method ticksAll
       @description
@@ -1836,8 +1563,6 @@
         @description
           This Axis
 
-
-
     @method ticksAll
       @description
         Gets whether ticks should be shown for every data point.
@@ -1845,8 +1570,6 @@
       @returns [Boolean]
         @description
           The ticksAll value.
-
-
 
     @method gridLines
       @description
@@ -1857,8 +1580,6 @@
         @description
           This Axis
 
-
-
     @method gridLines
       @description
         Gets whether or not grid lines should be used for the axis ticks. True means the grid lines will be shown.
@@ -1866,8 +1587,6 @@
       @returns [Boolean]
         @description
           The gridLines value.
-
-
 
     @method nthTickVisible
       @description
@@ -1878,8 +1597,6 @@
         @description
           This Axis
 
-
-
     @method nthTickVisible
       @description
         Gets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
@@ -1887,8 +1604,6 @@
       @returns [Number]
         @description
           The nthTickVisible value.
-
-
 
     @method axisTickLabelPosition
       @description
@@ -1901,8 +1616,6 @@
         @description
           This Axis
 
-
-
     @method axisTickLabelPosition
       @description
         Gets the axisTickLabelPosi property
@@ -1913,8 +1626,6 @@
         @description
           The axisTickLabelPosition value.
 
-
-
     @method showTicks
       @description
         Sets the showTicks property. If true, the axis ticks (text and tick marker) will be visible, if false they will be hidden.
@@ -1924,8 +1635,6 @@
         @description
           This Axis
 
-
-
     @method showTicks
       @description
         Gets the showTicks property. If true, the axis ticks (text and tick marker) will be visible, if false they will be hidden.
@@ -1933,7 +1642,6 @@
       @returns [Boolean]
         @description
           The showTicks value.
-
 
     @method doCollisionDetection
       @added 1.10.0
@@ -1950,8 +1658,6 @@
         @description
           The doCollisionDetection value.
 
-
-
     @method doCollisionDetection
       @added 1.10.0
         @issue 353
@@ -1967,7 +1673,6 @@
       @returns [Axis]
         @description
           This Axis
-
 
   @property y [Object]
     @added 0.15.2
@@ -1980,8 +1685,6 @@
         @description
           This Axis
 
-
-
     @method scaleType
       @description
         Gets the scaleType. Will be one of 'linear', 'discrete' or 'time'.
@@ -1989,8 +1692,6 @@
       @returns [String]
         @description
           The scaleType value.
-
-
 
     @method visible
       @description
@@ -2003,8 +1704,6 @@
         @description
           This Axis
 
-
-
     @method visible
       @description
         Gets the visibility state
@@ -2014,8 +1713,6 @@
       @returns [Boolean]
         @description
           The visible value.
-
-
 
     @method formatter
       @description
@@ -2029,12 +1726,9 @@
           @description
             The number formatted as a string.
 
-
       @returns [Axis]
         @description
           This Axis
-
-
 
     @method formatter
       @description
@@ -2046,13 +1740,10 @@
         @description
           The formatter value.
 
-
         @arg value [Number]
         @returns String
           @description
             The number formatted as a string.
-
-
 
     @method tickRotation
       @description
@@ -2062,12 +1753,9 @@
         @description
           The rotation of the tick labels in degrees.
 
-
       @returns [Axis]
         @description
           This Axis
-
-
 
     @method tickRotation
       @description
@@ -2076,8 +1764,6 @@
       @returns [Number]
         @description
           The tickRotation value.
-
-
 
     @method min
       @description
@@ -2088,8 +1774,6 @@
         @description
           This Axis
 
-
-
     @method min
       @description
         Gets the minimum value the axis should show. If set to 'auto' the minimum value will calculated from the data in the series. The default is 'auto'.
@@ -2097,8 +1781,6 @@
       @returns [Number/String]
         @description
           The min value.
-
-
 
     @method max
       @description
@@ -2109,8 +1791,6 @@
         @description
           This Axis
 
-
-
     @method max
       @description
         Gets the maximum value the axis should show. If set to 'auto' the maximum value will calculated from the data in the series. The default is 'auto'.
@@ -2118,8 +1798,6 @@
       @returns [Number/String]
         @description
           The max value.
-
-
 
     @method discretePadding
       @description
@@ -2132,8 +1810,6 @@
         @description
           This Axis
 
-
-
     @method discretePadding
       @description
         Gets the discretePadding property
@@ -2143,8 +1819,6 @@
       @returns [Number]
         @description
           The discretePadding value.
-
-
 
     @method discreteLabels
       @description
@@ -2157,8 +1831,6 @@
         @description
           This Axis
 
-
-
     @method discreteLabels
       @description
         Gets the discreteLabels property
@@ -2169,8 +1841,6 @@
         @description
           The discreteLabels value.
 
-
-
     @method tickSpacing
       @description
         Sets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks. The default is 50.
@@ -2180,8 +1850,6 @@
         @description
           This Axis
 
-
-
     @method tickSpacing
       @description
         Gets the preferred spacing (in pixels) between ticks on the axis. The axis will do it's best to keep close to this value, but may use other spacing to ensure that other conditions can be met such as the min, max and having 'nice' vales at the ticks. The default is 50.
@@ -2189,8 +1857,6 @@
       @returns [Number]
         @description
           The tickSpacing value.
-
-
 
     @method title
       @description
@@ -2201,8 +1867,6 @@
         @description
           This Axis
 
-
-
     @method title
       @description
         Gets the title of the axis
@@ -2210,8 +1874,6 @@
       @returns [String]
         @description
           The title value.
-
-
 
     @method scalePaddingMin
       @description
@@ -2222,8 +1884,6 @@
         @description
           This Axis
 
-
-
     @method scalePaddingMin
       @description
         Gets the scalePaddingMin property
@@ -2231,8 +1891,6 @@
       @returns [Number]
         @description
           The scalePaddingMin value.
-
-
 
     @method scalePaddingMax
       @description
@@ -2243,8 +1901,6 @@
         @description
           This Axis
 
-
-
     @method scalePaddingMax
       @description
         Gets the padding applied to the end of the axis domain. This option makes it possible to stop the series from touching the axes, if that is wanted. This value is a proportion of the data range, so 0.1 will add an extra 10% to the end of the domain. The default value is 0, which applies no padding.
@@ -2252,8 +1908,6 @@
       @returns [Number]
         @description
           The scalePaddingMax value.
-
-
 
     @method ticksAll
       @description
@@ -2264,8 +1918,6 @@
         @description
           This Axis
 
-
-
     @method ticksAll
       @description
         Gets whether ticks should be shown for every data point.
@@ -2273,8 +1925,6 @@
       @returns [Boolean]
         @description
           The ticksAll value.
-
-
 
     @method gridLines
       @description
@@ -2285,8 +1935,6 @@
         @description
           This Axis
 
-
-
     @method gridLines
       @description
         Gets whether or not grid lines should be used for the axis ticks. True means the grid lines will be shown.
@@ -2294,8 +1942,6 @@
       @returns [Boolean]
         @description
           The gridLines value.
-
-
 
     @method nthTickVisible
       @description
@@ -2306,8 +1952,6 @@
         @description
           This Axis
 
-
-
     @method nthTickVisible
       @description
         Gets which ticks should display text. If set to 1, then every tick will have text. If set to 2 every other tick will display text. If set to 3, every third tick will show text. And so on..
@@ -2315,8 +1959,6 @@
       @returns [Number]
         @description
           The nthTickVisible value.
-
-
 
     @method axisTickLabelPosition
       @description
@@ -2329,8 +1971,6 @@
         @description
           This Axis
 
-
-
     @method axisTickLabelPosition
       @description
         Gets the axisTickLabelPosi property
@@ -2341,8 +1981,6 @@
         @description
           The axisTickLabelPosition value.
 
-
-
     @method showTicks
       @description
         Sets the showTicks property. If true, the axis ticks (text and tick marker) will be visible, if false they will be hidden.
@@ -2352,8 +1990,6 @@
         @description
           This Axis
 
-
-
     @method showTicks
       @description
         Gets the showTicks property. If true, the axis ticks (text and tick marker) will be visible, if false they will be hidden.
@@ -2361,8 +1997,6 @@
       @returns [Boolean]
         @description
           The showTicks value.
-
-
 
     @method series
       @description
@@ -2372,8 +2006,6 @@
         @description
           The list of Series instances attached to this axis.
 
-
-
     @method series
       @description
         Sets the series attached to this axis.
@@ -2382,11 +2014,9 @@
         @description
           The list of Series instances this axis should have.
 
-
       @returns [Axis]
         @description
           This Axis
-
 
     @method doCollisionDetection
       @added 1.10.0
@@ -2402,8 +2032,6 @@
       @returns [Boolean]
         @description
           The doCollisionDetection value.
-
-
 
     @method doCollisionDetection
       @added 1.10.0
@@ -2421,64 +2049,55 @@
         @description
           This Axis
 
-
 @inline 0.9.0/api-series-bar.um
 @prototype BarSeries
   @description
     A standard bar series. Should be used with a discrete axis.
 
   @property name [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the name.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the name.
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
     @description
       The series name, used by the hover over labels.
 
   @property color [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
     @description
       The default colour that all bars should use. This can be overridden for each individual bar (see setData).
 
   @property group [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the group.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
+        Use @code[series._new_group("group-name")] to set the group, @code[series.new_group()] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.group(group)] to set the series group, @code[series.group()] to get the group.
 
     @description
       Set this string to group series together. All series with the same group will be stacked together. For bar series, this will produce a stacked bar chart. Multiple groups can be used to create multiple stacked bar series within an axis.
 
   @method setData
-    @removed 1.0.0
-      @description
-        Use @code] to get the current data.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the current data.
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
     @description
       Sets the data this series should display.
@@ -2495,7 +2114,6 @@
             {x: 3, y: 12}
           ]
 
-
         The color of the bars can be set per bar as well:
         @@codeblock json
           [
@@ -2507,17 +2125,15 @@
 
   @extends EventEmitter
   @property class [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the class.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
-        Use @code] .
+        Use @code[series._new_class(class)] to set the title. This method will be renamed to @code[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code[series._new_class()] .
 
+    @removed 1.0.0
+      @description
+        Use @code[series.class(class)] to set the series class, @code[series.class()] to get the class.
 
-    @added 0.11.0
     @description
       An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for a series.
 
@@ -2530,15 +2146,11 @@
           @default
             ''
 
-
-
       @property group [String]
         @description
           The group the series belongs to. Series with the same group will be stacked on top of each other.
           @default
             undefined
-
-
 
       @property labelsEnabled [Boolean]
         @description
@@ -2546,23 +2158,17 @@
           @default
             true
 
-
-
       @property labelRenderer [Function]
         @description
           The label renderer for this series.
-
 
         @arg element [HTMLElement]
           @description
             The container populated
 
-
         @arg data [Object]
           @description
             The data provided for rendering the label
-
-
 
       @property fillColor [String]
         @description
@@ -2570,20 +2176,15 @@
           @default
             [hx.theme.plot.colors[1]]
 
-
-
       @property class [String]
         @description
           The additional class applied to the series svg element.
           @default
             ''
 
-
-
       @property data [Array[Object]]
         @description
           n array of objects with x,y properties. The data should be of the form:
-
 
           @@codeblock js
             [
@@ -2593,9 +2194,7 @@
               {x: 3, y: 12}
             ]
 
-
           The color of the bars can also be set per bar as well:
-
 
           @@codeblock js
             [
@@ -2605,33 +2204,27 @@
               {x: 3, y: 12, color: hx.color.graph[4]}
             ]
 
-
       @property labelValuesExtractor [Function]
         @description
           The label values extractor that returns the values to display in the label
-
 
         @arg series [Series]
           @description
             The Series this label extractor has been applied to
 
-
         @arg point [Object]
           @description
             The data point to show label data for
 
-
         @arg? xValueLookup [Function]
           @description
             Looks up the x value from the data. May be undefined.
-
 
           @returns [Any]
 
         @arg? yValueLookup [Function]
           @description
             Looks up the y value from the data. May be undefined.
-
 
           @returns [Any]
 
@@ -2640,33 +2233,26 @@
             @description
               The name of the label entry
 
-
           @property value [Any]
             @description
               The value of the label entry
-
 
           @property formatter [Function]
             @decription
               @description
                 A formatter function that can be used to format the value.
 
-
             @arg value [Any]
               @description
                 The value to format
-
 
             @returns String
               @description
                 The formatted string
 
-
-
       @property labelFormatters [Object]
         @description
           Optional label formatters for each label value.
-
 
           @@codeblock js
             new hx.BarSeries({
@@ -2677,16 +2263,14 @@
             })
 
   @method createLabelValues [Function]
-    @removed 1.0.0
-      @description
-        Use labelValuesExtractor() instead.
-
-
     @added 0.15.2
     @deprecated 0.15.2
       @description
         Use labelValuesExtractor() instead.
 
+    @removed 1.0.0
+      @description
+        Use labelValuesExtractor() instead.
 
     @arg dataPoint [Object]
       @property x [Number]
@@ -2701,7 +2285,6 @@
       @description
         The formatter to set
 
-
     @arg formatter [Function]
       @description
         The formatter to use. The formatter converts a value to a string
@@ -2711,11 +2294,9 @@
         @description
           The formatted String
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method labelFormatter
     @added 0.15.2
@@ -2726,7 +2307,6 @@
       @description
         The formatter to get
 
-
     @returns [Function]
       @description
         The formatter used for the label component. The formatter converts a value to a string. If there was no formatter set, this will return undefined.
@@ -2735,7 +2315,6 @@
       @returns String
         @description
           The formatted String
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -2750,23 +2329,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns [Any]
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns [Any]
 
@@ -2775,32 +2350,26 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
-
 
           @returns String
             @description
               The formatted string
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -2815,23 +2384,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns Any
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns Any
 
@@ -2840,28 +2405,22 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
 
-
           @returns String
             @description
               The formatted string
-
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -2872,11 +2431,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [BarSeries]
       @description
         This BarSeries
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -2886,7 +2443,6 @@
     @returns [Boolean]
       @description
         True if they are enabled, false if disabled
-
 
   @method labelRenderer
     @added 0.15.2
@@ -2898,7 +2454,6 @@
         @description
           The container to populate
 
-
       @arg data [Object]
         @description
           The data available to be used when rendering the label
@@ -2906,7 +2461,6 @@
     @returns [BarSeries]
       @description
         This BarSeries
-
 
   @method labelRenderer
     @added 0.15.2
@@ -2918,11 +2472,9 @@
         @description
           The container populated
 
-
       @arg data [Object]
         @description
           The data provided for rendering the label
-
 
   @method title
     @added 0.15.2
@@ -2933,11 +2485,9 @@
       @description
         The title to give the series - this will appear in the hover labels.
 
-
     @returns [BarSeries]
       @description
         This BarSeries
-
 
   @method title
     @added 0.15.2
@@ -2948,10 +2498,9 @@
       @description
         The title of the series
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Sets an additional class to give the series svg elements.
@@ -2960,15 +2509,13 @@
       @description
         The class to give the series.
 
-
     @returns [BarSeries]
       @description
         This BarSeries
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Gets the additional class applied to the series svg elements.
@@ -2977,10 +2524,9 @@
       @description
         The additional class applied to the series.
 
-
   @method _new_group
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Sets the group the series belongs to. Series with the same group will be visually grouped together.
@@ -2989,15 +2535,13 @@
       @description
         The class to give the series.
 
-
     @returns [BarSeries]
       @description
         This BarSeries
 
-
   @method _new_group
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Gets the group the series belongs to.
@@ -3005,7 +2549,6 @@
     @returns [String]
       @description
         The group.
-
 
   @method fillColor
     @added 0.15.2
@@ -3016,11 +2559,9 @@
       @description
         A CSS color string.
 
-
     @returns [BarSeries]
       @description
         This BarSeries
-
 
   @method fillColor
     @added 0.15.2
@@ -3031,7 +2572,6 @@
       @description
         The color as a CSS color string
 
-
   @method data
     @added 0.15.2
     @description
@@ -3041,7 +2581,6 @@
       @description
         An array of objects with x,y properties. The data should be of the form:
 
-
         @@codeblock js
           [
             {x: 0, y: 10},
@@ -3050,9 +2589,7 @@
             {x: 3, y: 12}
           ]
 
-
         The color of the bars can also be set per bar as well:
-
 
         @@codeblock js
           [
@@ -3066,7 +2603,6 @@
       @description
         This BarSeries
 
-
   @method data
     @added 0.15.2
     @description
@@ -3076,7 +2612,6 @@
       @description
         An array of objects with x,y properties. The data should be of the form:
 
-
         @@codeblock js
           [
             {x: 0, y: 10},
@@ -3085,9 +2620,7 @@
             {x: 3, y: 12}
           ]
 
-
         The color of the bars can also be set per bar as well:
-
 
         @@codeblock js
           [
@@ -3107,11 +2640,9 @@
       @description
         The class to give the series.
 
-
     @returns [BarSeries]
       @description
         This BarSeries
-
 
   @method class
     @added 1.0.0
@@ -3122,7 +2653,6 @@
       @description
         The additional class applied to the series.
 
-
   @method group
     @added 1.0.0
     @description
@@ -3132,11 +2662,9 @@
       @description
         The class to give the series.
 
-
     @returns [BarSeries]
       @description
         This BarSeries
-
 
   @method group
     @added 1.0.0
@@ -3147,7 +2675,6 @@
       @description
         The group.
 
-
   @event click [Object]
     @description
       The event emitted when a series is clicked.
@@ -3156,196 +2683,159 @@
       @description
         The click event data.
 
-
     @property data
       @description
         The data of the bar that was clicked.
-
 
     @property series
       @description
         The selected series.
 
-
 @prototype LineSeries
+  @updated 0.11.0
+    @description
+      Gradient stroke and fill is now possible (by using an array for the color properties)
+
   @bugfix 1.6.0
     @issue 89
     @description
       Updated line series so that the labels show for the first/last points
 
-
-  @updated 0.11.0
-    @description
-      Gradient stroke and fill is now possible (by using an array for the color properties)
-
-
   @description
     A standard line series, made from a set of (x, y) coordinates.
 
   @property name [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the name.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the name.
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
     @description
       The series name, used by the hover over labels.
 
-
   @property stroke [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to get it.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get it.
+        Use @code[series.strokeEnabled(enabled)] to set the state, @code[series.strokeEnabled()] to get it.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.strokeEnabled(enabled)] to set the state, @code[series.strokeEnabled()] to get it.
 
     @description
       Whether or not the path of the series should be stroked. The default is true.
 
-
   @property color [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series.strokeColor(color)] to set the color, @code[series.strokeColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.strokeColor(color)] to set the color, @code[series.strokeColor()] to get the color.
 
     @description
       A css string color to stroke the path line with.
 
-
   @property fill [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to get it.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get it.
+        Use @code[series.fillEnabled(enabled)] to set the state, @code[series.fillEnabled()] to get it.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.fillEnabled(enabled)] to set the state, @code[series.fillEnabled()] to get it.
 
     @description
       Whether or not to fill the area below the series. Used to create area graphs. The default is false.
 
-
   @property fillColor [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series._new_fillColor(color)] to set the color, @code[series._new_fillColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
     @description
       A css string color to fill the path line with.
 
-
   @property feather [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set it.
-
-
-    @deprecated 0.15.2
-      @description
-        Use @code] to set it.
-
-
     @updated 0.11.0
       @description
         series.feather can now be set to false to disable feathering
 
+    @deprecated 0.15.2
+      @description
+        Use @code[sampleThreshold()] to get the feather value, @code[sampleThreshold(value)] to set it.
+
+    @removed 1.0.0
+      @description
+        Use @code[sampleThreshold()] to get the feather value, @code[sampleThreshold(value)] to set it.
 
     @description
       The maximum number of points in the curve drawn. This is used to reduce the number of points in the svg curve for the series. This property can be set to false to disable feathering. The default is 200.
 
   @property markers [Boolean]
-    @removed 1.0.0
-      @description
-        Use @code] to get it.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get it.
+        Use @code[series.markersEnabled(enabled)] to set the state, @code[series.markersEnabled()] to get it.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.markersEnabled(enabled)] to set the state, @code[series.markersEnabled()] to get it.
 
     @description
       Whether or not to display markers at the data points. The default is false.
 
-
   @property markerRadius [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to get the radius.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the radius.
+        Use @code[_new_markerRadius(radius)] to set the radius, @code[_new_markerRadius()] to get the radius.
 
+    @removed 1.0.0
+      @description
+        Use @code[_new_markerRadius(radius)] to set the radius, @code[_new_markerRadius()] to get the radius.
 
     @description
       The radius of the markers in pixels, if they are displayed.
 
-
   @property markerColor [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[seriesmarkerFillColor(color)] to set the color, @code[seriesmarkerFillColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[seriesmarkerFillColor(color)] to set the color, @code[seriesmarkerFillColor()] to get the color.
 
     @description
       A css string color to fill the markers with. If not set, the line color will be used.
 
-
   @property group [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the group.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
+        Use @code[series._new_group("group-name")] to set the group, @code[series.new_group()] to get the group. The _new_ prefix will be dropped in 1.0.0 - it is required to avoid naming clash with existing properties until then.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.group(name)] to set the series group, @code[series.group()] to get the group.
 
     @description
       Set this string to group series together. All series with the same group will be stacked together. For line series, this will produce a stacked line/area chart. Multiple groups can be used to produce multiple sets of stacked series within a single axis.
 
-
   @method setData
-    @removed 1.0.0
-      @description
-        Use @code] to get the current data.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the current data.
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
     @description
       Sets the data this series should display.
@@ -3364,17 +2854,15 @@
 
   @extends EventEmitter
   @property color [Array[String]]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series.strokeColor(color)] to set the color, @code[series.strokeColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.strokeColor(color)] to set the color, @code[series.strokeColor()] to get the color.
 
-    @added 0.11.0
     @description
       A css string color to stroke the path line with.
       To color the line with a gradient, this may be set to an array:
@@ -3400,34 +2888,29 @@
 
       The colors will be linearly interpolated vertically between the y values.
 
-
   @property class [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the class.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
-        Use @code] .
+        Use @code[series._new_class(class)] to set the title. This method will be renamed to @code[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code[series._new_class()] .
 
+    @removed 1.0.0
+      @description
+        Use @code[series.class(class)] to set the series class, @code[series.class()] to get the class.
 
-    @added 0.11.0
     @description
       An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for a series, for example by making a line series dashed.
 
   @method createLabelValues [Function]
-    @removed 1.0.0
-      @description
-        Use labelValuesExtractor() instead.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use labelValuesExtractor() instead.
 
+    @removed 1.0.0
+      @description
+        Use labelValuesExtractor() instead.
 
-    @added 0.11.0
     @description
       Creates the list of values to show in the hover-over labels. The default is that the x and y values will be returned.
 
@@ -3436,16 +2919,13 @@
         @description
           The x value of the data point
 
-
       @property y [Number]
         @description
           The y value of the data point
 
-
     @returns [Array[Object]]
       @description
         An array of objects that describe the label values. They should each contain a name, value and formatter property:
-
 
       @property name [String]
       @property value [Number]
@@ -3454,7 +2934,6 @@
         @returns String
           @description
             The formatted number.
-
 
   @constructor
     @added 0.15.2
@@ -3465,15 +2944,11 @@
           @default
             ''
 
-
-
       @property group [String]
         @description
           The group the series belongs to. Series with the same group will be stacked on top of each other.
           @default
             undefined
-
-
 
       @property labelsEnabled [Boolean]
         @description
@@ -3481,23 +2956,17 @@
           @default
             true
 
-
-
       @property labelRenderer [Function]
         @description
           The label renderer for this series.
-
 
         @arg element [HTMLElement]
           @description
             The container populated
 
-
         @arg data [Object]
           @description
             The data provided for rendering the label
-
-
 
       @property labelInterpolated [Boolean]
         @description
@@ -3505,15 +2974,11 @@
           @default
             false
 
-
-
       @property strokeEnabled [Boolean]
         @description
           Whether the path of this series should be stroked. True if they are enabled, false if disabled.
           @default
             true
-
-
 
       @property strokeColor [String]
         @description
@@ -3521,15 +2986,11 @@
           @default
             [hx.theme.plot.colors[0]]
 
-
-
       @property fillEnabled [Boolean]
         @description
           Gets whether the path of this series should be filled. True if they are enabled, false if disabled.
           @default
             false
-
-
 
       @property fillColor [String]
         @description
@@ -3537,15 +2998,11 @@
           @default
             undefined
 
-
-
       @property class [String]
         @description
           The additional class applied to the series svg element.
           @default
             ''
-
-
 
       @property markersEnabled [Boolean]
         @description
@@ -3553,15 +3010,11 @@
           @default
             false
 
-
-
       @property markerFillColor [String]
         @description
           The color used to fill the markers with as a CSS color string. If undefined the strokeColor will be used.
           @default
             undefined
-
-
 
       @property markerRadius [Number]
         @description
@@ -3569,12 +3022,9 @@
           @default
             2
 
-
-
       @property data [Array[Object]]
         @description
           An array of objects with x,y properties. The data should be of the form:
-
 
           @@codeblock js
             [
@@ -3584,11 +3034,9 @@
               {x: 3, y: 12}
             ]
 
-
       @property labelFormatters [Object]
         @description
           Optional label formatters for each label value.
-
 
           @@codeblock js
             new hx.LineSeries({
@@ -3598,42 +3046,33 @@
               }
             })
 
-
-
       @property sampleThreshold [Number]
         @description
           The maximum number of data points to render when displaying the graph. If there are more data points in the series data than this value, the data will be sampled.
           @default
             200
 
-
-
       @property labelValuesExtractor [Function]
         @description
           The label values extractor that returns the values to display in the label
-
 
         @arg series [Series]
           @description
             The Series this label extractor has been applied to
 
-
         @arg point [Object]
           @description
             The data point to show label data for
 
-
         @arg? xValueLookup [Function]
           @description
             Looks up the x value from the data. May be undefined.
-
 
           @returns [Any]
 
         @arg? yValueLookup [Function]
           @description
             Looks up the y value from the data. May be undefined.
-
 
           @returns [Any]
 
@@ -3642,28 +3081,22 @@
             @description
               The name of the label entry
 
-
           @property value [Any]
             @description
               The value of the label entry
-
 
           @property formatter [Function]
             @decription
               @description
                 A formatter function that can be used to format the value.
 
-
             @arg value [Any]
               @description
                 The value to format
 
-
             @returns String
               @description
                 The formatted string
-
-
 
   @method labelFormatter
     @added 0.15.2
@@ -3674,7 +3107,6 @@
       @description
         The formatter to set
 
-
     @arg formatter [Function]
       @description
         The formatter to use. The formatter converts a value to a string
@@ -3684,11 +3116,9 @@
         @description
           The formatted String
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method labelFormatter
     @added 0.15.2
@@ -3699,7 +3129,6 @@
       @description
         The formatter to get
 
-
     @returns [Function]
       @description
         The formatter used for the label component. The formatter converts a value to a string. If there was no formatter set, this will return undefined.
@@ -3708,7 +3137,6 @@
       @returns String
         @description
           The formatted String
-
 
   @method title
     @added 0.15.2
@@ -3719,11 +3147,9 @@
       @description
         The title to give the series - this will appear in the hover labels.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method title
     @added 0.15.2
@@ -3734,10 +3160,9 @@
       @description
         The title of the series
 
-
   @method _new_group
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Sets the group the series belongs to. Series with the same group will be stacked on top of each other.
@@ -3746,15 +3171,13 @@
       @description
         The class to give the series.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
 
-
   @method _new_group
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Gets the group the series belongs to.
@@ -3762,7 +3185,6 @@
     @returns [String]
       @description
         The group.
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -3773,11 +3195,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -3787,7 +3207,6 @@
     @returns [Boolean]
       @description
         True if they are enabled, false if disabled
-
 
   @method labelRenderer
     @added 0.15.2
@@ -3799,7 +3218,6 @@
         @description
           The container to populate
 
-
       @arg data [Object]
         @description
           The data available to be used when rendering the label
@@ -3807,7 +3225,6 @@
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method labelRenderer
     @added 0.15.2
@@ -3819,11 +3236,9 @@
         @description
           The container populated
 
-
       @arg data [Object]
         @description
           The data provided for rendering the label
-
 
   @method sampleThreshold
     @added 0.15.2
@@ -3834,11 +3249,9 @@
       @description
         The maximum number of data points to display.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method sampleThreshold
     @added 0.15.2
@@ -3848,7 +3261,6 @@
     @returns [Number]
       @description
         The sample threshold.
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -3863,23 +3275,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns [Any]
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns [Any]
 
@@ -3888,32 +3296,26 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
-
 
           @returns String
             @description
               The formatted string
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -3928,23 +3330,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns Any
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns Any
 
@@ -3953,28 +3351,22 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
 
-
           @returns String
             @description
               The formatted string
-
-
 
   @method strokeEnabled
     @added 0.15.2
@@ -3985,11 +3377,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method strokeEnabled
     @added 0.15.2
@@ -4000,7 +3390,6 @@
       @description
         True if they are enabled, false if disabled
 
-
   @method strokeColor
     @added 0.15.2
     @description
@@ -4010,11 +3399,9 @@
       @description
         A CSS color string.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method strokeColor
     @added 0.15.2
@@ -4025,7 +3412,6 @@
       @description
         The color as a CSS color string
 
-
   @method fillEnabled
     @added 0.15.2
     @description
@@ -4035,11 +3421,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method fillEnabled
     @added 0.15.2
@@ -4050,10 +3434,9 @@
       @description
         True if they are enabled, false if disabled
 
-
   @method _new_fillColor
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in 1.0.0.]
       Sets the color to fill the series with
@@ -4062,15 +3445,13 @@
       @description
         A CSS color string.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
 
-
   @method _new_fillColor
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in 1.0.0.]
       Gets the color used to fill the series with
@@ -4079,10 +3460,9 @@
       @description
         The color as a CSS color string
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Sets an additional class to give the series svg element.
@@ -4091,15 +3471,13 @@
       @description
         The class to give the series.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Gets the additional class applied to the series svg element.
@@ -4107,7 +3485,6 @@
     @returns [String]
       @description
         The additional class applied to the series.
-
 
   @method markersEnabled
     @added 0.15.2
@@ -4118,11 +3495,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method markersEnabled
     @added 0.15.2
@@ -4133,7 +3508,6 @@
       @description
         True if they are enabled, false if disabled
 
-
   @method markerFillColor
     @added 0.15.2
     @description
@@ -4143,11 +3517,9 @@
       @description
         A CSS color string.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method markerFillColor
     @added 0.15.2
@@ -4158,10 +3530,9 @@
       @description
         The color as a CSS color string
 
-
   @method _new_markerRadius
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Sets the radius of the markers in pixels
 
@@ -4169,22 +3540,19 @@
       @description
         A CSS color string.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
 
-
   @method _new_markerRadius
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Gets the radius of the markers in pixels
 
     @returns [Number]
       @description
         The radius of a marker in pixels
-
 
   @method data
     @added 0.15.2
@@ -4195,7 +3563,6 @@
       @description
         n array of objects with x,y properties. The data should be of the form:
 
-
         @@codeblock js
           [
             {x: 0, y: 10},
@@ -4204,9 +3571,7 @@
             {x: 3, y: 12}
           ]
 
-
         The color of the bars can also be set per bar as well:
-
 
         @@codeblock js
           [
@@ -4220,7 +3585,6 @@
       @description
         This LineSeries
 
-
   @method data
     @added 0.15.2
     @description
@@ -4230,7 +3594,6 @@
       @description
         n array of objects with x,y properties. The data should be of the form:
 
-
         @@codeblock js
           [
             {x: 0, y: 10},
@@ -4239,9 +3602,7 @@
             {x: 3, y: 12}
           ]
 
-
         The color of the bars can also be set per bar as well:
-
 
         @@codeblock js
           [
@@ -4260,11 +3621,9 @@
       @description
         The class to give the series.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method group
     @added 1.0.0
@@ -4275,7 +3634,6 @@
       @description
         The group.
 
-
   @method fillColor
     @added 1.0.0
     @description
@@ -4285,11 +3643,9 @@
       @description
         A CSS color string.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method fillColor
     @added 1.0.0
@@ -4300,7 +3656,6 @@
       @description
         The color as a CSS color string
 
-
   @method class
     @added 1.0.0
     @description
@@ -4310,11 +3665,9 @@
       @description
         The class to give the series.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method class
     @added 1.0.0
@@ -4325,7 +3678,6 @@
       @description
         The additional class applied to the series.
 
-
   @method markerRadius
     @added 1.0.0
     @description
@@ -4335,11 +3687,9 @@
       @description
         A CSS color string.
 
-
     @returns [LineSeries]
       @description
         This LineSeries
-
 
   @method markerRadius
     @added 1.0.0
@@ -4350,7 +3700,6 @@
       @description
         The radius of a marker in pixels
 
-
   @event click [Object]
     @description
       The event emitted when a series is clicked.
@@ -4359,88 +3708,74 @@
       @description
         The click event data.
 
-
     @property data
       @description
         The data of the point on the line that was clicked.
 
-
     @property series
       @description
         The selected series.
-
 
 @prototype BandSeries
   @bugfix 0.11.0
     @description
       Fixed issue where existing band series weren't being cleared when a graph was re-renderered.
 
-
   @updated 0.11.0
     @description
       Gradient fill is now possible (by using an array for the color property)
-
 
   @description
     Used to display a range / interval.
 
   @property name [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the name.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the name.
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
     @description
       The series name, used by the hover over labels.
 
   @property color [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
     @description
       A css string color to fill the band with.
 
   @property feather [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to set it.
-
-
-    @deprecated 0.15.2
-      @description
-        Use @code] to set it.
-
-
     @updated 0.11.0
       @description
         series.feather can now be set to false to disable feathering
 
+    @deprecated 0.15.2
+      @description
+        Use @code[sampleThreshold()] to get the feather value, @code[sampleThreshold(value)] to set it.
+
+    @removed 1.0.0
+      @description
+        Use @code[series.sampleThreshold()] to get the feather value, @code[series.sampleThreshold(value)] to set it.
 
     @description
       The maximum number of points in the curve drawn. This is used to reduce the number of points in the svg curve for the series. This property can be set to false to disable feathering. The default is 200.
 
   @method setData
-    @removed 1.0.0
-      @description
-        Use @code] to get the current data.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the current data.
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
     @description
       Sets the data this series should display.
@@ -4459,17 +3794,15 @@
 
   @extends EventEmitter
   @property color [String/Array]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
-    @added 0.11.0
     @description
       A css string color to stroke the path line with.
       To color the line with a gradient, this may be set to an array:
@@ -4495,34 +3828,29 @@
 
       The colors will be linearly interpolated vertically between the y values.
 
-
   @property class [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the class.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
-        Use @code] .
+        Use @code[series._new_class(class)] to set the title. This method will be renamed to @code[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code[series._new_class()] .
 
+    @removed 1.0.0
+      @description
+        Use @code[series.class(class)] to set the class, @code[series.class()] to get the class.
 
-    @added 0.11.0
     @description
       An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for a series.
 
   @method createLabelValues [Function]
-    @removed 1.0.0
-      @description
-        Use labelValuesExtractor() instead.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use labelValuesExtractor() instead.
 
+    @removed 1.0.0
+      @description
+        Use labelValuesExtractor() instead.
 
-    @added 0.11.0
     @description
       Creates the list of values to show in the hover-over labels. The default is that the x and y values will be returned.
 
@@ -4531,16 +3859,13 @@
         @description
           The x value of the data point
 
-
       @property y1 [Number]
         @description
           The top value of the data point band
 
-
       @property y2 [Number]
         @description
           The bottom value of the data point band
-
 
       @property y [Number]
         @added 0.15.2
@@ -4554,11 +3879,9 @@
         @description
           The extracted y value.
 
-
     @returns [Array[Object]]
       @description
         An array of objects that describe the label values. They should each contain a name, value and formatter property:
-
 
       @property name [String]
       @property value [Number]
@@ -4567,7 +3890,6 @@
         @returns String
           @description
             The formatted number.
-
 
   @constructor
     @added 0.15.2
@@ -4578,31 +3900,23 @@
           @default
             ''
 
-
-
       @property labelsEnabled [Boolean]
         @description
           Whether labels should be displayed for this series. True if they are enabled, false if disabled
           @default
             true
 
-
-
       @property labelRenderer [Function]
         @description
           The label renderer for this series.
-
 
         @arg element [HTMLElement]
           @description
             The container populated
 
-
         @arg data [Object]
           @description
             The data provided for rendering the label
-
-
 
       @method labelInterpolated [Boolean]
         @description
@@ -4610,15 +3924,11 @@
           @default
             false
 
-
-
       @property fillColor [String]
         @description
           The color used to fill the series with as a CSS color string.
           @default
             [hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString()]
-
-
 
       @property class [String]
         @description
@@ -4626,12 +3936,9 @@
           @default
             ''
 
-
-
       @property data [Array[Object]]
         @description
           An array of objects with x,y properties. The data should be of the form:
-
 
           @@codeblock js
             [
@@ -4641,9 +3948,7 @@
               {x: 3, y: 12}
             ]
 
-
           The color of the bars can also be set per bar as well:
-
 
           @@codeblock js
             [
@@ -4653,41 +3958,33 @@
               {x: 3, y: 12, color: hx.color.graph[4]}
             ]
 
-
       @property sampleThreshold [Number]
         @description
           The maximum number of data points to render when displaying the graph. If there are more data points in the series data than this value, the data will be sampled.
           @default
             200
 
-
-
       @property labelValuesExtractor [Function]
         @description
           The label values extractor that returns the values to display in the label
-
 
         @arg series [Series]
           @description
             The Series this label extractor has been applied to
 
-
         @arg point [Object]
           @description
             The data point to show label data for
 
-
         @arg? xValueLookup [Function]
           @description
             Looks up the x value from the data. May be undefined.
-
 
           @returns [Any]
 
         @arg? yValueLookup [Function]
           @description
             Looks up the y value from the data. May be undefined.
-
 
           @returns [Any]
 
@@ -4696,33 +3993,26 @@
             @description
               The name of the label entry
 
-
           @property value [Any]
             @description
               The value of the label entry
-
 
           @property formatter [Function]
             @decription
               @description
                 A formatter function that can be used to format the value.
 
-
             @arg value [Any]
               @description
                 The value to format
-
 
             @returns String
               @description
                 The formatted string
 
-
-
       @property labelFormatters [Object]
         @description
           Optional label formatters for each label value.
-
 
           @@codeblock js
             new hx.BandSeries({
@@ -4742,11 +4032,9 @@
       @description
         The title to give the series - this will appear in the hover labels.
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method title
     @added 0.15.2
@@ -4757,7 +4045,6 @@
       @description
         The title of the series
 
-
   @method fillColor
     @added 0.15.2
     @description
@@ -4767,11 +4054,9 @@
       @description
         A CSS color string.
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method fillColor
     @added 0.15.2
@@ -4786,16 +4071,13 @@
         @description
           A y value to apply a color to.
 
-
       @property color [String]
         @description
           A CSS color string.
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method fillColor
     @added 0.15.2
@@ -4806,10 +4088,9 @@
       @description
         The color as a CSS color string
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Sets an additional class to give the series svg element.
@@ -4818,15 +4099,13 @@
       @description
         The class to give the series.
 
-
     @returns [BandSeries]
       @description
         This BandSeries
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Gets the additional class applied to the series svg element.
@@ -4834,7 +4113,6 @@
     @returns [String]
       @description
         The additional class applied to the series.
-
 
   @method sampleThreshold
     @added 0.15.2
@@ -4845,11 +4123,9 @@
       @description
         The maximum number of data points to display.
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method sampleThreshold
     @added 0.15.2
@@ -4859,7 +4135,6 @@
     @returns [Number]
       @description
         The sample threshold.
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -4874,23 +4149,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns [Any]
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns [Any]
 
@@ -4899,32 +4170,26 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
-
 
           @returns String
             @description
               The formatted string
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method labelFormatter
     @added 0.15.2
@@ -4935,7 +4200,6 @@
       @description
         The formatter to set
 
-
     @arg formatter [Function]
       @description
         The formatter to use. The formatter converts a value to a string
@@ -4945,11 +4209,9 @@
         @description
           The formatted String
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method labelFormatter
     @added 0.15.2
@@ -4960,7 +4222,6 @@
       @description
         The formatter to get
 
-
     @returns [Function]
       @description
         The formatter used for the label component. The formatter converts a value to a string. If there was no formatter set, this will return undefined.
@@ -4969,7 +4230,6 @@
       @returns String
         @description
           The formatted String
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -4984,23 +4244,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns Any
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns Any
 
@@ -5009,28 +4265,22 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
 
-
           @returns String
             @description
               The formatted string
-
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -5041,11 +4291,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -5055,7 +4303,6 @@
     @returns [Boolean]
       @description
         True if they are enabled, false if disabled
-
 
   @method labelRenderer
     @added 0.15.2
@@ -5067,7 +4314,6 @@
         @description
           The container to populate
 
-
       @arg data [Object]
         @description
           The data available to be used when rendering the label
@@ -5075,7 +4321,6 @@
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method labelRenderer
     @added 0.15.2
@@ -5087,11 +4332,9 @@
         @description
           The container populated
 
-
       @arg data [Object]
         @description
           The data provided for rendering the label
-
 
   @method labelInterpolated
     @added 0.15.2
@@ -5102,11 +4345,9 @@
       @description
         True to interpolate the labels between data points, false to snap to the closest data point.
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method labelInterpolated
     @added 0.15.2
@@ -5117,7 +4358,6 @@
       @description
         True if the labels are interpolated between data points, false if the labels snap to the closest data point.
 
-
   @method data
     @added 0.15.2
     @description
@@ -5126,7 +4366,6 @@
     @arg data [Array[Object]]
       @description
         An array of objects with x, y1 and y2 properties.The data should be of the form:
-
 
         @@codeblock js
           [
@@ -5140,7 +4379,6 @@
       @description
         This BandSeries
 
-
   @method data
     @added 0.15.2
     @description
@@ -5149,7 +4387,6 @@
     @returns [Array[Object]]
       @description
         An array of objects with x, y1 and y2 properties.The data should be of the form:
-
 
         @@codeblock js
           [
@@ -5168,11 +4405,9 @@
       @description
         The class to give the series.
 
-
     @returns [BandSeries]
       @description
         This BandSeries
-
 
   @method class
     @added 1.0.0
@@ -5183,7 +4418,6 @@
       @description
         The additional class applied to the series.
 
-
   @event click [Object]
     @description
       The event emitted when a series is clicked.
@@ -5192,73 +4426,62 @@
       @description
         The click event data.
 
-
     @property data
       @description
         The data of the point on the band that was clicked.
 
-
     @property series
       @description
         The selected series.
-
 
 @prototype ScatterSeries
   @description
     Displays the data points as dots.
 
   @property name [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the name.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the name.
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
     @description
       The series name, used by the hover over labels.
 
   @property color [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.fillColor(color)] to set the color, @code[series.fillColor()] to get the color.
 
     @description
       The default colour to use for the points. This can be overridden on a point-by-point basis (see setData).
 
   @property size [Number]
-    @removed 1.0.0
-      @description
-        Use @code] to get the size.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the size.
+        Use @code[series.radius(size)] to set the size, @code[series.radius()] to get the size.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.radius(size)] to set the size, @code[series.radius()] to get the size.
 
     @description
       The radius of the points in pixels. This can be overridden on a point-by-point basis (see setData).
 
   @method setData
-    @removed 1.0.0
-      @description
-        Use @code] to get the current data.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the current data.
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
     @description
       Sets the data this series should display.
@@ -5275,7 +4498,6 @@
             {x: 3, y: 12}
           ]
 
-
         The color and size of the points can also be supplied with the data:
         @@codeblock json
           [
@@ -5287,32 +4509,28 @@
 
   @extends EventEmitter
   @property class [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the class.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
-        Use @code] .
+        Use @code[series._new_class(class)] to set the title. This method will be renamed to @code[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code[series._new_class()] .
 
+    @removed 1.0.0
+      @description
+        Use @code[series.class(class)] to set the series class, @code[series.class()] to get the class.
 
-    @added 0.11.0
     @description
       An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for the data points.
 
   @method createLabelValues [Function]
-    @removed 1.0.0
-      @description
-        Use labelValuesExtractor() instead.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use labelValuesExtractor() instead.
 
+    @removed 1.0.0
+      @description
+        Use labelValuesExtractor() instead.
 
-    @added 0.11.0
     @description
       Creates the list of values to show in the hover-over labels. The default is that the x and y values will be returned.
 
@@ -5321,16 +4539,13 @@
         @description
           The x value of the data point
 
-
       @property y [Number]
         @description
           The y value of the data point
 
-
     @returns [Array[Object]]
       @description
         An array of objects that describe the label values. They should each contain a name, value and formatter property:
-
 
       @property name [String]
       @property value [Number]
@@ -5339,7 +4554,6 @@
         @returns String
           @description
             The formatted number.
-
 
   @constructor
     @added 0.15.2
@@ -5350,31 +4564,23 @@
           @default
             ''
 
-
-
       @property labelsEnabled [Boolean]
         @description
           Whether labels should be displayed for this series. True if they are enabled, false if disabled
           @default
             true
 
-
-
       @property labelRenderer [Function]
         @description
           The label renderer for this series.
-
 
         @arg element [HTMLElement]
           @description
             The container populated
 
-
         @arg data [Object]
           @description
             The data provided for rendering the label
-
-
 
       @property fillColor [String]
         @description
@@ -5382,15 +4588,11 @@
           @default
             [hx.theme.plot.colors[3]]
 
-
-
       @property class [String]
         @description
           The additional class applied to the series svg element.
           @default
             ''
-
-
 
       @property radius [Number]
         @description
@@ -5398,12 +4600,9 @@
           @default
             2
 
-
-
       @property data [Array[Object]]
         @description
           An array of objects with x, y1 and y2 properties.The data should be of the form:
-
 
           @@codeblock js
             [
@@ -5413,33 +4612,27 @@
               {x: 3, y1: 12, y2: 14}
             ]
 
-
       @property labelValuesExtractor [Function]
         @description
           The label values extractor that returns the values to display in the label
-
 
         @arg series [Series]
           @description
             The Series this label extractor has been applied to
 
-
         @arg point [Object]
           @description
             The data point to show label data for
 
-
         @arg? xValueLookup [Function]
           @description
             Looks up the x value from the data. May be undefined.
-
 
           @returns [Any]
 
         @arg? yValueLookup [Function]
           @description
             Looks up the y value from the data. May be undefined.
-
 
           @returns [Any]
 
@@ -5448,34 +4641,26 @@
             @description
               The name of the label entry
 
-
           @property value [Any]
             @description
               The value of the label entry
-
 
           @property formatter [Function]
             @decription
               @description
                 A formatter function that can be used to format the value.
 
-
             @arg value [Any]
               @description
                 The value to format
-
 
             @returns String
               @description
                 The formatted string
 
-
-
-
       @property labelFormatters [Object]
         @description
           Optional label formatters for each label value.
-
 
           @@codeblock js
             new hx.ScatterSeries({
@@ -5498,23 +4683,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns [Any]
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns [Any]
 
@@ -5523,32 +4704,26 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
-
 
           @returns String
             @description
               The formatted string
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -5563,23 +4738,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns Any
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns Any
 
@@ -5588,28 +4759,22 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
 
-
           @returns String
             @description
               The formatted string
-
-
 
   @method labelFormatter
     @added 0.15.2
@@ -5620,7 +4785,6 @@
       @description
         The formatter to set
 
-
     @arg formatter [Function]
       @description
         The formatter to use. The formatter converts a value to a string
@@ -5630,11 +4794,9 @@
         @description
           The formatted String
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method labelFormatter
     @added 0.15.2
@@ -5645,7 +4807,6 @@
       @description
         The formatter to get
 
-
     @returns [Function]
       @description
         The formatter used for the label component. The formatter converts a value to a string. If there was no formatter set, this will return undefined.
@@ -5654,7 +4815,6 @@
       @returns String
         @description
           The formatted String
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -5665,11 +4825,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -5679,7 +4837,6 @@
     @returns [Boolean]
       @description
         True if they are enabled, false if disabled
-
 
   @method labelRenderer
     @added 0.15.2
@@ -5691,7 +4848,6 @@
         @description
           The container to populate
 
-
       @arg data [Object]
         @description
           The data available to be used when rendering the label
@@ -5699,7 +4855,6 @@
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method labelRenderer
     @added 0.15.2
@@ -5711,11 +4866,9 @@
         @description
           The container populated
 
-
       @arg data [Object]
         @description
           The data provided for rendering the label
-
 
   @method title
     @added 0.15.2
@@ -5726,11 +4879,9 @@
       @description
         The title to give the series - this will appear in the hover labels.
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method title
     @added 0.15.2
@@ -5741,10 +4892,9 @@
       @description
         The title of the series
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Sets an additional class to give the series svg elements.
@@ -5753,15 +4903,13 @@
       @description
         The class to give the series.
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Gets the additional class applied to the series svg elements.
@@ -5769,7 +4917,6 @@
     @returns [String]
       @description
         The additional class applied to the series.
-
 
   @method radius
     @added 0.15.2
@@ -5780,11 +4927,9 @@
       @description
         The radius of the points in pixels.
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method radius
     @added 0.15.2
@@ -5795,7 +4940,6 @@
       @description
         The radius in pixels.
 
-
   @method fillColor
     @added 0.15.2
     @description
@@ -5805,11 +4949,9 @@
       @description
         A CSS color string.
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method fillColor
     @added 0.15.2
@@ -5820,7 +4962,6 @@
       @description
         The color as a CSS color string
 
-
   @method data
     @added 0.15.2
     @description
@@ -5830,7 +4971,6 @@
       @description
         An array of objects with x, y properties. The data should be of the form:
 
-
         @@codeblock js
           [
             {x: 0, y: 10},
@@ -5839,9 +4979,7 @@
             {x: 3, y: 12}
           ]
 
-
         The color and size of the points can also be supplied with the data:
-
 
         @@codeblock js
           [
@@ -5855,7 +4993,6 @@
       @description
         This ScatterSeries
 
-
   @method data
     @added 0.15.2
     @description
@@ -5865,7 +5002,6 @@
       @description
         An array of objects with x, y properties. The data should be of the form:
 
-
         @@codeblock js
           [
             {x: 0, y: 10},
@@ -5874,9 +5010,7 @@
             {x: 3, y: 12}
           ]
 
-
         The color and size of the points can also be supplied with the data:
-
 
         @@codeblock js
           [
@@ -5895,11 +5029,9 @@
       @description
         The class to give the series.
 
-
     @returns [ScatterSeries]
       @description
         This ScatterSeries
-
 
   @method class
     @added 1.0.0
@@ -5910,7 +5042,6 @@
       @description
         The additional class applied to the series.
 
-
   @event click [Object]
     @description
       The event emitted when a series is clicked.
@@ -5919,45 +5050,38 @@
       @description
         The click event data.
 
-
     @property data
       @description
         The data of the point on the graph that was clicked.
 
-
     @property series
       @description
         The selected series.
-
 
 @prototype StraightLineSeries
   @description
     A Straight line series, that just requires a point that it passes through, and a gradient. This series type is useful for drawing things like lines of best fit.
 
   @property color [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the color.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the color.
+        Use @code[series.strokeColor(color)] to set the color, @code[series.strokeColor()] to get the color.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.strokeColor(color)] to set the color, @code[series.strokeColor()] to get the color.
 
     @description
       A css string color to stroke the path line with.
 
   @method setData
-    @removed 1.0.0
-      @description
-        Use @code] to get the current data.
-
-
     @deprecated 0.15.2
       @description
-        Use @code] to get the current data.
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.data(data)] to set new data, @code[series.data()] to get the current data.
 
     @description
       Sets the data this series should display.
@@ -5970,11 +5094,9 @@
         @@codeblock json
           {x: 0, y: 10, dx: 2, dy: 3}
 
-
         Vertical line:
         @@codeblock json
           {x: 50}
-
 
         Horizontal line:
         @@codeblock json
@@ -5982,32 +5104,28 @@
 
   @extends EventEmitter
   @property class [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the class.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
-        Use @code] .
+        Use @code[series._new_class(class)] to set the title. This method will be renamed to @code[series.class()] in 1.0.0. The _new_ prefix is required to avoid naming clash with existing properties. To get the class use @code[series._new_class()] .
 
+    @removed 1.0.0
+      @description
+        Use @code[series.class(class)] to set the series class, @code[series.class()] to get the class.
 
-    @added 0.11.0
     @description
       An optional additional class (or list of space separated classes) to give the series. This can be used to change the styles for a series, for example by making a line series dashed.
 
   @method createLabelValues [Function]
-    @removed 1.0.0
-      @description
-        Use labelValuesExtractor() instead.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use labelValuesExtractor() instead.
 
+    @removed 1.0.0
+      @description
+        Use labelValuesExtractor() instead.
 
-    @added 0.11.0
     @description
       Creates the list of values to show in the hover-over labels. The default is that the x and y values will be returned.
 
@@ -6016,16 +5134,13 @@
         @description
           The x value of the data point
 
-
       @property y [Number]
         @description
           The y value of the data point
 
-
     @returns [Array[Object]]
       @description
         An array of objects that describe the label values. They should each contain a name, value and formatter property:
-
 
       @property name [String]
       @property value [Number]
@@ -6035,7 +5150,6 @@
           @description
             The formatted number.
 
-
   @constructor
     @added 0.15.2
     @arg? options [Object]
@@ -6043,31 +5157,23 @@
         @description
           The title of the series
 
-
-
       @property labelsEnabled [Boolean]
         @description
           Whether labels should be displayed for this series. True if they are enabled, false if disabled
           @default
             true
 
-
-
       @property labelRenderer [Function]
         @description
           The label renderer for this series.
-
 
         @arg element [HTMLElement]
           @description
             The container populated
 
-
         @arg data [Object]
           @description
             The data provided for rendering the label
-
-
 
       @property strokeColor [String]
         @description
@@ -6075,20 +5181,15 @@
           @default
             [hx.theme.plot.colors[4]]
 
-
-
       @property class [String]
         @description
           The additional class applied to the series svg element.
           @default
             ''
 
-
-
       @property data [Array[Object]]
         @description
           An array of objects with x, y properties. The data should be of the form:
-
 
           @@codeblock js
             [
@@ -6098,9 +5199,7 @@
               {x: 3, y: 12}
             ]
 
-
           The color and size of the points can also be supplied with the data:
-
 
           @@codeblock js
             [
@@ -6110,33 +5209,27 @@
               {x: 3, y: 12, fillColor: hx.color.graph[4], radius: 4}
             ]
 
-
       @property labelValuesExtractor [Function]
         @description
           The label values extractor that returns the values to display in the label
-
 
         @arg series [Series]
           @description
             The Series this label extractor has been applied to
 
-
         @arg point [Object]
           @description
             The data point to show label data for
 
-
         @arg? xValueLookup [Function]
           @description
             Looks up the x value from the data. May be undefined.
-
 
           @returns [Any]
 
         @arg? yValueLookup [Function]
           @description
             Looks up the y value from the data. May be undefined.
-
 
           @returns [Any]
 
@@ -6145,33 +5238,26 @@
             @description
               The name of the label entry
 
-
           @property value [Any]
             @description
               The value of the label entry
-
 
           @property formatter [Function]
             @decription
               @description
                 A formatter function that can be used to format the value.
 
-
             @arg value [Any]
               @description
                 The value to format
-
 
             @returns String
               @description
                 The formatted string
 
-
-
       @property labelFormatters [Object]
         @description
           Optional label formatters for each label value.
-
 
           @@codeblock js
             new hx.StraightLineSeries({
@@ -6194,23 +5280,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns [Any]
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns [Any]
 
@@ -6219,32 +5301,26 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
-
 
           @returns String
             @description
               The formatted string
 
-
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -6259,23 +5335,19 @@
         @description
           The Series this label extractor has been applied to
 
-
       @arg point [Object]
         @description
           The data point to show label data for
 
-
       @arg? xValueLookup [Function]
         @description
           Looks up the x value from the data. May be undefined.
-
 
         @returns Any
 
       @arg? yValueLookup [Function]
         @description
           Looks up the y value from the data. May be undefined.
-
 
         @returns Any
 
@@ -6284,28 +5356,22 @@
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
 
-
           @returns String
             @description
               The formatted string
-
-
 
   @method labelFormatter
     @added 0.15.2
@@ -6316,7 +5382,6 @@
       @description
         The formatter to set
 
-
     @arg formatter [Function]
       @description
         The formatter to use. The formatter converts a value to a string
@@ -6326,11 +5391,9 @@
         @description
           The formatted String
 
-
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method labelFormatter
     @added 0.15.2
@@ -6341,7 +5404,6 @@
       @description
         The formatter to get
 
-
     @returns [Function]
       @description
         The formatter used for the label component. The formatter converts a value to a string. If there was no formatter set, this will return undefined.
@@ -6350,7 +5412,6 @@
       @returns String
         @description
           The formatted String
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -6361,11 +5422,9 @@
       @description
         True to enable, false to disable
 
-
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -6375,7 +5434,6 @@
     @returns [Boolean]
       @description
         True if they are enabled, false if disabled
-
 
   @method labelRenderer
     @added 0.15.2
@@ -6387,7 +5445,6 @@
         @description
           The container to populate
 
-
       @arg data [Object]
         @description
           The data available to be used when rendering the label
@@ -6395,7 +5452,6 @@
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method labelRenderer
     @added 0.15.2
@@ -6407,23 +5463,19 @@
         @description
           The container populated
 
-
       @arg data [Object]
         @description
           The data provided for rendering the label
 
-
   @property name [String]
-    @removed 1.0.0
-      @description
-        Use @code] to get the name.
-
-
     @added 0.15.2
     @deprecated 0.15.2
       @description
-        Use @code] to get the name.
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
+    @removed 1.0.0
+      @description
+        Use @code[series.title(name)] to set the series name, @code[series.title()] to get the name.
 
   @method title
     @added 0.15.2
@@ -6434,11 +5486,9 @@
       @description
         The title to give the series - this will appear in the hover labels.
 
-
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method title
     @added 0.15.2
@@ -6449,10 +5499,9 @@
       @description
         The title of the series
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Sets an additional class to give the series svg element.
@@ -6461,15 +5510,13 @@
       @description
         The class to give the series.
 
-
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
 
-
   @method _new_class
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       @notice(Note)[The _new_ prefix will be dropped in version 1.0.0.]
       Gets the additional class applied to the series svg element.
@@ -6477,7 +5524,6 @@
     @returns [String]
       @description
         The additional class applied to the series.
-
 
   @method strokeColor
     @added 0.15.2
@@ -6488,11 +5534,9 @@
       @description
         A CSS color string.
 
-
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method strokeColor
     @added 0.15.2
@@ -6503,7 +5547,6 @@
       @description
         The color as a CSS color string
 
-
   @method data
     @added 0.15.2
     @description
@@ -6513,23 +5556,17 @@
       @description
         An object describing the line to draw. The data should be of the form:
 
-
         A line with a gradient:
-
 
         @@codeblock js
           {x: 0, y: 10, dx: 2, dy: 3}
 
-
         Vertical line:
-
 
         @@codeblock js
           {x: 50}
 
-
         Horizontal line:
-
 
         @@codeblock js
           {y: 70}
@@ -6537,7 +5574,6 @@
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method data
     @added 0.15.2
@@ -6548,23 +5584,17 @@
       @description
         An object describing the line to draw. The data should be of the form:
 
-
         A line with a gradient:
-
 
         @@codeblock js
           {x: 0, y: 10, dx: 2, dy: 3}
 
-
         Vertical line:
-
 
         @@codeblock js
           {x: 50}
 
-
         Horizontal line:
-
 
         @@codeblock js
           {y: 70}
@@ -6578,11 +5608,9 @@
       @description
         The class to give the series.
 
-
     @returns [StraightLineSeries]
       @description
         This StraightLineSeries
-
 
   @method class
     @added 1.0.0
@@ -6593,7 +5621,6 @@
       @description
         The additional class applied to the series.
 
-
   @event click [Object]
     @description
       The event emitted when a series is clicked.
@@ -6602,37 +5629,31 @@
       @description
         The click event data.
 
-
     @property data
       @description
         The data of the point on the line that was clicked.
-
 
     @property series
       @description
         The selected series.
 
-
 @prototype hx.PieChart
-  @bugfix 1.14.0
-    @issue 428
-    @description
-      Fixed a divide by zero issue which caused single segment pie charts not to be rendered
-
-  @bugfix 1.5.0
-    @description
-      Resolved an issue in pie charts where the legend was not being displayed with the correct colors and was not rendering correctly
-
-
   @updated 0.11.0
     @description
       Added resize listener to make pie charts re-render when the container is resized.
-
 
   @bugfix 0.11.0
     @description
       Updated the pie chart labels to help prevent them flowing outside the bounding box of the svg.
 
+  @bugfix 1.5.0
+    @description
+      Resolved an issue in pie charts where the legend was not being displayed with the correct colors and was not rendering correctly
+
+  @bugfix 1.14.0
+    @issue 428
+    @description
+      Fixed a divide by zero issue which caused single segment pie charts not to be rendered
 
   @description
     Type for displaying pie and donut charts.
@@ -6640,8 +5661,7 @@
   @constructor
     @removed 0.15.2
       @description
-        A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code] will still work
-
+        A new constructor has been added with an optional options object in place of this. If not using the options object, the existing way of creating a graph with @code[new hx.PieChart(selector)] will still work
 
     @description
       Creates a new pie chart object.
@@ -6651,120 +5671,97 @@
         An HTMLElement or CSS selector which specifies the chart's container.
 
   @property segmentPadding [Number]
-    @removed 1.0.0
-      @description
-        Use piechart.segmentPadding(value) to set, piechart.segmentPadding() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart._new_segmentPadding(value) to set, piechart._new_segmentPadding() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.segmentPadding(value) to set, piechart.segmentPadding() to get.
 
     @description
       The spacing between the segments. This value is a ratio of the segment width, so that pie charts scale to any size well. The default is 0.
 
-
   @property innerPadding [Number]
-    @removed 1.0.0
-      @description
-        Use piechart.innerPadding(value) to set, piechart.innerPadding() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart._new_innerPadding(value) to set, piechart._new_innerPadding() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.innerPadding(value) to set, piechart.innerPadding() to get.
 
     @description
       The padding at the centre of the pie chart. This can turn a pie chart into a donut chart. This value should be between 0 and 1. A value around 0.5 is good for donut charts. The default is 0.
 
-
   @property ringPadding [Number]
-    @removed 1.0.0
-      @description
-        Use piechart.ringPadding(value) to set, piechart.ringPadding() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart._new_ringPadding(value) to set, piechart._new_ringPadding() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.ringPadding(value) to set, piechart.ringPadding() to get.
 
     @description
       The separation between rings when there are multiple rings. This should be a value between 0 and 1. The default is 0.1.
 
-
   @property totalAngle [Number]
-    @removed 1.0.0
-      @description
-        Use piechart.totalAngle(value) to set, piechart.totalAngle() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart._new_totalAngle(value) to set, piechart._new_totalAngle() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.totalAngle(value) to set, piechart.totalAngle() to get.
 
     @description
       The total angle the pie chart should use in radians - the default is 2*Math.PI. This can be used to create semi-circle donut charts.
 
-
   @property startAngle [Number]
-    @removed 1.0.0
-      @description
-        Use piechart.startAngle(value) to set, piechart.startAngle() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart._new_startAngle(value) to set, piechart._new_startAngle() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.startAngle(value) to set, piechart.startAngle() to get.
 
     @description
       The angle that the segments should drawing from in radians. The default is 0, which starts the drawing from 12 o'clock. For drawing a semi-circle donut chart, this could be changed to -Math.PI/2.
 
-
   @property color [String]
-    @removed 1.0.0
-      @description
-        Use piechart.strokeColor(value) to set, piechart.strokeColor() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart.strokeColor(value) to set, piechart.strokeColor() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.strokeColor(value) to set, piechart.strokeColor() to get.
 
     @description
       A CSS color string which supplies the default color for ring segments. This can be overridden for each segment when supplying the data.
 
-
   @property formatter [Formatter]
-    @removed 1.0.0
-      @description
-        Use piechart.labelFormatter(value) to set, piechart.labelFormatter() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart.labelFormatter(value) to set, piechart.labelFormatter() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.labelFormatter(value) to set, piechart.labelFormatter() to get.
 
     @description
       Formatter to use when displaying the value of the segment. The default is hx.format.si(2), which uses SI notation for numbers, and passes strings through untouched.
 
-
   @method setData
-    @removed 1.0.0
-      @description
-        Use piechart.data(data) to set, piechart.data() to get.
-
-
     @deprecated 0.15.2
       @description
         Use piechart.data(data) to set, piechart.data() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.data(data) to set, piechart.data() to get.
 
     @description
       Sets the data this pie chart should display.
@@ -6794,7 +5791,6 @@
               }
             ]
           }
-
 
         For multi-ring pie charts, an array of the above object is expected:
         @@codeblock js
@@ -6866,24 +5862,21 @@
       Redraws the chart.
 
   @method createLabelValues [Function]
-    @removed 1.0.0
-      @description
-        Use piechart.labelValuesExtractor(value) to set, piechart.labelValuesExtractor() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use piechart.labelValuesExtractor(value) to set, piechart.labelValuesExtractor() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.labelValuesExtractor(value) to set, piechart.labelValuesExtractor() to get.
 
-    @added 0.11.0
     @description
       Creates the list of values to show in the hover-over labels. The default is that the x and y values will be returned.
 
     @arg segment [Object]
       @description
         An object containing information for the segment being hovered over
-
 
     @arg ring [Object]
       @description
@@ -6893,7 +5886,6 @@
       @description
         An array of objects that describe the label values. They should each contain a name, value and formatter property:
 
-
       @property name [String]
       @property value [Number]
       @property formatter [Function]
@@ -6902,49 +5894,42 @@
           @description
             The formatted number.
 
-
   @property useLabels [Boolean]
-    @removed 1.0.0
-      @description
-        Use piechart.labelsEnabled(value) to set, piechart.labelsEnabled() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use piechart.labelsEnabled(value) to set, piechart.labelsEnabled() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.labelsEnabled(value) to set, piechart.labelsEnabled() to get.
 
-    @added 0.11.0
     @description
       Whether or not to display labels on hover
 
   @property useSegmentText [Boolean]
-    @removed 1.0.0
-      @description
-        Use piechart.segmentTextEnabled(value) to set, piechart.segmentTextEnabled() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use piechart.segmentTextEnabled(value) to set, piechart.segmentTextEnabled() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.segmentTextEnabled(value) to set, piechart.segmentTextEnabled() to get.
 
-    @added 0.11.0
     @description
       Whether or not to display text on each segment. If this is enabled, it is recommended that useLabels is disabled.
 
   @property segmentTextFormatter [Function]
-    @removed 1.0.0
-      @description
-        Use piechart.segmentTextFormatter(value) to set, piechart.segmentTextFormatter() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use piechart._new_segmentTextFormatter(value) to set, piechart._new_segmentTextFormatter() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.segmentTextFormatter(value) to set, piechart.segmentTextFormatter() to get.
 
-    @added 0.11.0
     @description
       Returns the text that should be displayed on a segment if useSegmentText is enabled.
 
@@ -6952,44 +5937,37 @@
       @description
         The segment to return text for
 
-
     @arg segments [Array[Object]]
       @description
         The array of all segments in the ring
-
 
     @returns [String]
       @description
         The formatted text.
 
-
   @property useLegend [Boolean]
-    @removed 1.0.0
-      @description
-        Use piechart.legendEnabled(value) to set, piechart.legendEnabled() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use piechart.legendEnabled(value) to set, piechart.legendEnabled() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.legendEnabled(value) to set, piechart.legendEnabled() to get.
 
-    @added 0.11.0
     @description
       Whether or not to display the legend
 
   @property legendPosition [String]
-    @removed 1.0.0
-      @description
-        Use piechart.legendLocation(value) to set, piechart.legendLocation() to get.
-
-
+    @added 0.11.0
     @deprecated 0.15.2
       @description
         Use piechart.legendLocation(value) to set, piechart.legendLocation() to get.
 
+    @removed 1.0.0
+      @description
+        Use piechart.legendLocation(value) to set, piechart.legendLocation() to get.
 
-    @added 0.11.0
     @description
       How to display the legend on the graph. Possible modes:
 
@@ -7010,7 +5988,6 @@
       @description
         An HTMLElement or CSS selector which selects the graph's container.
 
-
     @arg? options [Object]
       @property labelsEnabled [Boolean]
         @description
@@ -7018,23 +5995,17 @@
           @default
             true
 
-
-
       @property labelRenderer [Function]
         @description
           The label renderer for this series.
-
 
         @arg element [HTMLElement]
           @description
             The container populated
 
-
         @arg data [Object]
           @description
             The data provided for rendering the label
-
-
 
       @property labelFormatter [Function]
         @description
@@ -7042,17 +6013,13 @@
           @default
             hx.format.si(2)
 
-
         @arg value [Number/String]
           @description
             The value point to format
 
-
         @returns [Number/String]
           @description
             The formatted value point
-
-
 
       @property fillColor [String]
         @description
@@ -7060,15 +6027,11 @@
           @default
             [hx.theme.plot.colors[1]]
 
-
-
       @property segmentPadding [Number]
         @description
           The spacing between the segments. This value is a ratio of the segment width, so that pie charts scale to any size well.
           @default
             0
-
-
 
       @property innerPadding [Number]
         @description
@@ -7076,15 +6039,11 @@
           @default
             0
 
-
-
       @property ringPadding [Number]
         @description
           The separation between rings when there are multiple rings. This should be a value between 0 and 1.
           @default
             0.1
-
-
 
       @property totalAngle [Number]
         @description
@@ -7092,25 +6051,19 @@
           @default
             2*Math.PI
 
-
-
       @property startAngle [Number]
         @description
           The angle that the segments should drawing from in radians. The default is 0, which starts the drawing from 12 o'clock. For drawing a semi-circle donut chart, this could be changed to -Math.PI/2.
           @default
             0
 
-
-
       @property legendEnabled [Boolean]
         @description
           Enables or disables the legends. Supplying true enables zoom, false disables it.
 
-
       @property legendLocation [String]
         @description
           How to display the legend on the pie chart. Possible modes:
-
 
           @list
             @item['auto' - moves the legend around to avoid the mouse]
@@ -7120,14 +6073,11 @@
             @item['bottom-right' - displays the legend in the bottom right]
             @item['bottom-left' - displays the legend in the bottom left]
 
-
       @property segmentTextEnabled [Boolean]
         @description
           Whether or not to display text on each segment. If this is enabled, it is recommended that useLabels is disabled.
           @default
             false
-
-
 
       @property segmentTextFormatter [Function]
         @description
@@ -7137,65 +6087,51 @@
           @description
             The segment to return text for
 
-
         @arg segments [Array[Object]]
           @description
             The array of all segments in the ring
-
 
         @returns [String]
           @description
             The formatted text.
 
-
-
       @property labelValuesExtractor [Function]
         @description
           The label values extractor that returns the values to display in the label
-
 
         @arg segment [Object]
           @description
             The current segment to show label data for
 
-
         @arg ring [Object]
           @description
             The current ring this label extractor has been applied to
 
-
         @arg pie [PieChart]
           @description
             The current pie chart
-
 
         @returns [Array[Object]]
           @property name [String]
             @description
               The name of the label entry
 
-
           @property value [Any]
             @description
               The value of the label entry
-
 
           @property formatter [Function]
             @decription
               @description
                 A formatter function that can be used to format the value.
 
-
             @arg value [Any]
               @description
                 The value to format
 
-
             @returns String
               @description
                 The formatted string
-
-
 
   @method segmentTextEnabled
     @added 0.15.2
@@ -7206,11 +6142,9 @@
       @description
         Whether the segment text should be enabled
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method segmentTextEnabled
     @added 0.15.2
@@ -7221,7 +6155,6 @@
       @description
         Whether the segment text is enabled
 
-
   @method labelsEnabled
     @added 0.15.2
     @description
@@ -7231,11 +6164,9 @@
       @description
         Whether the labels should be enabled
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method labelsEnabled
     @added 0.15.2
@@ -7246,7 +6177,6 @@
       @description
         Whether the labels are enabled
 
-
   @method legendEnabled
     @added 0.15.2
     @description
@@ -7256,11 +6186,9 @@
       @description
         Whether the legend should be enabled
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method legendEnabled
     @added 0.15.2
@@ -7271,7 +6199,6 @@
       @description
         Whether the legend is enabled
 
-
   @method fillColor
     @added 0.15.2
     @description
@@ -7281,11 +6208,9 @@
       @description
         The default segment fill color
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method fillColor
     @added 0.15.2
@@ -7296,10 +6221,9 @@
       @description
         The default segment fill color
 
-
   @method _new_innerPadding
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Sets the inner padding of the pie chart
 
@@ -7307,15 +6231,13 @@
       @description
         The inner padding to set
 
-
     @returns [PieChart]
       @description
         This PieChart
 
-
   @method _new_innerPadding
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Gets the current inner padding of the pie chart
 
@@ -7323,10 +6245,9 @@
       @description
         The current inner padding
 
-
   @method _new_segmentPadding
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Sets the segment padding of the pie chart
 
@@ -7334,15 +6255,13 @@
       @description
         The segment padding to set
 
-
     @returns [PieChart]
       @description
         This PieChart
 
-
   @method _new_segmentPadding
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Gets the current segment padding of the pie chart
 
@@ -7350,10 +6269,9 @@
       @description
         The current segment padding
 
-
   @method _new_ringPadding
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Sets the ring padding of the pie chart
 
@@ -7361,15 +6279,13 @@
       @description
         The ring padding to set
 
-
     @returns [PieChart]
       @description
         This PieChart
 
-
   @method _new_ringPadding
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Gets the current ring padding of the pie chart
 
@@ -7377,10 +6293,9 @@
       @description
         The current ring padding
 
-
   @method _new_totalAngle
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Sets the total angle of the pie chart
 
@@ -7388,15 +6303,13 @@
       @description
         The total angle to set
 
-
     @returns [PieChart]
       @description
         This PieChart
 
-
   @method _new_totalAngle
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Gets the current total angle of the pie chart
 
@@ -7404,10 +6317,9 @@
       @description
         The current total angle
 
-
   @method _new_startAngle
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Sets the start angle of the pie chart
 
@@ -7415,15 +6327,13 @@
       @description
         The start angle to set
 
-
     @returns [PieChart]
       @description
         This PieChart
 
-
   @method _new_startAngle
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Gets the current start angle of the pie chart
 
@@ -7431,10 +6341,9 @@
       @description
         The current start angle
 
-
   @method _new_segmentTextFormatter
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Sets the segment text formatter of the pie chart
 
@@ -7442,37 +6351,31 @@
       @description
         The segment text formatter to set
 
-
       @arg segment [Object]
         @description
           The segment to return text for
-
 
       @arg segments [Array[Object]]
         @description
           The array of all segments in the ring
 
-
       @returns [String]
         @description
           The formatted text.
-
 
     @returns [PieChart]
       @description
         This PieChart
 
-
   @method _new_segmentTextFormatter
-    @removed 1.0.0
     @added 0.15.2
+    @removed 1.0.0
     @description
       Gets the current segment text formatter of the pie chart
 
     @returns [Function]
       @description
         The current segment text formatter
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -7483,53 +6386,43 @@
       @description
         The label values extractor to set
 
-
       @arg segment [Object]
         @description
           The current segment to show label data for
-
 
       @arg ring [Object]
         @description
           The current ring this label extractor has been applied to
 
-
       @arg pie [PieChart]
         @description
           The current pie chart
-
 
       @returns [Array[Object]]
         @property name [String]
           @description
             The name of the label entry
 
-
         @property value [Any]
           @description
             The value of the label entry
-
 
         @property formatter [Function]
           @decription
             @description
               A formatter function that can be used to format the value.
 
-
           @arg value [Any]
             @description
               The value to format
-
 
           @returns String
             @description
               The formatted string
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method labelValuesExtractor
     @added 0.15.2
@@ -7540,7 +6433,6 @@
       @description
         The current label values extractor
 
-
   @method labelRenderer
     @added 0.15.2
     @description
@@ -7550,21 +6442,17 @@
       @description
         The label renderer to set
 
-
       @arg element [HTMLElement]
         @description
           The container populated
-
 
       @arg data [Object]
         @description
           The data provided for rendering the label
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method labelRenderer
     @added 0.15.2
@@ -7575,7 +6463,6 @@
       @description
         The current label renderer
 
-
   @method labelFormatter
     @added 0.15.2
     @description
@@ -7585,21 +6472,17 @@
       @description
         The label formatter to set
 
-
       @arg value [Number/String]
         @description
           The value point to format
-
 
       @returns [Number/String]
         @description
           The formatted value point
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method labelFormatter
     @added 0.15.2
@@ -7610,7 +6493,6 @@
       @description
         The current label formatter
 
-
   @method data
     @added 0.15.2
     @description
@@ -7619,7 +6501,6 @@
     @returns [Object/Array[Object]]
       @description
         The current data
-
 
   @method data
     @added 0.15.2
@@ -7653,7 +6534,6 @@
               }
             ]
           }
-
 
         For multi-ring pie charts, an array of the above object is expected:
 
@@ -7730,11 +6610,9 @@
       @description
         The inner padding to set
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method innerPadding
     @added 1.0.0
@@ -7745,7 +6623,6 @@
       @description
         The current inner padding
 
-
   @method segmentPadding
     @added 1.0.0
     @description
@@ -7755,11 +6632,9 @@
       @description
         The segment padding to set
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method segmentPadding
     @added 1.0.0
@@ -7770,7 +6645,6 @@
       @description
         The current segment padding
 
-
   @method ringPadding
     @added 1.0.0
     @description
@@ -7780,11 +6654,9 @@
       @description
         The ring padding to set
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method ringPadding
     @added 1.0.0
@@ -7795,7 +6667,6 @@
       @description
         The current ring padding
 
-
   @method totalAngle
     @added 1.0.0
     @description
@@ -7805,11 +6676,9 @@
       @description
         The total angle to set
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method totalAngle
     @added 1.0.0
@@ -7820,7 +6689,6 @@
       @description
         The current total angle
 
-
   @method startAngle
     @added 1.0.0
     @description
@@ -7830,11 +6698,9 @@
       @description
         The start angle to set
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method startAngle
     @added 1.0.0
@@ -7845,7 +6711,6 @@
       @description
         The current start angle
 
-
   @method segmentTextFormatter
     @added 1.0.0
     @description
@@ -7855,26 +6720,21 @@
       @description
         The segment text formatter to set
 
-
       @arg segment [Object]
         @description
           The segment to return text for
-
 
       @arg segments [Array[Object]]
         @description
           The array of all segments in the ring
 
-
       @returns [String]
         @description
           The formatted text.
 
-
     @returns [PieChart]
       @description
         This PieChart
-
 
   @method segmentTextFormatter
     @added 1.0.0
@@ -7885,7 +6745,6 @@
       @description
         The current segment text formatter
 
-
   @event click [Object]
     @description
       The event emitted when the pie chart is clicked.
@@ -7894,110 +6753,90 @@
       @description
         The click event data.
 
-
     @property data
       @description
         The data of the segment that was clicked.
 
-
     @property series
       @description
         The series data for the pie chart or pie chart ring.
-
 
 @class hx-plot-text-warm
   @added 0.10.0
   @description
     Applies the warm color from the graph color palette to text.
 
-
 @class hx-plot-text-ambient
   @added 0.10.0
   @description
     Applies the ambient color from the graph color palette to text.
-
 
 @class hx-plot-text-cold
   @added 0.10.0
   @description
     Applies the cold color from the graph color palette to text.
 
-
 @class hx-plot-text-positive
   @added 0.10.0
   @description
     Applies the positive color from the graph color palette to text.
-
 
 @class hx-plot-text-warning
   @added 0.10.0
   @description
     Applies the warning color from the graph color palette to text.
 
-
 @class hx-plot-text-negative
   @added 0.10.0
   @description
     Applies the negative color from the graph color palette to text.
-
 
 @class hx-plot-background-warm
   @added 0.10.0
   @description
     Applies the warm color from the graph color palette as a background color.
 
-
 @class hx-plot-background-ambient
   @added 0.10.0
   @description
     Applies the ambient color from the graph color palette as a background color.
-
 
 @class hx-plot-background-cold
   @added 0.10.0
   @description
     Applies the cold color from the graph color palette as a background color.
 
-
 @class hx-plot-background-positive
   @added 0.10.0
   @description
     Applies the positive color from the graph color palette as a background color.
-
 
 @class hx-plot-background-warning
   @added 0.10.0
   @description
     Applies the warning color from the graph color palette as a background color.
 
-
 @class hx-plot-background-negative
   @added 0.10.0
   @description
     Applies the negative color from the graph color palette as a background color.
 
-
-
-
 @function hx.plot
-  @removed 1.0.0
-    @description
-      The standard api provides a more declarative way of constructing graphs via the options object, so this api is no longer needed.
-
-
+  @added 0.11.0
   @deprecated 0.15.2
     @description
       The standard api provides a more declarative way of constructing graphs via the options object, so this api is no longer needed.
 
+  @removed 1.0.0
+    @description
+      The standard api provides a more declarative way of constructing graphs via the options object, so this api is no longer needed.
 
-  @added 0.11.0
   @description
     Provides a function for declaring graphs as an object, as alternative to the builder pattern use by the rest of the plot api.
 
   @arg selector [String/HTMLElement]
     @description
       A css selector or HTMLElement that uniquely identifies the container within the page.
-
 
   @arg description [Object]
     @property type [String]
@@ -8006,278 +6845,222 @@
         @default
           graph
 
-
-
     @property? segmentPadding [Number]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
-
 
     @property? innerPadding [Number]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
 
-
     @property? ringPadding [Number]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
-
 
     @property? totalAngle [Number]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
 
-
     @property? startAngle [Number]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
-
 
     @property? color [Number]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
 
-
     @property? label [Number]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
-
 
     @property? formatter [Function]
       @description
         To be used when constructing pie charts. See the pie chart api for details.
 
-
     @property? series [Object/Array[Object]]
       @description
         To be used when constructing pie charts. See the setData method on the PieChart prototype for details.
-
-
 
     @property? axes [Array[Object]]
       @description
         To be used when constructing graphs.
 
-
       @property? xVisible [Number]
         @description
           See the Axis api for details.
-
 
       @property? xFormatter [Function]
         @description
           See the Axis api for details.
 
-
       @property? xTickRotation [Number]
         @description
           See the Axis api for details.
-
 
       @property? xMin [Number]
         @description
           See the Axis api for details.
 
-
       @property? xMax [Number]
         @description
           See the Axis api for details.
-
 
       @property? xDiscretePadding [Number]
         @description
           See the Axis api for details.
 
-
       @property? xDiscreteLabels [Array[String]]
         @description
           See the Axis api for details.
-
 
       @property? xTickSpacing [Number]
         @description
           See the Axis api for details.
 
-
       @property? xTitle [String]
         @description
           See the Axis api for details.
-
 
       @property? xScalePaddingMin [Number]
         @description
           See the Axis api for details.
 
-
       @property? xScalePaddingMax [Number]
         @description
           See the Axis api for details.
-
 
       @property? xTicksAll [Boolean]
         @description
           See the Axis api for details.
 
-
       @property? xGridLines [Boolean]
         @description
           See the Axis api for details.
-
 
       @property? xNthTickVisible [Number]
         @description
           See the Axis api for details.
 
-
       @property? yVisible [Number]
         @description
           See the Axis api for details.
-
 
       @property? yFormatter [Function]
         @description
           See the Axis api for details.
 
-
       @property? yTickRotation [Number]
         @description
           See the Axis api for details.
-
 
       @property? yMin [Number]
         @description
           See the Axis api for details.
 
-
       @property? yMax [Number]
         @description
           See the Axis api for details.
-
 
       @property? yDiscretePadding [Number]
         @description
           See the Axis api for details.
 
-
       @property? yDiscreteLabels [Array[String]]
         @description
           See the Axis api for details.
-
 
       @property? yTickSpacing [Number]
         @description
           See the Axis api for details.
 
-
       @property? yTitle [String]
         @description
           See the Axis api for details.
-
 
       @property? yScalePaddingMin [Number]
         @description
           See the Axis api for details.
 
-
       @property? yScalePaddingMax [Number]
         @description
           See the Axis api for details.
-
 
       @property? yTicksAll [Boolean]
         @description
           See the Axis api for details.
 
-
       @property? yGridLines [Boolean]
         @description
           See the Axis api for details.
 
-
       @property? yNthTickVisible [Number]
         @description
           See the Axis api for details.
-
 
       @property? series [Array[Object]]
         @property? class [String]
           @description
             See the various Series prototypes for details.
 
-
         @property? stroke [Boolean]
           @description
             See the various Series prototypes for details.
-
 
         @property? color [String]
           @description
             See the various Series prototypes for details.
 
-
         @property? fill [Boolean]
           @description
             See the various Series prototypes for details.
-
 
         @property? fillColor [String]
           @description
             See the various Series prototypes for details.
 
-
         @property? feather [Number]
           @description
             See the various Series prototypes for details.
-
 
         @property? markers [Boolean]
           @description
             See the various Series prototypes for details.
 
-
         @property? markerRadius [Number]
           @description
             See the various Series prototypes for details.
-
 
         @property? markerColor [String]
           @description
             See the various Series prototypes for details.
 
-
         @property? group [String]
           @description
             See the various Series prototypes for details.
-
 
         @property? size [Number]
           @description
             See the various Series prototypes for details.
 
-
-
 @condensed
 
 @prototype hx.Sparkline
-  @bugfix 1.6.0
-    @issue 89
+  @added 0.15.2
+  @bugfix 1.0.4
+    @issue 52
     @description
-      Updated sparkline so that the labels show for the first/last points
-
+      Fix a bug where data with the same Y value caused an error with linear gradients
 
   @bugfix 1.5.1
     @issue 279
     @description
       Fixed the default @code[redrawOnResize] value
 
-
-  @bugfix 1.0.4
-    @issue 52
+  @bugfix 1.6.0
+    @issue 89
     @description
-      Fix a bug where data with the same Y value caused an error with linear gradients
+      Updated sparkline so that the labels show for the first/last points
 
-
-  @added 0.15.2
   @description
     A function for creating a small, inline graph with with no visible axes or ticks.
 
@@ -8287,11 +7070,9 @@
       @description
         An HTMLElement or CSS selector which selects the graph's container.
 
-
     @arg? options [Object]
       @description
         The options to use when creating the sparkline
-
 
       @property type [String]
         @description
@@ -8299,50 +7080,41 @@
           @default
             'line'
 
-
       @property strokeColor [String]
         @description
           The stroke color to use. This only affects the 'line' type.
-
 
       @property fillColor [String]
         @description
           The fill color to use
 
-
       @property data [Array]
         @description
            An array of numbers - each number will be a data point in the sparkline.
-
 
       @property labelRenderer [Function]
         @added 1.0.0
         @description
           The label renderer for this series.
 
-
         @arg element [HTMLElement]
           @description
             The container populated
 
-
         @arg data [Object]
           @description
             The data provided for rendering the label
-
 
       @property data [Object]
         @added 1.0.0
         @description
            An array of {x, y} objects.
 
-
       @property redrawOnResize [Boolean]
         @added 1.5.0
           @issue 152
           @description
             Added an option to disable automatic redraw when container is resized.
-
 
         @description
           Whether or not the sparkline should automatically be redrawn when the container is resized. By default true.
@@ -8353,12 +7125,10 @@
           @description
             Added an option for setting the minimum y value for a sparkline
 
-
         @description
           The minimum value the y axis should show. If set to 'auto' the minimum value will calculated from the data in the series.
           @default
             'auto'
-
 
       @property max [Number/String]
         @added 1.6.0
@@ -8366,12 +7136,10 @@
           @description
             Added an option for setting the maximum y value for a sparkline
 
-
         @description
           The maximum value the y axis should show. If set to 'auto' the maximum value will calculated from the data in the series.
           @default
             'auto'
-
 
   @method fillColor
     @description
@@ -8381,7 +7149,6 @@
       @description
         The currently set fill color
 
-
   @method fillColor
     @description
       Sets the fill color as a CSS color string
@@ -8390,11 +7157,9 @@
       @description
         The color to set
 
-
     @returns [Sparkline]
       @description
         This Sparkline
-
 
   @method strokeColor
     @description
@@ -8404,7 +7169,6 @@
       @description
         The currently set stroke color
 
-
   @method strokeColor
     @description
       Sets the stroke color as a CSS color string
@@ -8413,11 +7177,9 @@
       @description
         The color to set
 
-
     @returns [Sparkline]
       @description
         This Sparkline
-
 
   @method data
     @description
@@ -8428,22 +7190,18 @@
         @description
           Now returns an array of objects
 
-
       @description
         The currently set data
-
 
     @returns [Array[Object]]
       @added 1.0.0
       @description
         The currently set data
 
-
   @method data
     @removed 1.0.0
       @description
         The data should now be supplied as an array of {x, y} objects
-
 
     @description
       Sets the data
@@ -8452,11 +7210,9 @@
       @description
         An array of numbers - each number will be a data point in the sparkline.
 
-
     @returns [Sparkline]
       @description
         This Sparkline
-
 
   @method render
     @description
@@ -8465,7 +7221,6 @@
     @returns [Sparkline]
       @description
         This Sparkline
-
 
   @method labelRenderer
     @added 1.0.0
@@ -8476,16 +7231,13 @@
       @description
         The label renderer for this sparkline.
 
-
       @arg element [HTMLElement]
         @description
           The container populated
 
-
       @arg data [Object]
         @description
           The data provided for rendering the label
-
 
   @method labelRenderer
     @added 1.0.0
@@ -8496,21 +7248,17 @@
       @description
         The label renderer for for this sparkline.
 
-
       @arg element [HTMLElement]
         @description
           The container populated
-
 
       @arg data [Object]
         @description
           The data provided for rendering the label
 
-
     @returns [Sparkline]
       @description
         This Sparkline
-
 
   @method data
     @added 1.0.0
@@ -8521,18 +7269,15 @@
       @description
         An array of {x, y} objects.
 
-
     @returns [Sparkline]
       @description
         This Sparkline
-
 
   @method redrawOnResize
     @added 1.5.0
       @issue 152
       @description
         Added an option to disable automatic redraw when container is resized.
-
 
     @description
       Gets the currently set option for whether the sparkline should redraw on resizing the container
@@ -8541,13 +7286,11 @@
       @description
         The currently set value for redrawOnResize
 
-
   @method redrawOnResize
     @added 1.5.0
       @issue 152
       @description
         Added an option to disable automatic redraw when container is resized.
-
 
     @description
       Sets the option for whether the sparkline should redraw on resizing the container
@@ -8556,21 +7299,15 @@
       @description
         Whether the sparkline should redraw on resizing the container
 
-
     @returns [Sparkline]
       @description
         This Sparkline
-
-
-
-
 
 
 @function hx.pieChart
   @added 1.0.0
     @description
       Fluid api version of PieChart
-
 
   @description
     Creates a new PieChart set up on a detached element, wrapped in a selection
@@ -8579,17 +7316,14 @@
     @description
       See the options object for constructing PieChart
 
-
   @returns [Selection]
     @description
       A selection containing an element with an PieChart initialised on it
-
 
 @function hx.sparkline
   @added 1.0.0
     @description
       Fluid api version of Sparkline
-
 
   @description
     Creates a new Sparkline set up on a detached element, wrapped in a selection
@@ -8598,21 +7332,15 @@
     @description
       See the options object for constructing Sparkline
 
-
   @returns [Selection]
     @description
       A selection containing an element with an Sparkline initialised on it
-
-
-
-
 
 
 @function hx.graph
   @added 1.1.0
     @description
       Added a fluid api for graphs.
-
 
   @description
     Creates a new Graph, set up on a detached element, wrapped in a selection.
@@ -8624,5 +7352,4 @@
       The options to use when setting up the graph.
 
       See the options defined in the @code[hx.Graph] prototype constructor for details on the available option
-
 

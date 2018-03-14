@@ -1,232 +1,199 @@
 @function hx.animate
-  @description 
+  @description
     Constructs a new animation that will be applied to the node specified.
 
   @arg node [Element]
   @arg? ease [Function]
-    @description 
+    @description
       The easing function to use for the animations. See hx.ease for some pre-built easing functions.
-      
 
     @arg value [Number]
-      @description 
+      @description
         The input value
-        
 
     @returns [Number]
-      @description 
+      @description
         The value after it has been transformed by the easing function
-        
 
   @returns [Animation]
-    @description 
+    @description
       The newly constructed Animation object.
-      
 
 @function hx.morph
-  @description 
+  @description
     Constructs a new morph that will be applied to the node specified.
 
   @arg node [Element]
   @returns [Morph]
-    @description 
+    @description
       The newly constructed Morph object.
-      
 
 @function hx.morph.register
-  @description 
+  @description
     Registers a named morph action.
 
   @arg name [String]
-    @description 
+    @description
       The name to register the action under
-      
 
   @arg action [Function]
-    @description 
+    @description
       A function that performs the action
-      
 
     @arg node [Element]
-      @description 
+      @description
         The node to apply the action to (if it makes sense to apply the action to a node)
-        
 
     @arg duration [Number]
-      @description 
+      @description
         The length the action should take in milliseconds. The action being defined should respect this value.
-        
 
 @prototype Animation
-  @description 
+  @description
     A class for animating the styles and attributes of a Node.
 
   @method style
-    @description 
+    @description
       Animates a style property on the node.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Animation]
-      @description 
+      @description
         This Animation, for chaining.
-        
 
   @method style
-    @description 
+    @description
       Animates a style property on the node.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg startValue [String/Number]
-      @description 
+      @description
         The value to animate the property from
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds.
-        
 
     @returns [Animation]
-      @description 
+      @description
         This Animation, for chaining.
-        
 
   @method attr
-    @description 
+    @description
       Animates an attribute on the node.
 
     @arg attribute [String]
-      @description 
+      @description
         The attribute to animate
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the attribute to
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Animation]
-      @description 
+      @description
         This Animation, for chaining.
-        
 
   @method attr
-    @description 
+    @description
       Animates an attribute on the node.
 
     @arg attribute [String]
-      @description 
+      @description
         The attribute to animate
-        
 
     @arg startValue [String/Number]
-      @description 
+      @description
         The value to animate the attribute from
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the attribute to
-        
 
     @arg duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds.
-        
 
     @returns [Animation]
-      @description 
+      @description
         This Animation, for chaining.
-        
 
   @method cancel
-    @description 
+    @description
       Cancels this animation.
 
     @returns [Animation]
-      @description 
+      @description
         This Animation, for chaining.
-        
 
   @event end
-    @description 
+    @description
       Emitted when all of the animations specified have ended.
-      
 
   @event cancelled
-    @description 
+    @description
       Emitted when cancel() is called on this animation.
-      
 
 @prototype Morph
-  @description 
+  @description
     A class for chaining animations, asynchronous function calls, and synchronous function calls together.
 
   @method and
-    @description 
+    @description
       Adds an action that should happen concurrently with the previous action
 
     @arg morph [String]
-      @description 
+      @description
         The named morph to use.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Animation]
-      @description 
+      @description
         This Morph, for chaining.
-        
 
   @method and
-    @description 
+    @description
       Adds an action that should happen concurrently with the previous action
 
     @arg function [Function]
-      @description 
+      @description
         A function that gets called as part of the chain. If this function returns an EventEmitter, the behaviour is to wait for that event emitter to emit an 'end' event before proceeding to the next step.
 
         Anything that is returned from this function that has a 'cancel' method will be called.
 
       @arg? done [Function]
-        @description 
+        @description
           If specified in the argument list, this action will only complete when this function is called to complete the action.
 
           If this is not specified in the argument list the function will be called synchronously (ie it will block).
@@ -234,43 +201,39 @@
           The later option is useful for cleanup at the end of a morph.
 
     @returns [Morph]
-      @description 
+      @description
         This Morph, for chaining.
-        
 
   @method then
-    @description 
+    @description
       Adds an action that should happen after the previous action
 
     @arg morph [String]
-      @description 
+      @description
         The named morph to use.
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Morph]
-      @description 
+      @description
         A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
-        
 
   @method then
-    @description 
+    @description
       Adds an action that should happen after the previous action
 
     @arg function [Function]
-      @description 
+      @description
         A function that gets called as part of the chain. If this function returns an EventEmitter, the behaviour is to wait for that event emitter to emit an 'end' event before proceeding to the next step.
 
         Anything that is returned from this function that has a 'cancel' method will be called.
 
       @arg? done [Function]
-        @description 
+        @description
           If specified in the argument list, this action will only complete when this function is called to complete the action.
 
           If this is not specified in the argument list the function will be called synchronously (ie it will block).
@@ -278,268 +241,227 @@
           The later option is useful for cleanup at the end of a morph.
 
     @returns [Morph]
-      @description 
+      @description
         A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
-        
 
   @method andStyle
-    @description 
+    @description
       Adds an action that styles the element concurrently with the previous action.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Morph]
-      @description 
+      @description
         This Morph, for chaining.
-        
 
   @method andStyle
-    @description 
+    @description
       Adds an action that styles the element concurrently with the previous action.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg startValue [String/Number]
-      @description 
+      @description
         The value to animate the property from
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds.
-        
 
     @returns [Morph]
-      @description 
+      @description
         This Morph, for chaining.
-        
 
   @method thenStyle
-    @description 
+    @description
       Adds an action that styles the element after the previous action completes.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Morph]
-      @description 
+      @description
         A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
-        
 
   @method thenStyle
-    @description 
+    @description
       Adds an action that styles the element after the previous action completes.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg startValue [String/Number]
-      @description 
+      @description
         The value to animate the property from
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds.
-        
 
     @returns [Morph]
-      @description 
+      @description
         A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
-        
 
   @method andAttr
-    @description 
+    @description
       Adds an action that animates an attributes value on the element concurrently with the previous action.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Morph]
-      @description 
+      @description
         This Morph, for chaining.
-        
 
   @method andAttr
-    @description 
+    @description
       Adds an action that animates an attributes value on the element concurrently with the previous action.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg startValue [String/Number]
-      @description 
+      @description
         The value to animate the property from
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds.
-        
 
     @returns [Morph]
-      @description 
+      @description
         This Morph, for chaining.
-        
 
   @method thenAttr
-    @description 
+    @description
       Adds an action that animates an attributes value on the element after the previous action completes.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg? duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds
-        @default 
+        @default
           200
-        
 
     @returns [Morph]
-      @description 
+      @description
         A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
-        
 
   @method thenAttr
-    @description 
+    @description
       Adds an action that animates an attributes value on the element after the previous action completes.
 
     @arg property [String]
-      @description 
+      @description
         The style property to animate
-        
 
     @arg startValue [String/Number]
-      @description 
+      @description
         The value to animate the property from
-        
 
     @arg endValue [String/Number]
-      @description 
+      @description
         The value to animate the property to
-        
 
     @arg duration [Number]
-      @description 
+      @description
         The length of the animation in milliseconds.
-        
 
     @returns [Morph]
-      @description 
+      @description
         A new Morph object that is linked to the previous morph's end trigger. This morph will contain a single action - the one specified as part of this call to then.
-        
 
   @method go
-    @description 
+    @description
       Starts this morph. This should always be called at the end of the chain of actions.
 
     @arg? cancelOngoing [Boolean]
-      @description 
+      @description
         Stops any ongoing morphs for the selected node
-        @default 
+        @default
           false
-        
 
     @returns [Morph]
-      @description 
+      @description
         This Morph, for chaining.
-        
 
   @event end
-    @description 
+    @description
       Emitted when the entire chain of actions have finished for this morph.
-      
 
   @event cancelled
-    @description 
+    @description
       Emitted when cancel() is called on this animation.
-      
 
 @prototype Selection
-  @description 
+  @description
     This module adds some methods to the selection api's prototype.
 
   @method animate
-    @description 
+    @description
       Creates a new animation using the first node in the selection
 
     @returns [Animation]
 
   @method morph
-    @description 
+    @description
       Creates a new morph using the first node in the selection
 
     @returns [Morph]

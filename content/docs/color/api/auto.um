@@ -17,7 +17,6 @@
     @description
       A css color string, accepts "hex", "hsl", "hsla", "rgb", "rgba".
 
-
   @returns [Color]
 
 @function hx.color
@@ -34,7 +33,6 @@
 
       @@codeblock
         hx.color([255, 255, 255, 1])
-
 
   @returns [Color]
 
@@ -54,21 +52,17 @@
     @description
       The red component of the color, given in the range [0, 255]
 
-
   @arg g [Number]
     @description
       The green component of the color, given in the range [0, 255]
-
 
   @arg b [Number]
     @description
       The blue component of the color, given in the range [0, 255]
 
-
   @arg? a [Number]
     @description
       The alpha component of the color, given in the range [0, 1]
-
 
   @returns [Color]
 
@@ -81,12 +75,9 @@
       @description
         A css color string, accepts "hex", "hsl", "hsla", "rgb", "rgba".
 
-
     @returns [Boolean]
       @description
         True if the string is a valid css string.
-
-
 
   @function isColor
     @description
@@ -96,11 +87,9 @@
       @description
         The object to check.
 
-
     @returns [Boolean]
       @description
         True if the object is a Color instance.
-
 
 @prototype Color
   @updated 0.15.2
@@ -109,120 +98,103 @@
 
       The methods added for each property (e.g. red, green etc.) will also have aliased methods (e.g. r, g etc.) once the deprecated properties have been removed (as they share the same name)
 
-
   @description
     This class should be created through the hx.color function.A class that can be used to create a color object with methods to manipulate the color such as changing the lightness, saturation and mixing with other colors. The object consists of multiple methods that allow the manipulation of color properties (e.g. red, green etc.) as well as other functions for modifying the color as a whole.
 
     The color object also allows conversion between hsl and rgb, however the conversions are not exact and are rounded to the nearest whole integer so it is suggested that conversions are only made in one direction to prevent a color being modified.
 
   @property r [Number]
-    @removed 1.0.0
-      @description
-        Use @code[red()] to get and @code[red(value)] to set the red property.
-
-
     @deprecated 0.15.2
       @description
         Use @code[red()] to get and @code[red(value)] to set the red property.
 
+    @removed 1.0.0
+      @description
+        Use @code[red()] to get and @code[red(value)] to set the red property.
 
     @description
       The red value for the created color in the 0-255 range.
 
   @property g [Number]
-    @removed 1.0.0
-      @description
-        Use @code[green()] to get and @code[green(value)] to set the green property.
-
-
     @deprecated 0.15.2
       @description
         Use @code[green()] to get and @code[green(value)] to set the green property.
 
+    @removed 1.0.0
+      @description
+        Use @code[green()] to get and @code[green(value)] to set the green property.
 
     @description
       The green value for the current color in the 0-255 range.
 
   @property b [Number]
-    @removed 1.0.0
-      @description
-        Use @code[blue()] to get and @code[blue(value)] to set the blue property.
-
-
     @deprecated 0.15.2
       @description
         Use @code[blue()] to get and @code[blue(value)] to set the blue property.
 
+    @removed 1.0.0
+      @description
+        Use @code[blue()] to get and @code[blue(value)] to set the blue property.
 
     @description
       The blue value for the current color in the 0-255 range.
 
   @property h [Number]
-    @removed 1.0.0
-      @description
-        Use @code[hue()] to get and @code[hue(value)] to set the hue property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 360 instead of a value between 0 and 1.
-
-
     @deprecated 0.15.2
       @description
         Use @code[hue()] to get and @code[hue(value)] to set the hue property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 360 instead of a value between 0 and 1.
 
+    @removed 1.0.0
+      @description
+        Use @code[hue()] to get and @code[hue(value)] to set the hue property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 360 instead of a value between 0 and 1.
 
     @description
       The hue value for the current color in the 0-1 range. This value is a float with no rounding on decimals.
 
   @property s [Number]
-    @removed 1.0.0
-      @description
-        Use @code[saturation()] to get and @code[saturation(value)] to set the saturation property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
-
-
     @deprecated 0.15.2
       @description
         Use @code[saturation()] to get and @code[saturation(value)] to set the saturation property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
 
+    @removed 1.0.0
+      @description
+        Use @code[saturation()] to get and @code[saturation(value)] to set the saturation property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
 
     @description
       The saturation value for the current color in then 0-1 range. This value is a float with no rounding on decimals.
 
   @property l [Number]
-    @removed 1.0.0
-      @description
-        Use @code[lightness()] to get and @code[lightness(value)] to set the lightness property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
-
-
     @deprecated 0.15.2
       @description
         Use @code[lightness()] to get and @code[lightness(value)] to set the lightness property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
 
+    @removed 1.0.0
+      @description
+        Use @code[lightness()] to get and @code[lightness(value)] to set the lightness property. The value returned from @code[hue()] and expected by @code[hue(value)] is an integer between 0 and 100 instead of a value between 0 and 1.
 
     @description
       The lightness value for the current color in the 0-1 range. This value is a float with no rounding on decimals.
 
   @property a [Number]
-    @removed 1.0.0
-      @description
-        Use @code[alpha()] to get and @code[alpha(value)] to set the alpha property.
-
-
     @deprecated 0.15.2
       @description
         Use @code[alpha()] to get and @code[alpha(value)] to set the alpha property.
 
+    @removed 1.0.0
+      @description
+        Use @code[alpha()] to get and @code[alpha(value)] to set the alpha property.
 
     @description
       The alpha value for the current color in the 0-1 range. This value is a float with no rounding on decimals.
 
   @method getTextCol
-    @removed 1.0.0
-      @description
-        Use @code[textCol()] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[textCol()] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[textCol()] instead.
 
     @description
       A method to return the best text color (either black or white) when using the current color as a background.
@@ -231,17 +203,14 @@
       @description
         'black' or 'white' depending on the color.
 
-
   @method setRGB
-    @removed 1.0.0
-      @description
-        Use @code[rgb(value)] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[rgb(value)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[rgb(value)] instead.
 
     @description
       Sets the red green, blue and alpha of a color object. Passing in undefined for part of the array will use the previously set value.
@@ -250,22 +219,18 @@
       @description
         An array in the form of r,g,b or r,g,b,a
 
-
     @returns [Color]
       @description
         This Color
 
-
   @method setHSL
-    @removed 1.0.0
-      @description
-        Use @code[hsl(value)] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[hsl(value)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[hsl(value)] instead.
 
     @description
       Sets the hue, saturation, value and alpha of a color object. Passing in undefined for part of the array will use the previously set value.
@@ -274,11 +239,9 @@
       @description
         An array in the form of h,s,l or h,s,l,a
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method toString
     @description
@@ -299,17 +262,14 @@
       @description
         A css color string of the type passed in.
 
-
   @method toArray
-    @removed 1.0.0
-      @description
-        Use @code[rgb()] or @code[hsl()] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[rgb()] or @code[hsl()] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[rgb()] or @code[hsl()] instead.
 
     @description
       Output the color object a [r,g,b,a] array.
@@ -324,7 +284,6 @@
       @description
         A duplicate color object.
 
-
   @method mix
     @description
       Modify the color by mixing it with another color object by a given ratio amount.
@@ -333,16 +292,13 @@
       @description
         The color object to mix with the selected color.
 
-
     @arg amount [Number]
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method range
     @description
@@ -353,16 +309,13 @@
       @description
         The number of lighter color steps in the range. Defaults to 3.
 
-
     @arg numDark [Number]
       @description
         The number of darker color steps in the range. Defaults to 0.5.
 
-
     @arg maxRange [Number]
       @description
         The maximum percentage increase/decrease in lightness.
-
 
     @arg? outputFormat [String]
       @description
@@ -380,12 +333,10 @@
       @description
         An array of colors in the specified output format. If no output format is specified, an array of Color objects is returned.
 
-
   @method saturate
     @updated 0.15.2
       @description
         Updated to allow increase and decrease of saturation value.
-
 
     @description
       A method for changing the saturation value of a color by a given percentage amount
@@ -394,22 +345,18 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
 
-
   @method desaturate
-    @removed 1.0.0
-      @description
-        Use @code[saturate(-value)] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[saturate(-value)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[saturate(-value)] instead.
 
     @description
       Decrease the saturation of a color by a given percentage amount.
@@ -418,22 +365,18 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
 
-
   @method saturation
-    @removed 1.0.0
-      @description
-        Use @code[saturation(value)] with a value between 0 and 100 instead of 0 and 1
-
-
     @deprecated 0.15.2
       @description
         Use @code[saturation(value)] with a value between 0 and 100 instead of 0 and 1
 
+    @removed 1.0.0
+      @description
+        Use @code[saturation(value)] with a value between 0 and 100 instead of 0 and 1
 
     @description
       Set the saturation of a color to a given percentage value.
@@ -442,17 +385,14 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method lighten
     @updated 0.15.2
       @description
         Updated to allow increase and decrease of lightness value.
-
 
     @description
       A method for changing the lightness value of a color by a given percentage amount
@@ -461,22 +401,18 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
 
-
   @method darken
-    @removed 1.0.0
-      @description
-        Use @code[lighten(-value)] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[lighten(-value)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[lighten(-value)] instead.
 
     @description
       Decrease the lightness of a color by a given percentage amount.
@@ -485,22 +421,18 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
 
-
   @method lightness
-    @removed 1.0.0
-      @description
-        Use @code[lightness(value)] with a value between 0 and 100 instead of 0 and 1
-
-
     @deprecated 0.15.2
       @description
         Use @code[lightness(value)] with a value between 0 and 100 instead of 0 and 1
 
+    @removed 1.0.0
+      @description
+        Use @code[lightness(value)] with a value between 0 and 100 instead of 0 and 1
 
     @description
       Set the lightness of a color to a given percentage value.
@@ -509,22 +441,18 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
 
-
   @method fadeIn
-    @removed 1.0.0
-      @description
-        Use @code[fade(value)] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[fade(value)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[fade(value)] instead.
 
     @description
       Increase the alpha of a color by a given percentage amount.
@@ -533,22 +461,18 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
 
-
   @method fadeOut
-    @removed 1.0.0
-      @description
-        Use @code[fade(-value)] instead.
-
-
     @deprecated 0.15.2
       @description
         Use @code[fade(-value)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[fade(-value)] instead.
 
     @description
       Decrease the alpha of a color by a given percentage amount.
@@ -557,11 +481,9 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method alpha
     @description
@@ -571,11 +493,9 @@
       @description
         A number between 0 and 1
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method red
     @added 0.15.2
@@ -586,7 +506,6 @@
       @description
         The red value for a color as an integer between 0 and 255
 
-
   @method red
     @added 0.15.2
     @description
@@ -596,11 +515,9 @@
       @description
         A number between 0 and 255
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method green
     @added 0.15.2
@@ -611,7 +528,6 @@
       @description
         The green value for a color as an integer between 0 and 255
 
-
   @method green
     @added 0.15.2
     @description
@@ -621,11 +537,9 @@
       @description
         A number between 0 and 255
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method blue
     @added 0.15.2
@@ -636,7 +550,6 @@
       @description
         The blue value for a color as an integer between 0 and 255
 
-
   @method blue
     @added 0.15.2
     @description
@@ -646,11 +559,9 @@
       @description
         A number between 0 and 255
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method hue
     @added 0.15.2
@@ -661,7 +572,6 @@
       @description
         The hue value for a color as an integer between 0 and 360
 
-
   @method hue
     @added 0.15.2
     @description
@@ -671,11 +581,9 @@
       @description
         A number between 0 and 360
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method saturation
     @added 0.15.2
@@ -686,7 +594,6 @@
       @description
         The saturation value for a color as an integer between 0 and 100
 
-
   @method saturation
     @added 0.15.2
     @description
@@ -696,11 +603,9 @@
       @description
         A number between 0 and 100
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method lightness
     @added 0.15.2
@@ -711,7 +616,6 @@
       @description
         The lightness value for a color as an integer between 0 and 100
 
-
   @method lightness
     @added 0.15.2
     @description
@@ -721,11 +625,9 @@
       @description
         A number between 0 and 100
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method alpha
     @added 0.15.2
@@ -736,12 +638,10 @@
       @description
         The alpha value for a color as a value between 0 and 1
 
-
   @method fade
     @added 0.15.2
       @description
         Merged fadeIn and fadeOut into one function.
-
 
     @description
       A method for changing the alpha value of a color by a given percentage amount
@@ -750,11 +650,9 @@
       @description
         A value from 0-1 as a percentage.
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method rgb
     @added 0.15.2
@@ -765,7 +663,6 @@
       @description
         The rgb array for a color in the format r,g,b,a
 
-
   @method rgb
     @added 0.15.2
     @description
@@ -775,11 +672,9 @@
       @description
         The rgb array to set. It can be in the format of r,g,b or r,g,b,a
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method hsl
     @added 0.15.2
@@ -790,7 +685,6 @@
       @description
         The hsl array for a color in the format r,g,b,a
 
-
   @method hsl
     @added 0.15.2
     @description
@@ -800,11 +694,9 @@
       @description
         The hsl array to set. It can be in the format of r,g,b or r,g,b,a
 
-
     @returns [Color]
       @description
         This Color
-
 
   @method textCol
     @added 0.15.2
@@ -814,5 +706,4 @@
     @returns [String]
       @description
         'black' or 'white' depending on the color.
-
 

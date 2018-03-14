@@ -1,11 +1,10 @@
 @version 0.12.6
-  @examples 
-    @example 
-      @js 
+  @examples
+    @example
+      @js
         new hx.StickyTableHeaders('#table')
 
-      
-      @html 
+      @html
         <div id="table" class="example-table">
           <table class="hx-table">
             <thead>
@@ -476,10 +475,8 @@
             </tbody>
           </table>
         </div>
-        
 
-      
-      @css 
+      @css
         .example-table {
           max-height: 300px;
           overflow: hidden;

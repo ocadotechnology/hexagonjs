@@ -1,38 +1,34 @@
-@version 0.12.2
-  @examples 
-    @example 
-      @html 
-        <div id="datepickerExample1"></div> <div id="datepickerExample2"></div>
-
-      @js 
-        new hx.DatePicker('#datepickerExample1');
-        new hx.DatePicker('#datepickerExample2', {type: 'datepicker'});
-
-    
-    @example 
-      @html 
-        <div id="dateRangePicker"></div>
-
-      
-      @js 
-        new hx.DatePicker('#dateRangePicker', {selectRange: true});
-
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="datepickerExample1"></div> <div id="datepickerExample2"></div>
 
-      @js 
+      @js
         new hx.DatePicker('#datepickerExample1')
         new hx.DatePicker('#datepickerExample2', 'datepicker')
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div id="dateRangePicker"></div>
 
-      
-      @js 
+      @js
         new hx.DatePicker('#dateRangePicker', 'calendar', true, true)
+
+@version 0.12.2
+  @examples
+    @example
+      @html
+        <div id="datepickerExample1"></div> <div id="datepickerExample2"></div>
+
+      @js
+        new hx.DatePicker('#datepickerExample1');
+        new hx.DatePicker('#datepickerExample2', {type: 'datepicker'});
+
+    @example
+      @html
+        <div id="dateRangePicker"></div>
+
+      @js
+        new hx.DatePicker('#dateRangePicker', {selectRange: true});
 

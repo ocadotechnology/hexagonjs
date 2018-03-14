@@ -1,13 +1,13 @@
 @version 0.12.7
-  @examples 
-    
-    @example 
-      @html 
+  @examples
+
+    @example
+      @html
         <div id="example" class="meter-example"></div>
 
-      @js 
+      @js
         var meter = new hx.Meter('#example')
-        
+
         meter.value({
           unitText: 'Completed',
           total: 1000,
@@ -17,23 +17,22 @@
           markerText: 'Marker: ' + 870
         })
 
-      
-      @css 
+      @css
         .meter-example {
           width: 100%;
           height: 100%;
         }
 
 @version 0.13.0
-  @examples 
-    
-    @example 
-      @html 
+  @examples
+
+    @example
+      @html
         <div id="example" class="meter-example"></div>
 
-      @js 
+      @js
         var meter = new hx.Meter('#example')
-        
+
         meter.value({
           unitText: 'Completed',
           total: 1000,
@@ -43,8 +42,7 @@
           markerText: 'Marker: ' + 870
         })
 
-      
-      @css 
+      @css
         .meter-example {
           width: 100%;
           height: 100%;

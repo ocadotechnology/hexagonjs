@@ -1,4 +1,13 @@
 @prototype hx.Form
+  @bugfix 1.2.0
+    @description
+      Updated the hidden/disabled state for properties so they can be hidden/disabled when added using the options and also using the hidden/disabled methods after they have been added.
+
+  @updated 1.4.0
+    @issue 211
+    @description
+      Updated the error text to use the user facing text module
+
   @bugfix 1.10.0
     @issue 359
     @description
@@ -8,17 +17,6 @@
     @issue 368
     @description
       Resolved an issue where disabled form fields would not return their value when using the value or data method.
-
-  @updated 1.4.0
-    @issue 211
-    @description
-      Updated the error text to use the user facing text module
-
-
-  @bugfix 1.2.0
-    @description
-      Updated the hidden/disabled state for properties so they can be hidden/disabled when added using the options and also using the hidden/disabled methods after they have been added.
-
 
   @description
     Used for building forms.
@@ -32,14 +30,12 @@
       @description
         An HTMLElement or CSS selector that uniquely identifies your form.
 
-
   @method getData
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[data()] instead.
 
-
+    @removed 0.12.0
     @description
       Returns the data in the form as an object
 
@@ -52,14 +48,12 @@
       @description
         This Form
 
-
   @method fill
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[data(data)] instead.
 
-
+    @removed 0.12.0
     @description
       Fill the form with some data.
 
@@ -83,7 +77,6 @@
         @description
           Replaced with @code[addSubmit(text, icon, submitAction)]
 
-
       @description
         Adds a submit button to the form
 
@@ -91,16 +84,13 @@
         @description
           The text to give the button
 
-
       @arg icon [String]
         @description
           The icon class for the button's icon
 
-
       @returns [Form]
         @description
           This Form
-
 
     @method addText
       @description
@@ -110,7 +100,6 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the text field.
@@ -119,36 +108,29 @@
           @description
             Whether or not this is a required field.
 
-
         @property placeholder [String]
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
-
 
         @property type [String]
           @description
             The type of text field - the default is 'text'.
 
-
         @property attrs [Array]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
-
 
         @property autoCompleteData [Data/Function]
           @description
             The data to use for auto complete suggestions. Can be either an array of data or a function that returns data. For a more detailed explanation, see the Auto Complete page.
 
-
         @property autoCompleteOptions [Object]
           @description
             The options to use for the auto complete. For a more detailed explanation, see the Auto Complete page.
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property validator [Function]
           @description
@@ -164,26 +146,22 @@
             @description
               The input event that was emiited by the input element.
 
-
           @returns [String]
             @description
               The error string to display if the string did not validate, or undefined if the contents of the input was valid.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -197,7 +175,6 @@
       @returns [Form]
         @description
           This Form
-
 
     @method addEmail
       @description
@@ -207,7 +184,6 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the email field.
@@ -216,31 +192,25 @@
           @description
             Whether or not this is a required field.
 
-
         @property placeholder [String]
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
-
 
         @property attrs [Array]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
-
         @property autoCompleteData [Data/Function]
           @description
             The data to use for auto complete suggestions. Can be either an array of data or a function that returns data. For a more detailed explanation, see the Auto Complete page.
-
 
         @property autoCompleteOptions [Object]
           @description
             The options to use for the auto complete. For a more detailed explanation, see the Auto Complete page.
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property validator [Function]
           @description
@@ -256,26 +226,22 @@
             @description
               The input event that was emiited by the input element.
 
-
           @returns [String]
             @description
               The error string to display if the string did not validate, or undefined if the contents of the input was valid.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -289,7 +255,6 @@
       @returns [Form]
         @description
           This Form
-
 
     @method addNumber
       @description
@@ -299,7 +264,6 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the number field.
@@ -308,36 +272,29 @@
           @description
             Whether or not this is a required field.
 
-
         @property placeholder [String]
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
-
 
         @property step [Number]
           @description
             Specifies the legal number intervals for the input field. The default is 'any'.
 
-
         @property min [Number]
           @description
             The minimum value the number input should allow. By default there is no minimum.
-
 
         @property max [Number]
           @description
             The maximum value the number input should allow. By default there is no maximum.
 
-
         @property attrs [Array]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property validator [Function]
           @description
@@ -354,26 +311,22 @@
             @description
               The input event that was emiited by the input element.
 
-
           @returns [String]
             @description
               The error string to display if the string did not validate, or undefined if the contents of the input was valid.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -387,7 +340,6 @@
       @returns [Form]
         @description
           This Form
-
 
     @method addPassword
       @description
@@ -397,7 +349,6 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the password field.
@@ -406,21 +357,17 @@
           @description
             Whether or not this is a required field.
 
-
         @property placeholder [String]
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
-
 
         @property attrs [Array]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property validator [Function]
           @description
@@ -436,26 +383,22 @@
             @description
               The input event that was emiited by the input element.
 
-
           @returns [String]
             @description
               The error string to display if the string did not validate, or undefined if the contents of the input was valid.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -469,7 +412,6 @@
       @returns [Form]
         @description
           This Form
-
 
     @method addUrl
       @description
@@ -479,7 +421,6 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the email field.
@@ -488,31 +429,25 @@
           @description
             Whether or not this is a required field.
 
-
         @property placeholder [String]
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
-
 
         @property attrs [Array]
           @description
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
-
         @property autoCompleteData [Data/Function]
           @description
             The data to use for auto complete suggestions. Can be either an array of data or a function that returns data. For a more detailed explanation, see the Auto Complete page.
-
 
         @property autoCompleteOptions [Object]
           @description
             The options to use for the auto complete. For a more detailed explanation, see the Auto Complete page.
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property validator [Function]
           @description
@@ -528,21 +463,18 @@
             @description
               The input event that was emiited by the input element.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -557,17 +489,14 @@
         @description
           This Form
 
-
     @method addSelect
-      @removed 0.15.0
-        @description
-          Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.
-
-
       @updated 0.11.0
         @description
           Updated the form builder to use the new hx.Select element.
 
+      @removed 0.15.0
+        @description
+          Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.
 
       @description
         Adds a dropdown select input to the form.
@@ -576,17 +505,14 @@
         @description
           The field name.
 
-
       @arg values [Array[String]]
         @description
           An array of the possible options in the dropdown.
-
 
       @arg? options [Object]
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property required [Boolean]
           @description
@@ -603,7 +529,6 @@
           @description
             Whether the field should have the disabled attribute.
 
-
         @property selectOptions [Object]
           @added 0.13.0
           @description
@@ -613,7 +538,6 @@
         @description
           This Form
 
-
     @method addCheckbox
       @description
         Adds a checkbox field to the form
@@ -621,7 +545,6 @@
       @arg name [String]
         @description
           The field name.
-
 
       @arg? options [Object]
         @description
@@ -631,26 +554,22 @@
           @description
             Whether or not this is a required field. The default is false. If set to required, the user must tick the box before the form can be submitted.
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -665,7 +584,6 @@
         @description
           This Form
 
-
     @method addRadio
       @description
         Adds a radio field to the form.
@@ -674,11 +592,9 @@
         @description
           The field name.
 
-
       @arg values [Array[String]]
         @description
           An array that contains the list of labels for the radio options.
-
 
       @arg? options [Object]
         @description
@@ -688,26 +604,22 @@
           @description
             Whether or not this is a required field
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -723,7 +635,6 @@
         @description
           This Form
 
-
     @method addTagInput
       @description
         Adds a hx.TagInput field.
@@ -732,45 +643,37 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when adding the tag input.
 
         @property classifier [Function]
-          @removed 0.14.0
-            @description
-              Use @code[tagInputOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[tagInputOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[tagInputOptions] instead.
 
           @description
             See the hx.TagInput constructor for details.
-
 
         @property validator [Function]
-          @removed 0.14.0
-            @description
-              Use @code[tagInputOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[tagInputOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[tagInputOptions] instead.
 
           @description
             See the hx.TagInput constructor for details.
-
 
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property tagInputOptions [Object]
           @added 0.13.0
@@ -780,18 +683,16 @@
         @property disabled [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property placeholder [String]
           @added 1.4.0
@@ -800,24 +701,20 @@
           @description
             The placeholder text for the tag input
 
-
       @returns [Form]
         @description
           This Form
 
-
     @method addSelect
-      @removed 0.15.0
-        @description
-          Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.
-
-
+      @added 0.10.0
       @updated 0.11.0
         @description
           Updated the form builder to use the new hx.Select element.
 
+      @removed 0.15.0
+        @description
+          Use addPicker instead. options.selectOptions has also be renamed to options.pickerOptions.
 
-      @added 0.10.0
       @description
         Adds a dropdown select input to the form. There is an alternative overload that accepts an array of strings as the values.
 
@@ -833,17 +730,14 @@
         @description
           The field name.
 
-
       @arg values [Array[Object]]
         @description
           An array of the possible options in the dropdown. The objects should have text and value fields.
-
 
       @arg? options [Object]
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property required [Boolean]
           @description
@@ -860,7 +754,6 @@
           @description
             Whether the field should have the disabled attribute.
 
-
         @property selectOptions [Object]
           @added 0.13.0
           @description
@@ -869,7 +762,6 @@
       @returns [Form]
         @description
           This Form
-
 
     @method addDatePicker
       @added 0.11.0
@@ -880,60 +772,49 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the field.
 
-
         @property type [String]
-          @removed 0.14.0
-            @description
-              Use @code[datePickerOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[datePickerOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[datePickerOptions] instead.
 
           @description
             The type of date picker to use, 'calendar' or 'datepicker'. The default is decided by the date picker.
 
-
         @property closeOnSelect [Boolean]
-          @removed 0.14.0
-            @description
-              Use @code[datePickerOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[datePickerOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[datePickerOptions] instead.
 
           @description
             Whether to close the datepicker when a date has been selected.
             @default
               true
 
-
         @property selectRange [Boolean]
-          @removed 0.14.0
-            @description
-              Use @code[datePickerOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[datePickerOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[datePickerOptions] instead.
 
           @description
             Whether to display a date range picker instead of a standard date picker.
             @default
               false
-
 
         @property startDate [Date]
           @description
@@ -941,37 +822,31 @@
             @default
               Today
 
-
         @property endDate [Date]
           @description
             The selected end date to use when selectRange is true. Both startDate and endDate must be defined for this to have an effect.
             @default
               Today
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property validStart [Date]
           @added 0.12.0
           @description
             The valid start date for the date picker. The user will not be able to select dates before this date.
 
-
         @property validEnd [Date]
           @added 0.12.0
           @description
             The valid end date for the date picker. The user will not be able to select dates after this date.
-
 
         @property datePickerOptions [Objec]
           @added 0.13.0
@@ -981,15 +856,13 @@
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
       @returns [Form]
         @description
           This Form
-
 
     @method addTimePicker
       @added 0.11.0
@@ -1000,55 +873,45 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the field.
 
-
         @property showSeconds [Boolean]
-          @removed 0.14.0
-            @description
-              Use @code[timePickerOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[timePickerOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[timePickerOptions] instead.
 
           @description
             Whether to show the seconds in the time picker.
             @default
               false
 
-
         @property buttonClass [String]
-          @removed 0.14.0
-            @description
-              Use @code[timePickerOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[timePickerOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[timePickerOptions] instead.
 
           @description
             An additional class to give to the buttons in the time picker (e.g. hx-positive)
-
 
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property timePickerOptions [Object]
           @added 0.13.0
@@ -1058,15 +921,13 @@
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
       @returns [Form]
         @description
           This Form
-
 
     @method addDateTimePicker
       @added 0.11.0
@@ -1077,28 +938,23 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the field.
 
-
         @property showSeconds [Boolean]
-          @removed 0.14.0
-            @description
-              Use @code[dateTimePickerOptions] instead.
-
-
           @deprecated 0.13.0
             @description
               Use @code[dateTimePickerOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[dateTimePickerOptions] instead.
 
           @description
             Whether to show the seconds in the time picker.
             @default
               false
-
 
         @property closeOnSelect [Boolean]
           @description
@@ -1106,30 +962,25 @@
             @default
               true
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
 
-
         @property type [String]
-          @removed 0.14.0
-            @description
-              Use @code[dateTimePickerOptions] instead.
-
-
           @added 0.13.0
           @deprecated 0.13.0
             @description
               Use @code[dateTimePickerOptions] instead.
 
+          @removed 0.14.0
+            @description
+              Use @code[dateTimePickerOptions] instead.
 
         @property dateTimePickerOptions [Object]
           @added 0.13.0
@@ -1139,15 +990,13 @@
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
       @returns [Form]
         @description
           This Form
-
 
     @method addTextArea
       @added 0.14.0
@@ -1158,7 +1007,6 @@
         @description
           The field name.
 
-
       @arg? options [Object]
         @description
           The options to use when creating the textarea field.
@@ -1167,33 +1015,27 @@
           @description
             Whether or not this is a required field.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property placeholder [String]
           @description
             The placeholder text to use - this will appear as a greyed out suggestion/hint in the input box.
 
-
         @property type [String]
           @description
             The type of text field - the default is 'textarea'.
-
 
         @property attrs [Array]
           @description
             Additional attributes to give the textarea input. This should be an array of objects with type and value properties.
 
-
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property validator [Function]
           @description
@@ -1209,19 +1051,16 @@
             @description
               The input event emitted from the textarea.
 
-
           @returns [String]
             @description
               The error string to display if the string did not validate, or undefined if the contents of the input was valid.
 
-
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property value [Any]
           @added 1.14.0
@@ -1236,21 +1075,19 @@
         @description
           This Form
 
-
     @method addPicker
+      @added 0.15.0
       @bugfix 1.14.0
         @issue 304
         @description
           Resolved an issue with validation when un-setting picker values
 
-      @added 0.15.0
       @description
         Adds a picker to the form.
 
       @arg name [String]
         @description
           The field name.
-
 
       @arg values [Array[String/Object]]
         @description
@@ -1272,7 +1109,6 @@
           @description
             The property name to map the input value to when filling the form and when getting the data.
 
-
         @property required [Boolean]
           @description
             Whether or not this is a required field.
@@ -1289,23 +1125,20 @@
 
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
       @returns [Form]
         @description
           This Form
-
 
     @method addSubmit
       @added 0.15.2
@@ -1316,11 +1149,9 @@
         @description
           The text to give the button
 
-
       @arg icon [String]
         @description
           The icon class for the button's icon
-
 
       @arg? submitAction [Function]
         @description
@@ -1330,18 +1161,15 @@
           @description
             The form being submitted
 
-
       @returns [Form]
         @description
           This Form
-
 
     @method addFileInput
       @added 1.3.0
         @issue 25
         @description
           New method for adding a FileInput
-
 
       @description
         Adds a @code[hx.FileInput] field.
@@ -1350,30 +1178,25 @@
         @description
           The field name
 
-
       @arg? options [Object]
         @description
           The options to use when adding the FileInput.
 
-
         @property disabled [Boolean]
           @description
-            Whether the property should be disabled as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
             @default
               false
-
 
         @property hidden [Boolean]
           @description
-            Whether the property should be hidden as it's initial state. This can also be toggled with the @code] method.
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
             @default
               false
-
 
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property fileInputOptions [Object]
           @description
@@ -1382,13 +1205,13 @@
             See the @code[hx.FileInput] prototype constructor for the available options.
 
     @method addAutocompletePicker
+      @added 1.4.0
+        @issue 17
+
       @bugfix 1.14.0
         @issue 304
         @description
           Resolved an issue with validation when un-setting picker values
-
-      @added 1.4.0
-        @issue 17
 
       @description
         Adds an autocomplete picker to the form.
@@ -1396,7 +1219,6 @@
       @arg name [String]
         @description
           The field name.
-
 
       @arg values [Array/Function]
         @description
@@ -1410,7 +1232,6 @@
         @property key [String]
           @description
             The property name to map the input value to when filling the form and when getting the data.
-
 
         @property required [Boolean]
           @description
@@ -1432,20 +1253,17 @@
           @description
             Whether the picker should be disabled.
 
-
       @returns [Form]
         @description
           This Form
 
-
   @method data
+    @added 0.11.0
     @bugfix 1.3.0
       @issue 178
       @description
         Fix to make the data method circular for tag input fields
 
-
-    @added 0.11.0
     @description
       Fill the form with some data.
 
@@ -1463,7 +1281,6 @@
     @returns [Form]
       @description
         This Form
-
 
   @method data
     @added 0.11.0
@@ -1491,7 +1308,6 @@
 
         The component types have also been removed from the properties and should be accesed with @code[form.component('Name of Property')] instead.
 
-
     @description
       A method for getting the component for a form property. If the property provided doesn't exist or does not have a component, this function will return undefined.
 
@@ -1499,11 +1315,9 @@
       @description
         The form property to get the component for.
 
-
     @returns [Object]
       @description
         The component for a property if one exists.
-
 
   @method value
     @added 0.15.2
@@ -1514,11 +1328,9 @@
       @description
         The property/key to use.
 
-
     @returns [Any]
       @description
         The property value.
-
 
   @method value
     @added 0.15.2
@@ -1529,16 +1341,13 @@
       @description
         The property/key to use.
 
-
     @arg value [Any]
       @description
         The value to set.
 
-
     @returns [Form]
       @description
         This Form
-
 
   @method hidden
     @added 0.15.2
@@ -1549,11 +1358,9 @@
       @description
         The property/key to use.
 
-
     @returns [Boolean]
       @description
         Whether the property is hidden.
-
 
   @method hidden
     @added 0.15.2
@@ -1564,16 +1371,13 @@
       @description
         The property/key to use.
 
-
     @arg hidden [Boolean]
       @description
         Whether the property is hidden.
 
-
     @returns [Form]
       @description
         This Form
-
 
   @method hidden
     @added 0.15.2
@@ -1584,11 +1388,9 @@
       @description
         The array of properties/keys to use.
 
-
     @returns [Array[Boolean]]
       @description
         Whether each property is hidden.
-
 
   @method hidden
     @added 0.15.2
@@ -1599,16 +1401,13 @@
       @description
         The array of properties/keys to use.
 
-
     @arg hidden [Boolean]
       @description
         Whether each property is hidden.
 
-
     @returns [Form]
       @description
         This Form
-
 
   @method node
     @added 0.15.2
@@ -1619,11 +1418,9 @@
       @description
         The property/key to use.
 
-
     @returns [HTMLElement]
       @description
         The selected node
-
 
   @method errorMessage
     @added 0.15.2
@@ -1638,16 +1435,13 @@
       @description
         The property/key to use.
 
-
     @arg message [String]
       @description
         The message to set.
 
-
     @returns [Form]
       @description
         This Form
-
 
   @method errorMessage
     @added 0.15.2
@@ -1658,11 +1452,9 @@
       @description
         The property/key to use.
 
-
     @returns [String]
       @description
         The error message for the property.
-
 
   @method disabled
     @added 1.2.0
@@ -1673,11 +1465,9 @@
       @description
         The property/key to use.
 
-
     @returns [Boolean]
       @description
         The disabled state of the property. If the property does not exist, returns undefined.
-
 
   @method disabled
     @added 1.2.0
@@ -1688,11 +1478,9 @@
       @description
         The array of properties/keys to use.
 
-
     @returns [Array[Boolean]]
       @description
         An array indicating the disabled state of each property in the array of properties. If a property does not exist, it's value will be undefined.
-
 
   @method disabled
     @added 1.2.0
@@ -1703,12 +1491,10 @@
       @description
         The property/key to use.
 
-
     @arg disabled [Boolean]
     @returns [Form]
       @description
         The current form
-
 
   @method disabled
     @added 1.2.0
@@ -1719,12 +1505,10 @@
       @description
         The array of properties/keys to use.
 
-
     @arg disabled [Boolean]
     @returns [Form]
       @description
         The current form
-
 
   @event submit [Object]
     @description

@@ -18,11 +18,9 @@
     @description
       The string to hash
 
-
   @arg? max [Integer]
     @description
       The maximum value the hash should take. You can leave this undefined
-
 
   @returns [Number]
 
@@ -38,7 +36,6 @@
     @description
       A 2D array
 
-
   @returns [Array[Array]]
 
 @function hx.deprecatedWarning
@@ -49,11 +46,9 @@
     @description
       Name of the deprecated thing
 
-
   @arg alternative... [String]
     @description
       A description of the alternative that should be used.
-
 
 @function hx.consoleWarning
   @description
@@ -63,11 +58,9 @@
     @description
       The message to display
 
-
   @arg messages... [String]
     @description
       Additional messages to display.
-
 
 @function hx.supports
   @description
@@ -81,11 +74,9 @@
         hx.supports('touch') // touch events
         hx.supports('date')  // date input type
 
-
   @returns [Boolean]
     @description
       True if the feature is supported
-
 
 @function hx.clamp
   @description
@@ -100,21 +91,17 @@
     @description
       The minimum value the result can take
 
-
   @arg max [Number]
     @description
       The maximum value the result can take
-
 
   @arg value [Number]
     @description
       The number to clamp
 
-
   @returns [Number]
     @description
       The value, clamped to the range [min, max]
-
 
 @function hx.clampUnit
   @description
@@ -129,11 +116,9 @@
     @description
       The number to clamp
 
-
   @returns [Number]
     @description
       The value, clamped to the range [0, 1]
-
 
 @function hx.randomId
   @description
@@ -150,18 +135,15 @@
       @default
         16
 
-
   @arg? alphabet [String]
     @description
       The alphabet to use. Defaults to hex
       @default
         ABCEDEF0123456789
 
-
   @returns [Number]
     @description
       The value, clamped to the range [0, 1]
-
 
 @function hx.min
   @removed 0.9.0
@@ -173,7 +155,6 @@
 
         // new way
         hx.min(array.map(f))
-
 
   @description
     Returns the minimum value in the array
@@ -188,26 +169,21 @@
     @description
       An array of numbers or objects
 
-
   @arg? lookup [Function]
     @description
       A function which maps the values before applying the min
-
 
     @arg value [Any]
       @description
         An object from the array
 
-
     @returns [Number]
       @description
         The number to compare by
 
-
   @returns [Number]
     @description
       The minimum value in the array
-
 
 @function hx.min
   @added 0.9.0
@@ -221,11 +197,9 @@
     @description
       An array of numbers
 
-
   @returns [Number]
     @description
       The minimum value in the array
-
 
 @function hx.max
   @removed 0.9.0
@@ -237,7 +211,6 @@
 
         // new way
         hx.max(array.map(f))
-
 
   @description
     Returns the maximum value in the array
@@ -252,26 +225,21 @@
     @description
       An array of numbers or objects
 
-
   @arg? lookup [Function]
     @description
       A function which maps the values before applying the max
-
 
     @arg value [Any]
       @description
         An object from the array
 
-
     @returns [Number]
       @description
         The number to compare by
 
-
   @returns [Number]
     @description
       The maximum value in the array
-
 
 @function hx.max
   @added 0.9.0
@@ -285,17 +253,14 @@
     @description
       An array of numbers
 
-
   @returns [Number]
     @description
       The maximum value in the array
-
 
 @function hx.minBy
   @bugfix 1.5.0
     @description
       Fix an issue where the last value in the array wasn't being checked
-
 
   @description
     Returns the minimum value in the array according to a extracted or computed value
@@ -310,32 +275,26 @@
     @description
       An array of any type
 
-
   @arg lookup [Function]
     @description
       A function which extracts or computes the value to be compared
-
 
     @arg value [Any]
       @description
         An item from the array
 
-
     @returns [Number]
       @description
         The number to compare by
-
 
   @returns [Any]
     @description
       The item with the corresponding minimum value
 
-
 @function hx.maxBy
   @bugfix 1.5.0
     @description
       Fix an issue where the last value in the array wasn't being checked
-
 
   @description
     Returns the maximum value in the array according to a extracted or computed value
@@ -350,26 +309,21 @@
     @description
       An array of any type
 
-
   @arg lookup [Function]
     @description
       A function which extracts or computes the value to be compared
-
 
     @arg value [Any]
       @description
         An item from the array
 
-
     @returns [Number]
       @description
         The number to compare by
 
-
   @returns [Any]
     @description
       The item with the corresponding maximum value
-
 
 @function hx.range
   @description
@@ -382,7 +336,6 @@
   @arg length [Number]
     @description
       The length of the array to create.
-
 
   @returns [Array]
 
@@ -398,11 +351,9 @@
     @description
       The array to sum
 
-
   @returns [Number]
     @description
       The resulting summed value
-
 
 @function hx.flatten
   @description
@@ -415,7 +366,6 @@
   @arg list [Array]
     @description
       A 2D array.
-
 
   @returns [Array]
 
@@ -437,16 +387,13 @@
     @description
       The array to cycle over
 
-
   @arg index [Number]
     @description
       The index to access
 
-
   @returns [Number]
     @description
-      The value at @code]
-
+      The value at @code[(index % array.length)]
 
 @function hx.hashList
   @description
@@ -460,16 +407,13 @@
     @description
       The array to hash onto
 
-
   @arg index [String]
     @description
       The string to hash
 
-
   @returns [Any]
     @description
       The item retrieved from the array
-
 
 @function hx.find
   @description
@@ -485,26 +429,21 @@
     @description
       The array to hash onto
 
-
   @arg indictor [Function]
     @description
       The indicator function
-
 
     @arg item [Any]
       @description
         An item from the array
 
-
     @returns [Boolean]
       @description
         True if the item is the one you are looking for, false if not.
 
-
   @returns [Any]
     @description
       The item found in the array. Returns undefined if no match was found.
-
 
 @function hx.isString
   @description
@@ -522,11 +461,9 @@
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
       True if the value is a string. False if not
-
 
 @function hx.isFunction
   @description
@@ -544,11 +481,9 @@
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
       True if the value is a function. False if not
-
 
 @function hx.isArray
   @description
@@ -566,11 +501,9 @@
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
       True if the value is a array. False if not
-
 
 @function hx.isObject
   @description
@@ -588,11 +521,9 @@
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
       True if the value is a object. False if not
-
 
 @function hx.isPlainObject
   @description
@@ -602,7 +533,6 @@
       @item[Anything created with new (or equivalent)]
       @item[DOM nodes]
       @item[window]
-
 
     @@codeblock js
       hx.isPlainObject("i am a string")                // returns false
@@ -616,11 +546,9 @@
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
       True if the value is a plain object. False if not
-
 
 @function hx.groupBy
   @description
@@ -666,7 +594,6 @@
     @description
       An array of any type
 
-
   @arg classifier [Function]
     @description
       A function that returns the category that an item should be grouped into
@@ -675,16 +602,13 @@
       @description
         The item to classify
 
-
     @returns [Any]
       @description
         The category to group the item into
 
-
   @returns [Array]
     @description
       An array of tuples where the first element of each tuple is the category, and the second element is an array of grouped values
-
 
 @function hx.unique
   @description
@@ -698,11 +622,9 @@
     @description
       The list, from which a copy will be created with only unique values.
 
-
   @returns [Array]
     @description
       A copy of the list supplied with duplicates removed
-
 
 @function hx.endsWith
   @description
@@ -717,16 +639,13 @@
     @description
       The string to check against
 
-
   @arg suffix [String]
     @description
       The suffix to check for
 
-
   @returns [Boolean]
     @description
       True if the value ends with suffix, otherwise false.
-
 
 @function hx.startsWith
   @description
@@ -741,16 +660,13 @@
     @description
       The string to check against
 
-
   @arg prefix [String]
     @description
       The prefix to check for
 
-
   @returns [Boolean]
     @description
       True if the value starts with prefix, otherwise false.
-
 
 @function hx.tween
   @description
@@ -766,28 +682,23 @@
     @description
       The start value
 
-
   @arg end [Number]
     @description
       The end value
-
 
   @arg alpha [Number]
     @description
       The amount to mix the values by. Usually a value between 0 and 1.
 
-
   @returns [Number]
     @description
       The interpolated value
-
 
 @function hx.defined
   @bugfix 1.3.2
     @issue 226
     @description
       Will now returns @code[false] when @code[null] is passed in
-
 
   @description
     Checks if a value is defined
@@ -803,11 +714,9 @@
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
-      False if the value is @code[null] .
-
+      False if the value is @code[undefined] or @code[null] .
 
 @function hx.zip
   @description
@@ -821,28 +730,24 @@
     @description
       The arrays that should be zipped together.
 
-
   @returns [Array[Array]]
     @description
       The arrays that have been zipped together.
 
-
 @function hx.merge
-  @removed 0.14.0
-    @alternate
-      @description
-        hx.merge(true, objects...) has been replaced with hx.merge(objects...)
-        hx.merge(false, objects...) has been replaced with hx.merge.defined(objects...)
-
-
+  @added 0.9.0
   @deprecated 0.13.0
     @alternate
       @description
         hx.merge(true, objects...) has been replaced with hx.merge(objects...)
         hx.merge(false, objects...) has been replaced with hx.merge.defined(objects...)
 
+  @removed 0.14.0
+    @alternate
+      @description
+        hx.merge(true, objects...) has been replaced with hx.merge(objects...)
+        hx.merge(false, objects...) has been replaced with hx.merge.defined(objects...)
 
-  @added 0.9.0
   @description
     Merges multiple objects together, and returns the result as a new object.
 
@@ -859,33 +764,28 @@
     @description
       Whether or not undefined values should overwrite existing properties. True means that they will override, false means that they will be ignored.
 
-
   @arg objects... [Object]
     @description
       The objects to combine
-
 
   @returns [Object]
     @description
       The combined object
 
-
 @function hx.shallowMerge
-  @removed 0.14.0
-    @alternate
-      @description
-        hx.shallowMerge(true, objects...) has been replaced with hx.shallowMerge(objects...)
-        hx.shallowMerge(false, objects...) has been replaced with hx.shallowMerge.defined(objects...)
-
-
+  @added 0.9.0
   @deprecated 0.13.0
     @alternate
       @description
         hx.shallowMerge(true, objects...) has been replaced with hx.shallowMerge(objects...)
         hx.shallowMerge(false, objects...) has been replaced with hx.shallowMerge.defined(objects...)
 
+  @removed 0.14.0
+    @alternate
+      @description
+        hx.shallowMerge(true, objects...) has been replaced with hx.shallowMerge(objects...)
+        hx.shallowMerge(false, objects...) has been replaced with hx.shallowMerge.defined(objects...)
 
-  @added 0.9.0
   @description
     Merges multiple objects together where the first level of references are copied, and returns the result as a new object.
 
@@ -900,16 +800,13 @@
     @description
       Whether or not undefined values should overwrite existing properties. True means that they will override, false means that they will be ignored.
 
-
   @arg objects... [Object]
     @description
       The objects to combine
 
-
   @returns [Object]
     @description
       The combined object
-
 
 @function hx.clone
   @removed 0.9.0
@@ -924,18 +821,15 @@
     @description
       The object/array to clone
 
-
   @arg? deep [Boolean]
     @description
       Whether or not a deep clone should be performed.
       @default
         false
 
-
   @returns [Object/Array]
     @description
       The cloned object/array
-
 
 @function hx.clone
   @added 0.9.0
@@ -946,11 +840,9 @@
     @description
       The object/array to clone
 
-
   @returns [Object/Array]
     @description
       The cloned object/array
-
 
 @function hx.shallowClone
   @added 0.9.0
@@ -961,17 +853,14 @@
     @description
       The object/array to clone
 
-
   @returns [Object/Array]
     @description
       The cloned object/array
-
 
 @function hx.extend
   @removed 0.9.0
     @description
       Use hx.merge or hx.shallowMerge
-
 
 @function hx.identity
   @description
@@ -981,11 +870,9 @@
     @description
       The item to return.
 
-
   @returns [item Any]
     @description
       The passed in item.
-
 
 @function hx.parseHTML
   @description
@@ -995,11 +882,9 @@
     @description
       The html string to parse
 
-
   @returns [DocumentFragment]
     @description
       A document fragment containing the parsed html.
-
 
 @function hx.cleanNode
   @description
@@ -1007,18 +892,15 @@
     @description
       The node to clean
 
-
   @arg? recurse [Boolean]
     @description
       Whether to recursively clean child nodes
       @default
         true
 
-
   @returns [node]
     @description
       The cleaned node.
-
 
 @function hx.scrollbarSize
   @added 0.12.6
@@ -1030,7 +912,6 @@
   @returns [Number]
     @description
       The width of the browser scrollbars.
-
 
 @function hx.merge
   @added 0.13.0
@@ -1050,11 +931,9 @@
     @description
       The objects to combine
 
-
   @returns [Object]
     @description
       The combined object
-
 
 @function hx.merge.defined
   @added 0.13.0
@@ -1074,11 +953,9 @@
     @description
       The objects to combine
 
-
   @returns [Object]
     @description
       The combined object
-
 
 @function hx.shallowMerge
   @added 0.13.0
@@ -1096,11 +973,9 @@
     @description
       The objects to combine
 
-
   @returns [Object]
     @description
       The combined object
-
 
 @function hx.shallowMerge.defined
   @added 0.13.0
@@ -1118,11 +993,9 @@
     @description
       The objects to combine
 
-
   @returns [Object]
     @description
       The combined object
-
 
 @function hx.isBoolean
   @added 0.13.0
@@ -1143,11 +1016,9 @@
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
       True if the value is a boolean. False if not
-
 
 @function hx.checkParents
   @added 0.15.2
@@ -1160,28 +1031,23 @@
     @description
       The node to start checking from
 
-
   @arg check [Function]
     @description
       The check to run
-
 
     @arg node [HTMLElement]
       @description
         The current node being checked
 
-
     @return result
       @description
         The result of the check
-
 
   @arg? returnArray [Boolean]
     @description
       If this value is true, the check will run all the way until the document element and return all the non-undefined results as an array.
       @default
         false
-
 
 @function hx.parentZIndex
   @added 0.15.2
@@ -1192,13 +1058,11 @@
     @description
       The node to start checking from
 
-
   @arg? findMax [Boolean]
     @description
       If this value is true, the maximum z-index from all the parents (up to the document element) will be returned.
       @default
         false
-
 
 @function hx.debounce
   @added 0.15.2
@@ -1211,17 +1075,14 @@
     @description
       The duration to wait in milliseconds before making a function call.
 
-
   @arg fn [Function]
     @description
       The function to call.
-
 
 @function hx.argmin
   @added 1.5.0
     @description
       Added a function for getting the index of the item in an array with the lowest value
-
 
   @description
     A function for getting the index of the item in an array with the lowest value
@@ -1230,32 +1091,26 @@
     @description
       The array to find the min value of
 
-
   @arg lookup [Function]
     @description
       The function to use to lookup the value of an argument
-
 
     @arg value [Any]
       @description
         An item in the array
 
-
     @returns [Number]
       @description
         The value of the argument in the array
-
 
   @returns [Number]
     @description
       The index of the item in the array with the lowest value
 
-
 @function hx.argmax
   @added 1.5.0
     @description
       Added a function for getting the index of the item in an array with the highest value
-
 
   @description
     A function for getting the index of the item in an array with the highest value
@@ -1264,27 +1119,21 @@
     @description
       The array to find the max value of
 
-
   @arg lookup [Function]
     @description
       The function to use to lookup the value of an argument
-
 
     @arg value [Any]
       @description
         An item in the array
 
-
     @returns [Number]
       @description
         The value of the argument in the array
 
-
   @returns [Number]
     @description
       The index of the item in the array with the lowest value
-
-
 
 @function hx.isNumber
   @added 1.5.0
@@ -1292,14 +1141,11 @@
     @description
       Added a function for checking if something is a Number
 
-
   @arg value [Any]
     @description
       The value to check
 
-
   @returns [Boolean]
     @description
       Whether the value passed in is a Number
-
 

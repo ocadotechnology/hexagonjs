@@ -1,38 +1,32 @@
-@version 0.10.0
-  @examples 
-    @example 
-      @html 
-        <div id="slider" class="hx-slider"></div>
-
-      
-      @js 
-        slider = new hx.TimeSlider('#slider')
-
-    
-    @example 
-      @html 
-        <div id="slider2" class="hx-slider"></div>
-
-      
-      @js 
-        slider = new hx.TimeSlider('#slider2', {type: 'range'})
-
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="slider" class="hx-slider"></div>
 
-      
-      @js 
+      @js
         slider = new hx.TimeSlider('#slider')
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <div id="slider2" class="hx-slider"></div>
 
-      
-      @js 
+      @js
         slider = new hx.TimeSlider('#slider2', 'range')
+
+@version 0.10.0
+  @examples
+    @example
+      @html
+        <div id="slider" class="hx-slider"></div>
+
+      @js
+        slider = new hx.TimeSlider('#slider')
+
+    @example
+      @html
+        <div id="slider2" class="hx-slider"></div>
+
+      @js
+        slider = new hx.TimeSlider('#slider2', {type: 'range'})
 

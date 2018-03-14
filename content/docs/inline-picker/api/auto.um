@@ -1,157 +1,126 @@
 @added 1.0.0
-  @description 
+  @description
     Renamed the inline select module to be inline-picker
-    
 
 @prototype hx.InlinePicker
   @extends EventEmitter
-  @constructor 
-    @description 
+  @constructor
+    @description
     @arg selector [String/HTMLElement]
-      @description 
+      @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
-        
 
     @arg? options [Object]
-      @description 
+      @description
         The options to use when constructing the inline picker
-        
 
       @property contextClass [String]
-        @description 
+        @description
           The class to use for the button when the picker is active.
-          
 
       @property ddClass [String]
-        @description 
+        @description
           The additional class to add to the dropdown when creating it.
-          
 
       @property startValue [String]
         @removed 1.0.0
-          @description 
+          @description
             The startValue option has been renamed to value
-            
 
       @property value [String]
         @added 1.0.0
-        @description 
+        @description
           The value to use when initialising the select.
-          
 
       @property noValueText [String]
-        @description 
+        @description
           The text to use when no value is selected.
           @default 'Choose [a value...']
-          
 
       @property items [Array/Function]
-        @description 
+        @description
           The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
           This can also be set after the picker has been constructed using the @code[items] method.
 
       @property renderer
-        @description 
+        @description
           A function that renders the data in the dropdown and the picker button.
 
           This can also be set after the picker has been constructed using the @code[renderer] method.
 
-  
-  
   @method renderer
     @returns [Function]
-      @description 
+      @description
         Returns the currently set renderer function.
-        
 
-  
   @method renderer
-    @description 
+    @description
       Sets the renderer function for the underlying picker.
 
     @arg render [Function]
       @arg node [HTMLElement]
-        @description 
+        @description
           The element to populate
-          
 
       @arg data [Any]
-        @description 
+        @description
           The data to populate the element with
-          
 
     @returns [InlinePicker]
-      @description 
+      @description
         Returns this picker for chaining.
-        
 
-  
-  
   @method items
-    @description 
+    @description
       Sets the list of items that will be shown in the picker dropdown.
 
     @returns [Array]
-      @description 
+      @description
         The currently set items
-        
 
-  
   @method items
-    @description 
+    @description
       Sets the list of items that will be shown in the picker dropdown.
 
     @arg items [Array[String]]
-      @description 
+      @description
         The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
-        
 
     @returns [InlinePicker]
-      @description 
+      @description
         Returns this InlinePicker for chaining
-        
 
-  
-  
   @method value
-    @description 
+    @description
       Sets the value of the element.
 
     @arg value [String]
-      @description 
+      @description
         The value to give the element. If not specified the current value will be returned.
-        
 
     @returns [InlinePicker]
-      @description 
+      @description
         This InlinePicker is returned for chaining.
-        
 
-  
   @method value
-    @description 
+    @description
       Gets the value of the element.
 
     @returns [String]
-      @description 
+      @description
         Returns the current value in the editable.
-        
 
-  
-  
   @event change
-    @description 
+    @description
       Emitted when the value is changed.
 
     @object data
       @property api [Boolean]
-        @description 
+        @description
           True if a call to the value method caused this change. False if it was a result of a user change.
-          
 
       @property value [String]
-        @description 
+        @description
           The new value.
-          
 

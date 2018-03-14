@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Tag Input
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         A component for inputting tags.
 
 

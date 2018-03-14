@@ -1,116 +1,106 @@
 @updated 0.12.1
-  @description 
+  @description
     Maps can now handle object keys
-    
 
 @prototype hx.Map
-  @description 
+  @description
     A map collection type.
 
-  @constructor 
+  @constructor
     @arg? array [Array]
-      @description 
+      @description
         An array of 2-element arrays containing the values to initialise the map with
-        
 
   @property size [Number]
-    @description 
+    @description
       The current size of the map
-      
 
   @method clear
-    @description 
+    @description
       Removes all entries from the Map, resulting in an empty map with size 0. Returns this Map for chaining.
 
     @returns [Map]
 
   @method delete
-    @description 
+    @description
       Removes an entry from the map by key.
 
     @arg key [String]
-      @description 
+      @description
         The key to remove
-        
 
     @returns [Map]
 
   @method entries
-    @description 
+    @description
       Returns the items in the map as an array of 2-element arrays. The first entry in each of these arrays is the key, the second entry is the value.
 
     @returns [Array]
 
   @method forEach
-    @description 
+    @description
       Calls the function supplied for each entry in the map. Returns this map for chaining.
 
     @arg f [Function]
-      @description 
+      @description
         The function that should be called for each entry. First parameter is the key, second is the value.
 
       @arg key [String]
-        @description 
+        @description
           The key the entry was stored under
-          
 
       @arg value [Object]
-        @description 
+        @description
           The value stored against the key
-          
 
     @arg? thisArg [Object]
-      @description 
+      @description
         A parameter which lets you supply the 'this' context to be used when calling f. The default is to use this Map.
 
     @returns [Map]
 
   @method get
-    @description 
+    @description
       Gets an item by key. Returns undefined if there is no entry for the key supplied.
 
     @arg key [String]
-      @description 
+      @description
         The key to use.
-        
 
     @returns [Object]
 
   @method has
-    @description 
+    @description
       Checks if the map contains a key. Returns true if the value is in the map, false otherwise.
 
     @arg key [String]
-      @description 
+      @description
         The key to use
-        
 
     @returns [Boolean]
 
   @method keys
-    @description 
+    @description
       Returns an array of the keys in this Map.
 
     @returns [Array]
 
   @method set
-    @description 
+    @description
       Stores the value for the given key. Returns this Map for chaining.
 
     @arg key [String]
-      @description 
+      @description
         The key to use.
-        
 
     @arg value [Any]
-      @description 
+      @description
         The value to store.
-        
 
     @returns [Map]
 
   @method values
-    @description 
+    @description
       Returns an array of the values in this Map.
 
     @returns [Array]

@@ -4,13 +4,13 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Inline Select
-  @versioned 
+  @versioned
     @version 0.10.0
-      @description 
+      @description
         Makes text in a span editable with a select dropdown.
 
     @version 1.0.0
-      @description 
+      @description
         This module was replaced with the inline picker module in version 1.0.0.
 
 

@@ -1,137 +1,20 @@
-@version 0.12.8
-  @examples 
-    @example 
-      @html 
-        <button id="menuDefault" class="hx-btn">Default</button>
-        <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
-        <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
-        <button id="menuMixed" class="hx-btn">Mixed Items</button>
-
-      
-      @js 
-        defaultMenu = new hx.Menu('#menuDefault')
-        defaultMenu.items(["item 1","item 2","item 3"])
-        
-        var renderer = function(elem, item){
-          hx.select(elem).text(item.name)
-        }
-        
-        disabledMenu = new hx.Menu('#menuDisabled')
-        disabledMenu.renderer = renderer
-        disabledMenu.items([
-          {
-            name: 'Disabled Item 1',
-            disabled: true
-          },{
-            name: 'Disabled Item 2',
-            disabled: true
-          },{
-            name: 'Disabled Item 3',
-            disabled: true
-          }
-        ])
-        
-        unselectableMenu = new hx.Menu('#menuNoSelect')
-        unselectableMenu.renderer = renderer
-        unselectableMenu.items([
-          {
-            name: 'Unselectable Item 1',
-            unselectable: true
-          },{
-            name: 'Unselectable Item 2',
-            unselectable: true
-          },{
-            name: 'Unselectable Item 3',
-            unselectable: true
-          }
-        ])
-        
-        mixedMenu = new hx.Menu('#menuMixed')
-        mixedMenu.renderer = renderer
-        mixedMenu.items([
-          {
-            name: 'Disabled Item 1',
-            disabled: true
-          },{
-            name: 'Item 1'
-          },{
-            name: 'Disabled Item 2',
-            disabled: true
-          },{
-            name: 'Unselectable Item 1',
-            unselectable: true
-          },{
-            name: 'Item 2'
-          },{
-            name: 'Unselectable Item 2',
-            unselectable: true
-          }
-        ])
-
-    
-    @example 
-      @html 
-        <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
-        <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
-        <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
-        <button class="hx-btn hx-info menuButtonNamed">hx-info</button>
-        <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
-        <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
-
-      
-      @js 
-        menuItems = ["item 1","item 2","item 3"]
-        menuExample = hx.selectAll('.menuButtonNamed').each(function(node){
-          menu = new hx.Menu(node);
-          menu.items(menuItems);
-        });
-
-    
-    @example 
-      @html 
-        <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
-
-      
-      @js 
-        menu = new hx.Menu('#collapsibleMenu');
-        menu.renderer(function(element, item){
-          hx.select(element).text(item.text || item)
-        });
-        menu.items([
-          {
-            text: 'Item 1',
-            children: [
-              'Sub item 1',
-              'Sub item 2',
-            ]
-          },
-          {
-            text: 'Item 2',
-            children: [
-              'Sub item 1',
-              'Sub item 2',
-            ]
-          }
-        ])
-
 @version 0.13.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <button id="menuDefault" class="hx-btn">Default</button>
         <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
         <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
         <button id="menuMixed" class="hx-btn">Mixed Items</button>
 
-      
-      @js 
+      @js
         defaultMenu = new hx.Menu('#menuDefault')
         defaultMenu.items(["item 1","item 2","item 3"])
-        
+
         var renderer = function(elem, item){
           hx.select(elem).text(item.name)
         }
-        
+
         disabledMenu = new hx.Menu('#menuDisabled')
         disabledMenu.renderer(renderer)
         disabledMenu.items([
@@ -146,7 +29,7 @@
             disabled: true
           }
         ])
-        
+
         unselectableMenu = new hx.Menu('#menuNoSelect')
         unselectableMenu.renderer(renderer)
         unselectableMenu.items([
@@ -161,7 +44,7 @@
             unselectable: true
           }
         ])
-        
+
         mixedMenu = new hx.Menu('#menuMixed')
         mixedMenu.renderer(renderer)
         mixedMenu.items([
@@ -184,9 +67,8 @@
           }
         ])
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
         <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
         <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
@@ -194,21 +76,18 @@
         <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
         <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
-      
-      @js 
+      @js
         menuItems = ["item 1","item 2","item 3"]
         menuExample = hx.selectAll('.menuButtonNamed').forEach(function(node){
           menu = new hx.Menu(node.node());
           menu.items(menuItems);
         });
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
-      
-      @js 
+      @js
         menu = new hx.Menu('#collapsibleMenu', {
           renderer: function(element, item){
             hx.select(element).text(item.text || item)
@@ -232,23 +111,22 @@
         });
 
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <button id="menuDefault" class="hx-btn">Default</button>
         <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
         <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
         <button id="menuMixed" class="hx-btn">Mixed Items</button>
 
-      
-      @js 
+      @js
         defaultMenu = new hx.Menu('#menuDefault')
         defaultMenu.render(["item 1","item 2","item 3"])
-        
+
         var renderer = function(elem, item){
           hx.select(elem).text(item.name)
         }
-        
+
         disabledMenu = new hx.Menu('#menuDisabled')
         disabledMenu.renderer = renderer
         disabledMenu.render([
@@ -263,7 +141,7 @@
             disabled: true
           }
         ])
-        
+
         unselectableMenu = new hx.Menu('#menuNoSelect')
         unselectableMenu.renderer = renderer
         unselectableMenu.render([
@@ -278,7 +156,7 @@
             unselectable: true
           }
         ])
-        
+
         mixedMenu = new hx.Menu('#menuMixed')
         mixedMenu.renderer = renderer
         mixedMenu.render([
@@ -301,9 +179,8 @@
           }
         ])
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
         <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
         <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
@@ -311,21 +188,18 @@
         <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
         <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
-      
-      @js 
+      @js
         menuItems = ["item 1","item 2","item 3"]
         menuExample = hx.selectAll('.menuButtonNamed').each(function(node){
           menu = new hx.Menu(node);
           menu.render(menuItems);
         });
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
-      
-      @js 
+      @js
         menu = new hx.Menu('#collapsibleMenu');
         menu.renderer = function(element, item){
           hx.select(element).text(item.text || item)
@@ -347,24 +221,134 @@
           }
         ])
 
-@version 1.0.0
-  @examples 
-    @example 
-      @html 
+@version 0.12.8
+  @examples
+    @example
+      @html
         <button id="menuDefault" class="hx-btn">Default</button>
         <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
         <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
         <button id="menuMixed" class="hx-btn">Mixed Items</button>
 
-      
-      @js 
+      @js
         defaultMenu = new hx.Menu('#menuDefault')
         defaultMenu.items(["item 1","item 2","item 3"])
-        
+
         var renderer = function(elem, item){
           hx.select(elem).text(item.name)
         }
-        
+
+        disabledMenu = new hx.Menu('#menuDisabled')
+        disabledMenu.renderer = renderer
+        disabledMenu.items([
+          {
+            name: 'Disabled Item 1',
+            disabled: true
+          },{
+            name: 'Disabled Item 2',
+            disabled: true
+          },{
+            name: 'Disabled Item 3',
+            disabled: true
+          }
+        ])
+
+        unselectableMenu = new hx.Menu('#menuNoSelect')
+        unselectableMenu.renderer = renderer
+        unselectableMenu.items([
+          {
+            name: 'Unselectable Item 1',
+            unselectable: true
+          },{
+            name: 'Unselectable Item 2',
+            unselectable: true
+          },{
+            name: 'Unselectable Item 3',
+            unselectable: true
+          }
+        ])
+
+        mixedMenu = new hx.Menu('#menuMixed')
+        mixedMenu.renderer = renderer
+        mixedMenu.items([
+          {
+            name: 'Disabled Item 1',
+            disabled: true
+          },{
+            name: 'Item 1'
+          },{
+            name: 'Disabled Item 2',
+            disabled: true
+          },{
+            name: 'Unselectable Item 1',
+            unselectable: true
+          },{
+            name: 'Item 2'
+          },{
+            name: 'Unselectable Item 2',
+            unselectable: true
+          }
+        ])
+
+    @example
+      @html
+        <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
+        <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
+        <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
+        <button class="hx-btn hx-info menuButtonNamed">hx-info</button>
+        <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
+        <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
+
+      @js
+        menuItems = ["item 1","item 2","item 3"]
+        menuExample = hx.selectAll('.menuButtonNamed').each(function(node){
+          menu = new hx.Menu(node);
+          menu.items(menuItems);
+        });
+
+    @example
+      @html
+        <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
+
+      @js
+        menu = new hx.Menu('#collapsibleMenu');
+        menu.renderer(function(element, item){
+          hx.select(element).text(item.text || item)
+        });
+        menu.items([
+          {
+            text: 'Item 1',
+            children: [
+              'Sub item 1',
+              'Sub item 2',
+            ]
+          },
+          {
+            text: 'Item 2',
+            children: [
+              'Sub item 1',
+              'Sub item 2',
+            ]
+          }
+        ])
+
+@version 1.0.0
+  @examples
+    @example
+      @html
+        <button id="menuDefault" class="hx-btn">Default</button>
+        <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
+        <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
+        <button id="menuMixed" class="hx-btn">Mixed Items</button>
+
+      @js
+        defaultMenu = new hx.Menu('#menuDefault')
+        defaultMenu.items(["item 1","item 2","item 3"])
+
+        var renderer = function(elem, item){
+          hx.select(elem).text(item.name)
+        }
+
         disabledMenu = new hx.Menu('#menuDisabled')
         disabledMenu.renderer(renderer)
         disabledMenu.items([
@@ -379,7 +363,7 @@
             disabled: true
           }
         ])
-        
+
         unselectableMenu = new hx.Menu('#menuNoSelect')
         unselectableMenu.renderer(renderer)
         unselectableMenu.items([
@@ -394,7 +378,7 @@
             unselectable: true
           }
         ])
-        
+
         mixedMenu = new hx.Menu('#menuMixed')
         mixedMenu.renderer(renderer)
         mixedMenu.items([
@@ -417,9 +401,8 @@
           }
         ])
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button class="hx-btn hx-action menuButtonNamed">hx-action</button>
         <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
         <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
@@ -428,21 +411,18 @@
         <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
         <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
-      
-      @js 
+      @js
         menuItems = ["item 1","item 2","item 3"]
         menuExample = hx.selectAll('.menuButtonNamed').forEach(function(node){
           menu = new hx.Menu(node.node());
           menu.items(menuItems);
         });
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
-      
-      @js 
+      @js
         menu = new hx.Menu('#collapsibleMenu', {
           renderer: function(element, item){
             hx.select(element).text(item.text || item)

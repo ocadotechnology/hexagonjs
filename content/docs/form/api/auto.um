@@ -3,28 +3,24 @@
   @description
     Resolved an issue with the alignment of buttons in forms
 
-
 @class hx-form
   @updated 0.11.0
     @description
       Updated the form styles to make the different types of field have a more consistent layout.
 
-
   @description
     Give to the form element to style forms
 
 @function hx.validateForm
-  @removed 0.14.0
-    @description
-      Use @code[hx.validateForm(selector, options)] instead.
-
-
+  @added 0.12.0
   @deprecated 0.13.0
     @description
       Use @code[hx.validateForm(selector, options)] instead.
 
+  @removed 0.14.0
+    @description
+      Use @code[hx.validateForm(selector, options)] instead.
 
-  @added 0.12.0
   @description
     A helper function for validating forms. By default, it will show a message below the first error in the form but will return an array with all the errors.
 
@@ -44,19 +40,16 @@
     @description
       A css selector that selects the form to validate, or the form element
 
-
   @arg? showMessage [Boolean]
     @description
       Whether to show the message when validating. When set to false, the validate function will only return the errors without modifying the form.
       @default
         true
 
-
   @returns [Object]
     @property valid [Boolean]
       @description
         Whether or not the form is valid
-
 
     @property errors [Array[Object]]
       @description
@@ -65,28 +58,25 @@
   @condensed
 
 @function hx.validateForm
-  @bugfix 1.14.0
-    @issue 301
+  @added 0.13.0
+  @bugfix 1.0.0
     @description
-      Fixed an issue where the validateForm function would validate against hidden elements
-
-  @updated 1.8.0
-    @description
-      Updated the validation to show the error for the focused element instead of the first error it finds
-
+      Updated to include text areas in the error checking
 
   @updated 1.4.0
     @issue 211
     @description
       Updated the error text to use userFacingText
 
-
-  @bugfix 1.0.0
+  @updated 1.8.0
     @description
-      Updated to include text areas in the error checking
+      Updated the validation to show the error for the focused element instead of the first error it finds
 
+  @bugfix 1.14.0
+    @issue 301
+    @description
+      Fixed an issue where the validateForm function would validate against hidden elements
 
-  @added 0.13.0
   @description
     A helper function for validating forms. By default, it will show a message below the first error in the form but will return an array with all the errors.
 
@@ -106,11 +96,9 @@
     @description
       A css selector that selects the form to validate, or the form element itself to validate
 
-
   @arg? options [Object]
     @description
       The options to use when validating the form
-
 
     @property showMessage [Boolean]
       @description
@@ -118,12 +106,10 @@
         @default
           true
 
-
   @returns [Object]
     @property valid [Boolean]
       @description
         Whether or not the form is valid
-
 
     @property errors [Array[Object]]
       @description
@@ -133,14 +119,11 @@
         @description
           The error message
 
-
       @property node
         @description
           The element with the error
 
-
       @property validity
         @description
           The @link(https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)[validity state] that the element is in.
-
 

@@ -1,121 +1,97 @@
 @updated 0.12.1
-  @description 
+  @description
     Sets can now handle items with the same toString
-    
 
 @prototype hx.Set
-  @constructor 
-    @description 
+  @constructor
+    @description
       A set collection type.
 
     @arg? array [Array]
-      @description 
+      @description
         An optional array containing the values to initialise the set with
-        
 
-  
   @property size [Number]
-    @description 
+    @description
       The current size of the Set
-      
 
-  
   @method add
-    @description 
+    @description
       Adds the value to the set. Returns this Set for chaining.
 
     @arg value [Any]
-      @description 
+      @description
         The key to add.
-        
 
     @returns [Set]
-      @description 
+      @description
         This Set for chaining
-        
 
-  
   @method clear
-    @description 
+    @description
       Removes all entries from the Set, resulting in an empty set with size 0. Returns undefined.
 
-  
   @method delete
-    @description 
+    @description
       Removes an entry from the Set.
 
     @arg item [Any]
-      @description 
+      @description
         The item to remove.
-        
 
     @returns [Boolean]
-      @description 
+      @description
         Whether or not the value was removed (true if it was)
-        
 
-  
   @method entries
-    @description 
+    @description
       Returns the items in the set as an array of 2-element arrays. The first entry in each of these arrays is the value, the second entry is also the value. This is just how the ES6 spec currently says to do things, presumably to stay consistent with the Map collection.
 
     @returns [Array]
-      @description 
+      @description
         An array of all the values from the set
-        
 
-  
   @method forEach
-    @description 
+    @description
       Calls the function supplied for each entry in the set. Returns this Set for chaining.
 
     @arg f [Function]
-      @description 
+      @description
         The function that should be called for each entry
-        
 
       @arg value [Any]
-        @description 
+        @description
           A value from the set.
-          
 
     @arg? thisArg [Object]
-      @description 
+      @description
         An optional parameter which lets you supply the 'this' context to be used when calling f. The default is to use this Set.
-        
 
-  
   @method has
-    @description 
+    @description
       Checks if the set contains an item. Returns true if the value is in the set, false otherwise.
 
     @arg item [Any]
-      @description 
+      @description
         The item to check existence of.
-        
 
     @returns [Boolean]
-      @description 
+      @description
         True if the value is in the set
-        
 
-  
   @method keys
-    @description 
+    @description
       Does the same as values()
 
     @returns [Array]
-      @description 
+      @description
         An array of all the values from the set
-        
 
-  
   @method values
-    @description 
+    @description
       Returns an array of the items in this Set.
 
     @returns [Array]
-      @description 
+      @description
         An array of all the values from the set
-        
 

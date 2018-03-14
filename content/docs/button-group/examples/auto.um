@@ -1,16 +1,15 @@
 @version 0.12.4
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div id="buttonGroup1"></div>
         <br>
         <div id="buttonGroup2"></div>
 
-      @js 
+      @js
         buttonGroup = new hx.ButtonGroup('#buttonGroup1')
         buttonGroup.items(['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other']);
-        
-        
+
         // Full width example with individual active classes per-button
         buttonGroup = new hx.ButtonGroup('#buttonGroup2', {fullWidth: true})
         buttonGroup.items([

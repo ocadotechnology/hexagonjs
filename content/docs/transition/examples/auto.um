@@ -20,7 +20,6 @@
         // will call this function every frame until true is returned
       })
 
-
       // start a transition that should run over the next 1 second
       // the callback will be called with the progress every frame
       hx.transition(1000, function(progress) {

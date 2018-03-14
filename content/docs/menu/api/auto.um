@@ -3,63 +3,53 @@
     Updated the display of the 'active' item to work as the user would expect
 
 @prototype hx.Menu
-  @bugfix 0.12.9
-    @description
-      Fix an issue with the dropdown content not being set correctly.
-
-
   @bugfix 0.12.2
     @description
       Added code to prevent recursion when adding arrays of items.
 
+  @bugfix 0.12.9
+    @description
+      Fix an issue with the dropdown content not being set correctly.
 
   @description
     A class used to create dropdown menus using @code[hx.Dropdown] and a list of menu items.
 
   @extends EventEmitter
   @constructor
-    @removed 0.14.0
-      @description
-        Use @code[hx.Menu(selector, options)] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.Menu(selector, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.Menu(selector, options)] instead.
 
     @description
     @arg selector [String]
       @description
         The element that will call the menu when clicked or hovered over
 
-
     @arg? align [String]
       @description
         The alignment to use for the menu - see the dropdowns for the values that can be set here.
-
 
     @arg? mode [String]
       @description
         The mode to use for showing the dropdown ('click' or 'hover')
 
-
     @arg? ddClass [String]
       @description
         The additional class to add to the dropdown when creating it.
 
-
   @property renderer
-    @removed 0.14.0
-      @description
-        Use @code[menu.renderer(render)] to set the renderer instead.
-
-
     @deprecated 0.13.0
       @description
         Deprecated the ability to set menu.renderer to a function.
         Use @code[menu.renderer(render)] to set the renderer instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[menu.renderer(render)] to set the renderer instead.
 
     @description
       The function that converts an item into html and attaches it to the element supplied. This function is not intended to be called externally but can be redefined to change how the menu is created.
@@ -74,19 +64,16 @@
       @description
         The dropdown element
 
-
     @arg item [Object]
       @description
         The menu item to parse
 
-
   @method addItem
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[add(item)] instead.
 
-
+    @removed 0.12.0
     @description
       Add an item to the menu. The format of the item can vary depending on the renderer that is defined.
 
@@ -94,14 +81,12 @@
       @description
         The menu item to parse
 
-
   @method addItems
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[add(items)] instead.
 
-
+    @removed 0.12.0
     @description
       A method of adding multiple items from an array.
 
@@ -109,31 +94,26 @@
       @description
         An array of items
 
-
   @method clearItems
-    @removed 0.14.0
-      @description
-        Use @code[hx.Menu.items] to set the items to an empty array instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.Menu.items] to set the items to an empty array instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.Menu.items] to set the items to an empty array instead.
 
     @description
       Remove all items from a menu. Used internally when rendering data into an existing menu
 
   @method render
-    @removed 0.14.0
-      @description
-        Use menu.items() instead.
-
-
     @deprecated 0.12.8
       @description
         Replaced with menu.items for cross module consistency
 
+    @removed 0.14.0
+      @description
+        Use menu.items() instead.
 
     @description
       Create a menu from a JSON tree structure.
@@ -141,7 +121,6 @@
     @arg data [Array[Object]]
       @description
         The data to render. The format depends on what renderer is used, the default renderer expects an array of strings.
-
 
   @method hide
     @description
@@ -152,10 +131,8 @@
         @description
           Added a return type to the hide method.
 
-
       @description
         This Menu
-
 
   @method addException
     @description
@@ -165,20 +142,17 @@
       @description
         The element to add an exception for.
 
-
     @returns [Menu]
       @added 0.13.0
         @description
           Added a return type to the addException method.
 
-
       @description
         This Menu
 
-
   @method add
-    @removed 0.13.0
     @added 0.11.0
+    @removed 0.13.0
     @description
       Add an item to the menu. The format of the item can vary depending on the renderer that is defined.
 
@@ -186,10 +160,9 @@
       @description
         An item to add.
 
-
   @method add
-    @removed 0.13.0
     @added 0.11.0
+    @removed 0.13.0
     @description
       A method of adding multiple items from an array.
 
@@ -197,22 +170,18 @@
       @description
         An array of items to add.
 
-
   @method render
-    @removed 0.14.0
+    @added 0.12.7
       @description
-        Use menu.items() instead.
-
+        Added a method for setting the data for the menu using a function.
 
     @deprecated 0.12.8
       @description
         Replaced with menu.items for cross module consistency
 
-
-    @added 0.12.7
+    @removed 0.14.0
       @description
-        Added a method for setting the data for the menu using a function.
-
+        Use menu.items() instead.
 
     @description
       A method for setting the data for the menu using a function.
@@ -227,18 +196,15 @@
         @description
           The function to call when the data has loaded
 
-
         @arg data [Array[String/Object]]
           @description
             The items to add to the menu.
-
 
   @method items
     @added 0.12.8
       @description
         Replacement for menu.render.
 
-
     @description
       A method for setting the data for the menu using a function.
 
@@ -252,27 +218,22 @@
         @description
           The function to call when the data has loaded
 
-
         @arg data [Array[String/Object]]
           @description
             The items to add to the menu.
-
 
     @returns [Menu]
       @added 0.13.0
         @description
           Added a return type to the items method.
 
-
       @description
         This Menu
-
 
   @method items
     @added 0.12.8
       @description
         Replacement for menu.render.
-
 
     @description
       Sets the menu items
@@ -281,16 +242,13 @@
       @description
         The data to render. The format depends on what renderer is used, the default renderer expects an array of strings.
 
-
     @returns [Menu]
       @added 0.13.0
         @description
           Added a return type to the items method.
 
-
       @description
         This Menu
-
 
   @constructor
     @added 0.13.0
@@ -299,59 +257,49 @@
       @description
         The element that will call the menu when clicked or hovered over
 
-
     @arg? options [Object]
       @description
         The options to use when setting up the menu.
 
-
       @property align [String]
-        @removed 1.0.0
-          @description
-            Use @code[dropdownOptions.align] instead.
-
-
         @deprecated 0.15.0
           @description
             Use @code[dropdownOptions.align] instead.
 
+        @removed 1.0.0
+          @description
+            Use @code[dropdownOptions.align] instead.
 
         @description
           The alignment to use for the menu - see the @link(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
 
       @property mode [String]
-        @removed 1.0.0
-          @description
-            Use @code[dropdownOptions.mode] instead.
-
-
         @deprecated 0.15.0
           @description
             Use @code[dropdownOptions.mode] instead.
 
+        @removed 1.0.0
+          @description
+            Use @code[dropdownOptions.mode] instead.
 
         @description
           The mode to use for showing the dropdown - see the @link(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
 
       @property ddClass [String]
-        @removed 1.0.0
-          @description
-            Use @code[dropdownOptions.ddClass] instead.
-
-
         @deprecated 0.15.0
           @description
             Use @code[dropdownOptions.ddClass] instead.
 
+        @removed 1.0.0
+          @description
+            Use @code[dropdownOptions.ddClass] instead.
 
         @description
           The additional class to add to the dropdown when creating it to allow specific styling if required.
 
-
       @property items [Function/Array[Object]]
         @description
           A function that provides the items, or an array of the items.
-
 
       @property renderer [Function]
         @description
@@ -361,17 +309,14 @@
           @description
             The dropdown element
 
-
         @arg item [Object]
           @description
             The menu item to be rendered
-
 
       @property dropdownOptions
         @added 0.15.0
           @description
             Added a dropdownOptions object to the menu options to allow the setting of all the dropdown options.
-
 
         @description
           The options to use for the dropdown. See the  See the @link(../dropdown/)[dropdown] constructor for the available options.
@@ -381,12 +326,10 @@
           @description
             Added the ability to disable a menu in the options
 
-
         @description
           Whether the menu should be disabled
           @default
             false
-
 
   @method renderer
     @added 0.13.0
@@ -407,16 +350,13 @@
         @description
           The dropdown element
 
-
       @arg item [Object]
         @description
           The menu item to be rendered
 
-
     @returns [Menu]
       @description
         This Menu
-
 
   @method renderer
     @added 0.13.0
@@ -431,22 +371,18 @@
         @description
           The function to use as the renderer
 
-
       @arg element [HTMLElement]
         @description
           The dropdown element
-
 
       @arg item [Object]
         @description
           The menu item to be rendered
 
-
   @method items
     @added 0.13.0
       @description
         Added a method for getting the current items for the menu.
-
 
     @description
       A method for getting the current items for the menu.
@@ -455,12 +391,10 @@
       @description
         The currently set items array of function for the menu.
 
-
   @method disabled
     @added 0.15.2
       @description
         Added the ability to disable/enable a menu
-
 
     @description
       A method for disabling or enabling a menu
@@ -469,17 +403,14 @@
       @description
         Whether the menu should be disabled
 
-
     @returns [Menu]
       @description
         This menu
-
 
   @method disabled
     @added 0.15.2
       @description
         Added the ability to get the disabled state of a menu
-
 
     @description
       A method for getting the disabled state of a menu
@@ -487,7 +418,6 @@
     @returns [Boolean]
       @description
         Whether the menu is disabled
-
 
   @event select [Object]
     @description
@@ -505,7 +435,6 @@
       @description
         The menu item as it was passed into the menu.
 
-
   @event activeset [Object]
     @description
       The event called when a menu item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
@@ -521,36 +450,30 @@
       @description
         The menu item as it was passed into the menu.
 
-
   @event select
-    @removed 0.14.0
-      @description
-        Use the @code[change] event instead.
-
-
     @added 0.13.0
     @deprecated 0.13.0
       @description
         Use the @code[change] event instead.
 
+    @removed 0.14.0
+      @description
+        Use the @code[change] event instead.
 
   @event activeset
-    @removed 0.14.0
-      @description
-        Use the @code[highlight] event instead.
-
-
     @added 0.13.0
     @deprecated 0.13.0
       @description
         Use the @code[highlight] event instead.
 
+    @removed 0.14.0
+      @description
+        Use the @code[highlight] event instead.
 
   @event change [Object]
     @added 0.13.0
       @description
         Added a new event to replace the 'select' event.
-
 
     @description
       The event called when a menu item is selected.
@@ -567,22 +490,18 @@
       @description
         The menu item as it was passed into the menu.
 
-
     @property menu [Menu]
       @added 0.15.2
         @description
           Added the parent menu to the event data
 
-
       @description
         This Menu.
-
 
   @event highlight [Object]
     @added 0.13.0
       @description
         Added a new event to replace the 'activeset' event
-
 
     @description
       The event called when a menu item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
@@ -598,22 +517,18 @@
       @description
         The menu item as it was passed into the menu.
 
-
     @property menu [Menu]
       @added 0.15.2
         @description
           Added the parent menu to the event data
 
-
       @description
         This Menu.
-
 
   @event dropdown.showstart
     @added 0.13.0
       @description
         Pipe the dropdown events through so they can be listened to directly.
-
 
     @description
       Emitted when the dropdown animation starts. No data is sent with this event.
@@ -623,7 +538,6 @@
       @description
         Pipe the dropdown events through so they can be listened to directly.
 
-
     @description
       Emitted when the dropdown animation finishes. No data is sent with this event.
 
@@ -631,7 +545,6 @@
     @added 0.13.0
       @description
         Pipe the dropdown events through so they can be listened to directly.
-
 
     @description
       Emitted when the dropdown animation starts. No data is sent with this event.
@@ -641,7 +554,6 @@
       @description
         Pipe the dropdown events through so they can be listened to directly.
 
-
     @description
       Emitted when the dropdown animation ends. No data is sent with this event.
 
@@ -649,7 +561,6 @@
     @added 0.13.0
       @description
         Pipe the dropdown events through so they can be listened to directly.
-
 
     @description
       Emitted when the dropdown is shown or hidden. The data sent with this event is a boolean indicating whether or not the dropdown is visible. True means that the dropdown has just been shown, false means it has just been hidden.
@@ -662,49 +573,40 @@
     @description
       Adds menu styling indicative of success, confirmation or something positive
 
-
   @extraClass hx-negative
     @description
       Adds menu styling indicative of failure, danger or something negative
-
 
   @extraClass hx-warning
     @description
       Adds menu styling indicative of warning, to suggest the user should use caution
 
-
   @extraClass hx-info
     @description
       Styles the menu to indicate that clicking it will lead to some form of documentation / information.
-
 
   @extraClass hx-compliment
     @removed 1.0.0
     @description
       Styles the menu with compliment colors
 
-
   @extraClass hx-contrast
     @description
       Styles the menu with contrast colors
 
-
   @extraClass hx-color-[n]
-    @removed 0.10.0
     @deprecated 0.9.0
       @description
         All numbered color classes will be removed in a later version. Use the context classes instead.
 
-
+    @removed 0.10.0
     @description
       The numbered buttons classes - the number available depends on the theme being used.
-
 
   @extraClass hx-action
     @added 1.0.0
       @description
         Added new action context class and updated default styles.
-
 
     @description
       Styles the menu with action colors
@@ -713,13 +615,10 @@
     @description
       Styles the menu with compliment colors
 
-
-
 @function hx.menu
   @added 1.0.0
     @description
       Fluid api version of Menu
-
 
   @description
     Creates a new Menu set up on a detached element, wrapped in a selection
@@ -728,9 +627,7 @@
     @description
       See the options object for constructing Menu
 
-
   @returns [Selection]
     @description
       A selection containing an element with an Menu initialised on it
-
 

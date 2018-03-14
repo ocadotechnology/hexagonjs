@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Plot
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         A module for creating charts and graphs.
 
 

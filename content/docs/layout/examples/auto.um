@@ -1,7 +1,7 @@
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <div class="docs-layout-demo">
           <div class="hx-layout hx-group hx-horizontal">
             <div class="hx-section"></div>
@@ -18,7 +18,7 @@
           </div>
         </div>
 
-      @css 
+      @css
         /* adds some styling to make the sections of the layout visible for this example */
         .docs-layout-demo .hx-section {
           background: #d6d6d6;

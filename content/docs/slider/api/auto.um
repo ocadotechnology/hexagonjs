@@ -3,30 +3,26 @@
   @description
     Update so the change event is only emitted when the value is actually changed
 
-
 @bugfix 1.3.0
   @issue 184
   @description
     Update so the slidestart event is only emitted on slidestart, not on change
-
 
 @prototype hx.Slider
   @bugfix 0.15.2
     @description
       resolve an issue with discrete values that meant that numbers/objects were being coerced into strings
 
-
   @description
     A widget type for selecting a value from a range, or a range of values from a range.
 
   @extends EventEmitter
   @constructor
-    @removed 0.11.0
     @deprecated 0.10.0
       @description
         Use @code[new hx.Slider(selector, options)] instead.
 
-
+    @removed 0.11.0
     @description
       Sets up a slider.
 
@@ -34,11 +30,9 @@
       @description
         A unique css selector or a HTMLElement that identifies your slider.
 
-
     @arg? type [String]
       @description
         The type slider. Can be 'slider' for a normal slider or 'range' for a range slider.
-
 
     @arg? render [Function]
       @description
@@ -53,16 +47,13 @@
         @description
           The current hx.Slider
 
-
       @arg elem [HTMLElement]
         @description
           The node of the selected slider
 
-
       @arg value [Number]
         @description
           The value of the slider. Will always be a number between 0 and 1.
-
 
       @arg update [Boolean]
         @description
@@ -74,12 +65,11 @@
           Whether the selected slider is the start node in the slider.@code[true] if it's the start node, @code[false] if it's the end node, @code[undefined] if the slider isn't a range slider.
 
   @method setValue
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[value(value)] instead.
 
-
+    @removed 0.12.0
     @description
       Sets the value / position of the slider. Returns this slider for chaining.
 
@@ -87,16 +77,14 @@
       @description
         A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
 
-
     @returns [Slider]
 
   @method getValue
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[value()] instead.
 
-
+    @removed 0.12.0
     @description
       Returns the current value of the slider.
 
@@ -104,24 +92,20 @@
       @description
         For standard sliders, this will be a number. For range sliders, this will be an object with the below properties
 
-
       @property startValue [Number]
         @description
           The start value of the selected range slider
-
 
       @property endValue [Number]
         @description
           The end value of the selected range slider
 
-
   @method setRangeStartValue
-    @removed 0.11.0
     @deprecated 0.10.0
       @description
         Use @code[setValue({startValue: <value>})] instead.
 
-
+    @removed 0.11.0
     @description
       Sets the value / position of the start point of a range slider. This should be a value between 0 and 1. Returns this slider for chaining.
 
@@ -129,16 +113,14 @@
       @description
         A value between 0 and 1.
 
-
     @returns [Slider]
 
   @method setRangeEndValue
-    @removed 0.11.0
     @deprecated 0.10.0
       @description
         Use @code[setValue({endValue: <value>})] instead.
 
-
+    @removed 0.11.0
     @description
       Sets the value / position of the end point of a range slider. This should be a value between 0 and 1. Returns this slider for chaining.
 
@@ -146,28 +128,25 @@
       @description
         A value between 0 and 1.
 
-
     @returns [Slider]
 
   @method getRangeStartValue
-    @removed 0.11.0
     @deprecated 0.10.0
       @description
         Use @code[getValue().startValue] instead.
 
-
+    @removed 0.11.0
     @description
       Gets the value / position of the start point of a range slider. This will be a value between 0 and 1.
 
     @returns [Number]
 
   @method getRangeEndValue
-    @removed 0.11.0
     @deprecated 0.10.0
       @description
         Use @code[getValue().endValue] instead.
 
-
+    @removed 0.11.0
     @description
       Gets the value / position of the end point of a range slider. This will be a value between 0 and 1.
 
@@ -179,11 +158,9 @@
       @description
         The element used to create the slider
 
-
     @arg? options [Object]
       @description
         The options to use when creating the slider
-
 
       @property type [String]
         @description
@@ -191,17 +168,14 @@
           @default
             'slider'
 
-
       @property render [Function]
-        @removed 0.14.0
-          @description
-            Use @code[options.renderer] instead.
-
-
         @deprecated 0.13.0
           @description
             Use @code[options.renderer] instead.
 
+        @removed 0.14.0
+          @description
+            Use @code[options.renderer] instead.
 
         @description
           The render function to use when rendering the value of the slider.
@@ -217,16 +191,13 @@
           @description
             The current slider object.
 
-
         @arg elem [HTMLElement]
           @description
             The node of the slider value.
 
-
         @arg value [Number]
           @description
             The current value of the selected slider control.
-
 
       @property min [Number]
         @description
@@ -234,23 +205,19 @@
           @default
             0
 
-
       @property max [Number]
         @description
           The maximum value of the slider. For discrete sliders, it can be set to one of the discrete values.
           @default
             1
 
-
       @property step [Number]
         @description
           The step to use when building the slider. The slider will display with points at intervals at the step value, starting from the minimum value. The maximum step will always be less than or equal to the maximum value of the slider.
 
-
       @property discreteValues [Array]
         @description
           An array of values to use on the slider. They will display in the order provided and will be spaced evenly along the slider.
-
 
       @property renderer [Function]
         @added 0.13.0
@@ -268,37 +235,31 @@
           @description
             The current slider object.
 
-
         @arg elem [HTMLElement]
           @description
             The node of the slider value.
 
-
         @arg value [Number]
           @description
             The current value of the selected slider control.
-
 
       @property disabled [Boolean]
         @added 0.15.2
           @description
             Added the ability to disable a slider in the options
 
-
         @description
           Whether the slider should be disabled
           @default
             false
 
-
   @method setValue
-    @removed 0.12.0
+    @added 0.10.0
     @deprecated 0.11.0
       @description
         Use @code[value(value)] instead.
 
-
-    @added 0.10.0
+    @removed 0.12.0
     @description
       Sets the values for a range slider.
 
@@ -307,11 +268,9 @@
         @description
           A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
 
-
       @property? endValue [Number]
         @description
           A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
-
 
     @returns [Slider]
 
@@ -324,7 +283,6 @@
       @description
         A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
 
-
     @returns [Slider]
 
   @method value
@@ -338,32 +296,26 @@
           @description
             Use start instead
 
-
         @description
           A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
-
 
       @property? endValue [Number]
         @removed 0.14.0
           @description
             Use end instead
 
-
         @description
           A value between the minimum and maximum values for the slider. For discrete sliders, the value can be discrete.
-
 
       @property? start [Number]
         @added 0.13.0
         @description
           The start value of the selected range slider
 
-
       @property? end [Number]
         @added 0.13.0
         @description
           The end value of the selected range slider
-
 
     @returns [Slider]
 
@@ -376,55 +328,45 @@
       @description
         For standard sliders, this will be a number. For range sliders, this will be an object with the below properties
 
-
       @property? startValue [Number]
         @removed 0.14.0
           @description
             Use start instead
 
-
         @description
           The start value of the selected range slider
-
 
       @property? endValue [Number]
         @removed 0.14.0
           @description
             Use end instead
 
-
         @description
           The end value of the selected range slider
-
 
       @property? start [Number]
         @description
           The start value of the selected range slider
 
-
       @property? end [Number]
         @description
           The end value of the selected range slider
 
-
   @method setDiscreteValues
-    @removed 0.14.0
-      @description
-        Use @code[discreteValues] instead
-
-
     @added 0.13.0
     @deprecated 0.13.0
       @description
         Use @code[discreteValues] instead
 
+    @removed 0.14.0
+      @description
+        Use @code[discreteValues] instead
 
     @arg array [Array]
     @arg? render [Boolean]
       @description
         @default
           true
-
 
   @method discreteValues
     @added 0.13.0
@@ -435,18 +377,15 @@
       @description
         The array of discrete values to use
 
-
     @arg? render [Boolean]
       @description
         Whether to update the slider
         @default
           true
 
-
     @returns [Slider]
       @description
         This Slider
-
 
   @method discreteValues
     @added 0.13.0
@@ -457,7 +396,6 @@
       @description
         The array of discrete values (if set - it will be undefined if not set)
 
-
   @method min
     @added 0.13.0
     @description
@@ -467,11 +405,9 @@
       @description
         The minimum value to set
 
-
     @returns [Slider]
       @description
         This Slider
-
 
   @method min
     @added 0.13.0
@@ -482,7 +418,6 @@
       @description
         The minimum value of the slider.
 
-
   @method max
     @added 0.13.0
     @description
@@ -492,11 +427,9 @@
       @description
         The maximum value to set
 
-
     @returns [Slider]
       @description
         This Slider
-
 
   @method max
     @added 0.13.0
@@ -507,7 +440,6 @@
       @description
         The maximum value of the slider.
 
-
   @method step
     @added 0.13.0
     @description
@@ -517,11 +449,9 @@
       @description
         The step size of the slider.
 
-
     @returns [Slider]
       @description
         This Slider
-
 
   @method step
     @added 0.13.0
@@ -531,7 +461,6 @@
     @returns [Number]
       @description
         The step size of the slider.
-
 
   @method renderer
     @added 0.13.0
@@ -553,21 +482,17 @@
         @description
           The current slider object.
 
-
       @arg elem [HTMLElement]
         @description
           The node of the slider value.
-
 
       @arg value [Number]
         @description
           The current value of the selected slider control.
 
-
     @returns [Slider]
       @description
         This Slider
-
 
   @method renderer
     @added 0.13.0
@@ -582,22 +507,18 @@
         @description
           The current slider object.
 
-
       @arg elem [HTMLElement]
         @description
           The node of the slider value.
-
 
       @arg value [Number]
         @description
           The current value of the selected slider control.
 
-
   @method disabled
     @added 0.15.2
       @description
         Added the ability to disable/enable a slider
-
 
     @description
       A method for disabling or enabling a slider
@@ -606,17 +527,14 @@
       @description
         Whether the slider should be disabled
 
-
     @returns [Slider]
       @description
         This slider
-
 
   @method disabled
     @added 0.15.2
       @description
         Added the ability to get the disabled state of a slider
-
 
     @description
       A method for getting the disabled state of a slider
@@ -625,101 +543,82 @@
       @description
         Whether the slider is disabled
 
-
   @event slide
     @removed 0.10.0
     @description
       Emitted when the slider is moved.
 
-
     @data value
       @description
         The current value (or range value) of the slider.
-
 
   @event slidestart
     @description
       Emitted when the slider finishes moving.
 
-
     @data value
       @description
         The value emitted for standard sliders
-
 
     @data Object
       @added 0.10.0
       @description
         The value emitted for range sliders
 
-
       @property startValue [Number/Discrete]
         @description
           The start value of the slider
 
-
       @property endValue [Number/Discrete]
         @description
           The end value of the slider
-
 
   @event slideend
     @description
       Emitted when the slider finishes moving.
 
-
     @data value
       @description
         The value emitted for standard sliders
-
 
     @data Object
       @added 0.10.0
       @description
         The value emitted for range sliders
 
-
       @property startValue [Number/Discrete]
         @description
           The start value of the slider
 
-
       @property endValue [Number/Discrete]
         @description
           The end value of the slider
-
 
   @event change
     @description
       Emitted when the slider value is changed.
 
-
     @data value
       @description
         The value emitted for standard sliders
-
 
     @data Object
       @added 0.10.0
       @description
         The value emitted for range sliders
 
-
       @property startValue [Number/Discrete]
         @description
           The start value of the slider
-
 
       @property endValue [Number/Discrete]
         @description
           The end value of the slider
 
-
 @function hx.slider
   @added 1.0.0
     @description
       Fluid api version of Slider
-
 
   @description
     Creates a new Slider set up on a detached element, wrapped in a selection
@@ -728,9 +627,7 @@
     @description
       See the options object for constructing Slider
 
-
   @returns [Selection]
     @description
       A selection containing an element with an Slider initialised on it
-
 

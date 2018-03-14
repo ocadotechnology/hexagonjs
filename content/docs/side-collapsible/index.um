@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Side Collapsible
-  @versioned 
+  @versioned
     @version 0.12.8
-      @description 
+      @description
         A module for adding content to the side of an element or page that can be opened or closed.
 
 

@@ -1,123 +1,7 @@
-@version 0.12.10
-  @examples 
-    @example 
-      @html 
-        <button class="hx-btn">hx-btn</button>
-        <button class="hx-btn hx-positive">hx-positive</button>
-        <button class="hx-btn hx-warning">hx-warning</button>
-        <button class="hx-btn hx-negative">hx-negative</button>
-        <button class="hx-btn hx-info">hx-info</button>
-        <button class="hx-btn hx-compliment">hx-compliment</button>
-        <button class="hx-btn hx-contrast">hx-contrast</button>
-        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
-
-    
-    
-    @example 
-      @html 
-        <button id="button-example" class="hx-btn hx-positive">
-          <i class="fa fa-check"></i> Click Me
-        </button>
-
-      @js 
-        hx.select('#button-example').on('click', function(){
-          hx.notify().info('Button clicked');
-        });
-
-    
-    @example 
-      @html 
-        <button id="toggle1" class="hx-btn">Toggle Button</button>
-        <button id="toggle2" class="hx-btn">Toggle Button Off</button>
-
-      
-      @js 
-        toggle1 = new hx.ToggleButton('#toggle1')
-        
-        toggle1.on('change', function(data) {
-          hx.notify().info("Toggle 1 set to " + (data ? "on" : "off"));
-        })
-        
-        toggle2 = new hx.ToggleButton('#toggle2', {value: false})
-        
-        toggle2.on('change', function(data) {
-          hx.notify().info("Toggle 2 set to " + (data ? "on" : "off"));
-        })
-
-@version 0.14.0
-  @examples 
-    @example 
-      @html 
-        <button class="hx-btn">hx-btn</button>
-        <button class="hx-btn hx-positive">hx-positive</button>
-        <button class="hx-btn hx-warning">hx-warning</button>
-        <button class="hx-btn hx-negative">hx-negative</button>
-        <button class="hx-btn hx-info">hx-info</button>
-        <button class="hx-btn hx-compliment">hx-compliment</button>
-        <button class="hx-btn hx-contrast">hx-contrast</button>
-        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
-
-    
-    @example 
-      @html 
-        <button id="button-example" class="hx-btn hx-positive">
-          <i class="fa fa-check"></i> Click Me
-        </button>
-
-      @js 
-        hx.select('#button-example').on('click', function(){
-          hx.notify.info('Button clicked');
-        });
-
-    
-    @example 
-      @html 
-        <button id="toggle1" class="hx-btn">Toggle Button</button>
-        <button id="toggle2" class="hx-btn">Toggle Button Off</button>
-
-      
-      @js 
-        toggle1 = new hx.ToggleButton('#toggle1')
-        
-        toggle1.on('change', function(data) {
-          hx.notify.info("Toggle 1 set to " + (data ? "on" : "off"));
-        })
-        
-        toggle2 = new hx.ToggleButton('#toggle2', {value: false})
-        
-        toggle2.on('change', function(data) {
-          hx.notify.info("Toggle 2 set to " + (data ? "on" : "off"));
-        })
-
-@version 0.15.2
-  @examples 
-    @example 
-      @html 
-        <button class="hx-btn">hx-btn</button>
-        <button class="hx-btn hx-positive">hx-positive</button>
-        <button class="hx-btn hx-warning">hx-warning</button>
-        <button class="hx-btn hx-negative">hx-negative</button>
-        <button class="hx-btn hx-info">hx-info</button>
-        <button class="hx-btn hx-compliment">hx-compliment</button>
-        <button class="hx-btn hx-contrast">hx-contrast</button>
-        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
-
-    
-    @example 
-      @html 
-        <button id="button-example" class="hx-btn hx-positive">
-          <i class="fa fa-check"></i> Click Me
-        </button>
-
-      @js 
-        hx.select('#button-example').on('click', function(){
-          hx.notify.info('Button clicked');
-        });
-
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <button class="hx-btn">hx-btn</button>
         <button class="hx-btn hx-positive">hx-positive</button>
         <button class="hx-btn hx-warning">hx-warning</button>
@@ -127,26 +11,23 @@
         <button class="hx-btn hx-contrast">hx-contrast</button>
         <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button id="button-example" class="hx-btn hx-positive">
           <i class="fa fa-check"></i> Click Me
         </button>
 
-      @js 
+      @js
         hx.select('#button-example').on('click', function(){
           hx.notify().info('Button clicked');
         });
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button id="toggle1" class="hx-btn hx-btn-toggle">Toggle Button</button>
         <button id="toggle2" class="hx-btn hx-btn-toggle hx-btn-toggle-off">Toggle Button Off</button>
 
-      
-      @js 
+      @js
         var toggle1 = hx.select("#toggle1")
         var toggle2 = hx.select("#toggle2")
         toggle1.on('click', function () {
@@ -156,10 +37,118 @@
           hx.notify().info("Toggle 1 set to " + (toggle2.attr("data") === "true" ? "on" : "off"));
         }, true)
 
+@version 0.12.10
+  @examples
+    @example
+      @html
+        <button class="hx-btn">hx-btn</button>
+        <button class="hx-btn hx-positive">hx-positive</button>
+        <button class="hx-btn hx-warning">hx-warning</button>
+        <button class="hx-btn hx-negative">hx-negative</button>
+        <button class="hx-btn hx-info">hx-info</button>
+        <button class="hx-btn hx-compliment">hx-compliment</button>
+        <button class="hx-btn hx-contrast">hx-contrast</button>
+        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
+
+    @example
+      @html
+        <button id="button-example" class="hx-btn hx-positive">
+          <i class="fa fa-check"></i> Click Me
+        </button>
+
+      @js
+        hx.select('#button-example').on('click', function(){
+          hx.notify().info('Button clicked');
+        });
+
+    @example
+      @html
+        <button id="toggle1" class="hx-btn">Toggle Button</button>
+        <button id="toggle2" class="hx-btn">Toggle Button Off</button>
+
+      @js
+        toggle1 = new hx.ToggleButton('#toggle1')
+
+        toggle1.on('change', function(data) {
+          hx.notify().info("Toggle 1 set to " + (data ? "on" : "off"));
+        })
+
+        toggle2 = new hx.ToggleButton('#toggle2', {value: false})
+
+        toggle2.on('change', function(data) {
+          hx.notify().info("Toggle 2 set to " + (data ? "on" : "off"));
+        })
+
+@version 0.14.0
+  @examples
+    @example
+      @html
+        <button class="hx-btn">hx-btn</button>
+        <button class="hx-btn hx-positive">hx-positive</button>
+        <button class="hx-btn hx-warning">hx-warning</button>
+        <button class="hx-btn hx-negative">hx-negative</button>
+        <button class="hx-btn hx-info">hx-info</button>
+        <button class="hx-btn hx-compliment">hx-compliment</button>
+        <button class="hx-btn hx-contrast">hx-contrast</button>
+        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
+
+    @example
+      @html
+        <button id="button-example" class="hx-btn hx-positive">
+          <i class="fa fa-check"></i> Click Me
+        </button>
+
+      @js
+        hx.select('#button-example').on('click', function(){
+          hx.notify.info('Button clicked');
+        });
+
+    @example
+      @html
+        <button id="toggle1" class="hx-btn">Toggle Button</button>
+        <button id="toggle2" class="hx-btn">Toggle Button Off</button>
+
+      @js
+        toggle1 = new hx.ToggleButton('#toggle1')
+
+        toggle1.on('change', function(data) {
+          hx.notify.info("Toggle 1 set to " + (data ? "on" : "off"));
+        })
+
+        toggle2 = new hx.ToggleButton('#toggle2', {value: false})
+
+        toggle2.on('change', function(data) {
+          hx.notify.info("Toggle 2 set to " + (data ? "on" : "off"));
+        })
+
+@version 0.15.2
+  @examples
+    @example
+      @html
+        <button class="hx-btn">hx-btn</button>
+        <button class="hx-btn hx-positive">hx-positive</button>
+        <button class="hx-btn hx-warning">hx-warning</button>
+        <button class="hx-btn hx-negative">hx-negative</button>
+        <button class="hx-btn hx-info">hx-info</button>
+        <button class="hx-btn hx-compliment">hx-compliment</button>
+        <button class="hx-btn hx-contrast">hx-contrast</button>
+        <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
+
+    @example
+      @html
+        <button id="button-example" class="hx-btn hx-positive">
+          <i class="fa fa-check"></i> Click Me
+        </button>
+
+      @js
+        hx.select('#button-example').on('click', function(){
+          hx.notify.info('Button clicked');
+        });
+
 @version 1.0.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <button class="hx-btn">hx-btn</button>
         <button class="hx-btn hx-action">hx-action</button>
         <button class="hx-btn hx-positive">hx-positive</button>
@@ -170,14 +159,13 @@
         <button class="hx-btn hx-contrast">hx-contrast</button>
         <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
 
-    
-    @example 
-      @html 
+    @example
+      @html
         <button id="button-example" class="hx-btn hx-positive">
           <i class="fa fa-check"></i> Click Me
         </button>
 
-      @js 
+      @js
         hx.select('#button-example').on('click', function(){
           hx.notify.info('Button clicked');
         });

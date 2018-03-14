@@ -13,11 +13,9 @@
       @description
         The array to filter
 
-
     @arg term [String]
       @description
         The term to filter on
-
 
     @arg? options [Object]
       @description
@@ -29,13 +27,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -53,7 +49,6 @@
             };
             hx.filter.fuzzy(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -69,16 +64,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function exact
     @description
@@ -88,11 +80,9 @@
       @description
         The array to filter
 
-
     @arg term [String]
       @description
         The term to filter on
-
 
     @arg? options [Object]
       @description
@@ -104,13 +94,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -128,7 +116,6 @@
             };
             hx.filter.exact(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -144,16 +131,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function startsWith
     @description
@@ -163,11 +147,9 @@
       @description
         The array to filter
 
-
     @arg term [String]
       @description
         The term to filter on
-
 
     @arg? options [Object]
       @description
@@ -179,13 +161,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -203,7 +183,6 @@
             };
             hx.filter.startsWith(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -219,16 +198,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function contains
     @description
@@ -238,11 +214,9 @@
       @description
         The array to filter
 
-
     @arg term [String]
       @description
         The term to filter on
-
 
     @arg? options [Object]
       @description
@@ -254,13 +228,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -278,7 +250,6 @@
             };
             hx.filter.contains(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -294,16 +265,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function less
     @description
@@ -313,11 +281,9 @@
       @description
         The array to filter
 
-
     @arg term [String]
       @description
         The term to filter on
-
 
     @arg? options [Object]
       @description
@@ -329,13 +295,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -353,7 +317,6 @@
             };
             hx.filter.less(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -369,16 +332,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function greater
     @description
@@ -388,11 +348,9 @@
       @description
         The array to filter
 
-
     @arg term [String]
       @description
         The term to filter on
-
 
     @arg? options [Object]
       @description
@@ -404,13 +362,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -428,7 +384,6 @@
             };
             hx.filter.greater(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -444,16 +399,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function excludes
     @description
@@ -463,11 +415,9 @@
       @description
         The array to filter
 
-
     @arg term [String]
       @description
         The term to filter on
-
 
     @arg? options [Object]
       @description
@@ -479,13 +429,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -503,7 +451,6 @@
             };
             hx.filter.excludes(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -519,16 +466,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function regex
     @description
@@ -537,7 +481,6 @@
     @arg array [Array]
       @description
         The array to filter
-
 
     @arg term [String]
       @description
@@ -556,13 +499,11 @@
           @default
             false
 
-
       @property sort [Boolean]
         @description
           Whether to sort the results.
           @default
             true
-
 
       @property searchValues [Function]
         @description
@@ -580,7 +521,6 @@
             };
             hx.filter.regex(array, 'bob', {searchValues: getValues});
 
-
           Nested arrays can also be searched by returning the item itself as the array:
           @@codeblock js
             array = [
@@ -596,16 +536,13 @@
           @description
             The item from the array passed into hx.filter
 
-
         @returns [Array]
           @description
             an array of values that should be searched when filtering/sorting
 
-
     @returns [Array]
       @description
         The filtered/sorted array
-
 
   @function stringTypes
     @added 1.12.0
@@ -629,7 +566,6 @@
       @description
         The array of string filter types
 
-
   @function numberTypes
     @added 1.12.0
       @issue 401
@@ -648,7 +584,6 @@
     @returns [Array[String]]
       @description
         The array of number filter types
-
 
   @function types
     @added 1.12.0
@@ -673,5 +608,4 @@
     @returns [Array[String]]
       @description
         The array of all filter types
-
 

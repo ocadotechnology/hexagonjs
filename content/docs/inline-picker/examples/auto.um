@@ -1,13 +1,12 @@
 @version 1.0.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         Color: <span id="picker"></span>. Click to edit.
 
-      @js 
+      @js
         new hx.InlinePicker('#picker', {
           items: ['Red', 'Green', 'Blue'],
           value: 'Red'
         })
-        
 

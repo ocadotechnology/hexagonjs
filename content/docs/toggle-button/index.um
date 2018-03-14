@@ -4,14 +4,14 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Toggle Button
-  @versioned 
+  @versioned
     @version 0.15.2
-      @description 
+      @description
         A module for creating toggle buttons
 
     @version 1.0.0
-      @description 
-        This module was removed in version 1.0.0 and replaced with the 
+      @description
+        This module was removed in version 1.0.0 and replaced with the
         @hyperlink(../toggle)[Toggle]
          module.
 

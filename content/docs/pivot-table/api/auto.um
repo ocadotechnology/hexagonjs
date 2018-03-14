@@ -1,20 +1,17 @@
 @prototype hx.PivotTable
+  @added 0.12.6
+    @description
+      Added a module for creating pivot tables from JSON.
+
   @bugfix 1.3.0
     @issue 161
     @description
       Fix the data setter/getter symmetry by preventing internal data mutation
 
-
   @bugfix 1.3.0
     @issue 162
     @description
       Fix for pivot table where adding additional data to an existing pivot table caused cells to render incorrectly
-
-
-  @added 0.12.6
-    @description
-      Added a module for creating pivot tables from JSON.
-
 
   @description
     A module for creating pivot tables from JSON.
@@ -27,16 +24,13 @@
       @description
         The selector to create the table in.
 
-
     @arg? options [Object]
       @description
         The options to use for the pivot table
 
-
       @property stickyHeaders [Boolean]
         @description
           Whether or not to apply the sticky headers from @code[hx.StickyTableHeaders] to the table
-
 
       @property topLeftCellRender [Function]
         @description
@@ -47,7 +41,6 @@
         @arg element [HTMLElement]
           @description
             The @code[th] node of the top left cell. Values entered in this cell will affect the sizes of the left/top headings.
-
 
       @property cellRender [Function]
         @description
@@ -64,21 +57,17 @@
           @description
             The data for the cell
 
-
         @arg element [HTMLElement]
           @description
             The html element of the cell
-
 
         @arg isHead [Boolean]
           @description
             Whether the cell is a header cell or a body cell
 
-
         @arg column [Number]
           @description
             The column index of the cell
-
 
       @property useResponsive [Boolean]
         @description
@@ -86,20 +75,16 @@
           @default
             true
 
-
       @property data [Object]
         @added 1.3.0
           @issue 146
           @description
             Added the data option to pivot tables
 
-
         @description
           The data to render in the pivot table.
 
-
           The data should be an object with a @code[topHead] , @code[leftHead] and @code[body] .
-
 
           @@codeblock js
             {
@@ -132,15 +117,13 @@
           Whether to force the table to take up at least the full width available
 
   @method setData
-    @removed 0.14.0
-      @description
-        Use @code[data(data)] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[data(data)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[data(data)] instead.
 
     @description
       A method for providing a pivot table with data
@@ -149,9 +132,7 @@
       @description
         The data to render in the pivot table.
 
-
         The data should be an object with a @code[topHead] , @code[leftHead] and @code[body] .
-
 
         @@codeblock js
           {
@@ -177,7 +158,6 @@
     @returns [PivotTable]
       @description
         This pivot table for chaining
-
 
   @method data
     @added 0.13.0
@@ -188,9 +168,7 @@
       @description
         The data to render in the pivot table.
 
-
         The data should be an object with a @code[topHead] , @code[leftHead] and @code[body] .
-
 
         @@codeblock js
           {
@@ -216,7 +194,6 @@
     @returns [PivotTable]
       @description
         This pivot table for chaining
-
 
   @method data
     @added 0.13.0
@@ -227,12 +204,10 @@
       @description
         The data for the current pivot table.
 
-
 @function hx.pivotTable
   @added 1.0.0
     @description
       Fluid api version of PivotTable
-
 
   @description
     Creates a new PivotTable set up on a detached element, wrapped in a selection
@@ -241,9 +216,7 @@
     @description
       See the options object for constructing PivotTable
 
-
   @returns [Selection]
     @description
       A selection containing an element with an PivotTable initialised on it
-
 

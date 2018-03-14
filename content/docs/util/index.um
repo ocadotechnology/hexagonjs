@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Util
-  @versioned 
+  @versioned
     @version 0.9.0
-      @description 
+      @description
         A collection of utility functions for manipulating arrays, objects and doing checks on types of variables.
 
 

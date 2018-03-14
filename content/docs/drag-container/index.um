@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Drag Container
-  @versioned 
+  @versioned
     @version 0.15.2
-      @description 
+      @description
         A module for creating a container with draggable elements inside that can be ordered as applicable, allowing custom page layouts.
 
 

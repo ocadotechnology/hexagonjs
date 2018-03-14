@@ -1,18 +1,17 @@
 @prototype hx.Collapseable
-  @removed 0.10.0
   @deprecated 0.9.0
     @description
       This has been replaced with @code[hx.Collapsible]
 
-
+  @removed 0.10.0
   @extends EventEmitter
 
 @function hx.initialiseCollapseables
-  @removed 0.10.0
   @deprecated 0.9.0
     @description
       This has been replaced with @code[hx.initialiseCollapsibles]
 
+  @removed 0.10.0
 
 @prototype hx.Collapsible
   @description
@@ -26,21 +25,18 @@
     @returns [Boolean]
 
   @constructor
-    @removed 0.14.0
-      @description
-        Use @code[hx.Collapsible(selector, options)] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.Collapsible(selector, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.Collapsible(selector, options)] instead.
 
     @description
     @arg selector [String]
       @description
         A css selector that uniquely identifies the collapsible in the DOM.
-
 
     @arg? lazyContent [Function]
       @description
@@ -52,7 +48,6 @@
       @arg content [HTMLElement]
         @description
           The content div of the collapsible as a html node. The function should append any content to this div.
-
 
     @arg? visible [Boolean]
       @description
@@ -67,7 +62,6 @@
       @description
         Additional optional callback parameter added for executing code when the animation finishes.
 
-
     @description
       Causes the collapsible to open, revealing its contents.
 
@@ -79,12 +73,10 @@
       @description
         This Collapsible
 
-
   @method hide
     @removed 0.13.0
       @description
         Additional optional callback parameter added for executing code when the animation finishes.
-
 
     @description
       Causes the collapsible to collapse, hiding its contents.
@@ -97,12 +89,10 @@
       @description
         This Collapsible
 
-
   @method toggle
     @removed 0.13.0
       @description
         Additional optional callback parameter added for executing code when the animation finishes.
-
 
     @description
       Causes the collapsible to open or close, depending on its current state.
@@ -115,7 +105,6 @@
       @description
         This Collapsible
 
-
   @constructor
     @added 0.13.0
     @description
@@ -123,11 +112,9 @@
       @description
         A css selector that uniquely identifies the collapsible in the DOM.
 
-
     @arg? options [Object]
       @description
         The options to use when creating the collapsible.
-
 
       @property lazyContent [Function]
         @description
@@ -139,7 +126,6 @@
         @arg content [HTMLElement]
           @description
             The content div of the collapsible as a html node. The function should append any content to this div.
-
 
       @property visible [Boolean]
         @description
@@ -155,7 +141,6 @@
           @default
             true
 
-
   @method show
     @added 0.13.0
     @description
@@ -173,7 +158,6 @@
       @description
         This Collapsible
 
-
   @method hide
     @added 0.13.0
     @description
@@ -190,7 +174,6 @@
     @returns [Collapsible]
       @description
         This Collapsible
-
 
   @method toggle
     @added 0.13.0
@@ -209,31 +192,26 @@
       @description
         This Collapsible
 
-
   @event show
-    @removed 0.14.0
-      @description
-        Use @code[showstart] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[showstart] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[showstart] instead.
 
     @description
       Emitted when the collapsible is opened. No extra data with this event type
 
   @event hide
-    @removed 0.14.0
-      @description
-        Use @code[hidestart] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hidestart] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hidestart] instead.
 
     @description
       Emitted when the collapsible is hidden. No extra data with this event type
@@ -243,17 +221,15 @@
       Emitted when the state of the collapsible is changed. The data provided with the event is a boolean - true when the collapsible has just been opened, false when it has just been closed.
 
   @event changeend [Boolean]
-    @removed 0.14.0
-      @description
-        Use @code[showend] or @code[hideend] to listen for when the animations have finished on show/hide.
-
-
+    @added 0.12.8
     @deprecated 0.13.0
       @description
         Use @code[showend] or @code[hideend] to listen for when the animations have finished on show/hide.
 
+    @removed 0.14.0
+      @description
+        Use @code[showend] or @code[hideend] to listen for when the animations have finished on show/hide.
 
-    @added 0.12.8
     @description
       Emitted when the collapsible's state changes and animations have finished. The data that comes with this event is a boolean. True means that the collapsible has just been opened, false means it has just been closed.
 
@@ -278,16 +254,14 @@
       Emitted when the collapsible is hidden. No extra data with this event type
 
 @function hx.initialiseCollapsibles
-  @removed 0.14.0
-    @description
-      Use @code[hx.initializeCollapsibles] instead.
-
-
   @deprecated 0.13.0
     @description
       Correct spelling
       Use @code[hx.initializeCollapsibles] instead.
 
+  @removed 0.14.0
+    @description
+      Use @code[hx.initializeCollapsibles] instead.
 
   @description
     Initialises all the collapsibles that match a css selector in a page and returns the Collapsible objects as an array.
@@ -295,7 +269,6 @@
   @arg selector [String]
     @description
       A css selector that selects the collapsible elements you wish to initialise.
-
 
   @arg? lazyContent [Function]
     @description
@@ -308,19 +281,17 @@
       @description
         The content div of the collapsible as a html node. The function should append any content to this div.
 
-
 @class hx-collapseable
-  @removed 0.10.0
   @deprecated 0.9.0
     @description
       Use hx-collapsible instead.
 
+  @removed 0.10.0
 
 @class hx-collapsible
   @updated 0.10.0
     @description
       Removed module-specific classes in favor of generic classes
-
 
   @description
     Given to the container element for a collapsible
@@ -338,15 +309,13 @@
       Given to the header section of a collapsible
 
   @extraClass hx-collapsible-[n]
-    @removed 0.10.0
     @deprecated 0.9.0
       @description
         All numbered color classes will be removed in a later version. There will be no alternative - all collapsible should look the same.
 
-
+    @removed 0.10.0
     @description
       Used to color the collapsible with one of the theme variables.
-
 
 @function hx.initializeCollapsibles
   @added 0.13.0
@@ -357,9 +326,7 @@
     @description
       A css selector that selects the collapsible elements you wish to initialise.
 
-
   @arg? options [Function]
     @description
-      The options to use when creating the collapsibles. See @code] for the full list of available options.
-
+      The options to use when creating the collapsibles. See @code[hx.Collapsible(selector, options)] for the full list of available options.
 

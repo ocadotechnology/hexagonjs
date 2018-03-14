@@ -1,7 +1,7 @@
 @version 0.9.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <form class="hx-form hx-margin">
           <div>
             <label>Text</label>
@@ -50,9 +50,9 @@
         </form>
 
 @version 1.0.0
-  @examples 
-    @example 
-      @html 
+  @examples
+    @example
+      @html
         <form class="hx-form hx-margin">
           <div>
             <label>Text</label>
@@ -100,8 +100,7 @@
           <button type="submit" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
         </form>
 
-      
-      @js 
+      @js
         var tagInput = new hx.TagInput('#tagInput')
         tagInput.items(['a','b'])
 

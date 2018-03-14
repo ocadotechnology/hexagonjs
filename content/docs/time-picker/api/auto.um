@@ -2,44 +2,37 @@
   @description
     Fixed an issue where the events were firing out of order.
 
-
 @prototype hx.TimePicker
-  @updated 1.1.0
-    @issue 23
-    @issue 24
+  @updated 0.11.0
     @description
-      Time pickers now listen for changes in @code[hx.preferences.timezone] and automatically update
-
-
-  @bugfix 0.15.2
-    @description
-      Disabled text input for touch devices as the input box conflicts with the dropdown for changing the time which isn't very user friendly
-
+      All instances of supressCallback have been converted to suppressCallback.
 
   @updated 0.12.6
     @description
       Added a delay to the time picker input to make it easier to enter a time manually.
 
-
-  @updated 0.11.0
+  @bugfix 0.15.2
     @description
-      All instances of supressCallback have been converted to suppressCallback.
+      Disabled text input for touch devices as the input box conflicts with the dropdown for changing the time which isn't very user friendly
 
+  @updated 1.1.0
+    @issue 23
+    @issue 24
+    @description
+      Time pickers now listen for changes in @code[hx.preferences.locale] and @code[hx.preferences.timezone] and automatically update
 
   @description
     Used to create a timepicker from a selection.
 
   @extends EventEmitter
   @constructor
-    @removed 0.14.0
-      @description
-        Use @code[hx.TimePicker(selector, options)] instead.
-
-
     @deprecated 0.13.0
       @description
         Use @code[hx.TimePicker(selector, options)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[hx.TimePicker(selector, options)] instead.
 
     @description
       Creates a timepicker with the current time
@@ -47,7 +40,6 @@
     @arg selector [String/HTMLElement]
       @description
         The selector of the div to turn into a timepicker.
-
 
     @arg? showSeconds [Boolean]
       @description
@@ -57,21 +49,18 @@
       @description
         The class to add to the buttons.
 
-
   @method setDate
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[date(date, setTime, suppressCallback)] instead.
 
-
+    @removed 0.12.0
     @description
       Sets the entire date for the timepicker.
 
     @arg date [Date]
       @description
         The date to set the timepicker to.
-
 
     @arg? setTime [Boolean]
       @description
@@ -82,12 +71,11 @@
         A value used to prevent the change event being emitted
 
   @method setHour
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[hour(hour, suppressCallback)] instead.
 
-
+    @removed 0.12.0
     @description
       Set the hour to display in the timepicker
 
@@ -95,18 +83,16 @@
       @description
         The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the timepicker to cycle into the next/previous day.
 
-
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
 
   @method setMinute
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[minute(minute, suppressCallback)] instead.
 
-
+    @removed 0.12.0
     @description
       Set the minute to display in the timepicker.
 
@@ -114,18 +100,16 @@
       @description
         The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous hour.
 
-
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
 
   @method setSecond
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[second(second, suppressCallback)] instead.
 
-
+    @removed 0.12.0
     @description
       Set the second to display in the timepicker.
 
@@ -133,21 +117,18 @@
       @description
         The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous minute.
 
-
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
 
   @method addHours
-    @removed 0.14.0
-      @description
-        Use tp.hour(tp.hour() + hours) instead
-
-
     @deprecated 0.13.0
       @description
         Use tp.hour(tp.hour() + hours) instead
 
+    @removed 0.14.0
+      @description
+        Use tp.hour(tp.hour() + hours) instead
 
     @description
       Add hours to the currently selected time.
@@ -156,22 +137,18 @@
       @description
         The number of hours to add. Can be a negative number and will cycle to the next/previous day if the resulting value is not in the range of 0 - 23.
 
-
     @returns [TimePicker]
       @description
         This TimePicker
 
-
   @method addMinutes
-    @removed 0.14.0
-      @description
-        Use tp.minute(tp.minute() + minutes) instead
-
-
     @deprecated 0.13.0
       @description
         Use tp.minute(tp.minute() + minutes) instead
 
+    @removed 0.14.0
+      @description
+        Use tp.minute(tp.minute() + minutes) instead
 
     @description
       Add minutes to the currently selected time.
@@ -180,22 +157,18 @@
       @description
         The number of hours to add. Can be a negative number and will cycle to the next/previous hour if the resulting value is not in the range of 0 - 59.
 
-
     @returns [TimePicker]
       @description
         This TimePicker
 
-
   @method addSeconds
-    @removed 0.14.0
-      @description
-        Use tp.second(tp.second() + seconds) instead
-
-
     @deprecated 0.13.0
       @description
         Use tp.second(tp.second() + seconds) instead
 
+    @removed 0.14.0
+      @description
+        Use tp.second(tp.second() + seconds) instead
 
     @description
       Add seconds to the currently selected time.
@@ -204,55 +177,49 @@
       @description
         The number of hours to add. Can be a negative number and will cycle to the next/previous minute if the resulting value is not in the range of 0 - 59.
 
-
     @returns [TimePicker]
       @description
         This TimePicker
 
-
   @method getDate
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[date()] instead.
 
-
+    @removed 0.12.0
     @description
       Gets the current date object that the timepicker is set to.
 
     @returns [Date]
 
   @method getHour
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[hour()] instead.
 
-
+    @removed 0.12.0
     @description
       Get the currently selected hour
 
     @returns [Number]
 
   @method getMinute
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[minute()] instead.
 
-
+    @removed 0.12.0
     @description
       Get the currently selected minute
 
     @returns [Number]
 
   @method getSecond
-    @removed 0.12.0
     @deprecated 0.11.0
       @description
         Use @code[second()] instead.
 
-
+    @removed 0.12.0
     @description
       Get the currently selected second
 
@@ -266,18 +233,15 @@
       @description
         The the time as it is displayed in the input box.
 
-
   @method update
     @removed 0.11.0
     @descroption
       @description
         Used to refresh the timepicker if the locale has been updated and moment.js is being used.
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method date
     @added 0.11.0
@@ -287,12 +251,11 @@
     @returns [Date]
 
   @method date
+    @added 0.11.0
     @removed 0.12.5
       @description
         The setTime parameter has been changed to retainTime and the behaviour inverted. Passing false will set the entire date object whereas previously false would only set the days/months/years (ignoring the hours/minutes/seconds). Use @code[date(date, retainTime, suppressCallback)] instead.
 
-
-    @added 0.11.0
     @description
       Sets the currently selected date.
 
@@ -300,13 +263,11 @@
       @description
         The date to set.
 
-
     @arg? setTime [Boolean]
       @description
         Whether to set the time as well as the date. Only the day/month/year will be updated unless this value is true.
         @default
           false
-
 
     @arg? suppressCallback [Boolean]
       @description
@@ -314,11 +275,9 @@
         @default
           false
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method hour
     @added 0.11.0
@@ -328,17 +287,15 @@
     @returns [Number]
 
   @method hour
-    @removed 0.14.0
-      @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
-
-
+    @added 0.11.0
     @deprecated 0.13.0
       @description
         The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
 
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
 
-    @added 0.11.0
     @description
       Sets the currently selected hour.
 
@@ -346,18 +303,15 @@
       @description
         The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the TimePicker to cycle into the next/previous day.
 
-
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
         @default
           false
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method minute
     @added 0.11.0
@@ -367,17 +321,15 @@
     @returns [Number]
 
   @method minute
-    @removed 0.14.0
-      @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
-
-
+    @added 0.11.0
     @deprecated 0.13.0
       @description
         The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
 
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
 
-    @added 0.11.0
     @description
       Sets the currently selected minute.
 
@@ -385,18 +337,15 @@
       @description
         The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous hour.
 
-
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
         @default
           false
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method second
     @added 0.11.0
@@ -406,17 +355,15 @@
     @returns [Number]
 
   @method second
-    @removed 0.14.0
-      @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
-
-
+    @added 0.11.0
     @deprecated 0.13.0
       @description
         The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
 
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
 
-    @added 0.11.0
     @description
       Sets the currently selected second.
 
@@ -424,31 +371,26 @@
       @description
         The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous minute.
 
-
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
         @default
           false
 
-
     @returns [TimePicker]
       @description
         This TimePicker
 
-
   @method update
-    @removed 0.14.0
-      @description
-        Use @code[locale(locale)] instead.
-
-
+    @added 0.11.0
     @deprecated 0.13.0
       @description
         Use @code[locale(locale)] instead.
 
+    @removed 0.14.0
+      @description
+        Use @code[locale(locale)] instead.
 
-    @added 0.11.0
     @description
       A function for updating the display of the TimePicker when moment.js is present on the page.
 
@@ -475,19 +417,16 @@
       @description
         This TimePicker
 
-
   @method disable
-    @removed 1.0.0
-      @description
-        Use @code[disabled(true)] instead.
-
-
+    @added 0.12.0
     @deprecated 0.15.2
       @description
         Use @code[disabled(true)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[disabled(true)] instead.
 
-    @added 0.12.0
     @description
       A method for disabling a time picker so the user can't enter values.
 
@@ -495,19 +434,16 @@
       @description
         This TimePicker
 
-
   @method enable
-    @removed 1.0.0
-      @description
-        Use @code[disabled(false)] instead.
-
-
+    @added 0.12.0
     @deprecated 0.15.2
       @description
         Use @code[disabled(false)] instead.
 
+    @removed 1.0.0
+      @description
+        Use @code[disabled(false)] instead.
 
-    @added 0.12.0
     @description
       A method for enabling a time picker so the user can enter values.
 
@@ -515,19 +451,16 @@
       @description
         This TimePicker
 
-
   @method date
-    @removed 0.14.0
-      @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
-
-
+    @added 0.12.5
     @deprecated 0.13.0
       @description
         The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
 
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
 
-    @added 0.12.5
     @description
       Sets the currently selected date.
 
@@ -535,13 +468,11 @@
       @description
         The date to set.
 
-
     @arg? retainTime [Boolean]
       @description
         Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
         @default
           false
-
 
     @arg? suppressCallback [Boolean]
       @description
@@ -549,11 +480,9 @@
         @default
           false
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @constructor
     @added 0.13.0
@@ -564,11 +493,9 @@
       @description
         The selector of the div to turn into a time picker.
 
-
     @arg? options [Object]
       @description
         The options to use when creating the time picker.
-
 
       @property showSeconds [Boolean]
         @description
@@ -578,28 +505,24 @@
         @description
           The class to add to the buttons.
 
-
       @property disabled [Boolean]
         @added 0.15.2
           @description
             Added the ability to disable a time picker in the options
-
 
         @description
           Whether the time picker should be disabled
           @default
             false
 
-
   @method locale
+    @added 0.13.0
     @deprecated 1.1.0
       @issue 23
       @issue 24
       @description
         Use @code[hx.preferences.locale] to get the locale for a page.
 
-
-    @added 0.13.0
     @description
       A function for updating the locale used in the time picker.
 
@@ -612,28 +535,24 @@
       @description
         The locale string to update the time picker with.
 
-
     @returns [TimePicker]
       @description
         This DatePicker
 
-
   @method locale
+    @added 0.13.0
     @deprecated 1.1.0
       @issue 23
       @issue 24
       @description
         Use @code[hx.preferences.locale] to set the locale for a page.
 
-
-    @added 0.13.0
     @description
       A method for getting the currently set locale.
 
     @returns [String]
       @description
         The currently set locale.
-
 
   @method date
     @added 0.13.0
@@ -644,18 +563,15 @@
       @description
         The date to set.
 
-
     @arg? retainTime [Boolean]
       @description
         Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
         @default
           false
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method hour
     @added 0.13.0
@@ -666,11 +582,9 @@
       @description
         The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the TimePicker to cycle into the next/previous day.
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method minute
     @added 0.13.0
@@ -681,11 +595,9 @@
       @description
         The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous hour.
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method second
     @added 0.13.0
@@ -696,17 +608,14 @@
       @description
         The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous minute.
 
-
     @returns [TimePicker]
       @description
         This TimePicker
-
 
   @method disabled
     @added 0.15.2
       @description
         Added the ability to disable/enable a time picker
-
 
     @description
       A method for disabling or enabling a time picker
@@ -715,17 +624,14 @@
       @description
         Whether the time picker should be disabled
 
-
     @returns [TimePicker]
       @description
         This time picker
-
 
   @method disabled
     @added 0.15.2
       @description
         Added the ability to get the disabled state of a time picker
-
 
     @description
       A method for getting the disabled state of a time picker
@@ -734,37 +640,30 @@
       @description
         Whether the button group is disabled
 
-
   @event change
     @description
       Emitted when the time is changed.
-
 
     @data Object
       @description
         An object containing the type of call that has been made
 
-
       @property type [String]
         @description
           The type of event that fired the change. Can be 'user' (when the user clicks something to change the time) or 'api' (when a method call is used to change the api.)
-
 
   @event show
     @description
       Emitted when the time picker is shown.
 
-
   @event hide
     @description
       Emitted when the time picker is hidden.
-
 
 @function hx.timePicker
   @added 1.0.0
     @description
       Fluid api version of TimePicker
-
 
   @description
     Creates a new TimePicker set up on a detached element, wrapped in a selection
@@ -773,9 +672,7 @@
     @description
       See the options object for constructing TimePicker
 
-
   @returns [Selection]
     @description
       A selection containing an element with an TimePicker initialised on it
-
 

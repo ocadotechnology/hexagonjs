@@ -1,11 +1,11 @@
 @version 0.12.6
-  @examples 
-    @example 
-      @js 
+  @examples
+    @example
+      @js
         var pivotTable1 = new hx.PivotTable('#table1')
         var pivotTable2 = new hx.PivotTable('#table2')
         var pivotTable3 = new hx.PivotTable('#table3')
-        
+
         var data1 = {
           topHead: [
             'Head 1',
@@ -35,7 +35,7 @@
             ]
           ]
         }
-        
+
         var data2 = {
           leftHead: [
             'Head 1',
@@ -60,7 +60,7 @@
             ]
           ]
         }
-        
+
         var data3 = {
           topHead: [
             'Head 1',
@@ -85,13 +85,12 @@
             ]
           ]
         }
-        
+
         pivotTable1.setData(data1)
         pivotTable2.setData(data2)
         pivotTable3.setData(data3)
 
-      
-      @html 
+      @html
         <div id="table1"></div>
         <br>
         <div id="table2"></div>
@@ -99,13 +98,13 @@
         <div id="table3"></div>
 
 @version 0.13.0
-  @examples 
-    @example 
-      @js 
+  @examples
+    @example
+      @js
         var pivotTable1 = new hx.PivotTable('#table1')
         var pivotTable2 = new hx.PivotTable('#table2')
         var pivotTable3 = new hx.PivotTable('#table3')
-        
+
         var data1 = {
           topHead: [
             'Head 1',
@@ -135,7 +134,7 @@
             ]
           ]
         }
-        
+
         var data2 = {
           leftHead: [
             'Head 1',
@@ -160,7 +159,7 @@
             ]
           ]
         }
-        
+
         var data3 = {
           topHead: [
             'Head 1',
@@ -185,13 +184,12 @@
             ]
           ]
         }
-        
+
         pivotTable1.data(data1)
         pivotTable2.data(data2)
         pivotTable3.data(data3)
 
-      
-      @html 
+      @html
         <div id="table1"></div>
         <br>
         <div id="table2"></div>
@@ -199,14 +197,14 @@
         <div id="table3"></div>
 
 @version 1.12.0
-  @examples 
-    @example 
-      @js 
+  @examples
+    @example
+      @js
         var pivotTable1 = new hx.PivotTable('#table1')
         var pivotTable2 = new hx.PivotTable('#table2')
         var pivotTable3 = new hx.PivotTable('#table3')
         var pivotTable4 = new hx.PivotTable('#table4', { fullWidth: true })
-        
+
         var data1 = {
           topHead: [
             'Head 1',
@@ -236,7 +234,7 @@
             ]
           ]
         }
-        
+
         var data2 = {
           leftHead: [
             'Head 1',
@@ -261,7 +259,7 @@
             ]
           ]
         }
-        
+
         var data3 = {
           topHead: [
             'Head 1',
@@ -286,15 +284,13 @@
             ]
           ]
         }
-        
+
         pivotTable1.data(data1)
         pivotTable2.data(data2)
         pivotTable3.data(data3)
         pivotTable4.data(data1)
-        
 
-      
-      @html 
+      @html
         <div id="table1"></div>
         <br>
         <div id="table2"></div>

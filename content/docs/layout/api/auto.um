@@ -30,7 +30,6 @@
     @description
       The flex-shrink property has been added to hx-sections.
 
-
   @description
     Given to a div that that will actually contain some content.
 

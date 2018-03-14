@@ -4,9 +4,9 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Pivot Table
-  @versioned 
+  @versioned
     @version 0.12.6
-      @description 
+      @description
         A module for creating pivot tables.
 
 

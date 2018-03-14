@@ -1,26 +1,22 @@
+@bugfix 1.4.2
+  @description
+    Fixed where the code was using the @code[loadingMessage] and @code[pleaseEnterMinCharactersMessage]
+
 @bugfix 1.8.0
   @issue 273
   @description
     Fixed an issue where object based items were being sorted incorrectly
 
-
-@bugfix 1.4.2
-  @description
-    Fixed where the code was using the @code[pleaseEnterMinCharactersMessage]
-
-
 @prototype hx.AutoComplete
-  @bugfix 1.8.2
-    @issue 343
-    @description
-      Fixed an issue where the filtering failed when there were no 'disabled' items in the list
-
-
   @bugfix 1.2.1
     @issue 172
     @description
       Fixed a breaking issue with the autocomplete that caused it not to autocomplete and external matchers to break.
 
+  @bugfix 1.8.2
+    @issue 343
+    @description
+      Fixed an issue where the filtering failed when there were no 'disabled' items in the list
 
   @description
     The AutoComplete class can be used to add an auto complete suggestion dropdown to any input field.
@@ -33,7 +29,6 @@
     @arg selector [String/HTMLElement]
       @description
         The selector of the input box to add an auto complete to.
-
 
     @arg data [Array/Function]
       @description
@@ -49,7 +44,6 @@
             "Steve",
             ...
           ]
-
 
         By default, the data is expected as an array of string values. If object based data is passed in, an @code[inputMap] must be provided in the options:
         @@codeblock js
@@ -69,7 +63,6 @@
             }
           };
 
-
         A @code[renderer] and @code[filterOptions.searchValues] can also be specified to change how the text is displayed and what data is searchable, independent of the @code[inputMap] .
 
         @h4[Function]
@@ -79,7 +72,6 @@
               callback(r.responseText)
             });
           }
-
 
         A 'Loading...' message will be shown whilst the AutoComplete waits for a response from this function.
 
@@ -105,7 +97,6 @@
             }
           };
           options.matchType = 'external'
-
 
         The term passed in is the current value of the input field (for use as a search term).
 
@@ -161,11 +152,9 @@
           @description
             The HTMLElement to populate
 
-
         @arg item [Object]
           @description
             The data item to populate the element with.
-
 
       @property showOtherResults [Boolean]
         @description
@@ -181,16 +170,13 @@
           @description
             The array from the AutoComplete cache or data source
 
-
         @arg term [String]
           @description
             The search term to use when filtering
 
-
         @returns [Array]
           @description
             The filtered data
-
 
       @property filterOptions [Object]
         @description
@@ -217,7 +203,6 @@
               return item.name + ', ' + item.age;
             };
 
-
           The above inputMap would return 'Bob, 12' which would then be searchable and display as the text in the dropdown.
 
           A custom renderer can also be defined to change what displays in the dropdown.
@@ -226,18 +211,15 @@
           @description
             The data item passed from the AutoComplete data.
 
-
         @returns [String]
           @description
             The text string to display in the input field, the dropdown and to be searchable
-
 
       @property noResultsMessage [String]
         @updated 1.4.0
           @issue 211
           @description
             The default text is now retrieved from the userFacingText module
-
 
         @description
           The text to display when no results are found. If this is not defined or set to '' then the dropdown will not be shown when there are no results.
@@ -247,7 +229,6 @@
           @issue 211
           @description
             The default text is now retrieved from the userFacingText module
-
 
         @description
           The text to display at the top of the other results when the @code[showOtherResults] option is true.
@@ -259,13 +240,11 @@
         @description
           An option to enable whitespace trimming at the end of the input value if no results are found for that string.
 
-
       @property loadingMessage [String]
         @added 1.4.0
           @issue 211
           @description
             The default text is retrieved from the userFacingText module
-
 
         @description
           The text to display when the autocomplete is loading data
@@ -275,7 +254,6 @@
           @issue 211
           @description
             The default text is retrieved from the userFacingText module
-
 
         @description
           The text to display when the user has not entered enough text.
@@ -299,17 +277,14 @@
       @description
         This AutoComplete
 
-
   @method hide
-    @removed 0.14.0
-      @description
-        Suppressing events is now possible with @code[autocomplete.suppressed(eventName, suppress)] . This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api.
-
-
     @deprecated 0.13.0
       @description
         Suppressing events is now possible with @code[autocomplete.suppressed(eventName, suppress)] . This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api.
 
+    @removed 0.14.0
+      @description
+        Suppressing events is now possible with @code[autocomplete.suppressed(eventName, suppress)] . This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api.
 
     @description
       A method to hide the autocomplete menu.
@@ -318,17 +293,14 @@
       @description
         Whether to emit events when hiding the autocomplete.
 
-
     @returns [AutoComplete]
       @description
         This AutoComplete
-
 
   @method value
     @added 0.13.0
       @description
         Added a method for getting the value of the auto complete.
-
 
     @description
       A method for getting the value of the auto complete.
@@ -337,12 +309,10 @@
       @description
         The input value
 
-
   @method value
     @added 0.13.0
       @description
         Added a method for setting the value of the auto complete.
-
 
     @description
       A method for setting the value of the auto complete.
@@ -351,11 +321,9 @@
       @description
         The value to set the autocomplete to.
 
-
     @returns [AutoComplete]
       @description
         This autocomplete.
-
 
   @method hide
     @added 0.13.0
@@ -365,7 +333,6 @@
     @returns [AutoComplete]
       @description
         This AutoComplete
-
 
   @event change [String]
     @description
@@ -379,7 +346,6 @@
     @added 0.13.0
       @description
         Pipe the dropdown events through so they can be listened to directly.
-
 
     @description
       The event called when an item is set as the active item. This can only be done by the keyboard or when the user clicks on an item
@@ -395,12 +361,10 @@
       @description
         The item as it was passed into the select.
 
-
   @event dropdown.showstart
     @added 0.13.0
       @description
         Pipe the dropdown events through so they can be listened to directly.
-
 
     @description
       Emitted when the dropdown animation starts. No data is sent with this event.
@@ -410,7 +374,6 @@
       @description
         Pipe the dropdown events through so they can be listened to directly.
 
-
     @description
       Emitted when the dropdown animation finishes. No data is sent with this event.
 
@@ -418,7 +381,6 @@
     @added 0.13.0
       @description
         Pipe the dropdown events through so they can be listened to directly.
-
 
     @description
       Emitted when the dropdown animation starts. No data is sent with this event.
@@ -428,7 +390,6 @@
       @description
         Pipe the dropdown events through so they can be listened to directly.
 
-
     @description
       Emitted when the dropdown animation ends. No data is sent with this event.
 
@@ -437,33 +398,28 @@
       @description
         Pipe the dropdown events through so they can be listened to directly.
 
-
     @description
       Emitted when the dropdown is shown or hidden. The data is a boolean indicating whether or not the dropdown is hidden.
 
   @event hide
-    @removed 0.14.0
-      @description
-        Use the @code[dropdown.hidestart] or @code[dropdown.hideend] event instead.
-
-
     @added 0.13.0
     @deprecated 0.13.0
       @description
         Use the @code[dropdown.hidestart] or @code[dropdown.hideend] event instead.
 
+    @removed 0.14.0
+      @description
+        Use the @code[dropdown.hidestart] or @code[dropdown.hideend] event instead.
 
 @function hx.autoComplete
-  @removed 1.3.0
-    @issue 205
-    @description
-      This function did not work as it didn't pass the data to the autocomplete
-
-
   @added 1.0.0
     @description
       Fluid api version of AutoComplete
 
+  @removed 1.3.0
+    @issue 205
+    @description
+      This function did not work as it didn't pass the data to the autocomplete
 
   @description
     Creates a new AutoComplete set up on a detached element, wrapped in a selection
@@ -472,18 +428,15 @@
     @description
       See the options object for constructing AutoComplete
 
-
   @returns [Selection]
     @description
       A selection containing an element with an AutoComplete initialised on it
-
 
 @function hx.autoComplete
   @added 1.3.0
     @issue 205
     @description
       New fluid version of the autocomplete that takes data as well as options.
-
 
   @description
     Creates a new AutoComplete set up on a detached element, wrapped in a selection
@@ -501,5 +454,4 @@
   @returns [Selection]
     @description
       A selection containing an element with an AutoComplete initialised on it
-
 

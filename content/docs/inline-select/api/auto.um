@@ -2,7 +2,6 @@
   @description
     This module was replaced with the inline picker module in this version
 
-
 @prototype hx.InlineSelect
   @added 0.10.0
   @description
@@ -13,7 +12,6 @@
       @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
 
-
   @method renderer
     @description
       Sets the renderer function for the underlying select.
@@ -23,11 +21,9 @@
         @description
           The element to populate
 
-
       @arg data [Any]
         @description
           The data to populate the element with
-
 
     @returns [InlineSelect]
       @added 0.13.0
@@ -35,10 +31,8 @@
         @description
           Updated the renderer method to return the renderer if no arguments are provided.
 
-
       @description
         Returns this select for chaining.
-
 
   @method items
     @description
@@ -48,11 +42,9 @@
       @description
         The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
-
     @returns [InlineSelect]
       @description
         Returns this InlineSelect for chaining
-
 
   @method value
     @description
@@ -62,11 +54,9 @@
       @description
         The text to give the element. If not specified the current value will be returned.
 
-
     @returns [String/InlineSelect]
       @description
         Returns the current value in the editable if a value is not speficied. If a value is specified, this InlineSelect is returned for chaining.
-
 
   @constructor
     @added 0.13.0
@@ -75,32 +65,26 @@
       @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
 
-
     @arg? options [Object]
       @description
         The options to use when constructing the inline select
-
 
       @property contextClass [String]
         @description
           The class to use for the button when the select is active.
 
-
       @property ddClass [String]
         @description
           The additional class to add to the dropdown when creating it.
-
 
       @property startValue [String]
         @description
           The value to use when initialising the select.
 
-
       @property noValueText [String]
         @description
           The text to use when no value is selected.
           @default 'Choose [a value...']
-
 
       @property items [Array/Function]
         @description
@@ -124,7 +108,6 @@
       @description
         Updated the items method to return the items if no arguments are provided.
 
-
     @description
       Sets the list of items that will be shown in the select dropdown.
 
@@ -132,17 +115,14 @@
       @description
         The currently set items
 
-
   @method renderer
     @added 0.13.0
       @description
         Updated the renderer method to return the renderer if no arguments are provided.
 
-
     @returns [Function]
       @description
         Returns the currently set renderer function.
-
 
   @event change
     @description
@@ -153,9 +133,7 @@
         @description
           True if a call to the value method caused this change. False if it was a result of a user change.
 
-
       @property value [String]
         @description
           The new value.
-
 

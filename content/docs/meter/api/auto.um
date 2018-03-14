@@ -3,35 +3,30 @@
   @description
     Resolved an issue where calling render would thrown an error for 0 height/width meters
 
-
 @prototype hx.Meter
-  @deprecated 1.14.0
-    @issue 380
+  @added 0.12.7
+  @updated 0.12.10
     @description
-      hx.Meter has been deprecated and will be removed in the next major release
+      When progress, tracker or marker values are greater than the total, they are clamped to avoid unusual positioning/rendering.
+
+  @updated 0.13.0
+    @description
+      Will now center itself in its container.
 
   @bugfix 1.5.0
     @issue 271
     @description
       Localized the "of" text in the meter.
 
-
-  @updated 0.13.0
+  @deprecated 1.14.0
+    @issue 380
     @description
-      Will now center itself in its container.
+      hx.Meter has been deprecated and will be removed in the next major release
 
-
-  @updated 0.12.10
-    @description
-      When progress, tracker or marker values are greater than the total, they are clamped to avoid unusual positioning/rendering.
-
-
-  @added 0.12.7
   @constructor
     @arg selector [String/HTMLElement]
       @description
         A unique css selector or a HTMLElement that identifies the container for the meter.
-
 
     @arg? options [Object]
       @property useMarker [Boolean]
@@ -40,93 +35,65 @@
           @default
             false
 
-
-
       @property useTracker [Boolean]
         @description
           Wheter or not to use the tracker part of the meter
           @default
             false
 
-
-
       @property trackerWidth [Number]
         @description
           The width of the tracker arc (value between 0 and 1)
-
-
 
       @property progressWidth [Number]
         @description
           The width of the main progress arc (value between 0 and 1)
 
-
-
       @property markerInnerExtend [Number]
         @description
           The amount to extend the radius of the marker towards the centre of the semicircle (value between 0 and 1)
-
-
 
       @property markerOuterExtend [Number]
         @description
           The amount to extend the radius of the marker towards the outside of the semicircle (value between 0 and 1)
 
-
-
       @property markerSize [Number]
         @description
           The size of the marker in radians
-
-
 
       @property arcPadding [Number]
         @description
           The padding between the tracker and the main progress arcs (value between 0 and 1)
 
-
-
       @property markerPadding [Number]
         @description
           The padding that using the marker introduces to the outside of the meter (value between 0 and 1)
-
-
 
       @property progressBackgroundCol [String]
         @description
           The background color of the progress arc as a css string
 
-
-
       @property progressCol [String]
         @description
           The color of the progress arc as a css string
-
-
 
       @property trackerCol [String]
         @description
           The color of the tracker arc as a css string
 
-
-
       @property trackerBackgroundCol [String]
         @description
           The background color of the tracker arc as a css string
 
-
-
       @property markerCol [String]
         @description
           The color of the marker as a css string
-
 
       @property valueFormatter [Function]
         @added 1.5.0
           @issue 272
           @description
             Added a function for formatting the displayed values in the meter.
-
 
         @description
           Formats the given value according to whether it is the total or the completed. By default it adds an "of" in front of the total value.
@@ -135,29 +102,23 @@
           @description
             The value as passed in to the meter
 
-
         @arg isTotal [Boolean]
           @description
             Whether the value is the total or the completed
 
-
         @returns [String]
           @description
             The text to display
-
 
       @property redrawOnResize [Boolean]
         @added 1.5.1
           @description
             Added an option to allow the meter to be redrawn manually
 
-
         @description
           Whether to redraw the meter when the container is resized
           @default
             true
-
-
 
   @method value
     @description
@@ -178,37 +139,29 @@
         @description
           The total capacity of a meter
 
-
       @property completed [Number]
         @description
           The value of the main progress arc
-
 
       @property tracker [Number]
         @description
           The progress of the tracker progress arc (if used)
 
-
       @property marker [Number]
         @description
           The value of the marker (if used)
-
 
       @property markerText [String]
         @description
           The annotation for the marker (if used). Space is limited for the marker text, so keep it as short as possible.
 
-
       @property unitText [String]
         @description
           The text shown at the bottom of the meter, indicating the unit of measurement (eg KG, Seconds, Delivered, etc)
 
-
     @returns [Meter]
       @description
         Returns this meter if data is provided, or the current data set if no data object is supplied.
-
-
 
   @method value
     @description
@@ -218,37 +171,29 @@
       @description
         The current values.
 
-
       @property total [Number]
         @description
           The total capacity of a meter
-
 
       @property completed [Number]
         @description
           The value of the main progress arc
 
-
       @property tracker [Number]
         @description
           The progress of the tracker progress arc (if used)
-
 
       @property marker [Number]
         @description
           The value of the marker (if used)
 
-
       @property markerText [String]
         @description
           The annotation for the marker (if used). Space is limited for the marker text, so keep it as short as possible.
 
-
       @property unitText [String]
         @description
           The text shown at the bottom of the meter, indicating the unit of measurement (eg KG, Seconds, Delivered, etc)
-
-
 
   @method render
     @description
@@ -258,13 +203,11 @@
       @description
         This meter
 
-
   @event render [Object]
     @added 1.5.0
       @issue 270
       @description
         Added a render event to meter
-
 
     @description
       Emitted when the meter is rendered.
@@ -273,17 +216,14 @@
       @description
         'api' if triggered by an api call, or 'user' when triggered by a resize event
 
-
     @property data [Object]
       @description
         The current value of the meter
-
 
 @function hx.meter
   @added 1.0.0
     @description
       Fluid api version of Meter
-
 
   @description
     Creates a new Meter set up on a detached element, wrapped in a selection
@@ -292,9 +232,7 @@
     @description
       See the options object for constructing Meter
 
-
   @returns [Selection]
     @description
       A selection containing an element with an Meter initialised on it
-
 

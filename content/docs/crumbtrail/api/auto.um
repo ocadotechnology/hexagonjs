@@ -4,12 +4,10 @@
     @description
       Added the @code[.hx-crumbtrail] class to the crumbtrail.
 
-
   @updated 1.8.0
     @issue 308
     @description
-      Changed the use of @code[.text] to prevent an XSS attack via the crumbtrail.
-
+      Changed the use of @code[.html] to @code[.text] to prevent an XSS attack via the crumbtrail.
 
   @description
     A class that can be used to build a crumbtrail dynamically.
@@ -20,7 +18,6 @@
         Added an options argument as a second parameter.
         Use @code[hx.Crumbtrail(selector, options)] .
 
-
     @description
       Creates a crumbtrail element for rendering a crumbtrail from JSON. Not required when building a HTML crumbtrail.
 
@@ -28,17 +25,14 @@
       @description
         An HTMLElement or CSS selector that uniquely identifies your crumbtrail.
 
-
   @method render
-    @removed 0.14.0
-      @description
-        Use @code[items(items)] and @code[renderer(render)] to set the data and the renderer individually or pass in the correct values as options when constructing the crumbtrail.
-
-
     @deprecated 0.13.0
       @description
         Use @code[items(items)] and @code[renderer(render)] to set the data and the renderer individually or pass in the correct values as options when constructing the crumbtrail.
 
+    @removed 0.14.0
+      @description
+        Use @code[items(items)] and @code[renderer(render)] to set the data and the renderer individually or pass in the correct values as options when constructing the crumbtrail.
 
     @description
       Sets up a crumbtrail from a nested array of javascript objects.
@@ -47,11 +41,9 @@
       @description
         A nested array of objects that represent nodes in the crumbtrail.
 
-
     @arg? separator [String]
       @description
         A string or some html that separates each element in the crumbtrail. Defaults to '/'
-
 
     @arg renderer [Function]
       @description
@@ -67,11 +59,9 @@
         @description
           The node of the crumbtrail.
 
-
       @arg data [Any]
         @description
           The data related to the current crumbtrail node.
-
 
   @constructor
     @added 0.13.0
@@ -82,11 +72,9 @@
       @description
         An HTMLElement or CSS selector that uniquely identifies your crumbtrail.
 
-
     @arg? options [Object]
       @description
         The options to use when creating the crumbtrail
-
 
       @property renderer [Function]
         @description
@@ -102,27 +90,22 @@
           @description
             The node of the crumbtrail.
 
-
         @arg data [Any]
           @description
             The data related to the current crumbtrail node.
-
 
       @property items [Array]
         @description
           A nested array of objects that represent nodes in the crumbtrail.
 
-
       @property separator [String]
         @description
           A string or some html that separates each element in the crumbtrail. Defaults to '/'
-
 
   @method renderer
     @added 0.13.0
       @description
         Added a method for setting the renderer for a crumbtrail.
-
 
     @description
       A method for setting the renderer for a crumbtrail.
@@ -141,22 +124,18 @@
         @description
           The node of the crumbtrail.
 
-
       @arg data [Any]
         @description
           The data related to the current crumbtrail node.
-
 
     @returns [Crumbtrail]
       @description
         This Crumbtrail.
 
-
   @method renderer
     @added 0.13.0
       @description
         Added a method for getting the renderer for a crumbtrail.
-
 
     @description
       A method for getting the renderer for a crumbtrail.
@@ -165,12 +144,10 @@
       @description
         The currently set renderer
 
-
   @method items
     @added 0.13.0
       @description
         Added a method for setting the items for a crumbtrail.
-
 
     @description
       A method for setting the items for a crumbtrail.
@@ -179,23 +156,19 @@
       @description
         A nested array of objects that represent nodes in the crumbtrail.
 
-
     @returns [Crumbtrail/Array]
       @description
         This Crumbtrail.
 
-
   @method items
-    @bugfix 1.8.0
-      @issue 309
-      @description
-        Fix an issue with this method returning 0 in place of the separators. This method is now circular and will return the items as passed in.
-
-
     @added 0.13.0
       @description
         Added a method for getting the items for a crumbtrail.
 
+    @bugfix 1.8.0
+      @issue 309
+      @description
+        Fix an issue with this method returning 0 in place of the separators. This method is now circular and will return the items as passed in.
 
     @description
       A method for getting the items for a crumbtrail.
@@ -204,12 +177,10 @@
       @description
         The currently set items.
 
-
 @function hx.crumbtrail
   @added 1.0.0
     @description
       Fluid api version of Crumbtrail
-
 
   @description
     Creates a new Crumbtrail set up on a detached element, wrapped in a selection
@@ -218,9 +189,7 @@
     @description
       See the options object for constructing Crumbtrail
 
-
   @returns [Selection]
     @description
       A selection containing an element with an Crumbtrail initialised on it
-
 

@@ -7,12 +7,9 @@
       @description
         The minimum value for the domain.
 
-
     @arg end [Number]
       @description
         The maximum value for the domain.
-
-
 
     @arg range [Array[Object]]
       @description
@@ -27,7 +24,6 @@
             {color:"#888888", val:0.5},
             {color:"#FFFFFF", val:1}
           ]
-
 
         The values don't have to start at 0 and end at 1, points in the domain that fall outside of the range will return the min/max values from the range.
 
@@ -48,11 +44,9 @@
       @description
         The value to convert to a color.
 
-
     @returns [String]
       @description
         The color as a string
-
 
   @method domain
     @description
@@ -62,16 +56,13 @@
       @description
         The minimum value for the domain.
 
-
     @arg end [Number]
       @description
         The maximum value for the domain.
 
-
     @returns [ColorScale]
       @description
         This ColorScale
-
 
   @method range
     @description
@@ -90,7 +81,6 @@
             {color:"#FFFFFF", val:1}
           ]
 
-
         The values don't have to start at 0 and end at 1, points in the domain that fall outside of the range will return the min/max values from the range.
 
         The range array is sorted internally so the values do not have ot be entered in order. The following is an example of another valid range:
@@ -105,5 +95,4 @@
     @returns [ColorScale]
       @description
         This ColorScale
-
 
