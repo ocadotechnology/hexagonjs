@@ -7,7 +7,7 @@
       A Graph can be created as follows.
 
       @@codeblock js
-        var graph = new hx.Graph('#my-graph');
+        var graph = new hx.Graph('#my-graph-example');
 
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
@@ -76,7 +76,7 @@
       In the same way that Axis objects are created/added to Graphs, Series can be added to an Axis. When creating a series, a type and name is expected. The name will be displayed on the graph, and so should be formatted nicely if possible.
 
       @@codeblock js
-        var graph = new hx.Graph('#my-graph')
+        var graph = new hx.Graph('#my-graph-example')
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
@@ -97,10 +97,10 @@
       @example
 
         @html
-          <div id='line-series' class='docs-graph'></div>
+          <div id="line-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#line-series');
+          var graph = new hx.Graph('#line-series-example');
           var axis = graph.addAxis();
           axis.yScalePaddingMax = 0.1;
 
@@ -123,10 +123,10 @@
 
       @example
         @html
-          <div id='bar-series' class='docs-graph'></div>
+          <div id="bar-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#bar-series')
+          var graph = new hx.Graph('#bar-series-example')
           var axis = graph.addAxis('discrete', 'linear');
           axis.yScalePaddingMax = 0.1
           axis.yMin = 0
@@ -160,7 +160,7 @@
 
       @example
         @html
-          <div id='stacked-line-example' class='docs-graph'></div>
+          <div id="stacked-line-example" class='docs-graph'></div>
 
         @js
           var graph = new hx.Graph('#stacked-line-example');
@@ -188,7 +188,7 @@
       @example
 
         @html
-          <div id='stacked-bar-example' class='docs-graph'></div>
+          <div id="stacked-bar-example" class='docs-graph'></div>
 
         @js
           var graph = new hx.Graph('#stacked-bar-example');
@@ -215,10 +215,10 @@
 
       @example
         @html
-          <div id='band-series' class='docs-graph'></div>
+          <div id="band-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#band-series')
+          var graph = new hx.Graph('#band-series-example')
           var axis = graph.addAxis();
           axis.yScalePaddingMin = 0.1;
           axis.yScalePaddingMax = 0.1;
@@ -246,10 +246,10 @@
 
       @example
         @html
-          <div id='scatter-series' class='docs-graph'></div>
+          <div id="scatter-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#scatter-series')
+          var graph = new hx.Graph('#scatter-series-example')
           var axis = graph.addAxis();
           axis.xScalePaddingMax = 0.1
           axis.xScalePaddingMin = 0.1
@@ -284,10 +284,10 @@
     @section Straight [Line Series]
       @example
         @html
-          <div id='straight-series' class='docs-graph'></div>
+          <div id="straight-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#straight-series')
+          var graph = new hx.Graph('#straight-series-example')
           var axis = graph.addAxis();
           axis.xMin = 0
           axis.xMax = 5
@@ -322,10 +322,10 @@
 
       @example
         @html
-          <div id="docs-pie" style="height:200px"></div>
+          <div id="docs-pie-example" style="height:200px"></div>
 
         @js
-          pie = new hx.PieChart('#docs-pie');
+          pie = new hx.PieChart('#docs-pie-example');
 
           pie.setData({
             name: "Pie Chart",
@@ -359,10 +359,10 @@
 
         @example
           @html
-            <div id="docs-pie2" style="height:200px"></div>
+            <div id="docs-pie2-example" style="height:200px"></div>
 
           @js
-            pie = new hx.PieChart('#docs-pie2');
+            pie = new hx.PieChart('#docs-pie2-example');
 
             pie.innerPadding = 0.5;
 
@@ -441,10 +441,10 @@
 
         @example
           @html
-            <div id="docs-pie3" style="height:200px"></div>
+            <div id="docs-pie3-example" style="height:200px"></div>
 
           @js
-            pie = new hx.PieChart('#docs-pie3');
+            pie = new hx.PieChart('#docs-pie3-example');
 
             pie.setData([
               {
@@ -500,7 +500,7 @@
       A Graph can be created as follows.
 
       @@codeblock js
-        var graph = new hx.Graph('#my-graph');
+        var graph = new hx.Graph('#my-graph-example');
 
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
@@ -569,7 +569,7 @@
       In the same way that Axis objects are created/added to Graphs, Series can be added to an Axis. When creating a series, a type and name is expected. The name will be displayed on the graph, and so should be formatted nicely if possible.
 
       @@codeblock js
-        var graph = new hx.Graph('#my-graph')
+        var graph = new hx.Graph('#my-graph-example')
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
@@ -590,10 +590,10 @@
       @example
 
         @html
-          <div id='line-series' class='docs-graph'></div>
+          <div id="line-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#line-series');
+          var graph = new hx.Graph('#line-series-example');
           var axis = graph.addAxis({
             y: {
               scalePaddingMax: 0.1
@@ -619,11 +619,11 @@
 
       @example
         @html
-          <div id='bar-series' class='docs-graph'></div>
+          <div id="bar-series-example" class='docs-graph'></div>
 
         @js
 
-          var graph = new hx.Graph('#bar-series')
+          var graph = new hx.Graph('#bar-series-example')
 
           var axis = graph.addAxis({
             x: {
@@ -669,7 +669,7 @@
 
       @example
         @html
-          <div id='stacked-line-example' class='docs-graph'></div>
+          <div id="stacked-line-example" class='docs-graph'></div>
 
         @js
           var graph = new hx.Graph('#stacked-line-example');
@@ -703,7 +703,7 @@
       @example
 
         @html
-          <div id='stacked-bar-example' class='docs-graph'></div>
+          <div id="stacked-bar-example" class='docs-graph'></div>
 
         @js
           var graph = new hx.Graph('#stacked-bar-example');
@@ -737,10 +737,10 @@
 
       @example
         @html
-          <div id='band-series' class='docs-graph'></div>
+          <div id="band-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#band-series')
+          var graph = new hx.Graph('#band-series-example')
           var axis = graph.addAxis({
             y: {
               min: 0,
@@ -776,10 +776,10 @@
 
       @example
         @html
-          <div id='scatter-series' class='docs-graph'></div>
+          <div id="scatter-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#scatter-series')
+          var graph = new hx.Graph('#scatter-series-example')
 
           var axis = graph.addAxis({
             x: {
@@ -824,10 +824,10 @@
     @section Straight [Line Series]
       @example
         @html
-          <div id='straight-series' class='docs-graph'></div>
+          <div id="straight-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#straight-series')
+          var graph = new hx.Graph('#straight-series-example')
 
           var axis = graph.addAxis({
             x: {
@@ -872,10 +872,10 @@
 
       @example
         @html
-          <div id="docs-pie" style="height:200px"></div>
+          <div id="docs-pie-example" style="height:200px"></div>
 
         @js
-          pie = new hx.PieChart('#docs-pie');
+          pie = new hx.PieChart('#docs-pie-example');
 
           pie.data({
             title: "Pie Chart",
@@ -905,16 +905,16 @@
         Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
 
         @@codeblock js
-          new hx.PieChart('#docs-pie2',{
+          new hx.PieChart('#docs-pie2-example',{
             innerPadding: 0.5
           });
 
         @example
           @html
-            <div id="docs-pie2" style="height:200px"></div>
+            <div id="docs-pie2-example" style="height:200px"></div>
 
           @js
-            pie = new hx.PieChart('#docs-pie2',{
+            pie = new hx.PieChart('#docs-pie2-example',{
               innerPadding: 0.5
             });
 
@@ -993,10 +993,10 @@
 
         @example
           @html
-            <div id="docs-pie3" style="height:200px"></div>
+            <div id="docs-pie3-example" style="height:200px"></div>
 
           @js
-            pie = new hx.PieChart('#docs-pie3');
+            pie = new hx.PieChart('#docs-pie3-example');
 
             pie.data([
               {
@@ -1052,7 +1052,7 @@
       A Graph can be created as follows.
 
       @@codeblock js
-        var graph = new hx.Graph('#my-graph');
+        var graph = new hx.Graph('#my-graph-example');
 
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
@@ -1121,7 +1121,7 @@
       In the same way that Axis objects are created/added to Graphs, Series can be added to an Axis. When creating a series, a type and name is expected. The name will be displayed on the graph, and so should be formatted nicely if possible.
 
       @@codeblock js
-        var graph = new hx.Graph('#my-graph')
+        var graph = new hx.Graph('#my-graph-example')
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
@@ -1142,10 +1142,10 @@
       @example
 
         @html
-          <div id='line-series' class='docs-graph'></div>
+          <div id="line-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#line-series');
+          var graph = new hx.Graph('#line-series-example');
           var axis = graph.addAxis({
             y: {
               scalePaddingMax: 0.1
@@ -1171,11 +1171,11 @@
 
       @example
         @html
-          <div id='bar-series' class='docs-graph'></div>
+          <div id="bar-series-example" class='docs-graph'></div>
 
         @js
 
-          var graph = new hx.Graph('#bar-series')
+          var graph = new hx.Graph('#bar-series-example')
 
           var axis = graph.addAxis({
             x: {
@@ -1221,7 +1221,7 @@
 
       @example
         @html
-          <div id='stacked-line-example' class='docs-graph'></div>
+          <div id="stacked-line-example" class='docs-graph'></div>
 
         @js
           var graph = new hx.Graph('#stacked-line-example');
@@ -1255,7 +1255,7 @@
       @example
 
         @html
-          <div id='stacked-bar-example' class='docs-graph'></div>
+          <div id="stacked-bar-example" class='docs-graph'></div>
 
         @js
           var graph = new hx.Graph('#stacked-bar-example');
@@ -1289,10 +1289,10 @@
 
       @example
         @html
-          <div id='band-series' class='docs-graph'></div>
+          <div id="band-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#band-series')
+          var graph = new hx.Graph('#band-series-example')
           var axis = graph.addAxis({
             y: {
               min: 0,
@@ -1328,10 +1328,10 @@
 
       @example
         @html
-          <div id='scatter-series' class='docs-graph'></div>
+          <div id="scatter-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#scatter-series')
+          var graph = new hx.Graph('#scatter-series-example')
 
           var axis = graph.addAxis({
             x: {
@@ -1376,10 +1376,10 @@
     @section Straight [Line Series]
       @example
         @html
-          <div id='straight-series' class='docs-graph'></div>
+          <div id="straight-series-example" class='docs-graph'></div>
 
         @js
-          var graph = new hx.Graph('#straight-series')
+          var graph = new hx.Graph('#straight-series-example')
 
           var axis = graph.addAxis({
             x: {
@@ -1424,10 +1424,10 @@
 
       @example
         @html
-          <div id="docs-pie" style="height:200px"></div>
+          <div id="docs-pie-example" style="height:200px"></div>
 
         @js
-          pie = new hx.PieChart('#docs-pie');
+          pie = new hx.PieChart('#docs-pie-example');
 
           pie.data({
             title: "Pie Chart",
@@ -1457,16 +1457,16 @@
         Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
 
         @@codeblock js
-          new hx.PieChart('#docs-pie2',{
+          new hx.PieChart('#docs-pie2-example',{
             innerPadding: 0.5
           });
 
         @example
           @html
-            <div id="docs-pie2" style="height:200px"></div>
+            <div id="docs-pie2-example" style="height:200px"></div>
 
           @js
-            pie = new hx.PieChart('#docs-pie2',{
+            pie = new hx.PieChart('#docs-pie2-example',{
               innerPadding: 0.5
             });
 
@@ -1545,10 +1545,10 @@
 
         @example
           @html
-            <div id="docs-pie3" style="height:200px"></div>
+            <div id="docs-pie3-example" style="height:200px"></div>
 
           @js
-            pie = new hx.PieChart('#docs-pie3');
+            pie = new hx.PieChart('#docs-pie3-example');
 
             pie.data([
               {
