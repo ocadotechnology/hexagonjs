@@ -18,6 +18,6 @@
 
     @inline api.um
 
-  @topic Extra
+  @topic Additional Guidelines
     @versioned
       @inline extra/*.um
