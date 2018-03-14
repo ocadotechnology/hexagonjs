@@ -48,8 +48,9 @@
     @arg? selector [String/Element]
       @description
         The selector to append the notification container to.
-        @default
-          'body'
+
+      @default
+        'body'
 
   @method temporary
     @deprecated 0.13.0
@@ -299,8 +300,9 @@
       @property timeout [Number]
         @description
           How long (in seconds) the notification should hang around for before it dismisses itself. If false is supplied, the notification will not close automatically and will be shown as 'pinned' if the notification is pinnable.
-          @default
-            5
+
+        @default
+          5
 
       @property pinnable [Boolean]
         @description

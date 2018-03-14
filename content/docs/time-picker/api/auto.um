@@ -45,6 +45,9 @@
       @description
         Whether to show the seconds in the timepicker.
 
+      @default
+        false
+
     @arg? buttonClass [String]
       @description
         The class to add to the buttons.
@@ -66,9 +69,15 @@
       @description
         Whether to set the time as well as the date. Only the day/month/year will be updated unless this is passed in as true.
 
+      @default
+        false
+
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
+
+      @default
+        false
 
   @method setHour
     @deprecated 0.11.0
@@ -87,6 +96,9 @@
       @description
         A value used to prevent the change event being emitted
 
+      @default
+        false
+
   @method setMinute
     @deprecated 0.11.0
       @description
@@ -104,6 +116,9 @@
       @description
         A value used to prevent the change event being emitted
 
+      @default
+        false
+
   @method setSecond
     @deprecated 0.11.0
       @description
@@ -120,6 +135,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
+
+      @default
+        false
 
   @method addHours
     @deprecated 0.13.0
@@ -266,14 +284,16 @@
     @arg? setTime [Boolean]
       @description
         Whether to set the time as well as the date. Only the day/month/year will be updated unless this value is true.
-        @default
-          false
+
+      @default
+        false
 
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [TimePicker]
       @description
@@ -306,8 +326,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [TimePicker]
       @description
@@ -340,8 +361,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [TimePicker]
       @description
@@ -374,8 +396,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [TimePicker]
       @description
@@ -471,14 +494,16 @@
     @arg? retainTime [Boolean]
       @description
         Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
-        @default
-          false
+
+      @default
+        false
 
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [TimePicker]
       @description
@@ -501,6 +526,9 @@
         @description
           Whether to show the seconds in the timepicker.
 
+        @default
+          false
+
       @property buttonClass [String]
         @description
           The class to add to the buttons.
@@ -512,8 +540,9 @@
 
         @description
           Whether the time picker should be disabled
-          @default
-            false
+
+        @default
+          false
 
   @method locale
     @added 0.13.0
@@ -566,8 +595,9 @@
     @arg? retainTime [Boolean]
       @description
         Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
-        @default
-          false
+
+      @default
+        false
 
     @returns [TimePicker]
       @description
@@ -668,7 +698,7 @@
   @description
     Creates a new TimePicker set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing TimePicker
 

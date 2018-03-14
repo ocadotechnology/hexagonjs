@@ -35,7 +35,9 @@
       @property noValueText [String]
         @description
           The text to use when no value is selected.
-          @default 'Choose [a value...']
+
+        @default
+          'Choose a value...'
 
       @property items [Array/Function]
         @description
@@ -48,6 +50,12 @@
           A function that renders the data in the dropdown and the picker button.
 
           This can also be set after the picker has been constructed using the @code[renderer] method.
+
+        @default
+          @@codeblock js
+            function (node, data) {
+              hx.select(node).text(data);
+            }
 
   @method renderer
     @returns [Function]

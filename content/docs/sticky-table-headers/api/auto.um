@@ -69,20 +69,23 @@
       @property stickTableHead [Boolean]
         @description
           Whether or not to stick the @code[<thead>] element of the table. This will stick all rows that are inside the @code[<thead>] element to the top of the table.
-          @default
-            true
+
+        @default
+          true
 
       @property stickFirstColumn [Boolean]
         @description
           Whether or not to stick the first column to the left side of the table.
-          @default
-            false
+
+        @default
+          false
 
       @property useResponsive [Boolean]
         @description
           Whether to add a listener to the table when the container is resized to re-render the sticky headers so that the header sizes always match the table sizes correctly.
-          @default
-            true
+
+        @default
+          true
 
       @property containerClass [String]
         @description
@@ -92,8 +95,9 @@
         @added 0.15.0
         @description
           A boolean to determine whether to always display the sticky headers even when the table cannot be scrolled.
-          @default
-            false
+
+        @default
+          false
 
   @method render
     @description

@@ -174,8 +174,9 @@
 
         @description
           Whether the number picker should be disabled
-          @default
-            false
+
+        @default
+          false
 
       @property incrementOnHold [Boolean]
         @added 1.6.0
@@ -186,6 +187,9 @@
         @description
           Whether pressing and holding the button should increment the number picker until releasing the button
 
+        @default
+          true
+
       @property incrementDelay [Number]
         @added 1.6.0
           @issue 177
@@ -194,6 +198,9 @@
 
         @description
           The delay between increments whilst pressing and holding the number picker buttons
+
+        @default
+          50
 
   @method min
     @added 0.13.0
@@ -291,7 +298,7 @@
   @description
     Creates a new NumberPicker set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing NumberPicker
 

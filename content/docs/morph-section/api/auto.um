@@ -20,8 +20,9 @@
     @arg? animate [Boolean]
       @description
         Whether or not to animate the section transitions. True means that animation will happen.
-        @default
-          true
+
+      @default
+        true
 
   @method visible
     @description
@@ -80,8 +81,9 @@
       @property animate [Boolean]
         @description
           Whether or not to animate the section transitions. True means that animation will happen.
-          @default
-            true
+
+        @default
+          true
 
   @event show
     @description

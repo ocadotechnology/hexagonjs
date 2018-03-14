@@ -30,8 +30,9 @@
       @property value [Boolean]
         @description
           The value to initialise the toggle with.
-          @default
-            false
+
+        @default
+          false
 
   @method value
     @description
@@ -69,7 +70,7 @@
   @description
     Creates a new Toggle set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing a Toggle
 

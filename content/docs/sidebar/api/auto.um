@@ -20,20 +20,23 @@
     @arg? headerSelector [String/HTMLElement]
       @description
         A selector for the titlebar header element
-        @default
-          '.hx-titlebar-header'
+
+      @default
+        '.hx-titlebar-header'
 
     @arg? contentSelector [String/HTMLElement]
       @description
         A selector for the hx-content section
-        @default
-          '.hx-content'
+
+      @default
+        '.hx-content'
 
     @arg? addSidebarClass [Boolean]
       @description
         Whether or not to add the hx-sidebar-page class to the body element.
-        @default
-          true
+
+      @default
+        true
 
   @method toggle
     @description
@@ -75,20 +78,23 @@
       @property headerSelector [String/HTMLElement]
         @description
           A selector for the titlebar header element
-          @default
-            '.hx-titlebar-header'
+
+        @default
+          '.hx-titlebar-header'
 
       @property contentSelector [String/HTMLElement]
         @description
           A selector for the hx-content section
-          @default
-            '.hx-content'
+
+        @default
+          '.hx-content'
 
       @property addSidebarClass [Boolean]
         @description
           Whether or not to add the hx-sidebar-page class to the body element.
-          @default
-            true
+
+        @default
+          true
 
   @event show
     @description

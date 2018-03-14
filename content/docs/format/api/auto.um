@@ -15,8 +15,9 @@
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default
-          false
+
+      @default
+        false
 
     @returns [Function]
       @arg number [Number]
@@ -40,8 +41,9 @@
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default
-          false
+
+      @default
+        false
 
     @returns [Function]
       @arg number [Number]
@@ -65,8 +67,9 @@
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default
-          false
+
+      @default
+        false
 
     @returns [Function]
       @arg number [Number]
@@ -91,8 +94,9 @@
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default
-          false
+
+      @default
+        false
 
     @returns [Function]
       @arg number [Number]
@@ -117,8 +121,9 @@
     @arg? strict [Boolean]
       @description
         Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
-        @default
-          false
+
+      @default
+        false
 
     @returns [Function]
       @arg number [Number]

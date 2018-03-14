@@ -165,8 +165,9 @@
       @property type [String]
         @description
           The type of the slider. Can be 'range' or 'slider'
-          @default
-            'slider'
+
+        @default
+          'slider'
 
       @property render [Function]
         @deprecated 0.13.0
@@ -202,14 +203,16 @@
       @property min [Number]
         @description
           The minimum value of the slider. For discrete sliders, it can be set to one of the discrete values.
-          @default
-            0
+
+        @default
+          0
 
       @property max [Number]
         @description
           The maximum value of the slider. For discrete sliders, it can be set to one of the discrete values.
-          @default
-            1
+
+        @default
+          1
 
       @property step [Number]
         @description
@@ -250,8 +253,9 @@
 
         @description
           Whether the slider should be disabled
-          @default
-            false
+
+        @default
+          false
 
   @method setValue
     @added 0.10.0
@@ -364,9 +368,8 @@
 
     @arg array [Array]
     @arg? render [Boolean]
-      @description
-        @default
-          true
+      @default
+        true
 
   @method discreteValues
     @added 0.13.0
@@ -380,8 +383,9 @@
     @arg? render [Boolean]
       @description
         Whether to update the slider
-        @default
-          true
+
+      @default
+        true
 
     @returns [Slider]
       @description
@@ -623,7 +627,7 @@
   @description
     Creates a new Slider set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing Slider
 

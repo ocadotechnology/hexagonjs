@@ -35,9 +35,15 @@
       @description
         The type of datepicker to show, can be either 'datepicker' or 'calendar'
 
+      @default
+        'calendar'
+
     @arg? showSeconds [Boolean]
       @description
         Whether to show the seconds in the timepicker.
+
+      @default
+        false
 
   @method setDate
     @deprecated 0.11.0
@@ -56,9 +62,15 @@
       @description
         Whether to set the time as well as the date. Only the day/month/year will be updated unless this is passed in as true.
 
+      @default
+        false
+
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
+
+      @default
+        false
 
   @method setDay
     @deprecated 0.11.0
@@ -77,6 +89,9 @@
       @description
         A value used to prevent the change event being emitted.
 
+      @default
+        false
+
   @method setMonth
     @deprecated 0.11.0
       @description
@@ -93,6 +108,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
+
+      @default
+        false
 
   @method setYear
     @deprecated 0.11.0
@@ -111,6 +129,9 @@
       @description
         A value used to prevent the change event being emitted.
 
+      @default
+        false
+
   @method setHour
     @deprecated 0.11.0
       @description
@@ -127,6 +148,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
+
+      @default
+        false
 
   @method setMinute
     @deprecated 0.11.0
@@ -145,6 +169,9 @@
       @description
         A value used to prevent the change event being emitted.
 
+      @default
+        false
+
   @method setSecond
     @deprecated 0.11.0
       @description
@@ -161,6 +188,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
+
+      @default
+        false
 
   @method addDays
     @deprecated 0.13.0
@@ -342,14 +372,16 @@
     @arg? setTime [Boolean]
       @description
         Whether to set the time as well as the date. Only the day/month/year will be updated unless this value is true.
-        @default
-          false
+
+      @default
+        false
 
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -382,8 +414,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -416,8 +449,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -450,8 +484,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -484,8 +519,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -518,8 +554,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -552,8 +589,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -649,14 +687,16 @@
     @arg? retainTime [Boolean]
       @description
         Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
-        @default
-          false
+
+      @default
+        false
 
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -696,8 +736,9 @@
 
         @description
           Whether the date time picker should be disabled
-          @default
-            false
+
+        @default
+          false
 
   @method date
     @added 0.13.0
@@ -711,8 +752,9 @@
     @arg? retainTime [Boolean]
       @description
         Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DateTimePicker]
       @description
@@ -914,7 +956,7 @@
   @description
     Creates a new DateTimePicker set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing DateTimePicker
 

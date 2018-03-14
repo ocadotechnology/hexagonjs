@@ -1,5 +1,5 @@
 @version 0.9.0
-  @section Getting [Started]
+  @section Getting Started
 
     @section Intro
 
@@ -7,7 +7,7 @@
 
       It currently uses the canvas element to do the drawing, although there is no reason it couldn't be extended to support SVG or WebGL rendering in the future. For large diagrams (that are bigger than the screen) with relatively few objects, SVG has the potential to perform better.
 
-    @section Creating [a blank canvas]
+    @section Creating a blank canvas
 
       The following example sets up an empty drawing
 
@@ -22,7 +22,7 @@
 
       Note that a border has been added to all the examples on this page to make it easier to see. This isn't something that is necessary for normal apps.
 
-    @section Adding [something to the drawing]
+    @section Adding something to the drawing
 
       Adding a rectangle to the drawing is almost as easy.
 
@@ -44,7 +44,7 @@
 
       @notice(Note)[The render loop will eventually be able to turn off when there are no changes to display. This will result in less cpu consumption and save the battery life for mobile devices. This functionality has not yet been added - however this is something that will happen internally, so there will be no change to the api in order for this optimisation to happen.]
 
-    @section Enabling [mouse controls]
+    @section Enabling mouse controls
 
       Enabling mouse and touch controls can be done with the enablePan and enableZoom methods on the drawing object.
 
@@ -65,7 +65,7 @@
           rect.set('height', 50);
           rect.set('fill.color', '#335544');
 
-      @section What [does the drawing api provide over using bare canvas/SVG?]
+      @section What does the drawing api provide over using bare canvas/SVG?
 
         The drawing api exposes a set of features that are not dependent on the type of drawing engine being used. This gives the advantage that we could in theory swap all rendering over to use WebGL in the future once browser support is mature enough.
 
@@ -79,7 +79,7 @@
 
   @section Primitives
 
-    @section Available [Types]
+    @section Available Types
 
       There are currently 7 different primitives drawing types in the api:
 
@@ -182,7 +182,7 @@
             height: 200px;
           }
 
-    @section Setting [Properties]
+    @section Setting Properties
 
       The primitives each have a separate set of properties that can be set. However, the method for setting the properties is always the same: using the set method:
 
@@ -191,7 +191,7 @@
 
       The properties that are available to set are described in the api section - they differ for each primitive type.
 
-    @section Composite [Objects]
+    @section Composite Objects
 
       Objects can be grouped together using composite objects. This makes it possible to create more detailed objects in the scene (rather than having just a simple rectangle for displaying something, for example). Composite objects are intended to be used for small, reusable drawing objects.
 
@@ -263,9 +263,9 @@
         @html
           <div id="composite-example" class="docs-drawing"></div>
 
-  @section Camera [Manipulation]
+  @section Camera Manipulation
 
-    @section Enabling [mouse controls]
+    @section Enabling mouse controls
 
       Enabling the drawing to be controlled with the mouse / touch can be done as follows:
 
@@ -278,7 +278,7 @@
         // enable mouse-wheel zoom, and pinch zoom on touch devices.
         drawing.enableZoom();
 
-    @section Moving [the camera]
+    @section Moving the camera
 
       The position of the camera can be set directly using the following:
 
@@ -286,7 +286,7 @@
         drawing.camera.position.x = 100;
         drawing.camera.position.y = 250;
 
-    @section Showing [an object]
+    @section Showing an object
 
       The position and zoom of the camera can be changed so that a chosen object appears at the centre of the screen:
 
@@ -295,7 +295,7 @@
 
       See the api docs for more details.
 
-    @section Following [an object]
+    @section Following an object
 
       The camera can also be set to follow an object using:
 
@@ -304,7 +304,7 @@
 
       Again, see the api docs for more details.
 
-    @section Limiting [the camera's movements]
+    @section Limiting the camera's movements
       The minimum and maximum zoom of the camera can be set to limit the zoom range:
 
       @@codeblock js
@@ -323,7 +323,7 @@
 
   @section Animation
 
-    @section Animating [properties]
+    @section Animating properties
 
       Animations are a useful way to convey changing state to a user. Animated drawings don't just make a page more engaging; an animated drawing contains more information than a static one.
 
@@ -418,7 +418,7 @@
 
       If a property is set half way through an animation, the animation will be discarded, and the property value will be set. If another animation is applied whilst another animation is running, the current animation will stop, and the new one will start from the current state.
 
-    @section End [of animation callback]
+    @section End of animation callback
 
       @@codeblock js
         obj.set('property', value, duration, function(){
@@ -429,7 +429,7 @@
 
   @section Interactivity
 
-    @section Making [objects selectable]
+    @section Making objects selectable
 
       @example
         @html
@@ -493,7 +493,7 @@
 
         drawing.select(circle);
 
-    @section Detecting [clicks]
+    @section Detecting clicks
 
       The drawing object is an event emitter, which enables you to detect clicks as follows:
 
@@ -505,7 +505,7 @@
           console.log(position);
         })
 
-    @section Enabling [the search box]
+    @section Enabling the search box
 
       Drawings can be given a search box to give users a way to search for objects within the drawing:
 
@@ -574,7 +574,7 @@
 
   @section Layers
 
-    @section Toggling [layer visibilty]
+    @section Toggling layer visibilty
 
       Drawings internally by default all draw to a layer that is created by default. More layers-zoom can be added to a drawing via the createLayer method. Layers do one thing: allow you to hide or show groups of objects.
 
@@ -642,7 +642,7 @@
             }
           }, true);
 
-    @section Linking [zoom level to layer visibility]
+    @section Linking zoom level to layer visibility
 
       The visibility of a layer can also be linked to the zoom level of the camera. This make it possible to create diagrams which reveal more detail when zoomed in close, and show an overview when zoomed out.
 

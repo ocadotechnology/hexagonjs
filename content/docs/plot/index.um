@@ -22,7 +22,7 @@
 
     @inline api.um
 
-  @topic Additional Guidelines
+  @topic Getting Started
     @versioned
       @inline extra/*.um
 

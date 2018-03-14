@@ -8,26 +8,30 @@
       @property animate [Boolean]
         @description
           Whether the collapsible should animate by default.
-          @default
-            true
+
+        @default
+          true
 
       @property position [String]
         @description
           What side the collapsible should be on, can be either 'left' or 'right'
-          @default
-            'Left'
+
+        @default
+          'Left'
 
       @property visible [Boolean]
         @description
           Whether the side collapsible should be open or closed when initialising.
-          @default
-            false
+
+        @default
+          false
 
       @property rotateHeading [Boolean]
         @description
           Whether the closed heading should be rotated
-          @default
-            true
+
+        @default
+          true
 
   @method show
     @removed 0.13.0

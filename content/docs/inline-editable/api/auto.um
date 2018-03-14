@@ -43,9 +43,15 @@
         @description
           The text to display when no value has been entered to prompt the user to enter something
 
+        @default
+          @code[hx.userFacingText('inlineEditable', 'enterValue')]
+
       @property value [String]
         @description
           The initial value of the inline editable. The default is the text in the selection at the point of creation.
+
+        @default
+          @code[selection.text()]
 
   @event change [Object]
     @description
@@ -81,7 +87,7 @@
   @description
     Creates a new InlineEditable set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing InlineEditable
 

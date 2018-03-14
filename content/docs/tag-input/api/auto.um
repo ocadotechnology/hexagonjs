@@ -240,8 +240,9 @@
 
         @description
           Whether the tag input should be disabled
-          @default
-            false
+
+        @default
+          false
 
       @property draggable [Boolean]
         @added 1.0.0
@@ -250,8 +251,9 @@
 
         @description
           Whether the tags can be dragged and re-ordered.
-          @default
-            true
+
+        @default
+          true
 
       @property items [Array[String]]
         @added 1.0.0
@@ -268,6 +270,9 @@
 
         @description
           The placeholder for the input field when it has no text
+
+        @default
+          [hx.userFacingText('tagInput', 'placeholder')]
 
       @property autocompleteData [Array/Function]
         @added 1.6.0
@@ -299,6 +304,9 @@
 
         @description
           Determines whether existing tags should be excluded from the autocompletion.
+
+        @default
+          true
 
       @property mustMatchAutocomplete [Boolean]
         @added 1.6.0
@@ -429,7 +437,7 @@
     @description
       The additional class to give to dark tags.
 
-  @extraClass hx-color-[n]
+  @extraClass [hx-color-[n]]
     @deprecated 0.9.0
       @description
         All numbered color classes will be removed in a later version.Use the context classes instead.
@@ -468,7 +476,7 @@
   @description
     Creates a new TagInput set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing TagInput
 

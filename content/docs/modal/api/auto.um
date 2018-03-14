@@ -35,14 +35,16 @@
     @arg? isClosable [Boolean]
       @description
         Whether or not the modal should display a button in the top left for closing the modal.
-        @default
-          true
+
+      @default
+        true
 
     @arg? maxWidth [Number]
       @description
         The maximum width the modal should take in pixels.
-        @default
-          480
+
+      @default
+        480
 
   @constructor
     @added 0.9.0
@@ -68,8 +70,9 @@
     @arg? isClosable [Boolean]
       @description
         Whether or not the modal should display a button in the top left for closing the modal.
-        @default
-          true
+
+      @default
+        true
 
   @method show
     @description
@@ -140,6 +143,11 @@
           Renderer function for the titlebar. The this context for the function is this modal.
 
         @arg element [HTMLElement]
+        @default
+          @@codeblock js
+            function (node) {
+              hx.select(node).text(this.title)
+            }
 
       @property isClosable [Boolean]
         @removed 1.0.0
@@ -180,6 +188,12 @@
         @arg? closeButtonNode [Element]
           @description
             The node for the modal close button. If @code[closeButtonEnabled] is false, this will be undefined.
+
+        @default
+          @@codeblock js
+            function (node, titleNode, closeButtonNode) {
+              hx.select(node).add(titleNode).add(closeButtonNode)
+            }
 
   @property options [Object]
     @added 0.13.0
@@ -241,6 +255,12 @@
           @description
             The current modal
 
+        @default
+          @@codeblock js
+            function (node) {
+              hx.select(node).text(this.title)
+            }
+
       @property headerRenderer [Function]
         @description
           Renderer function for the modal header. The header contains both the titlebar and the close button for a modal.
@@ -260,6 +280,12 @@
         @arg modal [Modal]
           @description
             The current modal
+
+        @default
+          @@codeblock js
+            function (node, titleNode, closeButtonNode) {
+              hx.select(node).add(titleNode).add(closeButtonNode)
+            }
 
   @event showstart
     @description
@@ -338,8 +364,9 @@
     @arg? isClosable [Boolean]
       @description
         Whether or not the modal should show a close button.
-        @default
-          false
+
+      @default
+        false
 
   @function input
     @deprecated 0.13.0
@@ -372,8 +399,9 @@
     @arg? isClosable [Boolean]
       @description
         Whether or not the modal should show a close button.
-        @default
-          true
+
+      @default
+        true
 
     @returns [Modal]
       @added 0.13.0
@@ -436,8 +464,9 @@
     @arg? isClosable [Boolean]
       @description
         Whether or not the modal should show a close button.
-        @default
-          false
+
+      @default
+        false
 
     @arg? titleClass [String]
       @description
@@ -501,8 +530,9 @@
       @property isClosable [Boolean]
         @description
           Whether or not the modal should show a close button.
-          @default
-            false
+
+        @default
+          false
 
       @property titleClass [String]
         @description
@@ -541,8 +571,9 @@
       @property isClosable [Boolean]
         @description
           Whether or not the modal should show a close button.
-          @default
-            true
+
+        @default
+          true
 
       @property value [String]
         @description

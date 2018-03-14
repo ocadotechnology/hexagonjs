@@ -35,8 +35,9 @@
     @property minLength [Number]
       @description
         The minimum length for the search term before searching will commence. This helps reduce the potential number of matches and help keep the search running quickly.
-        @default
-          2
+
+      @default
+        2
 
     @property elemMatch [Function]
       @description
@@ -59,6 +60,7 @@
   @arg? selector [String/HTMLElement]
     @description
       The selector to clear the search results for.
-      @default
-        'body'
+
+    @default
+      'body'
 

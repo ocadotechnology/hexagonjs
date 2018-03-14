@@ -89,13 +89,15 @@
       @description
         How much to zoom the camera out by when following the object.
 
-      @defaultValue 1
+      @default
+        1
 
     @arg? continuallyEvaluateZoom
       @description
         Whether or not the zoom level should be re-evaluated every update when following an object.
 
-      @defaultValue false
+      @default
+        false
 
   @method show
     @description
@@ -109,7 +111,8 @@
       @description
         How much to zoom the camera out by when showing the object.
 
-      @defaultValue 1
+      @default
+        1
 
   @method enablePan
     @description
@@ -152,7 +155,8 @@
       @description
         By default a random id is created for each new object. To override this behaviour, supply an id here.
 
-      @defaultValue hx.randomId()
+      @default
+        hx.randomId()
 
     @returns [DrawingObject]
       @description
@@ -333,7 +337,8 @@
       @description
         By default a random id is created for each new object. To override this behaviour, supply an id here.
 
-      @defaultValue hx.randomId()
+      @default
+        hx.randomId()
 
     @returns [DrawingObject]
       @description
@@ -923,7 +928,7 @@
   @description
     Creates a new Drawing set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing Drawing
 

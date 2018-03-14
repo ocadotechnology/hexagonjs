@@ -89,7 +89,8 @@
       @description
         The number of pages visible in the paginator.
 
-      @defaultValue 10
+      @default
+        10
 
     @returns [Paginator]
       @description
@@ -139,7 +140,8 @@
       @description
         The number of pages visible in the paginator.
 
-      @defaultValue 10
+      @default
+        10
 
     @returns [Paginator]
       @description
@@ -176,20 +178,23 @@
       @property page [Number]
         @description
           The page index to set. This index is 1 based.
-          @default
-            1
+
+        @default
+          1
 
       @property visibleCount [Number]
         @description
           The number of pages visible in the paginator.
-          @default
-            10
+
+        @default
+          10
 
       @property pageCount [Number]
         @description
           The number of pages to give the paginator.
-          @default
-            10
+
+        @default
+          10
 
   @event change [Object]
     @description
@@ -211,7 +216,7 @@
   @description
     Creates a new Paginator set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing Paginator
 

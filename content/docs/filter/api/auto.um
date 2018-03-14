@@ -24,14 +24,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description
@@ -91,14 +93,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description
@@ -158,14 +162,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description
@@ -225,14 +231,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description
@@ -292,14 +300,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description
@@ -359,14 +369,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description
@@ -426,14 +438,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description
@@ -496,14 +510,16 @@
       @property caseSensitive [Boolean]
         @description
           Whether the filtering should be case sensitive.
-          @default
-            false
+
+        @default
+          false
 
       @property sort [Boolean]
         @description
           Whether to sort the results.
-          @default
-            true
+
+        @default
+          true
 
       @property searchValues [Function]
         @description

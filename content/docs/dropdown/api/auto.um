@@ -34,8 +34,9 @@
     @arg? mode [String]
       @description
         The type of action that will show the dropdown, can be 'click' or 'hover' (the hover value will act as click for mobile devices without the hover event)
-        @default
-          'click'
+
+      @default
+        'click'
 
     @arg? align [String]
       @description
@@ -60,17 +61,22 @@
 
         Aside from 'up', 'down', 'left' and 'right', the other values use the first two characters to select a corner from the selection and the second two characters to select a corner from the dropdown and then align those corners so they are closest to each other.
 
+      @default
+        'lblt'
+
     @arg? spacing [Number]
       @description
         How much space to show between the dropdown and the selector
-        @default
-          theme.spacing
+
+      @default
+        theme.spacing
 
     @arg? matchWidth [Boolean]
       @description
         If set to true, the dropdown width will always be the same as or greater than the width of the selector
-        @default
-          true
+
+      @default
+        true
 
     @arg? ddClass [String]
       @description
@@ -189,8 +195,9 @@
       @property mode [String]
         @description
           The type of action that will show the dropdown, can be 'click' or 'hover' (the hover value will act as click for mobile devices without the hover event)
-          @default
-            'click'
+
+        @default
+          'click'
 
       @property align [String]
         @description
@@ -215,17 +222,22 @@
 
           Aside from 'up', 'down', 'left' and 'right', the other values use the first two characters to select a corner from the selection and the second two characters to select a corner from the dropdown and then align those corners so they are closest to each other.
 
+        @default
+          'lblt'
+
       @property spacing [Number]
         @description
           How much space to show between the dropdown and the selector
-          @default
-            theme.spacing
+
+        @default
+          theme.spacing
 
       @property matchWidth [Boolean]
         @description
           If set to true, the dropdown width will always be the same as or greater than the width of the selector
-          @default
-            true
+
+        @default
+          true
 
       @property ddClass [String]
         @description

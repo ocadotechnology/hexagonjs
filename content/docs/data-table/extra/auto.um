@@ -5,7 +5,7 @@
 
   There are two functions that are available for creating feeds, however custom feeds can also be created.
 
-  @section Using [hx.dataTable.objectFeed]
+  @section Using hx.dataTable.objectFeed
     An object feed expects the data to be provided as a whole when the feed is created.
 
     The below code shows a basic use of the object feed.
@@ -44,7 +44,7 @@
 
     The object feed handles the sorting and filtering of the data internally making it the preferred choice for small or static data sets.
 
-  @section Using [hx.dataTable.urlFeed]
+  @section Using hx.dataTable.urlFeed
     A url feed expects a single url to handle multiple requests and return different types of data.
 
     They can be created using:
@@ -148,7 +148,7 @@
         ... // Additional rows
       ]
 
-  @section Creating [a custom feed]
+  @section Creating a custom feed
     In situations where the feeds provided in the @code[hx.dataTable] object are not suitable, custom feeds can be created.
 
     For instance, if using @code[POST] is not suitable, an alternative could be created:
@@ -194,7 +194,7 @@
   @h1(.docs-module-section)[Additional options]
   As well as the options available on the data table prototype, there are a few extra options when setting the data that can change the table behaviour by default.
 
-  @section Multi [column / grouped headers]
+  @section Multi column / grouped headers
     It is possible to add grouping to headers by specifying a @code[groups] array for the header @code[columns] @@codeblock js
       {
         headers:[
@@ -209,7 +209,7 @@
         ]
       }
 
-  @section Wrapping [header text for indivual columns]
+  @section Wrapping header text for indivual columns
     It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the @code[allowWrap] property in the header colums:
 
     @@codeblock js
@@ -226,7 +226,7 @@
         ]
       }
 
-  @section Disabling [rows]
+  @section Disabling rows
     When a row is rendered, the @code[rowEnabledLookup] function is called. If it returns false, the row will visually disabled and unselectable.
 
     By default, a row can be made unselectable using a property in the row object:
@@ -245,7 +245,7 @@
 
     This does not disable row collapsibles.
 
-  @section Making [Rows unselectable]
+  @section Making Rows unselectable
     When a row is selected, the @code[rowSelectableLookup] function is called to check whether the row is selectable. If it returns false, the row will not be selected.
 
     By default, the @code[rowSelectableLookup] function allows all rows to be selected. However, by setting the @code[rowSelectableLookup] , the row can be made unselectable:
@@ -274,7 +274,7 @@
 
   There are two functions that are available for creating feeds, however custom feeds can also be created.
 
-  @section Using [hx.dataTable.objectFeed]
+  @section Using hx.dataTable.objectFeed
     An object feed expects the data to be provided as a whole when the feed is created.
 
     The below code shows a basic use of the object feed.
@@ -313,7 +313,7 @@
 
     The object feed handles the sorting and filtering of the data internally making it the preferred choice for small or static data sets.
 
-  @section Using [hx.dataTable.urlFeed]
+  @section Using hx.dataTable.urlFeed
     A url feed expects a single url to handle multiple requests and return different types of data.
 
     They can be created using:
@@ -419,7 +419,7 @@
         ... // Additional rows
       ]
 
-  @section Creating [a custom feed]
+  @section Creating a custom feed
     In situations where the feeds provided in the @code[hx.dataTable] object are not suitable, custom feeds can be created.
 
     For instance, if using @code[POST] is not suitable, an alternative could be created:
@@ -465,7 +465,7 @@
   @h1(.docs-module-section)[Additional options]
   As well as the options available on the data table prototype, there are a few extra options when setting the data that can change the table behaviour by default.
 
-  @section Multi [column / grouped headers]
+  @section Multi column / grouped headers
     It is possible to add grouping to headers by specifying a @code[groups] array for the header @code[columns] @@codeblock js
       {
         headers:[
@@ -480,7 +480,7 @@
         ]
       }
 
-  @section Wrapping [header text for indivual columns]
+  @section Wrapping header text for indivual columns
     It is possible to override the @code[allowHeaderWrap] option for an individual column by providing the @code[allowWrap] property in the header colums:
 
     @@codeblock js
@@ -497,7 +497,7 @@
         ]
       }
 
-  @section Disabling [rows]
+  @section Disabling rows
     When a row is rendered, the @code[rowEnabledLookup] function is called. If it returns false, the row will visually disabled and unselectable.
 
     By default, a row can be made unselectable using a property in the row object:
@@ -516,7 +516,7 @@
 
     This does not disable row collapsibles.
 
-  @section Making [Rows unselectable]
+  @section Making Rows unselectable
     When a row is selected, the @code[rowSelectableLookup] function is called to check whether the row is selectable. If it returns false, the row will not be selected.
 
     By default, the @code[rowSelectableLookup] function allows all rows to be selected. However, by setting the @code[rowSelectableLookup] , the row can be made unselectable:
@@ -589,7 +589,7 @@
       })
       dt.render()
 
-  @section How [the advanced search works]
+  @section How the advanced search works
 
   The advanced search uses an array of nested arrays of objects with a @code[column] and @code[term] property
 
@@ -640,7 +640,7 @@
       })
       dt.render()
 
-  @section Using [the feeds with advanced search]
+  @section Using the feeds with advanced search
 
   When using the advanced search, the @code[rows] function will be given some additional properties as part of the @code[range] object:
 

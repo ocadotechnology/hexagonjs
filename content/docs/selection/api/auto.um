@@ -37,8 +37,9 @@
   @arg? namespace [String]
     @description
       The namespace to use, eg 'http://www.w3.org/1999/xhtml'
-      @default
-        [http://www.w3.org/1999/xhtml]
+
+    @default
+      [http://www.w3.org/1999/xhtml]
 
   @returns [Selection]
 

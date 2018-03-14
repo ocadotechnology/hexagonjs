@@ -1,8 +1,7 @@
 @version 0.9.0
-  @h1(.docs-module-section)[Getting Started]
-  @section Graphs
+  @topic Graphs
 
-    @section Creating [a Graph]
+    @section Creating a Graph
 
       A Graph can be created as follows.
 
@@ -11,7 +10,7 @@
 
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
-    @section Creating [an Axis]
+    @section Creating an Axis
 
       Before anything can be plotted on this graph, an axis must be added.
 
@@ -20,14 +19,14 @@
 
       This will give you a default axis which has linear scales for the x and y axes.
 
-    @section Creating [a Series]
+    @section Creating a Series
 
       Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
 
       @@codeblock js
         var series = axis.addSeries('line', 'Series Name');
 
-    @section Setting [the data in a Series]
+    @section Setting the data in a Series
 
       The last step is to set the data that this series displays.
 
@@ -38,7 +37,7 @@
         // set the series' data
         series.setData(data);
 
-    @section Rendering [the graph]
+    @section Rendering the graph
 
       Now that the graph is set up, a call to .render() is needed to actually draw the graph.
 
@@ -67,9 +66,9 @@
 
       When working with graphs the colors defined in @code[hx.theme.plot.colors] should be used.
 
-  @section Axes
+  @topic Axes
 
-    @section Using [Axis objects]
+    @section Using Axis objects
 
       An Axis is created with default values for all of its parameters. These can be altered to change the behaviour of the Axis. The Api section below describes all of the properties that can be changed.
 
@@ -80,7 +79,7 @@
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
-  @section Series
+  @topic Series
 
     Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
 
@@ -92,7 +91,7 @@
         margin-right: auto;
       }
 
-    @section Line [Series]
+    @section Line Series
 
       @example
 
@@ -119,7 +118,7 @@
           {x: 3, y: 12}
         ]
 
-    @section Bar [Series]
+    @section Bar Series
 
       @example
         @html
@@ -152,7 +151,7 @@
 
       The optional color property can be set per data point for bar series. If set, it should be a css color string.
 
-    @section Stacked [Area and Stacked Bar charts]
+    @section Stacked Area and Stacked Bar charts
 
       Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
 
@@ -211,7 +210,7 @@
 
           graph.render()
 
-    @section Band [Series]
+    @section Band Series
 
       @example
         @html
@@ -242,7 +241,7 @@
           {x: 3, y1: 12, y2: 14}
         ]
 
-    @section Scatter [Series]
+    @section Scatter Series
 
       @example
         @html
@@ -281,7 +280,7 @@
 
       Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
 
-    @section Straight [Line Series]
+    @section Straight Line Series
       @example
         @html
           <div id="straight-series-example" class='docs-graph'></div>
@@ -314,9 +313,9 @@
       @@codeblock json
         {y: 70}
 
-  @section Pie [Charts]
+  @topic Pie Charts
 
-    @section Creating [a pie chart]
+    @section Creating a pie chart
 
       Example showing creation of a simple pie chart.
 
@@ -350,7 +349,7 @@
 
           pie.render();
 
-      @section Donut [Charts]
+      @section Donut Charts
 
         Pie charts can be turned into donut charts by simply setting the innerPadding property on the pie chart object before rendering:
 
@@ -389,7 +388,7 @@
 
             pie.render();
 
-      @section Multiple [ring pie charts]
+      @section Multiple ring pie charts
 
         When specifying the data, multiple series can specified. The data supplied must be an array in this case:
 
@@ -492,10 +491,9 @@
             pie.render();
 
 @version 1.0.0
-  @h1(.docs-module-section)[Getting Started]
-  @section Graphs
+  @topic Graphs
 
-    @section Creating [a Graph]
+    @section Creating a Graph
 
       A Graph can be created as follows.
 
@@ -504,7 +502,7 @@
 
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
-    @section Creating [an Axis]
+    @section Creating an Axis
 
       Before anything can be plotted on this graph, an axis must be added.
 
@@ -513,14 +511,14 @@
 
       This will give you a default axis which has linear scales for the x and y axes.
 
-    @section Creating [a Series]
+    @section Creating a Series
 
       Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
 
       @@codeblock js
         var series = axis.addSeries('line', {title: 'Series Name'});
 
-    @section Setting [the data in a Series]
+    @section Setting the data in a Series
 
       The last step is to set the data that this series displays.
 
@@ -531,7 +529,7 @@
         // set the series' data
         series.data(data);
 
-    @section Rendering [the graph]
+    @section Rendering the graph
 
       Now that the graph is set up, a call to .render() is needed to actually draw the graph.
 
@@ -560,9 +558,9 @@
 
       When working with graphs the colors defined in @code[hx.theme.plot.colors] can be used.
 
-  @section Axes
+  @topic Axes
 
-    @section Using [Axis objects]
+    @section Using Axis objects
 
       An Axis is created with default values for all of its parameters. These can be altered to change the behaviour of the Axis. The Api section below describes all of the properties that can be changed.
 
@@ -573,7 +571,7 @@
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
-  @section Series
+  @topic Series
 
     Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
 
@@ -585,7 +583,7 @@
         margin-right: auto;
       }
 
-    @section Line [Series]
+    @section Line Series
 
       @example
 
@@ -615,7 +613,7 @@
           {x: 3, y: 12}
         ]
 
-    @section Bar [Series]
+    @section Bar Series
 
       @example
         @html
@@ -661,7 +659,7 @@
 
       The optional color property can be set per data point for bar series. If set, it should be a css color string.
 
-    @section Stacked [Area and Stacked Bar charts]
+    @section Stacked Area and Stacked Bar charts
 
       Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
 
@@ -733,7 +731,7 @@
 
           graph.render()
 
-    @section Band [Series]
+    @section Band Series
 
       @example
         @html
@@ -772,7 +770,7 @@
           {x: 3, y1: 12, y2: 14}
         ]
 
-    @section Scatter [Series]
+    @section Scatter Series
 
       @example
         @html
@@ -821,7 +819,7 @@
 
       Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
 
-    @section Straight [Line Series]
+    @section Straight Line Series
       @example
         @html
           <div id="straight-series-example" class='docs-graph'></div>
@@ -864,9 +862,9 @@
       @@codeblock json
         {y: 70}
 
-  @section Pie [Charts]
+  @topic Pie Charts
 
-    @section Creating [a pie chart]
+    @section Creating a pie chart
 
       Example showing creation of a simple pie chart.
 
@@ -900,7 +898,7 @@
 
           pie.render();
 
-      @section Donut [Charts]
+      @section Donut Charts
 
         Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
 
@@ -941,7 +939,7 @@
 
             pie.render();
 
-      @section Multiple [ring pie charts]
+      @section Multiple ring pie charts
 
         When specifying the data, multiple series can specified. The data supplied must be an array in this case:
 
@@ -1044,10 +1042,9 @@
             pie.render();
 
 @version 0.15.2
-  @h1(.docs-module-section)[Getting Started]
-  @section Graphs
+  @topic Graphs
 
-    @section Creating [a Graph]
+    @section Creating a Graph
 
       A Graph can be created as follows.
 
@@ -1056,7 +1053,7 @@
 
       The hx.Graph constructor expects a css selector or a HTMLElement.
 
-    @section Creating [an Axis]
+    @section Creating an Axis
 
       Before anything can be plotted on this graph, an axis must be added.
 
@@ -1065,14 +1062,14 @@
 
       This will give you a default axis which has linear scales for the x and y axes.
 
-    @section Creating [a Series]
+    @section Creating a Series
 
       Once an axis has been created, a series can be added. There are a few different series types available, but for this example a simple line series is used.
 
       @@codeblock js
         var series = axis.addSeries('line', {title: 'Series Name'});
 
-    @section Setting [the data in a Series]
+    @section Setting the data in a Series
 
       The last step is to set the data that this series displays.
 
@@ -1083,7 +1080,7 @@
         // set the series' data
         series.data(data);
 
-    @section Rendering [the graph]
+    @section Rendering the graph
 
       Now that the graph is set up, a call to .render() is needed to actually draw the graph.
 
@@ -1112,9 +1109,9 @@
 
       When working with graphs the colors defined in @code[hx.theme.plot.colors] can be used.
 
-  @section Axes
+  @topic Axes
 
-    @section Using [Axis objects]
+    @section Using Axis objects
 
       An Axis is created with default values for all of its parameters. These can be altered to change the behaviour of the Axis. The Api section below describes all of the properties that can be changed.
 
@@ -1125,7 +1122,7 @@
         var axis = graph.addAxis()
         var series = axis.addSeries('line', 'My Series')
 
-  @section Series
+  @topic Series
 
     Multiple kinds of series can added to a single axis. Certain series kinds will naturally group together when plotted on the same axis, such as bar series. Series should be created using the addSeries method on Axis.
 
@@ -1137,7 +1134,7 @@
         margin-right: auto;
       }
 
-    @section Line [Series]
+    @section Line Series
 
       @example
 
@@ -1167,7 +1164,7 @@
           {x: 3, y: 12}
         ]
 
-    @section Bar [Series]
+    @section Bar Series
 
       @example
         @html
@@ -1213,7 +1210,7 @@
 
       The optional color property can be set per data point for bar series. If set, it should be a css color string.
 
-    @section Stacked [Area and Stacked Bar charts]
+    @section Stacked Area and Stacked Bar charts
 
       Bar series can be stacked by setting the group property to be the same for all series that you want to stack together. The same also is true of line series.
 
@@ -1285,7 +1282,7 @@
 
           graph.render()
 
-    @section Band [Series]
+    @section Band Series
 
       @example
         @html
@@ -1324,7 +1321,7 @@
           {x: 3, y1: 12, y2: 14}
         ]
 
-    @section Scatter [Series]
+    @section Scatter Series
 
       @example
         @html
@@ -1373,7 +1370,7 @@
 
       Other optional properties that can be set alongside the x any y values for each point are 'color' and 'size'. color should be a css color string, and size should be the radius of the point in pixels (the default is 3).
 
-    @section Straight [Line Series]
+    @section Straight Line Series
       @example
         @html
           <div id="straight-series-example" class='docs-graph'></div>
@@ -1416,9 +1413,9 @@
       @@codeblock json
         {y: 70}
 
-  @section Pie [Charts]
+  @topic Pie Charts
 
-    @section Creating [a pie chart]
+    @section Creating a pie chart
 
       Example showing creation of a simple pie chart.
 
@@ -1452,7 +1449,7 @@
 
           pie.render();
 
-      @section Donut [Charts]
+      @section Donut Charts
 
         Pie charts can be turned into donut charts by simply passing in the innerPadding option when creating a pie:
 
@@ -1493,7 +1490,7 @@
 
             pie.render();
 
-      @section Multiple [ring pie charts]
+      @section Multiple ring pie charts
 
         When specifying the data, multiple series can specified. The data supplied must be an array in this case:
 

@@ -68,7 +68,7 @@
             'Field 4': 'Two'
           }
 
-  @group Add [Component Methods]
+  @group Add Component Methods
     @description
       Methods that add components to the form
 
@@ -153,15 +153,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -233,15 +235,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -318,15 +322,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -390,15 +396,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -466,15 +474,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -561,15 +571,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -611,15 +623,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -684,15 +698,17 @@
           @added 1.2.0
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property placeholder [String]
           @added 1.4.0
@@ -799,8 +815,9 @@
 
           @description
             Whether to close the datepicker when a date has been selected.
-            @default
-              true
+
+          @default
+            true
 
         @property selectRange [Boolean]
           @deprecated 0.13.0
@@ -813,20 +830,23 @@
 
           @description
             Whether to display a date range picker instead of a standard date picker.
-            @default
-              false
+
+          @default
+            false
 
         @property startDate [Date]
           @description
             The selected start date to use when selectRange is true. Both startDate and endDate must be defined for this to have an effect.
-            @default
-              Today
+
+          @default
+            Today
 
         @property endDate [Date]
           @description
             The selected end date to use when selectRange is true. Both startDate and endDate must be defined for this to have an effect.
-            @default
-              Today
+
+          @default
+            Today
 
         @property key [String]
           @description
@@ -835,8 +855,9 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property validStart [Date]
           @added 0.12.0
@@ -857,8 +878,9 @@
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
       @returns [Form]
         @description
@@ -888,8 +910,9 @@
 
           @description
             Whether to show the seconds in the time picker.
-            @default
-              false
+
+          @default
+            false
 
         @property buttonClass [String]
           @deprecated 0.13.0
@@ -910,8 +933,9 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property timePickerOptions [Object]
           @added 0.13.0
@@ -922,8 +946,9 @@
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
       @returns [Form]
         @description
@@ -953,14 +978,16 @@
 
           @description
             Whether to show the seconds in the time picker.
-            @default
-              false
+
+          @default
+            false
 
         @property closeOnSelect [Boolean]
           @description
             Whether to close the date time picker when a date has been selected.
-            @default
-              true
+
+          @default
+            true
 
         @property key [String]
           @description
@@ -969,8 +996,9 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property type [String]
           @added 0.13.0
@@ -991,8 +1019,9 @@
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
       @returns [Form]
         @description
@@ -1018,8 +1047,9 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property placeholder [String]
           @description
@@ -1059,8 +1089,9 @@
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property value [Any]
           @added 1.14.0
@@ -1126,15 +1157,17 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @added 1.2.0
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
       @returns [Form]
         @description
@@ -1185,14 +1218,16 @@
         @property disabled [Boolean]
           @description
             Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property hidden [Boolean]
           @description
             Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
-            @default
-              false
+
+          @default
+            false
 
         @property key [String]
           @description

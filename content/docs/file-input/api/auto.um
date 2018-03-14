@@ -27,14 +27,16 @@
       @property disabled [Boolean]
         @description
           The disabled state to initialise the FileInput in
-          @default
-            false
+
+        @default
+          false
 
       @property fullWidth [Boolean]
         @description
           Whether the FileInput should be full width
-          @default
-            false
+
+        @default
+          false
 
       @property acceptedExtensions [Array[String]]
         @description
@@ -43,20 +45,23 @@
       @property multiple [Boolean]
         @description
           Whether multiple files can be selected
-          @default
-            false
+
+        @default
+          false
 
       @property dragEnabled [Boolean]
         @description
           Whether the user can drag and drop files to the input to upload
-          @default
-            true
+
+        @default
+          true
 
       @property buttonClass [String]
         @description
           The class to use for the button
-          @default
-            'hx-action'
+
+        @default
+          'hx-action'
 
       @property filesselectedFiles [String]
         @removed 1.3.1
@@ -66,8 +71,9 @@
 
         @description
           The string to indicate the number of files selected
-          @default
-            'Files Selected'
+
+        @default
+          'Files Selected'
 
       @property buttonText [String]
         @updated 1.4.0
@@ -75,6 +81,9 @@
 
         @description
           The text to display on the button. The default text becomes @code[hx.userFacingText('fileInput', 'chooseFiles')] when selecting multiple files.
+
+        @default
+          [hx.userFacingText('fileInput', 'chooseFile')]
 
       @property filesSelectedText [String]
         @added 1.3.1
@@ -88,16 +97,16 @@
 
         @description
           The string to indicate the number of files selected
-          @default
-            [hx.userFacingText('fileInput', 'filesSelected')]
+
+        @default
+          [hx.userFacingText('fileInput', 'filesSelected')]
 
       @property noFilesText [String]
         @added 1.4.0
           @issue 211
 
-        @description
-          @default
-            [hx.userFacingText('fileInput', 'noFile')]
+        @default
+          [hx.userFacingText('fileInput', 'noFile')]
 
   @method disabled
     @description

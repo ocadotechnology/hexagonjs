@@ -1,5 +1,5 @@
 @version 0.9.0
-  @section Other [functionality and examples]
+  @section Other functionality and examples
     The @code[Color] prototype contains several methods to allow for modification of a color.
 
     The below examples show all the available methods and also use the @code[toString()] method to show the hex value and set the background color of the cells.
@@ -198,7 +198,7 @@
             @js
               setCellColor("mix_thirty",exCol.clone().mix(exColAlt,0.3))
 
-    @section Chaining [methods]
+    @section Chaining methods
       It's possible to chain methods when using the Color api. For instance, to create a color that is 20% darker and 30% less saturated than the original, use:
 
       @@codeblock js
@@ -211,7 +211,7 @@
         newCol.darken(0.2)
         newCol.desaturate(0.3)
 
-    @section Building [a color range]
+    @section Building a color range
       You can use the colorRange function to create a range of lighter or darker colors based on any color. The default values for the function returns an array of 7 color objects, 3 lighter, 3 darker and the original, in order of lightness.
 
       @@codeblock js
@@ -295,7 +295,7 @@
         buildList()
 
 @version 0.15.2
-  @section Other [functionality and examples]
+  @section Other functionality and examples
     The @code[Color] prototype contains several methods to allow for modification of a color.
 
     The below examples show all the available methods and also use the @code[toString()] method to show the hex value and set the background color of the cells.
@@ -494,7 +494,7 @@
             @js
               setCellColor("mix_thirty",exCol.clone().mix(exColAlt,0.3))
 
-    @section Chaining [methods]
+    @section Chaining methods
       It's possible to chain methods when using the Color api. For instance, to create a color that is 20% darker and 30% less saturated than the original, use:
 
       @@codeblock js
@@ -507,7 +507,7 @@
         newCol.lighten(-0.2)
         newCol.saturate(-0.3)
 
-    @section Building [a color range]
+    @section Building a color range
       You can use the colorRange function to create a range of lighter or darker colors based on any color. The default values for the function returns an array of 7 color objects, 3 lighter, 3 darker and the original, in order of lightness.
 
       @@codeblock js
@@ -591,7 +591,7 @@
         buildList()
 
 @version 1.0.0
-  @section Other [functionality and examples]
+  @section Other functionality and examples
     The @code[Color] prototype contains several methods to allow for modification of a color.
 
     The below examples show all the available methods and also use the @code[toString()] method to show the hex value and set the background color of the cells.
@@ -790,7 +790,7 @@
             @js
               setCellColor("mix_thirty",exCol.clone().mix(exColAlt,0.3))
 
-    @section Chaining [methods]
+    @section Chaining methods
       It's possible to chain methods when using the Color api. For instance, to create a color that is 20% darker and 30% less saturated than the original, use:
 
       @@codeblock js
@@ -803,7 +803,7 @@
         newCol.lighten(-0.2)
         newCol.saturate(-0.3)
 
-    @section Building [a color range]
+    @section Building a color range
       You can use the colorRange function to create a range of lighter or darker colors based on any color. The default values for the function returns an array of 7 color objects, 3 lighter, 3 darker and the original, in order of lightness.
 
       @@codeblock js

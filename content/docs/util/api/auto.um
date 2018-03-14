@@ -132,14 +132,16 @@
   @arg? length [Number]
     @description
       The length of the string to generate
-      @default
-        16
+
+    @default
+      16
 
   @arg? alphabet [String]
     @description
       The alphabet to use. Defaults to hex
-      @default
-        ABCEDEF0123456789
+
+    @default
+      ABCEDEF0123456789
 
   @returns [Number]
     @description
@@ -824,8 +826,9 @@
   @arg? deep [Boolean]
     @description
       Whether or not a deep clone should be performed.
-      @default
-        false
+
+    @default
+      false
 
   @returns [Object/Array]
     @description
@@ -895,8 +898,9 @@
   @arg? recurse [Boolean]
     @description
       Whether to recursively clean child nodes
-      @default
-        true
+
+    @default
+      true
 
   @returns [node]
     @description
@@ -1046,8 +1050,9 @@
   @arg? returnArray [Boolean]
     @description
       If this value is true, the check will run all the way until the document element and return all the non-undefined results as an array.
-      @default
-        false
+
+    @default
+      false
 
 @function hx.parentZIndex
   @added 0.15.2
@@ -1061,8 +1066,9 @@
   @arg? findMax [Boolean]
     @description
       If this value is true, the maximum z-index from all the parents (up to the document element) will be returned.
-      @default
-        false
+
+    @default
+      false
 
 @function hx.debounce
   @added 0.15.2

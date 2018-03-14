@@ -141,7 +141,11 @@
       @property noValueText [String]
         @description
           The text to use when no value is selected.
-          @default 'Choose [a value...']
+
+        @default
+          'Choose
+          a
+          value...'
 
   @method items
     @added 0.12.7

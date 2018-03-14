@@ -71,21 +71,36 @@
       @description
         The maximum number of rows on a page - if there are more rows in the data than this value, the pagination will be shown automatically.
 
+      @default
+        100
+
     @property showSorts [Boolean]
       @description
         Whether to show the sorts on the table columns.
+
+      @default
+        true
 
     @property showFilters [Boolean]
       @description
         Whether to show the filters on the table columns.
 
+      @default
+        true
+
     @property showSelection [Boolean]
       @description
         Whether to allow rows to be selected and show the ticks at the side of the table.
 
+      @default
+        false
+
     @property rowSelectable [Boolean]
       @description
         If showSelection is set to true, this value determines if the entire row should be clickable or just the tick box.
+
+      @default
+        true
 
     @property collapsibleRow [Function]
       @description
@@ -103,9 +118,15 @@
       @description
         Whether to always show the table in 'mobile' mode. This is a mode that enables mobile users to see the data in a more sensible layout.
 
+      @default
+        false
+
     @property useResponsive [Boolean]
       @description
         Whether to switch to 'mobile' mode when the container for the table is below 480px.
+
+      @default
+        true
 
     @property enabledFilters [Array]
       @updated 0.9.0
@@ -129,6 +150,9 @@
       @added 0.9.0
       @description
         The message to display when there is no data.
+
+      @default
+        'No Data'.
 
     @property defaultCellValueLookup [Function]
       @added 0.9.0
@@ -314,22 +338,25 @@
       @added 0.12.5
       @description
         A boolean value that determines whether the header text should be allowed to wrap or not.
-        @default
-          false
+
+      @default
+        false
 
     @property userSelectRowsPerPage [Boolean]
       @added 0.12.5
       @description
         A boolean value that determines whether the dropdown for selecting the number of rows per page should be shown.
-        @default
-          false
+
+      @default
+        false
 
     @property singleSelectionMode [Boolean]
       @added 0.12.5
       @description
         A boolean value that determines whether the table should be in single selection mode, only allowing one row to be selected at a time.
-        @default
-          false
+
+      @default
+        false
 
     @property rowSelectableLookup [Function]
       @added 0.12.6
@@ -533,7 +560,7 @@
             }
             table.setData(feed, {id: 'my-table-id'})
 
-        @collapsible Server [Side]
+        @collapsible Server Side
           @@codeblock js
             table.setData('https://example.com/data', {id: 'my-table-id'})
 
@@ -668,14 +695,16 @@
     @arg? clearSorts [Boolean]
       @description
         A boolean value that determines whether sorts should be reset when setting the data.
-        @default
-          false
+
+      @default
+        false
 
     @arg? clearFilters [Boolean]
       @description
         A boolean value that determines whether filters should be reset when setting the data.
-        @default
-          false
+
+      @default
+        false
 
     @arg? callback [Function]
       @description
@@ -736,6 +765,9 @@
         The filter type to add.
         The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
 
+      @default
+        'contains'
+
     @arg? callback [Function]
       @description
         This will be called once the table has fetched all data and has finished rendering.
@@ -772,6 +804,9 @@
         The filter type to add.
         The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
 
+      @default
+        'contains'
+
     @arg? callback [Function]
       @description
         This will be called once the table has fetched all data and has finished rendering.
@@ -805,6 +840,9 @@
       @description
         The filter type to add.
         The full list of available filters can be found on the @code[hx.filter] object on the <a href="/docs/util/sort-and-filter/">Sort and Filter</a> page.
+
+      @default
+        'contains'
 
     @arg? callback [Function]
       @description

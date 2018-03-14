@@ -43,8 +43,9 @@
   @arg? showMessage [Boolean]
     @description
       Whether to show the message when validating. When set to false, the validate function will only return the errors without modifying the form.
-      @default
-        true
+
+    @default
+      true
 
   @returns [Object]
     @property valid [Boolean]
@@ -103,8 +104,9 @@
     @property showMessage [Boolean]
       @description
         Whether to show the message when validating. When set to false, the validate function will only return the errors without modifying the form.
-        @default
-          true
+
+      @default
+        true
 
   @returns [Object]
     @property valid [Boolean]

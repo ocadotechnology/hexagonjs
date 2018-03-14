@@ -229,7 +229,7 @@
     @description
       Added a minimal fluid version of the titlebar
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       The options for the titlebar
 
@@ -237,19 +237,34 @@
       @description
         The title to display in the titlebar
 
+      @default
+        'Title'
+
     @property subtitle [String]
       @description
         The subtitle to display
+
+      @default
+        ''
 
     @property showIcon [Boolean]
       @description
         Whether to show the icon in the titlebar
 
+      @default
+        true
+
     @property iconLink [String]
       @description
         The link to add to the icon
 
+      @default
+        '#'
+
     @property iconClass [String]
       @description
         The icon class to use
+
+      @default
+        'hx-logo'
 

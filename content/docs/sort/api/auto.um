@@ -77,6 +77,9 @@
         @description
           Whether to sort nulls to the end of the array.
 
+        @default
+          false
+
     @returns [Function]
       @description
         A function that compares two strings based on the passed in locale and options. To be passed into Array.sort.

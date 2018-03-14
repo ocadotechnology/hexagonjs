@@ -79,14 +79,16 @@
     @arg? closeOnSelect [Boolean]
       @description
         Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
-        @default
-          true
+
+      @default
+        true
 
     @arg? selectRange [Boolean]
       @description
         Set to true to allow the selection of a date range.
-        @default
-          false
+
+      @default
+        false
 
   @method showMonth
     @updated 0.11.0
@@ -137,8 +139,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
   @method setDay
     @deprecated 0.11.0
@@ -156,8 +159,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
-        @default
-          false
+
+      @default
+        false
 
   @method setMonth
     @deprecated 0.11.0
@@ -175,8 +179,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
-        @default
-          false
+
+      @default
+        false
 
   @method setYear
     @deprecated 0.11.0
@@ -194,8 +199,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted
-        @default
-          false
+
+      @default
+        false
 
   @method setRange
     @deprecated 0.11.0
@@ -223,8 +229,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
   @method addDays
     @deprecated 0.13.0
@@ -395,8 +402,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DatePicker]
       @description
@@ -429,8 +437,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DatePicker]
       @description
@@ -463,8 +472,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DatePicker]
       @description
@@ -497,8 +507,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DatePicker]
       @description
@@ -560,8 +571,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DatePicker]
       @description
@@ -604,8 +616,9 @@
     @arg? suppressCallback [Boolean]
       @description
         A value used to prevent the change event being emitted.
-        @default
-          false
+
+      @default
+        false
 
     @returns [DatePicker]
       @description
@@ -662,39 +675,45 @@
       @property type [String]
         @description
           The type of date picker to show, can be either 'datepicker' or 'calendar'
-          @default
-            'calendar'
+
+        @default
+          'calendar'
 
       @property closeOnSelect [Boolean]
         @description
           Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
-          @default
-            true
+
+        @default
+          true
 
       @property selectRange [Boolean]
         @description
           Set to true to allow the selection of a date range. If this is set to true, the type is set to 'calendar' and showTodayButton is set to false as these properties cannot be used when in range selection mode.
-          @default
-            false
+
+        @default
+          false
 
       @property defaultView [String]
         @description
           The default view to use when using the date picker. Can be 'm' for month view, 'y' for year view or 'd' for decade view.
-          @default
-            'm'
+
+        @default
+          'm'
 
       @property showTodayButton [Boolean]
         @description
           Whether to show the 'today' button when using the date picker. The today button allows the user to select today regardless of what view they are currently in.
-          @default
-            true
+
+        @default
+          true
 
       @property allowInbuiltPicker [Boolean]
         @added 0.13.0
         @description
           Whether to allow the inbuilt datepicker for touch devices. Generally this should be allowed as the inbuilt picker is generally more suited to the device.
-          @default
-            true
+
+        @default
+          true
 
       @property disabled [Boolean]
         @updated 0.15.2
@@ -703,8 +722,9 @@
 
         @description
           Whether the date picker should be disabled
-          @default
-            false
+
+        @default
+          false
 
   @method visibleMonth
     @added 0.13.0
@@ -821,8 +841,9 @@
     @arg? dontSetupInput [Boolean]
       @description
         A value used to prevent the input being changed
-        @default
-          false
+
+      @default
+        false
 
     @returns [DatePicker]
       @description
@@ -976,7 +997,7 @@
   @description
     Creates a new DatePicker set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing DatePicker
 

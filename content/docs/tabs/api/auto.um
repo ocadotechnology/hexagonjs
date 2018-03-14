@@ -84,7 +84,7 @@
       @description
         Colors the tab with the info color.
 
-    @extraClass hx-tab-color-[n]
+    @extraClass [hx-tab-color-[n]]
       @deprecated 0.9.0
         @description
           All numbered color classes will be removed in a later version. Use the context classes instead.

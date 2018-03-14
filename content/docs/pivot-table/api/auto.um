@@ -72,8 +72,9 @@
       @property useResponsive [Boolean]
         @description
           Determines whether or not to re-render the table when the container is resized.
-          @default
-            true
+
+        @default
+          true
 
       @property data [Object]
         @added 1.3.0
@@ -115,6 +116,9 @@
 
         @description
           Whether to force the table to take up at least the full width available
+
+        @default
+          false
 
   @method setData
     @deprecated 0.13.0
@@ -212,7 +216,7 @@
   @description
     Creates a new PivotTable set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing PivotTable
 

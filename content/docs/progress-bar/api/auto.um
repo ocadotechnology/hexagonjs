@@ -120,8 +120,9 @@
     @arg? retainProgress [Boolean]
       @description
         Whether to retain the current progress of the progressbar.
-        @default
-          false
+
+      @default
+        false
 
     @returns [ProgressBar]
       @description
@@ -159,14 +160,16 @@
       @property value [Number]
         @description
           The value of the progressbar when it is initialised
-          @default
-            0
+
+        @default
+          0
 
       @property animate [Boolean]
         @description
           Whether to animate the progress changes for the progressbar by adding the hx-animate class.
-          @default
-            false
+
+        @default
+          false
 
 @class hx-progressbar
   @deprecated 0.9.0
@@ -221,7 +224,7 @@
     @description
       Styles the progress bar to indicate that clicking it will lead to some form of documentation / information.
 
-  @extraClass hx-progressbar-[n]
+  @extraClass [hx-progressbar-[n]]
     @deprecated 0.9.0
       @description
         All numbered color classes will be removed in a later version.Use the context classes instead.
@@ -256,7 +259,7 @@
   @description
     Creates a new ProgressBar set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing ProgressBar
 

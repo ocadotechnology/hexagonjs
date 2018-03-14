@@ -74,8 +74,9 @@
     @arg? hideDisabledButtons [Boolean]
       @description
         A parameter that hides the 'disabled' buttons added to the tree.
-        @default
-          false
+
+      @default
+        false
 
   @method show
     @description
@@ -154,8 +155,9 @@
       @property hideDisabledButtons [Boolean]
         @description
           A parameter that hides the 'disabled' buttons added to the tree.
-          @default
-            false
+
+        @default
+          false
 
       @property animate [Boolean]
         @description
@@ -201,6 +203,9 @@
           Whether to lazily render the tree nodes when building from JSON.
 
           When this is true, the children of a tree node will only be renderered when their parent is opened.
+
+        @default
+          false
 
   @method items
     @added 0.13.0
@@ -326,7 +331,7 @@
       @description
         The class to give to any content within a tree node, should be placed directly inside a @code[hx-tree-node] that doesn't include @code[hx-tree-node-parent] or @code[hx-tree-node-children] .
 
-  @extraClass hx-tree-[n]
+  @extraClass [hx-tree-[n]]
     @deprecated 0.9.0
       @description
         All numbered color classes will be removed in a later version.Use the context classes instead.
@@ -352,7 +357,7 @@
   @description
     Creates a new Tree set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing Tree
 

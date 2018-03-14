@@ -2,11 +2,11 @@
   @examples
     @example
       @html
-        <div id="graph" class="graph-example hx-margin"></div>
+        <div id="graph-example" class="graph-example hx-margin"></div>
 
       @js
 
-        var graph = new hx.Graph('#graph');
+        var graph = new hx.Graph('#graph-example');
         var axis = graph.addAxis('linear', 'linear');
         axis.xTitle = "time";
         axis.yTitle = "value";
@@ -48,11 +48,11 @@
   @examples
     @example
       @html
-        <div id="graph" class="graph-example hx-margin"></div>
+        <div id="graph-example" class="graph-example hx-margin"></div>
 
       @js
 
-        var graph = new hx.Graph('#graph')
+        var graph = new hx.Graph('#graph-example')
         var axis = graph.addAxis({
           x: {
             title: 'Time'

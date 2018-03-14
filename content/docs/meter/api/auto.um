@@ -32,14 +32,16 @@
       @property useMarker [Boolean]
         @description
           Wheter or not to use the marker part of the meter
-          @default
-            false
+
+        @default
+          false
 
       @property useTracker [Boolean]
         @description
           Wheter or not to use the tracker part of the meter
-          @default
-            false
+
+        @default
+          false
 
       @property trackerWidth [Number]
         @description
@@ -117,8 +119,9 @@
 
         @description
           Whether to redraw the meter when the container is resized
-          @default
-            true
+
+        @default
+          true
 
   @method value
     @description
@@ -228,7 +231,7 @@
   @description
     Creates a new Meter set up on a detached element, wrapped in a selection
 
-  @arg options [Object]
+  @arg? options [Object]
     @description
       See the options object for constructing Meter
 

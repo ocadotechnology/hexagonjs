@@ -34,6 +34,9 @@
       @description
         A value between 0 and 1
 
+    @default
+      hx.ease.linear
+
     @returns [Number]
       @description
         A value between 0 and 1
