@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Logo
-  @versioned
-    @version 1.0.0
-      @description
-        A module that enables the use of the theme logo in whatever location is required.
-
+  @description
+    A module that enables the use of the theme logo in whatever location is required.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/logo/changelog)[Change Log]
 
     @inline api.um
-
-

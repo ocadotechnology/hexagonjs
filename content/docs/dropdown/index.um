@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Dropdown
-  @versioned
-    @version 0.9.0
-      @description
-        A dropdown component, for showing additional content when the user hovers over or clicks on an element.
-
+  @description
+    A dropdown component, for showing additional content when the user hovers over or clicks on an element.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/dropdown/changelog)[Change Log]
 
     @inline api.um
-
-

@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Resize Events
-  @versioned
-    @version 0.11.0
-      @description
-        A module for adding a resize event to the selection api.
-
+  @description
+    A module for adding a resize event to the selection api.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/resize-events/changelog)[Change Log]
 
     @inline api.um
-
-

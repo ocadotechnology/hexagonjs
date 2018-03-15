@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Toggle
-  @versioned
-    @version 1.0.0
-      @description
-        A module for creating toggles
-
+  @description
+    A module for creating toggles
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/toggle/changelog)[Change Log]
 
     @inline api.um
-
-

@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Notify
-  @versioned
-    @version 0.9.0
-      @description
-        Display temporary notifications to users.
-
+  @description
+    Display temporary notifications to users.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/notify/changelog)[Change Log]
 
     @inline api.um
-
-

@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Form Builder
-  @versioned
-    @version 0.9.0
-      @description
-        Provides an api for building forms in javascript.
-
+  @description
+    Provides an api for building forms in javascript.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/form-builder/changelog)[Change Log]
 
     @inline api.um
-
-

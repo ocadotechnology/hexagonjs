@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Sidebar
-  @versioned
-    @version 0.10.0
-      @description
-        A sidebar component, that can be used as an alternative to the titlebar linkbar. See @link(/demo/dashboard)[this] demo for a full working example.
-
+  @description
+    A sidebar component, that can be used as an alternative to the titlebar linkbar. See @link(/demo/dashboard)[this] demo for a full working example.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/sidebar/changelog)[Change Log]
 
     @inline api.um
-
-

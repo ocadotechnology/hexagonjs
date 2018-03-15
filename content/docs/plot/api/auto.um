@@ -2272,7 +2272,7 @@
       @description
         An array of objects with x, y properties.
         The data should be of the form:
-        @@codeblock js
+        @@codeblock json
           [
             {x: 0, y: 10},
             {x: 1, y: 11},
@@ -2281,7 +2281,7 @@
           ]
 
         The color of the bars can be set per bar as well:
-        @@codeblock js
+        @@codeblock json
           [
             {x: 0, y: 10, color: hx.color.graph[1]},
             {x: 1, y: 11, color: hx.color.graph[2]},
@@ -3023,7 +3023,7 @@
       @description
         An array of objects with x and y properties.
         The data should be of the form:
-        @@codeblock js
+        @@codeblock json
           [
             {x: 0, y: 10},
             {x: 1, y: 11},
@@ -3988,7 +3988,7 @@
       @description
         An array of objects with x, y1 and y2 properties.
         The data should be of the form:
-        @@codeblock js
+        @@codeblock json
           [
             {x: 0, y1: 10, y2: 16},
             {x: 1, y1: 11, y2: 17},
@@ -4704,7 +4704,7 @@
       @description
         An array of objects with x, y properties.
         The data should be of the form:
-        @@codeblock js
+        @@codeblock json
           [
             {x: 0, y: 10},
             {x: 1, y: 11},
@@ -4713,7 +4713,7 @@
           ]
 
         The color and size of the points can also be supplied with the data:
-        @@codeblock js
+        @@codeblock json
           [
             {x: 0, y: 10, color: hx.color.graph[1], size: 1},
             {x: 1, y: 11, color: hx.color.graph[2], size: 2},
@@ -5314,15 +5314,15 @@
         An object describing the line to draw.
         The data should be of the form:
         A line with a gradient:
-        @@codeblock js
+        @@codeblock json
           {x: 0, y: 10, dx: 2, dy: 3}
 
         Vertical line:
-        @@codeblock js
+        @@codeblock json
           {x: 50}
 
         Horizontal line:
-        @@codeblock js
+        @@codeblock json
           {y: 70}
 
   @extends EventEmitter

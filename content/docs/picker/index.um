@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Picker
-  @versioned
-    @version 0.14.0
-      @description
-        An alternative to the @code[<select>] element. Essentially a button and a menu glued together with useful functions for setting and getting the currently selected value.
-
+  @description
+    An alternative to the @code[<select>] element. Essentially a button and a menu glued together with useful functions for setting and getting the currently selected value.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/picker/changelog)[Change Log]
 
     @inline api.um
-
-

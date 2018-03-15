@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Morphs
-  @versioned
-    @version 0.9.0
-      @description
-        A standard collection of transitions for entering and exiting elements
-
+  @description
+    A standard collection of transitions for entering and exiting elements
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/morphs/changelog)[Change Log]
 
     @inline api.um
-
-

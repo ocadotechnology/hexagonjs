@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Format
-  @versioned
-    @version 0.9.0
-      @description
-        Various number formatting functions.
-
+  @description
+    Various number formatting functions.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/format/changelog)[Change Log]
 
     @inline api.um
-
-

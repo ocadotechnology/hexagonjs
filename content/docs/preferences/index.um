@@ -4,13 +4,10 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Preferences
-  @versioned
-    @version 0.9.0
-      @description
-        A method for storing user settings across applications for things like time zone and locale settings.
-        @script https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js
-        @script https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.0/moment-timezone-with-data.min.js
-
+  @description
+    A method for storing user settings across applications for things like time zone and locale settings.
+    @script https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js
+    @script https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.0/moment-timezone-with-data.min.js
 
 
 @contentSection
@@ -23,5 +20,3 @@
     @hyperlink(/docs/preferences/changelog)[Change Log]
 
     @inline api.um
-
-

@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Menu
-  @versioned
-    @version 0.9.0
-      @description
-        A dropdown containing a list of selectable items.
-
+  @description
+    A dropdown containing a list of selectable items.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/menu/changelog)[Change Log]
 
     @inline api.um
-
-

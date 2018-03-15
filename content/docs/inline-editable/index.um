@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Inline Editable
-  @versioned
-    @version 0.10.0
-      @description
-        Makes text in a span editable.
-
+  @description
+    Makes text in a span editable.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/inline-editable/changelog)[Change Log]
 
     @inline api.um
-
-

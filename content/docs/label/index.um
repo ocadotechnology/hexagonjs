@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Label
-  @versioned
-    @version 0.9.0
-      @description
-        Provides the @code[hx-label] class for styling @code[<span>] elements.
-
+  @description
+    Provides the @code[hx-label] class for styling @code[<span>] elements.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/label/changelog)[Change Log]
 
     @inline api.um
-
-

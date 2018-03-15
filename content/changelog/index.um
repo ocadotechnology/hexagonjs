@@ -79,7 +79,7 @@
         Installing hexagon via npm with the --production flag will no longer
         install phantomjs.
 
-        @code[hx.Sets] can now deal with objects that
+        @code[hx.Maps] and @code[hx.Sets] can now deal with objects that
         evaluate to the same value when @code[toString] is called on them.
 
     @version 0.12.2

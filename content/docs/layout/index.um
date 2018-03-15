@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Layout
-  @versioned
-    @version 0.9.0
-      @description
-        A set of classes that provide an easy way for your page to adapt to different screen sizes. The layout classes provide an alternative take on the standard grid system found in many frameworks. The classes provided make use of the flexbox display model, which provide some advantages over standard fixed size grid layouts.
-
+  @description
+    A set of classes that provide an easy way for your page to adapt to different screen sizes. The layout classes provide an alternative take on the standard grid system found in many frameworks. The classes provided make use of the flexbox display model, which provide some advantages over standard fixed size grid layouts.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/layout/changelog)[Change Log]
 
     @inline api.um
-
-

@@ -4,11 +4,8 @@
 @topSection
   @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
   @title Notice
-  @versioned
-    @version 0.14.1
-      @description
-        Provides the @code[hx-notice] class for  styled containers.
-
+  @description
+    Provides the @code[hx-notice] class for  styled containers.
 
 
 @contentSection
@@ -21,5 +18,3 @@
     @hyperlink(/docs/notice/changelog)[Change Log]
 
     @inline api.um
-
-

@@ -13,12 +13,14 @@
       @description
         A function for highlighting search terms within a section of the dom. hx.searchDom will also open any openable hexagon components (trees, collapsibles) to reveal search matches.
 
-        @notice [The search dom module is deprecated in this version.]
+        @notice The search dom module is deprecated in this version.
           This module will be removed in version 1.0.0
 
     @version 1.0.0
       @description
         This module was removed in version 1.0.0.
+
+
 
 @contentSection
   @topic Examples
@@ -30,5 +32,3 @@
     @hyperlink(/docs/search-dom/changelog)[Change Log]
 
     @inline api.um
-
-

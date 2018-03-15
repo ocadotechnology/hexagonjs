@@ -15,4 +15,4 @@
       // Evaluates to 'Please enter 3 characters'
 
   @default
-    @code]
+    @code[hx.userFacingText('autocomplete', 'pleaseEnterMinCharacters')]
