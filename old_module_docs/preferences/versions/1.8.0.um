@@ -1,4 +1,0 @@
-@version 1.8.0
-  @api Preferences
-    @updated: Added logic to update the current timezone in @code[Moment.js]
-      @issue 254

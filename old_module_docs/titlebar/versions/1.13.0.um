@@ -1,5 +1,0 @@
-@version 1.13.0
-  @api Titlebar
-    @bugfix
-      @description
-        Added the missing 'action' context to the titlebar

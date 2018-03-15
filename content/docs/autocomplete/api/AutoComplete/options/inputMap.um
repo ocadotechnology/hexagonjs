@@ -6,7 +6,7 @@
     Setting the inputMap defines what data should be shown in the
     dropdown and what should be searchable.
 
-    @codeblock js
+    @@codeblock js
       var data = [
         {
           name: 'Bob'

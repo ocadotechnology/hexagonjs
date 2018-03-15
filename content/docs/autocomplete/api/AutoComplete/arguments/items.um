@@ -50,7 +50,7 @@
     for a response from this function.
 
     It can be used in conjunction with the internal matching or be used
-    to match externally when setting the @code(js)[matchType] to 'external':
+    to match externally when setting the @code[matchType] to 'external':
 
     @@codeblock js
       function data (term, callback) {

@@ -1,44 +1,70 @@
-@inline ../../templates/sidebar-page.um
+@inline /templates/sidebar-page.um
 
-@titlebar Printing
+@titlebar
 
-@div .dx-content
-  @h1: Printing
+@topSection
+  @title Printing
+  @description
+    Components and utils available in hexagon for page layout
 
-  @p: Hexagon is built with a print stylesheet included alongside the other hexagon files called @code(um)[hexagon.print.css].
-  @p: It can be included on any page using the following:
-  @codeblock html
-    <link rel="stylesheet" href="path_to_hexagon/hexagon.print.css" media="print">
+@contentSection
+  @topic Adding the print styles
+    Hexagon is built with a print stylesheet included alongside the other
+    hexagon files called @code[hexagon.print.css].
 
-  @p: The styles applied are commonly used to help resolve potential layout issues and try to improve the final result.
+    It can be included on any page using the following:
 
-  @div .dx-notice.dx-warning
-    @div .dx-notice-header: Notice
-    @div .dx-notice-body
-      @p: Dark themes should not be used where printing is required.
-      @p: The overhead for re-writing styles so they display nicely on a light background causes display issues when printing as file load times are too great.
+    @@codeblock html
+      <link rel="stylesheet" href="path_to_hexagon/hexagon.print.css" media="print">
 
-  @h2: Print Script
+    The styles applied are commonly used to help resolve potential layout issues
+    and try to improve the final result.
 
-  @p: In addition to the print styles available, a print script is also available as a helper for displaying content hyperlinks in a reasonable way without detracting too substantially from the page content.
+    @notice Notice
+      @description
+        Dark themes should not be used where printing is required.
 
-  @p: This script iterates over all the link elements on the page and creates a 'citation' for each link, as well as an element at the end of the document listing all the links.
+        The overhead for re-writing styles so they display nicely on a light
+        background causes display issues when printing as file load times are
+        too great.
 
-  @p: An example of what a link looks like when printing can be seen here:
+  @topic The Print script helper
+    In addition to the print styles available, a print script is also available
+    as a helper for displaying content hyperlinks in a reasonable way without
+    detracting too substantially from the page content.
 
-  @example
-    @html
-      <a class="hx-btn" href="https://hexagonjs.io/">Link to hexagonjs.io<sup class="hx-footnote-ref hx-print-only">[1]</sup></a>
+    @@codeblock html
+      <script src="path_to_hexagon/hexagon.print.js"></script>
 
-  @p: For the above link, the following footer would be produced:
-  @example
-    @html
-      <div class="hx-footnote-links hx-print-only">
-        <hr>
-        <h2>Links</h2>
-        <ol>
-          <li>https://hexagonjs.io/</li>
-        </ol>
-      </div>
+    This script adds a listener to @code[onbeforeprint] and @code[onafterprint]
+    that iterates over all the link elements on the page and creates a
+    'citation' for each link, as well as an element at the end of the document
+    listing all the links.
 
-  @p: This is an optional feature and is intended as a helper for link referencing.
+    This is an optional feature and is intended as a helper for link referencing.
+
+    An example of what a link looks like when printing can be seen here:
+
+    @subsection Regular link
+      @example
+        @html
+          <a class="hx-btn" href="https://hexagonks.io">Link to hexagonjs.io</a>
+
+    @subsection Result when printing with print script on the page
+      @example
+        @html
+          <a class="hx-btn" href="https://hexagonjs.io/">Link to hexagonjs.io<sup class="hx-footnote-ref hx-print-only">[1]</sup></a>
+
+    @subsection Footer
+      For the above link, the following footer would also be produced and
+      appended to the page:
+
+      @example
+        @html
+          <div class="hx-footnote-links hx-print-only">
+            <hr>
+            <h2>Links</h2>
+            <ol>
+              <li>https://hexagonjs.io/</li>
+            </ol>
+          </div>

@@ -1,4 +1,5 @@
-@inline ../../templates/sidebar-page.um
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
 
 @titlebar
 
@@ -11,13 +12,13 @@
   @siteSidebar
 
   @topic Installing with npm (recommended)
-    @codeblock bash
+    @@codeblock bash
       npm install --save hexagon-js
 
     The library will be stored in @code[node_modules/hexagon-js/dist]
 
   @topic Installing with bower
-    @codeblock bash
+    @@codeblock bash
       bower install hexagon-js
 
     The bower builds contain all the modules - in order to create more slimline
@@ -30,12 +31,12 @@
     Hexagon has a builder api for creating custom builds. This is included
     in the hexagon-js npm module. To install it run the following:
 
-    @codeblock bash
+    @@codeblock bash
       npm install --save hexagon-js
 
     To build a custom version of the library some javascript must be written:
 
-    @codeblock js
+    @@codeblock js
       const hexagon = require('hexagon-js')
 
       hexagon.light.build({
@@ -45,9 +46,75 @@
         modules: ['plot', 'titlebar', 'base']
       })
 
-    There are two themes available by default, @code(js)[hexagon.light] and
-    @code(js)[hexagon.dark] with a third, more basic theme available called
-    @code(js)[hexagon.base].
+    There are two themes available by default, @code[hexagon.light] and
+    @code[hexagon.dark] with a third, more basic theme available called
+    @code[hexagon.base].
 
     Save this in a file, then run it with node to generate your build. This api
     can be easily integrated with gulp or grunt, or can even be run as an npm task.
+
+    @api Builder API
+      @group [Builder API]
+        @function [hexagon.[base|dark|light].build]
+          @collapsed false
+          @added 0.11.0
+          @description
+            Builds a copy of the hexagon library into the provided @code[dest]
+
+            @list
+              @item
+                @bold[hexagon.base.build]: Builds a basic theme with minimal styles
+              @item
+                @bold[hexagon.dark.build]: Builds the dark hexagon theme
+              @item
+                @bold[hexagon.light.build]: Builds the light hexagon theme
+
+          @arg options [Object]
+            @collapsed false
+            @property dest [String]
+              @description
+                The target directory for the hexagon build
+
+            @property? modules [Array[String]]
+              @description
+                The array of hexagon modules to build
+
+                This can be used to create a subset of Hexagon modules for cases
+                where only specific modules are required
+
+                The list of modules provided (and any dependencies) will be
+                included in the bundle
+
+              @default
+                All Modules
+
+            @property? minify [Boolean]
+              @description
+                Whether to output minified JS/CSS alongside the usual build
+                files
+
+              @default
+                @code[false]
+
+            @property? prefix [String]
+              @description
+                The hexagon prefix to use for the CSS. (e.g. the @code[hx] of
+                @code[.hx-form] )
+
+              @default
+                @code["hx"]
+
+            @property? embedAssets [Boolean]
+              @description
+                Whether to embed assets in the CSS using base64 encoding
+
+                It is not always possible to embed all assets so some may still
+                be output to the @code[assets] directory
+
+              @default
+                @code[false]
+
+          @returns Promise
+            @description
+              A promise that resolves when hexagon has finished building or
+              rejects when there is an error

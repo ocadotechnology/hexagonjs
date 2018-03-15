@@ -16,7 +16,7 @@
 
     When debugging in chrome or firefox, you can select an element in the dom
     tree (in the elements or inspector tab), then use
-    @code(js)[hx.component($0)] to retrieve the object backing that element (if
+    @code[hx.component($0)] to retrieve the object backing that element (if
     there is one)
 
 

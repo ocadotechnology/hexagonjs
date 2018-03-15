@@ -1,7 +1,0 @@
-@version 1.14.0
-  @api Plot
-    @prototype hx.PieChart
-      @bugfix
-        @description
-          Fixed a divide by zero issue which caused single segment pie charts not to be rendered
-        @issue 428

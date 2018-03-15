@@ -1,6 +1,0 @@
-@version 1.10.0
-  @api View
-    @prototype View
-      @bugfix
-        @description: Updated the internals to use shallowSelectAll to allow nested views and prevent children affecting the behaviour of the view
-        @issue 358

@@ -1,4 +1,0 @@
-@version 0.15.3
-  @api Plot
-    @bugfix: Fix hover labels not appearing in the right position on the page
-

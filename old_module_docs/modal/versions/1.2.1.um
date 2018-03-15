@@ -1,5 +1,0 @@
-@version 1.2.1
-  @api Modal
-    @prototype hx.Modal
-      @bugfix: Fixed an issue where modal content would be duplicated when calling modal.show() multiple times.
-        @issue 142

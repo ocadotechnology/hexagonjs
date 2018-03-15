@@ -1,0 +1,28 @@
+@version 0.9.0
+  @examples
+    @example
+      @html
+        <div class="docs-layout-demo">
+          <div class="hx-layout hx-group hx-horizontal">
+            <div class="hx-section"></div>
+            <div class="hx-group hx-vertical">
+              <div class="hx-section"></div>
+              <div class="hx-section"></div>
+              <div class="hx-group hx-horizontal">
+                <div class="hx-section"></div>
+                <div class="hx-section"></div>
+              </div>
+            </div>
+            <div class="hx-section"></div>
+            <div class="hx-section"></div>
+          </div>
+        </div>
+
+      @css
+        /* adds some styling to make the sections of the layout visible for this example */
+        .docs-layout-demo .hx-section {
+          background: #d6d6d6;
+          min-width: 150px;
+          min-height: 100px;
+        }
+

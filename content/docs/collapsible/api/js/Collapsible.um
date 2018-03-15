@@ -1,4 +1,4 @@
-@prototype Collapseable
+@prototype hx.Collapseable
   @extends EventEmitter
   @deprecated 0.9.0
     @description
@@ -8,7 +8,7 @@
     @description
       This has been replaced with @type[Collapsible]
 
-@prototype Collapsible
+@prototype hx.Collapsible
   @extends EventEmitter
 
   @description

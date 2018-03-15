@@ -1,7 +1,0 @@
-@version 1.4.0
-  @api Form
-    @function hx.validateForm
-      @arg form [String/HTMLElement]
-      @arg? options [Object]
-      @updated: @issue 211
-        Updated the error text to use userFacingText

@@ -1,3 +1,0 @@
-@version 0.12.9
-  @api Pointer Events
-    @bugfix: Fixed an issue that caused touch events to not be registered at all for pointer events

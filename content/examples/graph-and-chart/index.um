@@ -9,7 +9,7 @@
   }
 
 @p: All the graphs have the following styles applied:
-@codeblock css
+@@codeblock css
   .example-graph {
     height: 500px;
   }

@@ -1,1 +1,0 @@
-editable = new hx.InlineEditable('#editable')

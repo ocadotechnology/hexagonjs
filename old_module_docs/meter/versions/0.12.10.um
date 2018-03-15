@@ -1,4 +1,0 @@
-@version 0.12.10
-  @api Meter
-    @prototype hx.Meter
-      @updated: When progress, tracker or marker values are greater than the total, they are clamped to avoid unusual positioning/rendering.

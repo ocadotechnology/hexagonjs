@@ -1,4 +1,0 @@
-@version 0.12.2
-  @api Plot
-    @prototype hx.Graph
-      @bugfix: Automatic scale calculation, stacking and grouping were broken in the 0.12.1 release. These have been fixed.

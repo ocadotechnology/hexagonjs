@@ -1,5 +1,4 @@
 @inline /templates/sidebar-page.um
-@inline /templates/versioned-page.um
 
 @topSection
   @title Hexagon.js - {{latestVersion}}

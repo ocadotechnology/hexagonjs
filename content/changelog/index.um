@@ -8,13 +8,13 @@
     @groupByApi true
     @reverseVisibleList true
     @process
-      @inline ../docs/**/index.um
+      @inline ../docs/**/api.um
 
     @version 0.9.0
       @description
         This release mainly consists of the standardisation of the colour classes
-        across all the modules, converting things like @code(css)[hx-btn-positive]
-        to @code(css)[hx-positive] and converting from light/dark to
+        across all the modules, converting things like @code[hx-btn-positive]
+        to @code[hx-positive] and converting from light/dark to
         compliment/contrast to make the theming of hexagon easier.
 
         The numbered color classes for each module have also been deprecated in
@@ -22,7 +22,7 @@
         hx-compliment, hx-contrast. The classes have been deprecated in this
         version and will be removed in a later version.
 
-        All references to @code(js)[hx.Collapseable] (and similarly mispelt
+        All references to @code[hx.Collapseable] (and similarly mispelt
         collapseables) have been deprecated in favor of the correct spelling,
         collapsible.
 
@@ -33,7 +33,7 @@
         re-styling of the Slider.
 
         The previously deprecated color classes have also been removed, as well
-        as all references to the mis-spelled @code(js)[hx.Collapseable]
+        as all references to the mis-spelled @code[hx.Collapseable]
 
     @version 0.11.0
       @description
@@ -42,19 +42,19 @@
         be removed in a later release. The new pattern for getting and setting
         values has changed from this:
 
-        @codeblock js
+        @@codeblock js
           var value = component.getValue()
           component.setValue(100)
 
         To this:
 
-        @codeblock js
+        @@codeblock js
           var value = component.value()
           component.value(100)
 
         Another addition are resize events for elements:
 
-        @codeblock js
+        @@codeblock js
           selection.on('resize', function (e) {
             console.log('resized!')
           })
@@ -79,8 +79,8 @@
         Installing hexagon via npm with the --production flag will no longer
         install phantomjs.
 
-        @code(js)[hx.Maps] and @code(js)[hx.Sets] can now deal with objects that
-        evaluate to the same value when @code(js)[toString] is called on them.
+        @code[hx.Maps] and @code[hx.Sets] can now deal with objects that
+        evaluate to the same value when @code[toString] is called on them.
 
     @version 0.12.2
       @description
@@ -122,7 +122,7 @@
         functionality and vice versa. Events have been namespaced with
         @code[hx.<module-name>], e.g. for the Button Group module:
 
-        @codeblock js
+        @@codeblock js
           element.on('click', 'hx.button-group', function () {
             // handle event
           })
@@ -289,7 +289,7 @@
 
     @version 1.3.0
       @description
-        Fix multiple bugs and add the @code(js)[shallowSelect] functionality as
+        Fix multiple bugs and add the @code[shallowSelect] functionality as
         well as a new File Input module.
 
     @version 1.3.1
@@ -356,7 +356,7 @@
       @description
         Added support for lazily loaded data table feeds
 
-        Added the @code[disabled] context class to @code(js)[hx.palette.context]
+        Added the @code[disabled] context class to @code[hx.palette.context]
 
         Fixed a bug in sticky table headers that prevented nested sticky tables
         being created

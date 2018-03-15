@@ -5,7 +5,7 @@
     The default renderer sets the html to the item value and the
     onclick sets the input value to the same value:
 
-    @codeblock js
+    @@codeblock js
       function renderer (elem, item){
         hx.select(elem)
           .text(item)

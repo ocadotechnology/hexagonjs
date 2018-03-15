@@ -1,4 +1,4 @@
-@prototype ClickDetector
+@prototype hx.ClickDetector
   @extends EventEmitter
 
   @bugfix 0.12.6

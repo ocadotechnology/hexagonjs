@@ -1,4 +1,4 @@
-@inline ../../templates/sidebar-page.um
+@inline /templates/sidebar-page.um
 
 @titlebar
 
@@ -42,12 +42,12 @@
 
       Almost all components in hexagon are constructed using this pattern:
 
-      @codeblock js
+      @@codeblock js
         var instance = new ComponentName(selector, options)
 
-      @code(js)[selector] can be an Element, or an css selector string
+      @code[selector] can be an Element, or an css selector string
 
-      @code(js)[options] is an object where all the options for an object can be
+      @code[options] is an object where all the options for an object can be
       configured. To use the default behaviour the options parameter may be left
       off.
 
@@ -56,14 +56,14 @@
 
       Throughout the api, most methods can be used to both set and get properties:
 
-      @codeblock js
+      @@codeblock js
         menu.value()      // this will get the value of the menu
         menu.value('one') // this will set the value of the menu to 'one'
 
       When setting values, the instance will be returned so that you can perform
       further chaining:
 
-      @codeblock js
+      @@codeblock js
         menu
           .items(['one', 'two', 'three'])  // returns the menu
           .value('one')                    // also returns the menu since we are setting a value
@@ -71,7 +71,7 @@
       Sometimes an argument is required when getting a value. Here is an example
       from the selection api:
 
-      @codeblock js
+      @@codeblock js
         hx.select('#bob').attr('disabled')  // this returns the value of the disabled attribute
         hx.select('#bob').attr('disabled', 'disabled') // sets the value of the disabled attribute
 
@@ -84,7 +84,7 @@
   #
   #  Renderer functions provide a way to extend the default behaviour of hexagon. Often multiple items have to be displayed to the user - this is the case for menus, pickers, trees, tables and several other components. When this happens an array of data has to be converted into a dom structure. Hexagon provides customisation in this process by letting you provide a "renderer" function, which knows how to populate a dom element for a single piece of data.
   #
-  #  @codeblock js
+  #  @@codeblock js
   #    Example here
   #
   #

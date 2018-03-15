@@ -1,4 +1,4 @@
-@prototype ButtonGroup
+@prototype hx.ButtonGroup
   @extends EventEmitter
 
   @added 0.12.4

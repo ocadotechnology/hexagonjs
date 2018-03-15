@@ -1,3 +1,0 @@
-@version 0.14.1
-  @api Time Picker
-    @bugfix: Fixed an issue where the events were firing out of order.

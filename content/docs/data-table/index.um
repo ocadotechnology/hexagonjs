@@ -18,6 +18,6 @@
 
     @inline api.um
 
-  @topic Extra
+  @topic Getting Started
     @versioned
       @inline extra/*.um

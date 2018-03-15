@@ -1,4 +1,0 @@
-@version 0.15.3
-  @api Extended Table
-    @prototype hx.Table
-      @bugfix: Normalise cell renderer keys to lower case

@@ -1,0 +1,9 @@
+@version 0.10.0
+  @examples
+    @example
+      @html
+        Name: <span id="editable">John Smith</span>. Click to edit.
+
+      @js
+        editable = new hx.InlineEditable('#editable')
+
