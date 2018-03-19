@@ -43,7 +43,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .landing-section {
-  background: #42C096;
+  background: #04b9b4;
   border-top: solid 1px rgba(0, 0, 0, 0.05);
   color: white;
   display: flex;
@@ -115,10 +115,10 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .button {
-  background: #D33E61;
+  background: #03bfba;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 2px #9a233f;
+  box-shadow: 0 2px #009a95;
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -135,7 +135,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .button:hover {
-  box-shadow: 0 4px #9a233f;
+  box-shadow: 0 4px #009a95;
   text-decoration: none;
   top: -2px;
 }
