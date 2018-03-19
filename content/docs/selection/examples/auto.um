@@ -1,0 +1,30 @@
+@version 0.9.0
+  @examples
+
+    @@codeblock js
+      // selecting by id
+      hx.select('#some-id')
+
+      // selecting one element by class
+      hx.select('.some-class')
+
+      // selecting all elements by class
+      hx.selectAll('.some-class')
+
+      // selecting all elements by type
+      hx.selectAll('div')
+      hx.selectAll('button')
+      hx.select('input')
+
+      // chaining selects to limit selections to a certain part of the dom
+      hx.select('#some-id').selectAll('.some-class')
+
+      // setting a style property for a selection
+      hx.selectAll('.some-class').style('background', 'red')
+
+      // getting a style property for a selection
+      hx.selectAll('.some-class').style('background')
+
+      // get the height of an element
+      hx.select('#some-id').height()
+

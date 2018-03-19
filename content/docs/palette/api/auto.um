@@ -1,0 +1,672 @@
+@updated 0.13.0
+  @description
+    Updated to add @code[!important] flag to the styles added by palette to make sure when the palette classes are added, the colors are applied.
+
+@added 0.15.2
+  @description
+    Added the .hx-background-text-color class to allow child elements of elements with a hx-background- class the correct text color for that background.
+
+@bugfix 1.3.1
+  @description
+    Fixed an issue where calline @code[hx.palette.context(selection, undefined)] would return @code[undefined] instead of the selection. This was introduced accidentally as part of 1.3.0.
+
+@condensed
+@class hx-text-default
+  @description
+    Applies the default color to the text in the element.
+
+@class hx-text-positive
+  @description
+    Applies the positive color to the text in the element.
+
+@class hx-text-warning
+  @description
+    Applies the warning color to the text in the element.
+
+@class hx-text-negative
+  @description
+    Applies the negative color to the text in the element.
+
+@class hx-text-info
+  @description
+    Applies the info color to the text in the element.
+
+@class hx-text-compliment
+  @removed 1.0.0
+    @description
+      Use hx-text-complement instead
+
+  @description
+    Applies the compliment color to the text in the element.
+
+@class hx-text-contrast
+  @description
+    Applies the contrast color to the text in the element.
+
+@class hx-background-default
+  @updated 0.11.0
+    @description
+      Updated the background classes to override the link color
+
+  @description
+    Applies the default color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @added 0.15.2
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@class hx-background-positive
+  @updated 0.11.0
+    @description
+      Updated the background classes to override the link color
+
+  @description
+    Applies the positive color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @added 0.15.2
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@class hx-background-warning
+  @updated 0.11.0
+    @description
+      Updated the background classes to override the link color
+
+  @description
+    Applies the warning color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @added 0.15.2
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@class hx-background-negative
+  @updated 0.11.0
+    @description
+      Updated the background classes to override the link color
+
+  @description
+    Applies the negative color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @added 0.15.2
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@class hx-background-info
+  @updated 0.11.0
+    @description
+      Updated the background classes to override the link color
+
+  @description
+    Applies the info color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @added 0.15.2
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@class hx-background-compliment
+  @updated 0.11.0
+    @description
+      Updated the background classes to override the link color
+
+  @removed 1.0.0
+    @description
+      Use hx-background-complement instead
+
+  @description
+    Applies the complimentary color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @added 0.15.2
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@class hx-background-contrast
+  @updated 0.11.0
+    @description
+      Updated the background classes to override the link color
+
+  @description
+    Applies the contrasting color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @added 0.15.2
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@object hx.theme.palette
+  @property defaultCol [String The default color used by the current theme]
+  @property positiveCol [String The positive color used by the current theme]
+  @property negativeCol [String The negative color used by the current theme]
+  @property warningCol [String The warning color used by the current theme]
+  @property infoCol [String The info color used by the current theme]
+  @property complimentCol [String The complimentary color used by the current theme]
+  @property contrastCol [String The contrasting color used by the current theme]
+  @property lightTextCol [String The light text color used by the current theme]
+  @property darkTextCol [String The dark text color used by the current theme]
+  @property complimentCol [String]
+    @added 1.0.0
+    @removed 1.0.0
+      @description
+        Use hx.theme.palette.complementCol instead
+
+  @property complementCol [String The complementary color used by the current theme]
+    @added 1.0.0
+
+@class hx-border-default
+  @added 0.12.8
+    @description
+      Added border context classes
+
+  @description
+    Applies the default color to the border-color of the element.
+
+@class hx-border-positive
+  @added 0.12.8
+    @description
+      Added border context classes
+
+  @description
+    Applies the positive color to the border-color of the element.
+
+@class hx-border-warning
+  @added 0.12.8
+    @description
+      Added border context classes
+
+  @description
+    Applies the warning color to the border-color of the element.
+
+@class hx-border-negative
+  @added 0.12.8
+    @description
+      Added border context classes
+
+  @description
+    Applies the negative color to the border-color of the element.
+
+@class hx-border-info
+  @added 0.12.8
+    @description
+      Added border context classes
+
+  @description
+    Applies the info color to the border-color of the element.
+
+@class hx-border-compliment
+  @added 0.12.8
+    @description
+      Added border context classes
+
+  @description
+    Applies the compliment color to the border-color of the element.
+
+@class hx-border-contrast
+  @added 0.12.8
+    @description
+      Added border context classes
+
+  @description
+    Applies the contrast color to the border-color of the element.
+
+@class hx-border-disabled
+  @added 0.12.8
+    @description
+      Added disabled context classes
+
+  @description
+    Applies the disabled color to the border-color of the element.
+
+@class hx-text-disabled
+  @added 0.12.8
+    @description
+      Added disabled context classes
+
+  @description
+    Applies the disabled color to the text of the element.
+
+@class hx-background-disabled
+  @added 0.12.8
+    @description
+      Added disabled context classes
+
+  @description
+    Applies the disabled color to the background of the element.
+
+@class hx-text-complement
+  @added 1.0.0
+  @description
+    Applies the complement color to the text in the element.
+
+@class hx-background-complement
+  @added 1.0.0
+  @description
+    Applies the complementary color to the background of the element. The text color will also be set so that it works well with the background color.
+
+@class hx-border-action
+  @added 1.0.0
+  @description
+    Applies the complementary color to the border-color of the element.
+
+@class hx-text-action
+  @added 1.0.0
+    @description
+      Added new action context class.
+
+  @description
+    Applies the action color to the text in the element.
+
+@class hx-background-action
+  @added 1.0.0
+    @description
+      Added new action context class.
+
+  @description
+    Applies the action color to the background of the element. The text color will also be set so that it works well with the background color.
+
+  @class hx-background-text-color
+    @description
+      Applies the text color to a child element of any element with a background class.
+
+@class hx-border-action
+  @added 1.0.0
+    @description
+      Added new action context class.
+
+  @description
+    Applies the action color to the border-color of the element.
+
+@function hx.palette.context
+  @added 1.0.0
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Adds a context class to an element.
+
+    @@codeblock js
+      // adds the 'hx-positive' class to the element, and removes all other context classes
+      hx.palette.context('.my-element', 'positive')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @arg context [String]
+    @description
+      The context to apply. May be one of:
+
+      @@codeblock js
+        hx.palette.context('.my-element', 'positive')
+        hx.palette.context('.my-element', 'warning')
+        hx.palette.context('.my-element', 'negative')
+        hx.palette.context('.my-element', 'info')
+        hx.palette.context('.my-element', 'action')
+        hx.palette.context('.my-element', 'complement')
+        hx.palette.context('.my-element', 'contrast')
+        hx.palette.context('.my-element', 'disabled')
+
+@function hx.palette.context
+  @added 1.0.0
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Gets a context class of an element.
+
+    @@codeblock js
+      // gets the context of the element (by looking at the class of the element)
+      hx.palette.context('.my-element')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @returns [String]
+    @description
+      The context of the element. May be one of:
+
+      @list
+        @item
+          @bold[undefined]
+           - if the element has no context class
+
+        @item
+          @bold['positive']
+           - the element has the 'hx-positive' class
+
+        @item
+          @bold['warning']
+           - the element has the 'hx-warning' class
+
+        @item
+          @bold['negative']
+           - the element has the 'hx-negatibe' class
+
+        @item
+          @bold['info']
+           - the element has the 'hx-info' class
+
+        @item
+          @bold['action']
+           - the element has the 'hx-action' class
+
+        @item
+          @bold['complement']
+           - the element has the 'hx-complement' class
+
+        @item
+          @bold['contrast']
+           - the element has the 'hx-contrast' class
+
+        @item
+          @bold['disabled']
+           - the element has the 'hx-disabled' class
+
+@function hx.palette.textContext
+  @added 1.0.0
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Adds a text context class to an element.
+
+    @@codeblock js
+      // adds the 'hx-text-positive' class to the element, and removes all other text context classes
+      hx.palette.context('.my-element', 'positive')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @arg context [String]
+    @description
+      The context to apply. May be one of:
+
+      @@codeblock js
+        hx.palette.textContext('.my-element', undefined) // removes the text context class
+        hx.palette.textContext('.my-element', 'default')
+        hx.palette.textContext('.my-element', 'positive')
+        hx.palette.textContext('.my-element', 'warning')
+        hx.palette.textContext('.my-element', 'negative')
+        hx.palette.textContext('.my-element', 'info')
+        hx.palette.textContext('.my-element', 'action')
+        hx.palette.textContext('.my-element', 'complement')
+        hx.palette.textContext('.my-element', 'contrast')
+        hx.palette.textContext('.my-element', 'disabled')
+
+@function hx.palette.textContext
+  @added 1.0.0
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Gets the text context class of an element.
+
+    @@codeblock js
+      // gets the context of the element (by looking at the class of the element)
+      hx.palette.textContext('.my-element')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @returns [String]
+    @description
+      The text context of the element. May be one of:
+
+      @list
+        @item
+          @bold[undefined]
+           - if the element has no context class
+
+        @item
+          @bold['default']
+           - the element has the 'hx-text-default' class
+
+        @item
+          @bold['positive']
+           - the element has the 'hx-text-positive' class
+
+        @item
+          @bold['warning']
+           - the element has the 'hx-text-warning' class
+
+        @item
+          @bold['negative']
+           - the element has the 'hx-text-negatibe' class
+
+        @item
+          @bold['info']
+           - the element has the 'hx-text-info' class
+
+        @item
+          @bold['action']
+           - the element has the 'hx-text-action' class
+
+        @item
+          @bold['complement']
+           - the element has the 'hx-text-complement' class
+
+        @item
+          @bold['contrast']
+           - the element has the 'hx-text-contrast' class
+
+        @item
+          @bold['disabled']
+           - the element has the 'hx-text-disabled' class
+
+@function hx.palette.backgroundContext
+  @added 1.0.0
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Adds a background context class to an element.
+
+    @@codeblock js
+      // adds the 'hx-background-positive' class to the element, and removes all other background context classes
+      hx.palette.context('.my-element', 'positive')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @arg context [String]
+    @description
+      The context to apply. May be one of:
+
+      @@codeblock js
+        hx.palette.backgroundContext('.my-element', undefined) // removes the background context class
+        hx.palette.backgroundContext('.my-element', 'default')
+        hx.palette.backgroundContext('.my-element', 'positive')
+        hx.palette.backgroundContext('.my-element', 'warning')
+        hx.palette.backgroundContext('.my-element', 'negative')
+        hx.palette.backgroundContext('.my-element', 'info')
+        hx.palette.backgroundContext('.my-element', 'action')
+        hx.palette.backgroundContext('.my-element', 'complement')
+        hx.palette.backgroundContext('.my-element', 'contrast')
+        hx.palette.backgroundContext('.my-element', 'disabled')
+
+@function hx.palette.backgroundContext
+  @added 1.0.0
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Gets the background context class of an element.
+
+    @@codeblock js
+      // gets the context of the element (by looking at the class of the element)
+      hx.palette.backgroundContext('.my-element')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @returns [String]
+    @description
+      The background context of the element. May be one of:
+
+      @list
+        @item
+          @bold[undefined]
+           - if the element has no context class
+
+        @item
+          @bold['default']
+           - the element has the 'hx-background-default' class
+
+        @item
+          @bold['positive']
+           - the element has the 'hx-background-positive' class
+
+        @item
+          @bold['warning']
+           - the element has the 'hx-background-warning' class
+
+        @item
+          @bold['negative']
+           - the element has the 'hx-background-negatibe' class
+
+        @item
+          @bold['info']
+           - the element has the 'hx-background-info' class
+
+        @item
+          @bold['action']
+           - the element has the 'hx-background-action' class
+
+        @item
+          @bold['complement']
+           - the element has the 'hx-background-complement' class
+
+        @item
+          @bold['contrast']
+           - the element has the 'hx-background-contrast' class
+
+        @item
+          @bold['disabled']
+           - the element has the 'hx-background-disabled' class
+
+@function hx.palette.borderContext
+  @added 1.3.0
+    @issue 196
+    @description
+      A function for setting the border context of an element
+
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Adds a border context class to an element.
+
+    @@codeblock js
+      // adds the 'hx-border-positive' class to the element, and removes all other border context classes
+      hx.palette.context('.my-element', 'positive')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @arg context [String]
+    @description
+      The context to apply. May be one of:
+
+      @@codeblock js
+        hx.palette.borderContext('.my-element', undefined) // removes the border context class
+        hx.palette.borderContext('.my-element', 'default')
+        hx.palette.borderContext('.my-element', 'positive')
+        hx.palette.borderContext('.my-element', 'warning')
+        hx.palette.borderContext('.my-element', 'negative')
+        hx.palette.borderContext('.my-element', 'info')
+        hx.palette.borderContext('.my-element', 'action')
+        hx.palette.borderContext('.my-element', 'complement')
+        hx.palette.borderContext('.my-element', 'contrast')
+        hx.palette.borderContext('.my-element', 'disabled')
+
+@function hx.palette.borderContext
+  @added 1.3.0
+    @issue 196
+    @description
+      A function for getting the border context of an element
+
+  @updated 1.7.0
+    @issue 298
+    @description
+      Added 'disabled' to the list of context classes
+
+  @description
+    Gets the border context class of an element.
+
+    @@codeblock js
+      // gets the context of the element (by looking at the class of the element)
+      hx.palette.borderContext('.my-element')
+
+  @arg selector [Element/String]
+    @description
+      The element to add the context class to (or a css selector that selects it)
+
+  @returns [String]
+    @description
+      The border context of the element. May be one of:
+
+      @list
+        @item
+          @bold[undefined]
+           - if the element has no context class
+
+        @item
+          @bold['default']
+           - the element has the 'hx-border-default' class
+
+        @item
+          @bold['positive']
+           - the element has the 'hx-border-positive' class
+
+        @item
+          @bold['warning']
+           - the element has the 'hx-border-warning' class
+
+        @item
+          @bold['negative']
+           - the element has the 'hx-border-negatibe' class
+
+        @item
+          @bold['info']
+           - the element has the 'hx-border-info' class
+
+        @item
+          @bold['action']
+           - the element has the 'hx-border-action' class
+
+        @item
+          @bold['complement']
+           - the element has the 'hx-border-complement' class
+
+        @item
+          @bold['contrast']
+           - the element has the 'hx-border-contrast' class
+
+        @item
+          @bold['disabled']
+           - the element has the 'hx-border-disabled' class
+

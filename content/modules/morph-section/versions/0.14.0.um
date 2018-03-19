@@ -1,8 +1,0 @@
-@version 0.14.0
-  @api Morph Section
-    @prototype hx.MorphSection
-      @constructor
-        @param selector [String/HTMLELement]
-        @param? animate [Boolean]
-        @removed
-          Use @code[hx.MorphSection(selector, options)] instead.

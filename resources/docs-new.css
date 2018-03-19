@@ -1,0 +1,122 @@
+/*XXX: this should all go into a quantum theme for hexagon */
+
+body {
+  background: #f9f9f9;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background: white;
+  font-size: 14px;
+
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', serif;
+}
+
+.qm-code-font {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.qm-docs-header-logo {
+  opacity: 0.5;
+}
+
+.qm-docs-topic-header {
+  font-size: 24px !important;
+  /*color: #dc6a1e !important;*/
+  font-family: 'Roboto Slab', serif !important;
+}
+
+.qm-docs-top-section-title {
+  font-family: 'Roboto Slab', serif !important;
+}
+
+.qm-docs-subsection-header,
+.qm-docs-section-header {
+  font-family: 'Roboto Slab', serif !important;
+}
+
+.qm-docs-header {
+  background: #00ADA8 !important;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.21) !important;
+}
+
+.qm-docs-sidebar {
+  background: #117279 !important;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1)  !important;
+  z-index: 50;
+}
+
+.qm-docs-navigation-menu-section-title {
+  color: rgba(0, 0, 0, 0.57) !important;
+  font-weight: bold;
+  padding: 6px 1em 6px 1em;
+}
+
+.qm-docs-navigation-menu-page {
+  display: block !important;
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+.qm-docs-navigation-menu-page:hover {
+  text-decoration: underline;
+}
+
+.qm-docs-header-title {
+  color: white !important;
+}
+
+.qm-changelog-head {
+  font-family: 'Roboto Slab', sans-serif;
+  font-size: 30px !important;
+  color: #565656;
+}
+
+.docs-example {
+  border: solid 1px whitesmoke;
+  padding: 1em;
+}
+
+.qm-api-extra .docs-example {
+  padding: 0;
+  border: none;
+}
+
+.docs-example-body {
+  line-height: normal;
+}
+
+
+.qm-docs-sidebar {
+  background: #ffffff !important;
+}
+
+.qm-docs-navigation-menu-page {
+  display: block !important;
+  color: #505050 !important;
+  text-decoration: none;
+  padding: 6px 1em 6px 1em;
+  margin-top: 0px;
+  transition: background 0.2s, color 0.2s;
+  font-family: 'Roboto Slab', serif !important;
+}
+
+.qm-docs-navigation-menu-page:hover {
+  background: #f5f3f3;
+  text-decoration: none;
+  color: #0193d0 !important;
+}
+
+.qm-docs-navigation-menu-section-title {
+  font-weight: normal;
+  text-align: center;
+}
+
+.qm-api-item-header {
+  white-space: nowrap;
+}

@@ -1,0 +1,21 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Card
+  @description
+    An api and set of styles for creating cards
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/0.15.2.um
+        @inline examples/1.0.0.um
+        @inline examples/1.4.0.um
+
+  @topic Api
+    @hyperlink(/docs/card/changelog)[Change Log]
+
+    @inline api.um

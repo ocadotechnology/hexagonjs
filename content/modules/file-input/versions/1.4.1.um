@@ -1,4 +1,0 @@
-@version 1.4.1
-  @api File Input
-    @bugfix: Change the type of the button to fix a bug where forms were submitted
-      @issue 225

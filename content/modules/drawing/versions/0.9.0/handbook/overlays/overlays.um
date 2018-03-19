@@ -1,6 +1,0 @@
-@section Overlays
-
-  @notice Note
-    Drawings will receive an update in the future to enable showing overlays that contain regular html elements. This will provide a way to display information on an object that has been selected in drawing.
-
-    This will be necessary since selection of text isn't possible when using canvas.

@@ -1,0 +1,4 @@
+@property buttonClass [String]
+  @description
+    The additional class to give to the picker button. By default, it is given
+    the @code[hx-btn] class in addition to the value passed in here

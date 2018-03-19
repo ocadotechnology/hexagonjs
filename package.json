@@ -1,46 +1,31 @@
 {
   "name": "hexagon-site",
   "version": "1.14.0",
-  "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
+    "James Smyth <james.smyth@ocado.com>",
     "Charlie Frater <charlie.frater@ocado.com>"
   ],
   "license": "MIT",
   "main": "./build/index.js",
   "scripts": {
-    "postinstall": "node build/index.js postinstall",
-    "start": "node build/index.js",
-    "clean": "rm -r target; true",
-    "build-all": "node build/index.js build-all",
-    "build-examples": "node build/buildexamples.js",
-    "build-hexagon": "node build/index.js build-hexagon",
-    "build-release": "node build/index.js build-release",
-    "upload": "gcloud app deploy target/app.yaml --project causal-galaxy-939 --version 32 --promote",
-    "clean-npm": "rm -r node_modules; true && npm install",
-    "prepare-release": "npm run clean && npm run clean-npm && npm run build-examples",
-    "test": "npm run prepare-release && npm run build-all",
-    "release": "npm run prepare-release && npm run build-release && npm run upload"
+    "postinstall": "node build/build-hexagon.js",
+    "start": "quantum watch",
+    "build": "quantum build",
+    "clean": "quantum clean",
+    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 10 --promote",
+    "release": "npm run clean && npm run build && npm run upload"
   },
   "private": true,
   "devDependencies": {
-    "bluebird": "^3.0.6",
-    "chalk": "^1.1.1",
-    "del": "^2.2.0",
-    "flatten": "0.0.1",
-    "fs-extra": "^0.24.0",
-    "glob": "^5.0.15",
+    "font-awesome": "^4.7.0",
     "hexagon-js": "1.14.0",
-    "live-server": "^0.8.2",
-    "progress": "^1.1.8",
-    "quantum-api": "^0.10.0",
-    "quantum-changelog": "^0.10.0",
-    "quantum-html": "^0.10.1",
-    "quantum-js": "1.1.0",
-    "quantum-template": "^0.11.0",
-    "quantum-version": "^0.10.0",
-    "quantum-watch": "^0.10.0"
-  },
-  "dependencies": {
-    "font-awesome": "^4.4.0"
+    "quantum-api": "^2.0.0",
+    "quantum-code-highlight": "^2.0.0",
+    "quantum-docs": "^2.0.0",
+    "quantum-dom": "^2.0.0",
+    "quantum-html": "^2.0.0",
+    "quantum-core": "^2.0.0",
+    "quantum-template": "^2.0.0",
+    "quantum-version": "^2.0.0"
   }
 }

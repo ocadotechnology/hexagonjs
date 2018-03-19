@@ -1,3 +1,0 @@
-@version 1.4.2
-  @api Autocomplete
-    @bugfix: Fixed where the code was using the @code(js)[loadingMessage] and @code(js)[pleaseEnterMinCharactersMessage]

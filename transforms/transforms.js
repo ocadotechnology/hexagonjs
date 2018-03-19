@@ -1,62 +1,55 @@
-var quantum = require('quantum-js')
+const quantum = require('quantum-core')
+const html = require('quantum-html')
+const dom = require('quantum-dom')
 
-exports.pageLink = function (entity, page, transforms) {
-  return page.create('div').class('docs-page-link')
-    .attr('id', entity.ps('-'))
-}
+// XXX: tidy this up
 
-exports.section = function (entity, page, transforms) {
-  return page.create('div').class('docs-section')
-    .add(page.create('h2').text(entity.ps()))
-    .add(page.create('div').class('docs-section-content')
-      .add(entity.transform(transforms)))
-}
-
-exports.card = function (entity, page, transforms) {
-  return page.create('div').class('docs-card')
-    .add(entity.transform(transforms))
-}
-
-// exports.example = function(entity, page, transforms) {
-//   return page.create('div').class('docs-example')
-//     .add(entity.transform(transforms))
+// exports.section = function (selection, transformer) {
+//   return dom.create('div').class('docs-section')
+//     .add(dom.create('h2').text(selection.ps()))
+//     .add(dom.create('div').class('docs-section-content')
+//       .add(selection.transform(transformer)))
 // }
 
-exports.module = function (entity, page, transforms) {
-  var module = entity.ps().toLowerCase().split(' ').join('-')
+exports.card = function (selection, transformer) {
+  return dom.create('div').class('docs-card')
+    .add(selection.transform(transformer))
+}
 
-  var moduleTitle = entity.ps()
+exports.module = function (selection, transformer) {
+  const module = selection.ps().toLowerCase().split(' ').join('-')
+  const moduleTitle = selection.ps()
 
-  var moduleContainer = page.create('div').class('docs-module')
-    .add(page.create('h1').class('docs-module-section').text(moduleTitle)
-      .add(page.create('div').class('docs-module-changelog-link')
-        .add(page.create('a').text('Changelog').attr('href', '/docs/' + module + '/changelog/'))))
+  let moduleContainer = dom.create('div').class('docs-module')
+    .add(dom.create('h1').class('docs-module-section').text(moduleTitle)
+      .add(dom.create('div').class('docs-module-changelog-link')
+        .add(dom.create('a').text('Changelog').attr('href', '/docs/' + module + '/changelog/'))))
 
-  if (entity.content.filter(function (e) { return e }).length) {
-    if (entity.has('description')) {
-      moduleContainer = moduleContainer.add(entity.select('description').transform(transforms))
+  if (selection.hasContent()) {
+    if (selection.has('description')) {
+      moduleContainer = moduleContainer.add(html.paragraphTransform(selection.select('description'), transformer))
     } else {
       moduleContainer = moduleContainer.add('This module does not have a description.')
     }
 
-    if (entity.has('examples')) {
-      var exampleContent = entity.filter('examples')
-      if (exampleContent.content[0].content.length) {
-        moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Examples'))
-          .add(exampleContent.transform(transforms))
+    if (selection.has('examples')) {
+      var exampleContent = selection.filter('examples')
+      if (exampleContent.content().length) {
+        moduleContainer = moduleContainer.add(dom.create('h1').class('docs-module-section').text('Examples'))
+          .add(exampleContent.transform(transformer))
       }
     }
 
-    if (entity.has('api')) {
-      var apiContent = entity.filter('api')
-      if (apiContent.content[0].content.length) {
-        moduleContainer = moduleContainer.add(page.create('h1').class('docs-module-section').text('Api'))
-          .add(apiContent.transform(transforms))
+    if (selection.has('api')) {
+      var apiContent = selection.filter('api')
+      if (apiContent.content().length) {
+        moduleContainer = moduleContainer.add(dom.create('h1').class('docs-module-section').text('Api'))
+          .add(apiContent.transform(transformer))
       }
     }
 
-    if (entity.has('extra')) {
-      moduleContainer = moduleContainer.add(entity.select('extra').transform(transforms))
+    if (selection.has('extra')) {
+      moduleContainer = moduleContainer.add(selection.select('extra').transform(transformer))
     }
   } else {
     moduleContainer = moduleContainer.add('This module does not have any documentation for this version.')
@@ -65,71 +58,42 @@ exports.module = function (entity, page, transforms) {
   return moduleContainer
 }
 
-exports.examples = function (entity, page, transforms) {
-  return page.create('div').class('docs-examples')
-    .add(entity.transform(transforms))
+exports.examples = function (selection, transformer) {
+  return dom.create('div').class('docs-examples')
+    .add(selection.transform(transformer))
 }
 
-exports.list = function (entity, page, transforms) {
-  var ordered = entity.ps() === 'ordered'
-  return page.create(ordered ? 'ol' : 'ul').class(ordered ? 'docs-list' : 'docs-list fa-ul')
-    .add(Promise.all(entity.selectAll('item').map(function (e) {
-      return page.create('li')
-        .add(ordered ? undefined : page.create('i').class('fa fa-li ' + (e.ps() || 'docs-list-bullet fa-circle')))
-        .add(e.transform(transforms))
-    })))
-}
+exports.example = function (selection, transformer) {
+  const body = dom.create('div').class('docs-example-body')
+    .add(selection.transform(transformer))
 
-var blackChevron = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10" height="14" viewBox="0 0 10 14"><path fill="#444444" d="M8.648 6.852l-5.797 5.797q-0.148 0.148-0.352 0.148t-0.352-0.148l-1.297-1.297q-0.148-0.148-0.148-0.352t0.148-0.352l4.148-4.148-4.148-4.148q-0.148-0.148-0.148-0.352t0.148-0.352l1.297-1.297q0.148-0.148 0.352-0.148t0.352 0.148l5.797 5.797q0.148 0.148 0.148 0.352t-0.148 0.352z"></path></svg>'
-
-exports.example = function (entity, page, transforms) {
-  var body = page.create('div').class('docs-example-body')
-    .add(entity.transform(transforms))
-
-  var codeBody = page.create('div').class('docs-example-code-body')
-
-  function addCodeSection (type, title) {
-    if (entity.has(type)) {
-      var subEntity = entity.select(type)
-      var fake = quantum.select({
-        content: [{
+  function codeSection (type, title) {
+    if (selection.has(type)) {
+      return dom.create('div').class('example-code-section')
+        .add(dom.create('h3').text(title))
+        .add(transformer(quantum.select({
           type: 'codeblock',
           params: [type],
-          content: subEntity.content
-        }]
-      })
-
-      codeBody = codeBody
-        .add(page.create('div').text(title))
-        .add(fake.transform(transforms))
+          content: selection.select(type).content()
+        })))
     }
   }
 
-  addCodeSection('html', 'HTML')
-  addCodeSection('js', 'JavaScript')
-  addCodeSection('coffee', 'CoffeeScript')
-  addCodeSection('css', 'CSS')
-  addCodeSection('json', 'JSON')
+  const code = dom.create('div').class('docs-example-code-body')
+    .add(codeSection('html', 'HTML'))
+    .add(codeSection('js', 'JavaScript'))
+    .add(codeSection('coffee', 'CoffeeScript'))
+    .add(codeSection('css', 'CSS'))
+    .add(codeSection('json', 'JSON'))
 
-  var code = page.create('div').class('docs-example-code docs-collapsible')
-    .add(page.create('div').class('docs-collapsible-heading')
-      .text(blackChevron, true)
-      .add(page.create('span').text('Code')))
-    .add(page.create('div').class('docs-collapsible-content')
-      .add(page.create('div').class('docs-example-code-container')
-        .add(codeBody)
-    )
-  )
-
-  return page.create('div').class('docs-example')
+  return dom.create('div').class('docs-example')
     .add(body)
     .add(code)
 }
 
-exports.keywords = function (entity, page, transforms) {
-  var hexagonKeywords = 'hexagon, hexagon js, hexagon-js, hexagon.js'
-  var keywords = entity.ps() ? entity.ps(', ') + ', ' : ''
-  return page.create('meta')
-    .attr('name', 'keywords')
-    .attr('content', keywords + hexagonKeywords)
+exports.landingSection = function (selection, transformer) {
+  return dom.create('div').class('landing-section')
+    .add(dom.create('h2').class('landing-section__title')
+      .add(selection.ps() || ''))
+    .add(html.paragraphTransform(selection, transformer))
 }

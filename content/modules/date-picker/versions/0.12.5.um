@@ -1,4 +1,0 @@
-@version 0.12.5
-  @api Date Picker
-    @prototype hx.DatePicker
-      @bugfix: Added fixes for 'inbuilt' datepickers that are shown on devices that support the 'date' attribute and the 'touch' event (e.g. mobile devices, iPads etc.)

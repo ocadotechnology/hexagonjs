@@ -1,5 +1,0 @@
-@version 1.4.0
-  @api Plot
-    @prototype hx.Graph
-      @updated: @issue 211
-        Updated the no data text to be defined in userFacingText

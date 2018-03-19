@@ -1,9 +1,0 @@
-@version 0.10.0
-  @api Autocomplete
-    @prototype hx.AutoComplete
-      @constructor
-        @param selector [String/HTMLElement]
-        @param data [Array/Function]
-        @param? options [Object]
-          @property trimTrailingSpaces [Boolean]: An option to enable whitespace trimming at the end of the input value if no results are found for that string.
-            @added:

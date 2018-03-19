@@ -1,8 +1,0 @@
-@version 0.15.2
-  @api Titlebar
-    @class hx-titlebar-fixed
-      @deprecated
-        Use hx-heading-fixed instead.
-
-    @class hx-heading-fixed: The class to give to the body to fix the heading to the top of the page.
-      @added: Added a new class to replace hx-titlebar-fixed as it applies to the hx-heading element, not the hx-titlebar within the heading.

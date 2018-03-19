@@ -1,4 +1,0 @@
-@version 1.8.0
-  @api Preferences
-    @enhancement: Added logic to update the current timezone in @code(js)[hx.preferences] when not using @code(js)[Moment.js]
-      @issue 254

@@ -1,5 +1,0 @@
-@version 0.12.4
-  @api Extended Table
-    @prototype hx.Table
-      @bugfix: Fix sticky header alignment issue when the container resizes.
-

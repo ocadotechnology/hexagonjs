@@ -1,4 +1,0 @@
-@version 1.4.0
-  @api Preferences
-    @updated: @issue 211
-      Updated the text to be defined in the userFacingText module

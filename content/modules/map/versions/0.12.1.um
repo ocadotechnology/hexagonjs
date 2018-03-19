@@ -1,3 +1,0 @@
-@version 0.12.1
-  @api Map
-    @enhancement: Maps can now handle object keys

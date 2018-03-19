@@ -1,5 +1,0 @@
-@version 1.0.0
-  @api Component
-    @function hx.components.clear
-      @description: Clears all components from an element
-      @param selector [Element/String]: The element to remove all components from

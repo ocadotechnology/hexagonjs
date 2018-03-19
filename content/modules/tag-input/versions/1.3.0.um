@@ -1,4 +1,0 @@
-@version 1.3.0
-  @api Tag Input
-    @bugfix: Make it so the tag inoput validator doesn't have to return anything for valid tags
-      @issue 202

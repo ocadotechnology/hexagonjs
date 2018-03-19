@@ -1,5 +1,0 @@
-@version 1.13.0
-  @api Button
-    @enhancement
-      @description
-        Updated the button theme variables to allow the border colour for each button to be set independently

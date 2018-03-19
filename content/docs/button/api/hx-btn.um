@@ -1,0 +1,21 @@
+@class hx-btn
+  @collapsed false
+
+  @updated 0.12.3
+    @description
+      Changed the top padding to make the text line up in the buttons better
+
+  @updated 0.13.0
+    @description
+      Removed default call to @code[hx.initializeToggleButtons]. Toggle buttons
+      must now be explicitly created with the @code[hx.ToggleButton] class.
+
+  @updated 1.13.0
+    @description
+      Updated the button theme variables to allow the border colour for each
+      button to be set independently
+
+  @description
+    Applies styling to @code[<button>] and @code[<a>] elements.
+
+  @inline hx-btn/*.um

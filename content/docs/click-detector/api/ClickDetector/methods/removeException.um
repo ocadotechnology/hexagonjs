@@ -1,0 +1,15 @@
+@method removeException
+  @added 1.0.0
+    @description
+      Added a method for removing an exception from the click detector
+
+  @description
+    Removes an exception from the click detector.
+
+  @arg element [Element]
+    @description
+      The element to remove as an exception
+
+  @returns ClickDetector
+    @description
+      This @type[ClickDetector] for chaining

@@ -1,0 +1,6 @@
+@property showAll [Boolean]
+  @description
+    Determines whether all the data will be shown when no text is
+    present and the user clicks on the input.
+
+  @default: true

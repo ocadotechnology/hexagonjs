@@ -1,0 +1,11 @@
+@property r [Number]
+  @deprecated 0.15.2
+    @description
+      Use @code[red()] to get and @code[red(value)] to set the red property.
+
+  @removed 1.0.0
+    @description
+      Use @code[red()] to get and @code[red(value)] to set the red property.
+
+  @description
+    The red value for the created color in the 0-255 range.

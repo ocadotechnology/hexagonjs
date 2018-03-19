@@ -1,3 +1,0 @@
-@version 0.14.1
-  @api Notify
-    @bugfix: Fixed a style issue where long messages changed the layout of a notification

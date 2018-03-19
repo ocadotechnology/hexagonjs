@@ -1,4 +1,0 @@
-@version 1.8.0
-  @api Sticky Table Headers
-    @bugfix: Prevent sticky table headers showing up in Ctrl+F search results
-      @issue 236

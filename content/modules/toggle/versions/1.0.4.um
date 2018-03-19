@@ -1,6 +1,0 @@
-@version 1.0.4
-  @api Toggle
-    @prototype hx.Toggle
-      @bugfix: Updated the styles and structure to use a @code[<div>] element instead of a checkbox
-        @issue 10
-        @issue 12

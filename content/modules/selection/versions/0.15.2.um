@@ -1,7 +1,0 @@
-@version 0.15.2
-  @api Selection
-    @prototype Selection
-      @enhancement: Added the ability to attach an array of selections to a selection using the add, append, prepend, insertBefore and insertAfter methods.
-      @method classed
-        @param class [String]
-        @enhancement: Added the ability to check for multiple classes at once, e.g. @code[selection.classed('a b')]

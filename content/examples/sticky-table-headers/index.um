@@ -7,7 +7,7 @@
     overflow: hidden;
   }
 
-@codeblock css
+@@codeblock css
   .example-table {
     width: 500px;
     max-width: 100%;

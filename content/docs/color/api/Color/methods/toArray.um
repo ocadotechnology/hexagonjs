@@ -1,0 +1,13 @@
+@method toArray
+  @deprecated 0.15.2
+    @description
+      Use @code[rgb()] or @code[hsl()] instead.
+
+  @removed 1.0.0
+    @description
+      Use @code[rgb()] or @code[hsl()] instead.
+
+
+  @description
+    Output the color object a [r,g,b,a] array.
+  @returns [Array[Number]]

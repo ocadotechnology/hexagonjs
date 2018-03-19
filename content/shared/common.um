@@ -1,49 +1,12 @@
 @stylesheet /resources/hexagon/docs/hexagon.css
 @script /resources/hexagon/docs/hexagon.js
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
 @script /resources/titlebar.js
 @script /resources/docs.js
 @stylesheet /resources/font-awesome/css/font-awesome.min.css
 @stylesheet /resources/docs.css
 @stylesheet /resources/fonts/fonts.css
-
-@head
-  @html
-    <link rel="apple-touch-icon" sizes="57x57" href="/resources/hexagon/docs/favicon/apple-touch-icon-57x57.png?v=0">
-    <link rel="apple-touch-icon" sizes="60x60" href="/resources/hexagon/docs/favicon/apple-touch-icon-60x60.png?v=0">
-    <link rel="apple-touch-icon" sizes="72x72" href="/resources/hexagon/docs/favicon/apple-touch-icon-72x72.png?v=0">
-    <link rel="apple-touch-icon" sizes="76x76" href="/resources/hexagon/docs/favicon/apple-touch-icon-76x76.png?v=0">
-    <link rel="apple-touch-icon" sizes="114x114" href="/resources/hexagon/docs/favicon/apple-touch-icon-114x114.png?v=0">
-    <link rel="apple-touch-icon" sizes="120x120" href="/resources/hexagon/docs/favicon/apple-touch-icon-120x120.png?v=0">
-    <link rel="apple-touch-icon" sizes="144x144" href="/resources/hexagon/docs/favicon/apple-touch-icon-144x144.png?v=0">
-    <link rel="apple-touch-icon" sizes="152x152" href="/resources/hexagon/docs/favicon/apple-touch-icon-152x152.png?v=0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/resources/hexagon/docs/favicon/apple-touch-icon-180x180.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1182x2208.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1242x2148.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1496x2048.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-1536x2008.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-320x460.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-640x1096.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-640x920.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-748x1024.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-750x1294.png?v=0">
-    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="/resources/hexagon/docs/favicon/apple-touch-startup-image-768x1004.png?v=0">
-    <link rel="icon" type="image/png" sizes="32x32" href="/resources/hexagon/docs/favicon/favicon-32x32.png?v=0">
-    <link rel="icon" type="image/png" sizes="230x230" href="/resources/hexagon/docs/favicon/favicon-230x230.png?v=0">
-    <link rel="icon" type="image/png" sizes="96x96" href="/resources/hexagon/docs/favicon/favicon-96x96.png?v=0">
-    <link rel="icon" type="image/png" sizes="16x16" href="/resources/hexagon/docs/favicon/favicon-16x16.png?v=0">
-    <link rel="manifest" href="/resources/hexagon/docs/favicon/manifest.json">
-    <link rel="yandex-tableau-widget" href="/resources/hexagon/docs/favicon/yandex-browser-manifest.json">
-    <link rel="shortcut icon" type="image/x-icon" href="/resources/hexagon/docs/favicon/favicon.ico?v=0">
-    <meta property="og:image" content="/resources/hexagon/docs/favicon/open-graph.png?v=0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="msapplication-TileColor" content="#FFF">
-    <meta name="msapplication-TileImage" content="/resources/hexagon/docs/favicon/mstile-144x144.png?v=0">
-    <meta name="theme-color" content="#FFF">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
 
 @define titlebar
   @if ps
@@ -67,12 +30,26 @@
           @div .docs-version
             @button .docs-version-button
 
-
 @define footer
-
-  @div .docs-footer:
-    @div .dx-content:
+  @div .docs-footer
+    @div .dx-content
       @span .docs-footer-note: Created @(@) @hyperlink(https://github.com/ocadotechnology)[Ocado Technology]
       @span .docs-footer-note: Code license @hyperlink(https://github.com/ocadotechnology/hexagonjs/blob/master/LICENCE)[Apache-2.0]
       @span .docs-footer-note: Docs license @hyperlink(https://creativecommons.org/licenses/by/3.0/)[CC BY 3.0]
       @span .docs-footer-note: This site on @hyperlink(https://github.com/ocadotechnology/hexagonjs-site)[GitHub]
+
+@define siteSidebar
+  @sidebar left
+    @navigationMenu
+      @section Guides
+        @page /guide/getting-started: Getting Started
+        @page /guide/core-concepts: Core Concepts
+        @page /guide/general-guidelines: General Guidelines
+
+      @section Topics
+        @page /guide/representing-data: Representing Data
+        @page /guide/working-with-data: Working With Data
+        @page /guide/working-with-dom: Working with the DOM
+        @page /guide/designing-for-mobiles: Designing for Mobiles
+        @page /guide/create-custom-themes: Creating Custom Themes
+        @page /guide/printing: Print Styles

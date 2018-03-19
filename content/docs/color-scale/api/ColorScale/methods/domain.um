@@ -1,0 +1,5 @@
+@method domain
+  @description: Set the domain for the scale.
+  @inline ../arguments/start.um
+  @inline ../arguments/end.um
+  @inline ../arguments/returns.um

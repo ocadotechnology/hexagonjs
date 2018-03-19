@@ -1,8 +1,0 @@
-@object hx.theme.plot
-  @property colors [Array[String]]: A list of graph colors
-  @property warmCol [String]: A warm color from the graph palette (red or orange)
-  @property ambientCol [String]: An ambient color from the graph palette
-  @property coldCol [String]: A colds color from the graph palette (most likely a shade of blue)
-  @property positiveCol [String]: A positive color from the graph palette (a shade of green)
-  @property warningCol [String]: A warning color from the graph palette (a shade of orange / yellow)
-  @property negativeCol [String]: A negative color from the graph palette (a shade of red)

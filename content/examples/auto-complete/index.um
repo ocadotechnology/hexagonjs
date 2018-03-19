@@ -9,7 +9,7 @@
   }
 
 @p: The data is shared across all the examples:
-@codeblock coffee
+@@codeblock coffee
   @inline examples/data.coffee
 
 @example

@@ -1,0 +1,25 @@
+@version 0.9.0
+  @examples
+    @example
+      @html
+        <span class="hx-label">hx-label</span>
+        <span class="hx-label hx-positive">hx-positive</span>
+        <span class="hx-label hx-warning">hx-warning</span>
+        <span class="hx-label hx-negative">hx-negative</span>
+        <span class="hx-label hx-info">hx-info</span>
+        <span class="hx-label hx-compliment">hx-compliment</span>
+        <span class="hx-label hx-contrast">hx-contrast</span>
+
+@version 1.0.0
+  @examples
+    @example
+      @html
+        <span class="hx-label">hx-label</span>
+        <span class="hx-label hx-action">hx-action</span>
+        <span class="hx-label hx-positive">hx-positive</span>
+        <span class="hx-label hx-warning">hx-warning</span>
+        <span class="hx-label hx-negative">hx-negative</span>
+        <span class="hx-label hx-info">hx-info</span>
+        <span class="hx-label hx-compliment">hx-compliment</span>
+        <span class="hx-label hx-contrast">hx-contrast</span>
+

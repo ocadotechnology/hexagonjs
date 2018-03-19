@@ -1,7 +1,0 @@
-@version 0.10.0
-
-  @api Modal
-    @prototype hx.Modal
-      @property setupTitlebar [Function]
-        @description: Renderer function for the titlebar. The default renderer gives the node the title text. The this context for the function is this modal.
-        @param element [HTMLElement]

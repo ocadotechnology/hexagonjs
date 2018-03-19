@@ -1,0 +1,43 @@
+@method lightness
+  @deprecated 0.15.2
+    @description
+      Use @code[lightness(value)] with a value between 0 and 100 instead of 0
+      and 1
+
+  @removed 1.0.0
+    @description
+      Use @code[lightness(value)] with a value between 0 and 100 instead of 0
+      and 1
+
+  @description
+    Set the lightness of a color to a given percentage value.
+  @arg lightness [Number]
+    @description
+      A value from 0-1 as a percentage.
+  @returns Color
+    @description
+      This Color
+
+
+@method lightness
+  @added 0.15.2
+  @description
+    Gets the lightness value for a color.
+
+  @returns Number
+    @description
+      The lightness value for a color as an integer between 0 and 100
+
+
+@method lightness
+  @added 0.15.2
+  @description
+    Sets the lightness value for a color.
+
+  @arg value [Number]
+    @description
+      A number between 0 and 100
+
+  @returns Color
+    @description
+      This Color
