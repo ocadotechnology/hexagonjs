@@ -1,11 +1,120 @@
-@inline /templates/sidebar-page.um
+@title Hexagon.js
+@head
+  @html
+    @inline /templates/icons.html
 
-@topSection
-  @title Hexagon.js - {{latestVersion}}
-  @description
-    A modular, themeable collection of components for modern browsers
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+@stylesheet [/resources/hexagon/docs/hexagon.css]
+@stylesheet [https://fonts.googleapis.com/css?family=Open+Sans:100,400,700|Roboto+Slab:400,700|Source+Code+Pro:400,700]
+@stylesheet [/resources/font-awesome/css/font-awesome.min.css]
+@stylesheet [/resources/docs-new.css]
+@stylesheet [/resources/docs-landing.css]
 
-@contentSection
-  @notice [TODO: Add better landing page]
-    This is a temporary landing page to make it easier to develop the docs
+@script [/resources/hexagon/docs/hexagon.js]
+@script [/resources/titlebar.js]
+@script [/resources/docs.js]
+
+@div .container
+  @div .top-landing-section
+    @div
+      @img
+        @attr src: {{baseurl}}/resources/logo-v1.svg
+        @attr class: top-landing-section__logo
+        @attr title: Hexagon.js Logo
+        @attr role: presentation
+        @attr width: 70px;
+      @h1 .top-landing-section__title
+        @span: Hexagon.js
+        @span .top-landing-section__version: {{latestVersion}}
+      @div .top-landing-section__tagline
+        A modular, themeable collection of components for modern browsers
+
+
+  @div .landing-section.landing-section--no-bg
+    @div .qm-html-paragraph
+      @div .buttons
+        @a .button: @span[Documentation]
+          @attr href: {{baseurl}}/guide/installation
+          @img
+            @attr src: {{baseurl}}/resources/book.svg
+            @attr role: presentation
+            @attr alt: Book Icon
+            @attr height: 30px
+
+        @a .button: @span[Changelog]
+          @attr href: {{baseurl}}/changelog
+          @img
+            @attr src: {{baseurl}}/resources/tags.svg
+            @attr role: presentation
+            @attr alt: Tags Icon
+            @attr height: 30px
+
+        @a .button: @span[GitHub]
+          @attr href: https://github.com/ocadotechnology/hexagonjs/
+          @img
+            @attr src: {{baseurl}}/resources/github-mark.svg
+            @attr role: presentation
+            @attr alt: GitHub Logo
+            @attr height: 30px
+
+  @landingSection Themeable
+    Create custom themes with variable-driven theme files.
+
+    Quickly create new themes by extending existing ones, or create something
+    more bespoke by entirely replacing the default theme css on a per-module
+    basis.
+
+  @landingSection Preprocessor-friendly
+    Export theme variables to sass, less and stylus to share your color palette.
+
+    @img .preprocessor-logo
+      @attr src: /resources/sass.svg
+      @attr width: 70px
+    @img .preprocessor-logo
+      @attr src: /resources/less.svg
+      @attr width: 70px
+    @img .preprocessor-logo
+      @attr src: /resources/stylus.svg
+      @attr width: 70px
+
+
+  @landingSection Wide selection of components
+    With over 50 CSS and JS modules and components, you can build efficiently
+    and confidently
+
+
+  @landingSection Modular
+    Include just the parts you need, throw away everything else. For faster
+    load times.
+
+
+  @landingSection Get Started
+    @div .buttons
+      @a .button: @span[Quick Start]
+        @attr href: {{baseurl}}/guide/getting-started
+        @img
+          @attr src: {{baseurl}}/resources/rocket.svg
+          @attr role: presentation
+          @attr alt: Rocket Icon
+          @attr height: 30px
+
+      @a .button: @span[Releases]
+        @attr href: https://github.com/ocadotechnology/hexagonjs/releases
+        @img
+          @attr src: {{baseurl}}/resources/tags.svg
+          @attr role: presentation
+          @attr alt: Tags Icon
+          @attr height: 30px
+
+      @a .button: @span[GitHub]
+        @attr href: https://github.com/ocadotechnology/hexagonjs/
+        @img
+          @attr src: {{baseurl}}/resources/github-mark.svg
+          @attr role: presentation
+          @attr alt: GitHub Logo
+          @attr height: 30px
+
+  @div .footer
+    @span .footer-note: Created @(@) @hyperlink(https://github.com/ocadotechnology)[Ocado Technology]
+    @span .footer-note: Code license @hyperlink(https://github.com/ocadotechnology/hexagonjs/blob/master/LICENCE)[Apache-2.0]
+    @span .footer-note: Docs license @hyperlink(https://creativecommons.org/licenses/by/3.0/)[CC BY 3.0]
+    @span .footer-note: This site on @hyperlink(https://github.com/ocadotechnology/hexagonjs-site)[GitHub]
