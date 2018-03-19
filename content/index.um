@@ -32,12 +32,12 @@
   @div .landing-section.landing-section--no-bg
     @div .qm-html-paragraph
       @div .buttons
-        @a .button: @span[Quick Start]
-          @attr href: {{baseurl}}/guide/getting-started
+        @a .button: @span[Documentation]
+          @attr href: {{baseurl}}/guide/installation
           @img
-            @attr src: {{baseurl}}/resources/rocket.svg
+            @attr src: {{baseurl}}/resources/book.svg
             @attr role: presentation
-            @attr alt: Rocket Icon
+            @attr alt: Book Icon
             @attr height: 30px
 
         @a .button: @span[Changelog]
