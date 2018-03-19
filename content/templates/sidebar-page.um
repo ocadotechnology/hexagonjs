@@ -26,9 +26,9 @@
         @navigationMenu
 
           @section About
+            @page /changelog: Changelog
             @page /guide/installation: Installation
             @page /guide/core-concepts: Core Concepts
-            @page /changelog: Changelog
 
           @section Tutorials
             @page /guide/getting-started: Getting Started

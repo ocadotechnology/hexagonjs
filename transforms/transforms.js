@@ -90,3 +90,10 @@ exports.example = function (selection, transformer) {
     .add(body)
     .add(code)
 }
+
+exports.landingSection = function (selection, transformer) {
+  return dom.create('div').class('landing-section')
+    .add(dom.create('h2').class('landing-section__title')
+      .add(selection.ps() || ''))
+    .add(html.paragraphTransform(selection, transformer))
+}
