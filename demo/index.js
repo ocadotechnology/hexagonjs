@@ -22,6 +22,7 @@ import toggleExamples from './examples/toggle'
 import buttonGroupExamples from './examples/button-group'
 import noticeExamples from './examples/notice'
 import plotExamples from './examples/plot'
+import labelExamples from './examples/label'
 
 function example(title) {
   return div('example-section')
@@ -52,5 +53,6 @@ select('body')
     example('Toggle').add(toggleExamples()),
     example('Button Group').add(buttonGroupExamples()),
     example('Notice').add(noticeExamples()),
-    example('Plot').add(plotExamples())
+    example('Plot').add(plotExamples()),
+    example('Label').add(labelExamples())
   ]))

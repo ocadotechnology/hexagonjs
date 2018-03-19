@@ -48,6 +48,7 @@ import progressBarTests from './progress-bar/test/spec'
 import crumbtrailTests from './crumbtrail/test/spec'
 // import autocompletePickerTests from './autocomplete-picker/test/spec'
 import plotTests from './plot/test/spec'
+import labelTests from './label/test/spec'
 
 should()
 
@@ -215,7 +216,8 @@ describe('HexagonJS Test Suite', () => {
         'StraightLineSeries',
         'plotLabelStandard',
         'plotLabelBasic',
-        'theme'
+        'theme',
+        'label'
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])
@@ -272,6 +274,7 @@ describe('HexagonJS Test Suite', () => {
   crumbtrailTests()
   // autocompletePickerTests()
   plotTests()
+  labelTests()
 
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')

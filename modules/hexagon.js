@@ -149,6 +149,7 @@ export {
   plotLabelBasic
 } from 'plot/main'
 export { theme } from 'theme/main'
+export { label } from 'label/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

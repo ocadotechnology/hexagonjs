@@ -1,5 +1,9 @@
 import { div } from 'modules/selection/main'
 
-export function inputGroup () {
+function inputGroup () {
   return div('hx-input-group')
+}
+
+export {
+  inputGroup
 }

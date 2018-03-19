@@ -457,4 +457,22 @@
   --plot-ambient-text-color: #F3F3F3;
   --plot-warm-color: rgb(250,169,91);
   --plot-warm-text-color: #F3F3F3;
+
+  /* Label */
+  --label-default-background-color: var(--theme-default-color);
+  --label-default-text-color: var(--theme-text-dark-color);
+  --label-action-background-color: var(--theme-action-color);
+  --label-action-text-color: var(--theme-text-light-color);
+  --label-positive-background-color: var(--theme-positive-color);
+  --label-positive-text-color: var(--theme-text-light-color);
+  --label-warning-background-color: var(--theme-warning-color);
+  --label-warning-text-color: var(--theme-text-light-color);
+  --label-negative-background-color: var(--theme-negative-color);
+  --label-negative-text-color: var(--theme-text-light-color);
+  --label-info-background-color: var(--theme-info-color);
+  --label-info-text-color: var(--theme-text-light-color);
+  --label-complement-background-color: var(--theme-complement-color);
+  --label-complement-text-color: var(--theme-text-dark-color);
+  --label-contrast-background-color: var(--theme-contrast-color);
+  --label-contrast-text-color: var(--theme-text-light-color);
 }
