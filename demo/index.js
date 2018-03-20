@@ -25,6 +25,7 @@ import plotExamples from './examples/plot'
 import labelExamples from './examples/label'
 import crumbtrailExamples from './examples/crumbtrail'
 import colorPickerExamples from './examples/color-picker'
+import sliderExamples from './examples/slider'
 
 function example(title) {
   return div('example-section')
@@ -58,5 +59,6 @@ select('body')
     example('Plot').add(plotExamples()),
     example('Label').add(labelExamples()),
     example('Crumbtrail').add(crumbtrailExamples()),
-    example('Color Picker').add(colorPickerExamples())
+    example('Color Picker').add(colorPickerExamples()),
+    example('Slider').add(sliderExamples())
   ]))

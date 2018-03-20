@@ -475,4 +475,21 @@
   --label-complement-text-color: var(--theme-text-dark-color);
   --label-contrast-background-color: var(--theme-contrast-color);
   --label-contrast-text-color: var(--theme-text-light-color);
+
+  /* Slider */
+  --slider-background-col: #F7F7F7;
+  --slider-slider-background-col: #E2E2E2;
+  --slider-range-background-col: #98719D;
+  --slider-inner-border-radius: 20px;
+  --slider-slider-border-radius: 20px;
+  --slider-slider-left-border-radius: 20px 0 0 20px;
+  --slider-slider-right-border-radius: 0 20px 20px 0;
+  --slider-range-border-radius: 20px;
+  --slider-marker-border-radius: 20px;
+  --slider-text-col: #F3F3F3;
+  --slider-range-height: 50%;
+  --slider-value-background-col: #3D3D3D;
+  --slider-value-border-radius: 5px;
+  --slider-disabled-background-col: #BBBBBB;
+  --slider-slider-marker-col: #E2E2E2;
 }

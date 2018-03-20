@@ -151,6 +151,7 @@ export {
 export { theme } from 'theme/main'
 export { label } from 'label/main'
 export { colorPicker, ColorPicker } from 'color-picker/main'
+export { slider, Slider } from 'slider/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

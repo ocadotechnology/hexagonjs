@@ -1,8 +1,8 @@
-select = require('modules/selection/main')
-format = require('modules/format/main')
-utils = require('modules/util/main/utils')
-EventEmitter = require('modules/event-emitter/main')
-HMap = require('modules/map/main')
+import { select, div } from 'selection/main'
+import { format } from 'format/main'
+import { clamp, isObject, merge } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
+import { Map as HMap } from 'map/main'
 
 posToValue = (unit) ->
   if @_.isDiscrete then posToDiscrete.call this, unit
@@ -36,7 +36,7 @@ slide = (e) ->
 
   e.event.preventDefault()
 
-  pos = utils.clamp(0, _.container.width(), (e.x - _.container.box().left)) / _.slidableWidth
+  pos = clamp(0, _.container.width(), (e.x - _.container.box().left)) / _.slidableWidth
 
   val = {}
 
@@ -56,11 +56,11 @@ slide = (e) ->
     if _.dragging is 'end' or (isEnd and _.dragging isnt 'start')
       _.dragging = 'end'
       pos -= offset
-      pos = utils.clamp(start, 1, pos)
+      pos = clamp(start, 1, pos)
       val.end = posToValue.call this, pos
     else
       _.dragging = 'start'
-      pos = utils.clamp(0, end, pos)
+      pos = clamp(0, end, pos)
       val.start = posToValue.call this, pos
   else
     _.dragging = 'value'
@@ -146,7 +146,7 @@ class Slider extends EventEmitter
   constructor: (@selector, options = {}) ->
     super()
 
-    @options = utils.merge({
+    @options = merge({
       type: 'slider'
       discreteValues: undefined
       renderer: (slider, elem, value) ->
@@ -278,17 +278,17 @@ class Slider extends EventEmitter
 
   value: (value) ->
     if arguments.length > 0
-      clamp = (val) =>
-        if @_.isDiscrete then val else utils.clamp(@options.min, @options.max, val)
+      clampValue = (val) =>
+        if @_.isDiscrete then val else clamp(@options.min, @options.max, val)
 
       if @options.type is 'range'
-        if value.start? then @values.start = clamp value.start
-        if value.end? then @values.end = clamp value.end
+        if value.start? then @values.start = clampValue(value.start)
+        if value.end? then @values.end = clampValue(value.end)
       else
-        if utils.isObject(value)
-          if value.value? then @values.value = clamp value.value
+        if isObject(value)
+          if value.value? then @values.value = clampValue(value.value)
         else
-          if value? then @values.value = clamp value
+          if value? then @values.value = clampValue(value)
 
       renderValues.call this
       this
@@ -316,15 +316,11 @@ class Slider extends EventEmitter
       !!@_.disabled
 
 slider = (options) ->
-  selection = select.detached('div')
+  selection = div()
   new Slider(selection.node(), options)
   selection
 
-
-module.exports = slider
-module.exports.Slider = Slider
-
-module.exports.hx = {
+export {
   slider,
   Slider
 }
