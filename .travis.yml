@@ -13,15 +13,16 @@ stages:
       - repo = ocadotechnology/hexagonjs
       - type = push
 
+node_js:
+  - "9"
+  - "8"
+  - "7"
+  - "6"
+
 jobs:
   include:
     - stage: test
       script: npm test && npm run combine-coverage && npm run upload-coverage
-      node_js:
-        - "9"
-        - "8"
-        - "7"
-        - "6"
 
     - stage: publish module
       script: skip
