@@ -1,0 +1,367 @@
+@version 0.10.0
+  @examples
+    @example
+      @html
+        <div class="hx-sidebar-page sidebar-example">
+          <div class="hx-heading example-heading">
+            <div class="hx-titlebar">
+              <div class="hx-titlebar-container">
+                <div class="hx-titlebar-header example-titlebar">
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-titlebar-icon-ocado-dots"></img></a>
+                  <div class="hx-titlebar-title">Title</div>
+                  <div class="hx-titlebar-subtitle">Subtitle</div>
+                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                </div>
+                <div class="hx-titlebar-menu-icons">
+                  <div class="hx-titlebar-menu-icons-container">
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-sidebar">
+            <div class="hx-sidebar-title">Docs</div>
+
+            <div id="collapsible1" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-book"></i> Intro</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Getting Started</div>
+                <div class="hx-sidebar-section">FAQs</div>
+              </div>
+            </div>
+
+            <div id="collapsible2" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-book"></i> Components</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Titlebar</div>
+                <div class="hx-sidebar-section">Buttons</div>
+                <div class="hx-sidebar-section">Collapsible</div>
+                <div class="hx-sidebar-section">Sidebar</div>
+                <div class="hx-sidebar-section">Notifications</div>
+              </div>
+            </div>
+
+            <div id="collapsible3" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-chart"></i> Drawing & Graphs</div>
+              <div class="hx-collapsible-content">
+                <a href="#" class="hx-positive"><i class="fa fa-fw fa-users"></i>&nbsp; Users</a>
+                <div class="hx-sidebar-section">Drawing</div>
+                <div class="hx-sidebar-section">Plot</div>
+              </div>
+            </div>
+
+            <div id="collapsible4" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-spanner"></i> Utils</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Color</div>
+                <div class="hx-sidebar-section">Util</div>
+                <div class="hx-sidebar-section">Request</div>
+                <div class="hx-sidebar-section">Map</div>
+                <div class="hx-sidebar-section">Set</div>
+                <div class="hx-sidebar-section">List</div>
+              </div>
+            </div>
+
+            <div class="hx-sidebar-title">Examples</div>
+            <div class="hx-sidebar-section">Components</div>
+            <div class="hx-sidebar-section hx-selected">Dashboard</div>
+            <div class="hx-sidebar-section">Graphs</div>
+
+            <div class="hx-sidebar-title">Links</div>
+            <a href="#" class="hx-positive"><i class="fa fa-fw fa-users"></i>&nbsp; Users</a>
+            <a href="#" class="hx-warning"><i class="fa fa-fw fa-key"></i>&nbsp; Keys</a>
+            <a href="#" class="hx-negative"><i class="fa fa-fw fa-book"></i>&nbsp; Docs</a>
+            <a href="#" class="hx-info"><i class="fa fa-fw fa-heartbeat"></i>&nbsp; Health</a>
+
+            <div class="hx-sidebar-title">Dashboard states</div>
+            <button id="default-btn" class="hx-btn">Default State</button>
+            <button id="positive-btn" class="hx-btn hx-positive">Positive State</button>
+            <button id="warning-btn" class="hx-btn hx-warning">Warning State</button>
+            <button id="negative-btn" class="hx-btn hx-negative">Negative State</button>
+            <button id="info-btn" class="hx-btn hx-info">Info State</button>
+
+          </div>
+          <div class="hx-content example-content"></div>
+
+        </div>
+
+      @js
+        var titlebar = new hx.TitleBar('.example-heading')
+
+        // arguments 2 and 3 are not normally needed when initialising the sidebar - they are
+        // required for this example since the sidebar is not in it's usual place within the dom
+        var sidebar = new hx.Sidebar('.hx-sidebar', '.example-titlebar', '.example-content', false)
+
+        hx.select('#default-btn').on('click', function(){ titlebar.setContextClass(undefined)})
+        hx.select('#positive-btn').on('click', function(){ titlebar.setContextClass('hx-positive')})
+        hx.select('#warning-btn').on('click', function(){ titlebar.setContextClass('hx-warning')})
+        hx.select('#negative-btn').on('click', function(){ titlebar.setContextClass('hx-negative')})
+        hx.select('#info-btn').on('click', function(){ titlebar.setContextClass('hx-info')})
+
+      @css
+        @hidecode
+            position: relative;
+            height: 400px;
+            position: absolute;
+            height: 354px;
+            overflow: auto;
+
+        .sidebar-example {
+        }
+
+        .sidebar-example .hx-sidebar {
+        }
+
+        .sidebar-example .hx-content {
+        }
+
+@version 0.13.0
+  @examples
+    @example
+      @html
+        <div class="hx-sidebar-page sidebar-example">
+          <div class="hx-heading example-heading">
+            <div class="hx-titlebar">
+              <div class="hx-titlebar-container">
+                <div class="hx-titlebar-header example-titlebar">
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-titlebar-icon-ocado-dots"></img></a>
+                  <div class="hx-titlebar-title">Title</div>
+                  <div class="hx-titlebar-subtitle">Subtitle</div>
+                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                </div>
+                <div class="hx-titlebar-menu-icons">
+                  <div class="hx-titlebar-menu-icons-container">
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-sidebar">
+            <div class="hx-sidebar-title">Docs</div>
+
+            <div id="collapsible1" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-book"></i> Intro</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Getting Started</div>
+                <div class="hx-sidebar-section">FAQs</div>
+              </div>
+            </div>
+
+            <div id="collapsible2" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-book"></i> Components</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Titlebar</div>
+                <div class="hx-sidebar-section">Buttons</div>
+                <div class="hx-sidebar-section">Collapsible</div>
+                <div class="hx-sidebar-section">Sidebar</div>
+                <div class="hx-sidebar-section">Notifications</div>
+              </div>
+            </div>
+
+            <div id="collapsible3" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-chart"></i> Drawing & Graphs</div>
+              <div class="hx-collapsible-content">
+                <a href="#" class="hx-positive"><i class="fa fa-fw fa-users"></i>&nbsp; Users</a>
+                <div class="hx-sidebar-section">Drawing</div>
+                <div class="hx-sidebar-section">Plot</div>
+              </div>
+            </div>
+
+            <div id="collapsible4" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-spanner"></i> Utils</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Color</div>
+                <div class="hx-sidebar-section">Util</div>
+                <div class="hx-sidebar-section">Request</div>
+                <div class="hx-sidebar-section">Map</div>
+                <div class="hx-sidebar-section">Set</div>
+                <div class="hx-sidebar-section">List</div>
+              </div>
+            </div>
+
+            <div class="hx-sidebar-title">Examples</div>
+            <div class="hx-sidebar-section">Components</div>
+            <div class="hx-sidebar-section hx-selected">Dashboard</div>
+            <div class="hx-sidebar-section">Graphs</div>
+
+            <div class="hx-sidebar-title">Links</div>
+            <a href="#" class="hx-positive"><i class="fa fa-fw fa-users"></i>&nbsp; Users</a>
+            <a href="#" class="hx-warning"><i class="fa fa-fw fa-key"></i>&nbsp; Keys</a>
+            <a href="#" class="hx-negative"><i class="fa fa-fw fa-book"></i>&nbsp; Docs</a>
+            <a href="#" class="hx-info"><i class="fa fa-fw fa-heartbeat"></i>&nbsp; Health</a>
+
+            <div class="hx-sidebar-title">Dashboard states</div>
+            <button id="default-btn" class="hx-btn">Default State</button>
+            <button id="positive-btn" class="hx-btn hx-positive">Positive State</button>
+            <button id="warning-btn" class="hx-btn hx-warning">Warning State</button>
+            <button id="negative-btn" class="hx-btn hx-negative">Negative State</button>
+            <button id="info-btn" class="hx-btn hx-info">Info State</button>
+
+          </div>
+          <div class="hx-content example-content"></div>
+
+        </div>
+
+      @js
+        var titlebar = new hx.TitleBar('.example-heading')
+
+        // the options are not normally needed when initialising the sidebar - they are
+        // required for this example since the sidebar is not in it's usual place within the dom
+        var sidebar = new hx.Sidebar('.hx-sidebar', {
+          headerSelector: '.example-titlebar',
+          contentSelector: '.example-content',
+          autoAddSidebarClass: false
+        })
+
+        hx.select('#default-btn').on('click', function(){ titlebar.setContextClass(undefined)})
+        hx.select('#positive-btn').on('click', function(){ titlebar.setContextClass('hx-positive')})
+        hx.select('#warning-btn').on('click', function(){ titlebar.setContextClass('hx-warning')})
+        hx.select('#negative-btn').on('click', function(){ titlebar.setContextClass('hx-negative')})
+        hx.select('#info-btn').on('click', function(){ titlebar.setContextClass('hx-info')})
+
+      @css
+        .sidebar-example {
+          position: relative;
+          height: 400px;
+        }
+
+        .sidebar-example .hx-sidebar {
+          position: absolute;
+        }
+
+        .sidebar-example .hx-content {
+          height: 354px;
+          overflow: auto;
+        }
+
+@version 1.0.0
+  @examples
+    @example
+      @html
+        <div class="hx-sidebar-page sidebar-example">
+          <div class="hx-heading example-heading">
+            <div class="hx-titlebar">
+              <div class="hx-titlebar-container">
+                <div class="hx-titlebar-header example-titlebar">
+                  <a class="hx-titlebar-icon" href="#"><img class="hx-logo"></img></a>
+                  <div class="hx-titlebar-title">Title</div>
+                  <div class="hx-titlebar-subtitle">Subtitle</div>
+                  <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+                </div>
+                <div class="hx-titlebar-menu-icons">
+                  <div class="hx-titlebar-menu-icons-container">
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                    <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-sidebar">
+            <div class="hx-sidebar-title">Docs</div>
+
+            <div id="collapsible1" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-book"></i> Intro</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Getting Started</div>
+                <div class="hx-sidebar-section">FAQs</div>
+              </div>
+            </div>
+
+            <div id="collapsible2" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-book"></i> Components</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Titlebar</div>
+                <div class="hx-sidebar-section">Buttons</div>
+                <div class="hx-sidebar-section">Collapsible</div>
+                <div class="hx-sidebar-section">Sidebar</div>
+                <div class="hx-sidebar-section">Notifications</div>
+              </div>
+            </div>
+
+            <div id="collapsible3" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-chart"></i> Drawing & Graphs</div>
+              <div class="hx-collapsible-content">
+                <a href="#" class="hx-positive"><i class="fa fa-fw fa-users"></i>&nbsp; Users</a>
+                <div class="hx-sidebar-section">Drawing</div>
+                <div class="hx-sidebar-section">Plot</div>
+              </div>
+            </div>
+
+            <div id="collapsible4" class="hx-collapsible">
+              <div class="hx-collapsible-heading"><i class="fa fa-spanner"></i> Utils</div>
+              <div class="hx-collapsible-content">
+                <div class="hx-sidebar-section">Color</div>
+                <div class="hx-sidebar-section">Util</div>
+                <div class="hx-sidebar-section">Request</div>
+                <div class="hx-sidebar-section">Map</div>
+                <div class="hx-sidebar-section">Set</div>
+                <div class="hx-sidebar-section">List</div>
+              </div>
+            </div>
+
+            <div class="hx-sidebar-title">Examples</div>
+            <div class="hx-sidebar-section">Components</div>
+            <div class="hx-sidebar-section hx-selected">Dashboard</div>
+            <div class="hx-sidebar-section">Graphs</div>
+
+            <div class="hx-sidebar-title">Links</div>
+            <a href="#" class="hx-positive"><i class="fa fa-fw fa-users"></i>&nbsp; Users</a>
+            <a href="#" class="hx-warning"><i class="fa fa-fw fa-key"></i>&nbsp; Keys</a>
+            <a href="#" class="hx-negative"><i class="fa fa-fw fa-book"></i>&nbsp; Docs</a>
+            <a href="#" class="hx-info"><i class="fa fa-fw fa-heartbeat"></i>&nbsp; Health</a>
+
+            <div class="hx-sidebar-title">Dashboard states</div>
+            <button id="default-btn" class="hx-btn">Default State</button>
+            <button id="positive-btn" class="hx-btn hx-positive">Positive State</button>
+            <button id="warning-btn" class="hx-btn hx-warning">Warning State</button>
+            <button id="negative-btn" class="hx-btn hx-negative">Negative State</button>
+            <button id="info-btn" class="hx-btn hx-info">Info State</button>
+
+          </div>
+          <div class="hx-content example-content"></div>
+
+        </div>
+
+      @js
+        var titlebar = new hx.TitleBar('.example-heading')
+
+        // the options are not normally needed when initialising the sidebar - they are
+        // required for this example since the sidebar is not in it's usual place within the dom
+        var sidebar = new hx.Sidebar('.hx-sidebar', {
+          headerSelector: '.example-titlebar',
+          contentSelector: '.example-content',
+          autoAddSidebarClass: false
+        })
+
+        hx.select('#default-btn').on('click', function () { titlebar.contextClass(undefined)})
+        hx.select('#positive-btn').on('click', function () { titlebar.contextClass('hx-positive')})
+        hx.select('#warning-btn').on('click', function () { titlebar.contextClass('hx-warning')})
+        hx.select('#negative-btn').on('click', function () { titlebar.contextClass('hx-negative')})
+        hx.select('#info-btn').on('click', function () { titlebar.contextClass('hx-info')})
+
+      @css
+        .sidebar-example {
+          position: relative;
+          height: 400px;
+        }
+
+        .sidebar-example .hx-sidebar {
+          position: absolute;
+        }
+
+        .sidebar-example .hx-content {
+          height: 354px;
+          overflow: auto;
+        }
+

@@ -1,0 +1,33 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title AutoComplete
+  @description
+    Provides typeahead / suggestions for input fields
+
+@contentSection
+  @added 0.9.0
+
+  @topic Example
+    @examples
+      @example
+        @html
+          <input id="auto-complete" type="text">
+
+        @js
+          var data = [
+            "Bob",
+            "Dave",
+            "Steve",
+            "Kate",
+            "Bill",
+            "Alejandro"
+          ]
+          new hx.AutoComplete("#auto-complete", data)
+
+  @topic Api
+    @hyperlink(/docs/autocomplete/changelog)[Change Log]
+
+    @inline api.um

@@ -1,0 +1,22 @@
+@method hsl
+  @added 0.15.2
+  @description
+    Gets the hsl array for a color.
+
+  @returns [Array[Number]]
+    @description
+      The hsl array for a color in the format r,g,b,a
+
+
+@method hsl
+  @added 0.15.2
+  @description
+    Sets the tgb array for a color.
+
+  @arg arr [Array[Number]]
+    @description
+      The hsl array to set. It can be in the format of r,g,b or r,g,b,a
+
+  @returns Color
+    @description
+      This Color

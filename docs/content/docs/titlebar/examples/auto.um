@@ -1,0 +1,607 @@
+@version 0.9.0
+  @examples
+
+    Titlebars are created using the following structure:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <a class="hx-titlebar-link">Link 1</a>
+              <a class="hx-titlebar-link">Link 2</a>
+              <a class="hx-titlebar-link">Link 3</a>
+              <a class="hx-titlebar-link">Link 4</a>
+              <a class="hx-titlebar-link">Link 5</a>
+            </div>
+          </div>
+        </div>
+
+    Titlebars are designed to collapse and hide content automatically for small screens (if you resize the browser window, you will be able to see what it would look like on a mobile).
+
+    The above definition is a full example of what a titlebar can contain. You can drop certain components of the titlebar if they are not needed. Here is a much simpler titlebar with just a title:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <div class="hx-titlebar-title">Title</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-content"> <!-- New div for other titlebar content -->
+                  <div class="hx-input-group">
+                    <input type="text" id="exampleInput">
+                    <button class="hx-btn hx-positive"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <div class="hx-titlebar-link">Link 1</div>
+              <div class="hx-titlebar-link">Link 2</div>
+              <div class="hx-titlebar-link">Link 3</div>
+              <div class="hx-titlebar-link">Link 4</div>
+              <div class="hx-titlebar-link">Link 5</div>
+              <div class="hx-titlebar-link">Link 6</div>
+            </div>
+          </div>
+        </div>
+
+    @js
+      hx.selectAll('.example-heading').each(function(node){
+        new hx.TitleBar(node);
+      })
+
+@version 0.14.0
+  @examples
+
+    Titlebars are created using the following structure:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <a class="hx-titlebar-link">Link 1</a>
+              <a class="hx-titlebar-link">Link 2</a>
+              <a class="hx-titlebar-link">Link 3</a>
+              <a class="hx-titlebar-link">Link 4</a>
+              <a class="hx-titlebar-link">Link 5</a>
+            </div>
+          </div>
+        </div>
+
+    Titlebars are designed to collapse and hide content automatically for small screens (if you resize the browser window, you will be able to see what it would look like on a mobile).
+
+    The above definition is a full example of what a titlebar can contain. You can drop certain components of the titlebar if they are not needed. Here is a much simpler titlebar with just a title:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <div class="hx-titlebar-title">Title</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-content"> <!-- New div for other titlebar content -->
+                  <div class="hx-input-group">
+                    <input type="text" id="exampleInput">
+                    <button class="hx-btn hx-positive"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img></img></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <div class="hx-titlebar-link">Link 1</div>
+              <div class="hx-titlebar-link">Link 2</div>
+              <div class="hx-titlebar-link">Link 3</div>
+              <div class="hx-titlebar-link">Link 4</div>
+              <div class="hx-titlebar-link">Link 5</div>
+              <div class="hx-titlebar-link">Link 6</div>
+            </div>
+          </div>
+        </div>
+
+    @js
+      hx.selectAll('.example-heading').forEach(function(node){
+        new hx.TitleBar(node.node());
+      })
+
+@version 1.0.0
+  @examples
+
+    Titlebars are created using the following structure:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <a class="hx-titlebar-link">Link 1</a>
+              <a class="hx-titlebar-link">Link 2</a>
+              <a class="hx-titlebar-link">Link 3</a>
+              <a class="hx-titlebar-link">Link 4</a>
+              <a class="hx-titlebar-link">Link 5</a>
+            </div>
+          </div>
+        </div>
+
+    Titlebars are designed to collapse and hide content automatically for small screens (if you resize the browser window, you will be able to see what it would look like on a mobile).
+
+    The above definition is a full example of what a titlebar can contain. You can drop certain components of the titlebar if they are not needed. Here is a much simpler titlebar with just a title:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <div class="hx-titlebar-title">Title</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-content"> <!-- New div for other titlebar content -->
+                  <div class="hx-input-group">
+                    <input type="text" id="exampleInput">
+                    <button class="hx-btn hx-positive"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <div class="hx-titlebar-link">Link 1</div>
+              <div class="hx-titlebar-link">Link 2</div>
+              <div class="hx-titlebar-link">Link 3</div>
+              <div class="hx-titlebar-link">Link 4</div>
+              <div class="hx-titlebar-link">Link 5</div>
+              <div class="hx-titlebar-link">Link 6</div>
+            </div>
+          </div>
+        </div>
+
+    @js
+      hx.selectAll('.example-heading').nodes.forEach(function(node){
+        new hx.TitleBar(node);
+      })
+
+@version 1.12.0
+  @examples
+
+    Titlebars are created using the following structure:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <a class="hx-titlebar-link">Link 1</a>
+              <a class="hx-titlebar-link">Link 2</a>
+              <a class="hx-titlebar-link">Link 3</a>
+              <a class="hx-titlebar-link">Link 4</a>
+              <a class="hx-titlebar-link">Link 5</a>
+            </div>
+          </div>
+        </div>
+
+    Titlebars are designed to collapse and hide content automatically for small screens (if you resize the browser window, you will be able to see what it would look like on a mobile).
+
+    The above definition is a full example of what a titlebar can contain. You can drop certain components of the titlebar if they are not needed. Here is a much simpler titlebar with just a title:
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <div class="hx-titlebar-title">Title</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-icons-container">
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></div>
+                  <div class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+              <div class="hx-titlebar-menu-icons">
+                <div class="hx-titlebar-menu-content"> <!-- New div for other titlebar content -->
+                  <div class="hx-input-group">
+                    <input type="text" id="exampleInput">
+                    <button class="hx-btn hx-positive"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+                <div class="hx-titlebar-menu-icons-container">
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-tags"></i><span class="hx-titlebar-menu-text">Tags</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-life-ring"></i><span class="hx-titlebar-menu-text">Help</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-cog"></i><span class="hx-titlebar-menu-text">Settings</span></a>
+                  <a class="hx-titlebar-menu-icon"><i class="fa fa-power-off"></i><span class="hx-titlebar-menu-text">Sign out</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    @example
+      @html
+        <div class="hx-heading example-heading">
+          <div class="hx-titlebar">
+            <div class="hx-titlebar-container">
+              <div class="hx-titlebar-header">
+                <a class="hx-titlebar-icon" href="#"><img class="hx-logo" /></a>
+                <div class="hx-titlebar-title">Title</div>
+                <div class="hx-titlebar-subtitle">Subtitle</div>
+                <div class="hx-titlebar-menu-icon-mobile"><i class="fa fa-reorder"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-titlebar-linkbar">
+            <div class="hx-titlebar-contents">
+              <div class="hx-titlebar-link">Link 1</div>
+              <div class="hx-titlebar-link">Link 2</div>
+              <div class="hx-titlebar-link">Link 3</div>
+              <div class="hx-titlebar-link">Link 4</div>
+              <div class="hx-titlebar-link">Link 5</div>
+              <div class="hx-titlebar-link">Link 6</div>
+            </div>
+          </div>
+        </div>
+
+    @js
+      hx.selectAll('.example-heading').nodes.forEach(function(node){
+        new hx.TitleBar(node);
+      })
+
+    @example
+      @html
+        <div id="fluid-titlebar"></div>
+
+      @js
+        hx.select('#fluid-titlebar')
+          .add(hx.titleBar({
+            title: 'Fluid Titlebar',
+            subtitle: 'Subtitle'
+          }))
+

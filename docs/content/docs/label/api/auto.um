@@ -1,0 +1,129 @@
+@class hx-label
+  @updated 0.10.0
+    @description
+      Removed module-specific classes in favor of generic classes
+
+  @description
+    Applies styling to @code[<span>] elements.
+
+  @extraClass hx-positive
+    @description
+      Adds styling indicative of success, confirmation or something positive
+
+  @extraClass hx-label-positive
+    @deprecated 0.9.0
+      @description
+        All module-specific colour classes will be removed in a later version
+
+    @removed 0.10.0
+      @description
+        Use hx-positive with hx-label instead
+
+    @description
+      Adds styling indicative of success, confirmation or something positive
+
+  @extraClass hx-negative
+    @description
+      Adds styling indicative of failure, danger or something negative
+
+  @extraClass hx-label-negative
+    @deprecated 0.9.0
+      @description
+        All module-specific colour classes will be removed in a later version
+
+    @removed 0.10.0
+      @description
+        Use hx-negative with hx-label instead
+
+    @description
+      Adds styling indicative of failure, danger or something negative
+
+  @extraClass hx-warning
+    @description
+      Adds styling indicative of warning, to suggest the user should use caution
+
+  @extraClass hx-label-warning
+    @deprecated 0.9.0
+      @description
+        All module-specific colour classes will be removed in a later version
+
+    @removed 0.10.0
+      @description
+        Use hx-warning with hx-label instead
+
+    @description
+      Adds styling indicative of warning, to suggest the user should use caution
+
+  @extraClass hx-compliment
+    @removed 1.0.0
+      @description
+        Use @code[.hx-complement] instead
+
+    @description
+      Styles the label with compliment colors
+
+  @extraClass hx-label-compliment
+    @deprecated 0.9.0
+      @description
+        All module-specific colour classes will be removed in a later version
+
+    @removed 0.10.0
+      @description
+        Use hx-compliment with hx-label instead
+
+    @description
+      Styles the label with compliment colors
+
+  @extraClass hx-contrast
+    @description
+      Styles the label with contrast colors
+
+  @extraClass hx-label-contrast
+    @deprecated 0.9.0
+      @description
+        All module-specific colour classes will be removed in a later version
+
+    @removed 0.10.0
+      @description
+        Use hx-contrast with hx-label instead
+
+    @description
+      Styles the label with contrast colors
+
+  @extraClass hx-info
+    @description
+      Styles the label to indicate that clicking it will lead to some form of documentation / information.
+
+  @extraClass hx-label-info
+    @deprecated 0.9.0
+      @description
+        All module-specific colour classes will be removed in a later version
+
+    @removed 0.10.0
+      @description
+        Use hx-info with hx-label instead
+
+    @description
+      Styles the label to indicate that clicking it will lead to some form of documentation / information.
+
+  @extraClass [hx-label-[n]]
+    @deprecated 0.9.0
+      @description
+        All numbered color classes will be removed in a later version. Use the context classes instead.
+
+    @removed 0.10.0
+    @description
+      The numbered labels classes - the number available depends on the theme being used.
+
+  @extraClass hx-action
+    @added 1.0.0
+      @description
+        Added new action context class and updated default styles.
+
+    @description
+      Styles the label with action colors
+
+  @extraClass hx-complement
+    @description
+      Styles the label with complement colors
+

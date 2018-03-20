@@ -1,0 +1,15 @@
+@method getTextCol
+  @deprecated 0.15.2
+    @description
+      Use @code[textCol()] instead.
+
+  @removed 1.0.0
+    @description
+      Use @code[textCol()] instead.
+
+  @description
+    A method to return the best text color (either black or white) when
+    using the current color as a background.
+  @returns String
+    @description
+      'black' or 'white' depending on the color.

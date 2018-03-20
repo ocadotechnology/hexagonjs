@@ -1,0 +1,24 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Drawing
+  @description
+    A library for creating interactive drawings.
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/drawing/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Getting Started
+    @versioned
+      @inline extra/*.um

@@ -1,0 +1,162 @@
+@added 1.3.0
+  @issue 25
+  @description
+    New FileInput component and fluid api function
+
+@bugfix 1.4.1
+  @issue 225
+  @description
+    Change the type of the button to fix a bug where forms were submitted
+
+@prototype hx.FileInput
+  @description
+    A component that extends the native functionality of @code[<input type="file">] to add additional functionality and a hexagon theme
+
+  @constructor
+    @description
+      Creates a FileInput using a selector and some options.
+
+    @arg selector [String/HTMLElement]
+      @description
+        A CSS selector string which uniquely identifies the element to create the FileInput in, or the Element to create the FileInput in.
+
+    @arg? options [Object]
+      @description
+        The options to use when setting up the FileInput
+
+      @property disabled [Boolean]
+        @description
+          The disabled state to initialise the FileInput in
+
+        @default
+          false
+
+      @property fullWidth [Boolean]
+        @description
+          Whether the FileInput should be full width
+
+        @default
+          false
+
+      @property acceptedExtensions [Array[String]]
+        @description
+          An array of file extensions, e.g. @code[['png', 'jpeg'] ]
+
+      @property multiple [Boolean]
+        @description
+          Whether multiple files can be selected
+
+        @default
+          false
+
+      @property dragEnabled [Boolean]
+        @description
+          Whether the user can drag and drop files to the input to upload
+
+        @default
+          true
+
+      @property buttonClass [String]
+        @description
+          The class to use for the button
+
+        @default
+          'hx-action'
+
+      @property filesselectedFiles [String]
+        @removed 1.3.1
+          @issue 210
+          @description
+            This variable was badly named and unused internally. It has been replaced by @code[filesSelectedText] .
+
+        @description
+          The string to indicate the number of files selected
+
+        @default
+          'Files Selected'
+
+      @property buttonText [String]
+        @updated 1.4.0
+          @issue 211
+
+        @description
+          The text to display on the button. The default text becomes @code[hx.userFacingText('fileInput', 'chooseFiles')] when selecting multiple files.
+
+        @default
+          [hx.userFacingText('fileInput', 'chooseFile')]
+
+      @property filesSelectedText [String]
+        @added 1.3.1
+        @bugfix 1.3.1
+          @issue 210
+          @description
+            Changed the option name to be more sensible and actually use it in the code.
+
+        @updated 1.4.0
+          @issue 211
+
+        @description
+          The string to indicate the number of files selected
+
+        @default
+          [hx.userFacingText('fileInput', 'filesSelected')]
+
+      @property noFilesText [String]
+        @added 1.4.0
+          @issue 211
+
+        @default
+          [hx.userFacingText('fileInput', 'noFile')]
+
+  @method disabled
+    @description
+      A method for getting the disabled state of a FileInput
+
+    @returns [Boolean]
+      @description
+        Whether the FileInput is disavbled
+
+  @method disabled
+    @description
+      A method for disabling / enabling the FileInput
+
+    @arg disabled [Boolean]
+      @description
+        Whether or not the FileInput should be disabled
+
+    @returns [FileInput]
+      @description
+        This FileInput
+
+  @method value
+    @description
+      A method for returning the currently set array of files
+
+    @returns [Array[File]]
+      @description
+        An array of file objects
+
+  @method value
+    @description
+      A method for clearing the value of the FileInput.
+
+      For security reasons, it is not possible to pass in any value other than @code[undefined] @arg value [Undefined]
+      @description
+        Undefined must be passed in. For security reasons, it is not possible to set the value of a FileInput, only clear it.
+
+    @returns [FileInput]
+      @description
+        This FileInput
+
+@function hx.fileInput
+  @description
+    Creates a new FileInput set up on a detached element, wrapped in a selection
+
+  @arg? options [Object]
+    @description
+      See the options object for the @code[hx.FileInput] prototype constructor for more information on the available options
+
+  @returns [Selection]
+    @description
+      A selection containing an element with an FileInput initialised on it
+

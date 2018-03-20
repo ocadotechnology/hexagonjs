@@ -1,0 +1,2 @@
+@api Slider
+  @inline api/*.um

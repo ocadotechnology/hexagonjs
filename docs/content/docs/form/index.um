@@ -1,0 +1,23 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Form
+  @description
+    Styling for forms using the @code[hx-form] class using a specified structure.
+
+    Components such as date pickers etc. or custom content should be added inside a container div to prevent style conflicts
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/form/changelog)[Change Log]
+
+    @inline api.um

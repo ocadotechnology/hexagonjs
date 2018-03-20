@@ -1,0 +1,108 @@
+@updated 1.1.0
+  @issue 14
+  @description
+    Views will now show a warning if the element returned from the enter method does not match the expectation of the view
+
+@updated 1.2.0
+  @issue 148
+  @description
+    Improve the performance of view
+
+@prototype View
+  @bugfix 1.10.0
+    @issue 358
+    @description
+      Updated the internals to use shallowSelectAll to allow nested views and prevent children affecting the behaviour of the view
+
+  @description
+    A view can be created by calling .view on a Selection. For example hx.select(body).view(...) will create a new view. The enter and exit methods have default behaviour, and for simple use cases, it should not be necessary to use them.
+
+  @method enter
+    @description
+      The function supplied will be called for each element that needs adding to the page. The default behaviour is to add a new element (the type of which is specified when selection.view(...) is called), and to add the class to it, if a class selector was used as the first argument to selection.view(...).
+
+      The above probably makes no sense at all, so here is an example to show what the default behaviour is effectively doing:
+
+      @@codeblock js
+        view = hx.select(body).view('.some-class');
+        view.enter(function(datum, i) {
+          return this.append('div').classed('some-view').node()
+        });
+
+      Every time a new node is needed in the page this function will be called. The 'this' context for the function will be a Selection to which you can append your new element. The first argument to the function will be the piece of data that you are transforming into dom elements, and the second argument is an index.
+
+      This function only gets called for new elements being added to the page. If you call view.apply(data) repeatedly where the size of the data does not change, then the enter function will only be called the first time view.apply(data) is called. After that, since no new element need to be created, enter will not be called. This makes using view much more efficient than completely recreating the dom when your data changes.
+
+      The enter function supplied must return the node created.
+
+    @arg func [Function]
+      @description
+        The enter function to use when calling .apply()
+        @arg datum [Object]
+          The data that will be bound with the new element created
+
+        @arg index [Number]
+        @returns([Node])[This function should return the newly created Node (HTMLElement of SVGElement)]
+
+    @returns [View]
+
+  @method exit
+    @description
+      This function will be called whenever a dom element needs to be removed from the page. This happens when view.apply(data) is called where the size of data is smaller than it has been for the previous call of view.apply(data).
+
+      The default behaviour is the following:
+
+      @@codeblock js
+        view.exit(function(datum, node, i) {
+          this.remove()
+        });
+
+      In most cases this should be sufficient. Should you want to apply some transition when elements are removed, then a different exit function can be provided that changed the way that elements are removed.
+
+      The enter function supplied has a this context which is a Selection which has the element that is to be removed selected. This is why this.remove() is called as the default behaviour. The first argument is the data that the element used to represent. Remember that this element is no longer 'linked' to any data in any way, since it is being removed. The second argument is the HTMLElement that is to be removed. This is the same element that is selected in the selection provided via 'this'. The third argument is an index.
+
+    @arg func [Function]
+      @description
+        The exit function to use when calling .apply()
+
+    @returns [View]
+
+  @method update
+    @description
+      The update function is where existing elements should be updated with new data. Typically this will involve updating the text value of a element to match the new data supplied.
+
+      An example update function that would do just that is:
+
+      @@codeblock
+        view.update(function(datum, node, i){
+          this.text(datum.name)
+        });
+
+      Calling view.update(function...) does nothing on its own. It simply sets the update function to use when view.apply() is called.
+
+      The this context for the update function is a Selection with the element to be updated selected. The first argument to the function is the data to update the element with. The second argument is the same element to be updated (the same element selected in the selection provided by 'this'). The third argument is an index.
+
+      This function is where most of the 'stuff' should happen when working with views. enter() and exit() make sure that there are the right number of elements on the page. update actually updates the element with data.
+
+    @arg func [Function]
+      @description
+        The update function to use when calling .apply()
+
+    @returns [View]
+
+  @method apply
+    @description
+      Applies some data to the view - this will cause the selected element on the page to be populated with the dom representation of your data. Returns this view for chaining.
+
+      This can be an object or an array of objects. If the data supplied is just an object, then a single copy of your view will be created, for that object. For arrays, there will be a view created for each element in the array. Passing in an object is the same as passing in an array containing just that object (ie an array of length 1).
+
+    @arg data [Array[Object] / Object]
+      @description
+        The data to apply to this view.
+
+    @arg? key [Function[Object]]
+      @description
+        The default behaviour of views is to match data and elements up by index (position in the array, and position in the dom tree). This can be changed by providing a function to key upon. This allows you to ensure that data is always linked to the same node between calls of apply(), even if the data being supplied is ordered differently. The key function takes an object from the data array, and should return a string.
+
+    @returns [View]
+

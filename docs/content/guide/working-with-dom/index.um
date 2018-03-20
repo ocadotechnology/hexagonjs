@@ -1,0 +1,6 @@
+@inline /templates/sidebar-page.um
+
+@titlebar Working with the DOM
+
+@div .dx-content
+  @h1: Working with the DOM

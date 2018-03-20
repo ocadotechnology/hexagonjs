@@ -1,0 +1,16 @@
+@method fadeOut
+  @deprecated 0.15.2
+    Use @code[fade(-value)] instead.
+
+  @removed 1.0.0
+    @description
+      Use @code[fade(-value)] instead.
+
+  @description
+    Decrease the alpha of a color by a given percentage amount.
+  @arg amount [Number]
+    @description
+      A value from 0-1 as a percentage.
+  @returns Color
+    @description
+      This Color

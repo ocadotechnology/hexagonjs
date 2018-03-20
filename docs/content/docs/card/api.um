@@ -1,0 +1,40 @@
+@api Card
+  @group Card Functions
+    @description
+      Functions to create an element with the @code[hx-card] class applied
+
+    @inline api/js/card.um
+
+  @group Layout Blocks
+    @description
+      Functions to create layout inside a @code[hx-card] selection
+
+    @inline api/js/aligned.um
+    @inline api/js/group.um
+    @inline api/js/section.um
+
+  @group Building Blocks
+    @description
+      Functions to create elements inside @code[hx-card-section] elements
+
+    @inline api/js/text.um
+    @inline api/js/title.um
+    @inline api/js/icon.um
+
+  @group Prebuilt Sections
+    @description
+      Ready made sections, that just need configuring
+
+    @inline api/js/action.um
+
+  @group Prebuilt Cards
+    @description
+      Ready made cards, that just need configuring
+
+    @inline api/js/notice.um
+
+  @group Classes
+    @description
+      The CSS classes for building cards
+
+    @inline api/classes/card.um

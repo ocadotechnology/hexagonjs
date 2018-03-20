@@ -1,0 +1,4 @@
+@event change [String]
+  @description
+    The event called whenever the input text is updated by the auto
+    complete object. The data is the value of the input field.

@@ -1,0 +1,15 @@
+@version 0.9.0
+  @example
+    @@codeblock js
+      var scale = new hx.ColorScale(0, 1, [
+        {color:hx.theme.plot.colors[5], val:5/6},
+        {color:hx.theme.plot.colors[2], val:2/6},
+        {color:hx.theme.plot.colors[1], val:1/6},
+        {color:hx.theme.plot.colors[4], val:4/6},
+        {color:hx.theme.plot.colors[3], val:3/6},
+        {color:hx.theme.plot.colors[0], val:0},
+        {color:hx.theme.plot.colors[6], val:1}
+      ]);
+
+      scale.apply(0.5);
+

@@ -1,0 +1,3 @@
+@event cancelled
+  @description
+    Emitted when @code[cancel()] is called on this @type[Animation]

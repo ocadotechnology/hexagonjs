@@ -1,0 +1,3 @@
+@returns ColorScale
+  @description
+    This @type[ColorScale] for chaining

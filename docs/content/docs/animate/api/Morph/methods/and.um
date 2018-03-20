@@ -1,0 +1,44 @@
+@method and
+  @description
+    Adds an action that should happen concurrently with the previous action
+
+  @arg morph [String]
+    @description
+      The named morph to use.
+
+  @arg? duration [Number]
+    @description
+      The length of the animation in milliseconds
+
+    @default: 200
+
+  @returns Animation
+    @description
+      This @type[Morph] for chaining
+
+@method and
+  @description
+    Adds an action that should happen concurrently with the previous action
+
+  @arg function [Function]
+    @description
+      A function that gets called as part of the chain. If this function
+      returns an @type[EventEmitter], the behaviour is to wait for that event
+      emitter to emit an 'end' event before proceeding to the next step.
+
+      Anything that is returned from this function that has a 'cancel' method
+      will be called.
+
+    @arg? done [Function]
+      @description
+        If specified in the argument list, this action will only complete when
+        this function is called to complete the action.
+
+        If this is not specified in the argument list the function will be
+        called synchronously (ie it will block).
+
+        The later option is useful for cleanup at the end of a morph.
+
+  @returns Morph
+    @description
+      This @type[Morph] for chaining.

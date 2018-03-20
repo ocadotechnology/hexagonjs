@@ -1,0 +1,3 @@
+@event click
+  @description
+    Emitted when a click occurs outside all of the exceptions.

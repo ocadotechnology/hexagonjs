@@ -1,0 +1,22 @@
+@method green
+  @added 0.15.2
+  @description
+    Gets the green value for a color.
+
+  @returns Number
+    @description
+      The green value for a color as an integer between 0 and 255
+
+
+@method green
+  @added 0.15.2
+  @description
+    Sets the green value for a color.
+
+  @arg value [Number]
+    @description
+      A number between 0 and 255
+
+  @returns Color
+    @description
+      This Color

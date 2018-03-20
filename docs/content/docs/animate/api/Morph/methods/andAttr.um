@@ -1,0 +1,22 @@
+@method andAttr
+  @description
+    Adds an action that animates an attributes value on the element
+    concurrently with the previous action.
+
+  @inline ../../shared/arguments/attr-a.um
+
+  @returns Morph
+    @description
+      This @type[Morph] for chaining
+
+
+@method andAttr
+  @description
+    Adds an action that animates an attributes value on the element
+    concurrently with the previous action.
+
+  @inline ../../shared/arguments/attr-b.um
+
+  @returns Morph
+    @description
+      This @type[Morph] for chaining

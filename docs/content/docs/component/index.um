@@ -1,0 +1,31 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Component
+  @description
+    Helper methods for retrieving a components backing object.
+
+
+@contentSection
+  @topic Description
+    This makes debugging easier, and also means that you don't have to always
+    hold component objects in your javascript - they are bound to the element
+    they are initialised on.
+
+    When debugging in chrome or firefox, you can select an element in the dom
+    tree (in the elements or inspector tab), then use
+    @code[hx.component($0)] to retrieve the object backing that element (if
+    there is one)
+
+
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/component/changelog)[Change Log]
+
+    @inline api.um

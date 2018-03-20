@@ -1,0 +1,29 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Toggle Button
+  @versioned
+    @version 0.15.2
+      @description
+        A module for creating toggle buttons
+
+    @version 1.0.0
+      @description
+        This module was removed in version 1.0.0 and replaced with the
+        @hyperlink(../toggle)[Toggle]
+         module.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/toggle-button/changelog)[Change Log]
+
+    @inline api.um

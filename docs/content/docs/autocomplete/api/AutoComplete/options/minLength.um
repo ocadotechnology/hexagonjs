@@ -1,0 +1,4 @@
+@property minLength [Number]
+  @description
+    The minimum length of text input before suggestions will be shown.
+  @default: 0

@@ -1,0 +1,966 @@
+@bugfix 0.14.1
+  @description
+    Fixed an issue where the events were firing out of order.
+
+@prototype hx.DateTimePicker
+  @updated 0.11.0
+    @description
+      All instances of supressCallback have been converted to suppressCallback.
+
+  @bugfix 0.12.3
+    @description
+      Update the datepicker constructor to use the options object.
+
+  @description
+    A class used to combine a date picker and a time picker so that they work toghether.
+
+  @extends EventEmitter
+  @constructor
+    @deprecated 0.13.0
+      @description
+        Use @code[hx.DateTimePicker(selector, options)] instead.
+
+    @removed 0.14.0
+      @description
+        Use @code[hx.DateTimePicker(selector, options)] instead.
+
+    @description
+      Creates a datepicker and a timepicker and appends them to the selected element.
+
+    @arg selector [String/HTMLElement]
+      @description
+        The selector to use to build the date/time picker
+
+    @arg? type [String]
+      @description
+        The type of datepicker to show, can be either 'datepicker' or 'calendar'
+
+      @default
+        'calendar'
+
+    @arg? showSeconds [Boolean]
+      @description
+        Whether to show the seconds in the timepicker.
+
+      @default
+        false
+
+  @method setDate
+    @deprecated 0.11.0
+      @description
+        Use @code[date(date, setTime, suppressCallback)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the date for the DateTimePicker. It can be used to set only the date or the date and the time.
+
+    @arg date [Date]
+      @description
+        The date to set the timepicker to.
+
+    @arg? setTime [Boolean]
+      @description
+        Whether to set the time as well as the date. Only the day/month/year will be updated unless this is passed in as true.
+
+      @default
+        false
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+  @method setDay
+    @deprecated 0.11.0
+      @description
+        Use @code[day(day, suppressCallback)] instead.
+
+    @removed 0.12.0
+    @description
+      A function used to set the currently selected day
+
+    @arg day [Number]
+      @description
+        The day of the month to set
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+  @method setMonth
+    @deprecated 0.11.0
+      @description
+        Use @code[month(month, suppressCallback)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the currently selected month
+
+    @arg month [Number]
+      @description
+        The month to show
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+  @method setYear
+    @deprecated 0.11.0
+      @description
+        Use @code[year(year, suppressCallback)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the currently selected year
+
+    @arg year [Number]
+      @description
+        The year to set the date picker to
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+  @method setHour
+    @deprecated 0.11.0
+      @description
+        Use @code[hour(hour, suppressCallback)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the currently selected hour
+
+    @arg hour [Number]
+      @description
+        The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the timepicker to cycle into the next/previous day.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+  @method setMinute
+    @deprecated 0.11.0
+      @description
+        Use @code[minute(minute, suppressCallback)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the currently selected minute
+
+    @arg minute [Number]
+      @description
+        The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous hour.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+  @method setSecond
+    @deprecated 0.11.0
+      @description
+        Use @code[second(second, suppressCallback)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the currently selected second
+
+    @arg second [Number]
+      @description
+        The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the timepicker to cycle into the next/previous minute.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+  @method addDays
+    @deprecated 0.13.0
+      @description
+        Use datetimepicker.day(datetimepicker.day() + days) instead
+
+    @removed 0.14.0
+      @description
+        Use datetimepicker.day(datetimepicker.day() + days) instead
+
+    @description
+      A function to add days to the currently selected date
+
+    @arg days [Number]
+      @description
+        The number of days to add
+
+  @method addMonths
+    @deprecated 0.13.0
+      @description
+        Use datetimepicker.month(datetimepicker.month() + months) instead
+
+    @removed 0.14.0
+      @description
+        Use datetimepicker.month(datetimepicker.month() + months) instead
+
+    @description
+      A function to add months to the currently selected date
+
+    @arg months [Number]
+      @description
+        The number of months to add
+
+  @method addYears
+    @deprecated 0.13.0
+      @description
+        Use datetimepicker.year(datetimepicker.year() + years) instead
+
+    @removed 0.14.0
+      @description
+        Use datetimepicker.year(datetimepicker.year() + years) instead
+
+    @description
+      A function to add years to the currently selected date
+
+    @arg years [Number]
+      @description
+        The number of years to add
+
+  @method addHours
+    @deprecated 0.13.0
+      @description
+        Use datetimepicker.hour(datetimepicker.hour() + hours) instead
+
+    @removed 0.14.0
+      @description
+        Use datetimepicker.hour(datetimepicker.hour() + hours) instead
+
+    @description
+      A function to add hours to the currently selected date
+
+    @arg hours [Number]
+      @description
+        The number of hours to add. Can be a negative number and will cycle to the next/previous day if the resulting value is not in the range of 0 - 23.
+
+  @method addMinutes
+    @deprecated 0.13.0
+      @description
+        Use datetimepicker.minute(datetimepicker.minute() + minutes) instead
+
+    @removed 0.14.0
+      @description
+        Use datetimepicker.minute(datetimepicker.minute() + minutes) instead
+
+    @description
+      A function to add minutes to the currently selected date
+
+    @arg minutes [Number]
+      @description
+        The number of hours to add. Can be a negative number and will cycle to the next/previous hour if the resulting value is not in the range of 0 - 59.
+
+  @method addSeconds
+    @deprecated 0.13.0
+      @description
+        Use datetimepicker.second(datetimepicker.second() + seconds) instead
+
+    @removed 0.14.0
+      @description
+        Use datetimepicker.second(datetimepicker.second() + seconds) instead
+
+    @description
+      A function to add seconds to the currently selected date
+
+    @arg seconds [Number]
+      @description
+        The number of hours to add. Can be a negative number and will cycle to the next/previous minute if the resulting value is not in the range of 0 - 59.
+
+  @method getDate
+    @deprecated 0.11.0
+      @description
+        Use @code[date()] instead.
+
+    @removed 0.12.0
+    @description
+      A function to return the currently selected date.
+
+    @returns [Date]
+
+  @method getHour
+    @deprecated 0.11.0
+      @description
+        Use @code[hour()] instead.
+
+    @removed 0.12.0
+    @description
+      Get the currently selected hour
+
+    @returns [Number]
+
+  @method getMinute
+    @deprecated 0.11.0
+      @description
+        Use @code[minute()] instead.
+
+    @removed 0.12.0
+    @description
+      Get the currently selected minute
+
+    @returns [Number]
+
+  @method getSecond
+    @deprecated 0.11.0
+      @description
+        Use @code[second()] instead.
+
+    @removed 0.12.0
+    @description
+      Get the currently selected second
+
+    @returns [Number]
+
+  @method getScreenDate
+    @description
+      Gets the concatenated date/time string, as shown in the input fields. When using moment.js, this will include localised characters.
+
+    @returns [String]
+
+  @method getScreenTime
+    @description
+      Get the time as it is displayed in the timepicker input box. When using moment.js, this will include localised characters.
+
+    @returns [String]
+
+  @method update
+    @removed 0.11.0
+    @description
+      Used to refresh the date/time picker if the locale has been updated and moment.js is being used.
+
+  @method date
+    @added 0.11.0
+    @description
+      A function to return the currently selected date.
+
+    @returns [Date]
+
+  @method date
+    @added 0.11.0
+    @removed 0.12.5
+      @description
+        The setTime parameter has been changed to retainTime and the behaviour inverted. Passing false will set the entire date object whereas previously false would only set the days/months/years (ignoring the hours/minutes/seconds). Use @code[date(date, retainTime, suppressCallback)] instead.
+
+    @description
+      Sets the currently selected date.
+
+    @arg date [Date]
+      @description
+        The date to set.
+
+    @arg? setTime [Boolean]
+      @description
+        Whether to set the time as well as the date. Only the day/month/year will be updated unless this value is true.
+
+      @default
+        false
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method day
+    @added 0.11.0
+    @description
+      A function to return the currently selected day of the month.
+
+    @returns [Number]
+
+  @method day
+    @added 0.11.0
+    @deprecated 0.13.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+    @description
+      A function used to set the currently selected day.
+
+    @arg day [Number]
+      @description
+        The day to set.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method month
+    @added 0.11.0
+    @description
+      A function to return the currently selected month.
+
+    @returns [Number]
+
+  @method month
+    @added 0.11.0
+    @deprecated 0.13.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+    @description
+      Sets the currently selected month.
+
+    @arg month [Number]
+      @description
+        The month to set.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method year
+    @added 0.11.0
+    @description
+      A function to return the currently selected year.
+
+    @returns [Number]
+
+  @method year
+    @added 0.11.0
+    @deprecated 0.13.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+    @description
+      Sets the currently selected year.
+
+    @arg year [Number]
+      @description
+        The year to set.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method hour
+    @added 0.11.0
+    @description
+      A function to return the currently selected hour.
+
+    @returns [Number]
+
+  @method hour
+    @added 0.11.0
+    @deprecated 0.13.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+    @description
+      Sets the currently selected hour.
+
+    @arg hour [Number]
+      @description
+        The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the TimePicker to cycle into the next/previous day.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method minute
+    @added 0.11.0
+    @description
+      A function to return the currently selected minute.
+
+    @returns [Number]
+
+  @method minute
+    @added 0.11.0
+    @deprecated 0.13.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+    @description
+      Sets the currently selected minute.
+
+    @arg minute [Number]
+      @description
+        The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous hour.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method second
+    @added 0.11.0
+    @description
+      A function to return the currently selected second.
+
+    @returns [Number]
+
+  @method second
+    @added 0.11.0
+    @deprecated 0.13.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+    @description
+      Sets the currently selected second.
+
+    @arg second [Number]
+      @description
+        The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous minute.
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method update
+    @added 0.11.0
+    @deprecated 0.13.0
+      @description
+        Use @code[locale(locale)] instead.
+
+    @removed 0.14.0
+      @description
+        Use @code[locale(locale)] instead.
+
+    @description
+      A function for updating the display of the DateTimePicker when moment.js is present on the page.
+
+      The DateTimePicker now looks for moment.js on the page and shows a localised DateTimePicker based on moment's current locale setting.
+
+      To update the locale setting, a locale can either be passed in or the function can be called with no arguments to pick up the currently set @code[moment.locale] .
+
+      @@codeblock js
+        DateTimePicker.update('pl') // sets the DateTimePicker's locale to Poland without affecting the rest of the page.
+
+      @@codeblock js
+        moment.locale('pl') // sets the page locale to Poland
+        DateTimePicker.update() // refreshes the display of the selected DateTimePicker using moment.locale() of 'pl'
+
+    @arg? locale [String/Boolean]
+      @description
+        The locale string to update the DateTimePicker with.
+
+        If a value is not passed in, the currently set moment.locale() will be used.
+
+        If @code[true] is passed in, the picker will be updated using it's currently set locale.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method disable
+    @added 0.12.0
+    @deprecated 0.15.2
+      @description
+        Use @code[disabled(true)] instead.
+
+    @removed 1.0.0
+      @description
+        Use @code[disabled(true)] instead.
+
+    @description
+      A method for disabling a date/time picker so the user can't enter values.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method enable
+    @added 0.12.0
+    @deprecated 0.15.2
+      @description
+        Use @code[disabled(false)] instead.
+
+    @removed 1.0.0
+      @description
+        Use @code[disabled(false)] instead.
+
+    @description
+      A method for enabling a date/time picker so the user can enter values.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method date
+    @added 0.12.5
+    @deprecated 0.13.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+
+    @removed 0.14.0
+      @description
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+
+    @description
+      Sets the currently selected date.
+
+    @arg date [Date]
+      @description
+        The date to set.
+
+    @arg? retainTime [Boolean]
+      @description
+        Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
+
+      @default
+        false
+
+    @arg? suppressCallback [Boolean]
+      @description
+        A value used to prevent the change event being emitted.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @constructor
+    @added 0.13.0
+    @description
+      Creates a datepicker and a timepicker and appends them to the selected element.
+
+    @arg selector [String/HTMLElement]
+      @description
+        The selector to use to build the date/time picker
+
+    @arg? options [Object]
+      @description
+        The options to use when setting up the date/time picker.
+
+      @property datePickerOptions [Object]
+        @description
+          The options to use for the date picker.
+
+          See the @link(../date-picker)[Date Picker] module for information about the available options.
+
+          The @code[selectRange] option is ignored when using a date/time picker.
+
+      @property timePickerOptions [Object]
+        @description
+          The options to use for the time picker.
+
+          See the @link(../time-picker)[Time Picker] module for information about the available options.
+
+      @property disabled [Boolean]
+        @added 0.15.2
+          @description
+            Added the ability to disable a date time picker in the options
+
+        @description
+          Whether the date time picker should be disabled
+
+        @default
+          false
+
+  @method date
+    @added 0.13.0
+    @description
+      Sets the currently selected date.
+
+    @arg date [Date]
+      @description
+        The date to set.
+
+    @arg? retainTime [Boolean]
+      @description
+        Whether the currently selected hours, minutes and seconds should be retained when setting the date of the time picker. Setting this to true will change the date value behind the scenes (and therefore the date returned from the time picker) but will not visually change the time picker.
+
+      @default
+        false
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method day
+    @added 0.13.0
+    @description
+      A function used to set the currently selected day.
+
+    @arg day [Number]
+      @description
+        The day to set.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method month
+    @added 0.13.0
+    @description
+      Sets the currently selected month.
+
+    @arg month [Number]
+      @description
+        The month to set.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method year
+    @added 0.13.0
+    @description
+      Sets the currently selected year.
+
+    @arg year [Number]
+      @description
+        The year to set.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method hour
+    @added 0.13.0
+    @description
+      Sets the currently selected hour.
+
+    @arg hour [Number]
+      @description
+        The hour to set. Values accepted: 0 - 23. Passing in values outside this range will cause the TimePicker to cycle into the next/previous day.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method minute
+    @added 0.13.0
+    @description
+      Sets the currently selected minute.
+
+    @arg minute [Number]
+      @description
+        The minute to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous hour.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method second
+    @added 0.13.0
+    @description
+      Sets the currently selected second.
+
+    @arg second [Number]
+      @description
+        The second to set. Values accepted 0 - 59. Passing in values outside this range will cause the TimePicker to cycle into the next/previous minute.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method locale
+    @added 0.13.0
+    @description
+      A function for updating the locale used in the datetimepicker.
+
+      By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
+
+      @@codeblock js
+        datetimepicker.locale('pl') // sets the datetimepicker's locale to Poland
+
+    @arg locale [String]
+      @description
+        The locale string to update the datetimepicker with.
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method locale
+    @added 0.13.0
+    @description
+      A method for getting the currently set locale.
+
+    @returns [String]
+      @description
+        The currently set locale.
+
+  @method disabled
+    @added 0.15.2
+      @description
+        Added the ability to disable/enable a date time picker
+
+    @description
+      A method for disabling or enabling a date time picker
+
+    @arg value [Boolean]
+      @description
+        Whether the date time picker should be disabled
+
+    @returns [DateTimePicker]
+      @description
+        This date time picker
+
+  @method disabled
+    @added 0.15.2
+      @description
+        Added the ability to get the disabled state of a date time picker
+
+    @description
+      A method for getting the disabled state of a date time picker
+
+    @returns [Boolean]
+      @description
+        Whether the button group is disabled
+
+  @event change [Date]
+    @description
+      Emitted when the date or time is changed. The data sent with the event is the currently selected date.
+
+  @event time.change
+    @added 0.12.4
+    @description
+      Emitted when the time is changed.
+
+  @event time.show
+    @added 0.12.4
+    @description
+      Emitted when the time picker is shown.
+
+  @event time.hide
+    @added 0.12.4
+    @description
+      Emitted when the time picker is hidden.
+
+  @event date.change
+    @added 0.12.4
+    @description
+      Emitted when the date is changed.
+
+  @event date.show
+    @added 0.12.4
+    @description
+      Emitted when the date picker is shown.
+
+  @event date.hide
+    @added 0.12.4
+    @description
+      Emitted when the date picker is hidden.
+
+  @event change
+    @added 0.13.0
+
+  @event time.change [Object]
+    @added 0.13.0
+    @description
+      Emitted when the time is changed.
+
+    @property type [String]
+      @description
+        The type of event that fired the change. Can be 'user' (when the user clicks something to change the time) or 'api' (when a method call is used to change the api.)
+
+  @event date.change [Object]
+    @added 0.13.0
+    @description
+      Emitted when the date is changed.
+
+    @property type [String]
+      @description
+        The type of event that fired the change. Can be 'user' (when the user clicks something to change the date) or 'api' (when a method call is used to change the api.)
+
+@function hx.dateTimePicker
+  @added 1.0.0
+    @description
+      Fluid api version of DateTimePicker
+
+  @description
+    Creates a new DateTimePicker set up on a detached element, wrapped in a selection
+
+  @arg? options [Object]
+    @description
+      See the options object for constructing DateTimePicker
+
+  @returns [Selection]
+    @description
+      A selection containing an element with an DateTimePicker initialised on it
+

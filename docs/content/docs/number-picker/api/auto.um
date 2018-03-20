@@ -1,0 +1,308 @@
+@bugfix 1.3.0
+  @issue 182
+  @description
+    Update to only emit events when the value has actually changed
+
+@prototype hx.NumberPicker
+  @bugfix 1.8.0
+    @issue 328
+    @description
+      Fixed an issue where the value would not adhere to the min/max when changing via the input
+
+  @updated 1.8.0
+    @issue 159
+    @description
+      Disable the increment/decrement buttons when the value is at min/max
+
+  @description
+    A prototype used to create number pickers.
+
+  @extends EventEmitter
+  @constructor
+    @deprecated 0.13.0
+      @description
+        Use hx.NumberPicker(selector, options) instead.
+
+    @removed 0.14.0
+      @description
+        Use hx.NumberPicker(selector, options) instead.
+
+    @arg selector [String/HTMLElement]
+      @description
+        The selector to build the number picker inside of
+
+    @arg? buttonClass [String]
+      @description
+        The button class to apply to the number picker buttons
+
+  @method getValue
+    @deprecated 0.11.0
+      @description
+        Use @code[value()] instead.
+
+    @removed 0.12.0
+    @description
+      Gets the current value of the number picker
+
+    @returns [Number]
+
+  @method setValue
+    @deprecated 0.11.0
+      @description
+        Use @code[value(value, screenValue)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the current value of the number picker
+
+    @arg value [Number]
+      @description
+        The numberic value to set the value to
+
+    @arg? screenValue [Number/String]
+      @description
+        The number to display in the number picker, for use in conjunction with localisation
+
+  @method increment
+    @description
+      Increases the value by 1
+
+    @returns [NumberPicker]
+      @description
+        This NumberPicker
+
+  @method decrement
+    @description
+      Decreases the value by 1
+
+    @returns [NumberPicker]
+      @description
+        This NumberPicker
+
+  @method setMin
+    @added 0.10.0
+    @deprecated 0.13.0
+      @description
+        Use @code[min(value)] instead.
+
+    @removed 0.14.0
+      @description
+        Use @code[min(value)] instead.
+
+    @description
+      Sets the minimum value the number picker can have
+
+    @arg min [Number]
+      @description
+        The minimum value the number picker can have
+
+    @return NumberPicker
+      @description
+        This NumberPicker
+
+  @method setMax
+    @added 0.10.0
+    @deprecated 0.13.0
+      @description
+        Use @code[max(value)] instead.
+
+    @removed 0.14.0
+      @description
+        Use @code[max(value)] instead.
+
+    @description
+      Sets the maximum value the number picker can have
+
+    @arg max [Number]
+      @description
+        The maximum value the number picker can have
+
+    @return NumberPicker
+      @description
+        This NumberPicker
+
+  @method value
+    @added 0.11.0
+    @description
+      Sets the current value of the number picker
+
+    @arg value [Number]
+      @description
+        The numberic value to set the value to
+
+    @arg? screenValue [Number/String]
+      @description
+        The number to display in the number picker, for use in conjunction with localisation
+
+    @returns [NumberPicker]
+      @description
+        This NumberPicker
+
+  @method value
+    @added 0.11.0
+    @description
+      Gets the current value of the number picker
+
+    @returns [Number]
+
+  @constructor
+    @added 0.13.0
+    @arg selector [String/HTMLElement]
+      @description
+        The element or CSS selector string that uniquely identifies the element to initialise the number picker into
+
+    @arg? options [Object]
+      @description
+        The options that can be configured for the number picker component
+
+      @property buttonClass [String]
+        @description
+          The button class to apply to the number picker buttons
+
+      @property min [Number]
+        @description
+          The minimum number the number picker can have
+
+      @property max [Number]
+        @description
+          The maximum number the number picker can have
+
+      @property disabled [Boolean]
+        @added 0.15.2
+          @description
+            Added the ability to disable a number picker in the options
+
+        @description
+          Whether the number picker should be disabled
+
+        @default
+          false
+
+      @property incrementOnHold [Boolean]
+        @added 1.6.0
+          @issue 177
+          @description
+            Added the ability to press and hold to increment number pickers
+
+        @description
+          Whether pressing and holding the button should increment the number picker until releasing the button
+
+        @default
+          true
+
+      @property incrementDelay [Number]
+        @added 1.6.0
+          @issue 177
+          @description
+            Added the ability to press and hold to increment number pickers
+
+        @description
+          The delay between increments whilst pressing and holding the number picker buttons
+
+        @default
+          50
+
+  @method min
+    @added 0.13.0
+    @description
+      Sets the minimum value the number picker can have
+
+    @arg value [Number]
+      @description
+        The minimum value the number picker can have
+
+    @returns [NumberPicker]
+      @description
+        This NumberPicker
+
+  @method max
+    @added 0.13.0
+    @description
+      Sets the maximum value the number picker can have
+
+    @arg value [Number]
+      @description
+        The maximum value the number picker can have
+
+    @returns [NumberPicker]
+      @description
+        This NumberPicker
+
+  @method min
+    @added 0.13.0
+    @description
+      Gets the minimum value the number picker can have
+
+    @returns [Number]
+      @description
+        The min value for the current number picker.
+
+  @method max
+    @added 0.13.0
+    @description
+      Gets the maximum value the number picker can have
+
+    @returns [Number]
+      @description
+        The max value for the current number picker.
+
+  @method disabled
+    @added 0.15.2
+      @description
+        Added the ability to disable/enable a number picker
+
+    @description
+      A method for disabling or enabling a number picker
+
+    @arg value [Boolean]
+      @description
+        Whether the number picker should be disabled
+
+    @returns [NumberPicker]
+      @description
+        This number picker
+
+  @method disabled
+    @added 0.15.2
+      @description
+        Added the ability to get the disabled state of a number picker
+
+    @description
+      A method for getting the disabled state of a number picker
+
+    @returns [Boolean]
+      @description
+        Whether the number picker is disabled
+
+  @event increment
+    @description
+      Called when the value is incremented
+
+  @event decrement
+    @description
+      Called when the value is decremented
+
+  @event change [Number]
+    @description
+      Called when the value is changed. The data with the event is the new value of the number picker
+
+  @event input-change [Number]
+    @description
+      Called when the input value is changed. The data with the event is the new value of the number picker
+
+@function hx.numberPicker
+  @added 1.0.0
+    @description
+      Fluid api version of NumberPicker
+
+  @description
+    Creates a new NumberPicker set up on a detached element, wrapped in a selection
+
+  @arg? options [Object]
+    @description
+      See the options object for constructing NumberPicker
+
+  @returns [Selection]
+    @description
+      A selection containing an element with an NumberPicker initialised on it
+
