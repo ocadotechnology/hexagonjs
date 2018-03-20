@@ -1,15 +1,11 @@
 .hx-card {
   border: 1px solid transparent;
   margin-bottom: 0.5em;
+}
 
-  > {
-    .hx-card-group,
-    .hx-card-section {
-      &:not(.hx-card-joint) {
-        border-bottom: 1px solid transparent;
-      }
-    }
-  }
+.hx-card > .hx-card-group:not(.hx-card-joint),
+.hx-card > .hx-card-section:not(.hx-card-joint) {
+  border-bottom: 1px solid transparent;
 }
 
 .hx-card-section {
@@ -19,48 +15,38 @@
 .hx-card-group {
   display: flex;
   flex-direction: row;
+}
 
-  > {
-    .hx-card-group,
-    .hx-card-section {
-      border-bottom: none;
-      flex: 1 1 auto;
+.hx-card-group > .hx-card-group,
+.hx-card-group > .hx-card-section {
+  border-bottom: none;
+  flex: 1 1 auto;
+}
 
-      &.hx-card-fixed {
-        flex: 0 0 auto;
-      }
-    }
-  }
+.hx-card-group > .hx-card-group.hx-card-fixed,
+.hx-card-group > .hx-card-section.hx-card-fixed {
+  flex: 0 0 auto;
+}
 
-  &.hx-card-vertical {
-    > {
-      .hx-card-group,
-      .hx-card-section {
-        &:not(.hx-card-joint) {
-          border-bottom: 1px solid transparent;
-        }
+.hx-card-group.hx-card-vertical > .hx-card-group:not(.hx-card-joint),
+.hx-card-group.hx-card-vertical > .hx-card-section:not(.hx-card-joint) {
+  border-bottom: 1px solid transparent;
+}
 
-        &:last-child {
-          border-bottom: none;
-        }
-      }
-    }
-  }
+.hx-card-group.hx-card-vertical > .hx-card-group:last-child,
+.hx-card-group.hx-card-vertical > .hx-card-section:last-child {
+  border-bottom: none;
+}
 
-  &:not(.hx-card-vertical) {
-    > {
-      .hx-card-group,
-      .hx-card-section {
-        &:not(.hx-card-joint) {
-          border-right: 1px solid transparent;
-        }
 
-        &:last-child {
-          border-right: none;
-        }
-      }
-    }
-  }
+.hx-card-group:not(.hx-card-vertical) > .hx-card-group:not(.hx-card-joint),
+.hx-card-group:not(.hx-card-vertical) > .hx-card-section:not(.hx-card-joint) {
+  border-right: 1px solid transparent;
+}
+
+.hx-card-group:not(.hx-card-vertical) > .hx-card-group:last-child,
+.hx-card-group:not(.hx-card-vertical) > .hx-card-section:last-child {
+  border-right: none;
 }
 
 .hx-card-vertical {

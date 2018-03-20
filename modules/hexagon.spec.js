@@ -226,7 +226,8 @@ describe('HexagonJS Test Suite', () => {
         'slider',
         'Slider',
         'timeSlider',
-        'TimeSlider'
+        'TimeSlider',
+        'card'
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])

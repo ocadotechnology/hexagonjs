@@ -492,4 +492,18 @@
   --slider-value-border-radius: 5px;
   --slider-disabled-background-col: #BBBBBB;
   --slider-slider-marker-col: #E2E2E2;
+
+  /* Card */
+  --card-background-col: white;
+  --card-border-col: #ECECEC;
+  --card-shadow-col: rgba(0, 0, 0, 0.05);
+  --card-header-text-col: black;
+  --card-header-background-col: rgba(162, 162, 162, 0.1);
+  --card-section-border-col: #E4E4E4;
+  --card-text-col: dimgrey;
+  --card-icon-col: #8E8D8D;
+  --card-action-hover-background-col: #F3F3F3;
+  --card-normal-padding: 14px;
+  --card-small-padding: 7px;
+  --card-context-text-col: white;
 }

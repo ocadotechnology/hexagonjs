@@ -1,8 +1,5 @@
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
-
-div = (clasz) -> select.detached('div').class(clasz)
-span = (clasz) -> select.detached('span').class(clasz)
+import { div, span, detached } from 'selection/main'
+import { defined } from 'utils/main'
 
 #XXX: use the palette context functions instead
 classContext = (selection, context) -> if context then selection.classed('hx-' + context, true) else selection
@@ -24,7 +21,7 @@ sizes.forEach (size) ->
     joints.forEach (joint) ->
       directions.forEach (direction) ->
         headers.forEach (header) ->
-          types = [size, fixed, joint, direction, header].filter(utils.defined)
+          types = [size, fixed, joint, direction, header].filter(defined)
           base = card
           types.forEach (type) ->
             base[type] ?= {}
@@ -106,7 +103,7 @@ for size in ['small', 'normal', 'slim']
   defineComponent size + '.fixed.joint.header.group'
   defineComponent size + '.fixed.joint.vertical.header.group'
 
-card.aligned = -> select.detached('div').class('hx-card-aligned')
+card.aligned = -> div('hx-card-aligned')
 
 ### building blocks ###
 
@@ -116,7 +113,7 @@ textLikeComponent = (elementType, clasz) ->
   (options) ->
     context = options?.context
 
-    selection = select.detached(elementType)
+    selection = detached(elementType)
       .class(clasz)
       .text(options.text)
       .api({
@@ -146,7 +143,7 @@ card.small.title = (options) -> card.title(options).classed('hx-card-small', tru
 card.large.title = (options) -> card.title(options).classed('hx-card-large', true)
 
 card.icon = (options) ->
-  selection = select.detached('i')
+  selection = detached('i')
     .class('hx-card-icon ' + (options.icon or ''))
     .api({
       icon: (icon) ->
@@ -160,7 +157,7 @@ card.icon = (options) ->
   textContext(selection, options?.context)
 
   return selection
-  
+
 card.small.icon = (options) -> card.icon(options).classed('hx-card-small', true)
 card.large.icon = (options) -> card.icon(options).classed('hx-card-large', true)
 
@@ -171,14 +168,14 @@ card.icon.action = {}
 
 card.action.section = (options) ->
   card.section(options).add(
-    select.detached('a')
+    detached('a')
       .attr('href', options.link)
       .class('hx-card-action')
       .add(card.text(options)))
 
 card.action.icon.section = (options) ->
   card.section(options).add(
-    select.detached('a')
+    detached('a')
       .attr('href', options.link)
       .class('hx-card-action')
       .add(card.text(options))
@@ -186,7 +183,7 @@ card.action.icon.section = (options) ->
 
 card.icon.action.section = (options) ->
   card.section(options).add(
-    select.detached('a')
+    detached('a')
       .attr('href', options.link)
       .class('hx-card-action')
       .add(card.icon(options))
@@ -195,13 +192,13 @@ card.icon.action.section = (options) ->
 # Complete cards
 
 card.notice = (options = {}) ->
-  card().classed('hx-card-small', true)
+  card()
+    .classed('hx-card-small', true)
     .add(card.header.section({sectionContext: options.context or 'info'})
       .add(card.title({titleText: options.title or 'Note'})))
     .add(card.section().add(card.text({text: options.message})))
 
 
-module.exports = card
-module.exports.hx = {
+export {
   card
 }

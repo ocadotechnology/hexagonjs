@@ -92,7 +92,6 @@ class Sparkline
     optionSetterGetter('redrawOnResize').apply(this, arguments)
 
   render: ->
-    self = this
     @_.series.data(@data())
     if @fillColor()? then @_.series.fillColor(@fillColor())
     if @_.options.type is 'line'
@@ -102,8 +101,8 @@ class Sparkline
 
 sparkline = (options) ->
   selection = div()
-  sparkline = new Sparkline(selection.node(), options)
-  sparkline.render()
+  sl = new Sparkline(selection, options)
+  sl.render()
   selection
 
 export {
