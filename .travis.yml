@@ -1,14 +1,20 @@
 language: node_js
 
 stages:
-  - test
+  - name: test
+    # DEBUG: Don't run the tests so we can test-run the rest of the script
+    if:
+      - branch != add_pages
+
   - name: publish module
     if:
       - branch = master
       - tag IS present
       - repo = ocadotechnology/hexagonjs
+
   - name: publish docs
     if:
+      # DEBUG: Use current branch instead of master
       - branch = add_pages
       - repo = ocadotechnology/hexagonjs
       - type = push
