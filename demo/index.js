@@ -28,6 +28,7 @@ import colorPickerExamples from './examples/color-picker'
 import sliderExamples from './examples/slider'
 import timeSliderExamples from './examples/time-slider'
 import cardExamples from './examples/card'
+import paginatorExamples from './examples/paginator'
 
 function example(title) {
   return div('example-section')
@@ -64,5 +65,6 @@ select('body')
     example('Color Picker').add(colorPickerExamples()),
     example('Slider').add(sliderExamples()),
     example('Time Slider').add(timeSliderExamples()),
-    example('Card').add(cardExamples())
+    example('Card').add(cardExamples()),
+    example('Paginator').add(paginatorExamples())
   ]))

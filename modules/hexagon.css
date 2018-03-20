@@ -506,4 +506,11 @@
   --card-normal-padding: 14px;
   --card-small-padding: 7px;
   --card-context-text-col: white;
+
+  /* Paginator */
+  --paginator-selected-background-color: var(--theme-action-color);
+  --paginator-selected-text-color: var(--theme-text-light-color);
+  --paginator-hover-background-color: var(--theme-action-color);
+  --paginator-hover-text-color: var(--theme-text-light-color);
+
 }

@@ -1,6 +1,6 @@
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
-EventEmitter = require('modules/event-emitter/main')
+import { select, div, detached } from 'selection/main'
+import { range, clamp, merge } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
 
 getRange = (obj) ->
   start = Math.max(1, obj.page - Math.floor(obj.visibleCount / 2))
@@ -31,7 +31,7 @@ render = (paginator) ->
     # XXX: Probably shouldn't run this twice every time
     {start, end} = getRange(paginator._)
 
-    data = utils.range(end - start).map (i) ->
+    data = range(end - start).map (i) ->
       {
         value: start + i
         selected: paginator._.page == start + i
@@ -40,11 +40,11 @@ render = (paginator) ->
 
   paginator.view.apply(data)
 
-select = (paginator, page, cause) ->
+selectPage = (paginator, page, cause) ->
   if paginator._.pageCount is undefined
     newPage = Math.max(page, 1)
   else
-    newPage = utils.clamp(1, paginator._.pageCount, page)
+    newPage = clamp(1, paginator._.pageCount, page)
 
   if newPage != paginator._.page
     paginator._.page = newPage
@@ -60,7 +60,7 @@ class Paginator extends EventEmitter
       .classed('hx-paginator', true)
       .api(this)
 
-    @_ = utils.merge({
+    @_ = merge({
       page: 1,
       visibleCount: 10,
       pageCount: 10
@@ -74,12 +74,12 @@ class Paginator extends EventEmitter
     @container.append('button')
       .attr('type', 'button')
       .class('hx-btn hx-paginator-start-button')
-        .add(select.detached('i').class('hx-icon hx-icon-step-backward'))
+        .add(detached('i').class('hx-icon hx-icon-step-backward'))
         .on 'click', 'hx.paginator', ->
           if self._.pageCount is undefined
-            select(self, self._.page - 1, 'user')
+            selectPage(self, self._.page - 1, 'user')
           else
-            select(self, 0, 'user')
+            selectPage(self, 0, 'user')
 
     pageButtons = @container.append('span').class('hx-input-group')
     @view = pageButtons.view('.hx-btn', 'button').update (d, e, i) ->
@@ -90,25 +90,25 @@ class Paginator extends EventEmitter
         .classed('hx-paginator-default', not d.selected)
         .classed('hx-paginator-selected', d.selected)
         .classed('hx-no-border', true)
-        .on 'click', 'hx.paginator', -> select(self, d.value, 'user')
+        .on('click', 'hx.paginator', -> selectPage(self, d.value, 'user'))
 
     # go-to-end button
     @container.append('button')
       .attr('type', 'button')
       .class('hx-btn hx-paginator-end-button')
-        .add(select.detached('i').class('hx-icon hx-icon-step-forward'))
+        .add(detached('i').class('hx-icon hx-icon-step-forward'))
         .on 'click', 'hx.paginator', ->
           if self._.pageCount is undefined
-            select(self, self._.page + 1, 'user')
+            selectPage(self, self._.page + 1, 'user')
           else
-            select(self, self._.pageCount, 'user')
+            selectPage(self, self._.pageCount, 'user')
 
     @container.on 'resize', 'hx.paginator', -> render(self)
     render(this)
 
   page: (i) ->
     if arguments.length > 0
-      select(@, i, 'api')
+      selectPage(@, i, 'api')
       this
     else
       @_.page
@@ -130,13 +130,11 @@ class Paginator extends EventEmitter
       @_.visibleCount
 
 paginator = (options) ->
-  selection = select.detached('div')
-  new Paginator(selection.node(), options)
+  selection = div()
+  new Paginator(selection, options)
   selection
 
-module.exports = paginator
-module.exports.Paginator = Paginator
-module.exports.hx = {
+export {
   paginator,
   Paginator
 }
