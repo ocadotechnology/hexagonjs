@@ -1,0 +1,173 @@
+@function [hx.card.[small | normal | slim].[fixed].[joint].[header].[vertical].group]
+  @description
+    Creates a card group. Cards can be made up of multiple groups and
+    sections.
+
+  @extra
+    There are multiple optional modifiers that can be used to construct a
+    group.
+
+    @h3[small | normal | slim]
+
+    These change the amount of padding for child sections by applying the
+    @code[hx-card-small], @code[hx-card-normal] or @code[hx-card-slim] class to
+    the group.
+
+    @bold[normal] can be used to override the padding inside a
+    @code[hx.card.small()]
+
+    @bold[small] can be used to override the padding inside a
+    @code[hx.card()]
+
+    @bold[slim] can be used to remove the padding on an element inside any card
+
+    @h3[fixed]
+
+    Applies the @code[hx-card-fixed] class to the group to prevent it from
+    expanding to take up the available space.
+
+    @h3[joint]
+
+    Applies the @code[hx-card-joint] class to join the group to the next
+    group/section
+
+    @h3[header]
+
+    Applies the @code[hx-card-header] class to the group to display the
+    group as a header
+
+    The available combinations are:
+
+    @@codeblock js
+      // Default groups
+      hx.card.group()
+
+      hx.card.fixed.group()
+
+      hx.card.fixed.joint.group()
+      hx.card.fixed.vertical.group()
+      hx.card.fixed.header.group()
+      hx.card.fixed.joint.vertical.group()
+      hx.card.fixed.joint.header.group()
+      hx.card.fixed.joint.vertical.header.group()
+      hx.card.fixed.vertical.header.group()
+
+      hx.card.joint.group()
+      hx.card.joint.header.group()
+      hx.card.joint.vertical.group()
+      hx.card.joint.vertical.header.group()
+
+      hx.card.vertical.group()
+      hx.card.vertical.header.group()
+
+      hx.card.header.group()
+
+
+      // Small groups
+      hx.card.small.group()
+
+      hx.card.small.fixed.group()
+
+      hx.card.small.fixed.joint.group()
+      hx.card.small.fixed.vertical.group()
+      hx.card.small.fixed.header.group()
+      hx.card.small.fixed.joint.vertical.group()
+      hx.card.small.fixed.joint.header.group()
+      hx.card.small.fixed.joint.vertical.header.group()
+      hx.card.small.fixed.vertical.header.group()
+
+      hx.card.small.joint.group()
+      hx.card.small.joint.header.group()
+      hx.card.small.joint.vertical.group()
+      hx.card.small.joint.vertical.header.group()
+
+      hx.card.small.vertical.group()
+      hx.card.small.vertical.header.group()
+
+      hx.card.small.header.group()
+
+
+      // Normal groups
+      hx.card.normal.group()
+
+      hx.card.normal.fixed.group()
+
+      hx.card.normal.fixed.joint.group()
+      hx.card.normal.fixed.vertical.group()
+      hx.card.normal.fixed.header.group()
+      hx.card.normal.fixed.joint.vertical.group()
+      hx.card.normal.fixed.joint.header.group()
+      hx.card.normal.fixed.joint.vertical.header.group()
+      hx.card.normal.fixed.vertical.header.group()
+
+      hx.card.normal.joint.group()
+      hx.card.normal.joint.header.group()
+      hx.card.normal.joint.vertical.group()
+      hx.card.normal.joint.vertical.header.group()
+
+      hx.card.normal.vertical.group()
+      hx.card.normal.vertical.header.group()
+
+      hx.card.normal.header.group()
+
+
+      // Slim groups
+      hx.card.slim.group()
+
+      hx.card.slim.fixed.group()
+
+      hx.card.slim.fixed.joint.group()
+      hx.card.slim.fixed.vertical.group()
+      hx.card.slim.fixed.header.group()
+      hx.card.slim.fixed.joint.vertical.group()
+      hx.card.slim.fixed.joint.header.group()
+      hx.card.slim.fixed.joint.vertical.header.group()
+      hx.card.slim.fixed.vertical.header.group()
+
+      hx.card.slim.joint.group()
+      hx.card.slim.joint.header.group()
+      hx.card.slim.joint.vertical.group()
+      hx.card.slim.joint.vertical.header.group()
+
+      hx.card.slim.vertical.group()
+      hx.card.slim.vertical.header.group()
+
+      hx.card.slim.header.group()
+
+  @arg? options [Object]
+    @inline options/context.um
+
+  @returns Selection
+    @description
+      Returns a selection containing the detached element
+
+  @group Component
+    @object api
+      @description
+        This api can be obtained like this
+
+        @@codeblock js
+          var group = hx.card.group()
+          var api = group.component()
+
+      @property context [Function]
+        @description
+          Gets the context of the group
+
+        @returns String
+          @description
+            The context of the group (can be one of the standard hexagon
+            contexts - 'positive', 'negative', 'warning', 'info', 'action', etc)
+
+      @property context [Function]
+        @description
+          Sets the context of the group
+
+        @arg context [String]
+          @description
+            The context to set (can be one of the standard hexagon contexts -
+            'positive', 'negative', 'warning', 'info', 'action', etc)
+
+        @returns Object
+          @description
+            Returns this api object.

@@ -1,0 +1,23 @@
+@method value
+  @added 0.13.0
+
+  @description
+    Getting the value of the auto complete.
+
+  @returns String
+    @description
+      The input value
+
+@method value
+  @added 0.13.0
+
+  @description
+    Setting the value of the auto complete.
+
+  @arg value [String]
+    @description
+      The value to set the autocomplete to.
+
+  @returns AutoComplete
+    @description
+      This @type[AutoComplete] for chaining

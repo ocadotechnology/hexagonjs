@@ -1,0 +1,59 @@
+@inline ../../shared/common.um
+@titlebar FAQs
+
+@topSection
+  @title FAQs
+
+@contentSection
+
+  @topic Which browsers are supported?
+    Chrome, Firefox and Safari. Both the desktop and mobile versions.
+    Internet Explorer / Edge is currently not supported.
+
+  #@topic I want to create a custom theme. Is is possible?
+  #  Yes it is! The best place to get started is the @hyperlink(/docs/custom-themes)[custom themes] section of the docs.
+
+  @topic I have found a problem with the documentation. Where can I report it?
+    You can report issues related to the site on the documentation GitHub
+    issue tracker: @hyperlink(https://github.com/ocadotechnology/hexagonjs-site/issues)[hexagonjs-site/issues].
+
+    When submitting a bug report, please provide a link to the page(s) that
+    exhibit the issue. If you have the knowledge and the time to update the
+    documentation, please submit a pull request and everyone can benefit.
+
+  @topic I have found a bug. Where can I report it?
+    You can report issues on the Hexagon.js GitHub issue
+    tracker: @hyperlink(https://github.com/ocadotechnology/hexagonjs/issues)[hexagonjs/issues].
+
+    When submitting a bug report please provide an example that reproduces the
+    bug, and specify which version of hexagon you are using.
+
+    The following template can be used:
+
+    @@codeblock md
+      Title: Module Name: short description
+
+      Hexagon version: x.x.x
+      Theme: theme-name    // if relevant
+      Build Config: {...}  // if using the npm builder
+
+      Expected
+      --------
+      What you expected to happen
+
+      Actual
+      ------
+      What actually happens
+
+      Example
+      -------
+      A short example that reproduces the problem
+
+
+  @topic I have a feature request. Who do I ask?
+    Create an issue on the the @hyperlink(https://github.com/ocadotechnology/hexagonjs/issues/)[GitHub issue tracker],
+    and tag it with New Feature.
+
+  @topic I want to contribute to the project. How do I go about doing this?
+    We welcome pull requests for bugfixes and additional features. Please
+    target the "master" branch when setting up a new pull request.

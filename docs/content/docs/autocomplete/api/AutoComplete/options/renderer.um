@@ -1,0 +1,21 @@
+@property renderer [Function]
+  @description
+    A function used to render the items in the dropdown.
+
+    The default renderer sets the html to the item value and the
+    onclick sets the input value to the same value:
+
+    @@codeblock js
+      function renderer (elem, item){
+        hx.select(elem)
+          .text(item)
+      }
+
+  @arg elem [HTMLElement]
+    @description
+      The HTMLElement to populate
+
+  @arg item [Object]
+    @description
+      The data item to populate the element with.
+

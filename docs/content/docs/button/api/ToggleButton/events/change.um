@@ -1,0 +1,4 @@
+@event change [Boolean]
+  @description
+    The event emitted when a toggle button is changed. The data is the new value
+    for the toggle button.

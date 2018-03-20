@@ -1,0 +1,3 @@
+@property renderer [Function]
+  @added 0.13.0
+  @inline ../arguments/renderer.um

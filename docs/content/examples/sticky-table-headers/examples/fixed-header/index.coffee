@@ -1,0 +1,1 @@
+new hx.StickyTableHeaders('#fixed-header')

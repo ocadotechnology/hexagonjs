@@ -1,0 +1,23 @@
+@version 0.10.0
+  @examples
+    @example
+      @html
+        Color: <span id="select"></span>. Click to edit.
+
+      @js
+        select = new hx.InlineSelect('#select')
+        select.items(['Red', 'Green', 'Blue'])
+        select.value('Red')
+
+@version 0.13.0
+  @examples
+    @example
+      @html
+        Color: <span id="select"></span>. Click to edit.
+
+      @js
+        select = new hx.InlineSelect('#select', {
+          items: ['Red', 'Green', 'Blue'],
+          startValue: 'Red'
+        })
+

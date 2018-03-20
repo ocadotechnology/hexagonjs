@@ -1,0 +1,3 @@
+@arg end [Number]
+  @description
+    The maximum value for the domain.

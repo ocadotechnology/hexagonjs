@@ -1,0 +1,14 @@
+@event highlight [Object]
+  @description
+    The event emitted when an item is set as the active item. This can
+    only be done by the keyboard or when the user clicks on an item
+
+  @property eventType [String]
+    @description
+      The type of event that caused the selection:
+
+      @list
+        @item: 'click' - User clicked
+        @item: 'arrow' - User used the arrow keys
+
+  @property item [String/Object]: The item as it was passed into the select.

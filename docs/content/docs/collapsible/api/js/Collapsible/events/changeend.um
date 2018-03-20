@@ -1,0 +1,18 @@
+@event changeend [Boolean]
+
+  @deprecated 0.13.0
+    @description
+      Use @code[showend] or @code[hideend] to listen for when the animations
+      have finished on show/hide.
+
+  @removed 0.14.0
+    @description
+      Use @code[showend] or @code[hideend] to listen for when the animations
+      have finished on show/hide.
+
+
+  @description
+    Emitted when the collapsible's state changes and animations have finished.
+
+    The data that comes with this event is a boolean. True means that the
+    collapsible has just been opened, false means it has just been closed.

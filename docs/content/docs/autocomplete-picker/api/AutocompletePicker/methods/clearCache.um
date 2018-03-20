@@ -1,0 +1,8 @@
+@method clearCache
+  @description
+    Clears the cache of search terms / results currently stored by the
+    autocomplete picker
+
+  @returns AutocompletePicker
+    @description
+      This @type[AutocompletePicker] for chaining

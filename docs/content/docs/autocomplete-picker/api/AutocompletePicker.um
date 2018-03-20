@@ -1,0 +1,41 @@
+@prototype hx.AutocompletePicker
+  @added 1.4.0
+    @issue 17
+
+  @bugfix 1.8.2
+    @description
+      Fixed an issue where the filtering failed when there were no
+      'disabled' items in the list
+    @issue 343
+
+  @constructor
+    @description
+      Creates an autocomplete picker element inside the passed in selector
+
+    @arg selector [String/HTMLElement]: The selector of the element to populate
+
+    @arg items [Array/Function]
+      @inline AutocompletePicker/arguments/items.um
+
+    @arg? options [Object]
+      @inline AutocompletePicker/options/*um
+
+  @inline AutocompletePicker/methods/*um
+  @inline AutocompletePicker/events/*um
+
+
+@function hx.autocompletePicker
+  @added 1.4.0
+    @issue 17
+
+  @description
+    Creates a new AutocompletePicker set up on a detached element, wrapped in a
+    selection
+
+  @arg items [Array/Function]
+    @inline AutocompletePicker/arguments/items.um
+
+  @arg? options [Object]
+    @inline AutocompletePicker/options/*um
+
+  @returns Selection: A selection containing an AutocompletePicker

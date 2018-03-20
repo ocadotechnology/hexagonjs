@@ -1,0 +1,881 @@
+@bugfix 0.14.1
+  @description
+    Fixed an issue in Safari when using @code[hx.select(window).on(...)]
+
+@updated 1.0.0
+  @description
+    Appending @code[undefined] to a selection no longer adds an @code[<undefined>] element to the DOM
+
+@function hx.select
+  @description
+    Creates a selection from an Element or CSS selector. The selection will contain a single element.
+
+  @arg selector [Element/String]
+    @description
+      The Element to select, or a CSS selector to use to find an element.
+
+  @returns [Selection]
+
+@function hx.selectAll
+  @description
+    Creates a selection by finding all elements that match a CSS selector.
+
+  @arg selector [String]
+    @description
+      A CSS selector.
+
+  @returns [Selection]
+
+@function hx.detached
+  @description
+    Creates a new detached element, wrapped in a selection.
+
+  @arg type [String]
+    @description
+      The tag type, eg 'div'
+
+  @arg? namespace [String]
+    @description
+      The namespace to use, eg 'http://www.w3.org/1999/xhtml'
+
+    @default
+      [http://www.w3.org/1999/xhtml]
+
+  @returns [Selection]
+
+@prototype Selection
+  @updated 0.12.7
+    @description
+      Selection now handles namespaced attributes (which are most prevalent in svg). eg
+
+      @@codeblock js
+        text.attr('xlink:href', '#curvePath')
+
+  @updated 0.12.7
+    @description
+      Selection now handles removal of styles with undefined (so that it works in the same was as selection.attr). eg
+
+      @@codeblock js
+        text.style('color', undefined)
+
+  @updated 0.15.2
+    @description
+      Added the ability to attach an array of selections to a selection using the add, append, prepend, insertBefore and insertAfter methods.
+
+  @bugfix 1.10.0
+    @description
+      Resolved a bug with shallowSelect when calling it on nodes without children.
+
+  @updated 1.11.0
+    @issue 376
+    @description
+      Removed warning when calling hx.select on a Selection.
+
+  @description
+    The type returned from hx.select and hx.selectAll.
+
+  @method select
+    @description
+      Returns a new Selection containing the first child element found that matches the css selector provided.
+
+    @arg selector [String]
+      @description
+        A CSS selector
+
+    @returns [Selection]
+
+  @method selectAll
+    @description
+      Returns a new Selection containing all the child elements found that match the css selector provided.
+
+    @arg selector [String]
+      @description
+        A CSS selector
+
+    @returns [Selection]
+
+  @method append
+    @description
+      Appends an element to all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code[<div>] element for example.
+
+    @arg element [String/Element/Selection]
+      @description
+        The element type to append, or the element to append, or a selection containing an element to append.
+
+    @returns [Selection]
+      @description
+        A new Selection containing the new elements
+
+  @method prepend
+    @added 0.9.0
+    @description
+      Inserts an element at the start of all elements currently selected and returns a new Selection containing the new elements. Use 'div' to append a @code[<div>] element for example.
+
+    @arg element [String/Element/Selection]
+      @description
+        The element type to prepend, or the element to prepend, or a selection containing an element to prepend.
+
+    @returns [Selection]
+      @description
+        A new Selection containing the new elements
+
+  @method insertBefore
+    @added 0.9.0
+    @description
+      Inserts an element before each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
+
+    @arg element [String/Element/Selection]
+      @description
+        The element type to insert, or the element to insert, or a selection containing an element to insert.
+
+    @returns [Selection]
+      @description
+        A new Selection containing the new elements
+
+  @method insertAfter
+    @added 0.9.0
+    @description
+      Inserts an element after each node in the current selection. The inserted element will be at the same level in the dom tree as the selected element(s).
+
+    @arg element [String/Element/Selection]
+      @description
+        The element type to insert, or the element to insert, or a selection containing an element to insert.
+
+    @returns [Selection]
+      @description
+        A new Selection containing the new elements
+
+  @method remove
+    @description
+      Removes all selected elements from the dom. Returns an array of the removed element.
+
+    @returns [Array[Element]]
+
+  @method node
+    @description
+      Returns the first element in the selection.
+
+    @returns [Element]
+
+  @method prop
+    @description
+      Sets a property on the Elements selected.
+
+      @@codeblock js
+        // will set the className property value to 'myclass'
+        // for the single element in the selection this will
+        // return the current selection for chaining
+        hx.select('#some-id').prop('className', 'myclass')
+
+      @@codeblock js
+        // will set the className property value to 'myclass'
+        // for all the elements in the selection this will
+        // return the current selection for chaining
+        hx.selectAll('.some-class').prop('className', 'myclass')
+
+    @arg property [String]
+      @description
+        The property to get, or if a value is being supplied the property to set the value of.
+
+    @arg value [Any]
+      @description
+        The value to set the property to.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method prop
+    @description
+      Gets a property on the Elements selected.
+
+      @@codeblock js
+        // will return the className attribute for the selected element
+        hx.select('#some-id').prop('className')
+
+      @@codeblock js
+        // will return an array of className attributes for all the selected elements
+        hx.selectAll('.some-class').prop('className')
+
+    @arg property [String]
+      @description
+        The name of the property to get.
+
+    @returns [Any/Array[Any]]
+      @description
+        The property value or values for a multiple selection
+
+  @method attr
+    @updated 0.9.0
+      @description
+        Passing in undefined as the value will now remve the attribute from the element.
+
+    @description
+      Sets an attribute on the Elements selected.
+
+      @@codeblock js
+        // will set the class attribute value to 'myclass' for the
+        // single element in the selection this will return the current
+        // selection for chaining
+        hx.select('#some-id').attr('placeholder', 'Enter Text...')
+
+      @@codeblock js
+        // will set the class attribute value to 'myclass' for all the
+        // elements in the selection this will return the current selection
+        // for chaining
+        hx.selectAll('.some-class').attr('placeholder', 'Enter Text...')
+
+    @arg attribute [String]
+      @description
+        The attribute to get, or if a value is being supplied the attribute to set the value of.
+
+    @arg value [String]
+      @description
+        The value to set the attribute to.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method attr
+    @description
+      Gets an attribute on the Elements selected.
+
+      @@codeblock js
+        // will return the class attribute for the selected element
+        hx.select('#some-id').attr('class')
+
+      @@codeblock js
+        // will return an array of class attributes for all the selected elements
+        hx.selectAll('.some-class').attr('class')
+
+    @arg attribute [String]
+      @description
+        The name of the attribute to get.
+
+    @returns [String/Array[String]]
+      @description
+        The attribute value or values for a multiple selection
+
+  @method style
+    @description
+      Sets a style property on the Elements selected.
+
+      @@codeblock js
+        // will set the class style property value to 'myclass' for
+        // the single element in the selection this will return the
+        // current selection for chaining
+        hx.select('#some-id').style('background', 'red')
+
+      @@codeblock js
+        // will set the class style property value to 'myclass' for
+        // all the elements in the selection this will return the current
+        // selection for chaining
+        hx.selectAll('.some-class').style('background', 'red')
+
+    @arg property [String]
+      @description
+        The style property to get, or if a value is being supplied the style property to set the value of.
+
+    @arg value [String]
+      @description
+        The value to set the style property to.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method style
+    @description
+      Gets a style property on the Elements selected.
+
+      @@codeblock js
+        // will return the class style property for the selected element
+        hx.select('#some-id').style('background')
+
+      @@codeblock js
+        // will return an array of class style propertys for all the selected elements
+        hx.selectAll('.some-class').style('background')
+
+    @arg property [String]
+      @description
+        The name of the style property to get the value of.
+
+    @returns [String/Array[String]]
+      @description
+        The style property or properties if this is a multiple selection.
+
+  @method text
+    @description
+      Sets text content of all the selected elements.
+
+      Shorthand for @code[selection.prop('textContent', value)] @arg text [String]
+      @description
+        The text to use.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method text
+    @description
+      Gets the text content of all the selected elements.
+
+      Shorthand for @code[selection.prop('textContent')] @returns [String/Array[String]]
+      @description
+        The text content of the selected element, or nodes if this is a multiple selection.
+
+  @method html
+    @description
+      Sets the html content of all the selected elements
+
+      Shorthand for @code[selection.prop('innerHtml', value)] @arg html [String]
+      @description
+        The html to use.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method html
+    @description
+      Gets the html content of all the selected elements
+
+      Shorthand for @code[selection.prop('innerHtml')] @returns [String/Array[String]]
+      @description
+        The html content of the selected element, or nodes if this is a multiple selection.
+
+  @method class
+    @description
+      Sets the class attribute for all of the selected elements
+
+      Shorthand for  @code[selection.attr('class', value)] @arg class [String]
+      @description
+        The class to set.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method class
+    @description
+      Gets the class attribute for all of the selected elements
+
+      Shorthand for @code[selection.attr('class')] @returns [String/Array[String]]
+      @description
+        The class of the selected element or list of classes if this is a multiple selection.
+
+  @method classed
+    @updated 0.11.0
+      @description
+        Selection.classed now supports adding and removing lists of space separated classes
+
+    @description
+      Adds or removes a class to the list of classes for all selected elements. Returns the current selection for chaining.
+
+    @arg class [String]
+      @description
+        The class to add/remove.
+
+    @arg add [Boolean]
+      @description
+        True to add the class, false to remove it.
+
+    @returns [Selection]
+
+  @method classed
+    @updated 0.15.2
+      @description
+        Added the ability to check for multiple classes at once, e.g. @code[selection.classed('a b')]
+
+    @description
+      Checks if the selected element(s) have the class supplied.
+
+    @arg class [String]
+      @description
+        The class to check existance of.
+
+    @returns [Boolean/Array[Boolean]]
+      @description
+        Whether or not the elements have the class. True means they do.
+
+  @method value
+    @description
+      Sets the value property for input elements.
+
+    @arg value [String]
+      @description
+        The value to set.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method value
+    @description
+      Gets the value property for input elements.
+
+    @returns [String/Array[String]]
+      @description
+        The value for the selected element, or values if this is a multiple selection.
+
+  @method off
+    @removed 0.10.0
+      @description
+        Use selection.off([name], [namespace], [handler]) instead
+
+    @description
+      Deregisters a callback for an event type.
+      @@codeblock js
+
+        hx.select('#button').off('click')
+        hx.select('#button').off('click', handler)
+
+    @arg name [String]
+      @description
+        The event type to remove the handler(s) for
+
+    @arg? callback [Function[Event]]
+      @description
+        A specific callback to remove
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method view
+    @description
+      Creates a view on the current selection. See the View type for more information.
+
+    @arg selector [String]
+      @description
+        A CSS selector
+
+    @arg? type [String]
+      @description
+        The container node type to use. The default is 'div'
+
+    @returns [View]
+
+  @method each
+    @deprecated 0.12.6
+      @description
+        The each method for selections has been replaced to use a method that provides a selection as the argument to the @code[f] function Use @code[Selection.forEach(f)] instead.
+
+    @removed 0.14.0
+      @description
+        The each method for selections has been replaced to use a method that provides a selection as the argument to the @code[f] function. Use @code[Selection.forEach(f)] instead.
+
+    @description
+      Calls a function for each element in the selection.
+
+    @arg f [Function[Element]]
+      @description
+        A function that takes a HTML element as its first parameter
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method map
+    @removed 1.0.0
+      @description
+        The function called for each node will now be passed a @code[Selection] instead of an @code[Element] The current behavior can be replicated using @code[Selection.nodes.map]
+
+    @description
+      Calls a function for each element in the selection. Returns an array of the results of calling f on the elements. If used on a single selection the result will not be wrapped in an array.
+
+    @arg f [Function[Element]]
+      @description
+        A function that takes a HTML element as its first parameter
+
+    @returns [Any/Array[Any]]
+      @description
+        The result of the function f
+
+  @method filter
+    @description
+      Returns a new selection by filtering on the elements in this selection.
+
+    @arg f [Function[Element]]
+      @description
+        A function that takes a HTML element as its first parameter and returns a Boolean. True to keep the element, False otherwise.
+
+    @returns [Selection]
+
+  @method box
+    @description
+      Returns the bounding boxes for the elements in the selection.
+
+    @returns [ClientRect/Array[ClientRect]]
+
+  @method width
+    @description
+      Returns the widths of the elements selected.
+
+    @returns [Number/Array[Number]]
+
+  @method height
+    @description
+      Returns the heights of the elements selected.
+
+    @returns [Number/Array[Number]]
+
+  @method size
+    @description
+      The number of nodes in the selection.
+
+    @returns [Number]
+
+  @method pointerDown
+    @removed 0.9.0
+      @description
+        Use selection.on("pointerdown", function(){}) instead.
+
+    @description
+      Register a callback that will be called when the mouse button is pressed down, or a touch is started.
+
+    @arg callback [Object,Event]
+      @description
+        A callback for that will be called whenever the mouse button is pressed or a touch is started. The first argument is an object containing the position of the pointer, the second is the original event.
+
+    @returns [Selection]
+
+  @method pointerMove
+    @removed 0.9.0
+      @description
+        Use selection.on("pointermove", function(){}) instead.
+
+    @description
+      Register a callback that will be called when the mouse button is pressed down, or a touch is started. The first argument is an object containing the position of the pointer, the second is the original event.
+
+    @arg callback [Object,Event]
+      @description
+        A callback for that will be called whenever the mouse or a touch is moved.
+
+    @returns [Selection]
+
+  @method pointerUp
+    @removed 0.9.0
+      @description
+        Use selection.on("pointerup", function(){}) instead.
+
+    @description
+      Register a callback that will be called when the mouse button is released, or a touch is ended. The first argument is an object containing the position of the pointer, the second is the original event.
+
+    @arg callback [Object,Event]
+      @description
+        A callback for that will be called whenever the mouse or a touch is moved. It should be checked that the first argument is defined - it may not be for touch events.
+
+    @returns [Selection]
+
+  @method pointerLeave
+    @removed 0.9.0
+      @description
+        Use selection.on("pointerleave", function(){}) instead.
+
+    @description
+      Register a callback that will be called when the mouse or a touch leaves the element's container. The first argument is an object containing the position of the pointer, the second is the original event.
+
+    @arg callback [Object,Event]
+      @description
+        A callback for that will be called whenever the mouse or a touch is moved. It should be checked that the first argument is defined - it may not be for touch events.
+
+    @returns [Selection]
+
+  @method click
+    @removed 0.9.0
+      @description
+        Use selection.on("click", function(){}) instead.
+
+    @description
+      Register a callback that will be called every time an element is clicked.
+
+    @arg callback [Event]
+      @description
+        A callback for that will be called every time the element is select.
+
+    @arg? retain [Boolean]
+      @description
+        Pass true to keep all existing click callbacks. If not specified or false is given, the existing handlers will be removed.
+
+    @returns [Selection]
+
+  @method transition
+    @removed 0.9.0
+      @description
+        Use selection.animate or selection.morph instead.
+
+    @description
+      Returns a new Selection that will animate any attributes or styles set.
+
+    @arg? callback [Function]
+      @description
+        If supplied, this callback will be called at the end of the transition.
+
+    @returns [Selection]
+
+  @method duration
+    @removed 0.9.0
+      @description
+        Use selection.animate or selection.morph instead.
+
+    @description
+      Changes the duration for transitions on this selection. Returns this Selection for chaining.
+
+    @arg duration [Number/Function]
+      @description
+        The length of the transition in milliseconds, or a function that returns the duration to use on an element by element basis.
+
+    @returns [Selection]
+
+  @method delay
+    @removed 0.9.0
+      @description
+        Use selection.animate or selection.morph instead.
+
+    @description
+      Changes the delay for transitions on this selection. Returns this Selection for chaining.
+
+    @arg delay [Number/Function]
+      @description
+        The delay of the transition in milliseconds, or a function that returns the delay to use on an element by element basis.
+
+    @returns [Selection]
+
+  @method ease
+    @removed 0.9.0
+      @description
+        Use selection.animate or selection.morph instead.
+
+    @description
+      Changes the ease for transitions on this selection. Returns this Selection for chaining.
+
+    @arg func [Function[Number]]
+      @description
+        The easing function to use for transitions. hx.ease contains some default easing functions.
+
+    @returns [Selection]
+
+  @method empty
+    @description
+      Returns true if the selection is empty, false if not.
+
+    @returns [Boolean]
+
+  @method closest
+    @description
+      Traverses up the dom to find the first parent element matching the selector given.
+
+    @arg selector [String]
+      @description
+        The css selector to look for.
+
+    @returns [Selection]
+
+  @method animate
+    @description
+      Creates a new animation using the first node in the selection. Only available if the animate module is included.
+
+    @returns [Animation]
+
+  @method morph
+    @description
+      Creates a new morph using the first node in the selection. Only available if the animate module is included.
+
+    @returns [Morph]
+
+  @method contains
+    @added 0.10.0
+    @description
+      Checks if an element is contained by the current selection
+
+    @arg element [Element]
+      @description
+        The element to check is contained by one of the selected nodes.
+
+    @returns [Boolean]
+
+  @method add
+    @added 0.10.0
+    @description
+      Appends an element to all elements currently selected and returns the original Selection. Use 'div' to append a @code[<div>] element for example.
+
+    @arg element [String/Element/Selection]
+      @description
+        The element type to append, or the element to append, or a selection containing an element to append.
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method clear
+    @added 0.10.0
+    @description
+      Removes all child elements from the selected node(s)
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method off
+    @added 0.10.0
+    @description
+      Deregisters a callback for an event type.
+      @@codeblock js
+
+        hx.select('#button').off('click')
+        hx.select('#button').off('click', 'my-namespace')
+        hx.select('#button').off('click', handler)
+        hx.select('#button').off('click', 'my-namespace', handler)
+
+    @arg? name [String]
+      @description
+        The event type to remove the handler(s) for
+
+    @arg? namespace [String]
+      @description
+        The namespace to remove the handler from. 'default' may be supplied to remove just the non namespaced handler. Without this, all namespaces will be removed
+
+    @arg? callback [Function[Event]]
+      @description
+        A specific callback to remove
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method forEach
+    @added 0.12.6
+      @description
+        Added a new function that uses selections instead of nodes when iterating over the nodes to make it easier to set properties for elements in a selection.
+
+    @description
+      Calls a function for each element in the selection. Returns this selection for chaining.
+
+    @arg f [Function[Selection]]
+      @description
+        A function that takes a selected node as its first parameter
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method map
+    @added 1.0.0
+    @description
+      Calls a function for each element in the selection. Returns an array of the results of calling f on the elements. If used on a single selection the result will not be wrapped in an array.
+
+    @arg f [Function[Selection]]
+      @description
+        A function that takes a Selection as its first parameter
+
+    @returns [Any/Array[Any]]
+      @description
+        The result of the function f
+
+  @method shallowSelect
+    @added 1.3.0
+      @issue 104
+      @description
+        Added a new method on selection for selecting the first element from the direct children of an element.
+
+    @description
+      Returns a new Selection containing the first child element found that matches the css selector provided and is a direct child of the current selection.
+
+    @arg selector [String]
+      @description
+        A CSS selector
+
+    @returns [Selection]
+
+  @method shallowSelectAll
+    @added 1.3.0
+      @issue 104
+      @description
+        Added a new method on selection for selecting elements from the direct children of an element.
+
+    @description
+      Returns a new Selection containing all the child elements found that match the css selector provided and are direct children of the current selection.
+
+    @arg selector [String]
+      @description
+        A CSS selector
+
+    @returns [Selection]
+
+  @method set
+    @added 1.12.0
+      @description
+        Add a new method for setting the children of a Selection
+
+    @description
+      Sets the children of the selected element.
+
+      @@codeblock js
+        hx.select('body')
+          .set(hx.div('my-content'))
+
+      @@codeblock js
+        hx.select('body')
+          .set([
+            hx.div('my-content-1'),
+            hx.div('my-content-2')
+          ])
+
+      Note that this is equivalent to clearing the childen and adding the
+      new ones:
+
+      @@codeblock js
+        hx.select('body')
+          .clear()
+          .add(hx.div('my-content'))
+
+    @arg selection [Selection / Array[Selection] / Promise[Selection] / Promise[Array[Selection]]]
+      @description
+        The selection (or array of selections) to set as children. If a
+        Promise is provided, the content will only be changed when the
+        Promise resolves.
+
+    @returns [Selection]
+      @description
+        Returns this Selection
+
+  @method replace
+    @added 1.12.0
+      @description
+        Added a new method for replacing some DOM with different DOM.
+
+    @description
+      Replaces this selection in the DOM.
+
+      @@codeblock js
+        hx.select('.some-container')
+          .replace(hx.div('my-content'))
+
+      @@codeblock js
+        hx.select('.some-container')
+          .replace([
+            hx.div('my-content-1'),
+            hx.div('my-content-2')
+          ])
+
+      After these calls, the element selected with @code[hx.select('.some-container')] will be removed from the DOM.
+
+      Note that this is equivalent to inserting after the current selection
+      and then removing it:
+
+      @@codeblock js
+        hx.select('.some-container').insertAfter(hx.div('my-content'))
+        hx.select('.some-container').remove()
+
+    @arg selection [Selection / Array[Selection] / Promise[Selection] / Promise[Array[Selection]]]
+      @description
+        The selection (or array of selections) to replace. If a Promise
+        is provided, the replacement will only happen once the Promise
+        resolves
+
+    @returns [Selection]
+      @description
+        Returns this Selection
+

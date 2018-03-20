@@ -1,0 +1,60 @@
+@version 0.9.0
+  @examples
+    @example
+      @html
+        <div id="tag-input"></div>
+
+      @js
+        var tagInput = new hx.TagInput('#tag-input')
+        tagInput.add('tag-1')
+        tagInput.add('tag-2')
+        tagInput.add('tag-3')
+
+    @example
+      @html
+        <div id="tag-input-2"></div>
+
+      @js
+        var classifier = function(value) {
+          switch(value){
+            case 'hello':
+              return 'hx-positive'
+            case 'goodbye':
+              return 'hx-negative'
+          }
+        }
+
+        var tagInput = new hx.TagInput('#tag-input-2', classifier)
+        tagInput.add('hello', 'hx-positive')
+        tagInput.add('goodbye', 'hx-negative')
+        tagInput.add(['tag', 'tag2'])
+
+@version 0.13.0
+  @examples
+    @example
+      @html
+        <div id="tag-input"></div>
+
+      @js
+        var tagInput = new hx.TagInput('#tag-input')
+        tagInput.items(['tag-1', 'tag-2', 'tag-3'])
+
+    @example
+      @html
+        <div id="tag-input-2"></div>
+
+      @js
+        var tagInput = new hx.TagInput('#tag-input-2', {
+          classifier: function(value) {
+            switch(value){
+              case 'hello':
+                return 'hx-positive'
+              case 'goodbye':
+                return 'hx-negative'
+            }
+          }
+        })
+        tagInput.add('hello', 'hx-positive')
+        tagInput.add('goodbye', 'hx-negative')
+        tagInput.add(['tag', 'tag2'])
+

@@ -1,0 +1,73 @@
+@version 0.9.0
+  @example
+    @html
+      <div id="example"></div>
+
+    @css
+      .status-text {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        margin-top: -0.75em;
+        font-size: 3em;
+        margin-right: 0.2em;
+        font-weight: 100;
+        text-align: center;
+        pointer-events: none;
+        color: rgb(137, 137, 137);
+      }
+
+    @js
+      // function that fills a node with a random pie chart for this example
+      function createPie(node, color) {
+        var count = 10000
+        var n1 = Math.random() * count
+        var n2 = count - n1
+
+        pie = new hx.PieChart(node);
+        pie.setData({
+          name: "Orders Dispatched",
+          segments: [
+            {
+              name: "Completed",
+              size: n1,
+              color: color
+            },
+            {
+              name: "Remaining",
+              size: n2,
+              color: '#EEE'
+            }
+          ]
+        })
+        pie.innerPadding = 0.8;
+        pie.startAngle = Math.PI;
+        pie.render();
+
+        hx.select(node)
+          .classed('hx-pad', true)
+          .classed('hx-margin', true)
+          .append('div')
+          .class('status-text')
+          .text(hx.format.si(3)(n1/count*100) + '%')
+          .style('')
+
+        // hack until we make graphs resize automatically
+        setTimeout(function(){pie.render()}, 20);
+      }
+
+      var dashboard = new hx.Dashboard('#example');
+
+      widget1 = dashboard.createWidget({ title: 'Widget 1', showMenu: true });
+      widget1.menu.addItems([
+        { name: 'Item 1', icon: 'fa-download'},
+        { name: 'Item 2', icon: 'fa-share'},
+        { name: 'Item 3', icon: 'fa-trash'}
+      ]);
+      var widget2 = dashboard.createWidget({ title: 'Widget 2' });
+      var widget3 = dashboard.createWidget({ title: 'Widget 3' });
+
+
+      createPie(widget1.body.node(), hx.theme.plot.colors[1])
+      createPie(widget2.body.node(), hx.theme.plot.colors[2])
+      createPie(widget3.body.node(), hx.theme.plot.colors[3])

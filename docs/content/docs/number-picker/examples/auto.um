@@ -1,0 +1,77 @@
+@version 0.10.0
+  @examples
+    @example
+      @html
+        <div id="number-picker-1"></div>
+        <div id="number-picker-2"></div>
+        <div id="number-picker-3"></div>
+
+      @js
+        var numPicker1 = new hx.NumberPicker('#number-picker-1');
+        var numPicker2 = new hx.NumberPicker('#number-picker-2', 'hx-positive');
+        var numPicker3 = new hx.NumberPicker('#number-picker-3', 'hx-info');
+
+        numPicker1.setValue(50);
+        numPicker2.setValue(1050);
+
+        numPicker3
+          .setValue(-1)
+          .setMin(0)
+          .setMax(10);
+
+@version 0.9.0
+  @examples
+    @example
+      @html
+        <div id="numberPickerExample1"></div>
+        <div id="numberPickerExample2"></div>
+
+      @js
+        numPicker1 = new hx.NumberPicker('#numberPickerExample1');
+        numPicker2 = new hx.NumberPicker('#numberPickerExample2', 'hx-positive');
+
+        numPicker1.setValue(50);
+        numPicker2.setValue(1050);
+
+@version 0.11.0
+  @examples
+    @example
+      @html
+        <div id="number-picker-1"></div>
+        <div id="number-picker-2"></div>
+        <div id="number-picker-3"></div>
+
+      @js
+        var numPicker1 = new hx.NumberPicker('#number-picker-1');
+        var numPicker2 = new hx.NumberPicker('#number-picker-2', 'hx-positive');
+        var numPicker3 = new hx.NumberPicker('#number-picker-3', 'hx-info');
+
+        numPicker1.value(50);
+        numPicker2.value(1050);
+
+        numPicker3
+          .value(-1)
+          .setMin(0)
+          .setMax(10);
+
+@version 0.13.0
+  @examples
+    @example
+      @html
+        <div id="number-picker-1"></div>
+        <div id="number-picker-2"></div>
+        <div id="number-picker-3"></div>
+
+      @js
+        var numPicker1 = new hx.NumberPicker('#number-picker-1');
+        var numPicker2 = new hx.NumberPicker('#number-picker-2', {buttonClass: 'hx-positive'});
+        var numPicker3 = new hx.NumberPicker('#number-picker-3', {buttonClass: 'hx-info'});
+
+        numPicker1.value(50);
+        numPicker2.value(1050);
+
+        numPicker3
+          .value(-1)
+          .min(0)
+          .max(10);
+

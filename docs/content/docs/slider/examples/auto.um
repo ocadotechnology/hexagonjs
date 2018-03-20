@@ -1,0 +1,58 @@
+@version 0.9.0
+  @examples
+    @example
+      @html
+        <div id="slider" class="hx-slider"></div>
+
+      @js
+        var slider = new hx.Slider('#slider');
+
+    @example
+      @html
+        <div id="slider2" class="hx-slider"></div>
+
+      @js
+        var slider = new hx.Slider('#slider2', 'range');
+
+    @example
+      @html
+        <div id="sliderRender"></div>
+
+      @js
+        var renderSlider = function(slider, elem, value, update, rangeStart){
+          formatter = hx.format.fixed(4);
+          hx.select(elem).text(formatter(value));
+        }
+        var slider = new hx.Slider('#sliderRender', 'slider', renderSlider);
+
+    @example
+      @html
+        <div id="sliderRenderColor"></div>
+
+      @js
+        var renderSlider = function(slider, elem, value, update, rangeStart){
+          var col = hx.color('#C40030').mix(hx.color('#7BBE31'), value);
+          var value = hx.format.fixed(2)(value);
+          hx.select(elem)
+            .style('background', col)
+            .style('color', col.getTextCol())
+            .text(value);
+        }
+        var slider = new hx.Slider('#sliderRenderColor', 'slider', renderSlider);
+
+@version 0.10.0
+  @examples
+    @example
+      @html
+        <div id="slider" class="hx-slider"></div>
+
+      @js
+        var slider = new hx.Slider('#slider');
+
+    @example
+      @html
+        <div id="slider2" class="hx-slider"></div>
+
+      @js
+        var slider = new hx.Slider('#slider2', {type: 'range'});
+

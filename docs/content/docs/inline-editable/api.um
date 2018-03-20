@@ -1,0 +1,2 @@
+@api Inline Editable
+  @inline api/*.um

@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+
+@titlebar
+
+@topSection
+  @title Page Layout
+  @description
+    Components and utils available in hexagon for page layout
+
+@contentSection
+
+  @notice [Needs documenting!]
+
+  @topic hx-content
+
+  @topic The layout classes
+
+  @topic Sidebars
+
+  @topic Cards

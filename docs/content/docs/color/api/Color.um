@@ -1,0 +1,153 @@
+@prototype Color
+  @updated 0.15.2
+    @description
+      Updated the API to convert properties to getters/setters and also
+      added some consistency between the hsl/rgb values by converting the
+      hue, saturation and lightness values from unit values (between 0 and
+      1) to true values, between 0 and 360 for hue and 0 and 100 for
+      saturation and lightness as these are the values used in CSS.
+
+      The methods added for each property (e.g. red, green etc.) will also
+      have aliased methods (e.g. r, g etc.) once the deprecated properties
+      have been removed (as they share the same name)
+
+  @description
+    This class should be created through the hx.color function.
+
+    A class that can be used to create a color object with methods to
+    manipulate the color such as changing the lightness, saturation and mixing
+    with other colors. The object consists of multiple methods that allow the
+    manipulation of color properties (e.g. red, green etc.) as well as other
+    functions for modifying the color as a whole.
+
+    The color object also allows conversion between hsl and rgb, however
+    the conversions are not exact and are rounded to the nearest whole
+    integer so it is suggested that conversions are only made in one
+    direction to prevent a color being modified.
+
+  @constructor
+    @removed 0.9.0
+      @description
+        Use one of the hx.color functions to create Color instances.
+
+    @description
+      Create a color using an rgba array or a hex, rgb, rgba, hsl or hsla
+      string.
+
+    @arg color [Array/String]
+      @description
+        A color in one of multiple formats, expand the tree to see the available formats.
+        RGB Array ([r,g,b,a]) e.g. @code[ [255,255,255] ] or @code[ [255,255,255,1] ]
+        Hex String e.g. @code["#FFFFFF"] or @code["#FFF"]
+        RGB String e.g. @code["rgb(255,255,255)"]
+        RGBA String e.g. @code["rgba(255,255,255,1)"]
+        HSL String e.g. @code["hsl(0,100%,100%)"]
+        HSLA String e.g. @code["hsla(0,100%,100%,1)"]
+
+  @inline Color/properties/*.um
+  @inline Color/methods/*.um
+
+
+@function hx.color
+  @added 0.9.0
+  @description
+    Constructs a new Color instance.
+
+  @returns Color
+
+@function hx.color
+  @added 0.9.0
+  @description
+    Constructs a Color instance from a string. If the string passed in is
+    not valid then this function will return undefined.
+
+  @arg str [String]
+    @description
+      A css color string, accepts "hex", "hsl", "hsla", "rgb", "rgba".
+
+  @returns Color
+
+@function hx.color
+  @added 0.9.0
+
+  @description
+    Constructs a Color instance from an array.
+  @arg array [Array[Number]]
+    @description
+      An array containing the rgb or rgba values
+
+    @extra
+      @@codeblock
+        hx.color([255, 255, 255])
+
+      @@codeblock
+        hx.color([255, 255, 255, 1])
+
+  @returns Color
+
+@function hx.color
+  @added 0.9.0
+  @description:
+    Constructs a Color instance from a list of rgb values.
+
+    @@codeblock
+      hx.color(255, 255, 255)
+
+    @@codeblock
+      hx.color(255, 255, 255, 1)
+
+  @arg r [Number]
+    @description
+      The red component of the color, given in the range [0, 255]
+
+  @arg g [Number]
+    @description
+      The green component of the color, given in the range [0, 255]
+
+  @arg b [Number]
+    @description
+      The blue component of the color, given in the range [0, 255]
+
+  @arg? a [Number]
+    @description
+      The alpha component of the color, given in the range [0, 1]
+
+  @returns Color
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

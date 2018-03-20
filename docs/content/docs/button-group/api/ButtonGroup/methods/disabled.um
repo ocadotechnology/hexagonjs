@@ -1,0 +1,28 @@
+@method disabled
+  @added 0.15.2
+    @description
+      Added the ability to disable/enable a button group
+
+  @description
+    Sets the disabled state of a button group
+
+  @arg value [Boolean]
+    @description
+      Whether the button group should be disabled
+
+  @returns ButtonGroup
+    @description
+      This @type[ButtonGroup] for chaining
+
+
+@method disabled
+  @added 0.15.2
+    @description
+      Added the ability to get the disabled state of a button group
+
+  @description
+    Gets the disabled state of a button group
+
+  @returns Boolean
+    @description
+      Whether the button group is disabled

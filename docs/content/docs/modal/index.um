@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Modal
+  @description
+    Displays content in a popup box.
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/modal/changelog)[Change Log]
+
+    @inline api.um

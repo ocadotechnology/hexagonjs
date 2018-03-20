@@ -1,0 +1,12 @@
+@arg? animate [Boolean]
+  @description
+    Whether or not to animate the collapsible state transition. The default
+    is true - which means animation will be used.
+
+  @default: true
+    @removed 0.13.0
+      @description
+        The default is now determined by @code[options.animate]
+
+  @default: The value passed in as the @code[animate] option in the constructor
+    @added 0.13.0

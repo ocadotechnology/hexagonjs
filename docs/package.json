@@ -1,0 +1,31 @@
+{
+  "name": "hexagon-site",
+  "version": "1.14.0",
+  "contributors": [
+    "James Smyth <james.smyth@ocado.com>",
+    "Charlie Frater <charlie.frater@ocado.com>"
+  ],
+  "license": "MIT",
+  "main": "./build/index.js",
+  "scripts": {
+    "postinstall": "node build/build-hexagon.js",
+    "start": "quantum watch",
+    "build": "quantum build",
+    "clean": "quantum clean",
+    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 10 --promote",
+    "release": "npm run clean && npm run build && npm run upload"
+  },
+  "private": true,
+  "devDependencies": {
+    "font-awesome": "^4.7.0",
+    "hexagon-js": "1.14.0",
+    "quantum-api": "^2.0.0",
+    "quantum-code-highlight": "^2.0.0",
+    "quantum-docs": "^2.0.0",
+    "quantum-dom": "^2.0.0",
+    "quantum-html": "^2.0.0",
+    "quantum-core": "^2.0.0",
+    "quantum-template": "^2.0.0",
+    "quantum-version": "^2.0.0"
+  }
+}

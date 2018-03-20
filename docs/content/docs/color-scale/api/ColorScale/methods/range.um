@@ -1,0 +1,6 @@
+@method range
+  @description
+    Set the range for the scale.
+
+  @inline ../arguments/range.um
+  @inline ../arguments/returns.um

@@ -1,0 +1,25 @@
+@method thenAttr
+  @description
+    Adds an action that animates an attributes value on the element after the
+    previous action completes.
+
+  @inline ../../shared/arguments/attr-a.um
+
+  @returns Morph
+    @description
+      A new @type[Morph] object that is linked to the previous morph's end
+      trigger. This morph will contain a single action - the one specified as
+      part of this call to then.
+
+@method thenAttr
+  @description
+    Adds an action that animates an attributes value on the element after the
+    previous action completes.
+
+  @inline ../../shared/arguments/attr-b.um
+
+  @returns Morph
+    @description
+      A new @type[Morph] object that is linked to the previous morph's end
+      trigger. This morph will contain a single action - the one specified as
+      part of this call to then.
