@@ -150,6 +150,7 @@ export {
 } from 'plot/main'
 export { theme } from 'theme/main'
 export { label } from 'label/main'
+export { colorPicker, ColorPicker } from 'color-picker/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

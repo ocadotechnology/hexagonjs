@@ -213,6 +213,8 @@ export color = ->
   else if arguments.length is 1
     if Array.isArray(arguments[0])
       (new Color).rgb(arguments[0])
+    else if isColor(arguments[0])
+      arguments[0]
     else
       fromString(arguments[0])
   else

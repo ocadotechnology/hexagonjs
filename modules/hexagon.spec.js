@@ -49,6 +49,7 @@ import crumbtrailTests from './crumbtrail/test/spec'
 // import autocompletePickerTests from './autocomplete-picker/test/spec'
 import plotTests from './plot/test/spec'
 import labelTests from './label/test/spec'
+import colorPickerTests from './color-picker/test/spec'
 
 should()
 
@@ -217,7 +218,9 @@ describe('HexagonJS Test Suite', () => {
         'plotLabelStandard',
         'plotLabelBasic',
         'theme',
-        'label'
+        'label',
+        'colorPicker',
+        'ColorPicker'
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])
@@ -275,6 +278,7 @@ describe('HexagonJS Test Suite', () => {
   // autocompletePickerTests()
   plotTests()
   labelTests()
+  colorPickerTests()
 
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')
