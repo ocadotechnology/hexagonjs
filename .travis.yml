@@ -13,7 +13,7 @@ stages:
     if: tag IS present AND branch = master AND repo = ocadotechnology/hexagonjs
 
   - name: publish docs
-    if: branch = add_pages AND repo = ocadotechnology/hexagonjs
+    if: branch = master AND repo = ocadotechnology/hexagonjs
 
 jobs:
   include:
