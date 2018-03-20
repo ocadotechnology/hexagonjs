@@ -1,0 +1,12 @@
+*.orig
+*.sublime-project
+*.sublime-workspace
+.sass-cache
+.github
+/debug
+.idea
+target
+docs
+build/test
+modules/**/test
+.travis.yml
