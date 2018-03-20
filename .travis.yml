@@ -1,34 +1,40 @@
 language: node_js
 
-node_js:
-  - "9"
-  - "8"
-  - "7"
-  - "6"
-  - "5"
-  - "4"
+stages:
+  - test
+  - name: publish module
+    if:
+      - branch = master
+      - tag IS present
+      - repo = ocadotechnology/hexagonjs
+  - name: publish docs
+    if:
+      - branch = add_pages
+      - repo = ocadotechnology/hexagonjs
+      - type = push
 
 jobs:
   include:
     - stage: test
       script: npm test && npm run combine-coverage && npm run upload-coverage
+      node_js:
+        - "9"
+        - "8"
+        - "7"
+        - "6"
 
     - stage: publish module
       script: skip
-      node_js: "4"
+      node_js: "6"
       deploy:
         provider: npm
         email: hexagonj.ci.noreply@ocado.com
         api_key:
           secure: $GITHUB_TOKEN
-        on:
-          branch: master
-          repo: ocadotechnology/hexagonjs
-          tags: true
 
     - stage: publish pages
       script: cd docs && npm install && npm run clean && npm run build
-      node_js: "4"
+      node_js: "8"
       deploy:
         provider: pages
         local-dir: docs/public
@@ -36,7 +42,3 @@ jobs:
         github-token: $GITHUB_TOKEN
         skip-cleanup: true
         keep-history: true
-        on:
-          branch: add_pages
-          repo: ocadotechnology/hexagonjs
-          tags: true
