@@ -51,6 +51,7 @@ import plotTests from './plot/test/spec'
 import labelTests from './label/test/spec'
 import colorPickerTests from './color-picker/test/spec'
 import sliderTests from './slider/test/spec'
+import timeSliderTests from './time-slider/test/spec'
 
 should()
 
@@ -223,7 +224,9 @@ describe('HexagonJS Test Suite', () => {
         'colorPicker',
         'ColorPicker',
         'slider',
-        'Slider'
+        'Slider',
+        'timeSlider',
+        'TimeSlider'
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])
@@ -283,6 +286,7 @@ describe('HexagonJS Test Suite', () => {
   labelTests()
   colorPickerTests()
   sliderTests()
+  timeSliderTests()
 
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')

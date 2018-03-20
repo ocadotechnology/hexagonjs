@@ -1,7 +1,7 @@
-format = require('modules/format/main')
-Slider = require('modules/slider/main').Slider
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
+import { format } from 'format/main'
+import { Slider } from 'slider/main'
+import { select, div } from 'selection/main'
+import { merge } from 'utils/main'
 
 zeroPad = format.zeroPad(2)
 
@@ -22,7 +22,7 @@ class TimeSlider extends Slider
     max = if opts.max? then maybeDateToMillis(opts.max) else min + 24 * 60 * 60 * 1000 - 1
 
 
-    options = utils.merge({
+    options = merge({
       renderer: (slider, elem, value) -> select(elem).text(slider.options.formatter(new Date(value))),
     }, opts)
 
@@ -64,13 +64,11 @@ class TimeSlider extends Slider
   max: (max) -> if arguments.length > 0 then super(maybeDateToMillis(max)) else new Date(super())
 
 timeSlider = (options) ->
-  selection = select.detached('div')
+  selection = div()
   new TimeSlider(selection.node(), options)
   selection
 
-module.exports = timeSlider
-module.exports.TimeSlider = TimeSlider
-module.exports.hx = {
+export {
   timeSlider,
   TimeSlider
 }
