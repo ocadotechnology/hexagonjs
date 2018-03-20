@@ -6,14 +6,11 @@
     "Charlie Frater <charlie.frater@ocado.com>"
   ],
   "license": "MIT",
-  "main": "./build/index.js",
   "scripts": {
     "postinstall": "node build/build-hexagon.js",
     "start": "quantum watch",
     "build": "quantum build",
-    "clean": "quantum clean",
-    "upload": "gcloud preview app deploy target/app.yaml --project causal-galaxy-939 --version 10 --promote",
-    "release": "npm run clean && npm run build && npm run upload"
+    "clean": "rm -rf target"
   },
   "private": true,
   "devDependencies": {
