@@ -1,0 +1,18 @@
+@function hx.card.notice
+  @description
+    Creates a notice card with a header and a message
+
+  @arg? options [Object]
+    @inline options/context.um
+
+    @property title [String]
+      @description
+        The title of the notice
+
+    @property message [String]
+      @description
+        The message in the notice
+
+  @returns Selection
+    @description
+      The selection containing the card

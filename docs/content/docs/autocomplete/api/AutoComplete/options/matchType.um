@@ -1,0 +1,14 @@
+@property matchType [String]
+  @description
+    The type of filtering the AutoComplete should use when filtering
+    internally
+
+    The internal filter uses the @code[hx.filter] functions. All the
+    filter types can be specified as the match type (e.g. 'startsWith',
+    'exact' or 'fuzzy') and the default value is 'contains'.
+
+    In addition to the internal filter, external matching can be used
+    (where the data returned from the callback is used directly and not
+    sorted/filtered internally) by setting the match type to 'external'
+
+  @default: 'contains'

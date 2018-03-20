@@ -1,0 +1,5 @@
+@extraClass hx-info
+  @added 0.9.0
+  @description
+    Styles the button to indicate that clicking it will lead to some form of
+    documentation / information.

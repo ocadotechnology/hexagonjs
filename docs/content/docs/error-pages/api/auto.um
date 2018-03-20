@@ -1,0 +1,18 @@
+@class hx-error-message
+  @description
+    The class to give to the error message container. This container will be moved to the exact centre of the page.
+
+  @class hx-error-message-heading
+    @description
+      The class to give to the heading for the error message. This should be a short string or error number (e.g. 404)
+
+  @class hx-error-message-text
+    @removed 0.13.0
+    @description
+      A container for the text within an error message
+
+  @class hx-error-message-buttons
+    @removed 0.13.0
+    @description
+      A container for buttons to help the user navigate away from the issue or perform another action.
+

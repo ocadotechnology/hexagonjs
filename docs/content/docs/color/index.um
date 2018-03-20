@@ -1,0 +1,28 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Color
+  @description
+    A module for manipulating colors.
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/0.9.0.um
+        @inline examples/0.15.2.um
+        @inline examples/1.0.0.um
+
+
+  @topic Api
+    @hyperlink(/docs/color/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Getting Started
+    @versioned
+      @inline extra/0.9.0.um
+      @inline extra/0.15.2.um
+      @inline extra/1.0.0.um

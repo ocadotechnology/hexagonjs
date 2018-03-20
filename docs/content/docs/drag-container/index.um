@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Drag Container
+  @description
+    A module for creating a container with draggable elements inside that can be ordered as applicable, allowing custom page layouts.
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/drag-container/changelog)[Change Log]
+
+    @inline api.um

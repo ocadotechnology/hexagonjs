@@ -1,0 +1,23 @@
+@class hx-card
+  @added 0.15.2
+    @description
+      Added card classes
+
+  @description
+    The class to give to a card. A card should only have
+    @code[.hx-card-section] or @code[.hx-card-group] as direct children.
+
+    All content inside a card should be inside a @code[.hx-card-section]
+
+  @extraClass hx-card-small
+    @description
+      A class given to a @code[.hx-card] to make all child
+      @code[.hx-card-section] elements have less padding.
+
+      This can be overriden for individual @code[.hx-card-section] or
+      @code[.hx-card-group] elements by giving them the
+      @code[.hx-card-normal] (or @code[.hx-card-slim]) class.
+
+  @inline aligned.um
+  @inline group.um
+  @inline section.um

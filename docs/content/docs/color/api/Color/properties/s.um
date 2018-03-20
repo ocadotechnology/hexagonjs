@@ -1,0 +1,19 @@
+@property s [Number]
+  @deprecated 0.15.2
+    @description
+      Use @code[saturation()] to get and @code[saturation(value)] to set the
+      saturation property. The value returned from @code[hue()] and expected by
+      @code[hue(value)] is an integer between 0 and 100 instead of a value
+      between 0 and 1.
+
+  @removed 1.0.0
+    @description
+      Use @code[saturation()] to get and @code[saturation(value)] to set the
+      saturation property. The value returned from @code[hue()] and expected by
+      @code[hue(value)] is an integer between 0 and 100 instead of a value
+      between 0 and 1.
+
+
+  @description
+    The saturation value for the current color in then 0-1 range. This
+    value is a float with no rounding on decimals.

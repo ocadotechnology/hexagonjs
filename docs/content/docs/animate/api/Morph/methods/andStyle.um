@@ -1,0 +1,21 @@
+@method andStyle
+  @description
+    Adds an action that styles the element concurrently with the previous
+    action
+
+  @inline ../../shared/arguments/style-a.um
+
+  @returns Morph
+    @description
+      This @type[Morph] for chaining
+
+@method andStyle
+  @description
+    Adds an action that styles the element concurrently with the previous
+    action
+
+  @inline ../../shared/arguments/style-b.um
+
+  @returns Morph
+    @description
+      This @type[Morph] for chaining

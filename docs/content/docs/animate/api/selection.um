@@ -1,0 +1,23 @@
+@prototype Selection
+  @added 0.9.0
+
+  @description
+    This module adds some extra methods to @type[Selection]
+
+  @method animate
+    @description
+      Creates a new animation using the first node in the selection
+
+    @returns Animation
+      @description
+        A new @type[Animation] instance that applies to the node this
+        @type[Selection] wraps
+
+  @method morph
+    @description
+      Creates a new morph using the first node in the selection
+
+    @returns Morph
+      @description
+        A new @type[Morph] instance that applies to the node this
+        @type[Selection] wraps

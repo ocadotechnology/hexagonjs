@@ -1,0 +1,29 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @title Button
+  @description
+    Provides the default font styles and header classes
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        # TODO: Investigate why inlining 0.9.0 after other versions breaks the
+        # latest version
+        # @inline examples/*.um
+
+        @inline examples/0.9.0.um
+        @inline examples/0.12.10.um
+        @inline examples/0.14.0.um
+        @inline examples/0.15.2.um
+        @inline examples/1.0.0.um
+
+    @script [/resources/clicker.js]
+
+  @topic Api
+    @hyperlink(/docs/button/changelog)[Change Log]
+
+    @inline api.um

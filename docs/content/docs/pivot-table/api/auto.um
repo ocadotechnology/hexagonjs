@@ -1,0 +1,226 @@
+@prototype hx.PivotTable
+  @added 0.12.6
+    @description
+      Added a module for creating pivot tables from JSON.
+
+  @bugfix 1.3.0
+    @issue 161
+    @description
+      Fix the data setter/getter symmetry by preventing internal data mutation
+
+  @bugfix 1.3.0
+    @issue 162
+    @description
+      Fix for pivot table where adding additional data to an existing pivot table caused cells to render incorrectly
+
+  @description
+    A module for creating pivot tables from JSON.
+
+  @constructor
+    @description
+      Create a pivot table object.
+
+    @arg selector [String/HTMLElement]
+      @description
+        The selector to create the table in.
+
+    @arg? options [Object]
+      @description
+        The options to use for the pivot table
+
+      @property stickyHeaders [Boolean]
+        @description
+          Whether or not to apply the sticky headers from @code[hx.StickyTableHeaders] to the table
+
+      @property topLeftCellRender [Function]
+        @description
+          A function for rendering the top left cell (the division between row headers and column headers)
+
+          By default this function does not have a value and will be rendered as an empty cell.
+
+        @arg element [HTMLElement]
+          @description
+            The @code[th] node of the top left cell. Values entered in this cell will affect the sizes of the left/top headings.
+
+      @property cellRender [Function]
+        @description
+          A function for rendering the cells in the table body.
+
+          The default value of this function is as follows:
+
+          @@codeblock js
+            function (data, element, isHead, column) {
+              hx.select(element).text(data)
+            }
+
+        @arg datum [Any]
+          @description
+            The data for the cell
+
+        @arg element [HTMLElement]
+          @description
+            The html element of the cell
+
+        @arg isHead [Boolean]
+          @description
+            Whether the cell is a header cell or a body cell
+
+        @arg column [Number]
+          @description
+            The column index of the cell
+
+      @property useResponsive [Boolean]
+        @description
+          Determines whether or not to re-render the table when the container is resized.
+
+        @default
+          true
+
+      @property data [Object]
+        @added 1.3.0
+          @issue 146
+          @description
+            Added the data option to pivot tables
+
+        @description
+          The data to render in the pivot table.
+
+          The data should be an object with a @code[topHead] , @code[leftHead] and @code[body] .
+
+          @@codeblock js
+            {
+              topHead: [
+                'Header',
+                ...// Headers for the top of the table
+              ],
+              leftHead: [
+                'Header',
+                ...// Headers for the first column
+              ],
+              body: [
+                [
+                  'Row 1',
+                  ..// Row Data
+                ],
+                ...// Body Data
+              ]
+            }
+
+          The data does not have to have both a topHead and leftHead.
+
+      @property fullWidth [Boolean]
+        @added 1.12.0
+          @issue 396
+          @description
+            Added the fullWidth option to pivot table
+
+        @description
+          Whether to force the table to take up at least the full width available
+
+        @default
+          false
+
+  @method setData
+    @deprecated 0.13.0
+      @description
+        Use @code[data(data)] instead.
+
+    @removed 0.14.0
+      @description
+        Use @code[data(data)] instead.
+
+    @description
+      A method for providing a pivot table with data
+
+    @arg data [Object]
+      @description
+        The data to render in the pivot table.
+
+        The data should be an object with a @code[topHead] , @code[leftHead] and @code[body] .
+
+        @@codeblock js
+          {
+            topHead: [
+              'Header',
+              ...// Headers for the top of the table
+            ],
+            leftHead: [
+              'Header',
+              ...// Headers for the first column
+            ],
+            body: [
+              [
+                'Row 1',
+                ..// Row Data
+              ],
+              ...// Body Data
+            ]
+          }
+
+        The data does not have to have both a topHead and leftHead.
+
+    @returns [PivotTable]
+      @description
+        This pivot table for chaining
+
+  @method data
+    @added 0.13.0
+    @description
+      A method for providing a pivot table with data
+
+    @arg data [Object]
+      @description
+        The data to render in the pivot table.
+
+        The data should be an object with a @code[topHead] , @code[leftHead] and @code[body] .
+
+        @@codeblock js
+          {
+            topHead: [
+              'Header',
+              ...// Headers for the top of the table
+            ],
+            leftHead: [
+              'Header',
+              ...// Headers for the first column
+            ],
+            body: [
+              [
+                'Row 1',
+                ..// Row Data
+              ],
+              ...// Body Data
+            ]
+          }
+
+        The data does not have to have both a topHead and leftHead.
+
+    @returns [PivotTable]
+      @description
+        This pivot table for chaining
+
+  @method data
+    @added 0.13.0
+    @description
+      A method for getting the data set in the current pivot table
+
+    @returns [Any]
+      @description
+        The data for the current pivot table.
+
+@function hx.pivotTable
+  @added 1.0.0
+    @description
+      Fluid api version of PivotTable
+
+  @description
+    Creates a new PivotTable set up on a detached element, wrapped in a selection
+
+  @arg? options [Object]
+    @description
+      See the options object for constructing PivotTable
+
+  @returns [Selection]
+    @description
+      A selection containing an element with an PivotTable initialised on it
+

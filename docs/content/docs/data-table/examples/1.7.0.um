@@ -1,0 +1,13 @@
+@version 1.7.0
+  @example
+    @html: @inline files/0.15.0/simple-example.html
+    @js: @inline files/0.15.0/simple-example.js
+
+  @example
+    @html: @inline files/1.7.0/lazy-example.html
+    @js: @inline files/1.7.0/lazy-example.js
+
+  @example
+    @html: @inline files/1.5.0/advanced-search-example.html
+    @js: @inline files/1.5.0/advanced-search-example.js
+

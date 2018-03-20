@@ -1,0 +1,69 @@
+@prototype hx.AutoComplete
+  @extends EventEmitter
+
+  @added 0.9.0
+
+  @bugfix 1.2.1
+    @issue 172
+    @description
+      Fixed a breaking issue with the autocomplete that caused it not to
+      autocomplete and external matchers to break.
+
+  @bugfix 1.4.2
+    @description
+      Fixed where the code was using the @code[loadingMessage] and
+      @code[pleaseEnterMinCharactersMessage]
+
+  @bugfix 1.8.0
+    @issue 273
+    @description
+      Fixed an issue where object based items were being sorted incorrectly
+
+  @bugfix 1.8.2
+    @issue 343
+    @description
+      Fixed an issue where the filtering failed when there were no 'disabled'
+      items in the list
+
+  @bugfix 1.10.0
+    @description
+      Resolved an issue where typing enter quickly before debouncing completes
+      allowed values that didn't match the current filter to be entered
+    @issue 346
+
+  @description
+    The AutoComplete class can be used to add an auto complete suggestion
+    dropdown to any input field.
+
+  @constructor
+    @description
+      Add an auto complete suggestions dropdown to an input box
+    @arg selector [String/HTMLElement]
+      The selector of the input box to add an auto complete to.
+
+    @arg items [Array/Function]
+      @inline AutoComplete/arguments/items.um
+
+    @arg? options [Object]
+      @inline AutoComplete/options/*um
+
+  @inline AutoComplete/methods/*um
+  @inline AutoComplete/events/*um
+
+@function hx.autoComplete
+  @added 1.0.0
+
+  @description
+    Creates a new AutoComplete set up on a detached element, wrapped in a
+    selection
+
+  @arg items [Array/Function]
+    @added 1.3.0
+    @inline AutoComplete/arguments/items.um
+
+  @arg? options [Object]
+    @inline AutoComplete/options/*um
+
+  @returns Selection
+    @description
+      A selection containing an element with an AutoComplete initialised on it

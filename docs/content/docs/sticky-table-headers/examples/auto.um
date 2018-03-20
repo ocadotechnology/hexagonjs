@@ -1,0 +1,484 @@
+@version 0.12.6
+  @examples
+    @example
+      @js
+        new hx.StickyTableHeaders('#table')
+
+      @html
+        <div id="table" class="example-table">
+          <table class="hx-table">
+            <thead>
+              <tr>
+                <th>Head Text 1</th>
+                <th>Head Text 2</th>
+                <th>Head Text 3</th>
+                <th>Head Text 4</th>
+                <th>Head Text 5</th>
+                <th>Head Text 6</th>
+                <th>Head Text 7</th>
+                <th>Head Text 8</th>
+                <th>Head Text 9</th>
+                <th>Head Text 10</th>
+                <th>Head Text 11</th>
+                <th>Head Text 12</th>
+                <th>Head Text 13</th>
+                <th>Head Text 14</th>
+                <th>Head Text 15</th>
+                <th>Head Text 16</th>
+                <th>Head Text 17</th>
+                <th>Head Text 18</th>
+                <th>Head Text 19</th>
+                <th>Head Text 20</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+              <tr>
+                <td>Cell Text 1</td>
+                <td>Cell Text 2</td>
+                <td>Cell Text 3</td>
+                <td>Cell Text 4</td>
+                <td>Cell Text 5</td>
+                <td>Cell Text 6</td>
+                <td>Cell Text 7</td>
+                <td>Cell Text 8</td>
+                <td>Cell Text 9</td>
+                <td>Cell Text 10</td>
+                <td>Cell Text 11</td>
+                <td>Cell Text 12</td>
+                <td>Cell Text 13</td>
+                <td>Cell Text 14</td>
+                <td>Cell Text 15</td>
+                <td>Cell Text 16</td>
+                <td>Cell Text 17</td>
+                <td>Cell Text 18</td>
+                <td>Cell Text 19</td>
+                <td>Cell Text 20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      @css
+        .example-table {
+          max-height: 300px;
+          overflow: hidden;
+        }
+

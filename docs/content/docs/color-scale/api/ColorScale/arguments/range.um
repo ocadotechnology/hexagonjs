@@ -1,0 +1,25 @@
+@arg range [Array[Object]]
+  @description
+    An array of objects containing a color and a percentage value that defines
+    it's position within the domain.
+
+    The range must be in the following format:
+
+    @@codeblock js
+      [
+        {color:"#000000", val:0},
+        {color:"#888888", val:0.5},
+        {color:"#FFFFFF", val:1}
+      ]
+
+    The values don't have to start at 0 and end at 1, points in the domain that
+    fall outside of the range will return the min/max values from the range.
+    The range array is sorted internally so the values do not have ot be
+    entered in order. The following is an example of another valid range:
+
+    @@codeblock js
+      [
+        {color:"rgba(255,170,100,0.5)", val:0.75},
+        {color:"#888888", val:0},
+        {color:"#FFFFFF", val:0.5}
+      ]

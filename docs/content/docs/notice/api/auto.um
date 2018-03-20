@@ -1,0 +1,65 @@
+@class hx-notice
+  @added 0.14.1
+  @description
+    Styles a div to show a notice
+
+  @extraClass hx-positive
+    @description
+      Adds styling indicative of success, confirmation or something positive
+
+  @extraClass hx-negative
+    @description
+      Adds styling indicative of failure, danger or something negative
+
+  @extraClass hx-warning
+    @description
+      Adds styling indicative of warning, to suggest the user should use caution
+
+  @extraClass hx-compliment
+    @removed 1.0.0
+      @description
+        Use @code[.hx-complement] instead
+
+    @description
+      Styles the notice with compliment colors
+
+  @extraClass hx-contrast
+    @description
+      Styles the notice with contrast colors
+
+  @extraClass hx-info
+    @description
+      Styles the notice to indicate that clicking it will lead to some form of documentation / information.
+
+  @class hx-notice-header
+    @deprecated 1.4.1
+      @issue 232
+      @description
+        This class will be replaced by @code[hx-notice-head]
+
+    @description
+      The header section of the notice
+
+  @class hx-notice-body
+    @description
+      The body section of the notice
+
+  @extraClass hx-action
+    @added 1.0.0
+      @description
+        Added new action context class and updated default styles.
+
+    @description
+      Styles the notice with action colors
+
+  @extraClass hx-complement
+    @description
+      Styles the notice with complement colors
+
+  @class hx-notice-head
+    @added 1.4.1
+      @issue 232
+
+    @description
+      The header section of the Notice
+

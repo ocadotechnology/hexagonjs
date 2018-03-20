@@ -1,0 +1,28 @@
+@version 0.9.0
+  @examples
+    @@codeblock js
+      // linear easing function
+      hx.ease.linear(0) // returns 0
+      hx.ease.linear(0.5) // returns 0.5
+      hx.ease.linear(1) // returns 1
+
+      // quadratic easing function
+      hx.ease.quad(0) // returns 0
+      hx.ease.quad(0.5) // returns 0.25
+      hx.ease.quad(1) // returns 1
+
+      // cubic easing function
+      hx.ease.cubic(0) // returns 0
+      hx.ease.cubic(0.5) // returns 0.125
+      hx.ease.cubic(1) // returns 1
+
+      hx.loop(function() {
+        // will call this function every frame until true is returned
+      })
+
+      // start a transition that should run over the next 1 second
+      // the callback will be called with the progress every frame
+      hx.transition(1000, function(progress) {
+        // progress will be a value between 0 and 1
+      })
+

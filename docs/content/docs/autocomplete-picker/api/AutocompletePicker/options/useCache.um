@@ -1,0 +1,6 @@
+@property useCache [Boolean]
+  @description
+    Determines whether the autocomplete should attempt to cache results. This
+    can be set to @code[false] non-static datasets or when using external
+    matching
+  @default: true

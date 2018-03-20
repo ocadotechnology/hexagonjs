@@ -1,0 +1,3 @@
+@event end
+  @description
+    Emitted when all of the animations specified have ended
