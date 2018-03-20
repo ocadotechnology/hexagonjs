@@ -23,6 +23,7 @@ import buttonGroupExamples from './examples/button-group'
 import noticeExamples from './examples/notice'
 import plotExamples from './examples/plot'
 import labelExamples from './examples/label'
+import crumbtrailExamples from './examples/crumbtrail'
 
 function example(title) {
   return div('example-section')
@@ -54,5 +55,6 @@ select('body')
     example('Button Group').add(buttonGroupExamples()),
     example('Notice').add(noticeExamples()),
     example('Plot').add(plotExamples()),
-    example('Label').add(labelExamples())
+    example('Label').add(labelExamples()),
+    example('Crumbtrail').add(crumbtrailExamples()),
   ]))
