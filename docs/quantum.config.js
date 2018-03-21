@@ -68,6 +68,7 @@ const apiOptions = {
 
 const htmlOptions = {
   embedAssets: false,
+  assetPath: '/resources',
   baseUrl,
   entityTransforms: cachedTransforms({
     html: html.entityTransforms({ baseUrl }),
