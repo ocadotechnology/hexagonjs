@@ -15,6 +15,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/resize-events/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/resize-events/changelog)[Change Log]
 
     @inline api.um

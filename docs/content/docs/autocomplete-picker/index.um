@@ -83,6 +83,6 @@
 
 
   @topic Api
-    @hyperlink(/docs/autocomplete-picker/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/autocomplete-picker/changelog)[Change Log]
 
     @inline api.um

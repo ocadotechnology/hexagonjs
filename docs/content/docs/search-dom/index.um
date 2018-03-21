@@ -29,6 +29,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/search-dom/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/search-dom/changelog)[Change Log]
 
     @inline api.um

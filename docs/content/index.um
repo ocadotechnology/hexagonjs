@@ -3,15 +3,15 @@
   @html
     @inline /templates/icons.html
 
-@stylesheet [/resources/hexagon/docs/hexagon.css]
+@stylesheet [{{baseurl}}/resources/hexagon/docs/hexagon.css]
 @stylesheet [https://fonts.googleapis.com/css?family=Open+Sans:100,400,700|Roboto+Slab:400,700|Source+Code+Pro:400,700]
-@stylesheet [/resources/font-awesome/css/font-awesome.min.css]
-@stylesheet [/resources/docs-new.css]
-@stylesheet [/resources/docs-landing.css]
+@stylesheet [{{baseurl}}/resources/font-awesome/css/font-awesome.min.css]
+@stylesheet [{{baseurl}}/resources/docs-new.css]
+@stylesheet [{{baseurl}}/resources/docs-landing.css]
 
-@script [/resources/hexagon/docs/hexagon.js]
-@script [/resources/titlebar.js]
-@script [/resources/docs.js]
+@script [{{baseurl}}/resources/hexagon/docs/hexagon.js]
+@script [{{baseurl}}/resources/titlebar.js]
+@script [{{baseurl}}/resources/docs.js]
 
 @div .container
   @div .top-landing-section

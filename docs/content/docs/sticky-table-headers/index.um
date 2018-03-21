@@ -15,6 +15,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/sticky-table-headers/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/sticky-table-headers/changelog)[Change Log]
 
     @inline api.um

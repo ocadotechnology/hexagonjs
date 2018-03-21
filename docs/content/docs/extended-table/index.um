@@ -22,6 +22,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/extended-table/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/extended-table/changelog)[Change Log]
 
     @inline api.um

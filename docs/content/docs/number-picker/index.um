@@ -22,6 +22,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/number-picker/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/number-picker/changelog)[Change Log]
 
     @inline api.um

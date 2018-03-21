@@ -23,12 +23,12 @@
 
     This would build hexagon into @code[public/resources/hexagon]
 
-    See the @hyperlink(/guides/installaton)[Installation] page for more
+    See the @hyperlink({{baseurl}}/guide/installation)[Installation] page for more
     information about building hexagon.
 
   @topic HTML Base template
-    Below is an example start page with a @hyperlink(/docs/titlebar)[Titlebar]
-    and the example from the @hyperlink(/docs/card)[Card] module.
+    Below is an example start page with a @hyperlink({{baseurl}}/docs/titlebar)[Titlebar]
+    and the example from the @hyperlink({{baseurl}}/docs/card)[Card] module.
 
     For the sake of this demo, hexagon has been built into
     @code[public/resources/hexagon/latest]

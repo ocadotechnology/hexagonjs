@@ -28,6 +28,6 @@
           new hx.AutoComplete("#auto-complete", data)
 
   @topic Api
-    @hyperlink(/docs/autocomplete/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/autocomplete/changelog)[Change Log]
 
     @inline api.um

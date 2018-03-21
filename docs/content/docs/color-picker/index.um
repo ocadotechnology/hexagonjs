@@ -14,6 +14,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/color-picker/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/color-picker/changelog)[Change Log]
 
     @inline api.um

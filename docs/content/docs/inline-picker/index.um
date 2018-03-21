@@ -13,6 +13,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/inline-picker/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/inline-picker/changelog)[Change Log]
 
     @inline api.um

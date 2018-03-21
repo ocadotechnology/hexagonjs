@@ -16,6 +16,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink(/docs/color-scale/changelog)[Change Log]
+    @hyperlink({{baseurl}}/docs/color-scale/changelog)[Change Log]
 
     @inline api.um

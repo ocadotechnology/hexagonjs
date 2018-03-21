@@ -128,7 +128,7 @@
           })
 
         Added an alternative way of showing nested tabular data
-        @hyperlink(/examples/table-in-table-2/)[here].
+        @hyperlink({{baseurl}}/examples/table-in-table-2/)[here].
 
     @version 0.12.7
       @description
@@ -150,7 +150,7 @@
     @version 0.12.9
       @description
         Fixed some breaking issues with Menu and Pointer Events as well as
-        updating the @hyperlink(/examples/morphing-sections-popup/)[Morphing Sections Popup]
+        updating the @hyperlink({{baseurl}}/examples/morphing-sections-popup/)[Morphing Sections Popup]
         example so it no longer requires overriding styles with !important.
 
     @version 0.12.10
@@ -274,7 +274,7 @@
         new wrapper for @code[hx.request] and made several bugfixes and improvements
         to the underlying code.
 
-        Also added @hyperlink(/guide/printing/)[print styles] to hexagon builds
+        Also added @hyperlink({{baseurl}}/guide/printing/)[print styles] to hexagon builds
         as additional resources.
 
     @version 1.2.0

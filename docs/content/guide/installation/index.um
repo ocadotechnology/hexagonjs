@@ -9,8 +9,6 @@
     How to install and set up hexagon
 
 @contentSection
-  @siteSidebar
-
   @topic Installing with npm (recommended)
     @@codeblock bash
       npm install --save hexagon-js
