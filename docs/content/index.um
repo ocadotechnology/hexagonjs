@@ -67,13 +67,13 @@
     Export theme variables to sass, less and stylus to share your color palette.
 
     @img .preprocessor-logo
-      @attr src: /resources/sass.svg
+      @attr src: {{baseurl}}/resources/sass.svg
       @attr width: 70px
     @img .preprocessor-logo
-      @attr src: /resources/less.svg
+      @attr src: {{baseurl}}/resources/less.svg
       @attr width: 70px
     @img .preprocessor-logo
-      @attr src: /resources/stylus.svg
+      @attr src: {{baseurl}}/resources/stylus.svg
       @attr width: 70px
 
 
