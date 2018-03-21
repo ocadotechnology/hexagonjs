@@ -38,7 +38,7 @@ jobs:
     node_js: '8'
     deploy:
       provider: pages
-      local-dir: docs/public
+      local-dir: docs/target
       skip-cleanup: true
       keep-history: true
       email: hexagonjs.ci.noreply@ocado.com
