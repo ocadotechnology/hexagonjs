@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><table id="my-table" class="hx-table">
+  <thead>
+    <tr>
+      <th>Header 1</th>
+      <th>Header 2</th>
+      <th>Header 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Row 1 Cell 1</td>
+      <td>Row 1 Cell 2</td>
+      <td>Row 1 Cell 3</td>
+    </tr>
+    <tr>
+      <td>Row 2 Cell 1</td>
+      <td>Row 2 Cell 2</td>
+      <td>Row 2 Cell 3</td>
+    </tr>
+    <tr>
+      <td>Row 3 Cell 1</td>
+      <td>Row 3 Cell 2</td>
+      <td>Row 3 Cell 3</td>
+    </tr>
+    <tr>
+      <td>Row 4 Cell 1</td>
+      <td>Row 4 Cell 2</td>
+      <td>Row 4 Cell 3</td>
+    </tr>
+    <tr>
+      <td>Row 5 Cell 1</td>
+      <td>Row 5 Cell 2</td>
+      <td>Row 5 Cell 3</td>
+    </tr>
+  </tbody>
+</table>
+# returns the collapsible content for a row
+getCollapsibleContent = (rowNode, i) ->
+  hx.detached('div')
+    .class('hx-margin')
+    .text('Content for row ' + (i+1))
+
+toggleRow = (rowNode, i) ->
+  selection = hx.select(rowNode)
+
+  isOpen = selection.classed('open')
+
+  if isOpen
+    selection.classed('open', false)
+    hx.select(rowNode.nextSibling).remove()
+    hx.select(rowNode.nextSibling).remove()
+
+  else
+    selection.classed('open', true)
+
+    # add an extra row to hold the collapsible content
+    selection.insertAfter('tr')
+      .append('td').attr('colspan', 999)
+      .append(getCollapsibleContent(rowNode, i))
+
+    # insert an extra invisible row to keep the striping looking the same
+    selection.insertAfter('tr').style('display', 'none')
+
+# attach click handlers to all rows in the table
+hx.select('#my-table')
+  .select('tbody')
+  .selectAll('tr')
+  .forEach (rowNode, i) ->
+    rowNode.on('click', -> toggleRow(rowNode.node(), i))
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"my-table"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-table"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Header 1<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Header 2<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Header 3<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 1 Cell 1<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 1 Cell 2<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 1 Cell 3<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 2 Cell 1<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 2 Cell 2<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 2 Cell 3<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 3 Cell 1<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 3 Cell 2<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 3 Cell 3<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 4 Cell 1<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 4 Cell 2<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 4 Cell 3<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 5 Cell 1<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 5 Cell 2<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Row 5 Cell 3<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+<span class="hljs-comment"># returns the collapsible content for a row</span>
+<span class="hljs-function"><span class="hljs-title">getCollapsibleContent</span> = <span class="hljs-params">(rowNode, i)</span> -&gt;</span>
+  hx.detached(<span class="hljs-string">'div'</span>)
+    .class(<span class="hljs-string">'hx-margin'</span>)
+    .text(<span class="hljs-string">'Content for row '</span> + (i+<span class="hljs-number">1</span>))
+<span class="hljs-function">
+<span class="hljs-title">toggleRow</span> = <span class="hljs-params">(rowNode, i)</span> -&gt;</span>
+  selection = hx.select(rowNode)
+
+  isOpen = selection.classed(<span class="hljs-string">'open'</span>)
+
+  <span class="hljs-keyword">if</span> isOpen
+    selection.classed(<span class="hljs-string">'open'</span>, <span class="hljs-literal">false</span>)
+    hx.select(rowNode.nextSibling).remove()
+    hx.select(rowNode.nextSibling).remove()
+
+  <span class="hljs-keyword">else</span>
+    selection.classed(<span class="hljs-string">'open'</span>, <span class="hljs-literal">true</span>)
+
+    <span class="hljs-comment"># add an extra row to hold the collapsible content</span>
+    selection.insertAfter(<span class="hljs-string">'tr'</span>)
+      .append(<span class="hljs-string">'td'</span>).attr(<span class="hljs-string">'colspan'</span>, <span class="hljs-number">999</span>)
+      .append(getCollapsibleContent(rowNode, i))
+
+    <span class="hljs-comment"># insert an extra invisible row to keep the striping looking the same</span>
+    selection.insertAfter(<span class="hljs-string">'tr'</span>).style(<span class="hljs-string">'display'</span>, <span class="hljs-string">'none'</span>)
+
+<span class="hljs-comment"># attach click handlers to all rows in the table</span>
+hx.select(<span class="hljs-string">'#my-table'</span>)
+  .select(<span class="hljs-string">'tbody'</span>)
+  .selectAll(<span class="hljs-string">'tr'</span>)
+  .forEach (rowNode, i) -&gt;
+    rowNode.<span class="hljs-literal">on</span>(<span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> toggleRow(rowNode.node(), i))
+</code></pre></div></div></div></div></body></html>

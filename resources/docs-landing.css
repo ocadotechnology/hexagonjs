@@ -1,0 +1,220 @@
+body {
+  background: #373D45;
+  font-size: 14px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: inherit;
+  margin-top: 0;
+}
+
+.top-landing-section {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  max-height: 550px;
+  padding: 0 5vh;
+  position: relative;
+  text-align: center;
+}
+
+.top-landing-section__logo {
+  height: 30vh;
+  width: auto !important;
+}
+
+.top-landing-section__title {
+  font-size: 2.5em;
+  font-weight: 100;
+  margin: -0.5em 0 0 0;
+}
+
+.top-landing-section__tagline {
+  font-size: 1em;
+  margin: 1em 0;
+}
+
+.top-landing-section__version {
+  font-size: 0.4em;
+  margin-left:  0.5em;
+  vertical-align: super;
+}
+
+.landing-section {
+  background: #04b9b4;
+  border-top: solid 1px rgba(0, 0, 0, 0.05);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3em 1em;
+  position: relative;
+  text-align: center;
+}
+
+.landing-section:nth-child(2n) {
+  background: #00ADA8 ;
+}
+
+.landing-section--no-bg {
+  background: transparent;
+  padding: 1em;
+}
+
+.landing-section__title {
+  font-size: 1.6em;
+}
+
+.landing-section > * {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 750px;
+  width: 80vw;
+}
+
+.scroll-next-placeholder {
+  height: 10vh;
+}
+
+.scroll-next {
+  bottom: 0;
+  cursor: pointer;
+  height: 10vh;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: 100;
+}
+
+.scroll-next .material-icons {
+  font-size: 64px;
+  opacity: 0.53;
+}
+
+.preprocessor-logo {
+  display: inline-block;
+  height: 10vh;
+  vertical-align: middle;
+  width: auto;
+}
+
+.preprocessor-logo + .preprocessor-logo {
+  margin-left: 2em;
+}
+
+.buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+  position: relative;
+  text-align: center;
+}
+
+.button {
+  background: #03bfba;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 2px #009a95;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin: 5px 0;
+  max-width: 250px;
+  padding: 7px 14px;
+  position: relative;
+  top: 0;
+  transition: all 0.1s;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:hover {
+  box-shadow: 0 4px #009a95;
+  text-decoration: none;
+  top: -2px;
+}
+
+.button:active {
+  box-shadow: 0 0 #f27926;
+  top: 4px;
+}
+
+.button span {
+  vertical-align: middle;
+}
+
+.button img {
+  display: inline-block;
+  margin-left: 0.5em;
+  opacity: 0.7;
+  vertical-align: middle;
+}
+
+
+@media (min-width: 350px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 400px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 500px) and (orientation: landscape) {
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .button {
+    flex: 1;
+    margin: 0 15px;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .button {
+    flex: 1;
+    margin: 0 15px;
+    padding: 10px 10px;
+    white-space: nowrap;
+  }
+}
+
+.container {
+  position: relative;
+}
+
+.footer {
+  background: #252525;
+  bottom: 0;
+  color: white;
+  height: 30px;
+  left: 0;
+  padding: 1em 1em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
+
+.footer-note {
+  margin: 0 1em;
+}
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><style>.morphSection {
+  /* Styles applied to the morph section containers */
+  position: fixed;
+  bottom: 0;
+  display: block;
+  z-index: 1;
+  /* So the morph sections show above the sidebar */
+}
+
+#morphSectionLeft {
+  left: 0;
+}
+
+#morphSectionCenter {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#morphSectionRight {
+  right: 0;
+}
+
+.morphButton {
+  width: auto;
+  /* Clear the width from the button to prevent it expanding with the content */
+}
+
+.hx-morph-section > .morphContent {
+  overflow-y: auto;
+  /* allow the content to scroll */
+  max-height: 70vh;
+  /* Prevent the content growing larger than 70% of the screen height */
+  max-width: 400px;
+  /* Max width for content */
+  background: white;
+}
+
+.buttonWrapRight {
+  text-align: right;
+  /* Make the button align to the right of the page */
+}
+
+.buttonWrapCenter {
+  text-align: center;
+  /* Make the button align to the center of the page */
+}</style><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body">This example demonstrates fixed position elements (see the bottom left and bottom right of the page)
+
+
+<div id="morphSectionLeft" class="morphSection hx-morph-section">
+  <div class="hx-morph-content hx-background-compliment hx-pad hx-border morphContent" style="display: none">
+    Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content
+  </div>
+  <div class="buttonWrapLeft">
+    <button class="hx-btn hx-info hx-morph-toggle hx-no-margin morphButton">Toggle</button>
+  </div>
+</div>
+
+<div id="morphSectionCenter" class="morphSection hx-morph-section">
+  <div class="hx-morph-content hx-background-compliment hx-pad hx-border morphContent" style="display: none">
+    Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content
+  </div>
+  <div class="buttonWrapCenter">
+    <button class="hx-btn hx-info hx-morph-toggle hx-no-margin morphButton">Toggle</button>
+  </div>
+</div>
+
+<div id="morphSectionRight" class="morphSection hx-morph-section">
+  <div class="hx-morph-content hx-background-compliment hx-pad hx-border morphContent" style="display: none">
+    Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <br> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content
+  </div>
+  <div class="buttonWrapRight">
+    <button class="hx-btn hx-info hx-morph-toggle hx-no-margin morphButton">Toggle</button>
+  </div>
+</div>hx.select('body') # Move the morph sections to the end of the body to reduce overlapping issues
+  .append(hx.select('#morphSectionLeft'))
+  .insertAfter(hx.select('#morphSectionCenter'))
+  .insertAfter(hx.select('#morphSectionRight'))
+
+# Create the new morph sections
+morphLeft = new hx.MorphSection('#morphSectionLeft')
+morphCenter = new hx.MorphSection('#morphSectionCenter')
+morphRight = new hx.MorphSection('#morphSectionRight')
+
+
+# Click detectors to close the sections when the user clicks outside the content.
+clickLeft = new hx.ClickDetector()
+clickCenter = new hx.ClickDetector()
+clickRight = new hx.ClickDetector()
+
+clickLeft.addException(hx.select('#morphSectionLeft .hx-morph-content').node())
+clickLeft.addException(hx.select('#morphSectionLeft .hx-morph-toggle').node())
+
+clickCenter.addException(hx.select('#morphSectionCenter .hx-morph-content').node())
+clickCenter.addException(hx.select('#morphSectionCenter .hx-morph-toggle').node())
+
+clickRight.addException(hx.select('#morphSectionRight .hx-morph-content').node())
+clickRight.addException(hx.select('#morphSectionRight .hx-morph-toggle').node())
+
+clickLeft.on 'click', -> morphLeft.hide()
+clickCenter.on 'click', -> morphCenter.hide()
+clickRight.on 'click', -> morphRight.hide()</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font">This example demonstrates fixed position elements (see the bottom left and bottom right of the page)
+
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"morphSectionLeft"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"morphSection hx-morph-section"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-morph-content hx-background-compliment hx-pad hx-border morphContent"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display: none"</span>&gt;</span>
+    Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"buttonWrapLeft"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-info hx-morph-toggle hx-no-margin morphButton"</span>&gt;</span>Toggle<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"morphSectionCenter"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"morphSection hx-morph-section"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-morph-content hx-background-compliment hx-pad hx-border morphContent"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display: none"</span>&gt;</span>
+    Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"buttonWrapCenter"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-info hx-morph-toggle hx-no-margin morphButton"</span>&gt;</span>Toggle<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"morphSectionRight"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"morphSection hx-morph-section"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-morph-content hx-background-compliment hx-pad hx-border morphContent"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display: none"</span>&gt;</span>
+    Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span> Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content Example Content
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"buttonWrapRight"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-info hx-morph-toggle hx-no-margin morphButton"</span>&gt;</span>Toggle<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">hx.select(<span class="hljs-string">'body'</span>) <span class="hljs-comment"># Move the morph sections to the end of the body to reduce overlapping issues</span>
+  .append(hx.select(<span class="hljs-string">'#morphSectionLeft'</span>))
+  .insertAfter(hx.select(<span class="hljs-string">'#morphSectionCenter'</span>))
+  .insertAfter(hx.select(<span class="hljs-string">'#morphSectionRight'</span>))
+
+<span class="hljs-comment"># Create the new morph sections</span>
+morphLeft = <span class="hljs-keyword">new</span> hx.MorphSection(<span class="hljs-string">'#morphSectionLeft'</span>)
+morphCenter = <span class="hljs-keyword">new</span> hx.MorphSection(<span class="hljs-string">'#morphSectionCenter'</span>)
+morphRight = <span class="hljs-keyword">new</span> hx.MorphSection(<span class="hljs-string">'#morphSectionRight'</span>)
+
+
+<span class="hljs-comment"># Click detectors to close the sections when the user clicks outside the content.</span>
+clickLeft = <span class="hljs-keyword">new</span> hx.ClickDetector()
+clickCenter = <span class="hljs-keyword">new</span> hx.ClickDetector()
+clickRight = <span class="hljs-keyword">new</span> hx.ClickDetector()
+
+clickLeft.addException(hx.select(<span class="hljs-string">'#morphSectionLeft .hx-morph-content'</span>).node())
+clickLeft.addException(hx.select(<span class="hljs-string">'#morphSectionLeft .hx-morph-toggle'</span>).node())
+
+clickCenter.addException(hx.select(<span class="hljs-string">'#morphSectionCenter .hx-morph-content'</span>).node())
+clickCenter.addException(hx.select(<span class="hljs-string">'#morphSectionCenter .hx-morph-toggle'</span>).node())
+
+clickRight.addException(hx.select(<span class="hljs-string">'#morphSectionRight .hx-morph-content'</span>).node())
+clickRight.addException(hx.select(<span class="hljs-string">'#morphSectionRight .hx-morph-toggle'</span>).node())
+
+clickLeft.<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> morphLeft.hide()
+clickCenter.<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> morphCenter.hide()
+clickRight.<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> morphRight.hide()</code></pre></div></div><div class="example-code-section"><h3>CSS</h3><div class="qm-code-highlight-codeblock language-css"><pre><code class="qm-code-font"><span class="hljs-selector-class">.morphSection</span> {
+  <span class="hljs-comment">/* Styles applied to the morph section containers */</span>
+  <span class="hljs-attribute">position</span>: fixed;
+  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+  <span class="hljs-comment">/* So the morph sections show above the sidebar */</span>
+}
+
+<span class="hljs-selector-id">#morphSectionLeft</span> {
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-selector-id">#morphSectionCenter</span> {
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;
+  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-50%);
+}
+
+<span class="hljs-selector-id">#morphSectionRight</span> {
+  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-selector-class">.morphButton</span> {
+  <span class="hljs-attribute">width</span>: auto;
+  <span class="hljs-comment">/* Clear the width from the button to prevent it expanding with the content */</span>
+}
+
+<span class="hljs-selector-class">.hx-morph-section</span> &gt; <span class="hljs-selector-class">.morphContent</span> {
+  <span class="hljs-attribute">overflow-y</span>: auto;
+  <span class="hljs-comment">/* allow the content to scroll */</span>
+  <span class="hljs-attribute">max-height</span>: <span class="hljs-number">70vh</span>;
+  <span class="hljs-comment">/* Prevent the content growing larger than 70% of the screen height */</span>
+  <span class="hljs-attribute">max-width</span>: <span class="hljs-number">400px</span>;
+  <span class="hljs-comment">/* Max width for content */</span>
+  <span class="hljs-attribute">background</span>: white;
+}
+
+<span class="hljs-selector-class">.buttonWrapRight</span> {
+  <span class="hljs-attribute">text-align</span>: right;
+  <span class="hljs-comment">/* Make the button align to the right of the page */</span>
+}
+
+<span class="hljs-selector-class">.buttonWrapCenter</span> {
+  <span class="hljs-attribute">text-align</span>: center;
+  <span class="hljs-comment">/* Make the button align to the center of the page */</span>
+}</code></pre></div></div></div></div></body></html>

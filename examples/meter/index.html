@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><style>#example {
+  width: 100%;
+  height: 300px;
+}
+
+.text {
+  max-width: 60px;
+}</style><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><div id="example"></div>
+
+<div class="hx-layout hx-group hx-vertical">
+  <div class="hx-group hx-horizontal">
+    <div class="hx-section text hx-no-margin">Progress</div>
+    <div class="hx-section hx-no-margin" id="completed-slider"></div>
+  </div>
+  <div class="hx-group hx-horizontal">
+    <div class="hx-section text hx-no-margin">Marker</div>
+    <div class="hx-section hx-no-margin" id="marker-slider"></div>
+  </div>
+  <div class="hx-group hx-horizontal">
+    <div class="hx-section text hx-no-margin">Tracker</div>
+    <div class="hx-section hx-no-margin" id="tracker-slider"></div>
+  </div>
+</div>
+<script>var meter = new hx.Meter('#example')
+
+var total = 5000
+
+function update(){
+  meter.value({
+    unitText: 'Completed',
+    total: total,
+    completed: Math.round(completed.value()*total),
+    tracker: Math.round(tracker.value()*total),
+    marker: Math.round(marker.value()*total),
+    markerText: 'Plan: ' + Math.round(marker.value()*total)
+  })
+}
+
+var marker = new hx.Slider('#marker-slider')
+  .on('change', update)
+  .value(0.35)
+
+var tracker = new hx.Slider('#tracker-slider')
+  .on('change', update)
+  .value(0.45)
+
+var completed = new hx.Slider('#completed-slider')
+  .on('change', update)
+  .value(0.75)
+
+update()</script></div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-layout hx-group hx-vertical"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-group hx-horizontal"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-section text hx-no-margin"</span>&gt;</span>Progress<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-section hx-no-margin"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"completed-slider"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-group hx-horizontal"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-section text hx-no-margin"</span>&gt;</span>Marker<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-section hx-no-margin"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"marker-slider"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-group hx-horizontal"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-section text hx-no-margin"</span>&gt;</span>Tracker<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-section hx-no-margin"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"tracker-slider"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre></div></div><div class="example-code-section"><h3>JavaScript</h3><div class="qm-code-highlight-codeblock language-js"><pre><code class="qm-code-font"><span class="hljs-keyword">var</span> meter = <span class="hljs-keyword">new</span> hx.Meter(<span class="hljs-string">'#example'</span>)
+
+<span class="hljs-keyword">var</span> total = <span class="hljs-number">5000</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params"></span>)</span>{
+  meter.value({
+    <span class="hljs-attr">unitText</span>: <span class="hljs-string">'Completed'</span>,
+    <span class="hljs-attr">total</span>: total,
+    <span class="hljs-attr">completed</span>: <span class="hljs-built_in">Math</span>.round(completed.value()*total),
+    <span class="hljs-attr">tracker</span>: <span class="hljs-built_in">Math</span>.round(tracker.value()*total),
+    <span class="hljs-attr">marker</span>: <span class="hljs-built_in">Math</span>.round(marker.value()*total),
+    <span class="hljs-attr">markerText</span>: <span class="hljs-string">'Plan: '</span> + <span class="hljs-built_in">Math</span>.round(marker.value()*total)
+  })
+}
+
+<span class="hljs-keyword">var</span> marker = <span class="hljs-keyword">new</span> hx.Slider(<span class="hljs-string">'#marker-slider'</span>)
+  .on(<span class="hljs-string">'change'</span>, update)
+  .value(<span class="hljs-number">0.35</span>)
+
+<span class="hljs-keyword">var</span> tracker = <span class="hljs-keyword">new</span> hx.Slider(<span class="hljs-string">'#tracker-slider'</span>)
+  .on(<span class="hljs-string">'change'</span>, update)
+  .value(<span class="hljs-number">0.45</span>)
+
+<span class="hljs-keyword">var</span> completed = <span class="hljs-keyword">new</span> hx.Slider(<span class="hljs-string">'#completed-slider'</span>)
+  .on(<span class="hljs-string">'change'</span>, update)
+  .value(<span class="hljs-number">0.75</span>)
+
+update()</code></pre></div></div><div class="example-code-section"><h3>CSS</h3><div class="qm-code-highlight-codeblock language-css"><pre><code class="qm-code-font"><span class="hljs-selector-id">#example</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">300px</span>;
+}
+
+<span class="hljs-selector-class">.text</span> {
+  <span class="hljs-attribute">max-width</span>: <span class="hljs-number">60px</span>;
+}</code></pre></div></div></div></div></body></html>

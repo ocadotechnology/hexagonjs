@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><style>.docs-example-body span {
+  color: #999
+}
+
+.docs-example {
+  margin-top: 0.5em;
+}</style><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font">window.nameData = [
+  'Bill Stevens',
+  'Bob Johnson',
+  'Steve Smith',
+  'Kevin Smith',
+  'Barry O\'Donnell',
+  'Kate Vera',
+  'Kelly Mars',
+  'Susan Child',
+  'Karen Moore',
+  'Natalie Reynolds'
+]
+window.nameAndLocationData = [
+  {name: 'Bill Stevens', location: 'New York'},
+  {name: 'Bob Johnson', location: 'London'},
+  {name: 'Steve Smith', location: 'Cairo'},
+  {name: 'Kevin Smith', location: 'Moscow'},
+  {name: 'Barry O\'Donnell', location: 'Tokyo'},
+  {name: 'Kate Vera', location: 'Paris'},
+  {name: 'Kelly Mars', location: 'Barcelona'},
+  {name: 'Susan Child', location: 'Sardinia'},
+  {name: 'Karen Moore', location: 'Los Angeles'},
+  {name: 'Natalie Reynolds', location: 'Brazil'}
+]<p>The data is shared across all the examples:</p><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">@inline examples/data.coffee</code></pre></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Default">Default</label>
+<input type="text" id="autoComplete-Default">new hx.AutoComplete('#autoComplete-Default', nameData)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Default"</span>&gt;</span>Default<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Default"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Default'</span>, nameData)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-TrailingSpaces">Trim trailing spaces</label>
+<input type="text" id="autoComplete-TrailingSpaces"> <span>Try entering 'ba ', the space will be trimmed. However 'ow ' will not as results are found.</span>new hx.AutoComplete('#autoComplete-TrailingSpaces', nameData, {trimTrailingSpaces: true})</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-TrailingSpaces"</span>&gt;</span>Trim trailing spaces<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-TrailingSpaces"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try entering 'ba ', the space will be trimmed. However 'ow ' will not as results are found.<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-TrailingSpaces'</span>, nameData, {trimTrailingSpaces: <span class="hljs-literal">true</span>})</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Function">Data as a callback</label>
+<input type="text" id="autoComplete-Function"> <span>Try: entering 'b' as the first character, will return names beginning with 'b'</span>data = (term, callback) ->
+  if term.indexOf('a') is 0
+    @options.noResultsMessage = ''
+    callback nameData.filter (d) -> d.toLowerCase().indexOf('y') is 0
+  else
+    @options.noResultsMessage = 'No results found...'
+    callback nameData
+new hx.AutoComplete('#autoComplete-Function', data)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Function"</span>&gt;</span>Data as a callback<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Function"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: entering 'b' as the first character, will return names beginning with 'b'<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function"><span class="hljs-title">data</span> = <span class="hljs-params">(term, callback)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> term.indexOf(<span class="hljs-string">'a'</span>) <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+    @options.noResultsMessage = <span class="hljs-string">''</span>
+    callback nameData.filter (d) -&gt; d.toLowerCase().indexOf(<span class="hljs-string">'y'</span>) <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+  <span class="hljs-keyword">else</span>
+    @options.noResultsMessage = <span class="hljs-string">'No results found...'</span>
+    callback nameData
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Function'</span>, data)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-ShowAll">Dont show all</label>
+<input type="text" id="autoComplete-ShowAll">options = {
+  showAll: false
+}
+new hx.AutoComplete('#autoComplete-ShowAll', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-ShowAll"</span>&gt;</span>Dont show all<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-ShowAll"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  showAll: <span class="hljs-literal">false</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-ShowAll'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-InputMap">Custom InputMap</label>
+<input type="text" id="autoComplete-InputMap">options = {
+  inputMap: (item) -> item.name + ', ' + item.location
+}
+new hx.AutoComplete('#autoComplete-InputMap', nameAndLocationData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-InputMap"</span>&gt;</span>Custom InputMap<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-InputMap"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  inputMap: <span class="hljs-function"><span class="hljs-params">(item)</span> -&gt;</span> item.name + <span class="hljs-string">', '</span> + item.location
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-InputMap'</span>, nameAndLocationData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Renderer">Custom Renderer</label>
+<input type="text" id="autoComplete-Renderer">options = {
+  inputMap: (item) -> item.name
+  renderer: (elem, item) ->
+    hx.select(elem)
+      .text(item.name)
+      .append('span')
+        .class('hx-label hx-contrast')
+        .text(item.location)
+}
+new hx.AutoComplete('#autoComplete-Renderer', nameAndLocationData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Renderer"</span>&gt;</span>Custom Renderer<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Renderer"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  inputMap: <span class="hljs-function"><span class="hljs-params">(item)</span> -&gt;</span> item.name
+  renderer: <span class="hljs-function"><span class="hljs-params">(elem, item)</span> -&gt;</span>
+    hx.select(elem)
+      .text(item.name)
+      .append(<span class="hljs-string">'span'</span>)
+        .class(<span class="hljs-string">'hx-label hx-contrast'</span>)
+        .text(item.location)
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Renderer'</span>, nameAndLocationData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Placeholder">Placeholder Text</label>
+<input type="text" id="autoComplete-Placeholder">options = {
+  placeholder: 'Please enter a UK town...'
+}
+new hx.AutoComplete('#autoComplete-Placeholder', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Placeholder"</span>&gt;</span>Placeholder Text<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Placeholder"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  placeholder: <span class="hljs-string">'Please enter a UK town...'</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Placeholder'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Length">Min Length</label>
+<input type="text" id="autoComplete-Length">options = {
+  minLength: 2
+}
+new hx.AutoComplete('#autoComplete-Length', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Length"</span>&gt;</span>Min Length<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Length"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  minLength: <span class="hljs-number">2</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Length'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Case">Case Match</label>
+<input type="text" id="autoComplete-Case"> <span>Try: lowercase bo and uppercase Bo</span>options = {
+  filterOptions:
+    caseSensitive: true
+}
+new hx.AutoComplete('#autoComplete-Case', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Case"</span>&gt;</span>Case Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Case"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: lowercase bo and uppercase Bo<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  filterOptions:
+    caseSensitive: <span class="hljs-literal">true</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Case'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-StartsWith">Starts With Match</label>
+<input type="text" id="autoComplete-StartsWith">options = {
+  matchType: 'startsWith'
+}
+new hx.AutoComplete('#autoComplete-StartsWith', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-StartsWith"</span>&gt;</span>Starts With Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-StartsWith"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType: <span class="hljs-string">'startsWith'</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-StartsWith'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-StartsWithCase">Starts With Case Match</label>
+<input type="text" id="autoComplete-StartsWithCase">options = {
+  matchType:'startsWith'
+  filterOptions:
+    caseSensitive: true
+}
+new hx.AutoComplete('#autoComplete-StartsWithCase', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-StartsWithCase"</span>&gt;</span>Starts With Case Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-StartsWithCase"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType:<span class="hljs-string">'startsWith'</span>
+  filterOptions:
+    caseSensitive: <span class="hljs-literal">true</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-StartsWithCase'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Exact">Exact Match</label>
+<input type="text" id="autoComplete-Exact"> <span>Try: typing bill stevens</span>options = {
+  matchType: 'exact'
+}
+new hx.AutoComplete('#autoComplete-Exact', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Exact"</span>&gt;</span>Exact Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Exact"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: typing bill stevens<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType: <span class="hljs-string">'exact'</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Exact'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-ExactCase">Exact Case Match</label>
+<input type="text" id="autoComplete-ExactCase"> <span>Try: typing Bill Stevens</span>options = {
+  matchType:'exact'
+  filterOptions:
+    caseSensitive: true
+}
+new hx.AutoComplete('#autoComplete-ExactCase', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-ExactCase"</span>&gt;</span>Exact Case Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-ExactCase"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: typing Bill Stevens<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType:<span class="hljs-string">'exact'</span>
+  filterOptions:
+    caseSensitive: <span class="hljs-literal">true</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-ExactCase'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-MustMatch">Must Match</label>
+<input type="text" id="autoComplete-MustMatch">
+<span>Try: entering part of a name and clicking off the input</span>options = {
+  mustMatch: true
+}
+new hx.AutoComplete('#autoComplete-MustMatch', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-MustMatch"</span>&gt;</span>Must Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-MustMatch"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: entering part of a name and clicking off the input<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  mustMatch: <span class="hljs-literal">true</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-MustMatch'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-External">External Matcher</label>
+<input type="text" id="autoComplete-External"> <span>Try: London</span>options = {
+  matchType: 'external'
+  inputMap: (item) -> item.name
+  renderer: (elem, item) ->
+    hx.select(elem).text(item.name + ', ' + item.location)
+}
+data = (term, callback) ->
+  if term.length > 0
+    delay = Math.round(Math.random()*3000) + 1000
+    setTimeout =>
+      data = hx.filter.contains nameAndLocationData, term, {searchValues: (d) -> [d.name, d.location]}
+      callback data
+    , delay
+  else
+    callback []
+new hx.AutoComplete('#autoComplete-External', data, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-External"</span>&gt;</span>External Matcher<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-External"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: London<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType: <span class="hljs-string">'external'</span>
+  inputMap: <span class="hljs-function"><span class="hljs-params">(item)</span> -&gt;</span> item.name
+  renderer: <span class="hljs-function"><span class="hljs-params">(elem, item)</span> -&gt;</span>
+    hx.select(elem).text(item.name + <span class="hljs-string">', '</span> + item.location)
+}
+<span class="hljs-function"><span class="hljs-title">data</span> = <span class="hljs-params">(term, callback)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> term.length &gt; <span class="hljs-number">0</span>
+    delay = Math.round(Math.random()*<span class="hljs-number">3000</span>) + <span class="hljs-number">1000</span>
+    setTimeout =&gt;
+      data = hx.filter.contains nameAndLocationData, term, {searchValues: <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> [d.name, d.location]}
+      callback data
+    , delay
+  <span class="hljs-keyword">else</span>
+    callback []
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-External'</span>, data, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-ExternalMustMatch">External Matcher Must Match</label>
+<input type="text" id="autoComplete-ExternalMustMatch"> <span>Try: London</span>options = {
+  mustMatch: true
+  matchType: 'external'
+  inputMap: (item) -> item.name
+  renderer: (elem, item) ->
+    hx.select(elem).text(item.name + ', ' + item.location)
+}
+data = (term, callback) ->
+  delay = Math.round(Math.random()*3000) + 1000
+  setTimeout =>
+    data = hx.filter.contains nameAndLocationData, term, {searchValues: (d) -> [d.name, d.location]}
+    callback data
+  , delay
+new hx.AutoComplete('#autoComplete-ExternalMustMatch', data, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-ExternalMustMatch"</span>&gt;</span>External Matcher Must Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-ExternalMustMatch"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: London<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  mustMatch: <span class="hljs-literal">true</span>
+  matchType: <span class="hljs-string">'external'</span>
+  inputMap: <span class="hljs-function"><span class="hljs-params">(item)</span> -&gt;</span> item.name
+  renderer: <span class="hljs-function"><span class="hljs-params">(elem, item)</span> -&gt;</span>
+    hx.select(elem).text(item.name + <span class="hljs-string">', '</span> + item.location)
+}
+<span class="hljs-function"><span class="hljs-title">data</span> = <span class="hljs-params">(term, callback)</span> -&gt;</span>
+  delay = Math.round(Math.random()*<span class="hljs-number">3000</span>) + <span class="hljs-number">1000</span>
+  setTimeout =&gt;
+    data = hx.filter.contains nameAndLocationData, term, {searchValues: <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> [d.name, d.location]}
+    callback data
+  , delay
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-ExternalMustMatch'</span>, data, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-Fuzzy">Fuzzy Match</label>
+<input type="text" id="autoComplete-Fuzzy"> <span>Try: is</span>options = {
+  matchType: 'fuzzy'
+}
+new hx.AutoComplete('#autoComplete-Fuzzy', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-Fuzzy"</span>&gt;</span>Fuzzy Match<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-Fuzzy"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: is<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType: <span class="hljs-string">'fuzzy'</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-Fuzzy'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-FuzzyCase">Fuzzy Case sensitive</label>
+<input type="text" id="autoComplete-FuzzyCase"> <span>Try: is and iS</span>options = {
+  matchType: 'fuzzy'
+  filterOptions:
+    caseSensitive: true
+}
+new hx.AutoComplete('#autoComplete-FuzzyCase', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-FuzzyCase"</span>&gt;</span>Fuzzy Case sensitive<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-FuzzyCase"</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Try: is and iS<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType: <span class="hljs-string">'fuzzy'</span>
+  filterOptions:
+    caseSensitive: <span class="hljs-literal">true</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-FuzzyCase'</span>, nameData, options)</code></pre></div></div></div></div><div class="docs-example"><div class="docs-example-body"><label for="autoComplete-ShowOthers">Show Other Results</label>
+<input type="text" id="autoComplete-ShowOthers">options = {
+  matchType: 'contains'
+  showOtherResults: true
+  otherResultsMessage: 'Other People'
+}
+new hx.AutoComplete('#autoComplete-ShowOthers', nameData, options)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"autoComplete-ShowOthers"</span>&gt;</span>Show Other Results<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"autoComplete-ShowOthers"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">options = {
+  matchType: <span class="hljs-string">'contains'</span>
+  showOtherResults: <span class="hljs-literal">true</span>
+  otherResultsMessage: <span class="hljs-string">'Other People'</span>
+}
+<span class="hljs-keyword">new</span> hx.AutoComplete(<span class="hljs-string">'#autoComplete-ShowOthers'</span>, nameData, options)</code></pre></div></div></div></div></body></html>

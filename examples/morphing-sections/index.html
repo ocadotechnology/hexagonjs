@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><div id="container" class="hx-morph-sectionhx-margin ">
+  <button class="hx-btn hx-positive hx-morph-toggle">Register</button>
+  <div class="hx-morph-content hx-pad hx-border">
+    <form id="form" class="hx-form"></form>
+  </div>
+</div>new hx.Form('#form')
+  .addEmail('Email')
+  .addPassword('Password')
+  .addSubmit('Submit')
+
+new hx.MorphSection('#container')
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"container"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-morph-sectionhx-margin "</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive hx-morph-toggle"</span>&gt;</span>Register<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-morph-content hx-pad hx-border"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"form"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-form"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-keyword">new</span> hx.Form(<span class="hljs-string">'#form'</span>)
+  .addEmail(<span class="hljs-string">'Email'</span>)
+  .addPassword(<span class="hljs-string">'Password'</span>)
+  .addSubmit(<span class="hljs-string">'Submit'</span>)
+
+<span class="hljs-keyword">new</span> hx.MorphSection(<span class="hljs-string">'#container'</span>)
+</code></pre></div></div></div></div><br></br><div class="docs-example"><div class="docs-example-body">Your name probably isn't <span id="editable">John Smith</span>. You can click the name to correct.editable = new hx.InlineEditable('#editable')</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font">Your name probably isn't <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"editable"</span>&gt;</span>John Smith<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>. You can click the name to correct.</code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">editable = <span class="hljs-keyword">new</span> hx.InlineEditable(<span class="hljs-string">'#editable'</span>)</code></pre></div></div></div></div><br></br><div class="docs-example"><div class="docs-example-body">Your favorite color is currently <span id="picker-1"></span>. You can click the name to change it.picker = new hx.InlinePicker('#picker-1')
+picker.items(['Red', 'Green', 'Blue'])
+picker.value('Red')
+
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font">Your favorite color is currently <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"picker-1"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>. You can click the name to change it.</code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">picker = <span class="hljs-keyword">new</span> hx.InlinePicker(<span class="hljs-string">'#picker-1'</span>)
+picker.items([<span class="hljs-string">'Red'</span>, <span class="hljs-string">'Green'</span>, <span class="hljs-string">'Blue'</span>])
+picker.value(<span class="hljs-string">'Red'</span>)
+
+</code></pre></div></div></div></div><br></br><div class="docs-example"><div class="docs-example-body">Your favorite color is currently <span id="picker-2"></span>. You can click the name to change it.items = [
+  { text: 'Red', value: 'red' },
+  { text: 'Green', value: 'green' },
+  { text: 'Blue', value: 'blue' }
+]
+
+picker = new hx.InlinePicker('#picker-2')
+  .renderer (node, item) -> hx.select(node).text(item.text)
+  .items(items)
+  .value('red')
+  .on 'change', (d) -> console.log(d)
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font">Your favorite color is currently <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"picker-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>. You can click the name to change it.</code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">items = [
+  { text: <span class="hljs-string">'Red'</span>, value: <span class="hljs-string">'red'</span> },
+  { text: <span class="hljs-string">'Green'</span>, value: <span class="hljs-string">'green'</span> },
+  { text: <span class="hljs-string">'Blue'</span>, value: <span class="hljs-string">'blue'</span> }
+]
+
+picker = <span class="hljs-keyword">new</span> hx.InlinePicker(<span class="hljs-string">'#picker-2'</span>)
+  .renderer (node, item) -&gt; hx.select(node).text(item.text)
+  .items(items)
+  .value(<span class="hljs-string">'red'</span>)
+  .<span class="hljs-literal">on</span> <span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log(d)
+</code></pre></div></div></div></div></body></html>

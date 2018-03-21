@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><style>.example-graph {
+  height: 500px;
+}</style><style>.dashed-line {
+  stroke-dasharray: 5,5;
+}</style><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment-with-locales.min.js"></script><p>This page has several examples illustrating the different options and formats available for drawing graphs.</p><p>All the graphs have the following styles applied:</p><div class="qm-code-highlight-codeblock language-css"><pre><code class="qm-code-font"><span class="hljs-selector-class">.example-graph</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">500px</span>;
+}</code></pre></div><br></br><h3>Scatter graph</h3><div class="docs-example"><div class="docs-example-body"><div id="scatter-graph" class="example-graph"></div>
+
+graph = new hx.Graph('#scatter-graph')
+axis = graph.addAxis({
+  x:
+    title: 'x'
+  y:
+    title: 'y'
+})
+
+r = -> 0.5 + (Math.random()-0.5)*(Math.random()-0.5)
+
+points = 2000 # Number of points on graph
+
+scale = new hx.ColorScale(0, points,[
+  {color: hx.theme.plot.colors[2], val:2/5}
+  {color: hx.theme.plot.colors[1], val:1/5}
+  {color: hx.theme.plot.colors[4], val:4/5}
+  {color: hx.theme.plot.colors[3], val:3/5}
+  {color: hx.theme.plot.colors[0], val:0}
+  {color: hx.theme.plot.colors[5], val:1}
+])
+
+data = hx.range(points).map((d) -> {x: d/points, y: Math.pow(d/points, 2) + r(), fillColor: scale.apply(d+Math.random()*500-250), radius: Math.random()*Math.random()*10})
+
+series = axis.addSeries('scatter', {
+  title: 'Scatter Series'
+  data: data
+})
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"scatter-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#scatter-graph'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'x'</span>
+  y:
+    title: <span class="hljs-string">'y'</span>
+})
+<span class="hljs-function">
+<span class="hljs-title">r</span> = -&gt;</span> <span class="hljs-number">0.5</span> + (Math.random()<span class="hljs-number">-0.5</span>)*(Math.random()<span class="hljs-number">-0.5</span>)
+
+points = <span class="hljs-number">2000</span> <span class="hljs-comment"># Number of points on graph</span>
+
+scale = <span class="hljs-keyword">new</span> hx.ColorScale(<span class="hljs-number">0</span>, points,[
+  {color: hx.theme.plot.colors[<span class="hljs-number">2</span>], val:<span class="hljs-number">2</span>/<span class="hljs-number">5</span>}
+  {color: hx.theme.plot.colors[<span class="hljs-number">1</span>], val:<span class="hljs-number">1</span>/<span class="hljs-number">5</span>}
+  {color: hx.theme.plot.colors[<span class="hljs-number">4</span>], val:<span class="hljs-number">4</span>/<span class="hljs-number">5</span>}
+  {color: hx.theme.plot.colors[<span class="hljs-number">3</span>], val:<span class="hljs-number">3</span>/<span class="hljs-number">5</span>}
+  {color: hx.theme.plot.colors[<span class="hljs-number">0</span>], val:<span class="hljs-number">0</span>}
+  {color: hx.theme.plot.colors[<span class="hljs-number">5</span>], val:<span class="hljs-number">1</span>}
+])
+
+data = hx.range(points).map(<span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> {x: d/points, y: Math.pow(d/points, <span class="hljs-number">2</span>) + r(), fillColor: scale.apply(d+Math.random()*<span class="hljs-number">500</span><span class="hljs-number">-250</span>), radius: Math.random()*Math.random()*<span class="hljs-number">10</span>})
+
+series = axis.addSeries(<span class="hljs-string">'scatter'</span>, {
+  title: <span class="hljs-string">'Scatter Series'</span>
+  data: data
+})
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Discrete line graph</h3><div class="docs-example"><div class="docs-example-body"><div id="discrete-line-graph" class="example-graph"></div>
+createData = (z, a, b, c, d, e) ->
+  for i in [0..10]
+    x: i
+    y: z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+
+graph = new hx.Graph('#discrete-line-graph')
+axis = graph.addAxis({
+  x:
+    title: 'X'
+    scaleType: 'discrete'
+    discreteLabels: [0..10]
+  y:
+    title: 'Y'
+})
+
+axis.addSeries('line', {
+  title: 'Series 1'
+  data: createData(0, 1, 1, 1, 1, 1)
+  strokeColor: hx.theme.plot.colors[2]
+  markersEnabled: true
+})
+
+axis.addSeries('line', {
+  title: 'Series 2'
+  data: createData(1, -1, 1, -1, 1, -1)
+  strokeColor: hx.theme.plot.colors[4]
+  markersEnabled: true
+})
+
+axis.addSeries('line', {
+  title: 'Series 3'
+  data: createData(-1, 1, -1, -1, -1, 1)
+  strokeColor: hx.theme.plot.colors[5]
+  markersEnabled: true
+})
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"discrete-line-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function">
+<span class="hljs-title">createData</span> = <span class="hljs-params">(z, a, b, c, d, e)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.10</span>]
+    x: i
+    y: z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#discrete-line-graph'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'X'</span>
+    scaleType: <span class="hljs-string">'discrete'</span>
+    discreteLabels: [<span class="hljs-number">0.</span><span class="hljs-number">.10</span>]
+  y:
+    title: <span class="hljs-string">'Y'</span>
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 1'</span>
+  data: createData(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">2</span>]
+  markersEnabled: <span class="hljs-literal">true</span>
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 2'</span>
+  data: createData(<span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>)
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">4</span>]
+  markersEnabled: <span class="hljs-literal">true</span>
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 3'</span>
+  data: createData(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">5</span>]
+  markersEnabled: <span class="hljs-literal">true</span>
+})
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Line graph with data gap</h3><div class="docs-example"><div class="docs-example-body"><div id="data-gap-line-graph" class="example-graph"></div>
+createData = (z, a, b, c, d, e, breakPointStart=200, breakPointEnd=200) ->
+  for i in [0..200]
+    value = if breakPointStart < i < breakPointEnd then undefined else z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+    { x: i, y: value}
+
+graph = new hx.Graph('#data-gap-line-graph')
+axis = graph.addAxis({
+  x:
+    title: 'X'
+  y:
+    title: 'Y'
+    scalePaddingMax: 0.05
+})
+
+axis.addSeries('line', {
+  title: 'Series 1'
+  data: createData(0, 1, 1, 1, 1, 1)
+  strokeColor: hx.theme.plot.colors[2]
+})
+
+axis.addSeries('line', {
+  title: 'Series 2'
+  data: createData(1, -1, 1, -1, 1, -1)
+  strokeColor: hx.theme.plot.colors[4]
+})
+
+axis.addSeries('line', {
+  title: 'Series 3'
+  data: createData(-1, 1, -1, -1, -1, 1, 20, 50)
+  strokeColor: hx.theme.plot.colors[5]
+})
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"data-gap-line-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function">
+<span class="hljs-title">createData</span> = <span class="hljs-params">(z, a, b, c, d, e, breakPointStart=<span class="hljs-number">200</span>, breakPointEnd=<span class="hljs-number">200</span>)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.200</span>]
+    value = <span class="hljs-keyword">if</span> breakPointStart &lt; i &lt; breakPointEnd <span class="hljs-keyword">then</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">else</span> z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+    { x: i, y: value}
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#data-gap-line-graph'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'X'</span>
+  y:
+    title: <span class="hljs-string">'Y'</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 1'</span>
+  data: createData(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">2</span>]
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 2'</span>
+  data: createData(<span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>)
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">4</span>]
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 3'</span>
+  data: createData(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">20</span>, <span class="hljs-number">50</span>)
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">5</span>]
+})
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Date scale line graph</h3><div class="docs-example"><div class="docs-example-body"><div id="date-graph" class="example-graph"></div>
+<input id="graphInput" type="number" step="1" value="10">createData = (num, z, a, b, c, d, e) ->
+  for i in [0..num]
+    x: new Date().getTime() + i * 60000
+    y: z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+
+graph = new hx.Graph('#date-graph')
+axis = graph.addAxis({
+  x:
+    title: "time"
+    scaleType: 'date'
+    tickSpacing: 80
+    formatter: (val) ->
+      moment(val).format('DD/MM HH:mm')
+  y:
+    title: "value"
+    scalePaddingMax: 0.05
+})
+
+
+series1 = axis.addSeries('line', {
+  title: 'Series 1'
+  strokeColor: hx.theme.plot.colors[2]
+})
+
+series2 = axis.addSeries('line', {
+  title: 'Series 2'
+  strokeColor: hx.theme.plot.colors[4]
+})
+
+series3 = axis.addSeries('line', {
+  title: 'Series 3'
+  strokeColor: hx.theme.plot.colors[0]
+})
+
+
+renderGraph = (value) ->
+  series1.data(createData(value, 0, 1, 1, 1, 1, 1))
+  series2.data(createData(value, 1, -1, 1, -1, 1, -1))
+  series3.data(createData(value, -1, 1, -1, -1, -1, 1))
+  graph.render()
+
+input = hx.select('#graphInput').on 'input', (e) ->
+  if e.target.value <= 100000
+    renderGraph(e.target.value)
+  else
+    e.target.value = 100000
+
+renderGraph(input.value())</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"date-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"graphInput"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"10"</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function"><span class="hljs-title">createData</span> = <span class="hljs-params">(num, z, a, b, c, d, e)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>.num]
+    x: <span class="hljs-keyword">new</span> Date().getTime() + i * <span class="hljs-number">60000</span>
+    y: z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#date-graph'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">"time"</span>
+    scaleType: <span class="hljs-string">'date'</span>
+    tickSpacing: <span class="hljs-number">80</span>
+    formatter: <span class="hljs-function"><span class="hljs-params">(val)</span> -&gt;</span>
+      moment(val).format(<span class="hljs-string">'DD/MM HH:mm'</span>)
+  y:
+    title: <span class="hljs-string">"value"</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+})
+
+
+series1 = axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 1'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">2</span>]
+})
+
+series2 = axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 2'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">4</span>]
+})
+
+series3 = axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 3'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">0</span>]
+})
+<span class="hljs-function">
+
+<span class="hljs-title">renderGraph</span> = <span class="hljs-params">(value)</span> -&gt;</span>
+  series1.data(createData(value, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>))
+  series2.data(createData(value, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>))
+  series3.data(createData(value, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>))
+  graph.render()
+
+input = hx.select(<span class="hljs-string">'#graphInput'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'input'</span>, <span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> e.target.value &lt;= <span class="hljs-number">100000</span>
+    renderGraph(e.target.value)
+  <span class="hljs-keyword">else</span>
+    e.target.value = <span class="hljs-number">100000</span>
+
+renderGraph(input.value())</code></pre></div></div></div></div><br></br><h3>Gradient stroke color line graph</h3><div class="docs-example"><div class="docs-example-body"><div id="gradient-stroke-graph" class="example-graph"></div>
+createData = (z, a, b, c, d, e, breakPointStart=200, breakPointEnd=200) ->
+  for i in [0..500]
+    value = if breakPointStart < i < breakPointEnd then undefined else z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+    value = z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+    { x: i, y: value}
+
+graph = new hx.Graph('#gradient-stroke-graph')
+axis = graph.addAxis({
+  x:
+    title: 'X'
+  y:
+    title: 'Y'
+    scalePaddingMax: 0.05
+    scalePaddingMin: 0.05
+})
+
+axis.addSeries('line', {
+  title: 'Series 1'
+  data: createData(0, 1, 1, 1, 1, 1)
+  sampleThreshold: false
+  strokeColor: [
+    {
+      yValue: -3,
+      color: hx.theme.plot.negativeCol
+    },
+    {
+      yValue: 0,
+      color: '#555'
+    },
+    {
+      yValue: 0,
+      color: '#555'
+    },
+    {
+      yValue: 3,
+      color: hx.theme.plot.negativeCol
+    }
+  ]
+})
+
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"gradient-stroke-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function">
+<span class="hljs-title">createData</span> = <span class="hljs-params">(z, a, b, c, d, e, breakPointStart=<span class="hljs-number">200</span>, breakPointEnd=<span class="hljs-number">200</span>)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.500</span>]
+    value = <span class="hljs-keyword">if</span> breakPointStart &lt; i &lt; breakPointEnd <span class="hljs-keyword">then</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">else</span> z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+    value = z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+    { x: i, y: value}
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#gradient-stroke-graph'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'X'</span>
+  y:
+    title: <span class="hljs-string">'Y'</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+    scalePaddingMin: <span class="hljs-number">0.05</span>
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 1'</span>
+  data: createData(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+  sampleThreshold: <span class="hljs-literal">false</span>
+  strokeColor: [
+    {
+      yValue: <span class="hljs-number">-3</span>,
+      color: hx.theme.plot.negativeCol
+    },
+    {
+      yValue: <span class="hljs-number">0</span>,
+      color: <span class="hljs-string">'#555'</span>
+    },
+    {
+      yValue: <span class="hljs-number">0</span>,
+      color: <span class="hljs-string">'#555'</span>
+    },
+    {
+      yValue: <span class="hljs-number">3</span>,
+      color: hx.theme.plot.negativeCol
+    }
+  ]
+})
+
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Gradient fill color line graph</h3><div class="docs-example"><div class="docs-example-body"><div id="gradient-fill-graph" class="example-graph"></div>
+createData = (z, a, b, c, d, e, breakPointStart=200, breakPointEnd=200) ->
+  for i in [0..1000]
+    value = if breakPointStart < i < breakPointEnd then undefined else z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+    value = z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+    { x: i, y: value}
+
+graph = new hx.Graph('#gradient-fill-graph')
+axis = graph.addAxis({
+  x:
+    title: 'X'
+  y:
+    title: 'Y'
+    scalePaddingMax: 0.05
+    scalePaddingMin: 0.05
+})
+
+axis.addSeries('line', {
+  title: 'Series 1'
+  data: createData(-1, 1, -1, -1, -1, 1, 20, 50)
+  fillEnabled: true
+  sampleThreshold: false
+  strokeColor: [
+    {
+      yValue: -4,
+      color: hx.theme.plot.negativeCol
+    },
+    {
+      yValue: 0,
+      color: '#999'
+    }
+    {
+      yValue: 4,
+      color: hx.theme.plot.positiveCol
+    }
+  ]
+  fillColor: [
+    {
+      yValue: -4,
+      color: hx.color(hx.theme.plot.negativeCol).alpha(0.25).toString()
+    },
+    {
+      yValue: 0,
+      color: hx.color('#AAA').alpha(0.05).toString()
+    },
+    {
+      yValue: 4,
+      color: hx.color(hx.theme.plot.positiveCol).alpha(0.25).toString()
+    }
+  ]
+})
+
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"gradient-fill-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function">
+<span class="hljs-title">createData</span> = <span class="hljs-params">(z, a, b, c, d, e, breakPointStart=<span class="hljs-number">200</span>, breakPointEnd=<span class="hljs-number">200</span>)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.1000</span>]
+    value = <span class="hljs-keyword">if</span> breakPointStart &lt; i &lt; breakPointEnd <span class="hljs-keyword">then</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">else</span> z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+    value = z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+    { x: i, y: value}
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#gradient-fill-graph'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'X'</span>
+  y:
+    title: <span class="hljs-string">'Y'</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+    scalePaddingMin: <span class="hljs-number">0.05</span>
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 1'</span>
+  data: createData(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">20</span>, <span class="hljs-number">50</span>)
+  fillEnabled: <span class="hljs-literal">true</span>
+  sampleThreshold: <span class="hljs-literal">false</span>
+  strokeColor: [
+    {
+      yValue: <span class="hljs-number">-4</span>,
+      color: hx.theme.plot.negativeCol
+    },
+    {
+      yValue: <span class="hljs-number">0</span>,
+      color: <span class="hljs-string">'#999'</span>
+    }
+    {
+      yValue: <span class="hljs-number">4</span>,
+      color: hx.theme.plot.positiveCol
+    }
+  ]
+  fillColor: [
+    {
+      yValue: <span class="hljs-number">-4</span>,
+      color: hx.color(hx.theme.plot.negativeCol).alpha(<span class="hljs-number">0.25</span>).toString()
+    },
+    {
+      yValue: <span class="hljs-number">0</span>,
+      color: hx.color(<span class="hljs-string">'#AAA'</span>).alpha(<span class="hljs-number">0.05</span>).toString()
+    },
+    {
+      yValue: <span class="hljs-number">4</span>,
+      color: hx.color(hx.theme.plot.positiveCol).alpha(<span class="hljs-number">0.25</span>).toString()
+    }
+  ]
+})
+
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Area Graph</h3><div class="docs-example"><div class="docs-example-body"><div id="area-graph" class="example-graph"></div>graph = new hx.Graph('#area-graph')
+
+axis1 = graph.addAxis({
+  x: {
+    title: 'X'
+  },
+  y: {
+    title: 'Y',
+    min: 0
+    scalePaddingMax: 0.05
+  }
+})
+axis2 = graph.addAxis({
+  x: {
+    title: 'time',
+    visible: false
+  },
+  y: {
+    title: 'another value',
+    min: 0
+    scalePaddingMax: 0.05
+  }
+})
+
+data1 = for i in [0..500]
+  x: i
+  y: 5+Math.sin(i/10) + Math.sin(i/20) + Math.sin(i/40) + Math.sin(i/50) + Math.sin(i/100)
+
+axis1.addSeries('line', {
+  title: 'Area Series 1',
+  data: data1,
+  strokeColor: hx.color(hx.theme.plot.colors[0]).alpha(0.2).toString(),
+  fillEnabled: true
+})
+
+data2 = for i in [0..500]
+  x: i
+  y: 3+Math.sin(i/10) - Math.sin(i/20) - Math.sin(i/40) - Math.sin(i/50) + Math.sin(i/100)
+
+axis2.addSeries('line', {
+  title: 'Area Series 2',
+  data: data2,
+  strokeColor: hx.color(hx.theme.plot.colors[1]).alpha(0.2).toString(),
+  fillEnabled: true
+})
+
+graph.render()</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"area-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#area-graph'</span>)
+
+axis1 = graph.addAxis({
+  x: {
+    title: <span class="hljs-string">'X'</span>
+  },
+  y: {
+    title: <span class="hljs-string">'Y'</span>,
+    min: <span class="hljs-number">0</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+  }
+})
+axis2 = graph.addAxis({
+  x: {
+    title: <span class="hljs-string">'time'</span>,
+    visible: <span class="hljs-literal">false</span>
+  },
+  y: {
+    title: <span class="hljs-string">'another value'</span>,
+    min: <span class="hljs-number">0</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+  }
+})
+
+data1 = <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.500</span>]
+  x: i
+  y: <span class="hljs-number">5</span>+Math.sin(i/<span class="hljs-number">10</span>) + Math.sin(i/<span class="hljs-number">20</span>) + Math.sin(i/<span class="hljs-number">40</span>) + Math.sin(i/<span class="hljs-number">50</span>) + Math.sin(i/<span class="hljs-number">100</span>)
+
+axis1.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Area Series 1'</span>,
+  data: data1,
+  strokeColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">0</span>]).alpha(<span class="hljs-number">0.2</span>).toString(),
+  fillEnabled: <span class="hljs-literal">true</span>
+})
+
+data2 = <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.500</span>]
+  x: i
+  y: <span class="hljs-number">3</span>+Math.sin(i/<span class="hljs-number">10</span>) - Math.sin(i/<span class="hljs-number">20</span>) - Math.sin(i/<span class="hljs-number">40</span>) - Math.sin(i/<span class="hljs-number">50</span>) + Math.sin(i/<span class="hljs-number">100</span>)
+
+axis2.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Area Series 2'</span>,
+  data: data2,
+  strokeColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">1</span>]).alpha(<span class="hljs-number">0.2</span>).toString(),
+  fillEnabled: <span class="hljs-literal">true</span>
+})
+
+graph.render()</code></pre></div></div></div></div><br></br><h3>Combined actual and projected line graph</h3><div class="docs-example"><div class="docs-example-body"><div id="combined-graph" class="example-graph"></div>
+createData = (start, z, a, b, c, d, e) ->
+  for i in [start..start+200]
+    x: i
+    y: 4 + z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100)
+
+graph = new hx.Graph('#combined-graph')
+axis = graph.addAxis({
+  x: {
+    title: 'X'
+  },
+  y: {
+    title: 'Y',
+    min: 0,
+    scalePaddingMax: 0.05
+    scalePaddingMin: 0.05
+  }
+})
+col = hx.color(hx.theme.plot.colors[0]).alpha(0.1).toString()
+
+axis.addSeries('line', {
+  title: 'Actual',
+  data: createData(0, 0, 1, 1, 1, 1, 1),
+  fillColor: col,
+  fillEnabled: true
+})
+axis.addSeries('line', {
+  title: 'Predicted',
+  data: createData(200, 0, 1, 1, 1, 1, 1),
+  fillColor: col,
+  fillEnabled: true,
+  class: 'dashed-line'
+})
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"combined-graph"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function">
+<span class="hljs-title">createData</span> = <span class="hljs-params">(start, z, a, b, c, d, e)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [start..start+<span class="hljs-number">200</span>]
+    x: i
+    y: <span class="hljs-number">4</span> + z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>)
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#combined-graph'</span>)
+axis = graph.addAxis({
+  x: {
+    title: <span class="hljs-string">'X'</span>
+  },
+  y: {
+    title: <span class="hljs-string">'Y'</span>,
+    min: <span class="hljs-number">0</span>,
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+    scalePaddingMin: <span class="hljs-number">0.05</span>
+  }
+})
+col = hx.color(hx.theme.plot.colors[<span class="hljs-number">0</span>]).alpha(<span class="hljs-number">0.1</span>).toString()
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Actual'</span>,
+  data: createData(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>),
+  fillColor: col,
+  fillEnabled: <span class="hljs-literal">true</span>
+})
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Predicted'</span>,
+  data: createData(<span class="hljs-number">200</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>),
+  fillColor: col,
+  fillEnabled: <span class="hljs-literal">true</span>,
+  <span class="hljs-class"><span class="hljs-keyword">class</span>: '<span class="hljs-title">dashed</span>-<span class="hljs-title">line</span>'</span>
+})
+
+graph.render()
+</code></pre></div></div><div class="example-code-section"><h3>CSS</h3><div class="qm-code-highlight-codeblock language-css"><pre><code class="qm-code-font"><span class="hljs-selector-class">.dashed-line</span> {
+  <span class="hljs-attribute">stroke-dasharray</span>: <span class="hljs-number">5</span>,<span class="hljs-number">5</span>;
+}</code></pre></div></div></div></div><br></br><h3>Stacked area graph</h3><div class="docs-example"><div class="docs-example-body"><div id="stacked-area" class="example-graph"></div>
+createData = (z, a, b, c, d, e) ->
+  for i in [0..50]
+    x: i
+    y: Math.abs(z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100))
+
+graph = new hx.Graph('#stacked-area')
+axis = graph.addAxis({
+  x:
+    title: 'X'
+  y:
+    title: 'Y'
+    scalePaddingMax: 0.05
+})
+
+
+axis.addSeries('line', {
+  title: 'Series 1'
+  data: createData(0, 1, 1, 1, 1, 1)
+  fillEnabled: true
+  markersEnabled: true
+  group: 'group-1'
+  strokeColor: hx.theme.plot.colors[2]
+  fillColor: hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString()
+})
+
+axis.addSeries('line', {
+  title: 'Series 2'
+  data: createData(1, -1, 1, -1, 1, -1)
+  fillEnabled: true
+  markersEnabled: true
+  group: 'group-1'
+  strokeColor: hx.theme.plot.colors[4]
+  fillColor: hx.color(hx.theme.plot.colors[4]).alpha(0.2).toString()
+})
+
+axis.addSeries('line', {
+  title: 'Series 3'
+  data: createData(-1, 1, -1, -1, -1, 1)
+  fillEnabled: true
+  markersEnabled: true
+  group: 'group-1'
+  strokeColor: hx.theme.plot.colors[5]
+  fillColor: hx.color(hx.theme.plot.colors[5]).alpha(0.2).toString()
+})
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"stacked-area"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function">
+<span class="hljs-title">createData</span> = <span class="hljs-params">(z, a, b, c, d, e)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.50</span>]
+    x: i
+    y: Math.abs(z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>))
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#stacked-area'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'X'</span>
+  y:
+    title: <span class="hljs-string">'Y'</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+})
+
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 1'</span>
+  data: createData(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+  fillEnabled: <span class="hljs-literal">true</span>
+  markersEnabled: <span class="hljs-literal">true</span>
+  group: <span class="hljs-string">'group-1'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">2</span>]
+  fillColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">2</span>]).alpha(<span class="hljs-number">0.2</span>).toString()
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 2'</span>
+  data: createData(<span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>)
+  fillEnabled: <span class="hljs-literal">true</span>
+  markersEnabled: <span class="hljs-literal">true</span>
+  group: <span class="hljs-string">'group-1'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">4</span>]
+  fillColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">4</span>]).alpha(<span class="hljs-number">0.2</span>).toString()
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 3'</span>
+  data: createData(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)
+  fillEnabled: <span class="hljs-literal">true</span>
+  markersEnabled: <span class="hljs-literal">true</span>
+  group: <span class="hljs-string">'group-1'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">5</span>]
+  fillColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">5</span>]).alpha(<span class="hljs-number">0.2</span>).toString()
+})
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Stacked area graph with data overlap</h3><div class="docs-example"><div class="docs-example-body"><div id="stacked-area-overlap" class="example-graph"></div>createData = (z, a, b, c, d, e, offset, count=50) ->
+  for i in [0...count]
+    x: i + offset
+    y: Math.abs(z + a*Math.sin(i/10) + b*Math.sin(i/20) + c*Math.sin(i/40) + d*Math.sin(i/50) + e*Math.sin(i/100))
+
+graph = new hx.Graph('#stacked-area-overlap')
+axis = graph.addAxis({
+  x:
+    title: 'X'
+  y:
+    title: 'Y'
+    scalePaddingMax: 0.05
+})
+
+
+axis.addSeries('line', {
+  title: 'Series 1'
+  data: createData(0, 1, 1, 1, 1, 1, 20, 10)
+  fillEnabled: true
+  markersEnabled: true
+  group: 'group-1'
+  strokeColor: hx.theme.plot.colors[2]
+  fillColor: hx.color(hx.theme.plot.colors[2]).alpha(0.2).toString()
+})
+
+axis.addSeries('line', {
+  title: 'Series 2'
+  data: createData(1, -1, 1, -1, 1, -1, 0.5)
+  fillEnabled: true
+  markersEnabled: true
+  group: 'group-1'
+  strokeColor: hx.theme.plot.colors[4]
+  fillColor: hx.color(hx.theme.plot.colors[4]).alpha(0.2).toString()
+})
+
+axis.addSeries('line', {
+  title: 'Series 3'
+  data: createData(-1, 1, -1, -1, -1, 1, 10, 30)
+  fillEnabled: true
+  markersEnabled: true
+  group: 'group-1'
+  strokeColor: hx.theme.plot.colors[5]
+  fillColor: hx.color(hx.theme.plot.colors[5]).alpha(0.2).toString()
+})
+
+graph.render()</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"stacked-area-overlap"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font"><span class="hljs-function"><span class="hljs-title">createData</span> = <span class="hljs-params">(z, a, b, c, d, e, offset, count=<span class="hljs-number">50</span>)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..count]
+    x: i + offset
+    y: Math.abs(z + a*Math.sin(i/<span class="hljs-number">10</span>) + b*Math.sin(i/<span class="hljs-number">20</span>) + c*Math.sin(i/<span class="hljs-number">40</span>) + d*Math.sin(i/<span class="hljs-number">50</span>) + e*Math.sin(i/<span class="hljs-number">100</span>))
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#stacked-area-overlap'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'X'</span>
+  y:
+    title: <span class="hljs-string">'Y'</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+})
+
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 1'</span>
+  data: createData(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">20</span>, <span class="hljs-number">10</span>)
+  fillEnabled: <span class="hljs-literal">true</span>
+  markersEnabled: <span class="hljs-literal">true</span>
+  group: <span class="hljs-string">'group-1'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">2</span>]
+  fillColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">2</span>]).alpha(<span class="hljs-number">0.2</span>).toString()
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 2'</span>
+  data: createData(<span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">0.5</span>)
+  fillEnabled: <span class="hljs-literal">true</span>
+  markersEnabled: <span class="hljs-literal">true</span>
+  group: <span class="hljs-string">'group-1'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">4</span>]
+  fillColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">4</span>]).alpha(<span class="hljs-number">0.2</span>).toString()
+})
+
+axis.addSeries(<span class="hljs-string">'line'</span>, {
+  title: <span class="hljs-string">'Series 3'</span>
+  data: createData(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span>)
+  fillEnabled: <span class="hljs-literal">true</span>
+  markersEnabled: <span class="hljs-literal">true</span>
+  group: <span class="hljs-string">'group-1'</span>
+  strokeColor: hx.theme.plot.colors[<span class="hljs-number">5</span>]
+  fillColor: hx.color(hx.theme.plot.colors[<span class="hljs-number">5</span>]).alpha(<span class="hljs-number">0.2</span>).toString()
+})
+
+graph.render()</code></pre></div></div></div></div><br></br><h3>Grouped bar chart</h3><div class="docs-example"><div class="docs-example-body"><div id="grouped-bar-chart" class="example-graph"></div>
+colors = hx.theme.plot.colors
+
+xLabels = 'ABCDEFGH'.split('')
+
+createData = ->
+  for label in xLabels
+    x: label
+    y: Math.random()*0.5+0.05
+
+graph = new hx.Graph('#grouped-bar-chart')
+axis = graph.addAxis({
+  x:
+    title: 'category'
+    scaleType: 'discrete'
+    formatter: (d) -> d
+    discreteLabels: xLabels
+  y:
+    title: 'value'
+    scalePaddingMax: 0.1
+    min: 0
+})
+
+for i in [0..4]
+  series = axis.addSeries('bar', {
+    title: 'Bar Series ' + (i+1)
+    data: createData()
+    fillColor: hx.cycle(colors, i)
+  })
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"grouped-bar-chart"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+colors = hx.theme.plot.colors
+
+xLabels = <span class="hljs-string">'ABCDEFGH'</span>.split(<span class="hljs-string">''</span>)
+<span class="hljs-function">
+<span class="hljs-title">createData</span> = -&gt;</span>
+  <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> xLabels
+    x: label
+    y: Math.random()*<span class="hljs-number">0.5</span>+<span class="hljs-number">0.05</span>
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#grouped-bar-chart'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'category'</span>
+    scaleType: <span class="hljs-string">'discrete'</span>
+    formatter: <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> d
+    discreteLabels: xLabels
+  y:
+    title: <span class="hljs-string">'value'</span>
+    scalePaddingMax: <span class="hljs-number">0.1</span>
+    min: <span class="hljs-number">0</span>
+})
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.4</span>]
+  series = axis.addSeries(<span class="hljs-string">'bar'</span>, {
+    title: <span class="hljs-string">'Bar Series '</span> + (i+<span class="hljs-number">1</span>)
+    data: createData()
+    fillColor: hx.cycle(colors, i)
+  })
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Grouped stacked bar chart</h3><div class="docs-example"><div class="docs-example-body"><div id="stacked-grouped-bar-chart" class="example-graph"></div>
+colors = hx.theme.plot.colors
+
+xLabels = 'ABCDEFGH'.split('')
+
+createData = ->
+  for label in xLabels
+    x: label
+    y: Math.random()*0.5+0.05
+
+graph = new hx.Graph('#stacked-grouped-bar-chart')
+axis = graph.addAxis({
+  x:
+    title: 'category'
+    scaleType: 'discrete'
+    formatter: (d) -> d
+    discreteLabels: xLabels
+  y:
+    title: 'value'
+    scalePaddingMax: 0.1
+    min: 0
+})
+
+for i in [0..2]
+  series = axis.addSeries('bar', {
+    title: 'Stacked Bar Series ' + (i+1)
+    data: createData()
+    fillColor: hx.cycle(colors, i)
+    group: 'group-1'
+  })
+
+for i in [0..2]
+  series = axis.addSeries('bar', {
+    title: 'Stacked Bar Series ' + (i+4)
+    data: createData()
+    fillColor: hx.cycle(colors, i+3)
+    group: 'group-2'
+  })
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"stacked-grouped-bar-chart"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+colors = hx.theme.plot.colors
+
+xLabels = <span class="hljs-string">'ABCDEFGH'</span>.split(<span class="hljs-string">''</span>)
+<span class="hljs-function">
+<span class="hljs-title">createData</span> = -&gt;</span>
+  <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> xLabels
+    x: label
+    y: Math.random()*<span class="hljs-number">0.5</span>+<span class="hljs-number">0.05</span>
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#stacked-grouped-bar-chart'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'category'</span>
+    scaleType: <span class="hljs-string">'discrete'</span>
+    formatter: <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> d
+    discreteLabels: xLabels
+  y:
+    title: <span class="hljs-string">'value'</span>
+    scalePaddingMax: <span class="hljs-number">0.1</span>
+    min: <span class="hljs-number">0</span>
+})
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.2</span>]
+  series = axis.addSeries(<span class="hljs-string">'bar'</span>, {
+    title: <span class="hljs-string">'Stacked Bar Series '</span> + (i+<span class="hljs-number">1</span>)
+    data: createData()
+    fillColor: hx.cycle(colors, i)
+    group: <span class="hljs-string">'group-1'</span>
+  })
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.2</span>]
+  series = axis.addSeries(<span class="hljs-string">'bar'</span>, {
+    title: <span class="hljs-string">'Stacked Bar Series '</span> + (i+<span class="hljs-number">4</span>)
+    data: createData()
+    fillColor: hx.cycle(colors, i+<span class="hljs-number">3</span>)
+    group: <span class="hljs-string">'group-2'</span>
+  })
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Normalized stacked bar chart</h3><div class="docs-example"><div class="docs-example-body"><div id="normalized-stacked-bar-chart" class="example-graph"></div>colors = hx.theme.plot.colors
+
+xLabels = 'ABCDEFGH'.split('')
+
+createData = ->
+  for label in xLabels
+    x: label
+    y: Math.random()*50+5
+
+normalize = (data) ->
+  transposed = hx.transpose(data)
+  sliceYs = transposed.map((slice) -> slice.map((d) -> d.y))
+  sliceSums = sliceYs.map((slice) -> hx.sum(slice))
+  zipped = hx.zip([sliceSums, transposed])
+  normalized = zipped.map ([total, series]) ->
+    series.map (d) ->
+      x: d.x,
+      y: d.y/total
+      yLabel: d.y
+  hx.transpose(normalized)
+
+
+graph = new hx.Graph('#normalized-stacked-bar-chart')
+axis = graph.addAxis({
+  x:
+    title: 'category'
+    scaleType: 'discrete'
+    formatter: (d) -> d
+    discreteLabels: xLabels
+  y:
+    title: 'value'
+    scalePaddingMax: 0.05
+    min: 0
+})
+
+seriesList1 = normalize(hx.range(3).map(createData))
+
+percentFormatter = hx.format.si(3)
+createLabelValues = (series, dataPoint) ->
+  [
+    {
+      name: axis.x.title(),
+      value: dataPoint.x,
+      formatter: (d) -> d
+    },
+    {
+      name: axis.y.title(),
+      value: dataPoint.y,
+      formatter: (d) -> d
+    },
+    {
+      name: "percent",
+      value: dataPoint.y,
+      formatter: (x) -> percentFormatter(x * 100) + '%'
+    }
+  ]
+
+for data, i in seriesList1
+  axis.addSeries('bar', {
+    title: 'Stacked Bar Series ' + (i+1)
+    data: data
+    group: 'group-1'
+    fillColor: hx.cycle(colors, i)
+    labelValuesExtractor: createLabelValues
+  })
+
+graph.render()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"normalized-stacked-bar-chart"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">colors = hx.theme.plot.colors
+
+xLabels = <span class="hljs-string">'ABCDEFGH'</span>.split(<span class="hljs-string">''</span>)
+<span class="hljs-function">
+<span class="hljs-title">createData</span> = -&gt;</span>
+  <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> xLabels
+    x: label
+    y: Math.random()*<span class="hljs-number">50</span>+<span class="hljs-number">5</span>
+<span class="hljs-function">
+<span class="hljs-title">normalize</span> = <span class="hljs-params">(data)</span> -&gt;</span>
+  transposed = hx.transpose(data)
+  sliceYs = transposed.map(<span class="hljs-function"><span class="hljs-params">(slice)</span> -&gt;</span> slice.map(<span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> d.y))
+  sliceSums = sliceYs.map(<span class="hljs-function"><span class="hljs-params">(slice)</span> -&gt;</span> hx.sum(slice))
+  zipped = hx.zip([sliceSums, transposed])
+  normalized = zipped.map ([total, series]) -&gt;
+    series.map (d) -&gt;
+      x: d.x,
+      y: d.y/total
+      yLabel: d.y
+  hx.transpose(normalized)
+
+
+graph = <span class="hljs-keyword">new</span> hx.Graph(<span class="hljs-string">'#normalized-stacked-bar-chart'</span>)
+axis = graph.addAxis({
+  x:
+    title: <span class="hljs-string">'category'</span>
+    scaleType: <span class="hljs-string">'discrete'</span>
+    formatter: <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> d
+    discreteLabels: xLabels
+  y:
+    title: <span class="hljs-string">'value'</span>
+    scalePaddingMax: <span class="hljs-number">0.05</span>
+    min: <span class="hljs-number">0</span>
+})
+
+seriesList1 = normalize(hx.range(<span class="hljs-number">3</span>).map(createData))
+
+percentFormatter = hx.format.si(<span class="hljs-number">3</span>)
+<span class="hljs-function"><span class="hljs-title">createLabelValues</span> = <span class="hljs-params">(series, dataPoint)</span> -&gt;</span>
+  [
+    {
+      name: axis.x.title(),
+      value: dataPoint.x,
+      formatter: <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> d
+    },
+    {
+      name: axis.y.title(),
+      value: dataPoint.y,
+      formatter: <span class="hljs-function"><span class="hljs-params">(d)</span> -&gt;</span> d
+    },
+    {
+      name: <span class="hljs-string">"percent"</span>,
+      value: dataPoint.y,
+      formatter: <span class="hljs-function"><span class="hljs-params">(x)</span> -&gt;</span> percentFormatter(x * <span class="hljs-number">100</span>) + <span class="hljs-string">'%'</span>
+    }
+  ]
+
+<span class="hljs-keyword">for</span> data, i <span class="hljs-keyword">in</span> seriesList1
+  axis.addSeries(<span class="hljs-string">'bar'</span>, {
+    title: <span class="hljs-string">'Stacked Bar Series '</span> + (i+<span class="hljs-number">1</span>)
+    data: data
+    group: <span class="hljs-string">'group-1'</span>
+    fillColor: hx.cycle(colors, i)
+    labelValuesExtractor: createLabelValues
+  })
+
+graph.render()
+</code></pre></div></div></div></div><br></br><h3>Donut chart</h3><div class="docs-example"><div class="docs-example-body"><div id="donut-chart" class="example-graph"></div>pie = new hx.PieChart('#donut-chart',{
+  innerPadding: 0.5
+  segmentPadding: 0.05
+})
+
+pie.data {
+  title: 'Series 1'
+  segments: [
+    {
+      name: 'Segment 1'
+      size: 90,
+      fillColor: hx.cycle(hx.theme.plot.colors, 3)
+    },
+    {
+      name: 'Segment 2'
+      size: 20,
+      fillColor: hx.cycle(hx.theme.plot.colors, 4)
+    },
+    {
+      name: 'Segment 3'
+      size: 30,
+      fillColor: hx.cycle(hx.theme.plot.colors, 5)
+    }
+  ]
+}
+
+pie.render()</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"donut-chart"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">pie = <span class="hljs-keyword">new</span> hx.PieChart(<span class="hljs-string">'#donut-chart'</span>,{
+  innerPadding: <span class="hljs-number">0.5</span>
+  segmentPadding: <span class="hljs-number">0.05</span>
+})
+
+pie.data {
+  title: <span class="hljs-string">'Series 1'</span>
+  segments: [
+    {
+      name: <span class="hljs-string">'Segment 1'</span>
+      size: <span class="hljs-number">90</span>,
+      fillColor: hx.cycle(hx.theme.plot.colors, <span class="hljs-number">3</span>)
+    },
+    {
+      name: <span class="hljs-string">'Segment 2'</span>
+      size: <span class="hljs-number">20</span>,
+      fillColor: hx.cycle(hx.theme.plot.colors, <span class="hljs-number">4</span>)
+    },
+    {
+      name: <span class="hljs-string">'Segment 3'</span>
+      size: <span class="hljs-number">30</span>,
+      fillColor: hx.cycle(hx.theme.plot.colors, <span class="hljs-number">5</span>)
+    }
+  ]
+}
+
+pie.render()</code></pre></div></div></div></div><br></br><h3>Multi series pie chart with segment text</h3><div class="docs-example"><div class="docs-example-body"><div id="multi-series-pie-chart" class="example-graph"></div>pie = new hx.PieChart('#multi-series-pie-chart',{
+  labelsEnabled: false
+  segmentTextEnabled: true
+  segmentTextFormatter:(segment) -> segment.size
+})
+
+pie.data [
+  {
+    title: "Series 1"
+    segments: [
+      {
+        name: "Segment 1",
+        size: 10,
+        fillColor: hx.cycle(hx.theme.plot.colors ,0)
+      },
+      {
+        name: "Segment 2",
+        size: 10,
+        fillColor: hx.cycle(hx.theme.plot.colors ,1)
+      },
+      {
+        name: "Segment 3",
+        size: 80,
+        fillColor: hx.cycle(hx.theme.plot.colors ,2)
+      }
+    ]
+  },
+  {
+    title: "Series 2"
+    segments: [
+      {
+        name: "Segment 1",
+        size: 90,
+        fillColor: hx.cycle(hx.theme.plot.colors ,3)
+      },
+      {
+        name: "Segment 2",
+        size: 20,
+        fillColor: hx.cycle(hx.theme.plot.colors ,4)
+      },
+      {
+        name: "Segment 3",
+        size: 30,
+        fillColor: hx.cycle(hx.theme.plot.colors ,5)
+      }
+    ]
+  },
+  {
+    title: "Series 3"
+    segments: [
+      {
+        name: "Segment 1",
+        size: 90,
+        fillColor: hx.cycle(hx.theme.plot.colors ,6)
+      },
+      {
+        name: "Segment 2",
+        size: 20,
+        fillColor: hx.cycle(hx.theme.plot.colors ,7)
+      },
+      {
+        name: "Segment 3",
+        size: 30,
+        fillColor: hx.cycle(hx.theme.plot.colors ,8)
+      }
+    ]
+  }
+]
+
+pie.render()</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"multi-series-pie-chart"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example-graph"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">pie = <span class="hljs-keyword">new</span> hx.PieChart(<span class="hljs-string">'#multi-series-pie-chart'</span>,{
+  labelsEnabled: <span class="hljs-literal">false</span>
+  segmentTextEnabled: <span class="hljs-literal">true</span>
+  segmentTextFormatter:<span class="hljs-function"><span class="hljs-params">(segment)</span> -&gt;</span> segment.size
+})
+
+pie.data [
+  {
+    title: <span class="hljs-string">"Series 1"</span>
+    segments: [
+      {
+        name: <span class="hljs-string">"Segment 1"</span>,
+        size: <span class="hljs-number">10</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">0</span>)
+      },
+      {
+        name: <span class="hljs-string">"Segment 2"</span>,
+        size: <span class="hljs-number">10</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">1</span>)
+      },
+      {
+        name: <span class="hljs-string">"Segment 3"</span>,
+        size: <span class="hljs-number">80</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">2</span>)
+      }
+    ]
+  },
+  {
+    title: <span class="hljs-string">"Series 2"</span>
+    segments: [
+      {
+        name: <span class="hljs-string">"Segment 1"</span>,
+        size: <span class="hljs-number">90</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">3</span>)
+      },
+      {
+        name: <span class="hljs-string">"Segment 2"</span>,
+        size: <span class="hljs-number">20</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">4</span>)
+      },
+      {
+        name: <span class="hljs-string">"Segment 3"</span>,
+        size: <span class="hljs-number">30</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">5</span>)
+      }
+    ]
+  },
+  {
+    title: <span class="hljs-string">"Series 3"</span>
+    segments: [
+      {
+        name: <span class="hljs-string">"Segment 1"</span>,
+        size: <span class="hljs-number">90</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">6</span>)
+      },
+      {
+        name: <span class="hljs-string">"Segment 2"</span>,
+        size: <span class="hljs-number">20</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">7</span>)
+      },
+      {
+        name: <span class="hljs-string">"Segment 3"</span>,
+        size: <span class="hljs-number">30</span>,
+        fillColor: hx.cycle(hx.theme.plot.colors ,<span class="hljs-number">8</span>)
+      }
+    ]
+  }
+]
+
+pie.render()</code></pre></div></div></div></div></body></html>

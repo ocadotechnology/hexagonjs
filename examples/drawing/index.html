@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><style>.drawing-example {
+  height: 500px;
+  background: #F0F0F0;
+}</style><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><p>All the drawings have the following styles applied:</p><div class="qm-code-highlight-codeblock language-css"><pre><code class="qm-code-font"><span class="hljs-selector-class">.drawing-example</span> {
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">500px</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#F0F0F0</span>;
+}</code></pre></div><br></br><h3>Drawing text</h3><div class="docs-example"><div class="docs-example-body"><div id="drawing-text" class="drawing-example"></div>
+drawing = new hx.Drawing('#drawing-text')
+drawing.enablePan()
+drawing.enableZoom()
+drawing.enablePerformanceGauge()
+drawing.enableSelection()
+
+drawing.camera.maxZoom = 50
+drawing.camera.minZoom = 0.1
+
+text1 = drawing.create('text')
+text1.set('text', 'Left Aligned')
+text1.set('color', hx.theme.plot.colors[0])
+text1.set('size', 12*drawing.dpr)
+text1.set('align.x', 'start')
+text1.set('position.y', 15*drawing.dpr)
+text1.set('selectable', true)
+
+text2 = drawing.create('text')
+text2.set('text', 'Center Aligned')
+text2.set('color', hx.theme.plot.colors[1])
+text2.set('size', 12*drawing.dpr)
+text2.set('align.x', 'center')
+text2.set('position.y', 30*drawing.dpr)
+text2.set('selectable', true)
+
+text3 = drawing.create('text')
+text3.set('text', 'Right Aligned')
+text3.set('color', hx.theme.plot.colors[2])
+text3.set('size', 12*drawing.dpr)
+text3.set('align.x', 'end')
+text3.set('position.y', 45*drawing.dpr)
+text3.set('selectable', true)
+
+drawing.follow(drawing)
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"drawing-text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"drawing-example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+drawing = <span class="hljs-keyword">new</span> hx.Drawing(<span class="hljs-string">'#drawing-text'</span>)
+drawing.enablePan()
+drawing.enableZoom()
+drawing.enablePerformanceGauge()
+drawing.enableSelection()
+
+drawing.camera.maxZoom = <span class="hljs-number">50</span>
+drawing.camera.minZoom = <span class="hljs-number">0.1</span>
+
+text1 = drawing.create(<span class="hljs-string">'text'</span>)
+text1.set(<span class="hljs-string">'text'</span>, <span class="hljs-string">'Left Aligned'</span>)
+text1.set(<span class="hljs-string">'color'</span>, hx.theme.plot.colors[<span class="hljs-number">0</span>])
+text1.set(<span class="hljs-string">'size'</span>, <span class="hljs-number">12</span>*drawing.dpr)
+text1.set(<span class="hljs-string">'align.x'</span>, <span class="hljs-string">'start'</span>)
+text1.set(<span class="hljs-string">'position.y'</span>, <span class="hljs-number">15</span>*drawing.dpr)
+text1.set(<span class="hljs-string">'selectable'</span>, <span class="hljs-literal">true</span>)
+
+text2 = drawing.create(<span class="hljs-string">'text'</span>)
+text2.set(<span class="hljs-string">'text'</span>, <span class="hljs-string">'Center Aligned'</span>)
+text2.set(<span class="hljs-string">'color'</span>, hx.theme.plot.colors[<span class="hljs-number">1</span>])
+text2.set(<span class="hljs-string">'size'</span>, <span class="hljs-number">12</span>*drawing.dpr)
+text2.set(<span class="hljs-string">'align.x'</span>, <span class="hljs-string">'center'</span>)
+text2.set(<span class="hljs-string">'position.y'</span>, <span class="hljs-number">30</span>*drawing.dpr)
+text2.set(<span class="hljs-string">'selectable'</span>, <span class="hljs-literal">true</span>)
+
+text3 = drawing.create(<span class="hljs-string">'text'</span>)
+text3.set(<span class="hljs-string">'text'</span>, <span class="hljs-string">'Right Aligned'</span>)
+text3.set(<span class="hljs-string">'color'</span>, hx.theme.plot.colors[<span class="hljs-number">2</span>])
+text3.set(<span class="hljs-string">'size'</span>, <span class="hljs-number">12</span>*drawing.dpr)
+text3.set(<span class="hljs-string">'align.x'</span>, <span class="hljs-string">'end'</span>)
+text3.set(<span class="hljs-string">'position.y'</span>, <span class="hljs-number">45</span>*drawing.dpr)
+text3.set(<span class="hljs-string">'selectable'</span>, <span class="hljs-literal">true</span>)
+
+drawing.follow(drawing)
+</code></pre></div></div></div></div><br></br><h3>Drawing shapes</h3><div class="docs-example"><div class="docs-example-body"><div id="drawing-shapes" class="drawing-example"></div>
+# set up the drawing
+drawing = new hx.Drawing('#drawing-shapes')
+drawing.enablePan()
+drawing.enableZoom()
+drawing.enablePerformanceGauge()
+drawing.enableSelection()
+
+size = 10
+edges = 10
+#curve = ([Math.sin((2*i + 1) * Math.PI / edges) * size, Math.cos((2*i + 1) * Math.PI / edges) * size] for i in [0...edges])
+
+curve = for i in [0...edges+1]
+  [
+    Math.sin((2*i + 1) * Math.PI / edges) * size
+    Math.cos((2*i + 1) * Math.PI / edges) * size
+    Math.sin((2*i + 2) * Math.PI / edges) * size*0.5
+    Math.cos((2*i + 2) * Math.PI / edges) * size*0.5
+  ]
+
+shape = drawing.create('shape')
+shape.set('curve', curve)
+shape.set('fill.color', hx.theme.plot.colors[0])
+shape.set('selectable', true)
+
+shape = drawing.create('shape')
+shape.set('curve', curve)
+shape.set('fill.color', hx.theme.plot.colors[1])
+shape.set('position.x', 10)
+shape.set('position.y', 15)
+shape.set('selectable', true)
+
+shape = drawing.create('shape')
+shape.set('curve', curve)
+shape.set('fill.color', hx.theme.plot.colors[2])
+shape.set('position.x', -10)
+shape.set('position.y', 15)
+shape.set('selectable', true)
+
+drawing.follow(drawing)
+
+
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"drawing-shapes"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"drawing-example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+<span class="hljs-comment"># set up the drawing</span>
+drawing = <span class="hljs-keyword">new</span> hx.Drawing(<span class="hljs-string">'#drawing-shapes'</span>)
+drawing.enablePan()
+drawing.enableZoom()
+drawing.enablePerformanceGauge()
+drawing.enableSelection()
+
+size = <span class="hljs-number">10</span>
+edges = <span class="hljs-number">10</span>
+<span class="hljs-comment">#curve = ([Math.sin((2*i + 1) * Math.PI / edges) * size, Math.cos((2*i + 1) * Math.PI / edges) * size] for i in [0...edges])</span>
+
+curve = <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..edges+<span class="hljs-number">1</span>]
+  [
+    Math.sin((<span class="hljs-number">2</span>*i + <span class="hljs-number">1</span>) * Math.PI / edges) * size
+    Math.cos((<span class="hljs-number">2</span>*i + <span class="hljs-number">1</span>) * Math.PI / edges) * size
+    Math.sin((<span class="hljs-number">2</span>*i + <span class="hljs-number">2</span>) * Math.PI / edges) * size*<span class="hljs-number">0.5</span>
+    Math.cos((<span class="hljs-number">2</span>*i + <span class="hljs-number">2</span>) * Math.PI / edges) * size*<span class="hljs-number">0.5</span>
+  ]
+
+shape = drawing.create(<span class="hljs-string">'shape'</span>)
+shape.set(<span class="hljs-string">'curve'</span>, curve)
+shape.set(<span class="hljs-string">'fill.color'</span>, hx.theme.plot.colors[<span class="hljs-number">0</span>])
+shape.set(<span class="hljs-string">'selectable'</span>, <span class="hljs-literal">true</span>)
+
+shape = drawing.create(<span class="hljs-string">'shape'</span>)
+shape.set(<span class="hljs-string">'curve'</span>, curve)
+shape.set(<span class="hljs-string">'fill.color'</span>, hx.theme.plot.colors[<span class="hljs-number">1</span>])
+shape.set(<span class="hljs-string">'position.x'</span>, <span class="hljs-number">10</span>)
+shape.set(<span class="hljs-string">'position.y'</span>, <span class="hljs-number">15</span>)
+shape.set(<span class="hljs-string">'selectable'</span>, <span class="hljs-literal">true</span>)
+
+shape = drawing.create(<span class="hljs-string">'shape'</span>)
+shape.set(<span class="hljs-string">'curve'</span>, curve)
+shape.set(<span class="hljs-string">'fill.color'</span>, hx.theme.plot.colors[<span class="hljs-number">2</span>])
+shape.set(<span class="hljs-string">'position.x'</span>, <span class="hljs-number">-10</span>)
+shape.set(<span class="hljs-string">'position.y'</span>, <span class="hljs-number">15</span>)
+shape.set(<span class="hljs-string">'selectable'</span>, <span class="hljs-literal">true</span>)
+
+drawing.follow(drawing)
+
+
+</code></pre></div></div></div></div><br></br><h3>Composite drawing</h3><div class="docs-example"><div class="docs-example-body"><div id="composite-drawing" class="drawing-example"></div>
+# set up the drawing
+drawing = new hx.Drawing('#composite-drawing')
+drawing.enablePan()
+drawing.enableZoom()
+drawing.enablePerformanceGauge()
+drawing.enableSelection()
+
+drawing.on 'select', (obj) ->
+  drawing.follow(obj)
+
+size = 10
+edges = 10
+
+curve = for i in [0...edges+1]
+  [
+    Math.sin((2*i + 1) * Math.PI / edges) * size
+    Math.cos((2*i + 1) * Math.PI / edges) * size
+    Math.sin((2*i + 2) * Math.PI / edges) * size*0.5
+    Math.cos((2*i + 2) * Math.PI / edges) * size*0.5
+  ]
+
+composite = drawing.create('composite')
+composite.set('selectable', true)
+
+composite.create('shape', 'one')
+composite.create('shape', 'two')
+composite.create('shape', 'three')
+
+composite.set('one.curve', curve)
+composite.set('one.fill.color', hx.theme.plot.colors[0])
+
+composite.set('two.curve', curve)
+composite.set('two.fill.color', hx.theme.plot.colors[1])
+composite.set('two.position.x', 10)
+composite.set('two.position.y', 15)
+
+composite.set('three.curve', curve)
+composite.set('three.fill.color', hx.theme.plot.colors[2])
+composite.set('three.position.x', -10)
+composite.set('three.position.y', 15)
+
+
+drawing.follow(drawing)
+
+
+
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"composite-drawing"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"drawing-example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">
+<span class="hljs-comment"># set up the drawing</span>
+drawing = <span class="hljs-keyword">new</span> hx.Drawing(<span class="hljs-string">'#composite-drawing'</span>)
+drawing.enablePan()
+drawing.enableZoom()
+drawing.enablePerformanceGauge()
+drawing.enableSelection()
+
+drawing.<span class="hljs-literal">on</span> <span class="hljs-string">'select'</span>, <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+  drawing.follow(obj)
+
+size = <span class="hljs-number">10</span>
+edges = <span class="hljs-number">10</span>
+
+curve = <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..edges+<span class="hljs-number">1</span>]
+  [
+    Math.sin((<span class="hljs-number">2</span>*i + <span class="hljs-number">1</span>) * Math.PI / edges) * size
+    Math.cos((<span class="hljs-number">2</span>*i + <span class="hljs-number">1</span>) * Math.PI / edges) * size
+    Math.sin((<span class="hljs-number">2</span>*i + <span class="hljs-number">2</span>) * Math.PI / edges) * size*<span class="hljs-number">0.5</span>
+    Math.cos((<span class="hljs-number">2</span>*i + <span class="hljs-number">2</span>) * Math.PI / edges) * size*<span class="hljs-number">0.5</span>
+  ]
+
+composite = drawing.create(<span class="hljs-string">'composite'</span>)
+composite.set(<span class="hljs-string">'selectable'</span>, <span class="hljs-literal">true</span>)
+
+composite.create(<span class="hljs-string">'shape'</span>, <span class="hljs-string">'one'</span>)
+composite.create(<span class="hljs-string">'shape'</span>, <span class="hljs-string">'two'</span>)
+composite.create(<span class="hljs-string">'shape'</span>, <span class="hljs-string">'three'</span>)
+
+composite.set(<span class="hljs-string">'one.curve'</span>, curve)
+composite.set(<span class="hljs-string">'one.fill.color'</span>, hx.theme.plot.colors[<span class="hljs-number">0</span>])
+
+composite.set(<span class="hljs-string">'two.curve'</span>, curve)
+composite.set(<span class="hljs-string">'two.fill.color'</span>, hx.theme.plot.colors[<span class="hljs-number">1</span>])
+composite.set(<span class="hljs-string">'two.position.x'</span>, <span class="hljs-number">10</span>)
+composite.set(<span class="hljs-string">'two.position.y'</span>, <span class="hljs-number">15</span>)
+
+composite.set(<span class="hljs-string">'three.curve'</span>, curve)
+composite.set(<span class="hljs-string">'three.fill.color'</span>, hx.theme.plot.colors[<span class="hljs-number">2</span>])
+composite.set(<span class="hljs-string">'three.position.x'</span>, <span class="hljs-number">-10</span>)
+composite.set(<span class="hljs-string">'three.position.y'</span>, <span class="hljs-number">15</span>)
+
+
+drawing.follow(drawing)
+
+
+
+</code></pre></div></div></div></div><br></br><h3>Random lines</h3><div class="docs-example"><div class="docs-example-body"><div id="random-lines" class="drawing-example"></div>drawing = new hx.Drawing('#random-lines')
+drawing.enableZoom()
+drawing.enablePan()
+
+drawing.camera.maxZoom = 50
+drawing.camera.minZoom = 0.1
+
+for _ in [0..999] by 1
+  line = drawing.create('line')
+  line.set('start.x', Math.random()*1000)
+  line.set('color', hx.cycle(hx.theme.plot.colors, _))
+  line.set('start.y', Math.random()*1000)
+  line.set('end.x', Math.random()*1000)
+  line.set('end.y', Math.random()*1000)
+  line.set('width', 0) #dont apply the camera scale to the line widths
+
+drawing.follow(drawing)</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"random-lines"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"drawing-example"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">drawing = <span class="hljs-keyword">new</span> hx.Drawing(<span class="hljs-string">'#random-lines'</span>)
+drawing.enableZoom()
+drawing.enablePan()
+
+drawing.camera.maxZoom = <span class="hljs-number">50</span>
+drawing.camera.minZoom = <span class="hljs-number">0.1</span>
+
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.999</span>] <span class="hljs-keyword">by</span> <span class="hljs-number">1</span>
+  line = drawing.create(<span class="hljs-string">'line'</span>)
+  line.set(<span class="hljs-string">'start.x'</span>, Math.random()*<span class="hljs-number">1000</span>)
+  line.set(<span class="hljs-string">'color'</span>, hx.cycle(hx.theme.plot.colors, _))
+  line.set(<span class="hljs-string">'start.y'</span>, Math.random()*<span class="hljs-number">1000</span>)
+  line.set(<span class="hljs-string">'end.x'</span>, Math.random()*<span class="hljs-number">1000</span>)
+  line.set(<span class="hljs-string">'end.y'</span>, Math.random()*<span class="hljs-number">1000</span>)
+  line.set(<span class="hljs-string">'width'</span>, <span class="hljs-number">0</span>) <span class="hljs-comment">#dont apply the camera scale to the line widths</span>
+
+drawing.follow(drawing)</code></pre></div></div></div></div></body></html>

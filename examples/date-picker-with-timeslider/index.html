@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/quantum-code-highlight.css"></link><style>.datepicker-example .hx-icon {
+  display: none;
+}</style><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body class="qm-body-font"><div class="docs-example"><div class="docs-example-body"><div id="container" class="hx-compact-group hx-horizontal">
+  <div class="hx-input-group datepicker-example">
+    <button id="back-a-day" class="hx-btn hx-positive hx-fixed"><i class="fa fa-chevron-left"></i></button>
+    <div id="datepicker" class="hx-date-picker hx-fixed hx-no-pad"></div>
+    <button id="forward-a-day" class="hx-btn hx-positive hx-fixed"><i class="fa fa-chevron-right"></i></button>
+  </div>
+  <div class="hx-section hx-pad">
+    <div id="timeslider" class="hx-slider"></div>
+  </div>
+</div>datePicker = new hx.DatePicker('#datepicker', 'calendar')
+timeSlider = new hx.TimeSlider('#timeslider')
+
+hx.select('#back-a-day').on 'click', -> datePicker.day(datePicker.day() - 1)
+hx.select('#forward-a-day').on 'click', -> datePicker.day(datePicker.day() + 1)
+
+getDate = ->
+  date = new Date(datePicker.date().getTime())
+  time = timeSlider.value()
+  date.setHours(time.getHours())
+  date.setMinutes(time.getMinutes())
+  date
+
+notification = null
+
+notify = ->
+  if notification then notification.close()
+  notification = hx.notify('New date selected: ' + getDate(), 'fa fa-clock-o')
+
+
+datePicker.on 'change', -> notify()
+timeSlider.on 'slideend', -> notify()
+</div><div class="docs-example-code-body"><div class="example-code-section"><h3>HTML</h3><div class="qm-code-highlight-codeblock language-html"><pre><code class="qm-code-font"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"container"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-compact-group hx-horizontal"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-input-group datepicker-example"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"back-a-day"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive hx-fixed"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-chevron-left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"datepicker"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-date-picker hx-fixed hx-no-pad"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"forward-a-day"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-btn hx-positive hx-fixed"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fa fa-chevron-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-section hx-pad"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"timeslider"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hx-slider"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div></div><div class="example-code-section"><h3>CoffeeScript</h3><div class="qm-code-highlight-codeblock language-coffee"><pre><code class="qm-code-font">datePicker = <span class="hljs-keyword">new</span> hx.DatePicker(<span class="hljs-string">'#datepicker'</span>, <span class="hljs-string">'calendar'</span>)
+timeSlider = <span class="hljs-keyword">new</span> hx.TimeSlider(<span class="hljs-string">'#timeslider'</span>)
+
+hx.select(<span class="hljs-string">'#back-a-day'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> datePicker.day(datePicker.day() - <span class="hljs-number">1</span>)
+hx.select(<span class="hljs-string">'#forward-a-day'</span>).<span class="hljs-literal">on</span> <span class="hljs-string">'click'</span>, <span class="hljs-function">-&gt;</span> datePicker.day(datePicker.day() + <span class="hljs-number">1</span>)
+<span class="hljs-function">
+<span class="hljs-title">getDate</span> = -&gt;</span>
+  date = <span class="hljs-keyword">new</span> Date(datePicker.date().getTime())
+  time = timeSlider.value()
+  date.setHours(time.getHours())
+  date.setMinutes(time.getMinutes())
+  date
+
+notification = <span class="hljs-literal">null</span>
+<span class="hljs-function">
+<span class="hljs-title">notify</span> = -&gt;</span>
+  <span class="hljs-keyword">if</span> notification <span class="hljs-keyword">then</span> notification.close()
+  notification = hx.notify(<span class="hljs-string">'New date selected: '</span> + getDate(), <span class="hljs-string">'fa fa-clock-o'</span>)
+
+
+datePicker.<span class="hljs-literal">on</span> <span class="hljs-string">'change'</span>, <span class="hljs-function">-&gt;</span> notify()
+timeSlider.<span class="hljs-literal">on</span> <span class="hljs-string">'slideend'</span>, <span class="hljs-function">-&gt;</span> notify()
+</code></pre></div></div><div class="example-code-section"><h3>CSS</h3><div class="qm-code-highlight-codeblock language-css"><pre><code class="qm-code-font"><span class="hljs-selector-class">.datepicker-example</span> <span class="hljs-selector-class">.hx-icon</span> {
+  <span class="hljs-attribute">display</span>: none;
+}</code></pre></div></div></div></div></body></html>
