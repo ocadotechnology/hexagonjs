@@ -9,7 +9,7 @@ const entityTransforms = require('./transforms/transforms')
 
 const latestVersion = require('./package.json').devDependencies['hexagon-js']
 
-const baseUrl = process.env.GITHUB_PAGES ? '/hexagonjs' : ''
+const baseUrl = ''
 
 const typeLinks = {
   'Array': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array',
