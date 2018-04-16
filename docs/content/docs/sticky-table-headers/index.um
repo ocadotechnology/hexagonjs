@@ -2,7 +2,7 @@
 @inline /templates/versioned-page.um
 
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
   @title Sticky Table Headers
   @description
     A module for giving tables sticky headers that stay in place when scrolling on the table.

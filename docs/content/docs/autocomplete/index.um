@@ -2,7 +2,7 @@
 @inline /templates/versioned-page.um
 
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
   @title AutoComplete
   @description
     Provides typeahead / suggestions for input fields

@@ -23,10 +23,10 @@ const typeLinks = {
   'AutoComplete': `${baseUrl}/docs/autocomplete/#autocomplete`,
   'EventEmitter': `${baseUrl}/docs/event-emitter/#eventemitter`,
   'Animation': `${baseUrl}/docs/animate/#animation`,
-  'Morph': `${baseUrl}/docs/animate/#morph`,
+  'Morph': `${baseUrl}/docs/animate/#morph`
 }
 
-//XXX: tidy and move this into quantum (with persistence)
+// XXX: tidy and move this into quantum (with persistence)
 function cachedTransforms (trans) {
   const store = {}
 
@@ -40,7 +40,7 @@ function cachedTransforms (trans) {
     }
   }
 
-  function processObj(obj) {
+  function processObj (obj) {
     const res = {}
     Object.keys(obj).forEach(k => {
       if (typeof obj[k] === 'function') {
@@ -84,7 +84,8 @@ function customizedTemplate (file) {
     variables: {
       baseurl: baseUrl,
       version: file.meta.version,
-      latestVersion: latestVersion
+      latestVersion: latestVersion,
+      editPageUrl: `https://github.com/ocadotechnology/hexagonjs/tree/master/docs/${file.info.src}`
     }
   }
 
