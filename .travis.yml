@@ -43,5 +43,6 @@ jobs:
       local-dir: docs/target
       skip-cleanup: true
       keep-history: true
+      fqdn: hexagonjs.io
       email: hexagonjs.ci.noreply@ocado.com
       github-token: $GITHUB_TOKEN
