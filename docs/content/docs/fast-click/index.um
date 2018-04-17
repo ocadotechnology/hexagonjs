@@ -2,7 +2,7 @@
 @inline /templates/versioned-page.um
 
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
   @title Fast Click
   @description
     A module for improving user experience with Hexagon on mobile devices by removing the 200ms delay when clicking whilst maintaining scroll capabilities.

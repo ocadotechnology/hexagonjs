@@ -2,7 +2,7 @@
 @inline /templates/versioned-page.um
 
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
   @title List
   @description
     A list collection that wraps standard JavaScript Arrays. Best reserved for cases where you are doing a lot of array mutation. In most cases a normal JavaScript Array should suffice.

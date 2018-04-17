@@ -2,7 +2,7 @@
 @inline /templates/versioned-page.um
 
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
   @title Picker
   @description
     An alternative to the @code[<select>] element. Essentially a button and a menu glued together with useful functions for setting and getting the currently selected value.
