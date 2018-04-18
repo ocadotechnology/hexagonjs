@@ -20,49 +20,55 @@ const libraryConfig = {
   input: 'modules/hexagon.js',
   output: {
     file: 'target/hexagon.js',
-    format: 'iife'
+    format: 'iife',
+    name: 'hx',
   },
-  name: 'hx',
   plugins: [
     json(),
     coffee(),
     buble(),
     includePaths(includePathOptions),
     progress(progressOptions)
-  ]
+  ],
+  watch: {
+    clearScreen: false
+  }
 }
 
 const testConfig = {
   input: 'modules/hexagon.spec.js',
   output: {
     file: 'target/hexagon.test.js',
-    format: 'iife'
+    format: 'iife',
+    name: 'hexagonSpec',
+    globals: {
+      'chai': 'window.chai'
+    }
   },
-  name: 'hexagonSpec',
   external: ['chai'],
-  globals: {
-    'chai': 'window.chai'
-  },
   plugins: [
     json(),
     coffee(),
     buble(),
     includePaths(includePathOptions),
     progress(progressOptions)
-  ]
+  ],
+  watch: {
+    clearScreen: false
+  }
 }
 
 const testCoverageConfig = {
   input: 'modules/hexagon.spec.js',
   output: {
     file: 'target/hexagon.test.coverage.js',
-    format: 'iife'
+    format: 'iife',
+    name: 'hexagonSpec',
+    globals: {
+      'chai': 'window.chai'
+    }
   },
-  name: 'hexagonSpec',
   external: ['chai'],
-  globals: {
-    'chai': 'window.chai'
-  },
   plugins: [
     json(),
     coffee(),
@@ -77,7 +83,10 @@ const testCoverageConfig = {
     }),
     includePaths(includePathOptions),
     progress(progressOptions)
-  ]
+  ],
+  watch: {
+    clearScreen: false
+  }
 }
 
 
@@ -95,9 +104,9 @@ const demoConfig = {
   input: 'demo/index.js',
   output: {
     file: 'target/index.js',
-    format: 'iife'
+    format: 'iife',
+    name: 'hx',
   },
-  name: 'hx',
   plugins: [
     json(),
     coffee(),
@@ -105,7 +114,10 @@ const demoConfig = {
     resolveHexagon(),
     includePaths(includePathOptions),
     progress(progressOptions)
-  ]
+  ],
+  watch: {
+    clearScreen: false
+  }
 }
 
 export default [

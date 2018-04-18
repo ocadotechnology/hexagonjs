@@ -73,7 +73,7 @@
     "postcss-cli": "^4.1.1",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
-    "rollup": "^0.50.0",
+    "rollup": "^0.57.1",
     "rollup-plugin-buble": "^0.16.0",
     "rollup-plugin-coffee-script": "^2.0.0",
     "rollup-plugin-includepaths": "^0.2.2",
