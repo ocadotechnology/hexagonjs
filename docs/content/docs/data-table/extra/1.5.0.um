@@ -262,10 +262,10 @@
     }
 
   @example
-    @html
+    @@html
       <div id="advanced-search-toggle"></div>
 
-    @js
+    @@js
       var dt = new hx.DataTable('#advanced-search-toggle', {
         feed: tableFeed,
         filterEnabled: true,
@@ -285,10 +285,10 @@
 
   The @code[advancedSearchEnabled] option is used here. It causes @code[showAdvancedSearch] to be true and shows the advanced search.
   @example
-    @html
+    @@html
       <div id="advanced-search-only"></div>
 
-    @js
+    @@js
       var dt = new hx.DataTable('#advanced-search-only', {
         feed: tableFeed,
         filterEnabled: false,
@@ -323,10 +323,10 @@
   The table user interface mirrors this functionality, allowing the user to add filters row by row and decide whether they are @code[AND] or @code[OR] filters and splits the array(s) accordingly.
 
   @example
-    @html
+    @@html
       <div id="advanced-search-with-data"></div>
 
-    @js
+    @@js
       var dt = new hx.DataTable('#advanced-search-with-data', {
         feed: tableFeed,
         advancedSearch: [

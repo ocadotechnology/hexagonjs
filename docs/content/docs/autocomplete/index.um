@@ -13,10 +13,10 @@
   @topic Example
     @examples
       @example
-        @html
+        @@html
           <input id="auto-complete" type="text">
 
-        @js
+        @@js
           var data = [
             "Bob",
             "Dave",

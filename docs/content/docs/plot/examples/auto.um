@@ -1,10 +1,10 @@
 @version 0.9.0
   @examples
     @example
-      @html
+      @@html
         <div id="graph-example" class="graph-example hx-margin"></div>
 
-      @js
+      @@js
 
         var graph = new hx.Graph('#graph-example');
         var axis = graph.addAxis('linear', 'linear');
@@ -39,7 +39,7 @@
 
         graph.render();
 
-      @css
+      @@css
         .graph-example {
           height: 400px;
         }
@@ -47,10 +47,10 @@
 @version 0.15.2
   @examples
     @example
-      @html
+      @@html
         <div id="graph-example" class="graph-example hx-margin"></div>
 
-      @js
+      @@js
 
         var graph = new hx.Graph('#graph-example')
         var axis = graph.addAxis({
@@ -93,7 +93,7 @@
 
         graph.render()
 
-      @css
+      @@css
         .graph-example {
           height: 400px;
         }

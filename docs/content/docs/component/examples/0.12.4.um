@@ -1,9 +1,9 @@
 @version 0.12.4
   @example
-    @html
+    @@html
       <div id="my-tag-input"></div>
       <button class="hx-btn" id="my-button">Get Tags</button>
-    @js
+    @@js
       new hx.TagInput('#my-tag-input')
 
       hx.select('#my-button').on('click', function(){
@@ -12,13 +12,13 @@
       })
 
   @example
-    @html
+    @@html
       <form id="form">
         <input name="firstname" placeholder="Firstname" type="text">
         <input name="surname" placeholder="Surname" type="text">
         <button class="hx-btn hx-action" id="click-button" type="button">Submit</button>
       </form>
-    @js
+    @@js
       var element = hx.select('#form')
 
       var api = {

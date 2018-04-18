@@ -1,6 +1,6 @@
 @version 1.0.0
   @example
-    @html
+    @@html
       <button class="hx-btn">hx-btn</button>
       <button class="hx-btn hx-action">hx-action</button>
       <button class="hx-btn hx-positive">hx-positive</button>
@@ -13,12 +13,12 @@
       <button class="hx-btn hx-btn-invisible">hx-btn-invisible</button>
 
   @example
-    @html
+    @@html
       <button id="button-example" class="hx-btn hx-positive">
         <i class="fa fa-check"></i> Click Me
       </button>
 
-    @js
+    @@js
       hx.select('#button-example').on('click', function(){
         hx.notify.info('Button clicked');
       });

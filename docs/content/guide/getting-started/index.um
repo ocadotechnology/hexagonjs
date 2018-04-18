@@ -41,7 +41,7 @@
       @inline start.html
 
     @section Live Demo
-      @css
+      @@css
         .iframe-example {
           overflow: hidden;
           width: 100%;
@@ -60,7 +60,7 @@
         }
 
       @div .iframe-example
-        @html
+        @@html
           <iframe
             title="Hexagon start page demo"
             src="start.html"

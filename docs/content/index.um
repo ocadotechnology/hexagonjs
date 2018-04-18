@@ -1,6 +1,6 @@
 @title Hexagon.js
 @head
-  @html
+  @@html
     @inline /templates/icons.html
 
 @stylesheet [{{baseurl}}/resources/hexagon/docs/hexagon.css]

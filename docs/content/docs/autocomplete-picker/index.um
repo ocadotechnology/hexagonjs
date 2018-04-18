@@ -13,17 +13,17 @@
   @topic Examples
     @examples
       @example
-        @html
+        @@html
           <div id="autocompletePicker"></div>
 
-        @js
+        @@js
           new hx.AutocompletePicker('#autocompletePicker', ['a','b','c'])
 
       @example
-        @html
+        @@html
           <div id="autocompletePicker-async"></div>
 
-        @js
+        @@js
           function delayedItems (searchTerm, callback) {
             setTimeout(function () {
               callback(['a','b','c'])
@@ -32,11 +32,11 @@
           new hx.AutocompletePicker('#autocompletePicker-async', delayedItems)
 
       @example
-        @html
+        @@html
           <div>Tip: try searcing for 'Kent'</div>
           <div id="autocompletePicker-externalMatch" type="text"></div>
 
-        @js
+        @@js
           const items = [{
             name: 'Moorgate',
             county: 'London'
