@@ -62,7 +62,7 @@
   @div .hx-section.example
     @h3: Button Group
     @div #button-group
-    @js
+    @@js
       // Full width example with individual active classes per-button
       var buttonGroup = new hx.ButtonGroup('#button-group')
       buttonGroup.items([
@@ -87,13 +87,13 @@
     @h3: Auto Complete
     @input #autocomplete
       @attr placeholder: Name...
-    @js
+    @@js
       new hx.AutoComplete('#autocomplete', ['Dave', 'Jane', 'Bob', 'Dan', 'Steve', 'Alejandro'])
 
   @div .hx-section.example
     @h3: Color Picker
     @button #colorpicker.hx-btn.hx-compliment: Pick Color...
-    @js
+    @@js
       new hx.ColorPicker('#colorpicker')
         .on('change', function(d) {
           hx.select('#colorpicker')
@@ -104,7 +104,7 @@
   @div .hx-section.example
     @h3: Crumb Trail
     @div #crumbtrail
-    @js
+    @@js
       new hx.Crumbtrail('#crumbtrail')
         .items(['Docs', '1.0.5', 'buttons'], function(node, d) {
           hx.select(node).text(d)
@@ -115,7 +115,7 @@
     @span .hx-pad: @div #time-picker
     @span .hx-pad: @div #date-picker
     @span .hx-pad: @div #date-time-picker
-    @js
+    @@js
       new hx.TimePicker('#time-picker')
       new hx.DatePicker('#date-picker')
       new hx.DateTimePicker('#date-time-picker')
@@ -131,7 +131,7 @@
 
     @h4: Discrete values
     @div #slider-discrete
-    @js
+    @@js
       console.log('slider.renderer should be slider.options.renderer')
 
       new hx.Slider('#slider', {
@@ -154,7 +154,7 @@
   @div .hx-section.example
     @h3: Paginator
     @div #paginator
-    @js
+    @@js
       new hx.Paginator('#paginator')
 
   @div .hx-section.example
@@ -167,7 +167,7 @@
     @div .hx-pad: @div #progress-bar-6.hx-compliment
     @div .hx-pad: @div #progress-bar-7.hx-contrast
 
-    @js
+    @@js
       new hx.ProgressBar('#progress-bar-1').value(0.2)
       new hx.ProgressBar('#progress-bar-2').value(0.3)
       new hx.ProgressBar('#progress-bar-3').value(0.4)
@@ -179,14 +179,14 @@
 
   @div .hx-section.example
     @h3: Morph Section
-    @html
+    @@html
       <div id="morph-section" class="hx-morph-section hx-margin">
         <button class="hx-btn hx-info hx-morph-toggle">Register</button>
         <div class="hx-morph-content hx-pad hx-border">
           <form id="morph-form" class="hx-form"></form>
         </div>
       </div>
-    @js
+    @@js
       new hx.Form('#morph-form')
         .addEmail('Email')
         .addPassword('Password')
@@ -196,7 +196,7 @@
 
   @div .hx-section.example
     @h3: Tabs
-    @html
+    @@html
       <div id="tabs2" class="hx-tabs">
         <div id="tab1" class="hx-tab">Tab 1</div>
         <div id="tab2" class="hx-tab hx-action">Tab 2</div>
@@ -207,7 +207,7 @@
         <div id="tab7" class="hx-tab hx-contrast">Tab 7</div>
         <div class="hx-tabs-content" style="padding: 1em;"></div>
       </div>
-    @js
+    @@js
       var tabs = new hx.Tabs('#tabs2');
 
       tabs.on('change', function(data){
@@ -220,11 +220,11 @@
 
   @div .hx-section.example
     @h3: Toggle
-    @html
+    @@html
       <div id="toggle1"></div>
       <button id="toggle2" class="hx-btn">Toggle Button</button>
 
-    @js
+    @@js
       new hx.Toggle("#toggle1")
       new hx.Toggle("#toggle2")
 
@@ -239,7 +239,7 @@
 
   @div .hx-section.example
     @h3: Form
-    @html
+    @@html
       <form class="hx-form">
         <div>
           <label>Text</label>

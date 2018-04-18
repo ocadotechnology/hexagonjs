@@ -18,20 +18,20 @@
 @br
 @h3: Fixed header
 @example
-  @html: @inline examples/fixed-header/index.html
+  @@html: @inline examples/fixed-header/index.html
   @coffee: @inline examples/fixed-header/index.coffee
-  @css: @inline examples/fixed-header/index.css
+  @@css: @inline examples/fixed-header/index.css
 
 @br
 @h3: Fixed column
 @example
-  @html: @inline examples/fixed-column/index.html
+  @@html: @inline examples/fixed-column/index.html
   @coffee: @inline examples/fixed-column/index.coffee
-  @css: @inline examples/fixed-column/index.css
+  @@css: @inline examples/fixed-column/index.css
 
 @br
 @h3: Grouped header
 @example
-  @html: @inline examples/grouped-header/index.html
+  @@html: @inline examples/grouped-header/index.html
   @coffee: @inline examples/grouped-header/index.coffee
-  @css: @inline examples/grouped-header/index.css
+  @@css: @inline examples/grouped-header/index.css

@@ -70,10 +70,10 @@
     @arg? validator [Function]
       @description
         A function to prevent the user from adding certain tags.
-        @html
+        @@html
           <div id="validated-tag-input"></div>
 
-        @js
+        @@js
           @description
             // example: only allow non number inputs
             var validator = function(name) {
@@ -202,10 +202,10 @@
       @property validator [Function]
         @description
           A function to prevent the user from adding certain tags.
-          @html
+          @@html
             <div id="validated-tag-input"></div>
 
-          @js
+          @@js
             @description
               new hx.TagInput('#validated-tag-input', {
                 validator: function(name) {

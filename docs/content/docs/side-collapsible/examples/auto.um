@@ -1,7 +1,7 @@
 @version 0.12.8
   @examples
     @example
-      @html
+      @@html
         <div class="example-container">
           <div id="exampleLeft" class="example-left">
             <div class="hx-side-collapsible-heading-closed">Closed Text</div>
@@ -16,11 +16,11 @@
           </div>
         </div>
 
-      @js
+      @@js
         new hx.SideCollapsible('#exampleLeft')
         new hx.SideCollapsible('#exampleRight', {position: 'right', animate: false})
 
-      @css
+      @@css
         .example-container {
           position: relative;
           height: 300px;

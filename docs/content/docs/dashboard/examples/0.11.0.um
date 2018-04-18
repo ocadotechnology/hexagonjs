@@ -1,9 +1,9 @@
 @version 0.11.0
   @example
-    @html
+    @@html
       <div id="example"></div>
 
-    @css
+    @@css
       .status-text {
         position: absolute;
         width: 100%;
@@ -17,7 +17,7 @@
         color: rgb(137, 137, 137);
       }
 
-    @js
+    @@js
       // function that fills a node with a random pie chart for this example
       function createPie(node, color) {
         var count = 10000

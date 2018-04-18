@@ -1,6 +1,6 @@
 @version 0.13.0
   @example
-    @html
+    @@html
       <div id="crumbs" class="hx-crumbtrail">
         <span class="hx-crumbtrail-node">First Node</span>
         <span class="hx-crumbtrail-separator"><i class="fa fa-angle-right"></i></span>
@@ -10,10 +10,10 @@
       </div>
 
   @example
-    @html
+    @@html
       <div id="crumbs-2" class="hx-crumbtrail"></div>
 
-    @js
+    @@js
       new hx.Crumbtrail("#crumbs-2", {
         renderer: function(element, datum) {
           hx.select(element).text(datum)

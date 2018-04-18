@@ -1,10 +1,10 @@
 @version 0.10.0
   @examples
     @example
-      @html
+      @@html
         <form id="form"></form>
 
-      @js
+      @@js
         var form = new hx.Form('#form')
           .addText('Text', {required: true, placeholder: 'Name'})
           .addEmail('Email', {required: true, placeholder: 'your.name@ocado.com'})
@@ -27,10 +27,10 @@
 @version 0.9.0
   @examples
     @example
-      @html
+      @@html
         <form id="form"></form>
 
-      @js
+      @@js
         var form = new hx.Form('#form')
           .addText('Text', {required: true, placeholder: 'Name'})
           .addEmail('Email', {required: true, placeholder: 'your.name@ocado.com'})
@@ -49,10 +49,10 @@
 @version 0.11.0
   @examples
     @example
-      @html
+      @@html
         <form id="form"></form>
 
-      @js
+      @@js
         var form = new hx.Form('#form')
           .addText('Text', {required: true, placeholder: 'Name'})
           .addEmail('Email', {required: true, placeholder: 'your.name@ocado.com'})
@@ -72,10 +72,10 @@
 @version 0.14.0
   @examples
     @example
-      @html
+      @@html
         <form id="form"></form>
 
-      @js
+      @@js
         var form = new hx.Form('#form')
           .addText('Text', { required: true, placeholder: 'Name' })
           .addTextArea('Text Area', { placeholder: 'Name' })
@@ -96,10 +96,10 @@
 @version 0.15.0
   @examples
     @example
-      @html
+      @@html
         <form id="form"></form>
 
-      @js
+      @@js
         var form = new hx.Form('#form')
           .addText('Text', { required: true, placeholder: 'Name' })
           .addTextArea('Text Area', { placeholder: 'Name' })
@@ -120,10 +120,10 @@
 @version 1.3.0
   @examples
     @example
-      @html
+      @@html
         <form id="form"></form>
 
-      @js
+      @@js
         var form = new hx.Form('#form')
           .addText('Text', { required: true, placeholder: 'Name' })
           .addTextArea('Text Area', { placeholder: 'Name' })

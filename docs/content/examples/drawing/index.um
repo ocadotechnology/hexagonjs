@@ -14,23 +14,23 @@
 @br
 @h3: Drawing text
 @example
-  @html: @inline examples/drawing-text/index.html
+  @@html: @inline examples/drawing-text/index.html
   @coffee: @inline examples/drawing-text/index.coffee
 
 @br
 @h3: Drawing shapes
 @example
-  @html: @inline examples/drawing-shapes/index.html
+  @@html: @inline examples/drawing-shapes/index.html
   @coffee: @inline examples/drawing-shapes/index.coffee
 
 @br
 @h3: Composite drawing
 @example
-  @html: @inline examples/composite-drawing/index.html
+  @@html: @inline examples/composite-drawing/index.html
   @coffee: @inline examples/composite-drawing/index.coffee
 
 @br
 @h3: Random lines
 @example
-  @html: @inline examples/random-lines/index.html
+  @@html: @inline examples/random-lines/index.html
   @coffee: @inline examples/random-lines/index.coffee

@@ -1,3 +1,3 @@
 @example
-  @html: @inline selection.html
+  @@html: @inline selection.html
   @coffee: @inline selection.coffee

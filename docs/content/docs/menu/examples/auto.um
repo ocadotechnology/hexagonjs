@@ -1,13 +1,13 @@
 @version 0.13.0
   @examples
     @example
-      @html
+      @@html
         <button id="menuDefault" class="hx-btn">Default</button>
         <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
         <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
         <button id="menuMixed" class="hx-btn">Mixed Items</button>
 
-      @js
+      @@js
         defaultMenu = new hx.Menu('#menuDefault')
         defaultMenu.items(["item 1","item 2","item 3"])
 
@@ -68,7 +68,7 @@
         ])
 
     @example
-      @html
+      @@html
         <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
         <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
         <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
@@ -76,7 +76,7 @@
         <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
         <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
-      @js
+      @@js
         menuItems = ["item 1","item 2","item 3"]
         menuExample = hx.selectAll('.menuButtonNamed').forEach(function(node){
           menu = new hx.Menu(node.node());
@@ -84,10 +84,10 @@
         });
 
     @example
-      @html
+      @@html
         <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
-      @js
+      @@js
         menu = new hx.Menu('#collapsibleMenu', {
           renderer: function(element, item){
             hx.select(element).text(item.text || item)
@@ -113,13 +113,13 @@
 @version 0.9.0
   @examples
     @example
-      @html
+      @@html
         <button id="menuDefault" class="hx-btn">Default</button>
         <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
         <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
         <button id="menuMixed" class="hx-btn">Mixed Items</button>
 
-      @js
+      @@js
         defaultMenu = new hx.Menu('#menuDefault')
         defaultMenu.render(["item 1","item 2","item 3"])
 
@@ -180,7 +180,7 @@
         ])
 
     @example
-      @html
+      @@html
         <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
         <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
         <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
@@ -188,7 +188,7 @@
         <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
         <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
-      @js
+      @@js
         menuItems = ["item 1","item 2","item 3"]
         menuExample = hx.selectAll('.menuButtonNamed').each(function(node){
           menu = new hx.Menu(node);
@@ -196,10 +196,10 @@
         });
 
     @example
-      @html
+      @@html
         <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
-      @js
+      @@js
         menu = new hx.Menu('#collapsibleMenu');
         menu.renderer = function(element, item){
           hx.select(element).text(item.text || item)
@@ -224,13 +224,13 @@
 @version 0.12.8
   @examples
     @example
-      @html
+      @@html
         <button id="menuDefault" class="hx-btn">Default</button>
         <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
         <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
         <button id="menuMixed" class="hx-btn">Mixed Items</button>
 
-      @js
+      @@js
         defaultMenu = new hx.Menu('#menuDefault')
         defaultMenu.items(["item 1","item 2","item 3"])
 
@@ -291,7 +291,7 @@
         ])
 
     @example
-      @html
+      @@html
         <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
         <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
         <button class="hx-btn hx-warning menuButtonNamed">hx-warning</button>
@@ -299,7 +299,7 @@
         <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
         <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
-      @js
+      @@js
         menuItems = ["item 1","item 2","item 3"]
         menuExample = hx.selectAll('.menuButtonNamed').each(function(node){
           menu = new hx.Menu(node);
@@ -307,10 +307,10 @@
         });
 
     @example
-      @html
+      @@html
         <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
-      @js
+      @@js
         menu = new hx.Menu('#collapsibleMenu');
         menu.renderer(function(element, item){
           hx.select(element).text(item.text || item)
@@ -335,13 +335,13 @@
 @version 1.0.0
   @examples
     @example
-      @html
+      @@html
         <button id="menuDefault" class="hx-btn">Default</button>
         <button id="menuDisabled" class="hx-btn">Disabled menu items</button>
         <button id="menuNoSelect" class="hx-btn">Unselectable menu items</button>
         <button id="menuMixed" class="hx-btn">Mixed Items</button>
 
-      @js
+      @@js
         defaultMenu = new hx.Menu('#menuDefault')
         defaultMenu.items(["item 1","item 2","item 3"])
 
@@ -402,7 +402,7 @@
         ])
 
     @example
-      @html
+      @@html
         <button class="hx-btn hx-action menuButtonNamed">hx-action</button>
         <button class="hx-btn hx-positive menuButtonNamed">hx-positive</button>
         <button class="hx-btn hx-negative menuButtonNamed">hx-negative</button>
@@ -411,7 +411,7 @@
         <button class="hx-btn hx-contrast menuButtonNamed">hx-contrast</button>
         <button class="hx-btn hx-compliment menuButtonNamed">hx-compliment</button>
 
-      @js
+      @@js
         menuItems = ["item 1","item 2","item 3"]
         menuExample = hx.selectAll('.menuButtonNamed').forEach(function(node){
           menu = new hx.Menu(node.node());
@@ -419,10 +419,10 @@
         });
 
     @example
-      @html
+      @@html
         <button class="hx-btn" id="collapsibleMenu">Menu with children</button>
 
-      @js
+      @@js
         menu = new hx.Menu('#collapsibleMenu', {
           renderer: function(element, item){
             hx.select(element).text(item.text || item)

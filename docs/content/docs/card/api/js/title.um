@@ -9,10 +9,10 @@
 
   @extra
     @example
-      @html
+      @@html
         <div id="title-example"></div>
 
-      @js
+      @@js
         hx.select('#title-example')
           .add(hx.card()
             .add(hx.card.section()

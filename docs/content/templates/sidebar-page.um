@@ -15,7 +15,7 @@
     @script [{{baseurl}}/resources/docs.js]
 
     @head
-      @html: @inline icons.html
+      @@html: @inline icons.html
 
     @header
       @icon {{baseurl}}/resources/logo-mono-v1.svg
