@@ -513,4 +513,16 @@
   --paginator-hover-background-color: var(--theme-action-color);
   --paginator-hover-text-color: var(--theme-text-light-color);
 
+
+  /* Side Collapsible */
+  --side-collapsible-heading-background-color: #FFF;
+  --side-collapsible-heading-text-color: #4A536F;
+  --side-collapsible-toggle-hover-background-color: var(--theme-action-color);
+  --side-collapsible-toggle-hover-text-color: #FFF;
+  --side-collapsible-toggle-background-color: #DDD;
+  --side-collapsible-toggle-text-color: var(--theme-default-text-color);
+  --side-collapsible-content-border-color: transparent;
+  --side-collapsible-content-background-color: #F7F7F7;
+  --side-collapsible-content-text-color: var(--theme-default-text-color);
+  --side-collapsible-shadow-color: rgba(0, 0, 0, 0.05);
 }

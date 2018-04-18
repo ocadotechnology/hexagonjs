@@ -52,6 +52,7 @@ import labelTests from './label/test/spec'
 import colorPickerTests from './color-picker/test/spec'
 import sliderTests from './slider/test/spec'
 import timeSliderTests from './time-slider/test/spec'
+import sideCollapsibleTests from './side-collapsible/test/spec'
 
 should()
 
@@ -229,7 +230,8 @@ describe('HexagonJS Test Suite', () => {
         'TimeSlider',
         'card',
         'paginator',
-        'Paginator'
+        'Paginator',
+        'SideCollapsible',
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])
@@ -290,6 +292,7 @@ describe('HexagonJS Test Suite', () => {
   colorPickerTests()
   sliderTests()
   timeSliderTests()
+  sideCollapsibleTests()
 
   // require('modules/button-group/test/spec')
   // require('modules/plot/test/spec')
