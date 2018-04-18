@@ -18,94 +18,94 @@
 @br
 @h3: Scatter graph
 @example
-  @@html: @inline examples/scatter-graph/index.html
+  @html: @inline examples/scatter-graph/index.html
   @coffee: @inline examples/scatter-graph/index.coffee
 
 
 @br
 @h3: Discrete line graph
 @example
-  @@html: @inline examples/discrete-line-graph/index.html
+  @html: @inline examples/discrete-line-graph/index.html
   @coffee: @inline examples/discrete-line-graph/index.coffee
 
 @br
 @h3: Line graph with data gap
 @example
-  @@html: @inline examples/line-graph-with-data-gap/index.html
+  @html: @inline examples/line-graph-with-data-gap/index.html
   @coffee: @inline examples/line-graph-with-data-gap/index.coffee
 
 @br
 @h3: Date scale line graph
 @example
-  @@html: @inline examples/date-scale-line-graph/index.html
+  @html: @inline examples/date-scale-line-graph/index.html
   @coffee: @inline examples/date-scale-line-graph/index.coffee
 
 @br
 @h3: Gradient stroke color line graph
 @example
-  @@html: @inline examples/gradient-stroke-color-line-graph/index.html
+  @html: @inline examples/gradient-stroke-color-line-graph/index.html
   @coffee: @inline examples/gradient-stroke-color-line-graph/index.coffee
 
 
 @br
 @h3: Gradient fill color line graph
 @example
-  @@html: @inline examples/gradient-fill-color-line-graph/index.html
+  @html: @inline examples/gradient-fill-color-line-graph/index.html
   @coffee: @inline examples/gradient-fill-color-line-graph/index.coffee
 
 @br
 @h3: Area Graph
 @example
-  @@html: @inline examples/area-graph/index.html
+  @html: @inline examples/area-graph/index.html
   @coffee: @inline examples/area-graph/index.coffee
 
 @br
 @h3: Combined actual and projected line graph
 @example
-  @@html: @inline examples/combined-actual-and-projected-line-graph/index.html
+  @html: @inline examples/combined-actual-and-projected-line-graph/index.html
   @coffee: @inline examples/combined-actual-and-projected-line-graph/index.coffee
-  @@css: @inline examples/combined-actual-and-projected-line-graph/index.css
+  @css: @inline examples/combined-actual-and-projected-line-graph/index.css
 
 @br
 @h3: Stacked area graph
 @example
-  @@html: @inline examples/stacked-area-graph/index.html
+  @html: @inline examples/stacked-area-graph/index.html
   @coffee: @inline examples/stacked-area-graph/index.coffee
 
 @br
 @h3: Stacked area graph with data overlap
 @example
-  @@html: @inline examples/stacked-area-graph-with-data-overlap/index.html
+  @html: @inline examples/stacked-area-graph-with-data-overlap/index.html
   @coffee: @inline examples/stacked-area-graph-with-data-overlap/index.coffee
 
 
 @br
 @h3: Grouped bar chart
 @example
-  @@html: @inline examples/grouped-bar-chart/index.html
+  @html: @inline examples/grouped-bar-chart/index.html
   @coffee: @inline examples/grouped-bar-chart/index.coffee
 
 @br
 @h3: Grouped stacked bar chart
 @example
-  @@html: @inline examples/multi-group-stacked-bar-chart/index.html
+  @html: @inline examples/multi-group-stacked-bar-chart/index.html
   @coffee: @inline examples/multi-group-stacked-bar-chart/index.coffee
 
 @br
 @h3: Normalized stacked bar chart
 @example
-  @@html: @inline examples/normalized-stacked-bar-chart/index.html
+  @html: @inline examples/normalized-stacked-bar-chart/index.html
   @coffee: @inline examples/normalized-stacked-bar-chart/index.coffee
 
 
 @br
 @h3: Donut chart
 @example
-  @@html: @inline examples/donut-chart/index.html
+  @html: @inline examples/donut-chart/index.html
   @coffee: @inline examples/donut-chart/index.coffee
 
 @br
 @h3: Multi series pie chart with segment text
 @example
-  @@html: @inline examples/multi-series-pie-chart/index.html
+  @html: @inline examples/multi-series-pie-chart/index.html
   @coffee: @inline examples/multi-series-pie-chart/index.coffee

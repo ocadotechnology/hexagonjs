@@ -1,4 +1,4 @@
 @example
-  @@html: @inline index.html
+  @html: @inline index.html
   @coffee: @inline index.coffee
-  @@css: @inline index.css
+  @css: @inline index.css

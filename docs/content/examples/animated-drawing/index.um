@@ -14,11 +14,11 @@
 @br
 @h3: Animated circles
 @example
-  @@html: @inline examples/animated-circles/index.html
+  @html: @inline examples/animated-circles/index.html
   @coffee: @inline examples/animated-circles/index.coffee
 
 @br
 @h3: Hexagonal game of life
 @example
-  @@html: @inline examples/hexagonal-game-of-life/index.html
+  @html: @inline examples/hexagonal-game-of-life/index.html
   @coffee: @inline examples/hexagonal-game-of-life/index.coffee
