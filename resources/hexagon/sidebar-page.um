@@ -15,7 +15,7 @@
     @script [/resources/docs.js]
 
     @head
-      @html
+      @@html
         <link rel="apple-touch-icon" sizes="57x57" href="/resources/hexagon/docs/favicon/apple-touch-icon-57x57.png?v=0">
         <link rel="apple-touch-icon" sizes="60x60" href="/resources/hexagon/docs/favicon/apple-touch-icon-60x60.png?v=0">
         <link rel="apple-touch-icon" sizes="72x72" href="/resources/hexagon/docs/favicon/apple-touch-icon-72x72.png?v=0">
