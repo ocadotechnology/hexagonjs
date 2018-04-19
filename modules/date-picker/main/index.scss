@@ -103,6 +103,7 @@ $gridPadding: 0.7em;
 
     .hx-grid {
       flex: 1;
+      min-width: 1.2em;
     }
 
     &.hx-grid-row-heading {
