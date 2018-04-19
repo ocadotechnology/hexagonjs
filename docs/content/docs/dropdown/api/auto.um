@@ -3,6 +3,13 @@
     @description
       Updated the z-index checking so that it gets the highest of all the parent z-index, not just the closest parent's z-index.
 
+  @bugfix nextReleaseVersion
+    @issue 227
+    @issue 228
+    @issue 229
+    @description
+      Fixed a bug with the dropdown positioning logic.
+
   @description
     An api for creating a dropdown that shows when the user either clicks or hovers over an element.
 
