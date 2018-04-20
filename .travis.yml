@@ -16,7 +16,7 @@ stages:
   - name: publish module
     if: tag IS present AND branch = master AND repo = ocadotechnology/hexagonjs
 
-  - name: publish docs
+  - name: publish pages
     if: branch = master AND repo = ocadotechnology/hexagonjs
 
 jobs:
