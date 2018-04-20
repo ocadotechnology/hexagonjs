@@ -11,7 +11,7 @@
     @if version: @script [{{baseurl}}/resources/hexagon/{{version}}/hexagon.js]
     @ifnot version: @script [{{baseurl}}/resources/hexagon/latest/hexagon.js]
     @script [{{baseurl}}/resources/hexagon/docs/hexagon.js]
-    @script [{{baseurl}}/resources/titlebar.js]
+    # @script [{{baseurl}}/resources/titlebar.js]
     @script [{{baseurl}}/resources/docs.js]
 
     @head

@@ -1,6 +1,6 @@
 {
   "name": "hexagon-site",
-  "version": "1.14.0",
+  "version": "0.0.0",
   "contributors": [
     "James Smyth <james.smyth@ocado.com>",
     "Charlie Frater <charlie.frater@ocado.com>"
@@ -15,7 +15,7 @@
   "private": true,
   "devDependencies": {
     "font-awesome": "^4.7.0",
-    "hexagon-js": "1.14.0",
+    "hexagon-js": "nextReleaseVersion",
     "quantum-api": "^2.0.1",
     "quantum-code-highlight": "^2.0.0",
     "quantum-core": "^2.0.1",

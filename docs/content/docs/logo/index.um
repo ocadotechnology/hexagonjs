@@ -7,6 +7,12 @@
   @description
     A module that enables the use of the theme logo in whatever location is required.
 
+# Convert `.div.hx-logo` to `div.hx-logo`
+@@css
+  [id="div.hx-logo"]::before,
+  [id="img.hx-logo"]::before {
+    content: '' !important;
+  }
 
 @contentSection
   @topic Examples
