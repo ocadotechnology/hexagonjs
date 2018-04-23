@@ -70,6 +70,10 @@
       Resolved an issue where setting the filter with the api would not update
       the filter input.
 
+  @bugfix nextReleaseVersion
+    @description
+      Resolved an issue where the input had 0 width in IE
+
   @description
     A component to allow tables to be created dynamically using Javascript that contains features such as filtering, sorting and pagination.
 
