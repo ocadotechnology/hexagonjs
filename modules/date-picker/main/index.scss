@@ -49,6 +49,12 @@ $gridPadding: 0.7em;
     background: none;
   }
 
+  &::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
   &.hx-date-error {
     outline: 1px solid transparent;
   }
