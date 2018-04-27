@@ -145,7 +145,7 @@ body.hx-full-width .hx-titlebar-contents {
   padding-left: 0.5em;
   padding-right: 0.5em;
 
-  img {
+  div {
     vertical-align: middle;
     align-self: center;
   }
@@ -180,6 +180,7 @@ body.hx-full-width .hx-titlebar-contents {
   font-size: 1em;
   justify-content: center;
   max-width: 250px;
+  height: 0;
   min-height: 40px;
   padding-bottom: 3px;
   padding-left: 1em;

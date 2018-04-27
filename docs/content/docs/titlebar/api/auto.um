@@ -7,6 +7,11 @@
   @description
     Added the missing 'action' context to the titlebar
 
+@updated nextReleaseVersion
+  @description
+    Updated the logo in the example to use @code[<div>] the new @type[Logo]
+    expectation
+
 @property hx.titlebar [TitleBar]
   @description
     Provided there is a hx-heading section on the page when hexagon.js loads, hexagon will create a titlebar instance for you, and will store it on this property.

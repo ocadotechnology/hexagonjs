@@ -26,6 +26,7 @@ body.hx-titlebar-link-padding {
 
 .hx-titlebar-header {
   max-height: $titlebar-height;
+  height: 0;
   min-height: $titlebar-height;
 }
 
