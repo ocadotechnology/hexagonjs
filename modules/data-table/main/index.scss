@@ -109,8 +109,8 @@
     display: none;
     margin: 0.2em;
     padding: 0.3em;
-    flex: 1;
-    min-width: 10em;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .hx-data-table-page-size-visible,
@@ -247,7 +247,7 @@
   }
 
   .hx-data-table-title {
-    flex: 1;
+    flex: 1 1 auto;
   }
 
   .hx-data-table-cell-sort-enabled {
