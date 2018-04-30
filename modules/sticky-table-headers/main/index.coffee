@@ -219,8 +219,8 @@ class StickyTableHeaders
 
     tableBox = table.box()
 
-    hasVerticalScroll = wrapperNode.scrollHeight > wrapperNode.clientHeight
-    hasHorizontalScroll = wrapperNode.scrollWidth > wrapperNode.clientWidth
+    hasVerticalScroll = wrapperNode.scrollHeight > (wrapperNode.clientHeight + hx.scrollbarSize())
+    hasHorizontalScroll = wrapperNode.scrollWidth > (wrapperNode.clientWidth + hx.scrollbarSize())
     heightScrollbarOffset = if hasHorizontalScroll then hx.scrollbarSize() else 0
     widthScrollbarOffset = if hasVerticalScroll then hx.scrollbarSize() else 0
 
