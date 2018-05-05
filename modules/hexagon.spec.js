@@ -53,6 +53,7 @@ import colorPickerTests from './color-picker/test/spec'
 import sliderTests from './slider/test/spec'
 import timeSliderTests from './time-slider/test/spec'
 import sideCollapsibleTests from './side-collapsible/test/spec'
+import datePickerTests from './date-picker/test/spec'
 
 should()
 
@@ -232,6 +233,8 @@ describe('HexagonJS Test Suite', () => {
         'paginator',
         'Paginator',
         'SideCollapsible',
+        'datePicker',
+        'DatePicker'
       ]
 
       // propertyList.filter(x => !x in hx).should.eql([])
@@ -293,16 +296,12 @@ describe('HexagonJS Test Suite', () => {
   sliderTests()
   timeSliderTests()
   sideCollapsibleTests()
+  datePickerTests()
 
   // require('modules/button-group/test/spec')
-  // require('modules/plot/test/spec')
   // require('modules/date-picker/test/spec')
   // require('modules/time-picker/test/spec')
   // require('modules/tag-input/test/spec')
-  // require('modules/slider/test/spec')
-  // require('modules/color-picker/test/spec')
-  // require('modules/paginator/test/spec')
-  // require('modules/time-slider/test/spec')
   // require('modules/date-time-picker/test/spec')
   //
 })

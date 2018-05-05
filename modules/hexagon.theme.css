@@ -22,3 +22,6 @@
 @import "label/main/theme";
 @import "slider/main/theme";
 @import "card/main/theme";
+@import "paginator/main/theme";
+@import "date-picker/main/theme";
+@import "side-collapsible/main/theme";

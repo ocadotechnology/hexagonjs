@@ -1,0 +1,166 @@
+
+/* Input and 'on page' styles */
+.hx-date-picker {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0;
+  vertical-align: middle;
+  border-radius: 2px;
+  border: solid 1px transparent;
+}
+
+.hx-date-picker .hx-icon {
+  padding: 0.5em;
+  border-radius: 2px 0 0 2px;
+}
+
+.hx-date-picker .hx-date-to-icon {
+  font-size: 0.8em;
+  padding: 0;
+  vertical-align: 1px;
+}
+
+
+.hx-input-group > .hx-date-picker {
+  padding: 0;
+}
+
+.hx-date-input {
+  outline: none;
+  border: none;
+  margin: 0;
+  font-size: 0.9em;
+  width: 6.5em;
+  padding: 0;
+  background: none;
+  line-height: 1.3em;
+  appearance: none;
+  text-align: center;
+}
+
+.hx-date-input:focus {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.hx-date-input:active {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.hx-date-input.hx-date-error {
+  outline: 1px solid transparent;
+}
+
+
+.hx-date-input-container {
+  display: inline-block;
+  line-height: 2em;
+}
+
+// Calendar Dropdown styles
+.hx-date-picker-calendar {
+  user-select: none;
+  margin: 0.5em;
+}
+
+.hx-date-picker-calendar .hx-calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.hx-date-picker-calendar .hx-calendar-header .hx-btn {
+  flex: 1 1 60%;
+}
+
+.hx-date-picker-calendar .hx-calendar-header .hx-btn.hx-calendar-back,
+.hx-date-picker-calendar .hx-calendar-header .hx-btn.hx-calendar-forward {
+  flex-basis: 10%;
+}
+
+.hx-date-picker-calendar .hx-calendar-header .hx-btn.hx-calendar-button {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.hx-date-picker-calendar .hx-calendar-today-btn {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.hx-date-picker-calendar .hx-calendar-today-btn .hx-btn {
+  font-size: 0.8em;
+  flex: 1;
+  font-weight: bold;
+}
+
+
+.hx-date-picker-calendar .hx-grid-row {
+  display: flex;
+  flex-direction: horizontal;
+  flex-wrap: none;
+}
+
+.hx-date-picker-calendar .hx-grid-row .hx-grid {
+  flex: 1;
+}
+
+.hx-date-picker-calendar .hx-grid-row.hx-grid-row-heading {
+  border-bottom: 1px solid transparent;
+}
+
+.hx-date-picker-calendar .hx-grid-row.hx-grid-row-heading .hx-grid {
+  font-weight: bold;
+  cursor: default;
+  padding: 0.7em 0 0.5em 0;
+}
+
+.hx-date-picker-calendar .hx-grid {
+  font-size: 0.8em;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+}
+
+.hx-date-picker-calendar .hx-grid .hx-grid-text {
+  position: relative;
+  line-height: 1.1em;
+}
+
+.hx-date-picker-calendar .hx-grid .hx-grid-range-bg {
+  position: absolute;
+  display: none;
+  top: 0.2em;
+  right: 0;
+  bottom: 0.2em;
+  left: 0;
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-selected-range .hx-grid-range-bg,
+.hx-date-picker-calendar .hx-grid.hx-grid-selected .hx-grid-range-bg {
+  display: block;
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-selected.hx-grid-selected-start .hx-grid-range-bg {
+  left: 50%;
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-selected.hx-grid-selected-end .hx-grid-range-bg {
+  right: 50%;
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-out-of-range {
+  cursor: default;
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-out-of-range .hx-grid-range-bg {
+  display: none;
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-out-of-range:hover .hx-grid-text {
+  background: transparent;
+}

@@ -525,4 +525,27 @@
   --side-collapsible-content-background-color: #F7F7F7;
   --side-collapsible-content-text-color: var(--theme-default-text-color);
   --side-collapsible-shadow-color: rgba(0, 0, 0, 0.05);
+
+  /* Date Picker */
+  --date-picker-border-color: #E4E4E4;
+  --date-picker-day-border-radius: 2px;
+  --date-picker-day-hover-background-color: var(--theme-action-color);
+  --date-picker-day-hover-text-color: var(--theme-default-text-color);
+  --date-picker-divider-color: #E2E1E1;
+  --date-picker-error-background-color: #FCBFBF;
+  --date-picker-error-outline-color: #DE1A4A;
+  --date-picker-grid-padding: 0.7em;
+  --date-picker-header-text-color: #4A536F;
+  --date-picker-icon-background-color: #5C5C5C;
+  --date-picker-icon-color: white;
+  --date-picker-input-background-color: #FFF;
+  --date-picker-navigation-icon-color: #939393;
+  --date-picker-navigation-icon-hover-color: #555555;
+  --date-picker-out-of-range-color: #999;
+  --date-picker-range-background-color: #E2E2E2;
+  --date-picker-selected-background-color: var(--theme-action-color);
+  --date-picker-selected-text-color: var(--theme-default-text-color);
+  --date-picker-today-background-color: #E6E6E6;
+  --date-picker-today-text-color: var(--theme-default-text-color);
+
 }

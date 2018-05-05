@@ -1,0 +1,72 @@
+.hx-date-picker {
+  background: var(--date-picker-input-background-color);
+  border-color: var(--date-picker-border-color);
+}
+
+.hx-date-picker .hx-icon:not(.hx-date-to-icon) {
+  background: var(--date-picker-icon-background-color);
+  color: var(--date-picker-icon-color);
+}
+
+
+.hx-date-input.hx-date-error {
+  background: var(--date-picker-error-background-color);
+  outline-color: var(--date-picker-error-outline-color);
+}
+
+.hx-date-picker-calendar .hx-calendar-header {
+  color: var(--date-picker-header-text-color);
+}
+
+.hx-date-picker-calendar .hx-calendar-header .hx-calendar-back,
+.hx-date-picker-calendar .hx-calendar-header .hx-calendar-forward {
+  color: var(--date-picker-navigation-icon-color);
+}
+
+.hx-date-picker-calendar .hx-calendar-header .hx-calendar-back:hover,
+.hx-date-picker-calendar .hx-calendar-header .hx-calendar-forward:hover {
+  color: var(--date-picker-navigation-icon-hover-color);
+}
+
+.hx-date-picker-calendar .hx-grid {
+  padding: var(--date-picker-grid-padding);
+}
+
+.hx-date-picker-calendar .hx-grid-row.hx-grid-row-heading {
+  border-color: var(--date-picker-divider-color);
+}
+
+.hx-date-picker-calendar .hx-grid .hx-grid-text {
+  border-radius: var(--date-picker-day-border-radius);
+  padding: var(--date-picker-grid-padding);
+  margin: -var(--date-picker-grid-padding);
+}
+
+.hx-date-picker-calendar .hx-grid:hover .hx-grid-text {
+  background: var(--date-picker-day-hover-background-color);
+  color: var(--date-picker-day-hover-text-color);
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-today .hx-grid-text {
+  background: var(--date-picker-today-background-color);
+  color: var(--date-picker-today-text-color);
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-selected .hx-grid-text {
+  background: var(--date-picker-selected-background-color);
+  color: var(--date-picker-selected-text-color);
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-selected-range .hx-grid-range-bg,
+.hx-date-picker-calendar .hx-grid.hx-grid-selected .hx-grid-range-bg {
+  background: var(--date-picker-range-background-color);
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-out-of-range {
+  color: var(--date-picker-out-of-range-color);
+}
+
+.hx-date-picker-calendar .hx-grid.hx-grid-out-of-range:hover .hx-grid-text {
+  color: var(--date-picker-out-of-range-color);
+}
+

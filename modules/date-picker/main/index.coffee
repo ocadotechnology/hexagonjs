@@ -1,10 +1,12 @@
-utils = require('modules/util/main/utils')
-select = require('modules/selection/main')
-format = require('modules/format/main')
-EventEmitter = require('modules/event-emitter/main')
-preferences = require('modules/preferences/main')
-dateTimeLocalizer = require('modules/date-localizer/main')
-NumberPicker = require('modules/number-picker/main').NumberPicker
+import { mergeDefined, randomId, supports } from 'utils/main'
+import { select, div } from 'selection/main'
+import { format } from 'format/main'
+import { EventEmitter } from 'event-emitter/main'
+import { preferences } from 'preferences/main'
+import { dateTimeLocalizer } from 'date-localizer/main'
+import { NumberPicker } from 'number-picker/main'
+import { Dropdown } from 'dropdown/main'
+import logger from 'logger/main'
 
 # Helper functions
 zeroPad = format.zeroPad(2)
@@ -351,7 +353,7 @@ class DatePicker extends EventEmitter
 
     self = this
 
-    @options = utils.merge.defined({
+    @options = mergeDefined({
       type: 'calendar' # 'calendar' or 'datepicker'
       defaultView: 'm' # 'm' for month, 'y' for year, or 'd' for decade
       closeOnSelect: true
@@ -366,7 +368,7 @@ class DatePicker extends EventEmitter
       mode: @options.defaultView
       startDate: new Date
       endDate: new Date
-      uniqueId: utils.randomId()
+      uniqueId: randomId()
     }
 
     preferences.on('localechange', 'hx.date-picker-' + _.uniqueId, => updateDatepicker this, true)
@@ -425,7 +427,7 @@ class DatePicker extends EventEmitter
         .on 'input', 'hx.date-picker', -> inputUpdate(true)
     else
       _.useInbuilt = if @options.allowInbuiltPicker
-        not moment? and utils.supports('date') and utils.supports('touch')
+        not moment? and supports('date') and supports('touch')
       else false
 
       _.input = inputContainer.append('input').class('hx-date-input')
@@ -467,8 +469,7 @@ class DatePicker extends EventEmitter
         self.visibleMonth(month, year)
         buildCalendar self
 
-      calendarElem = select.detached('div')
-      calendarElem.class('hx-date-picker-calendar')
+      calendarElem = div('hx-date-picker-calendar')
 
       calendarHeader = calendarElem.append('div')
         .class('hx-calendar-header hx-input-group')
@@ -506,19 +507,21 @@ class DatePicker extends EventEmitter
             if self.options.closeOnSelect
               self.hide()
 
-      setupDropdown = (elem) ->
-        if not _.disabled
+      setupDropdown = () ->
+        if _.disabled
+          self.hide()
+          return
+        else
           _.clickStart = true
-          selection = select(elem)
+          selection = div()
           selection.append(calendarElem)
           buildCalendar self, self.options.defaultView
-        else
-          self.hide()
+          return selection
     else
       # set up datepicker nodes for attaching to dropdown
-      dayNode = select.detached('div').node()
-      monthNode = select.detached('div').node()
-      yearNode = select.detached('div').node()
+      dayNode = div().node()
+      monthNode = div().node()
+      yearNode = div().node()
 
       _.dayPicker = new NumberPicker(dayNode, {buttonClass: 'hx-btn-invert'})
         .on 'change', 'hx.date-picker', (e) ->
@@ -539,21 +542,26 @@ class DatePicker extends EventEmitter
       _.monthPicker.selectInput.attr('tabindex', 2)
       _.yearPicker.selectInput.attr('tabindex', 3)
 
-      setupDropdown = (elem) ->
-        if not _.disabled
-          selection = select(elem)
+      setupDropdown = () ->
+        if _.disabled
+          self.dropdown.hide()
+          return
+        else
+          selection = div()
 
           # add nodes in the correct order
           for i in self.localizer.dateOrder()
             switch i
-              when 'DD' then selection.append dayNode
-              when 'MM' then selection.append monthNode
-              when 'YYYY' then selection.append yearNode
-          buildDatepicker self
-        else self.dropdown.hide()
+              when 'DD' then selection.append(dayNode)
+              when 'MM' then selection.append(monthNode)
+              when 'YYYY' then selection.append(yearNode)
+
+          buildDatepicker(self)
+
+          return selection
 
     if not _.useInbuilt
-      @dropdown = new hx.Dropdown(@selector, setupDropdown, {
+      @dropdown = new Dropdown(@selector, setupDropdown, {
         matchWidth: false
       })
 
@@ -581,14 +589,18 @@ class DatePicker extends EventEmitter
       !!_.disabled
 
   show: ->
-    if not @_.useInbuilt then @dropdown.show()
-    else @_.input.node().focus()
-    this
+    if not @_.useInbuilt
+      @dropdown.show()
+    else
+      @_.input.node().focus()
+    return this
 
   hide: ->
-    if not @_.useInbuilt then @dropdown.hide()
-    else @emit 'hide'
-    this
+    if not @_.useInbuilt
+      @dropdown.hide()
+    else
+      @emit 'hide'
+    return this
 
   getScreenDate: (endDate) ->
     @localizer.date if not endDate then _.startDate else _.endDate
@@ -617,7 +629,7 @@ class DatePicker extends EventEmitter
           year: _.visibleYear
         }
     else
-      utils.consoleWarning('Setting the visible month only applies to date pickers of type \'calendar\'')
+      logger.warn('Setting the visible month only applies to date pickers of type \'calendar\'')
       this
 
   date: (date) ->
@@ -678,7 +690,7 @@ class DatePicker extends EventEmitter
           end: _.endDate
         }
     else
-      utils.consoleWarning('datePicker.range can only be used for datepickers with \'selectRange\' of true')
+      logger.warn('datePicker.range can only be used for datepickers with \'selectRange\' of true')
       return this
 
   validRange: (validRange) ->
@@ -703,7 +715,7 @@ class DatePicker extends EventEmitter
       _.validRange
 
   locale: (locale) ->
-    utils.deprecatedWarning('hx.DatePicker::locale is deprecated. Use hx.preferences.locale instead.')
+    logger.deprecated('hx.DatePicker::locale is deprecated. Use hx.preferences.locale instead.')
     if arguments.length > 0
       preferences.locale(locale)
       this
@@ -711,14 +723,11 @@ class DatePicker extends EventEmitter
       preferences.locale()
 
 datePicker = (options) ->
-  selection = select.detached('div')
-  new DatePicker(selection.node(), options)
+  selection = div()
+  new DatePicker(selection, options)
   selection
 
-module.exports = datePicker
-module.exports.DatePicker = DatePicker
-
-module.exports.hx = {
+export {
   datePicker,
   DatePicker
 }
