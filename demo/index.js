@@ -30,6 +30,7 @@ import timeSliderExamples from './examples/time-slider'
 import cardExamples from './examples/card'
 import paginatorExamples from './examples/paginator'
 import sideCollapsibleExamples from './examples/side-collapsible'
+import datePickerExamples from './examples/date-picker'
 
 function example(title) {
   return div('example-section')
@@ -68,5 +69,6 @@ select('body')
     example('Time Slider').add(timeSliderExamples()),
     example('Card').add(cardExamples()),
     example('Paginator').add(paginatorExamples()),
-    example('Side Collapsible').add(sideCollapsibleExamples())
+    example('Side Collapsible').add(sideCollapsibleExamples()),
+    example('Date Picker').add(datePickerExamples())
   ]))
