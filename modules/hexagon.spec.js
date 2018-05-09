@@ -54,6 +54,8 @@ import sliderTests from './slider/test/spec'
 import timeSliderTests from './time-slider/test/spec'
 import sideCollapsibleTests from './side-collapsible/test/spec'
 import datePickerTests from './date-picker/test/spec'
+import pivotTableTests from './pivot-table/test/spec'
+// import formBuilderTests from './form-builder/test/spec'
 
 should()
 
@@ -234,11 +236,17 @@ describe('HexagonJS Test Suite', () => {
         'Paginator',
         'SideCollapsible',
         'datePicker',
-        'DatePicker'
+        'DatePicker',
+        'pivotTable',
+        'PivotTable'
+        // 'Form'
       ]
 
-      // propertyList.filter(x => !x in hx).should.eql([])
-      // Object.keys(hx).filter(x => propertyList.indexOf(x) === -1).should.eql([])
+      // console.log(propertyList.filter(x => !(x in hx)))
+      // console.log(Object.keys(hx).filter(x => propertyList.indexOf(x) === -1))
+
+      propertyList.filter(x => !(x in hx)).should.eql([])
+      Object.keys(hx).filter(x => propertyList.indexOf(x) === -1).should.eql([])
 
       expect(hx).to.have.keys(propertyList)
     })
@@ -297,6 +305,8 @@ describe('HexagonJS Test Suite', () => {
   timeSliderTests()
   sideCollapsibleTests()
   datePickerTests()
+  pivotTableTests()
+  // formBuilderTests()
 
   // require('modules/button-group/test/spec')
   // require('modules/date-picker/test/spec')

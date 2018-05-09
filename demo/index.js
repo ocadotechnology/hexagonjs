@@ -31,6 +31,7 @@ import cardExamples from './examples/card'
 import paginatorExamples from './examples/paginator'
 import sideCollapsibleExamples from './examples/side-collapsible'
 import datePickerExamples from './examples/date-picker'
+import pivotTableExamples from './examples/pivot-table'
 
 function example(title) {
   return div('example-section')
@@ -70,5 +71,6 @@ select('body')
     example('Card').add(cardExamples()),
     example('Paginator').add(paginatorExamples()),
     example('Side Collapsible').add(sideCollapsibleExamples()),
-    example('Date Picker').add(datePickerExamples())
+    example('Date Picker').add(datePickerExamples()),
+    example('Pivot Table').add(pivotTableExamples())
   ]))

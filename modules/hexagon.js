@@ -157,6 +157,8 @@ export { card } from 'card/main'
 export { paginator, Paginator } from 'paginator/main'
 export { SideCollapsible } from 'side-collapsible/main'
 export { DatePicker, datePicker } from 'date-picker/main'
+export { pivotTable, PivotTable } from 'pivot-table/main'
+// export { Form } from 'form-builder/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove
