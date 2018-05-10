@@ -85,7 +85,6 @@
       @@js
         var exampleNotificationManager = new hx.NotificationManager('#example')
         hx.select('#notify').on('click', function() {
-          console.log('bob')
           exampleNotificationManager.notify('Clicked!')
         })
 
