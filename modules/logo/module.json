@@ -1,6 +1,7 @@
 {
   "dependencies": [
-    "util"
+    "util",
+    "selection"
   ],
   "keywords": [
     "icon"

@@ -1,8 +1,6 @@
 
 replaceWithDiv = (sel) ->
-  replacement = hx.div('hx-logo')
-  sel.insertBefore(replacement)
-  sel.remove()
+  sel.replace(hx.div('hx-logo'))
 
 replaceLogos = () ->
   logos = hx.selectAll('img.hx-logo')
