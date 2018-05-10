@@ -9,5 +9,5 @@
 @contentSection
   @topic Themes
     @list
-      @item: @hyperlink({{baseurl}}/themes/light/)[Light Theme]
-      @item: @hyperlink({{baseurl}}/themes/dark/)[Dark Theme]
+      @item: @hyperlink(/themes/light/)[Light Theme]
+      @item: @hyperlink(/themes/dark/)[Dark Theme]

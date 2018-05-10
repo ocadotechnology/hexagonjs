@@ -9,8 +9,6 @@ const entityTransforms = require('./transforms/transforms')
 
 const latestVersion = require('./package.json').devDependencies['hexagon-js']
 
-const baseUrl = ''
-
 const typeLinks = {
   'Array': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array',
   'Boolean': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
@@ -20,10 +18,10 @@ const typeLinks = {
   'String': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String',
   'Element': 'https://developer.mozilla.org/docs/Web/API/Element',
   'Node': 'https://developer.mozilla.org/docs/Web/API/Node',
-  'AutoComplete': `${baseUrl}/docs/autocomplete/#autocomplete`,
-  'EventEmitter': `${baseUrl}/docs/event-emitter/#eventemitter`,
-  'Animation': `${baseUrl}/docs/animate/#animation`,
-  'Morph': `${baseUrl}/docs/animate/#morph`
+  'AutoComplete': '/docs/autocomplete/#autocomplete',
+  'EventEmitter': '/docs/event-emitter/#eventemitter',
+  'Animation': '/docs/animate/#animation',
+  'Morph': '/docs/animate/#morph',
 }
 
 // XXX: tidy and move this into quantum (with persistence)
@@ -69,9 +67,8 @@ const apiOptions = {
 const htmlOptions = {
   embedAssets: false,
   assetPath: '/resources',
-  baseUrl,
   entityTransforms: cachedTransforms({
-    html: html.entityTransforms({ baseUrl }),
+    html: html.entityTransforms(),
     api: api.entityTransforms(apiOptions),
     docs: docs.entityTransforms(),
     codeHighlight: codeHighlight.entityTransforms(),
@@ -82,7 +79,6 @@ const htmlOptions = {
 function customizedTemplate (file) {
   const templateOptions = {
     variables: {
-      baseurl: baseUrl,
       version: file.meta.version,
       latestVersion: latestVersion,
       editPageUrl: `https://github.com/ocadotechnology/hexagonjs/tree/master/docs/${file.info.src}`

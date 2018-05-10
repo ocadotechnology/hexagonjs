@@ -383,13 +383,13 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.13.0/event-emitter)[Event Emitter] api.
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api.
 
         The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.14.0/event-emitter)[Event Emitter] api.
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api.
 
         The dontSetupInput paramater has been deprecated. There is no alternative to this parameter.
 
@@ -426,11 +426,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       A function used to set the currently selected day.
@@ -461,11 +461,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected month.
@@ -496,11 +496,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink({{baseurl}}/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected year.

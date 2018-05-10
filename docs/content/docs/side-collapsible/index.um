@@ -15,6 +15,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink({{baseurl}}/docs/side-collapsible/changelog)[Change Log]
+    @hyperlink(/docs/side-collapsible/changelog)[Change Log]
 
     @inline api.um

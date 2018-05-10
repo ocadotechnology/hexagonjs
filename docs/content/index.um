@@ -1,23 +1,22 @@
 @title Hexagon.js
 @head
-  @@html
-    @inline /templates/icons.html
+  @html: @inline /templates/icons.html
 
-@stylesheet [{{baseurl}}/resources/hexagon/docs/hexagon.css]
+@stylesheet [/resources/hexagon/docs/hexagon.css]
 @stylesheet [https://fonts.googleapis.com/css?family=Open+Sans:100,400,700|Roboto+Slab:400,700|Source+Code+Pro:400,700]
-@stylesheet [{{baseurl}}/resources/font-awesome/css/font-awesome.min.css]
-@stylesheet [{{baseurl}}/resources/docs-new.css]
-@stylesheet [{{baseurl}}/resources/docs-landing.css]
+@stylesheet [/resources/font-awesome/css/font-awesome.min.css]
+@stylesheet [/resources/docs-new.css]
+@stylesheet [/resources/docs-landing.css]
 
-@script [{{baseurl}}/resources/hexagon/docs/hexagon.js]
-@script [{{baseurl}}/resources/titlebar.js]
-@script [{{baseurl}}/resources/docs.js]
+@script [/resources/hexagon/docs/hexagon.js]
+@script [/resources/titlebar.js]
+@script [/resources/docs.js]
 
 @div .container
   @div .top-landing-section
     @div
       @img
-        @attr src: {{baseurl}}/resources/logo-v1.svg
+        @attr src: /resources/logo-v1.svg
         @attr class: top-landing-section__logo
         @attr title: Hexagon.js Logo
         @attr role: presentation
@@ -33,17 +32,17 @@
     @div .qm-html-paragraph
       @div .buttons
         @a .button: @span[Documentation]
-          @attr href: {{baseurl}}/guide/installation
+          @attr href: /guide/installation
           @img
-            @attr src: {{baseurl}}/resources/book.svg
+            @attr src: /resources/book.svg
             @attr role: presentation
             @attr alt: Book Icon
             @attr height: 30px
 
         @a .button: @span[Changelog]
-          @attr href: {{baseurl}}/changelog
+          @attr href: /changelog
           @img
-            @attr src: {{baseurl}}/resources/tags.svg
+            @attr src: /resources/tags.svg
             @attr role: presentation
             @attr alt: Tags Icon
             @attr height: 30px
@@ -51,7 +50,7 @@
         @a .button: @span[GitHub]
           @attr href: https://github.com/ocadotechnology/hexagonjs/
           @img
-            @attr src: {{baseurl}}/resources/github-mark.svg
+            @attr src: /resources/github-mark.svg
             @attr role: presentation
             @attr alt: GitHub Logo
             @attr height: 30px
@@ -67,13 +66,13 @@
     Export theme variables to sass, less and stylus to share your color palette.
 
     @img .preprocessor-logo
-      @attr src: {{baseurl}}/resources/sass.svg
+      @attr src: /resources/sass.svg
       @attr width: 70px
     @img .preprocessor-logo
-      @attr src: {{baseurl}}/resources/less.svg
+      @attr src: /resources/less.svg
       @attr width: 70px
     @img .preprocessor-logo
-      @attr src: {{baseurl}}/resources/stylus.svg
+      @attr src: /resources/stylus.svg
       @attr width: 70px
 
 
@@ -90,9 +89,9 @@
   @landingSection Get Started
     @div .buttons
       @a .button: @span[Quick Start]
-        @attr href: {{baseurl}}/guide/getting-started
+        @attr href: /guide/getting-started
         @img
-          @attr src: {{baseurl}}/resources/rocket.svg
+          @attr src: /resources/rocket.svg
           @attr role: presentation
           @attr alt: Rocket Icon
           @attr height: 30px
@@ -100,7 +99,7 @@
       @a .button: @span[Releases]
         @attr href: https://github.com/ocadotechnology/hexagonjs/releases
         @img
-          @attr src: {{baseurl}}/resources/tags.svg
+          @attr src: /resources/tags.svg
           @attr role: presentation
           @attr alt: Tags Icon
           @attr height: 30px
@@ -108,7 +107,7 @@
       @a .button: @span[GitHub]
         @attr href: https://github.com/ocadotechnology/hexagonjs/
         @img
-          @attr src: {{baseurl}}/resources/github-mark.svg
+          @attr src: /resources/github-mark.svg
           @attr role: presentation
           @attr alt: GitHub Logo
           @attr height: 30px

@@ -1,24 +1,24 @@
 @template
   @contentEntityName templateContent
   @content
-    @if version: @stylesheet [{{baseurl}}/resources/hexagon/{{version}}/hexagon.css]
-    @ifnot version: @stylesheet [{{baseurl}}/resources/hexagon/latest/hexagon.css]
-    @stylesheet [{{baseurl}}/resources/hexagon/docs/hexagon.css]
+    @if version: @stylesheet [/resources/hexagon/{{version}}/hexagon.css]
+    @ifnot version: @stylesheet [/resources/hexagon/latest/hexagon.css]
+    @stylesheet [/resources/hexagon/docs/hexagon.css]
     @stylesheet [https://fonts.googleapis.com/css?family=Open+Sans:100,400,700|Roboto+Slab:400,700|Source+Code+Pro:400,700]
-    @stylesheet [{{baseurl}}/resources/font-awesome/css/font-awesome.min.css]
-    @stylesheet [{{baseurl}}/resources/docs-new.css]
+    @stylesheet [/resources/font-awesome/css/font-awesome.min.css]
+    @stylesheet [/resources/docs-new.css]
 
-    @if version: @script [{{baseurl}}/resources/hexagon/{{version}}/hexagon.js]
-    @ifnot version: @script [{{baseurl}}/resources/hexagon/latest/hexagon.js]
-    @script [{{baseurl}}/resources/hexagon/docs/hexagon.js]
-    # @script [{{baseurl}}/resources/titlebar.js]
-    @script [{{baseurl}}/resources/docs.js]
+    @if version: @script [/resources/hexagon/{{version}}/hexagon.js]
+    @ifnot version: @script [/resources/hexagon/latest/hexagon.js]
+    @script [/resources/hexagon/docs/hexagon.js]
+    # @script [/resources/titlebar.js]
+    @script [/resources/docs.js]
 
     @head
       @html: @inline icons.html
 
     @header
-      @icon {{baseurl}}/resources/logo-mono-v1.svg
+      @icon /resources/logo-mono-v1.svg
       @title HexagonJS
 
     @sidebarPage
@@ -26,105 +26,105 @@
         @navigationMenu
 
           @section About
-            @page {{baseurl}}/guide/installation: Installation
-            @page {{baseurl}}/guide/core-concepts: Core Concepts
-            @page {{baseurl}}/changelog: Changelog
+            @page /guide/installation: Installation
+            @page /guide/core-concepts: Core Concepts
+            @page /changelog: Changelog
 
           @section Tutorials
-            @page {{baseurl}}/guide/getting-started: Getting Started
-            # @page {{baseurl}}/guide/representing-data: Representing Data
-            # @page {{baseurl}}/guide/working-with-data: Working With Data
-            # @page {{baseurl}}/guide/working-with-dom: Working with the DOM
-            # @page {{baseurl}}/guide/designing-for-mobiles: Designing for Mobiles
-            # @page {{baseurl}}/guide/create-custom-themes: Creating Custom Themes
-            @page {{baseurl}}/guide/printing: Print Styles
+            @page /guide/getting-started: Getting Started
+            # @page /guide/representing-data: Representing Data
+            # @page /guide/working-with-data: Working With Data
+            # @page /guide/working-with-dom: Working with the DOM
+            # @page /guide/designing-for-mobiles: Designing for Mobiles
+            # @page /guide/create-custom-themes: Creating Custom Themes
+            @page /guide/printing: Print Styles
 
           @section Css Components
-            @page {{baseurl}}/docs/base/: Base
-            @page {{baseurl}}/docs/button/: Button
-            @page {{baseurl}}/docs/error-pages/: Error Pages
-            @page {{baseurl}}/docs/form/: Form
-            @page {{baseurl}}/docs/input-group/: Input Group
-            @page {{baseurl}}/docs/label/: Label
-            @page {{baseurl}}/docs/layout/: Layout
-            @page {{baseurl}}/docs/logo/: Logo
-            @page {{baseurl}}/docs/notice/: Notice
-            @page {{baseurl}}/docs/spinner/: Spinner
-            @page {{baseurl}}/docs/table/: Table
+            @page /docs/base/: Base
+            @page /docs/button/: Button
+            @page /docs/error-pages/: Error Pages
+            @page /docs/form/: Form
+            @page /docs/input-group/: Input Group
+            @page /docs/label/: Label
+            @page /docs/layout/: Layout
+            @page /docs/logo/: Logo
+            @page /docs/notice/: Notice
+            @page /docs/spinner/: Spinner
+            @page /docs/table/: Table
 
           @section Js Components
-            @page {{baseurl}}/docs/autocomplete-picker/: Autocomplete Picker
-            @page {{baseurl}}/docs/autocomplete/: Autocomplete
-            @page {{baseurl}}/docs/button-group/: Button Group
-            @page {{baseurl}}/docs/card/: Card
-            @page {{baseurl}}/docs/collapsible/: Collapsible
-            @page {{baseurl}}/docs/color-picker/: Color Picker
-            @page {{baseurl}}/docs/crumbtrail/: Crumbtrail
-            @page {{baseurl}}/docs/data-table/: Data Table
-            @page {{baseurl}}/docs/date-picker/: Date Picker
-            @page {{baseurl}}/docs/date-time-picker/: Date Time Picker
-            @page {{baseurl}}/docs/drag-container/: Drag Container
-            @page {{baseurl}}/docs/drawing/: Drawing
-            @page {{baseurl}}/docs/dropdown/: Dropdown
-            @page {{baseurl}}/docs/extended-table/: Extended Table
-            @page {{baseurl}}/docs/file-input/: File Input
-            @page {{baseurl}}/docs/fluid/: Fluid
-            @page {{baseurl}}/docs/form-builder/: Form Builder
-            @page {{baseurl}}/docs/inline-editable/: Inline Editable
-            @page {{baseurl}}/docs/inline-picker/: Inline Picker
-            @page {{baseurl}}/docs/inline-select/: Inline Select
-            @page {{baseurl}}/docs/menu/: Menu
-            @page {{baseurl}}/docs/meter/: Meter
-            @page {{baseurl}}/docs/modal/: Modal
-            @page {{baseurl}}/docs/notify/: Notify
-            @page {{baseurl}}/docs/number-picker/: Number Picker
-            @page {{baseurl}}/docs/paginator/: Paginator
-            @page {{baseurl}}/docs/picker/: Picker
-            @page {{baseurl}}/docs/pivot-table/: Pivot Table
-            @page {{baseurl}}/docs/plot/: Plot
-            @page {{baseurl}}/docs/progress-bar/: Progress Bar
-            @page {{baseurl}}/docs/side-collapsible/: Side Collapsible
-            @page {{baseurl}}/docs/sidebar/: Sidebar
-            @page {{baseurl}}/docs/slider/: Slider
-            @page {{baseurl}}/docs/sticky-table-headers/: Sticky Table Headers
-            @page {{baseurl}}/docs/tabs/: Tabs
-            @page {{baseurl}}/docs/tag-input/: Tag Input
-            @page {{baseurl}}/docs/time-picker/: Time Picker
-            @page {{baseurl}}/docs/time-slider/: Time Slider
-            @page {{baseurl}}/docs/titlebar/: Titlebar
-            @page {{baseurl}}/docs/toggle-button/: Toggle Button
-            @page {{baseurl}}/docs/toggle/: Toggle
-            @page {{baseurl}}/docs/tree/: Tree
+            @page /docs/autocomplete-picker/: Autocomplete Picker
+            @page /docs/autocomplete/: Autocomplete
+            @page /docs/button-group/: Button Group
+            @page /docs/card/: Card
+            @page /docs/collapsible/: Collapsible
+            @page /docs/color-picker/: Color Picker
+            @page /docs/crumbtrail/: Crumbtrail
+            @page /docs/data-table/: Data Table
+            @page /docs/date-picker/: Date Picker
+            @page /docs/date-time-picker/: Date Time Picker
+            @page /docs/drag-container/: Drag Container
+            @page /docs/drawing/: Drawing
+            @page /docs/dropdown/: Dropdown
+            @page /docs/extended-table/: Extended Table
+            @page /docs/file-input/: File Input
+            @page /docs/fluid/: Fluid
+            @page /docs/form-builder/: Form Builder
+            @page /docs/inline-editable/: Inline Editable
+            @page /docs/inline-picker/: Inline Picker
+            @page /docs/inline-select/: Inline Select
+            @page /docs/menu/: Menu
+            @page /docs/meter/: Meter
+            @page /docs/modal/: Modal
+            @page /docs/notify/: Notify
+            @page /docs/number-picker/: Number Picker
+            @page /docs/paginator/: Paginator
+            @page /docs/picker/: Picker
+            @page /docs/pivot-table/: Pivot Table
+            @page /docs/plot/: Plot
+            @page /docs/progress-bar/: Progress Bar
+            @page /docs/side-collapsible/: Side Collapsible
+            @page /docs/sidebar/: Sidebar
+            @page /docs/slider/: Slider
+            @page /docs/sticky-table-headers/: Sticky Table Headers
+            @page /docs/tabs/: Tabs
+            @page /docs/tag-input/: Tag Input
+            @page /docs/time-picker/: Time Picker
+            @page /docs/time-slider/: Time Slider
+            @page /docs/titlebar/: Titlebar
+            @page /docs/toggle-button/: Toggle Button
+            @page /docs/toggle/: Toggle
+            @page /docs/tree/: Tree
 
           @section Utilities
-            @page {{baseurl}}/docs/animate/: Animate
-            @page {{baseurl}}/docs/click-detector/: Click Detector
-            @page {{baseurl}}/docs/color-scale/: Color Scale
-            @page {{baseurl}}/docs/color/: Color
-            @page {{baseurl}}/docs/component/: Component
-            @page {{baseurl}}/docs/event-emitter/: Event Emitter
-            @page {{baseurl}}/docs/fast-click/: Fast Click
-            @page {{baseurl}}/docs/filter/: Filter
-            @page {{baseurl}}/docs/format/: Format
-            @page {{baseurl}}/docs/interpolate/: Interpolate
-            @page {{baseurl}}/docs/list/: List
-            @page {{baseurl}}/docs/map/: Map
-            @page {{baseurl}}/docs/morph-section/: Morph Section
-            @page {{baseurl}}/docs/morphs/: Morphs
-            @page {{baseurl}}/docs/palette/: Palette
-            @page {{baseurl}}/docs/pointer-events/: Pointer Events
-            @page {{baseurl}}/docs/preferences/: Preferences
-            @page {{baseurl}}/docs/request/: Request
-            @page {{baseurl}}/docs/resize-events/: Resize Events
-            @page {{baseurl}}/docs/search-dom/: Search Dom
-            @page {{baseurl}}/docs/select/: Select
-            @page {{baseurl}}/docs/selection/: Selection
-            @page {{baseurl}}/docs/set/: Set
-            @page {{baseurl}}/docs/sort/: Sort
-            @page {{baseurl}}/docs/transition/: Transition
-            @page {{baseurl}}/docs/user-facing-text/: User Facing Text
-            @page {{baseurl}}/docs/util/: Util
-            @page {{baseurl}}/docs/view/: View
+            @page /docs/animate/: Animate
+            @page /docs/click-detector/: Click Detector
+            @page /docs/color-scale/: Color Scale
+            @page /docs/color/: Color
+            @page /docs/component/: Component
+            @page /docs/event-emitter/: Event Emitter
+            @page /docs/fast-click/: Fast Click
+            @page /docs/filter/: Filter
+            @page /docs/format/: Format
+            @page /docs/interpolate/: Interpolate
+            @page /docs/list/: List
+            @page /docs/map/: Map
+            @page /docs/morph-section/: Morph Section
+            @page /docs/morphs/: Morphs
+            @page /docs/palette/: Palette
+            @page /docs/pointer-events/: Pointer Events
+            @page /docs/preferences/: Preferences
+            @page /docs/request/: Request
+            @page /docs/resize-events/: Resize Events
+            @page /docs/search-dom/: Search Dom
+            @page /docs/select/: Select
+            @page /docs/selection/: Selection
+            @page /docs/set/: Set
+            @page /docs/sort/: Sort
+            @page /docs/transition/: Transition
+            @page /docs/user-facing-text/: User Facing Text
+            @page /docs/util/: Util
+            @page /docs/view/: View
 
       @content
         @templateContent

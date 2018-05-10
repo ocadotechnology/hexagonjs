@@ -10,13 +10,13 @@
       @description
         Suppressing events is now possible with
         @code[AutoComplete::suppressed(eventName, suppress)]. This is part of the
-        @hyperlink({{baseurl}}/docs/event-emitter)[Event Emitter] api.
+        @hyperlink(/docs/event-emitter)[Event Emitter] api.
 
     @removed 0.14.0
       @description
         Suppressing events is now possible with
         @code[AutoComplete::suppressed(eventName, suppress)]. This is part
-        of the @hyperlink({{baseurl}}/docs/event-emitter)[Event Emitter] api.
+        of the @hyperlink(/docs/event-emitter)[Event Emitter] api.
 
   @returns AutoComplete
     @description

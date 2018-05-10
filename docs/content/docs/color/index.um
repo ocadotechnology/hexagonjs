@@ -17,7 +17,7 @@
 
 
   @topic Api
-    @hyperlink({{baseurl}}/docs/color/changelog)[Change Log]
+    @hyperlink(/docs/color/changelog)[Change Log]
 
     @inline api.um
 

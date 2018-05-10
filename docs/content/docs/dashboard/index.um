@@ -33,7 +33,7 @@
             @inline examples/*.um
 
       @topic Api
-        @hyperlink({{baseurl}}/docs/dashboard/changelog)[Change Log]
+        @hyperlink(/docs/dashboard/changelog)[Change Log]
 
         @inline api.um
 
