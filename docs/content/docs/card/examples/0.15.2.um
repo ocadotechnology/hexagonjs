@@ -1,6 +1,6 @@
 @version 0.15.2
   @example
-    @html
+    @@html
       <div class="cardExample hx-group hx-horizontal">
         <div class="hx-card hx-section">
           <div class="hx-card-section hx-card-header">
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-    @css
+    @@css
       .cardExample {
         /* Make the cards only take up as much height as they need */
         align-items: flex-start;

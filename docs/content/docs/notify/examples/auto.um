@@ -1,7 +1,7 @@
 @version 0.9.0
   @examples
     @example
-      @html
+      @@html
         <div>
           <button class="hx-btn hx-info" onclick="hx.notify().info('Info');">Info</button>
           <button class="hx-btn hx-positive" onclick="hx.notify().positive('Positive');">Positive</button>
@@ -39,7 +39,7 @@
 @version 0.13.0
   @examples
     @example
-      @html
+      @@html
         <div>
           <button class="hx-btn hx-info" onclick="hx.notify.info('Info');">Info</button>
           <button class="hx-btn hx-positive" onclick="hx.notify.positive('Positive');">Positive</button>
@@ -78,17 +78,17 @@
   @examples
 
     @example
-      @js
+      @@js
         var exampleNotificationManager = new hx.NotificationManager('#example')
         hx.select('#notify').on('click', function() {
           exampleNotificationManager.notify('Clicked!')
         })
 
-      @html
+      @@html
         <div class="notify-example" id="example"></div>
         <button id="notify" class="hx-btn hx-positive">Notify</button>
 
-      @css
+      @@css
         .notify-example {
           position:relative;
           height: 50px;
@@ -99,7 +99,7 @@
         }
 
     @example
-      @html
+      @@html
         <div>
           <button class="hx-btn hx-info" onclick="hx.notify.info('Info');">Info</button>
           <button class="hx-btn hx-positive" onclick="hx.notify.positive('Positive');">Positive</button>

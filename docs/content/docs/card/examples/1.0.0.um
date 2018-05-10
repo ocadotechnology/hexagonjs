@@ -1,9 +1,9 @@
 @version 1.0.0
   @example
-    @html
+    @@html
       <div id="card-container"></div>
 
-    @js
+    @@js
       function titleText (title, text) {
         return hx.card.section()
           .add(hx.card.title({text: title}))

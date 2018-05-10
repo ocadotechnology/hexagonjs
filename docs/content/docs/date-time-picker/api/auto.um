@@ -398,11 +398,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       A function used to set the currently selected day.
@@ -433,11 +433,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected month.
@@ -468,11 +468,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[datepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected year.
@@ -503,11 +503,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected hour.
@@ -538,11 +538,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected minute.
@@ -573,11 +573,11 @@
     @added 0.11.0
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected second.
@@ -671,11 +671,11 @@
     @added 0.12.5
     @deprecated 0.13.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.13.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.13.0/event-emitter)[Event Emitter] api
 
     @removed 0.14.0
       @description
-        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @link(/docs/0.14.0/event-emitter)[Event Emitter] api
+        The suppressCallback parameter has been deprecated. Use @code[timepicker.suppressed(eventName, suppress)] to suppress events. This is part of the @hyperlink(/docs/0.14.0/event-emitter)[Event Emitter] api
 
     @description
       Sets the currently selected date.
@@ -719,7 +719,7 @@
         @description
           The options to use for the date picker.
 
-          See the @link(../date-picker)[Date Picker] module for information about the available options.
+          See the @hyperlink(../date-picker)[Date Picker] module for information about the available options.
 
           The @code[selectRange] option is ignored when using a date/time picker.
 
@@ -727,7 +727,7 @@
         @description
           The options to use for the time picker.
 
-          See the @link(../time-picker)[Time Picker] module for information about the available options.
+          See the @hyperlink(../time-picker)[Time Picker] module for information about the available options.
 
       @property disabled [Boolean]
         @added 0.15.2
@@ -843,7 +843,7 @@
     @description
       A function for updating the locale used in the datetimepicker.
 
-      By default, the locale used is 'en-gb' which cannot be changed unless @link(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
+      By default, the locale used is 'en-gb' which cannot be changed unless @hyperlink(http://momentjs.com/)[moment.js] with the relevant locales is present on the page.
 
       @@codeblock js
         datetimepicker.locale('pl') // sets the datetimepicker's locale to Poland

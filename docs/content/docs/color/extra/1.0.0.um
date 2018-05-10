@@ -10,7 +10,7 @@
     In the below examples, @code[exCol] is the example color object that we are
     manipulating.
 
-    @css
+    @@css
       .example-cell{
         text-align:center;
         font-weight:100;
@@ -20,7 +20,7 @@
         padding:0 0.5em;
         height:30px;
       }
-    @js
+    @@js
       setCellColor = function(obj,col){
         var object = document.getElementById(obj)
         object.setAttribute("style","background:"+col.toString())
@@ -64,20 +64,20 @@
             @code[exCol.lightness(30)]
         @row
           @cell
-            @html: <div id="lighten_orig" class="example-cell"></div>
-            @js
+            @@html: <div id="lighten_orig" class="example-cell"></div>
+            @@js
               setCellColor("lighten_orig",exCol)
           @cell
-            @html: <div id="lighten_light" class="example-cell"></div>
-            @js
+            @@html: <div id="lighten_light" class="example-cell"></div>
+            @@js
               setCellColor("lighten_light",exCol.clone().lighten(0.2))
           @cell
-            @html: <div id="lighten_dark" class="example-cell"></div>
-            @js
+            @@html: <div id="lighten_dark" class="example-cell"></div>
+            @@js
               setCellColor("lighten_dark",exCol.clone().lighten(-0.2))
           @cell
-            @html: <div id="lighten_lightness" class="example-cell"></div>
-            @js
+            @@html: <div id="lighten_lightness" class="example-cell"></div>
+            @@js
               setCellColor("lighten_lightness",exCol.clone().lightness(30))
 
     @section Saturation
@@ -102,20 +102,20 @@
             @code[exCol.saturation(10)]
         @row
           @cell
-            @html: <div id="saturation_orig" class="example-cell"></div>
-            @js
+            @@html: <div id="saturation_orig" class="example-cell"></div>
+            @@js
               setCellColor("saturation_orig",exCol)
           @cell
-            @html: <div id="saturation_saturate" class="example-cell"></div>
-            @js
+            @@html: <div id="saturation_saturate" class="example-cell"></div>
+            @@js
               setCellColor("saturation_saturate",exCol.clone().saturate(0.4))
           @cell
-            @html: <div id="saturation_desaturate" class="example-cell"></div>
-            @js
+            @@html: <div id="saturation_desaturate" class="example-cell"></div>
+            @@js
               setCellColor("saturation_desaturate",exCol.clone().saturate(-0.4))
           @cell
-            @html: <div id="saturation_saturation" class="example-cell"></div>
-            @js
+            @@html: <div id="saturation_saturation" class="example-cell"></div>
+            @@js
               setCellColor("saturation_saturation",exCol.clone().saturation(10))
 
     @section Alpha
@@ -142,20 +142,20 @@
             @code[exCol.alpha(0.3)]
         @row
           @cell
-            @html: <div id="alpha_orig" class="example-cell"></div>
-            @js
+            @@html: <div id="alpha_orig" class="example-cell"></div>
+            @@js
               setCellColor("alpha_orig",exCol.clone().alpha(0.7),1)
           @cell
-            @html: <div id="alpha_fadeIn" class="example-cell"></div>
-            @js
+            @@html: <div id="alpha_fadeIn" class="example-cell"></div>
+            @@js
               setCellColor("alpha_fadeIn",exCol.clone().alpha(0.7).fade(0.2))
           @cell
-            @html: <div id="alpha_fadeOut" class="example-cell"></div>
-            @js
+            @@html: <div id="alpha_fadeOut" class="example-cell"></div>
+            @@js
               setCellColor("alpha_fadeOut",exCol.clone().alpha(0.7).fade(-0.2))
           @cell
-            @html: <div id="alpha_alpha" class="example-cell"></div>
-            @js
+            @@html: <div id="alpha_alpha" class="example-cell"></div>
+            @@js
               setCellColor("alpha_alpha",exCol.clone().alpha(0.7).alpha(0.3))
 
     @section Mix
@@ -184,21 +184,21 @@
             @code[exCol.mix(exColAlt,0.3)]
         @row
           @cell
-            @html: <div id="mix_orig1" class="example-cell"></div>
-            @js
+            @@html: <div id="mix_orig1" class="example-cell"></div>
+            @@js
               setCellColor("mix_orig1",exCol)
           @cell
-            @html: <div id="mix_orig2" class="example-cell"></div>
-            @js
+            @@html: <div id="mix_orig2" class="example-cell"></div>
+            @@js
               exColAlt = hx.color(hx.theme.palette.warningCol)
               setCellColor("mix_orig2",exColAlt.clone())
           @cell
-            @html: <div id="mix_fifty" class="example-cell"></div>
-            @js
+            @@html: <div id="mix_fifty" class="example-cell"></div>
+            @@js
               setCellColor("mix_fifty",exCol.clone().mix(exColAlt))
           @cell
-            @html: <div id="mix_thirty" class="example-cell"></div>
-            @js
+            @@html: <div id="mix_thirty" class="example-cell"></div>
+            @@js
               setCellColor("mix_thirty",exCol.clone().mix(exColAlt,0.3))
 
     @section Chaining methods
@@ -225,7 +225,7 @@
       @@codeblock js
         exCol.range()
 
-      @css
+      @@css
         .color-range {
           display:flex;
           border: 1px solid #DADADA;
@@ -239,9 +239,9 @@
           font-weight:100;
           text-transform:uppercase;
         }
-      @html
+      @@html
         <div id="color-range1" class="color-range"></div>
-      @js
+      @@js
         theObject = document.getElementById("color-range1")
         list = exCol.range();
 
@@ -267,9 +267,9 @@
       @@codeblock js
         exCol.range(5,5)
 
-      @html
+      @@html
         <div id="color-range2" class="color-range"></div>
-      @js
+      @@js
         theObject = document.getElementById("color-range2"),
         list = exCol.range(5,5)
         buildList();
@@ -280,10 +280,10 @@
       @@codeblock js
         exCol.range(3,1)
 
-      @html
+      @@html
         <div id="color-range3" class="color-range"></div>
 
-      @js
+      @@js
         theObject = document.getElementById("color-range3"),
         list = exCol.range(3,1)
         buildList()
@@ -293,9 +293,9 @@
 
       @@codeblock js
         exCol.range(3,3,0.75)
-      @html
+      @@html
         <div id="color-range4" class="color-range"></div>
-      @js
+      @@js
         theObject = document.getElementById("color-range4"),
         list = exCol.range(3,3,0.75)
         buildList()

@@ -542,7 +542,7 @@
         @property selectOptions [Object]
           @added 0.13.0
           @description
-            The options to use for the select component. See the @link(../select/)[select] constructor for the available options.
+            The options to use for the select component. See the @hyperlink(../select/)[select] constructor for the available options.
 
       @returns [Form]
         @description
@@ -692,7 +692,7 @@
         @property tagInputOptions [Object]
           @added 0.13.0
           @description
-            The options to use for the tg input component. See the @link(../tag-input/)[tag input] constructor for the available options.
+            The options to use for the tg input component. See the @hyperlink(../tag-input/)[tag input] constructor for the available options.
 
         @property disabled [Boolean]
           @added 1.2.0
@@ -773,7 +773,7 @@
         @property selectOptions [Object]
           @added 0.13.0
           @description
-            The options to use for the select component. See the @link(../select/)[select] constructor for the available options.
+            The options to use for the select component. See the @hyperlink(../select/)[select] constructor for the available options.
 
       @returns [Form]
         @description
@@ -872,7 +872,7 @@
         @property datePickerOptions [Objec]
           @added 0.13.0
           @description
-            The options to use for the date picker component. See the @link(../date-picker/)[Date Picker] constructor for the available options.
+            The options to use for the date picker component. See the @hyperlink(../date-picker/)[Date Picker] constructor for the available options.
 
         @property hidden [Boolean]
           @added 1.2.0
@@ -940,7 +940,7 @@
         @property timePickerOptions [Object]
           @added 0.13.0
           @description
-            The options to use for the time picker component. See the @link(../time-picker/)[Time Picker] constructor for the available options.
+            The options to use for the time picker component. See the @hyperlink(../time-picker/)[Time Picker] constructor for the available options.
 
         @property hidden [Boolean]
           @added 1.2.0
@@ -1013,7 +1013,7 @@
         @property dateTimePickerOptions [Object]
           @added 0.13.0
           @description
-            The options to use for the time picker component. See the @link(../date-time-picker/)[Date Time Picker] constructor for the available options.
+            The options to use for the time picker component. See the @hyperlink(../date-time-picker/)[Date Time Picker] constructor for the available options.
 
         @property hidden [Boolean]
           @added 1.2.0
@@ -1152,7 +1152,7 @@
 
         @property pickerOptions [Object]
           @description
-            The options to use for the picker component. See the @link(../picker/)[picker] constructor for the available options.
+            The options to use for the picker component. See the @hyperlink(../picker/)[picker] constructor for the available options.
 
         @property disabled [Boolean]
           @description

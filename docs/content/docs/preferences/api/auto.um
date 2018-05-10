@@ -83,7 +83,7 @@
           @description
             The user's selected time zone.
 
-            The time zone is intended to be used with @link(http://momentjs.com/timezone/)[Moment.js Timezone] and the full list of timezones is retrieved using @code[moment.tz.names()] The value is stored as a string and can be any value from the moment.tz list.
+            The time zone is intended to be used with @hyperlink(http://momentjs.com/timezone/)[Moment.js Timezone] and the full list of timezones is retrieved using @code[moment.tz.names()] The value is stored as a string and can be any value from the moment.tz list.
 
         @property locale [String]
           @description
@@ -156,7 +156,7 @@
           @description
             The user's selected time zone.
 
-            The time zone is intended to be used with @link(http://momentjs.com/timezone/)[Moment.js Timezone] and the full list of timezones is retrieved using @code[moment.tz.names()] The value is stored as a string and can be any value from the moment.tz list.
+            The time zone is intended to be used with @hyperlink(http://momentjs.com/timezone/)[Moment.js Timezone] and the full list of timezones is retrieved using @code[moment.tz.names()] The value is stored as a string and can be any value from the moment.tz list.
 
         @property locale [String]
           @description

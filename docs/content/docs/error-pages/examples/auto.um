@@ -1,7 +1,7 @@
 @version 0.9.0
   @examples
     @example
-      @html
+      @@html
         <div style="position: relative; height: 500px;">
           <div class="hx-error-message">
             <div class="hx-error-message-heading">
@@ -20,7 +20,7 @@
 @version 0.13.0
   @examples
     @example
-      @html
+      @@html
         <div style="position: relative; height: 500px;">
           <div class="hx-error-message">
             <div class="hx-error-message-heading">

@@ -8,9 +8,6 @@
     An overview of some of the main patterns and concepts used in hexagon
 
 @contentSection
-  @siteSidebar
-
-
   @topic How Hexagon.js is structured
 
     Hexagon is comprised of many modules, each of which aim to cover one

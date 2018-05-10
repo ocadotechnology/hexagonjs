@@ -8,7 +8,7 @@
   @title Animate
   @description
     Animate element's styles and attributes
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
 
 @contentSection
   @added 0.9.0
