@@ -605,7 +605,7 @@
             subtitle: 'Subtitle'
           }))
 
-@version nextReleaseVersion
+@version 1.15.0
   @examples
 
     Titlebars are created using the following structure:

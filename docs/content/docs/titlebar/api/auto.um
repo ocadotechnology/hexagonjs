@@ -7,7 +7,7 @@
   @description
     Added the missing 'action' context to the titlebar
 
-@updated nextReleaseVersion
+@updated 1.15.0
   @description
     Updated the logo in the example to use @code[<div>] the new @type[Logo]
     expectation

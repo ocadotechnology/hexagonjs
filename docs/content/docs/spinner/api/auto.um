@@ -11,7 +11,7 @@
       Use with a @code[<span>] for a large inline spinner
 
 @class hx-spinner-wide
-  @bugfix nextReleaseVersion
+  @bugfix 1.15.0
     @description
       Fixed an issue with IE support of the wide spinner by updating the CSS
 

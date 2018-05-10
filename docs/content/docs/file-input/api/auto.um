@@ -8,7 +8,7 @@
   @description
     Change the type of the button to fix a bug where forms were submitted
 
-@bugfix nextReleaseVersion
+@bugfix 1.15.0
   @description
     Fixed an issue where the files were immediately cleared when adding via
     the files popup in IE
