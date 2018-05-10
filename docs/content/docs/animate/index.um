@@ -78,6 +78,6 @@
           })
 
   @topic Api
-    @hyperlink({{baseurl}}/docs/animate/changelog)[Change Log]
+    @hyperlink(/docs/animate/changelog)[Change Log]
 
     @inline api.um

@@ -1,12 +1,12 @@
-@stylesheet {{baseurl}}/resources/hexagon/docs/hexagon.css
-@script {{baseurl}}/resources/hexagon/docs/hexagon.js
-@stylesheet {{baseurl}}/resources/hexagon/{{version}}/hexagon.css
-@script {{baseurl}}/resources/hexagon/{{version}}/hexagon.js
-@script {{baseurl}}/resources/titlebar.js
-@script {{baseurl}}/resources/docs.js
-@stylesheet {{baseurl}}/resources/font-awesome/css/font-awesome.min.css
-@stylesheet {{baseurl}}/resources/docs.css
-@stylesheet {{baseurl}}/resources/fonts/fonts.css
+@stylesheet /resources/hexagon/docs/hexagon.css
+@script /resources/hexagon/docs/hexagon.js
+@stylesheet /resources/hexagon/{{version}}/hexagon.css
+@script /resources/hexagon/{{version}}/hexagon.js
+@script /resources/titlebar.js
+@script /resources/docs.js
+@stylesheet /resources/font-awesome/css/font-awesome.min.css
+@stylesheet /resources/docs.css
+@stylesheet /resources/fonts/fonts.css
 
 @define titlebar
   @if ps
@@ -22,7 +22,7 @@
         @div .dx-titlebar-header.docs-titlebar-header
           @a .dx-titlebar-icon.docs-titlebar-logo.docs-visible
             @img .docs-logo
-              @attr src: {{baseurl}}/resources/logo-mono-v1.svg
+              @attr src: /resources/logo-mono-v1.svg
           @div .docs-search
             @i .docs-search-icon.fa.fa-search
             @input #docs-search-box.docs-search-box

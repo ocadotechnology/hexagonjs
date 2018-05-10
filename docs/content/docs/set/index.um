@@ -15,6 +15,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink({{baseurl}}/docs/set/changelog)[Change Log]
+    @hyperlink(/docs/set/changelog)[Change Log]
 
     @inline api.um

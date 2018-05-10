@@ -9,7 +9,7 @@
   @arg? ease [Function]
     @description
       The easing function to use for the animations. See the
-      @hyperlink({{baseurl}}/docs/transition/)[Transition] docs for information on the
+      @hyperlink(/docs/transition/)[Transition] docs for information on the
       inbuilt @code[hx.ease] functions
 
     @arg value [Number]

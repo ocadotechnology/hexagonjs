@@ -21,9 +21,9 @@
         @inline examples/0.15.2.um
         @inline examples/1.0.0.um
 
-    @script [{{baseurl}}/resources/clicker.js]
+    @script [/resources/clicker.js]
 
   @topic Api
-    @hyperlink({{baseurl}}/docs/button/changelog)[Change Log]
+    @hyperlink(/docs/button/changelog)[Change Log]
 
     @inline api.um

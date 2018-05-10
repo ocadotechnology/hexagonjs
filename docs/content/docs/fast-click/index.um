@@ -20,6 +20,6 @@
         @inline examples/*.um
 
   @topic Api
-    @hyperlink({{baseurl}}/docs/fast-click/changelog)[Change Log]
+    @hyperlink(/docs/fast-click/changelog)[Change Log]
 
     @inline api.um
