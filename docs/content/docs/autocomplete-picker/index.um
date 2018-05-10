@@ -56,12 +56,11 @@
               const a = []
               const len = items.length
               for (let i = 0; i < len; i++) {
-                const { name, county }= items[i]
-                const nameLc = name.toLowerCase()
-                const countyLc = county.toLowerCase()
+                const nameLc = items[i].name.toLowerCase()
+                const countyLc = items[i].county.toLowerCase()
                 const termLc = term.toLowerCase()
                 if (nameLc.indexOf(termLc) > -1 || countyLc.indexOf(termLc) > -1) {
-                  a.push(d)
+                  a.push(items[i])
                 }
               }
               return callback(a)
@@ -70,14 +69,14 @@
             }
           }
 
-          function renderer (elem, { name, county }) {
+          function renderer (elem, item) {
             hx.select(elem)
-              .add(hx.detached('span').text(name))
-              .add(hx.label().text(county))
+              .add(hx.detached('span').text(item.name))
+              .add(hx.label().text(item.county))
           }
 
           new hx.AutocompletePicker('#autocompletePicker-externalMatch', getItems, {
-            renderer,
+            renderer: renderer,
             matchType: 'external'
           })
 

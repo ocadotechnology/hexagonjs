@@ -16,6 +16,11 @@
   @description
     Resolved an issue with the styles that was causing the 'year' selection to display incorrectly
 
+@bugfix nextReleaseVersion
+  @description
+    Fixed an issue where IE was displaying the datepicker calendar in compact
+    mode
+
 @prototype hx.DatePicker
   @updated 0.11.0
     @description

@@ -8,6 +8,11 @@
   @description
     Change the type of the button to fix a bug where forms were submitted
 
+@bugfix nextReleaseVersion
+  @description
+    Fixed an issue where the files were immediately cleared when adding via
+    the files popup in IE
+
 @prototype hx.FileInput
   @description
     A component that extends the native functionality of @code[<input type="file">] to add additional functionality and a hexagon theme

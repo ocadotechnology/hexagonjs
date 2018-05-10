@@ -1,5 +1,6 @@
+div.hx-logo,
 img.hx-logo {
-  &, &:after {
+  &, &:before {
     content: url("assets/logo.svg");
   }
 }

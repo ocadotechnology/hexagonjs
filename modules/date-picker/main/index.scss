@@ -49,6 +49,12 @@ $gridPadding: 0.7em;
     background: none;
   }
 
+  &::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
   &.hx-date-error {
     outline: 1px solid transparent;
   }
@@ -91,7 +97,7 @@ $gridPadding: 0.7em;
 
     .hx-btn {
       font-size: 0.8em;
-      flex: 1;
+      flex: 1 1 auto;
       font-weight: bold;
     }
   }
@@ -102,7 +108,8 @@ $gridPadding: 0.7em;
     flex-wrap: none;
 
     .hx-grid {
-      flex: 1;
+      flex: 1 1 auto;
+      min-width: 1.2em;
     }
 
     &.hx-grid-row-heading {

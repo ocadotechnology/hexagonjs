@@ -9,7 +9,6 @@ body, html {
   padding: 0;
   background: white;
   font-size: 14px;
-
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -23,6 +22,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .qm-docs-header-logo {
   opacity: 0.5;
+}
+
+.qm-docs-sidebar-page .qm-docs-header {
+  position: static;
 }
 
 .qm-docs-topic-header {
@@ -43,6 +46,10 @@ h1, h2, h3, h4, h5, h6 {
 .qm-docs-header {
   background: #00ADA8 !important;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.21) !important;
+}
+
+.qm-docs-sidebar-page {
+  overflow: hidden;
 }
 
 .qm-docs-sidebar {

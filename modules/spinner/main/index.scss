@@ -1,3 +1,4 @@
+// Round Loader
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -7,7 +8,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 .hx-spinner {
   animation-duration: 0.75s;
@@ -26,35 +26,27 @@
   font-size: 2.5em;
 }
 
+// Horizontal/wide Loader
 $width: 100px;
 
 @keyframes slide {
-  0% {
-    margin-left: -$width;
-  }
-
-  100% {
-    margin-left: calc(100%);
-  }
+  from { left: -$width; }
+  to { left: 100%; }
 }
-
 
 .hx-spinner-wide {
   height: 4px;
-  position: relative;
   overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
-.hx-spinner-wide::after {
+.hx-spinner-wide:before {
+  animation: slide 1s linear infinite;
   content: "";
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-name: slide;
-  animation-timing-function: linear;
-  width: $width;
+  display: block;
   height: 100%;
-  display: inline-block;
-  top: 0;
-  left: 0;
+  left: -$width;
   position: absolute;
+  width: $width;
 }

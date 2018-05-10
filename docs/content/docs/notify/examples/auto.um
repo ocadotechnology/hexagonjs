@@ -78,15 +78,15 @@
   @examples
 
     @example
+      @@html
+        <div class="notify-example" id="example"></div>
+        <button id="notify" class="hx-btn hx-positive">Notify</button>
+
       @@js
         var exampleNotificationManager = new hx.NotificationManager('#example')
         hx.select('#notify').on('click', function() {
           exampleNotificationManager.notify('Clicked!')
         })
-
-      @@html
-        <div class="notify-example" id="example"></div>
-        <button id="notify" class="hx-btn hx-positive">Notify</button>
 
       @@css
         .notify-example {

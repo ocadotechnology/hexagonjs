@@ -109,7 +109,7 @@
     display: none;
     margin: 0.2em;
     padding: 0.3em;
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 0;
   }
 
@@ -130,7 +130,7 @@
   }
 
   .hx-data-table-control-panel-compact-toggle-visible {
-    display: initial;
+    display: block;
   }
 
   .hx-data-table-control-panel-compact {
@@ -247,7 +247,7 @@
   }
 
   .hx-data-table-title {
-    flex: 1;
+    flex: 1 1 auto;
   }
 
   .hx-data-table-cell-sort-enabled {
