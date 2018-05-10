@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.14.0
+ Version: 1.15.0
  Theme: hexagon-light
  Modules:
    set
@@ -53,6 +53,7 @@
    drag-container
    layout
    fluid
+   logo
    progress-bar
    plot
    button-group
@@ -80,7 +81,6 @@
    inline-editable
    inline-picker
    label
-   logo
    meter
    notice
    paginator
@@ -312,6 +312,7 @@ hx.theme = {
     "contentBackgroundCol": "transparent"
   },
   "fluid": {},
+  "logo": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -528,7 +529,6 @@ hx.theme = {
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
-  "logo": {},
   "meter": {},
   "notice": {
     "defaultCol": "#FAFAFA",
@@ -6113,8 +6113,8 @@ Dropdown = (function(superClass) {
         height: window.innerHeight
       }, ddMaxHeight, hx.scrollbarSize()), x = ref.x, y = ref.y;
       if (!parentFixed) {
-        x += window.scrollX;
-        y += window.scrollY;
+        x += window.scrollX || window.pageXOffset;
+        y += window.scrollY || window.pageYOffset;
       }
       if (parentZIndex > 0) {
         _.dropdown.style('z-index', parentZIndex + 1);
@@ -9453,6 +9453,25 @@ hx.section.fixed = factory('div', 'hx-section hx-fixed');
 hx.checkbox = function() {
   return hx.detached('input').attr('type', 'checkbox');
 };
+
+})();
+(function(){
+var replaceLogos, replaceWithDiv;
+
+replaceWithDiv = function(sel) {
+  return sel.replace(hx.div('hx-logo'));
+};
+
+replaceLogos = function() {
+  var logos;
+  logos = hx.selectAll('img.hx-logo');
+  if (logos.size()) {
+    hx.consoleWarning('Logo:', 'The .hx-logo class should only be applied to <div> elements.', 'You supplied: ', logos.nodes);
+    return logos.forEach(replaceWithDiv);
+  }
+};
+
+replaceLogos();
 
 })();
 (function(){
@@ -13374,8 +13393,8 @@ StickyTableHeaders = (function() {
     wrapper.style('width', totalWidth + 'px').style('height', totalHeight + 'px').style('margin-top', offsetHeight + 'px').style('margin-left', offsetWidth + 'px');
     table.style('margin-top', -offsetHeight + 'px').style('margin-left', -offsetWidth + 'px');
     tableBox = table.box();
-    hasVerticalScroll = wrapperNode.scrollHeight > wrapperNode.clientHeight;
-    hasHorizontalScroll = wrapperNode.scrollWidth > wrapperNode.clientWidth;
+    hasVerticalScroll = wrapperNode.scrollHeight > (wrapperNode.clientHeight + hx.scrollbarSize());
+    hasHorizontalScroll = wrapperNode.scrollWidth > (wrapperNode.clientWidth + hx.scrollbarSize());
     heightScrollbarOffset = hasHorizontalScroll ? hx.scrollbarSize() : 0;
     widthScrollbarOffset = hasVerticalScroll ? hx.scrollbarSize() : 0;
     wrapperBox = wrapper.box();
@@ -19532,8 +19551,10 @@ FileInput = (function(superClass) {
     });
     input.on('change', (function(_this) {
       return function(e) {
-        handleFiles(fileListToMap(e.target.files, acceptedExtensions, _this, resolvedOptions));
-        return input.value('');
+        if (e.target.files.length) {
+          handleFiles(fileListToMap(e.target.files, acceptedExtensions, _this, resolvedOptions));
+          return input.value('');
+        }
       };
     })(this));
     this._ = {
@@ -20519,7 +20540,6 @@ hx.inlinePicker = function(options) {
 hx.InlinePicker = InlinePicker;
 
 })();
-
 
 (function(){
 var Meter,
