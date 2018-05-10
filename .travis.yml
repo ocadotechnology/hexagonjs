@@ -14,7 +14,7 @@ stages:
   - test
 
   - name: publish module
-    if: tag IS present AND branch = master AND repo = ocadotechnology/hexagonjs
+    if: tag IS present AND repo = ocadotechnology/hexagonjs
 
   - name: publish pages
     if: branch = master AND repo = ocadotechnology/hexagonjs AND NOT type = pull_request
