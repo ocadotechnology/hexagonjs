@@ -1,11 +1,11 @@
 @version 0.12.4
   @example
-    @html
+    @@html
       <div id="buttonGroup1"></div>
       <br>
       <div id="buttonGroup2"></div>
 
-    @js
+    @@js
       buttonGroup = new hx.ButtonGroup('#buttonGroup1')
       buttonGroup.items(['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other']);
 

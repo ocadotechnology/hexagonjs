@@ -12,10 +12,10 @@
       The following example sets up an empty drawing
 
       @example
-        @html
+        @@html
           <div id="empty-drawing"></div>
 
-        @js
+        @@js
           var drawing = new hx.Drawing('#empty-drawing');
 
       Pretty boring, right?
@@ -27,10 +27,10 @@
       Adding a rectangle to the drawing is almost as easy.
 
       @example
-        @html
+        @@html
           <div id="rectangle-drawing"></div>
 
-        @js
+        @@js
           var drawing = new hx.Drawing('#rectangle-drawing');
 
           var rect = drawing.create('rectangle');
@@ -50,10 +50,10 @@
       Enabling mouse and touch controls can be done with the enablePan and enableZoom methods on the drawing object.
 
       @example
-        @html
+        @@html
           <div id="controlled-drawing"></div>
 
-        @js
+        @@js
           var drawing = new hx.Drawing('#controlled-drawing');
 
           drawing.enablePan();
@@ -100,7 +100,7 @@
       This example shows how each primitive can be created, and shows use of some of the properties.
 
       @example
-        @js
+        @@js
           var drawing = new hx.Drawing('#drawing-example');
           drawing.enablePan();
           drawing.enableZoom();
@@ -175,10 +175,10 @@
           // make the drawing fit the canvas
           drawing.show(drawing, 2);
 
-        @html
+        @@html
           <div id="drawing-example" class="docs-drawing"></div>
 
-        @css
+        @@css
           .docs-drawing {
             height: 200px;
           }
@@ -199,7 +199,7 @@
       The objects contained in the composite object can be referenced through the composite objects set and get methods.
 
       @example
-        @js
+        @@js
           var drawing = new hx.Drawing('#composite-example');
 
           drawing.enablePan();
@@ -261,7 +261,7 @@
           // make the drawing fit the canvas
           drawing.show(drawing, 1.5);
 
-        @html
+        @@html
           <div id="composite-example" class="docs-drawing"></div>
 
   @section Camera Manipulation
@@ -334,10 +334,10 @@
       <div class="hx-section hx-medium">
       @section Static
         @example
-          @html
+          @@html
             <div id="basic-drawing"></div>
 
-          @js
+          @@js
             var drawing = new hx.Drawing('#basic-drawing');
 
             var colors = [
@@ -374,10 +374,10 @@
       <div class="hx-section hx-medium">
       @section Animated
         @example
-          @html
+          @@html
             <div id="animated-drawing"></div>
 
-          @js
+          @@js
             var drawing = new hx.Drawing('#animated-drawing');
 
             var colors = [
@@ -433,10 +433,10 @@
     @section Making objects selectable
 
       @example
-        @html
+        @@html
           <div id="selection-example" class="docs-drawing"></div>
 
-        @js
+        @@js
           var drawing = new hx.Drawing('#selection-example');
           drawing.enablePan();
           drawing.enableZoom();
@@ -530,10 +530,10 @@
       Example: try searching for circle-1, circle-2 or circle-3 in this drawing:
 
       @example
-        @html
+        @@html
           <div id="search-example" class="docs-drawing"></div>
 
-        @js
+        @@js
           var drawing = new hx.Drawing('#search-example');
           drawing.enablePan();
           drawing.enableZoom();
@@ -582,11 +582,11 @@
       The following example allows you to toggle between two layers which show alternative views of something:
 
       @example
-        @html
+        @@html
           <button id="toggle" class="hx-btn hx-btn-toggle hx-positive">Toggle Layers</button>
           <div id="layers-example" class="docs-drawing"></div>
 
-        @js
+        @@js
           var drawing = new hx.Drawing('#layers-example');
 
           var colors = [
@@ -648,10 +648,10 @@
       The visibility of a layer can also be linked to the zoom level of the camera. This make it possible to create diagrams which reveal more detail when zoomed in close, and show an overview when zoomed out.
 
       @example
-        @html
+        @@html
           <div id="layers-zoom-example" class="docs-drawing"></div>
 
-        @js
+        @@js
           var drawing = new hx.Drawing('#layers-zoom-example');
 
           var colors = [

@@ -1,6 +1,6 @@
 @version 0.15.2
   @example
-    @html
+    @@html
       <h1>h1</h1>
       <h2>h2</h2>
       <h3>h3</h3>

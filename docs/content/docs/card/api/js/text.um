@@ -4,10 +4,10 @@
 
   @extra
     @example
-      @html
+      @@html
         <div id="text-example"></div>
 
-      @js
+      @@js
         hx.select('#text-example')
           .add(hx.card()
             .add(hx.card.section()

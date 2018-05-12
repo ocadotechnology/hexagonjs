@@ -7,7 +7,7 @@
 .sass-cache
 .idea
 /debug
-/npm-debug.log
-/node_modules
-/target
-/coverage
+npm-debug.log
+node_modules
+target
+coverage

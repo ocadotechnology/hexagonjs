@@ -47,12 +47,12 @@
 
     @subsection Regular link
       @example
-        @html
+        @@html
           <a class="hx-btn" href="https://hexagonks.io">Link to hexagonjs.io</a>
 
     @subsection Result when printing with print script on the page
       @example
-        @html
+        @@html
           <a class="hx-btn" href="https://hexagonjs.io/">Link to hexagonjs.io<sup class="hx-footnote-ref hx-print-only">[1]</sup></a>
 
     @subsection Footer
@@ -60,7 +60,7 @@
       appended to the page:
 
       @example
-        @html
+        @@html
           <div class="hx-footnote-links hx-print-only">
             <hr>
             <h2>Links</h2>

@@ -74,7 +74,7 @@
             Added a dropdownOptions object to the picker options to allow the setting of all the dropdown options.
 
         @description
-          The options to use for the dropdown. See the  See the @link(../dropdown/)[dropdown] constructor for the available options.
+          The options to use for the dropdown. See the  See the @hyperlink(../dropdown/)[dropdown] constructor for the available options.
 
       @property disabled [Boolean]
         @added 0.15.2

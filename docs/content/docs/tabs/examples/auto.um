@@ -1,7 +1,7 @@
 @version 0.9.0
   @examples
     @example
-      @html
+      @@html
         <div id="tabs" class="hx-tabs">
           <div id="tab1" class="hx-tab hx-positive" data-content="tab-content-1">Tab 1</div>
           <div id="tab2" class="hx-tab hx-warning" data-content="tab-content-2">Tab 2</div>
@@ -13,11 +13,11 @@
           </div>
         </div>
 
-      @js
+      @@js
         var tabs = new hx.Tabs('#tabs');
 
     @example
-      @html
+      @@html
         <div id="tabs2" class="hx-tabs">
           <div id="tab1" class="hx-tab">Tab 1</div>
           <div id="tab2" class="hx-tab hx-positive">Tab 2</div>
@@ -28,7 +28,7 @@
           <div class="hx-tabs-content" style="padding: 1em;"></div>
         </div>
 
-      @js
+      @@js
         var tabs = new hx.Tabs('#tabs2');
 
         tabs.on('change', function(data){
@@ -42,7 +42,7 @@
 @version 1.0.0
   @examples
     @example
-      @html
+      @@html
         <div id="tabs" class="hx-tabs">
           <div id="tab1" class="hx-tab hx-positive" data-content="tab-content-1">Tab 1</div>
           <div id="tab2" class="hx-tab hx-warning" data-content="tab-content-2">Tab 2</div>
@@ -54,11 +54,11 @@
           </div>
         </div>
 
-      @js
+      @@js
         var tabs = new hx.Tabs('#tabs');
 
     @example
-      @html
+      @@html
         <div id="tabs-script" class="hx-tabs">
           <div id="tab1" class="hx-tab">Tab 1</div>
           <div id="tab2" class="hx-tab hx-action">Tab 2</div>
@@ -70,7 +70,7 @@
           <div class="hx-tabs-content" style="padding: 1em;"></div>
         </div>
 
-      @js
+      @@js
         var tabs = new hx.Tabs('#tabs-script');
 
         tabs.on('change', function(data){

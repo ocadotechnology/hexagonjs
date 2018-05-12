@@ -2,7 +2,7 @@
 @inline /templates/versioned-page.um
 
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
   @title Click Detector
   @description
     Provides a way to listen for clicks outside an element.

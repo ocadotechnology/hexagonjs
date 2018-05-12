@@ -271,7 +271,7 @@
             Use @code[dropdownOptions.align] instead.
 
         @description
-          The alignment to use for the menu - see the @link(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
+          The alignment to use for the menu - see the @hyperlink(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
 
       @property mode [String]
         @deprecated 0.15.0
@@ -283,7 +283,7 @@
             Use @code[dropdownOptions.mode] instead.
 
         @description
-          The mode to use for showing the dropdown - see the @link(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
+          The mode to use for showing the dropdown - see the @hyperlink(../dropdown)[Dropdown] docs for the values that can be set here and the default value.
 
       @property ddClass [String]
         @deprecated 0.15.0
@@ -319,7 +319,7 @@
             Added a dropdownOptions object to the menu options to allow the setting of all the dropdown options.
 
         @description
-          The options to use for the dropdown. See the  See the @link(../dropdown/)[dropdown] constructor for the available options.
+          The options to use for the dropdown. See the  See the @hyperlink(../dropdown/)[dropdown] constructor for the available options.
 
       @property disabled [Boolean]
         @added 0.15.2

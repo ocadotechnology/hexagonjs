@@ -127,5 +127,5 @@
 
       @property validity
         @description
-          The @link(https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)[validity state] that the element is in.
+          The @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)[validity state] that the element is in.
 

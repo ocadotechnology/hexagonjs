@@ -2,10 +2,10 @@
 @inline /templates/versioned-page.um
 
 @topSection
-  @source [https://github.com/ocadotechnology/hexagonjs-site/tree/master/docs/{{filename}}]: Edit Page
+  @source [{{editPageUrl}}]: Edit Page
   @title Sidebar
   @description
-    A sidebar component, that can be used as an alternative to the titlebar linkbar. See @link(/demo/dashboard)[this] demo for a full working example.
+    A sidebar component, that can be used as an alternative to the titlebar linkbar.
 
 
 @contentSection

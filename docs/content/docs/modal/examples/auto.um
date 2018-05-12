@@ -1,10 +1,10 @@
 @version 0.14.0
   @examples
     @example
-      @html
+      @@html
         <button id="show-modal" class="hx-btn hx-positive">Show Modal</button>
 
-      @js
+      @@js
         var setupModal = function(element){
           elem = hx.select(element).closest('.hx-modal-container').select('.hx-modal-title').classed('hx-background-warning', true)
           elem.select('.hx-btn').classed('hx-warning', true)
@@ -21,10 +21,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog" class="hx-btn hx-positive">Show Dialog</button>
 
-      @js
+      @@js
         // callback function - val will be true/false by default.
         var dialogCallback = function(val){
           if (val){
@@ -40,10 +40,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog-buttons" class="hx-btn hx-positive">Show Dialog with Buttons</button>
 
-      @js
+      @@js
         // buttons to use in modal
         var buttons = [
           { text: "Green",  classes: "hx-btn hx-positive", value: 0 },
@@ -77,10 +77,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-input" class="hx-btn hx-positive">Show input dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-input').on('click', function(){
 
@@ -98,13 +98,13 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-positive" class="hx-btn hx-positive">Show positive dialog</button>
         <button id="show-modal-warning" class="hx-btn hx-warning">Show warning dialog</button>
         <button id="show-modal-negative" class="hx-btn hx-negative">Show negative dialog</button>
         <button id="show-modal-info" class="hx-btn hx-info">Show info dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-warning').on('click', function(){
 
@@ -141,10 +141,10 @@
 @version 0.9.0
   @examples
     @example
-      @html
+      @@html
         <button id="show-modal" class="hx-btn hx-positive">Show Modal</button>
 
-      @js
+      @@js
         var setupModal = function(element){
           hx.select(element)
             .append('div')
@@ -158,10 +158,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog" class="hx-btn hx-positive">Show Dialog</button>
 
-      @js
+      @@js
         // callback function - val will be true/false by default.
         var dialogCallback = function(val){
           if (val){
@@ -177,10 +177,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog-buttons" class="hx-btn hx-positive">Show Dialog with Buttons</button>
 
-      @js
+      @@js
         // buttons to use in modal
         var buttons = [
           { text: "Green",  classes: "hx-btn hx-positive", value: 0 },
@@ -212,10 +212,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-input" class="hx-btn hx-positive">Show input dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-input').on('click', function(){
 
@@ -235,10 +235,10 @@
 @version 0.11.0
   @examples
     @example
-      @html
+      @@html
         <button id="show-modal" class="hx-btn hx-positive">Show Modal</button>
 
-      @js
+      @@js
         var setupModal = function(element){
           elem = hx.select(element).closest('.hx-modal-container').select('.hx-modal-title').classed('hx-background-warning', true)
           elem.select('.hx-btn').classed('hx-warning', true)
@@ -256,10 +256,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog" class="hx-btn hx-positive">Show Dialog</button>
 
-      @js
+      @@js
         // callback function - val will be true/false by default.
         var dialogCallback = function(val){
           if (val){
@@ -275,10 +275,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog-buttons" class="hx-btn hx-positive">Show Dialog with Buttons</button>
 
-      @js
+      @@js
         // buttons to use in modal
         var buttons = [
           { text: "Green",  classes: "hx-btn hx-positive", value: 0 },
@@ -310,10 +310,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-input" class="hx-btn hx-positive">Show input dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-input').on('click', function(){
 
@@ -331,13 +331,13 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-positive" class="hx-btn hx-positive">Show positive dialog</button>
         <button id="show-modal-warning" class="hx-btn hx-warning">Show warning dialog</button>
         <button id="show-modal-negative" class="hx-btn hx-negative">Show negative dialog</button>
         <button id="show-modal-info" class="hx-btn hx-info">Show info dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-warning').on('click', function(){
 
@@ -362,10 +362,10 @@
 @version 0.13.0
   @examples
     @example
-      @html
+      @@html
         <button id="show-modal" class="hx-btn hx-positive">Show Modal</button>
 
-      @js
+      @@js
         var setupModal = function(element){
           elem = hx.select(element).closest('.hx-modal-container').select('.hx-modal-title').classed('hx-background-warning', true)
           elem.select('.hx-btn').classed('hx-warning', true)
@@ -382,10 +382,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog" class="hx-btn hx-positive">Show Dialog</button>
 
-      @js
+      @@js
         // callback function - val will be true/false by default.
         var dialogCallback = function(val){
           if (val){
@@ -401,10 +401,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog-buttons" class="hx-btn hx-positive">Show Dialog with Buttons</button>
 
-      @js
+      @@js
         // buttons to use in modal
         var buttons = [
           { text: "Green",  classes: "hx-btn hx-positive", value: 0 },
@@ -438,10 +438,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-input" class="hx-btn hx-positive">Show input dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-input').on('click', function(){
 
@@ -459,13 +459,13 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-positive" class="hx-btn hx-positive">Show positive dialog</button>
         <button id="show-modal-warning" class="hx-btn hx-warning">Show warning dialog</button>
         <button id="show-modal-negative" class="hx-btn hx-negative">Show negative dialog</button>
         <button id="show-modal-info" class="hx-btn hx-info">Show info dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-warning').on('click', function(){
 
@@ -502,10 +502,10 @@
 @version 1.0.0
   @examples
     @example
-      @html
+      @@html
         <button id="show-modal" class="hx-btn hx-positive">Show Modal</button>
 
-      @js
+      @@js
         var setupModal = function (node) {
           hx.select(node).text('Modal Text')
         }
@@ -517,10 +517,10 @@
         })
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog" class="hx-btn hx-positive">Show Dialog</button>
 
-      @js
+      @@js
         // callback function - val will be true/false by default.
         var dialogCallback = function(val){
           if (val){
@@ -536,10 +536,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-dialog-buttons" class="hx-btn hx-positive">Show Dialog with Buttons</button>
 
-      @js
+      @@js
         // buttons to use in modal
         var buttons = [
           { text: "Green",  classes: "hx-btn hx-positive", value: 0 },
@@ -573,10 +573,10 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-input" class="hx-btn hx-positive">Show input dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-input').on('click', function(){
 
@@ -594,13 +594,13 @@
         });
 
     @example
-      @html
+      @@html
         <button id="show-modal-positive" class="hx-btn hx-positive">Show positive dialog</button>
         <button id="show-modal-warning" class="hx-btn hx-warning">Show warning dialog</button>
         <button id="show-modal-negative" class="hx-btn hx-negative">Show negative dialog</button>
         <button id="show-modal-info" class="hx-btn hx-info">Show info dialog</button>
 
-      @js
+      @@js
         // show the modal when the button is clicked
         hx.select('#show-modal-warning').on('click', function () {
           // callback function - val will be defined if sumbit was
