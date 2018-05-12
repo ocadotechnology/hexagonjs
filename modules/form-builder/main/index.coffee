@@ -1,26 +1,41 @@
-hx.userFacingText({
+import { userFacingText } from 'user-facing-text/main'
+import { EventEmitter } from 'event-emitter/main'
+import { Map as HMap } from 'map/main'
+import { randomId, merge, isArray } from 'utils/main'
+import { select, detached, span } from 'selection/main'
+import { Autocomplete } from 'autocomplete/main'
+import { Picker } from 'picker/main'
+import { AutocompletePicker } from 'autocomplete-picker/main'
+import { DatePicker } from 'date-picker/main'
+import { TimePicker } from 'time-picker/main'
+import { DateTimePicker } from 'date-time-picker/main'
+import { TagInput } from 'tag-input/main'
+import { FileInput } from 'file-input/main'
+import { validateForm } from 'form/main'
+
+userFacingText({
   form: {
     pleaseSelectAValue: 'Please select a value from the list'
   }
 })
 
-class Form extends hx.EventEmitter
+class Form extends EventEmitter
   constructor: (@selector) ->
     super()
-    hx.component.register(@selector, this)
 
-    @formId = "form-"+hx.randomId() + '-'
-    @properties = new hx.Map
-    hx.select(@selector)
+    @formId = "form-" + randomId() + '-'
+    @properties = new HMap
+    select(@selector)
       .classed('hx-form', true)
+      .api(this)
       .on 'keypress', 'hx.form-builder', (e) ->
-        target = hx.select(e.target || e.srcElement)
+        target = select(e.target || e.srcElement)
         if e.keyCode == 13 and target.attr('type') != 'submit' and target.attr('type') != 'textarea'
           e.preventDefault()
 
   add: (name, type, nodeType, f) ->
     id = @formId + name.split(" ").join("-")
-    entry = hx.select(@selector).append('div')
+    entry = select(@selector).append('div')
     entry.append('label').attr("for", id).text(name)
     selection = entry.append(nodeType).attr("id",id)
     extras = f.call(selection) or {}
@@ -47,7 +62,7 @@ class Form extends hx.EventEmitter
     @add name, 'text', 'input', ->
       selection = @attr('type', options.type)
       if options.autoCompleteData? and options.type isnt "password" and options.type isnt "number"
-        new hx.AutoComplete(selection.node(),
+        new Autocomplete(selection,
           options.autoCompleteData,
           options.autoCompleteOptions ?= undefined)
       if options.placeholder? then selection.attr('placeholder', options.placeholder)
@@ -104,19 +119,19 @@ class Form extends hx.EventEmitter
         .attr('type', 'button')
         .class(options.buttonClass)
 
-      pickerOptions = hx.merge({}, options.pickerOptions)
+      pickerOptions = merge({}, options.pickerOptions)
 
       if values.length > 0
         pickerOptions.items = values
 
-      picker = new hx.Picker(elem.node(), pickerOptions)
-      input = @append('input').class('hx-hidden-form-input').attr('size', 0)
+      picker = new Picker(elem.node(), pickerOptions)
+      input = @append('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
       @style('position', 'relative')
 
       picker.value(values[0]) unless typeof options.required is 'boolean'
 
       setValidity = () ->
-        input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'))
+        input.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'))
 
       if options.required
         setValidity()
@@ -126,7 +141,7 @@ class Form extends hx.EventEmitter
           else
             input.node().setCustomValidity('')
 
-      {
+      return {
         required: options.required
         componentNode: elem.node()
         key: options.key
@@ -141,19 +156,19 @@ class Form extends hx.EventEmitter
         .attr('type', 'button')
         .class(options.buttonClass)
 
-      autocompletePickerOptions = hx.merge({buttonClass: options.buttonClass}, options.autocompletePickerOptions)
+      autocompletePickerOptions = merge({buttonClass: options.buttonClass}, options.autocompletePickerOptions)
 
       if values.length > 0
         autocompletePickerOptions.items = values
 
-      autocompletePicker = new hx.AutocompletePicker(elem.node(), values, autocompletePickerOptions)
+      autocompletePicker = new AutocompletePicker(elem.node(), values, autocompletePickerOptions)
       input = @append('input').class('hx-hidden-form-input').attr('size', 0)
       @style('position', 'relative')
 
       autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'
 
       setValidity = () ->
-        input.node().setCustomValidity(hx.userFacingText('form', 'pleaseSelectAValue'))
+        input.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'))
 
       if options.required
         setValidity()
@@ -163,7 +178,7 @@ class Form extends hx.EventEmitter
           else
             input.node().setCustomValidity('')
 
-      {
+      return {
         required: options.required
         componentNode: elem.node()
         key: options.key
@@ -177,7 +192,8 @@ class Form extends hx.EventEmitter
       @attr('type', 'checkbox')
       if options.required? then @attr('required', options.required)
       if options.value then @attr('checked', true)
-      {
+
+      return {
         required: options.required
         key: options.key
         hidden: options.hidden
@@ -197,7 +213,7 @@ class Form extends hx.EventEmitter
         selection.append('label').attr("for", id + "-" + count).text(value)
         count += 1
 
-      {
+      return {
         required: options.required
         key: options.key
         hidden: options.hidden
@@ -210,7 +226,7 @@ class Form extends hx.EventEmitter
   addDatePicker: (name, options = {}) ->
     @add name, 'datepicker', 'div', ->
       elem = @append('div').node()
-      datepicker = new hx.DatePicker(elem, options.datePickerOptions)
+      datepicker = new DatePicker(elem, options.datePickerOptions)
 
       if options.validStart? or options.validEnd?
         datepicker.validRange(options.validStart, options.validEnd)
@@ -229,7 +245,7 @@ class Form extends hx.EventEmitter
         getValue = -> datepicker.date()
         setValue = (value) -> datepicker.date(value)
 
-      {
+      return {
         key: options.key
         componentNode: elem
         getValue: getValue
@@ -242,11 +258,11 @@ class Form extends hx.EventEmitter
   addTimePicker: (name, options = {}) ->
     @add name, 'timepicker', 'div', ->
       elem = @append('div').node()
-      timepicker = new hx.TimePicker(elem, options.timePickerOptions)
+      timepicker = new TimePicker(elem, options.timePickerOptions)
       getValue = -> timepicker.date()
       setValue = (value) -> timepicker.date(value)
 
-      {
+      return {
         key: options.key
         componentNode: elem
         getValue: getValue
@@ -259,10 +275,11 @@ class Form extends hx.EventEmitter
   addDateTimePicker: (name, options = {}) ->
     @add name, 'datetimepicker', 'div', ->
       elem = @append('div').node()
-      datetimepicker = new hx.DateTimePicker(elem, options.dateTimePickerOptions)
+      datetimepicker = new DateTimePicker(elem, options.dateTimePickerOptions)
       getValue = -> datetimepicker.date()
       setValue = (value) -> datetimepicker.date(value)
-      {
+
+      return {
         key: options.key
         componentNode: elem
         getValue: getValue
@@ -273,18 +290,19 @@ class Form extends hx.EventEmitter
       }
 
   addSubmit: (text, icon, submitAction) ->
-    hx.select(@selector).append('button')
+    select(@selector).append('button')
       .attr('type', 'submit')
       .class('hx-btn hx-action hx-form-submit')
-      .add(hx.detached('i').class(icon))
-      .add(hx.detached('span').text(" " + text))
+      .add(detached('i').class(icon))
+      .add(span().text(" " + text))
       .on 'click', 'hx.form-builder', (e) =>
         e.preventDefault()
         if submitAction?
           submitAction(this)
         else
           @submit()
-    this
+
+    return this
 
   addTagInput: (name, options = {}) ->
     self = this
@@ -294,8 +312,9 @@ class Form extends hx.EventEmitter
         options.tagInputOptions ?= {}
         options.tagInputOptions.placeholder ?= options.placeholder
 
-      tagInput = new hx.TagInput(elem, options.tagInputOptions)
-      {
+      tagInput = new TagInput(elem, options.tagInputOptions)
+
+      return {
         key: options.key
         componentNode: elem
         hidden: options.hidden
@@ -307,8 +326,8 @@ class Form extends hx.EventEmitter
     self = this
     @add name, 'fileInput', 'div', ->
       elem = @append('div').node()
-      fileInput = new hx.FileInput(elem, options.fileInputOptions)
-      {
+      fileInput = new FileInput(elem, options.fileInputOptions)
+      return {
         key: options.key
         componentNode: elem
         hidden: options.hidden
@@ -317,7 +336,7 @@ class Form extends hx.EventEmitter
       }
 
   submit: ->
-    {valid, errors} = hx.validateForm(@selector)
+    {valid, errors} = validateForm(@selector)
     if valid then @emit('submit', @data())
     this
 
@@ -333,28 +352,28 @@ class Form extends hx.EventEmitter
       result
 
   hidden: (property, hidden) ->
-    if hx.isArray(property)
+    if isArray(property)
       res = property.map (prop) => @hidden(prop, hidden)
       if hidden? then this else res
     else if @properties.has(property)
       prop = @properties.get(property)
       if hidden?
         prop.hidden = hidden
-        hx.select(prop.node.parentNode).style('display', if hidden then 'none' else '')
+        select(prop.node.parentNode).style('display', if hidden then 'none' else '')
         @properties.set(property, prop)
         this
       else
         !!prop.hidden
 
   disabled: (property, disabled) ->
-    if hx.isArray(property)
+    if isArray(property)
       res = property.map (prop) => @disabled(prop, disabled)
       if disabled? then this else res
     else if @properties.has(property)
       prop = @properties.get(property)
       if disabled?
         prop.disabled = disabled
-        prop.extras.disable(hx.select(prop.node), disabled)
+        prop.extras.disable(select(prop.node), disabled)
         @properties.set(property, prop)
         this
       else
@@ -371,7 +390,7 @@ class Form extends hx.EventEmitter
         if node.setCustomValidity
           node.setCustomValidity(value)
         else
-          hx.select(node).selectAll('input').nodes.map (e) ->
+          select(node).selectAll('input').nodes.map (e) ->
             e.setCustomValidity(value)
       this
     else
@@ -379,7 +398,7 @@ class Form extends hx.EventEmitter
         if node.setCustomValidity
           node.validationMessage
         else
-          hx.select(node).select('input').node.validationMessage
+          select(node).select('input').node.validationMessage
 
 
   value: (property, value) ->
@@ -388,32 +407,34 @@ class Form extends hx.EventEmitter
       node = it.node
       if arguments.length > 1
         switch it.type
-          when 'checkbox' then hx.select(node).prop('checked', value)
-          when 'radio' then hx.select(node).selectAll('input').filter((d) -> d.value() is value).prop('checked', true)
+          when 'checkbox' then select(node).prop('checked', value)
+          when 'radio' then select(node).selectAll('input').filter((d) -> d.value() is value).prop('checked', true)
           when 'fileInput'
             # You cannot set the value for a file input
-            fileInput = hx.component(it.extras.componentNode or node)
+            fileInput = select(it.extras.componentNode or node).api()
             fileInput.value(value)
-          when 'tagInput' then hx.component(it.extras.componentNode or node).items(value)
-          when 'select' then hx.component(it.extras.componentNode or node).value(value)
+          when 'tagInput' then select(it.extras.componentNode or node).items(value).api()
+          when 'select' then select(it.extras.componentNode or node).value(value).api()
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
-          else hx.select(node).value(value)
+          else select(node).value(value)
       else
         if not it.hidden
           value = switch it.type
-            when 'checkbox' then hx.select(it.node).prop('checked')
-            when 'radio' then hx.select(it.node).select('input:checked').value()
-            when 'tagInput' then hx.component(it.extras.componentNode or it.node).items()
-            when 'fileInput' then hx.component(it.extras.componentNode or it.node).value()
-            when 'select' then hx.component(it.extras.componentNode or it.node).value()
+            when 'checkbox' then select(it.node).prop('checked')
+            when 'radio' then select(it.node).select('input:checked').value()
+            when 'tagInput' then select(it.extras.componentNode or it.node).items().api()
+            when 'fileInput' then select(it.extras.componentNode or it.node).value().api()
+            when 'select' then select(it.extras.componentNode or it.node).value().api()
             when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.getValue()
-            else hx.select(it.node).value()
+            else select(it.node).value()
           return value
 
   component: (property) ->
     if (prop = @properties.get(property))?
       node = prop.extras.componentNode or prop.node
       if node?
-        hx.component(node)
+        select(node).api()
 
-hx.Form = Form
+export {
+  Form
+}
