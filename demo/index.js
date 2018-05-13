@@ -32,6 +32,7 @@ import paginatorExamples from './examples/paginator'
 import sideCollapsibleExamples from './examples/side-collapsible'
 import datePickerExamples from './examples/date-picker'
 import pivotTableExamples from './examples/pivot-table'
+import timePickerExamples from './examples/time-picker'
 
 function example(title) {
   return div('example-section')
@@ -72,5 +73,6 @@ select('body')
     example('Paginator').add(paginatorExamples()),
     example('Side Collapsible').add(sideCollapsibleExamples()),
     example('Date Picker').add(datePickerExamples()),
-    example('Pivot Table').add(pivotTableExamples())
+    example('Pivot Table').add(pivotTableExamples()),
+    example('Time Picker').add(timePickerExamples())
   ]))

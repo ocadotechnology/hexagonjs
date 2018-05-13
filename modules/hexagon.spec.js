@@ -55,6 +55,7 @@ import timeSliderTests from './time-slider/test/spec'
 import sideCollapsibleTests from './side-collapsible/test/spec'
 import datePickerTests from './date-picker/test/spec'
 import pivotTableTests from './pivot-table/test/spec'
+import timePickerTests from './time-picker/test/spec'
 // import formBuilderTests from './form-builder/test/spec'
 
 should()
@@ -238,7 +239,9 @@ describe('HexagonJS Test Suite', () => {
         'datePicker',
         'DatePicker',
         'pivotTable',
-        'PivotTable'
+        'PivotTable',
+        'timePicker',
+        'TimePicker'
         // 'Form'
       ]
 
@@ -306,11 +309,9 @@ describe('HexagonJS Test Suite', () => {
   sideCollapsibleTests()
   datePickerTests()
   pivotTableTests()
+  timePickerTests()
   // formBuilderTests()
 
-  // require('modules/button-group/test/spec')
-  // require('modules/date-picker/test/spec')
-  // require('modules/time-picker/test/spec')
   // require('modules/tag-input/test/spec')
   // require('modules/date-time-picker/test/spec')
   //

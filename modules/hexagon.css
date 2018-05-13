@@ -548,4 +548,12 @@
   --date-picker-today-background-color: #E6E6E6;
   --date-picker-today-text-color: var(--theme-default-text-color);
 
+  /* Time Picker */
+  --time-picker-input-background-color: #FFF;
+  --time-picker-border-color: #E4E4E4;
+  --time-picker-icon-background-color: #5C5C5C;
+  --time-picker-icon-color: white;
+  --time-picker-error-background-color: #FCBFBF;
+  --time-picker-error-outline-color: #DE1A4A;
+
 }

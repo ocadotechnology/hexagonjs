@@ -1,0 +1,14 @@
+.hx-time-picker {
+  background: var(--time-picker-input-background-color);
+  border-color: var(--time-picker-border-color);
+}
+
+.hx-time-picker .hx-icon {
+  background: var(--time-picker-icon-background-color);
+  color: var(--time-picker-icon-color);
+}
+
+.hx-time-picker.hx-time-error {
+  background: var(--time-picker-error-background-color);
+  outline: solid 1px var(--time-picker-error-outline-color);
+}

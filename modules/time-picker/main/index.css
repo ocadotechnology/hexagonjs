@@ -6,16 +6,17 @@
   vertical-align: middle;
   padding: 0;
   border: solid 1px transparent;
-
-  .hx-icon {
-    padding: 0.5em;
-    border-radius: 2px 0 0 2px;
-  }
-
-  .hx-time-input-container {
-    line-height: 2em;
-  }
 }
+
+.hx-time-picker .hx-icon {
+  padding: 0.5em;
+  border-radius: 2px 0 0 2px;
+}
+
+.hx-time-picker .hx-time-input-container {
+  line-height: 2em;
+}
+
 
 .hx-time-input {
   outline: none;
@@ -29,15 +30,15 @@
   background: none;
   text-align: center;
   -webkit-appearance: none;
+}
 
-  &.hx-short-time {
-    width: 3.5em;
-  }
+.hx-time-input.hx-short-time {
+  width: 3.5em;
+}
 
-  &:focus,
-  &:active {
-    border: none;
-    outline: none;
-    background: none;
-  }
+.hx-time-input:focus,
+.hx-time-input:active {
+  border: none;
+  outline: none;
+  background: none;
 }
