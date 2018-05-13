@@ -22,6 +22,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .top-landing-section__logo {
   height: 30vh;
+  max-height: 300px;
   width: auto !important;
 }
 
@@ -96,6 +97,7 @@ h1,h2,h3,h4,h5,h6 {
 .preprocessor-logo {
   display: inline-block;
   height: 10vh;
+  max-height: 80px;
   vertical-align: middle;
   width: auto;
 }

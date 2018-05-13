@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.14.0
+ Version: 1.15.0
  Theme: hexagon-light
  Modules:
    set
@@ -53,6 +53,7 @@
    drag-container
    layout
    fluid
+   logo
    progress-bar
    plot
    button-group
@@ -80,7 +81,6 @@
    inline-editable
    inline-picker
    label
-   logo
    meter
    notice
    paginator
@@ -109,7 +109,7 @@
   border: 0.2em solid #00ADA8;
   border-right-color: transparent; }
 
-.hx-spinner-wide::after {
+.hx-spinner-wide:before {
   background: #00ADA8; }
 
 
@@ -776,6 +776,7 @@ hr {
   border-left: solid 1px #D0D0D0; }
 
 
+
 .hx-progress-bar {
   border-color: none;
   border-width: 0;
@@ -1005,6 +1006,7 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 
 .hx-titlebar-header {
   max-height: 46px;
+  height: 0;
   min-height: 46px; }
 
 .hx-titlebar-title {
@@ -1307,7 +1309,6 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 .hx-label.hx-contrast {
   background: #4A4E4E;
   color: #F3F3F3; }
-
 
 
 .hx-notice {

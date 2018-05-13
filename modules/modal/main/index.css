@@ -48,7 +48,7 @@ body.hx-modal-open .hx-content {
 .hx-modal-title {
   padding: 0.8em;
   position: relative;
-  flex: 1;
+  flex: 1 1 auto;
 }
 
 .hx-modal-title > i:first-child {

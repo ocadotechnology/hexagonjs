@@ -425,3 +425,7 @@
     @version 1.14.0
       @description
         Deprecated @code[hx.Meter] and fixed a few bugs.
+
+    @version 1.15.0
+      @description
+        Fixed several issues with IE to provide more support for IE/Edge

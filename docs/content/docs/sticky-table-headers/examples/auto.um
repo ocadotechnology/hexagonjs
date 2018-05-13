@@ -1,9 +1,6 @@
 @version 0.12.6
   @examples
     @example
-      @@js
-        new hx.StickyTableHeaders('#table')
-
       @@html
         <div id="table" class="example-table">
           <table class="hx-table">
@@ -475,6 +472,9 @@
             </tbody>
           </table>
         </div>
+
+      @@js
+        new hx.StickyTableHeaders('#table')
 
       @@css
         .example-table {

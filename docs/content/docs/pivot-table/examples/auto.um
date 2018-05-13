@@ -1,6 +1,13 @@
 @version 0.12.6
   @examples
     @example
+      @@html
+        <div id="table1"></div>
+        <br>
+        <div id="table2"></div>
+        <br>
+        <div id="table3"></div>
+
       @@js
         var pivotTable1 = new hx.PivotTable('#table1')
         var pivotTable2 = new hx.PivotTable('#table2')
@@ -90,6 +97,10 @@
         pivotTable2.setData(data2)
         pivotTable3.setData(data3)
 
+
+@version 0.13.0
+  @examples
+    @example
       @@html
         <div id="table1"></div>
         <br>
@@ -97,9 +108,6 @@
         <br>
         <div id="table3"></div>
 
-@version 0.13.0
-  @examples
-    @example
       @@js
         var pivotTable1 = new hx.PivotTable('#table1')
         var pivotTable2 = new hx.PivotTable('#table2')
@@ -189,16 +197,19 @@
         pivotTable2.data(data2)
         pivotTable3.data(data3)
 
+
+@version 1.12.0
+  @examples
+    @example
       @@html
         <div id="table1"></div>
         <br>
         <div id="table2"></div>
         <br>
         <div id="table3"></div>
+        <br>
+        <div id="table4"></div>
 
-@version 1.12.0
-  @examples
-    @example
       @@js
         var pivotTable1 = new hx.PivotTable('#table1')
         var pivotTable2 = new hx.PivotTable('#table2')
@@ -289,13 +300,3 @@
         pivotTable2.data(data2)
         pivotTable3.data(data3)
         pivotTable4.data(data1)
-
-      @@html
-        <div id="table1"></div>
-        <br>
-        <div id="table2"></div>
-        <br>
-        <div id="table3"></div>
-        <br>
-        <div id="table4"></div>
-

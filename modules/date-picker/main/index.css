@@ -50,6 +50,12 @@
   background: none;
 }
 
+.hx-date-input::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 .hx-date-input.hx-date-error {
   outline: 1px solid transparent;
 }
@@ -94,7 +100,7 @@
 
 .hx-date-picker-calendar .hx-calendar-today-btn .hx-btn {
   font-size: 0.8em;
-  flex: 1;
+  flex: 1 1 auto;
   font-weight: bold;
 }
 
@@ -106,7 +112,8 @@
 }
 
 .hx-date-picker-calendar .hx-grid-row .hx-grid {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 1.2em;
 }
 
 .hx-date-picker-calendar .hx-grid-row.hx-grid-row-heading {

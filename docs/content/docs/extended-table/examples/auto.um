@@ -72,3 +72,6 @@
         var table = new hx.Table('#example', {showSelection: true});
         table.setData(data);
 
+@version 1.0.0
+  @examples
+    @removed 1.0.0

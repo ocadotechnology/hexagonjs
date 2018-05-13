@@ -162,8 +162,9 @@ class FileInput extends hx.EventEmitter
     })
 
     input.on 'change', (e) =>
-      handleFiles fileListToMap(e.target.files, acceptedExtensions, this, resolvedOptions)
-      input.value('')
+      if (e.target.files.length)
+        handleFiles fileListToMap(e.target.files, acceptedExtensions, this, resolvedOptions)
+        input.value('')
 
     @_ =
       options: resolvedOptions

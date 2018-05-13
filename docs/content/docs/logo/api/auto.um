@@ -1,7 +1,35 @@
-@class hx-logo
+@class img.hx-logo
   @added 1.0.0
     @description
       Added a new class to allow the addition of the theme logo in places other than the titlebar.
 
+  @deprecated 1.15.0
+    @description
+      Fixed an issue with IE support of the logo by changing the @code[<img>]
+      tags to @code[<div>] tags.
+
+      Unsupported tags will be auto-converted to @code[<div>] tags until support
+      for @code[<img>] tags is removed.
+
   @description
-    The class to give to an @code[<img>] tag to add the theme logo to the page, e.g. @code[<img class="hx-logo" />] 
+    The class to give to an @code[<img>] tag to add the theme logo to the
+    page, e.g.
+
+    @codeblock html
+      <img class="hx-logo" />
+
+
+@class div.hx-logo
+  @added 1.15.0
+    @description
+      Fixed an issue with IE support of the logo by changing the @code[<img>]
+      tags to @code[<div>] tags.
+
+  @description
+    The class to give to a @code[<div>] to add the theme logo to the
+    page, e.g.
+
+    @codeblock html
+      <div class="hx-logo"></div>
+
+    This div should always be empty.

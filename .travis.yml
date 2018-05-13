@@ -14,7 +14,7 @@ stages:
   - test
 
   - name: publish module
-    if: tag IS present AND branch = master AND repo = ocadotechnology/hexagonjs
+    if: tag IS present AND repo = ocadotechnology/hexagonjs
 
   - name: publish pages
     if: branch = master AND repo = ocadotechnology/hexagonjs AND NOT type = pull_request
@@ -30,6 +30,8 @@ jobs:
     deploy:
       provider: npm
       email: hexagonjs.ci.noreply@ocado.com
+      on:
+        tags: true
       api_key:
         secure: GpXKIC946J3acPqCmUCMUa+/g6vHh0mSkAw0ut7HpLYUBpUnNKZGHNePevOum/jxeAjMQOSAIlUW9nWo2A9wkrx7hV7mwIhTOhIQiSqGrQ/kOyAEWNXWGgrKSlzbEyOzUVJfSfesfPgGSc2gO6JjgCFuxgi7nEMrjyUdCf5Vl7lYq6HqQtbO3wcguDtq9lYbxwZ4PoDf8bN2j2aanj/Fk9KcyqAdIrUdRmOq5U3k0BcaQg31w1iaOPr4ES3UoxN/QCa+m+5ZqBYdt2Ekms7Hb8rukneTV94XaaRT2qmdQAAZfi7X66yO/z14nlpEO3z+i5kYeutdw7KoTVNhKCmbrscTB+pJ6agGk7pZkrEAlRH3DIo9k3VPo/GeifflpUWZXvQwzfEq3iaO6XtgN63NITMcuhXqykjk+u2DSCUhyiNuwf/WYlbAJWp+vYo+fnHQGpt/jRAedVPFad+NDfbJxUXluEnMCE1ujpflyIXdab3yZFrO5Hg36xdwd2tq3vAXRm/3R39h38EMLn1DkD9O5OWY0AkbXfzLLtYydmD8JHOXD9R8yzeaudcQi3Gkqt5K1dVqmNDsjP6eaC5aMRmUqRFTqt06wmQxS8yFSQQZCJDTIPztYmfb54icFNRAklA4I2QRKd/WGQ4PtBxnLQOa8zeuAp4T61aHxNx21Znt5Ts=
 

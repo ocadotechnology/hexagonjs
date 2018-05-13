@@ -1,3 +1,17 @@
+@version 0.9.0
+  @examples
+    @example
+      @@html
+        <div id="numberPickerExample1"></div>
+        <div id="numberPickerExample2"></div>
+
+      @@js
+        numPicker1 = new hx.NumberPicker('#numberPickerExample1');
+        numPicker2 = new hx.NumberPicker('#numberPickerExample2', 'hx-positive');
+
+        numPicker1.setValue(50);
+        numPicker2.setValue(1050);
+
 @version 0.10.0
   @examples
     @example
@@ -18,20 +32,6 @@
           .setValue(-1)
           .setMin(0)
           .setMax(10);
-
-@version 0.9.0
-  @examples
-    @example
-      @@html
-        <div id="numberPickerExample1"></div>
-        <div id="numberPickerExample2"></div>
-
-      @@js
-        numPicker1 = new hx.NumberPicker('#numberPickerExample1');
-        numPicker2 = new hx.NumberPicker('#numberPickerExample2', 'hx-positive');
-
-        numPicker1.setValue(50);
-        numPicker2.setValue(1050);
 
 @version 0.11.0
   @examples

@@ -3,6 +3,6 @@
   border-right-color: transparent;
 }
 
-.hx-spinner-wide::after {
+.hx-spinner-wide:before {
   background: var(--spinner-color);
 }

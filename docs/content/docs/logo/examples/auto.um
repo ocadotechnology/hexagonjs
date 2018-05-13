@@ -4,3 +4,8 @@
       @@html
         <img class="hx-logo" />
 
+@version 1.15.0
+  @examples
+    @example
+      @@html
+        <div class="hx-logo"></div>

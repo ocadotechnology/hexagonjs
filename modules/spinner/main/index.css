@@ -2,6 +2,7 @@
   --hx-spinner-width: 100px;
 }
 
+/* Round Loader */
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -30,31 +31,24 @@
 }
 
 @keyframes slide {
-  0% {
-    margin-left: -var(--hx-spinner-width);
-  }
-
-  100% {
-    margin-left: calc(100%);
-  }
+  from { left: -var(--hx-spinner-width); }
+  to { left: 100%; }
 }
+
 
 .hx-spinner-wide {
   height: 4px;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
-.hx-spinner-wide::after {
+.hx-spinner-wide:before {
+  animation: slide 1s linear infinite;
   content: "";
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-name: slide;
-  animation-timing-function: linear;
+  display: block;
+  position: absolute;
+  left: -var(--hx-spinner-width);
   width: var(--hx-spinner-width);
   height: 100%;
-  display: inline-block;
-  top: 0;
-  left: 0;
-  position: absolute;
 }

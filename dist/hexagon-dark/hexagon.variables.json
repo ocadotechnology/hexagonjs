@@ -217,6 +217,7 @@
     "contentBackgroundCol": "transparent"
   },
   "fluid": {},
+  "logo": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -433,7 +434,6 @@
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
-  "logo": {},
   "meter": {},
   "notice": {
     "defaultCol": "#2C3134",

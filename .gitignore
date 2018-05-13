@@ -11,3 +11,4 @@ npm-debug.log
 node_modules
 target
 coverage
+docs/resources/hexagon/nextReleaseVersion

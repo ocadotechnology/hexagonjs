@@ -181,8 +181,8 @@ export class Dropdown extends EventEmitter
       )
 
       if not parentFixed
-        x += window.scrollX
-        y += window.scrollY
+        x += window.scrollX || window.pageXOffset
+        y += window.scrollY || window.pageYOffset
 
       # update the styles for the dropdown
       if zIndex > 0

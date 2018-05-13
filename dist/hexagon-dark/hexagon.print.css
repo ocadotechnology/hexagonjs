@@ -1,23 +1,25 @@
-.hx-print-only {
-  display: none;
+@media not print {
+  .hx-print-only {
+    display: none;
+  }
 }
 
 @media print {
   /* Fix layout and font size issues with root elements */
   html,
   body {
-    height: auto;
     font-size: 12pt;
+    height: auto;
     page-break-after: avoid;
   }
 
   /* Force body to display in print-friendly mode */
   body {
     background: transparent !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
     color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
   }
 
   /* Hide elements that should not be shown when printing */
@@ -34,15 +36,11 @@
     box-shadow: none !important;
   }
 
-  .hx-print-only {
-    display: initial;
-  }
-
   .hx-footnote-ref {
-    font-size: 0.8em;
-    margin-top: -0.5em;
     display: inline-block;
+    font-size: 0.8em;
     font-style: italic;
+    margin-top: -0.5em;
   }
 
   /* Attempt prevention of page breaks inside important elements */
@@ -103,8 +101,8 @@
 
   /* Remove the margin around content as this is handled by the print margin */
   .hx-content {
-    padding: 0 !important;
     margin: 0 !important;
+    padding: 0 !important;
     width: 100% !important;
   }
 

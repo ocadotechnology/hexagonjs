@@ -10,7 +10,6 @@
 }
 
 .hx-form > button[type="submit"] {
-  display: table-row;
   margin-top: 8px;
   margin-right: 0;
 }

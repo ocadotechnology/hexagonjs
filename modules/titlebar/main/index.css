@@ -77,6 +77,7 @@ body.hx-full-width .hx-titlebar-contents {
   padding-left: 8px;
   padding-right: 8px;
   flex-shrink: 0;
+  height: 0;
 }
 
 .hx-titlebar-header a {
@@ -142,7 +143,8 @@ body.hx-full-width .hx-titlebar-contents {
   padding-right: 0.5em;
 }
 
-.hx-titlebar-icon img {
+.hx-titlebar-icon img,
+.hx-titlebar-icon div {
   vertical-align: middle;
   align-self: center;
 }
@@ -176,6 +178,7 @@ body.hx-full-width .hx-titlebar-contents {
   font-size: 1em;
   justify-content: center;
   max-width: 250px;
+  height: 0;
   min-height: 40px;
   padding-bottom: 3px;
   padding-left: 1em;
