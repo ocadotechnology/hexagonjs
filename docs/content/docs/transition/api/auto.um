@@ -56,11 +56,11 @@
         // to stop/cancel the transition, the stop function can be called:
         stop()
 
-@object ease
+@object hx.ease
   @description
     A collection of easing functions that map from domain [0, 1] to range [0, 1]
 
-  @function linear
+  @property linear [Function]
     @description
       The linear easing function is defined as
 
@@ -77,7 +77,7 @@
       @description
         A value between 0 and 1
 
-  @function quad
+  @property quad [Function]
     @description
       The quadratic easing function is defined as
 
@@ -94,7 +94,7 @@
       @description
         A value between 0 and 1
 
-  @function cubic
+  @property cubic [Function]
     @description
       The cubic easing function is defined as
 

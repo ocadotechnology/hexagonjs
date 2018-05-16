@@ -96,7 +96,7 @@
 
       This can be an object or an array of objects. If the data supplied is just an object, then a single copy of your view will be created, for that object. For arrays, there will be a view created for each element in the array. Passing in an object is the same as passing in an array containing just that object (ie an array of length 1).
 
-    @arg data [Array[Object] / Object]
+    @arg data [Object/Array[Object]]
       @description
         The data to apply to this view.
 

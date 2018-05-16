@@ -12,7 +12,7 @@
       @description
         Added the 'options' parameter to the constructor
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
 
@@ -34,7 +34,7 @@
       @description
         Added the options parameter to the constructor to allow the 'enter value' text to be set
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A CSS selector that uniquely identifies the element, or an HTMLElement.
 

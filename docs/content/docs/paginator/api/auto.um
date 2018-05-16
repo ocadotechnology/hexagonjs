@@ -19,7 +19,7 @@
     @description
       Sets up a paginator.
 
-    @arg selection [String/HTMLElement]
+    @arg selection [String/HTMLElement/Selection]
       @description
         A CSS selector or a HTMLElement that identifies the container for your paginator.
 
@@ -170,7 +170,7 @@
     @description
       Sets up a paginator.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A CSS selector or a HTMLElement that identifies the container for your paginator.
 

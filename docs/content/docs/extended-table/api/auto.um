@@ -128,7 +128,7 @@
       @default
         true
 
-    @property enabledFilters [Array]
+    @property enabledFilters [Array[Any]]
       @updated 0.9.0
       @description
         The list of filter types that will be shown in the filter dropdown if filtering is enabled.
@@ -393,7 +393,7 @@
     @description
       Creates a table object using a selector and some options.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector for the table object.
         The table is created inside this element and any additional table-classes (such as @code[hx-table] ) should be applied to this element.
@@ -407,7 +407,7 @@
     @description
       Returns the rows that have been selected in the form of an array objects with an index and data property.
 
-    @returns [Array]
+    @returns [Array[Any]]
       @description
         An array containing the rows that are selected and the index of the row in the dataset it was selected from.
 
@@ -416,7 +416,7 @@
         @description
           The index of the selected row in relation to the sorted/filtered dataset it was selected from.
 
-      @property data [Array]
+      @property data [Array[Any]]
         @added 0.10.0
         @description
           An array containing the row data as it was passed in.

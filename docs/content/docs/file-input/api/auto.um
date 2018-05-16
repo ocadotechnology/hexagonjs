@@ -21,7 +21,7 @@
     @description
       Creates a FileInput using a selector and some options.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A CSS selector string which uniquely identifies the element to create the FileInput in, or the Element to create the FileInput in.
 

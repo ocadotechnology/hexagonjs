@@ -19,7 +19,7 @@
   @extends EventEmitter
   @constructor
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A css selector or element to use when constructing the toggle
 

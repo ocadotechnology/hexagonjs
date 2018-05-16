@@ -27,7 +27,7 @@
     @description
       Creates a datepicker and a timepicker and appends them to the selected element.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to use to build the date/time picker
 
@@ -707,7 +707,7 @@
     @description
       Creates a datepicker and a timepicker and appends them to the selected element.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to use to build the date/time picker
 

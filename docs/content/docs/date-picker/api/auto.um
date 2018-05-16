@@ -73,7 +73,7 @@
       @description
         Use @code[hx.DatePicker(selector, options)] instead.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to use to build the date picker
 
@@ -669,7 +669,7 @@
       @description
         Added options for initialising the datepicker as disabled or preventing the inbuilt datepicker.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to use to build the date picker
 

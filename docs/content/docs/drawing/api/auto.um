@@ -92,7 +92,7 @@
       @default
         1
 
-    @arg? continuallyEvaluateZoom
+    @arg? continuallyEvaluateZoom [Boolean]
       @description
         Whether or not the zoom level should be re-evaluated every update when following an object.
 
@@ -217,7 +217,7 @@
         @description
           The sidebar element to populate.
 
-  @property sidebar
+  @property sidebar [Sidebar]
     @added 0.11.0
     @description
       A property that is added after the sidebar is enabled with the @code[enableSidebar] method.

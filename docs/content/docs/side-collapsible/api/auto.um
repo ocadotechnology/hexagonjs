@@ -3,7 +3,7 @@
   @description
   @extends EventEmitter
   @constructor
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
     @arg? options [Object]
       @property animate [Boolean]
         @description

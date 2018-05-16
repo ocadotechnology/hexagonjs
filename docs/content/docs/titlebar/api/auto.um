@@ -24,7 +24,7 @@
     @description
       Constructs a new TitleBar instance
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The .hx-heading section which contains the titlebar. Normally you would do something like this:
         @@codeblock js
@@ -43,7 +43,7 @@
     @description
       Sets the active titlebar link, causing the underline to show all the time instead of just when the link is hovered over.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The titlebar link to apply the selected class to. Must be a selector that returns a single node (e.g. an ID rather than a class)
 
@@ -96,7 +96,7 @@
     @description
       Sets the active titlebar link, causing the underline to show all the time instead of just when the link is hovered over.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The titlebar link to apply the selected class to. Must be a selector that returns a single node (e.g. an ID rather than a class)
 

@@ -23,7 +23,7 @@
       @description
         This constructor will still work, the ddClass parameter has been added and is optional.Added the optional 'ddClass' parameter to the constructor.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The target button to set the select up in.
 
@@ -95,7 +95,7 @@
     @description
       Creates a select element.
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The target button to set the select up in.
 
@@ -105,7 +105,7 @@
 
   @constructor
     @added 0.12.7
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The target button to set the select up in.
 
@@ -117,7 +117,7 @@
         @description
           The additional class to add to the dropdown when creating it.
 
-      @property items [Array/Function]
+      @property items [Function/Array[Any]]
         @description
           The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
@@ -174,7 +174,7 @@
     @description
       Gets the list of items that will be shown in the select dropdown, or if a function has been set it will return that.
 
-    @returns [Array[Any]/Function]
+    @returns [Function/Array[Any]]
       @description
         The currently set items.
 

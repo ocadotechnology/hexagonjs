@@ -4,7 +4,7 @@
     A wrapper around standard JavaScript Arrays, with methods for adding and removing items.
 
   @constructor
-    @arg? array [Array]
+    @arg? array [Array[Any]]
       @description
         An array containing the values to initialise the list with
 
@@ -46,7 +46,7 @@
     @description
       Returns the items in the list as an array.
 
-    @returns [Array]
+    @returns [Array[Any]]
 
   @method forEach
     @description
@@ -112,5 +112,5 @@
     @description
       Returns the items in the list as an array - does the same as entries().
 
-    @returns [Array]
+    @returns [Array[Any]]
 

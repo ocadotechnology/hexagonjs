@@ -147,7 +147,7 @@
       @description
         The item to extract the value from
 
-    @returns [item Any]
+    @returns [Any]
       @description
         The extracted item to sort by
 

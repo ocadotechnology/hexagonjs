@@ -4,7 +4,7 @@
   @added 0.12.4
 
   @constructor
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A css selector or element to use when constructing the @type[ButtonGroup]
 

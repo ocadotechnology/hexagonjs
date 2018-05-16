@@ -20,7 +20,7 @@
   @description
     Adds an action that should happen concurrently with the previous action
 
-  @arg function [Function]
+  @arg fn [Function]
     @description
       A function that gets called as part of the chain. If this function
       returns an @type[EventEmitter], the behaviour is to wait for that event

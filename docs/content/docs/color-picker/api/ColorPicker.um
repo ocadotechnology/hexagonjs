@@ -48,7 +48,7 @@
   @constructor
     @added 0.13.0
 
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector to show the color picker for.
 

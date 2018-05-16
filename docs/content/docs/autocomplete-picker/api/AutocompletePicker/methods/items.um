@@ -2,7 +2,7 @@
   @description
     Gets the currently set items
 
-  @returns [Array/Function]
+  @returns [Function/Array[Any]]
     @description
       The currently set items
 
@@ -11,7 +11,7 @@
   @description
     Sets the items to an array or function
 
-  @arg items [Array/Function]
+  @arg items [Function/Array[Any]]
     @inline ../arguments/items.um
 
   @returns AutocompletePicker

@@ -51,7 +51,7 @@
         Use @code[hx.TagInput(selector, options)] instead.
 
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A css selector that uniquely identifies the collapsible in the DOM.
 
@@ -179,7 +179,7 @@
   @constructor
     @added 0.13.0
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A css selector that uniquely identifies the collapsible in the DOM.
 
@@ -264,7 +264,7 @@
         @description
           The array of tags to initialise the tag input with.
 
-      @property placeholder
+      @property placeholder [String]
         @added 1.4.0
           @issue 211
 
@@ -274,7 +274,7 @@
         @default
           [hx.userFacingText('tagInput', 'placeholder')]
 
-      @property autocompleteData [Array/Function]
+      @property autocompleteData [Function/Array[Any]]
         @added 1.6.0
           @issue 194
 

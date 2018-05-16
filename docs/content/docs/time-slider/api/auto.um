@@ -171,7 +171,7 @@
     @description
       Sets up a slider.
 
-    @arg selection [String/HTMLElement]
+    @arg selection [String/HTMLElement/Selection]
       @description
         A unique css selector or a HTMLElement that identifies your slider.
 
@@ -212,7 +212,7 @@
 
   @constructor
     @added 0.10.0
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The element used to create the slider
 

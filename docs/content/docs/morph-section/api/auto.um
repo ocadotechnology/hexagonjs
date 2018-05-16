@@ -13,7 +13,7 @@
       @description
         Use @code[hx.MorphSection(selector, options)] instead.
 
-    @arg selector [String/HTMLELement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A selector that uniquely identifies the element on the page.
 
@@ -70,7 +70,7 @@
 
   @constructor
     @added 0.13.0
-    @arg selector [String/HTMLELement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A selector that uniquely identifies the element on the page.
 
@@ -117,7 +117,7 @@
     A base class for building inline morphing sections.
 
   @constructor
-    @arg selector [String/HTMLELement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         A selector that uniquely identifies the element on the page.
 

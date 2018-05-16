@@ -12,9 +12,9 @@
     @description
       Creates an autocomplete picker element inside the passed in selector
 
-    @arg selector [String/HTMLElement]: The selector of the element to populate
+    @arg selector [String/HTMLElement/Selection]: The selector of the element to populate
 
-    @arg items [Array/Function]
+    @arg items [Function/Array[Any]]
       @inline AutocompletePicker/arguments/items.um
 
     @arg? options [Object]
@@ -32,7 +32,7 @@
     Creates a new AutocompletePicker set up on a detached element, wrapped in a
     selection
 
-  @arg items [Array/Function]
+  @arg items [Function/Array[Any]]
     @inline AutocompletePicker/arguments/items.um
 
   @arg? options [Object]

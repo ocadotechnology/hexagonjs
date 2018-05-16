@@ -10,7 +10,7 @@
   @extends EventEmitter
   @constructor
     @description
-    @arg selector [String/HTMLElement]
+    @arg selector [String/HTMLElement/Selection]
       @description
         The selector for the drag container
 
@@ -37,7 +37,7 @@
           @description
             The unique id for the current node.
 
-      @property order [Array]
+      @property order [Array[Any]]
         @description
           The array of ids to use to order the elements.
 
