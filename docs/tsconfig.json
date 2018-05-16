@@ -1,0 +1,35 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016",
+      "es2017"
+    ],
+    "baseUrl": "./",
+    "declaration": false,
+    "jsx": "react",
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noLib": false,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes": true,
+    "noUnusedParameters": true,
+    "outDir": "target/tsout",
+    "preserveConstEnums": false,
+    "removeComments": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "target": "es6"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
