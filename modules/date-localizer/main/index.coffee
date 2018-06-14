@@ -5,10 +5,10 @@ class DateTimeLocalizer
   dateOrder: -> ['DD','MM','YYYY']
 
   # get the day the week starts on, 0 for sunday, 1 for monday etc.
-  weekStart: -> 0
+  weekStart: -> 1
 
   # localise the days of the week and return as array of 2 char days ('Su', 'Mo' etc.)
-  weekDays: -> ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+  weekDays: -> ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 
   # localise 'today' text
   todayText: -> 'Today'
@@ -95,7 +95,7 @@ class DateTimeLocalizerMoment
     if result.length is 0 then result = ['DD','MM','YYYY']
     result
 
-  weekStart: -> moment().weekday(0).toDate().getDay()
+  weekStart: -> moment().locale(hx.preferences.locale()).weekday(0).toDate().getDay()
 
   weekDays: ->
     dayDate = moment().weekday(0)
