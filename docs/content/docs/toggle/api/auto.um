@@ -34,6 +34,32 @@
         @default
           false
 
+  @method disabled
+    @added nextReleaseVersion
+      @description
+        Added the ability to disable a toggle
+    @description
+      A method for setting the disabled state of a toggle.
+
+    @arg value [Boolean]
+      @description
+        Whether the toggle should be disabled
+
+    @returns [Toggle]
+      @description
+        This toggle
+
+  @method disabled
+    @added nextReleaseVersion
+      @description
+        Added the ability to disable a toggle
+    @description
+      A method for getting the disabled state of a toggle.
+
+    @returns [Boolean]
+      @description
+        Whether the toggle is disabled
+
   @method value
     @description
       A method for setting the value of a toggle.

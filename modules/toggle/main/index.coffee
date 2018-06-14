@@ -5,7 +5,8 @@ class Toggle extends hx.EventEmitter
     hx.component.register(selector, this)
 
     @options = hx.merge.defined {
-      value: false
+      value: false,
+      disabled: false
     }, options
 
     @selection = hx.select(selector).classed('hx-toggle', true)
@@ -14,9 +15,12 @@ class Toggle extends hx.EventEmitter
 
     @value(@options.value)
 
+    @disabled(@options.disabled)
+
     @selection.on 'click', 'hx.toggle', (e) =>
-      @value(!@value())
-      @emit 'change', @value()
+      if (!@disabled())
+        @value(!@value())
+        @emit 'change', @value()
 
   value: (val) ->
     if val?
@@ -25,6 +29,14 @@ class Toggle extends hx.EventEmitter
       this
     else
       @options.value
+
+  disabled: (val) ->
+    if val?
+      @options.disabled = val
+      @toggle.classed('hx-toggle-disabled', val)
+      this
+    else
+      @options.disabled
 
 hx.toggle = (options) ->
   selection = hx.detached('div')
