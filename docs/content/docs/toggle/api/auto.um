@@ -36,6 +36,7 @@
 
   @method disabled
     @added nextReleaseVersion
+      @issue 444
       @description
         Added the ability to disable a toggle
     @description
@@ -51,6 +52,7 @@
 
   @method disabled
     @added nextReleaseVersion
+      @issue 444
       @description
         Added the ability to disable a toggle
     @description
