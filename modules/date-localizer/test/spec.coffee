@@ -55,19 +55,19 @@ describe 'dateTimeLocalizer', ->
     executeFunctionInAllTimeZones ->
       localizer.dateOrder().should.eql(['DD','MM','YYYY'])
 
-  it 'weekStart: should get the day the week starts on, 0 for sunday, 1 for monday etc.', ->
-    localizer.weekStart().should.equal(0)
+  it 'weekStart: should return Monday as the week start (Sunday - Saturday, 0 - 6)', ->
+    localizer.weekStart().should.equal(1)
 
-  it 'weekStart: should get the day the week starts on, 0 for sunday, 1 for monday etc. in all timezones', ->
+  it 'weekStart: should return Monday as the week start (Sunday - Saturday, 0 - 6) in all timezones', ->
     executeFunctionInAllTimeZones ->
-      localizer.weekStart().should.equal(0)
+      localizer.weekStart().should.equal(1)
 
   it 'weekDays: should localize the days of the week and return as array of 2 char days', ->
-    localizer.weekDays().should.eql(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'])
+    localizer.weekDays().should.eql(['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'])
 
   it 'weekDays: should localize the days of the week and return as array of 2 char days in all timezones', ->
     executeFunctionInAllTimeZones ->
-      localizer.weekDays().should.eql(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'])
+      localizer.weekDays().should.eql(['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'])
 
   it 'todayText: should localize "today" text', ->
     localizer.todayText().should.equal('Today')
