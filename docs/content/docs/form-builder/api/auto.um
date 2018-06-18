@@ -1198,6 +1198,47 @@
         @description
           This Form
 
+    @method addToggle
+      @added nextReleaseVersion
+        @issue 444
+        @description
+          New method for adding a Toggle
+
+      @description
+        Adds a @code[hx.Toggle] field.
+
+      @arg name
+        @description
+          The field name
+
+      @arg? options [Object]
+        @description
+          The options to use when adding the Toggle.
+
+        @property disabled [Boolean]
+          @description
+            Whether the property should be disabled as it's initial state. This can also be toggled with the @code[disabled(property, disabled)] method.
+
+          @default
+            false
+
+        @property hidden [Boolean]
+          @description
+            Whether the property should be hidden as it's initial state. This can also be toggled with the @code[hidden(property, hidden)] method.
+
+          @default
+            false
+
+        @property key [String]
+          @description
+            The property name to map the input value to when filling the form and when getting the data.
+
+        @property toggleOptions [Object]
+          @description
+            The options to use for the Toggle component.
+
+            See the @code[hx.Toggle] prototype constructor for the available options.
+
     @method addFileInput
       @added 1.3.0
         @issue 25

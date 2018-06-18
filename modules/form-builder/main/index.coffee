@@ -272,20 +272,6 @@ class Form extends hx.EventEmitter
         disable: (sel, disabled) -> datetimepicker.disabled(disabled)
       }
 
-  addSubmit: (text, icon, submitAction) ->
-    hx.select(@selector).append('button')
-      .attr('type', 'submit')
-      .class('hx-btn hx-action hx-form-submit')
-      .add(hx.detached('i').class(icon))
-      .add(hx.detached('span').text(" " + text))
-      .on 'click', 'hx.form-builder', (e) =>
-        e.preventDefault()
-        if submitAction?
-          submitAction(this)
-        else
-          @submit()
-    this
-
   addTagInput: (name, options = {}) ->
     self = this
     @add name, 'tagInput', 'div', ->
@@ -315,6 +301,33 @@ class Form extends hx.EventEmitter
         disabled: options.disabled
         disable: (sel, disabled) -> fileInput.disabled(disabled)
       }
+
+  addToggle: (name, options = {}) ->
+    self = this
+    @add name, 'toggle', 'div', ->
+      elem = @append('div').class('hx-btn hx-btn-invisible hx-no-pad-left').node()
+      toggle = new hx.Toggle(elem, options.toggleOptions)
+      {
+        key: options.key
+        componentNode: elem
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) -> toggle.disabled(disabled)
+      }
+
+  addSubmit: (text, icon, submitAction) ->
+    hx.select(@selector).append('button')
+      .attr('type', 'submit')
+      .class('hx-btn hx-action hx-form-submit')
+      .add(hx.detached('i').class(icon))
+      .add(hx.detached('span').text(" " + text))
+      .on 'click', 'hx.form-builder', (e) =>
+        e.preventDefault()
+        if submitAction?
+          submitAction(this)
+        else
+          @submit()
+    this
 
   submit: ->
     {valid, errors} = hx.validateForm(@selector)
@@ -396,6 +409,7 @@ class Form extends hx.EventEmitter
             fileInput.value(value)
           when 'tagInput' then hx.component(it.extras.componentNode or node).items(value)
           when 'select' then hx.component(it.extras.componentNode or node).value(value)
+          when 'toggle' then hx.component(it.extras.componentNode or node).value(value)
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
           else hx.select(node).value(value)
       else
@@ -406,6 +420,7 @@ class Form extends hx.EventEmitter
             when 'tagInput' then hx.component(it.extras.componentNode or it.node).items()
             when 'fileInput' then hx.component(it.extras.componentNode or it.node).value()
             when 'select' then hx.component(it.extras.componentNode or it.node).value()
+            when 'toggle' then hx.component(it.extras.componentNode or it.node).value()
             when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.getValue()
             else hx.select(it.node).value()
           return value

@@ -1165,6 +1165,7 @@
             .addDatePicker('Date Picker')
             .addTimePicker('Time Picker')
             .addDateTimePicker('Date Time Picker')
+            .addToggle('Toggle')
             .addSubmit('Submit', 'fa fa-check')
             .on('submit', function(data) { console.log(data) })
           </script>
@@ -2555,12 +2556,17 @@
       <div class="demo-section">
         <h3>Toggle</h3>
         <div class="demo-section-examples">
-          Some Text
-          <div id="toggle"></div>
+          Regular Toggle: <div id="toggle"></div>
+          <br>
+          Disabled Toggle: <div id="toggle-disabled"></div>
+          <br>
           <button id="toggle2" class="hx-btn">Toggle Button</button>
           More Text
           <script>
           var toggle = new hx.Toggle("#toggle")
+          new hx.Toggle("#toggle-disabled", {
+            disabled: true
+          })
           toggle.on('change', function(value) {
             hx.notify.info("Toggle value set to " + value)
           })
