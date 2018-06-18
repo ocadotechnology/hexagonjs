@@ -270,13 +270,25 @@ function objToQuantum (moduleName, theme) {
 
 */
 
+const moduleJsonCache = {}
+
+function readModulesFile (modules, name) {
+  return moduleJsonCache[name]
+    ? Promise.resolve(moduleJsonCache[name])
+    : fs.readJsonAsync(path.join(modules[name].directory, 'module.json'))
+        .then(json => {
+          moduleJsonCache[name] = json
+          return json
+        })
+}
+
 // gets the entire list of dependencies for a module
-function getModuleDependencies (moduleName) {
-  return fs.readJsonAsync(path.join(util.rootDir, 'modules', moduleName, 'module.json'))
+function getModuleDependencies (modules, moduleName) {
+  return readModulesFile(modules, moduleName)
     .then(function (module) {
       var dependencies = module.dependencies
       if (dependencies != undefined && dependencies.length > 0) {
-        return computeDependencyList(dependencies)
+        return computeDependencyList(modules, dependencies)
       } else if (dependencies != undefined) {
         return Promise.resolve(dependencies)
       } else {
@@ -285,8 +297,8 @@ function getModuleDependencies (moduleName) {
     })
 }
 
-function computeDependencyList (modules) {
-  return Promise.all(modules.map(getModuleDependencies))
+function computeDependencyList (moduleObjects, modules) {
+  return Promise.all(modules.map(m => getModuleDependencies(moduleObjects, m)))
     .then(function (list) {
       return Promise.resolve(flatten(modules.concat(list)))
     })
@@ -335,7 +347,7 @@ function getModuleList (options) {
     moduleList = allModules
   }
   return Promise.resolve(moduleList)
-    .then(computeDependencyList)
+    .then(m => computeDependencyList(options.allModules, m))
     .then(function (moduleList) {
       var modules = {}
       for (i in moduleList) {

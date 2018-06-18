@@ -64,7 +64,7 @@ function buildSingleModuleTestPackage (moduleName) {
       if (specJs) { // only do the rest of the building of the spec existed
         return builder.getModuleList([])
           .then(function (allModules) {
-            return compile.getModuleDependencies(moduleName)
+            return compile.getModuleDependencies(allModules, moduleName)
               .then(function (modules) {
                 return Promise.props({
                   dependencies: compile.buildLibrary({modules: modules, allModules: allModules}),
