@@ -45,3 +45,8 @@
   margin-left: 0.5em;
   margin-right: 0;
 }
+
+.hx-toggle > .hx-toggle-box.hx-toggle-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

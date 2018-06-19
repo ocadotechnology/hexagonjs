@@ -8,6 +8,7 @@ class Toggle extends EventEmitter
 
     @options = mergeDefined({
       value: false
+      disabled: false
     }, options)
 
     @selection = select(selector)
@@ -19,9 +20,12 @@ class Toggle extends EventEmitter
 
     @value(@options.value)
 
+    @disabled(@options.disabled)
+
     @selection.on 'click', 'hx.toggle', (e) =>
-      @value(!@value())
-      @emit 'change', @value()
+      if (!@disabled())
+        @value(!@value())
+        @emit 'change', @value()
 
   value: (val) ->
     if val?
@@ -30,6 +34,14 @@ class Toggle extends EventEmitter
       this
     else
       @options.value
+
+  disabled: (val) ->
+    if val?
+      @options.disabled = val
+      @toggle.classed('hx-toggle-disabled', val)
+      this
+    else
+      @options.disabled
 
 toggle = (options) ->
   selection = div()

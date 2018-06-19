@@ -11,6 +11,7 @@ import { TimePicker } from 'time-picker/main'
 import { DateTimePicker } from 'date-time-picker/main'
 import { TagInput } from 'tag-input/main'
 import { FileInput } from 'file-input/main'
+import { Toggle } from 'toggle/main'
 import { validateForm } from 'form/main'
 
 userFacingText({
@@ -289,21 +290,6 @@ class Form extends EventEmitter
         disable: (sel, disabled) -> datetimepicker.disabled(disabled)
       }
 
-  addSubmit: (text, icon, submitAction) ->
-    select(@selector).append('button')
-      .attr('type', 'submit')
-      .class('hx-btn hx-action hx-form-submit')
-      .add(detached('i').class(icon))
-      .add(span().text(" " + text))
-      .on 'click', 'hx.form-builder', (e) =>
-        e.preventDefault()
-        if submitAction?
-          submitAction(this)
-        else
-          @submit()
-
-    return this
-
   addTagInput: (name, options = {}) ->
     self = this
     @add name, 'tagInput', 'div', ->
@@ -334,6 +320,34 @@ class Form extends EventEmitter
         disabled: options.disabled
         disable: (sel, disabled) -> fileInput.disabled(disabled)
       }
+
+  addToggle: (name, options = {}) ->
+    self = this
+    @add name, 'toggle', 'div', ->
+      elem = @append('div').class('hx-btn hx-btn-invisible hx-no-pad-left').node()
+      toggle = new Toggle(elem, options.toggleOptions)
+      {
+        key: options.key
+        componentNode: elem
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (sel, disabled) -> toggle.disabled(disabled)
+      }
+
+  addSubmit: (text, icon, submitAction) ->
+    select(@selector).append('button')
+      .attr('type', 'submit')
+      .class('hx-btn hx-action hx-form-submit')
+      .add(detached('i').class(icon))
+      .add(span().text(" " + text))
+      .on 'click', 'hx.form-builder', (e) =>
+        e.preventDefault()
+        if submitAction?
+          submitAction(this)
+        else
+          @submit()
+
+    return this
 
   submit: ->
     {valid, errors} = validateForm(@selector)
@@ -415,6 +429,7 @@ class Form extends EventEmitter
             fileInput.value(value)
           when 'tagInput' then select(it.extras.componentNode or node).items(value).api()
           when 'select' then select(it.extras.componentNode or node).value(value).api()
+          when 'toggle' then select(it.extras.componentNode or node).value(value)
           when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.setValue(value)
           else select(node).value(value)
       else
@@ -425,6 +440,7 @@ class Form extends EventEmitter
             when 'tagInput' then select(it.extras.componentNode or it.node).items().api()
             when 'fileInput' then select(it.extras.componentNode or it.node).value().api()
             when 'select' then select(it.extras.componentNode or it.node).value().api()
+            when 'toggle' then select(it.extras.componentNode or it.node).value()
             when 'datepicker', 'timepicker', 'datetimepicker' then it.extras.getValue()
             else select(it.node).value()
           return value
