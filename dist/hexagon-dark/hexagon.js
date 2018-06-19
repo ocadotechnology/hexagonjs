@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.15.0
+ Version: 1.16.0
  Theme: hexagon-dark
  Modules:
    set
@@ -6394,11 +6394,11 @@ DateTimeLocalizer = (function() {
   };
 
   DateTimeLocalizer.prototype.weekStart = function() {
-    return 0;
+    return 1;
   };
 
   DateTimeLocalizer.prototype.weekDays = function() {
-    return ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+    return ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   };
 
   DateTimeLocalizer.prototype.todayText = function() {
@@ -6529,7 +6529,7 @@ DateTimeLocalizerMoment = (function() {
   };
 
   DateTimeLocalizerMoment.prototype.weekStart = function() {
-    return moment().weekday(0).toDate().getDay();
+    return moment().locale(hx.preferences.locale()).weekday(0).toDate().getDay();
   };
 
   DateTimeLocalizerMoment.prototype.weekDays = function() {
@@ -13485,15 +13485,19 @@ Toggle = (function(superClass) {
     Toggle.__super__.constructor.apply(this, arguments);
     hx.component.register(selector, this);
     this.options = hx.merge.defined({
-      value: false
+      value: false,
+      disabled: false
     }, options);
     this.selection = hx.select(selector).classed('hx-toggle', true);
     this.toggle = this.selection.append('div')["class"]('hx-toggle-box');
     this.value(this.options.value);
+    this.disabled(this.options.disabled);
     this.selection.on('click', 'hx.toggle', (function(_this) {
       return function(e) {
-        _this.value(!_this.value());
-        return _this.emit('change', _this.value());
+        if (!_this.disabled()) {
+          _this.value(!_this.value());
+          return _this.emit('change', _this.value());
+        }
       };
     })(this));
   }
@@ -13505,6 +13509,16 @@ Toggle = (function(superClass) {
       return this;
     } else {
       return this.options.value;
+    }
+  };
+
+  Toggle.prototype.disabled = function(val) {
+    if (val != null) {
+      this.options.disabled = val;
+      this.toggle.classed('hx-toggle-disabled', val);
+      return this;
+    } else {
+      return this.options.disabled;
     }
   };
 
@@ -20077,20 +20091,6 @@ Form = (function(superClass) {
     });
   };
 
-  Form.prototype.addSubmit = function(text, icon, submitAction) {
-    hx.select(this.selector).append('button').attr('type', 'submit')["class"]('hx-btn hx-action hx-form-submit').add(hx.detached('i')["class"](icon)).add(hx.detached('span').text(" " + text)).on('click', 'hx.form-builder', (function(_this) {
-      return function(e) {
-        e.preventDefault();
-        if (submitAction != null) {
-          return submitAction(_this);
-        } else {
-          return _this.submit();
-        }
-      };
-    })(this));
-    return this;
-  };
-
   Form.prototype.addTagInput = function(name, options) {
     var self;
     if (options == null) {
@@ -20141,6 +20141,42 @@ Form = (function(superClass) {
         }
       };
     });
+  };
+
+  Form.prototype.addToggle = function(name, options) {
+    var self;
+    if (options == null) {
+      options = {};
+    }
+    self = this;
+    return this.add(name, 'toggle', 'div', function() {
+      var elem, toggle;
+      elem = this.append('div')["class"]('hx-btn hx-btn-invisible hx-no-pad-left').node();
+      toggle = new hx.Toggle(elem, options.toggleOptions);
+      return {
+        key: options.key,
+        componentNode: elem,
+        hidden: options.hidden,
+        disabled: options.disabled,
+        disable: function(sel, disabled) {
+          return toggle.disabled(disabled);
+        }
+      };
+    });
+  };
+
+  Form.prototype.addSubmit = function(text, icon, submitAction) {
+    hx.select(this.selector).append('button').attr('type', 'submit')["class"]('hx-btn hx-action hx-form-submit').add(hx.detached('i')["class"](icon)).add(hx.detached('span').text(" " + text)).on('click', 'hx.form-builder', (function(_this) {
+      return function(e) {
+        e.preventDefault();
+        if (submitAction != null) {
+          return submitAction(_this);
+        } else {
+          return _this.submit();
+        }
+      };
+    })(this));
+    return this;
   };
 
   Form.prototype.submit = function() {
@@ -20280,6 +20316,8 @@ Form = (function(superClass) {
             return hx.component(it.extras.componentNode || node).items(value);
           case 'select':
             return hx.component(it.extras.componentNode || node).value(value);
+          case 'toggle':
+            return hx.component(it.extras.componentNode || node).value(value);
           case 'datepicker':
           case 'timepicker':
           case 'datetimepicker':
@@ -20300,6 +20338,8 @@ Form = (function(superClass) {
               case 'fileInput':
                 return hx.component(it.extras.componentNode || it.node).value();
               case 'select':
+                return hx.component(it.extras.componentNode || it.node).value();
+              case 'toggle':
                 return hx.component(it.extras.componentNode || it.node).value();
               case 'datepicker':
               case 'timepicker':
