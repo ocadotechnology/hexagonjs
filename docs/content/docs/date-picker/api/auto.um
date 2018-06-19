@@ -21,7 +21,7 @@
     Fixed an issue where IE was displaying the datepicker calendar in compact
     mode
 
-@bugfix nextReleaseVersion
+@bugfix 1.16.0
   @description
     Fixed an issue where the default calendar display was showing Sunday as the
     week start instead of Monday as dictated by ISO standards and an issue where

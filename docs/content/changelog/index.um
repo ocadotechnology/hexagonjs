@@ -429,3 +429,13 @@
     @version 1.15.0
       @description
         Fixed several issues with IE to provide more support for IE/Edge
+
+    @version 1.16.0
+      @description
+        Added the ability to use @type[Toggle] in @type[FormBuilder] and the 
+        ability to disable a @type[Toggle]. 
+        
+        Also fixed a bug where the @type[DatePicker] calendar was incorrectly 
+        starting on a Sunday instead of Monday as specified in ISO 8601. When 
+        using @code[moment.js] the week start will still be taken from the 
+        currently selected locale's week start.

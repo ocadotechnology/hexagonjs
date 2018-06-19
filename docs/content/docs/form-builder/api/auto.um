@@ -1199,7 +1199,7 @@
           This Form
 
     @method addToggle
-      @added nextReleaseVersion
+      @added 1.16.0
         @issue 444
         @description
           New method for adding a Toggle

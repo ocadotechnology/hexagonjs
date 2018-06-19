@@ -35,7 +35,7 @@
           false
 
   @method disabled
-    @added nextReleaseVersion
+    @added 1.16.0
       @issue 444
       @description
         Added the ability to disable a toggle
@@ -51,7 +51,7 @@
         This toggle
 
   @method disabled
-    @added nextReleaseVersion
+    @added 1.16.0
       @issue 444
       @description
         Added the ability to disable a toggle

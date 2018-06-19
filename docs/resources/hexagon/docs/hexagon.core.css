@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.15.0
+ Version: 1.16.0
  Theme: hexagon-light
  Modules:
    set
@@ -1531,6 +1531,9 @@ img.dx-logo:before {
     .dx-toggle > .dx-toggle-box.dx-toggle-box-on:before {
       left: 50%;
       margin-left: 0; }
+    .dx-toggle > .dx-toggle-box.dx-toggle-disabled {
+      cursor: not-allowed;
+      opacity: 0.6; }
   .dx-toggle.dx-btn > .dx-toggle-box {
     margin-left: 0.5em;
     margin-right: 0; }
@@ -2207,7 +2210,7 @@ a.dx-titlebar-link, a.dx-titlebar-link:hover {
     width: 200px;
     height: 200px;
     cursor: crosshair;
-    background: linear-gradient(white 0%, rgba(255, 255, 255, 0) 50%, transparent 50%, black 100%), linear-gradient(to right, gray 0%, rgba(128, 128, 128, 0) 100%); }
+    background: linear-gradient(white 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0) 50%, black 100%), linear-gradient(to right, gray 0%, rgba(128, 128, 128, 0) 100%); }
     .dx-colorpicker .dx-colorpicker-grid .dx-colorpicker-picker {
       width: 10px;
       height: 10px;
