@@ -31,7 +31,7 @@
 }
 
 @keyframes slide {
-  from { left: -var(--hx-spinner-width); }
+  from { left: calc(var(--hx-spinner-width) * -1); }
   to { left: 100%; }
 }
 
@@ -48,7 +48,7 @@
   content: "";
   display: block;
   position: absolute;
-  left: -var(--hx-spinner-width);
+  left: calc(var(--hx-spinner-width) * -1);
   width: var(--hx-spinner-width);
   height: 100%;
 }
