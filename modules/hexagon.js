@@ -159,6 +159,7 @@ export { SideCollapsible } from 'side-collapsible/main'
 export { DatePicker, datePicker } from 'date-picker/main'
 export { pivotTable, PivotTable } from 'pivot-table/main'
 export { timePicker, TimePicker } from 'time-picker/main'
+export { tabs, Tabs } from 'tabs/main'
 // export { Form } from 'form-builder/main'
 
 // XXX: these apis should be opt-in

@@ -556,4 +556,18 @@
   --time-picker-error-background-color: #FCBFBF;
   --time-picker-error-outline-color: #DE1A4A;
 
+  /* Tabs */
+  --tabs-active-opacity: 1;
+  --tabs-inactive-opacity: 0.25;
+  --tabs-background-color: #FFF;
+  --tabs-shadow-color: var(--theme-default-shadow-color);
+  --tabs-text-color: var(--theme-default-text-color);
+  --tabs-default-border-color: #E4E4E4;
+  --tabs-action-border-color: var(--theme-action-color);
+  --tabs-positive-border-color: var(--theme-positive-color);
+  --tabs-warning-border-color: var(--theme-warning-color);
+  --tabs-negative-border-color: var(--theme-negative-color);
+  --tabs-info-border-color: var(--theme-info-color);
+  --tabs-complement-border-color: var(--theme-complement-color);
+  --tabs-contrast-border-color: var(--theme-contrast-color);
 }

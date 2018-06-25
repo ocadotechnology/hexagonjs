@@ -1,69 +1,72 @@
-onTabSelected = (tabs, element, i, cause) ->
-  tabs.selected = i
-  selection = hx.select(tabs.selector)
-  selection.selectAll('.hx-tab').classed('hx-tab-active', false)
-  hx.select(element).classed('hx-tab-active', true)
+import { select, detached } from 'selection/main'
+import { palette } from 'palette/main'
+import { EventEmitter } from 'event-emitter/main'
+import { merge } from 'utils/main'
+import logger from 'logger/main'
 
-  context = hx.palette.context(element)
-  tabsContent = selection.select('.hx-tabs-content')
-  hx.palette.borderContext(tabsContent, context)
+onTabSelected = (tabs, sel, idx, cause) ->
+  tabs.selected = idx
+  tabs.selection.selectAll('.hx-tab').classed('hx-tab-active', false)
+  sel.classed('hx-tab-active', true)
 
-  rootSelection = hx.select(tabs.selector)
-  rootSelection.selectAll('.hx-tab-content')
+  context = palette.context(sel)
+  tabsContent = tabs.selection.select('.hx-tabs-content')
+  palette.borderContext(tabsContent, context)
+
+  tabs.selection.selectAll('.hx-tab-content')
     .classed('hx-tab-content-hidden', true)
-  item = tabs.items()[i]
+  item = tabs.items()[idx]
   if item?
     tabsContent.clear()
     tabs._.options.contentRenderer tabsContent.node(), item.content
   else
-    tabToSelectSelector = '#' + hx.select(element).attr('data-content')
-    tabToSelect = rootSelection.select(tabToSelectSelector)
+    tabToSelectSelector = '#' + sel.attr('data-content')
+    tabToSelect = tabs.selection.select(tabToSelectSelector)
     tabToSelect.classed('hx-tab-content-hidden', false)
-  tabs.emit('change', {id: i, value: i, cause})
+  tabs.emit('change', {id: idx, value: idx, cause})
 
-class Tabs extends hx.EventEmitter
-
-  constructor: (@selector, options) ->
+class Tabs extends EventEmitter
+  constructor: (@selector, opts) ->
     super()
 
-    defaultRenderer = (node, value) -> hx.select(node).text(value)
+    defaultRenderer = (node, value) -> select(node).text(value)
 
-    defaultOpts = {
-      items: []
-      titleRenderer: defaultRenderer
-      contentRenderer: defaultRenderer
-    }
-
-    resolvedOptions = hx.merge defaultOpts, options
+    options = merge({
+      items: [],
+      titleRenderer: defaultRenderer,
+      contentRenderer: defaultRenderer,
+    }, opts)
 
     @_ = {}
 
-    @_.options = resolvedOptions
+    @_.options = options
 
-    hx.component.register(@selector, this)
+    # XXX: Renamed for consistency - realised we now have selector,
+    # selection, select and selected as properties of hx.Tabs
+    # Need to standardise naming here?
+    @selection = select(@selector)
+      .classed('hx-tabs', true)
+      .api(this)
 
-    rootSel = hx.select @selector
+    titleRenderer = options.titleRenderer
 
-    rootSel.classed 'hx-tabs', true
-
-    titleRenderer = resolvedOptions.titleRenderer
-
-    tabsContent = rootSel.select '.hx-tabs-content'
+    tabsContent = @selection.select '.hx-tabs-content'
 
     if tabsContent.empty()
-      tabsContent = rootSel.append 'div'
+      tabsContent = @selection.append 'div'
         .class 'hx-tabs-content'
 
+    # XXX: Should this be `selectedTab`
     @selected = -1
 
     self = this
     # register callbacks for when the tabs are clicked
-    if resolvedOptions.items.length
-      @items resolvedOptions.items
+    if options.items.length
+      @items options.items
     else
-      rootSel.selectAll('.hx-tab').forEach (node, i) ->
-        node.on 'click', 'hx.tabs', ->
-          onTabSelected self, node.node(), i, 'user'
+      @selection.selectAll('.hx-tab').forEach (sel, idx) ->
+        sel.on 'click', 'hx.tabs', ->
+          onTabSelected self, sel, idx, 'user'
 
     # make the first tab active
     @select(0)
@@ -71,24 +74,20 @@ class Tabs extends hx.EventEmitter
   items: (newItems) ->
     if arguments.length
       if newItems.length is 0
-        hx.consoleWarning 'Setting items to empty array'
+        logger.warn 'hx.Tabs::items', 'Setting items to empty array'
       else
+        tabsContent = @selection.select '.hx-tabs-content'
 
-        root = hx.select @selector
-        tabsContent = root.select '.hx-tabs-content'
-
-        root.selectAll '.hx-tab'
-          .remove()
-
+        @selection.selectAll('.hx-tab').remove()
         tabsContent.clear()
 
-        titleBarsToAdd = newItems.map ({ title, context, content }, i) =>
-          tab = hx.detached 'div'
+        titleBarsToAdd = newItems.map ({ title, context, content }, idx) =>
+          tab = detached 'div'
             .class 'hx-tab'
           @_.options.titleRenderer tab.node(), title
-          hx.palette.context tab.node(), context
+          palette.context tab.node(), context
           tab.on 'click', 'hx.tabs', =>
-            onTabSelected this, tab.node(), i, 'user'
+            onTabSelected this, tab, idx, 'user'
           tab
         tabsContent.insertBefore titleBarsToAdd
 
@@ -103,18 +102,21 @@ class Tabs extends hx.EventEmitter
 
   value: (newValue) ->
     if arguments.length
-      @select newValue, false
+      @select(newValue, false)
     else
       @selected
 
-  select: (i, force) ->
-    if @selected != i or force
-      tab = hx.select(@selector).selectAll('.hx-tab').nodes[i]
-      onTabSelected(this, tab, i, 'api')
+  select: (idx, force) ->
+    if @selected != idx or force
+      tab = select(@selection.selectAll('.hx-tab').node(idx))
+      onTabSelected(this, tab, idx, 'api')
 
-hx.Tabs = Tabs
+tabs = (opts) ->
+  selection = detached 'div'
+  new Tabs(selection, opts)
+  selection
 
-hx.tabs = (opts) ->
-  ret = hx.detached 'div'
-  tabs = new hx.Tabs ret.node(), opts
-  ret
+export {
+  tabs,
+  Tabs,
+}

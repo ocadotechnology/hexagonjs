@@ -1,0 +1,52 @@
+.hx-tabs-content {
+  background: var(--tabs-background-color);
+  border-color: var(--tabs-default-border-color);
+  box-shadow: 1px 1px 1px 1px var(--tabs-shadow-color);
+  color: var(--tabs-text-color);
+}
+
+.hx-tab {
+  background: var(--tabs-background-color);
+  border-color: var(--tabs-default-border-color);
+  color: var(--tabs-text-color);
+  opacity: var(--tabs-inactive-opacity);
+}
+
+.hx-tab.hx-tab-active {
+  opacity: var(--tabs-active-opacity);
+}
+
+.hx-tabs-content.hx-action,
+.hx-tab.hx-action {
+  border-color: var(--tabs-action-border-color);
+}
+
+.hx-tabs-content.hx-positive,
+.hx-tab.hx-positive {
+  border-color: var(--tabs-positive-border-color);
+}
+
+.hx-tabs-content.hx-negative,
+.hx-tab.hx-negative {
+  border-color: var(--tabs-negative-border-color);
+}
+
+.hx-tabs-content.hx-warning,
+.hx-tab.hx-warning {
+  border-color: var(--tabs-warning-border-color);
+}
+
+.hx-tabs-content-info,
+.hx-tab.hx-info {
+  border-color: var(--tabs-info-border-color);
+}
+
+.hx-tabs-content.hx-complement,
+.hx-tab.hx-complement {
+  border-color: var(--tabs-complement-border-color);
+}
+
+.hx-tabs-content.hx-contrast,
+.hx-tab.hx-contrast {
+  border-color: var(--tabs-contrast-border-color);
+}
