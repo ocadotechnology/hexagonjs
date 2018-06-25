@@ -570,4 +570,15 @@
   --tabs-info-border-color: var(--theme-info-color);
   --tabs-complement-border-color: var(--theme-complement-color);
   --tabs-contrast-border-color: var(--theme-contrast-color);
+
+  /* Tree */
+  --tree-background-color: #FFF;
+  --tree-icon-background-color: var(--theme-default-color);
+  --tree-icon-background-hover-color: var(--theme-default-color);
+  --tree-icon-disabled-background-color: #f5f5f5;
+  --tree-icon-disabled-text-color: #aaaaaa;
+  --tree-icon-text-color: var(--theme-default-text-color);
+  --tree-icon-text-hover-color: var(--theme-default-text-color);
+  --tree-item-border-left-color: var(--theme-default-color);
+  --tree-shadow-color: var(--theme-default-shadow-color);
 }

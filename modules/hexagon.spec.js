@@ -57,6 +57,7 @@ import datePickerTests from './date-picker/test/spec'
 import pivotTableTests from './pivot-table/test/spec'
 import timePickerTests from './time-picker/test/spec'
 import tabsTests from './tabs/test/spec'
+import treeTests from './tree/test/spec'
 // import formBuilderTests from './form-builder/test/spec'
 
 should()
@@ -245,7 +246,10 @@ describe('HexagonJS Test Suite', () => {
         'timePicker',
         'TimePicker',
         'tabs',
-        'Tabs'
+        'Tabs',
+        'tree',
+        'Tree',
+        'initializeTrees'
         // 'Form'
       ]
 
@@ -315,6 +319,7 @@ describe('HexagonJS Test Suite', () => {
   pivotTableTests()
   timePickerTests()
   tabsTests()
+  treeTests()
   // formBuilderTests()
 
   // require('modules/tag-input/test/spec')

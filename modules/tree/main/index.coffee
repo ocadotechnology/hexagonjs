@@ -1,3 +1,11 @@
+import {
+  div,
+  select,
+  selectAll,
+  i,
+} from 'selection/main'
+import { mergeDefined, identity } from 'utils/main'
+
 createNodeView = (node, renderer, lazy) ->
   node.view('.hx-tree-node')
     .enter (d) -> @append(createTreeNode(d, renderer, lazy)).node()
@@ -6,21 +14,21 @@ createChildren = (children, renderer, lazy) ->
   children.map (child) -> createTreeNode(child, renderer, lazy)
 
 createTreeNode = (data, renderer, lazy) ->
-  treeNode = hx.detached('div').class('hx-tree-node')
+  treeNode = div('hx-tree-node')
 
-  nodeContent = hx.detached('div').attr('class', 'hx-tree-node-content')
+  nodeContent = div('hx-tree-node-content')
   renderer(nodeContent.node(), data)
   if data.children? and data.children.length > 0
-    childContainer = hx.detached('div').class('hx-tree-node-children').style('display', 'none')
+    childContainer = div('hx-tree-node-children').style('display', 'none')
     if lazy
       childView = createNodeView(childContainer, renderer, lazy)
-      hx.component.register(treeNode.node(), {
+      treeNode.api({
         renderChildren: -> childView.apply(data.children)
       })
     else
       childContainer.append(createChildren(data.children, renderer, lazy))
 
-    treeNode.add(hx.detached('div').class('hx-tree-node-parent')
+    treeNode.add(div('hx-tree-node-parent')
         .add(nodeContent))
       .add(childContainer)
   else
@@ -29,23 +37,23 @@ createTreeNode = (data, renderer, lazy) ->
 formatChildren = (tree, children, animate) -> children.forEach((d) => format(tree, d.node(), animate))
 
 formatIcon = (node, iconElement, animate) =>
-  children = hx.select(node).shallowSelect('.hx-tree-node-children')
+  children = select(node).shallowSelect('.hx-tree-node-children')
 
   if not children.selectAll('.hx-tree-node').empty()
     open = children.style('display') == 'block'
-    hx.select(node).classed('hx-tree-node-open', open)
+    select(node).classed('hx-tree-node-open', open)
     if animate
-      hx.select(iconElement).select('i').morph()
+      select(iconElement).select('i').morph()
         .then(if open then 'rotate-90' else 'rotate-0')
         .go(true)
 
 format = (tree, element, animate) ->
-  treeNode = hx.select(element)
-  treeNodeComponent = treeNode.component()
+  treeNode = select(element)
+  treeNodeApi = treeNode.api()
 
   renderLazyChildren = (rootNode, recursive) ->
-    if rootNode.component()? and rootNode.selectAll('.hx-tree-node').empty()
-      rootNode.component().renderChildren()
+    if rootNode.api()? and rootNode.selectAll('.hx-tree-node').empty()
+      rootNode.api().renderChildren()
       formatChildren(tree, rootNode.selectAll('.hx-tree-node'), animate)
     if recursive
       rootNode.selectAll('.hx-tree-node').map((sel) -> renderLazyChildren(sel, recursive))
@@ -67,25 +75,25 @@ format = (tree, element, animate) ->
     else
       toggle(iconElement)
 
-  siblings = hx.select(element.parentNode).shallowSelectAll('.hx-tree-node')
+  siblings = select(element.parentNode).shallowSelectAll('.hx-tree-node')
   siblingsHaveChildren = siblings
     .shallowSelect('.hx-tree-node-children')
     .shallowSelectAll('.hx-tree-node')
     .size() > 0
 
-  siblingsHaveLazyChildren = siblingsHaveChildren or siblings.nodes.map((node) -> hx.component(node)?).some(hx.identity)
+  siblingsHaveLazyChildren = siblingsHaveChildren or siblings.nodes.map((node) -> select(node).api()?).some(identity)
   showDisabled = if tree.options.hideDisabledButtons then false else siblingsHaveLazyChildren
 
   childTreeNodes = treeNode.select('.hx-tree-node-children')
-  if treeNodeComponent? or childTreeNodes.selectAll('.hx-tree-node').size() > 0 or showDisabled
-    innerElem = hx.select(element).select('.hx-tree-node-parent')
+  if treeNodeApi? or childTreeNodes.selectAll('.hx-tree-node').size() > 0 or showDisabled
+    innerElem = select(element).select('.hx-tree-node-parent')
 
     if innerElem.size() > 0
       innerElem.view('.hx-tree-node-parent-icon')
         .enter ->
-          selection = @append('div')
-          selection.attr('class', 'hx-tree-node-parent-icon').append('i').attr('class', 'hx-icon hx-icon-chevron-right hx-tree-node-state-icon')
-          selection.node()
+          selection = div('hx-tree-node-parent-icon')
+            .add(i('hx-icon hx-icon-chevron-right hx-tree-node-state-icon'))
+          @append(selection).node()
         .update (d, node) ->
           isDouble = false
           cancelDouble = -> isDouble = false
@@ -97,15 +105,16 @@ format = (tree, element, animate) ->
           formatIcon(node.parentNode.parentNode, node, animate)
         .apply(this)
     else
-      parent = hx.select(element)
+      parent = select(element)
       elem = parent.select('.hx-tree-node-content').node()
       newElem = parent.append('div').attr('class', 'hx-tree-node-parent').node()
       newElem.appendChild(elem)
-      selection = hx.select(newElem).append('div')
-      selection.attr('class', 'hx-tree-node-parent-icon hx-tree-node-parent-icon-disabled').append('i').attr('class', 'hx-icon hx-icon-chevron-right')
+      selection = select(newElem).append('div')
+      selection.attr('class', 'hx-tree-node-parent-icon hx-tree-node-parent-icon-disabled')
+        .append('i').attr('class', 'hx-icon hx-icon-chevron-right')
 
 recurseUpTree = (node) ->
-  nodeSel = hx.select(node)
+  nodeSel = select(node)
   if nodeSel.classed('hx-tree-node')
     # jump an extra step as we know the tree structure means the parent will
     # be another tree node
@@ -118,17 +127,16 @@ recurseUpTree = (node) ->
 
 class Tree
   constructor: (@selector, options) ->
-    hx.component.register(@selector, this)
-
-    @options = hx.merge.defined {
+    @options = mergeDefined {
       hideDisabledButtons: false
       animate: true
-      renderer: (elem, data) -> hx.select(elem).html(data.name || data)
+      renderer: (elem, data) -> select(elem).html(data.name || data)
       items: []
       lazy: false
     }, options
 
-    @selection = hx.select(@selector).classed('hx-tree hx-openable', true)
+    @selection = select(@selector).classed('hx-tree hx-openable', true)
+      .api(this)
 
     if @options.items? and @options.items.length > 0
       @items @options.items
@@ -172,7 +180,7 @@ class Tree
 
   hide: (animate, node) ->
     if node?
-      nodeSel = hx.select(node)
+      nodeSel = select(node)
 
       if not nodeSel.classed('hx-tree-node')
         nodeSel = nodeSel.closest('.hx-tree-node')
@@ -190,13 +198,17 @@ class Tree
     @refresh(animate)
     this
 
-hx.tree = (options) ->
-  selection = hx.detached('div')
+tree = (options) ->
+  selection = div()
   new Tree(selection.node(), options)
   selection
 
-hx.Tree = Tree
-
 # initialise all trees that match the css selector and return the result as an array of Trees
-hx.initializeTrees = (selector) ->
-  hx.selectAll(selector).nodes.map((d) -> new Tree(d))
+initializeTrees = (selector) ->
+  selectAll(selector).nodes.map((d) -> new Tree(d))
+
+export {
+  tree,
+  Tree,
+  initializeTrees,
+}
