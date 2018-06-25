@@ -245,7 +245,7 @@ describe('HexagonJS Test Suite', () => {
         'timePicker',
         'TimePicker',
         'tabs',
-        'Tabs',
+        'Tabs'
         // 'Form'
       ]
 

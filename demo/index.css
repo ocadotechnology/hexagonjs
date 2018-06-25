@@ -3,3 +3,7 @@
 @import "examples/palette";
 @import "examples/layout";
 @import "examples/error-page";
+
+.example-section {
+  margin: 2em 0;
+}

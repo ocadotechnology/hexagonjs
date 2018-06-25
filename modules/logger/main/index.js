@@ -1,10 +1,10 @@
-function deprecated (deprecatedItem, ...messages)  {
+function deprecated (deprecatedItem, ...messages) {
   const heading = `Deprecation Warning: ${deprecatedItem}`
-  console.warn.apply(console, [heading, ...messages])
+  console.warn(heading, ...messages)
 }
 
 function warn (...messages) {
-  console.warn.apply(console, messages)
+  console.warn(...messages)
 }
 
 export default {
