@@ -20,7 +20,6 @@
   vertical-align: 1px;
 }
 
-
 .hx-input-group > .hx-date-picker {
   padding: 0;
 }
@@ -65,8 +64,7 @@
   display: inline-block;
   line-height: 2em;
 }
-
-// Calendar Dropdown styles
+/* Calendar Dropdown styles */
 .hx-date-picker-calendar {
   user-select: none;
   margin: 0.5em;

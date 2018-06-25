@@ -1,10 +1,10 @@
-// for apps that should use the full width of the screen (the default is to centre the content)
+/* for apps that should use the full width of the screen (the default is to centre the content) */
 .hx-full-width .hx-content {
   overflow-x: hidden;
   max-width: 100%;
 }
 
-// for apps that should be fixed to the size of the screen
+/* for apps that should be fixed to the size of the screen */
 .hx-full-screen .hx-content {
   position: absolute;
   overflow: hidden;
@@ -135,7 +135,7 @@
   border-left: none !important;
 }
 
-// classes for hiding and showing content on mobile devices
+/* classes for hiding and showing content on mobile devices */
 @media (min-width: 480px) {
   .hx-phone {
     display: none !important;
@@ -160,7 +160,7 @@
   }
 }
 
-// content breakpoint
+/* content breakpoint */
 @media (max-width: 1300px) {
   .hx-content {
     max-width: 900px;

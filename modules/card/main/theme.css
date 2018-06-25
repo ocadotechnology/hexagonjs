@@ -69,7 +69,7 @@
   color: var(--card-icon-col);
 }
 
-// no real reason to have complement and contrast here
+/* no real reason to have complement and contrast here */
 .hx-background-action .hx-card-title,
 .hx-background-positive .hx-card-title,
 .hx-background-warning .hx-card-title,
@@ -78,7 +78,7 @@
   color: var(--card-context-text-col);
 }
 
-// no real reason to have complement and contrast here
+/* no real reason to have complement and contrast here */
 .hx-background-action .hx-card-icon,
 .hx-background-positive .hx-card-icon,
 .hx-background-warning .hx-card-icon,

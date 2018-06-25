@@ -21,7 +21,7 @@
 .hx-drag-container .hx-drag-placeholder {
   position: relative;
   vertical-align: middle;
-  // prevent inherited classes giving the placeholder strange styles
+  /* prevent inherited classes giving the placeholder strange styles */
   background: transparent !important;
   border: none !important;
 }

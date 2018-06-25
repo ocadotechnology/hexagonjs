@@ -128,7 +128,7 @@
   white-space: nowrap;
 }
 
-// these have to be this specific as the rules at the top are quite specific.
+/* these have to be this specific as the rules at the top are quite specific. */
 .hx-card > .hx-card-group:not(.hx-card-joint),
 .hx-card > .hx-card-section:not(.hx-card-joint),
 .hx-card-aligned > .hx-card-group:not(.hx-card-joint),

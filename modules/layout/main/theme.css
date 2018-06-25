@@ -21,7 +21,7 @@
   margin:  var(--layout-margin);
 }
 
-// named size classes
+/* named size classes */
 .hx-small,
 .hx-medium,
 .hx-large {
@@ -29,24 +29,24 @@
 }
 
 .hx-small {
-  // fallback to static percentage in case calc is not supported
+  /* fallback to static percentage in case calc is not supported */
   flex-basis: 21%;
   flex-basis: calc(25% - (2 * var(--layout-margin)));
 }
 
 .hx-medium {
-  // fallback to static percentage in case calc is not supported
+  /* fallback to static percentage in case calc is not supported */
   flex-basis: 40%;
   flex-basis: calc(50% - (2 * var(--layout-margin)));
 }
 
 .hx-large {
-  // fallback to static percentage in case calc is not supported
+  /* fallback to static percentage in case calc is not supported */
   flex-basis: 90%;
   flex-basis: calc(100% - (2 * var(--layout-margin)));
 }
 
-// content breakpoint
+/* content breakpoint */
 @media (max-width: --layout-content-breakpoint) {
   .hx-content {
     max-width: var(--layout-content-breakpoint-width);

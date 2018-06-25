@@ -39,7 +39,7 @@
 .hx-date-picker-calendar .hx-grid .hx-grid-text {
   border-radius: var(--date-picker-day-border-radius);
   padding: var(--date-picker-grid-padding);
-  margin: -var(--date-picker-grid-padding);
+  margin: calc(var(--date-picker-grid-padding) * -1);
 }
 
 .hx-date-picker-calendar .hx-grid:hover .hx-grid-text {

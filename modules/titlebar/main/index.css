@@ -110,7 +110,7 @@ body.hx-full-width .hx-titlebar-contents {
 
 .hx-titlebar-menu-content {
   display: inherit;
-  //padding: 5px;
+  /* padding: 5px; */
 }
 
 .hx-titlebar-menu-icons-container {
