@@ -1,5 +1,5 @@
 import { EventEmitter } from 'event-emitter/main'
-import { select, div } from 'selection/main'
+import { select, div, span } from 'selection/main'
 import { Collapsible } from 'collapsible/main'
 import { Dropdown } from 'dropdown/main'
 import { isFunction, mergeDefined } from 'utils/main'
@@ -185,7 +185,7 @@ class MenuItem
 
       collapsibleNode.select('.hx-collapsible-heading')
         .classed('hx-menu-collapsible', true)
-        .set(@menu.options.renderer(@content))
+        .set(@menu.renderer()(@content))
 
       contentNode = container.select('.hx-collapsible-content').node()
 
@@ -197,7 +197,7 @@ class MenuItem
         .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
         .classed('hx-menu-item-disabled', @content.disabled)
         .classed('hx-menu-unselectable', @content.unselectable)
-        .set(@menu.options.renderer(@content))
+        .set(@menu.renderer()(@content))
 
 
 
@@ -213,8 +213,7 @@ export class Menu extends EventEmitter
         ddClass: '',
         disabled: false
       }
-      renderer: (data) ->
-        return div().text(data.text or data)
+      renderer: (data) -> span().text(data.text or data)
       items: []
     }, options)
 
@@ -341,6 +340,7 @@ export class Menu extends EventEmitter
   renderer: (f) ->
     if arguments.length > 0
       @options.renderer = f
+      @render()
       this
     else
       @options.renderer
@@ -358,6 +358,7 @@ export class Menu extends EventEmitter
       items ?= [] # Prevent undefined items being set.
       @_.itemsChanged = true
       @_.items = items
+      @render()
       this
     else
       @_.items

@@ -1,3 +1,4 @@
+import * as hx from 'hexagon-js'
 import { select, div, detached, titleBar } from 'hexagon-js'
 
 import loadingSpinnerExamples from './examples/loading-spinner'
@@ -35,6 +36,9 @@ import pivotTableExamples from './examples/pivot-table'
 import timePickerExamples from './examples/time-picker'
 import tabsExamples from './examples/tabs'
 import treeExamples from './examples/tree'
+import dataTableExamples from './examples/data-table'
+
+window.hx = hx
 
 function example(title) {
   return div('example-section')
@@ -79,4 +83,5 @@ select('body')
     example('Time Picker').add(timePickerExamples()),
     example('Tabs').add(tabsExamples()),
     example('Tree').add(treeExamples()),
+    example('Data Table').add(dataTableExamples()),
   ]))
