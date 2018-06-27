@@ -914,8 +914,8 @@ class DataTable extends EventEmitter
             cellDivContent = cellDiv.append('div').class('hx-data-table-cell-inner')
 
             cellDivContent
-              .add(getColumnOption('headerCellRenderer', header.id)(header, headers)
-                .class('hx-data-table-title'))
+              .add(div('hx-data-table-title')
+                .add(getColumnOption('headerCellRenderer', header.id)(header, headers)))
 
             if getColumnOption('sortEnabled', header.id)
               cellDiv.classed('hx-data-table-cell-sort-enabled', true)

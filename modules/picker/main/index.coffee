@@ -78,7 +78,7 @@ export class Picker extends EventEmitter
     if not resolvedOptions.renderer?
       @renderer(menu.renderer())
 
-    menu.renderer(@renderer())
+    menu.renderer((item) => @renderer()(item))
 
     if resolvedOptions.items?
       @items resolvedOptions.items
