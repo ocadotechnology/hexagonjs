@@ -19,7 +19,7 @@ setValue = (picker, value, items, cause = 'api') ->
       break
 
   if newVal?
-    picker._.renderer(picker._.selectedText.node(), newVal)
+    picker._.selectedText.set(picker._.renderer(newVal))
   else
     picker._.selectedText.text(picker._.options.noValueText)
 
@@ -49,9 +49,10 @@ export class Picker extends EventEmitter
     @selection = select(selector)
       .classed('hx-picker hx-btn', true)
       .classed('hx-picker-full-width', resolvedOptions.fullWidth)
-      .add(span('hx-picker-inner').attr('type', 'button'))
-      .add(selectedText)
-      .add(span('hx-picker-icon').add(i('hx-icon hx-icon-caret-down')))
+      .add(span('hx-picker-inner').attr('type', 'button')
+        .add(selectedText)
+        .add(span('hx-picker-icon').add(i('hx-icon hx-icon-caret-down'))))
+      .api('picker', this)
       .api(this)
 
     menu = new Menu(selector, {

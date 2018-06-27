@@ -581,4 +581,23 @@
   --tree-icon-text-hover-color: var(--theme-default-text-color);
   --tree-item-border-left-color: var(--theme-default-color);
   --tree-shadow-color: var(--theme-default-shadow-color);
+
+  /* Data Table */
+  --data-table-compact-row-background-color: white;
+  --data-table-compact-row-hover-background-color: #FAFAFA;
+  --data-table-compact-row-hover-text-color: black;
+  --data-table-compact-row-shadow-color: var(--theme-default-shadow-color);
+  --data-table-compact-row-text-color: black;
+  --data-table-disabled-row-background-color: #FAFAFA;
+  --data-table-disabled-row-text-color: grey;
+  --data-table-footer-background-color: #FAFAFA;
+  --data-table-footer-shadow-color: var(--theme-default-shadow-color);
+  --data-table-loading-background-color: rgba(255, 255, 255, 0.4);
+  --data-table-no-data-row-background-color: transparent;
+  --data-table-no-data-row-text-color: black;
+  --data-table-row-collapsible-background-color: white;
+  --data-table-row-collapsible-text-color: black;
+  --data-table-selected-row-background-color: #F7F6B8;
+  --data-table-status-bar-background-color: #FFB800;
+  --data-table-status-bar-text-color: white;
 }

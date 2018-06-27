@@ -165,6 +165,12 @@ export {
   Tree,
   initializeTrees // XXX: Remove this?
 } from 'tree/main'
+export {
+  dataTable,
+  DataTable,
+  objectFeed,
+  getAdvancedSearchFilter
+} from 'data-table/main'
 // export { Form } from 'form-builder/main'
 
 // XXX: these apis should be opt-in

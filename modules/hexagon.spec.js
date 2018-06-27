@@ -1,6 +1,6 @@
 'use strict'
 
-import { should, expect } from 'chai'
+import chai from 'chai'
 import * as hx from './hexagon'
 
 // Internal utils
@@ -58,9 +58,11 @@ import pivotTableTests from './pivot-table/test/spec'
 import timePickerTests from './time-picker/test/spec'
 import tabsTests from './tabs/test/spec'
 import treeTests from './tree/test/spec'
+import dataTableTests from './data-table/test/spec'
 // import formBuilderTests from './form-builder/test/spec'
 
-should()
+const should = chai.should()
+const expect = chai.expect
 
 describe('HexagonJS Test Suite', () => {
   // add a handle for when the tests are finished
@@ -68,7 +70,6 @@ describe('HexagonJS Test Suite', () => {
     if (window.hxTestFinished) {
       window.hxTestFinished()
     }
-    hx.selectAll('[class^="hx-"]').remove()
   })
 
   describe('hx', () => {
@@ -249,7 +250,11 @@ describe('HexagonJS Test Suite', () => {
         'Tabs',
         'tree',
         'Tree',
-        'initializeTrees'
+        'initializeTrees',
+        'dataTable',
+        'objectFeed',
+        'DataTable',
+        'getAdvancedSearchFilter',
         // 'Form'
       ]
 
@@ -320,6 +325,7 @@ describe('HexagonJS Test Suite', () => {
   timePickerTests()
   tabsTests()
   treeTests()
+  dataTableTests()
   // formBuilderTests()
 
   // require('modules/tag-input/test/spec')
