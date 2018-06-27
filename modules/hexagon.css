@@ -600,4 +600,22 @@
   --data-table-selected-row-background-color: #F7F6B8;
   --data-table-status-bar-background-color: #FFB800;
   --data-table-status-bar-text-color: white;
+
+  /* Sidebar */
+  --sidebar-animation-duration: 0.2s;
+  --sidebar-background-color: #F7F7F7;
+  --sidebar-collapsible-border-color: rgb(210,208,208);
+  --sidebar-section-hover-background-color: #698BB5;
+  --sidebar-section-hover-text-color: #F3F3F3;
+  --sidebar-section-text-color: var(--theme-default-text-color);
+  --sidebar-selected-background-color: #FFF;
+  --sidebar-selected-text-color: var(--theme-default-text-color);
+  --sidebar-shadow-col: var(--theme-default-shadow-color);
+  --sidebar-title-background-color: #F2F2F2;
+  --sidebar-title-font: 'Roboto Slab', sans-serif;
+  --sidebar-title-text-color: var(--theme-default-text-color);
+  --sidebar-titlebar-button-background-color: white;
+  --sidebar-titlebar-button-hover-text-color: var(--theme-default-text-color);
+  --sidebar-titlebar-button-text-color: var(--theme-default-text-color);
+  --sidebar-titlebar-icon-background-color: white;
 }

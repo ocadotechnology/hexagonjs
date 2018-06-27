@@ -3,7 +3,15 @@
 @import "examples/palette";
 @import "examples/layout";
 @import "examples/error-page";
+@import "examples/sidebar";
 
 .example-section {
   margin: 2em 0;
+}
+
+.big-ol-error {
+  padding: 1em;
+  background: #FFE6F1;
+  border: 1px solid #f91076;
+  color: #f91076;
 }

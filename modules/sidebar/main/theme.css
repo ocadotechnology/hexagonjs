@@ -1,0 +1,74 @@
+.hx-sidebar {
+  background: var(--sidebar-background-color);
+  box-shadow: 1px 1px 1px 1px var(--sidebar-shadow-col);
+}
+
+.hx-sidebar.hx-animate {
+  transition: opacity var(--sidebar-animation-duration), width var(--sidebar-animation-duration);
+}
+
+.hx-sidebar .hx-sidebar-section:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent),
+.hx-sidebar > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent),
+.hx-sidebar > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent),
+.hx-sidebar .hx-sidebar-indent > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent),
+.hx-sidebar .hx-sidebar-indent > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent),
+.hx-sidebar .hx-collapsible-content > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent),
+.hx-sidebar .hx-collapsible-content > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent),
+.hx-sidebar .hx-collapsible-heading:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent) {
+  color: var(--sidebar-section-text-color);
+}
+
+.hx-sidebar .hx-sidebar-section:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected,
+.hx-sidebar > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected,
+.hx-sidebar > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected,
+.hx-sidebar .hx-sidebar-indent > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected,
+.hx-sidebar .hx-sidebar-indent > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected,
+.hx-sidebar .hx-collapsible-content > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected,
+.hx-sidebar .hx-collapsible-content > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected,
+.hx-sidebar .hx-collapsible-heading:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent).hx-selected {
+  background: var(--sidebar-selected-background-color);
+  color: var(--sidebar-selected-text-color);
+}
+
+.hx-sidebar .hx-sidebar-section:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover,
+.hx-sidebar > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover,
+.hx-sidebar > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover,
+.hx-sidebar .hx-sidebar-indent > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover,
+.hx-sidebar .hx-sidebar-indent > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover,
+.hx-sidebar .hx-collapsible-content > div:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover,
+.hx-sidebar .hx-collapsible-content > a:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover,
+.hx-sidebar .hx-collapsible-heading:not(.hx-sidebar-clear):not(.hx-collapsible):not(.hx-sidebar-title):not(.hx-sidebar-indent):hover {
+  background: var(--sidebar-section-hover-background-color);
+  color: var(--sidebar-section-hover-text-color);
+}
+
+.hx-sidebar .hx-sidebar-indent > div,
+.hx-sidebar .hx-sidebar-indent > a,
+.hx-sidebar .hx-collapsible-content > div,
+.hx-sidebar .hx-collapsible-content > a,
+.hx-sidebar > .hx-collapsible > .hx-collapsible-content > .hx-collapsible {
+  border-left: solid 1px var(--sidebar-collapsible-border-color);
+}
+
+.hx-sidebar .hx-sidebar-title {
+  color: var(--sidebar-title-text-color);
+  font-family: var(--sidebar-title-font);
+  background: var(--sidebar-title-background-color);
+}
+
+.hx-sidebar-page .hx-titlebar-sidebar-button {
+  background: var(--sidebar-titlebar-button-background-color);
+  color: var(--sidebar-titlebar-button-text-color);
+}
+
+.hx-sidebar-page .hx-titlebar-sidebar-button:hover {
+  color: var(--sidebar-titlebar-button-hover-text-color);
+}
+
+.hx-sidebar-page .hx-content.hx-animate {
+  transition: left var(--sidebar-animation-duration);
+}
+
+.hx-sidebar-page .hx-titlebar-icon {
+  background: var(--sidebar-titlebar-icon-background-color);
+}
