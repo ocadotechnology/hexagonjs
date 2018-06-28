@@ -172,6 +172,7 @@ export {
   getAdvancedSearchFilter
 } from 'data-table/main'
 export { Sidebar } from 'sidebar/main'
+export { tagInput, TagInput } from 'tag-input/main'
 // export { Form } from 'form-builder/main'
 
 // XXX: these apis should be opt-in

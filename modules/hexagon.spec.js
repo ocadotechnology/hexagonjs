@@ -60,6 +60,7 @@ import tabsTests from './tabs/test/spec'
 import treeTests from './tree/test/spec'
 import dataTableTests from './data-table/test/spec'
 import sidebarTests from './sidebar/test/spec'
+import tagInputTests from './tag-input/test/spec'
 // import formBuilderTests from './form-builder/test/spec'
 
 const should = chai.should()
@@ -256,7 +257,9 @@ describe('HexagonJS Test Suite', () => {
         'objectFeed',
         'DataTable',
         'getAdvancedSearchFilter',
-        'Sidebar'
+        'Sidebar',
+        'tagInput',
+        'TagInput',
         // 'Form'
       ]
 
@@ -329,6 +332,7 @@ describe('HexagonJS Test Suite', () => {
   treeTests()
   dataTableTests()
   sidebarTests()
+  tagInputTests()
   // formBuilderTests()
 
   // require('modules/tag-input/test/spec')

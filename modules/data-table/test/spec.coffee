@@ -18,10 +18,11 @@ export default () ->
     dropdownAnimationTime = 150
     inputDebounceDelay = 200
     animationCompletedDelay = 150
-    fixture = select('body').append(div())
+    fixture = select('body').append(div('hx-test-data-table'))
     clock = undefined
 
     beforeEach ->
+      fixture.clear()
       config.attachToSelector = fixture
       clock = installFakeTimers()
       logger.warn = chai.spy()
@@ -30,6 +31,9 @@ export default () ->
       config.attachToSelector = origDropdownAttchToSelector
       clock.restore()
       logger.warn = origConsoleWarning
+
+    after ->
+      fixture.remove()
 
     noData = {
       headers: [

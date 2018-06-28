@@ -1,0 +1,66 @@
+.hx-tag-input {
+  display: flex;
+  flex-flow: row wrap;
+  margin-right: 1px;
+  border: solid 1px transparent;
+}
+
+.hx-tag-input .hx-tags-container {
+  flex-flow: row wrap;
+  display: flex;
+  flex-grow: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.hx-tag-input .hx-tags-container:empty {
+  display: none;
+}
+
+.hx-tag-input-container {
+  flex-flow: row wrap;
+  flex-grow: 1;
+  display: flex;
+}
+
+.hx-tag-input-container input {
+  margin: 0;
+  margin: -1px;
+  flex-grow: 1;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+  min-width: 150px;
+}
+
+.hx-tag {
+  display: flex;
+  flex-grow: 0;
+  margin: 0.25em;
+  border-radius: 0.15em;
+  border: 1px solid;
+}
+
+.hx-tag .hx-tag-text {
+  padding: 0.2em 0.2em 0.2em 0.5em;
+}
+
+.hx-tag .hx-tag-remove {
+  font-size: 0.9em;
+  padding: 0.2em 0.5em 0.2em 0.3em;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.hx-tag .hx-tag-remove:hover {
+  opacity: 1;
+}
+
+.hx-tag .hx-tag-remove>i {
+  vertical-align: middle;
+}
+
+.hx-tag.hx-disabled .hx-tag-text,
+.hx-tag.hx-disabled .hx-tag-remove {
+  cursor: not-allowed;
+}

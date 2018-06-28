@@ -202,7 +202,7 @@ class Autocomplete extends EventEmitter
 
      # do a sanity check on the data
     if not isArray(@data) and not isFunction(@data)
-      logger.warning(
+      logger.warn(
         'Autocomplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
         ' but should have been an array of items or a function'
       )

@@ -618,4 +618,35 @@
   --sidebar-titlebar-button-hover-text-color: var(--theme-default-text-color);
   --sidebar-titlebar-button-text-color: var(--theme-default-text-color);
   --sidebar-titlebar-icon-background-color: white;
+
+  /* Tag Input */
+  --tag-input-border-color: #E4E4E4;
+  --tag-input-background-color: #FFF;
+  --tag-input-action-background-color: var(--theme-action-color);
+  --tag-input-action-border-color: transparent;
+  --tag-input-action-text-color: #FFF;
+  --tag-input-complement-background-color: var(--theme-complement-color);
+  --tag-input-complement-border-color: transparent;
+  --tag-input-complement-text-color: var(--theme-default-text-color);
+  --tag-input-contrast-background-color: var(--theme-contrast-color);
+  --tag-input-contrast-border-color: transparent;
+  --tag-input-contrast-text-color: #FFF;
+  --tag-input-default-background-color: var(--theme-default-color);
+  --tag-input-default-border-color: transparent;
+  --tag-input-default-text-color: var(--theme-default-text-color);
+  --tag-input-disabled-background-color: #FAFAFA;
+  --tag-input-disabled-border-color: transparent;
+  --tag-input-disabled-text-color: #FFF;
+  --tag-input-info-background-color: var(--theme-info-color);
+  --tag-input-info-border-color: transparent;
+  --tag-input-info-text-color: #FFF;
+  --tag-input-negative-background-color: var(--theme-negative-color);
+  --tag-input-negative-border-color: transparent;
+  --tag-input-negative-text-color: #FFF;
+  --tag-input-positive-background-color: var(--theme-positive-color);
+  --tag-input-positive-border-color: transparent;
+  --tag-input-positive-text-color: #FFF;
+  --tag-input-warning-background-color: var(--theme-warning-color);
+  --tag-input-warning-border-color: transparent;
+  --tag-input-warning-text-color: #FFF;
 }

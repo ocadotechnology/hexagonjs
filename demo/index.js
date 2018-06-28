@@ -38,6 +38,7 @@ import tabsExamples from './examples/tabs'
 import treeExamples from './examples/tree'
 import dataTableExamples from './examples/data-table'
 import sidebarExamples from './examples/sidebar'
+import tagInputExamples from './examples/tag-input'
 
 window.hx = hx
 
@@ -95,4 +96,5 @@ select('body')
     example('Tree').add(tryDemo(treeExamples)),
     example('Data Table').add(tryDemo(dataTableExamples)),
     example('Sidebar').add(tryDemo(sidebarExamples)),
+    example('Tag Input').add(tryDemo(tagInputExamples)),
   ]))
