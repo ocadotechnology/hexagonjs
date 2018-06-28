@@ -1,15 +1,15 @@
-select = require('modules/selection/main')
-utils = require('modules/util/main/utils')
-DatePicker = require('modules/date-picker/main').DatePicker
-TimePicker = require('modules/time-picker/main').TimePicker
-EventEmitter = require('modules/event-emitter/main')
-preferences = require('modules/preferences/main')
+import { select, div } from 'selection/main'
+import { merge, randomId } from 'utils/main'
+import { DatePicker } from 'date-picker/main'
+import { TimePicker } from 'time-picker/main'
+import { EventEmitter } from 'event-emitter/main'
+import { preferences } from 'preferences/main'
 
 export class DateTimePicker extends EventEmitter
   constructor: (@selector, options) ->
     super()
 
-    @options = utils.merge({
+    @options = merge({
       datePickerOptions: {}
       timePickerOptions: {}
     }, options)
@@ -21,10 +21,11 @@ export class DateTimePicker extends EventEmitter
 
     @selection = select(@selector)
       .classed('hx-date-time-picker', true)
+      .api('date-time-picker', this)
       .api(this)
 
-    dtNode = @selection.append('div').node()
-    tpNode = @selection.append('div').node()
+    dtNode = @selection.append('div')
+    tpNode = @selection.append('div')
 
     # To prevent the two pickers being initialised with separate disabled properties.
     @options.timePickerOptions.disabled = @options.datePickerOptions.disabled
@@ -33,7 +34,7 @@ export class DateTimePicker extends EventEmitter
     @timePicker = new TimePicker(tpNode, @options.timePickerOptions)
 
     @_ = {
-      uniqueId: utils.randomId()
+      uniqueId: randomId()
     }
 
     # XXX [2.0.0]: memory leak
@@ -110,9 +111,10 @@ export class DateTimePicker extends EventEmitter
   getScreenDate: -> @datePicker.getScreenDate()
   getScreenTime: -> @timePicker.getScreenTime()
 
-  # XXX [2.0.0]: remove
+  # XXX [2.0.0]: remove?
+  # See note in 2.0.0.md about retaining this method
   locale: (locale) ->
-    utils.deprecatedWarning 'hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.'
+    # utils.deprecatedWarning 'hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.'
     if arguments.length > 0
       preferences.locale locale
       this
@@ -130,6 +132,6 @@ export class DateTimePicker extends EventEmitter
 
 
 export dateTimePicker = (options) ->
-  selection = select.detached('div')
-  new DateTimePicker(selection.node(), options)
+  selection = div()
+  new DateTimePicker(selection, options)
   selection

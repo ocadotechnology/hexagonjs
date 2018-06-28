@@ -173,6 +173,7 @@ export {
 } from 'data-table/main'
 export { Sidebar } from 'sidebar/main'
 export { tagInput, TagInput } from 'tag-input/main'
+export { dateTimePicker, DateTimePicker } from 'date-time-picker/main'
 // export { Form } from 'form-builder/main'
 
 // XXX: these apis should be opt-in
@@ -184,18 +185,3 @@ initView()          // XXX: remove view and replace with reactive lists and reac
 initMorphs()        // XXX: remove
 
 initTitleBar()
-
-// module.exports = window.hx = merge([
-//   require('./sticky-table-headers/main'),
-//   require('./plot/main'),
-//   require('./date-picker/main'),
-//   require('./time-picker/main'),
-//   require('./tag-input/main'),
-//   require('./slider/main'),
-//   require('./card/main'),
-//   require('./label/main'),
-//   require('./color-picker/main'),
-//   require('./paginator/main'),
-//   require('./time-slider/main'),
-//   require('./date-time-picker/main')
-// ])

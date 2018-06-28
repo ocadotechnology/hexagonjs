@@ -99,7 +99,6 @@ export default () ->
         ti.items().should.eql([])
         logger.warn.should.not.have.been.called()
         ti.add(undefined)
-        console.log(logger.warn.__spy.calls)
         logger.warn.should.have.been.called.with(
           'TagInput::add',
           'Expected an array or string argument, you supplied:',

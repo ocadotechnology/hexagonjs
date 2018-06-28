@@ -39,6 +39,7 @@ import treeExamples from './examples/tree'
 import dataTableExamples from './examples/data-table'
 import sidebarExamples from './examples/sidebar'
 import tagInputExamples from './examples/tag-input'
+import dateTimePickerExamples from './examples/date-time-picker'
 
 window.hx = hx
 
@@ -97,4 +98,5 @@ select('body')
     example('Data Table').add(tryDemo(dataTableExamples)),
     example('Sidebar').add(tryDemo(sidebarExamples)),
     example('Tag Input').add(tryDemo(tagInputExamples)),
+    example('Date Time Picker').add(tryDemo(dateTimePickerExamples)),
   ]))

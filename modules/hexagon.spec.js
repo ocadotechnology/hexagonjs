@@ -61,6 +61,7 @@ import treeTests from './tree/test/spec'
 import dataTableTests from './data-table/test/spec'
 import sidebarTests from './sidebar/test/spec'
 import tagInputTests from './tag-input/test/spec'
+import dateTimePickerTests from './date-time-picker/test/spec'
 // import formBuilderTests from './form-builder/test/spec'
 
 const should = chai.should()
@@ -260,6 +261,8 @@ describe('HexagonJS Test Suite', () => {
         'Sidebar',
         'tagInput',
         'TagInput',
+        'dateTimePicker',
+        'DateTimePicker',
         // 'Form'
       ]
 
@@ -333,6 +336,7 @@ describe('HexagonJS Test Suite', () => {
   dataTableTests()
   sidebarTests()
   tagInputTests()
+  dateTimePickerTests()
   // formBuilderTests()
 
   // require('modules/tag-input/test/spec')
