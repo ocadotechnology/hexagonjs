@@ -81,7 +81,7 @@ class View
         element = @new.call(@rootSelection, datum, i, data.indexOf(datum))
 
         # Checks isChild first as it's the quickest operation
-        isChild = @rootSelection.node().contains(element)
+        isChild = @rootSelection.contains(element)
         if not isChild
           viewEnterWarning(element, @selector)
         # Only do this check if the selector actually contains classes to check

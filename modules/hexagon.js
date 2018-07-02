@@ -104,7 +104,6 @@ export {
   filterTypes
 } from 'filter/main'
 export { userFacingText } from 'user-facing-text/main'
-export { validateForm } from 'form/main'
 export { palette } from 'palette/main'
 export { format } from 'format/main'
 export { preferences } from 'preferences/main'
@@ -174,7 +173,8 @@ export {
 export { Sidebar } from 'sidebar/main'
 export { tagInput, TagInput } from 'tag-input/main'
 export { dateTimePicker, DateTimePicker } from 'date-time-picker/main'
-// export { Form } from 'form-builder/main'
+export { validateForm, Form } from 'form/main'
+export { fileInput, FileInput } from 'file-input/main'
 
 // XXX: these apis should be opt-in
 initAnimate()       // XXX: remove

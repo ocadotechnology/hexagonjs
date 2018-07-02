@@ -33,7 +33,6 @@
 @import "paginator/main";
 @import "side-collapsible/main";
 @import "date-picker/main";
-@import "form-builder/main";
 @import "time-picker/main";
 @import "tabs/main";
 @import "tree/main";
@@ -41,3 +40,4 @@
 @import "sidebar/main";
 @import "tag-input/main";
 @import "date-time-picker/main";
+@import "file-input/main";
