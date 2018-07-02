@@ -25,7 +25,6 @@ import clickDetectorTests from './click-detector/test/spec'
 import notifyTests from './notify/test/spec'
 import filterTests from './filter/test/spec'
 import userFacingTextTests from './user-facing-text/test/spec'
-import formTests from './form/test/spec'
 import paletteTests from './palette/test/spec'
 import formatTests from './format/test/spec'
 import preferencesTests from './preferences/test/spec'
@@ -62,6 +61,8 @@ import dataTableTests from './data-table/test/spec'
 import sidebarTests from './sidebar/test/spec'
 import tagInputTests from './tag-input/test/spec'
 import dateTimePickerTests from './date-time-picker/test/spec'
+import formTests from './form/test/spec'
+import fileInputTests from './file-input/test/spec'
 // import formBuilderTests from './form-builder/test/spec'
 
 const should = chai.should()
@@ -263,6 +264,9 @@ describe('HexagonJS Test Suite', () => {
         'TagInput',
         'dateTimePicker',
         'DateTimePicker',
+        'Form',
+        'fileInput',
+        'FileInput'
         // 'Form'
       ]
 
@@ -337,6 +341,7 @@ describe('HexagonJS Test Suite', () => {
   sidebarTests()
   tagInputTests()
   dateTimePickerTests()
+  fileInputTests()
   // formBuilderTests()
 
   // require('modules/tag-input/test/spec')

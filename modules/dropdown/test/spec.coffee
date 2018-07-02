@@ -1,23 +1,36 @@
+import * as hx from 'hexagon'
+
 import chai from 'chai'
 import logger from 'logger/main'
-import { Dropdown, config } from 'dropdown/main'
-import { select, selectAll, div } from 'selection/main'
+import { Dropdown, config as dropdownConfig } from 'dropdown/main'
+import { select, div, getHexagonElementDataObject } from 'selection/main'
 import { calculateDropdownPosition } from 'dropdown/main/positioning'
 
 import { installFakeTimers } from 'test/utils/fake-time'
+import { emit } from 'test/utils/fake-event'
 
 should = chai.should()
 
 export default () ->
   describe 'dropdown', ->
 
+    window.hx = hx
+
     windowSize = 1000
+    startWindowWidth = window.innerWidth
+    startWindowHeight = window.innerHeight
+    dropdownAnimationDelay = 150
     button = undefined
     content = div().text('dropdown content')
-    id = '#button'
 
-    fixture = undefined
+    fixture = select('body').append(div('hx-test-dropdown'))
+      .style('padding', '0')
+      .style('margin', '0')
+      .style('width', '1000px')
+      .style('height', '1000px')
+      .style('position', 'relative')
     clock = undefined
+
 
     getWindowMeasurement = (horizontal, scroll) ->
       if scroll then 0
@@ -33,7 +46,6 @@ export default () ->
 
     makeButton = ->
       fixture.append('div')
-        .attr('id', id.slice(1))
         .style('width', '100px')
         .style('height', '50px')
         .style('position', 'absolute')
@@ -42,56 +54,37 @@ export default () ->
         .style('margin', '-50px -25px 0 0')
         .text('button')
 
-    clock = undefined
+    before ->
+      window.resizeTo(windowSize, windowSize)
 
     beforeEach ->
-      config.attachToSelector = '#dropdown-fixture'
-
-      fixture = select('body').append('div')
-        .style('padding', '0')
-        .style('margin', '0')
-        .style('width', '1000px')
-        .style('height', '1000px')
-        .style('position', 'relative')
-        .attr('id', 'dropdown-fixture')
-
-      window.innerHeight = 1000
-      window.innerWidth = 1000
-
+      dropdownConfig.attachToSelector = fixture
       clock = installFakeTimers()
       button = makeButton()
 
     afterEach ->
+      dropdownConfig.attachToSelector = 'body'
       clock.restore()
+      fixture.clear()
+      button.api('dropdown')?.cleanUp()
+      button.remove()
 
-      select('body')
-        .style('padding', undefined)
-        .style('margin', undefined)
-        .style('width', undefined)
-        .style('height', undefined)
-        .style('position', undefined)
-
-
-      config.attachToSelector = 'body'
-
-      select(id).api()?.cleanUp()
-      selectAll('.hx-dropdown').remove()
-
+    after ->
       fixture.remove()
-      button = undefined
+      window.resizeTo(startWindowWidth, startWindowHeight)
 
 
     it 'should throw an error when passing in the wrong thing for dropdownContent', ->
       oldConsoleWarning = logger.warn
       logger.warn = chai.spy()
       invalidDropdownContent = {}
-      dd = new Dropdown(id, invalidDropdownContent)
+      dd = new Dropdown(button, invalidDropdownContent)
       dd.show()
       logger.warn.should.have.been.called.with('dropdown: dropdownContent is not a valid type. dropdownContent: ', invalidDropdownContent)
       logger.warn = oldConsoleWarning
 
     it 'should create a dropdown object with the correct default options', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
 
       dd._.selection.should.eql(button)
       getSpacing(dd).should.equal(0)
@@ -104,73 +97,73 @@ export default () ->
 
 
     it 'should set the mode correctly for click', ->
-      dd = new Dropdown(id, content, {mode: 'click'})
+      dd = new Dropdown(button, content, {mode: 'click'})
 
-      dd._.selection.node().__hx__.eventEmitter.has('click').should.equal(true)
-      dd._.selection.node().__hx__.eventEmitter.has('mouseover').should.equal(false)
-      dd._.selection.node().__hx__.eventEmitter.has('mouseout').should.equal(false)
+      getHexagonElementDataObject(button.node()).eventEmitter.has('click').should.equal(true)
+      getHexagonElementDataObject(button.node()).eventEmitter.has('mouseover').should.equal(false)
+      getHexagonElementDataObject(button.node()).eventEmitter.has('mouseout').should.equal(false)
 
-      dd = new Dropdown(id, content, {mode: 'hover'})
-      dd._.selection.node().__hx__.eventEmitter.has('click').should.equal(true)
-      dd._.selection.node().__hx__.eventEmitter.has('mouseover').should.equal(true)
-      dd._.selection.node().__hx__.eventEmitter.has('mouseout').should.equal(true)
+      dd = new Dropdown(button, content, {mode: 'hover'})
+      getHexagonElementDataObject(button.node()).eventEmitter.has('click').should.equal(true)
+      getHexagonElementDataObject(button.node()).eventEmitter.has('mouseover').should.equal(true)
+      getHexagonElementDataObject(button.node()).eventEmitter.has('mouseout').should.equal(true)
 
 
     it 'should set the alignment correctly', ->
-      dd = new Dropdown(id, content, {align: 'rbrb'})
+      dd = new Dropdown(button, content, {align: 'rbrb'})
       dd._.alignments.should.eql('rbrb'.split(''))
 
     it 'should use the right alignment option when a named align value is used', ->
-      dd = new Dropdown(id, content, {align: 'up'})
+      dd = new Dropdown(button, content, {align: 'up'})
       dd._.alignments.should.eql('ltlb'.split(''))
 
-      dd = new Dropdown(id, content, {align: 'down'})
+      dd = new Dropdown(button, content, {align: 'down'})
       dd._.alignments.should.eql('lblt'.split(''))
 
-      dd = new Dropdown(id, content, {align: 'left'})
+      dd = new Dropdown(button, content, {align: 'left'})
       dd._.alignments.should.eql('ltrt'.split(''))
 
-      dd = new Dropdown(id, content, {align: 'right'})
+      dd = new Dropdown(button, content, {align: 'right'})
       dd._.alignments.should.eql('rtlt'.split(''))
 
     it 'should set the spacing correctly', ->
-      dd = new Dropdown(id, content, {spacing: 10} )
+      dd = new Dropdown(button, content, {spacing: 10} )
       getSpacing(dd).should.equal(10)
 
     it 'should set the matchWidth property correctly', ->
-      dd = new Dropdown(id, content, {matchWidth: false} )
+      dd = new Dropdown(button, content, {matchWidth: false} )
       dd.options.matchWidth.should.equal(false)
 
-      dd = new Dropdown(id, content, {matchWidth: true} )
+      dd = new Dropdown(button, content, {matchWidth: true} )
       dd.options.matchWidth.should.equal(true)
 
     it 'should set the ddClass correctly', ->
-      dd = new Dropdown(id, content, { ddClass: 'bob' })
+      dd = new Dropdown(button, content, { ddClass: 'bob' })
       dd.options.ddClass.should.equal('bob')
 
     it 'should call toggle the selector is clicked in click mode', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       chai.spy.on(dd, 'toggle')
-      dd._.selection.node().__hx__.eventEmitter.emit('click')
+      emit(button.node(), 'click')
       dd.toggle.should.have.been.called()
 
     it 'should call show/hide on mouseover/mouseout in hover mode', ->
-      dd = new Dropdown(id, content, {mode: 'hover'})
+      dd = new Dropdown(button, content, {mode: 'hover'})
       chai.spy.on(dd, 'show')
       chai.spy.on(dd, 'hide')
       chai.spy.on(dd, 'toggle')
 
-      dd._.selection.node().__hx__.eventEmitter.emit('mouseover')
+      emit(button.node(), 'mouseover')
       dd.show.should.have.been.called()
 
-      dd._.selection.node().__hx__.eventEmitter.emit('mouseout')
+      emit(button.node(), 'mouseout')
       dd.hide.should.have.been.called()
 
-      dd._.selection.node().__hx__.eventEmitter.emit('click')
+      emit(button.node(), 'click')
       dd.toggle.should.have.been.called()
 
     it 'should correctly detect if the dropdown is open', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       dd.isOpen().should.equal(false)
       dd.show()
       dd.isOpen().should.equal(true)
@@ -182,100 +175,108 @@ export default () ->
       dd.isOpen().should.equal(false)
 
     it 'should exist on the page when opened and set the visible property to true', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       dd._.visible.should.equal(false)
-      select('.hx-dropdown').empty().should.equal(true)
+      fixture.select('.hx-dropdown').empty().should.equal(true)
 
-      dd._.selection.node().__hx__.eventEmitter.emit('click')
-
+      emit(button.node(), 'click')
       dd._.visible.should.equal(true)
-      select('.hx-dropdown').empty().should.equal(false)
-      select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
+      clock.tick(dropdownAnimationDelay)
+
+      fixture.select('.hx-dropdown').empty().should.equal(false)
+      fixture.select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
 
     it 'should not do anything if show is called and the dropdown is already open', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       dd._.visible.should.equal(false)
-      select('.hx-dropdown').empty().should.equal(true)
+      fixture.select('.hx-dropdown').empty().should.equal(true)
 
       dd.show()
       dd._.visible.should.equal(true)
-      select('.hx-dropdown').empty().should.equal(false)
-      select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
+      clock.tick(dropdownAnimationDelay)
+      fixture.select('.hx-dropdown').empty().should.equal(false)
+      fixture.select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
 
       dd.show()
       dd._.visible.should.equal(true)
-      select('.hx-dropdown').empty().should.equal(false)
-      select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
+      clock.tick(dropdownAnimationDelay)
+      fixture.select('.hx-dropdown').empty().should.equal(false)
+      fixture.select('.hx-dropdown').select('div').node(0).should.equal(content.node(0))
 
     it 'should not do anything if hide is called and the dropdown is already closed', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       chai.spy.on(dd._.clickDetector, 'off')
       dd._.visible.should.equal(false)
-      select('.hx-dropdown').empty().should.equal(true)
+      fixture.select('.hx-dropdown').empty().should.equal(true)
 
       dd.hide()
       dd._.visible.should.equal(false)
-      select('.hx-dropdown').empty().should.equal(true)
+      fixture.select('.hx-dropdown').empty().should.equal(true)
       dd._.clickDetector.off.should.have.not.been.called()
 
     it 'should call the clean up the click detector', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       chai.spy.on(dd._.clickDetector, 'cleanUp')
       dd.cleanUp()
       dd._.clickDetector.cleanUp.should.have.been.called()
 
     it 'should call hide when an element other than the button is clicked', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       chai.spy.on(dd, 'hide')
       dd.show()
-      document.__hx__.eventEmitter.emit('pointerdown', { event: {target: fixture.node()}})
-      document.__hx__.eventEmitter.emit('pointerup', { event: {target: fixture.node()}})
+      emit(document, 'pointerdown', { event: {target: fixture.node()}})
+      emit(document, 'pointerup', { event: {target: fixture.node()}})
       dd.hide.should.have.been.called()
 
     it 'should detect parent z-index and set the index to be 1 greater', ->
       fixture
         .style('position', 'fixed')
         .style('z-index', 100)
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       dd.show()
       dd._.dropdown.style('z-index').should.equal('101')
+      fixture
+        .style('position', undefined)
+        .style('z-index', undefined)
 
     it 'should detect parent position and match it correctly', ->
       fixture.style('position', 'fixed')
 
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       dd.show()
       dd._.dropdown.style('position').should.equal('fixed')
 
     it 'should render correctly using a function as content', ->
       populate = () -> div('bob').text('Dave')
 
-      dd = new Dropdown(id, populate)
+      dd = new Dropdown(button, populate)
       dd.show()
       dd._.dropdown.select('.bob').text().should.equal('Dave')
 
 
     it 'should class the dropdown with the supplied dd class', ->
-      dd = new Dropdown(id, content, {ddClass: 'bob'})
+      dd = new Dropdown(button, content, {ddClass: 'bob'})
       dd.show()
       dd._.dropdown.classed('bob').should.equal(true)
 
     it 'should show and hide correctly', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
 
       dd._.visible.should.equal(false)
-      select('.hx-dropdown').empty().should.equal(true)
+      fixture.select('.hx-dropdown').empty().should.equal(true)
 
       dd.show()
       dd._.visible.should.equal(true)
-      select('.hx-dropdown').empty().should.equal(false)
+      clock.tick(dropdownAnimationDelay)
+      fixture.select('.hx-dropdown').empty().should.equal(false)
 
       dd.hide()
       dd._.visible.should.equal(false)
-      select('.hx-dropdown').empty().should.equal(true)
+      clock.tick(dropdownAnimationDelay)
+      fixture.select('.hx-dropdown').empty().should.equal(true)
 
     it 'should set the overflow style when the useScroll (private) option is specified', ->
-      dd = new Dropdown(id, content)
+      dd = new Dropdown(button, content)
       dd._.useScroll = true
       dd.show()
       clock.tick(300)
@@ -286,7 +287,7 @@ export default () ->
       button.text('Wider button for testing')
       bWidth = button.width()
 
-      dd = new Dropdown(id, content, {matchWidth: false })
+      dd = new Dropdown(button, content, {matchWidth: false })
 
       dd.show()
       dd._.dropdown.style('min-width').should.equal('0px')
@@ -295,7 +296,7 @@ export default () ->
     it 'should try to match the width of the parent if matchWidth is true', ->
       button.text('Wider button for testing')
 
-      dd = new Dropdown(id, content, {matchWidt: true })
+      dd = new Dropdown(button, content, {matchWidt: true })
 
       dd.show()
       dd._.dropdown.style('min-width').should.equal(button.style('width'))

@@ -2,7 +2,7 @@ import { utils } from 'utils/main'
 import { select, div, getHexagonElementDataObject } from 'selection/main'
 import { userFacingText } from 'user-facing-text/main'
 import { TagInput } from 'tag-input/main'
-import { config } from 'dropdown/main'
+import { config  as dropdownConfig } from 'dropdown/main'
 import logger from 'logger/main'
 
 import { installFakeTimers } from 'test/utils/fake-time'
@@ -14,7 +14,6 @@ should = chai.should()
 export default () ->
   describe 'tag-input', ->
     origConsoleWarning = logger.warn
-    origDropdownAttchToSelector = config.attachToSelector
     clock = undefined
     dropdownAnimateDuration = 200
     fixture = select('body').append(div('hx-test-tag-input'))
@@ -22,12 +21,12 @@ export default () ->
     beforeEach ->
       fixture.clear()
       clock = installFakeTimers()
-      config.attachToSelector = fixture
+      dropdownConfig.attachToSelector = fixture
       logger.warn = chai.spy()
 
     afterEach ->
       clock.restore()
-      config.attachToSelector = origDropdownAttchToSelector
+      dropdownConfig.attachToSelector = 'body'
       logger.warn = origConsoleWarning
 
     after ->

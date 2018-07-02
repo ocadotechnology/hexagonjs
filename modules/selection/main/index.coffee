@@ -54,7 +54,7 @@ getMethod = (node, methodName) ->
   else if node instanceof Document
     Document.prototype[methodName]
   else
-    Element.prototype[methodName]
+    Element.prototype[methodName] || Node.prototype[methodName] || HTMLBodyElement.prototype[methodName]
 
 
 # Should only be called with Function.call(node, selector)
@@ -179,6 +179,12 @@ export class Selection
     s = new Selection(@nodes.map((node) -> closestParent(selector, node)))
     s.singleSelection = @singleSelection
     s
+
+  parent: () ->
+    if not @singleSelection
+      throw new Error('Selection::parent can only be used on a single selection')
+    else
+      select(@node().parentNode)
 
   # returns an array of the newly created nodes
   attachSingle = (selection, element, attacher) ->

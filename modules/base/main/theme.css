@@ -32,14 +32,16 @@ input {
   border-color: var(--base-input-border-color);
   color: var(--base-input-text-color);
   border-radius: var(--base-input-border-radius);
+}
 
-  & :focus {
-    border-color: var(--base-input-focus-border-color);
-  }
+textarea:focus,
+input:focus {
+  border-color: var(--base-input-focus-border-color);
+}
 
-  & :invalid {
-    border-color: var(--base-input-invalid-border-color);
-  }
+textarea:invalid,
+input:invalid {
+  border-color: var(--base-input-invalid-border-color);
 }
 
 select {
@@ -51,7 +53,6 @@ select {
 select:focus {
   border-color: var(--base-select-focus-border-color);
 }
-
 
 ::selection {
   background: var(--base-text-select-color);

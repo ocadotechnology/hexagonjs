@@ -14,8 +14,6 @@ export default ->
   should = chai.should()
 
   describe 'autocomplete-picker', ->
-
-    origDropdownAttachSelector = dropdownConfig.attachToSelector
     origLoggerWarning = logger.warn
 
     clock = undefined
@@ -42,7 +40,7 @@ export default ->
       fixture.remove()
       clock.restore()
       logger.warn.reset()
-      dropdownConfig.attachToSelector = origDropdownAttachSelector
+      dropdownConfig.attachToSelector = 'body'
       logger.warn = origLoggerWarning
       chai.spy.restore()
 

@@ -1,7 +1,7 @@
 import { DataTable, dataTable, objectFeed, getAdvancedSearchFilter } from 'data-table/main'
 import { detached, select, Selection, div, span } from 'selection/main'
 import { userFacingText } from 'user-facing-text/main'
-import { config } from 'dropdown/main'
+import { config as dropdownConfig } from 'dropdown/main'
 import { filterTypes } from 'filter/main'
 import logger from 'logger/main'
 
@@ -14,7 +14,6 @@ should = chai.should()
 export default () ->
   describe 'data-table', ->
     origConsoleWarning = logger.warn
-    origDropdownAttchToSelector = config.attachToSelector
     dropdownAnimationTime = 150
     inputDebounceDelay = 200
     animationCompletedDelay = 150
@@ -23,12 +22,12 @@ export default () ->
 
     beforeEach ->
       fixture.clear()
-      config.attachToSelector = fixture
+      dropdownConfig.attachToSelector = fixture
       clock = installFakeTimers()
       logger.warn = chai.spy()
 
     afterEach ->
-      config.attachToSelector = origDropdownAttchToSelector
+      dropdownConfig.attachToSelector = 'body'
       clock.restore()
       logger.warn = origConsoleWarning
 
@@ -585,11 +584,10 @@ export default () ->
 
 
       describe 'filter', ->
-        it 'should do the filter table with the right position', (done) ->
-          testTable {tableOptions: {filterEnabled: true, filter: 'Bob'}}, (-> undefined), (container, dt, options, data) ->
-            # Sense checks
+        it 'should not update the cursor position when rendering if the filter is unchanged', (done) ->
+          testTable {tableOptions: {filterEnabled: true, filter: 'Bob'}}, undefined, (container, dt, options, data) ->
+            # Sense check
             container.select('.hx-data-table-filter').value().should.equal('Bob')
-            container.select('.hx-data-table-filter').node().selectionStart.should.equal(3)
 
             # Given
             container.select('.hx-data-table-filter').node().selectionStart = 1
@@ -1198,7 +1196,10 @@ export default () ->
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('tr').selectAll('td').forEach (cell, index) ->
               if index is 0
-                cell.attr('style').should.equal('max-width: 10px; width: 10px; min-width: 10px;')
+                # Different browsers specify the properties in differnt orders so we have to sort here.
+                # Using .style('max-width') etc. doesn't check this correctly as it inherits values from the CSS
+                cell.attr('style')
+                  .split('; ').sort().join(', ').replace(/;/g, '').should.eql('max-width: 10px, min-width: 10px, width: 10px')
               else
                 should.not.exist(cell.attr('style'))
 
@@ -2667,10 +2668,10 @@ export default () ->
               container.select('.hx-data-table-paginator-total-rows').text().should.equal('1 - 15')
               done()
 
-          it 'pageSize: 200, page: 2', (done) ->
-            dt.pageSize 200, ->
+          it 'pageSize: 100, page: 2', (done) ->
+            dt.pageSize 100, ->
               dt.page 2, ->
-                container.select('.hx-data-table-paginator-total-rows').text().should.equal('201 - 400')
+                container.select('.hx-data-table-paginator-total-rows').text().should.equal('101 - 200')
                 done()
 
         describe 'should correctly disable the pagnation arrows given the page number', ->

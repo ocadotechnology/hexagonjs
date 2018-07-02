@@ -1,10 +1,23 @@
 import { userFacingText } from 'user-facing-text/main'
 import { Autocomplete } from 'autocomplete/main'
 import { range } from 'utils/main'
-import { div } from 'selection/main'
+import { select, div } from 'selection/main'
+import { config as dropdownConfig } from 'dropdown/main'
 
 export default () ->
   describe 'autocomplete', ->
+    fixture = select('body').append(div('hx-test-autocomplete'))
+
+    beforeEach ->
+      dropdownConfig.attachToSelector = fixture
+
+    afterEach ->
+      dropdownConfig.attachToSelector = 'body'
+      fixture.clear()
+
+    after ->
+      fixture.remove()
+
     it 'should have user facing text defined', ->
       userFacingText('autocomplete','loading').should.equal('Loading...')
       userFacingText('autocomplete','noResultsFound').should.equal('No results found')
@@ -14,7 +27,7 @@ export default () ->
     it 'should sort items correctly when using objects', ->
       itemsObjects = range(100).map((i) -> { id: i })
 
-      ac = new Autocomplete(div(), itemsObjects, { inputMap: ({id}) -> id })
+      ac = new Autocomplete(fixture.append(div()), itemsObjects, { inputMap: ({id}) -> id })
 
       ac.show()
       ac._.menu.items().map(({id}) -> id).should.eql(range(100))
@@ -22,7 +35,7 @@ export default () ->
     it 'should sort disabled items correctly', ->
       itemsObjects = range(100).map((i) -> { id: i, disabled: i % 2 == 0 })
 
-      ac = new Autocomplete(div(), itemsObjects, { inputMap: ({id}) -> id })
+      ac = new Autocomplete(fixture.append(div()), itemsObjects, { inputMap: ({id}) -> id })
 
       ac.show()
       ac._.menu.items().slice(0, 50).map(({id}) -> id).should.eql(range(50).map (i) -> 2 * i + 1)

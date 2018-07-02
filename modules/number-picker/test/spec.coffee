@@ -1,6 +1,6 @@
 import chai from 'chai'
 
-import { div, Selection } from 'selection/main'
+import { div, Selection, select } from 'selection/main'
 import { numberPicker, NumberPicker } from 'number-picker/main'
 
 import { installFakeTimers } from 'test/utils/fake-time'
@@ -10,6 +10,8 @@ should = chai.should()
 
 export default () ->
   describe 'number picker', ->
+    fixture = select('body').append(div())
+
     fakePointerEvent =
       event:
         preventDefault: ->
@@ -22,7 +24,11 @@ export default () ->
       clock = installFakeTimers()
 
     afterEach ->
+      fixture.clear()
       clock.restore()
+
+    after ->
+      fixture.remove()
 
     it 'should have a default min of undefined', ->
       np = new NumberPicker(div())
@@ -74,8 +80,8 @@ export default () ->
       (npSel.api() instanceof NumberPicker).should.equal(true)
 
     it 'typing should set the value correctly', ->
-      sel = div()
-      np = new NumberPicker(sel.node())
+      sel = fixture.append(div())
+      np = new NumberPicker(sel)
       input = sel.select('input')
       input.value(10)
       np.value().should.equal(0)
@@ -83,8 +89,8 @@ export default () ->
       np.value().should.equal(10)
 
     it 'typing should adhere to max', ->
-      sel = div()
-      np = new NumberPicker(sel.node(), {max: 5})
+      sel = fixture.append(div())
+      np = new NumberPicker(sel, {max: 5})
       input = sel.select('input')
       input.value(10)
       np.value().should.equal(0)
@@ -92,8 +98,8 @@ export default () ->
       np.value().should.equal(5)
 
     it 'typing should adhere to min', ->
-      sel = div()
-      np = new NumberPicker(sel.node(), {min: -5})
+      sel = fixture.append(div())
+      np = new NumberPicker(sel, {min: -5})
       input = sel.select('input')
       input.value(-10)
       np.value().should.equal(0)
@@ -101,14 +107,14 @@ export default () ->
       np.value().should.equal(-5)
 
     it 'should initialise with correct disabled state', ->
-      sel = div()
-      np = new NumberPicker(sel.node(), {disabled: true})
+      sel = fixture.append(div())
+      np = new NumberPicker(sel, {disabled: true})
       np.disabled().should.equal(true)
       sel.select('button').map (btn) -> btn.attr('disabled').should.equal 'disabled'
 
     it 'disabled: should enable a disabled number picker', ->
-      sel = div()
-      np = new NumberPicker(sel.node(), {disabled: true})
+      sel = fixture.append(div())
+      np = new NumberPicker(sel, {disabled: true})
       np.disabled().should.equal(true)
       sel.select('button').map (btn) -> btn.attr('disabled').should.equal 'disabled'
       np.disabled(false).should.equal(np)
@@ -116,8 +122,8 @@ export default () ->
       sel.select('button').map (btn) -> should.not.exist(btn.attr('disabled'))
 
     it 'disabled: should disable the number picker', ->
-      sel = div()
-      np = new NumberPicker(sel.node())
+      sel = fixture.append(div())
+      np = new NumberPicker(sel)
       np.disabled().should.equal(false)
       sel.select('button').map (btn) -> should.not.exist(btn.attr('disabled'))
       np.disabled(true).should.equal(np)
@@ -125,8 +131,8 @@ export default () ->
       sel.select('button').map (btn) -> btn.attr('disabled').should.equal 'disabled'
 
     it 'value: should deal with screenValue correctly', ->
-      sel = div()
-      np = new NumberPicker(sel.node())
+      sel = fixture.append(div())
+      np = new NumberPicker(sel)
       np.value(0, 'zero')
       np.value().should.equal(0)
       sel.select('input').value().should.equal('zero')
@@ -134,8 +140,8 @@ export default () ->
 
     it 'should not call value when bluring from an input with a screenValue', ->
       change = chai.spy()
-      sel = div()
-      np = new NumberPicker(sel.node())
+      sel = fixture.append(div())
+      np = new NumberPicker(sel)
       np.on('input-change', change)
       np.value(0, 'zero')
       np.value().should.equal(0)
@@ -151,8 +157,8 @@ export default () ->
       it 'change: should emit whenever the value is changed', ->
         change = chai.spy()
 
-        sel = div()
-        np = new NumberPicker(sel.node())
+        sel = fixture.append(div())
+        np = new NumberPicker(sel)
         np.on('change', change)
 
         np.value(1).should.equal(np)
@@ -170,8 +176,8 @@ export default () ->
       it 'change: should emit whenever the value is changed by the min/max function', ->
         change = chai.spy()
 
-        sel = div()
-        np = new NumberPicker(sel.node(), {value: 0})
+        sel = fixture.append(div())
+        np = new NumberPicker(sel, {value: 0})
         np.debug = true
         np.on('change', change)
 
@@ -194,8 +200,8 @@ export default () ->
       it 'input-change: should emit whenever the input text is is updated ', ->
         change = chai.spy()
 
-        sel = div()
-        np = new NumberPicker(sel.node())
+        sel = fixture.append(div())
+        np = new NumberPicker(sel)
         np.on('input-change', change)
 
         np.value().should.equal(0)
@@ -207,8 +213,8 @@ export default () ->
       it 'decrement: should emit when the user decrements', ->
         change = chai.spy()
 
-        sel = div()
-        np = new NumberPicker(sel.node())
+        sel = fixture.append(div())
+        np = new NumberPicker(sel)
         np.on('decrement', change)
 
         buttonNode = sel.select('.hx-number-picker-decrement').node()
@@ -223,8 +229,8 @@ export default () ->
       it 'increment: should emit when the user increments', ->
         change = chai.spy()
 
-        sel = div()
-        np = new NumberPicker(sel.node())
+        sel = fixture.append(div())
+        np = new NumberPicker(sel)
         np.on('increment', change)
 
         buttonNode = sel.select('.hx-number-picker-increment').node()
@@ -239,15 +245,15 @@ export default () ->
     testButton = (method, selector, multiplier) ->
       describe method, ->
         it "#{method}: should increment the number picker", ->
-          sel = div()
-          np = new NumberPicker(sel.node())
+          sel = fixture.append(div())
+          np = new NumberPicker(sel)
           np.value().should.equal(0)
           np[method]().should.equal(np)
           np.value().should.equal(1 * multiplier)
 
         it "#{method}: should adhere to min/max values", ->
-          sel = div()
-          np = new NumberPicker(sel.node(), {min: -1, max: 1})
+          sel = fixture.append(div())
+          np = new NumberPicker(sel, {min: -1, max: 1})
           np.value().should.equal(0)
           np[method]().should.equal(np)
           np.value().should.equal(1 * multiplier)
@@ -255,15 +261,15 @@ export default () ->
           np.value().should.equal(1 * multiplier)
 
         it "#{method}: should disable the button when at the min/max value", ->
-          sel = div()
-          np = new NumberPicker(sel.node(), {min: -5, max: 5, value: multiplier * 5})
+          sel = fixture.append(div())
+          np = new NumberPicker(sel, {min: -5, max: 5, value: multiplier * 5})
           sel.select(".hx-number-picker-#{method}").attr('disabled').should.equal('disabled')
           np.value(0).should.equal(np)
           should.not.exist(sel.select(".hx-number-picker-#{method}").attr('disabled'))
 
         it 'button: should increment correctly when clicking the button', ->
-          sel = div()
-          np = new NumberPicker(sel.node())
+          sel = fixture.append(div())
+          np = new NumberPicker(sel)
           np.value().should.equal(0)
           emit(sel.select(selector).node(), 'pointerdown', fakePointerEvent)
           clock.tick(100)
@@ -271,8 +277,8 @@ export default () ->
           np.value().should.equal(1 * multiplier)
 
         it 'button: should not increment when the button is disabled', ->
-          sel = div()
-          np = new NumberPicker(sel.node())
+          sel = fixture.append(div())
+          np = new NumberPicker(sel)
           np.disabled(true)
           np.value().should.equal(0)
           emit(sel.select(selector).node(), 'pointerdown', fakePointerEvent)
@@ -281,8 +287,8 @@ export default () ->
           np.value().should.equal(0)
 
         it 'button: should increment when holding the button', ->
-          sel = div()
-          np = new NumberPicker(sel.node())
+          sel = fixture.append(div())
+          np = new NumberPicker(sel)
           np.value().should.equal(0)
           emit(sel.select(selector).node(), 'pointerdown', fakePointerEvent)
           clock.tick(200)
@@ -295,15 +301,15 @@ export default () ->
           np.value().should.equal(6 * multiplier)
 
         it 'button: should increment correctly when clicking the button and incrementOnHold is disabled', ->
-          sel = div()
-          np = new NumberPicker(sel.node(), {incrementOnHold: false})
+          sel = fixture.append(div())
+          np = new NumberPicker(sel, {incrementOnHold: false})
           np.value().should.equal(0)
           emit(sel.select(selector).node(), 'click', fakePointerEvent)
           np.value().should.equal(1 * multiplier)
 
         it 'button: should stop incrementing when the pointer leaves the button', ->
-          sel = div()
-          np = new NumberPicker(sel.node())
+          sel = fixture.append(div())
+          np = new NumberPicker(sel)
           np.value().should.equal(0)
           emit(sel.select(selector).node(), 'pointerdown', fakePointerEvent)
           clock.tick(200)

@@ -20,7 +20,7 @@ addHoldHandler = (incrementOnHold, incrementDelay, selection, incrementFn) ->
 
     selection.on 'pointerdown', 'hx.number-picker', (e) ->
       holdStart = Date.now()
-      document.activeElement.blur()
+      document.activeElement?.blur()
       e.event.preventDefault()
       fn = ->
         incrementFn()
