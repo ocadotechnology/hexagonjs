@@ -65,7 +65,7 @@ import formTests from './form/test/spec'
 import fileInputTests from './file-input/test/spec'
 // import formBuilderTests from './form-builder/test/spec'
 
-const should = chai.should()
+chai.should()
 const expect = chai.expect
 
 describe('HexagonJS Test Suite', () => {
