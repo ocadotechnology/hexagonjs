@@ -1,6 +1,6 @@
 .hx-sidebar {
   background: var(--sidebar-background-color);
-  box-shadow: 1px 1px 1px 1px var(--sidebar-shadow-col);
+  box-shadow: 1px 1px 1px 1px var(--sidebar-shadow-color);
 }
 
 .hx-sidebar.hx-animate {
