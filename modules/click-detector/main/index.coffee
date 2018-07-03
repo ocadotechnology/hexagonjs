@@ -1,9 +1,13 @@
-### istanbul ignore next: ignores 'extend' method added by coffeescript ###
-class ClickDetector extends hx.EventEmitter
+import { EventEmitter } from 'event-emitter/main'
+import { randomId } from 'utils/main'
+import { List as HList } from 'list/main'
+import { select } from 'selection/main'
+
+class ClickDetector extends EventEmitter
   constructor: ->
-    super
-    @eventId = hx.randomId()
-    @exceptions = new hx.List
+    super()
+    @eventId = randomId()
+    @exceptions = new HList
 
     # the original element clicked
     container = undefined
@@ -28,8 +32,8 @@ class ClickDetector extends hx.EventEmitter
         if element.contains(e.target) then call = false
       if call then @emit('click')
 
-    hx.select(document).on('pointerdown', 'hx.click-detector.' + @eventId, @downAction)
-    hx.select(document).on('pointerup', 'hx.click-detector.' + @eventId, @upAction)
+    select(document).on('pointerdown', 'hx.click-detector.' + @eventId, @downAction)
+    select(document).on('pointerup', 'hx.click-detector.' + @eventId, @upAction)
 
   addException: (element) ->
     @exceptions.add(element)
@@ -44,8 +48,10 @@ class ClickDetector extends hx.EventEmitter
     this
 
   cleanUp: ->
-    hx.select(document).off('pointerdown', 'hx.click-detector.' + @eventId, @downAction)
-    hx.select(document).off('pointerup', 'hx.click-detector.' + @eventId, @upAction)
+    select(document).off('pointerdown', 'hx.click-detector.' + @eventId, @downAction)
+    select(document).off('pointerup', 'hx.click-detector.' + @eventId, @upAction)
     this
 
-hx.ClickDetector = ClickDetector
+export {
+  ClickDetector
+}

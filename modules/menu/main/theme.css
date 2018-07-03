@@ -1,0 +1,120 @@
+/* default */
+.hx-menu-link,
+.hx-menu-collapsible {
+  border-width: var(--menu-border-width);
+  border-color: var(--menu-default-border-color);
+  background: var(--menu-default-background-color);
+  color: var(--menu-default-text-color);
+}
+
+.hx-menu-link:hover,
+.hx-menu-collapsible:hover {
+  border-color: var(--menu-default-border-color-hover);
+  background: var(--menu-default-background-color-hover);
+  color: var(--menu-default-text-color-hover);
+}
+
+/* action */
+.hx-action .hx-menu-link,
+.hx-action .hx-menu-collapsible {
+  border-color: var(--menu-action-border-color);
+  background: var(--menu-action-background-color);
+  color: var(--menu-action-text-color);
+}
+
+.hx-action .hx-menu-link:hover,
+.hx-action .hx-menu-collapsible:hover {
+  border-color: var(--menu-action-border-color-hover);
+  background: var(--menu-action-background-color-hover);
+  color: var(--menu-action-text-color-hover);
+}
+
+/* positive */
+.hx-positive .hx-menu-link,
+.hx-positive .hx-menu-collapsible {
+  border-color: var(--menu-positive-border-color);
+  background: var(--menu-positive-background-color);
+  color: var(--menu-positive-text-color);
+}
+
+.hx-positive .hx-menu-link:hover,
+.hx-positive .hx-menu-collapsible:hover {
+  border-color: var(--menu-positive-border-color-hover);
+  background: var(--menu-positive-background-color-hover);
+  color: var(--menu-positive-text-color-hover);
+}
+
+/* negative */
+.hx-negative .hx-menu-link,
+.hx-negative .hx-menu-collapsible {
+  border-color: var(--menu-negative-border-color);
+  background: var(--menu-negative-background-color);
+  color: var(--menu-negative-text-color);
+}
+
+.hx-negative .hx-menu-link:hover,
+.hx-negative .hx-menu-collapsible:hover {
+  border-color: var(--menu-negative-border-color-hover);
+  background: var(--menu-negative-background-color-hover);
+  color: var(--menu-negative-text-color-hover);
+}
+
+/* warning */
+.hx-warning .hx-menu-link,
+.hx-warning .hx-menu-collapsible {
+  border-color: var(--menu-warning-border-color);
+  background: var(--menu-warning-background-color);
+  color: var(--menu-warning-text-color);
+}
+
+.hx-warning .hx-menu-link:hover,
+.hx-warning .hx-menu-collapsible:hover {
+  border-color: var(--menu-warning-border-color-hover);
+  background: var(--menu-warning-background-color-hover);
+  color: var(--menu-warning-text-color-hover);
+}
+
+/* info */
+.hx-info .hx-menu-link,
+.hx-info .hx-menu-collapsible {
+  border-color: var(--menu-info-border-color);
+  background: var(--menu-info-background-color);
+  color: var(--menu-info-text-color);
+}
+
+.hx-info .hx-menu-link:hover,
+.hx-info .hx-menu-collapsible:hover {
+  border-color: var(--menu-info-border-color-hover);
+  background: var(--menu-info-background-color-hover);
+  color: var(--menu-info-text-color-hover);
+}
+
+/* complement */
+.hx-complement .hx-menu-link,
+.hx-complement .hx-menu-collapsible {
+  border-color: var(--menu-complement-border-color);
+  background: var(--menu-complement-background-color);
+  color: var(--menu-complement-text-color);
+}
+
+.hx-complement .hx-menu-link:hover,
+.hx-complement .hx-menu-collapsible:hover {
+  border-color: var(--menu-complement-border-color-hover);
+  background: var(--menu-complement-background-color-hover);
+  color: var(--menu-complement-text-color-hover);
+}
+
+/* contrast */
+.hx-contrast .hx-menu-link,
+.hx-contrast .hx-menu-collapsible {
+  border-color: var(--menu-contrast-border-color);
+  background: var(--menu-contrast-background-color);
+  color: var(--menu-contrast-text-color);
+}
+
+.hx-contrast .hx-menu-link:hover,
+.hx-contrast .hx-menu-collapsible:hover {
+  border-color: var(--menu-contrast-border-color-hover);
+  background: var(--menu-contrast-background-color-hover);
+  color: var(--menu-contrast-text-color-hover);
+}

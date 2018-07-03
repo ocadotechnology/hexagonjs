@@ -1,0 +1,42 @@
+/* XXX: do these all need to be so specific? */
+
+.hx-collapsible.hx-collapsible-expanded > .hx-collapsible-heading .hx-collapsible-icon {
+  /* fallback for when the animation completes / doesn't work */
+  transform: rotate(90deg);
+}
+
+.hx-collapsible .hx-collapsible-heading {
+  padding: 0.4em;
+}
+
+.hx-collapsible .hx-collapsible-heading.hx-collapsible-heading-no-hover {
+  padding: 0;
+  margin: 0;
+}
+
+.hx-collapsible .hx-collapsible-heading .hx-collapsible-icon {
+  margin-right: 0.5em;
+  margin-left: 0.25em;
+  height: 16px;
+}
+
+.hx-collapsible .hx-collapsible-heading .hx-collapsible-icon:last-child {
+  margin-right: 0.25em;
+}
+
+.hx-collapsible .hx-collapsible-heading:not(.hx-collapsible-heading-no-hover),
+.hx-collapsible .hx-collapsible-heading .hx-collapsible-toggle {
+  user-select: none;
+  cursor: pointer;
+}
+
+.hx-collapsible .hx-collapsible-heading .hx-collapsible-toggle {
+  padding: 0.4em;
+  margin: 0;
+}
+
+.hx-collapsible .hx-collapsible-content {
+  border-width: 1px;
+  border-top: none;
+  overflow: hidden;
+}

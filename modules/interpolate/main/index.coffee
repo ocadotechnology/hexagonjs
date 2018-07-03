@@ -1,3 +1,5 @@
+import { color } from 'color/main'
+
 splitString = (string) ->
   regex = new RegExp(/[-+]?(?:\d+\.?\d*|\.?\d+)|((?:[^-+\d])+|\D+)/g)
   array = []
@@ -10,11 +12,11 @@ interpolateNumber = (a, b) ->
   b = +b
   (v) -> a * (1 - v) + b * v
 
-hx.interpolate = (a, b) ->
+export interpolate = (a, b) ->
   if typeof a is "number" then return interpolateNumber(a,b)
 
-  colA  = hx.color(a)
-  colB  = hx.color(b)
+  colA  = color(a)
+  colB  = color(b)
 
   if colA isnt undefined and colB isnt undefined
     (v) -> colA.clone().mix(colB, v).toString('rgba')

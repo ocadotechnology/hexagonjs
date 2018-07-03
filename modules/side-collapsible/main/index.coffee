@@ -1,17 +1,21 @@
-class SideCollapsible extends hx.EventEmitter
+import { EventEmitter } from 'event-emitter/main'
+import { mergeDefined } from 'utils/main'
+import { select } from 'selection/main'
+
+class SideCollapsible extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
-    hx.component.register(selector, this)
-
-    @options = hx.merge.defined {
+    @options = mergeDefined {
       position: 'left'
       animate: true
       visible: false
       rotateHeading: true
     }, options
 
-    @selection = hx.select(selector).classed('hx-side-collapsible', true)
+    @selection = select(selector)
+      .classed('hx-side-collapsible', true)
+      .api(this)
 
     @openHeading = @selection.select('.hx-side-collapsible-heading-open')
       .classed('hx-side-collapsible-heading', true)
@@ -142,4 +146,6 @@ class SideCollapsible extends hx.EventEmitter
     if @visible then @show(animate) else @hide(animate)
     this
 
-hx.SideCollapsible = SideCollapsible
+export {
+  SideCollapsible
+}

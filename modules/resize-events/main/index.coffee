@@ -1,14 +1,23 @@
-hx.select.addEventAugmenter({
-  name: 'resize',
-  setup: (node, eventEmitter) ->
-    if not addResizeListener?
-      initializeResizeListeners()
+import { select, addEventAugmenter} from 'selection/main'
+import initializeResizeListeners from './detect-element-resize'
 
-    handler = (e) ->
-      box = hx.select(node).box()
-      eventEmitter.emit('resize', ({clientRect: box, event: e}))
+export initResizeEvents = () ->
+  addResizeListener = undefined
+  removeResizeListener = undefined
 
-    addResizeListener node, handler
+  addEventAugmenter({
+    name: 'resize',
+    setup: (node, eventEmitter) ->
+      if addResizeListener is undefined
+        registers = initializeResizeListeners()
+        addResizeListener = registers.addResizeListener
+        removeResizeListener = registers.removeResizeListener
 
-    return -> removeResizeListener node, handler
-})
+      handler = (e) ->
+        box = select(node).box()
+        eventEmitter.emit('resize', ({clientRect: box, event: e}))
+
+      addResizeListener(node, handler)
+
+      return -> removeResizeListener(node, handler)
+  })

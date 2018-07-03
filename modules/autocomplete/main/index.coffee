@@ -1,5 +1,15 @@
-hx.userFacingText({
-  autoComplete: {
+import { userFacingText } from 'user-facing-text/main'
+import { sort } from 'sort/main'
+import { EventEmitter } from 'event-emitter/main'
+import { Map as HMap } from 'map/main'
+import * as filter from 'filter/main'
+import { select, detached, div } from 'selection/main'
+import { Menu } from 'menu/main'
+import { groupBy, isFunction, isArray, merge } from 'utils/main'
+import logger from 'logger/main'
+
+userFacingText({
+  autocomplete: {
     loading: 'Loading...',
     noResultsFound: 'No results found',
     otherResults: 'Other Results',
@@ -7,9 +17,8 @@ hx.userFacingText({
   }
 })
 
-
 sortActive = (items) ->
-  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new HMap(groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -50,33 +59,37 @@ findTerm = (term, forceMatch) ->
   # Adds 'Other Data' heading and shows the data that was filtered out under it
   if @options.showOtherResults and !forceMatch and !dataMatches
 
-    matches = if filteredData.length > 0 then filteredData
-    else [{unselectable:true, text:self.options.noResultsMessage}]
+    matches = if filteredData.length > 0
+      filteredData
+    else
+      [{unselectable:true, text:self.options.noResultsMessage}]
 
     # find values that are in the original data but not in the filtered data
     heading = {unselectable:true, heading: true, text: self.options.otherResultsMessage}
 
     remainingResults =
-      if filteredData.length is 0 then allData
+      if filteredData.length is 0
+        allData
       else
-        data = allData.filter (d) ->
-          if filteredData.some((e) -> e is d) then false else true
+        data = allData.filter (d) -> not filteredData.some((e) -> e is d)
         if not @options.filterOptions.sort? or @options.filterOptions.sort
           if @options.inputMap?
-            data = data.sort (a,b) ->
-              a = self.options.inputMap(a)
-              b = self.options.inputMap(b)
-              hx.sort.compare(a, b)
+            data.sort (a,b) ->
+              sort.compare(
+                self.options.inputMap(a),
+                self.options.inputMap(b)
+              )
           else
-            data = data.sort hx.sort.compare
+            data.sort(sort.compare)
         data
 
     { active, inactive } = sortActive(remainingResults)
     filteredData = [matches..., heading, active..., inactive...]
+
   filteredData
 
 
-buildAutoComplete = (searchTerm, fromCallback, loading) ->
+buildAutocomplete = (searchTerm, fromCallback, loading) ->
   # 'this' in this context is the autocomplete object, passed to callback
   self = this
   _ = @_
@@ -85,10 +98,10 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
   if _.callback? and !fromCallback
     if searchTerm.length < @options.minLength or (not @options.showAll and searchTerm.length is 0)
       _.data.set(searchTerm, [])
-      buildAutoComplete.call self, searchTerm ,true
+      buildAutocomplete.call self, searchTerm ,true
     else
       # call the autocomplete to show the loading message
-      buildAutoComplete.call self, searchTerm, true, true
+      buildAutocomplete.call self, searchTerm, true, true
 
       _.currentSearch = searchTerm
 
@@ -105,9 +118,9 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
             # check that the  Prevents calls that take a long time conflicting
             # when they return in a different order than they were called in.
             if _.currentSearch is searchTerm
-              buildAutoComplete.call self, searchTerm, true
+              buildAutocomplete.call self, searchTerm, true
       else
-        buildAutoComplete.call self, searchTerm, true
+        buildAutocomplete.call self, searchTerm, true
   else
     _.menu.cursorPos = -1
 
@@ -149,7 +162,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
     if items.length > 0
       _.menu.items(items)
       if _.menu.dropdown.isOpen()
-        _.menu.dropdown._.setupDropdown _.menu.dropdown._.dropdown.node()
+        _.menu.dropdown.render()
       else
         _.menu.dropdown.show()
     else # Hide the dropdown as there are no items
@@ -157,22 +170,22 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
 
     if trimAndReload
       _.input.value(_.input.value().substring(0, _.input.value().length - 1))
-      buildAutoComplete.call self, _.input.value(), fromCallback, loading
+      buildAutocomplete.call self, _.input.value(), fromCallback, loading
   undefined
 
-showAutoComplete = ->
+showAutocomplete = ->
   @_.cleanUp = false
-  buildAutoComplete.call this, @_.input.value() or ''
+  buildAutocomplete.call this, @_.input.value() or ''
 
 
-class AutoComplete extends hx.EventEmitter
+class Autocomplete extends EventEmitter
 
   constructor: (@selector, @data, @options = {}) ->
-    super
+    super()
 
     @_ = _ = {}
 
-    hx.component.register(@selector, this)
+    select(@selector).api(this)
 
     _.ignoreMatch = false
     _.ignoreNextFocus = false
@@ -180,22 +193,22 @@ class AutoComplete extends hx.EventEmitter
     self = this
 
     # create the data cache for storing the datasets based on their search term
-    _.data = new hx.Map()
+    _.data = new HMap()
 
-    if hx.isFunction @data
+    if isFunction @data
       _.callback = @data
     else
       _.data.set('', @data)
 
      # do a sanity check on the data
-    if not hx.isArray(@data) and not hx.isFunction(@data)
-      hx.consoleWarning(
-        'AutoComplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
+    if not isArray(@data) and not isFunction(@data)
+      logger.warn(
+        'Autocomplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
         ' but should have been an array of items or a function'
       )
     else
       # setup options
-      @options = hx.merge {
+      @options = merge({
         minLength: 0
         showAll: true
         trimTrailingSpaces: false
@@ -208,42 +221,42 @@ class AutoComplete extends hx.EventEmitter
         filterOptions: undefined
         showOtherResults: false
         allowTabCompletion: true
-
-        loadingMessage: hx.userFacingText('autoComplete', 'loading')
-        noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
-        otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults')
-        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
-      }, @options
+        loadingMessage: userFacingText('autocomplete', 'loading')
+        noResultsMessage: userFacingText('autocomplete', 'noResultsFound')
+        otherResultsMessage: userFacingText('autocomplete', 'otherResults')
+        pleaseEnterMinCharactersMessage: userFacingText('autocomplete', 'pleaseEnterMinCharacters')
+      }, @options)
 
       if @options.inputMap?
         # default searchValue if inputMap is defined
         _filterOpts =
           searchValues: (d) -> [self.options.inputMap(d)]
 
-      @options.filterOptions = hx.merge {}, _filterOpts, @options.filterOptions
+      @options.filterOptions = merge({}, _filterOpts, @options.filterOptions)
 
       @options.filter ?= (arr, term) =>
-        filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
+        # XXX: this feels hacky. Maybe the api should be simplified for autocomplete?
+        filterName = 'filter' + self.options.matchType[0].toUpperCase() + self.options.matchType.slice(1)
+        filtered = filter[filterName](arr, term, self.options.filterOptions)
         { active, inactive } = sortActive(filtered)
         [active..., inactive...]
 
       # create renderer based on inputMap
       @options.renderer ?= if @options.inputMap?
-        (elem, item) -> hx.select(elem).text(self.options.inputMap(item))
+        (item) -> div().text(self.options.inputMap(item))
       else
-        (elem, item) -> hx.select(elem).text(item)
+        (item) -> div().text(item.text or item)
 
-      @options.placeholder ?= if @options.minLength > 0
-        "Min length #{@options.minLength} characters"
+      if @options.minLength > 0 and @options.placeholder is undefined
+        @options.placeholder = "Min length #{@options.minLength} characters"
 
-      # create input and menu objects
-      input = hx.select @selector
-      menu = new hx.Menu @selector, {dropdownOptions: {ddClass: 'hx-autocomplete-dropdown'}}
+      input = select(@selector)
+      menu = new Menu(@selector, {dropdownOptions: {ddClass: 'hx-autocomplete-dropdown'}})
 
-      menu.pipe this, '', ['highlight']
-      menu.dropdown.pipe this, 'dropdown'
+      menu.pipe(this, '', ['highlight'])
+      menu.dropdown.pipe(this, 'dropdown')
 
-      hx.select(@selector).off 'click', 'hx.menu'
+      select(@selector).off('click', 'hx.menu')
       menu.on 'input', 'hx.autocomplete', (e) ->
         if self.options.allowTabCompletion
           if (e.which or e.keyCode) == 9
@@ -281,23 +294,13 @@ class AutoComplete extends hx.EventEmitter
         _.initialValue = input.value()
         timeout = setTimeout( ->
           if input.value() isnt _.prevTerm
-            buildAutoComplete.call self, input.value() or ''
+            buildAutocomplete.call self, input.value() or ''
         , 200)
 
       # set properties and functions for menu
-      menu.renderer (elem, item) ->
-        # if the item is a unselectable item or a heading, we use a set renderer
-        # and ignore the passed in renderer
-        selection = hx.select elem
-        selection.style('font-weight','')
-        if item.unselectable or item.heading
-          selection
-            .text(item.text)
-            .off()
-          if item.heading
-            selection.style('font-weight','600')
-        else
-          self.options.renderer(elem, item)
+      menu.renderer (item) =>
+        return this.options.renderer(item)
+          .classed('hx-autocomplete-item-unselectable', item.unselectable or item.heading)
 
       # called when a menu item is selected. Updates the input field when using
       # the arrow keys.
@@ -362,17 +365,15 @@ class AutoComplete extends hx.EventEmitter
       _.menu = menu
       _.input = input
 
-
-
   clearCache: ->
-    @_.data = new hx.Map()
-    if @data? and not hx.isFunction @data
+    @_.data = new HMap()
+    if @data? and not isFunction @data
       @_.data.set('', @data)
     this
 
   show: ->
     @_.ignoreNextFocus = false
-    showAutoComplete.call(this)
+    showAutocomplete.call(this)
     this
 
   value: (value) ->
@@ -392,9 +393,12 @@ class AutoComplete extends hx.EventEmitter
       _.cleanUp = true
     this
 
-hx.autoComplete = (data, options) ->
-  selection = hx.detached('input')
-  new AutoComplete(selection.node(), data, options)
+autocomplete = (data, options) ->
+  selection = detached('input')
+  new Autocomplete(selection, data, options)
   selection
 
-hx.AutoComplete = AutoComplete
+export {
+  autocomplete,
+  Autocomplete
+}

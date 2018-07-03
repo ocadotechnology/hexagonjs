@@ -1,0 +1,70 @@
+.hx-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.9em;
+  line-height: 2em;
+  overflow: auto;
+}
+
+.hx-table thead tr th {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.hx-table thead tr:last-child th {
+  border-bottom-width: 2px;
+}
+
+.hx-table th,
+.hx-table td {
+  border-right-width: 1px;
+  border-right-style: solid;
+}
+
+.hx-table th:last-child,
+.hx-table td:last-child {
+  border-right-width: 0;
+  border-right-style: none;
+}
+
+.hx-table tbody > tr > th:first-child {
+  border-right-width: 2px;
+  border-right-style: solid;
+}
+
+.hx-table th.hx-table-head-no-border,
+.hx-table td.hx-table-head-no-border {
+  border-color: transparent;
+}
+
+.hx-table p {
+  margin: 0;
+}
+
+.hx-table th,
+.hx-table td {
+  padding: 0.3em 0.75em;
+}
+
+.hx-table th {
+  font-weight: 400;
+  text-align: center;
+}
+
+.hx-table th {
+  white-space: nowrap;
+}
+
+.hx-table th.hx-table-header-allow-wrap {
+  white-space: inherit;
+}
+
+/* Additional classes */
+.hx-table.hx-table-full {
+  min-width: 100%;
+}
+
+.hx-table.hx-table-centered {
+  margin: 0 auto;
+}
+

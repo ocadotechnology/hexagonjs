@@ -8,7 +8,7 @@ prefixChar = prefixString.charCodeAt(0)
 prefix = (string) -> prefixString + string
 checkPrefix = (string) -> string and string.charCodeAt(0) is prefixChar
 
-class Map
+export class Map
   constructor: (iterable) ->
     @size = 0
     @items = {}
@@ -65,7 +65,7 @@ class Map
       prefixedKey = prefix key
       row = @items[prefixedKey]
       index = row?.keys?.indexOf key
-      if index? and index isnt -1 then row.values[index]
+      if index? and index isnt -1 then row.values[index] else undefined
 
   # check if the map contains a value
   has: (key) ->
@@ -101,5 +101,3 @@ class Map
 
   # get the values of the entries in the map
   values: -> (v[1] for v in @entries())
-
-hx.Map = Map

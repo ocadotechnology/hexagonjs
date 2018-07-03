@@ -1,3 +1,4 @@
+
 # Proper sets are coming in ECMAScript 6 (which at time of writing has a scheduled release date of June 2015).
 # This set object tries to keep as close as possible to the currently planned spec for maps, which should make it
 # easy to swap out for the native implementation when it arrives and is well supported enough in browsers.
@@ -8,7 +9,7 @@ prefixChar = prefixString.charCodeAt(0)
 prefix = (string) -> prefixString + string
 checkPrefix = (string) -> string and string.charCodeAt(0) is prefixChar
 
-class Set
+export class Set
   constructor: (iterable) ->
     @size = 0
     @nan = false
@@ -87,6 +88,3 @@ class Set
 
   # get the items in the set
   values: -> (v[1] for v in @entries())
-
-
-hx.Set = Set

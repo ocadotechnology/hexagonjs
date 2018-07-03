@@ -1,14 +1,11 @@
 # use http://js2.coffee/ to convert the js to coffee and replace
 # do ->
 #  with:
-# initializeResizeListeners = ->
+# export default () ->
 
 # replace window.addResizeListener with addResizeListener
 # replace window.removeResizeListener with removeResizeListener
-
-# Leave these here when updating
-addResizeListener = undefined
-removeResizeListener = undefined
+# change the retun value of the function to return an object {addResizeListener, removeResizeListener}
 
 
 #~~~~~~~~~~~~~~~~~~~
@@ -25,7 +22,7 @@ removeResizeListener = undefined
 *
 ###
 
-initializeResizeListeners = ->
+export default () ->
   attachEvent = document.attachEvent
   stylesCreated = false
 
@@ -150,4 +147,7 @@ initializeResizeListeners = ->
         element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__)
     return
 
-  return
+  return {
+    addResizeListener: addResizeListener,
+    removeResizeListener: removeResizeListener
+  }

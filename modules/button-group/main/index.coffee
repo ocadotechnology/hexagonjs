@@ -1,24 +1,26 @@
-class ButtonGroup extends hx.EventEmitter
+import { select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
+
+class ButtonGroup extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
     self = this
 
-    hx.component.register(selector, this)
-
-    @options = hx.merge.defined({
+    @options = mergeDefined({
       buttonClass: 'hx-complement'
-      activeClass: 'hx-contrast'
+      activeClass: 'hx-action'
       fullWidth: false
-      renderer: (node, data, current) ->
-        hx.select(node).text(if data.value? then data.value else data)
-        return
+      renderer: (data, current) ->
+        return div().text(if data.value? then data.value else data)
       items: []
       disabled: false
     }, options)
 
     @current = undefined
 
-    group = hx.select(selector)
+    group = select(selector)
+      .api(this)
       .classed('hx-button-group', true)
       .append('div')
         .class('hx-input-group')
@@ -40,10 +42,9 @@ class ButtonGroup extends hx.EventEmitter
           .classed('hx-section hx-no-margin', self.options.fullWidth)
           .classed(buttonClass, true)
           .attr('disabled', if self.options.disabled then true else undefined)
+          .set(self.options.renderer(item, item is self.current))
           .on 'click', 'hx.button-group', ->
             self.value(item, true)
-
-        self.options.renderer(node, item, item is self.current)
         return
 
     if @options.items? and @options.items.length > 0
@@ -79,14 +80,17 @@ class ButtonGroup extends hx.EventEmitter
   disabled: (disabled) ->
     if arguments.length > 0
       @options.disabled = disabled
-      @items @items()
-      this
+      @items(@items())
+      return this
     else
       @options.disabled
 
-hx.buttonGroup = (options) ->
-  selection = hx.detached('div')
+buttonGroup = (options) ->
+  selection = div()
   new ButtonGroup(selection.node(), options)
   selection
 
-hx.ButtonGroup = ButtonGroup
+export {
+  buttonGroup,
+  ButtonGroup
+}

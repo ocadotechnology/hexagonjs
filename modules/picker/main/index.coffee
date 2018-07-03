@@ -1,4 +1,11 @@
-hx.userFacingText({
+
+import { select, span, button, i } from 'selection/main'
+import { isObject, mergeDefined, isFunction } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
+import { Menu } from 'menu/main'
+import { userFacingText } from 'user-facing-text/main'
+
+userFacingText({
   picker: {
     chooseValue: 'Choose a value...'
   }
@@ -7,12 +14,12 @@ hx.userFacingText({
 setValue = (picker, value, items, cause = 'api') ->
   newVal = undefined
   for item in items
-    if item is value or (hx.isObject(item) and (item.value is value or item.value is value?.value))
+    if item is value or (isObject(item) and (item.value is value or item.value is value?.value))
       newVal = item
       break
 
   if newVal?
-    picker._.renderer(picker._.selectedText.node(), newVal)
+    picker._.selectedText.set(picker._.renderer(newVal))
   else
     picker._.selectedText.text(picker._.options.noValueText)
 
@@ -23,33 +30,32 @@ setValue = (picker, value, items, cause = 'api') ->
       cause: cause
     }
 
-class Picker extends hx.EventEmitter
+export class Picker extends EventEmitter
   constructor: (selector, options = {}) ->
-    super
+    super()
 
-    resolvedOptions = hx.merge.defined {
-      dropdownOptions: {}
-      items: []
-      noValueText: hx.userFacingText('picker', 'chooseValue')
-      renderer: undefined
-      value: undefined
-      disabled: false
+    resolvedOptions = mergeDefined({
+      dropdownOptions: {},
+      items: [],
+      noValueText: userFacingText('picker', 'chooseValue'),
+      renderer: undefined,
+      value: undefined,
+      disabled: false,
       fullWidth: false
-    }, options
+    }, options)
 
-    hx.component.register(selector, this)
+    selectedText = span('hx-picker-text')
 
-    @selection = hx.select(selector)
+    @selection = select(selector)
+      .classed('hx-picker hx-btn', true)
+      .classed('hx-picker-full-width', resolvedOptions.fullWidth)
+      .add(span('hx-picker-inner').attr('type', 'button')
+        .add(selectedText)
+        .add(span('hx-picker-icon').add(i('hx-icon hx-icon-caret-down'))))
+      .api('picker', this)
+      .api(this)
 
-    @selection.classed('hx-picker-full-width', resolvedOptions.fullWidth)
-
-    button = @selection.classed('hx-picker hx-btn', true).append('span').class('hx-picker-inner').attr('type', 'button')
-    selectedText = button.append('span').class('hx-picker-text')
-    button.append('span').class('hx-picker-icon').append('i').class('hx-icon hx-icon-caret-down')
-
-    renderWrapper = (node, item) => @_.renderer(node, item)
-
-    menu = new hx.Menu(selector, {
+    menu = new Menu(selector, {
       dropdownOptions: resolvedOptions.dropdownOptions
       items: resolvedOptions.items
       disabled: resolvedOptions.disabled
@@ -70,9 +76,9 @@ class Picker extends hx.EventEmitter
       current: undefined
 
     if not resolvedOptions.renderer?
-      @renderer menu.renderer()
+      @renderer(menu.renderer())
 
-    menu.renderer(renderWrapper)
+    menu.renderer((item) => @renderer()(item))
 
     if resolvedOptions.items?
       @items resolvedOptions.items
@@ -102,7 +108,7 @@ class Picker extends hx.EventEmitter
 
   value: (value) ->
     if arguments.length > 0
-      if hx.isFunction(@items())
+      if isFunction(@items())
         loading = @selection.prepend('span')
         loading.append('i').class('hx-menu-loading hx-icon hx-icon-spin hx-icon-spinner')
         @items() (data) =>
@@ -121,9 +127,9 @@ class Picker extends hx.EventEmitter
     else menuDisable
 
 
-hx.picker = (options) ->
-  selection = hx.detached('button')
-  new Picker(selection.node(), options)
-  selection
 
-hx.Picker = Picker
+export picker = (options) ->
+  # XXX [2.0.0] added options.class
+  selection = button(options.class)
+  new Picker(selection, options)
+  selection

@@ -1,9 +1,11 @@
+import { mergeDefined } from 'utils/main'
+
 # Intl.Collator isn't supported by safari
 # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Collator
 # using a collator is supposed to be faster than doing localeCompare
 hasCollator = -> Intl?.Collator?
 
-hx._.sort = {}
+state = {}
 
 collatorFn = -> if hasCollator()
   new Intl.Collator(undefined, {numeric: true}).compare
@@ -27,12 +29,12 @@ defaultCollator = (collator) -> (a, b) ->
   else collator(a, b)
 
 compare = (a, b) ->
-  hx._.sort.collator ?= collatorFn()
-  defaultCollator(hx._.sort.collator)(a, b)
+  state.collator ?= collatorFn()
+  defaultCollator(state.collator)(a, b)
 
 compareNullsLast = (a, b) ->
-  hx._.sort.collator ?= collatorFn()
-  nullsLastCollator(hx._.sort.collator)(a, b)
+  state.collator ?= collatorFn()
+  nullsLastCollator(state.collator)(a, b)
 
 localeCollatorFn = (locale, options) ->
   if hasCollator()
@@ -43,7 +45,9 @@ localeCollatorFn = (locale, options) ->
 # slower than compare but enforces locale comparison for browsers that
 # dont support Intl.Collator.
 localeCompare = (locale, options) ->
-  options = hx.merge.defined(options, { numeric: true })
+  options = mergeDefined({
+    numeric: true
+  }, options)
 
   localeCollator = localeCollatorFn(locale, options)
 
@@ -52,7 +56,7 @@ localeCompare = (locale, options) ->
   else
     defaultCollator(localeCollator)
 
-hx.sortBy = (arr, f) ->
+sortBy = (arr, f) ->
   newArr = [arr...]
   newArr.sort (left, right) ->
     fLeft = f left
@@ -60,7 +64,14 @@ hx.sortBy = (arr, f) ->
     compare fLeft, fRight
   newArr
 
-hx.sort = (arr) -> hx.sortBy arr, (x) -> x
-hx.sort.compare = compare
-hx.sort.compareNullsLast = compareNullsLast
-hx.sort.localeCompare = localeCompare
+sort = (arr) -> sortBy(arr, (x) -> x)
+
+
+export {
+  state,
+  compare,
+  compareNullsLast,
+  localeCompare,
+  sortBy,
+  sort
+}

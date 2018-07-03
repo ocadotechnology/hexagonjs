@@ -1,0 +1,56 @@
+.hx-notification-container {
+  background: var(--notify-container-background-color);
+  border: solid 1px var(--notify-container-border-color);
+  border-top: none;
+  box-shadow: 0 6px 10px 0 var(--notify-shadow-color);
+}
+
+.hx-notification {
+  background-color: var(--notify-background-color);
+  color: var(--notify-text-color);
+  border-color: var(--notify-border-color);
+}
+
+.hx-notification-icon {
+  color: var(--notify-default-color);
+}
+
+.hx-notification.hx-positive .hx-notification-icon {
+  color: var(--notify-positive-color);
+}
+
+.hx-notification.hx-warning .hx-notification-icon {
+  color: var(--notify-warning-color);
+}
+
+.hx-notification.hx-negative .hx-notification-icon {
+  color: var(--notify-negative-color);
+}
+
+.hx-notification.hx-info .hx-notification-icon {
+  color: var(--notify-info-color);
+}
+
+.hx-notification-close {
+  color: var(--notify-close-color);
+}
+
+.hx-notification-close:hover {
+  color: var(--notify-close-hover-color);
+}
+
+.hx-notification-pin {
+  color: var(--notify-unpinned-color);
+}
+
+.hx-notification-pin:hover {
+  color: var(--notify-unpinned-hover-color);
+}
+
+.hx-notification-pin-pinned {
+  color: var(--notify-pinned-color);
+}
+
+.hx-notification-pin-pinned:hover {
+  color: var(--notify-pinned-hover-color);
+}

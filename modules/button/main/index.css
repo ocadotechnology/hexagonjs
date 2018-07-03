@@ -1,0 +1,52 @@
+/* give to <button> or <a> elements */
+.hx-btn {
+  border: 0;
+  border-radius: 0.15em;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0.2em;
+  line-height: 1em;
+  padding: 0.4em 0.8em;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.hx-btn > * {
+  line-height: normal;
+}
+
+.hx-btn:focus {
+  outline: none;
+  z-index: 1;
+}
+
+.hx-btn:disabled,
+.hx-btn.hx-disabled,
+.hx-btn:disabled:hover,
+.hx-btn.hx-disabled:hover,
+.hx-btn:disabled:active,
+.hx-btn.hx-disabled:active {
+  cursor: not-allowed;
+}
+
+.hx-btn:disabled:focus,
+.hx-btn.hx-disabled:focus,
+.hx-btn:disabled:active,
+.hx-btn.hx-disabled:active {
+  box-shadow: none;
+}
+
+.hx-btn.hx-btn-invisible {
+  border: none;
+  background: transparent;
+}
+
+.hx-btn.hx-btn-invisible:hover,
+.hx-btn.hx-btn-invisible:active {
+  background: transparent;
+}
+
+a.hx-btn:hover {
+  text-decoration: none;
+}

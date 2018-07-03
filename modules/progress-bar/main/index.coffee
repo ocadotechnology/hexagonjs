@@ -1,14 +1,19 @@
+import { select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
+
 class ProgressBar
   constructor: (@selector, options) ->
-    hx.component.register(@selector, this)
 
-    options = hx.merge.defined {
+    options = mergeDefined {
       segments: undefined
       value: 0
       animate: false
     }, options
 
-    @selection = hx.select(@selector).classed('hx-progress-bar', true)
+    @selection = select(@selector)
+      .classed('hx-progress-bar', true)
+      .api(this)
+
     @innerBars = @selection.append('div').attr('class', 'hx-progress-bar-inner')
 
     @value(options.value)
@@ -78,9 +83,9 @@ class ProgressBar
     else
       @progressSegments
 
-hx.progressBar = (options) ->
-  selection = hx.detached('div')
+progressBar = (options) ->
+  selection = div()
   new ProgressBar(selection.node(), options)
   selection
 
-hx.ProgressBar = ProgressBar
+export { progressBar, ProgressBar }

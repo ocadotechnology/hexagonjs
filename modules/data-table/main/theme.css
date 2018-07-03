@@ -1,0 +1,57 @@
+.hx-data-table .hx-data-table-row-no-data,
+.hx-data-table .hx-data-table-row-no-data:hover {
+  background: var(--data-table-no-data-row-background-color);
+  color: var(--data-table-no-data-row-text-color);
+}
+
+.hx-data-table.hx-data-table-compact .hx-data-table-row,
+.hx-data-table.hx-data-table-compact .hx-data-table-collapsible-content-row {
+  color: var(--data-table-compact-row-text-color);
+  box-shadow: 1px 1px 1px var(--data-table-compact-row-shadow-color);
+}
+
+.hx-data-table.hx-data-table-compact .hx-data-table-row {
+  background: var(--data-table-compact-row-background-color);
+  color: var(--data-table-compact-row-text-color);
+}
+
+.hx-data-table.hx-data-table-compact .hx-data-table-row:hover {
+  background: var(--data-table-compact-row-hover-background-color);
+  color: var(--data-table-compact-row-hover-text-color);
+}
+
+.hx-data-table.hx-data-table-compact .hx-data-table-row.hx-data-table-row-selected {
+  background: var(--data-table-selected-row-background-color);
+}
+
+.hx-data-table .hx-data-table-table tr.hx-data-table-collapsible-content-row,
+.hx-data-table .hx-data-table-table tr.hx-data-table-collapsible-content-row:hover {
+  background: var(--data-table-row-collapsible-background-color);
+  color: var(--data-table-row-collapsible-text-color);
+}
+
+.hx-data-table .hx-data-table-table tr.hx-data-table-row-disabled,
+.hx-data-table .hx-data-table-table tr.hx-data-table-row-disabled:hover {
+  background: var(--data-table-disabled-row-background-color);
+  color: var(--data-table-disabled-row-text-color);
+}
+
+.hx-data-table .hx-data-table-table tr.hx-data-table-row-selected {
+  background: var(--data-table-selected-row-background-color);
+}
+
+.hx-data-table .hx-data-table-control-panel-bottom,
+.hx-data-table .hx-data-table-control-panel-compact,
+.hx-data-table .hx-data-table-control-panel {
+  background: var(--data-table-footer-background-color);
+  box-shadow: 1px 1px 1px var(--data-table-footer-shadow-color);
+}
+
+.hx-data-table .hx-data-table-status-bar {
+  background: var(--data-table-status-bar-background-color);
+  color: var(--data-table-status-bar-text-color);
+}
+
+.hx-data-table .hx-data-table-loading {
+  background: var(--data-table-loading-background-color);
+}

@@ -1,33 +1,18 @@
+import logger from 'logger/main'
+import { select, isSelection }  from 'selection/main'
+import { isString, isFunction, mergeDefined, shallowMerge } from 'utils/main'
+import { ClickDetector } from 'click-detector/main'
+import { EventEmitter } from 'event-emitter/main'
+import { checkParents, parentZIndex, scrollbarSize } from 'dom-utils/main'
+import { calculateDropdownPosition } from './positioning'
 
-dropdownAnimateSlideDistance = 8
+export config = {
+  attachToSelector: 'body',
+  dropdownAnimateSlideDistance: 8
+}
 
 checkFixedPos = (node) ->
-  if hx.select(node).style('position') is 'fixed' then true
-
-calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) ->
-
-  # figure out the direction the drop-down should be revealed (for the animation)
-  direction = if alignments[1] is alignments[3] and alignments[0] isnt alignments[2]
-    if alignments[0] is 'l' then 'left' else 'right'
-  else if alignments[3] is 't' then 'down' else 'up'
-
-  # work out where the drop-down would go when there is ample space
-
-  x = selectionRect.x
-  y = selectionRect.y
-
-  if alignments[0] is 'r' then x += selectionRect.width
-  if alignments[1] is 'b' then y += selectionRect.height
-  if alignments[2] is 'r' then x -= dropdownRect.width
-  if alignments[3] is 'b' then y -= dropdownRect.height
-
-  # adjust the position of the drop-down when there is not enough space
-
-  # slide into view (in the appropriate direction)
-  if direction is 'down' or direction is 'up'
-    x = hx.clamp(0, windowRect.width - dropdownRect.width, x)
-  else
-    y = hx.clamp(0, windowRect.height - dropdownRect.height, y)
+  if select(node).style('position') is 'fixed' then true
 
   # flip from downwards to upwards (if needed and there is the space to)
   if direction is 'down' and y > windowRect.height - dropdownRect.height and selectionRect.y - dropdownRect.height > 0
@@ -53,34 +38,32 @@ calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect
     direction = 'right'
     x = selectionRect.x + selectionRect.width
 
-  {
+  return {
     x: x,
     y: y,
     direction: direction
   }
 
 dropdownContentToSetupDropdown = (dropdownContent) ->
-  setupDropdown = switch
-    when hx.isString dropdownContent
-      (node) -> hx.select(node).html(dropdownContent)
-    when hx.isFunction dropdownContent
-      dropdownContent
+  return switch
+    when isSelection(dropdownContent)
+      (node) -> select(node).set(dropdownContent)
+    when isString(dropdownContent)
+      (node) -> select(node).text(dropdownContent)
+    when isFunction(dropdownContent)
+      (node) -> select(node).set(dropdownContent())
     else
-      hx.consoleWarning 'dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent
+      logger.warn('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
       -> undefined
 
-
-
-class Dropdown extends hx.EventEmitter
+export class Dropdown extends EventEmitter
 
   constructor: (selector, dropdownContent, options) ->
-    super
-
-    hx.component.register(selector, this)
+    super()
 
     # XXX [2.0.0]: this should not be part of the public api (but should use setterGetter methods instead)
     # it has been documented so will have to stay here for the 1.x.x series (it should be removed in 2.0.0)
-    @options = hx.merge.defined({
+    @options = mergeDefined({
       mode: 'click',
       align: 'lblt',
       spacing: undefined,
@@ -88,9 +71,9 @@ class Dropdown extends hx.EventEmitter
       ddClass: ''
     }, options)
 
-    setupDropdown = dropdownContentToSetupDropdown dropdownContent
+    setupDropdown = dropdownContentToSetupDropdown(dropdownContent)
 
-    clickDetector = new hx.ClickDetector
+    clickDetector = new ClickDetector
     clickDetector.on 'click', 'hx.dropdown', => @hide()
 
     alignQuad = switch @options.align
@@ -106,7 +89,9 @@ class Dropdown extends hx.EventEmitter
     onmouseover = => @show()
     onmouseout = => @hide()
 
-    selection = hx.select(selector)
+    selection = select(selector)
+      .api('dropdown', this)
+      .api(this)
 
     @_ = {
       setupDropdown: setupDropdown,
@@ -130,17 +115,15 @@ class Dropdown extends hx.EventEmitter
 
   dropdownContent: (dropdownContent) ->
     if arguments.length
-      setupDropdown = dropdownContentToSetupDropdown dropdownContent
-      @_ = hx.shallowMerge @_, {
+      setupDropdown = dropdownContentToSetupDropdown(dropdownContent)
+      @_ = shallowMerge(@_, {
         setupDropdown,
         dropdownContent
-      }
+      })
       @render()
       this
     else
       @_.dropdownContent
-
-
 
   addException: (node) ->
     @_.clickDetector.addException(node)
@@ -155,8 +138,8 @@ class Dropdown extends hx.EventEmitter
     this
 
   render: ->
-    @_.setupDropdown @_.dropdown.node()
-    @emit 'render'
+    @_.setupDropdown(@_.dropdown.node())
+    @emit('render')
     this
 
   show: (cb) ->
@@ -168,7 +151,7 @@ class Dropdown extends hx.EventEmitter
     else
       _.visible = true
 
-      _.dropdown = hx.select(hx._.dropdown.attachToSelector).append('div').attr('class', 'hx-dropdown')
+      _.dropdown = select(config.attachToSelector).append('div').attr('class', 'hx-dropdown')
 
       if @options.ddClass.length > 0
         _.dropdown.classed(@options.ddClass, true)
@@ -184,8 +167,8 @@ class Dropdown extends hx.EventEmitter
       rect = _.selection.box()
       dropdownRect = _.dropdown.box()
       ddMaxHeight = _.dropdown.style('max-height').replace('px','')
-      parentFixed = hx.checkParents(_.selection.node(), checkFixedPos)
-      parentZIndex = hx.parentZIndex(_.selection.node(), true)
+      parentFixed = checkParents(_.selection.node(), checkFixedPos)
+      zIndex = parentZIndex(_.selection.node(), true)
 
       # calculate the position of the dropdown
       {x, y} = calculateDropdownPosition(
@@ -194,7 +177,7 @@ class Dropdown extends hx.EventEmitter
         { width: dropdownRect.width, height: dropdownRect.height },
         { width: window.innerWidth, height: window.innerHeight },
         ddMaxHeight,
-        hx.scrollbarSize()
+        scrollbarSize()
       )
 
       if not parentFixed
@@ -202,8 +185,8 @@ class Dropdown extends hx.EventEmitter
         y += window.scrollY || window.pageYOffset
 
       # update the styles for the dropdown
-      if parentZIndex > 0
-        _.dropdown.style('z-index', parentZIndex + 1)
+      if zIndex > 0
+        _.dropdown.style('z-index', zIndex + 1)
 
       if parentFixed
         _.dropdown.style('position', 'fixed')
@@ -213,7 +196,7 @@ class Dropdown extends hx.EventEmitter
 
       _.dropdown
         .style('left', x + 'px')
-        .style('top', (y + dropdownAnimateSlideDistance) + 'px')
+        .style('top', (y + config.dropdownAnimateSlideDistance) + 'px')
         .style('height', '0px')
         .style('opacity', 0)
         .style('margin-top', @options.dropdown)
@@ -262,10 +245,3 @@ class Dropdown extends hx.EventEmitter
       _.selection.off('mouseout', 'hx.dropdown', _.onmouseout)
 
     this
-
-hx.Dropdown = Dropdown
-
-hx._.dropdown = {
-  attachToSelector: 'body',
-  calculateDropdownPosition: calculateDropdownPosition
-}

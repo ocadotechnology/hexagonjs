@@ -1,0 +1,104 @@
+.hx-input-group {
+  display: inline-flex;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+.hx-input-group-full-width {
+  display: flex;
+}
+
+.hx-input-group > input,
+.hx-input-group > form > input {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.hx-input-group > input:invalid ,
+.hx-input-group > form > input:invalid {
+  border-style: dotted;
+}
+
+.hx-input-group > input:focus ,
+.hx-input-group > form > input:focus {
+  border-style: solid;
+}
+
+.hx-input-group > div:not(.hx-btn),
+.hx-input-group > span:not(.hx-btn),
+.hx-input-group > a:not(.hx-btn) {
+  border-width: 1px;
+  border-style: solid;
+  padding: 0.4em;
+  line-height: 1.3em;
+}
+
+.hx-input-group > i {
+  border-width: 1px;
+  border-style: solid;
+  padding: 0.4em;
+}
+
+.hx-input-group > form {
+  padding: 0;
+}
+
+.hx-input-group > form > input {
+  margin: 0;
+  border-radius: 0;
+}
+
+.hx-input-group > form:first-child > input {
+  border-top-left-radius: 0.15em;
+  border-bottom-left-radius: 0.15em;
+}
+
+.hx-input-group > form:last-child > input {
+  border-top-right-radius: 0.15em;
+  border-bottom-right-radius: 0.15em;
+}
+
+.hx-input-group > input,
+.hx-input-group > div,
+.hx-input-group > button,
+.hx-input-group > span,
+.hx-input-group > i,
+.hx-input-group > a,
+.hx-input-group > .hx-btn {
+  margin: 0;
+  border-radius: 0;
+}
+
+/* XXX: why is this necessary? */
+.hx-input-group > input:not(:last-child),
+.hx-input-group > div:not(:last-child),
+.hx-input-group > button:not(:last-child),
+.hx-input-group > span:not(:last-child),
+.hx-input-group > i:not(:last-child),
+.hx-input-group > a:not(:last-child),
+.hx-input-group > .hx-btn:not(:last-child) {
+  border-right-color: transparent;
+}
+
+.hx-input-group > input:first-child,
+.hx-input-group > div:first-child,
+.hx-input-group > button:first-child,
+.hx-input-group > span:first-child,
+.hx-input-group > i:first-child,
+.hx-input-group > a:first-child,
+.hx-input-group > .hx-btn:first-child {
+  border-top-left-radius: 0.15em;
+  border-bottom-left-radius: 0.15em;
+}
+
+.hx-input-group > input:last-child,
+.hx-input-group > div:last-child,
+.hx-input-group > button:last-child,
+.hx-input-group > span:last-child,
+.hx-input-group > i:last-child,
+.hx-input-group > a:last-child,
+.hx-input-group > .hx-btn:last-child {
+  border-top-right-radius: 0.15em;
+  border-bottom-right-radius: 0.15em;
+}
+

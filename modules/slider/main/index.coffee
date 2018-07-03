@@ -1,3 +1,9 @@
+import { select, div } from 'selection/main'
+import { format } from 'format/main'
+import { clamp, isObject, merge } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
+import { Map as HMap } from 'map/main'
+
 posToValue = (unit) ->
   if @_.isDiscrete then posToDiscrete.call this, unit
   else (unit * (@options.max - @options.min)) + @options.min
@@ -21,8 +27,8 @@ slide = (e) ->
   _.pointerMoveHandler = (e) => slide.call this, e
   _.pointerUpHandler = (e) => slideEnd.call this, e
 
-  hx.select(document).on 'pointermove', 'hx.slider', _.pointerMoveHandler
-  hx.select(document).on 'pointerup', 'hx.slider', _.pointerUpHandler
+  select(document).on 'pointermove', 'hx.slider', _.pointerMoveHandler
+  select(document).on 'pointerup', 'hx.slider', _.pointerUpHandler
 
   _.slidableWidth = if @options.type is 'range'
     _.container.width() - _.controlWidth
@@ -30,7 +36,7 @@ slide = (e) ->
 
   e.event.preventDefault()
 
-  pos = hx.clamp(0, _.container.width(), (e.x - _.container.box().left)) / _.slidableWidth
+  pos = clamp(0, _.container.width(), (e.x - _.container.box().left)) / _.slidableWidth
 
   val = {}
 
@@ -50,11 +56,11 @@ slide = (e) ->
     if _.dragging is 'end' or (isEnd and _.dragging isnt 'start')
       _.dragging = 'end'
       pos -= offset
-      pos = hx.clamp(start, 1, pos)
+      pos = clamp(start, 1, pos)
       val.end = posToValue.call this, pos
     else
       _.dragging = 'start'
-      pos = hx.clamp(0, end, pos)
+      pos = clamp(0, end, pos)
       val.start = posToValue.call this, pos
   else
     _.dragging = 'value'
@@ -69,8 +75,8 @@ slide = (e) ->
 slideEnd = (e) ->
   _ = @_
   if _.mouseDown
-    hx.select(document).off 'pointermove', 'hx.slider', _.pointerMoveHandler
-    hx.select(document).off 'pointerup', 'hx.slider', _.pointerUpHandler
+    select(document).off 'pointermove', 'hx.slider', _.pointerMoveHandler
+    select(document).off 'pointerup', 'hx.slider', _.pointerUpHandler
     _.mouseDown = false
     _.dragging = undefined
     node = _.range.select('.hx-slider-active')
@@ -136,17 +142,15 @@ renderValues = ->
   return
 
 
-class Slider extends hx.EventEmitter
+class Slider extends EventEmitter
   constructor: (@selector, options = {}) ->
-    super
+    super()
 
-    hx.component.register(@selector, this)
-
-    @options = hx.merge({
+    @options = merge({
       type: 'slider'
       discreteValues: undefined
       renderer: (slider, elem, value) ->
-        hx.select(elem).text(hx.format.fixed(2)(value))
+        select(elem).text(format.fixed(2)(value))
       min: 0
       max: 1
       step: undefined
@@ -158,7 +162,9 @@ class Slider extends hx.EventEmitter
     _.isDiscrete = @options.discreteValues?.length > 0 or @options.step?
 
     self = this
-    _.container = hx.select(@selector).classed('hx-slider', true)
+    _.container = select(@selector)
+      .classed('hx-slider', true)
+      .api(this)
       .append('div').classed('hx-slider-inner', true)
       .classed('hx-slider-double', @options.type is 'range')
       .classed('hx-slider-discrete', _.isDiscrete)
@@ -228,7 +234,7 @@ class Slider extends hx.EventEmitter
       @options.discreteValues = array
       _ = @_
       _.isDiscrete = @options.discreteValues?.length > 0 or @options.step?
-      _.discreteValues = new hx.Map()
+      _.discreteValues = new HMap()
       _.discreteSpacing = (1 / (array.length - 1))
 
       _.container.selectAll('.hx-slider-point').remove()
@@ -272,17 +278,17 @@ class Slider extends hx.EventEmitter
 
   value: (value) ->
     if arguments.length > 0
-      clamp = (val) =>
-        if @_.isDiscrete then val else hx.clamp(@options.min, @options.max, val)
+      clampValue = (val) =>
+        if @_.isDiscrete then val else clamp(@options.min, @options.max, val)
 
       if @options.type is 'range'
-        if value.start? then @values.start = clamp value.start
-        if value.end? then @values.end = clamp value.end
+        if value.start? then @values.start = clampValue(value.start)
+        if value.end? then @values.end = clampValue(value.end)
       else
-        if hx.isObject(value)
-          if value.value? then @values.value = clamp value.value
+        if isObject(value)
+          if value.value? then @values.value = clampValue(value.value)
         else
-          if value? then @values.value = clamp value
+          if value? then @values.value = clampValue(value)
 
       renderValues.call this
       this
@@ -305,13 +311,16 @@ class Slider extends hx.EventEmitter
   disabled: (disable) ->
     if disable?
       @_.disabled = disable
-      hx.select(@selector).classed('hx-disabled', disable)
+      select(@selector).classed('hx-disabled', disable)
     else
       !!@_.disabled
 
-hx.slider = (options) ->
-  selection = hx.detached('div')
+slider = (options) ->
+  selection = div()
   new Slider(selection.node(), options)
   selection
 
-hx.Slider = Slider
+export {
+  slider,
+  Slider
+}

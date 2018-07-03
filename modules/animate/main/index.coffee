@@ -1,9 +1,22 @@
-### istanbul ignore next: ignore coffeescript generated code that can't be covered  ###
+import logger from 'logger/main'
+
+import { ease, transition } from 'transition/main'
+import { EventEmitter } from 'event-emitter/main'
+import { interpolate } from 'interpolate/main'
+import { Selection, getHexagonElementDataObject } from 'selection/main'
+import { isFunction } from 'utils/main'
+import { Map as HMap } from 'map/main'
+
+# XXX: [2.0.0] Remove, and replace with promise based transitions for props, attrs and style on selection
+
+animateState = {
+  morphs: new HMap()
+}
 
 # works on the single node given
-class Animation extends hx.EventEmitter
-  constructor: (@node, @ease=hx.ease.linear) ->
-    super
+class Animation extends EventEmitter
+  constructor: (@node, @ease=ease.linear) ->
+    super()
     @cancelers = []
     @remaining = 0
 
@@ -14,21 +27,21 @@ class Animation extends hx.EventEmitter
         @finished = true
         @emit 'end'
 
-  transition = (iteration, duration) ->
+  doTransition = (iteration, duration) ->
     @remaining++
-    @cancelers.push hx.transition(duration, iteration, @ease, @endCallback)
+    @cancelers.push(transition(duration, iteration, @ease, @endCallback))
     this
 
   style: (property, value, duration) ->
     if @node
       if arguments.length == 4
-        interpolator = hx.interpolate(arguments[1], arguments[2])
+        interpolator = interpolate(arguments[1], arguments[2])
         iteration = (t, cancel) => if not cancel then @node.style.setProperty(property, interpolator(t))
-        transition.call(this, iteration, arguments[3] or 200)
+        doTransition.call(this, iteration, arguments[3] or 200)
       else
-        interpolator = hx.interpolate(window.getComputedStyle(@node, null).getPropertyValue(property), value)
+        interpolator = interpolate(window.getComputedStyle(@node, null).getPropertyValue(property), value)
         iteration = (t, cancel) => if not cancel then @node.style.setProperty(property, interpolator(t))
-        transition.call(this, iteration, duration or 200)
+        doTransition.call(this, iteration, duration or 200)
     else
       @endCallback()
     this
@@ -36,13 +49,13 @@ class Animation extends hx.EventEmitter
   attr: (attribute, value, duration) ->
     if @node
       if arguments.length == 4
-        interpolator = hx.interpolate(arguments[1], arguments[2])
+        interpolator = interpolate(arguments[1], arguments[2])
         iteration = (t, cancel) => if not cancel then @node.setAttribute(attribute, interpolator(t))
-        transition.call(this, iteration, arguments[3] or 200)
+        doTransition.call(this, iteration, arguments[3] or 200)
       else
-        interpolator = hx.interpolate(@node.getAttribute(attribute), value)
+        interpolator = interpolate(@node.getAttribute(attribute), value)
         iteration = (t, cancel) => if not cancel then @node.setAttribute(attribute, interpolator(t))
-        transition.call(this, iteration, duration or 200)
+        doTransition.call(this, iteration, duration or 200)
     else
       @endCallback()
     this
@@ -53,16 +66,13 @@ class Animation extends hx.EventEmitter
       canceler()
     this
 
-hx.animate = (node, ease) -> new Animation(node, ease)
-
-hx.Selection::animate = (ease) -> hx.animate(@nodes[0], ease)
-
+animate = (node, ease) -> new Animation(node, ease)
 
 # class for chaining animations and things together
-class Morph extends hx.EventEmitter
+class Morph extends EventEmitter
 
   constructor: (@node, @trigger, start, cancellers) ->
-    super
+    super()
     @actions = []
     @start = start or (=> perform.call(this))
     @cancelers = cancellers or []
@@ -76,15 +86,15 @@ class Morph extends hx.EventEmitter
         perform.call(this)
 
   and: (f, duration = 200) ->
-    if hx.isFunction(f)
+    if isFunction(f)
       @actions.push f
     else
       if @node
-        morphFactory = hx_morphs.get(f)
+        morphFactory = animateState.morphs.get(f)
         if morphFactory
           @actions.push => morphFactory(@node, duration)
         else
-          hx.consoleWarning(f + ' is not a registered morph', 'The available morphs are', hx_morphs.entries())
+          logger.warn(f + ' is not a registered morph', 'The available morphs are', animateState.morphs.entries())
     this
 
   then: (f, duration = 200) ->
@@ -99,7 +109,7 @@ class Morph extends hx.EventEmitter
   # Style util methods
   applyStyle = (node, args) ->
     -> # Return function so the @and and @then work correctly.
-      animElem = hx.animate(node)
+      animElem = animate(node)
       animElem.style.apply(animElem, args)
 
   andStyle: (property, value, duration) ->
@@ -114,7 +124,7 @@ class Morph extends hx.EventEmitter
   # Attr util methods
   applyAttr = (node, args) ->
     -> # Return function so the @and and @then work correctly.
-      animElem = hx.animate(node)
+      animElem = animate(node)
       animElem.attr.apply(animElem, args)
 
   andAttr: (property, value, duration) ->
@@ -132,7 +142,7 @@ class Morph extends hx.EventEmitter
       @emit 'cancelled'
       @cancelled = true
       for canceler in @cancelers
-        if hx.isFunction(canceler.cancel) then canceler.cancel()
+        if isFunction(canceler.cancel) then canceler.cancel()
     this
 
   perform = ->
@@ -151,7 +161,7 @@ class Morph extends hx.EventEmitter
         if (res isnt undefined) and res.cancel
           @cancelers.push res
 
-        if res instanceof hx.EventEmitter
+        if res instanceof EventEmitter
           res.on 'end', 'hx.animate', onEnd
         else if action.length == 0 # the non async case
           onEnd()
@@ -166,7 +176,7 @@ class Morph extends hx.EventEmitter
     @start()
 
     if @node
-      obj = hx.select.getHexagonElementDataObject(@node, true)
+      obj = getHexagonElementDataObject(@node, true)
       obj.morphs ?= []
 
       # remove all cancelled and finished morphs
@@ -178,7 +188,7 @@ class Morph extends hx.EventEmitter
   # cancels ongoing morphs for this node
   cancelOngoing: ->
     if @node
-      obj = hx.select.getHexagonElementDataObject(@node, false)
+      obj = getHexagonElementDataObject(@node, false)
       if obj
         if obj.morphs
           for morph in obj.morphs
@@ -187,10 +197,18 @@ class Morph extends hx.EventEmitter
           obj.morphs = []
     this
 
+morph = (node) -> new Morph(node)
 
-hx.morph = (node) -> new Morph(node)
-hx.Selection::morph = -> new Morph(@nodes[0])
+registerMorph = (name, morph) ->
+  animateState.morphs.set(name, morph)
 
-hx_morphs = new hx.Map
-hx.morph.register = (name, morph) -> hx_morphs.set(name, morph)
+initAnimate = ->
+  Selection::animate = (ease) -> animate(@nodes[0], ease)
+  Selection::morph = -> new Morph(@nodes[0])
 
+export {
+  animate,
+  morph,
+  registerMorph,
+  initAnimate
+}

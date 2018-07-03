@@ -1,3 +1,6 @@
+import { compare } from 'sort/main'
+import { startsWith, mergeDefined } from 'utils/main'
+
 filterCaseModifier = (caseSensitive) ->
   if caseSensitive then (string) -> string
   else (string) -> string.toLowerCase()
@@ -24,13 +27,13 @@ filterMatch = (item, getIndex, options) ->
   else false
 
 buildFilter = (lookupType) ->
-  (array, term, options = {}) ->
+  (array, term, opts = {}) ->
 
-    options = hx.merge.defined {
+    options = mergeDefined {
       caseSensitive: false
       searchValues: undefined
       sort: true
-    }, options
+    }, opts
 
     # set the case modifier - we add it to options so we can easily pass to
     # filterMatch. We set this once to reduce the amount of checking we need
@@ -57,13 +60,13 @@ buildFilter = (lookupType) ->
           aArr = options.searchValues a
           bArr = options.searchValues b
           for i in [0...aArr.length] by 1
-            r = hx.sort.compare(aArr[i], bArr[i])
+            r = compare(aArr[i], bArr[i])
             # If the two terms dont match (and there is one better than the
             # other) then we use that value, else we keep moving down the
             # properties until we find something that can be compared.
             if r isnt 0 then break
           r
-        else hx.sort.compare(a, b)
+        else compare(a, b)
 
     # return the filtered/sorted array
     array
@@ -72,47 +75,46 @@ buildFilter = (lookupType) ->
 # All filter lookup functions should return the index + the length of
 # the term within the item, allowing us to sort based on the strength
 # of the match.
-hx.filter =
-  exact: buildFilter (term) ->
-    (item) -> if item is term then term.length else -1
+filterExact = buildFilter (term) ->
+  (item) -> if item is term then term.length else -1
 
-  startsWith: buildFilter (term) ->
-    (item) -> if hx.startsWith(item, term) then term.length else -1
+filterStartsWith = buildFilter (term) ->
+  (item) -> if startsWith(item, term) then term.length else -1
 
-  contains: buildFilter (term) ->
-    (item) ->
-      index = item.indexOf(term)
-      if index > -1 then index + term.length else -1
+filterContains = buildFilter (term) ->
+  (item) ->
+    index = item.indexOf(term)
+    if index > -1 then index + term.length else -1
 
-  excludes: buildFilter (term) ->
-    (item) ->
-      index = item.indexOf(term)
-      if index is -1 then term.length else -1
+filterExcludes = buildFilter (term) ->
+  (item) ->
+    index = item.indexOf(term)
+    if index is -1 then term.length else -1
 
-  greater: buildFilter (term) ->
-    (item) ->
-      val = hx.sort.compare(item, term)
-      if val isnt -1 then val else -1
+filterGreater = buildFilter (term) ->
+  (item) ->
+    val = compare(item, term)
+    if val isnt -1 then val else -1
 
-  less: buildFilter (term) ->
-    (item) ->
-      val = hx.sort.compare(term, item)
-      if val isnt -1 then val else -1
+filterLess = buildFilter (term) ->
+  (item) ->
+    val = compare(term, item)
+    if val isnt -1 then val else -1
 
-  fuzzy: buildFilter (term) ->
-    escapeRegExp = (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
-    regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?'
-    pattern = new RegExp(regStr)
-    (item) ->
-      match = item.match(pattern)
-      if match? then match.index + match[0].length else -1
+filterFuzzy = buildFilter (term) ->
+  escapeRegExp = (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+  regStr = '(' + term.split('').map(escapeRegExp).join(').*?(') + ').*?'
+  pattern = new RegExp(regStr)
+  (item) ->
+    match = item.match(pattern)
+    if match? then match.index + match[0].length else -1
 
-  regex: buildFilter (term) ->
-    (item) ->
-      match = item.match(term)
-      if match? then match.index + match[0].length else -1
+filterRegex = buildFilter (term) ->
+  (item) ->
+    match = item.match(term)
+    if match? then match.index + match[0].length else -1
 
-hx.filter.stringTypes = () -> [
+filterStringTypes = () -> [
   'contains',
   'exact'
   'excludes',
@@ -121,13 +123,13 @@ hx.filter.stringTypes = () -> [
   'fuzzy'
 ]
 
-hx.filter.numberTypes = () -> [
+filterNumberTypes = () -> [
   'exact',
   'greater',
   'less'
 ]
 
-hx.filter.types = () -> [
+filterTypes = () -> [
   'contains',
   'exact'
   'greater',
@@ -137,3 +139,17 @@ hx.filter.types = () -> [
   'regex',
   'fuzzy'
 ]
+
+export {
+  filterExact,
+  filterStartsWith,
+  filterContains,
+  filterExcludes,
+  filterGreater,
+  filterLess,
+  filterFuzzy,
+  filterRegex,
+  filterStringTypes,
+  filterNumberTypes,
+  filterTypes
+}

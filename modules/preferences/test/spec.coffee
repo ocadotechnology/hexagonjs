@@ -1,87 +1,105 @@
-describe 'hx-preferences', ->
-  it 'should have user facing text defined', ->
-    hx.userFacingText('preferences', 'locale').should.equal('Locale')
-    hx.userFacingText('preferences', 'preferences').should.equal('Preferences')
-    hx.userFacingText('preferences', 'preferencesSaved').should.equal('Preferences Saved')
-    hx.userFacingText('preferences', 'save').should.equal('Save')
-    hx.userFacingText('preferences', 'timezone').should.equal('Timezone')
+import {
+  preferences,
+  LocalStoragePreferencesStore,
+  defaultTimezoneLookup
+} from 'preferences/main'
+import { userFacingText } from 'user-facing-text/main'
+import logger from 'logger/main'
 
-  describe 'api', ->
-    it 'supportedLocales: setter/getter', ->
-      list = ["uz", "vi", "cy"]
-      hx.preferences.supportedLocales(list).should.equal(hx.preferences)
-      hx.preferences.supportedLocales().should.equal(list)
+import chai from 'chai'
 
-    describe 'locale', ->
-      it 'should not be possible to explicitly clear the locale', ->
-        # sanity check
-        should.exist(hx.preferences.locale())
-        hx.preferences.locale undefined
-        should.exist(hx.preferences.locale())
+export default () ->
+  should = chai.should()
 
-      it 'setter/getter', ->
-        hx.preferences.locale('vi').should.equal(hx.preferences)
-        hx.preferences.locale().should.equal('vi')
+  describe 'hx-preferences', ->
+    it 'should have user facing text defined', ->
+      userFacingText('preferences', 'locale').should.equal('Locale')
+      userFacingText('preferences', 'preferences').should.equal('Preferences')
+      userFacingText('preferences', 'preferencesSaved').should.equal('Preferences Saved')
+      userFacingText('preferences', 'save').should.equal('Save')
+      userFacingText('preferences', 'timezone').should.equal('Timezone')
 
-      it 'setter/getter with alternative casing', ->
-        hx.preferences.locale('en-GB').should.equal(hx.preferences)
-        hx.preferences.locale().should.equal('en-GB')
+    describe 'api', ->
+      it 'supportedLocales: setter/getter', ->
+        list = ["uz", "vi", "cy"]
+        preferences.supportedLocales(list).should.equal(preferences)
+        preferences.supportedLocales().should.equal(list)
 
-      it 'setter/getter should correct the casing', ->
-        hx.preferences.locale('en-gb').should.equal(hx.preferences)
-        hx.preferences.locale().should.equal('en-GB')
+      describe 'locale', ->
+        it 'should not be possible to explicitly clear the locale', ->
+          # sanity check
+          should.exist(preferences.locale())
+          preferences.locale undefined
+          should.exist(preferences.locale())
 
-      it 'dont emit when setting to the same value', ->
-        hx.preferences.locale('en-GB')
-        called = false
-        hx.preferences.on 'localechange', -> called = true
-        hx.preferences.locale('en-GB')
-        called.should.equal(false)
+        it 'setter/getter', ->
+          preferences.locale('vi').should.equal(preferences)
+          preferences.locale().should.equal('vi')
 
-      it 'emit when setting to new value', ->
-        hx.preferences.locale('en-GB')
-        called = false
-        hx.preferences.on 'localechange', -> called = true
-        hx.preferences.locale('en-us')
-        called.should.equal(true)
+        it 'setter/getter with alternative casing', ->
+          preferences.locale('en-GB').should.equal(preferences)
+          preferences.locale().should.equal('en-GB')
 
-      it 'setter/getter for non supported value', ->
-        spy = chai.spy.on(hx, 'consoleWarning')
-        hx.preferences.locale('vi').should.equal(hx.preferences)
-        hx.preferences.locale('lemon').should.equal(hx.preferences)
-        hx.preferences.locale().should.equal('vi')
-        spy.should.have.been.called()
+        it 'setter/getter should correct the casing', ->
+          preferences.locale('en-gb').should.equal(preferences)
+          preferences.locale().should.equal('en-GB')
 
-    describe 'timezone', ->
-      it 'setter/getter', ->
-        hx.preferences.timezone('UTC+01:00').should.equal(hx.preferences)
-        hx.preferences.timezone().should.equal('UTC+01:00')
+        it 'dont emit when setting to the same value', ->
+          preferences.locale('en-GB')
+          called = false
+          preferences.on 'localechange', -> called = true
+          preferences.locale('en-GB')
+          called.should.equal(false)
 
-      it 'dont emit when setting to the same value', ->
-        hx.preferences.timezone('UTC+00:00')
-        called = false
-        hx.preferences.on 'timezonechange', -> called = true
-        hx.preferences.timezone('UTC+00:00')
-        called.should.equal(false)
+        it 'emit when setting to new value', ->
+          preferences.locale('en-GB')
+          called = false
+          preferences.on 'localechange', -> called = true
+          preferences.locale('en-us')
+          called.should.equal(true)
 
-      it 'emit when setting to new value', ->
-        hx.preferences.timezone('UTC+00:00')
-        called = false
-        hx.preferences.on 'timezonechange', -> called = true
-        hx.preferences.timezone('UTC+01:00')
-        called.should.equal(true)
+        it 'setter/getter for non supported value', ->
+          spy = chai.spy.on(logger, 'warn')
+          preferences.locale('vi').should.equal(preferences)
+          preferences.locale('lemon').should.equal(preferences)
+          preferences.locale().should.equal('vi')
+          spy.should.have.been.called()
+          chai.spy.restore()
 
-      it 'should not allow the use of unsupported timezones', ->
-        spy = chai.spy.on(hx, 'consoleWarning')
-        hx.preferences.timezone('America').should.equal(hx.preferences)
-        spy.should.have.been.called()
+      describe 'timezone', ->
+        afterEach ->
+          preferences.timezone('UTC+00:00')
 
-    describe 'defaultTimezoneLookup', ->
-      it 'should get the correct string timezone', ->
-        hx._.preferences.defaultTimezoneLookup(1).should.equal('UTC-00:01')
-        hx._.preferences.defaultTimezoneLookup(2).should.equal('UTC-00:02')
-        hx._.preferences.defaultTimezoneLookup(0).should.equal('UTC+00:00')
-        hx._.preferences.defaultTimezoneLookup(-1).should.equal('UTC+00:01')
-        hx._.preferences.defaultTimezoneLookup(-2).should.equal('UTC+00:02')
-        hx._.preferences.defaultTimezoneLookup(10).should.equal('UTC-00:10')
-        hx._.preferences.defaultTimezoneLookup(-100).should.equal('UTC+01:40')
+        it 'setter/getter', ->
+          preferences.timezone('UTC+01:00').should.equal(preferences)
+          preferences.timezone().should.equal('UTC+01:00')
+
+        it 'dont emit when setting to the same value', ->
+          preferences.timezone('UTC+00:00')
+          called = false
+          preferences.on 'timezonechange', -> called = true
+          preferences.timezone('UTC+00:00')
+          called.should.equal(false)
+
+        it 'emit when setting to new value', ->
+          preferences.timezone('UTC+00:00')
+          called = false
+          preferences.on 'timezonechange', -> called = true
+          preferences.timezone('UTC+01:00')
+          called.should.equal(true)
+
+        it 'should not allow the use of unsupported timezones', ->
+          spy = chai.spy.on(logger, 'warn')
+          preferences.timezone('America').should.equal(preferences)
+          spy.should.have.been.called()
+
+      describe 'defaultTimezoneLookup', ->
+        it 'should get the correct string timezone', ->
+          defaultTimezoneLookup(1).should.equal('UTC-00:01')
+          defaultTimezoneLookup(2).should.equal('UTC-00:02')
+          defaultTimezoneLookup(0).should.equal('UTC+00:00')
+          defaultTimezoneLookup(-1).should.equal('UTC+00:01')
+          defaultTimezoneLookup(-2).should.equal('UTC+00:02')
+          defaultTimezoneLookup(10).should.equal('UTC-00:10')
+          defaultTimezoneLookup(-100).should.equal('UTC+01:40')
+

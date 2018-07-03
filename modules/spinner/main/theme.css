@@ -1,0 +1,8 @@
+.hx-spinner {
+  border: 0.2em solid var(--spinner-color);
+  border-right-color: transparent;
+}
+
+.hx-spinner-wide:before {
+  background: var(--spinner-color);
+}

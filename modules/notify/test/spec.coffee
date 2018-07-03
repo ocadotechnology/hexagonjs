@@ -1,2 +1,2 @@
-describe 'hx-notify tests', ->
-  # ...
+export default () ->
+  xdescribe 'notify', () ->

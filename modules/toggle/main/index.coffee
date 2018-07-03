@@ -1,17 +1,22 @@
-class Toggle extends hx.EventEmitter
+import { EventEmitter } from 'event-emitter/main'
+import { select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
+
+class Toggle extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
-    hx.component.register(selector, this)
-
-    @options = hx.merge.defined {
-      value: false,
+    @options = mergeDefined({
+      value: false
       disabled: false
-    }, options
+    }, options)
 
-    @selection = hx.select(selector).classed('hx-toggle', true)
+    @selection = select(selector)
+      .classed('hx-toggle', true)
+      .api(this)
 
-    @toggle = @selection.append('div').class('hx-toggle-box')
+    @toggle = @selection.append('div')
+      .class('hx-toggle-box')
 
     @value(@options.value)
 
@@ -38,9 +43,12 @@ class Toggle extends hx.EventEmitter
     else
       @options.disabled
 
-hx.toggle = (options) ->
-  selection = hx.detached('div')
+toggle = (options) ->
+  selection = div()
   new Toggle(selection.node(), options)
   selection
 
-hx.Toggle = Toggle
+export {
+  toggle,
+  Toggle
+}

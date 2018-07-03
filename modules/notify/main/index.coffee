@@ -1,20 +1,25 @@
+import logger from 'logger/main'
+
+import { select, detached, div, i, Selection } from 'selection/main'
+import { merge, isString, isNumber, isArray, isObject, randomId } from 'utils/main'
+
 # utility method for setting up notifications
 setupNotification = (notification, selection) ->
   icon = if notification.options.icon? and notification.options.icon.length > 0
-    hx.detached('div').class('hx-notification-icon-container')
-      .add(hx.detached('i').class('hx-notification-icon ' + notification.options.icon))
+    div('hx-notification-icon-container')
+      .add(detached('i').class('hx-notification-icon ' + notification.options.icon))
 
-  content = hx.detached('div').class('hx-notification-content')
+  content = div('hx-notification-content')
   msg = notification.message
 
   # We check `isNumber` here as in some cases it might be sensible to pass a number as the message (e.g. hx.notify.error(404))
-  msgIsString = hx.isString(msg) or hx.isNumber(msg)
+  msgIsString = isString(msg) or isNumber(msg)
 
-  msgIsNode = not msgIsString and ((msg instanceof hx.Selection) or (msg instanceof HTMLElement))
-  msgIsArrayOfNodes = msgIsNode or hx.isArray(msg) and msg.every (item) ->
-    (item instanceof hx.Selection) or (item instanceof HTMLElement)
+  msgIsNode = not msgIsString and ((msg instanceof Selection) or (msg instanceof HTMLElement))
+  msgIsArrayOfNodes = msgIsNode or isArray(msg) and msg.every (item) ->
+    (item instanceof Selection) or (item instanceof HTMLElement)
 
-  msgIsObject = not msgIsString and not msgIsNode and not msgIsArrayOfNodes and hx.isObject(msg)
+  msgIsObject = not msgIsString and not msgIsNode and not msgIsArrayOfNodes and isObject(msg)
 
   if msgIsString
     content.text(msg)
@@ -24,7 +29,7 @@ setupNotification = (notification, selection) ->
     notification.options.renderer(content.node(), msg)
   else
     if msgIsObject
-      hx.consoleWarning(
+      logger.warn(
         'Notification created using an object with invalid arguments\n',
         'An object was passed to the notification without a renderer being defined\n'
         "message:",
@@ -33,7 +38,7 @@ setupNotification = (notification, selection) ->
         notification.options.renderer
       )
     else
-      hx.consoleWarning(
+      logger.warn(
         'Notification created using an object with invalid arguments\n',
         'The notification expected a String, Selection, HTMLElement or an Object with matching renderer but was passed:\n',
         "message:",
@@ -42,19 +47,16 @@ setupNotification = (notification, selection) ->
     content.text('ERROR CONSTRUCTING NOTIFICATION')
 
   if notification.options.pinnable
-    pin = hx.detached('div')
-      .class('hx-notification-icon-container hx-notification-pin')
+    pin = div('hx-notification-icon-container hx-notification-pin')
       .on('click', 'hx.notify', -> togglePin(notification))
-      .add(hx.detached('i').attr('class', 'hx-icon hx-icon-thumb-tack'))
+      .add(i('hx-icon hx-icon-thumb-tack'))
 
     notification.domPin = pin
     updatePinnedStatus(notification)
 
-  close = hx.detached('div')
-    .class('hx-notification-icon-container hx-notification-close')
+  close = div('hx-notification-icon-container hx-notification-close')
     .on('click', 'hx.notify', -> notification.close())
-    .add(hx.detached('i').class('hx-icon hx-icon-close'))
-
+    .add(detached('i').class('hx-icon hx-icon-close'))
 
   selection
     .add(icon)
@@ -65,7 +67,7 @@ setupNotification = (notification, selection) ->
 nextId = (manager) -> manager.currentId++
 
 redraw = (manager) ->
-  selection = hx.select(manager.selector)
+  selection = select(manager.selector)
 
   container = selection.select('#' + manager.uniqueId)
   if container.empty()
@@ -103,12 +105,11 @@ redraw = (manager) ->
         .then => @remove()
         .go()
 
-
   view.apply(manager.notifications, (d) -> d.id)
 
 removeNotification = (manager, notification) ->
-  i = manager.notifications.indexOf(notification)
-  if i>=0 then manager.notifications.splice(i, 1)
+  index = manager.notifications.indexOf(notification)
+  if index >=0 then manager.notifications.splice(index, 1)
   redraw(manager)
 
 startTimeout = (notification, seconds) ->
@@ -119,17 +120,17 @@ togglePin = (notification) -> if notification.pinned then notification.unpin() e
 updatePinnedStatus = (notification) ->
   notification.domPin.classed('hx-notification-pin-pinned', notification.pinned)
 
-defaultRenderer = (node, message) -> hx.select(node).text(message)
+defaultRenderer = (node, message) -> select(node).text(message)
 
 class Notification
   constructor: (@manager, @message, options) ->
-    @options = hx.merge {
-      icon: undefined
-      cssclass: undefined
-      timeout: @manager._.defaultTimeout
-      pinnable: true
+    @options = merge({
+      icon: undefined,
+      cssclass: undefined,
+      timeout: @manager._.defaultTimeout,
+      pinnable: true,
       renderer: undefined
-    }, options
+    }, options)
 
     @id = nextId(@manager)
 
@@ -153,18 +154,17 @@ class Notification
   unpin: ->
     @pinned = false
     # an unpinned timeout should then disappear quickly, hence 1 second
-    startTimeout this, 1
+    startTimeout(this, 1)
     updatePinnedStatus(this)
     this
 
 
-class NotificationManager
+export class NotificationManager
   # supply the containing div that you wish to attach the notification manager to.
   constructor: (@selector = 'body') ->
     @currentId = 0
     @notifications = []
-
-    @uniqueId = 'hx-notify-' + hx.randomId()
+    @uniqueId = 'hx-notify-' + randomId()
 
     @_ = {
       defaultTimeout: 5
@@ -176,22 +176,29 @@ class NotificationManager
     redraw(this)
     notification
 
-  themedNotification = (manager, contextClass, iconClass, message, options) ->
-    mergedOptions = hx.merge({
-      icon: 'hx-icon ' + iconClass
-    }, options)
-    optionalClass = if mergedOptions.cssclass then " #{mergedOptions.cssclass}" else ''
-    mergedOptions.cssclass = "#{contextClass}#{optionalClass}"
-    manager.notify(message, mergedOptions)
-
   info: (message, options = {}) ->
-    themedNotification(this, 'hx-info', 'hx-icon-info', message, options)
+    @notify(message, merge {
+      icon: 'hx-icon hx-icon-info'
+      cssclass: 'hx-info'
+    }, options)
+
   warning: (message, options = {}) ->
-    themedNotification(this, 'hx-warning', 'hx-icon-warning', message, options)
+    @notify(message, merge {
+      icon: 'hx-icon hx-icon-warning'
+      cssclass: 'hx-warning'
+    }, options)
+
   negative: (message, options = {}) ->
-    themedNotification(this, 'hx-negative', 'hx-icon-error', message, options)
+    @notify(message, merge {
+      icon: 'hx-icon hx-icon-error'
+      cssclass: 'hx-negative'
+    }, options)
+
   positive: (message, options = {}) ->
-    themedNotification(this, 'hx-positive', 'hx-icon-check', message, options)
+    @notify(message, merge {
+      icon: 'hx-icon hx-icon-check'
+      cssclass: 'hx-positive'
+    }, options)
 
   # shows a loading message (a permanent message with the a spinning loading icon)
   loading: (message) ->
@@ -202,7 +209,6 @@ class NotificationManager
       pinnable: false
     })
 
-
   defaultTimeout: (timeout) ->
     if arguments.length > 0
       @_.defaultTimeout = timeout or 5
@@ -210,16 +216,26 @@ class NotificationManager
     else
       @_.defaultTimeout
 
-
-hx.NotificationManager = NotificationManager
-
 # Inbuilt notification manager related functions
 inbuiltNotificationManager = new NotificationManager
 
-hx.notify = (message, options) -> inbuiltNotificationManager.notify(message, options)
-hx.notify.info = (message, options) -> inbuiltNotificationManager.info(message, options)
-hx.notify.positive = (message, options) -> inbuiltNotificationManager.positive(message, options)
-hx.notify.warning = (message, options) -> inbuiltNotificationManager.warning(message, options)
-hx.notify.negative = (message, options) -> inbuiltNotificationManager.negative(message, options)
-hx.notify.loading = (message) -> inbuiltNotificationManager.loading(message)
-hx.notify.defaultTimeout = (timeout) -> inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments)
+export notify = (message, options) ->
+  inbuiltNotificationManager.notify(message, options)
+
+export notifyInfo = (message, options) ->
+  inbuiltNotificationManager.info(message, options)
+
+export notifyPositive = (message, options) ->
+  inbuiltNotificationManager.positive(message, options)
+
+export notifyWarning = (message, options) ->
+  inbuiltNotificationManager.warning(message, options)
+
+export notifyNegative = (message, options) ->
+  inbuiltNotificationManager.negative(message, options)
+
+export notifyLoading = (message) ->
+  inbuiltNotificationManager.loading(message)
+
+export notifyDefaultTimeout = (timeout) ->
+  inbuiltNotificationManager.defaultTimeout.apply(inbuiltNotificationManager, arguments)

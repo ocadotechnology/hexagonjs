@@ -1,0 +1,21 @@
+.demo-palette-example-text {
+  margin: 4px;
+  min-width: 150px;
+  padding: 8px;
+  text-align: center;
+}
+
+.demo-palette-example-background {
+  margin: 4px;
+  min-width: 150px;
+  padding: 8px;
+  text-align: center;
+}
+
+.demo-palette-example-border {
+  margin: 4px;
+  min-width: 150px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid transparent;
+}

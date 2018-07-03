@@ -1,9 +1,14 @@
+import { select, div } from 'selection/main'
+import { isFunction, mergeDefined, clone } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
+import { StickyTableHeaders } from 'sticky-table-headers/main'
+
 createTableView = (table, head, body) ->
   cellViewEnter = (data, index, isHead) ->
     isFirstColum = table._.leftShifted and index is 0
     cellIsHead = isHead or isFirstColum
     cellIsTopLeft = isHead and isFirstColum
-    type = if cellIsHead or hx.isFunction(data) then 'th' else 'td'
+    type = if cellIsHead or isFunction(data) then 'th' else 'td'
     cell = @append(type).class('hx-pivot-table-cell')
     if cellIsHead then cell.classed('hx-pivot-table-head-cell', true)
     if cellIsTopLeft then cell.classed('hx-table-head-no-border', true)
@@ -12,27 +17,27 @@ createTableView = (table, head, body) ->
   cellViewUpdate = (data, node, index, isHead) ->
     isFirstColum = table._.leftShifted and index is 0
     cellIsHead = isHead or isFirstColum
-    selection = hx.select(node)
-    if hx.isFunction(data) # Top left cell
+    selection = select(node)
+    if isFunction(data) # Top left cell
       data(node)
     else if not data? # Top left cell when no renderer provided
       selection.text('')
     else table.options.cellRender(data, node, cellIsHead, index) # Head / Body cells
 
   rowViewEnter = (data, isHead) ->
-    rowNode = @append('tr').node()
-    rowView = hx.select(rowNode).view('.hx-pivot-table-cell')
+    row = @append('tr')
+    rowView = select(row).view('.hx-pivot-table-cell')
       .enter (datum) ->
         index = data.indexOf(datum)
         cellViewEnter.call(this, datum, index, isHead)
       .update (datum, node, index) ->
         cellViewUpdate(datum, node, index, isHead)
     # create the view once on enter and re-use it in the update
-    hx.component.register(rowNode, { view: rowView })
-    rowNode
+    row.api({ view: rowView })
+    return row.node()
 
   rowViewUpdate = (data, node, index, isHead) ->
-    hx.component(node).view.apply(data)
+    select(node).api().view.apply(data)
 
   headView = head.view('tr')
     .enter (data) -> rowViewEnter.call(this, data, true)
@@ -44,17 +49,16 @@ createTableView = (table, head, body) ->
 
   [headView, bodyView]
 
-class PivotTable extends hx.EventEmitter
+class PivotTable extends EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
     self = this
-    hx.component.register(@selector, this)
 
-    @options = hx.merge.defined({
+    @options = mergeDefined({
       stickyHeaders: true
       topLeftCellRender: undefined
       cellRender: (data, element, isHead, column) ->
-        hx.select(element).text(data)
+        select(element).text(data)
       useResponsive: true
       data: undefined,
       fullWidth: undefined,
@@ -63,7 +67,9 @@ class PivotTable extends hx.EventEmitter
 
     @_ = {}
 
-    @selection = hx.select(@selector).classed('hx-pivot-table', true)
+    @selection = select(@selector)
+      .classed('hx-pivot-table', true)
+      .api(this)
 
     @table = @selection.append('table').class('hx-table')
       .classed('hx-table-no-hover', not @options.highlightOnHover)
@@ -84,20 +90,24 @@ class PivotTable extends hx.EventEmitter
       _.data = data
       _.leftShifted = false
 
-      clonedData = hx.clone(data)
+      clonedData = clone(data)
       topData = if clonedData.topHead?.length > 0 then clonedData.topHead else []
       leftData = if clonedData.leftHead?.length > 0 then clonedData.leftHead else []
       bodyData = if clonedData.body?.length > 0 then clonedData.body else []
 
       if topData.length > 0 and bodyData.length > 0
         if topData.length isnt bodyData[0].length
-          hx.consoleWarning 'hx.PivotTable - ' + @selector,
+          logger.warn(
+            'hx.PivotTable - ' + @selector,
             'The number of columns in the dataset is not equal to the number of headers provided in data.topHead'
+          )
 
       if leftData.length > 0
         if leftData.length isnt bodyData.length
-          hx.consoleWarning 'hx.PivotTable - ' + @selector,
+          logger.warn(
+            'hx.PivotTable - ' + @selector,
             'The number of rows in the dataset is not equal to the number of headers provided in data.leftHead'
+          )
 
         bodyData = bodyData.map (e, i) ->
           e.unshift leftData[i]
@@ -117,7 +127,7 @@ class PivotTable extends hx.EventEmitter
 
       if @options.stickyHeaders
         if not @stickyTableHeaders
-          @stickyTableHeaders = new hx.StickyTableHeaders(@selector, {
+          @stickyTableHeaders = new StickyTableHeaders(@selector, {
             stickTableHead: topData.length > 0
             stickFirstColumn: leftData.length > 0
             useResponsive: @options.useResponsive,
@@ -131,9 +141,12 @@ class PivotTable extends hx.EventEmitter
     else
       @_.data
 
-hx.pivotTable = (options) ->
-  selection = hx.detached('div')
-  new PivotTable(selection.node(), options)
+pivotTable = (options) ->
+  selection = div()
+  new PivotTable(selection, options)
   selection
 
-hx.PivotTable = PivotTable
+export {
+  pivotTable,
+  PivotTable
+}

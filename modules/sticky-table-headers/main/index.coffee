@@ -1,3 +1,12 @@
+import { select, getHexagonElementDataObject } from 'selection/main'
+import { mergeDefined, flatten } from 'utils/main'
+import { scrollbarSize } from 'dom-utils/main'
+import logger from 'logger/main'
+
+# XXX: webpack: how does the resize-events dependency work now?
+#      should there be a requirement on it here?
+#      should it be made more explicit with something like select.use(resizeEvents()) ?
+
 updateScrollIndicators = (wrapper, top, right, bottom, left) ->
   # Sets the visibility of the scroll indicators (for devices with 0 width scrollbars)
   node = wrapper.node()
@@ -26,21 +35,20 @@ updateHeaderPositions = (container, wrapperNode) ->
   if leftNode?
     leftNode.select('.hx-table').style('top', topOffset + 'px')
 
-
 cloneEvents = (elem, clone) ->
   # Copy all events and recurse through children.
   if elem? and clone?
-    elemData = hx.select.getHexagonElementDataObject(elem)
+    elemData = getHexagonElementDataObject(elem)
     listenerNamesRegistered = elemData.listenerNamesRegistered?.values()
 
     if listenerNamesRegistered and listenerNamesRegistered.length > 0
       origEmitter = elemData.eventEmitter
 
-      cloneElem = hx.select(clone)
+      cloneElem = select(clone)
       for listener in listenerNamesRegistered
         cloneElem.on listener, -> return
 
-      cloneEmitter = hx.select.getHexagonElementDataObject(clone).eventEmitter
+      cloneEmitter = getHexagonElementDataObject(clone).eventEmitter
       cloneEmitter.pipe(origEmitter)
 
     elemChildren = elem.childNodes
@@ -50,7 +58,7 @@ cloneEvents = (elem, clone) ->
 
 getChildrenFromTable = (t, body, single) ->
   realParents = getChildren(t.select(if body then 'tbody' else 'thead'), 'tr')
-  hx.flatten realParents.map (parent) -> getChildren(hx.select(parent), 'th, td', single)
+  flatten realParents.map (parent) -> getChildren(select(parent), 'th, td', single)
 
 getChildren = (parent, selector, single) ->
   children = if single
@@ -62,32 +70,33 @@ getChildren = (parent, selector, single) ->
 createStickyHeaderNodes = (real, cloned) ->
   for i in [0...real.length]
     cloneEvents(real[i], cloned[i])
+
     # The real table shouldn't show the sticky header nodes
-    hx.select(real[i]).classed('hx-sticky-table-invisible', true)
-    hx.select(cloned[i]).classed('hx-sticky-table-invisible', false)
+    select(real[i]).classed('hx-sticky-table-invisible', true)
+    select(cloned[i]).classed('hx-sticky-table-invisible', false)
 
 cloneTableAndNodeEvents = (selection, realTable, tableClone, body, single) ->
-  innerTableClone = selection.append tableClone.clone(true)
+  innerTableClone = selection.append(tableClone.clone(true))
   # We make all the cells invisible by default and then only make the ones we care about visible in `createStickyHeaderNodes`
   innerTableClone.selectAll('th, td').classed('hx-sticky-table-invisible', true)
-  realNodes = getChildrenFromTable realTable, body, single
-  clonedNodes = getChildrenFromTable innerTableClone, body, single
-  createStickyHeaderNodes realNodes, clonedNodes
+  realNodes = getChildrenFromTable(realTable, body, single)
+  clonedNodes = getChildrenFromTable(innerTableClone, body, single)
+  createStickyHeaderNodes(realNodes, clonedNodes)
   innerTableClone
 
 class StickyTableHeaders
   constructor: (selector, options) ->
-    hx.component.register(selector, this)
 
-    resolvedOptions = hx.merge.defined {
+    resolvedOptions = mergeDefined({
       stickTableHead: true # stick thead element
       stickFirstColumn: false # stick first column
       useResponsive: true
       fullWidth: undefined
       containerClass: undefined # Class to add to container to allow styling - useful for situations where table is the root element
-    }, options
+    }, options)
 
-    selection = hx.select(selector)
+    selection = select(selector)
+      .api(this)
 
     table = if selection.classed('hx-table') or selection.node().nodeName.toLowerCase() is 'table'
       tableIsRootElement = true
@@ -101,13 +110,13 @@ class StickyTableHeaders
 
     if resolvedOptions.stickTableHead and table.select('thead').selectAll('tr').empty()
       # Cant stick something that isn't there
-      hx.consoleWarning 'hx.StickyTableHeaders - ' + selector,
+      logger.warn 'hx.StickyTableHeaders - ' + selector,
         'Sticky table headers initialized with stickTableHead of true without a thead element present'
       resolvedOptions.stickTableHead = false
 
     if resolvedOptions.stickFirstColumn and table.select('tbody').select('tr').selectAll('th, td').empty()
       # Cant stick something that isn't there
-      hx.consoleWarning 'hx.StickyTableHeaders - ' + selector,
+      logger.warn 'hx.StickyTableHeaders - ' + selector,
         'Sticky table headers initialized with stickFirstColumn of true without any columns to stick'
       resolvedOptions.stickFirstColumn = false
 
@@ -129,7 +138,7 @@ class StickyTableHeaders
     # Put the original table into the wrapper.
     wrapper.append(table)
 
-    showScrollIndicators = hx.scrollbarSize() is 0
+    showScrollIndicators = scrollbarSize() is 0
 
     if showScrollIndicators
       # We use four separate divs as using one overlay div prevents click-through
@@ -199,7 +208,7 @@ class StickyTableHeaders
       offsetHeight = table.select('thead').height()
 
     if options.stickFirstColumn
-      offsetWidthElem = hx.select(table.select('tbody').select('tr').select('th, td').nodes[0])
+      offsetWidthElem = select(table.select('tbody').select('tr').select('th, td').nodes[0])
       offsetWidth = offsetWidthElem.width()
 
     totalHeight = container.style('height').replace('px','') - offsetHeight
@@ -219,10 +228,10 @@ class StickyTableHeaders
 
     tableBox = table.box()
 
-    hasVerticalScroll = wrapperNode.scrollHeight > (wrapperNode.clientHeight + hx.scrollbarSize())
-    hasHorizontalScroll = wrapperNode.scrollWidth > (wrapperNode.clientWidth + hx.scrollbarSize())
-    heightScrollbarOffset = if hasHorizontalScroll then hx.scrollbarSize() else 0
-    widthScrollbarOffset = if hasVerticalScroll then hx.scrollbarSize() else 0
+    hasVerticalScroll = wrapperNode.scrollHeight > (wrapperNode.clientHeight + scrollbarSize())
+    hasHorizontalScroll = wrapperNode.scrollWidth > (wrapperNode.clientWidth + scrollbarSize())
+    heightScrollbarOffset = if hasHorizontalScroll then scrollbarSize() else 0
+    widthScrollbarOffset = if hasVerticalScroll then scrollbarSize() else 0
 
     wrapperBox = wrapper.box()
 
@@ -318,5 +327,6 @@ class StickyTableHeaders
 
     updateHeaderPositions(container, wrapper.node())
 
-
-hx.StickyTableHeaders = StickyTableHeaders
+export {
+  StickyTableHeaders
+}

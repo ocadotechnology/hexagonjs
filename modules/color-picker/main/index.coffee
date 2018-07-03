@@ -1,3 +1,9 @@
+import { EventEmitter } from 'event-emitter/main'
+import { button, select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
+import { color, isColorString } from 'color/main'
+import { Dropdown } from 'dropdown/main'
+
 class Position
   constructor: (@x, @y) ->
 
@@ -44,24 +50,26 @@ class Position
     if not isNaN(@y) then elem.style('top', @y + 'px')
 
 
-class ColorPicker extends hx.EventEmitter
+class ColorPicker extends EventEmitter
   constructor: (selector, options) ->
-    super
+    super()
 
-    @options = hx.merge.defined {
+    @options = mergeDefined {
       startColor: '#000'
       showInputs: 0
       align: 'lblt'
       disabled: false
     }, options
 
-    hx.component.register(selector, this)
+    select(selector)
+      .api('color-picker', this)
+      .api(this)
 
     @_ = {}
 
     _ = @_
 
-    buildDropdown = (elem) =>
+    buildDropdown = () =>
       if @options.disabled
         @dropdown.hide()
         return false
@@ -82,7 +90,7 @@ class ColorPicker extends hx.EventEmitter
         e = if e then e else window.event
         if isNaN(e.layerX) and e.offsetX then pos = new Position(e.offsetX, e.offsetY)
         else if touches = (e.touches or e.targetTouches)
-          elem = hx.select(touches[0].target).box()
+          elem = select(touches[0].target).box()
           pos = new Position(touches[0].pageX - elem.left - window.scrollX, touches[0].pageY - elem.top - window.scrollY)
         else pos = new Position(e.layerX, e.layerY)
         correctOffset(pos,pointerOffset,true)
@@ -117,7 +125,7 @@ class ColorPicker extends hx.EventEmitter
           quickColorBox.style('background',_.currentColor.toString())
 
         if source is 'slider' or source is 'box'
-          gridBG = hx.color().hsl([_.currentColor.hue(), 100, 50])
+          gridBG = color().hsl([_.currentColor.hue(), 100, 50])
           grid.style('background-color', gridBG.toString())
         if source is 'box'
           sliderPicker.style('top', (gridSize - ((_.currentColor.hue() / 360) * gridSize) - sliderOffset.y) + 'px')
@@ -128,8 +136,8 @@ class ColorPicker extends hx.EventEmitter
         @emit('change', _.currentColor)
 
       hexBoxChanged = (e) =>
-        if hx.color.isColorString(hexInput.value())
-          _.currentColor = hx.color(hexInput.value())
+        if isColorString(hexInput.value())
+          _.currentColor = color(hexInput.value())
           colorChanged('box')
 
       redBoxChanged = (e) =>
@@ -201,8 +209,8 @@ class ColorPicker extends hx.EventEmitter
           cursorStartPos = absoluteCursorPosition(e)
           elementStartPos = new Position(parseInt(elem.style('left')), parseInt(elem.style('top')))
           elementStartPos = elementStartPos.check()
-          hx.select(document).on 'pointermove', 'hx.color-picker', dragGo
-          hx.select(document).on 'pointerup', 'hx.color-picker', dragStopHook
+          select(document).on 'pointermove', 'hx.color-picker', dragGo
+          select(document).on 'pointerup', 'hx.color-picker', dragStopHook
 
         dragGo = (e) ->
           e = e.event
@@ -221,8 +229,8 @@ class ColorPicker extends hx.EventEmitter
 
         dragStop = ->
           if not dragging then return true
-          hx.select(document).off 'pointermove', 'hx.color-picker', dragGo
-          hx.select(document).off 'pointerup', 'hx.color-picker', dragStopHook
+          select(document).off 'pointermove', 'hx.color-picker', dragGo
+          select(document).off 'pointerup', 'hx.color-picker', dragStopHook
           cursorStartPos = elementStartPos = null;
           if endCallback isnt null then endCallback(elem)
           dragging = false
@@ -239,40 +247,40 @@ class ColorPicker extends hx.EventEmitter
 
         StartListening()
 
-      picker = hx.select(elem).append('div').class('hx-colorpicker')
+      picker = div('hx-color-picker')
 
-      pickerInner = picker.append('div').class('hx-colorpicker-inner')
-      pickerFields = pickerInner.append('div').class('hx-colorpicker-fields')
+      pickerInner = picker.append('div').class('hx-color-picker-inner')
+      pickerFields = pickerInner.append('div').class('hx-color-picker-fields')
 
-      grid = pickerFields.append('div').class('hx-colorpicker-grid')
-      circlePicker = grid.append('div').class('hx-colorpicker-picker')
+      grid = pickerFields.append('div').class('hx-color-picker-grid')
+      circlePicker = grid.append('div').class('hx-color-picker-picker')
 
-      slider = pickerFields.append('div').class('hx-colorpicker-slider')
-      sliderPicker = slider.append('div').class('hx-colorpicker-picker')
+      slider = pickerFields.append('div').class('hx-color-picker-slider')
+      sliderPicker = slider.append('div').class('hx-color-picker-picker')
 
 
       if @options.showInputs
-        inputs = pickerInner.append('div').class('hx-colorpicker-inputs')
+        inputs = pickerInner.append('div').class('hx-color-picker-inputs')
 
-        colorGroup = inputs.append('div').class('hx-colorpicker-input-group')
+        colorGroup = inputs.append('div').class('hx-color-picker-input-group')
 
-        quickColorBox = colorGroup.append('div').class('hx-colorpicker-quick-color')
-        staticColorBox = colorGroup.append('div').class('hx-colorpicker-static-color')
+        quickColorBox = colorGroup.append('div').class('hx-color-picker-quick-color')
+        staticColorBox = colorGroup.append('div').class('hx-color-picker-static-color')
 
         makeInput = (parent, name, text) ->
-          parent.append('div').class('hx-colorpicker-input')
+          parent.append('div').class('hx-color-picker-input')
             .append('label').attr('for', name).text(text)
             .insertAfter('input').attr('name', name).attr('size', 7).attr('maxlength', 3)
 
         hexInput = makeInput(inputs, 'hex', 'Hex:')
 
-        rgbGroup = inputs.append('div').class('hx-colorpicker-input-group')
+        rgbGroup = inputs.append('div').class('hx-color-picker-input-group')
 
         redInput = makeInput(rgbGroup, 'red', 'R:')
         greenInput = makeInput(rgbGroup, 'green', 'G:')
         blueInput = makeInput(rgbGroup, 'blue', 'B:')
 
-        hslGroup = inputs.append('div').class('hx-colorpicker-input-group')
+        hslGroup = inputs.append('div').class('hx-color-picker-input-group')
 
         hueInput = makeInput(hslGroup, 'hue', 'H:')
         saturationInput = makeInput(hslGroup, 'saturation', 'S:')
@@ -305,7 +313,9 @@ class ColorPicker extends hx.EventEmitter
       circleDragObject = new dragObject(circlePicker, grid, circlemin, circlemax, circleDown, circleMoved, endMovement)
       colorChanged('box')
 
-    @dropdown = new hx.Dropdown selector, buildDropdown, {align: @options.align}
+      return picker
+
+    @dropdown = new Dropdown selector, buildDropdown, {align: @options.align}
     _.selector = selector
 
     @value(@options.startColor)
@@ -314,10 +324,10 @@ class ColorPicker extends hx.EventEmitter
 
     if @options.disabled then @disabled(@options.disabled)
 
-  value: (color) ->
+  value: (col) ->
     _ = @_
-    if color?
-      _.currentColor = if typeof color is 'string' then hx.color(color) else color
+    if col?
+      _.currentColor = color(col)
       if @dropdown.isOpen()
         @dropdown.hide()
         @dropdown.show()
@@ -329,7 +339,7 @@ class ColorPicker extends hx.EventEmitter
   disabled: (disabled) ->
     if arguments.length > 0
       @options.disabled = disabled
-      hx.select(@_.selector)
+      select(@_.selector)
         .attr('disabled', if disabled then true else undefined)
         .classed('hx-disabled', disabled)
       if @dropdown.isOpen() and disabled is true
@@ -338,9 +348,12 @@ class ColorPicker extends hx.EventEmitter
     else
       @options.disabled
 
-hx.colorPicker = (options) ->
-  selection = hx.detached('div')
-  new ColorPicker(selection.node(), options)
+colorPicker = (options) ->
+  selection = button('hx-btn')
+  new ColorPicker(selection, options)
   selection
 
-hx.ColorPicker = ColorPicker
+export {
+  colorPicker,
+  ColorPicker
+}

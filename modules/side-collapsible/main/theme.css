@@ -1,0 +1,25 @@
+.hx-side-collapsible-heading {
+  background: var(--side-collapsible-heading-background-color);
+  color: var(--side-collapsible-heading-text-color);
+}
+
+.hx-side-collapsible-toggle:hover,
+.hx-side-collapsible-heading:not(.hx-side-collapsible-heading-no-hover):hover {
+  background: var(--side-collapsible-toggle-hover-background-color);
+  color: var(--side-collapsible-toggle-hover-text-color);
+}
+
+.hx-side-collapsible-toggle {
+  background: var(--side-collapsible-toggle-background-color);
+  color: var(--side-collapsible-toggle-text-color);
+}
+
+.hx-side-collapsible-content {
+  border-color: var(--side-collapsible-content-border-color);
+  background: var(--side-collapsible-content-background-color);
+  color: var(--side-collapsible-content-text-color);
+}
+
+.hx-side-collapsible {
+  box-shadow: 1px 1px 1px 1px var(--side-collapsible-shadow-color);
+}

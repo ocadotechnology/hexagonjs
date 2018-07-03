@@ -1,9 +1,0 @@
-{
-  "dependencies": [
-    "selection",
-    "component"
-  ],
-  "keywords": [
-    "view"
-  ]
-}

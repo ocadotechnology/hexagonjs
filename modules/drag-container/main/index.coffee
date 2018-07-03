@@ -1,10 +1,14 @@
+import { select, div } from 'modules/selection/main'
+import { merge, defined } from 'modules/utils/main'
+import { EventEmitter } from 'modules/event-emitter/main'
+
 # A function for getting the grid of widgets and supplying the positions for
 # each one to make working out where the placeholder should go while dragging.
 getGrid = (container, elem) ->
   grid = []
   count = -1
   containerChildren(container).forEach (e) ->
-    e = hx.select(e)
+    e = select(e)
     box = e.box()
     grid.push {
       index: count += 1
@@ -21,11 +25,11 @@ getGrid = (container, elem) ->
 startDrag = (container, elem, controlElem, e) ->
   _ = container._
   e.event.preventDefault()
-  if _.dragging then endDrag container, elem # This deals with people right clicking whilst dragging
+  if _.dragging then endDrag(container, elem) # This deals with right clicks whilst dragging
   else if e.event.which < 2 # We only care about primary mouse events.
 
     # Add listeners to the dom for the events. There can only be one element dragged at a time so these don't need unique id's
-    hx.select(document)
+    select(document)
       .on 'pointermove', 'hx.drag-container', (e) -> drag container, elem, controlElem, e
       .on 'pointerup', 'hx.drag-container', (e) -> endDrag container, elem, e
 
@@ -138,7 +142,7 @@ endDrag = (container, elem) ->
     _.dragging = false
 
     # Remove document listeners
-    hx.select(document)
+    select(document)
       .off 'pointermove', 'hx.drag-container'
       .off 'pointerup', 'hx.drag-container'
 
@@ -162,20 +166,21 @@ containerChildren = (container) ->
   children = container.selection.node().children
   items = for i in [0..children.length] by 1
     if children[i]? then children[i]
-  items.filter(hx.defined)
+  items.filter(defined)
 
 
-class DragContainer extends hx.EventEmitter
+class DragContainer extends EventEmitter
   constructor: (selector, options) ->
-    super
-    hx.component.register(selector, this)
-    @selection = hx.select(selector).classed('hx-drag-container', true)
+    super()
+    @selection = select(selector)
+      .classed('hx-drag-container', true)
+        .api(this)
 
-    options = hx.merge {
-      lookup: (node) -> hx.select(node).attr('data-id')
+    options = merge({
+      lookup: (node) -> select(node).attr('data-id')
       resizeOnDrag: false
       order: undefined
-    }, options
+    }, options)
 
     @_ = {}
     @_.options = options
@@ -188,9 +193,9 @@ class DragContainer extends hx.EventEmitter
   setup: ->
     @selection.selectAll('.hx-drag-control').off('pointerdown', 'hx.drag-container')
     containerChildren(this).forEach (elem) =>
-      elem = hx.select(elem)
+      elem = select(elem)
       if elem.classed('hx-drag-element') # Only elements with hx-drag-element should be draggable.
-        controlElem = hx.select(elem.select('.hx-drag-control').node() or elem.node())
+        controlElem = select(elem.select('.hx-drag-control').node() or elem.node())
         controlElem.classed('hx-drag-control', true)
           .on 'pointerdown', 'hx.drag-container', (evt) =>
             if not controlElem.classed('hx-drag-disabled') then startDrag this, elem, controlElem, evt
@@ -200,14 +205,13 @@ class DragContainer extends hx.EventEmitter
   order: (order) ->
     if arguments.length > 0
       map = {}
-      order ?= @_.initialOrder
       for node in containerChildren(this)
         map[@lookup()(node)] = node
-      for id in order
+      for id in (order or @_.initialOrder)
         @selection.append(map[id])
       this
     else
-      containerChildren(this).map(@lookup()).filter(hx.defined)
+      containerChildren(this).map(@lookup()).filter(defined)
 
 
   lookup: (fn) ->
@@ -217,9 +221,9 @@ class DragContainer extends hx.EventEmitter
     else
       @_.options.lookup
 
-hx.dragContainer = (options) ->
-  selection = hx.detached('div')
+dragContainer = (options) ->
+  selection = div()
   new DragContainer(selection.node(), options)
   selection
 
-hx.DragContainer = DragContainer
+export { dragContainer, DragContainer }

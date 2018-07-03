@@ -1,9 +1,9 @@
 language: node_js
 
 node_js:
-  - '9'
-  - '8'
-  - '7'
+  # - '9'
+  # - '8'
+  # - '7'
   - '6'
 
 env:
@@ -22,7 +22,7 @@ stages:
 jobs:
   include:
   - stage: test
-    script: npm test && npm run combine-coverage && npm run upload-coverage
+    script: npm test && npm run upload-coverage
 
   - stage: publish module
     script: skip

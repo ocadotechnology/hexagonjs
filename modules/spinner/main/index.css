@@ -1,0 +1,54 @@
+:root {
+  --hx-spinner-width: 100px;
+}
+
+/* Round Loader */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hx-spinner {
+  animation-duration: 0.75s;
+  animation-iteration-count: infinite;
+  animation-name: rotate;
+  animation-timing-function: linear;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  display: inline-block;
+  top: 2px;
+  position: relative;
+}
+
+.hx-spinner-large {
+  font-size: 2.5em;
+}
+
+@keyframes slide {
+  from { left: calc(var(--hx-spinner-width) * -1); }
+  to { left: 100%; }
+}
+
+
+.hx-spinner-wide {
+  height: 4px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.hx-spinner-wide:before {
+  animation: slide 1s linear infinite;
+  content: "";
+  display: block;
+  position: absolute;
+  left: calc(var(--hx-spinner-width) * -1);
+  width: var(--hx-spinner-width);
+  height: 100%;
+}

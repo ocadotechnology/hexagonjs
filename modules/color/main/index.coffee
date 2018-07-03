@@ -1,3 +1,5 @@
+import { range, isString, clamp } from 'utils/main'
+
 componentToHex = (c) ->
   hex = c.toString(16)
   if hex.length is 1 then '0' + hex else hex
@@ -70,7 +72,7 @@ class Color
     (value) ->
       if arguments.length > 0
         if value? and not isNaN(value)
-          @_[prop] = hx.clamp(min, max, value)
+          @_[prop] = clamp(min, max, value)
           if not isAlphaValue then update(@_, isHSL)
         this
       else
@@ -117,12 +119,12 @@ class Color
   lighten: (amount) -> @lightness(@_.l + (@_.l * amount))
   fade: (amount) -> @alpha(@_.a + (@_.a * amount))
 
-  mix: (color, amount = 0.5) ->
-    if not hx.color.isColor(color) then color = hx.color(color)
-    r = @_.r * (1 - amount) + color._.r * amount
-    g = @_.g * (1 - amount) + color._.g * amount
-    b = @_.b * (1 - amount) + color._.b * amount
-    a = @_.a * (1 - amount) + color._.a * amount
+  mix: (col, amount = 0.5) ->
+    c = if not isColor(col) then color(col) else col
+    r = @_.r * (1 - amount) + c._.r * amount
+    g = @_.g * (1 - amount) + c._.g * amount
+    b = @_.b * (1 - amount) + c._.b * amount
+    a = @_.a * (1 - amount) + c._.a * amount
     @rgb([r, g, b, a])
 
   # Getters
@@ -156,8 +158,8 @@ class Color
   range: (numLight=3, numDark=3, maxRange = 0.5, outputFormat) ->
     step = maxRange / Math.max(numLight, numDark, 1)
     self = this
-    light = hx.range(numLight + 1).map((i) -> self.clone().lighten(step * i ))
-    dark = hx.range(numDark).reverse().map((i) -> self.clone().lighten(- step * (i + 1)))
+    light = range(numLight + 1).map((i) -> self.clone().lighten(step * i ))
+    dark = range(numDark).reverse().map((i) -> self.clone().lighten(- step * (i + 1)))
     list = dark.concat light
     if outputFormat
       if outputFormat is 'array'
@@ -170,7 +172,7 @@ class Color
 
 
 fromString = (str) ->
-  if not hx.isString(str) then return undefined
+  if not isString(str) then return undefined
 
   if str.indexOf('#') isnt -1
     str = str.substring(1)
@@ -205,19 +207,21 @@ fromString = (str) ->
 
   (new Color).rgb(rgb)
 
-hx.color = ->
+export color = ->
   if arguments.length >= 3
     (new Color).rgb([arguments[0], arguments[1], arguments[2], arguments[3]])
   else if arguments.length is 1
     if Array.isArray(arguments[0])
       (new Color).rgb(arguments[0])
+    else if isColor(arguments[0])
+      arguments[0]
     else
       fromString(arguments[0])
   else
     new Color()
 
 # returns true if the string passed in represents a color
-hx.color.isColorString = (str) -> fromString(str) isnt undefined
+export isColorString = (str) -> fromString(str) isnt undefined
 
 # check if an object is a Color instance
-hx.color.isColor = (obj) -> obj instanceof Color
+export isColor = (obj) -> obj instanceof Color

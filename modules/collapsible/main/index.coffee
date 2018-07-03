@@ -1,30 +1,32 @@
-### istanbul ignore next: ignore the uncoverable coffee generated code ###
-class Collapsible extends hx.EventEmitter
+import { EventEmitter } from 'event-emitter/main'
+import { mergeDefined } from 'utils/main'
+import { select, selectAll } from 'selection/main'
+
+export class Collapsible extends EventEmitter
 
   constructor: (selector, options) ->
-    super
+    super()
 
-    @options = hx.merge.defined {
+    @options = mergeDefined({
       lazyContent: undefined
       visible: false
       addIcon: true
       animate: true
-    }, options
-
-    hx.component.register(selector, this)
+    }, options)
 
     @lazyContentCreated = false
 
-    @selection = hx.select(selector)
+    @selection = select(selector)
       .classed('hx-openable', true)
       .classed('hx-collapsible', true)
+      .api(this)
 
     header = @selection.select('.hx-collapsible-heading')
     if not (toggleBtn = header.select('.hx-collapsible-toggle')).empty()
       header.classed('hx-collapsible-heading-no-hover', true)
-      toggleBtn.on 'click', 'hx.collapsible', => @toggle()
+      toggleBtn.on('click', 'hx.collapsible', => @toggle())
     else
-      header.on 'click', 'hx.collapsible', => @toggle()
+      header.on('click', 'hx.collapsible', => @toggle())
 
     content = @selection.select('.hx-collapsible-content').style('height', 0).style('opacity', 0)
 
@@ -124,8 +126,7 @@ class Collapsible extends hx.EventEmitter
 
   isOpen: -> @visible
 
-hx.Collapsible = Collapsible
 
 # initialise all collapsibles that match the css selector, and return the result as an array of Collapsibles
-hx.initializeCollapsibles = (selector, options) ->
-  hx.selectAll(selector).nodes.map((d) -> new Collapsible(d, options))
+export initializeCollapsibles = (selector, options) ->
+  selectAll(selector).nodes.map((d) -> new Collapsible(d, options))

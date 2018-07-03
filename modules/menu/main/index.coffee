@@ -1,3 +1,11 @@
+import { EventEmitter } from 'event-emitter/main'
+import { select, div, span } from 'selection/main'
+import { Collapsible } from 'collapsible/main'
+import { Dropdown } from 'dropdown/main'
+import { isFunction, mergeDefined } from 'utils/main'
+import { scrollbarSize } from 'dom-utils/main'
+import { palette } from 'palette/main'
+
 addItem = (item, context, menu) ->
   it = new MenuItem(item, context, menu)
   context._.menuItems.push it
@@ -11,11 +19,9 @@ setupInner = (menu, dropdownData, current) ->
     if datum.children then setupInner(menu, datum.children, it)
 
 populateNode = (node, items) ->
-  hx.select(node).view('.hx-menu-item')
+  select(node).view('.hx-menu-item')
     .update (d, element) -> d.build(element)
     .apply(items)
-
-
 
 # Generate a list of all the items in the order they appear, including children.
 getAllItems = (menu) ->
@@ -36,7 +42,7 @@ setActive = (menu, pos, up, click) ->
     allItems = getAllItems(menu)
     node = allItems[pos].node
 
-    hx.select(node).classed('hx-menu-active',true)
+    select(node).classed('hx-menu-active',true)
 
     content = allItems[pos]?.content
     isEnabled = not content?.disabled and not content?.unselectable
@@ -59,7 +65,7 @@ setActive = (menu, pos, up, click) ->
     else
       menu.cursorPos = pos
       if (dNode = menu.dropdown._.dropdown?.node())? and not click
-        menuNode = hx.select(node).classed('hx-menu-active',true)
+        menuNode = select(node).classed('hx-menu-active',true)
 
         mNode = menuNode.node()
 
@@ -69,7 +75,7 @@ setActive = (menu, pos, up, click) ->
           collapsibleHeading.node().clientHeight
         else
           mNode.clientHeight
-        parentNode = hx.select(mNode.parentNode)
+        parentNode = select(mNode.parentNode)
         parentOffset = if parentNode.classed('hx-collapsible-content')
           parentNode.node().offsetTop
         else
@@ -164,12 +170,11 @@ checkEvent = (e, self) ->
 
 class MenuItem
   constructor: (@content, @parent, @menu) ->
-    # menuItems stored on underscore as we don't want them exposed in menu and it makes the code easier to understand.
     @_ = {}
 
   build: (container) ->
     @node = container
-    container = hx.select(container)
+    container = select(container)
 
     if @_.menuItems?.length > 0
       container.view('.hx-collapsible').apply(this)
@@ -178,37 +183,39 @@ class MenuItem
       collapsibleNode.view('.hx-collapsible-heading').apply(this)
       collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
 
-      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
+      collapsibleNode.select('.hx-collapsible-heading')
+        .classed('hx-menu-collapsible', true)
+        .set(@menu.renderer()(@content))
+
       contentNode = container.select('.hx-collapsible-content').node()
 
-      @menu.options.renderer(headerNode, @content)
-      @collapsible = new hx.Collapsible(collapsibleNode.node())
+      @collapsible = new Collapsible(collapsibleNode)
 
       populateNode(contentNode, @_.menuItems)
     else
-      linkEnabled = not @content.unselectable and not @content.disabled
-      container.classed('hx-menu-link', linkEnabled)
+      container
+        .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
         .classed('hx-menu-item-disabled', @content.disabled)
         .classed('hx-menu-unselectable', @content.unselectable)
-      @menu.options.renderer(container.node(), @content)
+        .set(@menu.renderer()(@content))
 
 
 
-class Menu extends hx.EventEmitter
+
+export class Menu extends EventEmitter
   constructor: (@selector, options = {}) ->
-    super
+    super()
 
-    @options = hx.merge.defined {
+    @options = mergeDefined({
       dropdownOptions: {
         align: undefined
         mode: 'click',
         ddClass: '',
         disabled: false
       }
-      renderer: (node, data) ->
-        hx.select(node).text(if data.text then data.text else data)
+      renderer: (data) -> span().text(data.text or data)
       items: []
-    }, options
+    }, options)
 
     self = this
 
@@ -217,47 +224,49 @@ class Menu extends hx.EventEmitter
       itemsChanged: true # First time in this should be true
     }
 
-    hx.component.register(@selector, this)
+    select(@selector)
+      .api('menu', this)
+      .api(this)
 
     if @options.dropdownOptions.ddClass? and @options.dropdownOptions.ddClass.length is 0
-      colorClass = hx.palette.context(@selector)
+      colorClass = palette.context(@selector)
 
     @options.dropdownOptions.ddClass = 'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
-    dropdownContent = (node) ->
-      elem = hx.select(node)
-      menuItems = elem.select('.hx-menu-items')
-      if menuItems.empty()
-        menuItems = elem.append('div').class('hx-menu-items')
+    dropdownContainer = div('hx-menu-items')
 
-      doneFn = (items) ->
-        if self._.itemsChanged # We don't want to keep making lots of new menu items if the items haven't changed
-          self._.itemsChanged = false
-          setupInner(self, items, self)
-        populateNode(menuItems.node(), self._.menuItems)
+    if options.extraContent
+      dropdownContainer.add(options.extraContent)
 
-      # Items as set by the user.
-      rawItems = self._.items
+    # Items as set by the user.
+    rawItems = self._.items
 
-      if hx.isFunction(rawItems)
-        self._.itemsChanged = true # Items have always changed when being returned from a function
-        rawItems (items) -> doneFn(items)
-      else
-        doneFn(rawItems)
-      return
+    setup = (items) ->
+      if self._.itemsChanged # We don't want to keep making lots of new menu items if the items haven't changed
+        self._.itemsChanged = false
+        setupInner(self, items, self)
+      populateNode(dropdownContainer.node(), self._.menuItems)
 
-    @dropdown = new hx.Dropdown(@selector, dropdownContent, @options.dropdownOptions)
+    self._.setup = setup
+
+    if isFunction(rawItems)
+      self._.itemsChanged = true # Items have always changed when being returned from a function
+      rawItems((items) -> setup(items))
+    else
+      setup(rawItems)
+
+    @dropdown = new Dropdown(@selector, dropdownContainer, @options.dropdownOptions)
 
     @dropdown.on 'showend', =>
       if @dropdown._.dropdown?
         node = @dropdown._.dropdown.node()
-        ddNode = hx.select(node)
+        ddNode = select(node)
         if node.scrollTop < node.scrollHeight - node.clientHeight
-          ddNode.style('width', ddNode.width() + hx.scrollbarSize() + 'px')
+          ddNode.style('width', ddNode.width() + scrollbarSize() + 'px')
           if @dropdown._.alignments[2] is 'r'
-            ddNode.style('left', Math.max(0, ddNode.box().left - hx.scrollbarSize()) + 'px')
+            ddNode.style('left', Math.max(0, ddNode.box().left - scrollbarSize()) + 'px')
 
-    selection = hx.select(@selector)
+    selection = select(@selector)
 
     selection.off 'click', 'hx.dropdown'
 
@@ -267,7 +276,7 @@ class Menu extends hx.EventEmitter
           @dropdown.hide()
         else
           if not @loading
-            if @data? and hx.isFunction(@data)
+            if @data? and isFunction(@data)
               @loading = true
               loading = selection.prepend('span')
               loading.append('i').class('hx-menu-loading hx-icon hx-icon-spin hx-icon-spinner')
@@ -298,16 +307,16 @@ class Menu extends hx.EventEmitter
         # get the closest menu item - uses nodes as blank selection can be
         # returned if the target is a hx-menu-item
 
-        target = if hx.select(e.target).classed('hx-menu-link')
+        target = if select(e.target).classed('hx-menu-link')
           e.target
         else
-          hx.select(e.target).closest('.hx-menu-item').node()
+          select(e.target).closest('.hx-menu-item').node()
 
         if target
 
           index = -1
 
-          t = hx.select(target)
+          t = select(target)
           if t.classed('hx-menu-link')
             allItems = getAllItems(self)
             i = 0
@@ -325,9 +334,13 @@ class Menu extends hx.EventEmitter
 
     if @options.disabled then @disabled(@options.disabled)
 
+  render: () ->
+    this._.setup(this.items())
+
   renderer: (f) ->
     if arguments.length > 0
       @options.renderer = f
+      @render()
       this
     else
       @options.renderer
@@ -345,6 +358,7 @@ class Menu extends hx.EventEmitter
       items ?= [] # Prevent undefined items being set.
       @_.itemsChanged = true
       @_.items = items
+      @render()
       this
     else
       @_.items
@@ -352,13 +366,10 @@ class Menu extends hx.EventEmitter
   disabled: (disabled) ->
     if disabled?
       @options.disabled = disabled
-      hx.select(@selector)
+      select(@selector)
         .attr('disabled', if disabled then true else undefined)
         .classed('hx-disabled', disabled)
       if @dropdown.isOpen() and disabled is true then @hide()
       this
     else
       !!@options.disabled
-
-
-hx.Menu = Menu

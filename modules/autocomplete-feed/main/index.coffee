@@ -1,6 +1,17 @@
+import { compare } from 'sort/main'
+import * as filter from 'filter/main'
+import {
+  identity,
+  groupBy,
+  randomId,
+  mergeDefined,
+  isFunction
+} from 'utils/main'
+import { Map as HMap } from 'map/main'
+
 sortItems = (valueLookup) ->
-  valueLookup ?= hx.identity
-  (a, b) -> hx.sort.compare(valueLookup(a), valueLookup(b))
+  valueLookup ?= identity
+  (a, b) -> compare(valueLookup(a), valueLookup(b))
 
 trimTrailingSpaces = (term) ->
   newTerm = term
@@ -9,7 +20,7 @@ trimTrailingSpaces = (term) ->
   newTerm
 
 sortActive = (items) ->
-  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new HMap(groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -32,26 +43,27 @@ class AutocompleteFeed
       defaults.filterOptions =
         searchValues: (datum) -> [self._.options.valueLookup(datum)]
 
-    resolvedOptions = hx.merge.defined defaults, options
+    resolvedOptions = mergeDefined(defaults, options)
 
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
-      filtered = hx.filter[resolvedOptions.matchType](items, term, resolvedOptions.filterOptions)
+      filterName = 'filter' + resolvedOptions.matchType[0].toUpperCase() + resolvedOptions.matchType.slice(1)
+      filtered = filter[filterName](items, term, resolvedOptions.filterOptions)
       { active, inactive } = sortActive(filtered)
       [active..., inactive...]
 
     @_ =
       options: resolvedOptions
-      resultsCache: new hx.Map
+      resultsCache: new HMap
 
 
   clearCache: ->
-    @_.resultsCache = new hx.Map
+    @_.resultsCache = new HMap
     this
 
   filter: (term = '', callback) ->
     _ = @_
-    thisFilter = term + hx.randomId()
+    thisFilter = term + randomId()
     _.lastFilter = thisFilter
 
     cacheItemsThenCallback = (results, otherResults = []) =>
@@ -73,7 +85,7 @@ class AutocompleteFeed
       # Get the result from the cache
       cacheditems = _.resultsCache.get(term)
       callback(cacheditems.results, cacheditems.otherResults)
-    else if _.options.matchType is 'external' and hx.isFunction(_.items)
+    else if _.options.matchType is 'external' and isFunction(_.items)
       # The matching is external so we don't filter here
       _.items(term, cacheItemsThenCallback)
     else
@@ -89,7 +101,7 @@ class AutocompleteFeed
 
         cacheItemsThenCallback(filteredItems, otherResults)
 
-      if hx.isFunction(_.items)
+      if isFunction(_.items)
         # Call the function then apply filtering
         _.items(term, filterAndCallback)
       else if term.length
@@ -99,7 +111,7 @@ class AutocompleteFeed
         # Skip filtering and return the entire itemsset
         cacheItemsThenCallback(_.items)
 
-  validateItems: (items) -> hx.isArray(items) or hx.isFunction(items)
+  validateItems: (items) -> Array.isArray(items) or isFunction(items)
 
   items: (items) ->
     # Validation should be external to the feed and show relevant error message(s)
@@ -110,4 +122,6 @@ class AutocompleteFeed
       @_.items
 
 
-hx.AutocompleteFeed = AutocompleteFeed
+export {
+  AutocompleteFeed
+}

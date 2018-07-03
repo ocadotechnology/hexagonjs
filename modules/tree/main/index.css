@@ -1,0 +1,53 @@
+.hx-tree-node {
+  margin-top: 0.5em;
+}
+
+.hx-tree-node:first-child {
+  margin-top: 0;
+}
+
+.hx-tree-node.hx-tree-node-open > .hx-tree-node-parent .hx-tree-node-state-icon {
+  /* fallback for when the animation completes / doesn't work */
+  transform: rotate(90deg);
+}
+
+.hx-tree-node-content {
+  padding: 0.5em;
+  flex-grow: 1;
+}
+
+.hx-tree-node-parent {
+  align-items: flex-end;
+  display: flex;
+  line-height: 1em;
+}
+
+.hx-tree-node-parent .hx-tree-node-parent-icon {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  order: 1;
+  padding: 0.5em;
+  user-select: none;
+  width: 1em;
+}
+
+.hx-tree-node-parent .hx-tree-node-parent-icon:hover {
+  cursor: pointer;
+}
+
+.hx-tree-node-parent .hx-tree-node-parent-icon.hx-tree-node-parent-icon-disabled:hover {
+  cursor: default;
+}
+
+.hx-tree-node-parent .hx-tree-node-content {
+  flex-grow: 1;
+  order: 2;
+  padding: 0.5em;
+}
+
+.hx-tree-node-children {
+  border-left: solid 2px transparent;
+  padding: 0.5em 0 0 2em;
+}

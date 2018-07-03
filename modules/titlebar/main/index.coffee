@@ -1,3 +1,7 @@
+import { select, selectAll, detached, div, isSelection } from 'selection/main'
+import { isString } from 'utils/main'
+import { isElement } from 'dom-utils/main'
+
 setVisibility = (show, animate=true) ->
   if not @isMobileFriendly then return
   if show is @visible then return
@@ -19,33 +23,29 @@ setVisibility = (show, animate=true) ->
       else
         elem.classed('hx-titlebar-mobile-hide', true)
 
-  animateTitlebar(hx.select(@selector).selectAll('.hx-titlebar-menu-icons'))
-  animateTitlebar(hx.select(@selector).selectAll('.hx-titlebar-linkbar'))
+  animateTitlebar(select(@selector).selectAll('.hx-titlebar-menu-icons'))
+  animateTitlebar(select(@selector).selectAll('.hx-titlebar-linkbar'))
 
 
-isElement = (obj) -> !!(obj and obj.nodeType is 1)
-
-isSelection = (obj) -> obj instanceof hx.Selection
-
-class TitleBar
+export class TitleBar
   constructor: (@selector) ->
-    hx.component.register(@selector, this)
-
     @_ = {}
 
-    @isMobileFriendly = hx.select(@selector).select('.hx-titlebar-menu-icon-mobile').size() > 0
-    hasLinkBar = hx.select(@selector).select('.hx-titlebar-linkbar').selectAll('.hx-titlebar-link').size() > 0
-    isFixed = hx.select('body').classed('hx-heading-fixed')
-    isFullScreen = hx.select('body').classed('hx-full-screen')
+    selection = select(@selector).api(this)
+
+    @isMobileFriendly = selection.select('.hx-titlebar-menu-icon-mobile').size() > 0
+    hasLinkBar = selection.select('.hx-titlebar-linkbar').selectAll('.hx-titlebar-link').size() > 0
+    isFixed = select('body').classed('hx-heading-fixed')
+    isFullScreen = select('body').classed('hx-full-screen')
 
     if @isMobileFriendly
-      hx.select(@selector).select('.hx-titlebar-menu-icon-mobile')
+      selection.select('.hx-titlebar-menu-icon-mobile')
         .on 'click', 'hx.titlebar', => setVisibility.call(this, not @visible, true)
       @visible = true
       setVisibility.call(this, false, false)
 
     if hasLinkBar and (isFixed or isFullScreen)
-      hx.select('body').classed('hx-titlebar-link-padding', true)
+      select('body').classed('hx-titlebar-link-padding', true)
 
   show: (animate) ->
     setVisibility.call(this, true, animate)
@@ -59,27 +59,37 @@ class TitleBar
         @_.cls = undefined
         for d in ['hx-action', 'hx-positive', 'hx-negative', 'hx-warning', 'hx-info']
           if cls == d then @_.cls = d # Inside loop to confirm that the class being set is real.
-          hx.select(@selector).select('.hx-titlebar').classed(d, cls == d)
+          select(@selector).select('.hx-titlebar').classed(d, cls == d)
       this
     else
       @_.cls
 
   active: (id) ->
     if arguments.length > 0
-      selection = hx.selectAll('.hx-titlebar-link').classed('hx-selected', false)
+      selection = selectAll('.hx-titlebar-link').classed('hx-selected', false)
       if id?
-        @_.active = if hx.isString(id) or isElement(id) or isSelection(id)
-          hx.select(id).classed('hx-selected', true)
+        @_.active = if isString(id) or isElement(id) or isSelection(id)
+          select(id).classed('hx-selected', true)
         else
-          hx.select(selection.node(id)).classed('hx-selected', true)
+          node = selection.node(id)
+          if node?
+            select(node).classed('hx-selected', true)
         this
     else
       @_.active
 
 
-hx.TitleBar = TitleBar
+export initTitleBar = () ->
+  # set up the titlebar
+  if select('.hx-heading').size() > 0
+    titlebar = new TitleBar('.hx-heading')
+    # backwards compatibility
+    if window.hx
+      window.hx.titlebar = titlebar
+    return titlebar
 
-hx.titleBar = (options = {}) ->
+
+export titleBar = (options = {}) ->
   {
     title = 'Title',
     subtitle = '',
@@ -89,22 +99,22 @@ hx.titleBar = (options = {}) ->
   } = options
 
   icon = if showIcon
-    hx.detached('a')
+    detached('a')
       .class('hx-titlebar-icon')
       .attr('href', iconLink)
-      .add(hx.detached('img').class(iconClass))
+      .add(detached('img').class(iconClass))
 
-  selection = hx.div('hx-heading')
-    .add(hx.div('hx-titlebar')
-      .add(hx.div('hx-titlebar-container')
-        .add(hx.div('hx-titlebar-header')
+  selection = div('hx-heading')
+    .add(div('hx-titlebar')
+      .add(div('hx-titlebar-container')
+        .add(div('hx-titlebar-header')
           .add(icon)
-          .add(if title then hx.div('hx-titlebar-title').text(title))
-          .add(if subtitle then hx.div('hx-titlebar-subtitle').text(subtitle)))))
+          .add(if title then div('hx-titlebar-title').text(title))
+          .add(if subtitle then div('hx-titlebar-subtitle').text(subtitle)))))
 
-  new hx.TitleBar(selection)
+  new TitleBar(selection)
 
   return selection
 
 # set up the titlebar
-if hx.select('.hx-heading').size() > 0 then hx.titlebar = new hx.TitleBar('.hx-heading')
+if select('.hx-heading').size() > 0 then titlebar = new TitleBar('.hx-heading')

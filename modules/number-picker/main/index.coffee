@@ -1,3 +1,7 @@
+import { select, div } from 'selection/main'
+import { mergeDefined } from 'utils/main'
+import { EventEmitter } from 'event-emitter/main'
+
 checkValue = (value, min, max) ->
   if max isnt undefined then value = Math.min(value, max)
   if min isnt undefined then value = Math.max(value, min)
@@ -8,20 +12,20 @@ getDisabled = (disabled, val, edge) -> if disabled or (val is edge) then 'disabl
 addHoldHandler = (incrementOnHold, incrementDelay, selection, incrementFn) ->
   if incrementOnHold
     holdStart = undefined
-    holdTimeout = undefined
-    incrementInterval = undefined
+    incrementTimeout = undefined
 
     clearTimers = ->
-      clearTimeout(holdTimeout)
-      clearInterval(incrementInterval)
+      clearTimeout(incrementTimeout)
+      incrementTimeout = undefined
 
     selection.on 'pointerdown', 'hx.number-picker', (e) ->
       holdStart = Date.now()
-      document.activeElement.blur()
+      document.activeElement?.blur()
       e.event.preventDefault()
       fn = ->
-        incrementInterval = setInterval((-> incrementFn()), incrementDelay)
-      holdTimeout = setTimeout(fn, 200)
+        incrementFn()
+        incrementTimeout = setTimeout(fn, incrementDelay)
+      incrementTimeout = setTimeout(fn, 200)
 
     selection.on 'pointerup', 'hx.number-picker', ->
       clearTimers()
@@ -30,16 +34,14 @@ addHoldHandler = (incrementOnHold, incrementDelay, selection, incrementFn) ->
 
     selection.on 'pointerleave', 'hx.number-picker', clearTimers
   else
-    selection.on 'click', 'hx.number-picker', -> incrementFn()
+    selection.on 'click', 'hx.number-picker', incrementFn
 
 
-class NumberPicker extends hx.EventEmitter
+export class NumberPicker extends EventEmitter
   constructor: (@selector, options) ->
-    super
+    super()
 
-    hx.component.register(@selector, this)
-
-    @options = hx.merge.defined({
+    @options = mergeDefined({
       buttonClass: ''
       min: undefined
       max: undefined
@@ -52,8 +54,9 @@ class NumberPicker extends hx.EventEmitter
 
     @_ = {}
 
-    container = hx.select(@selector)
-    selection = container.class('hx-number-picker')
+    selection = select(@selector)
+      .class('hx-number-picker')
+      .api(this)
 
     incrementButton = selection.append('button').attr('type', 'button').class('hx-number-picker-increment hx-btn ' + @options.buttonClass)
     incrementButton.append('i').class('hx-icon hx-icon-chevron-up')
@@ -92,7 +95,7 @@ class NumberPicker extends hx.EventEmitter
         # otherwise we use the provided value (as it is set via the input)
         .value(if value? and screenValue? then screenValue else newVal)
 
-      selection = hx.select(@selector)
+      selection = select(@selector)
       selection.select('.hx-number-picker-decrement')
         .attr('disabled', getDisabled(@options.disabled, newVal, @min()))
 
@@ -145,7 +148,7 @@ class NumberPicker extends hx.EventEmitter
     if disable?
       @options.disabled = disable
       dis = if disable then 'disabled' else undefined
-      hx.select(@selector).selectAll('button').forEach (e) -> e.attr('disabled', dis)
+      select(@selector).selectAll('button').forEach (e) -> e.attr('disabled', dis)
       @selectInput.attr('disabled', dis)
       this
     else
@@ -160,9 +163,7 @@ class NumberPicker extends hx.EventEmitter
     else
       @options.step
 
-hx.numberPicker = (options) ->
-  selection = hx.detached('div')
-  new NumberPicker(selection.node(), options)
+export numberPicker = (options) ->
+  selection = div()
+  new NumberPicker(selection, options)
   selection
-
-hx.NumberPicker = NumberPicker

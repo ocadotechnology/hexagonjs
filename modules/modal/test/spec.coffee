@@ -1,2 +1,2 @@
-describe 'hx-modal tests', ->
-  # ...
+export default () ->
+  xdescribe 'modal', ->

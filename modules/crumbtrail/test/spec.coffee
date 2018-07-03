@@ -1,14 +1,18 @@
-describe 'hx-crumbtrail tests', ->
+import { div } from 'selection/main'
+import { Crumbtrail } from 'crumbtrail/main'
 
-  it 'items() should return the appropriate values', ->
-    items = [
-      'bob'
-      'steve'
-      'dave'
-    ]
+export default () ->
+  describe 'crumbtrail', ->
 
-    crumbtrail = new hx.Crumbtrail(hx.detached('div').node(), {
-      items: items
-    })
+    it 'items() should return the appropriate values', ->
+      items = [
+        'bob'
+        'steve'
+        'dave'
+      ]
 
-    crumbtrail.items().should.not.contain(0)
+      crumbtrail = new Crumbtrail(div(), {
+        items: items
+      })
+
+      crumbtrail.items().should.not.contain(0)

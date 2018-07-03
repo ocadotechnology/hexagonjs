@@ -1,0 +1,58 @@
+.hx-tag-input {
+  border-color: var(--tag-input-border-color);
+  background: var(--tag-input-background-color);
+}
+
+.hx-tag {
+  background: var(--tag-input-default-background-color);
+  color: var(--tag-input-default-text-color);
+  border-color: var(--tag-input-default-border-color);
+}
+
+.hx-tag.hx-action {
+  background: var(--tag-input-action-background-color);
+  color: var(--tag-input-action-text-color);
+  border-color: var(--tag-input-action-border-color);
+}
+
+.hx-tag.hx-positive {
+  background: var(--tag-input-positive-background-color);
+  color: var(--tag-input-positive-text-color);
+  border-color: var(--tag-input-positive-border-color);
+}
+
+.hx-tag.hx-warning {
+  background: var(--tag-input-warning-background-color);
+  color: var(--tag-input-warning-text-color);
+  border-color: var(--tag-input-warning-border-color);
+}
+
+.hx-tag.hx-negative {
+  background: var(--tag-input-negative-background-color);
+  color: var(--tag-input-negative-text-color);
+  border-color: var(--tag-input-negative-border-color);
+}
+
+.hx-tag.hx-info {
+  background: var(--tag-input-info-background-color);
+  color: var(--tag-input-info-text-color);
+  border-color: var(--tag-input-info-border-color);
+}
+
+.hx-tag.hx-complement {
+  background: var(--tag-input-complement-background-color);
+  color: var(--tag-input-complement-text-color);
+  border-color: var(--tag-input-complement-border-color);
+}
+
+.hx-tag.hx-contrast {
+  background: var(--tag-input-contrast-background-color);
+  color: var(--tag-input-contrast-text-color);
+  border-color: var(--tag-input-contrast-border-color);
+}
+
+.hx-tag.hx-disabled {
+  background: var(--tag-input-disabled-background-color);
+  color: var(--tag-input-disabled-text-color);
+  border-color: var(--tag-input-disabled-border-color);
+}
