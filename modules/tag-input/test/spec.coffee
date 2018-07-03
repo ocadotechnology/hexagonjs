@@ -1,4 +1,3 @@
-import { utils } from 'utils/main'
 import { select, div, getHexagonElementDataObject } from 'selection/main'
 import { userFacingText } from 'user-facing-text/main'
 import { TagInput } from 'tag-input/main'
