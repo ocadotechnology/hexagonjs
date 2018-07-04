@@ -1,7 +1,7 @@
 import chai from 'chai'
 
-import { AutocompleteFeed } from 'modules/autocomplete-feed/main'
-import { Map as HMap } from 'modules/map/main'
+import { AutocompleteFeed } from 'modules/autocomplete-feed'
+import { Map as HMap } from 'modules/map'
 import { installFakeTimers } from 'test/utils/fake-time'
 
 const should = chai.should()

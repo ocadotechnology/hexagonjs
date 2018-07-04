@@ -1,8 +1,8 @@
-import { userFacingText } from 'user-facing-text/main'
-import { Autocomplete } from 'autocomplete/main'
-import { range } from 'utils/main'
-import { select, div } from 'selection/main'
-import { config as dropdownConfig } from 'dropdown/main'
+import { userFacingText } from 'user-facing-text'
+import { Autocomplete } from 'autocomplete'
+import { range } from 'utils'
+import { select, div } from 'selection'
+import { config as dropdownConfig } from 'dropdown'
 
 export default () => {
   describe('autocomplete', () => {
