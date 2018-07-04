@@ -4,64 +4,79 @@ import logger from 'logger'
 import { div } from 'selection'
 import { palette } from 'palette'
 
-should = chai.should()
+export default () => {
+  const should = chai.should()
 
-export default () ->
-  describe 'Palette', ->
-    origConsoleWarning = logger.warn
+  describe('Palette', () => {
+    const origConsoleWarning = logger.warn
 
-    beforeEach ->
+    beforeEach(() => {
       logger.warn = chai.spy()
+    })
 
-    after ->
+    after(() => {
       logger.warn = origConsoleWarning
+    })
 
-    testPaletteContextType = (type, testContexts, prefix) ->
-      describe 'hx.palette.' + type + ' should correctly class an element', ->
-        testContext = (name, context) ->
-          it name, ->
-            selection = div()
+    function testPaletteContextType (type, testContexts, prefix) {
+      describe(`hx.palette.${type} should correctly class an element`, () => {
+        const testContext = (name, context) => {
+          it(name, () => {
+            const selection = div()
             palette[type](selection, context).should.equal(selection)
-            if (context)
+            if (context) {
               selection.classed(prefix + '-' + context).should.equal(true)
               palette[type](selection.node()).should.equal(context)
-            else
+            } else {
               should.not.exist(palette[type](selection.node()))
+            }
             logger.warn.should.not.have.been.called()
+          })
+        }
 
-        testContexts.forEach (d) -> testContext(d, d)
+        testContexts.forEach(d => {
+          testContext(d, d)
+        })
 
-        testContext("undefined", undefined)
+        testContext('undefined', undefined)
 
-        it 'should return undefined if there is no context', ->
+        it('should return undefined if there is no context', () => {
           should.not.exist(palette.context(div()))
           logger.warn.should.not.have.been.called()
+        })
 
-        it 'should remove existing context classes', ->
-          selection = div(prefix + '-positive ' + prefix + '-negative')
+        it('should remove existing context classes', () => {
+          const selection = div(prefix + '-positive ' + prefix + '-negative')
           palette[type](selection, 'positive').should.equal(selection)
           selection.classed(prefix + '-positive').should.equal(true)
           selection.classed(prefix + '-negative').should.equal(false)
           logger.warn.should.not.have.been.called()
+        })
 
-        it 'supplying undefined should remove existing context classes', ->
-          selection = div(prefix + '-positive ' + prefix + '-negative')
+        it('supplying undefined should remove existing context classes', () => {
+          const selection = div(prefix + '-positive ' + prefix + '-negative')
           palette[type](selection, undefined).should.equal(selection)
           selection.classed(prefix + '-positive').should.equal(false)
           selection.classed(prefix + '-negative').should.equal(false)
           logger.warn.should.not.have.been.called()
+        })
 
-        it 'should log a warning when a context is not known', ->
+        it('should log a warning when a context is not known', () => {
           palette[type](div(), 'bob')
           logger.warn.should.have.been.called()
+        })
+      })
+    }
 
+    const contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
+    testPaletteContextType('context', contexts, 'hx')
 
-    contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
-    testPaletteContextType 'context', contexts, 'hx'
+    const paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
+    const types = ['textContext', 'backgroundContext', 'borderContext']
+    const typePrefixes = ['hx-text', 'hx-background', 'hx-border']
 
-    paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
-    types = ['textContext', 'backgroundContext', 'borderContext']
-    typePrefixes = ['hx-text', 'hx-background', 'hx-border']
-
-    types.forEach (type, index) ->
-      testPaletteContextType type, paletteContexts, typePrefixes[index]
+    types.forEach((type, index) => {
+      testPaletteContextType(type, paletteContexts, typePrefixes[index])
+    })
+  })
+}
