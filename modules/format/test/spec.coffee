@@ -1,7 +1,9 @@
-describe 'hx-format tests', ->
+describe 'format tests', ->
   check = (a, b) -> a.should.equal(b)
 
-  it "round works",  ->
+  { round, si, exp, fixed, zeroPad } = hx
+
+  it 'format.round works',  ->
     check hx.format.round(2)(123), '120'
     check hx.format.round(3)(1234), '1230'
     check hx.format.round(3)(0.00234), '0.00234'
@@ -31,11 +33,11 @@ describe 'hx-format tests', ->
     check hx.format.round(1)(-1010101), '-1000000'
     check hx.format.round(5)(-1010101), '-1010100'
 
-    check hx.format.round(2, true)('string test'), "NaN"
-    check hx.format.round(2, false)('string test'), "string test"
-    check hx.format.round(2)('string test'), "string test"
+    check hx.format.round(2, true)('string test'), 'NaN'
+    check hx.format.round(2, false)('string test'), 'string test'
+    check hx.format.round(2)('string test'), 'string test'
 
-  it "si works",  ->
+  it 'format.si works',  ->
     check hx.format.si(2)(123), '120'
     check hx.format.si(3)(1234), '1.23K'
     check hx.format.si(3)(0.00234), '2340µ'
@@ -64,17 +66,17 @@ describe 'hx-format tests', ->
     check hx.format.si(1)(-10101), '-10K'
     check hx.format.si(1)(-1010101), '-1M'
     check hx.format.si(5)(-1010101), '-1.0101M'
-    check hx.format.si(2)(-0.0062), "-6200µ"
-    check hx.format.si(3)(1.1e27), "1100Y"
-    check hx.format.si(3)(1.1e28), "11000Y"
-    check hx.format.si(3)(1.1e29), "110000Y"
-    check hx.format.si(3)(1.1e30), "1100000Y"
+    check hx.format.si(2)(-0.0062), '-6200µ'
+    check hx.format.si(3)(1.1e27), '1100Y'
+    check hx.format.si(3)(1.1e28), '11000Y'
+    check hx.format.si(3)(1.1e29), '110000Y'
+    check hx.format.si(3)(1.1e30), '1100000Y'
 
-    check hx.format.si(2, true)('string test'), "NaN"
-    check hx.format.si(2, false)('string test'), "string test"
-    check hx.format.si(2)('string test'), "string test"
+    check hx.format.si(2, true)('string test'), 'NaN'
+    check hx.format.si(2, false)('string test'), 'string test'
+    check hx.format.si(2)('string test'), 'string test'
 
-  it "exp works",  ->
+  it 'format.exp works',  ->
     check hx.format.exp(2)(123), '1.2e2'
     check hx.format.exp(2)(1234), '1.2e3'
     check hx.format.exp(2)(12345), '1.2e4'
@@ -100,40 +102,197 @@ describe 'hx-format tests', ->
     check hx.format.exp(1)(-0.0001923), '-2e-4'
     check hx.format.exp(1)(-0.000019234), '-2e-5'
 
-    check hx.format.exp(2, true)('string test'), "NaN"
-    check hx.format.exp(2, false)('string test'), "string test"
-    check hx.format.exp(2)('string test'), "string test"
+    check hx.format.exp(2, true)('string test'), 'NaN'
+    check hx.format.exp(2, false)('string test'), 'string test'
+    check hx.format.exp(2)('string test'), 'string test'
 
-  it "fixed works",  ->
-    check hx.format.fixed(2)(123), "123.00"
-    check hx.format.fixed(2)(1234), "1234.00"
-    check hx.format.fixed(2)(12345), "12345.00"
-    check hx.format.fixed(2)(-123), "-123.00"
-    check hx.format.fixed(2)(-1234), "-1234.00"
-    check hx.format.fixed(2)(-12345), "-12345.00"
-    check hx.format.fixed(1)(123), "123.0"
-    check hx.format.fixed(1)(1234), "1234.0"
-    check hx.format.fixed(1)(12345), "12345.0"
-    check hx.format.fixed(1)(-123), "-123.0"
-    check hx.format.fixed(1)(-1234), "-1234.0"
-    check hx.format.fixed(1)(-12345), "-12345.0"
-    check hx.format.fixed(1)(192), "192.0"
-    check hx.format.fixed(1)(1923), "1923.0"
-    check hx.format.fixed(1)(19234), "19234.0"
-    check hx.format.fixed(1)(-192), "-192.0"
-    check hx.format.fixed(1)(-1923), "-1923.0"
-    check hx.format.fixed(1)(-19234), "-19234.0"
-    check hx.format.fixed(1)(0.192), "0.2"
-    check hx.format.fixed(1)(0.001923), "0.0"
-    check hx.format.fixed(1)(0.0019234), "0.0"
-    check hx.format.fixed(1)(-0.00192), "-0.0"
-    check hx.format.fixed(1)(-0.0001923), "-0.0"
-    check hx.format.fixed(1)(-0.000019234), "-0.0"
-    check hx.format.fixed(2)(1.234), "1.23"
-    check hx.format.fixed(2)(-1.234), "-1.23"
-    check hx.format.fixed(2)(10.234), "10.23"
-    check hx.format.fixed(2)(-10.234), "-10.23"
+  it 'format.fixed works',  ->
+    check hx.format.fixed(2)(123), '123.00'
+    check hx.format.fixed(2)(1234), '1234.00'
+    check hx.format.fixed(2)(12345), '12345.00'
+    check hx.format.fixed(2)(-123), '-123.00'
+    check hx.format.fixed(2)(-1234), '-1234.00'
+    check hx.format.fixed(2)(-12345), '-12345.00'
+    check hx.format.fixed(1)(123), '123.0'
+    check hx.format.fixed(1)(1234), '1234.0'
+    check hx.format.fixed(1)(12345), '12345.0'
+    check hx.format.fixed(1)(-123), '-123.0'
+    check hx.format.fixed(1)(-1234), '-1234.0'
+    check hx.format.fixed(1)(-12345), '-12345.0'
+    check hx.format.fixed(1)(192), '192.0'
+    check hx.format.fixed(1)(1923), '1923.0'
+    check hx.format.fixed(1)(19234), '19234.0'
+    check hx.format.fixed(1)(-192), '-192.0'
+    check hx.format.fixed(1)(-1923), '-1923.0'
+    check hx.format.fixed(1)(-19234), '-19234.0'
+    check hx.format.fixed(1)(0.192), '0.2'
+    check hx.format.fixed(1)(0.001923), '0.0'
+    check hx.format.fixed(1)(0.0019234), '0.0'
+    check hx.format.fixed(1)(-0.00192), '-0.0'
+    check hx.format.fixed(1)(-0.0001923), '-0.0'
+    check hx.format.fixed(1)(-0.000019234), '-0.0'
+    check hx.format.fixed(2)(1.234), '1.23'
+    check hx.format.fixed(2)(-1.234), '-1.23'
+    check hx.format.fixed(2)(10.234), '10.23'
+    check hx.format.fixed(2)(-10.234), '-10.23'
 
-    check hx.format.fixed(2, true)('string test'), "NaN"
-    check hx.format.fixed(2, false)('string test'), "string test"
-    check hx.format.fixed(2)('string test'), "string test"
+    check hx.format.fixed(2, true)('string test'), 'NaN'
+    check hx.format.fixed(2, false)('string test'), 'string test'
+    check hx.format.fixed(2)('string test'), 'string test'
+
+  it 'format.zeroPad works', ->
+    check hx.format.zeroPad(5)(123), '00123'
+    check hx.format.zeroPad(5)(1234), '01234'
+    check hx.format.zeroPad(5)(12345), '12345'
+    check hx.format.zeroPad(5)(123456), '123456'
+
+    check hx.format.zeroPad(5, true)('string test'), 'NaN'
+    check hx.format.zeroPad(5, false)('string test'), 'string test'
+    check hx.format.zeroPad(5)('string test'), 'string test'
+
+  it 'round works',  ->
+    check round(123, { sf: 2 }), '120'
+    check round(1234, { sf: 3 }), '1230'
+    check round(0.00234, { sf: 3 }), '0.00234'
+    check round(0.00234, { sf: 2 }), '0.0023'
+    check round(0.00000234, { sf: 2 }), '0.0000023'
+    check round(0.00000237, { sf: 2 }), '0.0000024'
+    check round(1, { sf: 2 }), '1'
+    check round(9, { sf: 2 }), '9'
+    check round(10, { sf: 1 }), '10'
+    check round(101, { sf: 1 }), '100'
+    check round(10101, { sf: 3 }), '10100'
+    check round(10101, { sf: 1 }), '10000'
+    check round(1010101, { sf: 1 }), '1000000'
+    check round(1010101, { sf: 5 }), '1010100'
+    check round(-123, { sf: 2 }), '-120'
+    check round(-1234, { sf: 3 }), '-1230'
+    check round(-0.00234, { sf: 3 }), '-0.00234'
+    check round(-0.00234, { sf: 2 }), '-0.0023'
+    check round(-0.00000234, { sf: 2 }), '-0.0000023'
+    check round(-0.00000237, { sf: 2 }), '-0.0000024'
+    check round(-1, { sf: 2 }), '-1'
+    check round(-9, { sf: 2 }), '-9'
+    check round(-10, { sf: 1 }), '-10'
+    check round(-101, { sf: 1 }), '-100'
+    check round(-10101, { sf: 3 }), '-10100'
+    check round(-10101, { sf: 1 }), '-10000'
+    check round(-1010101, { sf: 1 }), '-1000000'
+    check round(-1010101, { sf: 5 }), '-1010100'
+
+    check round('string test', { sf: 2, strict: true }), 'NaN'
+    check round('string test', { sf: 2, strict: false }), 'string test'
+    check round('string test', { sf: 2 }), 'string test'
+
+  it 'si works',   ->
+    check si(123, { sf: 2 }), '120'
+    check si(1234, { sf: 3 }), '1.23K'
+    check si(0.00234, { sf: 3 }), '2340µ'
+    check si(0.00234, { sf: 2 }), '2300µ'
+    check si(0.00000234, { sf: 2 }), '2.3µ'
+    check si(0.00000237, { sf: 2 }), '2.4µ'
+    check si(1, { sf: 2 }), '1'
+    check si(9, { sf: 2 }), '9'
+    check si(10, { sf: 1 }), '10'
+    check si(101, { sf: 1 }), '100'
+    check si(10101, { sf: 3 }), '10.1K'
+    check si(10101, { sf: 1 }), '10K'
+    check si(1010101, { sf: 1 }), '1M'
+    check si(1010101, { sf: 5 }), '1.0101M'
+    check si(-123, { sf: 2 }), '-120'
+    check si(-1234, { sf: 3 }), '-1.23K'
+    check si(-0.00234, { sf: 3 }), '-2340µ'
+    check si(-0.00234, { sf: 2 }), '-2300µ'
+    check si(-0.00000234, { sf: 2 }), '-2.3µ'
+    check si(-0.00000237, { sf: 2 }), '-2.4µ'
+    check si(-1, { sf: 2 }), '-1'
+    check si(-9, { sf: 2 }), '-9'
+    check si(-10, { sf: 1 }), '-10'
+    check si(-101, { sf: 1 }), '-100'
+    check si(-10101, { sf: 3 }), '-10.1K'
+    check si(-10101, { sf: 1 }), '-10K'
+    check si(-1010101, { sf: 1 }), '-1M'
+    check si(-1010101, { sf: 5 }), '-1.0101M'
+    check si(-0.0062, { sf: 2 }), '-6200µ'
+    check si(1.1e27, { sf: 3 }), '1100Y'
+    check si(1.1e28, { sf: 3 }), '11000Y'
+    check si(1.1e29, { sf: 3 }), '110000Y'
+    check si(1.1e30, { sf: 3 }), '1100000Y'
+
+    check si('string test', { sf: 2, strict: true }), 'NaN'
+    check si('string test', { sf: 2, strict: false }), 'string test'
+    check si('string test', { sf: 2 }), 'string test'
+
+  it 'exp works',   ->
+    check exp(123, { sf: 2 }), '1.2e2'
+    check exp(1234, { sf: 2 }), '1.2e3'
+    check exp(12345, { sf: 2 }), '1.2e4'
+    check exp(-123, { sf: 2 }), '-1.2e2'
+    check exp(-1234, { sf: 2 }), '-1.2e3'
+    check exp(-12345, { sf: 2 }), '-1.2e4'
+    check exp(123, { sf: 1 }), '1e2'
+    check exp(1234, { sf: 1 }), '1e3'
+    check exp(12345, { sf: 1 }), '1e4'
+    check exp(-123, { sf: 1 }), '-1e2'
+    check exp(-1234, { sf: 1 }), '-1e3'
+    check exp(-12345, { sf: 1 }), '-1e4'
+    check exp(192, { sf: 1 }), '2e2'
+    check exp(1923, { sf: 1 }), '2e3'
+    check exp(19234, { sf: 1 }), '2e4'
+    check exp(-192, { sf: 1 }), '-2e2'
+    check exp(-1923, { sf: 1 }), '-2e3'
+    check exp(-19234, { sf: 1 }), '-2e4'
+    check exp(0.0192, { sf: 1 }), '2e-2'
+    check exp(0.001923, { sf: 1 }), '2e-3'
+    check exp(0.0019234, { sf: 1 }), '2e-3'
+    check exp(-0.00192, { sf: 1 }), '-2e-3'
+    check exp(-0.0001923, { sf: 1 }), '-2e-4'
+    check exp(-0.000019234, { sf: 1 }), '-2e-5'
+
+    check exp('string test', { sf: 2, strict: true }), 'NaN'
+    check exp('string test', { sf: 2, strict: false }), 'string test'
+    check exp('string test', { sf: 2 }), 'string test'
+
+  it 'fixed works', ->
+    check fixed(123, { digits: 2 }), '123.00'
+    check fixed(1234, { digits: 2 }), '1234.00'
+    check fixed(12345, { digits: 2 }), '12345.00'
+    check fixed(-123, { digits: 2 }), '-123.00'
+    check fixed(-1234, { digits: 2 }), '-1234.00'
+    check fixed(-12345, { digits: 2 }), '-12345.00'
+    check fixed(123, { digits: 1 }), '123.0'
+    check fixed(1234, { digits: 1 }), '1234.0'
+    check fixed(12345, { digits: 1 }), '12345.0'
+    check fixed(-123, { digits: 1 }), '-123.0'
+    check fixed(-1234, { digits: 1 }), '-1234.0'
+    check fixed(-12345, { digits: 1 }), '-12345.0'
+    check fixed(192, { digits: 1 }), '192.0'
+    check fixed(1923, { digits: 1 }), '1923.0'
+    check fixed(19234, { digits: 1 }), '19234.0'
+    check fixed(-192, { digits: 1 }), '-192.0'
+    check fixed(-1923, { digits: 1 }), '-1923.0'
+    check fixed(-19234, { digits: 1 }), '-19234.0'
+    check fixed(0.192, { digits: 1 }), '0.2'
+    check fixed(0.001923, { digits: 1 }), '0.0'
+    check fixed(0.0019234, { digits: 1 }), '0.0'
+    check fixed(-0.00192, { digits: 1 }), '-0.0'
+    check fixed(-0.0001923, { digits: 1 }), '-0.0'
+    check fixed(-0.000019234, { digits: 1 }), '-0.0'
+    check fixed(1.234, { digits: 2 }), '1.23'
+    check fixed(-1.234, { digits: 2 }), '-1.23'
+    check fixed(10.234, { digits: 2 }), '10.23'
+    check fixed(-10.234, { digits: 2 }), '-10.23'
+
+    check fixed('string test', { digits: 2, strict: true }), 'NaN'
+    check fixed('string test', { digits: 2, strict: false }), 'string test'
+    check fixed('string test', { digits: 2 }), 'string test'
+
+  it 'zeroPad works', ->
+    check zeroPad(123, { length: 5 }), '00123'
+    check zeroPad(1234, { length: 5 }), '01234'
+    check zeroPad(12345, { length: 5 }), '12345'
+    check zeroPad(123456, { length: 5 }), '123456'
+
+    check zeroPad('string test', { strict: true, length: 5 }), 'NaN'
+    check zeroPad('string test', { strict: false, length: 5 }), 'string test'
+    check zeroPad('string test', { length: 5 }), 'string test'
