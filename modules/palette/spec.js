@@ -20,7 +20,7 @@ export default () => {
 
     function testPaletteContextType (type, testContexts, prefix) {
       describe(`hx.palette.${type} should correctly class an element`, () => {
-        const testContext = (name, context) => {
+        function testContext (name, context) {
           it(name, () => {
             const selection = div()
             palette[type](selection, context).should.equal(selection)

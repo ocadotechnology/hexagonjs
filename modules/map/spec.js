@@ -52,9 +52,9 @@ export default () => {
 
     it('Map::has should distinguish between keys with the same toString', () => {
       const map = new Map([[1, 'Bob'], [array, 'Ganesh']])
-      map.has(1).should.be.ok
-      map.has('1').should.not.be.ok
-      map.has(array).should.be.ok
+      map.has(1).should.equal(true)
+      map.has('1').should.not.equal(true)
+      map.has(array).should.equal(true)
     })
 
     it('contains nothing when initialsed', () => {

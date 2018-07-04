@@ -8,10 +8,6 @@ export default () => {
 
   describe('Pivot Table', () => {
     it('should have the correct default options', () => {
-      const topHead = range(2)
-      const leftHead = range(2)
-      const body = range(2).map(x => range(2).map(y => x * y))
-
       const pt = new PivotTable(div())
 
       pt.options.stickyHeaders.should.equal(true)

@@ -1,5 +1,4 @@
 
-import { picker } from 'picker'
 import { userFacingText } from 'user-facing-text'
 
 export default () => {
