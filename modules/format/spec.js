@@ -1,8 +1,9 @@
+
 import { format } from 'format'
 
-export default () ->
-  describe 'hx-format tests', ->
-    it "round works",  ->
+export default () => {
+  describe('hx-format tests', () => {
+    it('round works', () => {
       format.round(2)(123).should.equal('120')
       format.round(3)(1234).should.equal('1230')
       format.round(3)(0.00234).should.equal('0.00234')
@@ -32,11 +33,12 @@ export default () ->
       format.round(1)(-1010101).should.equal('-1000000')
       format.round(5)(-1010101).should.equal('-1010100')
 
-      format.round(2, true)('string test').should.equal("NaN")
-      format.round(2, false)('string test').should.equal("string test")
-      format.round(2)('string test').should.equal("string test")
+      format.round(2, true)('string test').should.equal('NaN')
+      format.round(2, false)('string test').should.equal('string test')
+      format.round(2)('string test').should.equal('string test')
+    })
 
-    it "si works",  ->
+    it('si works', () => {
       format.si(2)(123).should.equal('120')
       format.si(3)(1234).should.equal('1.23K')
       format.si(3)(0.00234).should.equal('2340µ')
@@ -65,17 +67,18 @@ export default () ->
       format.si(1)(-10101).should.equal('-10K')
       format.si(1)(-1010101).should.equal('-1M')
       format.si(5)(-1010101).should.equal('-1.0101M')
-      format.si(2)(-0.0062).should.equal("-6200µ")
-      format.si(3)(1.1e27).should.equal("1100Y")
-      format.si(3)(1.1e28).should.equal("11000Y")
-      format.si(3)(1.1e29).should.equal("110000Y")
-      format.si(3)(1.1e30).should.equal("1100000Y")
+      format.si(2)(-0.0062).should.equal('-6200µ')
+      format.si(3)(1.1e27).should.equal('1100Y')
+      format.si(3)(1.1e28).should.equal('11000Y')
+      format.si(3)(1.1e29).should.equal('110000Y')
+      format.si(3)(1.1e30).should.equal('1100000Y')
 
-      format.si(2, true)('string test').should.equal("NaN")
-      format.si(2, false)('string test').should.equal("string test")
-      format.si(2)('string test').should.equal("string test")
+      format.si(2, true)('string test').should.equal('NaN')
+      format.si(2, false)('string test').should.equal('string test')
+      format.si(2)('string test').should.equal('string test')
+    })
 
-    it "exp works",  ->
+    it('exp works', () => {
       format.exp(2)(123).should.equal('1.2e2')
       format.exp(2)(1234).should.equal('1.2e3')
       format.exp(2)(12345).should.equal('1.2e4')
@@ -101,40 +104,44 @@ export default () ->
       format.exp(1)(-0.0001923).should.equal('-2e-4')
       format.exp(1)(-0.000019234).should.equal('-2e-5')
 
-      format.exp(2, true)('string test').should.equal("NaN")
-      format.exp(2, false)('string test').should.equal("string test")
-      format.exp(2)('string test').should.equal("string test")
+      format.exp(2, true)('string test').should.equal('NaN')
+      format.exp(2, false)('string test').should.equal('string test')
+      format.exp(2)('string test').should.equal('string test')
+    })
 
-    it "fixed works",  ->
-      format.fixed(2)(123).should.equal("123.00")
-      format.fixed(2)(1234).should.equal("1234.00")
-      format.fixed(2)(12345).should.equal("12345.00")
-      format.fixed(2)(-123).should.equal("-123.00")
-      format.fixed(2)(-1234).should.equal("-1234.00")
-      format.fixed(2)(-12345).should.equal("-12345.00")
-      format.fixed(1)(123).should.equal("123.0")
-      format.fixed(1)(1234).should.equal("1234.0")
-      format.fixed(1)(12345).should.equal("12345.0")
-      format.fixed(1)(-123).should.equal("-123.0")
-      format.fixed(1)(-1234).should.equal("-1234.0")
-      format.fixed(1)(-12345).should.equal("-12345.0")
-      format.fixed(1)(192).should.equal("192.0")
-      format.fixed(1)(1923).should.equal("1923.0")
-      format.fixed(1)(19234).should.equal("19234.0")
-      format.fixed(1)(-192).should.equal("-192.0")
-      format.fixed(1)(-1923).should.equal("-1923.0")
-      format.fixed(1)(-19234).should.equal("-19234.0")
-      format.fixed(1)(0.192).should.equal("0.2")
-      format.fixed(1)(0.001923).should.equal("0.0")
-      format.fixed(1)(0.0019234).should.equal("0.0")
-      format.fixed(1)(-0.00192).should.equal("-0.0")
-      format.fixed(1)(-0.0001923).should.equal("-0.0")
-      format.fixed(1)(-0.000019234).should.equal("-0.0")
-      format.fixed(2)(1.234).should.equal("1.23")
-      format.fixed(2)(-1.234).should.equal("-1.23")
-      format.fixed(2)(10.234).should.equal("10.23")
-      format.fixed(2)(-10.234).should.equal("-10.23")
+    it('fixed works', () => {
+      format.fixed(2)(123).should.equal('123.00')
+      format.fixed(2)(1234).should.equal('1234.00')
+      format.fixed(2)(12345).should.equal('12345.00')
+      format.fixed(2)(-123).should.equal('-123.00')
+      format.fixed(2)(-1234).should.equal('-1234.00')
+      format.fixed(2)(-12345).should.equal('-12345.00')
+      format.fixed(1)(123).should.equal('123.0')
+      format.fixed(1)(1234).should.equal('1234.0')
+      format.fixed(1)(12345).should.equal('12345.0')
+      format.fixed(1)(-123).should.equal('-123.0')
+      format.fixed(1)(-1234).should.equal('-1234.0')
+      format.fixed(1)(-12345).should.equal('-12345.0')
+      format.fixed(1)(192).should.equal('192.0')
+      format.fixed(1)(1923).should.equal('1923.0')
+      format.fixed(1)(19234).should.equal('19234.0')
+      format.fixed(1)(-192).should.equal('-192.0')
+      format.fixed(1)(-1923).should.equal('-1923.0')
+      format.fixed(1)(-19234).should.equal('-19234.0')
+      format.fixed(1)(0.192).should.equal('0.2')
+      format.fixed(1)(0.001923).should.equal('0.0')
+      format.fixed(1)(0.0019234).should.equal('0.0')
+      format.fixed(1)(-0.00192).should.equal('-0.0')
+      format.fixed(1)(-0.0001923).should.equal('-0.0')
+      format.fixed(1)(-0.000019234).should.equal('-0.0')
+      format.fixed(2)(1.234).should.equal('1.23')
+      format.fixed(2)(-1.234).should.equal('-1.23')
+      format.fixed(2)(10.234).should.equal('10.23')
+      format.fixed(2)(-10.234).should.equal('-10.23')
 
-      format.fixed(2, true)('string test').should.equal("NaN")
-      format.fixed(2, false)('string test').should.equal("string test")
-      format.fixed(2)('string test').should.equal("string test")
+      format.fixed(2, true)('string test').should.equal('NaN')
+      format.fixed(2, false)('string test').should.equal('string test')
+      format.fixed(2)('string test').should.equal('string test')
+    })
+  })
+}
