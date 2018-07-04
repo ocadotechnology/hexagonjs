@@ -1,2 +1,6 @@
-export default () ->
-  xdescribe 'modal', ->
+
+export default () => {
+  xdescribe('modal', () => {
+
+  })
+}
