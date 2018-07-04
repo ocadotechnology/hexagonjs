@@ -27,19 +27,19 @@ export default () =>
       })
 
       it('set the color based on a hex string', () => {
-        color('#7BBE31').rgb().should.eql([123, 190, 49, 1])
+        color('#7BBE31').rgb().should.eql([ 123, 190, 49, 1 ])
       })
 
       it('set the color based on a shortened hex string', () => {
-        color('#ABC').rgb().should.eql([170, 187, 204, 1 ])
+        color('#ABC').rgb().should.eql([ 170, 187, 204, 1 ])
       })
 
       it('set the color based on an rgb string', () => {
-        color('rgb(199,1,37)').rgb().should.eql([199, 1, 37, 1])
+        color('rgb(199,1,37)').rgb().should.eql([ 199, 1, 37, 1 ])
       })
 
       it('set the color based on an rgba string', () => {
-        color('rgba(199,1,37, 0.7)').rgb().should.eql([199, 1, 37, 0.7])
+        color('rgba(199,1,37, 0.7)').rgb().should.eql([ 199, 1, 37, 0.7 ])
       })
 
       it('set the color based on an hsl string', () => {
