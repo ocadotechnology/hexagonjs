@@ -1,3 +1,6 @@
 
-export default () ->
-  describe "color-scale", ->
+export default () => {
+  describe('color-scale', () => {
+
+  })
+}
