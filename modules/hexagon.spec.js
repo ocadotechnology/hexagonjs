@@ -17,7 +17,6 @@ import eventEmitterTests from './event-emitter/spec'
 import selectionTests from './selection/spec'
 import transitionTests from './transition/spec'
 import interpolateTests from './interpolate/spec'
-import animateTests from './animate/spec'
 import pointerEventTests from './pointer-events/spec'
 import viewTests from './view/spec'
 import sortTests from './sort/spec'
@@ -297,7 +296,6 @@ describe('HexagonJS Test Suite', () => {
   selectionTests()
   transitionTests()
   interpolateTests()
-  animateTests()
   pointerEventTests()
   viewTests()
   sortTests()
