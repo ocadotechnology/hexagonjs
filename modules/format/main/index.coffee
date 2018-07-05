@@ -1,14 +1,15 @@
 
 siSuffixes = ['y','z','a','f','p','n','µ','','','K','M','G','T','P','E','Z','Y']
 
-zeroPad = (number, { length }) ->
+zeroPad = (number, options) ->
+  options.length ?= 2
   str = number.toString()
-  if str.length < length
-    zeros = length - str.length
+  if str.length < options.length
+    zeros = options.length - str.length
     ('0' for _ in [0..zeros-1]).join('') + str
   else str
 
-precision = (number) -> if number then Math.floor(Math.log(Math.abs(number)) / Math.LN10) else 1
+precision = (number) -> if number then Math.floor(Math.log(Math.abs(number)) / Math.LN10) else 0
 
 roundPrecision = (number, base, factor) ->
   # have to deal with the +ve and -ve cases separately so that numerical errors are less likely
@@ -19,6 +20,7 @@ roundPrecision = (number, base, factor) ->
 
 # takes a number, and the number of significant numbers
 formatRound = (number, options) ->
+  options.sf ?= 2
   factor = precision(number) - options.sf + 1
   roundPrecision(number, 10, factor).toString()
 
@@ -38,11 +40,14 @@ formatSI = (number, options) ->
 
 formatExp = (number, options) ->
   p = precision(number)
-  formatRound(number / Math.pow(10, p), options) + 'e' + p
+  mod = if p >= 0 then '+' else ''
+  formatRound(number / Math.pow(10, p), options) + 'e' + mod + p
 
-formatFixed = (number, options) -> number.toFixed(options.digits)
+formatFixed = (number, options) ->
+  options.digits ?= 2
+  number.toFixed(options.digits)
 
-strictCheck = (number, formatFn, options) ->
+strictCheck = (number, formatFn, options={}) ->
   if options.strict
     if isNaN(number) then 'NaN' else formatFn(number, options)
   else
@@ -68,7 +73,7 @@ hx.format =
     (number) -> hx.si(number, { strict, sf })
   exp: (sf, strict) ->
     deprecatedWarning('exp')
-    (number) -> hx.exp(number, { strict, sf })
+    (number) -> hx.exp(number, { strict, sf }).replace('+', '')
   fixed: (digits, strict) ->
     deprecatedWarning('fixed')
     (number) -> hx.fixed(number, { digits, strict })

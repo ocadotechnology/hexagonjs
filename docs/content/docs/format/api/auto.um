@@ -20,7 +20,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -52,7 +53,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -84,7 +86,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -117,7 +120,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -150,7 +154,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -174,7 +179,8 @@
   @description
     A function to round a number to a specific number of significant figures.
     @@codeblock js
-      hx.format.round(4)(3.1415926) // Returns "3.142"
+      hx.round(3.1415926,) // Returns "3.1"
+      hx.round(3.1415926, { sf: 4 }) // Returns "3.142"
 
   @arg number [Number]
     @description
@@ -185,9 +191,13 @@
       @description
         The number of significant figures to use.
 
+      @default
+        2
+
     @property strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -206,7 +216,8 @@
   @description
     A function to format a number with a SI prefix or unit prefix
     @@codeblock js
-      hx.format.si(1)(10000) // Returns "10K"
+      hx.si(11000) // Returns "11K"
+      hx.si(11000, { sf: 1 }) // Returns "10K"
 
   @arg number [Number]
     @description
@@ -217,9 +228,13 @@
       @description
         The number of significant figures to use.
 
+      @default
+        2
+
     @property strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -239,7 +254,7 @@
   @description
     A function to format a number in E notation form
     @@codeblock js
-      hx.format.exp(2)(111111) // Returns "1.1e5"
+      hx.exp(111111) // Returns "1.1e5"
 
   @arg number [Number]
     @description
@@ -250,9 +265,13 @@
       @description
         The number of significant figures to use.
 
+      @default
+        2
+
     @property strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -272,8 +291,8 @@
   @description
     A function to format a number to a specific number of decimal places.
     @@codeblock js
-      hx.format.fixed(3)(999) // Returns "999.000"
-      hx.format.fixed(3)(12.123123) // Returns "12.123"
+      hx.fixed(999) // Returns "999.00"
+      hx.fixed(12.123123, { digits: 3 }) // Returns "12.123"
 
   @arg number [Number]
     @description
@@ -284,9 +303,13 @@
       @description
         The number of digits to limit the number to.
 
+      @default
+        2
+
     @property strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -305,8 +328,8 @@
   @description
     A function to pad numbers to return a string of zeros followed by the passed in number.
     @@codeblock js
-      hx.format.zeroPad(2)(1)   // returns "01"
-      hx.format.zeroPad(10)(100)  // returns "0000000100"
+      hx.zeroPad(1) // returns "01"
+      hx.zeroPad(100, { length: 10 }) // returns "0000000100"
 
   @arg number [Number]
       @description
@@ -317,9 +340,13 @@
       @description
         The length of the output string
 
+      @default
+        2
+
     @property strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
