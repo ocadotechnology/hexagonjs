@@ -1,7 +1,3 @@
-zeroPad = hx.format.zeroPad(2)
-
-
-
 setupTimepicker = (timepicker) ->
   screenTime = timepicker.getScreenTime().split(':')
 

@@ -1,5 +1,3 @@
-zeroPad = hx.format.zeroPad(2)
-
 class TimeSlider extends hx.Slider
   constructor: (selector, opts = {}) ->
     # no need to register this as a component - hx.Slider does that for us
@@ -27,7 +25,7 @@ class TimeSlider extends hx.Slider
     if moment?
       options.formatter ?= (date) -> moment(date).format('HH:mm')
     else
-      options.formatter ?= (date) -> zeroPad(date.getHours()) + ':' + zeroPad(date.getMinutes())
+      options.formatter ?= (date) -> hx.zeroPad(date.getHours()) + ':' + hx.zeroPad(date.getMinutes())
 
     super(selector, options)
 

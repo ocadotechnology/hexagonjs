@@ -4,7 +4,7 @@ dimension = (axis, options) ->
   state = hx.merge({
     scaleType: 'linear',
     visible: true,
-    formatter: hx.format.si(2)
+    formatter: (num) -> hx.si(num)
     tickRotation: 0
     doCollisionDetection: true
     min: 'auto'
@@ -544,8 +544,8 @@ class Axis
       stackGroups = types.map ([type, series]) ->
         type: type
         group: hx.groupBy series, (s) -> if supportsGroup(s) then s.group() else undefined
-  
-  
+
+
       typeGroupReductor = (type) ->
         ({ ymin, ymax }, [seriesGroup, series]) ->
           { yymin, yymax } = if seriesGroup == undefined
@@ -561,7 +561,7 @@ class Axis
               else
                 extent(data, (d) -> d.y)
             ys = maybeys.filter((d) -> d?)
-  
+
             {
               yymin: hx.min(ys.map((d) -> d[0]))
               yymax: hx.max(ys.map((d) -> d[1]))
@@ -579,7 +579,7 @@ class Axis
             ymin: Math.min(ymin, yymin)
             ymax: Math.max(ymax, yymax)
           }
-  
+
       stackGroupReductor = (prev, { type, group }) ->
         reductor = typeGroupReductor type
         group.reduce reductor, prev

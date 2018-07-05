@@ -14,7 +14,7 @@ class PieChart extends hx.EventEmitter
   defaultSegmentTextFormatter = (segment, segments) ->
     if segment.size / hx.sum(segments.map((s) -> s.size)) > 0.05 then segment.size else ''
 
-  defaultLabelFormatter = hx.format.si(2)
+  defaultLabelFormatter = (num) -> hx.si(num)
 
   constructor: (@selector, options) ->
     super
