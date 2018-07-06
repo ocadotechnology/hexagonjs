@@ -251,6 +251,12 @@
       Added plain functions for formatting numbers that take the number and
       return the formatted number (as opposed to a curried function)
 
+  @bugfix
+    @description
+      Fixed an inconsistency between @code[Number.toExponential()] and when
+      converting @code[0] and updated to display as @code[0e+0] as opposed to
+      @code[0e0]
+
   @description
     A function to format a number in E notation form
     @@codeblock js

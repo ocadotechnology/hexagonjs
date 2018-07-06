@@ -83,3 +83,7 @@
       hx.fixed(1000.5555, { digits: 3 })     // 1000.556
       hx.fixed(1000000.5555, { digits: 3 })  // 1000000.556
       hx.fixed(1200000.5555, { digits: 3 })  // 1200000.556
+
+      hx.zeroPad(1)  // 01
+      hx.zeroPad(12)  // 12
+      hx.zeroPad(1, { length: 10 }) // 0000000001
