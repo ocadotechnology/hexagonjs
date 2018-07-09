@@ -7,7 +7,7 @@ import istanbul from 'rollup-plugin-istanbul'
 
 const includePathOptions = {
   include: {},
-  paths: [__dirname + '/modules', __dirname],
+  paths: [__dirname + '/src', __dirname],
   external: [],
   extensions: ['.js', '.coffee']
 }
@@ -17,11 +17,11 @@ const progressOptions = {
 }
 
 const libraryConfig = {
-  input: 'modules/hexagon.js',
+  input: 'src/hexagon.js',
   output: {
     file: 'target/hexagon.js',
     format: 'iife',
-    name: 'hx',
+    name: 'hx'
   },
   plugins: [
     json(),
@@ -36,7 +36,7 @@ const libraryConfig = {
 }
 
 const testConfig = {
-  input: 'modules/hexagon.spec.js',
+  input: 'src/hexagon.spec.js',
   output: {
     file: 'target/hexagon.test.js',
     format: 'iife',
@@ -59,7 +59,7 @@ const testConfig = {
 }
 
 const testCoverageConfig = {
-  input: 'modules/hexagon.spec.js',
+  input: 'src/hexagon.spec.js',
   output: {
     file: 'target/hexagon.test.coverage.js',
     format: 'iife',
@@ -89,12 +89,11 @@ const testCoverageConfig = {
   }
 }
 
-
 function resolveHexagon () {
   return {
     resolveId: function (code, id) {
       if (code === 'hexagon-js') {
-        return 'modules/hexagon.js'
+        return 'src/hexagon.js'
       }
     }
   }
@@ -105,7 +104,7 @@ const demoConfig = {
   output: {
     file: 'target/index.js',
     format: 'iife',
-    name: 'hx',
+    name: 'hx'
   },
   plugins: [
     json(),
