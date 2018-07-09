@@ -1,3 +1,5 @@
+deprecatedWarning = (fn) => hx.deprecatedWarning(fn, 'is deprecated and will be removed in a later release')
+
 respondToRequest = (request, url, data, callback, options, index) ->
   status = request.status
 
@@ -76,8 +78,7 @@ hx_xhr = (urlType, urls, data, callback, options) ->
       url = urls
     performRequest url, data, callback, options
 
-
-hx.request = -> # url, callback, options || url, data, callback, options
+standardRequest = -> # url, callback, options || url, data, callback, options
   urls = arguments[0]
 
   urlType = switch
@@ -99,6 +100,10 @@ hx.request = -> # url, callback, options || url, data, callback, options
 
   hx_xhr urlType, urls, data or null, callback, options
 
+hx.request = ->
+  deprecatedWarning('hx.request')
+  standardRequest.apply(null, arguments)
+
 
 parsers =
   'application/json': (text) -> if text then JSON.parse text
@@ -106,6 +111,14 @@ parsers =
   'text/plain': (text) -> text
 
 reshapedRequest = (type) ->
+  fn = switch type
+    when 'application/json' then 'hx.json'
+    when 'text/html' then 'hx.html'
+    when 'text/plain' then 'hx.text'
+    when undefined then 'hx.reshapedRequest'
+
+  deprecatedWarning(fn)
+
   (urls, data, callback, options) ->
     [data, callback, options] = [undefined, data, callback] if hx.isFunction data
 
@@ -124,7 +137,7 @@ reshapedRequest = (type) ->
           xhr
 
     options = hx.merge defaults, options
-    hx.request urls, data, callback, options
+    standardRequest urls, data, callback, options
 
 hx.json = reshapedRequest('application/json')
 hx.html = reshapedRequest('text/html')
