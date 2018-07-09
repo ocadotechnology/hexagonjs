@@ -143,13 +143,12 @@ LocalStoragePreferencesStore = {
 
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
-zeroPad = hx.format.zeroPad(2)
 defaultTimezoneLookup = (offset) ->
   modifier = if offset > 0 then '-' else '+'
   absOffset = Math.abs(offset)
   minutes = absOffset % 60
   hours = (absOffset - minutes) / 60
-  "UTC#{modifier}#{zeroPad(hours)}:#{zeroPad(minutes)}"
+  "UTC#{modifier}#{hx.zeroPad(hours)}:#{hx.zeroPad(minutes)}"
 
 class Preferences extends hx.EventEmitter
   constructor: ->

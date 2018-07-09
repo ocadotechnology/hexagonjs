@@ -3,7 +3,6 @@ describe 'dateTimeLocalizerMoment', ->
 
 describe 'dateTimeLocalizer', ->
   localizer = hx.dateTimeLocalizer()
-  zeroPad = hx.format.zeroPad(2)
   timezonesOffsetPattern = /(.)(\d{2}):(\d{2})$/
   testDate = new Date(1452130200000) # Thu Jan 07 2016 01:30:00 GMT+0000 (GMT)
   zeroHourDate = new Date(1452124800000) # Thu Jan 07 2016 00:00:00 GMT+0000 (GMT)
@@ -116,22 +115,22 @@ describe 'dateTimeLocalizer', ->
       localizer.year(2015).should.equal(2015)
 
   it 'date: should localize a date object to return a date string of dd/mm/yyyy', ->
-    expectedDate = zeroPad(testDate.getDate()) + "/" + zeroPad(testDate.getMonth() + 1) + "/" + zeroPad(testDate.getFullYear())
+    expectedDate = hx.zeroPad(testDate.getDate()) + "/" + hx.zeroPad(testDate.getMonth() + 1) + "/" + hx.zeroPad(testDate.getFullYear())
     localizer.date(testDate).should.equal(expectedDate)
 
   it 'date: should localize a date object to return a date string of dd/mm/yyyy in all timezones', ->
     executeFunctionInAllTimeZones ->
       localeDate = new Date(testDate.getTime())
-      expectedDate = zeroPad(localeDate.getDate()) + "/" + zeroPad(localeDate.getMonth() + 1) + "/" + zeroPad(localeDate.getFullYear())
+      expectedDate = hx.zeroPad(localeDate.getDate()) + "/" + hx.zeroPad(localeDate.getMonth() + 1) + "/" + hx.zeroPad(localeDate.getFullYear())
       localizer.date(localeDate).should.equal(expectedDate, getHexagonTimeZoneOffset())
 
   it 'date: should localize a date object to return a date string of yyyy-mm-dd', ->
-    expectedDate = zeroPad(testDate.getFullYear()) + "-" + zeroPad(testDate.getMonth() + 1) + "-" + zeroPad(testDate.getDate())
+    expectedDate = hx.zeroPad(testDate.getFullYear()) + "-" + hx.zeroPad(testDate.getMonth() + 1) + "-" + hx.zeroPad(testDate.getDate())
     localizer.date(testDate, true).should.equal(expectedDate)
 
   it 'date: should localize a date object to return a date string of yyyy-mm-dd in all timezones', ->
     executeFunctionInAllTimeZones ->
-      expectedDate = zeroPad(testDate.getFullYear()) + "-" + zeroPad(testDate.getMonth() + 1) + "-" + zeroPad(testDate.getDate())
+      expectedDate = hx.zeroPad(testDate.getFullYear()) + "-" + hx.zeroPad(testDate.getMonth() + 1) + "-" + hx.zeroPad(testDate.getDate())
       localizer.date(testDate, true).should.equal(expectedDate)
 
   it 'time: should localize a date object to return a time string of hh:mm', ->

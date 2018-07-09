@@ -146,7 +146,7 @@ class Slider extends hx.EventEmitter
       type: 'slider'
       discreteValues: undefined
       renderer: (slider, elem, value) ->
-        hx.select(elem).text(hx.format.fixed(2)(value))
+        hx.select(elem).text(hx.fixed(value))
       min: 0
       max: 1
       step: undefined

@@ -1,6 +1,3 @@
-# Helper functions
-zeroPad = hx.format.zeroPad(2)
-
 # Builds the array of days to display on the calendar in 'm' view
 getCalendarMonth = (year, month, weekStart) ->
   start = (new Date(year, month)).getDay() - weekStart

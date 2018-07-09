@@ -3,6 +3,12 @@
     An object containing a set of functions to create number formatting functions.
 
   @function round
+    @deprecated nextReleaseVersion
+      @issue 457
+      @description
+        The format factories have been deprecated in favour of functions that
+        take a number directly and return the formatted number.
+
     @description
       A function to round a number to a specific number of significant figures.
       @@codeblock js
@@ -14,7 +20,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -29,6 +36,12 @@
           The formatted string
 
   @function si
+    @deprecated nextReleaseVersion
+      @issue 457
+      @description
+        The format factories have been deprecated in favour of functions that
+        take a number directly and return the formatted number.
+
     @description
       A function to format a number with a SI prefix or unit prefix
       @@codeblock js
@@ -40,7 +53,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -55,6 +69,12 @@
           The formatted string
 
   @function exp
+    @deprecated nextReleaseVersion
+      @issue 457
+      @description
+        The format factories have been deprecated in favour of functions that
+        take a number directly and return the formatted number.
+
     @description
       A function to format a number in E notation form
       @@codeblock js
@@ -66,7 +86,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -81,6 +102,12 @@
           The formatted string
 
   @function fixed
+    @deprecated nextReleaseVersion
+      @issue 457
+      @description
+        The format factories have been deprecated in favour of functions that
+        take a number directly and return the formatted number.
+
     @description
       A function to format a number to a specific number of decimal places.
       @@codeblock js
@@ -93,7 +120,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -108,6 +136,12 @@
           The formatted string
 
   @function zeroPad
+    @deprecated nextReleaseVersion
+      @issue 457
+      @description
+        The format factories have been deprecated in favour of functions that
+        take a number directly and return the formatted number.
+
     @description
       A function to pad numbers to return a string of zeros followed by the passed in number.
       @@codeblock js
@@ -120,7 +154,8 @@
 
     @arg? strict [Boolean]
       @description
-        Whether to only allow numbers or allow strings to be passed in (if a string is passed in, it will be returned unmodified if strict is false)
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
 
       @default
         false
@@ -134,3 +169,194 @@
         @description
           The formatted string
 
+@function hx.round
+  @added nextReleaseVersion
+    @issue 457
+    @description
+      Added plain functions for formatting numbers that take the number and
+      return the formatted number (as opposed to a curried function)
+
+  @description
+    A function to round a number to a specific number of significant figures.
+    @@codeblock js
+      hx.round(3.1415926,) // Returns "3.1"
+      hx.round(3.1415926, { sf: 4 }) // Returns "3.142"
+
+  @arg number [Number]
+    @description
+      The number to format.
+
+  @arg? options [Object]
+    @property sf [Number]
+      @description
+        The number of significant figures to use.
+
+      @default
+        2
+
+    @property strict [Boolean]
+      @description
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
+
+      @default
+        false
+
+  @returns String
+    @description
+      The formatted string
+
+@function hx.si
+  @added nextReleaseVersion
+    @issue 457
+    @description
+      Added plain functions for formatting numbers that take the number and
+      return the formatted number (as opposed to a curried function)
+
+  @description
+    A function to format a number with a SI prefix or unit prefix
+    @@codeblock js
+      hx.si(11000) // Returns "11K"
+      hx.si(11000, { sf: 1 }) // Returns "10K"
+
+  @arg number [Number]
+    @description
+      The number to format.
+
+  @arg? options [Object]
+    @property sf [Number]
+      @description
+        The number of significant figures to use.
+
+      @default
+        2
+
+    @property strict [Boolean]
+      @description
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
+
+      @default
+        false
+
+  @returns String
+    @description
+      The formatted string
+
+
+@function hx.exp
+  @added nextReleaseVersion
+    @issue 457
+    @description
+      Added plain functions for formatting numbers that take the number and
+      return the formatted number (as opposed to a curried function)
+
+  @bugfix
+    @description
+      Fixed an inconsistency between @code[Number.toExponential()] and when
+      converting @code[0] and updated to display as @code[0e+0] as opposed to
+      @code[0e0]
+
+  @description
+    A function to format a number in E notation form
+    @@codeblock js
+      hx.exp(111111) // Returns "1.1e5"
+
+  @arg number [Number]
+    @description
+      The number to format.
+
+  @arg? options [Object]
+    @property sf [Number]
+      @description
+        The number of significant figures to use.
+
+      @default
+        2
+
+    @property strict [Boolean]
+      @description
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
+
+      @default
+        false
+
+
+  @returns String
+    @description
+      The formatted string
+
+@function hx.fixed
+  @added nextReleaseVersion
+    @issue 457
+    @description
+      Added plain functions for formatting numbers that take the number and
+      return the formatted number (as opposed to a curried function)
+
+  @description
+    A function to format a number to a specific number of decimal places.
+    @@codeblock js
+      hx.fixed(999) // Returns "999.00"
+      hx.fixed(12.123123, { digits: 3 }) // Returns "12.123"
+
+  @arg number [Number]
+    @description
+      The number to format.
+
+  @arg? options [Object]
+    @property digits [Number]
+      @description
+        The number of digits to limit the number to.
+
+      @default
+        2
+
+    @property strict [Boolean]
+      @description
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
+
+      @default
+        false
+
+  @returns String
+    @description
+      The formatted string
+
+@function hx.zeroPad
+  @added nextReleaseVersion
+    @issue 457
+    @description
+      Added plain functions for formatting numbers that take the number and
+      return the formatted number (as opposed to a curried function)
+
+  @description
+    A function to pad numbers to return a string of zeros followed by the passed in number.
+    @@codeblock js
+      hx.zeroPad(1) // returns "01"
+      hx.zeroPad(100, { length: 10 }) // returns "0000000100"
+
+  @arg number [Number]
+      @description
+        The number to format.
+
+  @arg? options [Object]
+    @property length [Number]
+      @description
+        The length of the output string
+
+      @default
+        2
+
+    @property strict [Boolean]
+      @description
+        Whether to only allow numbers or allow strings to be passed in (if a
+        string is passed in, it will be returned unmodified if strict is false)
+
+      @default
+        false
+
+  @returns String
+    @description
+      The formatted string

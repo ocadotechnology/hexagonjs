@@ -1,6 +1,4 @@
 class DateTimeLocalizer
-  zeroPad = hx.format.zeroPad(2)
-
   # get the display order for the date so dates can be displayed correctly when localised
   dateOrder: -> ['DD','MM','YYYY']
 
@@ -14,11 +12,11 @@ class DateTimeLocalizer
   todayText: -> 'Today'
 
   # localise the day of the month and optionally zero pad (01, 02)
-  day: (day, pad) -> if pad then zeroPad(day) else day
+  day: (day, pad) -> if pad then hx.zeroPad(day) else day
 
   # localise the month in the format of mmm (Jan, Feb etc.) or 01, 02 etc.
   month: (month, short) ->
-    if short then zeroPad(month + 1)
+    if short then hx.zeroPad(month + 1)
     else ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month]
 
   # localise the full year in the format of yyyy
@@ -28,17 +26,17 @@ class DateTimeLocalizer
   date: (date, useInbuilt) ->
     if useInbuilt
       date.getFullYear() + '-' +
-      zeroPad(date.getMonth() + 1 )+ '-' +
-      zeroPad(date.getDate())
+      hx.zeroPad(date.getMonth() + 1 )+ '-' +
+      hx.zeroPad(date.getDate())
     else
-      zeroPad(date.getDate()) + '/' + zeroPad(date.getMonth() + 1) + '/' + date.getFullYear()
+      hx.zeroPad(date.getDate()) + '/' + hx.zeroPad(date.getMonth() + 1) + '/' + date.getFullYear()
 
   # localise a date object to return a time string of hh:mm or hh:mm:ss (or localised format)
   time: (date, showSeconds) ->
     date = hx.preferences.applyTimezoneOffset(date)
-    timeString = date.getHours() + ':' + zeroPad date.getMinutes()
+    timeString = date.getHours() + ':' + hx.zeroPad date.getMinutes()
     if showSeconds
-      timeString += ':' + zeroPad date.getSeconds()
+      timeString += ':' + hx.zeroPad date.getSeconds()
     timeString
 
   # check if a time is a valid time (time as array of [hh, mm, ss])

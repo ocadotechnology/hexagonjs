@@ -442,4 +442,7 @@
 
     @version nextReleaseVersion
       @description
+        Deprecated the @code[hx.format] functions in favour of a more concise
+        set of plain functions for formatting numbers
+
         Deprecated the @code[request] module in favour of using @code[fetch]
