@@ -62,7 +62,7 @@ calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect
 dropdownContentToSetupDropdown = (dropdownContent) ->
   setupDropdown = switch
     when hx.isString dropdownContent
-      (node) -> hx.select(node).html(dropdownContent)
+      (node) -> hx.select(node).node().innerHTML = dropdownContent
     when hx.isFunction dropdownContent
       dropdownContent
     else

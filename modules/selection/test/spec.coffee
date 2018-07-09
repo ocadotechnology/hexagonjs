@@ -2,7 +2,7 @@ describe 'Selection Api', ->
   origConsoleWarning = hx.consoleWarning
 
   beforeEach ->
-    fixture = hx.select('body').append('div').attr('id', 'fixture').html """
+    fixture = hx.select('body').append('div').attr('id', 'fixture').node().innerHTML =  """
       <div class="wrapper">
         <div id="outer-1">
           <span class="first one"></span>
@@ -1054,7 +1054,7 @@ describe 'Selection Api', ->
     selection.class().should.eql(['one two three', 'one two three'])
 
   it 'closest should work', ->
-    hx.select('#fixture').html(
+    hx.select('#fixture').node().innerHTML = (
       """
         <div id="closest-root" class="cr">
           <span id="child" class="ch">
@@ -1066,7 +1066,7 @@ describe 'Selection Api', ->
     hx.select('#grandchild').closest('span').class().should.equal('ch')
 
   it 'closest should work for grandparents', ->
-    hx.select('#fixture').html(
+    hx.select('#fixture').node().innerHTML = (
       """
         <div id="closest-root" class="cr">
           <span id="child" class="ch">
@@ -1078,7 +1078,7 @@ describe 'Selection Api', ->
     hx.select('#grandchild').closest('div').class().should.equal('cr')
 
   it 'closest should return an empty selection when there is no match', ->
-    hx.select('#fixture').html(
+    hx.select('#fixture').node().innerHTML = (
       """
         <div id="closest-root" class="cr">
           <span id="child" class="ch">
@@ -1101,7 +1101,7 @@ describe 'Selection Api', ->
     hx.select('#fixture').closest('potato').empty().should.equal(true)
 
   it 'closest should find by class', ->
-    hx.select('#fixture').html(
+    hx.select('#fixture').node().innerHTML = (
       """
         <div id="closest-root" class="cr">
           <span id="child" class="ch">
@@ -1113,7 +1113,7 @@ describe 'Selection Api', ->
     hx.select('#grandchild').closest('.cr').attr('id').should.equal('closest-root')
 
   it 'closest should find by id', ->
-    hx.select('#fixture').html(
+    hx.select('#fixture').node().innerHTML = (
       """
         <div id="closest-root" class="cr">
           <span id="child" class="ch">
@@ -1125,7 +1125,7 @@ describe 'Selection Api', ->
     hx.select('#grandchild').closest('#closest-root').class().should.equal('cr')
 
   it 'closest should not find a child by mistake', ->
-    hx.select('#fixture').html(
+    hx.select('#fixture').node().innerHTML = (
       """
         <div id="closest-root" class="cr">
           <span id="child" class="ch">

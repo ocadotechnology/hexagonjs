@@ -446,3 +446,6 @@
         set of plain functions for formatting numbers
 
         Deprecated the @code[request] module in favour of using @code[fetch]
+
+        Deprecated the @code[Selection::html] setter/getter method to prevent
+        XSS vulnerabilities.

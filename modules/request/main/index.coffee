@@ -107,7 +107,7 @@ hx.request = ->
 
 parsers =
   'application/json': (text) -> if text then JSON.parse text
-  'text/html': (text) -> hx.parseHTML text
+  'text/html': (text) -> hx.parseHTML.call(hx.request, text)
   'text/plain': (text) -> text
 
 reshapedRequest = (type) ->

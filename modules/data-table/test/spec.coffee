@@ -2788,7 +2788,7 @@ describe 'data-table', ->
       hx.dataTable().should.be.an.instanceof(hx.Selection)
 
     it 'should not render if a feed is not defined', ->
-      hx.dataTable().select('.hx-data-table-content').html().should.equal('')
+      hx.dataTable().select('.hx-data-table-content').node().innerHTML.should.equal('')
 
     it 'should render if a feed is defined', ->
       hx.dataTable({feed: hx.dataTable.objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)

@@ -364,6 +364,7 @@ class Selection
 
   # gets or sets the inner html of the nodes in the selection
   html: (html) ->
+    hx.deprecatedWarning('Selection::html', 'N/A')
     if arguments.length == 1
       for node in @nodes
         node.innerHTML = if html? then html else ''

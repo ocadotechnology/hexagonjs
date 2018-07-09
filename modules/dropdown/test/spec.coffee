@@ -189,7 +189,7 @@ describe 'hx-dropdown', ->
 
     dd._.visible.should.equal(true)
     hx.select('.hx-dropdown').empty().should.equal(false)
-    hx.select('.hx-dropdown').html().should.equal(content)
+    hx.select('.hx-dropdown').node().innerHTML.should.equal(content)
 
   it 'should not do anything if show is called and the dropdown is already open', ->
     dd = new hx.Dropdown(id, content)
@@ -199,12 +199,12 @@ describe 'hx-dropdown', ->
     dd.show()
     dd._.visible.should.equal(true)
     hx.select('.hx-dropdown').empty().should.equal(false)
-    hx.select('.hx-dropdown').html().should.equal(content)
+    hx.select('.hx-dropdown').node().innerHTML.should.equal(content)
 
     dd.show()
     dd._.visible.should.equal(true)
     hx.select('.hx-dropdown').empty().should.equal(false)
-    hx.select('.hx-dropdown').html().should.equal(content)
+    hx.select('.hx-dropdown').node().innerHTML.should.equal(content)
 
   it 'should not do anything if hide is called and the dropdown is already closed', ->
     dd = new hx.Dropdown(id, content)

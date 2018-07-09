@@ -29,7 +29,7 @@ class Sidebar extends hx.EventEmitter
     btn = hx.select(options.headerSelector).prepend('button')
       .attr('type', 'button')
       .class('hx-titlebar-sidebar-button')
-      .html('<i class="hx-icon hx-icon-bars"></i>')
+      .add(hx.detached('i').class('hx-icon hx-icon-bars'))
     btn.on 'click', 'hx.sidebar', => @toggle()
 
   toggle: ->

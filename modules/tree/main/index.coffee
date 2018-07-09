@@ -123,7 +123,7 @@ class Tree
     @options = hx.merge.defined {
       hideDisabledButtons: false
       animate: true
-      renderer: (elem, data) -> hx.select(elem).html(data.name || data)
+      renderer: (elem, data) -> hx.select(elem).node().innerHTML = data.name || data
       items: []
       lazy: false
     }, options
