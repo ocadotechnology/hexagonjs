@@ -8,6 +8,7 @@ import { initMorphs } from 'morphs'
 import { initTitleBar } from 'titlebar'
 import { initResizeEvents } from 'resize-events'
 import { initFastClick } from 'fast-click'
+import logger from 'logger'
 
 // Include the version
 export { version } from '../package.json'
@@ -185,3 +186,11 @@ initView()          // XXX: remove view and replace with reactive lists and reac
 initMorphs()        // XXX: remove
 
 initTitleBar()
+
+const doctypeIsValid = document.doctype &&
+  document.doctype.name === 'html' &&
+  !(document.doctype.publicId || document.doctype.systemId)
+
+if (!doctypeIsValid) {
+  logger.warn('Missing <!DOCTYPE html> tag - you may have CSS problems without this tag. To fix this add <!DOCTYPE html> to the top of your html file. Detected doctype:', document.doctype)
+}
