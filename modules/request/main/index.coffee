@@ -1,4 +1,4 @@
-deprecatedWarning = (fn) => hx.deprecatedWarning(fn, 'is deprecated and will be removed in a later release')
+deprecatedWarning = (fn) => hx.deprecatedWarning(fn, 'fetch (native browser function) - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API')
 
 respondToRequest = (request, url, data, callback, options, index) ->
   status = request.status
