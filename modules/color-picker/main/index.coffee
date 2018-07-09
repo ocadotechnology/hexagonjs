@@ -48,6 +48,11 @@ class ColorPicker extends hx.EventEmitter
   constructor: (selector, options) ->
     super
 
+    hx.deprecatedWarning(
+      'hx.ColorPicker',
+      'N/A - Please use a third party colour picker'
+    )
+
     @options = hx.merge.defined {
       startColor: '#000'
       showInputs: 0
