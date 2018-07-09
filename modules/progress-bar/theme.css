@@ -1,0 +1,40 @@
+.hx-progress-bar {
+  border-color: var(--progress-bar-border-color);
+  border-width: var(--progress-bar-border-width);
+  background-color: var(--progress-bar-background-color);
+}
+
+.hx-progress-bar-inner {
+  background-color: var(--progress-bar-default-color);
+}
+
+.hx-action .hx-progress-bar-inner {
+  background: var(--progress-bar-action-color);
+}
+
+.hx-positive .hx-progress-bar-inner {
+  background: var(--progress-bar-positive-color);
+}
+
+.hx-warning .hx-progress-bar-inner {
+  background: var(--progress-bar-warning-color);
+}
+
+.hx-negative .hx-progress-bar-inner {
+  background: var(--progress-bar-negative-color);
+}
+
+.hx-info .hx-progress-bar-inner {
+  background: var(--progress-bar-info-color);
+}
+
+.hx-complement .hx-progress-bar-inner {
+  background: var(--progress-bar-complement-color);
+}
+
+.hx-contrast .hx-progress-bar-inner {
+  background: var(--progress-bar-contrast-color);
+}
+
+
+

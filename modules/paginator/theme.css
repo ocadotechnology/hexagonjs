@@ -1,0 +1,14 @@
+.hx-paginator-selected {
+  background: var(--paginator-selected-background-color);
+  color: var(--paginator-selected-text-color);
+}
+
+.hx-paginator-selected {
+  background: var(--paginator-selected-background-color);
+  color: var(--paginator-selected-text-color);
+}
+
+.hx-paginator button:hover {
+  background: var(--paginator-hover-background-color);
+  color: var(--paginator-hover-text-color);
+}

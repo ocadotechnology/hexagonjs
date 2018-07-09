@@ -1,0 +1,50 @@
+@version 0.9.9
+  @example
+    @@html
+      <button class="hx-btn" id="basicPickerButton">Button</button>
+    @@js
+      var pickerBasic = new hx.ColorPicker("#basicPickerButton")
+
+  @example
+    @@html
+      <button class="hx-btn" id="colorPickerButton">Button</button>
+    @@js
+      var pickerColor = new hx.ColorPicker("#colorPickerButton","#C40030")
+
+  @example
+    @@html
+      <button class="hx-btn" id="inputPickerButton">Button</button>
+    @@js
+      var pickerBasic = new hx.ColorPicker("#inputPickerButton",null,1)
+
+  @example
+    @@html
+      <button class="hx-btn" id="eventsPickerButton">Button</button>
+      <input id="eventsInputL"/>
+      <input id="eventsInputR" />
+    @@js
+      // Update an input box to set the background and text color and display the hex color value in the box.
+      var updateBox = function(box, col){
+        var elem = hx.select(box)
+        elem.value(col.toString().toUpperCase());
+        elem.style("background", col.toString());
+        elem.style("color", col.getTextCol());
+      }
+
+      var pickerEvents = new hx.ColorPicker("#eventsPickerButton",null,1)
+
+      // Set the initial values of the inputs
+      updateBox("#eventsInputL", pickerEvents.currentColor);
+      updateBox("#eventsInputR", pickerEvents.currentColor);
+
+      // Add listener for when the currentColor changes.
+      pickerEvents.on("change", function(col){
+        updateBox("#eventsInputL", col);
+      });
+
+      // Add listener for when the color has stopped changing (the user has stopped dragging the controls)
+      pickerEvents.on("changeend", function(col){
+        updateBox("#eventsInputR", col);
+      });
+
+

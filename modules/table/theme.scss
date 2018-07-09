@@ -1,0 +1,28 @@
+.hx-table {
+  tr, td, th {
+    border-color: $border-col;
+  }
+
+  th {
+    background: $header-background-col;
+    color: $header-text-col;
+  }
+
+  tbody {
+    tr {
+      background: $row-background-col;
+      color: $row-text-col;
+
+      &:nth-child(2n) {
+        background: $row-alt-background-col;
+        color: $row-alt-text-col;
+      }
+    }
+  }
+
+  &:not(.hx-table-no-hover) {
+    tbody tr:hover {
+      background: $row-hover-background-col;
+    }
+  }
+}

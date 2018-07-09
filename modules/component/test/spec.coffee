@@ -1,1 +1,0 @@
-describe 'hx-component', ->

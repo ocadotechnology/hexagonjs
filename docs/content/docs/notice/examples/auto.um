@@ -1,0 +1,157 @@
+@version 0.14.1
+  @examples
+    @example
+      @@html
+        <div class="hx-notice">
+          <div class="hx-notice-header">Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-positive">
+          <div class="hx-notice-header">Positive Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-warning">
+          <div class="hx-notice-header">Warning Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-negative">
+          <div class="hx-notice-header">Negative Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-info">
+          <div class="hx-notice-header">Info Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-compliment">
+          <div class="hx-notice-header">Compliment Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-contrast">
+          <div class="hx-notice-header">Contrast Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice">
+          <span class="hx-notice-header hx-group hx-horizontal hx-no-margin">
+            <div class="hx-section hx-no-margin">Notice with icon</div>
+            <div>
+              <i class="fa fa-rocket"></i>
+            </div>
+          </span>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+@version 1.0.0
+  @examples
+    @example
+      @@html
+        <div class="hx-notice">
+          <div class="hx-notice-header">Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-positive">
+          <div class="hx-notice-header">Positive Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-action">
+          <div class="hx-notice-header">Action Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-warning">
+          <div class="hx-notice-header">Warning Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-negative">
+          <div class="hx-notice-header">Negative Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-info">
+          <div class="hx-notice-header">Info Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-compliment">
+          <div class="hx-notice-header">Compliment Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-contrast">
+          <div class="hx-notice-header">Contrast Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice">
+          <span class="hx-notice-header hx-group hx-horizontal hx-no-margin">
+            <div class="hx-section hx-no-margin">Notice with icon</div>
+            <div>
+              <i class="fa fa-rocket"></i>
+            </div>
+          </span>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+@version 1.4.1
+  @examples
+    @example
+      @@html
+        <div class="hx-notice">
+          <div class="hx-notice-head">Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-positive">
+          <div class="hx-notice-head">Positive Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-action">
+          <div class="hx-notice-head">Action Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-warning">
+          <div class="hx-notice-head">Warning Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-negative">
+          <div class="hx-notice-head">Negative Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-info">
+          <div class="hx-notice-head">Info Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-compliment">
+          <div class="hx-notice-head">Compliment Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice hx-contrast">
+          <div class="hx-notice-head">Contrast Notice</div>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+
+        <div class="hx-notice">
+          <span class="hx-notice-head hx-group hx-horizontal hx-no-margin">
+            <div class="hx-section hx-no-margin">Notice with icon</div>
+            <div>
+              <i class="fa fa-rocket"></i>
+            </div>
+          </span>
+          <div class="hx-notice-body">Body Content</div>
+        </div>
+

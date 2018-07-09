@@ -1,0 +1,91 @@
+.hx-notice {
+  box-shadow: 1px 1px 1px 1px var(--notice-shadow-color);
+}
+
+/* default */
+.hx-notice-head {
+  background: var(--notice-default-head-background-color);
+  color: var(--notice-default-head-text-color);
+}
+
+.hx-notice-body {
+  background: var(--notice-default-body-background-color);
+  color: var(--notice-default-body-text-color);
+}
+
+/* action */
+.hx-action > .hx-notice-head {
+  background: var(--notice-action-head-background-color);
+  color: var(--notice-action-head-text-color);
+}
+
+.hx-action > .hx-notice-body {
+  background: var(--notice-action-body-background-color);
+  color: var(--notice-action-body-text-color);
+}
+
+/* positive */
+.hx-positive > .hx-notice-head {
+  background: var(--notice-positive-head-background-color);
+  color: var(--notice-positive-head-text-color);
+}
+
+.hx-positive > .hx-notice-body {
+  background: var(--notice-positive-body-background-color);
+  color: var(--notice-positive-body-text-color);
+}
+
+/* warning */
+.hx-warning > .hx-notice-head {
+  background: var(--notice-warning-head-background-color);
+  color: var(--notice-warning-head-text-color);
+}
+
+.hx-warning > .hx-notice-body {
+  background: var(--notice-warning-body-background-color);
+  color: var(--notice-warning-body-text-color);
+}
+
+/* negative */
+.hx-negative > .hx-notice-head {
+  background: var(--notice-negative-head-background-color);
+  color: var(--notice-negative-head-text-color);
+}
+
+.hx-negative > .hx-notice-body {
+  background: var(--notice-negative-body-background-color);
+  color: var(--notice-negative-body-text-color);
+}
+
+/* info */
+.hx-info > .hx-notice-head {
+  background: var(--notice-info-head-background-color);
+  color: var(--notice-info-head-text-color);
+}
+
+.hx-info > .hx-notice-body {
+  background: var(--notice-info-body-background-color);
+  color: var(--notice-info-body-text-color);
+}
+
+/* complement */
+.hx-complement > .hx-notice-head {
+  background: var(--notice-complement-head-background-color);
+  color: var(--notice-complement-head-text-color);
+}
+
+.hx-complement > .hx-notice-body {
+  background: var(--notice-complement-body-background-color);
+  color: var(--notice-complement-body-text-color);
+}
+
+/* contrast */
+.hx-contrast > .hx-notice-head {
+  background: var(--notice-contrast-head-background-color);
+  color: var(--notice-contrast-head-text-color);
+}
+
+.hx-contrast > .hx-notice-body {
+  background: var(--notice-contrast-body-background-color);
+  color: var(--notice-contrast-body-text-color);
+}

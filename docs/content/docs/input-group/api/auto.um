@@ -1,0 +1,16 @@
+@updated 1.13.0
+  @description
+    Updated the styles to prevent 'double borders'
+
+@class hx-input-group
+  @updated 0.10.0
+    @description
+      Improved styles and added the ability to use 'a' elements in an input group.
+
+  @description
+    Give to a @code[<div>] elemtent. It's child elements will be grouped together with no spacing between them. This gives a visual cue that inputs and buttons are related.
+
+  @extraClass hx-input-group-full-width
+    @description
+      Makes the input group span the entire width of its container.
+

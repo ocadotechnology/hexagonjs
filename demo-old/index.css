@@ -1,0 +1,91 @@
+#container {
+  justify-content: center;
+  min-width: 320px;
+}
+
+.exampleSectionNoBg,
+.exampleSection {
+  width: 46%;
+  min-width: 320px;
+  border: 1px solid transparent;
+  display: flex;
+  padding: 1em;
+}
+
+.exampleSectionWide {
+  width: 100%;
+}
+
+.example {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.example.hx-notice-body {
+  margin: -1em;
+  padding: 1em !important;
+}
+
+.example h3 {
+  margin-top: 0;
+}
+
+/* palette */
+.palette {
+  padding: 0.5em;
+  text-align: center;
+}
+
+.palette-border {
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+/* plot */
+.graph-example {
+  height: 300px;
+}
+
+/* notify */
+#notifyExample {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid grey;
+}
+
+/* meter */
+.meter-example {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+}
+
+/* side-collapsible */
+.example-container {
+  position: relative;
+  height: 300px;
+}
+
+.example-left {
+  width: 500px;
+  height: 300px;
+  left: 0;
+  position: absolute;
+}
+
+.example-right {
+  width: 500px;
+  height: 300px;
+  right: 0;
+  position: absolute;
+}
+
+/* sidebar */
+.sidebar-example {
+  position: relative;
+  height: 300px;
+}
+
+.sidebar-example .hx-sidebar {
+  position: absolute;
+}

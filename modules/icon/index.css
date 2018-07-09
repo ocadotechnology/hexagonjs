@@ -1,0 +1,146 @@
+@font-face {
+  font-family: 'hexagon-icons';
+  src: url("assets/hexagon-icons.eot");
+  src: url("assets/hexagon-icons.ttf") format("truetype"),
+       url("assets/hexagon-icons.woff") format("woff"),
+       url("assets/hexagon-icons.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+i.hx-icon {
+  display: inline-block;
+  font: normal normal normal 14px/1 'hexagon-icons';
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+
+@keyframes hx-icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+.hx-icon-spin {
+  animation: hx-icon-spin 2s infinite linear;
+}
+
+/* Replace this stuff with icomoon generated icons */
+.hx-icon-upload:before {
+  content: "\f093";
+}
+
+.hx-icon-toggle-off:before {
+  content: "\f204";
+}
+
+.hx-icon-toggle-on:before {
+  content: "\f205";
+}
+
+.hx-icon-search:before {
+  content: "\f002";
+}
+
+.hx-icon-check:before {
+  content: "\f00c";
+}
+
+.hx-icon-close:before {
+  content: "\f00d";
+}
+
+.hx-icon-clock-o:before {
+  content: "\f017";
+}
+
+.hx-icon-arrows:before {
+  content: "\f047";
+}
+
+.hx-icon-step-backward:before {
+  content: "\f048";
+}
+
+.hx-icon-step-forward:before {
+  content: "\f051";
+}
+
+.hx-icon-chevron-left:before {
+  content: "\f053";
+}
+
+.hx-icon-chevron-right:before {
+  content: "\f054";
+}
+
+.hx-icon-plus:before {
+  content: "\f067";
+}
+
+.hx-icon-minus:before {
+  content: "\f068";
+}
+
+.hx-icon-error:before {
+  content: "\f06a";
+}
+
+.hx-icon-warning:before {
+  content: "\f071";
+}
+
+.hx-icon-calendar:before {
+  content: "\f073";
+}
+
+.hx-icon-chevron-up:before {
+  content: "\f077";
+}
+
+.hx-icon-chevron-down:before {
+  content: "\f078";
+}
+
+.hx-icon-thumb-tack:before {
+  content: "\f08d";
+}
+
+.hx-icon-bars:before {
+  content: "\f0c9";
+}
+
+.hx-icon-caret-down:before {
+  content: "\f0d7";
+}
+
+.hx-icon-sort:before {
+  content: "\f0dc";
+}
+
+.hx-icon-sort-desc:before {
+  content: "\f0dd";
+}
+
+.hx-icon-sort-asc:before {
+  content: "\f0de";
+}
+
+.hx-icon-angle-double-right:before {
+  content: "\f101";
+}
+
+.hx-icon-spinner:before {
+  content: "\f110";
+}
+
+.hx-icon-info:before {
+  content: "\f129";
+}

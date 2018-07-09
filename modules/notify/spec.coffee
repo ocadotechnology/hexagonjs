@@ -1,0 +1,2 @@
+export default () ->
+  xdescribe 'notify', () ->

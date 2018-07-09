@@ -1,0 +1,78 @@
+@inline /templates/sidebar-page.um
+
+@titlebar
+
+@topSection
+  @title Getting Started
+  @description
+    How to set up a basic page with hexagon
+
+@contentSection
+  @topic Installing and Building Hexagon
+    The first step to using hexagon is to install it and build it somewhere.
+
+    A basic install script for a site serving the @code[public] directory would
+    be something like:
+
+    @@codeblock js
+      const hexagon = require('hexagon-js')
+
+      hexagon.light.build({
+        dest: 'public/resources/hexagon'
+      })
+
+    This would build hexagon into @code[public/resources/hexagon]
+
+    See the @hyperlink(/guide/installation)[Installation] page for more
+    information about building hexagon.
+
+  @topic HTML Base template
+    Below is an example start page with a @hyperlink(/docs/titlebar)[Titlebar]
+    and the example from the @hyperlink(/docs/card)[Card] module.
+
+    For the sake of this demo, hexagon has been built into
+    @code[public/resources/hexagon/latest]
+
+    The HTML5 @code[<!DOCTYPE html>] is important here as without it browsers
+    can fall back to 'compatibility mode' which can break some Hexagon
+    functionality.
+
+    @codeblock html
+      @inline start.html
+
+    @section Live Demo
+      @@css
+        .iframe-example {
+          overflow: hidden;
+          width: 100%;
+          height: 450px;
+        }
+
+        .iframe-example iframe {
+          overflow: scroll;
+          border: none;
+          width: 1366px;
+          max-width: 182%;
+          height: 768px;
+          background: transparent;
+          transform: scale(0.55);
+          transform-origin: 0 0;
+        }
+
+      @div .iframe-example
+        @@html
+          <iframe
+            title="Hexagon start page demo"
+            src="start.html"
+            scrolling="yes"
+            seamless="seamless"
+          >
+            Your browser doesn't support iFrames - You can still view this example
+            in a new window
+          </iframe>
+
+        @a .hx-btn.hx-action
+          @attr href: start.html
+          @attr rel: noopener
+          @attr target: _blank
+          View demo in new window

@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Layout
+  @description
+    A set of classes that provide an easy way for your page to adapt to different screen sizes. The layout classes provide an alternative take on the standard grid system found in many frameworks. The classes provided make use of the flexbox display model, which provide some advantages over standard fixed size grid layouts.
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/layout/changelog)[Change Log]
+
+    @inline api.um

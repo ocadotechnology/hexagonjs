@@ -1,0 +1,41 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Dashboard
+  @description
+    @versioned
+      @version 0.9.0
+        Styles for creating dashboard layouts.
+      @version 0.15.2
+        @notice [The dashboard module is deprecated in this version]
+          The @code[Drag Container] module can be used as a replacement for the
+          drag/drop functionality.
+
+          The @code[Card] module can be used as a replacement for the styles
+
+        Styles for creating dashboard layouts.
+      @version 1.0.0
+        @notice [This module was removed in version 1.0.0]
+          The @code[Drag Container] module can be used as a replacement for the
+          drag/drop functionality.
+
+          The @code[Card] module can be used as a replacement for the styles
+
+
+@contentSection
+  @versioned
+    @version 0.9.0
+      @topic Examples
+        @examples
+          @versioned
+            @inline examples/*.um
+
+      @topic Api
+        @hyperlink(/docs/dashboard/changelog)[Change Log]
+
+        @inline api.um
+
+    @version 1.0.0
+

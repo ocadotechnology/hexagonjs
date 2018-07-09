@@ -1,0 +1,6 @@
+@arg? visible [Boolean]
+  @description
+    Whether or not the collapsible should start expanded. The default is
+    false - collapsed.
+
+  @default: false

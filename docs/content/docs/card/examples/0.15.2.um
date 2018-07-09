@@ -1,0 +1,40 @@
+@version 0.15.2
+  @example
+    @@html
+      <div class="cardExample hx-group hx-horizontal">
+        <div class="hx-card hx-section">
+          <div class="hx-card-section hx-card-header">
+            <span class="hx-header">Card Header</span>
+          </div>
+          <div class="hx-card-section">
+            <div class="hx-card-text">Card Content</div>
+          </div>
+        </div>
+        <div class="hx-card hx-section">
+          <div class="hx-card-section hx-card-header hx-card-small">
+            <span class="hx-header">Card Header</span>
+          </div>
+          <div class="hx-card-section">
+            <div class="hx-card-text">Card Content</div>
+          </div>
+        </div>
+        <div class="hx-card hx-section">
+          <div class="hx-card-header hx-card-group">
+            <div class="hx-card-section">
+              <span class="hx-header">Card Header Section</span>
+            </div>
+            <div class="hx-card-section">
+              <span class="hx-header">Card Header Section</span>
+            </div>
+          </div>
+          <div class="hx-card-section">
+            <div class="hx-card-text">Card Content</div>
+          </div>
+        </div>
+      </div>
+
+    @@css
+      .cardExample {
+        /* Make the cards only take up as much height as they need */
+        align-items: flex-start;
+      }

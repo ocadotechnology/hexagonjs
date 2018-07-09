@@ -1,0 +1,226 @@
+@prototype hx.Paginator
+  @updated 0.11.0
+    @description
+      Added resize listener to make paginators re-render when the container is resized.
+
+  @updated 0.11.0
+    @description
+      Updated the paginator so that it detects the size of its container and changes the number of visible buttons accordingly. Also changed it so that the button widths resize depending on their character length to prevent paginators wrapping onto multiple lines.
+
+  @description
+    Component for selecting a page from a range.
+
+  @extends EventEmitter
+  @constructor
+    @removed 1.0.0
+      @description
+        Use @code[hx.Paginator(selector, options)]
+
+    @description
+      Sets up a paginator.
+
+    @arg selection [String/HTMLElement]
+      @description
+        A CSS selector or a HTMLElement that identifies the container for your paginator.
+
+  @method setPage
+    @deprecated 0.11.0
+      @description
+        Use @code[page(index)] instead.
+
+    @removed 0.12.0
+    @description
+      Sets the currently selected page. Uses 1 based indexing.
+
+    @arg index [Number]
+      @description
+        The page index to set. This index is 1 based.
+
+    @returns [Paginator]
+      @description
+        this paginator
+
+  @method getPage
+    @deprecated 0.11.0
+      @description
+        Use @code[page()] instead.
+
+    @removed 0.12.0
+    @description
+      Gets the currently selected page index.
+
+    @returns [Number]
+      @description
+        The 1-based index of the currently selected page.
+
+  @method setPageCount
+    @deprecated 0.13.0
+      @description
+        Use @code[pageCount(value)] instead
+
+    @removed 0.14.0
+      @description
+        Use @code[pageCount(value)] instead
+
+    @description
+      Sets the total number of pages in the paginator.
+
+    @arg count [Number]
+      @description
+        The number of pages to give the paginator.
+
+    @returns [Paginator]
+      @description
+        this paginator
+
+  @method setVisibleCount
+    @deprecated 0.13.0
+      @description
+        Use @code[visibleCount(value)] instead
+
+    @removed 0.14.0
+      @description
+        Use @code[visibleCount(value)] instead
+
+    @description
+      Sets the number of pages that are shown at once.
+
+    @arg count [Number]
+      @description
+        The number of pages visible in the paginator.
+
+      @default
+        10
+
+    @returns [Paginator]
+      @description
+        this paginator
+
+  @method page
+    @added 0.11.0
+    @description
+      Sets the currently selected page. Uses 1 based indexing.
+
+    @arg index [Number]
+      @description
+        The page index to set. This index is 1 based.
+
+    @returns [Paginator]
+      @description
+        this paginator
+
+  @method page
+    @added 0.11.0
+    @description
+      Gets the currently selected page index.
+
+    @returns [Number]
+      @description
+        The 1-based index of the currently selected page.
+
+  @method pageCount
+    @added 0.13.0
+    @description
+      Sets the total number of pages in the paginator.
+
+    @arg count [Number]
+      @description
+        The number of pages to give the paginator.
+
+    @returns [Paginator]
+      @description
+        this paginator
+
+  @method visibleCount
+    @added 0.13.0
+    @description
+      Sets the number of pages that are shown at once.
+
+    @arg count [Number]
+      @description
+        The number of pages visible in the paginator.
+
+      @default
+        10
+
+    @returns [Paginator]
+      @description
+        this paginator
+
+  @method pageCount
+    @added 0.13.0
+    @description
+      Gets the total number of pages in the paginator.
+
+    @returns [Number]
+      @description
+        The current page count for the paginator
+
+  @method visibleCount
+    @added 0.13.0
+    @description
+      Gets the number of pages that are shown at once.
+
+    @returns [Number]
+      @description
+        The current visible count for the paginator
+
+  @constructor
+    @added 1.0.0
+    @description
+      Sets up a paginator.
+
+    @arg selector [String/HTMLElement]
+      @description
+        A CSS selector or a HTMLElement that identifies the container for your paginator.
+
+    @arg? options [Object]
+      @property page [Number]
+        @description
+          The page index to set. This index is 1 based.
+
+        @default
+          1
+
+      @property visibleCount [Number]
+        @description
+          The number of pages visible in the paginator.
+
+        @default
+          10
+
+      @property pageCount [Number]
+        @description
+          The number of pages to give the paginator.
+
+        @default
+          10
+
+  @event change [Object]
+    @description
+      Emitted when the selected page is changed.
+
+    @property cause [String]
+      @description
+        Will be either 'user' or 'api'. 'user' means that the user clicked on the paginator to cause the page to change, 'api' means that one of the methods on the paginator (such as setPage) was called to cause the change.
+
+    @property selected [Number]
+      @description
+        The selected page (1 based index).
+
+@function hx.paginator
+  @added 1.0.0
+    @description
+      Fluid api version of Paginator
+
+  @description
+    Creates a new Paginator set up on a detached element, wrapped in a selection
+
+  @arg? options [Object]
+    @description
+      See the options object for constructing Paginator
+
+  @returns [Selection]
+    @description
+      A selection containing an element with an Paginator initialised on it
+

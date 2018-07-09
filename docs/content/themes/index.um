@@ -1,0 +1,13 @@
+@inline /templates/sidebar-page.um
+
+@topSection
+  @title Themes
+  @description
+    A demo of each of the themes available within hexagon
+  @source [{{editPageUrl}}]: Edit Page
+
+@contentSection
+  @topic Themes
+    @list
+      @item: @hyperlink(/themes/light/)[Light Theme]
+      @item: @hyperlink(/themes/dark/)[Dark Theme]

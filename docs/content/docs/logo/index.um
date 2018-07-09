@@ -1,0 +1,26 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Logo
+  @description
+    A module that enables the use of the theme logo in whatever location is required.
+
+# Convert `.div.hx-logo` to `div.hx-logo`
+@@css
+  [id="div.hx-logo"]::before,
+  [id="img.hx-logo"]::before {
+    content: '' !important;
+  }
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/logo/changelog)[Change Log]
+
+    @inline api.um

@@ -1,0 +1,21 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Color Scale
+  @description
+    A function for mapping from a number domain to a color range. The range is
+    specified as a list of points, and linear interpolation is used to
+    calculate colors in the range.
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/color-scale/changelog)[Change Log]
+
+    @inline api.um

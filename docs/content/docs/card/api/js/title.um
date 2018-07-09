@@ -1,0 +1,73 @@
+@function [hx.card.[small | large].title]
+  @updated 1.4.0
+    @issue 245
+    @description
+      Changed the function to create a span rather than a div
+
+  @description
+    Creates an element for entering title.
+
+  @extra
+    @example
+      @@html
+        <div id="title-example"></div>
+
+      @@js
+        hx.select('#title-example')
+          .add(hx.card()
+            .add(hx.card.section()
+              .add(hx.card.title({ text: 'Normal title' })))
+            .add(hx.card.section()
+              .add(hx.card.small.title({ text: 'Small title' })))
+            .add(hx.card.section()
+              .add(hx.card.large.title({ text: 'Large title' })))
+            .add(hx.card.section()
+              .add(hx.card.title({ text: 'Positive title', context: 'positive' }))))
+
+  @arg? options [Object]
+    @property text [String]
+      @description
+        The title to add
+
+    @property context [String]
+      @description
+        The context to set (can be one of the standard hexagon contexts -
+        'positive', 'negative', 'warning', 'info', 'action', etc)
+
+
+  @returns Selection
+    @description
+      Returns a selection containing the detached element
+
+
+  @group Component
+    @object api
+      @description
+        This api can be obtained like this
+
+        @@codeblock js
+          var title = hx.card.title()
+          var api = title.component()
+
+      @inline Component/context.um
+
+      @property title [Function]
+        @description
+          Gets the title of the title component
+
+        @returns String
+          @description
+            The title of the title component
+
+      @property title [Function]
+        @description
+          Sets the title of the title component
+
+        @arg title [String]
+          @description
+            The title to set
+
+        @returns Object
+          @description
+            Returns this api object.
+

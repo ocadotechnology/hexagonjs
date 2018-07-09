@@ -1,0 +1,7 @@
+@extraClass hx-action
+  @added 1.0.0
+    @description
+      Added new action context class and updated default styles.
+
+  @description
+    Adds button styling indicative of a primary action

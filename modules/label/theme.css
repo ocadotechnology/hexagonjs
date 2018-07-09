@@ -1,0 +1,39 @@
+.hx-label {
+  background: var(--label-default-background-color);
+  color: var(--label-default-text-color);
+}
+
+.hx-label.hx-action {
+  background: var(--label-action-background-color);
+  color: var(--label-action-text-color);
+}
+
+.hx-label.hx-positive {
+  background: var(--label-positive-background-color);
+  color: var(--label-positive-text-color);
+}
+
+.hx-label.hx-warning {
+  background: var(--label-warning-background-color);
+  color: var(--label-warning-text-color);
+}
+
+.hx-label.hx-negative {
+  background: var(--label-negative-background-color);
+  color: var(--label-negative-text-color);
+}
+
+.hx-label.hx-info {
+  background: var(--label-info-background-color);
+  color: var(--label-info-text-color);
+}
+
+.hx-label.hx-complement {
+  background: var(--label-complement-background-color);
+  color: var(--label-complement-text-color);
+}
+
+.hx-label.hx-contrast {
+  background: var(--label-contrast-background-color);
+  color: var(--label-contrast-text-color);
+}

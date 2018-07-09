@@ -1,0 +1,29 @@
+.hx-tree-node-parent,
+.hx-tree-node-content {
+  background: var(--tree-background-color);
+}
+
+.hx-tree-node-parent .hx-tree-node-parent-icon {
+  background: var(--tree-icon-background-color);
+  color: var(--tree-icon-text-color);
+}
+
+.hx-tree-node-parent .hx-tree-node-parent-icon:hover {
+  background: var(--tree-icon-background-hover-color);
+  color: var(--tree-icon-text-hover-color);
+}
+
+.hx-tree-node-parent .hx-tree-node-parent-icon.hx-tree-node-parent-icon-disabled,
+.hx-tree-node-parent .hx-tree-node-parent-icon.hx-tree-node-parent-icon-disabled:hover {
+  background: var(--tree-icon-disabled-background-color);
+  color: var(--tree-icon-disabled-text-color);
+}
+
+.hx-tree-node-children {
+  border-left-color: var(--tree-item-border-left-color);
+}
+
+.hx-tree-node-children > .hx-tree-node > .hx-tree-node-content,
+.hx-tree-node-parent {
+  box-shadow: 1px 1px 1px var(--tree-shadow-color);
+}

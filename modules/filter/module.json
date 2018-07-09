@@ -1,9 +1,0 @@
-{
-  "dependencies": [
-    "util",
-    "sort"
-  ],
-  "keywords": [
-    "filter"
-  ]
-}

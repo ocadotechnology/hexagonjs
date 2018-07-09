@@ -32,12 +32,13 @@
     "bower_components",
     "demo",
     "modules",
-    "/assets",
+    "assets",
+    "demo",
     "target",
     "themes",
     "build",
-    "demo.js",
-    "index.js",
+    "rollup.*",
+    "postcss.*",
     "package.json"
   ],
   "private": true

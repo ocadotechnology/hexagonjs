@@ -1,0 +1,13 @@
+.hx-date-time-picker {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0;
+  border-radius: 2px 0 0 2px;
+}
+.hx-date-time-picker .hx-time-picker {
+  border-left: none;
+  border-radius: 0 2px 2px 0;
+}
+.hx-date-time-picker .hx-time-picker .hx-icon {
+  display: none;
+}

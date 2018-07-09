@@ -1,0 +1,87 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title AutocompletePicker
+  @description
+    Provides a picker with an input box for finding items in the list
+
+@contentSection
+  @added 1.4.0
+
+  @topic Examples
+    @examples
+      @example
+        @@html
+          <div id="autocompletePicker"></div>
+
+        @@js
+          new hx.AutocompletePicker('#autocompletePicker', ['a','b','c'])
+
+      @example
+        @@html
+          <div id="autocompletePicker-async"></div>
+
+        @@js
+          function delayedItems (searchTerm, callback) {
+            setTimeout(function () {
+              callback(['a','b','c'])
+            }, 3000)
+          }
+          new hx.AutocompletePicker('#autocompletePicker-async', delayedItems)
+
+      @example
+        @@html
+          <div>Tip: try searcing for 'Kent'</div>
+          <div id="autocompletePicker-externalMatch" type="text"></div>
+
+        @@js
+          const items = [{
+            name: 'Moorgate',
+            county: 'London'
+          }, {
+            name: 'Old Street',
+            county: 'London'
+          }, {
+            name: 'Canterbury',
+            county: 'Kent'
+          }, {
+            name: 'Dover',
+            county: 'Kent'
+          }]
+
+          function getItems (term, callback) {
+            if (term.length > 0) {
+              const a = []
+              const len = items.length
+              for (let i = 0; i < len; i++) {
+                const nameLc = items[i].name.toLowerCase()
+                const countyLc = items[i].county.toLowerCase()
+                const termLc = term.toLowerCase()
+                if (nameLc.indexOf(termLc) > -1 || countyLc.indexOf(termLc) > -1) {
+                  a.push(items[i])
+                }
+              }
+              return callback(a)
+            } else {
+              return callback(items)
+            }
+          }
+
+          function renderer (elem, item) {
+            hx.select(elem)
+              .add(hx.detached('span').text(item.name))
+              .add(hx.label().text(item.county))
+          }
+
+          new hx.AutocompletePicker('#autocompletePicker-externalMatch', getItems, {
+            renderer: renderer,
+            matchType: 'external'
+          })
+
+
+  @topic Api
+    @hyperlink(/docs/autocomplete-picker/changelog)[Change Log]
+
+    @inline api.um

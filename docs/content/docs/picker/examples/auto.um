@@ -1,0 +1,23 @@
+@version 0.14.0
+  @examples
+    @example
+      @@html
+        <button id="example" class="hx-btn hx-positive"></button>
+
+      @@js
+        select = new hx.Picker('#example')
+        select.items(['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other'])
+        select.value('Option 1')
+
+@version 0.15.0
+  @examples
+    @example
+      @@html
+        <button id="example" class="hx-btn"></button>
+
+      @@js
+        new hx.Picker('#example', {
+          items: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other'],
+          startValue: 'Option 1'
+        })
+

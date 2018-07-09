@@ -1,0 +1,26 @@
+@version 0.9.0
+  @examples
+
+    @example
+      @@html
+        <button id="pref" class="hx-btn hx-positive">Preferences <i class="fa fa-cog"></i></button>
+
+      @@js
+        hx.preferences.supportedLocales = ['en-gb', 'de', 'en-us', 'be']
+        hx.select('#pref').on('click', function(){
+          hx.preferences.show()
+        })
+
+@version 0.13.0
+  @examples
+    @example
+      @@html
+        <button id="example" class="hx-btn hx-positive"><i class="fa fa-cog"></i> Preferences</button>
+
+      @@js
+        hx.select('#example').on('click', function(){
+          hx.preferences.load(function() {
+            hx.preferences.show()
+          })
+        })
+

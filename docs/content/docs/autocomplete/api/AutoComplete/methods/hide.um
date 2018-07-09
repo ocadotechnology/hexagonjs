@@ -1,0 +1,23 @@
+@method hide
+  @description
+    A method to hide the autocomplete menu.
+
+  @arg? suppressEvents [Boolean]
+    @description
+      Whether to emit events when hiding the autocomplete.
+
+    @deprecated 0.13.0
+      @description
+        Suppressing events is now possible with
+        @code[AutoComplete::suppressed(eventName, suppress)]. This is part of the
+        @hyperlink(/docs/event-emitter)[Event Emitter] api.
+
+    @removed 0.14.0
+      @description
+        Suppressing events is now possible with
+        @code[AutoComplete::suppressed(eventName, suppress)]. This is part
+        of the @hyperlink(/docs/event-emitter)[Event Emitter] api.
+
+  @returns AutoComplete
+    @description
+      This @type[AutoComplete] for chaining

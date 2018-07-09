@@ -1,0 +1,27 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Number Picker
+  @versioned
+    @version 0.10.0
+      @description
+        A number picker component - for picking an integer value.
+
+    @version 0.9.0
+      @description
+        A number picker component - for picking an integer value.
+
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/number-picker/changelog)[Change Log]
+
+    @inline api.um

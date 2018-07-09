@@ -1,0 +1,3 @@
+.hx-drag-placeholder div {
+  border-color: var(--drag-container-placeholder-border-color);
+}

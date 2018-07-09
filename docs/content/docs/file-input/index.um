@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title File Input
+  @description
+    A component that extends the native functionality of @code[<input type="file">] to add additional functionality and a hexagon theme
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/file-input/changelog)[Change Log]
+
+    @inline api.um

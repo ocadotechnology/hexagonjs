@@ -1,0 +1,80 @@
+@description
+  The data to use for the picker. Data can be specified as an array of
+  items or as a function that returns an array of items.
+
+  The data must be in one of the following formats:
+
+  @h4: Array
+
+  @@codeblock json
+    [
+      "Bob",
+      "Steve"
+    ]
+
+  By default, the data is expected as an array of string values. If object
+  based data is passed in, a @code[valueLookup] must be provided in the options:
+
+  @@codeblock js
+    const data = [
+      {
+        name "Bob",
+        age: 21
+      },
+      {
+        name: "Steve",
+        age: 25
+      }
+    ]
+    const options = {
+      valueLookup: (item) => {
+        return item.name + ', ' + item.age
+      }
+    };
+
+
+  @h4: Function
+  @@codeblock js
+    function data (term, callback) {
+      hx.json('path/to/data.json?search=' + term, (e, r) => {
+        callback(r.responseText)
+      })
+    }
+
+  A 'Loading...' message will be shown whilst the autocomplete picker
+  waits for a response from this function.
+
+  It can be used in conjunction with the internal matching or be used to
+  match externally when setting the @code[matchType] to 'external':
+
+  @@codeblock js
+    const options = {
+      matchType: 'external'
+    }
+
+    function getItems (term, cb) {
+      if (term.length > 0) {
+        const a = []
+        const len = items.length
+        for (let i = 0; i < len; i++) {
+          const { name, county }= items[i]
+          const nameLc = name.toLowerCase()
+          const countyLc = county.toLowerCase()
+          const termLc = term.toLowerCase()
+          if (nameLc.indexOf(termLc) > -1 || countyLc.indexOf(termLc) > -1) {
+            a.push(d)
+          }
+        }
+        return cb(a)
+      } else {
+        return cb(items)
+      }
+    }
+
+  The term passed in is the current value of the input field (for use as a
+  search term).
+
+  The callback is the function that should be called to pass the data back to
+  the autocomplete picker to display.
+
+  The callback must be called for the autocomplete picker to show.

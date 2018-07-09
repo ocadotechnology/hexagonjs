@@ -1,0 +1,17 @@
+@property filter [Function]
+  @description
+    The function to use when filtering internally. Should only be used when one
+    of the @code[hx.filter] methods isn't suitable for filtering the data.
+
+  @arg array [Array]
+    @description
+      The array from the autocomplete picker cache or data source
+
+  @arg term [String]
+    @description
+      The search term to use when filtering
+
+  @returns Array
+    @description
+      The filtered data
+

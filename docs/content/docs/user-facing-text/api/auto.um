@@ -1,0 +1,74 @@
+@added 1.4.0
+  @description
+    Added a new module for managing all the user facing text in hexagon
+
+@function hx.userFacingText
+  @description
+    Get the currently set text for all modules
+
+  @returns [Object]
+    @description
+      The currently set userFacingText object
+
+@function hx.userFacingText
+  @description
+    Sets multiple module text keys:
+
+    @@codeblock js
+      var text = {
+        picker: {
+          chooseValue: 'Text'
+        },
+        form: {
+          typeMismatch: 'Type mismatch error',
+          missingValue: 'Missing Value'
+        }
+      }
+      hx.userFacingText(text)
+
+    It can also be used to reset the text to the default values
+
+    @@codeblock js
+      hx.userFacingText(hx.userFacingText.defaults())
+
+  @arg text [Object]
+    @description
+      The object with module/key objects to set.
+
+@function hx.userFacingText
+  @description
+    Gets the text for a module key
+
+  @arg module [String]
+    @description
+      The module to get text from
+
+  @arg key [String]
+    @description
+      The key to get text for
+
+  @returns [String]
+    @description
+      The currently set text
+
+@function hx.userFacingText
+  @description
+    Sets the text for a module key
+
+  @arg module [String]
+    @description
+      The module to set text for
+
+  @arg key [String]
+    @description
+      The key to set text for
+
+  @arg value [String]
+    @description
+      The text to set
+
+@function hx.userFacingText.defaults
+  @returns [Object]
+    @description
+      The initial value set for the userFacingText object.
+

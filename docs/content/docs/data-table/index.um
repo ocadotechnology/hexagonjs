@@ -1,0 +1,23 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Data Table
+  @description
+    Tables for displaying data with sorting, filtering, selection and pagination.
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/data-table/changelog)[Change Log]
+
+    @inline api.um
+
+  @topic Getting Started
+    @versioned
+      @inline extra/*.um

@@ -1,0 +1,22 @@
+.hx-picker {
+  text-align: left;
+  display: inline-flex;
+}
+
+.hx-picker .hx-picker-text {
+  flex: 1 1 auto;
+}
+
+.hx-picker span + span {
+  margin: 0 0 0 0.4em;
+}
+
+.hx-picker-full-width {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hx-picker-full-width .hx-picker-inner {
+  display: inline-flex;
+  width: 100%;
+}

@@ -1,0 +1,5 @@
+@class hx-well
+  @removed 0.9.0
+    @description
+      Use the classes @code[hx-pad] and
+      @code[hx-background-compliment] to achieve the same effect.

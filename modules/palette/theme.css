@@ -1,0 +1,182 @@
+/* Default styles */
+
+.hx-text-default {
+  color: var(--palette-default-text-color) !important;
+}
+
+.hx-background-default {
+  background-color: var(--palette-default-background-color) !important;
+  color: var(--palette-default-background-text-color) !important;
+}
+
+.hx-background-default a,
+.hx-background-default .hx-background-text-color,
+.hx-background-default .hx-header {
+  color: var(--palette-default-background-text-color) !important;
+}
+
+.hx-border-default {
+  border-color: var(--palette-default-border-color) !important;
+}
+
+/* Action styles */
+
+.hx-text-action {
+  color: var(--palette-action-text-color) !important;
+}
+
+.hx-background-action {
+  background-color: var(--palette-action-background-color) !important;
+  color: var(--palette-action-background-text-color) !important;
+}
+
+.hx-background-action a,
+.hx-background-action .hx-background-text-color,
+.hx-background-action .hx-header {
+  color: var(--palette-action-background-text-color) !important;
+}
+
+.hx-border-action {
+  border-color: var(--palette-action-border-color) !important;
+}
+
+/* Positive styles */
+
+.hx-text-positive {
+  color: var(--palette-positive-text-color) !important;
+}
+
+.hx-background-positive {
+  background-color: var(--palette-positive-background-color) !important;
+  color: var(--palette-positive-background-text-color) !important;
+}
+
+.hx-background-positive a,
+.hx-background-positive .hx-background-text-color,
+.hx-background-positive .hx-header {
+  color: var(--palette-positive-background-text-color) !important;
+}
+
+.hx-border-positive {
+  border-color: var(--palette-positive-border-color) !important;
+}
+
+/* Warning styles */
+
+.hx-text-warning {
+  color: var(--palette-warning-text-color) !important;
+}
+
+.hx-background-warning {
+  background-color: var(--palette-warning-background-color) !important;
+  color: var(--palette-warning-background-text-color) !important;
+}
+
+.hx-background-warning a,
+.hx-background-warning .hx-background-text-color,
+.hx-background-warning .hx-header {
+  color: var(--palette-warning-background-text-color) !important;
+}
+
+.hx-border-warning {
+  border-color: var(--palette-warning-border-color) !important;
+}
+
+/* Negative styles */
+
+.hx-text-negative {
+  color: var(--palette-negative-text-color) !important;
+}
+
+.hx-background-negative {
+  background-color: var(--palette-negative-background-color) !important;
+  color: var(--palette-negative-background-text-color) !important;
+}
+
+.hx-background-negative a,
+.hx-background-negative .hx-background-text-color,
+.hx-background-negative .hx-header {
+  color: var(--palette-negative-background-text-color) !important;
+}
+
+.hx-border-negative {
+  border-color: var(--palette-negative-border-color) !important;
+}
+
+/* Info styles */
+
+.hx-text-info {
+  color: var(--palette-info-text-color) !important;
+}
+
+.hx-background-info {
+  background-color: var(--palette-info-background-color) !important;
+  color: var(--palette-info-background-text-color) !important;
+}
+
+.hx-background-info a,
+.hx-background-info .hx-background-text-color,
+.hx-background-info .hx-header {
+  color: var(--palette-info-background-text-color) !important;
+}
+
+.hx-border-info {
+  border-color: var(--palette-info-border-color) !important;
+}
+
+/* Complement styles */
+
+.hx-text-complement {
+  color: var(--palette-complement-text-color) !important;
+}
+
+.hx-background-complement {
+  background-color: var(--palette-complement-background-color) !important;
+  color: var(--palette-complement-background-text-color) !important;
+}
+
+.hx-background-complement a,
+.hx-background-complement .hx-background-text-color,
+.hx-background-complement .hx-header {
+  color: var(--palette-complement-background-text-color) !important;
+}
+
+.hx-border-complement {
+  border-color: var(--palette-complement-border-color) !important;
+}
+
+/* Contrast styles */
+
+.hx-text-contrast {
+  color: var(--palette-contrast-text-color) !important;
+}
+
+.hx-background-contrast {
+  background-color: var(--palette-contrast-background-color) !important;
+  color: var(--palette-contrast-background-text-color) !important;
+}
+
+.hx-background-contrast a,
+.hx-background-contrast .hx-background-text-color,
+.hx-background-contrast .hx-header {
+  color: var(--palette-contrast-background-text-color) !important;
+}
+
+.hx-border-contrast {
+  border-color: var(--palette-contrast-border-color) !important;
+}
+
+/* Disabled styles */
+
+.hx-text-disabled {
+  color: var(--palette-disabled-text-color) !important;
+}
+
+.hx-background-disabled {
+  background-color: var(--palette-disabled-background-color) !important;
+  color: var(--palette-disabled-background-text-color) !important;
+}
+
+.hx-border-disabled {
+  border-color: var(--palette-disabled-border-color) !important;
+}

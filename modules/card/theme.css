@@ -1,0 +1,88 @@
+.hx-card {
+  border-color: var(--card-border-color);
+  background: var(--card-background-color);
+  box-shadow: 1px 1px 3px var(--card-shadow-color);
+}
+
+.hx-card > .hx-card-group:not(.hx-card-joint),
+.hx-card > .hx-card-section:not(.hx-card-joint) {
+  border-color: var(--card-section-border-color);
+}
+
+.hx-card-header {
+  color: var(--card-header-text-color);
+  background: var(--card-header-background-color);
+}
+
+.hx-card-text {
+  color: var(--card-text-color);
+}
+
+.hx-card-section {
+  padding: var(--card-normal-padding);
+}
+
+.hx-card-section.hx-card-joint {
+  padding-right: 0;
+}
+
+.hx-card-small.hx-card-section {
+  padding: var(--card-small-padding) var(--card-normal-padding);
+}
+
+.hx-card-small.hx-card-section.hx-card-joint {
+  padding-right: 0;
+}
+
+.hx-card-small .hx-card-section:not(.hx-card-small):not(.hx-card-normal) {
+  padding: var(--card-small-padding) var(--card-normal-padding);
+}
+
+.hx-card-normal.hx-card-section {
+  padding: var(--card-normal-padding) var(--card-normal-padding);
+}
+
+.hx-card-normal.hx-card-section.hx-card-joint {
+  padding-right: 0;
+}
+
+.hx-card-normal .hx-card-section:not(.hx-card-small):not(.hx-card-normal) {
+  padding: var(--card-normal-padding) var(--card-normal-padding);
+}
+
+
+.hx-card-group.hx-card-vertical > .hx-card-group:not(.hx-card-joint),
+.hx-card-group.hx-card-vertical > .hx-card-section:not(.hx-card-joint) {
+  border-color: var(--card-section-border-color);
+}
+
+.hx-card-group:not(.hx-card-vertical) > .hx-card-group:not(.hx-card-joint),
+.hx-card-group:not(.hx-card-vertical) > .hx-card-section:not(.hx-card-joint) {
+  border-color: var(--card-section-border-color);
+}
+
+.hx-card-action:hover {
+  background: var(--card-action-hover-background-color);
+}
+
+.hx-card-icon {
+  color: var(--card-icon-color);
+}
+
+/* no real reason to have complement and contrast here */
+.hx-background-action .hx-card-title,
+.hx-background-positive .hx-card-title,
+.hx-background-warning .hx-card-title,
+.hx-background-negative .hx-card-title,
+.hx-background-info .hx-card-title {
+  color: var(--card-context-text-color);
+}
+
+/* no real reason to have complement and contrast here */
+.hx-background-action .hx-card-icon,
+.hx-background-positive .hx-card-icon,
+.hx-background-warning .hx-card-icon,
+.hx-background-negative .hx-card-icon,
+.hx-background-info .hx-card-icon {
+  color: var(--card-context-text-color);
+}

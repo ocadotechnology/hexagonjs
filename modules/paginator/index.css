@@ -1,0 +1,21 @@
+.hx-paginator {
+  user-select: none;
+  white-space: nowrap;
+}
+
+.hx-paginator button {
+  /* this supports buttons of width up to 3 digits - not ideal, but should be fine for most use cases */
+  width: 30px;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+}
+
+.hx-paginator button.hx-paginator-three-digits {
+  width: 35px;
+}
+
+.hx-paginator button.hx-paginator-more-digits {
+  width: 40px;
+}

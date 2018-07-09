@@ -1,0 +1,15 @@
+.hx-toggle > .hx-toggle-box {
+  background: var(--toggle-background-off-color);
+}
+
+.hx-toggle > .hx-toggle-box:before {
+  background: var(--toggle-toggle-off-color);
+}
+
+.hx-toggle > .hx-toggle-box.hx-toggle-box-on {
+  background: var(--toggle-background-on-color);
+}
+
+.hx-toggle > .hx-toggle-box.hx-toggle-box-on:before {
+  background: var(--toggle-toggle-on-color);
+}

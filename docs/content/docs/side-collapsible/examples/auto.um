@@ -1,0 +1,42 @@
+@version 0.12.8
+  @examples
+    @example
+      @@html
+        <div class="example-container">
+          <div id="exampleLeft" class="example-left">
+            <div class="hx-side-collapsible-heading-closed">Closed Text</div>
+            <div class="hx-side-collapsible-heading-open">Open Text</div>
+            <div class="hx-side-collapsible-content">Content</div>
+          </div>
+
+          <div id="exampleRight" class="example-right">
+            <div class="hx-side-collapsible-heading-closed">Closed Text</div>
+            <div class="hx-side-collapsible-heading-open">Open Text</div>
+            <div class="hx-side-collapsible-content">Content</div>
+          </div>
+        </div>
+
+      @@js
+        new hx.SideCollapsible('#exampleLeft')
+        new hx.SideCollapsible('#exampleRight', {position: 'right', animate: false})
+
+      @@css
+        .example-container {
+          position: relative;
+          height: 300px;
+        }
+
+        .example-left {
+          width: 500px;
+          height: 300px;
+          left: 0;
+          position: absolute;
+        }
+
+        .example-right {
+          width: 500px;
+          height: 300px;
+          right: 0;
+          position: absolute;
+        }
+

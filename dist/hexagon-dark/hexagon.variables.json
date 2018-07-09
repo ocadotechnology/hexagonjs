@@ -8,6 +8,7 @@
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "component": {},
   "sort": {},
   "userFacingText": {},
   "animate": {},
@@ -53,7 +54,7 @@
     "containerBorderCol": "transparent",
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
-  "component": {},
+  "format": {},
   "morphs": {},
   "clickDetector": {},
   "base": {
@@ -78,7 +79,6 @@
     "dividerStyle": "solid",
     "defaultFontSize": "14px"
   },
-  "format": {},
   "preferences": {},
   "button": {
     "defaultCol": "#2F3536",
@@ -97,6 +97,15 @@
     "invisibleTextCol": "white",
     "lightTextCol": "white",
     "darkTextCol": "#3D3D3D",
+    "defaultBorderCol": "darken($default-col, 10%)",
+    "actionBorderCol": "darken($action-col, 10%)",
+    "positiveBorderCol": "darken($positive-col, 10%)",
+    "warningBorderCol": "darken($warning-col, 10%)",
+    "negativeBorderCol": "darken($negative-col, 10%)",
+    "infoBorderCol": "darken($info-col, 10%)",
+    "complementBorderCol": "darken($complement-col, 10%)",
+    "contrastBorderCol": "darken($contrast-col, 10%)",
+    "invertBorderCol": "darken(#FDFDFD, 10%)",
     "defaultTextCol": "white"
   },
   "dropdown": {
@@ -143,7 +152,6 @@
   },
   "dateLocalizer": {},
   "numberPicker": {},
-  "resizeEvents": {},
   "menu": {
     "defaultCol": "#32373A",
     "defaultHoverCol": "#42474A",
@@ -165,6 +173,7 @@
     "defaultBorderCol": "transparent",
     "borderWidth": "2px"
   },
+  "resizeEvents": {},
   "autocompleteFeed": {},
   "datePicker": {
     "todayBackgroundCol": "#393D3D",
@@ -194,6 +203,7 @@
     "iconCol": "white",
     "iconBackgroundCol": "#00ADA8"
   },
+  "autocomplete": {},
   "dragContainer": {
     "dragPlaceholderBorderCol": "#4E5355"
   },
@@ -206,6 +216,8 @@
     "borderCol": "#4E5355",
     "contentBackgroundCol": "transparent"
   },
+  "fluid": {},
+  "logo": {},
   "progressBar": {
     "borderCol": "none",
     "borderWidth": "0",
@@ -247,10 +259,11 @@
     "pieSegmentTextCol": "rgba(255, 255, 255, 0.8)",
     "labelBoxShadow": "1px 1px 1px rgba(0, 0, 0, 0.25)",
     "labelHeaderBackgroundCol": "#393D3D",
-    "labelHeaderBorderCol": "#4E5355"
+    "labelHeaderBorderCol": "#4E5355",
+    "lightTextCol": "#F3F3F3",
+    "darkTextCol": "#3D3D3D"
   },
   "buttonGroup": {},
-  "fluid": {},
   "picker": {},
   "request": {},
   "stickyTableHeaders": {
@@ -272,7 +285,6 @@
     "toggleOffCol": "#ABABAB",
     "toggleOnCol": "#B2BA32"
   },
-  "autocomplete": {},
   "autocompletePicker": {},
   "dateTimePicker": {
     "borderCol": "#4E5355"
@@ -422,7 +434,6 @@
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
-  "logo": {},
   "meter": {},
   "notice": {
     "defaultCol": "#2C3134",

@@ -1,0 +1,41 @@
+@version 0.10.0
+  @examples
+    @example
+      @@html
+        <button id="example" class="hx-btn hx-positive"></button>
+
+      @@js
+        select = new hx.Select('#example')
+        select.items(['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other'])
+        select.value('Option 1')
+
+@version 0.12.7
+  @examples
+    @example
+      @@html
+        <button id="exampleSelectArray" class="hx-btn hx-positive"></button>
+
+      @@js
+        var select = new hx.Select('#exampleSelectArray', {
+          items: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other'],
+          startValue: 'Option 1'
+        });
+
+    @example
+      @@html
+        <button id="exampleSelectFunction" class="hx-btn hx-positive"></button>
+
+      @@js
+        var getVals = function (cb) {
+          cb(['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other']);
+        }
+
+        var select = new hx.Select('#exampleSelectFunction', {
+          items: getVals,
+          startValue: 'Option 1'
+        });
+
+@version 0.15.0
+  @examples
+    @removed 0.15.0
+

@@ -1,0 +1,11 @@
+.hx-error-message {
+  background: var(--error-pages-background-color);
+  padding: 32px;
+  box-shadow: 2px 2px 2px 2px var(--error-pages-shadow-color);
+  border-radius: 2px;
+}
+
+.hx-error-message-heading {
+  font-size: 2em;
+  color: var(--error-pages-heading-text-color);
+}

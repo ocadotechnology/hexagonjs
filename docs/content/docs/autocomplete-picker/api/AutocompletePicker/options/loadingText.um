@@ -1,0 +1,5 @@
+@property loadingText [String]
+  @description
+    The loading text to display
+
+  @default: [hx.userFacingText('autocompletePicker', 'loading')]

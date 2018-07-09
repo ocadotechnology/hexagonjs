@@ -1,0 +1,22 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Base
+  @description
+    Provides the default font styles and header classes
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        # @inline examples/*.um
+
+        @inline examples/0.9.0.um
+        @inline examples/0.15.2.um
+
+  @topic Api
+    @hyperlink(/docs/base/changelog)[Change Log]
+
+    @inline api.um

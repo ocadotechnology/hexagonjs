@@ -1,0 +1,6 @@
+.hx-sticky-table-scroll-top,
+.hx-sticky-table-scroll-right,
+.hx-sticky-table-scroll-bottom,
+.hx-sticky-table-scroll-left {
+  box-shadow: 0 0 15px 1px var(--sticky-table-headers-scroll-indicator-shadow-color);
+}

@@ -1,0 +1,19 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Crumbtrail
+  @description
+    A crumbtrail component, used to illustrate where you are in relation to the root of a project or website.
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/crumbtrail/changelog)[Change Log]
+
+    @inline api.um

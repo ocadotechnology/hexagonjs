@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Picker
+  @description
+    An alternative to the @code[<select>] element. Essentially a button and a menu glued together with useful functions for setting and getting the currently selected value.
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/picker/changelog)[Change Log]
+
+    @inline api.um

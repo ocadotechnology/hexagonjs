@@ -1,0 +1,19 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Click Detector
+  @description
+    Provides a way to listen for clicks outside an element.
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/click-detector/changelog)[Change Log]
+
+    @inline api.um
