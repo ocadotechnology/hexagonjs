@@ -4,7 +4,7 @@ describe 'collapsible', ->
   select = hx.select
 
   beforeEach ->
-    fixture = select('body').append('div').attr('id', 'fixture').html """
+    fixture = select('body').append('div').attr('id', 'fixture').node().innerHTML = """
       <div id="example" class="hx-collapsible">
         <div class="hx-collapsible-heading">Header</div>
         <div class="hx-collapsible-content">Content</div>

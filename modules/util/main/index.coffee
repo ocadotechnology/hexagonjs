@@ -321,7 +321,10 @@ hx.vendor = (obj, prop) ->
 hx.identity = (d) -> d
 
 hx_parseHTML = null
+
 hx.parseHTML = (html) ->
+  # unless this is hx.request
+  hx.deprecatedWarning('hx.parseHTML', 'N/A')
   if not hx_parseHTML
     ###
     istanbul ignore next:

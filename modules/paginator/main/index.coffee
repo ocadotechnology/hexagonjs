@@ -70,7 +70,7 @@ class Paginator extends hx.EventEmitter
     @container.append('button')
       .attr('type', 'button')
       .class('hx-btn ' + hx.theme.paginator.arrowButton)
-        .html('<i class="hx-icon hx-icon-step-backward"></i>')
+        .add(hx.detached('i').class('hx-icon hx-icon-step-backward'))
         .on 'click', 'hx.paginator', ->
           if self._.pageCount is undefined
             select(self, self._.page - 1, 'user')
@@ -92,7 +92,7 @@ class Paginator extends hx.EventEmitter
     @container.append('button')
       .attr('type', 'button')
       .class('hx-btn ' + hx.theme.paginator.arrowButton)
-        .html('<i class="hx-icon hx-icon-step-forward"></i>')
+        .add(hx.detached('i').class('hx-icon hx-icon-step-forward'))
         .on 'click', 'hx.paginator', ->
           if self._.pageCount is undefined
             select(self, self._.page + 1, 'user')

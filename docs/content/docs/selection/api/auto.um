@@ -326,6 +326,11 @@
         The text content of the selected element, or nodes if this is a multiple selection.
 
   @method html
+    @deprecated nextReleaseVersion
+      @issue 375
+      @description
+        The @code[html] method for selections has been removed to prevent XSS attacks.
+
     @description
       Sets the html content of all the selected elements
 
@@ -338,6 +343,11 @@
         This Selection
 
   @method html
+    @deprecated nextReleaseVersion
+      @issue 375
+      @description
+        The @code[html] method for selections has been removed to prevent XSS attacks.
+
     @description
       Gets the html content of all the selected elements
 
