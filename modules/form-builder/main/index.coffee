@@ -362,8 +362,8 @@ class Form extends hx.EventEmitter
     this
 
   addSubmit: (text, icon, submitAction, options = {}) ->
-    @addButton(text, (submitAction || () => @submit()), {
-      key: options.key,
+    @addButton(text, (submitAction or () => @submit()), {
+      key: text or options.key,
       context: 'action',
       buttonType: 'submit',
       icon: icon,
@@ -383,7 +383,7 @@ class Form extends hx.EventEmitter
     else
       result = {}
       @properties.forEach (key, it) =>
-        if not it.hidden and not it.type is 'button'
+        if not it.hidden and it.type isnt 'submit'
           result[key] = @value(key)
       result
 
