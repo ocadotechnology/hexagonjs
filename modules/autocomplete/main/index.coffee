@@ -208,6 +208,7 @@ class AutoComplete extends hx.EventEmitter
         filterOptions: undefined
         showOtherResults: false
         allowTabCompletion: true
+        value: undefined
 
         loadingMessage: hx.userFacingText('autoComplete', 'loading')
         noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
@@ -361,6 +362,9 @@ class AutoComplete extends hx.EventEmitter
 
       _.menu = menu
       _.input = input
+
+      if @options.value
+        @value(@options.value)
 
 
 
