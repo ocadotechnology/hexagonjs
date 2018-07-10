@@ -717,6 +717,15 @@
           @description
             The placeholder text for the tag input
 
+        @property required [Boolean]
+          @added nextReleaseVersion
+            @issue 238
+            @description
+              Added the ability to have 'required' tag inputs where at least
+              one value must be entered
+          @description
+            Whether the tag input must have at least one value entered.
+
       @returns [Form]
         @description
           This Form

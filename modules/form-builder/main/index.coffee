@@ -1,6 +1,7 @@
 hx.userFacingText({
   form: {
-    pleaseSelectAValue: 'Please select a value from the list'
+    pleaseSelectAValue: 'Please select a value from the list',
+    pleaseAddAValue: 'Please add at least one item'
   }
 })
 
@@ -281,7 +282,27 @@ class Form extends hx.EventEmitter
         options.tagInputOptions.placeholder ?= options.placeholder
 
       tagInput = new hx.TagInput(elem, options.tagInputOptions)
+
+      if options.required
+        input = @select('input')
+
+        setValidity = () ->
+          input.node().setCustomValidity(hx.userFacingText('form', 'pleaseAddAValue'))
+
+        change = () ->
+          value = tagInput.items()
+          if value is undefined or not value.length
+            setValidity()
+          else
+            input.node().setCustomValidity('')
+
+        setValidity()
+
+        tagInput.on 'add', 'hx.form-builder', change
+        tagInput.on 'remove', 'hx.form-builder', change
+
       {
+        required: options.required
         key: options.key
         componentNode: elem
         hidden: options.hidden
