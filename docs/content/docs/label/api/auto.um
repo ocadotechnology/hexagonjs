@@ -127,3 +127,8 @@
     @description
       Styles the label with complement colors
 
+  @extraClass hx-label-outline
+    @added nextReleaseVersion
+      @description
+        Added an outline class to match the button outlines
+

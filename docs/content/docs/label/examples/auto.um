@@ -23,3 +23,25 @@
         <span class="hx-label hx-compliment">hx-compliment</span>
         <span class="hx-label hx-contrast">hx-contrast</span>
 
+@version nextReleaseVersion
+  @examples
+    @example
+      @@html
+        <span class="hx-label">hx-label</span>
+        <span class="hx-label hx-action">hx-action</span>
+        <span class="hx-label hx-positive">hx-positive</span>
+        <span class="hx-label hx-warning">hx-warning</span>
+        <span class="hx-label hx-negative">hx-negative</span>
+        <span class="hx-label hx-info">hx-info</span>
+        <span class="hx-label hx-compliment">hx-compliment</span>
+        <span class="hx-label hx-contrast">hx-contrast</span>
+        <h3>Outlined Labels</h3>
+        <span class="hx-label hx-label-outline">hx-label</span>
+        <span class="hx-label hx-label-outline hx-action">hx-action</span>
+        <span class="hx-label hx-label-outline hx-positive">hx-positive</span>
+        <span class="hx-label hx-label-outline hx-warning">hx-warning</span>
+        <span class="hx-label hx-label-outline hx-negative">hx-negative</span>
+        <span class="hx-label hx-label-outline hx-info">hx-info</span>
+        <span class="hx-label hx-label-outline hx-compliment">hx-compliment</span>
+        <span class="hx-label hx-label-outline hx-contrast">hx-contrast</span>
+

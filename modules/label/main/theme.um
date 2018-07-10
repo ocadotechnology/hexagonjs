@@ -49,3 +49,8 @@
     @type color
     @description: The text color to use on dark label backgrounds
     @default: #3D3D3D
+
+  @option invert-col
+    @type color
+    @description: The background colour to use for inverted labels
+    @default: #FDFDFD

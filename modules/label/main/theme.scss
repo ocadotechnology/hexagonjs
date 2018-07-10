@@ -12,10 +12,18 @@
   &#{if($class, "." + $class, "")} {
     background: $col;
     color: getTextColFromBG($col);
+    border-color: $col;
+
+    &.hx-label-outline {
+      background: $invert-col;
+      color: #{if($class, $col, getTextColFromBG($col))};
+      border-color: #{if($class, $col, getTextColFromBG($col))};
+    }
   }
 }
 
 .hx-label {
+  // TODO: Add more theme variables in #479
   @include label(false, $default-col);
   @include label(hx-action, $action-col);
   @include label(hx-positive, $positive-col);
