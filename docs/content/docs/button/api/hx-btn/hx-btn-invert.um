@@ -6,6 +6,7 @@
       themes
 
   @deprecated nextReleaseVersion
+    @issue 469
     @description
       Renamed to @code[hx-btn-outline]
 
@@ -15,6 +16,7 @@
 
 @extraClass hx-btn-outline
   @added nextReleaseVersion
+    @issue 469
     @description
       Changed @code[hx-btn-invert] to a more sensible class name
 
