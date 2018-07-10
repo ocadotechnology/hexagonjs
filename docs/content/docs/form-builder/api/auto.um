@@ -1175,6 +1175,7 @@
 
     @method addSubmit
       @added 0.15.2
+      @removed nextReleaseVersion
       @description
         Adds a submit button to the form
 
@@ -1193,6 +1194,114 @@
         @arg form [Form]
           @description
             The form being submitted
+
+      @returns [Form]
+        @description
+          This Form
+
+    @method addSubmit
+      @added nextReleaseVersion
+        @issue 395
+        @description
+          Added the @code[options] argument to allow the button to be hidden or
+          disabled when it is added to the form
+
+      @description
+        Adds a submit button to the form
+
+      @arg text [String]
+        @description
+          The text to give the button
+
+      @arg icon [String]
+        @description
+          The icon class for the button's icon
+
+      @arg? submitAction [Function]
+        @description
+          The function to call when the form is submitted instead of calling @code[form.submit()] . Useful for setting custom error messages for properties before submitting the form.
+
+        @arg form [Form]
+          @description
+            The form being submitted
+
+      @arg? options [Object]
+        @property key [String]
+          @description
+            The key to use when hiding/showing the submit button
+
+          @default: The @code[text] argument
+
+        @property hidden [Boolean]
+          @description
+            Whether the submit button should be hidden
+          @default: false
+
+        @property disabled [Boolean]
+          @description
+            Whether the submit button should be disabled
+          @default: false
+
+      @returns [Form]
+        @description
+          This Form
+
+    @method addButton
+      @added nextReleaseVersion
+        @issue 395
+        @description
+          Added the ability to add multiple buttons to the bottom of a form
+
+      @description
+        Adds a button to the bottom of the form.
+
+        All added buttons will display at the bottom of the form in the order
+        they are added.
+
+      @arg text [String]
+        @description
+          The text to display on the button
+
+      @arg action [Function]
+        @description
+          The action to perform when the button is clicked
+
+      @arg? options [Object]
+        @property icon [String]
+          @description
+            The icon class for the button's icon
+
+        @property key [String]
+          @description
+            The property name to map the button to when disabling/enabling the
+            button.
+
+          @default: The @code[text] argument
+
+        @property context [String]
+          @description
+            The context to apply to the button.
+
+          @default: 'action'
+
+        @property buttonType [String]
+          @description
+            The
+            @hyperlink(https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type)[type]
+            of the button
+
+          @default: 'button'
+
+        @property hidden [Boolean]
+          @description
+            Whether the button should be hidden
+          @default: false
+
+        @property disabled [Boolean]
+          @description
+            Whether the button should be disabled
+          @default: false
+
 
       @returns [Form]
         @description
