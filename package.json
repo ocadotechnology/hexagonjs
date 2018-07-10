@@ -23,13 +23,13 @@
     "start": "npm-run-all --parallel watch:*",
     "watch:browser-test-runner": "browser-test-runner start .",
     "watch:js": "rollup -w -c rollup.config.js",
-    "watch:lib-css": "postcss modules/hexagon.css -w -c postcss.config.js -o target/hexagon.css",
+    "watch:lib-css": "postcss src/hexagon.css -w -c postcss.config.js -o target/hexagon.css",
     "watch:demo-css": "postcss demo/index.css -w -c postcss.config.js -o target/index.css",
     "watch:demo-assets": "cpx -w \"assets/*\" target/assets",
     "watch:demo-html": "cpx -w demo/index.html target",
     "build": "npm-run-all --parallel build:*",
     "build:js": "rollup -c rollup.config.js",
-    "build:lib-css": "postcss modules/hexagon.css -c postcss.config.js -o target/hexagon.css",
+    "build:lib-css": "postcss src/hexagon.css -c postcss.config.js -o target/hexagon.css",
     "build:demo-css": "postcss demo/index.css -c postcss.config.js -o target/index.css",
     "build:demo-assets": "cpx \"assets/*\" target/assets",
     "build:demo-html": "cpx demo/index.html target",
@@ -47,8 +47,8 @@
     "run-local-tests:firefox": "browser-test-runner firefox 'test/index.html'",
     "run-tests-saucelabs": "browser-test-runner saucelabs 'test/index.html'",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "lint": "eslint 'modules/**/*.js'",
-    "fix-lint-issues": "eslint --fix 'modules/**/*.js'"
+    "lint": "eslint 'src/**/*.js'",
+    "fix-lint-issues": "eslint --fix 'src/**/*.js'"
   },
   "devDependencies": {
     "ajv": "^5.2.4",
