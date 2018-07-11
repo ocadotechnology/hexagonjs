@@ -85,18 +85,6 @@ describe 'autocomplete-feed', ->
       af.items().should.equal(items)
 
 
-    it 'filter: should use "" if the term is undefined', ->
-      af = new hx.AutocompleteFeed
-      cb = chai.spy()
-      items = (term, callback) ->
-        should.exist(term)
-        callback(['a'])
-      af.items(items)
-      af.filter(undefined, cb)
-      cb.should.have.been.called()
-      cb.should.have.been.called.with(['a'], [])
-
-
     it 'filter: should not perform filtering when using external matching and items as a function', ->
       af = new hx.AutocompleteFeed({
         matchType: 'external'
