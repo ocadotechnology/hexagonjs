@@ -88,8 +88,6 @@ describe "hx-form-builder", ->
     form.disabled('Button 2', false).should.equal(form)
     form.disabled('Button 2').should.equal(false)
 
-    console.log(form.disabled('Submit'))
-
     form.disabled('Submit').should.equal(false)
     form.disabled('Submit', true).should.equal(form)
     form.disabled('Submit').should.equal(true)
