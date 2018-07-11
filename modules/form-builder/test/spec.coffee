@@ -72,3 +72,41 @@ describe "hx-form-builder", ->
       'Password': 'abc'
       'Radio': 'Two'
     })
+
+  it 'should allow buttons to be disabled', () ->
+    noop = () -> undefined
+    form = new hx.Form(hx.detached('div'))
+      .addButton('Button 1', noop)
+      .addButton('Button 2', noop, { disabled: true })
+      .addSubmit('Submit')
+
+    form.disabled('Button 1').should.equal(false)
+    form.disabled('Button 1', true).should.equal(form)
+    form.disabled('Button 1').should.equal(true)
+
+    form.disabled('Button 2').should.equal(true)
+    form.disabled('Button 2', false).should.equal(form)
+    form.disabled('Button 2').should.equal(false)
+
+    form.disabled('Submit').should.equal(false)
+    form.disabled('Submit', true).should.equal(form)
+    form.disabled('Submit').should.equal(true)
+
+  it 'should allow buttons to be hidden', () ->
+    noop = () -> undefined
+    form = new hx.Form(hx.detached('div'))
+      .addButton('Button 1', noop)
+      .addButton('Button 2', noop, { hidden: true })
+      .addSubmit('Submit')
+
+    form.hidden('Button 1').should.equal(false)
+    form.hidden('Button 1', true).should.equal(form)
+    form.hidden('Button 1').should.equal(true)
+
+    form.hidden('Button 2').should.equal(true)
+    form.hidden('Button 2', false).should.equal(form)
+    form.hidden('Button 2').should.equal(false)
+
+    form.hidden('Submit').should.equal(false)
+    form.hidden('Submit', true).should.equal(form)
+    form.hidden('Submit').should.equal(true)

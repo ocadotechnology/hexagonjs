@@ -3,7 +3,11 @@
   text-align: right;
   display: inline-block;
 
-  > div {
+  .hx-form-buttons > * {
+    display: inline-block;
+  }
+
+  > div:not(.hx-form-buttons) {
     text-align: left;
     display: table-row;
 

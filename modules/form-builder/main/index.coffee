@@ -5,6 +5,14 @@ hx.userFacingText({
   }
 })
 
+# XXX: Refactor into constructor in 2.0.0
+getButtons = (form) ->
+  selection = hx.select(form.selector)
+  sel = selection.select('.hx-form-buttons')
+  buttons = if sel.empty()
+    selection.append('div').class('hx-form-buttons')
+  else sel
+
 class Form extends hx.EventEmitter
   constructor: (@selector) ->
     super
@@ -21,7 +29,11 @@ class Form extends hx.EventEmitter
 
   add: (name, type, nodeType, f) ->
     id = @formId + name.split(" ").join("-")
-    entry = hx.select(@selector).append('div')
+    formSel = hx.select(@selector)
+    entry = formSel.append('div')
+
+    formSel.append(getButtons(this))
+
     entry.append('label').attr("for", id).text(name)
     selection = entry.append(nodeType).attr("id",id)
     extras = f.call(selection) or {}
@@ -336,19 +348,49 @@ class Form extends hx.EventEmitter
         disable: (sel, disabled) -> toggle.disabled(disabled)
       }
 
-  addSubmit: (text, icon, submitAction) ->
-    hx.select(@selector).append('button')
-      .attr('type', 'submit')
-      .class('hx-btn hx-action hx-form-submit')
-      .add(hx.detached('i').class(icon))
+  addButton: (text, action, opts = {}) =>
+    id = @formId + text.split(" ").join("-")
+    options = hx.merge({
+      key: text,
+      context: 'action',
+      buttonType: 'button',
+      icon: undefined,
+      hidden: false,
+      disabled: false,
+    }, opts)
+
+    button = hx.detached('button')
+      .attr('type', options.buttonType)
+      .attr('id',id)
+      .class("hx-btn hx-#{options.context}")
+      .add(if options.icon then hx.detached('i').class(options.icon) else undefined)
       .add(hx.detached('span').text(" " + text))
       .on 'click', 'hx.form-builder', (e) =>
         e.preventDefault()
-        if submitAction?
-          submitAction(this)
-        else
-          @submit()
+        action?()
+
+    elem = getButtons(this).append('div').add(button)
+
+    @properties.set options.key,
+      type: 'submit'
+      node: button.node()
+      extras: {
+        disable: (s, disabled) -> button.attr('disabled', if disabled then 'disabled' else undefined)
+      }
+
+    if options.hidden then @hidden options.key, options.hidden
+    if options.disabled then @disabled options.key, options.disabled
     this
+
+  addSubmit: (text, icon, submitAction, options = {}) ->
+    @addButton(text, (submitAction or () => @submit()), {
+      key: text or options.key,
+      context: 'action',
+      buttonType: 'submit',
+      icon: icon,
+      hidden: options.hidden,
+      disabled: options.disabled,
+    })
 
   submit: ->
     {valid, errors} = hx.validateForm(@selector)
@@ -362,7 +404,7 @@ class Form extends hx.EventEmitter
     else
       result = {}
       @properties.forEach (key, it) =>
-        if not it.hidden
+        if not it.hidden and it.type isnt 'submit'
           result[key] = @value(key)
       result
 
