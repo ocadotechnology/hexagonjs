@@ -22,3 +22,11 @@ describe 'autocomplete', ->
     ac.show()
     ac._.menu.items().slice(0, 50).map(({id}) -> id).should.eql(hx.range(50).map (i) -> 2 * i + 1)
     ac._.menu.items().slice(50, 100).map(({id}) -> id).should.eql(hx.range(50).map (i) -> 2 * i)
+
+  it 'should set the value from the constructor', ->
+    itemsObjects = hx.range(100).map((_, i) -> i)
+    sel = hx.detached('input')
+
+    ac = new hx.AutoComplete(sel.node(), itemsObjects, { value: 1 })
+    ac.value().should.equal('1')
+    sel.value().should.equal('1')
