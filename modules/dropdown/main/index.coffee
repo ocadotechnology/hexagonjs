@@ -83,7 +83,6 @@ class Dropdown extends hx.EventEmitter
     @options = hx.merge.defined({
       mode: 'click',
       align: 'lblt',
-      spacing: undefined,
       matchWidth: true,
       ddClass: ''
     }, options)
