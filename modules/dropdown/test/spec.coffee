@@ -19,8 +19,6 @@ describe 'hx-dropdown', ->
       box[key] = Math.round value
     box
 
-  getSpacing = (dd) -> dd.options.spacing or Number(hx.theme.dropdown.spacing)
-
   makeButton = ->
     fixture.append('div')
       .attr('id', id.slice(1))
@@ -93,7 +91,6 @@ describe 'hx-dropdown', ->
     dd = new hx.Dropdown(id, content)
 
     dd._.selection.should.eql(button)
-    getSpacing(dd).should.equal(0)
     dd.options.matchWidth.should.equal(true)
     dd._.alignments.should.eql('lblt'.split(''))
     should.not.exist(dd._.dropdown)
@@ -131,10 +128,6 @@ describe 'hx-dropdown', ->
 
     dd = new hx.Dropdown(id, content, {align: 'right'})
     dd._.alignments.should.eql('rtlt'.split(''))
-
-  it 'should set the spacing correctly', ->
-    dd = new hx.Dropdown(id, content, {spacing: 10} )
-    getSpacing(dd).should.equal(10)
 
   it 'should set the matchWidth property correctly', ->
     dd = new hx.Dropdown(id, content, {matchWidth: false} )
