@@ -177,6 +177,18 @@ describe 'tag-input', ->
       ti._.autocomplete.emit 'change', 'a'
       ti.add.should.have.been.called().with('a')
 
+    it 'should create the tag using the autocomplete input map', ->
+      ti = new hx.TagInput(hx.detached('div').node(), {
+        autocompleteData: ['a', 'b', 'c'],
+        autocompleteOptions: {
+          inputMap: (item) -> "#{item} Text"
+        }
+      })
+      expect(ti._.autocomplete).to.not.be.undefined
+      chai.spy.on(ti, 'add')
+      ti._.autocomplete.emit 'change', 'a'
+      ti.add.should.have.been.called().with('a Text')
+
     it 'should open the dropdown again after the tag has been created', ->
       clock = sinon.useFakeTimers()
 
