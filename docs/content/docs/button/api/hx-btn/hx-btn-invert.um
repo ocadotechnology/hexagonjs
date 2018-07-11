@@ -4,6 +4,22 @@
     @description
       Updated the invert styles for buttons to work nicer across different
       themes
+
+  @deprecated nextReleaseVersion
+    @issue 469
+    @description
+      Renamed to @code[hx-btn-outline]
+
   @description
     Gives the button an inverted style, so that the text is colored rather
     than the background.
+
+@extraClass hx-btn-outline
+  @added nextReleaseVersion
+    @issue 469
+    @description
+      Changed @code[hx-btn-invert] to a more sensible class name
+
+  @description
+    Removes the background colour from the button and colours the text and
+    outline.

@@ -29,6 +29,7 @@
       box-shadow: 0 0 0 1px darken($color, 10%);
     }
 
+    &.hx-btn-outline,
     &.hx-btn-invert {
       background: $invert-col;
       color: $invert-text-col;
