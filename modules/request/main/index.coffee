@@ -117,9 +117,8 @@ reshapedRequest = (type) ->
     when 'text/plain' then 'hx.text'
     when undefined then 'hx.reshapedRequest'
 
-  deprecatedWarning(fn)
-
   (urls, data, callback, options) ->
+    deprecatedWarning(fn)
     [data, callback, options] = [undefined, data, callback] if hx.isFunction data
 
     defaults = if type
