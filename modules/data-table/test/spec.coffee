@@ -253,6 +253,8 @@ describe 'data-table', ->
     checkOption('rowSelectableLookup', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
     checkOption('selectEnabled', [true, false])
     checkOption('singleSelection', [true, false])
+    checkOption('selectedRows', [[1,2,3], []])
+    checkOption('expandedRows', [[1,2,3], []])
     checkOption('sort', [{column: 'name', direction: 'asc'}, {column: 'age', direction: 'desc'}, undefined])
 
   describe 'column options', ->
@@ -789,6 +791,35 @@ describe 'data-table', ->
 
 
     describe 'selectedRows', ->
+      it 'should be possible for the user to deselect a row selected in the constructor', (done) ->
+        feed = hx.dataTable.objectFeed
+          headers: [
+            name: 'Name'
+            id: 'name'
+          ]
+          rows: [
+            id: 0
+            cells:
+              name: 'Bob'
+          ]
+        tableSel = hx.detached 'div'
+        tableOpts =
+          feed: feed
+          singleSelection: true
+          selectEnabled: true
+          selectedRows: [0]
+        table = new hx.DataTable tableSel.node(), tableOpts
+        table.render()
+
+        table.on 'selectedrowschange', (data) ->
+          if data.cause is 'user'
+            # Row 0 was selected before, so now we're unselecting it
+            data.value.should.eql []
+            done()
+        checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
+        faker = testHelpers.fakeNodeEvent checkSel.node()
+        faker fakeEvent
+
       it 'should be possible for the user to deselect a row selected by the api', (done) ->
         feed = hx.dataTable.objectFeed
           headers: [

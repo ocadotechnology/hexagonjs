@@ -953,6 +953,9 @@
           <div id="dataTable4"></div>
           <h4>Grouped Headings</h4>
           <div id="dataTable5"></div>
+
+          <h4>Selectable/Collapsible</h4>
+          <div id="dataTable6"></div>
           <script>
           const tableFeed = hx.dataTable.objectFeed({
             headers: [
@@ -1040,6 +1043,15 @@
             feed: tableFeedGrouped
           }).render()
 
+          const table6 = new hx.DataTable('#dataTable6', {
+            feed: tableFeed,
+            selectedRows: [1],
+            selectEnabled: true,
+            expandedRows: [0],
+            rowCollapsibleLookup: () => true,
+            collapsibleRenderer: (e) => hx.select(e).text('Opened Collapsible')
+          }).render()
+
           new hx.Toggle('#compactToggle')
             .on('change', (value) => {
               console.log(value)
@@ -1048,6 +1060,7 @@
               table3.compact(value)
               table4.compact(value)
               table5.compact(value)
+              table6.compact(value)
             })
           </script>
         </div>

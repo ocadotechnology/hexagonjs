@@ -394,6 +394,21 @@
           Whether the row should hightlight when the user hovers over it
         @default: true
 
+      @property selectedRows [Array]
+        @added nextReleaseVersion
+          @issue 86
+          @description
+            Added the ability to set the selectedRows in the constructor
+        @description
+          The selected rows to initialise the table with
+
+      @property expandedRows [Array]
+        @added nextReleaseVersion
+          @issue 86
+          @description
+            Added the ability to set the expandedRows in the constructor
+        @description
+          The expanded rows to initialise the table with
 
 
   # Methods for changing the options
