@@ -28,6 +28,12 @@
   @added 1.4.0
     @issue 17
 
+  @bugfix nextReleaseVersion
+    @issue 435
+    @description
+      Resolved an issue to make it possible to clear the value of the
+      autocomplete picker using @code[.value(undefined)]
+
   @description
     Creates a new AutocompletePicker set up on a detached element, wrapped in a
     selection
