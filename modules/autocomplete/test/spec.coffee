@@ -18,6 +18,7 @@ describe 'hx.AutoComplete', ->
     g = -> hx_loop_update(f, g)
     hx_loop_update(f, g)
 
+  origConsoleError = console.error
   origConsoleWarning = hx.consoleWarning
   origDropdownAttachSelector = hx._.dropdown.attachToSelector
 
@@ -39,12 +40,14 @@ describe 'hx.AutoComplete', ->
     input = fixture.append('input')
     clock = sinon.useFakeTimers()
     hx.loop = hx_loop
+    chai.spy.on(console, 'error')
     hx.consoleWarning = chai.spy()
     hx._.dropdown.attachToSelector = fixture
 
   afterEach ->
     clock.restore()
     hx.loop = origLoop
+    console.error = origConsoleError
     hx.consoleWarning = origConsoleWarning
     hx._.dropdown.attachToSelector = origDropdownAttachSelector
     fixture.clear()
@@ -236,30 +239,71 @@ describe 'hx.AutoComplete', ->
       ac.options.inputMap.should.have.been.called.with(testVal)
 
   describe 'when using a function with string items', ->
-    functionalTests = (itemFn, delay) ->
+    describe 'without delay', ->
+      functionItems = (term , cb) ->
+        cb(stringItems.filter((item) -> item.indexOf(term) > -1))
+
       beforeEach () ->
-        ac = new hx.AutoComplete(input, itemFn, { value: 'ay' })
+        ac = new hx.AutoComplete(input, functionItems, { value: 'ay' })
 
       it 'sets the initial value correctly from the options', ->
         ac.value().should.equal('ay')
 
 
-
-
-    describe 'without delay', ->
-      functionItems = (term , cb) ->
-        cb(stringItems.filter((item) -> item.indexOf(term) > -1))
-      functionalTests(functionItems, )
-
-
     describe 'with delay', ->
+      functionDelay = 10000
       functionItemsWithDelay = (term, cb) ->
         setTimeout(
           () -> cb(stringItems.filter((item) -> item.indexOf(term) > -1)),
-          100
+          functionDelay
         )
-      functionalTests(functionItemsWithDelay, 100)
 
+      beforeEach () ->
+        ac = new hx.AutoComplete(input, functionItemsWithDelay, { value: 'ay' })
+
+      it 'sets the initial value correctly from the options', ->
+        ac.value().should.equal('ay')
+
+      describe 'before items are returned', ->
+        beforeEach () ->
+          chai.spy.on(ac, 'show')
+          testHelpers.fakeNodeEvent(ac._.input.node(), 'focus')()
+          clock.tick(dropdownAnimateDelay)
+
+        it 'shows the dropdown', ->
+          ac.show.should.have.been.called()
+
+        it 'shows the loading text', ->
+          fixture.select('.hx-menu-item').text().should.equal(hx.userFacingText('autoComplete', 'loading'))
+
+
+    describe 'with delay and mustMatch', ->
+      it 'handles pressing enter', ->
+        # https://github.com/ocadotechnology/hexagonjs/issues/338
+        functionDelay = 10000
+        mustMatchFunctionItems = (term, cb) ->
+          setTimeout(
+            () -> cb(stringItems.filter((item) -> item.indexOf(term) > -1)),
+            functionDelay
+          )
+        ac = new hx.AutoComplete(input, mustMatchFunctionItems, { mustMatch: true })
+        testHelpers.fakeNodeEvent(ac._.input.node(), 'focus')()
+        ac._.input.value('ayz')
+        testHelpers.fakeNodeEvent(ac._.input.node(), 'input')({
+          target: ac._.input.node(),
+          preventDefault: () ->
+        })
+        clock.tick(inputDebounceDelay)
+        ac._.data.get('ayz').should.equal(true, 'data loading')
+        testHelpers.fakeNodeEvent(ac._.input.node(), 'keydown')({
+          which: 13,
+          preventDefault: () ->
+        })
+        console.error.should.not.have.been.called()
+        input.value().should.equal('', 'input empty')
+        ac.value().should.equal('', 'ac value empty')
+        clock.tick(dropdownAnimateDelay)
+        fixture.selectAll('.hx-dropdown').empty().should.equal(true, 'dropdown empty')
 
   describe 'hx.autoComplete', ->
     beforeEach ->

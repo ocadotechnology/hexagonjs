@@ -94,7 +94,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
 
       # check for the data in the cache before trying to load a new set
       if not _.data.get(searchTerm)
-        # set the value to true to prevent
+        # set the value to true to prevent errors caused by filtering undefined
         _.data.set(searchTerm, true)
         _.callback.call self, searchTerm, (returnData) ->
           # cleanUp prevents calling the callback when the user has changed focus
@@ -331,7 +331,10 @@ class AutoComplete extends hx.EventEmitter
               exactMatch = if self.options.matchType is 'external'
                 _.data.get(input.value())
               else
-                findTerm.call self, input.value(), true
+                if _.data.get(input.value()) is true
+                  setTimeout(_.checkValidity, 5)
+                else
+                  findTerm.call self, input.value(), true
               if exactMatch isnt true and exactMatch?.length > 0
                 exactMatch = exactMatch?.filter (e) ->
                   e = if self.options.inputMap? then self.options.inputMap(e) else e
