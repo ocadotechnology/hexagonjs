@@ -520,9 +520,9 @@ describe "Util", ->
 
     hx.shallowClone([1, 2, 3]).should.eql([1, 2, 3])
 
-    l = new hx.List [1, "a", {}]
-    s = new hx.Set [1, "a", {}]
-    m = new hx.Map [["a", 5], [6, {}]]
+    l = new hx._.List [1, "a", {}]
+    s = new hx._.Set [1, "a", {}]
+    m = new hx._.Map [["a", 5], [6, {}]]
 
     d = new Date
     hx.shallowClone(d).should.not.equal(d)
@@ -550,9 +550,9 @@ describe "Util", ->
     hx.clone({a: 5, b: obj}).b.should.not.equal(obj)
 
     hx.clone([1, 2, 3]).should.eql([1, 2, 3])
-    l = new hx.List [1, "a", {}]
-    s = new hx.Set [1, "a", {}]
-    m = new hx.Map [["a", 5], [6, {}]]
+    l = new hx._.List [1, "a", {}]
+    s = new hx._.Set [1, "a", {}]
+    m = new hx._.Map [["a", 5], [6, {}]]
 
 
     hx.clone(l).entries().should.eql(l.entries())

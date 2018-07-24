@@ -20,7 +20,7 @@ fileValidator = (file, acceptedExtensions) ->
 fileListToMap = (fileList, acceptedExtensions, emitter, options) ->
   # Deals with duplicates if the file has the same UID
   # Also removes invalid files
-  map = new hx.Map()
+  map = new hx._.Map()
   for file in fileList
     if fileValidator file, acceptedExtensions
       fileUID = getFileUID file
@@ -172,7 +172,7 @@ class FileInput extends hx.EventEmitter
       button: button
       selectedFiles: selectedFiles
       noFilesTextDiv: noFilesTextDiv
-      fileMap: new hx.Map()
+      fileMap: new hx._.Map()
 
     if resolvedOptions.dragEnabled
       preventDefault = (e) ->
@@ -221,7 +221,7 @@ class FileInput extends hx.EventEmitter
           .classed 'hx-btn', false
           .off('click', 'hx.file-input')
         @_.selectedFiles.append @_.noFilesTextDiv
-        @_.fileMap = new hx.Map
+        @_.fileMap = new hx._.Map
       this
     else
       @_.fileMap.values()

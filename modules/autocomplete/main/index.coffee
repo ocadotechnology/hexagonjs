@@ -9,7 +9,7 @@ hx.userFacingText({
 
 
 sortActive = (items) ->
-  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new hx._.Map(hx.groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -370,7 +370,7 @@ class AutoComplete extends hx.EventEmitter
 
 
   clearCache: ->
-    @_.data = new hx.Map()
+    @_.data = new hx._.Map()
     if @data? and not hx.isFunction @data
       @_.data.set('', @data)
     this

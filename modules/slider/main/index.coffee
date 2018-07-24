@@ -228,7 +228,7 @@ class Slider extends hx.EventEmitter
       @options.discreteValues = array
       _ = @_
       _.isDiscrete = @options.discreteValues?.length > 0 or @options.step?
-      _.discreteValues = new hx.Map()
+      _.discreteValues = new hx._.Map()
       _.discreteSpacing = (1 / (array.length - 1))
 
       _.container.selectAll('.hx-slider-point').remove()

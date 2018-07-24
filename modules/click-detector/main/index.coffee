@@ -3,7 +3,7 @@ class ClickDetector extends hx.EventEmitter
   constructor: ->
     super
     @eventId = hx.randomId()
-    @exceptions = new hx.List
+    @exceptions = new hx._.List
 
     # the original element clicked
     container = undefined

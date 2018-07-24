@@ -56,8 +56,8 @@ getHexagonElementDataObject = (element, createIfNotExists = true) ->
 
 class ElementSet
   constructor: ->
-    @elements = new hx.List
-    @ids = new hx.Set
+    @elements = new hx._.List
+    @ids = new hx._.Set
 
   add: (element) ->
     d = getHexagonElementDataObject(element)
@@ -406,9 +406,9 @@ class Selection
         data.eventEmitter
       else
         data.eventEmitter = new hx.EventEmitter
-      data.eventAugmenters ?= new hx.Map
+      data.eventAugmenters ?= new hx._.Map
 
-      data.listenerNamesRegistered ?= new hx.Set
+      data.listenerNamesRegistered ?= new hx._.Set
 
       if name.indexOf('pointer') isnt 0 and not data.listenerNamesRegistered.has(name)
         handler = (e) -> eventEmitter.emit(name, e)
@@ -461,7 +461,7 @@ class Selection
     else
       values = for node in @nodes
         data = getHexagonElementDataObject(node)
-        data.data ?= new hx.Map
+        data.data ?= new hx._.Map
         data.data.set(key, value)
       this
 

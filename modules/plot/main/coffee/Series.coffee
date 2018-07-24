@@ -1,7 +1,7 @@
 
 class Series extends hx.EventEmitter
 
-  defaultLabelValuesExtractor = (series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) ->
+  defaultLabelValuesExtractor = (series, dataPoint, xAccessor, yAccessor, xProperty='x', yProperty='y') ->
     [
       {
         name: series.axis.x.title(),

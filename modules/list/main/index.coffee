@@ -60,5 +60,9 @@ class List
   # the same as entries()
   values: -> @list
 
+hx._.List = List
 
-hx.List = List
+class hx.List extends List
+  constructor: (items) ->
+    hx.deprecatedWarning('hx.List', 'JS Array')
+    super(items)

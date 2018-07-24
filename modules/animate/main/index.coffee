@@ -191,6 +191,6 @@ class Morph extends hx.EventEmitter
 hx.morph = (node) -> new Morph(node)
 hx.Selection::morph = -> new Morph(@nodes[0])
 
-hx_morphs = new hx.Map
+hx_morphs = new hx._.Map
 hx.morph.register = (name, morph) -> hx_morphs.set(name, morph)
 

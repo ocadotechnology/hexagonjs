@@ -233,6 +233,12 @@
           'lblt'
 
       @property spacing [Number]
+        @removed nextReleaseVersion
+          @issue 250
+          @description
+            The spacing value is ignored by the dropdown and has subsequently been removed from
+            the API
+
         @description
           How much space to show between the dropdown and the selector
 
@@ -264,6 +270,12 @@
           The dropdown node to populate.
 
     @property spacing [Number]
+      @removed nextReleaseVersion
+        @issue 250
+        @description
+          The spacing value is ignored by the dropdown and has subsequently been removed from
+          the API
+
       @description
         How much space to show between the dropdown and the selector
 

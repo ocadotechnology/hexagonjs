@@ -19,7 +19,7 @@ class Form extends hx.EventEmitter
     hx.component.register(@selector, this)
 
     @formId = "form-"+hx.randomId() + '-'
-    @properties = new hx.Map
+    @properties = new hx._.Map
     hx.select(@selector)
       .classed('hx-form', true)
       .on 'keypress', 'hx.form-builder', (e) ->

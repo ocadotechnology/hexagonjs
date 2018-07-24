@@ -3,6 +3,11 @@
     Sets can now handle items with the same toString
 
 @prototype hx.Set
+  @deprecated nextReleaseVersion
+    @issue 336
+    @description
+      Deprecated in favour of native ES6 Set
+
   @constructor
     @description
       A set collection type.
