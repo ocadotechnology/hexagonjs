@@ -371,6 +371,14 @@ describe 'autocomplete-picker', ->
         hx.consoleWarning.should.not.have.been.called()
 
 
+    it 'value: should clear the value when set to undefined', ->
+      testClosedAutocomplete trivialItems, undefined, (ap) ->
+        should.not.exist(ap.value())
+        ap.value('b')
+        ap.value().should.equal('b')
+        ap.value(undefined)
+        should.not.exist(ap.value())
+
     it 'value: should call the callback correctly when the value is in the item set', ->
       testClosedAutocomplete trivialAsyncItems, undefined, (ap) ->
         should.not.exist(ap.value())
