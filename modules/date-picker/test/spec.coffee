@@ -152,6 +152,14 @@ describe 'hx-date-picker', ->
         dp = new hx.DatePicker(hx.detached('div').node())
         dp.validRange().should.eql({start: undefined, end: undefined})
 
+      it 'can be set in the constructor', ->
+        validRange = {
+          start: roundedDate(),
+          end: roundedDate()
+        }
+        dp = new hx.DatePicker(hx.detached('div'), { validRange })
+        dp.validRange().should.eql(validRange)
+
 
     describe 'range', ->
       it 'should do nothing when attempting to use without setting selectRange', ->
@@ -188,3 +196,9 @@ describe 'hx-date-picker', ->
       it 'defaults should be today', ->
         dp = new hx.DatePicker(hx.detached('div').node(), {selectRange: true})
         dp.range().should.eql({start: roundedDate(null, true), end: roundedDate(null, true)})
+
+      it 'can be set in the constructor', ->
+        range = {start: roundedDate(true), end: roundedDate()}
+        dp = new hx.DatePicker(hx.detached('div'), { selectRange: true, range: range })
+        dp.range().should.eql({start: roundedDate(true), end: roundedDate()})
+

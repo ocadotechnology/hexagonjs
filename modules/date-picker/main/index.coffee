@@ -347,6 +347,8 @@ class DatePicker extends hx.EventEmitter
       defaultView: 'm' # 'm' for month, 'y' for year, or 'd' for decade
       closeOnSelect: true
       selectRange: false
+      validRange: undefined
+      range: undefined
       showTodayButton: true
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
@@ -380,7 +382,7 @@ class DatePicker extends hx.EventEmitter
       @options.type = 'calendar'
       @options.showTodayButton = false
       _.preventFeedback = true
-      @range({})
+      @range(@options.range or {})
       _.preventFeedback = false
 
       inputUpdate = (which) ->
@@ -552,6 +554,7 @@ class DatePicker extends hx.EventEmitter
 
     setupInput this
     if _.disable then @disabled(_.disabled)
+    if @options.validRange then @validRange(@options.validRange)
 
 
   disabled: (disable) ->
