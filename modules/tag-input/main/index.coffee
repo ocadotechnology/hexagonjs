@@ -61,7 +61,7 @@ class TagInput extends hx.EventEmitter
       acData = createFilteredData filterFn, @options.autocompleteData
 
       @_.autocomplete = new hx.AutoComplete(@input.node(), acData, @options.autocompleteOptions)
-      inputMap = @_.autocomplete.options.inputMap || hx.identity
+      inputMap = @_.autocomplete.options?.inputMap || hx.identity
       @_.autocomplete.on 'change', 'hx.taginput', (value) =>  # add the item to the tag list on first enter/tab
         @add inputMap(value)
         setTimeout (=> @_.autocomplete.show()), 0

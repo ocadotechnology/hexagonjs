@@ -94,7 +94,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
 
       # check for the data in the cache before trying to load a new set
       if not _.data.get(searchTerm)
-        # set the value to true to prevent
+        # set the value to true to prevent errors caused by filtering undefined
         _.data.set(searchTerm, true)
         _.callback.call self, searchTerm, (returnData) ->
           # cleanUp prevents calling the callback when the user has changed focus
@@ -166,36 +166,19 @@ showAutoComplete = ->
 
 
 class AutoComplete extends hx.EventEmitter
-
-  constructor: (@selector, @data, @options = {}) ->
+  constructor: (@selector, @data, opts = {}) ->
     super
 
-    @_ = _ = {}
-
-    hx.component.register(@selector, this)
-
-    _.ignoreMatch = false
-    _.ignoreNextFocus = false
-
-    self = this
-
-    # create the data cache for storing the datasets based on their search term
-    _.data = new hx._.Map()
-
-    if hx.isFunction @data
-      _.callback = @data
-    else
-      _.data.set('', @data)
-
-     # do a sanity check on the data
+    # do a sanity check on the data
     if not hx.isArray(@data) and not hx.isFunction(@data)
       hx.consoleWarning(
         'AutoComplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
         ' but should have been an array of items or a function'
       )
     else
-      # setup options
-      @options = hx.merge {
+      hx.component.register(@selector, this)
+
+      @options = hx.merge.defined {
         minLength: 0
         showAll: true
         trimTrailingSpaces: false
@@ -214,14 +197,29 @@ class AutoComplete extends hx.EventEmitter
         noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
         otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults')
         pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
-      }, @options
+      }, opts
+
+      @_ = _ = {}
+      _.ignoreMatch = false
+      _.ignoreNextFocus = false
+      self = this
+
+      # create the data cache for storing the datasets based on their search term
+      _.data = new hx.Map()
+
+
+
+      if hx.isFunction @data
+        _.callback = @data
+      else
+        _.data.set('', @data)
 
       if @options.inputMap?
         # default searchValue if inputMap is defined
         _filterOpts =
           searchValues: (d) -> [self.options.inputMap(d)]
 
-      @options.filterOptions = hx.merge {}, _filterOpts, @options.filterOptions
+      @options.filterOptions = hx.merge {}, _filterOpts, opts.filterOptions
 
       @options.filter ?= (arr, term) =>
         filtered = hx.filter[self.options.matchType](arr, term, self.options.filterOptions)
@@ -252,11 +250,11 @@ class AutoComplete extends hx.EventEmitter
 
       # set properties and functions for input
       _.setInputValue = if @options.inputMap?
-        (d) ->
+        (d='') ->
           input.value(self.options.inputMap(d))
           self.emit 'change', d
       else
-        (d) ->
+        (d='') ->
           input.value(d)
           self.emit 'change', d
 
@@ -333,7 +331,10 @@ class AutoComplete extends hx.EventEmitter
               exactMatch = if self.options.matchType is 'external'
                 _.data.get(input.value())
               else
-                findTerm.call self, input.value(), true
+                if _.data.get(input.value()) is true
+                  setTimeout(_.checkValidity, 5)
+                else
+                  findTerm.call self, input.value(), true
               if exactMatch isnt true and exactMatch?.length > 0
                 exactMatch = exactMatch?.filter (e) ->
                   e = if self.options.inputMap? then self.options.inputMap(e) else e
