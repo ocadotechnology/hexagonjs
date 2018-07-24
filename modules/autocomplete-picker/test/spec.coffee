@@ -502,6 +502,18 @@ describe 'autocomplete-picker', ->
       showstart.should.have.been.called.once()
 
 
+    it 'should emit the "change" event when the value is changed to undefined', ->
+      testClosedAutocomplete trivialItems, { value: 'a' }, (ap) ->
+        value = chai.spy()
+        ap.on 'change', value
+        ap.value(undefined)
+        value.should.have.been.called.with({
+          cause: 'api',
+          value: undefined
+        })
+        value.should.have.been.called.once()
+
+
     it 'should emit the "change" event when the value is changed', ->
       testClosedAutocomplete trivialItems, undefined, (ap) ->
         value = chai.spy()
