@@ -1,5 +1,10 @@
 
 @prototype hx.List
+  @deprecated nextReleaseVersion
+    @issue 336
+    @description
+      Deprecated in favour of using standard JS Arrays
+
   @description
     A wrapper around standard JavaScript Arrays, with methods for adding and removing items.
 
