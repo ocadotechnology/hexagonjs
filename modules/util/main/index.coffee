@@ -200,16 +200,16 @@ hx.isPlainObject = (obj) ->
   obj.constructor.prototype.hasOwnProperty('isPrototypeOf')
 
 hx.groupBy = (arr, f) ->
-  map = new hx.Map
+  map = new hx._.Map
   for x in arr
     category = f(x)
-    if not map.has(category) then map.set(category, new hx.List)
+    if not map.has(category) then map.set(category, new hx._.List)
     map.get(category).add(x)
   values = map.entries()
   values.forEach((d) -> d[1] = d[1].entries())
   values
 
-hx.unique = (list) -> new hx.Set(list).values()
+hx.unique = (list) -> new hx._.Set(list).values()
 
 hx.endsWith  = (string, suffix) ->
   string.indexOf(suffix, string.length - suffix.length) != -1
@@ -275,12 +275,12 @@ hx.clone = (obj) ->
     obj.map(hx.clone)
   else if hx.isPlainObject(obj)
     hx.merge({}, obj)
-  else if obj instanceof hx.List
-    new hx.List(obj.entries().map(hx.clone))
-  else if obj instanceof hx.Map
-    new hx.Map(obj.entries().map(([k, v]) -> [hx.clone(k), hx.clone(v)]))
-  else if obj instanceof hx.Set
-    new hx.Set(obj.keys().map(hx.clone))
+  else if obj instanceof hx._.List
+    new hx._.List(obj.entries().map(hx.clone))
+  else if obj instanceof hx._.Map
+    new hx._.Map(obj.entries().map(([k, v]) -> [hx.clone(k), hx.clone(v)]))
+  else if obj instanceof hx._.Set
+    new hx._.Set(obj.keys().map(hx.clone))
   else if obj instanceof Date
     new Date obj.getTime()
   else if hx.isObject(obj) and obj isnt null
@@ -295,12 +295,12 @@ hx.shallowClone = (obj) ->
     obj.slice()
   else if hx.isPlainObject(obj)
     hx.shallowMerge({}, obj)
-  else if obj instanceof hx.List
-    new hx.List obj.entries()
-  else if obj instanceof hx.Map
-    new hx.Map obj.entries()
-  else if obj instanceof hx.Set
-    new hx.Set obj.keys()
+  else if obj instanceof hx._.List
+    new hx._.List obj.entries()
+  else if obj instanceof hx._.Map
+    new hx._.Map obj.entries()
+  else if obj instanceof hx._.Set
+    new hx._.Set obj.keys()
   else if obj instanceof Date
     new Date obj.getTime()
   else if hx.isObject(obj) and obj isnt null

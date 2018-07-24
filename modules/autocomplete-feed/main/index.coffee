@@ -9,7 +9,7 @@ trimTrailingSpaces = (term) ->
   newTerm
 
 sortActive = (items) ->
-  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new hx._.Map(hx.groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -42,11 +42,11 @@ class AutocompleteFeed
 
     @_ =
       options: resolvedOptions
-      resultsCache: new hx.Map
+      resultsCache: new hx._.Map
 
 
   clearCache: ->
-    @_.resultsCache = new hx.Map
+    @_.resultsCache = new hx._.Map
     this
 
   filter: (term = '', callback) ->

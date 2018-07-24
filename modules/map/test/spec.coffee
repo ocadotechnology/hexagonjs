@@ -1,7 +1,7 @@
 describe "hx-map", ->
   a = [1]
 
-  Map = hx.Map
+  Map = hx._.Map
 
   it "size should distinguish between keys with the same toString", ->
     map = new Map([[1, 'Bob'], ['1', 'Lazlo'], [a, 'Ganesh']])

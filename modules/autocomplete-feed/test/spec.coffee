@@ -59,11 +59,11 @@ describe 'autocomplete-feed', ->
       af.filter('', ->)
       af.filter('a', ->)
       initialCache = af._.resultsCache
-      initialCache.should.be.an.instanceOf(hx.Map)
+      initialCache.should.be.an.instanceOf(hx._.Map)
       initialCache.keys().should.eql(['', 'a'])
       af.clearCache().should.equal(af)
       initialCache.should.not.equal(af._.resultsCache)
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(hx._.Map)
       af._.resultsCache.keys().should.eql([])
 
 
@@ -314,7 +314,7 @@ describe 'autocomplete-feed', ->
       af = new hx.AutocompleteFeed({
         useCache: false
       })
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(hx._.Map)
       af._.resultsCache.entries().length.should.equal(0)
       af.items(['a','b','c'])
       af._.resultsCache.entries().length.should.equal(0)
@@ -330,7 +330,7 @@ describe 'autocomplete-feed', ->
       af = new hx.AutocompleteFeed()
       callback = chai.spy()
       af.items(['a','b','c'])
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(hx._.Map)
       af._.resultsCache.entries().length.should.equal(0)
       chai.spy.on(af._.resultsCache, 'has')
       chai.spy.on(af._.resultsCache, 'get')
@@ -360,7 +360,7 @@ describe 'autocomplete-feed', ->
       items = chai.spy((term, cb) -> cb(['a','b','c'],['d']))
       callback = chai.spy()
       af.items(items)
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(hx._.Map)
       af._.resultsCache.entries().length.should.equal(0)
       chai.spy.on(af._.resultsCache, 'has')
       chai.spy.on(af._.resultsCache, 'get')
@@ -394,7 +394,7 @@ describe 'autocomplete-feed', ->
       items = chai.spy((term, cb) -> cb(['a','b','c'],['d']))
       callback = chai.spy()
       af.items(items)
-      af._.resultsCache.should.be.an.instanceOf(hx.Map)
+      af._.resultsCache.should.be.an.instanceOf(hx._.Map)
       af._.resultsCache.entries().length.should.equal(0)
       chai.spy.on(af._.resultsCache, 'has')
       chai.spy.on(af._.resultsCache, 'get')

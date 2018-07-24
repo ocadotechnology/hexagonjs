@@ -10,8 +10,8 @@ class Composite extends DrawingObject
     @angle = @addNumberProperty('angle')
     @scale = @addNumberProperty('scale', 1)
 
-    @objectList = new hx.List
-    @objectMap = new hx.Map
+    @objectList = new hx._.List
+    @objectMap = new hx._.Map
 
   set: (name, value, duration, callback) ->
     if @properties.has(name) or hx.startsWith(name, 'attr.')

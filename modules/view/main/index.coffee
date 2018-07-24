@@ -28,9 +28,9 @@ class View
 
       if key
         # some temporary maps for keeping track of which nodes are entering, and which are exiting
-        nodeByKey = new hx.Map
+        nodeByKey = new hx._.Map
 
-        dataByKey = new hx.Map data.map (datum) -> [key(datum), datum]
+        dataByKey = new hx._.Map data.map (datum) -> [key(datum), datum]
         for node in nodes
           nodeData = hx.select.getHexagonElementDataObject(node)
           if nodeData.datum

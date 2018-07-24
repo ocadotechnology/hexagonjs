@@ -26,7 +26,7 @@ class Graph extends hx.EventEmitter
         noDataText: hx.userFacingText('plot', 'noData')
         redrawOnResize: true
       }, options),
-      axes: new hx.List
+      axes: new hx._.List
     }
 
     #XXX: move to the underscore object
@@ -178,7 +178,7 @@ class Graph extends hx.EventEmitter
 
   axes: (axes) ->
     if arguments.length > 0
-      @_.axes = new hx.List(axes)
+      @_.axes = new hx._.List(axes)
       @axes().forEach (a) -> a.graph = this
       this
     else
