@@ -7,6 +7,12 @@
     @description
       Added sidebar method and themes to allow for better overlays
 
+  @deprecated nextReleaseVersion
+    @issue 480
+    @description
+      This module has been deprecated and will be moved to a standalone library
+      in a later release.
+
   @description
     Used to create interactive drawings.
 

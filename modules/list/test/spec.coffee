@@ -1,6 +1,6 @@
 describe "List", ->
 
-  List = hx.List
+  List = hx._.List
 
   it "contains nothing when initialsed",  ->
     list = new List

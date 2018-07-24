@@ -1,7 +1,7 @@
 class BasicEventEmitter
   constructor: ->
-    @callbacks = new hx.Map
-    @allCallbacks = new hx.List
+    @callbacks = new hx._.Map
+    @allCallbacks = new hx._.List
 
   # emit an object to all callbacks registered with the name given
   emit: (name, data) ->
@@ -15,7 +15,7 @@ class BasicEventEmitter
   on: (name, callback) ->
     if name
       if not @callbacks.has(name)
-        @callbacks.set(name, new hx.List)
+        @callbacks.set(name, new hx._.List)
       @callbacks.get(name).add callback
     else
       @allCallbacks.add callback
@@ -37,10 +37,10 @@ class BasicEventEmitter
         @allCallbacks.remove(callback)
     else
       if name
-        @callbacks.set(name, new hx.List)
+        @callbacks.set(name, new hx._.List)
       else
-        @callbacks = new hx.Map
-        @allCallbacks = new hx.List
+        @callbacks = new hx._.Map
+        @allCallbacks = new hx._.List
     this
 
   # lets you pipe events through to another event emitter
@@ -63,9 +63,9 @@ class BasicEventEmitter
 
 class EventEmitter
   constructor: ->
-    @suppressedMap = new hx.Map
-    @emitters = new hx.List
-    @emittersMap = new hx.Map
+    @suppressedMap = new hx._.Map
+    @emitters = new hx._.List
+    @emittersMap = new hx._.Map
     @global = addEmitter(this, 'default')
 
   addEmitter = (ee, namespace) ->

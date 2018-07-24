@@ -9,7 +9,7 @@ trimTrailingSpaces = (term) ->
   newTerm
 
 sortActive = (items) ->
-  groupedActive = new hx.Map(hx.groupBy(items, (i) -> not i.disabled))
+  groupedActive = new hx._.Map(hx.groupBy(items, (i) -> not i.disabled))
   active = groupedActive.get(true) || []
   inactive = groupedActive.get(false) || []
   { active, inactive }
@@ -42,62 +42,66 @@ class AutocompleteFeed
 
     @_ =
       options: resolvedOptions
-      resultsCache: new hx.Map
+      resultsCache: new hx._.Map
 
 
   clearCache: ->
-    @_.resultsCache = new hx.Map
+    @_.resultsCache = new hx._.Map
     this
 
-  filter: (term = '', callback) ->
+  filter: (term, callback) ->
     _ = @_
-    thisFilter = term + hx.randomId()
-    _.lastFilter = thisFilter
-
-    cacheItemsThenCallback = (results, otherResults = []) =>
-      if _.options.trimTrailingSpaces and results.length is 0 and term.lastIndexOf(' ') is term.length - 1
-        # The term has trailing spaces and no results were found
-        @filter(trimTrailingSpaces(term), callback)
-      else
-        # Cache the currently searched term items
-        if _.options.useCache
-          _.resultsCache.set(term, {
-            results: results,
-            otherResults: otherResults
-          })
-        # Only call back if this is the filter that was called last
-        if thisFilter is _.lastFilter
-          callback(results, otherResults)
-
-    if _.options.useCache and _.resultsCache.has(term)
-      # Get the result from the cache
-      cacheditems = _.resultsCache.get(term)
-      callback(cacheditems.results, cacheditems.otherResults)
-    else if _.options.matchType is 'external' and hx.isFunction(_.items)
-      # The matching is external so we don't filter here
-      _.items(term, cacheItemsThenCallback)
+    if term is undefined
+      callback([])
     else
-      filterAndCallback = (unfilteredItems) ->
-        filteredItems = _.options.filter(unfilteredItems, term)
-        if _.options.showOtherResults
-          unpartitioned = unfilteredItems.filter (datum) ->
-              filteredItems.indexOf(datum) is -1
-            .sort sortItems(_.options.valueLookup)
+      term ?= ''
+      thisFilter = term + hx.randomId()
+      _.lastFilter = thisFilter
 
-          { active, inactive } = sortActive(unpartitioned)
-          otherResults = [active..., inactive...]
+      cacheItemsThenCallback = (results, otherResults = []) =>
+        if _.options.trimTrailingSpaces and results.length is 0 and term.lastIndexOf(' ') is term.length - 1
+          # The term has trailing spaces and no results were found
+          @filter(trimTrailingSpaces(term), callback)
+        else
+          # Cache the currently searched term items
+          if _.options.useCache
+            _.resultsCache.set(term, {
+              results: results,
+              otherResults: otherResults
+            })
+          # Only call back if this is the filter that was called last
+          if thisFilter is _.lastFilter
+            callback(results, otherResults)
 
-        cacheItemsThenCallback(filteredItems, otherResults)
-
-      if hx.isFunction(_.items)
-        # Call the function then apply filtering
-        _.items(term, filterAndCallback)
-      else if term.length
-        # Apply filtering to the static object
-        filterAndCallback(_.items)
+      if _.options.useCache and _.resultsCache.has(term)
+        # Get the result from the cache
+        cacheditems = _.resultsCache.get(term)
+        callback(cacheditems.results, cacheditems.otherResults)
+      else if _.options.matchType is 'external' and hx.isFunction(_.items)
+        # The matching is external so we don't filter here
+        _.items(term, cacheItemsThenCallback)
       else
-        # Skip filtering and return the entire itemsset
-        cacheItemsThenCallback(_.items)
+        filterAndCallback = (unfilteredItems) ->
+          filteredItems = _.options.filter(unfilteredItems, term)
+          if _.options.showOtherResults
+            unpartitioned = unfilteredItems.filter (datum) ->
+                filteredItems.indexOf(datum) is -1
+              .sort sortItems(_.options.valueLookup)
+
+            { active, inactive } = sortActive(unpartitioned)
+            otherResults = [active..., inactive...]
+
+          cacheItemsThenCallback(filteredItems, otherResults)
+
+        if hx.isFunction(_.items)
+          # Call the function then apply filtering
+          _.items(term, filterAndCallback)
+        else if term.length
+          # Apply filtering to the static object
+          filterAndCallback(_.items)
+        else
+          # Skip filtering and return the entire itemsset
+          cacheItemsThenCallback(_.items)
 
   validateItems: (items) -> hx.isArray(items) or hx.isFunction(items)
 

@@ -3,8 +3,8 @@
 class DrawingObject
 
   constructor: (@id = hx.randomId()) ->
-    @attr = new hx.Map
-    @properties = new hx.Map
+    @attr = new hx._.Map
+    @properties = new hx._.Map
 
     @selectable = @addDiscreteProperty 'selectable'
     @selected = false

@@ -1,6 +1,6 @@
 describe "set", ->
 
-  Set = hx.Set
+  Set = hx._.Set
 
   it "can be intialized using an array", ->
     set = new Set [1, 2, 3]

@@ -88,5 +88,9 @@ class Set
   # get the items in the set
   values: -> (v[1] for v in @entries())
 
+hx._.Set = Set
 
-hx.Set = Set
+class hx.Set extends Set
+  constructor: (iterable) ->
+    hx.deprecatedWarning('hx.Set', 'ES6 Set')
+    super(iterable)

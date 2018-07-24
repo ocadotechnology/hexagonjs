@@ -68,7 +68,7 @@ class Axis
     }, options)
 
     @_ = {
-      series: new hx.List
+      series: new hx._.List
     }
 
     @x = dimension this, hx.merge({
@@ -127,7 +127,7 @@ class Axis
 
   series: (series) ->
     if arguments.length > 0
-      @_.series = new hx.List(series)
+      @_.series = new hx._.List(series)
       for s in series
         s.axis = this
       this
@@ -152,11 +152,11 @@ class Axis
 
     groupTypeEntries = (data) ->
 
-      groups = new hx.Map
+      groups = new hx._.Map
       for series in data
         group = if supportsGroup(series) then series.group()
         if not groups.has(group)
-          groups.set(group, new hx.List)
+          groups.set(group, new hx._.List)
         groups.get(group).add(series)
 
       internalGroupId = 0
@@ -187,10 +187,10 @@ class Axis
       internalGroupId
 
     # collect the series by type
-    types = new hx.Map
+    types = new hx._.Map
     for series in @series()
       if not types.has(series._.type)
-        types.set(series._.type, new hx.List)
+        types.set(series._.type, new hx._.List)
       types.get(series._.type).add(series)
 
     for typeEntry in types.entries()
@@ -209,7 +209,7 @@ class Axis
       domain = if @x.discreteLabels()
         @x.discreteLabels()
       else
-        set = new hx.Set
+        set = new hx._.Set
         for series in @series()
           for d in series.data()
             set.add(d.x)
@@ -255,7 +255,7 @@ class Axis
 
       getXTicks = (scale) =>
         if self.x.ticksAll()
-          set = new hx.Set
+          set = new hx._.Set
           for series in @series()
             for d in series.data()
               set.add(d.x)
@@ -309,7 +309,7 @@ class Axis
       domain = if @yDiscreteLabels
         @yDiscreteLabels
       else
-        set = new hx.Set
+        set = new hx._.Set
         for series in @series()
           for d in series.data()
             set.add(d.y)
