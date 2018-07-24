@@ -84,7 +84,7 @@ class Drawing extends hx.EventEmitter
 
     @stats = null
 
-    @selectedObjects = new hx.List
+    @selectedObjects = new hx._.List
 
     # start the loop
     @frame = 0
@@ -230,7 +230,7 @@ class Drawing extends hx.EventEmitter
         if obj!=drawingObject
           obj.selected = false
           @emit 'unselect', obj
-      @selectedObjects = new hx.List([drawingObject])
+      @selectedObjects = new hx._.List([drawingObject])
     drawingObject.selected = true
     @emit 'select', drawingObject
 

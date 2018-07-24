@@ -499,8 +499,8 @@ class DataTable extends hx.EventEmitter
       pageSizePickers: [pageSizePicker, pageSizePickerBottom]
       statusBar: statusBar
       sortColPicker: sortColPicker
-      selectedRows: new hx.Set(resolvedOptions.selectedRows)   # holds the ids of the selected rows
-      expandedRows: new hx.Set(resolvedOptions.expandedRows)
+      selectedRows: new hx._.Set(resolvedOptions.selectedRows)   # holds the ids of the selected rows
+      expandedRows: new hx._.Set(resolvedOptions.expandedRows)
       renderedCollapsibles: {}
       compactState: (resolvedOptions.compact is 'auto' and selection.width() < collapseBreakPoint) or resolvedOptions.compact is true
       advancedSearchView: advancedSearchView
@@ -633,7 +633,7 @@ class DataTable extends hx.EventEmitter
       # Deal with single select mode when setting the selected rows
       if @singleSelection() and hx.isArray(value) and value.length
         value = [value[0]]
-      @_.selectedRows = new hx.Set(value)
+      @_.selectedRows = new hx._.Set(value)
       newSelectedRows = @_.selectedRows.values()
       @emit('selectedrowschange', {value: newSelectedRows, cause: 'api'})
       @_.userLastSelectedIndex = undefined
@@ -644,7 +644,7 @@ class DataTable extends hx.EventEmitter
 
   expandedRows: (value, cb) ->
     if arguments.length > 0 and not hx.isFunction(value)
-      @_.expandedRows = new hx.Set(value)
+      @_.expandedRows = new hx._.Set(value)
       @render(cb)
       @emit('expandedrowschange', {value: @_.expandedRows.values(), cause: 'api'})
       this
