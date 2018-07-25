@@ -205,7 +205,7 @@ class AutoComplete extends hx.EventEmitter
       self = this
 
       # create the data cache for storing the datasets based on their search term
-      _.data = new hx.Map()
+      _.data = new hx._.Map()
 
 
 

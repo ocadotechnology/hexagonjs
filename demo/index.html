@@ -904,17 +904,6 @@
         </div>
       </div>
       <div class="demo-section">
-        <h3>Color Picker</h3>
-        <div class="demo-section-examples">
-          <button class="hx-btn" id="basicPickerButton">Basic</button>
-          <button class="hx-btn" id="fullPickerButton">Full</button>
-          <script>
-          new hx.ColorPicker("#basicPickerButton")
-          new hx.ColorPicker("#fullPickerButton", { showInputs: true })
-          </script>
-        </div>
-      </div>
-      <div class="demo-section">
         <h3>Crumbtrail</h3>
         <div class="demo-section-examples">
           <span class="demo-comment">Static</span>
@@ -2628,7 +2617,7 @@
           <script>
           new hx.Tree('#example-tree')
           new hx.Tree('#example-dynamic-tree', {
-            renderer: function(elem, data) { hx.select(elem).html(data.name) },
+            renderer: function(elem, data) { hx.select(elem).text(data.name) },
             items: [{
               name: 'Parent 1',
               children: [{
