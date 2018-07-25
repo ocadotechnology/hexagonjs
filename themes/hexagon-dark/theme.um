@@ -99,6 +99,10 @@
         @invert-text-col: white
         @light-text-col: white
 
+    @label
+      @variables
+        @invert-col: #2F3536
+
     @card
       @variables
         @border-col: transparent
