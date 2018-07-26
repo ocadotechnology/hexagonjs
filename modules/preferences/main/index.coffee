@@ -241,7 +241,7 @@ class Preferences extends hx.EventEmitter
 
   timezone: (timezone) ->
     if arguments.length > 0
-      if hx.isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
+      if @timezoneIsSupported(timezone)
         if @_.preferences['timezone'] isnt timezone
           @_.preferences['timezone'] = timezone
           @emit('timezonechange', timezone)
@@ -255,7 +255,8 @@ class Preferences extends hx.EventEmitter
   locale: (locale) ->
     if arguments.length > 0
       # check that the locale being set is supported
-      if hx.isString(locale) and (localeObject = lookupLocale(locale))
+      if @localeIsSupported(locale)
+        localeObject = lookupLocale(locale)
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
 
@@ -283,8 +284,17 @@ class Preferences extends hx.EventEmitter
   supportedTimezones: option 'supportedTimezones'
   timezoneOffsetLookup: option 'timezoneOffsetLookup'
 
-  applyTimezoneOffset: (date, offset) ->
-    offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
+  timezoneIsSupported: (timezone) ->
+    hx.isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
+
+  localeIsSupported: (locale) ->
+    hx.isString(locale) and lookupLocale(locale)
+
+  applyTimezoneOffset: (date, timezoneOrOffset) ->
+    offset =  if isNaN(timezoneOrOffset)
+      @_.timezoneOffsetLookup(timezoneOrOffset || @timezone(), date.getTime()) || 0
+    else
+      offset || @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
     utc = date.getTime() + (date.getTimezoneOffset() * 60000)
     new Date(utc + offset * 60 * 60 * 1000)
 

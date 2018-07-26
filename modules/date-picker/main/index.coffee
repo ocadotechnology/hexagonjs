@@ -359,16 +359,15 @@ class DatePicker extends hx.EventEmitter
       mode: @options.defaultView
       startDate: new Date
       endDate: new Date
-      uniqueId: hx.randomId()
     }
 
-    hx.preferences.on 'localechange', 'hx.date-picker-' + _.uniqueId, => updateDatepicker this, true
-    hx.preferences.on 'timezonechange', 'hx.date-picker-' + _.uniqueId, => updateDatepicker this, true
+    @localizer = hx.dateTimeLocalizer()
+    @localizer.on 'localechange', 'hx.date-picker', => updateDatepicker this, true
+    @localizer.on 'timezonechange', 'hx.date-picker', => updateDatepicker this, true
 
     _.startDate.setHours(0, 0, 0, 0)
     _.endDate.setHours(0, 0, 0, 0)
 
-    @localizer = hx.dateTimeLocalizer()
 
     @selection = hx.select(@selector).classed('hx-date-picker', true)
 
@@ -695,12 +694,11 @@ class DatePicker extends hx.EventEmitter
       _.validRange
 
   locale: (locale) ->
-    hx.deprecatedWarning 'hx.DatePicker::locale is deprecated. Use hx.preferences.locale instead.'
     if arguments.length > 0
-      hx.preferences.locale locale
+      @localizer.locale(locale)
       this
     else
-      hx.preferences.locale()
+      @localizer.locale()
 
 hx.datePicker = (options) ->
   selection = hx.detached('div')
