@@ -241,7 +241,7 @@ class Preferences extends hx.EventEmitter
 
   timezone: (timezone) ->
     if arguments.length > 0
-      if @timezoneIsSupported(timezone)
+      if @isTimezoneSupported(timezone)
         if @_.preferences['timezone'] isnt timezone
           @_.preferences['timezone'] = timezone
           @emit('timezonechange', timezone)
@@ -255,7 +255,7 @@ class Preferences extends hx.EventEmitter
   locale: (locale) ->
     if arguments.length > 0
       # check that the locale being set is supported
-      if @localeIsSupported(locale)
+      if @isLocaleSupported(locale)
         localeObject = lookupLocale(locale)
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
@@ -284,10 +284,10 @@ class Preferences extends hx.EventEmitter
   supportedTimezones: option 'supportedTimezones'
   timezoneOffsetLookup: option 'timezoneOffsetLookup'
 
-  timezoneIsSupported: (timezone) ->
+  isTimezoneSupported: (timezone) ->
     hx.isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
 
-  localeIsSupported: (locale) ->
+  isLocaleSupported: (locale) ->
     hx.isString(locale) and lookupLocale(locale)
 
   applyTimezoneOffset: (date, timezoneOrOffset) ->

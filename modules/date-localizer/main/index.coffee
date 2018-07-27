@@ -21,7 +21,7 @@ class PreferencesHandler extends hx.EventEmitter
 
   locale: (locale) ->
     if arguments.length
-      if not locale? or hx.preferences.localeIsSupported(locale)
+      if not locale? or hx.preferences.isLocaleSupported(locale)
         @_.instanceLocale = if locale then true else false
         @_.locale = locale
         @emit 'localechange', {
@@ -36,7 +36,7 @@ class PreferencesHandler extends hx.EventEmitter
 
   timezone: (timezone) ->
     if arguments.length
-      if not timezone? or hx.preferences.timezoneIsSupported(timezone)
+      if not timezone? or hx.preferences.isTimezoneSupported(timezone)
         @_.instanceTimezone = if timezone then true else false
         @_.timezone = timezone
         @emit 'timezonechange', {
