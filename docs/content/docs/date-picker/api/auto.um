@@ -900,11 +900,15 @@
 
   @method locale
     @added 0.13.0
-    @deprecated 1.1.0
-      @issue 23
-      @issue 24
-      @description
-        Use @code[hx.preferences.locale] to get the locale for a page.
+    @extra
+      @removed nextReleaseVersion
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version nextReleaseVersion and updated to work in a more
+          effective manner.
+
 
     @description
       A function for updating the locale used in the date picker.
@@ -924,11 +928,19 @@
 
   @method locale
     @added 0.13.0
-    @deprecated 1.1.0
-      @issue 23
-      @issue 24
+    @updated nextReleaseVersion
+      @issue 468
       @description
-        Use @code[hx.preferences.locale] to set the locale for a page.
+        Updated the locale method to allow per-instance locales and un-deprecated the locale methods
+
+    @extra
+      @removed nextReleaseVersion
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version nextReleaseVersion and updated to work in a more
+          effective manner.
 
     @description
       A method for getting the currently set locale.

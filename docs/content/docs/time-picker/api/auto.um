@@ -546,11 +546,19 @@
 
   @method locale
     @added 0.13.0
-    @deprecated 1.1.0
-      @issue 23
-      @issue 24
+    @updated nextReleaseVersion
+      @issue 468
       @description
-        Use @code[hx.preferences.locale] to get the locale for a page.
+        Updated the locale method to allow per-instance locales and un-deprecated the locale methods
+
+    @extra
+      @removed nextReleaseVersion
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version nextReleaseVersion and updated to work in a more
+          effective manner.
 
     @description
       A function for updating the locale used in the time picker.
@@ -559,6 +567,7 @@
 
       @@codeblock js
         timepicker.locale('pl') // sets the timepicker's locale to Poland
+
 
     @arg locale [String]
       @description
@@ -570,18 +579,60 @@
 
   @method locale
     @added 0.13.0
-    @deprecated 1.1.0
-      @issue 23
-      @issue 24
+    @updated nextReleaseVersion
+      @issue 468
       @description
-        Use @code[hx.preferences.locale] to set the locale for a page.
+        Updated the locale method to allow per-instance locales and un-deprecated the locale methods
+
+    @extra
+      @removed nextReleaseVersion
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version nextReleaseVersion and updated to work in a more
+          effective manner.
 
     @description
-      A method for getting the currently set locale.
+      @version 0.13.0
+        A method for getting the currently set locale
+
+      @version nextReleaseVersion
+        Gets the locale for this time picker. If one has not been set, falls
+        back to @code[hx.preferences.locale()]
 
     @returns [String]
       @description
-        The currently set locale.
+        The currently set locale. Falls back to @code[hx.preferences.locale()]
+        if one has not been set for this @type[TimePicker]
+
+  @method timezone
+    @added nextReleaseVersion
+      @issue 468
+      @description
+        Added a method to allow the setting of per-instance timezones
+
+    @description
+      Sets the timezone for this @type[TimePicker]
+
+    @returns [TimePicker]
+      @description
+        This TimePicker
+
+  @method timezone
+    @added nextReleaseVersion
+      @issue 468
+      @description
+        Added a method to allow the setting of per-instance timezones
+
+    @description
+      Gets the timezone for this @type[TimePicker]
+
+    @returns [String]
+      @description
+        The currently set timezone. Falls back to
+        @code[hx.preferences.timezone()] if one has not been set for this
+        instance
 
   @method date
     @added 0.13.0

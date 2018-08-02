@@ -25,12 +25,6 @@ class DateTimePicker extends hx.EventEmitter
     @datePicker = new hx.DatePicker(dtNode, @options.datePickerOptions)
     @timePicker = new hx.TimePicker(tpNode, @options.timePickerOptions)
 
-    @_ = {
-      uniqueId: hx.randomId()
-    }
-
-    hx.preferences.on 'timezonechange', 'hx.date-time-picker-' + @_.uniqueId, -> updateDatePicker()
-
     @datePicker.pipe(this, 'date', ['show', 'hide'])
     @timePicker.pipe(this, 'time', ['show', 'hide'])
 
@@ -103,13 +97,19 @@ class DateTimePicker extends hx.EventEmitter
   getScreenTime: -> @timePicker.getScreenTime()
 
   locale: (locale) ->
-    hx.deprecatedWarning 'hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.'
     if arguments.length > 0
-      hx.preferences.locale locale
+      @datePicker.localizer.locale(locale)
+      @timePicker.localizer.locale(locale)
       this
     else
-      hx.preferences.locale()
+      @datePicker.localizer.locale()
 
+  timezone: (timezone) ->
+    if arguments.length > 0
+      @timePicker.localizer.timezone(timezone)
+      this
+    else
+      @timePicker.localizer.timezone()
 
   disabled: (disable) ->
     dpDisabled = @datePicker.disabled(disable)
