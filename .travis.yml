@@ -17,7 +17,7 @@ stages:
     if: tag IS present AND repo = ocadotechnology/hexagonjs
 
   - name: publish pages
-    if: branch = master AND repo = ocadotechnology/hexagonjs AND NOT type = pull_request
+    if: branch = 1-17-0 AND repo = ocadotechnology/hexagonjs AND NOT type = pull_request
 
 jobs:
   include:

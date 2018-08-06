@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.16.0
+ Version: 1.17.0
  Theme: hexagon-light
  Modules:
    set
@@ -526,6 +526,7 @@ hx.theme = {
     "contrastCol": "#4A4E4E",
     "lightTextCol": "#F3F3F3",
     "darkTextCol": "#3D3D3D",
+    "invertCol": "#FDFDFD",
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
@@ -624,7 +625,9 @@ hx.theme = {
 };
 (function(){
 var Set, checkPrefix, prefix, prefixChar, prefixString,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 prefixString = '\0';
 
@@ -767,11 +770,25 @@ Set = (function() {
 
 })();
 
-hx.Set = Set;
+hx._.Set = Set;
+
+hx.Set = (function(superClass) {
+  extend(Set, superClass);
+
+  function Set(iterable) {
+    hx.deprecatedWarning('hx.Set', 'ES6 Set');
+    Set.__super__.constructor.call(this, iterable);
+  }
+
+  return Set;
+
+})(Set);
 
 })();
 (function(){
-var Map, checkPrefix, prefix, prefixChar, prefixString;
+var Map, checkPrefix, prefix, prefixChar, prefixString,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 prefixString = '\0';
 
@@ -935,11 +952,25 @@ Map = (function() {
 
 })();
 
-hx.Map = Map;
+hx._.Map = Map;
+
+hx.Map = (function(superClass) {
+  extend(Map, superClass);
+
+  function Map(iterable) {
+    hx.deprecatedWarning('hx.Map', 'ES6 Map');
+    Map.__super__.constructor.call(this, iterable);
+  }
+
+  return Map;
+
+})(Map);
 
 })();
 (function(){
-var List;
+var List,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 List = (function() {
   function List(list) {
@@ -1028,7 +1059,19 @@ List = (function() {
 
 })();
 
-hx.List = List;
+hx._.List = List;
+
+hx.List = (function(superClass) {
+  extend(List, superClass);
+
+  function List(items) {
+    hx.deprecatedWarning('hx.List', 'JS Array');
+    List.__super__.constructor.call(this, items);
+  }
+
+  return List;
+
+})(List);
 
 })();
 (function(){
@@ -1362,12 +1405,12 @@ hx.isPlainObject = function(obj) {
 
 hx.groupBy = function(arr, f) {
   var category, l, len1, map, values, x;
-  map = new hx.Map;
+  map = new hx._.Map;
   for (l = 0, len1 = arr.length; l < len1; l++) {
     x = arr[l];
     category = f(x);
     if (!map.has(category)) {
-      map.set(category, new hx.List);
+      map.set(category, new hx._.List);
     }
     map.get(category).add(x);
   }
@@ -1379,7 +1422,7 @@ hx.groupBy = function(arr, f) {
 };
 
 hx.unique = function(list) {
-  return new hx.Set(list).values();
+  return new hx._.Set(list).values();
 };
 
 hx.endsWith = function(string, suffix) {
@@ -1503,16 +1546,16 @@ hx.clone = function(obj) {
     return obj.map(hx.clone);
   } else if (hx.isPlainObject(obj)) {
     return hx.merge({}, obj);
-  } else if (obj instanceof hx.List) {
-    return new hx.List(obj.entries().map(hx.clone));
-  } else if (obj instanceof hx.Map) {
-    return new hx.Map(obj.entries().map(function(arg) {
+  } else if (obj instanceof hx._.List) {
+    return new hx._.List(obj.entries().map(hx.clone));
+  } else if (obj instanceof hx._.Map) {
+    return new hx._.Map(obj.entries().map(function(arg) {
       var k, v;
       k = arg[0], v = arg[1];
       return [hx.clone(k), hx.clone(v)];
     }));
-  } else if (obj instanceof hx.Set) {
-    return new hx.Set(obj.keys().map(hx.clone));
+  } else if (obj instanceof hx._.Set) {
+    return new hx._.Set(obj.keys().map(hx.clone));
   } else if (obj instanceof Date) {
     return new Date(obj.getTime());
   } else if (hx.isObject(obj) && obj !== null) {
@@ -1529,12 +1572,12 @@ hx.shallowClone = function(obj) {
     return obj.slice();
   } else if (hx.isPlainObject(obj)) {
     return hx.shallowMerge({}, obj);
-  } else if (obj instanceof hx.List) {
-    return new hx.List(obj.entries());
-  } else if (obj instanceof hx.Map) {
-    return new hx.Map(obj.entries());
-  } else if (obj instanceof hx.Set) {
-    return new hx.Set(obj.keys());
+  } else if (obj instanceof hx._.List) {
+    return new hx._.List(obj.entries());
+  } else if (obj instanceof hx._.Map) {
+    return new hx._.Map(obj.entries());
+  } else if (obj instanceof hx._.Set) {
+    return new hx._.Set(obj.keys());
   } else if (obj instanceof Date) {
     return new Date(obj.getTime());
   } else if (hx.isObject(obj) && obj !== null) {
@@ -1568,6 +1611,7 @@ hx_parseHTML = null;
 
 hx.parseHTML = function(html) {
   var e;
+  hx.deprecatedWarning('hx.parseHTML', 'N/A');
   if (!hx_parseHTML) {
 
     /*
@@ -1694,8 +1738,8 @@ var BasicEventEmitter, EventEmitter;
 
 BasicEventEmitter = (function() {
   function BasicEventEmitter() {
-    this.callbacks = new hx.Map;
-    this.allCallbacks = new hx.List;
+    this.callbacks = new hx._.Map;
+    this.allCallbacks = new hx._.List;
   }
 
   BasicEventEmitter.prototype.emit = function(name, data) {
@@ -1724,7 +1768,7 @@ BasicEventEmitter = (function() {
   BasicEventEmitter.prototype.on = function(name, callback) {
     if (name) {
       if (!this.callbacks.has(name)) {
-        this.callbacks.set(name, new hx.List);
+        this.callbacks.set(name, new hx._.List);
       }
       this.callbacks.get(name).add(callback);
     } else {
@@ -1749,10 +1793,10 @@ BasicEventEmitter = (function() {
       }
     } else {
       if (name) {
-        this.callbacks.set(name, new hx.List);
+        this.callbacks.set(name, new hx._.List);
       } else {
-        this.callbacks = new hx.Map;
-        this.allCallbacks = new hx.List;
+        this.callbacks = new hx._.Map;
+        this.allCallbacks = new hx._.List;
       }
     }
     return this;
@@ -1789,9 +1833,9 @@ EventEmitter = (function() {
   var addEmitter, removeEmitter;
 
   function EventEmitter() {
-    this.suppressedMap = new hx.Map;
-    this.emitters = new hx.List;
-    this.emittersMap = new hx.Map;
+    this.suppressedMap = new hx._.Map;
+    this.emitters = new hx._.List;
+    this.emittersMap = new hx._.Map;
     this.global = addEmitter(this, 'default');
   }
 
@@ -2370,8 +2414,8 @@ getHexagonElementDataObject = function(element, createIfNotExists) {
 
 ElementSet = (function() {
   function ElementSet() {
-    this.elements = new hx.List;
-    this.ids = new hx.Set;
+    this.elements = new hx._.List;
+    this.ids = new hx._.Set;
   }
 
   ElementSet.prototype.add = function(element) {
@@ -2846,6 +2890,7 @@ Selection = (function() {
 
   Selection.prototype.html = function(html) {
     var j, len, node, ref;
+    hx.deprecatedWarning('Selection::html', 'N/A');
     if (arguments.length === 1) {
       ref = this.nodes;
       for (j = 0, len = ref.length; j < len; j++) {
@@ -2947,10 +2992,10 @@ Selection = (function() {
       data = getHexagonElementDataObject(node);
       eventEmitter = data.eventEmitter ? data.eventEmitter : data.eventEmitter = new hx.EventEmitter;
       if (data.eventAugmenters == null) {
-        data.eventAugmenters = new hx.Map;
+        data.eventAugmenters = new hx._.Map;
       }
       if (data.listenerNamesRegistered == null) {
-        data.listenerNamesRegistered = new hx.Set;
+        data.listenerNamesRegistered = new hx._.Set;
       }
       if (name.indexOf('pointer') !== 0 && !data.listenerNamesRegistered.has(name)) {
         handler = function(e) {
@@ -3035,7 +3080,7 @@ Selection = (function() {
           node = ref[j];
           data = getHexagonElementDataObject(node);
           if (data.data == null) {
-            data.data = new hx.Map;
+            data.data = new hx._.Map;
           }
           results.push(data.data.set(key, value));
         }
@@ -3917,7 +3962,7 @@ hx.Selection.prototype.morph = function() {
   return new Morph(this.nodes[0]);
 };
 
-hx_morphs = new hx.Map;
+hx_morphs = new hx._.Map;
 
 hx.morph.register = function(name, morph) {
   return hx_morphs.set(name, morph);
@@ -3973,8 +4018,8 @@ View = (function() {
       exitSet = [];
       nodes = this.rootSelection.shallowSelectAll(this.selector).nodes;
       if (key) {
-        nodeByKey = new hx.Map;
-        dataByKey = new hx.Map(data.map(function(datum) {
+        nodeByKey = new hx._.Map;
+        dataByKey = new hx._.Map(data.map(function(datum) {
           return [key(datum), datum];
         }));
         for (l = 0, len = nodes.length; l < len; l++) {
@@ -4961,15 +5006,18 @@ hx.notify.defaultTimeout = function(timeout) {
 
 })();
 (function(){
-var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
+var deprecatedWarning, formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
 
 siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
 
-zeroPad = function(number, pad) {
+zeroPad = function(number, options) {
   var _, str, zeros;
+  if (options.length == null) {
+    options.length = 2;
+  }
   str = number.toString();
-  if (str.length < pad) {
-    zeros = pad - str.length;
+  if (str.length < options.length) {
+    zeros = options.length - str.length;
     return ((function() {
       var i, ref, results;
       results = [];
@@ -4983,94 +5031,146 @@ zeroPad = function(number, pad) {
   }
 };
 
-precision = function(n) {
-  if (n) {
-    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
+precision = function(number) {
+  if (number) {
+    return Math.floor(Math.log(Math.abs(number)) / Math.LN10);
   } else {
-    return 1;
+    return 0;
   }
 };
 
-roundPrecision = function(n, base, factor) {
+roundPrecision = function(number, base, factor) {
   if (factor >= 0) {
-    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
+    return Math.round(number / Math.pow(base, factor)) * Math.pow(base, factor);
   } else {
-    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
+    return Math.round(number * Math.pow(base, -factor)) / Math.pow(base, -factor);
   }
 };
 
-formatRound = function(n, sf) {
+formatRound = function(number, options) {
   var factor;
-  if (isNaN(n)) {
-    return 'NaN';
+  if (options.sf == null) {
+    options.sf = 2;
   }
-  factor = precision(n) - sf + 1;
-  return roundPrecision(n, 10, factor).toString();
+  factor = precision(number) - options.sf + 1;
+  return roundPrecision(number, 10, factor).toString();
 };
 
-formatSI = function(n, sf) {
+formatSI = function(number, options) {
   var p, siFactor, suffix, x;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = Math.min(precision(n), 26);
+  p = Math.min(precision(number), 26);
   suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
-  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
+  x = Math.abs(number) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
   if (p === -3) {
     x = 1000;
     suffix = siSuffixes[6];
   }
   siFactor = Math.pow(10, p - p % 3) / x;
-  return formatRound(n / siFactor, sf) + suffix;
+  return formatRound(number / siFactor, options) + suffix;
 };
 
-formatExp = function(n, sf) {
-  var p;
-  if (isNaN(n)) {
-    return 'NaN';
+formatExp = function(number, options) {
+  var mod, p;
+  p = precision(number);
+  mod = p >= 0 ? '+' : '';
+  return formatRound(number / Math.pow(10, p), options) + 'e' + mod + p;
+};
+
+formatFixed = function(number, options) {
+  if (options.digits == null) {
+    options.digits = 2;
   }
-  p = precision(n);
-  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
+  return number.toFixed(options.digits);
 };
 
-formatFixed = function(n, digits) {
-  if (isNaN(n)) {
-    return 'NaN';
+strictCheck = function(number, formatFn, options) {
+  if (options == null) {
+    options = {};
   }
-  return n.toFixed(digits);
-};
-
-strictCheck = function(f, sf, strict) {
-  if (strict) {
-    return function(n) {
-      return f(n, sf);
-    };
+  if (options.strict) {
+    if (isNaN(number)) {
+      return 'NaN';
+    } else {
+      return formatFn(number, options);
+    }
   } else {
-    return function(n) {
-      if (hx.isString(n)) {
-        return n;
-      } else {
-        return f(n, sf);
-      }
-    };
+    if (hx.isString(number)) {
+      return number;
+    } else {
+      return formatFn(number, options);
+    }
   }
+};
+
+hx.round = function(number, options) {
+  return strictCheck(number, formatRound, options);
+};
+
+hx.si = function(number, options) {
+  return strictCheck(number, formatSI, options);
+};
+
+hx.exp = function(number, options) {
+  return strictCheck(number, formatExp, options);
+};
+
+hx.fixed = function(number, options) {
+  return strictCheck(number, formatFixed, options);
+};
+
+hx.zeroPad = function(number, options) {
+  return strictCheck(number, zeroPad, options);
+};
+
+deprecatedWarning = function(which) {
+  return hx.deprecatedWarning("hx.format." + which + ": The formatter factory pattern is deprecated and will be removed in the next major release, please use hx." + which + "(number, options)");
 };
 
 hx.format = {
   round: function(sf, strict) {
-    return strictCheck(formatRound, sf, strict);
+    deprecatedWarning('round');
+    return function(number) {
+      return hx.round(number, {
+        strict: strict,
+        sf: sf
+      });
+    };
   },
   si: function(sf, strict) {
-    return strictCheck(formatSI, sf, strict);
+    deprecatedWarning('si');
+    return function(number) {
+      return hx.si(number, {
+        strict: strict,
+        sf: sf
+      });
+    };
   },
   exp: function(sf, strict) {
-    return strictCheck(formatExp, sf, strict);
+    deprecatedWarning('exp');
+    return function(number) {
+      return hx.exp(number, {
+        strict: strict,
+        sf: sf
+      }).replace('+', '');
+    };
   },
   fixed: function(digits, strict) {
-    return strictCheck(formatFixed, digits, strict);
+    deprecatedWarning('fixed');
+    return function(number) {
+      return hx.fixed(number, {
+        digits: digits,
+        strict: strict
+      });
+    };
   },
   zeroPad: function(length, strict) {
-    return strictCheck(zeroPad, length, strict);
+    deprecatedWarning('zeroPad');
+    return function(number) {
+      return hx.zeroPad(number, {
+        length: length,
+        strict: strict
+      });
+    };
   }
 };
 
@@ -5303,7 +5403,7 @@ ClickDetector = (function(superClass) {
     var container;
     ClickDetector.__super__.constructor.apply(this, arguments);
     this.eventId = hx.randomId();
-    this.exceptions = new hx.List;
+    this.exceptions = new hx._.List;
     container = void 0;
     this.downAction = (function(_this) {
       return function(e) {
@@ -5380,7 +5480,7 @@ hx.ClickDetector = ClickDetector;
 })();
 
 (function(){
-var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, defaultTimezoneLookup, localeList, lookupLocale, zeroPad,
+var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, defaultTimezoneLookup, localeList, lookupLocale,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -5663,15 +5763,13 @@ lookupLocale = function(locale) {
   })[0];
 };
 
-zeroPad = hx.format.zeroPad(2);
-
 defaultTimezoneLookup = function(offset) {
   var absOffset, hours, minutes, modifier;
   modifier = offset > 0 ? '-' : '+';
   absOffset = Math.abs(offset);
   minutes = absOffset % 60;
   hours = (absOffset - minutes) / 60;
-  return "UTC" + modifier + (zeroPad(hours)) + ":" + (zeroPad(minutes));
+  return "UTC" + modifier + (hx.zeroPad(hours)) + ":" + (hx.zeroPad(minutes));
 };
 
 Preferences = (function(superClass) {
@@ -5768,7 +5866,7 @@ Preferences = (function(superClass) {
 
   Preferences.prototype.timezone = function(timezone) {
     if (arguments.length > 0) {
-      if (hx.isString(timezone) && this._.supportedTimezones.indexOf(timezone) !== -1) {
+      if (this.isTimezoneSupported(timezone)) {
         if (this._.preferences['timezone'] !== timezone) {
           this._.preferences['timezone'] = timezone;
           this.emit('timezonechange', timezone);
@@ -5785,7 +5883,8 @@ Preferences = (function(superClass) {
   Preferences.prototype.locale = function(locale) {
     var localeObject;
     if (arguments.length > 0) {
-      if (hx.isString(locale) && (localeObject = lookupLocale(locale))) {
+      if (this.isLocaleSupported(locale)) {
+        localeObject = lookupLocale(locale);
         if (this._.preferences['locale'] !== localeObject.value) {
           this._.preferences['locale'] = localeObject.value;
           if (typeof moment !== "undefined" && moment !== null) {
@@ -5819,11 +5918,17 @@ Preferences = (function(superClass) {
 
   Preferences.prototype.timezoneOffsetLookup = option('timezoneOffsetLookup');
 
-  Preferences.prototype.applyTimezoneOffset = function(date, offset) {
-    var utc;
-    if (offset == null) {
-      offset = this._.timezoneOffsetLookup(this.timezone(), date.getTime()) || 0;
-    }
+  Preferences.prototype.isTimezoneSupported = function(timezone) {
+    return hx.isString(timezone) && this._.supportedTimezones.indexOf(timezone) !== -1;
+  };
+
+  Preferences.prototype.isLocaleSupported = function(locale) {
+    return hx.isString(locale) && lookupLocale(locale);
+  };
+
+  Preferences.prototype.applyTimezoneOffset = function(date, timezoneOrOffset) {
+    var offset, utc;
+    offset = isNaN(timezoneOrOffset) ? this._.timezoneOffsetLookup(timezoneOrOffset || this.timezone(), date.getTime()) || 0 : offset || this._.timezoneOffsetLookup(this.timezone(), date.getTime()) || 0;
     utc = date.getTime() + (date.getTimezoneOffset() * 60000);
     return new Date(utc + offset * 60 * 60 * 1000);
   };
@@ -5950,7 +6055,7 @@ dropdownContentToSetupDropdown = function(dropdownContent) {
     switch (false) {
       case !hx.isString(dropdownContent):
         return function(node) {
-          return hx.select(node).html(dropdownContent);
+          return hx.select(node).node().innerHTML = dropdownContent;
         };
       case !hx.isFunction(dropdownContent):
         return dropdownContent;
@@ -5973,7 +6078,6 @@ Dropdown = (function(superClass) {
     this.options = hx.merge.defined({
       mode: 'click',
       align: 'lblt',
-      spacing: void 0,
       matchWidth: true,
       ddClass: ''
     }, options);
@@ -6379,14 +6483,86 @@ hx.palette.borderContext = context(paletteContexts, 'hx-border');
 })();
 
 (function(){
-var DateTimeLocalizer, DateTimeLocalizerMoment, dateTimeLocalizer;
+var DateTimeLocalizer, DateTimeLocalizerMoment, PreferencesHandler, dateTimeLocalizer,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-DateTimeLocalizer = (function() {
-  var zeroPad;
+PreferencesHandler = (function(superClass) {
+  extend(PreferencesHandler, superClass);
 
-  function DateTimeLocalizer() {}
+  function PreferencesHandler() {
+    PreferencesHandler.__super__.constructor.apply(this, arguments);
+    this._ = {
+      uniqueId: hx.randomId()
+    };
+    hx.preferences.on('localechange', 'hx.date-time-localizer' + this._.uniqueId, (function(_this) {
+      return function() {
+        if (!_this._.instanceLocale) {
+          return _this.emit('localechange', {
+            cause: 'api',
+            value: hx.preferences.locale()
+          });
+        }
+      };
+    })(this));
+    hx.preferences.on('timezonechange', 'hx.date-time-localizer' + this._.uniqueId, (function(_this) {
+      return function() {
+        if (!_this._.instanceTimezone) {
+          return _this.emit('timezonechange', {
+            cause: 'api',
+            value: hx.preferences.timezone()
+          });
+        }
+      };
+    })(this));
+  }
 
-  zeroPad = hx.format.zeroPad(2);
+  PreferencesHandler.prototype.locale = function(locale) {
+    if (arguments.length) {
+      if ((locale == null) || hx.preferences.isLocaleSupported(locale)) {
+        this._.instanceLocale = locale ? true : false;
+        this._.locale = locale;
+        this.emit('localechange', {
+          cause: 'api',
+          value: locale || hx.preferences.locale()
+        });
+      } else {
+        hx.consoleWarning(locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon');
+      }
+      return this;
+    } else {
+      return this._.locale || hx.preferences.locale();
+    }
+  };
+
+  PreferencesHandler.prototype.timezone = function(timezone) {
+    if (arguments.length) {
+      if ((timezone == null) || hx.preferences.isTimezoneSupported(timezone)) {
+        this._.instanceTimezone = timezone ? true : false;
+        this._.timezone = timezone;
+        this.emit('timezonechange', {
+          cause: 'api',
+          value: timezone || hx.preferences.timezone()
+        });
+      } else {
+        hx.consoleWarning(timezone + ' is not a valid timezone');
+      }
+      return this;
+    } else {
+      return this._.timezone || hx.preferences.timezone();
+    }
+  };
+
+  return PreferencesHandler;
+
+})(hx.EventEmitter);
+
+DateTimeLocalizer = (function(superClass) {
+  extend(DateTimeLocalizer, superClass);
+
+  function DateTimeLocalizer() {
+    DateTimeLocalizer.__super__.constructor.apply(this, arguments);
+  }
 
   DateTimeLocalizer.prototype.dateOrder = function() {
     return ['DD', 'MM', 'YYYY'];
@@ -6406,7 +6582,7 @@ DateTimeLocalizer = (function() {
 
   DateTimeLocalizer.prototype.day = function(day, pad) {
     if (pad) {
-      return zeroPad(day);
+      return hx.zeroPad(day);
     } else {
       return day;
     }
@@ -6414,7 +6590,7 @@ DateTimeLocalizer = (function() {
 
   DateTimeLocalizer.prototype.month = function(month, short) {
     if (short) {
-      return zeroPad(month + 1);
+      return hx.zeroPad(month + 1);
     } else {
       return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month];
     }
@@ -6426,18 +6602,18 @@ DateTimeLocalizer = (function() {
 
   DateTimeLocalizer.prototype.date = function(date, useInbuilt) {
     if (useInbuilt) {
-      return date.getFullYear() + '-' + zeroPad(date.getMonth() + 1) + '-' + zeroPad(date.getDate());
+      return date.getFullYear() + '-' + hx.zeroPad(date.getMonth() + 1) + '-' + hx.zeroPad(date.getDate());
     } else {
-      return zeroPad(date.getDate()) + '/' + zeroPad(date.getMonth() + 1) + '/' + date.getFullYear();
+      return hx.zeroPad(date.getDate()) + '/' + hx.zeroPad(date.getMonth() + 1) + '/' + date.getFullYear();
     }
   };
 
   DateTimeLocalizer.prototype.time = function(date, showSeconds) {
     var timeString;
-    date = hx.preferences.applyTimezoneOffset(date);
-    timeString = date.getHours() + ':' + zeroPad(date.getMinutes());
+    date = hx.preferences.applyTimezoneOffset(date, this.timezone());
+    timeString = date.getHours() + ':' + hx.zeroPad(date.getMinutes());
     if (showSeconds) {
-      timeString += ':' + zeroPad(date.getSeconds());
+      timeString += ':' + hx.zeroPad(date.getSeconds());
     }
     return timeString;
   };
@@ -6492,10 +6668,14 @@ DateTimeLocalizer = (function() {
 
   return DateTimeLocalizer;
 
-})();
+})(PreferencesHandler);
 
-DateTimeLocalizerMoment = (function() {
-  function DateTimeLocalizerMoment() {}
+DateTimeLocalizerMoment = (function(superClass) {
+  extend(DateTimeLocalizerMoment, superClass);
+
+  function DateTimeLocalizerMoment() {
+    DateTimeLocalizerMoment.__super__.constructor.apply(this, arguments);
+  }
 
   DateTimeLocalizerMoment.prototype.dateOrder = function() {
     var date, dateCheck, dayIndex, i, j, monthIndex, ref, result, yearIndex;
@@ -6503,7 +6683,7 @@ DateTimeLocalizerMoment = (function() {
       year: 2003,
       month: 11,
       day: 22
-    }).locale(hx.preferences.locale());
+    }).locale(this.locale());
     dateCheck = date.format('L');
     yearIndex = dateCheck.indexOf(date.format('YYYY'));
     monthIndex = dateCheck.indexOf(date.format('MM'));
@@ -6528,13 +6708,13 @@ DateTimeLocalizerMoment = (function() {
   };
 
   DateTimeLocalizerMoment.prototype.weekStart = function() {
-    return moment().locale(hx.preferences.locale()).weekday(0).toDate().getDay();
+    return moment().locale(this.locale()).weekday(0).toDate().getDay();
   };
 
   DateTimeLocalizerMoment.prototype.weekDays = function() {
     var dayDate, dayNames, i, j;
     dayDate = moment().weekday(0);
-    dayDate.locale(hx.preferences.locale());
+    dayDate.locale(this.locale());
     dayNames = [dayDate.format('dd')];
     for (i = j = 0; j < 6; i = ++j) {
       dayNames.push(dayDate.add(1, 'd').format('dd'));
@@ -6548,7 +6728,7 @@ DateTimeLocalizerMoment = (function() {
       hour: 12,
       minute: 0,
       second: 0
-    }).locale(hx.preferences.locale());
+    }).locale(this.locale());
     tomorrow = today.clone().add(1, 'day');
     todayArr = today.calendar().split('').reverse();
     tomorrowArr = tomorrow.calendar().split('').reverse();
@@ -6565,19 +6745,19 @@ DateTimeLocalizerMoment = (function() {
     return moment({
       day: day,
       month: 0
-    }).locale(hx.preferences.locale()).format(pad ? 'DD' : 'D');
+    }).locale(this.locale()).format(pad ? 'DD' : 'D');
   };
 
   DateTimeLocalizerMoment.prototype.month = function(month, short) {
     return moment({
       month: month
-    }).locale(hx.preferences.locale()).format(short ? 'MM' : 'MMM');
+    }).locale(this.locale()).format(short ? 'MM' : 'MMM');
   };
 
   DateTimeLocalizerMoment.prototype.year = function(year) {
     return moment({
       year: year
-    }).locale(hx.preferences.locale()).format('YYYY');
+    }).locale(this.locale()).format('YYYY');
   };
 
   DateTimeLocalizerMoment.prototype.decade = function(start, end) {
@@ -6585,14 +6765,14 @@ DateTimeLocalizerMoment = (function() {
   };
 
   DateTimeLocalizerMoment.prototype.date = function(date) {
-    return moment(date).locale(hx.preferences.locale()).format('L');
+    return moment(date).locale(this.locale()).format('L');
   };
 
   DateTimeLocalizerMoment.prototype.time = function(date, showSeconds) {
     var format;
-    date = hx.preferences.applyTimezoneOffset(date);
+    date = hx.preferences.applyTimezoneOffset(date, this.timezone());
     format = showSeconds ? 'H:mm:ss' : 'H:mm';
-    return moment(date).locale(hx.preferences.locale()).format(format);
+    return moment(date).locale(this.locale()).format(format);
   };
 
   DateTimeLocalizerMoment.prototype.checkTime = function(time) {
@@ -6600,7 +6780,7 @@ DateTimeLocalizerMoment = (function() {
       hours: time[0],
       minutes: time[1],
       seconds: time[2]
-    }).locale(hx.preferences.locale()).isValid();
+    }).locale(this.locale()).isValid();
   };
 
   DateTimeLocalizerMoment.prototype.stringToDate = function(dateString) {
@@ -6630,7 +6810,7 @@ DateTimeLocalizerMoment = (function() {
         }
       }
       if (daysValid && monthsValid && yearsValid) {
-        return moment(dateString, format, hx.preferences.locale()).toDate();
+        return moment(dateString, format, this.locale()).toDate();
       } else {
         return new Date('Invalid Date');
       }
@@ -6641,7 +6821,7 @@ DateTimeLocalizerMoment = (function() {
 
   return DateTimeLocalizerMoment;
 
-})();
+})(PreferencesHandler);
 
 dateTimeLocalizer = function() {
   if (typeof moment !== "undefined" && moment !== null) {
@@ -7519,7 +7699,7 @@ trimTrailingSpaces = function(term) {
 
 sortActive = function(items) {
   var active, groupedActive, inactive;
-  groupedActive = new hx.Map(hx.groupBy(items, function(i) {
+  groupedActive = new hx._.Map(hx.groupBy(items, function(i) {
     return !i.disabled;
   }));
   active = groupedActive.get(true) || [];
@@ -7564,67 +7744,71 @@ AutocompleteFeed = (function() {
     }
     this._ = {
       options: resolvedOptions,
-      resultsCache: new hx.Map
+      resultsCache: new hx._.Map
     };
   }
 
   AutocompleteFeed.prototype.clearCache = function() {
-    this._.resultsCache = new hx.Map;
+    this._.resultsCache = new hx._.Map;
     return this;
   };
 
   AutocompleteFeed.prototype.filter = function(term, callback) {
     var _, cacheItemsThenCallback, cacheditems, filterAndCallback, thisFilter;
-    if (term == null) {
-      term = '';
-    }
     _ = this._;
-    thisFilter = term + hx.randomId();
-    _.lastFilter = thisFilter;
-    cacheItemsThenCallback = (function(_this) {
-      return function(results, otherResults) {
-        if (otherResults == null) {
-          otherResults = [];
-        }
-        if (_.options.trimTrailingSpaces && results.length === 0 && term.lastIndexOf(' ') === term.length - 1) {
-          return _this.filter(trimTrailingSpaces(term), callback);
-        } else {
-          if (_.options.useCache) {
-            _.resultsCache.set(term, {
-              results: results,
-              otherResults: otherResults
-            });
-          }
-          if (thisFilter === _.lastFilter) {
-            return callback(results, otherResults);
-          }
-        }
-      };
-    })(this);
-    if (_.options.useCache && _.resultsCache.has(term)) {
-      cacheditems = _.resultsCache.get(term);
-      return callback(cacheditems.results, cacheditems.otherResults);
-    } else if (_.options.matchType === 'external' && hx.isFunction(_.items)) {
-      return _.items(term, cacheItemsThenCallback);
+    if (term === void 0) {
+      return callback([]);
     } else {
-      filterAndCallback = function(unfilteredItems) {
-        var active, filteredItems, inactive, otherResults, ref, unpartitioned;
-        filteredItems = _.options.filter(unfilteredItems, term);
-        if (_.options.showOtherResults) {
-          unpartitioned = unfilteredItems.filter(function(datum) {
-            return filteredItems.indexOf(datum) === -1;
-          }).sort(sortItems(_.options.valueLookup));
-          ref = sortActive(unpartitioned), active = ref.active, inactive = ref.inactive;
-          otherResults = slice.call(active).concat(slice.call(inactive));
-        }
-        return cacheItemsThenCallback(filteredItems, otherResults);
-      };
-      if (hx.isFunction(_.items)) {
-        return _.items(term, filterAndCallback);
-      } else if (term.length) {
-        return filterAndCallback(_.items);
+      if (term == null) {
+        term = '';
+      }
+      thisFilter = term + hx.randomId();
+      _.lastFilter = thisFilter;
+      cacheItemsThenCallback = (function(_this) {
+        return function(results, otherResults) {
+          if (otherResults == null) {
+            otherResults = [];
+          }
+          if (_.options.trimTrailingSpaces && results.length === 0 && term.lastIndexOf(' ') === term.length - 1) {
+            return _this.filter(trimTrailingSpaces(term), callback);
+          } else {
+            if (_.options.useCache) {
+              _.resultsCache.set(term, {
+                results: results,
+                otherResults: otherResults
+              });
+            }
+            if (thisFilter === _.lastFilter) {
+              return callback(results, otherResults);
+            }
+          }
+        };
+      })(this);
+      if (_.options.useCache && _.resultsCache.has(term)) {
+        cacheditems = _.resultsCache.get(term);
+        return callback(cacheditems.results, cacheditems.otherResults);
+      } else if (_.options.matchType === 'external' && hx.isFunction(_.items)) {
+        return _.items(term, cacheItemsThenCallback);
       } else {
-        return cacheItemsThenCallback(_.items);
+        filterAndCallback = function(unfilteredItems) {
+          var active, filteredItems, inactive, otherResults, ref, unpartitioned;
+          filteredItems = _.options.filter(unfilteredItems, term);
+          if (_.options.showOtherResults) {
+            unpartitioned = unfilteredItems.filter(function(datum) {
+              return filteredItems.indexOf(datum) === -1;
+            }).sort(sortItems(_.options.valueLookup));
+            ref = sortActive(unpartitioned), active = ref.active, inactive = ref.inactive;
+            otherResults = slice.call(active).concat(slice.call(inactive));
+          }
+          return cacheItemsThenCallback(filteredItems, otherResults);
+        };
+        if (hx.isFunction(_.items)) {
+          return _.items(term, filterAndCallback);
+        } else if (term.length) {
+          return filterAndCallback(_.items);
+        } else {
+          return cacheItemsThenCallback(_.items);
+        }
       }
     }
   };
@@ -7650,11 +7834,9 @@ hx.AutocompleteFeed = AutocompleteFeed;
 
 })();
 (function(){
-var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates, zeroPad,
+var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
-
-zeroPad = hx.format.zeroPad(2);
 
 getCalendarMonth = function(year, month, weekStart) {
   var _, e, end, i, j, k, ref, results, results1, results2, start;
@@ -8044,6 +8226,8 @@ DatePicker = (function(superClass) {
       defaultView: 'm',
       closeOnSelect: true,
       selectRange: false,
+      validRange: void 0,
+      range: void 0,
       showTodayButton: true,
       allowInbuiltPicker: true,
       disabled: false
@@ -8052,22 +8236,21 @@ DatePicker = (function(superClass) {
       disabled: this.options.disabled,
       mode: this.options.defaultView,
       startDate: new Date,
-      endDate: new Date,
-      uniqueId: hx.randomId()
+      endDate: new Date
     };
-    hx.preferences.on('localechange', 'hx.date-picker-' + _.uniqueId, (function(_this) {
+    this.localizer = hx.dateTimeLocalizer();
+    this.localizer.on('localechange', 'hx.date-picker', (function(_this) {
       return function() {
         return updateDatepicker(_this, true);
       };
     })(this));
-    hx.preferences.on('timezonechange', 'hx.date-picker-' + _.uniqueId, (function(_this) {
+    this.localizer.on('timezonechange', 'hx.date-picker', (function(_this) {
       return function() {
         return updateDatepicker(_this, true);
       };
     })(this));
     _.startDate.setHours(0, 0, 0, 0);
     _.endDate.setHours(0, 0, 0, 0);
-    this.localizer = hx.dateTimeLocalizer();
     this.selection = hx.select(this.selector).classed('hx-date-picker', true);
     inputContainer = this.selection.append('div')["class"]('hx-date-input-container');
     icon = inputContainer.append('i')["class"]('hx-icon hx-icon-calendar');
@@ -8076,7 +8259,7 @@ DatePicker = (function(superClass) {
       this.options.type = 'calendar';
       this.options.showTodayButton = false;
       _.preventFeedback = true;
-      this.range({});
+      this.range(this.options.range || {});
       _.preventFeedback = false;
       inputUpdate = function(which) {
         self.hide();
@@ -8273,6 +8456,9 @@ DatePicker = (function(superClass) {
     if (_.disable) {
       this.disabled(_.disabled);
     }
+    if (this.options.validRange) {
+      this.validRange(this.options.validRange);
+    }
   }
 
   DatePicker.prototype.disabled = function(disable) {
@@ -8459,12 +8645,11 @@ DatePicker = (function(superClass) {
   };
 
   DatePicker.prototype.locale = function(locale) {
-    hx.deprecatedWarning('hx.DatePicker::locale is deprecated. Use hx.preferences.locale instead.');
     if (arguments.length > 0) {
-      hx.preferences.locale(locale);
+      this.localizer.locale(locale);
       return this;
     } else {
-      return hx.preferences.locale();
+      return this.localizer.locale();
     }
   };
 
@@ -8483,11 +8668,9 @@ hx.DatePicker = DatePicker;
 
 })();
 (function(){
-var TimePicker, setupInput, setupTimepicker, updateTimePicker, zeroPad,
+var TimePicker, setupInput, setupTimepicker, updateTimePicker,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
-
-zeroPad = hx.format.zeroPad(2);
 
 setupTimepicker = function(timepicker) {
   var screenTime;
@@ -8540,20 +8723,19 @@ TimePicker = (function(superClass) {
     }, options);
     hx.component.register(this.selector, this);
     _ = this._ = {
-      disabled: this.options.disabled,
-      uniqueId: hx.randomId()
+      disabled: this.options.disabled
     };
-    hx.preferences.on('localechange', 'hx.time-picker-' + _.uniqueId, (function(_this) {
+    this.localizer = hx.dateTimeLocalizer();
+    this.localizer.on('localechange', 'hx.time-picker', (function(_this) {
       return function() {
         return updateTimePicker(_this, true);
       };
     })(this));
-    hx.preferences.on('timezonechange', 'hx.time-picker-' + _.uniqueId, (function(_this) {
+    this.localizer.on('timezonechange', 'hx.time-picker', (function(_this) {
       return function() {
         return updateTimePicker(_this, true);
       };
     })(this));
-    _.localizer = hx.dateTimeLocalizer();
     _.selectedDate = new Date;
     _.selectedDate.setMilliseconds(0);
     if (!this.showSeconds) {
@@ -8579,7 +8761,7 @@ TimePicker = (function(superClass) {
             if (time[2] == null) {
               time[2] = 0;
             }
-            if (_.localizer.checkTime(time)) {
+            if (_this.localizer.checkTime(time)) {
               _this.hour(time[0]);
               _this.minute(time[1]);
               return _this.second(time[2] || 0);
@@ -8711,16 +8893,24 @@ TimePicker = (function(superClass) {
   };
 
   TimePicker.prototype.getScreenTime = function() {
-    return this._.localizer.time(this.date(), this.options.showSeconds);
+    return this.localizer.time(this.date(), this.options.showSeconds);
   };
 
   TimePicker.prototype.locale = function(locale) {
-    hx.deprecatedWarning('hx.TimePicker::locale is deprecated. Use hx.preferences.locale instead.');
     if (arguments.length > 0) {
-      hx.preferences.locale(locale);
+      this.localizer.locale(locale);
       return this;
     } else {
-      return hx.preferences.locale();
+      return this.localizer.locale();
+    }
+  };
+
+  TimePicker.prototype.timezone = function(timezone) {
+    if (arguments.length > 0) {
+      this.localizer.timezone(timezone);
+      return this;
+    } else {
+      return this.localizer.timezone();
     }
   };
 
@@ -8771,7 +8961,7 @@ hx.userFacingText({
 
 sortActive = function(items) {
   var active, groupedActive, inactive;
-  groupedActive = new hx.Map(hx.groupBy(items, function(i) {
+  groupedActive = new hx._.Map(hx.groupBy(items, function(i) {
     return !i.disabled;
   }));
   active = groupedActive.get(true) || [];
@@ -8909,27 +9099,19 @@ showAutoComplete = function() {
 AutoComplete = (function(superClass) {
   extend(AutoComplete, superClass);
 
-  function AutoComplete(selector, data1, options1) {
+  function AutoComplete(selector, data1, opts) {
     var _, _filterOpts, base, base1, base2, input, menu, self, timeout;
     this.selector = selector;
     this.data = data1;
-    this.options = options1 != null ? options1 : {};
-    AutoComplete.__super__.constructor.apply(this, arguments);
-    this._ = _ = {};
-    hx.component.register(this.selector, this);
-    _.ignoreMatch = false;
-    _.ignoreNextFocus = false;
-    self = this;
-    _.data = new hx.Map();
-    if (hx.isFunction(this.data)) {
-      _.callback = this.data;
-    } else {
-      _.data.set('', this.data);
+    if (opts == null) {
+      opts = {};
     }
+    AutoComplete.__super__.constructor.apply(this, arguments);
     if (!hx.isArray(this.data) && !hx.isFunction(this.data)) {
       hx.consoleWarning('AutoComplete - ', this.selector, ': data set incorrectly - you supplied: ', this.data, ' but should have been an array of items or a function');
     } else {
-      this.options = hx.merge({
+      hx.component.register(this.selector, this);
+      this.options = hx.merge.defined({
         minLength: 0,
         showAll: true,
         trimTrailingSpaces: false,
@@ -8942,11 +9124,22 @@ AutoComplete = (function(superClass) {
         filterOptions: void 0,
         showOtherResults: false,
         allowTabCompletion: true,
+        value: void 0,
         loadingMessage: hx.userFacingText('autoComplete', 'loading'),
         noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound'),
         otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults'),
         pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
-      }, this.options);
+      }, opts);
+      this._ = _ = {};
+      _.ignoreMatch = false;
+      _.ignoreNextFocus = false;
+      self = this;
+      _.data = new hx._.Map();
+      if (hx.isFunction(this.data)) {
+        _.callback = this.data;
+      } else {
+        _.data.set('', this.data);
+      }
       if (this.options.inputMap != null) {
         _filterOpts = {
           searchValues: function(d) {
@@ -8954,7 +9147,7 @@ AutoComplete = (function(superClass) {
           }
         };
       }
-      this.options.filterOptions = hx.merge({}, _filterOpts, this.options.filterOptions);
+      this.options.filterOptions = hx.merge({}, _filterOpts, opts.filterOptions);
       if ((base = this.options).filter == null) {
         base.filter = (function(_this) {
           return function(arr, term) {
@@ -8992,9 +9185,15 @@ AutoComplete = (function(superClass) {
         }
       });
       _.setInputValue = this.options.inputMap != null ? function(d) {
+        if (d == null) {
+          d = '';
+        }
         input.value(self.options.inputMap(d));
         return self.emit('change', d);
       } : function(d) {
+        if (d == null) {
+          d = '';
+        }
         input.value(d);
         return self.emit('change', d);
       };
@@ -9071,7 +9270,7 @@ AutoComplete = (function(superClass) {
         if (!_.ignoreMatch) {
           if (self.options.mustMatch) {
             if (input.value().length > 0) {
-              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : findTerm.call(self, input.value(), true);
+              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : _.data.get(input.value()) === true ? setTimeout(_.checkValidity, 5) : findTerm.call(self, input.value(), true);
               if (exactMatch !== true && (exactMatch != null ? exactMatch.length : void 0) > 0) {
                 exactMatch = exactMatch != null ? exactMatch.filter(function(e) {
                   e = self.options.inputMap != null ? self.options.inputMap(e) : e;
@@ -9105,11 +9304,14 @@ AutoComplete = (function(superClass) {
       });
       _.menu = menu;
       _.input = input;
+      if (this.options.value) {
+        this.value(this.options.value);
+      }
     }
   }
 
   AutoComplete.prototype.clearCache = function() {
-    this._.data = new hx.Map();
+    this._.data = new hx._.Map();
     if ((this.data != null) && !hx.isFunction(this.data)) {
       this._.data.set('', this.data);
     }
@@ -10042,6 +10244,12 @@ Series = (function(superClass) {
   extend(Series, superClass);
 
   defaultLabelValuesExtractor = function(series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) {
+    if (xProperty == null) {
+      xProperty = 'x';
+    }
+    if (yProperty == null) {
+      yProperty = 'y';
+    }
     return [
       {
         name: series.axis.x.title(),
@@ -10173,7 +10381,9 @@ dimension = function(axis, options) {
   state = hx.merge({
     scaleType: 'linear',
     visible: true,
-    formatter: hx.format.si(2),
+    formatter: function(num) {
+      return hx.si(num);
+    },
     tickRotation: 0,
     doCollisionDetection: true,
     min: 'auto',
@@ -10238,7 +10448,7 @@ Axis = (function() {
       }
     }, options);
     this._ = {
-      series: new hx.List
+      series: new hx._.List
     };
     this.x = dimension(this, hx.merge({
       axisTickLabelPosition: 'bottom'
@@ -10303,7 +10513,7 @@ Axis = (function() {
   Axis.prototype.series = function(series) {
     var k, len, s;
     if (arguments.length > 0) {
-      this._.series = new hx.List(series);
+      this._.series = new hx._.List(series);
       for (k = 0, len = series.length; k < len; k++) {
         s = series[k];
         s.axis = this;
@@ -10338,12 +10548,12 @@ Axis = (function() {
     var groupTypeEntries, k, l, len, len1, ref, ref1, results, series, typeEntry, types;
     groupTypeEntries = function(data) {
       var entry, group, groups, i, internalGroupId, k, l, len, len1, len2, len3, m, n, ref, ref1, ref2, series, typeSize;
-      groups = new hx.Map;
+      groups = new hx._.Map;
       for (k = 0, len = data.length; k < len; k++) {
         series = data[k];
         group = supportsGroup(series) ? series.group() : void 0;
         if (!groups.has(group)) {
-          groups.set(group, new hx.List);
+          groups.set(group, new hx._.List);
         }
         groups.get(group).add(series);
       }
@@ -10379,12 +10589,12 @@ Axis = (function() {
       }
       return internalGroupId;
     };
-    types = new hx.Map;
+    types = new hx._.Map;
     ref = this.series();
     for (k = 0, len = ref.length; k < len; k++) {
       series = ref[k];
       if (!types.has(series._.type)) {
-        types.set(series._.type, new hx.List);
+        types.set(series._.type, new hx._.List);
       }
       types.get(series._.type).add(series);
     }
@@ -10419,7 +10629,7 @@ Axis = (function() {
         if (this.x.discreteLabels()) {
           return this.x.discreteLabels();
         } else {
-          set = new hx.Set;
+          set = new hx._.Set;
           ref = this.series();
           for (k = 0, len = ref.length; k < len; k++) {
             series = ref[k];
@@ -10485,7 +10695,7 @@ Axis = (function() {
         return function(scale) {
           var k, l, len, len1, ref, ref1;
           if (self.x.ticksAll()) {
-            set = new hx.Set;
+            set = new hx._.Set;
             ref = _this.series();
             for (k = 0, len = ref.length; k < len; k++) {
               series = ref[k];
@@ -10553,7 +10763,7 @@ Axis = (function() {
         if (this.yDiscreteLabels) {
           return this.yDiscreteLabels;
         } else {
-          set = new hx.Set;
+          set = new hx._.Set;
           ref = this.series();
           for (k = 0, len = ref.length; k < len; k++) {
             series = ref[k];
@@ -10944,7 +11154,7 @@ Graph = (function(superClass) {
         noDataText: hx.userFacingText('plot', 'noData'),
         redrawOnResize: true
       }, options),
-      axes: new hx.List
+      axes: new hx._.List
     };
     id = hx.randomId();
     selection = hx.select(this.selector);
@@ -11126,7 +11336,7 @@ Graph = (function(superClass) {
 
   Graph.prototype.axes = function(axes) {
     if (arguments.length > 0) {
-      this._.axes = new hx.List(axes);
+      this._.axes = new hx._.List(axes);
       this.axes().forEach(function(a) {
         return a.graph = this;
       });
@@ -12178,7 +12388,9 @@ PieChart = (function(superClass) {
     }
   };
 
-  defaultLabelFormatter = hx.format.si(2);
+  defaultLabelFormatter = function(num) {
+    return hx.si(num);
+  };
 
   function PieChart(selector, options) {
     this.selector = selector;
@@ -13009,7 +13221,13 @@ hx.Picker = Picker;
 
 })();
 (function(){
-var hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
+var deprecatedWarning, hx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest, standardRequest;
+
+deprecatedWarning = (function(_this) {
+  return function(fn) {
+    return hx.deprecatedWarning(fn, 'fetch (native browser function) - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API');
+  };
+})(this);
 
 respondToRequest = function(request, url, data, callback, options, index) {
   var e, result, source, status;
@@ -13127,7 +13345,7 @@ hx_xhr = function(urlType, urls, data, callback, options) {
   }
 };
 
-hx.request = function() {
+standardRequest = function() {
   var callback, data, options, urlType, urls;
   urls = arguments[0];
   urlType = (function() {
@@ -13155,6 +13373,11 @@ hx.request = function() {
   return hx_xhr(urlType, urls, data || null, callback, options);
 };
 
+hx.request = function() {
+  deprecatedWarning('hx.request');
+  return standardRequest.apply(null, arguments);
+};
+
 parsers = {
   'application/json': function(text) {
     if (text) {
@@ -13162,7 +13385,7 @@ parsers = {
     }
   },
   'text/html': function(text) {
-    return hx.parseHTML(text);
+    return hx.parseHTML.call(hx.request, text);
   },
   'text/plain': function(text) {
     return text;
@@ -13170,8 +13393,22 @@ parsers = {
 };
 
 reshapedRequest = function(type) {
+  var fn;
+  fn = (function() {
+    switch (type) {
+      case 'application/json':
+        return 'hx.json';
+      case 'text/html':
+        return 'hx.html';
+      case 'text/plain':
+        return 'hx.text';
+      case void 0:
+        return 'hx.reshapedRequest';
+    }
+  })();
   return function(urls, data, callback, options) {
     var defaults, ref;
+    deprecatedWarning(fn);
     if (hx.isFunction(data)) {
       ref = [void 0, data, callback], data = ref[0], callback = ref[1], options = ref[2];
     }
@@ -13194,7 +13431,7 @@ reshapedRequest = function(type) {
       }
     };
     options = hx.merge(defaults, options);
-    return hx.request(urls, data, callback, options);
+    return standardRequest(urls, data, callback, options);
   };
 };
 
@@ -13568,15 +13805,15 @@ setPickerValue = function(picker, results, cause) {
   _.valueText.clear();
   if (results.length) {
     _.current = results[0];
-    picker.emit('change', {
-      cause: cause,
-      value: results[0]
-    });
-    return _.renderer(_.valueText.node(), results[0]);
+    _.renderer(_.valueText.node(), results[0]);
   } else {
     _.current = void 0;
-    return _.valueText.text(_.options.chooseValueText);
+    _.valueText.text(_.options.chooseValueText);
   }
+  return picker.emit('change', {
+    cause: cause,
+    value: _.current
+  });
 };
 
 AutocompletePicker = (function(superClass) {
@@ -13829,12 +14066,6 @@ DateTimePicker = (function(superClass) {
     this.options.timePickerOptions.disabled = this.options.datePickerOptions.disabled;
     this.datePicker = new hx.DatePicker(dtNode, this.options.datePickerOptions);
     this.timePicker = new hx.TimePicker(tpNode, this.options.timePickerOptions);
-    this._ = {
-      uniqueId: hx.randomId()
-    };
-    hx.preferences.on('timezonechange', 'hx.date-time-picker-' + this._.uniqueId, function() {
-      return updateDatePicker();
-    });
     this.datePicker.pipe(this, 'date', ['show', 'hide']);
     this.timePicker.pipe(this, 'time', ['show', 'hide']);
     updateTimePicker = (function(_this) {
@@ -13935,12 +14166,21 @@ DateTimePicker = (function(superClass) {
   };
 
   DateTimePicker.prototype.locale = function(locale) {
-    hx.deprecatedWarning('hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.');
     if (arguments.length > 0) {
-      hx.preferences.locale(locale);
+      this.datePicker.localizer.locale(locale);
+      this.timePicker.localizer.locale(locale);
       return this;
     } else {
-      return hx.preferences.locale();
+      return this.datePicker.localizer.locale();
+    }
+  };
+
+  DateTimePicker.prototype.timezone = function(timezone) {
+    if (arguments.length > 0) {
+      this.timePicker.localizer.timezone(timezone);
+      return this;
+    } else {
+      return this.timePicker.localizer.timezone();
     }
   };
 
@@ -14002,7 +14242,7 @@ TagInput = (function(superClass) {
   extend(TagInput, superClass);
 
   function TagInput(selector, options) {
-    var _, acData, backspacedown, filterFn, hasError, inputContainer, isInsideForm, isValid, validateForm, validationForm;
+    var _, acData, backspacedown, filterFn, hasError, inputContainer, inputMap, isInsideForm, isValid, ref, validateForm, validationForm;
     this.selector = selector;
     TagInput.__super__.constructor.apply(this, arguments);
     _ = this._ = {};
@@ -14043,9 +14283,10 @@ TagInput = (function(superClass) {
       })(this) : isValid;
       acData = createFilteredData(filterFn, this.options.autocompleteData);
       this._.autocomplete = new hx.AutoComplete(this.input.node(), acData, this.options.autocompleteOptions);
+      inputMap = ((ref = this._.autocomplete.options) != null ? ref.inputMap : void 0) || hx.identity;
       this._.autocomplete.on('change', 'hx.taginput', (function(_this) {
         return function(value) {
-          _this.add(value);
+          _this.add(inputMap(value));
           return setTimeout((function() {
             return _this._.autocomplete.show();
           }), 0);
@@ -14102,7 +14343,7 @@ TagInput = (function(superClass) {
     this.input.on('input', 'hx.tag-input', hasError);
     this.input.on('keydown', 'hx.tag-input', (function(_this) {
       return function(event) {
-        var nodeSelection, ref, ref1, selection, value;
+        var nodeSelection, ref1, ref2, selection, value;
         if (((event.keyCode || event.charCode) === 8) && !backspacedown) {
           backspacedown = true;
           _this.input.node().setCustomValidity('');
@@ -14110,14 +14351,14 @@ TagInput = (function(superClass) {
           if (_this.input.value() === '') {
             selection = _this.tagContainer.selectAll('.hx-tag');
             if (selection.size() > 0) {
-              if ((ref = _this._.autocomplete) != null) {
-                ref.hide();
+              if ((ref1 = _this._.autocomplete) != null) {
+                ref1.hide();
               }
               nodeSelection = hx.select(selection.node(selection.size() - 1));
               value = nodeSelection.text();
               nodeSelection.remove();
-              if ((ref1 = _this._.autocomplete) != null) {
-                ref1.show();
+              if ((ref2 = _this._.autocomplete) != null) {
+                ref2.show();
               }
               return _this.emit('remove', {
                 value: value,
@@ -14677,7 +14918,7 @@ Slider = (function(superClass) {
       type: 'slider',
       discreteValues: void 0,
       renderer: function(slider, elem, value) {
-        return hx.select(elem).text(hx.format.fixed(2)(value));
+        return hx.select(elem).text(hx.fixed(value));
       },
       min: 0,
       max: 1,
@@ -14754,7 +14995,7 @@ Slider = (function(superClass) {
       this.options.discreteValues = array;
       _ = this._;
       _.isDiscrete = ((ref = this.options.discreteValues) != null ? ref.length : void 0) > 0 || (this.options.step != null);
-      _.discreteValues = new hx.Map();
+      _.discreteValues = new hx._.Map();
       _.discreteSpacing = 1 / (array.length - 1);
       _.container.selectAll('.hx-slider-point').remove();
       for (i = j = 0, ref1 = array.length; 0 <= ref1 ? j < ref1 : j > ref1; i = 0 <= ref1 ? ++j : --j) {
@@ -15284,6 +15525,7 @@ ColorPicker = (function(superClass) {
   function ColorPicker(selector, options) {
     var _, buildDropdown;
     ColorPicker.__super__.constructor.apply(this, arguments);
+    hx.deprecatedWarning('hx.ColorPicker', 'N/A - Please use a third party colour picker');
     this.options = hx.merge.defined({
       startColor: '#000',
       showInputs: 0,
@@ -16077,6 +16319,8 @@ DataTable = (function(superClass) {
       sort: void 0,
       sortEnabled: true,
       highlightOnHover: true,
+      selectedRows: [],
+      expandedRows: [],
       rowIDLookup: function(row) {
         return row.id;
       },
@@ -16223,8 +16467,8 @@ DataTable = (function(superClass) {
       pageSizePickers: [pageSizePicker, pageSizePickerBottom],
       statusBar: statusBar,
       sortColPicker: sortColPicker,
-      selectedRows: new hx.Set,
-      expandedRows: new hx.Set,
+      selectedRows: new hx._.Set(resolvedOptions.selectedRows),
+      expandedRows: new hx._.Set(resolvedOptions.expandedRows),
       renderedCollapsibles: {},
       compactState: (resolvedOptions.compact === 'auto' && selection.width() < collapseBreakPoint) || resolvedOptions.compact === true,
       advancedSearchView: advancedSearchView,
@@ -16422,7 +16666,7 @@ DataTable = (function(superClass) {
       if (this.singleSelection() && hx.isArray(value) && value.length) {
         value = [value[0]];
       }
-      this._.selectedRows = new hx.Set(value);
+      this._.selectedRows = new hx._.Set(value);
       newSelectedRows = this._.selectedRows.values();
       this.emit('selectedrowschange', {
         value: newSelectedRows,
@@ -16438,7 +16682,7 @@ DataTable = (function(superClass) {
 
   DataTable.prototype.expandedRows = function(value, cb) {
     if (arguments.length > 0 && !hx.isFunction(value)) {
-      this._.expandedRows = new hx.Set(value);
+      this._.expandedRows = new hx._.Set(value);
       this.render(cb);
       this.emit('expandedrowschange', {
         value: this._.expandedRows.values(),
@@ -16815,7 +17059,7 @@ DataTable = (function(superClass) {
               };
             };
             toggleCollapsible = function(node, row, force) {
-              var cc, currentVis, rowId;
+              var cc, currentVis, ref4, rowId;
               rowId = options.rowIDLookup(row);
               cc = _this._.renderedCollapsibles[rowId] || buildCollapsible(row);
               _this._.renderedCollapsibles[rowId] = cc;
@@ -16832,7 +17076,9 @@ DataTable = (function(superClass) {
                 delete _this._.renderedCollapsibles[rowId];
               }
               _this._.expandedRows[currentVis ? 'add' : 'delete'](rowId);
-              _this._.stickyHeaders.render();
+              if ((ref4 = _this._.stickyHeaders) != null) {
+                ref4.render();
+              }
               _this._.collapsibleSizeDiff = parseInt(selection.style('width')) - parseInt(hx.select(cc.contentDiv.node().parentNode).style('width'));
               return currentVis;
             };
@@ -17267,8 +17513,8 @@ var DrawingObject;
 DrawingObject = (function() {
   function DrawingObject(id) {
     this.id = id != null ? id : hx.randomId();
-    this.attr = new hx.Map;
-    this.properties = new hx.Map;
+    this.attr = new hx._.Map;
+    this.properties = new hx._.Map;
     this.selectable = this.addDiscreteProperty('selectable');
     this.selected = false;
   }
@@ -18071,6 +18317,7 @@ Drawing = (function(superClass) {
       autoStart = true;
     }
     Drawing.__super__.constructor.apply(this, arguments);
+    hx.deprecatedWarning('hx.Drawing', 'N/A - This module will be removed in the next major release');
     hx.component.register(selector, this);
     container = hx.select(selector);
     container.classed('hx-drawing', true);
@@ -18091,7 +18338,7 @@ Drawing = (function(superClass) {
     this.camera.pipe(this);
     this.globalAlpha = 1;
     this.stats = null;
-    this.selectedObjects = new hx.List;
+    this.selectedObjects = new hx._.List;
     this.frame = 0;
     if (autoStart) {
       this.resume();
@@ -18330,7 +18577,7 @@ Drawing = (function(superClass) {
           this.emit('unselect', obj);
         }
       }
-      this.selectedObjects = new hx.List([drawingObject]);
+      this.selectedObjects = new hx._.List([drawingObject]);
     }
     drawingObject.selected = true;
     return this.emit('select', drawingObject);
@@ -18717,8 +18964,8 @@ Composite = (function(superClass) {
     };
     this.angle = this.addNumberProperty('angle');
     this.scale = this.addNumberProperty('scale', 1);
-    this.objectList = new hx.List;
-    this.objectMap = new hx.Map;
+    this.objectList = new hx._.List;
+    this.objectMap = new hx._.Map;
   }
 
   Composite.prototype.set = function(name, value, duration, callback) {
@@ -19440,7 +19687,7 @@ fileValidator = function(file, acceptedExtensions) {
 
 fileListToMap = function(fileList, acceptedExtensions, emitter, options) {
   var file, fileUID, i, len, map;
-  map = new hx.Map();
+  map = new hx._.Map();
   for (i = 0, len = fileList.length; i < len; i++) {
     file = fileList[i];
     if (fileValidator(file, acceptedExtensions)) {
@@ -19577,7 +19824,7 @@ FileInput = (function(superClass) {
       button: button,
       selectedFiles: selectedFiles,
       noFilesTextDiv: noFilesTextDiv,
-      fileMap: new hx.Map()
+      fileMap: new hx._.Map()
     };
     if (resolvedOptions.dragEnabled) {
       preventDefault = function(e) {
@@ -19625,7 +19872,7 @@ FileInput = (function(superClass) {
         this._.input.value('');
         this._.selectedFiles.clear().classed('hx-btn', false).off('click', 'hx.file-input');
         this._.selectedFiles.append(this._.noFilesTextDiv);
-        this._.fileMap = new hx.Map;
+        this._.fileMap = new hx._.Map;
       }
       return this;
     } else {
@@ -19648,25 +19895,35 @@ hx.fileInput = function(options) {
 
 })();
 (function(){
-var Form,
+var Form, getButtons,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
 hx.userFacingText({
   form: {
-    pleaseSelectAValue: 'Please select a value from the list'
+    pleaseSelectAValue: 'Please select a value from the list',
+    pleaseAddAValue: 'Please add at least one item'
   }
 });
+
+getButtons = function(form) {
+  var buttons, sel, selection;
+  selection = hx.select(form.selector);
+  sel = selection.select('.hx-form-buttons');
+  return buttons = sel.empty() ? selection.append('div')["class"]('hx-form-buttons') : sel;
+};
 
 Form = (function(superClass) {
   extend(Form, superClass);
 
   function Form(selector) {
     this.selector = selector;
+    this.addButton = bind(this.addButton, this);
     Form.__super__.constructor.apply(this, arguments);
     hx.component.register(this.selector, this);
     this.formId = "form-" + hx.randomId() + '-';
-    this.properties = new hx.Map;
+    this.properties = new hx._.Map;
     hx.select(this.selector).classed('hx-form', true).on('keypress', 'hx.form-builder', function(e) {
       var target;
       target = hx.select(e.target || e.srcElement);
@@ -19677,9 +19934,11 @@ Form = (function(superClass) {
   }
 
   Form.prototype.add = function(name, type, nodeType, f) {
-    var entry, extras, id, key, selection;
+    var entry, extras, formSel, id, key, selection;
     id = this.formId + name.split(" ").join("-");
-    entry = hx.select(this.selector).append('div');
+    formSel = hx.select(this.selector);
+    entry = formSel.append('div');
+    formSel.append(getButtons(this));
     entry.append('label').attr("for", id).text(name);
     selection = entry.append(nodeType).attr("id", id);
     extras = f.call(selection) || {};
@@ -20097,7 +20356,7 @@ Form = (function(superClass) {
     }
     self = this;
     return this.add(name, 'tagInput', 'div', function() {
-      var base, elem, tagInput;
+      var base, change, elem, input, setValidity, tagInput;
       elem = this.append('div').node();
       if (options.placeholder) {
         if (options.tagInputOptions == null) {
@@ -20108,7 +20367,26 @@ Form = (function(superClass) {
         }
       }
       tagInput = new hx.TagInput(elem, options.tagInputOptions);
+      if (options.required) {
+        input = this.select('input');
+        setValidity = function() {
+          return input.node().setCustomValidity(hx.userFacingText('form', 'pleaseAddAValue'));
+        };
+        change = function() {
+          var value;
+          value = tagInput.items();
+          if (value === void 0 || !value.length) {
+            return setValidity();
+          } else {
+            return input.node().setCustomValidity('');
+          }
+        };
+        setValidity();
+        tagInput.on('add', 'hx.form-builder', change);
+        tagInput.on('remove', 'hx.form-builder', change);
+      }
       return {
+        required: options.required,
         key: options.key,
         componentNode: elem,
         hidden: options.hidden,
@@ -20164,18 +20442,61 @@ Form = (function(superClass) {
     });
   };
 
-  Form.prototype.addSubmit = function(text, icon, submitAction) {
-    hx.select(this.selector).append('button').attr('type', 'submit')["class"]('hx-btn hx-action hx-form-submit').add(hx.detached('i')["class"](icon)).add(hx.detached('span').text(" " + text)).on('click', 'hx.form-builder', (function(_this) {
+  Form.prototype.addButton = function(text, action, opts) {
+    var button, elem, id, options;
+    if (opts == null) {
+      opts = {};
+    }
+    id = this.formId + text.split(" ").join("-");
+    options = hx.merge({
+      key: text,
+      context: 'action',
+      buttonType: 'button',
+      icon: void 0,
+      hidden: false,
+      disabled: false
+    }, opts);
+    button = hx.detached('button').attr('type', options.buttonType).attr('id', id)["class"]("hx-btn hx-" + options.context).add(options.icon ? hx.detached('i')["class"](options.icon) : void 0).add(hx.detached('span').text(" " + text)).on('click', 'hx.form-builder', (function(_this) {
       return function(e) {
         e.preventDefault();
-        if (submitAction != null) {
-          return submitAction(_this);
-        } else {
-          return _this.submit();
-        }
+        return typeof action === "function" ? action() : void 0;
       };
     })(this));
+    elem = getButtons(this).append('div').add(button);
+    this.properties.set(options.key, {
+      type: 'submit',
+      node: button.node(),
+      extras: {
+        disable: function(s, disabled) {
+          return button.attr('disabled', disabled ? 'disabled' : void 0);
+        }
+      }
+    });
+    if (options.hidden) {
+      this.hidden(options.key, options.hidden);
+    }
+    if (options.disabled) {
+      this.disabled(options.key, options.disabled);
+    }
     return this;
+  };
+
+  Form.prototype.addSubmit = function(text, icon, submitAction, options) {
+    if (options == null) {
+      options = {};
+    }
+    return this.addButton(text, submitAction || (function(_this) {
+      return function() {
+        return _this.submit();
+      };
+    })(this), {
+      key: text || options.key,
+      context: 'action',
+      buttonType: 'submit',
+      icon: icon,
+      hidden: options.hidden,
+      disabled: options.disabled
+    });
   };
 
   Form.prototype.submit = function() {
@@ -20200,7 +20521,7 @@ Form = (function(superClass) {
       result = {};
       this.properties.forEach((function(_this) {
         return function(key, it) {
-          if (!it.hidden) {
+          if (!it.hidden && it.type !== 'submit') {
             return result[key] = _this.value(key);
           }
         };
@@ -20846,7 +21167,7 @@ Paginator = (function(superClass) {
     }, options);
     this._.selector = selector;
     self = this;
-    this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).html('<i class="hx-icon hx-icon-step-backward"></i>').on('click', 'hx.paginator', function() {
+    this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).add(hx.detached('i')["class"]('hx-icon hx-icon-step-backward')).on('click', 'hx.paginator', function() {
       if (self._.pageCount === void 0) {
         return select(self, self._.page - 1, 'user');
       } else {
@@ -20859,7 +21180,7 @@ Paginator = (function(superClass) {
         return select(self, d.value, 'user');
       });
     });
-    this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).html('<i class="hx-icon hx-icon-step-forward"></i>').on('click', 'hx.paginator', function() {
+    this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).add(hx.detached('i')["class"]('hx-icon hx-icon-step-forward')).on('click', 'hx.paginator', function() {
       if (self._.pageCount === void 0) {
         return select(self, self._.page + 1, 'user');
       } else {
@@ -21258,7 +21579,7 @@ Sidebar = (function(superClass) {
     }
     this.selection.classed('hx-animate', true);
     hx.select(options.contentSelector).classed('hx-animate', true);
-    btn = hx.select(options.headerSelector).prepend('button').attr('type', 'button')["class"]('hx-titlebar-sidebar-button').html('<i class="hx-icon hx-icon-bars"></i>');
+    btn = hx.select(options.headerSelector).prepend('button').attr('type', 'button')["class"]('hx-titlebar-sidebar-button').add(hx.detached('i')["class"]('hx-icon hx-icon-bars'));
     btn.on('click', 'hx.sidebar', (function(_this) {
       return function() {
         return _this.toggle();
@@ -21432,11 +21753,9 @@ hx.tabs = function(opts) {
 
 })();
 (function(){
-var TimeSlider, zeroPad,
+var TimeSlider,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
-
-zeroPad = hx.format.zeroPad(2);
 
 TimeSlider = (function(superClass) {
   var maybeDateToMillis;
@@ -21466,7 +21785,7 @@ TimeSlider = (function(superClass) {
     } else {
       if (options.formatter == null) {
         options.formatter = function(date) {
-          return zeroPad(date.getHours()) + ':' + zeroPad(date.getMinutes());
+          return hx.zeroPad(date.getHours()) + ':' + hx.zeroPad(date.getMinutes());
         };
       }
     }
@@ -21697,7 +22016,7 @@ Tree = (function() {
       hideDisabledButtons: false,
       animate: true,
       renderer: function(elem, data) {
-        return hx.select(elem).html(data.name || data);
+        return hx.select(elem).node().innerHTML = data.name || data;
       },
       items: [],
       lazy: false
