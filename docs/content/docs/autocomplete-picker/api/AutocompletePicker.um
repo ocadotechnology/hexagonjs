@@ -28,7 +28,7 @@
   @added 1.4.0
     @issue 17
 
-  @bugfix nextReleaseVersion
+  @bugfix 1.17.0
     @issue 435
     @description
       Resolved an issue to make it possible to clear the value of the

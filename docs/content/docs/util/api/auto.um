@@ -878,7 +878,7 @@
       The passed in item.
 
 @function hx.parseHTML
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
     @issue 375
     @description
       The @code[html] method for selections has been removed to prevent XSS attacks.

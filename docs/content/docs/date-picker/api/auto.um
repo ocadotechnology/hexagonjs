@@ -739,7 +739,8 @@
           false
 
       @property range [Object]
-        @added nextReleaseVersion
+        @added 1.17.0
+          @issue 350
           @description
             Added the ability to set the range when constructing a date picker
 
@@ -756,7 +757,8 @@
             The second date of the range
 
       @property validRange [Object]
-        @added nextReleaseVersion
+        @added 1.17.0
+          @issue 350
           @description
             Added the ability to set the valid range when constructing a date
             picker
@@ -901,14 +903,13 @@
   @method locale
     @added 0.13.0
     @extra
-      @removed nextReleaseVersion
+      @removed 1.17.0
       @notice [De-deprecated]
         @description
           This method was deprecated in 1.1.0 in favour of using
           @code[hx.preferences.locale] however after reviewing this it has been
-          de-deprecated in version nextReleaseVersion and updated to work in a more
+          de-deprecated in version 1.17.0 and updated to work in a more
           effective manner.
-
 
     @description
       A function for updating the locale used in the date picker.
@@ -917,6 +918,8 @@
 
       @@codeblock js
         datepicker.locale('pl') // sets the datepicker's locale to Poland
+
+
 
     @arg locale [String]
       @description
@@ -928,18 +931,18 @@
 
   @method locale
     @added 0.13.0
-    @updated nextReleaseVersion
+    @updated 1.17.0
       @issue 468
       @description
         Updated the locale method to allow per-instance locales and un-deprecated the locale methods
 
     @extra
-      @removed nextReleaseVersion
+      @removed 1.17.0
       @notice [De-deprecated]
         @description
           This method was deprecated in 1.1.0 in favour of using
           @code[hx.preferences.locale] however after reviewing this it has been
-          de-deprecated in version nextReleaseVersion and updated to work in a more
+          de-deprecated in version 1.17.0 and updated to work in a more
           effective manner.
 
     @description

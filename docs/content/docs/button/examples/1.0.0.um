@@ -23,7 +23,7 @@
         hx.notify.info('Button clicked');
       });
 
-@version nextReleaseVersion
+@version 1.17.0
   @example
     @@html
       <button class="hx-btn">hx-btn</button>

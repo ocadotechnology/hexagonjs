@@ -23,7 +23,7 @@
         <span class="hx-label hx-compliment">hx-compliment</span>
         <span class="hx-label hx-contrast">hx-contrast</span>
 
-@version nextReleaseVersion
+@version 1.17.0
   @examples
     @example
       @@html

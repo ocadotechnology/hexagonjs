@@ -31,7 +31,7 @@
       allowed values that didn't match the current filter to be entered
     @issue 346
 
-  @bugfix nextReleaseVersion
+  @bugfix 1.17.0
     @issue 338
     @description
       Resolved an issue when using async data and @code[mustMatch] threw an

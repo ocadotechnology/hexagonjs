@@ -348,7 +348,7 @@
     @added 1.1.0
       @issue 23
 
-    @removed nextReleaseVersion
+    @removed 1.17.0
 
     @description
       A method that takes a date and returns a new date with the timezone offset applied.
@@ -366,7 +366,7 @@
         The date, offset by the timezone amount.
 
   @method applyTimezoneOffset
-    @added nextReleaseVersion
+    @added 1.17.0
       @description
         Updated the offset argument to additionally take a @code[timezone]
         string directly instead of needing the numeric offset
@@ -455,7 +455,7 @@
         This Preferences
 
   @method isLocaleSupported
-    @added nextReleaseVersion
+    @added 1.17.0
       @description
         Added a method for checking whether the locale is supported
 
@@ -472,7 +472,7 @@
         Whether the locale is in the list of supported locales
 
   @method isTimezoneSupported
-    @added nextReleaseVersion
+    @added 1.17.0
       @description
         Added a method for checking whether the timezone is supported
 

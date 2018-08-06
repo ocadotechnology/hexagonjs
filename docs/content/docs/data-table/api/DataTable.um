@@ -395,7 +395,7 @@
         @default: true
 
       @property selectedRows [Array]
-        @added nextReleaseVersion
+        @added 1.17.0
           @issue 86
           @description
             Added the ability to set the selectedRows in the constructor
@@ -403,7 +403,7 @@
           The selected rows to initialise the table with
 
       @property expandedRows [Array]
-        @added nextReleaseVersion
+        @added 1.17.0
           @issue 86
           @description
             Added the ability to set the expandedRows in the constructor

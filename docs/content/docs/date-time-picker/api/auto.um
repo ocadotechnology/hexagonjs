@@ -840,18 +840,18 @@
 
   @method locale
     @added 0.13.0
-    @updated nextReleaseVersion
+    @updated 1.17.0
       @issue 468
       @description
         Updated the locale method to allow per-instance locales and un-deprecated the locale methods
 
     @extra
-      @removed nextReleaseVersion
+      @removed 1.17.0
       @notice [De-deprecated]
         @description
           This method was deprecated in 1.1.0 in favour of using
           @code[hx.preferences.locale] however after reviewing this it has been
-          de-deprecated in version nextReleaseVersion and updated to work in a more
+          de-deprecated in version 1.17.0 and updated to work in a more
           effective manner.
 
     @description
@@ -872,18 +872,18 @@
 
   @method locale
     @added 0.13.0
-    @updated nextReleaseVersion
+    @updated 1.17.0
       @issue 468
       @description
         Updated the locale method to allow per-instance locales and un-deprecated the locale methods
 
     @extra
-      @removed nextReleaseVersion
+      @removed 1.17.0
       @notice [De-deprecated]
         @description
           This method was deprecated in 1.1.0 in favour of using
           @code[hx.preferences.locale] however after reviewing this it has been
-          de-deprecated in version nextReleaseVersion and updated to work in a more
+          de-deprecated in version 1.17.0 and updated to work in a more
           effective manner.
 
     @description
@@ -894,7 +894,7 @@
         The currently set locale.
 
   @method timezone
-    @added nextReleaseVersion
+    @added 1.17.0
       @issue 468
       @description
         Added a method to allow the setting of per-instance timezones
@@ -907,7 +907,7 @@
         This DateTimePicker
 
   @method timezone
-    @added nextReleaseVersion
+    @added 1.17.0
       @issue 468
       @description
         Added a method to allow the setting of per-instance timezones

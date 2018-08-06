@@ -4,6 +4,7 @@
       Added a new class to allow the addition of the theme logo in places other than the titlebar.
 
   @deprecated 1.15.0
+    @issue 440
     @description
       Fixed an issue with IE support of the logo by changing the @code[<img>]
       tags to @code[<div>] tags.
@@ -21,6 +22,7 @@
 
 @class div.hx-logo
   @added 1.15.0
+    @issue 440
     @description
       Fixed an issue with IE support of the logo by changing the @code[<img>]
       tags to @code[<div>] tags.

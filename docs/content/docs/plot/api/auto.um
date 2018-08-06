@@ -36,7 +36,7 @@
   @description
     Prevent text wrapping in basic labels (e.g. sparklines)
 
-@bugfix nextReleaseVersion
+@bugfix 1.17.0
   @issue 348
   @description
     Resolves an issue where the label formatters were not correctly being read

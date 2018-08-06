@@ -7,7 +7,7 @@
     @description
       Added sidebar method and themes to allow for better overlays
 
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
     @issue 480
     @description
       This module has been deprecated and will be moved to a standalone library

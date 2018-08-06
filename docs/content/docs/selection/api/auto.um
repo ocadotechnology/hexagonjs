@@ -326,7 +326,7 @@
         The text content of the selected element, or nodes if this is a multiple selection.
 
   @method html
-    @deprecated nextReleaseVersion
+    @deprecated 1.17.0
       @issue 375
       @description
         The @code[html] method for selections has been removed to prevent XSS attacks.
@@ -343,7 +343,7 @@
         This Selection
 
   @method html
-    @deprecated nextReleaseVersion
+    @deprecated 1.17.0
       @issue 375
       @description
         The @code[html] method for selections has been removed to prevent XSS attacks.

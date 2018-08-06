@@ -440,12 +440,17 @@
         using @code[moment.js] the week start will still be taken from the
         currently selected locale's week start.
 
-    @version nextReleaseVersion
+    @version 1.17.0
       @description
-        Deprecated the @code[hx.format] functions in favour of a more concise
-        set of plain functions for formatting numbers
+        Deprecated a selection of APIs and classes that will be removed in the
+        next major release in order to standardize the library and improve
+        maintainability.
 
-        Deprecated the @code[request] module in favour of using @code[fetch]
+        Several APIs have been deprecated without a replacement or with
+        native JS/ES6 replacements suggested (such as using @code[fetch]
+        instead of @code[hx.request]). Making these changes in advance of the
+        upcoming major release will make transitioning much easier.
 
-        Deprecated the @code[Selection::html] setter/getter method to prevent
-        XSS vulnerabilities.
+        In addition to the deprecations, multiple features have been added from
+        the backlog to further improve the capabilities of the existing
+        components. In addition to this, several bugs have also been resolved.

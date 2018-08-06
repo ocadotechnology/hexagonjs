@@ -45,7 +45,7 @@
       f4(1000000.5555)  // 1000000.556
       f4(1200000.5555)  // 1200000.556
 
-@version nextReleaseVersion
+@version 1.17.0
   @examples
     @@codeblock js
       hx.round(9.9999, { sf: 3 })        // 10

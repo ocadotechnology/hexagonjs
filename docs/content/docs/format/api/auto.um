@@ -3,7 +3,7 @@
     An object containing a set of functions to create number formatting functions.
 
   @function round
-    @deprecated nextReleaseVersion
+    @deprecated 1.17.0
       @issue 457
       @description
         The format factories have been deprecated in favour of functions that
@@ -36,7 +36,7 @@
           The formatted string
 
   @function si
-    @deprecated nextReleaseVersion
+    @deprecated 1.17.0
       @issue 457
       @description
         The format factories have been deprecated in favour of functions that
@@ -69,7 +69,7 @@
           The formatted string
 
   @function exp
-    @deprecated nextReleaseVersion
+    @deprecated 1.17.0
       @issue 457
       @description
         The format factories have been deprecated in favour of functions that
@@ -102,7 +102,7 @@
           The formatted string
 
   @function fixed
-    @deprecated nextReleaseVersion
+    @deprecated 1.17.0
       @issue 457
       @description
         The format factories have been deprecated in favour of functions that
@@ -136,7 +136,7 @@
           The formatted string
 
   @function zeroPad
-    @deprecated nextReleaseVersion
+    @deprecated 1.17.0
       @issue 457
       @description
         The format factories have been deprecated in favour of functions that
@@ -170,7 +170,7 @@
           The formatted string
 
 @function hx.round
-  @added nextReleaseVersion
+  @added 1.17.0
     @issue 457
     @description
       Added plain functions for formatting numbers that take the number and
@@ -207,7 +207,7 @@
       The formatted string
 
 @function hx.si
-  @added nextReleaseVersion
+  @added 1.17.0
     @issue 457
     @description
       Added plain functions for formatting numbers that take the number and
@@ -245,7 +245,7 @@
 
 
 @function hx.exp
-  @added nextReleaseVersion
+  @added 1.17.0
     @issue 457
     @description
       Added plain functions for formatting numbers that take the number and
@@ -288,7 +288,7 @@
       The formatted string
 
 @function hx.fixed
-  @added nextReleaseVersion
+  @added 1.17.0
     @issue 457
     @description
       Added plain functions for formatting numbers that take the number and
@@ -325,7 +325,7 @@
       The formatted string
 
 @function hx.zeroPad
-  @added nextReleaseVersion
+  @added 1.17.0
     @issue 457
     @description
       Added plain functions for formatting numbers that take the number and

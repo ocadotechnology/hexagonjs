@@ -142,7 +142,7 @@
           .addSubmit('Submit', 'fa fa-check')
           .on('submit', function (data) {console.log(data)})
 
-@version nextReleaseVersion
+@version 1.17.0
   @examples
     @example
       @@html

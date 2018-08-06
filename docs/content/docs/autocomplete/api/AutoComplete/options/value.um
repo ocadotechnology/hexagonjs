@@ -1,5 +1,5 @@
 @property value [String/Any]
-  @added nextReleaseVersion
+  @added 1.17.0
     @issue 349
     @description
       Added the ability to set the autocomplete value in the constructor

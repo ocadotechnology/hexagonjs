@@ -58,7 +58,7 @@
         tagInput.add('goodbye', 'hx-negative')
         tagInput.add(['tag', 'tag2'])
 
-@version nextReleaseVersion
+@version 1.17.0
   @examples
     @example
       @@html

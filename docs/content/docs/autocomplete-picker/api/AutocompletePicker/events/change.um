@@ -1,5 +1,5 @@
 @event change [String]
-  @bugfix nextReleaseVersion
+  @bugfix 1.17.0
     @issue 438
     @description
       Updated the AutocompletePicker to update the value when setting the value

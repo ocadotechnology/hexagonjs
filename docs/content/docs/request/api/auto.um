@@ -306,7 +306,8 @@
 
 @function hx.request
   @added 0.9.0
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a
@@ -461,7 +462,8 @@
 
 @function hx.request
   @added 0.9.0
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a
@@ -609,7 +611,8 @@
           }
 
 @function hx.html
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a
@@ -766,7 +769,8 @@
           }
 
 @function hx.html
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a
@@ -917,7 +921,8 @@
           }
 
 @function hx.json
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a
@@ -1074,7 +1079,8 @@
           }
 
 @function hx.json
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a
@@ -1227,7 +1233,8 @@
 @function hx.text
   @added 1.1.0
 
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a
@@ -1386,7 +1393,8 @@
 @function hx.text
   @added 1.1.0
 
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
+    @issue 22
     @description
       This function has been deprecated due to the increase in browser support for
       @code[fetch]. You should transition to using @code[fetch] alongside a

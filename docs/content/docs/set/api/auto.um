@@ -3,7 +3,7 @@
     Sets can now handle items with the same toString
 
 @prototype hx.Set
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
     @issue 336
     @description
       Deprecated in favour of native ES6 Set

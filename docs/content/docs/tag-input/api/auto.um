@@ -37,7 +37,7 @@
     @description
       Fixed an issue where using an autocomplete allowed multiple tags to be entered at once
 
-  @bugfix nextReleaseVersion
+  @bugfix 1.17.0
     @issue 405
     @description
       Fixed an issue where @code[[object Object]] would be displayed when using

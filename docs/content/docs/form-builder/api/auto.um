@@ -718,7 +718,7 @@
             The placeholder text for the tag input
 
         @property required [Boolean]
-          @added nextReleaseVersion
+          @added 1.17.0
             @issue 238
             @description
               Added the ability to have 'required' tag inputs where at least
@@ -1184,7 +1184,7 @@
 
     @method addSubmit
       @added 0.15.2
-      @removed nextReleaseVersion
+      @removed 1.17.0
       @description
         Adds a submit button to the form
 
@@ -1209,7 +1209,7 @@
           This Form
 
     @method addSubmit
-      @added nextReleaseVersion
+      @added 1.17.0
         @issue 395
         @description
           Added the @code[options] argument to allow the button to be hidden or
@@ -1256,7 +1256,7 @@
           This Form
 
     @method addButton
-      @added nextReleaseVersion
+      @added 1.17.0
         @issue 395
         @description
           Added the ability to add multiple buttons to the bottom of a form

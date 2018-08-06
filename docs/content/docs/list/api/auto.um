@@ -1,6 +1,6 @@
 
 @prototype hx.List
-  @deprecated nextReleaseVersion
+  @deprecated 1.17.0
     @issue 336
     @description
       Deprecated in favour of using standard JS Arrays
