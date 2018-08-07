@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.16.0
+ Version: 1.17.0
  Theme: hexagon-light
  Modules:
    set
@@ -526,6 +526,7 @@ dx.theme = {
     "contrastCol": "#4A4E4E",
     "lightTextCol": "#F3F3F3",
     "darkTextCol": "#3D3D3D",
+    "invertCol": "#FDFDFD",
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },
@@ -624,7 +625,9 @@ dx.theme = {
 };
 (function(){
 var Set, checkPrefix, prefix, prefixChar, prefixString,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 prefixString = '\0';
 
@@ -767,11 +770,25 @@ Set = (function() {
 
 })();
 
-dx.Set = Set;
+dx._.Set = Set;
+
+dx.Set = (function(superClass) {
+  extend(Set, superClass);
+
+  function Set(iterable) {
+    dx.deprecatedWarning('dx.Set', 'ES6 Set');
+    Set.__super__.constructor.call(this, iterable);
+  }
+
+  return Set;
+
+})(Set);
 
 })();
 (function(){
-var Map, checkPrefix, prefix, prefixChar, prefixString;
+var Map, checkPrefix, prefix, prefixChar, prefixString,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 prefixString = '\0';
 
@@ -935,11 +952,25 @@ Map = (function() {
 
 })();
 
-dx.Map = Map;
+dx._.Map = Map;
+
+dx.Map = (function(superClass) {
+  extend(Map, superClass);
+
+  function Map(iterable) {
+    dx.deprecatedWarning('dx.Map', 'ES6 Map');
+    Map.__super__.constructor.call(this, iterable);
+  }
+
+  return Map;
+
+})(Map);
 
 })();
 (function(){
-var List;
+var List,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 List = (function() {
   function List(list) {
@@ -1028,7 +1059,19 @@ List = (function() {
 
 })();
 
-dx.List = List;
+dx._.List = List;
+
+dx.List = (function(superClass) {
+  extend(List, superClass);
+
+  function List(items) {
+    dx.deprecatedWarning('dx.List', 'JS Array');
+    List.__super__.constructor.call(this, items);
+  }
+
+  return List;
+
+})(List);
 
 })();
 (function(){
@@ -1362,12 +1405,12 @@ dx.isPlainObject = function(obj) {
 
 dx.groupBy = function(arr, f) {
   var category, l, len1, map, values, x;
-  map = new dx.Map;
+  map = new dx._.Map;
   for (l = 0, len1 = arr.length; l < len1; l++) {
     x = arr[l];
     category = f(x);
     if (!map.has(category)) {
-      map.set(category, new dx.List);
+      map.set(category, new dx._.List);
     }
     map.get(category).add(x);
   }
@@ -1379,7 +1422,7 @@ dx.groupBy = function(arr, f) {
 };
 
 dx.unique = function(list) {
-  return new dx.Set(list).values();
+  return new dx._.Set(list).values();
 };
 
 dx.endsWith = function(string, suffix) {
@@ -1503,16 +1546,16 @@ dx.clone = function(obj) {
     return obj.map(dx.clone);
   } else if (dx.isPlainObject(obj)) {
     return dx.merge({}, obj);
-  } else if (obj instanceof dx.List) {
-    return new dx.List(obj.entries().map(dx.clone));
-  } else if (obj instanceof dx.Map) {
-    return new dx.Map(obj.entries().map(function(arg) {
+  } else if (obj instanceof dx._.List) {
+    return new dx._.List(obj.entries().map(dx.clone));
+  } else if (obj instanceof dx._.Map) {
+    return new dx._.Map(obj.entries().map(function(arg) {
       var k, v;
       k = arg[0], v = arg[1];
       return [dx.clone(k), dx.clone(v)];
     }));
-  } else if (obj instanceof dx.Set) {
-    return new dx.Set(obj.keys().map(dx.clone));
+  } else if (obj instanceof dx._.Set) {
+    return new dx._.Set(obj.keys().map(dx.clone));
   } else if (obj instanceof Date) {
     return new Date(obj.getTime());
   } else if (dx.isObject(obj) && obj !== null) {
@@ -1529,12 +1572,12 @@ dx.shallowClone = function(obj) {
     return obj.slice();
   } else if (dx.isPlainObject(obj)) {
     return dx.shallowMerge({}, obj);
-  } else if (obj instanceof dx.List) {
-    return new dx.List(obj.entries());
-  } else if (obj instanceof dx.Map) {
-    return new dx.Map(obj.entries());
-  } else if (obj instanceof dx.Set) {
-    return new dx.Set(obj.keys());
+  } else if (obj instanceof dx._.List) {
+    return new dx._.List(obj.entries());
+  } else if (obj instanceof dx._.Map) {
+    return new dx._.Map(obj.entries());
+  } else if (obj instanceof dx._.Set) {
+    return new dx._.Set(obj.keys());
   } else if (obj instanceof Date) {
     return new Date(obj.getTime());
   } else if (dx.isObject(obj) && obj !== null) {
@@ -1568,6 +1611,7 @@ dx_parseHTML = null;
 
 dx.parseHTML = function(html) {
   var e;
+  dx.deprecatedWarning('dx.parseHTML', 'N/A');
   if (!dx_parseHTML) {
 
     /*
@@ -1694,8 +1738,8 @@ var BasicEventEmitter, EventEmitter;
 
 BasicEventEmitter = (function() {
   function BasicEventEmitter() {
-    this.callbacks = new dx.Map;
-    this.allCallbacks = new dx.List;
+    this.callbacks = new dx._.Map;
+    this.allCallbacks = new dx._.List;
   }
 
   BasicEventEmitter.prototype.emit = function(name, data) {
@@ -1724,7 +1768,7 @@ BasicEventEmitter = (function() {
   BasicEventEmitter.prototype.on = function(name, callback) {
     if (name) {
       if (!this.callbacks.has(name)) {
-        this.callbacks.set(name, new dx.List);
+        this.callbacks.set(name, new dx._.List);
       }
       this.callbacks.get(name).add(callback);
     } else {
@@ -1749,10 +1793,10 @@ BasicEventEmitter = (function() {
       }
     } else {
       if (name) {
-        this.callbacks.set(name, new dx.List);
+        this.callbacks.set(name, new dx._.List);
       } else {
-        this.callbacks = new dx.Map;
-        this.allCallbacks = new dx.List;
+        this.callbacks = new dx._.Map;
+        this.allCallbacks = new dx._.List;
       }
     }
     return this;
@@ -1789,9 +1833,9 @@ EventEmitter = (function() {
   var addEmitter, removeEmitter;
 
   function EventEmitter() {
-    this.suppressedMap = new dx.Map;
-    this.emitters = new dx.List;
-    this.emittersMap = new dx.Map;
+    this.suppressedMap = new dx._.Map;
+    this.emitters = new dx._.List;
+    this.emittersMap = new dx._.Map;
     this.global = addEmitter(this, 'default');
   }
 
@@ -2370,8 +2414,8 @@ getHexagonElementDataObject = function(element, createIfNotExists) {
 
 ElementSet = (function() {
   function ElementSet() {
-    this.elements = new dx.List;
-    this.ids = new dx.Set;
+    this.elements = new dx._.List;
+    this.ids = new dx._.Set;
   }
 
   ElementSet.prototype.add = function(element) {
@@ -2846,6 +2890,7 @@ Selection = (function() {
 
   Selection.prototype.html = function(html) {
     var j, len, node, ref;
+    dx.deprecatedWarning('Selection::html', 'N/A');
     if (arguments.length === 1) {
       ref = this.nodes;
       for (j = 0, len = ref.length; j < len; j++) {
@@ -2947,10 +2992,10 @@ Selection = (function() {
       data = getHexagonElementDataObject(node);
       eventEmitter = data.eventEmitter ? data.eventEmitter : data.eventEmitter = new dx.EventEmitter;
       if (data.eventAugmenters == null) {
-        data.eventAugmenters = new dx.Map;
+        data.eventAugmenters = new dx._.Map;
       }
       if (data.listenerNamesRegistered == null) {
-        data.listenerNamesRegistered = new dx.Set;
+        data.listenerNamesRegistered = new dx._.Set;
       }
       if (name.indexOf('pointer') !== 0 && !data.listenerNamesRegistered.has(name)) {
         handler = function(e) {
@@ -3035,7 +3080,7 @@ Selection = (function() {
           node = ref[j];
           data = getHexagonElementDataObject(node);
           if (data.data == null) {
-            data.data = new dx.Map;
+            data.data = new dx._.Map;
           }
           results.push(data.data.set(key, value));
         }
@@ -3917,7 +3962,7 @@ dx.Selection.prototype.morph = function() {
   return new Morph(this.nodes[0]);
 };
 
-dx_morphs = new dx.Map;
+dx_morphs = new dx._.Map;
 
 dx.morph.register = function(name, morph) {
   return dx_morphs.set(name, morph);
@@ -3973,8 +4018,8 @@ View = (function() {
       exitSet = [];
       nodes = this.rootSelection.shallowSelectAll(this.selector).nodes;
       if (key) {
-        nodeByKey = new dx.Map;
-        dataByKey = new dx.Map(data.map(function(datum) {
+        nodeByKey = new dx._.Map;
+        dataByKey = new dx._.Map(data.map(function(datum) {
           return [key(datum), datum];
         }));
         for (l = 0, len = nodes.length; l < len; l++) {
@@ -4961,15 +5006,18 @@ dx.notify.defaultTimeout = function(timeout) {
 
 })();
 (function(){
-var formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
+var deprecatedWarning, formatExp, formatFixed, formatRound, formatSI, precision, roundPrecision, siSuffixes, strictCheck, zeroPad;
 
 siSuffixes = ['y', 'z', 'a', 'f', 'p', 'n', 'µ', '', '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
 
-zeroPad = function(number, pad) {
+zeroPad = function(number, options) {
   var _, str, zeros;
+  if (options.length == null) {
+    options.length = 2;
+  }
   str = number.toString();
-  if (str.length < pad) {
-    zeros = pad - str.length;
+  if (str.length < options.length) {
+    zeros = options.length - str.length;
     return ((function() {
       var i, ref, results;
       results = [];
@@ -4983,94 +5031,146 @@ zeroPad = function(number, pad) {
   }
 };
 
-precision = function(n) {
-  if (n) {
-    return Math.floor(Math.log(Math.abs(n)) / Math.LN10);
+precision = function(number) {
+  if (number) {
+    return Math.floor(Math.log(Math.abs(number)) / Math.LN10);
   } else {
-    return 1;
+    return 0;
   }
 };
 
-roundPrecision = function(n, base, factor) {
+roundPrecision = function(number, base, factor) {
   if (factor >= 0) {
-    return Math.round(n / Math.pow(base, factor)) * Math.pow(base, factor);
+    return Math.round(number / Math.pow(base, factor)) * Math.pow(base, factor);
   } else {
-    return Math.round(n * Math.pow(base, -factor)) / Math.pow(base, -factor);
+    return Math.round(number * Math.pow(base, -factor)) / Math.pow(base, -factor);
   }
 };
 
-formatRound = function(n, sf) {
+formatRound = function(number, options) {
   var factor;
-  if (isNaN(n)) {
-    return 'NaN';
+  if (options.sf == null) {
+    options.sf = 2;
   }
-  factor = precision(n) - sf + 1;
-  return roundPrecision(n, 10, factor).toString();
+  factor = precision(number) - options.sf + 1;
+  return roundPrecision(number, 10, factor).toString();
 };
 
-formatSI = function(n, sf) {
+formatSI = function(number, options) {
   var p, siFactor, suffix, x;
-  if (isNaN(n)) {
-    return 'NaN';
-  }
-  p = Math.min(precision(n), 26);
+  p = Math.min(precision(number), 26);
   suffix = siSuffixes[Math.min(Math.max(0, Math.floor(8 + p / 3)), 16)];
-  x = Math.abs(n) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
+  x = Math.abs(number) < 1 && p % 3 && !((-3 < p && p < 0)) ? 1000 : 1;
   if (p === -3) {
     x = 1000;
     suffix = siSuffixes[6];
   }
   siFactor = Math.pow(10, p - p % 3) / x;
-  return formatRound(n / siFactor, sf) + suffix;
+  return formatRound(number / siFactor, options) + suffix;
 };
 
-formatExp = function(n, sf) {
-  var p;
-  if (isNaN(n)) {
-    return 'NaN';
+formatExp = function(number, options) {
+  var mod, p;
+  p = precision(number);
+  mod = p >= 0 ? '+' : '';
+  return formatRound(number / Math.pow(10, p), options) + 'e' + mod + p;
+};
+
+formatFixed = function(number, options) {
+  if (options.digits == null) {
+    options.digits = 2;
   }
-  p = precision(n);
-  return formatRound(n / Math.pow(10, p), sf) + 'e' + p;
+  return number.toFixed(options.digits);
 };
 
-formatFixed = function(n, digits) {
-  if (isNaN(n)) {
-    return 'NaN';
+strictCheck = function(number, formatFn, options) {
+  if (options == null) {
+    options = {};
   }
-  return n.toFixed(digits);
-};
-
-strictCheck = function(f, sf, strict) {
-  if (strict) {
-    return function(n) {
-      return f(n, sf);
-    };
+  if (options.strict) {
+    if (isNaN(number)) {
+      return 'NaN';
+    } else {
+      return formatFn(number, options);
+    }
   } else {
-    return function(n) {
-      if (dx.isString(n)) {
-        return n;
-      } else {
-        return f(n, sf);
-      }
-    };
+    if (dx.isString(number)) {
+      return number;
+    } else {
+      return formatFn(number, options);
+    }
   }
+};
+
+dx.round = function(number, options) {
+  return strictCheck(number, formatRound, options);
+};
+
+dx.si = function(number, options) {
+  return strictCheck(number, formatSI, options);
+};
+
+dx.exp = function(number, options) {
+  return strictCheck(number, formatExp, options);
+};
+
+dx.fixed = function(number, options) {
+  return strictCheck(number, formatFixed, options);
+};
+
+dx.zeroPad = function(number, options) {
+  return strictCheck(number, zeroPad, options);
+};
+
+deprecatedWarning = function(which) {
+  return dx.deprecatedWarning("dx.format." + which + ": The formatter factory pattern is deprecated and will be removed in the next major release, please use dx." + which + "(number, options)");
 };
 
 dx.format = {
   round: function(sf, strict) {
-    return strictCheck(formatRound, sf, strict);
+    deprecatedWarning('round');
+    return function(number) {
+      return dx.round(number, {
+        strict: strict,
+        sf: sf
+      });
+    };
   },
   si: function(sf, strict) {
-    return strictCheck(formatSI, sf, strict);
+    deprecatedWarning('si');
+    return function(number) {
+      return dx.si(number, {
+        strict: strict,
+        sf: sf
+      });
+    };
   },
   exp: function(sf, strict) {
-    return strictCheck(formatExp, sf, strict);
+    deprecatedWarning('exp');
+    return function(number) {
+      return dx.exp(number, {
+        strict: strict,
+        sf: sf
+      }).replace('+', '');
+    };
   },
   fixed: function(digits, strict) {
-    return strictCheck(formatFixed, digits, strict);
+    deprecatedWarning('fixed');
+    return function(number) {
+      return dx.fixed(number, {
+        digits: digits,
+        strict: strict
+      });
+    };
   },
   zeroPad: function(length, strict) {
-    return strictCheck(zeroPad, length, strict);
+    deprecatedWarning('zeroPad');
+    return function(number) {
+      return dx.zeroPad(number, {
+        length: length,
+        strict: strict
+      });
+    };
   }
 };
 
@@ -5303,7 +5403,7 @@ ClickDetector = (function(superClass) {
     var container;
     ClickDetector.__super__.constructor.apply(this, arguments);
     this.eventId = dx.randomId();
-    this.exceptions = new dx.List;
+    this.exceptions = new dx._.List;
     container = void 0;
     this.downAction = (function(_this) {
       return function(e) {
@@ -5380,7 +5480,7 @@ dx.ClickDetector = ClickDetector;
 })();
 
 (function(){
-var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, defaultTimezoneLookup, localeList, lookupLocale, zeroPad,
+var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, defaultTimezoneLookup, localeList, lookupLocale,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -5663,15 +5763,13 @@ lookupLocale = function(locale) {
   })[0];
 };
 
-zeroPad = dx.format.zeroPad(2);
-
 defaultTimezoneLookup = function(offset) {
   var absOffset, hours, minutes, modifier;
   modifier = offset > 0 ? '-' : '+';
   absOffset = Math.abs(offset);
   minutes = absOffset % 60;
   hours = (absOffset - minutes) / 60;
-  return "UTC" + modifier + (zeroPad(hours)) + ":" + (zeroPad(minutes));
+  return "UTC" + modifier + (dx.zeroPad(hours)) + ":" + (dx.zeroPad(minutes));
 };
 
 Preferences = (function(superClass) {
@@ -5768,7 +5866,7 @@ Preferences = (function(superClass) {
 
   Preferences.prototype.timezone = function(timezone) {
     if (arguments.length > 0) {
-      if (dx.isString(timezone) && this._.supportedTimezones.indexOf(timezone) !== -1) {
+      if (this.isTimezoneSupported(timezone)) {
         if (this._.preferences['timezone'] !== timezone) {
           this._.preferences['timezone'] = timezone;
           this.emit('timezonechange', timezone);
@@ -5785,7 +5883,8 @@ Preferences = (function(superClass) {
   Preferences.prototype.locale = function(locale) {
     var localeObject;
     if (arguments.length > 0) {
-      if (dx.isString(locale) && (localeObject = lookupLocale(locale))) {
+      if (this.isLocaleSupported(locale)) {
+        localeObject = lookupLocale(locale);
         if (this._.preferences['locale'] !== localeObject.value) {
           this._.preferences['locale'] = localeObject.value;
           if (typeof moment !== "undefined" && moment !== null) {
@@ -5819,11 +5918,17 @@ Preferences = (function(superClass) {
 
   Preferences.prototype.timezoneOffsetLookup = option('timezoneOffsetLookup');
 
-  Preferences.prototype.applyTimezoneOffset = function(date, offset) {
-    var utc;
-    if (offset == null) {
-      offset = this._.timezoneOffsetLookup(this.timezone(), date.getTime()) || 0;
-    }
+  Preferences.prototype.isTimezoneSupported = function(timezone) {
+    return dx.isString(timezone) && this._.supportedTimezones.indexOf(timezone) !== -1;
+  };
+
+  Preferences.prototype.isLocaleSupported = function(locale) {
+    return dx.isString(locale) && lookupLocale(locale);
+  };
+
+  Preferences.prototype.applyTimezoneOffset = function(date, timezoneOrOffset) {
+    var offset, utc;
+    offset = isNaN(timezoneOrOffset) ? this._.timezoneOffsetLookup(timezoneOrOffset || this.timezone(), date.getTime()) || 0 : offset || this._.timezoneOffsetLookup(this.timezone(), date.getTime()) || 0;
     utc = date.getTime() + (date.getTimezoneOffset() * 60000);
     return new Date(utc + offset * 60 * 60 * 1000);
   };
@@ -5950,7 +6055,7 @@ dropdownContentToSetupDropdown = function(dropdownContent) {
     switch (false) {
       case !dx.isString(dropdownContent):
         return function(node) {
-          return dx.select(node).html(dropdownContent);
+          return dx.select(node).node().innerHTML = dropdownContent;
         };
       case !dx.isFunction(dropdownContent):
         return dropdownContent;
@@ -5973,7 +6078,6 @@ Dropdown = (function(superClass) {
     this.options = dx.merge.defined({
       mode: 'click',
       align: 'lblt',
-      spacing: void 0,
       matchWidth: true,
       ddClass: ''
     }, options);
@@ -6379,14 +6483,86 @@ dx.palette.borderContext = context(paletteContexts, 'dx-border');
 })();
 
 (function(){
-var DateTimeLocalizer, DateTimeLocalizerMoment, dateTimeLocalizer;
+var DateTimeLocalizer, DateTimeLocalizerMoment, PreferencesHandler, dateTimeLocalizer,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-DateTimeLocalizer = (function() {
-  var zeroPad;
+PreferencesHandler = (function(superClass) {
+  extend(PreferencesHandler, superClass);
 
-  function DateTimeLocalizer() {}
+  function PreferencesHandler() {
+    PreferencesHandler.__super__.constructor.apply(this, arguments);
+    this._ = {
+      uniqueId: dx.randomId()
+    };
+    dx.preferences.on('localechange', 'dx.date-time-localizer' + this._.uniqueId, (function(_this) {
+      return function() {
+        if (!_this._.instanceLocale) {
+          return _this.emit('localechange', {
+            cause: 'api',
+            value: dx.preferences.locale()
+          });
+        }
+      };
+    })(this));
+    dx.preferences.on('timezonechange', 'dx.date-time-localizer' + this._.uniqueId, (function(_this) {
+      return function() {
+        if (!_this._.instanceTimezone) {
+          return _this.emit('timezonechange', {
+            cause: 'api',
+            value: dx.preferences.timezone()
+          });
+        }
+      };
+    })(this));
+  }
 
-  zeroPad = dx.format.zeroPad(2);
+  PreferencesHandler.prototype.locale = function(locale) {
+    if (arguments.length) {
+      if ((locale == null) || dx.preferences.isLocaleSupported(locale)) {
+        this._.instanceLocale = locale ? true : false;
+        this._.locale = locale;
+        this.emit('localechange', {
+          cause: 'api',
+          value: locale || dx.preferences.locale()
+        });
+      } else {
+        dx.consoleWarning(locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon');
+      }
+      return this;
+    } else {
+      return this._.locale || dx.preferences.locale();
+    }
+  };
+
+  PreferencesHandler.prototype.timezone = function(timezone) {
+    if (arguments.length) {
+      if ((timezone == null) || dx.preferences.isTimezoneSupported(timezone)) {
+        this._.instanceTimezone = timezone ? true : false;
+        this._.timezone = timezone;
+        this.emit('timezonechange', {
+          cause: 'api',
+          value: timezone || dx.preferences.timezone()
+        });
+      } else {
+        dx.consoleWarning(timezone + ' is not a valid timezone');
+      }
+      return this;
+    } else {
+      return this._.timezone || dx.preferences.timezone();
+    }
+  };
+
+  return PreferencesHandler;
+
+})(dx.EventEmitter);
+
+DateTimeLocalizer = (function(superClass) {
+  extend(DateTimeLocalizer, superClass);
+
+  function DateTimeLocalizer() {
+    DateTimeLocalizer.__super__.constructor.apply(this, arguments);
+  }
 
   DateTimeLocalizer.prototype.dateOrder = function() {
     return ['DD', 'MM', 'YYYY'];
@@ -6406,7 +6582,7 @@ DateTimeLocalizer = (function() {
 
   DateTimeLocalizer.prototype.day = function(day, pad) {
     if (pad) {
-      return zeroPad(day);
+      return dx.zeroPad(day);
     } else {
       return day;
     }
@@ -6414,7 +6590,7 @@ DateTimeLocalizer = (function() {
 
   DateTimeLocalizer.prototype.month = function(month, short) {
     if (short) {
-      return zeroPad(month + 1);
+      return dx.zeroPad(month + 1);
     } else {
       return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month];
     }
@@ -6426,18 +6602,18 @@ DateTimeLocalizer = (function() {
 
   DateTimeLocalizer.prototype.date = function(date, useInbuilt) {
     if (useInbuilt) {
-      return date.getFullYear() + '-' + zeroPad(date.getMonth() + 1) + '-' + zeroPad(date.getDate());
+      return date.getFullYear() + '-' + dx.zeroPad(date.getMonth() + 1) + '-' + dx.zeroPad(date.getDate());
     } else {
-      return zeroPad(date.getDate()) + '/' + zeroPad(date.getMonth() + 1) + '/' + date.getFullYear();
+      return dx.zeroPad(date.getDate()) + '/' + dx.zeroPad(date.getMonth() + 1) + '/' + date.getFullYear();
     }
   };
 
   DateTimeLocalizer.prototype.time = function(date, showSeconds) {
     var timeString;
-    date = dx.preferences.applyTimezoneOffset(date);
-    timeString = date.getHours() + ':' + zeroPad(date.getMinutes());
+    date = dx.preferences.applyTimezoneOffset(date, this.timezone());
+    timeString = date.getHours() + ':' + dx.zeroPad(date.getMinutes());
     if (showSeconds) {
-      timeString += ':' + zeroPad(date.getSeconds());
+      timeString += ':' + dx.zeroPad(date.getSeconds());
     }
     return timeString;
   };
@@ -6492,10 +6668,14 @@ DateTimeLocalizer = (function() {
 
   return DateTimeLocalizer;
 
-})();
+})(PreferencesHandler);
 
-DateTimeLocalizerMoment = (function() {
-  function DateTimeLocalizerMoment() {}
+DateTimeLocalizerMoment = (function(superClass) {
+  extend(DateTimeLocalizerMoment, superClass);
+
+  function DateTimeLocalizerMoment() {
+    DateTimeLocalizerMoment.__super__.constructor.apply(this, arguments);
+  }
 
   DateTimeLocalizerMoment.prototype.dateOrder = function() {
     var date, dateCheck, dayIndex, i, j, monthIndex, ref, result, yearIndex;
@@ -6503,7 +6683,7 @@ DateTimeLocalizerMoment = (function() {
       year: 2003,
       month: 11,
       day: 22
-    }).locale(dx.preferences.locale());
+    }).locale(this.locale());
     dateCheck = date.format('L');
     yearIndex = dateCheck.indexOf(date.format('YYYY'));
     monthIndex = dateCheck.indexOf(date.format('MM'));
@@ -6528,13 +6708,13 @@ DateTimeLocalizerMoment = (function() {
   };
 
   DateTimeLocalizerMoment.prototype.weekStart = function() {
-    return moment().locale(dx.preferences.locale()).weekday(0).toDate().getDay();
+    return moment().locale(this.locale()).weekday(0).toDate().getDay();
   };
 
   DateTimeLocalizerMoment.prototype.weekDays = function() {
     var dayDate, dayNames, i, j;
     dayDate = moment().weekday(0);
-    dayDate.locale(dx.preferences.locale());
+    dayDate.locale(this.locale());
     dayNames = [dayDate.format('dd')];
     for (i = j = 0; j < 6; i = ++j) {
       dayNames.push(dayDate.add(1, 'd').format('dd'));
@@ -6548,7 +6728,7 @@ DateTimeLocalizerMoment = (function() {
       hour: 12,
       minute: 0,
       second: 0
-    }).locale(dx.preferences.locale());
+    }).locale(this.locale());
     tomorrow = today.clone().add(1, 'day');
     todayArr = today.calendar().split('').reverse();
     tomorrowArr = tomorrow.calendar().split('').reverse();
@@ -6565,19 +6745,19 @@ DateTimeLocalizerMoment = (function() {
     return moment({
       day: day,
       month: 0
-    }).locale(dx.preferences.locale()).format(pad ? 'DD' : 'D');
+    }).locale(this.locale()).format(pad ? 'DD' : 'D');
   };
 
   DateTimeLocalizerMoment.prototype.month = function(month, short) {
     return moment({
       month: month
-    }).locale(dx.preferences.locale()).format(short ? 'MM' : 'MMM');
+    }).locale(this.locale()).format(short ? 'MM' : 'MMM');
   };
 
   DateTimeLocalizerMoment.prototype.year = function(year) {
     return moment({
       year: year
-    }).locale(dx.preferences.locale()).format('YYYY');
+    }).locale(this.locale()).format('YYYY');
   };
 
   DateTimeLocalizerMoment.prototype.decade = function(start, end) {
@@ -6585,14 +6765,14 @@ DateTimeLocalizerMoment = (function() {
   };
 
   DateTimeLocalizerMoment.prototype.date = function(date) {
-    return moment(date).locale(dx.preferences.locale()).format('L');
+    return moment(date).locale(this.locale()).format('L');
   };
 
   DateTimeLocalizerMoment.prototype.time = function(date, showSeconds) {
     var format;
-    date = dx.preferences.applyTimezoneOffset(date);
+    date = dx.preferences.applyTimezoneOffset(date, this.timezone());
     format = showSeconds ? 'H:mm:ss' : 'H:mm';
-    return moment(date).locale(dx.preferences.locale()).format(format);
+    return moment(date).locale(this.locale()).format(format);
   };
 
   DateTimeLocalizerMoment.prototype.checkTime = function(time) {
@@ -6600,7 +6780,7 @@ DateTimeLocalizerMoment = (function() {
       hours: time[0],
       minutes: time[1],
       seconds: time[2]
-    }).locale(dx.preferences.locale()).isValid();
+    }).locale(this.locale()).isValid();
   };
 
   DateTimeLocalizerMoment.prototype.stringToDate = function(dateString) {
@@ -6630,7 +6810,7 @@ DateTimeLocalizerMoment = (function() {
         }
       }
       if (daysValid && monthsValid && yearsValid) {
-        return moment(dateString, format, dx.preferences.locale()).toDate();
+        return moment(dateString, format, this.locale()).toDate();
       } else {
         return new Date('Invalid Date');
       }
@@ -6641,7 +6821,7 @@ DateTimeLocalizerMoment = (function() {
 
   return DateTimeLocalizerMoment;
 
-})();
+})(PreferencesHandler);
 
 dateTimeLocalizer = function() {
   if (typeof moment !== "undefined" && moment !== null) {
@@ -7519,7 +7699,7 @@ trimTrailingSpaces = function(term) {
 
 sortActive = function(items) {
   var active, groupedActive, inactive;
-  groupedActive = new dx.Map(dx.groupBy(items, function(i) {
+  groupedActive = new dx._.Map(dx.groupBy(items, function(i) {
     return !i.disabled;
   }));
   active = groupedActive.get(true) || [];
@@ -7564,67 +7744,71 @@ AutocompleteFeed = (function() {
     }
     this._ = {
       options: resolvedOptions,
-      resultsCache: new dx.Map
+      resultsCache: new dx._.Map
     };
   }
 
   AutocompleteFeed.prototype.clearCache = function() {
-    this._.resultsCache = new dx.Map;
+    this._.resultsCache = new dx._.Map;
     return this;
   };
 
   AutocompleteFeed.prototype.filter = function(term, callback) {
     var _, cacheItemsThenCallback, cacheditems, filterAndCallback, thisFilter;
-    if (term == null) {
-      term = '';
-    }
     _ = this._;
-    thisFilter = term + dx.randomId();
-    _.lastFilter = thisFilter;
-    cacheItemsThenCallback = (function(_this) {
-      return function(results, otherResults) {
-        if (otherResults == null) {
-          otherResults = [];
-        }
-        if (_.options.trimTrailingSpaces && results.length === 0 && term.lastIndexOf(' ') === term.length - 1) {
-          return _this.filter(trimTrailingSpaces(term), callback);
-        } else {
-          if (_.options.useCache) {
-            _.resultsCache.set(term, {
-              results: results,
-              otherResults: otherResults
-            });
-          }
-          if (thisFilter === _.lastFilter) {
-            return callback(results, otherResults);
-          }
-        }
-      };
-    })(this);
-    if (_.options.useCache && _.resultsCache.has(term)) {
-      cacheditems = _.resultsCache.get(term);
-      return callback(cacheditems.results, cacheditems.otherResults);
-    } else if (_.options.matchType === 'external' && dx.isFunction(_.items)) {
-      return _.items(term, cacheItemsThenCallback);
+    if (term === void 0) {
+      return callback([]);
     } else {
-      filterAndCallback = function(unfilteredItems) {
-        var active, filteredItems, inactive, otherResults, ref, unpartitioned;
-        filteredItems = _.options.filter(unfilteredItems, term);
-        if (_.options.showOtherResults) {
-          unpartitioned = unfilteredItems.filter(function(datum) {
-            return filteredItems.indexOf(datum) === -1;
-          }).sort(sortItems(_.options.valueLookup));
-          ref = sortActive(unpartitioned), active = ref.active, inactive = ref.inactive;
-          otherResults = slice.call(active).concat(slice.call(inactive));
-        }
-        return cacheItemsThenCallback(filteredItems, otherResults);
-      };
-      if (dx.isFunction(_.items)) {
-        return _.items(term, filterAndCallback);
-      } else if (term.length) {
-        return filterAndCallback(_.items);
+      if (term == null) {
+        term = '';
+      }
+      thisFilter = term + dx.randomId();
+      _.lastFilter = thisFilter;
+      cacheItemsThenCallback = (function(_this) {
+        return function(results, otherResults) {
+          if (otherResults == null) {
+            otherResults = [];
+          }
+          if (_.options.trimTrailingSpaces && results.length === 0 && term.lastIndexOf(' ') === term.length - 1) {
+            return _this.filter(trimTrailingSpaces(term), callback);
+          } else {
+            if (_.options.useCache) {
+              _.resultsCache.set(term, {
+                results: results,
+                otherResults: otherResults
+              });
+            }
+            if (thisFilter === _.lastFilter) {
+              return callback(results, otherResults);
+            }
+          }
+        };
+      })(this);
+      if (_.options.useCache && _.resultsCache.has(term)) {
+        cacheditems = _.resultsCache.get(term);
+        return callback(cacheditems.results, cacheditems.otherResults);
+      } else if (_.options.matchType === 'external' && dx.isFunction(_.items)) {
+        return _.items(term, cacheItemsThenCallback);
       } else {
-        return cacheItemsThenCallback(_.items);
+        filterAndCallback = function(unfilteredItems) {
+          var active, filteredItems, inactive, otherResults, ref, unpartitioned;
+          filteredItems = _.options.filter(unfilteredItems, term);
+          if (_.options.showOtherResults) {
+            unpartitioned = unfilteredItems.filter(function(datum) {
+              return filteredItems.indexOf(datum) === -1;
+            }).sort(sortItems(_.options.valueLookup));
+            ref = sortActive(unpartitioned), active = ref.active, inactive = ref.inactive;
+            otherResults = slice.call(active).concat(slice.call(inactive));
+          }
+          return cacheItemsThenCallback(filteredItems, otherResults);
+        };
+        if (dx.isFunction(_.items)) {
+          return _.items(term, filterAndCallback);
+        } else if (term.length) {
+          return filterAndCallback(_.items);
+        } else {
+          return cacheItemsThenCallback(_.items);
+        }
       }
     }
   };
@@ -7650,11 +7834,9 @@ dx.AutocompleteFeed = AutocompleteFeed;
 
 })();
 (function(){
-var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates, zeroPad,
+var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
-
-zeroPad = dx.format.zeroPad(2);
 
 getCalendarMonth = function(year, month, weekStart) {
   var _, e, end, i, j, k, ref, results, results1, results2, start;
@@ -8044,6 +8226,8 @@ DatePicker = (function(superClass) {
       defaultView: 'm',
       closeOnSelect: true,
       selectRange: false,
+      validRange: void 0,
+      range: void 0,
       showTodayButton: true,
       allowInbuiltPicker: true,
       disabled: false
@@ -8052,22 +8236,21 @@ DatePicker = (function(superClass) {
       disabled: this.options.disabled,
       mode: this.options.defaultView,
       startDate: new Date,
-      endDate: new Date,
-      uniqueId: dx.randomId()
+      endDate: new Date
     };
-    dx.preferences.on('localechange', 'dx.date-picker-' + _.uniqueId, (function(_this) {
+    this.localizer = dx.dateTimeLocalizer();
+    this.localizer.on('localechange', 'dx.date-picker', (function(_this) {
       return function() {
         return updateDatepicker(_this, true);
       };
     })(this));
-    dx.preferences.on('timezonechange', 'dx.date-picker-' + _.uniqueId, (function(_this) {
+    this.localizer.on('timezonechange', 'dx.date-picker', (function(_this) {
       return function() {
         return updateDatepicker(_this, true);
       };
     })(this));
     _.startDate.setHours(0, 0, 0, 0);
     _.endDate.setHours(0, 0, 0, 0);
-    this.localizer = dx.dateTimeLocalizer();
     this.selection = dx.select(this.selector).classed('dx-date-picker', true);
     inputContainer = this.selection.append('div')["class"]('dx-date-input-container');
     icon = inputContainer.append('i')["class"]('dx-icon dx-icon-calendar');
@@ -8076,7 +8259,7 @@ DatePicker = (function(superClass) {
       this.options.type = 'calendar';
       this.options.showTodayButton = false;
       _.preventFeedback = true;
-      this.range({});
+      this.range(this.options.range || {});
       _.preventFeedback = false;
       inputUpdate = function(which) {
         self.hide();
@@ -8273,6 +8456,9 @@ DatePicker = (function(superClass) {
     if (_.disable) {
       this.disabled(_.disabled);
     }
+    if (this.options.validRange) {
+      this.validRange(this.options.validRange);
+    }
   }
 
   DatePicker.prototype.disabled = function(disable) {
@@ -8459,12 +8645,11 @@ DatePicker = (function(superClass) {
   };
 
   DatePicker.prototype.locale = function(locale) {
-    dx.deprecatedWarning('dx.DatePicker::locale is deprecated. Use dx.preferences.locale instead.');
     if (arguments.length > 0) {
-      dx.preferences.locale(locale);
+      this.localizer.locale(locale);
       return this;
     } else {
-      return dx.preferences.locale();
+      return this.localizer.locale();
     }
   };
 
@@ -8483,11 +8668,9 @@ dx.DatePicker = DatePicker;
 
 })();
 (function(){
-var TimePicker, setupInput, setupTimepicker, updateTimePicker, zeroPad,
+var TimePicker, setupInput, setupTimepicker, updateTimePicker,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
-
-zeroPad = dx.format.zeroPad(2);
 
 setupTimepicker = function(timepicker) {
   var screenTime;
@@ -8540,20 +8723,19 @@ TimePicker = (function(superClass) {
     }, options);
     dx.component.register(this.selector, this);
     _ = this._ = {
-      disabled: this.options.disabled,
-      uniqueId: dx.randomId()
+      disabled: this.options.disabled
     };
-    dx.preferences.on('localechange', 'dx.time-picker-' + _.uniqueId, (function(_this) {
+    this.localizer = dx.dateTimeLocalizer();
+    this.localizer.on('localechange', 'dx.time-picker', (function(_this) {
       return function() {
         return updateTimePicker(_this, true);
       };
     })(this));
-    dx.preferences.on('timezonechange', 'dx.time-picker-' + _.uniqueId, (function(_this) {
+    this.localizer.on('timezonechange', 'dx.time-picker', (function(_this) {
       return function() {
         return updateTimePicker(_this, true);
       };
     })(this));
-    _.localizer = dx.dateTimeLocalizer();
     _.selectedDate = new Date;
     _.selectedDate.setMilliseconds(0);
     if (!this.showSeconds) {
@@ -8579,7 +8761,7 @@ TimePicker = (function(superClass) {
             if (time[2] == null) {
               time[2] = 0;
             }
-            if (_.localizer.checkTime(time)) {
+            if (_this.localizer.checkTime(time)) {
               _this.hour(time[0]);
               _this.minute(time[1]);
               return _this.second(time[2] || 0);
@@ -8711,16 +8893,24 @@ TimePicker = (function(superClass) {
   };
 
   TimePicker.prototype.getScreenTime = function() {
-    return this._.localizer.time(this.date(), this.options.showSeconds);
+    return this.localizer.time(this.date(), this.options.showSeconds);
   };
 
   TimePicker.prototype.locale = function(locale) {
-    dx.deprecatedWarning('dx.TimePicker::locale is deprecated. Use dx.preferences.locale instead.');
     if (arguments.length > 0) {
-      dx.preferences.locale(locale);
+      this.localizer.locale(locale);
       return this;
     } else {
-      return dx.preferences.locale();
+      return this.localizer.locale();
+    }
+  };
+
+  TimePicker.prototype.timezone = function(timezone) {
+    if (arguments.length > 0) {
+      this.localizer.timezone(timezone);
+      return this;
+    } else {
+      return this.localizer.timezone();
     }
   };
 
@@ -8771,7 +8961,7 @@ dx.userFacingText({
 
 sortActive = function(items) {
   var active, groupedActive, inactive;
-  groupedActive = new dx.Map(dx.groupBy(items, function(i) {
+  groupedActive = new dx._.Map(dx.groupBy(items, function(i) {
     return !i.disabled;
   }));
   active = groupedActive.get(true) || [];
@@ -8909,27 +9099,19 @@ showAutoComplete = function() {
 AutoComplete = (function(superClass) {
   extend(AutoComplete, superClass);
 
-  function AutoComplete(selector, data1, options1) {
+  function AutoComplete(selector, data1, opts) {
     var _, _filterOpts, base, base1, base2, input, menu, self, timeout;
     this.selector = selector;
     this.data = data1;
-    this.options = options1 != null ? options1 : {};
-    AutoComplete.__super__.constructor.apply(this, arguments);
-    this._ = _ = {};
-    dx.component.register(this.selector, this);
-    _.ignoreMatch = false;
-    _.ignoreNextFocus = false;
-    self = this;
-    _.data = new dx.Map();
-    if (dx.isFunction(this.data)) {
-      _.callback = this.data;
-    } else {
-      _.data.set('', this.data);
+    if (opts == null) {
+      opts = {};
     }
+    AutoComplete.__super__.constructor.apply(this, arguments);
     if (!dx.isArray(this.data) && !dx.isFunction(this.data)) {
       dx.consoleWarning('AutoComplete - ', this.selector, ': data set incorrectly - you supplied: ', this.data, ' but should have been an array of items or a function');
     } else {
-      this.options = dx.merge({
+      dx.component.register(this.selector, this);
+      this.options = dx.merge.defined({
         minLength: 0,
         showAll: true,
         trimTrailingSpaces: false,
@@ -8942,11 +9124,22 @@ AutoComplete = (function(superClass) {
         filterOptions: void 0,
         showOtherResults: false,
         allowTabCompletion: true,
+        value: void 0,
         loadingMessage: dx.userFacingText('autoComplete', 'loading'),
         noResultsMessage: dx.userFacingText('autoComplete', 'noResultsFound'),
         otherResultsMessage: dx.userFacingText('autoComplete', 'otherResults'),
         pleaseEnterMinCharactersMessage: dx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
-      }, this.options);
+      }, opts);
+      this._ = _ = {};
+      _.ignoreMatch = false;
+      _.ignoreNextFocus = false;
+      self = this;
+      _.data = new dx._.Map();
+      if (dx.isFunction(this.data)) {
+        _.callback = this.data;
+      } else {
+        _.data.set('', this.data);
+      }
       if (this.options.inputMap != null) {
         _filterOpts = {
           searchValues: function(d) {
@@ -8954,7 +9147,7 @@ AutoComplete = (function(superClass) {
           }
         };
       }
-      this.options.filterOptions = dx.merge({}, _filterOpts, this.options.filterOptions);
+      this.options.filterOptions = dx.merge({}, _filterOpts, opts.filterOptions);
       if ((base = this.options).filter == null) {
         base.filter = (function(_this) {
           return function(arr, term) {
@@ -8992,9 +9185,15 @@ AutoComplete = (function(superClass) {
         }
       });
       _.setInputValue = this.options.inputMap != null ? function(d) {
+        if (d == null) {
+          d = '';
+        }
         input.value(self.options.inputMap(d));
         return self.emit('change', d);
       } : function(d) {
+        if (d == null) {
+          d = '';
+        }
         input.value(d);
         return self.emit('change', d);
       };
@@ -9071,7 +9270,7 @@ AutoComplete = (function(superClass) {
         if (!_.ignoreMatch) {
           if (self.options.mustMatch) {
             if (input.value().length > 0) {
-              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : findTerm.call(self, input.value(), true);
+              exactMatch = self.options.matchType === 'external' ? _.data.get(input.value()) : _.data.get(input.value()) === true ? setTimeout(_.checkValidity, 5) : findTerm.call(self, input.value(), true);
               if (exactMatch !== true && (exactMatch != null ? exactMatch.length : void 0) > 0) {
                 exactMatch = exactMatch != null ? exactMatch.filter(function(e) {
                   e = self.options.inputMap != null ? self.options.inputMap(e) : e;
@@ -9105,11 +9304,14 @@ AutoComplete = (function(superClass) {
       });
       _.menu = menu;
       _.input = input;
+      if (this.options.value) {
+        this.value(this.options.value);
+      }
     }
   }
 
   AutoComplete.prototype.clearCache = function() {
-    this._.data = new dx.Map();
+    this._.data = new dx._.Map();
     if ((this.data != null) && !dx.isFunction(this.data)) {
       this._.data.set('', this.data);
     }
@@ -10042,6 +10244,12 @@ Series = (function(superClass) {
   extend(Series, superClass);
 
   defaultLabelValuesExtractor = function(series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) {
+    if (xProperty == null) {
+      xProperty = 'x';
+    }
+    if (yProperty == null) {
+      yProperty = 'y';
+    }
     return [
       {
         name: series.axis.x.title(),
@@ -10173,7 +10381,9 @@ dimension = function(axis, options) {
   state = dx.merge({
     scaleType: 'linear',
     visible: true,
-    formatter: dx.format.si(2),
+    formatter: function(num) {
+      return dx.si(num);
+    },
     tickRotation: 0,
     doCollisionDetection: true,
     min: 'auto',
@@ -10238,7 +10448,7 @@ Axis = (function() {
       }
     }, options);
     this._ = {
-      series: new dx.List
+      series: new dx._.List
     };
     this.x = dimension(this, dx.merge({
       axisTickLabelPosition: 'bottom'
@@ -10303,7 +10513,7 @@ Axis = (function() {
   Axis.prototype.series = function(series) {
     var k, len, s;
     if (arguments.length > 0) {
-      this._.series = new dx.List(series);
+      this._.series = new dx._.List(series);
       for (k = 0, len = series.length; k < len; k++) {
         s = series[k];
         s.axis = this;
@@ -10338,12 +10548,12 @@ Axis = (function() {
     var groupTypeEntries, k, l, len, len1, ref, ref1, results, series, typeEntry, types;
     groupTypeEntries = function(data) {
       var entry, group, groups, i, internalGroupId, k, l, len, len1, len2, len3, m, n, ref, ref1, ref2, series, typeSize;
-      groups = new dx.Map;
+      groups = new dx._.Map;
       for (k = 0, len = data.length; k < len; k++) {
         series = data[k];
         group = supportsGroup(series) ? series.group() : void 0;
         if (!groups.has(group)) {
-          groups.set(group, new dx.List);
+          groups.set(group, new dx._.List);
         }
         groups.get(group).add(series);
       }
@@ -10379,12 +10589,12 @@ Axis = (function() {
       }
       return internalGroupId;
     };
-    types = new dx.Map;
+    types = new dx._.Map;
     ref = this.series();
     for (k = 0, len = ref.length; k < len; k++) {
       series = ref[k];
       if (!types.has(series._.type)) {
-        types.set(series._.type, new dx.List);
+        types.set(series._.type, new dx._.List);
       }
       types.get(series._.type).add(series);
     }
@@ -10419,7 +10629,7 @@ Axis = (function() {
         if (this.x.discreteLabels()) {
           return this.x.discreteLabels();
         } else {
-          set = new dx.Set;
+          set = new dx._.Set;
           ref = this.series();
           for (k = 0, len = ref.length; k < len; k++) {
             series = ref[k];
@@ -10485,7 +10695,7 @@ Axis = (function() {
         return function(scale) {
           var k, l, len, len1, ref, ref1;
           if (self.x.ticksAll()) {
-            set = new dx.Set;
+            set = new dx._.Set;
             ref = _this.series();
             for (k = 0, len = ref.length; k < len; k++) {
               series = ref[k];
@@ -10553,7 +10763,7 @@ Axis = (function() {
         if (this.yDiscreteLabels) {
           return this.yDiscreteLabels;
         } else {
-          set = new dx.Set;
+          set = new dx._.Set;
           ref = this.series();
           for (k = 0, len = ref.length; k < len; k++) {
             series = ref[k];
@@ -10944,7 +11154,7 @@ Graph = (function(superClass) {
         noDataText: dx.userFacingText('plot', 'noData'),
         redrawOnResize: true
       }, options),
-      axes: new dx.List
+      axes: new dx._.List
     };
     id = dx.randomId();
     selection = dx.select(this.selector);
@@ -11126,7 +11336,7 @@ Graph = (function(superClass) {
 
   Graph.prototype.axes = function(axes) {
     if (arguments.length > 0) {
-      this._.axes = new dx.List(axes);
+      this._.axes = new dx._.List(axes);
       this.axes().forEach(function(a) {
         return a.graph = this;
       });
@@ -12178,7 +12388,9 @@ PieChart = (function(superClass) {
     }
   };
 
-  defaultLabelFormatter = dx.format.si(2);
+  defaultLabelFormatter = function(num) {
+    return dx.si(num);
+  };
 
   function PieChart(selector, options) {
     this.selector = selector;
@@ -13009,7 +13221,13 @@ dx.Picker = Picker;
 
 })();
 (function(){
-var dx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest;
+var deprecatedWarning, dx_xhr, parsers, performRequest, reshapedRequest, respondToRequest, sendRequest, standardRequest;
+
+deprecatedWarning = (function(_this) {
+  return function(fn) {
+    return dx.deprecatedWarning(fn, 'fetch (native browser function) - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API');
+  };
+})(this);
 
 respondToRequest = function(request, url, data, callback, options, index) {
   var e, result, source, status;
@@ -13127,7 +13345,7 @@ dx_xhr = function(urlType, urls, data, callback, options) {
   }
 };
 
-dx.request = function() {
+standardRequest = function() {
   var callback, data, options, urlType, urls;
   urls = arguments[0];
   urlType = (function() {
@@ -13155,6 +13373,11 @@ dx.request = function() {
   return dx_xhr(urlType, urls, data || null, callback, options);
 };
 
+dx.request = function() {
+  deprecatedWarning('dx.request');
+  return standardRequest.apply(null, arguments);
+};
+
 parsers = {
   'application/json': function(text) {
     if (text) {
@@ -13162,7 +13385,7 @@ parsers = {
     }
   },
   'text/html': function(text) {
-    return dx.parseHTML(text);
+    return dx.parseHTML.call(dx.request, text);
   },
   'text/plain': function(text) {
     return text;
@@ -13170,8 +13393,22 @@ parsers = {
 };
 
 reshapedRequest = function(type) {
+  var fn;
+  fn = (function() {
+    switch (type) {
+      case 'application/json':
+        return 'dx.json';
+      case 'text/html':
+        return 'dx.html';
+      case 'text/plain':
+        return 'dx.text';
+      case void 0:
+        return 'dx.reshapedRequest';
+    }
+  })();
   return function(urls, data, callback, options) {
     var defaults, ref;
+    deprecatedWarning(fn);
     if (dx.isFunction(data)) {
       ref = [void 0, data, callback], data = ref[0], callback = ref[1], options = ref[2];
     }
@@ -13194,7 +13431,7 @@ reshapedRequest = function(type) {
       }
     };
     options = dx.merge(defaults, options);
-    return dx.request(urls, data, callback, options);
+    return standardRequest(urls, data, callback, options);
   };
 };
 
@@ -13568,15 +13805,15 @@ setPickerValue = function(picker, results, cause) {
   _.valueText.clear();
   if (results.length) {
     _.current = results[0];
-    picker.emit('change', {
-      cause: cause,
-      value: results[0]
-    });
-    return _.renderer(_.valueText.node(), results[0]);
+    _.renderer(_.valueText.node(), results[0]);
   } else {
     _.current = void 0;
-    return _.valueText.text(_.options.chooseValueText);
+    _.valueText.text(_.options.chooseValueText);
   }
+  return picker.emit('change', {
+    cause: cause,
+    value: _.current
+  });
 };
 
 AutocompletePicker = (function(superClass) {
@@ -13829,12 +14066,6 @@ DateTimePicker = (function(superClass) {
     this.options.timePickerOptions.disabled = this.options.datePickerOptions.disabled;
     this.datePicker = new dx.DatePicker(dtNode, this.options.datePickerOptions);
     this.timePicker = new dx.TimePicker(tpNode, this.options.timePickerOptions);
-    this._ = {
-      uniqueId: dx.randomId()
-    };
-    dx.preferences.on('timezonechange', 'dx.date-time-picker-' + this._.uniqueId, function() {
-      return updateDatePicker();
-    });
     this.datePicker.pipe(this, 'date', ['show', 'hide']);
     this.timePicker.pipe(this, 'time', ['show', 'hide']);
     updateTimePicker = (function(_this) {
@@ -13935,12 +14166,21 @@ DateTimePicker = (function(superClass) {
   };
 
   DateTimePicker.prototype.locale = function(locale) {
-    dx.deprecatedWarning('dx.DateTimePicker::locale is deprecated. Please use dx.preferences.locale.');
     if (arguments.length > 0) {
-      dx.preferences.locale(locale);
+      this.datePicker.localizer.locale(locale);
+      this.timePicker.localizer.locale(locale);
       return this;
     } else {
-      return dx.preferences.locale();
+      return this.datePicker.localizer.locale();
+    }
+  };
+
+  DateTimePicker.prototype.timezone = function(timezone) {
+    if (arguments.length > 0) {
+      this.timePicker.localizer.timezone(timezone);
+      return this;
+    } else {
+      return this.timePicker.localizer.timezone();
     }
   };
 
@@ -14002,7 +14242,7 @@ TagInput = (function(superClass) {
   extend(TagInput, superClass);
 
   function TagInput(selector, options) {
-    var _, acData, backspacedown, filterFn, hasError, inputContainer, isInsideForm, isValid, validateForm, validationForm;
+    var _, acData, backspacedown, filterFn, hasError, inputContainer, inputMap, isInsideForm, isValid, ref, validateForm, validationForm;
     this.selector = selector;
     TagInput.__super__.constructor.apply(this, arguments);
     _ = this._ = {};
@@ -14043,9 +14283,10 @@ TagInput = (function(superClass) {
       })(this) : isValid;
       acData = createFilteredData(filterFn, this.options.autocompleteData);
       this._.autocomplete = new dx.AutoComplete(this.input.node(), acData, this.options.autocompleteOptions);
+      inputMap = ((ref = this._.autocomplete.options) != null ? ref.inputMap : void 0) || dx.identity;
       this._.autocomplete.on('change', 'dx.taginput', (function(_this) {
         return function(value) {
-          _this.add(value);
+          _this.add(inputMap(value));
           return setTimeout((function() {
             return _this._.autocomplete.show();
           }), 0);
@@ -14102,7 +14343,7 @@ TagInput = (function(superClass) {
     this.input.on('input', 'dx.tag-input', hasError);
     this.input.on('keydown', 'dx.tag-input', (function(_this) {
       return function(event) {
-        var nodeSelection, ref, ref1, selection, value;
+        var nodeSelection, ref1, ref2, selection, value;
         if (((event.keyCode || event.charCode) === 8) && !backspacedown) {
           backspacedown = true;
           _this.input.node().setCustomValidity('');
@@ -14110,14 +14351,14 @@ TagInput = (function(superClass) {
           if (_this.input.value() === '') {
             selection = _this.tagContainer.selectAll('.dx-tag');
             if (selection.size() > 0) {
-              if ((ref = _this._.autocomplete) != null) {
-                ref.hide();
+              if ((ref1 = _this._.autocomplete) != null) {
+                ref1.hide();
               }
               nodeSelection = dx.select(selection.node(selection.size() - 1));
               value = nodeSelection.text();
               nodeSelection.remove();
-              if ((ref1 = _this._.autocomplete) != null) {
-                ref1.show();
+              if ((ref2 = _this._.autocomplete) != null) {
+                ref2.show();
               }
               return _this.emit('remove', {
                 value: value,
@@ -14677,7 +14918,7 @@ Slider = (function(superClass) {
       type: 'slider',
       discreteValues: void 0,
       renderer: function(slider, elem, value) {
-        return dx.select(elem).text(dx.format.fixed(2)(value));
+        return dx.select(elem).text(dx.fixed(value));
       },
       min: 0,
       max: 1,
@@ -14754,7 +14995,7 @@ Slider = (function(superClass) {
       this.options.discreteValues = array;
       _ = this._;
       _.isDiscrete = ((ref = this.options.discreteValues) != null ? ref.length : void 0) > 0 || (this.options.step != null);
-      _.discreteValues = new dx.Map();
+      _.discreteValues = new dx._.Map();
       _.discreteSpacing = 1 / (array.length - 1);
       _.container.selectAll('.dx-slider-point').remove();
       for (i = j = 0, ref1 = array.length; 0 <= ref1 ? j < ref1 : j > ref1; i = 0 <= ref1 ? ++j : --j) {
@@ -15284,6 +15525,7 @@ ColorPicker = (function(superClass) {
   function ColorPicker(selector, options) {
     var _, buildDropdown;
     ColorPicker.__super__.constructor.apply(this, arguments);
+    dx.deprecatedWarning('dx.ColorPicker', 'N/A - Please use a third party colour picker');
     this.options = dx.merge.defined({
       startColor: '#000',
       showInputs: 0,
@@ -16077,6 +16319,8 @@ DataTable = (function(superClass) {
       sort: void 0,
       sortEnabled: true,
       highlightOnHover: true,
+      selectedRows: [],
+      expandedRows: [],
       rowIDLookup: function(row) {
         return row.id;
       },
@@ -16223,8 +16467,8 @@ DataTable = (function(superClass) {
       pageSizePickers: [pageSizePicker, pageSizePickerBottom],
       statusBar: statusBar,
       sortColPicker: sortColPicker,
-      selectedRows: new dx.Set,
-      expandedRows: new dx.Set,
+      selectedRows: new dx._.Set(resolvedOptions.selectedRows),
+      expandedRows: new dx._.Set(resolvedOptions.expandedRows),
       renderedCollapsibles: {},
       compactState: (resolvedOptions.compact === 'auto' && selection.width() < collapseBreakPoint) || resolvedOptions.compact === true,
       advancedSearchView: advancedSearchView,
@@ -16422,7 +16666,7 @@ DataTable = (function(superClass) {
       if (this.singleSelection() && dx.isArray(value) && value.length) {
         value = [value[0]];
       }
-      this._.selectedRows = new dx.Set(value);
+      this._.selectedRows = new dx._.Set(value);
       newSelectedRows = this._.selectedRows.values();
       this.emit('selectedrowschange', {
         value: newSelectedRows,
@@ -16438,7 +16682,7 @@ DataTable = (function(superClass) {
 
   DataTable.prototype.expandedRows = function(value, cb) {
     if (arguments.length > 0 && !dx.isFunction(value)) {
-      this._.expandedRows = new dx.Set(value);
+      this._.expandedRows = new dx._.Set(value);
       this.render(cb);
       this.emit('expandedrowschange', {
         value: this._.expandedRows.values(),
@@ -16815,7 +17059,7 @@ DataTable = (function(superClass) {
               };
             };
             toggleCollapsible = function(node, row, force) {
-              var cc, currentVis, rowId;
+              var cc, currentVis, ref4, rowId;
               rowId = options.rowIDLookup(row);
               cc = _this._.renderedCollapsibles[rowId] || buildCollapsible(row);
               _this._.renderedCollapsibles[rowId] = cc;
@@ -16832,7 +17076,9 @@ DataTable = (function(superClass) {
                 delete _this._.renderedCollapsibles[rowId];
               }
               _this._.expandedRows[currentVis ? 'add' : 'delete'](rowId);
-              _this._.stickyHeaders.render();
+              if ((ref4 = _this._.stickyHeaders) != null) {
+                ref4.render();
+              }
               _this._.collapsibleSizeDiff = parseInt(selection.style('width')) - parseInt(dx.select(cc.contentDiv.node().parentNode).style('width'));
               return currentVis;
             };
@@ -17267,8 +17513,8 @@ var DrawingObject;
 DrawingObject = (function() {
   function DrawingObject(id) {
     this.id = id != null ? id : dx.randomId();
-    this.attr = new dx.Map;
-    this.properties = new dx.Map;
+    this.attr = new dx._.Map;
+    this.properties = new dx._.Map;
     this.selectable = this.addDiscreteProperty('selectable');
     this.selected = false;
   }
@@ -18071,6 +18317,7 @@ Drawing = (function(superClass) {
       autoStart = true;
     }
     Drawing.__super__.constructor.apply(this, arguments);
+    dx.deprecatedWarning('dx.Drawing', 'N/A - This module will be removed in the next major release');
     dx.component.register(selector, this);
     container = dx.select(selector);
     container.classed('dx-drawing', true);
@@ -18091,7 +18338,7 @@ Drawing = (function(superClass) {
     this.camera.pipe(this);
     this.globalAlpha = 1;
     this.stats = null;
-    this.selectedObjects = new dx.List;
+    this.selectedObjects = new dx._.List;
     this.frame = 0;
     if (autoStart) {
       this.resume();
@@ -18330,7 +18577,7 @@ Drawing = (function(superClass) {
           this.emit('unselect', obj);
         }
       }
-      this.selectedObjects = new dx.List([drawingObject]);
+      this.selectedObjects = new dx._.List([drawingObject]);
     }
     drawingObject.selected = true;
     return this.emit('select', drawingObject);
@@ -18717,8 +18964,8 @@ Composite = (function(superClass) {
     };
     this.angle = this.addNumberProperty('angle');
     this.scale = this.addNumberProperty('scale', 1);
-    this.objectList = new dx.List;
-    this.objectMap = new dx.Map;
+    this.objectList = new dx._.List;
+    this.objectMap = new dx._.Map;
   }
 
   Composite.prototype.set = function(name, value, duration, callback) {
@@ -19440,7 +19687,7 @@ fileValidator = function(file, acceptedExtensions) {
 
 fileListToMap = function(fileList, acceptedExtensions, emitter, options) {
   var file, fileUID, i, len, map;
-  map = new dx.Map();
+  map = new dx._.Map();
   for (i = 0, len = fileList.length; i < len; i++) {
     file = fileList[i];
     if (fileValidator(file, acceptedExtensions)) {
@@ -19577,7 +19824,7 @@ FileInput = (function(superClass) {
       button: button,
       selectedFiles: selectedFiles,
       noFilesTextDiv: noFilesTextDiv,
-      fileMap: new dx.Map()
+      fileMap: new dx._.Map()
     };
     if (resolvedOptions.dragEnabled) {
       preventDefault = function(e) {
@@ -19625,7 +19872,7 @@ FileInput = (function(superClass) {
         this._.input.value('');
         this._.selectedFiles.clear().classed('dx-btn', false).off('click', 'dx.file-input');
         this._.selectedFiles.append(this._.noFilesTextDiv);
-        this._.fileMap = new dx.Map;
+        this._.fileMap = new dx._.Map;
       }
       return this;
     } else {
@@ -19648,25 +19895,35 @@ dx.fileInput = function(options) {
 
 })();
 (function(){
-var Form,
+var Form, getButtons,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
 dx.userFacingText({
   form: {
-    pleaseSelectAValue: 'Please select a value from the list'
+    pleaseSelectAValue: 'Please select a value from the list',
+    pleaseAddAValue: 'Please add at least one item'
   }
 });
+
+getButtons = function(form) {
+  var buttons, sel, selection;
+  selection = dx.select(form.selector);
+  sel = selection.select('.dx-form-buttons');
+  return buttons = sel.empty() ? selection.append('div')["class"]('dx-form-buttons') : sel;
+};
 
 Form = (function(superClass) {
   extend(Form, superClass);
 
   function Form(selector) {
     this.selector = selector;
+    this.addButton = bind(this.addButton, this);
     Form.__super__.constructor.apply(this, arguments);
     dx.component.register(this.selector, this);
     this.formId = "form-" + dx.randomId() + '-';
-    this.properties = new dx.Map;
+    this.properties = new dx._.Map;
     dx.select(this.selector).classed('dx-form', true).on('keypress', 'dx.form-builder', function(e) {
       var target;
       target = dx.select(e.target || e.srcElement);
@@ -19677,9 +19934,11 @@ Form = (function(superClass) {
   }
 
   Form.prototype.add = function(name, type, nodeType, f) {
-    var entry, extras, id, key, selection;
+    var entry, extras, formSel, id, key, selection;
     id = this.formId + name.split(" ").join("-");
-    entry = dx.select(this.selector).append('div');
+    formSel = dx.select(this.selector);
+    entry = formSel.append('div');
+    formSel.append(getButtons(this));
     entry.append('label').attr("for", id).text(name);
     selection = entry.append(nodeType).attr("id", id);
     extras = f.call(selection) || {};
@@ -20097,7 +20356,7 @@ Form = (function(superClass) {
     }
     self = this;
     return this.add(name, 'tagInput', 'div', function() {
-      var base, elem, tagInput;
+      var base, change, elem, input, setValidity, tagInput;
       elem = this.append('div').node();
       if (options.placeholder) {
         if (options.tagInputOptions == null) {
@@ -20108,7 +20367,26 @@ Form = (function(superClass) {
         }
       }
       tagInput = new dx.TagInput(elem, options.tagInputOptions);
+      if (options.required) {
+        input = this.select('input');
+        setValidity = function() {
+          return input.node().setCustomValidity(dx.userFacingText('form', 'pleaseAddAValue'));
+        };
+        change = function() {
+          var value;
+          value = tagInput.items();
+          if (value === void 0 || !value.length) {
+            return setValidity();
+          } else {
+            return input.node().setCustomValidity('');
+          }
+        };
+        setValidity();
+        tagInput.on('add', 'dx.form-builder', change);
+        tagInput.on('remove', 'dx.form-builder', change);
+      }
       return {
+        required: options.required,
         key: options.key,
         componentNode: elem,
         hidden: options.hidden,
@@ -20164,18 +20442,61 @@ Form = (function(superClass) {
     });
   };
 
-  Form.prototype.addSubmit = function(text, icon, submitAction) {
-    dx.select(this.selector).append('button').attr('type', 'submit')["class"]('dx-btn dx-action dx-form-submit').add(dx.detached('i')["class"](icon)).add(dx.detached('span').text(" " + text)).on('click', 'dx.form-builder', (function(_this) {
+  Form.prototype.addButton = function(text, action, opts) {
+    var button, elem, id, options;
+    if (opts == null) {
+      opts = {};
+    }
+    id = this.formId + text.split(" ").join("-");
+    options = dx.merge({
+      key: text,
+      context: 'action',
+      buttonType: 'button',
+      icon: void 0,
+      hidden: false,
+      disabled: false
+    }, opts);
+    button = dx.detached('button').attr('type', options.buttonType).attr('id', id)["class"]("dx-btn dx-" + options.context).add(options.icon ? dx.detached('i')["class"](options.icon) : void 0).add(dx.detached('span').text(" " + text)).on('click', 'dx.form-builder', (function(_this) {
       return function(e) {
         e.preventDefault();
-        if (submitAction != null) {
-          return submitAction(_this);
-        } else {
-          return _this.submit();
-        }
+        return typeof action === "function" ? action() : void 0;
       };
     })(this));
+    elem = getButtons(this).append('div').add(button);
+    this.properties.set(options.key, {
+      type: 'submit',
+      node: button.node(),
+      extras: {
+        disable: function(s, disabled) {
+          return button.attr('disabled', disabled ? 'disabled' : void 0);
+        }
+      }
+    });
+    if (options.hidden) {
+      this.hidden(options.key, options.hidden);
+    }
+    if (options.disabled) {
+      this.disabled(options.key, options.disabled);
+    }
     return this;
+  };
+
+  Form.prototype.addSubmit = function(text, icon, submitAction, options) {
+    if (options == null) {
+      options = {};
+    }
+    return this.addButton(text, submitAction || (function(_this) {
+      return function() {
+        return _this.submit();
+      };
+    })(this), {
+      key: text || options.key,
+      context: 'action',
+      buttonType: 'submit',
+      icon: icon,
+      hidden: options.hidden,
+      disabled: options.disabled
+    });
   };
 
   Form.prototype.submit = function() {
@@ -20200,7 +20521,7 @@ Form = (function(superClass) {
       result = {};
       this.properties.forEach((function(_this) {
         return function(key, it) {
-          if (!it.hidden) {
+          if (!it.hidden && it.type !== 'submit') {
             return result[key] = _this.value(key);
           }
         };
@@ -20846,7 +21167,7 @@ Paginator = (function(superClass) {
     }, options);
     this._.selector = selector;
     self = this;
-    this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).html('<i class="dx-icon dx-icon-step-backward"></i>').on('click', 'dx.paginator', function() {
+    this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).add(dx.detached('i')["class"]('dx-icon dx-icon-step-backward')).on('click', 'dx.paginator', function() {
       if (self._.pageCount === void 0) {
         return select(self, self._.page - 1, 'user');
       } else {
@@ -20859,7 +21180,7 @@ Paginator = (function(superClass) {
         return select(self, d.value, 'user');
       });
     });
-    this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).html('<i class="dx-icon dx-icon-step-forward"></i>').on('click', 'dx.paginator', function() {
+    this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).add(dx.detached('i')["class"]('dx-icon dx-icon-step-forward')).on('click', 'dx.paginator', function() {
       if (self._.pageCount === void 0) {
         return select(self, self._.page + 1, 'user');
       } else {
@@ -21258,7 +21579,7 @@ Sidebar = (function(superClass) {
     }
     this.selection.classed('dx-animate', true);
     dx.select(options.contentSelector).classed('dx-animate', true);
-    btn = dx.select(options.headerSelector).prepend('button').attr('type', 'button')["class"]('dx-titlebar-sidebar-button').html('<i class="dx-icon dx-icon-bars"></i>');
+    btn = dx.select(options.headerSelector).prepend('button').attr('type', 'button')["class"]('dx-titlebar-sidebar-button').add(dx.detached('i')["class"]('dx-icon dx-icon-bars'));
     btn.on('click', 'dx.sidebar', (function(_this) {
       return function() {
         return _this.toggle();
@@ -21432,11 +21753,9 @@ dx.tabs = function(opts) {
 
 })();
 (function(){
-var TimeSlider, zeroPad,
+var TimeSlider,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
-
-zeroPad = dx.format.zeroPad(2);
 
 TimeSlider = (function(superClass) {
   var maybeDateToMillis;
@@ -21466,7 +21785,7 @@ TimeSlider = (function(superClass) {
     } else {
       if (options.formatter == null) {
         options.formatter = function(date) {
-          return zeroPad(date.getHours()) + ':' + zeroPad(date.getMinutes());
+          return dx.zeroPad(date.getHours()) + ':' + dx.zeroPad(date.getMinutes());
         };
       }
     }
@@ -21697,7 +22016,7 @@ Tree = (function() {
       hideDisabledButtons: false,
       animate: true,
       renderer: function(elem, data) {
-        return dx.select(elem).html(data.name || data);
+        return dx.select(elem).node().innerHTML = data.name || data;
       },
       items: [],
       lazy: false
