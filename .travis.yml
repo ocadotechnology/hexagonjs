@@ -48,3 +48,5 @@ jobs:
       fqdn: hexagonjs.io
       email: hexagonjs.ci.noreply@ocado.com
       github-token: $GITHUB_TOKEN
+      on:
+        branch: 1-17-0
