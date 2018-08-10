@@ -1,10 +1,8 @@
-import { format } from 'utils/format'
+import { zeroPad } from 'utils/format'
 import { select, div } from 'utils/selection'
 import { merge } from 'utils/utils'
 
 import { Slider } from 'components/slider'
-
-zeroPad = format.zeroPad(2)
 
 class TimeSlider extends Slider
   constructor: (selector, opts = {}) ->

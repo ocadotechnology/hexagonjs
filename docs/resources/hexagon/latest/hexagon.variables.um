@@ -361,6 +361,7 @@
       @contrast-col: #4A4E4E
       @light-text-col: #F3F3F3
       @dark-text-col: #3D3D3D
+      @invert-col: #FDFDFD
       @disabled-col: #FAFAFA
       @disabled-text-col: #939393
     @notice

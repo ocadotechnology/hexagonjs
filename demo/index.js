@@ -25,7 +25,6 @@ import noticeExamples from './examples/notice'
 import plotExamples from './examples/plot'
 import labelExamples from './examples/label'
 import crumbtrailExamples from './examples/crumbtrail'
-import colorPickerExamples from './examples/color-picker'
 import sliderExamples from './examples/slider'
 import timeSliderExamples from './examples/time-slider'
 import cardExamples from './examples/card'
@@ -84,7 +83,6 @@ select('body')
     example('Plot').add(tryDemo(plotExamples)),
     example('Label').add(tryDemo(labelExamples)),
     example('Crumbtrail').add(tryDemo(crumbtrailExamples)),
-    example('Color Picker').add(tryDemo(colorPickerExamples)),
     example('Slider').add(tryDemo(sliderExamples)),
     example('Time Slider').add(tryDemo(timeSliderExamples)),
     example('Card').add(tryDemo(cardExamples)),

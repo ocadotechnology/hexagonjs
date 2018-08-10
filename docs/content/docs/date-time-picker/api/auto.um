@@ -840,6 +840,20 @@
 
   @method locale
     @added 0.13.0
+    @updated 1.17.0
+      @issue 468
+      @description
+        Updated the locale method to allow per-instance locales and un-deprecated the locale methods
+
+    @extra
+      @removed 1.17.0
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version 1.17.0 and updated to work in a more
+          effective manner.
+
     @description
       A function for updating the locale used in the datetimepicker.
 
@@ -858,12 +872,54 @@
 
   @method locale
     @added 0.13.0
+    @updated 1.17.0
+      @issue 468
+      @description
+        Updated the locale method to allow per-instance locales and un-deprecated the locale methods
+
+    @extra
+      @removed 1.17.0
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version 1.17.0 and updated to work in a more
+          effective manner.
+
     @description
       A method for getting the currently set locale.
 
     @returns [String]
       @description
         The currently set locale.
+
+  @method timezone
+    @added 1.17.0
+      @issue 468
+      @description
+        Added a method to allow the setting of per-instance timezones
+
+    @description
+      Sets the timezone for this @type[DateTimePicker]
+
+    @returns [DateTimePicker]
+      @description
+        This DateTimePicker
+
+  @method timezone
+    @added 1.17.0
+      @issue 468
+      @description
+        Added a method to allow the setting of per-instance timezones
+
+    @description
+      Gets the timezone for this @type[DateTimePicker]
+
+    @returns [String]
+      @description
+        The currently set timezone. Falls back to
+        @code[hx.preferences.timezone()] if one has not been set for this
+        instance
 
   @method disabled
     @added 0.15.2

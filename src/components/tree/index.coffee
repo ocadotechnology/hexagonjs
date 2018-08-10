@@ -130,7 +130,7 @@ class Tree
     @options = mergeDefined {
       hideDisabledButtons: false
       animate: true
-      renderer: (elem, data) -> select(elem).html(data.name || data)
+      renderer: (elem, data) -> select(elem).node().innerHTML = data.name || data
       items: []
       lazy: false
     }, options

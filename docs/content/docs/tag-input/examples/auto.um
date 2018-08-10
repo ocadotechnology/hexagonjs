@@ -58,3 +58,70 @@
         tagInput.add('goodbye', 'hx-negative')
         tagInput.add(['tag', 'tag2'])
 
+@version 1.17.0
+  @examples
+    @example
+      @@html
+        <div id="tag-input"></div>
+
+      @@js
+        var tagInput = new hx.TagInput('#tag-input')
+        tagInput.items(['tag-1', 'tag-2', 'tag-3'])
+
+    @example
+      @@html
+        <div id="tag-input-2"></div>
+
+      @@js
+        var tagInput = new hx.TagInput('#tag-input-2', {
+          classifier: function(value) {
+            switch(value){
+              case 'hello':
+                return 'hx-positive'
+              case 'goodbye':
+                return 'hx-negative'
+            }
+          }
+        })
+        tagInput.add('hello', 'hx-positive')
+        tagInput.add('goodbye', 'hx-negative')
+        tagInput.add(['tag', 'tag2'])
+
+    @example
+      @@html
+        <div id="autocomplete-example"></div>
+
+      @@js
+        var items = [
+          {
+            type: 'A',
+            name: 'A Text'
+          },
+          {
+            type: 'B',
+            name: 'B Text'
+          },
+          {
+            type: 'D',
+            name: 'D Text'
+          },
+          {
+            type: 'C',
+            name: 'C Text'
+          }
+        ]
+
+        var ti = new hx.TagInput('#autocomplete-example', {
+          autocompleteOptions: {
+            renderer: function (elem, item) {
+              hx.select(elem).text(item.name)
+            },
+            inputMap: function (item) { return item.name }
+          },
+          autocompleteData: function (term, cb) {
+            // Remove duplicates and filter based on search term
+            cb(items.filter(function (item) {
+              return ti.items().indexOf(item.name) === -1 && item.name.indexOf(term) > -1
+            }))
+          }
+        })

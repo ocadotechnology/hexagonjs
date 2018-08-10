@@ -10,7 +10,7 @@ import {
   sum,
   unique
 } from 'utils/utils'
-import { format } from 'utils/format'
+import { si } from 'utils/format'
 import { select } from 'utils/selection'
 import { List as HList } from 'utils/list'
 import { Set as HSet } from 'utils/set'
@@ -39,7 +39,7 @@ dimension = (axis, options) ->
   state = merge({
     scaleType: 'linear',
     visible: true,
-    formatter: format.si(2)
+    formatter: (num) -> si(num)
     tickRotation: 0
     doCollisionDetection: true
     min: 'auto'
@@ -185,7 +185,6 @@ class Axis
   tagSeries: ->
 
     groupTypeEntries = (data) ->
-
       groups = new HMap
       for series in data
         group = if supportsGroup(series) then series.group()

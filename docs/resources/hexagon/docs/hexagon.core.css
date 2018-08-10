@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.16.0
+ Version: 1.17.0
  Theme: hexagon-light
  Modules:
    set
@@ -295,36 +295,38 @@ i.dx-icon {
   margin-bottom: 0;
   text-align: right;
   display: inline-block; }
-  .dx-form > div {
+  .dx-form .dx-form-buttons > * {
+    display: inline-block; }
+  .dx-form > div:not(.dx-form-buttons) {
     text-align: left;
     display: table-row; }
-    .dx-form > div > * {
+    .dx-form > div:not(.dx-form-buttons) > * {
       display: table-cell; }
-    .dx-form > div > *:not(input):not(select):not(textarea):not(button):not(.dx-btn) {
+    .dx-form > div:not(.dx-form-buttons) > *:not(input):not(select):not(textarea):not(button):not(.dx-btn) {
       padding-top: 8px; }
-    .dx-form > div > input,
-    .dx-form > div > select,
-    .dx-form > div > textarea,
-    .dx-form > div > button,
-    .dx-form > div > .dx-btn {
+    .dx-form > div:not(.dx-form-buttons) > input,
+    .dx-form > div:not(.dx-form-buttons) > select,
+    .dx-form > div:not(.dx-form-buttons) > textarea,
+    .dx-form > div:not(.dx-form-buttons) > button,
+    .dx-form > div:not(.dx-form-buttons) > .dx-btn {
       margin: 8px 0 0 0; }
-    .dx-form > div > div > .dx-btn,
-    .dx-form > div > div > button {
+    .dx-form > div:not(.dx-form-buttons) > div > .dx-btn,
+    .dx-form > div:not(.dx-form-buttons) > div > button {
       margin: 0; }
-    .dx-form > div > input:not([type="checkbox"]):not([type="radio"]),
-    .dx-form > div > select,
-    .dx-form > div > textarea {
+    .dx-form > div:not(.dx-form-buttons) > input:not([type="checkbox"]):not([type="radio"]),
+    .dx-form > div:not(.dx-form-buttons) > select,
+    .dx-form > div:not(.dx-form-buttons) > textarea {
       min-width: 20em;
       width: 100%;
       box-sizing: border-box; }
-    .dx-form > div > label {
+    .dx-form > div:not(.dx-form-buttons) > label {
       text-align: right;
       vertical-align: middle;
       padding-right: 16px;
       padding-top: 8px;
       height: 2em; }
-    .dx-form > div > input[type="radio"],
-    .dx-form > div > input[type="checkbox"] {
+    .dx-form > div:not(.dx-form-buttons) > input[type="radio"],
+    .dx-form > div:not(.dx-form-buttons) > input[type="checkbox"] {
       margin-top: 1em; }
   .dx-form input[type="radio"], .dx-form input[type="checkbox"] {
     margin-top: 0em;
@@ -2875,7 +2877,8 @@ a.dx-titlebar-link, a.dx-titlebar-link:hover {
   text-align: center;
   white-space: nowrap;
   vertical-align: 0px;
-  margin: 0 0.3em 0 0.1em; }
+  margin: -1px 2px -1px 0;
+  border: 1px solid transparent; }
   .dx-label:empty {
     display: none; }
   .dx-label i {

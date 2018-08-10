@@ -108,7 +108,7 @@ buildAutocomplete = (searchTerm, fromCallback, loading) ->
 
       # check for the data in the cache before trying to load a new set
       if not _.data.get(searchTerm)
-        # set the value to true to prevent
+        # set the value to true to prevent errors caused by filtering undefined
         _.data.set(searchTerm, true)
         _.callback.call self, searchTerm, (returnData) ->
           # cleanUp prevents calling the callback when the user has changed focus
@@ -180,35 +180,16 @@ showAutocomplete = ->
 
 
 class Autocomplete extends EventEmitter
-
-  constructor: (@selector, @data, @options = {}) ->
+  constructor: (@selector, @data, opts = {}) ->
     super()
 
-    @_ = _ = {}
-
-    select(@selector).api(this)
-
-    _.ignoreMatch = false
-    _.ignoreNextFocus = false
-
-    self = this
-
-    # create the data cache for storing the datasets based on their search term
-    _.data = new HMap()
-
-    if isFunction @data
-      _.callback = @data
-    else
-      _.data.set('', @data)
-
-     # do a sanity check on the data
+    # do a sanity check on the data
     if not isArray(@data) and not isFunction(@data)
       logger.warn(
         'Autocomplete - ', @selector, ': data set incorrectly - you supplied: ', @data,
         ' but should have been an array of items or a function'
       )
     else
-      # setup options
       @options = merge({
         minLength: 0
         showAll: true
@@ -222,18 +203,34 @@ class Autocomplete extends EventEmitter
         filterOptions: undefined
         showOtherResults: false
         allowTabCompletion: true
+        value: undefined
+
         loadingMessage: userFacingText('autocomplete', 'loading')
         noResultsMessage: userFacingText('autocomplete', 'noResultsFound')
         otherResultsMessage: userFacingText('autocomplete', 'otherResults')
         pleaseEnterMinCharactersMessage: userFacingText('autocomplete', 'pleaseEnterMinCharacters')
-      }, @options)
+      }, opts)
+
+
+      @_ = _ = {}
+      _.ignoreMatch = false
+      _.ignoreNextFocus = false
+      self = this
+
+      # create the data cache for storing the datasets based on their search term
+      _.data = new HMap()
+
+      if isFunction @data
+        _.callback = @data
+      else
+        _.data.set('', @data)
 
       if @options.inputMap?
         # default searchValue if inputMap is defined
         _filterOpts =
           searchValues: (d) -> [self.options.inputMap(d)]
 
-      @options.filterOptions = merge({}, _filterOpts, @options.filterOptions)
+      @options.filterOptions = merge({}, _filterOpts, opts.filterOptions)
 
       @options.filter ?= (arr, term) =>
         # XXX: this feels hacky. Maybe the api should be simplified for autocomplete?
@@ -252,6 +249,9 @@ class Autocomplete extends EventEmitter
         @options.placeholder = "Min length #{@options.minLength} characters"
 
       input = select(@selector)
+        .api('autocomplete', this)
+        .api(this)
+
       menu = new Menu(@selector, {dropdownOptions: {ddClass: 'hx-autocomplete-dropdown'}})
 
       menu.pipe(this, '', ['highlight'])
@@ -265,11 +265,11 @@ class Autocomplete extends EventEmitter
 
       # set properties and functions for input
       _.setInputValue = if @options.inputMap?
-        (d) ->
+        (d='') ->
           input.value(self.options.inputMap(d))
           self.emit 'change', d
       else
-        (d) ->
+        (d='') ->
           input.value(d)
           self.emit 'change', d
 
@@ -336,7 +336,10 @@ class Autocomplete extends EventEmitter
               exactMatch = if self.options.matchType is 'external'
                 _.data.get(input.value())
               else
-                findTerm.call self, input.value(), true
+                if _.data.get(input.value()) is true
+                  setTimeout(_.checkValidity, 5)
+                else
+                  findTerm.call self, input.value(), true
               if exactMatch isnt true and exactMatch?.length > 0
                 exactMatch = exactMatch?.filter (e) ->
                   e = if self.options.inputMap? then self.options.inputMap(e) else e
@@ -365,6 +368,10 @@ class Autocomplete extends EventEmitter
 
       _.menu = menu
       _.input = input
+
+      if @options.value
+        @value(@options.value)
+
 
   clearCache: ->
     @_.data = new HMap()

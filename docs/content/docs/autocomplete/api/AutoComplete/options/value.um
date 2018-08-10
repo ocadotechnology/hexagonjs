@@ -1,0 +1,7 @@
+@property value [String/Any]
+  @added 1.17.0
+    @issue 349
+    @description
+      Added the ability to set the autocomplete value in the constructor
+  @description
+    The option to set the value when the autocomplete is created

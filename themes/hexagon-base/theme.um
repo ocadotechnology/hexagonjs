@@ -263,6 +263,7 @@
         @warning-col: $warning-col
         @disabled-col: $disabled-col
 
+        @invert-col: #FDFDFD
         @light-text-col: $light-text-col
         @dark-text-col: $dark-text-col
         @disabled-text-col: $disabled-text-col

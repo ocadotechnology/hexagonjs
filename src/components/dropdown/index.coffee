@@ -67,7 +67,6 @@ export class Dropdown extends EventEmitter
     @options = mergeDefined({
       mode: 'click',
       align: 'lblt',
-      spacing: undefined,
       matchWidth: true,
       ddClass: ''
     }, options)

@@ -20,6 +20,7 @@
         @inline examples/0.14.0.um
         @inline examples/0.15.2.um
         @inline examples/1.0.0.um
+        @inline examples/1.17.0.um
 
     @script [/resources/clicker.js]
 

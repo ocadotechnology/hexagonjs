@@ -102,22 +102,6 @@ export default () => {
         af.items().should.equal(items)
       })
 
-      it('filter: should use "" if the term is undefined', () => {
-        const af = new AutocompleteFeed()
-        const cb = chai.spy()
-
-        function items (term, callback) {
-          should.exist(term)
-          callback(['a'])
-        }
-
-        af.items(items)
-        af.filter(undefined, cb)
-
-        cb.should.have.been.called()
-        cb.should.have.been.called.with(['a'], [])
-      })
-
       it('filter: should not perform filtering when using external matching and items as a function', () => {
         const af = new AutocompleteFeed({
           matchType: 'external'

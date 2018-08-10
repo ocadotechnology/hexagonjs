@@ -83,7 +83,8 @@ export default () => {
   // As we are returning the selection, a lot of the logic won't work
   // We can safely append to the body and return the attached div as it will
   // be relocated in the DOM by the parent `add`
-  const sidebar = div('hx-sidebar-page sidebar-example').html(html)
+  const sidebar = div('hx-sidebar-page sidebar-example')
+  sidebar.node().innerHTML = html
 
   new TitleBar(sidebar.select('.example-heading'))
   new Sidebar(sidebar.select('.hx-sidebar'), {

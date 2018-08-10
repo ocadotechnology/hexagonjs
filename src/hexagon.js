@@ -101,7 +101,13 @@ export {
 } from 'utils/filter'
 export { userFacingText } from 'utils/user-facing-text'
 export { palette } from 'utils/palette'
-export { format } from 'utils/format'
+export {
+  exp,
+  fixed,
+  round,
+  si,
+  zeroPad
+} from 'utils/format'
 export { preferences } from 'utils/preferences'
 export { dateTimeLocalizer } from 'utils/date-localizer'
 export { ColorScale } from 'utils/color-scale'
@@ -154,7 +160,6 @@ export {
   plotLabelBasic
 } from 'components/plot'
 export { label } from 'components/label'
-export { colorPicker, ColorPicker } from 'components/color-picker'
 export { slider, Slider } from 'components/slider'
 export { timeSlider, TimeSlider } from 'components/time-slider'
 export { card } from 'components/card'

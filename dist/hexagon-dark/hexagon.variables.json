@@ -431,6 +431,7 @@
     "contrastCol": "#F7F7F9",
     "lightTextCol": "white",
     "darkTextCol": "#3D3D3D",
+    "invertCol": "#2F3536",
     "disabledCol": "#FAFAFA",
     "disabledTextCol": "#939393"
   },

@@ -1,8 +1,64 @@
+import { EventEmitter } from 'utils/event-emitter'
 import { preferences } from 'utils/preferences'
-import { format } from 'utils/format'
+import { zeroPad } from 'utils/format'
+import { randomId } from 'utils/utils'
+import logger from 'utils/logger'
 
-class DateTimeLocalizer
-  zeroPad = format.zeroPad(2)
+class PreferencesHandler extends EventEmitter
+  constructor: () ->
+    super()
+
+    @_ = {
+      uniqueId: randomId()
+    }
+
+    preferences.on 'localechange', 'hx.date-time-localizer' + @_.uniqueId, =>
+      if not @_.instanceLocale
+        @emit 'localechange', {
+          cause: 'api',
+          value: preferences.locale()
+        }
+
+    preferences.on 'timezonechange', 'hx.date-time-localizer' + @_.uniqueId, =>
+      if not @_.instanceTimezone
+        @emit 'timezonechange', {
+          cause: 'api',
+          value: preferences.timezone()
+        }
+
+  locale: (locale) ->
+    if arguments.length
+      if not locale? or preferences.isLocaleSupported(locale)
+        @_.instanceLocale = if locale then true else false
+        @_.locale = locale
+        @emit 'localechange', {
+          cause: 'api',
+          value: locale or preferences.locale()
+        }
+      else
+        logger.warn(locale + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon')
+      this
+    else
+      @_.locale or preferences.locale()
+
+  timezone: (timezone) ->
+    if arguments.length
+      if not timezone? or preferences.isTimezoneSupported(timezone)
+        @_.instanceTimezone = if timezone then true else false
+        @_.timezone = timezone
+        @emit 'timezonechange', {
+          cause: 'api',
+          value: timezone or preferences.timezone()
+        }
+      else
+        logger.warn(timezone + ' is not a valid timezone')
+      this
+    else
+      @_.timezone or preferences.timezone()
+
+class DateTimeLocalizer extends PreferencesHandler
+  constructor: () ->
+    super()
 
   # get the display order for the date so dates can be displayed correctly when localised
   dateOrder: -> ['DD','MM','YYYY']
@@ -38,7 +94,7 @@ class DateTimeLocalizer
 
   # localise a date object to return a time string of hh:mm or hh:mm:ss (or localised format)
   time: (date, showSeconds) ->
-    date = preferences.applyTimezoneOffset(date)
+    date = preferences.applyTimezoneOffset(date, @timezone())
     timeString = date.getHours() + ':' + zeroPad date.getMinutes()
     if showSeconds
       timeString += ':' + zeroPad date.getSeconds()
@@ -79,9 +135,12 @@ class DateTimeLocalizer
       new Date('Invalid Date')
 
 
-class DateTimeLocalizerMoment
+class DateTimeLocalizerMoment extends PreferencesHandler
+  constructor: () ->
+    super()
+
   dateOrder: ->
-    date = moment({year:2003, month:11, day:22}).locale(preferences.locale())
+    date = moment({year:2003, month:11, day:22}).locale(@locale())
     dateCheck = date.format('L')
     yearIndex = dateCheck.indexOf(date.format('YYYY'))
     monthIndex = dateCheck.indexOf(date.format('MM'))
@@ -97,18 +156,18 @@ class DateTimeLocalizerMoment
     if result.length is 0 then result = ['DD','MM','YYYY']
     result
 
-  weekStart: -> moment().locale(preferences.locale()).weekday(0).toDate().getDay()
+  weekStart: -> moment().locale(@locale()).weekday(0).toDate().getDay()
 
   weekDays: ->
     dayDate = moment().weekday(0)
-    dayDate.locale(preferences.locale())
+    dayDate.locale(@locale())
     dayNames = [dayDate.format('dd')]
     for i in [0...6]
       dayNames.push(dayDate.add(1,'d').format('dd'))
     dayNames
 
   todayText: ->
-    today = moment({hour: 12, minute: 0, second: 0}).locale(preferences.locale())
+    today = moment({hour: 12, minute: 0, second: 0}).locale(@locale())
     tomorrow = today.clone().add(1, 'day')
     todayArr = today.calendar().split('').reverse()
     tomorrowArr = tomorrow.calendar().split('').reverse()
@@ -119,26 +178,27 @@ class DateTimeLocalizerMoment
     todayArr.reverse().join('')
 
   day: (day, pad) ->
-    moment({day: day, month: 0}).locale(preferences.locale()).format(if pad then 'DD' else 'D')
+    moment({day: day, month: 0}).locale(@locale()).format(if pad then 'DD' else 'D')
 
   month: (month, short) ->
-    moment({month: month}).locale(preferences.locale()).format(if short then 'MM' else 'MMM')
+    moment({month: month}).locale(@locale()).format(if short then 'MM' else 'MMM')
 
   year: (year) ->
-    moment({year: year}).locale(preferences.locale()).format('YYYY')
+    moment({year: year}).locale(@locale()).format('YYYY')
 
   decade: (start, end) ->
     @year(start) + ' - ' + @year(end)
 
   date: (date) ->
-    moment(date).locale(preferences.locale()).format('L')
+    moment(date).locale(@locale()).format('L')
 
   time: (date, showSeconds) ->
-    date = preferences.applyTimezoneOffset(date)
-    moment(date).locale(preferences.locale()).format(if showSeconds then 'H:mm:ss' else 'H:mm')
+    date = preferences.applyTimezoneOffset(date, @timezone())
+    format = if showSeconds then 'H:mm:ss' else 'H:mm'
+    moment(date).locale(@locale()).format(format)
 
   checkTime: (time) ->
-    moment({hours: time[0], minutes: time[1], seconds: time[2]}).locale(preferences.locale()).isValid()
+    moment({hours: time[0], minutes: time[1], seconds: time[2]}).locale(@locale()).isValid()
 
   stringToDate: (dateString) ->
     order = @dateOrder()
@@ -159,7 +219,7 @@ class DateTimeLocalizerMoment
             yearsValid = part.length < 5 and part isnt ''
             fmt += 'YYYY'
       if daysValid and monthsValid and yearsValid
-        moment(dateString, fmt, preferences.locale()).toDate()
+        moment(dateString, format, @locale()).toDate()
       else
         new Date('Invalid Date')
     else

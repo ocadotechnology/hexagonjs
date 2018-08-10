@@ -47,7 +47,6 @@ import crumbtrailTests from 'components/crumbtrail/spec'
 import notifyTests from 'components/notify/spec'
 import plotTests from 'components/plot/spec'
 import labelTests from 'components/label/spec'
-import colorPickerTests from 'components/color-picker/spec'
 import sliderTests from 'components/slider/spec'
 import timeSliderTests from 'components/time-slider/spec'
 import sideCollapsibleTests from 'components/side-collapsible/spec'
@@ -185,7 +184,11 @@ describe('HexagonJS Test Suite', () => {
         'Collapsible',
         'initializeCollapsibles',
         'palette',
-        'format',
+        'exp',
+        'fixed',
+        'round',
+        'si',
+        'zeroPad',
         'titleBar',
         'TitleBar',
         'Menu',
@@ -233,8 +236,6 @@ describe('HexagonJS Test Suite', () => {
         'plotLabelBasic',
         'theme',
         'label',
-        'colorPicker',
-        'ColorPicker',
         'slider',
         'Slider',
         'timeSlider',
@@ -326,7 +327,6 @@ describe('HexagonJS Test Suite', () => {
   // autocompletePickerTests()
   plotTests()
   labelTests()
-  colorPickerTests()
   sliderTests()
   timeSliderTests()
   sideCollapsibleTests()

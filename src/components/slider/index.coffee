@@ -1,5 +1,5 @@
 import { select, div } from 'utils/selection'
-import { format } from 'utils/format'
+import { fixed } from 'utils/format'
 import { clamp, isObject, merge } from 'utils/utils'
 import { EventEmitter } from 'utils/event-emitter'
 import { Map as HMap } from 'utils/map'
@@ -149,8 +149,7 @@ class Slider extends EventEmitter
     @options = merge({
       type: 'slider'
       discreteValues: undefined
-      renderer: (slider, elem, value) ->
-        select(elem).text(format.fixed(2)(value))
+      renderer: (slider, elem, value) -> select(elem).text(fixed(value))
       min: 0
       max: 1
       step: undefined

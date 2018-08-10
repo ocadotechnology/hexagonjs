@@ -145,7 +145,7 @@ export default () ->
             dt[name](value, cb)
             cb.should.have.been.called()
 
-         it 'should emit an event with {cause: api} when changed via the api', (done) ->
+        it 'should emit an event with {cause: api} when changed via the api', (done) ->
           checked = 0
           for value in valuesToCheck
             dt = new DataTable(div(), {feed: objectFeed(threeRowsData)})
@@ -156,8 +156,6 @@ export default () ->
               checked++
               if checked == valuesToCheck.length then done()
             dt[name](value)
-
-
 
 
     checkColumnOption = (name, valuesToCheck, columnOnly) ->
@@ -275,6 +273,8 @@ export default () ->
       checkOption('rowSelectableLookup', [((d) -> d), ((d) -> d*2), ((d) -> d+'')])
       checkOption('selectEnabled', [true, false])
       checkOption('singleSelection', [true, false])
+      checkOption('selectedRows', [[1,2,3], []])
+      checkOption('expandedRows', [[1,2,3], []])
       checkOption('sort', [{column: 'name', direction: 'asc'}, {column: 'age', direction: 'desc'}, undefined])
 
     describe 'column options', ->
@@ -807,7 +807,7 @@ export default () ->
 
 
       describe 'selectedRows', ->
-        it 'should be possible for the user to deselect a row selected by the api', (done) ->
+        it 'should be possible for the user to deselect a row selected in the constructor', (done) ->
           feed = objectFeed
             headers: [
               name: 'Name'
@@ -818,13 +818,14 @@ export default () ->
               cells:
                 name: 'Bob'
             ]
-          tableSel = detached 'div'
+          tableSel = div()
           tableOpts =
             feed: feed
             singleSelection: true
             selectEnabled: true
+            selectedRows: [0]
           table = new DataTable tableSel.node(), tableOpts
-          table.selectedRows [0]
+          table.render()
 
           table.on 'selectedrowschange', (data) ->
             if data.cause is 'user'
@@ -832,7 +833,35 @@ export default () ->
               data.value.should.eql []
               done()
           checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
-          emit(checkSel.node(), 'click', fakeEvent)
+          emit checkSel.node(), 'click', fakeEvent
+
+
+          it 'should be possible for the user to deselect a row selected by the api', (done) ->
+            feed = objectFeed
+              headers: [
+                name: 'Name'
+                id: 'name'
+              ]
+              rows: [
+                id: 0
+                cells:
+                  name: 'Bob'
+              ]
+            tableSel = detached 'div'
+            tableOpts =
+              feed: feed
+              singleSelection: true
+              selectEnabled: true
+            table = new DataTable tableSel.node(), tableOpts
+            table.selectedRows [0]
+
+            table.on 'selectedrowschange', (data) ->
+              if data.cause is 'user'
+                # Row 0 was selected before, so now we're unselecting it
+                data.value.should.eql []
+                done()
+            checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
+            emit(checkSel.node(), 'click', fakeEvent)
 
 
         it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->
@@ -2699,7 +2728,7 @@ export default () ->
         dataTable().should.be.an.instanceof(Selection)
 
       it 'should not render if a feed is not defined', ->
-        dataTable().select('.hx-data-table-content').html().should.equal('')
+        dataTable().select('.hx-data-table-content').node().innerHTML.should.equal('')
 
       it 'should render if a feed is defined', ->
         dataTable({feed: objectFeed(threeRowsData)}).select('.hx-data-table-content').selectAll('td').empty().should.equal(false)

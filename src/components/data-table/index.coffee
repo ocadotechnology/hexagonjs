@@ -326,6 +326,8 @@ class DataTable extends EventEmitter
       sort: undefined
       sortEnabled: true
       highlightOnHover: true
+      selectedRows: []
+      expandedRows: []
 
       # functions used for getting row state
       rowIDLookup: (row) -> row.id
@@ -522,8 +524,8 @@ class DataTable extends EventEmitter
       pageSizePickers: [pageSizePicker, pageSizePickerBottom]
       statusBar: statusBar
       sortColPicker: sortColPicker
-      selectedRows: new HSet   # holds the ids of the selected rows
-      expandedRows: new HSet
+      selectedRows: new HSet(resolvedOptions.selectedRows)   # holds the ids of the selected rows
+      expandedRows: new HSet(resolvedOptions.expandedRows)
       renderedCollapsibles: {}
       compactState: (resolvedOptions.compact is 'auto' and selection.width() < collapseBreakPoint) or resolvedOptions.compact is true
       advancedSearchView: advancedSearchView
@@ -1037,7 +1039,7 @@ class DataTable extends EventEmitter
               delete @_.renderedCollapsibles[rowId]
 
             @_.expandedRows[if currentVis then 'add' else 'delete'](rowId)
-            @_.stickyHeaders.render()
+            @_.stickyHeaders?.render()
 
             @_.collapsibleSizeDiff = parseInt(selection.style('width')) - parseInt(select(cc.contentDiv.node().parentNode).style('width'))
 
