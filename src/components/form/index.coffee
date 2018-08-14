@@ -2,7 +2,7 @@ import { userFacingText } from 'utils/user-facing-text'
 import { EventEmitter } from 'utils/event-emitter'
 import { Map as HMap } from 'utils/map'
 import { randomId, merge, isArray, mergeDefined } from 'utils/utils'
-import { select, detached, span, div, button } from 'utils/selection'
+import { select, detached, span, div, button, i } from 'utils/selection'
 
 import { Autocomplete } from 'components/autocomplete'
 import { Picker } from 'components/picker'
@@ -51,10 +51,10 @@ validateForm = (form, options) ->
 
   focusedElement = document.activeElement
 
-  for i in [0...form.children.length]
+  for idx in [0...form.children.length]
     # Loop through all direct child divs of form element ()
-    if form.children[i].nodeName.toLowerCase() is 'div'
-      element = form.children[i].children[1]
+    if form.children[idx].nodeName.toLowerCase() is 'div'
+      element = form.children[idx].children[1]
 
       # Don't check the validity of hidden elements
       if element.offsetParent isnt null

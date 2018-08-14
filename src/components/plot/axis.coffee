@@ -39,7 +39,7 @@ dimension = (axis, options) ->
   state = merge({
     scaleType: 'linear',
     visible: true,
-    formatter: (num) -> si(num)
+    formatter: si
     tickRotation: 0
     doCollisionDetection: true
     min: 'auto'

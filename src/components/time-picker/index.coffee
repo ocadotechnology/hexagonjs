@@ -45,7 +45,7 @@ class TimePicker extends EventEmitter
 
     @options = merge {
       showSeconds: false
-      buttonClass: 'hx-btn-invert'
+      buttonClass: 'hx-btn-outline'
       disabled: false
     }, options
 

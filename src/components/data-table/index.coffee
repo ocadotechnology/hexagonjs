@@ -134,7 +134,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         fullWidth: true
 
       typePickerSel = picker(typePickerOptions)
-        .classed('hx-btn-invert hx-data-table-advanced-search-type hx-section hx-fixed', true)
+        .classed('hx-btn-outline hx-data-table-advanced-search-type hx-section hx-fixed', true)
 
       typePickerSel.api('picker')
         .on 'change', (data) ->
@@ -171,7 +171,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         fullWidth: true
 
       columnPickerSel = picker(columnPickerOptions)
-        .classed('hx-btn-invert hx-data-table-advanced-search-column hx-section hx-fixed', true)
+        .classed('hx-btn-outline hx-data-table-advanced-search-column hx-section hx-fixed', true)
 
       columnPickerSel.api('picker')
         .on 'change', (data) ->
@@ -194,7 +194,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         fullWidth: true
 
       criteriaPickerSel = picker(criteriaPickerOptions)
-        .classed('hx-btn-invert hx-data-table-advanced-search-criteria hx-section hx-fixed', true)
+        .classed('hx-btn-outline hx-data-table-advanced-search-criteria hx-section hx-fixed', true)
 
       criteriaPickerSel.api('picker')
         .on 'change', (data) ->
@@ -224,7 +224,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         .attr('required', 'required')
         .on 'input', debouncedInput
 
-      removeBtn = button('hx-btn hx-negative hx-btn-invert hx-data-table-advanced-search-remove')
+      removeBtn = button('hx-btn hx-negative hx-btn-outline hx-data-table-advanced-search-remove')
         .add(i('hx-icon hx-icon-close'))
         .on 'click', ->
           prevFilters = dataTable.advancedSearch()
@@ -455,12 +455,12 @@ class DataTable extends EventEmitter
 
     clearFilters = => @advancedSearch(undefined)
 
-    advancedSearchAddFilterButton = button('hx-btn hx-positive hx-data-table-advanced-search-add-filter hx-data-table-advanced-search-button hx-btn-invert')
+    advancedSearchAddFilterButton = button('hx-btn hx-positive hx-data-table-advanced-search-add-filter hx-data-table-advanced-search-button hx-btn-outline')
       .add(i('hx-data-table-advanced-search-icon hx-icon hx-icon-plus hx-text-positive'))
       .add(span().text(resolvedOptions.addFilterText))
       .on('click', addFilter)
 
-    advancedSearchClearFilterButton = button('hx-btn hx-negative hx-data-table-advanced-search-clear-filters hx-data-table-advanced-search-button hx-btn-invert')
+    advancedSearchClearFilterButton = button('hx-btn hx-negative hx-data-table-advanced-search-clear-filters hx-data-table-advanced-search-button hx-btn-outline')
       .add(i('hx-data-table-advanced-search-icon hx-icon hx-icon-close hx-text-negative'))
       .add(span().text(resolvedOptions.clearFiltersText))
       .on('click', clearFilters)

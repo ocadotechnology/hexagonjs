@@ -472,12 +472,12 @@ class DatePicker extends EventEmitter
         .class('hx-calendar-header hx-input-group')
 
       calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert hx-calendar-back')
+        .class('hx-btn hx-btn-outline hx-calendar-back')
         .on 'click', 'hx.date-picker', -> changeVis(-1)
         .append('i').class('hx-icon hx-icon-chevron-left')
 
       _.calendarHeadBtn = calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert')
+        .class('hx-btn hx-btn-outline')
         .on 'click', 'hx.date-picker', ->
           switch _.mode
             when 'd' then return
@@ -485,7 +485,7 @@ class DatePicker extends EventEmitter
             else buildCalendar self, 'y'
 
       calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert hx-calendar-forward')
+        .class('hx-btn hx-btn-outline hx-calendar-forward')
         .on 'click', 'hx.date-picker', -> changeVis()
         .append('i').class('hx-icon hx-icon-chevron-right')
 
@@ -495,7 +495,7 @@ class DatePicker extends EventEmitter
         _.calendarTodayButton = calendarElem.append('div')
           .class('hx-calendar-today-btn')
           .append('button')
-          .class('hx-btn hx-btn-invert')
+          .class('hx-btn hx-btn-outline')
           .on 'click', 'hx.date-picker', ->
             date = new Date()
             date.setHours(0,0,0,0)
@@ -520,17 +520,17 @@ class DatePicker extends EventEmitter
       monthNode = div().node()
       yearNode = div().node()
 
-      _.dayPicker = new NumberPicker(dayNode, {buttonClass: 'hx-btn-invert'})
+      _.dayPicker = new NumberPicker(dayNode, {buttonClass: 'hx-btn-outline'})
         .on 'change', 'hx.date-picker', (e) ->
           _.userEvent = true
           self.day e.value
 
-      _.monthPicker = new NumberPicker(monthNode, {buttonClass: 'hx-btn-invert'})
+      _.monthPicker = new NumberPicker(monthNode, {buttonClass: 'hx-btn-outline'})
         .on 'change', 'hx.date-picker', (e) ->
           _.userEvent = true
           self.month e.value
 
-      _.yearPicker = new NumberPicker(yearNode, {buttonClass: 'hx-btn-invert'})
+      _.yearPicker = new NumberPicker(yearNode, {buttonClass: 'hx-btn-outline'})
         .on 'change', 'hx.date-picker', (e) ->
           _.userEvent = true
           self.year e.value

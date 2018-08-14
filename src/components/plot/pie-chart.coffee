@@ -24,7 +24,7 @@ class PieChart extends EventEmitter
   defaultSegmentTextFormatter = (segment, segments) ->
     if segment.size / sum(segments.map((s) -> s.size)) > 0.05 then segment.size else ''
 
-  defaultLabelFormatter = (num) -> si(num)
+  defaultLabelFormatter = si
 
   constructor: (@selector, options) ->
     super()
