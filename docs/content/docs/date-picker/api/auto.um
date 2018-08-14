@@ -738,6 +738,45 @@
         @default
           false
 
+      @property range [Object]
+        @added 1.17.0
+          @issue 350
+          @description
+            Added the ability to set the range when constructing a date picker
+
+        @description
+          An object containing the date range to set. The start/end dates will
+          be sorted internally if the end date is before the start date.
+
+        @property start [Date]
+          @description
+            The first date of the range
+
+        @property end [Date]
+          @description
+            The second date of the range
+
+      @property validRange [Object]
+        @added 1.17.0
+          @issue 350
+          @description
+            Added the ability to set the valid range when constructing a date
+            picker
+
+        @description
+          An object containing the valid range to set. The start/end dates will
+          be sorted internally if the end date is before the start date.
+
+        @property start [Date]
+          @description
+            The first date of the valid range. Dates after this point will be
+            selectable
+
+        @property end [Date]
+          @description
+            The second date of the valid range. Dates before this point will be
+            selectable.
+
   @method visibleMonth
     @added 0.13.0
     @description
@@ -863,11 +902,14 @@
 
   @method locale
     @added 0.13.0
-    @deprecated 1.1.0
-      @issue 23
-      @issue 24
-      @description
-        Use @code[hx.preferences.locale] to get the locale for a page.
+    @extra
+      @removed 1.17.0
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version 1.17.0 and updated to work in a more
+          effective manner.
 
     @description
       A function for updating the locale used in the date picker.
@@ -876,6 +918,8 @@
 
       @@codeblock js
         datepicker.locale('pl') // sets the datepicker's locale to Poland
+
+
 
     @arg locale [String]
       @description
@@ -887,11 +931,19 @@
 
   @method locale
     @added 0.13.0
-    @deprecated 1.1.0
-      @issue 23
-      @issue 24
+    @updated 1.17.0
+      @issue 468
       @description
-        Use @code[hx.preferences.locale] to set the locale for a page.
+        Updated the locale method to allow per-instance locales and un-deprecated the locale methods
+
+    @extra
+      @removed 1.17.0
+      @notice [De-deprecated]
+        @description
+          This method was deprecated in 1.1.0 in favour of using
+          @code[hx.preferences.locale] however after reviewing this it has been
+          de-deprecated in version 1.17.0 and updated to work in a more
+          effective manner.
 
     @description
       A method for getting the currently set locale.

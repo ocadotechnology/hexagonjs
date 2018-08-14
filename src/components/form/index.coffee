@@ -2,7 +2,7 @@ import { userFacingText } from 'utils/user-facing-text'
 import { EventEmitter } from 'utils/event-emitter'
 import { Map as HMap } from 'utils/map'
 import { randomId, merge, isArray, mergeDefined } from 'utils/utils'
-import { select, detached, span, div, button } from 'utils/selection'
+import { select, detached, span, div, button, i } from 'utils/selection'
 
 import { Autocomplete } from 'components/autocomplete'
 import { Picker } from 'components/picker'
@@ -16,7 +16,8 @@ import { Toggle } from 'components/toggle'
 
 userFacingText({
   form: {
-    pleaseSelectAValue: 'Please select a value from the list'
+    pleaseSelectAValue: 'Please select a value from the list',
+    pleaseAddAValue: 'Please add at least one item',
     missingRadioValue: 'Please select one of these options',
     missingValue: 'Please fill in this field',
     typeMismatch: 'Please enter a valid value for this field'
@@ -50,10 +51,10 @@ validateForm = (form, options) ->
 
   focusedElement = document.activeElement
 
-  for i in [0...form.children.length]
+  for idx in [0...form.children.length]
     # Loop through all direct child divs of form element ()
-    if form.children[i].nodeName.toLowerCase() is 'div'
-      element = form.children[i].children[1]
+    if form.children[idx].nodeName.toLowerCase() is 'div'
+      element = form.children[idx].children[1]
 
       # Don't check the validity of hidden elements
       if element.offsetParent isnt null
@@ -105,6 +106,15 @@ validateForm = (form, options) ->
     errors: errors
   }
 
+
+# XXX: Refactor into constructor in 2.0.0
+getButtons = (form) ->
+  selection = select(form.selector)
+  sel = selection.select('.hx-form-buttons')
+  buttons = if sel.empty()
+    selection.append('div').class('hx-form-buttons')
+  else sel
+
 class Form extends EventEmitter
   constructor: (@selector) ->
     super()
@@ -133,7 +143,7 @@ class Form extends EventEmitter
     else
       result = {}
       @properties.forEach (key, it) =>
-        if not it.options.hidden
+        if not it.options.hidden and it.type isnt 'button'
           result[key] = @value(key)
       result
 
@@ -193,23 +203,14 @@ class Form extends EventEmitter
     if (prop = @properties.get(property))?
       prop.elem.node()
 
-  addSubmit: (text, icon, submitAction) ->
-    select(@selector).append('button')
-      .attr('type', 'submit')
-      .class('hx-btn hx-action hx-form-submit')
-      .add(detached('i').class(icon))
-      .add(span().text(' ' + text))
-      .on 'click', 'hx.form-builder', (e) =>
-        e.preventDefault()
-        if submitAction?
-          submitAction(this)
-        else
-          @submit()
-    return this
-
   add: (name, type, f) ->
     id = @formId + name.split(' ').join('-')
-    entry = select(@selector).append('div')
+    formSel = select(@selector)
+    entry = formSel.append('div')
+
+    # Append buttons container to the end of the form
+    formSel.append(getButtons(this))
+
     entry.append('label').attr('for', id).text(name)
     prop = f() or {}
     key = prop.key || name
@@ -249,6 +250,50 @@ class Form extends EventEmitter
     if prop.options.hidden then @hidden key, true
     if prop.options.disabled then @disabled key, true
     this
+
+  addButton: (text, action, opts = {}) =>
+    id = @formId + text.split(" ").join("-")
+    options = merge({
+      key: text,
+      context: 'action',
+      buttonType: 'button',
+      icon: undefined,
+      hidden: false,
+      disabled: false,
+    }, opts)
+
+    formBtn = button("hx-btn hx-#{options.context}")
+      .attr('type', options.buttonType)
+      .attr('id',id)
+      .add(if options.icon then i(options.icon) else undefined)
+      .add(span().text(" " + text))
+      .on 'click', 'hx.form-builder', (e) =>
+        e.preventDefault()
+        action?()
+
+    elem = getButtons(this).append('div').add(formBtn)
+
+    @properties.set options.key,
+      type: 'button'
+      node: formBtn.node()
+      extras: {
+        disable: (s, disabled) -> formBtn.attr('disabled', if disabled then 'disabled' else undefined)
+      }
+
+    if options.hidden then @hidden options.key, options.hidden
+    if options.disabled then @disabled options.key, options.disabled
+    this
+
+  addSubmit: (text, icon, submitAction, options = {}) ->
+    defaultSubmitAction = () => @submit()
+    @addButton(text, (submitAction or defaultSubmitAction), {
+      key: text or options.key,
+      context: 'action',
+      buttonType: 'submit',
+      icon: icon,
+      hidden: options.hidden,
+      disabled: options.disabled,
+    })
 
   addText: (name, options={}) ->
     options.type ?= 'text'
@@ -302,7 +347,7 @@ class Form extends EventEmitter
       setValue = (value) -> elem.attr('checked', value)
       getValue = () -> if elem.attr('checked') is 'true' then true else false
 
-      return {
+      {
         key: options.key
         elem: elem
         getValue: getValue
@@ -349,7 +394,7 @@ class Form extends EventEmitter
       getValue = () -> elem.select('input:checked').value()
       setValue = (value) -> elem.selectAll('input').filter((d) -> d.value() is value).prop('checked', true)
 
-      return {
+      {
         key: options.key
         elem: elem
         getValue: getValue
@@ -497,6 +542,24 @@ class Form extends EventEmitter
 
       getValue = -> component.items()
       setValue = (items) -> component.items(items)
+
+      if options.required
+        input = @select('input')
+
+        setValidity = () ->
+          input.node().setCustomValidity(userFacingText('form', 'pleaseAddAValue'))
+
+        change = () ->
+          value = tagInput.items()
+          if value is undefined or not value.length
+            setValidity()
+          else
+            input.node().setCustomValidity('')
+
+        setValidity()
+
+        tagInput.on 'add', 'hx.form-builder', change
+        tagInput.on 'remove', 'hx.form-builder', change
 
       return {
         key: options.key

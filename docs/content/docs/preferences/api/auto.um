@@ -348,6 +348,8 @@
     @added 1.1.0
       @issue 23
 
+    @removed 1.17.0
+
     @description
       A method that takes a date and returns a new date with the timezone offset applied.
 
@@ -358,6 +360,31 @@
     @arg? offset [Number]
       @description
         The offset to apply. If this is not provided, the offset is retrieved from the currently set timezone.
+
+    @returns [Date]
+      @description
+        The date, offset by the timezone amount.
+
+  @method applyTimezoneOffset
+    @added 1.17.0
+      @description
+        Updated the offset argument to additionally take a @code[timezone]
+        string directly instead of needing the numeric offset
+
+    @description
+      A method that takes a date and returns a new date with the timezone offset applied.
+
+    @arg date [Date]
+      @description
+        The date to offset
+
+    @arg? timezoneOrOffset [String/Number]
+      @description
+        The timezone or offset to apply. Gets the offset from the timezone
+        when passing a string or uses the offset value directly.
+
+        If this is not provided, the offset is retrieved from the currently set
+        timezone.
 
     @returns [Date]
       @description
@@ -426,6 +453,40 @@
     @returns [Preferences]
       @description
         This Preferences
+
+  @method isLocaleSupported
+    @added 1.17.0
+      @description
+        Added a method for checking whether the locale is supported
+
+    @description
+      Checks the list of @code[supportedLocales] to see whether the locale is
+      supported
+
+    @arg locale [String]
+      @description
+        The locale to check
+
+    @returns [Boolean]
+      @description
+        Whether the locale is in the list of supported locales
+
+  @method isTimezoneSupported
+    @added 1.17.0
+      @description
+        Added a method for checking whether the timezone is supported
+
+    @description
+      Checks the list of @code[supportedTimezones] to see whether the timezone
+      is supported
+
+    @arg timezone [String]
+      @description
+        The timezone to check
+
+    @returns [Boolean]
+      @description
+        Whether the timezone is in the list of supported timezones
 
   @event timezonechange
     @description

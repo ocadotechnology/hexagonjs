@@ -1,4 +1,4 @@
-import { format } from 'utils/format'
+import { zeroPad } from 'utils/format'
 import { EventEmitter } from 'utils/event-emitter'
 import { merge, randomId, supports } from 'utils/utils'
 import { preferences } from 'utils/preferences'
@@ -8,8 +8,6 @@ import logger from 'utils/logger'
 
 import { NumberPicker } from 'components/number-picker'
 import { Dropdown } from 'components/dropdown'
-
-zeroPad = format.zeroPad(2)
 
 setupTimepicker = (timepicker) ->
   screenTime = timepicker.getScreenTime().split(':')
@@ -47,19 +45,18 @@ class TimePicker extends EventEmitter
 
     @options = merge {
       showSeconds: false
-      buttonClass: 'hx-btn-invert'
+      buttonClass: 'hx-btn-outline'
       disabled: false
     }, options
 
     _ = @_ = {
       disabled: @options.disabled
-      uniqueId: randomId()
     }
 
-    preferences.on 'localechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
-    preferences.on 'timezonechange', 'hx.time-picker-' + _.uniqueId, => updateTimePicker this, true
+    @localizer = dateTimeLocalizer()
+    @localizer.on 'localechange', 'hx.time-picker', => updateTimePicker this, true
+    @localizer.on 'timezonechange', 'hx.time-picker', => updateTimePicker this, true
 
-    _.localizer = dateTimeLocalizer()
 
     _.selectedDate = new Date
     _.selectedDate.setMilliseconds(0)
@@ -89,7 +86,7 @@ class TimePicker extends EventEmitter
         timeout = setTimeout =>
           time = event.target.value.split(':')
           time[2] ?= 0
-          if _.localizer.checkTime(time)
+          if @localizer.checkTime(time)
             @hour(time[0])
             @minute(time[1])
             @second(time[2] or 0)
@@ -186,15 +183,22 @@ class TimePicker extends EventEmitter
     else
       _.selectedDate.getSeconds()
 
-  getScreenTime: -> @_.localizer.time(@date(), @options.showSeconds)
+  getScreenTime: -> @localizer.time(@date(), @options.showSeconds)
 
   locale: (locale) ->
-    logger.deprecated('hx.TimePicker::locale', 'Use hx.preferences.locale instead.')
     if arguments.length > 0
-      preferences.locale locale
+      @localizer.locale(locale)
       this
     else
-      preferences.locale()
+      @localizer.locale()
+
+
+  timezone: (timezone) ->
+    if arguments.length > 0
+      @localizer.timezone(timezone)
+      this
+    else
+      @localizer.timezone()
 
   disabled: (disable) ->
     _ = @_

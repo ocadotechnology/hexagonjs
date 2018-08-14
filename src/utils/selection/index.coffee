@@ -343,15 +343,6 @@ export class Selection
     else
       reformed(@singleSelection, ((node.textContent or '') for node in @nodes))
 
-  # gets or sets the inner html of the nodes in the selection
-  html: (html) ->
-    if arguments.length == 1
-      for node in @nodes
-        node.innerHTML = if html? then html else ''
-      this
-    else
-      reformed(@singleSelection, ((node.innerHTML or '') for node in @nodes))
-
   # gets or sets the class attribute of the nodes in the selection
   class: (_class) ->
     if arguments.length == 1

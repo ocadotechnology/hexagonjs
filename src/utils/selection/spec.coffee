@@ -20,7 +20,7 @@ export default () ->
     beforeEach ->
       body = select('body')
       fixture = body.append('div').attr('id', 'fixture')
-      fixture.html """
+      fixture.node().innerHTML = """
         <div class="wrapper">
           <div id="outer-1">
             <span class="first one"></span>
@@ -770,22 +770,6 @@ export default () ->
       select('#text-node').text(undefined)
       select('#text-node').node().textContent.should.equal('')
 
-      # getting / setting html
-
-    it 'get html', ->
-      select('#html-node').html().should.equal('<p>text1</p>')
-
-    it 'get when not set', ->
-      select('#empty').html().should.equal('')
-
-    it 'set html', ->
-      select('#html-node').html('<p>text2</p>')
-      select('#html-node').node().innerHTML.should.equal('<p>text2</p>')
-
-    it 'set html to undefined should do the same as setting it to ""', ->
-      select('#html-node').html(undefined)
-      select('#html-node').node().textContent.should.equal('')
-
 
     # getting / setting the class
 
@@ -977,7 +961,7 @@ export default () ->
       selection.class().should.eql(['one two three', 'one two three'])
 
     it 'closest should work', ->
-      select('#fixture').html(
+      select('#fixture').node().innerHTML =
         """
           <div id="closest-root" class="cr">
             <span id="child" class="ch">
@@ -985,11 +969,10 @@ export default () ->
             </span>
           </div>
         """
-      )
       select('#grandchild').closest('span').class().should.equal('ch')
 
     it 'closest should work for grandparents', ->
-      select('#fixture').html(
+      select('#fixture').node().innerHTML =
         """
           <div id="closest-root" class="cr">
             <span id="child" class="ch">
@@ -997,11 +980,10 @@ export default () ->
             </span>
           </div>
         """
-      )
       select('#grandchild').closest('div').class().should.equal('cr')
 
     it 'closest should return an empty selection when there is no match', ->
-      select('#fixture').html(
+      select('#fixture').node().innerHTML =
         """
           <div id="closest-root" class="cr">
             <span id="child" class="ch">
@@ -1009,7 +991,6 @@ export default () ->
             </span>
           </div>
         """
-      )
       select('#grandchild').closest('#thing-that-doesnt-exist').empty().should.equal(true)
 
     it 'closest should warn when you give a non string argument', ->
@@ -1019,7 +1000,7 @@ export default () ->
       select('#fixture').closest('potato').empty().should.equal(true)
 
     it 'closest should find by class', ->
-      select('#fixture').html(
+      select('#fixture').node().innerHTML =
         """
           <div id="closest-root" class="cr">
             <span id="child" class="ch">
@@ -1027,11 +1008,10 @@ export default () ->
             </span>
           </div>
         """
-      )
       select('#grandchild').closest('.cr').attr('id').should.equal('closest-root')
 
     it 'closest should find by id', ->
-      select('#fixture').html(
+      select('#fixture').node().innerHTML =
         """
           <div id="closest-root" class="cr">
             <span id="child" class="ch">
@@ -1039,11 +1019,10 @@ export default () ->
             </span>
           </div>
         """
-      )
       select('#grandchild').closest('#closest-root').class().should.equal('cr')
 
     it 'closest should not find a child by mistake', ->
-      select('#fixture').html(
+      select('#fixture').node().innerHTML =
         """
           <div id="closest-root" class="cr">
             <span id="child" class="ch">
@@ -1051,7 +1030,6 @@ export default () ->
             </span>
           </div>
         """
-      )
       select('#child').closest('#grandchild').empty().should.equal(true)
 
     it 'contains should return true when a single selection contains an element', ->

@@ -29,14 +29,15 @@ setPickerValue = (picker, results, cause) ->
   _ = picker._
   if results.length
     _.current = results[0]
-    picker.emit('change', {
-      cause: cause
-      value: results[0]
-    })
     _.valueText.set(_.renderer(results[0]))
   else
     _.current = undefined
     _.valueText.text(_.options.chooseValueText)
+
+  picker.emit('change', {
+    cause: cause
+    value: _.current
+  })
 
 class AutocompletePicker extends EventEmitter
   constructor: (selector, items, options = {}) ->

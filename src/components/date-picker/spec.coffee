@@ -157,6 +157,14 @@ export default () ->
           dp = new DatePicker(div())
           dp.validRange().should.eql({start: undefined, end: undefined})
 
+        it 'can be set in the constructor', ->
+          validRange = {
+            start: roundedDate(),
+            end: roundedDate()
+          }
+          dp = new DatePicker(div(), { validRange })
+          dp.validRange().should.eql(validRange)
+
       describe 'range', ->
         it 'should do nothing when attempting to use without setting selectRange', ->
           dp = new DatePicker(div())
@@ -192,3 +200,9 @@ export default () ->
         it 'defaults should be today', ->
           dp = new DatePicker(div(), {selectRange: true})
           dp.range().should.eql({start: roundedDate(null, true), end: roundedDate(null, true)})
+
+        it 'can be set in the constructor', ->
+          range = {start: roundedDate(true), end: roundedDate()}
+          dp = new DatePicker(div(), { selectRange: true, range: range })
+          dp.range().should.eql({start: roundedDate(true), end: roundedDate()})
+

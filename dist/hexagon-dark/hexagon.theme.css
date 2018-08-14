@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.16.0
+ Version: 1.17.0
  Theme: hexagon-dark
  Modules:
    set
@@ -1200,35 +1200,75 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
 
 .hx-label {
   background: #393D3D;
-  color: white; }
+  color: white;
+  border-color: #393D3D; }
+  .hx-label.hx-label-outline {
+    background: #2F3536;
+    color: white;
+    border-color: white; }
 
 .hx-label.hx-action {
   background: #00ADA8;
-  color: white; }
+  color: white;
+  border-color: #00ADA8; }
+  .hx-label.hx-action.hx-label-outline {
+    background: #2F3536;
+    color: #00ADA8;
+    border-color: #00ADA8; }
 
 .hx-label.hx-positive {
   background: #92BF17;
-  color: white; }
+  color: white;
+  border-color: #92BF17; }
+  .hx-label.hx-positive.hx-label-outline {
+    background: #2F3536;
+    color: #92BF17;
+    border-color: #92BF17; }
 
 .hx-label.hx-negative {
   background: #EC3A65;
-  color: white; }
+  color: white;
+  border-color: #EC3A65; }
+  .hx-label.hx-negative.hx-label-outline {
+    background: #2F3536;
+    color: #EC3A65;
+    border-color: #EC3A65; }
 
 .hx-label.hx-warning {
   background: #D69B24;
-  color: white; }
+  color: white;
+  border-color: #D69B24; }
+  .hx-label.hx-warning.hx-label-outline {
+    background: #2F3536;
+    color: #D69B24;
+    border-color: #D69B24; }
 
 .hx-label.hx-info {
   background: #B36ABB;
-  color: white; }
+  color: white;
+  border-color: #B36ABB; }
+  .hx-label.hx-info.hx-label-outline {
+    background: #2F3536;
+    color: #B36ABB;
+    border-color: #B36ABB; }
 
 .hx-label.hx-complement {
   background: #393D3D;
-  color: white; }
+  color: white;
+  border-color: #393D3D; }
+  .hx-label.hx-complement.hx-label-outline {
+    background: #2F3536;
+    color: #393D3D;
+    border-color: #393D3D; }
 
 .hx-label.hx-contrast {
   background: #F7F7F9;
-  color: #3D3D3D; }
+  color: #3D3D3D;
+  border-color: #F7F7F9; }
+  .hx-label.hx-contrast.hx-label-outline {
+    background: #2F3536;
+    color: #F7F7F9;
+    border-color: #F7F7F9; }
 
 
 .hx-notice {

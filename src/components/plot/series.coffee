@@ -6,7 +6,7 @@ import { optionSetterGetter, inefficientSearch } from './utils'
 
 class Series extends EventEmitter
 
-  defaultLabelValuesExtractor = (series, dataPoint, xAccessor, yAccessor, xProperty, yProperty) ->
+  defaultLabelValuesExtractor = (series, dataPoint, xAccessor, yAccessor, xProperty='x', yProperty='y') ->
     [
       {
         name: series.axis.x.title(),

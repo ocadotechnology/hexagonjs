@@ -394,6 +394,15 @@ export default ->
           logger.warn.should.not.have.been.called()
 
 
+      it 'value: should clear the value when set to undefined', ->
+        testClosedAutocomplete trivialItems, undefined, (ap) ->
+          should.not.exist(ap.value())
+          ap.value('b')
+          ap.value().should.equal('b')
+          ap.value(undefined)
+          should.not.exist(ap.value())
+
+
       it 'value: should call the callback correctly when the value is in the item set', ->
         testClosedAutocomplete trivialAsyncItems, undefined, (ap) ->
           should.not.exist(ap.value())
@@ -521,6 +530,18 @@ export default ->
         hidestart.should.have.been.called.once()
         showend.should.have.been.called.once()
         showstart.should.have.been.called.once()
+
+
+      it 'should emit the "change" event when the value is changed to undefined', ->
+        testClosedAutocomplete trivialItems, { value: 'a' }, (ap) ->
+          value = chai.spy()
+          ap.on 'change', value
+          ap.value(undefined)
+          value.should.have.been.called.with({
+            cause: 'api',
+            value: undefined
+          })
+          value.should.have.been.called.once()
 
 
       it 'should emit the "change" event when the value is changed', ->

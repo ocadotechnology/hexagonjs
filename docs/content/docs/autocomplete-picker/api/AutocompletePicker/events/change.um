@@ -1,4 +1,10 @@
 @event change [String]
+  @bugfix 1.17.0
+    @issue 438
+    @description
+      Updated the AutocompletePicker to update the value when setting the value
+      to @code[undefined]
+
   @description
     The event called whenever the input text is updated by the auto
     complete object. The data is the value of the input field.

@@ -3,6 +3,11 @@
     Maps can now handle object keys
 
 @prototype hx.Map
+  @deprecated 1.17.0
+    @issue 336
+    @description
+      Deprecated in favour of native ES6 Map
+
   @description
     A map collection type.
 

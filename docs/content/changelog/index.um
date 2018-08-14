@@ -432,10 +432,25 @@
 
     @version 1.16.0
       @description
-        Added the ability to use @type[Toggle] in @type[FormBuilder] and the 
-        ability to disable a @type[Toggle]. 
-        
-        Also fixed a bug where the @type[DatePicker] calendar was incorrectly 
-        starting on a Sunday instead of Monday as specified in ISO 8601. When 
-        using @code[moment.js] the week start will still be taken from the 
+        Added the ability to use @type[Toggle] in @type[FormBuilder] and the
+        ability to disable a @type[Toggle].
+
+        Also fixed a bug where the @type[DatePicker] calendar was incorrectly
+        starting on a Sunday instead of Monday as specified in ISO 8601. When
+        using @code[moment.js] the week start will still be taken from the
         currently selected locale's week start.
+
+    @version 1.17.0
+      @description
+        Deprecated a selection of APIs and classes that will be removed in the
+        next major release in order to standardize the library and improve
+        maintainability.
+
+        Several APIs have been deprecated without a replacement or with
+        native JS/ES6 replacements suggested (such as using @code[fetch]
+        instead of @code[hx.request]). Making these changes in advance of the
+        upcoming major release will make transitioning much easier.
+
+        In addition to the deprecations, multiple features have been added from
+        the backlog to further improve the capabilities of the existing
+        components. In addition to this, several bugs have also been resolved.

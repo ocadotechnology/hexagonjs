@@ -1,6 +1,5 @@
 import { mergeDefined, randomId, supports } from 'utils/utils'
 import { select, div } from 'utils/selection'
-import { format } from 'utils/format'
 import { EventEmitter } from 'utils/event-emitter'
 import { preferences } from 'utils/preferences'
 import { dateTimeLocalizer } from 'utils/date-localizer'
@@ -8,9 +7,6 @@ import logger from 'utils/logger'
 
 import { NumberPicker } from 'components/number-picker'
 import { Dropdown } from 'components/dropdown'
-
-# Helper functions
-zeroPad = format.zeroPad(2)
 
 # Builds the array of days to display on the calendar in 'm' view
 getCalendarMonth = (year, month, weekStart) ->
@@ -359,6 +355,8 @@ class DatePicker extends EventEmitter
       defaultView: 'm' # 'm' for month, 'y' for year, or 'd' for decade
       closeOnSelect: true
       selectRange: false
+      validRange: undefined
+      range: undefined
       showTodayButton: true
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
@@ -369,16 +367,14 @@ class DatePicker extends EventEmitter
       mode: @options.defaultView
       startDate: new Date
       endDate: new Date
-      uniqueId: randomId()
     }
 
-    preferences.on('localechange', 'hx.date-picker-' + _.uniqueId, => updateDatepicker this, true)
-    preferences.on('timezonechange', 'hx.date-picker-' + _.uniqueId, => updateDatepicker this, true)
+    @localizer = dateTimeLocalizer()
+    @localizer.on 'localechange', 'hx.date-picker', => updateDatepicker this, true
+    @localizer.on 'timezonechange', 'hx.date-picker', => updateDatepicker this, true
 
     _.startDate.setHours(0, 0, 0, 0)
     _.endDate.setHours(0, 0, 0, 0)
-
-    @localizer = dateTimeLocalizer()
 
     @selection = select(@selector)
       .classed('hx-date-picker', true)
@@ -394,7 +390,7 @@ class DatePicker extends EventEmitter
       @options.type = 'calendar'
       @options.showTodayButton = false
       _.preventFeedback = true
-      @range({})
+      @range(@options.range or {})
       _.preventFeedback = false
 
       inputUpdate = (which) ->
@@ -476,12 +472,12 @@ class DatePicker extends EventEmitter
         .class('hx-calendar-header hx-input-group')
 
       calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert hx-calendar-back')
+        .class('hx-btn hx-btn-outline hx-calendar-back')
         .on 'click', 'hx.date-picker', -> changeVis(-1)
         .append('i').class('hx-icon hx-icon-chevron-left')
 
       _.calendarHeadBtn = calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert')
+        .class('hx-btn hx-btn-outline')
         .on 'click', 'hx.date-picker', ->
           switch _.mode
             when 'd' then return
@@ -489,7 +485,7 @@ class DatePicker extends EventEmitter
             else buildCalendar self, 'y'
 
       calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert hx-calendar-forward')
+        .class('hx-btn hx-btn-outline hx-calendar-forward')
         .on 'click', 'hx.date-picker', -> changeVis()
         .append('i').class('hx-icon hx-icon-chevron-right')
 
@@ -499,7 +495,7 @@ class DatePicker extends EventEmitter
         _.calendarTodayButton = calendarElem.append('div')
           .class('hx-calendar-today-btn')
           .append('button')
-          .class('hx-btn hx-btn-invert')
+          .class('hx-btn hx-btn-outline')
           .on 'click', 'hx.date-picker', ->
             date = new Date()
             date.setHours(0,0,0,0)
@@ -524,17 +520,17 @@ class DatePicker extends EventEmitter
       monthNode = div().node()
       yearNode = div().node()
 
-      _.dayPicker = new NumberPicker(dayNode, {buttonClass: 'hx-btn-invert'})
+      _.dayPicker = new NumberPicker(dayNode, {buttonClass: 'hx-btn-outline'})
         .on 'change', 'hx.date-picker', (e) ->
           _.userEvent = true
           self.day e.value
 
-      _.monthPicker = new NumberPicker(monthNode, {buttonClass: 'hx-btn-invert'})
+      _.monthPicker = new NumberPicker(monthNode, {buttonClass: 'hx-btn-outline'})
         .on 'change', 'hx.date-picker', (e) ->
           _.userEvent = true
           self.month e.value
 
-      _.yearPicker = new NumberPicker(yearNode, {buttonClass: 'hx-btn-invert'})
+      _.yearPicker = new NumberPicker(yearNode, {buttonClass: 'hx-btn-outline'})
         .on 'change', 'hx.date-picker', (e) ->
           _.userEvent = true
           self.year e.value
@@ -572,6 +568,7 @@ class DatePicker extends EventEmitter
 
     setupInput this
     if _.disable then @disabled(_.disabled)
+    if @options.validRange then @validRange(@options.validRange)
 
 
   disabled: (disable) ->
@@ -716,12 +713,11 @@ class DatePicker extends EventEmitter
       _.validRange
 
   locale: (locale) ->
-    logger.deprecated('hx.DatePicker::locale is deprecated. Use hx.preferences.locale instead.')
     if arguments.length > 0
-      preferences.locale(locale)
+      @localizer.locale(locale)
       this
     else
-      preferences.locale()
+      @localizer.locale()
 
 datePicker = (options) ->
   selection = div()

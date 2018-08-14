@@ -8,7 +8,8 @@
   text-align: center;
   white-space: nowrap;
   vertical-align: 0px;
-  margin: 0 0.3em 0 0.1em;
+  border: 1px solid transparent;
+  margin: 0 0.1em 0 0;
 }
 
 .hx-label:empty {

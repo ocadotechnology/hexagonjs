@@ -2,7 +2,7 @@ import { userFacingText } from 'utils/user-facing-text'
 import { EventEmitter } from 'utils/event-emitter'
 import { select, detached, div } from 'utils/selection'
 import { isString } from 'utils/utils'
-import { format } from 'utils/format'
+import { zeroPad } from 'utils/format'
 import logger from 'utils/logger'
 
 import { Modal } from 'components/modal'
@@ -154,7 +154,6 @@ LocalStoragePreferencesStore = {
 
 lookupLocale = (locale) -> localeList.filter((l) -> l.value.toLowerCase() is locale.toLowerCase())[0]
 
-zeroPad = format.zeroPad(2)
 defaultTimezoneLookup = (offset) ->
   modifier = if offset > 0 then '-' else '+'
   absOffset = Math.abs(offset)
@@ -253,7 +252,7 @@ class Preferences extends EventEmitter
 
   timezone: (timezone) ->
     if arguments.length > 0
-      if isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
+      if @isTimezoneSupported(timezone)
         if @_.preferences['timezone'] isnt timezone
           @_.preferences['timezone'] = timezone
           @emit('timezonechange', timezone)
@@ -266,7 +265,8 @@ class Preferences extends EventEmitter
   locale: (locale) ->
     if arguments.length > 0
       # check that the locale being set is supported
-      if isString(locale) and (localeObject = lookupLocale(locale))
+      if @isLocaleSupported(locale)
+        localeObject = lookupLocale(locale)
         if @_.preferences['locale'] isnt localeObject.value
           @_.preferences['locale'] = localeObject.value
 
@@ -294,8 +294,17 @@ class Preferences extends EventEmitter
   supportedTimezones: option 'supportedTimezones'
   timezoneOffsetLookup: option 'timezoneOffsetLookup'
 
-  applyTimezoneOffset: (date, offset) ->
-    offset ?= @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
+  isTimezoneSupported: (timezone) ->
+    isString(timezone) and @_.supportedTimezones.indexOf(timezone) isnt -1
+
+  isLocaleSupported: (locale) ->
+    isString(locale) and lookupLocale(locale)
+
+  applyTimezoneOffset: (date, timezoneOrOffset) ->
+    offset =  if isNaN(timezoneOrOffset)
+      @_.timezoneOffsetLookup(timezoneOrOffset || @timezone(), date.getTime()) || 0
+    else
+      offset || @_.timezoneOffsetLookup(@timezone(), date.getTime()) || 0
     utc = date.getTime() + (date.getTimezoneOffset() * 60000)
     new Date(utc + offset * 60 * 60 * 1000)
 

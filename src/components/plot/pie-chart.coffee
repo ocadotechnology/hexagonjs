@@ -1,7 +1,7 @@
 import { EventEmitter } from 'utils/event-emitter'
 import { select, div } from 'utils/selection'
 import { sum, merge, clamp, flatten } from 'utils/utils'
-import { format } from 'utils/format'
+import { si } from 'utils/format'
 
 import { theme } from 'theme'
 
@@ -24,7 +24,7 @@ class PieChart extends EventEmitter
   defaultSegmentTextFormatter = (segment, segments) ->
     if segment.size / sum(segments.map((s) -> s.size)) > 0.05 then segment.size else ''
 
-  defaultLabelFormatter = format.si(2)
+  defaultLabelFormatter = si
 
   constructor: (@selector, options) ->
     super()

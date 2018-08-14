@@ -1,13 +1,23 @@
 import { div, label } from 'hexagon-js'
 
 export default () => {
-  return div('label-demo')
-    .add(label().text('Default Label'))
-    .add(label({ context: 'action' }).text('Action Label'))
-    .add(label({ context: 'positive' }).text('Positive Label'))
-    .add(label({ context: 'warning' }).text('Warning Label'))
-    .add(label({ context: 'negative' }).text('Negative Label'))
-    .add(label({ context: 'info' }).text('Info Label'))
-    .add(label({ context: 'complement' }).text('Complement Label'))
-    .add(label({ context: 'contrast' }).text('Contrast Label'))
+  return [
+    label().text('Default Label'),
+    label({ context: 'action' }).text('Action Label'),
+    label({ context: 'positive' }).text('Positive Label'),
+    label({ context: 'warning' }).text('Warning Label'),
+    label({ context: 'negative' }).text('Negative Label'),
+    label({ context: 'info' }).text('Info Label'),
+    label({ context: 'complement' }).text('Complement Label'),
+    label({ context: 'contrast' }).text('Contrast Label'),
+    div(),
+    label().classed('hx-label-outline', true).text('Default Label'),
+    label({ context: 'action' }).classed('hx-label-outline', true).text('Action Label'),
+    label({ context: 'positive' }).classed('hx-label-outline', true).text('Positive Label'),
+    label({ context: 'warning' }).classed('hx-label-outline', true).text('Warning Label'),
+    label({ context: 'negative' }).classed('hx-label-outline', true).text('Negative Label'),
+    label({ context: 'info' }).classed('hx-label-outline', true).text('Info Label'),
+    label({ context: 'complement' }).classed('hx-label-outline', true).text('Complement Label'),
+    label({ context: 'contrast' }).classed('hx-label-outline', true).text('Contrast Label')
+  ]
 }

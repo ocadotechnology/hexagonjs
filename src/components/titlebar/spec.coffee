@@ -6,7 +6,7 @@ export default () ->
   describe 'hx-titlebar', ->
     origWarn = console.warn
     beforeEach ->
-      fixture = select('body').append('div').attr('id', 'fixture').html """
+      fixture = select('body').append('div').attr('id', 'fixture').node().innerHTML = """
         <div class="hx-heading">
           <div class="hx-titlebar">
             <div class="hx-titlebar-container">

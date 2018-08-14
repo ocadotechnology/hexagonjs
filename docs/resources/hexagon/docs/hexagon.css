@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.16.0
+ Version: 1.17.0
  Theme: hexagon-light
  Modules:
    set
@@ -295,36 +295,38 @@ i.dx-icon {
   margin-bottom: 0;
   text-align: right;
   display: inline-block; }
-  .dx-form > div {
+  .dx-form .dx-form-buttons > * {
+    display: inline-block; }
+  .dx-form > div:not(.dx-form-buttons) {
     text-align: left;
     display: table-row; }
-    .dx-form > div > * {
+    .dx-form > div:not(.dx-form-buttons) > * {
       display: table-cell; }
-    .dx-form > div > *:not(input):not(select):not(textarea):not(button):not(.dx-btn) {
+    .dx-form > div:not(.dx-form-buttons) > *:not(input):not(select):not(textarea):not(button):not(.dx-btn) {
       padding-top: 8px; }
-    .dx-form > div > input,
-    .dx-form > div > select,
-    .dx-form > div > textarea,
-    .dx-form > div > button,
-    .dx-form > div > .dx-btn {
+    .dx-form > div:not(.dx-form-buttons) > input,
+    .dx-form > div:not(.dx-form-buttons) > select,
+    .dx-form > div:not(.dx-form-buttons) > textarea,
+    .dx-form > div:not(.dx-form-buttons) > button,
+    .dx-form > div:not(.dx-form-buttons) > .dx-btn {
       margin: 8px 0 0 0; }
-    .dx-form > div > div > .dx-btn,
-    .dx-form > div > div > button {
+    .dx-form > div:not(.dx-form-buttons) > div > .dx-btn,
+    .dx-form > div:not(.dx-form-buttons) > div > button {
       margin: 0; }
-    .dx-form > div > input:not([type="checkbox"]):not([type="radio"]),
-    .dx-form > div > select,
-    .dx-form > div > textarea {
+    .dx-form > div:not(.dx-form-buttons) > input:not([type="checkbox"]):not([type="radio"]),
+    .dx-form > div:not(.dx-form-buttons) > select,
+    .dx-form > div:not(.dx-form-buttons) > textarea {
       min-width: 20em;
       width: 100%;
       box-sizing: border-box; }
-    .dx-form > div > label {
+    .dx-form > div:not(.dx-form-buttons) > label {
       text-align: right;
       vertical-align: middle;
       padding-right: 16px;
       padding-top: 8px;
       height: 2em; }
-    .dx-form > div > input[type="radio"],
-    .dx-form > div > input[type="checkbox"] {
+    .dx-form > div:not(.dx-form-buttons) > input[type="radio"],
+    .dx-form > div:not(.dx-form-buttons) > input[type="checkbox"] {
       margin-top: 1em; }
   .dx-form input[type="radio"], .dx-form input[type="checkbox"] {
     margin-top: 0em;
@@ -2875,7 +2877,8 @@ a.dx-titlebar-link, a.dx-titlebar-link:hover {
   text-align: center;
   white-space: nowrap;
   vertical-align: 0px;
-  margin: 0 0.3em 0 0.1em; }
+  margin: -1px 2px -1px 0;
+  border: 1px solid transparent; }
   .dx-label:empty {
     display: none; }
   .dx-label i {
@@ -3315,15 +3318,15 @@ hr {
     background: #f2f2f2; }
   .dx-btn:focus {
     box-shadow: 0 0 0 1px #e6e6e6; }
-  .dx-btn.dx-btn-invert {
+  .dx-btn.dx-btn-outline, .dx-btn.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-btn-invert:hover {
+    .dx-btn.dx-btn-outline:hover, .dx-btn.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #FFFFFF;
       color: #3D3D3D; }
-    .dx-btn.dx-btn-invert:focus {
+    .dx-btn.dx-btn-outline:focus, .dx-btn.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(230, 230, 230, 0.5); }
 
 .dx-btn.dx-action {
@@ -3334,14 +3337,14 @@ hr {
     background: #00e0da; }
   .dx-btn.dx-action:focus {
     box-shadow: 0 0 0 1px #007a76; }
-  .dx-btn.dx-action.dx-btn-invert {
+  .dx-btn.dx-action.dx-btn-outline, .dx-btn.dx-action.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-action.dx-btn-invert:hover {
+    .dx-btn.dx-action.dx-btn-outline:hover, .dx-btn.dx-action.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #00ADA8; }
-    .dx-btn.dx-action.dx-btn-invert:focus {
+    .dx-btn.dx-action.dx-btn-outline:focus, .dx-btn.dx-action.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(0, 122, 118, 0.5); }
 
 .dx-btn.dx-positive {
@@ -3352,14 +3355,14 @@ hr {
     background: #b1e524; }
   .dx-btn.dx-positive:focus {
     box-shadow: 0 0 0 1px #6f9112; }
-  .dx-btn.dx-positive.dx-btn-invert {
+  .dx-btn.dx-positive.dx-btn-outline, .dx-btn.dx-positive.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-positive.dx-btn-invert:hover {
+    .dx-btn.dx-positive.dx-btn-outline:hover, .dx-btn.dx-positive.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #92BF17; }
-    .dx-btn.dx-positive.dx-btn-invert:focus {
+    .dx-btn.dx-positive.dx-btn-outline:focus, .dx-btn.dx-positive.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(111, 145, 18, 0.5); }
 
 .dx-btn.dx-negative {
@@ -3370,14 +3373,14 @@ hr {
     background: #f06989; }
   .dx-btn.dx-negative:focus {
     box-shadow: 0 0 0 1px #de1546; }
-  .dx-btn.dx-negative.dx-btn-invert {
+  .dx-btn.dx-negative.dx-btn-outline, .dx-btn.dx-negative.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-negative.dx-btn-invert:hover {
+    .dx-btn.dx-negative.dx-btn-outline:hover, .dx-btn.dx-negative.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #EC3A65; }
-    .dx-btn.dx-negative.dx-btn-invert:focus {
+    .dx-btn.dx-negative.dx-btn-outline:focus, .dx-btn.dx-negative.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(222, 21, 70, 0.5); }
 
 .dx-btn.dx-warning {
@@ -3388,14 +3391,14 @@ hr {
     background: #e1b04c; }
   .dx-btn.dx-warning:focus {
     box-shadow: 0 0 0 1px #aa7b1d; }
-  .dx-btn.dx-warning.dx-btn-invert {
+  .dx-btn.dx-warning.dx-btn-outline, .dx-btn.dx-warning.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-warning.dx-btn-invert:hover {
+    .dx-btn.dx-warning.dx-btn-outline:hover, .dx-btn.dx-warning.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #D69B24; }
-    .dx-btn.dx-warning.dx-btn-invert:focus {
+    .dx-btn.dx-warning.dx-btn-outline:focus, .dx-btn.dx-warning.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(170, 123, 29, 0.5); }
 
 .dx-btn.dx-info {
@@ -3406,14 +3409,14 @@ hr {
     background: #c58dcb; }
   .dx-btn.dx-info:focus {
     box-shadow: 0 0 0 1px #9d4ca6; }
-  .dx-btn.dx-info.dx-btn-invert {
+  .dx-btn.dx-info.dx-btn-outline, .dx-btn.dx-info.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-info.dx-btn-invert:hover {
+    .dx-btn.dx-info.dx-btn-outline:hover, .dx-btn.dx-info.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #B36ABB; }
-    .dx-btn.dx-info.dx-btn-invert:focus {
+    .dx-btn.dx-info.dx-btn-outline:focus, .dx-btn.dx-info.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(157, 76, 166, 0.5); }
 
 .dx-btn.dx-complement {
@@ -3424,15 +3427,15 @@ hr {
     background: #e8e8ee; }
   .dx-btn.dx-complement:focus {
     box-shadow: 0 0 0 1px #dadae3; }
-  .dx-btn.dx-complement.dx-btn-invert {
+  .dx-btn.dx-complement.dx-btn-outline, .dx-btn.dx-complement.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-complement.dx-btn-invert:hover {
+    .dx-btn.dx-complement.dx-btn-outline:hover, .dx-btn.dx-complement.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #F7F7F9;
       color: #3D3D3D; }
-    .dx-btn.dx-complement.dx-btn-invert:focus {
+    .dx-btn.dx-complement.dx-btn-outline:focus, .dx-btn.dx-complement.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(218, 218, 227, 0.5); }
 
 .dx-btn.dx-contrast {
@@ -3443,14 +3446,14 @@ hr {
     background: #636868; }
   .dx-btn.dx-contrast:focus {
     box-shadow: 0 0 0 1px #313434; }
-  .dx-btn.dx-contrast.dx-btn-invert {
+  .dx-btn.dx-contrast.dx-btn-outline, .dx-btn.dx-contrast.dx-btn-invert {
     background: #FDFDFD;
     color: gray;
     border-color: #e4e4e4; }
-    .dx-btn.dx-contrast.dx-btn-invert:hover {
+    .dx-btn.dx-contrast.dx-btn-outline:hover, .dx-btn.dx-contrast.dx-btn-invert:hover {
       background: #F2F2F2;
       color: #4A4E4E; }
-    .dx-btn.dx-contrast.dx-btn-invert:focus {
+    .dx-btn.dx-contrast.dx-btn-outline:focus, .dx-btn.dx-contrast.dx-btn-invert:focus {
       box-shadow: 0 0 0 1px rgba(49, 52, 52, 0.5); }
 
 .dx-btn.dx-btn-invisible {
@@ -4350,35 +4353,75 @@ body.dx-titlebar-link-padding .dx-heading + .dx-content {
 
 .dx-label {
   background: #FFFFFF;
-  color: #3D3D3D; }
+  color: #3D3D3D;
+  border-color: #FFFFFF; }
+  .dx-label.dx-label-outline {
+    background: #FDFDFD;
+    color: #3D3D3D;
+    border-color: #3D3D3D; }
 
 .dx-label.dx-action {
   background: #00ADA8;
-  color: #F3F3F3; }
+  color: #F3F3F3;
+  border-color: #00ADA8; }
+  .dx-label.dx-action.dx-label-outline {
+    background: #FDFDFD;
+    color: #00ADA8;
+    border-color: #00ADA8; }
 
 .dx-label.dx-positive {
   background: #92BF17;
-  color: #F3F3F3; }
+  color: #F3F3F3;
+  border-color: #92BF17; }
+  .dx-label.dx-positive.dx-label-outline {
+    background: #FDFDFD;
+    color: #92BF17;
+    border-color: #92BF17; }
 
 .dx-label.dx-negative {
   background: #EC3A65;
-  color: #F3F3F3; }
+  color: #F3F3F3;
+  border-color: #EC3A65; }
+  .dx-label.dx-negative.dx-label-outline {
+    background: #FDFDFD;
+    color: #EC3A65;
+    border-color: #EC3A65; }
 
 .dx-label.dx-warning {
   background: #D69B24;
-  color: #F3F3F3; }
+  color: #F3F3F3;
+  border-color: #D69B24; }
+  .dx-label.dx-warning.dx-label-outline {
+    background: #FDFDFD;
+    color: #D69B24;
+    border-color: #D69B24; }
 
 .dx-label.dx-info {
   background: #B36ABB;
-  color: #F3F3F3; }
+  color: #F3F3F3;
+  border-color: #B36ABB; }
+  .dx-label.dx-info.dx-label-outline {
+    background: #FDFDFD;
+    color: #B36ABB;
+    border-color: #B36ABB; }
 
 .dx-label.dx-complement {
   background: #F7F7F9;
-  color: #3D3D3D; }
+  color: #3D3D3D;
+  border-color: #F7F7F9; }
+  .dx-label.dx-complement.dx-label-outline {
+    background: #FDFDFD;
+    color: #F7F7F9;
+    border-color: #F7F7F9; }
 
 .dx-label.dx-contrast {
   background: #4A4E4E;
-  color: #F3F3F3; }
+  color: #F3F3F3;
+  border-color: #4A4E4E; }
+  .dx-label.dx-contrast.dx-label-outline {
+    background: #FDFDFD;
+    color: #4A4E4E;
+    border-color: #4A4E4E; }
 
 
 .dx-notice {

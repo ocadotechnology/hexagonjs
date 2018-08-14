@@ -1,7 +1,7 @@
 import { max } from 'utils/utils'
 import { select, detached } from 'utils/selection'
 
-#XXX [2.0.0]: remove - not used in hexagon anymore since request.html has gone
+#XXX [2.0.0]: remove - not used in hexagon anymore since request.node().innerHTML = has gone
 cachedParseHtml = null
 export parseHTML = (html) ->
   if not cachedParseHtml

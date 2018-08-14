@@ -34,13 +34,6 @@ export class DateTimePicker extends EventEmitter
     @datePicker = new DatePicker(dtNode, @options.datePickerOptions)
     @timePicker = new TimePicker(tpNode, @options.timePickerOptions)
 
-    @_ = {
-      uniqueId: randomId()
-    }
-
-    # XXX [2.0.0]: memory leak
-    preferences.on 'timezonechange', 'hx.date-time-picker-' + @_.uniqueId, -> updateDatePicker()
-
     @datePicker.pipe(this, 'date', ['show', 'hide'])
     @timePicker.pipe(this, 'time', ['show', 'hide'])
 
@@ -115,13 +108,19 @@ export class DateTimePicker extends EventEmitter
   # XXX [2.0.0]: remove?
   # See note in 2.0.0.md about retaining this method
   locale: (locale) ->
-    # utils.deprecatedWarning 'hx.DateTimePicker::locale is deprecated. Please use hx.preferences.locale.'
     if arguments.length > 0
-      preferences.locale locale
+      @datePicker.localizer.locale(locale)
+      @timePicker.localizer.locale(locale)
       this
     else
-      preferences.locale()
+      @datePicker.localizer.locale()
 
+  timezone: (timezone) ->
+    if arguments.length > 0
+      @timePicker.localizer.timezone(timezone)
+      this
+    else
+      @timePicker.localizer.timezone()
 
   disabled: (disable) ->
     dpDisabled = @datePicker.disabled(disable)

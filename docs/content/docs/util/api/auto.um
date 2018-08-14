@@ -878,6 +878,11 @@
       The passed in item.
 
 @function hx.parseHTML
+  @deprecated 1.17.0
+    @issue 375
+    @description
+      The @code[html] method for selections has been removed to prevent XSS attacks.
+
   @description
     A function for parsing a string to a DocumentFragment. Note: any script tags in the html string will be executed immediately - if you do not want this to happen, sanitize the string before passing into this function or remove the script tags from the document fragment created.
 
