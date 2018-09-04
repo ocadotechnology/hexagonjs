@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.17.0
+ Version: 1.17.1
  Theme: hexagon-light
  Modules:
    set
@@ -4461,7 +4461,7 @@ validateForm = function(form, options) {
   for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
     if (form.children[i].nodeName.toLowerCase() === 'div') {
       element = form.children[i].children[1];
-      if (element.offsetParent !== null) {
+      if (element && element.offsetParent !== null) {
         if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
           if (!element.checkValidity()) {
             type = dx.select(element).attr('type');
@@ -13805,15 +13805,15 @@ setPickerValue = function(picker, results, cause) {
   _.valueText.clear();
   if (results.length) {
     _.current = results[0];
-    _.renderer(_.valueText.node(), results[0]);
+    picker.emit('change', {
+      cause: cause,
+      value: results[0]
+    });
+    return _.renderer(_.valueText.node(), results[0]);
   } else {
     _.current = void 0;
-    _.valueText.text(_.options.chooseValueText);
+    return _.valueText.text(_.options.chooseValueText);
   }
-  return picker.emit('change', {
-    cause: cause,
-    value: _.current
-  });
 };
 
 AutocompletePicker = (function(superClass) {
