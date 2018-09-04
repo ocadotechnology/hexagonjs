@@ -104,3 +104,60 @@
         var tagInput = new hx.TagInput('#tagInput')
         tagInput.items(['a','b'])
 
+
+@version 1.17.0
+  @examples
+    @example
+      @@html
+        <form class="hx-form hx-margin">
+          <div>
+            <label>Text</label>
+            <input type="text">
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="email">
+          </div>
+          <div>
+            <label>Number</label>
+            <input type="number">
+          </div>
+          <div>
+            <label>Url</label>
+            <input type="url">
+          </div>
+          <div>
+            <label>Radio</label>
+            <div id="group-1">
+              <div>
+                <input id="radio1" type="radio" value="One" name="group-1">
+                <label for="radio1">One</label>
+              </div>
+              <div>
+                <input id="radio2" type="radio" value="Two" name="group-1">
+                <label for="radio2">Two</label>
+              </div>
+              <div>
+                <input id="radio3" type="radio" value="Three" name="group-1">
+                <label for="radio3">Three</label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="checkbox1" >Checkbox</label>
+            <input id="checkbox1" type="checkbox">
+          </div>
+          <div>
+            <label>Tag Input</label>
+            <div>
+              <div id="tagInput"></div>
+            </div>
+          </div>
+          <div class="hx-form-buttons">
+            <button type="submit" class="hx-btn hx-positive"><i class="fa fa-paper-plane"></i> Submit</button>
+          </div>
+        </form>
+
+      @@js
+        var tagInput = new hx.TagInput('#tagInput')
+        tagInput.items(['a','b'])

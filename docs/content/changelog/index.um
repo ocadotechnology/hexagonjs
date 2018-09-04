@@ -454,3 +454,13 @@
         In addition to the deprecations, multiple features have been added from
         the backlog to further improve the capabilities of the existing
         components. In addition to this, several bugs have also been resolved.
+
+    @version 1.17.1
+      @description
+        Revert issue 438 to resolve a breaking issue with the Autocomplete Picker
+        when using objects as items
+
+        Fix an issue with the form validation that was not correctly handling the
+        new form buttons element and add tests
+
+
