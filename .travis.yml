@@ -17,7 +17,7 @@ stages:
     if: tag IS present AND repo = ocadotechnology/hexagonjs
 
   - name: publish pages
-    if: branch = 1-17-0 AND repo = ocadotechnology/hexagonjs AND NOT type = pull_request
+    if: branch = master-1-x AND repo = ocadotechnology/hexagonjs AND NOT type = pull_request
 
 jobs:
   include:
@@ -49,4 +49,4 @@ jobs:
       email: hexagonjs.ci.noreply@ocado.com
       github-token: $GITHUB_TOKEN
       on:
-        branch: 1-17-0
+        branch: master-1-x
