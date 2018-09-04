@@ -21,15 +21,20 @@ setPickerValue = (picker, results, cause) ->
   _.valueText.clear()
   if results.length
     _.current = results[0]
+    picker.emit('change', {
+      cause: cause
+      value: results[0]
+    })
     _.renderer _.valueText.node(), results[0]
   else
     _.current = undefined
     _.valueText.text(_.options.chooseValueText)
 
-  picker.emit('change', {
-    cause: cause
-    value: _.current
-  })
+  # 2.0.0 REVERT (#438) - This change introduced a breaking bug, reverting until next major
+  # picker.emit('change', {
+  #   cause: cause
+  #   value: _.current
+  # })
 
 class AutocompletePicker extends hx.EventEmitter
   constructor: (selector, items, options = {}) ->
