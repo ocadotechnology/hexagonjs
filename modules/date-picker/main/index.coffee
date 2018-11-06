@@ -156,7 +156,10 @@ buildCalendar = (datepicker, mode) ->
       data = getCalendarMonth(visible.year, visible.month - 1, localizer.weekStart())
       data.unshift 'days' # When the update gets to this it adds the days of the week as a row
       cls = 'hx-calendar-month'
-      text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year)
+      if datepicker.options.v2Features
+        text = "#{localizer.fullMonth(visible.month - 1)} #{localizer.year(visible.year)}"
+      else
+        text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year)
 
   _.calendarGrid.class('hx-calendar-grid ' + cls)
   _.calendarHeadBtn.text(text)
@@ -345,6 +348,7 @@ class DatePicker extends hx.EventEmitter
     @options = hx.merge.defined({
       type: 'calendar' # 'calendar' or 'datepicker'
       defaultView: 'm' # 'm' for month, 'y' for year, or 'd' for decade
+      allowViewChange: true # Allow changing between month/year/decade views
       closeOnSelect: true
       selectRange: false
       validRange: undefined
@@ -352,6 +356,7 @@ class DatePicker extends hx.EventEmitter
       showTodayButton: true
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
+      v2Features: false # Toggle all v2 functionality
     }, options)
 
     _ = @_ = {
@@ -461,20 +466,27 @@ class DatePicker extends hx.EventEmitter
       calendarElem.class('hx-date-picker-calendar')
 
       calendarHeader = calendarElem.append('div')
-        .class('hx-calendar-header hx-input-group')
+        .class('hx-calendar-header')
 
       calendarHeader.append('button')
         .class('hx-btn hx-btn-invert hx-calendar-back')
         .on 'click', 'hx.date-picker', -> changeVis(-1)
         .append('i').class('hx-icon hx-icon-chevron-left')
 
-      _.calendarHeadBtn = calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert')
-        .on 'click', 'hx.date-picker', ->
-          switch _.mode
-            when 'd' then return
-            when 'y' then buildCalendar self, 'd'
-            else buildCalendar self, 'y'
+      if @options.allowViewChange
+        calendarHeader.classed('hx-input-group', true)
+        _.calendarHeadBtn = calendarHeader.append('button')
+          .class('hx-btn hx-btn-invert')
+          .on 'click', 'hx.date-picker', ->
+            switch _.mode
+              when 'd' then return
+              when 'y' then buildCalendar self, 'd'
+              else buildCalendar self, 'y'
+      else
+        calendarHeader.classed('hx-compact-group', true)
+        _.calendarHeadBtn = calendarHeader.append('div')
+
+      _.calendarHeadBtn.classed('hx-calendar-header-title', true)
 
       calendarHeader.append('button')
         .class('hx-btn hx-btn-invert hx-calendar-forward')

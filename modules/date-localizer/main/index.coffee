@@ -73,6 +73,10 @@ class DateTimeLocalizer extends PreferencesHandler
     if short then hx.zeroPad(month + 1)
     else ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month]
 
+  # localise the month in the format of mmm (Jan, Feb etc.) or 01, 02 etc.
+  fullMonth: (month) ->
+    ['January','February','March','April','May','June','July','August','September','October','November','December'][month]
+
   # localise the full year in the format of yyyy
   year: (year) -> year
 
@@ -176,6 +180,9 @@ class DateTimeLocalizerMoment extends PreferencesHandler
 
   month: (month, short) ->
     moment({month: month}).locale(@locale()).format(if short then 'MM' else 'MMM')
+
+  fullMonth: (month) ->
+    moment({month: month}).locale(@locale()).format('MMMM')
 
   year: (year) ->
     moment({year: year}).locale(@locale()).format('YYYY')
