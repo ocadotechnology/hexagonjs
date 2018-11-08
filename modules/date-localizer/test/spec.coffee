@@ -132,6 +132,15 @@ describe 'dateTimeLocalizer', ->
         localizer.month(0, true).should.equal('01')
 
 
+  describe 'fullMonth', ->
+    it 'localizes the month in the format of mmmm', ->
+      localizer.fullMonth(0).should.equal('January')
+
+    it 'localizes the month in the format of mmmm in all timezones', ->
+      executeFunctionInAllTimeZones ->
+        localizer.fullMonth(0).should.equal('January')
+
+
   describe 'year', ->
     it 'localizes the full year in the format of yyyy', ->
       localizer.year(2015).should.equal(2015)
