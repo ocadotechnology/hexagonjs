@@ -277,6 +277,7 @@ describe 'hx-date-picker', ->
 
           beforeEach ->
             input = fixture.append('input')
+            console.log('Test tagName', input.node().tagName)
             dp = new hx.DatePicker(input, { v2Features: true })
 
           it 'does not set the initial value', ->
@@ -403,6 +404,7 @@ describe 'hx-date-picker', ->
             beforeEach ->
               input.remove()
               input = fixture.append('input')
+              console.log('Test tagName', input.node().tagName)
               dp = new hx.DatePicker(input, {
                 v2Features: true
                 selectRange: true
