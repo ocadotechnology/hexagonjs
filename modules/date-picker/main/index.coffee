@@ -407,7 +407,7 @@ class DatePicker extends hx.EventEmitter
 
     @selection = hx.select(@selector)
 
-    _.inputOnlyMode = @selection.node().nodeName is 'INPUT'
+    _.inputOnlyMode = @selection.node().tagName.toLowerCase() is 'input'
 
     if not @options.allowViewChange
       @options.defaultView = 'm'
