@@ -9,7 +9,7 @@ describe 'time-slider', ->
     it 'value: setter/getter works for range', ->
       ts = new hx.TimeSlider(document.createElement('div'), {type: 'range'})
       range = {
-        start: (new Date((new Date).getTime() - 1000))
+        start: (new Date(new Date().getTime() - 1000))
         end: (new Date)
       }
       ts.value(range).should.equal(ts)

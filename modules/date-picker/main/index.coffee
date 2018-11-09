@@ -409,8 +409,6 @@ class DatePicker extends hx.EventEmitter
 
     _.inputOnlyMode = @selection.node().tagName.toLowerCase() is 'input'
 
-    console.log('Input Only Mode', _.inputOnlyMode)
-
     if not @options.allowViewChange
       @options.defaultView = 'm'
 

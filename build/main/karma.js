@@ -25,11 +25,12 @@ var flatten = require('flatten')
 // runs a set of testPackages in karma (a test package is an object
 // that looks like: { name, css, dependencesJs, moduleJs, specJs }
 // destDir is a directory where the results should be written to
-module.exports = function (testPackages, destDir, phantomOnly) {
+module.exports = function (testPackages, destDir, chromeHeadlessOnly) {
   return fs.copyAsync(path.join(__dirname, 'test-helpers.js'), path.join(destDir, 'lib', 'test-helpers.js')).then(function() {
     return Promise.all(testPackages.map(function (testPackage) {
       var moduleDir = path.join(destDir, 'lib', testPackage.moduleName)
       return Promise.all([
+        fs.copyAsync(path.join(__dirname, '../../assets'), path.join(moduleDir, 'assets')),
         fs.outputFileAsync(path.join(moduleDir, 'dependencies.js'), testPackage.dependenciesJs || ''),
         fs.outputFileAsync(path.join(moduleDir, 'dependencies.css'), testPackage.dependenciesCss || ''),
         fs.outputFileAsync(path.join(moduleDir, 'module.js'), testPackage.moduleJs || ''),
@@ -38,7 +39,7 @@ module.exports = function (testPackages, destDir, phantomOnly) {
         fs.outputFileAsync(path.join(moduleDir, 'bootstrap.js'), testPackage.specJs ? generateBootstrapJs(testPackage.moduleName) : '')
       ]).then(function () {
         return [
-          path.join(destDir, 'lib', 'test-helpers.js'),
+          { pattern: path.join(moduleDir, 'assets/*'), watched: false, included: false, served: true, nocache: false },
           path.join(moduleDir, 'dependencies.js'),
           path.join(moduleDir, 'dependencies.css'),
           path.join(moduleDir, 'module.js'),
@@ -48,7 +49,7 @@ module.exports = function (testPackages, destDir, phantomOnly) {
         ]
       })
     })).then(function (files) {
-      return runKarma(flatten(files), destDir, phantomOnly)
+      return runKarma(flatten([path.join(destDir, 'lib', 'test-helpers.js'), files]), destDir, chromeHeadlessOnly)
     })
   })
 }
@@ -100,7 +101,7 @@ function bootstrapSpec (moduleName, js) {
   ].join('\n')
 }
 
-function runKarma (files, destDir, phantomOnly) {
+function runKarma (files, destDir, chromeHeadlessOnly) {
   var coverageDir = path.join(destDir, 'coverage')
   var coverageReporter = {
     reporters: [
@@ -139,17 +140,13 @@ function runKarma (files, destDir, phantomOnly) {
     polyfill: ['Promise'],
     autoWatch: false,
     reporters: ['coverage', 'html', 'json', 'mocha'],
-    client: {
-      mocha: {
-        timeout: 10000
-      }
-    }
+    concurrency: Infinity
   }
 
   cfg.preprocessors[path.join(destDir, 'lib', '*', 'module.js')] = ['coverage']
 
-  if (phantomOnly) {
-    cfg.browsers = ['PhantomJS']
+  if (chromeHeadlessOnly) {
+    cfg.browsers = ['ChromeHeadless']
   } else {
     cfg.frameworks.push('detectBrowsers')
   }

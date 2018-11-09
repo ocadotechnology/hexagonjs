@@ -1,12 +1,17 @@
 describe 'autocomplete-picker', ->
 
   origDropdownAttachSelector = hx._.dropdown.attachToSelector
-  hx._.dropdown.attachToSelector = '#fixture'
-
-  clock = sinon.useFakeTimers()
-
   origConsoleWarning = hx.consoleWarning
-  hx.consoleWarning = chai.spy()
+  origHxLoop = hx.loop
+
+  # mock hx.loop
+  hx_requestAnimationFrame = (f) -> setTimeout(f, 1)
+  hx_loop_update = (f, g) -> if not f() then hx_requestAnimationFrame(g)
+  mock_hx_loop = (f) ->
+    g = -> hx_loop_update(f, g)
+    hx_loop_update(f, g)
+
+  clock = undefined
   fixture = undefined
 
   fakeEvent = {
@@ -24,15 +29,22 @@ describe 'autocomplete-picker', ->
       callback(trivialItems)
     setTimeout(cb, trivialAsyncWait)
 
-  beforeEach ->
-    hx.consoleWarning.reset()
-    fixture?.remove()
-    fixture = hx.select('body').append('div').attr('id', 'fixture')
+  before ->
+    clock = sinon.useFakeTimers()
+    hx.loop = mock_hx_loop
 
-  after ->
-    hx._.dropdown.attachToSelector = origDropdownAttachSelector
+  beforeEach ->
+    hx.consoleWarning = chai.spy()
+    fixture = hx.select('body').append('div').class('hx-test-autocomplete-picker').attr('id', 'fixture')
+    hx._.dropdown.attachToSelector = fixture
+
+  afterEach ->
     hx.consoleWarning = origConsoleWarning
     fixture.remove()
+    hx._.dropdown.attachToSelector = origDropdownAttachSelector
+
+  after ->
+    hx.loop = origHxLoop
     clock.restore()
 
   testAutocomplete = (openAutocomplete, items, options, test) ->
@@ -314,7 +326,7 @@ describe 'autocomplete-picker', ->
       testClosedAutocomplete trivialItems, undefined, (ap) ->
         chai.spy.on(ap._.feed, 'clearCache')
         ap.clearCache().should.equal(ap)
-        ap._.feed.clearCache.should.have.been.called.once()
+        ap._.feed.clearCache.should.have.been.called.once
 
 
     it 'value: should set and get the value', ->
@@ -386,7 +398,7 @@ describe 'autocomplete-picker', ->
         ap.value('a', callback).should.equal(ap)
         callback.should.not.have.been.called()
         clock.tick(trivialAsyncWait)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with('a')
 
 
@@ -397,7 +409,7 @@ describe 'autocomplete-picker', ->
         ap.value('d', callback).should.equal(ap)
         callback.should.not.have.been.called()
         clock.tick(trivialAsyncWait)
-        callback.should.have.been.called.once()
+        callback.should.have.been.called.once
         callback.should.have.been.called.with(undefined)
 
 
@@ -458,7 +470,7 @@ describe 'autocomplete-picker', ->
           content: 'b'
           menu: ap._.menu
         })
-        highlight.should.have.been.called.twice()
+        highlight.should.have.been.called.twice
         hx.consoleWarning.should.not.have.been.called()
 
 
@@ -495,11 +507,11 @@ describe 'autocomplete-picker', ->
 
       hideend.should.have.been.called()
 
-      change.should.have.been.called.twice()
-      hideend.should.have.been.called.once()
-      hidestart.should.have.been.called.once()
-      showend.should.have.been.called.once()
-      showstart.should.have.been.called.once()
+      change.should.have.been.called.twice
+      hideend.should.have.been.called.once
+      hidestart.should.have.been.called.once
+      showend.should.have.been.called.once
+      showstart.should.have.been.called.once
 
     # 2.0.0 REVERT (#438) - This change introduced a breaking bug, reverting until next major
     # it 'should emit the "change" event when the value is changed to undefined', ->
@@ -511,7 +523,7 @@ describe 'autocomplete-picker', ->
     #       cause: 'api',
     #       value: undefined
     #     })
-    #     value.should.have.been.called.once()
+    #     value.should.have.been.called.once
 
 
     it 'should emit the "change" event when the value is changed', ->
@@ -523,7 +535,7 @@ describe 'autocomplete-picker', ->
           cause: 'api',
           value: 'a'
         })
-        value.should.have.been.called.once()
+        value.should.have.been.called.once
 
       testOpenAutocomplete trivialItems, undefined, (ap) ->
         value = chai.spy()
@@ -542,7 +554,7 @@ describe 'autocomplete-picker', ->
           cause: 'user',
           value: 'b'
         })
-        value.should.have.been.called.once()
+        value.should.have.been.called.once
         hx.consoleWarning.should.not.have.been.called()
 
 

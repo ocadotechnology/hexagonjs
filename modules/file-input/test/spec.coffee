@@ -1,22 +1,19 @@
 describe "file-input", ->
-  fakeFileList = undefined
   fixture = undefined
   clock = undefined
   origConsoleWarning = hx.consoleWarning
   origDropdownAttachSelector = hx._.dropdown.attachToSelector
   dropdownAnimationDuration = 200
 
-  fakeFile1 =
-    name: 'file-1.ext'
-    size: 23
-    lastModified: new Date()
-    type: 'text/plain'
+  makeFakeFile = (name, type) ->
+    blob = new Blob(["12345678901234567890"], { type: type })
+    blob.lastModified = new Date()
+    blob.lastModifiedDate = new Date()
+    blob.name = name
+    blob
 
-  fakeFile2 =
-    name: 'file-2.png'
-    size: 213
-    lastModified: new Date()
-    type: 'image/png'
+  fakeFile1 = makeFakeFile 'file-1.ext', 'text/plain'
+  fakeFile2 = makeFakeFile 'file-2.png', 'image/png'
 
   fakeEvent = {
     # fake some dom event stuff
@@ -24,19 +21,19 @@ describe "file-input", ->
   }
 
   before ->
-    hx.consoleWarning = chai.spy()
-    hx._.dropdown.attachToSelector = '#fixture'
     clock = sinon.useFakeTimers()
 
   beforeEach ->
-    hx.consoleWarning.reset()
-    fixture?.remove()
+    hx.consoleWarning = chai.spy()
     fixture = hx.select('body').append('div').attr('id', 'fixture')
+    hx._.dropdown.attachToSelector = fixture
+
+  afterEach ->
+    hx.consoleWarning = origConsoleWarning
+    fixture.remove()
+    hx._.dropdown.attachToSelector = origDropdownAttachSelector
 
   after ->
-    fixture.remove()
-    hx.consoleWarning = origConsoleWarning
-    hx._.dropdown.attachToSelector = origDropdownAttachSelector
     clock.restore()
 
   testFileInput = (options, callback) ->
@@ -120,8 +117,8 @@ describe "file-input", ->
     testFileInput { multiple: true }, (sel, fileInput) ->
       testHelpers.fakeNodeEvent(sel.select('input').node(), 'change')({ target: files: [ fakeFile1, fakeFile2 ] })
       hx.consoleWarning.should.not.have.been.called()
-      fileInput.value().should.eql([ fakeFile1, fakeFile2 ])
       sel.select('.hx-file-input-selected').text().should.equal(hx.userFacingText('fileInput', 'filesSelected').replace('$numFiles', 2))
+      fileInput.value().should.eql([ fakeFile1, fakeFile2 ])
 
 
   it 'should hide the dropdown when the number of files changes from >1 to 1', ->
@@ -194,12 +191,12 @@ describe "file-input", ->
         }
       }
       testHelpers.fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
-      fakeDragEvent.preventDefault.should.have.been.called.once()
-      fakeDragEvent.stopPropagation.should.have.been.called.once()
+      fakeDragEvent.preventDefault.should.have.been.called.once
+      fakeDragEvent.stopPropagation.should.have.been.called.once
 
       testHelpers.fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
-      fakeDragEvent.preventDefault.should.have.been.called.twice()
-      fakeDragEvent.stopPropagation.should.have.been.called.twice()
+      fakeDragEvent.preventDefault.should.have.been.called.twice
+      fakeDragEvent.stopPropagation.should.have.been.called.twice
 
       testHelpers.fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.exactly(3)
@@ -216,12 +213,12 @@ describe "file-input", ->
         }
       }
       testHelpers.fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
-      fakeDragEvent.preventDefault.should.have.been.called.once()
-      fakeDragEvent.stopPropagation.should.have.been.called.once()
+      fakeDragEvent.preventDefault.should.have.been.called.once
+      fakeDragEvent.stopPropagation.should.have.been.called.once
 
       testHelpers.fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
-      fakeDragEvent.preventDefault.should.have.been.called.twice()
-      fakeDragEvent.stopPropagation.should.have.been.called.twice()
+      fakeDragEvent.preventDefault.should.have.been.called.twice
+      fakeDragEvent.stopPropagation.should.have.been.called.twice
 
       testHelpers.fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.exactly(3)
@@ -238,12 +235,12 @@ describe "file-input", ->
         }
       }
       testHelpers.fakeNodeEvent(sel.node(), 'dragenter')(fakeDragEvent)
-      fakeDragEvent.preventDefault.should.have.been.called.once()
-      fakeDragEvent.stopPropagation.should.have.been.called.once()
+      fakeDragEvent.preventDefault.should.have.been.called.once
+      fakeDragEvent.stopPropagation.should.have.been.called.once
 
       testHelpers.fakeNodeEvent(sel.node(), 'dragover')(fakeDragEvent)
-      fakeDragEvent.preventDefault.should.have.been.called.twice()
-      fakeDragEvent.stopPropagation.should.have.been.called.twice()
+      fakeDragEvent.preventDefault.should.have.been.called.twice
+      fakeDragEvent.stopPropagation.should.have.been.called.twice
 
       testHelpers.fakeNodeEvent(sel.node(), 'drop')(fakeDragEvent)
       fakeDragEvent.preventDefault.should.have.been.called.exactly(3)

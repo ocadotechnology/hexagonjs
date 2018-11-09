@@ -11,7 +11,7 @@ describe 'number picker', ->
     clock = sinon.useFakeTimers()
 
   afterEach ->
-    clock.uninstall()
+    clock.restore()
 
   it 'should have a default min of undefined', ->
     np = new hx.NumberPicker(hx.detached('div').node())
@@ -139,6 +139,14 @@ describe 'number picker', ->
   describe 'events', ->
     it 'change: should emit whenever the value is changed', ->
       change = chai.spy()
+      change.reset = () ->
+        # XXX spy.reset was removed in a chai update
+        this.__spy = {
+          calls: []
+          called: false
+          name: name
+        };
+        return this
 
       sel = hx.detached('div')
       np = new hx.NumberPicker(sel.node())
@@ -158,6 +166,14 @@ describe 'number picker', ->
 
     it 'change: should emit whenever the value is changed by the min/max function', ->
       change = chai.spy()
+      change.reset = () ->
+        # XXX spy.reset was removed in a chai update
+        this.__spy = {
+          calls: []
+          called: false
+          name: name
+        };
+        return this
 
       sel = hx.detached('div')
       np = new hx.NumberPicker(sel.node(), {value: 0})
@@ -206,7 +222,7 @@ describe 'number picker', ->
       testHelpers.fakeNodeEvent(buttonNode, 'pointerdown')(fakePointerEvent)
       clock.tick(100)
       testHelpers.fakeNodeEvent(buttonNode, 'pointerup')(fakePointerEvent)
-      change.should.have.been.called.once()
+      change.should.have.been.called.once
       np.value().should.equal(-1)
 
     it 'increment: should emit when the user increments', ->
@@ -222,7 +238,7 @@ describe 'number picker', ->
       testHelpers.fakeNodeEvent(buttonNode, 'pointerdown')(fakePointerEvent)
       clock.tick(100)
       testHelpers.fakeNodeEvent(buttonNode, 'pointerup')(fakePointerEvent)
-      change.should.have.been.called.once()
+      change.should.have.been.called.once
       np.value().should.equal(1)
 
   testButton = (method, selector, multiplier) ->

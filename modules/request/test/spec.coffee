@@ -48,7 +48,7 @@ describe 'Request API', ->
 
       requests.length.should.equal(1)
       requests[0].url.should.equal('test.file')
-      requests[0].requestHeaders['Content-Type'].should.equal('some/type')
+      requests[0].requestHeaders['Content-Type'].should.equal('some/type;charset=utf-8')
 
     it 'should correctly set the response type', ->
       options =
@@ -71,7 +71,7 @@ describe 'Request API', ->
 
       requests.length.should.equal(1)
       requests[0].url.should.equal('test.file')
-      requests[0].requestHeaders['Content-Type'].should.equal('something')
+      requests[0].requestHeaders['Content-Type'].should.equal('something;charset=utf-8')
       requests[0].requestHeaders['accept'].should.equal('everything')
 
     it 'should allow custom headers to be set', ->
@@ -536,7 +536,7 @@ describe 'Request API', ->
     it 'should correctly set the mimeType to text/html', ->
       hx.html 'test.html', defaultCb
 
-      requests[0].requestHeaders["Content-Type"].should.equal('text/html')
+      requests[0].requestHeaders["Content-Type"].should.equal('text/html;charset=utf-8')
       requests[0].method.should.equal('GET')
       should.not.exist(requests[0].requestBody)
 
@@ -552,7 +552,7 @@ describe 'Request API', ->
 
       hx.html 'test.html', cb
 
-      requests[0].requestHeaders["Content-Type"].should.equal('text/html')
+      requests[0].requestHeaders["Content-Type"].should.equal('text/html;charset=utf-8')
       requests[0].method.should.equal('GET')
       should.not.exist(requests[0].requestBody)
 
@@ -569,7 +569,7 @@ describe 'Request API', ->
     it 'should correctly  set the mimeType to text/plain', ->
       hx.text 'test.txt', defaultCb
 
-      requests[0].requestHeaders["Content-Type"].should.equal('text/plain')
+      requests[0].requestHeaders["Content-Type"].should.equal('text/plain;charset=utf-8')
       requests[0].method.should.equal('GET')
       should.not.exist(requests[0].requestBody)
 
@@ -649,7 +649,7 @@ describe 'Request API', ->
     it 'should correctly set the mimeType to application/json', ->
       hx.json 'test.json', defaultCb
 
-      requests[0].requestHeaders["Content-Type"].should.equal('application/json')
+      requests[0].requestHeaders["Content-Type"].should.equal('application/json;charset=utf-8')
       requests[0].method.should.equal('GET')
       should.not.exist(requests[0].requestBody)
 
@@ -661,7 +661,7 @@ describe 'Request API', ->
 
       hx.json 'test.json', cb
 
-      requests[0].requestHeaders["Content-Type"].should.equal('application/json')
+      requests[0].requestHeaders["Content-Type"].should.equal('application/json;charset=utf-8')
       requests[0].method.should.equal('GET')
       should.not.exist(requests[0].requestBody)
       requests[0].respond(200, undefined, '{"some": "data"}')

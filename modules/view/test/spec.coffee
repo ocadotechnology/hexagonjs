@@ -82,6 +82,15 @@ describe 'hx-view', ->
     selection = hx.detached('div')
 
     spy = chai.spy()
+    spy.reset = () ->
+      # XXX spy.reset was removed in a chai update
+      this.__spy = {
+        calls: []
+        called: false
+        name: name
+      };
+      return this
+
     view = selection.view('div')
       .enter (datum, index) ->
         spy(datum, index)
@@ -103,6 +112,14 @@ describe 'hx-view', ->
     selection = hx.detached('div')
 
     spy = chai.spy()
+    spy.reset = () ->
+      # XXX spy.reset was removed in a chai update
+      this.__spy = {
+        calls: []
+        called: false
+        name: name
+      };
+      return this
     view = selection.view('div')
       .update (datum, node, index) ->
         spy(datum, index)

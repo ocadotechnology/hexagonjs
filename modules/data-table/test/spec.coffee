@@ -3,13 +3,31 @@ describe 'data-table', ->
   clockTime = (new Date(2013, 0, 1)).getTime()
   dropdownAnimationTime = 150
   inputDebounceDelay = 200
+  resizeDelay = 100
   animationCompletedDelay = 500
+  origHxLoop = hx.loop
+  clock = undefined
+
+  # mock hx.loop
+  hx_requestAnimationFrame = (f) -> setTimeout(f, 1)
+  hx_loop_update = (f, g) -> if not f() then hx_requestAnimationFrame(g)
+  mock_hx_loop = (f) ->
+    g = -> hx_loop_update(f, g)
+    hx_loop_update(f, g)
+
+  before ->
+    clock = sinon.useFakeTimers()
+    hx.loop = mock_hx_loop
 
   beforeEach ->
     hx.consoleWarning = chai.spy()
 
   afterEach ->
     hx.consoleWarning = origConsoleWarning
+
+  after ->
+    clock.restore()
+    hx.loop = origHxLoop
 
   noData = {
     headers: [
@@ -74,7 +92,6 @@ describe 'data-table', ->
 
     testHelpers.fakeNodeEvent(dropdown.node())(pickerEvent)
     renderSpy.should.have.been.called()
-    clock.restore()
     hx.select('body').clear()
     done()
 
@@ -1224,7 +1241,7 @@ describe 'data-table', ->
         testTable {tableOptions}, done, (container, dt, options, data) ->
           container.select('.hx-sticky-table-wrapper').select('tbody').select('tr').selectAll('td').forEach (cell, index) ->
             if index is 0
-              cell.attr('style').should.equal('max-width: 10px; width: 10px; min-width: 10px; ')
+              cell.attr('style').should.equal('max-width: 10px; width: 10px; min-width: 10px;')
             else
               should.not.exist(cell.attr('style'))
 
@@ -1277,7 +1294,6 @@ describe 'data-table', ->
           clock.tick(inputDebounceDelay)
           filterSpy.should.have.been.called.with()
           filterSpy.should.have.been.called.with('a', undefined, 'user')
-          clock.restore()
           done()
 
       it 'should update the filter input when changing the filter with the api', (done) ->
@@ -1619,7 +1635,6 @@ describe 'data-table', ->
             testHelpers.fakeNodeEvent(termNode.node(), 'input')({target: {value: 'd'}})
             clock.tick(inputDebounceDelay + 1)
             dt.advancedSearch().should.eql([[{column: 'any', term: 'a'}, {column: 'name', term: 'b'}, {column: 'any', term: 'd'}]])
-            clock.restore()
             hx.select('body').clear()
             done()
 
@@ -1945,7 +1960,6 @@ describe 'data-table', ->
             clock.tick(animationCompletedDelay)
             controlPanel.classed('hx-data-table-compact-hide').should.equal(true)
             controlPanelCompact.classed('hx-data-table-control-panel-compact-open').should.equal(false)
-            clock.restore()
 
 
 
@@ -2014,18 +2028,23 @@ describe 'data-table', ->
           testHelpers.fakeNodeEvent(selection.select('.hx-sticky-table-header-top').select('.hx-data-table-cell').node(), 'click')()
 
     describe 'filterchange', ->
-      it 'should emit an event when filter changed with cause: user', (done) ->
+      it 'should emit an event when filter changed with cause: user', ->
         selection = hx.detached('div')
         dt = new hx.DataTable(selection.node())
 
-        dt.on 'filterchange', (d) ->
-          d.value.should.equal('test')
-          d.cause.should.equal('user')
-          done()
+        spy = chai.spy()
+        dt.on 'filterchange', spy
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
-          selection.select('.hx-data-table-filter').value('test')
-          testHelpers.fakeNodeEvent(selection.select('.hx-data-table-filter').node(), 'input')()
+          input = selection.select('.hx-data-table-filter')
+          input.value('test')
+          testHelpers.fakeNodeEvent(input.node(), 'input')(fakeEvent)
+          clock.tick(inputDebounceDelay)
+          spy.should.have.been.called()
+          spy.should.have.been.called.with({
+            value: 'test',
+            cause: 'user'
+          })
 
 
     describe 'selectedrowschange', ->
@@ -2189,6 +2208,7 @@ describe 'data-table', ->
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           container.style('width', '100px')
+          clock.tick(resizeDelay)
 
       it 'should emit an event when changing from compact to full', (done) ->
         container = hx.select('body').append('div').style('width', '100px')
@@ -2205,8 +2225,9 @@ describe 'data-table', ->
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           container.style('width', '1000px')
+          clock.tick(resizeDelay)
 
-       it 'should not emit an event if it doesnt change mode', (done) ->
+       it 'should not emit an event if it doesnt change mode', () ->
 
         container = hx.select('body').append('div').style('width', '1000px')
 
@@ -2218,12 +2239,8 @@ describe 'data-table', ->
 
         dt.feed hx.dataTable.objectFeed(threeRowsData), ->
           container.style('width', '900px')
-
-          f = ->
-            called.should.equal(false)
-            done()
-          setTimeout(f, 50)
-
+          clock.tick(resizeDelay)
+          called.should.equal(false)
 
 
   describe 'data feeds', ->

@@ -17,6 +17,7 @@ describe 'dateTimeLocalizer', ->
   beforeEach ->
     hx.consoleWarning = chai.spy()
     localizer = hx.dateTimeLocalizer()
+    hx.preferences.timezone(hx._.preferences.defaultTimezoneLookup(0))
 
   afterEach ->
     hx.consoleWarning = origWarning

@@ -249,7 +249,7 @@ describe 'hx-date-picker', ->
             headerElem = fixture.select('.hx-calendar-header-title')
 
           it 'creates a div for the header text', ->
-            headerElem.node().nodeName = 'DIV'
+            headerElem.node().tagName.toLowerCase().should.equal('div')
 
           it 'changes the default view to month', ->
             dp.options.defaultView.should.equal('m')
@@ -262,9 +262,10 @@ describe 'hx-date-picker', ->
             })
             dp.show()
             clock.tick(animationDelay)
+            headerElem = fixture.select('.hx-calendar-header-title')
 
           it 'creates a button for the header text', ->
-            headerElem.node().nodeName = 'BUTTON'
+            headerElem.node().tagName.toLowerCase().should.equal('button')
 
           it 'allows the default view of decade', ->
             dp.options.defaultView.should.equal('d')
@@ -277,7 +278,6 @@ describe 'hx-date-picker', ->
 
           beforeEach ->
             input = fixture.append('input')
-            console.log('Test tagName', input.node().tagName)
             dp = new hx.DatePicker(input, { v2Features: true })
 
           it 'does not set the initial value', ->
@@ -404,7 +404,6 @@ describe 'hx-date-picker', ->
             beforeEach ->
               input.remove()
               input = fixture.append('input')
-              console.log('Test tagName', input.node().tagName)
               dp = new hx.DatePicker(input, {
                 v2Features: true
                 selectRange: true

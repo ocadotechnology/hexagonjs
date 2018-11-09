@@ -1,4 +1,11 @@
 describe 'hx-preferences', ->
+  origConsoleWarning = hx.consoleWarning
+  beforeEach ->
+    hx.consoleWarning = chai.spy()
+
+  afterEach ->
+    hx.consoleWarning = origConsoleWarning
+
   it 'should have user facing text defined', ->
     hx.userFacingText('preferences', 'locale').should.equal('Locale')
     hx.userFacingText('preferences', 'preferences').should.equal('Preferences')
@@ -46,11 +53,10 @@ describe 'hx-preferences', ->
         called.should.equal(true)
 
       it 'setter/getter for non supported value', ->
-        spy = chai.spy.on(hx, 'consoleWarning')
         hx.preferences.locale('vi').should.equal(hx.preferences)
         hx.preferences.locale('lemon').should.equal(hx.preferences)
         hx.preferences.locale().should.equal('vi')
-        spy.should.have.been.called()
+        hx.consoleWarning.should.have.been.called()
 
     describe 'timezone', ->
       it 'setter/getter', ->
@@ -72,9 +78,8 @@ describe 'hx-preferences', ->
         called.should.equal(true)
 
       it 'should not allow the use of unsupported timezones', ->
-        spy = chai.spy.on(hx, 'consoleWarning')
         hx.preferences.timezone('America').should.equal(hx.preferences)
-        spy.should.have.been.called()
+        hx.consoleWarning.should.have.been.called()
 
     describe 'defaultTimezoneLookup', ->
       it 'should get the correct string timezone', ->
