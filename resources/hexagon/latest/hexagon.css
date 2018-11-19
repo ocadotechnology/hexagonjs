@@ -3296,9 +3296,6 @@ select {
   select:focus {
     border-color: #B5B5B5; }
 
-::-moz-selection {
-  background: #B4B1B5; }
-
 ::selection {
   background: #B4B1B5; }
 
