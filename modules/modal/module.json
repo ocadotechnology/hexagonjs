@@ -3,7 +3,8 @@
     "event-emitter",
     "selection",
     "animate",
-    "icon"
+    "icon",
+    "morphs"
   ],
   "keywords": [
     "modal"
