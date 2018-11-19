@@ -67,6 +67,7 @@ class SideCollapsible extends hx.EventEmitter
           .style('display', 'block')
 
         morph = =>
+          @closedHeading.style('display', 'none')
           @selection.style('width', '')
           @content.morph()
             .with('expandh', 100)
