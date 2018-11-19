@@ -67,6 +67,10 @@
     @description
       Date pickers now listen for changes in @code[hx.preferences.locale] and @code[hx.preferences.timezone] and automatically update
 
+  @updated nextReleaseVersion
+    @description
+      Updated in preprartion for the next major release.
+
   @description
     The date picker can be used to create an interactive dropdown to let the user select a date.
 
@@ -101,6 +105,219 @@
 
       @default
         false
+
+  @constructor
+    @added 0.12.2
+    @updated 0.13.0
+      @description
+        Added options for initialising the datepicker as disabled or preventing the inbuilt datepicker.
+
+    @arg selector [String/HTMLElement]
+      @description
+        The selector to use to build the date picker
+
+    @arg? options [Object]
+      @description
+        The options to use when setting up the datepicker.
+
+      @property type [String]
+        @description
+          The type of date picker to show, can be either 'datepicker' or 'calendar'
+
+        @default
+          'calendar'
+
+      @property closeOnSelect [Boolean]
+        @description
+          Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
+
+        @default
+          true
+
+      @property selectRange [Boolean]
+        @description
+          Set to true to allow the selection of a date range. If this is set to true, the type is set to 'calendar' and showTodayButton is set to false as these properties cannot be used when in range selection mode.
+
+        @default
+          false
+
+      @property defaultView [String]
+        @description
+          The default view to use when using the date picker. Can be 'm' for month view, 'y' for year view or 'd' for decade view.
+
+        @default
+          'm'
+
+      @property showTodayButton [Boolean]
+        @description
+          Whether to show the 'today' button when using the date picker. The today button allows the user to select today regardless of what view they are currently in.
+
+        @default
+          true
+
+      @property allowInbuiltPicker [Boolean]
+        @added 0.13.0
+        @description
+          Whether to allow the inbuilt datepicker for touch devices. Generally this should be allowed as the inbuilt picker is generally more suited to the device.
+
+        @default
+          true
+
+      @property disabled [Boolean]
+        @updated 0.15.2
+          @description
+            Added the ability to disable a date picker in the options
+
+        @description
+          Whether the date picker should be disabled
+
+        @default
+          false
+
+      @property range [Object]
+        @added 1.17.0
+          @issue 350
+          @description
+            Added the ability to set the range when constructing a date picker
+
+        @description
+          An object containing the date range to set. The start/end dates will
+          be sorted internally if the end date is before the start date.
+
+        @property start [Date]
+          @description
+            The first date of the range
+
+        @property end [Date]
+          @description
+            The second date of the range
+
+      @property validRange [Object]
+        @added 1.17.0
+          @issue 350
+          @description
+            Added the ability to set the valid range when constructing a date
+            picker
+
+        @description
+          An object containing the valid range to set. The start/end dates will
+          be sorted internally if the end date is before the start date.
+
+        @property start [Date]
+          @description
+            The first date of the valid range. Dates after this point will be
+            selectable
+
+        @property end [Date]
+          @description
+            The second date of the valid range. Dates before this point will be
+            selectable.
+
+      @property v2Flags [Object]
+        @added nextReleaseVersion
+          @description
+            Added several flags that enable functionality that will be default in version 2.0.0 of Hexagon.
+
+        @description
+          An object containing flags to toggle features that will be standard in version 2
+
+          @property? dontModifyDateOnError [Boolean]
+            @description
+              The current behaviour modifies the date when there is a problem with the input value to attempt to display a valid date.
+
+              This behaviour will be removed in V2 and will instead only show a validation error.
+            @default: @code[false]
+
+          @property? displayLongMonthInCalendar [Boolean]
+            @description
+              Modifies the display text in the calendar to use the long month name (i.e. January 1970 instead of Jan / 1970)
+            @default: @code[false]
+
+          @property? dontSetInitialInputValue [Boolean]
+            @description
+              Does not set the initial value of the date picker input
+            @default: @code[false]
+
+          @property? updateVisibleMonthOnDateChange [Boolean]
+            @description
+              Updates the visible month when setting the date value with the API
+            @default: @code[false]
+
+          @property? dateValidityCallback [Function]
+            @description
+              The function that is called when validating the date and using an @code[<input />] element as the container for the date picker.
+
+              This function is only used when also using @code[dontModifyDateOnError: true]
+
+            @extra
+              @b: Simple validation
+              @@codeblock js
+                const input = hx.select('input#myInput')
+
+                new hx.DatePicker(input, {
+                  dateValidityCallback: (valid) => {
+                    input.node().setCustomValidity(valid ? '' : 'Please enter a valid date')
+                  }
+                })
+
+              @b: Range validation
+              @@codeblock js
+                const input = hx.select('input#myInput')
+
+                new hx.DatePicker(input, {
+                  validRange: {
+                    start: new Date(...),
+                    end: new Date(...),
+                  },
+                  dateValidityCallback: (valid, validityEnum) => {
+                    let message;
+                    switch(type) {
+                      case 'INVALID_DATE':
+                        message = 'Please enter a valid date'
+                        break;
+                      case 'DATE_OUTSIDE_RANGE_START':
+                      case 'DATE_OUTSIDE_RANGE_END':
+                        message = 'Please enter a date inside the valid range'
+                        break;
+                      default:
+                        message = '';
+                    }
+                    input.node().setCustomValidity(message)
+                  }
+                })
+
+            @arg valid [Boolean]
+              @description
+                Whether the entered date is valid. The validity can be @code[false] when the date entered is invalid or when it is outside the valid range.
+
+                The @code[validEnum] argument can be used to distinguish between types
+
+            @arg? validityEnum [String]
+              @description
+                A string indicating the type of validation failure that occurred.
+
+                This can be one of:
+
+                @list
+                  @item
+                    @code['INVALID_DATE'] - Caused by the user entering a value that cannot be converted to a date
+                  @item
+                    @code['DATE_OUTSIDE_RANGE_START'] - Caused when using the @code[validRange] option and the date is earlier than the start of the valid range
+                  @item
+                    @code['DATE_OUTSIDE_RANGE_END'] - Caused when using the @code[validRange] option and the date is later than the end of the valid range
+
+
+
+      @property allowViewChange [Boolean
+        @added nextReleaseVersion
+          @description
+            Added
+        @description
+          Whether to allow the user to 'zoom out' to display the year / decade selectors
+
+        @default
+          @code[true]
+
 
   @method showMonth
     @updated 0.11.0
@@ -669,113 +886,6 @@
     @returns [DatePicker]
       @description
         This DatePicker
-
-  @constructor
-    @added 0.12.2
-    @updated 0.13.0
-      @description
-        Added options for initialising the datepicker as disabled or preventing the inbuilt datepicker.
-
-    @arg selector [String/HTMLElement]
-      @description
-        The selector to use to build the date picker
-
-    @arg? options [Object]
-      @description
-        The options to use when setting up the datepicker.
-
-      @property type [String]
-        @description
-          The type of date picker to show, can be either 'datepicker' or 'calendar'
-
-        @default
-          'calendar'
-
-      @property closeOnSelect [Boolean]
-        @description
-          Supply true to close the calendar when a date is selected. False will keep the calandar view open when a date is selected.
-
-        @default
-          true
-
-      @property selectRange [Boolean]
-        @description
-          Set to true to allow the selection of a date range. If this is set to true, the type is set to 'calendar' and showTodayButton is set to false as these properties cannot be used when in range selection mode.
-
-        @default
-          false
-
-      @property defaultView [String]
-        @description
-          The default view to use when using the date picker. Can be 'm' for month view, 'y' for year view or 'd' for decade view.
-
-        @default
-          'm'
-
-      @property showTodayButton [Boolean]
-        @description
-          Whether to show the 'today' button when using the date picker. The today button allows the user to select today regardless of what view they are currently in.
-
-        @default
-          true
-
-      @property allowInbuiltPicker [Boolean]
-        @added 0.13.0
-        @description
-          Whether to allow the inbuilt datepicker for touch devices. Generally this should be allowed as the inbuilt picker is generally more suited to the device.
-
-        @default
-          true
-
-      @property disabled [Boolean]
-        @updated 0.15.2
-          @description
-            Added the ability to disable a date picker in the options
-
-        @description
-          Whether the date picker should be disabled
-
-        @default
-          false
-
-      @property range [Object]
-        @added 1.17.0
-          @issue 350
-          @description
-            Added the ability to set the range when constructing a date picker
-
-        @description
-          An object containing the date range to set. The start/end dates will
-          be sorted internally if the end date is before the start date.
-
-        @property start [Date]
-          @description
-            The first date of the range
-
-        @property end [Date]
-          @description
-            The second date of the range
-
-      @property validRange [Object]
-        @added 1.17.0
-          @issue 350
-          @description
-            Added the ability to set the valid range when constructing a date
-            picker
-
-        @description
-          An object containing the valid range to set. The start/end dates will
-          be sorted internally if the end date is before the start date.
-
-        @property start [Date]
-          @description
-            The first date of the valid range. Dates after this point will be
-            selectable
-
-        @property end [Date]
-          @description
-            The second date of the valid range. Dates before this point will be
-            selectable.
 
   @method visibleMonth
     @added 0.13.0
