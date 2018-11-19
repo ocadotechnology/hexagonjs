@@ -271,14 +271,19 @@ describe 'hx-date-picker', ->
             dp.options.defaultView.should.equal('d')
 
 
-      describe 'v2Features', ->
+      describe 'v2Flags', ->
         describe 'when using an input', ->
           dp = undefined
           input = undefined
 
           beforeEach ->
             input = fixture.append('input')
-            dp = new hx.DatePicker(input, { v2Features: true })
+            dp = new hx.DatePicker(input, { v2Features: {
+              dontModifyDateOnError: true,
+              displayLongMonthInCalendar: true,
+              dontSetInitialInputValue: true,
+              updateVisibleMonthOnDateChange: true,
+            }})
 
           it 'does not set the initial value', ->
             input.value().should.equal('')
@@ -304,8 +309,13 @@ describe 'hx-date-picker', ->
               dateValidityCallback = chai.spy()
 
               dp = new hx.DatePicker(input, {
-                v2Features: true
-                dateValidityCallback: dateValidityCallback,
+                v2Features: {
+                  dontModifyDateOnError: true,
+                  displayLongMonthInCalendar: true,
+                  dontSetInitialInputValue: true,
+                  updateVisibleMonthOnDateChange: true,
+                  dateValidityCallback: dateValidityCallback,
+                },
                 validRange: {
                   start: new Date(Date.now() - (oneDayMs * 4))
                   end: new Date(Date.now() + (oneDayMs * 4))
@@ -405,7 +415,12 @@ describe 'hx-date-picker', ->
               input.remove()
               input = fixture.append('input')
               dp = new hx.DatePicker(input, {
-                v2Features: true
+                v2Features: {
+                  dontModifyDateOnError: true,
+                  displayLongMonthInCalendar: true,
+                  dontSetInitialInputValue: true,
+                  updateVisibleMonthOnDateChange: true,
+                },
                 selectRange: true
               })
 

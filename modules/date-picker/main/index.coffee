@@ -104,8 +104,8 @@ toggleInputValidity = (input, dateValidityCallback, valid, type) ->
 validateDates = (datepicker) ->
   _ = datepicker._
   isRangePicker = datepicker.options.selectRange
-  if datepicker.options.v2Features
-    validityFn = _.inputOnlyMode and datepicker.options.dateValidityCallback
+  if datepicker.options.v2Features.dontModifyDateOnError
+    validityFn = _.inputOnlyMode and datepicker.options.v2Features.dateValidityCallback
     toggleInputValidity(_.input, validityFn, true)
 
     _.inputStart?.classed('hx-date-error', false)
@@ -184,7 +184,7 @@ buildCalendar = (datepicker, mode) ->
       data = getCalendarMonth(visible.year, visible.month - 1, localizer.weekStart())
       data.unshift 'days' # When the update gets to this it adds the days of the week as a row
       cls = 'hx-calendar-month'
-      if datepicker.options.v2Features
+      if datepicker.options.v2Features.displayLongMonthInCalendar
         text = "#{localizer.fullMonth(visible.month - 1)} #{localizer.year(visible.year)}"
       else
         text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year)
@@ -339,7 +339,7 @@ setupInput = (datepicker, initial) ->
     _.inputStart.value(datepicker.localizer.date range.start, _.useInbuilt)
     _.inputEnd.value(datepicker.localizer.date range.end or range.start, _.useInbuilt)
   else
-    if not (datepicker.options.v2Features and initial)
+    if not (datepicker.options.v2Features.dontSetInitialInputValue and initial)
       _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt))
 
 
@@ -387,8 +387,13 @@ class DatePicker extends hx.EventEmitter
       showTodayButton: true
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
-      v2Features: false # Toggle all v2 functionality
-      dateValidityCallback: undefined # Called when validating the input in input only mode
+      v2Features: {
+        dontModifyDateOnError: false,
+        displayLongMonthInCalendar: false,
+        dontSetInitialInputValue: false,
+        updateVisibleMonthOnDateChange: false,
+        dateValidityCallback: undefined # Called when validating the input when using dontModifyDateOnError
+      },
     }, options)
 
     _ = @_ = {
@@ -475,9 +480,9 @@ class DatePicker extends hx.EventEmitter
         self.hide()
         clearTimeout timeout
         timeout = setTimeout ->
-          if self.options.v2Features and _.input.value() is ''
-            if self.options.dateValidityCallback
-              self.options.dateValidityCallback(true)
+          if self.options.v2Features.dontSetInitialInputValue and _.input.value() is ''
+            if self.options.v2Features.dateValidityCallback
+              self.options.v2Features.dateValidityCallback(true)
             else
               _.input.classed('hx-date-error', false)
             return
@@ -486,11 +491,11 @@ class DatePicker extends hx.EventEmitter
           if date.getTime()
             if date.getTime() isnt self.date().getTime()
               self.date(date)
-              if not self.options.v2Features and self.options.type is 'calendar'
+              if not self.options.v2Features.updateVisibleMonthOnDateChange and self.options.type is 'calendar'
                 self.visibleMonth(date.getMonth() + 1, date.getFullYear())
           else
-            if self.options.dateValidityCallback
-              self.options.dateValidityCallback(false, 'INVALID_DATE')
+            if self.options.v2Features.dateValidityCallback
+              self.options.v2Features.dateValidityCallback(false, 'INVALID_DATE')
             else
               _.input.classed('hx-date-error', true)
         , 500
@@ -685,7 +690,7 @@ class DatePicker extends hx.EventEmitter
     if date?
       date = new Date date.getTime()
       date.setHours(0, 0, 0, 0)
-      if @options.v2Features and @options.type is 'calendar'
+      if @options.v2Features.updateVisibleMonthOnDateChange and @options.type is 'calendar'
         @visibleMonth(date.getMonth() + 1, date.getFullYear())
       _.startDate = date
       updateDatepicker(this)
