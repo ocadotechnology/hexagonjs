@@ -85,6 +85,7 @@ class AutocompletePicker extends hx.EventEmitter
       showOtherResults: resolvedOptions.showOtherResults
       trimTrailingSpaces: resolvedOptions.trimTrailingSpaces
       valueLookup: resolvedOptions.valueLookup
+      useCache: resolvedOptions.useCache
 
     feed = new hx.AutocompleteFeed(feedOptions)
 
