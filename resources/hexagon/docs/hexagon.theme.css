@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.17.1
+ Version: 1.18.1
  Theme: hexagon-light
  Modules:
    set
@@ -20,11 +20,12 @@
    selection
    transition
    interpolate
+   animate
    component
    sort
    user-facing-text
-   animate
    icon
+   morphs
    spinner
    view
    pointer-events
@@ -33,7 +34,6 @@
    modal
    notify
    format
-   morphs
    click-detector
    base
    preferences
@@ -91,6 +91,7 @@
    time-slider
    tree
 */
+
 
 
 
@@ -177,7 +178,6 @@
   color: #00ADA8; }
   .dx-notification-pin-pinned:hover {
     color: #037774; }
-
 
 
 
