@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.17.0
+ Version: 1.18.1
  Theme: hexagon-light
  Modules:
    set
@@ -20,11 +20,12 @@
    selection
    transition
    interpolate
+   animate
    component
    sort
    user-facing-text
-   animate
    icon
+   morphs
    spinner
    view
    pointer-events
@@ -33,7 +34,6 @@
    modal
    notify
    format
-   morphs
    click-detector
    base
    preferences
@@ -91,6 +91,7 @@
    time-slider
    tree
 */
+
 
 
 
@@ -180,7 +181,6 @@
 
 
 
-
 body, button, textarea,
 input {
   font-family: "Open Sans", sans-serif; }
@@ -222,9 +222,6 @@ select {
   color: #3D3D3D; }
   select:focus {
     border-color: #B5B5B5; }
-
-::-moz-selection {
-  background: #B4B1B5; }
 
 ::selection {
   background: #B4B1B5; }

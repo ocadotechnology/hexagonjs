@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.17.0
+ Version: 1.18.1
  Theme: hexagon-light
  Modules:
    set
@@ -20,11 +20,12 @@
    selection
    transition
    interpolate
+   animate
    component
    sort
    user-facing-text
-   animate
    icon
+   morphs
    spinner
    view
    pointer-events
@@ -33,7 +34,6 @@
    modal
    notify
    format
-   morphs
    click-detector
    base
    preferences
@@ -224,6 +224,9 @@ i.dx-icon {
 
 .dx-icon-info:before {
   content: "\f129"; }
+
+.dx-morph-hidden {
+  overflow: hidden !important; }
 
 @-webkit-keyframes rotate {
   0% {
@@ -514,9 +517,6 @@ body.dx-modal-open > .dx-notification-container {
     margin-left: 0;
     left: 0; } }
 
-
-.dx-morph-hidden {
-  overflow: hidden !important; }
 
 
 html {
@@ -954,20 +954,28 @@ a.dx-btn:hover {
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
-    -webkit-align-items: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch; }
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
     .dx-date-picker-calendar .dx-calendar-header .dx-btn {
       -webkit-flex: 1 1 60%;
           -ms-flex: 1 1 60%;
               flex: 1 1 60%; }
       .dx-date-picker-calendar .dx-calendar-header .dx-btn.dx-calendar-back, .dx-date-picker-calendar .dx-calendar-header .dx-btn.dx-calendar-forward {
-        -webkit-flex-basis: 10%;
-            -ms-flex-preferred-size: 10%;
-                flex-basis: 10%; }
+        -webkit-flex-basis: 0;
+            -ms-flex-preferred-size: 0;
+                flex-basis: 0;
+        -webkit-flex: 0;
+            -ms-flex: 0;
+                flex: 0; }
       .dx-date-picker-calendar .dx-calendar-header .dx-btn.dx-calendar-button {
         padding-left: 0;
         padding-right: 0; }
+    .dx-date-picker-calendar .dx-calendar-header .dx-calendar-header-title {
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      text-align: center; }
   .dx-date-picker-calendar .dx-calendar-today-btn {
     display: -webkit-flex;
     display: -ms-flexbox;

@@ -34,7 +34,7 @@
 
 
 
-@version nextReleaseVersion
+@version 1.18.1
   @examples
     @example
       @@html

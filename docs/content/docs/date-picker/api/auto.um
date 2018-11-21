@@ -67,7 +67,7 @@
     @description
       Date pickers now listen for changes in @code[hx.preferences.locale] and @code[hx.preferences.timezone] and automatically update
 
-  @updated nextReleaseVersion
+  @updated 1.18.1
     @description
       Updated in preprartion for the next major release.
 
@@ -214,7 +214,7 @@
             selectable.
 
       @property v2Flags [Object]
-        @added nextReleaseVersion
+        @added 1.18.1
           @description
             Added several flags that enable functionality that will be default in version 2.0.0 of Hexagon.
 
@@ -309,9 +309,10 @@
 
 
       @property allowViewChange [Boolean
-        @added nextReleaseVersion
+        @added 1.18.1
           @description
-            Added
+            Added an option to toggle the ability to view the calendar by year/decade
+
         @description
           Whether to allow the user to 'zoom out' to display the year / decade selectors
 

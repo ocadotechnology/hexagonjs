@@ -463,4 +463,11 @@
         Fix an issue with the form validation that was not correctly handling the
         new form buttons element and add tests
 
+    @version 1.18.1
+      @description
+        Update the Datepicker to add feature flags for version 2.0.0 to allow for an
+        easier migration path.
+
+        Additionally resolve some long standing bugs with Autocomplete and the side
+        collapsible
 

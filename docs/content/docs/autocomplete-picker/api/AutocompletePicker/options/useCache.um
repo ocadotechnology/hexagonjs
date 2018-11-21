@@ -1,5 +1,6 @@
 @property useCache [Boolean]
-  @bugfix nextReleaseVersion
+  @bugfix 1.18.1
+    @issue 511
     @description
       Resolved an issue where this value was ignored
 
