@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.17.1
+ Version: 1.18.1
  Theme: hexagon-light
  Modules:
    set
@@ -20,11 +20,12 @@
    selection
    transition
    interpolate
+   animate
    component
    sort
    user-facing-text
-   animate
    icon
+   morphs
    spinner
    view
    pointer-events
@@ -33,7 +34,6 @@
    modal
    notify
    format
-   morphs
    click-detector
    base
    preferences
@@ -104,11 +104,12 @@ hx.theme = {
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "animate": {},
   "component": {},
   "sort": {},
   "userFacingText": {},
-  "animate": {},
   "icon": {},
+  "morphs": {},
   "spinner": {
     "spinnerCol": "#00ADA8"
   },
@@ -151,7 +152,6 @@ hx.theme = {
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "format": {},
-  "morphs": {},
   "clickDetector": {},
   "base": {
     "defaultFontFamily": "'Open Sans', sans-serif",
@@ -3356,284 +3356,6 @@ hx.interpolate = function(a, b) {
 
 })();
 (function(){
-hx.component = function(selector) {
-  var ref, ref1, ref2;
-  return (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
-};
-
-hx.components = function(selector) {
-  var components, ref, ref1;
-  components = (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? ref1.components : void 0 : void 0;
-  if (components) {
-    return components.slice();
-  } else {
-    return [];
-  }
-};
-
-hx.components.clear = function(selector) {
-  var node;
-  node = hx.select(selector).node();
-  if (node.__hx__ == null) {
-    node.__hx__ = {};
-  }
-  node.__hx__.components = [];
-};
-
-hx.component.register = function(selector, component) {
-  var base, node;
-  node = hx.select(selector).node();
-  if (node.__hx__ == null) {
-    node.__hx__ = {};
-  }
-  if ((base = node.__hx__).components == null) {
-    base.components = [];
-  }
-  node.__hx__.components.push(component);
-};
-
-if (hx.Selection) {
-  hx.Selection.prototype.component = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return hx.component(this.nodes[0]);
-      }
-    } else {
-      return this.nodes.map(hx.component);
-    }
-  };
-  hx.Selection.prototype.components = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return hx.components(this.nodes[0]);
-      }
-    } else {
-      return this.nodes.map(hx.components);
-    }
-  };
-  hx.Selection.prototype.api = function(api) {
-    if (arguments.length > 0) {
-      if (this.singleSelection) {
-        hx.component.register(this.nodes[0], api);
-      } else {
-        hx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection');
-      }
-      return this;
-    } else {
-      if (this.singleSelection) {
-        if (this.nodes[0]) {
-          return hx.component(this.nodes[0]);
-        }
-      } else {
-        return this.nodes.map(hx.component);
-      }
-    }
-  };
-}
-
-})();
-(function(){
-var collatorFn, compare, compareNullsLast, defaultCollator, hasCollator, localeCollatorFn, localeCompare, nullsLastCollator,
-  slice = [].slice;
-
-hasCollator = function() {
-  return (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
-};
-
-hx._.sort = {};
-
-collatorFn = function() {
-  if (hasCollator()) {
-    return new Intl.Collator(void 0, {
-      numeric: true
-    }).compare;
-  } else {
-    return function(a, b) {
-      if (a === b) {
-        return 0;
-      } else if (String(a) < String(b)) {
-        return -1;
-      } else {
-        return 1;
-      }
-    };
-  }
-};
-
-nullsLastCollator = function(collator) {
-  return function(a, b) {
-    if (a === b) {
-      return 0;
-    } else if (a === void 0) {
-      return 1;
-    } else if (b === void 0) {
-      return -1;
-    } else if (a === null) {
-      return 1;
-    } else if (b === null) {
-      return -1;
-    } else if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return collator(a, b);
-    }
-  };
-};
-
-defaultCollator = function(collator) {
-  return function(a, b) {
-    if ((a != null) && (b != null) && !isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return collator(a, b);
-    }
-  };
-};
-
-compare = function(a, b) {
-  var base;
-  if ((base = hx._.sort).collator == null) {
-    base.collator = collatorFn();
-  }
-  return defaultCollator(hx._.sort.collator)(a, b);
-};
-
-compareNullsLast = function(a, b) {
-  var base;
-  if ((base = hx._.sort).collator == null) {
-    base.collator = collatorFn();
-  }
-  return nullsLastCollator(hx._.sort.collator)(a, b);
-};
-
-localeCollatorFn = function(locale, options) {
-  if (hasCollator()) {
-    return new Intl.Collator(locale, options).compare;
-  } else {
-    return function(a, b) {
-      return String(a).localeCompare(String(b), locale, options);
-    };
-  }
-};
-
-localeCompare = function(locale, options) {
-  var localeCollator;
-  options = hx.merge.defined(options, {
-    numeric: true
-  });
-  localeCollator = localeCollatorFn(locale, options);
-  if (options.nullsLast) {
-    return nullsLastCollator(localeCollator);
-  } else {
-    return defaultCollator(localeCollator);
-  }
-};
-
-hx.sortBy = function(arr, f) {
-  var newArr;
-  newArr = slice.call(arr);
-  newArr.sort(function(left, right) {
-    var fLeft, fRight;
-    fLeft = f(left);
-    fRight = f(right);
-    return compare(fLeft, fRight);
-  });
-  return newArr;
-};
-
-hx.sort = function(arr) {
-  return hx.sortBy(arr, function(x) {
-    return x;
-  });
-};
-
-hx.sort.compare = compare;
-
-hx.sort.compareNullsLast = compareNullsLast;
-
-hx.sort.localeCompare = localeCompare;
-
-})();
-(function(){
-var _, completeGetterSetter, isValid, partialGetterSetter, userFacingText, userFacingTextDefaults;
-
-_ = {
-  initialValues: {},
-  localisedText: {}
-};
-
-completeGetterSetter = function(object) {
-  var key, module;
-  if (arguments.length) {
-    if (hx.isPlainObject(object)) {
-      for (module in object) {
-        for (key in object[module]) {
-          partialGetterSetter(module, key, object[module][key]);
-        }
-      }
-      return void 0;
-    } else {
-      return hx.consoleWarning("hx.userFacingText: Expected a plain object but was instead passed: " + object);
-    }
-  } else {
-    return hx.clone(_.localisedText);
-  }
-};
-
-isValid = function(value) {
-  return hx.isString(value) && value.length;
-};
-
-partialGetterSetter = function(module, key, value) {
-  var base, base1, base2, ref, text;
-  if (isValid(module) && isValid(key)) {
-    if (isValid(value)) {
-      if ((base = _.localisedText)[module] == null) {
-        base[module] = {};
-      }
-      _.localisedText[module][key] = value;
-      if ((base1 = _.initialValues)[module] == null) {
-        base1[module] = {};
-      }
-      if ((base2 = _.initialValues[module])[key] == null) {
-        base2[key] = value;
-      }
-      return void 0;
-    } else if (value == null) {
-      text = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
-      if (text) {
-        return text;
-      } else {
-        return hx.consoleWarning("hx.userFacingText: No text was found for key: " + key + " in module: " + module);
-      }
-    } else {
-      return hx.consoleWarning("hx.userFacingText: The value provided must be a string but was passed value: " + value);
-    }
-  } else {
-    return hx.consoleWarning("hx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
-  }
-};
-
-userFacingText = function() {
-  if (arguments.length <= 1) {
-    return completeGetterSetter.apply(this, arguments);
-  } else {
-    return partialGetterSetter.apply(this, arguments);
-  }
-};
-
-userFacingTextDefaults = function() {
-  return hx.clone(_.initialValues);
-};
-
-hx.userFacingText = userFacingText;
-
-hx.userFacingText.defaults = userFacingTextDefaults;
-
-hx._.userFacingText = _;
-
-})();
-(function(){
 
 /* istanbul ignore next: ignore coffeescript generated code that can't be covered */
 var Animation, Morph, hx_morphs,
@@ -3969,7 +3691,499 @@ hx.morph.register = function(name, morph) {
 };
 
 })();
+(function(){
+hx.component = function(selector) {
+  var ref, ref1, ref2;
+  return (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
+};
 
+hx.components = function(selector) {
+  var components, ref, ref1;
+  components = (ref = hx.select(selector).node()) != null ? (ref1 = ref.__hx__) != null ? ref1.components : void 0 : void 0;
+  if (components) {
+    return components.slice();
+  } else {
+    return [];
+  }
+};
+
+hx.components.clear = function(selector) {
+  var node;
+  node = hx.select(selector).node();
+  if (node.__hx__ == null) {
+    node.__hx__ = {};
+  }
+  node.__hx__.components = [];
+};
+
+hx.component.register = function(selector, component) {
+  var base, node;
+  node = hx.select(selector).node();
+  if (node.__hx__ == null) {
+    node.__hx__ = {};
+  }
+  if ((base = node.__hx__).components == null) {
+    base.components = [];
+  }
+  node.__hx__.components.push(component);
+};
+
+if (hx.Selection) {
+  hx.Selection.prototype.component = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return hx.component(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(hx.component);
+    }
+  };
+  hx.Selection.prototype.components = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return hx.components(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(hx.components);
+    }
+  };
+  hx.Selection.prototype.api = function(api) {
+    if (arguments.length > 0) {
+      if (this.singleSelection) {
+        hx.component.register(this.nodes[0], api);
+      } else {
+        hx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection');
+      }
+      return this;
+    } else {
+      if (this.singleSelection) {
+        if (this.nodes[0]) {
+          return hx.component(this.nodes[0]);
+        }
+      } else {
+        return this.nodes.map(hx.component);
+      }
+    }
+  };
+}
+
+})();
+(function(){
+var collatorFn, compare, compareNullsLast, defaultCollator, hasCollator, localeCollatorFn, localeCompare, nullsLastCollator,
+  slice = [].slice;
+
+hasCollator = function() {
+  return (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
+};
+
+hx._.sort = {};
+
+collatorFn = function() {
+  if (hasCollator()) {
+    return new Intl.Collator(void 0, {
+      numeric: true
+    }).compare;
+  } else {
+    return function(a, b) {
+      if (a === b) {
+        return 0;
+      } else if (String(a) < String(b)) {
+        return -1;
+      } else {
+        return 1;
+      }
+    };
+  }
+};
+
+nullsLastCollator = function(collator) {
+  return function(a, b) {
+    if (a === b) {
+      return 0;
+    } else if (a === void 0) {
+      return 1;
+    } else if (b === void 0) {
+      return -1;
+    } else if (a === null) {
+      return 1;
+    } else if (b === null) {
+      return -1;
+    } else if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
+defaultCollator = function(collator) {
+  return function(a, b) {
+    if ((a != null) && (b != null) && !isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
+compare = function(a, b) {
+  var base;
+  if ((base = hx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return defaultCollator(hx._.sort.collator)(a, b);
+};
+
+compareNullsLast = function(a, b) {
+  var base;
+  if ((base = hx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return nullsLastCollator(hx._.sort.collator)(a, b);
+};
+
+localeCollatorFn = function(locale, options) {
+  if (hasCollator()) {
+    return new Intl.Collator(locale, options).compare;
+  } else {
+    return function(a, b) {
+      return String(a).localeCompare(String(b), locale, options);
+    };
+  }
+};
+
+localeCompare = function(locale, options) {
+  var localeCollator;
+  options = hx.merge.defined(options, {
+    numeric: true
+  });
+  localeCollator = localeCollatorFn(locale, options);
+  if (options.nullsLast) {
+    return nullsLastCollator(localeCollator);
+  } else {
+    return defaultCollator(localeCollator);
+  }
+};
+
+hx.sortBy = function(arr, f) {
+  var newArr;
+  newArr = slice.call(arr);
+  newArr.sort(function(left, right) {
+    var fLeft, fRight;
+    fLeft = f(left);
+    fRight = f(right);
+    return compare(fLeft, fRight);
+  });
+  return newArr;
+};
+
+hx.sort = function(arr) {
+  return hx.sortBy(arr, function(x) {
+    return x;
+  });
+};
+
+hx.sort.compare = compare;
+
+hx.sort.compareNullsLast = compareNullsLast;
+
+hx.sort.localeCompare = localeCompare;
+
+})();
+(function(){
+var _, completeGetterSetter, isValid, partialGetterSetter, userFacingText, userFacingTextDefaults;
+
+_ = {
+  initialValues: {},
+  localisedText: {}
+};
+
+completeGetterSetter = function(object) {
+  var key, module;
+  if (arguments.length) {
+    if (hx.isPlainObject(object)) {
+      for (module in object) {
+        for (key in object[module]) {
+          partialGetterSetter(module, key, object[module][key]);
+        }
+      }
+      return void 0;
+    } else {
+      return hx.consoleWarning("hx.userFacingText: Expected a plain object but was instead passed: " + object);
+    }
+  } else {
+    return hx.clone(_.localisedText);
+  }
+};
+
+isValid = function(value) {
+  return hx.isString(value) && value.length;
+};
+
+partialGetterSetter = function(module, key, value) {
+  var base, base1, base2, ref, text;
+  if (isValid(module) && isValid(key)) {
+    if (isValid(value)) {
+      if ((base = _.localisedText)[module] == null) {
+        base[module] = {};
+      }
+      _.localisedText[module][key] = value;
+      if ((base1 = _.initialValues)[module] == null) {
+        base1[module] = {};
+      }
+      if ((base2 = _.initialValues[module])[key] == null) {
+        base2[key] = value;
+      }
+      return void 0;
+    } else if (value == null) {
+      text = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
+      if (text) {
+        return text;
+      } else {
+        return hx.consoleWarning("hx.userFacingText: No text was found for key: " + key + " in module: " + module);
+      }
+    } else {
+      return hx.consoleWarning("hx.userFacingText: The value provided must be a string but was passed value: " + value);
+    }
+  } else {
+    return hx.consoleWarning("hx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
+  }
+};
+
+userFacingText = function() {
+  if (arguments.length <= 1) {
+    return completeGetterSetter.apply(this, arguments);
+  } else {
+    return partialGetterSetter.apply(this, arguments);
+  }
+};
+
+userFacingTextDefaults = function() {
+  return hx.clone(_.initialValues);
+};
+
+hx.userFacingText = userFacingText;
+
+hx.userFacingText.defaults = userFacingTextDefaults;
+
+hx._.userFacingText = _;
+
+})();
+
+(function(){
+var Delay, animateStyles, clearAndGet, getStyles, setStyles,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+hx.morph.register('fadeout', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return hx.animate(node).style('opacity', 0, duration);
+});
+
+hx.morph.register('fadein', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return hx.animate(node).style('opacity', 1, duration);
+});
+
+getStyles = function(selection, properties) {
+  var i, j, len, len1, p, results, results1;
+  if (selection.style('display') !== 'none') {
+    results = [];
+    for (i = 0, len = properties.length; i < len; i++) {
+      p = properties[i];
+      results.push({
+        name: p,
+        value: selection.style(p)
+      });
+    }
+    return results;
+  } else {
+    results1 = [];
+    for (j = 0, len1 = properties.length; j < len1; j++) {
+      p = properties[j];
+      results1.push({
+        name: p,
+        value: '0px'
+      });
+    }
+    return results1;
+  }
+};
+
+clearAndGet = function(selection, properties) {
+  var i, len, p, results;
+  results = [];
+  for (i = 0, len = properties.length; i < len; i++) {
+    p = properties[i];
+    results.push({
+      name: p,
+      value: selection.style(p, '').style(p)
+    });
+  }
+  return results;
+};
+
+setStyles = function(selection, properties) {
+  var i, item, len;
+  for (i = 0, len = properties.length; i < len; i++) {
+    item = properties[i];
+    selection.style(item.name, item.value);
+  }
+};
+
+animateStyles = function(selection, properties, duration) {
+  var animation, i, item, len;
+  animation = selection.animate();
+  for (i = 0, len = properties.length; i < len; i++) {
+    item = properties[i];
+    animation.style(item.name, item.value, duration);
+  }
+  return animation;
+};
+
+hx.morph.register('expand', function(node, duration) {
+  var end, properties, selection, start;
+  if (duration == null) {
+    duration = 100;
+  }
+  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom', 'width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
+  selection = hx.select(node);
+  start = getStyles(selection, properties);
+  selection.style('display', '');
+  end = clearAndGet(selection, properties);
+  setStyles(selection, start);
+  selection.classed('hx-morph-hidden', true);
+  return animateStyles(selection, end, duration).on('end', 'hx.morphs', function(e) {
+    clearAndGet(selection, properties);
+    return selection.classed('hx-morph-hidden', false);
+  });
+});
+
+hx.morph.register('expandv', function(node, duration) {
+  var end, properties, selection, start;
+  if (duration == null) {
+    duration = 100;
+  }
+  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom'];
+  selection = hx.select(node);
+  start = getStyles(selection, properties);
+  selection.style('display', '');
+  end = clearAndGet(selection, properties);
+  setStyles(selection, start);
+  selection.classed('hx-morph-hidden', true);
+  return animateStyles(selection, end, duration).on('end', 'hx.morphs', function(e) {
+    clearAndGet(selection, properties);
+    return selection.classed('hx-morph-hidden', false);
+  });
+});
+
+hx.morph.register('expandh', function(node, duration) {
+  var end, properties, selection, start;
+  if (duration == null) {
+    duration = 100;
+  }
+  properties = ['width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
+  selection = hx.select(node);
+  start = getStyles(selection, properties);
+  selection.style('display', '');
+  end = clearAndGet(selection, properties);
+  setStyles(selection, start);
+  selection.classed('hx-morph-hidden', true);
+  return animateStyles(selection, end, duration).on('end', 'hx.morphs', function(e) {
+    clearAndGet(selection, properties);
+    return selection.classed('hx-morph-hidden', false);
+  });
+});
+
+hx.morph.register('collapse', function(node, duration) {
+  var selection;
+  if (duration == null) {
+    duration = 100;
+  }
+  selection = hx.select(node).classed('hx-morph-hidden', true);
+  return hx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'hx.morphs', function(e) {
+    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('hx-morph-hidden', false);
+  });
+});
+
+hx.morph.register('collapsev', function(node, duration) {
+  var selection;
+  if (duration == null) {
+    duration = 100;
+  }
+  selection = hx.select(node).classed('hx-morph-hidden', true);
+  return hx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).on('end', 'hx.morphs', function(e) {
+    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').classed('hx-morph-hidden', false);
+  });
+});
+
+hx.morph.register('collapseh', function(node, duration) {
+  var selection;
+  if (duration == null) {
+    duration = 100;
+  }
+  selection = hx.select(node).classed('hx-morph-hidden', true);
+  return hx.animate(node).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'hx.morphs', function(e) {
+    return selection.style('display', 'none').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('hx-morph-hidden', false);
+  });
+});
+
+hx.morph.register('rotate-90', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return hx.animate(node).style('-webkit-transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).style('transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).on('end', 'hx.morphs', function() {
+    return hx.select(node).style('transform', '').style('-webkit-transform', '');
+  }).on('cancel', 'hx.morphs', function() {
+    return hx.select(node).style('transform', '').style('-webkit-transform', '');
+  });
+});
+
+hx.morph.register('rotate-0', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return hx.animate(node).style('-webkit-transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).style('transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).on('end', 'hx.morphs', function() {
+    return hx.select(node).style('transform', '').style('-webkit-transform', '');
+  }).on('cancel', 'hx.morphs', function() {
+    return hx.select(node).style('transform', '').style('-webkit-transform', '');
+  });
+});
+
+Delay = (function(superClass) {
+  extend(Delay, superClass);
+
+  function Delay(duration) {
+    this.cancel = bind(this.cancel, this);
+    Delay.__super__.constructor.apply(this, arguments);
+    this.timeout = setTimeout(((function(_this) {
+      return function() {
+        return _this.emit('end');
+      };
+    })(this)), duration);
+  }
+
+  Delay.prototype.cancel = function() {
+    return clearTimeout(this.timeout);
+  };
+
+  return Delay;
+
+})(hx.EventEmitter);
+
+hx.morph.register('delay', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return new Delay(duration);
+});
+
+})();
 
 (function(){
 var View;
@@ -5173,220 +5387,6 @@ hx.format = {
     };
   }
 };
-
-})();
-(function(){
-var Delay, animateStyles, clearAndGet, getStyles, setStyles,
-  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-hx.morph.register('fadeout', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return hx.animate(node).style('opacity', 0, duration);
-});
-
-hx.morph.register('fadein', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return hx.animate(node).style('opacity', 1, duration);
-});
-
-getStyles = function(selection, properties) {
-  var i, j, len, len1, p, results, results1;
-  if (selection.style('display') !== 'none') {
-    results = [];
-    for (i = 0, len = properties.length; i < len; i++) {
-      p = properties[i];
-      results.push({
-        name: p,
-        value: selection.style(p)
-      });
-    }
-    return results;
-  } else {
-    results1 = [];
-    for (j = 0, len1 = properties.length; j < len1; j++) {
-      p = properties[j];
-      results1.push({
-        name: p,
-        value: '0px'
-      });
-    }
-    return results1;
-  }
-};
-
-clearAndGet = function(selection, properties) {
-  var i, len, p, results;
-  results = [];
-  for (i = 0, len = properties.length; i < len; i++) {
-    p = properties[i];
-    results.push({
-      name: p,
-      value: selection.style(p, '').style(p)
-    });
-  }
-  return results;
-};
-
-setStyles = function(selection, properties) {
-  var i, item, len;
-  for (i = 0, len = properties.length; i < len; i++) {
-    item = properties[i];
-    selection.style(item.name, item.value);
-  }
-};
-
-animateStyles = function(selection, properties, duration) {
-  var animation, i, item, len;
-  animation = selection.animate();
-  for (i = 0, len = properties.length; i < len; i++) {
-    item = properties[i];
-    animation.style(item.name, item.value, duration);
-  }
-  return animation;
-};
-
-hx.morph.register('expand', function(node, duration) {
-  var end, properties, selection, start;
-  if (duration == null) {
-    duration = 100;
-  }
-  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom', 'width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
-  selection = hx.select(node);
-  start = getStyles(selection, properties);
-  selection.style('display', '');
-  end = clearAndGet(selection, properties);
-  setStyles(selection, start);
-  selection.classed('hx-morph-hidden', true);
-  return animateStyles(selection, end, duration).on('end', 'hx.morphs', function(e) {
-    clearAndGet(selection, properties);
-    return selection.classed('hx-morph-hidden', false);
-  });
-});
-
-hx.morph.register('expandv', function(node, duration) {
-  var end, properties, selection, start;
-  if (duration == null) {
-    duration = 100;
-  }
-  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom'];
-  selection = hx.select(node);
-  start = getStyles(selection, properties);
-  selection.style('display', '');
-  end = clearAndGet(selection, properties);
-  setStyles(selection, start);
-  selection.classed('hx-morph-hidden', true);
-  return animateStyles(selection, end, duration).on('end', 'hx.morphs', function(e) {
-    clearAndGet(selection, properties);
-    return selection.classed('hx-morph-hidden', false);
-  });
-});
-
-hx.morph.register('expandh', function(node, duration) {
-  var end, properties, selection, start;
-  if (duration == null) {
-    duration = 100;
-  }
-  properties = ['width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
-  selection = hx.select(node);
-  start = getStyles(selection, properties);
-  selection.style('display', '');
-  end = clearAndGet(selection, properties);
-  setStyles(selection, start);
-  selection.classed('hx-morph-hidden', true);
-  return animateStyles(selection, end, duration).on('end', 'hx.morphs', function(e) {
-    clearAndGet(selection, properties);
-    return selection.classed('hx-morph-hidden', false);
-  });
-});
-
-hx.morph.register('collapse', function(node, duration) {
-  var selection;
-  if (duration == null) {
-    duration = 100;
-  }
-  selection = hx.select(node).classed('hx-morph-hidden', true);
-  return hx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'hx.morphs', function(e) {
-    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('hx-morph-hidden', false);
-  });
-});
-
-hx.morph.register('collapsev', function(node, duration) {
-  var selection;
-  if (duration == null) {
-    duration = 100;
-  }
-  selection = hx.select(node).classed('hx-morph-hidden', true);
-  return hx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).on('end', 'hx.morphs', function(e) {
-    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').classed('hx-morph-hidden', false);
-  });
-});
-
-hx.morph.register('collapseh', function(node, duration) {
-  var selection;
-  if (duration == null) {
-    duration = 100;
-  }
-  selection = hx.select(node).classed('hx-morph-hidden', true);
-  return hx.animate(node).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'hx.morphs', function(e) {
-    return selection.style('display', 'none').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('hx-morph-hidden', false);
-  });
-});
-
-hx.morph.register('rotate-90', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return hx.animate(node).style('-webkit-transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).style('transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).on('end', 'hx.morphs', function() {
-    return hx.select(node).style('transform', '').style('-webkit-transform', '');
-  }).on('cancel', 'hx.morphs', function() {
-    return hx.select(node).style('transform', '').style('-webkit-transform', '');
-  });
-});
-
-hx.morph.register('rotate-0', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return hx.animate(node).style('-webkit-transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).style('transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).on('end', 'hx.morphs', function() {
-    return hx.select(node).style('transform', '').style('-webkit-transform', '');
-  }).on('cancel', 'hx.morphs', function() {
-    return hx.select(node).style('transform', '').style('-webkit-transform', '');
-  });
-});
-
-Delay = (function(superClass) {
-  extend(Delay, superClass);
-
-  function Delay(duration) {
-    this.cancel = bind(this.cancel, this);
-    Delay.__super__.constructor.apply(this, arguments);
-    this.timeout = setTimeout(((function(_this) {
-      return function() {
-        return _this.emit('end');
-      };
-    })(this)), duration);
-  }
-
-  Delay.prototype.cancel = function() {
-    return clearTimeout(this.timeout);
-  };
-
-  return Delay;
-
-})(hx.EventEmitter);
-
-hx.morph.register('delay', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return new Delay(duration);
-});
 
 })();
 (function(){
@@ -6596,6 +6596,10 @@ DateTimeLocalizer = (function(superClass) {
     }
   };
 
+  DateTimeLocalizer.prototype.fullMonth = function(month) {
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][month];
+  };
+
   DateTimeLocalizer.prototype.year = function(year) {
     return year;
   };
@@ -6752,6 +6756,12 @@ DateTimeLocalizerMoment = (function(superClass) {
     return moment({
       month: month
     }).locale(this.locale()).format(short ? 'MM' : 'MMM');
+  };
+
+  DateTimeLocalizerMoment.prototype.fullMonth = function(month) {
+    return moment({
+      month: month
+    }).locale(this.locale()).format('MMMM');
   };
 
   DateTimeLocalizerMoment.prototype.year = function(year) {
@@ -7834,7 +7844,7 @@ hx.AutocompleteFeed = AutocompleteFeed;
 
 })();
 (function(){
-var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates,
+var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, toggleInputValidity, updateDatepicker, validateDates,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -7964,39 +7974,88 @@ isToday = function(year, month, day) {
   return date.toString() === today.toString();
 };
 
+toggleInputValidity = function(input, dateValidityCallback, valid, type) {
+  if (input != null) {
+    if (dateValidityCallback) {
+      return dateValidityCallback(valid, type);
+    } else {
+      return input.classed('hx-date-error', !valid);
+    }
+  }
+};
+
 validateDates = function(datepicker) {
-  var _, isRangePicker, tDate;
+  var _, isRangePicker, ref, ref1, ref2, ref3, ref4, ref5, tDate, validityFn;
   _ = datepicker._;
   isRangePicker = datepicker.options.selectRange;
-  if (_.validRange != null) {
-    if (_.validRange.start != null) {
-      if (_.startDate < _.validRange.start) {
-        _.startDate = new Date(_.validRange.start.getTime());
+  if (datepicker.options.v2Features.dontModifyDateOnError) {
+    validityFn = _.inputOnlyMode && datepicker.options.v2Features.dateValidityCallback;
+    toggleInputValidity(_.input, validityFn, true);
+    if ((ref = _.inputStart) != null) {
+      ref.classed('hx-date-error', false);
+    }
+    if ((ref1 = _.inputEnd) != null) {
+      ref1.classed('hx-date-error', false);
+    }
+    if (_.validRange != null) {
+      if (_.validRange.start != null) {
+        if (_.startDate < _.validRange.start) {
+          toggleInputValidity(_.input, validityFn, false, 'DATE_OUTSIDE_RANGE_START');
+          if ((ref2 = _.inputStart) != null) {
+            ref2.classed('hx-date-error', true);
+          }
+        }
+        if (isRangePicker && _.endDate < _.validRange.start) {
+          if ((ref3 = _.inputEnd) != null) {
+            ref3.classed('hx-date-error', true);
+          }
+        }
       }
-      if (isRangePicker && _.endDate < _.validRange.start) {
-        _.endDate = new Date(_.validRange.start.getTime());
+      if (_.validRange.end != null) {
+        if (_.startDate > _.validRange.end) {
+          toggleInputValidity(_.input, validityFn, false, 'DATE_OUTSIDE_RANGE_END');
+          if ((ref4 = _.inputStart) != null) {
+            ref4.classed('hx-date-error', true);
+          }
+        }
+        if (isRangePicker && _.endDate > _.validRange.end) {
+          if ((ref5 = _.inputEnd) != null) {
+            ref5.classed('hx-date-error', true);
+          }
+        }
       }
     }
-    if (_.validRange.end != null) {
-      if (_.startDate > _.validRange.end) {
-        _.startDate = new Date(_.validRange.end.getTime());
-      }
-      if (isRangePicker && _.endDate > _.validRange.end) {
-        _.endDate = new Date(_.validRange.end.getTime());
-      }
-    }
-  }
-  if (!isRangePicker) {
-    _.endDate = _.startDate;
   } else {
-    if (_.endDate < _.startDate) {
-      tDate = _.endDate;
-      _.endDate = _.startDate;
-      _.startDate = tDate;
+    if (_.validRange != null) {
+      if (_.validRange.start != null) {
+        if (_.startDate < _.validRange.start) {
+          _.startDate = new Date(_.validRange.start.getTime());
+        }
+        if (isRangePicker && _.endDate < _.validRange.start) {
+          _.endDate = new Date(_.validRange.start.getTime());
+        }
+      }
+      if (_.validRange.end != null) {
+        if (_.startDate > _.validRange.end) {
+          _.startDate = new Date(_.validRange.end.getTime());
+        }
+        if (isRangePicker && _.endDate > _.validRange.end) {
+          _.endDate = new Date(_.validRange.end.getTime());
+        }
+      }
     }
+    if (!isRangePicker) {
+      _.endDate = _.startDate;
+    } else {
+      if (_.endDate < _.startDate) {
+        tDate = _.endDate;
+        _.endDate = _.startDate;
+        _.startDate = tDate;
+      }
+    }
+    _.endDate.setHours(0, 0, 0, 0);
+    _.startDate.setHours(0, 0, 0, 0);
   }
-  _.endDate.setHours(0, 0, 0, 0);
-  _.startDate.setHours(0, 0, 0, 0);
 };
 
 buildCalendar = function(datepicker, mode) {
@@ -8027,7 +8086,11 @@ buildCalendar = function(datepicker, mode) {
       data = getCalendarMonth(visible.year, visible.month - 1, localizer.weekStart());
       data.unshift('days');
       cls = 'hx-calendar-month';
-      text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year);
+      if (datepicker.options.v2Features.displayLongMonthInCalendar) {
+        text = (localizer.fullMonth(visible.month - 1)) + " " + (localizer.year(visible.year));
+      } else {
+        text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year);
+      }
   }
   _.calendarGrid["class"]('hx-calendar-grid ' + cls);
   _.calendarHeadBtn.text(text);
@@ -8172,7 +8235,7 @@ buildDatepicker = function(datepicker) {
   return _.yearPicker.suppressed('change', false);
 };
 
-setupInput = function(datepicker) {
+setupInput = function(datepicker, initial) {
   var _, range;
   _ = datepicker._;
   if (datepicker.options.selectRange) {
@@ -8180,12 +8243,14 @@ setupInput = function(datepicker) {
     _.inputStart.value(datepicker.localizer.date(range.start, _.useInbuilt));
     return _.inputEnd.value(datepicker.localizer.date(range.end || range.start, _.useInbuilt));
   } else {
-    return _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt));
+    if (!(datepicker.options.v2Features.dontSetInitialInputValue && initial)) {
+      return _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt));
+    }
   }
 };
 
-updateDatepicker = function(datepicker, suppress) {
-  var _;
+updateDatepicker = function(datepicker, suppress, initial) {
+  var _, base;
   _ = datepicker._;
   validateDates(datepicker);
   if (!_.preventFeedback) {
@@ -8193,10 +8258,14 @@ updateDatepicker = function(datepicker, suppress) {
     if (datepicker.options.selectRange) {
       _.inputStart.classed('hx-date-error', false);
       _.inputEnd.classed('hx-date-error', false);
+    } else if (_.inputOnlyMode) {
+      if (typeof (base = datepicker.options).dateValidationChange === "function") {
+        base.dateValidationChange(true);
+      }
     } else {
       _.input.classed('hx-date-error', false);
     }
-    setupInput(datepicker);
+    setupInput(datepicker, initial);
     if (!suppress) {
       datepicker.emit('change', {
         type: _.userEvent ? 'user' : 'api'
@@ -8224,19 +8293,27 @@ DatePicker = (function(superClass) {
     this.options = hx.merge.defined({
       type: 'calendar',
       defaultView: 'm',
+      allowViewChange: true,
       closeOnSelect: true,
       selectRange: false,
       validRange: void 0,
       range: void 0,
       showTodayButton: true,
       allowInbuiltPicker: true,
-      disabled: false
+      disabled: false,
+      v2Features: {
+        dontModifyDateOnError: false,
+        displayLongMonthInCalendar: false,
+        dontSetInitialInputValue: false,
+        updateVisibleMonthOnDateChange: false,
+        dateValidityCallback: void 0
+      }
     }, options);
     _ = this._ = {
       disabled: this.options.disabled,
       mode: this.options.defaultView,
-      startDate: new Date,
-      endDate: new Date
+      startDate: new Date(Date.now()),
+      endDate: new Date(Date.now())
     };
     this.localizer = hx.dateTimeLocalizer();
     this.localizer.on('localechange', 'hx.date-picker', (function(_this) {
@@ -8251,9 +8328,21 @@ DatePicker = (function(superClass) {
     })(this));
     _.startDate.setHours(0, 0, 0, 0);
     _.endDate.setHours(0, 0, 0, 0);
-    this.selection = hx.select(this.selector).classed('hx-date-picker', true);
-    inputContainer = this.selection.append('div')["class"]('hx-date-input-container');
-    icon = inputContainer.append('i')["class"]('hx-icon hx-icon-calendar');
+    this.selection = hx.select(this.selector);
+    _.inputOnlyMode = this.selection.node().tagName.toLowerCase() === 'input';
+    if (!this.options.allowViewChange) {
+      this.options.defaultView = 'm';
+    }
+    if (_.inputOnlyMode) {
+      if (this.options.selectRange) {
+        hx.consoleWarning('DatePicker: options.selectRange is not supported when using an input');
+        this.options.selectRange = false;
+      }
+    } else {
+      this.selection.classed('hx-date-picker', true);
+      inputContainer = this.selection.append('div')["class"]('hx-date-input-container');
+      icon = inputContainer.append('i')["class"]('hx-icon hx-icon-calendar');
+    }
     timeout = void 0;
     if (this.options.selectRange) {
       this.options.type = 'calendar';
@@ -8297,21 +8386,34 @@ DatePicker = (function(superClass) {
       });
     } else {
       _.useInbuilt = this.options.allowInbuiltPicker ? (typeof moment === "undefined" || moment === null) && hx.supports('date') && hx.supports('touch') : false;
-      _.input = inputContainer.append('input')["class"]('hx-date-input').on((_.useInbuilt ? 'blur' : 'input'), 'hx.date-picker', function() {
+      _.input = _.inputOnlyMode ? this.selection : inputContainer.append('input')["class"]('hx-date-input');
+      _.input.on((_.useInbuilt ? 'blur' : 'input'), 'hx.date-picker', function() {
         self.hide();
         clearTimeout(timeout);
         return timeout = setTimeout(function() {
           var date;
+          if (self.options.v2Features.dontSetInitialInputValue && _.input.value() === '') {
+            if (self.options.v2Features.dateValidityCallback) {
+              self.options.v2Features.dateValidityCallback(true);
+            } else {
+              _.input.classed('hx-date-error', false);
+            }
+            return;
+          }
           date = self.localizer.stringToDate(_.input.value(), _.useInbuilt);
           if (date.getTime()) {
             if (date.getTime() !== self.date().getTime()) {
               self.date(date);
-              if (self.options.type === 'calendar') {
+              if (!self.options.v2Features.updateVisibleMonthOnDateChange && self.options.type === 'calendar') {
                 return self.visibleMonth(date.getMonth() + 1, date.getFullYear());
               }
             }
           } else {
-            return _.input.classed('hx-date-error', true);
+            if (self.options.v2Features.dateValidityCallback) {
+              return self.options.v2Features.dateValidityCallback(false, 'INVALID_DATE');
+            } else {
+              return _.input.classed('hx-date-error', true);
+            }
           }
         }, 500);
       });
@@ -8347,20 +8449,27 @@ DatePicker = (function(superClass) {
       };
       calendarElem = hx.detached('div');
       calendarElem["class"]('hx-date-picker-calendar');
-      calendarHeader = calendarElem.append('div')["class"]('hx-calendar-header hx-input-group');
+      calendarHeader = calendarElem.append('div')["class"]('hx-calendar-header');
       calendarHeader.append('button')["class"]('hx-btn hx-btn-invert hx-calendar-back').on('click', 'hx.date-picker', function() {
         return changeVis(-1);
       }).append('i')["class"]('hx-icon hx-icon-chevron-left');
-      _.calendarHeadBtn = calendarHeader.append('button')["class"]('hx-btn hx-btn-invert').on('click', 'hx.date-picker', function() {
-        switch (_.mode) {
-          case 'd':
-            break;
-          case 'y':
-            return buildCalendar(self, 'd');
-          default:
-            return buildCalendar(self, 'y');
-        }
-      });
+      if (this.options.allowViewChange) {
+        calendarHeader.classed('hx-input-group', true);
+        _.calendarHeadBtn = calendarHeader.append('button')["class"]('hx-btn hx-btn-invert').on('click', 'hx.date-picker', function() {
+          switch (_.mode) {
+            case 'd':
+              break;
+            case 'y':
+              return buildCalendar(self, 'd');
+            default:
+              return buildCalendar(self, 'y');
+          }
+        });
+      } else {
+        calendarHeader.classed('hx-compact-group', true);
+        _.calendarHeadBtn = calendarHeader.append('div');
+      }
+      _.calendarHeadBtn.classed('hx-calendar-header-title', true);
       calendarHeader.append('button')["class"]('hx-btn hx-btn-invert hx-calendar-forward').on('click', 'hx.date-picker', function() {
         return changeVis();
       }).append('i')["class"]('hx-icon hx-icon-chevron-right');
@@ -8452,12 +8561,12 @@ DatePicker = (function(superClass) {
         };
       })(this));
     }
-    setupInput(this);
+    setupInput(this, true);
     if (_.disable) {
       this.disabled(_.disabled);
     }
     if (this.options.validRange) {
-      this.validRange(this.options.validRange);
+      this.validRange(this.options.validRange, true);
     }
   }
 
@@ -8544,6 +8653,9 @@ DatePicker = (function(superClass) {
     if (date != null) {
       date = new Date(date.getTime());
       date.setHours(0, 0, 0, 0);
+      if (this.options.v2Features.updateVisibleMonthOnDateChange && this.options.type === 'calendar') {
+        this.visibleMonth(date.getMonth() + 1, date.getFullYear());
+      }
       _.startDate = date;
       updateDatepicker(this);
       return this;
@@ -8615,7 +8727,7 @@ DatePicker = (function(superClass) {
     }
   };
 
-  DatePicker.prototype.validRange = function(validRange) {
+  DatePicker.prototype.validRange = function(validRange, initial) {
     var _, ref, ref1;
     _ = this._;
     if (_.validRange == null) {
@@ -8637,7 +8749,7 @@ DatePicker = (function(superClass) {
       if ((ref1 = _.validRange.end) != null) {
         ref1.setHours(0, 0, 0, 0);
       }
-      updateDatepicker(this);
+      updateDatepicker(this, false, initial);
       return this;
     } else {
       return _.validRange;
@@ -13861,7 +13973,8 @@ AutocompletePicker = (function(superClass) {
       matchType: resolvedOptions.matchType,
       showOtherResults: resolvedOptions.showOtherResults,
       trimTrailingSpaces: resolvedOptions.trimTrailingSpaces,
-      valueLookup: resolvedOptions.valueLookup
+      valueLookup: resolvedOptions.valueLookup,
+      useCache: resolvedOptions.useCache
     };
     feed = new hx.AutocompleteFeed(feedOptions);
     this._ = {
@@ -21479,6 +21592,7 @@ SideCollapsible = (function(superClass) {
         this.content.style('opacity', 0).style('display', 'block');
         morph = (function(_this) {
           return function() {
+            _this.closedHeading.style('display', 'none');
             _this.selection.style('width', '');
             _this.content.morph()["with"]('expandh', 100).and('fadein', 100).and(function() {
               return _this.openHeading.morph()["with"]('expandh', 100).and('fadein', 100).go(true);

@@ -8,11 +8,12 @@
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "animate": {},
   "component": {},
   "sort": {},
   "userFacingText": {},
-  "animate": {},
   "icon": {},
+  "morphs": {},
   "spinner": {
     "spinnerCol": "#00ADA8"
   },
@@ -55,7 +56,6 @@
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "format": {},
-  "morphs": {},
   "clickDetector": {},
   "base": {
     "defaultFontFamily": "'Open Sans', sans-serif",
