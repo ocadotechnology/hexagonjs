@@ -10,7 +10,7 @@ describe 'Palette', ->
   testPaletteContextType = (type, testContexts, prefix) ->
     describe "hx.palette.#{type} should correctly class an element", ->
       testContext = (context) ->
-        it context, ->
+        it (if context then context else 'undefined'), ->
           selection = hx.detached('div')
           hx.palette[type](selection, context).should.equal(selection)
           if (context)

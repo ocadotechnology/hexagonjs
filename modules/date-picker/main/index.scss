@@ -73,20 +73,26 @@ $gridPadding: 0.7em;
   .hx-calendar-header {
     display: flex;
     justify-content: center;
-    align-items: stretch;
+    align-items: center;
 
     .hx-btn {
       flex: 1 1 60%;
 
       &.hx-calendar-back,
       &.hx-calendar-forward {
-        flex-basis: 10%;
+        flex-basis: 0;
+        flex: 0;
       }
 
       &.hx-calendar-button {
         padding-left: 0;
         padding-right: 0;
       }
+    }
+
+    .hx-calendar-header-title {
+      flex: 1;
+      text-align: center;
     }
   }
 

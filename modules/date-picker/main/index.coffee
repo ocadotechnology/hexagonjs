@@ -92,39 +92,67 @@ isToday = (year, month, day) ->
   date.toString() is today.toString()
 
 
+toggleInputValidity = (input, dateValidityCallback, valid, type) ->
+  if input?
+    if dateValidityCallback
+      dateValidityCallback(valid, type)
+    else
+      input.classed('hx-date-error', !valid)
 
 # Checks that the start and end dates fall within the valid range and that the
 # end date is always after the start date.
 validateDates = (datepicker) ->
   _ = datepicker._
   isRangePicker = datepicker.options.selectRange
+  if datepicker.options.v2Features.dontModifyDateOnError
+    validityFn = _.inputOnlyMode and datepicker.options.v2Features.dateValidityCallback
+    toggleInputValidity(_.input, validityFn, true)
 
-  if _.validRange?
-    if _.validRange.start?
-      if _.startDate < _.validRange.start
-        _.startDate = new Date(_.validRange.start.getTime())
+    _.inputStart?.classed('hx-date-error', false)
+    _.inputEnd?.classed('hx-date-error', false)
+    if _.validRange?
+      if _.validRange.start?
+        if _.startDate < _.validRange.start
+          toggleInputValidity(_.input, validityFn, false, 'DATE_OUTSIDE_RANGE_START')
+          _.inputStart?.classed('hx-date-error', true)
 
-      if isRangePicker and _.endDate < _.validRange.start
-        _.endDate = new Date(_.validRange.start.getTime())
+        if isRangePicker and _.endDate < _.validRange.start
+          _.inputEnd?.classed('hx-date-error', true)
 
-    if _.validRange.end?
-      if _.startDate > _.validRange.end
-        _.startDate = new Date(_.validRange.end.getTime())
+      if _.validRange.end?
+        if _.startDate > _.validRange.end
+          toggleInputValidity(_.input, validityFn, false, 'DATE_OUTSIDE_RANGE_END')
+          _.inputStart?.classed('hx-date-error', true)
 
-      if isRangePicker and _.endDate > _.validRange.end
-        _.endDate = new Date(_.validRange.end.getTime())
-
-  if not isRangePicker
-    _.endDate = _.startDate
+        if isRangePicker and _.endDate > _.validRange.end
+          _.inputEnd?.classed('hx-date-error', true)
   else
-    if _.endDate < _.startDate
-      tDate = _.endDate
+    if _.validRange?
+      if _.validRange.start?
+        if _.startDate < _.validRange.start
+          _.startDate = new Date(_.validRange.start.getTime())
 
+        if isRangePicker and _.endDate < _.validRange.start
+          _.endDate = new Date(_.validRange.start.getTime())
+
+      if _.validRange.end?
+        if _.startDate > _.validRange.end
+          _.startDate = new Date(_.validRange.end.getTime())
+
+        if isRangePicker and _.endDate > _.validRange.end
+          _.endDate = new Date(_.validRange.end.getTime())
+
+    if not isRangePicker
       _.endDate = _.startDate
-      _.startDate = tDate
+    else
+      if _.endDate < _.startDate
+        tDate = _.endDate
 
-  _.endDate.setHours(0, 0, 0, 0)
-  _.startDate.setHours(0, 0, 0, 0)
+        _.endDate = _.startDate
+        _.startDate = tDate
+
+    _.endDate.setHours(0, 0, 0, 0)
+    _.startDate.setHours(0, 0, 0, 0)
   return
 
 
@@ -156,7 +184,10 @@ buildCalendar = (datepicker, mode) ->
       data = getCalendarMonth(visible.year, visible.month - 1, localizer.weekStart())
       data.unshift 'days' # When the update gets to this it adds the days of the week as a row
       cls = 'hx-calendar-month'
-      text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year)
+      if datepicker.options.v2Features.displayLongMonthInCalendar
+        text = "#{localizer.fullMonth(visible.month - 1)} #{localizer.year(visible.year)}"
+      else
+        text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year)
 
   _.calendarGrid.class('hx-calendar-grid ' + cls)
   _.calendarHeadBtn.text(text)
@@ -300,7 +331,7 @@ buildDatepicker = (datepicker) ->
 
 
 # Shared Functions for both picker types
-setupInput = (datepicker) ->
+setupInput = (datepicker, initial) ->
   _ = datepicker._
 
   if datepicker.options.selectRange
@@ -308,11 +339,12 @@ setupInput = (datepicker) ->
     _.inputStart.value(datepicker.localizer.date range.start, _.useInbuilt)
     _.inputEnd.value(datepicker.localizer.date range.end or range.start, _.useInbuilt)
   else
-    _.input.value(datepicker.localizer.date datepicker.date(), _.useInbuilt)
+    if not (datepicker.options.v2Features.dontSetInitialInputValue and initial)
+      _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt))
 
 
 # Function for updating the input fields and emitting the change event.
-updateDatepicker = (datepicker, suppress) ->
+updateDatepicker = (datepicker, suppress, initial) ->
   _ = datepicker._
   validateDates(datepicker)
   if not _.preventFeedback
@@ -320,9 +352,11 @@ updateDatepicker = (datepicker, suppress) ->
     if datepicker.options.selectRange
       _.inputStart.classed('hx-date-error', false)
       _.inputEnd.classed('hx-date-error', false)
+    else if _.inputOnlyMode
+      datepicker.options.dateValidationChange?(true)
     else
       _.input.classed('hx-date-error', false)
-    setupInput datepicker
+    setupInput datepicker, initial
     if not suppress
       datepicker.emit 'change', {type: if _.userEvent then 'user' else 'api'}
     _.userEvent = false
@@ -345,6 +379,7 @@ class DatePicker extends hx.EventEmitter
     @options = hx.merge.defined({
       type: 'calendar' # 'calendar' or 'datepicker'
       defaultView: 'm' # 'm' for month, 'y' for year, or 'd' for decade
+      allowViewChange: true # Allow changing between month/year/decade views
       closeOnSelect: true
       selectRange: false
       validRange: undefined
@@ -352,13 +387,20 @@ class DatePicker extends hx.EventEmitter
       showTodayButton: true
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
+      v2Features: {
+        dontModifyDateOnError: false,
+        displayLongMonthInCalendar: false,
+        dontSetInitialInputValue: false,
+        updateVisibleMonthOnDateChange: false,
+        dateValidityCallback: undefined # Called when validating the input when using dontModifyDateOnError
+      },
     }, options)
 
     _ = @_ = {
       disabled: @options.disabled
       mode: @options.defaultView
-      startDate: new Date
-      endDate: new Date
+      startDate: new Date(Date.now())
+      endDate: new Date(Date.now())
     }
 
     @localizer = hx.dateTimeLocalizer()
@@ -368,11 +410,22 @@ class DatePicker extends hx.EventEmitter
     _.startDate.setHours(0, 0, 0, 0)
     _.endDate.setHours(0, 0, 0, 0)
 
+    @selection = hx.select(@selector)
 
-    @selection = hx.select(@selector).classed('hx-date-picker', true)
+    _.inputOnlyMode = @selection.node().tagName.toLowerCase() is 'input'
 
-    inputContainer = @selection.append('div').class('hx-date-input-container')
-    icon = inputContainer.append('i').class('hx-icon hx-icon-calendar')
+    if not @options.allowViewChange
+      @options.defaultView = 'm'
+
+    if _.inputOnlyMode
+      if @options.selectRange
+        hx.consoleWarning 'DatePicker: options.selectRange is not supported when using an input'
+        @options.selectRange = false
+    else
+      @selection.classed('hx-date-picker', true)
+
+      inputContainer = @selection.append('div').class('hx-date-input-container')
+      icon = inputContainer.append('i').class('hx-icon hx-icon-calendar')
 
     timeout = undefined
 
@@ -418,20 +471,34 @@ class DatePicker extends hx.EventEmitter
         not moment? and hx.supports('date') and hx.supports('touch')
       else false
 
-      _.input = inputContainer.append('input').class('hx-date-input')
-        .on (if _.useInbuilt then 'blur' else 'input'), 'hx.date-picker', ->
-          self.hide()
-          clearTimeout timeout
-          timeout = setTimeout ->
-            date = self.localizer.stringToDate(_.input.value(), _.useInbuilt)
-            if date.getTime()
-              if date.getTime() isnt self.date().getTime()
-                self.date(date)
-                if self.options.type is 'calendar'
-                  self.visibleMonth(date.getMonth() + 1, date.getFullYear())
+      _.input = if _.inputOnlyMode
+        @selection
+      else
+        inputContainer.append('input').class('hx-date-input')
+
+      _.input.on (if _.useInbuilt then 'blur' else 'input'), 'hx.date-picker', ->
+        self.hide()
+        clearTimeout timeout
+        timeout = setTimeout ->
+          if self.options.v2Features.dontSetInitialInputValue and _.input.value() is ''
+            if self.options.v2Features.dateValidityCallback
+              self.options.v2Features.dateValidityCallback(true)
+            else
+              _.input.classed('hx-date-error', false)
+            return
+
+          date = self.localizer.stringToDate(_.input.value(), _.useInbuilt)
+          if date.getTime()
+            if date.getTime() isnt self.date().getTime()
+              self.date(date)
+              if not self.options.v2Features.updateVisibleMonthOnDateChange and self.options.type is 'calendar'
+                self.visibleMonth(date.getMonth() + 1, date.getFullYear())
+          else
+            if self.options.v2Features.dateValidityCallback
+              self.options.v2Features.dateValidityCallback(false, 'INVALID_DATE')
             else
               _.input.classed('hx-date-error', true)
-          , 500
+        , 500
 
       if _.useInbuilt
         _.input.attr('type', 'date')
@@ -461,20 +528,27 @@ class DatePicker extends hx.EventEmitter
       calendarElem.class('hx-date-picker-calendar')
 
       calendarHeader = calendarElem.append('div')
-        .class('hx-calendar-header hx-input-group')
+        .class('hx-calendar-header')
 
       calendarHeader.append('button')
         .class('hx-btn hx-btn-invert hx-calendar-back')
         .on 'click', 'hx.date-picker', -> changeVis(-1)
         .append('i').class('hx-icon hx-icon-chevron-left')
 
-      _.calendarHeadBtn = calendarHeader.append('button')
-        .class('hx-btn hx-btn-invert')
-        .on 'click', 'hx.date-picker', ->
-          switch _.mode
-            when 'd' then return
-            when 'y' then buildCalendar self, 'd'
-            else buildCalendar self, 'y'
+      if @options.allowViewChange
+        calendarHeader.classed('hx-input-group', true)
+        _.calendarHeadBtn = calendarHeader.append('button')
+          .class('hx-btn hx-btn-invert')
+          .on 'click', 'hx.date-picker', ->
+            switch _.mode
+              when 'd' then return
+              when 'y' then buildCalendar self, 'd'
+              else buildCalendar self, 'y'
+      else
+        calendarHeader.classed('hx-compact-group', true)
+        _.calendarHeadBtn = calendarHeader.append('div')
+
+      _.calendarHeadBtn.classed('hx-calendar-header-title', true)
 
       calendarHeader.append('button')
         .class('hx-btn hx-btn-invert hx-calendar-forward')
@@ -551,9 +625,9 @@ class DatePicker extends hx.EventEmitter
       @dropdown.on 'hidestart', => @emit 'hide'
       @dropdown.on 'showstart', => @emit 'show'
 
-    setupInput this
+    setupInput(this, true)
     if _.disable then @disabled(_.disabled)
-    if @options.validRange then @validRange(@options.validRange)
+    if @options.validRange then @validRange(@options.validRange, true)
 
 
   disabled: (disable) ->
@@ -616,6 +690,8 @@ class DatePicker extends hx.EventEmitter
     if date?
       date = new Date date.getTime()
       date.setHours(0, 0, 0, 0)
+      if @options.v2Features.updateVisibleMonthOnDateChange and @options.type is 'calendar'
+        @visibleMonth(date.getMonth() + 1, date.getFullYear())
       _.startDate = date
       updateDatepicker(this)
       this
@@ -672,7 +748,7 @@ class DatePicker extends hx.EventEmitter
       hx.consoleWarning 'datePicker.range can only be used for datepickers with \'selectRange\' of true'
       return this
 
-  validRange: (validRange) ->
+  validRange: (validRange, initial) ->
     _ = @_
     _.validRange ?= {
       start: undefined
@@ -688,7 +764,7 @@ class DatePicker extends hx.EventEmitter
       _.validRange.start?.setHours(0, 0, 0, 0)
       _.validRange.end?.setHours(0, 0, 0, 0)
 
-      updateDatepicker(this)
+      updateDatepicker(this, false, initial)
       this
     else
       _.validRange

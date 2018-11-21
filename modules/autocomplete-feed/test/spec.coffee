@@ -94,7 +94,7 @@ describe 'autocomplete-feed', ->
       af.items(items)
       callback = chai.spy()
       af.filter('a', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with(itemsArr, [])
 
 
@@ -108,17 +108,17 @@ describe 'autocomplete-feed', ->
       af.items(items)
 
       af.filter('a', callback)
-      spy.should.have.been.called.once()
-      callback.should.have.been.called.once()
+      spy.should.have.been.called.once
+      callback.should.have.been.called.once
       spy.should.have.been.called.with('a')
 
       af.filter('ab', callback)
-      spy.should.have.been.called.twice()
-      callback.should.have.been.called.twice()
+      spy.should.have.been.called.twice
+      callback.should.have.been.called.twice
       spy.should.have.been.called.with('ab')
 
       af.filter('a', callback)
-      spy.should.have.been.called.twice()
+      spy.should.have.been.called.twice
       callback.should.have.been.called.exactly(3)
 
 
@@ -129,7 +129,7 @@ describe 'autocomplete-feed', ->
       })
       af.items(['a'])
       af.filter('a', ->)
-      filter.should.have.been.called.once()
+      filter.should.have.been.called.once
       filter.should.have.been.called.with(['a'], 'a')
 
 
@@ -138,7 +138,7 @@ describe 'autocomplete-feed', ->
       af.items(['ba','b','a','c','d','ab','a'])
       callback = chai.spy()
       af.filter('a', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with(['a','a','ab','ba'], [])
 
 
@@ -151,7 +151,7 @@ describe 'autocomplete-feed', ->
       af.items(items)
       callback = chai.spy()
       af.filter('a', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with(['a','a','ab','ba'], ['b','c','d'])
 
 
@@ -172,7 +172,7 @@ describe 'autocomplete-feed', ->
       af.items(['ba','b','a','d','c','ab','a'])
       callback = chai.spy()
       af.filter('a', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with(['a','a','ab','ba'], ['b','c','d'])
 
 
@@ -182,7 +182,7 @@ describe 'autocomplete-feed', ->
       af.items(itemsArr)
       callback = chai.spy()
       af.filter('', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with(itemsArr, [])
 
 
@@ -199,7 +199,7 @@ describe 'autocomplete-feed', ->
       af.items(items)
       callback = chai.spy()
       af.filter('a ', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with(['a','aa', 'ba'],[])
 
 
@@ -211,7 +211,7 @@ describe 'autocomplete-feed', ->
       af.items(items)
       callback = chai.spy()
       af.filter('a ', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with(['a a'],[])
 
 
@@ -227,7 +227,7 @@ describe 'autocomplete-feed', ->
       af.items([aObj, bObj, cObj])
       callback = chai.spy()
       af.filter('a', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with([aObj, cObj])
 
 
@@ -243,7 +243,7 @@ describe 'autocomplete-feed', ->
       af.items([aObj, bObj, cObj])
       callback = chai.spy()
       af.filter('a', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with([aObj, cObj, bObj])
 
 
@@ -261,7 +261,7 @@ describe 'autocomplete-feed', ->
       af.items([aObj, bObj, cObj, dObj])
       callback = chai.spy()
       af.filter('d', callback)
-      callback.should.have.been.called.once()
+      callback.should.have.been.called.once
       callback.should.have.been.called.with([], [aObj, dObj, cObj, bObj])
 
 
@@ -284,16 +284,16 @@ describe 'autocomplete-feed', ->
       af.filter('ab', cb)
 
       clock.tick(1000 / 3)
-      callCheck.should.have.been.called.once()
+      callCheck.should.have.been.called.once
       callCheck.should.have.been.called.with('abc')
       clock.tick(1000 / 2)
-      callCheck.should.have.been.called.twice()
+      callCheck.should.have.been.called.twice
       callCheck.should.have.been.called.with('ab')
       clock.tick(1000 / 1)
       callCheck.should.have.been.called.exactly(3)
       callCheck.should.have.been.called.with('a')
 
-      cb.should.have.been.called.once()
+      cb.should.have.been.called.once
       cb.should.have.been.called.with(['abb', 'abc'])
       clock.restore()
 
@@ -326,7 +326,7 @@ describe 'autocomplete-feed', ->
 
       af.filter('a', callback)
       af._.resultsCache.has.should.have.been.called.with('a')
-      af._.resultsCache.has.should.have.been.called.once()
+      af._.resultsCache.has.should.have.been.called.once
       af._.resultsCache.set.should.have.been.called.with('a', {
         results: ['a']
         otherResults: []
@@ -336,11 +336,11 @@ describe 'autocomplete-feed', ->
 
       af.filter('a', callback)
       af._.resultsCache.has.should.have.been.called.with('a')
-      af._.resultsCache.has.should.have.been.called.twice()
+      af._.resultsCache.has.should.have.been.called.twice
       af._.resultsCache.get.should.have.been.called.with('a')
-      af._.resultsCache.get.should.have.been.called.once()
+      af._.resultsCache.get.should.have.been.called.once
       callback.should.have.been.called.with(['a'],[])
-      callback.should.have.been.called.twice()
+      callback.should.have.been.called.twice
 
 
     it 'filter: should use the cache before attempting to get new data using a function', ->
@@ -356,23 +356,23 @@ describe 'autocomplete-feed', ->
 
       af.filter('a', callback)
       af._.resultsCache.has.should.have.been.called.with('a')
-      af._.resultsCache.has.should.have.been.called.once()
+      af._.resultsCache.has.should.have.been.called.once
       af._.resultsCache.set.should.have.been.called.with('a', {
         results: ['a']
         otherResults: []
       })
       af._.resultsCache.entries().length.should.equal(1)
       callback.should.have.been.called.with(['a'],[])
-      items.should.have.been.called.once()
+      items.should.have.been.called.once
 
       af.filter('a', callback)
       af._.resultsCache.has.should.have.been.called.with('a')
-      af._.resultsCache.has.should.have.been.called.twice()
+      af._.resultsCache.has.should.have.been.called.twice
       af._.resultsCache.get.should.have.been.called.with('a')
-      af._.resultsCache.get.should.have.been.called.once()
+      af._.resultsCache.get.should.have.been.called.once
       callback.should.have.been.called.with(['a'],[])
-      callback.should.have.been.called.twice()
-      items.should.have.been.called.once()
+      callback.should.have.been.called.twice
+      items.should.have.been.called.once
 
 
     it 'filter: should use the cache before attempting to get new data when using external matching', ->
@@ -390,20 +390,20 @@ describe 'autocomplete-feed', ->
 
       af.filter('a', callback)
       af._.resultsCache.has.should.have.been.called.with('a')
-      af._.resultsCache.has.should.have.been.called.once()
+      af._.resultsCache.has.should.have.been.called.once
       af._.resultsCache.set.should.have.been.called.with('a', {
         results: ['a','b','c']
         otherResults: ['d']
       })
       af._.resultsCache.entries().length.should.equal(1)
       callback.should.have.been.called.with(['a','b','c'],['d'])
-      items.should.have.been.called.once()
+      items.should.have.been.called.once
 
       af.filter('a', callback)
       af._.resultsCache.has.should.have.been.called.with('a')
-      af._.resultsCache.has.should.have.been.called.twice()
+      af._.resultsCache.has.should.have.been.called.twice
       af._.resultsCache.get.should.have.been.called.with('a')
-      af._.resultsCache.get.should.have.been.called.once()
+      af._.resultsCache.get.should.have.been.called.once
       callback.should.have.been.called.with(['a','b','c'],['d'])
-      callback.should.have.been.called.twice()
-      items.should.have.been.called.once()
+      callback.should.have.been.called.twice
+      items.should.have.been.called.once

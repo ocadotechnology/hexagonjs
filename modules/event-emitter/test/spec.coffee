@@ -191,7 +191,11 @@ describe "EventEmitter", ->
     ee.on(undefined, spy)
     ee.emit('test', 'data')
     spy.should.have.been.called.with('test','data')
-    spy.reset()
+    spy.__spy = {
+      calls: []
+      , called: false
+      , name: name
+    };
     ee.off(undefined, spy)
     ee.emit('test2', 'data2')
     spy.should.not.have.been.called()

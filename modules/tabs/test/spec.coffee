@@ -176,7 +176,7 @@ describe 'hx-tabs tests', ->
       name: 'Bob',
       town: 'Wheathampstead'
     }
-  
+
   it 'should render the correct text for titles', ->
     tabs = setupTabsUsingStructuredObject()
     allTitles = getHeaders tabs
@@ -207,8 +207,8 @@ describe 'hx-tabs tests', ->
   it 'should use the default renderer if none is specified', ->
     tabs = hx.tabs items: [{ title: 'Title', content: 'Content' }]
     opts = tabs.component()._.options
-    opts.contentRenderer.should.be.defined
-    opts.titleRenderer.should.be.defined
+    opts.contentRenderer.should.be.a('function')
+    opts.titleRenderer.should.be.a('function')
     tabs.select('.hx-tabs-content').text().should.equal 'Content'
     tabs.select('.hx-tab').text().should.equal 'Title'
 

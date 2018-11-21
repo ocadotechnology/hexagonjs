@@ -790,8 +790,8 @@ describe 'Selection Api', ->
     node.style.setProperty('color', 'red')
     node.style.getPropertyValue('color').should.equal('red')
     selection.style('color', undefined)
-    should.not.exist(initial)
-    should.not.exist(node.style.getPropertyValue('color'))
+    initial.should.equal('')
+    node.style.getPropertyValue('color').should.equal('')
 
   it 'get a style from a multi selection', ->
     selection = hx.select('#fixture').selectAll('span')
@@ -812,8 +812,8 @@ describe 'Selection Api', ->
     selection.style('color', undefined)
 
     selection.nodes.map (node, index) ->
-      should.not.exist(initial[index])
-      should.not.exist(node.style.getPropertyValue('color'))
+      initial[index].should.equal('')
+      node.style.getPropertyValue('color').should.equal('')
 
   # other methods
 

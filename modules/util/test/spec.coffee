@@ -1,6 +1,17 @@
 describe "Util", ->
   clockTime = (new Date(2013, 0, 1)).getTime()
 
+  origConsoleTrace = console.trace
+  origConsoleWarn = console.warn
+
+  beforeEach ->
+    chai.spy.on(console, 'trace')
+    chai.spy.on(console, 'warn')
+
+  afterEach ->
+    console.trace = origConsoleTrace
+    console.warn = origConsoleWarn
+
   it "transpose: inverts a 2D array", ->
     array = [
       [1,  2,  3,  4]
@@ -119,28 +130,22 @@ describe "Util", ->
     fn.should.have.been.called.with('bob')
 
   it 'deprecatedWarning', ->
-    warn = chai.spy.on(console, 'warn')
-    trace = chai.spy.on(console, 'trace')
     hx.deprecatedWarning('something', 'do something else')
-    warn.should.have.been.called()
-    trace.should.have.been.called()
+    console.warn.should.have.been.called()
+    console.trace.should.have.been.called()
 
   it 'deprecatedWarning', ->
-    trace = chai.spy.on(console, 'trace')
     hx.deprecatedWarning('something')
-    trace.should.have.been.called()
+    console.trace.should.have.been.called()
 
   it 'consoleWarning', ->
-    warn = chai.spy.on(console, 'warn')
-    trace = chai.spy.on(console, 'trace')
     hx.consoleWarning('something', 'you are doing something silly')
-    warn.should.have.been.called()
-    trace.should.have.been.called()
+    console.warn.should.have.been.called()
+    console.trace.should.have.been.called()
 
   it 'consoleWarning', ->
-    trace = chai.spy.on(console, 'trace')
     hx.consoleWarning('something')
-    trace.should.have.been.called()
+    console.trace.should.have.been.called()
 
   it 'clamp: should work', ->
     hx.clamp(0, 10, 15).should.equal(10)

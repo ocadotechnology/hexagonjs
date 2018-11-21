@@ -17,6 +17,7 @@ describe 'dateTimeLocalizer', ->
   beforeEach ->
     hx.consoleWarning = chai.spy()
     localizer = hx.dateTimeLocalizer()
+    hx.preferences.timezone(hx._.preferences.defaultTimezoneLookup(0))
 
   afterEach ->
     hx.consoleWarning = origWarning
@@ -130,6 +131,15 @@ describe 'dateTimeLocalizer', ->
     it 'localizes the month in the form at of MM in all timezones', ->
       executeFunctionInAllTimeZones ->
         localizer.month(0, true).should.equal('01')
+
+
+  describe 'fullMonth', ->
+    it 'localizes the month in the format of mmmm', ->
+      localizer.fullMonth(0).should.equal('January')
+
+    it 'localizes the month in the format of mmmm in all timezones', ->
+      executeFunctionInAllTimeZones ->
+        localizer.fullMonth(0).should.equal('January')
 
 
   describe 'year', ->
