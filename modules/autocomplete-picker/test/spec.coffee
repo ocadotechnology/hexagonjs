@@ -300,7 +300,9 @@ describe 'autocomplete-picker', ->
       ap._.selection.select('.hx-autocomplete-picker-text').text().should.equal(hx.userFacingText('autocompletePicker', 'chooseValue'))
       should.not.exist(ap.value())
 
-
+  it 'should pass the "useCache" option to the autocomplete feed', ->
+    testClosedAutocomplete trivialItems, { useCache: false }, (ap) ->
+      ap._.feed._.options.useCache.should.equal(false)
 
   describe 'api', ->
 
