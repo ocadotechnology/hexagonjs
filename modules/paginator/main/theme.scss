@@ -1,0 +1,25 @@
+.hx-paginator-button,
+.hx-paginator-button:focus {
+  border-color: $button-border-color;
+  background: $button-background-color;
+  color: $button-text-color;
+  font-weight: $button-font-weight;
+}
+
+.hx-paginator-button:hover {
+  background: $button-hover-background-color;
+  color: $button-hover-text-color;
+}
+
+.hx-paginator-ellipsis,
+.hx-paginator-ellipsis:hover {
+  background: transparent;
+  border-color: transparent;
+  color: $ellipsis-text-color;
+}
+
+.hx-paginator-selected,
+.hx-paginator-selected:hover {
+  background: $selected-background-color;
+  color: $selected-text-color;
+}

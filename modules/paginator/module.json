@@ -5,6 +5,7 @@
     "selection",
     "input-group",
     "event-emitter",
+    "user-facing-text",
     "icon"
   ],
   "keywords": [

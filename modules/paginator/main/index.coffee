@@ -20,7 +20,8 @@ getFilledArray = (length) -> new Array(length).fill(0)
 makeItem = (page, currentPage) -> "#{page}#{if currentPage == page then '~' else ''}"
 
 getPageItems = (currentPage = 1, pageCount, maxMiddleCount) ->
-  displayMiddleCount = Math.min(pageCount, maxMiddleCount)
+  displayMiddleCount = if maxMiddleCount is pageCount - 2 then maxMiddleCount + 1
+  else Math.min(pageCount, maxMiddleCount)
   beforeAfterLength = Math.floor(displayMiddleCount / 2)
   middleNearStart = currentPage <= displayMiddleCount
   middleNearEnd = currentPage > pageCount - displayMiddleCount
@@ -93,6 +94,7 @@ class Paginator extends hx.EventEmitter
       visibleCount: 10,
       updatePageOnSelect: true,
       v2Features: {
+        maxMiddleCount: 5,
         useAccessibleRendering: false,
         dontRenderOnResize: false,
       },
@@ -116,7 +118,7 @@ class Paginator extends hx.EventEmitter
             .class('hx-paginator-button'))
         this.append(navItem).node()
 
-      navItemUpdate = ({ text, aria, selected, isEllipsis, onClick }, element) ->
+      navItemUpdate = ({ text, aria, selected, disabled, isEllipsis, onClick }, element) ->
         navItem = hx.select(element)
           .classed('hx-paginator-selected-container', selected)
           .classed('hx-paginator-ellipsis-container', isEllipsis)
@@ -148,7 +150,7 @@ class Paginator extends hx.EventEmitter
         .attr('tabindex', '0')
         .on 'keydown', (e) =>
           currentPage = @page()
-          currentPage = @pageCount()
+          currentPageCount = @pageCount()
           switch e.which
             when 37 # Left
               if currentPage isnt 1 then selectPage.call(this, 'user', currentPage - 1)
@@ -202,7 +204,7 @@ class Paginator extends hx.EventEmitter
       # Set
       if arguments.length > 0
         this._[key] = val
-        render()
+        @render()
         return this
       # Get
       else
@@ -222,22 +224,23 @@ class Paginator extends hx.EventEmitter
   selectPage = (cause, value = 1) ->
     currentPageCount = @pageCount()
     currentPage = @page()
-    newPage = if @updatePageOnSelect()
-      if currentPageCount is undefined
-        Math.max(value, 1)
-      else
-        hx.clamp(1, currentPageCount, value)
+    newPage = if currentPageCount is undefined
+      Math.max(value, 1)
+    else
+      hx.clamp(1, currentPageCount, value)
 
     if newPage isnt currentPage
-      this._.page = newPage
-      @render()
+      if cause is 'api' or @updatePageOnSelect()
+        this._.page = newPage
+        @render()
+
       # DEPRECATED: 'selected' is deprecated in the event
       @emit('change', { cause, value, selected: value })
 
   page: (value) ->
     # Set
     if arguments.length > 0
-      selectPage.call(this, 'api', value)
+      selectPage.call(this, 'api', value, true)
       return this
     # Get
     else
@@ -247,7 +250,7 @@ class Paginator extends hx.EventEmitter
     currentPage = @page()
     currentPageCount = @pageCount()
     data = if @_.v2Features.useAccessibleRendering
-      getPageItems(currentPage, currentPageCount, @visibleCount()).map (item) =>
+      getPageItems(currentPage, currentPageCount, this._.v2Features.maxMiddleCount).map (item) =>
         if item is 'prev'
           return {
             text: @prevText(),
