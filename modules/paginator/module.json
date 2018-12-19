@@ -6,7 +6,8 @@
     "input-group",
     "event-emitter",
     "user-facing-text",
-    "icon"
+    "icon",
+    "view"
   ],
   "keywords": [
     "paginator"

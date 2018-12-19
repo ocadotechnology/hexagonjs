@@ -73,7 +73,6 @@ class Paginator extends hx.EventEmitter
       v2Features: {
         padding: 2,
         useAccessibleRendering: false,
-        dontRenderOnResize: false,
       },
       paginatorAria: hx.userFacingText('paginator', 'paginatorAria'),
       currentPageAria: hx.userFacingText('paginator', 'currentPageAria'),
@@ -111,7 +110,6 @@ class Paginator extends hx.EventEmitter
         link.off()
         if onClick
           link.on('click', 'hx.paginator', onClick)
-          link.on('keypress', 'hx.paginator', (e) -> if e.which is 13 then onClick())
 
       links = hx.detached('ul')
 
@@ -171,7 +169,6 @@ class Paginator extends hx.EventEmitter
             else
               selectPage.call(self, 'user', self._.pageCount)
 
-    if not @_.v2Features.dontRenderOnResize
       @container.on 'resize', 'hx.paginator', => @render()
 
     @render()
@@ -221,7 +218,7 @@ class Paginator extends hx.EventEmitter
       return this
     # Get
     else
-      return this._.page or 1
+      return this._.page
 
   render: () ->
     currentPage = @page()
