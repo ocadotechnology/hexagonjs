@@ -70,10 +70,6 @@ class Paginator extends hx.EventEmitter
       pageCount: 10,
       visibleCount: 10,
       updatePageOnSelect: true,
-      v2Features: {
-        padding: 2,
-        useAccessibleRendering: false,
-      },
       paginatorAria: hx.userFacingText('paginator', 'paginatorAria'),
       currentPageAria: hx.userFacingText('paginator', 'currentPageAria'),
       gotoPageAria: hx.userFacingText('paginator', 'gotoPageAria'),
@@ -81,6 +77,10 @@ class Paginator extends hx.EventEmitter
       nextPageAria: hx.userFacingText('paginator', 'nextPageAria'),
       prevText: hx.userFacingText('paginator', 'prev'),
       nextText: hx.userFacingText('paginator', 'next'),
+      v2Features: {
+        padding: 2,
+        useAccessibleRendering: false,
+      },
     }, options)
 
     @_.selector = selector

@@ -32,3 +32,30 @@
           visibleCount: 10
         })
 
+
+
+@version nextReleaseVersion
+  @examples
+    @example
+      @@html
+        <div id="example"></div>
+
+      @@js
+        var paginator = new hx.Paginator('#example', {
+          pageCount: 20,
+          visibleCount: 10
+        })
+
+    @example
+      @@html
+        <div id="v2example"></div>
+
+      @@js
+        var paginator = new hx.Paginator('#v2example', {
+          pageCount: 20,
+          page: 10,
+          v2Features: {
+            useAccessibleRendering: true,
+          }
+        })
+

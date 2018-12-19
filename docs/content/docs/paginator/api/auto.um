@@ -1,3 +1,31 @@
+@define setterGetter
+  @method {{ps}}
+    @added nextReleaseVersion
+      @description
+        Added setter getter methods for all options
+
+    @description: Sets the {{ps}} for this paginator
+
+    @arg {{ps}} [{{cs}}]
+      @description
+        The value to set
+
+    @returns [Paginator]
+      @description
+        this paginator
+
+  @method {{ps}}
+    @added nextReleaseVersion
+      @description
+        Added setter getter methods for all options
+
+    @description: Gets the {{ps}} for this paginator
+
+    @returns [{{cs}}]
+      @description
+        The {{ps}} for this paginator
+
+
 @prototype hx.Paginator
   @updated 0.11.0
     @description
@@ -6,6 +34,10 @@
   @updated 0.11.0
     @description
       Updated the paginator so that it detects the size of its container and changes the number of visible buttons accordingly. Also changed it so that the button widths resize depending on their character length to prevent paginators wrapping onto multiple lines.
+
+  @updated nextReleaseVersion
+    @description
+      In preparation for version 2, new visuals have been added behind a feature flag.
 
   @description
     Component for selecting a page from a range.
@@ -22,6 +54,121 @@
     @arg selection [String/HTMLElement]
       @description
         A CSS selector or a HTMLElement that identifies the container for your paginator.
+
+
+  @constructor
+    @added 1.0.0
+    @description
+      Sets up a paginator.
+
+    @arg selector [String/HTMLElement]
+      @description
+        A CSS selector or a HTMLElement that identifies the container for your paginator.
+
+    @arg? options [Object]
+      @property page [Number]
+        @description
+          The page index to set. This index is 1 based.
+
+        @default
+          1
+
+      @property visibleCount [Number]
+        @deprecated nextReleaseVersion
+          @description
+            The visibleCount will be replaced in version 2 with the @code[padding] option.
+        @description
+          The number of pages visible in the paginator.
+        @default
+          10
+
+      @property pageCount [Number]
+        @description
+          The number of pages to give the paginator.
+        @default
+          10
+
+      @property updatePageOnSelect [Boolean]
+        @added nextReleaseVersion
+        @description
+          Whether to update the current @code[page] when updating the paginator value. Set to false when wrapping with
+          another component that should control the currently active page.
+        @default: true
+
+      @property paginatorAria [String]
+        @added nextReleaseVersion
+        @description
+          The text to use for the @code[aria-label] on the container to enable screen readers to navigate using the paginator
+        @default: @code[hx.userFacingText('paginator', 'paginatorAria')]
+
+      @property currentPageAria [String]
+        @added nextReleaseVersion
+        @description
+          The text to use for the @code[aria-label] on the current page to enable screen readers to navigate using the paginator
+
+          This string can contain @code[$page] which will be replaced by the paginator when rendering (e.g. @code['XXX $page XXX'] would be converted to @code['XXX 4 XXX'])
+        @default: @code[hx.userFacingText('paginator', 'currentPageAria')]
+
+      @property gotoPageAria [String]
+        @added nextReleaseVersion
+        @description
+          The text to use for the @code[aria-label] on the numeric page buttons to enable screen readers to navigate using the paginator
+
+          This string can contain @code[$page] which will be replaced by the paginator when rendering (e.g. @code['XXX $page XXX'] would be converted to @code['XXX 4 XXX'])
+        @default: @code[hx.userFacingText('paginator', 'gotoPageAria')]
+
+      @property prevPageAria [String]
+        @added nextReleaseVersion
+        @description
+          The text to use for the @code[aria-label] on the previous page button to enable screen readers to navigate using the paginator
+
+          This string can contain @code[$page] which will be replaced by the paginator when rendering (e.g. @code['XXX $page XXX'] would be converted to @code['XXX 4 XXX'])
+        @default: @code[hx.userFacingText('paginator', 'prevPageAria')]
+
+      @property nextPageAria [String]
+        @added nextReleaseVersion
+        @description
+          The text to use for the @code[aria-label] on the next page button to enable screen readers to navigate using the paginator
+
+          This string can contain @code[$page] which will be replaced by the paginator when rendering (e.g. @code['XXX $page XXX'] would be converted to @code['XXX 4 XXX'])
+        @default: @code[hx.userFacingText('paginator', 'nextPageAria')]
+
+      @property prevText [String]
+        @added nextReleaseVersion
+        @description
+          The text to display in the previous button
+        @default: @code[hx.userFacingText('paginator', 'prev')]
+
+      @property nextText [String]
+        @added nextReleaseVersion
+        @description
+          The text to display in the next button
+        @default: @code[hx.userFacingText('paginator', 'next')]
+
+      @property v2Features [Object]
+        @added nextReleaseVersion
+
+        @property useAccessibleRendering [Boolean]
+          @description
+            Whether to use a more accessible HTML structure to allow screen readers to use the Paginator correctly.
+
+            This will be the default behaviour in version 2.0.0
+
+          @default: false
+
+
+        @property padding [Number]
+          @description
+            The padding to display either side of the 'active' page when using accessible rendering.
+
+            The recommended value is 2 however there are some cases where it is more useful to make a larger selection of pages available
+
+            This will be converted to a standard option in version 2.0.0
+
+          @default: 2
+
+
+
 
   @method setPage
     @deprecated 0.11.0
@@ -131,8 +278,31 @@
       @description
         this paginator
 
+  @method pageCount
+    @added 0.13.0
+    @description
+      Gets the total number of pages in the paginator.
+
+    @returns [Number]
+      @description
+        The current page count for the paginator
+
+  @setterGetter updatePageOnSelect: Boolean
+  @setterGetter paginatorAria: String
+  @setterGetter currentPageAria: String
+  @setterGetter gotoPageAria: String
+  @setterGetter prevPageAria: String
+  @setterGetter nextPageAria: String
+  @setterGetter prevText: String
+  @setterGetter nextText: String
+
   @method visibleCount
     @added 0.13.0
+
+    @deprecated nextReleaseVersion
+      @description
+        The visibleCount will be replaced in version 2 with the @code[padding] option.
+
     @description
       Sets the number of pages that are shown at once.
 
@@ -147,17 +317,13 @@
       @description
         this paginator
 
-  @method pageCount
-    @added 0.13.0
-    @description
-      Gets the total number of pages in the paginator.
-
-    @returns [Number]
-      @description
-        The current page count for the paginator
-
   @method visibleCount
     @added 0.13.0
+
+    @deprecated nextReleaseVersion
+      @description
+        The visibleCount will be replaced in version 2 with the @code[padding] option.
+
     @description
       Gets the number of pages that are shown at once.
 
@@ -165,36 +331,6 @@
       @description
         The current visible count for the paginator
 
-  @constructor
-    @added 1.0.0
-    @description
-      Sets up a paginator.
-
-    @arg selector [String/HTMLElement]
-      @description
-        A CSS selector or a HTMLElement that identifies the container for your paginator.
-
-    @arg? options [Object]
-      @property page [Number]
-        @description
-          The page index to set. This index is 1 based.
-
-        @default
-          1
-
-      @property visibleCount [Number]
-        @description
-          The number of pages visible in the paginator.
-
-        @default
-          10
-
-      @property pageCount [Number]
-        @description
-          The number of pages to give the paginator.
-
-        @default
-          10
 
   @event change [Object]
     @description
@@ -205,8 +341,19 @@
         Will be either 'user' or 'api'. 'user' means that the user clicked on the paginator to cause the page to change, 'api' means that one of the methods on the paginator (such as setPage) was called to cause the change.
 
     @property selected [Number]
+      @deprecated nextReleaseVersion
+        @description
+          This has been renamed to @code[value] for consitency with other Hexagon events. This property will be removed in version 2.0.0
+
       @description
         The selected page (1 based index).
+
+    @property value [Number]
+      @added nextReleaseVersion
+
+      @description
+        The selected page (1 based index).
+
 
 @function hx.paginator
   @added 1.0.0

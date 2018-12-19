@@ -28,16 +28,19 @@ describe 'paginator', ->
 
   describe 'hx.Paginator', ->
     paginator = undefined
+    changeSpy = undefined
 
     describe 'when creating a paginator with pageCount 100 and currentPage 1', ->
       allText = undefined
       selected = undefined
       beforeEach ->
+        changeSpy = chai.spy()
         opts = Object.assign({}, allV2FeaturesEnabled, {
           pageCount: 100,
           page: 1
         })
         paginator = new hx.Paginator(fixture, opts)
+        paginator.on 'change', changeSpy
         allText = fixture.selectAll('li').text()
         selected = fixture.select('.hx-paginator-selected')
 
@@ -54,87 +57,98 @@ describe 'paginator', ->
         paginator.page().should.equal(1)
 
 
-      describe 'then clicking on a page', ->
+      describe 'and updating the prev text', ->
+        beforeEach ->
+          paginator.page('50')
+          paginator.prevText('Bob')
+          allText = fixture.selectAll('li').text()
+
+        it 'shows the correct buttons', ->
+          allText.should.eql(['Bob', '1', '', '48', '49', '50', '51', '52', '', '100', hx.userFacingText('paginator', 'next')])
+
+
+      describe 'and updating the next text', ->
+        beforeEach ->
+          paginator.page('50')
+          paginator.nextText('Bob')
+          allText = fixture.selectAll('li').text()
+
+        it 'shows the correct buttons', ->
+          allText.should.eql([ hx.userFacingText('paginator', 'prev'), '1', '', '48', '49', '50', '51', '52', '', '100', 'Bob'])
+
+
+      describe 'and clicking on a page', ->
         beforeEach ->
           fixture.select('li:nth-child(4) a').node().click()
-          selected = fixture.select('.hx-paginator-selected')
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('4')
+        it 'has the correct page', ->
+          paginator.page().should.equal(4)
 
 
-      describe 'then clicking next', ->
+      describe 'and clicking next', ->
         beforeEach ->
           fixture.select('li:last-child a').node().click()
-          selected = fixture.select('.hx-paginator-selected')
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('2')
+        it 'has the correct page', ->
+          paginator.page().should.equal(2)
 
 
         describe 'then clicking prev', ->
           beforeEach ->
             fixture.select('li:first-child a').node().click()
-            selected = fixture.select('.hx-paginator-selected')
 
-          it 'has the correct selected item', ->
-            selected.text().should.equal('1')
+          it 'has the correct page', ->
+            paginator.page().should.equal(1)
 
 
-      describe 'then pressing the left key', ->
+      describe 'and pressing the left key', ->
         beforeEach ->
           testHelpers.fakeNodeEvent(fixture.select('nav').node(), 'keydown')({ which: 37 })
-          selected = fixture.select('.hx-paginator-selected')
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('1')
+        it 'has the correct page', ->
+          paginator.page().should.equal(1)
 
 
-      describe 'then pressing the right key', ->
+      describe 'and pressing the right key', ->
         beforeEach ->
           testHelpers.fakeNodeEvent(fixture.select('nav').node(), 'keydown')({ which: 39 })
-          selected = fixture.select('.hx-paginator-selected')
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('2')
+        it 'has the correct page', ->
+          paginator.page().should.equal(2)
 
 
         describe 'then pressing the left key', ->
           beforeEach ->
             testHelpers.fakeNodeEvent(fixture.select('nav').node(), 'keydown')({ which: 37 })
-            selected = fixture.select('.hx-paginator-selected')
 
-          it 'has the correct selected item', ->
-            selected.text().should.equal('1')
+          it 'has the correct page', ->
+            paginator.page().should.equal(1)
 
 
-      describe 'then setting the current page to 100 with the API', ->
+      describe 'and setting the current page to 100 with the API', ->
         beforeEach ->
           paginator.page(100)
           allText = fixture.selectAll('li').text()
-          selected = fixture.select('.hx-paginator-selected')
 
         it 'shows the correct buttons', ->
           allText.should.eql([hx.userFacingText('paginator', 'prev'), '1', '', '96', '97', '98', '99', '100'])
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('100')
+        it 'has the correct page', ->
+          paginator.page().should.equal(100)
 
 
         describe 'then pressing the right key', ->
           beforeEach ->
             testHelpers.fakeNodeEvent(fixture.select('nav').node(), 'keydown')({ which: 39 })
-            selected = fixture.select('.hx-paginator-selected')
 
-          it 'has the correct selected item', ->
-            selected.text().should.equal('100')
+          it 'has the correct page', ->
+            paginator.page().should.equal(100)
 
 
-      describe 'then setting the current page to undefined with the API', ->
+      describe 'and setting the current page to undefined with the API', ->
         beforeEach ->
           paginator.page(undefined)
           allText = fixture.selectAll('li').text()
-          selected = fixture.select('.hx-paginator-selected')
 
         it 'sets the page to 1', ->
           paginator.page().should.equal(1)
@@ -142,55 +156,49 @@ describe 'paginator', ->
         it 'shows the correct buttons', ->
           allText.should.eql(['1', '2', '3', '4', '5', '', '100', hx.userFacingText('paginator', 'next')])
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('1')
+        it 'has the correct page', ->
+          paginator.page().should.equal(1)
 
 
-      describe 'then setting the pageCount to 30 with the API', ->
+      describe 'and setting the pageCount to 30 with the API', ->
         beforeEach ->
           paginator.pageCount(30)
           allText = fixture.selectAll('li').text()
-          selected = fixture.select('.hx-paginator-selected')
 
         it 'shows the correct buttons', ->
           allText.should.eql(['1', '2', '3', '4', '5', '', '30', hx.userFacingText('paginator', 'next')])
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('1')
+        it 'has the correct page', ->
+          paginator.page().should.equal(1)
 
 
-      describe 'then setting the pageCount to undefined with the API', ->
+      describe 'and setting the pageCount to undefined with the API', ->
         beforeEach ->
           paginator.pageCount(undefined)
           allText = fixture.selectAll('li').text()
-          selected = fixture.select('.hx-paginator-selected')
 
         it 'shows the correct buttons', ->
           allText.should.eql(['1', hx.userFacingText('paginator', 'next')])
 
-        it 'has the correct selected item', ->
-          selected.text().should.equal('1')
+        it 'has the correct page', ->
+          paginator.page().should.equal(1)
 
         describe 'then setting the page to 1000', ->
           beforeEach ->
             paginator.page(1000)
             allText = fixture.selectAll('li').text()
-            selected = fixture.select('.hx-paginator-selected')
 
           it 'shows the correct buttons', ->
             allText.should.eql([hx.userFacingText('paginator', 'prev'), '1000', hx.userFacingText('paginator', 'next')])
 
-          it 'has the correct selected item', ->
-            selected.text().should.equal('1000')
+          it 'has the correct page', ->
+            paginator.page().should.equal(1000)
 
 
-      describe 'then disabling updatePageOnSelect', ->
-        changeSpy = undefined
+      describe 'and disabling updatePageOnSelect', ->
         beforeEach ->
-          changeSpy = chai.spy()
           paginator.page(4)
           paginator.updatePageOnSelect(false)
-          paginator.on 'change', changeSpy
 
         describe 'then clicking on a page', ->
           beforeEach ->
@@ -232,7 +240,7 @@ describe 'paginator', ->
             fixture.select('li:first-child a').node().click()
             selected = fixture.select('.hx-paginator-selected')
 
-          it 'has the correct selected item', ->
+          it 'has the correct page', ->
             paginator.page().should.equal(4)
 
           it 'calls the change function', ->
@@ -244,6 +252,7 @@ describe 'paginator', ->
               value: 3
               selected: 3
             })
+
 
   describe 'hx.paginator', ->
     describe 'when creating a paginator with pageCount 100 and currentPage 1', ->
