@@ -23,34 +23,40 @@ makeRange = (first, last) ->
   Array(last - first + 1).fill(0).map((_, index) -> index + first)
 
 getPageItems = (currentPage = 1, pageCount, padding) ->
-  maxPadding = (padding * 2) + 1
+  items = if pageCount
+    maxPadding = (padding * 2) + 1
 
-  distanceFromStart = currentPage - maxPadding
-  distanceFromEnd = -(currentPage + maxPadding - pageCount)
+    distanceFromStart = currentPage - maxPadding
+    distanceFromEnd = -(currentPage + maxPadding - pageCount)
 
-  # Calculate the contiguous page number links range tht includes the currentPage page
-  [minPage, maxPage] =
-    if distanceFromEnd >= distanceFromStart and distanceFromStart <= 0
-      [1, Math.min(maxPadding, pageCount)]
-    else if distanceFromEnd < 0
-      [Math.max(pageCount - maxPadding + 1, 1), pageCount]
-    else
-      [Math.max(currentPage - padding, 1), Math.min(currentPage + padding, pageCount)]
+    # Calculate the contiguous page number links range tht includes the currentPage page
+    [minPage, maxPage] =
+      if distanceFromEnd >= distanceFromStart and distanceFromStart <= 0
+        [1, Math.min(maxPadding, pageCount)]
+      else if distanceFromEnd < 0
+        [Math.max(pageCount - maxPadding + 1, 1), pageCount]
+      else
+        [Math.max(currentPage - padding, 1), Math.min(currentPage + padding, pageCount)]
 
-  minPage = if minPage <= 3 then 1 else minPage;
-  maxPage = if maxPage >= pageCount - 2 then pageCount else maxPage;
+    minPage = if minPage <= 3 then 1 else minPage;
+    maxPage = if maxPage >= pageCount - 2 then pageCount else maxPage;
 
-  items = [
-    currentPage isnt 1 and 'prev'
-    minPage > 1 and makeItem(1, currentPage)
-    minPage > 2 and '...'
-    makeRange(minPage, maxPage).map((p) -> makeItem(p, currentPage))...
-    maxPage < pageCount - 1 and '...'
-    maxPage < pageCount and makeItem(pageCount, currentPage)
-    currentPage isnt pageCount and 'next'
-  ].filter((x) -> x)
-
-  return items
+    [
+      currentPage isnt 1 and 'prev'
+      minPage > 1 and makeItem(1, currentPage)
+      minPage > 2 and '...'
+      makeRange(minPage, maxPage).map((p) -> makeItem(p, currentPage))...
+      maxPage < pageCount - 1 and '...'
+      maxPage < pageCount and makeItem(pageCount, currentPage)
+      currentPage isnt pageCount and 'next'
+    ]
+  else
+    [
+      currentPage isnt 1 and 'prev',
+      makeItem(currentPage, currentPage),
+      'next'
+    ]
+  return items.filter((x) -> x)
 
 class Paginator extends hx.EventEmitter
   constructor: (selector, options) ->

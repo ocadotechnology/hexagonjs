@@ -1,7 +1,4 @@
 describe 'hx-paginator', ->
-
-
-
   describe 'getPageItems', () ->
     getPageItems = hx._.paginator.getPageItems
 
@@ -103,3 +100,6 @@ describe 'hx-paginator', ->
     runTest('prev 1 ... 7 8 9 10~ 11 next', 10, 11)
     runTest('prev 1 ... 7 8 9 10 11~', 11, 11)
 
+    runTest('1~ next', 1, undefined)
+    runTest('prev 2~ next', 2, undefined)
+    runTest('prev 100~ next', 100, undefined)
