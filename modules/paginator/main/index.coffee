@@ -16,70 +16,41 @@ getRange = (obj) ->
   start = Math.max(1, end - obj.visibleCount)
   {start: start, end: end}
 
-getFilledArray = (length) -> new Array(length).fill(0)
-makeItem = (page, currentPage) -> "#{page}#{if currentPage == page then '~' else ''}"
+makeItem = (page, currentPage) ->
+  "#{page}#{if currentPage == page then '~' else ''}"
 
-getPageItems = (currentPage = 1, pageCount, maxMiddleCount) ->
-  displayMiddleCount = if maxMiddleCount is pageCount - 2 then maxMiddleCount + 1
-  else Math.min(pageCount, maxMiddleCount)
-  beforeAfterLength = Math.floor(displayMiddleCount / 2)
-  middleNearStart = currentPage <= displayMiddleCount
-  middleNearEnd = currentPage > pageCount - displayMiddleCount
-  middleInMiddle = !middleNearStart and !middleNearEnd
-  showMiddle = pageCount > 2 and (middleNearStart or middleNearEnd or middleInMiddle)
+makeRange = (first, last) ->
+  Array(last - first + 1).fill(0).map((_, index) -> index + first)
 
-  firstIsNextToMiddle = middleNearEnd and pageCount - displayMiddleCount == 1 or
-    middleInMiddle and currentPage - beforeAfterLength == 1
+getPageItems = (currentPage = 1, pageCount, padding) ->
+  maxPadding = (padding * 2) + 1
 
-  lastIsNextToMiddle = middleNearStart and pageCount - displayMiddleCount == 1 or
-    middleInMiddle and currentPage + beforeAfterLength == pageCount - 1
+  distanceFromStart = currentPage - maxPadding
+  distanceFromEnd = -(currentPage + maxPadding - pageCount)
 
-  showFirst = !middleNearStart or pageCount > 1 and !showMiddle or pageCount == 1
-  showFirstEllipsis = showFirst and (pageCount - displayMiddleCount > 1 or middleInMiddle)
+  # Calculate the contiguous page number links range tht includes the currentPage page
+  [minPage, maxPage] =
+    if distanceFromEnd >= distanceFromStart and distanceFromStart <= 0
+      [1, Math.min(maxPadding, pageCount)]
+    else if distanceFromEnd < 0
+      [Math.max(pageCount - maxPadding + 1, 1), pageCount]
+    else
+      [Math.max(currentPage - padding, 1), Math.min(currentPage + padding, pageCount)]
 
-  showLast = middleNearStart and pageCount - displayMiddleCount >= 1 or !middleNearEnd or
-    pageCount > 1 and !showMiddle or lastIsNextToMiddle
-  showLastEllipsis = showLast and (pageCount - displayMiddleCount > 1 or middleInMiddle)
+  minPage = if minPage <= 3 then 1 else minPage;
+  maxPage = if maxPage >= pageCount - 2 then pageCount else maxPage;
 
-  first = showFirst and makeItem(1, currentPage)
-  last = showLast and makeItem(pageCount, currentPage)
-  prev = currentPage > 1 and 'prev'
-  next = currentPage < pageCount and 'next'
-  startEllipsis = showFirstEllipsis and '...'
-  endEllipsis = showLastEllipsis and '...'
+  items = [
+    currentPage isnt 1 and 'prev'
+    minPage > 1 and makeItem(1, currentPage)
+    minPage > 2 and '...'
+    makeRange(minPage, maxPage).map((p) -> makeItem(p, currentPage))...
+    maxPage < pageCount - 1 and '...'
+    maxPage < pageCount and makeItem(pageCount, currentPage)
+    currentPage isnt pageCount and 'next'
+  ].filter((x) -> x)
 
-  middle = if showMiddle then (->
-    if middleNearStart
-      return getFilledArray(displayMiddleCount)
-        .map (_, i) -> i + 1
-
-    if middleNearEnd
-      return getFilledArray(displayMiddleCount)
-        .map (_, i) -> pageCount - displayMiddleCount + i + 1
-
-    if middleInMiddle
-      before = getFilledArray(beforeAfterLength)
-        .map (_, i) -> currentPage - beforeAfterLength + i
-
-      after = getFilledArray(beforeAfterLength)
-        .map (_, i) -> currentPage + i + 1
-
-      return [
-        before...,
-        currentPage,
-        after...
-      ]
-  )().map (item) -> makeItem(item, currentPage)
-
-  [
-    prev
-    first
-    startEllipsis
-    (middle or [])...,
-    endEllipsis
-    last
-    next
-  ].filter hx.identity
+  return items
 
 class Paginator extends hx.EventEmitter
   constructor: (selector, options) ->
@@ -94,7 +65,7 @@ class Paginator extends hx.EventEmitter
       visibleCount: 10,
       updatePageOnSelect: true,
       v2Features: {
-        maxMiddleCount: 5,
+        padding: 2,
         useAccessibleRendering: false,
         dontRenderOnResize: false,
       },
@@ -250,7 +221,7 @@ class Paginator extends hx.EventEmitter
     currentPage = @page()
     currentPageCount = @pageCount()
     data = if @_.v2Features.useAccessibleRendering
-      getPageItems(currentPage, currentPageCount, this._.v2Features.maxMiddleCount).map (item) =>
+      getPageItems(currentPage, currentPageCount, this._.v2Features.padding).map (item) =>
         if item is 'prev'
           return {
             text: @prevText(),

@@ -3,7 +3,7 @@ describe 'hx-paginator', ->
 
 runTest = (expectation, currentPage, pageCount) ->
   it "page: #{currentPage}, pageCount: #{pageCount} => #{expectation}", () ->
-    hx._.paginator.getPageItems(currentPage, pageCount, 5).join(' ').should.equal(expectation)
+    hx._.paginator.getPageItems(currentPage, pageCount, 2).join(' ').should.equal(expectation)
 
 describe 'paginator logic', () ->
   runTest('1~ 2 3 4 5 ... 100 next', 1, 100)
@@ -59,7 +59,7 @@ describe 'paginator logic', () ->
   runTest('prev 1 2~ 3 4 5 ... 8 next', 2, 8)
   runTest('prev 1 2 3~ 4 5 ... 8 next', 3, 8)
   runTest('prev 1 2 3 4~ 5 ... 8 next', 4, 8)
-  runTest('prev 1 2 3 4 5~ ... 8 next', 5, 8)
+  runTest('prev 1 ... 4 5~ 6 7 8 next', 5, 8)
   runTest('prev 1 ... 4 5 6~ 7 8 next', 6, 8)
   runTest('prev 1 ... 4 5 6 7~ 8 next', 7, 8)
   runTest('prev 1 ... 4 5 6 7 8~', 8, 8)
@@ -69,7 +69,7 @@ describe 'paginator logic', () ->
   runTest('prev 1 2~ 3 4 5 ... 9 next', 2, 9)
   runTest('prev 1 2 3~ 4 5 ... 9 next', 3, 9)
   runTest('prev 1 2 3 4~ 5 ... 9 next', 4, 9)
-  runTest('prev 1 2 3 4 5~ ... 9 next', 5, 9)
+  runTest('prev 1 ... 5~ 6 7 8 9 next', 5, 9)
   runTest('prev 1 ... 5 6~ 7 8 9 next', 6, 9)
   runTest('prev 1 ... 5 6 7~ 8 9 next', 7, 9)
   runTest('prev 1 ... 5 6 7 8~ 9 next', 8, 9)
