@@ -37,7 +37,7 @@
 
   @updated nextReleaseVersion
     @description
-      In preparation for version 2, new visuals have been added behind a feature flag.
+      In preparation for version 2, new visuals have been added behind feature flags to improve the UI, UX and accessibility of the paginator component.
 
   @description
     Component for selecting a page from a range.
