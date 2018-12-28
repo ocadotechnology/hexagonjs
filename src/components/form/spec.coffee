@@ -1,12 +1,145 @@
 import { userFacingText } from 'utils/user-facing-text'
-import { div } from 'utils/selection'
+import { div, select, detached } from 'utils/selection'
 
-import { Form } from 'components/form'
+import { Form, validateForm } from 'components/form'
 
 export default () ->
   describe 'form', ->
     describe 'validateForm', () ->
-      #...
+      fixture = div('hx-test-form')
+
+      beforeEach ->
+        select('body').append(fixture)
+        fixture.clear()
+
+      after ->
+        fixture.remove()
+
+      makeInput = (text, val='', type='text') ->
+        div()
+          .add(detached('label').text(text))
+          .add(detached('input').value(val).attr('type', type))
+
+      describe 'with valid forms', ->
+        validForm = undefined
+        validation = undefined
+        beforeEach () ->
+          validForm = detached('form')
+            .add(makeInput('Text', 'something'))
+
+          fixture.add(validForm)
+
+          validation = validateForm(validForm)
+
+        it 'should validate the form with no errors', () ->
+          validation.should.eql({
+            valid: true,
+            errors: []
+          })
+
+        it 'should not show any error messages', () ->
+          validForm.selectAll('.hx-form-error').empty().should.equal(true)
+
+        describe 'with showMessage false', ->
+          beforeEach () ->
+            validation = validateForm(validForm, { showMessage: false })
+
+          it 'returns valid true', () ->
+            validation.valid.should.equal(true)
+
+          it 'returns no errors', () ->
+            validation.errors.should.eql([])
+
+          it 'does not show any error messages', () ->
+            validForm.selectAll('.hx-form-error').empty().should.equal(true)
+
+
+      describe 'with invalid forms', ->
+        invalidForm = undefined
+        validation = undefined
+        invalidNode = undefined
+        inputContainer = undefined
+        beforeEach () ->
+          inputContainer = makeInput('Text')
+          invalidNode = inputContainer.select('input')
+            .attr('required', true)
+
+          invalidNode.node().offsetParent = 'PhantomJS Workaround'
+
+          invalidForm = detached('form')
+            .add(inputContainer)
+
+          fixture.append(invalidForm)
+
+          validation = validateForm(invalidForm)
+
+        it 'returns valid false', () ->
+          validation.valid.should.equal(false)
+
+        it 'returns the correct number of errors', () ->
+          validation.errors.length.should.equal(1)
+
+        # it 'returns the correct message', () ->
+        #   validation.errors[0].message.should.equal(userFacingText('form','missingValue'))
+
+        it 'returns the correct node', () ->
+          validation.errors[0].node.should.equal(invalidNode.node())
+
+        it 'returns the correct validity', () ->
+          validation.errors[0].validity.should.eql(invalidNode.node().validity)
+
+        it 'returns the correct focused', () ->
+          validation.errors[0].focused.should.equal(false)
+
+        it 'shows a single error message', () ->
+          invalidForm.selectAll('.hx-form-error').size().should.equal(1)
+
+        # it 'shows the correct error text in the message', () ->
+        #   invalidForm.selectAll('.hx-form-error').text().should.eql([userFacingText('form', 'missingValue')])
+
+        describe 'with showMessage false', ->
+          beforeEach () ->
+            invalidForm.selectAll('.hx-form-error').remove()
+            validation = validateForm(invalidForm, { showMessage: false })
+
+          it 'returns valid false', () ->
+            validation.valid.should.equal(false)
+
+          it 'returns the correct number of errors', () ->
+            validation.errors.length.should.equal(1)
+
+          # it 'returns the correct message', () ->
+          #   validation.errors[0].message.should.equal(userFacingText('form','missingValue'))
+
+          it 'returns the correct node', () ->
+            validation.errors[0].node.should.equal(invalidNode.node())
+
+          it 'returns the correct validity', () ->
+            validation.errors[0].validity.should.eql(invalidNode.node().validity)
+
+          it 'returns the correct focused', () ->
+            validation.errors[0].focused.should.equal(false)
+
+          it 'does not show any error messages', () ->
+            invalidForm.selectAll('.hx-form-error').empty().should.equal(true)
+
+
+      describe 'with form buttons', ->
+        validForm = undefined
+        validate = undefined
+
+        beforeEach () ->
+          validForm = detached('form')
+            .add(makeInput('Text', 'something'))
+            .add(div().class('hx-form-buttons')
+              .add(detached('button').text('submit')))
+
+          fixture.add(validForm)
+
+          validate = -> validateForm(validForm)
+
+        it 'does not throw an error', ->
+          validate.should.not.throw()
 
     describe 'Form', () ->
       it 'should have user facing text defined', ->

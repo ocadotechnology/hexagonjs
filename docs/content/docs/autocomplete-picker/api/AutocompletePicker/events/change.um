@@ -1,4 +1,14 @@
 @event change [String]
+  @bugfix 1.17.1
+    @issue 438
+    @description
+      Revert change 438
+
+      This change caused a breaking difference in the API as using object values
+      requires checking @code[data.value.value] in most implementations.
+
+      This change will be made in the next breaking release.
+
   @bugfix 1.17.0
     @issue 438
     @description

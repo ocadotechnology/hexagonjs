@@ -87,6 +87,7 @@ class AutocompletePicker extends EventEmitter
       showOtherResults: resolvedOptions.showOtherResults
       trimTrailingSpaces: resolvedOptions.trimTrailingSpaces
       valueLookup: resolvedOptions.valueLookup
+      useCache: resolvedOptions.useCache
 
     feed = new AutocompleteFeed(feedOptions)
 

@@ -56,8 +56,8 @@ validateForm = (form, options) ->
     if form.children[idx].nodeName.toLowerCase() is 'div'
       element = form.children[idx].children[1]
 
-      # Don't check the validity of hidden elements
-      if element.offsetParent isnt null
+      # Don't check the validity of hidden or undefined elements
+      if element and element.offsetParent isnt null
         # Deal with standard label/input pairs
         if element.nodeName.toLowerCase() is 'input' or element.nodeName.toLowerCase() is 'textarea'
           if not element.checkValidity()

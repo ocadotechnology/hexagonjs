@@ -32,3 +32,43 @@
       @@js
         new hx.DatePicker('#dateRangePicker', {selectRange: true});
 
+
+
+@version 1.18.1
+  @examples
+    @example
+      @@html
+        <div id="datepickerExample1"></div> <div id="datepickerExample2"></div>
+
+      @@js
+        new hx.DatePicker('#datepickerExample1');
+        new hx.DatePicker('#datepickerExample2', {type: 'datepicker'});
+
+    @example
+      @@html
+        <div id="dateRangePicker"></div>
+
+      @@js
+        new hx.DatePicker('#dateRangePicker', {selectRange: true});
+
+    @example
+      @@html
+        <input id="datePickerInput" />
+
+      @@js
+        new hx.DatePicker('#datePickerInput');
+
+    @example
+      @@html
+        <input id="datePickerV2" placeholder="DD/MM/YYYY" />
+
+      @@js
+        new hx.DatePicker('#datePickerV2', {
+          v2Features: {
+            dontModifyDateOnError: true,
+            displayLongMonthInCalendar: true,
+            dontSetInitialInputValue: true,
+            updateVisibleMonthOnDateChange: true,
+          },
+        });
+

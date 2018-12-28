@@ -12,8 +12,8 @@ export default () => {
     it('value: setter/getter works for range', () => {
       const ts = new TimeSlider(document.createElement('div'), {type: 'range'})
       const range = {
-        start: (new Date((new Date()).getTime() - 1000)),
-        end: (new Date())
+        start: (new Date(new Date().getTime() + 6000)),
+        end: (new Date(new Date().getTime() + 12000))
       }
       ts.value(range).should.equal(ts)
       ts.value().should.eql(range)

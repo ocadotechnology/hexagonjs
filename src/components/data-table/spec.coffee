@@ -836,32 +836,32 @@ export default () ->
           emit checkSel.node(), 'click', fakeEvent
 
 
-          it 'should be possible for the user to deselect a row selected by the api', (done) ->
-            feed = objectFeed
-              headers: [
-                name: 'Name'
-                id: 'name'
-              ]
-              rows: [
-                id: 0
-                cells:
-                  name: 'Bob'
-              ]
-            tableSel = detached 'div'
-            tableOpts =
-              feed: feed
-              singleSelection: true
-              selectEnabled: true
-            table = new DataTable tableSel.node(), tableOpts
-            table.selectedRows [0]
+        it 'should be possible for the user to deselect a row selected by the api', (done) ->
+          feed = objectFeed
+            headers: [
+              name: 'Name'
+              id: 'name'
+            ]
+            rows: [
+              id: 0
+              cells:
+                name: 'Bob'
+            ]
+          tableSel = detached 'div'
+          tableOpts =
+            feed: feed
+            singleSelection: true
+            selectEnabled: true
+          table = new DataTable tableSel.node(), tableOpts
+          table.selectedRows [0]
 
-            table.on 'selectedrowschange', (data) ->
-              if data.cause is 'user'
-                # Row 0 was selected before, so now we're unselecting it
-                data.value.should.eql []
-                done()
-            checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
-            emit(checkSel.node(), 'click', fakeEvent)
+          table.on 'selectedrowschange', (data) ->
+            if data.cause is 'user'
+              # Row 0 was selected before, so now we're unselecting it
+              data.value.should.eql []
+              done()
+          checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
+          emit(checkSel.node(), 'click', fakeEvent)
 
 
         it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->

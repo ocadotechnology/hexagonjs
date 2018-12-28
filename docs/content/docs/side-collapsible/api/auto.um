@@ -1,5 +1,11 @@
 @prototype hx.SideCollapsible
   @added 0.12.8
+
+  @bugfix 1.18.1
+    @issue 515
+    @description
+      Fixed an issue where a side collapsible with scrollable content would not allow the scrollbar to be clicked.
+
   @description
   @extends EventEmitter
   @constructor
