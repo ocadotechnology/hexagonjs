@@ -1,9 +1,8 @@
 @module paginator
-
   @option arrow-button
     @type string
     @description: The button class to give the arrow buttons
-    @default:
+    @default: n-a
     @includeWithJs
 
   @option default-button
@@ -15,5 +14,62 @@
   @option selected-button
     @type string
     @description: The button class to give the selected item in the paginator
-    @default: hx-positive
-    @includeWithJs hx-positive
+    @default: hx-action
+    @includeWithJs hx-action
+
+  @option button-border-color
+    @type color
+    @description
+    @default: #e6e6e6;
+
+  @option button-background-color
+    @type color
+    @description
+    @default:  transparent;
+
+  @option button-text-color
+    @type color
+    @description
+    @default: #3D3D3D;
+
+  @option button-hover-background-color
+    @type color
+    @description
+    @default: #e8e8ee;
+
+  @option button-hover-text-color
+    @type color
+    @description
+    @default: #3D3D3D;
+
+  @option ellipsis-background-color
+    @type color
+    @description
+    @default:  transparent;
+
+  @option ellipsis-border-color
+    @type color
+    @description
+    @default:  transparent;
+
+  @option ellipsis-text-color
+    @type color
+    @description
+    @default: #3D3D3D;
+
+  @option selected-background-color
+    @type color
+    @description
+    @default: #00ADA8;
+
+  @option selected-text-color
+    @type color
+    @description
+    @default:  white;
+
+
+  @option button-font-weight
+    @type string
+    @description
+    @default: normal;
+

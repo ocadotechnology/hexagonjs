@@ -361,9 +361,17 @@
 
     @paginator
       @variables
-        @arrow-button:
+        @arrow-button: n-a
         @default-button: hx-complement
         @selected-button: hx-action
+        @button-background-color: $default-col
+        @button-border-color: $input-border-col
+        @button-hover-background-color: $action-body-col
+        @button-hover-text-color: $text-col
+        @button-text-color: $text-col
+        @ellipsis-text-color: $text-col
+        @selected-background-color: $action-col
+        @selected-text-color: $light-text-col
 
     @palette
       @variables
