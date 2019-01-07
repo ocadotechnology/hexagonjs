@@ -386,9 +386,20 @@
       @dark-text-col: #3D3D3D
       @shadow-col: rgba(0, 0, 0, 0.05)
     @paginator
-      @arrow-button: 
+      @arrow-button: n-a
       @default-button: hx-complement
       @selected-button: hx-action
+      @button-border-color: #4E5355
+      @button-background-color: #393D3D
+      @button-text-color: white
+      @button-hover-background-color: #D0DDEE
+      @button-hover-text-color: white
+      @ellipsis-background-color:  transparent;
+      @ellipsis-border-color:  transparent;
+      @ellipsis-text-color: white
+      @selected-background-color: #00ADA8
+      @selected-text-color: white
+      @button-font-weight: normal
     @side-collapsible
       @heading-background-col: #2C3134
       @heading-text-col: white

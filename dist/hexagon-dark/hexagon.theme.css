@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.18.1
+ Version: 1.19.0
  Theme: hexagon-dark
  Modules:
    set
@@ -1327,6 +1327,27 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
     background: #E6E6E6;
     color: #3D3D3D; }
 
+.hx-paginator-button,
+.hx-paginator-button:focus {
+  border-color: #4E5355;
+  background: #393D3D;
+  color: white;
+  font-weight: normal; }
+
+.hx-paginator-button:hover {
+  background: #D0DDEE;
+  color: white; }
+
+.hx-paginator-ellipsis,
+.hx-paginator-ellipsis:hover {
+  background: transparent;
+  border-color: transparent;
+  color: white; }
+
+.hx-paginator-selected,
+.hx-paginator-selected:hover {
+  background: #00ADA8;
+  color: white; }
 
 
 .hx-side-collapsible-heading {

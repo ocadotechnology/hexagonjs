@@ -372,6 +372,7 @@
         @ellipsis-text-color: $text-col
         @selected-background-color: $action-col
         @selected-text-color: $light-text-col
+        @button-font-weight: normal
 
     @palette
       @variables

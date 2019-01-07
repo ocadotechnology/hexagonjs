@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.18.1
+ Version: 1.19.0
  Theme: hexagon-dark
  Modules:
    set
@@ -554,9 +554,20 @@ hx.theme = {
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "paginator": {
-    "arrowButton": "",
+    "arrowButton": "n-a",
     "defaultButton": "hx-complement",
-    "selectedButton": "hx-action"
+    "selectedButton": "hx-action",
+    "buttonBorderColor": "#4E5355",
+    "buttonBackgroundColor": "#393D3D",
+    "buttonTextColor": "white",
+    "buttonHoverBackgroundColor": "#D0DDEE",
+    "buttonHoverTextColor": "white",
+    "ellipsisBackgroundColor": " transparent;",
+    "ellipsisBorderColor": " transparent;",
+    "ellipsisTextColor": "white",
+    "selectedBackgroundColor": "#00ADA8",
+    "selectedTextColor": "white",
+    "buttonFontWeight": "normal"
   },
   "pivotTable": {},
   "sideCollapsible": {
@@ -21204,9 +21215,22 @@ hx.Meter = Meter;
 })();
 
 (function(){
-var Paginator, getRange, render, select,
+var Paginator, getPageItems, getRange, makeItem, makeRange,
+  slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
+
+hx.userFacingText({
+  paginator: {
+    paginatorAria: 'Pagination navigation',
+    currentPageAria: 'Current page, page $page',
+    gotoPageAria: 'Goto page $page',
+    prevPageAria: 'Goto previous page, page $page',
+    nextPageAria: 'Goto next page, page $page',
+    prev: 'Prev',
+    next: 'Next'
+  }
+});
 
 getRange = function(obj) {
   var end, start;
@@ -21219,121 +21243,249 @@ getRange = function(obj) {
   };
 };
 
-render = function(paginator) {
-  var buttonSize, buttonSpace, data, end, maxButtons, maxLength, ref, ref1, start, visibleCount;
-  if (paginator._.pageCount === void 0) {
-    data = [
-      {
-        value: paginator._.page,
-        selected: true,
-        dataLength: paginator._.page.toString().length
-      }
-    ];
-  } else {
-    ref = getRange(paginator._), start = ref.start, end = ref.end;
-    maxLength = Math.max(start.toString().length, (end - 1).toString().length);
-    buttonSize = 30 + (5 * Math.max(0, maxLength - 2));
-    buttonSpace = paginator.container.width() - 81;
-    maxButtons = Math.floor(buttonSpace / buttonSize);
-    visibleCount = Math.min(maxButtons, paginator._.visibleCount);
-    visibleCount = Math.max(visibleCount, 1);
-    ref1 = getRange(paginator._), start = ref1.start, end = ref1.end;
-    data = hx.range(end - start).map(function(i) {
-      return {
-        value: start + i,
-        selected: paginator._.page === start + i,
-        dataLength: maxLength
-      };
-    });
-  }
-  return paginator.view.apply(data);
+makeItem = function(page, currentPage) {
+  return "" + page + (currentPage === page ? '~' : '');
 };
 
-select = function(paginator, page, cause) {
-  var newPage;
-  if (paginator._.pageCount === void 0) {
-    newPage = Math.max(page, 1);
-  } else {
-    newPage = hx.clamp(1, paginator._.pageCount, page);
+makeRange = function(first, last) {
+  return Array(last - first + 1).fill(0).map(function(_, index) {
+    return index + first;
+  });
+};
+
+getPageItems = function(currentPage, pageCount, padding) {
+  var distanceFromEnd, distanceFromStart, items, maxPadding, maxPage, minPage, ref;
+  if (currentPage == null) {
+    currentPage = 1;
   }
-  if (newPage !== paginator._.page) {
-    paginator._.page = newPage;
-    render(paginator);
-    return paginator.emit('change', {
-      cause: cause,
-      selected: paginator._.page
-    });
-  }
+  items = pageCount ? (maxPadding = (padding * 2) + 1, distanceFromStart = currentPage - maxPadding, distanceFromEnd = -(currentPage + maxPadding - pageCount), (ref = distanceFromEnd >= distanceFromStart && distanceFromStart <= 0 ? [1, Math.min(maxPadding, pageCount)] : distanceFromEnd < 0 ? [Math.max(pageCount - maxPadding + 1, 1), pageCount] : [Math.max(currentPage - padding, 1), Math.min(currentPage + padding, pageCount)], minPage = ref[0], maxPage = ref[1], ref), minPage = minPage <= 3 ? 1 : minPage, maxPage = maxPage >= pageCount - 2 ? pageCount : maxPage, [currentPage !== 1 && 'prev', minPage > 1 && makeItem(1, currentPage), minPage > 2 && '...'].concat(slice.call(makeRange(minPage, maxPage).map(function(p) {
+      return makeItem(p, currentPage);
+    })), [maxPage < pageCount - 1 && '...'], [maxPage < pageCount && makeItem(pageCount, currentPage)], [currentPage !== pageCount && 'next'])) : [currentPage !== 1 && 'prev', makeItem(currentPage, currentPage), 'next'];
+  return items.filter(function(x) {
+    return x;
+  });
 };
 
 Paginator = (function(superClass) {
+  var selectPage, setterGetter;
+
   extend(Paginator, superClass);
 
   function Paginator(selector, options) {
-    var pageButtons, self;
+    var links, nav, navItemEnter, navItemUpdate, pageButtons, self;
     Paginator.__super__.constructor.apply(this, arguments);
     hx.component.register(selector, this);
     this.container = hx.select(selector).classed('hx-paginator', true);
     this._ = hx.merge({
       page: 1,
+      pageCount: 10,
       visibleCount: 10,
-      pageCount: 10
+      updatePageOnSelect: true,
+      paginatorAria: hx.userFacingText('paginator', 'paginatorAria'),
+      currentPageAria: hx.userFacingText('paginator', 'currentPageAria'),
+      gotoPageAria: hx.userFacingText('paginator', 'gotoPageAria'),
+      prevPageAria: hx.userFacingText('paginator', 'prevPageAria'),
+      nextPageAria: hx.userFacingText('paginator', 'nextPageAria'),
+      prevText: hx.userFacingText('paginator', 'prev'),
+      nextText: hx.userFacingText('paginator', 'next'),
+      v2Features: {
+        padding: 2,
+        useAccessibleRendering: false
+      }
     }, options);
     this._.selector = selector;
-    self = this;
-    this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).add(hx.detached('i')["class"]('hx-icon hx-icon-step-backward')).on('click', 'hx.paginator', function() {
-      if (self._.pageCount === void 0) {
-        return select(self, self._.page - 1, 'user');
-      } else {
-        return select(self, 0, 'user');
-      }
-    });
-    pageButtons = this.container.append('span')["class"]('hx-input-group');
-    this.view = pageButtons.view('.hx-btn', 'button').update(function(d, e, i) {
-      return this.text(d.value).attr('type', 'button').classed('hx-paginator-three-digits', d.dataLength === 3).classed('hx-paginator-more-digits', d.dataLength > 3).classed(hx.theme.paginator.defaultButton, !d.selected).classed(hx.theme.paginator.selectedButton, d.selected).classed('hx-no-border', true).on('click', 'hx.paginator', function() {
-        return select(self, d.value, 'user');
+    if (this._.v2Features.useAccessibleRendering) {
+      navItemEnter = function() {
+        var navItem;
+        navItem = hx.detached('li')["class"]('hx-paginator-button-container').add(hx.detached('a')["class"]('hx-paginator-button'));
+        return this.append(navItem).node();
+      };
+      navItemUpdate = function(arg, element) {
+        var aria, disabled, isEllipsis, isPrevNextButton, link, navItem, onClick, selected, text;
+        text = arg.text, aria = arg.aria, selected = arg.selected, disabled = arg.disabled, isEllipsis = arg.isEllipsis, onClick = arg.onClick, isPrevNextButton = arg.isPrevNextButton;
+        navItem = hx.select(element).classed('hx-paginator-selected-container', selected).classed('hx-paginator-ellipsis-container', isEllipsis).classed('hx-paginator-prev-next-container', isPrevNextButton);
+        link = navItem.select('a').classed('hx-paginator-selected', selected).attr('aria-current', selected ? true : void 0).classed('hx-paginator-ellipsis', isEllipsis).attr('aria-hidden', isEllipsis ? true : void 0);
+        link.text(text);
+        link.attr('aria-label', aria);
+        link.off();
+        if (onClick) {
+          return link.on('click', 'hx.paginator', onClick);
+        }
+      };
+      links = hx.detached('ul');
+      this.view = links.view('li').enter(navItemEnter).update(navItemUpdate);
+      nav = hx.detached('nav')["class"]('hx-paginator-nav').attr('role', 'navigation').attr('aria-label', this._.paginatorAria).add(links).attr('tabindex', '0').on('keydown', (function(_this) {
+        return function(e) {
+          var currentPage, currentPageCount;
+          currentPage = _this.page();
+          currentPageCount = _this.pageCount();
+          switch (e.which) {
+            case 37:
+              if (currentPage !== 1) {
+                return selectPage.call(_this, 'user', currentPage - 1);
+              }
+              break;
+            case 39:
+              if (currentPage !== currentPageCount) {
+                return selectPage.call(_this, 'user', currentPage + 1);
+              }
+          }
+        };
+      })(this));
+      this.container.add(nav);
+    } else {
+      self = this;
+      this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).add(hx.detached('i')["class"]('hx-icon hx-icon-step-backward')).on('click', 'hx.paginator', function() {
+        if (self._.pageCount === void 0) {
+          return selectPage.call(self, 'user', self._.page - 1);
+        } else {
+          return selectPage.call(self, 'user', 0);
+        }
       });
-    });
-    this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).add(hx.detached('i')["class"]('hx-icon hx-icon-step-forward')).on('click', 'hx.paginator', function() {
-      if (self._.pageCount === void 0) {
-        return select(self, self._.page + 1, 'user');
-      } else {
-        return select(self, self._.pageCount, 'user');
-      }
-    });
-    this.container.on('resize', 'hx.paginator', function() {
-      return render(self);
-    });
-    render(this);
+      pageButtons = this.container.append('span')["class"]('hx-input-group');
+      this.view = pageButtons.view('.hx-btn', 'button').update(function(d, e, i) {
+        return this.text(d.value).attr('type', 'button').classed('hx-paginator-three-digits', d.dataLength === 3).classed('hx-paginator-more-digits', d.dataLength > 3).classed(hx.theme.paginator.defaultButton, !d.selected).classed(hx.theme.paginator.selectedButton, d.selected).classed('hx-no-border', true).on('click', 'hx.paginator', function() {
+          return selectPage.call(self, 'user', d.value);
+        });
+      });
+      this.container.append('button').attr('type', 'button')["class"]('hx-btn ' + hx.theme.paginator.arrowButton).add(hx.detached('i')["class"]('hx-icon hx-icon-step-forward')).on('click', 'hx.paginator', function() {
+        if (self._.pageCount === void 0) {
+          return selectPage.call(self, 'user', self._.page + 1);
+        } else {
+          return selectPage.call(self, 'user', self._.pageCount);
+        }
+      });
+      this.container.on('resize', 'hx.paginator', (function(_this) {
+        return function() {
+          return _this.render();
+        };
+      })(this));
+    }
+    this.render();
   }
 
-  Paginator.prototype.page = function(i) {
+  setterGetter = function(key, onChange) {
+    return function(val) {
+      if (arguments.length > 0) {
+        this._[key] = val;
+        this.render();
+        return this;
+      } else {
+        return this._[key];
+      }
+    };
+  };
+
+  Paginator.prototype.pageCount = setterGetter('pageCount');
+
+  Paginator.prototype.visibleCount = setterGetter('visibleCount');
+
+  Paginator.prototype.updatePageOnSelect = setterGetter('updatePageOnSelect');
+
+  Paginator.prototype.paginatorAria = setterGetter('paginatorAria');
+
+  Paginator.prototype.currentPageAria = setterGetter('currentPageAria');
+
+  Paginator.prototype.gotoPageAria = setterGetter('gotoPageAria');
+
+  Paginator.prototype.prevPageAria = setterGetter('prevPageAria');
+
+  Paginator.prototype.nextPageAria = setterGetter('nextPageAria');
+
+  Paginator.prototype.prevText = setterGetter('prevText');
+
+  Paginator.prototype.nextText = setterGetter('nextText');
+
+  selectPage = function(cause, value) {
+    var currentPage, currentPageCount, newPage;
+    if (value == null) {
+      value = 1;
+    }
+    currentPageCount = this.pageCount();
+    currentPage = this.page();
+    newPage = currentPageCount === void 0 ? Math.max(value, 1) : hx.clamp(1, currentPageCount, value);
+    if (newPage !== currentPage) {
+      if (cause === 'api' || this.updatePageOnSelect()) {
+        this._.page = newPage;
+        this.render();
+      }
+      return this.emit('change', {
+        cause: cause,
+        value: value,
+        selected: value
+      });
+    }
+  };
+
+  Paginator.prototype.page = function(value) {
     if (arguments.length > 0) {
-      select(this, i, 'api');
+      selectPage.call(this, 'api', value, true);
       return this;
     } else {
       return this._.page;
     }
   };
 
-  Paginator.prototype.pageCount = function(value) {
-    if (value != null) {
-      this._.pageCount = value;
-      render(this);
-      return this;
-    } else {
-      return this._.pageCount;
-    }
-  };
-
-  Paginator.prototype.visibleCount = function(value) {
-    if (value != null) {
-      this._.visibleCount = value;
-      render(this);
-      return this;
-    } else {
-      return this._.visibleCount;
-    }
+  Paginator.prototype.render = function() {
+    var buttonSize, buttonSpace, currentPage, currentPageCount, data, end, maxButtons, maxLength, ref, ref1, start, visibleCount;
+    currentPage = this.page();
+    currentPageCount = this.pageCount();
+    data = this._.v2Features.useAccessibleRendering ? getPageItems(currentPage, currentPageCount, this._.v2Features.padding).map((function(_this) {
+      return function(item) {
+        var aria, numericItem, selected;
+        if (item === 'prev') {
+          return {
+            isPrevNextButton: true,
+            text: _this.prevText(),
+            aria: _this.prevPageAria().replace('$page', currentPage - 1),
+            onClick: function() {
+              return selectPage.call(_this, 'user', currentPage - 1);
+            }
+          };
+        }
+        if (item === 'next') {
+          return {
+            isPrevNextButton: true,
+            text: _this.nextText(),
+            aria: _this.nextPageAria().replace('$page', currentPage + 1),
+            onClick: function() {
+              return selectPage.call(_this, 'user', currentPage + 1);
+            }
+          };
+        }
+        if (item === '...') {
+          return {
+            isEllipsis: true
+          };
+        }
+        selected = item.indexOf('~') > -1;
+        numericItem = parseInt(item);
+        aria = selected ? _this.currentPageAria() : _this.gotoPageAria();
+        return {
+          text: numericItem,
+          aria: aria.replace('$page', numericItem),
+          selected: selected,
+          onClick: function() {
+            return selectPage.call(_this, 'user', numericItem);
+          }
+        };
+      };
+    })(this)) : currentPageCount === void 0 ? [
+      {
+        value: currentPage,
+        selected: true,
+        dataLength: currentPage.toString().length
+      }
+    ] : ((ref = getRange(this._), start = ref.start, end = ref.end, ref), maxLength = Math.max(start.toString().length, (end - 1).toString().length), buttonSize = 30 + (5 * Math.max(0, maxLength - 2)), buttonSpace = this.container.width() - 81, maxButtons = Math.floor(buttonSpace / buttonSize), visibleCount = Math.min(maxButtons, this._.visibleCount), visibleCount = Math.max(visibleCount, 1), (ref1 = getRange(this._), start = ref1.start, end = ref1.end, ref1), hx.range(end - start).map((function(_this) {
+      return function(i) {
+        return {
+          value: start + i,
+          selected: _this._.page === start + i,
+          dataLength: maxLength
+        };
+      };
+    })(this)));
+    return this.view.apply(data);
   };
 
   return Paginator;
@@ -21348,6 +21500,10 @@ hx.paginator = function(options) {
 };
 
 hx.Paginator = Paginator;
+
+hx._.paginator = {
+  getPageItems: getPageItems
+};
 
 })();
 (function(){

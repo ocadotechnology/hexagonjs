@@ -458,9 +458,20 @@
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "paginator": {
-    "arrowButton": "",
+    "arrowButton": "n-a",
     "defaultButton": "hx-complement",
-    "selectedButton": "hx-action"
+    "selectedButton": "hx-action",
+    "buttonBorderColor": "#4E5355",
+    "buttonBackgroundColor": "#393D3D",
+    "buttonTextColor": "white",
+    "buttonHoverBackgroundColor": "#D0DDEE",
+    "buttonHoverTextColor": "white",
+    "ellipsisBackgroundColor": " transparent;",
+    "ellipsisBorderColor": " transparent;",
+    "ellipsisTextColor": "white",
+    "selectedBackgroundColor": "#00ADA8",
+    "selectedTextColor": "white",
+    "buttonFontWeight": "normal"
   },
   "pivotTable": {},
   "sideCollapsible": {

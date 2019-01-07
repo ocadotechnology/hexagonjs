@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.18.1
+ Version: 1.19.0
  Theme: hexagon-dark
  Modules:
    set
@@ -2951,6 +2951,68 @@ a.hx-titlebar-link, a.hx-titlebar-link:hover {
     .hx-paginator button.hx-paginator-more-digits {
       width: 40px; }
 
+.hx-paginator-nav:focus {
+  outline: none; }
+
+.hx-paginator-button-container {
+  display: inline-block; }
+
+.hx-paginator-button,
+.hx-paginator-button:focus {
+  border: 1px solid transparent;
+  display: inline-block;
+  margin: 0;
+  box-sizing: border-box;
+  height: 40px;
+  width: 40px;
+  line-height: 38px;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none; }
+
+.hx-paginator-button-container:not(.hx-paginator-ellipsis-container) + .hx-paginator-button-container .hx-paginator-button {
+  border-left: none; }
+
+.hx-paginator-button-container:first-child .hx-paginator-button {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px; }
+
+.hx-paginator-button-container:last-child .hx-paginator-button {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px; }
+
+.hx-paginator-prev-next-container .hx-paginator-button {
+  width: auto;
+  padding: 0 20px; }
+
+.hx-paginator-button:hover {
+  text-decoration: none; }
+
+.hx-paginator-ellipsis,
+.hx-paginator-ellipsis:hover {
+  cursor: default; }
+  .hx-paginator-ellipsis:after,
+  .hx-paginator-ellipsis:hover:after {
+    content: "\2219\2219\2219";
+    letter-spacing: -3px;
+    font-family: monospace; }
+
+.hx-paginator-selected,
+.hx-paginator-selected:hover {
+  cursor: default; }
+
+.hx-paginator-disabled,
+.hx-paginator-disabled:hover {
+  cursor: not-allowed; }
+
+.hx-paginator nav {
+  display: inline-block; }
+
+.hx-paginator ul {
+  margin: 0;
+  padding: 0; }
+
 
 .hx-side-collapsible {
   position: relative;
@@ -4408,6 +4470,27 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
     background: #E6E6E6;
     color: #3D3D3D; }
 
+.hx-paginator-button,
+.hx-paginator-button:focus {
+  border-color: #4E5355;
+  background: #393D3D;
+  color: white;
+  font-weight: normal; }
+
+.hx-paginator-button:hover {
+  background: #D0DDEE;
+  color: white; }
+
+.hx-paginator-ellipsis,
+.hx-paginator-ellipsis:hover {
+  background: transparent;
+  border-color: transparent;
+  color: white; }
+
+.hx-paginator-selected,
+.hx-paginator-selected:hover {
+  background: #00ADA8;
+  color: white; }
 
 
 .hx-side-collapsible-heading {
