@@ -94,10 +94,11 @@ class Paginator extends hx.EventEmitter
             .class('hx-paginator-button'))
         this.append(navItem).node()
 
-      navItemUpdate = ({ text, aria, selected, disabled, isEllipsis, onClick }, element) ->
+      navItemUpdate = ({ text, aria, selected, disabled, isEllipsis, onClick, isPrevNextButton }, element) ->
         navItem = hx.select(element)
           .classed('hx-paginator-selected-container', selected)
           .classed('hx-paginator-ellipsis-container', isEllipsis)
+          .classed('hx-paginator-prev-next-container', isPrevNextButton)
 
         link = navItem.select('a')
           .classed('hx-paginator-selected', selected)
@@ -227,12 +228,14 @@ class Paginator extends hx.EventEmitter
       getPageItems(currentPage, currentPageCount, this._.v2Features.padding).map (item) =>
         if item is 'prev'
           return {
+            isPrevNextButton: true,
             text: @prevText(),
             aria: @prevPageAria().replace('$page', currentPage - 1),
             onClick: () => selectPage.call(this, 'user', currentPage - 1),
           }
         if item is 'next'
           return {
+            isPrevNextButton: true,
             text: @nextText(),
             aria: @nextPageAria().replace('$page', currentPage + 1),
             onClick: () => selectPage.call(this, 'user', currentPage + 1),

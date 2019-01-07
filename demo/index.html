@@ -1557,10 +1557,19 @@
         <h3>Paginator</h3>
         <div class="demo-section-examples">
           <div id="paginatorExample"></div>
+          <br>
+          <div id="paginatorExamplev2"></div>
           <script>
           new hx.Paginator('#paginatorExample', {
             pageCount: 20,
             visibleCount: 10
+          })
+          new hx.Paginator('#paginatorExamplev2', {
+            pageCount: 100,
+            page: 15,
+            v2Features: {
+              useAccessibleRendering: true,
+            }
           })
           </script>
         </div>

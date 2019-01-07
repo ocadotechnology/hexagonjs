@@ -50,14 +50,15 @@
 .hx-paginator-button-container:first-child  .hx-paginator-button {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  padding: 0 14px;
-  width: auto;
 }
 .hx-paginator-button-container:last-child  .hx-paginator-button {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  padding: 0 14px;
+}
+
+.hx-paginator-prev-next-container .hx-paginator-button {
   width: auto;
+  padding: 0 20px;
 }
 
 .hx-paginator-button:hover {

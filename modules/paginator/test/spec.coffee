@@ -66,6 +66,9 @@ describe 'paginator', ->
         it 'shows the correct buttons', ->
           allText.should.eql(['Bob', '1', '', '48', '49', '50', '51', '52', '', '100', hx.userFacingText('paginator', 'next')])
 
+        it 'adds the container class for the previous and next buttons', ->
+          fixture.selectAll('.hx-paginator-prev-next-container').size().should.equal(2)
+
 
       describe 'and updating the next text', ->
         beforeEach ->
@@ -75,6 +78,9 @@ describe 'paginator', ->
 
         it 'shows the correct buttons', ->
           allText.should.eql([ hx.userFacingText('paginator', 'prev'), '1', '', '48', '49', '50', '51', '52', '', '100', 'Bob'])
+
+        it 'adds the container class for the previous and next buttons', ->
+          fixture.selectAll('.hx-paginator-prev-next-container').size().should.equal(2)
 
 
       describe 'and clicking on a page', ->
