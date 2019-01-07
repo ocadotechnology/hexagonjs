@@ -34,7 +34,7 @@
 
 
 
-@version nextReleaseVersion
+@version 1.19.0
   @examples
     @example
       @@html

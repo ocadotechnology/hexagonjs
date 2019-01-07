@@ -471,3 +471,7 @@
         Additionally resolve some long standing bugs with Autocomplete and the side
         collapsible
 
+    @version 1.19.0
+      @description
+        Update the paginator to add feature flags for version 2.0.0 to allow for an
+        easier migration path.

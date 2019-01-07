@@ -1,6 +1,6 @@
 @define setterGetter
   @method {{ps}}
-    @added nextReleaseVersion
+    @added 1.19.0
       @description
         Added setter getter methods for all options
 
@@ -15,7 +15,7 @@
         this paginator
 
   @method {{ps}}
-    @added nextReleaseVersion
+    @added 1.19.0
       @description
         Added setter getter methods for all options
 
@@ -35,7 +35,7 @@
     @description
       Updated the paginator so that it detects the size of its container and changes the number of visible buttons accordingly. Also changed it so that the button widths resize depending on their character length to prevent paginators wrapping onto multiple lines.
 
-  @updated nextReleaseVersion
+  @updated 1.19.0
     @description
       In preparation for version 2, new visuals have been added behind feature flags to improve the UI, UX and accessibility of the paginator component.
 
@@ -74,7 +74,7 @@
           1
 
       @property visibleCount [Number]
-        @deprecated nextReleaseVersion
+        @deprecated 1.19.0
           @description
             The visibleCount will be replaced in version 2 with the @code[padding] option.
         @description
@@ -89,20 +89,20 @@
           10
 
       @property updatePageOnSelect [Boolean]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           Whether to update the current @code[page] when updating the paginator value. Set to false when wrapping with
           another component that should control the currently active page.
         @default: true
 
       @property paginatorAria [String]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           The text to use for the @code[aria-label] on the container to enable screen readers to navigate using the paginator
         @default: @code[hx.userFacingText('paginator', 'paginatorAria')]
 
       @property currentPageAria [String]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           The text to use for the @code[aria-label] on the current page to enable screen readers to navigate using the paginator
 
@@ -110,7 +110,7 @@
         @default: @code[hx.userFacingText('paginator', 'currentPageAria')]
 
       @property gotoPageAria [String]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           The text to use for the @code[aria-label] on the numeric page buttons to enable screen readers to navigate using the paginator
 
@@ -118,7 +118,7 @@
         @default: @code[hx.userFacingText('paginator', 'gotoPageAria')]
 
       @property prevPageAria [String]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           The text to use for the @code[aria-label] on the previous page button to enable screen readers to navigate using the paginator
 
@@ -126,7 +126,7 @@
         @default: @code[hx.userFacingText('paginator', 'prevPageAria')]
 
       @property nextPageAria [String]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           The text to use for the @code[aria-label] on the next page button to enable screen readers to navigate using the paginator
 
@@ -134,19 +134,19 @@
         @default: @code[hx.userFacingText('paginator', 'nextPageAria')]
 
       @property prevText [String]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           The text to display in the previous button
         @default: @code[hx.userFacingText('paginator', 'prev')]
 
       @property nextText [String]
-        @added nextReleaseVersion
+        @added 1.19.0
         @description
           The text to display in the next button
         @default: @code[hx.userFacingText('paginator', 'next')]
 
       @property v2Features [Object]
-        @added nextReleaseVersion
+        @added 1.19.0
 
         @property useAccessibleRendering [Boolean]
           @description
@@ -299,7 +299,7 @@
   @method visibleCount
     @added 0.13.0
 
-    @deprecated nextReleaseVersion
+    @deprecated 1.19.0
       @description
         The visibleCount will be replaced in version 2 with the @code[padding] option.
 
@@ -320,7 +320,7 @@
   @method visibleCount
     @added 0.13.0
 
-    @deprecated nextReleaseVersion
+    @deprecated 1.19.0
       @description
         The visibleCount will be replaced in version 2 with the @code[padding] option.
 
@@ -341,7 +341,7 @@
         Will be either 'user' or 'api'. 'user' means that the user clicked on the paginator to cause the page to change, 'api' means that one of the methods on the paginator (such as setPage) was called to cause the change.
 
     @property selected [Number]
-      @deprecated nextReleaseVersion
+      @deprecated 1.19.0
         @description
           This has been renamed to @code[value] for consitency with other Hexagon events. This property will be removed in version 2.0.0
 
@@ -349,7 +349,7 @@
         The selected page (1 based index).
 
     @property value [Number]
-      @added nextReleaseVersion
+      @added 1.19.0
 
       @description
         The selected page (1 based index).
