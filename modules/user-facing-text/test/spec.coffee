@@ -8,12 +8,12 @@ describe 'user-facing-text', ->
 
   beforeEach ->
     hx.consoleWarning = chai.spy()
-
-  afterEach ->
     hx._.userFacingText.localisedText = {}
     hx._.userFacingText.initialValues = {}
-    userFacingText(initial)
+
+  after ->
     hx.consoleWarning = origConsoleWarning
+    userFacingText(initial)
 
   describe 'userFacingText', ->
     # Get
@@ -82,7 +82,6 @@ describe 'user-facing-text', ->
         it 'shows a console warning', ->
           hx.consoleWarning "hx.userFacingText: A module and key are expected as strings but was passed module: 123 and key: bob"
 
-
       describe 'with an invalid key', ->
         value = undefined
         beforeEach ->
@@ -93,8 +92,6 @@ describe 'user-facing-text', ->
 
         it 'shows a console warning', ->
           hx.consoleWarning "hx.userFacingText: A module and key are expected as strings but was passed module: moduleWithParams and key: 123"
-
-
 
       describe 'with plaintext module key', ->
         describe 'key1', ->
@@ -119,6 +116,7 @@ describe 'user-facing-text', ->
           it 'does not log any warnings', ->
             hx.consoleWarning.should.not.have.been.called()
 
+
       describe 'without params', ->
         describe 'with params module key', ->
           describe 'keyParam1', ->
@@ -130,7 +128,7 @@ describe 'user-facing-text', ->
               value.should.equal('value $param1')
 
             it 'logs a console warning', ->
-              hx.consoleWarning.should.have.been.called.with('hx.userFacingText: Parameterised string was returned without parsing parameters: value $param1')
+              hx.consoleWarning.should.have.been.called.with('hx.userFacingText: Parameterised string was returned without parsing parameters: value $param1.\nCall userFacingText(module, key, parameters) to replace the parameters or userFacingText(module, key, true) if you are handling this externally.')
 
           describe 'without params and parseLater flag', ->
             value = undefined
@@ -154,6 +152,7 @@ describe 'user-facing-text', ->
             it 'does not log any warnings', ->
               hx.consoleWarning.should.not.have.been.called()
 
+
         describe 'keyParam2 - sanity check for $ currency values', ->
           describe 'without params', ->
             value = undefined
@@ -165,7 +164,6 @@ describe 'user-facing-text', ->
 
             it 'does not log any warnings', ->
               hx.consoleWarning.should.not.have.been.called()
-
 
           describe 'without params and parseLater flag', ->
             value = undefined
@@ -284,32 +282,37 @@ describe 'user-facing-text', ->
         it 'does not update the userFacingText', ->
           userFacingText().should.eql({})
 
-  describe 'userFacingText.replaceParams', ->
-    replaceParams = hx.userFacingText.replaceParams
+
+  describe 'userFacingText.format', ->
+    format = hx.userFacingText.format
 
     it 'replaces simple params', ->
-      replaceParams('XX$abcXX', { abc: 123 }).should.equal('XX123XX')
+      format('XX$abcXX', { abc: 123 }).should.equal('XX123XX')
 
     it 'replaces numeric params', ->
-      replaceParams('XXX$100XXX', { 100: 'abc'}).should.equal('XXXabcXXX')
+      format('XXX$100XXX', { 100: 'abc'}).should.equal('XXXabcXXX')
 
     it 'replaces numeric params when the key is a string value', ->
-      replaceParams('XXX$100XXX', { '100': 'abc'}).should.equal('XXXabcXXX')
+      format('XXX$100XXX', { '100': 'abc'}).should.equal('XXXabcXXX')
 
     it 'replaces multiple params', ->
-      replaceParams('$a123$b123$c123', { a: 'A', b: 'B', c: 'C'}).should.equal('A123B123C123')
+      format('$a123$b123$c123', { a: 'A', b: 'B', c: 'C'}).should.equal('A123B123C123')
 
     it 'replaces longest params first', ->
-      replaceParams('$abcd$abc$ab$a', { a: 'A', ab: 'BB', abc: 'CCC', abcd: '123' }).should.equal('123CCCBBA')
+      format('$abcd$abc$ab$a', { a: 'A', ab: 'BB', abc: 'CCC', abcd: '123' }).should.equal('123CCCBBA')
 
     it 'always replaces the same way', ->
-      replaceParams('$abc$abc$abc', { a: 'A', b: 'BB', c: 'CCC', abc: '123' }).should.equal('123123123')
+      format('$abc$abc$abc', { a: 'A', b: 'BB', c: 'CCC', abc: '123' }).should.equal('123123123')
 
     describe 'custom replacer', ->
       arrayReplacer = (str, key, array) -> str.replace(new RegExp("\\\{#{key}\\\}", 'g'), array[key])
 
       it 'uses the custom replacer', ->
-        replaceParams('Hello {0}!', ['Bob'], arrayReplacer).should.equal('Hello Bob!')
+        format('Hello {0}!', ['Bob'], arrayReplacer).should.equal('Hello Bob!')
+
+      it 'uses the custom replacer for multiple keys', ->
+        format('{0} {1} {2}', ['a', 'b', 'c'], arrayReplacer).should.equal('a b c')
+
 
   describe 'userFacingText.defaults', ->
     beforeEach ->

@@ -16,9 +16,9 @@ isStringWithLength = (value) -> hx.isString(value) and value.length
 
 defaultReplacer = (str, key, params) -> str.replace(new RegExp("\\\$#{key}", 'g'), params[key])
 
-replaceParams = (value, params, replacer = defaultReplacer) ->
+format = (string, params, replacer = defaultReplacer) ->
   replaceStringValues = (str, key) => replacer(str, key, params)
-  return Object.keys(params).sort().reverse().reduce(replaceStringValues, value)
+  return Object.keys(params).sort().reverse().reduce(replaceStringValues, string)
 
 
 # Getter - get the localised text for a module/key
@@ -32,9 +32,9 @@ getValue = (module, key, parseLater, params) ->
 
   if parseLater isnt true and valueToGet.match(paramRegex)
     if params
-      return replaceParams(valueToGet, params)
+      return format(valueToGet, params)
 
-    hx.consoleWarning "hx.userFacingText: Parameterised string was returned without parsing parameters: #{valueToGet}"
+    hx.consoleWarning "hx.userFacingText: Parameterised string was returned without parsing parameters: #{valueToGet}.\nCall userFacingText(module, key, parameters) to replace the parameters or userFacingText(module, key, true) if you are handling this externally."
 
   return valueToGet
 
@@ -109,7 +109,7 @@ userFacingText = ->
 userFacingTextDefaults = -> hx.clone _.initialValues
 
 hx.userFacingText = userFacingText
-hx.userFacingText.replaceParams = replaceParams
+hx.userFacingText.format = format
 hx.userFacingText.defaults = userFacingTextDefaults
 
 # For tests

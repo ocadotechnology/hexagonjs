@@ -132,7 +132,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
     if not filteredData?
       message.text = @options.loadingMessage
     else if searchTerm.length < @options.minLength
-      message.text = @options.pleaseEnterMinCharactersMessage.replace('$minLength', @options.minLength)
+      message.text = hx.userFacingText.format(@options.pleaseEnterMinCharactersMessage, { minLength: options.minLength })
     else if (searchTerm.length > 0 or @options.showAll) and filteredData.length is 0
       if @options.trimTrailingSpaces and _.input.value().lastIndexOf(' ') is _.input.value().length - 1
         trimAndReload = true
@@ -196,7 +196,7 @@ class AutoComplete extends hx.EventEmitter
         loadingMessage: hx.userFacingText('autoComplete', 'loading')
         noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
         otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults')
-        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
+        pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters', true)
       }, opts
 
       @_ = _ = {}
