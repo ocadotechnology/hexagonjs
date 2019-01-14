@@ -36,6 +36,13 @@
       The object with module/key objects to set.
 
 @function hx.userFacingText
+  @updated nextReleaseVersion
+    @description
+      This function will now show a console warning when it returns a string with a @code[$param] in.
+
+      Call with @code[hx.userFacingText(module, key, parameters)] to replace the parameters immediately or
+      call @code[hx.userFacingText(module, key, true)] if you need to retain the current functionality and hide the warning.
+
   @description
     Gets the text for a module key
 
@@ -47,6 +54,12 @@
     @description
       The key to get text for
 
+  @arg? parseLater [Boolean]
+    @description
+      Set to true to parse parameters with @code[$param]s that you are parsing at a later point in the code
+
+    @default: @code[false]
+
   @returns [String]
     @description
       The currently set text
@@ -54,6 +67,13 @@
 @function hx.userFacingText
   @description
     Sets the text for a module key
+
+  @extra
+    @@codeblock js
+      hx.userFacingText('something', 'value', 'the value')
+
+      hx.userFacingText('something', 'value')
+      // => 'the value'
 
   @arg module [String]
     @description
@@ -67,8 +87,218 @@
     @description
       The text to set
 
+
+@function hx.userFacingText
+  @updated nextReleaseVersion
+    @description
+      Added a new function for getting the user facing text with parameters
+
+  @extra
+    @@codeblock js
+      hx.userFacingText({
+        myModule: {
+          helloUser: 'Hello $user!',
+        },
+      })
+
+      hx.userFacingText('myModule', 'helloUser', { user: 'Bob' })
+      // => Hello Bob!
+
+  @description
+    Gets the text for a module key with parameter replacement.
+
+    Uses @code[hx.userFacingText.format(string, parameters)] and allows only @code[$param] style parameters.
+
+  @arg module [String]
+    @description
+      The module to get text from
+
+  @arg key [String]
+    @description
+      The key to get text for
+
+  @arg parameters [Object]
+    @description
+      The parameter object with keys to inject into the string.
+
+    @default: @code[false]
+
+  @returns [String]
+    @description
+      The currently set text
+
+
+@function hx.userFacingText.format
+  @added nextReleaseVersion
+    @description
+      Expose the function used in Hexagon to format strings with parameters
+
+  @extra
+    @@codeblock js
+      hx.userFacingText.format('Hello $name!', { name: 'Bob' })
+      // => Hello Bob!
+
+    @h4: Replace based on array arguments
+    @@codeblock js
+      function arrayReplacer (str, key, array) {
+        return str.replace(new RegExp("\\\{#{key}\\\}", 'g'), array[key])
+      }
+      hx.userFacingText.format('{0} {1}', ['A', 'B'], arrayReplacer)
+      // => 'A B'
+
+    @h4: Use rest/spread arguments to mimic other formatting libraries
+    @@codeblock js
+      function arrayReplacer (str, key, array) {
+        return str.replace(new RegExp("\\\{#{key}\\\}", 'g'), array[key])
+      }
+      function replaceNumericArgs(string, thingsToReplace...) {
+        return hx.userFacingText.format(text, thingsToReplace, arrayReplacer)
+      }
+      replaceNumericArgs('{0} {1} {2}', 'A', 'B', 'C')
+      // => 'A B C'
+
+  @arg string [String]
+    @description
+      The string to format. By default, this should be a string with @code[$param] values to replace.
+
+
+  @arg parameters [Object]
+    @description
+      The parameter object with keys to inject into the string.
+
+      By default this expects a plain object with string/number key value pairs however a custom replacer can be used to allow other things to be used (e.g. an array)
+
+
+  @arg? replacer [Function]
+    @description
+      An optional replacer function that is run for every key in the parameters.
+
+      @code[format] uses @code[Object.keys(parameters)] and then reduces over the string with this function to produce the final parsed string.
+
+    @arg string [String]
+      @description
+        The string that is being reduced over to find and replace parameters
+
+    @arg key [String]
+      @description
+        The current param key
+
+    @arg parameters [Object]
+      @description
+        The parameters object as passed in to @code[format]
+
+    @returns String
+      @description
+        The replaced string
+
+    @default
+      @@codeblock js
+        // Replaces $key with parameters[key]
+        function (str, key, parameters) {
+          return str.replace(new RegExp("\\\$#{key}", 'g'), parameters[key])
+        }
+
+
 @function hx.userFacingText.defaults
+  @description
+    Gets the set of values that were first set in the user facing text before any changes or updates were applied to the user facing text.
+
+  @extra
+    @@codeblock js
+      textFirst = {
+        module: {
+          key1: 'value1orig',
+          key2: 'value2orig',
+          key4: 'value4orig'
+        }
+      }
+
+      textSecond = {
+        module: {
+          key1: 'value1changed',
+          key3: 'value3orig',
+          key4: 'value4changed',
+        }
+        otherModule: {
+          key: 'valueorig',
+        }
+      }
+      userFacingText(textFirst)
+      userFacingText(textSecond)
+
+      userFacingText()
+      // => {
+      //   module: {
+      //     key1: 'value1changed',
+      //     key2: 'value2orig',
+      //     key3: 'value3orig',
+      //     key4: 'value4changed',
+      //   },
+      //   otherModule: {
+      //     key: 'valueorig'
+      //   }
+      // }
+
+      userFacingText.defaults()
+      // => {
+      //   module: {
+      //     key1: 'value1orig',
+      //     key2: 'value2orig',
+      //     key3: 'value3orig',
+      //     key4: 'value4orig',
+      //   },
+      //   otherModule: {
+      //     key: 'valueorig'
+      //   }
+      // }
+
+
   @returns [Object]
     @description
       The initial value set for the userFacingText object.
 
+@function hx.userFacingText.toMultilineSelection
+  @added nextReleaseVersion
+    @description
+      Added a utility for converting a text string with @code[\n] characters into
+      a selection containing @code[span] elements separated by @code[br] elements
+
+  @extra
+    @example
+      @@html
+        <h4>Basic Example</h4>
+        <div id="toMultiline-example-1"></div>
+        <h4>Paragraph Example</h4>
+        <div id="toMultiline-example-2"></div>
+      @@js
+        const stringWithMultiline = 'First Line\nSecond Line\nThird Line';
+
+        hx.select('#toMultiline-example-1').add(hx.userFacingText.toMultilineSelection(stringWithMultiline))
+
+        hx.select('#toMultiline-example-2').add(hx.userFacingText.toMultilineSelection(stringWithMultiline, 'p', true))
+
+  @description
+    A utility for converting a text string with @code[\n] characters into
+    a selection containing text elements separated by @code[br] elements.
+
+    The element tag can be configured, as well as the presence of the @code[br] tag.
+
+  @arg stringToSplit [String]
+    @description
+      The string to split on @code[\n] characters.
+
+  @arg? textElement [String]
+    @description
+      The type of element to wrap each line of text with
+
+    @default: @code['span']
+
+  @arg? dontAddBreak [Boolean]
+    @description
+      Set to true to remove the @code[br] elements from the selection
+
+    @default: @code[false]
+
+  @returns Selection
+    @description
+      A selection containing the string split into multiple elements joined by @code[br] tags.
