@@ -230,14 +230,14 @@ class Paginator extends hx.EventEmitter
           return {
             isPrevNextButton: true,
             text: @prevText(),
-            aria: hx.userfacingText.format(@prevPageAria(), { page: currentPage - 1 }),
+            aria: hx.userFacingText.format(@prevPageAria(), { page: currentPage - 1 }),
             onClick: () => selectPage.call(this, 'user', currentPage - 1),
           }
         if item is 'next'
           return {
             isPrevNextButton: true,
             text: @nextText(),
-            aria: hx.userfacingText.format(@nextPageAria(), { page: currentPage + 1 }),
+            aria: hx.userFacingText.format(@nextPageAria(), { page: currentPage + 1 }),
             onClick: () => selectPage.call(this, 'user', currentPage + 1),
           }
         if item is '...'
@@ -250,7 +250,7 @@ class Paginator extends hx.EventEmitter
         aria = if selected then @currentPageAria() else @gotoPageAria()
         return {
           text: numericItem,
-          aria: hx.userfacingText.format(aria, { page: numericItem }),
+          aria: hx.userFacingText.format(aria, { page: numericItem }),
           selected: selected,
           onClick: () => selectPage.call(this, 'user', numericItem)
         }
