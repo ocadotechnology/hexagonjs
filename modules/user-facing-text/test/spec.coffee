@@ -363,7 +363,105 @@ describe 'user-facing-text', ->
         }
       })
 
+  describe 'userFacingText.toMultilineSelection', ->
+    multilineSelection = undefined
+    stringWithMultiline = 'a.\nb c d\ne'
 
+    describe 'when using the default element', ->
+      beforeEach ->
+        multilineSelection = userFacingText.toMultilineSelection(stringWithMultiline)
+
+      it 'returns a selection', ->
+        multilineSelection.should.be.an.instanceof(hx.Selection)
+
+      it 'returns a Selection with 5 items', ->
+        multilineSelection.size().should.equal(5)
+
+      it 'the first element is a <span>', ->
+        multilineSelection.node(0).tagName.should.equal('SPAN')
+
+      it 'the first element text is "a."', ->
+        multilineSelection.node(0).textContent.should.equal('a.')
+
+      it 'the second element is a <br>', ->
+        multilineSelection.node(1).tagName.should.equal('BR')
+
+      it 'the third element is a <span>', ->
+        multilineSelection.node(2).tagName.should.equal('SPAN')
+
+      it 'the third element text is is "b c d"', ->
+        multilineSelection.node(2).textContent.should.equal('b c d')
+
+      it 'the fourth element is a <br>', ->
+        multilineSelection.node(3).tagName.should.equal('BR')
+
+      it 'the fifth element is a <span>', ->
+        multilineSelection.node(4).tagName.should.equal('SPAN')
+
+      it 'the fifth element text is is "e"', ->
+        multilineSelection.node(4).textContent.should.equal('e')
+
+    describe 'when using a custom element', ->
+      beforeEach ->
+        multilineSelection = userFacingText.toMultilineSelection(stringWithMultiline, 'div')
+
+      it 'returns a selection', ->
+        multilineSelection.should.be.an.instanceof(hx.Selection)
+
+      it 'returns a Selection with 5 items', ->
+        multilineSelection.size().should.equal(5)
+
+      it 'the first element is a <div>', ->
+        multilineSelection.node(0).tagName.should.equal('DIV')
+
+      it 'the first element text is "a."', ->
+        multilineSelection.node(0).textContent.should.equal('a.')
+
+      it 'the second element is a <br>', ->
+        multilineSelection.node(1).tagName.should.equal('BR')
+
+      it 'the third element is a <div>', ->
+        multilineSelection.node(2).tagName.should.equal('DIV')
+
+      it 'the third element text is is "b c d"', ->
+        multilineSelection.node(2).textContent.should.equal('b c d')
+
+      it 'the fourth element is a <br>', ->
+        multilineSelection.node(3).tagName.should.equal('BR')
+
+      it 'the fifth element is a <div>', ->
+        multilineSelection.node(4).tagName.should.equal('DIV')
+
+      it 'the fifth element text is is "e"', ->
+        multilineSelection.node(4).textContent.should.equal('e')
+
+    describe 'when using a custom element and not inserting a BR', ->
+      beforeEach ->
+        multilineSelection = userFacingText.toMultilineSelection(stringWithMultiline, 'p', true)
+
+      it 'returns a selection', ->
+        multilineSelection.should.be.an.instanceof(hx.Selection)
+
+      it 'returns a Selection with 3 items', ->
+        multilineSelection.size().should.equal(3)
+
+      it 'the first element is a <p>', ->
+        multilineSelection.node(0).tagName.should.equal('P')
+
+      it 'the first element text is "a."', ->
+        multilineSelection.node(0).textContent.should.equal('a.')
+
+      it 'the second element is a <p>', ->
+        multilineSelection.node(1).tagName.should.equal('P')
+
+      it 'the second element text is is "b c d"', ->
+        multilineSelection.node(1).textContent.should.equal('b c d')
+
+      it 'the third element is a <p>', ->
+        multilineSelection.node(2).tagName.should.equal('P')
+
+      it 'the third element text is is "e"', ->
+        multilineSelection.node(2).textContent.should.equal('e')
 
 
 describe 'User Facing Text', ->

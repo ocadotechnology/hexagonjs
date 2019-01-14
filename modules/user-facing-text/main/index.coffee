@@ -2,6 +2,8 @@ _ =
   initialValues: {}
   localisedText: {}
 
+{ detached, Selection } = hx
+
 setWholeObject = (object) ->
   # Setter - set multiple module/key values
   if hx.isPlainObject(object)
@@ -19,6 +21,16 @@ defaultReplacer = (str, key, params) -> str.replace(new RegExp("\\\$#{key}", 'g'
 format = (string, params, replacer = defaultReplacer) ->
   replaceStringValues = (str, key) => replacer(str, key, params)
   return Object.keys(params).sort().reverse().reduce(replaceStringValues, string)
+
+
+toMultilineSelection = (string, textElement = 'span', dontAddBreak) ->
+  return new Selection(string.split('\n')
+    .reduce(((prev, curr, i) -> [
+      prev...,
+      (if not dontAddBreak and i > 0 then detached('br').node() else null),
+      detached(textElement).text(curr).node()
+    ]), [])
+  )
 
 
 # Getter - get the localised text for a module/key
@@ -111,6 +123,7 @@ userFacingTextDefaults = -> hx.clone _.initialValues
 hx.userFacingText = userFacingText
 hx.userFacingText.format = format
 hx.userFacingText.defaults = userFacingTextDefaults
+hx.userFacingText.toMultilineSelection = toMultilineSelection
 
 # For tests
 hx._.userFacingText = _
