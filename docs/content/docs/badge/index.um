@@ -1,0 +1,20 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Badge
+  @description
+    Provides the @code[hx-badge] class for styling @code[<span>] elements.
+
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        @inline examples/*.um
+
+  @topic Api
+    @hyperlink(/docs/badge/changelog)[Change Log]
+
+    @inline api.um

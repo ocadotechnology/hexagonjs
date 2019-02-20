@@ -1,0 +1,70 @@
+@module badge
+  @option default-color
+    @type color
+    @default: #A6A6A6
+
+  @option success-color
+    @type color
+    @default: #6FB365
+
+  @option warning-color
+    @type color
+    @default: #CB9856
+
+  @option danger-color
+    @type color
+    @default: #C74967
+
+
+  @option default-text-color
+    @type color
+    @default: #FFF
+
+  @option success-text-color
+    @type color
+    @default: #FFF
+
+  @option warning-text-color
+    @type color
+    @default: #FFF
+
+  @option danger-text-color
+    @type color
+    @default: #FFF
+
+  @option inverse-text-color
+    @type color
+    @default: #000
+
+  @option inverse-background-color
+    @type color
+    @default: #FDFDFD
+
+
+  @option height
+    @type size
+    @default 18px
+
+  @option font-size
+    @type size
+    @default 12px
+
+  @option font-weight
+    @type string
+    @default normal
+
+  @option border-radius
+    @type size
+    @default 10px
+
+  @option border-width
+    @type size
+    @default 1px
+
+  @option border-style
+    @type string
+    @default solid
+
+  @option padding
+    @type string
+    @default 0 0.5em
