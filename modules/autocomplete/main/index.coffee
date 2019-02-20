@@ -3,7 +3,8 @@ hx.userFacingText({
     loading: 'Loading...',
     noResultsFound: 'No results found',
     otherResults: 'Other Results',
-    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters',
+    minCharacters: 'Min length $minLength characters',
   }
 })
 
@@ -132,7 +133,7 @@ buildAutoComplete = (searchTerm, fromCallback, loading) ->
     if not filteredData?
       message.text = @options.loadingMessage
     else if searchTerm.length < @options.minLength
-      message.text = hx.userFacingText.format(@options.pleaseEnterMinCharactersMessage, { minLength: options.minLength })
+      message.text = hx.userFacingText.format(@options.pleaseEnterMinCharactersMessage, { minLength: @options.minLength })
     else if (searchTerm.length > 0 or @options.showAll) and filteredData.length is 0
       if @options.trimTrailingSpaces and _.input.value().lastIndexOf(' ') is _.input.value().length - 1
         trimAndReload = true
@@ -197,6 +198,7 @@ class AutoComplete extends hx.EventEmitter
         noResultsMessage: hx.userFacingText('autoComplete', 'noResultsFound')
         otherResultsMessage: hx.userFacingText('autoComplete', 'otherResults')
         pleaseEnterMinCharactersMessage: hx.userFacingText('autoComplete', 'pleaseEnterMinCharacters', true)
+        minCharactersMessage: hx.userFacingText('autoComplete', 'minCharacters', true)
       }, opts
 
       @_ = _ = {}
@@ -233,7 +235,7 @@ class AutoComplete extends hx.EventEmitter
         (elem, item) -> hx.select(elem).text(item)
 
       @options.placeholder ?= if @options.minLength > 0
-        "Min length #{@options.minLength} characters"
+        hx.userFacingText.format(@options.minCharactersMessage, { minLength: @options.minLength })
 
       # create input and menu objects
       input = hx.select @selector
