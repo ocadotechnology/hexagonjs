@@ -85,6 +85,11 @@
 
 
   @modules
+    @badge
+      @variables
+        @default-color: $default-col
+        @inverse-background-color: $dark-text-col
+        @inverse-text-color: $light-text-col
 
     @button
       @overrides

@@ -1,16 +1,40 @@
 @module error-pages
-
-  @option shadow-col
-    @type color
-    @description: The color of the shadow
-    @default: rgba(0, 0, 0, 0.05)
-
   @option background-col
     @type color
-    @description: The background color of the error message section.
     @default: #FFFFFF
+
+  @option padding
+    @type size
+    @default: 32px
+
+  @option box-shadow
+    @type string
+    @default: 2px 2px 2px 2px rgba(0, 0, 0, 0.05)
+
+  @option border-radius
+    @type size
+    @default: 2px
 
   @option heading-text-col
     @type color
-    @description: The color of the heading text
     @default: #3D3D3D
+
+  @option heading-font-size
+    @type size
+    @default: 2em
+
+  @option heading-font-weight
+    @type string
+    @default: bold
+
+  @option heading-margin
+    @type size
+    @default: 1em
+
+  @option body-font-size
+    @type size
+    @default: 1em
+
+  @option body-margin
+    @type size
+    @default: 1em

@@ -107,6 +107,26 @@
         @select-text-col: #3D3D3D
         @text-select-col: #B4B1B5
 
+    @badge
+      @variables
+        @default-color: $contrast-col
+        @success-color: $positive-col
+        @warning-color: $warning-col
+        @danger-color: $negative-col
+        @default-text-color: $light-text-col
+        @success-text-color: $light-text-col
+        @warning-text-color: $light-text-col
+        @danger-text-color: $light-text-col
+        @inverse-text-color: $dark-text-col
+        @inverse-background-color: $light-text-col
+        @height: 18px
+        @font-size: 12px
+        @font-weight: 600
+        @border-radius: 10px
+        @border-width: 1px
+        @border-style: solid
+        @padding: 0 0.5em
+
     @button
       @variables
         @action-col: $action-col
@@ -231,9 +251,17 @@
 
     @error-pages
       @variables
-        @shadow-col: $shadow-col
+        @box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.05)
         @background-col: $container-background-col
         @heading-text-col: $accent-col
+        @padding: 32px
+        @border-radius: 2px
+        @heading-text-col: #3D3D3D
+        @heading-font-size: 2em
+        @heading-font-weight: bold
+        @heading-margin: 1em
+        @body-font-size: 1em
+        @body-margin: 1em
 
     @form
       @variables
