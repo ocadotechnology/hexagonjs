@@ -475,3 +475,10 @@
       @description
         Update the paginator to add feature flags for version 2.0.0 to allow for an
         easier migration path.
+
+    @version nextReleaseVersion
+      @description
+        Added new button styles, a @code[Badges] module to replace @code[Labels] and
+        updated the Error Pages and Layout module in preparation for version 2.0.0.
+
+
