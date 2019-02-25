@@ -205,6 +205,10 @@
     @type color
     @default: #3D3D3D
 
+  @option default-border-hover-color
+    @type color
+    @default: #3D3D3D
+
   @option primary-font-weight
     @type string
     @default: bold
@@ -226,6 +230,10 @@
     @default: #455C7E
 
   @option primary-border-color
+    @type color
+    @default: #6582A6
+
+  @option primary-border-hover-color
     @type color
     @default: #6582A6
 
@@ -253,6 +261,10 @@
     @type color
     @default: #3D3D3D
 
+  @option secondary-border-hover-color
+    @type color
+    @default: #3D3D3D
+
   @option success-font-weight
     @type string
     @default: bold
@@ -277,6 +289,10 @@
     @type color
     @default: #6FB365
 
+  @option success-border-hover-color
+    @type color
+    @default: #6FB365
+
   @option danger-font-weight
     @type string
     @default: bold
@@ -298,6 +314,10 @@
     @default: #96364e
 
   @option danger-border-color
+    @type color
+    @default: #C74967
+
+  @option danger-border-hover-color
     @type color
     @default: #C74967
 
@@ -326,6 +346,10 @@
     @default: #FAFAFA
 
   @option disabled-border-color
+    @type color
+    @default: #FAFAFA
+
+  @option disabled-border-hover-color
     @type color
     @default: #FAFAFA
 
