@@ -20,6 +20,10 @@
     @description: The margin around layouts and sections.
     @default: 0.3em
 
+  @option spacing
+    @type size
+    @default: 0.3em
+
   @option named-class-min-width
     @type size
     @description: The minimum width for named sections to prevent them getting too small (as they are percentage based). The named classes are: hx-small, hx-medium and hx-large

@@ -1,5 +1,4 @@
 @module button
-
   @option default-col
     @type color
     @description: The base default button color
@@ -124,3 +123,210 @@
     @type color
     @description: The border color for inverted buttons
     @default: #FDFDFD
+
+
+  @option normal-font-size
+    @type size
+    @default: 1em
+
+  @option normal-height
+    @type size
+    @default: 40px
+
+  @option normal-line-height
+    @type size
+    @default: 40px
+
+  @option normal-padding
+    @type string
+    @default: 0 20px
+
+  @option small-font-size
+    @type size
+    @default: 0.9em
+
+  @option small-height
+    @type size
+    @default: 30px
+
+  @option small-line-height
+    @type size
+    @default: 30px
+
+  @option small-padding
+    @type string
+    @default: 0 20px
+
+  @option micro-font-size
+    @type size
+    @default: 0.9em
+
+  @option micro-height
+    @type size
+    @default: 20px
+
+  @option micro-line-height
+    @type size
+    @default: 20px
+
+  @option micro-padding
+    @type string
+    @default: 0 20px
+
+  @option font-weight
+    @type string
+    @default: normal
+
+  @option border-radius
+    @type size
+    @default: 0.15em
+
+  @option default-font-weight
+    @type string
+    @default: bold
+
+  @option default-text-color
+    @type color
+    @default: #3D3D3D
+
+  @option default-text-hover-color
+    @type color
+    @default: #3D3D3D
+
+  @option default-background-color
+    @type color
+    @default: #E6E6E6
+
+  @option default-background-hover-color
+    @type color
+    @default: #A6A6A6
+
+  @option default-border-color
+    @type color
+    @default: #3D3D3D
+
+  @option primary-font-weight
+    @type string
+    @default: bold
+
+  @option primary-text-color
+    @type color
+    @default: #FFF
+
+  @option primary-text-hover-color
+    @type color
+    @default: #FFF
+
+  @option primary-background-color
+    @type color
+    @default: #6582A6
+
+  @option primary-background-hover-color
+    @type color
+    @default: #455C7E
+
+  @option primary-border-color
+    @type color
+    @default: #6582A6
+
+  @option secondary-font-weight
+    @type string
+    @default: bold
+
+  @option secondary-text-color
+    @type color
+    @default: #FFF
+
+  @option secondary-text-hover-color
+    @type color
+    @default: #FFF
+
+  @option secondary-background-color
+    @type color
+    @default: #3D3D3D
+
+  @option secondary-background-hover-color
+    @type color
+    @default: #3D3D3D
+
+  @option secondary-border-color
+    @type color
+    @default: #3D3D3D
+
+  @option success-font-weight
+    @type string
+    @default: bold
+
+  @option success-text-color
+    @type color
+    @default: #FFF
+
+  @option success-text-hover-color
+    @type color
+    @default: #FFF
+
+  @option success-background-color
+    @type color
+    @default: #6FB365
+
+  @option success-background-hover-color
+    @type color
+    @default: #5d9245
+
+  @option success-border-color
+    @type color
+    @default: #6FB365
+
+  @option danger-font-weight
+    @type string
+    @default: bold
+
+  @option danger-text-color
+    @type color
+    @default: #FFF
+
+  @option danger-text-hover-color
+    @type color
+    @default: #FFF
+
+  @option danger-background-color
+    @type color
+    @default: #C74967
+
+  @option danger-background-hover-color
+    @type color
+    @default: #96364e
+
+  @option danger-border-color
+    @type color
+    @default: #C74967
+
+  @option link-font-weight
+    @type string
+    @default: bold
+
+  @option link-text-color
+    @type color
+    @default: #6582A6
+
+  @option link-text-hover-color
+    @type color
+    @default: #6582A6
+
+  @option disabled-font-weight
+    @type string
+    @default: bold
+
+  @option disabled-text-color
+    @type color
+    @default: #939393
+
+  @option disabled-background-color
+    @type color
+    @default: #FAFAFA
+
+  @option disabled-border-color
+    @type color
+    @default: #FAFAFA
+
+

@@ -38,7 +38,7 @@
     "gaze": "^1.1.2",
     "live-server": "^1.2.1",
     "merge": "^1.2.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.11.0",
     "postcss": "^5.0.9",
     "quantum-js": "^1.0.0",
     "uglify-js": "^2.6.1"

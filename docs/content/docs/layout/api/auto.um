@@ -49,185 +49,147 @@
     @description
       Give to a section to make it take up at least 100% of the container width. Any section given this class has a minimum width defined by the named-class-min-width theme option.
 
+@class hx-flag-spacing
+  @added nextReleaseVersion
+
+  @description
+    A class to assist with migration to version 2 of Hexagon. Uses a more explicit variable for the padding and margin applied by the margin/padding classes from this module.
+
 @class hx-margin
   @description
     Adds margin to an element.
 
-  @condensed
-
 @class hx-margin-top
+  @added nextReleaseVersion
+    @description
+      Added the directional margin classes as they were documented but not implmented.
+
   @description
     Adds top margin to an element.
 
-  @condensed
-
 @class hx-margin-bottom
+  @added nextReleaseVersion
+    @description
+      Added the directional margin classes as they were documented but not implmented.
+
   @description
     Adds bottom margin to an element.
 
-  @condensed
-
 @class hx-margin-left
+  @added nextReleaseVersion
+    @description
+      Added the directional margin classes as they were documented but not implmented.
+
   @description
     Adds left margin to an element.
 
-  @condensed
-
 @class hx-margin-right
+  @added nextReleaseVersion
+    @description
+      Added the directional margin classes as they were documented but not implmented.
+
   @description
     Adds right margin to an element.
-
-  @condensed
 
 @class hx-no-margin
   @description
     Removes the margin from an element.
 
-  @condensed
-
 @class hx-no-margin-top
   @description
     Removes the top margin from an element.
-
-  @condensed
 
 @class hx-no-margin-bottom
   @description
     Removes the bottom margin from an element.
 
-  @condensed
-
 @class hx-no-margin-left
   @description
     Removes the left margin from an element.
-
-  @condensed
 
 @class hx-no-margin-right
   @description
     Removes the right margin from an element.
 
-  @condensed
-
 @class hx-pad
   @description
     Adds padding to an element.
-
-  @condensed
 
 @class hx-pad-top
   @description
     Adds top padding to an element.
 
-  @condensed
-
 @class hx-pad-bottom
   @description
     Adds bottom padding to an element.
-
-  @condensed
 
 @class hx-pad-left
   @description
     Adds left padding to an element.
 
-  @condensed
-
 @class hx-pad-right
   @description
     Adds right padding to an element.
-
-  @condensed
 
 @class hx-no-pad
   @description
     Removes the padding from an element.
 
-  @condensed
-
 @class hx-no-pad-top
   @description
     Removes the top padding from an element.
-
-  @condensed
 
 @class hx-no-pad-bottom
   @description
     Removes the bottom padding from an element.
 
-  @condensed
-
 @class hx-no-pad-left
   @description
     Removes the left padding from an element.
-
-  @condensed
 
 @class hx-no-pad-right
   @description
     Removes the right padding from an element.
 
-  @condensed
-
 @class hx-border
   @description
     Adds border to an element.
-
-  @condensed
 
 @class hx-border-top
   @description
     Adds top border to an element.
 
-  @condensed
-
 @class hx-border-bottom
   @description
     Adds bottom border to an element.
-
-  @condensed
 
 @class hx-border-left
   @description
     Adds left border to an element.
 
-  @condensed
-
 @class hx-border-right
   @description
     Adds right border to an element.
-
-  @condensed
 
 @class hx-no-border
   @description
     Removes the border from an element.
 
-  @condensed
-
 @class hx-no-border-top
   @description
     Removes the top border from an element.
-
-  @condensed
 
 @class hx-no-border-bottom
   @description
     Removes the bottom border from an element.
 
-  @condensed
-
 @class hx-no-border-left
   @description
     Removes the left border from an element.
 
-  @condensed
-
 @class hx-no-border-right
   @description
     Removes the right border from an element.
-
-  @condensed
 
 @class hx-phone
   @description

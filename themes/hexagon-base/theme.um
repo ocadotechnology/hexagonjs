@@ -129,6 +129,65 @@
 
     @button
       @variables
+        @normal-font-size: 1em
+        @normal-height: 40px
+        @normal-line-height: 38px
+        @normal-padding: 0 20px
+        @small-font-size: 0.9em
+        @small-height: 30px
+        @small-line-height: 28px
+        @small-padding: 0 20px
+        @micro-font-size: 0.9em
+        @micro-height: 20px
+        @micro-line-height: 18px
+        @micro-padding: 0 20px
+        @border-radius: 0.15em
+        @default-font-weight: bold
+        @default-text-color: $dark-text-col
+        @default-text-hover-color: $dark-text-col
+        @default-background-color: $default-col
+        @default-background-hover-color: darken($default-col, 10%)
+        @default-border-color: $dark-text-col
+        @default-border-hover-color: $dark-text-col
+        @primary-font-weight: bold
+        @primary-text-color: $light-text-col
+        @primary-text-hover-color: $light-text-col
+        @primary-background-color: $action-col
+        @primary-background-hover-color: darken($action-col, 10%)
+        @primary-border-color: $action-col
+        @primary-border-hover-color: darken($action-col, 10%)
+        @secondary-font-weight: bold
+        @secondary-text-color: $light-text-col
+        @secondary-text-hover-color: $light-text-col
+        @secondary-background-color: $dark-text-col
+        @secondary-background-hover-color: darken($dark-text-col, 10%)
+        @secondary-border-color: $dark-text-col
+        @secondary-border-hover-color: darken($dark-text-col, 10%)
+        @success-font-weight: bold
+        @success-text-color: $light-text-col
+        @success-text-hover-color: $light-text-col
+        @success-background-color: $positive-col
+        @success-background-hover-color: darken($positive-col, 10%)
+        @success-border-color: $positive-col
+        @success-border-hover-color: darken($positive-col, 10%)
+        @danger-font-weight: bold
+        @danger-text-color: $light-text-col
+        @danger-text-hover-color: $light-text-col
+        @danger-background-color: $negative-col
+        @danger-background-hover-color: darken($negative-col, 10%)
+        @danger-border-color: $negative-col
+        @danger-border-hover-color: darken($negative-col, 10%)
+        @link-font-weight: normal
+        @link-text-color: $action-col
+        @link-text-hover-color: $action-col
+        @link-background-color: transparent
+        @link-background-hover-color: transparent
+        @link-border-color: transparent
+        @link-border-hover-color: transparent
+        @disabled-font-weight: bold
+        @disabled-text-color: $disabled-text-col
+        @disabled-background-color: $disabled-col
+        @disabled-border-color: $disabled-col
         @action-col: $action-col
         @complement-col: $complement-col
         @contrast-col: $contrast-col
@@ -137,7 +196,8 @@
         @negative-col: $negative-col
         @positive-col: $positive-col
         @warning-col: $warning-col
-
+        @light-text-col: $light-text-col
+        @dark-text-col: $dark-text-col
         @action-border-col: darken($action-col, 10%)
         @complement-border-col: darken($complement-col, 10%)
         @contrast-border-col: darken($contrast-col, 10%)
@@ -146,13 +206,8 @@
         @negative-border-col: darken($negative-col, 10%)
         @positive-border-col: darken($positive-col, 10%)
         @warning-border-col: darken($warning-col, 10%)
-
-        @light-text-col: $light-text-col
-        @dark-text-col: $dark-text-col
-
         @disabled-text-col: $disabled-text-col
         @disabled-col: $disabled-col
-
         @invert-col: #FDFDFD
         @invert-border-col: darken(#FDFDFD, 10%)
         @invert-text-col: gray
@@ -304,6 +359,7 @@
         @content-max-width: 1200px
         @content-padding: 1em
         @margin: 0.3em
+        @spacing: 0.3em
         @named-class-min-width: 250px
 
     @menu

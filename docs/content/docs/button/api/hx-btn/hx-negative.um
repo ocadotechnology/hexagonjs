@@ -12,5 +12,11 @@
 
 @extraClass hx-negative
   @added 0.9.0
+
+  @deprecated nextReleaseVersion
+    @description
+      The context classes for buttons have been updated to help improve UX considerations.
+      This class has been replaced by @code[hx-danger]
+
   @description
     Adds button styling indicative of failure, danger or something negative

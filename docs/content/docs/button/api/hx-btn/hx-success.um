@@ -1,0 +1,7 @@
+@extraClass hx-success
+  @added nextReleaseVersion
+    @desription
+      Added the buttons to match the updated UX guidelines
+
+  @description
+    A button for use when you have an action that has a positive meaning, like ‘approve’, or ‘confirm’.

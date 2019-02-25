@@ -13,6 +13,12 @@
 
 @extraClass hx-positive
   @added 0.9.0
+
+  @deprecated nextReleaseVersion
+    @description
+      The context classes for buttons have been updated to help improve UX considerations.
+      This class has been replaced by @code[hx-success]
+
   @description
     Adds button styling indicative of success, confirmation or something
     positive

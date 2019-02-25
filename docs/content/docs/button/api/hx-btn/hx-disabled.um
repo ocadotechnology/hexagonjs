@@ -1,4 +1,9 @@
 @extraClass hx-disabled
   @added 0.9.0
+
+  @deprecated nextReleaseVersion
+    @description
+      This class has been deprecated in favour of adding the @code[disabled] attribute to the button to prevent user interaction.
+
   @description
     Gives the button the style of a disabled button.
