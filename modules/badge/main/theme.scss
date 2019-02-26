@@ -1,0 +1,29 @@
+@mixin badge($class, $bgCol, $textCol) {
+  &#{if($class, "." + $class, "")} {
+    background: $bgCol;
+    color: $textCol;
+    border-color: $bgCol;
+
+    &.hx-badge-inverse {
+      background: $inverse-background-color;
+      color: $inverse-text-color;
+      border-color: $bgCol;
+    }
+  }
+}
+
+.hx-badge {
+  height: $height;
+  line-height: $height - ($border-width * 2);
+  font-size: $font-size;
+  font-weight: $font-weight;
+  border-radius: $border-radius;
+  border-width: $border-width;
+  border-style: $border-style;
+  padding: $padding;
+
+  @include badge(false, $default-color, $default-text-color);
+  @include badge(hx-success, $success-color, $success-text-color);
+  @include badge(hx-danger, $danger-color, $danger-text-color);
+  @include badge(hx-warning, $warning-color, $warning-text-color);
+}

@@ -1,0 +1,7 @@
+@extraClass hx-btn-small
+  @added nextReleaseVersion
+    @desription
+      Added the buttons to match the updated UX guidelines
+
+  @description
+    A small button. Use when there isn't enough space to fit a normal button.

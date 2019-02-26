@@ -1,0 +1,7 @@
+@extraClass hx-btn-link
+  @added nextReleaseVersion
+    @desription
+      Added the buttons to match the updated UX guidelines
+
+  @description
+    Display a button with the style of a link but the spacing of a button to help align it with other elements and improve the hit area for touch devices.

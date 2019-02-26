@@ -1,2 +1,9 @@
 @extraClass hx-btn-invisible
-  Removes all styles so that only the text can be seen.
+  @deprecated nextReleaseVersion
+    @description
+      This class has been updated to @code[hx-btn-link]. This retains the spacing and styles the text as a link.
+
+  @description
+    Removes all styles so that only the text can be seen.
+
+

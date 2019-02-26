@@ -1,5 +1,11 @@
 @extraClass hx-info
   @added 0.9.0
+
+  @deprecated nextReleaseVersion
+    @description
+      The context classes for buttons have been updated to help improve UX considerations.
+      This class will be removed in the next major release.
+
   @description
     Styles the button to indicate that clicking it will lead to some form of
     documentation / information.

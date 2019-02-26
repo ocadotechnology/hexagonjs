@@ -1,0 +1,7 @@
+@extraClass hx-btn-normal
+  @added nextReleaseVersion
+    @desription
+      Added the buttons to match the updated UX guidelines
+
+  @description
+    The default button size. Useful for being explicit about button size.

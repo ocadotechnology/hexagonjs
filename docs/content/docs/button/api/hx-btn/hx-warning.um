@@ -14,6 +14,12 @@
 
 @extraClass hx-warning
   @added 0.9.0
+
+  @deprecated nextReleaseVersion
+    @description
+      The context classes for buttons have been updated to help improve UX considerations.
+      This class will be removed in the next major release.
+
   @description
     Adds button styling indicative of warning, to suggest the user should use
     caution

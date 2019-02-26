@@ -53,22 +53,33 @@
   }
 }
 
-.hx-border {
-  border: solid 1px $border-col;
-}
+$types: ['padding', 'margin'];
+$positions: ['', 'top', 'right', 'bottom', 'left'];
 
-.hx-border-top {
-  border-top: solid 1px $border-col;
-}
+@each $pos in $positions {
+  $modifier: #{if($pos != '', '-', '')}#{$pos};
 
-.hx-border-right {
-  border-right: solid 1px $border-col;
-}
+  .hx-border#{$modifier} {
+    border#{$modifier}: solid 1px $border-col
+  }
 
-.hx-border-bottom {
-  border-bottom: solid 1px $border-col;
-}
+  .hx-no-border#{$modifier} {
+    border#{$modifier}: none !important;
+  }
 
-.hx-border-left {
-  border-left: solid 1px $border-col;
+  @each $type in $types {
+    $clsType: #{if($type == 'padding', 'pad', $type)};
+
+    .hx-#{$clsType}#{$modifier} {
+      #{$type}#{$modifier}: $margin !important;
+
+      .hx-flag-spacing &,
+      &.hx-flag-spacing {
+        #{$type}#{$modifier}: $spacing !important;
+      }
+    }
+    .hx-no-#{$clsType}#{$modifier} {
+      #{$type}#{$modifier}: 0 !important;
+    }
+  }
 }

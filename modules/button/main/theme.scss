@@ -1,3 +1,4 @@
+// Deprecated button styles:
 @function getTextColFromBG($col) {
   @if lightness($col) > 60 {
     @return $dark-text-col;
@@ -8,7 +9,7 @@
   }
 }
 
-@mixin button($class, $color, $border-col) {
+@mixin button_deprecated($class, $color, $border-col) {
   &#{if($class, "." + $class, "")} {
     background: $color;
     color: getTextColFromBG($color);
@@ -54,14 +55,14 @@
 }
 
 .hx-btn {
-  @include button(false, $default-col, $default-border-col);
-  @include button(hx-action, $action-col, $action-border-col);
-  @include button(hx-positive, $positive-col, $positive-border-col);
-  @include button(hx-negative, $negative-col, $negative-border-col);
-  @include button(hx-warning, $warning-col, $warning-border-col);
-  @include button(hx-info, $info-col, $info-border-col);
-  @include button(hx-complement, $complement-col, $complement-border-col);
-  @include button(hx-contrast, $contrast-col, $contrast-border-col);
+  @include button_deprecated(false, $default-col, $default-border-col);
+  @include button_deprecated(hx-action, $action-col, $action-border-col);
+  @include button_deprecated(hx-positive, $positive-col, $positive-border-col);
+  @include button_deprecated(hx-negative, $negative-col, $negative-border-col);
+  @include button_deprecated(hx-warning, $warning-col, $warning-border-col);
+  @include button_deprecated(hx-info, $info-col, $info-border-col);
+  @include button_deprecated(hx-complement, $complement-col, $complement-border-col);
+  @include button_deprecated(hx-contrast, $contrast-col, $contrast-border-col);
 
   &.hx-btn-invisible {
     color: $invisible-text-col;
@@ -85,4 +86,84 @@
       @extend .hx-btn.hx-disabled;
     }
   }
+}
+// End deprecated button styles
+
+
+@mixin button(
+  $class,
+  $text-color,
+  $text-hover-color,
+  $background-color,
+  $background-hover-color,
+  $border-color,
+  $border-hover-color,
+  $font-weight,
+  $text-decoration: none,
+  $no-horizontal-padding: false,
+) {
+  &#{if($class, "." + $class, "")} {
+    font-weight: $font-weight;
+    color: $text-color;
+    background: $background-color;
+    border-color: $border-color;
+
+    &:active,
+    &:hover {
+      color: $text-hover-color;
+      background: $background-hover-color;
+      border-color: $border-hover-color;
+      text-decoration: $text-decoration;
+    }
+  }
+}
+
+.hx-flag-button .hx-btn,
+.hx-btn.hx-primary,
+.hx-btn.hx-secondary,
+.hx-btn.hx-success,
+.hx-btn.hx-danger,
+.hx-btn.hx-btn-link,
+.hx-btn.hx-btn-normal {
+  height: $normal-height;
+  font-size: $normal-font-size;
+  line-height: $normal-line-height;
+  padding: $normal-padding;
+}
+
+.hx-btn.hx-btn-small {
+  height: $small-height;
+  font-size: $small-font-size;
+  line-height: $small-line-height;
+  padding: $small-padding;
+}
+
+.hx-btn.hx-btn-micro {
+  height: $micro-height;
+  font-size: $micro-font-size;
+  line-height: $micro-line-height;
+  padding: $micro-padding;
+}
+
+.hx-flag-button .hx-btn,
+.hx-btn.hx-btn-normal,
+.hx-btn.hx-btn-small,
+.hx-btn.hx-btn-micro {
+  cursor: pointer;
+  border-radius: $border-radius;
+
+  @include button(false, $default-text-color, $default-text-hover-color, $default-background-color, $default-background-hover-color, $default-border-color, $default-border-hover-color, $default-font-weight);
+  @include button(hx-btn-link, $link-text-color, $link-text-hover-color, transparent, transparent, transparent, transparent, $link-font-weight, underline);
+
+  &:disabled {
+    cursor: not-allowed;
+    @include button(false, $disabled-text-color, $disabled-text-color, $disabled-background-color, $disabled-background-color, $disabled-border-color, $disabled-border-color, $disabled-font-weight);
+  }
+}
+
+.hx-btn {
+  @include button(hx-primary, $primary-text-color, $primary-text-hover-color, $primary-background-color, $primary-background-hover-color, $primary-border-color, $primary-border-hover-color, $primary-font-weight);
+  @include button(hx-secondary, $secondary-text-color, $secondary-text-hover-color, $secondary-background-color, $secondary-background-hover-color, $secondary-border-color, $secondary-border-hover-color, $secondary-font-weight);
+  @include button(hx-success, $success-text-color, $success-text-hover-color, $success-background-color, $success-background-hover-color, $success-border-color, $success-border-hover-color, $success-font-weight);
+  @include button(hx-danger, $danger-text-color, $danger-text-hover-color, $danger-background-color, $danger-background-hover-color, $danger-border-color, $danger-border-hover-color, $danger-font-weight);
 }
