@@ -325,7 +325,7 @@ class DataTable extends hx.EventEmitter
       noSortText: hx.userFacingText('dataTable', 'noSort')
       rowsPerPageText: hx.userFacingText('dataTable','rowsPerPage')
       searchPlaceholder: hx.userFacingText('dataTable','search')
-      selectedRowsText: hx.userFacingText('dataTable', 'selectedRows')
+      selectedRowsText: hx.userFacingText('dataTable', 'selectedRows', true)
       sortByText: hx.userFacingText('dataTable','sortBy')
 
       addFilterText: hx.userFacingText('dataTable', 'addFilter')
@@ -940,7 +940,7 @@ class DataTable extends hx.EventEmitter
             if totalCount isnt undefined
               @_.statusBar
                 .select('.hx-data-table-status-bar-text')
-                .text(options.selectedRowsText.replace('$selected', @_.selectedRows.size).replace('$total', totalCount))
+                .text(hx.userFacingText.format(options.selectedRowsText, { selected: @_.selectedRows.size, total: totalCount }))
 
           # handles multi row selection ('select all' and shift selection)
           selectMulti = (start, end, force) =>

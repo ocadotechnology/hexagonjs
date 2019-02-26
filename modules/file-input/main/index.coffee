@@ -51,7 +51,7 @@ class FileInput extends hx.EventEmitter
       buttonClass: 'hx-action'
 
       buttonText: hx.userFacingText('fileInput', 'chooseFile')
-      filesSelectedText: hx.userFacingText('fileInput', 'filesSelected')
+      filesSelectedText: hx.userFacingText('fileInput', 'filesSelected', true)
       noFilesText: hx.userFacingText('fileInput', 'noFile')
 
     resolvedOptions = hx.merge defaults, options
@@ -136,7 +136,7 @@ class FileInput extends hx.EventEmitter
           selectedFiles.append filePreview(fileMap.values()[0])
         else
           localizedLength = length.toLocaleString(hx.preferences.locale())
-          filesSelectedText = resolvedOptions.filesSelectedText.replace('$numFiles', localizedLength)
+          filesSelectedText = hx.userFacingText.format(resolvedOptions.filesSelectedText, { numFiles: localizedLength })
           selectedFiles
             .classed 'hx-btn', true
             .add hx.section().text filesSelectedText
