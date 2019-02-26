@@ -52,6 +52,32 @@
       hx.userFacingText('yourComponentName', 'yourKeyValue') // Returns: "Some Text"
 
 
+      // Plurals use the `$n` parameter. This defaults to 1 if not provided.
+      hx.userFacingText('example', 'plural-key', [
+        [null, 0, 'Value Zero'],
+        [1, 1, 'Value Singular'],
+        [2, 2, 'Value Two'],
+        [3, null, 'Value $n']
+      ])
+
+      hx.userFacingText('example', 'plural-key')
+      hx.userFacingText('example', 'plural-key', { n: 0 })
+      // => 'Value Singular'
+
+      hx.userFacingText('example', 'plural-key', { n: 0 })
+      // => 'Value Zero'
+
+      hx.userFacingText('example', 'plural-key', { n: 2 })
+      // => 'Value Two'
+
+      hx.userFacingText('example', 'plural-key', { n: 100 })
+      // => 'Value 100'
+
+      // The following are equivalent:
+      hx.userFacingText('form', 'missingValue', 'Value Missing') // Set the text
+      hx.userFacingText('form', 'missingValue', [[null, null, 'Value Missing']) // Set the text
+
+
     @example
       @@html
         <h4>Main Page - <span id="currentVersion"></span></h4>

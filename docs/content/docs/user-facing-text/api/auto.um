@@ -65,8 +65,37 @@
       The currently set text
 
 @function hx.userFacingText
+  @updated nextReleaseVersion
+    @description
+      Updated the value argument to allow an array to be set, allowing plurals.
+
+      @@codeblock js
+        hx.userFacingText('example', 'plural-key', [
+          [null, 0, 'Value Zero'],
+          [1, 1, 'Value Singular'],
+          [2, 2, 'Value Two'],
+          [3, null, 'Value $n']
+        ])
+
+        hx.userFacingText('example', 'plural-key')
+        hx.userFacingText('example', 'plural-key', { n: 1 })
+        // => 'Value Singular'
+
+        hx.userFacingText('example', 'plural-key', { n: 0 })
+        // => 'Value Zero'
+
+        hx.userFacingText('example', 'plural-key', { n: 2 })
+        // => 'Value Two'
+
+        hx.userFacingText('example', 'plural-key', { n: 100 })
+        // => 'Value 100'
+
   @description
-    Sets the text for a module key
+    Sets the text for a module key.
+
+    When using a plurals array, the @code[$n] parameter is used to indicate how many of the value are being used.
+
+    If the @code[$n] parameter is not provided when getting the value, it defaults to 1.
 
   @extra
     @@codeblock js
@@ -75,17 +104,60 @@
       hx.userFacingText('something', 'value')
       // => 'the value'
 
+
+      // Plurals use the `$n` parameter. This defaults to 1 if not provided.
+      hx.userFacingText('example', 'plural-key', [
+        [null, 0, 'Value Zero'],
+        [1, 1, 'Value Singular'],
+        [2, 2, 'Value Two'],
+        [3, null, 'Value $n']
+      ])
+
+      hx.userFacingText('example', 'plural-key')
+      hx.userFacingText('example', 'plural-key', { n: 1 })
+      // => 'Value Singular'
+
+      hx.userFacingText('example', 'plural-key', { n: 0 })
+      // => 'Value Zero'
+
+      hx.userFacingText('example', 'plural-key', { n: 2 })
+      // => 'Value Two'
+
+      hx.userFacingText('example', 'plural-key', { n: 100 })
+      // => 'Value 100'
+
   @arg module [String]
     @description
       The module to set text for
 
   @arg key [String]
     @description
-      The key to set text for
+      The key to set text for.
 
-  @arg value [String]
+  @arg value [String/Array]
     @description
       The text to set
+
+
+      When using an array the format is an array of arrays
+      @@codeblock js
+        [
+          [min, max, string]
+        ]
+
+    @extra
+      @property min [Number/Null]
+        @description
+          The minimum value of @code[$n] that will show this string. When using @code[null], this is treated as 'everything below max'.
+
+      @property max [Number/Null]
+        @description
+          The maximum value of @code[$n] that will show this string. When using @code[null], this is treated as 'everything above min'.
+
+      @property string [String]
+        @description
+          The string to display when @code[$n] is between min/max.
+
 
 
 @function hx.userFacingText
