@@ -189,11 +189,16 @@ describe 'user-facing-text', ->
 
     # Set
     #
-    # userFacingText(module: string, key: string, value: string)
+    # userFacingText(module: string, key: string, value: string | array)
     # userFacingText({
     #   module: {
-    #     key: 'value'
-    #   }
+    #     key: 'value',
+    #     pluralKey: [
+    #         [null, 0, 'Value Zero'],
+    #         [1, 1, 'Value Singular'],
+    #         [2, null, 'Value Plural']
+    #     ]
+    #   },
     # })
     describe 'when setting values', ->
       describe 'per module', ->
@@ -204,6 +209,34 @@ describe 'user-facing-text', ->
 
         it 'sets the value correctly', ->
           value.should.equal('the value')
+
+      describe 'per module with a plural key', ->
+        value = undefined
+        valueZero = undefined
+        valuePluralA = undefined
+        valuePluralB = undefined
+        beforeEach ->
+          userFacingText('something', 'value', [
+            [null, 0, 'Value Zero'],
+            [1, 1, 'Value Singular'],
+            [2, null, 'Value Plural']
+          ])
+          value = userFacingText('something', 'value')
+          valueZero = userFacingText('something', 'value', { n: 0 })
+          valuePluralA = userFacingText('something', 'value', { n: 2 })
+          valuePluralB = userFacingText('something', 'value', { n: 100 })
+
+        it 'sets the singular value correctly', ->
+          value.should.equal('Value Singular')
+
+        it 'sets the zero value correctly', ->
+          valueZero.should.equal('Value Zero')
+
+        it 'sets the plural value correctly', ->
+          valuePluralA.should.equal('Value Plural')
+
+        it 'sets the plural value correctly for larger numbers', ->
+          valuePluralB.should.equal('Value Plural')
 
       describe 'with object', ->
         value1 = undefined
@@ -226,6 +259,38 @@ describe 'user-facing-text', ->
 
         it 'sets the somethingElse key correctly', ->
           value2.should.equal('the other value')
+
+      describe 'with object and plural values', ->
+        value = undefined
+        valueZero = undefined
+        valuePluralA = undefined
+        valuePluralB = undefined
+        beforeEach ->
+          userFacingText({
+            something: {
+              value: [
+                [null, 0, 'Value Zero'],
+                [1, 1, 'Value Singular'],
+                [2, null, 'Value Plural $n $something']
+              ]
+            }
+          })
+          value = userFacingText('something', 'value')
+          valueZero = userFacingText('something', 'value', { n: 0 })
+          valuePluralA = userFacingText('something', 'value', { n: 2 })
+          valuePluralB = userFacingText('something', 'value', { n: 100, something: 'Else' })
+
+        it 'sets the singular value correctly', ->
+          value.should.equal('Value Singular')
+
+        it 'sets the zero value correctly', ->
+          valueZero.should.equal('Value Zero')
+
+        it 'sets the plural value correctly', ->
+          valuePluralA.should.equal('Value Plural 2 $something')
+
+        it 'sets the plural value correctly for larger numbers', ->
+          valuePluralB.should.equal('Value Plural 100 Else')
 
       describe 'with object and invalid values', ->
         testObj = undefined

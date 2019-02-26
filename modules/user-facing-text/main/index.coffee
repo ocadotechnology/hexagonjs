@@ -32,6 +32,10 @@ toMultilineSelection = (string, textElement = 'span', dontAddBreak) ->
     ]), [])
   )
 
+lookupPlural = (valueToGet, n) ->
+  a = valueToGet.filter(([min, max]) -> n >= min and (n <= max or max is null))
+  [min, max, string] = a[0]
+  return string
 
 # Getter - get the localised text for a module/key
 paramRegex = /\$\D/g
@@ -42,17 +46,32 @@ getValue = (module, key, parseLater, params) ->
     hx.consoleWarning "hx.userFacingText: No text was found for key: #{key} in module: #{module}"
     return undefined
 
-  if parseLater isnt true and valueToGet.match(paramRegex)
+  val = if hx.isArray(valueToGet)
+    n = if not params or isNaN(params.n) then 1 else params.n
+    lookupPlural(valueToGet, n)
+  else
+    valueToGet
+
+
+  if parseLater isnt true and val.match(paramRegex)
     if params
-      return format(valueToGet, params)
+      return format(val, params)
 
-    hx.consoleWarning "hx.userFacingText: Parameterised string was returned without parsing parameters: #{valueToGet}.\nCall userFacingText(module, key, parameters) to replace the parameters or userFacingText(module, key, true) if you are handling this externally."
+    hx.consoleWarning "hx.userFacingText: Parameterised string was returned without parsing parameters: #{val}.\nCall userFacingText(module, key, parameters) to replace the parameters or userFacingText(module, key, true) if you are handling this externally."
 
-  return valueToGet
+  return val
+
+isNullOrNumber = (val) -> val is null or not isNaN(val)
+
+isCorrectlyFormattedArray = (valueToSet) ->
+  return (hx.isArray(valueToSet) and valueToSet.every((item) -> hx.isArray(item) and item.length is 3) and
+    valueToSet.every(([min, max, value]) -> isNullOrNumber(min) and isNullOrNumber(max) and isStringWithLength(value))
+  ) or false
+
 
 # Setter - set the localised text for a module/key
 setValue = (module, key, valueToSet) ->
-  if not isStringWithLength(valueToSet)
+  if not isCorrectlyFormattedArray(valueToSet) and not isStringWithLength(valueToSet)
     hx.consoleWarning "hx.userFacingText: The value provided must be a string but was passed value: #{valueToSet}"
     return undefined
 
