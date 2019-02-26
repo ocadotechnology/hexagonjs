@@ -81,6 +81,67 @@
       @complement-border-col: darken($complement-col, 10%)
       @contrast-border-col: darken($contrast-col, 10%)
       @invert-border-col: darken(#FDFDFD, 10%)
+      @normal-font-size: 1em
+      @normal-height: 40px
+      @normal-line-height: 38px
+      @normal-padding: 0 20px
+      @small-font-size: 0.9em
+      @small-height: 30px
+      @small-line-height: 28px
+      @small-padding: 0 20px
+      @micro-font-size: 0.9em
+      @micro-height: 20px
+      @micro-line-height: 18px
+      @micro-padding: 0 20px
+      @font-weight: normal
+      @border-radius: 0.15em
+      @default-font-weight: bold
+      @default-text-color: #3D3D3D
+      @default-text-hover-color: #3D3D3D
+      @default-background-color: #393D3D
+      @default-background-hover-color: darken($default-col, 10%)
+      @default-border-color: #3D3D3D
+      @default-border-hover-color: #3D3D3D
+      @primary-font-weight: bold
+      @primary-text-color: white
+      @primary-text-hover-color: white
+      @primary-background-color: #00ADA8
+      @primary-background-hover-color: darken($action-col, 10%)
+      @primary-border-color: #00ADA8
+      @primary-border-hover-color: darken($action-col, 10%)
+      @secondary-font-weight: bold
+      @secondary-text-color: white
+      @secondary-text-hover-color: white
+      @secondary-background-color: #3D3D3D
+      @secondary-background-hover-color: darken($dark-text-col, 10%)
+      @secondary-border-color: #3D3D3D
+      @secondary-border-hover-color: darken($dark-text-col, 10%)
+      @success-font-weight: bold
+      @success-text-color: white
+      @success-text-hover-color: white
+      @success-background-color: #92BF17
+      @success-background-hover-color: darken($positive-col, 10%)
+      @success-border-color: #92BF17
+      @success-border-hover-color: darken($positive-col, 10%)
+      @danger-font-weight: bold
+      @danger-text-color: white
+      @danger-text-hover-color: white
+      @danger-background-color: #EC3A65
+      @danger-background-hover-color: darken($negative-col, 10%)
+      @danger-border-color: #EC3A65
+      @danger-border-hover-color: darken($negative-col, 10%)
+      @link-font-weight: normal
+      @link-text-color: #00ADA8
+      @link-text-hover-color: #00ADA8
+      @disabled-font-weight: bold
+      @disabled-text-color: #939393
+      @disabled-background-color: #FAFAFA
+      @disabled-border-color: #FAFAFA
+      @disabled-border-hover-color: #FAFAFA
+      @link-background-color: transparent
+      @link-background-hover-color: transparent
+      @link-border-color: transparent
+      @link-border-hover-color: transparent
       @default-text-col: white
     @dropdown
       @spacing: 0
@@ -173,6 +234,7 @@
       @content-breakpoint: 1300px, 900px
       @content-padding: 1em
       @margin: 0.3em
+      @spacing: 0.3em
       @named-class-min-width: 250px
       @border-col: #4E5355
       @content-background-col: transparent
@@ -310,6 +372,24 @@
       @border-radius: 2px
       @disabled-col: #FAFAFA
       @shadow-col: transparent
+    @badge
+      @default-color: #393D3D
+      @success-color: #92BF17
+      @warning-color: #D69B24
+      @danger-color: #EC3A65
+      @default-text-color: white
+      @success-text-color: white
+      @warning-text-color: white
+      @danger-text-color: white
+      @inverse-text-color: white
+      @inverse-background-color: #3D3D3D
+      @height: 18px
+      @font-size: 12px
+      @font-weight: 600
+      @border-radius: 10px
+      @border-width: 1px
+      @border-style: solid
+      @padding: 0 0.5em
     @card
       @background-col: #32373A
       @border-col: transparent
@@ -348,9 +428,16 @@
       @sidebar-background-col: transparent
       @sidebar-text-col: white
     @error-pages
-      @shadow-col: rgba(0, 0, 0, 0.05)
       @background-col: #32373A
-      @heading-text-col: #00ADA8
+      @padding: 32px
+      @box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.05)
+      @border-radius: 2px
+      @heading-text-col: #3D3D3D
+      @heading-font-size: 2em
+      @heading-font-weight: bold
+      @heading-margin: 1em
+      @body-font-size: 1em
+      @body-margin: 1em
     @label
       @default-col: #393D3D
       @action-col: #00ADA8

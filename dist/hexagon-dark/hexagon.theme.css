@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.19.0
+ Version: 1.20.0
  Theme: hexagon-dark
  Modules:
    set
@@ -68,6 +68,7 @@
    morph-section
    titlebar
    slider
+   badge
    card
    color-picker
    color-scale
@@ -680,17 +681,112 @@ hr {
 .hx-border {
   border: solid 1px #4E5355; }
 
+.hx-no-border {
+  border: none !important; }
+
+.hx-pad {
+  padding: 0.3em !important; }
+  .hx-flag-spacing .hx-pad, .hx-pad.hx-flag-spacing {
+    padding: 0.3em !important; }
+
+.hx-no-pad {
+  padding: 0 !important; }
+
+.hx-margin {
+  margin: 0.3em !important; }
+  .hx-flag-spacing .hx-margin, .hx-margin.hx-flag-spacing {
+    margin: 0.3em !important; }
+
+.hx-no-margin {
+  margin: 0 !important; }
+
 .hx-border-top {
   border-top: solid 1px #4E5355; }
+
+.hx-no-border-top {
+  border-top: none !important; }
+
+.hx-pad-top {
+  padding-top: 0.3em !important; }
+  .hx-flag-spacing .hx-pad-top, .hx-pad-top.hx-flag-spacing {
+    padding-top: 0.3em !important; }
+
+.hx-no-pad-top {
+  padding-top: 0 !important; }
+
+.hx-margin-top {
+  margin-top: 0.3em !important; }
+  .hx-flag-spacing .hx-margin-top, .hx-margin-top.hx-flag-spacing {
+    margin-top: 0.3em !important; }
+
+.hx-no-margin-top {
+  margin-top: 0 !important; }
 
 .hx-border-right {
   border-right: solid 1px #4E5355; }
 
+.hx-no-border-right {
+  border-right: none !important; }
+
+.hx-pad-right {
+  padding-right: 0.3em !important; }
+  .hx-flag-spacing .hx-pad-right, .hx-pad-right.hx-flag-spacing {
+    padding-right: 0.3em !important; }
+
+.hx-no-pad-right {
+  padding-right: 0 !important; }
+
+.hx-margin-right {
+  margin-right: 0.3em !important; }
+  .hx-flag-spacing .hx-margin-right, .hx-margin-right.hx-flag-spacing {
+    margin-right: 0.3em !important; }
+
+.hx-no-margin-right {
+  margin-right: 0 !important; }
+
 .hx-border-bottom {
   border-bottom: solid 1px #4E5355; }
 
+.hx-no-border-bottom {
+  border-bottom: none !important; }
+
+.hx-pad-bottom {
+  padding-bottom: 0.3em !important; }
+  .hx-flag-spacing .hx-pad-bottom, .hx-pad-bottom.hx-flag-spacing {
+    padding-bottom: 0.3em !important; }
+
+.hx-no-pad-bottom {
+  padding-bottom: 0 !important; }
+
+.hx-margin-bottom {
+  margin-bottom: 0.3em !important; }
+  .hx-flag-spacing .hx-margin-bottom, .hx-margin-bottom.hx-flag-spacing {
+    margin-bottom: 0.3em !important; }
+
+.hx-no-margin-bottom {
+  margin-bottom: 0 !important; }
+
 .hx-border-left {
   border-left: solid 1px #4E5355; }
+
+.hx-no-border-left {
+  border-left: none !important; }
+
+.hx-pad-left {
+  padding-left: 0.3em !important; }
+  .hx-flag-spacing .hx-pad-left, .hx-pad-left.hx-flag-spacing {
+    padding-left: 0.3em !important; }
+
+.hx-no-pad-left {
+  padding-left: 0 !important; }
+
+.hx-margin-left {
+  margin-left: 0.3em !important; }
+  .hx-flag-spacing .hx-margin-left, .hx-margin-left.hx-flag-spacing {
+    margin-left: 0.3em !important; }
+
+.hx-no-margin-left {
+  margin-left: 0 !important; }
 
 
 
@@ -1052,6 +1148,48 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   height: 50%;
   top: 25%; }
 
+.hx-badge {
+  height: 18px;
+  line-height: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 0 0.5em; }
+  .hx-badge {
+    background: #393D3D;
+    color: white;
+    border-color: #393D3D; }
+    .hx-badge.hx-badge-inverse {
+      background: #3D3D3D;
+      color: white;
+      border-color: #393D3D; }
+  .hx-badge.hx-success {
+    background: #92BF17;
+    color: white;
+    border-color: #92BF17; }
+    .hx-badge.hx-success.hx-badge-inverse {
+      background: #3D3D3D;
+      color: white;
+      border-color: #92BF17; }
+  .hx-badge.hx-danger {
+    background: #EC3A65;
+    color: white;
+    border-color: #EC3A65; }
+    .hx-badge.hx-danger.hx-badge-inverse {
+      background: #3D3D3D;
+      color: white;
+      border-color: #EC3A65; }
+  .hx-badge.hx-warning {
+    background: #D69B24;
+    color: white;
+    border-color: #D69B24; }
+    .hx-badge.hx-warning.hx-badge-inverse {
+      background: #3D3D3D;
+      color: white;
+      border-color: #D69B24; }
+
 .hx-card {
   border-color: transparent;
   background: #32373A;
@@ -1187,8 +1325,15 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   border-radius: 2px; }
 
 .hx-error-message-heading {
+  color: #3D3D3D;
   font-size: 2em;
-  color: #00ADA8; }
+  font-weight: bold;
+  margin-bottom: 1em; }
+
+.hx-error-message-heading + .hx-error-message-body,
+.hx-error-message-heading + div {
+  font-size: 1em;
+  margin-bottom: 1em; }
 
 
 
