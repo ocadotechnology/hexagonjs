@@ -1,5 +1,5 @@
 @extraClass hx-action
-  @deprecated nextReleaseVersion
+  @deprecated 1.20.0
     @description
       The context classes for buttons have been updated to help improve UX considerations. This context has been replaced by @code[hx-primary]
 

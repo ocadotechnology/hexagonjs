@@ -1,5 +1,5 @@
 @extraClass hx-btn-invisible
-  @deprecated nextReleaseVersion
+  @deprecated 1.20.0
     @description
       This class has been updated to @code[hx-btn-link]. This retains the spacing and styles the text as a link.
 

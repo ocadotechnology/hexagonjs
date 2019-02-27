@@ -476,9 +476,12 @@
         Update the paginator to add feature flags for version 2.0.0 to allow for an
         easier migration path.
 
-    @version nextReleaseVersion
+    @version 1.20.0
       @description
         Added new button styles, a @code[Badges] module to replace @code[Labels] and
         updated the Error Pages and Layout module in preparation for version 2.0.0.
 
+        Also added parameter replacement, support for plurals and a helper for converting
+        multiline text strings to a selection containing multiple 'paragraphs' to the
+        @code[hx.userFacingText] function/module.
 

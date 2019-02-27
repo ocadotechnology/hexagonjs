@@ -23,7 +23,7 @@
       }
       hx.userFacingText(text)
 
-@version nextReleaseVersion
+@version 1.20.0
   @examples
     @@codeblock js
       // Get all currently set values

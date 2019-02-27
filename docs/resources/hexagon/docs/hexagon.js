@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.19.0
+ Version: 1.20.0
  Theme: hexagon-light
  Modules:
    set
@@ -68,6 +68,7 @@
    morph-section
    titlebar
    slider
+   badge
    card
    color-picker
    color-scale
@@ -201,7 +202,68 @@ dx.theme = {
     "infoBorderCol": "darken($info-col, 10%)",
     "complementBorderCol": "darken($complement-col, 10%)",
     "contrastBorderCol": "darken($contrast-col, 10%)",
-    "invertBorderCol": "darken(#FDFDFD, 10%)"
+    "invertBorderCol": "darken(#FDFDFD, 10%)",
+    "normalFontSize": "1em",
+    "normalHeight": "40px",
+    "normalLineHeight": "38px",
+    "normalPadding": "0 20px",
+    "smallFontSize": "0.9em",
+    "smallHeight": "30px",
+    "smallLineHeight": "28px",
+    "smallPadding": "0 20px",
+    "microFontSize": "0.9em",
+    "microHeight": "20px",
+    "microLineHeight": "18px",
+    "microPadding": "0 20px",
+    "fontWeight": "normal",
+    "borderRadius": "0.15em",
+    "defaultFontWeight": "bold",
+    "defaultTextColor": "#3D3D3D",
+    "defaultTextHoverColor": "#3D3D3D",
+    "defaultBackgroundColor": "#FFFFFF",
+    "defaultBackgroundHoverColor": "darken($default-col, 10%)",
+    "defaultBorderColor": "#3D3D3D",
+    "defaultBorderHoverColor": "#3D3D3D",
+    "primaryFontWeight": "bold",
+    "primaryTextColor": "#F3F3F3",
+    "primaryTextHoverColor": "#F3F3F3",
+    "primaryBackgroundColor": "#00ADA8",
+    "primaryBackgroundHoverColor": "darken($action-col, 10%)",
+    "primaryBorderColor": "#00ADA8",
+    "primaryBorderHoverColor": "darken($action-col, 10%)",
+    "secondaryFontWeight": "bold",
+    "secondaryTextColor": "#F3F3F3",
+    "secondaryTextHoverColor": "#F3F3F3",
+    "secondaryBackgroundColor": "#3D3D3D",
+    "secondaryBackgroundHoverColor": "darken($dark-text-col, 10%)",
+    "secondaryBorderColor": "#3D3D3D",
+    "secondaryBorderHoverColor": "darken($dark-text-col, 10%)",
+    "successFontWeight": "bold",
+    "successTextColor": "#F3F3F3",
+    "successTextHoverColor": "#F3F3F3",
+    "successBackgroundColor": "#92BF17",
+    "successBackgroundHoverColor": "darken($positive-col, 10%)",
+    "successBorderColor": "#92BF17",
+    "successBorderHoverColor": "darken($positive-col, 10%)",
+    "dangerFontWeight": "bold",
+    "dangerTextColor": "#F3F3F3",
+    "dangerTextHoverColor": "#F3F3F3",
+    "dangerBackgroundColor": "#EC3A65",
+    "dangerBackgroundHoverColor": "darken($negative-col, 10%)",
+    "dangerBorderColor": "#EC3A65",
+    "dangerBorderHoverColor": "darken($negative-col, 10%)",
+    "linkFontWeight": "normal",
+    "linkTextColor": "#00ADA8",
+    "linkTextHoverColor": "#00ADA8",
+    "disabledFontWeight": "bold",
+    "disabledTextColor": "#939393",
+    "disabledBackgroundColor": "#FAFAFA",
+    "disabledBorderColor": "#FAFAFA",
+    "disabledBorderHoverColor": "#FAFAFA",
+    "linkBackgroundColor": "transparent",
+    "linkBackgroundHoverColor": "transparent",
+    "linkBorderColor": "transparent",
+    "linkBorderHoverColor": "transparent"
   },
   "dropdown": {
     "spacing": "0",
@@ -307,6 +369,7 @@ dx.theme = {
     "contentBreakpoint": "1300px, 900px",
     "contentPadding": "1em",
     "margin": "0.3em",
+    "spacing": "0.3em",
     "namedClassMinWidth": "250px",
     "borderCol": "#D0D0D0",
     "contentBackgroundCol": "transparent"
@@ -462,6 +525,25 @@ dx.theme = {
     "disabledCol": "#FAFAFA",
     "shadowCol": "transparent"
   },
+  "badge": {
+    "defaultColor": "#4A4E4E",
+    "successColor": "#92BF17",
+    "warningColor": "#D69B24",
+    "dangerColor": "#EC3A65",
+    "defaultTextColor": "#F3F3F3",
+    "successTextColor": "#F3F3F3",
+    "warningTextColor": "#F3F3F3",
+    "dangerTextColor": "#F3F3F3",
+    "inverseTextColor": "#3D3D3D",
+    "inverseBackgroundColor": "#F3F3F3",
+    "height": "18px",
+    "fontSize": "12px",
+    "fontWeight": "600",
+    "borderRadius": "10px",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "padding": "0 0.5em"
+  },
   "card": {
     "backgroundCol": "#FFFFFF",
     "borderCol": "#E7E7E7",
@@ -506,9 +588,16 @@ dx.theme = {
     "sidebarTextCol": "#3D3D3D"
   },
   "errorPages": {
-    "shadowCol": "rgba(0, 0, 0, 0.05)",
     "backgroundCol": "#FFFFFF",
-    "headingTextCol": "#00ADA8"
+    "padding": "32px",
+    "boxShadow": "2px 2px 2px 2px rgba(0, 0, 0, 0.05)",
+    "borderRadius": "2px",
+    "headingTextCol": "#3D3D3D",
+    "headingFontSize": "2em",
+    "headingFontWeight": "bold",
+    "headingMargin": "1em",
+    "bodyFontSize": "1em",
+    "bodyMargin": "1em"
   },
   "fastClick": {},
   "fileInput": {},
@@ -3902,71 +3991,150 @@ dx.sort.localeCompare = localeCompare;
 
 })();
 (function(){
-var _, completeGetterSetter, isValid, partialGetterSetter, userFacingText, userFacingTextDefaults;
+var Selection, _, defaultReplacer, detached, format, getValue, isCorrectlyFormattedArray, isNullOrNumber, isStringWithLength, lookupPlural, paramRegex, setValue, setWholeObject, toMultilineSelection, userFacingText, userFacingTextDefaults,
+  slice = [].slice;
 
 _ = {
   initialValues: {},
   localisedText: {}
 };
 
-completeGetterSetter = function(object) {
+detached = dx.detached, Selection = dx.Selection;
+
+setWholeObject = function(object) {
   var key, module;
-  if (arguments.length) {
-    if (dx.isPlainObject(object)) {
-      for (module in object) {
-        for (key in object[module]) {
-          partialGetterSetter(module, key, object[module][key]);
-        }
+  if (dx.isPlainObject(object)) {
+    for (module in object) {
+      for (key in object[module]) {
+        setValue(module, key, object[module][key]);
       }
-      return void 0;
-    } else {
-      return dx.consoleWarning("dx.userFacingText: Expected a plain object but was instead passed: " + object);
     }
   } else {
-    return dx.clone(_.localisedText);
+    dx.consoleWarning("dx.userFacingText: Expected a plain object but was instead passed: " + object);
   }
+  return void 0;
 };
 
-isValid = function(value) {
+isStringWithLength = function(value) {
   return dx.isString(value) && value.length;
 };
 
-partialGetterSetter = function(module, key, value) {
-  var base, base1, base2, ref, text;
-  if (isValid(module) && isValid(key)) {
-    if (isValid(value)) {
-      if ((base = _.localisedText)[module] == null) {
-        base[module] = {};
-      }
-      _.localisedText[module][key] = value;
-      if ((base1 = _.initialValues)[module] == null) {
-        base1[module] = {};
-      }
-      if ((base2 = _.initialValues[module])[key] == null) {
-        base2[key] = value;
-      }
-      return void 0;
-    } else if (value == null) {
-      text = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
-      if (text) {
-        return text;
-      } else {
-        return dx.consoleWarning("dx.userFacingText: No text was found for key: " + key + " in module: " + module);
-      }
-    } else {
-      return dx.consoleWarning("dx.userFacingText: The value provided must be a string but was passed value: " + value);
-    }
-  } else {
-    return dx.consoleWarning("dx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
+defaultReplacer = function(str, key, params) {
+  return str.replace(new RegExp("\\\$" + key, 'g'), params[key]);
+};
+
+format = function(string, params, replacer) {
+  var replaceStringValues;
+  if (replacer == null) {
+    replacer = defaultReplacer;
   }
+  replaceStringValues = (function(_this) {
+    return function(str, key) {
+      return replacer(str, key, params);
+    };
+  })(this);
+  return Object.keys(params).sort().reverse().reduce(replaceStringValues, string);
+};
+
+toMultilineSelection = function(string, textElement, dontAddBreak) {
+  if (textElement == null) {
+    textElement = 'span';
+  }
+  return new Selection(string.split('\n').reduce((function(prev, curr, i) {
+    return slice.call(prev).concat([(!dontAddBreak && i > 0 ? detached('br').node() : null)], [detached(textElement).text(curr).node()]);
+  }), []));
+};
+
+lookupPlural = function(valueToGet, n) {
+  var a, max, min, ref, string;
+  a = valueToGet.filter(function(arg) {
+    var max, min;
+    min = arg[0], max = arg[1];
+    return n >= min && (n <= max || max === null);
+  });
+  ref = a[0], min = ref[0], max = ref[1], string = ref[2];
+  return string;
+};
+
+paramRegex = /\$\D/g;
+
+getValue = function(module, key, parseLater, params) {
+  var n, ref, val, valueToGet;
+  valueToGet = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
+  if (!valueToGet) {
+    dx.consoleWarning("dx.userFacingText: No text was found for key: " + key + " in module: " + module);
+    return void 0;
+  }
+  val = dx.isArray(valueToGet) ? (n = !params || isNaN(params.n) ? 1 : params.n, lookupPlural(valueToGet, n)) : valueToGet;
+  if (parseLater !== true && val.match(paramRegex)) {
+    if (params) {
+      return format(val, params);
+    }
+    dx.consoleWarning("dx.userFacingText: Parameterised string was returned without parsing parameters: " + val + ".\nCall userFacingText(module, key, parameters) to replace the parameters or userFacingText(module, key, true) if you are handling this externally.");
+  }
+  return val;
+};
+
+isNullOrNumber = function(val) {
+  return val === null || !isNaN(val);
+};
+
+isCorrectlyFormattedArray = function(valueToSet) {
+  return (dx.isArray(valueToSet) && valueToSet.every(function(item) {
+    return dx.isArray(item) && item.length === 3;
+  }) && valueToSet.every(function(arg) {
+    var max, min, value;
+    min = arg[0], max = arg[1], value = arg[2];
+    return isNullOrNumber(min) && isNullOrNumber(max) && isStringWithLength(value);
+  })) || false;
+};
+
+setValue = function(module, key, valueToSet) {
+  var base, base1, base2;
+  if (!isCorrectlyFormattedArray(valueToSet) && !isStringWithLength(valueToSet)) {
+    dx.consoleWarning("dx.userFacingText: The value provided must be a string but was passed value: " + valueToSet);
+    return void 0;
+  }
+  if ((base = _.localisedText)[module] == null) {
+    base[module] = {};
+  }
+  _.localisedText[module][key] = valueToSet;
+  if ((base1 = _.initialValues)[module] == null) {
+    base1[module] = {};
+  }
+  if ((base2 = _.initialValues[module])[key] == null) {
+    base2[key] = valueToSet;
+  }
+  return void 0;
 };
 
 userFacingText = function() {
-  if (arguments.length <= 1) {
-    return completeGetterSetter.apply(this, arguments);
-  } else {
-    return partialGetterSetter.apply(this, arguments);
+  var key, module, paramsToParse, parseLater, valueToSet;
+  if (!arguments.length) {
+    return dx.clone(_.localisedText);
   }
+  if (arguments.length === 1) {
+    return setWholeObject(arguments[0]);
+  }
+  module = arguments[0];
+  key = arguments[1];
+  if (!isStringWithLength(module) || !isStringWithLength(key)) {
+    dx.consoleWarning("dx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
+    return void 0;
+  }
+  if (arguments.length === 2) {
+    return getValue(module, key, false);
+  }
+  if (arguments[2] === true) {
+    parseLater = arguments[2];
+    return getValue(module, key, parseLater);
+  }
+  if (dx.isPlainObject(arguments[2])) {
+    paramsToParse = arguments[2];
+    return getValue(module, key, false, paramsToParse);
+  }
+  valueToSet = arguments[2];
+  return setValue(module, key, valueToSet);
 };
 
 userFacingTextDefaults = function() {
@@ -3975,7 +4143,11 @@ userFacingTextDefaults = function() {
 
 dx.userFacingText = userFacingText;
 
+dx.userFacingText.format = format;
+
 dx.userFacingText.defaults = userFacingTextDefaults;
+
+dx.userFacingText.toMultilineSelection = toMultilineSelection;
 
 dx._.userFacingText = _;
 
@@ -9078,7 +9250,8 @@ dx.userFacingText({
     loading: 'Loading...',
     noResultsFound: 'No results found',
     otherResults: 'Other Results',
-    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters',
+    minCharacters: 'Min length $minLength characters'
   }
 });
 
@@ -9183,7 +9356,9 @@ buildAutoComplete = function(searchTerm, fromCallback, loading) {
     if (filteredData == null) {
       message.text = this.options.loadingMessage;
     } else if (searchTerm.length < this.options.minLength) {
-      message.text = this.options.pleaseEnterMinCharactersMessage.replace('$minLength', this.options.minLength);
+      message.text = dx.userFacingText.format(this.options.pleaseEnterMinCharactersMessage, {
+        minLength: this.options.minLength
+      });
     } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
       if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
         trimAndReload = true;
@@ -9251,7 +9426,8 @@ AutoComplete = (function(superClass) {
         loadingMessage: dx.userFacingText('autoComplete', 'loading'),
         noResultsMessage: dx.userFacingText('autoComplete', 'noResultsFound'),
         otherResultsMessage: dx.userFacingText('autoComplete', 'otherResults'),
-        pleaseEnterMinCharactersMessage: dx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
+        pleaseEnterMinCharactersMessage: dx.userFacingText('autoComplete', 'pleaseEnterMinCharacters', true),
+        minCharactersMessage: dx.userFacingText('autoComplete', 'minCharacters', true)
       }, opts);
       this._ = _ = {};
       _.ignoreMatch = false;
@@ -9289,7 +9465,9 @@ AutoComplete = (function(superClass) {
         };
       }
       if ((base2 = this.options).placeholder == null) {
-        base2.placeholder = this.options.minLength > 0 ? "Min length " + this.options.minLength + " characters" : void 0;
+        base2.placeholder = this.options.minLength > 0 ? dx.userFacingText.format(this.options.minCharactersMessage, {
+          minLength: this.options.minLength
+        }) : void 0;
       }
       input = dx.select(this.selector);
       menu = new dx.Menu(this.selector, {
@@ -15244,6 +15422,7 @@ dx.slider = function(options) {
 dx.Slider = Slider;
 
 })();
+
 (function(){
 var backgroundContext, classContext, defineComponent, directions, div, fixes, getComponentParent, headers, i, joints, len, ref, size, sizes, span, textContext, textLikeComponent;
 
@@ -16471,7 +16650,7 @@ DataTable = (function(superClass) {
       noSortText: dx.userFacingText('dataTable', 'noSort'),
       rowsPerPageText: dx.userFacingText('dataTable', 'rowsPerPage'),
       searchPlaceholder: dx.userFacingText('dataTable', 'search'),
-      selectedRowsText: dx.userFacingText('dataTable', 'selectedRows'),
+      selectedRowsText: dx.userFacingText('dataTable', 'selectedRows', true),
       sortByText: dx.userFacingText('dataTable', 'sortBy'),
       addFilterText: dx.userFacingText('dataTable', 'addFilter'),
       clearFiltersText: dx.userFacingText('dataTable', 'clearFilters'),
@@ -17115,7 +17294,10 @@ DataTable = (function(superClass) {
               selection.classed('dx-data-table-has-page-selection', pageHasSelection && !options.singleSelection);
               selection.classed('dx-data-table-has-selection', _this._.selectedRows.size > 0 && !options.singleSelection);
               if (totalCount !== void 0) {
-                return _this._.statusBar.select('.dx-data-table-status-bar-text').text(options.selectedRowsText.replace('$selected', _this._.selectedRows.size).replace('$total', totalCount));
+                return _this._.statusBar.select('.dx-data-table-status-bar-text').text(dx.userFacingText.format(options.selectedRowsText, {
+                  selected: _this._.selectedRows.size,
+                  total: totalCount
+                }));
               }
             };
             selectMulti = function(start, end, force) {
@@ -19850,7 +20032,7 @@ FileInput = (function(superClass) {
       dragEnabled: true,
       buttonClass: 'dx-action',
       buttonText: dx.userFacingText('fileInput', 'chooseFile'),
-      filesSelectedText: dx.userFacingText('fileInput', 'filesSelected'),
+      filesSelectedText: dx.userFacingText('fileInput', 'filesSelected', true),
       noFilesText: dx.userFacingText('fileInput', 'noFile')
     };
     resolvedOptions = dx.merge(defaults, options);
@@ -19908,7 +20090,9 @@ FileInput = (function(superClass) {
             selectedFiles.append(filePreview(fileMap.values()[0]));
           } else {
             localizedLength = length.toLocaleString(dx.preferences.locale());
-            filesSelectedText = resolvedOptions.filesSelectedText.replace('$numFiles', localizedLength);
+            filesSelectedText = dx.userFacingText.format(resolvedOptions.filesSelectedText, {
+              numFiles: localizedLength
+            });
             selectedFiles.classed('dx-btn', true).add(dx.section().text(filesSelectedText)).add(dx.detached('i')["class"]('dx-file-input-dropdown-icon dx-icon dx-icon-chevron-down')).on('click', 'dx.file-input', function() {
               return dropdown.show();
             });
@@ -21281,10 +21465,10 @@ Paginator = (function(superClass) {
       visibleCount: 10,
       updatePageOnSelect: true,
       paginatorAria: dx.userFacingText('paginator', 'paginatorAria'),
-      currentPageAria: dx.userFacingText('paginator', 'currentPageAria'),
-      gotoPageAria: dx.userFacingText('paginator', 'gotoPageAria'),
-      prevPageAria: dx.userFacingText('paginator', 'prevPageAria'),
-      nextPageAria: dx.userFacingText('paginator', 'nextPageAria'),
+      currentPageAria: dx.userFacingText('paginator', 'currentPageAria', true),
+      gotoPageAria: dx.userFacingText('paginator', 'gotoPageAria', true),
+      prevPageAria: dx.userFacingText('paginator', 'prevPageAria', true),
+      nextPageAria: dx.userFacingText('paginator', 'nextPageAria', true),
       prevText: dx.userFacingText('paginator', 'prev'),
       nextText: dx.userFacingText('paginator', 'next'),
       v2Features: {
@@ -21436,7 +21620,9 @@ Paginator = (function(superClass) {
           return {
             isPrevNextButton: true,
             text: _this.prevText(),
-            aria: _this.prevPageAria().replace('$page', currentPage - 1),
+            aria: dx.userFacingText.format(_this.prevPageAria(), {
+              page: currentPage - 1
+            }),
             onClick: function() {
               return selectPage.call(_this, 'user', currentPage - 1);
             }
@@ -21446,7 +21632,9 @@ Paginator = (function(superClass) {
           return {
             isPrevNextButton: true,
             text: _this.nextText(),
-            aria: _this.nextPageAria().replace('$page', currentPage + 1),
+            aria: dx.userFacingText.format(_this.nextPageAria(), {
+              page: currentPage + 1
+            }),
             onClick: function() {
               return selectPage.call(_this, 'user', currentPage + 1);
             }
@@ -21462,7 +21650,9 @@ Paginator = (function(superClass) {
         aria = selected ? _this.currentPageAria() : _this.gotoPageAria();
         return {
           text: numericItem,
-          aria: aria.replace('$page', numericItem),
+          aria: dx.userFacingText.format(aria, {
+            page: numericItem
+          }),
           selected: selected,
           onClick: function() {
             return selectPage.call(_this, 'user', numericItem);

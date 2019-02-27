@@ -36,7 +36,7 @@
       The object with module/key objects to set.
 
 @function hx.userFacingText
-  @updated nextReleaseVersion
+  @updated 1.20.0
     @description
       This function will now show a console warning when it returns a string with a @code[$param] in.
 
@@ -65,7 +65,7 @@
       The currently set text
 
 @function hx.userFacingText
-  @updated nextReleaseVersion
+  @updated 1.20.0
     @description
       Updated the value argument to allow an array to be set, allowing plurals.
 
@@ -161,7 +161,7 @@
 
 
 @function hx.userFacingText
-  @updated nextReleaseVersion
+  @updated 1.20.0
     @description
       Added a new function for getting the user facing text with parameters
 
@@ -201,7 +201,7 @@
 
 
 @function hx.userFacingText.format
-  @added nextReleaseVersion
+  @added 1.20.0
     @description
       Expose the function used in Hexagon to format strings with parameters
 
@@ -330,7 +330,7 @@
       The initial value set for the userFacingText object.
 
 @function hx.userFacingText.toMultilineSelection
-  @added nextReleaseVersion
+  @added 1.20.0
     @description
       Added a utility for converting a text string with @code[\n] characters into
       a selection containing @code[span] elements separated by @code[br] elements

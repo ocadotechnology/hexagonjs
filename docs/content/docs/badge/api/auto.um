@@ -1,5 +1,5 @@
 @class hx-badge
-  @added nextReleaseVersion
+  @added 1.20.0
     @description
       Added module to replace the Label module with better UX considerations and usage guidelines
 

@@ -1,5 +1,5 @@
 @class hx-label
-  @deprecated nextReleaseVersion
+  @deprecated 1.20.0
     @description
       This module has been replaced by the Badge module
 

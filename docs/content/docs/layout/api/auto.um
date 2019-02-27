@@ -50,7 +50,7 @@
       Give to a section to make it take up at least 100% of the container width. Any section given this class has a minimum width defined by the named-class-min-width theme option.
 
 @class hx-flag-spacing
-  @added nextReleaseVersion
+  @added 1.20.0
 
   @description
     A class to assist with migration to version 2 of Hexagon. Uses a more explicit variable for the padding and margin applied by the margin/padding classes from this module.
@@ -60,7 +60,7 @@
     Adds margin to an element.
 
 @class hx-margin-top
-  @added nextReleaseVersion
+  @added 1.20.0
     @description
       Added the directional margin classes as they were documented but not implmented.
 
@@ -68,7 +68,7 @@
     Adds top margin to an element.
 
 @class hx-margin-bottom
-  @added nextReleaseVersion
+  @added 1.20.0
     @description
       Added the directional margin classes as they were documented but not implmented.
 
@@ -76,7 +76,7 @@
     Adds bottom margin to an element.
 
 @class hx-margin-left
-  @added nextReleaseVersion
+  @added 1.20.0
     @description
       Added the directional margin classes as they were documented but not implmented.
 
@@ -84,7 +84,7 @@
     Adds left margin to an element.
 
 @class hx-margin-right
-  @added nextReleaseVersion
+  @added 1.20.0
     @description
       Added the directional margin classes as they were documented but not implmented.
 

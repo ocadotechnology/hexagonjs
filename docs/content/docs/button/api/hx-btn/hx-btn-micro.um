@@ -1,5 +1,5 @@
 @extraClass hx-btn-micro
-  @added nextReleaseVersion
+  @added 1.20.0
     @desription
       Added the buttons to match the updated UX guidelines
 
