@@ -153,7 +153,6 @@
   border-radius: $border-radius;
 
   @include button(false, $default-text-color, $default-text-hover-color, $default-background-color, $default-background-hover-color, $default-border-color, $default-border-hover-color, $default-font-weight);
-  @include button(hx-btn-link, $link-text-color, $link-text-hover-color, transparent, transparent, transparent, transparent, $link-font-weight, underline);
 
   &:disabled {
     cursor: not-allowed;
@@ -162,6 +161,7 @@
 }
 
 .hx-btn {
+  @include button(hx-btn-link, $link-text-color, $link-text-hover-color, transparent, transparent, transparent, transparent, $link-font-weight, underline);
   @include button(hx-primary, $primary-text-color, $primary-text-hover-color, $primary-background-color, $primary-background-hover-color, $primary-border-color, $primary-border-hover-color, $primary-font-weight);
   @include button(hx-secondary, $secondary-text-color, $secondary-text-hover-color, $secondary-background-color, $secondary-background-hover-color, $secondary-border-color, $secondary-border-hover-color, $secondary-font-weight);
   @include button(hx-success, $success-text-color, $success-text-hover-color, $success-background-color, $success-background-hover-color, $success-border-color, $success-border-hover-color, $success-font-weight);
