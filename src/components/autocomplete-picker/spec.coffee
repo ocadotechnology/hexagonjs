@@ -8,8 +8,8 @@ import { autocompletePicker, AutocompletePicker } from 'components/autocomplete-
 import { Menu } from 'components/menu'
 import { Dropdown, config as dropdownConfig } from 'components/dropdown'
 
-import { emit } from 'test/utils/fake-event'
-import { installFakeTimers } from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
 
 
 export default ->

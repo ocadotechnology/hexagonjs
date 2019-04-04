@@ -47,8 +47,7 @@
     "run-local-tests:firefox": "browser-test-runner firefox 'test/index.html'",
     "run-tests-saucelabs": "browser-test-runner saucelabs 'test/index.html'",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "lint": "eslint 'src/**/*.js'",
-    "fix-lint-issues": "eslint --fix 'src/**/*.js'"
+    "lint": "eslint 'src/**/*.js' 'test/**/*.js' rollup.config.js"
   },
   "devDependencies": {
     "ajv": "^5.2.4",
@@ -61,11 +60,8 @@
     "coveralls": "^3.0.0",
     "cpx": "^1.5.0",
     "eslint": "^4.9.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.1",
     "phantomjs-prebuilt": "^2.1.15",
@@ -76,6 +72,7 @@
     "rollup": "^0.57.1",
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-coffee-script": "^2.0.0",
+    "rollup-plugin-eslint": "^5.1.0",
     "rollup-plugin-includepaths": "^0.2.2",
     "rollup-plugin-istanbul": "^1.1.0",
     "rollup-plugin-json": "^2.3.0",

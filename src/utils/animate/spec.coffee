@@ -6,7 +6,7 @@ import { animate, morph } from 'utils/animate'
 import { EventEmitter } from 'utils/event-emitter'
 import { ease } from 'utils/transition'
 
-import { installFakeTimers } from 'test/utils/fake-time'
+import installFakeTimers from 'test/utils/fake-time'
 
 export default () ->
   describe 'animate', ->

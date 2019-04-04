@@ -12,18 +12,17 @@ let currentTheme = {
     'rgb(241,90,113)',
     'rgb(151,195,102)',
     'rgb(250,169,91)',
-    'rgb(226,212,64)'
-  ]
-}
+    'rgb(226,212,64)',
+  ],
+};
 
-function theme (t) {
+function theme(t) {
   if (arguments.length > 0) {
-    currentTheme = t
-  } else {
-    return currentTheme
+    currentTheme = t;
   }
+  return currentTheme;
 }
 
 export {
-  theme
-}
+  theme,
+};

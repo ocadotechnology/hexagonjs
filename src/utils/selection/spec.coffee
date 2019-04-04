@@ -9,7 +9,7 @@ import {
   div,
   span
 } from 'utils/selection'
-import { emit } from 'test/utils/fake-event'
+import emit from 'test/utils/fake-event'
 
 should = chai.should()
 

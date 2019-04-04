@@ -6,8 +6,8 @@ import logger from 'utils/logger'
 import { config as dropdownConfig } from 'components/dropdown'
 import { DataTable, dataTable, objectFeed, getAdvancedSearchFilter } from 'components/data-table'
 
-import { emit } from 'test/utils/fake-event'
-import { installFakeTimers } from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
 
 import chai from 'chai'
 should = chai.should()

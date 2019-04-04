@@ -1,30 +1,39 @@
 {
-  "extends": "standard",
-  "plugins": [
-    "standard",
-    "promise"
+  "extends": [
+    "airbnb-base"
   ],
   "env": {
-    "es6": true,
-    "mocha": true
+    "node": true,
+    "mocha": true,
+    "browser": true
   },
   "rules": {
-    "no-var": "error",
-    "prefer-const": "error",
-    "prefer-arrow-callback": ["error", {
-      "allowNamedFunctions": false,
-      "allowUnboundThis": true
-    }],
-    "no-param-reassign": ["error"],
-    "curly": ["error", "all"],
-    "init-declarations": ["error", "always"],
-    "no-undef-init": "off",
-    "quote-props": ["error", "consistent-as-needed"],
-    "operator-linebreak": ["error", "after"],
-    "func-style": ["error", "declaration"],
-    "no-multi-spaces": ["error", {
-      "ignoreEOLComments": true
-    }],
-    "standard/no-callback-literal": "off"
+    "import/no-extraneous-dependencies": [
+      "error", {
+        "devDependencies": [
+          "**/*.spec.js",
+          "**/spec.js",
+          "rollup.config.js"
+        ]
+      }
+    ],
+    "import/prefer-default-export": [
+      "warn"
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".coffee"
+        ],
+        "moduleDirectory": [
+          "node_modules",
+          "src",
+          "."
+        ]
+      }
+    }
   }
 }

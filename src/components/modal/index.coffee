@@ -163,7 +163,6 @@ modalInput = (title, message, callback, options) ->
 
 export {
   Modal,
-  modal,
   modalDialog,
   modalInput
 }

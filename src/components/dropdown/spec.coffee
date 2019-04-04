@@ -6,8 +6,8 @@ import logger from 'utils/logger'
 import { Dropdown, config as dropdownConfig } from 'components/dropdown'
 import { calculateDropdownPosition } from 'components/dropdown/positioning'
 
-import { installFakeTimers } from 'test/utils/fake-time'
-import { emit } from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
 
 should = chai.should()
 

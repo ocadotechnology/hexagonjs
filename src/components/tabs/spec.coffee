@@ -4,7 +4,7 @@ import { palette } from 'utils/palette'
 
 import { Tabs, tabs } from 'components/tabs'
 
-import { emit } from 'test/utils/fake-event'
+import emit from 'test/utils/fake-event'
 
 export default () ->
   defaultContext = [undefined, undefined, 'negative', 'action']

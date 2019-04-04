@@ -1,39 +1,39 @@
-import coffee from 'rollup-plugin-coffee-script'
-import includePaths from 'rollup-plugin-includepaths'
-import buble from 'rollup-plugin-buble'
-import progress from 'rollup-plugin-progress'
-import json from 'rollup-plugin-json'
-import istanbul from 'rollup-plugin-istanbul'
+import coffee from 'rollup-plugin-coffee-script';
+import includePaths from 'rollup-plugin-includepaths';
+import buble from 'rollup-plugin-buble';
+import progress from 'rollup-plugin-progress';
+import json from 'rollup-plugin-json';
+import istanbul from 'rollup-plugin-istanbul';
 
 const includePathOptions = {
   include: {},
-  paths: [__dirname + '/src', __dirname],
+  paths: [`${__dirname}/src`, __dirname],
   external: [],
-  extensions: ['.js', '.coffee']
-}
+  extensions: ['.js', '.coffee'],
+};
 
 const progressOptions = {
-  clearLine: false
-}
+  clearLine: false,
+};
 
 const libraryConfig = {
   input: 'src/hexagon.js',
   output: {
     file: 'target/hexagon.js',
     format: 'iife',
-    name: 'hx'
+    name: 'hx',
   },
   plugins: [
     json(),
     coffee(),
     buble(),
     includePaths(includePathOptions),
-    progress(progressOptions)
+    progress(progressOptions),
   ],
   watch: {
-    clearScreen: false
-  }
-}
+    clearScreen: false,
+  },
+};
 
 const testConfig = {
   input: 'src/hexagon.spec.js',
@@ -42,8 +42,8 @@ const testConfig = {
     format: 'iife',
     name: 'hexagonSpec',
     globals: {
-      'chai': 'window.chai'
-    }
+      chai: 'window.chai',
+    },
   },
   external: ['chai'],
   plugins: [
@@ -51,12 +51,12 @@ const testConfig = {
     coffee(),
     buble(),
     includePaths(includePathOptions),
-    progress(progressOptions)
+    progress(progressOptions),
   ],
   watch: {
-    clearScreen: false
-  }
-}
+    clearScreen: false,
+  },
+};
 
 const testCoverageConfig = {
   input: 'src/hexagon.spec.js',
@@ -65,8 +65,8 @@ const testCoverageConfig = {
     format: 'iife',
     name: 'hexagonSpec',
     globals: {
-      'chai': 'window.chai'
-    }
+      chai: 'window.chai',
+    },
   },
   external: ['chai'],
   plugins: [
@@ -77,26 +77,27 @@ const testCoverageConfig = {
       exclude: ['test/**/*', '**/*spec*'],
       reporters: ['coverage'],
       instrumenterConfig: {
-        embedSource: true
+        embedSource: true,
       },
-      sourceMap: false
+      sourceMap: false,
     }),
     includePaths(includePathOptions),
-    progress(progressOptions)
+    progress(progressOptions),
   ],
   watch: {
-    clearScreen: false
-  }
-}
+    clearScreen: false,
+  },
+};
 
-function resolveHexagon () {
+function resolveHexagon() {
   return {
-    resolveId: function (code, id) {
+    resolveId(code) {
       if (code === 'hexagon-js') {
-        return 'src/hexagon.js'
+        return 'src/hexagon.js';
       }
-    }
-  }
+      return undefined;
+    },
+  };
 }
 
 const demoConfig = {
@@ -104,7 +105,7 @@ const demoConfig = {
   output: {
     file: 'target/index.js',
     format: 'iife',
-    name: 'hx'
+    name: 'hx',
   },
   plugins: [
     json(),
@@ -112,16 +113,16 @@ const demoConfig = {
     buble(),
     resolveHexagon(),
     includePaths(includePathOptions),
-    progress(progressOptions)
+    progress(progressOptions),
   ],
   watch: {
-    clearScreen: false
-  }
-}
+    clearScreen: false,
+  },
+};
 
 export default [
   libraryConfig,
   testConfig,
   testCoverageConfig,
-  demoConfig
-]
+  demoConfig,
+];
