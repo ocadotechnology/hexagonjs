@@ -62,6 +62,7 @@ import dateTimePickerTests from 'components/date-time-picker/spec';
 import formTests from 'components/form/spec';
 import fileInputTests from 'components/file-input/spec';
 // import formBuilderTests from 'components/form-builder/spec'
+import meterTests from 'components/meter/spec';
 
 chai.should();
 const { expect } = chai;
@@ -341,6 +342,7 @@ describe('HexagonJS Test Suite', () => {
   dateTimePickerTests();
   fileInputTests();
   // formBuilderTests()
+  meterTests();
 
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')

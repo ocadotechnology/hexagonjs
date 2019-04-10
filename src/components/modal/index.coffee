@@ -164,5 +164,10 @@ modalInput = (title, message, callback, options) ->
 export {
   Modal,
   modalDialog,
-  modalInput
+  modalInput,
+  # XXX: Remove in next major
+  modal: {
+    input: modalInput,
+    dialog: modalDialog,
+  }
 }

@@ -4,9 +4,21 @@ import {
   round,
   si,
   zeroPad,
+  format,
 } from 'utils/format';
 
 export default () => {
+  describe('regression', () => {
+    // XXX: Remove in next major in favour of hx.round etc.
+    it('exports the correct hx.format object', () => {
+      format.exp.should.exist();
+      format.fixed.should.exist();
+      format.round.should.exist();
+      format.si.should.exist();
+      format.zeroPad.should.exist();
+    });
+  });
+
   describe('hx-format tests', () => {
     function check(a, b) { a.should.equal(b); }
 

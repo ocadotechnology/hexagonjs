@@ -184,13 +184,15 @@ class MenuItem
       collapsibleNode.view('.hx-collapsible-heading').apply(this)
       collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
 
-      collapsibleNode.select('.hx-collapsible-heading')
-        .classed('hx-menu-collapsible', true)
-        .set(@menu.renderer()(@content))
+      # XXX Breaking: Renderer
+      # collapsibleNode.select('.hx-collapsible-heading')
+      #   .classed('hx-menu-collapsible', true)
+      #   .set(@menu.renderer()(@content))
+      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
+      @menu.options.renderer(headerNode, @content)
 
       contentNode = container.select('.hx-collapsible-content').node()
-
-      @collapsible = new Collapsible(collapsibleNode)
+      @collapsible = new hx.Collapsible(collapsibleNode)
 
       populateNode(contentNode, @_.menuItems)
     else
@@ -198,7 +200,9 @@ class MenuItem
         .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
         .classed('hx-menu-item-disabled', @content.disabled)
         .classed('hx-menu-unselectable', @content.unselectable)
-        .set(@menu.renderer()(@content))
+        # XXX Breaking: Renderer
+        # .set(@menu.renderer()(@content))
+      @menu.options.renderer(container.node(), @content)
 
 
 
@@ -214,7 +218,9 @@ export class Menu extends EventEmitter
         ddClass: '',
         disabled: false
       }
-      renderer: (data) -> span().text(data.text or data)
+      # XXX Breaking: Renderer
+      # renderer: (data) -> span().text(data.text or data)
+      renderer: (node, data) -> select(node).text(data.text or data)
       items: []
     }, options)
 

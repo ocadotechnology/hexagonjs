@@ -5,6 +5,13 @@ import { Form, validateForm } from 'components/form'
 
 export default () ->
   describe 'form', ->
+    it 'should have user facing text defined', ->
+      userFacingText('form', 'missingRadioValue').should.equal('Please select one of these options')
+      userFacingText('form', 'missingValue').should.equal('Please fill in this field')
+      userFacingText('form', 'pleaseAddAValue').should.equal('Please add at least one item')
+      userFacingText('form', 'pleaseSelectAValue').should.equal('Please select a value from the list')
+      userFacingText('form', 'typeMismatch').should.equal('Please enter a valid value for this field')
+
     describe 'validateForm', () ->
       fixture = div('hx-test-form')
 
@@ -142,12 +149,6 @@ export default () ->
           validate.should.not.throw()
 
     describe 'Form', () ->
-      it 'should have user facing text defined', ->
-        userFacingText('form','missingRadioValue').should.equal('Please select one of these options')
-        userFacingText('form','missingValue').should.equal('Please fill in this field')
-        userFacingText('form','typeMismatch').should.equal('Please enter a valid value for this field')
-
-
       it 'should return the value for disabled fields', ->
         form = new Form(div())
           .addText('Text')

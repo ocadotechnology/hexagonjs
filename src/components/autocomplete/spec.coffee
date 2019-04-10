@@ -76,8 +76,10 @@ export default () ->
         userFacingText('autocomplete','otherResults').should.equal('Other Results')
 
       it 'pleaseEnterMinCharacters', ->
-        userFacingText('autocomplete','pleaseEnterMinCharacters').should.equal('Please enter $minLength or more characters')
+        userFacingText('autocomplete','pleaseEnterMinCharacters', true).should.equal('Please enter $minLength or more characters')
 
+      it 'minCharacters', ->
+        userFacingText('autocomplete','minCharacters', true).should.equal('Min length $minLength characters')
 
     describe 'exports', ->
       it 'Autocomplete', ->
@@ -97,6 +99,10 @@ export default () ->
       it 'does not set up options', ->
         should.not.exist(ac.options)
 
+      # XXX Breaking: Component (regression)
+      it 'does not set the component', ->
+        should.not.exist(input.component())
+
       it 'does not set the component', ->
         should.not.exist(input.api())
 
@@ -107,6 +113,10 @@ export default () ->
     describe 'with string items', ->
       beforeEach ->
         ac = new Autocomplete(input, stringItems)
+
+      # XXX Breaking: Component (regression)
+      it 'sets up the component', ->
+        input.component().should.equal(ac)
 
       it 'sets up the component', ->
         input.api('autocomplete').should.equal(ac)
@@ -202,17 +212,21 @@ export default () ->
         it 'value', ->
           should.not.exist(ac.options.value)
 
+        # XXX Breaking: Text keys (autoComplete -> autocomplete)
         it 'loadingMessage', ->
-          ac.options.loadingMessage.should.equal(userFacingText('autocomplete', 'loading'))
+          ac.options.loadingMessage.should.equal(userFacingText('autoComplete', 'loading'))
 
         it 'noResultsMessage', ->
-          ac.options.noResultsMessage.should.equal(userFacingText('autocomplete', 'noResultsFound'))
+          ac.options.noResultsMessage.should.equal(userFacingText('autoComplete', 'noResultsFound'))
 
         it 'otherResultsMessage', ->
-          ac.options.otherResultsMessage.should.equal(userFacingText('autocomplete', 'otherResults'))
+          ac.options.otherResultsMessage.should.equal(userFacingText('autoComplete', 'otherResults'))
 
         it 'pleaseEnterMinCharactersMessage', ->
-          ac.options.pleaseEnterMinCharactersMessage.should.equal(userFacingText('autocomplete', 'pleaseEnterMinCharacters'))
+          ac.options.pleaseEnterMinCharactersMessage.should.equal(userFacingText('autoComplete', 'pleaseEnterMinCharacters', true))
+
+        it 'minCharactersMessage', ->
+          ac.options.minCharactersMessage.should.equal(userFacingText('autoComplete', 'minCharacters', true))
 
 
       describe 'and providing an initial value', ->
@@ -247,7 +261,9 @@ export default () ->
 
       it 'sets the renderer using the inputMap from the options', ->
         testVal = { name: 'Bob', value: 7 }
-        ac.options.renderer(testVal)
+        # XXX Breaking: Renderer
+        # ac.options.renderer(testVal)
+        ac.options.renderer(div(), testVal)
         ac.options.inputMap.should.have.been.called.with(testVal)
 
     describe 'when using a function with string items', ->
@@ -323,6 +339,12 @@ export default () ->
 
       it 'returns a selection', ->
         (ac instanceof Selection).should.equal(true)
+
+      # XXX Breaking: Component (regression)
+      it 'has the Autocomplete component', ->
+        (ac.component() instanceof Autocomplete).should.equal(true)
+      it 'passes the options to the Autocomplete', ->
+        ac.component().options.testMergeOption.should.equal(true)
 
       it 'has the Autocomplete component', ->
         (ac.api('autocomplete') instanceof Autocomplete).should.equal(true)

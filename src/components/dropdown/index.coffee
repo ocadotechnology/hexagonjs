@@ -46,9 +46,14 @@ checkFixedPos = (node) ->
   }
 
 dropdownContentToSetupDropdown = (dropdownContent) ->
+  # XXX Breaking: Renderer
+  # Needs updating to new renderer pattern
   return switch
     when isSelection(dropdownContent)
       (node) -> select(node).set(dropdownContent)
+    # XXX Breaking: html -> text
+    # when isString(dropdownContent)
+    #   (node) -> select(node).text(dropdownContent)
     when isString(dropdownContent)
       (node) -> select(node).text(dropdownContent)
     when isFunction(dropdownContent)
@@ -56,6 +61,7 @@ dropdownContentToSetupDropdown = (dropdownContent) ->
     else
       logger.warn('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
       -> undefined
+
 
 export class Dropdown extends EventEmitter
 

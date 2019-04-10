@@ -578,16 +578,27 @@ class DatePicker extends EventEmitter
             if self.options.closeOnSelect
               self.hide()
 
-      setupDropdown = () ->
+      # XXX Breaking: Renderer
+      # setupDropdown = () ->
+      #   if _.disabled
+      #     self.hide()
+      #     return
+      #   else
+      #     _.clickStart = true
+      #     selection = div()
+      #     selection.append(calendarElem)
+      #     buildCalendar self, self.options.defaultView
+      #     return selection
+      setupDropdown = (elem) ->
         if _.disabled
           self.hide()
           return
-        else
-          _.clickStart = true
-          selection = div()
-          selection.append(calendarElem)
-          buildCalendar self, self.options.defaultView
-          return selection
+
+        _.clickStart = true
+        selection = hx.select(elem)
+        selection.append(calendarElem)
+        buildCalendar self, self.options.defaultView
+
     else
       # set up datepicker nodes for attaching to dropdown
       dayNode = div().node()
@@ -613,23 +624,37 @@ class DatePicker extends EventEmitter
       _.monthPicker.selectInput.attr('tabindex', 2)
       _.yearPicker.selectInput.attr('tabindex', 3)
 
-      setupDropdown = () ->
+      # XXX Breaking: Renderer
+      # setupDropdown = () ->
+      #   if _.disabled
+      #     self.dropdown.hide()
+      #     return
+      #   else
+      #     selection = div()
+
+      #     # add nodes in the correct order
+      #     for i in self.localizer.dateOrder()
+      #       switch i
+      #         when 'DD' then selection.append(dayNode)
+      #         when 'MM' then selection.append(monthNode)
+      #         when 'YYYY' then selection.append(yearNode)
+
+      #     buildDatepicker(self)
+
+      #     return selection
+      setupDropdown = (elem) ->
         if _.disabled
           self.dropdown.hide()
           return
-        else
-          selection = div()
 
-          # add nodes in the correct order
-          for i in self.localizer.dateOrder()
-            switch i
-              when 'DD' then selection.append(dayNode)
-              when 'MM' then selection.append(monthNode)
-              when 'YYYY' then selection.append(yearNode)
-
-          buildDatepicker(self)
-
-          return selection
+        selection = hx.select(elem)
+        # add nodes in the correct order
+        for i in self.localizer.dateOrder()
+          switch i
+            when 'DD' then selection.append dayNode
+            when 'MM' then selection.append monthNode
+            when 'YYYY' then selection.append yearNode
+        buildDatepicker self
 
     if not _.useInbuilt
       @dropdown = new Dropdown(@selector, setupDropdown, {

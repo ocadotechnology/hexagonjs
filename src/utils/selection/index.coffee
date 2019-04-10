@@ -366,10 +366,10 @@ export class Selection
   on: (name, namespace, f) ->
     if not isString(namespace)
       f = namespace
-      namespace = 'hx.selection'
+      namespace = 'selection'
 
     if namespace is 'default'
-      namespace = 'hx.selection'
+      namespace = 'selection'
 
     for node in @nodes
       data = getHexagonElementDataObject(node)
@@ -408,7 +408,7 @@ export class Selection
       namespace = undefined
 
     if namespace is 'default'
-      namespace = 'hx.selection'
+      namespace = 'selection'
 
     for node in @nodes
       data = getHexagonElementDataObject(node)
@@ -496,6 +496,20 @@ export class Selection
       hedo.api[name] = apiObject
       return this
 
+  # XXX Breaking: Component (regression)
+  component = ->
+    if @singleSelection
+      if @nodes[0] then component(@nodes[0])
+    else
+      @nodes.map(component)
+
+  components = ->
+    if @singleSelection
+      if @nodes[0] then components(@nodes[0])
+    else
+      @nodes.map(components)
+
+
 bareSelect = (selector, selectorIsArray) ->
   nodes = if selectorIsArray
     selector
@@ -510,7 +524,7 @@ export select = (selector) ->
   if selector instanceof Selection
     selector
   else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or isString(selector) or selector is document or selector is window)
-    throw new Error('hx.select only accepts a HTMLElement, SVGElement or string argument')
+    throw new Error('select only accepts a HTMLElement, SVGElement or string argument')
   else
     bareSelect(selector)
 
@@ -518,7 +532,7 @@ export addEventAugmenter = (augmenter) -> augmenters.push(augmenter)
 
 export selectAll = (selector) ->
   if not (isString(selector) or isArray(selector))
-    throw new Error('hx.selectAll only accepts a string or array as its argument')
+    throw new Error('selectAll only accepts a string or array as its argument')
   else
     if isArray(selector)
       bareSelect(selector, true)
@@ -538,3 +552,35 @@ export input = (cls) -> detached('input').class(cls)
 export button = (cls) -> detached('button').class(cls)
 export checkbox = (cls) -> detached('input').attr('type', 'checkbox').class(cls)
 export i = (cls) -> detached('i').class(cls)
+
+
+# XXX Breaking: Component (regression)
+component = (selector) ->
+  logger.deprecated('hx.component', 'Replaced by Selection::api')
+  select(selector).api()
+
+components = (selector) ->
+  logger.deprecated('hx.components', 'Replaced by Selection::api(\'componentName\') - Getting the list of all components attached to a node is no longer supported')
+  hedo = getHexagonElementDataObject(select(selector).node())
+
+  defaultComponent = hedo.defaultComponent
+
+  namedComponents = Object.keys(hedo.api).map((apiName) -> hedo.api[apiName])
+    .filter((c) -> c isnt defaultComponent)
+
+  [defaultComponent, namedComponents...]
+
+components.clear = (selector) ->
+  logger.deprecated('hx.components.clear', 'Clearing apis from nodes is no longer supported')
+  hedo = getHexagonElementDataObject(select(selector).node())
+  delete hedo.api
+  delete hedo.defaultComponent
+  return
+
+component.register = (selector, component) ->
+  logger.deprecated('hx.component.register', 'Replaced by Selection::api(component)')
+  select(selector).api(component)
+  return
+
+export component = component
+export components = components

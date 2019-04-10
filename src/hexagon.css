@@ -373,6 +373,17 @@
   --error-pages-shadow-color: var(--theme-default-shadow-color);
   --error-pages-heading-text-color: var(--theme-default-text-color);
 
+  --error-pages-background-color: white;
+  --error-pages-padding: 32px;
+  --error-pages-box-shadow: 2px 2px 2px 2px var(--theme-default-shadow-color);
+  --error-pages-border-radius: 2px;
+  --error-pages-heading-text-color: var(--theme-default-text-color);
+  --error-pages-heading-font-size: 2em;
+  --error-pages-heading-font-weight: bold;
+  --error-pages-heading-margin: 1em;
+  --error-pages-body-font-size: 1em;
+  --error-pages-body-margin: 1em;
+
   /* table */
   --table-header-background-color: #FAFAFA;
   --table-header-text-color: #3D3D3D;

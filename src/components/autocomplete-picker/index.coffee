@@ -29,15 +29,21 @@ setPickerValue = (picker, results, cause) ->
   _ = picker._
   if results.length
     _.current = results[0]
-    _.valueText.set(_.renderer(results[0]))
+    # XXX Breaking: Autocomplete always emit on value set
+    # REVERT (#438) - This change introduced a breaking bug, reverting until next major
+    picker.emit('change', {
+      cause: cause
+      value: _.current
+    })
+
+    # XXX Breaking: Renderer
+    # _.valueText.set(_.renderer(_.current))
+    _.renderer _.valueText.node(), _.current
   else
     _.current = undefined
     _.valueText.text(_.options.chooseValueText)
 
-  picker.emit('change', {
-    cause: cause
-    value: _.current
-  })
+
 
 class AutocompletePicker extends EventEmitter
   constructor: (selector, items, options = {}) ->
@@ -64,8 +70,12 @@ class AutocompletePicker extends EventEmitter
       otherResultsText: userFacingText('autocompletePicker', 'otherResults')
 
     if options.valueLookup
-      defaults.renderer = (item) ->
-        return div().text(options.valueLookup(item))
+      # XXX Breaking: Renderer
+      # defaults.renderer = (item) ->
+      #   return div().text(options.valueLookup(item))
+
+      defaults.renderer = (element, item) ->
+        select(element).text(options.valueLookup(item))
 
     resolvedOptions = merge(defaults, options)
 
@@ -75,7 +85,9 @@ class AutocompletePicker extends EventEmitter
     if resolvedOptions.buttonClass
       selection.classed(resolvedOptions.buttonClass, true)
 
-    valueText = selection
+    valueText = div('hx-autocomplete-picker-text')
+
+    selection
       .add(div('hx-autocomplete-picker-text'))
       .add(span('hx-autocomplete-picker-icon')
         .add(i('hx-icon hx-icon-caret-down')))
@@ -103,14 +115,24 @@ class AutocompletePicker extends EventEmitter
 
     feed.items(items)
 
-    renderWrapper = (item) =>
+    # XXX Breaking: Renderer
+    # renderWrapper = (element, item) =>
+    #   if item.unselectable or item.heading
+    #     return div()
+    #       .classed('hx-autocomplete-picker-heading', item.heading)
+    #       .text(item.text)
+    #   else
+    #     return @_.renderer(item)
+    #       .classed('hx-autocomplete-picker-heading', item.heading)
+
+    renderWrapper = (element, item) =>
+      selection = hx.select(element)
+        .clear()
+        .classed('hx-autocomplete-picker-heading', item.heading)
       if item.unselectable or item.heading
-        return div()
-          .classed('hx-autocomplete-picker-heading', item.heading)
-          .text(item.text)
+        selection.text(item.text).off()
       else
-        return @_.renderer(item)
-          .classed('hx-autocomplete-picker-heading', item.heading)
+        @_.renderer(element, item)
 
     input = detached('input').class('hx-autocomplete-picker-input')
       .on 'input', (e) ->

@@ -151,5 +151,19 @@ export {
   filterRegex,
   filterStringTypes,
   filterNumberTypes,
-  filterTypes
+  filterTypes,
+  # XXX Deprecated: Filters
+  filter: {
+    exact: filterExact,
+    startsWith: filterStartsWith,
+    contains: filterContains,
+    excludes: filterExcludes,
+    greater: filterGreater,
+    less: filterLess,
+    fuzzy: filterFuzzy,
+    regex: filterRegex,
+    stringTypes: filterStringTypes,
+    numberTypes: filterNumberTypes,
+    types: filterTypes,
+  }
 }

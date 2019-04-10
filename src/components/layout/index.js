@@ -23,4 +23,9 @@ function section(options = {}) {
     .classed('hx-fixed', fixed);
 }
 
+// XXX Deprecated: Fluid
+group.vertical = () => group({ vertical: true });
+group.fixed = () => group({ fixed: true });
+section.fixed = () => section({ fixed: true });
+
 export { group, section };

@@ -12,7 +12,7 @@ import { DateTimePicker } from 'components/date-time-picker'
 import { TagInput } from 'components/tag-input'
 import { FileInput } from 'components/file-input'
 import { Toggle } from 'components/toggle'
-# import { AutocompletePicker } from 'components/autocomplete-picker'
+import { AutocompletePicker } from 'components/autocomplete-picker'
 
 userFacingText({
   form: {
@@ -84,6 +84,8 @@ validateForm = (form, options) ->
     # Show the error for the focused element (if there is one) or the first error in the form
     error = errors.filter((error) -> error.focused)[0] or errors[0]
 
+    # XXX: This structure lets us jump out of the forced table layout. If we change
+    # to match the full-width aeris forms, this will need changing.
     select(error.node.parentNode)
       .insertAfter('div')
       .class('hx-form-error')
@@ -107,7 +109,7 @@ validateForm = (form, options) ->
   }
 
 
-# XXX: Refactor into constructor in 2.0.0
+# XXX: Refactor into constructor in next major
 getButtons = (form) ->
   selection = select(form.selector)
   sel = selection.select('.hx-form-buttons')
@@ -338,6 +340,24 @@ class Form extends EventEmitter
     if options.max? then options.attrs.push {type: 'max', value: options.max}
     @addText(name, options)
 
+  addTextArea: (name, options={}) ->
+    options.attrs ?= []
+    @add name, 'textarea', ->
+      elem = detached('textarea')
+      if options.placeholder? then elem.attr('placeholder', options.placeholder)
+      if options.required then elem.attr('required', options.required)
+      elem.attr(attr.type, attr.value) for attr in options.attrs
+      if options.validator? then elem.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || '')
+      if options.value then elem.node().value = options.value
+      {
+        key: options.key
+        elem: elem
+        options: {
+          hidden: options.hidden
+          disabled: options.disabled
+        }
+      }
+
   addCheckbox: (name, options = {}) ->
     @add name, 'checkbox', ->
       elem = detached('input').attr('type', 'checkbox')
@@ -352,24 +372,6 @@ class Form extends EventEmitter
         elem: elem
         getValue: getValue
         setValue: setValue
-        options: {
-          hidden: options.hidden
-          disabled: options.disabled
-        }
-      }
-
-  addTextArea: (name, options={}) ->
-    options.attrs ?= []
-    @add name, 'textarea', ->
-      elem = detached('textarea')
-      if options.placeholder? then elem.attr('placeholder', options.placeholder)
-      if options.required then elem.attr('required', options.required)
-      elem.attr(attr.type, attr.value) for attr in options.attrs
-      if options.validator? then elem.node().oninput = (e) => e.target.setCustomValidity(options.validator(e) || '')
-      if options.value then elem.node().value = options.value
-      {
-        key: options.key
-        elem: elem
         options: {
           hidden: options.hidden
           disabled: options.disabled
@@ -588,42 +590,42 @@ class Form extends EventEmitter
         }
       }
 
-  # addAutocompletePicker: (name, values, options = {}) ->
-  #   @add name, 'select', 'div', ->
-  #     elem = 'button'
-  #       .attr('type', 'button')
-  #       .class(options.buttonClass)
+  addAutocompletePicker: (name, values, options = {}) ->
+    @add name, 'select', 'div', ->
+      elem = 'button'
+        .attr('type', 'button')
+        .class(options.buttonClass)
 
-  #     autocompletePickerOptions = merge({buttonClass: options.buttonClass}, options.autocompletePickerOptions)
+      autocompletePickerOptions = merge({buttonClass: options.buttonClass}, options.autocompletePickerOptions)
 
-  #     if values.length > 0
-  #       autocompletePickerOptions.items = values
+      if values.length > 0
+        autocompletePickerOptions.items = values
 
-  #     component = new AutocompletePicker(elem.node(), values, autocompletePickerOptions)
-  #     input = 'input').class('hx-hidden-form-input').attr('size', 0
-  #     @style('position', 'relative')
+      component = new AutocompletePicker(elem.node(), values, autocompletePickerOptions)
+      input = 'input').class('hx-hidden-form-input').attr('size', 0
+      @style('position', 'relative')
 
-  #     autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'
+      autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'
 
-  #     setValidity = () ->
-  #       input.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'))
+      setValidity = () ->
+        input.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'))
 
-  #     if options.required
-  #       setValidity()
-  #       autocompletePicker.on 'change', 'hx.form-builder', ({ value, cause }) ->
-  #         if value is undefined
-  #           setValidity()
-  #         else
-  #           input.node().setCustomValidity('')
+      if options.required
+        setValidity()
+        autocompletePicker.on 'change', 'hx.form-builder', ({ value, cause }) ->
+          if value is undefined
+            setValidity()
+          else
+            input.node().setCustomValidity('')
 
-  #     return {
-  #       required: options.required
-  #       component: component
-  #       key: options.key
-  #       hidden: options.hidden
-  #       disabled: options.disabled
-  #       disable: (disabled) -> autocompletePicker.disabled(disabled)
-  #     }
+      return {
+        required: options.required
+        component: component
+        key: options.key
+        hidden: options.hidden
+        disabled: options.disabled
+        disable: (disabled) -> autocompletePicker.disabled(disabled)
+      }
 
 export {
   validateForm,

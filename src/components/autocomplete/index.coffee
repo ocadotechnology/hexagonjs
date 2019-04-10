@@ -14,7 +14,8 @@ userFacingText({
     loading: 'Loading...',
     noResultsFound: 'No results found',
     otherResults: 'Other Results',
-    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters',
+    minCharacters: 'Min length $minLength characters',
   }
 })
 
@@ -146,7 +147,7 @@ buildAutocomplete = (searchTerm, fromCallback, loading) ->
     if not filteredData?
       message.text = @options.loadingMessage
     else if searchTerm.length < @options.minLength
-      message.text = @options.pleaseEnterMinCharactersMessage.replace('$minLength', @options.minLength)
+      message.text = userFacingText.format(@options.pleaseEnterMinCharactersMessage, { minLength: @options.minLength })
     else if (searchTerm.length > 0 or @options.showAll) and filteredData.length is 0
       if @options.trimTrailingSpaces and _.input.value().lastIndexOf(' ') is _.input.value().length - 1
         trimAndReload = true
@@ -163,7 +164,9 @@ buildAutocomplete = (searchTerm, fromCallback, loading) ->
     if items.length > 0
       _.menu.items(items)
       if _.menu.dropdown.isOpen()
-        _.menu.dropdown.render()
+        # XXX Breaking: Render
+        # _.menu.dropdown.render()
+        _.menu.dropdown._.setupDropdown _.menu.dropdown._.dropdown.node()
       else
         _.menu.dropdown.show()
     else # Hide the dropdown as there are no items
@@ -205,10 +208,12 @@ class Autocomplete extends EventEmitter
         allowTabCompletion: true
         value: undefined
 
-        loadingMessage: userFacingText('autocomplete', 'loading')
-        noResultsMessage: userFacingText('autocomplete', 'noResultsFound')
-        otherResultsMessage: userFacingText('autocomplete', 'otherResults')
-        pleaseEnterMinCharactersMessage: userFacingText('autocomplete', 'pleaseEnterMinCharacters')
+        # XXX Breaking: Text keys (autoComplete -> autocomplete)
+        loadingMessage: userFacingText('autoComplete', 'loading')
+        noResultsMessage: userFacingText('autoComplete', 'noResultsFound')
+        otherResultsMessage: userFacingText('autoComplete', 'otherResults')
+        pleaseEnterMinCharactersMessage: userFacingText('autoComplete', 'pleaseEnterMinCharacters', true)
+        minCharactersMessage: userFacingText('autoComplete', 'minCharacters', true)
       }, opts)
 
 
@@ -240,13 +245,16 @@ class Autocomplete extends EventEmitter
         [active..., inactive...]
 
       # create renderer based on inputMap
+      # XXX Breaking: Renderer
       @options.renderer ?= if @options.inputMap?
-        (item) -> div().text(self.options.inputMap(item))
+        # (item) -> div().text(self.options.inputMap(item))
+        (elem, item) -> select(elem).text(self.options.inputMap(item))
       else
-        (item) -> div().text(item.text or item)
+        # (item) -> div().text(item.text or item)
+        (elem, item) -> select(elem).text(item)
 
-      if @options.minLength > 0 and @options.placeholder is undefined
-        @options.placeholder = "Min length #{@options.minLength} characters"
+      @options.placeholder ?= if @options.minLength > 0
+        userFacingText.format(@options.minCharactersMessage, { minLength: @options.minLength })
 
       input = select(@selector)
         .api('autocomplete', this)
@@ -299,9 +307,24 @@ class Autocomplete extends EventEmitter
         , 200)
 
       # set properties and functions for menu
-      menu.renderer (item) =>
-        return this.options.renderer(item)
-          .classed('hx-autocomplete-item-unselectable', item.unselectable or item.heading)
+      # XXX Breaking: Renderer
+      # menu.renderer (elem, item) ->
+      #   return this.options.renderer(item)
+      #     .classed('hx-autocomplete-item-unselectable', item.unselectable or item.heading)
+
+      menu.renderer (elem, item) ->
+        # if the item is a unselectable item or a heading, we use a set renderer
+        # and ignore the passed in renderer
+        selection = hx.select(elem)
+        selection.style('font-weight','')
+        if item.unselectable or item.heading
+          selection
+            .text(item.text)
+            .off()
+          if item.heading
+            selection.style('font-weight','600')
+        else
+          self.options.renderer(elem, item)
 
       # called when a menu item is selected. Updates the input field when using
       # the arrow keys.

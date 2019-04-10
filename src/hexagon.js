@@ -7,6 +7,7 @@ import { initView } from 'utils/view';
 import { initMorphs } from 'utils/morphs';
 import { initResizeEvents } from 'utils/resize-events';
 import { initFastClick } from 'utils/fast-click';
+import { initLogos } from 'components/logo';
 
 import { initTitleBar } from 'components/titlebar';
 
@@ -80,6 +81,8 @@ export {
   button,
   checkbox,
   i,
+  // XXX Deprecated: Fluid
+  i as icon,
 } from 'utils/selection';
 export { loop, transition, ease } from 'utils/transition';
 export { interpolate } from 'utils/interpolate';
@@ -100,6 +103,7 @@ export {
   filterStringTypes,
   filterNumberTypes,
   filterTypes,
+  filter,
 } from 'utils/filter';
 export { userFacingText } from 'utils/user-facing-text';
 export { palette } from 'utils/palette';
@@ -122,7 +126,12 @@ export { Dropdown } from 'components/dropdown';
 export { Collapsible, initializeCollapsibles } from 'components/collapsible';
 export { titleBar, TitleBar } from 'components/titlebar';
 export { Menu } from 'components/menu';
-export { autocomplete, Autocomplete } from 'components/autocomplete';
+export {
+  autocomplete,
+  Autocomplete,
+  autocomplete as autoComplete,
+  Autocomplete as AutoComplete,
+} from 'components/autocomplete';
 export { numberPicker, NumberPicker } from 'components/number-picker';
 export { buttonGroup, ButtonGroup } from 'components/button-group';
 export { picker, Picker } from 'components/picker';
@@ -187,6 +196,7 @@ export { tagInput, TagInput } from 'components/tag-input';
 export { dateTimePicker, DateTimePicker } from 'components/date-time-picker';
 export { validateForm, Form } from 'components/form';
 export { fileInput, FileInput } from 'components/file-input';
+export { meter, Meter } from 'components/meter';
 
 // XXX: these apis should be opt-in
 initAnimate(); // XXX: remove
@@ -195,6 +205,7 @@ initResizeEvents(); // XXX: make into a selection middleware
 initFastClick(); // XXX: make into a selection middleware
 initView(); // XXX: remove view and replace with reactive lists and reactive objects?
 initMorphs(); // XXX: remove
+initLogos(); // XXX: remove
 
 initTitleBar();
 

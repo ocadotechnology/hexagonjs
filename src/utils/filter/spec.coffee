@@ -6,11 +6,65 @@ import {
   filterGreater,
   filterLess,
   filterFuzzy,
-  filterRegex
+  filterRegex,
+  filterStringTypes,
+  filterNumberTypes,
+  filterTypes,
 } from 'utils/filter'
 
 export default () ->
   describe 'filter', ->
+
+    describe 'regression', ->
+      it 'exports the correct filter object', ->
+        filter.exact.should.equal(filterExact)
+        filter.startsWith.should.equal(filterStartsWith)
+        filter.contains.should.equal(filterContains)
+        filter.excludes.should.equal(filterExcludes)
+        filter.greater.should.equal(filterGreater)
+        filter.less.should.equal(filterLess)
+        filter.fuzzy.should.equal(filterFuzzy)
+        filter.regex.should.equal(filterRegex)
+
+        filter.stringTypes.should.equal(filterStringTypes)
+        filter.numberTypes.should.equal(filterNumberTypes)
+        filter.types.should.equal(filterTypes)
+
+    describe 'types', ->
+      describe 'filterStringTypes', ->
+        it 'returns the correct values', ->
+          filterStringTypes().should.eql([
+            'contains',
+            'exact'
+            'excludes',
+            'startsWith'
+            'regex',
+            'fuzzy',
+          ])
+
+
+      describe 'filterNumberTypes', ->
+        it 'returns the correct values', ->
+          filterNumberTypes().should.eql([
+            'exact',
+            'greater',
+            'less',
+          ])
+
+
+      describe 'filterNumberTypes', ->
+        it 'returns the correct values', ->
+          filterNumberTypes().should.eql([
+            'contains',
+            'exact'
+            'greater',
+            'less',
+            'excludes',
+            'startsWith'
+            'regex',
+            'fuzzy',
+          ])
+
 
     runSpecsForSource = (array, options, type) ->
 

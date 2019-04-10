@@ -386,7 +386,9 @@ export default () ->
       describe 'cellRenderer', ->
         it 'should call the cellRenderer', (done) ->
           tableOptions =
-            cellRenderer: () -> span('bob')
+            # XXX Breaking: Renderer
+            # cellRenderer: () -> span('bob')
+            cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(3)
 
@@ -394,11 +396,17 @@ export default () ->
           tableOptions =
             columns:
               name:
-                cellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('bob')
+                cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
               age:
-                cellRenderer: () -> span('dave')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('dave')
+                cellRenderer: (elem) -> hx.select(elem).classed('dave', true)
               profession:
-                cellRenderer: () -> span('steve')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('steve')
+                cellRenderer: (elem) -> hx.select(elem).classed('steve', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
@@ -407,10 +415,14 @@ export default () ->
 
         it 'should use a column cellRenderer instead of the default cellRenderer if one is defined', (done) ->
           tableOptions =
-            cellRenderer: () -> span('kate')
+            # XXX Breaking: Renderer
+            # cellRenderer: () -> span('kate')
+            cellRenderer: (elem) -> hx.select(elem).classed('kate', true)
             columns:
               name:
-                cellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('bob')
+                cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
@@ -420,7 +432,9 @@ export default () ->
 
       describe 'collapsibleRenderer', ->
         tableOptions = {
-          collapsibleRenderer: () -> span('bob').text('dave')
+          # XXX Breaking: Renderer
+          # collapsibleRenderer: () -> span('bob').text('dave')
+          collapsibleRenderer: (elem) -> hx.select(elem).class('bob').text('dave')
           rowCollapsibleLookup: (row) -> true
         }
 
@@ -446,7 +460,9 @@ export default () ->
       describe 'expandedRows', ->
         it "should not open a row that doesn't pass the rowCollapsibleLookup check", (done) ->
           tableOptions = {
-            collapsibleRenderer: () -> span('bob')
+            # XXX Breaking: Renderer
+            # collapsibleRenderer: () -> span('bob')
+            collapsibleRenderer: (element, d) -> hx.select(element).class('bob')
             rowCollapsibleLookup: (row) -> !!row.collapsible
           }
           testTable {tableOptions}, done, (container, dt, options, data) ->
@@ -457,7 +473,9 @@ export default () ->
 
         it "should get the correct row id's", (done) ->
           tableOptions = {
-            collapsibleRenderer: () -> span('bob')
+            # XXX Breaking: Renderer
+            # collapsibleRenderer: () -> span('bob')
+            collapsibleRenderer: (element, d) -> hx.select(element).class('bob')
             rowCollapsibleLookup: (row) -> !!row.collapsible
           }
           testTable {tableOptions}, done, (container, dt, options, data) ->
@@ -606,7 +624,9 @@ export default () ->
       describe 'headerCellRenderer', ->
         it 'should call the headerCellRenderer', (done) ->
           tableOptions =
-            headerCellRenderer: ({ name }) -> span('bob').text(name)
+            # XXX Breaking: Renderer
+            # headerCellRenderer: ({ name }) -> span('bob').text(name)
+            headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(3)
 
@@ -614,11 +634,17 @@ export default () ->
           tableOptions =
             columns:
               name:
-                headerCellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('bob')
+                headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
               age:
-                headerCellRenderer: () -> span('dave')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('dave')
+                headerCellRenderer: (elem) -> hx.select(elem).classed('dave', true)
               profession:
-                headerCellRenderer: () -> span('steve')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('steve')
+                headerCellRenderer: (elem) -> hx.select(elem).classed('steve', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
@@ -627,10 +653,14 @@ export default () ->
 
         it 'should use a column headerCellRenderer instead of the default headerCellRenderer if one is defined', (done) ->
           tableOptions =
-            headerCellRenderer: () -> span('kate')
+            # XXX Breaking: Renderer
+            # headerCellRenderer: () -> span('kate')
+            headerCellRenderer: (elem) -> hx.select(elem).classed('kate', true)
             columns:
               name:
-                headerCellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('bob')
+                headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)

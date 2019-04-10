@@ -11,8 +11,12 @@ class ButtonGroup extends EventEmitter
       buttonClass: 'hx-complement'
       activeClass: 'hx-action'
       fullWidth: false
-      renderer: (data, current) ->
-        return div().text(if data.value? then data.value else data)
+      # XXX Breaking: Renderer
+      # renderer: (data, current) ->
+      #   return div().text(if data.value? then data.value else data)
+      renderer: (node, data, current) ->
+        select(node).text(if data.value? then data.value else data)
+        return
       items: []
       disabled: false
     }, options)
@@ -20,6 +24,7 @@ class ButtonGroup extends EventEmitter
     @current = undefined
 
     group = select(selector)
+      .api('button-group')
       .api(this)
       .classed('hx-button-group', true)
       .append('div')
@@ -42,10 +47,15 @@ class ButtonGroup extends EventEmitter
           .classed('hx-section hx-no-margin', self.options.fullWidth)
           .classed(buttonClass, true)
           .attr('disabled', if self.options.disabled then true else undefined)
-          .set(self.options.renderer(item, item is self.current))
+          # XXX Breaking: Renderer
+          # .set(self.options.renderer(item, item is self.current))
           .on 'click', 'hx.button-group', ->
             self.value(item, true)
+
+        self.options.renderer(node, item, item is self.current)
         return
+
+
 
     if @options.items? and @options.items.length > 0
       @items @options.items

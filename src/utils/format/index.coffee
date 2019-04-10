@@ -59,10 +59,30 @@ exp = (number, options) -> strictCheck(number, formatExp, options)
 fixed = (number, options) -> strictCheck(number, formatFixed, options)
 zeroPad = (number, options) -> strictCheck(number, formatZeroPad, options)
 
+# XXX: Remove in next major in favour of hx.round etc.
+deprecatedWarning = (which) ->
+  logger.deprecated("hx.format.#{which}: The formatter factory pattern is deprecated and will be removed in the next major release, please use hx.#{which}(number, options)")
+
 export {
   exp,
   fixed,
   round,
   si,
   zeroPad,
+  format:
+    round: (sf, strict) ->
+      deprecatedWarning('round')
+      (number) -> hx.round(number, { strict, sf })
+    si: (sf, strict) ->
+      deprecatedWarning('si')
+      (number) -> hx.si(number, { strict, sf })
+    exp: (sf, strict) ->
+      deprecatedWarning('exp')
+      (number) -> hx.exp(number, { strict, sf }).replace('+', '')
+    fixed: (digits, strict) ->
+      deprecatedWarning('fixed')
+      (number) -> hx.fixed(number, { digits, strict })
+    zeroPad: (length, strict) ->
+      deprecatedWarning('zeroPad')
+      (number) -> hx.zeroPad(number, { length, strict })
 }

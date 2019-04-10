@@ -50,3 +50,31 @@
 a.hx-btn:hover {
   text-decoration: none;
 }
+
+.hx-flag-button .hx-btn,
+.hx-btn.hx-primary,
+.hx-btn.hx-secondary,
+.hx-btn.hx-success,
+.hx-btn.hx-danger,
+.hx-btn.hx-btn-link,
+.hx-btn.hx-btn-normal,
+.hx-btn.hx-btn-small,
+.hx-btn.hx-btn-micro {
+  margin: 0;
+  text-transform: uppercase;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.hx-flag-button .hx-btn:focus,
+.hx-btn.hx-primary:focus,
+.hx-btn.hx-secondary:focus,
+.hx-btn.hx-success:focus,
+.hx-btn.hx-danger:focus,
+.hx-btn.hx-btn-link:focus,
+.hx-btn.hx-btn-normal:focus,
+.hx-btn.hx-btn-small:focus,
+.hx-btn.hx-btn-micro:focus {
+  outline: none;
+}

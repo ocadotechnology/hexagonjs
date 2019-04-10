@@ -18,6 +18,7 @@ import {compare } from 'utils/sort'
 import { EventEmitter } from 'utils/event-emitter'
 import * as filter from 'utils/filter'
 import logger from 'utils/logger'
+import { json } from 'utils/request'
 
 import { picker, Picker } from 'components/picker'
 import { Toggle } from 'components/toggle'
@@ -161,9 +162,15 @@ createAdvancedSearchView = (selection, dataTable, options) ->
         value: header.id
         orig: header
 
-      columnRenderer = (cell) ->
-        if cell.anyColumn then span().text(cell.text)
-        else columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(cell.orig, filterRow.headers)
+      # XXX Breaking: Renderer
+      # columnRenderer = (cell) ->
+      #   if cell.anyColumn then span().text(cell.text)
+      #   else columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(cell.orig, filterRow.headers)
+
+      columnRenderer = (element, cell) ->
+        if cell.anyColumn then hx.select(element).text(cell.text)
+        else columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(element, cell.orig, filterRow.headers)
+
 
       columnPickerOptions =
         items: [anyColumn, columnItems...]
@@ -337,8 +344,12 @@ class DataTable extends EventEmitter
 
       # functions for rendering
       collapsibleRenderer: undefined
-      cellRenderer: (cell, row) -> span().text(cell)
-      headerCellRenderer: (cell, headers) -> span().text(cell.name)
+
+      # XXX Breaking: Renderer
+      # cellRenderer: (cell, row) -> span().text(cell)
+      # headerCellRenderer: (cell, headers) -> span().text(cell.name)
+      cellRenderer: (element, cell, row) -> select(element).text(cell)
+      headerCellRenderer: (element, cell, headers) -> select(element).text(cell.name)
 
       # per column options (headerCellRenderer, cellRenderer, sortEnabled)
       columns: {}
@@ -349,7 +360,7 @@ class DataTable extends EventEmitter
       noSortText: userFacingText('dataTable', 'noSort')
       rowsPerPageText: userFacingText('dataTable','rowsPerPage')
       searchPlaceholder: userFacingText('dataTable','search')
-      selectedRowsText: userFacingText('dataTable', 'selectedRows')
+      selectedRowsText: userFacingText('dataTable', 'selectedRows', true)
       sortByText: userFacingText('dataTable','sortBy')
 
       addFilterText: userFacingText('dataTable', 'addFilter')
@@ -836,12 +847,21 @@ class DataTable extends EventEmitter
 
             # set the values for the compact sort control
             @_.sortColPicker
-              .renderer((option) ->
+              # XXX Breaking: Renderer
+              # .renderer((option) ->
+              #   if option.value
+              #     getColumnOption('headerCellRenderer', option.cell.id)(option.cell, headers)
+              #       .add(i('hx-data-table-compact-sort-arrow hx-icon hx-icon-chevron-' + (if option.direction is 'asc' then 'up' else 'down')))
+              #   else
+              #     span().text(option.text)
+              # )
+              .renderer((element, option) ->
                 if option.value
-                  getColumnOption('headerCellRenderer', option.cell.id)(option.cell, headers)
-                    .add(i('hx-data-table-compact-sort-arrow hx-icon hx-icon-chevron-' + (if option.direction is 'asc' then 'up' else 'down')))
+                  getColumnOption('headerCellRenderer', option.cell.id)(element, option.cell, headers)
+                  hx.select(element).append('i')
+                    .class('hx-data-table-compact-sort-arrow hx-icon hx-icon-chevron-' + (if option.direction is 'asc' then 'up' else 'down'))
                 else
-                  span().text(option.text)
+                  hx.select(element).text(option.text)
               )
               .items([{text: options.noSortText, value: undefined}].concat sortColumns)
 
@@ -916,9 +936,16 @@ class DataTable extends EventEmitter
 
             cellDivContent = cellDiv.append('div').class('hx-data-table-cell-inner')
 
-            cellDivContent
-              .add(div('hx-data-table-title')
-                .add(getColumnOption('headerCellRenderer', header.id)(header, headers)))
+            # XXX Breaking: Renderer
+            # cellDivContent
+            #   .add(div('hx-data-table-title')
+            #     .add(getColumnOption('headerCellRenderer', header.id)(header, headers)))
+            getColumnOption('headerCellRenderer', header.id)(
+              cellDivContent.append('span').class('hx-data-table-title').node(),
+              header,
+              headers,
+            )
+
 
             if getColumnOption('sortEnabled', header.id)
               cellDiv.classed('hx-data-table-cell-sort-enabled', true)
@@ -966,7 +993,7 @@ class DataTable extends EventEmitter
             if totalCount isnt undefined
               @_.statusBar
                 .select('.hx-data-table-status-bar-text')
-                .text(options.selectedRowsText.replace('$selected', @_.selectedRows.size).replace('$total', totalCount))
+                .text(userFacingText.format(options.selectedRowsText, { selected: @_.selectedRows.size, total: totalCount }))
 
           # handles multi row selection ('select all' and shift selection)
           selectMulti = (start, end, force) =>
@@ -1032,7 +1059,10 @@ class DataTable extends EventEmitter
             node.classed('hx-data-table-collapsible-row-visible', currentVis)
             node.select('.hx-data-table-collapsible-toggle').select('i').class(if currentVis then 'hx-icon hx-icon-minus' else 'hx-icon hx-icon-plus')
 
-            if currentVis then cc.contentDiv.append(options.collapsibleRenderer(row))
+            # XXX Breaking: Renderer
+            # if currentVis then cc.contentDiv.append(options.collapsibleRenderer(row))
+            if currentVis
+              options.collapsibleRenderer(cc.contentDiv.node(), row)
             else
               @_.renderedCollapsibles[rowId].contentRow.remove()
               @_.renderedCollapsibles[rowId].hiddenRow.remove()
@@ -1088,8 +1118,12 @@ class DataTable extends EventEmitter
               for cell, columnIndex in rowToArray(headers, row)
 
                 # Render the 'key' value using the headerCellRenderer
-                keyDiv = div('hx-data-table-cell-key')
-                  .add(getColumnOption('headerCellRenderer', headers[columnIndex].id)(headers[columnIndex], headers))
+                # XXX Breaking: Renderer
+                # keyDiv = div('hx-data-table-cell-key')
+                #   .add(getColumnOption('headerCellRenderer', headers[columnIndex].id)(headers[columnIndex], headers))
+                keyDiv = hx.detached('div').class('hx-data-table-cell-key')
+                getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers)
+
 
                 cellElem = tr.append('td').class('hx-data-table-cell')
                 columnMaxWidth = getColumnOption('maxWidth', headers[columnIndex].id)
@@ -1100,9 +1134,13 @@ class DataTable extends EventEmitter
                     .style('width', columnMaxWidth)
                     .style('min-width', columnMaxWidth)
 
+                # XXX Breaking: Renderer
+                # cellDiv = cellElem.add(keyDiv)
+                #   .append('div').class('hx-data-table-cell-value')
+                #   .add(getColumnOption('cellRenderer', headers[columnIndex].id)(cell, row)).node()
                 cellDiv = cellElem.add(keyDiv)
-                  .append('div').class('hx-data-table-cell-value')
-                  .add(getColumnOption('cellRenderer', headers[columnIndex].id)(cell, row)).node()
+                  .append('div').class('hx-data-table-cell-value').node()
+                getColumnOption('cellRenderer', headers[columnIndex].id)(cellDiv, cell, row)
           else # append the 'No Data' row.
             tbody.append('tr').class('hx-data-table-row-no-data').append('td').attr('colspan', fullWidthColSpan).text(options.noDataMessage)
 
@@ -1252,6 +1290,46 @@ objectFeed = (data, options) ->
       cb(rowsByIdMap[id] for id in ids)
   }
 
+# XXX Deprecated: alongside request
+urlFeed = (url, options) ->
+  #XXX: when new calls come in, ignore the ongoing request if there is one / cancel the request if possible
+  options = merge({
+    extra: undefined,
+    cache: false
+  }, options)
+
+  # creates a function that might perform caching, depending on the options.cache value
+  maybeCached = (fetcher) ->
+    if options.cache
+      value = undefined
+      (cb) ->
+        if value
+          cb(value)
+        else
+          fetcher (res) ->
+            value = res
+            cb(value)
+    else
+      (cb) -> fetcher(cb)
+
+  jsonCallback = (cb) ->
+    (err, value) ->
+      logger.warn(err) if err
+      cb(value)
+
+  {
+    url: url # for debugging
+    headers: maybeCached (cb) ->
+      json url, { type: 'headers', extra: options.extra }, jsonCallback(cb)
+    totalCount: maybeCached (cb) ->
+      json url, { type: 'totalCount', extra: options.extra }, (err, res) ->
+        jsonCallback(cb)(err, res.count)
+    rows: (range, cb) ->
+      json url, { type: 'rows', range: range, extra: options.extra }, jsonCallback(cb)
+    rowsForIds: (ids, lookupRow, cb) ->
+      json url, { type: 'rowsForIds', ids: ids, extra: options.extra }, jsonCallback(cb)
+  }
+
 dataTable = (options) ->
   selection = div()
   dt = new DataTable(selection, options)
@@ -1262,5 +1340,6 @@ export {
   dataTable,
   DataTable,
   objectFeed,
-  getAdvancedSearchFilter
+  urlFeed,
+  getAdvancedSearchFilter,
 }

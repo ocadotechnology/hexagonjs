@@ -1,6 +1,6 @@
 div.hx-logo,
-img.hx-logo {
-  &, &:before {
-    content: url("assets/logo.svg");
-  }
+div.hx-logo:before,
+img.hx-logo,
+img.hx-logo:before {
+  content: url("assets/logo.svg");
 }

@@ -4,10 +4,18 @@ import { div, span } from 'utils/selection';
 // - moved from fluid to spinner
 // spinner.wide has become spinnerWide
 
-export function spinner() {
+function spinner() {
   return span('hx-spinner');
 }
 
-export function spinnerWide() {
+function spinnerWide() {
   return div('hx-spinner-wide');
 }
+
+// XXX Deprecated: Fluid
+spinner.wide = spinnerWide;
+
+export {
+  spinner,
+  spinnerWide,
+};

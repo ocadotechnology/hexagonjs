@@ -12,6 +12,10 @@ function noticeBody() {
   return div('hx-notice-body');
 }
 
+// XXX Deprecated: Fluid
+notice.head = noticeHead;
+notice.body = noticeBody;
+
 export {
   notice,
   noticeHead,
