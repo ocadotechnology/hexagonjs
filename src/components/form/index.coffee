@@ -602,7 +602,7 @@ class Form extends EventEmitter
         autocompletePickerOptions.items = values
 
       component = new AutocompletePicker(elem.node(), values, autocompletePickerOptions)
-      input = 'input').class('hx-hidden-form-input').attr('size', 0
+      input = @append('input').class('hx-hidden-form-input').attr('size', 0)
       @style('position', 'relative')
 
       autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'

@@ -315,7 +315,7 @@ class Autocomplete extends EventEmitter
       menu.renderer (elem, item) ->
         # if the item is a unselectable item or a heading, we use a set renderer
         # and ignore the passed in renderer
-        selection = hx.select(elem)
+        selection = select(elem)
         selection.style('font-weight','')
         if item.unselectable or item.heading
           selection

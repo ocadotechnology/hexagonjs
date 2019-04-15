@@ -66,6 +66,7 @@ class TimePicker extends EventEmitter
     # set up everything that is needed to turn the div into a calendar input
     @selection = select(@selector)
       .classed('hx-time-picker', true)
+      .api('time-picker', this)
       .api(this)
 
     # input text box + icon

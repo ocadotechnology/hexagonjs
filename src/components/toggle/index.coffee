@@ -13,6 +13,7 @@ class Toggle extends EventEmitter
 
     @selection = select(selector)
       .classed('hx-toggle', true)
+      .api('toggle', this)
       .api(this)
 
     @toggle = @selection.append('div')

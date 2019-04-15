@@ -1,15 +1,22 @@
-import { select, detached } from 'utils/select'
+import { select, detached, div } from 'utils/selection'
 import { userFacingText } from 'utils/user-facing-text'
+import emit from 'test/utils/fake-event'
 
 import { Meter } from 'components/meter'
 
-export default () => {
-  describe 'hx-meter', ->
+export default () ->
+  describe 'meter', ->
+    # fixture = select('body').append(div('hx-test-meter'))
+    fixture = undefined
+
+    beforeEach ->
+      fixture = select('body').append(div('hx-test-meter'))
+
     afterEach ->
-      select('body').clear()
+      # fixture.remove()
 
     it 'should set and get values', ->
-      meter = new Meter(detached('div').node())
+      meter = new Meter(fixture.append(div()))
 
       meter.value({
         total: 123,
@@ -29,7 +36,7 @@ export default () => {
       meter.value().markerText.should.equal('strawberry')
 
     it 'setting partial values should be fine', ->
-      meter = new Meter(detached('div').node())
+      meter = new Meter(fixture.append(div()))
 
       meter.value({
         completed: 456,
@@ -54,7 +61,7 @@ export default () => {
       userFacingText('meter', 'of').should.equal('of')
 
     it 'emit an event when rendering with cause "api" when value method is called with data', (done) ->
-      selection = select('body')
+      selection = fixture
         .append 'div'
         .style 'width', '500px'
         .style 'height', '500px'
@@ -79,7 +86,7 @@ export default () => {
       renderSpy.should.have.been.called()
 
     it 'emit an event when rendering with cause "user" when resizing the meter', (done) ->
-      selection = select('body')
+      selection = fixture
         .append 'div'
         .style 'width', '500px'
         .style 'height', '500px'
@@ -100,12 +107,12 @@ export default () => {
 
       meter.on 'render', renderSpy
       selection.style 'width', '400px'
-      testHelpers.fakeNodeEvent(selection.node(), 'resize')()
+      emit(selection.node(), 'resize')
       renderSpy.should.have.been.called()
       done()
 
     it 'should redraw on resize when the option is false', ->
-      selection = select('body')
+      selection = fixture
         .append 'div'
         .style 'width', '500px'
         .style 'height', '500px'
@@ -123,13 +130,13 @@ export default () => {
       renderSpy = chai.spy()
       meter.on 'render', renderSpy
       selection.style 'width', '400px'
-      testHelpers.fakeNodeEvent(selection.node(), 'resize')()
+      emit(selection.node(), 'resize')
 
       renderSpy.should.not.have.been.called()
 
 
     it 'should use a default value formatter', ->
-      selection = select('body')
+      selection = fixture
         .append 'div'
 
       meter = new Meter(selection.node())
@@ -147,7 +154,7 @@ export default () => {
         .text().should.equal "of #{data.total}"
 
     it 'should use a custom value formatter', ->
-      selection = select('body')
+      selection = fixture
         .append 'div'
 
       valueFormatter = (value, isTotal) ->
@@ -168,7 +175,7 @@ export default () => {
         .text().should.equal 'total'
 
     it 'should not render when the container size is 0', ->
-      selection = select 'body'
+      selection = fixture
         .append 'div'
         .style 'width', '0px'
         .style 'height', '0px'
@@ -190,6 +197,7 @@ export default () => {
       selection
         .style('height', '100px')
         .style('width', '100px')
+      emit(selection.node(), 'resize')
       meter.render()
       renderSpy.should.have.been.called()
 

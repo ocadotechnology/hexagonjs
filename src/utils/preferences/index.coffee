@@ -308,7 +308,7 @@ class Preferences extends EventEmitter
     utc = date.getTime() + (date.getTimezoneOffset() * 60000)
     new Date(utc + offset * 60 * 60 * 1000)
 
-  # sets the backingStore to use - currently the only one available is hx.preferences.localStorage
+  # sets the backingStore to use - currently the only one available is localStorage
   # getting the backingStore should not be possible
   backingStore: (backingStore) ->
     if backingStore?
@@ -338,6 +338,9 @@ class Preferences extends EventEmitter
     this
 
 preferences = new Preferences
+
+# XXX Deprecated: Remove this in favour of proper import reference
+preferences.localStorageStore = LocalStoragePreferencesStore
 
 export {
   LocalStoragePreferencesStore,

@@ -595,7 +595,7 @@ class DatePicker extends EventEmitter
           return
 
         _.clickStart = true
-        selection = hx.select(elem)
+        selection = select(elem)
         selection.append(calendarElem)
         buildCalendar self, self.options.defaultView
 
@@ -647,7 +647,7 @@ class DatePicker extends EventEmitter
           self.dropdown.hide()
           return
 
-        selection = hx.select(elem)
+        selection = select(elem)
         # add nodes in the correct order
         for i in self.localizer.dateOrder()
           switch i

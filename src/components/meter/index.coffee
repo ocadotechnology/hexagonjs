@@ -2,10 +2,10 @@ import { color } from 'utils/color'
 import logger from 'utils/logger'
 import { EventEmitter } from 'utils/event-emitter'
 import { merge, randomId } from 'utils/utils'
-import { plot } from 'utils/plot'
-import { detached, select } from 'utils/select'
+import { arcCurve, svgCurve } from 'components/plot'
+import { detached, select } from 'utils/selection'
 import { theme } from 'theme'
-import { userFacingText } from 'utils/userFacingText'
+import { userFacingText } from 'utils/user-facing-text'
 
 userFacingText({
   meter: {
@@ -35,16 +35,16 @@ export class Meter extends EventEmitter
       markerOuterExtend: -0.01
       arcPadding: 0.02
       markerPadding: 0.1
-      progressBackgroundCol: color(theme.palette.contrastCol).alpha(0.05).toString()
-      progressCol: theme.plot.positiveCol
-      trackerCol: color(theme.plot.positiveCol).alpha(0.5).toString()
-      trackerBackgroundCol: color(theme.palette.contrastCol).alpha(0.05).toString()
-      markerCol: theme.palette.contrastCol
+      progressBackgroundCol: color(theme().palette.contrastCol).alpha(0.05).toString()
+      progressCol: theme().palette.positiveCol
+      trackerCol: color(theme().palette.positiveCol).alpha(0.5).toString()
+      trackerBackgroundCol: color(theme().palette.contrastCol).alpha(0.05).toString()
+      markerCol: theme().palette.contrastCol
       valueFormatter: (value, isTotal) -> if isTotal then "#{userFacingText('meter', 'of')} #{value}" else value
       redrawOnResize: true
     }, options)
 
-    randomId = randomId()
+    meterRandomId = randomId()
 
     _.selection = selection = select(selector)
       .api('meter', this)
@@ -64,12 +64,12 @@ export class Meter extends EventEmitter
     _.trackerBackgroundArc = svg.append('path')
     _.trackerArc = svg.append('path')
     _.markerArc = svg.append('path')
-    _.markerTextCurve = svg.append('defs').append('path').attr('id', randomId)
+    _.markerTextCurve = svg.append('defs').append('path').attr('id', meterRandomId)
 
     _.markerText = svg.append('g').append('text')
       .class('hx-meter-marker-text')
       .append('textPath')
-        .attr('xlink:href', '#' + randomId)
+        .attr('xlink:href', '#' + meterRandomId)
 
     innerText = container.append('div').class('hx-meter-inner-text')
     _.completedText = innerText.append('div').class('hx-meter-completed')
@@ -130,7 +130,7 @@ export class Meter extends EventEmitter
         startRadians = Math.PI + Math.PI*start
         endRadians = Math.PI + Math.PI*end
         padding = 0
-        path = plot.arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding)
+        path = arcCurve(x, y, innerRadius, outerRadius, startRadians, endRadians, padding)
 
         selection
           .attr('d', path)
@@ -162,7 +162,7 @@ export class Meter extends EventEmitter
           x: x + radius * Math.cos((i/100 + 1)*Math.PI)
           y: y + radius * Math.sin((i/100 + 1)*Math.PI)
 
-        path = plot.svgCurve(points, false)
+        path = svgCurve(points, false)
 
         _.markerTextCurve.attr('d', path)
 

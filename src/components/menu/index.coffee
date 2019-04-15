@@ -192,7 +192,7 @@ class MenuItem
       @menu.options.renderer(headerNode, @content)
 
       contentNode = container.select('.hx-collapsible-content').node()
-      @collapsible = new hx.Collapsible(collapsibleNode)
+      @collapsible = new Collapsible(collapsibleNode)
 
       populateNode(contentNode, @_.menuItems)
     else

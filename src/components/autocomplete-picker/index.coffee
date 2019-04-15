@@ -126,7 +126,7 @@ class AutocompletePicker extends EventEmitter
     #       .classed('hx-autocomplete-picker-heading', item.heading)
 
     renderWrapper = (element, item) =>
-      selection = hx.select(element)
+      selection = select(element)
         .clear()
         .classed('hx-autocomplete-picker-heading', item.heading)
       if item.unselectable or item.heading

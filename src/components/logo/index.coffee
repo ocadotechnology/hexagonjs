@@ -1,10 +1,13 @@
+import logger from 'utils/logger'
+import { div, selectAll } from 'utils/selection'
+
 replaceWithDiv = (sel) ->
-  sel.replace(hx.div('hx-logo'))
+  sel.replace(div('hx-logo'))
 
 initLogos = () ->
-  logos = hx.selectAll('img.hx-logo')
+  logos = selectAll('img.hx-logo')
   if logos.size()
-    hx.consoleWarning('Logo:', 'The .hx-logo class should only be applied to <div> elements.', 'You supplied: ', logos.nodes)
+    logger.warn('Logo:', 'The .hx-logo class should only be applied to <div> elements.', 'You supplied: ', logos.nodes)
     logos.forEach(replaceWithDiv)
 
 export { initLogos }

@@ -198,6 +198,15 @@ export { validateForm, Form } from 'components/form';
 export { fileInput, FileInput } from 'components/file-input';
 export { meter, Meter } from 'components/meter';
 
+export {
+  request,
+  html,
+  text,
+  json,
+  reshapedRequest,
+} from 'utils/request';
+
+
 // XXX: these apis should be opt-in
 initAnimate(); // XXX: remove
 initPointerEvents(); // XXX: make into a selection middleware

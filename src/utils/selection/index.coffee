@@ -141,44 +141,84 @@ export class Selection
 
   # selects the first node matching the selector relative to this selection's nodes
   select: (selector) ->
+    # XXX Breaking: Selection select error
+    # if not isString(selector)
+    #   throw new Error('Selection::select expects a string argument')
     if not isString(selector)
-      throw new Error('Selection::select expects a string argument')
-
-    s = new Selection(@nodes.map((node) -> domSelectSingle(selector, node)))
-    s.singleSelection = @singleSelection
-    s
+      logger.warn(
+        'Selection.select was passed the wrong argument type',
+        'Selection.select only accepts a string argument, you supplied:',
+        selector
+      )
+      new Selection([])
+    else
+      s = new Selection(@nodes.map((node) -> domSelectSingle(selector, node)))
+      s.singleSelection = @singleSelection
+      s
 
   # selects all nodes matching the selector relative to this selection's nodes
   selectAll: (selector) ->
+    # XXX Breaking: Selection select error
+    # if not isString(selector)
+    #   throw new Error('Selection::selectAll expects a string argument')
     if not isString(selector)
-      throw new Error('Selection::selectAll expects a string argument')
-
-    new Selection(flattenNodes(@nodes.map((node) -> domSelectAll(selector, node))))
+      logger.warn(
+        'Selection.selectAll was passed the wrong argument type',
+        'Selection.selectAll only accepts a string argument, you supplied:',
+        selector
+      )
+      new Selection([])
+    else
+      new Selection(flattenNodes(@nodes.map((node) -> domSelectAll(selector, node))))
 
   # selects the first node matching the selector that is a direct descendent of this selection
   shallowSelect: (selector) ->
+    # XXX Breaking: Selection select error
+    # if not isString(selector)
+    #   throw new Error('Selection::shallowSelect expects a string argument')
     if not isString(selector)
-      throw new Error('Selection::shallowSelect expects a string argument')
-
-    s = new Selection(@nodes.map((node) -> shallowSelectSingle(selector, node)))
-    s.singleSelection = @singleSelection
-    s
+      logger.warn(
+        'Selection.selectAll was passed the wrong argument type',
+        'Selection.selectAll only accepts a string argument, you supplied:',
+        selector
+      )
+      new Selection([])
+    else
+      s = new Selection(@nodes.map((node) -> shallowSelectSingle(selector, node)))
+      s.singleSelection = @singleSelection
+      s
 
   # selects all the nodes matching the selector that are a direct descendent of this selection
   shallowSelectAll: (selector) ->
+    # XXX Breaking: Selection select error
+    # if not isString(selector)
+    #   throw new Error('Selection::shallowSelectAll expects a string argument')
     if not isString(selector)
-      throw new Error('Selection::shallowSelectAll expects a string argument')
-
-    new Selection(flattenNodes(@nodes.map((node) -> shallowSelectAll(selector, node))))
+      logger.warn(
+        'Selection.selectAll was passed the wrong argument type',
+        'Selection.selectAll only accepts a string argument, you supplied:',
+        selector
+      )
+      new Selection([])
+    else
+      new Selection(flattenNodes(@nodes.map((node) -> shallowSelectAll(selector, node))))
 
   # traverses up the dom to find the closest matching element. returns a selection containing the result
   closest: (selector) ->
+    # XXX Breaking: Selection select error
+    # if not isString(selector)
+    #   throw new Error('Selection::closest expects a string argument')
     if not isString(selector)
-      throw new Error('Selection::closest expects a string argument')
-
-    s = new Selection(@nodes.map((node) -> closestParent(selector, node)))
-    s.singleSelection = @singleSelection
-    s
+      logger.warn(
+        'Selection.closest was passed the wrong argument type',
+        'Selection.closest only accepts a string argument, you supplied:',
+        selector
+      )
+      new Selection([])
+    else
+      s = new Selection(@nodes.map((node) -> closestParent(selector, node)))
+      s.singleSelection = @singleSelection
+      s
 
   parent: () ->
     if not @singleSelection
@@ -190,12 +230,22 @@ export class Selection
   attachSingle = (selection, element, attacher) ->
     if element is undefined
       return []
+    # XXX Breaking: Selection select error
+    # if not (isString(element) or (element instanceof Selection) or (element instanceof Element))
+    #   throw new Error('Selection: Expecting an Element, Selection or string argument')
+    # if not selection.singleSelection and (element instanceof Element or element instanceof Selection)
+    #   throw new Error('Selection: You can not attach an existing element to a selection with multiple elements')
+    # if selection.empty()
+    #   logger.warn('Selection: Attaching an element to an empty selection has no effect')
+    #   return []
     if not (isString(element) or (element instanceof Selection) or (element instanceof Element))
-      throw new Error('Selection: Expecting an Element, Selection or string argument')
+      logger.warn('Selection Api error when attaching element', 'Expecting an Element, Selection or string argument, you supplied:', element)
+      return []
     if not selection.singleSelection and (element instanceof Element or element instanceof Selection)
-      throw new Error('Selection: You can not attach an existing element to a selection with multiple elements')
+      logger.warn('Selection Api error when attaching element', 'You can not attach an existing element to a selection with multiple elements')
+      return []
     if selection.empty()
-      logger.warn('Selection: Attaching an element to an empty selection has no effect')
+      logger.warn('Selection Api error when attaching element', 'You can not attach an element to an empty selection')
       return []
 
     if element instanceof Element
@@ -342,6 +392,17 @@ export class Selection
       this
     else
       reformed(@singleSelection, ((node.textContent or '') for node in @nodes))
+
+  # gets or sets the inner html of the nodes in the selection
+  html: (html) ->
+    logger.deprecated('Selection::html', 'N/A')
+    if arguments.length == 1
+      for node in @nodes
+        node.innerHTML = if html? then html else ''
+      this
+    else
+      reformed(@singleSelection, ((node.innerHTML or '') for node in @nodes))
+
 
   # gets or sets the class attribute of the nodes in the selection
   class: (_class) ->
@@ -524,15 +585,31 @@ export select = (selector) ->
   if selector instanceof Selection
     selector
   else if not ((selector instanceof HTMLElement) or (selector instanceof SVGElement) or isString(selector) or selector is document or selector is window)
-    throw new Error('select only accepts a HTMLElement, SVGElement or string argument')
+    # XXX Breaking: Selection select error
+    # throw new Error('select only accepts a HTMLElement, SVGElement or string argument')
+    logger.warn(
+      'hx.select was passed the wrong argument type',
+      'hx.select only accepts a HTMLElement, SVGElement or string argument, you supplied:',
+      selector
+    )
+    new Selection([])
   else
     bareSelect(selector)
+
+
 
 export addEventAugmenter = (augmenter) -> augmenters.push(augmenter)
 
 export selectAll = (selector) ->
   if not (isString(selector) or isArray(selector))
-    throw new Error('selectAll only accepts a string or array as its argument')
+    # XXX Breaking: Selection select error
+    # throw new Error('selectAll only accepts a string or array as its argument')
+    logger.warn(
+      'hx.selectAll was passed the wrong argument type',
+      'hx.selectAll only accepts a string argument, you supplied:',
+      selector
+    )
+    new Selection([])
   else
     if isArray(selector)
       bareSelect(selector, true)

@@ -58,6 +58,7 @@ class PivotTable extends EventEmitter
     @options = mergeDefined({
       stickyHeaders: true
       topLeftCellRender: undefined
+      # XXX Breaking: Renderer
       cellRender: (data, element, isHead, column) ->
         select(element).text(data)
       useResponsive: true
@@ -70,6 +71,7 @@ class PivotTable extends EventEmitter
 
     @selection = select(@selector)
       .classed('hx-pivot-table', true)
+      .api('pivot-table', this)
       .api(this)
 
     @table = @selection.append('table').class('hx-table')

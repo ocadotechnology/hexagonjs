@@ -168,7 +168,7 @@ createAdvancedSearchView = (selection, dataTable, options) ->
       #   else columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(cell.orig, filterRow.headers)
 
       columnRenderer = (element, cell) ->
-        if cell.anyColumn then hx.select(element).text(cell.text)
+        if cell.anyColumn then select(element).text(cell.text)
         else columnOptionLookup(options, 'headerCellRenderer', cell.orig.id)(element, cell.orig, filterRow.headers)
 
 
@@ -858,10 +858,10 @@ class DataTable extends EventEmitter
               .renderer((element, option) ->
                 if option.value
                   getColumnOption('headerCellRenderer', option.cell.id)(element, option.cell, headers)
-                  hx.select(element).append('i')
+                  select(element).append('i')
                     .class('hx-data-table-compact-sort-arrow hx-icon hx-icon-chevron-' + (if option.direction is 'asc' then 'up' else 'down'))
                 else
-                  hx.select(element).text(option.text)
+                  select(element).text(option.text)
               )
               .items([{text: options.noSortText, value: undefined}].concat sortColumns)
 
@@ -1121,7 +1121,7 @@ class DataTable extends EventEmitter
                 # XXX Breaking: Renderer
                 # keyDiv = div('hx-data-table-cell-key')
                 #   .add(getColumnOption('headerCellRenderer', headers[columnIndex].id)(headers[columnIndex], headers))
-                keyDiv = hx.detached('div').class('hx-data-table-cell-key')
+                keyDiv = div('hx-data-table-cell-key')
                 getColumnOption('headerCellRenderer', headers[columnIndex].id)(keyDiv.node(), headers[columnIndex], headers)
 
 

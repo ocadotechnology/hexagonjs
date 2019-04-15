@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "ajv": "^5.2.4",
-    "browser-test-runner": "^0.6.5",
+    "browser-test-runner": "^0.7.1",
     "caniuse-lite": "^1.0.30000749",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
@@ -62,7 +62,7 @@
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.1.3",
     "npm-run-all": "^4.1.1",
     "phantomjs-prebuilt": "^2.1.15",
     "postcss": "^6.0.13",

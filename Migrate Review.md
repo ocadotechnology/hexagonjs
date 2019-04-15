@@ -4,14 +4,18 @@ Comments:
 # XXX Breaking: Component (regression)
 # XXX Breaking: Autocomplete always emit on value set
 # XXX Breaking: html -> text
+# XXX Breaking: Selection select error
 
 # XXX Deprecated: alongside request
 # XXX Deprecated: Filters
+# XXX Deprecated: Sort
 // XXX Deprecated: Fluid
 # XXX: Refactor into constructor in next major
 # XXX: Remove in next major in favour of hx.round etc.
 // XXX: Remove in next major in favour of hx.round etc.
 # XXX Deprecated: Remove in next major
+
+# XXX: Security - innerHTML
 
 | Main  | Tests |  CSS  | Module |
 | ===== | ===== | ===== | ====== |
@@ -61,37 +65,37 @@ Comments:
 |  [-]  |  [-]  |  [x]  | notice - new JS was part of fluid |
 |  [x]  |  [-]  |  [x]  | notify |
 |  [x]  |  [x]  |  [x]  | number-picker |
-|  [ ]  |  [ ]  |  [ ]  | paginator |
-|  [ ]  |  [ ]  |  [ ]  | palette |
-|  [ ]  |  [ ]  |  [ ]  | picker |
-|  [ ]  |  [ ]  |  [ ]  | pivot-table |
-|  [ ]  |  [ ]  |  [ ]  | pointer-events |
-|  [ ]  |  [ ]  |  [ ]  | preferences |
-|  [ ]  |  [ ]  |  [ ]  | progress-bar |
-|  [ ]  |  [ ]  |  [ ]  | request |
-|  [ ]  |  [ ]  |  [ ]  | resize-events |
-|  [ ]  |  [ ]  |  [ ]  | selection |
-|  [ ]  |  [ ]  |  [ ]  | set |
-|  [ ]  |  [ ]  |  [ ]  | side-collapsible |
-|  [ ]  |  [ ]  |  [ ]  | sidebar |
-|  [ ]  |  [ ]  |  [ ]  | slider |
-|  [ ]  |  [ ]  |  [ ]  | sort |
-|  [ ]  |  [ ]  |  [ ]  | spinner |
-|  [ ]  |  [ ]  |  [ ]  | sticky-table-headers |
-|  [ ]  |  [ ]  |  [ ]  | table |
-|  [ ]  |  [ ]  |  [ ]  | tabs |
-|  [ ]  |  [ ]  |  [ ]  | tag-input |
-|  [ ]  |  [ ]  |  [ ]  | time-picker |
-|  [ ]  |  [ ]  |  [ ]  | time-slider |
-|  [ ]  |  [ ]  |  [ ]  | titlebar |
-|  [ ]  |  [ ]  |  [ ]  | toggle |
-|  [ ]  |  [ ]  |  [ ]  | transition |
-|  [ ]  |  [ ]  |  [ ]  | tree |
-|  [ ]  |  [ ]  |  [ ]  | user-facing-text |
-|  [ ]  |  [ ]  |  [ ]  | util |
-|  [ ]  |  [ ]  |  [ ]  | view |
-|  [ ]  |  [ ]  |  [ ]  | plot |
+|  [x]  |  [x]  |  [x]  | palette |
+|  [x]  |  [x]  |  [x]  | picker - renderer |
+|  [x]  |  [x]  |  [-]  | pivot-table |
+|  [x]  |  [-]  |  [-]  | pointer-events |
+|  [x]  |  [x]  |  [-]  | preferences |
+|  [x]  |  [x]  |  [x]  | progress-bar |
+|  [x]  |  [x]  |  [-]  | request - module was deleted, no new version to compare |
+|  [x]  |  [-]  |  [-]  | resize-events |
+|  [x]  |  [x]  |  [-]  | selection |
+|  [x]  |  [x]  |  [-]  | set |
+|  [x]  |  [-]  |  [x]  | side-collapsible |
+|  [x]  |  [x]  |  [x]  | sidebar |
+|  [x]  |  [x]  |  [x]  | slider |
+|  [x]  |  [x]  |  [-]  | sort |
+|  [-]  |  [-]  |  [x]  | spinner |
+|  [x]  |  [-]  |  [x]  | sticky-table-headers |
+|  [-]  |  [-]  |  [x]  | table |
+|  [x]  |  [x]  |  [x]  | tabs |
+|  [x]  |  [x]  |  [x]  | tag-input |
+|  [x]  |  [x]  |  [x]  | time-picker |
+|  [x]  |  [x]  |  [-]  | time-slider |
+|  [x]  |  [x]  |  [x]  | titlebar |
+|  [x]  |  [-]  |  [x]  | toggle |
+|  [x]  |  [x]  |  [-]  | transition |
+|  [x]  |  [-]  |  [x]  | tree |
+|  [x]  |  [x]  |  [-]  | user-facing-text |
+|  [x]  |  [x]  |  [-]  | util |
+|  [x]  |  [x]  |  [-]  | view |
+|  [x]  |  [x]  |  [x]  | paginator |
 |  [ ]  |  [ ]  |  [ ]  | inline-editable |
 |  [ ]  |  [ ]  |  [ ]  | inline-picker  |
 |  [ ]  |  [ ]  |  [ ]  | morph-section |
 |  [ ]  |  [ ]  |  [ ]  | drawing |
+|  [ ]  |  [ ]  |  [ ]  | plot - assumed correct |

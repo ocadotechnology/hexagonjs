@@ -388,7 +388,7 @@ export default () ->
           tableOptions =
             # XXX Breaking: Renderer
             # cellRenderer: () -> span('bob')
-            cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
+            cellRenderer: (elem) -> select(elem).classed('bob', true)
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(3)
 
@@ -398,15 +398,15 @@ export default () ->
               name:
                 # XXX Breaking: Renderer
                 # cellRenderer: () -> span('bob')
-                cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
+                cellRenderer: (elem) -> select(elem).classed('bob', true)
               age:
                 # XXX Breaking: Renderer
                 # cellRenderer: () -> span('dave')
-                cellRenderer: (elem) -> hx.select(elem).classed('dave', true)
+                cellRenderer: (elem) -> select(elem).classed('dave', true)
               profession:
                 # XXX Breaking: Renderer
                 # cellRenderer: () -> span('steve')
-                cellRenderer: (elem) -> hx.select(elem).classed('steve', true)
+                cellRenderer: (elem) -> select(elem).classed('steve', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
@@ -417,12 +417,12 @@ export default () ->
           tableOptions =
             # XXX Breaking: Renderer
             # cellRenderer: () -> span('kate')
-            cellRenderer: (elem) -> hx.select(elem).classed('kate', true)
+            cellRenderer: (elem) -> select(elem).classed('kate', true)
             columns:
               name:
                 # XXX Breaking: Renderer
                 # cellRenderer: () -> span('bob')
-                cellRenderer: (elem) -> hx.select(elem).classed('bob', true)
+                cellRenderer: (elem) -> select(elem).classed('bob', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
@@ -434,7 +434,7 @@ export default () ->
         tableOptions = {
           # XXX Breaking: Renderer
           # collapsibleRenderer: () -> span('bob').text('dave')
-          collapsibleRenderer: (elem) -> hx.select(elem).class('bob').text('dave')
+          collapsibleRenderer: (elem) -> select(elem).class('bob').text('dave')
           rowCollapsibleLookup: (row) -> true
         }
 
@@ -462,7 +462,7 @@ export default () ->
           tableOptions = {
             # XXX Breaking: Renderer
             # collapsibleRenderer: () -> span('bob')
-            collapsibleRenderer: (element, d) -> hx.select(element).class('bob')
+            collapsibleRenderer: (element, d) -> select(element).class('bob')
             rowCollapsibleLookup: (row) -> !!row.collapsible
           }
           testTable {tableOptions}, done, (container, dt, options, data) ->
@@ -475,7 +475,7 @@ export default () ->
           tableOptions = {
             # XXX Breaking: Renderer
             # collapsibleRenderer: () -> span('bob')
-            collapsibleRenderer: (element, d) -> hx.select(element).class('bob')
+            collapsibleRenderer: (element, d) -> select(element).class('bob')
             rowCollapsibleLookup: (row) -> !!row.collapsible
           }
           testTable {tableOptions}, done, (container, dt, options, data) ->
@@ -626,7 +626,7 @@ export default () ->
           tableOptions =
             # XXX Breaking: Renderer
             # headerCellRenderer: ({ name }) -> span('bob').text(name)
-            headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
+            headerCellRenderer: (elem) -> select(elem).classed('bob', true)
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(3)
 
@@ -636,15 +636,15 @@ export default () ->
               name:
                 # XXX Breaking: Renderer
                 # headerCellRenderer: () -> span('bob')
-                headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
+                headerCellRenderer: (elem) -> select(elem).classed('bob', true)
               age:
                 # XXX Breaking: Renderer
                 # headerCellRenderer: () -> span('dave')
-                headerCellRenderer: (elem) -> hx.select(elem).classed('dave', true)
+                headerCellRenderer: (elem) -> select(elem).classed('dave', true)
               profession:
                 # XXX Breaking: Renderer
                 # headerCellRenderer: () -> span('steve')
-                headerCellRenderer: (elem) -> hx.select(elem).classed('steve', true)
+                headerCellRenderer: (elem) -> select(elem).classed('steve', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
@@ -655,12 +655,12 @@ export default () ->
           tableOptions =
             # XXX Breaking: Renderer
             # headerCellRenderer: () -> span('kate')
-            headerCellRenderer: (elem) -> hx.select(elem).classed('kate', true)
+            headerCellRenderer: (elem) -> select(elem).classed('kate', true)
             columns:
               name:
                 # XXX Breaking: Renderer
                 # headerCellRenderer: () -> span('bob')
-                headerCellRenderer: (elem) -> hx.select(elem).classed('bob', true)
+                headerCellRenderer: (elem) -> select(elem).classed('bob', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)

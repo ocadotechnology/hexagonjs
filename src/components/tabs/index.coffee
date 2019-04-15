@@ -18,6 +18,7 @@ onTabSelected = (tabs, sel, idx, cause) ->
   item = tabs.items()[idx]
   if item?
     tabsContent.clear()
+    # XXX Breaking: Renderer
     tabs._.options.contentRenderer tabsContent.node(), item.content
   else
     tabToSelectSelector = '#' + sel.attr('data-content')
@@ -29,6 +30,7 @@ class Tabs extends EventEmitter
   constructor: (@selector, opts) ->
     super()
 
+    # XXX Breaking: Renderer
     defaultRenderer = (node, value) -> select(node).text(value)
 
     options = merge({
@@ -46,9 +48,8 @@ class Tabs extends EventEmitter
     # Need to standardise naming here?
     @selection = select(@selector)
       .classed('hx-tabs', true)
+      .api('tabs', this)
       .api(this)
-
-    titleRenderer = options.titleRenderer
 
     tabsContent = @selection.select '.hx-tabs-content'
 
@@ -84,6 +85,8 @@ class Tabs extends EventEmitter
         titleBarsToAdd = newItems.map ({ title, context, content }, idx) =>
           tab = detached 'div'
             .class 'hx-tab'
+
+          # XXX Breaking: Renderer
           @_.options.titleRenderer tab.node(), title
           palette.context tab.node(), context
           tab.on 'click', 'hx.tabs', =>

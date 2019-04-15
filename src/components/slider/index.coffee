@@ -149,6 +149,7 @@ class Slider extends EventEmitter
     @options = merge({
       type: 'slider'
       discreteValues: undefined
+      # XXX Breaking: Renderer
       renderer: (slider, elem, value) -> select(elem).text(fixed(value))
       min: 0
       max: 1
@@ -163,6 +164,7 @@ class Slider extends EventEmitter
     self = this
     _.container = select(@selector)
       .classed('hx-slider', true)
+      .api('slider', this)
       .api(this)
       .append('div').classed('hx-slider-inner', true)
       .classed('hx-slider-double', @options.type is 'range')
