@@ -67,7 +67,6 @@ import drawingTests from 'components/drawing/spec';
 import inlineEditableTests from 'components/inline-editable/spec';
 
 chai.should();
-const { expect } = chai;
 
 describe('HexagonJS Test Suite', () => {
   // add a handle for when the tests are finished
@@ -275,16 +274,17 @@ describe('HexagonJS Test Suite', () => {
       // ];
 
       // function getDeepKeys(obj) {
-      //   return Object.keys(obj).reduce((keys, key) => {
+      //   return Object.getOwnPropertyNames(obj).reduce((keys, key) => {
       //     if (typeof obj[key] === 'object') {
       //       const subkeys = getDeepKeys(obj[key]);
       //       return [...keys, ...subkeys.map(subkey => `${key}.${subkey}`)];
       //     }
       //     return [...keys, key];
-      //   }, []);
+      //   }, []).sort();
       // }
       function getDeepKeys(obj) {
         let keys = [];
+        /* eslint-disable */
         for (const key in obj) {
           if (key !== 'preferences' && key !== '_') {
             keys.push(key);
@@ -294,6 +294,7 @@ describe('HexagonJS Test Suite', () => {
             }
           }
         }
+        /* eslint-enable */
         return keys.sort();
       }
 
