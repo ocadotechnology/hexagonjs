@@ -302,10 +302,10 @@ class Form extends EventEmitter
     options.attrs ?= []
     @add name, 'text', ->
       elem = detached('input').attr('type', options.type)
-      if options.autoCompleteData? and options.type isnt 'password' and options.type isnt 'number'
+      if options.autocompleteData? and options.type isnt 'password' and options.type isnt 'number'
         component = new Autocomplete(elem,
-          options.autoCompleteData,
-          options.autoCompleteOptions ?= undefined)
+          options.autocompleteData,
+          options.autocompleteOptions ?= undefined)
       if options.placeholder? then elem.attr('placeholder', options.placeholder)
       if options.required then elem.attr('required', options.required)
       elem.attr(attr.type, attr.value) for attr in options.attrs

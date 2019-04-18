@@ -10,6 +10,7 @@ import {
   filterStringTypes,
   filterNumberTypes,
   filterTypes,
+  filter,
 } from 'utils/filter'
 
 export default () ->
@@ -52,9 +53,9 @@ export default () ->
           ])
 
 
-      describe 'filterNumberTypes', ->
+      describe 'filterTypes', ->
         it 'returns the correct values', ->
-          filterNumberTypes().should.eql([
+          filterTypes().should.eql([
             'contains',
             'exact'
             'greater',

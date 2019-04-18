@@ -29,7 +29,7 @@ export default () ->
     fakeFileList = undefined
     clock = undefined
 
-    fixture = select('body').append(div())
+    fixture = select('body').append(div('hx-test-file-input'))
 
     origConsoleWarning = logger.warn
     dropdownAnimationDuration = 200
@@ -158,8 +158,8 @@ export default () ->
         dropdown = fixture.select('.hx-file-input-dropdown')
         dropdown.empty().should.equal(false)
         emit(dropdown.select('.hx-file-input-preview-remove').node(), 'click', fakeEvent)
-        fileInputForTest.value().should.eql([ fakeFile2 ])
         clock.tick(dropdownAnimationDuration)
+        fileInputForTest.value().should.eql([ fakeFile2 ])
         fixture.select('.hx-file-input-dropdown').empty().should.equal(true)
         sel.select('.hx-file-input-preview-remove').empty().should.equal(false)
 

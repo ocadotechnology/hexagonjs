@@ -32,3 +32,5 @@
 @import "components/data-table/theme";
 @import "components/sidebar/theme";
 @import "components/tag-input/theme";
+@import "components/drawing/theme";
+@import "components/badge/theme";

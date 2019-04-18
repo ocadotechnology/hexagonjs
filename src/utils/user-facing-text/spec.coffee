@@ -2,6 +2,7 @@ import chai from 'chai'
 
 import logger from 'utils/logger'
 import { clone } from 'utils/utils'
+import { Selection } from 'utils/selection'
 import { userFacingText, format, toMultilineSelection, userFacingTextDefaults, state } from 'utils/user-facing-text'
 
 export default () ->

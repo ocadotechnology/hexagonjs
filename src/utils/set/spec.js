@@ -84,7 +84,10 @@ export default () => {
       const set = new Set();
       [3, 3, 2, 1, 3].forEach(d => set.add(d));
       const items = [];
-      set.forEach(d => this.push(d), items);
+      function setItem(d) {
+        this.push(d);
+      }
+      set.forEach(setItem, items);
       items.should.eql([3, 2, 1]);
     });
 

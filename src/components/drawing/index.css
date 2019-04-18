@@ -1,0 +1,78 @@
+.hx-drawing {
+  position: relative;
+}
+.hx-drawing canvas {
+  margin-bottom: -5px;
+}
+
+.hx-drawing-overlay {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  pointer-events: none;
+}
+
+.hx-drawing-sidebar-toggle {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.hx-drawing-sidebar-toggle-t {
+  top: 0;
+}
+
+.hx-drawing-sidebar-toggle-r {
+  right: 0;
+}
+
+.hx-drawing-sidebar-toggle-b {
+  bottom: 0;
+}
+
+.hx-drawing-sidebar-toggle-l {
+  left: 0;
+}
+
+.hx-drawing-sidebar {
+  position: absolute;
+  opacity: 0;
+  pointer-events: auto;
+}
+.hx-drawing-sidebar .hx-drawing-sidebar-title,
+.hx-drawing-sidebar .hx-drawing-sidebar-content {
+  padding: 0.4em;
+}
+
+.hx-drawing-sidebar-t, .hx-drawing-sidebar-b {
+  width: 100%;
+}
+
+.hx-drawing-sidebar-l, .hx-drawing-sidebar-r {
+  height: 100%;
+}
+
+.hx-drawing-sidebar-t {
+  top: 0;
+}
+
+.hx-drawing-sidebar-r {
+  right: 0;
+}
+
+.hx-drawing-sidebar-b {
+  bottom: 0;
+}
+
+.hx-drawing-sidebar-l {
+  left: 0;
+}
+
+.hx-drawing-searchbox {
+  opacity: 0.95;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.hx-drawing-searchbox input {
+  pointer-events: auto;
+}

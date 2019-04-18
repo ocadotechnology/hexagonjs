@@ -245,7 +245,9 @@ export default () ->
       dd._.dropdown.style('position').should.equal('fixed')
 
     it 'should render correctly using a function as content', ->
-      populate = () -> div('bob').text('Dave')
+      # XXX Breaking: Renderer
+      # populate = () -> div('bob').text('Dave')
+      populate = (elem) -> select(elem).set(div('bob').text('Dave'))
 
       dd = new Dropdown(button, populate)
       dd.show()

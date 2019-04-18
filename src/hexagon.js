@@ -57,7 +57,6 @@ export {
   tween,
   defined,
   zip,
-  extend,
   mergeImpl,
   merge,
   mergeDefined,
@@ -71,6 +70,7 @@ export {
 export { EventEmitter } from 'utils/event-emitter';
 export { color, isColor, isColorString } from 'utils/color';
 export {
+  Selection,
   select,
   selectAll,
   isSelection,
@@ -113,6 +113,7 @@ export {
   round,
   si,
   zeroPad,
+  format,
 } from 'utils/format';
 export { preferences } from 'utils/preferences';
 export { dateTimeLocalizer } from 'utils/date-localizer';
@@ -121,7 +122,12 @@ export { ColorScale } from 'utils/color-scale';
 // Components
 
 export { spinner, spinnerWide } from 'components/spinner';
-export { Modal, modalDialog, modalInput } from 'components/modal';
+export {
+  Modal,
+  modalDialog,
+  modalInput,
+  modal,
+} from 'components/modal';
 export { Dropdown } from 'components/dropdown';
 export { Collapsible, initializeCollapsibles } from 'components/collapsible';
 export { titleBar, TitleBar } from 'components/titlebar';
@@ -132,6 +138,7 @@ export {
   autocomplete as autoComplete,
   Autocomplete as AutoComplete,
 } from 'components/autocomplete';
+export { AutocompleteFeed } from 'components/autocomplete-feed';
 export { numberPicker, NumberPicker } from 'components/number-picker';
 export { buttonGroup, ButtonGroup } from 'components/button-group';
 export { picker, Picker } from 'components/picker';
@@ -169,6 +176,7 @@ export {
   StraightLineSeries,
   plotLabelStandard,
   plotLabelBasic,
+  plot,
 } from 'components/plot';
 export { label } from 'components/label';
 export { slider, Slider } from 'components/slider';
@@ -197,7 +205,14 @@ export { dateTimePicker, DateTimePicker } from 'components/date-time-picker';
 export { validateForm, Form } from 'components/form';
 export { fileInput, FileInput } from 'components/file-input';
 export { meter, Meter } from 'components/meter';
-
+export {
+  parseHTML,
+  cleanNode,
+  scrollbarSize,
+  parentZIndex,
+  checkParents,
+  isElement,
+} from 'utils/dom-utils';
 export {
   request,
   html,
@@ -206,6 +221,25 @@ export {
   reshapedRequest,
 } from 'utils/request';
 
+export {
+  drawing,
+  Drawing,
+} from 'components/drawing';
+
+export {
+  InlineMorphSection,
+  MorphSection,
+} from 'components/morph-section';
+
+export {
+  InlineEditable,
+  inlineEditable,
+} from 'components/inline-editable';
+
+export {
+  InlinePicker,
+  inlinePicker,
+} from 'components/inline-picker';
 
 // XXX: these apis should be opt-in
 initAnimate(); // XXX: remove

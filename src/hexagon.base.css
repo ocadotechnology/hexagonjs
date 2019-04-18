@@ -9,7 +9,6 @@
 @import "components/collapsible";
 @import "components/autocomplete";
 @import "components/titlebar";
-@import "components/autocomplete";
 @import "components/layout";
 @import "components/number-picker";
 @import "components/menu";
@@ -40,3 +39,9 @@
 @import "components/tag-input";
 @import "components/date-time-picker";
 @import "components/file-input";
+@import "components/meter";
+@import "components/drawing";
+@import "components/morph-section";
+@import "components/inline-picker";
+@import "components/inline-editable";
+@import "components/badge";

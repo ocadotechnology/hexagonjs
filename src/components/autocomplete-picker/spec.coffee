@@ -589,14 +589,6 @@ export default ->
 
 
     describe 'autocompletePicker', ->
-      # XXX Breaking: Component (regression)
-      it 'should return a selection with an autocomplete picker component', ->
-        d = autocompletePicker(['a'])
-        d.should.be.an.instanceOf(Selection)
-        d.components()[0].should.be.an.instanceOf(AutocompletePicker)
-        d.components()[1].should.be.an.instanceOf(Menu)
-        d.components()[2].should.be.an.instanceOf(Dropdown)
-
       it 'should return a selection with an autocomplete picker component', ->
         d = autocompletePicker(['a'])
         d.should.be.an.instanceOf(Selection)

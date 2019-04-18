@@ -13,10 +13,9 @@ export default () ->
       userFacingText('form', 'typeMismatch').should.equal('Please enter a valid value for this field')
 
     describe 'validateForm', () ->
-      fixture = div('hx-test-form')
+      fixture = select('body').append(div('hx-test-form'))
 
       beforeEach ->
-        select('body').append(fixture)
         fixture.clear()
 
       after ->
@@ -71,7 +70,7 @@ export default () ->
           invalidNode = inputContainer.select('input')
             .attr('required', true)
 
-          invalidNode.node().offsetParent = 'PhantomJS Workaround'
+          Object.defineProperty(invalidNode.node(), 'offsetParent', { value: 'PhantomJS Workaround', writable: false });
 
           invalidForm = detached('form')
             .add(inputContainer)

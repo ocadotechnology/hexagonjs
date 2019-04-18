@@ -99,10 +99,6 @@ export default () ->
       it 'does not set up options', ->
         should.not.exist(ac.options)
 
-      # XXX Breaking: Component (regression)
-      it 'does not set the component', ->
-        should.not.exist(input.component())
-
       it 'does not set the component', ->
         should.not.exist(input.api())
 
@@ -113,10 +109,6 @@ export default () ->
     describe 'with string items', ->
       beforeEach ->
         ac = new Autocomplete(input, stringItems)
-
-      # XXX Breaking: Component (regression)
-      it 'sets up the component', ->
-        input.component().should.equal(ac)
 
       it 'sets up the component', ->
         input.api('autocomplete').should.equal(ac)
@@ -212,21 +204,21 @@ export default () ->
         it 'value', ->
           should.not.exist(ac.options.value)
 
-        # XXX Breaking: Text keys (autoComplete -> autocomplete)
+        # XXX Breaking: Text keys (autocomplete -> autocomplete)
         it 'loadingMessage', ->
-          ac.options.loadingMessage.should.equal(userFacingText('autoComplete', 'loading'))
+          ac.options.loadingMessage.should.equal(userFacingText('autocomplete', 'loading'))
 
         it 'noResultsMessage', ->
-          ac.options.noResultsMessage.should.equal(userFacingText('autoComplete', 'noResultsFound'))
+          ac.options.noResultsMessage.should.equal(userFacingText('autocomplete', 'noResultsFound'))
 
         it 'otherResultsMessage', ->
-          ac.options.otherResultsMessage.should.equal(userFacingText('autoComplete', 'otherResults'))
+          ac.options.otherResultsMessage.should.equal(userFacingText('autocomplete', 'otherResults'))
 
         it 'pleaseEnterMinCharactersMessage', ->
-          ac.options.pleaseEnterMinCharactersMessage.should.equal(userFacingText('autoComplete', 'pleaseEnterMinCharacters', true))
+          ac.options.pleaseEnterMinCharactersMessage.should.equal(userFacingText('autocomplete', 'pleaseEnterMinCharacters', true))
 
         it 'minCharactersMessage', ->
-          ac.options.minCharactersMessage.should.equal(userFacingText('autoComplete', 'minCharacters', true))
+          ac.options.minCharactersMessage.should.equal(userFacingText('autocomplete', 'minCharacters', true))
 
 
       describe 'and providing an initial value', ->
@@ -339,12 +331,6 @@ export default () ->
 
       it 'returns a selection', ->
         (ac instanceof Selection).should.equal(true)
-
-      # XXX Breaking: Component (regression)
-      it 'has the Autocomplete component', ->
-        (ac.component() instanceof Autocomplete).should.equal(true)
-      it 'passes the options to the Autocomplete', ->
-        ac.component().options.testMergeOption.should.equal(true)
 
       it 'has the Autocomplete component', ->
         (ac.api('autocomplete') instanceof Autocomplete).should.equal(true)

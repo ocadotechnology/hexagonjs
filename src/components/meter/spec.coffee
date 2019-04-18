@@ -6,14 +6,13 @@ import { Meter } from 'components/meter'
 
 export default () ->
   describe 'meter', ->
-    # fixture = select('body').append(div('hx-test-meter'))
-    fixture = undefined
+    fixture = select('body').append(div('hx-test-meter'))
 
     beforeEach ->
-      fixture = select('body').append(div('hx-test-meter'))
+      fixture.clear()
 
-    afterEach ->
-      # fixture.remove()
+    after ->
+      fixture.remove()
 
     it 'should set and get values', ->
       meter = new Meter(fixture.append(div()))
@@ -131,7 +130,6 @@ export default () ->
       meter.on 'render', renderSpy
       selection.style 'width', '400px'
       emit(selection.node(), 'resize')
-
       renderSpy.should.not.have.been.called()
 
 

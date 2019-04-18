@@ -66,7 +66,10 @@ export default () => {
     it('forEach should work with a different this', () => {
       const list = new List([3, 3, 2, 1, 3]);
       const items = [];
-      list.forEach(d => this.push(d), items);
+      function setItem(d) {
+        this.push(d);
+      }
+      list.forEach(setItem, items);
       return items.should.eql([3, 3, 2, 1, 3]);
     });
 

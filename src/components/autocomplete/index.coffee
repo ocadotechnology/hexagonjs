@@ -157,7 +157,7 @@ buildAutocomplete = (searchTerm, fromCallback, loading) ->
       items = items.concat filteredData
 
     # add the message if the text was set in the previous step
-    if message.text.length > 0
+    if message.text.length
       items = [message].concat items
 
     # show the dropdown if there are items, or update it if it's already visible
@@ -208,12 +208,12 @@ class Autocomplete extends EventEmitter
         allowTabCompletion: true
         value: undefined
 
-        # XXX Breaking: Text keys (autoComplete -> autocomplete)
-        loadingMessage: userFacingText('autoComplete', 'loading')
-        noResultsMessage: userFacingText('autoComplete', 'noResultsFound')
-        otherResultsMessage: userFacingText('autoComplete', 'otherResults')
-        pleaseEnterMinCharactersMessage: userFacingText('autoComplete', 'pleaseEnterMinCharacters', true)
-        minCharactersMessage: userFacingText('autoComplete', 'minCharacters', true)
+        # XXX Breaking: Text keys (autocomplete -> autocomplete)
+        loadingMessage: userFacingText('autocomplete', 'loading')
+        noResultsMessage: userFacingText('autocomplete', 'noResultsFound')
+        otherResultsMessage: userFacingText('autocomplete', 'otherResults')
+        pleaseEnterMinCharactersMessage: userFacingText('autocomplete', 'pleaseEnterMinCharacters', true)
+        minCharactersMessage: userFacingText('autocomplete', 'minCharacters', true)
       }, opts)
 
 

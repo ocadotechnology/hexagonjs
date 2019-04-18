@@ -132,8 +132,14 @@ export default () => {
       [3, 3, 2, 1, 3].forEach(d => map.set(`${d}`, d * 2));
       const keys = [];
       const values = [];
-      map.forEach(k => this.push(k), keys);
-      map.forEach((k, v) => this.push(v), values);
+      function setItem(k) {
+        this.push(k);
+      }
+      function setItemVal(k, v) {
+        this.push(v);
+      }
+      map.forEach(setItem, keys);
+      map.forEach(setItemVal, values);
       keys.should.eql(['3', '2', '1']);
       return values.should.eql([6, 4, 2]);
     });

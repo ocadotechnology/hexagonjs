@@ -56,8 +56,11 @@ dropdownContentToSetupDropdown = (dropdownContent) ->
     #   (node) -> select(node).text(dropdownContent)
     when isString(dropdownContent)
       (node) -> select(node).text(dropdownContent)
+    # XXX Breaking: Renderer
+    # when isFunction(dropdownContent)
+    #   (node) -> select(node).set(dropdownContent())
     when isFunction(dropdownContent)
-      (node) -> select(node).set(dropdownContent())
+      (node) -> dropdownContent(node)
     else
       logger.warn('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
       -> undefined

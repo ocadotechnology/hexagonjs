@@ -1,5 +1,6 @@
 import logger from 'utils/logger'
 import { clone, isPlainObject, isString, isArray } from 'utils/utils'
+import { detached, Selection } from 'utils/selection'
 
 export state =
   initialValues: {}
@@ -25,13 +26,14 @@ format = (string, params, replacer = defaultReplacer) ->
 
 
 toMultilineSelection = (string, textElement = 'span', dontAddBreak) ->
-  return new Selection(string.split('\n')
+  elements = string.split('\n')
     .reduce(((prev, curr, i) -> [
       prev...,
       (if not dontAddBreak and i > 0 then detached('br').node() else null),
       detached(textElement).text(curr).node()
     ]), [])
-  )
+
+  return new Selection(elements)
 
 lookupPlural = (valueToGet, n) ->
   a = valueToGet.filter(([min, max]) -> n >= min and (n <= max or max is null))

@@ -16,9 +16,12 @@ should = chai.should()
 
 export default () ->
   describe 'selection', ->
+    origLoggerWarn = logger.warn
     fixture = undefined
 
     beforeEach ->
+      logger.warn = chai.spy()
+
       body = select('body')
       fixture = body.append('div').attr('id', 'fixture')
       fixture.node().innerHTML = """
@@ -61,6 +64,7 @@ export default () ->
 
     afterEach ->
       fixture.remove()
+      logger.warn = origLoggerWarn
       return
 
     describe 'ElementSet', ->
@@ -204,7 +208,6 @@ export default () ->
       logger.warn.should.have.been.called()
 
     it 'selectAll should log a warning if an invalid type is given', ->
-
       selectAll(3.14156)
       logger.warn.should.have.been.called()
 

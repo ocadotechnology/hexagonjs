@@ -94,8 +94,8 @@ Comments:
 |  [x]  |  [x]  |  [-]  | util |
 |  [x]  |  [x]  |  [-]  | view |
 |  [x]  |  [x]  |  [x]  | paginator |
-|  [ ]  |  [ ]  |  [ ]  | inline-editable |
-|  [ ]  |  [ ]  |  [ ]  | inline-picker  |
-|  [ ]  |  [ ]  |  [ ]  | morph-section |
-|  [ ]  |  [ ]  |  [ ]  | drawing |
-|  [ ]  |  [ ]  |  [ ]  | plot - assumed correct |
+|  [-]  |  [-]  |  [-]  | drawing - migrated manually (no 'new' version to compare) |
+|  [-]  |  [-]  |  [-]  | inline-editable - migrated manually (no 'new' version to compare) |
+|  [-]  |  [-]  |  [-]  | inline-picker - migrated manually (no 'new' version to compare) |
+|  [-]  |  [-]  |  [-]  | morph-section - migrated manually (no 'new' version to compare) |
+|  [-]  |  [-]  |  [-]  | plot - assumed correct, updated exports |
