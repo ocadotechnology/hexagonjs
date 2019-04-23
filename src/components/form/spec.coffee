@@ -70,8 +70,6 @@ export default () ->
           invalidNode = inputContainer.select('input')
             .attr('required', true)
 
-          Object.defineProperty(invalidNode.node(), 'offsetParent', { value: 'PhantomJS Workaround', writable: false });
-
           invalidForm = detached('form')
             .add(inputContainer)
 

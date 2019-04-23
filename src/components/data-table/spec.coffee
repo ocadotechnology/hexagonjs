@@ -759,48 +759,46 @@ export default () ->
 
 
 
-      if navigator.userAgent.toLowerCase().indexOf('phantom') is -1
-        # Phantom doesn't work properly with the styles so browsers should check this works correctly.
-        describe 'retainHorizontalScrollOnRender', ->
-          describe 'true', ->
-            it 'should restore the horizontal scroll when re-rendering', (done) ->
-              tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}
-              testTable tableOpts, done, (container, dt, options, data) ->
-                container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
-                container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
-                dt.render()
-                container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
+      describe 'retainHorizontalScrollOnRender', ->
+        describe 'true', ->
+          it 'should restore the horizontal scroll when re-rendering', (done) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: true, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
+              container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
+              container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
+              dt.render()
+              container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
 
 
-          describe 'false', ->
-            it 'should not restore the horizontal scroll when re-rendering', (done) ->
-              tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
-              testTable tableOpts, done, (container, dt, options, data) ->
-                container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
-                container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
-                dt.render()
-                container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(0)
+        describe 'false', ->
+          it 'should not restore the horizontal scroll when re-rendering', (done) ->
+            tableOpts = {containerWidth: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
+              container.select('.hx-sticky-table-wrapper').node().scrollLeft = 5
+              container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(5)
+              dt.render()
+              container.select('.hx-sticky-table-wrapper').node().scrollLeft.should.equal(0)
 
 
 
-        describe 'retainVerticalScrollOnRender', ->
-          describe 'true', ->
-            it 'should restore the vertical scroll when re-rendering', (done) ->
-              tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}
-              testTable tableOpts, done, (container, dt, options, data) ->
-                container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
-                container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
-                dt.render()
-                container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
+      describe 'retainVerticalScrollOnRender', ->
+        describe 'true', ->
+          it 'should restore the vertical scroll when re-rendering', (done) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: true}}
+            testTable tableOpts, done, (container, dt, options, data) ->
+              container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
+              container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
+              dt.render()
+              container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
 
-          describe 'false', ->
-            it 'should not restore the vertical scroll when re-rendering', (done) ->
-              tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
-              testTable tableOpts, done, (container, dt, options, data) ->
-                container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
-                container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
-                dt.render()
-                container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(0)
+        describe 'false', ->
+          it 'should not restore the vertical scroll when re-rendering', (done) ->
+            tableOpts = {containerHeight: 100, tableOptions: {compact: false, retainHorizontalScrollOnRender: false, retainVerticalScrollOnRender: false}}
+            testTable tableOpts, done, (container, dt, options, data) ->
+              container.select('.hx-sticky-table-wrapper').node().scrollTop = 5
+              container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(5)
+              dt.render()
+              container.select('.hx-sticky-table-wrapper').node().scrollTop.should.equal(0)
 
 
 
