@@ -21,32 +21,30 @@ stages:
 
 jobs:
   include:
-    - stage: test
-      addons:
-        chrome: stable
-      script: npm test && npm run upload-coverage
+  - stage: test
+    script: npm test && npm run upload-coverage
 
-    - stage: publish module
-      script: skip
-      node_js: '6'
-      deploy:
-        provider: npm
-        email: hexagonjs.ci.noreply@ocado.com
-        on:
-          tags: true
-        api_key:
-          secure: v9/6ZEYthP9ewv3hS2XkD4mnbCyPaoniP0UX/022PxuGT1gb0Vd0KVO8fnXjC/FpAJ3/0v6ph/nkCBt36bp3D5/RgmKi7C4QOXcESVt7NMViQKqkfm/VGu3EMg57D06cR3FDWoq+oYc/1HEzMlxMfQsl9h7ojkCi+9uNO5KLPDQSiAzDKrlrkCKP/M5kWEZJ60lHiXZy5LVUmnsd6dcEqRPUV+JJcn6JSmJ2G6g7UESIR4tcWrNo2ADZWpW5QlLE4BwIkX/m2kkrY2zqK7DtR9GeKGba3J/JxtrsFsxTUxNoog34CHUT/9FDKUaetP1dmc+2ApyUgFlvrd2LsysryokqNw7HWezUUexa1manrD/rLyi+o591etrIsjza42zZGaY4AI5vESlry1uzLmod8gwIU3e6f9ZhGiyQ2l2BFZeb6bdzJyGZyJ9nD1jbcT1F9VF4116d8dYlRyrdRZAZwOYhDVtysYv5MPkrdv7LcY7ov4bypcatu8tIQgRc9pnw///gW5GXXkG+wp/83t8sntmMG77aPuXR5Zq0l5anOnFRH2QVSesZc++eAHYJFT6cyLQiuNhQcSKpdrFLYPqsz25QvpnDWP8zT3g4D1Dt7aWtwgJz9hLFfIkW71XHDTw7/dVSPe2RD1sqzXt35KCxzGC9jIW5oqYPV9+djXAy1/M=
+  - stage: publish module
+    script: skip
+    node_js: '6'
+    deploy:
+      provider: npm
+      email: hexagonjs.ci.noreply@ocado.com
+      on:
+        tags: true
+      api_key:
+        secure: v9/6ZEYthP9ewv3hS2XkD4mnbCyPaoniP0UX/022PxuGT1gb0Vd0KVO8fnXjC/FpAJ3/0v6ph/nkCBt36bp3D5/RgmKi7C4QOXcESVt7NMViQKqkfm/VGu3EMg57D06cR3FDWoq+oYc/1HEzMlxMfQsl9h7ojkCi+9uNO5KLPDQSiAzDKrlrkCKP/M5kWEZJ60lHiXZy5LVUmnsd6dcEqRPUV+JJcn6JSmJ2G6g7UESIR4tcWrNo2ADZWpW5QlLE4BwIkX/m2kkrY2zqK7DtR9GeKGba3J/JxtrsFsxTUxNoog34CHUT/9FDKUaetP1dmc+2ApyUgFlvrd2LsysryokqNw7HWezUUexa1manrD/rLyi+o591etrIsjza42zZGaY4AI5vESlry1uzLmod8gwIU3e6f9ZhGiyQ2l2BFZeb6bdzJyGZyJ9nD1jbcT1F9VF4116d8dYlRyrdRZAZwOYhDVtysYv5MPkrdv7LcY7ov4bypcatu8tIQgRc9pnw///gW5GXXkG+wp/83t8sntmMG77aPuXR5Zq0l5anOnFRH2QVSesZc++eAHYJFT6cyLQiuNhQcSKpdrFLYPqsz25QvpnDWP8zT3g4D1Dt7aWtwgJz9hLFfIkW71XHDTw7/dVSPe2RD1sqzXt35KCxzGC9jIW5oqYPV9+djXAy1/M=
 
-    - stage: publish pages
-      env:
-        - GITHUB_PAGES=true
-      script: cd docs && npm install && npm run clean && npm run build
-      node_js: '8'
-      deploy:
-        provider: pages
-        local-dir: docs/target
-        skip-cleanup: true
-        keep-history: true
-        fqdn: hexagonjs.io
-        email: hexagonjs.ci.noreply@ocado.com
-        github-token: $GITHUB_TOKEN
+  - stage: publish pages
+    env:
+      - GITHUB_PAGES=true
+    script: cd docs && npm install && npm run clean && npm run build
+    node_js: '8'
+    deploy:
+      provider: pages
+      local-dir: docs/target
+      skip-cleanup: true
+      keep-history: true
+      fqdn: hexagonjs.io
+      email: hexagonjs.ci.noreply@ocado.com
+      github-token: $GITHUB_TOKEN
