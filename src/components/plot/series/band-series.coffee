@@ -2,7 +2,7 @@ import { select } from 'utils/selection'
 import { color } from 'utils/color'
 import { merge } from 'utils/utils'
 
-import { theme } from 'theme'
+import { theme } from 'utils/theme'
 
 import { Series } from '../series'
 import { optionSetterGetter } from '../utils'

@@ -1,7 +1,5 @@
-import { dateTimePicker } from 'hexagon-js'
+import { dateTimePicker } from 'hexagon-js';
 
-export default () => {
-  return [
-    dateTimePicker()
-  ]
-}
+export default () => [
+  dateTimePicker(),
+];

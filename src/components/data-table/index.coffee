@@ -1336,6 +1336,9 @@ dataTable = (options) ->
   if options and options.feed then dt.render()
   selection
 
+dataTable.objectFeed = objectFeed
+dataTable.urlFeed = urlFeed
+
 export {
   dataTable,
   DataTable,

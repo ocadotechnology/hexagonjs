@@ -24,7 +24,7 @@ class ButtonGroup extends EventEmitter
     @current = undefined
 
     group = select(selector)
-      .api('button-group')
+      .api('button-group', this)
       .api(this)
       .classed('hx-button-group', true)
       .append('div')

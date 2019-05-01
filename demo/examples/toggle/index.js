@@ -1,5 +1,3 @@
-import { toggle } from 'hexagon-js'
+import { toggle } from 'hexagon-js';
 
-export default () => {
-  return toggle()
-}
+export default () => toggle();

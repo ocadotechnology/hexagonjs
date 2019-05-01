@@ -5,7 +5,7 @@ const supportedTypes = ['success', 'danger', 'warning'];
 
 function badge(options = {}) {
   const { type, inverse } = options;
-  const validType = !type || !supportedTypes.includes(type);
+  const validType = !type || supportedTypes.includes(type);
   if (!validType) {
     logger.warn(`badge: Badge was called with an invalid type: '${type}'. Supported types: ${supportedTypes.join(', ')}`);
   }

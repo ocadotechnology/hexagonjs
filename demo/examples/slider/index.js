@@ -1,6 +1,4 @@
-import { div, slider } from 'hexagon-js'
+import { div, slider } from 'hexagon-js';
 
-export default () => {
-  return div('slider-demo')
-    .add(slider())
-}
+export default () => div('slider-demo')
+  .add(slider());

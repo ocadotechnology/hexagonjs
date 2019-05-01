@@ -451,13 +451,13 @@ export class Form extends EventEmitter
       setValue = (items) -> component.items(items)
 
       if options.required
-        input = @select('input')
+        input = elem.select('input')
 
         setValidity = () ->
           input.node().setCustomValidity(userFacingText('form', 'pleaseAddAValue'))
 
         change = () ->
-          value = tagInput.items()
+          value = component.items()
           if value is undefined or not value.length
             setValidity()
           else
@@ -465,8 +465,8 @@ export class Form extends EventEmitter
 
         setValidity()
 
-        tagInput.on 'add', 'hx.form-builder', change
-        tagInput.on 'remove', 'hx.form-builder', change
+        component.on 'add', 'hx.form-builder', change
+        component.on 'remove', 'hx.form-builder', change
 
       return {
         key: options.key

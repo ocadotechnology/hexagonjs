@@ -6,7 +6,7 @@ import {
   select,
   tabs,
   Tabs,
-} from 'hexagon-js'
+} from 'hexagon-js';
 
 export default () => {
   const manualTabDiv = div()
@@ -16,11 +16,11 @@ export default () => {
     .add(div('hx-tabs-content').style('padding', '1em')
       .add(div('hx-tab-content').text('Tab 1 Content').attr('id', 'tab-1'))
       .add(div('hx-tab-content').text('Tab 2 Content').attr('id', 'tab-2'))
-      .add(div('hx-tab-content').text('Tab 3 Content').attr('id', 'tab-3')))
+      .add(div('hx-tab-content').text('Tab 3 Content').attr('id', 'tab-3')));
 
-  new Tabs(manualTabDiv)
+  new Tabs(manualTabDiv);
 
-  const contexts = [undefined, 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast']
+  const contexts = [undefined, 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast'];
 
   return [
     manualTabDiv,
@@ -29,11 +29,11 @@ export default () => {
       items: range(8).map((_, i) => ({
         title: `Tab ${i + 1}`,
         content: `Tab Content ${i + 1} - ${cycle(contexts, i)} border`,
-        context: cycle(contexts, i)
+        context: cycle(contexts, i),
       })),
       contentRenderer: (elem, content) => {
-        select(elem).style('padding', '1em').text(content)
-      }
-    })
-  ]
-}
+        select(elem).style('padding', '1em').text(content);
+      },
+    }),
+  ];
+};

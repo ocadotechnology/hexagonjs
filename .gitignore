@@ -10,5 +10,8 @@
 npm-debug.log
 node_modules
 target
+dist
 coverage
+hexagon-*.tgz
+
 docs/resources/hexagon/nextReleaseVersion

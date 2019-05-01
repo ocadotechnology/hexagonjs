@@ -1,8 +1,8 @@
 import { userFacingText } from 'utils/user-facing-text'
 import { clamp, range, merge } from 'utils/utils'
-import { detached, select } from 'utils/selection'
+import { detached, select, div } from 'utils/selection'
 import { EventEmitter } from 'utils/event-emitter'
-import { theme } from 'theme'
+import { theme } from 'utils/theme'
 
 userFacingText({
   paginator: {
@@ -68,8 +68,10 @@ class Paginator extends EventEmitter
   constructor: (selector, options) ->
     super()
 
-    component.register(selector, this)
     @container = select(selector).classed('hx-paginator', true)
+      .api('paginator', this)
+      .api(this)
+
 
     @_ = merge({
       page: 1,

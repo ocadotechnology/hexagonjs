@@ -1,7 +1,5 @@
-import { numberPicker } from 'hexagon-js'
+import { numberPicker } from 'hexagon-js';
 
-export default () => {
-  return [
-    numberPicker()
-  ]
-}
+export default () => [
+  numberPicker(),
+];

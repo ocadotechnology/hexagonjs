@@ -118,3 +118,44 @@
   background: var(--menu-contrast-background-color-hover);
   color: var(--menu-contrast-text-color-hover);
 }
+
+.hx-menu-active.hx-menu-link {
+  border-color: var(--menu-default-border-color-active);
+  background: var(--menu-default-background-color-hover);
+  color: var(--menu-default-text-color-hover);
+}
+.hx-action .hx-menu-active.hx-menu-link {
+  border-color: var(--menu-action-border-color-active);
+  background: var(--menu-action-background-color-hover);
+  color: var(--menu-action-text-color-hover);
+}
+.hx-positive .hx-menu-active.hx-menu-link {
+  border-color: var(--menu-positive-border-color-active);
+  background: var(--menu-positive-background-color-hover);
+  color: var(--menu-positive-text-color-hover);
+}
+.hx-negative .hx-menu-active.hx-menu-link {
+  border-color: var(--menu-negative-border-color-active);
+  background: var(--menu-negative-background-color-hover);
+  color: var(--menu-negative-text-color-hover);
+}
+.hx-warning .hx-menu-active.hx-menu-link {
+  border-color: var(--menu-warning-border-color-active);
+  background: var(--menu-warning-background-color-hover);
+  color: var(--menu-warning-text-color-hover);
+}
+.hx-info .hx-menu-active.hx-menu-link {
+  border-color: var(--menu-info-border-color-active);
+  background: var(--menu-info-background-color-hover);
+  color: var(--menu-info-text-color-hover);
+}
+.hx-complement .hx-menu-active.hx-menu-link {
+  border-color: var(--menu-complement-border-color-active);
+  background: var(--menu-complement-background-color-hover);
+  color: var(--menu-complement-text-color-hover);
+}
+.hx-contrast .hx-menu-active.hx-menu-link {
+  border-color: var(--menu-contrast-border-color-active);
+  background: var(--menu-contrast-background-color-active);
+  color: var(--menu-contrast-text-color-active);
+}

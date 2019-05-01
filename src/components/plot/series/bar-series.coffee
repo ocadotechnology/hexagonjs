@@ -1,7 +1,7 @@
 import { select } from 'utils/selection'
 import { merge, find, clamp } from 'utils/utils'
 
-import { theme } from 'theme'
+import { theme } from 'utils/theme'
 
 import { Series } from '../series'
 import { optionSetterGetter } from '../utils'

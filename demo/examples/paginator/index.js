@@ -1,6 +1,9 @@
-import { div, paginator } from 'hexagon-js'
+import { div, paginator } from 'hexagon-js';
 
-export default () => {
-  return div('paginator-demo')
-    .add(paginator())
-}
+export default () => div('paginator-demo')
+// .add(paginator())
+  .add(paginator({
+    v2Features: {
+      useAccessibleRendering: true,
+    },
+  }));

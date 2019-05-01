@@ -4,7 +4,7 @@ import { EventEmitter } from 'utils/event-emitter'
 import { merge, randomId } from 'utils/utils'
 import { arcCurve, svgCurve } from 'components/plot'
 import { detached, select } from 'utils/selection'
-import { theme } from 'theme'
+import { theme } from 'utils/theme'
 import { userFacingText } from 'utils/user-facing-text'
 
 userFacingText({

@@ -1,13 +1,15 @@
-import { detached, div, button, span, Form } from 'hexagon-js'
+import {
+  detached, div, button, span, Form,
+} from 'hexagon-js';
 
 export default () => {
-  const theForm = div()
+  const theForm = div();
   new Form(theForm)
     .addText('Text', { required: true, placeholder: 'Name' })
     .addTextArea('Text Area', { placeholder: 'Name' })
     .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
     .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
-    .addNumber('Number', {required: true})
+    .addNumber('Number', { required: true })
     .addPicker('Select', ['red', 'green', 'blue'])
     .addCheckbox('Checkbox')
     .addPassword('Password')
@@ -18,7 +20,7 @@ export default () => {
     .addTimePicker('Time Picker')
     .addDateTimePicker('Date Time Picker')
     .addSubmit('Submit', 'fa fa-check')
-    .on('submit', function (data) {console.log(data)})
+    .on('submit', (data) => { console.log(data); });
 
   return [
     detached('form').class('hx-form')
@@ -38,13 +40,16 @@ export default () => {
         .add(detached('label').text('Radio'))
         .add(div().attr('id', 'group-1')
           .add(div()
-            .add(detached('input').attr('id', 'radio1').attr('type', 'radio').attr('value', 'One').attr('name', 'group-1'))
+            .add(detached('input').attr('id', 'radio1').attr('type', 'radio').attr('value', 'One')
+              .attr('name', 'group-1'))
             .add(detached('label').attr('for', 'radio1').text('One')))
           .add(div()
-            .add(detached('input').attr('id', 'radio2').attr('type', 'radio').attr('value', 'Two').attr('name', 'group-1'))
+            .add(detached('input').attr('id', 'radio2').attr('type', 'radio').attr('value', 'Two')
+              .attr('name', 'group-1'))
             .add(detached('label').attr('for', 'radio2').text('Two')))
           .add(div()
-            .add(detached('input').attr('id', 'radio3').attr('type', 'radio').attr('value', 'Three').attr('name', 'group-1'))
+            .add(detached('input').attr('id', 'radio3').attr('type', 'radio').attr('value', 'Three')
+              .attr('name', 'group-1'))
             .add(detached('label').attr('for', 'radio3').text('Three')))))
       .add(div()
         .add(detached('label').attr('for', 'checkbox1').text('Checkbox'))
@@ -57,6 +62,6 @@ export default () => {
         .add(detached('i').class('fa fa-paper-plane'))
         .add(span().text(' Submit'))),
     detached('br'),
-    theForm
-  ]
-}
+    theForm,
+  ];
+};

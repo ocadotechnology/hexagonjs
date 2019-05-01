@@ -3,10 +3,10 @@ import { select, div } from 'utils/selection'
 import { sum, merge, clamp, flatten } from 'utils/utils'
 import { si } from 'utils/format'
 
-import { theme } from 'theme'
+import { theme } from 'utils/theme'
 
 import { plotLabelStandard } from './labels'
-import { optionSetterGetter } from './utils'
+import { arcCurve, arcCurveMinimumRadius, populateLegendSeries, optionSetterGetter } from './utils'
 
 # not part of the core graphing api, since polar coordinates are difficult to mix with axes
 

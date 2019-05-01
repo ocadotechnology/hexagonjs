@@ -13,16 +13,20 @@
         "devDependencies": [
           "**/*.spec.js",
           "**/spec.js",
-          "rollup.config.js"
+          "*.config.js"
         ]
       }
     ],
-    "import/prefer-default-export": [
-      "warn"
-    ]
+    "import/prefer-default-export": [ "warn" ],
+    "no-new": [ "warn" ]
   },
   "settings": {
     "import/resolver": {
+      "alias": {
+        "map": [
+          ["hexagon-js", "./src/hexagon.js"]
+        ]
+      },
       "node": {
         "extensions": [
           ".js",

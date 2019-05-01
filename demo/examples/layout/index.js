@@ -1,7 +1,6 @@
-import { div, group, section } from 'hexagon-js'
+import { div, group, section } from 'hexagon-js';
 
 export default () => {
-
   const exampleLayout = group()
     .add(section())
     .add(group({ vertical: true })
@@ -11,8 +10,8 @@ export default () => {
         .add(section())
         .add(section())))
     .add(section())
-    .add(section())
+    .add(section());
 
   return div('layout-demo')
-    .add(exampleLayout)
-}
+    .add(exampleLayout);
+};

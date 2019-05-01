@@ -1,4 +1,8 @@
-import { TitleBar, Sidebar, div, select } from 'hexagon-js'
+import {
+  div,
+  TitleBar,
+  Sidebar,
+} from 'hexagon-js';
 
 export default () => {
   const html = `
@@ -77,23 +81,23 @@ export default () => {
       <button id="info-btn" class="hx-btn hx-info">Info State</button>
     </div>
     <div class="hx-content example-content"></div>
-    `
+    `;
 
   // XXX: Append to the body so the code actually works correctly
   // As we are returning the selection, a lot of the logic won't work
   // We can safely append to the body and return the attached div as it will
   // be relocated in the DOM by the parent `add`
-  const sidebar = div('hx-sidebar-page sidebar-example')
-  sidebar.node().innerHTML = html
+  const sidebar = div('hx-sidebar-page sidebar-example');
+  sidebar.node().innerHTML = html;
 
-  new TitleBar(sidebar.select('.example-heading'))
+  new TitleBar(sidebar.select('.example-heading'));
   new Sidebar(sidebar.select('.hx-sidebar'), {
     headerSelector: sidebar.select('.example-titlebar').node(),
     contentSelector: sidebar.select('.example-content').node(),
     autoAddSidebarClass: false,
-  })
+  });
 
   return [
-    sidebar
-  ]
-}
+    sidebar,
+  ];
+};

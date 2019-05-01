@@ -1,8 +1,6 @@
-import { spinner, spinnerWide } from 'hexagon-js'
+import { spinner, spinnerWide } from 'hexagon-js';
 
-export default () => {
-  return [
-    spinner(),
-    spinnerWide()
-  ]
-}
+export default () => [
+  spinner(),
+  spinnerWide(),
+];

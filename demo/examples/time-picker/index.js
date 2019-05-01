@@ -1,7 +1,5 @@
-import { timePicker } from 'hexagon-js'
+import { timePicker } from 'hexagon-js';
 
-export default () => {
-  return [
-    timePicker()
-  ]
-}
+export default () => [
+  timePicker(),
+];

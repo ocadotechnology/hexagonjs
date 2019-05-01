@@ -21,7 +21,7 @@
 }
 
 .hx-table tbody tr:hover {
-  background: var(--table-row-background-color);
+  background: var(--table-row-hover-background-color);
 }
 
 .hx-table.hx-table-no-hover tbody tr:hover {

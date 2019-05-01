@@ -43,7 +43,7 @@ body.hx-full-screen > .hx-heading {
   transition: background 0.5s;
 }
 
-.hx-titlebar.hx-titlebar-icon {
+.hx-titlebar .hx-titlebar-icon {
   transition: background 0.1s;
   align-self: stretch;
   display: flex;

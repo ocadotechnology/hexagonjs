@@ -5,6 +5,13 @@
   background: var(--layout-content-background-color);
 }
 
+/* content breakpoint */
+@media (max-width: 1300px) {
+  .hx-content {
+    max-width: var(--layout-content-breakpoint-width);
+  }
+}
+
 .hx-heading + .hx-content {
   padding-top: var(--layout-content-padding);
 }
@@ -44,13 +51,6 @@
   /* fallback to static percentage in case calc is not supported */
   flex-basis: 90%;
   flex-basis: calc(100% - (2 * var(--layout-margin)));
-}
-
-/* content breakpoint */
-@media (max-width: --layout-content-breakpoint) {
-  .hx-content {
-    max-width: var(--layout-content-breakpoint-width);
-  }
 }
 
 .hx-border {
