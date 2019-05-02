@@ -240,6 +240,10 @@ export {
   inlinePicker,
 } from 'components/inline-picker';
 
+export {
+  logger,
+};
+
 // XXX: these apis should be opt-in
 initAnimate(); // XXX: remove
 initMorphs(); // XXX: remove

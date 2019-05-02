@@ -1,6 +1,4 @@
-import { theme } from 'hexagon.core';
-
-theme({
+export default {
   plotColor1: 'rgb(177,119,190)',
   plotColor2: 'rgb(90,155,212)',
   plotColor3: 'rgb(241,90,113)',
@@ -66,4 +64,4 @@ theme({
     disabledCol: '#FAFAFA',
     disabledTextCol: '#939393',
   },
-});
+};
