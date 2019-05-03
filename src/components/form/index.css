@@ -4,16 +4,6 @@
   display: inline-block;
 }
 
-.hx-form input[type="radio"], input[type="checkbox"] {
-  margin-top: 0em;
-  display: inline-block;
-}
-
-.hx-form > button[type="submit"] {
-  margin-top: 8px;
-  margin-right: 0;
-}
-
 .hx-form .hx-form-buttons > * {
   display: inline-block;
 }
@@ -30,6 +20,18 @@
 .hx-form > div:not(.hx-form-buttons) > *:not(input):not(select):not(textarea):not(button):not(.hx-btn) {
   padding-top: 8px;
 }
+
+.hx-form input[type="radio"],
+.hx-form input[type="checkbox"] {
+  margin-top: 0em;
+  display: inline-block;
+}
+
+.hx-form > button[type="submit"] {
+  margin-top: 8px;
+  margin-right: 0;
+}
+
 
 /* Padding top doesn't look right for inputs and select and the other margins make the boxes difficult to align */
 .hx-form > div:not(.hx-form-buttons) > input,

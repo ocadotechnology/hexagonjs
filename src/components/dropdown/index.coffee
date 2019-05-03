@@ -25,7 +25,7 @@ dropdownContentToSetupDropdown = (dropdownContent) ->
     # when isString(dropdownContent)
     #   (node) -> select(node).text(dropdownContent)
     when isString(dropdownContent)
-      (node) -> select(node).text(dropdownContent)
+      (node) -> select(node).html(dropdownContent)
     # XXX Breaking: Renderer
     # when isFunction(dropdownContent)
     #   (node) -> select(node).set(dropdownContent())

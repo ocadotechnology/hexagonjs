@@ -402,7 +402,7 @@ class DataTable extends EventEmitter
 
     controlPanelCompact = div('hx-data-table-control-panel-compact')
 
-    controlPanelCompactToggle = button('hx-data-table-control-panel-compact-toggle hx-btn-invisible')
+    controlPanelCompactToggle = button('hx-data-table-control-panel-compact-toggle hx-btn hx-btn-invisible')
       .add(i('hx-icon hx-icon-bars'))
       .on 'click', ->
         toggleElem = controlPanel

@@ -168,7 +168,7 @@
 }
 .hx-btn:disabled, .hx-btn.hx-disabled, .hx-btn:disabled:hover, .hx-btn:disabled:active, .hx-btn.hx-disabled:hover, .hx-btn.hx-disabled:active {
   background: var(--button-disabled-background-col);
-  color: var(--buitton-disabled-text-col);
+  color: var(--button-disabled-text-col);
   border: 1px solid var(--button-disabled-border-col);
 }
 
