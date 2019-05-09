@@ -1,6 +1,7 @@
 import { select, div } from 'utils/selection'
 import { isFunction, mergeDefined, clone } from 'utils/utils'
 import { EventEmitter } from 'utils/event-emitter'
+import logger from 'utils/logger'
 
 import { StickyTableHeaders } from 'components/sticky-table-headers'
 

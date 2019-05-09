@@ -235,7 +235,7 @@ class Axis
     switch @x.scaleType()
       when 'linear' then @xScale = new LinearScale().range(0, @graph.width)
       when 'discrete' then @xScale = new DiscreteScale(@x.discretePadding()).range(0, @graph.width)
-      when 'log' then @xScale = new LogScale().range(0, @graph.width)
+      # when 'log' then @xScale = new LogScale().range(0, @graph.width)
       when 'date' then @xScale = new DateScale().range(0, @graph.width)
 
     if @x.scaleType() == 'discrete'
@@ -335,7 +335,7 @@ class Axis
     switch @y.scaleType()
       when 'linear' then @yScale = new LinearScale().range(rmin, 0)
       when 'discrete' then @yScale = new DiscreteScale(@y.discretePadding()).range(rmin, 0)
-      when 'log' then @yScale = new LogScale().range(rmin, 0)
+      # when 'log' then @yScale = new LogScale().range(rmin, 0)
       when 'date' then @yScale = new DateScale().range(rmin, 0)
 
     if @y.scaleType() == 'discrete'
@@ -400,12 +400,12 @@ class Axis
     switch @x.scaleType()
       when 'linear', 'date' then @xScale.range(totalXOffset, width)
       when 'discrete' then @xScale.range(totalXOffset, width)
-      when 'log' then @xScale.range(totalXOffset, width)
+      # when 'log' then @xScale.range(totalXOffset, width)
 
     switch @y.scaleType()
       when 'linear', 'date' then @yScale.range(height - totalYOffset, 0)
       when 'discrete' then @yScale.range(height - totalYOffset, 0)
-      when 'log' then @yScale.range(height - totalYOffset, 0)
+      # when 'log' then @yScale.range(height - totalYOffset, 0)
 
     gridSelection = select(element).select('.hx-axis-grid')
 
@@ -590,7 +590,7 @@ class Axis
                 else
                   undefined
               else if s instanceof BandSeries
-                extent2(data, ((d) -> d.y1), (d) -> d.y2)
+                extent(data, ((d) -> d.y1), (d) -> d.y2)
               else
                 extent(data, (d) -> d.y)
             ys = maybeys.filter((d) -> d?)

@@ -708,6 +708,7 @@ class Composite extends DrawingObject
     @
 
   delete: (name) ->
+    object = @objectMap.get(name)
     @objectList.delete(object)
     @objectMap.delete(name)
 

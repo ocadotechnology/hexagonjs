@@ -700,7 +700,7 @@ class DatePicker extends EventEmitter
     return this
 
   getScreenDate: (endDate) ->
-    @localizer.date if not endDate then _.startDate else _.endDate
+    @localizer.date if not endDate then @_.startDate else @_.endDate
 
   visibleMonth: (month, year) ->
     _ = @_

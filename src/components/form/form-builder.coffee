@@ -14,6 +14,8 @@ import { FileInput } from 'components/file-input'
 import { Toggle } from 'components/toggle'
 import { AutocompletePicker } from 'components/autocomplete-picker'
 
+import { validateForm } from './validate-form'
+
 # XXX: Refactor into constructor in next major
 getButtons = (form) ->
   selection = select(form.selector)
@@ -510,14 +512,14 @@ export class Form extends EventEmitter
       input = @append('input').class('hx-hidden-form-input').attr('size', 0)
       @style('position', 'relative')
 
-      autocompletePicker.value(values[0]) unless typeof options.required is 'boolean'
+      component.value(values[0]) unless typeof options.required is 'boolean'
 
       setValidity = () ->
         input.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'))
 
       if options.required
         setValidity()
-        autocompletePicker.on 'change', 'hx.form-builder', ({ value, cause }) ->
+        component.on 'change', 'hx.form-builder', ({ value, cause }) ->
           if value is undefined
             setValidity()
           else
@@ -529,5 +531,5 @@ export class Form extends EventEmitter
         key: options.key
         hidden: options.hidden
         disabled: options.disabled
-        disable: (disabled) -> autocompletePicker.disabled(disabled)
+        disable: (disabled) -> component.disabled(disabled)
       }

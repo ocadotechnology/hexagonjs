@@ -1,3 +1,5 @@
+import logger from 'utils/logger'
+
 import { isString } from 'utils/utils'
 
 siSuffixes = ['y','z','a','f','p','n','µ','','','K','M','G','T','P','E','Z','Y']

@@ -63,6 +63,7 @@ import fileInputTests from 'components/file-input/spec';
 import meterTests from 'components/meter/spec';
 import drawingTests from 'components/drawing/spec';
 import inlineEditableTests from 'components/inline-editable/spec';
+import paginatorTests from 'components/paginator/spec';
 
 chai.should();
 
@@ -226,6 +227,9 @@ describe('HexagonJS Test Suite', () => {
         'LineSeries',
         'List',
         'localeCompare',
+        'logger',
+        'logger.deprecated',
+        'logger.warn',
         'loop',
         'Map',
         'max',
@@ -345,14 +349,12 @@ describe('HexagonJS Test Suite', () => {
         'zip',
       ].sort();
 
-      // console.log(propertyList.filter(x => !(x in hx)))
-      // console.log(Object.keys(hx).filter(x => propertyList.indexOf(x) === -1))
-
-      // propertyList.filter(x => !(x in hx)).should.eql([]);
-      // Object.keys(hx).filter(x => propertyList.indexOf(x) === -1).should.eql([]);
-      console.log(JSON.stringify(getDeepKeys(hx), null, 2));
-      getDeepKeys(hx).should.eql(propertyList);
-      // expect(hx).to.have.keys(propertyList);
+      const deepKeys = getDeepKeys(hx);
+      const extraKeys = deepKeys.filter(x => propertyList.indexOf(x) === -1);
+      const missingKeys = propertyList.filter(x => deepKeys.indexOf(x) === -1);
+      console.log(extraKeys, missingKeys);
+      extraKeys.should.eql([]);
+      missingKeys.should.eql([]);
     });
   });
 
@@ -420,6 +422,7 @@ describe('HexagonJS Test Suite', () => {
   meterTests();
   drawingTests();
   inlineEditableTests();
+  paginatorTests();
 
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
