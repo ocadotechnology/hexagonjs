@@ -4,7 +4,7 @@ import { EventEmitter } from 'utils/event-emitter'
 import { shallowMerge, randomId, clampUnit, clamp, flatten, isObject } from 'utils/utils'
 import { List as HList } from 'utils/list'
 
-import { optionSetterGetter, boundLabel } from './utils'
+import { populateLegendSeries, optionSetterGetter, boundLabel } from './utils'
 import { Axis } from './axis'
 
 userFacingText({
