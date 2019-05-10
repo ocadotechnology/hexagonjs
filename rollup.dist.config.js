@@ -21,7 +21,6 @@ const libraryConfig = {
     file: 'dist/hexagon.js',
     format: 'iife',
     name: 'hx',
-    outro: 'window.hx = exports',
   },
   plugins: [
     json(),
