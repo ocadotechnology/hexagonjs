@@ -275,6 +275,7 @@ export default () ->
       checkOption('singleSelection', [true, false])
       checkOption('selectedRows', [[1,2,3], []])
       checkOption('expandedRows', [[1,2,3], []])
+      checkOption('useStickyHeaders', [true, false])
       checkOption('sort', [{column: 'name', direction: 'asc'}, {column: 'age', direction: 'desc'}, undefined])
 
     describe 'column options', ->

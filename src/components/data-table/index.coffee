@@ -333,6 +333,7 @@ class DataTable extends EventEmitter
       sort: undefined
       sortEnabled: true
       highlightOnHover: true
+      useStickyHeaders: true
       selectedRows: []
       expandedRows: []
 
@@ -605,6 +606,7 @@ class DataTable extends EventEmitter
   selectEnabled: option('selectEnabled')
   highlightOnHover: option('highlightOnHover')
   singleSelection: option('singleSelection')
+  useStickyHeaders: option('useStickyHeaders')
   sort: option('sort')
 
   # general purpose function for setting / getting a column option (or the default option of the column id is not specified)
@@ -1165,9 +1167,10 @@ class DataTable extends EventEmitter
             .classed('hx-data-table-show-search-above-content', options.showSearchAboveTable)
 
           # set up the sticky headers
-          stickFirstColumn = options.selectEnabled or options.collapsibleRenderer?
-          stickyOpts = {stickFirstColumn: stickFirstColumn and (filteredCount is undefined or filteredCount > 0), fullWidth: true}
-          @_.stickyHeaders = new StickyTableHeaders(container.node(), stickyOpts)
+          if options.useStickyHeaders
+            stickFirstColumn = options.selectEnabled or options.collapsibleRenderer?
+            stickyOpts = {stickFirstColumn: stickFirstColumn and (filteredCount is undefined or filteredCount > 0), fullWidth: true}
+            @_.stickyHeaders = new StickyTableHeaders(container.node(), stickyOpts)
 
           # restore horizontal scroll position
           selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node().scrollLeft = scrollLeft if scrollLeft?
