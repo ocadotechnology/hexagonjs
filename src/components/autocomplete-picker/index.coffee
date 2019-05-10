@@ -27,18 +27,16 @@ validateItems = (feed, items) ->
 
 setPickerValue = (picker, results, cause) ->
   _ = picker._
+  _.valueText.clear()
   if results.length
     _.current = results[0]
-    # XXX Breaking: Autocomplete always emit on value set
-    # REVERT (#438) - This change introduced a breaking bug, reverting until next major
     picker.emit('change', {
       cause: cause
-      value: _.current
+      value: results[0]
     })
-
     # XXX Breaking: Renderer
     # _.valueText.set(_.renderer(_.current))
-    _.renderer _.valueText.node(), _.current
+    _.renderer _.valueText.node(), results[0]
   else
     _.current = undefined
     _.valueText.text(_.options.chooseValueText)
@@ -88,7 +86,7 @@ class AutocompletePicker extends EventEmitter
     valueText = div('hx-autocomplete-picker-text')
 
     selection
-      .add(div('hx-autocomplete-picker-text'))
+      .add(valueText)
       .add(span('hx-autocomplete-picker-icon')
         .add(i('hx-icon hx-icon-caret-down')))
 

@@ -185,6 +185,7 @@ export class Form extends EventEmitter
     @properties.set options.key,
       type: 'button'
       node: formBtn.node()
+      options: {}
       extras: {
         disable: (s, disabled) -> formBtn.attr('disabled', if disabled then 'disabled' else undefined)
       }

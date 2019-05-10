@@ -91,3 +91,7 @@
   margin: 0;
   padding: 0;
 }
+
+.hx-paginator-center {
+  text-align: center;
+}

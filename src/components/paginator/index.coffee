@@ -86,6 +86,7 @@ class Paginator extends EventEmitter
       prevText: userFacingText('paginator', 'prev'),
       nextText: userFacingText('paginator', 'next'),
       v2Features: {
+        showCentered: false,
         padding: 2,
         useAccessibleRendering: false,
       },
@@ -95,6 +96,8 @@ class Paginator extends EventEmitter
 
     if @_.v2Features.useAccessibleRendering
       # 2.x
+      @container.classed('hx-paginator-center', @_.v2Features.showCentered)
+
       navItemEnter = () ->
         navItem = detached('li')
           .class('hx-paginator-button-container')

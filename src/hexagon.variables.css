@@ -390,6 +390,11 @@
   --menu-border-width: 2px;
   --menu-collapsible-background-color: #FDFDFD;
   --menu-collapsible-text-color: var(--theme-text-color);
+  --menu-max-height: 500px;
+  --menu-item-padding: 0.4em;
+  --menu-item-link-margin: -0.4em;
+  --menu-collapsible-padding: 0.75em;
+  --menu-item-collapsible-left-padding: 1.5em;
 
   --menu-disabled-background-color: #FFF;
   --menu-disabled-text-color: var(--theme-disabled-text-color);

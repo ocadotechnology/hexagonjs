@@ -395,7 +395,7 @@ export class Selection
 
   # gets or sets the inner html of the nodes in the selection
   html: (html) ->
-    logger.deprecated('Selection::html', 'N/A')
+    logger.deprecated('Selection::html', 'N/A - This method has been removed for security reasons')
     if arguments.length == 1
       for node in @nodes
         node.innerHTML = if html? then html else ''

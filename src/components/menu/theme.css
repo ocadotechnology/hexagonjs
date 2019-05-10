@@ -1,3 +1,34 @@
+.hx-menu {
+  max-height: var(--menu-max-height);
+}
+
+.hx-menu-item.hx-menu-link {
+  padding: var(--menu-item-padding);
+}
+
+.hx-menu-item.hx-menu-link a {
+  padding: var(--menu-item-padding);
+  margin: var(--menu-item-link-margin);
+  color: inherit;
+}
+
+.hx-menu-item.hx-menu-item-disabled {
+  padding: var(--menu-item-padding);
+}
+
+.hx-menu-item.hx-menu-unselectable {
+  padding: var(--menu-item-padding);
+}
+
+.hx-menu-collapsible {
+  padding: var(--menu-collapsible-padding);
+}
+
+.hx-menu .hx-collapsible-content > .hx-menu-item {
+  padding-left: var(--menu-item-collapsible-left-padding);
+}
+
+
 /* default */
 .hx-menu-link,
 .hx-menu-collapsible {
