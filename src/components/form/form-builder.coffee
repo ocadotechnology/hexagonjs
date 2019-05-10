@@ -270,10 +270,10 @@ export class Form extends EventEmitter
     @add name, 'checkbox', ->
       elem = detached('input').attr('type', 'checkbox')
       if options.required? then elem.attr('required', options.required)
-      if options.value then elem.attr('checked', true)
+      if options.value then elem.prop('checked', true)
 
-      setValue = (value) -> elem.attr('checked', value)
-      getValue = () -> if elem.attr('checked') is 'true' then true else false
+      setValue = (value) -> elem.prop('checked', value)
+      getValue = () -> elem.prop('checked')
 
       {
         key: options.key
@@ -296,7 +296,7 @@ export class Form extends EventEmitter
         item = div('hx-radio-container')
         input = item.append('input').attr('type', 'radio').attr('name', id).attr('id',id+'-'+count).value(value)
         if options.required? then input.attr('required', options.required)
-        if options.value is value then input.attr('checked', true)
+        if options.value is value then input.prop('checked', true)
         item.append('label').attr('for', id + '-' + count).text(value)
         elem.add(item)
         count += 1

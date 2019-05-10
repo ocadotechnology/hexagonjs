@@ -198,6 +198,7 @@ class MenuItem
     else
       container
         .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
+        .classed('hx-menu-active', false)
         .classed('hx-menu-item-disabled', @content.disabled)
         .classed('hx-menu-unselectable', @content.unselectable)
         # XXX Breaking: Renderer
