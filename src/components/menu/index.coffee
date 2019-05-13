@@ -265,6 +265,10 @@ export class Menu extends EventEmitter
 
     @dropdown = new Dropdown(@selector, dropdownContainer, @options.dropdownOptions)
 
+    @dropdown.on 'hideend', ->
+      self.cursorPos = -1
+      dropdownContainer.selectAll('.hx-menu-item').classed('hx-menu-active', false);
+
     @dropdown.on 'showend', =>
       if @dropdown._.dropdown?
         node = @dropdown._.dropdown.node()
