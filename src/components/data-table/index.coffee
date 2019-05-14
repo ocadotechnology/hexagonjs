@@ -1151,7 +1151,7 @@ class DataTable extends EventEmitter
           # retain the horizontal scroll unless the page has been changed.
           # We only retain the horizontal scroll as when sorting/filtering on
           # the first page it retains the vertical scroll which looks weird.
-          if @page() is @_.oldPage
+          if options.useStickyHeaders and @page() is @_.oldPage
             wrapperNode = selection.select('.hx-data-table-content > .hx-sticky-table-wrapper').node()
             scrollLeft = wrapperNode.scrollLeft if options.retainHorizontalScrollOnRender
             scrollTop = wrapperNode.scrollTop if options.retainVerticalScrollOnRender

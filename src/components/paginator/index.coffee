@@ -26,7 +26,7 @@ makeItem = (page, currentPage) ->
   "#{page}#{if currentPage == page then '~' else ''}"
 
 makeRange = (first, last) ->
-  Array(last - first + 1).fill(0).map((_, index) -> index + first)
+  range(last - first + 1).map((_, index) -> index + first)
 
 getPageItems = (currentPage = 1, pageCount, padding) ->
   items = if pageCount
