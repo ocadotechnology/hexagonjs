@@ -28,6 +28,7 @@ jobs:
     script: npm run dist
     deploy:
       provider: npm
+      skip_cleanup: true
       email: hexagonjs.ci.noreply@ocado.com
       on:
         tags: true
