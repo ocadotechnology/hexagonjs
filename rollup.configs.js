@@ -84,7 +84,7 @@ const distLibraryConfig = {
 const demoLibraryConfig = {
   ...distLibraryConfig,
   output: {
-    file: 'dist/hexagon.js',
+    file: 'demo/hexagon.js',
     format: 'iife',
     name: 'hx',
   },

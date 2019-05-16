@@ -344,7 +344,7 @@ export class Form extends EventEmitter
         pickerOptions.items = values
 
       component = new Picker(elem.node(), pickerOptions)
-      input = detached('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
+      input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
       component.value(values[0]) unless typeof options.required is 'boolean'
 
       setValidity = () ->
@@ -499,8 +499,8 @@ export class Form extends EventEmitter
       }
 
   addAutocompletePicker: (name, values, options = {}) ->
-    @add name, 'select', 'div', ->
-      elem = 'button'
+    @add name, 'select', ->
+      elem = button()
         .attr('type', 'button')
         .class(options.buttonClass)
 
@@ -510,8 +510,8 @@ export class Form extends EventEmitter
         autocompletePickerOptions.items = values
 
       component = new AutocompletePicker(elem.node(), values, autocompletePickerOptions)
-      input = @append('input').class('hx-hidden-form-input').attr('size', 0)
-      @style('position', 'relative')
+      input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
+      elem.style('position', 'relative')
 
       component.value(values[0]) unless typeof options.required is 'boolean'
 
@@ -527,10 +527,12 @@ export class Form extends EventEmitter
             input.node().setCustomValidity('')
 
       return {
-        required: options.required
-        component: component
         key: options.key
-        hidden: options.hidden
-        disabled: options.disabled
+        elem: elem
+        component: component
         disable: (disabled) -> component.disabled(disabled)
+        options: {
+          hidden: options.hidden
+          disabled: options.disabled
+        }
       }
