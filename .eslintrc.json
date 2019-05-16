@@ -13,7 +13,8 @@
         "devDependencies": [
           "**/*.spec.js",
           "**/spec.js",
-          "*.config.js"
+          "*.config.js",
+          "rollup.configs.js"
         ]
       }
     ],

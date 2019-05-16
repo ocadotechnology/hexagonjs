@@ -1,6 +1,6 @@
 {
   "name": "hexagon-js",
-  "version": "2.0.0",
+  "version": "2.0.0-beta.5",
   "description": "A modular, themeable collection of components for modern browsers",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
@@ -20,18 +20,20 @@
   },
   "main": "dist/hexagon.core.js",
   "files": [
-    "dist"
+    "dist",
+    "demo"
   ],
   "scripts": {
     "start": "run-p watch:* watch:demo:*",
     "watch:browser-test-runner": "browser-test-runner start .",
     "watch:js": "rollup -w -c rollup.dev.config.js",
     "watch:css": "postcss src/hexagon.css -w -c postcss.config.js -o target/hexagon.css",
-    "watch:css-print": "postcss src/hexagon.print.css -w -c postcss.config.js -o target/hexagon.print.css",
-    "watch:demo:css": "postcss demo/index.css -w -c postcss.config.js -o target/index.css",
-    "watch:demo:assets": "cpx -w \"src/assets/*\" target/assets",
-    "watch:demo:favicons": "cpx -w \"src/favicons/*\" target/favicons",
-    "watch:demo:html": "cpx -w demo/index.html target",
+    "watch:css-print": "postcss src/hexagon.print.css -w -c postcss.config.js -o demo/hexagon.print.css",
+    "watch:demo:hexagon-css": "postcss src/hexagon.css -w -c postcss.config.js -o demo/hexagon.css",
+    "watch:demo:css": "postcss src/demo/index.css -w -c postcss.config.js -o demo/index.css",
+    "watch:demo:assets": "cpx -w \"src/assets/*\" demo/assets",
+    "watch:demo:favicons": "cpx -w \"src/favicons/*\" demo/favicons",
+    "watch:demo:html": "cpx -w src/demo/index.html demo",
     "clean": "rimraf coverage target dist",
     "dist:js": "rollup -c rollup.dist.config.js",
     "dist:assets": "cpx \"src/assets/*\" dist/assets",
@@ -42,6 +44,11 @@
     "dist:css:print": "postcss src/hexagon.print.css -c postcss.config.js -o dist/hexagon.print.css",
     "dist:css:core": "postcss src/hexagon.core.css -c postcss.config.js -o dist/hexagon.core.css",
     "dist:css:theme": "postcss src/hexagon.theme.css -c postcss.config.js -o dist/hexagon.theme.css",
+    "dist:demo": "run-p dist:demo:*",
+    "dist:demo:css": "postcss src/demo/index.css -c postcss.config.js -o demo/index.css",
+    "dist:demo:assets": "cpx \"src/assets/*\" demo/assets",
+    "dist:demo:favicons": "cpx  \"src/favicons/*\" demo/favicons",
+    "dist:demo:html": "cpx  src/demo/index.html demo",
     "predist": "npm run clean",
     "dist": "run-p dist:*",
     "prepack": "npm run dist",
@@ -59,7 +66,7 @@
     "run-local-tests:firefox": "browser-test-runner firefox 'test/index.html'",
     "run-tests-saucelabs": "browser-test-runner saucelabs 'test/index.html'",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "lint": "eslint src test demo *.config.js"
+    "lint": "eslint src test *.config.js rollup.configs.js"
   },
   "devDependencies": {
     "ajv": "^6.10.0",
@@ -79,6 +86,7 @@
     "phantomjs-prebuilt": "^2.1.15",
     "postcss": "^7.0.14",
     "postcss-cli": "^6.1.2",
+    "postcss-css-variables": "^0.12.0",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.6.0",
     "rimraf": "^2.6.3",

@@ -59,20 +59,9 @@ function tryDemo(demoFn) {
     return detached('pre').class('big-ol-error').text(e.toString());
   }
 }
-const toggleSel = div().text('Toggle old theme');
-const toggle = new hx.Toggle(toggleSel)
-  .on('change', (val) => {
-    hx.select('#hex').attr('href', val ? 'hexagon-old.css' : 'hexagon.css');
-  });
-
-if (document.location.search === '?old=true') {
-  toggle.value(true);
-  hx.select('#hex').attr('href', 'hexagon-old.css');
-}
 
 select('body')
   .add(titleBar({ title: 'Title', subtitle: 'Subtitle' }))
-  .add(toggleSel)
   .add(div('hx-content').add([
     example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
     example('Autocomplete').add(tryDemo(autocompleteExamples)),
