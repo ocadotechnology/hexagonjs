@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/ocadotechnology/hexagonjs.git"
   },
+  "publishConfig": {
+    "tag": "beta",
+  },
   "bugs": {
     "url": "https://github.com/ocadotechnology/hexagonjs/issues"
   },
