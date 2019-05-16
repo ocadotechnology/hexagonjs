@@ -25,7 +25,7 @@ jobs:
     script: npm test && npm run upload-coverage
 
   - stage: publish module
-    script: skip
+    script: npm run dist
     deploy:
       provider: npm
       email: hexagonjs.ci.noreply@ocado.com

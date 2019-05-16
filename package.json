@@ -54,7 +54,6 @@
     "dist:demo:html": "cpx  src/demo/index.html demo",
     "predist": "npm run clean",
     "dist": "run-p dist:*",
-    "prepack": "npm run dist",
     "build:js": "rollup -c rollup.dev.config.js",
     "test": "run-s lint test-phantomjs",
     "test-saucelabs": "run-s build:js run-tests-saucelabs",
