@@ -2,9 +2,9 @@ language: node_js
 
 node_js:
   # - '9'
-  # - '8'
+  - '8'
   # - '7'
-  - '6'
+  # - '6'
 
 env:
   global:
@@ -26,7 +26,6 @@ jobs:
 
   - stage: publish module
     script: skip
-    node_js: '6'
     deploy:
       provider: npm
       email: hexagonjs.ci.noreply@ocado.com
@@ -39,7 +38,6 @@ jobs:
     env:
       - GITHUB_PAGES=true
     script: cd docs && npm install && npm run clean && npm run build
-    node_js: '8'
     deploy:
       provider: pages
       local-dir: docs/target
