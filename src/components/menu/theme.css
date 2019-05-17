@@ -14,8 +14,8 @@
 
 .hx-menu-item.hx-menu-item-disabled {
   padding: var(--menu-item-padding);
-  color: var(----menu-disabled-text-color);
-  background: var(----menu-disabled-background-color);
+  color: var(--menu-disabled-text-color);
+  background: var(--menu-disabled-background-color);
 }
 
 .hx-menu-item.hx-menu-unselectable {
