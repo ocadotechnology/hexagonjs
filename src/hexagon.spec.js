@@ -191,6 +191,7 @@ describe('HexagonJS Test Suite', () => {
         'format.si',
         'format.zeroPad',
         'getAdvancedSearchFilter',
+        'getThemeVariable',
         'Graph',
         'graph',
         'group',
