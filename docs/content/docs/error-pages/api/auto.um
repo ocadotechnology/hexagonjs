@@ -1,4 +1,9 @@
 @class hx-error-message
+  @updated 1.20.0
+    @description
+      Tweaked the styles to improve readability and usability.
+
+
   @description
     The class to give to the error message container. This container will be moved to the exact centre of the page.
 

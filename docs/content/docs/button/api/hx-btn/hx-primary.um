@@ -1,0 +1,11 @@
+@extraClass hx-primary
+  @added 1.20.0
+    @desription
+      Added the buttons to match the updated UX guidelines
+
+  @description
+    A button for use when there is an action that’s more important than other ones on the page, and you want to draw the user’s attention towards it.
+
+    You can have one Primary button per screen (excluding modal dialogs).
+
+    But sometimes you shouldn’t use a Primary button at all, e.g. when all the actions on the page are very rarely used, or when all the actions are of equal importance.

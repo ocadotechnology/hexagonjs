@@ -1,0 +1,16 @@
+@version 1.20.0
+  @examples
+    @example
+      @@html
+        <span class="hx-badge">Default</span>
+        <span class="hx-badge hx-success">Successful</span>
+        <span class="hx-badge hx-warning">Warning</span>
+        <span class="hx-badge hx-danger">Failed</span>
+
+    @example
+      @@html
+        <h3>Outlined Badges</h3>
+        <span class="hx-badge hx-badge-inverse">Default</span>
+        <span class="hx-badge hx-badge-inverse hx-success">Successful</span>
+        <span class="hx-badge hx-badge-inverse hx-warning">Warning</span>
+        <span class="hx-badge hx-badge-inverse hx-danger">Failed</span>

@@ -1,0 +1,7 @@
+@extraClass hx-btn-micro
+  @added 1.20.0
+    @desription
+      Added the buttons to match the updated UX guidelines
+
+  @description
+    The smallest type of button available. Use when there isn't enough space to fit a small or normal button.

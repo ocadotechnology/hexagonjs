@@ -14,7 +14,7 @@ import logger from 'utils/logger';
 export { version } from '../package.json';
 
 // Include access to the theme
-export { theme } from 'utils/theme';
+export { theme, getThemeVariable } from 'utils/theme';
 
 // Utils
 export { Set } from 'utils/set';

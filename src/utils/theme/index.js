@@ -15,6 +15,11 @@ function theme(t) {
   return currentTheme;
 }
 
+function getThemeVariable(varName) {
+  return getComputedStyle(document.body).getPropertyValue(varName);
+}
+
 export {
   theme,
+  getThemeVariable,
 };

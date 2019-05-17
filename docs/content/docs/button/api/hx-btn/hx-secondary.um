@@ -1,0 +1,11 @@
+@extraClass hx-secondary
+  @added 1.20.0
+    @desription
+      Added the buttons to match the updated UX guidelines
+
+  @description
+    A button for use inside forms to allow actions to be performed on form fields.
+
+    The secondary button should be paired with a form field. And the functionality of the secondary button should be related to the form field it’s paired with.
+
+    Like the Primary button, the Secondary button is optional - only use it if a form requires it.
