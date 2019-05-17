@@ -1,6 +1,6 @@
 {
   "name": "hexagon-js",
-  "version": "2.0.0-beta.8",
+  "version": "2.0.0-rc.1",
   "description": "A modular, themeable collection of components for modern browsers",
   "author": "James Smyth <james.smyth@ocado.com>",
   "contributors": [
@@ -68,7 +68,8 @@
     "run-local-tests:firefox": "browser-test-runner firefox 'test/index.html'",
     "run-tests-saucelabs": "browser-test-runner saucelabs 'test/index.html'",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "lint": "eslint src test *.config.js rollup.configs.js"
+    "lint": "eslint src test *.config.js rollup.configs.js",
+    "postdist": "eslint dist/hexagon.js --no-eslintrc -c .eslintrc.catch-undefined.json --no-ignore"
   },
   "devDependencies": {
     "ajv": "^6.10.0",

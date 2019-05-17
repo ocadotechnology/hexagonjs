@@ -32,6 +32,7 @@ class PieChart extends EventEmitter
     selection = select(@selector)
       .classed('hx-pie-chart', true)
       .on('resize', 'hx.plot', => @render())
+      .api('pie-chart', this)
       .api(this)
 
     @_ = {

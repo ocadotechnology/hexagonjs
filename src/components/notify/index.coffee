@@ -240,13 +240,18 @@ notifyDefaultTimeout = (timeout) ->
 notify = (message, options) ->
   inbuiltNotificationManager.notify(message, options)
 
+wrapDeprecated = (name, method) ->
+  (...args) ->
+    logger.deprecated(name, "Replaced by hx.#{name}")
+    method(...args)
+
 # XXX Deprecated: Remove in next major
-notify.info = notifyInfo
-notify.positive = notifyPositive
-notify.warning = notifyWarning
-notify.negative = notifyNegative
-notify.loading = notifyLoading
-notify.defaultTimeout = notifyDefaultTimeout
+notify.info = wrapDeprecated('hx.notify.info', notifyInfo)
+notify.positive = wrapDeprecated('hx.notify.positive', notifyPositive)
+notify.warning = wrapDeprecated('hx.notify.warning', notifyWarning)
+notify.negative = wrapDeprecated('hx.notify.negative', notifyNegative)
+notify.loading = wrapDeprecated('hx.notify.loading', notifyLoading)
+notify.defaultTimeout = wrapDeprecated('hx.notify.defaultTimeout', notifyDefaultTimeout)
 
 export {
   notify,

@@ -36,6 +36,7 @@ class Graph extends EventEmitter
     id = randomId()
 
     selection = select(@selector)
+      .api('graph', this)
       .api(this)
 
     selection.on 'resize', 'hx.plot', =>

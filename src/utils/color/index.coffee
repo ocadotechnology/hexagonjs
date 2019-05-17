@@ -1,3 +1,4 @@
+import logger from 'utils/logger'
 import { range, isString, clamp } from 'utils/utils'
 
 componentToHex = (c) ->
@@ -225,3 +226,12 @@ export isColorString = (str) -> fromString(str) isnt undefined
 
 # check if an object is a Color instance
 export isColor = (obj) -> obj instanceof Color
+
+# XXX Deprecated: Color
+wrapDeprecated = (name, method) ->
+  (...args) ->
+    logger.deprecated(name, "Replaced by hx.#{name}")
+    method(...args)
+
+color.isColorString = wrapDeprecated('isColorString', isColorString)
+color.isColor = wrapDeprecated('isColor', isColor)

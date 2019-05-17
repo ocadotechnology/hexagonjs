@@ -25,6 +25,7 @@ function section(options = {}) {
 
 // XXX Deprecated: Fluid
 group.vertical = () => group({ vertical: true });
+group.vertical.fixed = () => group({ vertical: true, fixed: true });
 group.fixed = () => group({ fixed: true });
 section.fixed = () => section({ fixed: true });
 

@@ -295,7 +295,7 @@ export class Menu extends EventEmitter
               @data (data) ->
                 self.loading = false
                 loading.remove()
-                setupItems(self, data)
+                setup(data)
             @dropdown.show()
 
     if selection.node().nodeName.toLowerCase() is 'input'
