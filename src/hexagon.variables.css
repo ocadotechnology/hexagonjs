@@ -29,9 +29,6 @@
   --theme-default-color: #FFFFFF;
   --theme-default-hover-color: #E6E6E6;
 
-  --theme-disabled-border-color: #FAFAFA;
-  --theme-disabled-color: #FAFAFA;
-  --theme-disabled-hover-color: #FAFAFA;
 
   --theme-info-body-color: #E7D0EA;
   --theme-info-border-color: #9d4ca6;
@@ -65,6 +62,10 @@
   --theme-context-faint-icon-color: rgba(255, 255, 255, 0.5);
   --theme-context-faint-icon-hover-color: rgba(255, 255, 255, 0.85);
 
+
+  --theme-disabled-border-color: #FAFAFA;
+  --theme-disabled-color: #FAFAFA;
+  --theme-disabled-hover-color: #FAFAFA;
   --theme-disabled-background-color: var(--theme-disabled-color);
   --theme-disabled-text-color: #939393;
   --theme-disabled-border-color: var(--theme-disabled-color);
