@@ -87,10 +87,10 @@
           .add(titleText('Thread Count', '19'))
           .add(titleText('Page Hits', '2236 / s')))
         .add(hx.card.aligned()
-          .add(sparkline({text: 'Memory Use', sparklineColor: hx.theme.plot.colors[0], sparklineData: hx.range(60).map(random)}))
-          .add(sparkline({text: 'Thread Count', sparklineColor: hx.theme.plot.colors[1], sparklineData: hx.range(60).map(random)}))
-          .add(sparkline({text: 'Page Hits', sparklineColor: hx.theme.plot.colors[2], sparklineData: hx.range(60).map(random)}))
-          .add(sparkline({text: 'Messages Processed', sparklineColor: hx.theme.plot.colors[3], sparklineData: hx.range(60).map(random)})))
+          .add(sparkline({text: 'Memory Use', sparklineColor: hx.theme().plot.colors[0], sparklineData: hx.range(60).map(random)}))
+          .add(sparkline({text: 'Thread Count', sparklineColor: hx.theme().plot.colors[1], sparklineData: hx.range(60).map(random)}))
+          .add(sparkline({text: 'Page Hits', sparklineColor: hx.theme().plot.colors[2], sparklineData: hx.range(60).map(random)}))
+          .add(sparkline({text: 'Messages Processed', sparklineColor: hx.theme().plot.colors[3], sparklineData: hx.range(60).map(random)})))
     }
 
     hx.select('#card-container').classed('hx-group hx-horizontal', true)
