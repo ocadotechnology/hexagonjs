@@ -17,7 +17,7 @@
   --theme-complement-body-color: #F9F9F9;
   --theme-complement-border-color: #DBDBE4;
   --theme-complement-color: #F7F7F9;
-  --theme-complement-hover-color: #e8e8ee;
+  --theme-complement-hover-color: #E8E8EE;
 
   --theme-contrast-body-color: #F9F9F9;
   --theme-contrast-border-color: #313434;
@@ -25,30 +25,30 @@
   --theme-contrast-hover-color:  #636868;
 
   --theme-default-body-color: #F9F9F9;
-  --theme-default-border-color: var(--theme-text-color);
+  --theme-default-border-color: #E6E6E6;
   --theme-default-color: #FFFFFF;
-  --theme-default-hover-color: #E6E6E6;
+  --theme-default-hover-color: #F2F2F2;
 
 
   --theme-info-body-color: #E7D0EA;
-  --theme-info-border-color: #9d4ca6;
+  --theme-info-border-color: #9D4CA6;
   --theme-info-color: #B36ABB;
-  --theme-info-hover-color: #c58dcb;
+  --theme-info-hover-color: #C58DCB;
 
   --theme-negative-body-color: #F1C0CB;
-  --theme-negative-border-color: #de1546;
+  --theme-negative-border-color: #DE1546;
   --theme-negative-color: #EC3A65;
-  --theme-negative-hover-color: #f06989;
+  --theme-negative-hover-color: #F06989;
 
   --theme-positive-body-color: #DBE2AE;
-  --theme-positive-border-color: #6f9112;
+  --theme-positive-border-color: #6F9112;
   --theme-positive-color: #92BF17;
-  --theme-positive-hover-color: #b1e524;
+  --theme-positive-hover-color: #B1E524;
 
   --theme-warning-body-color: #EFDEC7;
-  --theme-warning-border-color: #aa7b1d;
+  --theme-warning-border-color: #AA7B1D;
   --theme-warning-color: #D69B24;
-  --theme-warning-hover-color: #e1b04c;
+  --theme-warning-hover-color: #E1B04C;
 
   --theme-body-background-color: rgb(247, 247, 249);
   --theme-body-font: 'Open Sans', sans-serif;
@@ -108,7 +108,7 @@
 
 
   /* Base */
-  --base-body-background-color: #f7f7f9;
+  --base-body-background-color: #F7F7F9;
   --base-body-background-color: var(--theme-body-background-color);
   --base-default-font-family: var(--theme-body-font);
   --base-default-font-size: var(--theme-font-size);

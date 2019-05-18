@@ -649,6 +649,5 @@ export detached = (name, namespace) ->
   namespace = if namespaces.hasOwnProperty(name) then namespaces[name] else namespaces.xhtml
   bareSelect(document.createElementNS(namespace, name))
 
-# XXX: [2.0.0] added (needs documenting)
 export isSelection = (selection) -> selection instanceof Selection
 
