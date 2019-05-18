@@ -69,11 +69,11 @@
     "test-firefox": "run-s test:js run-local-tests:firefox",
     "test-safari": "run-s test:js run-local-tests:safari",
     "test-all": "run-s test:js all run-local-tests:*",
-    "run-local-tests:phantomjs": "browser-test-runner phantomjs 'test/index.html'",
-    "run-local-tests:chrome": "browser-test-runner chrome 'test/index.html'",
-    "run-local-tests:safari": "browser-test-runner safari 'test/index.html'",
-    "run-local-tests:firefox": "browser-test-runner firefox 'test/index.html'",
-    "run-tests-saucelabs": "browser-test-runner saucelabs 'test/index.html'",
+    "run-local-tests:phantomjs": "browser-test-runner phantomjs test/index.html",
+    "run-local-tests:chrome": "browser-test-runner chrome test/index.html",
+    "run-local-tests:safari": "browser-test-runner safari test/index.html",
+    "run-local-tests:firefox": "browser-test-runner firefox test/index.html",
+    "run-tests-saucelabs": "browser-test-runner saucelabs test/index.html",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
