@@ -6,11 +6,31 @@ import logger from 'utils/logger'
 import { DatePicker } from 'components/date-picker'
 import { config as dropdownConfig } from 'components/dropdown'
 
-import { emit } from 'test/utils/fake-event'
-import { installFakeTimers } from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
 
 export default () ->
   describe 'date-picker', ->
+    oneDayMs = 1000 * 60 * 60 * 24
+    oneMonthMs = 31 * oneDayMs
+    animationDelay = 301
+    origAttachSelector = dropdownConfig.attachToSelector
+    originalLoggerWarn = logger.warn
+
+    fixture = undefined
+    body = select('body')
+
+    beforeEach ->
+      logger.warn = chai.spy()
+      fixture = body.append('div').class('hx-test-date-picker')
+      dropdownConfig.attachToSelector = fixture
+
+    afterEach ->
+      logger.warn = originalLoggerWarn
+      dropdownConfig.attachToSelector = origAttachSelector
+      fixture.remove()
+
+
     roundedDate = (start, today) ->
       date = new Date
       if today? and not today
@@ -32,14 +52,6 @@ export default () ->
         }
       else
         range
-
-    originalLoggerWarn = logger.warn
-
-    beforeEach ->
-      logger.warn = chai.spy()
-
-    afterEach ->
-      logger.warn = originalLoggerWarn
 
     describe 'test return types:', ->
 
@@ -212,15 +224,8 @@ export default () ->
 
 
       describe 'options', ->
-        oneDayMs = 1000 * 60 * 60 * 24
-        oneMonthMs = 31 * oneDayMs
-        animationDelay = 301
         origDateNow = Date.now
-        origAttachSelector = dropdownConfig.attachToSelector
-
-        fixture = undefined
         clock = undefined
-        body = select('body')
 
         before ->
           clock = installFakeTimers()
@@ -229,14 +234,6 @@ export default () ->
         after ->
           clock.restore()
           Date.now = origDateNow
-
-        beforeEach ->
-          fixture = body.append('div').class('hx-test-date-picker')
-          dropdownConfig.attachToSelector = fixture
-
-        afterEach ->
-          dropdownConfig.attachToSelector = origAttachSelector
-          fixture.remove()
 
         describe 'allowViewChange', ->
           dp = undefined

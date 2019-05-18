@@ -7,8 +7,8 @@ import logger from 'utils/logger'
 import { TagInput } from 'components/tag-input'
 import { config  as dropdownConfig } from 'components/dropdown'
 
-import { installFakeTimers } from 'test/utils/fake-time'
-import { emit } from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
 
 export default () ->
   should = chai.should()

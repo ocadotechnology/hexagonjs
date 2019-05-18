@@ -23,3 +23,108 @@
       }
       hx.userFacingText(text)
 
+@version 1.20.0
+  @examples
+    @@codeblock js
+      // Get all currently set values
+      hx.userFacingText()
+
+      // Get all values that were first set
+      hx.userFacingText.defaults()
+
+      // Set multiple values
+      var text = {
+        form: {
+          missingValue: 'Value Missing'
+        },
+        yourComponentName: {
+          yourKeyValue: 'Some Text'
+        }
+      }
+      hx.userFacingText(text)
+
+      // Get and set inbuilt values:
+      hx.userFacingText('form', 'missingValue') // Get the text for the 'form' module and 'missingValue' key
+      hx.userFacingText('form', 'missingValue', 'Value Missing') // Set the text
+
+      // Get and set custom values
+      hx.userFacingText('yourComponentName', 'yourKeyValue', 'Some Text') // Set a custom user facing text
+      hx.userFacingText('yourComponentName', 'yourKeyValue') // Returns: "Some Text"
+
+
+      // Plurals use the `$n` parameter. This defaults to 1 if not provided.
+      hx.userFacingText('example', 'plural-key', [
+        [null, 0, 'Value Zero'],
+        [1, 1, 'Value Singular'],
+        [2, 2, 'Value Two'],
+        [3, null, 'Value $n']
+      ])
+
+      hx.userFacingText('example', 'plural-key')
+      hx.userFacingText('example', 'plural-key', { n: 0 })
+      // => 'Value Singular'
+
+      hx.userFacingText('example', 'plural-key', { n: 0 })
+      // => 'Value Zero'
+
+      hx.userFacingText('example', 'plural-key', { n: 2 })
+      // => 'Value Two'
+
+      hx.userFacingText('example', 'plural-key', { n: 100 })
+      // => 'Value 100'
+
+      // The following are equivalent:
+      hx.userFacingText('form', 'missingValue', 'Value Missing') // Set the text
+      hx.userFacingText('form', 'missingValue', [[null, null, 'Value Missing']) // Set the text
+
+
+    @example
+      @@html
+        <h4>Main Page - <span id="currentVersion"></span></h4>
+        <h4>Main Page - <span id="currentVersion-noparse"></span></h4>
+        <h4>Main Page - <span id="currentVersion-arrayparam"></span></h4>
+        <div id="introduction"></div>
+
+        <button id="confirmBtn" class="hx-btn"></button>
+        <button id="cancelBtn" class="hx-btn"></button>
+
+      @@js
+        // Translation text is two-levels deep
+        const myText = {
+          buttons: {
+            confirm: 'Confirm',
+          },
+          homePage: {
+            introduction: 'This is an introduction.\nIt contains multiple lines',
+            version: 'Current version: $version',
+            versionCustom: 'Current version: {0}',
+          },
+        }
+
+        // Set with an object
+        hx.userFacingText(myText)
+
+        // Set with a specific key
+        hx.userFacingText('buttons', 'cancel', 'Cancel')
+
+        // Use keys
+        hx.select('#confirmBtn').text(hx.userFacingText('buttons', 'confirm'))
+        hx.select('#cancelBtn').text(hx.userFacingText('buttons', 'cancel'))
+
+        // Use multiline strings in selections
+        hx.select('#introduction').add(hx.userFacingText.toMultilineSelection(hx.userFacingText('homePage', 'introduction')))
+
+        // Inject parameters
+        hx.select('#currentVersion').text(hx.userFacingText('homePage', 'version', { version: '10.10.10' }))
+
+        // Parse parameters after creation
+        const customVersionText = hx.userFacingText('homePage', 'version', true)
+        hx.select('#currentVersion-noparse').text(hx.userFacingText.format(customVersionText, { version: '1.2.3' }))
+
+        // Custom param replacement
+        const customText = hx.userFacingText('homePage', 'versionCustom')
+        const arrayReplacer = (str, key, array) => str.replace(new RegExp(`\\\{${key}\\\}`, 'g'), array[key]);
+        hx.select('#currentVersion-arrayparam').text(hx.userFacingText.format(customText, ['10.11.12'], arrayReplacer));
+
+
+

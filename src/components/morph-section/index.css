@@ -1,0 +1,14 @@
+.hx-morph-section {
+  display: inline-block;
+}
+.hx-morph-section.hx-morph-section-full {
+  display: block;
+}
+.hx-morph-section > .hx-morph-toggle {
+  margin: 0;
+  width: 100%;
+  display: block;
+}
+.hx-morph-section > .hx-morph-content {
+  overflow: hidden;
+}

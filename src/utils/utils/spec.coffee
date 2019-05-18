@@ -5,7 +5,7 @@ import { Set as HSet } from 'utils/set'
 import { Map as HMap } from 'utils/map'
 import { List as HList } from 'utils/list'
 
-import { installFakeTimers } from 'test/utils/fake-time'
+import installFakeTimers from 'test/utils/fake-time'
 
 export default () ->
   should = chai.should()

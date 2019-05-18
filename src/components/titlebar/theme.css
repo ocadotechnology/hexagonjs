@@ -51,7 +51,7 @@ body.hx-titlebar-link-padding .hx-heading + .hx-content {
   color: var(--titlebar-icon-color);
 }
 
-.hx-titlebar-menu-icon :hover {
+.hx-titlebar-menu-icon:hover {
   color: var(--titlebar-icon-hover-color);
 }
 

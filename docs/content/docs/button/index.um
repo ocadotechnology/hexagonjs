@@ -8,6 +8,134 @@
     Provides the default font styles and header classes
 
 @contentSection
+  @topic Using Buttons
+    @notice [Version 2.x]
+      In version 2 of Hexagon, the user experience and interface are being overhauled to add guidelines and improve the general usability of the library.
+
+      This module has had several new classes added for @code[hx-btn] elements that apply new styles. The standard @code[hx-btn] class can be used with @code[hx-flag-button] to apply the new styles to default buttons.
+
+      Alternatively, this class can be applied to the @code[body] to make all buttons on the page use the new styles.
+
+      The guidelines below use the version 2 styles.
+
+    @section Button Sizes
+      There are 3 button sizes. @bold[Normal], @bold[Small] and @bold[Micro]
+
+
+      @@html
+        <button class="hx-btn hx-btn-normal">normal</button>
+        <button class="hx-btn hx-btn-small">small</button>
+        <button class="hx-btn hx-btn-micro">micro</button>
+
+      By default you should use the @bold[Normal] size button. The other button types are useful when there is limited vertical space available
+
+
+    @section Button Types
+      There are four main kinds of buttons for use throughout an app, @bold[Primary], @bold[Secondary], @bold[Standard] and @bold[Link]
+
+      @@html
+        <button class=" hx-flag-button hx-btn hx-primary">primary</button>
+
+      Use the @bold[Primary] button when there is an action that’s more important than other ones on the page, and you want to draw the user’s attention towards it. You can have one Primary button per screen (excluding modal dialogs). But sometimes you shouldn’t use a Primary button at all, e.g. when all the actions on the page are very rarely used, or when all the actions are of equal importance.
+
+      @@html
+        <button class=" hx-flag-button hx-btn hx-secondary">secondary</button>
+
+      The @bold[Secondary] button can be used inside forms to allow actions to be performed on form fields. The secondary button should be paired with a form field. And the functionality of the secondary button should be related to the form field it’s paired with. Like the Primary button, the Secondary button is optional - only use it if a form requires it.
+
+      @@html
+        <button class=" hx-flag-button hx-btn">btn</button>
+
+      Use the @bold[Standard] button when the action isn’t more important than the rest on the page, or if all the actions are of equal importance. There’s no limit on how many Standard buttons you can use on a page, but we recommend that you use a Dropdown button or More button if there are many actions to perform on the page.
+
+      @@html
+        <button class=" hx-flag-button hx-btn hx-btn-link">link</button>
+
+      Use the @bold[Link] button when the action is relatively unimportant, and a normal button would create too much visual noise on the page. E.g. resetting fields in a search form; hiding or opening a UI panel. The text in the link button should all be uppercase.
+
+      @@html
+        <button class=" hx-flag-button hx-btn hx-success">success</button> <button class=" hx-flag-button hx-btn hx-danger">danger</button>
+
+      There are also two buttons for positive/negative actions. Use the green @bold[Success] button when you have an action that has a positive meaning, like ‘approve’, or ‘confirm’.
+      Use the red @bold[Danger] button when you have an action with a negative meaning, like ‘reject’ or ‘delete’. If your action is commonplace or is neutral in meaning, like ‘save’ or ‘send’, then you don’t have to use either of these buttons.
+
+      When you have a pair of actions that are opposite to each other, like ‘Approve’ and ‘Reject’ or ‘Buy’ and ‘Sell’, you can use the Success and Danger buttons next to each other.
+
+      @@html
+        <button disabled class="hx-flag-button hx-btn">disabled attr</button>
+
+      Use a @bold[Disabled] button using the @code[disabled] attribute to show that a functionality exists but isn’t currently available.
+
+      Using icons in buttons is not recommended as they usually don't add much contextually and the text on the button should be explicit enough that an icon is not required.
+
+    @section Grouping buttons
+      When buttons are positioned near each other, they form a button group. Within a button group you can have a maximum of one Primary button. The rest of the buttons should only be Default buttons. Please note that the Primary button is not mandatory in a button group. It’s ok to have a button group composed of only Default buttons.
+
+      @h3: Allowed
+
+      @@html
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn hx-primary">Primary</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+        </div>
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn hx-secondary">Secondary</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+        </div>
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+        </div>
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn hx-success">Positive</div>
+          <div class="hx-btn hx-danger">Negative</div>
+        </div>
+
+
+      @h3: Allowed in modals
+      @@html
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn hx-success">Positive</div>
+        </div>
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn hx-danger">Negative</div>
+        </div>
+
+      @h3: Not allowed
+      @@html
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn hx-primary">Primary</div>
+          <div class="hx-btn hx-secondary">Secondary</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+        </div>
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn hx-primary">Primary</div>
+          <div class="hx-btn hx-primary">Primary</div>
+          <div class="hx-btn hx-secondary">Secondary</div>
+          <div class="hx-btn hx-secondary">Secondary</div>
+        </div>
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn hx-danger">Negative</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+        </div>
+        <div class="hx-flag-button hx-margin-bottom">
+          <div class="hx-btn hx-success">Positive</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+          <div class="hx-btn">Default</div>
+        </div>
+
   @topic Examples
     @examples
       @versioned
@@ -21,6 +149,7 @@
         @inline examples/0.15.2.um
         @inline examples/1.0.0.um
         @inline examples/1.17.0.um
+        @inline examples/1.20.0.um
 
     @script [/resources/clicker.js]
 

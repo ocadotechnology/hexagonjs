@@ -2,7 +2,7 @@ import { select, div, span } from 'utils/selection'
 import { mergeDefined } from 'utils/utils'
 import logger from 'utils/logger'
 
-import { theme } from 'theme'
+import { theme } from 'utils/theme'
 
 import { Graph } from './graph'
 import { optionSetterGetter } from './utils'

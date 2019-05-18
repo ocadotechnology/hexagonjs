@@ -15,47 +15,26 @@ export config = {
 checkFixedPos = (node) ->
   if select(node).style('position') is 'fixed' then true
 
-  # flip from downwards to upwards (if needed and there is the space to)
-  if direction is 'down' and y > windowRect.height - dropdownRect.height and selectionRect.y - dropdownRect.height > 0
-    direction = 'up'
-    y = selectionRect.y - dropdownRect.height
-    if alignments[1] is alignments[3]
-      y += selectionRect.height
-
-  # flip from upwards to downwards (if needed and there is the space to)
-  else if direction is 'up' and y < 0 and selectionRect.y + selectionRect.height +  dropdownRect.height < windowRect.height
-    direction = 'down'
-    y = selectionRect.y + selectionRect.height
-    if alignments[1] is alignments[3]
-      y -= selectionRect.height
-
-  # flip from right to left (if needed and there is the space to)
-  else if direction is 'right' and x > windowRect.width - dropdownRect.width and selectionRect.x - dropdownRect.width > 0
-    direction = 'left'
-    x = selectionRect.x - dropdownRect.width
-
-  # flip from upwards to downwards (if needed and there is the space to)
-  else if direction is 'left' and x < 0 and selectionRect.x + selectionRect.width +  dropdownRect.width < windowRect.width
-    direction = 'right'
-    x = selectionRect.x + selectionRect.width
-
-  return {
-    x: x,
-    y: y,
-    direction: direction
-  }
-
 dropdownContentToSetupDropdown = (dropdownContent) ->
+  # XXX Breaking: Renderer
+  # Needs updating to new renderer pattern
   return switch
     when isSelection(dropdownContent)
       (node) -> select(node).set(dropdownContent)
+    # XXX Breaking: html -> text
+    # when isString(dropdownContent)
+    #   (node) -> select(node).text(dropdownContent)
     when isString(dropdownContent)
-      (node) -> select(node).text(dropdownContent)
+      (node) -> select(node).html(dropdownContent)
+    # XXX Breaking: Renderer
+    # when isFunction(dropdownContent)
+    #   (node) -> select(node).set(dropdownContent())
     when isFunction(dropdownContent)
-      (node) -> select(node).set(dropdownContent())
+      (node) -> dropdownContent(node)
     else
       logger.warn('dropdown: dropdownContent is not a valid type. dropdownContent: ', dropdownContent)
       -> undefined
+
 
 export class Dropdown extends EventEmitter
 

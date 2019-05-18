@@ -8,8 +8,8 @@ import { autocompletePicker, AutocompletePicker } from 'components/autocomplete-
 import { Menu } from 'components/menu'
 import { Dropdown, config as dropdownConfig } from 'components/dropdown'
 
-import { emit } from 'test/utils/fake-event'
-import { installFakeTimers } from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
 
 
 export default ->
@@ -114,7 +114,13 @@ export default ->
       valueLookup = (val) -> 'dave:' + val
       testClosedAutocomplete trivialItems, {valueLookup: valueLookup}, (ap) ->
         should.exist(ap._.renderer)
-        ap._.renderer('bob').text().should.equal('dave:bob')
+
+        # XXX Breaking: Renderer
+        # ap._.renderer('bob').text().should.equal('dave:bob')
+        testValueLookupDiv = div()
+        ap._.renderer(testValueLookupDiv.node(), 'bob')
+        testValueLookupDiv.text().should.equal('dave:bob')
+
 
 
     it 'should correctly class the button', ->
@@ -535,16 +541,18 @@ export default ->
         showstart.should.have.been.called.once()
 
 
-      it 'should emit the "change" event when the value is changed to undefined', ->
-        testClosedAutocomplete trivialItems, { value: 'a' }, (ap) ->
-          value = chai.spy()
-          ap.on 'change', value
-          ap.value(undefined)
-          value.should.have.been.called.with({
-            cause: 'api',
-            value: undefined
-          })
-          value.should.have.been.called.once()
+      # XXX Breaking: Autocomplete always emit on value set
+      # (#438) - This change introduced a breaking bug, reverting until next major
+      # it 'should emit the "change" event when the value is changed to undefined', ->
+      #   testClosedAutocomplete trivialItems, { value: 'a' }, (ap) ->
+      #     value = chai.spy()
+      #     ap.on 'change', value
+      #     ap.value(undefined)
+      #     value.should.have.been.called.with({
+      #       cause: 'api',
+      #       value: undefined
+      #     })
+      #     value.should.have.been.called.once
 
 
       it 'should emit the "change" event when the value is changed', ->
@@ -581,7 +589,6 @@ export default ->
 
 
     describe 'autocompletePicker', ->
-
       it 'should return a selection with an autocomplete picker component', ->
         d = autocompletePicker(['a'])
         d.should.be.an.instanceOf(Selection)
@@ -589,7 +596,6 @@ export default ->
         d.api('autocomplete-picker').should.be.an.instanceOf(AutocompletePicker)
         d.api('menu').should.be.an.instanceOf(Menu)
         d.api('dropdown').should.be.an.instanceOf(Dropdown)
-
 
       it 'should pass the options through to the autocomplete picker', ->
         d = autocompletePicker(['a'], {

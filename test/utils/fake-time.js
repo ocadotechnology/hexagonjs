@@ -1,56 +1,55 @@
-export function installFakeTimers () {
-  let time = 0
-  let timers = []
-  let intervals = []
-  let animationFrames = []
-  const theRealSetTimeout = setTimeout
-  const theRealDateNow = Date.now
-  const theRealRequestAnimationFrame = requestAnimationFrame
+export default function installFakeTimers() {
+  let time = 0;
+  let timers = [];
+  let intervals = [];
+  let animationFrames = [];
+  const theRealSetTimeout = setTimeout;
+  const theRealDateNow = Date.now;
+  const theRealRequestAnimationFrame = requestAnimationFrame;
   window.setTimeout = (f, timeout) => {
-    const t = { f: f, time: time + timeout }
-    timers.push(t)
-    return t
-  }
+    const t = { f, time: time + timeout };
+    timers.push(t);
+    return t;
+  };
   window.setInterval = (f, timeout) => {
-    const t = { f: f, start: time, timeout: timeout }
-    intervals.push(t)
-    return t
-  }
+    const t = { f, start: time, timeout };
+    intervals.push(t);
+    return t;
+  };
   window.requestAnimationFrame = (f) => {
-    animationFrames.push(f)
-  }
+    animationFrames.push(f);
+  };
   window.clearTimeout = (timeout) => {
-    timers = timers.filter(t => t !== timeout)
-  }
+    timers = timers.filter(t => t !== timeout);
+  };
   window.clearInterval = (interval) => {
-    intervals = intervals.filter(t => t !== interval)
-  }
-  Date.now = () => time
+    intervals = intervals.filter(t => t !== interval);
+  };
+  Date.now = () => time;
 
   return {
     tick: (delta) => {
-      const oldAnimationFrames = animationFrames
-      animationFrames = []
-      oldAnimationFrames.forEach(f => f())
+      const oldAnimationFrames = animationFrames;
+      animationFrames = [];
+      oldAnimationFrames.forEach(f => f());
 
-      time += delta
-      const expiredTimers = timers.filter(t => t.time <= time)
-      expiredTimers.forEach(t => t.f())
-      timers = timers.filter(t => t.time > time)
+      time += delta;
+      const expiredTimers = timers.filter(t => t.time <= time);
+      expiredTimers.forEach(t => t.f());
+      timers = timers.filter(t => t.time > time);
 
-      const triggeredIntervals = intervals.filter(t => {
+      const triggeredIntervals = intervals.filter((t) => {
         if (time >= t.start + t.timeout) {
-          return (time - t.start - t.timeout) % t.timeout === 0
-        } else {
-          return false
+          return (time - t.start - t.timeout) % t.timeout === 0;
         }
-      })
-      triggeredIntervals.forEach(t => t.f())
+        return false;
+      });
+      triggeredIntervals.forEach(t => t.f());
     },
     restore: () => {
-      window.setTimeout = theRealSetTimeout
-      Date.now = theRealDateNow
-      window.requestAnimationFrame = theRealRequestAnimationFrame
-    }
-  }
+      window.setTimeout = theRealSetTimeout;
+      Date.now = theRealDateNow;
+      window.requestAnimationFrame = theRealRequestAnimationFrame;
+    },
+  };
 }

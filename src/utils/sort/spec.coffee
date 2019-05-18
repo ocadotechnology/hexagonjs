@@ -232,7 +232,7 @@ export default () ->
 
     describe 'using localeCompare without Intl.Collator. ', runWithoutCollator(localeCompareTests)
 
-    localeCompareNullsLastTests = ->
+    localeCompareTests = ->
       supportsOptions = ->
         try
           'a'.localeCompare('b', {nullsLast: true})
@@ -286,8 +286,8 @@ export default () ->
 
           array.sort(localeCompare(undefined, {nullsLast: true})).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
           if supportsOptions()
-            array.sort(localeCompareNullsLast('sv', {nullsLast: true})).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
-            array.sort(localeCompareNullsLast('de', {nullsLast: true})).should.eql(['a', 'e', 'é', 'è', 'z', 'ä'])
+            array.sort(localeCompare('sv', {nullsLast: true})).should.eql(['a', 'ä', 'e', 'é', 'è', 'z'])
+            array.sort(localeCompare('de', {nullsLast: true})).should.eql(['a', 'e', 'é', 'è', 'z', 'ä'])
 
       it 'Arrays with localised characters and undefined values should sort null and undefined to the end', ->
         if navigator.userAgent.indexOf 'Phantom' > -1
@@ -296,11 +296,11 @@ export default () ->
           array = ['é', null, 'e', undefined, 'z', null, 'è', undefined, 'a', 'ä']
           array.sort(localeCompare(undefined, {nullsLast: true})).should.eql(['a', 'ä', 'e', 'é', 'è', 'z', null, null, undefined, undefined])
           if supportsOptions()
-            array.sort(localeCompareNullsLast('sv', {nullsLast: true})).should
+            array.sort(localeCompare('sv', {nullsLast: true})).should
               .eql(['a', 'ä', 'e', 'é', 'è', 'z', null, null, undefined, undefined])
-            array.sort(localeCompareNullsLast('de', {nullsLast: true})).should
+            array.sort(localeCompare('de', {nullsLast: true})).should
               .eql(['a', 'e', 'é', 'è', 'z', 'ä', null, null, undefined, undefined])
 
-    describe 'using localeCompareNullsLast potentially with Intl.Collator. ', localeCompareNullsLastTests
+    describe 'using localeCompare potentially with Intl.Collator. ', localeCompareTests
 
-    describe 'using localeCompareNullsLast without Intl.Collator. ', runWithoutCollator(localeCompareNullsLastTests)
+    describe 'using localeCompare without Intl.Collator. ', runWithoutCollator(localeCompareTests)

@@ -1,3 +1,5 @@
+import logger from 'utils/logger'
+
 import { isString } from 'utils/utils'
 
 siSuffixes = ['y','z','a','f','p','n','µ','','','K','M','G','T','P','E','Z','Y']
@@ -59,10 +61,33 @@ exp = (number, options) -> strictCheck(number, formatExp, options)
 fixed = (number, options) -> strictCheck(number, formatFixed, options)
 zeroPad = (number, options) -> strictCheck(number, formatZeroPad, options)
 
+# XXX: Remove in next major in favour of hx.round etc.
+deprecatedWarning = (which) ->
+  logger.deprecated("hx.format.#{which}: The formatter factory pattern is deprecated and will be removed in the next major release, please use hx.#{which}(number, options)")
+
+format = {
+  round: (sf, strict) ->
+    deprecatedWarning('round')
+    (number) -> round(number, { strict, sf })
+  si: (sf, strict) ->
+    deprecatedWarning('si')
+    (number) -> si(number, { strict, sf })
+  exp: (sf, strict) ->
+    deprecatedWarning('exp')
+    (number) -> exp(number, { strict, sf }).replace('+', '')
+  fixed: (digits, strict) ->
+    deprecatedWarning('fixed')
+    (number) -> fixed(number, { digits, strict })
+  zeroPad: (length, strict) ->
+    deprecatedWarning('zeroPad')
+    (number) -> zeroPad(number, { length, strict })
+}
+
 export {
   exp,
   fixed,
   round,
   si,
   zeroPad,
+  format,
 }

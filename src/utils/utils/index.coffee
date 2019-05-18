@@ -254,16 +254,20 @@ mergeImpl = (deep, retainUndefined, objects) ->
 merge = (objects...) ->
   mergeImpl(true, true, objects)
 
-# XXX [2.0.0]: This has changed from mergeDefined.defined
 mergeDefined = (objects...) ->
   mergeImpl(true, false, objects)
+
+# XXX Deprecated: Remove in next major
+merge.defined = mergeDefined
 
 shallowMerge = (objects...) ->
   mergeImpl(false, true, objects)
 
-# XXX [2.0.0]: This has changed from shallowMerge.defined
 shallowMergeDefined = (objects...) ->
   mergeImpl(false, false, objects)
+
+# XXX Deprecated: Remove in next major
+shallowMerge.defined = shallowMergeDefined
 
 clone = (obj) ->
   if isArray(obj)

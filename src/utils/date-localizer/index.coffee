@@ -225,7 +225,7 @@ class DateTimeLocalizerMoment extends PreferencesHandler
             yearsValid = part.length < 5 and part isnt ''
             fmt += 'YYYY'
       if daysValid and monthsValid and yearsValid
-        moment(dateString, format, @locale()).toDate()
+        moment(dateString, fmt, @locale()).toDate()
       else
         new Date('Invalid Date')
     else

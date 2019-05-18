@@ -356,5 +356,4 @@ export {
   createLabelPoint,
   makeLabelDetails,
   doCollisionDetection,
-  supportsGroup
 }

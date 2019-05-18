@@ -1,26 +1,32 @@
-import { div } from 'utils/selection'
+import { div } from 'utils/selection';
 
 // XXX 2.0.0: this has changed - needs documenting (it has moved module, and the api has changed)
 
-function group (options = {}) {
+function group(options = {}) {
   const {
     vertical = false,
-    fixed = false
-  } = options
+    fixed = false,
+  } = options;
 
   return div('hx-group')
     .classed('hx-horizontal', !vertical)
     .classed('hx-vertical', vertical)
-    .classed('hx-fixed', fixed)
+    .classed('hx-fixed', fixed);
 }
 
-function section (options = {}) {
+function section(options = {}) {
   const {
-    fixed = false
-  } = options
+    fixed = false,
+  } = options;
 
   return div('hx-section')
-    .classed('hx-fixed', fixed)
+    .classed('hx-fixed', fixed);
 }
 
-export { group, section }
+// XXX Deprecated: Fluid
+group.vertical = () => group({ vertical: true });
+group.vertical.fixed = () => group({ vertical: true, fixed: true });
+group.fixed = () => group({ fixed: true });
+section.fixed = () => section({ fixed: true });
+
+export { group, section };

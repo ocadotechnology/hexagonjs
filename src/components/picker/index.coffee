@@ -20,7 +20,9 @@ setValue = (picker, value, items, cause = 'api') ->
       break
 
   if newVal?
-    picker._.selectedText.set(picker._.renderer(newVal))
+    # XXX Breaking: Renderer
+    # picker._.selectedText.set(picker._.renderer(newVal))
+    picker._.renderer(picker._.selectedText.node(), newVal)
   else
     picker._.selectedText.text(picker._.options.noValueText)
 
@@ -79,7 +81,9 @@ export class Picker extends EventEmitter
     if not resolvedOptions.renderer?
       @renderer(menu.renderer())
 
-    menu.renderer((item) => @renderer()(item))
+    # XXX Breaking: Renderer
+    # menu.renderer((item) => @renderer()(item))
+    menu.renderer((node, item) => @_.renderer(node, item))
 
     if resolvedOptions.items?
       @items resolvedOptions.items

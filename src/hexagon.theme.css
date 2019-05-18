@@ -1,7 +1,7 @@
 @import "utils/palette/theme";
+@import "components/base/theme";
 
 @import "components/spinner/theme";
-@import "components/base/theme";
 @import "components/modal/theme";
 @import "components/notify/theme";
 @import "components/button/theme";
@@ -11,6 +11,7 @@
 @import "components/titlebar/theme";
 @import "components/layout/theme";
 @import "components/menu/theme";
+@import "components/logo/theme";
 @import "components/input-group/theme";
 @import "components/drag-container/theme";
 @import "components/progress-bar/theme";
@@ -32,3 +33,5 @@
 @import "components/data-table/theme";
 @import "components/sidebar/theme";
 @import "components/tag-input/theme";
+@import "components/drawing/theme";
+@import "components/badge/theme";

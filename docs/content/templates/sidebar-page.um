@@ -42,6 +42,7 @@
           @section Css Components
             @page /docs/base/: Base
             @page /docs/button/: Button
+            @page /docs/badge/: Badge
             @page /docs/error-pages/: Error Pages
             @page /docs/form/: Form
             @page /docs/input-group/: Input Group

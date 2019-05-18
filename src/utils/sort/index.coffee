@@ -66,6 +66,10 @@ sortBy = (arr, f) ->
 
 sort = (arr) -> sortBy(arr, (x) -> x)
 
+# XXX Deprecated: Sort
+sort.compare = compare
+sort.compareNullsLast = compareNullsLast
+sort.localeCompare = localeCompare
 
 export {
   state,

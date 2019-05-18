@@ -56,6 +56,7 @@ export class NumberPicker extends EventEmitter
 
     selection = select(@selector)
       .class('hx-number-picker')
+      .api('number-picker', this)
       .api(this)
 
     incrementButton = selection.append('button').attr('type', 'button').class('hx-number-picker-increment hx-btn ' + @options.buttonClass)

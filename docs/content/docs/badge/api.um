@@ -1,0 +1,2 @@
+@api Badge
+  @inline api/*.um

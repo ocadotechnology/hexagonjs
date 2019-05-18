@@ -26,7 +26,7 @@ class ColorScale
             break
         mDiff = m - @rangeArr[point-1].val
         pointDiff = @rangeArr[point].val - @rangeArr[point-1].val
-        percentage = utils.clamp(0, 1, mDiff / pointDiff)
+        percentage = clamp(0, 1, mDiff / pointDiff)
         col = color(@rangeArr[point-1].color).mix(color(@rangeArr[point].color), percentage)
     col.toString()
 

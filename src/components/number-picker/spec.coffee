@@ -4,8 +4,8 @@ import { div, Selection, select } from 'utils/selection'
 
 import { numberPicker, NumberPicker } from 'components/number-picker'
 
-import { installFakeTimers } from 'test/utils/fake-time'
-import { emit } from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
 
 should = chai.should()
 
