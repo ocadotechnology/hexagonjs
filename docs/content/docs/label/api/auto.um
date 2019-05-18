@@ -1,3 +1,24 @@
+@function hx.label
+  @added 1.0.0
+    @description
+      Fluid api for constructing labels
+
+  @deprecated 2.0.0
+    @description
+      The label module is deprecated in favour of the badge module
+
+  @description
+    Creates a detached span element, classed with hx-label, wrapped in a selection
+
+  @arg? options [Object]
+    @property context [String]
+      @description
+        The context class to apply to the label
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
 @class hx-label
   @deprecated 1.20.0
     @description

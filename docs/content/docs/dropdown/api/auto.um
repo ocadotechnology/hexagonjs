@@ -29,10 +29,18 @@
         The element the user has to click or hover over to show the dropdown
 
     @arg dropdownContent [String/Function]
+      @updated 2.0.0
+        @description
+          Dropdown content now supports being passed a @code[Selection] that will be automatically appended to the dropdown content.
+
+          @notice String content
+            A warning is shown when passing in string content due to the deprecation of @code[Selection::html]. It is still possible to pass in
+            a string which will continue to work when this function is updated to use @code[Selection::text].
+
       @description
-        The content to fill the dropdown with. It can be either a html string or a function that is passed the dropdown node. An example string content could be:
+        The content to fill the dropdown with. It can be either a string or a function that is passed the dropdown node. An example string content could be:
         @@codeblock js
-          ddContent = '<div>Some content</div>';
+          ddContent = 'Some content';
 
       @arg node [HTMLElement]
         @description

@@ -1,0 +1,275 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@titlebar
+
+@topSection
+  @title Migration
+  @description
+    How to migrate between hexagon major versions
+
+@contentSection
+  @tableOfContents Contents
+
+  @topic Migration from 1.x -> 2.x
+    This version jump is focused on improving the internals and adding a proper module system in place of the builder API.
+
+    The other notable change is the update to use pure CSS alongside CSS variables
+
+    @notice [Notable Changes]
+      There are some notable changes in Hexagon 2.0.0 that are worth calling out here:
+      @list
+        @item: Some colours have been updated to improve accessibility (contrast ratios etc.)
+        @item: The @code[ColorPicker] component was used (very few people were using it and there are much better alternatives available)
+        @item: @code[hx.theme] has been converted to @code[hx.theme()] to better support the modular nature of the new Hexagon (you can find/replace @code[hx.theme] with @code[hx.theme()] and it will continue working)
+        @item: Added a bunch of features (see the @hyperlink(/changelog/)[Changelog] for more information on these)
+
+
+    @section If you're using the 'dist' folder
+      The @code[hexagon-dark] theme has been removed, leaving the dist folder to contain the @code[hexagon-light] theme.
+
+      To continue using the hexagon light theme, copy the dist folder to your app.
+
+      The minimum required files are:
+      @@codeblock bash
+        dist/
+          - assets/
+          - hexagon.css
+          - hexagon.js
+
+      The print styles are also available
+      @@codeblock bash
+        dist/
+          - hexagon.print.css
+          - hexagon.print.js
+
+      @notice [Assets]
+        The @code[dist/assets] directory contains the font files that hexagon uses for the icons. This should be copied
+        along with the other files.
+
+      For the purpose of customisation, there are additional files output in the @code[dist] directory, however these
+      are not required when copying the pre-built version.
+
+
+    @section If you're migrating from the 'builder' API
+      The builder API has been removed in favour of providing proper modules that you can
+      import and bundle using one of the popular bundlers (like @hyperlink(https://webpack.js.org/)[Webpack]
+      or @hyperlink(https://rollupjs.org/)[Rollup]).
+
+      You can now import modules from hexagon just like you would for other packages:
+
+      @@codeblock js
+        import { DatePicker } from 'hexagon-js';
+
+      If you are using @code[hx.theme()] you will need to add the following to your app, before running any hexagon code:
+      @@codeblock js
+        import { theme } from 'hexagon-js';
+        import currentTheme from 'hexagon-js/dist/hexagon.theme.js';
+
+        theme(currentTheme);
+
+        ...
+
+      This initialises the variables for the theme so they can be accessed via @code[hx.theme()]:
+      @@codeblock js
+        import { theme } from 'hexagon-js';
+
+        console.log(theme().palette.actionCol);
+
+
+
+    @section Theming (and the hexagon dark theme)
+      Hexagon can be themed by overriding the CSS variables. See @code[dist/hexagon.variables.css] for the full list of
+      variables available.
+
+      Below is the set of variables for a theme equivalent to the hexagon-dark theme.
+      @@codeblock css
+        :root {
+          --theme-contrast-body-color: #F9F9F9;
+          --theme-contrast-border-color: #DBDBE4;
+          --theme-contrast-color: #F7F7F9;
+          --theme-contrast-hover-color: #e8e8ee;
+
+          --theme-complement-body-color: #393D3D;
+          --theme-complement-border-color: #313434;
+          --theme-complement-color: #4A4E4E;
+          --theme-complement-hover-color:  #636868;
+
+          --theme-default-body-color: var(--theme-complement-body-color);
+          --theme-default-border-color: var(--theme-text-color);
+          --theme-default-color: var(--theme-complement-color);
+          --theme-default-hover-color: var(--theme-complement-hover-color);
+
+
+          --theme-disabled-color: #050505;
+          --theme-disabled-background-color: var(--theme-disabled-color);
+          --theme-disabled-text-color: #6b6b6b;
+
+          --theme-text-color: white;
+          --theme-text-alternate-color: black;
+          --theme-heading-text-color: white;
+          --theme-header-text-color: white;
+          --theme-error-text-color: white;
+          --theme-body-background-color: #252C2E;
+          --theme-content-background-color: transparent;
+          --theme-container-header-background-color: #2C3134;
+          --theme-container-background-color: #32373A;
+          --theme-container-border-color: #424749;
+          --theme-element-background-color: #252C2E;
+          --theme-header-background-color: #2C3134;
+          --theme-content-header-background-color: white;
+          --theme-linkbar-background-color: #373D45;
+          --theme-divider-color: #4E5355;
+          --theme-divider-style: solid;
+          --theme-divider-alt-color: #383B3C;
+          --theme-input-border-color: #4E5355;
+          --theme-input-background-color: #2F3639;
+          --theme-faint-icon-color: rgba(255, 255, 255, 0.3);
+          --theme-faint-icon-hover-color: rgba(255, 255, 255, 0.6);
+
+          --theme-selection-color: #605f0b;
+          --theme-selection-text-color: #FFF;
+          --theme-selected-color: #ad7c00;
+          --theme-selected-text-color: #FFF;
+
+
+          /* Button */
+          --button-text-alternate-color: var(--theme-text-color);
+
+
+          /* Slider */
+          --slider-slider-background-color: #DADADA;
+
+
+          /* Table */
+          --table-row-alt-background-color: #2B3234;
+          --table-row-hover-background-color: #3D4346;
+
+
+          /* Tabs */
+          --tabs-default-color: #9F9F9F;
+
+
+          /* Toggle */
+          --toggle-background-off-color: #495054;
+          --toggle-background-on-color: #495054;
+
+
+          /* Tree */
+          --tree-icon-disabled-background-color: #393F42;
+          --tree-icon-disabled-text-color: #272727;
+
+
+          /* Menu */
+          --menu-default-hover-color: #42474A;
+
+
+          /* Notice */
+          --notice-default-color: #393D3D;
+        }
+
+      If you modify any of the colours in the @code[--theme-xxx] set, you will probably want a custom theme JS as well:
+      @@codeblock js
+        const plotColor1 = 'rgb(177,119,190)';
+        const plotColor2 = 'rgb(90,155,212)';
+        const plotColor3 = 'rgb(241,90,113)';
+        const plotColor4 = 'rgb(151,195,102)';
+        const plotColor5 = 'rgb(250,169,91)';
+        const plotColor6 = 'rgb(226,212,64)';
+
+        const palette = {
+          defaultCol: '#FFFFFF',
+          actionCol: '#00ADA8',
+          positiveCol: '#92BF17',
+          warningCol: '#D69B24',
+          negativeCol: '#EC3A65',
+          infoCol: '#B36ABB',
+          complementCol: '#4A4E4E',
+          contrastCol: '#F7F7F9',
+          lightTextCol: '#000',
+          darkTextCol: '#FFF',
+          disabledCol: '#050505',
+          disabledTextCol: '#6b6b6b',
+          dividerCol: '#D0D0D0',
+        };
+
+        const customTheme = {
+          plotColor1,
+          plotColor2,
+          plotColor3,
+          plotColor4,
+          plotColor5,
+          plotColor6,
+          plotColors: [
+            plotColor1,
+            plotColor2,
+            plotColor3,
+            plotColor4,
+            plotColor5,
+            plotColor6,
+          ],
+          palette,
+          plot: {
+            ambientCol: plotColor6,
+            axisLineCol: palette.dividerCol,
+            axisTitleTextCol: palette.darkTextCol,
+            coldCol: plotColor2,
+            colors: [
+              plotColor1,
+              plotColor2,
+              plotColor3,
+              plotColor4,
+              plotColor5,
+              plotColor6,
+            ],
+            darkTextCol: palette.darkTextCol,
+            lightTextCol: palette.lightTextCol,
+            labelBackgroundCol: palette.complementCol,
+            gridLineCol: palette.disabledCol,
+            labelBorderCol: palette.disabledCol,
+            labelBoxShadow: '1px 1px 1px rgba(0, 0, 0, 0.25)',
+            labelHeaderBackgroundCol: palette.complementCol,
+            labelHeaderBorderCol: palette.dividerCol,
+            labelKeyTextCol: palette.darkTextCol,
+            labelTextCol: palette.darkTextCol,
+            negativeCol: plotColor3,
+            pieSegmentTextCol: palette.lightTextCol,
+            positiveCol: plotColor4,
+            tickLineCol: palette.dividerCol,
+            tickTextCol: palette.darkTextCol,
+            tickTextSize: '10px',
+            warmCol: plotColor5,
+            warningCol: plotColor6,
+          },
+          paginator: {
+            arrowButton: 'n-a',
+            defaultButton: 'hx-complement',
+            selectedButton: 'hx-action',
+          },
+        };
+
+
+      Enable it with:
+      @subsection (for the dist output)
+        Add a script to the page before running any of your app script:
+        @@codeblock html
+          <script>
+            const customTheme = {
+              ...
+            };
+            hx.theme(customTheme);
+          </script>
+
+      @subsection (for module bundlers)
+        @@codeblock js
+          import { theme } from 'hexagon-js';
+          import customTheme from './custom-theme';
+
+          theme(customTheme);
+
+          ...
+
+
+
+
+

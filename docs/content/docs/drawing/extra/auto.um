@@ -28,7 +28,7 @@
 
       @example
         @@html
-          <div id="rectangle-drawing"></div>
+          <div id="rectangle-drawing" class="docs-drawing"></div>
 
         @@js
           var drawing = new hx.Drawing('#rectangle-drawing');
@@ -51,7 +51,7 @@
 
       @example
         @@html
-          <div id="controlled-drawing"></div>
+          <div id="controlled-drawing" class="docs-drawing"></div>
 
         @@js
           var drawing = new hx.Drawing('#controlled-drawing');
@@ -99,12 +99,18 @@
 
       This example shows how each primitive can be created, and shows use of some of the properties.
 
+
+
+      @@html
+        <div id="drawing-example-primitives" class="docs-drawing"></div>
+
+
       @example
         @@js
-          var drawing = new hx.Drawing('#drawing-example');
-          drawing.enablePan();
-          drawing.enableZoom();
-          drawing.camera.setupBounds(0.25, 10, -100, -100, 100, 100);
+          var primitiveDrawing = new hx.Drawing('#drawing-example-primitives');
+          primitiveDrawing.enablePan();
+          primitiveDrawing.enableZoom();
+          primitiveDrawing.camera.setupBounds(0.25, 10, -100, -100, 100, 100);
 
           var colors = [
             'rgb(192,46,29)',
@@ -116,13 +122,13 @@
           ];
 
           // create a circle
-          var circle = drawing.create('circle');
+          var circle = primitiveDrawing.create('circle');
           circle.set('position.x', -80);
           circle.set('fill.color', colors[0]);
           circle.set('radius', 10);
 
           // create a rectangle
-          var rectangle = drawing.create('rectangle');
+          var rectangle = primitiveDrawing.create('rectangle');
           rectangle.set('position.x', -60);
           rectangle.set('position.y', -10);
           rectangle.set('height', 20);
@@ -130,20 +136,20 @@
           rectangle.set('fill.color', colors[1]);
 
           // create a text object
-          var text = drawing.create('text');
+          var text = primitiveDrawing.create('text');
           text.set('position.x', -35);
           text.set('color', colors[2]);
           text.set('text', 'text');
           text.set('align.y', 'middle');
 
           // create a line
-          var line = drawing.create('line');
+          var line = primitiveDrawing.create('line');
           line.set('start.x', -5);
           line.set('end.x', 15);
           line.set('color', colors[3]);
 
           // create a grid
-          var grid = drawing.create('grid');
+          var grid = primitiveDrawing.create('grid');
           grid.set('position.x', 20);
           grid.set('position.y', -12.5);
           grid.set('gridSize.x', 5);
@@ -153,7 +159,7 @@
           grid.set('gridLines.color', colors[4]);
 
           // create a shape (described with a cubic curve)
-          var shape = drawing.create('shape');
+          var shape = primitiveDrawing.create('shape');
           shape.set('position.x', 60);
           shape.set('fill.color', colors[5]);
 
@@ -172,11 +178,8 @@
 
           shape.set('curve', curve);
 
-          // make the drawing fit the canvas
-          drawing.show(drawing, 2);
-
-        @@html
-          <div id="drawing-example" class="docs-drawing"></div>
+          // make the primitiveDrawing fit the canvas
+          primitiveDrawing.show(drawing, 2);
 
         @@css
           .docs-drawing {
@@ -197,6 +200,9 @@
       Objects can be grouped together using composite objects. This makes it possible to create more detailed objects in the scene (rather than having just a simple rectangle for displaying something, for example). Composite objects are intended to be used for small, reusable drawing objects.
 
       The objects contained in the composite object can be referenced through the composite objects set and get methods.
+
+      @@html
+          <div id="composite-example" class="docs-drawing"></div>
 
       @example
         @@js
@@ -261,8 +267,6 @@
           // make the drawing fit the canvas
           drawing.show(drawing, 1.5);
 
-        @@html
-          <div id="composite-example" class="docs-drawing"></div>
 
   @section Camera Manipulation
 
@@ -534,44 +538,44 @@
           <div id="search-example" class="docs-drawing"></div>
 
         @@js
-          var drawing = new hx.Drawing('#search-example');
-          drawing.enablePan();
-          drawing.enableZoom();
-          drawing.enableSelection();
-          drawing.enableSearchbox();
+          var searchDrawing = new hx.Drawing('#search-example');
+          searchDrawing.enablePan();
+          searchDrawing.enableZoom();
+          searchDrawing.enableSelection();
+          searchDrawing.enableSearchbox();
 
           // helper for setting up the bounds for the camera
-          drawing.camera.setupBounds(0.25, 10, -100, -50, 100, 50);
+          searchDrawing.camera.setupBounds(0.25, 10, -100, -50, 100, 50);
 
-          drawing.on('search', function(searchTerm){
-            var obj = drawing.find(searchTerm);
+          searchDrawing.on('search', function(searchTerm){
+            var obj = searchDrawing.find(searchTerm);
             if (obj) {
-              drawing.select(obj);
-              drawing.show(obj);
+              searchDrawing.select(obj);
+              searchDrawing.show(obj);
             }
           });
 
           // create a circle
-          var circle = drawing.create('circle', 'circle-1');
+          var circle = searchDrawing.create('circle', 'circle-1');
           circle.set('position.x', -25);
           circle.set('fill.color', '#224466');
           circle.set('radius', 10);
           circle.set('selectable', true);
 
-          var circle = drawing.create('circle', 'circle-2');
+          var circle = searchDrawing.create('circle', 'circle-2');
           circle.set('position.x', 0);
           circle.set('fill.color', '#446622');
           circle.set('radius', 10);
           circle.set('selectable', true);
 
-          var circle = drawing.create('circle', 'circle-3');
+          var circle = searchDrawing.create('circle', 'circle-3');
           circle.set('position.x', 25);
           circle.set('fill.color', '#664422');
           circle.set('radius', 10);
           circle.set('selectable', true);
 
-          // make the drawing fit the canvas
-          drawing.show(drawing, 2);
+          // make the searchDrawing fit the canvas
+          searchDrawing.show(searchDrawing, 2);
 
   @section Layers
 

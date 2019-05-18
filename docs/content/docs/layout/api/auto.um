@@ -220,3 +220,134 @@
     @description
       Used in conjunction with the @code[hx-group] class to indicate that the content inside it should be displayed horizontally on one line
 
+
+
+@function hx.group
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.group(options)]
+  @added 1.0.0
+    @description
+      Fluid api for constructing horizontal layout groups
+
+  @description
+    Creates a detached div, classed with hx-group and hx-horizontal, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.group
+  @added 2.0.0
+
+  @description
+    Creates a detached div, classed with hx-group wrapped in a selection
+
+  @arg? options [Object]
+    @property fixed [Boolean]
+      @description
+        Whether to add the @code[hx-fixed] class to the group
+      @default: @code[false]
+
+    @property vertical [Boolean]
+      @description
+        Whether to add the @code[hx-vertical] class to the group. When this is false, the @code[hx-horizontal] class is added.
+
+      @default: @code[false]
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.group.vertical
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.group(options)]
+
+  @added 1.0.0
+    @description
+      Fluid api for constructing vertical layout groups
+
+  @description
+    Creates a detached div, classed with hx-group and hx-vertical, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.group.fixed
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.group(options)]
+  @added 1.0.0
+    @description
+      Fluid api for constructing horizontal layout groups that don't grow
+
+  @description
+    Creates a detached div, classed with hx-group, hx-horizontal and hx-fixed, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.group.vertical.fixed
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.group(options)]
+  @added 1.0.0
+    @description
+      Fluid api for constructing vertical layout groups that don't grow
+
+  @description
+    Creates a detached div, classed with hx-group, hx-vertical and hx-fixed, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.section
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.section(options)]
+  @added 1.0.0
+    @description
+      Fluid api for constructing layout sections
+
+  @description
+    Creates a detached div, classed with hx-section, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.section.fixed
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.section(options)]
+  @added 1.0.0
+    @description
+      Fluid api for constructing layout sections that don't grow
+
+  @description
+    Creates a detached div, classed with hx-section and hx-fixed, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.section
+  @added 2.0.0
+
+  @description
+    Creates a detached div, classed with hx-section wrapped in a selection
+
+  @arg? options [Object]
+    @property fixed [Boolean]
+      @description
+        Whether to add the @code[hx-fixed] class to the section
+      @default: @code[false]
+
+
+  @returns [Selection]
+    @description
+      The selection containing the new element

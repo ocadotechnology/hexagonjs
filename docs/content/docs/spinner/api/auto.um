@@ -18,3 +18,41 @@
   @description
     Use with a @code[<div>] for a wide spinner
 
+
+@function hx.spinner
+  @added 1.0.0
+    @description
+      Fluid api for constructing spinners
+
+  @description
+    Creates a detached span, classed with hx-spinner, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.spinner.wide
+  @added 1.0.0
+    @description
+      Fluid api for constructing wide spinners
+
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.spinnerWide]
+
+  @description
+    Creates a detached span, classed with hx-spinner-wide, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.spinnerWide
+  @added 2.0.0
+
+  @description
+    Creates a detached span, classed with hx-spinner-wide, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element

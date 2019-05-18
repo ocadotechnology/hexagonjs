@@ -1,6 +1,11 @@
 @prototype hx.ColorPicker
   @extends EventEmitter
 
+  @removed 2.0.0
+    @description
+      Removed the color picker module as it was complex and very few people used it. There are
+      plenty of more suitable alternative libraries for colour pickers available.
+
   @updated 0.13.0
     @description
       Moved the @code[showInputs] and @code[currentColor] to be accessible as

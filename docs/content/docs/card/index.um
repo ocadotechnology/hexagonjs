@@ -14,6 +14,7 @@
         @inline examples/0.15.2.um
         @inline examples/1.0.0.um
         @inline examples/1.4.0.um
+        @inline examples/2.0.0.um
 
   @topic Api
     @hyperlink(/docs/card/changelog)[Change Log]

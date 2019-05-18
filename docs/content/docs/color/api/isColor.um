@@ -1,4 +1,20 @@
+@function hx.isColor
+  @added 2.0.0
+  @description
+    Checks if an object is a Color instance.
+
+  @arg obj [Any]
+    @description
+      The object to check.
+
+  @returns Boolean
+    @description
+      True if the object is a Color instance.
+
 @function hx.color.isColor
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.isColor]
   @description
     Checks if an object is a Color instance.
 

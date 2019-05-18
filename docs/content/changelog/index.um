@@ -485,3 +485,26 @@
         multiline text strings to a selection containing multiple 'paragraphs' to the
         @code[hx.userFacingText] function/module.
 
+
+    @version 2.0.0
+      @description
+        A breaking change designed to improve the build and internals of Hexagon without
+        impacting any of the code or APIs (where possible).
+
+        The core of this includes removing the builder api and replacing with proper modules
+
+        @@codeblock js
+          import { DatePicker } from 'hexagon-js';
+
+        See the @hyperlink(/guide/installation/)[Installation] page for more information about
+        installing and using Hexagon
+
+        See the @hyperlink(/guide/migration/)[Migration 1.x -> 2.x] page for more information
+        about migrating.
+
+        Breaking changes:
+
+        @list
+          @item: The @code[build] api for creating a bundle was removed
+          @item: @code[ColorPicker] was removed
+          @item: @code[hx.theme] replaced by @code[hx.theme()] (find/replace resolves this)

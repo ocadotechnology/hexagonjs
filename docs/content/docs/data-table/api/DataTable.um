@@ -410,6 +410,16 @@
         @description
           The expanded rows to initialise the table with
 
+      @property stickyHeadersEnabled [Boolean]
+        @added 2.0.0
+          @description
+            Added an option to allow the sticky headers to be disabled
+
+        @description
+          Whether the sticky table headers are enabled.
+
+        @default: @code[true]
+
 
   # Methods for changing the options
   # --------------------------------
@@ -441,6 +451,21 @@
       @description
         Sets the compact option
       @arg value [Boolean]: The value for the compact option
+      @arg? callback [Function]: The function to call once rendering is complete
+      @returns DataTable: This DataTable
+
+
+    @method stickyHeadersEnabled
+      @added 2.0.0
+      @description
+        Gets the stickyHeadersEnabled option
+      @returns Boolean: The stickyHeadersEnabled option
+
+    @method stickyHeadersEnabled
+      @added 2.0.0
+      @description
+        Sets the stickyHeadersEnabled option
+      @arg value [Boolean]: The value for the stickyHeadersEnabled option
       @arg? callback [Function]: The function to call once rendering is complete
       @returns DataTable: This DataTable
 

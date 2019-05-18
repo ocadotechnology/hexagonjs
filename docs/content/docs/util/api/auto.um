@@ -1,5 +1,11 @@
 @condensed
 
+@property hx.version [String]
+  @added 2.0.0
+  @description
+    The version property to allow easy identification of what hexagon version is in use.
+
+
 @function hx.hash
   @description
     Hashes a string to an integer
@@ -946,6 +952,10 @@
 
 @function hx.merge.defined
   @added 0.13.0
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.mergeDefined]
+
   @description
     Merges multiple objects together, only copying across defined values and returns the result as a new object.
 
@@ -957,6 +967,29 @@
 
       // returns {a: {b: 2, c: {d: 4, e: 'value'}}}
       hx.merge.defined({a: {b: 2, c: {d: 3}}}, {a: {b: undefined, c: {d: 4, e: 'value'}}})
+
+  @arg objects... [Object]
+    @description
+      The objects to combine
+
+  @returns [Object]
+    @description
+      The combined object
+
+@function hx.mergeDefined
+  @added 2.0.0
+
+  @description
+    Merges multiple objects together, only copying across defined values and returns the result as a new object.
+
+    The objects will be merged recursively, and arrays will be cloned. Any object that is not a plain object (see the isPlainObject function) will be replaced with an empty object {}.
+
+    @@codeblock js
+      // returns {'a': 1, 'b': 3}
+      hx.mergeDefined({'a': 1}, {'a': undefined}, {'b': 3})
+
+      // returns {a: {b: 2, c: {d: 4, e: 'value'}}}
+      hx.mergeDefined({a: {b: 2, c: {d: 3}}}, {a: {b: undefined, c: {d: 4, e: 'value'}}})
 
   @arg objects... [Object]
     @description
@@ -988,6 +1021,9 @@
 
 @function hx.shallowMerge.defined
   @added 0.13.0
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.shallowMergeDefined]
   @description
     Merges multiple objects together where the first level of references are copied provided they are defined values (not undefined), and returns the result as a new object.
 
@@ -997,6 +1033,26 @@
 
       // returns {a: {b: undefined, c: {d: 4, e: "value" }}}
       hx.shallowMerge.defined({a: {b: 2, c: {d: 3}}}, {a: {b: undefined, c: {d: 4, e: 'value'}}})
+
+  @arg objects... [Object]
+    @description
+      The objects to combine
+
+  @returns [Object]
+    @description
+      The combined object
+
+@function hx.shallowMergeDefined
+  @added 2.0.0
+  @description
+    Merges multiple objects together where the first level of references are copied provided they are defined values (not undefined), and returns the result as a new object.
+
+    @@codeblock js
+      // returns {'a': 1, 'b': 3}
+      hx.shallowMergeDefined({'a': 1}, {'a': undefined}, {'b': 3})
+
+      // returns {a: {b: undefined, c: {d: 4, e: "value" }}}
+      hx.shallowMergeDefined({a: {b: 2, c: {d: 3}}}, {a: {b: undefined, c: {d: 4, e: 'value'}}})
 
   @arg objects... [Object]
     @description
@@ -1160,3 +1216,16 @@
     @description
       Whether the value passed in is a Number
 
+
+
+@funciton hx.isElement
+  @added 2.0.0
+
+  @description
+    A function to determine if a valueToCheck is an instance of a @code[Element]
+
+  @arg valueToCheck [Any]
+
+  @returns [Boolean]
+    @description
+      Returns true if @code[valueToCheck] is an instance of @code[Element]

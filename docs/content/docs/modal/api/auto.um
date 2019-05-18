@@ -312,6 +312,10 @@
       Emitted when the modal is hidden. No data is sent with this event.
 
 @object hx.modal
+  @deprecated 2.0.0
+    @description
+      The modal object has been replaced by specific filter methods directly on the @code[hx] object.
+
   @bugfix 0.12.2
     @description
       Clicking on an element that subsequently gets detached will no longer cause the modal to close.
@@ -615,3 +619,105 @@
       @description
         The class given to the modal content.
 
+
+@function modalDialog
+  @added 2.0.0
+  @description
+    A function for creating a simple modal popup with a title, a message and some buttons.
+
+  @arg title [String]
+    @description
+      The title for the modal.
+
+  @arg message [String]
+    @description
+      The message for the modal.
+
+  @arg callback [Function]
+    @description
+      The function that gets called when a button is clicked.
+
+    @arg value [String/Boolean]
+      @description
+        The value of the button clicked. Default values are true/false but can be set to anything using the buttons parameter.
+
+  @arg? options [Object]
+    @description
+      Options for configuring the dialog.
+
+    @property buttons
+      @description
+        The array of buttons to show in the modal.
+
+        The default buttons that are used if the buttons parameter is passed in as null or undefined is as follows:
+
+        @@codeblock js
+          [
+            {
+              text: "Confirm"
+              icon: "fa fa-check"
+              value: true
+              classes: "hx-btn hx-positive"
+            },{
+              text: "Cancel"
+              icon: "fa fa-close"
+              value: false
+              classes: "hx-btn hx-negative"
+            }
+          ]
+
+    @property isClosable [Boolean]
+      @description
+        Whether or not the modal should show a close button.
+
+      @default
+        false
+
+    @property titleClass [String]
+      @description
+        The class to use when rendering the titlebar.
+
+        This should be one of the @code['hx-background-'] classes but without the prefix, e.g. @code['positive'] or @code['negative'] @property icon [String]
+      @description
+        The icon to add to the modal heading.
+
+  @returns [Modal]
+    @description
+      The newly constructed Modal
+
+@function modalInput
+  @added 2.0.0
+  @description
+    A function for creating a simple modal popup with a title, a message and an input box (and confirm and cancel buttons).
+
+  @arg title [String]
+    @description
+      The title for the modal.
+
+  @arg message [String]
+    @description
+      The message for the modal.
+
+  @arg callback [Function]
+    @description
+      The function that gets called when a button is clicked.
+
+    @arg value [String]
+      @description
+        The string value entered into the modal's input box, or false if the cancel button was clicked, or undefined if the close button was clicked in the titlebar of the modal.
+
+  @arg? options [Object]
+    @property isClosable [Boolean]
+      @description
+        Whether or not the modal should show a close button.
+
+      @default
+        true
+
+    @property value [String]
+      @description
+        Initial text to place in the input box.
+
+  @returns [Modal]
+    @description
+      The newly constructed Modal

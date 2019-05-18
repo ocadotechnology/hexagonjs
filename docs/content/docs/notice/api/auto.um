@@ -1,3 +1,66 @@
+@function hx.notice
+  @added 1.0.0
+    @description
+      Fluid api for constructing notices
+
+  @description
+    Creates a detached div, classed with hx-notice, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.notice.head
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.noticeHead]
+  @added 1.0.0
+    @description
+      Fluid api for constructing notices
+
+  @description
+    Creates a detached div, classed with hx-notice-head, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.notice.body
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.noticeBody]
+  @added 1.0.0
+    @description
+      Fluid api for constructing notices
+
+  @description
+    Creates a detached div, classed with hx-notice-body, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+
+@function hx.noticeHead
+  @added 2.0.0
+
+  @description
+    Creates a detached div, classed with hx-notice-head, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.noticeBody
+  @added 2.0.0
+
+  @description
+    Creates a detached div, classed with hx-notice-body, wrapped in a selection
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
 @class hx-notice
   @added 0.14.1
   @description

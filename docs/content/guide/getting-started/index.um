@@ -9,22 +9,10 @@
 
 @contentSection
   @topic Installing and Building Hexagon
-    The first step to using hexagon is to install it and build it somewhere.
-
-    A basic install script for a site serving the @code[public] directory would
-    be something like:
-
-    @@codeblock js
-      const hexagon = require('hexagon-js')
-
-      hexagon.light.build({
-        dest: 'public/resources/hexagon'
-      })
-
-    This would build hexagon into @code[public/resources/hexagon]
+    The first step to using hexagon is to install it.
 
     See the @hyperlink(/guide/installation)[Installation] page for more
-    information about building hexagon.
+    information about installing hexagon.
 
   @topic HTML Base template
     Below is an example start page with a @hyperlink(/docs/titlebar)[Titlebar]

@@ -1,4 +1,7 @@
 @object hx.filter
+  @deprecated 2.0.0
+    @description
+      The filter object has been replaced by specific filter methods directly on the @code[hx] object.
   @description
     An object containing different methods for filtering arrays.
 
@@ -624,4 +627,629 @@
     @returns [Array[String]]
       @description
         The array of all filter types
+
+
+
+
+@function filterFuzzy
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values that contain the letters in a search term in the same order but not necessarily directly after each other.
+    @@codeblock js
+      array = ['Bob Stevenson', 'Steve Stevenson', 'Dave Peters']
+      hx.filterFuzzy(array, 'ss') // returns ['Steve Stevenson', 'Bob Stevenson'] as the match in Steve Stevenson is stronger.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The term to filter on
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterFuzzy(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterFuzzy(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterExact
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values that match a search term exactly.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The term to filter on
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterExact(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterExact(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterStartsWith
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values that start with a search term.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The term to filter on
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterStartsWith(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterStartsWith(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterContains
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values that contain a search term.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The term to filter on
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterContains(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterContains(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterLess
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values that are less than or equal to a search term.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The term to filter on
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterLess(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterLess(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterGreater
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values that are greater than or equal to a search term.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The term to filter on
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterGreater(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterGreater(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterExcludes
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values that are don't contain a search term.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The term to filter on
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterExcludes(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterExcludes(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterRegex
+  @added 2.0.0
+  @description
+    A function that allows filtering of array values using a regular expression.
+
+  @arg array [Array]
+    @description
+      The array to filter
+
+  @arg term [String]
+    @description
+      The regular expression to filter with. It must be a regular expression string or object:
+      @@codeblock js
+        /bob/ //RegEx string
+        new RegExp('bob') // RegEx Object
+
+  @arg? options [Object]
+    @description
+      The options to use when filtering
+
+    @property caseSensitive [Boolean]
+      @description
+        Whether the filtering should be case sensitive.
+
+      @default
+        false
+
+    @property sort [Boolean]
+      @description
+        Whether to sort the results.
+
+      @default
+        true
+
+    @property searchValues [Function]
+      @description
+        A function used to return values to allow searching on properties within objects or nested arrays. To search object properties, each property must be returned in an array:
+        @@codeblock js
+          array = [
+            {
+              name: 'Bob',
+              age: 12
+            }
+            ...
+          ];
+          getValues = function(item){
+            return [item.name, item.age] // would return ['Bob', 12] for the selected array
+          };
+          hx.filterRegex(array, 'bob', {searchValues: getValues});
+
+        Nested arrays can also be searched by returning the item itself as the array:
+        @@codeblock js
+          array = [
+            ['Bob', 12]
+            ...
+          ];
+          getValues = function(item){
+            return item;
+          };
+          hx.filterRegex(array, 'bob', {searchValues: getValues});
+
+      @arg item [Any]
+        @description
+          The item from the array passed into hx.filter
+
+      @returns [Array]
+        @description
+          an array of values that should be searched when filtering/sorting
+
+  @returns [Array]
+    @description
+      The filtered/sorted array
+
+@function filterStringTypes
+  @added 2.0.0
+
+  @description
+    A function that returns the filter types that can be used when filtering strings:
+    @@codeblock js
+      [
+        'contains',
+        'exact'
+        'excludes',
+        'startsWith'
+        'regex',
+        'fuzzy'
+      ]
+
+  @returns [Array[String]]
+    @description
+      The array of string filter types
+
+@function filterNumberTypes
+  @added 2.0.0
+
+  @description
+    A function that returns the filter types that can be used when filtering numbers:
+    @@codeblock js
+      [
+        'exact',
+        'greater',
+        'less'
+      ]
+
+  @returns [Array[String]]
+    @description
+      The array of number filter types
+
+@function filterTypes
+  @added 2.0.0
+
+  @description
+    A function that returns all the filter types:
+    @@codeblock js
+      [
+        'contains',
+        'exact'
+        'greater',
+        'less',
+        'excludes',
+        'startsWith'
+        'regex',
+        'fuzzy'
+      ]
+
+  @returns [Array[String]]
+    @description
+      The array of all filter types
 

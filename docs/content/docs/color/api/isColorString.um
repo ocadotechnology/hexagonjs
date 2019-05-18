@@ -1,4 +1,22 @@
+@function hx.isColorString
+  @added 2.0.0
+
+  @description
+    Checks if a string is a css color string.
+
+  @arg str [String]
+    @description
+      A css color string, accepts "hex", "hsl", "hsla", "rgb", "rgba".
+
+  @returns Boolean
+    @description
+      True if the string is a valid css string.
+
 @function hx.color.isColorString
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.isColorString]
+
   @added 0.9.0
 
   @description

@@ -168,6 +168,12 @@
           @default: 2
 
 
+        @property showCentered [Boolean]
+          @description
+            Whether to align the paginator centrally in the container
+
+          @default: @code[false]
+
 
 
   @method setPage

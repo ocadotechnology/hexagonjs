@@ -1,6 +1,10 @@
 @prototype hx.AutoComplete
   @extends EventEmitter
 
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.Autocomplete] (lowercase c)
+
   @added 0.9.0
 
   @bugfix 1.2.1
@@ -60,12 +64,57 @@
 @function hx.autoComplete
   @added 1.0.0
 
+  @deprecated 2.0.0
+    @description
+      Replaced by @code[hx.autocomplete] (lowercase c)
+
   @description
     Creates a new AutoComplete set up on a detached element, wrapped in a
     selection
 
   @arg items [Array/Function]
     @added 1.3.0
+    @inline AutoComplete/arguments/items.um
+
+  @arg? options [Object]
+    @inline AutoComplete/options/*um
+
+  @returns Selection
+    @description
+      A selection containing an element with an AutoComplete initialised on it
+
+
+@prototype hx.Autocomplete
+  @extends EventEmitter
+  @added 2.0.0
+
+  @description
+    The AutoComplete class can be used to add an auto complete suggestion
+    dropdown to any input field.
+
+  @constructor
+    @description
+      Add an auto complete suggestions dropdown to an input box
+    @arg selector [String/HTMLElement]
+      The selector of the input box to add an auto complete to.
+
+    @arg items [Array/Function]
+      @inline AutoComplete/arguments/items.um
+
+    @arg? options [Object]
+      @inline AutoComplete/options/*um
+
+  @inline AutoComplete/methods/*um
+  @inline AutoComplete/events/*um
+
+@function hx.autocomplete
+  @added 2.0.0
+
+  @description
+    Creates a new AutoComplete set up on a detached element, wrapped in a
+    selection
+
+  @arg items [Array/Function]
     @inline AutoComplete/arguments/items.um
 
   @arg? options [Object]

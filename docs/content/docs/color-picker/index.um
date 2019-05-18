@@ -8,12 +8,18 @@
     A component for selecting colors
 
 @contentSection
-  @topic Examples
-    @examples
-      @versioned
-        @inline examples/*.um
+  @versioned
+    @version 0.9.0
+      @topic Examples
+        @examples
+          @versioned
+            @inline examples/*.um
 
-  @topic Api
-    @hyperlink(/docs/color-picker/changelog)[Change Log]
+      @topic Api
+        @hyperlink(/docs/color-picker/changelog)[Change Log]
 
-    @inline api.um
+        @inline api.um
+
+    @version 2.0.0
+      @topic Removed
+        This module was removed in version 2.0.0

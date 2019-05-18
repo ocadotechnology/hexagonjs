@@ -1,4 +1,10 @@
 @object hx.format
+  @deprecated 1.17.0
+    @issue 457
+    @description
+      The format factories have been deprecated in favour of functions that
+      take a number directly and return the formatted number.
+
   @description
     An object containing a set of functions to create number formatting functions.
 

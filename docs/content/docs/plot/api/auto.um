@@ -43,6 +43,41 @@
     for series.
 
 @object hx.theme.plot
+  @removed 2.0.0
+    @description
+      Replaced by @code[hx.theme().plot] - This is a breaking change
+  @property colors [Array[String]]
+    @description
+      A list of graph colors
+
+  @property warmCol [String]
+    @description
+      A warm color from the graph palette (red or orange)
+
+  @property ambientCol [String]
+    @description
+      An ambient color from the graph palette
+
+  @property coldCol [String]
+    @description
+      A colds color from the graph palette (most likely a shade of blue)
+
+  @property positiveCol [String]
+    @description
+      A positive color from the graph palette (a shade of green)
+
+  @property warningCol [String]
+    @description
+      A warning color from the graph palette (a shade of orange / yellow)
+
+  @property negativeCol [String]
+    @description
+      A negative color from the graph palette (a shade of red)
+
+
+@object hx.theme().plot
+  @added 2.0.0
+
   @property colors [Array[String]]
     @description
       A list of graph colors

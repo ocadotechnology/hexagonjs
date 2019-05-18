@@ -926,3 +926,83 @@
       @description
         Returns this Selection
 
+  @method api
+    @added 2.0.0
+
+    @description
+      A method for and getting an API object from a DOM node.
+
+      All hexagon components register an API, the first un-named API to be registered can be retrieved with this method.
+
+    @returns [Any]
+      @description
+        The API that was set on the object
+
+  @method api
+    @added 2.0.0
+
+    @description
+      A method for and getting an API object from a DOM node under a given name
+
+      All hexagon components register an API, the first un-named API to be registered can be retrieved with this method.
+
+    @arg name [String]
+      @description
+        The name to give this API so it can be retrieved explicitly from the node using @code(select(thisNode).api('name'))
+
+    @returns [Any]
+      @description
+        The API that was set on the object
+
+  @method api
+    @added 2.0.0
+
+    @description
+      A method for and setting an API object from a DOM node.
+
+      All hexagon components register an API, the first un-named API to be registered can be retrieved with this method.
+
+    @arg apiToSet [Object/Function]
+      @description
+        An object or function to set as the API object on this element. It is stored in the DOM and can be retrieved elsewhere using
+        @code[select(thisNode).api()]
+
+    @returns [Selection]
+      @description
+        This Selection
+
+  @method api
+    @added 2.0.0
+
+    @description
+      A method for and setting an API object from a DOM node under a given name
+
+      All hexagon components register an API, the first un-named API to be registered can be retrieved with this method.
+
+    @arg apiToSet [Object/Function]
+      @description
+        An object or function to set as the API object on this element. It is stored in the DOM and can be retrieved elsewhere using
+        @code[select(thisNode).api('name')]
+
+    @arg name [String]
+      @description
+        The name to give this API so it can be retrieved explicitly from the node using @code(select(thisNode).api('name'))
+
+    @arg name [String]
+
+    @returns [Selection]
+      @description
+        This Selection
+
+
+@funciton hx.isSelection
+  @added 2.0.0
+
+  @description
+    A function to determine if a valueToCheck is an instance of a @code[Selection]
+
+  @arg valueToCheck [Any]
+
+  @returns [Boolean]
+    @description
+      Returns true if @code[valueToCheck] is an instance of @code[Selection]

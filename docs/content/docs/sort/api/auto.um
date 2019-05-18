@@ -2,6 +2,10 @@
   @description
     An object containing different methods for sorting array values.
 
+  @deprecated 2.0.0
+    @description
+      The @code[hx.sort] methods have been renamed to explict functions: @code[hx.compare], @code[hx.compareNullsLast], @code[hx.localeCompare];
+
   @property compare [Function]
     @bugfix 1.11.0
       @issue 372
@@ -155,3 +159,100 @@
     @description
       The sorted array.
 
+@function hx.compare
+  @added 2.0.0
+
+  @description
+    A function to compare two items and return a number based on the priority.
+    It takes into account the character order of text and the numeric order of numbers, as opposed to a standard text sort.
+    @@codeblock js
+      array = ['20','1','100']
+      array.sort() // returns ['1', '100', '20']
+      array.sort(hx.sort.compare) // returns ['1', '20', '100']
+
+  @arg a [String/Number]
+    @description
+      The first item to compare
+
+  @arg b [String/Number]
+    @description
+      The second item to compare
+
+  @returns [Number]
+    @description
+      1 when b should be before a, -1 when a should be before b and 0 when the terms match.
+
+@property hx.localeCompare
+  @added 2.0.0
+
+  @description
+    A function to return a localised sort function to use directly when calling array.sort.
+
+    It takes into account the character order of text for a specific locale and the numeric order of numbers.
+
+    Some browsers don't support the @code[locale] and @code[options] parameters.
+
+    Browser support and accepted values for the @code[locale] and @code[options] parameters can be found on the
+
+    @hyperlink(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare)[localeCompare]
+
+     page of the MDN.
+
+    @@codeblock js
+      svCompare = hx.sort.localeCompare('sv')
+      array.sort(svCompare)
+
+    svCompare in the above example would evaluate to:
+    @@codeblock js
+      function(a, b){
+        return hx.sort.localeCompare(a, b, 'sv')
+      };
+
+  @arg locale [String]
+    @description
+      The locale to use when sorting
+
+  @arg? options [Object]
+    @description
+      The options to use when sorting
+
+    @property nullsLast [Boolean]
+      @description
+        Whether to sort nulls to the end of the array.
+
+      @default
+        false
+
+  @returns [Function]
+    @description
+      A function that compares two strings based on the passed in locale and options. To be passed into Array.sort.
+
+    @arg a [String]
+      @description
+        The first item to compare
+
+    @arg b [String]
+      @description
+        The second item to compare
+
+    @returns Number
+      @description
+        1 when b should be before a, -1 when a should be before b and 0 when the terms match.
+
+@function hx.compareNullsLast
+  @added 2.0.0
+
+  @description
+    A sort function that sorts nulls to the end of an array.
+
+  @arg a [String/Number]
+    @description
+      The first item to compare
+
+  @arg b [String/Number]
+    @description
+      The second item to compare
+
+  @returns [Number]
+    @description
+      1 when b should be before a, -1 when a should be before b where @code[defined < null < undefined] and 0 when the terms match.
