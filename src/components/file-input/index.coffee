@@ -60,7 +60,7 @@ export class FileInput extends EventEmitter
       buttonClass: 'hx-action'
 
       buttonText: userFacingText('fileInput', 'chooseFile')
-      filesSelectedText: userFacingText('fileInput', 'filesSelected')
+      filesSelectedText: userFacingText('fileInput', 'filesSelected', true)
       noFilesText: userFacingText('fileInput', 'noFile')
     }, options)
 
@@ -108,7 +108,7 @@ export class FileInput extends EventEmitter
     filePreview = (file) ->
       if imageType.test(file.type)
         img = detached('img').node()
-        # img.file = file
+        img.file = file
         reader = new FileReader()
         reader.onloadend = (e) -> img.src = e.target.result
         reader.readAsDataURL(file)
@@ -164,11 +164,16 @@ export class FileInput extends EventEmitter
         data: @_.fileMap.values()
 
     dropdownDiv = div()
-    setupDropdown = () ->
-      sel = div()
+    # XXX Breaking: Renderer
+    # setupDropdown = () ->
+    #   sel = div()
+    #   self._.fileMap.values().map (file) ->
+    #     sel.append filePreview(file)
+    #   sel
+    setupDropdown = (element) ->
+      sel = select(element)
       self._.fileMap.values().map (file) ->
-        sel.append filePreview(file)
-      sel
+        sel.append(filePreview(file))
 
     dropdown = new Dropdown(dropdownDiv, setupDropdown, {
       ddClass: 'hx-file-input-dropdown'

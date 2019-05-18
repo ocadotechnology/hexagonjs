@@ -96,6 +96,7 @@ class StickyTableHeaders
     }, options)
 
     selection = select(selector)
+      .api('sticky-table-headers', this)
       .api(this)
 
     table = if selection.classed('hx-table') or selection.node().nodeName.toLowerCase() is 'table'

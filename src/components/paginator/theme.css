@@ -1,14 +1,25 @@
-.hx-paginator-selected {
-  background: var(--paginator-selected-background-color);
-  color: var(--paginator-selected-text-color);
+.hx-paginator-button,
+.hx-paginator-button:focus {
+  border-color: var(--paginator-button-border-color);
+  background: var(--paginator-button-background-color);
+  color: var(--paginator-button-text-color);
+  font-weight: var(--paginator-button-font-weight);
 }
 
-.hx-paginator-selected {
-  background: var(--paginator-selected-background-color);
-  color: var(--paginator-selected-text-color);
+.hx-paginator-button:hover {
+  background: var(--paginator-button-hover-background-color);
+  color: var(--paginator-button-hover-text-color);
 }
 
-.hx-paginator button:hover {
-  background: var(--paginator-hover-background-color);
-  color: var(--paginator-hover-text-color);
+.hx-paginator-ellipsis,
+.hx-paginator-ellipsis:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--paginator-ellipsis-text-color);
+}
+
+.hx-paginator-selected,
+.hx-paginator-selected:hover {
+  background: var(--paginator-selected-background-color);
+  color: var(--paginator-selected-text-color);
 }

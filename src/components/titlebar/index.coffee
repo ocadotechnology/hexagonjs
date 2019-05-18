@@ -31,7 +31,9 @@ export class TitleBar
   constructor: (@selector) ->
     @_ = {}
 
-    selection = select(@selector).api(this)
+    selection = select(@selector)
+      .api('titlebar', this)
+      .api(this)
 
     @isMobileFriendly = selection.select('.hx-titlebar-menu-icon-mobile').size() > 0
     hasLinkBar = selection.select('.hx-titlebar-linkbar').selectAll('.hx-titlebar-link').size() > 0

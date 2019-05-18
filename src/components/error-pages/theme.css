@@ -1,11 +1,24 @@
 .hx-error-message {
   background: var(--error-pages-background-color);
-  padding: 32px;
-  box-shadow: 2px 2px 2px 2px var(--error-pages-shadow-color);
-  border-radius: 2px;
+  padding: var(--error-pages-padding);
+  box-shadow: var(--error-pages-box-shadow);
+  border-radius: var(--error-pages-border-radius);
+}
+
+.hx-error-message {
+  background: var(--error-pages-background-color);
+  box-shadow: var(--error-pages-box-shadow);
 }
 
 .hx-error-message-heading {
-  font-size: 2em;
   color: var(--error-pages-heading-text-color);
+  font-size: var(--error-pages-heading-font-size);
+  font-weight: var(--error-pages-heading-font-weight);
+  margin-bottom: var(--error-pages-heading-margin);
+}
+
+.hx-error-message-heading + .hx-error-message-body,
+.hx-error-message-heading + div {
+  font-size: var(--error-pages-body-font-size);
+  margin-bottom: var(--error-pages-body-margin);
 }

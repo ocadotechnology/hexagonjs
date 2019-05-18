@@ -1,12 +1,28 @@
-export {
+import {
   arcCurve,
   svgCurve
 } from './utils'
 
-export {
+import {
   plotLabelStandard,
   plotLabelBasic
 } from './labels'
+
+plot = {
+  label:
+    basic: plotLabelBasic
+    standard: plotLabelStandard
+  arcCurve
+  svgCurve
+}
+
+export {
+  arcCurve,
+  svgCurve,
+  plotLabelBasic,
+  plotLabelStandard,
+  plot
+}
 
 export { LineSeries } from './series/line-series'
 export { BandSeries } from './series/band-series'

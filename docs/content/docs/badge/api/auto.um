@@ -1,0 +1,23 @@
+@class hx-badge
+  @added 1.20.0
+    @description
+      Added module to replace the Label module with better UX considerations and usage guidelines
+
+  @description
+    Applies badge styling to @code[<span>] elements.
+
+  @extraClass hx-success
+    @description
+      Adds styling indicative of success, confirmation or something positive
+
+  @extraClass hx-danger
+    @description
+      Adds styling indicative of failure, danger or something negative
+
+  @extraClass hx-warning
+    @description
+      Adds styling indicative of warning, to suggest the user should use caution
+
+  @extraClass hx-badge-inverse
+    @description
+      Inverts the label styling to display a coloured border to provide less emphasis but still utilise the Badge style.

@@ -6,7 +6,7 @@ import logger from 'utils/logger'
 
 import { DragContainer } from 'components/drag-container'
 import { Autocomplete } from 'components/autocomplete'
-import { validateForm } from 'components/form'
+import { validateForm } from 'components/form/validate-form'
 
 userFacingText({
   tagInput: {

@@ -5,7 +5,7 @@ import { select, div } from 'utils/selection'
 import { Graph } from './graph'
 import { Axis } from './axis'
 
-import { emit } from 'test/utils/fake-event'
+import emit from 'test/utils/fake-event'
 
 export default () ->
   describe "Graph", ->

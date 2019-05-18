@@ -3,7 +3,6 @@ import { mergeDefined } from 'utils/utils'
 
 class ProgressBar
   constructor: (@selector, options) ->
-
     options = mergeDefined {
       segments: undefined
       value: 0
@@ -12,6 +11,7 @@ class ProgressBar
 
     @selection = select(@selector)
       .classed('hx-progress-bar', true)
+      .api('progress-bar', this)
       .api(this)
 
     @innerBars = @selection.append('div').attr('class', 'hx-progress-bar-inner')

@@ -15,6 +15,7 @@ class SideCollapsible extends EventEmitter
 
     @selection = select(selector)
       .classed('hx-side-collapsible', true)
+      .api('side-collapsible', this)
       .api(this)
 
     @openHeading = @selection.select('.hx-side-collapsible-heading-open')
@@ -71,6 +72,7 @@ class SideCollapsible extends EventEmitter
           .style('display', 'block')
 
         morph = =>
+          @closedHeading.style('display', 'none')
           @selection.style('width', '')
           @content.morph()
             .with('expandh', 100)

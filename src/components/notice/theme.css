@@ -3,6 +3,7 @@
 }
 
 /* default */
+.hx-notice-header,
 .hx-notice-head {
   background: var(--notice-default-head-background-color);
   color: var(--notice-default-head-text-color);
@@ -14,6 +15,7 @@
 }
 
 /* action */
+.hx-action > .hx-notice-header,
 .hx-action > .hx-notice-head {
   background: var(--notice-action-head-background-color);
   color: var(--notice-action-head-text-color);
@@ -25,6 +27,7 @@
 }
 
 /* positive */
+.hx-positive > .hx-notice-header,
 .hx-positive > .hx-notice-head {
   background: var(--notice-positive-head-background-color);
   color: var(--notice-positive-head-text-color);
@@ -36,6 +39,7 @@
 }
 
 /* warning */
+.hx-warning > .hx-notice-header,
 .hx-warning > .hx-notice-head {
   background: var(--notice-warning-head-background-color);
   color: var(--notice-warning-head-text-color);
@@ -47,6 +51,7 @@
 }
 
 /* negative */
+.hx-negative > .hx-notice-header,
 .hx-negative > .hx-notice-head {
   background: var(--notice-negative-head-background-color);
   color: var(--notice-negative-head-text-color);
@@ -58,6 +63,7 @@
 }
 
 /* info */
+.hx-info > .hx-notice-header,
 .hx-info > .hx-notice-head {
   background: var(--notice-info-head-background-color);
   color: var(--notice-info-head-text-color);
@@ -69,6 +75,7 @@
 }
 
 /* complement */
+.hx-complement > .hx-notice-header,
 .hx-complement > .hx-notice-head {
   background: var(--notice-complement-head-background-color);
   color: var(--notice-complement-head-text-color);
@@ -80,6 +87,7 @@
 }
 
 /* contrast */
+.hx-contrast > .hx-notice-header,
 .hx-contrast > .hx-notice-head {
   background: var(--notice-contrast-head-background-color);
   color: var(--notice-contrast-head-text-color);

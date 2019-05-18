@@ -2,10 +2,10 @@ import { select } from 'utils/selection'
 import { color } from 'utils/color'
 import { merge } from 'utils/utils'
 
-import { theme } from 'theme'
+import { theme } from 'utils/theme'
 
 import { Series } from '../series'
-import { optionSetterGetter } from '../utils'
+import { optionSetterGetter, splitAndFeather, svgCurve, createLinearGradient, createLabelPoint, makeLabelDetails } from '../utils'
 
 class BandSeries extends Series
   scale = (data, axis) -> {x: axis.xScale.apply(d.x), y: axis.yScale.apply(d.y)} for d in data

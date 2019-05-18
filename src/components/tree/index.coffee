@@ -130,12 +130,15 @@ class Tree
     @options = mergeDefined {
       hideDisabledButtons: false
       animate: true
+      # XXX: Security - innerHTML
+      # XXX Breaking: Renderer
       renderer: (elem, data) -> select(elem).node().innerHTML = data.name || data
       items: []
       lazy: false
     }, options
 
     @selection = select(@selector).classed('hx-tree hx-openable', true)
+      .api('tree', this)
       .api(this)
 
     if @options.items? and @options.items.length > 0

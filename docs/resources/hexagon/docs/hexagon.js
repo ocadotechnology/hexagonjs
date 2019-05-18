@@ -8,7 +8,7 @@
  
  ----------------------------------------------------
  
- Version: 1.17.0
+ Version: 1.20.0
  Theme: hexagon-light
  Modules:
    set
@@ -20,11 +20,12 @@
    selection
    transition
    interpolate
+   animate
    component
    sort
    user-facing-text
-   animate
    icon
+   morphs
    spinner
    view
    pointer-events
@@ -33,7 +34,6 @@
    modal
    notify
    format
-   morphs
    click-detector
    base
    preferences
@@ -68,6 +68,7 @@
    morph-section
    titlebar
    slider
+   badge
    card
    color-picker
    color-scale
@@ -104,11 +105,12 @@ dx.theme = {
   "selection": {},
   "transition": {},
   "interpolate": {},
+  "animate": {},
   "component": {},
   "sort": {},
   "userFacingText": {},
-  "animate": {},
   "icon": {},
+  "morphs": {},
   "spinner": {
     "spinnerCol": "#00ADA8"
   },
@@ -151,7 +153,6 @@ dx.theme = {
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "format": {},
-  "morphs": {},
   "clickDetector": {},
   "base": {
     "defaultFontFamily": "'Open Sans', sans-serif",
@@ -201,7 +202,68 @@ dx.theme = {
     "infoBorderCol": "darken($info-col, 10%)",
     "complementBorderCol": "darken($complement-col, 10%)",
     "contrastBorderCol": "darken($contrast-col, 10%)",
-    "invertBorderCol": "darken(#FDFDFD, 10%)"
+    "invertBorderCol": "darken(#FDFDFD, 10%)",
+    "normalFontSize": "1em",
+    "normalHeight": "40px",
+    "normalLineHeight": "38px",
+    "normalPadding": "0 20px",
+    "smallFontSize": "0.9em",
+    "smallHeight": "30px",
+    "smallLineHeight": "28px",
+    "smallPadding": "0 20px",
+    "microFontSize": "0.9em",
+    "microHeight": "20px",
+    "microLineHeight": "18px",
+    "microPadding": "0 20px",
+    "fontWeight": "normal",
+    "borderRadius": "0.15em",
+    "defaultFontWeight": "bold",
+    "defaultTextColor": "#3D3D3D",
+    "defaultTextHoverColor": "#3D3D3D",
+    "defaultBackgroundColor": "#FFFFFF",
+    "defaultBackgroundHoverColor": "darken($default-col, 10%)",
+    "defaultBorderColor": "#3D3D3D",
+    "defaultBorderHoverColor": "#3D3D3D",
+    "primaryFontWeight": "bold",
+    "primaryTextColor": "#F3F3F3",
+    "primaryTextHoverColor": "#F3F3F3",
+    "primaryBackgroundColor": "#00ADA8",
+    "primaryBackgroundHoverColor": "darken($action-col, 10%)",
+    "primaryBorderColor": "#00ADA8",
+    "primaryBorderHoverColor": "darken($action-col, 10%)",
+    "secondaryFontWeight": "bold",
+    "secondaryTextColor": "#F3F3F3",
+    "secondaryTextHoverColor": "#F3F3F3",
+    "secondaryBackgroundColor": "#3D3D3D",
+    "secondaryBackgroundHoverColor": "darken($dark-text-col, 10%)",
+    "secondaryBorderColor": "#3D3D3D",
+    "secondaryBorderHoverColor": "darken($dark-text-col, 10%)",
+    "successFontWeight": "bold",
+    "successTextColor": "#F3F3F3",
+    "successTextHoverColor": "#F3F3F3",
+    "successBackgroundColor": "#92BF17",
+    "successBackgroundHoverColor": "darken($positive-col, 10%)",
+    "successBorderColor": "#92BF17",
+    "successBorderHoverColor": "darken($positive-col, 10%)",
+    "dangerFontWeight": "bold",
+    "dangerTextColor": "#F3F3F3",
+    "dangerTextHoverColor": "#F3F3F3",
+    "dangerBackgroundColor": "#EC3A65",
+    "dangerBackgroundHoverColor": "darken($negative-col, 10%)",
+    "dangerBorderColor": "#EC3A65",
+    "dangerBorderHoverColor": "darken($negative-col, 10%)",
+    "linkFontWeight": "normal",
+    "linkTextColor": "#00ADA8",
+    "linkTextHoverColor": "#00ADA8",
+    "disabledFontWeight": "bold",
+    "disabledTextColor": "#939393",
+    "disabledBackgroundColor": "#FAFAFA",
+    "disabledBorderColor": "#FAFAFA",
+    "disabledBorderHoverColor": "#FAFAFA",
+    "linkBackgroundColor": "transparent",
+    "linkBackgroundHoverColor": "transparent",
+    "linkBorderColor": "transparent",
+    "linkBorderHoverColor": "transparent"
   },
   "dropdown": {
     "spacing": "0",
@@ -307,6 +369,7 @@ dx.theme = {
     "contentBreakpoint": "1300px, 900px",
     "contentPadding": "1em",
     "margin": "0.3em",
+    "spacing": "0.3em",
     "namedClassMinWidth": "250px",
     "borderCol": "#D0D0D0",
     "contentBackgroundCol": "transparent"
@@ -462,6 +525,25 @@ dx.theme = {
     "disabledCol": "#FAFAFA",
     "shadowCol": "transparent"
   },
+  "badge": {
+    "defaultColor": "#4A4E4E",
+    "successColor": "#92BF17",
+    "warningColor": "#D69B24",
+    "dangerColor": "#EC3A65",
+    "defaultTextColor": "#F3F3F3",
+    "successTextColor": "#F3F3F3",
+    "warningTextColor": "#F3F3F3",
+    "dangerTextColor": "#F3F3F3",
+    "inverseTextColor": "#3D3D3D",
+    "inverseBackgroundColor": "#F3F3F3",
+    "height": "18px",
+    "fontSize": "12px",
+    "fontWeight": "600",
+    "borderRadius": "10px",
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "padding": "0 0.5em"
+  },
   "card": {
     "backgroundCol": "#FFFFFF",
     "borderCol": "#E7E7E7",
@@ -506,9 +588,16 @@ dx.theme = {
     "sidebarTextCol": "#3D3D3D"
   },
   "errorPages": {
-    "shadowCol": "rgba(0, 0, 0, 0.05)",
     "backgroundCol": "#FFFFFF",
-    "headingTextCol": "#00ADA8"
+    "padding": "32px",
+    "boxShadow": "2px 2px 2px 2px rgba(0, 0, 0, 0.05)",
+    "borderRadius": "2px",
+    "headingTextCol": "#3D3D3D",
+    "headingFontSize": "2em",
+    "headingFontWeight": "bold",
+    "headingMargin": "1em",
+    "bodyFontSize": "1em",
+    "bodyMargin": "1em"
   },
   "fastClick": {},
   "fileInput": {},
@@ -553,9 +642,20 @@ dx.theme = {
     "shadowCol": "rgba(0, 0, 0, 0.05)"
   },
   "paginator": {
-    "arrowButton": "",
+    "arrowButton": "n-a",
     "defaultButton": "dx-complement",
-    "selectedButton": "dx-action"
+    "selectedButton": "dx-action",
+    "buttonBorderColor": "#DADADA",
+    "buttonBackgroundColor": "#FFFFFF",
+    "buttonTextColor": "#3D3D3D",
+    "buttonHoverBackgroundColor": "#D0DDEE",
+    "buttonHoverTextColor": "#3D3D3D",
+    "ellipsisBackgroundColor": " transparent;",
+    "ellipsisBorderColor": " transparent;",
+    "ellipsisTextColor": "#3D3D3D",
+    "selectedBackgroundColor": "#00ADA8",
+    "selectedTextColor": "#F3F3F3",
+    "buttonFontWeight": "normal"
   },
   "pivotTable": {},
   "sideCollapsible": {
@@ -3356,284 +3456,6 @@ dx.interpolate = function(a, b) {
 
 })();
 (function(){
-dx.component = function(selector) {
-  var ref, ref1, ref2;
-  return (ref = dx.select(selector).node()) != null ? (ref1 = ref.__dx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
-};
-
-dx.components = function(selector) {
-  var components, ref, ref1;
-  components = (ref = dx.select(selector).node()) != null ? (ref1 = ref.__dx__) != null ? ref1.components : void 0 : void 0;
-  if (components) {
-    return components.slice();
-  } else {
-    return [];
-  }
-};
-
-dx.components.clear = function(selector) {
-  var node;
-  node = dx.select(selector).node();
-  if (node.__dx__ == null) {
-    node.__dx__ = {};
-  }
-  node.__dx__.components = [];
-};
-
-dx.component.register = function(selector, component) {
-  var base, node;
-  node = dx.select(selector).node();
-  if (node.__dx__ == null) {
-    node.__dx__ = {};
-  }
-  if ((base = node.__dx__).components == null) {
-    base.components = [];
-  }
-  node.__dx__.components.push(component);
-};
-
-if (dx.Selection) {
-  dx.Selection.prototype.component = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return dx.component(this.nodes[0]);
-      }
-    } else {
-      return this.nodes.map(dx.component);
-    }
-  };
-  dx.Selection.prototype.components = function() {
-    if (this.singleSelection) {
-      if (this.nodes[0]) {
-        return dx.components(this.nodes[0]);
-      }
-    } else {
-      return this.nodes.map(dx.components);
-    }
-  };
-  dx.Selection.prototype.api = function(api) {
-    if (arguments.length > 0) {
-      if (this.singleSelection) {
-        dx.component.register(this.nodes[0], api);
-      } else {
-        dx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection');
-      }
-      return this;
-    } else {
-      if (this.singleSelection) {
-        if (this.nodes[0]) {
-          return dx.component(this.nodes[0]);
-        }
-      } else {
-        return this.nodes.map(dx.component);
-      }
-    }
-  };
-}
-
-})();
-(function(){
-var collatorFn, compare, compareNullsLast, defaultCollator, hasCollator, localeCollatorFn, localeCompare, nullsLastCollator,
-  slice = [].slice;
-
-hasCollator = function() {
-  return (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
-};
-
-dx._.sort = {};
-
-collatorFn = function() {
-  if (hasCollator()) {
-    return new Intl.Collator(void 0, {
-      numeric: true
-    }).compare;
-  } else {
-    return function(a, b) {
-      if (a === b) {
-        return 0;
-      } else if (String(a) < String(b)) {
-        return -1;
-      } else {
-        return 1;
-      }
-    };
-  }
-};
-
-nullsLastCollator = function(collator) {
-  return function(a, b) {
-    if (a === b) {
-      return 0;
-    } else if (a === void 0) {
-      return 1;
-    } else if (b === void 0) {
-      return -1;
-    } else if (a === null) {
-      return 1;
-    } else if (b === null) {
-      return -1;
-    } else if (!isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return collator(a, b);
-    }
-  };
-};
-
-defaultCollator = function(collator) {
-  return function(a, b) {
-    if ((a != null) && (b != null) && !isNaN(Number(a)) && !isNaN(Number(b))) {
-      return a - b;
-    } else {
-      return collator(a, b);
-    }
-  };
-};
-
-compare = function(a, b) {
-  var base;
-  if ((base = dx._.sort).collator == null) {
-    base.collator = collatorFn();
-  }
-  return defaultCollator(dx._.sort.collator)(a, b);
-};
-
-compareNullsLast = function(a, b) {
-  var base;
-  if ((base = dx._.sort).collator == null) {
-    base.collator = collatorFn();
-  }
-  return nullsLastCollator(dx._.sort.collator)(a, b);
-};
-
-localeCollatorFn = function(locale, options) {
-  if (hasCollator()) {
-    return new Intl.Collator(locale, options).compare;
-  } else {
-    return function(a, b) {
-      return String(a).localeCompare(String(b), locale, options);
-    };
-  }
-};
-
-localeCompare = function(locale, options) {
-  var localeCollator;
-  options = dx.merge.defined(options, {
-    numeric: true
-  });
-  localeCollator = localeCollatorFn(locale, options);
-  if (options.nullsLast) {
-    return nullsLastCollator(localeCollator);
-  } else {
-    return defaultCollator(localeCollator);
-  }
-};
-
-dx.sortBy = function(arr, f) {
-  var newArr;
-  newArr = slice.call(arr);
-  newArr.sort(function(left, right) {
-    var fLeft, fRight;
-    fLeft = f(left);
-    fRight = f(right);
-    return compare(fLeft, fRight);
-  });
-  return newArr;
-};
-
-dx.sort = function(arr) {
-  return dx.sortBy(arr, function(x) {
-    return x;
-  });
-};
-
-dx.sort.compare = compare;
-
-dx.sort.compareNullsLast = compareNullsLast;
-
-dx.sort.localeCompare = localeCompare;
-
-})();
-(function(){
-var _, completeGetterSetter, isValid, partialGetterSetter, userFacingText, userFacingTextDefaults;
-
-_ = {
-  initialValues: {},
-  localisedText: {}
-};
-
-completeGetterSetter = function(object) {
-  var key, module;
-  if (arguments.length) {
-    if (dx.isPlainObject(object)) {
-      for (module in object) {
-        for (key in object[module]) {
-          partialGetterSetter(module, key, object[module][key]);
-        }
-      }
-      return void 0;
-    } else {
-      return dx.consoleWarning("dx.userFacingText: Expected a plain object but was instead passed: " + object);
-    }
-  } else {
-    return dx.clone(_.localisedText);
-  }
-};
-
-isValid = function(value) {
-  return dx.isString(value) && value.length;
-};
-
-partialGetterSetter = function(module, key, value) {
-  var base, base1, base2, ref, text;
-  if (isValid(module) && isValid(key)) {
-    if (isValid(value)) {
-      if ((base = _.localisedText)[module] == null) {
-        base[module] = {};
-      }
-      _.localisedText[module][key] = value;
-      if ((base1 = _.initialValues)[module] == null) {
-        base1[module] = {};
-      }
-      if ((base2 = _.initialValues[module])[key] == null) {
-        base2[key] = value;
-      }
-      return void 0;
-    } else if (value == null) {
-      text = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
-      if (text) {
-        return text;
-      } else {
-        return dx.consoleWarning("dx.userFacingText: No text was found for key: " + key + " in module: " + module);
-      }
-    } else {
-      return dx.consoleWarning("dx.userFacingText: The value provided must be a string but was passed value: " + value);
-    }
-  } else {
-    return dx.consoleWarning("dx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
-  }
-};
-
-userFacingText = function() {
-  if (arguments.length <= 1) {
-    return completeGetterSetter.apply(this, arguments);
-  } else {
-    return partialGetterSetter.apply(this, arguments);
-  }
-};
-
-userFacingTextDefaults = function() {
-  return dx.clone(_.initialValues);
-};
-
-dx.userFacingText = userFacingText;
-
-dx.userFacingText.defaults = userFacingTextDefaults;
-
-dx._.userFacingText = _;
-
-})();
-(function(){
 
 /* istanbul ignore next: ignore coffeescript generated code that can't be covered */
 var Animation, Morph, dx_morphs,
@@ -3969,7 +3791,582 @@ dx.morph.register = function(name, morph) {
 };
 
 })();
+(function(){
+dx.component = function(selector) {
+  var ref, ref1, ref2;
+  return (ref = dx.select(selector).node()) != null ? (ref1 = ref.__dx__) != null ? (ref2 = ref1.components) != null ? ref2[0] : void 0 : void 0 : void 0;
+};
 
+dx.components = function(selector) {
+  var components, ref, ref1;
+  components = (ref = dx.select(selector).node()) != null ? (ref1 = ref.__dx__) != null ? ref1.components : void 0 : void 0;
+  if (components) {
+    return components.slice();
+  } else {
+    return [];
+  }
+};
+
+dx.components.clear = function(selector) {
+  var node;
+  node = dx.select(selector).node();
+  if (node.__dx__ == null) {
+    node.__dx__ = {};
+  }
+  node.__dx__.components = [];
+};
+
+dx.component.register = function(selector, component) {
+  var base, node;
+  node = dx.select(selector).node();
+  if (node.__dx__ == null) {
+    node.__dx__ = {};
+  }
+  if ((base = node.__dx__).components == null) {
+    base.components = [];
+  }
+  node.__dx__.components.push(component);
+};
+
+if (dx.Selection) {
+  dx.Selection.prototype.component = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return dx.component(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(dx.component);
+    }
+  };
+  dx.Selection.prototype.components = function() {
+    if (this.singleSelection) {
+      if (this.nodes[0]) {
+        return dx.components(this.nodes[0]);
+      }
+    } else {
+      return this.nodes.map(dx.components);
+    }
+  };
+  dx.Selection.prototype.api = function(api) {
+    if (arguments.length > 0) {
+      if (this.singleSelection) {
+        dx.component.register(this.nodes[0], api);
+      } else {
+        dx.consoleWarning('Selection::api', 'You cannot set an api for a multi-selection');
+      }
+      return this;
+    } else {
+      if (this.singleSelection) {
+        if (this.nodes[0]) {
+          return dx.component(this.nodes[0]);
+        }
+      } else {
+        return this.nodes.map(dx.component);
+      }
+    }
+  };
+}
+
+})();
+(function(){
+var collatorFn, compare, compareNullsLast, defaultCollator, hasCollator, localeCollatorFn, localeCompare, nullsLastCollator,
+  slice = [].slice;
+
+hasCollator = function() {
+  return (typeof Intl !== "undefined" && Intl !== null ? Intl.Collator : void 0) != null;
+};
+
+dx._.sort = {};
+
+collatorFn = function() {
+  if (hasCollator()) {
+    return new Intl.Collator(void 0, {
+      numeric: true
+    }).compare;
+  } else {
+    return function(a, b) {
+      if (a === b) {
+        return 0;
+      } else if (String(a) < String(b)) {
+        return -1;
+      } else {
+        return 1;
+      }
+    };
+  }
+};
+
+nullsLastCollator = function(collator) {
+  return function(a, b) {
+    if (a === b) {
+      return 0;
+    } else if (a === void 0) {
+      return 1;
+    } else if (b === void 0) {
+      return -1;
+    } else if (a === null) {
+      return 1;
+    } else if (b === null) {
+      return -1;
+    } else if (!isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
+defaultCollator = function(collator) {
+  return function(a, b) {
+    if ((a != null) && (b != null) && !isNaN(Number(a)) && !isNaN(Number(b))) {
+      return a - b;
+    } else {
+      return collator(a, b);
+    }
+  };
+};
+
+compare = function(a, b) {
+  var base;
+  if ((base = dx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return defaultCollator(dx._.sort.collator)(a, b);
+};
+
+compareNullsLast = function(a, b) {
+  var base;
+  if ((base = dx._.sort).collator == null) {
+    base.collator = collatorFn();
+  }
+  return nullsLastCollator(dx._.sort.collator)(a, b);
+};
+
+localeCollatorFn = function(locale, options) {
+  if (hasCollator()) {
+    return new Intl.Collator(locale, options).compare;
+  } else {
+    return function(a, b) {
+      return String(a).localeCompare(String(b), locale, options);
+    };
+  }
+};
+
+localeCompare = function(locale, options) {
+  var localeCollator;
+  options = dx.merge.defined(options, {
+    numeric: true
+  });
+  localeCollator = localeCollatorFn(locale, options);
+  if (options.nullsLast) {
+    return nullsLastCollator(localeCollator);
+  } else {
+    return defaultCollator(localeCollator);
+  }
+};
+
+dx.sortBy = function(arr, f) {
+  var newArr;
+  newArr = slice.call(arr);
+  newArr.sort(function(left, right) {
+    var fLeft, fRight;
+    fLeft = f(left);
+    fRight = f(right);
+    return compare(fLeft, fRight);
+  });
+  return newArr;
+};
+
+dx.sort = function(arr) {
+  return dx.sortBy(arr, function(x) {
+    return x;
+  });
+};
+
+dx.sort.compare = compare;
+
+dx.sort.compareNullsLast = compareNullsLast;
+
+dx.sort.localeCompare = localeCompare;
+
+})();
+(function(){
+var Selection, _, defaultReplacer, detached, format, getValue, isCorrectlyFormattedArray, isNullOrNumber, isStringWithLength, lookupPlural, paramRegex, setValue, setWholeObject, toMultilineSelection, userFacingText, userFacingTextDefaults,
+  slice = [].slice;
+
+_ = {
+  initialValues: {},
+  localisedText: {}
+};
+
+detached = dx.detached, Selection = dx.Selection;
+
+setWholeObject = function(object) {
+  var key, module;
+  if (dx.isPlainObject(object)) {
+    for (module in object) {
+      for (key in object[module]) {
+        setValue(module, key, object[module][key]);
+      }
+    }
+  } else {
+    dx.consoleWarning("dx.userFacingText: Expected a plain object but was instead passed: " + object);
+  }
+  return void 0;
+};
+
+isStringWithLength = function(value) {
+  return dx.isString(value) && value.length;
+};
+
+defaultReplacer = function(str, key, params) {
+  return str.replace(new RegExp("\\\$" + key, 'g'), params[key]);
+};
+
+format = function(string, params, replacer) {
+  var replaceStringValues;
+  if (replacer == null) {
+    replacer = defaultReplacer;
+  }
+  replaceStringValues = (function(_this) {
+    return function(str, key) {
+      return replacer(str, key, params);
+    };
+  })(this);
+  return Object.keys(params).sort().reverse().reduce(replaceStringValues, string);
+};
+
+toMultilineSelection = function(string, textElement, dontAddBreak) {
+  if (textElement == null) {
+    textElement = 'span';
+  }
+  return new Selection(string.split('\n').reduce((function(prev, curr, i) {
+    return slice.call(prev).concat([(!dontAddBreak && i > 0 ? detached('br').node() : null)], [detached(textElement).text(curr).node()]);
+  }), []));
+};
+
+lookupPlural = function(valueToGet, n) {
+  var a, max, min, ref, string;
+  a = valueToGet.filter(function(arg) {
+    var max, min;
+    min = arg[0], max = arg[1];
+    return n >= min && (n <= max || max === null);
+  });
+  ref = a[0], min = ref[0], max = ref[1], string = ref[2];
+  return string;
+};
+
+paramRegex = /\$\D/g;
+
+getValue = function(module, key, parseLater, params) {
+  var n, ref, val, valueToGet;
+  valueToGet = (ref = _.localisedText[module]) != null ? ref[key] : void 0;
+  if (!valueToGet) {
+    dx.consoleWarning("dx.userFacingText: No text was found for key: " + key + " in module: " + module);
+    return void 0;
+  }
+  val = dx.isArray(valueToGet) ? (n = !params || isNaN(params.n) ? 1 : params.n, lookupPlural(valueToGet, n)) : valueToGet;
+  if (parseLater !== true && val.match(paramRegex)) {
+    if (params) {
+      return format(val, params);
+    }
+    dx.consoleWarning("dx.userFacingText: Parameterised string was returned without parsing parameters: " + val + ".\nCall userFacingText(module, key, parameters) to replace the parameters or userFacingText(module, key, true) if you are handling this externally.");
+  }
+  return val;
+};
+
+isNullOrNumber = function(val) {
+  return val === null || !isNaN(val);
+};
+
+isCorrectlyFormattedArray = function(valueToSet) {
+  return (dx.isArray(valueToSet) && valueToSet.every(function(item) {
+    return dx.isArray(item) && item.length === 3;
+  }) && valueToSet.every(function(arg) {
+    var max, min, value;
+    min = arg[0], max = arg[1], value = arg[2];
+    return isNullOrNumber(min) && isNullOrNumber(max) && isStringWithLength(value);
+  })) || false;
+};
+
+setValue = function(module, key, valueToSet) {
+  var base, base1, base2;
+  if (!isCorrectlyFormattedArray(valueToSet) && !isStringWithLength(valueToSet)) {
+    dx.consoleWarning("dx.userFacingText: The value provided must be a string but was passed value: " + valueToSet);
+    return void 0;
+  }
+  if ((base = _.localisedText)[module] == null) {
+    base[module] = {};
+  }
+  _.localisedText[module][key] = valueToSet;
+  if ((base1 = _.initialValues)[module] == null) {
+    base1[module] = {};
+  }
+  if ((base2 = _.initialValues[module])[key] == null) {
+    base2[key] = valueToSet;
+  }
+  return void 0;
+};
+
+userFacingText = function() {
+  var key, module, paramsToParse, parseLater, valueToSet;
+  if (!arguments.length) {
+    return dx.clone(_.localisedText);
+  }
+  if (arguments.length === 1) {
+    return setWholeObject(arguments[0]);
+  }
+  module = arguments[0];
+  key = arguments[1];
+  if (!isStringWithLength(module) || !isStringWithLength(key)) {
+    dx.consoleWarning("dx.userFacingText: A module and key are expected as strings but was passed module: " + module + " and key: " + key);
+    return void 0;
+  }
+  if (arguments.length === 2) {
+    return getValue(module, key, false);
+  }
+  if (arguments[2] === true) {
+    parseLater = arguments[2];
+    return getValue(module, key, parseLater);
+  }
+  if (dx.isPlainObject(arguments[2])) {
+    paramsToParse = arguments[2];
+    return getValue(module, key, false, paramsToParse);
+  }
+  valueToSet = arguments[2];
+  return setValue(module, key, valueToSet);
+};
+
+userFacingTextDefaults = function() {
+  return dx.clone(_.initialValues);
+};
+
+dx.userFacingText = userFacingText;
+
+dx.userFacingText.format = format;
+
+dx.userFacingText.defaults = userFacingTextDefaults;
+
+dx.userFacingText.toMultilineSelection = toMultilineSelection;
+
+dx._.userFacingText = _;
+
+})();
+
+(function(){
+var Delay, animateStyles, clearAndGet, getStyles, setStyles,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+dx.morph.register('fadeout', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return dx.animate(node).style('opacity', 0, duration);
+});
+
+dx.morph.register('fadein', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return dx.animate(node).style('opacity', 1, duration);
+});
+
+getStyles = function(selection, properties) {
+  var i, j, len, len1, p, results, results1;
+  if (selection.style('display') !== 'none') {
+    results = [];
+    for (i = 0, len = properties.length; i < len; i++) {
+      p = properties[i];
+      results.push({
+        name: p,
+        value: selection.style(p)
+      });
+    }
+    return results;
+  } else {
+    results1 = [];
+    for (j = 0, len1 = properties.length; j < len1; j++) {
+      p = properties[j];
+      results1.push({
+        name: p,
+        value: '0px'
+      });
+    }
+    return results1;
+  }
+};
+
+clearAndGet = function(selection, properties) {
+  var i, len, p, results;
+  results = [];
+  for (i = 0, len = properties.length; i < len; i++) {
+    p = properties[i];
+    results.push({
+      name: p,
+      value: selection.style(p, '').style(p)
+    });
+  }
+  return results;
+};
+
+setStyles = function(selection, properties) {
+  var i, item, len;
+  for (i = 0, len = properties.length; i < len; i++) {
+    item = properties[i];
+    selection.style(item.name, item.value);
+  }
+};
+
+animateStyles = function(selection, properties, duration) {
+  var animation, i, item, len;
+  animation = selection.animate();
+  for (i = 0, len = properties.length; i < len; i++) {
+    item = properties[i];
+    animation.style(item.name, item.value, duration);
+  }
+  return animation;
+};
+
+dx.morph.register('expand', function(node, duration) {
+  var end, properties, selection, start;
+  if (duration == null) {
+    duration = 100;
+  }
+  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom', 'width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
+  selection = dx.select(node);
+  start = getStyles(selection, properties);
+  selection.style('display', '');
+  end = clearAndGet(selection, properties);
+  setStyles(selection, start);
+  selection.classed('dx-morph-hidden', true);
+  return animateStyles(selection, end, duration).on('end', 'dx.morphs', function(e) {
+    clearAndGet(selection, properties);
+    return selection.classed('dx-morph-hidden', false);
+  });
+});
+
+dx.morph.register('expandv', function(node, duration) {
+  var end, properties, selection, start;
+  if (duration == null) {
+    duration = 100;
+  }
+  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom'];
+  selection = dx.select(node);
+  start = getStyles(selection, properties);
+  selection.style('display', '');
+  end = clearAndGet(selection, properties);
+  setStyles(selection, start);
+  selection.classed('dx-morph-hidden', true);
+  return animateStyles(selection, end, duration).on('end', 'dx.morphs', function(e) {
+    clearAndGet(selection, properties);
+    return selection.classed('dx-morph-hidden', false);
+  });
+});
+
+dx.morph.register('expandh', function(node, duration) {
+  var end, properties, selection, start;
+  if (duration == null) {
+    duration = 100;
+  }
+  properties = ['width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
+  selection = dx.select(node);
+  start = getStyles(selection, properties);
+  selection.style('display', '');
+  end = clearAndGet(selection, properties);
+  setStyles(selection, start);
+  selection.classed('dx-morph-hidden', true);
+  return animateStyles(selection, end, duration).on('end', 'dx.morphs', function(e) {
+    clearAndGet(selection, properties);
+    return selection.classed('dx-morph-hidden', false);
+  });
+});
+
+dx.morph.register('collapse', function(node, duration) {
+  var selection;
+  if (duration == null) {
+    duration = 100;
+  }
+  selection = dx.select(node).classed('dx-morph-hidden', true);
+  return dx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'dx.morphs', function(e) {
+    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('dx-morph-hidden', false);
+  });
+});
+
+dx.morph.register('collapsev', function(node, duration) {
+  var selection;
+  if (duration == null) {
+    duration = 100;
+  }
+  selection = dx.select(node).classed('dx-morph-hidden', true);
+  return dx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).on('end', 'dx.morphs', function(e) {
+    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').classed('dx-morph-hidden', false);
+  });
+});
+
+dx.morph.register('collapseh', function(node, duration) {
+  var selection;
+  if (duration == null) {
+    duration = 100;
+  }
+  selection = dx.select(node).classed('dx-morph-hidden', true);
+  return dx.animate(node).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'dx.morphs', function(e) {
+    return selection.style('display', 'none').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('dx-morph-hidden', false);
+  });
+});
+
+dx.morph.register('rotate-90', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return dx.animate(node).style('-webkit-transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).style('transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).on('end', 'dx.morphs', function() {
+    return dx.select(node).style('transform', '').style('-webkit-transform', '');
+  }).on('cancel', 'dx.morphs', function() {
+    return dx.select(node).style('transform', '').style('-webkit-transform', '');
+  });
+});
+
+dx.morph.register('rotate-0', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return dx.animate(node).style('-webkit-transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).style('transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).on('end', 'dx.morphs', function() {
+    return dx.select(node).style('transform', '').style('-webkit-transform', '');
+  }).on('cancel', 'dx.morphs', function() {
+    return dx.select(node).style('transform', '').style('-webkit-transform', '');
+  });
+});
+
+Delay = (function(superClass) {
+  extend(Delay, superClass);
+
+  function Delay(duration) {
+    this.cancel = bind(this.cancel, this);
+    Delay.__super__.constructor.apply(this, arguments);
+    this.timeout = setTimeout(((function(_this) {
+      return function() {
+        return _this.emit('end');
+      };
+    })(this)), duration);
+  }
+
+  Delay.prototype.cancel = function() {
+    return clearTimeout(this.timeout);
+  };
+
+  return Delay;
+
+})(dx.EventEmitter);
+
+dx.morph.register('delay', function(node, duration) {
+  if (duration == null) {
+    duration = 100;
+  }
+  return new Delay(duration);
+});
+
+})();
 
 (function(){
 var View;
@@ -4461,7 +4858,7 @@ validateForm = function(form, options) {
   for (i = j = 0, ref = form.children.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
     if (form.children[i].nodeName.toLowerCase() === 'div') {
       element = form.children[i].children[1];
-      if (element.offsetParent !== null) {
+      if (element && element.offsetParent !== null) {
         if (element.nodeName.toLowerCase() === 'input' || element.nodeName.toLowerCase() === 'textarea') {
           if (!element.checkValidity()) {
             type = dx.select(element).attr('type');
@@ -5173,220 +5570,6 @@ dx.format = {
     };
   }
 };
-
-})();
-(function(){
-var Delay, animateStyles, clearAndGet, getStyles, setStyles,
-  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
-
-dx.morph.register('fadeout', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return dx.animate(node).style('opacity', 0, duration);
-});
-
-dx.morph.register('fadein', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return dx.animate(node).style('opacity', 1, duration);
-});
-
-getStyles = function(selection, properties) {
-  var i, j, len, len1, p, results, results1;
-  if (selection.style('display') !== 'none') {
-    results = [];
-    for (i = 0, len = properties.length; i < len; i++) {
-      p = properties[i];
-      results.push({
-        name: p,
-        value: selection.style(p)
-      });
-    }
-    return results;
-  } else {
-    results1 = [];
-    for (j = 0, len1 = properties.length; j < len1; j++) {
-      p = properties[j];
-      results1.push({
-        name: p,
-        value: '0px'
-      });
-    }
-    return results1;
-  }
-};
-
-clearAndGet = function(selection, properties) {
-  var i, len, p, results;
-  results = [];
-  for (i = 0, len = properties.length; i < len; i++) {
-    p = properties[i];
-    results.push({
-      name: p,
-      value: selection.style(p, '').style(p)
-    });
-  }
-  return results;
-};
-
-setStyles = function(selection, properties) {
-  var i, item, len;
-  for (i = 0, len = properties.length; i < len; i++) {
-    item = properties[i];
-    selection.style(item.name, item.value);
-  }
-};
-
-animateStyles = function(selection, properties, duration) {
-  var animation, i, item, len;
-  animation = selection.animate();
-  for (i = 0, len = properties.length; i < len; i++) {
-    item = properties[i];
-    animation.style(item.name, item.value, duration);
-  }
-  return animation;
-};
-
-dx.morph.register('expand', function(node, duration) {
-  var end, properties, selection, start;
-  if (duration == null) {
-    duration = 100;
-  }
-  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom', 'width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
-  selection = dx.select(node);
-  start = getStyles(selection, properties);
-  selection.style('display', '');
-  end = clearAndGet(selection, properties);
-  setStyles(selection, start);
-  selection.classed('dx-morph-hidden', true);
-  return animateStyles(selection, end, duration).on('end', 'dx.morphs', function(e) {
-    clearAndGet(selection, properties);
-    return selection.classed('dx-morph-hidden', false);
-  });
-});
-
-dx.morph.register('expandv', function(node, duration) {
-  var end, properties, selection, start;
-  if (duration == null) {
-    duration = 100;
-  }
-  properties = ['height', 'padding-top', 'padding-bottom', 'margin-top', 'margin-bottom'];
-  selection = dx.select(node);
-  start = getStyles(selection, properties);
-  selection.style('display', '');
-  end = clearAndGet(selection, properties);
-  setStyles(selection, start);
-  selection.classed('dx-morph-hidden', true);
-  return animateStyles(selection, end, duration).on('end', 'dx.morphs', function(e) {
-    clearAndGet(selection, properties);
-    return selection.classed('dx-morph-hidden', false);
-  });
-});
-
-dx.morph.register('expandh', function(node, duration) {
-  var end, properties, selection, start;
-  if (duration == null) {
-    duration = 100;
-  }
-  properties = ['width', 'padding-left', 'padding-right', 'margin-left', 'margin-right'];
-  selection = dx.select(node);
-  start = getStyles(selection, properties);
-  selection.style('display', '');
-  end = clearAndGet(selection, properties);
-  setStyles(selection, start);
-  selection.classed('dx-morph-hidden', true);
-  return animateStyles(selection, end, duration).on('end', 'dx.morphs', function(e) {
-    clearAndGet(selection, properties);
-    return selection.classed('dx-morph-hidden', false);
-  });
-});
-
-dx.morph.register('collapse', function(node, duration) {
-  var selection;
-  if (duration == null) {
-    duration = 100;
-  }
-  selection = dx.select(node).classed('dx-morph-hidden', true);
-  return dx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'dx.morphs', function(e) {
-    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('dx-morph-hidden', false);
-  });
-});
-
-dx.morph.register('collapsev', function(node, duration) {
-  var selection;
-  if (duration == null) {
-    duration = 100;
-  }
-  selection = dx.select(node).classed('dx-morph-hidden', true);
-  return dx.animate(node).style('height', '0px', duration).style('padding-top', '0px', duration).style('padding-bottom', '0px', duration).style('margin-top', '0px', duration).style('margin-bottom', '0px', duration).on('end', 'dx.morphs', function(e) {
-    return selection.style('display', 'none').style('height', '').style('padding-top', '').style('padding-bottom', '').style('margin-top', '').style('margin-bottom', '').classed('dx-morph-hidden', false);
-  });
-});
-
-dx.morph.register('collapseh', function(node, duration) {
-  var selection;
-  if (duration == null) {
-    duration = 100;
-  }
-  selection = dx.select(node).classed('dx-morph-hidden', true);
-  return dx.animate(node).style('width', '0px', duration).style('padding-left', '0px', duration).style('padding-right', '0px', duration).style('margin-left', '0px', duration).style('margin-right', '0px', duration).on('end', 'dx.morphs', function(e) {
-    return selection.style('display', 'none').style('width', '').style('padding-left', '').style('padding-right', '').style('margin-left', '').style('margin-right', '').classed('dx-morph-hidden', false);
-  });
-});
-
-dx.morph.register('rotate-90', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return dx.animate(node).style('-webkit-transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).style('transform', 'matrix(1, 0, 0, 1, 0, 0)', 'matrix(0, 1, -1, 0, 0, 0)', duration).on('end', 'dx.morphs', function() {
-    return dx.select(node).style('transform', '').style('-webkit-transform', '');
-  }).on('cancel', 'dx.morphs', function() {
-    return dx.select(node).style('transform', '').style('-webkit-transform', '');
-  });
-});
-
-dx.morph.register('rotate-0', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return dx.animate(node).style('-webkit-transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).style('transform', 'matrix(0, 1, -1, 0, 0, 0)', 'matrix(1, 0, 0, 1, 0, 0)', duration).on('end', 'dx.morphs', function() {
-    return dx.select(node).style('transform', '').style('-webkit-transform', '');
-  }).on('cancel', 'dx.morphs', function() {
-    return dx.select(node).style('transform', '').style('-webkit-transform', '');
-  });
-});
-
-Delay = (function(superClass) {
-  extend(Delay, superClass);
-
-  function Delay(duration) {
-    this.cancel = bind(this.cancel, this);
-    Delay.__super__.constructor.apply(this, arguments);
-    this.timeout = setTimeout(((function(_this) {
-      return function() {
-        return _this.emit('end');
-      };
-    })(this)), duration);
-  }
-
-  Delay.prototype.cancel = function() {
-    return clearTimeout(this.timeout);
-  };
-
-  return Delay;
-
-})(dx.EventEmitter);
-
-dx.morph.register('delay', function(node, duration) {
-  if (duration == null) {
-    duration = 100;
-  }
-  return new Delay(duration);
-});
 
 })();
 (function(){
@@ -6596,6 +6779,10 @@ DateTimeLocalizer = (function(superClass) {
     }
   };
 
+  DateTimeLocalizer.prototype.fullMonth = function(month) {
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][month];
+  };
+
   DateTimeLocalizer.prototype.year = function(year) {
     return year;
   };
@@ -6752,6 +6939,12 @@ DateTimeLocalizerMoment = (function(superClass) {
     return moment({
       month: month
     }).locale(this.locale()).format(short ? 'MM' : 'MMM');
+  };
+
+  DateTimeLocalizerMoment.prototype.fullMonth = function(month) {
+    return moment({
+      month: month
+    }).locale(this.locale()).format('MMMM');
   };
 
   DateTimeLocalizerMoment.prototype.year = function(year) {
@@ -7834,7 +8027,7 @@ dx.AutocompleteFeed = AutocompleteFeed;
 
 })();
 (function(){
-var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, updateDatepicker, validateDates,
+var DatePicker, buildCalendar, buildDatepicker, calendarGridRowUpdate, calendarGridUpdate, getCalendarDecade, getCalendarMonth, getCalendarYear, isBetweenDates, isSelectable, isSelected, isToday, setupInput, toggleInputValidity, updateDatepicker, validateDates,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -7964,39 +8157,88 @@ isToday = function(year, month, day) {
   return date.toString() === today.toString();
 };
 
+toggleInputValidity = function(input, dateValidityCallback, valid, type) {
+  if (input != null) {
+    if (dateValidityCallback) {
+      return dateValidityCallback(valid, type);
+    } else {
+      return input.classed('dx-date-error', !valid);
+    }
+  }
+};
+
 validateDates = function(datepicker) {
-  var _, isRangePicker, tDate;
+  var _, isRangePicker, ref, ref1, ref2, ref3, ref4, ref5, tDate, validityFn;
   _ = datepicker._;
   isRangePicker = datepicker.options.selectRange;
-  if (_.validRange != null) {
-    if (_.validRange.start != null) {
-      if (_.startDate < _.validRange.start) {
-        _.startDate = new Date(_.validRange.start.getTime());
+  if (datepicker.options.v2Features.dontModifyDateOnError) {
+    validityFn = _.inputOnlyMode && datepicker.options.v2Features.dateValidityCallback;
+    toggleInputValidity(_.input, validityFn, true);
+    if ((ref = _.inputStart) != null) {
+      ref.classed('dx-date-error', false);
+    }
+    if ((ref1 = _.inputEnd) != null) {
+      ref1.classed('dx-date-error', false);
+    }
+    if (_.validRange != null) {
+      if (_.validRange.start != null) {
+        if (_.startDate < _.validRange.start) {
+          toggleInputValidity(_.input, validityFn, false, 'DATE_OUTSIDE_RANGE_START');
+          if ((ref2 = _.inputStart) != null) {
+            ref2.classed('dx-date-error', true);
+          }
+        }
+        if (isRangePicker && _.endDate < _.validRange.start) {
+          if ((ref3 = _.inputEnd) != null) {
+            ref3.classed('dx-date-error', true);
+          }
+        }
       }
-      if (isRangePicker && _.endDate < _.validRange.start) {
-        _.endDate = new Date(_.validRange.start.getTime());
+      if (_.validRange.end != null) {
+        if (_.startDate > _.validRange.end) {
+          toggleInputValidity(_.input, validityFn, false, 'DATE_OUTSIDE_RANGE_END');
+          if ((ref4 = _.inputStart) != null) {
+            ref4.classed('dx-date-error', true);
+          }
+        }
+        if (isRangePicker && _.endDate > _.validRange.end) {
+          if ((ref5 = _.inputEnd) != null) {
+            ref5.classed('dx-date-error', true);
+          }
+        }
       }
     }
-    if (_.validRange.end != null) {
-      if (_.startDate > _.validRange.end) {
-        _.startDate = new Date(_.validRange.end.getTime());
-      }
-      if (isRangePicker && _.endDate > _.validRange.end) {
-        _.endDate = new Date(_.validRange.end.getTime());
-      }
-    }
-  }
-  if (!isRangePicker) {
-    _.endDate = _.startDate;
   } else {
-    if (_.endDate < _.startDate) {
-      tDate = _.endDate;
-      _.endDate = _.startDate;
-      _.startDate = tDate;
+    if (_.validRange != null) {
+      if (_.validRange.start != null) {
+        if (_.startDate < _.validRange.start) {
+          _.startDate = new Date(_.validRange.start.getTime());
+        }
+        if (isRangePicker && _.endDate < _.validRange.start) {
+          _.endDate = new Date(_.validRange.start.getTime());
+        }
+      }
+      if (_.validRange.end != null) {
+        if (_.startDate > _.validRange.end) {
+          _.startDate = new Date(_.validRange.end.getTime());
+        }
+        if (isRangePicker && _.endDate > _.validRange.end) {
+          _.endDate = new Date(_.validRange.end.getTime());
+        }
+      }
     }
+    if (!isRangePicker) {
+      _.endDate = _.startDate;
+    } else {
+      if (_.endDate < _.startDate) {
+        tDate = _.endDate;
+        _.endDate = _.startDate;
+        _.startDate = tDate;
+      }
+    }
+    _.endDate.setHours(0, 0, 0, 0);
+    _.startDate.setHours(0, 0, 0, 0);
   }
-  _.endDate.setHours(0, 0, 0, 0);
-  _.startDate.setHours(0, 0, 0, 0);
 };
 
 buildCalendar = function(datepicker, mode) {
@@ -8027,7 +8269,11 @@ buildCalendar = function(datepicker, mode) {
       data = getCalendarMonth(visible.year, visible.month - 1, localizer.weekStart());
       data.unshift('days');
       cls = 'dx-calendar-month';
-      text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year);
+      if (datepicker.options.v2Features.displayLongMonthInCalendar) {
+        text = (localizer.fullMonth(visible.month - 1)) + " " + (localizer.year(visible.year));
+      } else {
+        text = localizer.month(visible.month - 1) + ' / ' + localizer.year(visible.year);
+      }
   }
   _.calendarGrid["class"]('dx-calendar-grid ' + cls);
   _.calendarHeadBtn.text(text);
@@ -8172,7 +8418,7 @@ buildDatepicker = function(datepicker) {
   return _.yearPicker.suppressed('change', false);
 };
 
-setupInput = function(datepicker) {
+setupInput = function(datepicker, initial) {
   var _, range;
   _ = datepicker._;
   if (datepicker.options.selectRange) {
@@ -8180,12 +8426,14 @@ setupInput = function(datepicker) {
     _.inputStart.value(datepicker.localizer.date(range.start, _.useInbuilt));
     return _.inputEnd.value(datepicker.localizer.date(range.end || range.start, _.useInbuilt));
   } else {
-    return _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt));
+    if (!(datepicker.options.v2Features.dontSetInitialInputValue && initial)) {
+      return _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt));
+    }
   }
 };
 
-updateDatepicker = function(datepicker, suppress) {
-  var _;
+updateDatepicker = function(datepicker, suppress, initial) {
+  var _, base;
   _ = datepicker._;
   validateDates(datepicker);
   if (!_.preventFeedback) {
@@ -8193,10 +8441,14 @@ updateDatepicker = function(datepicker, suppress) {
     if (datepicker.options.selectRange) {
       _.inputStart.classed('dx-date-error', false);
       _.inputEnd.classed('dx-date-error', false);
+    } else if (_.inputOnlyMode) {
+      if (typeof (base = datepicker.options).dateValidationChange === "function") {
+        base.dateValidationChange(true);
+      }
     } else {
       _.input.classed('dx-date-error', false);
     }
-    setupInput(datepicker);
+    setupInput(datepicker, initial);
     if (!suppress) {
       datepicker.emit('change', {
         type: _.userEvent ? 'user' : 'api'
@@ -8224,19 +8476,27 @@ DatePicker = (function(superClass) {
     this.options = dx.merge.defined({
       type: 'calendar',
       defaultView: 'm',
+      allowViewChange: true,
       closeOnSelect: true,
       selectRange: false,
       validRange: void 0,
       range: void 0,
       showTodayButton: true,
       allowInbuiltPicker: true,
-      disabled: false
+      disabled: false,
+      v2Features: {
+        dontModifyDateOnError: false,
+        displayLongMonthInCalendar: false,
+        dontSetInitialInputValue: false,
+        updateVisibleMonthOnDateChange: false,
+        dateValidityCallback: void 0
+      }
     }, options);
     _ = this._ = {
       disabled: this.options.disabled,
       mode: this.options.defaultView,
-      startDate: new Date,
-      endDate: new Date
+      startDate: new Date(Date.now()),
+      endDate: new Date(Date.now())
     };
     this.localizer = dx.dateTimeLocalizer();
     this.localizer.on('localechange', 'dx.date-picker', (function(_this) {
@@ -8251,9 +8511,21 @@ DatePicker = (function(superClass) {
     })(this));
     _.startDate.setHours(0, 0, 0, 0);
     _.endDate.setHours(0, 0, 0, 0);
-    this.selection = dx.select(this.selector).classed('dx-date-picker', true);
-    inputContainer = this.selection.append('div')["class"]('dx-date-input-container');
-    icon = inputContainer.append('i')["class"]('dx-icon dx-icon-calendar');
+    this.selection = dx.select(this.selector);
+    _.inputOnlyMode = this.selection.node().tagName.toLowerCase() === 'input';
+    if (!this.options.allowViewChange) {
+      this.options.defaultView = 'm';
+    }
+    if (_.inputOnlyMode) {
+      if (this.options.selectRange) {
+        dx.consoleWarning('DatePicker: options.selectRange is not supported when using an input');
+        this.options.selectRange = false;
+      }
+    } else {
+      this.selection.classed('dx-date-picker', true);
+      inputContainer = this.selection.append('div')["class"]('dx-date-input-container');
+      icon = inputContainer.append('i')["class"]('dx-icon dx-icon-calendar');
+    }
     timeout = void 0;
     if (this.options.selectRange) {
       this.options.type = 'calendar';
@@ -8297,21 +8569,34 @@ DatePicker = (function(superClass) {
       });
     } else {
       _.useInbuilt = this.options.allowInbuiltPicker ? (typeof moment === "undefined" || moment === null) && dx.supports('date') && dx.supports('touch') : false;
-      _.input = inputContainer.append('input')["class"]('dx-date-input').on((_.useInbuilt ? 'blur' : 'input'), 'dx.date-picker', function() {
+      _.input = _.inputOnlyMode ? this.selection : inputContainer.append('input')["class"]('dx-date-input');
+      _.input.on((_.useInbuilt ? 'blur' : 'input'), 'dx.date-picker', function() {
         self.hide();
         clearTimeout(timeout);
         return timeout = setTimeout(function() {
           var date;
+          if (self.options.v2Features.dontSetInitialInputValue && _.input.value() === '') {
+            if (self.options.v2Features.dateValidityCallback) {
+              self.options.v2Features.dateValidityCallback(true);
+            } else {
+              _.input.classed('dx-date-error', false);
+            }
+            return;
+          }
           date = self.localizer.stringToDate(_.input.value(), _.useInbuilt);
           if (date.getTime()) {
             if (date.getTime() !== self.date().getTime()) {
               self.date(date);
-              if (self.options.type === 'calendar') {
+              if (!self.options.v2Features.updateVisibleMonthOnDateChange && self.options.type === 'calendar') {
                 return self.visibleMonth(date.getMonth() + 1, date.getFullYear());
               }
             }
           } else {
-            return _.input.classed('dx-date-error', true);
+            if (self.options.v2Features.dateValidityCallback) {
+              return self.options.v2Features.dateValidityCallback(false, 'INVALID_DATE');
+            } else {
+              return _.input.classed('dx-date-error', true);
+            }
           }
         }, 500);
       });
@@ -8347,20 +8632,27 @@ DatePicker = (function(superClass) {
       };
       calendarElem = dx.detached('div');
       calendarElem["class"]('dx-date-picker-calendar');
-      calendarHeader = calendarElem.append('div')["class"]('dx-calendar-header dx-input-group');
+      calendarHeader = calendarElem.append('div')["class"]('dx-calendar-header');
       calendarHeader.append('button')["class"]('dx-btn dx-btn-invert dx-calendar-back').on('click', 'dx.date-picker', function() {
         return changeVis(-1);
       }).append('i')["class"]('dx-icon dx-icon-chevron-left');
-      _.calendarHeadBtn = calendarHeader.append('button')["class"]('dx-btn dx-btn-invert').on('click', 'dx.date-picker', function() {
-        switch (_.mode) {
-          case 'd':
-            break;
-          case 'y':
-            return buildCalendar(self, 'd');
-          default:
-            return buildCalendar(self, 'y');
-        }
-      });
+      if (this.options.allowViewChange) {
+        calendarHeader.classed('dx-input-group', true);
+        _.calendarHeadBtn = calendarHeader.append('button')["class"]('dx-btn dx-btn-invert').on('click', 'dx.date-picker', function() {
+          switch (_.mode) {
+            case 'd':
+              break;
+            case 'y':
+              return buildCalendar(self, 'd');
+            default:
+              return buildCalendar(self, 'y');
+          }
+        });
+      } else {
+        calendarHeader.classed('dx-compact-group', true);
+        _.calendarHeadBtn = calendarHeader.append('div');
+      }
+      _.calendarHeadBtn.classed('dx-calendar-header-title', true);
       calendarHeader.append('button')["class"]('dx-btn dx-btn-invert dx-calendar-forward').on('click', 'dx.date-picker', function() {
         return changeVis();
       }).append('i')["class"]('dx-icon dx-icon-chevron-right');
@@ -8452,12 +8744,12 @@ DatePicker = (function(superClass) {
         };
       })(this));
     }
-    setupInput(this);
+    setupInput(this, true);
     if (_.disable) {
       this.disabled(_.disabled);
     }
     if (this.options.validRange) {
-      this.validRange(this.options.validRange);
+      this.validRange(this.options.validRange, true);
     }
   }
 
@@ -8544,6 +8836,9 @@ DatePicker = (function(superClass) {
     if (date != null) {
       date = new Date(date.getTime());
       date.setHours(0, 0, 0, 0);
+      if (this.options.v2Features.updateVisibleMonthOnDateChange && this.options.type === 'calendar') {
+        this.visibleMonth(date.getMonth() + 1, date.getFullYear());
+      }
       _.startDate = date;
       updateDatepicker(this);
       return this;
@@ -8615,7 +8910,7 @@ DatePicker = (function(superClass) {
     }
   };
 
-  DatePicker.prototype.validRange = function(validRange) {
+  DatePicker.prototype.validRange = function(validRange, initial) {
     var _, ref, ref1;
     _ = this._;
     if (_.validRange == null) {
@@ -8637,7 +8932,7 @@ DatePicker = (function(superClass) {
       if ((ref1 = _.validRange.end) != null) {
         ref1.setHours(0, 0, 0, 0);
       }
-      updateDatepicker(this);
+      updateDatepicker(this, false, initial);
       return this;
     } else {
       return _.validRange;
@@ -8955,7 +9250,8 @@ dx.userFacingText({
     loading: 'Loading...',
     noResultsFound: 'No results found',
     otherResults: 'Other Results',
-    pleaseEnterMinCharacters: 'Please enter $minLength or more characters'
+    pleaseEnterMinCharacters: 'Please enter $minLength or more characters',
+    minCharacters: 'Min length $minLength characters'
   }
 });
 
@@ -9060,7 +9356,9 @@ buildAutoComplete = function(searchTerm, fromCallback, loading) {
     if (filteredData == null) {
       message.text = this.options.loadingMessage;
     } else if (searchTerm.length < this.options.minLength) {
-      message.text = this.options.pleaseEnterMinCharactersMessage.replace('$minLength', this.options.minLength);
+      message.text = dx.userFacingText.format(this.options.pleaseEnterMinCharactersMessage, {
+        minLength: this.options.minLength
+      });
     } else if ((searchTerm.length > 0 || this.options.showAll) && filteredData.length === 0) {
       if (this.options.trimTrailingSpaces && _.input.value().lastIndexOf(' ') === _.input.value().length - 1) {
         trimAndReload = true;
@@ -9128,7 +9426,8 @@ AutoComplete = (function(superClass) {
         loadingMessage: dx.userFacingText('autoComplete', 'loading'),
         noResultsMessage: dx.userFacingText('autoComplete', 'noResultsFound'),
         otherResultsMessage: dx.userFacingText('autoComplete', 'otherResults'),
-        pleaseEnterMinCharactersMessage: dx.userFacingText('autoComplete', 'pleaseEnterMinCharacters')
+        pleaseEnterMinCharactersMessage: dx.userFacingText('autoComplete', 'pleaseEnterMinCharacters', true),
+        minCharactersMessage: dx.userFacingText('autoComplete', 'minCharacters', true)
       }, opts);
       this._ = _ = {};
       _.ignoreMatch = false;
@@ -9166,7 +9465,9 @@ AutoComplete = (function(superClass) {
         };
       }
       if ((base2 = this.options).placeholder == null) {
-        base2.placeholder = this.options.minLength > 0 ? "Min length " + this.options.minLength + " characters" : void 0;
+        base2.placeholder = this.options.minLength > 0 ? dx.userFacingText.format(this.options.minCharactersMessage, {
+          minLength: this.options.minLength
+        }) : void 0;
       }
       input = dx.select(this.selector);
       menu = new dx.Menu(this.selector, {
@@ -13805,15 +14106,15 @@ setPickerValue = function(picker, results, cause) {
   _.valueText.clear();
   if (results.length) {
     _.current = results[0];
-    _.renderer(_.valueText.node(), results[0]);
+    picker.emit('change', {
+      cause: cause,
+      value: results[0]
+    });
+    return _.renderer(_.valueText.node(), results[0]);
   } else {
     _.current = void 0;
-    _.valueText.text(_.options.chooseValueText);
+    return _.valueText.text(_.options.chooseValueText);
   }
-  return picker.emit('change', {
-    cause: cause,
-    value: _.current
-  });
 };
 
 AutocompletePicker = (function(superClass) {
@@ -13861,7 +14162,8 @@ AutocompletePicker = (function(superClass) {
       matchType: resolvedOptions.matchType,
       showOtherResults: resolvedOptions.showOtherResults,
       trimTrailingSpaces: resolvedOptions.trimTrailingSpaces,
-      valueLookup: resolvedOptions.valueLookup
+      valueLookup: resolvedOptions.valueLookup,
+      useCache: resolvedOptions.useCache
     };
     feed = new dx.AutocompleteFeed(feedOptions);
     this._ = {
@@ -15120,6 +15422,7 @@ dx.slider = function(options) {
 dx.Slider = Slider;
 
 })();
+
 (function(){
 var backgroundContext, classContext, defineComponent, directions, div, fixes, getComponentParent, headers, i, joints, len, ref, size, sizes, span, textContext, textLikeComponent;
 
@@ -16347,7 +16650,7 @@ DataTable = (function(superClass) {
       noSortText: dx.userFacingText('dataTable', 'noSort'),
       rowsPerPageText: dx.userFacingText('dataTable', 'rowsPerPage'),
       searchPlaceholder: dx.userFacingText('dataTable', 'search'),
-      selectedRowsText: dx.userFacingText('dataTable', 'selectedRows'),
+      selectedRowsText: dx.userFacingText('dataTable', 'selectedRows', true),
       sortByText: dx.userFacingText('dataTable', 'sortBy'),
       addFilterText: dx.userFacingText('dataTable', 'addFilter'),
       clearFiltersText: dx.userFacingText('dataTable', 'clearFilters'),
@@ -16991,7 +17294,10 @@ DataTable = (function(superClass) {
               selection.classed('dx-data-table-has-page-selection', pageHasSelection && !options.singleSelection);
               selection.classed('dx-data-table-has-selection', _this._.selectedRows.size > 0 && !options.singleSelection);
               if (totalCount !== void 0) {
-                return _this._.statusBar.select('.dx-data-table-status-bar-text').text(options.selectedRowsText.replace('$selected', _this._.selectedRows.size).replace('$total', totalCount));
+                return _this._.statusBar.select('.dx-data-table-status-bar-text').text(dx.userFacingText.format(options.selectedRowsText, {
+                  selected: _this._.selectedRows.size,
+                  total: totalCount
+                }));
               }
             };
             selectMulti = function(start, end, force) {
@@ -19726,7 +20032,7 @@ FileInput = (function(superClass) {
       dragEnabled: true,
       buttonClass: 'dx-action',
       buttonText: dx.userFacingText('fileInput', 'chooseFile'),
-      filesSelectedText: dx.userFacingText('fileInput', 'filesSelected'),
+      filesSelectedText: dx.userFacingText('fileInput', 'filesSelected', true),
       noFilesText: dx.userFacingText('fileInput', 'noFile')
     };
     resolvedOptions = dx.merge(defaults, options);
@@ -19784,7 +20090,9 @@ FileInput = (function(superClass) {
             selectedFiles.append(filePreview(fileMap.values()[0]));
           } else {
             localizedLength = length.toLocaleString(dx.preferences.locale());
-            filesSelectedText = resolvedOptions.filesSelectedText.replace('$numFiles', localizedLength);
+            filesSelectedText = dx.userFacingText.format(resolvedOptions.filesSelectedText, {
+              numFiles: localizedLength
+            });
             selectedFiles.classed('dx-btn', true).add(dx.section().text(filesSelectedText)).add(dx.detached('i')["class"]('dx-file-input-dropdown-icon dx-icon dx-icon-chevron-down')).on('click', 'dx.file-input', function() {
               return dropdown.show();
             });
@@ -21090,9 +21398,22 @@ dx.Meter = Meter;
 })();
 
 (function(){
-var Paginator, getRange, render, select,
+var Paginator, getPageItems, getRange, makeItem, makeRange,
+  slice = [].slice,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
+
+dx.userFacingText({
+  paginator: {
+    paginatorAria: 'Pagination navigation',
+    currentPageAria: 'Current page, page $page',
+    gotoPageAria: 'Goto page $page',
+    prevPageAria: 'Goto previous page, page $page',
+    nextPageAria: 'Goto next page, page $page',
+    prev: 'Prev',
+    next: 'Next'
+  }
+});
 
 getRange = function(obj) {
   var end, start;
@@ -21105,121 +21426,255 @@ getRange = function(obj) {
   };
 };
 
-render = function(paginator) {
-  var buttonSize, buttonSpace, data, end, maxButtons, maxLength, ref, ref1, start, visibleCount;
-  if (paginator._.pageCount === void 0) {
-    data = [
-      {
-        value: paginator._.page,
-        selected: true,
-        dataLength: paginator._.page.toString().length
-      }
-    ];
-  } else {
-    ref = getRange(paginator._), start = ref.start, end = ref.end;
-    maxLength = Math.max(start.toString().length, (end - 1).toString().length);
-    buttonSize = 30 + (5 * Math.max(0, maxLength - 2));
-    buttonSpace = paginator.container.width() - 81;
-    maxButtons = Math.floor(buttonSpace / buttonSize);
-    visibleCount = Math.min(maxButtons, paginator._.visibleCount);
-    visibleCount = Math.max(visibleCount, 1);
-    ref1 = getRange(paginator._), start = ref1.start, end = ref1.end;
-    data = dx.range(end - start).map(function(i) {
-      return {
-        value: start + i,
-        selected: paginator._.page === start + i,
-        dataLength: maxLength
-      };
-    });
-  }
-  return paginator.view.apply(data);
+makeItem = function(page, currentPage) {
+  return "" + page + (currentPage === page ? '~' : '');
 };
 
-select = function(paginator, page, cause) {
-  var newPage;
-  if (paginator._.pageCount === void 0) {
-    newPage = Math.max(page, 1);
-  } else {
-    newPage = dx.clamp(1, paginator._.pageCount, page);
+makeRange = function(first, last) {
+  return Array(last - first + 1).fill(0).map(function(_, index) {
+    return index + first;
+  });
+};
+
+getPageItems = function(currentPage, pageCount, padding) {
+  var distanceFromEnd, distanceFromStart, items, maxPadding, maxPage, minPage, ref;
+  if (currentPage == null) {
+    currentPage = 1;
   }
-  if (newPage !== paginator._.page) {
-    paginator._.page = newPage;
-    render(paginator);
-    return paginator.emit('change', {
-      cause: cause,
-      selected: paginator._.page
-    });
-  }
+  items = pageCount ? (maxPadding = (padding * 2) + 1, distanceFromStart = currentPage - maxPadding, distanceFromEnd = -(currentPage + maxPadding - pageCount), (ref = distanceFromEnd >= distanceFromStart && distanceFromStart <= 0 ? [1, Math.min(maxPadding, pageCount)] : distanceFromEnd < 0 ? [Math.max(pageCount - maxPadding + 1, 1), pageCount] : [Math.max(currentPage - padding, 1), Math.min(currentPage + padding, pageCount)], minPage = ref[0], maxPage = ref[1], ref), minPage = minPage <= 3 ? 1 : minPage, maxPage = maxPage >= pageCount - 2 ? pageCount : maxPage, [currentPage !== 1 && 'prev', minPage > 1 && makeItem(1, currentPage), minPage > 2 && '...'].concat(slice.call(makeRange(minPage, maxPage).map(function(p) {
+      return makeItem(p, currentPage);
+    })), [maxPage < pageCount - 1 && '...'], [maxPage < pageCount && makeItem(pageCount, currentPage)], [currentPage !== pageCount && 'next'])) : [currentPage !== 1 && 'prev', makeItem(currentPage, currentPage), 'next'];
+  return items.filter(function(x) {
+    return x;
+  });
 };
 
 Paginator = (function(superClass) {
+  var selectPage, setterGetter;
+
   extend(Paginator, superClass);
 
   function Paginator(selector, options) {
-    var pageButtons, self;
+    var links, nav, navItemEnter, navItemUpdate, pageButtons, self;
     Paginator.__super__.constructor.apply(this, arguments);
     dx.component.register(selector, this);
     this.container = dx.select(selector).classed('dx-paginator', true);
     this._ = dx.merge({
       page: 1,
+      pageCount: 10,
       visibleCount: 10,
-      pageCount: 10
+      updatePageOnSelect: true,
+      paginatorAria: dx.userFacingText('paginator', 'paginatorAria'),
+      currentPageAria: dx.userFacingText('paginator', 'currentPageAria', true),
+      gotoPageAria: dx.userFacingText('paginator', 'gotoPageAria', true),
+      prevPageAria: dx.userFacingText('paginator', 'prevPageAria', true),
+      nextPageAria: dx.userFacingText('paginator', 'nextPageAria', true),
+      prevText: dx.userFacingText('paginator', 'prev'),
+      nextText: dx.userFacingText('paginator', 'next'),
+      v2Features: {
+        padding: 2,
+        useAccessibleRendering: false
+      }
     }, options);
     this._.selector = selector;
-    self = this;
-    this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).add(dx.detached('i')["class"]('dx-icon dx-icon-step-backward')).on('click', 'dx.paginator', function() {
-      if (self._.pageCount === void 0) {
-        return select(self, self._.page - 1, 'user');
-      } else {
-        return select(self, 0, 'user');
-      }
-    });
-    pageButtons = this.container.append('span')["class"]('dx-input-group');
-    this.view = pageButtons.view('.dx-btn', 'button').update(function(d, e, i) {
-      return this.text(d.value).attr('type', 'button').classed('dx-paginator-three-digits', d.dataLength === 3).classed('dx-paginator-more-digits', d.dataLength > 3).classed(dx.theme.paginator.defaultButton, !d.selected).classed(dx.theme.paginator.selectedButton, d.selected).classed('dx-no-border', true).on('click', 'dx.paginator', function() {
-        return select(self, d.value, 'user');
+    if (this._.v2Features.useAccessibleRendering) {
+      navItemEnter = function() {
+        var navItem;
+        navItem = dx.detached('li')["class"]('dx-paginator-button-container').add(dx.detached('a')["class"]('dx-paginator-button'));
+        return this.append(navItem).node();
+      };
+      navItemUpdate = function(arg, element) {
+        var aria, disabled, isEllipsis, isPrevNextButton, link, navItem, onClick, selected, text;
+        text = arg.text, aria = arg.aria, selected = arg.selected, disabled = arg.disabled, isEllipsis = arg.isEllipsis, onClick = arg.onClick, isPrevNextButton = arg.isPrevNextButton;
+        navItem = dx.select(element).classed('dx-paginator-selected-container', selected).classed('dx-paginator-ellipsis-container', isEllipsis).classed('dx-paginator-prev-next-container', isPrevNextButton);
+        link = navItem.select('a').classed('dx-paginator-selected', selected).attr('aria-current', selected ? true : void 0).classed('dx-paginator-ellipsis', isEllipsis).attr('aria-hidden', isEllipsis ? true : void 0);
+        link.text(text);
+        link.attr('aria-label', aria);
+        link.off();
+        if (onClick) {
+          return link.on('click', 'dx.paginator', onClick);
+        }
+      };
+      links = dx.detached('ul');
+      this.view = links.view('li').enter(navItemEnter).update(navItemUpdate);
+      nav = dx.detached('nav')["class"]('dx-paginator-nav').attr('role', 'navigation').attr('aria-label', this._.paginatorAria).add(links).attr('tabindex', '0').on('keydown', (function(_this) {
+        return function(e) {
+          var currentPage, currentPageCount;
+          currentPage = _this.page();
+          currentPageCount = _this.pageCount();
+          switch (e.which) {
+            case 37:
+              if (currentPage !== 1) {
+                return selectPage.call(_this, 'user', currentPage - 1);
+              }
+              break;
+            case 39:
+              if (currentPage !== currentPageCount) {
+                return selectPage.call(_this, 'user', currentPage + 1);
+              }
+          }
+        };
+      })(this));
+      this.container.add(nav);
+    } else {
+      self = this;
+      this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).add(dx.detached('i')["class"]('dx-icon dx-icon-step-backward')).on('click', 'dx.paginator', function() {
+        if (self._.pageCount === void 0) {
+          return selectPage.call(self, 'user', self._.page - 1);
+        } else {
+          return selectPage.call(self, 'user', 0);
+        }
       });
-    });
-    this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).add(dx.detached('i')["class"]('dx-icon dx-icon-step-forward')).on('click', 'dx.paginator', function() {
-      if (self._.pageCount === void 0) {
-        return select(self, self._.page + 1, 'user');
-      } else {
-        return select(self, self._.pageCount, 'user');
-      }
-    });
-    this.container.on('resize', 'dx.paginator', function() {
-      return render(self);
-    });
-    render(this);
+      pageButtons = this.container.append('span')["class"]('dx-input-group');
+      this.view = pageButtons.view('.dx-btn', 'button').update(function(d, e, i) {
+        return this.text(d.value).attr('type', 'button').classed('dx-paginator-three-digits', d.dataLength === 3).classed('dx-paginator-more-digits', d.dataLength > 3).classed(dx.theme.paginator.defaultButton, !d.selected).classed(dx.theme.paginator.selectedButton, d.selected).classed('dx-no-border', true).on('click', 'dx.paginator', function() {
+          return selectPage.call(self, 'user', d.value);
+        });
+      });
+      this.container.append('button').attr('type', 'button')["class"]('dx-btn ' + dx.theme.paginator.arrowButton).add(dx.detached('i')["class"]('dx-icon dx-icon-step-forward')).on('click', 'dx.paginator', function() {
+        if (self._.pageCount === void 0) {
+          return selectPage.call(self, 'user', self._.page + 1);
+        } else {
+          return selectPage.call(self, 'user', self._.pageCount);
+        }
+      });
+      this.container.on('resize', 'dx.paginator', (function(_this) {
+        return function() {
+          return _this.render();
+        };
+      })(this));
+    }
+    this.render();
   }
 
-  Paginator.prototype.page = function(i) {
+  setterGetter = function(key, onChange) {
+    return function(val) {
+      if (arguments.length > 0) {
+        this._[key] = val;
+        this.render();
+        return this;
+      } else {
+        return this._[key];
+      }
+    };
+  };
+
+  Paginator.prototype.pageCount = setterGetter('pageCount');
+
+  Paginator.prototype.visibleCount = setterGetter('visibleCount');
+
+  Paginator.prototype.updatePageOnSelect = setterGetter('updatePageOnSelect');
+
+  Paginator.prototype.paginatorAria = setterGetter('paginatorAria');
+
+  Paginator.prototype.currentPageAria = setterGetter('currentPageAria');
+
+  Paginator.prototype.gotoPageAria = setterGetter('gotoPageAria');
+
+  Paginator.prototype.prevPageAria = setterGetter('prevPageAria');
+
+  Paginator.prototype.nextPageAria = setterGetter('nextPageAria');
+
+  Paginator.prototype.prevText = setterGetter('prevText');
+
+  Paginator.prototype.nextText = setterGetter('nextText');
+
+  selectPage = function(cause, value) {
+    var currentPage, currentPageCount, newPage;
+    if (value == null) {
+      value = 1;
+    }
+    currentPageCount = this.pageCount();
+    currentPage = this.page();
+    newPage = currentPageCount === void 0 ? Math.max(value, 1) : dx.clamp(1, currentPageCount, value);
+    if (newPage !== currentPage) {
+      if (cause === 'api' || this.updatePageOnSelect()) {
+        this._.page = newPage;
+        this.render();
+      }
+      return this.emit('change', {
+        cause: cause,
+        value: value,
+        selected: value
+      });
+    }
+  };
+
+  Paginator.prototype.page = function(value) {
     if (arguments.length > 0) {
-      select(this, i, 'api');
+      selectPage.call(this, 'api', value, true);
       return this;
     } else {
       return this._.page;
     }
   };
 
-  Paginator.prototype.pageCount = function(value) {
-    if (value != null) {
-      this._.pageCount = value;
-      render(this);
-      return this;
-    } else {
-      return this._.pageCount;
-    }
-  };
-
-  Paginator.prototype.visibleCount = function(value) {
-    if (value != null) {
-      this._.visibleCount = value;
-      render(this);
-      return this;
-    } else {
-      return this._.visibleCount;
-    }
+  Paginator.prototype.render = function() {
+    var buttonSize, buttonSpace, currentPage, currentPageCount, data, end, maxButtons, maxLength, ref, ref1, start, visibleCount;
+    currentPage = this.page();
+    currentPageCount = this.pageCount();
+    data = this._.v2Features.useAccessibleRendering ? getPageItems(currentPage, currentPageCount, this._.v2Features.padding).map((function(_this) {
+      return function(item) {
+        var aria, numericItem, selected;
+        if (item === 'prev') {
+          return {
+            isPrevNextButton: true,
+            text: _this.prevText(),
+            aria: dx.userFacingText.format(_this.prevPageAria(), {
+              page: currentPage - 1
+            }),
+            onClick: function() {
+              return selectPage.call(_this, 'user', currentPage - 1);
+            }
+          };
+        }
+        if (item === 'next') {
+          return {
+            isPrevNextButton: true,
+            text: _this.nextText(),
+            aria: dx.userFacingText.format(_this.nextPageAria(), {
+              page: currentPage + 1
+            }),
+            onClick: function() {
+              return selectPage.call(_this, 'user', currentPage + 1);
+            }
+          };
+        }
+        if (item === '...') {
+          return {
+            isEllipsis: true
+          };
+        }
+        selected = item.indexOf('~') > -1;
+        numericItem = parseInt(item);
+        aria = selected ? _this.currentPageAria() : _this.gotoPageAria();
+        return {
+          text: numericItem,
+          aria: dx.userFacingText.format(aria, {
+            page: numericItem
+          }),
+          selected: selected,
+          onClick: function() {
+            return selectPage.call(_this, 'user', numericItem);
+          }
+        };
+      };
+    })(this)) : currentPageCount === void 0 ? [
+      {
+        value: currentPage,
+        selected: true,
+        dataLength: currentPage.toString().length
+      }
+    ] : ((ref = getRange(this._), start = ref.start, end = ref.end, ref), maxLength = Math.max(start.toString().length, (end - 1).toString().length), buttonSize = 30 + (5 * Math.max(0, maxLength - 2)), buttonSpace = this.container.width() - 81, maxButtons = Math.floor(buttonSpace / buttonSize), visibleCount = Math.min(maxButtons, this._.visibleCount), visibleCount = Math.max(visibleCount, 1), (ref1 = getRange(this._), start = ref1.start, end = ref1.end, ref1), dx.range(end - start).map((function(_this) {
+      return function(i) {
+        return {
+          value: start + i,
+          selected: _this._.page === start + i,
+          dataLength: maxLength
+        };
+      };
+    })(this)));
+    return this.view.apply(data);
   };
 
   return Paginator;
@@ -21234,6 +21689,10 @@ dx.paginator = function(options) {
 };
 
 dx.Paginator = Paginator;
+
+dx._.paginator = {
+  getPageItems: getPageItems
+};
 
 })();
 (function(){
@@ -21479,6 +21938,7 @@ SideCollapsible = (function(superClass) {
         this.content.style('opacity', 0).style('display', 'block');
         morph = (function(_this) {
           return function() {
+            _this.closedHeading.style('display', 'none');
             _this.selection.style('width', '');
             _this.content.morph()["with"]('expandh', 100).and('fadein', 100).and(function() {
               return _this.openHeading.morph()["with"]('expandh', 100).and('fadein', 100).go(true);

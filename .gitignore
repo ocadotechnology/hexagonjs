@@ -7,8 +7,14 @@
 .sass-cache
 .idea
 /debug
+
 npm-debug.log
 node_modules
+
+docs/resources/hexagon/nextReleaseVersion
+
+# Genererated Folders
+/demo
+/dist
 target
 coverage
-docs/resources/hexagon/nextReleaseVersion

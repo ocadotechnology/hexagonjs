@@ -80,6 +80,9 @@ class DateTimeLocalizer extends PreferencesHandler
     if short then zeroPad(month + 1)
     else ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month]
 
+  fullMonth: (month) ->
+    ['January','February','March','April','May','June','July','August','September','October','November','December'][month]
+
   # localise the full year in the format of yyyy
   year: (year) -> year
 
@@ -183,6 +186,9 @@ class DateTimeLocalizerMoment extends PreferencesHandler
   month: (month, short) ->
     moment({month: month}).locale(@locale()).format(if short then 'MM' else 'MMM')
 
+  fullMonth: (month) ->
+    moment({month: month}).locale(@locale()).format('MMMM')
+
   year: (year) ->
     moment({year: year}).locale(@locale()).format('YYYY')
 
@@ -219,7 +225,7 @@ class DateTimeLocalizerMoment extends PreferencesHandler
             yearsValid = part.length < 5 and part isnt ''
             fmt += 'YYYY'
       if daysValid and monthsValid and yearsValid
-        moment(dateString, format, @locale()).toDate()
+        moment(dateString, fmt, @locale()).toDate()
       else
         new Date('Invalid Date')
     else

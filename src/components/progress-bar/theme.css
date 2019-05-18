@@ -8,30 +8,37 @@
   background-color: var(--progress-bar-default-color);
 }
 
+.hx-progress-bar-inner.hx-action,
 .hx-action .hx-progress-bar-inner {
   background: var(--progress-bar-action-color);
 }
 
+.hx-progress-bar-inner.hx-positive,
 .hx-positive .hx-progress-bar-inner {
   background: var(--progress-bar-positive-color);
 }
 
+.hx-progress-bar-inner.hx-warning,
 .hx-warning .hx-progress-bar-inner {
   background: var(--progress-bar-warning-color);
 }
 
+.hx-progress-bar-inner.hx-negative,
 .hx-negative .hx-progress-bar-inner {
   background: var(--progress-bar-negative-color);
 }
 
+.hx-progress-bar-inner.hx-info,
 .hx-info .hx-progress-bar-inner {
   background: var(--progress-bar-info-color);
 }
 
+.hx-progress-bar-inner.hx-complement,
 .hx-complement .hx-progress-bar-inner {
   background: var(--progress-bar-complement-color);
 }
 
+.hx-progress-bar-inner.hx-contrast,
 .hx-contrast .hx-progress-bar-inner {
   background: var(--progress-bar-contrast-color);
 }

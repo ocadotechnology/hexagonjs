@@ -8,8 +8,8 @@ import logger from 'utils/logger'
 import { Autocomplete, autocomplete } from 'components/autocomplete'
 import { config as dropdownConfig } from 'components/dropdown'
 
-import { emit } from 'test/utils/fake-event'
-import { installFakeTimers } from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
 
 
 export default () ->
@@ -76,8 +76,10 @@ export default () ->
         userFacingText('autocomplete','otherResults').should.equal('Other Results')
 
       it 'pleaseEnterMinCharacters', ->
-        userFacingText('autocomplete','pleaseEnterMinCharacters').should.equal('Please enter $minLength or more characters')
+        userFacingText('autocomplete','pleaseEnterMinCharacters', true).should.equal('Please enter $minLength or more characters')
 
+      it 'minCharacters', ->
+        userFacingText('autocomplete','minCharacters', true).should.equal('Min length $minLength characters')
 
     describe 'exports', ->
       it 'Autocomplete', ->
@@ -202,6 +204,7 @@ export default () ->
         it 'value', ->
           should.not.exist(ac.options.value)
 
+        # XXX Breaking: Text keys (autocomplete -> autocomplete)
         it 'loadingMessage', ->
           ac.options.loadingMessage.should.equal(userFacingText('autocomplete', 'loading'))
 
@@ -212,7 +215,10 @@ export default () ->
           ac.options.otherResultsMessage.should.equal(userFacingText('autocomplete', 'otherResults'))
 
         it 'pleaseEnterMinCharactersMessage', ->
-          ac.options.pleaseEnterMinCharactersMessage.should.equal(userFacingText('autocomplete', 'pleaseEnterMinCharacters'))
+          ac.options.pleaseEnterMinCharactersMessage.should.equal(userFacingText('autocomplete', 'pleaseEnterMinCharacters', true))
+
+        it 'minCharactersMessage', ->
+          ac.options.minCharactersMessage.should.equal(userFacingText('autocomplete', 'minCharacters', true))
 
 
       describe 'and providing an initial value', ->
@@ -247,7 +253,9 @@ export default () ->
 
       it 'sets the renderer using the inputMap from the options', ->
         testVal = { name: 'Bob', value: 7 }
-        ac.options.renderer(testVal)
+        # XXX Breaking: Renderer
+        # ac.options.renderer(testVal)
+        ac.options.renderer(div(), testVal)
         ac.options.inputMap.should.have.been.called.with(testVal)
 
     describe 'when using a function with string items', ->

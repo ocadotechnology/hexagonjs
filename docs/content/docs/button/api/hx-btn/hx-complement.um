@@ -9,6 +9,12 @@
 
 @extraClass hx-complement
   @added 1.0.0
+
+  @deprecated 1.20.0
+    @description
+      The context classes for buttons have been updated to help improve UX considerations.
+      This class will be removed in the next major release.
+
   @description
     Styles the button with a color that complements the theme (light for a
     light theme, dark for a dark theme)

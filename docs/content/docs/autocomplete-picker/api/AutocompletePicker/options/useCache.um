@@ -1,6 +1,11 @@
 @property useCache [Boolean]
+  @bugfix 1.18.1
+    @issue 511
+    @description
+      Resolved an issue where this value was ignored
+
   @description
     Determines whether the autocomplete should attempt to cache results. This
-    can be set to @code[false] non-static datasets or when using external
+    can be set to @code[false] for non-static datasets or when using external
     matching
   @default: true

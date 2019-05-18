@@ -1,0 +1,24 @@
+.hx-drawing-sidebar {
+  background: var(--drawing-sidebar-background-color);
+  color: var(--drawing-sidebar-text-color);
+}
+.hx-drawing-sidebar .hx-drawing-sidebar-title {
+  background: var(--drawing-sidebar-title-background-color);
+  color: var(--drawing-sidebar-title-text-color);
+}
+
+.hx-drawing-sidebar-t {
+  border-bottom: 1px solid var(--drawing-sidebar-border-color);
+}
+
+.hx-drawing-sidebar-r {
+  border-left: var(--drawing-border-style);
+}
+
+.hx-drawing-sidebar-b {
+  border-top: var(--drawing-border-style);
+}
+
+.hx-drawing-sidebar-l {
+  border-right: var(--drawing-border-style);
+}

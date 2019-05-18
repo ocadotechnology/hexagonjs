@@ -1,5 +1,5 @@
 import logger from 'utils/logger'
-import { select } from 'utils/selection'
+import { select } from 'utils/selection/selection'
 
 contexts = ['action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']
 paletteContexts = ['default', 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast', 'disabled']

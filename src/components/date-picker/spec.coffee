@@ -4,9 +4,33 @@ import { select, div } from 'utils/selection'
 import logger from 'utils/logger'
 
 import { DatePicker } from 'components/date-picker'
+import { config as dropdownConfig } from 'components/dropdown'
+
+import emit from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
 
 export default () ->
   describe 'date-picker', ->
+    oneDayMs = 1000 * 60 * 60 * 24
+    oneMonthMs = 31 * oneDayMs
+    animationDelay = 301
+    origAttachSelector = dropdownConfig.attachToSelector
+    originalLoggerWarn = logger.warn
+
+    fixture = undefined
+    body = select('body')
+
+    beforeEach ->
+      logger.warn = chai.spy()
+      fixture = body.append('div').class('hx-test-date-picker')
+      dropdownConfig.attachToSelector = fixture
+
+    afterEach ->
+      logger.warn = originalLoggerWarn
+      dropdownConfig.attachToSelector = origAttachSelector
+      fixture.remove()
+
+
     roundedDate = (start, today) ->
       date = new Date
       if today? and not today
@@ -28,14 +52,6 @@ export default () ->
         }
       else
         range
-
-    originalLoggerWarn = logger.warn
-
-    beforeEach ->
-      logger.warn = chai.spy()
-
-    afterEach ->
-      logger.warn = originalLoggerWarn
 
     describe 'test return types:', ->
 
@@ -206,3 +222,222 @@ export default () ->
           dp = new DatePicker(div(), { selectRange: true, range: range })
           dp.range().should.eql({start: roundedDate(true), end: roundedDate()})
 
+
+      describe 'options', ->
+        origDateNow = Date.now
+        clock = undefined
+
+        before ->
+          clock = installFakeTimers()
+          Date.now = () -> 1541675114940
+
+        after ->
+          clock.restore()
+          Date.now = origDateNow
+
+        describe 'allowViewChange', ->
+          dp = undefined
+          innerFixture = undefined
+          headerElem = undefined
+
+          beforeEach ->
+            innerFixture = fixture.append('div')
+
+          describe 'when false', ->
+            beforeEach ->
+              dp = new DatePicker(innerFixture, {
+                allowViewChange: false,
+                defaultView: 'y',
+              })
+              dp.show()
+              clock.tick(animationDelay)
+              headerElem = fixture.select('.hx-calendar-header-title')
+
+            it 'creates a div for the header text', ->
+              headerElem.node().tagName.toLowerCase().should.equal('div')
+
+            it 'changes the default view to month', ->
+              dp.options.defaultView.should.equal('m')
+
+          describe 'when true', ->
+            beforeEach ->
+              dp = new DatePicker(innerFixture, {
+                allowViewChange: true,
+                defaultView: 'd'
+              })
+              dp.show()
+              clock.tick(animationDelay)
+              headerElem = fixture.select('.hx-calendar-header-title')
+
+            it 'creates a button for the header text', ->
+              headerElem.node().tagName.toLowerCase().should.equal('button')
+
+            it 'allows the default view of decade', ->
+              dp.options.defaultView.should.equal('d')
+
+
+        describe 'v2Flags', ->
+          describe 'when using an input', ->
+            dp = undefined
+            input = undefined
+
+            beforeEach ->
+              input = fixture.append('input')
+              dp = new DatePicker(input, { v2Features: {
+                dontModifyDateOnError: true,
+                displayLongMonthInCalendar: true,
+                dontSetInitialInputValue: true,
+                updateVisibleMonthOnDateChange: true,
+              }})
+
+            it 'does not set the initial value', ->
+              input.value().should.equal('')
+
+            it 'has the correct visible month', ->
+              dp.visibleMonth().should.eql({ month: 11, year: 2018 })
+
+
+            describe 'when opening the picker', ->
+              beforeEach ->
+                dp.show()
+
+              it 'renders the month header as MMMM YYYY', ->
+                fixture.select('.hx-calendar-header-title').text().should.equal('November 2018')
+
+            describe 'and passing a dateValidityCallback', ->
+              dateValidityCallback = undefined
+              inputDebounceDelay = 501
+
+              beforeEach ->
+                input.remove()
+                input = fixture.append('input')
+                dateValidityCallback = chai.spy()
+
+                dp = new DatePicker(input, {
+                  v2Features: {
+                    dontModifyDateOnError: true,
+                    displayLongMonthInCalendar: true,
+                    dontSetInitialInputValue: true,
+                    updateVisibleMonthOnDateChange: true,
+                    dateValidityCallback: dateValidityCallback,
+                  },
+                  validRange: {
+                    start: new Date(Date.now() - (oneDayMs * 4))
+                    end: new Date(Date.now() + (oneDayMs * 4))
+                  }
+                })
+
+              describe 'when the date is valid', ->
+                beforeEach ->
+                  input.value('8/11/2018')
+                  emit(input.node(), 'input')
+                  clock.tick(inputDebounceDelay)
+
+                it 'calls the function with true', ->
+                  dateValidityCallback.should.have.been.called.with(true, undefined)
+
+                it 'calls the function once', ->
+                  dateValidityCallback.should.have.been.called.exactly(1)
+
+
+              describe 'when the date is invalid', ->
+                beforeEach ->
+                  input.value('bob')
+                  emit(input.node(), 'input')
+                  clock.tick(inputDebounceDelay)
+
+                it 'calls the function with false and INVALID_DATE', ->
+                  dateValidityCallback.should.have.been.called.with(false, 'INVALID_DATE')
+
+                it 'calls the function twice', ->
+                  dateValidityCallback.should.have.been.called.exactly(2)
+
+                describe 'and clearing the input value', ->
+                  beforeEach ->
+                    input.value('')
+                    emit(input.node(), 'input')
+                    clock.tick(inputDebounceDelay)
+
+                  it 'calls the function with true', ->
+                    dateValidityCallback.should.have.been.called.with(true, undefined)
+
+                  it 'calls the function three times', ->
+                    dateValidityCallback.should.have.been.called.exactly(3)
+
+
+              describe 'when the date is before the valid range', ->
+                beforeEach ->
+                  input.value('1/11/2018')
+                  emit(input.node(), 'input')
+                  clock.tick(inputDebounceDelay)
+
+                it 'calls the function with false and DATE_OUTSIDE_RANGE_START', ->
+                  dateValidityCallback.should.have.been.called.with(false, 'DATE_OUTSIDE_RANGE_START')
+
+                it 'calls the function twice', ->
+                  dateValidityCallback.should.have.been.called.exactly(3)
+
+                describe 'and clearing the input value', ->
+                  beforeEach ->
+                    input.value('')
+                    emit(input.node(), 'input')
+                    clock.tick(inputDebounceDelay)
+
+                  it 'calls the function with true', ->
+                    dateValidityCallback.should.have.been.called.with(true, undefined)
+
+                  it 'calls the function three times', ->
+                    dateValidityCallback.should.have.been.called.exactly(4)
+
+
+              describe 'when the date is after the valid range', ->
+                beforeEach ->
+                  input.value('30/11/2018')
+                  emit(input.node(), 'input')
+                  clock.tick(inputDebounceDelay)
+
+                it 'calls the function with false and DATE_OUTSIDE_RANGE_END', ->
+                  dateValidityCallback.should.have.been.called.with(false, 'DATE_OUTSIDE_RANGE_END')
+
+                it 'calls the function twice', ->
+                  dateValidityCallback.should.have.been.called.exactly(3)
+
+                describe 'and clearing the input value', ->
+                  beforeEach ->
+                    input.value('')
+                    emit(input.node(), 'input')
+                    clock.tick(inputDebounceDelay)
+
+                  it 'calls the function with true', ->
+                    dateValidityCallback.should.have.been.called.with(true, undefined)
+
+                  it 'calls the function three times', ->
+                    dateValidityCallback.should.have.been.called.exactly(4)
+
+
+            describe 'and selectRange', ->
+              beforeEach ->
+                input.remove()
+                input = fixture.append('input')
+                dp = new DatePicker(input, {
+                  v2Features: {
+                    dontModifyDateOnError: true,
+                    displayLongMonthInCalendar: true,
+                    dontSetInitialInputValue: true,
+                    updateVisibleMonthOnDateChange: true,
+                  },
+                  selectRange: true
+                })
+
+              it 'sets selectRange to false', ->
+                dp.options.selectRange.should.equal(false)
+
+              it 'logs a console warning', ->
+                logger.warn.should.have.been.called.with('DatePicker: options.selectRange is not supported when using an input')
+
+            describe 'and setting the date', ->
+              beforeEach ->
+                dp.date(new Date(Date.now() - (2 * oneMonthMs)))
+
+              it 'updates the visible month', ->
+                dp.visibleMonth().should.eql({ month: 9, year: 2018 })

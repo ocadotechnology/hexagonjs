@@ -6,8 +6,8 @@ import logger from 'utils/logger'
 import { config as dropdownConfig } from 'components/dropdown'
 import { DataTable, dataTable, objectFeed, getAdvancedSearchFilter } from 'components/data-table'
 
-import { emit } from 'test/utils/fake-event'
-import { installFakeTimers } from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
 
 import chai from 'chai'
 should = chai.should()
@@ -275,6 +275,7 @@ export default () ->
       checkOption('singleSelection', [true, false])
       checkOption('selectedRows', [[1,2,3], []])
       checkOption('expandedRows', [[1,2,3], []])
+      checkOption('useStickyHeaders', [true, false])
       checkOption('sort', [{column: 'name', direction: 'asc'}, {column: 'age', direction: 'desc'}, undefined])
 
     describe 'column options', ->
@@ -386,7 +387,9 @@ export default () ->
       describe 'cellRenderer', ->
         it 'should call the cellRenderer', (done) ->
           tableOptions =
-            cellRenderer: () -> span('bob')
+            # XXX Breaking: Renderer
+            # cellRenderer: () -> span('bob')
+            cellRenderer: (elem) -> select(elem).classed('bob', true)
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(3)
 
@@ -394,11 +397,17 @@ export default () ->
           tableOptions =
             columns:
               name:
-                cellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('bob')
+                cellRenderer: (elem) -> select(elem).classed('bob', true)
               age:
-                cellRenderer: () -> span('dave')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('dave')
+                cellRenderer: (elem) -> select(elem).classed('dave', true)
               profession:
-                cellRenderer: () -> span('steve')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('steve')
+                cellRenderer: (elem) -> select(elem).classed('steve', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
@@ -407,10 +416,14 @@ export default () ->
 
         it 'should use a column cellRenderer instead of the default cellRenderer if one is defined', (done) ->
           tableOptions =
-            cellRenderer: () -> span('kate')
+            # XXX Breaking: Renderer
+            # cellRenderer: () -> span('kate')
+            cellRenderer: (elem) -> select(elem).classed('kate', true)
             columns:
               name:
-                cellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # cellRenderer: () -> span('bob')
+                cellRenderer: (elem) -> select(elem).classed('bob', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-wrapper').select('tbody').select('.hx-data-table-row').selectAll('.bob').size().should.equal(1)
@@ -420,7 +433,9 @@ export default () ->
 
       describe 'collapsibleRenderer', ->
         tableOptions = {
-          collapsibleRenderer: () -> span('bob').text('dave')
+          # XXX Breaking: Renderer
+          # collapsibleRenderer: () -> span('bob').text('dave')
+          collapsibleRenderer: (elem) -> select(elem).class('bob').text('dave')
           rowCollapsibleLookup: (row) -> true
         }
 
@@ -446,7 +461,9 @@ export default () ->
       describe 'expandedRows', ->
         it "should not open a row that doesn't pass the rowCollapsibleLookup check", (done) ->
           tableOptions = {
-            collapsibleRenderer: () -> span('bob')
+            # XXX Breaking: Renderer
+            # collapsibleRenderer: () -> span('bob')
+            collapsibleRenderer: (element, d) -> select(element).class('bob')
             rowCollapsibleLookup: (row) -> !!row.collapsible
           }
           testTable {tableOptions}, done, (container, dt, options, data) ->
@@ -457,7 +474,9 @@ export default () ->
 
         it "should get the correct row id's", (done) ->
           tableOptions = {
-            collapsibleRenderer: () -> span('bob')
+            # XXX Breaking: Renderer
+            # collapsibleRenderer: () -> span('bob')
+            collapsibleRenderer: (element, d) -> select(element).class('bob')
             rowCollapsibleLookup: (row) -> !!row.collapsible
           }
           testTable {tableOptions}, done, (container, dt, options, data) ->
@@ -606,7 +625,9 @@ export default () ->
       describe 'headerCellRenderer', ->
         it 'should call the headerCellRenderer', (done) ->
           tableOptions =
-            headerCellRenderer: ({ name }) -> span('bob').text(name)
+            # XXX Breaking: Renderer
+            # headerCellRenderer: ({ name }) -> span('bob').text(name)
+            headerCellRenderer: (elem) -> select(elem).classed('bob', true)
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(3)
 
@@ -614,11 +635,17 @@ export default () ->
           tableOptions =
             columns:
               name:
-                headerCellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('bob')
+                headerCellRenderer: (elem) -> select(elem).classed('bob', true)
               age:
-                headerCellRenderer: () -> span('dave')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('dave')
+                headerCellRenderer: (elem) -> select(elem).classed('dave', true)
               profession:
-                headerCellRenderer: () -> span('steve')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('steve')
+                headerCellRenderer: (elem) -> select(elem).classed('steve', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
@@ -627,10 +654,14 @@ export default () ->
 
         it 'should use a column headerCellRenderer instead of the default headerCellRenderer if one is defined', (done) ->
           tableOptions =
-            headerCellRenderer: () -> span('kate')
+            # XXX Breaking: Renderer
+            # headerCellRenderer: () -> span('kate')
+            headerCellRenderer: (elem) -> select(elem).classed('kate', true)
             columns:
               name:
-                headerCellRenderer: () -> span('bob')
+                # XXX Breaking: Renderer
+                # headerCellRenderer: () -> span('bob')
+                headerCellRenderer: (elem) -> select(elem).classed('bob', true)
 
           testTable {tableOptions}, done, (container, dt, options, data) ->
             container.select('.hx-sticky-table-header-top').select('thead').selectAll('.bob').size().should.equal(1)
@@ -836,32 +867,32 @@ export default () ->
           emit checkSel.node(), 'click', fakeEvent
 
 
-          it 'should be possible for the user to deselect a row selected by the api', (done) ->
-            feed = objectFeed
-              headers: [
-                name: 'Name'
-                id: 'name'
-              ]
-              rows: [
-                id: 0
-                cells:
-                  name: 'Bob'
-              ]
-            tableSel = detached 'div'
-            tableOpts =
-              feed: feed
-              singleSelection: true
-              selectEnabled: true
-            table = new DataTable tableSel.node(), tableOpts
-            table.selectedRows [0]
+        it 'should be possible for the user to deselect a row selected by the api', (done) ->
+          feed = objectFeed
+            headers: [
+              name: 'Name'
+              id: 'name'
+            ]
+            rows: [
+              id: 0
+              cells:
+                name: 'Bob'
+            ]
+          tableSel = detached 'div'
+          tableOpts =
+            feed: feed
+            singleSelection: true
+            selectEnabled: true
+          table = new DataTable tableSel.node(), tableOpts
+          table.selectedRows [0]
 
-            table.on 'selectedrowschange', (data) ->
-              if data.cause is 'user'
-                # Row 0 was selected before, so now we're unselecting it
-                data.value.should.eql []
-                done()
-            checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
-            emit(checkSel.node(), 'click', fakeEvent)
+          table.on 'selectedrowschange', (data) ->
+            if data.cause is 'user'
+              # Row 0 was selected before, so now we're unselecting it
+              data.value.should.eql []
+              done()
+          checkSel = tableSel.select '.hx-sticky-table-wrapper .hx-data-table-checkbox'
+          emit(checkSel.node(), 'click', fakeEvent)
 
 
         it "should be able to unselect rows having selected them, when singleSelection is enabled", (done) ->

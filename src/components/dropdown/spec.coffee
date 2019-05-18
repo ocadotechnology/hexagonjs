@@ -6,8 +6,8 @@ import logger from 'utils/logger'
 import { Dropdown, config as dropdownConfig } from 'components/dropdown'
 import { calculateDropdownPosition } from 'components/dropdown/positioning'
 
-import { installFakeTimers } from 'test/utils/fake-time'
-import { emit } from 'test/utils/fake-event'
+import installFakeTimers from 'test/utils/fake-time'
+import emit from 'test/utils/fake-event'
 
 should = chai.should()
 
@@ -245,7 +245,9 @@ export default () ->
       dd._.dropdown.style('position').should.equal('fixed')
 
     it 'should render correctly using a function as content', ->
-      populate = () -> div('bob').text('Dave')
+      # XXX Breaking: Renderer
+      # populate = () -> div('bob').text('Dave')
+      populate = (elem) -> select(elem).set(div('bob').text('Dave'))
 
       dd = new Dropdown(button, populate)
       dd.show()

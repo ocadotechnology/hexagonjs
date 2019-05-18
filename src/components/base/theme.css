@@ -1,13 +1,16 @@
+html,
+body {
+  font-size: var(--base-default-font-size);
+}
+
 body {
   font-family: var(--base-default-font-family);
-  font-size: var(--base-default-font-size);
   background: var(--base-body-background-color);
   color: var(--base-default-text-color);
 }
 
 button {
   font-family: var(--base-default-font-family);
-  font-size: var(--base-default-font-size);
 }
 
 h1,

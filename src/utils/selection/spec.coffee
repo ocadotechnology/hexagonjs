@@ -9,15 +9,19 @@ import {
   div,
   span
 } from 'utils/selection'
-import { emit } from 'test/utils/fake-event'
+import logger from 'utils/logger'
+import emit from 'test/utils/fake-event'
 
 should = chai.should()
 
 export default () ->
   describe 'selection', ->
+    origLoggerWarn = logger.warn
     fixture = undefined
 
     beforeEach ->
+      logger.warn = chai.spy()
+
       body = select('body')
       fixture = body.append('div').attr('id', 'fixture')
       fixture.node().innerHTML = """
@@ -60,6 +64,7 @@ export default () ->
 
     afterEach ->
       fixture.remove()
+      logger.warn = origLoggerWarn
       return
 
     describe 'ElementSet', ->
@@ -186,17 +191,33 @@ export default () ->
       selection = select('#fixture')
       selection.singleSelection.should.equal(true)
 
-    it 'select should throw an error if an invalid type is given', ->
-      should.throw(() -> select(3.14156))
+    # XXX Breaking: Selection select error
+    # it 'select should throw an error if an invalid type is given', ->
+    #   should.throw(() -> select(3.14156))
 
-    it 'selectAll should throw an error if an invalid type is given', ->
-      should.throw(() -> selectAll(3.14156))
+    # it 'selectAll should throw an error if an invalid type is given', ->
+    #   should.throw(() -> selectAll(3.14156))
 
-    it 'selection.select should throw an error if an invalid type is given', ->
-      should.throw(() -> select('#fixture').select(3.1415))
+    # it 'selection.select should throw an error if an invalid type is given', ->
+    #   should.throw(() -> select('#fixture').select(3.1415))
 
-    it 'selection.selectAll should throw an error if an invalid type is given', ->
-      should.throw(() -> select('#fixture').selectAll(3.1415))
+    # it 'selection.selectAll should throw an error if an invalid type is given', ->
+    #   should.throw(() -> select('#fixture').selectAll(3.1415))
+    it 'select should log a warning if an invalid type is given', ->
+      select(3.14156)
+      logger.warn.should.have.been.called()
+
+    it 'selectAll should log a warning if an invalid type is given', ->
+      selectAll(3.14156)
+      logger.warn.should.have.been.called()
+
+    it 'selection.select should log a warning if an invalid type is given', ->
+      select('#fixture').select(3.1415)
+      logger.warn.should.have.been.called()
+
+    it 'selection.selectAll should log a warning if an invalid type is given', ->
+      select('#fixture').selectAll(3.1415)
+      logger.warn.should.have.been.called()
 
     # shallow select
     it 'shallowSelect should set singleSelection to false for multi selections', ->
@@ -219,8 +240,12 @@ export default () ->
         .shallowSelect('.one')
       selection.size().should.equal(2)
 
-    it 'shallowSelect should throw an error if an invalid type is given', ->
-      should.throw(() -> detached('div').shallowSelect(3.1415))
+    # XXX Breaking: Selection select error
+    # it 'shallowSelect should throw an error if an invalid type is given', ->
+    #   should.throw(() -> detached('div').shallowSelect(3.1415))
+    it 'shallowSelect should log a warning if an invalid type is given', ->
+      detached('div').shallowSelect(3.1415)
+      logger.warn.should.have.been.called()
 
     it 'shallowSelectAll should not set singleSelection to true', ->
       selection = selectAll('#fixture').shallowSelectAll('div')
@@ -245,9 +270,12 @@ export default () ->
         .shallowSelectAll('.one')
       selection.size().should.equal(4)
 
-    it 'shallowSelectAll should throw an error if an invalid type is given', ->
-      should.throw(() -> detached('div').shallowSelectAll(3.1415))
-
+    # XXX Breaking: Selection select error
+    # it 'shallowSelectAll should throw an error if an invalid type is given', ->
+    #   should.throw(() -> detached('div').shallowSelectAll(3.1415))
+    it 'shallowSelectAll should log a warning if an invalid type is given', ->
+      detached('div').shallowSelectAll(3.1415)
+      logger.warn.should.have.been.called()
 
     # creating detached elements
 
@@ -316,9 +344,15 @@ export default () ->
       appended.size().should.equal(7)
       appended.node().tagName.toLowerCase().should.equal('h1')
 
-    it 'throw an error when adding an existing element to multiple others', ->
+    # XXX Breaking: Selection select error
+    # it 'throw an error when adding an existing element to multiple others', ->
+    #   selection = select('#fixture').selectAll('span')
+    #   should.throw(() -> selection.append(document.createElement('h1')))
+    it 'append an existing element to multiple elements should log a warning', ->
       selection = select('#fixture').selectAll('span')
-      should.throw(() -> selection.append(document.createElement('h1')))
+      appended = selection.append(document.createElement('h1'))
+      appended.size().should.equal(0)
+      logger.warn.should.have.been.called()
 
     it 'appending an existing element to an empty selection should do nothing', ->
       selection = select('#empty').select('span')
@@ -993,8 +1027,14 @@ export default () ->
         """
       select('#grandchild').closest('#thing-that-doesnt-exist').empty().should.equal(true)
 
+    # XXX Breaking: Selection select error
+    # it 'closest should warn when you give a non string argument', ->
+    #   should.throw(() -> select('#fixture').closest({}))
     it 'closest should warn when you give a non string argument', ->
-      should.throw(() -> select('#fixture').closest({}))
+      obj = {}
+      select('#fixture').closest(obj)
+      logger.warn.should.have.been.called.with('Selection.closest was passed the wrong argument type', 'Selection.closest only accepts a string argument, you supplied:', obj)
+
 
     it 'closest should warn when you give a non string argument', ->
       select('#fixture').closest('potato').empty().should.equal(true)

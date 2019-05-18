@@ -1,3 +1,34 @@
+@function hx.div
+  @added 1.9.0
+    @description
+      Fluid api for constructing @code[div] elements
+
+  @description
+    Creates a detached div with the provided class
+
+  @arg class [String]
+    @description
+      The class to add to the newly created @code[div]
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
+
+@function hx.span
+  @added 1.9.0
+    @description
+      Fluid api for constructing @code[span] elements
+
+  @description
+    Creates a detached span with the provided class
+
+  @arg class [String]
+    @description
+      The class to add to the newly created @code[span]
+
+  @returns [Selection]
+    @description
+      The selection containing the new element
 
 @function hx.checkbox
   @added 1.0.0

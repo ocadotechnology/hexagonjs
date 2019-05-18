@@ -161,9 +161,15 @@ modalInput = (title, message, callback, options) ->
   modal.on 'close', 'hx.modal', (d) -> if d.cause isnt 'api' then callback()
   modal.show()
 
+# XXX: Remove in next major
+modal =  {
+  input: modalInput,
+  dialog: modalDialog,
+}
+
 export {
   Modal,
-  modal,
   modalDialog,
-  modalInput
+  modalInput,
+  modal
 }

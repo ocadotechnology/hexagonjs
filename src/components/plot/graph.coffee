@@ -4,7 +4,7 @@ import { EventEmitter } from 'utils/event-emitter'
 import { shallowMerge, randomId, clampUnit, clamp, flatten, isObject } from 'utils/utils'
 import { List as HList } from 'utils/list'
 
-import { optionSetterGetter, boundLabel } from './utils'
+import { populateLegendSeries, optionSetterGetter, boundLabel } from './utils'
 import { Axis } from './axis'
 
 userFacingText({
@@ -36,6 +36,7 @@ class Graph extends EventEmitter
     id = randomId()
 
     selection = select(@selector)
+      .api('graph', this)
       .api(this)
 
     selection.on 'resize', 'hx.plot', =>

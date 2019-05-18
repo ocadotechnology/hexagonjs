@@ -1,0 +1,35 @@
+.hx-badge {
+  height: var(--badge-height);
+  line-height: var(--badge-height);
+  line-height: calc(var(--badge-height) - (var(--badge-border-width) * 2));
+  font-size: var(--badge-font-size);
+  font-weight: var(--badge-font-weight);
+  border-radius: var(--badge-border-radius);
+  border-width: var(--badge-border-width);
+  border-style: var(--badge-border-style);
+  padding: var(--badge-padding);
+  background: var(--badge-default-color);
+  color: var(--badge-default-text-color);
+  border-color: var(--badge-default-color);
+}
+
+.hx-badge.hx-success {
+  background: var(--badge-success-color);
+  color: var(--badge-success-text-color);
+  border-color: var(--badge-success-color);
+}
+.hx-badge.hx-danger {
+  background: var(--badge-danger-color);
+  color: var(--badge-danger-text-color);
+  border-color: var(--badge-danger-color);
+}
+.hx-badge.hx-warning {
+  background: var(--badge-warning-color);
+  color: var(--badge-warning-text-color);
+  border-color: var(--badge-warning-color);
+}
+
+.hx-badge.hx-badge-inverse {
+  background: var(--badge-inverse-background-color);
+  color: var(--badge-inverse-text-color);
+}

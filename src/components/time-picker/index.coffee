@@ -66,6 +66,7 @@ class TimePicker extends EventEmitter
     # set up everything that is needed to turn the div into a calendar input
     @selection = select(@selector)
       .classed('hx-time-picker', true)
+      .api('time-picker', this)
       .api(this)
 
     # input text box + icon
@@ -121,7 +122,8 @@ class TimePicker extends EventEmitter
     @secondPicker.selectInput.attr('tabindex', 3)
       .attr('maxlength','2')
 
-    setupDropdown = () =>
+    # XXX Breaking: Renderer
+    setupDropdown = (elem) =>
       if not _.disabled
         if @input.attr('disabled') is undefined
           selection = div()
@@ -130,7 +132,7 @@ class TimePicker extends EventEmitter
           if @options.showSeconds
             selection.add(second)
           setupTimepicker(this)
-          return selection
+          select(elem).add(selection)
         else @dropdown.hide()
 
     @dropdown = new Dropdown(@selector, setupDropdown, {
@@ -213,7 +215,7 @@ class TimePicker extends EventEmitter
 
 timePicker = (options) ->
   selection = div()
-  new TimePicker(selection.node(), options)
+  new TimePicker(selection, options)
   selection
 
 export {

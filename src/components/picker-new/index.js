@@ -28,7 +28,9 @@ function setterGetter(propertyName, options = {}) {
       if (options.allowedTypes) {
         const isValidType = options.allowedTypes.some(Type => value instanceof Type)
         if (!isValidType) {
-          throw new Error('A value of one of these types was expected: [' + options.allowedTypes.join(', ') + ']')
+          throw new Error(
+            'A value of one of these types was expected: [' + options.allowedTypes.join(', ') + ']'
+          )
         }
       }
 

@@ -20,6 +20,11 @@
     @description
       Changed @code[hx-btn-invert] to a more sensible class name
 
+  @deprecated 1.20.0
+    @description
+      The context classes for buttons have been updated to help improve UX considerations.
+      Outline/inverted buttons have been removed as they can cause confusion.
+
   @description
     Removes the background colour from the button and colours the text and
     outline.

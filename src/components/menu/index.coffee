@@ -184,21 +184,26 @@ class MenuItem
       collapsibleNode.view('.hx-collapsible-heading').apply(this)
       collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
 
-      collapsibleNode.select('.hx-collapsible-heading')
-        .classed('hx-menu-collapsible', true)
-        .set(@menu.renderer()(@content))
+      # XXX Breaking: Renderer
+      # collapsibleNode.select('.hx-collapsible-heading')
+      #   .classed('hx-menu-collapsible', true)
+      #   .set(@menu.renderer()(@content))
+      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
+      @menu.options.renderer(headerNode, @content)
 
       contentNode = container.select('.hx-collapsible-content').node()
-
       @collapsible = new Collapsible(collapsibleNode)
 
       populateNode(contentNode, @_.menuItems)
     else
       container
         .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
+        .classed('hx-menu-active', false)
         .classed('hx-menu-item-disabled', @content.disabled)
         .classed('hx-menu-unselectable', @content.unselectable)
-        .set(@menu.renderer()(@content))
+        # XXX Breaking: Renderer
+        # .set(@menu.renderer()(@content))
+      @menu.options.renderer(container.node(), @content)
 
 
 
@@ -214,7 +219,9 @@ export class Menu extends EventEmitter
         ddClass: '',
         disabled: false
       }
-      renderer: (data) -> span().text(data.text or data)
+      # XXX Breaking: Renderer
+      # renderer: (data) -> span().text(data.text or data)
+      renderer: (node, data) -> select(node).text(data.text or data)
       items: []
     }, options)
 
@@ -258,6 +265,10 @@ export class Menu extends EventEmitter
 
     @dropdown = new Dropdown(@selector, dropdownContainer, @options.dropdownOptions)
 
+    @dropdown.on 'hideend', ->
+      self.cursorPos = -1
+      dropdownContainer.selectAll('.hx-menu-item').classed('hx-menu-active', false);
+
     @dropdown.on 'showend', =>
       if @dropdown._.dropdown?
         node = @dropdown._.dropdown.node()
@@ -284,7 +295,7 @@ export class Menu extends EventEmitter
               @data (data) ->
                 self.loading = false
                 loading.remove()
-                setupItems(self, data)
+                setup(data)
             @dropdown.show()
 
     if selection.node().nodeName.toLowerCase() is 'input'

@@ -1,3 +1,7 @@
+@bugfix 1.17.1
+  @description
+    Resolved an issue where form validation failed if using the new hx-form-buttons
+
 @bugfix 1.5.1
   @issue 274
   @description
