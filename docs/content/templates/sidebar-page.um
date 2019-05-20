@@ -29,6 +29,7 @@
             @page /guide/installation: Installation
             @page /guide/core-concepts: Core Concepts
             @page /changelog: Changelog
+            @page /guide/migration: [Migration (1.x -> 2.x)]
 
           @section Tutorials
             @page /guide/getting-started: Getting Started
