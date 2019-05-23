@@ -132,6 +132,15 @@ const distThemeConfig = {
   plugins: standardPlugins,
 };
 
+const distModuleConfig = {
+  ...sharedOpts,
+  input: 'src/hexagon.js',
+  output: {
+    file: 'dist/hexagon.es.js',
+    format: 'esm',
+  },
+  plugins: standardPlugins,
+};
 
 const testConfig = {
   ...sharedOpts,
@@ -187,6 +196,7 @@ export {
   distLibraryConfig,
   distPrintConfig,
   distThemeConfig,
+  distModuleConfig,
   testConfig,
   testCoverageConfig,
 };

@@ -6,6 +6,7 @@ import {
   distLibraryConfig,
   distPrintConfig,
   distThemeConfig,
+  distModuleConfig,
 } from './rollup.configs';
 
 export default [
@@ -16,4 +17,5 @@ export default [
   distLibraryConfig,
   distPrintConfig,
   distThemeConfig,
+  distModuleConfig,
 ];
