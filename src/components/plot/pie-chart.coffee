@@ -407,7 +407,7 @@ class PieChart extends EventEmitter
 
 pieChart = (options) ->
   selection = div()
-  pieChart = new PieChart(selection.node(), options)
+  new PieChart(selection.node(), options)
   selection
 
 export {
