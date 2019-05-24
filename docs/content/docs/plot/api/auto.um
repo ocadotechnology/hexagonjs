@@ -7611,6 +7611,10 @@
     @description
       Fluid api version of PieChart
 
+  @bugfix 2.0.1
+    @description
+      Fixed scope issue which prevented pieChart from being called more than once
+
   @description
     Creates a new PieChart set up on a detached element, wrapped in a selection
 
