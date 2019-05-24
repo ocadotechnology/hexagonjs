@@ -4200,7 +4200,7 @@ var hx = (function (exports) {
     titlebar = new TitleBar('.hx-heading');
   }
 
-  var version = "2.0.0";
+  var version = "2.0.1";
 
   var currentTheme$1 = {};
   var themeSet = false;
@@ -12719,7 +12719,7 @@ var hx = (function (exports) {
   exports.pieChart = function(options) {
     var selection;
     selection = div();
-    exports.pieChart = new exports.PieChart(selection.node(), options);
+    new exports.PieChart(selection.node(), options);
     return selection;
   };
 
@@ -18699,6 +18699,11 @@ var hx = (function (exports) {
       return this.add(name, 'text', function() {
         var attr, component, elem, j, len, ref;
         elem = detached('input').attr('type', options.type);
+        if (options.autoCompleteData || options.autoCompleteOptions) {
+          logger.deprecated('Form::addText autoCompleteData/Options', 'Deprecated in favour of using the correct casing (autocompleteData and autocompleteOptions)');
+          options.autocompleteData = options.autocompleteData || options.autoCompleteData;
+          options.autocompleteOptions = options.autocompleteOptions || options.autoCompleteOptions;
+        }
         if ((options.autocompleteData != null) && options.type !== 'password' && options.type !== 'number') {
           component = new exports.Autocomplete(elem, options.autocompleteData, options.autocompleteOptions != null ? options.autocompleteOptions : options.autocompleteOptions = void 0);
         }

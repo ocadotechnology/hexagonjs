@@ -4121,7 +4121,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.0.0";
+var version = "2.0.1";
 
 var currentTheme = {};
 var themeSet = false;
@@ -12667,7 +12667,7 @@ PieChart = (function() {
 pieChart = function(options) {
   var selection;
   selection = div();
-  pieChart = new PieChart(selection.node(), options);
+  new PieChart(selection.node(), options);
   return selection;
 };
 
@@ -18655,6 +18655,11 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     return this.add(name, 'text', function() {
       var attr, component, elem, j, len, ref;
       elem = detached('input').attr('type', options.type);
+      if (options.autoCompleteData || options.autoCompleteOptions) {
+        logger.deprecated('Form::addText autoCompleteData/Options', 'Deprecated in favour of using the correct casing (autocompleteData and autocompleteOptions)');
+        options.autocompleteData = options.autocompleteData || options.autoCompleteData;
+        options.autocompleteOptions = options.autocompleteOptions || options.autoCompleteOptions;
+      }
       if ((options.autocompleteData != null) && options.type !== 'password' && options.type !== 'number') {
         component = new Autocomplete(elem, options.autocompleteData, options.autocompleteOptions != null ? options.autocompleteOptions : options.autocompleteOptions = void 0);
       }
