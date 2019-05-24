@@ -9,7 +9,7 @@
   "scripts": {
     "copy-hexagon:docs": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/docs/ --clean",
     "postcopy-hexagon:docs": "node build/docs-hexagon.js",
-    "copy-hexagon:version": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/2.0.0/ --clean",
+    "copy-hexagon:version": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/2.0.1/ --clean",
     "copy-hexagon:latest": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/latest/ --clean",
     "postinstall": "run-p copy-hexagon:*",
     "start": "quantum watch",

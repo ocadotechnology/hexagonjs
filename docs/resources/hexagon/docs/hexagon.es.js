@@ -1,3 +1,79 @@
+var plotColor1 = 'rgb(177,119,190)';
+var plotColor2 = 'rgb(90,155,212)';
+var plotColor3 = 'rgb(241,90,113)';
+var plotColor4 = 'rgb(151,195,102)';
+var plotColor5 = 'rgb(250,169,91)';
+var plotColor6 = 'rgb(226,212,64)';
+
+var palette = {
+  defaultCol: '#FFFFFF',
+  actionCol: '#00ADA8',
+  positiveCol: '#92BF17',
+  warningCol: '#D69B24',
+  negativeCol: '#EC3A65',
+  infoCol: '#B36ABB',
+  complementCol: '#F7F7F9',
+  contrastCol: '#4A4E4E',
+  lightTextCol: '#F3F3F3',
+  darkTextCol: '#3D3D3D',
+  disabledCol: '#FAFAFA',
+  disabledTextCol: '#939393',
+  dividerCol: '#D0D0D0',
+};
+
+var currentTheme = {
+  plotColor1: plotColor1,
+  plotColor2: plotColor2,
+  plotColor3: plotColor3,
+  plotColor4: plotColor4,
+  plotColor5: plotColor5,
+  plotColor6: plotColor6,
+  plotColors: [
+    plotColor1,
+    plotColor2,
+    plotColor3,
+    plotColor4,
+    plotColor5,
+    plotColor6 ],
+  palette: palette,
+  plot: {
+    ambientCol: plotColor6,
+    axisLineCol: palette.dividerCol,
+    axisTitleTextCol: palette.darkTextCol,
+    coldCol: plotColor2,
+    colors: [
+      plotColor1,
+      plotColor2,
+      plotColor3,
+      plotColor4,
+      plotColor5,
+      plotColor6 ],
+    darkTextCol: palette.darkTextCol,
+    lightTextCol: palette.lightTextCol,
+    labelBackgroundCol: palette.complementCol,
+    gridLineCol: palette.disabledCol,
+    labelBorderCol: palette.disabledCol,
+    labelBoxShadow: '1px 1px 1px rgba(0, 0, 0, 0.25)',
+    labelHeaderBackgroundCol: palette.complementCol,
+    labelHeaderBorderCol: palette.dividerCol,
+    labelKeyTextCol: palette.darkTextCol,
+    labelTextCol: palette.darkTextCol,
+    negativeCol: plotColor3,
+    pieSegmentTextCol: palette.lightTextCol,
+    positiveCol: plotColor4,
+    tickLineCol: palette.dividerCol,
+    tickTextCol: palette.darkTextCol,
+    tickTextSize: '10px',
+    warmCol: plotColor5,
+    warningCol: plotColor6,
+  },
+  paginator: {
+    arrowButton: 'n-a',
+    defaultButton: 'hx-complement',
+    selectedButton: 'hx-action',
+  },
+};
+
 // `console` is only allowed in this file.`
 /* eslint-disable no-console */
 
@@ -2806,7 +2882,7 @@ context = function(contextArray, contextPrefix) {
   };
 };
 
-var palette = {
+var palette$1 = {
   context: context(contexts, 'hx'),
   textContext: context(paletteContexts, 'hx-text'),
   backgroundContext: context(paletteContexts, 'hx-background'),
@@ -2843,7 +2919,7 @@ var button = function(cls) {
   if (cls && !isString(cls)) {
     logger.deprecated('button', ("The button fluid API has been updated to take a single class string, you passed: " + cls), "button('class')");
     btn = detached('button').attr('type', 'button').class('hx-btn');
-    return palette.context(btn, cls.context);
+    return palette$1.context(btn, cls.context);
   }
   return detached('button').class(cls);
 };
@@ -4123,19 +4199,19 @@ if (select('.hx-heading').size() > 0) {
 
 var version = "2.0.1";
 
-var currentTheme = {};
+var currentTheme$1 = {};
 var themeSet = false;
 
 
 function theme(t) {
   if (arguments.length > 0) {
     themeSet = true;
-    currentTheme = t;
+    currentTheme$1 = t;
   }
   if (!themeSet) {
     logger.warn('No JS theme has been set, use hx.theme(obj) to initialise theme variables');
   }
-  return currentTheme;
+  return currentTheme$1;
 }
 
 function getThemeVariable(varName) {
@@ -6153,7 +6229,7 @@ var Menu = /*@__PURE__*/(function (EventEmitter) {
     };
     select(this.selector).api('menu', this).api(this);
     if ((this.options.dropdownOptions.ddClass != null) && this.options.dropdownOptions.ddClass.length === 0) {
-      colorClass = palette.context(this.selector);
+      colorClass = palette$1.context(this.selector);
     }
     this.options.dropdownOptions.ddClass = 'hx-menu ' + (colorClass != null ? 'hx-' + colorClass : this.options.dropdownOptions.ddClass);
     dropdownContainer = div('hx-menu-items');
@@ -12794,7 +12870,7 @@ function label(options) {
 
   logger.deprecated('label', 'The label module has been replaced by the badge module');
   var context = options.context;
-  return palette.context(span('hx-label'), context);
+  return palette$1.context(span('hx-label'), context);
 }
 
 var supportedTypes = ['success', 'danger', 'warning'];
@@ -15398,9 +15474,9 @@ onTabSelected = function(tabs, sel, idx, cause) {
   tabs.selected = idx;
   tabs.selection.selectAll('.hx-tab').classed('hx-tab-active', false);
   sel.classed('hx-tab-active', true);
-  context = palette.context(sel);
+  context = palette$1.context(sel);
   tabsContent = tabs.selection.select('.hx-tabs-content');
-  palette.borderContext(tabsContent, context);
+  palette$1.borderContext(tabsContent, context);
   tabs.selection.selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true);
   item = tabs.items()[idx];
   if (item != null) {
@@ -15484,7 +15560,7 @@ Tabs = /*@__PURE__*/(function (EventEmitter) {
           tab = detached('div').class('hx-tab');
           // XXX Breaking: Renderer
           this$1._.options.titleRenderer(tab.node(), title);
-          palette.context(tab.node(), context);
+          palette$1.context(tab.node(), context);
           tab.on('click', 'hx.tabs', function () {
             return onTabSelected(this$1, tab, idx, 'user');
           });
@@ -21739,4 +21815,6 @@ if (!doctypeIsValid) {
   logger.warn('Missing <!DOCTYPE html> tag - you may have CSS problems without this tag. To fix this add <!DOCTYPE html> to the top of your html file. Detected doctype:', document.doctype);
 }
 
-export { Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, Slider, Sparkline, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, ease, endsWith, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, meter, min, minBy, modal, modalDialog, modalInput, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, zeroPad, zip };
+theme(currentTheme);
+
+export { Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, Slider, Sparkline, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, ease, endsWith, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, meter, min, minBy, modal, modalDialog, modalInput, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette$1 as palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, zeroPad, zip };
