@@ -93,6 +93,11 @@
           This Form
 
     @method addText
+      @updated 2.0.0
+      @bugfix 2.0.1
+        @description
+          Fixed an issue where the autocomplete data and options were incorrectly removed instead of deprecated
+
       @description
         Adds a text field to the form.
 
@@ -121,12 +126,40 @@
             Additional attributes to give the text input. This should be an array of objects with type and value properties.
 
         @property autoCompleteData [Data/Function]
+          @bugfix 2.0.1
+            @description
+              Added the deprecated warning and fallback in to handle the deprecation
+          @deprecated 2.0.0
+            @description
+              This option has been replaced with the lowercase variant @code[autocompleteData]
           @description
             The data to use for auto complete suggestions. Can be either an array of data or a function that returns data. For a more detailed explanation, see the Auto Complete page.
 
         @property autoCompleteOptions [Object]
+          @bugfix 2.0.1
+            @description
+              Added the deprecated warning and fallback in to handle the deprecation
+          @deprecated 2.0.0
+            @description
+              This option has been replaced with the lowercase variant @code[autocompleteOptions]
           @description
             The options to use for the auto complete. For a more detailed explanation, see the Auto Complete page.
+
+        @property autocompleteData [Data/Function]
+          @bugfix 2.0.1
+            @description
+              Added the deprecated warning and fallback in to handle the deprecation
+          @added 2.0.0
+          @description
+            The data to use for auto complete suggestions. Can be either an array of data or a function that returns data. For a more detailed explanation, see the Autocomplete.
+
+        @property autocompleteOptions [Object]
+          @bugfix 2.0.1
+            @description
+              Added the deprecated warning and fallback in to handle the deprecation
+          @added 2.0.0
+          @description
+            The options to use for the auto complete. For a more detailed explanation, see the Autocomplete page.
 
         @property key [String]
           @description

@@ -3,6 +3,7 @@ import { EventEmitter } from 'utils/event-emitter'
 import { Map as HMap } from 'utils/map'
 import { randomId, merge, isArray, mergeDefined } from 'utils/utils'
 import { select, detached, span, div, button, i } from 'utils/selection'
+import logger from 'utils/logger'
 
 import { Autocomplete } from 'components/autocomplete'
 import { Picker } from 'components/picker'
@@ -210,6 +211,12 @@ export class Form extends EventEmitter
     options.attrs ?= []
     @add name, 'text', ->
       elem = detached('input').attr('type', options.type)
+
+      if options.autoCompleteData or options.autoCompleteOptions
+        logger.deprecated('Form::addText autoCompleteData/Options', 'Deprecated in favour of using the correct casing (autocompleteData and autocompleteOptions)')
+        options.autocompleteData = options.autocompleteData or options.autoCompleteData
+        options.autocompleteOptions = options.autocompleteOptions or options.autoCompleteOptions
+
       if options.autocompleteData? and options.type isnt 'password' and options.type isnt 'number'
         component = new Autocomplete(elem,
           options.autocompleteData,
