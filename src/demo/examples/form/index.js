@@ -6,6 +6,7 @@ export default () => {
   const theForm = div();
   new Form(theForm)
     .addText('Text', { required: true, placeholder: 'Name' })
+    .addText('Text with Autocomplete', { required: true, placeholder: 'Name', autocompleteData: [1, 2, 3] })
     .addTextArea('Text Area', { placeholder: 'Name' })
     .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
     .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
