@@ -4197,7 +4197,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.0.1";
+var version = "2.0.2";
 
 var currentTheme$1 = {};
 var themeSet = false;
@@ -18611,7 +18611,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     entry.append('label').attr('for', id).text(name);
     prop = f() || {};
     key = prop.key || name;
-    selection = entry.append(prop.component ? div().add(prop.elem) : prop.elem).attr('id', id);
+    selection = entry.append(prop.elem).attr('id', id);
     // Define the default function for enabling/disabling a form property
     if (prop.disable == null) {
       prop.disable = function(disable) {
@@ -18937,12 +18937,12 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
   Form.prototype.addToggle = function addToggle (name, options) {
     if ( options === void 0 ) options = {};
     return this.add(name, 'toggle', function() {
-      var component, elem;
-      elem = div('hx-btn hx-btn-invisible hx-no-pad-left');
-      component = new Toggle(elem, options.toggleOptions);
+      var component, componentElem;
+      componentElem = div('hx-btn hx-btn-invisible hx-no-pad-left');
+      component = new Toggle(componentElem, options.toggleOptions);
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem),
         component: component,
         options: {
           hidden: options.hidden,
@@ -18956,19 +18956,19 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     if ( options === void 0 ) options = {};
 
     return this.add(name, 'picker', function() {
-      var component, elem, input, pickerOptions, setValidity;
-      elem = button(options.buttonClass).attr('type', 'button').style('position', 'relative');
+      var component, componentElem, hiddenInput, pickerOptions, setValidity;
+      componentElem = button(options.buttonClass).attr('type', 'button').style('position', 'relative');
       pickerOptions = merge({}, options.pickerOptions);
       if (values.length > 0) {
         pickerOptions.items = values;
       }
-      component = new Picker(elem.node(), pickerOptions);
-      input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
+      component = new Picker(componentElem, pickerOptions);
+      hiddenInput = detached('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
       if (typeof options.required !== 'boolean') {
         component.value(values[0]);
       }
       setValidity = function() {
-        return input.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'));
+        return hiddenInput.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'));
       };
       if (options.required) {
         setValidity();
@@ -18979,13 +18979,13 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
           if (value === void 0) {
             return setValidity();
           } else {
-            return input.node().setCustomValidity('');
+            return hiddenInput.node().setCustomValidity('');
           }
         });
       }
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem).add(hiddenInput),
         component: component,
         options: {
           hidden: options.hidden,
@@ -18999,9 +18999,9 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     if ( options === void 0 ) options = {};
 
     return this.add(name, 'date-picker', function() {
-      var component, elem, getValue, setValue;
-      elem = div();
-      component = new DatePicker(elem, options.datePickerOptions);
+      var component, componentElem, getValue, setValue;
+      componentElem = div();
+      component = new DatePicker(componentElem, options.datePickerOptions);
       if ((options.validStart != null) || (options.validEnd != null)) {
         component.validRange(options.validStart, options.validEnd);
       }
@@ -19025,7 +19025,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       }
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem),
         component: component,
         getValue: getValue,
         setValue: setValue,
@@ -19041,9 +19041,9 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     if ( options === void 0 ) options = {};
 
     return this.add(name, 'time-picker', function() {
-      var component, elem, getValue, setValue;
-      elem = div();
-      component = new TimePicker(elem, options.timePickerOptions);
+      var component, componentElem, getValue, setValue;
+      componentElem = div();
+      component = new TimePicker(componentElem, options.timePickerOptions);
       getValue = function() {
         return component.date();
       };
@@ -19052,7 +19052,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       };
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem),
         component: component,
         getValue: getValue,
         setValue: setValue,
@@ -19068,9 +19068,9 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     if ( options === void 0 ) options = {};
 
     return this.add(name, 'date-time-picker', function() {
-      var component, elem, getValue, setValue;
-      elem = div();
-      component = new DateTimePicker(elem, options.dateTimePickerOptions);
+      var component, componentElem, getValue, setValue;
+      componentElem = div();
+      component = new DateTimePicker(componentElem, options.dateTimePickerOptions);
       getValue = function() {
         return component.date();
       };
@@ -19079,7 +19079,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       };
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem),
         component: component,
         getValue: getValue,
         setValue: setValue,
@@ -19094,8 +19094,8 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
   Form.prototype.addTagInput = function addTagInput (name, options) {
     if ( options === void 0 ) options = {};
     return this.add(name, 'tag-input', function() {
-      var base, change, component, elem, getValue, input, setValidity, setValue;
-      elem = div();
+      var base, change, component, componentElem, getValue, input, setValidity, setValue;
+      componentElem = div();
       if (options.placeholder) {
         if (options.tagInputOptions == null) {
           options.tagInputOptions = {};
@@ -19104,7 +19104,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
           base.placeholder = options.placeholder;
         }
       }
-      component = new TagInput(elem, options.tagInputOptions);
+      component = new TagInput(componentElem, options.tagInputOptions);
       getValue = function() {
         return component.items();
       };
@@ -19112,7 +19112,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
         return component.items(items);
       };
       if (options.required) {
-        input = elem.select('input');
+        input = componentElem.select('input');
         setValidity = function() {
           return input.node().setCustomValidity(userFacingText('form', 'pleaseAddAValue'));
         };
@@ -19131,7 +19131,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       }
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem),
         component: component,
         getValue: getValue,
         setValue: setValue,
@@ -19146,12 +19146,12 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
   Form.prototype.addFileInput = function addFileInput (name, options) {
     if ( options === void 0 ) options = {};
     return this.add(name, 'file-input', function() {
-      var component, elem;
-      elem = div();
-      component = new FileInput(elem, options.fileInputOptions);
+      var component, componentElem;
+      componentElem = div();
+      component = new FileInput(componentElem, options.fileInputOptions);
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem),
         component: component,
         options: {
           hidden: options.hidden,
@@ -19165,17 +19165,17 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     if ( options === void 0 ) options = {};
 
     return this.add(name, 'select', function() {
-      var autocompletePickerOptions, component, elem, input, setValidity;
-      elem = button().attr('type', 'button').class(options.buttonClass);
+      var autocompletePickerOptions, component, componentElem, input, setValidity;
+      componentElem = button().attr('type', 'button').class(options.buttonClass);
       autocompletePickerOptions = merge({
         buttonClass: options.buttonClass
       }, options.autocompletePickerOptions);
       if (values.length > 0) {
         autocompletePickerOptions.items = values;
       }
-      component = new AutocompletePicker(elem.node(), values, autocompletePickerOptions);
-      input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
-      elem.style('position', 'relative');
+      component = new AutocompletePicker(componentElem, values, autocompletePickerOptions);
+      input = componentElem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
+      componentElem.style('position', 'relative');
       if (typeof options.required !== 'boolean') {
         component.value(values[0]);
       }
@@ -19197,7 +19197,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       }
       return {
         key: options.key,
-        elem: elem,
+        elem: div().add(componentElem),
         component: component,
         disable: function(disabled) {
           return component.disabled(disabled);
