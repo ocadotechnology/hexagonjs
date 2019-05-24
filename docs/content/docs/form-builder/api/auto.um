@@ -1,4 +1,8 @@
 @prototype hx.Form
+  @bugfix 2.0.2
+    @description
+      Resolved an issue where a text field with an autocompelete was incorrectly wrapped with a div, breaking the alignment of the form.
+
   @bugfix 1.2.0
     @description
       Updated the hidden/disabled state for properties so they can be hidden/disabled when added using the options and also using the hidden/disabled methods after they have been added.
