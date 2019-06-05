@@ -4200,7 +4200,7 @@ var dx = (function (exports) {
     titlebar = new TitleBar('.hx-heading');
   }
 
-  var version = "2.0.2";
+  var version = "2.0.3";
 
   var currentTheme$1 = {};
   var themeSet = false;
@@ -17738,7 +17738,7 @@ var dx = (function (exports) {
       function TagInput(selector, options) {
         var this$1 = this;
 
-        var _, acData, backspacedown, filterFn, hasError, inputContainer, inputMap, isInsideForm, isValid, ref, validateTagInput, validationForm;
+        var _, acData, backspacedown, filterFn, hasError, inputContainer, inputMap, isInsideForm, isValid, ref, validateTagInput;
         EventEmitter.call(this);
         this.selector = selector;
         _ = this._ = {};
@@ -17751,7 +17751,8 @@ var dx = (function (exports) {
           autocompleteData: void 0,
           autocompleteOptions: {},
           excludeTags: true,
-          mustMatchAutocomplete: true
+          mustMatchAutocomplete: true,
+          isInsideForm: false
         }, options);
         if (this.options.mustMatchAutocomplete) {
           this.options.autocompleteOptions.mustMatch = true;
@@ -17761,9 +17762,8 @@ var dx = (function (exports) {
         if (this.options.draggable) {
           _.dragContainer = new exports.DragContainer(this.tagContainer.node());
         }
-        isInsideForm = !this.selection.closest('form').empty();
+        isInsideForm = this.options.isInsideForm || !this.selection.closest('form').empty();
         inputContainer = this.selection.append(isInsideForm ? 'div' : 'form').class('hx-tag-input-container');
-        validationForm = isInsideForm ? this.selection.closest('.hx-form') : inputContainer;
         this.input = inputContainer.append('input').attr('placeholder', this.options.placeholder);
         if (this.options.autocompleteData != null) {
           isValid = this.options.validator != null ? function (item) {
@@ -17797,6 +17797,8 @@ var dx = (function (exports) {
           }
         };
         validateTagInput = function (clear) {
+          var validationForm;
+          validationForm = isInsideForm ? this$1.selection.closest('.hx-form') : inputContainer;
           if (isInsideForm) {
             if (clear) {
               return validationForm.selectAll('.hx-form-error').remove();
@@ -19072,6 +19074,10 @@ var dx = (function (exports) {
             base.placeholder = options.placeholder;
           }
         }
+        if (options.tagInputOptions == null) {
+          options.tagInputOptions = {};
+        }
+        options.tagInputOptions.isInsideForm = true;
         component = new exports.TagInput(componentElem, options.tagInputOptions);
         getValue = function() {
           return component.items();
