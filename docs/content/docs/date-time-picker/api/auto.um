@@ -715,6 +715,14 @@
       @description
         The options to use when setting up the date/time picker.
 
+      @property date [Date]
+        @added 2.1.0
+
+        @description
+          The date to initialise the date/time picker with
+
+        @default: @code[new Date()]
+
       @property datePickerOptions [Object]
         @description
           The options to use for the date picker.

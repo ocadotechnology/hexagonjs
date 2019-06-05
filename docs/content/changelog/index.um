@@ -508,3 +508,27 @@
           @item: The @code[build] api for creating a bundle was removed
           @item: @code[ColorPicker] was removed
           @item: @code[hx.theme] replaced by @code[hx.theme()] (find/replace resolves this)
+
+#    @version 2.1.0
+#      @description
+#        Added support for the @code[Intl] library when working with the preferences and date/time pickers.
+#
+#        This will be made the default in the next major release and is available under a feature flag:
+#
+#        @@codeblock js
+#          hx.preferences.setup({
+#            featureFlags: {
+#              useIntlFormat: true,
+#            },
+#          })
+#
+#        This should be done before any other hexagon components are used or created.
+#
+#        Toggling this enables full IANA timezone (e.g. @code[Europe/London]) and RFC5456 locale (e.g.
+#        @code[en-GB]) support.
+#
+#        This will cause the @code[DatePicker], @code[TimePicker] and @code[DateTimePicker] to use the
+#        @code[Intl] API for localization of the on-screen dates and times instead of the moment.js
+#        or default (UK English) variant.
+#
+#        Also added some options to make working with date/time pickers easier.

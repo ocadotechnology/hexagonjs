@@ -410,8 +410,8 @@ class DatePicker extends EventEmitter
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
       date: undefined
-      outputFullDate: false
       v2Features: {
+        outputFullDate: false,
         dontModifyDateOnError: false,
         displayLongMonthInCalendar: false,
         dontSetInitialInputValue: false,

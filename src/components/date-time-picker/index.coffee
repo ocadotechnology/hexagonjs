@@ -21,7 +21,8 @@ export class DateTimePicker extends EventEmitter
       @options.datePickerOptions.date = @options.date
       @options.timePickerOptions.date = @options.date
 
-    @options.datePickerOptions.outputFullDate = true
+    @options.datePickerOptions.v2Features ?= {}
+    @options.datePickerOptions.v2Features.outputFullDate = true
 
     @suppressCallback = false
 
