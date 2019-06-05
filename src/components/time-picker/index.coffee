@@ -2,7 +2,7 @@ import { zeroPad } from 'utils/format'
 import { EventEmitter } from 'utils/event-emitter'
 import { merge, randomId, supports } from 'utils/utils'
 import { preferences } from 'utils/preferences'
-import { dateTimeLocalizer } from 'utils/date-localizer'
+import { dateTimeLocalizer, IntlDateTimeLocalizer } from 'utils/date-localizer'
 import { select, div } from 'utils/selection'
 import logger from 'utils/logger'
 
@@ -44,6 +44,7 @@ class TimePicker extends EventEmitter
     super()
 
     @options = merge {
+      date: undefined
       showSeconds: false
       buttonClass: 'hx-btn-outline'
       disabled: false
@@ -53,7 +54,11 @@ class TimePicker extends EventEmitter
       disabled: @options.disabled
     }
 
-    @localizer = dateTimeLocalizer()
+    @localizer = if preferences._.useIntl
+      new IntlDateTimeLocalizer()
+    else
+      dateTimeLocalizer()
+
     @localizer.on 'localechange', 'hx.time-picker', => updateTimePicker this, true
     @localizer.on 'timezonechange', 'hx.time-picker', => updateTimePicker this, true
 
@@ -145,6 +150,10 @@ class TimePicker extends EventEmitter
     @dropdown.on 'showstart', => @emit 'show'
 
     if _.disabled then @disabled(_.disabled)
+
+    if @options.date
+      @date(@options.date, false)
+
 
   date: (date, retainTime) ->
     _ = @_

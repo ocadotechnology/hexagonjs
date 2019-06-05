@@ -17,6 +17,9 @@ export class DateTimePicker extends EventEmitter
 
     # You can't select a range for a date-time picker.
     delete @options.datePickerOptions.selectRange
+    if @options.date
+      @options.datePickerOptions.date = @options.date
+      @options.timePickerOptions.date = @options.date
 
     @suppressCallback = false
 
@@ -34,6 +37,20 @@ export class DateTimePicker extends EventEmitter
     @datePicker = new DatePicker(dtNode, @options.datePickerOptions)
     @timePicker = new TimePicker(tpNode, @options.timePickerOptions)
 
+    @localizer = @timePicker.localizer
+    @datePicker.localizer = @localizer
+
+    @localizer.on 'localechange', 'hx.date-time-picker', ->
+      updateTimePicker()
+      updateDatePicker()
+
+    @localizer.on 'timezonechange', 'hx.date-time-picker', =>
+      updateTimePicker()
+      updateDatePicker()
+
+    @datePicker._.inDateTimePicker = true
+    @timePicker._.inDateTimePicker = true
+
     @datePicker.pipe(this, 'date', ['show', 'hide'])
     @timePicker.pipe(this, 'time', ['show', 'hide'])
 
@@ -49,7 +66,7 @@ export class DateTimePicker extends EventEmitter
 
     updateDatePicker = (data) =>
       @datePicker.suppressed('change', true)
-      @datePicker.date(preferences.applyTimezoneOffset(@date()))
+      @datePicker.date(@date())
       @datePicker.suppressed('change', false)
 
       if data?
@@ -109,18 +126,17 @@ export class DateTimePicker extends EventEmitter
   # See note in 2.0.0.md about retaining this method
   locale: (locale) ->
     if arguments.length > 0
-      @datePicker.localizer.locale(locale)
-      @timePicker.localizer.locale(locale)
+      @localizer.locale(locale)
       this
     else
       @datePicker.localizer.locale()
 
   timezone: (timezone) ->
     if arguments.length > 0
-      @timePicker.localizer.timezone(timezone)
+      @localizer.timezone(timezone)
       this
     else
-      @timePicker.localizer.timezone()
+      @localizer.timezone()
 
   disabled: (disable) ->
     dpDisabled = @datePicker.disabled(disable)

@@ -85,9 +85,11 @@ isSelectable = (datepicker, year, month, day) ->
 
 
 isSelected = (selectedDate, year, month, day) ->
-  selectedDate.getFullYear() is year and
-  (not month? or selectedDate.getMonth() is month) and
-  (not day? or selectedDate.getDate() is day)
+  [selectedYear, selectedMonth, selectedDay] = selectedDate.split('-').map(Number)
+
+  selectedYear is year and
+  (not month? or selectedMonth - 1 is month) and
+  (not day? or selectedDay is day)
 
 
 isBetweenDates = (range, year, month, day) ->
@@ -99,7 +101,7 @@ isToday = (year, month, day) ->
   date = new Date(year, month, day)
   date.setHours(0, 0, 0, 0)
   today.setHours(0, 0, 0, 0)
-  date.toString() is today.toString()
+  date.getTime() is today.getTime()
 
 
 toggleInputValidity = (input, dateValidityCallback, valid, type) ->
@@ -161,8 +163,6 @@ validateDates = (datepicker) ->
         _.endDate = _.startDate
         _.startDate = tDate
 
-    _.endDate.setHours(0, 0, 0, 0)
-    _.startDate.setHours(0, 0, 0, 0)
   return
 
 
@@ -263,12 +263,12 @@ calendarGridRowUpdate = (datepicker, data, elem, index, rowIndex, mode) ->
 
     if datepicker.options.selectRange
       range = datepicker.range()
-      selectedS = isSelected(range.start, year, month, day)
-      selectedE = isSelected(range.end, year, month, day)
+      selectedS = isSelected(datepicker.localizer.date(range.start, true), year, month, day)
+      selectedE = isSelected(datepicker.localizer.date(range.end, true), year, month, day)
       betweenDates = isBetweenDates(range, year, month, day)
       selected = selectedS or selectedE
     else
-      selected = isSelected(datepicker.date(), year, month, day)
+      selected = isSelected(datepicker.localizer.date(_.startDate, true), year, month, day)
 
     today = day and isToday(year, month, day)
 
@@ -286,7 +286,21 @@ calendarGridRowUpdate = (datepicker, data, elem, index, rowIndex, mode) ->
         _.userEvent = true
         if mode isnt 'd' and mode isnt 'y'
           if day?
-            date = new Date(visible.year, visible.month - 1, day)
+            currentDate = _.startDate
+
+            currentDay = _.startDate.getDate()
+            [,,localizedDay] = datepicker.localizer.date(_.startDate, true).split('-').map(Number)
+            dayDiff = currentDay - localizedDay
+
+            date = new Date(
+              visible.year,
+              visible.month - 1,
+              day + dayDiff,
+              currentDate.getHours(),
+              currentDate.getMinutes(),
+              currentDate.getSeconds(),
+              currentDate.getMilliseconds()
+            )
             if not datepicker.options.selectRange
               datepicker.date(date)
               if datepicker.options.closeOnSelect then datepicker.hide()
@@ -302,7 +316,7 @@ calendarGridRowUpdate = (datepicker, data, elem, index, rowIndex, mode) ->
               else
                 _.clickStart = true
                 datepicker.range({
-                  start: datepicker.date()
+                  start: _.startDate
                   end: date
                 })
                 if datepicker.options.closeOnSelect then datepicker.hide()
@@ -350,7 +364,7 @@ setupInput = (datepicker, initial) ->
     _.inputEnd.value(datepicker.localizer.date range.end or range.start, _.useInbuilt)
   else
     if not (datepicker.options.v2Features.dontSetInitialInputValue and initial)
-      _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt))
+      _.input.value(datepicker.localizer.date(_.startDate, _.useInbuilt))
 
 
 # Function for updating the input fields and emitting the change event.
@@ -395,6 +409,7 @@ class DatePicker extends EventEmitter
       showTodayButton: true
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
+      date: undefined
       v2Features: {
         dontModifyDateOnError: false,
         displayLongMonthInCalendar: false,
@@ -407,18 +422,16 @@ class DatePicker extends EventEmitter
     _ = @_ = {
       disabled: @options.disabled
       mode: @options.defaultView
-      startDate: new Date(Date.now())
-      endDate: new Date(Date.now())
+      startDate: new Date(@options.date || Date.now())
+      endDate: new Date(@options.date || Date.now())
     }
 
     @localizer = dateTimeLocalizer()
     @localizer.on 'localechange', 'hx.date-picker', => updateDatepicker this, true
     @localizer.on 'timezonechange', 'hx.date-picker', => updateDatepicker this, true
 
-    _.startDate.setHours(0, 0, 0, 0)
-    _.endDate.setHours(0, 0, 0, 0)
-
     @selection = select(@selector)
+      .api('date-picker', this)
       .api(this)
 
     _.inputOnlyMode = @selection.node().tagName.toLowerCase() is 'input'
@@ -498,7 +511,7 @@ class DatePicker extends EventEmitter
 
           date = self.localizer.stringToDate(_.input.value(), _.useInbuilt)
           if date.getTime()
-            if date.getTime() isnt self.date().getTime()
+            if date.getTime() isnt _.startDate.getTime()
               self.date(date)
               if not self.options.v2Features.updateVisibleMonthOnDateChange and self.options.type is 'calendar'
                 self.visibleMonth(date.getMonth() + 1, date.getFullYear())
@@ -572,7 +585,6 @@ class DatePicker extends EventEmitter
           .class('hx-btn hx-btn-outline')
           .on 'click', 'hx.date-picker', ->
             date = new Date()
-            date.setHours(0,0,0,0)
             self.date(date)
             buildCalendar self, 'm'
             if self.options.closeOnSelect
@@ -733,14 +745,16 @@ class DatePicker extends EventEmitter
     _ = @_
     if date?
       date = new Date date.getTime()
-      date.setHours(0, 0, 0, 0)
       if @options.v2Features.updateVisibleMonthOnDateChange and @options.type is 'calendar'
         @visibleMonth(date.getMonth() + 1, date.getFullYear())
       _.startDate = date
       updateDatepicker(this)
       this
     else
-      new Date _.startDate.getTime()
+      returnDate = new Date _.startDate.getTime()
+      if not _.inDateTimePicker
+        returnDate.setHours(0, 0, 0, 0)
+      return returnDate
 
   day: (day) ->
     _ = @_
@@ -774,19 +788,23 @@ class DatePicker extends EventEmitter
     if @options.selectRange
       if arguments.length > 0
         if range.start?
-          range.start.setHours(0, 0, 0, 0)
           _.startDate = range.start
 
         if range.end?
-          range.end.setHours(0, 0, 0, 0)
           _.endDate = range.end
 
         updateDatepicker(this)
         this
       else
+        returnStartDate = new Date _.startDate.getTime()
+        returnEndDate = new Date _.endDate.getTime()
+        if not _.inDateTimePicker
+          returnStartDate.setHours(0, 0, 0, 0)
+          returnEndDate.setHours(0, 0, 0, 0)
+
         {
-          start: _.startDate
-          end: _.endDate
+          start: returnStartDate
+          end: returnEndDate
         }
     else
       logger.warn('datePicker.range can only be used for datepickers with \'selectRange\' of true')
@@ -805,8 +823,6 @@ class DatePicker extends EventEmitter
       if 'end' of validRange
         _.validRange.end = validRange.end
 
-      _.validRange.start?.setHours(0, 0, 0, 0)
-      _.validRange.end?.setHours(0, 0, 0, 0)
 
       updateDatepicker(this, false, initial)
       this

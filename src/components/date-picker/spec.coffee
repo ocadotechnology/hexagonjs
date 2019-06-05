@@ -336,8 +336,8 @@ export default () ->
                 it 'calls the function with true', ->
                   dateValidityCallback.should.have.been.called.with(true, undefined)
 
-                it 'calls the function once', ->
-                  dateValidityCallback.should.have.been.called.exactly(1)
+                it 'calls the function twice', ->
+                  dateValidityCallback.should.have.been.called.exactly(2)
 
 
               describe 'when the date is invalid', ->
