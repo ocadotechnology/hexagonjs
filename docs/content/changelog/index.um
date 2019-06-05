@@ -509,6 +509,15 @@
           @item: @code[ColorPicker] was removed
           @item: @code[hx.theme] replaced by @code[hx.theme()] (find/replace resolves this)
 
+
+    @version 2.0.1
+
+    @version 2.0.2
+
+#    @version 2.0.3
+#      @description
+#        Bugfix for TagInput validation in forms
+#
 #    @version 2.1.0
 #      @description
 #        Added support for the @code[Intl] library when working with the preferences and date/time pickers.

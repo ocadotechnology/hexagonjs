@@ -460,6 +460,9 @@ export class Form extends EventEmitter
         options.tagInputOptions ?= {}
         options.tagInputOptions.placeholder ?= options.placeholder
 
+      options.tagInputOptions ?= {}
+      options.tagInputOptions.isInsideForm = true
+
       component = new TagInput(componentElem, options.tagInputOptions)
 
       getValue = -> component.items()
