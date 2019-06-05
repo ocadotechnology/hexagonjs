@@ -1,8 +1,8 @@
 import { mergeDefined, randomId, supports } from 'utils/utils'
-import { select, div } from 'utils/selection'
+import { select, div, detached } from 'utils/selection'
 import { EventEmitter } from 'utils/event-emitter'
 import { preferences } from 'utils/preferences'
-import { dateTimeLocalizer } from 'utils/date-localizer'
+import { dateTimeLocalizer, IntlDateTimeLocalizer } from 'utils/date-localizer'
 import logger from 'utils/logger'
 
 import { NumberPicker } from 'components/number-picker'
@@ -410,6 +410,7 @@ class DatePicker extends EventEmitter
       allowInbuiltPicker: true # Option to allow preventing use of the inbuilt datepicker
       disabled: false
       date: undefined
+      outputFullDate: false
       v2Features: {
         dontModifyDateOnError: false,
         displayLongMonthInCalendar: false,
@@ -426,7 +427,11 @@ class DatePicker extends EventEmitter
       endDate: new Date(@options.date || Date.now())
     }
 
-    @localizer = dateTimeLocalizer()
+    @localizer = if preferences._.useIntl
+      new IntlDateTimeLocalizer()
+    else
+      dateTimeLocalizer()
+
     @localizer.on 'localechange', 'hx.date-picker', => updateDatepicker this, true
     @localizer.on 'timezonechange', 'hx.date-picker', => updateDatepicker this, true
 
@@ -752,7 +757,7 @@ class DatePicker extends EventEmitter
       this
     else
       returnDate = new Date _.startDate.getTime()
-      if not _.inDateTimePicker
+      if not @options.outputFullDate
         returnDate.setHours(0, 0, 0, 0)
       return returnDate
 
@@ -798,7 +803,7 @@ class DatePicker extends EventEmitter
       else
         returnStartDate = new Date _.startDate.getTime()
         returnEndDate = new Date _.endDate.getTime()
-        if not _.inDateTimePicker
+        if not @options.outputFullDate
           returnStartDate.setHours(0, 0, 0, 0)
           returnEndDate.setHours(0, 0, 0, 0)
 
@@ -837,7 +842,10 @@ class DatePicker extends EventEmitter
       @localizer.locale()
 
 datePicker = (options) ->
-  selection = div()
+  selection = if options?.v2Features?.useInput
+    detached('input')
+  else
+    div()
   new DatePicker(selection, options)
   selection
 

@@ -21,6 +21,8 @@ export class DateTimePicker extends EventEmitter
       @options.datePickerOptions.date = @options.date
       @options.timePickerOptions.date = @options.date
 
+    @options.datePickerOptions.outputFullDate = true
+
     @suppressCallback = false
 
     @selection = select(@selector)
@@ -33,6 +35,7 @@ export class DateTimePicker extends EventEmitter
 
     # To prevent the two pickers being initialised with separate disabled properties.
     @options.timePickerOptions.disabled = @options.datePickerOptions.disabled
+
 
     @datePicker = new DatePicker(dtNode, @options.datePickerOptions)
     @timePicker = new TimePicker(tpNode, @options.timePickerOptions)
@@ -47,9 +50,6 @@ export class DateTimePicker extends EventEmitter
     @localizer.on 'timezonechange', 'hx.date-time-picker', =>
       updateTimePicker()
       updateDatePicker()
-
-    @datePicker._.inDateTimePicker = true
-    @timePicker._.inDateTimePicker = true
 
     @datePicker.pipe(this, 'date', ['show', 'hide'])
     @timePicker.pipe(this, 'time', ['show', 'hide'])

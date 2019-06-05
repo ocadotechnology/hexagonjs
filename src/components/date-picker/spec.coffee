@@ -2,6 +2,7 @@ import chai from 'chai'
 
 import { select, div } from 'utils/selection'
 import logger from 'utils/logger'
+import { preferences } from 'utils/preferences'
 
 import { DatePicker } from 'components/date-picker'
 import { config as dropdownConfig } from 'components/dropdown'
@@ -441,3 +442,199 @@ export default () ->
 
               it 'updates the visible month', ->
                 dp.visibleMonth().should.eql({ month: 9, year: 2018 })
+
+
+    describe 'localized timezones', () ->
+      testDateMs = Date.UTC(2019, 4, 22, 0, 20)
+      origDateNow = Date.now
+
+      beforeEach () ->
+        Date.now = ()-> testDateMs
+
+      afterEach () ->
+        Date.now = origDateNow
+
+      describe 'when using en-GB and UTC+01:00', () ->
+        stdDp = undefined
+
+        beforeEach () ->
+          preferences.locale('en-GB')
+          preferences.timezone('UTC+01:00')
+          stdDp = new DatePicker(fixture.append(div()))
+
+        it 'has the correct screen date', () ->
+          stdDp.getScreenDate().should.equal('22/05/2019')
+
+        it 'has the correct date', () ->
+          stdDp.date().should.eql(new Date(2019, 4, 22))
+
+      # Default date localizer doesn't support timezones
+      describe 'when using en-GB and UTC-07:00', () ->
+        stdDp = undefined
+
+        beforeEach () ->
+          preferences.locale('en-GB')
+          preferences.timezone('UTC-07:00')
+          stdDp = new DatePicker(fixture.append(div()))
+
+        it 'has the correct screen date', () ->
+          stdDp.getScreenDate().should.equal('22/05/2019')
+
+        it 'has the correct date', () ->
+          stdDp.date().should.eql(new Date(2019, 4, 22))
+
+    # PhantomJS doesn't support `Intl` and the polyfill doesn't support timezones...
+    if navigator.userAgent.indexOf('PhantomJS') is -1
+      describe 'localized timezones (preferences Intl API)', () ->
+        testDateMs = Date.UTC(2019, 4, 22, 0, 20)
+        origDateNow = Date.now
+
+        beforeEach () ->
+          Date.now = ()-> testDateMs
+          preferences.setup({
+            featureFlags: {
+              useIntlFormat: true,
+            },
+          })
+
+        afterEach () ->
+          Date.now = origDateNow
+          preferences.off()
+          preferences.setup()
+
+        describe 'default behaviour', ->
+          describe 'when using en-GB and Europe/London', () ->
+            intlDp = undefined
+
+            beforeEach () ->
+              preferences.locale('en-GB')
+              preferences.timezone('Europe/London')
+              intlDp = new DatePicker(fixture.append(div()))
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('22/05/2019')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(2019, 4, 22))
+
+          describe 'when using en-US and America/Los_Angeles', () ->
+            intlDp = undefined
+
+            beforeEach () ->
+              preferences.locale('en')
+              preferences.timezone('America/Los_Angeles')
+              intlDp = new DatePicker(fixture.append(div()))
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('5/21/2019')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(2019, 4, 22))
+
+            describe 'then changing to Europe/London', ->
+              beforeEach ->
+                preferences.timezone('Europe/London')
+
+              it 'has the correct screen date', () ->
+                intlDp.getScreenDate().should.equal('5/22/2019')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(2019, 4, 22))
+
+          describe 'when using fr and Pacific/Auckland', () ->
+            intlDp = undefined
+
+            beforeEach () ->
+              preferences.locale('fr')
+              preferences.timezone('Pacific/Auckland')
+              intlDp = new DatePicker(fixture.append(div()), {
+                date: new Date(Date.UTC(2019, 4, 22, 20, 0))
+              })
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('23/05/2019')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(2019, 4, 22))
+
+            describe 'then changing to Europe/London', ->
+              beforeEach ->
+                preferences.timezone('Europe/London')
+
+              it 'has the correct screen date', () ->
+                intlDp.getScreenDate().should.equal('22/05/2019')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(2019, 4, 22))
+
+
+        describe 'outputFullDate behaviour', ->
+          describe 'when using en-GB and Europe/London', () ->
+            intlDp = undefined
+
+            beforeEach () ->
+              preferences.locale('en-GB')
+              preferences.timezone('Europe/London')
+              intlDp = new DatePicker(fixture.append(div()), {
+                outputFullDate: true
+              })
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('22/05/2019')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(testDateMs))
+
+          describe 'when using en-US and America/Los_Angeles', () ->
+            intlDp = undefined
+
+            beforeEach () ->
+              preferences.locale('en')
+              preferences.timezone('America/Los_Angeles')
+              intlDp = new DatePicker(fixture.append(div()), {
+                outputFullDate: true
+              })
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('5/21/2019')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(testDateMs))
+
+            describe 'then changing to Europe/London', ->
+              beforeEach ->
+                preferences.timezone('Europe/London')
+
+              it 'has the correct screen date', () ->
+                intlDp.getScreenDate().should.equal('5/22/2019')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(testDateMs))
+
+          describe 'when using fr and Pacific/Auckland', () ->
+            intlDp = undefined
+            nzTestDate = Date.UTC(2019, 4, 22, 20, 0)
+
+            beforeEach () ->
+              preferences.locale('fr')
+              preferences.timezone('Pacific/Auckland')
+              intlDp = new DatePicker(fixture.append(div()), {
+                date: new Date(nzTestDate),
+                outputFullDate: true
+              })
+
+            it 'has the correct screen date', () ->
+              intlDp.getScreenDate().should.equal('23/05/2019')
+
+            it 'has the correct date', () ->
+              intlDp.date().should.eql(new Date(nzTestDate))
+
+            describe 'then changing to Europe/London', ->
+              beforeEach ->
+                preferences.timezone('Europe/London')
+
+              it 'has the correct screen date', () ->
+                intlDp.getScreenDate().should.equal('22/05/2019')
+
+              it 'has the correct date', () ->
+                intlDp.date().should.eql(new Date(nzTestDate))

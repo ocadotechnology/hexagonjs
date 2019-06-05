@@ -63,7 +63,7 @@ class TimePicker extends EventEmitter
     @localizer.on 'timezonechange', 'hx.time-picker', => updateTimePicker this, true
 
 
-    _.selectedDate = new Date
+    _.selectedDate = new Date(@options.date || Date.now())
     _.selectedDate.setMilliseconds(0)
     if not @showSeconds
       _.selectedDate.setSeconds(0)
@@ -150,9 +150,6 @@ class TimePicker extends EventEmitter
     @dropdown.on 'showstart', => @emit 'show'
 
     if _.disabled then @disabled(_.disabled)
-
-    if @options.date
-      @date(@options.date, false)
 
 
   date: (date, retainTime) ->
