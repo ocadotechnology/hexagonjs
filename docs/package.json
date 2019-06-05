@@ -9,7 +9,7 @@
   "scripts": {
     "copy-hexagon:docs": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/docs/ --clean",
     "postcopy-hexagon:docs": "node build/docs-hexagon.js",
-    "copy-hexagon:version": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/2.0.2/ --clean",
+    "copy-hexagon:version": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/2.0.3/ --clean",
     "copy-hexagon:latest": "cpx \"node_modules/hexagon-js/dist/**/*\" resources/hexagon/latest/ --clean",
     "postinstall": "run-p copy-hexagon:*",
     "start": "quantum watch",
@@ -20,7 +20,7 @@
   "devDependencies": {
     "cpx": "^1.5.0",
     "font-awesome": "^4.7.0",
-    "hexagon-js": "2.0.2",
+    "hexagon-js": "2.0.3",
     "npm-run-all": "^4.1.5",
     "quantum-api": "^2.0.1",
     "quantum-code-highlight": "^2.0.0",
