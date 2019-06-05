@@ -544,6 +544,14 @@
         @default
           false
 
+      @property date [Date]
+        @added 2.1.0
+
+        @description
+          The date to initialise the time picker with
+
+        @default: @code[new Date()]
+
   @method locale
     @added 0.13.0
     @updated 1.17.0

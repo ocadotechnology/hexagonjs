@@ -21,14 +21,8 @@ export default () ->
     button = undefined
     content = div().text('dropdown content')
 
-    fixture = select('body').append(div('hx-test-dropdown'))
-      .style('padding', '0')
-      .style('margin', '0')
-      .style('width', '1000px')
-      .style('height', '1000px')
-      .style('position', 'relative')
+    fixture = undefined
     clock = undefined
-
 
     getWindowMeasurement = (horizontal, scroll) ->
       if scroll then 0
@@ -53,6 +47,12 @@ export default () ->
         .text('button')
 
     before ->
+      fixture = select('body').append(div('hx-test-dropdown'))
+        .style('padding', '0')
+        .style('margin', '0')
+        .style('width', '1000px')
+        .style('height', '1000px')
+        .style('position', 'relative')
       window.resizeTo(windowSize, windowSize)
 
     beforeEach ->

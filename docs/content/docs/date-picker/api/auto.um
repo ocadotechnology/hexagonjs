@@ -69,7 +69,7 @@
 
   @updated 1.18.1
     @description
-      Updated in preprartion for the next major release.
+      Updated in preparation for the next major release.
 
   @description
     The date picker can be used to create an interactive dropdown to let the user select a date.
@@ -213,13 +213,26 @@
             The second date of the valid range. Dates before this point will be
             selectable.
 
-      @property v2Flags [Object]
+      @property date [Date]
+        @added 2.1.0
+
+        @description
+          The date to initialise the date picker with
+
+        @default: @code[new Date()]
+
+      @property v2Features [Object]
         @added 1.18.1
           @description
             Added several flags that enable functionality that will be default in version 2.0.0 of Hexagon.
 
         @description
           An object containing flags to toggle features that will be standard in version 2
+
+          @property? outputFullDate [Boolean]
+            @added 2.1.0
+            @description
+              Whether the date should include the time information as it was passed in or return with @code[setHours(0,0,0,0)] applied
 
           @property? dontModifyDateOnError [Boolean]
             @description
@@ -1175,6 +1188,12 @@
   @arg? options [Object]
     @description
       See the options object for constructing DatePicker
+
+    @property v2Features [Object]
+      @property useInput [Boolean]
+        @added 2.1.0
+        @description
+          A boolean to toggle the use of an @code[<input>] instead of a @code[<div>] for the node to apply the datepicker to.
 
   @returns [Selection]
     @description
