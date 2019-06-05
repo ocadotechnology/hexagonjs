@@ -1,9 +1,3 @@
-// Polyfills for the date/time formatting
-import 'intl';
-import 'intl/locale-data/jsonp/en';
-import 'intl/locale-data/jsonp/en-GB';
-import 'intl/locale-data/jsonp/fr';
-
 import chai from 'chai';
 import * as hx from 'hexagon';
 
