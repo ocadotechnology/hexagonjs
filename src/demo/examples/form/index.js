@@ -25,7 +25,7 @@ export default () => {
       required: true,
       tagInputOptions: {
         validator: (name) => {
-          if (!isNaN(Number(name))) {
+          if (!Number.isNaN(Number(name))) {
             return 'Please enter text';
           }
           return false;
