@@ -21,6 +21,17 @@ export default () => {
     .addPicker('Picker', ['red', 'green', 'blue'], { required: true })
     .addTagInput('Tag Input')
     .addTagInput('Tag Input', { required: true })
+    .addTagInput('Tag Input', {
+      required: true,
+      tagInputOptions: {
+        validator: (name) => {
+          if (!Number.isNaN(Number(name))) {
+            return 'Please enter text';
+          }
+          return false;
+        },
+      },
+    })
     .addFileInput('File Input')
     .addFileInput('File Input', { required: true })
     .addDatePicker('Date Picker')

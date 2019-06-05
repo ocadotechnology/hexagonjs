@@ -508,3 +508,11 @@
           @item: The @code[build] api for creating a bundle was removed
           @item: @code[ColorPicker] was removed
           @item: @code[hx.theme] replaced by @code[hx.theme()] (find/replace resolves this)
+
+    @version 2.0.1
+
+    @version 2.0.2
+
+    @version 2.0.3
+      @description
+        Bugfix for TagInput validation in forms

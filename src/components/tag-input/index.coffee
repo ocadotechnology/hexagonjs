@@ -39,7 +39,8 @@ class TagInput extends EventEmitter
       autocompleteData: undefined
       autocompleteOptions: {}
       excludeTags: true
-      mustMatchAutocomplete: true
+      mustMatchAutocomplete: true,
+      isInsideForm: false
     }, options
 
     if @options.mustMatchAutocomplete
@@ -55,15 +56,10 @@ class TagInput extends EventEmitter
     if @options.draggable
       _.dragContainer = new DragContainer(@tagContainer.node())
 
-    isInsideForm = not @selection.closest('form').empty()
+    isInsideForm = @options.isInsideForm || not @selection.closest('form').empty()
 
     inputContainer = @selection.append(if isInsideForm then 'div' else 'form')
       .class('hx-tag-input-container')
-
-    validationForm = if isInsideForm
-      @selection.closest('.hx-form')
-    else
-      inputContainer
 
     @input = inputContainer.append('input').attr('placeholder', @options.placeholder)
     if @options.autocompleteData?
@@ -91,6 +87,7 @@ class TagInput extends EventEmitter
         false
 
     validateTagInput = (clear) =>
+      validationForm = if isInsideForm then @selection.closest('.hx-form') else inputContainer
       if isInsideForm
         if clear
           validationForm.selectAll('.hx-form-error').remove()
