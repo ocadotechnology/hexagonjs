@@ -10,6 +10,8 @@ import buble from 'rollup-plugin-buble';
 import json from 'rollup-plugin-json';
 import istanbul from 'rollup-plugin-istanbul';
 
+import pkg from './package.json';
+
 const includePathOptions = {
   include: {},
   paths: [`${__dirname}/src`, __dirname],
@@ -135,10 +137,10 @@ const distThemeConfig = {
 const distModuleConfig = {
   ...sharedOpts,
   input: 'src/hexagon.js',
-  output: {
-    file: 'dist/hexagon.es.js',
-    format: 'esm',
-  },
+  output: [
+    { file: pkg.main, format: 'commonjs' },
+    { file: pkg.module, format: 'esm' },
+  ],
   plugins: standardPlugins,
 };
 
