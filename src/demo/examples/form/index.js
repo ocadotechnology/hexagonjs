@@ -6,6 +6,7 @@ export default () => {
   const theForm = div();
   new Form(theForm)
     .addText('Text', { required: true, placeholder: 'Name' })
+    .addText('Text with Autocomplete', { required: true, placeholder: 'Name', autocompleteData: [1, 2, 3] })
     .addTextArea('Text Area', { placeholder: 'Name' })
     .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
     .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
@@ -20,6 +21,17 @@ export default () => {
     .addPicker('Picker', ['red', 'green', 'blue'], { required: true })
     .addTagInput('Tag Input')
     .addTagInput('Tag Input', { required: true })
+    .addTagInput('Tag Input', {
+      required: true,
+      tagInputOptions: {
+        validator: (name) => {
+          if (!Number.isNaN(Number(name))) {
+            return 'Please enter text';
+          }
+          return false;
+        },
+      },
+    })
     .addFileInput('File Input')
     .addFileInput('File Input', { required: true })
     .addDatePicker('Date Picker')

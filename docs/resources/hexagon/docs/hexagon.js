@@ -4200,7 +4200,7 @@ var dx = (function (exports) {
     titlebar = new TitleBar('.hx-heading');
   }
 
-  var version = "2.0.1";
+  var version = "2.1.0";
 
   var currentTheme$1 = {};
   var themeSet = false;
@@ -6858,7 +6858,995 @@ var dx = (function (exports) {
     return selection;
   };
 
-  var LocalStoragePreferencesStore, Preferences, defaultTimezoneList, defaultTimezoneLookup, localeList, lookupLocale, indexOf$1 = [].indexOf;
+  var supportedTypes = ['success', 'danger', 'warning'];
+
+  function badge(options) {
+    if ( options === void 0 ) options = {};
+
+    var type = options.type;
+    var inverse = options.inverse;
+    var validType = !type || supportedTypes.includes(type);
+    if (!validType) {
+      logger.warn(("badge: Badge was called with an invalid type: '" + type + "'. Supported types: " + (supportedTypes.join(', '))));
+    }
+    return span('hx-badge')
+      .classed('hx-badge-inverse', inverse)
+      .classed(("hx-" + type), type && validType);
+  }
+
+  var defaultLocaleObjects = [
+    { value: 'af', full: 'Afrikaans' },
+    { value: 'sq', full: 'Albanian' },
+    { value: 'ar', full: 'Arabic' },
+    { value: 'ar-MA', full: 'Arabic (Morocco)' },
+    { value: 'ar-SA', full: 'Arabic (Saudi Arabia)' },
+    { value: 'ar-TN', full: 'Arabic (Tunisia)' },
+    { value: 'hy-AM', full: 'Armenian' },
+    { value: 'az', full: 'Azerbaijani' },
+    { value: 'id', full: 'Bahasa Indonesia' },
+    { value: 'ms-MY', full: 'Bahasa Malayu' },
+    { value: 'eu', full: 'Basque' },
+    { value: 'be', full: 'Belarusian' },
+    { value: 'bn', full: 'Bengali' },
+    { value: 'bs', full: 'Bosnian' },
+    { value: 'br', full: 'Breton' },
+    { value: 'bg', full: 'Bulgarian' },
+    { value: 'my', full: 'Burmese' },
+    { value: 'ca', full: 'Catalan' },
+    { value: 'zh-CN', full: 'Chinese' },
+    { value: 'zh-TW', full: 'Chinese (Traditional)' },
+    { value: 'cv', full: 'Chuvash' },
+    { value: 'hr', full: 'Croatian' },
+    { value: 'cs', full: 'Czech' },
+    { value: 'da', full: 'Danish' },
+    { value: 'nl', full: 'Dutch' },
+    { value: 'en', full: 'English' },
+    { value: 'en-US', full: 'English (US)' },
+    { value: 'en-AU', full: 'English (Australia)' },
+    { value: 'en-CA', full: 'English (Canada)' },
+    { value: 'en-GB', full: 'English (UK) ' },
+    { value: 'eo', full: 'Esperanto' },
+    { value: 'et', full: 'Estonian' },
+    { value: 'fo', full: 'Farose' },
+    { value: 'fi', full: 'Finnish' },
+    { value: 'fr', full: 'French' },
+    { value: 'fr-CA', full: 'French (Canada)' },
+    { value: 'fy', full: 'Frisian' },
+    { value: 'gl', full: 'Galician' },
+    { value: 'ka', full: 'Georgian' },
+    { value: 'de', full: 'German' },
+    { value: 'de-AT', full: 'German (Austria)' },
+    { value: 'el', full: 'Greek' },
+    { value: 'he', full: 'Hebrew' },
+    { value: 'hi', full: 'Hindi' },
+    { value: 'hu', full: 'Hungarian' },
+    { value: 'is', full: 'Icelandic' },
+    { value: 'it', full: 'Italian' },
+    { value: 'ja', full: 'Japanese' },
+    { value: 'km', full: 'Khmer (Cambodia)' },
+    { value: 'ko', full: 'Korean' },
+    { value: 'lv', full: 'Latvian' },
+    { value: 'lt', full: 'Lithuanian' },
+    { value: 'lb', full: 'Luxembourgish' },
+    { value: 'mk', full: 'Macedonian' },
+    { value: 'ml', full: 'Malayalam' },
+    { value: 'mr', full: 'Marathi' },
+    { value: 'ne', full: 'Nepalese' },
+    { value: 'nb', full: 'Norwegian' },
+    { value: 'nn', full: 'Norwegian Nynorsk' },
+    { value: 'fa', full: 'Persian' },
+    { value: 'pl', full: 'Polish' },
+    { value: 'pt', full: 'Portuguese' },
+    { value: 'pt-BR', full: 'Portuguese (Brazil)' },
+    { value: 'ro', full: 'Romanian' },
+    { value: 'ru', full: 'Russian' },
+    { value: 'sr', full: 'Serbian' },
+    { value: 'sr-CYRL', full: 'Serbian Cyrillic' },
+    { value: 'sk', full: 'Slovak' },
+    { value: 'sl', full: 'Slovenian' },
+    { value: 'es', full: 'Spanish' },
+    { value: 'sv', full: 'Swedish' },
+    { value: 'tl-PH', full: 'Tagalog (Filipino)' },
+    { value: 'tzm', full: 'Tamaziɣt' },
+    { value: 'tzm-LATN', full: 'Tamaziɣt Latin' },
+    { value: 'ta', full: 'Tamil' },
+    { value: 'th', full: 'Thai' },
+    { value: 'bo', full: 'Tibetan' },
+    { value: 'tr', full: 'Turkish' },
+    { value: 'uk', full: 'Ukrainian' },
+    { value: 'uz', full: 'Uzbek' },
+    { value: 'vi', full: 'Vietnamese' },
+    { value: 'cy', full: 'Welsh' } ];
+
+  var defaultTimezoneList = [
+    'UTC-12:00',
+    'UTC-11:00',
+    'UTC-10:00',
+    'UTC-09:30',
+    'UTC-09:00',
+    'UTC-08:00',
+    'UTC-07:00',
+    'UTC-06:00',
+    'UTC-05:00',
+    'UTC-04:30',
+    'UTC-04:00',
+    'UTC-03:30',
+    'UTC-03:00',
+    'UTC-02:00',
+    'UTC-01:00',
+    'UTC+00:00',
+    'UTC+01:00',
+    'UTC+02:00',
+    'UTC+03:00',
+    'UTC+03:30',
+    'UTC+04:00',
+    'UTC+04:30',
+    'UTC+05:00',
+    'UTC+05:30',
+    'UTC+05:45',
+    'UTC+06:00',
+    'UTC+06:30',
+    'UTC+07:00',
+    'UTC+08:00',
+    'UTC+08:30',
+    'UTC+08:45',
+    'UTC+09:00',
+    'UTC+09:30',
+    'UTC+10:00',
+    'UTC+10:30',
+    'UTC+11:00',
+    'UTC+12:00',
+    'UTC+12:45',
+    'UTC+13:00',
+    'UTC+14:00' ];
+
+  var defaultLocaleList = defaultLocaleObjects.map(function (ref) {
+    var value = ref.value;
+
+    return value;
+  });
+
+  // List of language tags according to RFC 5646.
+  // See <http://tools.ietf.org/html/rfc5646> for info on how to parse
+  // these language tags. Some duplicates have been removed.
+  var RFC5646_LANGUAGE_TAGS = {
+    af: 'Afrikaans',
+    'af-ZA': 'Afrikaans (South Africa)',
+    ar: 'Arabic',
+    'ar-AE': 'Arabic (U.A.E.)',
+    'ar-BH': 'Arabic (Bahrain)',
+    'ar-DZ': 'Arabic (Algeria)',
+    'ar-EG': 'Arabic (Egypt)',
+    'ar-IQ': 'Arabic (Iraq)',
+    'ar-JO': 'Arabic (Jordan)',
+    'ar-KW': 'Arabic (Kuwait)',
+    'ar-LB': 'Arabic (Lebanon)',
+    'ar-LY': 'Arabic (Libya)',
+    'ar-MA': 'Arabic (Morocco)',
+    'ar-OM': 'Arabic (Oman)',
+    'ar-QA': 'Arabic (Qatar)',
+    'ar-SA': 'Arabic (Saudi Arabia)',
+    'ar-SY': 'Arabic (Syria)',
+    'ar-TN': 'Arabic (Tunisia)',
+    'ar-YE': 'Arabic (Yemen)',
+    az: 'Azeri (Latin)',
+    'az-AZ': 'Azeri (Latin) (Azerbaijan)',
+    'az-Cyrl-AZ': 'Azeri (Cyrillic) (Azerbaijan)',
+    be: 'Belarusian',
+    'be-BY': 'Belarusian (Belarus)',
+    bg: 'Bulgarian',
+    'bg-BG': 'Bulgarian (Bulgaria)',
+    'bs-BA': 'Bosnian (Bosnia and Herzegovina)',
+    ca: 'Catalan',
+    'ca-ES': 'Catalan (Spain)',
+    cs: 'Czech',
+    'cs-CZ': 'Czech (Czech Republic)',
+    cy: 'Welsh',
+    'cy-GB': 'Welsh (United Kingdom)',
+    da: 'Danish',
+    'da-DK': 'Danish (Denmark)',
+    de: 'German',
+    'de-AT': 'German (Austria)',
+    'de-CH': 'German (Switzerland)',
+    'de-DE': 'German (Germany)',
+    'de-LI': 'German (Liechtenstein)',
+    'de-LU': 'German (Luxembourg)',
+    dv: 'Divehi',
+    'dv-MV': 'Divehi (Maldives)',
+    el: 'Greek',
+    'el-GR': 'Greek (Greece)',
+    en: 'English',
+    'en-AU': 'English (Australia)',
+    'en-BZ': 'English (Belize)',
+    'en-CA': 'English (Canada)',
+    'en-CB': 'English (Caribbean)',
+    'en-GB': 'English (United Kingdom)',
+    'en-IE': 'English (Ireland)',
+    'en-JM': 'English (Jamaica)',
+    'en-NZ': 'English (New Zealand)',
+    'en-PH': 'English (Republic of the Philippines)',
+    'en-TT': 'English (Trinidad and Tobago)',
+    'en-US': 'English (United States)',
+    'en-ZA': 'English (South Africa)',
+    'en-ZW': 'English (Zimbabwe)',
+    eo: 'Esperanto',
+    es: 'Spanish',
+    'es-AR': 'Spanish (Argentina)',
+    'es-BO': 'Spanish (Bolivia)',
+    'es-CL': 'Spanish (Chile)',
+    'es-CO': 'Spanish (Colombia)',
+    'es-CR': 'Spanish (Costa Rica)',
+    'es-DO': 'Spanish (Dominican Republic)',
+    'es-EC': 'Spanish (Ecuador)',
+    'es-ES': 'Spanish (Spain)',
+    'es-GT': 'Spanish (Guatemala)',
+    'es-HN': 'Spanish (Honduras)',
+    'es-MX': 'Spanish (Mexico)',
+    'es-NI': 'Spanish (Nicaragua)',
+    'es-PA': 'Spanish (Panama)',
+    'es-PE': 'Spanish (Peru)',
+    'es-PR': 'Spanish (Puerto Rico)',
+    'es-PY': 'Spanish (Paraguay)',
+    'es-SV': 'Spanish (El Salvador)',
+    'es-UY': 'Spanish (Uruguay)',
+    'es-VE': 'Spanish (Venezuela)',
+    et: 'Estonian',
+    'et-EE': 'Estonian (Estonia)',
+    eu: 'Basque',
+    'eu-ES': 'Basque (Spain)',
+    fa: 'Farsi',
+    'fa-IR': 'Farsi (Iran)',
+    fi: 'Finnish',
+    'fi-FI': 'Finnish (Finland)',
+    fo: 'Faroese',
+    'fo-FO': 'Faroese (Faroe Islands)',
+    fr: 'French',
+    'fr-BE': 'French (Belgium)',
+    'fr-CA': 'French (Canada)',
+    'fr-CH': 'French (Switzerland)',
+    'fr-FR': 'French (France)',
+    'fr-LU': 'French (Luxembourg)',
+    'fr-MC': 'French (Principality of Monaco)',
+    gl: 'Galician',
+    'gl-ES': 'Galician (Spain)',
+    gu: 'Gujarati',
+    'gu-IN': 'Gujarati (India)',
+    he: 'Hebrew',
+    'he-IL': 'Hebrew (Israel)',
+    hi: 'Hindi',
+    'hi-IN': 'Hindi (India)',
+    hr: 'Croatian',
+    'hr-BA': 'Croatian (Bosnia and Herzegovina)',
+    'hr-HR': 'Croatian (Croatia)',
+    hu: 'Hungarian',
+    'hu-HU': 'Hungarian (Hungary)',
+    hy: 'Armenian',
+    'hy-AM': 'Armenian (Armenia)',
+    id: 'Indonesian',
+    'id-ID': 'Indonesian (Indonesia)',
+    is: 'Icelandic',
+    'is-IS': 'Icelandic (Iceland)',
+    it: 'Italian',
+    'it-CH': 'Italian (Switzerland)',
+    'it-IT': 'Italian (Italy)',
+    ja: 'Japanese',
+    'ja-JP': 'Japanese (Japan)',
+    ka: 'Georgian',
+    'ka-GE': 'Georgian (Georgia)',
+    kk: 'Kazakh',
+    'kk-KZ': 'Kazakh (Kazakhstan)',
+    kn: 'Kannada',
+    'kn-IN': 'Kannada (India)',
+    ko: 'Korean',
+    'ko-KR': 'Korean (Korea)',
+    kok: 'Konkani',
+    'kok-IN': 'Konkani (India)',
+    ky: 'Kyrgyz',
+    'ky-KG': 'Kyrgyz (Kyrgyzstan)',
+    lt: 'Lithuanian',
+    'lt-LT': 'Lithuanian (Lithuania)',
+    lv: 'Latvian',
+    'lv-LV': 'Latvian (Latvia)',
+    mi: 'Maori',
+    'mi-NZ': 'Maori (New Zealand)',
+    mk: 'FYRO Macedonian',
+    'mk-MK': 'FYRO Macedonian (Former Yugoslav Republic of Macedonia)',
+    mn: 'Mongolian',
+    'mn-MN': 'Mongolian (Mongolia)',
+    mr: 'Marathi',
+    'mr-IN': 'Marathi (India)',
+    ms: 'Malay',
+    'ms-BN': 'Malay (Brunei Darussalam)',
+    'ms-MY': 'Malay (Malaysia)',
+    mt: 'Maltese',
+    'mt-MT': 'Maltese (Malta)',
+    nb: 'Norwegian (Bokm?l)',
+    'nb-NO': 'Norwegian (Bokm?l) (Norway)',
+    nl: 'Dutch',
+    'nl-BE': 'Dutch (Belgium)',
+    'nl-NL': 'Dutch (Netherlands)',
+    'nn-NO': 'Norwegian (Nynorsk) (Norway)',
+    ns: 'Northern Sotho',
+    'ns-ZA': 'Northern Sotho (South Africa)',
+    pa: 'Punjabi',
+    'pa-IN': 'Punjabi (India)',
+    pl: 'Polish',
+    'pl-PL': 'Polish (Poland)',
+    ps: 'Pashto',
+    'ps-AR': 'Pashto (Afghanistan)',
+    pt: 'Portuguese',
+    'pt-BR': 'Portuguese (Brazil)',
+    'pt-PT': 'Portuguese (Portugal)',
+    qu: 'Quechua',
+    'qu-BO': 'Quechua (Bolivia)',
+    'qu-EC': 'Quechua (Ecuador)',
+    'qu-PE': 'Quechua (Peru)',
+    ro: 'Romanian',
+    'ro-RO': 'Romanian (Romania)',
+    ru: 'Russian',
+    'ru-RU': 'Russian (Russia)',
+    sa: 'Sanskrit',
+    'sa-IN': 'Sanskrit (India)',
+    se: 'Sami',
+    'se-FI': 'Sami (Finland)',
+    'se-NO': 'Sami (Norway)',
+    'se-SE': 'Sami (Sweden)',
+    sk: 'Slovak',
+    'sk-SK': 'Slovak (Slovakia)',
+    sl: 'Slovenian',
+    'sl-SI': 'Slovenian (Slovenia)',
+    sq: 'Albanian',
+    'sq-AL': 'Albanian (Albania)',
+    'sr-BA': 'Serbian (Latin) (Bosnia and Herzegovina)',
+    'sr-Cyrl-BA': 'Serbian (Cyrillic) (Bosnia and Herzegovina)',
+    'sr-SP': 'Serbian (Latin) (Serbia and Montenegro)',
+    'sr-Cyrl-SP': 'Serbian (Cyrillic) (Serbia and Montenegro)',
+    sv: 'Swedish',
+    'sv-FI': 'Swedish (Finland)',
+    'sv-SE': 'Swedish (Sweden)',
+    sw: 'Swahili',
+    'sw-KE': 'Swahili (Kenya)',
+    syr: 'Syriac',
+    'syr-SY': 'Syriac (Syria)',
+    ta: 'Tamil',
+    'ta-IN': 'Tamil (India)',
+    te: 'Telugu',
+    'te-IN': 'Telugu (India)',
+    th: 'Thai',
+    'th-TH': 'Thai (Thailand)',
+    tl: 'Tagalog',
+    'tl-PH': 'Tagalog (Philippines)',
+    tn: 'Tswana',
+    'tn-ZA': 'Tswana (South Africa)',
+    tr: 'Turkish',
+    'tr-TR': 'Turkish (Turkey)',
+    tt: 'Tatar',
+    'tt-RU': 'Tatar (Russia)',
+    ts: 'Tsonga',
+    uk: 'Ukrainian',
+    'uk-UA': 'Ukrainian (Ukraine)',
+    ur: 'Urdu',
+    'ur-PK': 'Urdu (Islamic Republic of Pakistan)',
+    uz: 'Uzbek (Latin)',
+    'uz-UZ': 'Uzbek (Latin) (Uzbekistan)',
+    'uz-Cyrl-UZ': 'Uzbek (Cyrillic) (Uzbekistan)',
+    vi: 'Vietnamese',
+    'vi-VN': 'Vietnamese (Viet Nam)',
+    xh: 'Xhosa',
+    'xh-ZA': 'Xhosa (South Africa)',
+    zh: 'Chinese',
+    'zh-CN': 'Chinese (S)',
+    'zh-HK': 'Chinese (Hong Kong)',
+    'zh-MO': 'Chinese (Macau)',
+    'zh-SG': 'Chinese (Singapore)',
+    'zh-TW': 'Chinese (T)',
+    zu: 'Zulu',
+    'zu-ZA': 'Zulu (South Africa)',
+  };
+
+  var RFC5456LocaleList = Object.keys(RFC5646_LANGUAGE_TAGS);
+  var RFC5456LocaleObjects = RFC5456LocaleList.map(function (loc) { return ({
+    value: loc,
+    full: RFC5646_LANGUAGE_TAGS[loc],
+  }); });
+
+  // List of language tags according to the IANA timeZone Database.
+  var IANATimezoneList = [
+    'Africa/Abidjan',
+    'Africa/Accra',
+    'Africa/Addis_Ababa',
+    'Africa/Algiers',
+    'Africa/Asmara',
+    'Africa/Asmera',
+    'Africa/Bamako',
+    'Africa/Bangui',
+    'Africa/Banjul',
+    'Africa/Bissau',
+    'Africa/Blantyre',
+    'Africa/Brazzaville',
+    'Africa/Bujumbura',
+    'Africa/Cairo',
+    'Africa/Casablanca',
+    'Africa/Ceuta',
+    'Africa/Conakry',
+    'Africa/Dakar',
+    'Africa/Dar_es_Salaam',
+    'Africa/Djibouti',
+    'Africa/Douala',
+    'Africa/El_Aaiun',
+    'Africa/Freetown',
+    'Africa/Gaborone',
+    'Africa/Harare',
+    'Africa/Johannesburg',
+    'Africa/Juba',
+    'Africa/Kampala',
+    'Africa/Khartoum',
+    'Africa/Kigali',
+    'Africa/Kinshasa',
+    'Africa/Lagos',
+    'Africa/Libreville',
+    'Africa/Lome',
+    'Africa/Luanda',
+    'Africa/Lubumbashi',
+    'Africa/Lusaka',
+    'Africa/Malabo',
+    'Africa/Maputo',
+    'Africa/Maseru',
+    'Africa/Mbabane',
+    'Africa/Mogadishu',
+    'Africa/Monrovia',
+    'Africa/Nairobi',
+    'Africa/Ndjamena',
+    'Africa/Niamey',
+    'Africa/Nouakchott',
+    'Africa/Ouagadougou',
+    'Africa/Porto-Novo',
+    'Africa/Sao_Tome',
+    'Africa/Timbuktu',
+    'Africa/Tripoli',
+    'Africa/Tunis',
+    'Africa/Windhoek',
+    'America/Adak',
+    'America/Anchorage',
+    'America/Anguilla',
+    'America/Antigua',
+    'America/Araguaina',
+    'America/Argentina/Buenos_Aires',
+    'America/Argentina/Catamarca',
+    'America/Argentina/ComodRivadavia',
+    'America/Argentina/Cordoba',
+    'America/Argentina/Jujuy',
+    'America/Argentina/La_Rioja',
+    'America/Argentina/Mendoza',
+    'America/Argentina/Rio_Gallegos',
+    'America/Argentina/Salta',
+    'America/Argentina/San_Juan',
+    'America/Argentina/San_Luis',
+    'America/Argentina/Tucuman',
+    'America/Argentina/Ushuaia',
+    'America/Aruba',
+    'America/Asuncion',
+    'America/Atikokan',
+    'America/Atka',
+    'America/Bahia',
+    'America/Bahia_Banderas',
+    'America/Barbados',
+    'America/Belem',
+    'America/Belize',
+    'America/Blanc-Sablon',
+    'America/Boa_Vista',
+    'America/Bogota',
+    'America/Boise',
+    'America/Buenos_Aires',
+    'America/Cambridge_Bay',
+    'America/Campo_Grande',
+    'America/Cancun',
+    'America/Caracas',
+    'America/Catamarca',
+    'America/Cayenne',
+    'America/Cayman',
+    'America/Chicago',
+    'America/Chihuahua',
+    'America/Coral_Harbour',
+    'America/Cordoba',
+    'America/Costa_Rica',
+    'America/Creston',
+    'America/Cuiaba',
+    'America/Curacao',
+    'America/Danmarkshavn',
+    'America/Dawson',
+    'America/Dawson_Creek',
+    'America/Denver',
+    'America/Detroit',
+    'America/Dominica',
+    'America/Edmonton',
+    'America/Eirunepe',
+    'America/El_Salvador',
+    'America/Ensenada',
+    'America/Fort_Nelson',
+    'America/Fort_Wayne',
+    'America/Fortaleza',
+    'America/Glace_Bay',
+    'America/Godthab',
+    'America/Goose_Bay',
+    'America/Grand_Turk',
+    'America/Grenada',
+    'America/Guadeloupe',
+    'America/Guatemala',
+    'America/Guayaquil',
+    'America/Guyana',
+    'America/Halifax',
+    'America/Havana',
+    'America/Hermosillo',
+    'America/Indiana/Indianapolis',
+    'America/Indiana/Knox',
+    'America/Indiana/Marengo',
+    'America/Indiana/Petersburg',
+    'America/Indiana/Tell_City',
+    'America/Indiana/Vevay',
+    'America/Indiana/Vincennes',
+    'America/Indiana/Winamac',
+    'America/Indianapolis',
+    'America/Inuvik',
+    'America/Iqaluit',
+    'America/Jamaica',
+    'America/Jujuy',
+    'America/Juneau',
+    'America/Kentucky/Louisville',
+    'America/Kentucky/Monticello',
+    'America/Knox_IN',
+    'America/Kralendijk',
+    'America/La_Paz',
+    'America/Lima',
+    'America/Los_Angeles',
+    'America/Louisville',
+    'America/Lower_Princes',
+    'America/Maceio',
+    'America/Managua',
+    'America/Manaus',
+    'America/Marigot',
+    'America/Martinique',
+    'America/Matamoros',
+    'America/Mazatlan',
+    'America/Mendoza',
+    'America/Menominee',
+    'America/Merida',
+    'America/Metlakatla',
+    'America/Mexico_City',
+    'America/Miquelon',
+    'America/Moncton',
+    'America/Monterrey',
+    'America/Montevideo',
+    'America/Montreal',
+    'America/Montserrat',
+    'America/Nassau',
+    'America/New_York',
+    'America/Nipigon',
+    'America/Nome',
+    'America/Noronha',
+    'America/North_Dakota/Beulah',
+    'America/North_Dakota/Center',
+    'America/North_Dakota/New_Salem',
+    'America/Ojinaga',
+    'America/Panama',
+    'America/Pangnirtung',
+    'America/Paramaribo',
+    'America/Phoenix',
+    'America/Port-au-Prince',
+    'America/Port_of_Spain',
+    'America/Porto_Acre',
+    'America/Porto_Velho',
+    'America/Puerto_Rico',
+    'America/Punta_Arenas',
+    'America/Rainy_River',
+    'America/Rankin_Inlet',
+    'America/Recife',
+    'America/Regina',
+    'America/Resolute',
+    'America/Rio_Branco',
+    'America/Rosario',
+    'America/Santa_Isabel',
+    'America/Santarem',
+    'America/Santiago',
+    'America/Santo_Domingo',
+    'America/Sao_Paulo',
+    'America/Scoresbysund',
+    'America/Shiprock',
+    'America/Sitka',
+    'America/St_Barthelemy',
+    'America/St_Johns',
+    'America/St_Kitts',
+    'America/St_Lucia',
+    'America/St_Thomas',
+    'America/St_Vincent',
+    'America/Swift_Current',
+    'America/Tegucigalpa',
+    'America/Thule',
+    'America/Thunder_Bay',
+    'America/Tijuana',
+    'America/Toronto',
+    'America/Tortola',
+    'America/Vancouver',
+    'America/Virgin',
+    'America/Whitehorse',
+    'America/Winnipeg',
+    'America/Yakutat',
+    'America/Yellowknife',
+    'Antarctica/Casey',
+    'Antarctica/Davis',
+    'Antarctica/DumontDUrville',
+    'Antarctica/Macquarie',
+    'Antarctica/Mawson',
+    'Antarctica/McMurdo',
+    'Antarctica/Palmer',
+    'Antarctica/Rothera',
+    'Antarctica/South_Pole',
+    'Antarctica/Syowa',
+    'Antarctica/Troll',
+    'Antarctica/Vostok',
+    'Arctic/Longyearbyen',
+    'Asia/Aden',
+    'Asia/Almaty',
+    'Asia/Amman',
+    'Asia/Anadyr',
+    'Asia/Aqtau',
+    'Asia/Aqtobe',
+    'Asia/Ashgabat',
+    'Asia/Ashkhabad',
+    'Asia/Atyrau',
+    'Asia/Baghdad',
+    'Asia/Bahrain',
+    'Asia/Baku',
+    'Asia/Bangkok',
+    'Asia/Barnaul',
+    'Asia/Beirut',
+    'Asia/Bishkek',
+    'Asia/Brunei',
+    'Asia/Calcutta',
+    'Asia/Chita',
+    'Asia/Choibalsan',
+    'Asia/Chongqing',
+    'Asia/Chungking',
+    'Asia/Colombo',
+    'Asia/Dacca',
+    'Asia/Damascus',
+    'Asia/Dhaka',
+    'Asia/Dili',
+    'Asia/Dubai',
+    'Asia/Dushanbe',
+    'Asia/Famagusta',
+    'Asia/Gaza',
+    'Asia/Harbin',
+    'Asia/Hebron',
+    'Asia/Ho_Chi_Minh',
+    'Asia/Hong_Kong',
+    'Asia/Hovd',
+    'Asia/Irkutsk',
+    'Asia/Istanbul',
+    'Asia/Jakarta',
+    'Asia/Jayapura',
+    'Asia/Jerusalem',
+    'Asia/Kabul',
+    'Asia/Kamchatka',
+    'Asia/Karachi',
+    'Asia/Kashgar',
+    'Asia/Kathmandu',
+    'Asia/Katmandu',
+    'Asia/Khandyga',
+    'Asia/Kolkata',
+    'Asia/Krasnoyarsk',
+    'Asia/Kuala_Lumpur',
+    'Asia/Kuching',
+    'Asia/Kuwait',
+    'Asia/Macao',
+    'Asia/Macau',
+    'Asia/Magadan',
+    'Asia/Makassar',
+    'Asia/Manila',
+    'Asia/Muscat',
+    'Asia/Nicosia',
+    'Asia/Novokuznetsk',
+    'Asia/Novosibirsk',
+    'Asia/Omsk',
+    'Asia/Oral',
+    'Asia/Phnom_Penh',
+    'Asia/Pontianak',
+    'Asia/Pyongyang',
+    'Asia/Qatar',
+    'Asia/Qostanay',
+    'Asia/Qyzylorda',
+    'Asia/Rangoon',
+    'Asia/Riyadh',
+    'Asia/Saigon',
+    'Asia/Sakhalin',
+    'Asia/Samarkand',
+    'Asia/Seoul',
+    'Asia/Shanghai',
+    'Asia/Singapore',
+    'Asia/Srednekolymsk',
+    'Asia/Taipei',
+    'Asia/Tashkent',
+    'Asia/Tbilisi',
+    'Asia/Tehran',
+    'Asia/Tel_Aviv',
+    'Asia/Thimbu',
+    'Asia/Thimphu',
+    'Asia/Tokyo',
+    'Asia/Tomsk',
+    'Asia/Ujung_Pandang',
+    'Asia/Ulaanbaatar',
+    'Asia/Ulan_Bator',
+    'Asia/Urumqi',
+    'Asia/Ust-Nera',
+    'Asia/Vientiane',
+    'Asia/Vladivostok',
+    'Asia/Yakutsk',
+    'Asia/Yangon',
+    'Asia/Yekaterinburg',
+    'Asia/Yerevan',
+    'Atlantic/Azores',
+    'Atlantic/Bermuda',
+    'Atlantic/Canary',
+    'Atlantic/Cape_Verde',
+    'Atlantic/Faeroe',
+    'Atlantic/Faroe',
+    'Atlantic/Jan_Mayen',
+    'Atlantic/Madeira',
+    'Atlantic/Reykjavik',
+    'Atlantic/South_Georgia',
+    'Atlantic/St_Helena',
+    'Atlantic/Stanley',
+    'Australia/ACT',
+    'Australia/Adelaide',
+    'Australia/Brisbane',
+    'Australia/Broken_Hill',
+    'Australia/Canberra',
+    'Australia/Currie',
+    'Australia/Darwin',
+    'Australia/Eucla',
+    'Australia/Hobart',
+    'Australia/LHI',
+    'Australia/Lindeman',
+    'Australia/Lord_Howe',
+    'Australia/Melbourne',
+    'Australia/NSW',
+    'Australia/North',
+    'Australia/Perth',
+    'Australia/Queensland',
+    'Australia/South',
+    'Australia/Sydney',
+    'Australia/Tasmania',
+    'Australia/Victoria',
+    'Australia/West',
+    'Australia/Yancowinna',
+    'Brazil/Acre',
+    'Brazil/DeNoronha',
+    'Brazil/East',
+    'Brazil/West',
+    'CET',
+    'CST6CDT',
+    'Canada/Atlantic',
+    'Canada/Central',
+    'Canada/Eastern',
+    'Canada/Mountain',
+    'Canada/Newfoundland',
+    'Canada/Pacific',
+    'Canada/Saskatchewan',
+    'Canada/Yukon',
+    'Chile/Continental',
+    'Chile/EasterIsland',
+    'Cuba',
+    'EET',
+    'EST',
+    'EST5EDT',
+    'Egypt',
+    'Eire',
+    'Etc/GMT',
+    'Etc/GMT+0',
+    'Etc/GMT+1',
+    'Etc/GMT+10',
+    'Etc/GMT+11',
+    'Etc/GMT+12',
+    'Etc/GMT+2',
+    'Etc/GMT+3',
+    'Etc/GMT+4',
+    'Etc/GMT+5',
+    'Etc/GMT+6',
+    'Etc/GMT+7',
+    'Etc/GMT+8',
+    'Etc/GMT+9',
+    'Etc/GMT-0',
+    'Etc/GMT-1',
+    'Etc/GMT-10',
+    'Etc/GMT-11',
+    'Etc/GMT-12',
+    'Etc/GMT-13',
+    'Etc/GMT-14',
+    'Etc/GMT-2',
+    'Etc/GMT-3',
+    'Etc/GMT-4',
+    'Etc/GMT-5',
+    'Etc/GMT-6',
+    'Etc/GMT-7',
+    'Etc/GMT-8',
+    'Etc/GMT-9',
+    'Etc/GMT0',
+    'Etc/Greenwich',
+    'Etc/UCT',
+    'Etc/UTC',
+    'Etc/Universal',
+    'Etc/Zulu',
+    'Europe/Amsterdam',
+    'Europe/Andorra',
+    'Europe/Astrakhan',
+    'Europe/Athens',
+    'Europe/Belfast',
+    'Europe/Belgrade',
+    'Europe/Berlin',
+    'Europe/Bratislava',
+    'Europe/Brussels',
+    'Europe/Bucharest',
+    'Europe/Budapest',
+    'Europe/Busingen',
+    'Europe/Chisinau',
+    'Europe/Copenhagen',
+    'Europe/Dublin',
+    'Europe/Gibraltar',
+    'Europe/Guernsey',
+    'Europe/Helsinki',
+    'Europe/Isle_of_Man',
+    'Europe/Istanbul',
+    'Europe/Jersey',
+    'Europe/Kaliningrad',
+    'Europe/Kiev',
+    'Europe/Kirov',
+    'Europe/Lisbon',
+    'Europe/Ljubljana',
+    'Europe/London',
+    'Europe/Luxembourg',
+    'Europe/Madrid',
+    'Europe/Malta',
+    'Europe/Mariehamn',
+    'Europe/Minsk',
+    'Europe/Monaco',
+    'Europe/Moscow',
+    'Europe/Nicosia',
+    'Europe/Oslo',
+    'Europe/Paris',
+    'Europe/Podgorica',
+    'Europe/Prague',
+    'Europe/Riga',
+    'Europe/Rome',
+    'Europe/Samara',
+    'Europe/San_Marino',
+    'Europe/Sarajevo',
+    'Europe/Saratov',
+    'Europe/Simferopol',
+    'Europe/Skopje',
+    'Europe/Sofia',
+    'Europe/Stockholm',
+    'Europe/Tallinn',
+    'Europe/Tirane',
+    'Europe/Tiraspol',
+    'Europe/Ulyanovsk',
+    'Europe/Uzhgorod',
+    'Europe/Vaduz',
+    'Europe/Vatican',
+    'Europe/Vienna',
+    'Europe/Vilnius',
+    'Europe/Volgograd',
+    'Europe/Warsaw',
+    'Europe/Zagreb',
+    'Europe/Zaporozhye',
+    'Europe/Zurich',
+    'GB',
+    'GB-Eire',
+    'GMT',
+    'GMT+0',
+    'GMT-0',
+    'GMT0',
+    'Greenwich',
+    'HST',
+    'Hongkong',
+    'Iceland',
+    'Indian/Antananarivo',
+    'Indian/Chagos',
+    'Indian/Christmas',
+    'Indian/Cocos',
+    'Indian/Comoro',
+    'Indian/Kerguelen',
+    'Indian/Mahe',
+    'Indian/Maldives',
+    'Indian/Mauritius',
+    'Indian/Mayotte',
+    'Indian/Reunion',
+    'Iran',
+    'Israel',
+    'Jamaica',
+    'Japan',
+    'Kwajalein',
+    'Libya',
+    'MET',
+    'MST',
+    'MST7MDT',
+    'Mexico/BajaNorte',
+    'Mexico/BajaSur',
+    'Mexico/General',
+    'NZ',
+    'NZ-CHAT',
+    'Navajo',
+    'PRC',
+    'PST8PDT',
+    'Pacific/Apia',
+    'Pacific/Auckland',
+    'Pacific/Bougainville',
+    'Pacific/Chatham',
+    'Pacific/Chuuk',
+    'Pacific/Easter',
+    'Pacific/Efate',
+    'Pacific/Enderbury',
+    'Pacific/Fakaofo',
+    'Pacific/Fiji',
+    'Pacific/Funafuti',
+    'Pacific/Galapagos',
+    'Pacific/Gambier',
+    'Pacific/Guadalcanal',
+    'Pacific/Guam',
+    'Pacific/Honolulu',
+    'Pacific/Johnston',
+    'Pacific/Kiritimati',
+    'Pacific/Kosrae',
+    'Pacific/Kwajalein',
+    'Pacific/Majuro',
+    'Pacific/Marquesas',
+    'Pacific/Midway',
+    'Pacific/Nauru',
+    'Pacific/Niue',
+    'Pacific/Norfolk',
+    'Pacific/Noumea',
+    'Pacific/Pago_Pago',
+    'Pacific/Palau',
+    'Pacific/Pitcairn',
+    'Pacific/Pohnpei',
+    'Pacific/Ponape',
+    'Pacific/Port_Moresby',
+    'Pacific/Rarotonga',
+    'Pacific/Saipan',
+    'Pacific/Samoa',
+    'Pacific/Tahiti',
+    'Pacific/Tarawa',
+    'Pacific/Tongatapu',
+    'Pacific/Truk',
+    'Pacific/Wake',
+    'Pacific/Wallis',
+    'Pacific/Yap',
+    'Poland',
+    'Portugal',
+    'ROC',
+    'ROK',
+    'Singapore',
+    'Turkey',
+    'UCT',
+    'US/Alaska',
+    'US/Aleutian',
+    'US/Arizona',
+    'US/Central',
+    'US/East-Indiana',
+    'US/Eastern',
+    'US/Hawaii',
+    'US/Indiana-Starke',
+    'US/Michigan',
+    'US/Mountain',
+    'US/Pacific',
+    'US/Pacific-New',
+    'US/Samoa',
+    'UTC',
+    'Universal',
+    'W-SU',
+    'WET',
+    'Zulu' ];
+
+  var moment$1 = window.moment;
 
   exports.userFacingText({
     preferences: {
@@ -6866,617 +7854,437 @@ var dx = (function (exports) {
       preferences: 'Preferences',
       preferencesSaved: 'Preferences Saved',
       save: 'Save',
-      timezone: 'Timezone'
-    }
+      timezone: 'Timezone',
+    },
   });
 
-  localeList = [
-    {
-      value: "af",
-      full: "Afrikaans"
-    },
-    {
-      value: "sq",
-      full: "Albanian"
-    },
-    {
-      value: "ar",
-      full: "Arabic"
-    },
-    {
-      value: "ar-MA",
-      full: "Arabic (Morocco)"
-    },
-    {
-      value: "ar-SA",
-      full: "Arabic (Saudi Arabia)"
-    },
-    {
-      value: "ar-TN",
-      full: "Arabic (Tunisia)"
-    },
-    {
-      value: "hy-AM",
-      full: "Armenian"
-    },
-    {
-      value: "az",
-      full: "Azerbaijani"
-    },
-    {
-      value: "id",
-      full: "Bahasa Indonesia"
-    },
-    {
-      value: "ms-MY",
-      full: "Bahasa Malayu"
-    },
-    {
-      value: "eu",
-      full: "Basque"
-    },
-    {
-      value: "be",
-      full: "Belarusian"
-    },
-    {
-      value: "bn",
-      full: "Bengali"
-    },
-    {
-      value: "bs",
-      full: "Bosnian"
-    },
-    {
-      value: "br",
-      full: "Breton"
-    },
-    {
-      value: "bg",
-      full: "Bulgarian"
-    },
-    {
-      value: "my",
-      full: "Burmese"
-    },
-    {
-      value: "ca",
-      full: "Catalan"
-    },
-    {
-      value: "zh-CN",
-      full: "Chinese"
-    },
-    {
-      value: "zh-TW",
-      full: "Chinese (Traditional)"
-    },
-    {
-      value: "cv",
-      full: "Chuvash"
-    },
-    {
-      value: "hr",
-      full: "Croatian"
-    },
-    {
-      value: "cs",
-      full: "Czech"
-    },
-    {
-      value: "da",
-      full: "Danish"
-    },
-    {
-      value: "nl",
-      full: "Dutch"
-    },
-    {
-      value: "en",
-      full: "English"
-    },
-    {
-      value: "en-US",
-      full: "English (US)"
-    },
-    {
-      value: "en-AU",
-      full: "English (Australia)"
-    },
-    {
-      value: "en-CA",
-      full: "English (Canada)"
-    },
-    {
-      value: "en-GB",
-      full: "English (UK) "
-    },
-    {
-      value: "eo",
-      full: "Esperanto"
-    },
-    {
-      value: "et",
-      full: "Estonian"
-    },
-    {
-      value: "fo",
-      full: "Farose"
-    },
-    {
-      value: "fi",
-      full: "Finnish"
-    },
-    {
-      value: "fr",
-      full: "French"
-    },
-    {
-      value: "fr-CA",
-      full: "French (Canada)"
-    },
-    {
-      value: "fy",
-      full: "Frisian"
-    },
-    {
-      value: "gl",
-      full: "Galician"
-    },
-    {
-      value: "ka",
-      full: "Georgian"
-    },
-    {
-      value: "de",
-      full: "German"
-    },
-    {
-      value: "de-AT",
-      full: "German (Austria)"
-    },
-    {
-      value: "el",
-      full: "Greek"
-    },
-    {
-      value: "he",
-      full: "Hebrew"
-    },
-    {
-      value: "hi",
-      full: "Hindi"
-    },
-    {
-      value: "hu",
-      full: "Hungarian"
-    },
-    {
-      value: "is",
-      full: "Icelandic"
-    },
-    {
-      value: "it",
-      full: "Italian"
-    },
-    {
-      value: "ja",
-      full: "Japanese"
-    },
-    {
-      value: "km",
-      full: "Khmer (Cambodia)"
-    },
-    {
-      value: "ko",
-      full: "Korean"
-    },
-    {
-      value: "lv",
-      full: "Latvian"
-    },
-    {
-      value: "lt",
-      full: "Lithuanian"
-    },
-    {
-      value: "lb",
-      full: "Luxembourgish"
-    },
-    {
-      value: "mk",
-      full: "Macedonian"
-    },
-    {
-      value: "ml",
-      full: "Malayalam"
-    },
-    {
-      value: "mr",
-      full: "Marathi"
-    },
-    {
-      value: "ne",
-      full: "Nepalese"
-    },
-    {
-      value: "nb",
-      full: "Norwegian"
-    },
-    {
-      value: "nn",
-      full: "Norwegian Nynorsk"
-    },
-    {
-      value: "fa",
-      full: "Persian"
-    },
-    {
-      value: "pl",
-      full: "Polish"
-    },
-    {
-      value: "pt",
-      full: "Portuguese"
-    },
-    {
-      value: "pt-BR",
-      full: "Portuguese (Brazil)"
-    },
-    {
-      value: "ro",
-      full: "Romanian"
-    },
-    {
-      value: "ru",
-      full: "Russian"
-    },
-    {
-      value: "sr",
-      full: "Serbian"
-    },
-    {
-      value: "sr-CYRL",
-      full: "Serbian Cyrillic"
-    },
-    {
-      value: "sk",
-      full: "Slovak"
-    },
-    {
-      value: "sl",
-      full: "Slovenian"
-    },
-    {
-      value: "es",
-      full: "Spanish"
-    },
-    {
-      value: "sv",
-      full: "Swedish"
-    },
-    {
-      value: "tl-PH",
-      full: "Tagalog (Filipino)"
-    },
-    {
-      value: "tzm",
-      full: "Tamaziɣt"
-    },
-    {
-      value: "tzm-LATN",
-      full: "Tamaziɣt Latin"
-    },
-    {
-      value: "ta",
-      full: "Tamil"
-    },
-    {
-      value: "th",
-      full: "Thai"
-    },
-    {
-      value: "bo",
-      full: "Tibetan"
-    },
-    {
-      value: "tr",
-      full: "Turkish"
-    },
-    {
-      value: "uk",
-      full: "Ukrainian"
-    },
-    {
-      value: "uz",
-      full: "Uzbek"
-    },
-    {
-      value: "vi",
-      full: "Vietnamese"
-    },
-    {
-      value: "cy",
-      full: "Welsh"
-    }
-  ];
+  var localStorageKey = 'hx_preferences';
 
-  defaultTimezoneList = ['UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00', 'UTC-08:00', 'UTC-07:00', 'UTC-06:00', 'UTC-05:00', 'UTC-04:30', 'UTC-04:00', 'UTC-03:30', 'UTC-03:00', 'UTC-02:00', 'UTC-01:00', 'UTC+00:00', 'UTC+01:00', 'UTC+02:00', 'UTC+03:00', 'UTC+03:30', 'UTC+04:00', 'UTC+04:30', 'UTC+05:00', 'UTC+05:30', 'UTC+05:45', 'UTC+06:00', 'UTC+06:30', 'UTC+07:00', 'UTC+08:00', 'UTC+08:30', 'UTC+08:45', 'UTC+09:00', 'UTC+09:30', 'UTC+10:00', 'UTC+10:30', 'UTC+11:00', 'UTC+12:00', 'UTC+12:45', 'UTC+13:00', 'UTC+14:00'];
-
-  LocalStoragePreferencesStore = {
-    save: function(prefs, cb) {
-      localStorage.setItem('hx_preferences', prefs);
+  var LocalStoragePreferencesStore = {
+    save: function save(prefs, cb) {
+      localStorage.setItem(localStorageKey, prefs);
       return cb();
     },
-    load: function(cb) {
-      return cb(void 0, localStorage.getItem('hx_preferences'));
-    }
+    load: function load(cb) {
+      return cb(undefined, localStorage.getItem(localStorageKey));
+    },
   };
 
-  lookupLocale = function(locale) {
-    return localeList.filter(function(l) {
-      return l.value.toLowerCase() === locale.toLowerCase();
-    })[0];
-  };
-
-  defaultTimezoneLookup = function(offset) {
-    var absOffset, hours, minutes, modifier;
-    modifier = offset > 0 ? '-' : '+';
-    absOffset = Math.abs(offset);
-    minutes = absOffset % 60;
-    hours = (absOffset - minutes) / 60;
+  function defaultTimezoneLookup(offset) {
+    var modifier = offset > 0 ? '-' : '+';
+    var absOffset = Math.abs(offset);
+    var minutes = absOffset % 60;
+    var hours = (absOffset - minutes) / 60;
     return ("UTC" + modifier + (exports.zeroPad(hours)) + ":" + (exports.zeroPad(minutes)));
-  };
+  }
 
-  Preferences = (function() {
-    var option;
+  function getLocaleObject(locale, localeObjects) {
+    return localeObjects.find(function (l) { return l.full.toLowerCase() === locale.toLowerCase()
+      || l.value.toLowerCase() === locale.toLowerCase(); });
+  }
 
-    var Preferences = /*@__PURE__*/(function (EventEmitter) {
-      function Preferences() {
-        var this$1 = this;
+  function validateLocales(locales, localeObjects) {
+    return locales.filter(function (loc) { return !getLocaleObject(loc, localeObjects); });
+  }
 
-        var defaultLocaleId, guessedMomentTimezone, modal, ref, ref1, setupModal;
-        EventEmitter.call(this);
-        setupModal = function (element) {
-          var locale, localeAutocompleteElement, localeSection, ref, saveButton, supportedLocales, timezone, timezoneAutocompleteElement, timezoneSection;
-          locale = this$1.locale();
-          timezone = this$1.timezone();
-          localeAutocompleteElement = detached('input');
-          localeAutocompleteElement.value((ref = lookupLocale(locale)) != null ? ref.full : void 0);
-          supportedLocales = localeList.map(function (l) {
-            var ref1;
-            return {
-              value: l.value,
-              full: l.full,
-              disabled: !(ref1 = l.value, indexOf$1.call(this$1._.supportedLocales, ref1) >= 0)
-            };
-          });
-          new exports.Autocomplete(localeAutocompleteElement.node(), supportedLocales, {
-            renderer: function(element, datum) {
-              return select(element).text(datum.full);
+  function validateTimezones(timezones, timezoneList) {
+    return timezones.filter(function (timezone) { return !timezoneList
+      .find(function (tz) { return tz.toLowerCase() === timezone.toLowerCase(); }); });
+  }
+
+  function defaultTZOffsetLookup(timezone) {
+    var stampParts = timezone.replace('UTC', '').replace('+', '').replace('-0', '-').split(':')
+      .map(Number);
+    return stampParts[0] + (stampParts[0] >= 0 ? stampParts[1] / 60 : -(stampParts[1] / 60));
+  }
+
+  function IntlTZOffsetLookup(timeZone, dateMs) {
+    var utcFormatter = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'UTC',
+      hour12: false,
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    var tzFormatter = new Intl.DateTimeFormat('en-GB', {
+      timeZone: timeZone,
+      hour12: false,
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+
+    var dateForDiff = new Date(dateMs || Date.now());
+
+    var ref = tzFormatter.formatToParts(dateForDiff);
+    var tzDay = ref[0].value;
+    var tzMonth = ref[2].value;
+    var tzYear = ref[4].value;
+    var tzHour = ref[6].value;
+    var tzMinute = ref[8].value;
+
+    var ref$1 = utcFormatter.formatToParts(dateForDiff);
+    var utcDay = ref$1[0].value;
+    var utcMonth = ref$1[2].value;
+    var utcYear = ref$1[4].value;
+    var utcHour = ref$1[6].value;
+    var utcMinute = ref$1[8].value;
+
+    var utcMs = Date.UTC(utcYear, utcMonth, utcDay, utcHour, utcMinute);
+    var tzMs = Date.UTC(tzYear, tzMonth, tzDay, tzHour, tzMinute);
+
+    var hourMs = 1000 * 60 * 60;
+
+    var diff = (tzMs - utcMs) / hourMs;
+    return diff;
+  }
+
+  var Preferences = /*@__PURE__*/(function (EventEmitter) {
+    function Preferences() {
+      EventEmitter.call(this);
+      this.setup();
+    }
+
+    if ( EventEmitter ) Preferences.__proto__ = EventEmitter;
+    Preferences.prototype = Object.create( EventEmitter && EventEmitter.prototype );
+    Preferences.prototype.constructor = Preferences;
+
+    Preferences.prototype.setup = function setup (options) {
+      var this$1 = this;
+      if ( options === void 0 ) options = {};
+
+      var overrides;
+      if (options.featureFlags && options.featureFlags.useIntlFormat && (typeof Intl === 'undefined' || Intl === null)) {
+        logger.warn('preferences', 'Intl is not supported in this browser, use a polyfill to enable this feature. Setting "options.featureFlags.useIntlFormat" to false');
+        overrides = {
+          featureFlags: {
+            useIntlFormat: false,
+          },
+        };
+      }
+
+      var defaults = {
+        backingStore: LocalStoragePreferencesStore,
+        supportedLocales: [],
+        supportedTimezones: [],
+        timezone: undefined,
+        locale: undefined,
+        featureFlags: {
+          useIntlFormat: false,
+        },
+      };
+
+      this.options = exports.merge(defaults, options, overrides);
+
+      var useIntl = this.options.featureFlags.useIntlFormat;
+
+      var timezoneListToUse = useIntl ? IANATimezoneList : defaultTimezoneList;
+      var allLocaleObjects = useIntl ? RFC5456LocaleObjects : defaultLocaleObjects;
+      var localeListToUse = useIntl ? RFC5456LocaleList : defaultLocaleList;
+
+      var invalidLocales = validateLocales(this.options.supportedLocales, allLocaleObjects);
+
+      var invalidTimezones = validateTimezones(this.options.supportedTimezones, timezoneListToUse);
+
+      if (invalidLocales.length) {
+        logger.warn('preferences.setup: supportedLocales', ("The provided locale(s) are not supported: " + (invalidLocales.join(', '))));
+        this.options.supportedLocales = localeListToUse;
+      }
+
+      if (!this.options.supportedLocales.length) {
+        this.options.supportedLocales = localeListToUse;
+      }
+
+      if (invalidTimezones.length) {
+        logger.warn('preferences.setup: supportedTimezones', ("The provided timezone(s) are not supported: " + (invalidTimezones.join(', '))));
+        this.options.supportedTimezones = timezoneListToUse;
+      }
+
+      if (!this.options.supportedTimezones.length) {
+        this.options.supportedTimezones = timezoneListToUse;
+      }
+
+      var setupModal = function (element, thisModal) {
+        var localeAutocompleteElement = detached('input').class('hx-preferences-locale');
+        var localeValues = this$1.options.supportedLocales
+          .map(function (loc) { return getLocaleObject(loc, allLocaleObjects); });
+
+        var locAutocomplete = new exports.Autocomplete(
+          localeAutocompleteElement.node(),
+          localeValues,
+          {
+            renderer: function renderer(acElem, datum) {
+              return select(acElem)
+                .add(div('hx-compact-group')
+                  .add(div('hx-section')
+                    .add(span().text(datum.full)))
+                  .add(div('hx-section hx-fixed')
+                    .add(badge({ inverse: true }).classed('hx-margin-left', true).text(datum.value))));
             },
-            inputMap: function(item) {
+            inputMap: function inputMap(item) {
               return item.full;
             },
             showOtherResults: true,
-            mustMatch: true
-          }).on('change', function(item) {
-            return locale = item.value;
-          });
-          localeSection = div().add(detached('label').text(exports.userFacingText('preferences', 'locale'))).add(localeAutocompleteElement);
-          // Timezone Stuff
-          timezoneAutocompleteElement = detached('input');
-          timezoneAutocompleteElement.value(timezone);
-          new exports.Autocomplete(timezoneAutocompleteElement.node(), this$1._.supportedTimezones, {
+            mustMatch: true,
+            value: getLocaleObject(this$1.locale(), allLocaleObjects),
+          }
+        );
+        var localeSection = div().add(detached('label').text(exports.userFacingText('preferences', 'locale'))).add(localeAutocompleteElement);
+
+        var timezoneAutocompleteElement = detached('input').class('hx-preferences-timezone');
+        var tzAutocomplete = new exports.Autocomplete(
+          timezoneAutocompleteElement.node(),
+          this$1.options.supportedTimezones,
+          {
             showOtherResults: true,
-            mustMatch: true
-          }).on('change', function(value) {
-            return timezone = value;
-          });
-          timezoneSection = div().add(detached('label').text(exports.userFacingText('preferences', 'timezone'))).add(timezoneAutocompleteElement);
-          saveButton = detached('button').class('hx-btn hx-positive').add(detached('i').class('hx-icon hx-icon-check')).add(detached('span').text(' ' + exports.userFacingText('preferences', 'save'))).on('click', function () {
-            this$1.locale(locale);
-            this$1.timezone(timezone);
-            return this$1.save(function(err) {
+            mustMatch: true,
+            value: this$1.timezone(),
+          }
+        );
+        var timezoneSection = div().add(detached('label').text(exports.userFacingText('preferences', 'timezone'))).add(timezoneAutocompleteElement);
+
+        var saveButton = detached('button').class('hx-preferences-save hx-btn hx-positive')
+          .add(detached('i').class('hx-icon hx-icon-check'))
+          .add(detached('span').text((" " + (exports.userFacingText('preferences', 'save')))))
+          .on('click', function () {
+            this$1.locale(locAutocomplete.value());
+            this$1.timezone(tzAutocomplete.value());
+            return this$1.save(function (err) {
               if (err) {
                 return exports.notifyNegative(err);
-              } else {
-                exports.notifyPositive(exports.userFacingText('preferences', 'preferencesSaved'));
-                return modal.hide();
               }
+              exports.notifyPositive(exports.userFacingText('preferences', 'preferencesSaved'));
+              return thisModal.hide();
             });
           });
-          return select(element).append('div').class('hx-form').add(localeSection).add(timezoneSection).add(saveButton);
-        };
-        modal = new exports.Modal(exports.userFacingText('preferences', 'preferences'), setupModal);
-        this._ = {
-          backingStore: LocalStoragePreferencesStore,
-          supportedTimezones: defaultTimezoneList,
-          supportedLocales: localeList.map(function(v) {
-            return v.value;
-          }),
-          timezoneOffsetLookup: function(timezone, datestamp) {
-            var stampParts;
-            stampParts = timezone.replace('UTC', '').replace('+', '').replace('-0', '-').split(':').map(Number);
-            return stampParts[0] + (stampParts[0] >= 0 ? stampParts[1] / 60 : -(stampParts[1] / 60));
-          },
-          preferences: {},
-          modal: modal
-        };
-        defaultLocaleId = ((ref = navigator.languages) != null ? ref[0] : void 0) || navigator.language;
-        if (!(exports.isString(defaultLocaleId) && lookupLocale(defaultLocaleId))) {
-          defaultLocaleId = 'en';
-        }
-        this.locale(defaultLocaleId);
-        guessedMomentTimezone = typeof moment !== "undefined" && moment !== null ? (ref1 = moment.tz) != null ? ref1.guess() : void 0 : void 0;
-        if (guessedMomentTimezone != null) {
-          this.supportedTimezones(moment.tz.names());
-          this.timezoneOffsetLookup(function(timezone, timestamp) {
-            return -(moment.tz.zone(timezone).offset(timestamp) / 60);
-          });
-          this.timezone(guessedMomentTimezone);
-        } else {
-          this.timezone(defaultTimezoneLookup((new Date()).getTimezoneOffset()));
-        }
+
+        return select(element).append('div').class('hx-form').add(localeSection)
+          .add(timezoneSection)
+          .add(saveButton);
+      };
+
+      var modal = new exports.Modal(exports.userFacingText('preferences', 'preferences'), setupModal);
+      this._ = {
+        timezoneOffsetLookup: useIntl ? IntlTZOffsetLookup : defaultTZOffsetLookup,
+        preferences: {},
+        modal: modal,
+        localeListToUse: localeListToUse,
+        allLocaleObjects: allLocaleObjects,
+        timezoneListToUse: timezoneListToUse,
+        useIntl: useIntl,
+      };
+      if (useIntl) {
+        var ref = new Intl.DateTimeFormat().resolvedOptions();
+        var locale = ref.locale;
+        var timeZone = ref.timeZone;
+        this.locale(this.options.locale || locale);
+        this.timezone(this.options.timezone || timeZone);
+        return;
       }
 
-      if ( EventEmitter ) Preferences.__proto__ = EventEmitter;
-      Preferences.prototype = Object.create( EventEmitter && EventEmitter.prototype );
-      Preferences.prototype.constructor = Preferences;
+      var defaultLocaleId = (navigator.languages && navigator.languages[0]) || navigator.language;
+      if (!(exports.isString(defaultLocaleId) && getLocaleObject(defaultLocaleId, allLocaleObjects))) {
+        defaultLocaleId = 'en';
+      }
+      this.locale(defaultLocaleId);
 
-      Preferences.prototype.timezone = function timezone (timezone$1) {
-        if (arguments.length > 0) {
-          if (this.isTimezoneSupported(timezone$1)) {
-            if (this._.preferences['timezone'] !== timezone$1) {
-              this._.preferences['timezone'] = timezone$1;
-              this.emit('timezonechange', timezone$1);
-            }
-          } else {
-            logger.warn('preferences.timezone:', timezone$1 + ' is not a valid timezone');
-          }
-          return this;
-        } else {
-          return this._.preferences['timezone'];
-        }
-      };
-
-      Preferences.prototype.locale = function locale (locale$1) {
-        var localeObject;
-        if (arguments.length > 0) {
-          // check that the locale being set is supported
-          if (this.isLocaleSupported(locale$1)) {
-            localeObject = lookupLocale(locale$1);
-            if (this._.preferences['locale'] !== localeObject.value) {
-              this._.preferences['locale'] = localeObject.value;
-              // moment doesn't look up the 'default' locale so we set it here
-              // Moment issue: https://github.com/moment/moment/issues/2621
-              if (typeof moment !== "undefined" && moment !== null) {
-                moment.locale(localeObject.value);
-              }
-              this.emit('localechange', localeObject.value);
-            }
-          } else {
-            logger.warn('preferences.locale', locale$1 + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon');
-          }
-          return this;
-        } else {
-          return this._.preferences['locale'];
-        }
-      };
-
-      Preferences.prototype.isTimezoneSupported = function isTimezoneSupported (timezone) {
-        return exports.isString(timezone) && this._.supportedTimezones.indexOf(timezone) !== -1;
-      };
-
-      Preferences.prototype.isLocaleSupported = function isLocaleSupported (locale) {
-        return exports.isString(locale) && lookupLocale(locale);
-      };
-
-      Preferences.prototype.applyTimezoneOffset = function applyTimezoneOffset (date, timezoneOrOffset) {
-        var offset, utc;
-        offset = isNaN(timezoneOrOffset) ? this._.timezoneOffsetLookup(timezoneOrOffset || this.timezone(), date.getTime()) || 0 : offset || this._.timezoneOffsetLookup(this.timezone(), date.getTime()) || 0;
-        utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-        return new Date(utc + offset * 60 * 60 * 1000);
-      };
-
-      // sets the backingStore to use - currently the only one available is localStorage
-      // getting the backingStore should not be possible
-      Preferences.prototype.backingStore = function backingStore (backingStore$1) {
-        if (backingStore$1 != null) {
-          this._.backingStore = backingStore$1;
-        }
-        return this;
-      };
-
-      // saves the preferences
-      Preferences.prototype.save = function save (cb) {
-        var e;
-        try {
-          return this._.backingStore.save(JSON.stringify(this._.preferences), function(err) {
-            return typeof cb === "function" ? cb(err) : void 0;
-          });
-        } catch (error) {
-          e = error;
-          return typeof cb === "function" ? cb(e) : void 0;
-        }
-      };
-
-      // loads the preferences
-      Preferences.prototype.load = function load (cb) {
-        var this$1 = this;
-
-        var e;
-        try {
-          return this._.backingStore.load(function (err, prefs) {
-            if (prefs != null) {
-              this$1._.preferences = JSON.parse(prefs);
-            }
-            return typeof cb === "function" ? cb(err) : void 0;
-          });
-        } catch (error) {
-          e = error;
-          return typeof cb === "function" ? cb(e) : void 0;
-        }
-      };
-
-      // shows the standard preferences modal
-      Preferences.prototype.show = function show () {
-        this._.modal.show();
-        return this;
-      };
-
-      return Preferences;
-    }(EventEmitter));
-    option = function(name) {
-      return function(value) {
-        if (arguments.length > 0) {
-          this._[name] = value;
-          return this;
-        } else {
-          return this._[name];
-        }
-      };
+      var guessedMomentTimezone = moment$1 && moment$1.tz && moment$1.tz.guess();
+      if (guessedMomentTimezone != null) {
+        this.supportedTimezones(moment$1.tz.names());
+        this.timezoneOffsetLookup(
+          function (timezone, timestamp) { return -(moment$1.tz.zone(timezone).offset(timestamp) / 60); }
+        );
+        this.timezone(guessedMomentTimezone);
+        return;
+      }
+      this.timezone(defaultTimezoneLookup((new Date()).getTimezoneOffset()));
     };
 
-    // sets the locales this app supports
-    Preferences.prototype.supportedLocales = option('supportedLocales');
+    Preferences.prototype.timezone = function timezone (timezone$1) {
+      if (arguments.length > 0) {
+        if (this.isTimezoneSupported(timezone$1)) {
+          if (this.options.timezone !== timezone$1) {
+            this.options.timezone = timezone$1;
+            this.emit('timezonechange', timezone$1);
+          }
+        } else {
+          logger.warn('preferences.timezone:', (timezone$1 + " is not a valid timezone"));
+        }
+        return this;
+      }
+      return this.options.timezone;
+    };
 
-    Preferences.prototype.supportedTimezones = option('supportedTimezones');
+    Preferences.prototype.locale = function locale (locale$1) {
+      if (arguments.length > 0) {
+        // check that the locale being set is supported
+        if (this.isLocaleSupported(locale$1)) {
+          var localeObject = getLocaleObject(locale$1, this._.allLocaleObjects);
+          if (this.options.locale !== localeObject.value) {
+            this.options.locale = localeObject.value;
+            // moment doesn't look up the 'default' locale so we set it here
+            // Moment issue: https://github.com/moment/moment/issues/2621
+            if (typeof moment$1 !== 'undefined' && moment$1 !== null) {
+              moment$1.locale(localeObject.value);
+            }
+            this.emit('localechange', localeObject.value);
+          }
+        } else {
+          logger.warn('preferences.locale', (locale$1 + " is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon"));
+        }
+        return this;
+      }
+      return this.options.locale;
+    };
 
-    Preferences.prototype.timezoneOffsetLookup = option('timezoneOffsetLookup');
+    Preferences.prototype.isTimezoneSupported = function isTimezoneSupported (timeZone) {
+      return exports.isString(timeZone)
+        && this.options.supportedTimezones.find(function (tz) { return tz.toLowerCase() === timeZone.toLowerCase(); });
+    };
+
+    Preferences.prototype.isLocaleSupported = function isLocaleSupported (locale) {
+      return exports.isString(locale)
+        && this.options.supportedLocales.find(function (lc) { return lc.toLowerCase() === locale.toLowerCase(); });
+    };
+
+    Preferences.prototype.getTimezoneOffset = function getTimezoneOffset (date, timezoneOrOffset) {
+      var numericOffset = Number(timezoneOrOffset);
+
+      if (timezoneOrOffset && Number.isNaN(numericOffset)) {
+        return this._.timezoneOffsetLookup(timezoneOrOffset, date.getTime());
+      }
+      if (!Number.isNaN(numericOffset)) {
+        return numericOffset;
+      }
+      return this._.timezoneOffsetLookup(this.timezone(), date.getTime());
+    };
+
+    Preferences.prototype.applyTimezoneOffset = function applyTimezoneOffset (date, timezoneOrOffset, inverse) {
+      var offset = this.getTimezoneOffset(date, timezoneOrOffset);
+      var timezoneOffsetMS = offset * 60 * 60 * 1000 * (inverse ? -1 : 1);
+      var browserOffsetMS = date.getTimezoneOffset() * 60 * 1000;
+      return new Date(date.getTime() + timezoneOffsetMS + browserOffsetMS);
+    };
+
+
+    // sets the backingStore to use - currently the only one available is localStorage
+    // getting the backingStore should not be possible
+    Preferences.prototype.backingStore = function backingStore (backingStore$1) {
+      if (backingStore$1 != null) {
+        this.options.backingStore = backingStore$1;
+      }
+      return this;
+    };
+
+    // saves the preferences
+    Preferences.prototype.save = function save (cb) {
+      var e;
+      try {
+        var ref = this.options;
+        var locale = ref.locale;
+        var timezone = ref.timezone;
+        var prefs = { locale: locale, timezone: timezone };
+        return this.options.backingStore.save(JSON.stringify(prefs), function (err) { return (typeof cb === 'function' ? cb(err) : undefined); });
+      } catch (error) {
+        e = error;
+        return typeof cb === 'function' ? cb(e) : undefined;
+      }
+    };
+
+    // loads the preferences
+    Preferences.prototype.load = function load (cb) {
+      var this$1 = this;
+
+      var e;
+      try {
+        return this.options.backingStore.load(function (err, prefs) {
+          if (prefs != null) {
+            var ref = JSON.parse(prefs);
+            var locale = ref.locale;
+            var timezone = ref.timezone;
+            this$1.timezone(timezone);
+            this$1.locale(locale);
+          }
+          return typeof cb === 'function' ? cb(err) : undefined;
+        });
+      } catch (error) {
+        e = error;
+        return typeof cb === 'function' ? cb(e) : undefined;
+      }
+    };
+
+    // shows the standard preferences modal
+    Preferences.prototype.show = function show () {
+      this._.modal.show();
+      return this;
+    };
+
+    Preferences.prototype.timezoneOffsetLookup = function timezoneOffsetLookup (value) {
+      if (arguments.length > 0) {
+        this._.timezoneOffsetLookup = value;
+        return this;
+      }
+      return this._.timezoneOffsetLookup;
+    };
 
     return Preferences;
+  }(EventEmitter));
 
-  }).call(undefined);
+  function option(name) {
+    return function optionSetterGetter(value) {
+      if (arguments.length > 0) {
+        this.options[name] = value;
+        return this;
+      }
+      return this.options[name];
+    };
+  }
 
-  exports.preferences = new Preferences;
+
+  // sets the locales this app supports
+  Preferences.prototype.supportedLocales = option('supportedLocales');
+  Preferences.prototype.supportedTimezones = option('supportedTimezones');
+
+  var preferences = new Preferences();
 
   // XXX Deprecated: Remove this in favour of proper import reference
-  exports.preferences.localStorageStore = LocalStoragePreferencesStore;
+  preferences.localStorageStore = LocalStoragePreferencesStore;
 
-  var DateTimeLocalizer, DateTimeLocalizerMoment, PreferencesHandler;
+  exports.userFacingText({
+    'date-localizer': {
+      today: 'Today',
+    },
+  });
 
-  PreferencesHandler = /*@__PURE__*/(function (EventEmitter) {
+  function isNumeric(stringOrNumber) {
+    return !Number.isNaN(Number(stringOrNumber));
+  }
+
+  var PreferencesHandler = /*@__PURE__*/(function (EventEmitter) {
     function PreferencesHandler() {
       var this$1 = this;
 
       EventEmitter.call(this);
       this._ = {
-        uniqueId: exports.randomId()
+        uniqueId: exports.randomId(),
       };
-      exports.preferences.on('localechange', 'hx.date-time-localizer' + this._.uniqueId, function () {
+      preferences.on('localechange', ("hx.date-time-localizer" + (this._.uniqueId)), function () {
         if (!this$1._.instanceLocale) {
-          return this$1.emit('localechange', {
+          this$1.emit('localechange', {
             cause: 'api',
-            value: exports.preferences.locale()
+            value: preferences.locale(),
           });
         }
       });
-      exports.preferences.on('timezonechange', 'hx.date-time-localizer' + this._.uniqueId, function () {
+      preferences.on('timezonechange', ("hx.date-time-localizer" + (this._.uniqueId)), function () {
         if (!this$1._.instanceTimezone) {
-          return this$1.emit('timezonechange', {
+          this$1.emit('timezonechange', {
             cause: 'api',
-            value: exports.preferences.timezone()
+            value: preferences.timezone(),
           });
         }
       });
@@ -7488,53 +8296,51 @@ var dx = (function (exports) {
 
     PreferencesHandler.prototype.locale = function locale (locale$1) {
       if (arguments.length) {
-        if ((locale$1 == null) || exports.preferences.isLocaleSupported(locale$1)) {
-          this._.instanceLocale = locale$1 ? true : false;
+        if ((locale$1 == null) || preferences.isLocaleSupported(locale$1)) {
+          this._.instanceLocale = !!locale$1;
           this._.locale = locale$1;
           this.emit('localechange', {
             cause: 'api',
-            value: locale$1 || exports.preferences.locale()
+            value: locale$1 || preferences.locale(),
           });
         } else {
-          logger.warn(locale$1 + ' is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon');
+          logger.warn((locale$1 + " is not a valid locale. If you think the locale should be added to the list contact the maintainers of hexagon"));
         }
         return this;
-      } else {
-        return this._.locale || exports.preferences.locale();
       }
+      return this._.locale || preferences.locale();
     };
 
     PreferencesHandler.prototype.timezone = function timezone (timezone$1) {
       if (arguments.length) {
-        if ((timezone$1 == null) || exports.preferences.isTimezoneSupported(timezone$1)) {
-          this._.instanceTimezone = timezone$1 ? true : false;
+        if ((timezone$1 == null) || preferences.isTimezoneSupported(timezone$1)) {
+          this._.instanceTimezone = !!timezone$1;
           this._.timezone = timezone$1;
           this.emit('timezonechange', {
             cause: 'api',
-            value: timezone$1 || exports.preferences.timezone()
+            value: timezone$1 || preferences.timezone(),
           });
         } else {
-          logger.warn(timezone$1 + ' is not a valid timezone');
+          logger.warn((timezone$1 + " is not a valid timezone"));
         }
         return this;
-      } else {
-        return this._.timezone || exports.preferences.timezone();
       }
+      return this._.timezone || preferences.timezone();
     };
 
     return PreferencesHandler;
   }(EventEmitter));
 
-  DateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
-    function DateTimeLocalizer() {
-      PreferencesHandler.call(this);
+  /* eslint-disable class-methods-use-this */
+  var DateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
+    function DateTimeLocalizer () {
+      PreferencesHandler.apply(this, arguments);
     }
 
     if ( PreferencesHandler ) DateTimeLocalizer.__proto__ = PreferencesHandler;
     DateTimeLocalizer.prototype = Object.create( PreferencesHandler && PreferencesHandler.prototype );
     DateTimeLocalizer.prototype.constructor = DateTimeLocalizer;
 
-    // get the display order for the date so dates can be displayed correctly when localised
     DateTimeLocalizer.prototype.dateOrder = function dateOrder () {
       return ['DD', 'MM', 'YYYY'];
     };
@@ -7551,25 +8357,23 @@ var dx = (function (exports) {
 
     // localise 'today' text
     DateTimeLocalizer.prototype.todayText = function todayText () {
-      return 'Today';
+      return exports.userFacingText('date-localizer', 'today');
     };
 
     // localise the day of the month and optionally zero pad (01, 02)
     DateTimeLocalizer.prototype.day = function day (day$1, pad) {
       if (pad) {
         return exports.zeroPad(day$1);
-      } else {
-        return day$1;
       }
+      return day$1;
     };
 
     // localise the month in the format of mmm (Jan, Feb etc.) or 01, 02 etc.
     DateTimeLocalizer.prototype.month = function month (month$1, short) {
       if (short) {
         return exports.zeroPad(month$1 + 1);
-      } else {
-        return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month$1];
       }
+      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month$1];
     };
 
     DateTimeLocalizer.prototype.fullMonth = function fullMonth (month) {
@@ -7584,31 +8388,43 @@ var dx = (function (exports) {
     // localise a date object to return a date string of dd/mm/yyyy (or localised format)
     DateTimeLocalizer.prototype.date = function date (date$1, useInbuilt) {
       if (useInbuilt) {
-        return date$1.getFullYear() + '-' + exports.zeroPad(date$1.getMonth() + 1) + '-' + exports.zeroPad(date$1.getDate());
-      } else {
-        return exports.zeroPad(date$1.getDate()) + '/' + exports.zeroPad(date$1.getMonth() + 1) + '/' + date$1.getFullYear();
+        return ((date$1.getFullYear()) + "-" + (exports.zeroPad(date$1.getMonth() + 1)) + "-" + (exports.zeroPad(date$1.getDate())));
       }
+      return ((exports.zeroPad(date$1.getDate())) + "/" + (exports.zeroPad(date$1.getMonth() + 1)) + "/" + (date$1.getFullYear()));
     };
 
     // localise a date object to return a time string of hh:mm or hh:mm:ss (or localised format)
     DateTimeLocalizer.prototype.time = function time (date, showSeconds) {
       var timeString;
-      date = exports.preferences.applyTimezoneOffset(date, this.timezone());
-      timeString = date.getHours() + ':' + exports.zeroPad(date.getMinutes());
+      var dateToUse = preferences.applyTimezoneOffset(date, this.timezone());
+      timeString = (dateToUse.getHours()) + ":" + (exports.zeroPad(dateToUse.getMinutes()));
       if (showSeconds) {
-        timeString += ':' + exports.zeroPad(date.getSeconds());
+        timeString += ":" + (exports.zeroPad(dateToUse.getSeconds()));
       }
       return timeString;
     };
 
     // check if a time is a valid time (time as array of [hh, mm, ss])
     DateTimeLocalizer.prototype.checkTime = function checkTime (time) {
-      return !isNaN(time[0]) && !isNaN(time[1]) && !isNaN(time[2]);
+      return isNumeric(time[0]) && isNumeric(time[1]) && isNumeric(time[2]);
     };
 
     // convert a localised date string back to a date object (unlocalise)
     DateTimeLocalizer.prototype.stringToDate = function stringToDate (dateString, useInbuilt) {
-      var allValid, day, daysValid, i, j, len, month, monthsValid, order, part, split, w, year, yearsValid;
+      var day;
+      var i;
+      var len;
+      var month;
+      var order;
+      var part;
+      var w;
+      var year;
+
+      var daysValid;
+      var monthsValid;
+      var yearsValid;
+
+      var split;
       if (useInbuilt) {
         order = ['YYYY', 'MM', 'DD'];
         split = dateString.split('-');
@@ -7616,11 +8432,9 @@ var dx = (function (exports) {
         order = this.dateOrder();
         split = dateString.split('/');
       }
-      allValid = split.length === 3 && !split.some(function(e) {
-        return e === '' || e === '0';
-      });
+      var allValid = split.length === 3 && !split.some(function (e) { return e === '' || e === '0'; });
       if (allValid) {
-        for (i = j = 0, len = order.length; j < len; i = ++j) {
+        for (i = 0, len = order.length; i < len; i += 1) {
           w = order[i];
           part = split[i];
           switch (w) {
@@ -7638,24 +8452,261 @@ var dx = (function (exports) {
               if (year.toString().length === 2) {
                 year += 2000;
               }
+              break;
+            default:
           }
         }
         if (daysValid && monthsValid && yearsValid) {
           return new Date(Date.UTC(year, month - 1, day));
-        } else {
-          return new Date('Invalid Date');
         }
-      } else {
         return new Date('Invalid Date');
       }
+      return new Date('Invalid Date');
     };
 
     return DateTimeLocalizer;
   }(PreferencesHandler));
 
-  DateTimeLocalizerMoment = /*@__PURE__*/(function (PreferencesHandler) {
-    function DateTimeLocalizerMoment() {
+  var IntlDateTimeLocalizer = /*@__PURE__*/(function (PreferencesHandler) {
+    function IntlDateTimeLocalizer() {
+      var this$1 = this;
+
       PreferencesHandler.call(this);
+      this.on('localechange', function () { return this$1.setupFormatters(); });
+      this.on('timezonechange', function () { return this$1.setupFormatters(); });
+      this.setupFormatters();
+    }
+
+    if ( PreferencesHandler ) IntlDateTimeLocalizer.__proto__ = PreferencesHandler;
+    IntlDateTimeLocalizer.prototype = Object.create( PreferencesHandler && PreferencesHandler.prototype );
+    IntlDateTimeLocalizer.prototype.constructor = IntlDateTimeLocalizer;
+
+    IntlDateTimeLocalizer.prototype.setupFormatters = function setupFormatters () {
+      var this$1 = this;
+
+      var locale = this.locale();
+      var timeZone = this.timezone();
+
+      var weekDay = new Intl.DateTimeFormat(locale, {
+        timeZone: 'UTC',
+        weekday: 'narrow',
+      });
+
+      var month = new Intl.DateTimeFormat(locale, {
+        timeZone: 'UTC',
+        month: 'short',
+      });
+
+      var fullMonth = new Intl.DateTimeFormat(locale, {
+        timeZone: 'UTC',
+        month: 'long',
+      });
+
+      var year = new Intl.DateTimeFormat(locale, {
+        timeZone: 'UTC',
+        year: 'numeric',
+      });
+
+      var date = new Intl.DateTimeFormat(locale, {
+        timeZone: timeZone,
+      });
+
+      var gbDate = new Intl.DateTimeFormat('en-GB', {
+        timeZone: timeZone,
+      });
+
+      var time = new Intl.DateTimeFormat(locale, {
+        timeZone: timeZone,
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+      var timeWithSeconds = new Intl.DateTimeFormat(locale, {
+        timeZone: timeZone,
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      });
+
+      var dateOrderYear = '2019';
+      var dateOrderMonth = '05';
+      var dateOrderDay = '08';
+
+      function getDateOrder(dateString) {
+        var yearIndex = dateString.indexOf(dateOrderYear);
+        var monthIndex = dateString.indexOf(dateOrderMonth);
+        var dayIndex = dateString.indexOf(dateOrderDay);
+        var result = [];
+        for (var i = 0; i < dateString.length; i += 1) {
+          switch (i) {
+            case yearIndex:
+              result.push('YYYY');
+              break;
+            case monthIndex:
+              result.push('MM');
+              break;
+            case dayIndex:
+              result.push('DD');
+              break;
+            default:
+          }
+        }
+        if (result.length === 0) {
+          result = ['DD', 'MM', 'YYYY'];
+        }
+        return result;
+      }
+
+      var dateOrder = getDateOrder(date
+        .format(new Date(Date.UTC(dateOrderYear, dateOrderMonth - 1, dateOrderDay, 12))));
+
+      // 2019-05-19 is a Sunday
+      var weekDays = exports.range(7).map(function (_, i) { return weekDay
+        .format(new Date(Date.UTC(2019, 4, 19 + this$1.weekStart() + i, 12))); });
+
+      var months = exports.range(12).map(function (_, i) { return month.format(new Date(Date.UTC(2019, i, 1))); });
+      var fullMonths = exports.range(12).map(function (_, i) { return fullMonth.format(new Date(Date.UTC(2019, i, 1))); });
+      this._.formatters = {
+        year: year,
+        date: date,
+        time: time,
+        timeWithSeconds: timeWithSeconds,
+        gbDate: gbDate,
+      };
+      this._.constants = {
+        weekDays: weekDays,
+        months: months,
+        fullMonths: fullMonths,
+        dateOrder: dateOrder,
+      };
+      return this;
+    };
+
+    // get the display order for the date so dates can be displayed correctly when localised
+    IntlDateTimeLocalizer.prototype.dateOrder = function dateOrder () {
+      return this._.constants.dateOrder;
+    };
+
+    // get the day the week starts on, 0 for sunday, 1 for monday etc.
+    IntlDateTimeLocalizer.prototype.weekStart = function weekStart () {
+      return 1;
+    };
+
+    // localise the days of the week and return as array of 2 char days ('Su', 'Mo' etc.)
+    IntlDateTimeLocalizer.prototype.weekDays = function weekDays () {
+      return this._.constants.weekDays;
+    };
+
+    // localise 'today' text
+    IntlDateTimeLocalizer.prototype.todayText = function todayText () {
+      return exports.userFacingText('date-localizer', 'today');
+    };
+
+    // localise the day of the month and optionally zero pad (01, 02)
+    IntlDateTimeLocalizer.prototype.day = function day (day$1, pad) {
+      if (pad) {
+        return exports.zeroPad(day$1);
+      }
+      return day$1;
+    };
+
+    // localise the month in the format of mmm (Jan, Feb etc.) or 01, 02 etc.
+    IntlDateTimeLocalizer.prototype.month = function month (month$1, numeric) {
+      if (numeric) {
+        return exports.zeroPad(month$1 + 1);
+      }
+      return this._.constants.months[month$1];
+    };
+
+    IntlDateTimeLocalizer.prototype.fullMonth = function fullMonth (month) {
+      return this._.constants.fullMonths[month];
+    };
+
+    // localise the full year in the format of yyyy
+    IntlDateTimeLocalizer.prototype.year = function year (year$1) {
+      return this._.formatters.year.format(new Date(Date.UTC(year$1, 0, 1, 12)));
+    };
+
+    IntlDateTimeLocalizer.prototype.date = function date (date$1, useInbuilt) {
+      if (useInbuilt) {
+        var ref = this._.formatters.gbDate.formatToParts(date$1);
+        var day = ref[0].value;
+        var month = ref[2].value;
+        var year = ref[4].value;
+        return (year + "-" + month + "-" + day);
+      }
+      return this._.formatters.date.format(date$1);
+    };
+
+    // localise a date object to return a time string of hh:mm or hh:mm:ss (or localised format)
+    IntlDateTimeLocalizer.prototype.time = function time (date, showSeconds) {
+      if (showSeconds) {
+        return this._.formatters.timeWithSeconds.format(date);
+      }
+      return this._.formatters.time.format(date);
+    };
+
+    IntlDateTimeLocalizer.prototype.checkTime = function checkTime (time) {
+      return isNumeric(time[0]) && isNumeric(time[1]) && isNumeric(time[2]);
+    };
+
+    // convert a localised date string back to a date object (unlocalise)
+    IntlDateTimeLocalizer.prototype.stringToDate = function stringToDate (dateString, useInbuilt) {
+      var daysValid;
+      var monthsValid;
+      var yearsValid;
+      var year;
+      var month;
+      var day;
+      var order;
+      var split;
+      if (useInbuilt) {
+        order = ['YYYY', 'MM', 'DD'];
+        split = dateString.split('-');
+      } else {
+        order = this.dateOrder();
+        split = dateString.split('/');
+      }
+      var allValid = split.length === 3 && !split.some(function (e) { return e === '' || e === '0'; });
+      if (allValid) {
+        for (var i = 0, len = order.length; i < len; i += 1) {
+          var w = order[i];
+          var part = split[i];
+          switch (w) {
+            case 'DD':
+              daysValid = part.length < 3 && part !== '';
+              day = Number(split[i]);
+              break;
+            case 'MM':
+              monthsValid = part.length < 3 && part !== '';
+              month = Number(split[i]);
+              break;
+            case 'YYYY':
+              yearsValid = part.length < 5 && part !== '';
+              year = Number(split[i]);
+              if (year.toString().length === 2) {
+                year += 2000;
+              }
+              break;
+            default:
+          }
+        }
+        if (daysValid && monthsValid && yearsValid) {
+          return new Date(Date.UTC(year, month - 1, day));
+        }
+        return new Date('Invalid Date');
+      }
+      return new Date('Invalid Date');
+    };
+
+    return IntlDateTimeLocalizer;
+  }(PreferencesHandler));
+
+  var DateTimeLocalizerMoment = /*@__PURE__*/(function (PreferencesHandler) {
+    function DateTimeLocalizerMoment () {
+      PreferencesHandler.apply(this, arguments);
     }
 
     if ( PreferencesHandler ) DateTimeLocalizerMoment.__proto__ = PreferencesHandler;
@@ -7663,18 +8714,17 @@ var dx = (function (exports) {
     DateTimeLocalizerMoment.prototype.constructor = DateTimeLocalizerMoment;
 
     DateTimeLocalizerMoment.prototype.dateOrder = function dateOrder () {
-      var date, dateCheck, dayIndex, i, j, monthIndex, ref, result, yearIndex;
-      date = moment({
+      var date = moment({
         year: 2003,
         month: 11,
-        day: 22
+        day: 22,
       }).locale(this.locale());
-      dateCheck = date.format('L');
-      yearIndex = dateCheck.indexOf(date.format('YYYY'));
-      monthIndex = dateCheck.indexOf(date.format('MM'));
-      dayIndex = dateCheck.indexOf(date.format('DD'));
-      result = [];
-      for (i = j = 0, ref = dateCheck.length; (0 <= ref ? j <= ref : j >= ref); i = 0 <= ref ? ++j : --j) {
+      var dateCheck = date.format('L');
+      var yearIndex = dateCheck.indexOf(date.format('YYYY'));
+      var monthIndex = dateCheck.indexOf(date.format('MM'));
+      var dayIndex = dateCheck.indexOf(date.format('DD'));
+      var result = [];
+      for (var i = 0; i < dateCheck.length; i += 1) {
         switch (i) {
           case yearIndex:
             result.push('YYYY');
@@ -7684,6 +8734,8 @@ var dx = (function (exports) {
             break;
           case dayIndex:
             result.push('DD');
+            break;
+          default:
         }
       }
       if (result.length === 0) {
@@ -7693,31 +8745,31 @@ var dx = (function (exports) {
     };
 
     DateTimeLocalizerMoment.prototype.weekStart = function weekStart () {
-      return moment().locale(this.locale()).weekday(0).toDate().getDay();
+      return moment().locale(this.locale()).weekday(0).toDate()
+        .getDay();
     };
 
     DateTimeLocalizerMoment.prototype.weekDays = function weekDays () {
-      var dayDate, dayNames, i, j;
-      dayDate = moment().weekday(0);
+      var dayDate = moment().weekday(0);
       dayDate.locale(this.locale());
-      dayNames = [dayDate.format('dd')];
-      for (i = j = 0; j < 6; i = ++j) {
+      var dayNames = [dayDate.format('dd')];
+      for (var i = 0; i < 6; i += 1) {
         dayNames.push(dayDate.add(1, 'd').format('dd'));
       }
       return dayNames;
     };
 
     DateTimeLocalizerMoment.prototype.todayText = function todayText () {
-      var i, j, ref, today, todayArr, tomorrow, tomorrowArr;
-      today = moment({
+      var today = moment({
         hour: 12,
         minute: 0,
-        second: 0
+        second: 0,
       }).locale(this.locale());
-      tomorrow = today.clone().add(1, 'day');
-      todayArr = today.calendar().split('').reverse();
-      tomorrowArr = tomorrow.calendar().split('').reverse();
-      for (i = j = 0, ref = todayArr.length; (0 <= ref ? j <= ref : j >= ref); i = 0 <= ref ? ++j : --j) {
+      var tomorrow = today.clone().add(1, 'day');
+      var todayArr = today.calendar().split('').reverse();
+      var tomorrowArr = tomorrow.calendar().split('').reverse();
+      var i;
+      for (i = 0; i < todayArr.length; i += 1) {
         if (todayArr[i] !== tomorrowArr[i]) {
           break;
         }
@@ -7729,30 +8781,30 @@ var dx = (function (exports) {
     DateTimeLocalizerMoment.prototype.day = function day (day$1, pad) {
       return moment({
         day: day$1,
-        month: 0
+        month: 0,
       }).locale(this.locale()).format(pad ? 'DD' : 'D');
     };
 
     DateTimeLocalizerMoment.prototype.month = function month (month$1, short) {
       return moment({
-        month: month$1
+        month: month$1,
       }).locale(this.locale()).format(short ? 'MM' : 'MMM');
     };
 
     DateTimeLocalizerMoment.prototype.fullMonth = function fullMonth (month) {
       return moment({
-        month: month
+        month: month,
       }).locale(this.locale()).format('MMMM');
     };
 
     DateTimeLocalizerMoment.prototype.year = function year (year$1) {
       return moment({
-        year: year$1
+        year: year$1,
       }).locale(this.locale()).format('YYYY');
     };
 
     DateTimeLocalizerMoment.prototype.decade = function decade (start, end) {
-      return this.year(start) + ' - ' + this.year(end);
+      return ((this.year(start)) + " - " + (this.year(end)));
     };
 
     DateTimeLocalizerMoment.prototype.date = function date (date$1) {
@@ -7760,32 +8812,31 @@ var dx = (function (exports) {
     };
 
     DateTimeLocalizerMoment.prototype.time = function time (date, showSeconds) {
-      var format;
-      date = exports.preferences.applyTimezoneOffset(date, this.timezone());
-      format = showSeconds ? 'H:mm:ss' : 'H:mm';
-      return moment(date).locale(this.locale()).format(format);
+      var dateToUse = preferences.applyTimezoneOffset(date, this.timezone());
+      var format = showSeconds ? 'H:mm:ss' : 'H:mm';
+      return moment(dateToUse).locale(this.locale()).format(format);
     };
 
     DateTimeLocalizerMoment.prototype.checkTime = function checkTime (time) {
       return moment({
         hours: time[0],
         minutes: time[1],
-        seconds: time[2]
+        seconds: time[2],
       }).locale(this.locale()).isValid();
     };
 
     DateTimeLocalizerMoment.prototype.stringToDate = function stringToDate (dateString) {
-      var allValid, daysValid, fmt, i, j, len, monthsValid, order, part, split, w, yearsValid;
-      order = this.dateOrder();
-      split = dateString.split('/');
-      allValid = split.length === 3 && !split.some(function(e) {
-        return e === '' || e === '0';
-      });
+      var daysValid;
+      var monthsValid;
+      var yearsValid;
+      var fmt = '';
+      var order = this.dateOrder();
+      var split = dateString.split('/');
+      var allValid = split.length === 3 && !split.some(function (e) { return e === '' || e === '0'; });
       if (allValid) {
-        fmt = '';
-        for (i = j = 0, len = order.length; j < len; i = ++j) {
-          w = order[i];
-          part = split[i];
+        for (var i = 0, len = order.length; i < len; i += 1) {
+          var w = order[i];
+          var part = split[i];
           switch (w) {
             case 'DD':
               daysValid = part.length < 3 && part !== '';
@@ -7798,29 +8849,28 @@ var dx = (function (exports) {
             case 'YYYY':
               yearsValid = part.length < 5 && part !== '';
               fmt += 'YYYY';
+              break;
+            default:
           }
         }
         if (daysValid && monthsValid && yearsValid) {
           return moment(dateString, fmt, this.locale()).toDate();
-        } else {
-          return new Date('Invalid Date');
         }
-      } else {
         return new Date('Invalid Date');
       }
+      return new Date('Invalid Date');
     };
 
     return DateTimeLocalizerMoment;
   }(PreferencesHandler));
 
-  //XXX: [2.0.0] this doesn't need to be a function
-  var dateTimeLocalizer = function() {
-    if (typeof moment !== "undefined" && moment !== null) {
-      return new DateTimeLocalizerMoment;
-    } else {
-      return new DateTimeLocalizer;
+  // XXX: [2.0.0] this doesn't need to be a function
+  function dateTimeLocalizer() {
+    if (typeof moment !== 'undefined' && moment !== null) {
+      return new DateTimeLocalizerMoment();
     }
-  };
+    return new DateTimeLocalizer();
+  }
 
   exports.ColorScale = (function() {
     var setFactor;
@@ -12845,22 +13895,6 @@ var dx = (function (exports) {
     return palette$1.context(span('hx-label'), context);
   }
 
-  var supportedTypes = ['success', 'danger', 'warning'];
-
-  function badge(options) {
-    if ( options === void 0 ) options = {};
-
-    var type = options.type;
-    var inverse = options.inverse;
-    var validType = !type || supportedTypes.includes(type);
-    if (!validType) {
-      logger.warn(("badge: Badge was called with an invalid type: '" + type + "'. Supported types: " + (supportedTypes.join(', '))));
-    }
-    return span('hx-badge')
-      .classed('hx-badge-inverse', inverse)
-      .classed(("hx-" + type), type && validType);
-  }
-
   var discreteToPos, posToDiscrete, posToValue, renderValues, slide, slideEnd;
 
   posToValue = function(unit) {
@@ -14162,7 +15196,11 @@ var dx = (function (exports) {
   };
 
   isSelected = function(selectedDate, year, month, day) {
-    return selectedDate.getFullYear() === year && ((month == null) || selectedDate.getMonth() === month) && ((day == null) || selectedDate.getDate() === day);
+    var assign;
+
+    var selectedDay, selectedMonth, selectedYear;
+    (assign = selectedDate.split('-').map(Number), selectedYear = assign[0], selectedMonth = assign[1], selectedDay = assign[2]);
+    return selectedYear === year && ((month == null) || selectedMonth - 1 === month) && ((day == null) || selectedDay === day);
   };
 
   isBetweenDates = function(range, year, month, day) {
@@ -14177,7 +15215,7 @@ var dx = (function (exports) {
     date = new Date(year, month, day);
     date.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
-    return date.toString() === today.toString();
+    return date.getTime() === today.getTime();
   };
 
   toggleInputValidity = function(input, dateValidityCallback, valid, type) {
@@ -14261,8 +15299,6 @@ var dx = (function (exports) {
           _.startDate = tDate;
         }
       }
-      _.endDate.setHours(0, 0, 0, 0);
-      _.startDate.setHours(0, 0, 0, 0);
     }
   };
 
@@ -14364,23 +15400,29 @@ var dx = (function (exports) {
       isValid = isSelectable(datepicker, year, month, day) && selectable;
       if (datepicker.options.selectRange) {
         range = datepicker.range();
-        selectedS = isSelected(range.start, year, month, day);
-        selectedE = isSelected(range.end, year, month, day);
+        selectedS = isSelected(datepicker.localizer.date(range.start, true), year, month, day);
+        selectedE = isSelected(datepicker.localizer.date(range.end, true), year, month, day);
         betweenDates = isBetweenDates(range, year, month, day);
         selected = selectedS || selectedE;
       } else {
-        selected = isSelected(datepicker.date(), year, month, day);
+        selected = isSelected(datepicker.localizer.date(_.startDate, true), year, month, day);
       }
       today = day && isToday(year, month, day);
       element.classed('hx-grid-out-of-range', !isValid).classed('hx-grid-selected', selected).classed('hx-grid-selected-start', selectedS).classed('hx-grid-selected-end', selectedE).classed('hx-grid-selected-range', betweenDates).classed('hx-grid-today', today);
       element.select('.hx-grid-text').text(screenVal);
       if (isValid) {
         return element.on('click', 'hx-date-picker', function() {
-          var date, nMode;
+          var assign;
+
+          var currentDate, currentDay, date, dayDiff, localizedDay, nMode;
           _.userEvent = true;
           if (mode !== 'd' && mode !== 'y') {
             if (day != null) {
-              date = new Date(visible.year, visible.month - 1, day);
+              currentDate = _.startDate;
+              currentDay = _.startDate.getDate();
+              (assign = datepicker.localizer.date(_.startDate, true).split('-').map(Number), localizedDay = assign[2]);
+              dayDiff = currentDay - localizedDay;
+              date = new Date(visible.year, visible.month - 1, day + dayDiff, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds());
               if (!datepicker.options.selectRange) {
                 datepicker.date(date);
                 if (datepicker.options.closeOnSelect) {
@@ -14399,7 +15441,7 @@ var dx = (function (exports) {
                 } else {
                   _.clickStart = true;
                   datepicker.range({
-                    start: datepicker.date(),
+                    start: _.startDate,
                     end: date
                   });
                   if (datepicker.options.closeOnSelect) {
@@ -14455,7 +15497,7 @@ var dx = (function (exports) {
       return _.inputEnd.value(datepicker.localizer.date(range.end || range.start, _.useInbuilt));
     } else {
       if (!(datepicker.options.v2Features.dontSetInitialInputValue && initial)) {
-        return _.input.value(datepicker.localizer.date(datepicker.date(), _.useInbuilt));
+        return _.input.value(datepicker.localizer.date(_.startDate, _.useInbuilt));
       }
     }
   };
@@ -14512,7 +15554,9 @@ var dx = (function (exports) {
         showTodayButton: true,
         allowInbuiltPicker: true, // Option to allow preventing use of the inbuilt datepicker
         disabled: false,
+        date: void 0,
         v2Features: {
+          outputFullDate: false,
           dontModifyDateOnError: false,
           displayLongMonthInCalendar: false,
           dontSetInitialInputValue: false,
@@ -14523,19 +15567,17 @@ var dx = (function (exports) {
       _ = this._ = {
         disabled: this.options.disabled,
         mode: this.options.defaultView,
-        startDate: new Date(Date.now()),
-        endDate: new Date(Date.now())
+        startDate: new Date(this.options.date || Date.now()),
+        endDate: new Date(this.options.date || Date.now())
       };
-      this.localizer = dateTimeLocalizer();
+      this.localizer = preferences._.useIntl ? new IntlDateTimeLocalizer() : dateTimeLocalizer();
       this.localizer.on('localechange', 'hx.date-picker', function () {
         return updateDatepicker(this$1, true);
       });
       this.localizer.on('timezonechange', 'hx.date-picker', function () {
         return updateDatepicker(this$1, true);
       });
-      _.startDate.setHours(0, 0, 0, 0);
-      _.endDate.setHours(0, 0, 0, 0);
-      this.selection = select(this.selector).api(this);
+      this.selection = select(this.selector).api('date-picker', this).api(this);
       _.inputOnlyMode = this.selection.node().tagName.toLowerCase() === 'input';
       if (!this.options.allowViewChange) {
         this.options.defaultView = 'm';
@@ -14610,7 +15652,7 @@ var dx = (function (exports) {
             }
             date = self.localizer.stringToDate(_.input.value(), _.useInbuilt);
             if (date.getTime()) {
-              if (date.getTime() !== self.date().getTime()) {
+              if (date.getTime() !== _.startDate.getTime()) {
                 self.date(date);
                 if (!self.options.v2Features.updateVisibleMonthOnDateChange && self.options.type === 'calendar') {
                   return self.visibleMonth(date.getMonth() + 1, date.getFullYear());
@@ -14684,7 +15726,6 @@ var dx = (function (exports) {
           _.calendarTodayButton = calendarElem.append('div').class('hx-calendar-today-btn').append('button').class('hx-btn hx-btn-outline').on('click', 'hx.date-picker', function() {
             var date;
             date = new Date();
-            date.setHours(0, 0, 0, 0);
             self.date(date);
             buildCalendar(self, 'm');
             if (self.options.closeOnSelect) {
@@ -14886,11 +15927,10 @@ var dx = (function (exports) {
     };
 
     DatePicker.prototype.date = function date (date$1) {
-      var _;
+      var _, returnDate;
       _ = this._;
       if (date$1 != null) {
         date$1 = new Date(date$1.getTime());
-        date$1.setHours(0, 0, 0, 0);
         if (this.options.v2Features.updateVisibleMonthOnDateChange && this.options.type === 'calendar') {
           this.visibleMonth(date$1.getMonth() + 1, date$1.getFullYear());
         }
@@ -14898,7 +15938,11 @@ var dx = (function (exports) {
         updateDatepicker(this);
         return this;
       } else {
-        return new Date(_.startDate.getTime());
+        returnDate = new Date(_.startDate.getTime());
+        if (!this.options.outputFullDate) {
+          returnDate.setHours(0, 0, 0, 0);
+        }
+        return returnDate;
       }
     };
 
@@ -14939,24 +15983,28 @@ var dx = (function (exports) {
     };
 
     DatePicker.prototype.range = function range (range$1) {
-      var _;
+      var _, returnEndDate, returnStartDate;
       _ = this._;
       if (this.options.selectRange) {
         if (arguments.length > 0) {
           if (range$1.start != null) {
-            range$1.start.setHours(0, 0, 0, 0);
             _.startDate = range$1.start;
           }
           if (range$1.end != null) {
-            range$1.end.setHours(0, 0, 0, 0);
             _.endDate = range$1.end;
           }
           updateDatepicker(this);
           return this;
         } else {
+          returnStartDate = new Date(_.startDate.getTime());
+          returnEndDate = new Date(_.endDate.getTime());
+          if (!this.options.outputFullDate) {
+            returnStartDate.setHours(0, 0, 0, 0);
+            returnEndDate.setHours(0, 0, 0, 0);
+          }
           return {
-            start: _.startDate,
-            end: _.endDate
+            start: returnStartDate,
+            end: returnEndDate
           };
         }
       } else {
@@ -14966,7 +16014,7 @@ var dx = (function (exports) {
     };
 
     DatePicker.prototype.validRange = function validRange (validRange$1, initial) {
-      var _, ref, ref1;
+      var _;
       _ = this._;
       if (_.validRange == null) {
         _.validRange = {
@@ -14980,12 +16028,6 @@ var dx = (function (exports) {
         }
         if ('end' in validRange$1) {
           _.validRange.end = validRange$1.end;
-        }
-        if ((ref = _.validRange.start) != null) {
-          ref.setHours(0, 0, 0, 0);
-        }
-        if ((ref1 = _.validRange.end) != null) {
-          ref1.setHours(0, 0, 0, 0);
         }
         updateDatepicker(this, false, initial);
         return this;
@@ -15007,8 +16049,8 @@ var dx = (function (exports) {
   }(EventEmitter));
 
   exports.datePicker = function(options) {
-    var selection;
-    selection = div();
+    var ref, selection;
+    selection = (options != null ? (ref = options.v2Features) != null ? ref.useInput : void 0 : void 0) ? detached('input') : div();
     new exports.DatePicker(selection, options);
     return selection;
   };
@@ -15222,6 +16264,7 @@ var dx = (function (exports) {
       EventEmitter.call(this);
       this.selector = selector;
       this.options = exports.merge({
+        date: void 0,
         showSeconds: false,
         buttonClass: 'hx-btn-outline',
         disabled: false
@@ -15229,14 +16272,14 @@ var dx = (function (exports) {
       _ = this._ = {
         disabled: this.options.disabled
       };
-      this.localizer = dateTimeLocalizer();
+      this.localizer = preferences._.useIntl ? new IntlDateTimeLocalizer() : dateTimeLocalizer();
       this.localizer.on('localechange', 'hx.time-picker', function () {
         return updateTimePicker(this$1, true);
       });
       this.localizer.on('timezonechange', 'hx.time-picker', function () {
         return updateTimePicker(this$1, true);
       });
-      _.selectedDate = new Date;
+      _.selectedDate = new Date(this.options.date || Date.now());
       _.selectedDate.setMilliseconds(0);
       if (!this.showSeconds) {
         _.selectedDate.setSeconds(0);
@@ -17738,7 +18781,7 @@ var dx = (function (exports) {
       function TagInput(selector, options) {
         var this$1 = this;
 
-        var _, acData, backspacedown, filterFn, hasError, inputContainer, inputMap, isInsideForm, isValid, ref, validateTagInput, validationForm;
+        var _, acData, backspacedown, filterFn, hasError, inputContainer, inputMap, isInsideForm, isValid, ref, validateTagInput;
         EventEmitter.call(this);
         this.selector = selector;
         _ = this._ = {};
@@ -17751,7 +18794,8 @@ var dx = (function (exports) {
           autocompleteData: void 0,
           autocompleteOptions: {},
           excludeTags: true,
-          mustMatchAutocomplete: true
+          mustMatchAutocomplete: true,
+          isInsideForm: false
         }, options);
         if (this.options.mustMatchAutocomplete) {
           this.options.autocompleteOptions.mustMatch = true;
@@ -17761,9 +18805,8 @@ var dx = (function (exports) {
         if (this.options.draggable) {
           _.dragContainer = new exports.DragContainer(this.tagContainer.node());
         }
-        isInsideForm = !this.selection.closest('form').empty();
+        isInsideForm = this.options.isInsideForm || !this.selection.closest('form').empty();
         inputContainer = this.selection.append(isInsideForm ? 'div' : 'form').class('hx-tag-input-container');
-        validationForm = isInsideForm ? this.selection.closest('.hx-form') : inputContainer;
         this.input = inputContainer.append('input').attr('placeholder', this.options.placeholder);
         if (this.options.autocompleteData != null) {
           isValid = this.options.validator != null ? function (item) {
@@ -17797,6 +18840,8 @@ var dx = (function (exports) {
           }
         };
         validateTagInput = function (clear) {
+          var validationForm;
+          validationForm = isInsideForm ? this$1.selection.closest('.hx-form') : inputContainer;
           if (isInsideForm) {
             if (clear) {
               return validationForm.selectAll('.hx-form-error').remove();
@@ -18015,7 +19060,7 @@ var dx = (function (exports) {
     function DateTimePicker(selector, options) {
       var this$1 = this;
 
-      var dtNode, tpNode, updateDatePicker, updateTimePicker;
+      var base, dtNode, tpNode, updateDatePicker, updateTimePicker;
       EventEmitter.call(this);
       this.selector = selector;
       this.options = exports.merge({
@@ -18024,6 +19069,14 @@ var dx = (function (exports) {
       }, options);
       // You can't select a range for a date-time picker.
       delete this.options.datePickerOptions.selectRange;
+      if (this.options.date) {
+        this.options.datePickerOptions.date = this.options.date;
+        this.options.timePickerOptions.date = this.options.date;
+      }
+      if ((base = this.options.datePickerOptions).v2Features == null) {
+        base.v2Features = {};
+      }
+      this.options.datePickerOptions.v2Features.outputFullDate = true;
       this.suppressCallback = false;
       this.selection = select(this.selector).classed('hx-date-time-picker', true).api('date-time-picker', this).api(this);
       dtNode = this.selection.append('div');
@@ -18032,6 +19085,16 @@ var dx = (function (exports) {
       this.options.timePickerOptions.disabled = this.options.datePickerOptions.disabled;
       this.datePicker = new exports.DatePicker(dtNode, this.options.datePickerOptions);
       this.timePicker = new exports.TimePicker(tpNode, this.options.timePickerOptions);
+      this.localizer = this.timePicker.localizer;
+      this.datePicker.localizer = this.localizer;
+      this.localizer.on('localechange', 'hx.date-time-picker', function() {
+        updateTimePicker();
+        return updateDatePicker();
+      });
+      this.localizer.on('timezonechange', 'hx.date-time-picker', function () {
+        updateTimePicker();
+        return updateDatePicker();
+      });
       this.datePicker.pipe(this, 'date', ['show', 'hide']);
       this.timePicker.pipe(this, 'time', ['show', 'hide']);
       updateTimePicker = function (data) {
@@ -18046,7 +19109,7 @@ var dx = (function (exports) {
       };
       updateDatePicker = function (data) {
         this$1.datePicker.suppressed('change', true);
-        this$1.datePicker.date(exports.preferences.applyTimezoneOffset(this$1.date()));
+        this$1.datePicker.date(this$1.date());
         this$1.datePicker.suppressed('change', false);
         if (data != null) {
           // Called here as otherwise calling @date() would return the previously set date
@@ -18137,8 +19200,7 @@ var dx = (function (exports) {
     // See note in 2.0.0.md about retaining this method
     DateTimePicker.prototype.locale = function locale (locale$1) {
       if (arguments.length > 0) {
-        this.datePicker.localizer.locale(locale$1);
-        this.timePicker.localizer.locale(locale$1);
+        this.localizer.locale(locale$1);
         return this;
       } else {
         return this.datePicker.localizer.locale();
@@ -18147,10 +19209,10 @@ var dx = (function (exports) {
 
     DateTimePicker.prototype.timezone = function timezone (timezone$1) {
       if (arguments.length > 0) {
-        this.timePicker.localizer.timezone(timezone$1);
+        this.localizer.timezone(timezone$1);
         return this;
       } else {
-        return this.timePicker.localizer.timezone();
+        return this.localizer.timezone();
       }
     };
 
@@ -18306,7 +19368,7 @@ var dx = (function (exports) {
             }
             selectedFiles.append(filePreview(fileMap.values()[0]));
           } else {
-            localizedLength = length.toLocaleString(exports.preferences.locale());
+            localizedLength = length.toLocaleString(preferences.locale());
             filesSelectedText = resolvedOptions.filesSelectedText.replace('$numFiles', localizedLength);
             selectedFiles.classed('hx-btn', true).add(section().text(filesSelectedText)).add(i('hx-file-input-dropdown-icon hx-icon hx-icon-chevron-down')).on('click', 'hx.file-input', function() {
               return dropdown.show();
@@ -18579,7 +19641,7 @@ var dx = (function (exports) {
       entry.append('label').attr('for', id).text(name);
       prop = f() || {};
       key = prop.key || name;
-      selection = entry.append(prop.component ? div().add(prop.elem) : prop.elem).attr('id', id);
+      selection = entry.append(prop.elem).attr('id', id);
       // Define the default function for enabling/disabling a form property
       if (prop.disable == null) {
         prop.disable = function(disable) {
@@ -18905,12 +19967,12 @@ var dx = (function (exports) {
     Form.prototype.addToggle = function addToggle (name, options) {
       if ( options === void 0 ) options = {};
       return this.add(name, 'toggle', function() {
-        var component, elem;
-        elem = div('hx-btn hx-btn-invisible hx-no-pad-left');
-        component = new exports.Toggle(elem, options.toggleOptions);
+        var component, componentElem;
+        componentElem = div('hx-btn hx-btn-invisible hx-no-pad-left');
+        component = new exports.Toggle(componentElem, options.toggleOptions);
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem),
           component: component,
           options: {
             hidden: options.hidden,
@@ -18924,19 +19986,19 @@ var dx = (function (exports) {
       if ( options === void 0 ) options = {};
 
       return this.add(name, 'picker', function() {
-        var component, elem, input, pickerOptions, setValidity;
-        elem = button(options.buttonClass).attr('type', 'button').style('position', 'relative');
+        var component, componentElem, hiddenInput, pickerOptions, setValidity;
+        componentElem = button(options.buttonClass).attr('type', 'button').style('position', 'relative');
         pickerOptions = exports.merge({}, options.pickerOptions);
         if (values.length > 0) {
           pickerOptions.items = values;
         }
-        component = new Picker(elem.node(), pickerOptions);
-        input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
+        component = new Picker(componentElem, pickerOptions);
+        hiddenInput = detached('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
         if (typeof options.required !== 'boolean') {
           component.value(values[0]);
         }
         setValidity = function() {
-          return input.node().setCustomValidity(exports.userFacingText('form', 'pleaseSelectAValue'));
+          return hiddenInput.node().setCustomValidity(exports.userFacingText('form', 'pleaseSelectAValue'));
         };
         if (options.required) {
           setValidity();
@@ -18947,13 +20009,13 @@ var dx = (function (exports) {
             if (value === void 0) {
               return setValidity();
             } else {
-              return input.node().setCustomValidity('');
+              return hiddenInput.node().setCustomValidity('');
             }
           });
         }
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem).add(hiddenInput),
           component: component,
           options: {
             hidden: options.hidden,
@@ -18967,9 +20029,9 @@ var dx = (function (exports) {
       if ( options === void 0 ) options = {};
 
       return this.add(name, 'date-picker', function() {
-        var component, elem, getValue, setValue;
-        elem = div();
-        component = new exports.DatePicker(elem, options.datePickerOptions);
+        var component, componentElem, getValue, setValue;
+        componentElem = div();
+        component = new exports.DatePicker(componentElem, options.datePickerOptions);
         if ((options.validStart != null) || (options.validEnd != null)) {
           component.validRange(options.validStart, options.validEnd);
         }
@@ -18993,7 +20055,7 @@ var dx = (function (exports) {
         }
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem),
           component: component,
           getValue: getValue,
           setValue: setValue,
@@ -19009,9 +20071,9 @@ var dx = (function (exports) {
       if ( options === void 0 ) options = {};
 
       return this.add(name, 'time-picker', function() {
-        var component, elem, getValue, setValue;
-        elem = div();
-        component = new exports.TimePicker(elem, options.timePickerOptions);
+        var component, componentElem, getValue, setValue;
+        componentElem = div();
+        component = new exports.TimePicker(componentElem, options.timePickerOptions);
         getValue = function() {
           return component.date();
         };
@@ -19020,7 +20082,7 @@ var dx = (function (exports) {
         };
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem),
           component: component,
           getValue: getValue,
           setValue: setValue,
@@ -19036,9 +20098,9 @@ var dx = (function (exports) {
       if ( options === void 0 ) options = {};
 
       return this.add(name, 'date-time-picker', function() {
-        var component, elem, getValue, setValue;
-        elem = div();
-        component = new DateTimePicker(elem, options.dateTimePickerOptions);
+        var component, componentElem, getValue, setValue;
+        componentElem = div();
+        component = new DateTimePicker(componentElem, options.dateTimePickerOptions);
         getValue = function() {
           return component.date();
         };
@@ -19047,7 +20109,7 @@ var dx = (function (exports) {
         };
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem),
           component: component,
           getValue: getValue,
           setValue: setValue,
@@ -19062,8 +20124,8 @@ var dx = (function (exports) {
     Form.prototype.addTagInput = function addTagInput (name, options) {
       if ( options === void 0 ) options = {};
       return this.add(name, 'tag-input', function() {
-        var base, change, component, elem, getValue, input, setValidity, setValue;
-        elem = div();
+        var base, change, component, componentElem, getValue, input, setValidity, setValue;
+        componentElem = div();
         if (options.placeholder) {
           if (options.tagInputOptions == null) {
             options.tagInputOptions = {};
@@ -19072,7 +20134,11 @@ var dx = (function (exports) {
             base.placeholder = options.placeholder;
           }
         }
-        component = new exports.TagInput(elem, options.tagInputOptions);
+        if (options.tagInputOptions == null) {
+          options.tagInputOptions = {};
+        }
+        options.tagInputOptions.isInsideForm = true;
+        component = new exports.TagInput(componentElem, options.tagInputOptions);
         getValue = function() {
           return component.items();
         };
@@ -19080,7 +20146,7 @@ var dx = (function (exports) {
           return component.items(items);
         };
         if (options.required) {
-          input = elem.select('input');
+          input = componentElem.select('input');
           setValidity = function() {
             return input.node().setCustomValidity(exports.userFacingText('form', 'pleaseAddAValue'));
           };
@@ -19099,7 +20165,7 @@ var dx = (function (exports) {
         }
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem),
           component: component,
           getValue: getValue,
           setValue: setValue,
@@ -19114,12 +20180,12 @@ var dx = (function (exports) {
     Form.prototype.addFileInput = function addFileInput (name, options) {
       if ( options === void 0 ) options = {};
       return this.add(name, 'file-input', function() {
-        var component, elem;
-        elem = div();
-        component = new FileInput(elem, options.fileInputOptions);
+        var component, componentElem;
+        componentElem = div();
+        component = new FileInput(componentElem, options.fileInputOptions);
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem),
           component: component,
           options: {
             hidden: options.hidden,
@@ -19133,17 +20199,17 @@ var dx = (function (exports) {
       if ( options === void 0 ) options = {};
 
       return this.add(name, 'select', function() {
-        var autocompletePickerOptions, component, elem, input, setValidity;
-        elem = button().attr('type', 'button').class(options.buttonClass);
+        var autocompletePickerOptions, component, componentElem, input, setValidity;
+        componentElem = button().attr('type', 'button').class(options.buttonClass);
         autocompletePickerOptions = exports.merge({
           buttonClass: options.buttonClass
         }, options.autocompletePickerOptions);
         if (values.length > 0) {
           autocompletePickerOptions.items = values;
         }
-        component = new exports.AutocompletePicker(elem.node(), values, autocompletePickerOptions);
-        input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
-        elem.style('position', 'relative');
+        component = new exports.AutocompletePicker(componentElem, values, autocompletePickerOptions);
+        input = componentElem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0);
+        componentElem.style('position', 'relative');
         if (typeof options.required !== 'boolean') {
           component.value(values[0]);
         }
@@ -19165,7 +20231,7 @@ var dx = (function (exports) {
         }
         return {
           key: options.key,
-          elem: elem,
+          elem: div().add(componentElem),
           component: component,
           disable: function(disabled) {
             return component.disabled(disabled);
@@ -21850,6 +22916,7 @@ var dx = (function (exports) {
   exports.parentZIndex = parentZIndex;
   exports.parseHTML = parseHTML;
   exports.picker = picker;
+  exports.preferences = preferences;
   exports.request = request;
   exports.scrollbarSize = scrollbarSize;
   exports.section = section;

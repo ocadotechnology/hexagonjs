@@ -210,6 +210,62 @@
       @description
         This Preferences
 
+  @method setup
+    @added 2.1.0
+    @description
+      A method for re-initialising the preferences object with a new configuration.
+
+      Calling with no arguments returns it to the default configuration.
+
+    @arg? options [Object]
+      @property backingStore [PreferencesStore]
+        @description
+          The storage location to get and set preferences from when calling @code[preferences.save()] and @code[preferences.load()]
+
+          The default uses local storage:
+
+          @@codeblock js
+            const LocalStoragePreferencesStore = {
+              save(prefs, cb) {
+                localStorage.setItem(localStorageKey, prefs);
+                return cb();
+              },
+              load(cb) {
+                return cb(undefined, localStorage.getItem(localStorageKey));
+              },
+            };
+
+        @default: LocalStoragePreferencesStore
+
+      @property supportedLocales [Array[String]]
+        @description
+          Set the list of supported locales. The default is to use all supported locales
+        @default: []
+
+      @property supportedTimezones [Array[String]]
+        @description
+          Set the list of supported timezones. The default is to use all supported timezones
+        @default: []
+
+      @property timezone []
+        @description
+          The timezone to set. By default will attempt to lookup the current locale based on the browser.
+        @default: undefined
+
+      @property locale []
+        @description
+          The locale to set. By default will attempt to lookup the current locale based on the browser.
+        @default: undefined
+
+      @property featureFlags [Object]
+        @property useIntlFormat [Boolean]
+          @description
+            Whether to use the @code[Intl] API for localisation of dates and times within Hexagon.
+
+            See @hyperlink(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)[MDN -> Intl] for more information
+
+          @default: false
+
   @method timezone
     @description
       Gets the timezone preference

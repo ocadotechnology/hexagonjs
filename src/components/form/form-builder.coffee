@@ -124,7 +124,7 @@ export class Form extends EventEmitter
     entry.append('label').attr('for', id).text(name)
     prop = f() or {}
     key = prop.key || name
-    selection = entry.append(if prop.component then div().add(prop.elem) else prop.elem).attr('id', id)
+    selection = entry.append(prop.elem).attr('id', id)
 
     # Define the default function for enabling/disabling a form property
     prop.disable ?= (disable) ->
@@ -327,11 +327,11 @@ export class Form extends EventEmitter
   addToggle: (name, options = {}) ->
     self = this
     @add name, 'toggle', ->
-      elem = div('hx-btn hx-btn-invisible hx-no-pad-left')
-      component = new Toggle(elem, options.toggleOptions)
+      componentElem = div('hx-btn hx-btn-invisible hx-no-pad-left')
+      component = new Toggle(componentElem, options.toggleOptions)
       {
         key: options.key
-        elem: elem
+        elem: div().add(componentElem)
         component: component
         options: {
           hidden: options.hidden
@@ -341,7 +341,7 @@ export class Form extends EventEmitter
 
   addPicker: (name, values, options = {}) ->
     @add name, 'picker', ->
-      elem = button(options.buttonClass)
+      componentElem = button(options.buttonClass)
         .attr('type', 'button')
         .style('position', 'relative')
 
@@ -350,12 +350,12 @@ export class Form extends EventEmitter
       if values.length > 0
         pickerOptions.items = values
 
-      component = new Picker(elem.node(), pickerOptions)
-      input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
+      component = new Picker(componentElem, pickerOptions)
+      hiddenInput = detached('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
       component.value(values[0]) unless typeof options.required is 'boolean'
 
       setValidity = () ->
-        input.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'))
+        hiddenInput.node().setCustomValidity(userFacingText('form', 'pleaseSelectAValue'))
 
       if options.required
         setValidity()
@@ -363,11 +363,13 @@ export class Form extends EventEmitter
           if value is undefined
             setValidity()
           else
-            input.node().setCustomValidity('')
+            hiddenInput.node().setCustomValidity('')
 
       return {
         key: options.key
-        elem: elem
+        elem: div()
+          .add(componentElem)
+          .add(hiddenInput)
         component: component
         options: {
           hidden: options.hidden
@@ -377,8 +379,8 @@ export class Form extends EventEmitter
 
   addDatePicker: (name, options = {}) ->
     @add name, 'date-picker', ->
-      elem = div()
-      component = new DatePicker(elem, options.datePickerOptions)
+      componentElem = div()
+      component = new DatePicker(componentElem, options.datePickerOptions)
 
       if options.validStart? or options.validEnd?
         component.validRange(options.validStart, options.validEnd)
@@ -397,7 +399,8 @@ export class Form extends EventEmitter
 
       return {
         key: options.key
-        elem: elem
+        elem: div()
+          .add(componentElem)
         component: component
         getValue: getValue
         setValue: setValue
@@ -409,15 +412,16 @@ export class Form extends EventEmitter
 
   addTimePicker: (name, options = {}) ->
     @add name, 'time-picker', ->
-      elem = div()
-      component = new TimePicker(elem, options.timePickerOptions)
+      componentElem = div()
+      component = new TimePicker(componentElem, options.timePickerOptions)
 
       getValue = -> component.date()
       setValue = (value) -> component.date(value)
 
       return {
         key: options.key
-        elem: elem
+        elem: div()
+          .add(componentElem)
         component: component
         getValue: getValue
         setValue: setValue
@@ -429,15 +433,16 @@ export class Form extends EventEmitter
 
   addDateTimePicker: (name, options = {}) ->
     @add name, 'date-time-picker', ->
-      elem = div()
-      component = new DateTimePicker(elem, options.dateTimePickerOptions)
+      componentElem = div()
+      component = new DateTimePicker(componentElem, options.dateTimePickerOptions)
 
       getValue = -> component.date()
       setValue = (value) -> component.date(value)
 
       return {
         key: options.key
-        elem: elem
+        elem: div()
+          .add(componentElem)
         component: component
         getValue: getValue
         setValue: setValue
@@ -450,18 +455,21 @@ export class Form extends EventEmitter
   addTagInput: (name, options = {}) ->
     self = this
     @add name, 'tag-input', ->
-      elem = div()
+      componentElem = div()
       if options.placeholder
         options.tagInputOptions ?= {}
         options.tagInputOptions.placeholder ?= options.placeholder
 
-      component = new TagInput(elem, options.tagInputOptions)
+      options.tagInputOptions ?= {}
+      options.tagInputOptions.isInsideForm = true
+
+      component = new TagInput(componentElem, options.tagInputOptions)
 
       getValue = -> component.items()
       setValue = (items) -> component.items(items)
 
       if options.required
-        input = elem.select('input')
+        input = componentElem.select('input')
 
         setValidity = () ->
           input.node().setCustomValidity(userFacingText('form', 'pleaseAddAValue'))
@@ -480,7 +488,8 @@ export class Form extends EventEmitter
 
       return {
         key: options.key
-        elem: elem
+        elem: div()
+          .add(componentElem)
         component: component
         getValue: getValue
         setValue: setValue
@@ -493,11 +502,12 @@ export class Form extends EventEmitter
   addFileInput: (name, options = {}) ->
     self = this
     @add name, 'file-input', ->
-      elem = div()
-      component = new FileInput(elem, options.fileInputOptions)
+      componentElem = div()
+      component = new FileInput(componentElem, options.fileInputOptions)
       return {
         key: options.key
-        elem: elem
+        elem: div()
+          .add(componentElem)
         component: component
         options: {
           hidden: options.hidden
@@ -507,7 +517,7 @@ export class Form extends EventEmitter
 
   addAutocompletePicker: (name, values, options = {}) ->
     @add name, 'select', ->
-      elem = button()
+      componentElem = button()
         .attr('type', 'button')
         .class(options.buttonClass)
 
@@ -516,9 +526,9 @@ export class Form extends EventEmitter
       if values.length > 0
         autocompletePickerOptions.items = values
 
-      component = new AutocompletePicker(elem.node(), values, autocompletePickerOptions)
-      input = elem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
-      elem.style('position', 'relative')
+      component = new AutocompletePicker(componentElem, values, autocompletePickerOptions)
+      input = componentElem.append('input').class('hx-form-builder-hidden-form-input').attr('size', 0)
+      componentElem.style('position', 'relative')
 
       component.value(values[0]) unless typeof options.required is 'boolean'
 
@@ -535,7 +545,8 @@ export class Form extends EventEmitter
 
       return {
         key: options.key
-        elem: elem
+        elem: div()
+          .add(componentElem)
         component: component
         disable: (disabled) -> component.disabled(disabled)
         options: {

@@ -65,6 +65,8 @@ import drawingTests from 'components/drawing/spec';
 import inlineEditableTests from 'components/inline-editable/spec';
 import paginatorTests from 'components/paginator/spec';
 
+window.hx = hx;
+
 chai.should();
 
 describe('HexagonJS Test Suite', () => {
