@@ -138,6 +138,7 @@ const distModuleConfig = {
   ...sharedOpts,
   input: 'src/hexagon.js',
   output: [
+    { file: pkg.main, format: 'commonjs' },
     { file: pkg.module, format: 'esm' },
   ],
   plugins: standardPlugins,

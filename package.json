@@ -21,6 +21,7 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "main": "dist/hexagon.commonjs.js",
   "module": "dist/hexagon.es.js",
   "style": "dist/hexagon.css",
   "files": [
