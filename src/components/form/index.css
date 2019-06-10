@@ -1,61 +1,61 @@
-.hx-form {
+.hx-form:not(.hx-flag-form) {
   margin-bottom: 0;
   text-align: right;
   display: inline-block;
 }
 
-.hx-form .hx-form-buttons > * {
+.hx-form:not(.hx-flag-form) .hx-form-buttons > * {
   display: inline-block;
 }
 
-.hx-form > div:not(.hx-form-buttons) {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) {
   text-align: left;
   display: table-row;
 }
 
-.hx-form > div:not(.hx-form-buttons) > * {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > * {
   display: table-cell;
 }
 
-.hx-form > div:not(.hx-form-buttons) > *:not(input):not(select):not(textarea):not(button):not(.hx-btn) {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > *:not(input):not(select):not(textarea):not(button):not(.hx-btn) {
   padding-top: 8px;
 }
 
-.hx-form input[type="radio"],
-.hx-form input[type="checkbox"] {
+.hx-form:not(.hx-flag-form) input[type="radio"],
+.hx-form:not(.hx-flag-form) input[type="checkbox"] {
   margin-top: 0em;
   display: inline-block;
 }
 
-.hx-form > button[type="submit"] {
+.hx-form:not(.hx-flag-form) > button[type="submit"] {
   margin-top: 8px;
   margin-right: 0;
 }
 
 
 /* Padding top doesn't look right for inputs and select and the other margins make the boxes difficult to align */
-.hx-form > div:not(.hx-form-buttons) > input,
-.hx-form > div:not(.hx-form-buttons) > select,
-.hx-form > div:not(.hx-form-buttons) > textarea,
-.hx-form > div:not(.hx-form-buttons) > button,
-.hx-form > div:not(.hx-form-buttons) > .hx-btn {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > input,
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > select,
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > textarea,
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > button,
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > .hx-btn {
   margin: 8px 0 0 0;
 }
 
-.hx-form > div:not(.hx-form-buttons) > div > .hx-btn,
-.hx-form > div:not(.hx-form-buttons) > div > button {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > div > .hx-btn,
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > div > button {
   margin: 0;
 }
 
-.hx-form > div:not(.hx-form-buttons) > input:not([type="checkbox"]):not([type="radio"]),
-.hx-form > div:not(.hx-form-buttons) > select,
-.hx-form > div:not(.hx-form-buttons) > textarea {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > input:not([type="checkbox"]):not([type="radio"]),
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > select,
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > textarea {
   min-width: 20em;
   width: 100%;
   box-sizing: border-box;
 }
 
-.hx-form > div:not(.hx-form-buttons) > label {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > label {
   text-align: right;
   vertical-align: middle;
   padding-right: 16px;
@@ -63,25 +63,25 @@
   height: 2em;
 }
 
-.hx-form > div:not(.hx-form-buttons) > input[type="radio"],
-.hx-form > div:not(.hx-form-buttons) > input[type="checkbox"] {
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > input[type="radio"],
+.hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > input[type="checkbox"] {
   margin-top: 1em;
 }
 
-.hx-form-error {
+.hx-form:not(.hx-flag-form) .hx-form-error {
   color: red;
 }
 
-.hx-form-error > div {
+.hx-form:not(.hx-flag-form) .hx-form-error > div {
   padding-top: 0 !important;
 }
 
-.hx-form-error .hx-form-error-text-container {
+.hx-form:not(.hx-flag-form) .hx-form-error .hx-form-error-text-container {
   position: relative;
   z-index: 1000;
 }
 
-.hx-form-error .hx-form-error-text-container .hx-form-error-text {
+.hx-form:not(.hx-flag-form) .hx-form-error .hx-form-error-text-container .hx-form-error-text {
   display: block;
   position: absolute;
   padding: 0.4em;
@@ -89,7 +89,7 @@
   border-radius: 5px;
 }
 
-.hx-form-error .hx-form-error-text-container .hx-form-error-text:before {
+.hx-form:not(.hx-flag-form) .hx-form-error .hx-form-error-text-container .hx-form-error-text:before {
   border: solid transparent;
   border-color: rgba(136, 183, 213, 0);
   border-width: 5px;
@@ -103,9 +103,9 @@
 }
 
 @media (max-width: 480px) {
-  .hx-form > div:not(.hx-form-buttons) > input:not([type="checkbox"]):not([type="radio"]),
-  .hx-form > div:not(.hx-form-buttons) > select,
-  .hx-form > div:not(.hx-form-buttons) > textarea {
+  .hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > input:not([type="checkbox"]):not([type="radio"]),
+  .hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > select,
+  .hx-form:not(.hx-flag-form) > div:not(.hx-form-buttons) > textarea {
     min-width: 14em;
   }
 }
@@ -120,4 +120,14 @@
   top: 13px;
   z-index: -1;
   visibility: hidden;
+}
+
+.hx-form .hx-form-group {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.hx-form-group .hx-input,
+.hx-form-group .hx-input-textarea {
+  width: 100%;
 }

@@ -16,7 +16,6 @@ import dropdownExamples from './examples/dropdown';
 import errorPageExamples from './examples/error-page';
 import formExamples from './examples/form';
 import inputGroupExamples from './examples/input-group';
-import labelExamples from './examples/label';
 import layoutExamples from './examples/layout';
 import loadingSpinnerExamples from './examples/loading-spinner';
 import menuExamples from './examples/menu';
@@ -40,6 +39,10 @@ import timePickerExamples from './examples/time-picker';
 import timeSliderExamples from './examples/time-slider';
 import toggleExamples from './examples/toggle';
 import treeExamples from './examples/tree';
+import typographyExamples from './examples/typography';
+import inputExamples from './examples/input';
+import checkboxExamples from './examples/checkbox';
+import radioExamples from './examples/radio';
 
 const {
   select, div, detached, titleBar,
@@ -47,10 +50,26 @@ const {
 
 window.hx = hx;
 
-function example(title) {
-  return div('example-section')
-    .add(detached('h2').text(title));
+const contentsItems = [];
+
+function backToTop() {
+  window.scrollTo(0, 0);
 }
+
+function example(title) {
+  const slug = title.split(' ').join('-').toLowerCase();
+  contentsItems.push({
+    title,
+    slug,
+  });
+
+  return div('example-section')
+    .add(detached('h2').attr('id', slug).class('example-header').text(title)
+      .add(detached('a').class('back-to-top')
+        .on('click', backToTop)
+        .text('Back to top')));
+}
+
 function tryDemo(demoFn) {
   try {
     return demoFn();
@@ -60,47 +79,60 @@ function tryDemo(demoFn) {
   }
 }
 
+function getContents() {
+  return detached('ul').add(contentsItems.map(({ title, slug }) => detached('li')
+    .add(detached('a')
+      .attr('href', `#${slug}`)
+      .text(title))));
+}
+
+const examples = [
+  example('Text Styles').add(tryDemo(typographyExamples)),
+  example('Input Fields').add(tryDemo(inputExamples)),
+  example('Checklists').add(tryDemo(checkboxExamples)),
+  example('Radio Buttons').add(tryDemo(radioExamples)),
+  example('Palette').add(tryDemo(paletteExamples)),
+  example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
+  example('Autocomplete').add(tryDemo(autocompleteExamples)),
+  example('Badge').add(tryDemo(badgeExamples)),
+  example('Button Group').add(tryDemo(buttonGroupExamples)),
+  example('Buttons').add(tryDemo(buttonExamples)),
+  example('Card').add(tryDemo(cardExamples)),
+  example('Collapsible').add(tryDemo(collapsibleExamples)),
+  example('Crumbtrail').add(tryDemo(crumbtrailExamples)),
+  example('Data Table').add(tryDemo(dataTableExamples)),
+  example('Date Picker').add(tryDemo(datePickerExamples)),
+  example('Date Time Picker').add(tryDemo(dateTimePickerExamples)),
+  example('Drag Container').add(tryDemo(dragContainerExamples)),
+  example('Dropdown').add(tryDemo(dropdownExamples)),
+  example('Error Page').add(tryDemo(errorPageExamples)),
+  example('Form').add(tryDemo(formExamples)),
+  example('Input Group').add(tryDemo(inputGroupExamples)),
+  example('Layout').add(tryDemo(layoutExamples)),
+  example('Loading Spinners').add(tryDemo(loadingSpinnerExamples)),
+  example('Menu').add(tryDemo(menuExamples)),
+  example('Modals').add(tryDemo(modalExamples)),
+  example('Notice').add(tryDemo(noticeExamples)),
+  example('Notify').add(tryDemo(notifyExamples)),
+  example('Number Pickers').add(tryDemo(numberPickerExamples)),
+  example('Paginator').add(tryDemo(paginatorExamples)),
+  example('Picker').add(tryDemo(pickerExamples)),
+  example('Pivot Table').add(tryDemo(pivotTableExamples)),
+  example('Plot').add(tryDemo(plotExamples)),
+  example('Progress Bar').add(tryDemo(progressBarExamples)),
+  example('Side Collapsible').add(tryDemo(sideCollapsibleExamples)),
+  example('Sidebar').add(tryDemo(sidebarExamples)),
+  example('Slider').add(tryDemo(sliderExamples)),
+  example('Table').add(tryDemo(tableExamples)),
+  example('Tabs').add(tryDemo(tabsExamples)),
+  example('Tag Input').add(tryDemo(tagInputExamples)),
+  example('Time Picker').add(tryDemo(timePickerExamples)),
+  example('Time Slider').add(tryDemo(timeSliderExamples)),
+  example('Toggle').add(tryDemo(toggleExamples)),
+  example('Tree').add(tryDemo(treeExamples)),
+];
+
 select('body')
   .add(titleBar({ title: 'Title', subtitle: 'Subtitle' }))
-  .add(div('hx-content').add([
-    example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
-    example('Autocomplete').add(tryDemo(autocompleteExamples)),
-    example('Badge').add(tryDemo(badgeExamples)),
-    example('Button Group').add(tryDemo(buttonGroupExamples)),
-    example('Buttons').add(tryDemo(buttonExamples)),
-    example('Card').add(tryDemo(cardExamples)),
-    example('Collapsible').add(tryDemo(collapsibleExamples)),
-    example('Crumbtrail').add(tryDemo(crumbtrailExamples)),
-    example('Data Table').add(tryDemo(dataTableExamples)),
-    example('Date Picker').add(tryDemo(datePickerExamples)),
-    example('Date Time Picker').add(tryDemo(dateTimePickerExamples)),
-    example('Drag Container').add(tryDemo(dragContainerExamples)),
-    example('Dropdown').add(tryDemo(dropdownExamples)),
-    example('Error Page').add(tryDemo(errorPageExamples)),
-    example('Form').add(tryDemo(formExamples)),
-    example('Input Group').add(tryDemo(inputGroupExamples)),
-    example('Label').add(tryDemo(labelExamples)),
-    example('Layout').add(tryDemo(layoutExamples)),
-    example('Loading Spinners').add(tryDemo(loadingSpinnerExamples)),
-    example('Menu').add(tryDemo(menuExamples)),
-    example('Modals').add(tryDemo(modalExamples)),
-    example('Notice').add(tryDemo(noticeExamples)),
-    example('Notify').add(tryDemo(notifyExamples)),
-    example('Number Pickers').add(tryDemo(numberPickerExamples)),
-    example('Paginator').add(tryDemo(paginatorExamples)),
-    example('Palette').add(tryDemo(paletteExamples)),
-    example('Picker').add(tryDemo(pickerExamples)),
-    example('Pivot Table').add(tryDemo(pivotTableExamples)),
-    example('Plot').add(tryDemo(plotExamples)),
-    example('Progress Bar').add(tryDemo(progressBarExamples)),
-    example('Side Collapsible').add(tryDemo(sideCollapsibleExamples)),
-    example('Sidebar').add(tryDemo(sidebarExamples)),
-    example('Slider').add(tryDemo(sliderExamples)),
-    example('Table').add(tryDemo(tableExamples)),
-    example('Tabs').add(tryDemo(tabsExamples)),
-    example('Tag Input').add(tryDemo(tagInputExamples)),
-    example('Time Picker').add(tryDemo(timePickerExamples)),
-    example('Time Slider').add(tryDemo(timeSliderExamples)),
-    example('Toggle').add(tryDemo(toggleExamples)),
-    example('Tree').add(tryDemo(treeExamples)),
-  ]));
+  .add(getContents())
+  .add(examples);

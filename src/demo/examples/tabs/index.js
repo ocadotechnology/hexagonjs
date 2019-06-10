@@ -9,11 +9,11 @@ import {
 } from 'hexagon-js';
 
 export default () => {
-  const manualTabDiv = div()
-    .add(div('hx-tab hx-positive').text('Tab 1').attr('data-content', 'tab-1'))
-    .add(div('hx-tab hx-warning').text('Tab 2').attr('data-content', 'tab-2'))
-    .add(div('hx-tab hx-negative').text('Tab 3').attr('data-content', 'tab-3'))
-    .add(div('hx-tabs-content').style('padding', '1em')
+  const manualTabDiv = div('hx-flag-tabs')
+    .add(div('hx-tab').text('Tab 1').attr('data-content', 'tab-1'))
+    .add(div('hx-tab').text('Tab 2').attr('data-content', 'tab-2'))
+    .add(div('hx-tab').text('Tab 3').attr('data-content', 'tab-3'))
+    .add(div('hx-tabs-content')
       .add(div('hx-tab-content').text('Tab 1 Content').attr('id', 'tab-1'))
       .add(div('hx-tab-content').text('Tab 2 Content').attr('id', 'tab-2'))
       .add(div('hx-tab-content').text('Tab 3 Content').attr('id', 'tab-3')));

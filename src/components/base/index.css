@@ -10,8 +10,8 @@ body {
   height: 100%;
 }
 
-input,
 textarea,
+input,
 keygen,
 select,
 button {
@@ -52,23 +52,27 @@ input {
   border: solid;
   border-width: 1px;
   padding: 0.4em;
+}
 
-  & :invalid {
-    border-width: 1px;
-    border-style: dotted;
+textarea:invalid,
+input:invalid {
+  border-width: 1px;
+  border-style: dotted;
+  box-shadow: none;
+}
 
-    & :focus {
-      border-style: solid;
-    }
-  }
+textarea:invalid:focus,
+input:invalid:focus {
+  border-style: solid;
+  box-shadow: none;
 }
 
 input {
   padding-left: 0.4em;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+input:not(.hx-input-radio)[type="radio"],
+input:not(.hx-input-checkbox)[type="checkbox"] {
   height: 0.8em;
   padding: 0;
   margin: 0.4em;
@@ -123,8 +127,9 @@ a:hover {
   }
 }
 
-input[type=radio],
-input[type=checkbox] {
+input:not(.hx-input-radio)[type="radio"],
+input:not(.hx-input-checkbox)[type="checkbox"] {
+  border: 1px solid #bbb;
   display: inline-block;
   margin: 2px;
   padding: 0;
@@ -133,7 +138,6 @@ input[type=checkbox] {
   color: #555;
   line-height: 0;
   text-align: center;
-  border: 1px solid #bbb;
   background: #fff;
   outline: 0;
   cursor: pointer;
@@ -144,8 +148,8 @@ input[type=checkbox] {
   transition: all .2s ease-in-out;
 }
 
-input[type=radio]::before,
-input[type=checkbox]::before {
+input:not(.hx-input-radio)[type="radio"]::before,
+input:not(.hx-input-checkbox)[type="checkbox"]::before {
   float: left;
   display: inline-block;
   content: '\2022';
@@ -161,20 +165,21 @@ input[type=checkbox]::before {
   transform: scale(0.3);
 }
 
-input[type=radio]:checked:before,
-input[type=checkbox]:checked:before {
+input:not(.hx-input-radio)[type="radio"]:checked:before,
+input:not(.hx-input-checkbox)[type="checkbox"]:checked:before {
   opacity: 1;
   transition: opacity 0 ease-in-out, transform .2s ease-in-out;
   transform: scale(1);
 }
 
-input[type=radio] {
+input:not(.hx-input-radio)[type="radio"] {
   border-radius: 50%;
 }
 
-input[type=radio]:before {
+input:not(.hx-input-radio)[type="radio"]:before {
   border-radius: 50%;
 }
+
 
 hr {
   border: 1px solid transparent;

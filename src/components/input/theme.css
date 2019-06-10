@@ -1,0 +1,58 @@
+.hx-input,
+.hx-input-textarea {
+  background: var(--input-background-color);
+  box-sizing: border-box;
+  border-width: var(--input-border-width);
+  border-style: var(--input-border-style);
+  border-color: var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  margin: var(--input-spacing);
+  padding: var(--input-padding);
+  height: var(--input-height);
+  line-height: var(--input-line-height);
+  color: var(--input-text-color);
+}
+
+.hx-input::placeholder,
+.hx-input-textarea::placeholder {
+  color: var(--input-placeholder-color);
+}
+
+.hx-input-textarea {
+  height: auto;
+}
+
+.hx-input-radio,
+.hx-input-checkbox {
+  height: var(--input-size);
+  width: var(--input-size);
+}
+
+.hx-input-radio::before,
+.hx-input-radio::after,
+.hx-input-checkbox::before,
+.hx-input-checkbox::after {
+  font-size: var(--input-size);
+}
+
+.hx-input-checkbox::before,
+.hx-input-radio::before {
+  color: var(--input-background-color);
+}
+.hx-input-radio::after,
+.hx-input-checkbox::after {
+  color: var(--input-text-color);
+}
+.hx-input-radio:invalid::after,
+.hx-input-checkbox:invalid::after {
+  color: var(--input-invalid-border-color);
+}
+
+.hx-input:invalid,
+.hx-input-textarea:invalid {
+  border-width: var(--input-invalid-border-width);
+  border-style: var(--input-invalid-border-style);
+  border-color: var(--input-invalid-border-color);
+  color: var(--input-invalid-text-color);
+}
+

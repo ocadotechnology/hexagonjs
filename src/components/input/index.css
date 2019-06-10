@@ -1,0 +1,111 @@
+.hx-input,
+.hx-input-textarea {
+  outline: none;
+  display: inline-block;
+  font-size: inherit;
+  font-family: inherit;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.hx-input-textarea {
+  width: 100%;
+  vertical-align: top;
+}
+
+.hx-input,
+.hx-input-textarea,
+.hx-input-checkbox,
+.hx-input-radio {
+  outline: none;
+  display: inline-block;
+  margin: 0;
+}
+
+.hx-input:disabled,
+.hx-input-textarea:disabled,
+.hx-input-checkbox:disabled,
+.hx-input-radio:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.hx-input-checkbox,
+.hx-input-checkbox:focus,
+.hx-input-radio,
+.hx-input-radio:focus {
+  line-height: 0;
+  font-family: monospace;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  background: none;
+}
+
+
+.hx-input-radio::before,
+.hx-input-radio::after,
+.hx-input-checkbox::before,
+.hx-input-checkbox::after {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 1;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Font Awesome 5 Free";
+}
+
+.hx-input-checkbox,
+.hx-input-radio {
+  position: relative;
+  border: none;
+}
+
+.hx-input-checkbox::before {
+  content: "\f0c8";
+  font-weight: bold;
+}
+
+.hx-input-checkbox::after {
+  content: "\f0c8";
+}
+
+.hx-input-checkbox:checked::after {
+  content: "\f14a";
+  font-weight: bold;
+}
+
+.hx-input-radio::before {
+  content: "\f111";
+  font-weight: bold;
+}
+
+.hx-input-radio::after {
+  content: "\f111";
+}
+
+.hx-input-radio:checked::after {
+  content: "\f192";
+}
+
+.hx-input-radio:invalid,
+.hx-input-checkbox:invalid,
+.hx-input-radio:invalid:focus,
+.hx-input-checkbox:invalid:focus {
+  border: none;
+  background: none;
+  outline: none;
+  box-shadow: none;
+}

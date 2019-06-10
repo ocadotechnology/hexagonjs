@@ -9,3 +9,102 @@
 .hx-form-error .hx-form-error-text-container .hx-form-error-text:before {
   border-bottom-color: var(--form-error-background-color);
 }
+
+
+.hx-form-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: var(--form-label-spacing);
+}
+
+.hx-input-checkbox + .hx-form-label,
+.hx-input-radio + .hx-form-label {
+  font-weight: normal;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0 var(--form-label-spacing);
+  cursor: pointer;
+}
+
+.hx-input:disabled + .hx-form-label,
+.hx-input-textarea:disabled + .hx-form-label,
+.hx-input-checkbox:disabled + .hx-form-label,
+.hx-input-radio:disabled + .hx-form-label {
+  color: var(--form-label-disabled-text-color);
+  font-style: var(--form-label-disabled-font-style);
+}
+
+
+.hx-form-item {
+  margin-top: var(--form-label-spacing);
+  margin-bottom: var(--form-label-spacing);
+}
+
+.hx-form-item:last-child {
+  margin-bottom: 0;
+}
+
+.hx-form-label-optional {
+  color: var(--form-optional-label-text-color);
+  font-weight: var(--form-optional-label-font-weight);
+  font-style: var(--form-optional-label-font-style);
+  margin-left: var(--form-label-spacing);
+}
+
+.hx-form-message {
+  font-style: var(--form-message-font-style);
+  font-weight: var(--form-message-label-font-weight);
+  color: var(--form-message-text-color);
+  margin-top: var(--form-label-spacing);
+}
+
+.hx-form-group {
+  margin-bottom: var(--form-input-spacing);
+}
+
+.hx-form-message-wrap,
+.hx-form:not(.hx-form-vertical) .hx-form-group .hx-input,
+.hx-form:not(.hx-form-vertical) .hx-form-group .hx-input-textarea {
+  width: var(--form-group-max-width);
+  max-width: 100%;
+}
+
+.hx-form:not(.hx-form-vertical) .hx-form-group {
+  margin-right: var(--form-input-spacing);
+}
+
+.hx-form-columns-2,
+.hx-form-columns-3,
+.hx-form-columns-4,
+.hx-form-columns-5,
+.hx-form-columns-6 {
+  margin-top: var(--form-label-spacing);
+}
+
+.hx-form-columns-2 > :first-child,
+.hx-form-columns-3 > :first-child,
+.hx-form-columns-4 > :first-child,
+.hx-form-columns-5 > :first-child,
+.hx-form-columns-6 > :first-child {
+  margin-top: 0;
+}
+
+.hx-form-columns-2 {
+  columns: 2 auto;
+}
+
+.hx-form-columns-3 {
+  columns: 3 auto;
+}
+
+.hx-form-columns-4 {
+  columns: 4 auto;
+}
+
+.hx-form-columns-5 {
+  columns: 5 auto;
+}
+
+.hx-form-columns-6 {
+  columns: 6 auto;
+}

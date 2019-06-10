@@ -47,7 +47,7 @@ export class Dropdown extends EventEmitter
       mode: 'click',
       align: 'lblt',
       matchWidth: true,
-      ddClass: ''
+      ddClass: '',
     }, options)
 
     setupDropdown = dropdownContentToSetupDropdown(dropdownContent)
@@ -173,27 +173,17 @@ export class Dropdown extends EventEmitter
       if @options.matchWidth
         _.dropdown.style('min-width', rect.width + 'px')
 
+      if _.useScroll and _.dropdown?
+        _.dropdown.style('overflow-y','auto')
+
       _.dropdown
         .style('left', x + 'px')
-        .style('top', (y + config.dropdownAnimateSlideDistance) + 'px')
-        .style('height', '0px')
-        .style('opacity', 0)
-        .style('margin-top', @options.dropdown)
-        .morph()
-          .with('fadein', 150)
-          .and('expandv', 150)
-          .and ->
-            _.dropdown.animate().style('top', y + 'px', 150)
-          .then =>
-            if _.useScroll and _.dropdown?
-              _.dropdown.style('overflow-y','auto')
-            @emit('showend')
-            cb?()
-          .go()
-
+        .style('top', y + 'px')
 
       @emit('showstart')
       @emit('change', true)
+      @emit('showend')
+      cb?()
     this
 
   hide: (cb) ->

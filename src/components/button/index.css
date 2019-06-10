@@ -52,6 +52,7 @@ a.hx-btn:hover {
 }
 
 .hx-flag-button .hx-btn,
+.hx-flag-button.hx-btn,
 .hx-btn.hx-primary,
 .hx-btn.hx-secondary,
 .hx-btn.hx-success,
@@ -68,6 +69,7 @@ a.hx-btn:hover {
 }
 
 .hx-flag-button .hx-btn:focus,
+.hx-flag-button.hx-btn:focus,
 .hx-btn.hx-primary:focus,
 .hx-btn.hx-secondary:focus,
 .hx-btn.hx-success:focus,
