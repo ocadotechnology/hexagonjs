@@ -39,10 +39,17 @@
 .hx-input-radio::before {
   color: var(--input-background-color);
 }
+
 .hx-input-radio::after,
 .hx-input-checkbox::after {
-  color: var(--input-text-color);
+  color: var(--input-checkbox-unselected-color);
 }
+
+.hx-input-radio:checked::after,
+.hx-input-checkbox:checked::after {
+  color: var(--input-checkbox-selected-color);
+}
+
 .hx-input-radio:invalid::after,
 .hx-input-checkbox:invalid::after {
   color: var(--input-invalid-border-color);
@@ -56,3 +63,20 @@
   color: var(--input-invalid-text-color);
 }
 
+.hx-input:read-only,
+.hx-input-textarea:read-only {
+  border-width: var(--input-readonly-border-width);
+  border-style: var(--input-readonly-border-style);
+  border-color: var(--input-readonly-border-color);
+  color: var(--input-readonly-text-color);
+  background: var(--input-readonly-background-color);
+}
+
+.hx-input:disabled,
+.hx-input-textarea:disabled {
+  border-width: var(--input-disabled-border-width);
+  border-style: var(--input-disabled-border-style);
+  border-color: var(--input-disabled-border-color);
+  color: var(--input-disabled-text-color);
+  background: var(--input-disabled-background-color);
+}

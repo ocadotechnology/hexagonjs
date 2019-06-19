@@ -131,3 +131,10 @@
 .hx-form-group .hx-input-textarea {
   width: 100%;
 }
+
+.hx-input:disabled + .hx-form-label,
+.hx-input-textarea:disabled + .hx-form-label,
+.hx-input-checkbox:disabled + .hx-form-label,
+.hx-input-radio:disabled + .hx-form-label {
+  cursor: not-allowed;
+}

@@ -450,6 +450,21 @@
   --input-spacing: 0;
   --input-tick-color: var(--theme-text-alternate-color);
 
+  --input-checkbox-unselected-color: var(--input-text-color);
+  --input-checkbox-selected-color: var(--input-text-color);
+
+  --input-readonly-border-width: 1px;
+  --input-readonly-border-style: solid;
+  --input-readonly-border-color: var(--theme-input-border-color);
+  --input-readonly-text-color: var(--theme-text-color);
+  --input-readonly-background-color: var(--theme-disabled-background-color);
+
+  --input-disabled-border-width: 1px;
+  --input-disabled-border-style: solid;
+  --input-disabled-border-color: var(--theme-input-border-color);
+  --input-disabled-text-color: var(--theme-text-color);
+  --input-disabled-background-color: var(--theme-disabled-background-color);
+
 
   /* Input Group */
   --input-group-div-background-color: var(--theme-element-background-color);

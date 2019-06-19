@@ -12,8 +12,13 @@ const label = fluidFactory('label');
 const hr = fluidFactory('hr');
 const vr = fluidFactory('vr');
 
-const checkbox = checked => input().attr('type', 'checkbox').class('hx-input-checkbox').prop('checked', !!checked);
-const invalidCheckbox = cls => checkbox(cls).attr('required', true);
+const checkbox = (name, checked) => input().attr('type', 'checkbox')
+  .attr('id', name)
+  .attr('name', name)
+  .class('hx-input-checkbox')
+  .prop('checked', !!checked);
+
+const invalidCheckbox = name => checkbox(name).attr('required', true);
 
 export default () => div()
   .add(group({ compact: true, horizontal: true })
@@ -24,17 +29,17 @@ export default () => div()
         .add(div('hx-form-group')
           .add(label('hx-form-label').text('Label'))
           .add(div('hx-form-item')
-            .add(checkbox())
-            .add(div('hx-form-label').text('Check Box')))
+            .add(checkbox('cba'))
+            .add(label('hx-form-label').attr('for', 'cba').text('Check Box')))
           .add(div('hx-form-item')
-            .add(checkbox())
-            .add(div('hx-form-label').text('Check Box')))
+            .add(checkbox('cbb'))
+            .add(label('hx-form-label').attr('for', 'cbb').text('Check Box')))
           .add(div('hx-form-item')
-            .add(checkbox(true))
-            .add(div('hx-form-label').text('Check Box')))
+            .add(checkbox('cbc', true))
+            .add(label('hx-form-label').attr('for', 'cbc').text('Check Box')))
           .add(div('hx-form-item')
-            .add(checkbox(true))
-            .add(div('hx-form-label').text('Check Box'))))))
+            .add(checkbox('cbd', true))
+            .add(label('hx-form-label').attr('for', 'cbd').text('Check Box'))))))
     .add(vr())
     .add(section()
       .add(div('hx-header-medium').text('Invalid State'))
@@ -43,54 +48,9 @@ export default () => div()
         .add(div('hx-form-group')
           .add(label('hx-form-label').text('Label'))
           .add(div('hx-form-item')
-            .add(invalidCheckbox())
-            .add(div('hx-form-label').text('Check Box')))
+            .add(invalidCheckbox('cbe'))
+            .add(label('hx-form-label').attr('for', 'cbe').text('Check Box')))
           .add(div('hx-form-item')
-            .add(invalidCheckbox())
-            .add(div('hx-form-label').text('Check Box')))
+            .add(invalidCheckbox('cbf'))
+            .add(label('hx-form-label').attr('for', 'cbf').text('Check Box')))
           .add(div('hx-form-message').text('Warning message will be here'))))));
-
-// <div class="hx-compact-group">
-//   <div class="hx-section">
-//     <h1>Checklists</h1>
-//     <div class="hx-form-group">
-//       <div class="hx-form-label">Label</div>
-//       <div class="hx-form-columns-2">
-//         <div class="hx-form-item">
-//           <input class="hx-input-checkbox" type="checkbox">
-//           <div class="hx-form-label">Check Box</div>
-//         </div>
-//         <div class="hx-form-item">
-//           <input class="hx-input-checkbox" type="checkbox" checked>
-//           <div class="hx-form-label">Check Box</div>
-//         </div>
-//         <div class="hx-form-item">
-//           <input class="hx-input-checkbox" type="checkbox">
-//           <div class="hx-form-label">Check Box</div>
-//         </div>
-//         <div class="hx-form-item">
-//           <input class="hx-input-checkbox" type="checkbox" checked>
-//           <div class="hx-form-label">Check Box</div>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-//   <vr></vr>
-//   <div class="hx-section hx-medium">
-//     <h1>Errors</h1>
-//     <div class="hx-form-group">
-//       <div class="hx-form-label">Label</div>
-//       <div class="hx-form-item">
-//         <input class="hx-input-checkbox" type="checkbox" required>
-//         <div class="hx-form-label">Check Box</div>
-//       </div>
-//       <div class="hx-form-item">
-//         <input class="hx-input-checkbox" type="checkbox" required>
-//         <div class="hx-form-label">Check Box</div>
-//       </div>
-//       <div class="hx-form-message">
-//         Warning message will be here
-//       </div>
-//     </div>
-//   </div>
-// </div>
