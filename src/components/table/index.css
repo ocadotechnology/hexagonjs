@@ -71,6 +71,7 @@
 .hx-flag-table.hx-table,
 .hx-flag-table .hx-table {
   font-size: 1em;
+  min-width: 100%;
 }
 
 .hx-flag-table.hx-table th,
@@ -82,4 +83,8 @@
 
 .hx-table.hx-table-clickable-rows tbody tr {
   cursor: pointer;
+}
+
+.hx-table.hx-table-small {
+  min-width: 0;
 }
