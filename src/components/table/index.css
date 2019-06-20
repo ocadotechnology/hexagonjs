@@ -68,3 +68,11 @@
   margin: 0 auto;
 }
 
+.hx-flag-table.hx-table,
+.hx-flag-table .hx-table {
+  font-size: 1em;
+}
+
+.hx-table.hx-table-clickable-rows tbody tr {
+  cursor: pointer;
+}
