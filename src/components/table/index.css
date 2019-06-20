@@ -73,6 +73,13 @@
   font-size: 1em;
 }
 
+.hx-flag-table.hx-table th,
+.hx-flag-table.hx-table td,
+.hx-flag-table .hx-table th,
+.hx-flag-table .hx-table td {
+  padding: 0.4em 0.75em;
+}
+
 .hx-table.hx-table-clickable-rows tbody tr {
   cursor: pointer;
 }
