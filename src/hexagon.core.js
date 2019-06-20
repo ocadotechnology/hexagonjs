@@ -244,6 +244,10 @@ export {
   logger,
 };
 
+export {
+  errorPage
+} from 'components/error-pages';
+
 // XXX: these apis should be opt-in
 initAnimate(); // XXX: remove
 initMorphs(); // XXX: remove
