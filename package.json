@@ -79,7 +79,7 @@
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "optionalDependencies": {
-    "@fortawesome/fontawesome-free": "^5.9.0",
+    "@fortawesome/fontawesome-free": "^5.9.0"
   },
   "devDependencies": {
     "ajv": "^6.10.0",
