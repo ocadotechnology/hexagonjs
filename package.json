@@ -99,7 +99,6 @@
     "postcss-cli": "^6.1.2",
     "postcss-css-variables": "^0.12.0",
     "postcss-import": "^12.0.1",
-    "postcss-inline-svg": "^3.1.1",
     "postcss-preset-env": "^6.6.0",
     "rimraf": "^2.6.3",
     "rollup": "^1.10.1",

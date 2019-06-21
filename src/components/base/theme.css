@@ -33,7 +33,7 @@ h6,
 
 
 textarea,
-input  {
+input {
   font-family: var(--base-default-font-family);
   font-size: var(--base-default-font-size);
   background-color: var(--base-input-background-color);
