@@ -245,7 +245,7 @@ export {
 };
 
 export {
-  errorPage
+  errorPage,
 } from 'components/error-pages';
 
 // XXX: these apis should be opt-in
