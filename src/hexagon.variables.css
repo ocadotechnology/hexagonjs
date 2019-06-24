@@ -453,6 +453,7 @@
 
   --input-checkbox-unselected-color: var(--input-text-color);
   --input-checkbox-selected-color: var(--input-text-color);
+  --input-checkbox-disabled-color: var(--theme-disabled-text-color);
 
   --input-readonly-border-width: 1px;
   --input-readonly-border-style: solid;

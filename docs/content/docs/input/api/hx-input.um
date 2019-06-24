@@ -1,0 +1,6 @@
+@class hx-input
+  @added 2.2.0
+  @description
+    A class to give to inputs to apply the Hexagon styling to them.
+
+    This replaces the styles applied directly to the @code[input] tag which will be removed in the next major release

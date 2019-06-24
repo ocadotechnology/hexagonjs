@@ -1,0 +1,68 @@
+@version 2.2.0
+  @example
+    @@html
+      <p class="hx-header-medium">Text inputs</p>
+      <div class="hx-form hx-flag-form">
+        <div class="hx-form-group">
+          <label class="hx-form-label">Default State</label>
+          <input class="hx-input" placeholder="Placeholder Text">
+        </div>
+        <div class="hx-form-group">
+          <label class="hx-form-label">Invalid State</label>
+          <input class="hx-input" required placeholder="Required">
+        </div>
+        <div class="hx-form-group">
+          <label class="hx-form-label">Disabled State</label>
+          <input class="hx-input" disabled placeholder="Disabled">
+        </div>
+        <div class="hx-form-group">
+          <label class="hx-form-label">Readonly State</label>
+          <input class="hx-input" readonly placeholder="Readonly">
+        </div>
+      </div>
+
+      <p class="hx-header-medium">Textarea inputs</p>
+      <div class="hx-form hx-flag-form">
+        <div class="hx-form-group">
+          <label class="hx-form-label">Default State</label>
+          <textarea class="hx-input-textarea" placeholder="Placeholder Text"></textarea>
+        </div>
+        <div class="hx-form-group">
+          <label class="hx-form-label">Invalid State</label>
+          <textarea class="hx-input-textarea" required placeholder="Required"></textarea>
+        </div>
+        <div class="hx-form-group">
+          <label class="hx-form-label">Disabled State</label>
+          <textarea class="hx-input-textarea" disabled placeholder="Disabled"></textarea>
+        </div>
+        <div class="hx-form-group">
+          <label class="hx-form-label">Readonly State</label>
+          <textarea class="hx-input-textarea" readonly placeholder="Readonly"></textarea>
+        </div>
+      </div>
+
+      <p class="hx-header-medium">Checkbox Inputs</p>
+      <div class="hx-form hx-flag-form">
+        <div class="hx-form-group">
+          <input class="hx-input-checkbox" type="checkbox"><label class="hx-form-label">Default State</label>
+        </div>
+        <div class="hx-form-group">
+          <input class="hx-input-checkbox" disabled type="checkbox"><label class="hx-form-label">Disabled State </label>
+        </div>
+        <div class="hx-form-group">
+          <input class="hx-input-checkbox" required type="checkbox"><label class="hx-form-label">Invalid State</label>
+        </div>
+      </div>
+
+      <p class="hx-header-medium">Radio Inputs</p>
+      <div class="hx-form hx-flag-form">
+        <div class="hx-form-group">
+          <input class="hx-input-radio" type="radio"><label class="hx-form-label">Default State</label>
+        </div>
+        <div class="hx-form-group">
+          <input class="hx-input-radio" disabled type="radio"><label class="hx-form-label">Disabled State </label>
+        </div>
+        <div class="hx-form-group">
+          <input class="hx-input-radio" required name="r1" type="radio"><label class="hx-form-label">Invalid State</label>
+        </div>
+      </div>

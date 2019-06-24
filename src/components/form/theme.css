@@ -36,12 +36,13 @@
 
 
 .hx-form-item {
-  margin-top: var(--form-label-spacing);
   margin-bottom: var(--form-label-spacing);
+  margin-right: var(--form-input-spacing);
 }
 
 .hx-form-item:last-child {
   margin-bottom: 0;
+  margin-right: 0;
 }
 
 .hx-form-label-optional {
@@ -64,21 +65,14 @@
 
 .hx-form-message-wrap,
 .hx-form:not(.hx-form-vertical) .hx-form-group .hx-input,
-.hx-form:not(.hx-form-vertical) .hx-form-group .hx-input-textarea {
+.hx-form:not(.hx-form-vertical) .hx-form-group .hx-input-textarea,
+.hx-form:not(.hx-form-vertical) .hx-form-group .hx-tag-input {
   width: var(--form-group-max-width);
   max-width: 100%;
 }
 
 .hx-form:not(.hx-form-vertical) .hx-form-group {
   margin-right: var(--form-input-spacing);
-}
-
-.hx-form-columns-2,
-.hx-form-columns-3,
-.hx-form-columns-4,
-.hx-form-columns-5,
-.hx-form-columns-6 {
-  margin-top: var(--form-label-spacing);
 }
 
 .hx-form-columns-2 > :first-child,
@@ -107,4 +101,60 @@
 
 .hx-form-columns-6 {
   columns: 6 auto;
+}
+
+
+.hx-form.hx-flag-form .hx-date-time-picker {
+  display: inline-flex;
+  box-sizing: border-box;
+  height: var(--input-height);
+  line-height: var(--input-line-height);
+  background: var(--input-background-color);
+  border-width: var(--input-border-width);
+  border-style: var(--input-border-style);
+  border-color: var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  color: var(--input-text-color);
+  overflow: hidden;
+}
+
+.hx-form.hx-flag-form .hx-time-picker {
+  border-width: var(--input-border-width);
+  border-style: var(--input-border-style);
+  border-color: var(--input-border-color);
+  border-radius: var(--input-border-radius);
+}
+
+.hx-form.hx-flag-form .hx-date-time-picker .hx-date-picker {
+  border-radius: 0;
+  border: none;
+  font-size: 1em;
+  line-height: var(--input-line-height);
+}
+
+.hx-form.hx-flag-form .hx-date-time-picker .hx-time-picker {
+  border-radius: 0;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  font-size: 1em;
+}
+
+.hx-form.hx-flag-form .hx-date-picker .hx-icon,
+.hx-form.hx-flag-form .hx-time-picker .hx-icon,
+.hx-form.hx-flag-form .hx-date-time-picker .hx-icon {
+  display: none;
+}
+
+.hx-form.hx-flag-form .hx-date-time-picker .hx-date-input,
+.hx-form.hx-flag-form .hx-time-input {
+  box-sizing: border-box;
+  height: var(--input-height);
+  line-height: var(--input-line-height);
+  font-size: 1em;
+  margin: calc(-1 * var(--input-border-width));
+}
+
+.hx-form.hx-flag-form .hx-form-buttons .hx-btn + .hx-btn {
+  margin-left: 10px;
 }

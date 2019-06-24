@@ -55,6 +55,11 @@
   color: var(--input-invalid-border-color);
 }
 
+.hx-input-radio:disabled::after,
+.hx-input-checkbox:disabled::after {
+  color: var(--input-checkbox-disabled-color);
+}
+
 .hx-input:invalid,
 .hx-input-textarea:invalid {
   border-width: var(--input-invalid-border-width);

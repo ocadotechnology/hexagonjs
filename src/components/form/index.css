@@ -127,6 +127,10 @@
   vertical-align: top;
 }
 
+.hx-form .hx-form-group .hx-btn {
+  margin: 0;
+}
+
 .hx-form-group .hx-input,
 .hx-form-group .hx-input-textarea {
   width: 100%;
@@ -137,4 +141,22 @@
 .hx-input-checkbox:disabled + .hx-form-label,
 .hx-input-radio:disabled + .hx-form-label {
   cursor: not-allowed;
+}
+
+.hx-form.hx-form-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.hx-form.hx-form-vertical [class*=hx-form-columns] {
+  columns: unset;
+}
+
+.hx-form-columns-2,
+.hx-form-columns-3,
+.hx-form-columns-4,
+.hx-form-columns-5,
+.hx-form-columns-6,
+.hx-form-vertical .hx-form-item {
+  display: inline-block;
 }

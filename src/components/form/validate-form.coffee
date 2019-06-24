@@ -1,6 +1,6 @@
 import { userFacingText } from 'utils/user-facing-text'
 import { mergeDefined } from 'utils/utils'
-import { select } from 'utils/selection'
+import { select, div } from 'utils/selection'
 
 # Swaps out poor validation messages for more descriptive ones.
 getValidationMessage = (message, type) ->
@@ -15,15 +15,19 @@ getValidationMessage = (message, type) ->
     else
       message
 
-export validateForm = (form, options) ->
-  form = select(form).node()
+export validateForm = (formSelector, options) ->
+  selection = select(formSelector)
+
+  featureFlagMode = selection.classed('hx-flag-form')
+
+  form = select(formSelector).node()
 
   defaultOptions = {
     showMessage: true
   }
   options = mergeDefined(defaultOptions, options)
 
-  select(form).selectAll('.hx-form-error').remove()
+  select(formSelector).selectAll('.hx-form-error').remove()
 
   errors = []
 
@@ -59,26 +63,38 @@ export validateForm = (form, options) ->
             }
 
   if options.showMessage and errors.length > 0
-    # Show the error for the focused element (if there is one) or the first error in the form
-    error = errors.filter((error) -> error.focused)[0] or errors[0]
+    if featureFlagMode
+      selection.selectAll('.hx-form-message').remove()
+      errors.forEach (error) ->
+        select(error.node)
+          .insertAfter(div('hx-form-message hx-form-message-wrap').text(error.message))
 
-    # XXX: This structure lets us jump out of the forced table layout. If we change
-    # to match the full-width aeris forms, this will need changing.
-    select(error.node.parentNode)
-      .insertAfter('div')
-      .class('hx-form-error')
-      .append('div')
-      .insertAfter('div')
-      .class('hx-form-error-text-container')
-      .append('div')
-      .class('hx-form-error-text')
-      .text(error.message)
+        select(error.node).on 'click', 'hx.form-error', (e) ->
+          next = select(error.node.nextElementSibling)
+          if next.classed('hx-form-message')
+            next.remove()
+          select(error.node).off('click', 'hx.form-error')
+    else
+      # Show the error for the focused element (if there is one) or the first error in the form
+      error = errors.filter((error) -> error.focused)[0] or errors[0]
 
-    select(error.node).on 'click', 'hx.form', (e) ->
-      next = select(error.node.parentNode.nextElementSibling)
-      if next.classed('hx-form-error')
-        next.remove()
-      select(error.node).off('click', 'hx.form')
+      # XXX: This structure lets us jump out of the forced table layout. If we change
+      # to match the full-width aeris forms, this will need changing.
+      select(error.node.parentNode)
+        .insertAfter('div')
+        .class('hx-form-error')
+        .append('div')
+        .insertAfter('div')
+        .class('hx-form-error-text-container')
+        .append('div')
+        .class('hx-form-error-text')
+        .text(error.message)
+
+      select(error.node).on 'click', 'hx.form', (e) ->
+        next = select(error.node.parentNode.nextElementSibling)
+        if next.classed('hx-form-error')
+          next.remove()
+        select(error.node).off('click', 'hx.form')
 
   # Return the errors so we can still check how many there are.
   return {
