@@ -550,6 +550,8 @@
 
         @list
           @item: @code[hx-flag-typography] - Updated font styles
+          @item: @code[hx-flag-table] - Updated table styles for readability
+          @item: @code[hx-flag-tabs] - Updated table styles for readability
           @item: @code[hx-flag-form] - Updated form style (improved layout)
           @item: @code[hx-flag-button] - New button types (primary/secondary etc.)
           @item: @code[hx-flag-tag-input] - Initial tweaks to work with hx-flag-form

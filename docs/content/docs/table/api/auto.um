@@ -15,3 +15,26 @@
     @description
       A class that can be added to th elements that allows the text to wrap onto multiple lines.
 
+@class hx-flag-table
+  @added 2.2.0
+
+  @description
+    Applies the updated table styles to help with aligning items and keeping row height consistent.
+
+    This class applies the following changes:
+
+    @list
+      @item: Increase font size for readability
+      @item: Increase row height for readability
+      @item: Remove row hover styles by default (can be added with @code[hx-table-clickable-rows] )
+      @item: Make table full width by default (can be reset with @code[hx-table-small] )
+
+@class hx-table-clickable-rows
+  @added 2.2.0
+  @description
+    A class to set table rows to be clickable and use a hand cursor
+
+@class hx-table-small
+  @added 2.2.0
+  @description
+    A class that allows a table with few columns to shrink less than the size of its container.

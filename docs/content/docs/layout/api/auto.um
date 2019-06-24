@@ -255,6 +255,13 @@
 
       @default: @code[false]
 
+    @property compact [Boolean]
+      @added 2.2.0
+      @description
+        Whether to use a @code[hx-compact-group] instead of a @code[hx-group]
+
+      @default: false
+
   @returns [Selection]
     @description
       The selection containing the new element
@@ -347,6 +354,14 @@
         Whether to add the @code[hx-fixed] class to the section
       @default: @code[false]
 
+    @property size [String]
+      @description
+        The additional size class to add to the section. Can be one of:
+
+        @list
+          @item: small
+          @item: medium
+          @item: large
 
   @returns [Selection]
     @description

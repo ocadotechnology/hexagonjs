@@ -39,6 +39,15 @@
       @description
         The index of the selected tab.
 
+@class hx-flag-tabs
+  @added 2.2.0
+
+  @description
+    Applies the updated tabs style. The updates are intended to make the tabs more readable and easier to identify what tab is active.
+
+    The key differences are the removal of context class support, with all tabs using the same colour and border, and the addition of padding to the content area to ensure the tabs always line up
+    with the content.
+
 @class hx-tabs
   @description
     The class to give to the tabs container

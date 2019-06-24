@@ -81,3 +81,62 @@
 
         tabs.select(0, true);
 
+
+@version 2.2.0
+  @examples
+    @example
+      @@html
+        <div id="tabs" class="hx-tabs hx-flag-tabs">
+          <div id="tab1" class="hx-tab" data-content="tab-content-1">Tab 1</div>
+          <div id="tab2" class="hx-tab" data-content="tab-content-2">Tab 2</div>
+          <div id="tab3" class="hx-tab" data-content="tab-content-3">Tab 3</div>
+          <div class="hx-tabs-content demo-tabs-content-padded">
+            <div id="tab-content-1" class="hx-tab-content" style="padding: 1em;">Stuff goes here 1</div>
+            <div id="tab-content-2" class="hx-tab-content" style="padding: 1em;">Stuff goes here 2</div>
+            <div id="tab-content-3" class="hx-tab-content" style="padding: 1em;">Stuff goes here 3</div>
+          </div>
+        </div>
+
+      @@js
+        var tabs = new hx.Tabs('#tabs');
+
+    @example
+      @@html
+        <div id="tabs-script" class="hx-tabs hx-flag-tabs">
+          <div id="tab1" class="hx-tab">Tab 1</div>
+          <div id="tab2" class="hx-tab hx-action">Tab 2</div>
+          <div id="tab3" class="hx-tab hx-positive">Tab 3</div>
+          <div id="tab4" class="hx-tab hx-warning">Tab 4</div>
+          <div id="tab5" class="hx-tab hx-negative">Tab 5</div>
+          <div id="tab6" class="hx-tab hx-info">Tab 6</div>
+          <div id="tab7" class="hx-tab hx-contrast">Tab 7</div>
+          <div class="hx-tabs-content"></div>
+        </div>
+
+      @@js
+        var tabs = new hx.Tabs('#tabs-script');
+
+        tabs.on('change', function(data){
+          hx.select('#tabs-script')
+            .select('.hx-tabs-content')
+              .text('Tab ' + (data.id+1) + ' selected')
+        });
+
+        tabs.select(0, true);
+
+    @example
+      @@html
+        <p class="hx-header-medium">1.x tabs styles</p>
+        <div id="tabs-old" class="hx-tabs">
+          <div id="tab1" class="hx-tab" data-content="tab-content-1">Tab 1</div>
+          <div id="tab2" class="hx-tab" data-content="tab-content-2">Tab 2</div>
+          <div id="tab3" class="hx-tab" data-content="tab-content-3">Tab 3</div>
+          <div class="hx-tabs-content demo-tabs-content-padded">
+            <div id="tab-content-1" class="hx-tab-content">Stuff goes here 1</div>
+            <div id="tab-content-2" class="hx-tab-content">Stuff goes here 2</div>
+            <div id="tab-content-3" class="hx-tab-content">Stuff goes here 3</div>
+          </div>
+        </div>
+
+      @@js
+        var tabs = new hx.Tabs('#tabs-old');
