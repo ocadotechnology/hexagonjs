@@ -1,0 +1,11 @@
+@class hx-text-large
+  @added 2.2.0
+
+  @description
+    Displays a paragraph of large text. It has a fixed size, and a custom line height, so you can experiment with it.
+
+@class hx-text-large
+  @added 2.2.0
+
+  @description
+    Displays a paragraph of small text. It is intended for use as notes and comments.

@@ -1,0 +1,7 @@
+@class hx-flag-button
+  @added 2.0.0
+
+  @description
+    Styles a button (or buttons inside a container) using the updated button styles.
+
+    Can be applied directly to a @code[hx-btn] as well as a container with buttons inside

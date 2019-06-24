@@ -36,3 +36,26 @@
           </div>
         </div>
 
+
+@version 2.2.0
+  @examples
+    @example
+      @@html
+        <div id="error-page-example-container" style="position: relative; height: 500px;"></div>
+
+      @@js
+        hx.select('#error-page-example-container').append(hx.errorPage({
+          title: '404',
+          message: 'The content you requested was not found',
+          buttons: [
+            {
+              text: 'Back',
+              onClick: () => window.history.back(),
+            },
+            {
+              text: 'Home',
+              url: '/',
+              buttonType: 'primary',
+            },
+          ],
+        }));
