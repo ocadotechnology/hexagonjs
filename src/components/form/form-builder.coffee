@@ -36,6 +36,9 @@ export class Form extends EventEmitter
       }
     }, options)
 
+    if @options.featureFlags.displayVertical
+      @options.featureFlags.useUpdatedStructure = true
+
     @formId = 'form-' + randomId() + '-'
     @properties = new HMap
 
@@ -299,14 +302,20 @@ export class Form extends EventEmitter
 
   addCheckbox: (name, options = {}) ->
     @add name, 'checkbox', ->
-      elem = detached('input').attr('type', 'checkbox')
+      input = detached('input').attr('type', 'checkbox')
         .classed('hx-input-checkbox', @options.featureFlags.useUpdatedStructure)
 
-      if options.required? then elem.attr('required', options.required)
-      if options.value then elem.prop('checked', true)
+      elem = if @options.featureFlags.useUpdatedStructure
+        div('hx-form-items')
+          .add(div('hx-form-item').add(input))
+      else
+        input
 
-      setValue = (value) -> elem.prop('checked', value)
-      getValue = () -> elem.prop('checked')
+      if options.required? then input.attr('required', options.required)
+      if options.value then input.prop('checked', true)
+
+      setValue = (value) -> input.prop('checked', value)
+      getValue = () -> input.prop('checked')
 
       {
         key: options.key

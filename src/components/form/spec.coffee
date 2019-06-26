@@ -221,3 +221,103 @@ export default () ->
           'Password': 'abc'
           'Radio': 'Two'
         })
+
+      describe 'feature flags', ->
+
+        describe 'useUpdatedStructure', ->
+          testForm = undefined
+          testSel = undefined
+
+          beforeEach ->
+            testSel = div()
+            testForm = new Form(testSel, {
+              featureFlags: {
+                useUpdatedStructure: true,
+              },
+            })
+            .addText('Text')
+            .addTextArea('Text Area')
+            .addCheckbox('Checkbox')
+            .addRadio('Radio', ['One', 'Two', 'Three'])
+
+          it 'adds hx-flag-form', ->
+            testSel.classed('hx-flag-form').should.equal(true)
+
+          it 'adds hx-flag-button', ->
+            testSel.classed('hx-flag-button').should.equal(true)
+
+          it 'does not add hx-form-vertical', ->
+            testSel.classed('hx-form-vertical').should.equal(false)
+
+          it 'wraps each field with a hx-form-group', ->
+            testSel.selectAll('.hx-form-group').size().should.equal(4)
+
+          it 'wraps checkbox and radio fields with hx-form-items', ->
+            testSel.selectAll('.hx-form-items').size().should.equal(2)
+
+          it 'wraps each checkbox and radio input in a hx-field-item', ->
+            testSel.selectAll('.hx-form-item').size().should.equal(4)
+
+          it 'uses the hx-input class', ->
+            testSel.selectAll('.hx-input').size().should.equal(1)
+
+          it 'uses the hx-input-textarea class', ->
+            testSel.selectAll('.hx-input-textarea').size().should.equal(1)
+
+          it 'uses the hx-input-checkbox class', ->
+            testSel.selectAll('.hx-input-checkbox').size().should.equal(1)
+
+          it 'uses the hx-input-radio class', ->
+            testSel.selectAll('.hx-input-radio').size().should.equal(3)
+
+          it 'uses the hx-form-label class', ->
+            testSel.selectAll('.hx-form-label').size().should.equal(7)
+
+        describe 'displayVertical', ->
+          testForm = undefined
+          testSel = undefined
+
+          beforeEach ->
+            testSel = div()
+            testForm = new Form(testSel, {
+              featureFlags: {
+                displayVertical: true,
+              },
+            })
+            .addText('Text')
+            .addTextArea('Text Area')
+            .addCheckbox('Checkbox')
+            .addRadio('Radio', ['One', 'Two', 'Three'])
+
+          it 'adds hx-flag-form', ->
+            testSel.classed('hx-flag-form').should.equal(true)
+
+          it 'adds hx-flag-button', ->
+            testSel.classed('hx-flag-button').should.equal(true)
+
+          it 'adds hx-form-vertical', ->
+            testSel.classed('hx-form-vertical').should.equal(true)
+
+          it 'wraps each field with a hx-form-group', ->
+            testSel.selectAll('.hx-form-group').size().should.equal(4)
+
+          it 'wraps checkbox and radio fields with hx-form-items', ->
+            testSel.selectAll('.hx-form-items').size().should.equal(2)
+
+          it 'wraps each checkbox and radio input in a hx-field-item', ->
+            testSel.selectAll('.hx-form-item').size().should.equal(4)
+
+          it 'uses the hx-input class', ->
+            testSel.selectAll('.hx-input').size().should.equal(1)
+
+          it 'uses the hx-input-textarea class', ->
+            testSel.selectAll('.hx-input-textarea').size().should.equal(1)
+
+          it 'uses the hx-input-checkbox class', ->
+            testSel.selectAll('.hx-input-checkbox').size().should.equal(1)
+
+          it 'uses the hx-input-radio class', ->
+            testSel.selectAll('.hx-input-radio').size().should.equal(3)
+
+          it 'uses the hx-form-label class', ->
+            testSel.selectAll('.hx-form-label').size().should.equal(7)
