@@ -296,11 +296,36 @@ export default () ->
     it 'should try to match the width of the parent if matchWidth is true', ->
       button.text('Wider button for testing')
 
-      dd = new Dropdown(button, content, {matchWidt: true })
+      dd = new Dropdown(button, content, {matchWidth: true })
 
       dd.show()
       dd._.dropdown.style('min-width').should.equal(button.style('width'))
       clock.tick(301)
+
+    # PhantomJS doesn't support `MutationObserver`
+    if navigator.userAgent.indexOf("PhantomJS") is -1
+      it 're-positions the dropdown when the content is changed', (done) ->
+        fixture.clear()
+        clock.restore()
+
+        bottomElement = fixture.append(div()
+          .style('position', 'fixed')
+          .style('bottom', '0')
+          .style('left', '0')
+          .text('Bottom Element'))
+
+        contents = div()
+
+        dd = new Dropdown(bottomElement, contents)
+        dd.show()
+        top = dd._.dropdown.style('top')
+        contents.add(div().text('Something'))
+        setTimeout ->
+          updatedTop = dd._.dropdown.style('top')
+          top.should.not.eql(updatedTop)
+          done()
+        , 1
+
 
     describe 'calculateDropdownPosition', ->
 

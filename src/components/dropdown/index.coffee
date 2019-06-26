@@ -15,6 +15,47 @@ export config = {
 checkFixedPos = (node) ->
   if select(node).style('position') is 'fixed' then true
 
+positionDropdown = ({alignments, selection, dropdown, useScroll}, {matchWidth}) ->
+  dropdown.style('display', 'block')
+
+  # extract measurements from the dom
+  rect = selection.box()
+  dropdownRect = dropdown.box()
+  ddMaxHeight = dropdown.style('max-height').replace('px','')
+  parentFixed = checkParents(selection.node(), checkFixedPos)
+  zIndex = parentZIndex(selection.node(), true)
+
+  # calculate the position of the dropdown
+  {x, y} = calculateDropdownPosition(
+    alignments,
+    { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
+    { width: dropdownRect.width, height: dropdownRect.height },
+    { width: window.innerWidth, height: window.innerHeight },
+    ddMaxHeight,
+    scrollbarSize()
+  )
+
+  if not parentFixed
+    x += window.scrollX || window.pageXOffset
+    y += window.scrollY || window.pageYOffset
+
+  # update the styles for the dropdown
+  if zIndex > 0
+    dropdown.style('z-index', zIndex + 1)
+
+  if parentFixed
+    dropdown.style('position', 'fixed')
+
+  if matchWidth
+    dropdown.style('min-width', rect.width + 'px')
+
+  if useScroll and dropdown?
+    dropdown.style('overflow-y','auto')
+
+  dropdown
+    .style('left', x + 'px')
+    .style('top', y + 'px')
+
 dropdownContentToSetupDropdown = (dropdownContent) ->
   # XXX Breaking: Renderer
   # Needs updating to new renderer pattern
@@ -37,7 +78,6 @@ dropdownContentToSetupDropdown = (dropdownContent) ->
 
 
 export class Dropdown extends EventEmitter
-
   constructor: (selector, dropdownContent, options) ->
     super()
 
@@ -140,45 +180,22 @@ export class Dropdown extends EventEmitter
       _.clickDetector.addException(_.dropdown.node())
       _.clickDetector.addException(_.selection.node())
 
-      _.dropdown.style('display', 'block')
+      position = =>
+        positionDropdown(_, @options)
 
-      # extract measurements from the dom
-      rect = _.selection.box()
-      dropdownRect = _.dropdown.box()
-      ddMaxHeight = _.dropdown.style('max-height').replace('px','')
-      parentFixed = checkParents(_.selection.node(), checkFixedPos)
-      zIndex = parentZIndex(_.selection.node(), true)
+      position();
 
-      # calculate the position of the dropdown
-      {x, y} = calculateDropdownPosition(
-        _.alignments,
-        { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
-        { width: dropdownRect.width, height: dropdownRect.height },
-        { width: window.innerWidth, height: window.innerHeight },
-        ddMaxHeight,
-        scrollbarSize()
-      )
+      if MutationObserver
+        contentChangeObserver = new MutationObserver (mutationsList, observer) ->
+          position();
 
-      if not parentFixed
-        x += window.scrollX || window.pageXOffset
-        y += window.scrollY || window.pageYOffset
+        contentChangeObserver.observe(_.dropdown.node(), {
+          attributes: false,
+          childList: true,
+          subtree: true
+        })
 
-      # update the styles for the dropdown
-      if zIndex > 0
-        _.dropdown.style('z-index', zIndex + 1)
-
-      if parentFixed
-        _.dropdown.style('position', 'fixed')
-
-      if @options.matchWidth
-        _.dropdown.style('min-width', rect.width + 'px')
-
-      if _.useScroll and _.dropdown?
-        _.dropdown.style('overflow-y','auto')
-
-      _.dropdown
-        .style('left', x + 'px')
-        .style('top', y + 'px')
+        _.contentChangeObserver = contentChangeObserver
 
       @emit('showstart')
       @emit('change', true)
@@ -190,6 +207,7 @@ export class Dropdown extends EventEmitter
     _ = @_
     if _.visible
       _.visible = false
+      _.contentChangeObserver?.disconnect()
       @emit('hidestart') # future proofing for addition of animations
       @emit('change', false)
       @emit('hideend') # future proofing for addition of animations
