@@ -91,9 +91,9 @@
           <div id="tab2" class="hx-tab" data-content="tab-content-2">Tab 2</div>
           <div id="tab3" class="hx-tab" data-content="tab-content-3">Tab 3</div>
           <div class="hx-tabs-content demo-tabs-content-padded">
-            <div id="tab-content-1" class="hx-tab-content" style="padding: 1em;">Stuff goes here 1</div>
-            <div id="tab-content-2" class="hx-tab-content" style="padding: 1em;">Stuff goes here 2</div>
-            <div id="tab-content-3" class="hx-tab-content" style="padding: 1em;">Stuff goes here 3</div>
+            <div id="tab-content-1" class="hx-tab-content">Stuff goes here 1</div>
+            <div id="tab-content-2" class="hx-tab-content">Stuff goes here 2</div>
+            <div id="tab-content-3" class="hx-tab-content">Stuff goes here 3</div>
           </div>
         </div>
 
