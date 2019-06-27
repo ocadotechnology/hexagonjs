@@ -7,7 +7,7 @@ const codeHighlight = require('quantum-code-highlight')
 
 const entityTransforms = require('./transforms/transforms')
 
-const latestVersion = require('./package.json').devDependencies['hexagon-js']
+const latestVersion = require('./package.json').dependencies['hexagon-js']
 
 const typeLinks = {
   'Array': 'https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array',
