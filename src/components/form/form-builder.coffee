@@ -209,11 +209,13 @@ export class Form extends EventEmitter
 
     @properties.set options.key,
       type: 'button'
-      node: formBtn.node()
-      options: {}
-      extras: {
-        disable: (s, disabled) -> formBtn.attr('disabled', if disabled then 'disabled' else undefined)
+      elem: elem,
+      options: {
+        hidden: options.hidden,
+        disabled: options.disabled,
       }
+      disable: (disabled) -> formBtn.attr('disabled', if disabled then 'disabled' else undefined)
+      hide: (hide) -> elem.style('display', if hide then 'none' else '')
 
     if options.hidden then @hidden options.key, options.hidden
     if options.disabled then @disabled options.key, options.disabled
