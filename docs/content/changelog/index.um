@@ -557,5 +557,7 @@
           @item: @code[hx-flag-tag-input] - Initial tweaks to work with hx-flag-form
           @item: @code[hx-flag-icon] - Use FontAwesome 5 (free) instead of embedded hexagon-icons font
 
+        Resolved an issue with @code[hx.Form] where elements added with @code[addButton] could not be retrieved with @code[.node(...)]
+
         Also removed the animation from dropdowns to make them feel more responsive and updated them to use @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)[MutationObserver]
         to detect when the content is changed and re-position the dropdown.

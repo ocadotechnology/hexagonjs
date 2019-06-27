@@ -1,4 +1,8 @@
 @prototype hx.Form
+  @bugfix 2.2.0
+    @description
+      Resolved an issue where elements added with @code[addButton] could not be retrieved with @code[.node(...)]
+
   @bugfix 2.0.2
     @description
       Resolved an issue where a text field with an autocompelete was incorrectly wrapped with a div, breaking the alignment of the form.
