@@ -215,6 +215,7 @@
   margin: 0.2em 2px 0 0;
 }
 
+.hx-data-table.hx-flag-table .hx-data-table-cell,
 .hx-data-table .hx-data-table-cell {
   padding: 0;
 }
@@ -226,6 +227,11 @@
 .hx-data-table .hx-data-table-cell-inner,
 .hx-data-table .hx-data-table-cell-value {
   padding: 0.3em 0.75em;
+}
+
+.hx-data-table.hx-flag-table .hx-data-table-cell-inner,
+.hx-data-table.hx-flag-table .hx-data-table-cell-value {
+  padding: 0.4em 0.75em;
 }
 
 .hx-data-table .hx-data-table-cell-inner {

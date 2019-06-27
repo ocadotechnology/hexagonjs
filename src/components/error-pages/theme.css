@@ -20,5 +20,10 @@
 .hx-error-message-heading + .hx-error-message-body,
 .hx-error-message-heading + div {
   font-size: var(--error-pages-body-font-size);
+  font-weight: var(--error-pages-body-font-weight);
   margin-bottom: var(--error-pages-body-margin);
+}
+
+.hx-error-message-buttons .hx-btn {
+  margin: 0 5px;
 }

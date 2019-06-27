@@ -1,6 +1,7 @@
 @import "utils/palette/theme";
 @import "components/base/theme";
 
+@import "components/input/theme";
 @import "components/spinner/theme";
 @import "components/modal/theme";
 @import "components/notify/theme";

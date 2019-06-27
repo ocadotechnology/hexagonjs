@@ -1,0 +1,21 @@
+@class hx-input
+  @added 2.2.0
+  @description
+    A class to give to inputs to apply the Hexagon styling to them.
+
+    This replaces the styles applied directly to the @code[input] tag which will be removed in the next major release
+
+@class hx-input-textarea
+  @added 2.2.0
+  @description
+    A class to give to textarea elements to apply the hexagon styling.
+
+@class hx-input-checkbox
+  @added 2.2.0
+  @description
+    A class to give to an input of type 'checkbox' to apply the hexagon styling.
+
+@class hx-input-radio
+  @added 2.2.0
+  @description
+    A class to give to an input of type 'radio' to apply the hexagon styling.

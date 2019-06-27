@@ -63,7 +63,7 @@ export class NumberPicker extends EventEmitter
     incrementButton.append('i').class('hx-icon hx-icon-chevron-up')
     addHoldHandler(@options.incrementOnHold, @options.incrementDelay, incrementButton, => @increment())
 
-    @selectInput = selection.append('input')
+    @selectInput = selection.append('input').class('hx-number-picker-input')
     @selectInput.attr('type', 'number')
     @selectInput.on 'blur', 'hx.number-picker', =>
       if @selectInput.attr('readonly') is undefined

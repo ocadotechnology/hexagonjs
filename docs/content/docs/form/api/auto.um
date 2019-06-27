@@ -15,6 +15,65 @@
   @description
     Give to the form element to style forms
 
+@class hx-form.hx-flag-form
+  @added 2.2.0
+
+  @description
+    Display the form using the updated structure. Intended for use with @code[hx-input] etc. @hyperlink(../input)[Inputs] and the @code[hx-flag-button] class.
+
+  @extra
+    @@codeblock html
+      <form class="hx-form hx-form-vertical hx-flag-form hx-flag-button">
+        <div class="hx-form-group">
+          <label class="hx-form-label">Label</label>
+          <input class="hx-input" />
+        </div>
+        <div class="hx-form-group">
+          <div class="hx-form-items">
+            <div class="hx-form-item">
+              <input type="radio" class="hx-input-radio">
+              <label class="hx-form-label">Label</label>
+            </div>
+            <div class="hx-form-item">
+              <input type="radio" class="hx-input-radio">
+              <label class="hx-form-label">Label</label>
+            </div>
+            <div class="hx-form-item">
+              <input type="radio" class="hx-input-radio">
+              <label class="hx-form-label">Label</label>
+            </div>
+          </div>
+        </div>
+        <div class="hx-form-buttons">
+          <button type="button" class="hx-btn">Cancel</button>
+          <button type="button" class="hx-btn hx-primary">Submit</button>
+        </div>
+      </form>
+
+  @extraClass hx-form-vertical
+    @description
+      Swap the form to a vertical layout.
+
+  @class hx-form-group
+    @description
+      The class to give to the container for each element in a form
+
+    @class hx-form-items
+      @description
+        The class to wrap form items that have multiple elements (e.g. a radio group)
+
+      @class hx-form-item
+        @description
+          The class to wrap an individual form item (e.g. a single radio input + label)
+
+  @class hx-form-label
+    @description
+      Styles a @code[label]
+
+  @class hx-form-buttons
+    @description
+      The container for the form buttons. Should only include @code[hx-btn] elements.
+
 @function hx.validateForm
   @added 0.12.0
   @deprecated 0.13.0

@@ -168,3 +168,59 @@
           .addSubmit('Submit', 'fa fa-check')
           .on('submit', function (data) {console.log(data)})
 
+
+@version 2.2.0
+  @examples
+    @example
+      @@html
+        <p class="hx-header-small">Horizontal Form</p>
+        <form id="horizontal-form"></form>
+
+      @@js
+        var form = new hx.Form('#horizontal-form', { featureFlags: { useUpdatedStructure: true } })
+          .addText('Text A', { placeholder: 'Text A' })
+          .addText('Text B', { required: true, placeholder: 'Text B' })
+          .addButton('Cancel', () => console.log('Clicked Cancel'))
+          .addSubmit('Submit', undefined, undefined, { context: 'primary' })
+          .on('submit', function (data) {console.log(data)})
+
+    @example
+      @@html
+        <p class="hx-header-small">Vertical Form</p>
+        <p>Vertical forms are intended for use inside containers like Modals. </p>
+        <form id="vertical-form"></form>
+
+      @@js
+        var form = new hx.Form('#vertical-form', { featureFlags: { useUpdatedStructure: true, displayVertical: true } })
+          .addText('Text A', { placeholder: 'Text A' })
+          .addText('Text B', { required: true, placeholder: 'Text B' })
+          .addButton('Cancel', () => console.log('Clicked Cancel'))
+          .addSubmit('Submit', undefined, undefined, { context: 'primary' })
+          .on('submit', function (data) {console.log(data)})
+
+    @example
+      @@html
+        <p class="hx-header-small">Full Form</p>
+        <p>This form is designed as an example of all the components. It's displayed vertically to account for the narrow column of the documentation</p>
+        <form id="full-form"></form>
+
+      @@js
+        var form = new hx.Form('#full-form', { featureFlags: { useUpdatedStructure: true, displayVertical: true } })
+          .addText('Text', { required: true, placeholder: 'Name' })
+          .addTextArea('Text Area', { placeholder: 'Name' })
+          .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
+          .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
+          .addNumber('Number', {required: true})
+          .addPicker('Select', ['red', 'green', 'blue'])
+          .addCheckbox('Checkbox')
+          .addPassword('Password')
+          .addRadio('Radio', ['One', 'Two', 'Three'])
+          .addTagInput('Tag Input')
+          .addFileInput('File Input')
+          .addDatePicker('Date Picker')
+          .addTimePicker('Time Picker')
+          .addDateTimePicker('Date Time Picker')
+          .addButton('Cancel', () => console.log('Clicked Cancel'))
+          .addSubmit('Submit', undefined, undefined, { context: 'primary' })
+          .on('submit', function (data) {console.log(data)})
+

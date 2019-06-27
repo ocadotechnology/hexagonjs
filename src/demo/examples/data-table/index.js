@@ -2,6 +2,8 @@ import {
   div, detached, dataTable, objectFeed, filterTypes, range, cycle,
 } from 'hexagon-js';
 
+const br = () => detached('br');
+const note = () => detached('note');
 
 export default () => {
   const professions = [
@@ -51,18 +53,21 @@ export default () => {
 
   return [
     dataTable({ feed }),
-    detached('br'),
+    br(),
+    note().text('Data table with table styles feature flag'),
+    dataTable({ feed }).classed('hx-flag-table', true),
+    br(),
     dataTable({
       feed,
       rowCollapsibleLookup: () => true,
       collapsibleRenderer: () => div().text('Bob'),
     }),
-    detached('br'),
+    br(),
     dataTable({
       feed,
       selectEnabled: true,
     }),
-    detached('br'),
+    br(),
     dataTable({
       feed,
       filterEnabled: false, // Disable the normal filter
@@ -77,7 +82,7 @@ export default () => {
         ],
       ],
     }),
-    detached('br'),
+    br(),
     dataTable({
       feed: randomFeed,
     }),

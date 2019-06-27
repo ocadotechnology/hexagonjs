@@ -5,13 +5,85 @@
 @import "examples/error-page";
 @import "examples/sidebar";
 
-.example-section {
-  margin: 2em 0;
-}
-
 .big-ol-error {
   padding: 1em;
   background: #FFE6F1;
   border: 1px solid #f91076;
   color: #f91076;
+}
+
+.toc {
+  list-style-type: none;
+  padding: 0 1em;
+}
+
+.toc li:before {
+  content: '-';
+  margin-right: 1em;
+}
+
+hr {
+  clear: right;
+  margin: 2em 0;
+  border: none;
+  border-top: 1px solid #EEE;
+}
+
+.example-section{
+  margin: 0;
+  padding: 2em;
+  box-shadow: 0 5px 5px -5px #000;
+}
+
+.example-header {
+  margin-top: 0;
+  margin-bottom: 2em;
+}
+
+vr {
+  flex: 0;
+  border-left: 1px solid #EEE;
+  margin: 0 2em;
+  display: inline-block;
+}
+
+note {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  color: #ff0059;
+  font-weight: bold;
+}
+
+.back-to-top {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  float: right;
+  text-transform: uppercase;
+}
+
+.back-to-top::before {
+  content: '➜';
+  display: inline-block;
+  transform: rotate(-90deg);
+  margin-right: 5px;
+}
+
+.do:before {
+  display: block;
+  content: '✔ Do';
+  color: green;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 1em;
+}
+
+.dont:before {
+  display: block;
+  content: '✘ Don\'t';
+  color: red;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 1em;
 }

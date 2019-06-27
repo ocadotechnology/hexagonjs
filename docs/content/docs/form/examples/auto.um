@@ -161,3 +161,117 @@
       @@js
         var tagInput = new hx.TagInput('#tagInput')
         tagInput.items(['a','b'])
+
+@version 2.0.0
+  @examples
+    @example
+      @@html
+        <p class="hx-header-small">Horizontal Form</p>
+        <form class="hx-form hx-flag-form hx-flag-button">
+          <div class="hx-form-group">
+            <label class="hx-form-label">Text</label>
+            <input class="hx-input" type="text">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Email</label>
+            <input class="hx-input" type="email">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Number</label>
+            <input class="hx-input" type="number">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Url</label>
+            <input class="hx-input" type="url">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Lots of text</label>
+            <textarea class="hx-input-textarea"></textarea>
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Radio</label>
+            <div class="hx-form-items hx-form-columns-2">
+              <div class="hx-form-item">
+                <input class="hx-input-radio" id="radio1" type="radio" value="One" name="group-1">
+                <label class="hx-form-label"for="radio1">One</label>
+              </div>
+              <div class="hx-form-item">
+                <input class="hx-input-radio" id="radio2" type="radio" value="Two" name="group-1">
+                <label class="hx-form-label"for="radio2">Two</label>
+              </div>
+              <div class="hx-form-item">
+                <input class="hx-input-radio" id="radio3" type="radio" value="Three" name="group-1">
+                <label class="hx-form-label"for="radio3">Three</label>
+              </div>
+            </div>
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Checkbox</label>
+            <div class="hx-form-items">
+              <div class="hx-form-item">
+                <input class="hx-input-checkbox" id="checkbox1" type="checkbox">
+                <label class="hx-form-label for="checkbox1" >Value</label>
+              </div>
+            </div>
+          </div>
+          <div class="hx-form-buttons">
+            <button type="submit" class="hx-btn">Cancel</button>
+            <button type="submit" class="hx-btn hx-primary">Submit</button>
+          </div>
+        </form>
+
+    @example
+      @@html
+        <p class="hx-header-small">Vertical Form</p>
+        <form class="hx-form hx-form-vertical hx-flag-form hx-flag-button">
+          <div class="hx-form-group">
+            <label class="hx-form-label">Text</label>
+            <input class="hx-input" type="text">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Email</label>
+            <input class="hx-input" type="email">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Number</label>
+            <input class="hx-input" type="number">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Url</label>
+            <input class="hx-input" type="url">
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Lots of text</label>
+            <textarea class="hx-input-textarea"></textarea>
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Radio</label>
+            <div class="hx-form-items hx-form-columns-2">
+              <div class="hx-form-item">
+                <input class="hx-input-radio" id="radio1" type="radio" value="One" name="group-1">
+                <label class="hx-form-label"for="radio1">One</label>
+              </div>
+              <div class="hx-form-item">
+                <input class="hx-input-radio" id="radio2" type="radio" value="Two" name="group-1">
+                <label class="hx-form-label"for="radio2">Two</label>
+              </div>
+              <div class="hx-form-item">
+                <input class="hx-input-radio" id="radio3" type="radio" value="Three" name="group-1">
+                <label class="hx-form-label"for="radio3">Three</label>
+              </div>
+            </div>
+          </div>
+          <div class="hx-form-group">
+            <label class="hx-form-label">Checkbox</label>
+            <div class="hx-form-items">
+              <div class="hx-form-item">
+                <input class="hx-input-checkbox" id="checkbox1" type="checkbox">
+                <label class="hx-form-label for="checkbox1" >Value</label>
+              </div>
+            </div>
+          </div>
+          <div class="hx-form-buttons">
+            <button type="submit" class="hx-btn">Cancel</button>
+            <button type="submit" class="hx-btn hx-primary">Submit</button>
+          </div>
+        </form>

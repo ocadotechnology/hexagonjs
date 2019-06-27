@@ -68,3 +68,31 @@
   margin: 0 auto;
 }
 
+.hx-flag-table.hx-table,
+.hx-flag-table .hx-table {
+  font-size: 1em;
+  min-width: 100%;
+}
+
+.hx-flag-table.hx-table th,
+.hx-flag-table.hx-table td,
+.hx-flag-table .hx-table th,
+.hx-flag-table .hx-table td {
+  vertical-align: top;
+  height: 40px;
+  box-sizing: border-box;
+  line-height: 30px;
+}
+
+.hx-flag-table.hx-table td,
+.hx-flag-table .hx-table td {
+  border: none;
+}
+
+.hx-table.hx-table-clickable-rows tbody tr {
+  cursor: pointer;
+}
+
+.hx-table.hx-table-small {
+  min-width: 0;
+}

@@ -27,12 +27,43 @@
 
   @extends EventEmitter
   @constructor
+    @removed 2.2.0
+      @description
+        Added options argument to constructor
     @description
       Creates a new Form object that is linked to a form element on the page.
 
     @arg selector [HTMLElement/String]
       @description
         An HTMLElement or CSS selector that uniquely identifies your form.
+
+  @constructor
+    @added 2.2.0
+      @description
+        Added options argument to constructor
+
+    @description
+      Creates a new Form object that is linked to a form element on the page.
+
+    @arg selector [HTMLElement/String]
+      @description
+        An HTMLElement or CSS selector that uniquely identifies your form.
+
+    @arg? options [Object]
+      @property featureFlags [Object]
+        @property useUpdatedStructure [Boolean]
+          @description
+            Whether to use the updated form structure
+
+          @default: false
+
+        @property displayVertical [Boolean]
+          @description
+            Whether to display the form fields stacked vertically or horizontally depending on whether the area for the form is a narrow column or a full-width page.
+
+            Only applies when useUpdatedStructure is true. Default displays the form horizontally.
+
+          @default: false
 
   @method getData
     @deprecated 0.11.0

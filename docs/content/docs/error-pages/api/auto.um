@@ -21,3 +21,43 @@
     @description
       A container for buttons to help the user navigate away from the issue or perform another action.
 
+@function errorPage
+  @added 2.2.0
+
+  @description
+    A function for creating an error page as a Selection based on passed in arguments
+
+  @arg? options [Object]
+    @property title [String]
+      @description
+        The title for the error message
+
+    @property message [String]
+      @description
+        The body of the error message. Strings containing newlines (@code[\n]) will be split into paragraphs.
+
+    @property buttons [Array[Button]]
+      @description
+        An array of button objects to display. Usually consists of a link to go back and a link to the home page.
+
+      @extra
+        @object Button
+          @collapsed false
+
+          @property text [String]
+            @description
+              The text to display on the button
+
+          @property url [String]
+            @description
+              The url to link to. This causes the button to be an @code[<a>] element
+
+          @property onClick [Function]
+            @description
+              The function to call when clicking the button. Takes precedence over @code[url]
+
+              This causes the button to be a @code[<button>] element
+
+          @property buttonType [String]
+            @description
+              The button type to use. Can be undefined or one of @code['primary'] or @code['secondary'].

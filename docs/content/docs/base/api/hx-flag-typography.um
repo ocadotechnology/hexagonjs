@@ -1,0 +1,5 @@
+@class hx-flag-typography
+  @added 2.2.0
+
+  @description
+    Update the font styles within the container this class is applied to.

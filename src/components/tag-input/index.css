@@ -64,3 +64,12 @@
 .hx-tag.hx-disabled .hx-tag-remove {
   cursor: not-allowed;
 }
+
+
+.hx-flag-tag-input.hx-tag-input .hx-tags-container {
+  align-items: center;
+}
+
+.hx-flag-tag-input.hx-tag-input .hx-tag-input-container {
+  margin-right: -2px;
+}

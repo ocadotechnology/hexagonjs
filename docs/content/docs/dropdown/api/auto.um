@@ -10,6 +10,12 @@
     @description
       Fixed a bug with the dropdown positioning logic.
 
+  @updated 2.2.0
+    @description
+      Removed the animation from the show/hide for dropdowns. The showstart/showend etc. events will be deprecated in a minor release and removed in the next major release.
+
+      Also converted the dropdown to reposition whenever the content is updated to prevent overlap or overflow outside the window area. Uses @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)[MutationObserver]
+
   @description
     An api for creating a dropdown that shows when the user either clicks or hovers over an element.
 

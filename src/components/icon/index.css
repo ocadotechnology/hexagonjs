@@ -18,6 +18,21 @@ i.hx-icon {
   transform: translate(0, 0);
 }
 
+.hx-flag-icon i.hx-icon,
+i.hx-icon.hx-flag-icon {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-size: inherit;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+  transform: translate(0, 0);
+  font-weight: 900;
+}
+
 @keyframes hx-icon-spin {
   0% {
     transform: rotate(0deg);
@@ -59,10 +74,16 @@ i.hx-icon {
 
 .hx-icon-clock-o:before {
   content: "\f017";
+  font-weight: normal;
 }
 
 .hx-icon-arrows:before {
   content: "\f047";
+}
+
+.hx-flag-icon .hx-icon-arrows:before,
+.hx-flag-icon.hx-icon-arrows:before {
+  content: "\f0b2";
 }
 
 .hx-icon-step-backward:before {
@@ -99,6 +120,7 @@ i.hx-icon {
 
 .hx-icon-calendar:before {
   content: "\f073";
+  font-weight: normal;
 }
 
 .hx-icon-chevron-up:before {

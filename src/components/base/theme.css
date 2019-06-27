@@ -1,4 +1,7 @@
-html,
+html {
+  font-size: var(--base-root-font-size);
+}
+
 body {
   font-size: var(--base-default-font-size);
 }
@@ -26,6 +29,8 @@ h6,
   font-family: var(--base-heading-font-family);
   color: var(--base-heading-text-color);
 }
+
+
 
 textarea,
 input {
@@ -68,4 +73,42 @@ a {
 hr {
   border-color: var(--base-divider-color);
   border-style: var(--base-divider-style);
+}
+
+.hx-text-large {
+  font-size: var(--base-large-font-size);
+}
+
+.hx-text-small {
+  font-size: var(--base-small-font-size);
+}
+
+.hx-flag-typography h1,
+.hx-flag-typography .hx-header-large,
+h1.hx-flag-typography,
+.hx-header-large.hx-flag-typography {
+  font-size: var(--base-large-header-font-size);
+  font-weight: var(--base-large-header-font-weight);
+  line-height: var(--base-large-header-line-height);
+  margin: 0 0 var(--base-header-bottom-margin) 0;
+}
+
+.hx-flag-typography h2,
+.hx-flag-typography .hx-header-medium,
+h2.hx-flag-typography,
+.hx-header-medium.hx-flag-typography {
+  font-size: var(--base-medium-header-font-size);
+  font-weight: var(--base-medium-header-font-weight);
+  line-height: var(--base-medium-header-line-height);
+  margin: 0 0 var(--base-header-bottom-margin) 0;
+}
+
+.hx-flag-typography h3,
+.hx-flag-typography .hx-header-small,
+h3.hx-flag-typography,
+.hx-header-small.hx-flag-typography {
+  font-size: var(--base-small-header-font-size);
+  font-weight: var(--base-small-header-font-weight);
+  line-height: var(--base-small-header-line-height);
+  margin: 0 0 var(--base-header-bottom-margin) 0;
 }

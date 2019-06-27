@@ -50,3 +50,37 @@
 .hx-tab.hx-contrast {
   border-color: var(--tabs-contrast-border-color);
 }
+
+.hx-flag-tabs .hx-tab:first-child {
+  margin-left: var(--tabs-first-tab-offset);
+}
+
+.hx-flag-tabs .hx-tab {
+  opacity: 1;
+  background: transparent;
+  box-shadow: none;
+  border-color: transparent;
+  padding: var(--tabs-tab-padding);
+  font-weight: var(--tabs-font-weight);
+}
+
+.hx-flag-tabs .hx-tab:hover {
+  color: var(--tabs-hover-text-color);
+  background: var(--tabs-hover-background-color);
+  border-bottom: 1px solid var(--tabs-border-color);
+}
+
+.hx-flag-tabs .hx-tab.hx-tab-active {
+  color: var(--tabs-active-text-color);
+  border-color: var(--tabs-border-color);
+  border-top-color: var(--tabs-active-border-color);
+  border-bottom-color: transparent;
+  background: var(--tabs-active-background-color);
+}
+
+.hx-flag-tabs .hx-tabs-content {
+  border: none;
+  border-top: 1px solid var(--tabs-border-color);
+  box-shadow: none;
+  padding: var(--tabs-content-padding);
+}

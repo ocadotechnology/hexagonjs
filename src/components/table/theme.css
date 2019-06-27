@@ -31,3 +31,18 @@
 .hx-table.hx-table-no-hover tbody tr:nth-child(2n):hover {
   background: var(--table-row-alt-background-color);
 }
+
+.hx-flag-table.hx-table tbody tr:hover,
+.hx-flag-table .hx-table tbody tr:hover {
+  background: var(--table-row-background-color);
+}
+
+.hx-flag-table.hx-table tbody tr:nth-child(2n):hover,
+.hx-flag-table .hx-table tbody tr:nth-child(2n):hover {
+  background: var(--table-row-alt-background-color);
+}
+
+.hx-table.hx-table-clickable-rows tbody tr:hover,
+.hx-table.hx-table-clickable-rows tbody tr:nth-child(2n):hover {
+  background: var(--table-row-hover-background-color);
+}

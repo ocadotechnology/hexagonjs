@@ -9,6 +9,18 @@
 
 
 @contentSection
+  @notice [Version 2.x]
+    In version 2 of Hexagon, the user experience and interface are being overhauled to add guidelines and improve the general usability of the library.
+
+    Additional classes have been added to provide better form styling, including additions to the structure.
+
+    It is recommended that forms be created using the @hyperlink(../form-bilder)[Form Builder] to help ensure the format of the form is valid, although
+    it is possible to create a form manually, as seen below.
+
+    See @hyperlink(../form)[Form] and @hyperlink(../input)[Inputs] for documentation about the new structure classes.
+
+    Using the new structure will automatically apply feature flags to child components (e.g. the @code[DatePicker]) to ensure consistency for each field.
+
   @topic Examples
     @examples
       @versioned

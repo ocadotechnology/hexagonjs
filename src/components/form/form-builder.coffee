@@ -26,14 +26,26 @@ getButtons = (form) ->
   else sel
 
 export class Form extends EventEmitter
-  constructor: (@selector) ->
+  constructor: (@selector, options) ->
     super()
+
+    @options = merge({
+      featureFlags: {
+        useUpdatedStructure: false, # Whether to use the new form classes
+        displayVertical: false,
+      }
+    }, options)
+
+    if @options.featureFlags.displayVertical
+      @options.featureFlags.useUpdatedStructure = true
 
     @formId = 'form-' + randomId() + '-'
     @properties = new HMap
 
     select(@selector)
       .classed('hx-form', true)
+      .classed('hx-flag-form hx-flag-button', @options.featureFlags.useUpdatedStructure)
+      .classed('hx-form-vertical', @options.featureFlags.useUpdatedStructure and @options.featureFlags.displayVertical)
       .api('form-builder', this)
       .api(this)
       .on 'keypress', 'hx.form-builder', (e) ->
@@ -117,14 +129,20 @@ export class Form extends EventEmitter
     id = @formId + name.split(' ').join('-')
     formSel = select(@selector)
     entry = formSel.append('div')
+      .classed('hx-form-group', @options.featureFlags.useUpdatedStructure)
 
     # Append buttons container to the end of the form
     formSel.append(getButtons(this))
 
-    entry.append('label').attr('for', id).text(name)
-    prop = f() or {}
+    entry.append('label')
+      .classed('hx-form-label', @options.featureFlags.useUpdatedStructure)
+      .attr('for', id)
+      .text(name)
+
+    prop = f.call(this) or {}
     key = prop.key || name
-    selection = entry.append(prop.elem).attr('id', id)
+    selection = entry.append(prop.elem)
+      .attr('id', id)
 
     # Define the default function for enabling/disabling a form property
     prop.disable ?= (disable) ->
@@ -175,13 +193,19 @@ export class Form extends EventEmitter
     formBtn = button("hx-btn hx-#{options.context}")
       .attr('type', options.buttonType)
       .attr('id',id)
-      .add(if options.icon then i(options.icon) else undefined)
+      .add(if (not @options.featureFlags.useUpdatedStructure) and options.icon then i(options.icon) else undefined)
       .add(span().text(" " + text))
       .on 'click', 'hx.form-builder', (e) =>
         e.preventDefault()
-        action?()
+        action?(@data())
 
-    elem = getButtons(this).append('div').add(formBtn)
+    elem = if @options.featureFlags.useUpdatedStructure
+      formBtn
+    else
+      div().add(formBtn)
+
+    getButtons(this)
+      .add(elem)
 
     @properties.set options.key,
       type: 'button'
@@ -199,7 +223,7 @@ export class Form extends EventEmitter
     defaultSubmitAction = () => @submit()
     @addButton(text, (submitAction or defaultSubmitAction), {
       key: text or options.key,
-      context: 'action',
+      context: options.context || 'action',
       buttonType: 'submit',
       icon: icon,
       hidden: options.hidden,
@@ -211,6 +235,7 @@ export class Form extends EventEmitter
     options.attrs ?= []
     @add name, 'text', ->
       elem = detached('input').attr('type', options.type)
+        .classed('hx-input', @options.featureFlags.useUpdatedStructure)
 
       if options.autoCompleteData or options.autoCompleteOptions
         logger.deprecated('Form::addText autoCompleteData/Options', 'Deprecated in favour of using the correct casing (autocompleteData and autocompleteOptions)')
@@ -259,6 +284,8 @@ export class Form extends EventEmitter
     options.attrs ?= []
     @add name, 'textarea', ->
       elem = detached('textarea')
+        .classed('hx-input-textarea', @options.featureFlags.useUpdatedStructure)
+
       if options.placeholder? then elem.attr('placeholder', options.placeholder)
       if options.required then elem.attr('required', options.required)
       elem.attr(attr.type, attr.value) for attr in options.attrs
@@ -275,12 +302,20 @@ export class Form extends EventEmitter
 
   addCheckbox: (name, options = {}) ->
     @add name, 'checkbox', ->
-      elem = detached('input').attr('type', 'checkbox')
-      if options.required? then elem.attr('required', options.required)
-      if options.value then elem.prop('checked', true)
+      input = detached('input').attr('type', 'checkbox')
+        .classed('hx-input-checkbox', @options.featureFlags.useUpdatedStructure)
 
-      setValue = (value) -> elem.prop('checked', value)
-      getValue = () -> elem.prop('checked')
+      elem = if @options.featureFlags.useUpdatedStructure
+        div('hx-form-items')
+          .add(div('hx-form-item').add(input))
+      else
+        input
+
+      if options.required? then input.attr('required', options.required)
+      if options.value then input.prop('checked', true)
+
+      setValue = (value) -> input.prop('checked', value)
+      getValue = () -> input.prop('checked')
 
       {
         key: options.key
@@ -297,14 +332,26 @@ export class Form extends EventEmitter
     self = this
     @add name, 'radio', ->
       elem = div()
+        .classed('hx-form-items', @options.featureFlags.useUpdatedStructure)
+
       id = self.formId + name.split(' ').join('-')
       count = 0
       for value in values
         item = div('hx-radio-container')
-        input = item.append('input').attr('type', 'radio').attr('name', id).attr('id',id+'-'+count).value(value)
+          .classed('hx-form-item', @options.featureFlags.useUpdatedStructure)
+
+        input = item.append('input')
+          .classed('hx-input-radio', @options.featureFlags.useUpdatedStructure)
+          .attr('type', 'radio')
+          .attr('name', id)
+          .attr('id',id+'-'+count).value(value)
+
         if options.required? then input.attr('required', options.required)
         if options.value is value then input.prop('checked', true)
-        item.append('label').attr('for', id + '-' + count).text(value)
+
+        item.append('label')
+          .classed('hx-form-label', @options.featureFlags.useUpdatedStructure)
+          .attr('for', id + '-' + count).text(value)
         elem.add(item)
         count += 1
 
@@ -379,8 +426,23 @@ export class Form extends EventEmitter
 
   addDatePicker: (name, options = {}) ->
     @add name, 'date-picker', ->
-      componentElem = div()
-      component = new DatePicker(componentElem, options.datePickerOptions)
+      componentElem = if (@options.featureFlags.useUpdatedStructure)
+        detached('input').class('hx-input')
+      else
+        div()
+
+      dpOpts = if (@options.featureFlags.useUpdatedStructure)
+        merge({}, options.datePickerOptions, {
+          v2Features: {
+            dontModifyDateOnError: true,
+            displayLongMonthInCalendar: true,
+            dontSetInitialInputValue: true,
+            updateVisibleMonthOnDateChange: true,
+          },
+        })
+      else options.datePickerOptions
+
+      component = new DatePicker(componentElem, dpOpts)
 
       if options.validStart? or options.validEnd?
         component.validRange(options.validStart, options.validEnd)
@@ -456,6 +518,15 @@ export class Form extends EventEmitter
     self = this
     @add name, 'tag-input', ->
       componentElem = div()
+
+      tiOpts = if (@options.featureFlags.useUpdatedStructure)
+        merge({}, options.tagInputOptions, {
+          featureFlags: {
+            useInputClass: true
+          },
+        })
+      else options.tagInputOptions
+
       if options.placeholder
         options.tagInputOptions ?= {}
         options.tagInputOptions.placeholder ?= options.placeholder
@@ -463,7 +534,7 @@ export class Form extends EventEmitter
       options.tagInputOptions ?= {}
       options.tagInputOptions.isInsideForm = true
 
-      component = new TagInput(componentElem, options.tagInputOptions)
+      component = new TagInput(componentElem, tiOpts)
 
       getValue = -> component.items()
       setValue = (items) -> component.items(items)

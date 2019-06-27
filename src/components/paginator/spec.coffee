@@ -17,10 +17,10 @@ export default () ->
 
     describe 'user facing text', ->
       it 'sets paginatorAria', -> userFacingText('paginator', 'paginatorAria').should.equal('Pagination navigation')
-      it 'sets currentPageAria', -> userFacingText('paginator', 'currentPageAria').should.equal('Current page, page $page')
-      it 'sets gotoPageAria', -> userFacingText('paginator', 'gotoPageAria').should.equal('Goto page $page')
-      it 'sets prevPageAria', -> userFacingText('paginator', 'prevPageAria').should.equal('Goto previous page, page $page')
-      it 'sets nextPageAria', -> userFacingText('paginator', 'nextPageAria').should.equal('Goto next page, page $page')
+      it 'sets currentPageAria', -> userFacingText('paginator', 'currentPageAria', true).should.equal('Current page, page $page')
+      it 'sets gotoPageAria', -> userFacingText('paginator', 'gotoPageAria', true).should.equal('Goto page $page')
+      it 'sets prevPageAria', -> userFacingText('paginator', 'prevPageAria', true).should.equal('Goto previous page, page $page')
+      it 'sets nextPageAria', -> userFacingText('paginator', 'nextPageAria', true).should.equal('Goto next page, page $page')
       it 'sets prev', -> userFacingText('paginator', 'prev').should.equal('Prev')
       it 'sets next', -> userFacingText('paginator', 'next').should.equal('Next')
 

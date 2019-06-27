@@ -78,6 +78,9 @@
     "run-tests-saucelabs": "browser-test-runner saucelabs test/index.html",
     "upload-coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
+  "optionalDependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0"
+  },
   "devDependencies": {
     "ajv": "^6.10.0",
     "browser-test-runner": "^0.7.1",

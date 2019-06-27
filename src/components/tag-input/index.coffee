@@ -40,7 +40,10 @@ class TagInput extends EventEmitter
       autocompleteOptions: {}
       excludeTags: true
       mustMatchAutocomplete: true,
-      isInsideForm: false
+      isInsideForm: false,
+      featureFlags: {
+        useInputClass: false
+      }
     }, options
 
     if @options.mustMatchAutocomplete
@@ -48,6 +51,7 @@ class TagInput extends EventEmitter
 
     @selection = select(@selector)
       .classed('hx-tag-input', true)
+      .classed('hx-flag-tag-input', @options.featureFlags.useInputClass)
       .api('tag-input', this)
       .api(this)
 
@@ -62,6 +66,8 @@ class TagInput extends EventEmitter
       .class('hx-tag-input-container')
 
     @input = inputContainer.append('input').attr('placeholder', @options.placeholder)
+      .classed('hx-input', @options.featureFlags.useInputClass)
+
     if @options.autocompleteData?
       isValid = if @options.validator? then (item) => not @options.validator(item) else identity
       filterFn = if @options.excludeTags then (item) => isValid(item) and not ~@items().indexOf(item.toString()) else isValid

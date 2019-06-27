@@ -110,11 +110,11 @@ module.exports = {
   resources: [
     {
       files: [
-        'node_modules/font-awesome/css/**',
-        'node_modules/font-awesome/fonts/**'
+        'node_modules/@fortawesome/fontawesome-free/css/**',
+        'node_modules/@fortawesome/fontawesome-free/webfonts/**'
       ],
-      base: 'node_modules',
-      dest: 'resources',
+      base: 'node_modules/@fortawesome/fontawesome-free',
+      dest: 'resources/font-awesome',
       watch: false
     },
     {

@@ -30,3 +30,41 @@
         <option>Option 2</option>
         <option>Option 3</option>
       </select>
+
+
+@version 2.2.0
+  @example
+    @@html
+      <div class="hx-flag-typography">
+        <h1>h1</h1>
+        <h2>h2</h2>
+        <h3>h3</h3>
+
+        <div class="hx-header-large">hx-header-large</div>
+        <div class="hx-header-medium">hx-header-medium</div>
+        <div class="hx-header-small">hx-header-small</div>
+        <div class="hx-header">hx-header</div>
+
+        <p class="hx-text-large">This an introduction text. It has a fixed size, and a custom line height, so you can experiment with it. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+        <p>This is body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vulputate diam eu pretium. Mauris elit orci, ultricies id fermentum vel, porta et eros. Vestibulum condimentum lectus in convallis feugiat.</p>
+
+        <p class="hx-text-small">This is small body text used for notes and comments. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vulputate diam eu pretium. Mauris elit orci, ultricies id fermentum vel, porta et eros. Vestibulum condimentum lectus in convallis feugiat.</p>
+      </div>
+
+  @example
+    @@html
+      <p class="hx-header-medium">1.x font styles</p>
+      <h1>h1</h1>
+      <h2>h2</h2>
+      <h3>h3</h3>
+      <h4>h4</h4>
+      <h5>h5</h5>
+      <h6>h6</h6>
+
+      <div class="hx-header-large">hx-header-large</div>
+      <div class="hx-header-medium">hx-header-medium</div>
+      <div class="hx-header-small">hx-header-small</div>
+      <div class="hx-header">hx-header</div>
+
+

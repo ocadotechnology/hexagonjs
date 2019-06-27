@@ -9,9 +9,10 @@ onTabSelected = (tabs, sel, idx, cause) ->
   tabs.selection.selectAll('.hx-tab').classed('hx-tab-active', false)
   sel.classed('hx-tab-active', true)
 
-  context = palette.context(sel)
-  tabsContent = tabs.selection.select('.hx-tabs-content')
-  palette.borderContext(tabsContent, context)
+  if(not tabs.selection.classed('hx-flag-tabs'))
+    context = palette.context(sel)
+    tabsContent = tabs.selection.select('.hx-tabs-content')
+    palette.borderContext(tabsContent, context)
 
   tabs.selection.selectAll('.hx-tab-content')
     .classed('hx-tab-content-hidden', true)

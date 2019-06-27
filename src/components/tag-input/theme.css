@@ -56,3 +56,7 @@
   color: var(--tag-input-disabled-text-color);
   border-color: var(--tag-input-disabled-border-color);
 }
+
+.hx-flag-tag-input.hx-tag-input {
+  border-radius: var(--input-border-radius);
+}

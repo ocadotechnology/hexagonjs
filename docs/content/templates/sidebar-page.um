@@ -3,9 +3,8 @@
   @content
     @if version: @stylesheet [/resources/hexagon/{{version}}/hexagon.css]
     @ifnot version: @stylesheet [/resources/hexagon/latest/hexagon.css]
-    @stylesheet [/resources/hexagon/docs/hexagon.css]
     @stylesheet [https://fonts.googleapis.com/css?family=Open+Sans:100,400,700|Roboto+Slab:400,700|Source+Code+Pro:400,700]
-    @stylesheet [/resources/font-awesome/css/font-awesome.min.css]
+    @stylesheet [/resources/font-awesome/css/all.min.css]
     @stylesheet [/resources/docs-new.css]
 
     @if version: @script [/resources/hexagon/{{version}}/hexagon.js]
@@ -46,6 +45,7 @@
             @page /docs/badge/: Badge
             @page /docs/error-pages/: Error Pages
             @page /docs/form/: Form
+            @page /docs/input/: Inputs
             @page /docs/input-group/: Input Group
             @page /docs/label/: Label
             @page /docs/layout/: Layout

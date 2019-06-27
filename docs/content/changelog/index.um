@@ -541,3 +541,21 @@
         or default (UK English) variant.
 
         Also added some options to make working with date/time pickers easier.
+
+    @version 2.2.0
+      @description
+        Updated several components and modules to add new styles and functionality based on UX feedback.
+
+        The new feature flags are:
+
+        @list
+          @item: @code[hx-flag-typography] - Updated font styles
+          @item: @code[hx-flag-table] - Updated table styles for readability
+          @item: @code[hx-flag-tabs] - Updated table styles for readability
+          @item: @code[hx-flag-form] - Updated form style (improved layout)
+          @item: @code[hx-flag-button] - New button types (primary/secondary etc.)
+          @item: @code[hx-flag-tag-input] - Initial tweaks to work with hx-flag-form
+          @item: @code[hx-flag-icon] - Use FontAwesome 5 (free) instead of embedded hexagon-icons font
+
+        Also removed the animation from dropdowns to make them feel more responsive and updated them to use @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)[MutationObserver]
+        to detect when the content is changed and re-position the dropdown.

@@ -1,0 +1,21 @@
+@inline /templates/sidebar-page.um
+@inline /templates/versioned-page.um
+
+@topSection
+  @source [{{editPageUrl}}]: Edit Page
+  @title Input
+  @description
+    Provides the styles for input elements.
+
+@contentSection
+  @topic Examples
+    @examples
+      @versioned
+        # @inline examples/*.um
+
+        @inline examples/2.2.0.um
+
+  @topic Api
+    @hyperlink(/docs/base/changelog)[Change Log]
+
+    @inline api.um

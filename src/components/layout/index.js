@@ -6,21 +6,30 @@ function group(options = {}) {
   const {
     vertical = false,
     fixed = false,
+    compact = false,
   } = options;
 
-  return div('hx-group')
+  return div(compact ? 'hx-compact-group' : 'hx-group')
     .classed('hx-horizontal', !vertical)
     .classed('hx-vertical', vertical)
     .classed('hx-fixed', fixed);
 }
 
+const sectionSizes = ['small', 'medium', 'large'];
 function section(options = {}) {
   const {
     fixed = false,
+    size = undefined,
   } = options;
 
-  return div('hx-section')
+  const sectionSel = div('hx-section')
     .classed('hx-fixed', fixed);
+
+  if (size && sectionSizes.includes(size)) {
+    sectionSel.classed(`hx-${size}`, true);
+  }
+
+  return sectionSel;
 }
 
 // XXX Deprecated: Fluid

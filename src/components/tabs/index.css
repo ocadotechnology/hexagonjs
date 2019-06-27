@@ -6,11 +6,15 @@
 .hx-tab {
   display: inline-block;
   padding: 0.5em 1em;
+  margin-right: 3px;
+  position: relative;
   border-top: solid 3px;
   border-left: solid 1px;
   border-right: solid 1px;
-  margin-right: 3px;
-  position: relative;
+}
+
+.hx-flag-tabs .hx-tab {
+  border-bottom: solid 1px;
 }
 
 .hx-tab:hover {

@@ -64,6 +64,7 @@ import meterTests from 'components/meter/spec';
 import drawingTests from 'components/drawing/spec';
 import inlineEditableTests from 'components/inline-editable/spec';
 import paginatorTests from 'components/paginator/spec';
+import errorPageTests from 'components/error-pages/spec';
 
 window.hx = hx;
 
@@ -154,6 +155,7 @@ describe('HexagonJS Test Suite', () => {
         'ease.cubic',
         'ease.linear',
         'ease.quad',
+        'errorPage',
         'endsWith',
         'EventEmitter',
         'exp',
@@ -426,6 +428,7 @@ describe('HexagonJS Test Suite', () => {
   drawingTests();
   inlineEditableTests();
   paginatorTests();
+  errorPageTests();
 
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')

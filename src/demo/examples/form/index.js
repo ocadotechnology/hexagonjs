@@ -4,7 +4,7 @@ import {
 
 export default () => {
   const theForm = div();
-  new Form(theForm)
+  new Form(theForm, { featureFlags: { useUpdatedStructure: true, displayVertical: false } })
     .addText('Text', { required: true, placeholder: 'Name' })
     .addText('Text with Autocomplete', { required: true, placeholder: 'Name', autocompleteData: [1, 2, 3] })
     .addTextArea('Text Area', { placeholder: 'Name' })
@@ -12,16 +12,16 @@ export default () => {
     .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
     .addNumber('Number', { required: true })
     .addCheckbox('Checkbox')
-    .addCheckbox('Checkbox', { required: true })
+    .addCheckbox('Checkbox (required)', { required: true })
     .addPassword('Password')
-    .addPassword('Password', { required: true })
+    .addPassword('Password (required)', { required: true })
     .addRadio('Radio', ['One', 'Two', 'Three'])
-    .addRadio('Radio', ['One', 'Two', 'Three'], { required: true })
+    .addRadio('Radio (required)', ['One', 'Two', 'Three'], { required: true })
     .addPicker('Picker', ['red', 'green', 'blue'])
-    .addPicker('Picker', ['red', 'green', 'blue'], { required: true })
+    .addPicker('Picker (required)', ['red', 'green', 'blue'], { required: true })
     .addTagInput('Tag Input')
-    .addTagInput('Tag Input', { required: true })
-    .addTagInput('Tag Input', {
+    .addTagInput('Tag Input (required)', { required: true })
+    .addTagInput('Tag Input (validator)', {
       required: true,
       tagInputOptions: {
         validator: (name) => {
@@ -33,17 +33,17 @@ export default () => {
       },
     })
     .addFileInput('File Input')
-    .addFileInput('File Input', { required: true })
+    .addFileInput('File Input (required)', { required: true })
     .addDatePicker('Date Picker')
-    .addDatePicker('Date Picker', { required: true })
+    .addDatePicker('Date Picker (required)', { required: true })
     .addTimePicker('Time Picker')
-    .addTimePicker('Time Picker', { required: true })
+    .addTimePicker('Time Picker (required)', { required: true })
     .addDateTimePicker('Date Time Picker')
-    .addDateTimePicker('Date Time Picker', { required: true })
+    .addDateTimePicker('Date Time Picker (required)', { required: true })
     .addAutocompletePicker('Autocomplete Picker', ['a', 'b', 'c'])
-    .addAutocompletePicker('Autocomplete Picker', ['a', 'b', 'c'], { required: true })
-    .addSubmit('Submit', 'fa fa-check')
-    .on('submit', (data) => { console.log(data); });
+    .addAutocompletePicker('Autocomplete Picker (required)', ['a', 'b', 'c'], { required: true })
+    .addButton('Button', () => console.log('Clicked Button'))
+    .addSubmit('Submit', 'fa fa-check', (data) => { console.log(data); }, { context: 'primary' });
 
   return [
     detached('form').class('hx-form')

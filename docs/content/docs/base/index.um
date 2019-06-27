@@ -8,6 +8,16 @@
     Provides the default font styles and header classes
 
 @contentSection
+  @notice [Version 2.x]
+    In version 2 of Hexagon, the user experience and interface are being overhauled to add guidelines and improve the general usability of the library.
+
+    This module applies styles to the root elements (e.g. @code[input], @code[textarea] etc.) that have been deprecated in favour of using explicit classes
+    to apply the styling to these elements.
+
+    This module will contain only the styles for the typography in the next release version.
+
+    See @hyperlink(../input)[Inputs] and @hyperlink(../form)[Form] for details on how to use the new classes.
+
   @topic Examples
     @examples
       @versioned
