@@ -108,6 +108,21 @@
 
 
   /* Base */
+  --base-root-font-size: 16px;
+
+  --base-large-font-size: 18px;
+  --base-small-font-size: 12px;
+  --base-large-header-font-size: 32px;
+  --base-large-header-font-weight: light;
+  --base-large-header-line-height: normal;
+  --base-medium-header-font-size: 24px;
+  --base-medium-header-font-weight: normal;
+  --base-medium-header-line-height: normal;
+  --base-small-header-font-size: 18px;
+  --base-small-header-font-weight: semibold;
+  --base-small-header-line-height: normal;
+  --base-header-bottom-margin: 7px;
+
   --base-body-background-color: #F7F7F9;
   --base-body-background-color: var(--theme-body-background-color);
   --base-default-font-family: var(--theme-body-font);
@@ -391,11 +406,66 @@
   --error-pages-heading-margin: 1em;
   --error-pages-body-font-size: 1em;
   --error-pages-body-margin: 1em;
+  --error-pages-body-font-weight: normal;
 
 
   /* Form */
   --form-error-text-color: var(--theme-complement-color);
   --form-error-background-color: var(--theme-contrast-color);
+
+  --form-input-spacing: 30px;
+  --form-label-spacing: 10px;
+
+  --form-label-disabled-text-color: var(--theme-disabled-text-color);
+  --form-label-disabled-font-style: italic;
+
+  --form-message-font-style: italic;
+  --form-message-label-font-weight: normal;
+  --form-message-text-color: var(--theme-negative-color);
+
+  --form-optional-label-font-style: italic;
+  --form-optional-label-font-weight: 300;
+  --form-optional-label-text-color: var(--theme-text-color);
+
+  --form-group-max-width: 250px;
+
+
+  /* Input */
+  --input-background-color: var(--theme-input-background-color);
+  --input-border-color: var(--theme-input-border-color);
+  --input-text-color: var(--theme-text-color);
+  --input-border-radius: 0.14em;
+  --input-border-style: solid;
+  --input-border-width: 1px;
+  --input-circle-multiplier: 1/3;
+  --input-height: 40px;
+  --input-invalid-border-color: var(--theme-error-outline-color);
+  --input-invalid-border-style: solid;
+  --input-invalid-border-width: 1px;
+  --input-invalid-text-color: var(--theme-error-outline-color);
+  --input-line-height: normal;
+  --input-padding: 11px 10px;
+  --input-placeholder-color: var(--theme-disabled-text-color);
+  --input-selected-background: var(--theme-text-color);
+  --input-size: 15px;
+  --input-spacing: 0;
+  --input-tick-color: var(--theme-text-alternate-color);
+
+  --input-checkbox-unselected-color: var(--input-text-color);
+  --input-checkbox-selected-color: var(--input-text-color);
+  --input-checkbox-disabled-color: var(--theme-disabled-text-color);
+
+  --input-readonly-border-width: 1px;
+  --input-readonly-border-style: solid;
+  --input-readonly-border-color: var(--theme-input-border-color);
+  --input-readonly-text-color: var(--theme-text-color);
+  --input-readonly-background-color: var(--theme-disabled-background-color);
+
+  --input-disabled-border-width: 1px;
+  --input-disabled-border-style: solid;
+  --input-disabled-border-color: var(--theme-input-border-color);
+  --input-disabled-text-color: var(--theme-text-color);
+  --input-disabled-background-color: var(--theme-disabled-background-color);
 
 
   /* Input Group */
@@ -854,6 +924,17 @@
   --tabs-info-border-color: var(--theme-info-color);
   --tabs-complement-border-color: var(--theme-complement-color);
   --tabs-contrast-border-color: var(--theme-contrast-color);
+
+  --tabs-active-border-color: var(--theme-action-color);
+  --tabs-active-text-color: var(--theme-link-color);
+  --tabs-hover-text-color: var(--theme-link-color);
+  --tabs-hover-background-color: var(--theme-container-background-color);
+  --tabs-active-background-color: var(--theme-container-background-color);
+  --tabs-border-color: var(--tabs-default-border-color);
+  --tabs-tab-padding: 8px 20px;
+  --tabs-font-weight: bold;
+  --tabs-first-tab-offset: 30px;
+  --tabs-content-padding: 30px;
 
 
   /* Tag Input */

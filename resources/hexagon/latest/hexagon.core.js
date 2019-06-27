@@ -4121,7 +4121,7 @@ if (select('.hx-heading').size() > 0) {
   titlebar = new TitleBar('.hx-heading');
 }
 
-var version = "2.1.0";
+var version = "2.2.0";
 
 var currentTheme = {};
 var themeSet = false;
@@ -5420,28 +5420,28 @@ notify = function(message, options) {
   return inbuiltNotificationManager.notify(message, options);
 };
 
-wrapDeprecated$1 = function(name, method) {
+wrapDeprecated$1 = function(name, replacement, method) {
   return function() {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
-    logger.deprecated(name, ("Replaced by hx." + name));
+    logger.deprecated(name, ("Replaced by hx." + replacement));
     return method.apply(void 0, args);
   };
 };
 
 // XXX Deprecated: Remove in next major
-notify.info = wrapDeprecated$1('hx.notify.info', notifyInfo);
+notify.info = wrapDeprecated$1('hx.notify.info', 'notifyInfo', notifyInfo);
 
-notify.positive = wrapDeprecated$1('hx.notify.positive', notifyPositive);
+notify.positive = wrapDeprecated$1('hx.notify.positive', 'notifyPositive', notifyPositive);
 
-notify.warning = wrapDeprecated$1('hx.notify.warning', notifyWarning);
+notify.warning = wrapDeprecated$1('hx.notify.warning', 'notifyWarning', notifyWarning);
 
-notify.negative = wrapDeprecated$1('hx.notify.negative', notifyNegative);
+notify.negative = wrapDeprecated$1('hx.notify.negative', 'notifyNegative', notifyNegative);
 
-notify.loading = wrapDeprecated$1('hx.notify.loading', notifyLoading);
+notify.loading = wrapDeprecated$1('hx.notify.loading', 'notifyLoading', notifyLoading);
 
-notify.defaultTimeout = wrapDeprecated$1('hx.notify.defaultTimeout', notifyDefaultTimeout);
+notify.defaultTimeout = wrapDeprecated$1('hx.notify.defaultTimeout', 'notifyDefaultTimeout', notifyDefaultTimeout);
 
 var Collapsible = /*@__PURE__*/(function (EventEmitter) {
   function Collapsible(selector, options) {
@@ -5627,7 +5627,7 @@ var calculateDropdownPosition = function(alignments, selectionRect, dropdownRect
   };
 };
 
-var checkFixedPos, dropdownContentToSetupDropdown;
+var checkFixedPos, dropdownContentToSetupDropdown, positionDropdown;
 
 var config = {
   attachToSelector: 'body',
@@ -5638,6 +5638,55 @@ checkFixedPos = function(node) {
   if (select(node).style('position') === 'fixed') {
     return true;
   }
+};
+
+positionDropdown = function(ref, ref$1) {
+  var assign;
+
+  var alignments = ref.alignments;
+  var selection = ref.selection;
+  var dropdown = ref.dropdown;
+  var useScroll = ref.useScroll;
+  var matchWidth = ref$1.matchWidth;
+  var ddMaxHeight, dropdownRect, parentFixed, rect, x, y, zIndex;
+  dropdown.style('display', 'block');
+  // extract measurements from the dom
+  rect = selection.box();
+  dropdownRect = dropdown.box();
+  ddMaxHeight = dropdown.style('max-height').replace('px', '');
+  parentFixed = checkParents(selection.node(), checkFixedPos);
+  zIndex = parentZIndex(selection.node(), true);
+  // calculate the position of the dropdown
+  ((assign = calculateDropdownPosition(alignments, {
+    x: rect.left,
+    y: rect.top,
+    width: rect.width,
+    height: rect.height
+  }, {
+    width: dropdownRect.width,
+    height: dropdownRect.height
+  }, {
+    width: window.innerWidth,
+    height: window.innerHeight
+  }, ddMaxHeight, scrollbarSize()), x = assign.x, y = assign.y));
+  if (!parentFixed) {
+    x += window.scrollX || window.pageXOffset;
+    y += window.scrollY || window.pageYOffset;
+  }
+  // update the styles for the dropdown
+  if (zIndex > 0) {
+    dropdown.style('z-index', zIndex + 1);
+  }
+  if (parentFixed) {
+    dropdown.style('position', 'fixed');
+  }
+  if (matchWidth) {
+    dropdown.style('min-width', rect.width + 'px');
+  }
+  if (useScroll && (dropdown != null)) {
+    dropdown.style('overflow-y', 'auto');
+  }
+  return dropdown.style('left', x + 'px').style('top', y + 'px');
 };
 
 dropdownContentToSetupDropdown = function(dropdownContent) {
@@ -5778,9 +5827,8 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
 
   Dropdown.prototype.show = function show (cb) {
     var this$1 = this;
-    var assign;
 
-    var _, ddMaxHeight, dropdownRect, parentFixed, rect, x, y, zIndex;
+    var _, contentChangeObserver, position;
     _ = this._;
     if (_.visible) {
       this.render();
@@ -5797,60 +5845,39 @@ var Dropdown = /*@__PURE__*/(function (EventEmitter) {
       _.clickDetector.removeAllExceptions();
       _.clickDetector.addException(_.dropdown.node());
       _.clickDetector.addException(_.selection.node());
-      _.dropdown.style('display', 'block');
-      // extract measurements from the dom
-      rect = _.selection.box();
-      dropdownRect = _.dropdown.box();
-      ddMaxHeight = _.dropdown.style('max-height').replace('px', '');
-      parentFixed = checkParents(_.selection.node(), checkFixedPos);
-      zIndex = parentZIndex(_.selection.node(), true);
-      // calculate the position of the dropdown
-      ((assign = calculateDropdownPosition(_.alignments, {
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        height: rect.height
-      }, {
-        width: dropdownRect.width,
-        height: dropdownRect.height
-      }, {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }, ddMaxHeight, scrollbarSize()), x = assign.x, y = assign.y));
-      if (!parentFixed) {
-        x += window.scrollX || window.pageXOffset;
-        y += window.scrollY || window.pageYOffset;
+      position = function () {
+        return positionDropdown(_, this$1.options);
+      };
+      position();
+      if (MutationObserver) {
+        contentChangeObserver = new MutationObserver(function(mutationsList, observer) {
+          return position();
+        });
+        contentChangeObserver.observe(_.dropdown.node(), {
+          attributes: false,
+          childList: true,
+          subtree: true
+        });
+        _.contentChangeObserver = contentChangeObserver;
       }
-      // update the styles for the dropdown
-      if (zIndex > 0) {
-        _.dropdown.style('z-index', zIndex + 1);
-      }
-      if (parentFixed) {
-        _.dropdown.style('position', 'fixed');
-      }
-      if (this.options.matchWidth) {
-        _.dropdown.style('min-width', rect.width + 'px');
-      }
-      _.dropdown.style('left', x + 'px').style('top', (y + config.dropdownAnimateSlideDistance) + 'px').style('height', '0px').style('opacity', 0).style('margin-top', this.options.dropdown).morph().with('fadein', 150).and('expandv', 150).and(function() {
-        return _.dropdown.animate().style('top', y + 'px', 150);
-      }).then(function () {
-        if (_.useScroll && (_.dropdown != null)) {
-          _.dropdown.style('overflow-y', 'auto');
-        }
-        this$1.emit('showend');
-        return typeof cb === "function" ? cb() : void 0;
-      }).go();
       this.emit('showstart');
       this.emit('change', true);
+      this.emit('showend');
+      if (typeof cb === "function") {
+        cb();
+      }
     }
     return this;
   };
 
   Dropdown.prototype.hide = function hide (cb) {
-    var _;
+    var _, ref;
     _ = this._;
     if (_.visible) {
       _.visible = false;
+      if ((ref = _.contentChangeObserver) != null) {
+        ref.disconnect();
+      }
       this.emit('hidestart'); // future proofing for addition of animations
       this.emit('change', false);
       this.emit('hideend'); // future proofing for addition of animations
@@ -9122,7 +9149,7 @@ var NumberPicker = /*@__PURE__*/(function (EventEmitter) {
     addHoldHandler(this.options.incrementOnHold, this.options.incrementDelay, incrementButton, function () {
       return this$1.increment();
     });
-    this.selectInput = selection.append('input');
+    this.selectInput = selection.append('input').class('hx-number-picker-input');
     this.selectInput.attr('type', 'number');
     this.selectInput.on('blur', 'hx.number-picker', function () {
       if (this$1.selectInput.attr('readonly') === void 0) {
@@ -9540,20 +9567,29 @@ function group(options) {
 
   var vertical = options.vertical; if ( vertical === void 0 ) vertical = false;
   var fixed = options.fixed; if ( fixed === void 0 ) fixed = false;
+  var compact = options.compact; if ( compact === void 0 ) compact = false;
 
-  return div('hx-group')
+  return div(compact ? 'hx-compact-group' : 'hx-group')
     .classed('hx-horizontal', !vertical)
     .classed('hx-vertical', vertical)
     .classed('hx-fixed', fixed);
 }
 
+var sectionSizes = ['small', 'medium', 'large'];
 function section(options) {
   if ( options === void 0 ) options = {};
 
   var fixed = options.fixed; if ( fixed === void 0 ) fixed = false;
+  var size = options.size; if ( size === void 0 ) size = undefined;
 
-  return div('hx-section')
+  var sectionSel = div('hx-section')
     .classed('hx-fixed', fixed);
+
+  if (size && sectionSizes.includes(size)) {
+    sectionSel.classed(("hx-" + size), true);
+  }
+
+  return sectionSel;
 }
 
 // XXX Deprecated: Fluid
@@ -12023,7 +12059,6 @@ DiscreteScale = /*@__PURE__*/(function () {
   };
 
   DiscreteScale.prototype.ticks = function ticks (targetSpacing) {
-    if ( targetSpacing === void 0 ) targetSpacing = 50;
 
     var c, j, len, ref, results;
     ref = this.domainCategories;
@@ -16440,9 +16475,11 @@ onTabSelected = function(tabs, sel, idx, cause) {
   tabs.selected = idx;
   tabs.selection.selectAll('.hx-tab').classed('hx-tab-active', false);
   sel.classed('hx-tab-active', true);
-  context = palette.context(sel);
-  tabsContent = tabs.selection.select('.hx-tabs-content');
-  palette.borderContext(tabsContent, context);
+  if (!tabs.selection.classed('hx-flag-tabs')) {
+    context = palette.context(sel);
+    tabsContent = tabs.selection.select('.hx-tabs-content');
+    palette.borderContext(tabsContent, context);
+  }
   tabs.selection.selectAll('.hx-tab-content').classed('hx-tab-content-hidden', true);
   item = tabs.items()[idx];
   if (item != null) {
@@ -18638,14 +18675,16 @@ getValidationMessage = function(message, type) {
   }
 };
 
-var validateForm = function(form, options) {
-  var defaultOptions, element, error, errors, focusedElement, i, idx, input, ref, type;
-  form = select(form).node();
+var validateForm = function(formSelector, options) {
+  var defaultOptions, element, error, errors, featureFlagMode, focusedElement, form, i, idx, input, ref, selection, type;
+  selection = select(formSelector);
+  featureFlagMode = selection.classed('hx-flag-form');
+  form = select(formSelector).node();
   defaultOptions = {
     showMessage: true
   };
   options = mergeDefined(defaultOptions, options);
-  select(form).selectAll('.hx-form-error').remove();
+  select(formSelector).selectAll('.hx-form-error').remove();
   errors = [];
   focusedElement = document.activeElement;
   for (idx = i = 0, ref = form.children.length; (0 <= ref ? i < ref : i > ref); idx = 0 <= ref ? ++i : --i) {
@@ -18682,21 +18721,36 @@ var validateForm = function(form, options) {
     }
   }
   if (options.showMessage && errors.length > 0) {
-    // Show the error for the focused element (if there is one) or the first error in the form
-    error = errors.filter(function(error) {
-      return error.focused;
-    })[0] || errors[0];
-    // XXX: This structure lets us jump out of the forced table layout. If we change
-    // to match the full-width aeris forms, this will need changing.
-    select(error.node.parentNode).insertAfter('div').class('hx-form-error').append('div').insertAfter('div').class('hx-form-error-text-container').append('div').class('hx-form-error-text').text(error.message);
-    select(error.node).on('click', 'hx.form', function(e) {
-      var next;
-      next = select(error.node.parentNode.nextElementSibling);
-      if (next.classed('hx-form-error')) {
-        next.remove();
-      }
-      return select(error.node).off('click', 'hx.form');
-    });
+    if (featureFlagMode) {
+      selection.selectAll('.hx-form-message').remove();
+      errors.forEach(function(error) {
+        select(error.node).insertAfter(div('hx-form-message hx-form-message-wrap').text(error.message));
+        return select(error.node).on('click', 'hx.form-error', function(e) {
+          var next;
+          next = select(error.node.nextElementSibling);
+          if (next.classed('hx-form-message')) {
+            next.remove();
+          }
+          return select(error.node).off('click', 'hx.form-error');
+        });
+      });
+    } else {
+      // Show the error for the focused element (if there is one) or the first error in the form
+      error = errors.filter(function(error) {
+        return error.focused;
+      })[0] || errors[0];
+      // XXX: This structure lets us jump out of the forced table layout. If we change
+      // to match the full-width aeris forms, this will need changing.
+      select(error.node.parentNode).insertAfter('div').class('hx-form-error').append('div').insertAfter('div').class('hx-form-error-text-container').append('div').class('hx-form-error-text').text(error.message);
+      select(error.node).on('click', 'hx.form', function(e) {
+        var next;
+        next = select(error.node.parentNode.nextElementSibling);
+        if (next.classed('hx-form-error')) {
+          next.remove();
+        }
+        return select(error.node).off('click', 'hx.form');
+      });
+    }
   }
   return {
     // Return the errors so we can still check how many there are.
@@ -18750,19 +18804,22 @@ TagInput = (function() {
         autocompleteOptions: {},
         excludeTags: true,
         mustMatchAutocomplete: true,
-        isInsideForm: false
+        isInsideForm: false,
+        featureFlags: {
+          useInputClass: false
+        }
       }, options);
       if (this.options.mustMatchAutocomplete) {
         this.options.autocompleteOptions.mustMatch = true;
       }
-      this.selection = select(this.selector).classed('hx-tag-input', true).api('tag-input', this).api(this);
+      this.selection = select(this.selector).classed('hx-tag-input', true).classed('hx-flag-tag-input', this.options.featureFlags.useInputClass).api('tag-input', this).api(this);
       this.tagContainer = this.selection.append('span').class('hx-tags-container');
       if (this.options.draggable) {
         _.dragContainer = new DragContainer(this.tagContainer.node());
       }
       isInsideForm = this.options.isInsideForm || !this.selection.closest('form').empty();
       inputContainer = this.selection.append(isInsideForm ? 'div' : 'form').class('hx-tag-input-container');
-      this.input = inputContainer.append('input').attr('placeholder', this.options.placeholder);
+      this.input = inputContainer.append('input').attr('placeholder', this.options.placeholder).classed('hx-input', this.options.featureFlags.useInputClass);
       if (this.options.autocompleteData != null) {
         isValid = this.options.validator != null ? function (item) {
           return !this$1.options.validator(item);
@@ -19444,13 +19501,22 @@ getButtons = function(form) {
 };
 
 var Form = /*@__PURE__*/(function (EventEmitter) {
-  function Form(selector) {
+  function Form(selector, options) {
     EventEmitter.call(this);
     this.addButton = this.addButton.bind(this);
     this.selector = selector;
+    this.options = merge({
+      featureFlags: {
+        useUpdatedStructure: false, // Whether to use the new form classes
+        displayVertical: false
+      }
+    }, options);
+    if (this.options.featureFlags.displayVertical) {
+      this.options.featureFlags.useUpdatedStructure = true;
+    }
     this.formId = 'form-' + randomId() + '-';
     this.properties = new Map;
-    select(this.selector).classed('hx-form', true).api('form-builder', this).api(this).on('keypress', 'hx.form-builder', function(e) {
+    select(this.selector).classed('hx-form', true).classed('hx-flag-form hx-flag-button', this.options.featureFlags.useUpdatedStructure).classed('hx-form-vertical', this.options.featureFlags.useUpdatedStructure && this.options.featureFlags.displayVertical).api('form-builder', this).api(this).on('keypress', 'hx.form-builder', function(e) {
       var target;
       target = select(e.target || e.srcElement);
       if (e.keyCode === 13 && target.attr('type') !== 'submit' && target.attr('type') !== 'textarea') {
@@ -19590,11 +19656,11 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     var entry, formSel, id, key, prop, selection;
     id = this.formId + name.split(' ').join('-');
     formSel = select(this.selector);
-    entry = formSel.append('div');
+    entry = formSel.append('div').classed('hx-form-group', this.options.featureFlags.useUpdatedStructure);
     // Append buttons container to the end of the form
     formSel.append(getButtons(this));
-    entry.append('label').attr('for', id).text(name);
-    prop = f() || {};
+    entry.append('label').classed('hx-form-label', this.options.featureFlags.useUpdatedStructure).attr('for', id).text(name);
+    prop = f.call(this) || {};
     key = prop.key || name;
     selection = entry.append(prop.elem).attr('id', id);
     // Define the default function for enabling/disabling a form property
@@ -19649,6 +19715,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
   };
 
   Form.prototype.addButton = function addButton (text, action, opts) {
+    var this$1 = this;
     if ( opts === void 0 ) opts = {};
 
     var elem, formBtn, id, options;
@@ -19662,19 +19729,24 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
       hidden: false,
       disabled: false
     }, opts);
-    formBtn = button(("hx-btn hx-" + (options.context))).attr('type', options.buttonType).attr('id', id).add(options.icon ? i(options.icon) : void 0).add(span().text(" " + text)).on('click', 'hx.form-builder', function (e) {
+    formBtn = button(("hx-btn hx-" + (options.context))).attr('type', options.buttonType).attr('id', id).add((!this.options.featureFlags.useUpdatedStructure) && options.icon ? i(options.icon) : void 0).add(span().text(" " + text)).on('click', 'hx.form-builder', function (e) {
       e.preventDefault();
-      return typeof action === "function" ? action() : void 0;
+      return typeof action === "function" ? action(this$1.data()) : void 0;
     });
-    elem = getButtons(this).append('div').add(formBtn);
+    elem = this.options.featureFlags.useUpdatedStructure ? formBtn : div().add(formBtn);
+    getButtons(this).add(elem);
     this.properties.set(options.key, {
       type: 'button',
-      node: formBtn.node(),
-      options: {},
-      extras: {
-        disable: function(s, disabled) {
-          return formBtn.attr('disabled', disabled ? 'disabled' : void 0);
-        }
+      elem: elem,
+      options: {
+        hidden: options.hidden,
+        disabled: options.disabled
+      },
+      disable: function(disabled) {
+        return formBtn.attr('disabled', disabled ? 'disabled' : void 0);
+      },
+      hide: function(hide) {
+        return elem.style('display', hide ? 'none' : '');
       }
     });
     if (options.hidden) {
@@ -19696,7 +19768,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     };
     return this.addButton(text, submitAction || defaultSubmitAction, {
       key: text || options.key,
-      context: 'action',
+      context: options.context || 'action',
       buttonType: 'submit',
       icon: icon,
       hidden: options.hidden,
@@ -19715,7 +19787,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     }
     return this.add(name, 'text', function() {
       var attr, component, elem, j, len, ref;
-      elem = detached('input').attr('type', options.type);
+      elem = detached('input').attr('type', options.type).classed('hx-input', this.options.featureFlags.useUpdatedStructure);
       if (options.autoCompleteData || options.autoCompleteOptions) {
         logger.deprecated('Form::addText autoCompleteData/Options', 'Deprecated in favour of using the correct casing (autocompleteData and autocompleteOptions)');
         options.autocompleteData = options.autocompleteData || options.autoCompleteData;
@@ -19809,7 +19881,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     }
     return this.add(name, 'textarea', function() {
       var attr, elem, j, len, ref;
-      elem = detached('textarea');
+      elem = detached('textarea').classed('hx-input-textarea', this.options.featureFlags.useUpdatedStructure);
       if (options.placeholder != null) {
         elem.attr('placeholder', options.placeholder);
       }
@@ -19844,19 +19916,20 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     if ( options === void 0 ) options = {};
 
     return this.add(name, 'checkbox', function() {
-      var elem, getValue, setValue;
-      elem = detached('input').attr('type', 'checkbox');
+      var elem, getValue, input, setValue;
+      input = detached('input').attr('type', 'checkbox').classed('hx-input-checkbox', this.options.featureFlags.useUpdatedStructure);
+      elem = this.options.featureFlags.useUpdatedStructure ? div('hx-form-items').add(div('hx-form-item').add(input)) : input;
       if (options.required != null) {
-        elem.attr('required', options.required);
+        input.attr('required', options.required);
       }
       if (options.value) {
-        elem.prop('checked', true);
+        input.prop('checked', true);
       }
       setValue = function(value) {
-        return elem.prop('checked', value);
+        return input.prop('checked', value);
       };
       getValue = function() {
-        return elem.prop('checked');
+        return input.prop('checked');
       };
       return {
         key: options.key,
@@ -19878,20 +19951,20 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     self = this;
     return this.add(name, 'radio', function() {
       var count, elem, getValue, id, input, item, j, len, setValue, value;
-      elem = div();
+      elem = div().classed('hx-form-items', this.options.featureFlags.useUpdatedStructure);
       id = self.formId + name.split(' ').join('-');
       count = 0;
       for (j = 0, len = values.length; j < len; j++) {
         value = values[j];
-        item = div('hx-radio-container');
-        input = item.append('input').attr('type', 'radio').attr('name', id).attr('id', id + '-' + count).value(value);
+        item = div('hx-radio-container').classed('hx-form-item', this.options.featureFlags.useUpdatedStructure);
+        input = item.append('input').classed('hx-input-radio', this.options.featureFlags.useUpdatedStructure).attr('type', 'radio').attr('name', id).attr('id', id + '-' + count).value(value);
         if (options.required != null) {
           input.attr('required', options.required);
         }
         if (options.value === value) {
           input.prop('checked', true);
         }
-        item.append('label').attr('for', id + '-' + count).text(value);
+        item.append('label').classed('hx-form-label', this.options.featureFlags.useUpdatedStructure).attr('for', id + '-' + count).text(value);
         elem.add(item);
         count += 1;
       }
@@ -19984,9 +20057,17 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
     if ( options === void 0 ) options = {};
 
     return this.add(name, 'date-picker', function() {
-      var component, componentElem, getValue, setValue;
-      componentElem = div();
-      component = new DatePicker(componentElem, options.datePickerOptions);
+      var component, componentElem, dpOpts, getValue, setValue;
+      componentElem = this.options.featureFlags.useUpdatedStructure ? detached('input').class('hx-input') : div();
+      dpOpts = this.options.featureFlags.useUpdatedStructure ? merge({}, options.datePickerOptions, {
+        v2Features: {
+          dontModifyDateOnError: true,
+          displayLongMonthInCalendar: true,
+          dontSetInitialInputValue: true,
+          updateVisibleMonthOnDateChange: true
+        }
+      }) : options.datePickerOptions;
+      component = new DatePicker(componentElem, dpOpts);
       if ((options.validStart != null) || (options.validEnd != null)) {
         component.validRange(options.validStart, options.validEnd);
       }
@@ -20079,8 +20160,13 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
   Form.prototype.addTagInput = function addTagInput (name, options) {
     if ( options === void 0 ) options = {};
     return this.add(name, 'tag-input', function() {
-      var base, change, component, componentElem, getValue, input, setValidity, setValue;
+      var base, change, component, componentElem, getValue, input, setValidity, setValue, tiOpts;
       componentElem = div();
+      tiOpts = this.options.featureFlags.useUpdatedStructure ? merge({}, options.tagInputOptions, {
+        featureFlags: {
+          useInputClass: true
+        }
+      }) : options.tagInputOptions;
       if (options.placeholder) {
         if (options.tagInputOptions == null) {
           options.tagInputOptions = {};
@@ -20093,7 +20179,7 @@ var Form = /*@__PURE__*/(function (EventEmitter) {
         options.tagInputOptions = {};
       }
       options.tagInputOptions.isInsideForm = true;
-      component = new TagInput(componentElem, options.tagInputOptions);
+      component = new TagInput(componentElem, tiOpts);
       getValue = function() {
         return component.items();
       };
@@ -22784,6 +22870,59 @@ var inlinePicker = function(options) {
   return selection;
 };
 
+var validTypes = ['primary', 'secondary'];
+
+function makeAction(btn) {
+  var text = btn.text;
+  var url = btn.url;
+  var onClick = btn.onClick;
+  var buttonType = btn.buttonType;
+
+  var validButtonType = buttonType && validTypes.includes(buttonType);
+
+  if (buttonType && !validButtonType) {
+    logger.warn(("errorPage: Invalid button type selected '" + buttonType + "'. Available types: [" + (validTypes.join(', ')) + "]"));
+  }
+
+  var cls = "hx-btn" + (validButtonType ? (" hx-" + buttonType) : '');
+
+  if (onClick) {
+    return button(cls)
+      .text(text)
+      .on('click', onClick);
+  }
+
+  if (!url) {
+    throw new Error(("errorPage: Button created with no 'onClick' or 'url': " + (JSON.stringify(btn))));
+  }
+
+  return detached('a')
+    .class(cls)
+    .text(text)
+    .attr('href', url);
+}
+
+function errorPage(options) {
+  if ( options === void 0 ) options = {};
+
+  var title = options.title;
+  var message = options.message;
+  var buttons = options.buttons;
+
+  if (!title) {
+    throw new Error('errorPage: Cannot create an error page with no title.');
+  }
+
+  var buttonSel = (buttons || []).map(makeAction);
+
+  return div('hx-error-message hx-flag-button hx-flag-typography')
+    .add(div('hx-error-message-heading').text(title))
+    .add(div('hx-error-message-body')
+      .add(toMultilineSelection(message || '', 'p', true)))
+    .add(div('hx-error-message-buttons')
+      .add(buttonSel));
+}
+
 // Initialization
 
 // XXX: these apis should be opt-in
@@ -22804,4 +22943,4 @@ if (!doctypeIsValid) {
   logger.warn('Missing <!DOCTYPE html> tag - you may have CSS problems without this tag. To fix this add <!DOCTYPE html> to the top of your html file. Detected doctype:', document.doctype);
 }
 
-export { Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, Slider, Sparkline, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, ease, endsWith, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, meter, min, minBy, modal, modalDialog, modalInput, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, zeroPad, zip };
+export { Autocomplete as AutoComplete, Autocomplete, AutocompleteFeed, AutocompletePicker, Axis, BandSeries, BarSeries, ButtonGroup, ClickDetector, Collapsible, ColorScale, Crumbtrail, DataTable, DatePicker, DateTimePicker, DragContainer, Drawing, Dropdown, EventEmitter, FileInput, Form, Graph, InlineEditable, InlineMorphSection, InlinePicker, LineSeries, List, Map, Menu, Meter, Modal, MorphSection, NotificationManager, NumberPicker, Paginator, Picker, PieChart, PivotTable, ProgressBar, ScatterSeries, Selection, Set, SideCollapsible, Sidebar, Slider, Sparkline, StickyTableHeaders, StraightLineSeries, Tabs, TagInput, TimePicker, TimeSlider, TitleBar, Toggle, Tree, animate, argmax, argmin, autocomplete as autoComplete, autocomplete, autocompletePicker, badge, button, buttonGroup, card, checkParents, checkbox, clamp, clampUnit, cleanNode, clone, color, compare, compareNullsLast, component, components, crumbtrail, cycle, dataTable, datePicker, dateTimeLocalizer, dateTimePicker, debounce, defined, detached, div, dragContainer, drawing, ease, endsWith, errorPage, exp, fileInput, filter, filterContains, filterExact, filterExcludes, filterFuzzy, filterGreater, filterLess, filterNumberTypes, filterRegex, filterStartsWith, filterStringTypes, filterTypes, find, fixed, flatten, format$1 as format, getAdvancedSearchFilter, getThemeVariable, graph, group, groupBy, hash, hashList, html, i, icon, identity, initializeCollapsibles, initializeTrees, inlineEditable, inlinePicker, input, inputGroup, interpolate, isArray, isBoolean, isColor, isColorString, isElement, isFunction, isNumber, isObject, isPlainObject, isSelection, isString, json, label, localeCompare, logger, loop, max, maxBy, merge, mergeDefined, mergeImpl, meter, min, minBy, modal, modalDialog, modalInput, morph, notice, noticeBody, noticeHead, notify, notifyDefaultTimeout, notifyInfo, notifyLoading, notifyNegative, notifyPositive, notifyWarning, numberPicker, objectFeed, paginator, palette, parentZIndex, parseHTML, picker, pieChart, pivotTable, plot, plotLabelBasic, plotLabelStandard, preferences, progressBar, randomId, range, request, reshapedRequest, round, scrollbarSize, section, select, selectAll, shallowClone, shallowMerge, shallowMergeDefined, si, slider, sort, sortBy, span, sparkline, spinner, spinnerWide, startsWith, sum, supports, tabs, tagInput, text, theme, timePicker, timeSlider, titleBar, toggle, transition, transpose, tree, tween, unique, userFacingText, validateForm, vendor, version, zeroPad, zip };
