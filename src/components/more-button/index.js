@@ -24,7 +24,6 @@ function moreButton(options) {
   }
 
   const validSize = !size || supportedSizes.includes(size);
-  console.log(size, validSize)
   if (!validSize) {
     logger.warn(`moreButton: Called with an invalid size: '${size}'. Supported sizes: ${supportedSizes.join(', ')}`);
   }
