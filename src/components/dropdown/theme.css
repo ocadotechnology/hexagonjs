@@ -2,5 +2,6 @@
   background: var(--dropdown-background-color);
   box-shadow: 0px 2px 2px 2px var(--dropdown-shadow-color);
   border-color: var(--dropdown-border-color);
+  border-radius: var(--dropdown-border-radius);
   margin-top: var(--dropdown-spacing);
 }

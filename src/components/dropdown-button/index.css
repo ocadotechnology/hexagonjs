@@ -1,0 +1,19 @@
+.hx-dropdown-button:after {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-size: inherit;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+  transform: translate(0, 0);
+  font-weight: 900;
+}
+
+.hx-dropdown-button:after {
+  margin-left: 10px;
+  display: inline-block;
+  content: '\f0d7';
+}

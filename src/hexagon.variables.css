@@ -388,6 +388,7 @@
   /* Dropdown */
   --dropdown-background-color: var(--theme-container-background-color);
   --dropdown-border-color: var(--theme-container-border-color);
+  --dropdown-border-radius: 0;
   --dropdown-shadow-color: var(--theme-shadow-color);
   --dropdown-spacing: 0;
 
@@ -908,6 +909,8 @@
   --table-row-background-color:  var(--theme-body-background-color);
   --table-row-hover-background-color: #E4E4E4;
   --table-row-text-color: var(--theme-text-color);
+  --table-cell-padding: 0.3em 0.75em;
+  --table-header-cell-padding: var(--table-cell-padding);
 
 
   /* Tabs */

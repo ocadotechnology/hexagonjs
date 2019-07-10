@@ -43,6 +43,8 @@ import typographyExamples from './examples/typography';
 import inputExamples from './examples/input';
 import checkboxExamples from './examples/checkbox';
 import radioExamples from './examples/radio';
+import moreButtonExamples from './examples/more-button';
+import dropdownButtonExamples from './examples/dropdown-button';
 
 const {
   select, selectAll, div, detached, debounce,
@@ -142,6 +144,8 @@ const examples = [
   example('Layout').add(tryDemo(layoutExamples)),
   example('Loading Spinners').add(tryDemo(loadingSpinnerExamples)),
   example('Menu').add(tryDemo(menuExamples)),
+  example('More Button').add(tryDemo(moreButtonExamples)),
+  example('Dropdown Button').add(tryDemo(dropdownButtonExamples)),
   example('Modals').add(tryDemo(modalExamples)),
   example('Notice').add(tryDemo(noticeExamples)),
   example('Notify').add(tryDemo(notifyExamples)),
