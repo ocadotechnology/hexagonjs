@@ -1,0 +1,69 @@
+@version nextReleaseVersion
+  @examples
+    @example
+      @@html
+        <div id="dropdown-button-container"></div>
+
+      @@js
+        const items = [
+          {
+            text: 'Function #1',
+            onClick: () => notify('Clicked Dropdown Button Action 1'),
+          },
+          {
+            text: 'Function #2',
+            onClick: () => notify('Clicked Dropdown Button Action 2'),
+          },
+          {
+            text: 'Disabled',
+            disabled: true,
+            onClick: () => notify('Clicked Dropdown Button Action 3'),
+          },
+        ];
+
+        hx.select('#dropdown-button-container').set([
+          hx.dropdownButton({ items, text: 'standard' }),
+        ]);
+
+    @example
+      @@html
+        <div id="dropdown-button-container-context"></div>
+
+      @@js
+        const itemsFull = [
+          {
+            text: 'A very long function #1',
+            onClick: () => notify('Clicked Dropdown Button Action 1'),
+          },
+          {
+            text: 'Function #2',
+            onClick: () => notify('Clicked Dropdown Button Action 2'),
+          },
+          {
+            text: 'Disabled',
+            disabled: true,
+            onClick: () => notify('Clicked Dropdown Button Action 3'),
+          },
+          {
+            text: 'Link #1',
+            onClick: '#link-1',
+          },
+          {
+            text: 'Link #2',
+            onClick: '#link-2',
+          },
+          {
+            text: 'Disabled',
+            disabled: true,
+            onClick: '#link-3',
+          },
+        ];
+
+        const ddContexts = [undefined, 'primary', 'secondary'];
+        const ddContextButtons = ddContexts.map(type => hx.dropdownButton({
+          type,
+          items: itemsFull,
+          text: type || 'standard',
+        }));
+
+        hx.select('#dropdown-button-container-context').set(ddContextButtons);
