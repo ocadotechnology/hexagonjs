@@ -7,7 +7,7 @@ import { select, detached, div } from 'utils/selection'
 import { groupBy, isFunction, isArray, merge } from 'utils/utils'
 import logger from 'utils/logger'
 
-import { Menu } from 'components/menu'
+import { MenuBase as Menu } from 'components/menu'
 
 userFacingText({
   autocomplete: {

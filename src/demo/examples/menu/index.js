@@ -1,5 +1,7 @@
 import {
-  div, select, button, Menu,
+  div,
+  button,
+  Menu,
 } from 'hexagon-js';
 
 export default () => {
@@ -13,25 +15,22 @@ export default () => {
 
   const disabledMenu = button('hx-btn').text('Disabled');
 
-  const renderer = (elem, item) => select(elem).text(item.name);
-
   const disabledItems = [
     {
-      name: 'Disabled Item 1',
+      text: 'Disabled Item 1',
       disabled: true,
     },
     {
-      name: 'Disabled Item 2',
+      text: 'Disabled Item 2',
       disabled: true,
     },
     {
-      name: 'Disabled Item 3',
+      text: 'Disabled Item 3',
       disabled: true,
     },
   ];
 
   new Menu(disabledMenu, {
-    renderer,
     items: disabledItems,
   });
 
@@ -39,21 +38,20 @@ export default () => {
 
   const unselectableItems = [
     {
-      name: 'Unselectable Item 1',
+      text: 'Unselectable Item 1',
       unselectable: true,
     },
     {
-      name: 'Unselectable Item 2',
+      text: 'Unselectable Item 2',
       unselectable: true,
     },
     {
-      name: 'Unselectable Item 3',
+      text: 'Unselectable Item 3',
       unselectable: true,
     },
   ];
 
   new Menu(unselectable, {
-    renderer,
     items: unselectableItems,
   });
 
@@ -61,31 +59,30 @@ export default () => {
 
   const mixedItems = [
     {
-      name: 'Disabled Item 1',
+      text: 'Disabled Item 1',
       disabled: true,
     },
     {
-      name: 'Item 1',
+      text: 'Item 1',
     },
     {
-      name: 'Disabled Item 2',
+      text: 'Disabled Item 2',
       disabled: true,
     },
     {
-      name: 'Unselectable Item 1',
+      text: 'Unselectable Item 1',
       unselectable: true,
     },
     {
-      name: 'Item 2',
+      text: 'Item 2',
     },
     {
-      name: 'Unselectable Item 2',
+      text: 'Unselectable Item 2',
       unselectable: true,
     },
   ];
 
   new Menu(mixed, {
-    renderer,
     items: mixedItems,
   });
 
@@ -99,7 +96,6 @@ export default () => {
     });
     return sel;
   });
-
 
   return div().set([
     defaultMenu,

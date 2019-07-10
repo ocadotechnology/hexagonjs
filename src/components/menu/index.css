@@ -7,12 +7,14 @@
   cursor: pointer;
 }
 
-.hx-menu-item.hx-menu-link a {
+.hx-menu-item.hx-menu-link a,
+a.hx-menu-item {
   display: block;
   color: inherit;
 }
 
-.hx-menu-item.hx-menu-link a:hover {
+.hx-menu-item.hx-menu-link a:hover,
+a.hx-menu-item:hover {
   text-decoration: none;
 }
 

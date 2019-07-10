@@ -5,7 +5,7 @@ import { merge, identity, debounce } from 'utils/utils'
 import logger from 'utils/logger'
 
 import { AutocompleteFeed } from 'components/autocomplete-feed'
-import { Menu } from 'components/menu'
+import { MenuBase as Menu } from 'components/menu'
 
 userFacingText({
   autocompletePicker:

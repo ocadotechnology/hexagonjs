@@ -1,6 +1,6 @@
 import { div } from 'utils/selection';
 
-import { Menu } from 'components/menu';
+import { MenuBase as Menu } from 'components/menu';
 
 export default () => {
   describe('menu', () => describe('api', () => {

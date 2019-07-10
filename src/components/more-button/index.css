@@ -1,0 +1,26 @@
+.hx-more-button:after {
+  content: "\2219\2219\2219";
+  letter-spacing: -3px;
+  margin-left: -1.5px;
+  vertical-align: 1px;
+  font-family: monospace;
+}
+
+.hx-btn.hx-flag-button.hx-more-button {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.hx-btn.hx-flag-button.hx-more-button,
+.hx-table .hx-btn.hx-flag-button.hx-more-button {
+  font-size: 1rem;
+}
+
+.hx-table .hx-more-button:not(:hover) {
+  border-color: transparent;
+  background: transparent;
+}
+
+.hx-table .hx-btn.hx-flag-button.hx-more-button:hover {
+  background: white;
+}

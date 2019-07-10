@@ -3,6 +3,7 @@ import { select, div, span } from 'utils/selection'
 import { isFunction, mergeDefined } from 'utils/utils'
 import { scrollbarSize } from 'utils/dom-utils'
 import { palette } from 'utils/palette'
+import logger from 'utils/logger'
 
 import { Collapsible } from 'components/collapsible'
 import { Dropdown } from 'components/dropdown'
@@ -208,7 +209,7 @@ class MenuItem
 
 
 
-export class Menu extends EventEmitter
+class MenuBase extends EventEmitter
   constructor: (@selector, options = {}) ->
     super()
 
@@ -385,3 +386,14 @@ export class Menu extends EventEmitter
       this
     else
       !!@options.disabled
+
+
+class Menu extends MenuBase
+  constructor: (sel, opt) ->
+    logger.deprecated('hx.Menu', 'Replaced by DropdownButton / MoreButton')
+    super(sel, opt)
+
+export {
+  Menu,
+  MenuBase,
+}
