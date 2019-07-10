@@ -75,10 +75,13 @@ export default () => {
       .add(section())
       .add(section({ fixed: true })
         .add(moreButton({ items }))),
+<<<<<<< HEAD
     note('The more button can be used in an input group when there is a primary action and a list of secondary actions'),
     div('hx-input-group').set([
       button('hx-btn hx-flag-button').text('Primary action'),
       moreButton({ items }),
     ]),
+=======
+>>>>>>> feat: Add moreButton and dropdownButton to replace Menu
   ]);
 };
