@@ -69,8 +69,11 @@
 .hx-paginator-ellipsis:after,
 .hx-paginator-ellipsis:hover:after {
   content: "\2219\2219\2219";
-  letter-spacing: -3px;
+  letter-spacing: -4px;
+  margin-left: -2px;
+  vertical-align: 1px;
   font-family: monospace;
+  font-size: 18px;
 }
 
 .hx-paginator-selected,

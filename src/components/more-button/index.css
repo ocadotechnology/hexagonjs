@@ -1,9 +1,10 @@
 .hx-more-button:after {
   content: "\2219\2219\2219";
-  letter-spacing: -3px;
-  margin-left: -1.5px;
+  letter-spacing: -4px;
+  margin-left: -2px;
   vertical-align: 1px;
   font-family: monospace;
+  font-size: 18px;
 }
 
 .hx-btn.hx-flag-button.hx-more-button {
