@@ -23,9 +23,14 @@ function moreButton(options) {
     throw new Error('moreButton: Items are required when creating a more button');
   }
 
+<<<<<<< HEAD
   const validSize = supportedSizes.includes(size);
 
   if (size && !validSize) {
+=======
+  const validSize = !size || supportedSizes.includes(size);
+  if (!validSize) {
+>>>>>>> chore: Fix linting issue
     logger.warn(`moreButton: Called with an invalid size: '${size}'. Supported sizes: ${supportedSizes.join(', ')}`);
   }
 
