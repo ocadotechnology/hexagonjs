@@ -12,6 +12,7 @@
 @import "components/titlebar/theme";
 @import "components/layout/theme";
 @import "components/menu/theme";
+@import "components/more-button/theme";
 @import "components/logo/theme";
 @import "components/input-group/theme";
 @import "components/drag-container/theme";

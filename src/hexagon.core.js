@@ -129,6 +129,8 @@ export {
 export { Dropdown } from 'components/dropdown';
 export { Collapsible, initializeCollapsibles } from 'components/collapsible';
 export { titleBar, TitleBar } from 'components/titlebar';
+export { dropdownButton } from 'components/dropdown-button';
+export { moreButton } from 'components/more-button';
 export { Menu } from 'components/menu';
 export {
   autocomplete,

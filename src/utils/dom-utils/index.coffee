@@ -106,3 +106,5 @@ export checkParents = (node, check, returnArray) ->
     if returnArray then [] else false
 
 export isElement = (obj) -> !!(obj and obj.nodeType is 1)
+
+export { actionRenderer, actionRenderWrapper } from './action-renderer'

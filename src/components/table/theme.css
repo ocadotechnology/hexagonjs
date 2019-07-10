@@ -46,3 +46,12 @@
 .hx-table.hx-table-clickable-rows tbody tr:nth-child(2n):hover {
   background: var(--table-row-hover-background-color);
 }
+
+.hx-flag-table.hx-table th,
+.hx-flag-table .hx-table th {
+  padding: var(--table-header-cell-padding);
+}
+.hx-flag-table.hx-table td,
+.hx-flag-table .hx-table td {
+  padding: var(--table-cell-padding);
+}
