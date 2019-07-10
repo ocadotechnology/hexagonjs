@@ -29,10 +29,7 @@ function actionRenderWrapper(elem, item) {
   retSel.classed(cls, true);
   sel.insertBefore(retSel);
   sel.remove();
-<<<<<<< HEAD
   return retSel;
-=======
->>>>>>> chore: Fix linting issue
 }
 
 export {
