@@ -26,7 +26,7 @@ function actionRenderWrapper(elem, item) {
   retSel.classed(cls, true);
   sel.insertBefore(retSel);
   sel.remove();
-};
+}
 
 export {
   actionRenderer,
