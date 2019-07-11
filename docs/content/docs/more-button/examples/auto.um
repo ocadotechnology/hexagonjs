@@ -1,0 +1,60 @@
+@version nextReleaseVersion
+  @examples
+    @example
+      @@html
+        <div id="more-button-container"></div>
+
+      @@js
+        const items = [
+          {
+            text: 'Function #1',
+            onClick: () => notify('Clicked Dropdown Button Action 1'),
+          },
+          {
+            text: 'Function #2',
+            onClick: () => notify('Clicked Dropdown Button Action 2'),
+          },
+          {
+            text: 'Disabled',
+            disabled: true,
+            onClick: () => notify('Clicked Dropdown Button Action 3'),
+          },
+        ];
+
+        hx.select('#more-button-container').set([
+          hx.moreButton({ items }),
+        ]);
+
+    @example
+      @@html
+        <p>More buttons are perfect for rendering where there are multiple actions to perform on a table row</p>
+        <table class="hx-flag-table hx-table">
+          <tbody>
+            <tr>
+              <td>
+                <span id="more-button-in-table"></span>
+              </td>
+              <td>
+                When used in a table, the more button styles are slightly different
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span id="more-button-in-table-small"></span>
+              </td>
+              <td>
+                It is recommended to use a small button in a table to reduce row height
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      @@js
+        hx.select('#more-button-in-table').set([
+          hx.moreButton({ items }),
+        ]);
+
+        hx.select('#more-button-in-table-small').set([
+          hx.moreButton({ items, size: 'small' }),
+        ]);
+

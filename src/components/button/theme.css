@@ -365,3 +365,8 @@
   border-color: var(--button-danger-border-hover-color);
   text-decoration: none;
 }
+
+.hx-input-group > .hx-btn {
+  margin: 0;
+  border-radius: 0;
+}

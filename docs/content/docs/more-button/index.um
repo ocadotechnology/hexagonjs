@@ -3,9 +3,9 @@
 
 @topSection
   @source [{{editPageUrl}}]: Edit Page
-  @title Dropdown Button
+  @title More Button
   @description
-    A dropdown containing a list of selectable items.
+    A dropdown with a compact button used to indicate a place where more actions can be peformed
 
 
 @contentSection
