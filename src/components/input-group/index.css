@@ -69,7 +69,6 @@
   border-radius: 0;
 }
 
-/* XXX: why is this necessary? */
 .hx-input-group > input:not(:last-child),
 .hx-input-group > div:not(:last-child),
 .hx-input-group > button:not(:last-child),
@@ -77,7 +76,7 @@
 .hx-input-group > i:not(:last-child),
 .hx-input-group > a:not(:last-child),
 .hx-input-group > .hx-btn:not(:last-child) {
-  border-right-color: transparent;
+  margin-right: -1px;
 }
 
 .hx-input-group > input:first-child,

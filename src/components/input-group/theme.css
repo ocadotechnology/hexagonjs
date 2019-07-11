@@ -8,7 +8,7 @@
   border-color: var(--input-group-input-invalid-outline-color);
 }
 
-.hx-input-group > input:focus {
+.hx-input-group > input:not(.hx-input):focus {
   border-color: var(--input-group-input-focus-border-color);
 }
 

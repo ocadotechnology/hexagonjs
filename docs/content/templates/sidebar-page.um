@@ -71,6 +71,7 @@
             @page /docs/drag-container/: Drag Container
             @page /docs/drawing/: Drawing
             @page /docs/dropdown/: Dropdown
+            @page /docs/dropdown-button/: Dropdown Button
             @page /docs/extended-table/: Extended Table
             @page /docs/file-input/: File Input
             @page /docs/fluid/: Fluid
@@ -81,6 +82,7 @@
             @page /docs/menu/: Menu
             @page /docs/meter/: Meter
             @page /docs/modal/: Modal
+            @page /docs/more-button/: More Button
             @page /docs/notify/: Notify
             @page /docs/number-picker/: Number Picker
             @page /docs/paginator/: Paginator

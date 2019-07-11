@@ -123,7 +123,7 @@ module.exports = {
       ],
       base: 'node_modules/hexagon-js/demo',
       dest: 'demo',
-      watch: false
+      watch: true
     },
     {
       files: 'content/guide/**/*.html',
@@ -133,7 +133,7 @@ module.exports = {
     {
       files: 'resources/hexagon/**/*',
       base: '.',
-      watch: false
+      watch: true
     },
     {
       files: 'resources/fonts/**/*',

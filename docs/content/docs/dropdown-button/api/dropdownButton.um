@@ -1,0 +1,69 @@
+@function hx.dropdownButton
+  @added nextReleaseVersion
+
+  @description
+    Creates a dropdown button using the updated style with a downwards arrow to indicate that the button is a dropdown.
+
+  @arg? options [Object]
+    @property text [String]
+      @description
+        The text to show on the button.
+
+        This can be set afterwards but is provided as an option to simplify construction of the dropdown button.
+
+      @default: @code['']
+
+    @property items [Array[Item]]
+      @description
+        The array of items that should be shown in the dropdown.
+
+        @@codeblock js
+          [
+            {
+              text: 'Text to display',
+              onClick: '/url?query=123',
+            },
+            {
+              text: 'Text to display',
+              onClick: myActionFunction,
+            },
+            {
+              text: 'Text to display',
+              onClick: myActionFunction,
+              disabled: true,
+            }
+          ]
+
+      @extra
+        @object Item
+          @collapsed false
+          @property onClick [String/Function]
+            @description
+              The URL or function to use when clicking the item in the dropdown.
+
+              When this is a string, the item will be converted to a hyperlink to allow better cross-platform support for things like 'open in new tab' (e.g. on touch devices)
+
+          @property text [String]
+            @description
+              The text to display on the item in the dropdown
+
+          @property? disabled [Boolean]
+            @description
+              Whether the item is disabled
+
+            @default: @code[false]
+
+
+    @property size [String]
+      @description
+        The button size. Can be 'small' or 'micro'. @code[undefined] is the default 'normal' button size.
+      @default: @code[undefined]
+
+    @property type [String]
+      @description
+        The button type to use. This can be either 'primary' or 'secondary'.
+
+        @code[undefined] is the default 'standard' button type.
+
+      @default: @code[undefined]
+
