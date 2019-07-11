@@ -1,7 +1,7 @@
 @inline /templates/sidebar-page.um
 
 @topSection
-  @title Dropdown Button Changelog
+  @title More Button Changelog
 
 @contentSection
   @changelogList
