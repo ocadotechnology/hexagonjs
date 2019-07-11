@@ -1,5 +1,5 @@
 @function hx.dropdownButton
-  @added 2.3.0
+  @added nextReleaseVersion
 
   @description
     Creates a dropdown button using the updated style with a downwards arrow to indicate that the button is a dropdown.

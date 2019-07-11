@@ -1,5 +1,5 @@
 @function hx.dropdownButton
-  @added nextReleaseVersion
+  @added 2.3.0
 
   @description
     Creates a dropdown button using the updated style with a downwards arrow to indicate that the button is a dropdown.
@@ -16,6 +16,23 @@
     @property items [Array[Item]]
       @description
         The array of items that should be shown in the dropdown.
+
+        @@codeblock js
+          [
+            {
+              text: 'Text to display',
+              onClick: '/url?query=123',
+            },
+            {
+              text: 'Text to display',
+              onClick: myActionFunction,
+            },
+            {
+              text: 'Text to display',
+              onClick: myActionFunction,
+              disabled: true,
+            }
+          ]
 
       @extra
         @object Item
