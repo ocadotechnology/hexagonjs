@@ -118,6 +118,14 @@ module.exports = {
       watch: false
     },
     {
+      files: [
+        'node_modules/hexagon-js/demo/**',
+      ],
+      base: 'node_modules/hexagon-js/demo',
+      dest: 'demo',
+      watch: false
+    },
+    {
       files: 'content/guide/**/*.html',
       base: 'content',
       watch: false

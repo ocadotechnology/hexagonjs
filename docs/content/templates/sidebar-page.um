@@ -39,6 +39,9 @@
             # @page /guide/create-custom-themes: Creating Custom Themes
             @page /guide/printing: Print Styles
 
+          @section Demos
+            @page /demo/: Component Demo Page
+
           @section Css Components
             @page /docs/base/: Base
             @page /docs/button/: Button
