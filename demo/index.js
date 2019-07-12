@@ -1,0 +1,1234 @@
+(function (hx) {
+  'use strict';
+
+  function autocompleteExamples () { return [
+    hx.autocomplete(['Item 1', 'Item 2', 'Item 3']) ]; }
+
+  function autocompletePickerExamples () {
+    function delayedItems(searchTerm, callback) {
+      setTimeout(function () { return callback(['a', 'b', 'c']); }, 3000);
+    }
+
+    return hx.div().set([
+      hx.autocompletePicker(['Item 1', 'Item 2', 'Item 3']),
+      hx.autocompletePicker(delayedItems) ]);
+  }
+
+  function badgeExamples () { return [
+    hx.badge().text('Default Label'),
+    hx.badge({ type: 'success' }).text('Success Label'),
+    hx.badge({ type: 'warning' }).text('Warning Label'),
+    hx.badge({ type: 'danger' }).text('Danger Label'),
+    hx.div(),
+    hx.badge({ inverse: true }).text('Default Inverse Label'),
+    hx.badge({ inverse: true, type: 'success' }).text('Success Label'),
+    hx.badge({ inverse: true, type: 'warning' }).text('Warning Label'),
+    hx.badge({ inverse: true, type: 'danger' }).text('Danger Label') ]; }
+
+  function buttonExamples () { return [
+    hx.div('hx-flag-button')
+      .add(hx.button('hx-btn hx-primary').text('Primary'))
+      .add(hx.button('hx-btn hx-secondary').text('Secondary'))
+      .add(hx.button('hx-btn').text('Standard'))
+      .add(hx.button('hx-btn hx-success').text('Success'))
+      .add(hx.button('hx-btn hx-danger').text('Danger'))
+      .add(hx.button('hx-btn hx-btn-link').text('Link'))
+      .add(hx.button('hx-btn').attr('disabled', true).text('Disabled')),
+    hx.div(),
+    hx.button('hx-btn').text('Default'),
+    hx.button('hx-btn hx-positive').text('Positive'),
+    hx.button('hx-btn hx-warning').text('Warning'),
+    hx.button('hx-btn hx-negative').text('Negative'),
+    hx.button('hx-btn hx-info').text('Info'),
+    hx.button('hx-btn hx-action').text('Action'),
+    hx.button('hx-btn hx-complement').text('Complement'),
+    hx.button('hx-btn hx-contrast').text('Contrast'),
+    hx.button('hx-btn hx-btn-invisible').text('Invisible'),
+    hx.button('hx-btn hx-disabled').text('Disabled'),
+    hx.div(),
+    hx.button('hx-btn hx-btn-outline').text('Default'),
+    hx.button('hx-btn hx-btn-outline hx-positive').text('Positive'),
+    hx.button('hx-btn hx-btn-outline hx-warning').text('Warning'),
+    hx.button('hx-btn hx-btn-outline hx-negative').text('Negative'),
+    hx.button('hx-btn hx-btn-outline hx-info').text('Info'),
+    hx.button('hx-btn hx-btn-outline hx-action').text('Action'),
+    hx.button('hx-btn hx-btn-outline hx-complement').text('Complement'),
+    hx.button('hx-btn hx-btn-outline hx-contrast').text('Contrast') ]; }
+
+  function buttonGroupExamples () { return [
+    hx.buttonGroup({
+      items: ['Button 1', 'Button 2', 'Button 3', 'Button 4'],
+    }) ]; }
+
+  function titleText(title, text) {
+    return hx.card.section()
+      .add(hx.div().add(hx.card.title({ text: title })))
+      .add(hx.div().add(hx.card.text({ text: text })));
+  }
+
+  function sparklineExample(options) {
+    return hx.card.group()
+      .add(hx.card.fixed.section().add(hx.card.text({ text: options.text })))
+      .add(hx.card.section()
+        .add(hx.sparkline({
+          strokeColor: options.sparklineColor,
+          data: options.sparklineData,
+        })));
+  }
+
+  function random(i) {
+    return {
+      x: i,
+      y: Math.random(),
+    };
+  }
+
+  function statusCard(name, context) {
+    return hx.card()
+      .add(hx.card.header.section({ context: context })
+        .add(hx.card.title({ text: name })))
+      .add(hx.card.header.group()
+        .add(titleText('Status', 'Normal'))
+        .add(titleText('Uptime', '5 days'))
+        .add(titleText('Memory Usage', '482 MB'))
+        .add(titleText('Thread Count', '19'))
+        .add(titleText('Page Hits', '2236 / s')))
+      .add(hx.card.aligned()
+        .add(sparklineExample({ text: 'Memory Use', sparklineColor: hx.theme().plotColors[0], sparklineData: hx.range(60).map(random) }))
+        .add(sparklineExample({ text: 'Thread Count', sparklineColor: hx.theme().plotColors[1], sparklineData: hx.range(60).map(random) }))
+        .add(sparklineExample({ text: 'Page Hits', sparklineColor: hx.theme().plotColors[2], sparklineData: hx.range(60).map(random) }))
+        .add(sparklineExample({ text: 'Messages Processed', sparklineColor: hx.theme().plotColors[3], sparklineData: hx.range(60).map(random) })));
+  }
+
+  function cardExamples () { return hx.div('card-demo')
+    .add(statusCard('Instance 1', undefined))
+    .add(statusCard('Instance 2', 'positive'))
+    .add(statusCard('Instance 3', 'negative')); }
+
+  function collapsibleExamples () {
+    var selection = hx.div('hx-collapsible')
+      .add(hx.div('hx-collapsible-heading').text('Header'))
+      .add(hx.div('hx-collapsible-content demo-collapsible-content').text('Content'));
+
+    new hx.Collapsible(selection);
+
+    return selection;
+  }
+
+  function crumbtrailExamples () { return hx.div('crumbtrail-demo')
+    .add(hx.crumbtrail({ items: ['Docs', 'Getting started', 'Installation'] })); }
+
+  var br = function () { return hx.detached('br'); };
+  var note = function () { return hx.detached('note'); };
+
+  function dataTableExamples () {
+    var professions = [
+      'Developer',
+      'Designer',
+      'Engineer',
+      'Builder',
+      'Electrician' ];
+    var feed = hx.objectFeed({
+      headers: [
+        { name: 'Name', id: 'name' },
+        { name: 'Age', id: 'age' },
+        { name: 'Profession', id: 'profession' } ],
+      rows: [
+        {
+          id: 0, // hidden details can go here (not in the cells object)
+          cells: { name: 'Bob', age: 25, profession: 'Developer' },
+        },
+        {
+          id: 1,
+          cells: { name: 'Jan', age: 41, profession: 'Artist' },
+        },
+        {
+          id: 2,
+          cells: { name: 'Dan', age: 41, profession: 'Builder' },
+        } ],
+    });
+
+    var randomFeed = hx.objectFeed({
+      headers: [
+        { name: 'Name', id: 'name' },
+        { name: 'Age', id: 'age' },
+        { name: 'Profession', id: 'profession' } ],
+      rows: hx.range(1000).map(function (_, idx) { return ({
+        id: idx,
+        cells: {
+          name: ("Name " + idx),
+          age: Math.floor((idx + 10) * Math.random()),
+          profession: hx.cycle(professions, Math.floor((idx + 10) * Math.random()) % professions.length),
+        },
+      }); }),
+    });
+
+    return [
+      hx.dataTable({ feed: feed }),
+      br(),
+      note().text('Data table with table styles feature flag'),
+      hx.dataTable({ feed: feed }).classed('hx-flag-table', true),
+      br(),
+      hx.dataTable({
+        feed: feed,
+        rowCollapsibleLookup: function () { return true; },
+        collapsibleRenderer: function () { return hx.div().text('Bob'); },
+      }),
+      br(),
+      hx.dataTable({
+        feed: feed,
+        selectEnabled: true,
+      }),
+      br(),
+      hx.dataTable({
+        feed: feed,
+        filterEnabled: false, // Disable the normal filter
+        advancedSearchEnabled: true, // Enable the advanced search
+        advancedSearchCriteria: hx.filterTypes(), // Enable all the filter types
+        advancedSearch: [
+          [
+            { column: 'age', term: '26', criteria: 'greater' } ],
+          [
+            { column: 'name', term: 'Bob', criteria: 'exact' } ] ],
+      }),
+      br(),
+      hx.dataTable({
+        feed: randomFeed,
+      }) ];
+  }
+
+  function datePickerExamples () { return [
+    hx.datePicker(),
+    hx.div(),
+    hx.datePicker({
+      date: new Date(Date.UTC(2019, 4, 22, 0, 20)),
+    }),
+    hx.div(),
+    hx.datePicker({
+      selectRange: true,
+    }),
+    hx.div(),
+    hx.datePicker({
+      selectRange: true,
+      range: {
+        start: new Date(Date.UTC(2019, 4, 22, 0, 20)),
+        end: new Date(Date.UTC(2019, 4, 24, 0, 20)),
+      },
+    }),
+    hx.div(),
+    hx.datePicker({
+      v2Features: {
+        useInput: true,
+      },
+    }) ]; }
+
+  function dateTimePickerExamples () { return [
+    hx.dateTimePicker(),
+    hx.div(),
+    hx.dateTimePicker({
+      date: new Date(2019, 4, 22, 0, 20),
+    }) ]; }
+
+  function dragContainerExamples () {
+    var container = hx.group()
+      .add(hx.section()
+        .attr('data-id', 'green')
+        .classed('hx-drag-element hx-pad hx-background-positive', true)
+        .text('Draggable'))
+      .add(hx.section()
+        .attr('data-id', 'yellow')
+        .classed('hx-drag-element hx-pad hx-background-warning', true)
+        .text('Draggable'))
+      .add(hx.section()
+        .attr('data-id', 'red')
+        .classed('hx-drag-element hx-pad hx-background-negative', true)
+        .text('Undraggable'))
+      .add(hx.section()
+        .attr('data-id', 'blue')
+        .classed('hx-drag-element hx-pad hx-background-action', true)
+        .add(hx.span()
+          .add(hx.i('hx-drag-control fa fa-arrows'))
+          .add(hx.span().text('Draggable Control'))));
+
+    var dc = new hx.DragContainer(container);
+
+    var resetButton = hx.button('hx-btn')
+      .text('Reset Order')
+      .on('click', function () {
+        dc.order(undefined);
+      });
+
+    var getOrderButton = hx.button('hx-btn hx-positive')
+      .text('Get Order')
+      .on('click', function () {
+        hx.notifyInfo(("The order is: " + (dc.order().join(', '))));
+      });
+
+    return hx.div()
+      .add([
+        container,
+        resetButton,
+        getOrderButton ]);
+  }
+
+  function dropdownExamples () {
+    var button1 = hx.button('hx-btn').text('Click dropdown');
+    var content1 = hx.div('demo-dropdown-content').text('Dropdown content');
+    new hx.Dropdown(button1, content1);
+
+    var button2 = hx.button('hx-btn').text('Hover dropdown');
+    var content2 = hx.div('demo-dropdown-content').text('Dropdown content');
+    new hx.Dropdown(button2, content2, { mode: 'hover' });
+
+    return [
+      button1,
+      button2 ];
+  }
+
+  function errorPageExamples () { return hx.div('demo-error-page-container')
+    .add(hx.div('hx-error-message')
+      .add(hx.div('hx-error-message-heading').text('404'))
+      .add(hx.div()
+        .add(hx.detached('p')
+          .text('The content you requested was not found')))
+      .add(hx.div()
+        .add(hx.button('hx-btn hx-positive').text('Go Back'))
+        .add(hx.button('hx-btn hx-positive').text('Go to home screen')))); }
+
+  function formExamples () {
+    var theForm = hx.div();
+    new hx.Form(theForm, { featureFlags: { useUpdatedStructure: true, displayVertical: false } })
+      .addText('Text', { required: true, placeholder: 'Name' })
+      .addText('Text with Autocomplete', { required: true, placeholder: 'Name', autocompleteData: [1, 2, 3] })
+      .addTextArea('Text Area', { placeholder: 'Name' })
+      .addEmail('Email', { required: true, placeholder: 'your.name@ocado.com' })
+      .addUrl('Url', { placeholder: 'http://www.example.co.uk/' }) // Allows blank or valid URL (with http:// prefix)
+      .addNumber('Number', { required: true })
+      .addCheckbox('Checkbox')
+      .addCheckbox('Checkbox (required)', { required: true })
+      .addPassword('Password')
+      .addPassword('Password (required)', { required: true })
+      .addRadio('Radio', ['One', 'Two', 'Three'])
+      .addRadio('Radio (required)', ['One', 'Two', 'Three'], { required: true })
+      .addPicker('Picker', ['red', 'green', 'blue'])
+      .addPicker('Picker (required)', ['red', 'green', 'blue'], { required: true })
+      .addTagInput('Tag Input')
+      .addTagInput('Tag Input (required)', { required: true })
+      .addTagInput('Tag Input (validator)', {
+        required: true,
+        tagInputOptions: {
+          validator: function (name) {
+            if (!Number.isNaN(Number(name))) {
+              return 'Please enter text';
+            }
+            return false;
+          },
+        },
+      })
+      .addFileInput('File Input')
+      .addFileInput('File Input (required)', { required: true })
+      .addDatePicker('Date Picker')
+      .addDatePicker('Date Picker (required)', { required: true })
+      .addTimePicker('Time Picker')
+      .addTimePicker('Time Picker (required)', { required: true })
+      .addDateTimePicker('Date Time Picker')
+      .addDateTimePicker('Date Time Picker (required)', { required: true })
+      .addAutocompletePicker('Autocomplete Picker', ['a', 'b', 'c'])
+      .addAutocompletePicker('Autocomplete Picker (required)', ['a', 'b', 'c'], { required: true })
+      .addButton('Button', function () { return console.log('Clicked Button'); })
+      .addSubmit('Submit', 'fa fa-check', function (data) { console.log(data); }, { context: 'primary' });
+
+    return [
+      hx.detached('form').class('hx-form')
+        .add(hx.div()
+          .add(hx.detached('label').text('Text'))
+          .add(hx.detached('input').attr('type', 'text')))
+        .add(hx.div()
+          .add(hx.detached('label').text('Email'))
+          .add(hx.detached('input').attr('type', 'email')))
+        .add(hx.div()
+          .add(hx.detached('label').text('Number'))
+          .add(hx.detached('input').attr('type', 'number')))
+        .add(hx.div()
+          .add(hx.detached('label').text('Url'))
+          .add(hx.detached('input').attr('type', 'url')))
+        .add(hx.div()
+          .add(hx.detached('label').text('Radio'))
+          .add(hx.div().attr('id', 'group-1')
+            .add(hx.div()
+              .add(hx.detached('input').attr('id', 'radio1').attr('type', 'radio').attr('value', 'One')
+                .attr('name', 'group-1'))
+              .add(hx.detached('label').attr('for', 'radio1').text('One')))
+            .add(hx.div()
+              .add(hx.detached('input').attr('id', 'radio2').attr('type', 'radio').attr('value', 'Two')
+                .attr('name', 'group-1'))
+              .add(hx.detached('label').attr('for', 'radio2').text('Two')))
+            .add(hx.div()
+              .add(hx.detached('input').attr('id', 'radio3').attr('type', 'radio').attr('value', 'Three')
+                .attr('name', 'group-1'))
+              .add(hx.detached('label').attr('for', 'radio3').text('Three')))))
+        .add(hx.div()
+          .add(hx.detached('label').attr('for', 'checkbox1').text('Checkbox'))
+          .add(hx.detached('input').attr('id', 'checkbox1').attr('type', 'checkbox')))
+        // .add(div()
+        //   .add(detached('label').text('Tag Input'))
+        //   .add(div()
+        //     .add(tagInput())))
+        .add(hx.button('hx-btn hx-positive').attr('type', 'submit')
+          .add(hx.detached('i').class('fa fa-paper-plane'))
+          .add(hx.span().text(' Submit'))),
+      hx.detached('br'),
+      theForm ];
+  }
+
+  function inputGroupExamples () { return hx.div('hx-input-group')
+    .add(hx.i('fa fa-search'))
+    .add(hx.detached('input').attr('value', 'input'))
+    .add(hx.button('hx-btn hx-positive').add(hx.i('fa fa-arrow-right'))); }
+
+  function layoutExamples () {
+    var exampleLayout = hx.group()
+      .add(hx.section())
+      .add(hx.group({ vertical: true })
+        .add(hx.section())
+        .add(hx.section())
+        .add(hx.group()
+          .add(hx.section())
+          .add(hx.section())))
+      .add(hx.section())
+      .add(hx.section());
+
+    return hx.div('layout-demo')
+      .add(exampleLayout);
+  }
+
+  function loadingSpinnerExamples () { return [
+    hx.spinner(),
+    hx.spinnerWide() ]; }
+
+  function menuExamples () {
+    var defaultMenuItems = ['item 1', 'item 2', 'item 3'];
+    var defaultMenu = hx.button('hx-btn').text('Default');
+
+    new hx.Menu(defaultMenu, {
+      items: defaultMenuItems,
+    });
+
+
+    var disabledMenu = hx.button('hx-btn').text('Disabled');
+
+    var renderer = function (elem, item) { return hx.select(elem).text(item.name); };
+
+    var disabledItems = [
+      {
+        name: 'Disabled Item 1',
+        disabled: true,
+      },
+      {
+        name: 'Disabled Item 2',
+        disabled: true,
+      },
+      {
+        name: 'Disabled Item 3',
+        disabled: true,
+      } ];
+
+    new hx.Menu(disabledMenu, {
+      renderer: renderer,
+      items: disabledItems,
+    });
+
+    var unselectable = hx.button('hx-btn').text('Unselectable');
+
+    var unselectableItems = [
+      {
+        name: 'Unselectable Item 1',
+        unselectable: true,
+      },
+      {
+        name: 'Unselectable Item 2',
+        unselectable: true,
+      },
+      {
+        name: 'Unselectable Item 3',
+        unselectable: true,
+      } ];
+
+    new hx.Menu(unselectable, {
+      renderer: renderer,
+      items: unselectableItems,
+    });
+
+    var mixed = hx.button('hx-btn').text('Mixed');
+
+    var mixedItems = [
+      {
+        name: 'Disabled Item 1',
+        disabled: true,
+      },
+      {
+        name: 'Item 1',
+      },
+      {
+        name: 'Disabled Item 2',
+        disabled: true,
+      },
+      {
+        name: 'Unselectable Item 1',
+        unselectable: true,
+      },
+      {
+        name: 'Item 2',
+      },
+      {
+        name: 'Unselectable Item 2',
+        unselectable: true,
+      } ];
+
+    new hx.Menu(mixed, {
+      renderer: renderer,
+      items: mixedItems,
+    });
+
+
+    var contexts = ['default', 'action', 'positive', 'warning', 'negative', 'complement', 'contrast'];
+    var contextButtons = contexts.map(function (ctx) {
+      var contextClass = "hx-" + ctx;
+      var sel = hx.button(("hx-btn " + contextClass)).text(contextClass);
+      new hx.Menu(sel, {
+        items: defaultMenuItems,
+      });
+      return sel;
+    });
+
+
+    return hx.div().set([
+      defaultMenu,
+      disabledMenu,
+      unselectable,
+      mixed,
+      hx.div() ].concat( contextButtons ));
+  }
+
+  function modalExamples () {
+    var modal = new hx.Modal('Demo modal', function (node) {
+      hx.select(node).text('Hello');
+    });
+
+    return hx.button('hx-btn')
+      .text('Show Modal')
+      .on('click', function () {
+        modal.show();
+      });
+  }
+
+  function exampleNotice(cls) {
+    return hx.notice().classed(cls, true)
+      .add(hx.noticeHead().text('Notice header'))
+      .add(hx.noticeBody().text('Notice body text'));
+  }
+
+  function noticeExamples () { return [
+    exampleNotice(''),
+    exampleNotice('hx-action'),
+    exampleNotice('hx-positive'),
+    exampleNotice('hx-warning'),
+    exampleNotice('hx-negative'),
+    exampleNotice('hx-info'),
+    exampleNotice('hx-complement'),
+    exampleNotice('hx-contrast') ]; }
+
+  function notifyExamples () { return [
+    hx.button('hx-btn').text('Notify').on('click', function () { return hx.notify('Hello'); }),
+    hx.button('hx-btn').text('Positive').on('click', function () { return hx.notifyPositive('Positive notification'); }),
+    hx.button('hx-btn').text('Warning').on('click', function () { return hx.notifyWarning('Warning notification'); }),
+    hx.button('hx-btn').text('Negative').on('click', function () { return hx.notifyNegative('Negative notification'); }),
+    hx.button('hx-btn').text('Info').on('click', function () { return hx.notifyInfo('Info notification'); }),
+    hx.button('hx-btn').text('Loading').on('click', function () { return hx.notifyLoading('Loading notification'); }) ]; }
+
+  function numberPickerExamples () { return [
+    hx.numberPicker() ]; }
+
+  function paginatorExamples () { return hx.div('paginator-demo')
+  // .add(paginator())
+    .add(hx.paginator({
+      v2Features: {
+        showCentered: true,
+        useAccessibleRendering: true,
+      },
+    })); }
+
+  function paletteExamples () { return [
+    hx.detached('h3').text('Text Classes'),
+    hx.div('hx-group hx-horizontal').add([
+      hx.div('hx-section demo-palette-example-text hx-text-default').text('hx-text-default'),
+      hx.div('hx-section demo-palette-example-text hx-text-action').text('hx-text-action'),
+      hx.div('hx-section demo-palette-example-text hx-text-positive').text('hx-text-positive'),
+      hx.div('hx-section demo-palette-example-text hx-text-warning').text('hx-text-warning'),
+      hx.div('hx-section demo-palette-example-text hx-text-negative').text('hx-text-negative'),
+      hx.div('hx-section demo-palette-example-text hx-text-info').text('hx-text-info'),
+      hx.div('hx-section demo-palette-example-text hx-text-complement').text('hx-text-complement'),
+      hx.div('hx-section demo-palette-example-text hx-text-contrast').text('hx-text-contrast'),
+      hx.div('hx-section demo-palette-example-text hx-text-disabled').text('hx-text-disabled') ]),
+    hx.detached('h3').text('Background Classes'),
+    hx.div('hx-group hx-horizontal').add([
+      hx.div('hx-section demo-palette-example-background hx-background-default').text('hx-background-default'),
+      hx.div('hx-section demo-palette-example-background hx-background-action').text('hx-background-action'),
+      hx.div('hx-section demo-palette-example-background hx-background-positive').text('hx-background-positive'),
+      hx.div('hx-section demo-palette-example-background hx-background-warning').text('hx-background-warning'),
+      hx.div('hx-section demo-palette-example-background hx-background-negative').text('hx-background-negative'),
+      hx.div('hx-section demo-palette-example-background hx-background-info').text('hx-background-info'),
+      hx.div('hx-section demo-palette-example-background hx-background-complement').text('hx-background-complement'),
+      hx.div('hx-section demo-palette-example-background hx-background-contrast').text('hx-background-contrast'),
+      hx.div('hx-section demo-palette-example-background hx-background-disabled').text('hx-background-disabled') ]),
+    hx.detached('h3').text('Border Classes'),
+    hx.div('hx-group hx-horizontal').add([
+      hx.div('hx-section demo-palette-example-border hx-border-default').text('hx-border-default'),
+      hx.div('hx-section demo-palette-example-border hx-border-action').text('hx-border-action'),
+      hx.div('hx-section demo-palette-example-border hx-border-positive').text('hx-border-positive'),
+      hx.div('hx-section demo-palette-example-border hx-border-warning').text('hx-border-warning'),
+      hx.div('hx-section demo-palette-example-border hx-border-negative').text('hx-border-negative'),
+      hx.div('hx-section demo-palette-example-border hx-border-info').text('hx-border-info'),
+      hx.div('hx-section demo-palette-example-border hx-border-complement').text('hx-border-complement'),
+      hx.div('hx-section demo-palette-example-border hx-border-contrast').text('hx-border-contrast'),
+      hx.div('hx-section demo-palette-example-border hx-border-disabled').text('hx-border-disabled') ]) ]; }
+
+  function pickerExamples () {
+    var items = [
+      'item 1',
+      'item 2',
+      'item 3',
+      { text: 'item 4', children: ['item 1', 'item 2'] } ];
+
+    return [
+      hx.picker({ items: items }),
+      hx.picker({ items: items, class: 'hx-positive' }),
+      hx.picker({ items: items, class: 'hx-warning' }),
+      hx.picker({ items: items, class: 'hx-negative' }),
+      hx.picker({ items: items, class: 'hx-info' }),
+      hx.picker({ items: items, class: 'hx-action' }),
+      hx.picker({ items: items, class: 'hx-complement' }),
+      hx.picker({ items: items, class: 'hx-contrast' }) ];
+  }
+
+  var data1 = {
+    topHead: [
+      'Head 1',
+      'Head 2',
+      'Head 3' ],
+    leftHead: [
+      'Head 1',
+      'Head 2',
+      'Head 3' ],
+    body: [
+      [
+        'Cell 1',
+        'Cell 2',
+        'Cell 3' ],
+      [
+        'Cell 1',
+        'Cell 2',
+        'Cell 3' ],
+      [
+        'Cell 1',
+        'Cell 2',
+        'Cell 3' ] ],
+  };
+
+  function pivotTableExamples () { return [
+    hx.pivotTable({ data: data1 }) ]; }
+
+  function randomSign() {
+    return Math.round(Math.random());
+  }
+
+  function createData(a, b, c) {
+    var offset = 0.1 + Math.random();
+    return hx.range(50).map(function (i) { return ({
+      x: i,
+      y: Math.abs(
+        offset + a
+          * Math.sin(i / 10) + b
+          * Math.sin(i / 20) + c
+          * Math.sin(i / 40) + Math.sin(i / 50) + Math.sin(i / 100)
+      ),
+    }); });
+  }
+
+  function plotExamples () {
+    var selection = hx.div();
+    var graph = new hx.Graph(selection);
+    var axis = graph.addAxis({
+      x: {
+        title: 'Time',
+      },
+      y: {
+        title: 'Value',
+        scalePaddingMax: 0.1,
+      },
+    });
+
+    hx.theme().plotColors.forEach(function (col, i) {
+      axis.addSeries('line', {
+        title: ("Series " + (i + 1)),
+        data: createData(randomSign(), randomSign(), randomSign()),
+        labelInterpolated: true,
+        markersEnabled: true,
+        strokeEnabled: true,
+        strokeColor: col,
+        fillEnabled: true,
+        fillColor: hx.color(col).alpha(0.2).toString(),
+        group: 'some-group',
+      });
+    });
+
+    graph.render();
+
+    return selection;
+  }
+
+  function progressBarExamples () { return [
+    hx.progressBar({ value: 0.25 }),
+    hx.progressBar({ value: 0.33 }).classed('hx-action', true),
+    hx.progressBar({ value: 0.42 }).classed('hx-positive', true),
+    hx.progressBar({ value: 0.5 }).classed('hx-warning', true),
+    hx.progressBar({ value: 0.58 }).classed('hx-negative', true),
+    hx.progressBar({ value: 0.67 }).classed('hx-complement', true),
+    hx.progressBar({ value: 0.75 }).classed('hx-contrast', true) ]; }
+
+  function sidebarExamples () {
+    var html = "\n    <div class=\"hx-heading example-heading\">\n      <div class=\"hx-titlebar\">\n        <div class=\"hx-titlebar-container\">\n          <div class=\"hx-titlebar-header example-titlebar\">\n            <a class=\"hx-titlebar-icon\" href=\"#\"><img class=\"hx-logo\"></img></a>\n            <div class=\"hx-titlebar-title\">Title</div>\n            <div class=\"hx-titlebar-subtitle\">Subtitle</div>\n            <div class=\"hx-titlebar-menu-icon-mobile\"><i class=\"fa fa-reorder\"></i></div>\n          </div>\n          <div class=\"hx-titlebar-menu-icons\">\n            <div class=\"hx-titlebar-menu-icons-container\">\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-tags\"></i><span class=\"hx-titlebar-menu-text\">Tags</span></a>\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-life-ring\"></i><span class=\"hx-titlebar-menu-text\">Help</span></a>\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-cog\"></i><span class=\"hx-titlebar-menu-text\">Settings</span></a>\n              <a class=\"hx-titlebar-menu-icon\"><i class=\"fa fa-power-off\"></i><span class=\"hx-titlebar-menu-text\">Sign out</span></a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"hx-sidebar\">\n      <div class=\"hx-sidebar-title\">Docs</div>\n      <div id=\"collapsible1\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-book\"></i> Intro</div>\n        <div class=\"hx-collapsible-content\">\n          <div class=\"hx-sidebar-section\">Getting Started</div>\n          <div class=\"hx-sidebar-section\">FAQs</div>\n        </div>\n      </div>\n      <div id=\"collapsible2\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-book\"></i> Components</div>\n        <div class=\"hx-collapsible-content\">\n          <div class=\"hx-sidebar-section\">Titlebar</div>\n          <div class=\"hx-sidebar-section\">Buttons</div>\n          <div class=\"hx-sidebar-section\">Collapsible</div>\n          <div class=\"hx-sidebar-section\">Sidebar</div>\n          <div class=\"hx-sidebar-section\">Notifications</div>\n        </div>\n      </div>\n      <div id=\"collapsible3\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-chart\"></i> Drawing & Graphs</div>\n        <div class=\"hx-collapsible-content\">\n          <a href=\"#\" class=\"hx-positive\"><i class=\"fa fa-fw fa-users\"></i>&nbsp; Users</a>\n          <div class=\"hx-sidebar-section\">Drawing</div>\n          <div class=\"hx-sidebar-section\">Plot</div>\n        </div>\n      </div>\n      <div id=\"collapsible4\" class=\"hx-collapsible\">\n        <div class=\"hx-collapsible-heading\"><i class=\"fa fa-spanner\"></i> Utils</div>\n        <div class=\"hx-collapsible-content\">\n          <div class=\"hx-sidebar-section\">Color</div>\n          <div class=\"hx-sidebar-section\">Util</div>\n          <div class=\"hx-sidebar-section\">Request</div>\n          <div class=\"hx-sidebar-section\">Map</div>\n          <div class=\"hx-sidebar-section\">Set</div>\n          <div class=\"hx-sidebar-section\">List</div>\n        </div>\n      </div>\n      <div class=\"hx-sidebar-title\">Examples</div>\n      <div class=\"hx-sidebar-section\">Components</div>\n      <div class=\"hx-sidebar-section hx-selected\">Dashboard</div>\n      <div class=\"hx-sidebar-section\">Graphs</div>\n      <div class=\"hx-sidebar-title\">Links</div>\n      <a href=\"#\" class=\"hx-positive\"><i class=\"fa fa-fw fa-users\"></i>&nbsp; Users</a>\n      <a href=\"#\" class=\"hx-warning\"><i class=\"fa fa-fw fa-key\"></i>&nbsp; Keys</a>\n      <a href=\"#\" class=\"hx-negative\"><i class=\"fa fa-fw fa-book\"></i>&nbsp; Docs</a>\n      <a href=\"#\" class=\"hx-info\"><i class=\"fa fa-fw fa-heartbeat\"></i>&nbsp; Health</a>\n      <div class=\"hx-sidebar-title\">Dashboard states</div>\n      <button id=\"default-btn\" class=\"hx-btn\">Default State</button>\n      <button id=\"positive-btn\" class=\"hx-btn hx-positive\">Positive State</button>\n      <button id=\"warning-btn\" class=\"hx-btn hx-warning\">Warning State</button>\n      <button id=\"negative-btn\" class=\"hx-btn hx-negative\">Negative State</button>\n      <button id=\"info-btn\" class=\"hx-btn hx-info\">Info State</button>\n    </div>\n    <div class=\"hx-content example-content\"></div>\n    ";
+
+    // XXX: Append to the body so the code actually works correctly
+    // As we are returning the selection, a lot of the logic won't work
+    // We can safely append to the body and return the attached div as it will
+    // be relocated in the DOM by the parent `add`
+    var sidebar = hx.div('hx-sidebar-page sidebar-example');
+    sidebar.node().innerHTML = html;
+
+    new hx.TitleBar(sidebar.select('.example-heading'));
+    new hx.Sidebar(sidebar.select('.hx-sidebar'), {
+      headerSelector: sidebar.select('.example-titlebar').node(),
+      contentSelector: sidebar.select('.example-content').node(),
+      autoAddSidebarClass: false,
+    });
+
+    return [
+      sidebar ];
+  }
+
+  function sideCollapsibleExamples () {
+    var selection = hx.div('hx-side-collapsible')
+      .add(hx.div('hx-side-collapsible-heading-closed').text('Header'))
+      .add(hx.div('hx-side-collapsible-heading-open').text('Header'))
+      .add(hx.div('hx-side-collapsible-content demo-collapsible-content').text('Content'));
+
+    new hx.SideCollapsible(selection);
+
+    return selection;
+  }
+
+  function sliderExamples () { return hx.div('slider-demo')
+    .add(hx.slider()); }
+
+  var note$1 = function () { return hx.detached('note'); };
+  var br$1 = function () { return hx.detached('br'); };
+
+  function tableExamples () {
+    function row(n, clickable) {
+      var r = hx.detached('tr');
+      if (clickable) {
+        r.on('click', function () { return hx.notify(("Row " + n + " clicked!")); });
+      }
+
+      return r
+        .add(hx.detached('td').text(("Row " + n + " Cell 1")))
+        .add(hx.detached('td').text(("Row " + n + " Cell 2")))
+        .add(hx.detached('td').add(n === 3 ? hx.div().add(hx.span().text('Line 1')).add(br$1()).add(hx.span().text('Line 2')) : hx.span().text(("Row " + n + " Cell 3"))))
+        .add(hx.detached('td').add(n === 4 ? hx.span().text('No action row') : hx.button('hx-btn hx-btn-small').text('Action')));
+    }
+
+    function table(clickable) {
+      return hx.detached('table').class('hx-table')
+        .add(hx.detached('thead')
+          .add(hx.detached('tr')
+            .add(hx.detached('th').text('Header 1'))
+            .add(hx.detached('th').text('Header 2'))
+            .add(hx.detached('th').text('Header 3'))
+            .add(hx.detached('th').text('Actions'))))
+        .add(hx.detached('tbody')
+          .add(row(1, clickable))
+          .add(row(2, clickable))
+          .add(row(3, clickable))
+          .add(row(4, clickable))
+          .add(row(5, clickable)));
+    }
+
+    return hx.div().set([
+      table(),
+      note$1().text('Table with feature flag to apply font size and other style changes'),
+      table().classed('hx-flag-table hx-flag-button', true),
+      note$1().text('Table with feature clickable rows'),
+      table(true).classed('hx-flag-table hx-flag-button hx-table-clickable-rows', true) ]);
+  }
+
+  function tabsExamples () {
+    var manualTabDiv = hx.div('hx-flag-tabs')
+      .add(hx.div('hx-tab').text('Tab 1').attr('data-content', 'tab-1'))
+      .add(hx.div('hx-tab').text('Tab 2').attr('data-content', 'tab-2'))
+      .add(hx.div('hx-tab').text('Tab 3').attr('data-content', 'tab-3'))
+      .add(hx.div('hx-tabs-content')
+        .add(hx.div('hx-tab-content').text('Tab 1 Content').attr('id', 'tab-1'))
+        .add(hx.div('hx-tab-content').text('Tab 2 Content').attr('id', 'tab-2'))
+        .add(hx.div('hx-tab-content').text('Tab 3 Content').attr('id', 'tab-3')));
+
+    new hx.Tabs(manualTabDiv);
+
+    var contexts = [undefined, 'action', 'positive', 'negative', 'warning', 'info', 'complement', 'contrast'];
+
+    return [
+      manualTabDiv,
+      hx.detached('br'),
+      hx.tabs({
+        items: hx.range(8).map(function (_, i) { return ({
+          title: ("Tab " + (i + 1)),
+          content: ("Tab Content " + (i + 1) + " - " + (hx.cycle(contexts, i)) + " border"),
+          context: hx.cycle(contexts, i),
+        }); }),
+        contentRenderer: function (elem, content) {
+          hx.select(elem).style('padding', '1em').text(content);
+        },
+      }) ];
+  }
+
+  function tagInputExamples () { return [
+    hx.tagInput({ items: ['tag-1', 'tag-2', 'tag-3'] }),
+    hx.detached('br'),
+    hx.tagInput({
+      classifier: function classifier(value) {
+        switch (value) {
+          case 'hello':
+            return 'hx-positive';
+          case 'goodbye':
+            return 'hx-negative';
+          default:
+            return undefined;
+        }
+      },
+      items: ['hello', 'goodbye', 'tag', 'tag2'],
+    }) ]; }
+
+  function timePickerExamples () { return [
+    hx.timePicker(),
+    hx.div(),
+    hx.timePicker({
+      date: new Date(2019, 4, 22, 0, 20),
+    }) ]; }
+
+  function timeSliderExamples () { return hx.div('time-slider-demo')
+    .add(hx.timeSlider()); }
+
+  function toggleExamples () { return hx.toggle(); }
+
+  function treeExamples () { return [
+    hx.tree({
+      renderer: function renderer(elem, data) { hx.select(elem).text(data.name); },
+      items: [
+        {
+          name: 'Parent 1',
+          children: [
+            {
+              name: 'Item 1',
+            },
+            {
+              name: 'Parent 2',
+              children: [
+                {
+                  name: 'Item 2',
+                } ],
+            } ],
+        } ],
+    }) ]; }
+
+  function typographyExamples () { return hx.div('hx-flag-typography hx-flag-button hx-flag-tabs').set([
+    hx.detached('h1').text('Header 1'),
+    hx.detached('h2').text('Header 2'),
+    hx.detached('h3').text('Header 3'),
+    hx.div(),
+    hx.detached('note').text('Helper classes - Sometimes semantically you don\'t want a h1 tag but still want the styles of a h1'),
+    hx.div('hx-header-large').text('.hx-header-large'),
+    hx.div('hx-header-medium').text('.hx-header-medium'),
+    hx.div('hx-header-small').text('.hx-header-small'),
+    hx.detached('hr'),
+    hx.detached('p').class('hx-text-large').text('This an introduction text. It has a fixed size, and a custom line height, so you can experiment with it. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'),
+    hx.detached('p').text('This is body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vulputate diam eu pretium. Mauris elit orci, ultricies id fermentum vel, porta et eros. Vestibulum condimentum lectus in convallis feugiat.'),
+    hx.detached('p').class('hx-text-small').text('This is small body text used for notes and comments. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vulputate diam eu pretium. Mauris elit orci, ultricies id fermentum vel, porta et eros. Vestibulum condimentum lectus in convallis feugiat.'),
+    hx.detached('hr'),
+    hx.button('hx-btn hx-primary').text('Primary'),
+    hx.button('hx-btn hx-secondary').text('Secondary'),
+    hx.button('hx-btn').attr('disabled', true).text('Disabled'),
+    hx.button('hx-btn hx-primary hx-btn-small').text('Small'),
+    hx.button('hx-btn hx-primary hx-btn-micro').text('Micro'),
+    hx.detached('hr'),
+    hx.badge().text('Default'),
+    hx.badge({ type: 'success' }).text('Successful'),
+    hx.detached('hr'),
+    hx.div('hx-form-label').text('Input label text').add(hx.span('hx-form-label-optional').text('(Optional)')),
+    hx.div('hx-form-message').text('Messaging text error'),
+    hx.detached('hr'),
+    hx.div('hx-tab').text('Tab title'),
+    hx.div('hx-tab hx-tab-active').text('Selected tab title') ]); }
+
+  var fluidFactory = function (type) { return function (cls) {
+    if ( cls === void 0 ) cls = '';
+
+    return hx.detached(type).class(cls);
+   }  };
+  var invalidFactory = function (type) { return function (cls) {
+    if ( cls === void 0 ) cls = '';
+
+    var sel = hx.detached(type).class(cls);
+    sel.node().setCustomValidity('Invalid State');
+    return sel;
+  }; };
+
+  var label = fluidFactory('label');
+  var textarea = fluidFactory('textarea');
+  var hr = fluidFactory('hr');
+  var vr = fluidFactory('vr');
+  var note$2 = fluidFactory('note');
+
+  var invalidInput = invalidFactory('input');
+  var invalidTextarea = invalidFactory('textarea');
+
+  function inputExamples () { return hx.div()
+    .add(hx.group({ compact: true, horizontal: true })
+      .add(hx.section()
+        .add(hx.div('hx-header-medium').text('Valid State'))
+        .add(hr())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label('hx-form-label').text('Label'))
+            .add(hx.input('hx-input').attr('placeholder', 'Placeholder Text'))))
+        .add(hr())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label('hx-form-label').text('Label'))
+            .add(textarea('hx-input-textarea').attr('placeholder', 'Placeholder Text')))
+          .add(hx.div('hx-form-group')
+            .add(label('hx-form-label').text('Label').add(hx.span('hx-form-label-optional').text('(Optional)')))
+            .add(textarea('hx-input-textarea'))))
+        .add(hr())
+        .add(note$2().text('Disabled and Readonly are visually the same with the exception of the cursor on hover. Disabled fields are not sent when the form is submit'))
+        .add(hx.group({ compact: true, horizontal: true })
+          .add(hx.section()
+            .add(hx.div('hx-header-medium').text('Disabled State'))
+            .add(hr())
+            .add(hx.div('hx-form hx-flag-form')
+              .add(hx.div('hx-form-group')
+                .add(hx.input('hx-input').attr('disabled', 'disabled').value('Disabled content here')))))
+          .add(vr())
+          .add(hx.section()
+            .add(hx.div('hx-header-medium').text('Read Only State'))
+            .add(hr())
+            .add(hx.div('hx-form hx-flag-form')
+              .add(hx.div('hx-form-group')
+                .add(hx.input('hx-input').attr('readonly', 'readonly').value('Read only content here')))))))
+      .add(vr())
+      .add(hx.section()
+        .add(hx.div('hx-header-medium').text('Invalid State'))
+        .add(hr())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label('hx-form-label').text('Label'))
+            .add(invalidInput('hx-input').attr('placeholder', 'Placeholder Text'))
+            .add(hx.div('hx-form-message hx-form-message-wrap').text('Warning message will be here and if very long but space does not allow it, wrap into more lines')))
+          .add(hx.div('hx-form-group')
+            .add(label('hx-form-label').text('Label'))
+            .add(invalidInput('hx-input').attr('required', true).value('Input text here'))
+            .add(hx.div('hx-form-message').text('Warning message will be here and if very long allow to it to be wider the component'))))
+        .add(hr())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label('hx-form-label').text('Label'))
+            .add(invalidTextarea('hx-input-textarea').value('Input text here'))
+            .add(hx.div('hx-form-message').text('Warning message will be here and if very long allow to it to be wider the component'))))))
+    .add(hr())
+    .add(hx.div()
+      .add(hx.div('do'))
+      .add(hx.div('hx-form hx-flag-form')
+        .add(hx.div('hx-form-group')
+          .add(label('hx-form-label').text('Label'))
+          .add(hx.input('hx-input').attr('placeholder', 'Placeholder Text')))
+        .add(hx.div('hx-form-group')
+          .add(label('hx-form-label').text('Label'))
+          .add(invalidInput('hx-input').attr('placeholder', 'Placeholder Text'))
+          .add(hx.div('hx-form-message hx-form-message-wrap').text('Warning message will be here and if very long but space does not allow it, wrap into more lines')))
+        .add(hx.div('hx-form-group')
+          .add(label('hx-form-label').text('Label'))
+          .add(invalidInput('hx-input').attr('required', true).value('Input text here'))
+          .add(hx.div('hx-form-message').text('Warning message will be here and if very long allow to it to be wider the component'))))); }
+
+  var fluidFactory$1 = function (type) { return function (cls) {
+    if ( cls === void 0 ) cls = '';
+
+    return hx.detached(type).class(cls);
+   }  };
+
+  var label$1 = fluidFactory$1('label');
+  var hr$1 = fluidFactory$1('hr');
+  var vr$1 = fluidFactory$1('vr');
+
+  var checkbox = function (name, checked) { return hx.input().attr('type', 'checkbox')
+    .attr('id', name)
+    .attr('name', name)
+    .class('hx-input-checkbox')
+    .prop('checked', !!checked); };
+
+  var invalidCheckbox = function (name) { return checkbox(name).attr('required', true); };
+
+  function checkboxExamples () { return hx.div()
+    .add(hx.group({ compact: true, horizontal: true })
+      .add(hx.section()
+        .add(hx.div('hx-header-medium').text('Valid State'))
+        .add(hr$1())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label$1('hx-form-label').text('Label'))
+            .add(hx.div('hx-form-item')
+              .add(checkbox('cba'))
+              .add(label$1('hx-form-label').attr('for', 'cba').text('Check Box')))
+            .add(hx.div('hx-form-item')
+              .add(checkbox('cbb'))
+              .add(label$1('hx-form-label').attr('for', 'cbb').text('Check Box')))
+            .add(hx.div('hx-form-item')
+              .add(checkbox('cbc', true))
+              .add(label$1('hx-form-label').attr('for', 'cbc').text('Check Box')))
+            .add(hx.div('hx-form-item')
+              .add(checkbox('cbd', true))
+              .add(label$1('hx-form-label').attr('for', 'cbd').text('Check Box'))))))
+      .add(vr$1())
+      .add(hx.section()
+        .add(hx.div('hx-header-medium').text('Invalid State'))
+        .add(hr$1())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label$1('hx-form-label').text('Label'))
+            .add(hx.div('hx-form-item')
+              .add(invalidCheckbox('cbe'))
+              .add(label$1('hx-form-label').attr('for', 'cbe').text('Check Box')))
+            .add(hx.div('hx-form-item')
+              .add(invalidCheckbox('cbf'))
+              .add(label$1('hx-form-label').attr('for', 'cbf').text('Check Box')))
+            .add(hx.div('hx-form-message').text('Warning message will be here')))))); }
+
+  var fluidFactory$2 = function (type) { return function (cls) {
+    if ( cls === void 0 ) cls = '';
+
+    return hx.detached(type).class(cls);
+   }  };
+
+  var label$2 = fluidFactory$2('label');
+  var hr$2 = fluidFactory$2('hr');
+  var vr$2 = fluidFactory$2('vr');
+  var note$3 = fluidFactory$2('note');
+
+  var radio = function (name, value, checked, disabled) { return hx.input().attr('type', 'radio')
+    .class('hx-input-radio')
+    .attr('name', name)
+    .attr('value', value)
+    .attr('id', value)
+    .prop('checked', !!checked)
+    .attr('disabled', disabled ? 'disabled' : undefined); };
+
+  var invalidRadio = function (name, value) { return radio(name, value)
+    .attr('required', true); };
+
+  function radioExamples () { return hx.div()
+    .add(hx.group({ compact: true, horizontal: true })
+      .add(hx.section()
+        .add(hx.div('hx-header-medium').text('Valid State'))
+        .add(hr$2())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label$2('hx-form-label').text('Label'))
+            .add(hx.div('hx-form-item')
+              .add(radio('a', 'a1'))
+              .add(label$2('hx-form-label').attr('for', 'a1').text('Radio Button')))
+            .add(hx.div('hx-form-item')
+              .add(radio('a', 'a2', true))
+              .add(label$2('hx-form-label').attr('for', 'a2').text('Radio Button'))))))
+      .add(vr$2())
+      .add(hx.section()
+        .add(hx.div('hx-header-medium').text('Invalid State'))
+        .add(hr$2())
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label$2('hx-form-label').text('Label'))
+            .add(hx.div('hx-form-item')
+              .add(invalidRadio('n', 'n1'))
+              .add(label$2('hx-form-label').attr('for', 'n1').text('Radio Button')))
+            .add(hx.div('hx-form-item')
+              .add(invalidRadio('n', 'n2'))
+              .add(label$2('hx-form-label').attr('for', 'n2').text('Radio Button')))
+            .add(hx.div('hx-form-message').text('Warning message will be here'))))))
+    .add(hr$2())
+    .add(hx.div('hx-header-medium').text('Variations'))
+    .add(note$3().text('Radio buttons, one option disabled'))
+    .add(hx.div('hx-form hx-flag-form')
+      .add(hx.div('hx-form-group')
+        .add(label$2('hx-form-label').text('Label'))
+        .add(hx.div('hx-form-item')
+          .add(radio('c', 'c1'))
+          .add(label$2('hx-form-label').attr('for', 'c1').text('Radio Button')))
+        .add(hx.div('hx-form-item')
+          .add(radio('c', 'c2'))
+          .add(label$2('hx-form-label').attr('for', 'c2').text('Radio Button')))
+        .add(hx.div('hx-form-item')
+          .add(radio('c', 'c3'))
+          .add(label$2('hx-form-label').attr('for', 'c3').text('Radio Button')))
+        .add(hx.div('hx-form-item')
+          .add(radio('c', 'c4', false, true))
+          .add(label$2('hx-form-label').attr('for', 'c4').text('Radio Button (Not available)')))))
+    .add(hr$2())
+    .add(hx.group({ compact: true, horizontal: true })
+      .add(hx.section()
+        .add(hx.div('do'))
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label$2('hx-form-label').text('Label'))
+            .add(hx.div('hx-form-item')
+              .add(radio('d', 'd1'))
+              .add(label$2('hx-form-label').attr('for', 'd1').text('Yes')))
+            .add(hx.div('hx-form-item')
+              .add(radio('d', 'd2', true))
+              .add(label$2('hx-form-label').attr('for', 'd2').text('No'))))))
+      .add(hx.section()
+        .add(hx.div('dont'))
+        .add(hx.div('hx-form hx-flag-form')
+          .add(hx.div('hx-form-group')
+            .add(label$2('hx-form-label').text('Label'))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e1'))
+              .add(label$2('hx-form-label').attr('for', 'e1').text('Yes')))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e2', true))
+              .add(label$2('hx-form-label').attr('for', 'e2').text('No')))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e3'))
+              .add(label$2('hx-form-label').attr('for', 'e3').text('Yes, but I need more info')))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e4'))
+              .add(label$2('hx-form-label').attr('for', 'e4').text('Yes, but it can be no too')))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e5'))
+              .add(label$2('hx-form-label').attr('for', 'e5').text('Yes, if certain things happen')))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e6'))
+              .add(label$2('hx-form-label').attr('for', 'e6').text('Mostly not')))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e7'))
+              .add(label$2('hx-form-label').attr('for', 'e7').text('No, but I may change my mind')))
+            .add(hx.div('hx-form-item')
+              .add(radio('e', 'e8'))
+              .add(label$2('hx-form-label').attr('for', 'e8').text('Maybe'))))))); }
+
+  var select = hx.select;
+  var div = hx.div;
+  var detached = hx.detached;
+  var titleBar = hx.titleBar;
+
+  window.hx = hx;
+
+  var contentsItems = [];
+
+  function backToTop() {
+    window.scrollTo(0, 0);
+  }
+
+  function example(title) {
+    var slug = title.split(' ').join('-').toLowerCase();
+    contentsItems.push({
+      title: title,
+      slug: slug,
+    });
+
+    return div('example-section')
+      .add(detached('h2').attr('id', slug).class('example-header').text(title)
+        .add(detached('a').class('back-to-top')
+          .on('click', backToTop)
+          .text('Back to top')));
+  }
+
+  function tryDemo(demoFn) {
+    try {
+      return demoFn();
+    } catch (e) {
+      console.error(e);
+      return detached('pre').class('big-ol-error').text(e.toString());
+    }
+  }
+
+  function getContents() {
+    return detached('ul').add(contentsItems.map(function (ref) {
+      var title = ref.title;
+      var slug = ref.slug;
+
+      return detached('li')
+      .add(detached('a')
+        .attr('href', ("#" + slug))
+        .text(title));
+    }));
+  }
+
+  var examples = [
+    example('Text Styles').add(tryDemo(typographyExamples)),
+    example('Input Fields').add(tryDemo(inputExamples)),
+    example('Checklists').add(tryDemo(checkboxExamples)),
+    example('Radio Buttons').add(tryDemo(radioExamples)),
+    example('Palette').add(tryDemo(paletteExamples)),
+    example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
+    example('Autocomplete').add(tryDemo(autocompleteExamples)),
+    example('Badge').add(tryDemo(badgeExamples)),
+    example('Button Group').add(tryDemo(buttonGroupExamples)),
+    example('Buttons').add(tryDemo(buttonExamples)),
+    example('Card').add(tryDemo(cardExamples)),
+    example('Collapsible').add(tryDemo(collapsibleExamples)),
+    example('Crumbtrail').add(tryDemo(crumbtrailExamples)),
+    example('Data Table').add(tryDemo(dataTableExamples)),
+    example('Date Picker').add(tryDemo(datePickerExamples)),
+    example('Date Time Picker').add(tryDemo(dateTimePickerExamples)),
+    example('Drag Container').add(tryDemo(dragContainerExamples)),
+    example('Dropdown').add(tryDemo(dropdownExamples)),
+    example('Error Page').add(tryDemo(errorPageExamples)),
+    example('Form').add(tryDemo(formExamples)),
+    example('Input Group').add(tryDemo(inputGroupExamples)),
+    example('Layout').add(tryDemo(layoutExamples)),
+    example('Loading Spinners').add(tryDemo(loadingSpinnerExamples)),
+    example('Menu').add(tryDemo(menuExamples)),
+    example('Modals').add(tryDemo(modalExamples)),
+    example('Notice').add(tryDemo(noticeExamples)),
+    example('Notify').add(tryDemo(notifyExamples)),
+    example('Number Pickers').add(tryDemo(numberPickerExamples)),
+    example('Paginator').add(tryDemo(paginatorExamples)),
+    example('Picker').add(tryDemo(pickerExamples)),
+    example('Pivot Table').add(tryDemo(pivotTableExamples)),
+    example('Plot').add(tryDemo(plotExamples)),
+    example('Progress Bar').add(tryDemo(progressBarExamples)),
+    example('Side Collapsible').add(tryDemo(sideCollapsibleExamples)),
+    example('Sidebar').add(tryDemo(sidebarExamples)),
+    example('Slider').add(tryDemo(sliderExamples)),
+    example('Table').add(tryDemo(tableExamples)),
+    example('Tabs').add(tryDemo(tabsExamples)),
+    example('Tag Input').add(tryDemo(tagInputExamples)),
+    example('Time Picker').add(tryDemo(timePickerExamples)),
+    example('Time Slider').add(tryDemo(timeSliderExamples)),
+    example('Toggle').add(tryDemo(toggleExamples)),
+    example('Tree').add(tryDemo(treeExamples)) ];
+
+  select('body')
+    .add(titleBar({ title: 'Title', subtitle: 'Subtitle' }))
+    .add(getContents())
+    .add(examples);
+
+}(hx));
