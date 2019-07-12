@@ -4,7 +4,7 @@
 
 @stylesheet [/resources/hexagon/docs/hexagon.css]
 @stylesheet [https://fonts.googleapis.com/css?family=Open+Sans:100,400,700|Roboto+Slab:400,700|Source+Code+Pro:400,700]
-@stylesheet [/resources/font-awesome/css/font-awesome.min.css]
+@stylesheet [/resources/font-awesome/css/all.min.css]
 @stylesheet [/resources/docs-new.css]
 @stylesheet [/resources/docs-landing.css]
 
@@ -32,28 +32,20 @@
     @div .qm-html-paragraph
       @div .buttons
         @a .button: @span[Documentation]
-          @attr href: /guide/installation
-          @img
-            @attr src: /resources/book.svg
-            @attr role: presentation
-            @attr alt: Book Icon
-            @attr height: 30px
+          @attr href: /guide/installation/
+          @i .fas.fa-book-open
+
+        @a .button: @span[Component Demos]
+          @attr href: /demo/
+          @i .fas.fa-swatchbook
 
         @a .button: @span[Changelog]
-          @attr href: /changelog
-          @img
-            @attr src: /resources/tags.svg
-            @attr role: presentation
-            @attr alt: Tags Icon
-            @attr height: 30px
+          @attr href: /changelog/
+          @i .fas.fa-tags
 
         @a .button: @span[GitHub]
           @attr href: https://github.com/ocadotechnology/hexagonjs/
-          @img
-            @attr src: /resources/github-mark.svg
-            @attr role: presentation
-            @attr alt: GitHub Logo
-            @attr height: 30px
+          @i .fab.fa-github
 
   @landingSection Themeable
     Create custom themes with variable-driven theme files.
@@ -89,28 +81,16 @@
   @landingSection Get Started
     @div .buttons
       @a .button: @span[Quick Start]
-        @attr href: /guide/getting-started
-        @img
-          @attr src: /resources/rocket.svg
-          @attr role: presentation
-          @attr alt: Rocket Icon
-          @attr height: 30px
+        @attr href: /guide/getting-started/
+        @i .fas.fa-rocket
 
       @a .button: @span[Releases]
         @attr href: https://github.com/ocadotechnology/hexagonjs/releases
-        @img
-          @attr src: /resources/tags.svg
-          @attr role: presentation
-          @attr alt: Tags Icon
-          @attr height: 30px
+        @i .fas.fa-tags
 
       @a .button: @span[GitHub]
         @attr href: https://github.com/ocadotechnology/hexagonjs/
-        @img
-          @attr src: /resources/github-mark.svg
-          @attr role: presentation
-          @attr alt: GitHub Logo
-          @attr height: 30px
+        @i .fab.fa-github
 
   @div .footer
     @span .footer-note: Created @(@) @hyperlink(https://github.com/ocadotechnology)[Ocado Technology]

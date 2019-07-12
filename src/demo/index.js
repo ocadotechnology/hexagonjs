@@ -45,7 +45,7 @@ import checkboxExamples from './examples/checkbox';
 import radioExamples from './examples/radio';
 
 const {
-  select, div, detached, titleBar,
+  select, selectAll, div, detached, debounce,
 } = hx;
 
 window.hx = hx;
@@ -85,6 +85,37 @@ function getContents() {
       .attr('href', `#${slug}`)
       .text(title))));
 }
+
+function findContentsItem(text) {
+  const lcText = text.toLowerCase().replace('back to top', '');
+  const sel = selectAll('.sidebar ul a').filter(item => item.text().toLowerCase() === lcText);
+  const node = sel.node(0);
+  if (node) {
+    return select(node.parentNode);
+  }
+  return div();
+}
+
+function updateURL(value) {
+  window.history.replaceState({}, undefined, `?filter=${encodeURIComponent(value)}${window.location.hash}`);
+}
+
+function applyFilter(value) {
+  selectAll('.example-section').forEach((sel) => {
+    const vis = value.toLowerCase().split(', ').some(v => sel.text().toLowerCase().includes(v));
+    sel.style('display', vis ? undefined : 'none');
+    findContentsItem(sel.select('.example-header').text()).style('display', vis ? undefined : 'none');
+  });
+
+  updateURL(value);
+}
+
+const filter = detached('input').class('hx-input')
+  .attr('placeholder', 'Filter...')
+  .on('keyup', debounce(200, (e) => {
+    applyFilter(e.target.value);
+    backToTop();
+  }));
 
 const examples = [
   example('Text Styles').add(tryDemo(typographyExamples)),
@@ -133,6 +164,16 @@ const examples = [
 ];
 
 select('body')
-  .add(titleBar({ title: 'Title', subtitle: 'Subtitle' }))
-  .add(getContents())
-  .add(examples);
+  .add(div('sidebar')
+    .add(filter)
+    .add(getContents()))
+  .add(detached('p').class('intro').text('This page demonstrates examples of the various Hexagon components available on a single page. Use the filter on the left to search for components'))
+  .add(div('examples').set(examples));
+
+setTimeout(() => {
+  if (window.location.search) {
+    const filterValueFromWindow = decodeURIComponent(window.location.search.slice(window.location.search.indexOf('=') + 1));
+    filter.value(filterValueFromWindow);
+    applyFilter(filterValueFromWindow);
+  }
+}, 1);
