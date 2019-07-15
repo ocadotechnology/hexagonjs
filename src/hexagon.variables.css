@@ -587,6 +587,7 @@
   --menu-collapsible-text-color: var(--theme-text-color);
   --menu-max-height: 500px;
   --menu-item-padding: 0.4em;
+  --menu-item-compact-padding: 0.25em;
   --menu-item-link-margin: -0.4em;
   --menu-collapsible-padding: 0.75em;
   --menu-item-collapsible-left-padding: 1.5em;
@@ -842,6 +843,10 @@
   --palette-disabled-background-color: var(--theme-disabled-background-color);
   --palette-disabled-background-text-color: var(--theme-disabled-text-color);
   --palette-disabled-border-color: var(--theme-disabled-border-color);
+
+
+  /* Picker */
+  --picker-arrow-color: var(--theme-disabled-text-color);
 
 
   /* Plot */

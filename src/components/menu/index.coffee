@@ -198,20 +198,31 @@ class MenuItem
       container.view('.hx-collapsible').apply(this)
       collapsibleNode = container.select('.hx-collapsible')
 
-      collapsibleNode.view('.hx-collapsible-heading').apply(this)
-      collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
+        container.class('hx-menu-item').set([
+          headerNode,
+          children,
+        ])
 
-      # XXX Breaking: Renderer
-      # collapsibleNode.select('.hx-collapsible-heading')
-      #   .classed('hx-menu-collapsible', true)
-      #   .set(@menu.renderer()(@content))
-      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
-      @menu.options.renderer(headerNode, @content)
+        @menu.options.renderer(headerNode, @content)
+        populateNode(children, @_.menuItems)
+      else
+        container.view('.hx-collapsible').apply(this)
+        collapsibleNode = container.select('.hx-collapsible')
 
-      contentNode = container.select('.hx-collapsible-content').node()
-      @collapsible = new Collapsible(collapsibleNode)
+        collapsibleNode.view('.hx-collapsible-heading').apply(this)
+        collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
 
-      populateNode(contentNode, @_.menuItems)
+        # XXX Breaking: Renderer
+        # collapsibleNode.select('.hx-collapsible-heading')
+        #   .classed('hx-menu-collapsible', true)
+        #   .set(@menu.renderer()(@content))
+        headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
+        @menu.options.renderer(headerNode, @content)
+
+        contentNode = container.select('.hx-collapsible-content').node()
+        @collapsible = new Collapsible(collapsibleNode)
+
+        populateNode(contentNode, @_.menuItems)
     else
       container
         .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
@@ -270,6 +281,8 @@ class MenuBase extends EventEmitter
       'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
     dropdownContainer = div('hx-menu-items')
+      .classed('hx-flag-menu', @options.featureFlags?.useUpdatedStructure)
+      .classed('hx-flag-menu-compact', @options.featureFlags?.compact)
 
     # Items as set by the user.
     rawItems = self._.items
