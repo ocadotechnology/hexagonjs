@@ -30,7 +30,6 @@
   padding-left: var(--menu-item-collapsible-left-padding);
 }
 
-
 /* default */
 .hx-menu-link,
 .hx-menu-collapsible {
@@ -191,4 +190,16 @@
   border-color: var(--menu-contrast-border-color-active);
   background: var(--menu-contrast-background-color-active);
   color: var(--menu-contrast-text-color-active);
+}
+
+.hx-flag-menu-compact .hx-menu-item.hx-menu-link a,
+.hx-flag-menu-compact .hx-menu-item.hx-menu-item-disabled,
+.hx-flag-menu-compact .hx-menu-item.hx-menu-unselectable,
+.hx-flag-menu-compact .hx-menu-item.hx-menu-link {
+  padding: var(--menu-item-compact-padding);
+}
+
+.hx-flag-menu-compact .hx-menu-item-children > .hx-menu-item.hx-menu-link,
+.hx-flag-menu .hx-menu-item-children > .hx-menu-item.hx-menu-link {
+  padding-left: var(--menu-item-collapsible-left-padding);
 }
