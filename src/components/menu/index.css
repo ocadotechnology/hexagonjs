@@ -35,3 +35,7 @@ a.hx-menu-item:hover {
   cursor: default;
   user-select: none;
 }
+
+.hx-flag-menu .hx-menu-item.hx-menu-link {
+  border-left: none;
+}
