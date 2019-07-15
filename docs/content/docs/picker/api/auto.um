@@ -104,6 +104,53 @@
         @default
           false
 
+
+      @property featureFlags [Object]
+        @added nextReleaseVersion
+          @description
+            Added the @code[useUpdatedStructure] and @code[required] feature flag to remove the collapsibles when displaying grouped content in menus.
+
+        @description
+          Feature flags that apply features and functionality that will be made either default or relies on other feature flags in the next major release
+
+        @property useUpdatedStructure [Boolean]
+          @description
+            Whether to display the picker with the improved UI structure.
+
+            This changes the style to display and behave as a @code[hx-input].
+
+        @property required [Boolean]
+          @description
+            Whether a value is required from this picker.
+
+            This relies on the @code[useUpdatedStructure] feature flag being set.
+
+
+  @method valid
+    @added nextReleaseVersion
+
+    @description
+
+      Gets the current valid state of the picker.
+
+      When using @code[featureFlags.required], this will be @code[false] when no value is selected
+
+    @returns Boolean
+
+  @method valid
+    @added nextReleaseVersion
+
+    @description
+      Sets the current valid state of the picker.
+
+      When using @code[featureFlags.required], this will be @code[false] when no value is selected
+
+    @arg valid [Boolean]
+      @description
+        The valid state to set.
+
+    @returns Picker
+
   @method items
     @description
       Set the items for the select using a function that returns the data.
@@ -130,7 +177,9 @@
         Fixed a bug where the items setter was not updating the value when a new list of items was passed in.
 
     @description
-      Sets the list of items that will be shown in the select dropdown. If the current value is present in the new list of items, the value will be retained. Otherwise, the value will be set to @code[undefined] @arg items [Array[Any]]
+      Sets the list of items that will be shown in the select dropdown. If the current value is present in the new list of items, the value will be retained. Otherwise, the value will be set to @code[undefined]
+
+    @arg items [Array[Any]]
       @description
         The list of items that can be selected. Can also be an array of objects with value properties (and other information for displaying the items). For this a custom renderer must be set.
 
@@ -152,7 +201,9 @@
         Made it possible to clear the value of a picker by passing in @code[undefined]
 
     @description
-      Sets the currently selected item. Passing in @code[undefined] will clear the value, unless an item is found with a value of @code[undefined] @arg value [String]
+      Sets the currently selected item. Passing in @code[undefined] will clear the value, unless an item is found with a value of @code[undefined]
+
+    @arg value [String]
       @description
         The value of the item to select.
 
