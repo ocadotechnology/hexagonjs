@@ -1,4 +1,4 @@
-.hx-picker:not(.hx-flag-picker) {
+.hx-picker {
   text-align: left;
   display: inline-flex;
 }
@@ -18,28 +18,5 @@
 
 .hx-picker-full-width .hx-picker-inner {
   display: inline-flex;
-  width: 100%;
-}
-
-.hx-picker.hx-flag-picker {
-  display: inline-block;
-}
-
-.hx-picker.hx-flag-picker .hx-input {
-  padding-right: 2.5em;
-}
-
-.hx-picker.hx-flag-picker .hx-icon {
-  margin-left: -1.5em;
-  font-size: 1.2rem;
-  line-height: 0;
-  vertical-align: middle;
-}
-
-.hx-picker-input {
-  padding: 0.25rem;
-}
-
-.hx-picker-input .hx-input {
   width: 100%;
 }

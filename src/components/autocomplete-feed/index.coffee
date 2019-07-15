@@ -25,27 +25,6 @@ sortActive = (items) ->
   inactive = groupedActive.get(false) || []
   { active, inactive }
 
-filterNested = (items, term, filterName, filterOptions) ->
-  if items.some((item) -> item.children?.length)
-    items.reduce((acc, item) ->
-      if item.children
-        children = filter[filterName](item.children, term, filterOptions)
-        if children.length
-          return [
-            ...acc,
-            Object.assign({}, item, {
-              children,
-            })
-          ]
-
-      filterSingle = filter[filterName]([item], term, filterOptions)
-
-      return [...acc, ...filterSingle];
-    , []);
-  else
-    filter[filterName](items, term, filterOptions)
-
-
 class AutocompleteFeed
   constructor: (options = {}) ->
     self = this
@@ -69,7 +48,7 @@ class AutocompleteFeed
     # defined here so we can use the resolved options
     resolvedOptions.filter ?= (items, term) ->
       filterName = 'filter' + resolvedOptions.matchType[0].toUpperCase() + resolvedOptions.matchType.slice(1)
-      filtered = filterNested(items, term, filterName, resolvedOptions.filterOptions)
+      filtered = filter[filterName](items, term, resolvedOptions.filterOptions)
       { active, inactive } = sortActive(filtered)
       [active..., inactive...]
 

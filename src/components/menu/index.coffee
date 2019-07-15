@@ -173,40 +173,28 @@ class MenuItem
   constructor: (@content, @parent, @menu) ->
     @_ = {}
 
-  build: (selector) ->
-    @node = selector
-    container = select(selector)
+  build: (container) ->
+    @node = container
+    container = select(container)
 
     if @_.menuItems?.length > 0
-      if @menu.options.featureFlags?.useUpdatedStructure
-        headerNode = div('hx-menu-item hx-menu-unselectable')
-        children = div('hx-menu-item-children')
+      container.view('.hx-collapsible').apply(this)
+      collapsibleNode = container.select('.hx-collapsible')
 
-        container.class('hx-menu-item').set([
-          headerNode,
-          children,
-        ])
+      collapsibleNode.view('.hx-collapsible-heading').apply(this)
+      collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
 
-        @menu.options.renderer(headerNode, @content)
-        populateNode(children, @_.menuItems)
-      else
-        container.view('.hx-collapsible').apply(this)
-        collapsibleNode = container.select('.hx-collapsible')
+      # XXX Breaking: Renderer
+      # collapsibleNode.select('.hx-collapsible-heading')
+      #   .classed('hx-menu-collapsible', true)
+      #   .set(@menu.renderer()(@content))
+      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
+      @menu.options.renderer(headerNode, @content)
 
-        collapsibleNode.view('.hx-collapsible-heading').apply(this)
-        collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
+      contentNode = container.select('.hx-collapsible-content').node()
+      @collapsible = new Collapsible(collapsibleNode)
 
-        # XXX Breaking: Renderer
-        # collapsibleNode.select('.hx-collapsible-heading')
-        #   .classed('hx-menu-collapsible', true)
-        #   .set(@menu.renderer()(@content))
-        headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
-        @menu.options.renderer(headerNode, @content)
-
-        contentNode = container.select('.hx-collapsible-content').node()
-        @collapsible = new Collapsible(collapsibleNode)
-
-        populateNode(contentNode, @_.menuItems)
+      populateNode(contentNode, @_.menuItems)
     else
       container
         .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
@@ -229,11 +217,7 @@ export class Menu extends EventEmitter
         align: undefined
         mode: 'click',
         ddClass: '',
-        disabled: false,
-        featureFlags: {
-          useUpdatedStructure: false,
-          compact: false,
-        }
+        disabled: false
       }
       # XXX Breaking: Renderer
       # renderer: (data) -> span().text(data.text or data)
@@ -258,8 +242,6 @@ export class Menu extends EventEmitter
     @options.dropdownOptions.ddClass = 'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
     dropdownContainer = div('hx-menu-items')
-      .classed('hx-flag-menu', @options.featureFlags?.useUpdatedStructure)
-      .classed('hx-flag-menu-compact', @options.featureFlags?.compact)
 
     if options.extraContent
       dropdownContainer.add(options.extraContent)

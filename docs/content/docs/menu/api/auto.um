@@ -332,19 +332,6 @@
         @default
           false
 
-      @property featureFlags [Object]
-        @added nextReleaseVersion
-          @description
-            Added the @code[useUpdatedStructure] feature flag to remove the collapsibles when displaying grouped content in menus
-
-        @description
-          Feature flags that apply features and functionality that will be made either default or relies on other feature flags in the next major release
-
-        @property useUpdatedStructure [Boolean]
-          @description
-            Whether to display the menu with the improved UI structure. This removes the collapsible content from grouped items.
-
-
   @method renderer
     @added 0.13.0
     @description
