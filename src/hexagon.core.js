@@ -138,7 +138,7 @@ export {
   autocomplete as autoComplete,
   Autocomplete as AutoComplete,
 } from 'components/autocomplete';
-export { AutocompleteFeed } from 'components/autocomplete-feed';
+export { AutocompleteFeed } from 'utils/autocomplete-feed';
 export { numberPicker, NumberPicker } from 'components/number-picker';
 export { buttonGroup, ButtonGroup } from 'components/button-group';
 export { picker, Picker } from 'components/picker';

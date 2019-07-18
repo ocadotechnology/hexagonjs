@@ -33,7 +33,7 @@ import collapsibleTests from 'components/collapsible/spec';
 import titlebarTests from 'components/titlebar/spec';
 import menuTests from 'components/menu/spec';
 import autocompleteTests from 'components/autocomplete/spec';
-import autocompleteFeedTests from 'components/autocomplete-feed/spec';
+import autocompleteFeedTests from 'utils/autocomplete-feed/spec';
 import numberPickerTests from 'components/number-picker/spec';
 import buttonGroupTests from 'components/button-group/spec';
 import pickerTests from 'components/picker/spec';

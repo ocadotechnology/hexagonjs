@@ -20,7 +20,7 @@ import {
 
 import logger from 'utils/logger';
 
-import { AutocompleteFeed } from 'components/autocomplete-feed';
+import { AutocompleteFeed } from 'utils/autocomplete-feed';
 
 import { Menu } from 'components/menu';
 

@@ -29,7 +29,7 @@ filterNested = (items, term, filterName, filterOptions) ->
   if items.some((item) -> item.children?.length)
     items.reduce((acc, item) ->
       if item.children
-        children = filter[filterName](item.children, term, filterOptions)
+        children = filterNested(item.children, term, filterName, filterOptions)
         if children.length
           return [
             ...acc,

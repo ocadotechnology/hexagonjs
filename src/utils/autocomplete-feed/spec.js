@@ -2,7 +2,7 @@ import chai from 'chai';
 
 import { Map as HMap } from 'utils/map';
 
-import { AutocompleteFeed } from 'components/autocomplete-feed';
+import { AutocompleteFeed } from 'utils/autocomplete-feed';
 
 import installFakeTimers from 'test/utils/fake-time';
 

@@ -8,7 +8,6 @@ import { Dropdown, config as dropdownConfig } from 'components/dropdown';
 import {
   select,
   div,
-  button,
   Selection,
 } from 'utils/selection';
 
@@ -76,7 +75,7 @@ export default () => {
     beforeEach(() => {
       fixture.clear();
       clock = installFakeTimers();
-      chai.spy.on(logger, 'warn');
+      chai.spy.on(logger, 'warn', () => {});
     });
 
     afterEach(() => {
