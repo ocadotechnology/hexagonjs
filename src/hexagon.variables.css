@@ -390,7 +390,7 @@
   --dropdown-border-color: var(--theme-container-border-color);
   --dropdown-border-radius: 0;
   --dropdown-shadow-color: var(--theme-shadow-color);
-  --dropdown-spacing: 0;
+  --dropdown-spacing: 0.2em;
 
 
   /* Error Pages */

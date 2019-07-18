@@ -1,6 +1,14 @@
 import { clamp } from 'utils/utils'
 
-export calculateDropdownPosition = (alignments, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) ->
+export calculateDropdownPosition = (align, selectionRect, dropdownRect, windowRect, ddMaxHeight, scrollbarWidth) ->
+  alignQuad = switch align
+    when 'up' then 'ltlb'
+    when 'down' then 'lblt'
+    when 'left' then 'ltrt'
+    when 'right' then 'rtlt'
+    else align
+
+  alignments = alignQuad.split('')
 
   # figure out the direction the drop-down should be revealed (for the animation)
   direction = if alignments[1] is alignments[3] and alignments[0] isnt alignments[2]
