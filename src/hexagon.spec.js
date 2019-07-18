@@ -65,6 +65,7 @@ import drawingTests from 'components/drawing/spec';
 import inlineEditableTests from 'components/inline-editable/spec';
 import paginatorTests from 'components/paginator/spec';
 import errorPageTests from 'components/error-pages/spec';
+import singleSelectTests from 'components/single-select/spec';
 
 window.hx = hx;
 
@@ -314,6 +315,8 @@ describe('HexagonJS Test Suite', () => {
         'si',
         'Sidebar',
         'SideCollapsible',
+        'SingleSelect',
+        'singleSelect',
         'Slider',
         'slider',
         'sort',
@@ -431,6 +434,7 @@ describe('HexagonJS Test Suite', () => {
   inlineEditableTests();
   paginatorTests();
   errorPageTests();
+  singleSelectTests();
 
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')

@@ -105,52 +105,6 @@
           false
 
 
-      @property featureFlags [Object]
-        @added nextReleaseVersion
-          @description
-            Added the @code[useUpdatedStructure] and @code[required] feature flag to remove the collapsibles when displaying grouped content in menus.
-
-        @description
-          Feature flags that apply features and functionality that will be made either default or relies on other feature flags in the next major release
-
-        @property useUpdatedStructure [Boolean]
-          @description
-            Whether to display the picker with the improved UI structure.
-
-            This changes the style to display and behave as a @code[hx-input].
-
-        @property required [Boolean]
-          @description
-            Whether a value is required from this picker.
-
-            This relies on the @code[useUpdatedStructure] feature flag being set.
-
-
-  @method valid
-    @added nextReleaseVersion
-
-    @description
-
-      Gets the current valid state of the picker.
-
-      When using @code[featureFlags.required], this will be @code[false] when no value is selected
-
-    @returns Boolean
-
-  @method valid
-    @added nextReleaseVersion
-
-    @description
-      Sets the current valid state of the picker.
-
-      When using @code[featureFlags.required], this will be @code[false] when no value is selected
-
-    @arg valid [Boolean]
-      @description
-        The valid state to set.
-
-    @returns Picker
-
   @method items
     @description
       Set the items for the select using a function that returns the data.

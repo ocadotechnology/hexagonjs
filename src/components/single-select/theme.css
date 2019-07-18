@@ -1,0 +1,16 @@
+.hx-single-select-value {
+  padding-right: 2em;
+  margin-right: -1.5em;
+}
+
+.hx-single-select-input-container {
+  margin: 5px;
+}
+
+.hx-single-select-input {
+  width: 100%;
+}
+
+.hx-single-select-icon {
+  color: var(--single-select-arrow-color);
+}
