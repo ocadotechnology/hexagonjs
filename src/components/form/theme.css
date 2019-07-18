@@ -152,6 +152,10 @@
   height: var(--input-height);
   line-height: var(--input-line-height);
   font-size: 1em;
+}
+
+.hx-flag-form .hx-date-time-picker .hx-date-picker,
+.hx-flag-form .hx-date-time-picker .hx-time-picker {
   margin: calc(-1 * var(--input-border-width));
 }
 
