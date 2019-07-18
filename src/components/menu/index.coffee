@@ -47,7 +47,8 @@ setActive = (menu, pos, up, click) ->
     select(node).classed('hx-menu-active',true)
 
     content = allItems[pos]?.content
-    isEnabled = not content?.disabled and not content?.unselectable
+    isParent = menu.options.featureFlags?.useUpdatedStructure and content?.children
+    isEnabled = not content?.disabled and not content?.unselectable and not isParent
 
     while (node.offsetParent is null or not isEnabled) and not click
       if up
@@ -225,6 +226,8 @@ class MenuBase extends EventEmitter
   constructor: (@selector, options = {}) ->
     super()
 
+    { extraContent, ...rest } = options;
+
     @options = mergeDefined({
       dropdownOptions: {
         align: undefined
@@ -233,14 +236,15 @@ class MenuBase extends EventEmitter
         disabled: false,
         featureFlags: {
           useUpdatedStructure: false,
-          compact: false,
         }
       }
       # XXX Breaking: Renderer
       # renderer: (data) -> span().text(data.text or data)
       renderer: (node, data) -> select(node).text(data.text or data)
       items: []
-    }, options)
+    }, rest)
+
+    @options.extraContent = extraContent;
 
     self = this
 
@@ -256,14 +260,12 @@ class MenuBase extends EventEmitter
     if @options.dropdownOptions.ddClass? and @options.dropdownOptions.ddClass.length is 0
       colorClass = palette.context(@selector)
 
-    @options.dropdownOptions.ddClass = 'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
+    @options.dropdownOptions.ddClass = if @options.featureFlags?.useUpdatedStructure
+      'hx-menu hx-flag-menu'
+    else
+      'hx-menu ' + if colorClass? then 'hx-' + colorClass else @options.dropdownOptions.ddClass
 
     dropdownContainer = div('hx-menu-items')
-      .classed('hx-flag-menu', @options.featureFlags?.useUpdatedStructure)
-      .classed('hx-flag-menu-compact', @options.featureFlags?.compact)
-
-    if options.extraContent
-      dropdownContainer.add(options.extraContent)
 
     # Items as set by the user.
     rawItems = self._.items
@@ -284,11 +286,17 @@ class MenuBase extends EventEmitter
 
     @dropdown = new Dropdown(@selector, dropdownContainer, @options.dropdownOptions)
 
-    @dropdown.on 'hideend', ->
+    @dropdown.on 'hideend', 'hx.menu', ->
       self.cursorPos = -1
       dropdownContainer.selectAll('.hx-menu-item').classed('hx-menu-active', false);
 
-    @dropdown.on 'showend', =>
+    if (@options.featureFlags?.useUpdatedStructure)
+      @dropdown.on 'showstart', 'hx.menu', ->
+        dropdownContainer.insertBefore(options.extraContent)
+    else
+      dropdownContainer.add(options.extraContent)
+
+    @dropdown.on 'showend', 'hx.menu', =>
       if @dropdown._.dropdown?
         node = @dropdown._.dropdown.node()
         ddNode = select(node)

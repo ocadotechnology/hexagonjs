@@ -14,6 +14,7 @@ import { TagInput } from 'components/tag-input'
 import { FileInput } from 'components/file-input'
 import { Toggle } from 'components/toggle'
 import { AutocompletePicker } from 'components/autocomplete-picker'
+import { SingleSelect } from 'components/single-select'
 
 import { validateForm } from './validate-form'
 
@@ -390,22 +391,11 @@ export class Form extends EventEmitter
 
   addPicker: (name, values, options = {}) ->
     @add name, 'picker', ->
-      useUpdatedStructure = @options.featureFlags.useUpdatedStructure
+      componentElem = button(options.buttonClass)
+        .attr('type', 'button')
+        .style('position', 'relative')
 
-      componentElem = if useUpdatedStructure
-        div()
-          .style('position', 'relative')
-      else
-        button(options.buttonClass)
-          .attr('type', 'button')
-          .style('position', 'relative')
-
-      pickerOptions = merge({
-        featureFlags: {
-          useUpdatedStructure: useUpdatedStructure,
-          required: options.required,
-        }
-      }, options.pickerOptions)
+      pickerOptions = merge({}, options.pickerOptions)
 
       if values.length > 0
         pickerOptions.items = values
@@ -631,6 +621,25 @@ export class Form extends EventEmitter
         key: options.key
         elem: div()
           .add(componentElem)
+        component: component
+        disable: (disabled) -> component.disabled(disabled)
+        options: {
+          hidden: options.hidden
+          disabled: options.disabled
+        }
+      }
+
+  addSingleSelect: (name, items, options = {}) ->
+    @add name, 'select', ->
+      componentElem = div()
+
+      singleSelectOptions = merge({required: options.required}, options.singleSelectOptions)
+
+      component = new SingleSelect(componentElem, items, singleSelectOptions)
+
+      return {
+        key: options.key
+        elem: componentElem
         component: component
         disable: (disabled) -> component.disabled(disabled)
         options: {

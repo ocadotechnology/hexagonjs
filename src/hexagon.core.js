@@ -243,6 +243,11 @@ export {
 } from 'components/inline-picker';
 
 export {
+  SingleSelect,
+  singleSelect,
+} from 'components/single-select';
+
+export {
   logger,
 };
 

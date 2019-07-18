@@ -61,7 +61,6 @@
 }
 
 .hx-input:invalid,
-.hx-input.hx-input-invalid,
 .hx-input-textarea:invalid {
   border-width: var(--input-invalid-border-width);
   border-style: var(--input-invalid-border-style);
@@ -69,8 +68,8 @@
   color: var(--input-invalid-text-color);
 }
 
-input.hx-input:read-only,
-textarea.hx-input-textarea:read-only {
+.hx-input:read-only,
+.hx-input-textarea:read-only {
   border-width: var(--input-readonly-border-width);
   border-style: var(--input-readonly-border-style);
   border-color: var(--input-readonly-border-color);

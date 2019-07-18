@@ -1,5 +1,10 @@
 import {
-  detached, div, button, span, Form,
+  detached,
+  div,
+  button,
+  span,
+  Form,
+  range,
 } from 'hexagon-js';
 
 export default () => {
@@ -42,8 +47,12 @@ export default () => {
     .addDateTimePicker('Date Time Picker (required)', { required: true })
     .addAutocompletePicker('Autocomplete Picker', ['a', 'b', 'c'])
     .addAutocompletePicker('Autocomplete Picker (required)', ['a', 'b', 'c'], { required: true })
+    .addSingleSelect('Single Select', ['a', 'b', 'c'])
+    .addSingleSelect('Single Select (required)', ['a', 'b', 'c'], { required: true })
+    .addSingleSelect('Single Select with search', range(100).map(x => `Item ${x}`), { singleSelectOptions: { showSearch: true } })
     .addButton('Button', () => console.log('Clicked Button'))
-    .addSubmit('Submit', 'fa fa-check', (data) => { console.log(data); }, { context: 'primary' });
+    .addSubmit('Submit', 'fa fa-check', undefined, { context: 'primary' })
+    .on('submit', (data) => { console.log(data); });
 
   return [
     detached('form').class('hx-form')

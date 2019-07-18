@@ -1,0 +1,11 @@
+.hx-single-select {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.hx-single-select-icon,
+.hx-single-select-value:not(:disabled) {
+  pointer-events: none;
+}
+
+

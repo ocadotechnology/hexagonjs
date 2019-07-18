@@ -45,6 +45,7 @@ import checkboxExamples from './examples/checkbox';
 import radioExamples from './examples/radio';
 import moreButtonExamples from './examples/more-button';
 import dropdownButtonExamples from './examples/dropdown-button';
+import singleSelectExamples from './examples/single-select';
 
 const {
   select, selectAll, div, detached, debounce,
@@ -125,7 +126,6 @@ const examples = [
   example('Checklists').add(tryDemo(checkboxExamples)),
   example('Radio Buttons').add(tryDemo(radioExamples)),
   example('Palette').add(tryDemo(paletteExamples)),
-  example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
   example('Autocomplete').add(tryDemo(autocompleteExamples)),
   example('Badge').add(tryDemo(badgeExamples)),
   example('Button Group').add(tryDemo(buttonGroupExamples)),
@@ -152,6 +152,8 @@ const examples = [
   example('Number Pickers').add(tryDemo(numberPickerExamples)),
   example('Paginator').add(tryDemo(paginatorExamples)),
   example('Picker').add(tryDemo(pickerExamples)),
+  example('Single Select').add(tryDemo(singleSelectExamples)),
+  example('Autocomplete Picker').add(tryDemo(autocompletePickerExamples)),
   example('Pivot Table').add(tryDemo(pivotTableExamples)),
   example('Plot').add(tryDemo(plotExamples)),
   example('Progress Bar').add(tryDemo(progressBarExamples)),
