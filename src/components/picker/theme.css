@@ -1,8 +1,0 @@
-.hx-picker.hx-flag-picker .hx-input:empty:after {
-  content: attr(data-placeholder);
-  color: var(--input-placeholder-color);
-}
-
-.hx-picker.hx-flag-picker .hx-icon {
-  color: var(--picker-arrow-color);
-}

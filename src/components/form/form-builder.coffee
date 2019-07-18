@@ -391,22 +391,11 @@ export class Form extends EventEmitter
 
   addPicker: (name, values, options = {}) ->
     @add name, 'picker', ->
-      useUpdatedStructure = @options.featureFlags.useUpdatedStructure
+      componentElem = button(options.buttonClass)
+        .attr('type', 'button')
+        .style('position', 'relative')
 
-      componentElem = if useUpdatedStructure
-        div()
-          .style('position', 'relative')
-      else
-        button(options.buttonClass)
-          .attr('type', 'button')
-          .style('position', 'relative')
-
-      pickerOptions = merge({
-        featureFlags: {
-          useUpdatedStructure: useUpdatedStructure,
-          required: options.required,
-        }
-      }, options.pickerOptions)
+      pickerOptions = merge({}, options.pickerOptions)
 
       if values.length > 0
         pickerOptions.items = values
