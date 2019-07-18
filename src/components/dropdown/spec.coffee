@@ -87,7 +87,6 @@ export default () ->
       dd._.selection.should.eql(button)
       getSpacing(dd).should.equal(0)
       dd.options.matchWidth.should.equal(true)
-      dd._.alignments.should.eql('lblt'.split(''))
       should.not.exist(dd._.dropdown)
       dd._.visible.should.equal(false)
       dd.options.ddClass.should.equal('')
@@ -105,24 +104,6 @@ export default () ->
       getHexagonElementDataObject(button.node()).eventEmitter.has('click').should.equal(true)
       getHexagonElementDataObject(button.node()).eventEmitter.has('mouseover').should.equal(true)
       getHexagonElementDataObject(button.node()).eventEmitter.has('mouseout').should.equal(true)
-
-
-    it 'should set the alignment correctly', ->
-      dd = new Dropdown(button, content, {align: 'rbrb'})
-      dd._.alignments.should.eql('rbrb'.split(''))
-
-    it 'should use the right alignment option when a named align value is used', ->
-      dd = new Dropdown(button, content, {align: 'up'})
-      dd._.alignments.should.eql('ltlb'.split(''))
-
-      dd = new Dropdown(button, content, {align: 'down'})
-      dd._.alignments.should.eql('lblt'.split(''))
-
-      dd = new Dropdown(button, content, {align: 'left'})
-      dd._.alignments.should.eql('ltrt'.split(''))
-
-      dd = new Dropdown(button, content, {align: 'right'})
-      dd._.alignments.should.eql('rtlt'.split(''))
 
     it 'should set the spacing correctly', ->
       dd = new Dropdown(button, content, {spacing: 10} )
@@ -353,7 +334,7 @@ export default () ->
         scrollbarWidth = 0
 
         calculateDropdownPosition(
-          alignments.split(''),
+          alignments,
           selectionRect,
           dropdownRect,
           windowRect,
@@ -369,7 +350,7 @@ export default () ->
         scrollbarWidth = 0
 
         calculateDropdownPosition(
-          alignments.split(''),
+          alignments,
           selectionRect,
           dropdownRect,
           windowRect,
@@ -377,8 +358,16 @@ export default () ->
           scrollbarWidth
         )
 
-
       # downwards tests
+      describe 'down', ->
+        it 'ample space', -> check(500, 500, 'down').should.eql({ x: 500, y: 600, direction: 'down' })
+        it 'not enough space to flip', -> checkNoSpaceToFlipV('down').should.eql({ x: 500, y: 150, direction: 'down' })
+        it 'shifted left', -> check(850, 500, 'down').should.eql({ x: 800, y: 600, direction: 'down' })
+        it 'shifted right', -> check(-50, 500, 'down').should.eql({ x: 0, y: 600, direction: 'down' })
+        it 'flipped', -> check(500, 850, 'down').should.eql({ x: 500, y: 650, direction: 'up' })
+        it 'flipped shifted left', -> check(850, 850, 'down').should.eql({ x: 800, y: 650, direction: 'up' })
+        it 'flipped shifted right', -> check(-50, 850, 'down').should.eql({ x: 0, y: 650, direction: 'up' })
+
       describe 'lblt', ->
         it 'ample space', -> check(500, 500, 'lblt').should.eql({ x: 500, y: 600, direction: 'down' })
         it 'not enough space to flip', -> checkNoSpaceToFlipV('lblt').should.eql({ x: 500, y: 150, direction: 'down' })
@@ -434,6 +423,15 @@ export default () ->
         it 'flipped shifted right', -> check(50, 850, 'rtrt').should.eql({ x: 0, y: 750, direction: 'up' })
 
       # upwards tests
+      describe 'up', ->
+        it 'ample space', -> check(500, 500, 'up').should.eql({ x: 500, y: 300, direction: 'up' })
+        it 'not enough space to flip', -> checkNoSpaceToFlipV('up').should.eql({ x: 500, y: -150, direction: 'up' })
+        it 'shifted left', -> check(850, 500, 'up').should.eql({ x: 800, y: 300, direction: 'up' })
+        it 'shifted right', -> check(-50, 500, 'up').should.eql({ x: 0, y: 300, direction: 'up' })
+        it 'flipped', -> check(500, 150, 'up').should.eql({ x: 500, y: 250, direction: 'down' })
+        it 'flipped shifted left', -> check(850, 150, 'up').should.eql({ x: 800, y: 250, direction: 'down' })
+        it 'flipped shifted right', -> check(-50, 150, 'up').should.eql({ x: 0, y: 250, direction: 'down' })
+
       describe 'lblb', ->
         it 'ample space', -> check(500, 500, 'lblb').should.eql({ x: 500, y: 400, direction: 'up' })
         it 'not enough space to flip', -> checkNoSpaceToFlipV('lblb').should.eql({ x: 500, y: -50, direction: 'up' })
@@ -489,6 +487,15 @@ export default () ->
         it 'flipped shifted right', -> check(50, 50, 'rtrb').should.eql({ x: 0, y: 150, direction: 'down' })
 
       # rightwards tests
+      describe 'right', ->
+        it 'ample space', -> check(500, 500, 'right').should.eql({ x: 600, y: 500, direction: 'right' })
+        it 'not enough space to flip', -> checkNoSpaceToFlipH('right').should.eql({ x: 150, y: 500, direction: 'right' })
+        it 'shifted down', -> check(500, -50, 'right').should.eql({ x: 600, y: 0, direction: 'right' })
+        it 'shifted up', -> check(500, 850, 'right').should.eql({ x: 600, y: 800, direction: 'right' })
+        it 'flipped', -> check(750, 500, 'right').should.eql({ x: 550, y: 500, direction: 'left' })
+        it 'flipped shifted down', -> check(750, -50, 'right').should.eql({ x: 550, y: 0, direction: 'left' })
+        it 'flipped shifted up', -> check(750, 850, 'right').should.eql({ x: 550, y: 800, direction: 'left' })
+
       describe 'rtlt', ->
         it 'ample space', -> check(500, 500, 'rtlt').should.eql({ x: 600, y: 500, direction: 'right' })
         it 'not enough space to flip', -> checkNoSpaceToFlipH('rtlt').should.eql({ x: 150, y: 500, direction: 'right' })
@@ -508,6 +515,15 @@ export default () ->
         it 'flipped shifted up', -> check(750, 950, 'rblb').should.eql({ x: 550, y: 800, direction: 'left' })
 
       # leftwards tests
+      describe 'left', ->
+        it 'ample space', -> check(500, 500, 'left').should.eql({ x: 300, y: 500, direction: 'left' })
+        it 'not enough space to flip', -> checkNoSpaceToFlipH('left').should.eql({ x: -150, y: 500, direction: 'left' })
+        it 'shifted down', -> check(500, -50, 'left').should.eql({ x: 300, y: 0, direction: 'left' })
+        it 'shifted up', -> check(500, 850, 'left').should.eql({ x: 300, y: 800, direction: 'left' })
+        it 'flipped', -> check(150, 500, 'left').should.eql({ x: 250, y: 500, direction: 'right' })
+        it 'flipped shifted down', -> check(150, -50, 'left').should.eql({ x: 250, y: 0, direction: 'right' })
+        it 'flipped shifted up', -> check(150, 850, 'left').should.eql({ x: 250, y: 800, direction: 'right' })
+
       describe 'ltrt', ->
         it 'ample space', -> check(500, 500, 'ltrt').should.eql({ x: 300, y: 500, direction: 'left' })
         it 'not enough space to flip', -> checkNoSpaceToFlipH('ltrt').should.eql({ x: -150, y: 500, direction: 'left' })

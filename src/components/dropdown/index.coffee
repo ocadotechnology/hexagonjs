@@ -15,7 +15,7 @@ export config = {
 checkFixedPos = (node) ->
   if select(node).style('position') is 'fixed' then true
 
-positionDropdown = ({alignments, selection, dropdown, useScroll}, {matchWidth}) ->
+positionDropdown = ({selection, dropdown, useScroll}, {align, matchWidth}) ->
   dropdown.style('display', 'block')
 
   # extract measurements from the dom
@@ -26,18 +26,23 @@ positionDropdown = ({alignments, selection, dropdown, useScroll}, {matchWidth}) 
   zIndex = parentZIndex(selection.node(), true)
 
   # calculate the position of the dropdown
-  {x, y} = calculateDropdownPosition(
-    alignments,
+  {x, y, direction} = calculateDropdownPosition(
+    dropdown.attr('data-direction') or align,
     { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
     { width: dropdownRect.width, height: dropdownRect.height },
     { width: window.innerWidth, height: window.innerHeight },
     ddMaxHeight,
-    scrollbarSize()
+    scrollbarSize(),
   )
 
+  yPos = 'top'
   if not parentFixed
     x += window.scrollX || window.pageXOffset
     y += window.scrollY || window.pageYOffset
+
+    if direction is 'up'
+      yPos = 'bottom'
+      y = document.body.clientHeight - y - dropdownRect.height
 
   # update the styles for the dropdown
   if zIndex > 0
@@ -53,8 +58,15 @@ positionDropdown = ({alignments, selection, dropdown, useScroll}, {matchWidth}) 
     dropdown.style('overflow-y','auto')
 
   dropdown
+    .classed('hx-dropdown-up', direction is 'up')
+    .classed('hx-dropdown-down', direction is 'down')
+    .classed('hx-dropdown-left', direction is 'left')
+    .classed('hx-dropdown-right', direction is 'right')
+    .attr('data-direction', direction)
+    .style('top', 'auto')
+    .style('bottom', undefined)
+    .style(yPos, y + 'px')
     .style('left', x + 'px')
-    .style('top', y + 'px')
 
 dropdownContentToSetupDropdown = (dropdownContent) ->
   # XXX Breaking: Renderer
@@ -95,15 +107,6 @@ export class Dropdown extends EventEmitter
     clickDetector = new ClickDetector
     clickDetector.on 'click', 'hx.dropdown', => @hide()
 
-    alignQuad = switch @options.align
-      when 'up' then 'ltlb'
-      when 'down' then 'lblt'
-      when 'left' then 'ltrt'
-      when 'right' then 'rtlt'
-      else @options.align
-
-    alignments = alignQuad.split('')
-
     onclick = => @toggle()
     onmouseover = => @show()
     onmouseout = => @hide()
@@ -115,7 +118,6 @@ export class Dropdown extends EventEmitter
     @_ = {
       setupDropdown: setupDropdown,
       clickDetector: clickDetector,
-      alignments: alignments,
       onclick: onclick,
       onmouseover: onmouseover,
       onmouseout: onmouseout,
