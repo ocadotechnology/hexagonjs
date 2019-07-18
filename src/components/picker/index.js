@@ -1,6 +1,6 @@
 import { EventEmitter } from 'utils/event-emitter';
 import { userFacingText } from 'utils/user-facing-text';
-import { AutocompleteFeed } from 'components/autocomplete-feed';
+import { AutocompleteFeed } from 'utils/autocomplete-feed';
 import { MenuBase as Menu } from 'components/menu';
 
 import {
