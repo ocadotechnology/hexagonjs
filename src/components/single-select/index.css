@@ -7,5 +7,3 @@
 .hx-single-select-value:not(:disabled) {
   pointer-events: none;
 }
-
-

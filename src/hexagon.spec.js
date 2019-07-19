@@ -362,7 +362,6 @@ describe('HexagonJS Test Suite', () => {
       const deepKeys = getDeepKeys(hx);
       const extraKeys = deepKeys.filter(x => propertyList.indexOf(x) === -1);
       const missingKeys = propertyList.filter(x => deepKeys.indexOf(x) === -1);
-      console.log(extraKeys, missingKeys);
       extraKeys.should.eql([]);
       missingKeys.should.eql([]);
     });
@@ -394,7 +393,6 @@ describe('HexagonJS Test Suite', () => {
   userFacingTextTests();
   paletteTests();
   formatTests();
-  preferencesTests();
   dateTimeLocalizerTests();
 
   // Exposed Components
@@ -435,7 +433,7 @@ describe('HexagonJS Test Suite', () => {
   paginatorTests();
   errorPageTests();
   singleSelectTests();
-
+  preferencesTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //

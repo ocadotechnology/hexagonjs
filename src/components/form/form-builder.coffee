@@ -632,8 +632,8 @@ export class Form extends EventEmitter
   addSingleSelect: (name, items, options = {}) ->
     @add name, 'select', ->
       componentElem = div()
-
-      singleSelectOptions = merge({required: options.required}, options.singleSelectOptions)
+      { required } = options
+      singleSelectOptions = merge({ required }, options.singleSelectOptions)
 
       component = new SingleSelect(componentElem, items, singleSelectOptions)
 

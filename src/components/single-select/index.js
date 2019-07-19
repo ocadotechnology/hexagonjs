@@ -1,7 +1,8 @@
 import { EventEmitter } from 'utils/event-emitter';
-
 import { userFacingText } from 'utils/user-facing-text';
-
+import logger from 'utils/logger';
+import { AutocompleteFeed } from 'utils/autocomplete-feed';
+import { Menu } from 'components/menu';
 import {
   select,
   div,
@@ -10,19 +11,12 @@ import {
   detached,
   input,
 } from 'utils/selection';
-
 import {
   merge,
   identity,
   debounce,
   isFunction,
 } from 'utils/utils';
-
-import logger from 'utils/logger';
-
-import { AutocompleteFeed } from 'utils/autocomplete-feed';
-
-import { Menu } from 'components/menu';
 
 userFacingText({
   singleSelect: {
@@ -46,18 +40,16 @@ function validateItems(feed, items) {
   return true;
 }
 
-function setValue(picker, results, cause) {
-  const { _ } = picker;
+function setValue(ss, results, cause) {
+  const { _ } = ss;
   _.valueInput.value('');
   _.current = undefined;
   if (results.length) {
     const [value] = results;
-    picker.emit('change', { cause, value });
     _.current = value;
     _.valueInput.value(_.valueLookup(value));
-    return;
   }
-  _.valueInput.text(_.options.chooseValueText);
+  ss.emit('change', { cause, value: _.current });
 }
 
 class SingleSelect extends EventEmitter {
@@ -72,7 +64,7 @@ class SingleSelect extends EventEmitter {
       trimTrailingSpaces: undefined,
       valueLookup: undefined, // Used by the feed and by the `value` method
 
-      // Options used by the picker
+      // Options used by the ss
       disabled: false,
       renderer: undefined,
       value: undefined,
