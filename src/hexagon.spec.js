@@ -405,7 +405,6 @@ describe('HexagonJS Test Suite', () => {
   userFacingTextTests();
   paletteTests();
   formatTests();
-  preferencesTests();
   dateTimeLocalizerTests();
   domUtilsTests();
 
