@@ -503,6 +503,10 @@ export default () => {
         });
       });
 
+      it('value: should set the value when it is nested inside a group', () => {
+        true.should.equal(false);
+      });
+
       it('items: should set and get the items', () => {
         testClosedSingleSelect(trivialItems, undefined, (ss) => {
           ss.items().should.equal(trivialItems);
@@ -596,18 +600,20 @@ export default () => {
         });
       });
 
-      // XXX Breaking: Autocomplete always emit on value set
-      // (#438) - This change introduced a breaking bug, reverting until next major
-      // it 'should emit the "change" event when the value is changed to undefined', ->
-      //   testClosedSingleSelect trivialItems, { value: 'a' }, (ss) ->
-      //     value = chai.spy()
-      //     ss.on 'change', value
-      //     ss.value(undefined)
-      //     value.should.have.been.called.with({
-      //       cause: 'api',
-      //       value: undefined
-      //     })
-      //     value.should.have.been.called.once
+      it('should emit the "change" event when the value is changed', () => {
+        testClosedSingleSelect(trivialItems, undefined, (ss) => {
+          const value = chai.spy();
+          ss.value('a');
+          ss.on('change', value);
+          ss.value(undefined);
+          value.should.have.been.called.with({
+            cause: 'api',
+            value: undefined,
+          });
+          value.should.have.been.called.exactly(1);
+        });
+      });
+
       it('should emit the "change" event when the value is changed', () => {
         testClosedSingleSelect(trivialItems, undefined, (ss) => {
           const value = chai.spy();

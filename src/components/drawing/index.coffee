@@ -1438,7 +1438,7 @@ class Drawing extends EventEmitter
   constructor: (selector, autoStart=true) ->
     super()
 
-    logger.warn('hx.Drawing', 'N/A - This module will be removed in the next major release')
+    logger.deprecated('hx.Drawing', 'N/A - This module will be removed in the next major release')
 
     container = select(selector)
       .classed('hx-drawing', true)

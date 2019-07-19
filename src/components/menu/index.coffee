@@ -189,26 +189,29 @@ class MenuItem
           children,
         ])
 
+        # XXX Breaking: Renderer
+        # headerNode.set(@menu.options.renderer(@content))
         @menu.options.renderer(headerNode, @content)
         populateNode(children, @_.menuItems)
-      else
-        container.view('.hx-collapsible').apply(this)
-        collapsibleNode = container.select('.hx-collapsible')
+        return
 
-        collapsibleNode.view('.hx-collapsible-heading').apply(this)
-        collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
+      container.view('.hx-collapsible').apply(this)
+      collapsibleNode = container.select('.hx-collapsible')
 
-        # XXX Breaking: Renderer
-        # collapsibleNode.select('.hx-collapsible-heading')
-        #   .classed('hx-menu-collapsible', true)
-        #   .set(@menu.renderer()(@content))
-        headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
-        @menu.options.renderer(headerNode, @content)
+      collapsibleNode.view('.hx-collapsible-heading').apply(this)
+      collapsibleNode.view('.hx-collapsible-content').update(-> @style('display', 'none')).apply(this)
 
-        contentNode = container.select('.hx-collapsible-content').node()
-        @collapsible = new Collapsible(collapsibleNode)
+      # XXX Breaking: Renderer
+      # collapsibleNode.select('.hx-collapsible-heading')
+      #   .classed('hx-menu-collapsible', true)
+      #   .set(@menu.renderer()(@content))
+      headerNode = collapsibleNode.select('.hx-collapsible-heading').classed('hx-menu-collapsible', true).node()
+      @menu.options.renderer(headerNode, @content)
 
-        populateNode(contentNode, @_.menuItems)
+      contentNode = container.select('.hx-collapsible-content').node()
+      @collapsible = new Collapsible(collapsibleNode)
+
+      populateNode(contentNode, @_.menuItems)
     else
       container
         .classed('hx-menu-link', not @content.unselectable and not @content.disabled)
@@ -226,6 +229,7 @@ class MenuBase extends EventEmitter
   constructor: (@selector, options = {}) ->
     super()
 
+    # Suppress warning when trying to `merge` with a `Selection`
     { extraContent, ...rest } = options;
 
     @options = mergeDefined({
