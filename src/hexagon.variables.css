@@ -877,6 +877,9 @@
 
   /* Single Select */
   --single-select-arrow-color: var(--theme-disabled-text-color);
+  --single-select-input-right-padding: 2em;
+  --single-select-arrow-offset: -1.5em;
+  --single-select-input-margin: 5px;
 
 
   /* Slider */

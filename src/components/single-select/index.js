@@ -2,7 +2,7 @@ import { EventEmitter } from 'utils/event-emitter';
 import { userFacingText } from 'utils/user-facing-text';
 import logger from 'utils/logger';
 import { AutocompleteFeed } from 'utils/autocomplete-feed';
-import { Menu } from 'components/menu';
+import { MenuBase as Menu } from 'components/menu';
 import {
   select,
   div,
