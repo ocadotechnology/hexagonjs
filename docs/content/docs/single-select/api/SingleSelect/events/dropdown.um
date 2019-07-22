@@ -1,0 +1,21 @@
+@event dropdown.showstart
+  @description
+    Emitted when the dropdown animation starts. No data is sent with this event.
+
+@event dropdown.showend
+  @description
+    Emitted when the dropdown animation finishes. No data is sent with this event.
+
+@event dropdown.hidestart
+  @description
+    Emitted when the dropdown animation starts. No data is sent with this event.
+
+@event dropdown.hideend
+  @description
+    Emitted when the dropdown animation ends. No data is sent with this event.
+
+@event dropdown.change [Boolean]
+  @description
+    Emitted when the dropdown is shown or hidden. The data sent with this event
+    is a boolean indicating whether or not the dropdown is visible. True means
+    that the dropdown has just been shown, false means it has just been hidden.

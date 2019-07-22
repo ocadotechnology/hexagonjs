@@ -565,3 +565,6 @@
     @version nextReleaseVersion
       @description
         Added @code[moreButton] and @code[dropdownButton] as a replacement for the current @code[hx.Menu]
+
+        Added the @code[SingleSelect] component to merge the functionality of the @code[AutocompletePicker] and @code[Picker] and provide
+        updated UX.

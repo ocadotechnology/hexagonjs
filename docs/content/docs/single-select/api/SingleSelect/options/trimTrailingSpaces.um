@@ -1,0 +1,5 @@
+@property trimTrailingSpaces [Boolean]
+  @description
+    Whether trailing spaces should be trimmed from the search term when filtering.
+
+  @default: @code[false];

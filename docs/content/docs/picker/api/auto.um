@@ -7,7 +7,12 @@
     Fixed an issue with the picker not rendering values correcly
 
 @prototype hx.Picker
+  @deprecated nextReleaseVersion
+    @description
+      Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
+
   @added 0.14.0
+
   @description
   @extends EventEmitter
   @constructor
@@ -302,6 +307,10 @@
   @added 1.0.0
     @description
       Fluid api version of Picker
+
+  @deprecated nextReleaseVersion
+    @description
+      Deprecated in favour of the new @code[SingleSelect] component that merges @code[Picker] and @code[AutocompletePicker] functionality.
 
   @description
     Creates a new Picker set up on a detached element, wrapped in a selection

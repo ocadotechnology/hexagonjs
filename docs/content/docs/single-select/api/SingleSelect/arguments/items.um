@@ -1,0 +1,77 @@
+@description
+  The items to use. This can be an array of strings or objects as well as a function.
+
+  When using the default @code[valueLookup] and @code[renderer] the items array or the items
+  returned by the items function can be a string or an object.
+
+  @@codeblock js
+    const stringItems = [
+      'Item #1',
+      'Item #2',
+      'Item #3',
+    ];
+
+    const objectItems: [
+      { value: 'Item #1' },
+      { value: 'Item #2' },
+      { value: 'Item #3' },
+    ];
+
+  When using item objects, there are additional properties that can be passed to an item.
+
+  @object Item
+    @property value: [String]
+      @description
+        The value for this item and the text to show when selecting the item.
+
+    @property? disabled [String]
+      @description
+        Whether this item should be selectable or disabled.
+
+  Items can also be nested to create a grouped menu:
+
+  @@codeblock js
+    const nestedItems = [
+      {
+        text: 'Group',
+        children: [
+          'Item #1',
+          'Item #2',
+        ]
+      }
+    ]
+
+  @object ItemWithChildren
+    @property text: [String]
+      @description
+        The text to display in the dropdown menu as a group heading
+
+    @property children [Array[Item]]
+      @description
+        The array of items to display in this group.
+
+  A function can also be used to return the items. This can be syncronous or asyncronous and
+  uses a callback style:
+
+  @function Items
+    @arg term [String]
+      @description
+        When the single select is open and the user enters a value, this is the term they have entered.
+
+        This allows some pre-filtering to reduce the amount of data that needs to be processed in the front-end.
+
+    @arg callback [Function]
+      @description
+        The function to call when the items have been fetched with the results.
+
+        The single select will display @code[Loading...] until this has been called.
+
+      @arg results [Array[Item|ItemWithChildren]]
+        @description
+          The array of items to show.
+
+  It is worth noting that when using a function, the items will be cached by search term to reduce the amount of
+  calls to the server that are made. If the data is dynamic, pass @code[useCache: false] in when creating the
+  @type[SingleSelect].
+
+

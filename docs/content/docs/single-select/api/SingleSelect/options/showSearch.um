@@ -1,0 +1,3 @@
+@property showSearch [Boolean]
+  @description
+    Whether to show the search box in the dropdown to allow the user to search the available items.

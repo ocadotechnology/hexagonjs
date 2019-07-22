@@ -1,6 +1,7 @@
 .hx-single-select {
   display: inline-block;
   cursor: pointer;
+  vertical-align: middle;
 }
 
 .hx-single-select-icon,

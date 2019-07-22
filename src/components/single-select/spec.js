@@ -618,9 +618,11 @@ export default () => {
           });
 
           highlight.should.have.been.called.with({
-            eventType: 'arrow',
-            content: 'a',
-            menu: ss._.menu,
+            cause: 'user',
+            value: {
+              eventType: 'arrow',
+              item: 'a',
+            },
           });
 
           emit(dropdown, 'keydown', {
@@ -629,9 +631,11 @@ export default () => {
           });
 
           highlight.should.have.been.called.with({
-            eventType: 'arrow',
-            content: 'b',
-            menu: ss._.menu,
+            cause: 'user',
+            value: {
+              eventType: 'arrow',
+              item: 'b',
+            },
           });
 
           highlight.should.have.been.called.exactly(2);
@@ -719,7 +723,7 @@ export default () => {
     });
 
     describe('singleSelect', () => {
-      it('should a selection with an autocomplete single select component', () => {
+      it('should return a selection with a single select component', () => {
         const d = singleSelect(['a']);
         d.should.be.an.instanceOf(Selection);
         d.api().should.be.an.instanceOf(SingleSelect);
@@ -728,12 +732,12 @@ export default () => {
         d.api('dropdown').should.be.an.instanceOf(Dropdown);
       });
 
-      it('should pass the options through to the autocomplete single select', () => {
+      it('should pass the options through to the single select', () => {
         const d = singleSelect(['a'], {
           matchType: 'external',
         });
 
-        d.api()._.options.matchType.should.equal('external');
+        d.api('single-select')._.options.matchType.should.equal('external');
       });
     });
   });

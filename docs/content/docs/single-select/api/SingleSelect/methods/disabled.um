@@ -1,0 +1,19 @@
+@method disabled
+  @description
+    Get the current disabled state of the single select
+
+  @returns [Boolean]
+    @description
+      The current disabled state
+
+@method disabled
+  @description
+    Sets the current disabled state of the single select
+
+  @arg disabled [Boolean]
+    @description
+      Whether the single select should be disabled
+
+  @returns [SingleSelect]
+    @description
+      This single select

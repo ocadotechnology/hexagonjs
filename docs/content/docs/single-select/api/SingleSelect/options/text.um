@@ -1,0 +1,31 @@
+@property chooseValueText [String]
+  @description
+    The text to display as a placeholder when no value is selected.
+
+  @default: userFacingText('singleSelect', 'chooseValue')
+
+@property searchText [String]
+  @description
+    The text to display as a placeholder in the search input when no value is selected.
+
+  @default: userFacingText('singleSelect', 'search')
+
+@property loadingText [String]
+  @description
+    The text to display when loading items. This is shown both in the input as well as in the
+    dropdown when items are being searched.
+
+  @default: userFacingText('singleSelect', 'loading')
+
+@property noResultsText [String]
+  @description
+    The text to display when no results are found when searching
+
+  @default: userFacingText('singleSelect', 'noResults')
+
+@property pleaseSelectAValueText [String]
+  @description
+    The text passed to @code[setCustomValidity] when no value has been selected and this
+    single select is marked as @code[required].
+
+  @default: userFacingText('singleSelect', 'pleaseSelectAValueText')

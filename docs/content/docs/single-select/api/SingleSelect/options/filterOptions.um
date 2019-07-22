@@ -1,0 +1,3 @@
+@property filterOptions [Object]
+  @description
+    The options to use when filtering internally. The available options can be found on the @hyperlink(../filter)[Filter] page.
