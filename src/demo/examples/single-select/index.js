@@ -25,7 +25,7 @@ export default () => {
     'Item #2',
     'Item #3',
     'Item #4',
-    { text: 'Item #5 (not available)', disabled: true },
+    { value: 'Item #5 (not available)', disabled: true },
     'Item #6',
   ];
 
