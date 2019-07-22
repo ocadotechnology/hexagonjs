@@ -3,7 +3,7 @@ import { isObject, mergeDefined, isFunction } from 'utils/utils'
 import { EventEmitter } from 'utils/event-emitter'
 import { userFacingText } from 'utils/user-facing-text'
 
-import { Menu } from 'components/menu'
+import { MenuBase as Menu } from 'components/menu'
 
 userFacingText({
   picker: {

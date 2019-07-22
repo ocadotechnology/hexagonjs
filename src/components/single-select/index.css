@@ -8,3 +8,7 @@
 .hx-single-select-value:not(:disabled) {
   pointer-events: none;
 }
+
+.hx-single-select-input {
+  width: 100%;
+}

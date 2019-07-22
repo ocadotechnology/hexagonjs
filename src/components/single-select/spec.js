@@ -3,7 +3,7 @@ import chai from 'chai';
 
 import { userFacingText } from 'utils/user-facing-text';
 import logger from 'utils/logger';
-import { Menu } from 'components/menu';
+import { MenuBase } from 'components/menu';
 import { Dropdown, config as dropdownConfig } from 'components/dropdown';
 import {
   select,
@@ -728,7 +728,7 @@ export default () => {
         d.should.be.an.instanceOf(Selection);
         d.api().should.be.an.instanceOf(SingleSelect);
         d.api('single-select').should.be.an.instanceOf(SingleSelect);
-        d.api('menu').should.be.an.instanceOf(Menu);
+        d.api('menu').should.be.an.instanceOf(MenuBase);
         d.api('dropdown').should.be.an.instanceOf(Dropdown);
       });
 
