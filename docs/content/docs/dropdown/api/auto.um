@@ -16,6 +16,10 @@
 
       Also converted the dropdown to reposition whenever the content is updated to prevent overlap or overflow outside the window area. Uses @hyperlink(https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)[MutationObserver]
 
+  @fix nextReleaseVersion
+    @description
+      Resolved an issue where the dropdown would overlap for themes with non-zero @code[--dropdown-spacing] value.
+
   @description
     An api for creating a dropdown that shows when the user either clicks or hovers over an element.
 
