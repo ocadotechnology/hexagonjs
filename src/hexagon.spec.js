@@ -393,6 +393,7 @@ describe('HexagonJS Test Suite', () => {
   userFacingTextTests();
   paletteTests();
   formatTests();
+  preferencesTests();
   dateTimeLocalizerTests();
 
   // Exposed Components
@@ -433,7 +434,6 @@ describe('HexagonJS Test Suite', () => {
   paginatorTests();
   errorPageTests();
   singleSelectTests();
-  preferencesTests();
   // require('modules/tag-input/spec')
   // require('modules/date-time-picker/spec')
   //
